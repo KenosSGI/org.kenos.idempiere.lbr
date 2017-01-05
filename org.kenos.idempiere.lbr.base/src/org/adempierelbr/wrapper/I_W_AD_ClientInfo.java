@@ -1,0 +1,89 @@
+/******************************************************************************
+ * Product: iDempiere ERP & CRM Smart Business Solution                       *
+ * Copyright (C) 1999-2012 ComPiere, Inc. All Rights Reserved.                *
+ * This program is free software, you can redistribute it and/or modify it    *
+ * under the terms version 2 of the GNU General Public License as published   *
+ * by the Free Software Foundation. This program is distributed in the hope   *
+ * that it will be useful, but WITHOUT ANY WARRANTY, without even the implied *
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.           *
+ * See the GNU General Public License for more details.                       *
+ * You should have received a copy of the GNU General Public License along    *
+ * with this program, if not, write to the Free Software Foundation, Inc.,    *
+ * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.                     *
+ * For the text or an alternative of this public license, you may reach us    *
+ * ComPiere, Inc., 2620 Augustine Dr. #245, Santa Clara, CA 95054, USA        *
+ * or via info@compiere.org or http://www.compiere.org/license.html           *
+ *****************************************************************************/
+package org.adempierelbr.wrapper;
+
+import java.math.BigDecimal;
+import org.compiere.model.*;
+import org.compiere.util.KeyNamePair;
+
+/** Generated Interface for AD_ClientInfo
+ *  @author iDempiere (generated) 
+ *  @version Release 4.1
+ */
+@SuppressWarnings("all")
+public interface I_W_AD_ClientInfo 
+{
+
+    /** TableName=AD_ClientInfo */
+    public static final String Table_Name = "AD_ClientInfo";
+
+    /** AD_Table_ID=227 */
+    public static final int Table_ID = 227;
+
+
+    /** Column name LBR_ProductInsurance_ID */
+    public static final String COLUMNNAME_LBR_ProductInsurance_ID = "LBR_ProductInsurance_ID";
+
+	/** Set Product for Insurance.
+	  * Product for Insurance to be used in sales/purchase orders
+	  */
+	public void setLBR_ProductInsurance_ID (int LBR_ProductInsurance_ID);
+
+	/** Get Product for Insurance.
+	  * Product for Insurance to be used in sales/purchase orders
+	  */
+	public int getLBR_ProductInsurance_ID();
+
+	public org.compiere.model.I_M_Product getLBR_ProductInsurance() throws RuntimeException;
+
+    /** Column name LBR_ProductOtherCharges_ID */
+    public static final String COLUMNNAME_LBR_ProductOtherCharges_ID = "LBR_ProductOtherCharges_ID";
+
+	/** Set Other Charges Product	  */
+	public void setLBR_ProductOtherCharges_ID (int LBR_ProductOtherCharges_ID);
+
+	/** Get Other Charges Product	  */
+	public int getLBR_ProductOtherCharges_ID();
+
+	public org.compiere.model.I_M_Product getLBR_ProductOtherCharges() throws RuntimeException;
+
+    /** Column name LBR_ProductSISCOMEX_ID */
+    public static final String COLUMNNAME_LBR_ProductSISCOMEX_ID = "LBR_ProductSISCOMEX_ID";
+
+	/** Set Product for SISCOMEX	  */
+	public void setLBR_ProductSISCOMEX_ID (int LBR_ProductSISCOMEX_ID);
+
+	/** Get Product for SISCOMEX	  */
+	public int getLBR_ProductSISCOMEX_ID();
+
+	public org.compiere.model.I_M_Product getLBR_ProductSISCOMEX() throws RuntimeException;
+
+    /** Column name LBR_ProductWithhold_ID */
+    public static final String COLUMNNAME_LBR_ProductWithhold_ID = "LBR_ProductWithhold_ID";
+
+	/** Set Product for Withhold.
+	  * Product for Withhold to be used in sales/purchase orders
+	  */
+	public void setLBR_ProductWithhold_ID (int LBR_ProductWithhold_ID);
+
+	/** Get Product for Withhold.
+	  * Product for Withhold to be used in sales/purchase orders
+	  */
+	public int getLBR_ProductWithhold_ID();
+
+	public org.compiere.model.I_M_Product getLBR_ProductWithhold() throws RuntimeException;
+}
