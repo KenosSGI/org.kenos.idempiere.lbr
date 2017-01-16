@@ -184,37 +184,6 @@ public interface I_LBR_NFeLot
 	  */
 	public boolean isActive();
 
-    /** Column name LBR_LotReceived */
-    public static final String COLUMNNAME_LBR_LotReceived = "LBR_LotReceived";
-
-	/** Set Lot Received	  */
-	public void setLBR_LotReceived (boolean LBR_LotReceived);
-
-	/** Get Lot Received	  */
-	public boolean isLBR_LotReceived();
-
-    /** Column name LBR_LotSent */
-    public static final String COLUMNNAME_LBR_LotSent = "LBR_LotSent";
-
-	/** Set Lot Sent	  */
-	public void setLBR_LotSent (boolean LBR_LotSent);
-
-	/** Get Lot Sent	  */
-	public boolean isLBR_LotSent();
-
-    /** Column name LBR_NFeAnswerStatus */
-    public static final String COLUMNNAME_LBR_NFeAnswerStatus = "LBR_NFeAnswerStatus";
-
-	/** Set NFe Answer Status.
-	  * Status of Answer NFe
-	  */
-	public void setLBR_NFeAnswerStatus (String LBR_NFeAnswerStatus);
-
-	/** Get NFe Answer Status.
-	  * Status of Answer NFe
-	  */
-	public String getLBR_NFeAnswerStatus();
-
     /** Column name LBR_NFeLotMethod */
     public static final String COLUMNNAME_LBR_NFeLotMethod = "LBR_NFeLotMethod";
 
@@ -236,37 +205,6 @@ public interface I_LBR_NFeLot
 
 	/** Get NFe Lot	  */
 	public int getLBR_NFeLot_ID();
-
-    /** Column name LBR_NFeRecID */
-    public static final String COLUMNNAME_LBR_NFeRecID = "LBR_NFeRecID";
-
-	/** Set Recebimento ID	  */
-	public void setLBR_NFeRecID (String LBR_NFeRecID);
-
-	/** Get Recebimento ID	  */
-	public String getLBR_NFeRecID();
-
-    /** Column name LBR_NFeRespID */
-    public static final String COLUMNNAME_LBR_NFeRespID = "LBR_NFeRespID";
-
-	/** Set Resposta ID	  */
-	public void setLBR_NFeRespID (String LBR_NFeRespID);
-
-	/** Get Resposta ID	  */
-	public String getLBR_NFeRespID();
-
-    /** Column name LBR_NFeStatus */
-    public static final String COLUMNNAME_LBR_NFeStatus = "LBR_NFeStatus";
-
-	/** Set NFe Status.
-	  * Status of NFe
-	  */
-	public void setLBR_NFeStatus (String LBR_NFeStatus);
-
-	/** Get NFe Status.
-	  * Status of NFe
-	  */
-	public String getLBR_NFeStatus();
 
     /** Column name LBR_Processing2 */
     public static final String COLUMNNAME_LBR_Processing2 = "LBR_Processing2";
@@ -327,4 +265,66 @@ public interface I_LBR_NFeLot
 	  * User who updated this records
 	  */
 	public int getUpdatedBy();
+
+    /** Column name lbr_LotReceived */
+    public static final String COLUMNNAME_lbr_LotReceived = "lbr_LotReceived";
+
+	/** Set Lot Received	  */
+	public void setlbr_LotReceived (boolean lbr_LotReceived);
+
+	/** Get Lot Received	  */
+	public boolean islbr_LotReceived();
+
+    /** Column name lbr_LotSent */
+    public static final String COLUMNNAME_lbr_LotSent = "lbr_LotSent";
+
+	/** Set Lot Sent	  */
+	public void setlbr_LotSent (boolean lbr_LotSent);
+
+	/** Get Lot Sent	  */
+	public boolean islbr_LotSent();
+
+    /** Column name lbr_NFeAnswerStatus */
+    public static final String COLUMNNAME_lbr_NFeAnswerStatus = "lbr_NFeAnswerStatus";
+
+	/** Set NFe Answer Status.
+	  * Status of Answer NFe
+	  */
+	public void setlbr_NFeAnswerStatus (String lbr_NFeAnswerStatus);
+
+	/** Get NFe Answer Status.
+	  * Status of Answer NFe
+	  */
+	public String getlbr_NFeAnswerStatus();
+
+    /** Column name lbr_NFeRecID */
+    public static final String COLUMNNAME_lbr_NFeRecID = "lbr_NFeRecID";
+
+	/** Set Recebimento ID	  */
+	public void setlbr_NFeRecID (String lbr_NFeRecID);
+
+	/** Get Recebimento ID	  */
+	public String getlbr_NFeRecID();
+
+    /** Column name lbr_NFeRespID */
+    public static final String COLUMNNAME_lbr_NFeRespID = "lbr_NFeRespID";
+
+	/** Set Resposta ID	  */
+	public void setlbr_NFeRespID (String lbr_NFeRespID);
+
+	/** Get Resposta ID	  */
+	public String getlbr_NFeRespID();
+
+    /** Column name lbr_NFeStatus */
+    public static final String COLUMNNAME_lbr_NFeStatus = "lbr_NFeStatus";
+
+	/** Set NFe Status.
+	  * Status of NFe
+	  */
+	public void setlbr_NFeStatus (String lbr_NFeStatus);
+
+	/** Get NFe Status.
+	  * Status of NFe
+	  */
+	public String getlbr_NFeStatus();
 }

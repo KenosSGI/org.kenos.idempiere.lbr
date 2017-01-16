@@ -25,7 +25,7 @@ import org.compiere.util.KeyNamePair;
  *  @version Release 4.1
  */
 @SuppressWarnings("all")
-public interface I_W_M_InOut 
+public interface I_W_M_InOut extends I_M_InOut 
 {
 
     /** TableName=M_InOut */
@@ -35,16 +35,16 @@ public interface I_W_M_InOut
     public static final int Table_ID = 319;
 
 
-    /** Column name LBR_NFEntrada */
-    public static final String COLUMNNAME_LBR_NFEntrada = "LBR_NFEntrada";
+    /** Column name lbr_NFEntrada */
+    public static final String COLUMNNAME_lbr_NFEntrada = "lbr_NFEntrada";
 
 	/** Set Customer NF Number.
 	  * Number of the Customer NF
 	  */
-	public void setLBR_NFEntrada (String LBR_NFEntrada);
+	public void setlbr_NFEntrada (String lbr_NFEntrada);
 
 	/** Get Customer NF Number.
 	  * Number of the Customer NF
 	  */
-	public String getLBR_NFEntrada();
+	public String getlbr_NFEntrada();
 }

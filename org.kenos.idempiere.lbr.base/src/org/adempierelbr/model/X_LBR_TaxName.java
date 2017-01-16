@@ -32,7 +32,7 @@ public class X_LBR_TaxName extends PO implements I_LBR_TaxName, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20170105L;
+	private static final long serialVersionUID = 20170116L;
 
     /** Standard Constructor */
     public X_LBR_TaxName (Properties ctx, int LBR_TaxName_ID, String trxName)
@@ -44,13 +44,13 @@ public class X_LBR_TaxName extends PO implements I_LBR_TaxName, I_Persistent
 // 'N'
 			setLBR_TaxName_ID (0);
 			setLBR_TaxSubstitution_ID (0);
-			setLBR_TaxType (null);
-// 'P'
-			setLBR_WithholdFrequency (null);
-// 'M'
 			setLBR_WithholdThreshold (Env.ZERO);
 // 0
 			setName (null);
+			setlbr_TaxType (null);
+// 'P'
+			setlbr_WithholdFrequency (null);
+// 'M'
         } */
     }
 
@@ -174,52 +174,6 @@ public class X_LBR_TaxName extends PO implements I_LBR_TaxName, I_Persistent
 		return ii.intValue();
 	}
 
-	/** Product = P */
-	public static final String LBR_TAXTYPE_Product = "P";
-	/** Service = S */
-	public static final String LBR_TAXTYPE_Service = "S";
-	/** Substitution = T */
-	public static final String LBR_TAXTYPE_Substitution = "T";
-	/** Differential = D */
-	public static final String LBR_TAXTYPE_Differential = "D";
-	/** Set Tax Type.
-		@param LBR_TaxType 
-		Define the Tax Type
-	  */
-	public void setLBR_TaxType (String LBR_TaxType)
-	{
-
-		set_Value (COLUMNNAME_LBR_TaxType, LBR_TaxType);
-	}
-
-	/** Get Tax Type.
-		@return Define the Tax Type
-	  */
-	public String getLBR_TaxType () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_TaxType);
-	}
-
-	/** Monthly = M */
-	public static final String LBR_WITHHOLDFREQUENCY_Monthly = "M";
-	/** Set Withhold Frequency.
-		@param LBR_WithholdFrequency 
-		Defines the Withhold Frequency
-	  */
-	public void setLBR_WithholdFrequency (String LBR_WithholdFrequency)
-	{
-
-		set_Value (COLUMNNAME_LBR_WithholdFrequency, LBR_WithholdFrequency);
-	}
-
-	/** Get Withhold Frequency.
-		@return Defines the Withhold Frequency
-	  */
-	public String getLBR_WithholdFrequency () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_WithholdFrequency);
-	}
-
 	/** Set Withhold Group.
 		@param LBR_WithholdGroup 
 		Withhold Group
@@ -291,5 +245,51 @@ public class X_LBR_TaxName extends PO implements I_LBR_TaxName, I_Persistent
 	public String getName () 
 	{
 		return (String)get_Value(COLUMNNAME_Name);
+	}
+
+	/** Product = P */
+	public static final String LBR_TAXTYPE_Product = "P";
+	/** Service = S */
+	public static final String LBR_TAXTYPE_Service = "S";
+	/** Substitution = T */
+	public static final String LBR_TAXTYPE_Substitution = "T";
+	/** Differential = D */
+	public static final String LBR_TAXTYPE_Differential = "D";
+	/** Set Tax Type.
+		@param lbr_TaxType 
+		Define the Tax Type
+	  */
+	public void setlbr_TaxType (String lbr_TaxType)
+	{
+
+		set_Value (COLUMNNAME_lbr_TaxType, lbr_TaxType);
+	}
+
+	/** Get Tax Type.
+		@return Define the Tax Type
+	  */
+	public String getlbr_TaxType () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_TaxType);
+	}
+
+	/** Monthly = M */
+	public static final String LBR_WITHHOLDFREQUENCY_Monthly = "M";
+	/** Set Withhold Frequency.
+		@param lbr_WithholdFrequency 
+		Defines the Withhold Frequency
+	  */
+	public void setlbr_WithholdFrequency (String lbr_WithholdFrequency)
+	{
+
+		set_Value (COLUMNNAME_lbr_WithholdFrequency, lbr_WithholdFrequency);
+	}
+
+	/** Get Withhold Frequency.
+		@return Defines the Withhold Frequency
+	  */
+	public String getlbr_WithholdFrequency () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_WithholdFrequency);
 	}
 }

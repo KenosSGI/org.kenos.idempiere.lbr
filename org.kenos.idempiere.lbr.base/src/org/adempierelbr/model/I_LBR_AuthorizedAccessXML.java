@@ -117,45 +117,6 @@ public interface I_LBR_AuthorizedAccessXML
 	/** Get Authorized Access to XML	  */
 	public int getLBR_AuthorizedAccessXML_ID();
 
-    /** Column name LBR_BPTypeBR */
-    public static final String COLUMNNAME_LBR_BPTypeBR = "LBR_BPTypeBR";
-
-	/** Set Brazilian BP Type.
-	  * Brazilian BP Type (Identifies if the BP is a Legal Entity or an Individual)
-	  */
-	public void setLBR_BPTypeBR (String LBR_BPTypeBR);
-
-	/** Get Brazilian BP Type.
-	  * Brazilian BP Type (Identifies if the BP is a Legal Entity or an Individual)
-	  */
-	public String getLBR_BPTypeBR();
-
-    /** Column name LBR_CNPJ */
-    public static final String COLUMNNAME_LBR_CNPJ = "LBR_CNPJ";
-
-	/** Set CNPJ.
-	  * Used to identify Legal Entities in Brazil
-	  */
-	public void setLBR_CNPJ (String LBR_CNPJ);
-
-	/** Get CNPJ.
-	  * Used to identify Legal Entities in Brazil
-	  */
-	public String getLBR_CNPJ();
-
-    /** Column name LBR_CPF */
-    public static final String COLUMNNAME_LBR_CPF = "LBR_CPF";
-
-	/** Set CPF.
-	  * Used to identify individuals in Brazil
-	  */
-	public void setLBR_CPF (String LBR_CPF);
-
-	/** Get CPF.
-	  * Used to identify individuals in Brazil
-	  */
-	public String getLBR_CPF();
-
     /** Column name Updated */
     public static final String COLUMNNAME_Updated = "Updated";
 
@@ -171,4 +132,43 @@ public interface I_LBR_AuthorizedAccessXML
 	  * User who updated this records
 	  */
 	public int getUpdatedBy();
+
+    /** Column name lbr_BPTypeBR */
+    public static final String COLUMNNAME_lbr_BPTypeBR = "lbr_BPTypeBR";
+
+	/** Set Brazilian BP Type.
+	  * Brazilian BP Type (Identifies if the BP is a Legal Entity or an Individual)
+	  */
+	public void setlbr_BPTypeBR (String lbr_BPTypeBR);
+
+	/** Get Brazilian BP Type.
+	  * Brazilian BP Type (Identifies if the BP is a Legal Entity or an Individual)
+	  */
+	public String getlbr_BPTypeBR();
+
+    /** Column name lbr_CNPJ */
+    public static final String COLUMNNAME_lbr_CNPJ = "lbr_CNPJ";
+
+	/** Set CNPJ.
+	  * Used to identify Legal Entities in Brazil
+	  */
+	public void setlbr_CNPJ (String lbr_CNPJ);
+
+	/** Get CNPJ.
+	  * Used to identify Legal Entities in Brazil
+	  */
+	public String getlbr_CNPJ();
+
+    /** Column name lbr_CPF */
+    public static final String COLUMNNAME_lbr_CPF = "lbr_CPF";
+
+	/** Set CPF.
+	  * Used to identify individuals in Brazil
+	  */
+	public void setlbr_CPF (String lbr_CPF);
+
+	/** Get CPF.
+	  * Used to identify individuals in Brazil
+	  */
+	public String getlbr_CPF();
 }

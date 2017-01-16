@@ -31,7 +31,7 @@ public class X_LBR_TaxLegalFW extends PO implements I_LBR_TaxLegalFW, I_Persiste
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20170105L;
+	private static final long serialVersionUID = 20170116L;
 
     /** Standard Constructor */
     public X_LBR_TaxLegalFW (Properties ctx, int LBR_TaxLegalFW_ID, String trxName)

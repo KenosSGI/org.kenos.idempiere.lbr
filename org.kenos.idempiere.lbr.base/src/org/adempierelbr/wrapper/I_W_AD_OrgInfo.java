@@ -26,7 +26,7 @@ import org.compiere.util.KeyNamePair;
  *  @version Release 4.1
  */
 @SuppressWarnings("all")
-public interface I_W_AD_OrgInfo 
+public interface I_W_AD_OrgInfo extends I_AD_OrgInfo 
 {
 
     /** TableName=AD_OrgInfo */
@@ -77,45 +77,6 @@ public interface I_W_AD_OrgInfo
 
 	public org.compiere.model.I_C_BPartner getLBR_BP_Accountant() throws RuntimeException;
 
-    /** Column name LBR_CCM */
-    public static final String COLUMNNAME_LBR_CCM = "LBR_CCM";
-
-	/** Set CCM.
-	  * City Identification Code used in Brazil (City Tax ID)
-	  */
-	public void setLBR_CCM (String LBR_CCM);
-
-	/** Get CCM.
-	  * City Identification Code used in Brazil (City Tax ID)
-	  */
-	public String getLBR_CCM();
-
-    /** Column name LBR_CNAE */
-    public static final String COLUMNNAME_LBR_CNAE = "LBR_CNAE";
-
-	/** Set CNAE.
-	  * Classificação Nacional de Atividades Econômicas
-	  */
-	public void setLBR_CNAE (String LBR_CNAE);
-
-	/** Get CNAE.
-	  * Classificação Nacional de Atividades Econômicas
-	  */
-	public String getLBR_CNAE();
-
-    /** Column name LBR_CNPJ */
-    public static final String COLUMNNAME_LBR_CNPJ = "LBR_CNPJ";
-
-	/** Set CNPJ.
-	  * Used to identify Legal Entities in Brazil
-	  */
-	public void setLBR_CNPJ (String LBR_CNPJ);
-
-	/** Get CNPJ.
-	  * Used to identify Legal Entities in Brazil
-	  */
-	public String getLBR_CNPJ();
-
     /** Column name LBR_ContatoNFe_ID */
     public static final String COLUMNNAME_LBR_ContatoNFe_ID = "LBR_ContatoNFe_ID";
 
@@ -149,61 +110,6 @@ public interface I_W_AD_OrgInfo
 	/** Get Certificado of Transmission	  */
 	public int getLBR_DC_WS_ID();
 
-    /** Column name LBR_DtArq */
-    public static final String COLUMNNAME_LBR_DtArq = "LBR_DtArq";
-
-	/** Set Data do Arquivamento.
-	  * Data do arquivamento dos atos constitutivos.
-	  */
-	public void setLBR_DtArq (Timestamp LBR_DtArq);
-
-	/** Get Data do Arquivamento.
-	  * Data do arquivamento dos atos constitutivos.
-	  */
-	public Timestamp getLBR_DtArq();
-
-    /** Column name LBR_Fantasia */
-    public static final String COLUMNNAME_LBR_Fantasia = "LBR_Fantasia";
-
-	/** Set Fantasia	  */
-	public void setLBR_Fantasia (String LBR_Fantasia);
-
-	/** Get Fantasia	  */
-	public String getLBR_Fantasia();
-
-    /** Column name LBR_IE */
-    public static final String COLUMNNAME_LBR_IE = "LBR_IE";
-
-	/** Set IE.
-	  * Used to Identify the IE (State Tax ID)
-	  */
-	public void setLBR_IE (String LBR_IE);
-
-	/** Get IE.
-	  * Used to Identify the IE (State Tax ID)
-	  */
-	public String getLBR_IE();
-
-    /** Column name LBR_IndAtividade */
-    public static final String COLUMNNAME_LBR_IndAtividade = "LBR_IndAtividade";
-
-	/** Industrial ou equiparado a industrial = 0 */
-	public static final String LBR_INDATIVIDADE_IndustrialOuEquiparadoAIndustrial = "0";
-
-	/** Outros = 1 */
-	public static final String LBR_INDATIVIDADE_Outros = "1";
-
-
-	/** Set Tipo de atividade.
-	  * Tipo de atividade
-	  */
-	public void setLBR_IndAtividade (String LBR_IndAtividade);
-
-	/** Get Tipo de atividade.
-	  * Tipo de atividade
-	  */
-	public String getLBR_IndAtividade();
-
     /** Column name LBR_IndPres */
     public static final String COLUMNNAME_LBR_IndPres = "LBR_IndPres";
 
@@ -235,54 +141,6 @@ public interface I_W_AD_OrgInfo
 	  * Indicador de presença do comprador no estabelecimento comercial no momento da operação
 	  */
 	public String getLBR_IndPres();
-
-    /** Column name LBR_Interest */
-    public static final String COLUMNNAME_LBR_Interest = "LBR_Interest";
-
-	/** Set Interest.
-	  * Defines the Interest
-	  */
-	public void setLBR_Interest (BigDecimal LBR_Interest);
-
-	/** Get Interest.
-	  * Defines the Interest
-	  */
-	public BigDecimal getLBR_Interest();
-
-    /** Column name LBR_LegalEntity */
-    public static final String COLUMNNAME_LBR_LegalEntity = "LBR_LegalEntity";
-
-	/** Set Legal Entity	  */
-	public void setLBR_LegalEntity (String LBR_LegalEntity);
-
-	/** Get Legal Entity	  */
-	public String getLBR_LegalEntity();
-
-    /** Column name LBR_NIRE */
-    public static final String COLUMNNAME_LBR_NIRE = "LBR_NIRE";
-
-	/** Set NIRE.
-	  * Número de Identificação do Registro de Empresas da Junta Comercial
-	  */
-	public void setLBR_NIRE (String LBR_NIRE);
-
-	/** Get NIRE.
-	  * Número de Identificação do Registro de Empresas da Junta Comercial
-	  */
-	public String getLBR_NIRE();
-
-    /** Column name LBR_Suframa */
-    public static final String COLUMNNAME_LBR_Suframa = "LBR_Suframa";
-
-	/** Set Suframa.
-	  * Brazilian SUFRAMA Identification Number
-	  */
-	public void setLBR_Suframa (String LBR_Suframa);
-
-	/** Get Suframa.
-	  * Brazilian SUFRAMA Identification Number
-	  */
-	public String getLBR_Suframa();
 
     /** Column name LBR_TaxRegime */
     public static final String COLUMNNAME_LBR_TaxRegime = "LBR_TaxRegime";
@@ -317,5 +175,147 @@ public interface I_W_AD_OrgInfo
 	/** Get Brazilian Tax.
 	  * Primary key table LBR_Tax
 	  */
-	public Object getLBR_Tax_ID();
+	public int getLBR_Tax_ID();
+
+    /** Column name lbr_CCM */
+    public static final String COLUMNNAME_lbr_CCM = "lbr_CCM";
+
+	/** Set CCM.
+	  * City Identification Code used in Brazil (City Tax ID)
+	  */
+	public void setlbr_CCM (String lbr_CCM);
+
+	/** Get CCM.
+	  * City Identification Code used in Brazil (City Tax ID)
+	  */
+	public String getlbr_CCM();
+
+    /** Column name lbr_CNAE */
+    public static final String COLUMNNAME_lbr_CNAE = "lbr_CNAE";
+
+	/** Set CNAE.
+	  * Classificação Nacional de Atividades Econômicas
+	  */
+	public void setlbr_CNAE (String lbr_CNAE);
+
+	/** Get CNAE.
+	  * Classificação Nacional de Atividades Econômicas
+	  */
+	public String getlbr_CNAE();
+
+    /** Column name lbr_CNPJ */
+    public static final String COLUMNNAME_lbr_CNPJ = "lbr_CNPJ";
+
+	/** Set CNPJ.
+	  * Used to identify Legal Entities in Brazil
+	  */
+	public void setlbr_CNPJ (String lbr_CNPJ);
+
+	/** Get CNPJ.
+	  * Used to identify Legal Entities in Brazil
+	  */
+	public String getlbr_CNPJ();
+
+    /** Column name lbr_DtArq */
+    public static final String COLUMNNAME_lbr_DtArq = "lbr_DtArq";
+
+	/** Set Data do Arquivamento.
+	  * Data do arquivamento dos atos constitutivos.
+	  */
+	public void setlbr_DtArq (Timestamp lbr_DtArq);
+
+	/** Get Data do Arquivamento.
+	  * Data do arquivamento dos atos constitutivos.
+	  */
+	public Timestamp getlbr_DtArq();
+
+    /** Column name lbr_Fantasia */
+    public static final String COLUMNNAME_lbr_Fantasia = "lbr_Fantasia";
+
+	/** Set Fantasia	  */
+	public void setlbr_Fantasia (String lbr_Fantasia);
+
+	/** Get Fantasia	  */
+	public String getlbr_Fantasia();
+
+    /** Column name lbr_IE */
+    public static final String COLUMNNAME_lbr_IE = "lbr_IE";
+
+	/** Set IE.
+	  * Used to Identify the IE (State Tax ID)
+	  */
+	public void setlbr_IE (String lbr_IE);
+
+	/** Get IE.
+	  * Used to Identify the IE (State Tax ID)
+	  */
+	public String getlbr_IE();
+
+    /** Column name lbr_IndAtividade */
+    public static final String COLUMNNAME_lbr_IndAtividade = "lbr_IndAtividade";
+
+	/** Industrial ou equiparado a industrial = 0 */
+	public static final String LBR_INDATIVIDADE_IndustrialOuEquiparadoAIndustrial = "0";
+
+	/** Outros = 1 */
+	public static final String LBR_INDATIVIDADE_Outros = "1";
+
+
+	/** Set Tipo de atividade.
+	  * Tipo de atividade
+	  */
+	public void setlbr_IndAtividade (String lbr_IndAtividade);
+
+	/** Get Tipo de atividade.
+	  * Tipo de atividade
+	  */
+	public String getlbr_IndAtividade();
+
+    /** Column name lbr_Interest */
+    public static final String COLUMNNAME_lbr_Interest = "lbr_Interest";
+
+	/** Set Interest.
+	  * Defines the Interest
+	  */
+	public void setlbr_Interest (BigDecimal lbr_Interest);
+
+	/** Get Interest.
+	  * Defines the Interest
+	  */
+	public BigDecimal getlbr_Interest();
+
+    /** Column name lbr_LegalEntity */
+    public static final String COLUMNNAME_lbr_LegalEntity = "lbr_LegalEntity";
+
+	/** Set Legal Entity	  */
+	public void setlbr_LegalEntity (String lbr_LegalEntity);
+
+	/** Get Legal Entity	  */
+	public String getlbr_LegalEntity();
+
+    /** Column name lbr_NIRE */
+    public static final String COLUMNNAME_lbr_NIRE = "lbr_NIRE";
+
+	/** Set NIRE.
+	  * Número de Identificação do Registro de Empresas da Junta Comercial
+	  */
+	public void setlbr_NIRE (String lbr_NIRE);
+
+	/** Get NIRE.
+	  * Número de Identificação do Registro de Empresas da Junta Comercial
+	  */
+	public String getlbr_NIRE();
+
+    /** Column name lbr_Suframa */
+    public static final String COLUMNNAME_lbr_Suframa = "lbr_Suframa";
+
+	/** Set Suframa.
+	  * Brazilian SUFRAMA Identification Number
+	  */
+	public void setlbr_Suframa (String lbr_Suframa);
+
+	/** Get Suframa.
+	  * Brazilian SUFRAMA Identification Number
+	  */
+	public String getlbr_Suframa();
 }

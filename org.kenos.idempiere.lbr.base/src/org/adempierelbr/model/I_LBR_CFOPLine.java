@@ -151,45 +151,6 @@ public interface I_LBR_CFOPLine
 
 	public org.adempierelbr.model.I_LBR_CFOP getLBR_CFOP() throws RuntimeException;
 
-    /** Column name LBR_DestionationType */
-    public static final String COLUMNNAME_LBR_DestionationType = "LBR_DestionationType";
-
-	/** Set Destination Type.
-	  * Defines the Destination Type
-	  */
-	public void setLBR_DestionationType (String LBR_DestionationType);
-
-	/** Get Destination Type.
-	  * Defines the Destination Type
-	  */
-	public String getLBR_DestionationType();
-
-    /** Column name LBR_IsManufactured */
-    public static final String COLUMNNAME_LBR_IsManufactured = "LBR_IsManufactured";
-
-	/** Set Is Manufactured.
-	  * Defines if the Product is Manufactured
-	  */
-	public void setLBR_IsManufactured (String LBR_IsManufactured);
-
-	/** Get Is Manufactured.
-	  * Defines if the Product is Manufactured
-	  */
-	public String getLBR_IsManufactured();
-
-    /** Column name LBR_IsSubTributaria */
-    public static final String COLUMNNAME_LBR_IsSubTributaria = "LBR_IsSubTributaria";
-
-	/** Set Is Substituicao Tributaria.
-	  * Defines the Is Substituicao Tributaria Status
-	  */
-	public void setLBR_IsSubTributaria (String LBR_IsSubTributaria);
-
-	/** Get Is Substituicao Tributaria.
-	  * Defines the Is Substituicao Tributaria Status
-	  */
-	public String getLBR_IsSubTributaria();
-
     /** Column name LBR_LegalMessage_ID */
     public static final String COLUMNNAME_LBR_LegalMessage_ID = "LBR_LegalMessage_ID";
 
@@ -229,19 +190,6 @@ public interface I_LBR_CFOPLine
 	/** Get Tax Regime	  */
 	public String getLBR_TaxRegime();
 
-    /** Column name LBR_TaxStatus */
-    public static final String COLUMNNAME_LBR_TaxStatus = "LBR_TaxStatus";
-
-	/** Set Tax Status.
-	  * Defines the Tax Status
-	  */
-	public void setLBR_TaxStatus (String LBR_TaxStatus);
-
-	/** Get Tax Status.
-	  * Defines the Tax Status
-	  */
-	public String getLBR_TaxStatus();
-
     /** Column name LBR_Tax_ID */
     public static final String COLUMNNAME_LBR_Tax_ID = "LBR_Tax_ID";
 
@@ -254,19 +202,6 @@ public interface I_LBR_CFOPLine
 	  * Primary key table LBR_Tax
 	  */
 	public Object getLBR_Tax_ID();
-
-    /** Column name LBR_TransactionType */
-    public static final String COLUMNNAME_LBR_TransactionType = "LBR_TransactionType";
-
-	/** Set Transaction Type.
-	  * Defines the Transaction Type
-	  */
-	public void setLBR_TransactionType (String LBR_TransactionType);
-
-	/** Get Transaction Type.
-	  * Defines the Transaction Type
-	  */
-	public String getLBR_TransactionType();
 
     /** Column name Updated */
     public static final String COLUMNNAME_Updated = "Updated";
@@ -283,4 +218,69 @@ public interface I_LBR_CFOPLine
 	  * User who updated this records
 	  */
 	public int getUpdatedBy();
+
+    /** Column name lbr_DestionationType */
+    public static final String COLUMNNAME_lbr_DestionationType = "lbr_DestionationType";
+
+	/** Set Destination Type.
+	  * Defines the Destination Type
+	  */
+	public void setlbr_DestionationType (String lbr_DestionationType);
+
+	/** Get Destination Type.
+	  * Defines the Destination Type
+	  */
+	public String getlbr_DestionationType();
+
+    /** Column name lbr_IsManufactured */
+    public static final String COLUMNNAME_lbr_IsManufactured = "lbr_IsManufactured";
+
+	/** Set Is Manufactured.
+	  * Defines if the Product is Manufactured
+	  */
+	public void setlbr_IsManufactured (String lbr_IsManufactured);
+
+	/** Get Is Manufactured.
+	  * Defines if the Product is Manufactured
+	  */
+	public String getlbr_IsManufactured();
+
+    /** Column name lbr_IsSubTributaria */
+    public static final String COLUMNNAME_lbr_IsSubTributaria = "lbr_IsSubTributaria";
+
+	/** Set Is Substituicao Tributaria.
+	  * Defines the Is Substituicao Tributaria Status
+	  */
+	public void setlbr_IsSubTributaria (String lbr_IsSubTributaria);
+
+	/** Get Is Substituicao Tributaria.
+	  * Defines the Is Substituicao Tributaria Status
+	  */
+	public String getlbr_IsSubTributaria();
+
+    /** Column name lbr_TaxStatus */
+    public static final String COLUMNNAME_lbr_TaxStatus = "lbr_TaxStatus";
+
+	/** Set Tax Status.
+	  * Defines the Tax Status
+	  */
+	public void setlbr_TaxStatus (String lbr_TaxStatus);
+
+	/** Get Tax Status.
+	  * Defines the Tax Status
+	  */
+	public String getlbr_TaxStatus();
+
+    /** Column name lbr_TransactionType */
+    public static final String COLUMNNAME_lbr_TransactionType = "lbr_TransactionType";
+
+	/** Set Transaction Type.
+	  * Defines the Transaction Type
+	  */
+	public void setlbr_TransactionType (String lbr_TransactionType);
+
+	/** Get Transaction Type.
+	  * Defines the Transaction Type
+	  */
+	public String getlbr_TransactionType();
 }

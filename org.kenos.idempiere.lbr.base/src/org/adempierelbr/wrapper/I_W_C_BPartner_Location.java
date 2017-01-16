@@ -25,7 +25,7 @@ import org.compiere.util.KeyNamePair;
  *  @version Release 4.1
  */
 @SuppressWarnings("all")
-public interface I_W_C_BPartner_Location 
+public interface I_W_C_BPartner_Location extends I_C_BPartner_Location 
 {
 
     /** TableName=C_BPartner_Location */
@@ -34,58 +34,6 @@ public interface I_W_C_BPartner_Location
     /** AD_Table_ID=293 */
     public static final int Table_ID = 293;
 
-
-    /** Column name LBR_BPTypeBRIsValid */
-    public static final String COLUMNNAME_LBR_BPTypeBRIsValid = "LBR_BPTypeBRIsValid";
-
-	/** Set Brazilian BP Valid.
-	  * Brazilian BP is Valid
-	  */
-	public void setLBR_BPTypeBRIsValid (boolean LBR_BPTypeBRIsValid);
-
-	/** Get Brazilian BP Valid.
-	  * Brazilian BP is Valid
-	  */
-	public boolean isLBR_BPTypeBRIsValid();
-
-    /** Column name LBR_CCM */
-    public static final String COLUMNNAME_LBR_CCM = "LBR_CCM";
-
-	/** Set CCM.
-	  * City Identification Code used in Brazil (City Tax ID)
-	  */
-	public void setLBR_CCM (String LBR_CCM);
-
-	/** Get CCM.
-	  * City Identification Code used in Brazil (City Tax ID)
-	  */
-	public String getLBR_CCM();
-
-    /** Column name LBR_CNPJ */
-    public static final String COLUMNNAME_LBR_CNPJ = "LBR_CNPJ";
-
-	/** Set CNPJ.
-	  * Used to identify Legal Entities in Brazil
-	  */
-	public void setLBR_CNPJ (String LBR_CNPJ);
-
-	/** Get CNPJ.
-	  * Used to identify Legal Entities in Brazil
-	  */
-	public String getLBR_CNPJ();
-
-    /** Column name LBR_IE */
-    public static final String COLUMNNAME_LBR_IE = "LBR_IE";
-
-	/** Set IE.
-	  * Used to Identify the IE (State Tax ID)
-	  */
-	public void setLBR_IE (String LBR_IE);
-
-	/** Get IE.
-	  * Used to Identify the IE (State Tax ID)
-	  */
-	public String getLBR_IE();
 
     /** Column name LBR_IndIEDest */
     public static final String COLUMNNAME_LBR_IndIEDest = "LBR_IndIEDest";
@@ -109,4 +57,56 @@ public interface I_W_C_BPartner_Location
 	  * Indicador da IE do Destinatário
 	  */
 	public String getLBR_IndIEDest();
+
+    /** Column name lbr_BPTypeBRIsValid */
+    public static final String COLUMNNAME_lbr_BPTypeBRIsValid = "lbr_BPTypeBRIsValid";
+
+	/** Set Brazilian BP Valid.
+	  * Brazilian BP is Valid
+	  */
+	public void setlbr_BPTypeBRIsValid (boolean lbr_BPTypeBRIsValid);
+
+	/** Get Brazilian BP Valid.
+	  * Brazilian BP is Valid
+	  */
+	public boolean islbr_BPTypeBRIsValid();
+
+    /** Column name lbr_CCM */
+    public static final String COLUMNNAME_lbr_CCM = "lbr_CCM";
+
+	/** Set CCM.
+	  * City Identification Code used in Brazil (City Tax ID)
+	  */
+	public void setlbr_CCM (String lbr_CCM);
+
+	/** Get CCM.
+	  * City Identification Code used in Brazil (City Tax ID)
+	  */
+	public String getlbr_CCM();
+
+    /** Column name lbr_CNPJ */
+    public static final String COLUMNNAME_lbr_CNPJ = "lbr_CNPJ";
+
+	/** Set CNPJ.
+	  * Used to identify Legal Entities in Brazil
+	  */
+	public void setlbr_CNPJ (String lbr_CNPJ);
+
+	/** Get CNPJ.
+	  * Used to identify Legal Entities in Brazil
+	  */
+	public String getlbr_CNPJ();
+
+    /** Column name lbr_IE */
+    public static final String COLUMNNAME_lbr_IE = "lbr_IE";
+
+	/** Set IE.
+	  * Used to Identify the IE (State Tax ID)
+	  */
+	public void setlbr_IE (String lbr_IE);
+
+	/** Get IE.
+	  * Used to Identify the IE (State Tax ID)
+	  */
+	public String getlbr_IE();
 }

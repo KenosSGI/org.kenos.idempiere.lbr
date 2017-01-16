@@ -145,45 +145,6 @@ public interface I_LBR_DE
 	  */
 	public boolean isActive();
 
-    /** Column name LBR_CHCEmb */
-    public static final String COLUMNNAME_LBR_CHCEmb = "LBR_CHCEmb";
-
-	/** Set No. Conhecimento de Embarque.
-	  * NÃºmero do Conhecimento de Embarque
-	  */
-	public void setLBR_CHCEmb (String LBR_CHCEmb);
-
-	/** Get No. Conhecimento de Embarque.
-	  * NÃºmero do Conhecimento de Embarque
-	  */
-	public String getLBR_CHCEmb();
-
-    /** Column name LBR_CHCType */
-    public static final String COLUMNNAME_LBR_CHCType = "LBR_CHCType";
-
-	/** Set Tipo Conhecimento de Transporte.
-	  * Define o Tipo de Conhecimento de Transporte
-	  */
-	public void setLBR_CHCType (String LBR_CHCType);
-
-	/** Get Tipo Conhecimento de Transporte.
-	  * Define o Tipo de Conhecimento de Transporte
-	  */
-	public String getLBR_CHCType();
-
-    /** Column name LBR_DE */
-    public static final String COLUMNNAME_LBR_DE = "LBR_DE";
-
-	/** Set DE.
-	  * Número do Documento de Exportação
-	  */
-	public void setLBR_DE (String LBR_DE);
-
-	/** Get DE.
-	  * Número do Documento de Exportação
-	  */
-	public String getLBR_DE();
-
     /** Column name LBR_DE_ID */
     public static final String COLUMNNAME_LBR_DE_ID = "LBR_DE_ID";
 
@@ -192,45 +153,6 @@ public interface I_LBR_DE
 
 	/** Get DE	  */
 	public int getLBR_DE_ID();
-
-    /** Column name LBR_DateCHCEmb */
-    public static final String COLUMNNAME_LBR_DateCHCEmb = "LBR_DateCHCEmb";
-
-	/** Set Data Conhecimento de Embarque.
-	  * Data do Conhecimento de Embarque
-	  */
-	public void setLBR_DateCHCEmb (Timestamp LBR_DateCHCEmb);
-
-	/** Get Data Conhecimento de Embarque.
-	  * Data do Conhecimento de Embarque
-	  */
-	public Timestamp getLBR_DateCHCEmb();
-
-    /** Column name LBR_DateRE */
-    public static final String COLUMNNAME_LBR_DateRE = "LBR_DateRE";
-
-	/** Set Data RE.
-	  * Data do Registro de Exportação
-	  */
-	public void setLBR_DateRE (Timestamp LBR_DateRE);
-
-	/** Get Data RE.
-	  * Data do Registro de Exportação
-	  */
-	public Timestamp getLBR_DateRE();
-
-    /** Column name LBR_RE */
-    public static final String COLUMNNAME_LBR_RE = "LBR_RE";
-
-	/** Set No. RE.
-	  * No. do Registro de Exportação
-	  */
-	public void setLBR_RE (String LBR_RE);
-
-	/** Get No. RE.
-	  * No. do Registro de Exportação
-	  */
-	public String getLBR_RE();
 
     /** Column name Type */
     public static final String COLUMNNAME_Type = "Type";
@@ -260,4 +182,82 @@ public interface I_LBR_DE
 	  * User who updated this records
 	  */
 	public int getUpdatedBy();
+
+    /** Column name lbr_CHCEmb */
+    public static final String COLUMNNAME_lbr_CHCEmb = "lbr_CHCEmb";
+
+	/** Set No. Conhecimento de Embarque.
+	  * NÃºmero do Conhecimento de Embarque
+	  */
+	public void setlbr_CHCEmb (String lbr_CHCEmb);
+
+	/** Get No. Conhecimento de Embarque.
+	  * NÃºmero do Conhecimento de Embarque
+	  */
+	public String getlbr_CHCEmb();
+
+    /** Column name lbr_CHCType */
+    public static final String COLUMNNAME_lbr_CHCType = "lbr_CHCType";
+
+	/** Set Tipo Conhecimento de Transporte.
+	  * Define o Tipo de Conhecimento de Transporte
+	  */
+	public void setlbr_CHCType (String lbr_CHCType);
+
+	/** Get Tipo Conhecimento de Transporte.
+	  * Define o Tipo de Conhecimento de Transporte
+	  */
+	public String getlbr_CHCType();
+
+    /** Column name lbr_DE */
+    public static final String COLUMNNAME_lbr_DE = "lbr_DE";
+
+	/** Set DE.
+	  * Número do Documento de Exportação
+	  */
+	public void setlbr_DE (String lbr_DE);
+
+	/** Get DE.
+	  * Número do Documento de Exportação
+	  */
+	public String getlbr_DE();
+
+    /** Column name lbr_DateCHCEmb */
+    public static final String COLUMNNAME_lbr_DateCHCEmb = "lbr_DateCHCEmb";
+
+	/** Set Data Conhecimento de Embarque.
+	  * Data do Conhecimento de Embarque
+	  */
+	public void setlbr_DateCHCEmb (Timestamp lbr_DateCHCEmb);
+
+	/** Get Data Conhecimento de Embarque.
+	  * Data do Conhecimento de Embarque
+	  */
+	public Timestamp getlbr_DateCHCEmb();
+
+    /** Column name lbr_DateRE */
+    public static final String COLUMNNAME_lbr_DateRE = "lbr_DateRE";
+
+	/** Set Data RE.
+	  * Data do Registro de Exportação
+	  */
+	public void setlbr_DateRE (Timestamp lbr_DateRE);
+
+	/** Get Data RE.
+	  * Data do Registro de Exportação
+	  */
+	public Timestamp getlbr_DateRE();
+
+    /** Column name lbr_RE */
+    public static final String COLUMNNAME_lbr_RE = "lbr_RE";
+
+	/** Set No. RE.
+	  * No. do Registro de Exportação
+	  */
+	public void setlbr_RE (String lbr_RE);
+
+	/** Get No. RE.
+	  * No. do Registro de Exportação
+	  */
+	public String getlbr_RE();
 }

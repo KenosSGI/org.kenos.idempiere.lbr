@@ -25,7 +25,7 @@ import org.compiere.util.KeyNamePair;
  *  @version Release 4.1
  */
 @SuppressWarnings("all")
-public interface I_W_C_Tax 
+public interface I_W_C_Tax extends I_C_Tax 
 {
 
     /** TableName=C_Tax */

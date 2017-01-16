@@ -30,7 +30,7 @@ public class X_LBR_CFOPLine extends PO implements I_LBR_CFOPLine, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20170105L;
+	private static final long serialVersionUID = 20170116L;
 
     /** Standard Constructor */
     public X_LBR_CFOPLine (Properties ctx, int LBR_CFOPLine_ID, String trxName)
@@ -41,10 +41,10 @@ public class X_LBR_CFOPLine extends PO implements I_LBR_CFOPLine, I_Persistent
 			setC_DocType_ID (0);
 			setLBR_CFOPLine_ID (0);
 			setLBR_CFOP_ID (0);
-			setLBR_DestionationType (null);
-			setLBR_IsManufactured (null);
+			setlbr_DestionationType (null);
+			setlbr_IsManufactured (null);
 // 'N'
-			setLBR_IsSubTributaria (null);
+			setlbr_IsSubTributaria (null);
 // 'N'
         } */
     }
@@ -184,80 +184,6 @@ public class X_LBR_CFOPLine extends PO implements I_LBR_CFOPLine, I_Persistent
 		return ii.intValue();
 	}
 
-	/** Estados Identicos = 0 */
-	public static final String LBR_DESTIONATIONTYPE_EstadosIdenticos = "0";
-	/** Estados Diferentes = 1 */
-	public static final String LBR_DESTIONATIONTYPE_EstadosDiferentes = "1";
-	/** Estrangeiro = 2 */
-	public static final String LBR_DESTIONATIONTYPE_Estrangeiro = "2";
-	/** Zona Franca = 3 */
-	public static final String LBR_DESTIONATIONTYPE_ZonaFranca = "3";
-	/** Set Destination Type.
-		@param LBR_DestionationType 
-		Defines the Destination Type
-	  */
-	public void setLBR_DestionationType (String LBR_DestionationType)
-	{
-
-		set_Value (COLUMNNAME_LBR_DestionationType, LBR_DestionationType);
-	}
-
-	/** Get Destination Type.
-		@return Defines the Destination Type
-	  */
-	public String getLBR_DestionationType () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_DestionationType);
-	}
-
-	/** Yes = Y */
-	public static final String LBR_ISMANUFACTURED_Yes = "Y";
-	/** No = N */
-	public static final String LBR_ISMANUFACTURED_No = "N";
-	/** Both = B */
-	public static final String LBR_ISMANUFACTURED_Both = "B";
-	/** Set Is Manufactured.
-		@param LBR_IsManufactured 
-		Defines if the Product is Manufactured
-	  */
-	public void setLBR_IsManufactured (String LBR_IsManufactured)
-	{
-
-		set_Value (COLUMNNAME_LBR_IsManufactured, LBR_IsManufactured);
-	}
-
-	/** Get Is Manufactured.
-		@return Defines if the Product is Manufactured
-	  */
-	public String getLBR_IsManufactured () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_IsManufactured);
-	}
-
-	/** Yes = Y */
-	public static final String LBR_ISSUBTRIBUTARIA_Yes = "Y";
-	/** No = N */
-	public static final String LBR_ISSUBTRIBUTARIA_No = "N";
-	/** Both = B */
-	public static final String LBR_ISSUBTRIBUTARIA_Both = "B";
-	/** Set Is Substituicao Tributaria.
-		@param LBR_IsSubTributaria 
-		Defines the Is Substituicao Tributaria Status
-	  */
-	public void setLBR_IsSubTributaria (String LBR_IsSubTributaria)
-	{
-
-		set_Value (COLUMNNAME_LBR_IsSubTributaria, LBR_IsSubTributaria);
-	}
-
-	/** Get Is Substituicao Tributaria.
-		@return Defines the Is Substituicao Tributaria Status
-	  */
-	public String getLBR_IsSubTributaria () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_IsSubTributaria);
-	}
-
 	public org.adempierelbr.model.I_LBR_LegalMessage getLBR_LegalMessage() throws RuntimeException
     {
 		return (org.adempierelbr.model.I_LBR_LegalMessage)MTable.get(getCtx(), org.adempierelbr.model.I_LBR_LegalMessage.Table_Name)
@@ -337,6 +263,100 @@ public class X_LBR_CFOPLine extends PO implements I_LBR_CFOPLine, I_Persistent
 		return (String)get_Value(COLUMNNAME_LBR_TaxRegime);
 	}
 
+	/** Set Brazilian Tax.
+		@param LBR_Tax_ID 
+		Primary key table LBR_Tax
+	  */
+	public void setLBR_Tax_ID (Object LBR_Tax_ID)
+	{
+		set_Value (COLUMNNAME_LBR_Tax_ID, LBR_Tax_ID);
+	}
+
+	/** Get Brazilian Tax.
+		@return Primary key table LBR_Tax
+	  */
+	public Integer getLBR_Tax_ID () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_LBR_Tax_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
+	/** Estados Identicos = 0 */
+	public static final String LBR_DESTIONATIONTYPE_EstadosIdenticos = "0";
+	/** Estados Diferentes = 1 */
+	public static final String LBR_DESTIONATIONTYPE_EstadosDiferentes = "1";
+	/** Estrangeiro = 2 */
+	public static final String LBR_DESTIONATIONTYPE_Estrangeiro = "2";
+	/** Zona Franca = 3 */
+	public static final String LBR_DESTIONATIONTYPE_ZonaFranca = "3";
+	/** Set Destination Type.
+		@param lbr_DestionationType 
+		Defines the Destination Type
+	  */
+	public void setlbr_DestionationType (String lbr_DestionationType)
+	{
+
+		set_Value (COLUMNNAME_lbr_DestionationType, lbr_DestionationType);
+	}
+
+	/** Get Destination Type.
+		@return Defines the Destination Type
+	  */
+	public String getlbr_DestionationType () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_DestionationType);
+	}
+
+	/** Yes = Y */
+	public static final String LBR_ISMANUFACTURED_Yes = "Y";
+	/** No = N */
+	public static final String LBR_ISMANUFACTURED_No = "N";
+	/** Both = B */
+	public static final String LBR_ISMANUFACTURED_Both = "B";
+	/** Set Is Manufactured.
+		@param lbr_IsManufactured 
+		Defines if the Product is Manufactured
+	  */
+	public void setlbr_IsManufactured (String lbr_IsManufactured)
+	{
+
+		set_Value (COLUMNNAME_lbr_IsManufactured, lbr_IsManufactured);
+	}
+
+	/** Get Is Manufactured.
+		@return Defines if the Product is Manufactured
+	  */
+	public String getlbr_IsManufactured () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_IsManufactured);
+	}
+
+	/** Yes = Y */
+	public static final String LBR_ISSUBTRIBUTARIA_Yes = "Y";
+	/** No = N */
+	public static final String LBR_ISSUBTRIBUTARIA_No = "N";
+	/** Both = B */
+	public static final String LBR_ISSUBTRIBUTARIA_Both = "B";
+	/** Set Is Substituicao Tributaria.
+		@param lbr_IsSubTributaria 
+		Defines the Is Substituicao Tributaria Status
+	  */
+	public void setlbr_IsSubTributaria (String lbr_IsSubTributaria)
+	{
+
+		set_Value (COLUMNNAME_lbr_IsSubTributaria, lbr_IsSubTributaria);
+	}
+
+	/** Get Is Substituicao Tributaria.
+		@return Defines the Is Substituicao Tributaria Status
+	  */
+	public String getlbr_IsSubTributaria () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_IsSubTributaria);
+	}
+
 	/** 00 - Tributada integralmente = 00 */
 	public static final String LBR_TAXSTATUS_00_TributadaIntegralmente = "00";
 	/** 10 - Tributada e com cobranca do ICMS por Sub. Tributaria = 10 */
@@ -360,38 +380,21 @@ public class X_LBR_CFOPLine extends PO implements I_LBR_CFOPLine, I_Persistent
 	/** 90 - Outras = 90 */
 	public static final String LBR_TAXSTATUS_90_Outras = "90";
 	/** Set Tax Status.
-		@param LBR_TaxStatus 
+		@param lbr_TaxStatus 
 		Defines the Tax Status
 	  */
-	public void setLBR_TaxStatus (String LBR_TaxStatus)
+	public void setlbr_TaxStatus (String lbr_TaxStatus)
 	{
 
-		set_Value (COLUMNNAME_LBR_TaxStatus, LBR_TaxStatus);
+		set_Value (COLUMNNAME_lbr_TaxStatus, lbr_TaxStatus);
 	}
 
 	/** Get Tax Status.
 		@return Defines the Tax Status
 	  */
-	public String getLBR_TaxStatus () 
+	public String getlbr_TaxStatus () 
 	{
-		return (String)get_Value(COLUMNNAME_LBR_TaxStatus);
-	}
-
-	/** Set Brazilian Tax.
-		@param LBR_Tax_ID 
-		Primary key table LBR_Tax
-	  */
-	public void setLBR_Tax_ID (Object LBR_Tax_ID)
-	{
-		set_Value (COLUMNNAME_LBR_Tax_ID, LBR_Tax_ID);
-	}
-
-	/** Get Brazilian Tax.
-		@return Primary key table LBR_Tax
-	  */
-	public Object getLBR_Tax_ID () 
-	{
-				return get_Value(COLUMNNAME_LBR_Tax_ID);
+		return (String)get_Value(COLUMNNAME_lbr_TaxStatus);
 	}
 
 	/** End User = END */
@@ -407,20 +410,20 @@ public class X_LBR_CFOPLine extends PO implements I_LBR_CFOPLine, I_Persistent
 	/** End User (Double Base) = EN2 */
 	public static final String LBR_TRANSACTIONTYPE_EndUserDoubleBase = "EN2";
 	/** Set Transaction Type.
-		@param LBR_TransactionType 
+		@param lbr_TransactionType 
 		Defines the Transaction Type
 	  */
-	public void setLBR_TransactionType (String LBR_TransactionType)
+	public void setlbr_TransactionType (String lbr_TransactionType)
 	{
 
-		set_Value (COLUMNNAME_LBR_TransactionType, LBR_TransactionType);
+		set_Value (COLUMNNAME_lbr_TransactionType, lbr_TransactionType);
 	}
 
 	/** Get Transaction Type.
 		@return Defines the Transaction Type
 	  */
-	public String getLBR_TransactionType () 
+	public String getlbr_TransactionType () 
 	{
-		return (String)get_Value(COLUMNNAME_LBR_TransactionType);
+		return (String)get_Value(COLUMNNAME_lbr_TransactionType);
 	}
 }

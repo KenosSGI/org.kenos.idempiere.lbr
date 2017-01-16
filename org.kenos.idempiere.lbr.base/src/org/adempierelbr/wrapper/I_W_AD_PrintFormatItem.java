@@ -25,7 +25,7 @@ import org.compiere.util.KeyNamePair;
  *  @version Release 4.1
  */
 @SuppressWarnings("all")
-public interface I_W_AD_PrintFormatItem 
+public interface I_W_AD_PrintFormatItem extends I_AD_PrintFormatItem 
 {
 
     /** TableName=AD_PrintFormatItem */
@@ -35,16 +35,16 @@ public interface I_W_AD_PrintFormatItem
     public static final int Table_ID = 489;
 
 
-    /** Column name LBR_Descending */
-    public static final String COLUMNNAME_LBR_Descending = "LBR_Descending";
+    /** Column name lbr_Descending */
+    public static final String COLUMNNAME_lbr_Descending = "lbr_Descending";
 
 	/** Set Descending.
 	  * Indicate if the order by must be Descending
 	  */
-	public void setLBR_Descending (boolean LBR_Descending);
+	public void setlbr_Descending (boolean lbr_Descending);
 
 	/** Get Descending.
 	  * Indicate if the order by must be Descending
 	  */
-	public boolean isLBR_Descending();
+	public boolean islbr_Descending();
 }

@@ -25,7 +25,7 @@ import org.compiere.util.KeyNamePair;
  *  @version Release 4.1
  */
 @SuppressWarnings("all")
-public interface I_W_M_PriceList 
+public interface I_W_M_PriceList extends I_M_PriceList 
 {
 
     /** TableName=M_PriceList */
@@ -35,16 +35,16 @@ public interface I_W_M_PriceList
     public static final int Table_ID = 255;
 
 
-    /** Column name LBR_BrazilianPriceList */
-    public static final String COLUMNNAME_LBR_BrazilianPriceList = "LBR_BrazilianPriceList";
+    /** Column name lbr_BrazilianPriceList */
+    public static final String COLUMNNAME_lbr_BrazilianPriceList = "lbr_BrazilianPriceList";
 
 	/** Set Brazilian PriceList.
 	  * Defines if this is a Brazilian PriceList
 	  */
-	public void setLBR_BrazilianPriceList (boolean LBR_BrazilianPriceList);
+	public void setlbr_BrazilianPriceList (boolean lbr_BrazilianPriceList);
 
 	/** Get Brazilian PriceList.
 	  * Defines if this is a Brazilian PriceList
 	  */
-	public boolean isLBR_BrazilianPriceList();
+	public boolean islbr_BrazilianPriceList();
 }

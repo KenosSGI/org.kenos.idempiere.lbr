@@ -25,7 +25,7 @@ import org.compiere.util.KeyNamePair;
  *  @version Release 4.1
  */
 @SuppressWarnings("all")
-public interface I_W_I_BPartner 
+public interface I_W_I_BPartner extends I_I_BPartner 
 {
 
     /** TableName=I_BPartner */
@@ -65,8 +65,8 @@ public interface I_W_I_BPartner
 	  */
 	public boolean isSalesRep();
 
-    /** Column name LBR_BPTypeBR */
-    public static final String COLUMNNAME_LBR_BPTypeBR = "LBR_BPTypeBR";
+    /** Column name lbr_BPTypeBR */
+    public static final String COLUMNNAME_lbr_BPTypeBR = "lbr_BPTypeBR";
 
 	/** PJ - Legal Entity = PJ */
 	public static final String LBR_BPTYPEBR_PJ_LegalEntity = "PJ";
@@ -84,75 +84,75 @@ public interface I_W_I_BPartner
 	/** Set Brazilian BP Type.
 	  * Brazilian BP Type (Identifies if the BP is a Legal Entity or an Individual)
 	  */
-	public void setLBR_BPTypeBR (String LBR_BPTypeBR);
+	public void setlbr_BPTypeBR (String lbr_BPTypeBR);
 
 	/** Get Brazilian BP Type.
 	  * Brazilian BP Type (Identifies if the BP is a Legal Entity or an Individual)
 	  */
-	public String getLBR_BPTypeBR();
+	public String getlbr_BPTypeBR();
 
-    /** Column name LBR_CCM */
-    public static final String COLUMNNAME_LBR_CCM = "LBR_CCM";
+    /** Column name lbr_CCM */
+    public static final String COLUMNNAME_lbr_CCM = "lbr_CCM";
 
 	/** Set CCM.
 	  * City Identification Code used in Brazil (City Tax ID)
 	  */
-	public void setLBR_CCM (String LBR_CCM);
+	public void setlbr_CCM (String lbr_CCM);
 
 	/** Get CCM.
 	  * City Identification Code used in Brazil (City Tax ID)
 	  */
-	public String getLBR_CCM();
+	public String getlbr_CCM();
 
-    /** Column name LBR_CNPJ */
-    public static final String COLUMNNAME_LBR_CNPJ = "LBR_CNPJ";
+    /** Column name lbr_CNPJ */
+    public static final String COLUMNNAME_lbr_CNPJ = "lbr_CNPJ";
 
 	/** Set CNPJ.
 	  * Used to identify Legal Entities in Brazil
 	  */
-	public void setLBR_CNPJ (String LBR_CNPJ);
+	public void setlbr_CNPJ (String lbr_CNPJ);
 
 	/** Get CNPJ.
 	  * Used to identify Legal Entities in Brazil
 	  */
-	public String getLBR_CNPJ();
+	public String getlbr_CNPJ();
 
-    /** Column name LBR_CPF */
-    public static final String COLUMNNAME_LBR_CPF = "LBR_CPF";
+    /** Column name lbr_CPF */
+    public static final String COLUMNNAME_lbr_CPF = "lbr_CPF";
 
 	/** Set CPF.
 	  * Used to identify individuals in Brazil
 	  */
-	public void setLBR_CPF (String LBR_CPF);
+	public void setlbr_CPF (String lbr_CPF);
 
 	/** Get CPF.
 	  * Used to identify individuals in Brazil
 	  */
-	public String getLBR_CPF();
+	public String getlbr_CPF();
 
-    /** Column name LBR_IE */
-    public static final String COLUMNNAME_LBR_IE = "LBR_IE";
+    /** Column name lbr_IE */
+    public static final String COLUMNNAME_lbr_IE = "lbr_IE";
 
 	/** Set IE.
 	  * Used to Identify the IE (State Tax ID)
 	  */
-	public void setLBR_IE (String LBR_IE);
+	public void setlbr_IE (String lbr_IE);
 
 	/** Get IE.
 	  * Used to Identify the IE (State Tax ID)
 	  */
-	public String getLBR_IE();
+	public String getlbr_IE();
 
-    /** Column name LBR_RG */
-    public static final String COLUMNNAME_LBR_RG = "LBR_RG";
+    /** Column name lbr_RG */
+    public static final String COLUMNNAME_lbr_RG = "lbr_RG";
 
 	/** Set RG.
 	  * Used to identify individuals in Brazil
 	  */
-	public void setLBR_RG (String LBR_RG);
+	public void setlbr_RG (String lbr_RG);
 
 	/** Get RG.
 	  * Used to identify individuals in Brazil
 	  */
-	public String getLBR_RG();
+	public String getlbr_RG();
 }

@@ -31,7 +31,7 @@ public class X_LBR_AuthorizedAccessXML extends PO implements I_LBR_AuthorizedAcc
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20170105L;
+	private static final long serialVersionUID = 20170116L;
 
     /** Standard Constructor */
     public X_LBR_AuthorizedAccessXML (Properties ctx, int LBR_AuthorizedAccessXML_ID, String trxName)
@@ -40,7 +40,7 @@ public class X_LBR_AuthorizedAccessXML extends PO implements I_LBR_AuthorizedAcc
       /** if (LBR_AuthorizedAccessXML_ID == 0)
         {
 			setLBR_AuthorizedAccessXML_ID (0);
-			setLBR_BPTypeBR (null);
+			setlbr_BPTypeBR (null);
 // PJ
         } */
     }
@@ -134,54 +134,54 @@ public class X_LBR_AuthorizedAccessXML extends PO implements I_LBR_AuthorizedAcc
 	/** PJ - Legal Entity = PJ */
 	public static final String LBR_BPTYPEBR_PJ_LegalEntity = "PJ";
 	/** Set Brazilian BP Type.
-		@param LBR_BPTypeBR 
+		@param lbr_BPTypeBR 
 		Brazilian BP Type (Identifies if the BP is a Legal Entity or an Individual)
 	  */
-	public void setLBR_BPTypeBR (String LBR_BPTypeBR)
+	public void setlbr_BPTypeBR (String lbr_BPTypeBR)
 	{
 
-		set_Value (COLUMNNAME_LBR_BPTypeBR, LBR_BPTypeBR);
+		set_Value (COLUMNNAME_lbr_BPTypeBR, lbr_BPTypeBR);
 	}
 
 	/** Get Brazilian BP Type.
 		@return Brazilian BP Type (Identifies if the BP is a Legal Entity or an Individual)
 	  */
-	public String getLBR_BPTypeBR () 
+	public String getlbr_BPTypeBR () 
 	{
-		return (String)get_Value(COLUMNNAME_LBR_BPTypeBR);
+		return (String)get_Value(COLUMNNAME_lbr_BPTypeBR);
 	}
 
 	/** Set CNPJ.
-		@param LBR_CNPJ 
+		@param lbr_CNPJ 
 		Used to identify Legal Entities in Brazil
 	  */
-	public void setLBR_CNPJ (String LBR_CNPJ)
+	public void setlbr_CNPJ (String lbr_CNPJ)
 	{
-		set_Value (COLUMNNAME_LBR_CNPJ, LBR_CNPJ);
+		set_Value (COLUMNNAME_lbr_CNPJ, lbr_CNPJ);
 	}
 
 	/** Get CNPJ.
 		@return Used to identify Legal Entities in Brazil
 	  */
-	public String getLBR_CNPJ () 
+	public String getlbr_CNPJ () 
 	{
-		return (String)get_Value(COLUMNNAME_LBR_CNPJ);
+		return (String)get_Value(COLUMNNAME_lbr_CNPJ);
 	}
 
 	/** Set CPF.
-		@param LBR_CPF 
+		@param lbr_CPF 
 		Used to identify individuals in Brazil
 	  */
-	public void setLBR_CPF (String LBR_CPF)
+	public void setlbr_CPF (String lbr_CPF)
 	{
-		set_Value (COLUMNNAME_LBR_CPF, LBR_CPF);
+		set_Value (COLUMNNAME_lbr_CPF, lbr_CPF);
 	}
 
 	/** Get CPF.
 		@return Used to identify individuals in Brazil
 	  */
-	public String getLBR_CPF () 
+	public String getlbr_CPF () 
 	{
-		return (String)get_Value(COLUMNNAME_LBR_CPF);
+		return (String)get_Value(COLUMNNAME_lbr_CPF);
 	}
 }

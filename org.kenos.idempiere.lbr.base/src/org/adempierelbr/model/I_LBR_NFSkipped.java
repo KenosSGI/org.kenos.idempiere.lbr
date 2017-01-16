@@ -106,41 +106,6 @@ public interface I_LBR_NFSkipped
 	  */
 	public boolean isActive();
 
-    /** Column name LBR_CNPJ */
-    public static final String COLUMNNAME_LBR_CNPJ = "LBR_CNPJ";
-
-	/** Set CNPJ.
-	  * Used to identify Legal Entities in Brazil
-	  */
-	public void setLBR_CNPJ (String LBR_CNPJ);
-
-	/** Get CNPJ.
-	  * Used to identify Legal Entities in Brazil
-	  */
-	public String getLBR_CNPJ();
-
-    /** Column name LBR_NFModel */
-    public static final String COLUMNNAME_LBR_NFModel = "LBR_NFModel";
-
-	/** Set NF Model.
-	  * Identifies the model of Nota Fiscal
-	  */
-	public void setLBR_NFModel (String LBR_NFModel);
-
-	/** Get NF Model.
-	  * Identifies the model of Nota Fiscal
-	  */
-	public String getLBR_NFModel();
-
-    /** Column name LBR_NFSerie */
-    public static final String COLUMNNAME_LBR_NFSerie = "LBR_NFSerie";
-
-	/** Set NF Serie	  */
-	public void setLBR_NFSerie (String LBR_NFSerie);
-
-	/** Get NF Serie	  */
-	public String getLBR_NFSerie();
-
     /** Column name LBR_NFSkipped_ID */
     public static final String COLUMNNAME_LBR_NFSkipped_ID = "LBR_NFSkipped_ID";
 
@@ -149,15 +114,6 @@ public interface I_LBR_NFSkipped
 
 	/** Get NF-e Skipped	  */
 	public int getLBR_NFSkipped_ID();
-
-    /** Column name LBR_NFeProt */
-    public static final String COLUMNNAME_LBR_NFeProt = "LBR_NFeProt";
-
-	/** Set NFe Protocol	  */
-	public void setLBR_NFeProt (String LBR_NFeProt);
-
-	/** Get NFe Protocol	  */
-	public String getLBR_NFeProt();
 
     /** Column name LBR_NFeSkippedNFFin */
     public static final String COLUMNNAME_LBR_NFeSkippedNFFin = "LBR_NFeSkippedNFFin";
@@ -201,4 +157,48 @@ public interface I_LBR_NFSkipped
 	  * User who updated this records
 	  */
 	public int getUpdatedBy();
+
+    /** Column name lbr_CNPJ */
+    public static final String COLUMNNAME_lbr_CNPJ = "lbr_CNPJ";
+
+	/** Set CNPJ.
+	  * Used to identify Legal Entities in Brazil
+	  */
+	public void setlbr_CNPJ (String lbr_CNPJ);
+
+	/** Get CNPJ.
+	  * Used to identify Legal Entities in Brazil
+	  */
+	public String getlbr_CNPJ();
+
+    /** Column name lbr_NFModel */
+    public static final String COLUMNNAME_lbr_NFModel = "lbr_NFModel";
+
+	/** Set NF Model.
+	  * Identifies the model of Nota Fiscal
+	  */
+	public void setlbr_NFModel (String lbr_NFModel);
+
+	/** Get NF Model.
+	  * Identifies the model of Nota Fiscal
+	  */
+	public String getlbr_NFModel();
+
+    /** Column name lbr_NFSerie */
+    public static final String COLUMNNAME_lbr_NFSerie = "lbr_NFSerie";
+
+	/** Set NF Serie	  */
+	public void setlbr_NFSerie (String lbr_NFSerie);
+
+	/** Get NF Serie	  */
+	public String getlbr_NFSerie();
+
+    /** Column name lbr_NFeProt */
+    public static final String COLUMNNAME_lbr_NFeProt = "lbr_NFeProt";
+
+	/** Set NFe Protocol	  */
+	public void setlbr_NFeProt (String lbr_NFeProt);
+
+	/** Get NFe Protocol	  */
+	public String getlbr_NFeProt();
 }

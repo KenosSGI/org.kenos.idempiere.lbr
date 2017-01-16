@@ -25,7 +25,7 @@ import org.compiere.util.KeyNamePair;
  *  @version Release 4.1
  */
 @SuppressWarnings("all")
-public interface I_W_C_PaymentTerm 
+public interface I_W_C_PaymentTerm extends I_C_PaymentTerm 
 {
 
     /** TableName=C_PaymentTerm */
@@ -35,42 +35,42 @@ public interface I_W_C_PaymentTerm
     public static final int Table_ID = 113;
 
 
-    /** Column name LBR_HasInterest */
-    public static final String COLUMNNAME_LBR_HasInterest = "LBR_HasInterest";
+    /** Column name lbr_HasInterest */
+    public static final String COLUMNNAME_lbr_HasInterest = "lbr_HasInterest";
 
 	/** Set Has Interest.
 	  * Define if this document has Interest
 	  */
-	public void setLBR_HasInterest (boolean LBR_HasInterest);
+	public void setlbr_HasInterest (boolean lbr_HasInterest);
 
 	/** Get Has Interest.
 	  * Define if this document has Interest
 	  */
-	public boolean isLBR_HasInterest();
+	public boolean islbr_HasInterest();
 
-    /** Column name LBR_HasSue */
-    public static final String COLUMNNAME_LBR_HasSue = "LBR_HasSue";
+    /** Column name lbr_HasSue */
+    public static final String COLUMNNAME_lbr_HasSue = "lbr_HasSue";
 
 	/** Set Has Sue.
 	  * Define if this Document must be Sue
 	  */
-	public void setLBR_HasSue (boolean LBR_HasSue);
+	public void setlbr_HasSue (boolean lbr_HasSue);
 
 	/** Get Has Sue.
 	  * Define if this Document must be Sue
 	  */
-	public boolean isLBR_HasSue();
+	public boolean islbr_HasSue();
 
-    /** Column name LBR_SueDays */
-    public static final String COLUMNNAME_LBR_SueDays = "LBR_SueDays";
+    /** Column name lbr_SueDays */
+    public static final String COLUMNNAME_lbr_SueDays = "lbr_SueDays";
 
 	/** Set Sue Days.
 	  * Define the Sue Days
 	  */
-	public void setLBR_SueDays (int LBR_SueDays);
+	public void setlbr_SueDays (int lbr_SueDays);
 
 	/** Get Sue Days.
 	  * Define the Sue Days
 	  */
-	public int getLBR_SueDays();
+	public int getlbr_SueDays();
 }

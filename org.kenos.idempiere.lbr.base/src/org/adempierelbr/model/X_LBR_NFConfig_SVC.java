@@ -32,7 +32,7 @@ public class X_LBR_NFConfig_SVC extends PO implements I_LBR_NFConfig_SVC, I_Pers
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20170105L;
+	private static final long serialVersionUID = 20170116L;
 
     /** Standard Constructor */
     public X_LBR_NFConfig_SVC (Properties ctx, int LBR_NFConfig_SVC_ID, String trxName)
@@ -42,12 +42,12 @@ public class X_LBR_NFConfig_SVC extends PO implements I_LBR_NFConfig_SVC, I_Pers
         {
 			setDateFrom (new Timestamp( System.currentTimeMillis() ));
 			setDateTo (new Timestamp( System.currentTimeMillis() ));
-			setLBR_DateScan (new Timestamp( System.currentTimeMillis() ));
-			setLBR_MotivoScan (null);
 			setLBR_NFConfig_ID (0);
 			setLBR_NFConfig_SVC_ID (0);
 			setLBR_TPEmis (null);
 // 6
+			setlbr_DateScan (new Timestamp( System.currentTimeMillis() ));
+			setlbr_MotivoScan (null);
         } */
     }
 
@@ -112,42 +112,6 @@ public class X_LBR_NFConfig_SVC extends PO implements I_LBR_NFConfig_SVC, I_Pers
 	{
 		return (Timestamp)get_Value(COLUMNNAME_DateTo);
 	}
-
-	/** Set Data contingência.
-		@param LBR_DateScan Data contingência	  */
-	public void setLBR_DateScan (Timestamp LBR_DateScan)
-	{
-		set_Value (COLUMNNAME_LBR_DateScan, LBR_DateScan);
-	}
-
-	/** Get Data contingência.
-		@return Data contingência	  */
-	public Timestamp getLBR_DateScan () 
-	{
-		return (Timestamp)get_Value(COLUMNNAME_LBR_DateScan);
-	}
-
-	/** Set Motivo contingência.
-		@param LBR_MotivoScan Motivo contingência	  */
-	public void setLBR_MotivoScan (String LBR_MotivoScan)
-	{
-		set_Value (COLUMNNAME_LBR_MotivoScan, LBR_MotivoScan);
-	}
-
-	/** Get Motivo contingência.
-		@return Motivo contingência	  */
-	public String getLBR_MotivoScan () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_MotivoScan);
-	}
-
-    /** Get Record ID/ColumnName
-        @return ID/ColumnName pair
-      */
-    public KeyNamePair getKeyNamePair() 
-    {
-        return new KeyNamePair(get_ID(), String.valueOf(getLBR_MotivoScan()));
-    }
 
 	public org.adempierelbr.model.I_LBR_NFConfig getLBR_NFConfig() throws RuntimeException
     {
@@ -227,4 +191,40 @@ public class X_LBR_NFConfig_SVC extends PO implements I_LBR_NFConfig_SVC, I_Pers
 	{
 		return (String)get_Value(COLUMNNAME_LBR_TPEmis);
 	}
+
+	/** Set Data contingência.
+		@param lbr_DateScan Data contingência	  */
+	public void setlbr_DateScan (Timestamp lbr_DateScan)
+	{
+		set_Value (COLUMNNAME_lbr_DateScan, lbr_DateScan);
+	}
+
+	/** Get Data contingência.
+		@return Data contingência	  */
+	public Timestamp getlbr_DateScan () 
+	{
+		return (Timestamp)get_Value(COLUMNNAME_lbr_DateScan);
+	}
+
+	/** Set Motivo contingência.
+		@param lbr_MotivoScan Motivo contingência	  */
+	public void setlbr_MotivoScan (String lbr_MotivoScan)
+	{
+		set_Value (COLUMNNAME_lbr_MotivoScan, lbr_MotivoScan);
+	}
+
+	/** Get Motivo contingência.
+		@return Motivo contingência	  */
+	public String getlbr_MotivoScan () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_MotivoScan);
+	}
+
+    /** Get Record ID/ColumnName
+        @return ID/ColumnName pair
+      */
+    public KeyNamePair getKeyNamePair() 
+    {
+        return new KeyNamePair(get_ID(), String.valueOf(getlbr_MotivoScan()));
+    }
 }

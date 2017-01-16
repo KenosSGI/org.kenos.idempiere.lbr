@@ -1,6 +1,6 @@
 /******************************************************************************
- * Product: iDempiere ERP & CRM Smart Business Solution                       *
- * Copyright (C) 1999-2012 ComPiere, Inc. All Rights Reserved.                *
+ * Product: AdempiereLBR ERP & CRM Smart Business Solution                    *
+ * Copyright (C) 1999-2007 ComPiere, Inc. All Rights Reserved.                *
  * This program is free software, you can redistribute it and/or modify it    *
  * under the terms version 2 of the GNU General Public License as published   *
  * by the Free Software Foundation. This program is distributed in the hope   *
@@ -25,15 +25,15 @@ import org.compiere.model.*;
 import org.compiere.util.Env;
 
 /** Generated Model for LBR_FactFiscal
- *  @author iDempiere (generated) 
- *  @version Release 4.1 - $Id$ */
+ *  @author ADempiereLBR (generated) 
+ *  @version Release 3.6.0LTS - $Id$ */
 public class X_LBR_FactFiscal extends PO implements I_LBR_FactFiscal, I_Persistent 
 {
 
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20170105L;
+	private static final long serialVersionUID = 20120817L;
 
     /** Standard Constructor */
     public X_LBR_FactFiscal (Properties ctx, int LBR_FactFiscal_ID, String trxName)
@@ -72,11 +72,45 @@ public class X_LBR_FactFiscal extends PO implements I_LBR_FactFiscal, I_Persiste
       return sb.toString();
     }
 
+	/** Set Cod. Cidade do PN .
+		@param BPCityCode Cod. Cidade do PN 	  */
+	public void setBPCityCode (int BPCityCode)
+	{
+		set_Value (COLUMNNAME_BPCityCode, Integer.valueOf(BPCityCode));
+	}
+
+	/** Get Cod. Cidade do PN .
+		@return Cod. Cidade do PN 	  */
+	public int getBPCityCode () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_BPCityCode);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
+	/** Set Código do País do PN.
+		@param BPCountryCode Código do País do PN	  */
+	public void setBPCountryCode (int BPCountryCode)
+	{
+		set_Value (COLUMNNAME_BPCountryCode, Integer.valueOf(BPCountryCode));
+	}
+
+	/** Get Código do País do PN.
+		@return Código do País do PN	  */
+	public int getBPCountryCode () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_BPCountryCode);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
 	/** Set BP Name.
 		@param BPName BP Name	  */
 	public void setBPName (String BPName)
 	{
-		set_ValueNoCheck (COLUMNNAME_BPName, BPName);
+		set_Value (COLUMNNAME_BPName, BPName);
 	}
 
 	/** Get BP Name.
@@ -86,9 +120,9 @@ public class X_LBR_FactFiscal extends PO implements I_LBR_FactFiscal, I_Persiste
 		return (String)get_Value(COLUMNNAME_BPName);
 	}
 
-	public org.compiere.model.I_C_BPartner getC_BPartner() throws RuntimeException
+	public I_C_BPartner getC_BPartner() throws RuntimeException
     {
-		return (org.compiere.model.I_C_BPartner)MTable.get(getCtx(), org.compiere.model.I_C_BPartner.Table_Name)
+		return (I_C_BPartner)MTable.get(getCtx(), I_C_BPartner.Table_Name)
 			.getPO(getC_BPartner_ID(), get_TrxName());	}
 
 	/** Set Business Partner .
@@ -98,9 +132,9 @@ public class X_LBR_FactFiscal extends PO implements I_LBR_FactFiscal, I_Persiste
 	public void setC_BPartner_ID (int C_BPartner_ID)
 	{
 		if (C_BPartner_ID < 1) 
-			set_ValueNoCheck (COLUMNNAME_C_BPartner_ID, null);
+			set_Value (COLUMNNAME_C_BPartner_ID, null);
 		else 
-			set_ValueNoCheck (COLUMNNAME_C_BPartner_ID, Integer.valueOf(C_BPartner_ID));
+			set_Value (COLUMNNAME_C_BPartner_ID, Integer.valueOf(C_BPartner_ID));
 	}
 
 	/** Get Business Partner .
@@ -114,9 +148,9 @@ public class X_LBR_FactFiscal extends PO implements I_LBR_FactFiscal, I_Persiste
 		return ii.intValue();
 	}
 
-	public org.compiere.model.I_C_BPartner_Location getC_BPartner_Location() throws RuntimeException
+	public I_C_BPartner_Location getC_BPartner_Location() throws RuntimeException
     {
-		return (org.compiere.model.I_C_BPartner_Location)MTable.get(getCtx(), org.compiere.model.I_C_BPartner_Location.Table_Name)
+		return (I_C_BPartner_Location)MTable.get(getCtx(), I_C_BPartner_Location.Table_Name)
 			.getPO(getC_BPartner_Location_ID(), get_TrxName());	}
 
 	/** Set Partner Location.
@@ -126,9 +160,9 @@ public class X_LBR_FactFiscal extends PO implements I_LBR_FactFiscal, I_Persiste
 	public void setC_BPartner_Location_ID (int C_BPartner_Location_ID)
 	{
 		if (C_BPartner_Location_ID < 1) 
-			set_ValueNoCheck (COLUMNNAME_C_BPartner_Location_ID, null);
+			set_Value (COLUMNNAME_C_BPartner_Location_ID, null);
 		else 
-			set_ValueNoCheck (COLUMNNAME_C_BPartner_Location_ID, Integer.valueOf(C_BPartner_Location_ID));
+			set_Value (COLUMNNAME_C_BPartner_Location_ID, Integer.valueOf(C_BPartner_Location_ID));
 	}
 
 	/** Get Partner Location.
@@ -142,9 +176,9 @@ public class X_LBR_FactFiscal extends PO implements I_LBR_FactFiscal, I_Persiste
 		return ii.intValue();
 	}
 
-	public org.compiere.model.I_C_Invoice getC_Invoice() throws RuntimeException
+	public I_C_Invoice getC_Invoice() throws RuntimeException
     {
-		return (org.compiere.model.I_C_Invoice)MTable.get(getCtx(), org.compiere.model.I_C_Invoice.Table_Name)
+		return (I_C_Invoice)MTable.get(getCtx(), I_C_Invoice.Table_Name)
 			.getPO(getC_Invoice_ID(), get_TrxName());	}
 
 	/** Set Invoice.
@@ -154,9 +188,9 @@ public class X_LBR_FactFiscal extends PO implements I_LBR_FactFiscal, I_Persiste
 	public void setC_Invoice_ID (int C_Invoice_ID)
 	{
 		if (C_Invoice_ID < 1) 
-			set_ValueNoCheck (COLUMNNAME_C_Invoice_ID, null);
+			set_Value (COLUMNNAME_C_Invoice_ID, null);
 		else 
-			set_ValueNoCheck (COLUMNNAME_C_Invoice_ID, Integer.valueOf(C_Invoice_ID));
+			set_Value (COLUMNNAME_C_Invoice_ID, Integer.valueOf(C_Invoice_ID));
 	}
 
 	/** Get Invoice.
@@ -170,9 +204,108 @@ public class X_LBR_FactFiscal extends PO implements I_LBR_FactFiscal, I_Persiste
 		return ii.intValue();
 	}
 
-	public org.compiere.model.I_C_Order getC_Order() throws RuntimeException
+	/** Set Total de Cofins da NF.
+		@param COFINS_NFTaxAmt Total de Cofins da NF	  */
+	public void setCOFINS_NFTaxAmt (BigDecimal COFINS_NFTaxAmt)
+	{
+		set_Value (COLUMNNAME_COFINS_NFTaxAmt, COFINS_NFTaxAmt);
+	}
+
+	/** Get Total de Cofins da NF.
+		@return Total de Cofins da NF	  */
+	public BigDecimal getCOFINS_NFTaxAmt () 
+	{
+		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_COFINS_NFTaxAmt);
+		if (bd == null)
+			 return Env.ZERO;
+		return bd;
+	}
+
+	/** Set Valor do COFINS.
+		@param COFINS_TaxAmt Valor do COFINS	  */
+	public void setCOFINS_TaxAmt (BigDecimal COFINS_TaxAmt)
+	{
+		set_Value (COLUMNNAME_COFINS_TaxAmt, COFINS_TaxAmt);
+	}
+
+	/** Get Valor do COFINS.
+		@return Valor do COFINS	  */
+	public BigDecimal getCOFINS_TaxAmt () 
+	{
+		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_COFINS_TaxAmt);
+		if (bd == null)
+			 return Env.ZERO;
+		return bd;
+	}
+
+	/** Set Red. Base de Cálculo do COFINS.
+		@param COFINS_TaxBase Red. Base de Cálculo do COFINS	  */
+	public void setCOFINS_TaxBase (BigDecimal COFINS_TaxBase)
+	{
+		set_Value (COLUMNNAME_COFINS_TaxBase, COFINS_TaxBase);
+	}
+
+	/** Get Red. Base de Cálculo do COFINS.
+		@return Red. Base de Cálculo do COFINS	  */
+	public BigDecimal getCOFINS_TaxBase () 
+	{
+		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_COFINS_TaxBase);
+		if (bd == null)
+			 return Env.ZERO;
+		return bd;
+	}
+
+	/** Set Vlr. BC COFINS.
+		@param COFINS_TaxBaseAmt Vlr. BC COFINS	  */
+	public void setCOFINS_TaxBaseAmt (BigDecimal COFINS_TaxBaseAmt)
+	{
+		set_Value (COLUMNNAME_COFINS_TaxBaseAmt, COFINS_TaxBaseAmt);
+	}
+
+	/** Get Vlr. BC COFINS.
+		@return Vlr. BC COFINS	  */
+	public BigDecimal getCOFINS_TaxBaseAmt () 
+	{
+		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_COFINS_TaxBaseAmt);
+		if (bd == null)
+			 return Env.ZERO;
+		return bd;
+	}
+
+	/** Set Alíq. Cofins.
+		@param COFINS_TaxRate Alíq. Cofins	  */
+	public void setCOFINS_TaxRate (BigDecimal COFINS_TaxRate)
+	{
+		set_Value (COLUMNNAME_COFINS_TaxRate, COFINS_TaxRate);
+	}
+
+	/** Get Alíq. Cofins.
+		@return Alíq. Cofins	  */
+	public BigDecimal getCOFINS_TaxRate () 
+	{
+		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_COFINS_TaxRate);
+		if (bd == null)
+			 return Env.ZERO;
+		return bd;
+	}
+
+	/** Set CST Cofins.
+		@param COFINS_TaxStatus CST Cofins	  */
+	public void setCOFINS_TaxStatus (String COFINS_TaxStatus)
+	{
+		set_Value (COLUMNNAME_COFINS_TaxStatus, COFINS_TaxStatus);
+	}
+
+	/** Get CST Cofins.
+		@return CST Cofins	  */
+	public String getCOFINS_TaxStatus () 
+	{
+		return (String)get_Value(COLUMNNAME_COFINS_TaxStatus);
+	}
+
+	public I_C_Order getC_Order() throws RuntimeException
     {
-		return (org.compiere.model.I_C_Order)MTable.get(getCtx(), org.compiere.model.I_C_Order.Table_Name)
+		return (I_C_Order)MTable.get(getCtx(), I_C_Order.Table_Name)
 			.getPO(getC_Order_ID(), get_TrxName());	}
 
 	/** Set Order.
@@ -182,9 +315,9 @@ public class X_LBR_FactFiscal extends PO implements I_LBR_FactFiscal, I_Persiste
 	public void setC_Order_ID (int C_Order_ID)
 	{
 		if (C_Order_ID < 1) 
-			set_ValueNoCheck (COLUMNNAME_C_Order_ID, null);
+			set_Value (COLUMNNAME_C_Order_ID, null);
 		else 
-			set_ValueNoCheck (COLUMNNAME_C_Order_ID, Integer.valueOf(C_Order_ID));
+			set_Value (COLUMNNAME_C_Order_ID, Integer.valueOf(C_Order_ID));
 	}
 
 	/** Get Order.
@@ -198,9 +331,9 @@ public class X_LBR_FactFiscal extends PO implements I_LBR_FactFiscal, I_Persiste
 		return ii.intValue();
 	}
 
-	public org.compiere.model.I_C_UOM getC_UOM() throws RuntimeException
+	public I_C_UOM getC_UOM() throws RuntimeException
     {
-		return (org.compiere.model.I_C_UOM)MTable.get(getCtx(), org.compiere.model.I_C_UOM.Table_Name)
+		return (I_C_UOM)MTable.get(getCtx(), I_C_UOM.Table_Name)
 			.getPO(getC_UOM_ID(), get_TrxName());	}
 
 	/** Set UOM.
@@ -210,9 +343,9 @@ public class X_LBR_FactFiscal extends PO implements I_LBR_FactFiscal, I_Persiste
 	public void setC_UOM_ID (int C_UOM_ID)
 	{
 		if (C_UOM_ID < 1) 
-			set_ValueNoCheck (COLUMNNAME_C_UOM_ID, null);
+			set_Value (COLUMNNAME_C_UOM_ID, null);
 		else 
-			set_ValueNoCheck (COLUMNNAME_C_UOM_ID, Integer.valueOf(C_UOM_ID));
+			set_Value (COLUMNNAME_C_UOM_ID, Integer.valueOf(C_UOM_ID));
 	}
 
 	/** Get UOM.
@@ -232,7 +365,7 @@ public class X_LBR_FactFiscal extends PO implements I_LBR_FactFiscal, I_Persiste
 	  */
 	public void setDateDoc (Timestamp DateDoc)
 	{
-		set_ValueNoCheck (COLUMNNAME_DateDoc, DateDoc);
+		set_Value (COLUMNNAME_DateDoc, DateDoc);
 	}
 
 	/** Get Document Date.
@@ -249,7 +382,7 @@ public class X_LBR_FactFiscal extends PO implements I_LBR_FactFiscal, I_Persiste
 	  */
 	public void setDiscountAmt (BigDecimal DiscountAmt)
 	{
-		set_ValueNoCheck (COLUMNNAME_DiscountAmt, DiscountAmt);
+		set_Value (COLUMNNAME_DiscountAmt, DiscountAmt);
 	}
 
 	/** Get Discount Amount.
@@ -263,13 +396,48 @@ public class X_LBR_FactFiscal extends PO implements I_LBR_FactFiscal, I_Persiste
 		return bd;
 	}
 
+	/** DocBaseTypeBR AD_Reference_ID=2000024 */
+	public static final int DOCBASETYPEBR_AD_Reference_ID=2000024;
+	/** Compra = COMP */
+	public static final String DOCBASETYPEBR_Compra = "COMP";
+	/** Devolução de Compra = DEVC */
+	public static final String DOCBASETYPEBR_DevoluçãoDeCompra = "DEVC";
+	/** Devolução de Remessas Diversas = DEVR */
+	public static final String DOCBASETYPEBR_DevoluçãoDeRemessasDiversas = "DEVR";
+	/** Devolução de Venda = DEVV */
+	public static final String DOCBASETYPEBR_DevoluçãoDeVenda = "DEVV";
+	/** Outros = OUTR */
+	public static final String DOCBASETYPEBR_Outros = "OUTR";
+	/** Remessas Diversas = REMD */
+	public static final String DOCBASETYPEBR_RemessasDiversas = "REMD";
+	/** Transferência (Entrada) = TRFE */
+	public static final String DOCBASETYPEBR_TransferênciaEntrada = "TRFE";
+	/** Transferência (Saída) = TRXS */
+	public static final String DOCBASETYPEBR_TransferênciaSaída = "TRXS";
+	/** Venda = VEND */
+	public static final String DOCBASETYPEBR_Venda = "VEND";
+	/** Set Sub Classificação do Documento.
+		@param DocBaseTypeBR Sub Classificação do Documento	  */
+	public void setDocBaseTypeBR (String DocBaseTypeBR)
+	{
+
+		set_Value (COLUMNNAME_DocBaseTypeBR, DocBaseTypeBR);
+	}
+
+	/** Get Sub Classificação do Documento.
+		@return Sub Classificação do Documento	  */
+	public String getDocBaseTypeBR () 
+	{
+		return (String)get_Value(COLUMNNAME_DocBaseTypeBR);
+	}
+
 	/** Set Document No.
 		@param DocumentNo 
 		Document sequence number of the document
 	  */
 	public void setDocumentNo (String DocumentNo)
 	{
-		set_ValueNoCheck (COLUMNNAME_DocumentNo, DocumentNo);
+		set_Value (COLUMNNAME_DocumentNo, DocumentNo);
 	}
 
 	/** Get Document No.
@@ -286,7 +454,7 @@ public class X_LBR_FactFiscal extends PO implements I_LBR_FactFiscal, I_Persiste
 	  */
 	public void setEMail (String EMail)
 	{
-		set_ValueNoCheck (COLUMNNAME_EMail, EMail);
+		set_Value (COLUMNNAME_EMail, EMail);
 	}
 
 	/** Get EMail Address.
@@ -303,7 +471,7 @@ public class X_LBR_FactFiscal extends PO implements I_LBR_FactFiscal, I_Persiste
 	  */
 	public void setFreightAmt (BigDecimal FreightAmt)
 	{
-		set_ValueNoCheck (COLUMNNAME_FreightAmt, FreightAmt);
+		set_Value (COLUMNNAME_FreightAmt, FreightAmt);
 	}
 
 	/** Get Freight Amount.
@@ -317,13 +485,30 @@ public class X_LBR_FactFiscal extends PO implements I_LBR_FactFiscal, I_Persiste
 		return bd;
 	}
 
+	/** FreightCostRule AD_Reference_ID=153 */
+	public static final int FREIGHTCOSTRULE_AD_Reference_ID=153;
+	/** Freight included = I */
+	public static final String FREIGHTCOSTRULE_FreightIncluded = "I";
+	/** Fix price = F */
+	public static final String FREIGHTCOSTRULE_FixPrice = "F";
+	/** Calculated = C */
+	public static final String FREIGHTCOSTRULE_Calculated = "C";
+	/** Line = L */
+	public static final String FREIGHTCOSTRULE_Line = "L";
+	/** Freight excluded = E */
+	public static final String FREIGHTCOSTRULE_FreightExcluded = "E";
+	/** 3 - Por Conta de Terceiros = T */
+	public static final String FREIGHTCOSTRULE_3_PorContaDeTerceiros = "T";
+	/** 9 - Sem Frete = S */
+	public static final String FREIGHTCOSTRULE_9_SemFrete = "S";
 	/** Set Freight Cost Rule.
 		@param FreightCostRule 
 		Method for charging Freight
 	  */
 	public void setFreightCostRule (String FreightCostRule)
 	{
-		set_ValueNoCheck (COLUMNNAME_FreightCostRule, FreightCostRule);
+
+		set_Value (COLUMNNAME_FreightCostRule, FreightCostRule);
 	}
 
 	/** Get Freight Cost Rule.
@@ -340,7 +525,7 @@ public class X_LBR_FactFiscal extends PO implements I_LBR_FactFiscal, I_Persiste
 	  */
 	public void setGrandTotal (BigDecimal GrandTotal)
 	{
-		set_ValueNoCheck (COLUMNNAME_GrandTotal, GrandTotal);
+		set_Value (COLUMNNAME_GrandTotal, GrandTotal);
 	}
 
 	/** Get Grand Total.
@@ -354,244 +539,463 @@ public class X_LBR_FactFiscal extends PO implements I_LBR_FactFiscal, I_Persiste
 		return bd;
 	}
 
+	/** Set Total de ICMS da NF.
+		@param ICMS_NFTaxAmt Total de ICMS da NF	  */
+	public void setICMS_NFTaxAmt (BigDecimal ICMS_NFTaxAmt)
+	{
+		set_Value (COLUMNNAME_ICMS_NFTaxAmt, ICMS_NFTaxAmt);
+	}
+
+	/** Get Total de ICMS da NF.
+		@return Total de ICMS da NF	  */
+	public BigDecimal getICMS_NFTaxAmt () 
+	{
+		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_ICMS_NFTaxAmt);
+		if (bd == null)
+			 return Env.ZERO;
+		return bd;
+	}
+
+	/** Set Tot da BC do ICMS.
+		@param ICMS_NFTaxBaseAmt Tot da BC do ICMS	  */
+	public void setICMS_NFTaxBaseAmt (BigDecimal ICMS_NFTaxBaseAmt)
+	{
+		set_Value (COLUMNNAME_ICMS_NFTaxBaseAmt, ICMS_NFTaxBaseAmt);
+	}
+
+	/** Get Tot da BC do ICMS.
+		@return Tot da BC do ICMS	  */
+	public BigDecimal getICMS_NFTaxBaseAmt () 
+	{
+		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_ICMS_NFTaxBaseAmt);
+		if (bd == null)
+			 return Env.ZERO;
+		return bd;
+	}
+
+	/** Set Total de ICMSST da NF.
+		@param ICMSST_NFTaxAmt Total de ICMSST da NF	  */
+	public void setICMSST_NFTaxAmt (BigDecimal ICMSST_NFTaxAmt)
+	{
+		set_Value (COLUMNNAME_ICMSST_NFTaxAmt, ICMSST_NFTaxAmt);
+	}
+
+	/** Get Total de ICMSST da NF.
+		@return Total de ICMSST da NF	  */
+	public BigDecimal getICMSST_NFTaxAmt () 
+	{
+		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_ICMSST_NFTaxAmt);
+		if (bd == null)
+			 return Env.ZERO;
+		return bd;
+	}
+
+	/** Set Total da BC ICMSST da NF.
+		@param ICMSST_NFTaxBaseAmt Total da BC ICMSST da NF	  */
+	public void setICMSST_NFTaxBaseAmt (BigDecimal ICMSST_NFTaxBaseAmt)
+	{
+		set_Value (COLUMNNAME_ICMSST_NFTaxBaseAmt, ICMSST_NFTaxBaseAmt);
+	}
+
+	/** Get Total da BC ICMSST da NF.
+		@return Total da BC ICMSST da NF	  */
+	public BigDecimal getICMSST_NFTaxBaseAmt () 
+	{
+		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_ICMSST_NFTaxBaseAmt);
+		if (bd == null)
+			 return Env.ZERO;
+		return bd;
+	}
+
+	/** Set Valor do ICMSST.
+		@param ICMSST_TaxAmt Valor do ICMSST	  */
+	public void setICMSST_TaxAmt (BigDecimal ICMSST_TaxAmt)
+	{
+		set_Value (COLUMNNAME_ICMSST_TaxAmt, ICMSST_TaxAmt);
+	}
+
+	/** Get Valor do ICMSST.
+		@return Valor do ICMSST	  */
+	public BigDecimal getICMSST_TaxAmt () 
+	{
+		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_ICMSST_TaxAmt);
+		if (bd == null)
+			 return Env.ZERO;
+		return bd;
+	}
+
+	/** Set Red. da BC do ICMSST.
+		@param ICMSST_TaxBase Red. da BC do ICMSST	  */
+	public void setICMSST_TaxBase (BigDecimal ICMSST_TaxBase)
+	{
+		set_Value (COLUMNNAME_ICMSST_TaxBase, ICMSST_TaxBase);
+	}
+
+	/** Get Red. da BC do ICMSST.
+		@return Red. da BC do ICMSST	  */
+	public BigDecimal getICMSST_TaxBase () 
+	{
+		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_ICMSST_TaxBase);
+		if (bd == null)
+			 return Env.ZERO;
+		return bd;
+	}
+
+	/** Set Total da BC ICMSST.
+		@param ICMSST_TaxBaseAmt Total da BC ICMSST	  */
+	public void setICMSST_TaxBaseAmt (BigDecimal ICMSST_TaxBaseAmt)
+	{
+		set_Value (COLUMNNAME_ICMSST_TaxBaseAmt, ICMSST_TaxBaseAmt);
+	}
+
+	/** Get Total da BC ICMSST.
+		@return Total da BC ICMSST	  */
+	public BigDecimal getICMSST_TaxBaseAmt () 
+	{
+		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_ICMSST_TaxBaseAmt);
+		if (bd == null)
+			 return Env.ZERO;
+		return bd;
+	}
+
+	/** Set Alíq. do ICMSST.
+		@param ICMSST_TaxRate Alíq. do ICMSST	  */
+	public void setICMSST_TaxRate (BigDecimal ICMSST_TaxRate)
+	{
+		set_Value (COLUMNNAME_ICMSST_TaxRate, ICMSST_TaxRate);
+	}
+
+	/** Get Alíq. do ICMSST.
+		@return Alíq. do ICMSST	  */
+	public BigDecimal getICMSST_TaxRate () 
+	{
+		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_ICMSST_TaxRate);
+		if (bd == null)
+			 return Env.ZERO;
+		return bd;
+	}
+
+	/** Set CST do ICMSST.
+		@param ICMSST_TaxStatus CST do ICMSST	  */
+	public void setICMSST_TaxStatus (String ICMSST_TaxStatus)
+	{
+		set_Value (COLUMNNAME_ICMSST_TaxStatus, ICMSST_TaxStatus);
+	}
+
+	/** Get CST do ICMSST.
+		@return CST do ICMSST	  */
+	public String getICMSST_TaxStatus () 
+	{
+		return (String)get_Value(COLUMNNAME_ICMSST_TaxStatus);
+	}
+
+	/** Set Valor do ICMS.
+		@param ICMS_TaxAmt Valor do ICMS	  */
+	public void setICMS_TaxAmt (BigDecimal ICMS_TaxAmt)
+	{
+		set_Value (COLUMNNAME_ICMS_TaxAmt, ICMS_TaxAmt);
+	}
+
+	/** Get Valor do ICMS.
+		@return Valor do ICMS	  */
+	public BigDecimal getICMS_TaxAmt () 
+	{
+		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_ICMS_TaxAmt);
+		if (bd == null)
+			 return Env.ZERO;
+		return bd;
+	}
+
+	/** Set Red. BC ICMS.
+		@param ICMS_TaxBase Red. BC ICMS	  */
+	public void setICMS_TaxBase (BigDecimal ICMS_TaxBase)
+	{
+		set_Value (COLUMNNAME_ICMS_TaxBase, ICMS_TaxBase);
+	}
+
+	/** Get Red. BC ICMS.
+		@return Red. BC ICMS	  */
+	public BigDecimal getICMS_TaxBase () 
+	{
+		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_ICMS_TaxBase);
+		if (bd == null)
+			 return Env.ZERO;
+		return bd;
+	}
+
+	/** Set Vlr. BC ICMS.
+		@param ICMS_TaxBaseAmt Vlr. BC ICMS	  */
+	public void setICMS_TaxBaseAmt (BigDecimal ICMS_TaxBaseAmt)
+	{
+		set_Value (COLUMNNAME_ICMS_TaxBaseAmt, ICMS_TaxBaseAmt);
+	}
+
+	/** Get Vlr. BC ICMS.
+		@return Vlr. BC ICMS	  */
+	public BigDecimal getICMS_TaxBaseAmt () 
+	{
+		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_ICMS_TaxBaseAmt);
+		if (bd == null)
+			 return Env.ZERO;
+		return bd;
+	}
+
+	/** Set Aliquota ICMS.
+		@param ICMS_TaxRate Aliquota ICMS	  */
+	public void setICMS_TaxRate (BigDecimal ICMS_TaxRate)
+	{
+		set_Value (COLUMNNAME_ICMS_TaxRate, ICMS_TaxRate);
+	}
+
+	/** Get Aliquota ICMS.
+		@return Aliquota ICMS	  */
+	public BigDecimal getICMS_TaxRate () 
+	{
+		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_ICMS_TaxRate);
+		if (bd == null)
+			 return Env.ZERO;
+		return bd;
+	}
+
+	/** Set CST do ICMS.
+		@param ICMS_TaxStatus CST do ICMS	  */
+	public void setICMS_TaxStatus (String ICMS_TaxStatus)
+	{
+		set_Value (COLUMNNAME_ICMS_TaxStatus, ICMS_TaxStatus);
+	}
+
+	/** Get CST do ICMS.
+		@return CST do ICMS	  */
+	public String getICMS_TaxStatus () 
+	{
+		return (String)get_Value(COLUMNNAME_ICMS_TaxStatus);
+	}
+
+	/** Set Valor do II.
+		@param II_TaxAmt Valor do II	  */
+	public void setII_TaxAmt (BigDecimal II_TaxAmt)
+	{
+		set_Value (COLUMNNAME_II_TaxAmt, II_TaxAmt);
+	}
+
+	/** Get Valor do II.
+		@return Valor do II	  */
+	public BigDecimal getII_TaxAmt () 
+	{
+		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_II_TaxAmt);
+		if (bd == null)
+			 return Env.ZERO;
+		return bd;
+	}
+
+	/** Set Vlr. da BC do II.
+		@param II_TaxBaseAmt Vlr. da BC do II	  */
+	public void setII_TaxBaseAmt (BigDecimal II_TaxBaseAmt)
+	{
+		set_Value (COLUMNNAME_II_TaxBaseAmt, II_TaxBaseAmt);
+	}
+
+	/** Get Vlr. da BC do II.
+		@return Vlr. da BC do II	  */
+	public BigDecimal getII_TaxBaseAmt () 
+	{
+		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_II_TaxBaseAmt);
+		if (bd == null)
+			 return Env.ZERO;
+		return bd;
+	}
+
+	/** Set Alíq. do II.
+		@param II_TaxRate Alíq. do II	  */
+	public void setII_TaxRate (BigDecimal II_TaxRate)
+	{
+		set_Value (COLUMNNAME_II_TaxRate, II_TaxRate);
+	}
+
+	/** Get Alíq. do II.
+		@return Alíq. do II	  */
+	public BigDecimal getII_TaxRate () 
+	{
+		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_II_TaxRate);
+		if (bd == null)
+			 return Env.ZERO;
+		return bd;
+	}
+
+	/** Set Total de IPI da NF.
+		@param IPI_NFTaxAmt Total de IPI da NF	  */
+	public void setIPI_NFTaxAmt (BigDecimal IPI_NFTaxAmt)
+	{
+		set_Value (COLUMNNAME_IPI_NFTaxAmt, IPI_NFTaxAmt);
+	}
+
+	/** Get Total de IPI da NF.
+		@return Total de IPI da NF	  */
+	public BigDecimal getIPI_NFTaxAmt () 
+	{
+		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_IPI_NFTaxAmt);
+		if (bd == null)
+			 return Env.ZERO;
+		return bd;
+	}
+
+	/** Set Valor do IPI.
+		@param IPI_TaxAmt Valor do IPI	  */
+	public void setIPI_TaxAmt (BigDecimal IPI_TaxAmt)
+	{
+		set_Value (COLUMNNAME_IPI_TaxAmt, IPI_TaxAmt);
+	}
+
+	/** Get Valor do IPI.
+		@return Valor do IPI	  */
+	public BigDecimal getIPI_TaxAmt () 
+	{
+		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_IPI_TaxAmt);
+		if (bd == null)
+			 return Env.ZERO;
+		return bd;
+	}
+
+	/** Set Vlr da BC do IPI.
+		@param IPI_TaxBaseAmt Vlr da BC do IPI	  */
+	public void setIPI_TaxBaseAmt (BigDecimal IPI_TaxBaseAmt)
+	{
+		set_Value (COLUMNNAME_IPI_TaxBaseAmt, IPI_TaxBaseAmt);
+	}
+
+	/** Get Vlr da BC do IPI.
+		@return Vlr da BC do IPI	  */
+	public BigDecimal getIPI_TaxBaseAmt () 
+	{
+		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_IPI_TaxBaseAmt);
+		if (bd == null)
+			 return Env.ZERO;
+		return bd;
+	}
+
+	/** Set Alíq. do IPI.
+		@param IPI_TaxRate Alíq. do IPI	  */
+	public void setIPI_TaxRate (BigDecimal IPI_TaxRate)
+	{
+		set_Value (COLUMNNAME_IPI_TaxRate, IPI_TaxRate);
+	}
+
+	/** Get Alíq. do IPI.
+		@return Alíq. do IPI	  */
+	public BigDecimal getIPI_TaxRate () 
+	{
+		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_IPI_TaxRate);
+		if (bd == null)
+			 return Env.ZERO;
+		return bd;
+	}
+
+	/** Set CST do IPI.
+		@param IPI_TaxStatus CST do IPI	  */
+	public void setIPI_TaxStatus (String IPI_TaxStatus)
+	{
+		set_Value (COLUMNNAME_IPI_TaxStatus, IPI_TaxStatus);
+	}
+
+	/** Get CST do IPI.
+		@return CST do IPI	  */
+	public String getIPI_TaxStatus () 
+	{
+		return (String)get_Value(COLUMNNAME_IPI_TaxStatus);
+	}
+
 	/** Set Cancelled.
 		@param IsCancelled 
 		The transaction was cancelled
 	  */
-	public void setIsCancelled (String IsCancelled)
+	public void setIsCancelled (boolean IsCancelled)
 	{
-		set_ValueNoCheck (COLUMNNAME_IsCancelled, IsCancelled);
+		set_Value (COLUMNNAME_IsCancelled, Boolean.valueOf(IsCancelled));
 	}
 
 	/** Get Cancelled.
 		@return The transaction was cancelled
 	  */
-	public String getIsCancelled () 
+	public boolean isCancelled () 
 	{
-		return (String)get_Value(COLUMNNAME_IsCancelled);
+		Object oo = get_Value(COLUMNNAME_IsCancelled);
+		if (oo != null) 
+		{
+			 if (oo instanceof Boolean) 
+				 return ((Boolean)oo).booleanValue(); 
+			return "Y".equals(oo);
+		}
+		return false;
 	}
 
 	/** Set Sales Transaction.
 		@param IsSOTrx 
 		This is a Sales Transaction
 	  */
-	public void setIsSOTrx (String IsSOTrx)
+	public void setIsSOTrx (boolean IsSOTrx)
 	{
-		set_ValueNoCheck (COLUMNNAME_IsSOTrx, IsSOTrx);
+		set_Value (COLUMNNAME_IsSOTrx, Boolean.valueOf(IsSOTrx));
 	}
 
 	/** Get Sales Transaction.
 		@return This is a Sales Transaction
 	  */
-	public String getIsSOTrx () 
+	public boolean isSOTrx () 
 	{
-		return (String)get_Value(COLUMNNAME_IsSOTrx);
+		Object oo = get_Value(COLUMNNAME_IsSOTrx);
+		if (oo != null) 
+		{
+			 if (oo instanceof Boolean) 
+				 return ((Boolean)oo).booleanValue(); 
+			return "Y".equals(oo);
+		}
+		return false;
 	}
-
-	/** Set BP Address 1.
-		@param LBR_BPAddress1 
-		BP Address 1 - Copied from the BP Location into Brazilan Legal and Tax Books
+	
+	/** Set Sales Transaction.
+	@param IsSOTrx 
+	This is a Sales Transaction
+  */
+	public void setLBR_IsOwnDocument (boolean IsOwnDocument)
+	{
+		set_Value (COLUMNNAME_lbr_IsOwnDocument, Boolean.valueOf(IsOwnDocument));
+	}
+	
+	/** Get Sales Transaction.
+		@return This is a Sales Transaction
 	  */
-	public void setLBR_BPAddress1 (String LBR_BPAddress1)
+	public boolean lbr_IsOwnDocument () 
 	{
-		set_ValueNoCheck (COLUMNNAME_LBR_BPAddress1, LBR_BPAddress1);
+		Object oo = get_Value(COLUMNNAME_IsSOTrx);
+		if (oo != null) 
+		{
+			 if (oo instanceof Boolean) 
+				 return ((Boolean)oo).booleanValue(); 
+			return "Y".equals(oo);
+		}
+		return false;
 	}
 
-	/** Get BP Address 1.
-		@return BP Address 1 - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public String getLBR_BPAddress1 () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_BPAddress1);
-	}
-
-	/** Set BP Address 2.
-		@param LBR_BPAddress2 
-		BP Address 2 - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public void setLBR_BPAddress2 (String LBR_BPAddress2)
-	{
-		set_ValueNoCheck (COLUMNNAME_LBR_BPAddress2, LBR_BPAddress2);
-	}
-
-	/** Get BP Address 2.
-		@return BP Address 2 - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public String getLBR_BPAddress2 () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_BPAddress2);
-	}
-
-	/** Set BP Address 3.
-		@param LBR_BPAddress3 
-		BP Address 3 - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public void setLBR_BPAddress3 (String LBR_BPAddress3)
-	{
-		set_ValueNoCheck (COLUMNNAME_LBR_BPAddress3, LBR_BPAddress3);
-	}
-
-	/** Get BP Address 3.
-		@return BP Address 3 - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public String getLBR_BPAddress3 () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_BPAddress3);
-	}
-
-	/** Set BP Address 4.
-		@param LBR_BPAddress4 
-		BP Address 4 - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public void setLBR_BPAddress4 (String LBR_BPAddress4)
-	{
-		set_ValueNoCheck (COLUMNNAME_LBR_BPAddress4, LBR_BPAddress4);
-	}
-
-	/** Get BP Address 4.
-		@return BP Address 4 - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public String getLBR_BPAddress4 () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_BPAddress4);
-	}
-
-	/** Set BP CNPJ.
-		@param LBR_BPCNPJ 
-		BP CNPJ - Copied from the BP into Brazilan Legal and Tax Books
-	  */
-	public void setLBR_BPCNPJ (String LBR_BPCNPJ)
-	{
-		set_ValueNoCheck (COLUMNNAME_LBR_BPCNPJ, LBR_BPCNPJ);
-	}
-
-	/** Get BP CNPJ.
-		@return BP CNPJ - Copied from the BP into Brazilan Legal and Tax Books
-	  */
-	public String getLBR_BPCNPJ () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_BPCNPJ);
-	}
-
-	/** Set BP City.
-		@param LBR_BPCity 
-		BP City - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public void setLBR_BPCity (String LBR_BPCity)
-	{
-		set_ValueNoCheck (COLUMNNAME_LBR_BPCity, LBR_BPCity);
-	}
-
-	/** Get BP City.
-		@return BP City - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public String getLBR_BPCity () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_BPCity);
-	}
-
-	/** Set BP IE.
-		@param LBR_BPIE 
-		BP IE - Copied from the BP into Brazilan Legal and Tax Books
-	  */
-	public void setLBR_BPIE (String LBR_BPIE)
-	{
-		set_ValueNoCheck (COLUMNNAME_LBR_BPIE, LBR_BPIE);
-	}
-
-	/** Get BP IE.
-		@return BP IE - Copied from the BP into Brazilan Legal and Tax Books
-	  */
-	public String getLBR_BPIE () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_BPIE);
-	}
-
-	/** Set BP Phone.
-		@param LBR_BPPhone 
-		BP Phone - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public void setLBR_BPPhone (String LBR_BPPhone)
-	{
-		set_ValueNoCheck (COLUMNNAME_LBR_BPPhone, LBR_BPPhone);
-	}
-
-	/** Get BP Phone.
-		@return BP Phone - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public String getLBR_BPPhone () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_BPPhone);
-	}
-
-	/** Set BP Postal.
-		@param LBR_BPPostal 
-		BP Postal - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public void setLBR_BPPostal (String LBR_BPPostal)
-	{
-		set_ValueNoCheck (COLUMNNAME_LBR_BPPostal, LBR_BPPostal);
-	}
-
-	/** Get BP Postal.
-		@return BP Postal - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public String getLBR_BPPostal () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_BPPostal);
-	}
-
-	/** Set BP Region.
-		@param LBR_BPRegion 
-		BP Region - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public void setLBR_BPRegion (String LBR_BPRegion)
-	{
-		set_ValueNoCheck (COLUMNNAME_LBR_BPRegion, LBR_BPRegion);
-	}
-
-	/** Get BP Region.
-		@return BP Region - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public String getLBR_BPRegion () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_BPRegion);
-	}
-
-	/** Set BP Suframa.
-		@param LBR_BPSuframa 
-		Defines the BP Suframa
-	  */
-	public void setLBR_BPSuframa (String LBR_BPSuframa)
-	{
-		set_ValueNoCheck (COLUMNNAME_LBR_BPSuframa, LBR_BPSuframa);
-	}
-
-	/** Get BP Suframa.
-		@return Defines the BP Suframa
-	  */
-	public String getLBR_BPSuframa () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_BPSuframa);
-	}
-
-	public org.compiere.model.I_C_BPartner getLBR_BP_Accountant() throws RuntimeException
+	public I_C_BPartner getLBR_BP_Accountant() throws RuntimeException
     {
-		return (org.compiere.model.I_C_BPartner)MTable.get(getCtx(), org.compiere.model.I_C_BPartner.Table_Name)
+		return (I_C_BPartner)MTable.get(getCtx(), I_C_BPartner.Table_Name)
 			.getPO(getLBR_BP_Accountant_ID(), get_TrxName());	}
 
-	/** Set Accountant.
-		@param LBR_BP_Accountant_ID Accountant	  */
+	/** Set Contador.
+		@param LBR_BP_Accountant_ID 
+		Parceiro de Negócios que exerce a função de Contador na Organização. OBRIGATÓRIO PARA O SPED
+	  */
 	public void setLBR_BP_Accountant_ID (int LBR_BP_Accountant_ID)
 	{
 		if (LBR_BP_Accountant_ID < 1) 
-			set_ValueNoCheck (COLUMNNAME_LBR_BP_Accountant_ID, null);
+			set_Value (COLUMNNAME_LBR_BP_Accountant_ID, null);
 		else 
-			set_ValueNoCheck (COLUMNNAME_LBR_BP_Accountant_ID, Integer.valueOf(LBR_BP_Accountant_ID));
+			set_Value (COLUMNNAME_LBR_BP_Accountant_ID, Integer.valueOf(LBR_BP_Accountant_ID));
 	}
 
-	/** Get Accountant.
-		@return Accountant	  */
+	/** Get Contador.
+		@return Parceiro de Negócios que exerce a função de Contador na Organização. OBRIGATÓRIO PARA O SPED
+	  */
 	public int getLBR_BP_Accountant_ID () 
 	{
 		Integer ii = (Integer)get_Value(COLUMNNAME_LBR_BP_Accountant_ID);
@@ -600,21 +1004,191 @@ public class X_LBR_FactFiscal extends PO implements I_LBR_FactFiscal, I_Persiste
 		return ii.intValue();
 	}
 
-	/** Set CFOP Name.
-		@param LBR_CFOPName 
-		Defines the CFOP Name
+	/** Set BP Address 1.
+		@param lbr_BPAddress1 
+		BP Address 1 - Copied from the BP Location into Brazilan Legal and Tax Books
 	  */
-	public void setLBR_CFOPName (String LBR_CFOPName)
+	public void setlbr_BPAddress1 (String lbr_BPAddress1)
 	{
-		set_ValueNoCheck (COLUMNNAME_LBR_CFOPName, LBR_CFOPName);
+		set_Value (COLUMNNAME_lbr_BPAddress1, lbr_BPAddress1);
 	}
 
-	/** Get CFOP Name.
-		@return Defines the CFOP Name
+	/** Get BP Address 1.
+		@return BP Address 1 - Copied from the BP Location into Brazilan Legal and Tax Books
 	  */
-	public String getLBR_CFOPName () 
+	public String getlbr_BPAddress1 () 
 	{
-		return (String)get_Value(COLUMNNAME_LBR_CFOPName);
+		return (String)get_Value(COLUMNNAME_lbr_BPAddress1);
+	}
+
+	/** Set BP Address 2.
+		@param lbr_BPAddress2 
+		BP Address 2 - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public void setlbr_BPAddress2 (String lbr_BPAddress2)
+	{
+		set_Value (COLUMNNAME_lbr_BPAddress2, lbr_BPAddress2);
+	}
+
+	/** Get BP Address 2.
+		@return BP Address 2 - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public String getlbr_BPAddress2 () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_BPAddress2);
+	}
+
+	/** Set BP Address 3.
+		@param lbr_BPAddress3 
+		BP Address 3 - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public void setlbr_BPAddress3 (String lbr_BPAddress3)
+	{
+		set_Value (COLUMNNAME_lbr_BPAddress3, lbr_BPAddress3);
+	}
+
+	/** Get BP Address 3.
+		@return BP Address 3 - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public String getlbr_BPAddress3 () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_BPAddress3);
+	}
+
+	/** Set BP Address 4.
+		@param lbr_BPAddress4 
+		BP Address 4 - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public void setlbr_BPAddress4 (String lbr_BPAddress4)
+	{
+		set_Value (COLUMNNAME_lbr_BPAddress4, lbr_BPAddress4);
+	}
+
+	/** Get BP Address 4.
+		@return BP Address 4 - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public String getlbr_BPAddress4 () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_BPAddress4);
+	}
+
+	/** Set BP City.
+		@param lbr_BPCity 
+		BP City - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public void setlbr_BPCity (String lbr_BPCity)
+	{
+		set_Value (COLUMNNAME_lbr_BPCity, lbr_BPCity);
+	}
+
+	/** Get BP City.
+		@return BP City - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public String getlbr_BPCity () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_BPCity);
+	}
+
+	/** Set BP CNPJ.
+		@param lbr_BPCNPJ 
+		BP CNPJ - Copied from the BP into Brazilan Legal and Tax Books
+	  */
+	public void setlbr_BPCNPJ (String lbr_BPCNPJ)
+	{
+		set_Value (COLUMNNAME_lbr_BPCNPJ, lbr_BPCNPJ);
+	}
+
+	/** Get BP CNPJ.
+		@return BP CNPJ - Copied from the BP into Brazilan Legal and Tax Books
+	  */
+	public String getlbr_BPCNPJ () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_BPCNPJ);
+	}
+
+	/** Set BP IE.
+		@param lbr_BPIE 
+		BP IE - Copied from the BP into Brazilan Legal and Tax Books
+	  */
+	public void setlbr_BPIE (String lbr_BPIE)
+	{
+		set_Value (COLUMNNAME_lbr_BPIE, lbr_BPIE);
+	}
+
+	/** Get BP IE.
+		@return BP IE - Copied from the BP into Brazilan Legal and Tax Books
+	  */
+	public String getlbr_BPIE () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_BPIE);
+	}
+
+	/** Set BP Phone.
+		@param lbr_BPPhone 
+		BP Phone - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public void setlbr_BPPhone (String lbr_BPPhone)
+	{
+		set_Value (COLUMNNAME_lbr_BPPhone, lbr_BPPhone);
+	}
+
+	/** Get BP Phone.
+		@return BP Phone - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public String getlbr_BPPhone () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_BPPhone);
+	}
+
+	/** Set BP Postal.
+		@param lbr_BPPostal 
+		BP Postal - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public void setlbr_BPPostal (String lbr_BPPostal)
+	{
+		set_Value (COLUMNNAME_lbr_BPPostal, lbr_BPPostal);
+	}
+
+	/** Get BP Postal.
+		@return BP Postal - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public String getlbr_BPPostal () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_BPPostal);
+	}
+
+	/** Set BP Region.
+		@param lbr_BPRegion 
+		BP Region - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public void setlbr_BPRegion (String lbr_BPRegion)
+	{
+		set_Value (COLUMNNAME_lbr_BPRegion, lbr_BPRegion);
+	}
+
+	/** Get BP Region.
+		@return BP Region - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public String getlbr_BPRegion () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_BPRegion);
+	}
+
+	/** Set BP Suframa.
+		@param lbr_BPSuframa 
+		Defines the BP Suframa
+	  */
+	public void setlbr_BPSuframa (String lbr_BPSuframa)
+	{
+		set_Value (COLUMNNAME_lbr_BPSuframa, lbr_BPSuframa);
+	}
+
+	/** Get BP Suframa.
+		@return Defines the BP Suframa
+	  */
+	public String getlbr_BPSuframa () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_BPSuframa);
 	}
 
 	public org.adempierelbr.model.I_LBR_CFOP getLBR_CFOP() throws RuntimeException
@@ -629,9 +1203,9 @@ public class X_LBR_FactFiscal extends PO implements I_LBR_FactFiscal, I_Persiste
 	public void setLBR_CFOP_ID (int LBR_CFOP_ID)
 	{
 		if (LBR_CFOP_ID < 1) 
-			set_ValueNoCheck (COLUMNNAME_LBR_CFOP_ID, null);
+			set_Value (COLUMNNAME_LBR_CFOP_ID, null);
 		else 
-			set_ValueNoCheck (COLUMNNAME_LBR_CFOP_ID, Integer.valueOf(LBR_CFOP_ID));
+			set_Value (COLUMNNAME_LBR_CFOP_ID, Integer.valueOf(LBR_CFOP_ID));
 	}
 
 	/** Get CFOP.
@@ -645,59 +1219,76 @@ public class X_LBR_FactFiscal extends PO implements I_LBR_FactFiscal, I_Persiste
 		return ii.intValue();
 	}
 
+	/** Set CFOP Name.
+		@param lbr_CFOPName 
+		Defines the CFOP Name
+	  */
+	public void setlbr_CFOPName (String lbr_CFOPName)
+	{
+		set_Value (COLUMNNAME_lbr_CFOPName, lbr_CFOPName);
+	}
+
+	/** Get CFOP Name.
+		@return Defines the CFOP Name
+	  */
+	public String getlbr_CFOPName () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_CFOPName);
+	}
+
 	/** Set CNAE.
-		@param LBR_CNAE 
+		@param lbr_CNAE 
 		Classificação Nacional de Atividades Econômicas
 	  */
-	public void setLBR_CNAE (String LBR_CNAE)
+	public void setlbr_CNAE (String lbr_CNAE)
 	{
-		set_ValueNoCheck (COLUMNNAME_LBR_CNAE, LBR_CNAE);
+		set_Value (COLUMNNAME_lbr_CNAE, lbr_CNAE);
 	}
 
 	/** Get CNAE.
 		@return Classificação Nacional de Atividades Econômicas
 	  */
-	public String getLBR_CNAE () 
+	public String getlbr_CNAE () 
 	{
-		return (String)get_Value(COLUMNNAME_LBR_CNAE);
+		return (String)get_Value(COLUMNNAME_lbr_CNAE);
 	}
 
 	/** Set CNPJ.
-		@param LBR_CNPJ 
+		@param lbr_CNPJ 
 		Used to identify Legal Entities in Brazil
 	  */
-	public void setLBR_CNPJ (String LBR_CNPJ)
+	public void setlbr_CNPJ (String lbr_CNPJ)
 	{
-		set_ValueNoCheck (COLUMNNAME_LBR_CNPJ, LBR_CNPJ);
+		set_Value (COLUMNNAME_lbr_CNPJ, lbr_CNPJ);
 	}
 
 	/** Get CNPJ.
 		@return Used to identify Legal Entities in Brazil
 	  */
-	public String getLBR_CNPJ () 
+	public String getlbr_CNPJ () 
 	{
-		return (String)get_Value(COLUMNNAME_LBR_CNPJ);
+		return (String)get_Value(COLUMNNAME_lbr_CNPJ);
 	}
 
 	/** Set Date InOut.
-		@param LBR_DateInOut 
+		@param lbr_DateInOut 
 		Defines the InOut Date
 	  */
-	public void setLBR_DateInOut (Timestamp LBR_DateInOut)
+	public void setlbr_DateInOut (Timestamp lbr_DateInOut)
 	{
-		set_ValueNoCheck (COLUMNNAME_LBR_DateInOut, LBR_DateInOut);
+		set_Value (COLUMNNAME_lbr_DateInOut, lbr_DateInOut);
 	}
 
 	/** Get Date InOut.
 		@return Defines the InOut Date
 	  */
-	public Timestamp getLBR_DateInOut () 
+	public Timestamp getlbr_DateInOut () 
 	{
-		return (Timestamp)get_Value(COLUMNNAME_LBR_DateInOut);
+		return (Timestamp)get_Value(COLUMNNAME_lbr_DateInOut);
 	}
 
-	/** Set Fact Nota Fiscal.
-		@param LBR_FactFiscal_ID Fact Nota Fiscal	  */
+	/** Set Detalhes de Fatos Fiscais.
+		@param LBR_FactFiscal_ID Detalhes de Fatos Fiscais	  */
 	public void setLBR_FactFiscal_ID (int LBR_FactFiscal_ID)
 	{
 		if (LBR_FactFiscal_ID < 1) 
@@ -706,8 +1297,8 @@ public class X_LBR_FactFiscal extends PO implements I_LBR_FactFiscal, I_Persiste
 			set_ValueNoCheck (COLUMNNAME_LBR_FactFiscal_ID, Integer.valueOf(LBR_FactFiscal_ID));
 	}
 
-	/** Get Fact Nota Fiscal.
-		@return Fact Nota Fiscal	  */
+	/** Get Detalhes de Fatos Fiscais.
+		@return Detalhes de Fatos Fiscais	  */
 	public int getLBR_FactFiscal_ID () 
 	{
 		Integer ii = (Integer)get_Value(COLUMNNAME_LBR_FactFiscal_ID);
@@ -717,136 +1308,130 @@ public class X_LBR_FactFiscal extends PO implements I_LBR_FactFiscal, I_Persiste
 	}
 
 	/** Set Fantasia.
-		@param LBR_Fantasia Fantasia	  */
-	public void setLBR_Fantasia (String LBR_Fantasia)
+		@param lbr_Fantasia Fantasia	  */
+	public void setlbr_Fantasia (String lbr_Fantasia)
 	{
-		set_ValueNoCheck (COLUMNNAME_LBR_Fantasia, LBR_Fantasia);
+		set_Value (COLUMNNAME_lbr_Fantasia, lbr_Fantasia);
 	}
 
 	/** Get Fantasia.
 		@return Fantasia	  */
-	public String getLBR_Fantasia () 
+	public String getlbr_Fantasia () 
 	{
-		return (String)get_Value(COLUMNNAME_LBR_Fantasia);
+		return (String)get_Value(COLUMNNAME_lbr_Fantasia);
 	}
 
 	/** Set IE.
-		@param LBR_IE 
+		@param lbr_IE 
 		Used to Identify the IE (State Tax ID)
 	  */
-	public void setLBR_IE (String LBR_IE)
+	public void setlbr_IE (String lbr_IE)
 	{
-		set_ValueNoCheck (COLUMNNAME_LBR_IE, LBR_IE);
+		set_Value (COLUMNNAME_lbr_IE, lbr_IE);
 	}
 
 	/** Get IE.
 		@return Used to Identify the IE (State Tax ID)
 	  */
-	public String getLBR_IE () 
+	public String getlbr_IE () 
 	{
-		return (String)get_Value(COLUMNNAME_LBR_IE);
+		return (String)get_Value(COLUMNNAME_lbr_IE);
 	}
 
-	/** Set Tipo de atividade.
-		@param LBR_IndAtividade 
-		Tipo de atividade
-	  */
-	public void setLBR_IndAtividade (String LBR_IndAtividade)
+	/** Set Indicador de Atividade Econômica.
+		@param lbr_IndAtividade Indicador de Atividade Econômica	  */
+	public void setlbr_IndAtividade (String lbr_IndAtividade)
 	{
-		set_ValueNoCheck (COLUMNNAME_LBR_IndAtividade, LBR_IndAtividade);
+		set_Value (COLUMNNAME_lbr_IndAtividade, lbr_IndAtividade);
 	}
 
-	/** Get Tipo de atividade.
-		@return Tipo de atividade
-	  */
-	public String getLBR_IndAtividade () 
+	/** Get Indicador de Atividade Econômica.
+		@return Indicador de Atividade Econômica	  */
+	public String getlbr_IndAtividade () 
 	{
-		return (String)get_Value(COLUMNNAME_LBR_IndAtividade);
+		return (String)get_Value(COLUMNNAME_lbr_IndAtividade);
 	}
 
 	/** Set Insurance Amt.
-		@param LBR_InsuranceAmt 
+		@param lbr_InsuranceAmt 
 		Defines the Insurance Amt
 	  */
-	public void setLBR_InsuranceAmt (BigDecimal LBR_InsuranceAmt)
+	public void setlbr_InsuranceAmt (BigDecimal lbr_InsuranceAmt)
 	{
-		set_ValueNoCheck (COLUMNNAME_LBR_InsuranceAmt, LBR_InsuranceAmt);
+		set_Value (COLUMNNAME_lbr_InsuranceAmt, lbr_InsuranceAmt);
 	}
 
 	/** Get Insurance Amt.
 		@return Defines the Insurance Amt
 	  */
-	public BigDecimal getLBR_InsuranceAmt () 
+	public BigDecimal getlbr_InsuranceAmt () 
 	{
-		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_LBR_InsuranceAmt);
+		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_lbr_InsuranceAmt);
 		if (bd == null)
 			 return Env.ZERO;
 		return bd;
 	}
 
 	/** Set Is Own Document.
-		@param LBR_IsOwnDocument 
+		@param lbr_IsOwnDocument 
 		Identifies this is an own document
 	  */
-	public void setLBR_IsOwnDocument (String LBR_IsOwnDocument)
+	public void setlbr_IsOwnDocument (boolean lbr_IsOwnDocument)
 	{
-		set_ValueNoCheck (COLUMNNAME_LBR_IsOwnDocument, LBR_IsOwnDocument);
+		set_Value (COLUMNNAME_lbr_IsOwnDocument, Boolean.valueOf(lbr_IsOwnDocument));
 	}
 
 	/** Get Is Own Document.
 		@return Identifies this is an own document
 	  */
-	public String getLBR_IsOwnDocument () 
+	public boolean islbr_IsOwnDocument () 
 	{
-		return (String)get_Value(COLUMNNAME_LBR_IsOwnDocument);
+		Object oo = get_Value(COLUMNNAME_lbr_IsOwnDocument);
+		if (oo != null) 
+		{
+			 if (oo instanceof Boolean) 
+				 return ((Boolean)oo).booleanValue(); 
+			return "Y".equals(oo);
+		}
+		return false;
 	}
 
 	/** Set Is Service.
-		@param LBR_IsService 
+		@param lbr_IsService 
 		Defines if the lines is a Service
 	  */
-	public void setLBR_IsService (String LBR_IsService)
+	public void setlbr_IsService (boolean lbr_IsService)
 	{
-		set_ValueNoCheck (COLUMNNAME_LBR_IsService, LBR_IsService);
+		set_Value (COLUMNNAME_lbr_IsService, Boolean.valueOf(lbr_IsService));
 	}
 
 	/** Get Is Service.
 		@return Defines if the lines is a Service
 	  */
-	public String getLBR_IsService () 
+	public boolean islbr_IsService () 
 	{
-		return (String)get_Value(COLUMNNAME_LBR_IsService);
+		Object oo = get_Value(COLUMNNAME_lbr_IsService);
+		if (oo != null) 
+		{
+			 if (oo instanceof Boolean) 
+				 return ((Boolean)oo).booleanValue(); 
+			return "Y".equals(oo);
+		}
+		return false;
 	}
 
-	/** Set Item Type (SPED).
-		@param LBR_ItemTypeBR Item Type (SPED)	  */
-	public void setLBR_ItemTypeBR (String LBR_ItemTypeBR)
+	/** Set Tipo do Item (Classif. Fiscal do SPED).
+		@param lbr_ItemTypeBR Tipo do Item (Classif. Fiscal do SPED)	  */
+	public void setlbr_ItemTypeBR (String lbr_ItemTypeBR)
 	{
-		set_ValueNoCheck (COLUMNNAME_LBR_ItemTypeBR, LBR_ItemTypeBR);
+		set_Value (COLUMNNAME_lbr_ItemTypeBR, lbr_ItemTypeBR);
 	}
 
-	/** Get Item Type (SPED).
-		@return Item Type (SPED)	  */
-	public String getLBR_ItemTypeBR () 
+	/** Get Tipo do Item (Classif. Fiscal do SPED).
+		@return Tipo do Item (Classif. Fiscal do SPED)	  */
+	public String getlbr_ItemTypeBR () 
 	{
-		return (String)get_Value(COLUMNNAME_LBR_ItemTypeBR);
-	}
-
-	/** Set NCM Name.
-		@param LBR_NCMName 
-		Defines the NCM Name
-	  */
-	public void setLBR_NCMName (String LBR_NCMName)
-	{
-		set_ValueNoCheck (COLUMNNAME_LBR_NCMName, LBR_NCMName);
-	}
-
-	/** Get NCM Name.
-		@return Defines the NCM Name
-	  */
-	public String getLBR_NCMName () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_NCMName);
+		return (String)get_Value(COLUMNNAME_lbr_ItemTypeBR);
 	}
 
 	public org.adempierelbr.model.I_LBR_NCM getLBR_NCM() throws RuntimeException
@@ -861,9 +1446,9 @@ public class X_LBR_FactFiscal extends PO implements I_LBR_FactFiscal, I_Persiste
 	public void setLBR_NCM_ID (int LBR_NCM_ID)
 	{
 		if (LBR_NCM_ID < 1) 
-			set_ValueNoCheck (COLUMNNAME_LBR_NCM_ID, null);
+			set_Value (COLUMNNAME_LBR_NCM_ID, null);
 		else 
-			set_ValueNoCheck (COLUMNNAME_LBR_NCM_ID, Integer.valueOf(LBR_NCM_ID));
+			set_Value (COLUMNNAME_LBR_NCM_ID, Integer.valueOf(LBR_NCM_ID));
 	}
 
 	/** Get NCM.
@@ -877,6 +1462,23 @@ public class X_LBR_FactFiscal extends PO implements I_LBR_FactFiscal, I_Persiste
 		return ii.intValue();
 	}
 
+	/** Set NCM Name.
+		@param lbr_NCMName 
+		Defines the NCM Name
+	  */
+	public void setlbr_NCMName (String lbr_NCMName)
+	{
+		set_Value (COLUMNNAME_lbr_NCMName, lbr_NCMName);
+	}
+
+	/** Get NCM Name.
+		@return Defines the NCM Name
+	  */
+	public String getlbr_NCMName () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_NCMName);
+	}
+
 	public org.adempierelbr.model.I_LBR_NFDI getLBR_NFDI() throws RuntimeException
     {
 		return (org.adempierelbr.model.I_LBR_NFDI)MTable.get(getCtx(), org.adempierelbr.model.I_LBR_NFDI.Table_Name)
@@ -887,9 +1489,9 @@ public class X_LBR_FactFiscal extends PO implements I_LBR_FactFiscal, I_Persiste
 	public void setLBR_NFDI_ID (int LBR_NFDI_ID)
 	{
 		if (LBR_NFDI_ID < 1) 
-			set_ValueNoCheck (COLUMNNAME_LBR_NFDI_ID, null);
+			set_Value (COLUMNNAME_LBR_NFDI_ID, null);
 		else 
-			set_ValueNoCheck (COLUMNNAME_LBR_NFDI_ID, Integer.valueOf(LBR_NFDI_ID));
+			set_Value (COLUMNNAME_LBR_NFDI_ID, Integer.valueOf(LBR_NFDI_ID));
 	}
 
 	/** Get DI.
@@ -902,94 +1504,133 @@ public class X_LBR_FactFiscal extends PO implements I_LBR_FactFiscal, I_Persiste
 		return ii.intValue();
 	}
 
-	/** Set NF Model.
-		@param LBR_NFModel 
-		Identifies the model of Nota Fiscal
-	  */
-	public void setLBR_NFModel (String LBR_NFModel)
-	{
-		set_ValueNoCheck (COLUMNNAME_LBR_NFModel, LBR_NFModel);
-	}
-
-	/** Get NF Model.
-		@return Identifies the model of Nota Fiscal
-	  */
-	public String getLBR_NFModel () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_NFModel);
-	}
-
-	/** Set NF Serie.
-		@param LBR_NFSerie NF Serie	  */
-	public void setLBR_NFSerie (String LBR_NFSerie)
-	{
-		set_ValueNoCheck (COLUMNNAME_LBR_NFSerie, LBR_NFSerie);
-	}
-
-	/** Get NF Serie.
-		@return NF Serie	  */
-	public String getLBR_NFSerie () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_NFSerie);
-	}
-
 	/** Set NFe ID.
-		@param LBR_NFeID 
+		@param lbr_NFeID 
 		Identification of NFe
 	  */
-	public void setLBR_NFeID (String LBR_NFeID)
+	public void setlbr_NFeID (String lbr_NFeID)
 	{
-		set_ValueNoCheck (COLUMNNAME_LBR_NFeID, LBR_NFeID);
+		set_Value (COLUMNNAME_lbr_NFeID, lbr_NFeID);
 	}
 
 	/** Get NFe ID.
 		@return Identification of NFe
 	  */
-	public String getLBR_NFeID () 
+	public String getlbr_NFeID () 
 	{
-		return (String)get_Value(COLUMNNAME_LBR_NFeID);
+		return (String)get_Value(COLUMNNAME_lbr_NFeID);
 	}
 
 	/** Set NFe Protocol.
-		@param LBR_NFeProt NFe Protocol	  */
-	public void setLBR_NFeProt (String LBR_NFeProt)
+		@param lbr_NFeProt NFe Protocol	  */
+	public void setlbr_NFeProt (String lbr_NFeProt)
 	{
-		set_ValueNoCheck (COLUMNNAME_LBR_NFeProt, LBR_NFeProt);
+		set_Value (COLUMNNAME_lbr_NFeProt, lbr_NFeProt);
 	}
 
 	/** Get NFe Protocol.
 		@return NFe Protocol	  */
-	public String getLBR_NFeProt () 
+	public String getlbr_NFeProt () 
 	{
-		return (String)get_Value(COLUMNNAME_LBR_NFeProt);
+		return (String)get_Value(COLUMNNAME_lbr_NFeProt);
 	}
 
-	public org.adempierelbr.model.I_LBR_NotaFiscalLine getLBR_NotaFiscalLine() throws RuntimeException
-    {
-		return (org.adempierelbr.model.I_LBR_NotaFiscalLine)MTable.get(getCtx(), org.adempierelbr.model.I_LBR_NotaFiscalLine.Table_Name)
-			.getPO(getLBR_NotaFiscalLine_ID(), get_TrxName());	}
-
-	/** Set Nota Fiscal Line.
-		@param LBR_NotaFiscalLine_ID 
-		Primary key table LBR_NotaFiscalLine
+	/** lbr_NFModel AD_Reference_ID=2000011 */
+	public static final int LBR_NFMODEL_AD_Reference_ID=2000011;
+	/** Nota Fiscal = 1 */
+	public static final String LBR_NFMODEL_NotaFiscal = "1";
+	/** Nota Fiscal Avulsa = 1B */
+	public static final String LBR_NFMODEL_NotaFiscalAvulsa = "1B";
+	/** Nota Fiscal de Venda a Consumidor = 2 */
+	public static final String LBR_NFMODEL_NotaFiscalDeVendaAConsumidor = "2";
+	/** Cupom Fiscal emitido por ECF = 2D */
+	public static final String LBR_NFMODEL_CupomFiscalEmitidoPorECF = "2D";
+	/** Bilhete de Passagem emitido por ECF = 2E */
+	public static final String LBR_NFMODEL_BilheteDePassagemEmitidoPorECF = "2E";
+	/** Nota Fiscal de Produtor = 4 */
+	public static final String LBR_NFMODEL_NotaFiscalDeProdutor = "4";
+	/** Nota Fiscal/Conta de Energia Elétrica = 6 */
+	public static final String LBR_NFMODEL_NotaFiscalContaDeEnergiaElétrica = "6";
+	/** Nota Fiscal de Serviço de Transporte = 7 */
+	public static final String LBR_NFMODEL_NotaFiscalDeServiçoDeTransporte = "7";
+	/** Conhecimento de Transporte Rodoviário de Cargas = 8 */
+	public static final String LBR_NFMODEL_ConhecimentoDeTransporteRodoviárioDeCargas = "8";
+	/** Conhecimento de Transporte de Cargas Avulso = 8B */
+	public static final String LBR_NFMODEL_ConhecimentoDeTransporteDeCargasAvulso = "8B";
+	/** Conhecimento de Transporte Aquaviário de Cargas = 9 */
+	public static final String LBR_NFMODEL_ConhecimentoDeTransporteAquaviárioDeCargas = "9";
+	/** Conhecimento Aéreo = 10 */
+	public static final String LBR_NFMODEL_ConhecimentoAéreo = "10";
+	/** Conhecimento de Transporte Ferroviário de Cargas = 11 */
+	public static final String LBR_NFMODEL_ConhecimentoDeTransporteFerroviárioDeCargas = "11";
+	/** Bilhete de Passagem Rodoviário = 13 */
+	public static final String LBR_NFMODEL_BilheteDePassagemRodoviário = "13";
+	/** Bilhete de Passagem Aquaviário = 14 */
+	public static final String LBR_NFMODEL_BilheteDePassagemAquaviário = "14";
+	/** Bilhete de Passagem e Nota de Bagagem = 15 */
+	public static final String LBR_NFMODEL_BilheteDePassagemENotaDeBagagem = "15";
+	/** Despacho de Transporte = 17 */
+	public static final String LBR_NFMODEL_DespachoDeTransporte = "17";
+	/** Bilhete de Passagem Ferroviário = 16 */
+	public static final String LBR_NFMODEL_BilheteDePassagemFerroviário = "16";
+	/** Resumo de Movimento Diário = 18 */
+	public static final String LBR_NFMODEL_ResumoDeMovimentoDiário = "18";
+	/** Ordem de Coleta de Cargas = 20 */
+	public static final String LBR_NFMODEL_OrdemDeColetaDeCargas = "20";
+	/** Nota Fiscal de Serviço de Comunicação = 21 */
+	public static final String LBR_NFMODEL_NotaFiscalDeServiçoDeComunicação = "21";
+	/** Nota Fiscal de Serviço de Telecomunicação = 22 */
+	public static final String LBR_NFMODEL_NotaFiscalDeServiçoDeTelecomunicação = "22";
+	/** GNRE = 23 */
+	public static final String LBR_NFMODEL_GNRE = "23";
+	/** Autorização de Carregamento e Transporte = 24 */
+	public static final String LBR_NFMODEL_AutorizaçãoDeCarregamentoETransporte = "24";
+	/** Manifesto de Carga = 25 */
+	public static final String LBR_NFMODEL_ManifestoDeCarga = "25";
+	/** Conhecimento de Transporte Multimodal de Cargas = 26 */
+	public static final String LBR_NFMODEL_ConhecimentoDeTransporteMultimodalDeCargas = "26";
+	/** Nota Fiscal de Transporte Ferroviário de Cargas = 27 */
+	public static final String LBR_NFMODEL_NotaFiscalDeTransporteFerroviárioDeCargas = "27";
+	/** Nota Fiscal/Conta de Fornecimento de Gás Canalizado = 28 */
+	public static final String LBR_NFMODEL_NotaFiscalContaDeFornecimentoDeGásCanalizado = "28";
+	/** Nota Fiscal/Conta de Fornecimento de Água Canalizada = 29 */
+	public static final String LBR_NFMODEL_NotaFiscalContaDeFornecimentoDeÁguaCanalizada = "29";
+	/** Bilhete/Recibo do Passageiro = 30 */
+	public static final String LBR_NFMODEL_BilheteReciboDoPassageiro = "30";
+	/** Nota Fiscal Eletrônica = 55 */
+	public static final String LBR_NFMODEL_NotaFiscalEletrônica = "55";
+	/** Conhecimento de Transporte Eletrônico – CT-e = 57 */
+	public static final String LBR_NFMODEL_ConhecimentoDeTransporteEletrônicoCT_E = "57";
+	/** Set Modelo de Documento Fiscal.
+		@param lbr_NFModel 
+		Identifies the model of Nota Fiscal
 	  */
-	public void setLBR_NotaFiscalLine_ID (int LBR_NotaFiscalLine_ID)
+	public void setlbr_NFModel (String lbr_NFModel)
 	{
-		if (LBR_NotaFiscalLine_ID < 1) 
-			set_ValueNoCheck (COLUMNNAME_LBR_NotaFiscalLine_ID, null);
-		else 
-			set_ValueNoCheck (COLUMNNAME_LBR_NotaFiscalLine_ID, Integer.valueOf(LBR_NotaFiscalLine_ID));
+
+		set_Value (COLUMNNAME_lbr_NFModel, lbr_NFModel);
 	}
 
-	/** Get Nota Fiscal Line.
-		@return Primary key table LBR_NotaFiscalLine
+	/** Get Modelo de Documento Fiscal.
+		@return Identifies the model of Nota Fiscal
 	  */
-	public int getLBR_NotaFiscalLine_ID () 
+	public String getlbr_NFModel () 
 	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_LBR_NotaFiscalLine_ID);
-		if (ii == null)
-			 return 0;
-		return ii.intValue();
+		return (String)get_Value(COLUMNNAME_lbr_NFModel);
+	}
+
+	/** Set NF Serie.
+		@param lbr_NFSerie NF Serie	  */
+	public void setlbr_NFSerie (String lbr_NFSerie)
+	{
+		set_Value (COLUMNNAME_lbr_NFSerie, lbr_NFSerie);
+	}
+
+	/** Get NF Serie.
+		@return NF Serie	  */
+	public String getlbr_NFSerie () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_NFSerie);
 	}
 
 	public org.adempierelbr.model.I_LBR_NotaFiscal getLBR_NotaFiscal() throws RuntimeException
@@ -1004,9 +1645,9 @@ public class X_LBR_FactFiscal extends PO implements I_LBR_FactFiscal, I_Persiste
 	public void setLBR_NotaFiscal_ID (int LBR_NotaFiscal_ID)
 	{
 		if (LBR_NotaFiscal_ID < 1) 
-			set_ValueNoCheck (COLUMNNAME_LBR_NotaFiscal_ID, null);
+			set_Value (COLUMNNAME_LBR_NotaFiscal_ID, null);
 		else 
-			set_ValueNoCheck (COLUMNNAME_LBR_NotaFiscal_ID, Integer.valueOf(LBR_NotaFiscal_ID));
+			set_Value (COLUMNNAME_LBR_NotaFiscal_ID, Integer.valueOf(LBR_NotaFiscal_ID));
 	}
 
 	/** Get Nota Fiscal.
@@ -1020,276 +1661,332 @@ public class X_LBR_FactFiscal extends PO implements I_LBR_FactFiscal, I_Persiste
 		return ii.intValue();
 	}
 
+	public org.adempierelbr.model.I_LBR_NotaFiscalLine getLBR_NotaFiscalLine() throws RuntimeException
+    {
+		return (org.adempierelbr.model.I_LBR_NotaFiscalLine)MTable.get(getCtx(), org.adempierelbr.model.I_LBR_NotaFiscalLine.Table_Name)
+			.getPO(getLBR_NotaFiscalLine_ID(), get_TrxName());	}
+
+	/** Set Nota Fiscal Line.
+		@param LBR_NotaFiscalLine_ID 
+		Primary key table LBR_NotaFiscalLine
+	  */
+	public void setLBR_NotaFiscalLine_ID (int LBR_NotaFiscalLine_ID)
+	{
+		if (LBR_NotaFiscalLine_ID < 1) 
+			set_Value (COLUMNNAME_LBR_NotaFiscalLine_ID, null);
+		else 
+			set_Value (COLUMNNAME_LBR_NotaFiscalLine_ID, Integer.valueOf(LBR_NotaFiscalLine_ID));
+	}
+
+	/** Get Nota Fiscal Line.
+		@return Primary key table LBR_NotaFiscalLine
+	  */
+	public int getLBR_NotaFiscalLine_ID () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_LBR_NotaFiscalLine_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
 	/** Set Organization Address 1.
-		@param LBR_OrgAddress1 
+		@param lbr_OrgAddress1 
 		The issuer organization address 1
 	  */
-	public void setLBR_OrgAddress1 (String LBR_OrgAddress1)
+	public void setlbr_OrgAddress1 (String lbr_OrgAddress1)
 	{
-		set_ValueNoCheck (COLUMNNAME_LBR_OrgAddress1, LBR_OrgAddress1);
+		set_Value (COLUMNNAME_lbr_OrgAddress1, lbr_OrgAddress1);
 	}
 
 	/** Get Organization Address 1.
 		@return The issuer organization address 1
 	  */
-	public String getLBR_OrgAddress1 () 
+	public String getlbr_OrgAddress1 () 
 	{
-		return (String)get_Value(COLUMNNAME_LBR_OrgAddress1);
+		return (String)get_Value(COLUMNNAME_lbr_OrgAddress1);
 	}
 
 	/** Set Organization Address 2.
-		@param LBR_OrgAddress2 
+		@param lbr_OrgAddress2 
 		The issuer organization address 2
 	  */
-	public void setLBR_OrgAddress2 (String LBR_OrgAddress2)
+	public void setlbr_OrgAddress2 (String lbr_OrgAddress2)
 	{
-		set_ValueNoCheck (COLUMNNAME_LBR_OrgAddress2, LBR_OrgAddress2);
+		set_Value (COLUMNNAME_lbr_OrgAddress2, lbr_OrgAddress2);
 	}
 
 	/** Get Organization Address 2.
 		@return The issuer organization address 2
 	  */
-	public String getLBR_OrgAddress2 () 
+	public String getlbr_OrgAddress2 () 
 	{
-		return (String)get_Value(COLUMNNAME_LBR_OrgAddress2);
+		return (String)get_Value(COLUMNNAME_lbr_OrgAddress2);
 	}
 
 	/** Set Organization Address 3.
-		@param LBR_OrgAddress3 
+		@param lbr_OrgAddress3 
 		The issuer organization address 3
 	  */
-	public void setLBR_OrgAddress3 (String LBR_OrgAddress3)
+	public void setlbr_OrgAddress3 (String lbr_OrgAddress3)
 	{
-		set_ValueNoCheck (COLUMNNAME_LBR_OrgAddress3, LBR_OrgAddress3);
+		set_Value (COLUMNNAME_lbr_OrgAddress3, lbr_OrgAddress3);
 	}
 
 	/** Get Organization Address 3.
 		@return The issuer organization address 3
 	  */
-	public String getLBR_OrgAddress3 () 
+	public String getlbr_OrgAddress3 () 
 	{
-		return (String)get_Value(COLUMNNAME_LBR_OrgAddress3);
+		return (String)get_Value(COLUMNNAME_lbr_OrgAddress3);
 	}
 
 	/** Set Organization Address 4.
-		@param LBR_OrgAddress4 
+		@param lbr_OrgAddress4 
 		The issuer organization address 4
 	  */
-	public void setLBR_OrgAddress4 (String LBR_OrgAddress4)
+	public void setlbr_OrgAddress4 (String lbr_OrgAddress4)
 	{
-		set_ValueNoCheck (COLUMNNAME_LBR_OrgAddress4, LBR_OrgAddress4);
+		set_Value (COLUMNNAME_lbr_OrgAddress4, lbr_OrgAddress4);
 	}
 
 	/** Get Organization Address 4.
 		@return The issuer organization address 4
 	  */
-	public String getLBR_OrgAddress4 () 
+	public String getlbr_OrgAddress4 () 
 	{
-		return (String)get_Value(COLUMNNAME_LBR_OrgAddress4);
+		return (String)get_Value(COLUMNNAME_lbr_OrgAddress4);
 	}
 
 	/** Set Organization CCM.
-		@param LBR_OrgCCM 
+		@param lbr_OrgCCM 
 		The Organization CCM
 	  */
-	public void setLBR_OrgCCM (String LBR_OrgCCM)
+	public void setlbr_OrgCCM (String lbr_OrgCCM)
 	{
-		set_ValueNoCheck (COLUMNNAME_LBR_OrgCCM, LBR_OrgCCM);
+		set_Value (COLUMNNAME_lbr_OrgCCM, lbr_OrgCCM);
 	}
 
 	/** Get Organization CCM.
 		@return The Organization CCM
 	  */
-	public String getLBR_OrgCCM () 
+	public String getlbr_OrgCCM () 
 	{
-		return (String)get_Value(COLUMNNAME_LBR_OrgCCM);
+		return (String)get_Value(COLUMNNAME_lbr_OrgCCM);
 	}
 
 	/** Set Organization City.
-		@param LBR_OrgCity 
+		@param lbr_OrgCity 
 		The City of the Organization
 	  */
-	public void setLBR_OrgCity (String LBR_OrgCity)
+	public void setlbr_OrgCity (String lbr_OrgCity)
 	{
-		set_ValueNoCheck (COLUMNNAME_LBR_OrgCity, LBR_OrgCity);
+		set_Value (COLUMNNAME_lbr_OrgCity, lbr_OrgCity);
 	}
 
 	/** Get Organization City.
 		@return The City of the Organization
 	  */
-	public String getLBR_OrgCity () 
+	public String getlbr_OrgCity () 
 	{
-		return (String)get_Value(COLUMNNAME_LBR_OrgCity);
+		return (String)get_Value(COLUMNNAME_lbr_OrgCity);
+	}
+
+	/** Set Cód. da Cidade da Org.(IBGE).
+		@param LBR_OrgCityCode Cód. da Cidade da Org.(IBGE)	  */
+	public void setLBR_OrgCityCode (int LBR_OrgCityCode)
+	{
+		set_Value (COLUMNNAME_LBR_OrgCityCode, Integer.valueOf(LBR_OrgCityCode));
+	}
+
+	/** Get Cód. da Cidade da Org.(IBGE).
+		@return Cód. da Cidade da Org.(IBGE)	  */
+	public int getLBR_OrgCityCode () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_LBR_OrgCityCode);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
+	public I_C_Location getLBR_Org_Location() throws RuntimeException
+    {
+		return (I_C_Location)MTable.get(getCtx(), I_C_Location.Table_Name)
+			.getPO(getLBR_Org_Location_ID(), get_TrxName());	}
+
+	/** Set Localização da Organização.
+		@param LBR_Org_Location_ID Localização da Organização	  */
+	public void setLBR_Org_Location_ID (int LBR_Org_Location_ID)
+	{
+		if (LBR_Org_Location_ID < 1) 
+			set_Value (COLUMNNAME_LBR_Org_Location_ID, null);
+		else 
+			set_Value (COLUMNNAME_LBR_Org_Location_ID, Integer.valueOf(LBR_Org_Location_ID));
+	}
+
+	/** Get Localização da Organização.
+		@return Localização da Organização	  */
+	public int getLBR_Org_Location_ID () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_LBR_Org_Location_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
 	}
 
 	/** Set Organization Name.
-		@param LBR_OrgName 
+		@param lbr_OrgName 
 		The Name of the Organization
 	  */
-	public void setLBR_OrgName (String LBR_OrgName)
+	public void setlbr_OrgName (String lbr_OrgName)
 	{
-		set_ValueNoCheck (COLUMNNAME_LBR_OrgName, LBR_OrgName);
+		set_Value (COLUMNNAME_lbr_OrgName, lbr_OrgName);
 	}
 
 	/** Get Organization Name.
 		@return The Name of the Organization
 	  */
-	public String getLBR_OrgName () 
+	public String getlbr_OrgName () 
 	{
-		return (String)get_Value(COLUMNNAME_LBR_OrgName);
+		return (String)get_Value(COLUMNNAME_lbr_OrgName);
 	}
 
 	/** Set Organization Phone.
-		@param LBR_OrgPhone 
+		@param lbr_OrgPhone 
 		The Organization Phone
 	  */
-	public void setLBR_OrgPhone (String LBR_OrgPhone)
+	public void setlbr_OrgPhone (String lbr_OrgPhone)
 	{
-		set_ValueNoCheck (COLUMNNAME_LBR_OrgPhone, LBR_OrgPhone);
+		set_Value (COLUMNNAME_lbr_OrgPhone, lbr_OrgPhone);
 	}
 
 	/** Get Organization Phone.
 		@return The Organization Phone
 	  */
-	public String getLBR_OrgPhone () 
+	public String getlbr_OrgPhone () 
 	{
-		return (String)get_Value(COLUMNNAME_LBR_OrgPhone);
+		return (String)get_Value(COLUMNNAME_lbr_OrgPhone);
 	}
 
 	/** Set Organization Postal Code.
-		@param LBR_OrgPostal 
+		@param lbr_OrgPostal 
 		The Postal Code of the Organization
 	  */
-	public void setLBR_OrgPostal (String LBR_OrgPostal)
+	public void setlbr_OrgPostal (String lbr_OrgPostal)
 	{
-		set_ValueNoCheck (COLUMNNAME_LBR_OrgPostal, LBR_OrgPostal);
+		set_Value (COLUMNNAME_lbr_OrgPostal, lbr_OrgPostal);
 	}
 
 	/** Get Organization Postal Code.
 		@return The Postal Code of the Organization
 	  */
-	public String getLBR_OrgPostal () 
+	public String getlbr_OrgPostal () 
 	{
-		return (String)get_Value(COLUMNNAME_LBR_OrgPostal);
+		return (String)get_Value(COLUMNNAME_lbr_OrgPostal);
 	}
 
 	/** Set Organization Region.
-		@param LBR_OrgRegion 
+		@param lbr_OrgRegion 
 		The Region of the Organization
 	  */
-	public void setLBR_OrgRegion (String LBR_OrgRegion)
+	public void setlbr_OrgRegion (String lbr_OrgRegion)
 	{
-		set_ValueNoCheck (COLUMNNAME_LBR_OrgRegion, LBR_OrgRegion);
+		set_Value (COLUMNNAME_lbr_OrgRegion, lbr_OrgRegion);
 	}
 
 	/** Get Organization Region.
 		@return The Region of the Organization
 	  */
-	public String getLBR_OrgRegion () 
+	public String getlbr_OrgRegion () 
 	{
-		return (String)get_Value(COLUMNNAME_LBR_OrgRegion);
+		return (String)get_Value(COLUMNNAME_lbr_OrgRegion);
 	}
 
 	/** Set Suframa.
-		@param LBR_Suframa 
+		@param lbr_Suframa 
 		Brazilian SUFRAMA Identification Number
 	  */
-	public void setLBR_Suframa (String LBR_Suframa)
+	public void setlbr_Suframa (String lbr_Suframa)
 	{
-		set_ValueNoCheck (COLUMNNAME_LBR_Suframa, LBR_Suframa);
+		set_Value (COLUMNNAME_lbr_Suframa, lbr_Suframa);
 	}
 
 	/** Get Suframa.
 		@return Brazilian SUFRAMA Identification Number
 	  */
-	public String getLBR_Suframa () 
+	public String getlbr_Suframa () 
 	{
-		return (String)get_Value(COLUMNNAME_LBR_Suframa);
+		return (String)get_Value(COLUMNNAME_lbr_Suframa);
 	}
 
 	/** Set SISCOMEX Total.
-		@param LBR_TotalSISCOMEX 
+		@param lbr_TotalSISCOMEX 
 		SISCOMEX Total for all the document
 	  */
-	public void setLBR_TotalSISCOMEX (BigDecimal LBR_TotalSISCOMEX)
+	public void setlbr_TotalSISCOMEX (BigDecimal lbr_TotalSISCOMEX)
 	{
-		set_ValueNoCheck (COLUMNNAME_LBR_TotalSISCOMEX, LBR_TotalSISCOMEX);
+		set_Value (COLUMNNAME_lbr_TotalSISCOMEX, lbr_TotalSISCOMEX);
 	}
 
 	/** Get SISCOMEX Total.
 		@return SISCOMEX Total for all the document
 	  */
-	public BigDecimal getLBR_TotalSISCOMEX () 
+	public BigDecimal getlbr_TotalSISCOMEX () 
 	{
-		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_LBR_TotalSISCOMEX);
+		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_lbr_TotalSISCOMEX);
 		if (bd == null)
 			 return Env.ZERO;
 		return bd;
 	}
 
+	/** Set Descrição da UOM.
+		@param LBR_UOMDescription Descrição da UOM	  */
+	public void setLBR_UOMDescription (String LBR_UOMDescription)
+	{
+		set_Value (COLUMNNAME_LBR_UOMDescription, LBR_UOMDescription);
+	}
+
+	/** Get Descrição da UOM.
+		@return Descrição da UOM	  */
+	public String getLBR_UOMDescription () 
+	{
+		return (String)get_Value(COLUMNNAME_LBR_UOMDescription);
+	}
+
 	/** Set UOM Name.
-		@param LBR_UOMName 
+		@param lbr_UOMName 
 		Defines the UOM Name
 	  */
-	public void setLBR_UOMName (String LBR_UOMName)
+	public void setlbr_UOMName (String lbr_UOMName)
 	{
-		set_ValueNoCheck (COLUMNNAME_LBR_UOMName, LBR_UOMName);
+		set_Value (COLUMNNAME_lbr_UOMName, lbr_UOMName);
 	}
 
 	/** Get UOM Name.
 		@return Defines the UOM Name
 	  */
-	public String getLBR_UOMName () 
+	public String getlbr_UOMName () 
 	{
-		return (String)get_Value(COLUMNNAME_LBR_UOMName);
-	}
-
-	/** Set lbr_orgcitycode.
-		@param LBR_orgcitycode lbr_orgcitycode	  */
-	public void setLBR_orgcitycode (String LBR_orgcitycode)
-	{
-		set_ValueNoCheck (COLUMNNAME_LBR_orgcitycode, LBR_orgcitycode);
-	}
-
-	/** Get lbr_orgcitycode.
-		@return lbr_orgcitycode	  */
-	public String getLBR_orgcitycode () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_orgcitycode);
-	}
-
-	/** Set lbr_uomdescription.
-		@param LBR_uomdescription lbr_uomdescription	  */
-	public void setLBR_uomdescription (String LBR_uomdescription)
-	{
-		set_ValueNoCheck (COLUMNNAME_LBR_uomdescription, LBR_uomdescription);
-	}
-
-	/** Get lbr_uomdescription.
-		@return lbr_uomdescription	  */
-	public String getLBR_uomdescription () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_uomdescription);
+		return (String)get_Value(COLUMNNAME_lbr_UOMName);
 	}
 
 	/** Set Line No.
 		@param Line 
 		Unique line for this document
 	  */
-	public void setLine (BigDecimal Line)
+	public void setLine (int Line)
 	{
-		set_ValueNoCheck (COLUMNNAME_Line, Line);
+		set_Value (COLUMNNAME_Line, Integer.valueOf(Line));
 	}
 
 	/** Get Line No.
 		@return Unique line for this document
 	  */
-	public BigDecimal getLine () 
+	public int getLine () 
 	{
-		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_Line);
-		if (bd == null)
-			 return Env.ZERO;
-		return bd;
+		Integer ii = (Integer)get_Value(COLUMNNAME_Line);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
 	}
 
 	/** Set Line Amount.
@@ -1298,7 +1995,7 @@ public class X_LBR_FactFiscal extends PO implements I_LBR_FactFiscal, I_Persiste
 	  */
 	public void setLineNetAmt (BigDecimal LineNetAmt)
 	{
-		set_ValueNoCheck (COLUMNNAME_LineNetAmt, LineNetAmt);
+		set_Value (COLUMNNAME_LineNetAmt, LineNetAmt);
 	}
 
 	/** Get Line Amount.
@@ -1318,7 +2015,7 @@ public class X_LBR_FactFiscal extends PO implements I_LBR_FactFiscal, I_Persiste
 	  */
 	public void setLineTotalAmt (BigDecimal LineTotalAmt)
 	{
-		set_ValueNoCheck (COLUMNNAME_LineTotalAmt, LineTotalAmt);
+		set_Value (COLUMNNAME_LineTotalAmt, LineTotalAmt);
 	}
 
 	/** Get Line Total.
@@ -1332,9 +2029,9 @@ public class X_LBR_FactFiscal extends PO implements I_LBR_FactFiscal, I_Persiste
 		return bd;
 	}
 
-	public org.compiere.model.I_M_Product getM_Product() throws RuntimeException
+	public I_M_Product getM_Product() throws RuntimeException
     {
-		return (org.compiere.model.I_M_Product)MTable.get(getCtx(), org.compiere.model.I_M_Product.Table_Name)
+		return (I_M_Product)MTable.get(getCtx(), I_M_Product.Table_Name)
 			.getPO(getM_Product_ID(), get_TrxName());	}
 
 	/** Set Product.
@@ -1344,9 +2041,9 @@ public class X_LBR_FactFiscal extends PO implements I_LBR_FactFiscal, I_Persiste
 	public void setM_Product_ID (int M_Product_ID)
 	{
 		if (M_Product_ID < 1) 
-			set_ValueNoCheck (COLUMNNAME_M_Product_ID, null);
+			set_Value (COLUMNNAME_M_Product_ID, null);
 		else 
-			set_ValueNoCheck (COLUMNNAME_M_Product_ID, Integer.valueOf(M_Product_ID));
+			set_Value (COLUMNNAME_M_Product_ID, Integer.valueOf(M_Product_ID));
 	}
 
 	/** Get Product.
@@ -1360,32 +2057,103 @@ public class X_LBR_FactFiscal extends PO implements I_LBR_FactFiscal, I_Persiste
 		return ii.intValue();
 	}
 
-	public org.compiere.model.I_C_Location getOrg_Location() throws RuntimeException
-    {
-		return (org.compiere.model.I_C_Location)MTable.get(getCtx(), org.compiere.model.I_C_Location.Table_Name)
-			.getPO(getOrg_Location_ID(), get_TrxName());	}
-
-	/** Set Org Address.
-		@param Org_Location_ID 
-		Organization Location/Address
-	  */
-	public void setOrg_Location_ID (int Org_Location_ID)
+	/** Set Total de PIS da NF.
+		@param PIS_NFTaxAmt Total de PIS da NF	  */
+	public void setPIS_NFTaxAmt (BigDecimal PIS_NFTaxAmt)
 	{
-		if (Org_Location_ID < 1) 
-			set_ValueNoCheck (COLUMNNAME_Org_Location_ID, null);
-		else 
-			set_ValueNoCheck (COLUMNNAME_Org_Location_ID, Integer.valueOf(Org_Location_ID));
+		set_Value (COLUMNNAME_PIS_NFTaxAmt, PIS_NFTaxAmt);
 	}
 
-	/** Get Org Address.
-		@return Organization Location/Address
-	  */
-	public int getOrg_Location_ID () 
+	/** Get Total de PIS da NF.
+		@return Total de PIS da NF	  */
+	public BigDecimal getPIS_NFTaxAmt () 
 	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_Org_Location_ID);
-		if (ii == null)
-			 return 0;
-		return ii.intValue();
+		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_PIS_NFTaxAmt);
+		if (bd == null)
+			 return Env.ZERO;
+		return bd;
+	}
+
+	/** Set Valor do PIS.
+		@param PIS_TaxAmt Valor do PIS	  */
+	public void setPIS_TaxAmt (BigDecimal PIS_TaxAmt)
+	{
+		set_Value (COLUMNNAME_PIS_TaxAmt, PIS_TaxAmt);
+	}
+
+	/** Get Valor do PIS.
+		@return Valor do PIS	  */
+	public BigDecimal getPIS_TaxAmt () 
+	{
+		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_PIS_TaxAmt);
+		if (bd == null)
+			 return Env.ZERO;
+		return bd;
+	}
+
+	/** Set Red. da BC do PIS.
+		@param PIS_TaxBase Red. da BC do PIS	  */
+	public void setPIS_TaxBase (BigDecimal PIS_TaxBase)
+	{
+		set_Value (COLUMNNAME_PIS_TaxBase, PIS_TaxBase);
+	}
+
+	/** Get Red. da BC do PIS.
+		@return Red. da BC do PIS	  */
+	public BigDecimal getPIS_TaxBase () 
+	{
+		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_PIS_TaxBase);
+		if (bd == null)
+			 return Env.ZERO;
+		return bd;
+	}
+
+	/** Set Vlr. da BC do PIS.
+		@param PIS_TaxBaseAmt Vlr. da BC do PIS	  */
+	public void setPIS_TaxBaseAmt (BigDecimal PIS_TaxBaseAmt)
+	{
+		set_Value (COLUMNNAME_PIS_TaxBaseAmt, PIS_TaxBaseAmt);
+	}
+
+	/** Get Vlr. da BC do PIS.
+		@return Vlr. da BC do PIS	  */
+	public BigDecimal getPIS_TaxBaseAmt () 
+	{
+		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_PIS_TaxBaseAmt);
+		if (bd == null)
+			 return Env.ZERO;
+		return bd;
+	}
+
+	/** Set Alíq. do PIS.
+		@param PIS_TaxRate Alíq. do PIS	  */
+	public void setPIS_TaxRate (BigDecimal PIS_TaxRate)
+	{
+		set_Value (COLUMNNAME_PIS_TaxRate, PIS_TaxRate);
+	}
+
+	/** Get Alíq. do PIS.
+		@return Alíq. do PIS	  */
+	public BigDecimal getPIS_TaxRate () 
+	{
+		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_PIS_TaxRate);
+		if (bd == null)
+			 return Env.ZERO;
+		return bd;
+	}
+
+	/** Set CST do PIS.
+		@param PIS_TaxStatus CST do PIS	  */
+	public void setPIS_TaxStatus (String PIS_TaxStatus)
+	{
+		set_Value (COLUMNNAME_PIS_TaxStatus, PIS_TaxStatus);
+	}
+
+	/** Get CST do PIS.
+		@return CST do PIS	  */
+	public String getPIS_TaxStatus () 
+	{
+		return (String)get_Value(COLUMNNAME_PIS_TaxStatus);
 	}
 
 	/** Set Price.
@@ -1394,7 +2162,7 @@ public class X_LBR_FactFiscal extends PO implements I_LBR_FactFiscal, I_Persiste
 	  */
 	public void setPrice (BigDecimal Price)
 	{
-		set_ValueNoCheck (COLUMNNAME_Price, Price);
+		set_Value (COLUMNNAME_Price, Price);
 	}
 
 	/** Get Price.
@@ -1414,7 +2182,7 @@ public class X_LBR_FactFiscal extends PO implements I_LBR_FactFiscal, I_Persiste
 	  */
 	public void setProductName (String ProductName)
 	{
-		set_ValueNoCheck (COLUMNNAME_ProductName, ProductName);
+		set_Value (COLUMNNAME_ProductName, ProductName);
 	}
 
 	/** Get Product Name.
@@ -1425,13 +2193,41 @@ public class X_LBR_FactFiscal extends PO implements I_LBR_FactFiscal, I_Persiste
 		return (String)get_Value(COLUMNNAME_ProductName);
 	}
 
+	/** Set NCM do Produto.
+		@param ProductNCM NCM do Produto	  */
+	public void setProductNCM (String ProductNCM)
+	{
+		set_Value (COLUMNNAME_ProductNCM, ProductNCM);
+	}
+
+	/** Get NCM do Produto.
+		@return NCM do Produto	  */
+	public String getProductNCM () 
+	{
+		return (String)get_Value(COLUMNNAME_ProductNCM);
+	}
+
+	/** Set UOM do Produto.
+		@param ProductUOM UOM do Produto	  */
+	public void setProductUOM (String ProductUOM)
+	{
+		set_Value (COLUMNNAME_ProductUOM, ProductUOM);
+	}
+
+	/** Get UOM do Produto.
+		@return UOM do Produto	  */
+	public String getProductUOM () 
+	{
+		return (String)get_Value(COLUMNNAME_ProductUOM);
+	}
+
 	/** Set Product Key.
 		@param ProductValue 
 		Key of the Product
 	  */
 	public void setProductValue (String ProductValue)
 	{
-		set_ValueNoCheck (COLUMNNAME_ProductValue, ProductValue);
+		set_Value (COLUMNNAME_ProductValue, ProductValue);
 	}
 
 	/** Get Product Key.
@@ -1448,7 +2244,7 @@ public class X_LBR_FactFiscal extends PO implements I_LBR_FactFiscal, I_Persiste
 	  */
 	public void setQty (BigDecimal Qty)
 	{
-		set_ValueNoCheck (COLUMNNAME_Qty, Qty);
+		set_Value (COLUMNNAME_Qty, Qty);
 	}
 
 	/** Get Quantity.
@@ -1468,7 +2264,7 @@ public class X_LBR_FactFiscal extends PO implements I_LBR_FactFiscal, I_Persiste
 	  */
 	public void setTotalLines (BigDecimal TotalLines)
 	{
-		set_ValueNoCheck (COLUMNNAME_TotalLines, TotalLines);
+		set_Value (COLUMNNAME_TotalLines, TotalLines);
 	}
 
 	/** Get Total Lines.
@@ -1488,7 +2284,7 @@ public class X_LBR_FactFiscal extends PO implements I_LBR_FactFiscal, I_Persiste
 	  */
 	public void setUPC (String UPC)
 	{
-		set_ValueNoCheck (COLUMNNAME_UPC, UPC);
+		set_Value (COLUMNNAME_UPC, UPC);
 	}
 
 	/** Get UPC/EAN.
@@ -1497,638 +2293,5 @@ public class X_LBR_FactFiscal extends PO implements I_LBR_FactFiscal, I_Persiste
 	public String getUPC () 
 	{
 		return (String)get_Value(COLUMNNAME_UPC);
-	}
-
-	/** Set bpcitycode.
-		@param bpcitycode bpcitycode	  */
-	public void setbpcitycode (String bpcitycode)
-	{
-		set_ValueNoCheck (COLUMNNAME_bpcitycode, bpcitycode);
-	}
-
-	/** Get bpcitycode.
-		@return bpcitycode	  */
-	public String getbpcitycode () 
-	{
-		return (String)get_Value(COLUMNNAME_bpcitycode);
-	}
-
-	/** Set bpcountrycode.
-		@param bpcountrycode bpcountrycode	  */
-	public void setbpcountrycode (String bpcountrycode)
-	{
-		set_ValueNoCheck (COLUMNNAME_bpcountrycode, bpcountrycode);
-	}
-
-	/** Get bpcountrycode.
-		@return bpcountrycode	  */
-	public String getbpcountrycode () 
-	{
-		return (String)get_Value(COLUMNNAME_bpcountrycode);
-	}
-
-	/** Set cofins_nftaxamt.
-		@param cofins_nftaxamt cofins_nftaxamt	  */
-	public void setcofins_nftaxamt (BigDecimal cofins_nftaxamt)
-	{
-		set_ValueNoCheck (COLUMNNAME_cofins_nftaxamt, cofins_nftaxamt);
-	}
-
-	/** Get cofins_nftaxamt.
-		@return cofins_nftaxamt	  */
-	public BigDecimal getcofins_nftaxamt () 
-	{
-		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_cofins_nftaxamt);
-		if (bd == null)
-			 return Env.ZERO;
-		return bd;
-	}
-
-	/** Set cofins_taxamt.
-		@param cofins_taxamt cofins_taxamt	  */
-	public void setcofins_taxamt (BigDecimal cofins_taxamt)
-	{
-		set_ValueNoCheck (COLUMNNAME_cofins_taxamt, cofins_taxamt);
-	}
-
-	/** Get cofins_taxamt.
-		@return cofins_taxamt	  */
-	public BigDecimal getcofins_taxamt () 
-	{
-		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_cofins_taxamt);
-		if (bd == null)
-			 return Env.ZERO;
-		return bd;
-	}
-
-	/** Set cofins_taxbase.
-		@param cofins_taxbase cofins_taxbase	  */
-	public void setcofins_taxbase (BigDecimal cofins_taxbase)
-	{
-		set_ValueNoCheck (COLUMNNAME_cofins_taxbase, cofins_taxbase);
-	}
-
-	/** Get cofins_taxbase.
-		@return cofins_taxbase	  */
-	public BigDecimal getcofins_taxbase () 
-	{
-		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_cofins_taxbase);
-		if (bd == null)
-			 return Env.ZERO;
-		return bd;
-	}
-
-	/** Set cofins_taxbaseamt.
-		@param cofins_taxbaseamt cofins_taxbaseamt	  */
-	public void setcofins_taxbaseamt (BigDecimal cofins_taxbaseamt)
-	{
-		set_ValueNoCheck (COLUMNNAME_cofins_taxbaseamt, cofins_taxbaseamt);
-	}
-
-	/** Get cofins_taxbaseamt.
-		@return cofins_taxbaseamt	  */
-	public BigDecimal getcofins_taxbaseamt () 
-	{
-		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_cofins_taxbaseamt);
-		if (bd == null)
-			 return Env.ZERO;
-		return bd;
-	}
-
-	/** Set cofins_taxrate.
-		@param cofins_taxrate cofins_taxrate	  */
-	public void setcofins_taxrate (BigDecimal cofins_taxrate)
-	{
-		set_ValueNoCheck (COLUMNNAME_cofins_taxrate, cofins_taxrate);
-	}
-
-	/** Get cofins_taxrate.
-		@return cofins_taxrate	  */
-	public BigDecimal getcofins_taxrate () 
-	{
-		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_cofins_taxrate);
-		if (bd == null)
-			 return Env.ZERO;
-		return bd;
-	}
-
-	/** Set cofins_taxstatus.
-		@param cofins_taxstatus cofins_taxstatus	  */
-	public void setcofins_taxstatus (String cofins_taxstatus)
-	{
-		set_ValueNoCheck (COLUMNNAME_cofins_taxstatus, cofins_taxstatus);
-	}
-
-	/** Get cofins_taxstatus.
-		@return cofins_taxstatus	  */
-	public String getcofins_taxstatus () 
-	{
-		return (String)get_Value(COLUMNNAME_cofins_taxstatus);
-	}
-
-	/** Set docbasetypebr.
-		@param docbasetypebr docbasetypebr	  */
-	public void setdocbasetypebr (String docbasetypebr)
-	{
-		set_ValueNoCheck (COLUMNNAME_docbasetypebr, docbasetypebr);
-	}
-
-	/** Get docbasetypebr.
-		@return docbasetypebr	  */
-	public String getdocbasetypebr () 
-	{
-		return (String)get_Value(COLUMNNAME_docbasetypebr);
-	}
-
-	/** Set icms_nftaxamt.
-		@param icms_nftaxamt icms_nftaxamt	  */
-	public void seticms_nftaxamt (BigDecimal icms_nftaxamt)
-	{
-		set_ValueNoCheck (COLUMNNAME_icms_nftaxamt, icms_nftaxamt);
-	}
-
-	/** Get icms_nftaxamt.
-		@return icms_nftaxamt	  */
-	public BigDecimal geticms_nftaxamt () 
-	{
-		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_icms_nftaxamt);
-		if (bd == null)
-			 return Env.ZERO;
-		return bd;
-	}
-
-	/** Set icms_nftaxbaseamt.
-		@param icms_nftaxbaseamt icms_nftaxbaseamt	  */
-	public void seticms_nftaxbaseamt (BigDecimal icms_nftaxbaseamt)
-	{
-		set_ValueNoCheck (COLUMNNAME_icms_nftaxbaseamt, icms_nftaxbaseamt);
-	}
-
-	/** Get icms_nftaxbaseamt.
-		@return icms_nftaxbaseamt	  */
-	public BigDecimal geticms_nftaxbaseamt () 
-	{
-		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_icms_nftaxbaseamt);
-		if (bd == null)
-			 return Env.ZERO;
-		return bd;
-	}
-
-	/** Set icms_taxamt.
-		@param icms_taxamt icms_taxamt	  */
-	public void seticms_taxamt (BigDecimal icms_taxamt)
-	{
-		set_ValueNoCheck (COLUMNNAME_icms_taxamt, icms_taxamt);
-	}
-
-	/** Get icms_taxamt.
-		@return icms_taxamt	  */
-	public BigDecimal geticms_taxamt () 
-	{
-		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_icms_taxamt);
-		if (bd == null)
-			 return Env.ZERO;
-		return bd;
-	}
-
-	/** Set icms_taxbase.
-		@param icms_taxbase icms_taxbase	  */
-	public void seticms_taxbase (BigDecimal icms_taxbase)
-	{
-		set_ValueNoCheck (COLUMNNAME_icms_taxbase, icms_taxbase);
-	}
-
-	/** Get icms_taxbase.
-		@return icms_taxbase	  */
-	public BigDecimal geticms_taxbase () 
-	{
-		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_icms_taxbase);
-		if (bd == null)
-			 return Env.ZERO;
-		return bd;
-	}
-
-	/** Set icms_taxbaseamt.
-		@param icms_taxbaseamt icms_taxbaseamt	  */
-	public void seticms_taxbaseamt (BigDecimal icms_taxbaseamt)
-	{
-		set_ValueNoCheck (COLUMNNAME_icms_taxbaseamt, icms_taxbaseamt);
-	}
-
-	/** Get icms_taxbaseamt.
-		@return icms_taxbaseamt	  */
-	public BigDecimal geticms_taxbaseamt () 
-	{
-		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_icms_taxbaseamt);
-		if (bd == null)
-			 return Env.ZERO;
-		return bd;
-	}
-
-	/** Set icms_taxrate.
-		@param icms_taxrate icms_taxrate	  */
-	public void seticms_taxrate (BigDecimal icms_taxrate)
-	{
-		set_ValueNoCheck (COLUMNNAME_icms_taxrate, icms_taxrate);
-	}
-
-	/** Get icms_taxrate.
-		@return icms_taxrate	  */
-	public BigDecimal geticms_taxrate () 
-	{
-		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_icms_taxrate);
-		if (bd == null)
-			 return Env.ZERO;
-		return bd;
-	}
-
-	/** Set icms_taxstatus.
-		@param icms_taxstatus icms_taxstatus	  */
-	public void seticms_taxstatus (String icms_taxstatus)
-	{
-		set_ValueNoCheck (COLUMNNAME_icms_taxstatus, icms_taxstatus);
-	}
-
-	/** Get icms_taxstatus.
-		@return icms_taxstatus	  */
-	public String geticms_taxstatus () 
-	{
-		return (String)get_Value(COLUMNNAME_icms_taxstatus);
-	}
-
-	/** Set icmsst_nftaxamt.
-		@param icmsst_nftaxamt icmsst_nftaxamt	  */
-	public void seticmsst_nftaxamt (BigDecimal icmsst_nftaxamt)
-	{
-		set_ValueNoCheck (COLUMNNAME_icmsst_nftaxamt, icmsst_nftaxamt);
-	}
-
-	/** Get icmsst_nftaxamt.
-		@return icmsst_nftaxamt	  */
-	public BigDecimal geticmsst_nftaxamt () 
-	{
-		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_icmsst_nftaxamt);
-		if (bd == null)
-			 return Env.ZERO;
-		return bd;
-	}
-
-	/** Set icmsst_nftaxbaseamt.
-		@param icmsst_nftaxbaseamt icmsst_nftaxbaseamt	  */
-	public void seticmsst_nftaxbaseamt (BigDecimal icmsst_nftaxbaseamt)
-	{
-		set_ValueNoCheck (COLUMNNAME_icmsst_nftaxbaseamt, icmsst_nftaxbaseamt);
-	}
-
-	/** Get icmsst_nftaxbaseamt.
-		@return icmsst_nftaxbaseamt	  */
-	public BigDecimal geticmsst_nftaxbaseamt () 
-	{
-		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_icmsst_nftaxbaseamt);
-		if (bd == null)
-			 return Env.ZERO;
-		return bd;
-	}
-
-	/** Set icmsst_taxamt.
-		@param icmsst_taxamt icmsst_taxamt	  */
-	public void seticmsst_taxamt (BigDecimal icmsst_taxamt)
-	{
-		set_ValueNoCheck (COLUMNNAME_icmsst_taxamt, icmsst_taxamt);
-	}
-
-	/** Get icmsst_taxamt.
-		@return icmsst_taxamt	  */
-	public BigDecimal geticmsst_taxamt () 
-	{
-		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_icmsst_taxamt);
-		if (bd == null)
-			 return Env.ZERO;
-		return bd;
-	}
-
-	/** Set icmsst_taxbase.
-		@param icmsst_taxbase icmsst_taxbase	  */
-	public void seticmsst_taxbase (BigDecimal icmsst_taxbase)
-	{
-		set_ValueNoCheck (COLUMNNAME_icmsst_taxbase, icmsst_taxbase);
-	}
-
-	/** Get icmsst_taxbase.
-		@return icmsst_taxbase	  */
-	public BigDecimal geticmsst_taxbase () 
-	{
-		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_icmsst_taxbase);
-		if (bd == null)
-			 return Env.ZERO;
-		return bd;
-	}
-
-	/** Set icmsst_taxbaseamt.
-		@param icmsst_taxbaseamt icmsst_taxbaseamt	  */
-	public void seticmsst_taxbaseamt (BigDecimal icmsst_taxbaseamt)
-	{
-		set_ValueNoCheck (COLUMNNAME_icmsst_taxbaseamt, icmsst_taxbaseamt);
-	}
-
-	/** Get icmsst_taxbaseamt.
-		@return icmsst_taxbaseamt	  */
-	public BigDecimal geticmsst_taxbaseamt () 
-	{
-		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_icmsst_taxbaseamt);
-		if (bd == null)
-			 return Env.ZERO;
-		return bd;
-	}
-
-	/** Set icmsst_taxrate.
-		@param icmsst_taxrate icmsst_taxrate	  */
-	public void seticmsst_taxrate (BigDecimal icmsst_taxrate)
-	{
-		set_ValueNoCheck (COLUMNNAME_icmsst_taxrate, icmsst_taxrate);
-	}
-
-	/** Get icmsst_taxrate.
-		@return icmsst_taxrate	  */
-	public BigDecimal geticmsst_taxrate () 
-	{
-		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_icmsst_taxrate);
-		if (bd == null)
-			 return Env.ZERO;
-		return bd;
-	}
-
-	/** Set icmsst_taxstatus.
-		@param icmsst_taxstatus icmsst_taxstatus	  */
-	public void seticmsst_taxstatus (String icmsst_taxstatus)
-	{
-		set_ValueNoCheck (COLUMNNAME_icmsst_taxstatus, icmsst_taxstatus);
-	}
-
-	/** Get icmsst_taxstatus.
-		@return icmsst_taxstatus	  */
-	public String geticmsst_taxstatus () 
-	{
-		return (String)get_Value(COLUMNNAME_icmsst_taxstatus);
-	}
-
-	/** Set ii_taxamt.
-		@param ii_taxamt ii_taxamt	  */
-	public void setii_taxamt (BigDecimal ii_taxamt)
-	{
-		set_ValueNoCheck (COLUMNNAME_ii_taxamt, ii_taxamt);
-	}
-
-	/** Get ii_taxamt.
-		@return ii_taxamt	  */
-	public BigDecimal getii_taxamt () 
-	{
-		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_ii_taxamt);
-		if (bd == null)
-			 return Env.ZERO;
-		return bd;
-	}
-
-	/** Set ii_taxbaseamt.
-		@param ii_taxbaseamt ii_taxbaseamt	  */
-	public void setii_taxbaseamt (BigDecimal ii_taxbaseamt)
-	{
-		set_ValueNoCheck (COLUMNNAME_ii_taxbaseamt, ii_taxbaseamt);
-	}
-
-	/** Get ii_taxbaseamt.
-		@return ii_taxbaseamt	  */
-	public BigDecimal getii_taxbaseamt () 
-	{
-		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_ii_taxbaseamt);
-		if (bd == null)
-			 return Env.ZERO;
-		return bd;
-	}
-
-	/** Set ii_taxrate.
-		@param ii_taxrate ii_taxrate	  */
-	public void setii_taxrate (BigDecimal ii_taxrate)
-	{
-		set_ValueNoCheck (COLUMNNAME_ii_taxrate, ii_taxrate);
-	}
-
-	/** Get ii_taxrate.
-		@return ii_taxrate	  */
-	public BigDecimal getii_taxrate () 
-	{
-		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_ii_taxrate);
-		if (bd == null)
-			 return Env.ZERO;
-		return bd;
-	}
-
-	/** Set ipi_nftaxamt.
-		@param ipi_nftaxamt ipi_nftaxamt	  */
-	public void setipi_nftaxamt (BigDecimal ipi_nftaxamt)
-	{
-		set_ValueNoCheck (COLUMNNAME_ipi_nftaxamt, ipi_nftaxamt);
-	}
-
-	/** Get ipi_nftaxamt.
-		@return ipi_nftaxamt	  */
-	public BigDecimal getipi_nftaxamt () 
-	{
-		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_ipi_nftaxamt);
-		if (bd == null)
-			 return Env.ZERO;
-		return bd;
-	}
-
-	/** Set ipi_taxamt.
-		@param ipi_taxamt ipi_taxamt	  */
-	public void setipi_taxamt (BigDecimal ipi_taxamt)
-	{
-		set_ValueNoCheck (COLUMNNAME_ipi_taxamt, ipi_taxamt);
-	}
-
-	/** Get ipi_taxamt.
-		@return ipi_taxamt	  */
-	public BigDecimal getipi_taxamt () 
-	{
-		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_ipi_taxamt);
-		if (bd == null)
-			 return Env.ZERO;
-		return bd;
-	}
-
-	/** Set ipi_taxbaseamt.
-		@param ipi_taxbaseamt ipi_taxbaseamt	  */
-	public void setipi_taxbaseamt (BigDecimal ipi_taxbaseamt)
-	{
-		set_ValueNoCheck (COLUMNNAME_ipi_taxbaseamt, ipi_taxbaseamt);
-	}
-
-	/** Get ipi_taxbaseamt.
-		@return ipi_taxbaseamt	  */
-	public BigDecimal getipi_taxbaseamt () 
-	{
-		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_ipi_taxbaseamt);
-		if (bd == null)
-			 return Env.ZERO;
-		return bd;
-	}
-
-	/** Set ipi_taxrate.
-		@param ipi_taxrate ipi_taxrate	  */
-	public void setipi_taxrate (BigDecimal ipi_taxrate)
-	{
-		set_ValueNoCheck (COLUMNNAME_ipi_taxrate, ipi_taxrate);
-	}
-
-	/** Get ipi_taxrate.
-		@return ipi_taxrate	  */
-	public BigDecimal getipi_taxrate () 
-	{
-		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_ipi_taxrate);
-		if (bd == null)
-			 return Env.ZERO;
-		return bd;
-	}
-
-	/** Set ipi_taxstatus.
-		@param ipi_taxstatus ipi_taxstatus	  */
-	public void setipi_taxstatus (String ipi_taxstatus)
-	{
-		set_ValueNoCheck (COLUMNNAME_ipi_taxstatus, ipi_taxstatus);
-	}
-
-	/** Get ipi_taxstatus.
-		@return ipi_taxstatus	  */
-	public String getipi_taxstatus () 
-	{
-		return (String)get_Value(COLUMNNAME_ipi_taxstatus);
-	}
-
-	/** Set pis_nftaxamt.
-		@param pis_nftaxamt pis_nftaxamt	  */
-	public void setpis_nftaxamt (BigDecimal pis_nftaxamt)
-	{
-		set_ValueNoCheck (COLUMNNAME_pis_nftaxamt, pis_nftaxamt);
-	}
-
-	/** Get pis_nftaxamt.
-		@return pis_nftaxamt	  */
-	public BigDecimal getpis_nftaxamt () 
-	{
-		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_pis_nftaxamt);
-		if (bd == null)
-			 return Env.ZERO;
-		return bd;
-	}
-
-	/** Set pis_taxamt.
-		@param pis_taxamt pis_taxamt	  */
-	public void setpis_taxamt (BigDecimal pis_taxamt)
-	{
-		set_ValueNoCheck (COLUMNNAME_pis_taxamt, pis_taxamt);
-	}
-
-	/** Get pis_taxamt.
-		@return pis_taxamt	  */
-	public BigDecimal getpis_taxamt () 
-	{
-		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_pis_taxamt);
-		if (bd == null)
-			 return Env.ZERO;
-		return bd;
-	}
-
-	/** Set pis_taxbase.
-		@param pis_taxbase pis_taxbase	  */
-	public void setpis_taxbase (BigDecimal pis_taxbase)
-	{
-		set_ValueNoCheck (COLUMNNAME_pis_taxbase, pis_taxbase);
-	}
-
-	/** Get pis_taxbase.
-		@return pis_taxbase	  */
-	public BigDecimal getpis_taxbase () 
-	{
-		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_pis_taxbase);
-		if (bd == null)
-			 return Env.ZERO;
-		return bd;
-	}
-
-	/** Set pis_taxbaseamt.
-		@param pis_taxbaseamt pis_taxbaseamt	  */
-	public void setpis_taxbaseamt (BigDecimal pis_taxbaseamt)
-	{
-		set_ValueNoCheck (COLUMNNAME_pis_taxbaseamt, pis_taxbaseamt);
-	}
-
-	/** Get pis_taxbaseamt.
-		@return pis_taxbaseamt	  */
-	public BigDecimal getpis_taxbaseamt () 
-	{
-		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_pis_taxbaseamt);
-		if (bd == null)
-			 return Env.ZERO;
-		return bd;
-	}
-
-	/** Set pis_taxrate.
-		@param pis_taxrate pis_taxrate	  */
-	public void setpis_taxrate (BigDecimal pis_taxrate)
-	{
-		set_ValueNoCheck (COLUMNNAME_pis_taxrate, pis_taxrate);
-	}
-
-	/** Get pis_taxrate.
-		@return pis_taxrate	  */
-	public BigDecimal getpis_taxrate () 
-	{
-		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_pis_taxrate);
-		if (bd == null)
-			 return Env.ZERO;
-		return bd;
-	}
-
-	/** Set pis_taxstatus.
-		@param pis_taxstatus pis_taxstatus	  */
-	public void setpis_taxstatus (String pis_taxstatus)
-	{
-		set_ValueNoCheck (COLUMNNAME_pis_taxstatus, pis_taxstatus);
-	}
-
-	/** Get pis_taxstatus.
-		@return pis_taxstatus	  */
-	public String getpis_taxstatus () 
-	{
-		return (String)get_Value(COLUMNNAME_pis_taxstatus);
-	}
-
-	/** Set productncm.
-		@param productncm productncm	  */
-	public void setproductncm (String productncm)
-	{
-		set_ValueNoCheck (COLUMNNAME_productncm, productncm);
-	}
-
-	/** Get productncm.
-		@return productncm	  */
-	public String getproductncm () 
-	{
-		return (String)get_Value(COLUMNNAME_productncm);
-	}
-
-	/** Set productuom.
-		@param productuom productuom	  */
-	public void setproductuom (String productuom)
-	{
-		set_ValueNoCheck (COLUMNNAME_productuom, productuom);
-	}
-
-	/** Get productuom.
-		@return productuom	  */
-	public String getproductuom () 
-	{
-		return (String)get_Value(COLUMNNAME_productuom);
 	}
 }

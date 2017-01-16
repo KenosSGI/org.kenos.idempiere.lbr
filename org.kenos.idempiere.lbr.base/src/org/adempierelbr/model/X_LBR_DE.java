@@ -31,7 +31,7 @@ public class X_LBR_DE extends PO implements I_LBR_DE, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20170105L;
+	private static final long serialVersionUID = 20170116L;
 
     /** Standard Constructor */
     public X_LBR_DE (Properties ctx, int LBR_DE_ID, String trxName)
@@ -44,9 +44,9 @@ public class X_LBR_DE extends PO implements I_LBR_DE, I_Persistent
 // N
 			setDateDoc (new Timestamp( System.currentTimeMillis() ));
 			setDateTrx (new Timestamp( System.currentTimeMillis() ));
-			setLBR_CHCType (null);
-			setLBR_DE (null);
 			setLBR_DE_ID (0);
+			setlbr_CHCType (null);
+			setlbr_DE (null);
         } */
     }
 
@@ -152,21 +152,63 @@ public class X_LBR_DE extends PO implements I_LBR_DE, I_Persistent
 		return (Timestamp)get_Value(COLUMNNAME_DateTrx);
 	}
 
+	/** Set DE.
+		@param LBR_DE_ID DE	  */
+	public void setLBR_DE_ID (int LBR_DE_ID)
+	{
+		if (LBR_DE_ID < 1) 
+			set_ValueNoCheck (COLUMNNAME_LBR_DE_ID, null);
+		else 
+			set_ValueNoCheck (COLUMNNAME_LBR_DE_ID, Integer.valueOf(LBR_DE_ID));
+	}
+
+	/** Get DE.
+		@return DE	  */
+	public int getLBR_DE_ID () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_LBR_DE_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
+	/** Declaração de Exportação = 0 */
+	public static final String TYPE_DeclaraçãoDeExportação = "0";
+	/** Declaração Simplificada de Exportação = 1 */
+	public static final String TYPE_DeclaraçãoSimplificadaDeExportação = "1";
+	/** Set Type.
+		@param Type 
+		Type of Validation (SQL, Java Script, Java Language)
+	  */
+	public void setType (String Type)
+	{
+
+		set_Value (COLUMNNAME_Type, Type);
+	}
+
+	/** Get Type.
+		@return Type of Validation (SQL, Java Script, Java Language)
+	  */
+	public String getType () 
+	{
+		return (String)get_Value(COLUMNNAME_Type);
+	}
+
 	/** Set No. Conhecimento de Embarque.
-		@param LBR_CHCEmb 
+		@param lbr_CHCEmb 
 		NÃºmero do Conhecimento de Embarque
 	  */
-	public void setLBR_CHCEmb (String LBR_CHCEmb)
+	public void setlbr_CHCEmb (String lbr_CHCEmb)
 	{
-		set_Value (COLUMNNAME_LBR_CHCEmb, LBR_CHCEmb);
+		set_Value (COLUMNNAME_lbr_CHCEmb, lbr_CHCEmb);
 	}
 
 	/** Get No. Conhecimento de Embarque.
 		@return NÃºmero do Conhecimento de Embarque
 	  */
-	public String getLBR_CHCEmb () 
+	public String getlbr_CHCEmb () 
 	{
-		return (String)get_Value(COLUMNNAME_LBR_CHCEmb);
+		return (String)get_Value(COLUMNNAME_lbr_CHCEmb);
 	}
 
 	/** AWB = 01 */
@@ -214,130 +256,88 @@ public class X_LBR_DE extends PO implements I_LBR_DE, I_Persistent
 	/** OUTROS = 99 */
 	public static final String LBR_CHCTYPE_OUTROS = "99";
 	/** Set Tipo Conhecimento de Transporte.
-		@param LBR_CHCType 
+		@param lbr_CHCType 
 		Define o Tipo de Conhecimento de Transporte
 	  */
-	public void setLBR_CHCType (String LBR_CHCType)
+	public void setlbr_CHCType (String lbr_CHCType)
 	{
 
-		set_Value (COLUMNNAME_LBR_CHCType, LBR_CHCType);
+		set_Value (COLUMNNAME_lbr_CHCType, lbr_CHCType);
 	}
 
 	/** Get Tipo Conhecimento de Transporte.
 		@return Define o Tipo de Conhecimento de Transporte
 	  */
-	public String getLBR_CHCType () 
+	public String getlbr_CHCType () 
 	{
-		return (String)get_Value(COLUMNNAME_LBR_CHCType);
+		return (String)get_Value(COLUMNNAME_lbr_CHCType);
 	}
 
 	/** Set DE.
-		@param LBR_DE 
+		@param lbr_DE 
 		Número do Documento de Exportação
 	  */
-	public void setLBR_DE (String LBR_DE)
+	public void setlbr_DE (String lbr_DE)
 	{
-		set_Value (COLUMNNAME_LBR_DE, LBR_DE);
+		set_Value (COLUMNNAME_lbr_DE, lbr_DE);
 	}
 
 	/** Get DE.
 		@return Número do Documento de Exportação
 	  */
-	public String getLBR_DE () 
+	public String getlbr_DE () 
 	{
-		return (String)get_Value(COLUMNNAME_LBR_DE);
-	}
-
-	/** Set DE.
-		@param LBR_DE_ID DE	  */
-	public void setLBR_DE_ID (int LBR_DE_ID)
-	{
-		if (LBR_DE_ID < 1) 
-			set_ValueNoCheck (COLUMNNAME_LBR_DE_ID, null);
-		else 
-			set_ValueNoCheck (COLUMNNAME_LBR_DE_ID, Integer.valueOf(LBR_DE_ID));
-	}
-
-	/** Get DE.
-		@return DE	  */
-	public int getLBR_DE_ID () 
-	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_LBR_DE_ID);
-		if (ii == null)
-			 return 0;
-		return ii.intValue();
+		return (String)get_Value(COLUMNNAME_lbr_DE);
 	}
 
 	/** Set Data Conhecimento de Embarque.
-		@param LBR_DateCHCEmb 
+		@param lbr_DateCHCEmb 
 		Data do Conhecimento de Embarque
 	  */
-	public void setLBR_DateCHCEmb (Timestamp LBR_DateCHCEmb)
+	public void setlbr_DateCHCEmb (Timestamp lbr_DateCHCEmb)
 	{
-		set_Value (COLUMNNAME_LBR_DateCHCEmb, LBR_DateCHCEmb);
+		set_Value (COLUMNNAME_lbr_DateCHCEmb, lbr_DateCHCEmb);
 	}
 
 	/** Get Data Conhecimento de Embarque.
 		@return Data do Conhecimento de Embarque
 	  */
-	public Timestamp getLBR_DateCHCEmb () 
+	public Timestamp getlbr_DateCHCEmb () 
 	{
-		return (Timestamp)get_Value(COLUMNNAME_LBR_DateCHCEmb);
+		return (Timestamp)get_Value(COLUMNNAME_lbr_DateCHCEmb);
 	}
 
 	/** Set Data RE.
-		@param LBR_DateRE 
+		@param lbr_DateRE 
 		Data do Registro de Exportação
 	  */
-	public void setLBR_DateRE (Timestamp LBR_DateRE)
+	public void setlbr_DateRE (Timestamp lbr_DateRE)
 	{
-		set_Value (COLUMNNAME_LBR_DateRE, LBR_DateRE);
+		set_Value (COLUMNNAME_lbr_DateRE, lbr_DateRE);
 	}
 
 	/** Get Data RE.
 		@return Data do Registro de Exportação
 	  */
-	public Timestamp getLBR_DateRE () 
+	public Timestamp getlbr_DateRE () 
 	{
-		return (Timestamp)get_Value(COLUMNNAME_LBR_DateRE);
+		return (Timestamp)get_Value(COLUMNNAME_lbr_DateRE);
 	}
 
 	/** Set No. RE.
-		@param LBR_RE 
+		@param lbr_RE 
 		No. do Registro de Exportação
 	  */
-	public void setLBR_RE (String LBR_RE)
+	public void setlbr_RE (String lbr_RE)
 	{
-		set_Value (COLUMNNAME_LBR_RE, LBR_RE);
+		set_Value (COLUMNNAME_lbr_RE, lbr_RE);
 	}
 
 	/** Get No. RE.
 		@return No. do Registro de Exportação
 	  */
-	public String getLBR_RE () 
+	public String getlbr_RE () 
 	{
-		return (String)get_Value(COLUMNNAME_LBR_RE);
-	}
-
-	/** Declaração de Exportação = 0 */
-	public static final String TYPE_DeclaraçãoDeExportação = "0";
-	/** Declaração Simplificada de Exportação = 1 */
-	public static final String TYPE_DeclaraçãoSimplificadaDeExportação = "1";
-	/** Set Type.
-		@param Type 
-		Type of Validation (SQL, Java Script, Java Language)
-	  */
-	public void setType (String Type)
-	{
-
-		set_Value (COLUMNNAME_Type, Type);
-	}
-
-	/** Get Type.
-		@return Type of Validation (SQL, Java Script, Java Language)
-	  */
-	public String getType () 
-	{
-		return (String)get_Value(COLUMNNAME_Type);
+		return (String)get_Value(COLUMNNAME_lbr_RE);
 	}
 }

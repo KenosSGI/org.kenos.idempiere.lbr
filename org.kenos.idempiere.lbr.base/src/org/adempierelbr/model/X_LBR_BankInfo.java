@@ -30,7 +30,7 @@ public class X_LBR_BankInfo extends PO implements I_LBR_BankInfo, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20170105L;
+	private static final long serialVersionUID = 20170116L;
 
     /** Standard Constructor */
     public X_LBR_BankInfo (Properties ctx, int LBR_BankInfo_ID, String trxName)
@@ -40,8 +40,8 @@ public class X_LBR_BankInfo extends PO implements I_LBR_BankInfo, I_Persistent
         {
 			setLBR_BankInfo_ID (0);
 			setLBR_Bank_ID (0);
-			setLBR_OccurNo (null);
-			setLBR_OccurType (null);
+			setlbr_OccurNo (null);
+			setlbr_OccurType (null);
         } */
     }
 
@@ -142,20 +142,20 @@ public class X_LBR_BankInfo extends PO implements I_LBR_BankInfo, I_Persistent
 	}
 
 	/** Set Occurrence Number.
-		@param LBR_OccurNo 
+		@param lbr_OccurNo 
 		Defines the Occurrence Number
 	  */
-	public void setLBR_OccurNo (String LBR_OccurNo)
+	public void setlbr_OccurNo (String lbr_OccurNo)
 	{
-		set_Value (COLUMNNAME_LBR_OccurNo, LBR_OccurNo);
+		set_Value (COLUMNNAME_lbr_OccurNo, lbr_OccurNo);
 	}
 
 	/** Get Occurrence Number.
 		@return Defines the Occurrence Number
 	  */
-	public String getLBR_OccurNo () 
+	public String getlbr_OccurNo () 
 	{
-		return (String)get_Value(COLUMNNAME_LBR_OccurNo);
+		return (String)get_Value(COLUMNNAME_lbr_OccurNo);
 	}
 
 	/** Liquidation = L */
@@ -163,20 +163,20 @@ public class X_LBR_BankInfo extends PO implements I_LBR_BankInfo, I_Persistent
 	/** Occurrence = O */
 	public static final String LBR_OCCURTYPE_Occurrence = "O";
 	/** Set Occurrence Type.
-		@param LBR_OccurType 
+		@param lbr_OccurType 
 		Defines the Occurrence Type
 	  */
-	public void setLBR_OccurType (String LBR_OccurType)
+	public void setlbr_OccurType (String lbr_OccurType)
 	{
 
-		set_Value (COLUMNNAME_LBR_OccurType, LBR_OccurType);
+		set_Value (COLUMNNAME_lbr_OccurType, lbr_OccurType);
 	}
 
 	/** Get Occurrence Type.
 		@return Defines the Occurrence Type
 	  */
-	public String getLBR_OccurType () 
+	public String getlbr_OccurType () 
 	{
-		return (String)get_Value(COLUMNNAME_LBR_OccurType);
+		return (String)get_Value(COLUMNNAME_lbr_OccurType);
 	}
 }

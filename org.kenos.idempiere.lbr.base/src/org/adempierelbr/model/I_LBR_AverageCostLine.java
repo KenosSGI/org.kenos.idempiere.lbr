@@ -191,24 +191,6 @@ public interface I_LBR_AverageCostLine
 
 	public org.adempierelbr.model.I_LBR_AverageCost getLBR_AverageCost() throws RuntimeException;
 
-    /** Column name LBR_AvgCostType */
-    public static final String COLUMNNAME_LBR_AvgCostType = "LBR_AvgCostType";
-
-	/** Set AvgCost Type	  */
-	public void setLBR_AvgCostType (String LBR_AvgCostType);
-
-	/** Get AvgCost Type	  */
-	public String getLBR_AvgCostType();
-
-    /** Column name LBR_AvgCostZoom */
-    public static final String COLUMNNAME_LBR_AvgCostZoom = "LBR_AvgCostZoom";
-
-	/** Set AvgCost - Zoom	  */
-	public void setLBR_AvgCostZoom (String LBR_AvgCostZoom);
-
-	/** Get AvgCost - Zoom	  */
-	public String getLBR_AvgCostZoom();
-
     /** Column name M_Product_ID */
     public static final String COLUMNNAME_M_Product_ID = "M_Product_ID";
 
@@ -239,4 +221,22 @@ public interface I_LBR_AverageCostLine
 	  * User who updated this records
 	  */
 	public int getUpdatedBy();
+
+    /** Column name lbr_AvgCostType */
+    public static final String COLUMNNAME_lbr_AvgCostType = "lbr_AvgCostType";
+
+	/** Set AvgCost Type	  */
+	public void setlbr_AvgCostType (String lbr_AvgCostType);
+
+	/** Get AvgCost Type	  */
+	public String getlbr_AvgCostType();
+
+    /** Column name lbr_AvgCostZoom */
+    public static final String COLUMNNAME_lbr_AvgCostZoom = "lbr_AvgCostZoom";
+
+	/** Set AvgCost - Zoom	  */
+	public void setlbr_AvgCostZoom (String lbr_AvgCostZoom);
+
+	/** Get AvgCost - Zoom	  */
+	public String getlbr_AvgCostZoom();
 }

@@ -119,24 +119,6 @@ public interface I_LBR_NFConfig_SVC
 	  */
 	public boolean isActive();
 
-    /** Column name LBR_DateScan */
-    public static final String COLUMNNAME_LBR_DateScan = "LBR_DateScan";
-
-	/** Set Data contingência	  */
-	public void setLBR_DateScan (Timestamp LBR_DateScan);
-
-	/** Get Data contingência	  */
-	public Timestamp getLBR_DateScan();
-
-    /** Column name LBR_MotivoScan */
-    public static final String COLUMNNAME_LBR_MotivoScan = "LBR_MotivoScan";
-
-	/** Set Motivo contingência	  */
-	public void setLBR_MotivoScan (String LBR_MotivoScan);
-
-	/** Get Motivo contingência	  */
-	public String getLBR_MotivoScan();
-
     /** Column name LBR_NFConfig_ID */
     public static final String COLUMNNAME_LBR_NFConfig_ID = "LBR_NFConfig_ID";
 
@@ -185,4 +167,22 @@ public interface I_LBR_NFConfig_SVC
 	  * User who updated this records
 	  */
 	public int getUpdatedBy();
+
+    /** Column name lbr_DateScan */
+    public static final String COLUMNNAME_lbr_DateScan = "lbr_DateScan";
+
+	/** Set Data contingência	  */
+	public void setlbr_DateScan (Timestamp lbr_DateScan);
+
+	/** Get Data contingência	  */
+	public Timestamp getlbr_DateScan();
+
+    /** Column name lbr_MotivoScan */
+    public static final String COLUMNNAME_lbr_MotivoScan = "lbr_MotivoScan";
+
+	/** Set Motivo contingência	  */
+	public void setlbr_MotivoScan (String lbr_MotivoScan);
+
+	/** Get Motivo contingência	  */
+	public String getlbr_MotivoScan();
 }

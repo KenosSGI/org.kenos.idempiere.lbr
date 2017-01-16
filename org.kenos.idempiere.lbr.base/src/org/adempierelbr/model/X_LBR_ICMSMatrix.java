@@ -20,7 +20,11 @@ package org.adempierelbr.model;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.Properties;
-import org.compiere.model.*;
+
+import org.compiere.model.I_Persistent;
+import org.compiere.model.MTable;
+import org.compiere.model.PO;
+import org.compiere.model.POInfo;
 
 /** Generated Model for LBR_ICMSMatrix
  *  @author iDempiere (generated) 
@@ -31,7 +35,7 @@ public class X_LBR_ICMSMatrix extends PO implements I_LBR_ICMSMatrix, I_Persiste
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20170105L;
+	private static final long serialVersionUID = 20170116L;
 
     /** Standard Constructor */
     public X_LBR_ICMSMatrix (Properties ctx, int LBR_ICMSMatrix_ID, String trxName)
@@ -150,9 +154,12 @@ public class X_LBR_ICMSMatrix extends PO implements I_LBR_ICMSMatrix, I_Persiste
 
 	/** Get ST Tax.
 		@return ST Tax	  */
-	public Object getLBR_STTax_ID () 
+	public Integer getLBR_STTax_ID () 
 	{
-				return get_Value(COLUMNNAME_LBR_STTax_ID);
+		Integer ii = (Integer)get_Value(COLUMNNAME_LBR_STTax_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
 	}
 
 	/** Set Brazilian Tax.
@@ -167,9 +174,12 @@ public class X_LBR_ICMSMatrix extends PO implements I_LBR_ICMSMatrix, I_Persiste
 	/** Get Brazilian Tax.
 		@return Primary key table LBR_Tax
 	  */
-	public Object getLBR_Tax_ID () 
+	public Integer getLBR_Tax_ID () 
 	{
-				return get_Value(COLUMNNAME_LBR_Tax_ID);
+		Integer ii = (Integer)get_Value(COLUMNNAME_LBR_Tax_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
 	}
 
 	public org.compiere.model.I_C_Region getTo_Region() throws RuntimeException

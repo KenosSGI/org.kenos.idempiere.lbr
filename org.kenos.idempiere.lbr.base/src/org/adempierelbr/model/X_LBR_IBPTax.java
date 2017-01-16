@@ -33,7 +33,7 @@ public class X_LBR_IBPTax extends PO implements I_LBR_IBPTax, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20170105L;
+	private static final long serialVersionUID = 20170116L;
 
     /** Standard Constructor */
     public X_LBR_IBPTax (Properties ctx, int LBR_IBPTax_ID, String trxName)
@@ -44,15 +44,15 @@ public class X_LBR_IBPTax extends PO implements I_LBR_IBPTax, I_Persistent
 			setC_Region_ID (0);
 			setLBR_IBPTax_ID (0);
 			setLBR_NCM_ID (0);
-			setLBR_TaxRate (Env.ZERO);
-// 0
 			setLBR_TaxRateCity (Env.ZERO);
-// 0
-			setLBR_TaxRateImp (Env.ZERO);
 // 0
 			setLBR_TaxRateRegion (Env.ZERO);
 // 0
 			setVersion (null);
+			setlbr_TaxRate (Env.ZERO);
+// 0
+			setlbr_TaxRateImp (Env.ZERO);
+// 0
         } */
     }
 
@@ -191,26 +191,6 @@ public class X_LBR_IBPTax extends PO implements I_LBR_IBPTax, I_Persistent
 		return (String)get_Value(COLUMNNAME_LBR_Source);
 	}
 
-	/** Set Tax Rate.
-		@param LBR_TaxRate 
-		Indicates the Tax Rate
-	  */
-	public void setLBR_TaxRate (BigDecimal LBR_TaxRate)
-	{
-		set_Value (COLUMNNAME_LBR_TaxRate, LBR_TaxRate);
-	}
-
-	/** Get Tax Rate.
-		@return Indicates the Tax Rate
-	  */
-	public BigDecimal getLBR_TaxRate () 
-	{
-		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_LBR_TaxRate);
-		if (bd == null)
-			 return Env.ZERO;
-		return bd;
-	}
-
 	/** Set Tax Rate City.
 		@param LBR_TaxRateCity Tax Rate City	  */
 	public void setLBR_TaxRateCity (BigDecimal LBR_TaxRateCity)
@@ -223,26 +203,6 @@ public class X_LBR_IBPTax extends PO implements I_LBR_IBPTax, I_Persistent
 	public BigDecimal getLBR_TaxRateCity () 
 	{
 		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_LBR_TaxRateCity);
-		if (bd == null)
-			 return Env.ZERO;
-		return bd;
-	}
-
-	/** Set Tax Rate Imported.
-		@param LBR_TaxRateImp 
-		Indicates the Imported Tax Rate 
-	  */
-	public void setLBR_TaxRateImp (BigDecimal LBR_TaxRateImp)
-	{
-		set_Value (COLUMNNAME_LBR_TaxRateImp, LBR_TaxRateImp);
-	}
-
-	/** Get Tax Rate Imported.
-		@return Indicates the Imported Tax Rate 
-	  */
-	public BigDecimal getLBR_TaxRateImp () 
-	{
-		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_LBR_TaxRateImp);
 		if (bd == null)
 			 return Env.ZERO;
 		return bd;
@@ -331,5 +291,45 @@ public class X_LBR_IBPTax extends PO implements I_LBR_IBPTax, I_Persistent
 	public String getVersion () 
 	{
 		return (String)get_Value(COLUMNNAME_Version);
+	}
+
+	/** Set Tax Rate.
+		@param lbr_TaxRate 
+		Indicates the Tax Rate
+	  */
+	public void setlbr_TaxRate (BigDecimal lbr_TaxRate)
+	{
+		set_Value (COLUMNNAME_lbr_TaxRate, lbr_TaxRate);
+	}
+
+	/** Get Tax Rate.
+		@return Indicates the Tax Rate
+	  */
+	public BigDecimal getlbr_TaxRate () 
+	{
+		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_lbr_TaxRate);
+		if (bd == null)
+			 return Env.ZERO;
+		return bd;
+	}
+
+	/** Set Tax Rate Imported.
+		@param lbr_TaxRateImp 
+		Indicates the Imported Tax Rate 
+	  */
+	public void setlbr_TaxRateImp (BigDecimal lbr_TaxRateImp)
+	{
+		set_Value (COLUMNNAME_lbr_TaxRateImp, lbr_TaxRateImp);
+	}
+
+	/** Get Tax Rate Imported.
+		@return Indicates the Imported Tax Rate 
+	  */
+	public BigDecimal getlbr_TaxRateImp () 
+	{
+		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_lbr_TaxRateImp);
+		if (bd == null)
+			 return Env.ZERO;
+		return bd;
 	}
 }

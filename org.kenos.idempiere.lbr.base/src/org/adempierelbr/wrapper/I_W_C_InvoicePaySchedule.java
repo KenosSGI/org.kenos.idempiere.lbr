@@ -25,7 +25,7 @@ import org.compiere.util.KeyNamePair;
  *  @version Release 4.1
  */
 @SuppressWarnings("all")
-public interface I_W_C_InvoicePaySchedule 
+public interface I_W_C_InvoicePaySchedule extends I_C_InvoicePaySchedule 
 {
 
     /** TableName=C_InvoicePaySchedule */
@@ -35,16 +35,16 @@ public interface I_W_C_InvoicePaySchedule
     public static final int Table_ID = 551;
 
 
-    /** Column name LBR_BoletoComments */
-    public static final String COLUMNNAME_LBR_BoletoComments = "LBR_BoletoComments";
+    /** Column name lbr_BoletoComments */
+    public static final String COLUMNNAME_lbr_BoletoComments = "lbr_BoletoComments";
 
 	/** Set Boleto Comments.
 	  * Define the Boleto Comments
 	  */
-	public void setLBR_BoletoComments (String LBR_BoletoComments);
+	public void setlbr_BoletoComments (String lbr_BoletoComments);
 
 	/** Get Boleto Comments.
 	  * Define the Boleto Comments
 	  */
-	public String getLBR_BoletoComments();
+	public String getlbr_BoletoComments();
 }

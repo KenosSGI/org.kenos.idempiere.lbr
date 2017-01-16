@@ -25,7 +25,7 @@ import org.compiere.util.KeyNamePair;
  *  @version Release 4.1
  */
 @SuppressWarnings("all")
-public interface I_W_AD_Table 
+public interface I_W_AD_Table extends I_AD_Table 
 {
 
     /** TableName=AD_Table */

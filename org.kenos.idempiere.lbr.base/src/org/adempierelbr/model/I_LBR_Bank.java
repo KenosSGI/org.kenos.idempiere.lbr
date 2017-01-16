@@ -119,45 +119,6 @@ public interface I_LBR_Bank
 	  */
 	public int getLBR_Bank_ID();
 
-    /** Column name LBR_PaymentLocation1 */
-    public static final String COLUMNNAME_LBR_PaymentLocation1 = "LBR_PaymentLocation1";
-
-	/** Set Payment Location 1.
-	  * Identifies the Payment Location 1
-	  */
-	public void setLBR_PaymentLocation1 (String LBR_PaymentLocation1);
-
-	/** Get Payment Location 1.
-	  * Identifies the Payment Location 1
-	  */
-	public String getLBR_PaymentLocation1();
-
-    /** Column name LBR_PaymentLocation2 */
-    public static final String COLUMNNAME_LBR_PaymentLocation2 = "LBR_PaymentLocation2";
-
-	/** Set Payment Location 2.
-	  * Identifies the Payment Location 2
-	  */
-	public void setLBR_PaymentLocation2 (String LBR_PaymentLocation2);
-
-	/** Get Payment Location 2.
-	  * Identifies the Payment Location 2
-	  */
-	public String getLBR_PaymentLocation2();
-
-    /** Column name LBR_jBoletoNo */
-    public static final String COLUMNNAME_LBR_jBoletoNo = "LBR_jBoletoNo";
-
-	/** Set jBoleto Number.
-	  * Identifies the bank number at jBoleto
-	  */
-	public void setLBR_jBoletoNo (String LBR_jBoletoNo);
-
-	/** Get jBoleto Number.
-	  * Identifies the bank number at jBoleto
-	  */
-	public String getLBR_jBoletoNo();
-
     /** Column name Name */
     public static final String COLUMNNAME_Name = "Name";
 
@@ -199,4 +160,43 @@ public interface I_LBR_Bank
 	  * User who updated this records
 	  */
 	public int getUpdatedBy();
+
+    /** Column name lbr_PaymentLocation1 */
+    public static final String COLUMNNAME_lbr_PaymentLocation1 = "lbr_PaymentLocation1";
+
+	/** Set Payment Location 1.
+	  * Identifies the Payment Location 1
+	  */
+	public void setlbr_PaymentLocation1 (String lbr_PaymentLocation1);
+
+	/** Get Payment Location 1.
+	  * Identifies the Payment Location 1
+	  */
+	public String getlbr_PaymentLocation1();
+
+    /** Column name lbr_PaymentLocation2 */
+    public static final String COLUMNNAME_lbr_PaymentLocation2 = "lbr_PaymentLocation2";
+
+	/** Set Payment Location 2.
+	  * Identifies the Payment Location 2
+	  */
+	public void setlbr_PaymentLocation2 (String lbr_PaymentLocation2);
+
+	/** Get Payment Location 2.
+	  * Identifies the Payment Location 2
+	  */
+	public String getlbr_PaymentLocation2();
+
+    /** Column name lbr_jBoletoNo */
+    public static final String COLUMNNAME_lbr_jBoletoNo = "lbr_jBoletoNo";
+
+	/** Set jBoleto Number.
+	  * Identifies the bank number at jBoleto
+	  */
+	public void setlbr_jBoletoNo (String lbr_jBoletoNo);
+
+	/** Get jBoleto Number.
+	  * Identifies the bank number at jBoleto
+	  */
+	public String getlbr_jBoletoNo();
 }

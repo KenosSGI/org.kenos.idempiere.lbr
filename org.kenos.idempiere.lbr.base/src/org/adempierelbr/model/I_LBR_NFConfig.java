@@ -93,33 +93,6 @@ public interface I_LBR_NFConfig
 	  */
 	public boolean isActive();
 
-    /** Column name LBR_DANFEFormat */
-    public static final String COLUMNNAME_LBR_DANFEFormat = "LBR_DANFEFormat";
-
-	/** Set DANFE Format	  */
-	public void setLBR_DANFEFormat (String LBR_DANFEFormat);
-
-	/** Get DANFE Format	  */
-	public String getLBR_DANFEFormat();
-
-    /** Column name LBR_DateScan */
-    public static final String COLUMNNAME_LBR_DateScan = "LBR_DateScan";
-
-	/** Set Data contingência	  */
-	public void setLBR_DateScan (Timestamp LBR_DateScan);
-
-	/** Get Data contingência	  */
-	public Timestamp getLBR_DateScan();
-
-    /** Column name LBR_MotivoScan */
-    public static final String COLUMNNAME_LBR_MotivoScan = "LBR_MotivoScan";
-
-	/** Set Motivo contingência	  */
-	public void setLBR_MotivoScan (String LBR_MotivoScan);
-
-	/** Get Motivo contingência	  */
-	public String getLBR_MotivoScan();
-
     /** Column name LBR_NFConfig_ID */
     public static final String COLUMNNAME_LBR_NFConfig_ID = "LBR_NFConfig_ID";
 
@@ -128,15 +101,6 @@ public interface I_LBR_NFConfig
 
 	/** Get NF Configuration	  */
 	public int getLBR_NFConfig_ID();
-
-    /** Column name LBR_NFeEnv */
-    public static final String COLUMNNAME_LBR_NFeEnv = "LBR_NFeEnv";
-
-	/** Set NFe Environment	  */
-	public void setLBR_NFeEnv (String LBR_NFeEnv);
-
-	/** Get NFe Environment	  */
-	public String getLBR_NFeEnv();
 
     /** Column name LBR_ReverseInOut */
     public static final String COLUMNNAME_LBR_ReverseInOut = "LBR_ReverseInOut";
@@ -192,4 +156,40 @@ public interface I_LBR_NFConfig
 	  * User who updated this records
 	  */
 	public int getUpdatedBy();
+
+    /** Column name lbr_DANFEFormat */
+    public static final String COLUMNNAME_lbr_DANFEFormat = "lbr_DANFEFormat";
+
+	/** Set DANFE Format	  */
+	public void setlbr_DANFEFormat (String lbr_DANFEFormat);
+
+	/** Get DANFE Format	  */
+	public String getlbr_DANFEFormat();
+
+    /** Column name lbr_DateScan */
+    public static final String COLUMNNAME_lbr_DateScan = "lbr_DateScan";
+
+	/** Set Data contingência	  */
+	public void setlbr_DateScan (Timestamp lbr_DateScan);
+
+	/** Get Data contingência	  */
+	public Timestamp getlbr_DateScan();
+
+    /** Column name lbr_MotivoScan */
+    public static final String COLUMNNAME_lbr_MotivoScan = "lbr_MotivoScan";
+
+	/** Set Motivo contingência	  */
+	public void setlbr_MotivoScan (String lbr_MotivoScan);
+
+	/** Get Motivo contingência	  */
+	public String getlbr_MotivoScan();
+
+    /** Column name lbr_NFeEnv */
+    public static final String COLUMNNAME_lbr_NFeEnv = "lbr_NFeEnv";
+
+	/** Set NFe Environment	  */
+	public void setlbr_NFeEnv (String lbr_NFeEnv);
+
+	/** Get NFe Environment	  */
+	public String getlbr_NFeEnv();
 }

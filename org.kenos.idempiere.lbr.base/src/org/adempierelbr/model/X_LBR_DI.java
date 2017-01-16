@@ -34,7 +34,7 @@ public class X_LBR_DI extends PO implements I_LBR_DI, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20170105L;
+	private static final long serialVersionUID = 20170116L;
 
     /** Standard Constructor */
     public X_LBR_DI (Properties ctx, int LBR_DI_ID, String trxName)
@@ -226,20 +226,6 @@ public class X_LBR_DI extends PO implements I_LBR_DI, I_Persistent
         return new KeyNamePair(get_ID(), getDocumentNo());
     }
 
-	/** Set Custom Site.
-		@param LBR_CustomSite Custom Site	  */
-	public void setLBR_CustomSite (String LBR_CustomSite)
-	{
-		set_Value (COLUMNNAME_LBR_CustomSite, LBR_CustomSite);
-	}
-
-	/** Get Custom Site.
-		@return Custom Site	  */
-	public String getLBR_CustomSite () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_CustomSite);
-	}
-
 	/** Set Declaracao de Importacao.
 		@param LBR_DI_ID Declaracao de Importacao	  */
 	public void setLBR_DI_ID (int LBR_DI_ID)
@@ -258,23 +244,6 @@ public class X_LBR_DI extends PO implements I_LBR_DI, I_Persistent
 		if (ii == null)
 			 return 0;
 		return ii.intValue();
-	}
-
-	/** Set SISCOMEX Amt.
-		@param LBR_SISCOMEXAmt SISCOMEX Amt	  */
-	public void setLBR_SISCOMEXAmt (BigDecimal LBR_SISCOMEXAmt)
-	{
-		set_Value (COLUMNNAME_LBR_SISCOMEXAmt, LBR_SISCOMEXAmt);
-	}
-
-	/** Get SISCOMEX Amt.
-		@return SISCOMEX Amt	  */
-	public BigDecimal getLBR_SISCOMEXAmt () 
-	{
-		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_LBR_SISCOMEXAmt);
-		if (bd == null)
-			 return Env.ZERO;
-		return bd;
 	}
 
 	/** Set Processed.
@@ -299,5 +268,36 @@ public class X_LBR_DI extends PO implements I_LBR_DI, I_Persistent
 			return "Y".equals(oo);
 		}
 		return false;
+	}
+
+	/** Set Custom Site.
+		@param lbr_CustomSite Custom Site	  */
+	public void setlbr_CustomSite (String lbr_CustomSite)
+	{
+		set_Value (COLUMNNAME_lbr_CustomSite, lbr_CustomSite);
+	}
+
+	/** Get Custom Site.
+		@return Custom Site	  */
+	public String getlbr_CustomSite () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_CustomSite);
+	}
+
+	/** Set SISCOMEX Amt.
+		@param lbr_SISCOMEXAmt SISCOMEX Amt	  */
+	public void setlbr_SISCOMEXAmt (BigDecimal lbr_SISCOMEXAmt)
+	{
+		set_Value (COLUMNNAME_lbr_SISCOMEXAmt, lbr_SISCOMEXAmt);
+	}
+
+	/** Get SISCOMEX Amt.
+		@return SISCOMEX Amt	  */
+	public BigDecimal getlbr_SISCOMEXAmt () 
+	{
+		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_lbr_SISCOMEXAmt);
+		if (bd == null)
+			 return Env.ZERO;
+		return bd;
 	}
 }

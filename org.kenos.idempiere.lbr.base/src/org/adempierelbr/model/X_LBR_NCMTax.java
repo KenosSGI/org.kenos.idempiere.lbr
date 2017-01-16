@@ -20,7 +20,11 @@ package org.adempierelbr.model;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.Properties;
-import org.compiere.model.*;
+
+import org.compiere.model.I_Persistent;
+import org.compiere.model.MTable;
+import org.compiere.model.PO;
+import org.compiere.model.POInfo;
 import org.compiere.util.KeyNamePair;
 
 /** Generated Model for LBR_NCMTax
@@ -32,7 +36,7 @@ public class X_LBR_NCMTax extends PO implements I_LBR_NCMTax, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20170105L;
+	private static final long serialVersionUID = 20170116L;
 
     /** Standard Constructor */
     public X_LBR_NCMTax (Properties ctx, int LBR_NCMTax_ID, String trxName)
@@ -40,11 +44,11 @@ public class X_LBR_NCMTax extends PO implements I_LBR_NCMTax, I_Persistent
       super (ctx, LBR_NCMTax_ID, trxName);
       /** if (LBR_NCMTax_ID == 0)
         {
-			setLBR_HasSubstitution (false);
-// N
 			setLBR_NCMTax_ID (0);
 			setLBR_NCM_ID (0);
 			setValidFrom (new Timestamp( System.currentTimeMillis() ));
+			setlbr_HasSubstitution (false);
+// N
         } */
     }
 
@@ -121,30 +125,6 @@ public class X_LBR_NCMTax extends PO implements I_LBR_NCMTax, I_Persistent
 		return (String)get_Value(COLUMNNAME_Description);
 	}
 
-	/** Set Has Substitution.
-		@param LBR_HasSubstitution 
-		Defines if the record has Substituion
-	  */
-	public void setLBR_HasSubstitution (boolean LBR_HasSubstitution)
-	{
-		set_Value (COLUMNNAME_LBR_HasSubstitution, Boolean.valueOf(LBR_HasSubstitution));
-	}
-
-	/** Get Has Substitution.
-		@return Defines if the record has Substituion
-	  */
-	public boolean isLBR_HasSubstitution () 
-	{
-		Object oo = get_Value(COLUMNNAME_LBR_HasSubstitution);
-		if (oo != null) 
-		{
-			 if (oo instanceof Boolean) 
-				 return ((Boolean)oo).booleanValue(); 
-			return "Y".equals(oo);
-		}
-		return false;
-	}
-
 	/** Set NCM Tax.
 		@param LBR_NCMTax_ID NCM Tax	  */
 	public void setLBR_NCMTax_ID (int LBR_NCMTax_ID)
@@ -205,9 +185,12 @@ public class X_LBR_NCMTax extends PO implements I_LBR_NCMTax, I_Persistent
 	/** Get Brazilian Tax.
 		@return Primary key table LBR_Tax
 	  */
-	public Object getLBR_Tax_ID () 
+	public Integer getLBR_Tax_ID () 
 	{
-				return get_Value(COLUMNNAME_LBR_Tax_ID);
+		Integer ii = (Integer)get_Value(COLUMNNAME_LBR_Tax_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
 	}
 
     /** Get Record ID/ColumnName
@@ -233,5 +216,29 @@ public class X_LBR_NCMTax extends PO implements I_LBR_NCMTax, I_Persistent
 	public Timestamp getValidFrom () 
 	{
 		return (Timestamp)get_Value(COLUMNNAME_ValidFrom);
+	}
+
+	/** Set Has Substitution.
+		@param lbr_HasSubstitution 
+		Defines if the record has Substituion
+	  */
+	public void setlbr_HasSubstitution (boolean lbr_HasSubstitution)
+	{
+		set_Value (COLUMNNAME_lbr_HasSubstitution, Boolean.valueOf(lbr_HasSubstitution));
+	}
+
+	/** Get Has Substitution.
+		@return Defines if the record has Substituion
+	  */
+	public boolean islbr_HasSubstitution () 
+	{
+		Object oo = get_Value(COLUMNNAME_lbr_HasSubstitution);
+		if (oo != null) 
+		{
+			 if (oo instanceof Boolean) 
+				 return ((Boolean)oo).booleanValue(); 
+			return "Y".equals(oo);
+		}
+		return false;
 	}
 }

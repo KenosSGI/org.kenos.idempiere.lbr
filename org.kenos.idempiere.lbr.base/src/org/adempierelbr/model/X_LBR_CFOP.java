@@ -30,7 +30,7 @@ public class X_LBR_CFOP extends PO implements I_LBR_CFOP, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20170105L;
+	private static final long serialVersionUID = 20170116L;
 
     /** Standard Constructor */
     public X_LBR_CFOP (Properties ctx, int LBR_CFOP_ID, String trxName)

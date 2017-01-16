@@ -106,19 +106,6 @@ public interface I_LBR_Formula
 	  */
 	public boolean isActive();
 
-    /** Column name LBR_Formula */
-    public static final String COLUMNNAME_LBR_Formula = "LBR_Formula";
-
-	/** Set Formula.
-	  * Defines the Tax Formula
-	  */
-	public void setLBR_Formula (String LBR_Formula);
-
-	/** Get Formula.
-	  * Defines the Tax Formula
-	  */
-	public String getLBR_Formula();
-
     /** Column name LBR_Formula_ID */
     public static final String COLUMNNAME_LBR_Formula_ID = "LBR_Formula_ID";
 
@@ -156,4 +143,17 @@ public interface I_LBR_Formula
 	  * User who updated this records
 	  */
 	public int getUpdatedBy();
+
+    /** Column name lbr_Formula */
+    public static final String COLUMNNAME_lbr_Formula = "lbr_Formula";
+
+	/** Set Formula.
+	  * Defines the Tax Formula
+	  */
+	public void setlbr_Formula (String lbr_Formula);
+
+	/** Get Formula.
+	  * Defines the Tax Formula
+	  */
+	public String getlbr_Formula();
 }

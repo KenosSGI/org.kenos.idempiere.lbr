@@ -154,15 +154,6 @@ public interface I_LBR_ADI
 
 	public org.adempierelbr.model.I_LBR_NCM getLBR_NCM() throws RuntimeException;
 
-    /** Column name LBR_SISCOMEXAmt */
-    public static final String COLUMNNAME_LBR_SISCOMEXAmt = "LBR_SISCOMEXAmt";
-
-	/** Set SISCOMEX Amt	  */
-	public void setLBR_SISCOMEXAmt (BigDecimal LBR_SISCOMEXAmt);
-
-	/** Get SISCOMEX Amt	  */
-	public BigDecimal getLBR_SISCOMEXAmt();
-
     /** Column name SeqNo */
     public static final String COLUMNNAME_SeqNo = "SeqNo";
 
@@ -193,4 +184,13 @@ public interface I_LBR_ADI
 	  * User who updated this records
 	  */
 	public int getUpdatedBy();
+
+    /** Column name lbr_SISCOMEXAmt */
+    public static final String COLUMNNAME_lbr_SISCOMEXAmt = "lbr_SISCOMEXAmt";
+
+	/** Set SISCOMEX Amt	  */
+	public void setlbr_SISCOMEXAmt (BigDecimal lbr_SISCOMEXAmt);
+
+	/** Get SISCOMEX Amt	  */
+	public BigDecimal getlbr_SISCOMEXAmt();
 }

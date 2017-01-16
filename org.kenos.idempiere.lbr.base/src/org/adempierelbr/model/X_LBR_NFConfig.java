@@ -31,7 +31,7 @@ public class X_LBR_NFConfig extends PO implements I_LBR_NFConfig, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20170105L;
+	private static final long serialVersionUID = 20170116L;
 
     /** Standard Constructor */
     public X_LBR_NFConfig (Properties ctx, int LBR_NFConfig_ID, String trxName)
@@ -39,17 +39,17 @@ public class X_LBR_NFConfig extends PO implements I_LBR_NFConfig, I_Persistent
       super (ctx, LBR_NFConfig_ID, trxName);
       /** if (LBR_NFConfig_ID == 0)
         {
-			setLBR_DANFEFormat (null);
-// 1
 			setLBR_NFConfig_ID (0);
-			setLBR_NFeEnv (null);
-// 2
 			setLBR_ReverseInOut (false);
 // N
 			setLBR_ReverseInvoice (false);
 // N
 			setLBR_TPEmis (null);
 // 1
+			setlbr_DANFEFormat (null);
+// 1
+			setlbr_NFeEnv (null);
+// 2
         } */
     }
 
@@ -81,61 +81,6 @@ public class X_LBR_NFConfig extends PO implements I_LBR_NFConfig, I_Persistent
       return sb.toString();
     }
 
-	/** 1 - Normal DANFE - Portrait = 1 */
-	public static final String LBR_DANFEFORMAT_1_NormalDANFE_Portrait = "1";
-	/** 2 - Normal DANFE - Landscape = 2 */
-	public static final String LBR_DANFEFORMAT_2_NormalDANFE_Landscape = "2";
-	/** 0 - No DANFE = 0 */
-	public static final String LBR_DANFEFORMAT_0_NoDANFE = "0";
-	/** 3 - Simple DANFE = 3 */
-	public static final String LBR_DANFEFORMAT_3_SimpleDANFE = "3";
-	/** 4 - DANFE NFC-e = 4 */
-	public static final String LBR_DANFEFORMAT_4_DANFENFC_E = "4";
-	/** 5 - DANFE NFC-e in Eletronic Message = 5 */
-	public static final String LBR_DANFEFORMAT_5_DANFENFC_EInEletronicMessage = "5";
-	/** Set DANFE Format.
-		@param LBR_DANFEFormat DANFE Format	  */
-	public void setLBR_DANFEFormat (String LBR_DANFEFormat)
-	{
-
-		set_Value (COLUMNNAME_LBR_DANFEFormat, LBR_DANFEFormat);
-	}
-
-	/** Get DANFE Format.
-		@return DANFE Format	  */
-	public String getLBR_DANFEFormat () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_DANFEFormat);
-	}
-
-	/** Set Data contingência.
-		@param LBR_DateScan Data contingência	  */
-	public void setLBR_DateScan (Timestamp LBR_DateScan)
-	{
-		set_Value (COLUMNNAME_LBR_DateScan, LBR_DateScan);
-	}
-
-	/** Get Data contingência.
-		@return Data contingência	  */
-	public Timestamp getLBR_DateScan () 
-	{
-		return (Timestamp)get_Value(COLUMNNAME_LBR_DateScan);
-	}
-
-	/** Set Motivo contingência.
-		@param LBR_MotivoScan Motivo contingência	  */
-	public void setLBR_MotivoScan (String LBR_MotivoScan)
-	{
-		set_Value (COLUMNNAME_LBR_MotivoScan, LBR_MotivoScan);
-	}
-
-	/** Get Motivo contingência.
-		@return Motivo contingência	  */
-	public String getLBR_MotivoScan () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_MotivoScan);
-	}
-
 	/** Set NF Configuration.
 		@param LBR_NFConfig_ID NF Configuration	  */
 	public void setLBR_NFConfig_ID (int LBR_NFConfig_ID)
@@ -154,25 +99,6 @@ public class X_LBR_NFConfig extends PO implements I_LBR_NFConfig, I_Persistent
 		if (ii == null)
 			 return 0;
 		return ii.intValue();
-	}
-
-	/** Production = 1 */
-	public static final String LBR_NFEENV_Production = "1";
-	/** Homologation = 2 */
-	public static final String LBR_NFEENV_Homologation = "2";
-	/** Set NFe Environment.
-		@param LBR_NFeEnv NFe Environment	  */
-	public void setLBR_NFeEnv (String LBR_NFeEnv)
-	{
-
-		set_Value (COLUMNNAME_LBR_NFeEnv, LBR_NFeEnv);
-	}
-
-	/** Get NFe Environment.
-		@return NFe Environment	  */
-	public String getLBR_NFeEnv () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_NFeEnv);
 	}
 
 	/** Set Reverse InOut.
@@ -255,5 +181,79 @@ public class X_LBR_NFConfig extends PO implements I_LBR_NFConfig, I_Persistent
 	public String getLBR_TPEmis () 
 	{
 		return (String)get_Value(COLUMNNAME_LBR_TPEmis);
+	}
+
+	/** 1 - Normal DANFE - Portrait = 1 */
+	public static final String LBR_DANFEFORMAT_1_NormalDANFE_Portrait = "1";
+	/** 2 - Normal DANFE - Landscape = 2 */
+	public static final String LBR_DANFEFORMAT_2_NormalDANFE_Landscape = "2";
+	/** 0 - No DANFE = 0 */
+	public static final String LBR_DANFEFORMAT_0_NoDANFE = "0";
+	/** 3 - Simple DANFE = 3 */
+	public static final String LBR_DANFEFORMAT_3_SimpleDANFE = "3";
+	/** 4 - DANFE NFC-e = 4 */
+	public static final String LBR_DANFEFORMAT_4_DANFENFC_E = "4";
+	/** 5 - DANFE NFC-e in Eletronic Message = 5 */
+	public static final String LBR_DANFEFORMAT_5_DANFENFC_EInEletronicMessage = "5";
+	/** Set DANFE Format.
+		@param lbr_DANFEFormat DANFE Format	  */
+	public void setlbr_DANFEFormat (String lbr_DANFEFormat)
+	{
+
+		set_Value (COLUMNNAME_lbr_DANFEFormat, lbr_DANFEFormat);
+	}
+
+	/** Get DANFE Format.
+		@return DANFE Format	  */
+	public String getlbr_DANFEFormat () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_DANFEFormat);
+	}
+
+	/** Set Data contingência.
+		@param lbr_DateScan Data contingência	  */
+	public void setlbr_DateScan (Timestamp lbr_DateScan)
+	{
+		set_Value (COLUMNNAME_lbr_DateScan, lbr_DateScan);
+	}
+
+	/** Get Data contingência.
+		@return Data contingência	  */
+	public Timestamp getlbr_DateScan () 
+	{
+		return (Timestamp)get_Value(COLUMNNAME_lbr_DateScan);
+	}
+
+	/** Set Motivo contingência.
+		@param lbr_MotivoScan Motivo contingência	  */
+	public void setlbr_MotivoScan (String lbr_MotivoScan)
+	{
+		set_Value (COLUMNNAME_lbr_MotivoScan, lbr_MotivoScan);
+	}
+
+	/** Get Motivo contingência.
+		@return Motivo contingência	  */
+	public String getlbr_MotivoScan () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_MotivoScan);
+	}
+
+	/** Production = 1 */
+	public static final String LBR_NFEENV_Production = "1";
+	/** Homologation = 2 */
+	public static final String LBR_NFEENV_Homologation = "2";
+	/** Set NFe Environment.
+		@param lbr_NFeEnv NFe Environment	  */
+	public void setlbr_NFeEnv (String lbr_NFeEnv)
+	{
+
+		set_Value (COLUMNNAME_lbr_NFeEnv, lbr_NFeEnv);
+	}
+
+	/** Get NFe Environment.
+		@return NFe Environment	  */
+	public String getlbr_NFeEnv () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_NFeEnv);
 	}
 }

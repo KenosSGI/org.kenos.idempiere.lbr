@@ -106,19 +106,6 @@ public interface I_LBR_TaxFormula
 	  */
 	public boolean isTaxIncluded();
 
-    /** Column name LBR_Formula */
-    public static final String COLUMNNAME_LBR_Formula = "LBR_Formula";
-
-	/** Set Formula.
-	  * Defines the Tax Formula
-	  */
-	public void setLBR_Formula (String LBR_Formula);
-
-	/** Get Formula.
-	  * Defines the Tax Formula
-	  */
-	public String getLBR_Formula();
-
     /** Column name LBR_FormulaAdd_ID */
     public static final String COLUMNNAME_LBR_FormulaAdd_ID = "LBR_FormulaAdd_ID";
 
@@ -141,19 +128,6 @@ public interface I_LBR_TaxFormula
 
 	public org.adempierelbr.model.I_LBR_Formula getLBR_FormulaBase() throws RuntimeException;
 
-    /** Column name LBR_FormulaNetWorth */
-    public static final String COLUMNNAME_LBR_FormulaNetWorth = "LBR_FormulaNetWorth";
-
-	/** Set Formula NetWorth.
-	  * Defines the Tax Formula NetWorth
-	  */
-	public void setLBR_FormulaNetWorth (String LBR_FormulaNetWorth);
-
-	/** Get Formula NetWorth.
-	  * Defines the Tax Formula NetWorth
-	  */
-	public String getLBR_FormulaNetWorth();
-
     /** Column name LBR_FormulaNet_ID */
     public static final String COLUMNNAME_LBR_FormulaNet_ID = "LBR_FormulaNet_ID";
 
@@ -174,20 +148,7 @@ public interface I_LBR_TaxFormula
 	/** Get Formula (BR)	  */
 	public int getLBR_Formula_ID();
 
-//	public org.adempierelbr.model.I_LBR_Formula getLBR_Formula() throws RuntimeException;
-
-    /** Column name LBR_ServiceFactor */
-    public static final String COLUMNNAME_LBR_ServiceFactor = "LBR_ServiceFactor";
-
-	/** Set Service Factor.
-	  * Define the Service Factor Formula
-	  */
-	public void setLBR_ServiceFactor (String LBR_ServiceFactor);
-
-	/** Get Service Factor.
-	  * Define the Service Factor Formula
-	  */
-	public String getLBR_ServiceFactor();
+	public org.adempierelbr.model.I_LBR_Formula getLBR_Formula() throws RuntimeException;
 
     /** Column name LBR_TaxFormula_ID */
     public static final String COLUMNNAME_LBR_TaxFormula_ID = "LBR_TaxFormula_ID";
@@ -216,19 +177,6 @@ public interface I_LBR_TaxFormula
 	public int getLBR_TaxName_ID();
 
 	public org.adempierelbr.model.I_LBR_TaxName getLBR_TaxName() throws RuntimeException;
-
-    /** Column name LBR_TransactionType */
-    public static final String COLUMNNAME_LBR_TransactionType = "LBR_TransactionType";
-
-	/** Set Transaction Type.
-	  * Defines the Transaction Type
-	  */
-	public void setLBR_TransactionType (String LBR_TransactionType);
-
-	/** Get Transaction Type.
-	  * Defines the Transaction Type
-	  */
-	public String getLBR_TransactionType();
 
     /** Column name Percentage */
     public static final String COLUMNNAME_Percentage = "Percentage";
@@ -271,4 +219,56 @@ public interface I_LBR_TaxFormula
 	  * Valid from including this date (first day)
 	  */
 	public Timestamp getValidFrom();
+
+    /** Column name lbr_Formula */
+    public static final String COLUMNNAME_lbr_Formula = "lbr_Formula";
+
+	/** Set Formula.
+	  * Defines the Tax Formula
+	  */
+	public void setlbr_Formula (String lbr_Formula);
+
+	/** Get Formula.
+	  * Defines the Tax Formula
+	  */
+	public String getlbr_Formula();
+
+    /** Column name lbr_FormulaNetWorth */
+    public static final String COLUMNNAME_lbr_FormulaNetWorth = "lbr_FormulaNetWorth";
+
+	/** Set Formula NetWorth.
+	  * Defines the Tax Formula NetWorth
+	  */
+	public void setlbr_FormulaNetWorth (String lbr_FormulaNetWorth);
+
+	/** Get Formula NetWorth.
+	  * Defines the Tax Formula NetWorth
+	  */
+	public String getlbr_FormulaNetWorth();
+
+    /** Column name lbr_ServiceFactor */
+    public static final String COLUMNNAME_lbr_ServiceFactor = "lbr_ServiceFactor";
+
+	/** Set Service Factor.
+	  * Define the Service Factor Formula
+	  */
+	public void setlbr_ServiceFactor (String lbr_ServiceFactor);
+
+	/** Get Service Factor.
+	  * Define the Service Factor Formula
+	  */
+	public String getlbr_ServiceFactor();
+
+    /** Column name lbr_TransactionType */
+    public static final String COLUMNNAME_lbr_TransactionType = "lbr_TransactionType";
+
+	/** Set Transaction Type.
+	  * Defines the Transaction Type
+	  */
+	public void setlbr_TransactionType (String lbr_TransactionType);
+
+	/** Get Transaction Type.
+	  * Defines the Transaction Type
+	  */
+	public String getlbr_TransactionType();
 }

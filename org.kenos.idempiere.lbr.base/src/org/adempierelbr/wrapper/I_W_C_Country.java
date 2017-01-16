@@ -25,7 +25,7 @@ import org.compiere.util.KeyNamePair;
  *  @version Release 4.1
  */
 @SuppressWarnings("all")
-public interface I_W_C_Country 
+public interface I_W_C_Country extends I_C_Country 
 {
 
     /** TableName=C_Country */
@@ -35,16 +35,16 @@ public interface I_W_C_Country
     public static final int Table_ID = 170;
 
 
-    /** Column name LBR_CountryCode */
-    public static final String COLUMNNAME_LBR_CountryCode = "LBR_CountryCode";
+    /** Column name lbr_CountryCode */
+    public static final String COLUMNNAME_lbr_CountryCode = "lbr_CountryCode";
 
 	/** Set Country Code.
 	  * Country Code used for issue Nota Fiscal
 	  */
-	public void setLBR_CountryCode (String LBR_CountryCode);
+	public void setlbr_CountryCode (String lbr_CountryCode);
 
 	/** Get Country Code.
 	  * Country Code used for issue Nota Fiscal
 	  */
-	public String getLBR_CountryCode();
+	public String getlbr_CountryCode();
 }

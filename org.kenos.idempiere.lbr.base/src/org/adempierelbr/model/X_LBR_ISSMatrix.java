@@ -19,7 +19,11 @@ package org.adempierelbr.model;
 
 import java.sql.ResultSet;
 import java.util.Properties;
-import org.compiere.model.*;
+
+import org.compiere.model.I_Persistent;
+import org.compiere.model.MTable;
+import org.compiere.model.PO;
+import org.compiere.model.POInfo;
 
 /** Generated Model for LBR_ISSMatrix
  *  @author iDempiere (generated) 
@@ -30,7 +34,7 @@ public class X_LBR_ISSMatrix extends PO implements I_LBR_ISSMatrix, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20170105L;
+	private static final long serialVersionUID = 20170116L;
 
     /** Standard Constructor */
     public X_LBR_ISSMatrix (Properties ctx, int LBR_ISSMatrix_ID, String trxName)
@@ -163,9 +167,12 @@ public class X_LBR_ISSMatrix extends PO implements I_LBR_ISSMatrix, I_Persistent
 	/** Get Brazilian Tax.
 		@return Primary key table LBR_Tax
 	  */
-	public Object getLBR_Tax_ID () 
+	public Integer getLBR_Tax_ID () 
 	{
-				return get_Value(COLUMNNAME_LBR_Tax_ID);
+		Integer ii = (Integer)get_Value(COLUMNNAME_LBR_Tax_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
 	}
 
 	public org.compiere.model.I_M_Product getM_Product() throws RuntimeException

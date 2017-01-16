@@ -106,76 +106,6 @@ public interface I_LBR_NFDI
 	  */
 	public boolean isActive();
 
-    /** Column name LBR_BPRegion */
-    public static final String COLUMNNAME_LBR_BPRegion = "LBR_BPRegion";
-
-	/** Set BP Region.
-	  * BP Region - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public void setLBR_BPRegion (String LBR_BPRegion);
-
-	/** Get BP Region.
-	  * BP Region - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public String getLBR_BPRegion();
-
-    /** Column name LBR_CodExportador */
-    public static final String COLUMNNAME_LBR_CodExportador = "LBR_CodExportador";
-
-	/** Set CÛdigo do exportador	  */
-	public void setLBR_CodExportador (String LBR_CodExportador);
-
-	/** Get CÛdigo do exportador	  */
-	public String getLBR_CodExportador();
-
-    /** Column name LBR_DI */
-    public static final String COLUMNNAME_LBR_DI = "LBR_DI";
-
-	/** Set DI.
-	  * N˙mero do Documento de Importação DI/DSI/DA (DI/DSI/DA)
-	  */
-	public void setLBR_DI (String LBR_DI);
-
-	/** Get DI.
-	  * N˙mero do Documento de Importação DI/DSI/DA (DI/DSI/DA)
-	  */
-	public String getLBR_DI();
-
-    /** Column name LBR_DataDesemb */
-    public static final String COLUMNNAME_LBR_DataDesemb = "LBR_DataDesemb";
-
-	/** Set Data do Desembaraço	  */
-	public void setLBR_DataDesemb (Timestamp LBR_DataDesemb);
-
-	/** Get Data do Desembaraço	  */
-	public Timestamp getLBR_DataDesemb();
-
-    /** Column name LBR_Drawback */
-    public static final String COLUMNNAME_LBR_Drawback = "LBR_Drawback";
-
-	/** Set Drawback No.
-	  * Identifies the Drawback No
-	  */
-	public void setLBR_Drawback (String LBR_Drawback);
-
-	/** Get Drawback No.
-	  * Identifies the Drawback No
-	  */
-	public String getLBR_Drawback();
-
-    /** Column name LBR_LocDesemb */
-    public static final String COLUMNNAME_LBR_LocDesemb = "LBR_LocDesemb";
-
-	/** Set Local de Desembaraço.
-	  * Local de Desembaraço
-	  */
-	public void setLBR_LocDesemb (String LBR_LocDesemb);
-
-	/** Get Local de Desembaraço.
-	  * Local de Desembaraço
-	  */
-	public String getLBR_LocDesemb();
-
     /** Column name LBR_NFDI_ID */
     public static final String COLUMNNAME_LBR_NFDI_ID = "LBR_NFDI_ID";
 
@@ -228,4 +158,74 @@ public interface I_LBR_NFDI
 	  * User who updated this records
 	  */
 	public int getUpdatedBy();
+
+    /** Column name lbr_BPRegion */
+    public static final String COLUMNNAME_lbr_BPRegion = "lbr_BPRegion";
+
+	/** Set BP Region.
+	  * BP Region - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public void setlbr_BPRegion (String lbr_BPRegion);
+
+	/** Get BP Region.
+	  * BP Region - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public String getlbr_BPRegion();
+
+    /** Column name lbr_CodExportador */
+    public static final String COLUMNNAME_lbr_CodExportador = "lbr_CodExportador";
+
+	/** Set CÛdigo do exportador	  */
+	public void setlbr_CodExportador (String lbr_CodExportador);
+
+	/** Get CÛdigo do exportador	  */
+	public String getlbr_CodExportador();
+
+    /** Column name lbr_DI */
+    public static final String COLUMNNAME_lbr_DI = "lbr_DI";
+
+	/** Set DI.
+	  * N˙mero do Documento de Importação DI/DSI/DA (DI/DSI/DA)
+	  */
+	public void setlbr_DI (String lbr_DI);
+
+	/** Get DI.
+	  * N˙mero do Documento de Importação DI/DSI/DA (DI/DSI/DA)
+	  */
+	public String getlbr_DI();
+
+    /** Column name lbr_DataDesemb */
+    public static final String COLUMNNAME_lbr_DataDesemb = "lbr_DataDesemb";
+
+	/** Set Data do Desembaraço	  */
+	public void setlbr_DataDesemb (Timestamp lbr_DataDesemb);
+
+	/** Get Data do Desembaraço	  */
+	public Timestamp getlbr_DataDesemb();
+
+    /** Column name lbr_Drawback */
+    public static final String COLUMNNAME_lbr_Drawback = "lbr_Drawback";
+
+	/** Set Drawback No.
+	  * Identifies the Drawback No
+	  */
+	public void setlbr_Drawback (String lbr_Drawback);
+
+	/** Get Drawback No.
+	  * Identifies the Drawback No
+	  */
+	public String getlbr_Drawback();
+
+    /** Column name lbr_LocDesemb */
+    public static final String COLUMNNAME_lbr_LocDesemb = "lbr_LocDesemb";
+
+	/** Set Local de Desembaraço.
+	  * Local de Desembaraço
+	  */
+	public void setlbr_LocDesemb (String lbr_LocDesemb);
+
+	/** Get Local de Desembaraço.
+	  * Local de Desembaraço
+	  */
+	public String getlbr_LocDesemb();
 }

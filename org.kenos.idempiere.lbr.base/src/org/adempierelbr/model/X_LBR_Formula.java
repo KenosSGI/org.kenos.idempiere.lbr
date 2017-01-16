@@ -30,7 +30,7 @@ public class X_LBR_Formula extends PO implements I_LBR_Formula, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20170105L;
+	private static final long serialVersionUID = 20170116L;
 
     /** Standard Constructor */
     public X_LBR_Formula (Properties ctx, int LBR_Formula_ID, String trxName)
@@ -38,9 +38,9 @@ public class X_LBR_Formula extends PO implements I_LBR_Formula, I_Persistent
       super (ctx, LBR_Formula_ID, trxName);
       /** if (LBR_Formula_ID == 0)
         {
-			setLBR_Formula (null);
 			setLBR_Formula_ID (0);
 			setName (null);
+			setlbr_Formula (null);
         } */
     }
 
@@ -89,23 +89,6 @@ public class X_LBR_Formula extends PO implements I_LBR_Formula, I_Persistent
 		return (String)get_Value(COLUMNNAME_Description);
 	}
 
-	/** Set Formula.
-		@param LBR_Formula 
-		Defines the Tax Formula
-	  */
-	public void setLBR_Formula (String LBR_Formula)
-	{
-		set_Value (COLUMNNAME_LBR_Formula, LBR_Formula);
-	}
-
-	/** Get Formula.
-		@return Defines the Tax Formula
-	  */
-	public String getLBR_Formula () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_Formula);
-	}
-
 	/** Set Formula (BR).
 		@param LBR_Formula_ID Formula (BR)	  */
 	public void setLBR_Formula_ID (int LBR_Formula_ID)
@@ -141,5 +124,22 @@ public class X_LBR_Formula extends PO implements I_LBR_Formula, I_Persistent
 	public String getName () 
 	{
 		return (String)get_Value(COLUMNNAME_Name);
+	}
+
+	/** Set Formula.
+		@param lbr_Formula 
+		Defines the Tax Formula
+	  */
+	public void setlbr_Formula (String lbr_Formula)
+	{
+		set_Value (COLUMNNAME_lbr_Formula, lbr_Formula);
+	}
+
+	/** Get Formula.
+		@return Defines the Tax Formula
+	  */
+	public String getlbr_Formula () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_Formula);
 	}
 }

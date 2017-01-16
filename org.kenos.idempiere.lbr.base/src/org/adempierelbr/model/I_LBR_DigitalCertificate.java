@@ -132,32 +132,6 @@ public interface I_LBR_DigitalCertificate
 	  */
 	public boolean isValid();
 
-    /** Column name LBR_CNPJ */
-    public static final String COLUMNNAME_LBR_CNPJ = "LBR_CNPJ";
-
-	/** Set CNPJ.
-	  * Used to identify Legal Entities in Brazil
-	  */
-	public void setLBR_CNPJ (String LBR_CNPJ);
-
-	/** Get CNPJ.
-	  * Used to identify Legal Entities in Brazil
-	  */
-	public String getLBR_CNPJ();
-
-    /** Column name LBR_CertType */
-    public static final String COLUMNNAME_LBR_CertType = "LBR_CertType";
-
-	/** Set Certificate Type.
-	  * Define the type of Digital Certificate
-	  */
-	public void setLBR_CertType (String LBR_CertType);
-
-	/** Get Certificate Type.
-	  * Define the type of Digital Certificate
-	  */
-	public String getLBR_CertType();
-
     /** Column name LBR_DigitalCertificate_ID */
     public static final String COLUMNNAME_LBR_DigitalCertificate_ID = "LBR_DigitalCertificate_ID";
 
@@ -243,4 +217,30 @@ public interface I_LBR_DigitalCertificate
 	  * Valid to including this date (last day)
 	  */
 	public Timestamp getValidTo();
+
+    /** Column name lbr_CNPJ */
+    public static final String COLUMNNAME_lbr_CNPJ = "lbr_CNPJ";
+
+	/** Set CNPJ.
+	  * Used to identify Legal Entities in Brazil
+	  */
+	public void setlbr_CNPJ (String lbr_CNPJ);
+
+	/** Get CNPJ.
+	  * Used to identify Legal Entities in Brazil
+	  */
+	public String getlbr_CNPJ();
+
+    /** Column name lbr_CertType */
+    public static final String COLUMNNAME_lbr_CertType = "lbr_CertType";
+
+	/** Set Certificate Type.
+	  * Define the type of Digital Certificate
+	  */
+	public void setlbr_CertType (String lbr_CertType);
+
+	/** Get Certificate Type.
+	  * Define the type of Digital Certificate
+	  */
+	public String getlbr_CertType();
 }

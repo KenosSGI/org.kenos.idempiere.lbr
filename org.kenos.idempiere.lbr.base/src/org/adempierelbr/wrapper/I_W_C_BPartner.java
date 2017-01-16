@@ -25,7 +25,7 @@ import org.compiere.util.KeyNamePair;
  *  @version Release 4.1
  */
 @SuppressWarnings("all")
-public interface I_W_C_BPartner 
+public interface I_W_C_BPartner extends I_C_BPartner 
 {
 
     /** TableName=C_BPartner */
@@ -49,84 +49,6 @@ public interface I_W_C_BPartner
 	public int getC_BankAccount_ID();
 
 	public org.compiere.model.I_C_BankAccount getC_BankAccount() throws RuntimeException;
-
-    /** Column name LBR_BPTypeBR */
-    public static final String COLUMNNAME_LBR_BPTypeBR = "LBR_BPTypeBR";
-
-	/** PJ - Legal Entity = PJ */
-	public static final String LBR_BPTYPEBR_PJ_LegalEntity = "PJ";
-
-	/** PF - Individual = PF */
-	public static final String LBR_BPTYPEBR_PF_Individual = "PF";
-
-	/** PM - Individual Minor = PM */
-	public static final String LBR_BPTYPEBR_PM_IndividualMinor = "PM";
-
-	/** XX - Foreigner = XX */
-	public static final String LBR_BPTYPEBR_XX_Foreigner = "XX";
-
-
-	/** Set Brazilian BP Type.
-	  * Brazilian BP Type (Identifies if the BP is a Legal Entity or an Individual)
-	  */
-	public void setLBR_BPTypeBR (String LBR_BPTypeBR);
-
-	/** Get Brazilian BP Type.
-	  * Brazilian BP Type (Identifies if the BP is a Legal Entity or an Individual)
-	  */
-	public String getLBR_BPTypeBR();
-
-    /** Column name LBR_BPTypeBRIsValid */
-    public static final String COLUMNNAME_LBR_BPTypeBRIsValid = "LBR_BPTypeBRIsValid";
-
-	/** Set Brazilian BP Valid.
-	  * Brazilian BP is Valid
-	  */
-	public void setLBR_BPTypeBRIsValid (boolean LBR_BPTypeBRIsValid);
-
-	/** Get Brazilian BP Valid.
-	  * Brazilian BP is Valid
-	  */
-	public boolean isLBR_BPTypeBRIsValid();
-
-    /** Column name LBR_CCM */
-    public static final String COLUMNNAME_LBR_CCM = "LBR_CCM";
-
-	/** Set CCM.
-	  * City Identification Code used in Brazil (City Tax ID)
-	  */
-	public void setLBR_CCM (String LBR_CCM);
-
-	/** Get CCM.
-	  * City Identification Code used in Brazil (City Tax ID)
-	  */
-	public String getLBR_CCM();
-
-    /** Column name LBR_CNPJ */
-    public static final String COLUMNNAME_LBR_CNPJ = "LBR_CNPJ";
-
-	/** Set CNPJ.
-	  * Used to identify Legal Entities in Brazil
-	  */
-	public void setLBR_CNPJ (String LBR_CNPJ);
-
-	/** Get CNPJ.
-	  * Used to identify Legal Entities in Brazil
-	  */
-	public String getLBR_CNPJ();
-
-    /** Column name LBR_CPF */
-    public static final String COLUMNNAME_LBR_CPF = "LBR_CPF";
-
-	/** Set CPF.
-	  * Used to identify individuals in Brazil
-	  */
-	public void setLBR_CPF (String LBR_CPF);
-
-	/** Get CPF.
-	  * Used to identify individuals in Brazil
-	  */
-	public String getLBR_CPF();
 
     /** Column name LBR_CustomerCategory_ID */
     public static final String COLUMNNAME_LBR_CustomerCategory_ID = "LBR_CustomerCategory_ID";
@@ -180,19 +102,6 @@ public interface I_W_C_BPartner
 	  */
 	public int getLBR_FiscalGroup_Vendor_ID();
 
-    /** Column name LBR_HasSubstitution */
-    public static final String COLUMNNAME_LBR_HasSubstitution = "LBR_HasSubstitution";
-
-	/** Set Has Substitution.
-	  * Defines if the record has Substituion
-	  */
-	public void setLBR_HasSubstitution (boolean LBR_HasSubstitution);
-
-	/** Get Has Substitution.
-	  * Defines if the record has Substituion
-	  */
-	public boolean isLBR_HasSubstitution();
-
     /** Column name LBR_HasWithhold */
     public static final String COLUMNNAME_LBR_HasWithhold = "LBR_HasWithhold";
 
@@ -205,19 +114,6 @@ public interface I_W_C_BPartner
 	  * Defines if the Tax, has Withhold
 	  */
 	public boolean isLBR_HasWithhold();
-
-    /** Column name LBR_IE */
-    public static final String COLUMNNAME_LBR_IE = "LBR_IE";
-
-	/** Set IE.
-	  * Used to Identify the IE (State Tax ID)
-	  */
-	public void setLBR_IE (String LBR_IE);
-
-	/** Get IE.
-	  * Used to Identify the IE (State Tax ID)
-	  */
-	public String getLBR_IE();
 
     /** Column name LBR_IndIEDest */
     public static final String COLUMNNAME_LBR_IndIEDest = "LBR_IndIEDest";
@@ -242,21 +138,172 @@ public interface I_W_C_BPartner
 	  */
 	public String getLBR_IndIEDest();
 
-    /** Column name LBR_NFDescription */
-    public static final String COLUMNNAME_LBR_NFDescription = "LBR_NFDescription";
+    /** Column name LBR_TaxRegime */
+    public static final String COLUMNNAME_LBR_TaxRegime = "LBR_TaxRegime";
+
+	/** Normal = N */
+	public static final String LBR_TAXREGIME_Normal = "N";
+
+	/** Simple National = S */
+	public static final String LBR_TAXREGIME_SimpleNational = "S";
+
+	/** Simple National - MEI = M */
+	public static final String LBR_TAXREGIME_SimpleNational_MEI = "M";
+
+
+	/** Set Tax Regime	  */
+	public void setLBR_TaxRegime (String LBR_TaxRegime);
+
+	/** Get Tax Regime	  */
+	public String getLBR_TaxRegime();
+
+    /** Column name LBR_VendorCategory_ID */
+    public static final String COLUMNNAME_LBR_VendorCategory_ID = "LBR_VendorCategory_ID";
+
+	/** Set Vendor Category.
+	  * Defines the Vendor Category
+	  */
+	public void setLBR_VendorCategory_ID (int LBR_VendorCategory_ID);
+
+	/** Get Vendor Category.
+	  * Defines the Vendor Category
+	  */
+	public int getLBR_VendorCategory_ID();
+
+    /** Column name M_Shipper_ID */
+    public static final String COLUMNNAME_M_Shipper_ID = "M_Shipper_ID";
+
+	/** Set Shipper.
+	  * Method or manner of product delivery
+	  */
+	public void setM_Shipper_ID (int M_Shipper_ID);
+
+	/** Get Shipper.
+	  * Method or manner of product delivery
+	  */
+	public int getM_Shipper_ID();
+
+	public org.compiere.model.I_M_Shipper getM_Shipper() throws RuntimeException;
+
+    /** Column name lbr_BPTypeBR */
+    public static final String COLUMNNAME_lbr_BPTypeBR = "lbr_BPTypeBR";
+
+	/** PJ - Legal Entity = PJ */
+	public static final String LBR_BPTYPEBR_PJ_LegalEntity = "PJ";
+
+	/** PF - Individual = PF */
+	public static final String LBR_BPTYPEBR_PF_Individual = "PF";
+
+	/** PM - Individual Minor = PM */
+	public static final String LBR_BPTYPEBR_PM_IndividualMinor = "PM";
+
+	/** XX - Foreigner = XX */
+	public static final String LBR_BPTYPEBR_XX_Foreigner = "XX";
+
+
+	/** Set Brazilian BP Type.
+	  * Brazilian BP Type (Identifies if the BP is a Legal Entity or an Individual)
+	  */
+	public void setlbr_BPTypeBR (String lbr_BPTypeBR);
+
+	/** Get Brazilian BP Type.
+	  * Brazilian BP Type (Identifies if the BP is a Legal Entity or an Individual)
+	  */
+	public String getlbr_BPTypeBR();
+
+    /** Column name lbr_BPTypeBRIsValid */
+    public static final String COLUMNNAME_lbr_BPTypeBRIsValid = "lbr_BPTypeBRIsValid";
+
+	/** Set Brazilian BP Valid.
+	  * Brazilian BP is Valid
+	  */
+	public void setlbr_BPTypeBRIsValid (boolean lbr_BPTypeBRIsValid);
+
+	/** Get Brazilian BP Valid.
+	  * Brazilian BP is Valid
+	  */
+	public boolean islbr_BPTypeBRIsValid();
+
+    /** Column name lbr_CCM */
+    public static final String COLUMNNAME_lbr_CCM = "lbr_CCM";
+
+	/** Set CCM.
+	  * City Identification Code used in Brazil (City Tax ID)
+	  */
+	public void setlbr_CCM (String lbr_CCM);
+
+	/** Get CCM.
+	  * City Identification Code used in Brazil (City Tax ID)
+	  */
+	public String getlbr_CCM();
+
+    /** Column name lbr_CNPJ */
+    public static final String COLUMNNAME_lbr_CNPJ = "lbr_CNPJ";
+
+	/** Set CNPJ.
+	  * Used to identify Legal Entities in Brazil
+	  */
+	public void setlbr_CNPJ (String lbr_CNPJ);
+
+	/** Get CNPJ.
+	  * Used to identify Legal Entities in Brazil
+	  */
+	public String getlbr_CNPJ();
+
+    /** Column name lbr_CPF */
+    public static final String COLUMNNAME_lbr_CPF = "lbr_CPF";
+
+	/** Set CPF.
+	  * Used to identify individuals in Brazil
+	  */
+	public void setlbr_CPF (String lbr_CPF);
+
+	/** Get CPF.
+	  * Used to identify individuals in Brazil
+	  */
+	public String getlbr_CPF();
+
+    /** Column name lbr_HasSubstitution */
+    public static final String COLUMNNAME_lbr_HasSubstitution = "lbr_HasSubstitution";
+
+	/** Set Has Substitution.
+	  * Defines if the record has Substituion
+	  */
+	public void setlbr_HasSubstitution (boolean lbr_HasSubstitution);
+
+	/** Get Has Substitution.
+	  * Defines if the record has Substituion
+	  */
+	public boolean islbr_HasSubstitution();
+
+    /** Column name lbr_IE */
+    public static final String COLUMNNAME_lbr_IE = "lbr_IE";
+
+	/** Set IE.
+	  * Used to Identify the IE (State Tax ID)
+	  */
+	public void setlbr_IE (String lbr_IE);
+
+	/** Get IE.
+	  * Used to Identify the IE (State Tax ID)
+	  */
+	public String getlbr_IE();
+
+    /** Column name lbr_NFDescription */
+    public static final String COLUMNNAME_lbr_NFDescription = "lbr_NFDescription";
 
 	/** Set Nota Fiscal Description.
 	  * Description Printed on Nota Fiscal
 	  */
-	public void setLBR_NFDescription (String LBR_NFDescription);
+	public void setlbr_NFDescription (String lbr_NFDescription);
 
 	/** Get Nota Fiscal Description.
 	  * Description Printed on Nota Fiscal
 	  */
-	public String getLBR_NFDescription();
+	public String getlbr_NFDescription();
 
-    /** Column name LBR_NFModel */
-    public static final String COLUMNNAME_LBR_NFModel = "LBR_NFModel";
+    /** Column name lbr_NFModel */
+    public static final String COLUMNNAME_lbr_NFModel = "lbr_NFModel";
 
 	/** Nota Fiscal = 01 */
 	public static final String LBR_NFMODEL_NotaFiscal = "01";
@@ -364,15 +411,15 @@ public interface I_W_C_BPartner
 	/** Set NF Model.
 	  * Identifies the model of Nota Fiscal
 	  */
-	public void setLBR_NFModel (String LBR_NFModel);
+	public void setlbr_NFModel (String lbr_NFModel);
 
 	/** Get NF Model.
 	  * Identifies the model of Nota Fiscal
 	  */
-	public String getLBR_NFModel();
+	public String getlbr_NFModel();
 
-    /** Column name LBR_PaymentRule */
-    public static final String COLUMNNAME_LBR_PaymentRule = "LBR_PaymentRule";
+    /** Column name lbr_PaymentRule */
+    public static final String COLUMNNAME_lbr_PaymentRule = "lbr_PaymentRule";
 
 	/** Cash = X */
 	public static final String LBR_PAYMENTRULE_Cash = "X";
@@ -390,60 +437,41 @@ public interface I_W_C_BPartner
 	/** Set Payment Rule.
 	  * How you pay the invoice
 	  */
-	public void setLBR_PaymentRule (String LBR_PaymentRule);
+	public void setlbr_PaymentRule (String lbr_PaymentRule);
 
 	/** Get Payment Rule.
 	  * How you pay the invoice
 	  */
-	public String getLBR_PaymentRule();
+	public String getlbr_PaymentRule();
 
-    /** Column name LBR_RG */
-    public static final String COLUMNNAME_LBR_RG = "LBR_RG";
+    /** Column name lbr_RG */
+    public static final String COLUMNNAME_lbr_RG = "lbr_RG";
 
 	/** Set RG.
 	  * Used to identify individuals in Brazil
 	  */
-	public void setLBR_RG (String LBR_RG);
+	public void setlbr_RG (String lbr_RG);
 
 	/** Get RG.
 	  * Used to identify individuals in Brazil
 	  */
-	public String getLBR_RG();
+	public String getlbr_RG();
 
-    /** Column name LBR_Suframa */
-    public static final String COLUMNNAME_LBR_Suframa = "LBR_Suframa";
+    /** Column name lbr_Suframa */
+    public static final String COLUMNNAME_lbr_Suframa = "lbr_Suframa";
 
 	/** Set Suframa.
 	  * Brazilian SUFRAMA Identification Number
 	  */
-	public void setLBR_Suframa (String LBR_Suframa);
+	public void setlbr_Suframa (String lbr_Suframa);
 
 	/** Get Suframa.
 	  * Brazilian SUFRAMA Identification Number
 	  */
-	public String getLBR_Suframa();
+	public String getlbr_Suframa();
 
-    /** Column name LBR_TaxRegime */
-    public static final String COLUMNNAME_LBR_TaxRegime = "LBR_TaxRegime";
-
-	/** Normal = N */
-	public static final String LBR_TAXREGIME_Normal = "N";
-
-	/** Simple National = S */
-	public static final String LBR_TAXREGIME_SimpleNational = "S";
-
-	/** Simple National - MEI = M */
-	public static final String LBR_TAXREGIME_SimpleNational_MEI = "M";
-
-
-	/** Set Tax Regime	  */
-	public void setLBR_TaxRegime (String LBR_TaxRegime);
-
-	/** Get Tax Regime	  */
-	public String getLBR_TaxRegime();
-
-    /** Column name LBR_TransactionType */
-    public static final String COLUMNNAME_LBR_TransactionType = "LBR_TransactionType";
+    /** Column name lbr_TransactionType */
+    public static final String COLUMNNAME_lbr_TransactionType = "lbr_TransactionType";
 
 	/** End User = END */
 	public static final String LBR_TRANSACTIONTYPE_EndUser = "END";
@@ -467,15 +495,15 @@ public interface I_W_C_BPartner
 	/** Set Transaction Type.
 	  * Defines the Transaction Type
 	  */
-	public void setLBR_TransactionType (String LBR_TransactionType);
+	public void setlbr_TransactionType (String lbr_TransactionType);
 
 	/** Get Transaction Type.
 	  * Defines the Transaction Type
 	  */
-	public String getLBR_TransactionType();
+	public String getlbr_TransactionType();
 
-    /** Column name LBR_TransactionTypeVendor */
-    public static final String COLUMNNAME_LBR_TransactionTypeVendor = "LBR_TransactionTypeVendor";
+    /** Column name lbr_TransactionTypeVendor */
+    public static final String COLUMNNAME_lbr_TransactionTypeVendor = "lbr_TransactionTypeVendor";
 
 	/** End User = END */
 	public static final String LBR_TRANSACTIONTYPEVENDOR_EndUser = "END";
@@ -499,38 +527,10 @@ public interface I_W_C_BPartner
 	/** Set Transaction Type Vendor.
 	  * Defines the Transaction Type of a Vendor on Business Partner
 	  */
-	public void setLBR_TransactionTypeVendor (String LBR_TransactionTypeVendor);
+	public void setlbr_TransactionTypeVendor (String lbr_TransactionTypeVendor);
 
 	/** Get Transaction Type Vendor.
 	  * Defines the Transaction Type of a Vendor on Business Partner
 	  */
-	public String getLBR_TransactionTypeVendor();
-
-    /** Column name LBR_VendorCategory_ID */
-    public static final String COLUMNNAME_LBR_VendorCategory_ID = "LBR_VendorCategory_ID";
-
-	/** Set Vendor Category.
-	  * Defines the Vendor Category
-	  */
-	public void setLBR_VendorCategory_ID (int LBR_VendorCategory_ID);
-
-	/** Get Vendor Category.
-	  * Defines the Vendor Category
-	  */
-	public int getLBR_VendorCategory_ID();
-
-    /** Column name M_Shipper_ID */
-    public static final String COLUMNNAME_M_Shipper_ID = "M_Shipper_ID";
-
-	/** Set Shipper.
-	  * Method or manner of product delivery
-	  */
-	public void setM_Shipper_ID (int M_Shipper_ID);
-
-	/** Get Shipper.
-	  * Method or manner of product delivery
-	  */
-	public int getM_Shipper_ID();
-
-	public org.compiere.model.I_M_Shipper getM_Shipper() throws RuntimeException;
+	public String getlbr_TransactionTypeVendor();
 }

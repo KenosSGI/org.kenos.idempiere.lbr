@@ -108,15 +108,6 @@ public interface I_LBR_NFeWebService
 	  */
 	public boolean isActive();
 
-    /** Column name LBR_NFeEnv */
-    public static final String COLUMNNAME_LBR_NFeEnv = "LBR_NFeEnv";
-
-	/** Set NFe Environment	  */
-	public void setLBR_NFeEnv (String LBR_NFeEnv);
-
-	/** Get NFe Environment	  */
-	public String getLBR_NFeEnv();
-
     /** Column name LBR_NFeWebService_ID */
     public static final String COLUMNNAME_LBR_NFeWebService_ID = "LBR_NFeWebService_ID";
 
@@ -197,4 +188,13 @@ public interface I_LBR_NFeWebService
 	  * Version Number
 	  */
 	public String getVersionNo();
+
+    /** Column name lbr_NFeEnv */
+    public static final String COLUMNNAME_lbr_NFeEnv = "lbr_NFeEnv";
+
+	/** Set NFe Environment	  */
+	public void setlbr_NFeEnv (String lbr_NFeEnv);
+
+	/** Get NFe Environment	  */
+	public String getlbr_NFeEnv();
 }

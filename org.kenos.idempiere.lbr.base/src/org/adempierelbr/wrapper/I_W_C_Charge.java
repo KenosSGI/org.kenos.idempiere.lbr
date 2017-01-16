@@ -25,7 +25,7 @@ import org.compiere.util.KeyNamePair;
  *  @version Release 4.1
  */
 @SuppressWarnings("all")
-public interface I_W_C_Charge 
+public interface I_W_C_Charge extends I_C_Charge 
 {
 
     /** TableName=C_Charge */

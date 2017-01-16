@@ -25,7 +25,7 @@ import org.compiere.util.KeyNamePair;
  *  @version Release 4.1
  */
 @SuppressWarnings("all")
-public interface I_W_C_Order 
+public interface I_W_C_Order extends I_C_Order 
 {
 
     /** TableName=C_Order */
@@ -62,19 +62,6 @@ public interface I_W_C_Order
 	  * Process which will generate a new document lines based on an existing document
 	  */
 	public String getCreateFrom();
-
-    /** Column name LBR_BillNote */
-    public static final String COLUMNNAME_LBR_BillNote = "LBR_BillNote";
-
-	/** Set Bill Note.
-	  * Bill Note
-	  */
-	public void setLBR_BillNote (String LBR_BillNote);
-
-	/** Get Bill Note.
-	  * Bill Note
-	  */
-	public String getLBR_BillNote();
 
     /** Column name LBR_ConvertQuote */
     public static final String COLUMNNAME_LBR_ConvertQuote = "LBR_ConvertQuote";
@@ -203,45 +190,6 @@ public interface I_W_C_Order
 	  */
 	public String getLBR_IndPres();
 
-    /** Column name LBR_InsuranceAmt */
-    public static final String COLUMNNAME_LBR_InsuranceAmt = "LBR_InsuranceAmt";
-
-	/** Set Insurance Amt.
-	  * Defines the Insurance Amt
-	  */
-	public void setLBR_InsuranceAmt (BigDecimal LBR_InsuranceAmt);
-
-	/** Get Insurance Amt.
-	  * Defines the Insurance Amt
-	  */
-	public BigDecimal getLBR_InsuranceAmt();
-
-    /** Column name LBR_NFDescription */
-    public static final String COLUMNNAME_LBR_NFDescription = "LBR_NFDescription";
-
-	/** Set Nota Fiscal Description.
-	  * Description Printed on Nota Fiscal
-	  */
-	public void setLBR_NFDescription (String LBR_NFDescription);
-
-	/** Get Nota Fiscal Description.
-	  * Description Printed on Nota Fiscal
-	  */
-	public String getLBR_NFDescription();
-
-    /** Column name LBR_NFEntrada */
-    public static final String COLUMNNAME_LBR_NFEntrada = "LBR_NFEntrada";
-
-	/** Set Customer NF Number.
-	  * Number of the Customer NF
-	  */
-	public void setLBR_NFEntrada (String LBR_NFEntrada);
-
-	/** Get Customer NF Number.
-	  * Number of the Customer NF
-	  */
-	public String getLBR_NFEntrada();
-
     /** Column name LBR_OtherChargesAmt */
     public static final String COLUMNNAME_LBR_OtherChargesAmt = "LBR_OtherChargesAmt";
 
@@ -251,8 +199,88 @@ public interface I_W_C_Order
 	/** Get Other Charges Amount	  */
 	public BigDecimal getLBR_OtherChargesAmt();
 
-    /** Column name LBR_PaymentRule */
-    public static final String COLUMNNAME_LBR_PaymentRule = "LBR_PaymentRule";
+    /** Column name LBR_ProcCreatePO */
+    public static final String COLUMNNAME_LBR_ProcCreatePO = "LBR_ProcCreatePO";
+
+	/** Set Create PO.
+	  * Process to Create PO Lines from Requisition
+	  */
+	public void setLBR_ProcCreatePO (String LBR_ProcCreatePO);
+
+	/** Get Create PO.
+	  * Process to Create PO Lines from Requisition
+	  */
+	public String getLBR_ProcCreatePO();
+
+    /** Column name LBR_Withhold_Order_ID */
+    public static final String COLUMNNAME_LBR_Withhold_Order_ID = "LBR_Withhold_Order_ID";
+
+	/** Set Withhold Order.
+	  * Defines the Withhold Order
+	  */
+	public void setLBR_Withhold_Order_ID (int LBR_Withhold_Order_ID);
+
+	/** Get Withhold Order.
+	  * Defines the Withhold Order
+	  */
+	public int getLBR_Withhold_Order_ID();
+
+	public org.compiere.model.I_C_Order getLBR_Withhold_Order() throws RuntimeException;
+
+    /** Column name lbr_BillNote */
+    public static final String COLUMNNAME_lbr_BillNote = "lbr_BillNote";
+
+	/** Set Bill Note.
+	  * Bill Note
+	  */
+	public void setlbr_BillNote (String lbr_BillNote);
+
+	/** Get Bill Note.
+	  * Bill Note
+	  */
+	public String getlbr_BillNote();
+
+    /** Column name lbr_InsuranceAmt */
+    public static final String COLUMNNAME_lbr_InsuranceAmt = "lbr_InsuranceAmt";
+
+	/** Set Insurance Amt.
+	  * Defines the Insurance Amt
+	  */
+	public void setlbr_InsuranceAmt (BigDecimal lbr_InsuranceAmt);
+
+	/** Get Insurance Amt.
+	  * Defines the Insurance Amt
+	  */
+	public BigDecimal getlbr_InsuranceAmt();
+
+    /** Column name lbr_NFDescription */
+    public static final String COLUMNNAME_lbr_NFDescription = "lbr_NFDescription";
+
+	/** Set Nota Fiscal Description.
+	  * Description Printed on Nota Fiscal
+	  */
+	public void setlbr_NFDescription (String lbr_NFDescription);
+
+	/** Get Nota Fiscal Description.
+	  * Description Printed on Nota Fiscal
+	  */
+	public String getlbr_NFDescription();
+
+    /** Column name lbr_NFEntrada */
+    public static final String COLUMNNAME_lbr_NFEntrada = "lbr_NFEntrada";
+
+	/** Set Customer NF Number.
+	  * Number of the Customer NF
+	  */
+	public void setlbr_NFEntrada (String lbr_NFEntrada);
+
+	/** Get Customer NF Number.
+	  * Number of the Customer NF
+	  */
+	public String getlbr_NFEntrada();
+
+    /** Column name lbr_PaymentRule */
+    public static final String COLUMNNAME_lbr_PaymentRule = "lbr_PaymentRule";
 
 	/** Cash = X */
 	public static final String LBR_PAYMENTRULE_Cash = "X";
@@ -270,41 +298,28 @@ public interface I_W_C_Order
 	/** Set Payment Rule.
 	  * How you pay the invoice
 	  */
-	public void setLBR_PaymentRule (String LBR_PaymentRule);
+	public void setlbr_PaymentRule (String lbr_PaymentRule);
 
 	/** Get Payment Rule.
 	  * How you pay the invoice
 	  */
-	public String getLBR_PaymentRule();
+	public String getlbr_PaymentRule();
 
-    /** Column name LBR_ProcCreatePO */
-    public static final String COLUMNNAME_LBR_ProcCreatePO = "LBR_ProcCreatePO";
-
-	/** Set Create PO.
-	  * Process to Create PO Lines from Requisition
-	  */
-	public void setLBR_ProcCreatePO (String LBR_ProcCreatePO);
-
-	/** Get Create PO.
-	  * Process to Create PO Lines from Requisition
-	  */
-	public String getLBR_ProcCreatePO();
-
-    /** Column name LBR_ShipNote */
-    public static final String COLUMNNAME_LBR_ShipNote = "LBR_ShipNote";
+    /** Column name lbr_ShipNote */
+    public static final String COLUMNNAME_lbr_ShipNote = "lbr_ShipNote";
 
 	/** Set Shipment Note.
 	  * Extra Shipment Information 
 	  */
-	public void setLBR_ShipNote (String LBR_ShipNote);
+	public void setlbr_ShipNote (String lbr_ShipNote);
 
 	/** Get Shipment Note.
 	  * Extra Shipment Information 
 	  */
-	public String getLBR_ShipNote();
+	public String getlbr_ShipNote();
 
-    /** Column name LBR_TransactionType */
-    public static final String COLUMNNAME_LBR_TransactionType = "LBR_TransactionType";
+    /** Column name lbr_TransactionType */
+    public static final String COLUMNNAME_lbr_TransactionType = "lbr_TransactionType";
 
 	/** End User = END */
 	public static final String LBR_TRANSACTIONTYPE_EndUser = "END";
@@ -328,25 +343,10 @@ public interface I_W_C_Order
 	/** Set Transaction Type.
 	  * Defines the Transaction Type
 	  */
-	public void setLBR_TransactionType (String LBR_TransactionType);
+	public void setlbr_TransactionType (String lbr_TransactionType);
 
 	/** Get Transaction Type.
 	  * Defines the Transaction Type
 	  */
-	public String getLBR_TransactionType();
-
-    /** Column name LBR_Withhold_Order_ID */
-    public static final String COLUMNNAME_LBR_Withhold_Order_ID = "LBR_Withhold_Order_ID";
-
-	/** Set Withhold Order.
-	  * Defines the Withhold Order
-	  */
-	public void setLBR_Withhold_Order_ID (int LBR_Withhold_Order_ID);
-
-	/** Get Withhold Order.
-	  * Defines the Withhold Order
-	  */
-	public int getLBR_Withhold_Order_ID();
-
-	public org.compiere.model.I_C_Order getLBR_Withhold_Order() throws RuntimeException;
+	public String getlbr_TransactionType();
 }

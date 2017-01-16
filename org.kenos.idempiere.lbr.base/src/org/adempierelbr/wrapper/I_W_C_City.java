@@ -25,7 +25,7 @@ import org.compiere.util.KeyNamePair;
  *  @version Release 4.1
  */
 @SuppressWarnings("all")
-public interface I_W_C_City 
+public interface I_W_C_City extends I_C_City 
 {
 
     /** TableName=C_City */
@@ -35,12 +35,12 @@ public interface I_W_C_City
     public static final int Table_ID = 186;
 
 
-    /** Column name LBR_CityCode */
-    public static final String COLUMNNAME_LBR_CityCode = "LBR_CityCode";
+    /** Column name lbr_CityCode */
+    public static final String COLUMNNAME_lbr_CityCode = "lbr_CityCode";
 
 	/** Set Cod. Cidade	  */
-	public void setLBR_CityCode (int LBR_CityCode);
+	public void setlbr_CityCode (int lbr_CityCode);
 
 	/** Get Cod. Cidade	  */
-	public int getLBR_CityCode();
+	public int getlbr_CityCode();
 }

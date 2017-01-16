@@ -147,32 +147,6 @@ public interface I_LBR_TaxName
 
 	public org.adempierelbr.model.I_LBR_TaxName getLBR_TaxSubstitution() throws RuntimeException;
 
-    /** Column name LBR_TaxType */
-    public static final String COLUMNNAME_LBR_TaxType = "LBR_TaxType";
-
-	/** Set Tax Type.
-	  * Define the Tax Type
-	  */
-	public void setLBR_TaxType (String LBR_TaxType);
-
-	/** Get Tax Type.
-	  * Define the Tax Type
-	  */
-	public String getLBR_TaxType();
-
-    /** Column name LBR_WithholdFrequency */
-    public static final String COLUMNNAME_LBR_WithholdFrequency = "LBR_WithholdFrequency";
-
-	/** Set Withhold Frequency.
-	  * Defines the Withhold Frequency
-	  */
-	public void setLBR_WithholdFrequency (String LBR_WithholdFrequency);
-
-	/** Get Withhold Frequency.
-	  * Defines the Withhold Frequency
-	  */
-	public String getLBR_WithholdFrequency();
-
     /** Column name LBR_WithholdGroup */
     public static final String COLUMNNAME_LBR_WithholdGroup = "LBR_WithholdGroup";
 
@@ -236,4 +210,30 @@ public interface I_LBR_TaxName
 	  * User who updated this records
 	  */
 	public int getUpdatedBy();
+
+    /** Column name lbr_TaxType */
+    public static final String COLUMNNAME_lbr_TaxType = "lbr_TaxType";
+
+	/** Set Tax Type.
+	  * Define the Tax Type
+	  */
+	public void setlbr_TaxType (String lbr_TaxType);
+
+	/** Get Tax Type.
+	  * Define the Tax Type
+	  */
+	public String getlbr_TaxType();
+
+    /** Column name lbr_WithholdFrequency */
+    public static final String COLUMNNAME_lbr_WithholdFrequency = "lbr_WithholdFrequency";
+
+	/** Set Withhold Frequency.
+	  * Defines the Withhold Frequency
+	  */
+	public void setlbr_WithholdFrequency (String lbr_WithholdFrequency);
+
+	/** Get Withhold Frequency.
+	  * Defines the Withhold Frequency
+	  */
+	public String getlbr_WithholdFrequency();
 }

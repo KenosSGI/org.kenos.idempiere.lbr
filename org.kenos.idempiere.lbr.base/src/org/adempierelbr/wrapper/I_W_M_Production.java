@@ -25,7 +25,7 @@ import org.compiere.util.KeyNamePair;
  *  @version Release 4.1
  */
 @SuppressWarnings("all")
-public interface I_W_M_Production 
+public interface I_W_M_Production extends I_M_Production 
 {
 
     /** TableName=M_Production */
@@ -48,19 +48,6 @@ public interface I_W_M_Production
 	  */
 	public boolean isCancelled();
 
-    /** Column name LBR_IsManufactured */
-    public static final String COLUMNNAME_LBR_IsManufactured = "LBR_IsManufactured";
-
-	/** Set Is Manufactured.
-	  * Defines if the Product is Manufactured
-	  */
-	public void setLBR_IsManufactured (boolean LBR_IsManufactured);
-
-	/** Get Is Manufactured.
-	  * Defines if the Product is Manufactured
-	  */
-	public boolean isLBR_IsManufactured();
-
     /** Column name LBR_ProcCancelProduction */
     public static final String COLUMNNAME_LBR_ProcCancelProduction = "LBR_ProcCancelProduction";
 
@@ -69,4 +56,17 @@ public interface I_W_M_Production
 
 	/** Get Cancel Production	  */
 	public String getLBR_ProcCancelProduction();
+
+    /** Column name lbr_IsManufactured */
+    public static final String COLUMNNAME_lbr_IsManufactured = "lbr_IsManufactured";
+
+	/** Set Is Manufactured.
+	  * Defines if the Product is Manufactured
+	  */
+	public void setlbr_IsManufactured (boolean lbr_IsManufactured);
+
+	/** Get Is Manufactured.
+	  * Defines if the Product is Manufactured
+	  */
+	public boolean islbr_IsManufactured();
 }

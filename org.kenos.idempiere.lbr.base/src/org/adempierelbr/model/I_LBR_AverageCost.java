@@ -134,96 +134,6 @@ public interface I_LBR_AverageCost
 	  */
 	public int getLBR_AverageCost_ID();
 
-    /** Column name LBR_AvgCost_ConfirmMAN */
-    public static final String COLUMNNAME_LBR_AvgCost_ConfirmMAN = "LBR_AvgCost_ConfirmMAN";
-
-	/** Set AvgCost - Confirm Manufactured	  */
-	public void setLBR_AvgCost_ConfirmMAN (String LBR_AvgCost_ConfirmMAN);
-
-	/** Get AvgCost - Confirm Manufactured	  */
-	public String getLBR_AvgCost_ConfirmMAN();
-
-    /** Column name LBR_AvgCost_ConfirmPUR */
-    public static final String COLUMNNAME_LBR_AvgCost_ConfirmPUR = "LBR_AvgCost_ConfirmPUR";
-
-	/** Set AvgCost - Confirm Purchased	  */
-	public void setLBR_AvgCost_ConfirmPUR (String LBR_AvgCost_ConfirmPUR);
-
-	/** Get AvgCost - Confirm Purchased	  */
-	public String getLBR_AvgCost_ConfirmPUR();
-
-    /** Column name LBR_AvgCost_CreateMAN */
-    public static final String COLUMNNAME_LBR_AvgCost_CreateMAN = "LBR_AvgCost_CreateMAN";
-
-	/** Set AvgCost - Create Record Manufactured	  */
-	public void setLBR_AvgCost_CreateMAN (String LBR_AvgCost_CreateMAN);
-
-	/** Get AvgCost - Create Record Manufactured	  */
-	public String getLBR_AvgCost_CreateMAN();
-
-    /** Column name LBR_AvgCost_CreatePUR */
-    public static final String COLUMNNAME_LBR_AvgCost_CreatePUR = "LBR_AvgCost_CreatePUR";
-
-	/** Set AvgCost - Create Record Purchased	  */
-	public void setLBR_AvgCost_CreatePUR (String LBR_AvgCost_CreatePUR);
-
-	/** Get AvgCost - Create Record Purchased	  */
-	public String getLBR_AvgCost_CreatePUR();
-
-    /** Column name LBR_AvgCost_RePostAcct */
-    public static final String COLUMNNAME_LBR_AvgCost_RePostAcct = "LBR_AvgCost_RePostAcct";
-
-	/** Set AvgCost - RePost Acct	  */
-	public void setLBR_AvgCost_RePostAcct (String LBR_AvgCost_RePostAcct);
-
-	/** Get AvgCost - RePost Acct	  */
-	public String getLBR_AvgCost_RePostAcct();
-
-    /** Column name LBR_AvgStep1 */
-    public static final String COLUMNNAME_LBR_AvgStep1 = "LBR_AvgStep1";
-
-	/** Set Step 1	  */
-	public void setLBR_AvgStep1 (boolean LBR_AvgStep1);
-
-	/** Get Step 1	  */
-	public boolean isLBR_AvgStep1();
-
-    /** Column name LBR_AvgStep2 */
-    public static final String COLUMNNAME_LBR_AvgStep2 = "LBR_AvgStep2";
-
-	/** Set Step 2	  */
-	public void setLBR_AvgStep2 (boolean LBR_AvgStep2);
-
-	/** Get Step 2	  */
-	public boolean isLBR_AvgStep2();
-
-    /** Column name LBR_AvgStep3 */
-    public static final String COLUMNNAME_LBR_AvgStep3 = "LBR_AvgStep3";
-
-	/** Set Step 3	  */
-	public void setLBR_AvgStep3 (boolean LBR_AvgStep3);
-
-	/** Get Step 3	  */
-	public boolean isLBR_AvgStep3();
-
-    /** Column name LBR_AvgStep4 */
-    public static final String COLUMNNAME_LBR_AvgStep4 = "LBR_AvgStep4";
-
-	/** Set Step 4	  */
-	public void setLBR_AvgStep4 (boolean LBR_AvgStep4);
-
-	/** Get Step 4	  */
-	public boolean isLBR_AvgStep4();
-
-    /** Column name LBR_AvgStep5 */
-    public static final String COLUMNNAME_LBR_AvgStep5 = "LBR_AvgStep5";
-
-	/** Set Step 5	  */
-	public void setLBR_AvgStep5 (boolean LBR_AvgStep5);
-
-	/** Get Step 5	  */
-	public boolean isLBR_AvgStep5();
-
     /** Column name M_CostElement_ID */
     public static final String COLUMNNAME_M_CostElement_ID = "M_CostElement_ID";
 
@@ -280,4 +190,94 @@ public interface I_LBR_AverageCost
 	  * User who updated this records
 	  */
 	public int getUpdatedBy();
+
+    /** Column name lbr_AvgCost_ConfirmMAN */
+    public static final String COLUMNNAME_lbr_AvgCost_ConfirmMAN = "lbr_AvgCost_ConfirmMAN";
+
+	/** Set AvgCost - Confirm Manufactured	  */
+	public void setlbr_AvgCost_ConfirmMAN (String lbr_AvgCost_ConfirmMAN);
+
+	/** Get AvgCost - Confirm Manufactured	  */
+	public String getlbr_AvgCost_ConfirmMAN();
+
+    /** Column name lbr_AvgCost_ConfirmPUR */
+    public static final String COLUMNNAME_lbr_AvgCost_ConfirmPUR = "lbr_AvgCost_ConfirmPUR";
+
+	/** Set AvgCost - Confirm Purchased	  */
+	public void setlbr_AvgCost_ConfirmPUR (String lbr_AvgCost_ConfirmPUR);
+
+	/** Get AvgCost - Confirm Purchased	  */
+	public String getlbr_AvgCost_ConfirmPUR();
+
+    /** Column name lbr_AvgCost_CreateMAN */
+    public static final String COLUMNNAME_lbr_AvgCost_CreateMAN = "lbr_AvgCost_CreateMAN";
+
+	/** Set AvgCost - Create Record Manufactured	  */
+	public void setlbr_AvgCost_CreateMAN (String lbr_AvgCost_CreateMAN);
+
+	/** Get AvgCost - Create Record Manufactured	  */
+	public String getlbr_AvgCost_CreateMAN();
+
+    /** Column name lbr_AvgCost_CreatePUR */
+    public static final String COLUMNNAME_lbr_AvgCost_CreatePUR = "lbr_AvgCost_CreatePUR";
+
+	/** Set AvgCost - Create Record Purchased	  */
+	public void setlbr_AvgCost_CreatePUR (String lbr_AvgCost_CreatePUR);
+
+	/** Get AvgCost - Create Record Purchased	  */
+	public String getlbr_AvgCost_CreatePUR();
+
+    /** Column name lbr_AvgCost_RePostAcct */
+    public static final String COLUMNNAME_lbr_AvgCost_RePostAcct = "lbr_AvgCost_RePostAcct";
+
+	/** Set AvgCost - RePost Acct	  */
+	public void setlbr_AvgCost_RePostAcct (String lbr_AvgCost_RePostAcct);
+
+	/** Get AvgCost - RePost Acct	  */
+	public String getlbr_AvgCost_RePostAcct();
+
+    /** Column name lbr_AvgStep1 */
+    public static final String COLUMNNAME_lbr_AvgStep1 = "lbr_AvgStep1";
+
+	/** Set Step 1	  */
+	public void setlbr_AvgStep1 (boolean lbr_AvgStep1);
+
+	/** Get Step 1	  */
+	public boolean islbr_AvgStep1();
+
+    /** Column name lbr_AvgStep2 */
+    public static final String COLUMNNAME_lbr_AvgStep2 = "lbr_AvgStep2";
+
+	/** Set Step 2	  */
+	public void setlbr_AvgStep2 (boolean lbr_AvgStep2);
+
+	/** Get Step 2	  */
+	public boolean islbr_AvgStep2();
+
+    /** Column name lbr_AvgStep3 */
+    public static final String COLUMNNAME_lbr_AvgStep3 = "lbr_AvgStep3";
+
+	/** Set Step 3	  */
+	public void setlbr_AvgStep3 (boolean lbr_AvgStep3);
+
+	/** Get Step 3	  */
+	public boolean islbr_AvgStep3();
+
+    /** Column name lbr_AvgStep4 */
+    public static final String COLUMNNAME_lbr_AvgStep4 = "lbr_AvgStep4";
+
+	/** Set Step 4	  */
+	public void setlbr_AvgStep4 (boolean lbr_AvgStep4);
+
+	/** Get Step 4	  */
+	public boolean islbr_AvgStep4();
+
+    /** Column name lbr_AvgStep5 */
+    public static final String COLUMNNAME_lbr_AvgStep5 = "lbr_AvgStep5";
+
+	/** Set Step 5	  */
+	public void setlbr_AvgStep5 (boolean lbr_AvgStep5);
+
+	/** Get Step 5	  */
+	public boolean islbr_AvgStep5();
 }

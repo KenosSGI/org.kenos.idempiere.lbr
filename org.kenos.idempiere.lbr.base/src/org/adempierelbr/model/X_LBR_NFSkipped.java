@@ -32,7 +32,7 @@ public class X_LBR_NFSkipped extends PO implements I_LBR_NFSkipped, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20170105L;
+	private static final long serialVersionUID = 20170116L;
 
     /** Standard Constructor */
     public X_LBR_NFSkipped (Properties ctx, int LBR_NFSkipped_ID, String trxName)
@@ -89,21 +89,91 @@ public class X_LBR_NFSkipped extends PO implements I_LBR_NFSkipped, I_Persistent
 		return (Timestamp)get_Value(COLUMNNAME_DateTrx);
 	}
 
+	/** Set NF-e Skipped.
+		@param LBR_NFSkipped_ID NF-e Skipped	  */
+	public void setLBR_NFSkipped_ID (int LBR_NFSkipped_ID)
+	{
+		if (LBR_NFSkipped_ID < 1) 
+			set_ValueNoCheck (COLUMNNAME_LBR_NFSkipped_ID, null);
+		else 
+			set_ValueNoCheck (COLUMNNAME_LBR_NFSkipped_ID, Integer.valueOf(LBR_NFSkipped_ID));
+	}
+
+	/** Get NF-e Skipped.
+		@return NF-e Skipped	  */
+	public int getLBR_NFSkipped_ID () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_LBR_NFSkipped_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
+    /** Get Record ID/ColumnName
+        @return ID/ColumnName pair
+      */
+    public KeyNamePair getKeyNamePair() 
+    {
+        return new KeyNamePair(get_ID(), String.valueOf(getLBR_NFSkipped_ID()));
+    }
+
+	/** Set No NF-e End.
+		@param LBR_NFeSkippedNFFin No NF-e End	  */
+	public void setLBR_NFeSkippedNFFin (String LBR_NFeSkippedNFFin)
+	{
+		set_Value (COLUMNNAME_LBR_NFeSkippedNFFin, LBR_NFeSkippedNFFin);
+	}
+
+	/** Get No NF-e End.
+		@return No NF-e End	  */
+	public String getLBR_NFeSkippedNFFin () 
+	{
+		return (String)get_Value(COLUMNNAME_LBR_NFeSkippedNFFin);
+	}
+
+	/** Set No NF-e Initial.
+		@param LBR_NFeSkippedNFIni No NF-e Initial	  */
+	public void setLBR_NFeSkippedNFIni (String LBR_NFeSkippedNFIni)
+	{
+		set_Value (COLUMNNAME_LBR_NFeSkippedNFIni, LBR_NFeSkippedNFIni);
+	}
+
+	/** Get No NF-e Initial.
+		@return No NF-e Initial	  */
+	public String getLBR_NFeSkippedNFIni () 
+	{
+		return (String)get_Value(COLUMNNAME_LBR_NFeSkippedNFIni);
+	}
+
+	/** Set Year.
+		@param LBR_NFeSkippedYear Year	  */
+	public void setLBR_NFeSkippedYear (String LBR_NFeSkippedYear)
+	{
+		set_Value (COLUMNNAME_LBR_NFeSkippedYear, LBR_NFeSkippedYear);
+	}
+
+	/** Get Year.
+		@return Year	  */
+	public String getLBR_NFeSkippedYear () 
+	{
+		return (String)get_Value(COLUMNNAME_LBR_NFeSkippedYear);
+	}
+
 	/** Set CNPJ.
-		@param LBR_CNPJ 
+		@param lbr_CNPJ 
 		Used to identify Legal Entities in Brazil
 	  */
-	public void setLBR_CNPJ (String LBR_CNPJ)
+	public void setlbr_CNPJ (String lbr_CNPJ)
 	{
-		set_Value (COLUMNNAME_LBR_CNPJ, LBR_CNPJ);
+		set_Value (COLUMNNAME_lbr_CNPJ, lbr_CNPJ);
 	}
 
 	/** Get CNPJ.
 		@return Used to identify Legal Entities in Brazil
 	  */
-	public String getLBR_CNPJ () 
+	public String getlbr_CNPJ () 
 	{
-		return (String)get_Value(COLUMNNAME_LBR_CNPJ);
+		return (String)get_Value(COLUMNNAME_lbr_CNPJ);
 	}
 
 	/** Nota Fiscal = 01 */
@@ -175,118 +245,48 @@ public class X_LBR_NFSkipped extends PO implements I_LBR_NFSkipped, I_Persistent
 	/** Nota Fiscal de Consumidor Eletrônica = 56 */
 	public static final String LBR_NFMODEL_NotaFiscalDeConsumidorEletrônica = "56";
 	/** Set NF Model.
-		@param LBR_NFModel 
+		@param lbr_NFModel 
 		Identifies the model of Nota Fiscal
 	  */
-	public void setLBR_NFModel (String LBR_NFModel)
+	public void setlbr_NFModel (String lbr_NFModel)
 	{
 
-		set_Value (COLUMNNAME_LBR_NFModel, LBR_NFModel);
+		set_Value (COLUMNNAME_lbr_NFModel, lbr_NFModel);
 	}
 
 	/** Get NF Model.
 		@return Identifies the model of Nota Fiscal
 	  */
-	public String getLBR_NFModel () 
+	public String getlbr_NFModel () 
 	{
-		return (String)get_Value(COLUMNNAME_LBR_NFModel);
+		return (String)get_Value(COLUMNNAME_lbr_NFModel);
 	}
 
 	/** Set NF Serie.
-		@param LBR_NFSerie NF Serie	  */
-	public void setLBR_NFSerie (String LBR_NFSerie)
+		@param lbr_NFSerie NF Serie	  */
+	public void setlbr_NFSerie (String lbr_NFSerie)
 	{
-		set_Value (COLUMNNAME_LBR_NFSerie, LBR_NFSerie);
+		set_Value (COLUMNNAME_lbr_NFSerie, lbr_NFSerie);
 	}
 
 	/** Get NF Serie.
 		@return NF Serie	  */
-	public String getLBR_NFSerie () 
+	public String getlbr_NFSerie () 
 	{
-		return (String)get_Value(COLUMNNAME_LBR_NFSerie);
+		return (String)get_Value(COLUMNNAME_lbr_NFSerie);
 	}
-
-	/** Set NF-e Skipped.
-		@param LBR_NFSkipped_ID NF-e Skipped	  */
-	public void setLBR_NFSkipped_ID (int LBR_NFSkipped_ID)
-	{
-		if (LBR_NFSkipped_ID < 1) 
-			set_ValueNoCheck (COLUMNNAME_LBR_NFSkipped_ID, null);
-		else 
-			set_ValueNoCheck (COLUMNNAME_LBR_NFSkipped_ID, Integer.valueOf(LBR_NFSkipped_ID));
-	}
-
-	/** Get NF-e Skipped.
-		@return NF-e Skipped	  */
-	public int getLBR_NFSkipped_ID () 
-	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_LBR_NFSkipped_ID);
-		if (ii == null)
-			 return 0;
-		return ii.intValue();
-	}
-
-    /** Get Record ID/ColumnName
-        @return ID/ColumnName pair
-      */
-    public KeyNamePair getKeyNamePair() 
-    {
-        return new KeyNamePair(get_ID(), String.valueOf(getLBR_NFSkipped_ID()));
-    }
 
 	/** Set NFe Protocol.
-		@param LBR_NFeProt NFe Protocol	  */
-	public void setLBR_NFeProt (String LBR_NFeProt)
+		@param lbr_NFeProt NFe Protocol	  */
+	public void setlbr_NFeProt (String lbr_NFeProt)
 	{
-		set_Value (COLUMNNAME_LBR_NFeProt, LBR_NFeProt);
+		set_Value (COLUMNNAME_lbr_NFeProt, lbr_NFeProt);
 	}
 
 	/** Get NFe Protocol.
 		@return NFe Protocol	  */
-	public String getLBR_NFeProt () 
+	public String getlbr_NFeProt () 
 	{
-		return (String)get_Value(COLUMNNAME_LBR_NFeProt);
-	}
-
-	/** Set No NF-e End.
-		@param LBR_NFeSkippedNFFin No NF-e End	  */
-	public void setLBR_NFeSkippedNFFin (String LBR_NFeSkippedNFFin)
-	{
-		set_Value (COLUMNNAME_LBR_NFeSkippedNFFin, LBR_NFeSkippedNFFin);
-	}
-
-	/** Get No NF-e End.
-		@return No NF-e End	  */
-	public String getLBR_NFeSkippedNFFin () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_NFeSkippedNFFin);
-	}
-
-	/** Set No NF-e Initial.
-		@param LBR_NFeSkippedNFIni No NF-e Initial	  */
-	public void setLBR_NFeSkippedNFIni (String LBR_NFeSkippedNFIni)
-	{
-		set_Value (COLUMNNAME_LBR_NFeSkippedNFIni, LBR_NFeSkippedNFIni);
-	}
-
-	/** Get No NF-e Initial.
-		@return No NF-e Initial	  */
-	public String getLBR_NFeSkippedNFIni () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_NFeSkippedNFIni);
-	}
-
-	/** Set Year.
-		@param LBR_NFeSkippedYear Year	  */
-	public void setLBR_NFeSkippedYear (String LBR_NFeSkippedYear)
-	{
-		set_Value (COLUMNNAME_LBR_NFeSkippedYear, LBR_NFeSkippedYear);
-	}
-
-	/** Get Year.
-		@return Year	  */
-	public String getLBR_NFeSkippedYear () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_NFeSkippedYear);
+		return (String)get_Value(COLUMNNAME_lbr_NFeProt);
 	}
 }

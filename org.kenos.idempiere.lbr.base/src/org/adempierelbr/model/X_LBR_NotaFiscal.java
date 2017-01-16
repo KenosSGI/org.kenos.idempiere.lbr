@@ -33,7 +33,7 @@ public class X_LBR_NotaFiscal extends PO implements I_LBR_NotaFiscal, I_Persiste
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20170105L;
+	private static final long serialVersionUID = 20170116L;
 
     /** Standard Constructor */
     public X_LBR_NotaFiscal (Properties ctx, int LBR_NotaFiscal_ID, String trxName)
@@ -54,19 +54,19 @@ public class X_LBR_NotaFiscal extends PO implements I_LBR_NotaFiscal, I_Persiste
 // @IsSOTrx@
 			setLBR_EMailSent (false);
 // N
-			setLBR_FinNFe (null);
-// 1
-			setLBR_HasOpenItems (true);
-// Y
 			setLBR_IndIEDest (null);
 // 1
-			setLBR_IsOwnDocument (false);
-// N
 			setLBR_NotaFiscal_ID (0);
 			setNoPackages (0);
 // 1
 			setProcessed (false);
 // 'N'
+			setlbr_FinNFe (null);
+// 1
+			setlbr_HasOpenItems (true);
+// Y
+			setlbr_IsOwnDocument (false);
+// N
         } */
     }
 
@@ -715,994 +715,6 @@ public class X_LBR_NotaFiscal extends PO implements I_LBR_NotaFiscal, I_Persiste
 		return false;
 	}
 
-	/** Set BP Address 1.
-		@param LBR_BPAddress1 
-		BP Address 1 - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public void setLBR_BPAddress1 (String LBR_BPAddress1)
-	{
-		set_Value (COLUMNNAME_LBR_BPAddress1, LBR_BPAddress1);
-	}
-
-	/** Get BP Address 1.
-		@return BP Address 1 - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public String getLBR_BPAddress1 () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_BPAddress1);
-	}
-
-	/** Set BP Address 2.
-		@param LBR_BPAddress2 
-		BP Address 2 - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public void setLBR_BPAddress2 (String LBR_BPAddress2)
-	{
-		set_Value (COLUMNNAME_LBR_BPAddress2, LBR_BPAddress2);
-	}
-
-	/** Get BP Address 2.
-		@return BP Address 2 - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public String getLBR_BPAddress2 () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_BPAddress2);
-	}
-
-	/** Set BP Address 3.
-		@param LBR_BPAddress3 
-		BP Address 3 - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public void setLBR_BPAddress3 (String LBR_BPAddress3)
-	{
-		set_Value (COLUMNNAME_LBR_BPAddress3, LBR_BPAddress3);
-	}
-
-	/** Get BP Address 3.
-		@return BP Address 3 - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public String getLBR_BPAddress3 () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_BPAddress3);
-	}
-
-	/** Set BP Address 4.
-		@param LBR_BPAddress4 
-		BP Address 4 - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public void setLBR_BPAddress4 (String LBR_BPAddress4)
-	{
-		set_Value (COLUMNNAME_LBR_BPAddress4, LBR_BPAddress4);
-	}
-
-	/** Get BP Address 4.
-		@return BP Address 4 - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public String getLBR_BPAddress4 () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_BPAddress4);
-	}
-
-	/** Set BP CNPJ.
-		@param LBR_BPCNPJ 
-		BP CNPJ - Copied from the BP into Brazilan Legal and Tax Books
-	  */
-	public void setLBR_BPCNPJ (String LBR_BPCNPJ)
-	{
-		set_Value (COLUMNNAME_LBR_BPCNPJ, LBR_BPCNPJ);
-	}
-
-	/** Get BP CNPJ.
-		@return BP CNPJ - Copied from the BP into Brazilan Legal and Tax Books
-	  */
-	public String getLBR_BPCNPJ () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_BPCNPJ);
-	}
-
-	/** Set BP City.
-		@param LBR_BPCity 
-		BP City - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public void setLBR_BPCity (String LBR_BPCity)
-	{
-		set_Value (COLUMNNAME_LBR_BPCity, LBR_BPCity);
-	}
-
-	/** Get BP City.
-		@return BP City - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public String getLBR_BPCity () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_BPCity);
-	}
-
-	/** Set Cod. Cidade.
-		@param LBR_BPCityCode Cod. Cidade	  */
-	public void setLBR_BPCityCode (int LBR_BPCityCode)
-	{
-		set_Value (COLUMNNAME_LBR_BPCityCode, Integer.valueOf(LBR_BPCityCode));
-	}
-
-	/** Get Cod. Cidade.
-		@return Cod. Cidade	  */
-	public int getLBR_BPCityCode () 
-	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_LBR_BPCityCode);
-		if (ii == null)
-			 return 0;
-		return ii.intValue();
-	}
-
-	/** Set BP Country.
-		@param LBR_BPCountry 
-		BP Country - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public void setLBR_BPCountry (String LBR_BPCountry)
-	{
-		set_Value (COLUMNNAME_LBR_BPCountry, LBR_BPCountry);
-	}
-
-	/** Get BP Country.
-		@return BP Country - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public String getLBR_BPCountry () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_BPCountry);
-	}
-
-	/** Set Country Code.
-		@param LBR_BPCountryCode 
-		Country Code used for issue Nota Fiscal
-	  */
-	public void setLBR_BPCountryCode (String LBR_BPCountryCode)
-	{
-		set_Value (COLUMNNAME_LBR_BPCountryCode, LBR_BPCountryCode);
-	}
-
-	/** Get Country Code.
-		@return Country Code used for issue Nota Fiscal
-	  */
-	public String getLBR_BPCountryCode () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_BPCountryCode);
-	}
-
-	/** Set BP Delivery Address 1.
-		@param LBR_BPDeliveryAddress1 
-		BP Delivery Address 1 - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public void setLBR_BPDeliveryAddress1 (String LBR_BPDeliveryAddress1)
-	{
-		set_Value (COLUMNNAME_LBR_BPDeliveryAddress1, LBR_BPDeliveryAddress1);
-	}
-
-	/** Get BP Delivery Address 1.
-		@return BP Delivery Address 1 - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public String getLBR_BPDeliveryAddress1 () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_BPDeliveryAddress1);
-	}
-
-	/** Set BP Delivery Address 2.
-		@param LBR_BPDeliveryAddress2 
-		BP Delivery Address 2 - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public void setLBR_BPDeliveryAddress2 (String LBR_BPDeliveryAddress2)
-	{
-		set_Value (COLUMNNAME_LBR_BPDeliveryAddress2, LBR_BPDeliveryAddress2);
-	}
-
-	/** Get BP Delivery Address 2.
-		@return BP Delivery Address 2 - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public String getLBR_BPDeliveryAddress2 () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_BPDeliveryAddress2);
-	}
-
-	/** Set BP Delivery Address 3.
-		@param LBR_BPDeliveryAddress3 
-		BP Delivery Address 3 - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public void setLBR_BPDeliveryAddress3 (String LBR_BPDeliveryAddress3)
-	{
-		set_Value (COLUMNNAME_LBR_BPDeliveryAddress3, LBR_BPDeliveryAddress3);
-	}
-
-	/** Get BP Delivery Address 3.
-		@return BP Delivery Address 3 - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public String getLBR_BPDeliveryAddress3 () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_BPDeliveryAddress3);
-	}
-
-	/** Set BP Delivery Address 4.
-		@param LBR_BPDeliveryAddress4 
-		BP Delivery Address 4 - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public void setLBR_BPDeliveryAddress4 (String LBR_BPDeliveryAddress4)
-	{
-		set_Value (COLUMNNAME_LBR_BPDeliveryAddress4, LBR_BPDeliveryAddress4);
-	}
-
-	/** Get BP Delivery Address 4.
-		@return BP Delivery Address 4 - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public String getLBR_BPDeliveryAddress4 () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_BPDeliveryAddress4);
-	}
-
-	/** Set BP Delivery CNPJ.
-		@param LBR_BPDeliveryCNPJ 
-		BP Delivery CNPJ - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public void setLBR_BPDeliveryCNPJ (String LBR_BPDeliveryCNPJ)
-	{
-		set_Value (COLUMNNAME_LBR_BPDeliveryCNPJ, LBR_BPDeliveryCNPJ);
-	}
-
-	/** Get BP Delivery CNPJ.
-		@return BP Delivery CNPJ - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public String getLBR_BPDeliveryCNPJ () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_BPDeliveryCNPJ);
-	}
-
-	/** Set BP Delivery City.
-		@param LBR_BPDeliveryCity 
-		BP Delivery City - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public void setLBR_BPDeliveryCity (String LBR_BPDeliveryCity)
-	{
-		set_Value (COLUMNNAME_LBR_BPDeliveryCity, LBR_BPDeliveryCity);
-	}
-
-	/** Get BP Delivery City.
-		@return BP Delivery City - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public String getLBR_BPDeliveryCity () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_BPDeliveryCity);
-	}
-
-	/** Set Cod. Cidade.
-		@param LBR_BPDeliveryCityCode Cod. Cidade	  */
-	public void setLBR_BPDeliveryCityCode (int LBR_BPDeliveryCityCode)
-	{
-		set_Value (COLUMNNAME_LBR_BPDeliveryCityCode, Integer.valueOf(LBR_BPDeliveryCityCode));
-	}
-
-	/** Get Cod. Cidade.
-		@return Cod. Cidade	  */
-	public int getLBR_BPDeliveryCityCode () 
-	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_LBR_BPDeliveryCityCode);
-		if (ii == null)
-			 return 0;
-		return ii.intValue();
-	}
-
-	/** Set BP Delivery Country.
-		@param LBR_BPDeliveryCountry 
-		BP Delivery Country - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public void setLBR_BPDeliveryCountry (String LBR_BPDeliveryCountry)
-	{
-		set_Value (COLUMNNAME_LBR_BPDeliveryCountry, LBR_BPDeliveryCountry);
-	}
-
-	/** Get BP Delivery Country.
-		@return BP Delivery Country - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public String getLBR_BPDeliveryCountry () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_BPDeliveryCountry);
-	}
-
-	/** Set BP Delivery IE.
-		@param LBR_BPDeliveryIE 
-		BP Delivery IE - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public void setLBR_BPDeliveryIE (String LBR_BPDeliveryIE)
-	{
-		set_Value (COLUMNNAME_LBR_BPDeliveryIE, LBR_BPDeliveryIE);
-	}
-
-	/** Get BP Delivery IE.
-		@return BP Delivery IE - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public String getLBR_BPDeliveryIE () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_BPDeliveryIE);
-	}
-
-	/** Set BP Delivery Postal.
-		@param LBR_BPDeliveryPostal 
-		BP Delivery Postal - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public void setLBR_BPDeliveryPostal (String LBR_BPDeliveryPostal)
-	{
-		set_Value (COLUMNNAME_LBR_BPDeliveryPostal, LBR_BPDeliveryPostal);
-	}
-
-	/** Get BP Delivery Postal.
-		@return BP Delivery Postal - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public String getLBR_BPDeliveryPostal () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_BPDeliveryPostal);
-	}
-
-	/** Set BP DeliveryRegion.
-		@param LBR_BPDeliveryRegion 
-		BP DeliveryRegion - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public void setLBR_BPDeliveryRegion (String LBR_BPDeliveryRegion)
-	{
-		set_Value (COLUMNNAME_LBR_BPDeliveryRegion, LBR_BPDeliveryRegion);
-	}
-
-	/** Get BP DeliveryRegion.
-		@return BP DeliveryRegion - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public String getLBR_BPDeliveryRegion () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_BPDeliveryRegion);
-	}
-
-	/** Set BP IE.
-		@param LBR_BPIE 
-		BP IE - Copied from the BP into Brazilan Legal and Tax Books
-	  */
-	public void setLBR_BPIE (String LBR_BPIE)
-	{
-		set_Value (COLUMNNAME_LBR_BPIE, LBR_BPIE);
-	}
-
-	/** Get BP IE.
-		@return BP IE - Copied from the BP into Brazilan Legal and Tax Books
-	  */
-	public String getLBR_BPIE () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_BPIE);
-	}
-
-	/** Set BP Invoice Address 1.
-		@param LBR_BPInvoiceAddress1 
-		BP Invoice Address 1 - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public void setLBR_BPInvoiceAddress1 (String LBR_BPInvoiceAddress1)
-	{
-		set_Value (COLUMNNAME_LBR_BPInvoiceAddress1, LBR_BPInvoiceAddress1);
-	}
-
-	/** Get BP Invoice Address 1.
-		@return BP Invoice Address 1 - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public String getLBR_BPInvoiceAddress1 () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_BPInvoiceAddress1);
-	}
-
-	/** Set BP Invoice Address 2.
-		@param LBR_BPInvoiceAddress2 
-		BP Invoice Address 2 - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public void setLBR_BPInvoiceAddress2 (String LBR_BPInvoiceAddress2)
-	{
-		set_Value (COLUMNNAME_LBR_BPInvoiceAddress2, LBR_BPInvoiceAddress2);
-	}
-
-	/** Get BP Invoice Address 2.
-		@return BP Invoice Address 2 - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public String getLBR_BPInvoiceAddress2 () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_BPInvoiceAddress2);
-	}
-
-	/** Set BP Invoice Address 3.
-		@param LBR_BPInvoiceAddress3 
-		BP Invoice Address 3 - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public void setLBR_BPInvoiceAddress3 (String LBR_BPInvoiceAddress3)
-	{
-		set_Value (COLUMNNAME_LBR_BPInvoiceAddress3, LBR_BPInvoiceAddress3);
-	}
-
-	/** Get BP Invoice Address 3.
-		@return BP Invoice Address 3 - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public String getLBR_BPInvoiceAddress3 () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_BPInvoiceAddress3);
-	}
-
-	/** Set BP Invoice Address 4.
-		@param LBR_BPInvoiceAddress4 
-		BP Invoice Address 4 - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public void setLBR_BPInvoiceAddress4 (String LBR_BPInvoiceAddress4)
-	{
-		set_Value (COLUMNNAME_LBR_BPInvoiceAddress4, LBR_BPInvoiceAddress4);
-	}
-
-	/** Get BP Invoice Address 4.
-		@return BP Invoice Address 4 - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public String getLBR_BPInvoiceAddress4 () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_BPInvoiceAddress4);
-	}
-
-	/** Set BP Invoice CNPJ.
-		@param LBR_BPInvoiceCNPJ 
-		BP Invoice CNPJ - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public void setLBR_BPInvoiceCNPJ (String LBR_BPInvoiceCNPJ)
-	{
-		set_Value (COLUMNNAME_LBR_BPInvoiceCNPJ, LBR_BPInvoiceCNPJ);
-	}
-
-	/** Get BP Invoice CNPJ.
-		@return BP Invoice CNPJ - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public String getLBR_BPInvoiceCNPJ () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_BPInvoiceCNPJ);
-	}
-
-	/** Set BP Invoice City.
-		@param LBR_BPInvoiceCity 
-		BP Invoice City - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public void setLBR_BPInvoiceCity (String LBR_BPInvoiceCity)
-	{
-		set_Value (COLUMNNAME_LBR_BPInvoiceCity, LBR_BPInvoiceCity);
-	}
-
-	/** Get BP Invoice City.
-		@return BP Invoice City - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public String getLBR_BPInvoiceCity () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_BPInvoiceCity);
-	}
-
-	/** Set BP Invoice Country.
-		@param LBR_BPInvoiceCountry 
-		BP Invoice Country - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public void setLBR_BPInvoiceCountry (String LBR_BPInvoiceCountry)
-	{
-		set_Value (COLUMNNAME_LBR_BPInvoiceCountry, LBR_BPInvoiceCountry);
-	}
-
-	/** Get BP Invoice Country.
-		@return BP Invoice Country - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public String getLBR_BPInvoiceCountry () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_BPInvoiceCountry);
-	}
-
-	/** Set BP Invoice IE.
-		@param LBR_BPInvoiceIE 
-		BP Invoice IE - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public void setLBR_BPInvoiceIE (String LBR_BPInvoiceIE)
-	{
-		set_Value (COLUMNNAME_LBR_BPInvoiceIE, LBR_BPInvoiceIE);
-	}
-
-	/** Get BP Invoice IE.
-		@return BP Invoice IE - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public String getLBR_BPInvoiceIE () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_BPInvoiceIE);
-	}
-
-	/** Set BP Invoice Postal.
-		@param LBR_BPInvoicePostal 
-		BP Invoice Postal - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public void setLBR_BPInvoicePostal (String LBR_BPInvoicePostal)
-	{
-		set_Value (COLUMNNAME_LBR_BPInvoicePostal, LBR_BPInvoicePostal);
-	}
-
-	/** Get BP Invoice Postal.
-		@return BP Invoice Postal - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public String getLBR_BPInvoicePostal () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_BPInvoicePostal);
-	}
-
-	/** Set BP InvoiceRegion.
-		@param LBR_BPInvoiceRegion 
-		BP InvoiceRegion - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public void setLBR_BPInvoiceRegion (String LBR_BPInvoiceRegion)
-	{
-		set_Value (COLUMNNAME_LBR_BPInvoiceRegion, LBR_BPInvoiceRegion);
-	}
-
-	/** Get BP InvoiceRegion.
-		@return BP InvoiceRegion - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public String getLBR_BPInvoiceRegion () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_BPInvoiceRegion);
-	}
-
-	/** Set BP Phone.
-		@param LBR_BPPhone 
-		BP Phone - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public void setLBR_BPPhone (String LBR_BPPhone)
-	{
-		set_Value (COLUMNNAME_LBR_BPPhone, LBR_BPPhone);
-	}
-
-	/** Get BP Phone.
-		@return BP Phone - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public String getLBR_BPPhone () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_BPPhone);
-	}
-
-	/** Set BP Postal.
-		@param LBR_BPPostal 
-		BP Postal - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public void setLBR_BPPostal (String LBR_BPPostal)
-	{
-		set_Value (COLUMNNAME_LBR_BPPostal, LBR_BPPostal);
-	}
-
-	/** Get BP Postal.
-		@return BP Postal - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public String getLBR_BPPostal () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_BPPostal);
-	}
-
-	/** Set BP Region.
-		@param LBR_BPRegion 
-		BP Region - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public void setLBR_BPRegion (String LBR_BPRegion)
-	{
-		set_Value (COLUMNNAME_LBR_BPRegion, LBR_BPRegion);
-	}
-
-	/** Get BP Region.
-		@return BP Region - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public String getLBR_BPRegion () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_BPRegion);
-	}
-
-	/** Set BP Shipper Address.
-		@param LBR_BPShipperAddress 
-		BP Shipper Address on a String
-	  */
-	public void setLBR_BPShipperAddress (String LBR_BPShipperAddress)
-	{
-		set_Value (COLUMNNAME_LBR_BPShipperAddress, LBR_BPShipperAddress);
-	}
-
-	/** Get BP Shipper Address.
-		@return BP Shipper Address on a String
-	  */
-	public String getLBR_BPShipperAddress () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_BPShipperAddress);
-	}
-
-	/** Set BP Shipper Address 1.
-		@param LBR_BPShipperAddress1 
-		BP Shipper Address 1 - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public void setLBR_BPShipperAddress1 (String LBR_BPShipperAddress1)
-	{
-		set_Value (COLUMNNAME_LBR_BPShipperAddress1, LBR_BPShipperAddress1);
-	}
-
-	/** Get BP Shipper Address 1.
-		@return BP Shipper Address 1 - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public String getLBR_BPShipperAddress1 () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_BPShipperAddress1);
-	}
-
-	/** Set BP Shipper Address 2.
-		@param LBR_BPShipperAddress2 
-		BP Shipper Address 2 - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public void setLBR_BPShipperAddress2 (String LBR_BPShipperAddress2)
-	{
-		set_Value (COLUMNNAME_LBR_BPShipperAddress2, LBR_BPShipperAddress2);
-	}
-
-	/** Get BP Shipper Address 2.
-		@return BP Shipper Address 2 - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public String getLBR_BPShipperAddress2 () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_BPShipperAddress2);
-	}
-
-	/** Set BP Shipper Address 3.
-		@param LBR_BPShipperAddress3 
-		BP Shipper Address 3 - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public void setLBR_BPShipperAddress3 (String LBR_BPShipperAddress3)
-	{
-		set_Value (COLUMNNAME_LBR_BPShipperAddress3, LBR_BPShipperAddress3);
-	}
-
-	/** Get BP Shipper Address 3.
-		@return BP Shipper Address 3 - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public String getLBR_BPShipperAddress3 () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_BPShipperAddress3);
-	}
-
-	/** Set BP Shipper Address 4.
-		@param LBR_BPShipperAddress4 
-		BP Shipper Address 4 - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public void setLBR_BPShipperAddress4 (String LBR_BPShipperAddress4)
-	{
-		set_Value (COLUMNNAME_LBR_BPShipperAddress4, LBR_BPShipperAddress4);
-	}
-
-	/** Get BP Shipper Address 4.
-		@return BP Shipper Address 4 - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public String getLBR_BPShipperAddress4 () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_BPShipperAddress4);
-	}
-
-	/** Set BP Shipper CNPJ.
-		@param LBR_BPShipperCNPJ 
-		BP Shipper CNPJ - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public void setLBR_BPShipperCNPJ (String LBR_BPShipperCNPJ)
-	{
-		set_Value (COLUMNNAME_LBR_BPShipperCNPJ, LBR_BPShipperCNPJ);
-	}
-
-	/** Get BP Shipper CNPJ.
-		@return BP Shipper CNPJ - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public String getLBR_BPShipperCNPJ () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_BPShipperCNPJ);
-	}
-
-	/** Set BP Shipper City.
-		@param LBR_BPShipperCity 
-		BP Shipper City - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public void setLBR_BPShipperCity (String LBR_BPShipperCity)
-	{
-		set_Value (COLUMNNAME_LBR_BPShipperCity, LBR_BPShipperCity);
-	}
-
-	/** Get BP Shipper City.
-		@return BP Shipper City - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public String getLBR_BPShipperCity () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_BPShipperCity);
-	}
-
-	/** Set BP Shipper Country.
-		@param LBR_BPShipperCountry 
-		BP Shipper Country - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public void setLBR_BPShipperCountry (String LBR_BPShipperCountry)
-	{
-		set_Value (COLUMNNAME_LBR_BPShipperCountry, LBR_BPShipperCountry);
-	}
-
-	/** Get BP Shipper Country.
-		@return BP Shipper Country - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public String getLBR_BPShipperCountry () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_BPShipperCountry);
-	}
-
-	/** Set BP Shipper IE.
-		@param LBR_BPShipperIE 
-		BP Shipper IE - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public void setLBR_BPShipperIE (String LBR_BPShipperIE)
-	{
-		set_Value (COLUMNNAME_LBR_BPShipperIE, LBR_BPShipperIE);
-	}
-
-	/** Get BP Shipper IE.
-		@return BP Shipper IE - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public String getLBR_BPShipperIE () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_BPShipperIE);
-	}
-
-	/** Set BP Shipper License Plate.
-		@param LBR_BPShipperLicensePlate 
-		Defines the BP Shipper License Plate
-	  */
-	public void setLBR_BPShipperLicensePlate (String LBR_BPShipperLicensePlate)
-	{
-		set_Value (COLUMNNAME_LBR_BPShipperLicensePlate, LBR_BPShipperLicensePlate);
-	}
-
-	/** Get BP Shipper License Plate.
-		@return Defines the BP Shipper License Plate
-	  */
-	public String getLBR_BPShipperLicensePlate () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_BPShipperLicensePlate);
-	}
-
-	/** Set BPShipper Name.
-		@param LBR_BPShipperName 
-		Defines the Shipper Name
-	  */
-	public void setLBR_BPShipperName (String LBR_BPShipperName)
-	{
-		set_Value (COLUMNNAME_LBR_BPShipperName, LBR_BPShipperName);
-	}
-
-	/** Get BPShipper Name.
-		@return Defines the Shipper Name
-	  */
-	public String getLBR_BPShipperName () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_BPShipperName);
-	}
-
-	/** Set BP Shipper Postal.
-		@param LBR_BPShipperPostal 
-		BP Shipper Postal - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public void setLBR_BPShipperPostal (String LBR_BPShipperPostal)
-	{
-		set_Value (COLUMNNAME_LBR_BPShipperPostal, LBR_BPShipperPostal);
-	}
-
-	/** Get BP Shipper Postal.
-		@return BP Shipper Postal - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public String getLBR_BPShipperPostal () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_BPShipperPostal);
-	}
-
-	/** Set BP ShipperRegion.
-		@param LBR_BPShipperRegion 
-		BP ShipperRegion - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public void setLBR_BPShipperRegion (String LBR_BPShipperRegion)
-	{
-		set_Value (COLUMNNAME_LBR_BPShipperRegion, LBR_BPShipperRegion);
-	}
-
-	/** Get BP ShipperRegion.
-		@return BP ShipperRegion - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public String getLBR_BPShipperRegion () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_BPShipperRegion);
-	}
-
-	/** Set BP Suframa.
-		@param LBR_BPSuframa 
-		Defines the BP Suframa
-	  */
-	public void setLBR_BPSuframa (String LBR_BPSuframa)
-	{
-		set_Value (COLUMNNAME_LBR_BPSuframa, LBR_BPSuframa);
-	}
-
-	/** Get BP Suframa.
-		@return Defines the BP Suframa
-	  */
-	public String getLBR_BPSuframa () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_BPSuframa);
-	}
-
-	/** PJ - Legal Entity = PJ */
-	public static final String LBR_BPTYPEBR_PJ_LegalEntity = "PJ";
-	/** PF - Individual = PF */
-	public static final String LBR_BPTYPEBR_PF_Individual = "PF";
-	/** PM - Individual Minor = PM */
-	public static final String LBR_BPTYPEBR_PM_IndividualMinor = "PM";
-	/** XX - Foreigner = XX */
-	public static final String LBR_BPTYPEBR_XX_Foreigner = "XX";
-	/** Set Brazilian BP Type.
-		@param LBR_BPTypeBR 
-		Brazilian BP Type (Identifies if the BP is a Legal Entity or an Individual)
-	  */
-	public void setLBR_BPTypeBR (String LBR_BPTypeBR)
-	{
-
-		set_Value (COLUMNNAME_LBR_BPTypeBR, LBR_BPTypeBR);
-	}
-
-	/** Get Brazilian BP Type.
-		@return Brazilian BP Type (Identifies if the BP is a Legal Entity or an Individual)
-	  */
-	public String getLBR_BPTypeBR () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_BPTypeBR);
-	}
-
-	/** Set Barcode 1.
-		@param LBR_Barcode1 
-		First Barcode of the Nota Fiscal
-	  */
-	public void setLBR_Barcode1 (String LBR_Barcode1)
-	{
-		set_Value (COLUMNNAME_LBR_Barcode1, LBR_Barcode1);
-	}
-
-	/** Get Barcode 1.
-		@return First Barcode of the Nota Fiscal
-	  */
-	public String getLBR_Barcode1 () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_Barcode1);
-	}
-
-	/** Set Barcode 2.
-		@param LBR_Barcode2 
-		Second Barcode of the Nota Fiscal
-	  */
-	public void setLBR_Barcode2 (String LBR_Barcode2)
-	{
-		set_Value (COLUMNNAME_LBR_Barcode2, LBR_Barcode2);
-	}
-
-	/** Get Barcode 2.
-		@return Second Barcode of the Nota Fiscal
-	  */
-	public String getLBR_Barcode2 () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_Barcode2);
-	}
-
-	/** Set Bill Note.
-		@param LBR_BillNote 
-		Bill Note
-	  */
-	public void setLBR_BillNote (String LBR_BillNote)
-	{
-		set_Value (COLUMNNAME_LBR_BillNote, LBR_BillNote);
-	}
-
-	/** Get Bill Note.
-		@return Bill Note
-	  */
-	public String getLBR_BillNote () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_BillNote);
-	}
-
-	/** Set Brand.
-		@param LBR_Brand 
-		Brand transport volumes
-	  */
-	public void setLBR_Brand (String LBR_Brand)
-	{
-		set_Value (COLUMNNAME_LBR_Brand, LBR_Brand);
-	}
-
-	/** Get Brand.
-		@return Brand transport volumes
-	  */
-	public String getLBR_Brand () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_Brand);
-	}
-
-	/** Set CFOP Note.
-		@param LBR_CFOPNote 
-		Defines the CFOP Note
-	  */
-	public void setLBR_CFOPNote (String LBR_CFOPNote)
-	{
-		set_Value (COLUMNNAME_LBR_CFOPNote, LBR_CFOPNote);
-	}
-
-	/** Get CFOP Note.
-		@return Defines the CFOP Note
-	  */
-	public String getLBR_CFOPNote () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_CFOPNote);
-	}
-
-	/** Set CFOP Reference.
-		@param LBR_CFOPReference 
-		Defines the CFOP Reference
-	  */
-	public void setLBR_CFOPReference (String LBR_CFOPReference)
-	{
-		set_Value (COLUMNNAME_LBR_CFOPReference, LBR_CFOPReference);
-	}
-
-	/** Get CFOP Reference.
-		@return Defines the CFOP Reference
-	  */
-	public String getLBR_CFOPReference () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_CFOPReference);
-	}
-
-	/** Set CNPJ.
-		@param LBR_CNPJ 
-		Used to identify Legal Entities in Brazil
-	  */
-	public void setLBR_CNPJ (String LBR_CNPJ)
-	{
-		set_Value (COLUMNNAME_LBR_CNPJ, LBR_CNPJ);
-	}
-
-	/** Get CNPJ.
-		@return Used to identify Legal Entities in Brazil
-	  */
-	public String getLBR_CNPJ () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_CNPJ);
-	}
-
-	/** 1 - Normal DANFE - Portrait = 1 */
-	public static final String LBR_DANFEFORMAT_1_NormalDANFE_Portrait = "1";
-	/** 2 - Normal DANFE - Landscape = 2 */
-	public static final String LBR_DANFEFORMAT_2_NormalDANFE_Landscape = "2";
-	/** 0 - No DANFE = 0 */
-	public static final String LBR_DANFEFORMAT_0_NoDANFE = "0";
-	/** 3 - Simple DANFE = 3 */
-	public static final String LBR_DANFEFORMAT_3_SimpleDANFE = "3";
-	/** 4 - DANFE NFC-e = 4 */
-	public static final String LBR_DANFEFORMAT_4_DANFENFC_E = "4";
-	/** 5 - DANFE NFC-e in Eletronic Message = 5 */
-	public static final String LBR_DANFEFORMAT_5_DANFENFC_EInEletronicMessage = "5";
-	/** Set DANFE Format.
-		@param LBR_DANFEFormat DANFE Format	  */
-	public void setLBR_DANFEFormat (String LBR_DANFEFormat)
-	{
-
-		set_Value (COLUMNNAME_LBR_DANFEFormat, LBR_DANFEFormat);
-	}
-
-	/** Get DANFE Format.
-		@return DANFE Format	  */
-	public String getLBR_DANFEFormat () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_DANFEFormat);
-	}
-
 	public org.adempierelbr.model.I_LBR_DE getLBR_DE() throws RuntimeException
     {
 		return (org.adempierelbr.model.I_LBR_DE)MTable.get(getCtx(), org.adempierelbr.model.I_LBR_DE.Table_Name)
@@ -1726,79 +738,6 @@ public class X_LBR_NotaFiscal extends PO implements I_LBR_NotaFiscal, I_Persiste
 		if (ii == null)
 			 return 0;
 		return ii.intValue();
-	}
-
-	/** Set Date InOut.
-		@param LBR_DateInOut 
-		Defines the InOut Date
-	  */
-	public void setLBR_DateInOut (Timestamp LBR_DateInOut)
-	{
-		set_Value (COLUMNNAME_LBR_DateInOut, LBR_DateInOut);
-	}
-
-	/** Get Date InOut.
-		@return Defines the InOut Date
-	  */
-	public Timestamp getLBR_DateInOut () 
-	{
-		return (Timestamp)get_Value(COLUMNNAME_LBR_DateInOut);
-	}
-
-	/** Set Data contingência.
-		@param LBR_DateScan Data contingência	  */
-	public void setLBR_DateScan (Timestamp LBR_DateScan)
-	{
-		set_Value (COLUMNNAME_LBR_DateScan, LBR_DateScan);
-	}
-
-	/** Get Data contingência.
-		@return Data contingência	  */
-	public Timestamp getLBR_DateScan () 
-	{
-		return (Timestamp)get_Value(COLUMNNAME_LBR_DateScan);
-	}
-
-	public org.compiere.model.I_C_BPartner_Location getLBR_Delivery_Location() throws RuntimeException
-    {
-		return (org.compiere.model.I_C_BPartner_Location)MTable.get(getCtx(), org.compiere.model.I_C_BPartner_Location.Table_Name)
-			.getPO(getLBR_Delivery_Location_ID(), get_TrxName());	}
-
-	/** Set Delivery Location.
-		@param LBR_Delivery_Location_ID 
-		The Delivery Location ID
-	  */
-	public void setLBR_Delivery_Location_ID (int LBR_Delivery_Location_ID)
-	{
-		if (LBR_Delivery_Location_ID < 1) 
-			set_Value (COLUMNNAME_LBR_Delivery_Location_ID, null);
-		else 
-			set_Value (COLUMNNAME_LBR_Delivery_Location_ID, Integer.valueOf(LBR_Delivery_Location_ID));
-	}
-
-	/** Get Delivery Location.
-		@return The Delivery Location ID
-	  */
-	public int getLBR_Delivery_Location_ID () 
-	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_LBR_Delivery_Location_ID);
-		if (ii == null)
-			 return 0;
-		return ii.intValue();
-	}
-
-	/** Set Digest Value.
-		@param LBR_DigestValue Digest Value	  */
-	public void setLBR_DigestValue (String LBR_DigestValue)
-	{
-		set_Value (COLUMNNAME_LBR_DigestValue, LBR_DigestValue);
-	}
-
-	/** Get Digest Value.
-		@return Digest Value	  */
-	public String getLBR_DigestValue () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_DigestValue);
 	}
 
 	/** Set Dispatch Place.
@@ -1859,49 +798,6 @@ public class X_LBR_NotaFiscal extends PO implements I_LBR_NotaFiscal, I_Persiste
 		return (String)get_Value(COLUMNNAME_LBR_ExportPlace);
 	}
 
-	/** NFe Normal = 1 */
-	public static final String LBR_FINNFE_NFeNormal = "1";
-	/** NFe Complementar = 2 */
-	public static final String LBR_FINNFE_NFeComplementar = "2";
-	/** NFe de Ajuste = 3 */
-	public static final String LBR_FINNFE_NFeDeAjuste = "3";
-	/** Devolução/Retorno de Mercadoria = 4 */
-	public static final String LBR_FINNFE_DevoluçãoRetornoDeMercadoria = "4";
-	/** Set Finalidade NFe.
-		@param LBR_FinNFe 
-		Define a Finalidade da NFe
-	  */
-	public void setLBR_FinNFe (String LBR_FinNFe)
-	{
-
-		set_Value (COLUMNNAME_LBR_FinNFe, LBR_FinNFe);
-	}
-
-	/** Get Finalidade NFe.
-		@return Define a Finalidade da NFe
-	  */
-	public String getLBR_FinNFe () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_FinNFe);
-	}
-
-	/** Set Fiscal Obs..
-		@param LBR_FiscalOBS 
-		Fiscal Observation for the Fiscal Books
-	  */
-	public void setLBR_FiscalOBS (String LBR_FiscalOBS)
-	{
-		set_Value (COLUMNNAME_LBR_FiscalOBS, LBR_FiscalOBS);
-	}
-
-	/** Get Fiscal Obs..
-		@return Fiscal Observation for the Fiscal Books
-	  */
-	public String getLBR_FiscalOBS () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_FiscalOBS);
-	}
-
 	/** 0 - Frete por conta do Emitente = 0 */
 	public static final String LBR_FREIGHTCOSTRULE_0_FretePorContaDoEmitente = "0";
 	/** 1 - Frete por conta do Destinatário = 1 */
@@ -1922,81 +818,6 @@ public class X_LBR_NotaFiscal extends PO implements I_LBR_NotaFiscal, I_Persiste
 	public String getLBR_FreightCostRule () 
 	{
 		return (String)get_Value(COLUMNNAME_LBR_FreightCostRule);
-	}
-
-	/** Set Generate NFe XML.
-		@param LBR_GenerateNFeXML Generate NFe XML	  */
-	public void setLBR_GenerateNFeXML (String LBR_GenerateNFeXML)
-	{
-		set_Value (COLUMNNAME_LBR_GenerateNFeXML, LBR_GenerateNFeXML);
-	}
-
-	/** Get Generate NFe XML.
-		@return Generate NFe XML	  */
-	public String getLBR_GenerateNFeXML () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_GenerateNFeXML);
-	}
-
-	/** Set Gross Weight.
-		@param LBR_GrossWeight 
-		Defines the Gross Weight
-	  */
-	public void setLBR_GrossWeight (BigDecimal LBR_GrossWeight)
-	{
-		set_Value (COLUMNNAME_LBR_GrossWeight, LBR_GrossWeight);
-	}
-
-	/** Get Gross Weight.
-		@return Defines the Gross Weight
-	  */
-	public BigDecimal getLBR_GrossWeight () 
-	{
-		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_LBR_GrossWeight);
-		if (bd == null)
-			 return Env.ZERO;
-		return bd;
-	}
-
-	/** Set Has Open Items.
-		@param LBR_HasOpenItems 
-		Identifies if this Document Has Open Items
-	  */
-	public void setLBR_HasOpenItems (boolean LBR_HasOpenItems)
-	{
-		set_Value (COLUMNNAME_LBR_HasOpenItems, Boolean.valueOf(LBR_HasOpenItems));
-	}
-
-	/** Get Has Open Items.
-		@return Identifies if this Document Has Open Items
-	  */
-	public boolean isLBR_HasOpenItems () 
-	{
-		Object oo = get_Value(COLUMNNAME_LBR_HasOpenItems);
-		if (oo != null) 
-		{
-			 if (oo instanceof Boolean) 
-				 return ((Boolean)oo).booleanValue(); 
-			return "Y".equals(oo);
-		}
-		return false;
-	}
-
-	/** Set IE.
-		@param LBR_IE 
-		Used to Identify the IE (State Tax ID)
-	  */
-	public void setLBR_IE (String LBR_IE)
-	{
-		set_Value (COLUMNNAME_LBR_IE, LBR_IE);
-	}
-
-	/** Get IE.
-		@return Used to Identify the IE (State Tax ID)
-	  */
-	public String getLBR_IE () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_IE);
 	}
 
 	/** 1 - Contribuinte de ICMS = 1 */
@@ -2053,41 +874,1635 @@ public class X_LBR_NotaFiscal extends PO implements I_LBR_NotaFiscal, I_Persiste
 		return (String)get_Value(COLUMNNAME_LBR_IndPres);
 	}
 
+	public org.adempierelbr.model.I_LBR_NFeLot getLBR_NFeLot() throws RuntimeException
+    {
+		return (org.adempierelbr.model.I_LBR_NFeLot)MTable.get(getCtx(), org.adempierelbr.model.I_LBR_NFeLot.Table_Name)
+			.getPO(getLBR_NFeLot_ID(), get_TrxName());	}
+
+	/** Set NFe Lot.
+		@param LBR_NFeLot_ID NFe Lot	  */
+	public void setLBR_NFeLot_ID (int LBR_NFeLot_ID)
+	{
+		if (LBR_NFeLot_ID < 1) 
+			set_Value (COLUMNNAME_LBR_NFeLot_ID, null);
+		else 
+			set_Value (COLUMNNAME_LBR_NFeLot_ID, Integer.valueOf(LBR_NFeLot_ID));
+	}
+
+	/** Get NFe Lot.
+		@return NFe Lot	  */
+	public int getLBR_NFeLot_ID () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_LBR_NFeLot_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
+	/** Set Nota Fiscal.
+		@param LBR_NotaFiscal_ID 
+		Primary key table LBR_NotaFiscal
+	  */
+	public void setLBR_NotaFiscal_ID (int LBR_NotaFiscal_ID)
+	{
+		if (LBR_NotaFiscal_ID < 1) 
+			set_ValueNoCheck (COLUMNNAME_LBR_NotaFiscal_ID, null);
+		else 
+			set_ValueNoCheck (COLUMNNAME_LBR_NotaFiscal_ID, Integer.valueOf(LBR_NotaFiscal_ID));
+	}
+
+	/** Get Nota Fiscal.
+		@return Primary key table LBR_NotaFiscal
+	  */
+	public int getLBR_NotaFiscal_ID () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_LBR_NotaFiscal_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
+	/** Set Other Charges Amount.
+		@param LBR_OtherChargesAmt Other Charges Amount	  */
+	public void setLBR_OtherChargesAmt (BigDecimal LBR_OtherChargesAmt)
+	{
+		set_Value (COLUMNNAME_LBR_OtherChargesAmt, LBR_OtherChargesAmt);
+	}
+
+	/** Get Other Charges Amount.
+		@return Other Charges Amount	  */
+	public BigDecimal getLBR_OtherChargesAmt () 
+	{
+		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_LBR_OtherChargesAmt);
+		if (bd == null)
+			 return Env.ZERO;
+		return bd;
+	}
+
+	/** Set Reactivate Nota Fiscal.
+		@param LBR_ProcReactivateNF 
+		This Process Reactivates the Nota Fiscal Document
+	  */
+	public void setLBR_ProcReactivateNF (String LBR_ProcReactivateNF)
+	{
+		set_Value (COLUMNNAME_LBR_ProcReactivateNF, LBR_ProcReactivateNF);
+	}
+
+	/** Get Reactivate Nota Fiscal.
+		@return This Process Reactivates the Nota Fiscal Document
+	  */
+	public String getLBR_ProcReactivateNF () 
+	{
+		return (String)get_Value(COLUMNNAME_LBR_ProcReactivateNF);
+	}
+
+	/** Set Process Now.
+		@param LBR_Processing2 Process Now	  */
+	public void setLBR_Processing2 (String LBR_Processing2)
+	{
+		set_Value (COLUMNNAME_LBR_Processing2, LBR_Processing2);
+	}
+
+	/** Get Process Now.
+		@return Process Now	  */
+	public String getLBR_Processing2 () 
+	{
+		return (String)get_Value(COLUMNNAME_LBR_Processing2);
+	}
+
+	public org.compiere.model.I_C_Region getLBR_RegionExport() throws RuntimeException
+    {
+		return (org.compiere.model.I_C_Region)MTable.get(getCtx(), org.compiere.model.I_C_Region.Table_Name)
+			.getPO(getLBR_RegionExport_ID(), get_TrxName());	}
+
+	/** Set Region Export .
+		@param LBR_RegionExport_ID 
+		Acronym boarding Region or boundary crossing
+	  */
+	public void setLBR_RegionExport_ID (int LBR_RegionExport_ID)
+	{
+		if (LBR_RegionExport_ID < 1) 
+			set_Value (COLUMNNAME_LBR_RegionExport_ID, null);
+		else 
+			set_Value (COLUMNNAME_LBR_RegionExport_ID, Integer.valueOf(LBR_RegionExport_ID));
+	}
+
+	/** Get Region Export .
+		@return Acronym boarding Region or boundary crossing
+	  */
+	public int getLBR_RegionExport_ID () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_LBR_RegionExport_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
+	/** Set Reverse InOut.
+		@param LBR_ReverseInOut 
+		Allow to Reverse InOut related with the NF
+	  */
+	public void setLBR_ReverseInOut (boolean LBR_ReverseInOut)
+	{
+		set_Value (COLUMNNAME_LBR_ReverseInOut, Boolean.valueOf(LBR_ReverseInOut));
+	}
+
+	/** Get Reverse InOut.
+		@return Allow to Reverse InOut related with the NF
+	  */
+	public boolean isLBR_ReverseInOut () 
+	{
+		Object oo = get_Value(COLUMNNAME_LBR_ReverseInOut);
+		if (oo != null) 
+		{
+			 if (oo instanceof Boolean) 
+				 return ((Boolean)oo).booleanValue(); 
+			return "Y".equals(oo);
+		}
+		return false;
+	}
+
+	/** Set Reverse Invoice.
+		@param LBR_ReverseInvoice 
+		Allow to Reverse Invoice related with the NF
+	  */
+	public void setLBR_ReverseInvoice (boolean LBR_ReverseInvoice)
+	{
+		set_Value (COLUMNNAME_LBR_ReverseInvoice, Boolean.valueOf(LBR_ReverseInvoice));
+	}
+
+	/** Get Reverse Invoice.
+		@return Allow to Reverse Invoice related with the NF
+	  */
+	public boolean isLBR_ReverseInvoice () 
+	{
+		Object oo = get_Value(COLUMNNAME_LBR_ReverseInvoice);
+		if (oo != null) 
+		{
+			 if (oo instanceof Boolean) 
+				 return ((Boolean)oo).booleanValue(); 
+			return "Y".equals(oo);
+		}
+		return false;
+	}
+
+	/** Set Send EMail.
+		@param LBR_SendEMail 
+		Send EMail with Nota Fiscal
+	  */
+	public void setLBR_SendEMail (String LBR_SendEMail)
+	{
+		set_Value (COLUMNNAME_LBR_SendEMail, LBR_SendEMail);
+	}
+
+	/** Get Send EMail.
+		@return Send EMail with Nota Fiscal
+	  */
+	public String getLBR_SendEMail () 
+	{
+		return (String)get_Value(COLUMNNAME_LBR_SendEMail);
+	}
+
+	/** Emissão Normal = 1 */
+	public static final String LBR_TPEMIS_EmissãoNormal = "1";
+	/** Contingência FS-IA = 2 */
+	public static final String LBR_TPEMIS_ContingênciaFS_IA = "2";
+	/** Contingência SCAN = 3 */
+	public static final String LBR_TPEMIS_ContingênciaSCAN = "3";
+	/** Contingência DPEC = 4 */
+	public static final String LBR_TPEMIS_ContingênciaDPEC = "4";
+	/** Contingência FS-DA = 5 */
+	public static final String LBR_TPEMIS_ContingênciaFS_DA = "5";
+	/** Contingência SVC-AN = 6 */
+	public static final String LBR_TPEMIS_ContingênciaSVC_AN = "6";
+	/** Contingência SVC-RS = 7 */
+	public static final String LBR_TPEMIS_ContingênciaSVC_RS = "7";
+	/** Contingência off-line da NFC-e = 9 */
+	public static final String LBR_TPEMIS_ContingênciaOff_LineDaNFC_E = "9";
+	/** Set Tipo de Emissão.
+		@param LBR_TPEmis 
+		Indicar o Tipo de Emissão da NF-e.
+	  */
+	public void setLBR_TPEmis (String LBR_TPEmis)
+	{
+
+		set_Value (COLUMNNAME_LBR_TPEmis, LBR_TPEmis);
+	}
+
+	/** Get Tipo de Emissão.
+		@return Indicar o Tipo de Emissão da NF-e.
+	  */
+	public String getLBR_TPEmis () 
+	{
+		return (String)get_Value(COLUMNNAME_LBR_TPEmis);
+	}
+
+	public org.compiere.model.I_M_InOut getM_InOut() throws RuntimeException
+    {
+		return (org.compiere.model.I_M_InOut)MTable.get(getCtx(), org.compiere.model.I_M_InOut.Table_Name)
+			.getPO(getM_InOut_ID(), get_TrxName());	}
+
+	/** Set Shipment/Receipt.
+		@param M_InOut_ID 
+		Material Shipment Document
+	  */
+	public void setM_InOut_ID (int M_InOut_ID)
+	{
+		if (M_InOut_ID < 1) 
+			set_Value (COLUMNNAME_M_InOut_ID, null);
+		else 
+			set_Value (COLUMNNAME_M_InOut_ID, Integer.valueOf(M_InOut_ID));
+	}
+
+	/** Get Shipment/Receipt.
+		@return Material Shipment Document
+	  */
+	public int getM_InOut_ID () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_M_InOut_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
+	public org.compiere.model.I_M_RMA getM_RMA() throws RuntimeException
+    {
+		return (org.compiere.model.I_M_RMA)MTable.get(getCtx(), org.compiere.model.I_M_RMA.Table_Name)
+			.getPO(getM_RMA_ID(), get_TrxName());	}
+
+	/** Set RMA.
+		@param M_RMA_ID 
+		Return Material Authorization
+	  */
+	public void setM_RMA_ID (int M_RMA_ID)
+	{
+		if (M_RMA_ID < 1) 
+			set_Value (COLUMNNAME_M_RMA_ID, null);
+		else 
+			set_Value (COLUMNNAME_M_RMA_ID, Integer.valueOf(M_RMA_ID));
+	}
+
+	/** Get RMA.
+		@return Return Material Authorization
+	  */
+	public int getM_RMA_ID () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_M_RMA_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
+	/** Set Shipper.
+		@param M_Shipper_ID 
+		Method or manner of product delivery
+	  */
+	public void setM_Shipper_ID (int M_Shipper_ID)
+	{
+		if (M_Shipper_ID < 1) 
+			set_Value (COLUMNNAME_M_Shipper_ID, null);
+		else 
+			set_Value (COLUMNNAME_M_Shipper_ID, Integer.valueOf(M_Shipper_ID));
+	}
+
+	/** Get Shipper.
+		@return Method or manner of product delivery
+	  */
+	public int getM_Shipper_ID () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_M_Shipper_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
+	/** Set No Packages.
+		@param NoPackages 
+		Number of packages shipped
+	  */
+	public void setNoPackages (int NoPackages)
+	{
+		set_Value (COLUMNNAME_NoPackages, Integer.valueOf(NoPackages));
+	}
+
+	/** Get No Packages.
+		@return Number of packages shipped
+	  */
+	public int getNoPackages () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_NoPackages);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
+	public I_C_Location getOrg_Location() throws RuntimeException
+    {
+		return (I_C_Location)MTable.get(getCtx(), I_C_Location.Table_Name)
+			.getPO(getOrg_Location_ID(), get_TrxName());	}
+
+	/** Set Org Address.
+		@param Org_Location_ID 
+		Organization Location/Address
+	  */
+	public void setOrg_Location_ID (int Org_Location_ID)
+	{
+		if (Org_Location_ID < 1) 
+			set_Value (COLUMNNAME_Org_Location_ID, null);
+		else 
+			set_Value (COLUMNNAME_Org_Location_ID, Integer.valueOf(Org_Location_ID));
+	}
+
+	/** Get Org Address.
+		@return Organization Location/Address
+	  */
+	public int getOrg_Location_ID () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_Org_Location_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
+	/** Set Processed.
+		@param Processed 
+		The document has been processed
+	  */
+	public void setProcessed (boolean Processed)
+	{
+		set_Value (COLUMNNAME_Processed, Boolean.valueOf(Processed));
+	}
+
+	/** Get Processed.
+		@return The document has been processed
+	  */
+	public boolean isProcessed () 
+	{
+		Object oo = get_Value(COLUMNNAME_Processed);
+		if (oo != null) 
+		{
+			 if (oo instanceof Boolean) 
+				 return ((Boolean)oo).booleanValue(); 
+			return "Y".equals(oo);
+		}
+		return false;
+	}
+
+	/** Set Process Now.
+		@param Processing Process Now	  */
+	public void setProcessing (boolean Processing)
+	{
+		set_Value (COLUMNNAME_Processing, Boolean.valueOf(Processing));
+	}
+
+	/** Get Process Now.
+		@return Process Now	  */
+	public boolean isProcessing () 
+	{
+		Object oo = get_Value(COLUMNNAME_Processing);
+		if (oo != null) 
+		{
+			 if (oo instanceof Boolean) 
+				 return ((Boolean)oo).booleanValue(); 
+			return "Y".equals(oo);
+		}
+		return false;
+	}
+
+	/** Set Total Lines.
+		@param TotalLines 
+		Total of all document lines
+	  */
+	public void setTotalLines (BigDecimal TotalLines)
+	{
+		set_Value (COLUMNNAME_TotalLines, TotalLines);
+	}
+
+	/** Get Total Lines.
+		@return Total of all document lines
+	  */
+	public BigDecimal getTotalLines () 
+	{
+		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_TotalLines);
+		if (bd == null)
+			 return Env.ZERO;
+		return bd;
+	}
+
+	/** Set BP Address 1.
+		@param lbr_BPAddress1 
+		BP Address 1 - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public void setlbr_BPAddress1 (String lbr_BPAddress1)
+	{
+		set_Value (COLUMNNAME_lbr_BPAddress1, lbr_BPAddress1);
+	}
+
+	/** Get BP Address 1.
+		@return BP Address 1 - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public String getlbr_BPAddress1 () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_BPAddress1);
+	}
+
+	/** Set BP Address 2.
+		@param lbr_BPAddress2 
+		BP Address 2 - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public void setlbr_BPAddress2 (String lbr_BPAddress2)
+	{
+		set_Value (COLUMNNAME_lbr_BPAddress2, lbr_BPAddress2);
+	}
+
+	/** Get BP Address 2.
+		@return BP Address 2 - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public String getlbr_BPAddress2 () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_BPAddress2);
+	}
+
+	/** Set BP Address 3.
+		@param lbr_BPAddress3 
+		BP Address 3 - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public void setlbr_BPAddress3 (String lbr_BPAddress3)
+	{
+		set_Value (COLUMNNAME_lbr_BPAddress3, lbr_BPAddress3);
+	}
+
+	/** Get BP Address 3.
+		@return BP Address 3 - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public String getlbr_BPAddress3 () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_BPAddress3);
+	}
+
+	/** Set BP Address 4.
+		@param lbr_BPAddress4 
+		BP Address 4 - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public void setlbr_BPAddress4 (String lbr_BPAddress4)
+	{
+		set_Value (COLUMNNAME_lbr_BPAddress4, lbr_BPAddress4);
+	}
+
+	/** Get BP Address 4.
+		@return BP Address 4 - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public String getlbr_BPAddress4 () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_BPAddress4);
+	}
+
+	/** Set BP CNPJ.
+		@param lbr_BPCNPJ 
+		BP CNPJ - Copied from the BP into Brazilan Legal and Tax Books
+	  */
+	public void setlbr_BPCNPJ (String lbr_BPCNPJ)
+	{
+		set_Value (COLUMNNAME_lbr_BPCNPJ, lbr_BPCNPJ);
+	}
+
+	/** Get BP CNPJ.
+		@return BP CNPJ - Copied from the BP into Brazilan Legal and Tax Books
+	  */
+	public String getlbr_BPCNPJ () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_BPCNPJ);
+	}
+
+	/** Set BP City.
+		@param lbr_BPCity 
+		BP City - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public void setlbr_BPCity (String lbr_BPCity)
+	{
+		set_Value (COLUMNNAME_lbr_BPCity, lbr_BPCity);
+	}
+
+	/** Get BP City.
+		@return BP City - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public String getlbr_BPCity () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_BPCity);
+	}
+
+	/** Set Cod. Cidade.
+		@param lbr_BPCityCode Cod. Cidade	  */
+	public void setlbr_BPCityCode (int lbr_BPCityCode)
+	{
+		set_Value (COLUMNNAME_lbr_BPCityCode, Integer.valueOf(lbr_BPCityCode));
+	}
+
+	/** Get Cod. Cidade.
+		@return Cod. Cidade	  */
+	public int getlbr_BPCityCode () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_lbr_BPCityCode);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
+	/** Set BP Country.
+		@param lbr_BPCountry 
+		BP Country - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public void setlbr_BPCountry (String lbr_BPCountry)
+	{
+		set_Value (COLUMNNAME_lbr_BPCountry, lbr_BPCountry);
+	}
+
+	/** Get BP Country.
+		@return BP Country - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public String getlbr_BPCountry () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_BPCountry);
+	}
+
+	/** Set Country Code.
+		@param lbr_BPCountryCode 
+		Country Code used for issue Nota Fiscal
+	  */
+	public void setlbr_BPCountryCode (String lbr_BPCountryCode)
+	{
+		set_Value (COLUMNNAME_lbr_BPCountryCode, lbr_BPCountryCode);
+	}
+
+	/** Get Country Code.
+		@return Country Code used for issue Nota Fiscal
+	  */
+	public String getlbr_BPCountryCode () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_BPCountryCode);
+	}
+
+	/** Set BP Delivery Address 1.
+		@param lbr_BPDeliveryAddress1 
+		BP Delivery Address 1 - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public void setlbr_BPDeliveryAddress1 (String lbr_BPDeliveryAddress1)
+	{
+		set_Value (COLUMNNAME_lbr_BPDeliveryAddress1, lbr_BPDeliveryAddress1);
+	}
+
+	/** Get BP Delivery Address 1.
+		@return BP Delivery Address 1 - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public String getlbr_BPDeliveryAddress1 () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_BPDeliveryAddress1);
+	}
+
+	/** Set BP Delivery Address 2.
+		@param lbr_BPDeliveryAddress2 
+		BP Delivery Address 2 - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public void setlbr_BPDeliveryAddress2 (String lbr_BPDeliveryAddress2)
+	{
+		set_Value (COLUMNNAME_lbr_BPDeliveryAddress2, lbr_BPDeliveryAddress2);
+	}
+
+	/** Get BP Delivery Address 2.
+		@return BP Delivery Address 2 - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public String getlbr_BPDeliveryAddress2 () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_BPDeliveryAddress2);
+	}
+
+	/** Set BP Delivery Address 3.
+		@param lbr_BPDeliveryAddress3 
+		BP Delivery Address 3 - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public void setlbr_BPDeliveryAddress3 (String lbr_BPDeliveryAddress3)
+	{
+		set_Value (COLUMNNAME_lbr_BPDeliveryAddress3, lbr_BPDeliveryAddress3);
+	}
+
+	/** Get BP Delivery Address 3.
+		@return BP Delivery Address 3 - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public String getlbr_BPDeliveryAddress3 () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_BPDeliveryAddress3);
+	}
+
+	/** Set BP Delivery Address 4.
+		@param lbr_BPDeliveryAddress4 
+		BP Delivery Address 4 - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public void setlbr_BPDeliveryAddress4 (String lbr_BPDeliveryAddress4)
+	{
+		set_Value (COLUMNNAME_lbr_BPDeliveryAddress4, lbr_BPDeliveryAddress4);
+	}
+
+	/** Get BP Delivery Address 4.
+		@return BP Delivery Address 4 - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public String getlbr_BPDeliveryAddress4 () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_BPDeliveryAddress4);
+	}
+
+	/** Set BP Delivery CNPJ.
+		@param lbr_BPDeliveryCNPJ 
+		BP Delivery CNPJ - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public void setlbr_BPDeliveryCNPJ (String lbr_BPDeliveryCNPJ)
+	{
+		set_Value (COLUMNNAME_lbr_BPDeliveryCNPJ, lbr_BPDeliveryCNPJ);
+	}
+
+	/** Get BP Delivery CNPJ.
+		@return BP Delivery CNPJ - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public String getlbr_BPDeliveryCNPJ () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_BPDeliveryCNPJ);
+	}
+
+	/** Set BP Delivery City.
+		@param lbr_BPDeliveryCity 
+		BP Delivery City - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public void setlbr_BPDeliveryCity (String lbr_BPDeliveryCity)
+	{
+		set_Value (COLUMNNAME_lbr_BPDeliveryCity, lbr_BPDeliveryCity);
+	}
+
+	/** Get BP Delivery City.
+		@return BP Delivery City - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public String getlbr_BPDeliveryCity () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_BPDeliveryCity);
+	}
+
+	/** Set Cod. Cidade.
+		@param lbr_BPDeliveryCityCode Cod. Cidade	  */
+	public void setlbr_BPDeliveryCityCode (int lbr_BPDeliveryCityCode)
+	{
+		set_Value (COLUMNNAME_lbr_BPDeliveryCityCode, Integer.valueOf(lbr_BPDeliveryCityCode));
+	}
+
+	/** Get Cod. Cidade.
+		@return Cod. Cidade	  */
+	public int getlbr_BPDeliveryCityCode () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_lbr_BPDeliveryCityCode);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
+	/** Set BP Delivery Country.
+		@param lbr_BPDeliveryCountry 
+		BP Delivery Country - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public void setlbr_BPDeliveryCountry (String lbr_BPDeliveryCountry)
+	{
+		set_Value (COLUMNNAME_lbr_BPDeliveryCountry, lbr_BPDeliveryCountry);
+	}
+
+	/** Get BP Delivery Country.
+		@return BP Delivery Country - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public String getlbr_BPDeliveryCountry () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_BPDeliveryCountry);
+	}
+
+	/** Set BP Delivery IE.
+		@param lbr_BPDeliveryIE 
+		BP Delivery IE - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public void setlbr_BPDeliveryIE (String lbr_BPDeliveryIE)
+	{
+		set_Value (COLUMNNAME_lbr_BPDeliveryIE, lbr_BPDeliveryIE);
+	}
+
+	/** Get BP Delivery IE.
+		@return BP Delivery IE - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public String getlbr_BPDeliveryIE () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_BPDeliveryIE);
+	}
+
+	/** Set BP Delivery Postal.
+		@param lbr_BPDeliveryPostal 
+		BP Delivery Postal - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public void setlbr_BPDeliveryPostal (String lbr_BPDeliveryPostal)
+	{
+		set_Value (COLUMNNAME_lbr_BPDeliveryPostal, lbr_BPDeliveryPostal);
+	}
+
+	/** Get BP Delivery Postal.
+		@return BP Delivery Postal - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public String getlbr_BPDeliveryPostal () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_BPDeliveryPostal);
+	}
+
+	/** Set BP DeliveryRegion.
+		@param lbr_BPDeliveryRegion 
+		BP DeliveryRegion - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public void setlbr_BPDeliveryRegion (String lbr_BPDeliveryRegion)
+	{
+		set_Value (COLUMNNAME_lbr_BPDeliveryRegion, lbr_BPDeliveryRegion);
+	}
+
+	/** Get BP DeliveryRegion.
+		@return BP DeliveryRegion - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public String getlbr_BPDeliveryRegion () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_BPDeliveryRegion);
+	}
+
+	/** Set BP IE.
+		@param lbr_BPIE 
+		BP IE - Copied from the BP into Brazilan Legal and Tax Books
+	  */
+	public void setlbr_BPIE (String lbr_BPIE)
+	{
+		set_Value (COLUMNNAME_lbr_BPIE, lbr_BPIE);
+	}
+
+	/** Get BP IE.
+		@return BP IE - Copied from the BP into Brazilan Legal and Tax Books
+	  */
+	public String getlbr_BPIE () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_BPIE);
+	}
+
+	/** Set BP Invoice Address 1.
+		@param lbr_BPInvoiceAddress1 
+		BP Invoice Address 1 - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public void setlbr_BPInvoiceAddress1 (String lbr_BPInvoiceAddress1)
+	{
+		set_Value (COLUMNNAME_lbr_BPInvoiceAddress1, lbr_BPInvoiceAddress1);
+	}
+
+	/** Get BP Invoice Address 1.
+		@return BP Invoice Address 1 - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public String getlbr_BPInvoiceAddress1 () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_BPInvoiceAddress1);
+	}
+
+	/** Set BP Invoice Address 2.
+		@param lbr_BPInvoiceAddress2 
+		BP Invoice Address 2 - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public void setlbr_BPInvoiceAddress2 (String lbr_BPInvoiceAddress2)
+	{
+		set_Value (COLUMNNAME_lbr_BPInvoiceAddress2, lbr_BPInvoiceAddress2);
+	}
+
+	/** Get BP Invoice Address 2.
+		@return BP Invoice Address 2 - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public String getlbr_BPInvoiceAddress2 () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_BPInvoiceAddress2);
+	}
+
+	/** Set BP Invoice Address 3.
+		@param lbr_BPInvoiceAddress3 
+		BP Invoice Address 3 - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public void setlbr_BPInvoiceAddress3 (String lbr_BPInvoiceAddress3)
+	{
+		set_Value (COLUMNNAME_lbr_BPInvoiceAddress3, lbr_BPInvoiceAddress3);
+	}
+
+	/** Get BP Invoice Address 3.
+		@return BP Invoice Address 3 - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public String getlbr_BPInvoiceAddress3 () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_BPInvoiceAddress3);
+	}
+
+	/** Set BP Invoice Address 4.
+		@param lbr_BPInvoiceAddress4 
+		BP Invoice Address 4 - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public void setlbr_BPInvoiceAddress4 (String lbr_BPInvoiceAddress4)
+	{
+		set_Value (COLUMNNAME_lbr_BPInvoiceAddress4, lbr_BPInvoiceAddress4);
+	}
+
+	/** Get BP Invoice Address 4.
+		@return BP Invoice Address 4 - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public String getlbr_BPInvoiceAddress4 () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_BPInvoiceAddress4);
+	}
+
+	/** Set BP Invoice CNPJ.
+		@param lbr_BPInvoiceCNPJ 
+		BP Invoice CNPJ - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public void setlbr_BPInvoiceCNPJ (String lbr_BPInvoiceCNPJ)
+	{
+		set_Value (COLUMNNAME_lbr_BPInvoiceCNPJ, lbr_BPInvoiceCNPJ);
+	}
+
+	/** Get BP Invoice CNPJ.
+		@return BP Invoice CNPJ - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public String getlbr_BPInvoiceCNPJ () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_BPInvoiceCNPJ);
+	}
+
+	/** Set BP Invoice City.
+		@param lbr_BPInvoiceCity 
+		BP Invoice City - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public void setlbr_BPInvoiceCity (String lbr_BPInvoiceCity)
+	{
+		set_Value (COLUMNNAME_lbr_BPInvoiceCity, lbr_BPInvoiceCity);
+	}
+
+	/** Get BP Invoice City.
+		@return BP Invoice City - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public String getlbr_BPInvoiceCity () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_BPInvoiceCity);
+	}
+
+	/** Set BP Invoice Country.
+		@param lbr_BPInvoiceCountry 
+		BP Invoice Country - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public void setlbr_BPInvoiceCountry (String lbr_BPInvoiceCountry)
+	{
+		set_Value (COLUMNNAME_lbr_BPInvoiceCountry, lbr_BPInvoiceCountry);
+	}
+
+	/** Get BP Invoice Country.
+		@return BP Invoice Country - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public String getlbr_BPInvoiceCountry () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_BPInvoiceCountry);
+	}
+
+	/** Set BP Invoice IE.
+		@param lbr_BPInvoiceIE 
+		BP Invoice IE - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public void setlbr_BPInvoiceIE (String lbr_BPInvoiceIE)
+	{
+		set_Value (COLUMNNAME_lbr_BPInvoiceIE, lbr_BPInvoiceIE);
+	}
+
+	/** Get BP Invoice IE.
+		@return BP Invoice IE - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public String getlbr_BPInvoiceIE () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_BPInvoiceIE);
+	}
+
+	/** Set BP Invoice Postal.
+		@param lbr_BPInvoicePostal 
+		BP Invoice Postal - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public void setlbr_BPInvoicePostal (String lbr_BPInvoicePostal)
+	{
+		set_Value (COLUMNNAME_lbr_BPInvoicePostal, lbr_BPInvoicePostal);
+	}
+
+	/** Get BP Invoice Postal.
+		@return BP Invoice Postal - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public String getlbr_BPInvoicePostal () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_BPInvoicePostal);
+	}
+
+	/** Set BP InvoiceRegion.
+		@param lbr_BPInvoiceRegion 
+		BP InvoiceRegion - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public void setlbr_BPInvoiceRegion (String lbr_BPInvoiceRegion)
+	{
+		set_Value (COLUMNNAME_lbr_BPInvoiceRegion, lbr_BPInvoiceRegion);
+	}
+
+	/** Get BP InvoiceRegion.
+		@return BP InvoiceRegion - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public String getlbr_BPInvoiceRegion () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_BPInvoiceRegion);
+	}
+
+	/** Set BP Phone.
+		@param lbr_BPPhone 
+		BP Phone - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public void setlbr_BPPhone (String lbr_BPPhone)
+	{
+		set_Value (COLUMNNAME_lbr_BPPhone, lbr_BPPhone);
+	}
+
+	/** Get BP Phone.
+		@return BP Phone - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public String getlbr_BPPhone () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_BPPhone);
+	}
+
+	/** Set BP Postal.
+		@param lbr_BPPostal 
+		BP Postal - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public void setlbr_BPPostal (String lbr_BPPostal)
+	{
+		set_Value (COLUMNNAME_lbr_BPPostal, lbr_BPPostal);
+	}
+
+	/** Get BP Postal.
+		@return BP Postal - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public String getlbr_BPPostal () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_BPPostal);
+	}
+
+	/** Set BP Region.
+		@param lbr_BPRegion 
+		BP Region - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public void setlbr_BPRegion (String lbr_BPRegion)
+	{
+		set_Value (COLUMNNAME_lbr_BPRegion, lbr_BPRegion);
+	}
+
+	/** Get BP Region.
+		@return BP Region - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public String getlbr_BPRegion () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_BPRegion);
+	}
+
+	/** Set BP Shipper Address.
+		@param lbr_BPShipperAddress 
+		BP Shipper Address on a String
+	  */
+	public void setlbr_BPShipperAddress (String lbr_BPShipperAddress)
+	{
+		set_Value (COLUMNNAME_lbr_BPShipperAddress, lbr_BPShipperAddress);
+	}
+
+	/** Get BP Shipper Address.
+		@return BP Shipper Address on a String
+	  */
+	public String getlbr_BPShipperAddress () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_BPShipperAddress);
+	}
+
+	/** Set BP Shipper Address 1.
+		@param lbr_BPShipperAddress1 
+		BP Shipper Address 1 - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public void setlbr_BPShipperAddress1 (String lbr_BPShipperAddress1)
+	{
+		set_Value (COLUMNNAME_lbr_BPShipperAddress1, lbr_BPShipperAddress1);
+	}
+
+	/** Get BP Shipper Address 1.
+		@return BP Shipper Address 1 - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public String getlbr_BPShipperAddress1 () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_BPShipperAddress1);
+	}
+
+	/** Set BP Shipper Address 2.
+		@param lbr_BPShipperAddress2 
+		BP Shipper Address 2 - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public void setlbr_BPShipperAddress2 (String lbr_BPShipperAddress2)
+	{
+		set_Value (COLUMNNAME_lbr_BPShipperAddress2, lbr_BPShipperAddress2);
+	}
+
+	/** Get BP Shipper Address 2.
+		@return BP Shipper Address 2 - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public String getlbr_BPShipperAddress2 () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_BPShipperAddress2);
+	}
+
+	/** Set BP Shipper Address 3.
+		@param lbr_BPShipperAddress3 
+		BP Shipper Address 3 - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public void setlbr_BPShipperAddress3 (String lbr_BPShipperAddress3)
+	{
+		set_Value (COLUMNNAME_lbr_BPShipperAddress3, lbr_BPShipperAddress3);
+	}
+
+	/** Get BP Shipper Address 3.
+		@return BP Shipper Address 3 - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public String getlbr_BPShipperAddress3 () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_BPShipperAddress3);
+	}
+
+	/** Set BP Shipper Address 4.
+		@param lbr_BPShipperAddress4 
+		BP Shipper Address 4 - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public void setlbr_BPShipperAddress4 (String lbr_BPShipperAddress4)
+	{
+		set_Value (COLUMNNAME_lbr_BPShipperAddress4, lbr_BPShipperAddress4);
+	}
+
+	/** Get BP Shipper Address 4.
+		@return BP Shipper Address 4 - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public String getlbr_BPShipperAddress4 () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_BPShipperAddress4);
+	}
+
+	/** Set BP Shipper CNPJ.
+		@param lbr_BPShipperCNPJ 
+		BP Shipper CNPJ - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public void setlbr_BPShipperCNPJ (String lbr_BPShipperCNPJ)
+	{
+		set_Value (COLUMNNAME_lbr_BPShipperCNPJ, lbr_BPShipperCNPJ);
+	}
+
+	/** Get BP Shipper CNPJ.
+		@return BP Shipper CNPJ - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public String getlbr_BPShipperCNPJ () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_BPShipperCNPJ);
+	}
+
+	/** Set BP Shipper City.
+		@param lbr_BPShipperCity 
+		BP Shipper City - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public void setlbr_BPShipperCity (String lbr_BPShipperCity)
+	{
+		set_Value (COLUMNNAME_lbr_BPShipperCity, lbr_BPShipperCity);
+	}
+
+	/** Get BP Shipper City.
+		@return BP Shipper City - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public String getlbr_BPShipperCity () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_BPShipperCity);
+	}
+
+	/** Set BP Shipper Country.
+		@param lbr_BPShipperCountry 
+		BP Shipper Country - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public void setlbr_BPShipperCountry (String lbr_BPShipperCountry)
+	{
+		set_Value (COLUMNNAME_lbr_BPShipperCountry, lbr_BPShipperCountry);
+	}
+
+	/** Get BP Shipper Country.
+		@return BP Shipper Country - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public String getlbr_BPShipperCountry () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_BPShipperCountry);
+	}
+
+	/** Set BP Shipper IE.
+		@param lbr_BPShipperIE 
+		BP Shipper IE - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public void setlbr_BPShipperIE (String lbr_BPShipperIE)
+	{
+		set_Value (COLUMNNAME_lbr_BPShipperIE, lbr_BPShipperIE);
+	}
+
+	/** Get BP Shipper IE.
+		@return BP Shipper IE - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public String getlbr_BPShipperIE () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_BPShipperIE);
+	}
+
+	/** Set BP Shipper License Plate.
+		@param lbr_BPShipperLicensePlate 
+		Defines the BP Shipper License Plate
+	  */
+	public void setlbr_BPShipperLicensePlate (String lbr_BPShipperLicensePlate)
+	{
+		set_Value (COLUMNNAME_lbr_BPShipperLicensePlate, lbr_BPShipperLicensePlate);
+	}
+
+	/** Get BP Shipper License Plate.
+		@return Defines the BP Shipper License Plate
+	  */
+	public String getlbr_BPShipperLicensePlate () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_BPShipperLicensePlate);
+	}
+
+	/** Set BPShipper Name.
+		@param lbr_BPShipperName 
+		Defines the Shipper Name
+	  */
+	public void setlbr_BPShipperName (String lbr_BPShipperName)
+	{
+		set_Value (COLUMNNAME_lbr_BPShipperName, lbr_BPShipperName);
+	}
+
+	/** Get BPShipper Name.
+		@return Defines the Shipper Name
+	  */
+	public String getlbr_BPShipperName () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_BPShipperName);
+	}
+
+	/** Set BP Shipper Postal.
+		@param lbr_BPShipperPostal 
+		BP Shipper Postal - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public void setlbr_BPShipperPostal (String lbr_BPShipperPostal)
+	{
+		set_Value (COLUMNNAME_lbr_BPShipperPostal, lbr_BPShipperPostal);
+	}
+
+	/** Get BP Shipper Postal.
+		@return BP Shipper Postal - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public String getlbr_BPShipperPostal () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_BPShipperPostal);
+	}
+
+	/** Set BP ShipperRegion.
+		@param lbr_BPShipperRegion 
+		BP ShipperRegion - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public void setlbr_BPShipperRegion (String lbr_BPShipperRegion)
+	{
+		set_Value (COLUMNNAME_lbr_BPShipperRegion, lbr_BPShipperRegion);
+	}
+
+	/** Get BP ShipperRegion.
+		@return BP ShipperRegion - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public String getlbr_BPShipperRegion () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_BPShipperRegion);
+	}
+
+	/** Set BP Suframa.
+		@param lbr_BPSuframa 
+		Defines the BP Suframa
+	  */
+	public void setlbr_BPSuframa (String lbr_BPSuframa)
+	{
+		set_Value (COLUMNNAME_lbr_BPSuframa, lbr_BPSuframa);
+	}
+
+	/** Get BP Suframa.
+		@return Defines the BP Suframa
+	  */
+	public String getlbr_BPSuframa () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_BPSuframa);
+	}
+
+	/** PJ - Legal Entity = PJ */
+	public static final String LBR_BPTYPEBR_PJ_LegalEntity = "PJ";
+	/** PF - Individual = PF */
+	public static final String LBR_BPTYPEBR_PF_Individual = "PF";
+	/** PM - Individual Minor = PM */
+	public static final String LBR_BPTYPEBR_PM_IndividualMinor = "PM";
+	/** XX - Foreigner = XX */
+	public static final String LBR_BPTYPEBR_XX_Foreigner = "XX";
+	/** Set Brazilian BP Type.
+		@param lbr_BPTypeBR 
+		Brazilian BP Type (Identifies if the BP is a Legal Entity or an Individual)
+	  */
+	public void setlbr_BPTypeBR (String lbr_BPTypeBR)
+	{
+
+		set_Value (COLUMNNAME_lbr_BPTypeBR, lbr_BPTypeBR);
+	}
+
+	/** Get Brazilian BP Type.
+		@return Brazilian BP Type (Identifies if the BP is a Legal Entity or an Individual)
+	  */
+	public String getlbr_BPTypeBR () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_BPTypeBR);
+	}
+
+	/** Set Barcode 1.
+		@param lbr_Barcode1 
+		First Barcode of the Nota Fiscal
+	  */
+	public void setlbr_Barcode1 (String lbr_Barcode1)
+	{
+		set_Value (COLUMNNAME_lbr_Barcode1, lbr_Barcode1);
+	}
+
+	/** Get Barcode 1.
+		@return First Barcode of the Nota Fiscal
+	  */
+	public String getlbr_Barcode1 () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_Barcode1);
+	}
+
+	/** Set Barcode 2.
+		@param lbr_Barcode2 
+		Second Barcode of the Nota Fiscal
+	  */
+	public void setlbr_Barcode2 (String lbr_Barcode2)
+	{
+		set_Value (COLUMNNAME_lbr_Barcode2, lbr_Barcode2);
+	}
+
+	/** Get Barcode 2.
+		@return Second Barcode of the Nota Fiscal
+	  */
+	public String getlbr_Barcode2 () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_Barcode2);
+	}
+
+	/** Set Bill Note.
+		@param lbr_BillNote 
+		Bill Note
+	  */
+	public void setlbr_BillNote (String lbr_BillNote)
+	{
+		set_Value (COLUMNNAME_lbr_BillNote, lbr_BillNote);
+	}
+
+	/** Get Bill Note.
+		@return Bill Note
+	  */
+	public String getlbr_BillNote () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_BillNote);
+	}
+
+	/** Set Brand.
+		@param lbr_Brand 
+		Brand transport volumes
+	  */
+	public void setlbr_Brand (String lbr_Brand)
+	{
+		set_Value (COLUMNNAME_lbr_Brand, lbr_Brand);
+	}
+
+	/** Get Brand.
+		@return Brand transport volumes
+	  */
+	public String getlbr_Brand () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_Brand);
+	}
+
+	/** Set CFOP Note.
+		@param lbr_CFOPNote 
+		Defines the CFOP Note
+	  */
+	public void setlbr_CFOPNote (String lbr_CFOPNote)
+	{
+		set_Value (COLUMNNAME_lbr_CFOPNote, lbr_CFOPNote);
+	}
+
+	/** Get CFOP Note.
+		@return Defines the CFOP Note
+	  */
+	public String getlbr_CFOPNote () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_CFOPNote);
+	}
+
+	/** Set CFOP Reference.
+		@param lbr_CFOPReference 
+		Defines the CFOP Reference
+	  */
+	public void setlbr_CFOPReference (String lbr_CFOPReference)
+	{
+		set_Value (COLUMNNAME_lbr_CFOPReference, lbr_CFOPReference);
+	}
+
+	/** Get CFOP Reference.
+		@return Defines the CFOP Reference
+	  */
+	public String getlbr_CFOPReference () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_CFOPReference);
+	}
+
+	/** Set CNPJ.
+		@param lbr_CNPJ 
+		Used to identify Legal Entities in Brazil
+	  */
+	public void setlbr_CNPJ (String lbr_CNPJ)
+	{
+		set_Value (COLUMNNAME_lbr_CNPJ, lbr_CNPJ);
+	}
+
+	/** Get CNPJ.
+		@return Used to identify Legal Entities in Brazil
+	  */
+	public String getlbr_CNPJ () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_CNPJ);
+	}
+
+	/** 1 - Normal DANFE - Portrait = 1 */
+	public static final String LBR_DANFEFORMAT_1_NormalDANFE_Portrait = "1";
+	/** 2 - Normal DANFE - Landscape = 2 */
+	public static final String LBR_DANFEFORMAT_2_NormalDANFE_Landscape = "2";
+	/** 0 - No DANFE = 0 */
+	public static final String LBR_DANFEFORMAT_0_NoDANFE = "0";
+	/** 3 - Simple DANFE = 3 */
+	public static final String LBR_DANFEFORMAT_3_SimpleDANFE = "3";
+	/** 4 - DANFE NFC-e = 4 */
+	public static final String LBR_DANFEFORMAT_4_DANFENFC_E = "4";
+	/** 5 - DANFE NFC-e in Eletronic Message = 5 */
+	public static final String LBR_DANFEFORMAT_5_DANFENFC_EInEletronicMessage = "5";
+	/** Set DANFE Format.
+		@param lbr_DANFEFormat DANFE Format	  */
+	public void setlbr_DANFEFormat (String lbr_DANFEFormat)
+	{
+
+		set_Value (COLUMNNAME_lbr_DANFEFormat, lbr_DANFEFormat);
+	}
+
+	/** Get DANFE Format.
+		@return DANFE Format	  */
+	public String getlbr_DANFEFormat () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_DANFEFormat);
+	}
+
+	/** Set Date InOut.
+		@param lbr_DateInOut 
+		Defines the InOut Date
+	  */
+	public void setlbr_DateInOut (Timestamp lbr_DateInOut)
+	{
+		set_Value (COLUMNNAME_lbr_DateInOut, lbr_DateInOut);
+	}
+
+	/** Get Date InOut.
+		@return Defines the InOut Date
+	  */
+	public Timestamp getlbr_DateInOut () 
+	{
+		return (Timestamp)get_Value(COLUMNNAME_lbr_DateInOut);
+	}
+
+	/** Set Data contingência.
+		@param lbr_DateScan Data contingência	  */
+	public void setlbr_DateScan (Timestamp lbr_DateScan)
+	{
+		set_Value (COLUMNNAME_lbr_DateScan, lbr_DateScan);
+	}
+
+	/** Get Data contingência.
+		@return Data contingência	  */
+	public Timestamp getlbr_DateScan () 
+	{
+		return (Timestamp)get_Value(COLUMNNAME_lbr_DateScan);
+	}
+
+	public org.compiere.model.I_C_BPartner_Location getlbr_Delivery_Location() throws RuntimeException
+    {
+		return (org.compiere.model.I_C_BPartner_Location)MTable.get(getCtx(), org.compiere.model.I_C_BPartner_Location.Table_Name)
+			.getPO(getlbr_Delivery_Location_ID(), get_TrxName());	}
+
+	/** Set Delivery Location.
+		@param lbr_Delivery_Location_ID 
+		The Delivery Location ID
+	  */
+	public void setlbr_Delivery_Location_ID (int lbr_Delivery_Location_ID)
+	{
+		if (lbr_Delivery_Location_ID < 1) 
+			set_Value (COLUMNNAME_lbr_Delivery_Location_ID, null);
+		else 
+			set_Value (COLUMNNAME_lbr_Delivery_Location_ID, Integer.valueOf(lbr_Delivery_Location_ID));
+	}
+
+	/** Get Delivery Location.
+		@return The Delivery Location ID
+	  */
+	public int getlbr_Delivery_Location_ID () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_lbr_Delivery_Location_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
+	/** Set Digest Value.
+		@param lbr_DigestValue Digest Value	  */
+	public void setlbr_DigestValue (String lbr_DigestValue)
+	{
+		set_Value (COLUMNNAME_lbr_DigestValue, lbr_DigestValue);
+	}
+
+	/** Get Digest Value.
+		@return Digest Value	  */
+	public String getlbr_DigestValue () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_DigestValue);
+	}
+
+	/** NFe Normal = 1 */
+	public static final String LBR_FINNFE_NFeNormal = "1";
+	/** NFe Complementar = 2 */
+	public static final String LBR_FINNFE_NFeComplementar = "2";
+	/** NFe de Ajuste = 3 */
+	public static final String LBR_FINNFE_NFeDeAjuste = "3";
+	/** Devolução/Retorno de Mercadoria = 4 */
+	public static final String LBR_FINNFE_DevoluçãoRetornoDeMercadoria = "4";
+	/** Set Finalidade NFe.
+		@param lbr_FinNFe 
+		Define a Finalidade da NFe
+	  */
+	public void setlbr_FinNFe (String lbr_FinNFe)
+	{
+
+		set_Value (COLUMNNAME_lbr_FinNFe, lbr_FinNFe);
+	}
+
+	/** Get Finalidade NFe.
+		@return Define a Finalidade da NFe
+	  */
+	public String getlbr_FinNFe () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_FinNFe);
+	}
+
+	/** Set Fiscal Obs..
+		@param lbr_FiscalOBS 
+		Fiscal Observation for the Fiscal Books
+	  */
+	public void setlbr_FiscalOBS (String lbr_FiscalOBS)
+	{
+		set_Value (COLUMNNAME_lbr_FiscalOBS, lbr_FiscalOBS);
+	}
+
+	/** Get Fiscal Obs..
+		@return Fiscal Observation for the Fiscal Books
+	  */
+	public String getlbr_FiscalOBS () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_FiscalOBS);
+	}
+
+	/** Set Generate NFe XML.
+		@param lbr_GenerateNFeXML Generate NFe XML	  */
+	public void setlbr_GenerateNFeXML (String lbr_GenerateNFeXML)
+	{
+		set_Value (COLUMNNAME_lbr_GenerateNFeXML, lbr_GenerateNFeXML);
+	}
+
+	/** Get Generate NFe XML.
+		@return Generate NFe XML	  */
+	public String getlbr_GenerateNFeXML () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_GenerateNFeXML);
+	}
+
+	/** Set Gross Weight.
+		@param lbr_GrossWeight 
+		Defines the Gross Weight
+	  */
+	public void setlbr_GrossWeight (BigDecimal lbr_GrossWeight)
+	{
+		set_Value (COLUMNNAME_lbr_GrossWeight, lbr_GrossWeight);
+	}
+
+	/** Get Gross Weight.
+		@return Defines the Gross Weight
+	  */
+	public BigDecimal getlbr_GrossWeight () 
+	{
+		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_lbr_GrossWeight);
+		if (bd == null)
+			 return Env.ZERO;
+		return bd;
+	}
+
+	/** Set Has Open Items.
+		@param lbr_HasOpenItems 
+		Identifies if this Document Has Open Items
+	  */
+	public void setlbr_HasOpenItems (boolean lbr_HasOpenItems)
+	{
+		set_Value (COLUMNNAME_lbr_HasOpenItems, Boolean.valueOf(lbr_HasOpenItems));
+	}
+
+	/** Get Has Open Items.
+		@return Identifies if this Document Has Open Items
+	  */
+	public boolean islbr_HasOpenItems () 
+	{
+		Object oo = get_Value(COLUMNNAME_lbr_HasOpenItems);
+		if (oo != null) 
+		{
+			 if (oo instanceof Boolean) 
+				 return ((Boolean)oo).booleanValue(); 
+			return "Y".equals(oo);
+		}
+		return false;
+	}
+
+	/** Set IE.
+		@param lbr_IE 
+		Used to Identify the IE (State Tax ID)
+	  */
+	public void setlbr_IE (String lbr_IE)
+	{
+		set_Value (COLUMNNAME_lbr_IE, lbr_IE);
+	}
+
+	/** Get IE.
+		@return Used to Identify the IE (State Tax ID)
+	  */
+	public String getlbr_IE () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_IE);
+	}
+
 	/** Set Insurance Amt.
-		@param LBR_InsuranceAmt 
+		@param lbr_InsuranceAmt 
 		Defines the Insurance Amt
 	  */
-	public void setLBR_InsuranceAmt (BigDecimal LBR_InsuranceAmt)
+	public void setlbr_InsuranceAmt (BigDecimal lbr_InsuranceAmt)
 	{
-		set_Value (COLUMNNAME_LBR_InsuranceAmt, LBR_InsuranceAmt);
+		set_Value (COLUMNNAME_lbr_InsuranceAmt, lbr_InsuranceAmt);
 	}
 
 	/** Get Insurance Amt.
 		@return Defines the Insurance Amt
 	  */
-	public BigDecimal getLBR_InsuranceAmt () 
+	public BigDecimal getlbr_InsuranceAmt () 
 	{
-		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_LBR_InsuranceAmt);
+		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_lbr_InsuranceAmt);
 		if (bd == null)
 			 return Env.ZERO;
 		return bd;
 	}
 
 	/** Set Is Own Document.
-		@param LBR_IsOwnDocument 
+		@param lbr_IsOwnDocument 
 		Identifies this is an own document
 	  */
-	public void setLBR_IsOwnDocument (boolean LBR_IsOwnDocument)
+	public void setlbr_IsOwnDocument (boolean lbr_IsOwnDocument)
 	{
-		set_Value (COLUMNNAME_LBR_IsOwnDocument, Boolean.valueOf(LBR_IsOwnDocument));
+		set_Value (COLUMNNAME_lbr_IsOwnDocument, Boolean.valueOf(lbr_IsOwnDocument));
 	}
 
 	/** Get Is Own Document.
 		@return Identifies this is an own document
 	  */
-	public boolean isLBR_IsOwnDocument () 
+	public boolean islbr_IsOwnDocument () 
 	{
-		Object oo = get_Value(COLUMNNAME_LBR_IsOwnDocument);
+		Object oo = get_Value(COLUMNNAME_lbr_IsOwnDocument);
 		if (oo != null) 
 		{
 			 if (oo instanceof Boolean) 
@@ -2098,65 +2513,65 @@ public class X_LBR_NotaFiscal extends PO implements I_LBR_NotaFiscal, I_Persiste
 	}
 
 	/** Set Motivo do Cancelamento.
-		@param LBR_MotivoCancel 
+		@param lbr_MotivoCancel 
 		Motivo do Cancelamento (Entre 15 e 255 caracteres)
 	  */
-	public void setLBR_MotivoCancel (String LBR_MotivoCancel)
+	public void setlbr_MotivoCancel (String lbr_MotivoCancel)
 	{
-		set_Value (COLUMNNAME_LBR_MotivoCancel, LBR_MotivoCancel);
+		set_Value (COLUMNNAME_lbr_MotivoCancel, lbr_MotivoCancel);
 	}
 
 	/** Get Motivo do Cancelamento.
 		@return Motivo do Cancelamento (Entre 15 e 255 caracteres)
 	  */
-	public String getLBR_MotivoCancel () 
+	public String getlbr_MotivoCancel () 
 	{
-		return (String)get_Value(COLUMNNAME_LBR_MotivoCancel);
+		return (String)get_Value(COLUMNNAME_lbr_MotivoCancel);
 	}
 
 	/** Set Motivo contingência.
-		@param LBR_MotivoScan Motivo contingência	  */
-	public void setLBR_MotivoScan (String LBR_MotivoScan)
+		@param lbr_MotivoScan Motivo contingência	  */
+	public void setlbr_MotivoScan (String lbr_MotivoScan)
 	{
-		set_Value (COLUMNNAME_LBR_MotivoScan, LBR_MotivoScan);
+		set_Value (COLUMNNAME_lbr_MotivoScan, lbr_MotivoScan);
 	}
 
 	/** Get Motivo contingência.
 		@return Motivo contingência	  */
-	public String getLBR_MotivoScan () 
+	public String getlbr_MotivoScan () 
 	{
-		return (String)get_Value(COLUMNNAME_LBR_MotivoScan);
+		return (String)get_Value(COLUMNNAME_lbr_MotivoScan);
 	}
 
 	/** Set NCM Reference.
-		@param LBR_NCMReference 
+		@param lbr_NCMReference 
 		Defines the NCM Reference
 	  */
-	public void setLBR_NCMReference (String LBR_NCMReference)
+	public void setlbr_NCMReference (String lbr_NCMReference)
 	{
-		set_Value (COLUMNNAME_LBR_NCMReference, LBR_NCMReference);
+		set_Value (COLUMNNAME_lbr_NCMReference, lbr_NCMReference);
 	}
 
 	/** Get NCM Reference.
 		@return Defines the NCM Reference
 	  */
-	public String getLBR_NCMReference () 
+	public String getlbr_NCMReference () 
 	{
-		return (String)get_Value(COLUMNNAME_LBR_NCMReference);
+		return (String)get_Value(COLUMNNAME_lbr_NCMReference);
 	}
 
 	/** Set NFe No.
-		@param LBR_NFENo NFe No	  */
-	public void setLBR_NFENo (String LBR_NFENo)
+		@param lbr_NFENo NFe No	  */
+	public void setlbr_NFENo (String lbr_NFENo)
 	{
-		set_Value (COLUMNNAME_LBR_NFENo, LBR_NFENo);
+		set_Value (COLUMNNAME_lbr_NFENo, lbr_NFENo);
 	}
 
 	/** Get NFe No.
 		@return NFe No	  */
-	public String getLBR_NFENo () 
+	public String getlbr_NFENo () 
 	{
-		return (String)get_Value(COLUMNNAME_LBR_NFENo);
+		return (String)get_Value(COLUMNNAME_lbr_NFENo);
 	}
 
 	/** Nota Fiscal = 01 */
@@ -2228,35 +2643,35 @@ public class X_LBR_NotaFiscal extends PO implements I_LBR_NotaFiscal, I_Persiste
 	/** Nota Fiscal de Consumidor Eletrônica = 56 */
 	public static final String LBR_NFMODEL_NotaFiscalDeConsumidorEletrônica = "56";
 	/** Set NF Model.
-		@param LBR_NFModel 
+		@param lbr_NFModel 
 		Identifies the model of Nota Fiscal
 	  */
-	public void setLBR_NFModel (String LBR_NFModel)
+	public void setlbr_NFModel (String lbr_NFModel)
 	{
 
-		set_Value (COLUMNNAME_LBR_NFModel, LBR_NFModel);
+		set_Value (COLUMNNAME_lbr_NFModel, lbr_NFModel);
 	}
 
 	/** Get NF Model.
 		@return Identifies the model of Nota Fiscal
 	  */
-	public String getLBR_NFModel () 
+	public String getlbr_NFModel () 
 	{
-		return (String)get_Value(COLUMNNAME_LBR_NFModel);
+		return (String)get_Value(COLUMNNAME_lbr_NFModel);
 	}
 
 	/** Set NF Serie.
-		@param LBR_NFSerie NF Serie	  */
-	public void setLBR_NFSerie (String LBR_NFSerie)
+		@param lbr_NFSerie NF Serie	  */
+	public void setlbr_NFSerie (String lbr_NFSerie)
 	{
-		set_Value (COLUMNNAME_LBR_NFSerie, LBR_NFSerie);
+		set_Value (COLUMNNAME_lbr_NFSerie, lbr_NFSerie);
 	}
 
 	/** Get NF Serie.
 		@return NF Serie	  */
-	public String getLBR_NFSerie () 
+	public String getlbr_NFSerie () 
 	{
-		return (String)get_Value(COLUMNNAME_LBR_NFSerie);
+		return (String)get_Value(COLUMNNAME_lbr_NFSerie);
 	}
 
 	/** 001_ACT-Autorização de Carregamento de Transporte = 001 */
@@ -2342,38 +2757,38 @@ public class X_LBR_NotaFiscal extends PO implements I_LBR_NotaFiscal, I_Persiste
 	/** 041_RMD-Resumo de Movimento Diário = 041 */
 	public static final String LBR_NFTYPE_041_RMD_ResumoDeMovimentoDiário = "041";
 	/** Set NF Type.
-		@param LBR_NFType 
+		@param lbr_NFType 
 		Nota Fiscal Type
 	  */
-	public void setLBR_NFType (String LBR_NFType)
+	public void setlbr_NFType (String lbr_NFType)
 	{
 
-		set_Value (COLUMNNAME_LBR_NFType, LBR_NFType);
+		set_Value (COLUMNNAME_lbr_NFType, lbr_NFType);
 	}
 
 	/** Get NF Type.
 		@return Nota Fiscal Type
 	  */
-	public String getLBR_NFType () 
+	public String getlbr_NFType () 
 	{
-		return (String)get_Value(COLUMNNAME_LBR_NFType);
+		return (String)get_Value(COLUMNNAME_lbr_NFType);
 	}
 
 	/** Set NFe Description.
-		@param LBR_NFeDesc 
+		@param lbr_NFeDesc 
 		Description of NFe
 	  */
-	public void setLBR_NFeDesc (String LBR_NFeDesc)
+	public void setlbr_NFeDesc (String lbr_NFeDesc)
 	{
-		set_Value (COLUMNNAME_LBR_NFeDesc, LBR_NFeDesc);
+		set_Value (COLUMNNAME_lbr_NFeDesc, lbr_NFeDesc);
 	}
 
 	/** Get NFe Description.
 		@return Description of NFe
 	  */
-	public String getLBR_NFeDesc () 
+	public String getlbr_NFeDesc () 
 	{
-		return (String)get_Value(COLUMNNAME_LBR_NFeDesc);
+		return (String)get_Value(COLUMNNAME_lbr_NFeDesc);
 	}
 
 	/** Production = 1 */
@@ -2381,74 +2796,49 @@ public class X_LBR_NotaFiscal extends PO implements I_LBR_NotaFiscal, I_Persiste
 	/** Homologation = 2 */
 	public static final String LBR_NFEENV_Homologation = "2";
 	/** Set NFe Environment.
-		@param LBR_NFeEnv NFe Environment	  */
-	public void setLBR_NFeEnv (String LBR_NFeEnv)
+		@param lbr_NFeEnv NFe Environment	  */
+	public void setlbr_NFeEnv (String lbr_NFeEnv)
 	{
 
-		set_Value (COLUMNNAME_LBR_NFeEnv, LBR_NFeEnv);
+		set_Value (COLUMNNAME_lbr_NFeEnv, lbr_NFeEnv);
 	}
 
 	/** Get NFe Environment.
 		@return NFe Environment	  */
-	public String getLBR_NFeEnv () 
+	public String getlbr_NFeEnv () 
 	{
-		return (String)get_Value(COLUMNNAME_LBR_NFeEnv);
+		return (String)get_Value(COLUMNNAME_lbr_NFeEnv);
 	}
 
 	/** Set NFe ID.
-		@param LBR_NFeID 
+		@param lbr_NFeID 
 		Identification of NFe
 	  */
-	public void setLBR_NFeID (String LBR_NFeID)
+	public void setlbr_NFeID (String lbr_NFeID)
 	{
-		set_Value (COLUMNNAME_LBR_NFeID, LBR_NFeID);
+		set_Value (COLUMNNAME_lbr_NFeID, lbr_NFeID);
 	}
 
 	/** Get NFe ID.
 		@return Identification of NFe
 	  */
-	public String getLBR_NFeID () 
+	public String getlbr_NFeID () 
 	{
-		return (String)get_Value(COLUMNNAME_LBR_NFeID);
-	}
-
-	public org.adempierelbr.model.I_LBR_NFeLot getLBR_NFeLot() throws RuntimeException
-    {
-		return (org.adempierelbr.model.I_LBR_NFeLot)MTable.get(getCtx(), org.adempierelbr.model.I_LBR_NFeLot.Table_Name)
-			.getPO(getLBR_NFeLot_ID(), get_TrxName());	}
-
-	/** Set NFe Lot.
-		@param LBR_NFeLot_ID NFe Lot	  */
-	public void setLBR_NFeLot_ID (int LBR_NFeLot_ID)
-	{
-		if (LBR_NFeLot_ID < 1) 
-			set_Value (COLUMNNAME_LBR_NFeLot_ID, null);
-		else 
-			set_Value (COLUMNNAME_LBR_NFeLot_ID, Integer.valueOf(LBR_NFeLot_ID));
-	}
-
-	/** Get NFe Lot.
-		@return NFe Lot	  */
-	public int getLBR_NFeLot_ID () 
-	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_LBR_NFeLot_ID);
-		if (ii == null)
-			 return 0;
-		return ii.intValue();
+		return (String)get_Value(COLUMNNAME_lbr_NFeID);
 	}
 
 	/** Set NFe Protocol.
-		@param LBR_NFeProt NFe Protocol	  */
-	public void setLBR_NFeProt (String LBR_NFeProt)
+		@param lbr_NFeProt NFe Protocol	  */
+	public void setlbr_NFeProt (String lbr_NFeProt)
 	{
-		set_Value (COLUMNNAME_LBR_NFeProt, LBR_NFeProt);
+		set_Value (COLUMNNAME_lbr_NFeProt, lbr_NFeProt);
 	}
 
 	/** Get NFe Protocol.
 		@return NFe Protocol	  */
-	public String getLBR_NFeProt () 
+	public String getlbr_NFeProt () 
 	{
-		return (String)get_Value(COLUMNNAME_LBR_NFeProt);
+		return (String)get_Value(COLUMNNAME_lbr_NFeProt);
 	}
 
 	/** 100-Autorizado o uso da NF-e = 100 */
@@ -3516,333 +3906,262 @@ public class X_LBR_NotaFiscal extends PO implements I_LBR_NotaFiscal, I_Persiste
 	/** 722-Rejeição: Operação interna com idEstrangeiro informado deve ser presencial = 722 */
 	public static final String LBR_NFESTATUS_722_RejeiçãoOperaçãoInternaComIdEstrangeiroInformadoDeveSerPresencial = "722";
 	/** Set NFe Status.
-		@param LBR_NFeStatus 
+		@param lbr_NFeStatus 
 		Status of NFe
 	  */
-	public void setLBR_NFeStatus (String LBR_NFeStatus)
+	public void setlbr_NFeStatus (String lbr_NFeStatus)
 	{
 
-		set_Value (COLUMNNAME_LBR_NFeStatus, LBR_NFeStatus);
+		set_Value (COLUMNNAME_lbr_NFeStatus, lbr_NFeStatus);
 	}
 
 	/** Get NFe Status.
 		@return Status of NFe
 	  */
-	public String getLBR_NFeStatus () 
+	public String getlbr_NFeStatus () 
 	{
-		return (String)get_Value(COLUMNNAME_LBR_NFeStatus);
+		return (String)get_Value(COLUMNNAME_lbr_NFeStatus);
 	}
 
 	/** Set Net Weight.
-		@param LBR_NetWeight 
+		@param lbr_NetWeight 
 		Defines the Net Weight
 	  */
-	public void setLBR_NetWeight (BigDecimal LBR_NetWeight)
+	public void setlbr_NetWeight (BigDecimal lbr_NetWeight)
 	{
-		set_Value (COLUMNNAME_LBR_NetWeight, LBR_NetWeight);
+		set_Value (COLUMNNAME_lbr_NetWeight, lbr_NetWeight);
 	}
 
 	/** Get Net Weight.
 		@return Defines the Net Weight
 	  */
-	public BigDecimal getLBR_NetWeight () 
+	public BigDecimal getlbr_NetWeight () 
 	{
-		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_LBR_NetWeight);
+		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_lbr_NetWeight);
 		if (bd == null)
 			 return Env.ZERO;
 		return bd;
 	}
 
-	/** Set Nota Fiscal.
-		@param LBR_NotaFiscal_ID 
-		Primary key table LBR_NotaFiscal
-	  */
-	public void setLBR_NotaFiscal_ID (int LBR_NotaFiscal_ID)
-	{
-		if (LBR_NotaFiscal_ID < 1) 
-			set_ValueNoCheck (COLUMNNAME_LBR_NotaFiscal_ID, null);
-		else 
-			set_ValueNoCheck (COLUMNNAME_LBR_NotaFiscal_ID, Integer.valueOf(LBR_NotaFiscal_ID));
-	}
-
-	/** Get Nota Fiscal.
-		@return Primary key table LBR_NotaFiscal
-	  */
-	public int getLBR_NotaFiscal_ID () 
-	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_LBR_NotaFiscal_ID);
-		if (ii == null)
-			 return 0;
-		return ii.intValue();
-	}
-
 	/** Set Organization Address 1.
-		@param LBR_OrgAddress1 
+		@param lbr_OrgAddress1 
 		The issuer organization address 1
 	  */
-	public void setLBR_OrgAddress1 (String LBR_OrgAddress1)
+	public void setlbr_OrgAddress1 (String lbr_OrgAddress1)
 	{
-		set_Value (COLUMNNAME_LBR_OrgAddress1, LBR_OrgAddress1);
+		set_Value (COLUMNNAME_lbr_OrgAddress1, lbr_OrgAddress1);
 	}
 
 	/** Get Organization Address 1.
 		@return The issuer organization address 1
 	  */
-	public String getLBR_OrgAddress1 () 
+	public String getlbr_OrgAddress1 () 
 	{
-		return (String)get_Value(COLUMNNAME_LBR_OrgAddress1);
+		return (String)get_Value(COLUMNNAME_lbr_OrgAddress1);
 	}
 
 	/** Set Organization Address 2.
-		@param LBR_OrgAddress2 
+		@param lbr_OrgAddress2 
 		The issuer organization address 2
 	  */
-	public void setLBR_OrgAddress2 (String LBR_OrgAddress2)
+	public void setlbr_OrgAddress2 (String lbr_OrgAddress2)
 	{
-		set_Value (COLUMNNAME_LBR_OrgAddress2, LBR_OrgAddress2);
+		set_Value (COLUMNNAME_lbr_OrgAddress2, lbr_OrgAddress2);
 	}
 
 	/** Get Organization Address 2.
 		@return The issuer organization address 2
 	  */
-	public String getLBR_OrgAddress2 () 
+	public String getlbr_OrgAddress2 () 
 	{
-		return (String)get_Value(COLUMNNAME_LBR_OrgAddress2);
+		return (String)get_Value(COLUMNNAME_lbr_OrgAddress2);
 	}
 
 	/** Set Organization Address 3.
-		@param LBR_OrgAddress3 
+		@param lbr_OrgAddress3 
 		The issuer organization address 3
 	  */
-	public void setLBR_OrgAddress3 (String LBR_OrgAddress3)
+	public void setlbr_OrgAddress3 (String lbr_OrgAddress3)
 	{
-		set_Value (COLUMNNAME_LBR_OrgAddress3, LBR_OrgAddress3);
+		set_Value (COLUMNNAME_lbr_OrgAddress3, lbr_OrgAddress3);
 	}
 
 	/** Get Organization Address 3.
 		@return The issuer organization address 3
 	  */
-	public String getLBR_OrgAddress3 () 
+	public String getlbr_OrgAddress3 () 
 	{
-		return (String)get_Value(COLUMNNAME_LBR_OrgAddress3);
+		return (String)get_Value(COLUMNNAME_lbr_OrgAddress3);
 	}
 
 	/** Set Organization Address 4.
-		@param LBR_OrgAddress4 
+		@param lbr_OrgAddress4 
 		The issuer organization address 4
 	  */
-	public void setLBR_OrgAddress4 (String LBR_OrgAddress4)
+	public void setlbr_OrgAddress4 (String lbr_OrgAddress4)
 	{
-		set_Value (COLUMNNAME_LBR_OrgAddress4, LBR_OrgAddress4);
+		set_Value (COLUMNNAME_lbr_OrgAddress4, lbr_OrgAddress4);
 	}
 
 	/** Get Organization Address 4.
 		@return The issuer organization address 4
 	  */
-	public String getLBR_OrgAddress4 () 
+	public String getlbr_OrgAddress4 () 
 	{
-		return (String)get_Value(COLUMNNAME_LBR_OrgAddress4);
+		return (String)get_Value(COLUMNNAME_lbr_OrgAddress4);
 	}
 
 	/** Set Organization CCM.
-		@param LBR_OrgCCM 
+		@param lbr_OrgCCM 
 		The Organization CCM
 	  */
-	public void setLBR_OrgCCM (String LBR_OrgCCM)
+	public void setlbr_OrgCCM (String lbr_OrgCCM)
 	{
-		set_Value (COLUMNNAME_LBR_OrgCCM, LBR_OrgCCM);
+		set_Value (COLUMNNAME_lbr_OrgCCM, lbr_OrgCCM);
 	}
 
 	/** Get Organization CCM.
 		@return The Organization CCM
 	  */
-	public String getLBR_OrgCCM () 
+	public String getlbr_OrgCCM () 
 	{
-		return (String)get_Value(COLUMNNAME_LBR_OrgCCM);
+		return (String)get_Value(COLUMNNAME_lbr_OrgCCM);
 	}
 
 	/** Set Organization City.
-		@param LBR_OrgCity 
+		@param lbr_OrgCity 
 		The City of the Organization
 	  */
-	public void setLBR_OrgCity (String LBR_OrgCity)
+	public void setlbr_OrgCity (String lbr_OrgCity)
 	{
-		set_Value (COLUMNNAME_LBR_OrgCity, LBR_OrgCity);
+		set_Value (COLUMNNAME_lbr_OrgCity, lbr_OrgCity);
 	}
 
 	/** Get Organization City.
 		@return The City of the Organization
 	  */
-	public String getLBR_OrgCity () 
+	public String getlbr_OrgCity () 
 	{
-		return (String)get_Value(COLUMNNAME_LBR_OrgCity);
+		return (String)get_Value(COLUMNNAME_lbr_OrgCity);
 	}
 
 	/** Set Organization Country.
-		@param LBR_OrgCountry 
+		@param lbr_OrgCountry 
 		The Country of the Organization
 	  */
-	public void setLBR_OrgCountry (String LBR_OrgCountry)
+	public void setlbr_OrgCountry (String lbr_OrgCountry)
 	{
-		set_Value (COLUMNNAME_LBR_OrgCountry, LBR_OrgCountry);
+		set_Value (COLUMNNAME_lbr_OrgCountry, lbr_OrgCountry);
 	}
 
 	/** Get Organization Country.
 		@return The Country of the Organization
 	  */
-	public String getLBR_OrgCountry () 
+	public String getlbr_OrgCountry () 
 	{
-		return (String)get_Value(COLUMNNAME_LBR_OrgCountry);
+		return (String)get_Value(COLUMNNAME_lbr_OrgCountry);
 	}
 
 	/** Set Organization Name.
-		@param LBR_OrgName 
+		@param lbr_OrgName 
 		The Name of the Organization
 	  */
-	public void setLBR_OrgName (String LBR_OrgName)
+	public void setlbr_OrgName (String lbr_OrgName)
 	{
-		set_Value (COLUMNNAME_LBR_OrgName, LBR_OrgName);
+		set_Value (COLUMNNAME_lbr_OrgName, lbr_OrgName);
 	}
 
 	/** Get Organization Name.
 		@return The Name of the Organization
 	  */
-	public String getLBR_OrgName () 
+	public String getlbr_OrgName () 
 	{
-		return (String)get_Value(COLUMNNAME_LBR_OrgName);
+		return (String)get_Value(COLUMNNAME_lbr_OrgName);
 	}
 
 	/** Set Organization Phone.
-		@param LBR_OrgPhone 
+		@param lbr_OrgPhone 
 		The Organization Phone
 	  */
-	public void setLBR_OrgPhone (String LBR_OrgPhone)
+	public void setlbr_OrgPhone (String lbr_OrgPhone)
 	{
-		set_Value (COLUMNNAME_LBR_OrgPhone, LBR_OrgPhone);
+		set_Value (COLUMNNAME_lbr_OrgPhone, lbr_OrgPhone);
 	}
 
 	/** Get Organization Phone.
 		@return The Organization Phone
 	  */
-	public String getLBR_OrgPhone () 
+	public String getlbr_OrgPhone () 
 	{
-		return (String)get_Value(COLUMNNAME_LBR_OrgPhone);
+		return (String)get_Value(COLUMNNAME_lbr_OrgPhone);
 	}
 
 	/** Set Organization Postal Code.
-		@param LBR_OrgPostal 
+		@param lbr_OrgPostal 
 		The Postal Code of the Organization
 	  */
-	public void setLBR_OrgPostal (String LBR_OrgPostal)
+	public void setlbr_OrgPostal (String lbr_OrgPostal)
 	{
-		set_Value (COLUMNNAME_LBR_OrgPostal, LBR_OrgPostal);
+		set_Value (COLUMNNAME_lbr_OrgPostal, lbr_OrgPostal);
 	}
 
 	/** Get Organization Postal Code.
 		@return The Postal Code of the Organization
 	  */
-	public String getLBR_OrgPostal () 
+	public String getlbr_OrgPostal () 
 	{
-		return (String)get_Value(COLUMNNAME_LBR_OrgPostal);
+		return (String)get_Value(COLUMNNAME_lbr_OrgPostal);
 	}
 
 	/** Set Organization Region.
-		@param LBR_OrgRegion 
+		@param lbr_OrgRegion 
 		The Region of the Organization
 	  */
-	public void setLBR_OrgRegion (String LBR_OrgRegion)
+	public void setlbr_OrgRegion (String lbr_OrgRegion)
 	{
-		set_Value (COLUMNNAME_LBR_OrgRegion, LBR_OrgRegion);
+		set_Value (COLUMNNAME_lbr_OrgRegion, lbr_OrgRegion);
 	}
 
 	/** Get Organization Region.
 		@return The Region of the Organization
 	  */
-	public String getLBR_OrgRegion () 
+	public String getlbr_OrgRegion () 
 	{
-		return (String)get_Value(COLUMNNAME_LBR_OrgRegion);
-	}
-
-	/** Set Other Charges Amount.
-		@param LBR_OtherChargesAmt Other Charges Amount	  */
-	public void setLBR_OtherChargesAmt (BigDecimal LBR_OtherChargesAmt)
-	{
-		set_Value (COLUMNNAME_LBR_OtherChargesAmt, LBR_OtherChargesAmt);
-	}
-
-	/** Get Other Charges Amount.
-		@return Other Charges Amount	  */
-	public BigDecimal getLBR_OtherChargesAmt () 
-	{
-		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_LBR_OtherChargesAmt);
-		if (bd == null)
-			 return Env.ZERO;
-		return bd;
+		return (String)get_Value(COLUMNNAME_lbr_OrgRegion);
 	}
 
 	/** Set Packing Type.
-		@param LBR_PackingType 
+		@param lbr_PackingType 
 		Defines the Packing Type
 	  */
-	public void setLBR_PackingType (String LBR_PackingType)
+	public void setlbr_PackingType (String lbr_PackingType)
 	{
-		set_Value (COLUMNNAME_LBR_PackingType, LBR_PackingType);
+		set_Value (COLUMNNAME_lbr_PackingType, lbr_PackingType);
 	}
 
 	/** Get Packing Type.
 		@return Defines the Packing Type
 	  */
-	public String getLBR_PackingType () 
+	public String getlbr_PackingType () 
 	{
-		return (String)get_Value(COLUMNNAME_LBR_PackingType);
+		return (String)get_Value(COLUMNNAME_lbr_PackingType);
 	}
 
 	/** Set Process Cancel Nota Fiscal.
-		@param LBR_ProcCancelNF 
+		@param lbr_ProcCancelNF 
 		Process to Cancel Nota Fiscal
 	  */
-	public void setLBR_ProcCancelNF (String LBR_ProcCancelNF)
+	public void setlbr_ProcCancelNF (String lbr_ProcCancelNF)
 	{
-		set_Value (COLUMNNAME_LBR_ProcCancelNF, LBR_ProcCancelNF);
+		set_Value (COLUMNNAME_lbr_ProcCancelNF, lbr_ProcCancelNF);
 	}
 
 	/** Get Process Cancel Nota Fiscal.
 		@return Process to Cancel Nota Fiscal
 	  */
-	public String getLBR_ProcCancelNF () 
+	public String getlbr_ProcCancelNF () 
 	{
-		return (String)get_Value(COLUMNNAME_LBR_ProcCancelNF);
-	}
-
-	/** Set Reactivate Nota Fiscal.
-		@param LBR_ProcReactivateNF 
-		This Process Reactivates the Nota Fiscal Document
-	  */
-	public void setLBR_ProcReactivateNF (String LBR_ProcReactivateNF)
-	{
-		set_Value (COLUMNNAME_LBR_ProcReactivateNF, LBR_ProcReactivateNF);
-	}
-
-	/** Get Reactivate Nota Fiscal.
-		@return This Process Reactivates the Nota Fiscal Document
-	  */
-	public String getLBR_ProcReactivateNF () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_ProcReactivateNF);
-	}
-
-	/** Set Process Now.
-		@param LBR_Processing2 Process Now	  */
-	public void setLBR_Processing2 (String LBR_Processing2)
-	{
-		set_Value (COLUMNNAME_LBR_Processing2, LBR_Processing2);
-	}
-
-	/** Get Process Now.
-		@return Process Now	  */
-	public String getLBR_Processing2 () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_Processing2);
+		return (String)get_Value(COLUMNNAME_lbr_ProcCancelNF);
 	}
 
 	/** Operacao normal = T */
@@ -3858,264 +4177,137 @@ public class X_LBR_NotaFiscal extends PO implements I_LBR_NotaFiscal, I_Persiste
 	/** ISS Suspenso por Decisao Judicial = J */
 	public static final String LBR_RPSSTATUS_ISSSuspensoPorDecisaoJudicial = "J";
 	/** Set RPS Status.
-		@param LBR_RPSStatus RPS Status	  */
-	public void setLBR_RPSStatus (String LBR_RPSStatus)
+		@param lbr_RPSStatus RPS Status	  */
+	public void setlbr_RPSStatus (String lbr_RPSStatus)
 	{
 
-		set_Value (COLUMNNAME_LBR_RPSStatus, LBR_RPSStatus);
+		set_Value (COLUMNNAME_lbr_RPSStatus, lbr_RPSStatus);
 	}
 
 	/** Get RPS Status.
 		@return RPS Status	  */
-	public String getLBR_RPSStatus () 
+	public String getlbr_RPSStatus () 
 	{
-		return (String)get_Value(COLUMNNAME_LBR_RPSStatus);
-	}
-
-	public org.compiere.model.I_C_Region getLBR_RegionExport() throws RuntimeException
-    {
-		return (org.compiere.model.I_C_Region)MTable.get(getCtx(), org.compiere.model.I_C_Region.Table_Name)
-			.getPO(getLBR_RegionExport_ID(), get_TrxName());	}
-
-	/** Set Region Export .
-		@param LBR_RegionExport_ID 
-		Acronym boarding Region or boundary crossing
-	  */
-	public void setLBR_RegionExport_ID (int LBR_RegionExport_ID)
-	{
-		if (LBR_RegionExport_ID < 1) 
-			set_Value (COLUMNNAME_LBR_RegionExport_ID, null);
-		else 
-			set_Value (COLUMNNAME_LBR_RegionExport_ID, Integer.valueOf(LBR_RegionExport_ID));
-	}
-
-	/** Get Region Export .
-		@return Acronym boarding Region or boundary crossing
-	  */
-	public int getLBR_RegionExport_ID () 
-	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_LBR_RegionExport_ID);
-		if (ii == null)
-			 return 0;
-		return ii.intValue();
-	}
-
-	/** Set Reverse InOut.
-		@param LBR_ReverseInOut 
-		Allow to Reverse InOut related with the NF
-	  */
-	public void setLBR_ReverseInOut (boolean LBR_ReverseInOut)
-	{
-		set_Value (COLUMNNAME_LBR_ReverseInOut, Boolean.valueOf(LBR_ReverseInOut));
-	}
-
-	/** Get Reverse InOut.
-		@return Allow to Reverse InOut related with the NF
-	  */
-	public boolean isLBR_ReverseInOut () 
-	{
-		Object oo = get_Value(COLUMNNAME_LBR_ReverseInOut);
-		if (oo != null) 
-		{
-			 if (oo instanceof Boolean) 
-				 return ((Boolean)oo).booleanValue(); 
-			return "Y".equals(oo);
-		}
-		return false;
-	}
-
-	/** Set Reverse Invoice.
-		@param LBR_ReverseInvoice 
-		Allow to Reverse Invoice related with the NF
-	  */
-	public void setLBR_ReverseInvoice (boolean LBR_ReverseInvoice)
-	{
-		set_Value (COLUMNNAME_LBR_ReverseInvoice, Boolean.valueOf(LBR_ReverseInvoice));
-	}
-
-	/** Get Reverse Invoice.
-		@return Allow to Reverse Invoice related with the NF
-	  */
-	public boolean isLBR_ReverseInvoice () 
-	{
-		Object oo = get_Value(COLUMNNAME_LBR_ReverseInvoice);
-		if (oo != null) 
-		{
-			 if (oo instanceof Boolean) 
-				 return ((Boolean)oo).booleanValue(); 
-			return "Y".equals(oo);
-		}
-		return false;
-	}
-
-	/** Set Send EMail.
-		@param LBR_SendEMail 
-		Send EMail with Nota Fiscal
-	  */
-	public void setLBR_SendEMail (String LBR_SendEMail)
-	{
-		set_Value (COLUMNNAME_LBR_SendEMail, LBR_SendEMail);
-	}
-
-	/** Get Send EMail.
-		@return Send EMail with Nota Fiscal
-	  */
-	public String getLBR_SendEMail () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_SendEMail);
+		return (String)get_Value(COLUMNNAME_lbr_RPSStatus);
 	}
 
 	/** Set Service Total Amount.
-		@param LBR_ServiceTotalAmt 
+		@param lbr_ServiceTotalAmt 
 		Defines the Service Total Amount
 	  */
-	public void setLBR_ServiceTotalAmt (BigDecimal LBR_ServiceTotalAmt)
+	public void setlbr_ServiceTotalAmt (BigDecimal lbr_ServiceTotalAmt)
 	{
-		set_Value (COLUMNNAME_LBR_ServiceTotalAmt, LBR_ServiceTotalAmt);
+		set_Value (COLUMNNAME_lbr_ServiceTotalAmt, lbr_ServiceTotalAmt);
 	}
 
 	/** Get Service Total Amount.
 		@return Defines the Service Total Amount
 	  */
-	public BigDecimal getLBR_ServiceTotalAmt () 
+	public BigDecimal getlbr_ServiceTotalAmt () 
 	{
-		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_LBR_ServiceTotalAmt);
+		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_lbr_ServiceTotalAmt);
 		if (bd == null)
 			 return Env.ZERO;
 		return bd;
 	}
 
 	/** Set Shipment Note.
-		@param LBR_ShipNote 
+		@param lbr_ShipNote 
 		Extra Shipment Information 
 	  */
-	public void setLBR_ShipNote (String LBR_ShipNote)
+	public void setlbr_ShipNote (String lbr_ShipNote)
 	{
-		set_Value (COLUMNNAME_LBR_ShipNote, LBR_ShipNote);
+		set_Value (COLUMNNAME_lbr_ShipNote, lbr_ShipNote);
 	}
 
 	/** Get Shipment Note.
 		@return Extra Shipment Information 
 	  */
-	public String getLBR_ShipNote () 
+	public String getlbr_ShipNote () 
 	{
-		return (String)get_Value(COLUMNNAME_LBR_ShipNote);
+		return (String)get_Value(COLUMNNAME_lbr_ShipNote);
 	}
 
-	public org.compiere.model.I_C_BPartner_Location getLBR_Ship_Location() throws RuntimeException
+	public org.compiere.model.I_C_BPartner_Location getlbr_Ship_Location() throws RuntimeException
     {
 		return (org.compiere.model.I_C_BPartner_Location)MTable.get(getCtx(), org.compiere.model.I_C_BPartner_Location.Table_Name)
-			.getPO(getLBR_Ship_Location_ID(), get_TrxName());	}
+			.getPO(getlbr_Ship_Location_ID(), get_TrxName());	}
 
 	/** Set Ship Location.
-		@param LBR_Ship_Location_ID 
+		@param lbr_Ship_Location_ID 
 		The Shipment Location ID
 	  */
-	public void setLBR_Ship_Location_ID (int LBR_Ship_Location_ID)
+	public void setlbr_Ship_Location_ID (int lbr_Ship_Location_ID)
 	{
-		if (LBR_Ship_Location_ID < 1) 
-			set_Value (COLUMNNAME_LBR_Ship_Location_ID, null);
+		if (lbr_Ship_Location_ID < 1) 
+			set_Value (COLUMNNAME_lbr_Ship_Location_ID, null);
 		else 
-			set_Value (COLUMNNAME_LBR_Ship_Location_ID, Integer.valueOf(LBR_Ship_Location_ID));
+			set_Value (COLUMNNAME_lbr_Ship_Location_ID, Integer.valueOf(lbr_Ship_Location_ID));
 	}
 
 	/** Get Ship Location.
 		@return The Shipment Location ID
 	  */
-	public int getLBR_Ship_Location_ID () 
+	public int getlbr_Ship_Location_ID () 
 	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_LBR_Ship_Location_ID);
+		Integer ii = (Integer)get_Value(COLUMNNAME_lbr_Ship_Location_ID);
 		if (ii == null)
 			 return 0;
 		return ii.intValue();
 	}
 
-	/** Emissão Normal = 1 */
-	public static final String LBR_TPEMIS_EmissãoNormal = "1";
-	/** Contingência FS-IA = 2 */
-	public static final String LBR_TPEMIS_ContingênciaFS_IA = "2";
-	/** Contingência SCAN = 3 */
-	public static final String LBR_TPEMIS_ContingênciaSCAN = "3";
-	/** Contingência DPEC = 4 */
-	public static final String LBR_TPEMIS_ContingênciaDPEC = "4";
-	/** Contingência FS-DA = 5 */
-	public static final String LBR_TPEMIS_ContingênciaFS_DA = "5";
-	/** Contingência SVC-AN = 6 */
-	public static final String LBR_TPEMIS_ContingênciaSVC_AN = "6";
-	/** Contingência SVC-RS = 7 */
-	public static final String LBR_TPEMIS_ContingênciaSVC_RS = "7";
-	/** Contingência off-line da NFC-e = 9 */
-	public static final String LBR_TPEMIS_ContingênciaOff_LineDaNFC_E = "9";
-	/** Set Tipo de Emissão.
-		@param LBR_TPEmis 
-		Indicar o Tipo de Emissão da NF-e.
-	  */
-	public void setLBR_TPEmis (String LBR_TPEmis)
-	{
-
-		set_Value (COLUMNNAME_LBR_TPEmis, LBR_TPEmis);
-	}
-
-	/** Get Tipo de Emissão.
-		@return Indicar o Tipo de Emissão da NF-e.
-	  */
-	public String getLBR_TPEmis () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_TPEmis);
-	}
-
 	/** Set Time InOut.
-		@param LBR_TimeInOut 
+		@param lbr_TimeInOut 
 		Defines the InOut Time
 	  */
-	public void setLBR_TimeInOut (String LBR_TimeInOut)
+	public void setlbr_TimeInOut (String lbr_TimeInOut)
 	{
-		set_Value (COLUMNNAME_LBR_TimeInOut, LBR_TimeInOut);
+		set_Value (COLUMNNAME_lbr_TimeInOut, lbr_TimeInOut);
 	}
 
 	/** Get Time InOut.
 		@return Defines the InOut Time
 	  */
-	public String getLBR_TimeInOut () 
+	public String getlbr_TimeInOut () 
 	{
-		return (String)get_Value(COLUMNNAME_LBR_TimeInOut);
+		return (String)get_Value(COLUMNNAME_lbr_TimeInOut);
 	}
 
 	/** Set CIF Total.
-		@param LBR_TotalCIF 
+		@param lbr_TotalCIF 
 		CIF Total for all the document
 	  */
-	public void setLBR_TotalCIF (BigDecimal LBR_TotalCIF)
+	public void setlbr_TotalCIF (BigDecimal lbr_TotalCIF)
 	{
-		set_Value (COLUMNNAME_LBR_TotalCIF, LBR_TotalCIF);
+		set_Value (COLUMNNAME_lbr_TotalCIF, lbr_TotalCIF);
 	}
 
 	/** Get CIF Total.
 		@return CIF Total for all the document
 	  */
-	public BigDecimal getLBR_TotalCIF () 
+	public BigDecimal getlbr_TotalCIF () 
 	{
-		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_LBR_TotalCIF);
+		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_lbr_TotalCIF);
 		if (bd == null)
 			 return Env.ZERO;
 		return bd;
 	}
 
 	/** Set SISCOMEX Total.
-		@param LBR_TotalSISCOMEX 
+		@param lbr_TotalSISCOMEX 
 		SISCOMEX Total for all the document
 	  */
-	public void setLBR_TotalSISCOMEX (BigDecimal LBR_TotalSISCOMEX)
+	public void setlbr_TotalSISCOMEX (BigDecimal lbr_TotalSISCOMEX)
 	{
-		set_Value (COLUMNNAME_LBR_TotalSISCOMEX, LBR_TotalSISCOMEX);
+		set_Value (COLUMNNAME_lbr_TotalSISCOMEX, lbr_TotalSISCOMEX);
 	}
 
 	/** Get SISCOMEX Total.
 		@return SISCOMEX Total for all the document
 	  */
-	public BigDecimal getLBR_TotalSISCOMEX () 
+	public BigDecimal getlbr_TotalSISCOMEX () 
 	{
-		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_LBR_TotalSISCOMEX);
+		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_lbr_TotalSISCOMEX);
 		if (bd == null)
 			 return Env.ZERO;
 		return bd;
@@ -4134,230 +4326,38 @@ public class X_LBR_NotaFiscal extends PO implements I_LBR_NotaFiscal, I_Persiste
 	/** End User (Double Base) = EN2 */
 	public static final String LBR_TRANSACTIONTYPE_EndUserDoubleBase = "EN2";
 	/** Set Transaction Type.
-		@param LBR_TransactionType 
+		@param lbr_TransactionType 
 		Defines the Transaction Type
 	  */
-	public void setLBR_TransactionType (String LBR_TransactionType)
+	public void setlbr_TransactionType (String lbr_TransactionType)
 	{
 
-		set_Value (COLUMNNAME_LBR_TransactionType, LBR_TransactionType);
+		set_Value (COLUMNNAME_lbr_TransactionType, lbr_TransactionType);
 	}
 
 	/** Get Transaction Type.
 		@return Defines the Transaction Type
 	  */
-	public String getLBR_TransactionType () 
+	public String getlbr_TransactionType () 
 	{
-		return (String)get_Value(COLUMNNAME_LBR_TransactionType);
+		return (String)get_Value(COLUMNNAME_lbr_TransactionType);
 	}
 
 	/** Set Total de Tributo.
-		@param LBR_vTotTrib 
+		@param lbr_vTotTrib 
 		Valor aproximado total de tributos federais, estaduais e municipais.
 	  */
-	public void setLBR_vTotTrib (BigDecimal LBR_vTotTrib)
+	public void setlbr_vTotTrib (BigDecimal lbr_vTotTrib)
 	{
-		set_Value (COLUMNNAME_LBR_vTotTrib, LBR_vTotTrib);
+		set_Value (COLUMNNAME_lbr_vTotTrib, lbr_vTotTrib);
 	}
 
 	/** Get Total de Tributo.
 		@return Valor aproximado total de tributos federais, estaduais e municipais.
 	  */
-	public BigDecimal getLBR_vTotTrib () 
+	public BigDecimal getlbr_vTotTrib () 
 	{
-		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_LBR_vTotTrib);
-		if (bd == null)
-			 return Env.ZERO;
-		return bd;
-	}
-
-	public org.compiere.model.I_M_InOut getM_InOut() throws RuntimeException
-    {
-		return (org.compiere.model.I_M_InOut)MTable.get(getCtx(), org.compiere.model.I_M_InOut.Table_Name)
-			.getPO(getM_InOut_ID(), get_TrxName());	}
-
-	/** Set Shipment/Receipt.
-		@param M_InOut_ID 
-		Material Shipment Document
-	  */
-	public void setM_InOut_ID (int M_InOut_ID)
-	{
-		if (M_InOut_ID < 1) 
-			set_Value (COLUMNNAME_M_InOut_ID, null);
-		else 
-			set_Value (COLUMNNAME_M_InOut_ID, Integer.valueOf(M_InOut_ID));
-	}
-
-	/** Get Shipment/Receipt.
-		@return Material Shipment Document
-	  */
-	public int getM_InOut_ID () 
-	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_M_InOut_ID);
-		if (ii == null)
-			 return 0;
-		return ii.intValue();
-	}
-
-	public org.compiere.model.I_M_RMA getM_RMA() throws RuntimeException
-    {
-		return (org.compiere.model.I_M_RMA)MTable.get(getCtx(), org.compiere.model.I_M_RMA.Table_Name)
-			.getPO(getM_RMA_ID(), get_TrxName());	}
-
-	/** Set RMA.
-		@param M_RMA_ID 
-		Return Material Authorization
-	  */
-	public void setM_RMA_ID (int M_RMA_ID)
-	{
-		if (M_RMA_ID < 1) 
-			set_Value (COLUMNNAME_M_RMA_ID, null);
-		else 
-			set_Value (COLUMNNAME_M_RMA_ID, Integer.valueOf(M_RMA_ID));
-	}
-
-	/** Get RMA.
-		@return Return Material Authorization
-	  */
-	public int getM_RMA_ID () 
-	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_M_RMA_ID);
-		if (ii == null)
-			 return 0;
-		return ii.intValue();
-	}
-
-	/** Set Shipper.
-		@param M_Shipper_ID 
-		Method or manner of product delivery
-	  */
-	public void setM_Shipper_ID (int M_Shipper_ID)
-	{
-		if (M_Shipper_ID < 1) 
-			set_Value (COLUMNNAME_M_Shipper_ID, null);
-		else 
-			set_Value (COLUMNNAME_M_Shipper_ID, Integer.valueOf(M_Shipper_ID));
-	}
-
-	/** Get Shipper.
-		@return Method or manner of product delivery
-	  */
-	public int getM_Shipper_ID () 
-	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_M_Shipper_ID);
-		if (ii == null)
-			 return 0;
-		return ii.intValue();
-	}
-
-	/** Set No Packages.
-		@param NoPackages 
-		Number of packages shipped
-	  */
-	public void setNoPackages (int NoPackages)
-	{
-		set_Value (COLUMNNAME_NoPackages, Integer.valueOf(NoPackages));
-	}
-
-	/** Get No Packages.
-		@return Number of packages shipped
-	  */
-	public int getNoPackages () 
-	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_NoPackages);
-		if (ii == null)
-			 return 0;
-		return ii.intValue();
-	}
-
-	public I_C_Location getOrg_Location() throws RuntimeException
-    {
-		return (I_C_Location)MTable.get(getCtx(), I_C_Location.Table_Name)
-			.getPO(getOrg_Location_ID(), get_TrxName());	}
-
-	/** Set Org Address.
-		@param Org_Location_ID 
-		Organization Location/Address
-	  */
-	public void setOrg_Location_ID (int Org_Location_ID)
-	{
-		if (Org_Location_ID < 1) 
-			set_Value (COLUMNNAME_Org_Location_ID, null);
-		else 
-			set_Value (COLUMNNAME_Org_Location_ID, Integer.valueOf(Org_Location_ID));
-	}
-
-	/** Get Org Address.
-		@return Organization Location/Address
-	  */
-	public int getOrg_Location_ID () 
-	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_Org_Location_ID);
-		if (ii == null)
-			 return 0;
-		return ii.intValue();
-	}
-
-	/** Set Processed.
-		@param Processed 
-		The document has been processed
-	  */
-	public void setProcessed (boolean Processed)
-	{
-		set_Value (COLUMNNAME_Processed, Boolean.valueOf(Processed));
-	}
-
-	/** Get Processed.
-		@return The document has been processed
-	  */
-	public boolean isProcessed () 
-	{
-		Object oo = get_Value(COLUMNNAME_Processed);
-		if (oo != null) 
-		{
-			 if (oo instanceof Boolean) 
-				 return ((Boolean)oo).booleanValue(); 
-			return "Y".equals(oo);
-		}
-		return false;
-	}
-
-	/** Set Process Now.
-		@param Processing Process Now	  */
-	public void setProcessing (boolean Processing)
-	{
-		set_Value (COLUMNNAME_Processing, Boolean.valueOf(Processing));
-	}
-
-	/** Get Process Now.
-		@return Process Now	  */
-	public boolean isProcessing () 
-	{
-		Object oo = get_Value(COLUMNNAME_Processing);
-		if (oo != null) 
-		{
-			 if (oo instanceof Boolean) 
-				 return ((Boolean)oo).booleanValue(); 
-			return "Y".equals(oo);
-		}
-		return false;
-	}
-
-	/** Set Total Lines.
-		@param TotalLines 
-		Total of all document lines
-	  */
-	public void setTotalLines (BigDecimal TotalLines)
-	{
-		set_Value (COLUMNNAME_TotalLines, TotalLines);
-	}
-
-	/** Get Total Lines.
-		@return Total of all document lines
-	  */
-	public BigDecimal getTotalLines () 
-	{
-		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_TotalLines);
+		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_lbr_vTotTrib);
 		if (bd == null)
 			 return Env.ZERO;
 		return bd;

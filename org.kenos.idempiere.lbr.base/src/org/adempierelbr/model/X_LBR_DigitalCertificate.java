@@ -31,7 +31,7 @@ public class X_LBR_DigitalCertificate extends PO implements I_LBR_DigitalCertifi
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20170105L;
+	private static final long serialVersionUID = 20170116L;
 
     /** Standard Constructor */
     public X_LBR_DigitalCertificate (Properties ctx, int LBR_DigitalCertificate_ID, String trxName)
@@ -134,49 +134,6 @@ public class X_LBR_DigitalCertificate extends PO implements I_LBR_DigitalCertifi
 			return "Y".equals(oo);
 		}
 		return false;
-	}
-
-	/** Set CNPJ.
-		@param LBR_CNPJ 
-		Used to identify Legal Entities in Brazil
-	  */
-	public void setLBR_CNPJ (String LBR_CNPJ)
-	{
-		set_Value (COLUMNNAME_LBR_CNPJ, LBR_CNPJ);
-	}
-
-	/** Get CNPJ.
-		@return Used to identify Legal Entities in Brazil
-	  */
-	public String getLBR_CNPJ () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_CNPJ);
-	}
-
-	/** Java Key Store = JKS */
-	public static final String LBR_CERTTYPE_JavaKeyStore = "JKS";
-	/** PKCS#12 = P12 */
-	public static final String LBR_CERTTYPE_PKCS12 = "P12";
-	/** ICP TrustStore (JKS) = ICP */
-	public static final String LBR_CERTTYPE_ICPTrustStoreJKS = "ICP";
-	/** PKCS#11 = P11 */
-	public static final String LBR_CERTTYPE_PKCS11 = "P11";
-	/** Set Certificate Type.
-		@param LBR_CertType 
-		Define the type of Digital Certificate
-	  */
-	public void setLBR_CertType (String LBR_CertType)
-	{
-
-		set_Value (COLUMNNAME_LBR_CertType, LBR_CertType);
-	}
-
-	/** Get Certificate Type.
-		@return Define the type of Digital Certificate
-	  */
-	public String getLBR_CertType () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_CertType);
 	}
 
 	/** Set Digital Certificate.
@@ -286,5 +243,48 @@ public class X_LBR_DigitalCertificate extends PO implements I_LBR_DigitalCertifi
 	public Timestamp getValidTo () 
 	{
 		return (Timestamp)get_Value(COLUMNNAME_ValidTo);
+	}
+
+	/** Set CNPJ.
+		@param lbr_CNPJ 
+		Used to identify Legal Entities in Brazil
+	  */
+	public void setlbr_CNPJ (String lbr_CNPJ)
+	{
+		set_Value (COLUMNNAME_lbr_CNPJ, lbr_CNPJ);
+	}
+
+	/** Get CNPJ.
+		@return Used to identify Legal Entities in Brazil
+	  */
+	public String getlbr_CNPJ () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_CNPJ);
+	}
+
+	/** Java Key Store = JKS */
+	public static final String LBR_CERTTYPE_JavaKeyStore = "JKS";
+	/** PKCS#12 = P12 */
+	public static final String LBR_CERTTYPE_PKCS12 = "P12";
+	/** ICP TrustStore (JKS) = ICP */
+	public static final String LBR_CERTTYPE_ICPTrustStoreJKS = "ICP";
+	/** PKCS#11 = P11 */
+	public static final String LBR_CERTTYPE_PKCS11 = "P11";
+	/** Set Certificate Type.
+		@param lbr_CertType 
+		Define the type of Digital Certificate
+	  */
+	public void setlbr_CertType (String lbr_CertType)
+	{
+
+		set_Value (COLUMNNAME_lbr_CertType, lbr_CertType);
+	}
+
+	/** Get Certificate Type.
+		@return Define the type of Digital Certificate
+	  */
+	public String getlbr_CertType () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_CertType);
 	}
 }

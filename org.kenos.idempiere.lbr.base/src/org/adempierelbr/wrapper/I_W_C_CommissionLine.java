@@ -25,7 +25,7 @@ import org.compiere.util.KeyNamePair;
  *  @version Release 4.1
  */
 @SuppressWarnings("all")
-public interface I_W_C_CommissionLine 
+public interface I_W_C_CommissionLine extends I_C_CommissionLine 
 {
 
     /** TableName=C_CommissionLine */
@@ -80,29 +80,6 @@ public interface I_W_C_CommissionLine
 	/** Get Formula (BR)	  */
 	public int getLBR_Formula_ID();
 
-    /** Column name LBR_IsManufactured */
-    public static final String COLUMNNAME_LBR_IsManufactured = "LBR_IsManufactured";
-
-	/** Yes = Y */
-	public static final String LBR_ISMANUFACTURED_Yes = "Y";
-
-	/** No = N */
-	public static final String LBR_ISMANUFACTURED_No = "N";
-
-	/** Both = B */
-	public static final String LBR_ISMANUFACTURED_Both = "B";
-
-
-	/** Set Is Manufactured.
-	  * Defines if the Product is Manufactured
-	  */
-	public void setLBR_IsManufactured (String LBR_IsManufactured);
-
-	/** Get Is Manufactured.
-	  * Defines if the Product is Manufactured
-	  */
-	public String getLBR_IsManufactured();
-
     /** Column name ProductType */
     public static final String COLUMNNAME_ProductType = "ProductType";
 
@@ -137,4 +114,27 @@ public interface I_W_C_CommissionLine
 	  * Type of product
 	  */
 	public String getProductType();
+
+    /** Column name lbr_IsManufactured */
+    public static final String COLUMNNAME_lbr_IsManufactured = "lbr_IsManufactured";
+
+	/** Yes = Y */
+	public static final String LBR_ISMANUFACTURED_Yes = "Y";
+
+	/** No = N */
+	public static final String LBR_ISMANUFACTURED_No = "N";
+
+	/** Both = B */
+	public static final String LBR_ISMANUFACTURED_Both = "B";
+
+
+	/** Set Is Manufactured.
+	  * Defines if the Product is Manufactured
+	  */
+	public void setlbr_IsManufactured (String lbr_IsManufactured);
+
+	/** Get Is Manufactured.
+	  * Defines if the Product is Manufactured
+	  */
+	public String getlbr_IsManufactured();
 }

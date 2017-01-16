@@ -33,7 +33,7 @@ public class X_LBR_Boleto extends PO implements I_LBR_Boleto, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20170105L;
+	private static final long serialVersionUID = 20170116L;
 
     /** Standard Constructor */
     public X_LBR_Boleto (Properties ctx, int LBR_Boleto_ID, String trxName)
@@ -51,19 +51,19 @@ public class X_LBR_Boleto extends PO implements I_LBR_Boleto, I_Persistent
 			setGrandTotal (Env.ZERO);
 			setIsPaid (false);
 // 'N'
-			setLBR_AgencyNo (null);
-			setLBR_BPTypeBR (null);
-			setLBR_BillFold (null);
 			setLBR_Boleto_ID (0);
-			setLBR_Cessionary (null);
-			setLBR_DocDate (new Timestamp( System.currentTimeMillis() ));
-			setLBR_HasSue (false);
-// 'N'
-			setLBR_IsCancelled (false);
-// 'N'
-			setLBR_ReceiverName (null);
-			setLBR_jBoletoNo (null);
 			setRoutingNo (null);
+			setlbr_AgencyNo (null);
+			setlbr_BPTypeBR (null);
+			setlbr_BillFold (null);
+			setlbr_Cessionary (null);
+			setlbr_DocDate (new Timestamp( System.currentTimeMillis() ));
+			setlbr_HasSue (false);
+// 'N'
+			setlbr_IsCancelled (false);
+// 'N'
+			setlbr_ReceiverName (null);
+			setlbr_jBoletoNo (null);
         } */
     }
 
@@ -458,83 +458,6 @@ public class X_LBR_Boleto extends PO implements I_LBR_Boleto, I_Persistent
 		return false;
 	}
 
-	/** Set Agency Number.
-		@param LBR_AgencyNo 
-		Agency Number
-	  */
-	public void setLBR_AgencyNo (String LBR_AgencyNo)
-	{
-		set_Value (COLUMNNAME_LBR_AgencyNo, LBR_AgencyNo);
-	}
-
-	/** Get Agency Number.
-		@return Agency Number
-	  */
-	public String getLBR_AgencyNo () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_AgencyNo);
-	}
-
-	/** PJ - Legal Entity = PJ */
-	public static final String LBR_BPTYPEBR_PJ_LegalEntity = "PJ";
-	/** PF - Individual = PF */
-	public static final String LBR_BPTYPEBR_PF_Individual = "PF";
-	/** PM - Individual Minor = PM */
-	public static final String LBR_BPTYPEBR_PM_IndividualMinor = "PM";
-	/** XX - Foreigner = XX */
-	public static final String LBR_BPTYPEBR_XX_Foreigner = "XX";
-	/** Set Brazilian BP Type.
-		@param LBR_BPTypeBR 
-		Brazilian BP Type (Identifies if the BP is a Legal Entity or an Individual)
-	  */
-	public void setLBR_BPTypeBR (String LBR_BPTypeBR)
-	{
-
-		set_Value (COLUMNNAME_LBR_BPTypeBR, LBR_BPTypeBR);
-	}
-
-	/** Get Brazilian BP Type.
-		@return Brazilian BP Type (Identifies if the BP is a Legal Entity or an Individual)
-	  */
-	public String getLBR_BPTypeBR () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_BPTypeBR);
-	}
-
-	/** Set Bill Fold.
-		@param LBR_BillFold 
-		Type of Bill Fold - For Bank Usage
-	  */
-	public void setLBR_BillFold (String LBR_BillFold)
-	{
-		set_Value (COLUMNNAME_LBR_BillFold, LBR_BillFold);
-	}
-
-	/** Get Bill Fold.
-		@return Type of Bill Fold - For Bank Usage
-	  */
-	public String getLBR_BillFold () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_BillFold);
-	}
-
-	/** Set Bill Kind.
-		@param LBR_BillKind 
-		Defines the kind of Bill
-	  */
-	public void setLBR_BillKind (String LBR_BillKind)
-	{
-		set_Value (COLUMNNAME_LBR_BillKind, LBR_BillKind);
-	}
-
-	/** Get Bill Kind.
-		@return Defines the kind of Bill
-	  */
-	public String getLBR_BillKind () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_BillKind);
-	}
-
 	/** Set Boleto.
 		@param LBR_Boleto_ID 
 		Primary Key table LBR_Boleto
@@ -556,301 +479,6 @@ public class X_LBR_Boleto extends PO implements I_LBR_Boleto, I_Persistent
 		if (ii == null)
 			 return 0;
 		return ii.intValue();
-	}
-
-	/** Set Cessionary.
-		@param LBR_Cessionary 
-		Identifies the Cessionary
-	  */
-	public void setLBR_Cessionary (String LBR_Cessionary)
-	{
-		set_Value (COLUMNNAME_LBR_Cessionary, LBR_Cessionary);
-	}
-
-	/** Get Cessionary.
-		@return Identifies the Cessionary
-	  */
-	public String getLBR_Cessionary () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_Cessionary);
-	}
-
-	/** Set Client Code.
-		@param LBR_ClientCode 
-		Client Code - needed for some Banks
-	  */
-	public void setLBR_ClientCode (String LBR_ClientCode)
-	{
-		set_Value (COLUMNNAME_LBR_ClientCode, LBR_ClientCode);
-	}
-
-	/** Get Client Code.
-		@return Client Code - needed for some Banks
-	  */
-	public String getLBR_ClientCode () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_ClientCode);
-	}
-
-	/** Set Document Date.
-		@param LBR_DocDate 
-		Identifies the Document Date
-	  */
-	public void setLBR_DocDate (Timestamp LBR_DocDate)
-	{
-		set_Value (COLUMNNAME_LBR_DocDate, LBR_DocDate);
-	}
-
-	/** Get Document Date.
-		@return Identifies the Document Date
-	  */
-	public Timestamp getLBR_DocDate () 
-	{
-		return (Timestamp)get_Value(COLUMNNAME_LBR_DocDate);
-	}
-
-	/** Set Has Sue.
-		@param LBR_HasSue 
-		Define if this Document must be Sue
-	  */
-	public void setLBR_HasSue (boolean LBR_HasSue)
-	{
-		set_Value (COLUMNNAME_LBR_HasSue, Boolean.valueOf(LBR_HasSue));
-	}
-
-	/** Get Has Sue.
-		@return Define if this Document must be Sue
-	  */
-	public boolean isLBR_HasSue () 
-	{
-		Object oo = get_Value(COLUMNNAME_LBR_HasSue);
-		if (oo != null) 
-		{
-			 if (oo instanceof Boolean) 
-				 return ((Boolean)oo).booleanValue(); 
-			return "Y".equals(oo);
-		}
-		return false;
-	}
-
-	/** Set Instruction 1.
-		@param LBR_Instruction1 
-		Identifies the Instrucion 1
-	  */
-	public void setLBR_Instruction1 (String LBR_Instruction1)
-	{
-		set_Value (COLUMNNAME_LBR_Instruction1, LBR_Instruction1);
-	}
-
-	/** Get Instruction 1.
-		@return Identifies the Instrucion 1
-	  */
-	public String getLBR_Instruction1 () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_Instruction1);
-	}
-
-	/** Set Instruction 2.
-		@param LBR_Instruction2 
-		Identifies the Instrucion 2
-	  */
-	public void setLBR_Instruction2 (String LBR_Instruction2)
-	{
-		set_Value (COLUMNNAME_LBR_Instruction2, LBR_Instruction2);
-	}
-
-	/** Get Instruction 2.
-		@return Identifies the Instrucion 2
-	  */
-	public String getLBR_Instruction2 () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_Instruction2);
-	}
-
-	/** Set Instruction 3.
-		@param LBR_Instruction3 
-		Identifies the Instrucion 3
-	  */
-	public void setLBR_Instruction3 (String LBR_Instruction3)
-	{
-		set_Value (COLUMNNAME_LBR_Instruction3, LBR_Instruction3);
-	}
-
-	/** Get Instruction 3.
-		@return Identifies the Instrucion 3
-	  */
-	public String getLBR_Instruction3 () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_Instruction3);
-	}
-
-	/** Set Interest.
-		@param LBR_Interest 
-		Defines the Interest
-	  */
-	public void setLBR_Interest (BigDecimal LBR_Interest)
-	{
-		set_Value (COLUMNNAME_LBR_Interest, LBR_Interest);
-	}
-
-	/** Get Interest.
-		@return Defines the Interest
-	  */
-	public BigDecimal getLBR_Interest () 
-	{
-		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_LBR_Interest);
-		if (bd == null)
-			 return Env.ZERO;
-		return bd;
-	}
-
-	/** Set IsCancelled.
-		@param LBR_IsCancelled 
-		Defines if the Document IsCancelled
-	  */
-	public void setLBR_IsCancelled (boolean LBR_IsCancelled)
-	{
-		set_Value (COLUMNNAME_LBR_IsCancelled, Boolean.valueOf(LBR_IsCancelled));
-	}
-
-	/** Get IsCancelled.
-		@return Defines if the Document IsCancelled
-	  */
-	public boolean isLBR_IsCancelled () 
-	{
-		Object oo = get_Value(COLUMNNAME_LBR_IsCancelled);
-		if (oo != null) 
-		{
-			 if (oo instanceof Boolean) 
-				 return ((Boolean)oo).booleanValue(); 
-			return "Y".equals(oo);
-		}
-		return false;
-	}
-
-	/** Set Occurrence Number.
-		@param LBR_OccurNo 
-		Defines the Occurrence Number
-	  */
-	public void setLBR_OccurNo (int LBR_OccurNo)
-	{
-		set_Value (COLUMNNAME_LBR_OccurNo, Integer.valueOf(LBR_OccurNo));
-	}
-
-	/** Get Occurrence Number.
-		@return Defines the Occurrence Number
-	  */
-	public int getLBR_OccurNo () 
-	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_LBR_OccurNo);
-		if (ii == null)
-			 return 0;
-		return ii.intValue();
-	}
-
-	/** Set PaySchedule Number.
-		@param LBR_PayScheduleNo 
-		Defines the PaySchedule Number
-	  */
-	public void setLBR_PayScheduleNo (String LBR_PayScheduleNo)
-	{
-		set_Value (COLUMNNAME_LBR_PayScheduleNo, LBR_PayScheduleNo);
-	}
-
-	/** Get PaySchedule Number.
-		@return Defines the PaySchedule Number
-	  */
-	public String getLBR_PayScheduleNo () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_PayScheduleNo);
-	}
-
-	/** Set Payment Location 1.
-		@param LBR_PaymentLocation1 
-		Identifies the Payment Location 1
-	  */
-	public void setLBR_PaymentLocation1 (String LBR_PaymentLocation1)
-	{
-		set_Value (COLUMNNAME_LBR_PaymentLocation1, LBR_PaymentLocation1);
-	}
-
-	/** Get Payment Location 1.
-		@return Identifies the Payment Location 1
-	  */
-	public String getLBR_PaymentLocation1 () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_PaymentLocation1);
-	}
-
-	/** Set Payment Location 2.
-		@param LBR_PaymentLocation2 
-		Identifies the Payment Location 2
-	  */
-	public void setLBR_PaymentLocation2 (String LBR_PaymentLocation2)
-	{
-		set_Value (COLUMNNAME_LBR_PaymentLocation2, LBR_PaymentLocation2);
-	}
-
-	/** Get Payment Location 2.
-		@return Identifies the Payment Location 2
-	  */
-	public String getLBR_PaymentLocation2 () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_PaymentLocation2);
-	}
-
-	/** Set Receiver Name.
-		@param LBR_ReceiverName 
-		Name of the Receiver
-	  */
-	public void setLBR_ReceiverName (String LBR_ReceiverName)
-	{
-		set_Value (COLUMNNAME_LBR_ReceiverName, LBR_ReceiverName);
-	}
-
-	/** Get Receiver Name.
-		@return Name of the Receiver
-	  */
-	public String getLBR_ReceiverName () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_ReceiverName);
-	}
-
-	/** Set Sue Days.
-		@param LBR_SueDays 
-		Define the Sue Days
-	  */
-	public void setLBR_SueDays (int LBR_SueDays)
-	{
-		set_Value (COLUMNNAME_LBR_SueDays, Integer.valueOf(LBR_SueDays));
-	}
-
-	/** Get Sue Days.
-		@return Define the Sue Days
-	  */
-	public int getLBR_SueDays () 
-	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_LBR_SueDays);
-		if (ii == null)
-			 return 0;
-		return ii.intValue();
-	}
-
-	/** Set jBoleto Number.
-		@param LBR_jBoletoNo 
-		Identifies the bank number at jBoleto
-	  */
-	public void setLBR_jBoletoNo (String LBR_jBoletoNo)
-	{
-		set_Value (COLUMNNAME_LBR_jBoletoNo, LBR_jBoletoNo);
-	}
-
-	/** Get jBoleto Number.
-		@return Identifies the bank number at jBoleto
-	  */
-	public String getLBR_jBoletoNo () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_jBoletoNo);
 	}
 
 	/** Set ZIP.
@@ -902,5 +530,377 @@ public class X_LBR_Boleto extends PO implements I_LBR_Boleto, I_Persistent
 	public String getRoutingNo () 
 	{
 		return (String)get_Value(COLUMNNAME_RoutingNo);
+	}
+
+	/** Set Agency Number.
+		@param lbr_AgencyNo 
+		Agency Number
+	  */
+	public void setlbr_AgencyNo (String lbr_AgencyNo)
+	{
+		set_Value (COLUMNNAME_lbr_AgencyNo, lbr_AgencyNo);
+	}
+
+	/** Get Agency Number.
+		@return Agency Number
+	  */
+	public String getlbr_AgencyNo () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_AgencyNo);
+	}
+
+	/** PJ - Legal Entity = PJ */
+	public static final String LBR_BPTYPEBR_PJ_LegalEntity = "PJ";
+	/** PF - Individual = PF */
+	public static final String LBR_BPTYPEBR_PF_Individual = "PF";
+	/** PM - Individual Minor = PM */
+	public static final String LBR_BPTYPEBR_PM_IndividualMinor = "PM";
+	/** XX - Foreigner = XX */
+	public static final String LBR_BPTYPEBR_XX_Foreigner = "XX";
+	/** Set Brazilian BP Type.
+		@param lbr_BPTypeBR 
+		Brazilian BP Type (Identifies if the BP is a Legal Entity or an Individual)
+	  */
+	public void setlbr_BPTypeBR (String lbr_BPTypeBR)
+	{
+
+		set_Value (COLUMNNAME_lbr_BPTypeBR, lbr_BPTypeBR);
+	}
+
+	/** Get Brazilian BP Type.
+		@return Brazilian BP Type (Identifies if the BP is a Legal Entity or an Individual)
+	  */
+	public String getlbr_BPTypeBR () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_BPTypeBR);
+	}
+
+	/** Set Bill Fold.
+		@param lbr_BillFold 
+		Type of Bill Fold - For Bank Usage
+	  */
+	public void setlbr_BillFold (String lbr_BillFold)
+	{
+		set_Value (COLUMNNAME_lbr_BillFold, lbr_BillFold);
+	}
+
+	/** Get Bill Fold.
+		@return Type of Bill Fold - For Bank Usage
+	  */
+	public String getlbr_BillFold () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_BillFold);
+	}
+
+	/** Set Bill Kind.
+		@param lbr_BillKind 
+		Defines the kind of Bill
+	  */
+	public void setlbr_BillKind (String lbr_BillKind)
+	{
+		set_Value (COLUMNNAME_lbr_BillKind, lbr_BillKind);
+	}
+
+	/** Get Bill Kind.
+		@return Defines the kind of Bill
+	  */
+	public String getlbr_BillKind () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_BillKind);
+	}
+
+	/** Set Cessionary.
+		@param lbr_Cessionary 
+		Identifies the Cessionary
+	  */
+	public void setlbr_Cessionary (String lbr_Cessionary)
+	{
+		set_Value (COLUMNNAME_lbr_Cessionary, lbr_Cessionary);
+	}
+
+	/** Get Cessionary.
+		@return Identifies the Cessionary
+	  */
+	public String getlbr_Cessionary () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_Cessionary);
+	}
+
+	/** Set Client Code.
+		@param lbr_ClientCode 
+		Client Code - needed for some Banks
+	  */
+	public void setlbr_ClientCode (String lbr_ClientCode)
+	{
+		set_Value (COLUMNNAME_lbr_ClientCode, lbr_ClientCode);
+	}
+
+	/** Get Client Code.
+		@return Client Code - needed for some Banks
+	  */
+	public String getlbr_ClientCode () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_ClientCode);
+	}
+
+	/** Set Document Date.
+		@param lbr_DocDate 
+		Identifies the Document Date
+	  */
+	public void setlbr_DocDate (Timestamp lbr_DocDate)
+	{
+		set_Value (COLUMNNAME_lbr_DocDate, lbr_DocDate);
+	}
+
+	/** Get Document Date.
+		@return Identifies the Document Date
+	  */
+	public Timestamp getlbr_DocDate () 
+	{
+		return (Timestamp)get_Value(COLUMNNAME_lbr_DocDate);
+	}
+
+	/** Set Has Sue.
+		@param lbr_HasSue 
+		Define if this Document must be Sue
+	  */
+	public void setlbr_HasSue (boolean lbr_HasSue)
+	{
+		set_Value (COLUMNNAME_lbr_HasSue, Boolean.valueOf(lbr_HasSue));
+	}
+
+	/** Get Has Sue.
+		@return Define if this Document must be Sue
+	  */
+	public boolean islbr_HasSue () 
+	{
+		Object oo = get_Value(COLUMNNAME_lbr_HasSue);
+		if (oo != null) 
+		{
+			 if (oo instanceof Boolean) 
+				 return ((Boolean)oo).booleanValue(); 
+			return "Y".equals(oo);
+		}
+		return false;
+	}
+
+	/** Set Instruction 1.
+		@param lbr_Instruction1 
+		Identifies the Instrucion 1
+	  */
+	public void setlbr_Instruction1 (String lbr_Instruction1)
+	{
+		set_Value (COLUMNNAME_lbr_Instruction1, lbr_Instruction1);
+	}
+
+	/** Get Instruction 1.
+		@return Identifies the Instrucion 1
+	  */
+	public String getlbr_Instruction1 () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_Instruction1);
+	}
+
+	/** Set Instruction 2.
+		@param lbr_Instruction2 
+		Identifies the Instrucion 2
+	  */
+	public void setlbr_Instruction2 (String lbr_Instruction2)
+	{
+		set_Value (COLUMNNAME_lbr_Instruction2, lbr_Instruction2);
+	}
+
+	/** Get Instruction 2.
+		@return Identifies the Instrucion 2
+	  */
+	public String getlbr_Instruction2 () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_Instruction2);
+	}
+
+	/** Set Instruction 3.
+		@param lbr_Instruction3 
+		Identifies the Instrucion 3
+	  */
+	public void setlbr_Instruction3 (String lbr_Instruction3)
+	{
+		set_Value (COLUMNNAME_lbr_Instruction3, lbr_Instruction3);
+	}
+
+	/** Get Instruction 3.
+		@return Identifies the Instrucion 3
+	  */
+	public String getlbr_Instruction3 () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_Instruction3);
+	}
+
+	/** Set Interest.
+		@param lbr_Interest 
+		Defines the Interest
+	  */
+	public void setlbr_Interest (BigDecimal lbr_Interest)
+	{
+		set_Value (COLUMNNAME_lbr_Interest, lbr_Interest);
+	}
+
+	/** Get Interest.
+		@return Defines the Interest
+	  */
+	public BigDecimal getlbr_Interest () 
+	{
+		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_lbr_Interest);
+		if (bd == null)
+			 return Env.ZERO;
+		return bd;
+	}
+
+	/** Set IsCancelled.
+		@param lbr_IsCancelled 
+		Defines if the Document IsCancelled
+	  */
+	public void setlbr_IsCancelled (boolean lbr_IsCancelled)
+	{
+		set_Value (COLUMNNAME_lbr_IsCancelled, Boolean.valueOf(lbr_IsCancelled));
+	}
+
+	/** Get IsCancelled.
+		@return Defines if the Document IsCancelled
+	  */
+	public boolean islbr_IsCancelled () 
+	{
+		Object oo = get_Value(COLUMNNAME_lbr_IsCancelled);
+		if (oo != null) 
+		{
+			 if (oo instanceof Boolean) 
+				 return ((Boolean)oo).booleanValue(); 
+			return "Y".equals(oo);
+		}
+		return false;
+	}
+
+	/** Set Occurrence Number.
+		@param lbr_OccurNo 
+		Defines the Occurrence Number
+	  */
+	public void setlbr_OccurNo (int lbr_OccurNo)
+	{
+		set_Value (COLUMNNAME_lbr_OccurNo, Integer.valueOf(lbr_OccurNo));
+	}
+
+	/** Get Occurrence Number.
+		@return Defines the Occurrence Number
+	  */
+	public int getlbr_OccurNo () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_lbr_OccurNo);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
+	/** Set PaySchedule Number.
+		@param lbr_PayScheduleNo 
+		Defines the PaySchedule Number
+	  */
+	public void setlbr_PayScheduleNo (String lbr_PayScheduleNo)
+	{
+		set_Value (COLUMNNAME_lbr_PayScheduleNo, lbr_PayScheduleNo);
+	}
+
+	/** Get PaySchedule Number.
+		@return Defines the PaySchedule Number
+	  */
+	public String getlbr_PayScheduleNo () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_PayScheduleNo);
+	}
+
+	/** Set Payment Location 1.
+		@param lbr_PaymentLocation1 
+		Identifies the Payment Location 1
+	  */
+	public void setlbr_PaymentLocation1 (String lbr_PaymentLocation1)
+	{
+		set_Value (COLUMNNAME_lbr_PaymentLocation1, lbr_PaymentLocation1);
+	}
+
+	/** Get Payment Location 1.
+		@return Identifies the Payment Location 1
+	  */
+	public String getlbr_PaymentLocation1 () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_PaymentLocation1);
+	}
+
+	/** Set Payment Location 2.
+		@param lbr_PaymentLocation2 
+		Identifies the Payment Location 2
+	  */
+	public void setlbr_PaymentLocation2 (String lbr_PaymentLocation2)
+	{
+		set_Value (COLUMNNAME_lbr_PaymentLocation2, lbr_PaymentLocation2);
+	}
+
+	/** Get Payment Location 2.
+		@return Identifies the Payment Location 2
+	  */
+	public String getlbr_PaymentLocation2 () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_PaymentLocation2);
+	}
+
+	/** Set Receiver Name.
+		@param lbr_ReceiverName 
+		Name of the Receiver
+	  */
+	public void setlbr_ReceiverName (String lbr_ReceiverName)
+	{
+		set_Value (COLUMNNAME_lbr_ReceiverName, lbr_ReceiverName);
+	}
+
+	/** Get Receiver Name.
+		@return Name of the Receiver
+	  */
+	public String getlbr_ReceiverName () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_ReceiverName);
+	}
+
+	/** Set Sue Days.
+		@param lbr_SueDays 
+		Define the Sue Days
+	  */
+	public void setlbr_SueDays (int lbr_SueDays)
+	{
+		set_Value (COLUMNNAME_lbr_SueDays, Integer.valueOf(lbr_SueDays));
+	}
+
+	/** Get Sue Days.
+		@return Define the Sue Days
+	  */
+	public int getlbr_SueDays () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_lbr_SueDays);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
+	/** Set jBoleto Number.
+		@param lbr_jBoletoNo 
+		Identifies the bank number at jBoleto
+	  */
+	public void setlbr_jBoletoNo (String lbr_jBoletoNo)
+	{
+		set_Value (COLUMNNAME_lbr_jBoletoNo, lbr_jBoletoNo);
+	}
+
+	/** Get jBoleto Number.
+		@return Identifies the bank number at jBoleto
+	  */
+	public String getlbr_jBoletoNo () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_jBoletoNo);
 	}
 }

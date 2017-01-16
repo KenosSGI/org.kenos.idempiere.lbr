@@ -32,7 +32,7 @@ public class X_LBR_NFeLot extends PO implements I_LBR_NFeLot, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20170105L;
+	private static final long serialVersionUID = 20170116L;
 
     /** Standard Constructor */
     public X_LBR_NFeLot (Properties ctx, int LBR_NFeLot_ID, String trxName)
@@ -44,13 +44,13 @@ public class X_LBR_NFeLot extends PO implements I_LBR_NFeLot, I_Persistent
 // CO
 			setDocStatus (null);
 // DR
-			setLBR_LotReceived (false);
-// N
-			setLBR_LotSent (false);
-// N
 			setLBR_NFeLotMethod (null);
 // 0
 			setLBR_NFeLot_ID (0);
+			setlbr_LotReceived (false);
+// N
+			setlbr_LotSent (false);
+// N
         } */
     }
 
@@ -259,18 +259,144 @@ public class X_LBR_NFeLot extends PO implements I_LBR_NFeLot, I_Persistent
 		return (String)get_Value(COLUMNNAME_DocumentNo);
 	}
 
-	/** Set Lot Received.
-		@param LBR_LotReceived Lot Received	  */
-	public void setLBR_LotReceived (boolean LBR_LotReceived)
+	/** Asynchronous = 0 */
+	public static final String LBR_NFELOTMETHOD_Asynchronous = "0";
+	/** Synchronous = 1 */
+	public static final String LBR_NFELOTMETHOD_Synchronous = "1";
+	/** Set Lot Method.
+		@param LBR_NFeLotMethod 
+		Method of transmission of NFe Lot
+	  */
+	public void setLBR_NFeLotMethod (String LBR_NFeLotMethod)
 	{
-		set_Value (COLUMNNAME_LBR_LotReceived, Boolean.valueOf(LBR_LotReceived));
+
+		set_Value (COLUMNNAME_LBR_NFeLotMethod, LBR_NFeLotMethod);
+	}
+
+	/** Get Lot Method.
+		@return Method of transmission of NFe Lot
+	  */
+	public String getLBR_NFeLotMethod () 
+	{
+		return (String)get_Value(COLUMNNAME_LBR_NFeLotMethod);
+	}
+
+	/** Set NFe Lot.
+		@param LBR_NFeLot_ID NFe Lot	  */
+	public void setLBR_NFeLot_ID (int LBR_NFeLot_ID)
+	{
+		if (LBR_NFeLot_ID < 1) 
+			set_ValueNoCheck (COLUMNNAME_LBR_NFeLot_ID, null);
+		else 
+			set_ValueNoCheck (COLUMNNAME_LBR_NFeLot_ID, Integer.valueOf(LBR_NFeLot_ID));
+	}
+
+	/** Get NFe Lot.
+		@return NFe Lot	  */
+	public int getLBR_NFeLot_ID () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_LBR_NFeLot_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
+	/** Set Process Now.
+		@param LBR_Processing2 Process Now	  */
+	public void setLBR_Processing2 (String LBR_Processing2)
+	{
+		set_Value (COLUMNNAME_LBR_Processing2, LBR_Processing2);
+	}
+
+	/** Get Process Now.
+		@return Process Now	  */
+	public String getLBR_Processing2 () 
+	{
+		return (String)get_Value(COLUMNNAME_LBR_Processing2);
+	}
+
+	/** Set Name.
+		@param Name 
+		Alphanumeric identifier of the entity
+	  */
+	public void setName (String Name)
+	{
+		set_Value (COLUMNNAME_Name, Name);
+	}
+
+	/** Get Name.
+		@return Alphanumeric identifier of the entity
+	  */
+	public String getName () 
+	{
+		return (String)get_Value(COLUMNNAME_Name);
+	}
+
+    /** Get Record ID/ColumnName
+        @return ID/ColumnName pair
+      */
+    public KeyNamePair getKeyNamePair() 
+    {
+        return new KeyNamePair(get_ID(), getName());
+    }
+
+	/** Set Processed.
+		@param Processed 
+		The document has been processed
+	  */
+	public void setProcessed (boolean Processed)
+	{
+		set_Value (COLUMNNAME_Processed, Boolean.valueOf(Processed));
+	}
+
+	/** Get Processed.
+		@return The document has been processed
+	  */
+	public boolean isProcessed () 
+	{
+		Object oo = get_Value(COLUMNNAME_Processed);
+		if (oo != null) 
+		{
+			 if (oo instanceof Boolean) 
+				 return ((Boolean)oo).booleanValue(); 
+			return "Y".equals(oo);
+		}
+		return false;
+	}
+
+	/** Set Process Now.
+		@param Processing Process Now	  */
+	public void setProcessing (boolean Processing)
+	{
+		set_Value (COLUMNNAME_Processing, Boolean.valueOf(Processing));
+	}
+
+	/** Get Process Now.
+		@return Process Now	  */
+	public boolean isProcessing () 
+	{
+		Object oo = get_Value(COLUMNNAME_Processing);
+		if (oo != null) 
+		{
+			 if (oo instanceof Boolean) 
+				 return ((Boolean)oo).booleanValue(); 
+			return "Y".equals(oo);
+		}
+		return false;
+	}
+
+	/** Set Lot Received.
+		@param lbr_LotReceived Lot Received	  */
+	public void setlbr_LotReceived (boolean lbr_LotReceived)
+	{
+		set_Value (COLUMNNAME_lbr_LotReceived, Boolean.valueOf(lbr_LotReceived));
 	}
 
 	/** Get Lot Received.
 		@return Lot Received	  */
-	public boolean isLBR_LotReceived () 
+	public boolean islbr_LotReceived () 
 	{
-		Object oo = get_Value(COLUMNNAME_LBR_LotReceived);
+		Object oo = get_Value(COLUMNNAME_lbr_LotReceived);
 		if (oo != null) 
 		{
 			 if (oo instanceof Boolean) 
@@ -281,17 +407,17 @@ public class X_LBR_NFeLot extends PO implements I_LBR_NFeLot, I_Persistent
 	}
 
 	/** Set Lot Sent.
-		@param LBR_LotSent Lot Sent	  */
-	public void setLBR_LotSent (boolean LBR_LotSent)
+		@param lbr_LotSent Lot Sent	  */
+	public void setlbr_LotSent (boolean lbr_LotSent)
 	{
-		set_Value (COLUMNNAME_LBR_LotSent, Boolean.valueOf(LBR_LotSent));
+		set_Value (COLUMNNAME_lbr_LotSent, Boolean.valueOf(lbr_LotSent));
 	}
 
 	/** Get Lot Sent.
 		@return Lot Sent	  */
-	public boolean isLBR_LotSent () 
+	public boolean islbr_LotSent () 
 	{
-		Object oo = get_Value(COLUMNNAME_LBR_LotSent);
+		Object oo = get_Value(COLUMNNAME_lbr_LotSent);
 		if (oo != null) 
 		{
 			 if (oo instanceof Boolean) 
@@ -1366,91 +1492,49 @@ public class X_LBR_NFeLot extends PO implements I_LBR_NFeLot, I_Persistent
 	/** 722-Rejeição: Operação interna com idEstrangeiro informado deve ser presencial = 722 */
 	public static final String LBR_NFEANSWERSTATUS_722_RejeiçãoOperaçãoInternaComIdEstrangeiroInformadoDeveSerPresencial = "722";
 	/** Set NFe Answer Status.
-		@param LBR_NFeAnswerStatus 
+		@param lbr_NFeAnswerStatus 
 		Status of Answer NFe
 	  */
-	public void setLBR_NFeAnswerStatus (String LBR_NFeAnswerStatus)
+	public void setlbr_NFeAnswerStatus (String lbr_NFeAnswerStatus)
 	{
 
-		set_Value (COLUMNNAME_LBR_NFeAnswerStatus, LBR_NFeAnswerStatus);
+		set_Value (COLUMNNAME_lbr_NFeAnswerStatus, lbr_NFeAnswerStatus);
 	}
 
 	/** Get NFe Answer Status.
 		@return Status of Answer NFe
 	  */
-	public String getLBR_NFeAnswerStatus () 
+	public String getlbr_NFeAnswerStatus () 
 	{
-		return (String)get_Value(COLUMNNAME_LBR_NFeAnswerStatus);
-	}
-
-	/** Asynchronous = 0 */
-	public static final String LBR_NFELOTMETHOD_Asynchronous = "0";
-	/** Synchronous = 1 */
-	public static final String LBR_NFELOTMETHOD_Synchronous = "1";
-	/** Set Lot Method.
-		@param LBR_NFeLotMethod 
-		Method of transmission of NFe Lot
-	  */
-	public void setLBR_NFeLotMethod (String LBR_NFeLotMethod)
-	{
-
-		set_Value (COLUMNNAME_LBR_NFeLotMethod, LBR_NFeLotMethod);
-	}
-
-	/** Get Lot Method.
-		@return Method of transmission of NFe Lot
-	  */
-	public String getLBR_NFeLotMethod () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_NFeLotMethod);
-	}
-
-	/** Set NFe Lot.
-		@param LBR_NFeLot_ID NFe Lot	  */
-	public void setLBR_NFeLot_ID (int LBR_NFeLot_ID)
-	{
-		if (LBR_NFeLot_ID < 1) 
-			set_ValueNoCheck (COLUMNNAME_LBR_NFeLot_ID, null);
-		else 
-			set_ValueNoCheck (COLUMNNAME_LBR_NFeLot_ID, Integer.valueOf(LBR_NFeLot_ID));
-	}
-
-	/** Get NFe Lot.
-		@return NFe Lot	  */
-	public int getLBR_NFeLot_ID () 
-	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_LBR_NFeLot_ID);
-		if (ii == null)
-			 return 0;
-		return ii.intValue();
+		return (String)get_Value(COLUMNNAME_lbr_NFeAnswerStatus);
 	}
 
 	/** Set Recebimento ID.
-		@param LBR_NFeRecID Recebimento ID	  */
-	public void setLBR_NFeRecID (String LBR_NFeRecID)
+		@param lbr_NFeRecID Recebimento ID	  */
+	public void setlbr_NFeRecID (String lbr_NFeRecID)
 	{
-		set_Value (COLUMNNAME_LBR_NFeRecID, LBR_NFeRecID);
+		set_Value (COLUMNNAME_lbr_NFeRecID, lbr_NFeRecID);
 	}
 
 	/** Get Recebimento ID.
 		@return Recebimento ID	  */
-	public String getLBR_NFeRecID () 
+	public String getlbr_NFeRecID () 
 	{
-		return (String)get_Value(COLUMNNAME_LBR_NFeRecID);
+		return (String)get_Value(COLUMNNAME_lbr_NFeRecID);
 	}
 
 	/** Set Resposta ID.
-		@param LBR_NFeRespID Resposta ID	  */
-	public void setLBR_NFeRespID (String LBR_NFeRespID)
+		@param lbr_NFeRespID Resposta ID	  */
+	public void setlbr_NFeRespID (String lbr_NFeRespID)
 	{
-		set_Value (COLUMNNAME_LBR_NFeRespID, LBR_NFeRespID);
+		set_Value (COLUMNNAME_lbr_NFeRespID, lbr_NFeRespID);
 	}
 
 	/** Get Resposta ID.
 		@return Resposta ID	  */
-	public String getLBR_NFeRespID () 
+	public String getlbr_NFeRespID () 
 	{
-		return (String)get_Value(COLUMNNAME_LBR_NFeRespID);
+		return (String)get_Value(COLUMNNAME_lbr_NFeRespID);
 	}
 
 	/** 100-Autorizado o uso da NF-e = 100 */
@@ -2518,104 +2602,20 @@ public class X_LBR_NFeLot extends PO implements I_LBR_NFeLot, I_Persistent
 	/** 722-Rejeição: Operação interna com idEstrangeiro informado deve ser presencial = 722 */
 	public static final String LBR_NFESTATUS_722_RejeiçãoOperaçãoInternaComIdEstrangeiroInformadoDeveSerPresencial = "722";
 	/** Set NFe Status.
-		@param LBR_NFeStatus 
+		@param lbr_NFeStatus 
 		Status of NFe
 	  */
-	public void setLBR_NFeStatus (String LBR_NFeStatus)
+	public void setlbr_NFeStatus (String lbr_NFeStatus)
 	{
 
-		set_Value (COLUMNNAME_LBR_NFeStatus, LBR_NFeStatus);
+		set_Value (COLUMNNAME_lbr_NFeStatus, lbr_NFeStatus);
 	}
 
 	/** Get NFe Status.
 		@return Status of NFe
 	  */
-	public String getLBR_NFeStatus () 
+	public String getlbr_NFeStatus () 
 	{
-		return (String)get_Value(COLUMNNAME_LBR_NFeStatus);
-	}
-
-	/** Set Process Now.
-		@param LBR_Processing2 Process Now	  */
-	public void setLBR_Processing2 (String LBR_Processing2)
-	{
-		set_Value (COLUMNNAME_LBR_Processing2, LBR_Processing2);
-	}
-
-	/** Get Process Now.
-		@return Process Now	  */
-	public String getLBR_Processing2 () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_Processing2);
-	}
-
-	/** Set Name.
-		@param Name 
-		Alphanumeric identifier of the entity
-	  */
-	public void setName (String Name)
-	{
-		set_Value (COLUMNNAME_Name, Name);
-	}
-
-	/** Get Name.
-		@return Alphanumeric identifier of the entity
-	  */
-	public String getName () 
-	{
-		return (String)get_Value(COLUMNNAME_Name);
-	}
-
-    /** Get Record ID/ColumnName
-        @return ID/ColumnName pair
-      */
-    public KeyNamePair getKeyNamePair() 
-    {
-        return new KeyNamePair(get_ID(), getName());
-    }
-
-	/** Set Processed.
-		@param Processed 
-		The document has been processed
-	  */
-	public void setProcessed (boolean Processed)
-	{
-		set_Value (COLUMNNAME_Processed, Boolean.valueOf(Processed));
-	}
-
-	/** Get Processed.
-		@return The document has been processed
-	  */
-	public boolean isProcessed () 
-	{
-		Object oo = get_Value(COLUMNNAME_Processed);
-		if (oo != null) 
-		{
-			 if (oo instanceof Boolean) 
-				 return ((Boolean)oo).booleanValue(); 
-			return "Y".equals(oo);
-		}
-		return false;
-	}
-
-	/** Set Process Now.
-		@param Processing Process Now	  */
-	public void setProcessing (boolean Processing)
-	{
-		set_Value (COLUMNNAME_Processing, Boolean.valueOf(Processing));
-	}
-
-	/** Get Process Now.
-		@return Process Now	  */
-	public boolean isProcessing () 
-	{
-		Object oo = get_Value(COLUMNNAME_Processing);
-		if (oo != null) 
-		{
-			 if (oo instanceof Boolean) 
-				 return ((Boolean)oo).booleanValue(); 
-			return "Y".equals(oo);
-		}
-		return false;
+		return (String)get_Value(COLUMNNAME_lbr_NFeStatus);
 	}
 }

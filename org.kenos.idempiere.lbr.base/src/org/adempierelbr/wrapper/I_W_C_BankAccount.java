@@ -25,7 +25,7 @@ import org.compiere.util.KeyNamePair;
  *  @version Release 4.1
  */
 @SuppressWarnings("all")
-public interface I_W_C_BankAccount 
+public interface I_W_C_BankAccount extends I_C_BankAccount 
 {
 
     /** TableName=C_BankAccount */
@@ -63,58 +63,6 @@ public interface I_W_C_BankAccount
 	  */
 	public boolean isRegistered();
 
-    /** Column name LBR_AgencyNo */
-    public static final String COLUMNNAME_LBR_AgencyNo = "LBR_AgencyNo";
-
-	/** Set Agency Number.
-	  * Agency Number
-	  */
-	public void setLBR_AgencyNo (String LBR_AgencyNo);
-
-	/** Get Agency Number.
-	  * Agency Number
-	  */
-	public String getLBR_AgencyNo();
-
-    /** Column name LBR_BillFold */
-    public static final String COLUMNNAME_LBR_BillFold = "LBR_BillFold";
-
-	/** Set Bill Fold.
-	  * Type of Bill Fold - For Bank Usage
-	  */
-	public void setLBR_BillFold (String LBR_BillFold);
-
-	/** Get Bill Fold.
-	  * Type of Bill Fold - For Bank Usage
-	  */
-	public String getLBR_BillFold();
-
-    /** Column name LBR_BillKind */
-    public static final String COLUMNNAME_LBR_BillKind = "LBR_BillKind";
-
-	/** Set Bill Kind.
-	  * Defines the kind of Bill
-	  */
-	public void setLBR_BillKind (String LBR_BillKind);
-
-	/** Get Bill Kind.
-	  * Defines the kind of Bill
-	  */
-	public String getLBR_BillKind();
-
-    /** Column name LBR_ClientCode */
-    public static final String COLUMNNAME_LBR_ClientCode = "LBR_ClientCode";
-
-	/** Set Client Code.
-	  * Client Code - needed for some Banks
-	  */
-	public void setLBR_ClientCode (String LBR_ClientCode);
-
-	/** Get Client Code.
-	  * Client Code - needed for some Banks
-	  */
-	public String getLBR_ClientCode();
-
     /** Column name LBR_DocSequence_ID */
     public static final String COLUMNNAME_LBR_DocSequence_ID = "LBR_DocSequence_ID";
 
@@ -130,16 +78,68 @@ public interface I_W_C_BankAccount
 
 	public org.compiere.model.I_AD_Sequence getLBR_DocSequence() throws RuntimeException;
 
-    /** Column name LBR_IsBillPrinted */
-    public static final String COLUMNNAME_LBR_IsBillPrinted = "LBR_IsBillPrinted";
+    /** Column name lbr_AgencyNo */
+    public static final String COLUMNNAME_lbr_AgencyNo = "lbr_AgencyNo";
+
+	/** Set Agency Number.
+	  * Agency Number
+	  */
+	public void setlbr_AgencyNo (String lbr_AgencyNo);
+
+	/** Get Agency Number.
+	  * Agency Number
+	  */
+	public String getlbr_AgencyNo();
+
+    /** Column name lbr_BillFold */
+    public static final String COLUMNNAME_lbr_BillFold = "lbr_BillFold";
+
+	/** Set Bill Fold.
+	  * Type of Bill Fold - For Bank Usage
+	  */
+	public void setlbr_BillFold (String lbr_BillFold);
+
+	/** Get Bill Fold.
+	  * Type of Bill Fold - For Bank Usage
+	  */
+	public String getlbr_BillFold();
+
+    /** Column name lbr_BillKind */
+    public static final String COLUMNNAME_lbr_BillKind = "lbr_BillKind";
+
+	/** Set Bill Kind.
+	  * Defines the kind of Bill
+	  */
+	public void setlbr_BillKind (String lbr_BillKind);
+
+	/** Get Bill Kind.
+	  * Defines the kind of Bill
+	  */
+	public String getlbr_BillKind();
+
+    /** Column name lbr_ClientCode */
+    public static final String COLUMNNAME_lbr_ClientCode = "lbr_ClientCode";
+
+	/** Set Client Code.
+	  * Client Code - needed for some Banks
+	  */
+	public void setlbr_ClientCode (String lbr_ClientCode);
+
+	/** Get Client Code.
+	  * Client Code - needed for some Banks
+	  */
+	public String getlbr_ClientCode();
+
+    /** Column name lbr_IsBillPrinted */
+    public static final String COLUMNNAME_lbr_IsBillPrinted = "lbr_IsBillPrinted";
 
 	/** Set Print Bill.
 	  * Indicates if this Account is used to Print Bills
 	  */
-	public void setLBR_IsBillPrinted (boolean LBR_IsBillPrinted);
+	public void setlbr_IsBillPrinted (boolean lbr_IsBillPrinted);
 
 	/** Get Print Bill.
 	  * Indicates if this Account is used to Print Bills
 	  */
-	public boolean isLBR_IsBillPrinted();
+	public boolean islbr_IsBillPrinted();
 }

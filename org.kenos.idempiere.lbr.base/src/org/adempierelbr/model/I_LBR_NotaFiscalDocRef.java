@@ -134,32 +134,6 @@ public interface I_LBR_NotaFiscalDocRef
 	  */
 	public boolean isActive();
 
-    /** Column name LBR_BPTypeBR */
-    public static final String COLUMNNAME_LBR_BPTypeBR = "LBR_BPTypeBR";
-
-	/** Set Brazilian BP Type.
-	  * Brazilian BP Type (Identifies if the BP is a Legal Entity or an Individual)
-	  */
-	public void setLBR_BPTypeBR (String LBR_BPTypeBR);
-
-	/** Get Brazilian BP Type.
-	  * Brazilian BP Type (Identifies if the BP is a Legal Entity or an Individual)
-	  */
-	public String getLBR_BPTypeBR();
-
-    /** Column name LBR_CNPJ */
-    public static final String COLUMNNAME_LBR_CNPJ = "LBR_CNPJ";
-
-	/** Set CNPJ.
-	  * Used to identify Legal Entities in Brazil
-	  */
-	public void setLBR_CNPJ (String LBR_CNPJ);
-
-	/** Get CNPJ.
-	  * Used to identify Legal Entities in Brazil
-	  */
-	public String getLBR_CNPJ();
-
     /** Column name LBR_COOno */
     public static final String COLUMNNAME_LBR_COOno = "LBR_COOno";
 
@@ -169,19 +143,6 @@ public interface I_LBR_NotaFiscalDocRef
 	/** Get CCO Number	  */
 	public String getLBR_COOno();
 
-    /** Column name LBR_CPF */
-    public static final String COLUMNNAME_LBR_CPF = "LBR_CPF";
-
-	/** Set CPF.
-	  * Used to identify individuals in Brazil
-	  */
-	public void setLBR_CPF (String LBR_CPF);
-
-	/** Get CPF.
-	  * Used to identify individuals in Brazil
-	  */
-	public String getLBR_CPF();
-
     /** Column name LBR_FiscalDocRefType */
     public static final String COLUMNNAME_LBR_FiscalDocRefType = "LBR_FiscalDocRefType";
 
@@ -190,19 +151,6 @@ public interface I_LBR_NotaFiscalDocRef
 
 	/** Get Type Fiscal Document Referenced	  */
 	public String getLBR_FiscalDocRefType();
-
-    /** Column name LBR_IE */
-    public static final String COLUMNNAME_LBR_IE = "LBR_IE";
-
-	/** Set IE.
-	  * Used to Identify the IE (State Tax ID)
-	  */
-	public void setLBR_IE (String LBR_IE);
-
-	/** Get IE.
-	  * Used to Identify the IE (State Tax ID)
-	  */
-	public String getLBR_IE();
 
     /** Column name LBR_IndIEDest */
     public static final String COLUMNNAME_LBR_IndIEDest = "LBR_IndIEDest";
@@ -216,41 +164,6 @@ public interface I_LBR_NotaFiscalDocRef
 	  * Indicador da IE do Destinatário
 	  */
 	public String getLBR_IndIEDest();
-
-    /** Column name LBR_NFModel */
-    public static final String COLUMNNAME_LBR_NFModel = "LBR_NFModel";
-
-	/** Set NF Model.
-	  * Identifies the model of Nota Fiscal
-	  */
-	public void setLBR_NFModel (String LBR_NFModel);
-
-	/** Get NF Model.
-	  * Identifies the model of Nota Fiscal
-	  */
-	public String getLBR_NFModel();
-
-    /** Column name LBR_NFSerie */
-    public static final String COLUMNNAME_LBR_NFSerie = "LBR_NFSerie";
-
-	/** Set NF Serie	  */
-	public void setLBR_NFSerie (String LBR_NFSerie);
-
-	/** Get NF Serie	  */
-	public String getLBR_NFSerie();
-
-    /** Column name LBR_NFeID */
-    public static final String COLUMNNAME_LBR_NFeID = "LBR_NFeID";
-
-	/** Set NFe ID.
-	  * Identification of NFe
-	  */
-	public void setLBR_NFeID (String LBR_NFeID);
-
-	/** Get NFe ID.
-	  * Identification of NFe
-	  */
-	public String getLBR_NFeID();
 
     /** Column name LBR_NFeReferenced_ID */
     public static final String COLUMNNAME_LBR_NFeReferenced_ID = "LBR_NFeReferenced_ID";
@@ -302,4 +215,91 @@ public interface I_LBR_NotaFiscalDocRef
 	  * User who updated this records
 	  */
 	public int getUpdatedBy();
+
+    /** Column name lbr_BPTypeBR */
+    public static final String COLUMNNAME_lbr_BPTypeBR = "lbr_BPTypeBR";
+
+	/** Set Brazilian BP Type.
+	  * Brazilian BP Type (Identifies if the BP is a Legal Entity or an Individual)
+	  */
+	public void setlbr_BPTypeBR (String lbr_BPTypeBR);
+
+	/** Get Brazilian BP Type.
+	  * Brazilian BP Type (Identifies if the BP is a Legal Entity or an Individual)
+	  */
+	public String getlbr_BPTypeBR();
+
+    /** Column name lbr_CNPJ */
+    public static final String COLUMNNAME_lbr_CNPJ = "lbr_CNPJ";
+
+	/** Set CNPJ.
+	  * Used to identify Legal Entities in Brazil
+	  */
+	public void setlbr_CNPJ (String lbr_CNPJ);
+
+	/** Get CNPJ.
+	  * Used to identify Legal Entities in Brazil
+	  */
+	public String getlbr_CNPJ();
+
+    /** Column name lbr_CPF */
+    public static final String COLUMNNAME_lbr_CPF = "lbr_CPF";
+
+	/** Set CPF.
+	  * Used to identify individuals in Brazil
+	  */
+	public void setlbr_CPF (String lbr_CPF);
+
+	/** Get CPF.
+	  * Used to identify individuals in Brazil
+	  */
+	public String getlbr_CPF();
+
+    /** Column name lbr_IE */
+    public static final String COLUMNNAME_lbr_IE = "lbr_IE";
+
+	/** Set IE.
+	  * Used to Identify the IE (State Tax ID)
+	  */
+	public void setlbr_IE (String lbr_IE);
+
+	/** Get IE.
+	  * Used to Identify the IE (State Tax ID)
+	  */
+	public String getlbr_IE();
+
+    /** Column name lbr_NFModel */
+    public static final String COLUMNNAME_lbr_NFModel = "lbr_NFModel";
+
+	/** Set NF Model.
+	  * Identifies the model of Nota Fiscal
+	  */
+	public void setlbr_NFModel (String lbr_NFModel);
+
+	/** Get NF Model.
+	  * Identifies the model of Nota Fiscal
+	  */
+	public String getlbr_NFModel();
+
+    /** Column name lbr_NFSerie */
+    public static final String COLUMNNAME_lbr_NFSerie = "lbr_NFSerie";
+
+	/** Set NF Serie	  */
+	public void setlbr_NFSerie (String lbr_NFSerie);
+
+	/** Get NF Serie	  */
+	public String getlbr_NFSerie();
+
+    /** Column name lbr_NFeID */
+    public static final String COLUMNNAME_lbr_NFeID = "lbr_NFeID";
+
+	/** Set NFe ID.
+	  * Identification of NFe
+	  */
+	public void setlbr_NFeID (String lbr_NFeID);
+
+	/** Get NFe ID.
+	  * Identification of NFe
+	  */
+	public String getlbr_NFeID();
 }

@@ -188,15 +188,6 @@ public interface I_LBR_DI
 	  */
 	public boolean isActive();
 
-    /** Column name LBR_CustomSite */
-    public static final String COLUMNNAME_LBR_CustomSite = "LBR_CustomSite";
-
-	/** Set Custom Site	  */
-	public void setLBR_CustomSite (String LBR_CustomSite);
-
-	/** Get Custom Site	  */
-	public String getLBR_CustomSite();
-
     /** Column name LBR_DI_ID */
     public static final String COLUMNNAME_LBR_DI_ID = "LBR_DI_ID";
 
@@ -205,15 +196,6 @@ public interface I_LBR_DI
 
 	/** Get Declaracao de Importacao	  */
 	public int getLBR_DI_ID();
-
-    /** Column name LBR_SISCOMEXAmt */
-    public static final String COLUMNNAME_LBR_SISCOMEXAmt = "LBR_SISCOMEXAmt";
-
-	/** Set SISCOMEX Amt	  */
-	public void setLBR_SISCOMEXAmt (BigDecimal LBR_SISCOMEXAmt);
-
-	/** Get SISCOMEX Amt	  */
-	public BigDecimal getLBR_SISCOMEXAmt();
 
     /** Column name Processed */
     public static final String COLUMNNAME_Processed = "Processed";
@@ -243,4 +225,22 @@ public interface I_LBR_DI
 	  * User who updated this records
 	  */
 	public int getUpdatedBy();
+
+    /** Column name lbr_CustomSite */
+    public static final String COLUMNNAME_lbr_CustomSite = "lbr_CustomSite";
+
+	/** Set Custom Site	  */
+	public void setlbr_CustomSite (String lbr_CustomSite);
+
+	/** Get Custom Site	  */
+	public String getlbr_CustomSite();
+
+    /** Column name lbr_SISCOMEXAmt */
+    public static final String COLUMNNAME_lbr_SISCOMEXAmt = "lbr_SISCOMEXAmt";
+
+	/** Set SISCOMEX Amt	  */
+	public void setlbr_SISCOMEXAmt (BigDecimal lbr_SISCOMEXAmt);
+
+	/** Get SISCOMEX Amt	  */
+	public BigDecimal getlbr_SISCOMEXAmt();
 }

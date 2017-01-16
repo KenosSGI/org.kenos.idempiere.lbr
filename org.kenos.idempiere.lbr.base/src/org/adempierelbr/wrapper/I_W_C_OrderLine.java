@@ -25,7 +25,7 @@ import org.compiere.util.KeyNamePair;
  *  @version Release 4.1
  */
 @SuppressWarnings("all")
-public interface I_W_C_OrderLine 
+public interface I_W_C_OrderLine extends I_C_OrderLine 
 {
 
     /** TableName=C_OrderLine */
@@ -66,28 +66,6 @@ public interface I_W_C_OrderLine
 	/** Get Declaracao de Importacao	  */
 	public int getLBR_DI_ID();
 
-    /** Column name LBR_InsuranceAmt */
-    public static final String COLUMNNAME_LBR_InsuranceAmt = "LBR_InsuranceAmt";
-
-	/** Set Insurance Amt.
-	  * Defines the Insurance Amt
-	  */
-	public void setLBR_InsuranceAmt (BigDecimal LBR_InsuranceAmt);
-
-	/** Get Insurance Amt.
-	  * Defines the Insurance Amt
-	  */
-	public BigDecimal getLBR_InsuranceAmt();
-
-    /** Column name LBR_IsPriceBR */
-    public static final String COLUMNNAME_LBR_IsPriceBR = "LBR_IsPriceBR";
-
-	/** Set Is Price BR	  */
-	public void setLBR_IsPriceBR (boolean LBR_IsPriceBR);
-
-	/** Get Is Price BR	  */
-	public boolean isLBR_IsPriceBR();
-
     /** Column name LBR_LegalMessage_ID */
     public static final String COLUMNNAME_LBR_LegalMessage_ID = "LBR_LegalMessage_ID";
 
@@ -110,61 +88,6 @@ public interface I_W_C_OrderLine
 	/** Get Other Charges Amount	  */
 	public BigDecimal getLBR_OtherChargesAmt();
 
-    /** Column name LBR_PriceEnteredBR */
-    public static final String COLUMNNAME_LBR_PriceEnteredBR = "LBR_PriceEnteredBR";
-
-	/** Set Price Entered BR	  */
-	public void setLBR_PriceEnteredBR (BigDecimal LBR_PriceEnteredBR);
-
-	/** Get Price Entered BR	  */
-	public BigDecimal getLBR_PriceEnteredBR();
-
-    /** Column name LBR_RecalculateTax */
-    public static final String COLUMNNAME_LBR_RecalculateTax = "LBR_RecalculateTax";
-
-	/** Set Recalculate Tax	  */
-	public void setLBR_RecalculateTax (boolean LBR_RecalculateTax);
-
-	/** Get Recalculate Tax	  */
-	public boolean isLBR_RecalculateTax();
-
-    /** Column name LBR_Ref_C_InvoiceLine_ID */
-    public static final String COLUMNNAME_LBR_Ref_C_InvoiceLine_ID = "LBR_Ref_C_InvoiceLine_ID";
-
-	/** Set Reference Invoice Line.
-	  * Reference Invoice Line
-	  */
-	public void setLBR_Ref_C_InvoiceLine_ID (int LBR_Ref_C_InvoiceLine_ID);
-
-	/** Get Reference Invoice Line.
-	  * Reference Invoice Line
-	  */
-	public int getLBR_Ref_C_InvoiceLine_ID();
-
-	public org.compiere.model.I_C_InvoiceLine getLBR_Ref_C_InvoiceLine() throws RuntimeException;
-
-    /** Column name LBR_SISCOMEXAmt */
-    public static final String COLUMNNAME_LBR_SISCOMEXAmt = "LBR_SISCOMEXAmt";
-
-	/** Set SISCOMEX Amt	  */
-	public void setLBR_SISCOMEXAmt (BigDecimal LBR_SISCOMEXAmt);
-
-	/** Get SISCOMEX Amt	  */
-	public BigDecimal getLBR_SISCOMEXAmt();
-
-    /** Column name LBR_TaxStatus */
-    public static final String COLUMNNAME_LBR_TaxStatus = "LBR_TaxStatus";
-
-	/** Set Tax Status.
-	  * Defines the Tax Status
-	  */
-	public void setLBR_TaxStatus (String LBR_TaxStatus);
-
-	/** Get Tax Status.
-	  * Defines the Tax Status
-	  */
-	public String getLBR_TaxStatus();
-
     /** Column name LBR_Tax_ID */
     public static final String COLUMNNAME_LBR_Tax_ID = "LBR_Tax_ID";
 
@@ -176,7 +99,7 @@ public interface I_W_C_OrderLine
 	/** Get Brazilian Tax.
 	  * Primary key table LBR_Tax
 	  */
-	public Object getLBR_Tax_ID();
+	public int getLBR_Tax_ID();
 
     /** Column name M_Locator_ID */
     public static final String COLUMNNAME_M_Locator_ID = "M_Locator_ID";
@@ -233,4 +156,81 @@ public interface I_W_C_OrderLine
 	  * Tax Amount for a document
 	  */
 	public BigDecimal getTaxAmt();
+
+    /** Column name lbr_InsuranceAmt */
+    public static final String COLUMNNAME_lbr_InsuranceAmt = "lbr_InsuranceAmt";
+
+	/** Set Insurance Amt.
+	  * Defines the Insurance Amt
+	  */
+	public void setlbr_InsuranceAmt (BigDecimal lbr_InsuranceAmt);
+
+	/** Get Insurance Amt.
+	  * Defines the Insurance Amt
+	  */
+	public BigDecimal getlbr_InsuranceAmt();
+
+    /** Column name lbr_IsPriceBR */
+    public static final String COLUMNNAME_lbr_IsPriceBR = "lbr_IsPriceBR";
+
+	/** Set Is Price BR	  */
+	public void setlbr_IsPriceBR (boolean lbr_IsPriceBR);
+
+	/** Get Is Price BR	  */
+	public boolean islbr_IsPriceBR();
+
+    /** Column name lbr_PriceEnteredBR */
+    public static final String COLUMNNAME_lbr_PriceEnteredBR = "lbr_PriceEnteredBR";
+
+	/** Set Price Entered BR	  */
+	public void setlbr_PriceEnteredBR (BigDecimal lbr_PriceEnteredBR);
+
+	/** Get Price Entered BR	  */
+	public BigDecimal getlbr_PriceEnteredBR();
+
+    /** Column name lbr_RecalculateTax */
+    public static final String COLUMNNAME_lbr_RecalculateTax = "lbr_RecalculateTax";
+
+	/** Set Recalculate Tax	  */
+	public void setlbr_RecalculateTax (boolean lbr_RecalculateTax);
+
+	/** Get Recalculate Tax	  */
+	public boolean islbr_RecalculateTax();
+
+    /** Column name lbr_Ref_C_InvoiceLine_ID */
+    public static final String COLUMNNAME_lbr_Ref_C_InvoiceLine_ID = "lbr_Ref_C_InvoiceLine_ID";
+
+	/** Set Reference Invoice Line.
+	  * Reference Invoice Line
+	  */
+	public void setlbr_Ref_C_InvoiceLine_ID (int lbr_Ref_C_InvoiceLine_ID);
+
+	/** Get Reference Invoice Line.
+	  * Reference Invoice Line
+	  */
+	public int getlbr_Ref_C_InvoiceLine_ID();
+
+	public org.compiere.model.I_C_InvoiceLine getlbr_Ref_C_InvoiceLine() throws RuntimeException;
+
+    /** Column name lbr_SISCOMEXAmt */
+    public static final String COLUMNNAME_lbr_SISCOMEXAmt = "lbr_SISCOMEXAmt";
+
+	/** Set SISCOMEX Amt	  */
+	public void setlbr_SISCOMEXAmt (BigDecimal lbr_SISCOMEXAmt);
+
+	/** Get SISCOMEX Amt	  */
+	public BigDecimal getlbr_SISCOMEXAmt();
+
+    /** Column name lbr_TaxStatus */
+    public static final String COLUMNNAME_lbr_TaxStatus = "lbr_TaxStatus";
+
+	/** Set Tax Status.
+	  * Defines the Tax Status
+	  */
+	public void setlbr_TaxStatus (String lbr_TaxStatus);
+
+	/** Get Tax Status.
+	  * Defines the Tax Status
+	  */
+	public String getlbr_TaxStatus();
 }

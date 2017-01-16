@@ -25,7 +25,7 @@ import org.compiere.util.KeyNamePair;
  *  @version Release 4.1
  */
 @SuppressWarnings("all")
-public interface I_W_M_RMA 
+public interface I_W_M_RMA extends I_M_RMA 
 {
 
     /** TableName=M_RMA */

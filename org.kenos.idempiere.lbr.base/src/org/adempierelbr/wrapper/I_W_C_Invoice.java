@@ -25,7 +25,7 @@ import org.compiere.util.KeyNamePair;
  *  @version Release 4.1
  */
 @SuppressWarnings("all")
-public interface I_W_C_Invoice 
+public interface I_W_C_Invoice extends I_C_Invoice 
 {
 
     /** TableName=C_Invoice */
@@ -49,32 +49,6 @@ public interface I_W_C_Invoice
 	public int getC_BankAccount_ID();
 
 	public org.compiere.model.I_C_BankAccount getC_BankAccount() throws RuntimeException;
-
-    /** Column name LBR_BillNote */
-    public static final String COLUMNNAME_LBR_BillNote = "LBR_BillNote";
-
-	/** Set Bill Note.
-	  * Bill Note
-	  */
-	public void setLBR_BillNote (String LBR_BillNote);
-
-	/** Get Bill Note.
-	  * Bill Note
-	  */
-	public String getLBR_BillNote();
-
-    /** Column name LBR_BoletoComments */
-    public static final String COLUMNNAME_LBR_BoletoComments = "LBR_BoletoComments";
-
-	/** Set Boleto Comments.
-	  * Define the Boleto Comments
-	  */
-	public void setLBR_BoletoComments (String LBR_BoletoComments);
-
-	/** Get Boleto Comments.
-	  * Define the Boleto Comments
-	  */
-	public String getLBR_BoletoComments();
 
     /** Column name LBR_FreightCostRule */
     public static final String COLUMNNAME_LBR_FreightCostRule = "LBR_FreightCostRule";
@@ -141,34 +115,110 @@ public interface I_W_C_Invoice
 	  */
 	public String getLBR_IndPres();
 
-    /** Column name LBR_IsBillPrinted */
-    public static final String COLUMNNAME_LBR_IsBillPrinted = "LBR_IsBillPrinted";
+    /** Column name LBR_NotaFiscal_ID */
+    public static final String COLUMNNAME_LBR_NotaFiscal_ID = "LBR_NotaFiscal_ID";
+
+	/** Set Nota Fiscal.
+	  * Primary key table LBR_NotaFiscal
+	  */
+	public void setLBR_NotaFiscal_ID (int LBR_NotaFiscal_ID);
+
+	/** Get Nota Fiscal.
+	  * Primary key table LBR_NotaFiscal
+	  */
+	public int getLBR_NotaFiscal_ID();
+
+    /** Column name LBR_OtherChargesAmt */
+    public static final String COLUMNNAME_LBR_OtherChargesAmt = "LBR_OtherChargesAmt";
+
+	/** Set Other Charges Amount	  */
+	public void setLBR_OtherChargesAmt (BigDecimal LBR_OtherChargesAmt);
+
+	/** Get Other Charges Amount	  */
+	public BigDecimal getLBR_OtherChargesAmt();
+
+    /** Column name LBR_ProcCancelBoleto */
+    public static final String COLUMNNAME_LBR_ProcCancelBoleto = "LBR_ProcCancelBoleto";
+
+	/** Set Process Cancel Boleto.
+	  * Process to Cancel Boleto
+	  */
+	public void setLBR_ProcCancelBoleto (String LBR_ProcCancelBoleto);
+
+	/** Get Process Cancel Boleto.
+	  * Process to Cancel Boleto
+	  */
+	public String getLBR_ProcCancelBoleto();
+
+    /** Column name LBR_Withhold_Invoice_ID */
+    public static final String COLUMNNAME_LBR_Withhold_Invoice_ID = "LBR_Withhold_Invoice_ID";
+
+	/** Set Withhold Invoice.
+	  * Defines the Withhold Invoice
+	  */
+	public void setLBR_Withhold_Invoice_ID (int LBR_Withhold_Invoice_ID);
+
+	/** Get Withhold Invoice.
+	  * Defines the Withhold Invoice
+	  */
+	public int getLBR_Withhold_Invoice_ID();
+
+	public org.compiere.model.I_C_Invoice getLBR_Withhold_Invoice() throws RuntimeException;
+
+    /** Column name lbr_BillNote */
+    public static final String COLUMNNAME_lbr_BillNote = "lbr_BillNote";
+
+	/** Set Bill Note.
+	  * Bill Note
+	  */
+	public void setlbr_BillNote (String lbr_BillNote);
+
+	/** Get Bill Note.
+	  * Bill Note
+	  */
+	public String getlbr_BillNote();
+
+    /** Column name lbr_BoletoComments */
+    public static final String COLUMNNAME_lbr_BoletoComments = "lbr_BoletoComments";
+
+	/** Set Boleto Comments.
+	  * Define the Boleto Comments
+	  */
+	public void setlbr_BoletoComments (String lbr_BoletoComments);
+
+	/** Get Boleto Comments.
+	  * Define the Boleto Comments
+	  */
+	public String getlbr_BoletoComments();
+
+    /** Column name lbr_IsBillPrinted */
+    public static final String COLUMNNAME_lbr_IsBillPrinted = "lbr_IsBillPrinted";
 
 	/** Set Print Bill.
 	  * Indicates if this Account is used to Print Bills
 	  */
-	public void setLBR_IsBillPrinted (boolean LBR_IsBillPrinted);
+	public void setlbr_IsBillPrinted (boolean lbr_IsBillPrinted);
 
 	/** Get Print Bill.
 	  * Indicates if this Account is used to Print Bills
 	  */
-	public boolean isLBR_IsBillPrinted();
+	public boolean islbr_IsBillPrinted();
 
-    /** Column name LBR_NFEntrada */
-    public static final String COLUMNNAME_LBR_NFEntrada = "LBR_NFEntrada";
+    /** Column name lbr_NFEntrada */
+    public static final String COLUMNNAME_lbr_NFEntrada = "lbr_NFEntrada";
 
 	/** Set Customer NF Number.
 	  * Number of the Customer NF
 	  */
-	public void setLBR_NFEntrada (String LBR_NFEntrada);
+	public void setlbr_NFEntrada (String lbr_NFEntrada);
 
 	/** Get Customer NF Number.
 	  * Number of the Customer NF
 	  */
-	public String getLBR_NFEntrada();
+	public String getlbr_NFEntrada();
 
-    /** Column name LBR_NFModel */
-    public static final String COLUMNNAME_LBR_NFModel = "LBR_NFModel";
+    /** Column name lbr_NFModel */
+    public static final String COLUMNNAME_lbr_NFModel = "lbr_NFModel";
 
 	/** Nota Fiscal = 01 */
 	public static final String LBR_NFMODEL_NotaFiscal = "01";
@@ -276,15 +326,15 @@ public interface I_W_C_Invoice
 	/** Set NF Model.
 	  * Identifies the model of Nota Fiscal
 	  */
-	public void setLBR_NFModel (String LBR_NFModel);
+	public void setlbr_NFModel (String lbr_NFModel);
 
 	/** Get NF Model.
 	  * Identifies the model of Nota Fiscal
 	  */
-	public String getLBR_NFModel();
+	public String getlbr_NFModel();
 
-    /** Column name LBR_NFType */
-    public static final String COLUMNNAME_LBR_NFType = "LBR_NFType";
+    /** Column name lbr_NFType */
+    public static final String COLUMNNAME_lbr_NFType = "lbr_NFType";
 
 	/** 001_ACT-Autorização de Carregamento de Transporte = 001 */
 	public static final String LBR_NFTYPE_001_ACT_AutorizaçãoDeCarregamentoDeTransporte = "001";
@@ -413,37 +463,15 @@ public interface I_W_C_Invoice
 	/** Set NF Type.
 	  * Nota Fiscal Type
 	  */
-	public void setLBR_NFType (String LBR_NFType);
+	public void setlbr_NFType (String lbr_NFType);
 
 	/** Get NF Type.
 	  * Nota Fiscal Type
 	  */
-	public String getLBR_NFType();
+	public String getlbr_NFType();
 
-    /** Column name LBR_NotaFiscal_ID */
-    public static final String COLUMNNAME_LBR_NotaFiscal_ID = "LBR_NotaFiscal_ID";
-
-	/** Set Nota Fiscal.
-	  * Primary key table LBR_NotaFiscal
-	  */
-	public void setLBR_NotaFiscal_ID (int LBR_NotaFiscal_ID);
-
-	/** Get Nota Fiscal.
-	  * Primary key table LBR_NotaFiscal
-	  */
-	public int getLBR_NotaFiscal_ID();
-
-    /** Column name LBR_OtherChargesAmt */
-    public static final String COLUMNNAME_LBR_OtherChargesAmt = "LBR_OtherChargesAmt";
-
-	/** Set Other Charges Amount	  */
-	public void setLBR_OtherChargesAmt (BigDecimal LBR_OtherChargesAmt);
-
-	/** Get Other Charges Amount	  */
-	public BigDecimal getLBR_OtherChargesAmt();
-
-    /** Column name LBR_PaymentRule */
-    public static final String COLUMNNAME_LBR_PaymentRule = "LBR_PaymentRule";
+    /** Column name lbr_PaymentRule */
+    public static final String COLUMNNAME_lbr_PaymentRule = "lbr_PaymentRule";
 
 	/** Cash = X */
 	public static final String LBR_PAYMENTRULE_Cash = "X";
@@ -461,41 +489,28 @@ public interface I_W_C_Invoice
 	/** Set Payment Rule.
 	  * How you pay the invoice
 	  */
-	public void setLBR_PaymentRule (String LBR_PaymentRule);
+	public void setlbr_PaymentRule (String lbr_PaymentRule);
 
 	/** Get Payment Rule.
 	  * How you pay the invoice
 	  */
-	public String getLBR_PaymentRule();
+	public String getlbr_PaymentRule();
 
-    /** Column name LBR_ProcCancelBoleto */
-    public static final String COLUMNNAME_LBR_ProcCancelBoleto = "LBR_ProcCancelBoleto";
-
-	/** Set Process Cancel Boleto.
-	  * Process to Cancel Boleto
-	  */
-	public void setLBR_ProcCancelBoleto (String LBR_ProcCancelBoleto);
-
-	/** Get Process Cancel Boleto.
-	  * Process to Cancel Boleto
-	  */
-	public String getLBR_ProcCancelBoleto();
-
-    /** Column name LBR_ShipNote */
-    public static final String COLUMNNAME_LBR_ShipNote = "LBR_ShipNote";
+    /** Column name lbr_ShipNote */
+    public static final String COLUMNNAME_lbr_ShipNote = "lbr_ShipNote";
 
 	/** Set Shipment Note.
 	  * Extra Shipment Information 
 	  */
-	public void setLBR_ShipNote (String LBR_ShipNote);
+	public void setlbr_ShipNote (String lbr_ShipNote);
 
 	/** Get Shipment Note.
 	  * Extra Shipment Information 
 	  */
-	public String getLBR_ShipNote();
+	public String getlbr_ShipNote();
 
-    /** Column name LBR_TransactionType */
-    public static final String COLUMNNAME_LBR_TransactionType = "LBR_TransactionType";
+    /** Column name lbr_TransactionType */
+    public static final String COLUMNNAME_lbr_TransactionType = "lbr_TransactionType";
 
 	/** End User = END */
 	public static final String LBR_TRANSACTIONTYPE_EndUser = "END";
@@ -519,25 +534,10 @@ public interface I_W_C_Invoice
 	/** Set Transaction Type.
 	  * Defines the Transaction Type
 	  */
-	public void setLBR_TransactionType (String LBR_TransactionType);
+	public void setlbr_TransactionType (String lbr_TransactionType);
 
 	/** Get Transaction Type.
 	  * Defines the Transaction Type
 	  */
-	public String getLBR_TransactionType();
-
-    /** Column name LBR_Withhold_Invoice_ID */
-    public static final String COLUMNNAME_LBR_Withhold_Invoice_ID = "LBR_Withhold_Invoice_ID";
-
-	/** Set Withhold Invoice.
-	  * Defines the Withhold Invoice
-	  */
-	public void setLBR_Withhold_Invoice_ID (int LBR_Withhold_Invoice_ID);
-
-	/** Get Withhold Invoice.
-	  * Defines the Withhold Invoice
-	  */
-	public int getLBR_Withhold_Invoice_ID();
-
-	public org.compiere.model.I_C_Invoice getLBR_Withhold_Invoice() throws RuntimeException;
+	public String getlbr_TransactionType();
 }

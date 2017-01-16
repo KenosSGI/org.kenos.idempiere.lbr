@@ -30,7 +30,7 @@ public class X_LBR_Bank extends PO implements I_LBR_Bank, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20170105L;
+	private static final long serialVersionUID = 20170116L;
 
     /** Standard Constructor */
     public X_LBR_Bank (Properties ctx, int LBR_Bank_ID, String trxName)
@@ -112,57 +112,6 @@ public class X_LBR_Bank extends PO implements I_LBR_Bank, I_Persistent
 		return ii.intValue();
 	}
 
-	/** Set Payment Location 1.
-		@param LBR_PaymentLocation1 
-		Identifies the Payment Location 1
-	  */
-	public void setLBR_PaymentLocation1 (String LBR_PaymentLocation1)
-	{
-		set_Value (COLUMNNAME_LBR_PaymentLocation1, LBR_PaymentLocation1);
-	}
-
-	/** Get Payment Location 1.
-		@return Identifies the Payment Location 1
-	  */
-	public String getLBR_PaymentLocation1 () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_PaymentLocation1);
-	}
-
-	/** Set Payment Location 2.
-		@param LBR_PaymentLocation2 
-		Identifies the Payment Location 2
-	  */
-	public void setLBR_PaymentLocation2 (String LBR_PaymentLocation2)
-	{
-		set_Value (COLUMNNAME_LBR_PaymentLocation2, LBR_PaymentLocation2);
-	}
-
-	/** Get Payment Location 2.
-		@return Identifies the Payment Location 2
-	  */
-	public String getLBR_PaymentLocation2 () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_PaymentLocation2);
-	}
-
-	/** Set jBoleto Number.
-		@param LBR_jBoletoNo 
-		Identifies the bank number at jBoleto
-	  */
-	public void setLBR_jBoletoNo (String LBR_jBoletoNo)
-	{
-		set_Value (COLUMNNAME_LBR_jBoletoNo, LBR_jBoletoNo);
-	}
-
-	/** Get jBoleto Number.
-		@return Identifies the bank number at jBoleto
-	  */
-	public String getLBR_jBoletoNo () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_jBoletoNo);
-	}
-
 	/** Set Name.
 		@param Name 
 		Alphanumeric identifier of the entity
@@ -195,5 +144,56 @@ public class X_LBR_Bank extends PO implements I_LBR_Bank, I_Persistent
 	public String getRoutingNo () 
 	{
 		return (String)get_Value(COLUMNNAME_RoutingNo);
+	}
+
+	/** Set Payment Location 1.
+		@param lbr_PaymentLocation1 
+		Identifies the Payment Location 1
+	  */
+	public void setlbr_PaymentLocation1 (String lbr_PaymentLocation1)
+	{
+		set_Value (COLUMNNAME_lbr_PaymentLocation1, lbr_PaymentLocation1);
+	}
+
+	/** Get Payment Location 1.
+		@return Identifies the Payment Location 1
+	  */
+	public String getlbr_PaymentLocation1 () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_PaymentLocation1);
+	}
+
+	/** Set Payment Location 2.
+		@param lbr_PaymentLocation2 
+		Identifies the Payment Location 2
+	  */
+	public void setlbr_PaymentLocation2 (String lbr_PaymentLocation2)
+	{
+		set_Value (COLUMNNAME_lbr_PaymentLocation2, lbr_PaymentLocation2);
+	}
+
+	/** Get Payment Location 2.
+		@return Identifies the Payment Location 2
+	  */
+	public String getlbr_PaymentLocation2 () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_PaymentLocation2);
+	}
+
+	/** Set jBoleto Number.
+		@param lbr_jBoletoNo 
+		Identifies the bank number at jBoleto
+	  */
+	public void setlbr_jBoletoNo (String lbr_jBoletoNo)
+	{
+		set_Value (COLUMNNAME_lbr_jBoletoNo, lbr_jBoletoNo);
+	}
+
+	/** Get jBoleto Number.
+		@return Identifies the bank number at jBoleto
+	  */
+	public String getlbr_jBoletoNo () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_jBoletoNo);
 	}
 }

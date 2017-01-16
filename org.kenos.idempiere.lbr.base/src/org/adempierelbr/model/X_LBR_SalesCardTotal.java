@@ -32,7 +32,7 @@ public class X_LBR_SalesCardTotal extends PO implements I_LBR_SalesCardTotal, I_
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20170105L;
+	private static final long serialVersionUID = 20170116L;
 
     /** Standard Constructor */
     public X_LBR_SalesCardTotal (Properties ctx, int LBR_SalesCardTotal_ID, String trxName)

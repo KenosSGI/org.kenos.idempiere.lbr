@@ -25,7 +25,7 @@ import org.compiere.util.KeyNamePair;
  *  @version Release 4.1
  */
 @SuppressWarnings("all")
-public interface I_W_M_Shipper 
+public interface I_W_M_Shipper extends I_M_Shipper 
 {
 
     /** TableName=M_Shipper */

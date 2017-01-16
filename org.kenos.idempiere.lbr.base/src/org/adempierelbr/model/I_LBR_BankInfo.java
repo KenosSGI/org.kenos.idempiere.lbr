@@ -134,32 +134,6 @@ public interface I_LBR_BankInfo
 
 	public org.adempierelbr.model.I_LBR_Bank getLBR_Bank() throws RuntimeException;
 
-    /** Column name LBR_OccurNo */
-    public static final String COLUMNNAME_LBR_OccurNo = "LBR_OccurNo";
-
-	/** Set Occurrence Number.
-	  * Defines the Occurrence Number
-	  */
-	public void setLBR_OccurNo (String LBR_OccurNo);
-
-	/** Get Occurrence Number.
-	  * Defines the Occurrence Number
-	  */
-	public String getLBR_OccurNo();
-
-    /** Column name LBR_OccurType */
-    public static final String COLUMNNAME_LBR_OccurType = "LBR_OccurType";
-
-	/** Set Occurrence Type.
-	  * Defines the Occurrence Type
-	  */
-	public void setLBR_OccurType (String LBR_OccurType);
-
-	/** Get Occurrence Type.
-	  * Defines the Occurrence Type
-	  */
-	public String getLBR_OccurType();
-
     /** Column name Updated */
     public static final String COLUMNNAME_Updated = "Updated";
 
@@ -175,4 +149,30 @@ public interface I_LBR_BankInfo
 	  * User who updated this records
 	  */
 	public int getUpdatedBy();
+
+    /** Column name lbr_OccurNo */
+    public static final String COLUMNNAME_lbr_OccurNo = "lbr_OccurNo";
+
+	/** Set Occurrence Number.
+	  * Defines the Occurrence Number
+	  */
+	public void setlbr_OccurNo (String lbr_OccurNo);
+
+	/** Get Occurrence Number.
+	  * Defines the Occurrence Number
+	  */
+	public String getlbr_OccurNo();
+
+    /** Column name lbr_OccurType */
+    public static final String COLUMNNAME_lbr_OccurType = "lbr_OccurType";
+
+	/** Set Occurrence Type.
+	  * Defines the Occurrence Type
+	  */
+	public void setlbr_OccurType (String lbr_OccurType);
+
+	/** Get Occurrence Type.
+	  * Defines the Occurrence Type
+	  */
+	public String getlbr_OccurType();
 }

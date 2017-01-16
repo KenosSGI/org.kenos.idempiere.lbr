@@ -32,7 +32,7 @@ public class X_LBR_TaxAssessmentLine extends PO implements I_LBR_TaxAssessmentLi
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20170105L;
+	private static final long serialVersionUID = 20170116L;
 
     /** Standard Constructor */
     public X_LBR_TaxAssessmentLine (Properties ctx, int LBR_TaxAssessmentLine_ID, String trxName)

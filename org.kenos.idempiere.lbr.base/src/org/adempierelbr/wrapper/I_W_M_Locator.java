@@ -25,7 +25,7 @@ import org.compiere.util.KeyNamePair;
  *  @version Release 4.1
  */
 @SuppressWarnings("all")
-public interface I_W_M_Locator 
+public interface I_W_M_Locator extends I_M_Locator 
 {
 
     /** TableName=M_Locator */

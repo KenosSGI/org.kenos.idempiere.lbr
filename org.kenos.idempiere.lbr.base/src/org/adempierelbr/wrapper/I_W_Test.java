@@ -25,7 +25,7 @@ import org.compiere.util.KeyNamePair;
  *  @version Release 4.1
  */
 @SuppressWarnings("all")
-public interface I_W_Test 
+public interface I_W_Test extends I_Test 
 {
 
     /** TableName=Test */

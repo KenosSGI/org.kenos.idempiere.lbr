@@ -31,7 +31,7 @@ public class X_LBR_NFeEvent extends PO implements I_LBR_NFeEvent, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20170105L;
+	private static final long serialVersionUID = 20170116L;
 
     /** Standard Constructor */
     public X_LBR_NFeEvent (Properties ctx, int LBR_NFeEvent_ID, String trxName)
@@ -47,11 +47,11 @@ public class X_LBR_NFeEvent extends PO implements I_LBR_NFeEvent, I_Persistent
 			setDocumentNo (null);
 			setLBR_EventType (null);
 			setLBR_NFeEvent_ID (0);
-			setLBR_NFeID (null);
 			setProcessed (false);
 // N
 			setSeqNo (0);
 // 1
+			setlbr_NFeID (null);
         } */
     }
 
@@ -260,40 +260,6 @@ public class X_LBR_NFeEvent extends PO implements I_LBR_NFeEvent, I_Persistent
 		return (String)get_Value(COLUMNNAME_EMail);
 	}
 
-	/** Set CNPJ.
-		@param LBR_CNPJ 
-		Used to identify Legal Entities in Brazil
-	  */
-	public void setLBR_CNPJ (String LBR_CNPJ)
-	{
-		set_Value (COLUMNNAME_LBR_CNPJ, LBR_CNPJ);
-	}
-
-	/** Get CNPJ.
-		@return Used to identify Legal Entities in Brazil
-	  */
-	public String getLBR_CNPJ () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_CNPJ);
-	}
-
-	/** Set CPF.
-		@param LBR_CPF 
-		Used to identify individuals in Brazil
-	  */
-	public void setLBR_CPF (String LBR_CPF)
-	{
-		set_Value (COLUMNNAME_LBR_CPF, LBR_CPF);
-	}
-
-	/** Get CPF.
-		@return Used to identify individuals in Brazil
-	  */
-	public String getLBR_CPF () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_CPF);
-	}
-
 	/** Carta de Correcao = 110110 */
 	public static final String LBR_EVENTTYPE_CartaDeCorrecao = "110110";
 	/** Cancelamento = 110111 */
@@ -341,35 +307,158 @@ public class X_LBR_NFeEvent extends PO implements I_LBR_NFeEvent, I_Persistent
 		return ii.intValue();
 	}
 
+	public org.adempierelbr.model.I_LBR_NotaFiscal getLBR_NotaFiscal() throws RuntimeException
+    {
+		return (org.adempierelbr.model.I_LBR_NotaFiscal)MTable.get(getCtx(), org.adempierelbr.model.I_LBR_NotaFiscal.Table_Name)
+			.getPO(getLBR_NotaFiscal_ID(), get_TrxName());	}
+
+	/** Set Nota Fiscal.
+		@param LBR_NotaFiscal_ID 
+		Primary key table LBR_NotaFiscal
+	  */
+	public void setLBR_NotaFiscal_ID (int LBR_NotaFiscal_ID)
+	{
+		if (LBR_NotaFiscal_ID < 1) 
+			set_Value (COLUMNNAME_LBR_NotaFiscal_ID, null);
+		else 
+			set_Value (COLUMNNAME_LBR_NotaFiscal_ID, Integer.valueOf(LBR_NotaFiscal_ID));
+	}
+
+	/** Get Nota Fiscal.
+		@return Primary key table LBR_NotaFiscal
+	  */
+	public int getLBR_NotaFiscal_ID () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_LBR_NotaFiscal_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
+	/** Set Processed.
+		@param Processed 
+		The document has been processed
+	  */
+	public void setProcessed (boolean Processed)
+	{
+		set_Value (COLUMNNAME_Processed, Boolean.valueOf(Processed));
+	}
+
+	/** Get Processed.
+		@return The document has been processed
+	  */
+	public boolean isProcessed () 
+	{
+		Object oo = get_Value(COLUMNNAME_Processed);
+		if (oo != null) 
+		{
+			 if (oo instanceof Boolean) 
+				 return ((Boolean)oo).booleanValue(); 
+			return "Y".equals(oo);
+		}
+		return false;
+	}
+
+	/** Set Sequence.
+		@param SeqNo 
+		Method of ordering records; lowest number comes first
+	  */
+	public void setSeqNo (int SeqNo)
+	{
+		set_Value (COLUMNNAME_SeqNo, Integer.valueOf(SeqNo));
+	}
+
+	/** Get Sequence.
+		@return Method of ordering records; lowest number comes first
+	  */
+	public int getSeqNo () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_SeqNo);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
+	/** Set Status.
+		@param Status 
+		Status of the currently running check
+	  */
+	public void setStatus (String Status)
+	{
+		set_Value (COLUMNNAME_Status, Status);
+	}
+
+	/** Get Status.
+		@return Status of the currently running check
+	  */
+	public String getStatus () 
+	{
+		return (String)get_Value(COLUMNNAME_Status);
+	}
+
+	/** Set CNPJ.
+		@param lbr_CNPJ 
+		Used to identify Legal Entities in Brazil
+	  */
+	public void setlbr_CNPJ (String lbr_CNPJ)
+	{
+		set_Value (COLUMNNAME_lbr_CNPJ, lbr_CNPJ);
+	}
+
+	/** Get CNPJ.
+		@return Used to identify Legal Entities in Brazil
+	  */
+	public String getlbr_CNPJ () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_CNPJ);
+	}
+
+	/** Set CPF.
+		@param lbr_CPF 
+		Used to identify individuals in Brazil
+	  */
+	public void setlbr_CPF (String lbr_CPF)
+	{
+		set_Value (COLUMNNAME_lbr_CPF, lbr_CPF);
+	}
+
+	/** Get CPF.
+		@return Used to identify individuals in Brazil
+	  */
+	public String getlbr_CPF () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_CPF);
+	}
+
 	/** Set NFe ID.
-		@param LBR_NFeID 
+		@param lbr_NFeID 
 		Identification of NFe
 	  */
-	public void setLBR_NFeID (String LBR_NFeID)
+	public void setlbr_NFeID (String lbr_NFeID)
 	{
-		set_Value (COLUMNNAME_LBR_NFeID, LBR_NFeID);
+		set_Value (COLUMNNAME_lbr_NFeID, lbr_NFeID);
 	}
 
 	/** Get NFe ID.
 		@return Identification of NFe
 	  */
-	public String getLBR_NFeID () 
+	public String getlbr_NFeID () 
 	{
-		return (String)get_Value(COLUMNNAME_LBR_NFeID);
+		return (String)get_Value(COLUMNNAME_lbr_NFeID);
 	}
 
 	/** Set NFe Protocol.
-		@param LBR_NFeProt NFe Protocol	  */
-	public void setLBR_NFeProt (String LBR_NFeProt)
+		@param lbr_NFeProt NFe Protocol	  */
+	public void setlbr_NFeProt (String lbr_NFeProt)
 	{
-		set_Value (COLUMNNAME_LBR_NFeProt, LBR_NFeProt);
+		set_Value (COLUMNNAME_lbr_NFeProt, lbr_NFeProt);
 	}
 
 	/** Get NFe Protocol.
 		@return NFe Protocol	  */
-	public String getLBR_NFeProt () 
+	public String getlbr_NFeProt () 
 	{
-		return (String)get_Value(COLUMNNAME_LBR_NFeProt);
+		return (String)get_Value(COLUMNNAME_lbr_NFeProt);
 	}
 
 	/** 100-Autorizado o uso da NF-e = 100 */
@@ -1437,109 +1526,20 @@ public class X_LBR_NFeEvent extends PO implements I_LBR_NFeEvent, I_Persistent
 	/** 722-Rejeição: Operação interna com idEstrangeiro informado deve ser presencial = 722 */
 	public static final String LBR_NFESTATUS_722_RejeiçãoOperaçãoInternaComIdEstrangeiroInformadoDeveSerPresencial = "722";
 	/** Set NFe Status.
-		@param LBR_NFeStatus 
+		@param lbr_NFeStatus 
 		Status of NFe
 	  */
-	public void setLBR_NFeStatus (String LBR_NFeStatus)
+	public void setlbr_NFeStatus (String lbr_NFeStatus)
 	{
 
-		set_Value (COLUMNNAME_LBR_NFeStatus, LBR_NFeStatus);
+		set_Value (COLUMNNAME_lbr_NFeStatus, lbr_NFeStatus);
 	}
 
 	/** Get NFe Status.
 		@return Status of NFe
 	  */
-	public String getLBR_NFeStatus () 
+	public String getlbr_NFeStatus () 
 	{
-		return (String)get_Value(COLUMNNAME_LBR_NFeStatus);
-	}
-
-	public org.adempierelbr.model.I_LBR_NotaFiscal getLBR_NotaFiscal() throws RuntimeException
-    {
-		return (org.adempierelbr.model.I_LBR_NotaFiscal)MTable.get(getCtx(), org.adempierelbr.model.I_LBR_NotaFiscal.Table_Name)
-			.getPO(getLBR_NotaFiscal_ID(), get_TrxName());	}
-
-	/** Set Nota Fiscal.
-		@param LBR_NotaFiscal_ID 
-		Primary key table LBR_NotaFiscal
-	  */
-	public void setLBR_NotaFiscal_ID (int LBR_NotaFiscal_ID)
-	{
-		if (LBR_NotaFiscal_ID < 1) 
-			set_Value (COLUMNNAME_LBR_NotaFiscal_ID, null);
-		else 
-			set_Value (COLUMNNAME_LBR_NotaFiscal_ID, Integer.valueOf(LBR_NotaFiscal_ID));
-	}
-
-	/** Get Nota Fiscal.
-		@return Primary key table LBR_NotaFiscal
-	  */
-	public int getLBR_NotaFiscal_ID () 
-	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_LBR_NotaFiscal_ID);
-		if (ii == null)
-			 return 0;
-		return ii.intValue();
-	}
-
-	/** Set Processed.
-		@param Processed 
-		The document has been processed
-	  */
-	public void setProcessed (boolean Processed)
-	{
-		set_Value (COLUMNNAME_Processed, Boolean.valueOf(Processed));
-	}
-
-	/** Get Processed.
-		@return The document has been processed
-	  */
-	public boolean isProcessed () 
-	{
-		Object oo = get_Value(COLUMNNAME_Processed);
-		if (oo != null) 
-		{
-			 if (oo instanceof Boolean) 
-				 return ((Boolean)oo).booleanValue(); 
-			return "Y".equals(oo);
-		}
-		return false;
-	}
-
-	/** Set Sequence.
-		@param SeqNo 
-		Method of ordering records; lowest number comes first
-	  */
-	public void setSeqNo (int SeqNo)
-	{
-		set_Value (COLUMNNAME_SeqNo, Integer.valueOf(SeqNo));
-	}
-
-	/** Get Sequence.
-		@return Method of ordering records; lowest number comes first
-	  */
-	public int getSeqNo () 
-	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_SeqNo);
-		if (ii == null)
-			 return 0;
-		return ii.intValue();
-	}
-
-	/** Set Status.
-		@param Status 
-		Status of the currently running check
-	  */
-	public void setStatus (String Status)
-	{
-		set_Value (COLUMNNAME_Status, Status);
-	}
-
-	/** Get Status.
-		@return Status of the currently running check
-	  */
-	public String getStatus () 
-	{
-		return (String)get_Value(COLUMNNAME_Status);
+		return (String)get_Value(COLUMNNAME_lbr_NFeStatus);
 	}
 }

@@ -25,7 +25,7 @@ import org.compiere.util.KeyNamePair;
  *  @version Release 4.1
  */
 @SuppressWarnings("all")
-public interface I_W_C_CashLine 
+public interface I_W_C_CashLine extends I_C_CashLine 
 {
 
     /** TableName=C_CashLine */

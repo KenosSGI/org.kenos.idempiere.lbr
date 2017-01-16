@@ -25,7 +25,7 @@ import org.compiere.util.KeyNamePair;
  *  @version Release 4.1
  */
 @SuppressWarnings("all")
-public interface I_W_M_Warehouse 
+public interface I_W_M_Warehouse extends I_M_Warehouse 
 {
 
     /** TableName=M_Warehouse */
@@ -35,21 +35,21 @@ public interface I_W_M_Warehouse
     public static final int Table_ID = 190;
 
 
-    /** Column name LBR_IsThirdParty */
-    public static final String COLUMNNAME_LBR_IsThirdParty = "LBR_IsThirdParty";
+    /** Column name lbr_IsThirdParty */
+    public static final String COLUMNNAME_lbr_IsThirdParty = "lbr_IsThirdParty";
 
 	/** Set Is Third Party .
 	  * Indicates if this warehouse holds third party locators
 	  */
-	public void setLBR_IsThirdParty (boolean LBR_IsThirdParty);
+	public void setlbr_IsThirdParty (boolean lbr_IsThirdParty);
 
 	/** Get Is Third Party .
 	  * Indicates if this warehouse holds third party locators
 	  */
-	public boolean isLBR_IsThirdParty();
+	public boolean islbr_IsThirdParty();
 
-    /** Column name LBR_WarehouseType */
-    public static final String COLUMNNAME_LBR_WarehouseType = "LBR_WarehouseType";
+    /** Column name lbr_WarehouseType */
+    public static final String COLUMNNAME_lbr_WarehouseType = "lbr_WarehouseType";
 
 	/** Próprio = OWN */
 	public static final String LBR_WAREHOUSETYPE_Próprio = "OWN";
@@ -64,10 +64,10 @@ public interface I_W_M_Warehouse
 	/** Set Warehouse Type.
 	  * Defines the Warehouse Type
 	  */
-	public void setLBR_WarehouseType (String LBR_WarehouseType);
+	public void setlbr_WarehouseType (String lbr_WarehouseType);
 
 	/** Get Warehouse Type.
 	  * Defines the Warehouse Type
 	  */
-	public String getLBR_WarehouseType();
+	public String getlbr_WarehouseType();
 }

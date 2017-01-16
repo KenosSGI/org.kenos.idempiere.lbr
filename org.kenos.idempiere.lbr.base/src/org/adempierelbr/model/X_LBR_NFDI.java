@@ -31,7 +31,7 @@ public class X_LBR_NFDI extends PO implements I_LBR_NFDI, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20170105L;
+	private static final long serialVersionUID = 20170116L;
 
     /** Standard Constructor */
     public X_LBR_NFDI (Properties ctx, int LBR_NFDI_ID, String trxName)
@@ -86,102 +86,6 @@ public class X_LBR_NFDI extends PO implements I_LBR_NFDI, I_Persistent
 	public Timestamp getDateTrx () 
 	{
 		return (Timestamp)get_Value(COLUMNNAME_DateTrx);
-	}
-
-	/** Set BP Region.
-		@param LBR_BPRegion 
-		BP Region - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public void setLBR_BPRegion (String LBR_BPRegion)
-	{
-		set_Value (COLUMNNAME_LBR_BPRegion, LBR_BPRegion);
-	}
-
-	/** Get BP Region.
-		@return BP Region - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public String getLBR_BPRegion () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_BPRegion);
-	}
-
-	/** Set CÛdigo do exportador.
-		@param LBR_CodExportador CÛdigo do exportador	  */
-	public void setLBR_CodExportador (String LBR_CodExportador)
-	{
-		set_Value (COLUMNNAME_LBR_CodExportador, LBR_CodExportador);
-	}
-
-	/** Get CÛdigo do exportador.
-		@return CÛdigo do exportador	  */
-	public String getLBR_CodExportador () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_CodExportador);
-	}
-
-	/** Set DI.
-		@param LBR_DI 
-		N˙mero do Documento de Importação DI/DSI/DA (DI/DSI/DA)
-	  */
-	public void setLBR_DI (String LBR_DI)
-	{
-		set_Value (COLUMNNAME_LBR_DI, LBR_DI);
-	}
-
-	/** Get DI.
-		@return N˙mero do Documento de Importação DI/DSI/DA (DI/DSI/DA)
-	  */
-	public String getLBR_DI () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_DI);
-	}
-
-	/** Set Data do Desembaraço.
-		@param LBR_DataDesemb Data do Desembaraço	  */
-	public void setLBR_DataDesemb (Timestamp LBR_DataDesemb)
-	{
-		set_Value (COLUMNNAME_LBR_DataDesemb, LBR_DataDesemb);
-	}
-
-	/** Get Data do Desembaraço.
-		@return Data do Desembaraço	  */
-	public Timestamp getLBR_DataDesemb () 
-	{
-		return (Timestamp)get_Value(COLUMNNAME_LBR_DataDesemb);
-	}
-
-	/** Set Drawback No.
-		@param LBR_Drawback 
-		Identifies the Drawback No
-	  */
-	public void setLBR_Drawback (String LBR_Drawback)
-	{
-		set_Value (COLUMNNAME_LBR_Drawback, LBR_Drawback);
-	}
-
-	/** Get Drawback No.
-		@return Identifies the Drawback No
-	  */
-	public String getLBR_Drawback () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_Drawback);
-	}
-
-	/** Set Local de Desembaraço.
-		@param LBR_LocDesemb 
-		Local de Desembaraço
-	  */
-	public void setLBR_LocDesemb (String LBR_LocDesemb)
-	{
-		set_Value (COLUMNNAME_LBR_LocDesemb, LBR_LocDesemb);
-	}
-
-	/** Get Local de Desembaraço.
-		@return Local de Desembaraço
-	  */
-	public String getLBR_LocDesemb () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_LocDesemb);
 	}
 
 	/** Set DI.
@@ -252,5 +156,101 @@ public class X_LBR_NFDI extends PO implements I_LBR_NFDI, I_Persistent
 	public String getType () 
 	{
 		return (String)get_Value(COLUMNNAME_Type);
+	}
+
+	/** Set BP Region.
+		@param lbr_BPRegion 
+		BP Region - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public void setlbr_BPRegion (String lbr_BPRegion)
+	{
+		set_Value (COLUMNNAME_lbr_BPRegion, lbr_BPRegion);
+	}
+
+	/** Get BP Region.
+		@return BP Region - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public String getlbr_BPRegion () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_BPRegion);
+	}
+
+	/** Set CÛdigo do exportador.
+		@param lbr_CodExportador CÛdigo do exportador	  */
+	public void setlbr_CodExportador (String lbr_CodExportador)
+	{
+		set_Value (COLUMNNAME_lbr_CodExportador, lbr_CodExportador);
+	}
+
+	/** Get CÛdigo do exportador.
+		@return CÛdigo do exportador	  */
+	public String getlbr_CodExportador () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_CodExportador);
+	}
+
+	/** Set DI.
+		@param lbr_DI 
+		N˙mero do Documento de Importação DI/DSI/DA (DI/DSI/DA)
+	  */
+	public void setlbr_DI (String lbr_DI)
+	{
+		set_Value (COLUMNNAME_lbr_DI, lbr_DI);
+	}
+
+	/** Get DI.
+		@return N˙mero do Documento de Importação DI/DSI/DA (DI/DSI/DA)
+	  */
+	public String getlbr_DI () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_DI);
+	}
+
+	/** Set Data do Desembaraço.
+		@param lbr_DataDesemb Data do Desembaraço	  */
+	public void setlbr_DataDesemb (Timestamp lbr_DataDesemb)
+	{
+		set_Value (COLUMNNAME_lbr_DataDesemb, lbr_DataDesemb);
+	}
+
+	/** Get Data do Desembaraço.
+		@return Data do Desembaraço	  */
+	public Timestamp getlbr_DataDesemb () 
+	{
+		return (Timestamp)get_Value(COLUMNNAME_lbr_DataDesemb);
+	}
+
+	/** Set Drawback No.
+		@param lbr_Drawback 
+		Identifies the Drawback No
+	  */
+	public void setlbr_Drawback (String lbr_Drawback)
+	{
+		set_Value (COLUMNNAME_lbr_Drawback, lbr_Drawback);
+	}
+
+	/** Get Drawback No.
+		@return Identifies the Drawback No
+	  */
+	public String getlbr_Drawback () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_Drawback);
+	}
+
+	/** Set Local de Desembaraço.
+		@param lbr_LocDesemb 
+		Local de Desembaraço
+	  */
+	public void setlbr_LocDesemb (String lbr_LocDesemb)
+	{
+		set_Value (COLUMNNAME_lbr_LocDesemb, lbr_LocDesemb);
+	}
+
+	/** Get Local de Desembaraço.
+		@return Local de Desembaraço
+	  */
+	public String getlbr_LocDesemb () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_LocDesemb);
 	}
 }

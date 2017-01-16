@@ -33,7 +33,7 @@ public class X_LBR_ADI extends PO implements I_LBR_ADI, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20170105L;
+	private static final long serialVersionUID = 20170116L;
 
     /** Standard Constructor */
     public X_LBR_ADI (Properties ctx, int LBR_ADI_ID, String trxName)
@@ -192,23 +192,6 @@ public class X_LBR_ADI extends PO implements I_LBR_ADI, I_Persistent
 		return ii.intValue();
 	}
 
-	/** Set SISCOMEX Amt.
-		@param LBR_SISCOMEXAmt SISCOMEX Amt	  */
-	public void setLBR_SISCOMEXAmt (BigDecimal LBR_SISCOMEXAmt)
-	{
-		set_Value (COLUMNNAME_LBR_SISCOMEXAmt, LBR_SISCOMEXAmt);
-	}
-
-	/** Get SISCOMEX Amt.
-		@return SISCOMEX Amt	  */
-	public BigDecimal getLBR_SISCOMEXAmt () 
-	{
-		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_LBR_SISCOMEXAmt);
-		if (bd == null)
-			 return Env.ZERO;
-		return bd;
-	}
-
 	/** Set Sequence.
 		@param SeqNo 
 		Method of ordering records; lowest number comes first
@@ -227,5 +210,22 @@ public class X_LBR_ADI extends PO implements I_LBR_ADI, I_Persistent
 		if (ii == null)
 			 return 0;
 		return ii.intValue();
+	}
+
+	/** Set SISCOMEX Amt.
+		@param lbr_SISCOMEXAmt SISCOMEX Amt	  */
+	public void setlbr_SISCOMEXAmt (BigDecimal lbr_SISCOMEXAmt)
+	{
+		set_Value (COLUMNNAME_lbr_SISCOMEXAmt, lbr_SISCOMEXAmt);
+	}
+
+	/** Get SISCOMEX Amt.
+		@return SISCOMEX Amt	  */
+	public BigDecimal getlbr_SISCOMEXAmt () 
+	{
+		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_lbr_SISCOMEXAmt);
+		if (bd == null)
+			 return Env.ZERO;
+		return bd;
 	}
 }

@@ -25,7 +25,7 @@ import org.compiere.util.KeyNamePair;
  *  @version Release 4.1
  */
 @SuppressWarnings("all")
-public interface I_W_M_ProductionPlan 
+public interface I_W_M_ProductionPlan extends I_M_ProductionPlan 
 {
 
     /** TableName=M_ProductionPlan */

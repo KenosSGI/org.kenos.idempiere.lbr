@@ -25,7 +25,7 @@ import org.compiere.util.KeyNamePair;
  *  @version Release 4.1
  */
 @SuppressWarnings("all")
-public interface I_W_M_Movement 
+public interface I_W_M_Movement extends I_M_Movement 
 {
 
     /** TableName=M_Movement */

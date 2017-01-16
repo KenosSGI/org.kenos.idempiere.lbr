@@ -1,6 +1,6 @@
 /******************************************************************************
- * Product: iDempiere ERP & CRM Smart Business Solution                       *
- * Copyright (C) 1999-2012 ComPiere, Inc. All Rights Reserved.                *
+ * Product: AdempiereLBR ERP & CRM Smart Business Solution                    *
+ * Copyright (C) 1999-2007 ComPiere, Inc. All Rights Reserved.                *
  * This program is free software, you can redistribute it and/or modify it    *
  * under the terms version 2 of the GNU General Public License as published   *
  * by the Free Software Foundation. This program is distributed in the hope   *
@@ -22,17 +22,16 @@ import org.compiere.model.*;
 import org.compiere.util.KeyNamePair;
 
 /** Generated Interface for LBR_FactFiscal
- *  @author iDempiere (generated) 
- *  @version Release 4.1
+ *  @author Adempiere (generated) 
+ *  @version Release 3.6.0LTS
  */
-@SuppressWarnings("all")
 public interface I_LBR_FactFiscal 
 {
 
     /** TableName=LBR_FactFiscal */
     public static final String Table_Name = "LBR_FactFiscal";
 
-    /** AD_Table_ID=1120466 */
+    /** AD_Table_ID=2000058 */
     public static final int Table_ID = MTable.getTable_ID(Table_Name);
 
     KeyNamePair Model = new KeyNamePair(Table_ID, Table_Name);
@@ -64,6 +63,24 @@ public interface I_LBR_FactFiscal
 	  */
 	public int getAD_Org_ID();
 
+    /** Column name BPCityCode */
+    public static final String COLUMNNAME_BPCityCode = "BPCityCode";
+
+	/** Set Cod. Cidade do PN 	  */
+	public void setBPCityCode (int BPCityCode);
+
+	/** Get Cod. Cidade do PN 	  */
+	public int getBPCityCode();
+
+    /** Column name BPCountryCode */
+    public static final String COLUMNNAME_BPCountryCode = "BPCountryCode";
+
+	/** Set Código do País do PN	  */
+	public void setBPCountryCode (int BPCountryCode);
+
+	/** Get Código do País do PN	  */
+	public int getBPCountryCode();
+
     /** Column name BPName */
     public static final String COLUMNNAME_BPName = "BPName";
 
@@ -86,7 +103,7 @@ public interface I_LBR_FactFiscal
 	  */
 	public int getC_BPartner_ID();
 
-	public org.compiere.model.I_C_BPartner getC_BPartner() throws RuntimeException;
+	public I_C_BPartner getC_BPartner() throws RuntimeException;
 
     /** Column name C_BPartner_Location_ID */
     public static final String COLUMNNAME_C_BPartner_Location_ID = "C_BPartner_Location_ID";
@@ -101,7 +118,7 @@ public interface I_LBR_FactFiscal
 	  */
 	public int getC_BPartner_Location_ID();
 
-	public org.compiere.model.I_C_BPartner_Location getC_BPartner_Location() throws RuntimeException;
+	public I_C_BPartner_Location getC_BPartner_Location() throws RuntimeException;
 
     /** Column name C_Invoice_ID */
     public static final String COLUMNNAME_C_Invoice_ID = "C_Invoice_ID";
@@ -116,7 +133,61 @@ public interface I_LBR_FactFiscal
 	  */
 	public int getC_Invoice_ID();
 
-	public org.compiere.model.I_C_Invoice getC_Invoice() throws RuntimeException;
+	public I_C_Invoice getC_Invoice() throws RuntimeException;
+
+    /** Column name COFINS_NFTaxAmt */
+    public static final String COLUMNNAME_COFINS_NFTaxAmt = "COFINS_NFTaxAmt";
+
+	/** Set Total de Cofins da NF	  */
+	public void setCOFINS_NFTaxAmt (BigDecimal COFINS_NFTaxAmt);
+
+	/** Get Total de Cofins da NF	  */
+	public BigDecimal getCOFINS_NFTaxAmt();
+
+    /** Column name COFINS_TaxAmt */
+    public static final String COLUMNNAME_COFINS_TaxAmt = "COFINS_TaxAmt";
+
+	/** Set Valor do COFINS	  */
+	public void setCOFINS_TaxAmt (BigDecimal COFINS_TaxAmt);
+
+	/** Get Valor do COFINS	  */
+	public BigDecimal getCOFINS_TaxAmt();
+
+    /** Column name COFINS_TaxBase */
+    public static final String COLUMNNAME_COFINS_TaxBase = "COFINS_TaxBase";
+
+	/** Set Red. Base de Cálculo do COFINS	  */
+	public void setCOFINS_TaxBase (BigDecimal COFINS_TaxBase);
+
+	/** Get Red. Base de Cálculo do COFINS	  */
+	public BigDecimal getCOFINS_TaxBase();
+
+    /** Column name COFINS_TaxBaseAmt */
+    public static final String COLUMNNAME_COFINS_TaxBaseAmt = "COFINS_TaxBaseAmt";
+
+	/** Set Vlr. BC COFINS	  */
+	public void setCOFINS_TaxBaseAmt (BigDecimal COFINS_TaxBaseAmt);
+
+	/** Get Vlr. BC COFINS	  */
+	public BigDecimal getCOFINS_TaxBaseAmt();
+
+    /** Column name COFINS_TaxRate */
+    public static final String COLUMNNAME_COFINS_TaxRate = "COFINS_TaxRate";
+
+	/** Set Alíq. Cofins	  */
+	public void setCOFINS_TaxRate (BigDecimal COFINS_TaxRate);
+
+	/** Get Alíq. Cofins	  */
+	public BigDecimal getCOFINS_TaxRate();
+
+    /** Column name COFINS_TaxStatus */
+    public static final String COLUMNNAME_COFINS_TaxStatus = "COFINS_TaxStatus";
+
+	/** Set CST Cofins	  */
+	public void setCOFINS_TaxStatus (String COFINS_TaxStatus);
+
+	/** Get CST Cofins	  */
+	public String getCOFINS_TaxStatus();
 
     /** Column name C_Order_ID */
     public static final String COLUMNNAME_C_Order_ID = "C_Order_ID";
@@ -131,22 +202,7 @@ public interface I_LBR_FactFiscal
 	  */
 	public int getC_Order_ID();
 
-	public org.compiere.model.I_C_Order getC_Order() throws RuntimeException;
-
-    /** Column name C_UOM_ID */
-    public static final String COLUMNNAME_C_UOM_ID = "C_UOM_ID";
-
-	/** Set UOM.
-	  * Unit of Measure
-	  */
-	public void setC_UOM_ID (int C_UOM_ID);
-
-	/** Get UOM.
-	  * Unit of Measure
-	  */
-	public int getC_UOM_ID();
-
-	public org.compiere.model.I_C_UOM getC_UOM() throws RuntimeException;
+	public I_C_Order getC_Order() throws RuntimeException;
 
     /** Column name Created */
     public static final String COLUMNNAME_Created = "Created";
@@ -163,6 +219,21 @@ public interface I_LBR_FactFiscal
 	  * User who created this records
 	  */
 	public int getCreatedBy();
+
+    /** Column name C_UOM_ID */
+    public static final String COLUMNNAME_C_UOM_ID = "C_UOM_ID";
+
+	/** Set UOM.
+	  * Unit of Measure
+	  */
+	public void setC_UOM_ID (int C_UOM_ID);
+
+	/** Get UOM.
+	  * Unit of Measure
+	  */
+	public int getC_UOM_ID();
+
+	public I_C_UOM getC_UOM() throws RuntimeException;
 
     /** Column name DateDoc */
     public static final String COLUMNNAME_DateDoc = "DateDoc";
@@ -189,6 +260,15 @@ public interface I_LBR_FactFiscal
 	  * Calculated amount of discount
 	  */
 	public BigDecimal getDiscountAmt();
+
+    /** Column name DocBaseTypeBR */
+    public static final String COLUMNNAME_DocBaseTypeBR = "DocBaseTypeBR";
+
+	/** Set Sub Classificação do Documento	  */
+	public void setDocBaseTypeBR (String DocBaseTypeBR);
+
+	/** Get Sub Classificação do Documento	  */
+	public String getDocBaseTypeBR();
 
     /** Column name DocumentNo */
     public static final String COLUMNNAME_DocumentNo = "DocumentNo";
@@ -255,6 +335,204 @@ public interface I_LBR_FactFiscal
 	  */
 	public BigDecimal getGrandTotal();
 
+    /** Column name ICMS_NFTaxAmt */
+    public static final String COLUMNNAME_ICMS_NFTaxAmt = "ICMS_NFTaxAmt";
+
+	/** Set Total de ICMS da NF	  */
+	public void setICMS_NFTaxAmt (BigDecimal ICMS_NFTaxAmt);
+
+	/** Get Total de ICMS da NF	  */
+	public BigDecimal getICMS_NFTaxAmt();
+
+    /** Column name ICMS_NFTaxBaseAmt */
+    public static final String COLUMNNAME_ICMS_NFTaxBaseAmt = "ICMS_NFTaxBaseAmt";
+
+	/** Set Tot da BC do ICMS	  */
+	public void setICMS_NFTaxBaseAmt (BigDecimal ICMS_NFTaxBaseAmt);
+
+	/** Get Tot da BC do ICMS	  */
+	public BigDecimal getICMS_NFTaxBaseAmt();
+
+    /** Column name ICMSST_NFTaxAmt */
+    public static final String COLUMNNAME_ICMSST_NFTaxAmt = "ICMSST_NFTaxAmt";
+
+	/** Set Total de ICMSST da NF	  */
+	public void setICMSST_NFTaxAmt (BigDecimal ICMSST_NFTaxAmt);
+
+	/** Get Total de ICMSST da NF	  */
+	public BigDecimal getICMSST_NFTaxAmt();
+
+    /** Column name ICMSST_NFTaxBaseAmt */
+    public static final String COLUMNNAME_ICMSST_NFTaxBaseAmt = "ICMSST_NFTaxBaseAmt";
+
+	/** Set Total da BC ICMSST da NF	  */
+	public void setICMSST_NFTaxBaseAmt (BigDecimal ICMSST_NFTaxBaseAmt);
+
+	/** Get Total da BC ICMSST da NF	  */
+	public BigDecimal getICMSST_NFTaxBaseAmt();
+
+    /** Column name ICMSST_TaxAmt */
+    public static final String COLUMNNAME_ICMSST_TaxAmt = "ICMSST_TaxAmt";
+
+	/** Set Valor do ICMSST	  */
+	public void setICMSST_TaxAmt (BigDecimal ICMSST_TaxAmt);
+
+	/** Get Valor do ICMSST	  */
+	public BigDecimal getICMSST_TaxAmt();
+
+    /** Column name ICMSST_TaxBase */
+    public static final String COLUMNNAME_ICMSST_TaxBase = "ICMSST_TaxBase";
+
+	/** Set Red. da BC do ICMSST	  */
+	public void setICMSST_TaxBase (BigDecimal ICMSST_TaxBase);
+
+	/** Get Red. da BC do ICMSST	  */
+	public BigDecimal getICMSST_TaxBase();
+
+    /** Column name ICMSST_TaxBaseAmt */
+    public static final String COLUMNNAME_ICMSST_TaxBaseAmt = "ICMSST_TaxBaseAmt";
+
+	/** Set Total da BC ICMSST	  */
+	public void setICMSST_TaxBaseAmt (BigDecimal ICMSST_TaxBaseAmt);
+
+	/** Get Total da BC ICMSST	  */
+	public BigDecimal getICMSST_TaxBaseAmt();
+
+    /** Column name ICMSST_TaxRate */
+    public static final String COLUMNNAME_ICMSST_TaxRate = "ICMSST_TaxRate";
+
+	/** Set Alíq. do ICMSST	  */
+	public void setICMSST_TaxRate (BigDecimal ICMSST_TaxRate);
+
+	/** Get Alíq. do ICMSST	  */
+	public BigDecimal getICMSST_TaxRate();
+
+    /** Column name ICMSST_TaxStatus */
+    public static final String COLUMNNAME_ICMSST_TaxStatus = "ICMSST_TaxStatus";
+
+	/** Set CST do ICMSST	  */
+	public void setICMSST_TaxStatus (String ICMSST_TaxStatus);
+
+	/** Get CST do ICMSST	  */
+	public String getICMSST_TaxStatus();
+
+    /** Column name ICMS_TaxAmt */
+    public static final String COLUMNNAME_ICMS_TaxAmt = "ICMS_TaxAmt";
+
+	/** Set Valor do ICMS	  */
+	public void setICMS_TaxAmt (BigDecimal ICMS_TaxAmt);
+
+	/** Get Valor do ICMS	  */
+	public BigDecimal getICMS_TaxAmt();
+
+    /** Column name ICMS_TaxBase */
+    public static final String COLUMNNAME_ICMS_TaxBase = "ICMS_TaxBase";
+
+	/** Set Red. BC ICMS	  */
+	public void setICMS_TaxBase (BigDecimal ICMS_TaxBase);
+
+	/** Get Red. BC ICMS	  */
+	public BigDecimal getICMS_TaxBase();
+
+    /** Column name ICMS_TaxBaseAmt */
+    public static final String COLUMNNAME_ICMS_TaxBaseAmt = "ICMS_TaxBaseAmt";
+
+	/** Set Vlr. BC ICMS	  */
+	public void setICMS_TaxBaseAmt (BigDecimal ICMS_TaxBaseAmt);
+
+	/** Get Vlr. BC ICMS	  */
+	public BigDecimal getICMS_TaxBaseAmt();
+
+    /** Column name ICMS_TaxRate */
+    public static final String COLUMNNAME_ICMS_TaxRate = "ICMS_TaxRate";
+
+	/** Set Aliquota ICMS	  */
+	public void setICMS_TaxRate (BigDecimal ICMS_TaxRate);
+
+	/** Get Aliquota ICMS	  */
+	public BigDecimal getICMS_TaxRate();
+
+    /** Column name ICMS_TaxStatus */
+    public static final String COLUMNNAME_ICMS_TaxStatus = "ICMS_TaxStatus";
+
+	/** Set CST do ICMS	  */
+	public void setICMS_TaxStatus (String ICMS_TaxStatus);
+
+	/** Get CST do ICMS	  */
+	public String getICMS_TaxStatus();
+
+    /** Column name II_TaxAmt */
+    public static final String COLUMNNAME_II_TaxAmt = "II_TaxAmt";
+
+	/** Set Valor do II	  */
+	public void setII_TaxAmt (BigDecimal II_TaxAmt);
+
+	/** Get Valor do II	  */
+	public BigDecimal getII_TaxAmt();
+
+    /** Column name II_TaxBaseAmt */
+    public static final String COLUMNNAME_II_TaxBaseAmt = "II_TaxBaseAmt";
+
+	/** Set Vlr. da BC do II	  */
+	public void setII_TaxBaseAmt (BigDecimal II_TaxBaseAmt);
+
+	/** Get Vlr. da BC do II	  */
+	public BigDecimal getII_TaxBaseAmt();
+
+    /** Column name II_TaxRate */
+    public static final String COLUMNNAME_II_TaxRate = "II_TaxRate";
+
+	/** Set Alíq. do II	  */
+	public void setII_TaxRate (BigDecimal II_TaxRate);
+
+	/** Get Alíq. do II	  */
+	public BigDecimal getII_TaxRate();
+
+    /** Column name IPI_NFTaxAmt */
+    public static final String COLUMNNAME_IPI_NFTaxAmt = "IPI_NFTaxAmt";
+
+	/** Set Total de IPI da NF	  */
+	public void setIPI_NFTaxAmt (BigDecimal IPI_NFTaxAmt);
+
+	/** Get Total de IPI da NF	  */
+	public BigDecimal getIPI_NFTaxAmt();
+
+    /** Column name IPI_TaxAmt */
+    public static final String COLUMNNAME_IPI_TaxAmt = "IPI_TaxAmt";
+
+	/** Set Valor do IPI	  */
+	public void setIPI_TaxAmt (BigDecimal IPI_TaxAmt);
+
+	/** Get Valor do IPI	  */
+	public BigDecimal getIPI_TaxAmt();
+
+    /** Column name IPI_TaxBaseAmt */
+    public static final String COLUMNNAME_IPI_TaxBaseAmt = "IPI_TaxBaseAmt";
+
+	/** Set Vlr da BC do IPI	  */
+	public void setIPI_TaxBaseAmt (BigDecimal IPI_TaxBaseAmt);
+
+	/** Get Vlr da BC do IPI	  */
+	public BigDecimal getIPI_TaxBaseAmt();
+
+    /** Column name IPI_TaxRate */
+    public static final String COLUMNNAME_IPI_TaxRate = "IPI_TaxRate";
+
+	/** Set Alíq. do IPI	  */
+	public void setIPI_TaxRate (BigDecimal IPI_TaxRate);
+
+	/** Get Alíq. do IPI	  */
+	public BigDecimal getIPI_TaxRate();
+
+    /** Column name IPI_TaxStatus */
+    public static final String COLUMNNAME_IPI_TaxStatus = "IPI_TaxStatus";
+
+	/** Set CST do IPI	  */
+	public void setIPI_TaxStatus (String IPI_TaxStatus);
+
+	/** Get CST do IPI	  */
+	public String getIPI_TaxStatus();
+
     /** Column name IsActive */
     public static final String COLUMNNAME_IsActive = "IsActive";
 
@@ -274,12 +552,12 @@ public interface I_LBR_FactFiscal
 	/** Set Cancelled.
 	  * The transaction was cancelled
 	  */
-	public void setIsCancelled (String IsCancelled);
+	public void setIsCancelled (boolean IsCancelled);
 
 	/** Get Cancelled.
 	  * The transaction was cancelled
 	  */
-	public String getIsCancelled();
+	public boolean isCancelled();
 
     /** Column name IsSOTrx */
     public static final String COLUMNNAME_IsSOTrx = "IsSOTrx";
@@ -287,179 +565,170 @@ public interface I_LBR_FactFiscal
 	/** Set Sales Transaction.
 	  * This is a Sales Transaction
 	  */
-	public void setIsSOTrx (String IsSOTrx);
+	public void setIsSOTrx (boolean IsSOTrx);
 
 	/** Get Sales Transaction.
 	  * This is a Sales Transaction
 	  */
-	public String getIsSOTrx();
-
-    /** Column name LBR_BPAddress1 */
-    public static final String COLUMNNAME_LBR_BPAddress1 = "LBR_BPAddress1";
-
-	/** Set BP Address 1.
-	  * BP Address 1 - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public void setLBR_BPAddress1 (String LBR_BPAddress1);
-
-	/** Get BP Address 1.
-	  * BP Address 1 - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public String getLBR_BPAddress1();
-
-    /** Column name LBR_BPAddress2 */
-    public static final String COLUMNNAME_LBR_BPAddress2 = "LBR_BPAddress2";
-
-	/** Set BP Address 2.
-	  * BP Address 2 - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public void setLBR_BPAddress2 (String LBR_BPAddress2);
-
-	/** Get BP Address 2.
-	  * BP Address 2 - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public String getLBR_BPAddress2();
-
-    /** Column name LBR_BPAddress3 */
-    public static final String COLUMNNAME_LBR_BPAddress3 = "LBR_BPAddress3";
-
-	/** Set BP Address 3.
-	  * BP Address 3 - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public void setLBR_BPAddress3 (String LBR_BPAddress3);
-
-	/** Get BP Address 3.
-	  * BP Address 3 - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public String getLBR_BPAddress3();
-
-    /** Column name LBR_BPAddress4 */
-    public static final String COLUMNNAME_LBR_BPAddress4 = "LBR_BPAddress4";
-
-	/** Set BP Address 4.
-	  * BP Address 4 - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public void setLBR_BPAddress4 (String LBR_BPAddress4);
-
-	/** Get BP Address 4.
-	  * BP Address 4 - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public String getLBR_BPAddress4();
-
-    /** Column name LBR_BPCNPJ */
-    public static final String COLUMNNAME_LBR_BPCNPJ = "LBR_BPCNPJ";
-
-	/** Set BP CNPJ.
-	  * BP CNPJ - Copied from the BP into Brazilan Legal and Tax Books
-	  */
-	public void setLBR_BPCNPJ (String LBR_BPCNPJ);
-
-	/** Get BP CNPJ.
-	  * BP CNPJ - Copied from the BP into Brazilan Legal and Tax Books
-	  */
-	public String getLBR_BPCNPJ();
-
-    /** Column name LBR_BPCity */
-    public static final String COLUMNNAME_LBR_BPCity = "LBR_BPCity";
-
-	/** Set BP City.
-	  * BP City - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public void setLBR_BPCity (String LBR_BPCity);
-
-	/** Get BP City.
-	  * BP City - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public String getLBR_BPCity();
-
-    /** Column name LBR_BPIE */
-    public static final String COLUMNNAME_LBR_BPIE = "LBR_BPIE";
-
-	/** Set BP IE.
-	  * BP IE - Copied from the BP into Brazilan Legal and Tax Books
-	  */
-	public void setLBR_BPIE (String LBR_BPIE);
-
-	/** Get BP IE.
-	  * BP IE - Copied from the BP into Brazilan Legal and Tax Books
-	  */
-	public String getLBR_BPIE();
-
-    /** Column name LBR_BPPhone */
-    public static final String COLUMNNAME_LBR_BPPhone = "LBR_BPPhone";
-
-	/** Set BP Phone.
-	  * BP Phone - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public void setLBR_BPPhone (String LBR_BPPhone);
-
-	/** Get BP Phone.
-	  * BP Phone - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public String getLBR_BPPhone();
-
-    /** Column name LBR_BPPostal */
-    public static final String COLUMNNAME_LBR_BPPostal = "LBR_BPPostal";
-
-	/** Set BP Postal.
-	  * BP Postal - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public void setLBR_BPPostal (String LBR_BPPostal);
-
-	/** Get BP Postal.
-	  * BP Postal - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public String getLBR_BPPostal();
-
-    /** Column name LBR_BPRegion */
-    public static final String COLUMNNAME_LBR_BPRegion = "LBR_BPRegion";
-
-	/** Set BP Region.
-	  * BP Region - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public void setLBR_BPRegion (String LBR_BPRegion);
-
-	/** Get BP Region.
-	  * BP Region - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public String getLBR_BPRegion();
-
-    /** Column name LBR_BPSuframa */
-    public static final String COLUMNNAME_LBR_BPSuframa = "LBR_BPSuframa";
-
-	/** Set BP Suframa.
-	  * Defines the BP Suframa
-	  */
-	public void setLBR_BPSuframa (String LBR_BPSuframa);
-
-	/** Get BP Suframa.
-	  * Defines the BP Suframa
-	  */
-	public String getLBR_BPSuframa();
+	public boolean isSOTrx();
 
     /** Column name LBR_BP_Accountant_ID */
     public static final String COLUMNNAME_LBR_BP_Accountant_ID = "LBR_BP_Accountant_ID";
 
-	/** Set Accountant	  */
+	/** Set Contador.
+	  * Parceiro de Negócios que exerce a função de Contador na Organização. OBRIGATÓRIO PARA O SPED
+	  */
 	public void setLBR_BP_Accountant_ID (int LBR_BP_Accountant_ID);
 
-	/** Get Accountant	  */
+	/** Get Contador.
+	  * Parceiro de Negócios que exerce a função de Contador na Organização. OBRIGATÓRIO PARA O SPED
+	  */
 	public int getLBR_BP_Accountant_ID();
 
-	public org.compiere.model.I_C_BPartner getLBR_BP_Accountant() throws RuntimeException;
+	public I_C_BPartner getLBR_BP_Accountant() throws RuntimeException;
 
-    /** Column name LBR_CFOPName */
-    public static final String COLUMNNAME_LBR_CFOPName = "LBR_CFOPName";
+    /** Column name lbr_BPAddress1 */
+    public static final String COLUMNNAME_lbr_BPAddress1 = "lbr_BPAddress1";
 
-	/** Set CFOP Name.
-	  * Defines the CFOP Name
+	/** Set BP Address 1.
+	  * BP Address 1 - Copied from the BP Location into Brazilan Legal and Tax Books
 	  */
-	public void setLBR_CFOPName (String LBR_CFOPName);
+	public void setlbr_BPAddress1 (String lbr_BPAddress1);
 
-	/** Get CFOP Name.
-	  * Defines the CFOP Name
+	/** Get BP Address 1.
+	  * BP Address 1 - Copied from the BP Location into Brazilan Legal and Tax Books
 	  */
-	public String getLBR_CFOPName();
+	public String getlbr_BPAddress1();
+
+    /** Column name lbr_BPAddress2 */
+    public static final String COLUMNNAME_lbr_BPAddress2 = "lbr_BPAddress2";
+
+	/** Set BP Address 2.
+	  * BP Address 2 - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public void setlbr_BPAddress2 (String lbr_BPAddress2);
+
+	/** Get BP Address 2.
+	  * BP Address 2 - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public String getlbr_BPAddress2();
+
+    /** Column name lbr_BPAddress3 */
+    public static final String COLUMNNAME_lbr_BPAddress3 = "lbr_BPAddress3";
+
+	/** Set BP Address 3.
+	  * BP Address 3 - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public void setlbr_BPAddress3 (String lbr_BPAddress3);
+
+	/** Get BP Address 3.
+	  * BP Address 3 - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public String getlbr_BPAddress3();
+
+    /** Column name lbr_BPAddress4 */
+    public static final String COLUMNNAME_lbr_BPAddress4 = "lbr_BPAddress4";
+
+	/** Set BP Address 4.
+	  * BP Address 4 - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public void setlbr_BPAddress4 (String lbr_BPAddress4);
+
+	/** Get BP Address 4.
+	  * BP Address 4 - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public String getlbr_BPAddress4();
+
+    /** Column name lbr_BPCity */
+    public static final String COLUMNNAME_lbr_BPCity = "lbr_BPCity";
+
+	/** Set BP City.
+	  * BP City - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public void setlbr_BPCity (String lbr_BPCity);
+
+	/** Get BP City.
+	  * BP City - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public String getlbr_BPCity();
+
+    /** Column name lbr_BPCNPJ */
+    public static final String COLUMNNAME_lbr_BPCNPJ = "lbr_BPCNPJ";
+
+	/** Set BP CNPJ.
+	  * BP CNPJ - Copied from the BP into Brazilan Legal and Tax Books
+	  */
+	public void setlbr_BPCNPJ (String lbr_BPCNPJ);
+
+	/** Get BP CNPJ.
+	  * BP CNPJ - Copied from the BP into Brazilan Legal and Tax Books
+	  */
+	public String getlbr_BPCNPJ();
+
+    /** Column name lbr_BPIE */
+    public static final String COLUMNNAME_lbr_BPIE = "lbr_BPIE";
+
+	/** Set BP IE.
+	  * BP IE - Copied from the BP into Brazilan Legal and Tax Books
+	  */
+	public void setlbr_BPIE (String lbr_BPIE);
+
+	/** Get BP IE.
+	  * BP IE - Copied from the BP into Brazilan Legal and Tax Books
+	  */
+	public String getlbr_BPIE();
+
+    /** Column name lbr_BPPhone */
+    public static final String COLUMNNAME_lbr_BPPhone = "lbr_BPPhone";
+
+	/** Set BP Phone.
+	  * BP Phone - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public void setlbr_BPPhone (String lbr_BPPhone);
+
+	/** Get BP Phone.
+	  * BP Phone - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public String getlbr_BPPhone();
+
+    /** Column name lbr_BPPostal */
+    public static final String COLUMNNAME_lbr_BPPostal = "lbr_BPPostal";
+
+	/** Set BP Postal.
+	  * BP Postal - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public void setlbr_BPPostal (String lbr_BPPostal);
+
+	/** Get BP Postal.
+	  * BP Postal - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public String getlbr_BPPostal();
+
+    /** Column name lbr_BPRegion */
+    public static final String COLUMNNAME_lbr_BPRegion = "lbr_BPRegion";
+
+	/** Set BP Region.
+	  * BP Region - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public void setlbr_BPRegion (String lbr_BPRegion);
+
+	/** Get BP Region.
+	  * BP Region - Copied from the BP Location into Brazilan Legal and Tax Books
+	  */
+	public String getlbr_BPRegion();
+
+    /** Column name lbr_BPSuframa */
+    public static final String COLUMNNAME_lbr_BPSuframa = "lbr_BPSuframa";
+
+	/** Set BP Suframa.
+	  * Defines the BP Suframa
+	  */
+	public void setlbr_BPSuframa (String lbr_BPSuframa);
+
+	/** Get BP Suframa.
+	  * Defines the BP Suframa
+	  */
+	public String getlbr_BPSuframa();
 
     /** Column name LBR_CFOP_ID */
     public static final String COLUMNNAME_LBR_CFOP_ID = "LBR_CFOP_ID";
@@ -476,149 +745,145 @@ public interface I_LBR_FactFiscal
 
 	public org.adempierelbr.model.I_LBR_CFOP getLBR_CFOP() throws RuntimeException;
 
-    /** Column name LBR_CNAE */
-    public static final String COLUMNNAME_LBR_CNAE = "LBR_CNAE";
+    /** Column name lbr_CFOPName */
+    public static final String COLUMNNAME_lbr_CFOPName = "lbr_CFOPName";
+
+	/** Set CFOP Name.
+	  * Defines the CFOP Name
+	  */
+	public void setlbr_CFOPName (String lbr_CFOPName);
+
+	/** Get CFOP Name.
+	  * Defines the CFOP Name
+	  */
+	public String getlbr_CFOPName();
+
+    /** Column name lbr_CNAE */
+    public static final String COLUMNNAME_lbr_CNAE = "lbr_CNAE";
 
 	/** Set CNAE.
 	  * Classificação Nacional de Atividades Econômicas
 	  */
-	public void setLBR_CNAE (String LBR_CNAE);
+	public void setlbr_CNAE (String lbr_CNAE);
 
 	/** Get CNAE.
 	  * Classificação Nacional de Atividades Econômicas
 	  */
-	public String getLBR_CNAE();
+	public String getlbr_CNAE();
 
-    /** Column name LBR_CNPJ */
-    public static final String COLUMNNAME_LBR_CNPJ = "LBR_CNPJ";
+    /** Column name lbr_CNPJ */
+    public static final String COLUMNNAME_lbr_CNPJ = "lbr_CNPJ";
 
 	/** Set CNPJ.
 	  * Used to identify Legal Entities in Brazil
 	  */
-	public void setLBR_CNPJ (String LBR_CNPJ);
+	public void setlbr_CNPJ (String lbr_CNPJ);
 
 	/** Get CNPJ.
 	  * Used to identify Legal Entities in Brazil
 	  */
-	public String getLBR_CNPJ();
+	public String getlbr_CNPJ();
 
-    /** Column name LBR_DateInOut */
-    public static final String COLUMNNAME_LBR_DateInOut = "LBR_DateInOut";
+    /** Column name lbr_DateInOut */
+    public static final String COLUMNNAME_lbr_DateInOut = "lbr_DateInOut";
 
 	/** Set Date InOut.
 	  * Defines the InOut Date
 	  */
-	public void setLBR_DateInOut (Timestamp LBR_DateInOut);
+	public void setlbr_DateInOut (Timestamp lbr_DateInOut);
 
 	/** Get Date InOut.
 	  * Defines the InOut Date
 	  */
-	public Timestamp getLBR_DateInOut();
+	public Timestamp getlbr_DateInOut();
 
     /** Column name LBR_FactFiscal_ID */
     public static final String COLUMNNAME_LBR_FactFiscal_ID = "LBR_FactFiscal_ID";
 
-	/** Set Fact Nota Fiscal	  */
+	/** Set Detalhes de Fatos Fiscais	  */
 	public void setLBR_FactFiscal_ID (int LBR_FactFiscal_ID);
 
-	/** Get Fact Nota Fiscal	  */
+	/** Get Detalhes de Fatos Fiscais	  */
 	public int getLBR_FactFiscal_ID();
 
-    /** Column name LBR_Fantasia */
-    public static final String COLUMNNAME_LBR_Fantasia = "LBR_Fantasia";
+    /** Column name lbr_Fantasia */
+    public static final String COLUMNNAME_lbr_Fantasia = "lbr_Fantasia";
 
 	/** Set Fantasia	  */
-	public void setLBR_Fantasia (String LBR_Fantasia);
+	public void setlbr_Fantasia (String lbr_Fantasia);
 
 	/** Get Fantasia	  */
-	public String getLBR_Fantasia();
+	public String getlbr_Fantasia();
 
-    /** Column name LBR_IE */
-    public static final String COLUMNNAME_LBR_IE = "LBR_IE";
+    /** Column name lbr_IE */
+    public static final String COLUMNNAME_lbr_IE = "lbr_IE";
 
 	/** Set IE.
 	  * Used to Identify the IE (State Tax ID)
 	  */
-	public void setLBR_IE (String LBR_IE);
+	public void setlbr_IE (String lbr_IE);
 
 	/** Get IE.
 	  * Used to Identify the IE (State Tax ID)
 	  */
-	public String getLBR_IE();
+	public String getlbr_IE();
 
-    /** Column name LBR_IndAtividade */
-    public static final String COLUMNNAME_LBR_IndAtividade = "LBR_IndAtividade";
+    /** Column name lbr_IndAtividade */
+    public static final String COLUMNNAME_lbr_IndAtividade = "lbr_IndAtividade";
 
-	/** Set Tipo de atividade.
-	  * Tipo de atividade
-	  */
-	public void setLBR_IndAtividade (String LBR_IndAtividade);
+	/** Set Indicador de Atividade Econômica	  */
+	public void setlbr_IndAtividade (String lbr_IndAtividade);
 
-	/** Get Tipo de atividade.
-	  * Tipo de atividade
-	  */
-	public String getLBR_IndAtividade();
+	/** Get Indicador de Atividade Econômica	  */
+	public String getlbr_IndAtividade();
 
-    /** Column name LBR_InsuranceAmt */
-    public static final String COLUMNNAME_LBR_InsuranceAmt = "LBR_InsuranceAmt";
+    /** Column name lbr_InsuranceAmt */
+    public static final String COLUMNNAME_lbr_InsuranceAmt = "lbr_InsuranceAmt";
 
 	/** Set Insurance Amt.
 	  * Defines the Insurance Amt
 	  */
-	public void setLBR_InsuranceAmt (BigDecimal LBR_InsuranceAmt);
+	public void setlbr_InsuranceAmt (BigDecimal lbr_InsuranceAmt);
 
 	/** Get Insurance Amt.
 	  * Defines the Insurance Amt
 	  */
-	public BigDecimal getLBR_InsuranceAmt();
+	public BigDecimal getlbr_InsuranceAmt();
 
-    /** Column name LBR_IsOwnDocument */
-    public static final String COLUMNNAME_LBR_IsOwnDocument = "LBR_IsOwnDocument";
+    /** Column name lbr_IsOwnDocument */
+    public static final String COLUMNNAME_lbr_IsOwnDocument = "lbr_IsOwnDocument";
 
 	/** Set Is Own Document.
 	  * Identifies this is an own document
 	  */
-	public void setLBR_IsOwnDocument (String LBR_IsOwnDocument);
+	public void setlbr_IsOwnDocument (boolean lbr_IsOwnDocument);
 
 	/** Get Is Own Document.
 	  * Identifies this is an own document
 	  */
-	public String getLBR_IsOwnDocument();
+	public boolean islbr_IsOwnDocument();
 
-    /** Column name LBR_IsService */
-    public static final String COLUMNNAME_LBR_IsService = "LBR_IsService";
+    /** Column name lbr_IsService */
+    public static final String COLUMNNAME_lbr_IsService = "lbr_IsService";
 
 	/** Set Is Service.
 	  * Defines if the lines is a Service
 	  */
-	public void setLBR_IsService (String LBR_IsService);
+	public void setlbr_IsService (boolean lbr_IsService);
 
 	/** Get Is Service.
 	  * Defines if the lines is a Service
 	  */
-	public String getLBR_IsService();
+	public boolean islbr_IsService();
 
-    /** Column name LBR_ItemTypeBR */
-    public static final String COLUMNNAME_LBR_ItemTypeBR = "LBR_ItemTypeBR";
+    /** Column name lbr_ItemTypeBR */
+    public static final String COLUMNNAME_lbr_ItemTypeBR = "lbr_ItemTypeBR";
 
-	/** Set Item Type (SPED)	  */
-	public void setLBR_ItemTypeBR (String LBR_ItemTypeBR);
+	/** Set Tipo do Item (Classif. Fiscal do SPED)	  */
+	public void setlbr_ItemTypeBR (String lbr_ItemTypeBR);
 
-	/** Get Item Type (SPED)	  */
-	public String getLBR_ItemTypeBR();
-
-    /** Column name LBR_NCMName */
-    public static final String COLUMNNAME_LBR_NCMName = "LBR_NCMName";
-
-	/** Set NCM Name.
-	  * Defines the NCM Name
-	  */
-	public void setLBR_NCMName (String LBR_NCMName);
-
-	/** Get NCM Name.
-	  * Defines the NCM Name
-	  */
-	public String getLBR_NCMName();
+	/** Get Tipo do Item (Classif. Fiscal do SPED)	  */
+	public String getlbr_ItemTypeBR();
 
     /** Column name LBR_NCM_ID */
     public static final String COLUMNNAME_LBR_NCM_ID = "LBR_NCM_ID";
@@ -635,6 +900,19 @@ public interface I_LBR_FactFiscal
 
 	public org.adempierelbr.model.I_LBR_NCM getLBR_NCM() throws RuntimeException;
 
+    /** Column name lbr_NCMName */
+    public static final String COLUMNNAME_lbr_NCMName = "lbr_NCMName";
+
+	/** Set NCM Name.
+	  * Defines the NCM Name
+	  */
+	public void setlbr_NCMName (String lbr_NCMName);
+
+	/** Get NCM Name.
+	  * Defines the NCM Name
+	  */
+	public String getlbr_NCMName();
+
     /** Column name LBR_NFDI_ID */
     public static final String COLUMNNAME_LBR_NFDI_ID = "LBR_NFDI_ID";
 
@@ -646,64 +924,49 @@ public interface I_LBR_FactFiscal
 
 	public org.adempierelbr.model.I_LBR_NFDI getLBR_NFDI() throws RuntimeException;
 
-    /** Column name LBR_NFModel */
-    public static final String COLUMNNAME_LBR_NFModel = "LBR_NFModel";
-
-	/** Set NF Model.
-	  * Identifies the model of Nota Fiscal
-	  */
-	public void setLBR_NFModel (String LBR_NFModel);
-
-	/** Get NF Model.
-	  * Identifies the model of Nota Fiscal
-	  */
-	public String getLBR_NFModel();
-
-    /** Column name LBR_NFSerie */
-    public static final String COLUMNNAME_LBR_NFSerie = "LBR_NFSerie";
-
-	/** Set NF Serie	  */
-	public void setLBR_NFSerie (String LBR_NFSerie);
-
-	/** Get NF Serie	  */
-	public String getLBR_NFSerie();
-
-    /** Column name LBR_NFeID */
-    public static final String COLUMNNAME_LBR_NFeID = "LBR_NFeID";
+    /** Column name lbr_NFeID */
+    public static final String COLUMNNAME_lbr_NFeID = "lbr_NFeID";
 
 	/** Set NFe ID.
 	  * Identification of NFe
 	  */
-	public void setLBR_NFeID (String LBR_NFeID);
+	public void setlbr_NFeID (String lbr_NFeID);
 
 	/** Get NFe ID.
 	  * Identification of NFe
 	  */
-	public String getLBR_NFeID();
+	public String getlbr_NFeID();
 
-    /** Column name LBR_NFeProt */
-    public static final String COLUMNNAME_LBR_NFeProt = "LBR_NFeProt";
+    /** Column name lbr_NFeProt */
+    public static final String COLUMNNAME_lbr_NFeProt = "lbr_NFeProt";
 
 	/** Set NFe Protocol	  */
-	public void setLBR_NFeProt (String LBR_NFeProt);
+	public void setlbr_NFeProt (String lbr_NFeProt);
 
 	/** Get NFe Protocol	  */
-	public String getLBR_NFeProt();
+	public String getlbr_NFeProt();
 
-    /** Column name LBR_NotaFiscalLine_ID */
-    public static final String COLUMNNAME_LBR_NotaFiscalLine_ID = "LBR_NotaFiscalLine_ID";
+    /** Column name lbr_NFModel */
+    public static final String COLUMNNAME_lbr_NFModel = "lbr_NFModel";
 
-	/** Set Nota Fiscal Line.
-	  * Primary key table LBR_NotaFiscalLine
+	/** Set Modelo de Documento Fiscal.
+	  * Identifies the model of Nota Fiscal
 	  */
-	public void setLBR_NotaFiscalLine_ID (int LBR_NotaFiscalLine_ID);
+	public void setlbr_NFModel (String lbr_NFModel);
 
-	/** Get Nota Fiscal Line.
-	  * Primary key table LBR_NotaFiscalLine
+	/** Get Modelo de Documento Fiscal.
+	  * Identifies the model of Nota Fiscal
 	  */
-	public int getLBR_NotaFiscalLine_ID();
+	public String getlbr_NFModel();
 
-	public org.adempierelbr.model.I_LBR_NotaFiscalLine getLBR_NotaFiscalLine() throws RuntimeException;
+    /** Column name lbr_NFSerie */
+    public static final String COLUMNNAME_lbr_NFSerie = "lbr_NFSerie";
+
+	/** Set NF Serie	  */
+	public void setlbr_NFSerie (String lbr_NFSerie);
+
+	/** Get NF Serie	  */
+	public String getlbr_NFSerie();
 
     /** Column name LBR_NotaFiscal_ID */
     public static final String COLUMNNAME_LBR_NotaFiscal_ID = "LBR_NotaFiscal_ID";
@@ -720,192 +983,218 @@ public interface I_LBR_FactFiscal
 
 	public org.adempierelbr.model.I_LBR_NotaFiscal getLBR_NotaFiscal() throws RuntimeException;
 
-    /** Column name LBR_OrgAddress1 */
-    public static final String COLUMNNAME_LBR_OrgAddress1 = "LBR_OrgAddress1";
+    /** Column name LBR_NotaFiscalLine_ID */
+    public static final String COLUMNNAME_LBR_NotaFiscalLine_ID = "LBR_NotaFiscalLine_ID";
+
+	/** Set Nota Fiscal Line.
+	  * Primary key table LBR_NotaFiscalLine
+	  */
+	public void setLBR_NotaFiscalLine_ID (int LBR_NotaFiscalLine_ID);
+
+	/** Get Nota Fiscal Line.
+	  * Primary key table LBR_NotaFiscalLine
+	  */
+	public int getLBR_NotaFiscalLine_ID();
+
+	public org.adempierelbr.model.I_LBR_NotaFiscalLine getLBR_NotaFiscalLine() throws RuntimeException;
+
+    /** Column name lbr_OrgAddress1 */
+    public static final String COLUMNNAME_lbr_OrgAddress1 = "lbr_OrgAddress1";
 
 	/** Set Organization Address 1.
 	  * The issuer organization address 1
 	  */
-	public void setLBR_OrgAddress1 (String LBR_OrgAddress1);
+	public void setlbr_OrgAddress1 (String lbr_OrgAddress1);
 
 	/** Get Organization Address 1.
 	  * The issuer organization address 1
 	  */
-	public String getLBR_OrgAddress1();
+	public String getlbr_OrgAddress1();
 
-    /** Column name LBR_OrgAddress2 */
-    public static final String COLUMNNAME_LBR_OrgAddress2 = "LBR_OrgAddress2";
+    /** Column name lbr_OrgAddress2 */
+    public static final String COLUMNNAME_lbr_OrgAddress2 = "lbr_OrgAddress2";
 
 	/** Set Organization Address 2.
 	  * The issuer organization address 2
 	  */
-	public void setLBR_OrgAddress2 (String LBR_OrgAddress2);
+	public void setlbr_OrgAddress2 (String lbr_OrgAddress2);
 
 	/** Get Organization Address 2.
 	  * The issuer organization address 2
 	  */
-	public String getLBR_OrgAddress2();
+	public String getlbr_OrgAddress2();
 
-    /** Column name LBR_OrgAddress3 */
-    public static final String COLUMNNAME_LBR_OrgAddress3 = "LBR_OrgAddress3";
+    /** Column name lbr_OrgAddress3 */
+    public static final String COLUMNNAME_lbr_OrgAddress3 = "lbr_OrgAddress3";
 
 	/** Set Organization Address 3.
 	  * The issuer organization address 3
 	  */
-	public void setLBR_OrgAddress3 (String LBR_OrgAddress3);
+	public void setlbr_OrgAddress3 (String lbr_OrgAddress3);
 
 	/** Get Organization Address 3.
 	  * The issuer organization address 3
 	  */
-	public String getLBR_OrgAddress3();
+	public String getlbr_OrgAddress3();
 
-    /** Column name LBR_OrgAddress4 */
-    public static final String COLUMNNAME_LBR_OrgAddress4 = "LBR_OrgAddress4";
+    /** Column name lbr_OrgAddress4 */
+    public static final String COLUMNNAME_lbr_OrgAddress4 = "lbr_OrgAddress4";
 
 	/** Set Organization Address 4.
 	  * The issuer organization address 4
 	  */
-	public void setLBR_OrgAddress4 (String LBR_OrgAddress4);
+	public void setlbr_OrgAddress4 (String lbr_OrgAddress4);
 
 	/** Get Organization Address 4.
 	  * The issuer organization address 4
 	  */
-	public String getLBR_OrgAddress4();
+	public String getlbr_OrgAddress4();
 
-    /** Column name LBR_OrgCCM */
-    public static final String COLUMNNAME_LBR_OrgCCM = "LBR_OrgCCM";
+    /** Column name lbr_OrgCCM */
+    public static final String COLUMNNAME_lbr_OrgCCM = "lbr_OrgCCM";
 
 	/** Set Organization CCM.
 	  * The Organization CCM
 	  */
-	public void setLBR_OrgCCM (String LBR_OrgCCM);
+	public void setlbr_OrgCCM (String lbr_OrgCCM);
 
 	/** Get Organization CCM.
 	  * The Organization CCM
 	  */
-	public String getLBR_OrgCCM();
+	public String getlbr_OrgCCM();
 
-    /** Column name LBR_OrgCity */
-    public static final String COLUMNNAME_LBR_OrgCity = "LBR_OrgCity";
+    /** Column name lbr_OrgCity */
+    public static final String COLUMNNAME_lbr_OrgCity = "lbr_OrgCity";
 
 	/** Set Organization City.
 	  * The City of the Organization
 	  */
-	public void setLBR_OrgCity (String LBR_OrgCity);
+	public void setlbr_OrgCity (String lbr_OrgCity);
 
 	/** Get Organization City.
 	  * The City of the Organization
 	  */
-	public String getLBR_OrgCity();
+	public String getlbr_OrgCity();
 
-    /** Column name LBR_OrgName */
-    public static final String COLUMNNAME_LBR_OrgName = "LBR_OrgName";
+    /** Column name LBR_OrgCityCode */
+    public static final String COLUMNNAME_LBR_OrgCityCode = "LBR_OrgCityCode";
+
+	/** Set Cód. da Cidade da Org.(IBGE)	  */
+	public void setLBR_OrgCityCode (int LBR_OrgCityCode);
+
+	/** Get Cód. da Cidade da Org.(IBGE)	  */
+	public int getLBR_OrgCityCode();
+
+    /** Column name LBR_Org_Location_ID */
+    public static final String COLUMNNAME_LBR_Org_Location_ID = "LBR_Org_Location_ID";
+
+	/** Set Localização da Organização	  */
+	public void setLBR_Org_Location_ID (int LBR_Org_Location_ID);
+
+	/** Get Localização da Organização	  */
+	public int getLBR_Org_Location_ID();
+
+	public I_C_Location getLBR_Org_Location() throws RuntimeException;
+
+    /** Column name lbr_OrgName */
+    public static final String COLUMNNAME_lbr_OrgName = "lbr_OrgName";
 
 	/** Set Organization Name.
 	  * The Name of the Organization
 	  */
-	public void setLBR_OrgName (String LBR_OrgName);
+	public void setlbr_OrgName (String lbr_OrgName);
 
 	/** Get Organization Name.
 	  * The Name of the Organization
 	  */
-	public String getLBR_OrgName();
+	public String getlbr_OrgName();
 
-    /** Column name LBR_OrgPhone */
-    public static final String COLUMNNAME_LBR_OrgPhone = "LBR_OrgPhone";
+    /** Column name lbr_OrgPhone */
+    public static final String COLUMNNAME_lbr_OrgPhone = "lbr_OrgPhone";
 
 	/** Set Organization Phone.
 	  * The Organization Phone
 	  */
-	public void setLBR_OrgPhone (String LBR_OrgPhone);
+	public void setlbr_OrgPhone (String lbr_OrgPhone);
 
 	/** Get Organization Phone.
 	  * The Organization Phone
 	  */
-	public String getLBR_OrgPhone();
+	public String getlbr_OrgPhone();
 
-    /** Column name LBR_OrgPostal */
-    public static final String COLUMNNAME_LBR_OrgPostal = "LBR_OrgPostal";
+    /** Column name lbr_OrgPostal */
+    public static final String COLUMNNAME_lbr_OrgPostal = "lbr_OrgPostal";
 
 	/** Set Organization Postal Code.
 	  * The Postal Code of the Organization
 	  */
-	public void setLBR_OrgPostal (String LBR_OrgPostal);
+	public void setlbr_OrgPostal (String lbr_OrgPostal);
 
 	/** Get Organization Postal Code.
 	  * The Postal Code of the Organization
 	  */
-	public String getLBR_OrgPostal();
+	public String getlbr_OrgPostal();
 
-    /** Column name LBR_OrgRegion */
-    public static final String COLUMNNAME_LBR_OrgRegion = "LBR_OrgRegion";
+    /** Column name lbr_OrgRegion */
+    public static final String COLUMNNAME_lbr_OrgRegion = "lbr_OrgRegion";
 
 	/** Set Organization Region.
 	  * The Region of the Organization
 	  */
-	public void setLBR_OrgRegion (String LBR_OrgRegion);
+	public void setlbr_OrgRegion (String lbr_OrgRegion);
 
 	/** Get Organization Region.
 	  * The Region of the Organization
 	  */
-	public String getLBR_OrgRegion();
+	public String getlbr_OrgRegion();
 
-    /** Column name LBR_Suframa */
-    public static final String COLUMNNAME_LBR_Suframa = "LBR_Suframa";
+    /** Column name lbr_Suframa */
+    public static final String COLUMNNAME_lbr_Suframa = "lbr_Suframa";
 
 	/** Set Suframa.
 	  * Brazilian SUFRAMA Identification Number
 	  */
-	public void setLBR_Suframa (String LBR_Suframa);
+	public void setlbr_Suframa (String lbr_Suframa);
 
 	/** Get Suframa.
 	  * Brazilian SUFRAMA Identification Number
 	  */
-	public String getLBR_Suframa();
+	public String getlbr_Suframa();
 
-    /** Column name LBR_TotalSISCOMEX */
-    public static final String COLUMNNAME_LBR_TotalSISCOMEX = "LBR_TotalSISCOMEX";
+    /** Column name lbr_TotalSISCOMEX */
+    public static final String COLUMNNAME_lbr_TotalSISCOMEX = "lbr_TotalSISCOMEX";
 
 	/** Set SISCOMEX Total.
 	  * SISCOMEX Total for all the document
 	  */
-	public void setLBR_TotalSISCOMEX (BigDecimal LBR_TotalSISCOMEX);
+	public void setlbr_TotalSISCOMEX (BigDecimal lbr_TotalSISCOMEX);
 
 	/** Get SISCOMEX Total.
 	  * SISCOMEX Total for all the document
 	  */
-	public BigDecimal getLBR_TotalSISCOMEX();
+	public BigDecimal getlbr_TotalSISCOMEX();
 
-    /** Column name LBR_UOMName */
-    public static final String COLUMNNAME_LBR_UOMName = "LBR_UOMName";
+    /** Column name LBR_UOMDescription */
+    public static final String COLUMNNAME_LBR_UOMDescription = "LBR_UOMDescription";
+
+	/** Set Descrição da UOM	  */
+	public void setLBR_UOMDescription (String LBR_UOMDescription);
+
+	/** Get Descrição da UOM	  */
+	public String getLBR_UOMDescription();
+
+    /** Column name lbr_UOMName */
+    public static final String COLUMNNAME_lbr_UOMName = "lbr_UOMName";
 
 	/** Set UOM Name.
 	  * Defines the UOM Name
 	  */
-	public void setLBR_UOMName (String LBR_UOMName);
+	public void setlbr_UOMName (String lbr_UOMName);
 
 	/** Get UOM Name.
 	  * Defines the UOM Name
 	  */
-	public String getLBR_UOMName();
-
-    /** Column name LBR_orgcitycode */
-    public static final String COLUMNNAME_LBR_orgcitycode = "LBR_orgcitycode";
-
-	/** Set lbr_orgcitycode	  */
-	public void setLBR_orgcitycode (String LBR_orgcitycode);
-
-	/** Get lbr_orgcitycode	  */
-	public String getLBR_orgcitycode();
-
-    /** Column name LBR_uomdescription */
-    public static final String COLUMNNAME_LBR_uomdescription = "LBR_uomdescription";
-
-	/** Set lbr_uomdescription	  */
-	public void setLBR_uomdescription (String LBR_uomdescription);
-
-	/** Get lbr_uomdescription	  */
-	public String getLBR_uomdescription();
+	public String getlbr_UOMName();
 
     /** Column name Line */
     public static final String COLUMNNAME_Line = "Line";
@@ -913,12 +1202,12 @@ public interface I_LBR_FactFiscal
 	/** Set Line No.
 	  * Unique line for this document
 	  */
-	public void setLine (BigDecimal Line);
+	public void setLine (int Line);
 
 	/** Get Line No.
 	  * Unique line for this document
 	  */
-	public BigDecimal getLine();
+	public int getLine();
 
     /** Column name LineNetAmt */
     public static final String COLUMNNAME_LineNetAmt = "LineNetAmt";
@@ -959,22 +1248,61 @@ public interface I_LBR_FactFiscal
 	  */
 	public int getM_Product_ID();
 
-	public org.compiere.model.I_M_Product getM_Product() throws RuntimeException;
+	public I_M_Product getM_Product() throws RuntimeException;
 
-    /** Column name Org_Location_ID */
-    public static final String COLUMNNAME_Org_Location_ID = "Org_Location_ID";
+    /** Column name PIS_NFTaxAmt */
+    public static final String COLUMNNAME_PIS_NFTaxAmt = "PIS_NFTaxAmt";
 
-	/** Set Org Address.
-	  * Organization Location/Address
-	  */
-	public void setOrg_Location_ID (int Org_Location_ID);
+	/** Set Total de PIS da NF	  */
+	public void setPIS_NFTaxAmt (BigDecimal PIS_NFTaxAmt);
 
-	/** Get Org Address.
-	  * Organization Location/Address
-	  */
-	public int getOrg_Location_ID();
+	/** Get Total de PIS da NF	  */
+	public BigDecimal getPIS_NFTaxAmt();
 
-	public org.compiere.model.I_C_Location getOrg_Location() throws RuntimeException;
+    /** Column name PIS_TaxAmt */
+    public static final String COLUMNNAME_PIS_TaxAmt = "PIS_TaxAmt";
+
+	/** Set Valor do PIS	  */
+	public void setPIS_TaxAmt (BigDecimal PIS_TaxAmt);
+
+	/** Get Valor do PIS	  */
+	public BigDecimal getPIS_TaxAmt();
+
+    /** Column name PIS_TaxBase */
+    public static final String COLUMNNAME_PIS_TaxBase = "PIS_TaxBase";
+
+	/** Set Red. da BC do PIS	  */
+	public void setPIS_TaxBase (BigDecimal PIS_TaxBase);
+
+	/** Get Red. da BC do PIS	  */
+	public BigDecimal getPIS_TaxBase();
+
+    /** Column name PIS_TaxBaseAmt */
+    public static final String COLUMNNAME_PIS_TaxBaseAmt = "PIS_TaxBaseAmt";
+
+	/** Set Vlr. da BC do PIS	  */
+	public void setPIS_TaxBaseAmt (BigDecimal PIS_TaxBaseAmt);
+
+	/** Get Vlr. da BC do PIS	  */
+	public BigDecimal getPIS_TaxBaseAmt();
+
+    /** Column name PIS_TaxRate */
+    public static final String COLUMNNAME_PIS_TaxRate = "PIS_TaxRate";
+
+	/** Set Alíq. do PIS	  */
+	public void setPIS_TaxRate (BigDecimal PIS_TaxRate);
+
+	/** Get Alíq. do PIS	  */
+	public BigDecimal getPIS_TaxRate();
+
+    /** Column name PIS_TaxStatus */
+    public static final String COLUMNNAME_PIS_TaxStatus = "PIS_TaxStatus";
+
+	/** Set CST do PIS	  */
+	public void setPIS_TaxStatus (String PIS_TaxStatus);
+
+	/** Get CST do PIS	  */
+	public String getPIS_TaxStatus();
 
     /** Column name Price */
     public static final String COLUMNNAME_Price = "Price";
@@ -1001,6 +1329,24 @@ public interface I_LBR_FactFiscal
 	  * Name of the Product
 	  */
 	public String getProductName();
+
+    /** Column name ProductNCM */
+    public static final String COLUMNNAME_ProductNCM = "ProductNCM";
+
+	/** Set NCM do Produto	  */
+	public void setProductNCM (String ProductNCM);
+
+	/** Get NCM do Produto	  */
+	public String getProductNCM();
+
+    /** Column name ProductUOM */
+    public static final String COLUMNNAME_ProductUOM = "ProductUOM";
+
+	/** Set UOM do Produto	  */
+	public void setProductUOM (String ProductUOM);
+
+	/** Get UOM do Produto	  */
+	public String getProductUOM();
 
     /** Column name ProductValue */
     public static final String COLUMNNAME_ProductValue = "ProductValue";
@@ -1069,355 +1415,4 @@ public interface I_LBR_FactFiscal
 	  * User who updated this records
 	  */
 	public int getUpdatedBy();
-
-    /** Column name bpcitycode */
-    public static final String COLUMNNAME_bpcitycode = "bpcitycode";
-
-	/** Set bpcitycode	  */
-	public void setbpcitycode (String bpcitycode);
-
-	/** Get bpcitycode	  */
-	public String getbpcitycode();
-
-    /** Column name bpcountrycode */
-    public static final String COLUMNNAME_bpcountrycode = "bpcountrycode";
-
-	/** Set bpcountrycode	  */
-	public void setbpcountrycode (String bpcountrycode);
-
-	/** Get bpcountrycode	  */
-	public String getbpcountrycode();
-
-    /** Column name cofins_nftaxamt */
-    public static final String COLUMNNAME_cofins_nftaxamt = "cofins_nftaxamt";
-
-	/** Set cofins_nftaxamt	  */
-	public void setcofins_nftaxamt (BigDecimal cofins_nftaxamt);
-
-	/** Get cofins_nftaxamt	  */
-	public BigDecimal getcofins_nftaxamt();
-
-    /** Column name cofins_taxamt */
-    public static final String COLUMNNAME_cofins_taxamt = "cofins_taxamt";
-
-	/** Set cofins_taxamt	  */
-	public void setcofins_taxamt (BigDecimal cofins_taxamt);
-
-	/** Get cofins_taxamt	  */
-	public BigDecimal getcofins_taxamt();
-
-    /** Column name cofins_taxbase */
-    public static final String COLUMNNAME_cofins_taxbase = "cofins_taxbase";
-
-	/** Set cofins_taxbase	  */
-	public void setcofins_taxbase (BigDecimal cofins_taxbase);
-
-	/** Get cofins_taxbase	  */
-	public BigDecimal getcofins_taxbase();
-
-    /** Column name cofins_taxbaseamt */
-    public static final String COLUMNNAME_cofins_taxbaseamt = "cofins_taxbaseamt";
-
-	/** Set cofins_taxbaseamt	  */
-	public void setcofins_taxbaseamt (BigDecimal cofins_taxbaseamt);
-
-	/** Get cofins_taxbaseamt	  */
-	public BigDecimal getcofins_taxbaseamt();
-
-    /** Column name cofins_taxrate */
-    public static final String COLUMNNAME_cofins_taxrate = "cofins_taxrate";
-
-	/** Set cofins_taxrate	  */
-	public void setcofins_taxrate (BigDecimal cofins_taxrate);
-
-	/** Get cofins_taxrate	  */
-	public BigDecimal getcofins_taxrate();
-
-    /** Column name cofins_taxstatus */
-    public static final String COLUMNNAME_cofins_taxstatus = "cofins_taxstatus";
-
-	/** Set cofins_taxstatus	  */
-	public void setcofins_taxstatus (String cofins_taxstatus);
-
-	/** Get cofins_taxstatus	  */
-	public String getcofins_taxstatus();
-
-    /** Column name docbasetypebr */
-    public static final String COLUMNNAME_docbasetypebr = "docbasetypebr";
-
-	/** Set docbasetypebr	  */
-	public void setdocbasetypebr (String docbasetypebr);
-
-	/** Get docbasetypebr	  */
-	public String getdocbasetypebr();
-
-    /** Column name icms_nftaxamt */
-    public static final String COLUMNNAME_icms_nftaxamt = "icms_nftaxamt";
-
-	/** Set icms_nftaxamt	  */
-	public void seticms_nftaxamt (BigDecimal icms_nftaxamt);
-
-	/** Get icms_nftaxamt	  */
-	public BigDecimal geticms_nftaxamt();
-
-    /** Column name icms_nftaxbaseamt */
-    public static final String COLUMNNAME_icms_nftaxbaseamt = "icms_nftaxbaseamt";
-
-	/** Set icms_nftaxbaseamt	  */
-	public void seticms_nftaxbaseamt (BigDecimal icms_nftaxbaseamt);
-
-	/** Get icms_nftaxbaseamt	  */
-	public BigDecimal geticms_nftaxbaseamt();
-
-    /** Column name icms_taxamt */
-    public static final String COLUMNNAME_icms_taxamt = "icms_taxamt";
-
-	/** Set icms_taxamt	  */
-	public void seticms_taxamt (BigDecimal icms_taxamt);
-
-	/** Get icms_taxamt	  */
-	public BigDecimal geticms_taxamt();
-
-    /** Column name icms_taxbase */
-    public static final String COLUMNNAME_icms_taxbase = "icms_taxbase";
-
-	/** Set icms_taxbase	  */
-	public void seticms_taxbase (BigDecimal icms_taxbase);
-
-	/** Get icms_taxbase	  */
-	public BigDecimal geticms_taxbase();
-
-    /** Column name icms_taxbaseamt */
-    public static final String COLUMNNAME_icms_taxbaseamt = "icms_taxbaseamt";
-
-	/** Set icms_taxbaseamt	  */
-	public void seticms_taxbaseamt (BigDecimal icms_taxbaseamt);
-
-	/** Get icms_taxbaseamt	  */
-	public BigDecimal geticms_taxbaseamt();
-
-    /** Column name icms_taxrate */
-    public static final String COLUMNNAME_icms_taxrate = "icms_taxrate";
-
-	/** Set icms_taxrate	  */
-	public void seticms_taxrate (BigDecimal icms_taxrate);
-
-	/** Get icms_taxrate	  */
-	public BigDecimal geticms_taxrate();
-
-    /** Column name icms_taxstatus */
-    public static final String COLUMNNAME_icms_taxstatus = "icms_taxstatus";
-
-	/** Set icms_taxstatus	  */
-	public void seticms_taxstatus (String icms_taxstatus);
-
-	/** Get icms_taxstatus	  */
-	public String geticms_taxstatus();
-
-    /** Column name icmsst_nftaxamt */
-    public static final String COLUMNNAME_icmsst_nftaxamt = "icmsst_nftaxamt";
-
-	/** Set icmsst_nftaxamt	  */
-	public void seticmsst_nftaxamt (BigDecimal icmsst_nftaxamt);
-
-	/** Get icmsst_nftaxamt	  */
-	public BigDecimal geticmsst_nftaxamt();
-
-    /** Column name icmsst_nftaxbaseamt */
-    public static final String COLUMNNAME_icmsst_nftaxbaseamt = "icmsst_nftaxbaseamt";
-
-	/** Set icmsst_nftaxbaseamt	  */
-	public void seticmsst_nftaxbaseamt (BigDecimal icmsst_nftaxbaseamt);
-
-	/** Get icmsst_nftaxbaseamt	  */
-	public BigDecimal geticmsst_nftaxbaseamt();
-
-    /** Column name icmsst_taxamt */
-    public static final String COLUMNNAME_icmsst_taxamt = "icmsst_taxamt";
-
-	/** Set icmsst_taxamt	  */
-	public void seticmsst_taxamt (BigDecimal icmsst_taxamt);
-
-	/** Get icmsst_taxamt	  */
-	public BigDecimal geticmsst_taxamt();
-
-    /** Column name icmsst_taxbase */
-    public static final String COLUMNNAME_icmsst_taxbase = "icmsst_taxbase";
-
-	/** Set icmsst_taxbase	  */
-	public void seticmsst_taxbase (BigDecimal icmsst_taxbase);
-
-	/** Get icmsst_taxbase	  */
-	public BigDecimal geticmsst_taxbase();
-
-    /** Column name icmsst_taxbaseamt */
-    public static final String COLUMNNAME_icmsst_taxbaseamt = "icmsst_taxbaseamt";
-
-	/** Set icmsst_taxbaseamt	  */
-	public void seticmsst_taxbaseamt (BigDecimal icmsst_taxbaseamt);
-
-	/** Get icmsst_taxbaseamt	  */
-	public BigDecimal geticmsst_taxbaseamt();
-
-    /** Column name icmsst_taxrate */
-    public static final String COLUMNNAME_icmsst_taxrate = "icmsst_taxrate";
-
-	/** Set icmsst_taxrate	  */
-	public void seticmsst_taxrate (BigDecimal icmsst_taxrate);
-
-	/** Get icmsst_taxrate	  */
-	public BigDecimal geticmsst_taxrate();
-
-    /** Column name icmsst_taxstatus */
-    public static final String COLUMNNAME_icmsst_taxstatus = "icmsst_taxstatus";
-
-	/** Set icmsst_taxstatus	  */
-	public void seticmsst_taxstatus (String icmsst_taxstatus);
-
-	/** Get icmsst_taxstatus	  */
-	public String geticmsst_taxstatus();
-
-    /** Column name ii_taxamt */
-    public static final String COLUMNNAME_ii_taxamt = "ii_taxamt";
-
-	/** Set ii_taxamt	  */
-	public void setii_taxamt (BigDecimal ii_taxamt);
-
-	/** Get ii_taxamt	  */
-	public BigDecimal getii_taxamt();
-
-    /** Column name ii_taxbaseamt */
-    public static final String COLUMNNAME_ii_taxbaseamt = "ii_taxbaseamt";
-
-	/** Set ii_taxbaseamt	  */
-	public void setii_taxbaseamt (BigDecimal ii_taxbaseamt);
-
-	/** Get ii_taxbaseamt	  */
-	public BigDecimal getii_taxbaseamt();
-
-    /** Column name ii_taxrate */
-    public static final String COLUMNNAME_ii_taxrate = "ii_taxrate";
-
-	/** Set ii_taxrate	  */
-	public void setii_taxrate (BigDecimal ii_taxrate);
-
-	/** Get ii_taxrate	  */
-	public BigDecimal getii_taxrate();
-
-    /** Column name ipi_nftaxamt */
-    public static final String COLUMNNAME_ipi_nftaxamt = "ipi_nftaxamt";
-
-	/** Set ipi_nftaxamt	  */
-	public void setipi_nftaxamt (BigDecimal ipi_nftaxamt);
-
-	/** Get ipi_nftaxamt	  */
-	public BigDecimal getipi_nftaxamt();
-
-    /** Column name ipi_taxamt */
-    public static final String COLUMNNAME_ipi_taxamt = "ipi_taxamt";
-
-	/** Set ipi_taxamt	  */
-	public void setipi_taxamt (BigDecimal ipi_taxamt);
-
-	/** Get ipi_taxamt	  */
-	public BigDecimal getipi_taxamt();
-
-    /** Column name ipi_taxbaseamt */
-    public static final String COLUMNNAME_ipi_taxbaseamt = "ipi_taxbaseamt";
-
-	/** Set ipi_taxbaseamt	  */
-	public void setipi_taxbaseamt (BigDecimal ipi_taxbaseamt);
-
-	/** Get ipi_taxbaseamt	  */
-	public BigDecimal getipi_taxbaseamt();
-
-    /** Column name ipi_taxrate */
-    public static final String COLUMNNAME_ipi_taxrate = "ipi_taxrate";
-
-	/** Set ipi_taxrate	  */
-	public void setipi_taxrate (BigDecimal ipi_taxrate);
-
-	/** Get ipi_taxrate	  */
-	public BigDecimal getipi_taxrate();
-
-    /** Column name ipi_taxstatus */
-    public static final String COLUMNNAME_ipi_taxstatus = "ipi_taxstatus";
-
-	/** Set ipi_taxstatus	  */
-	public void setipi_taxstatus (String ipi_taxstatus);
-
-	/** Get ipi_taxstatus	  */
-	public String getipi_taxstatus();
-
-    /** Column name pis_nftaxamt */
-    public static final String COLUMNNAME_pis_nftaxamt = "pis_nftaxamt";
-
-	/** Set pis_nftaxamt	  */
-	public void setpis_nftaxamt (BigDecimal pis_nftaxamt);
-
-	/** Get pis_nftaxamt	  */
-	public BigDecimal getpis_nftaxamt();
-
-    /** Column name pis_taxamt */
-    public static final String COLUMNNAME_pis_taxamt = "pis_taxamt";
-
-	/** Set pis_taxamt	  */
-	public void setpis_taxamt (BigDecimal pis_taxamt);
-
-	/** Get pis_taxamt	  */
-	public BigDecimal getpis_taxamt();
-
-    /** Column name pis_taxbase */
-    public static final String COLUMNNAME_pis_taxbase = "pis_taxbase";
-
-	/** Set pis_taxbase	  */
-	public void setpis_taxbase (BigDecimal pis_taxbase);
-
-	/** Get pis_taxbase	  */
-	public BigDecimal getpis_taxbase();
-
-    /** Column name pis_taxbaseamt */
-    public static final String COLUMNNAME_pis_taxbaseamt = "pis_taxbaseamt";
-
-	/** Set pis_taxbaseamt	  */
-	public void setpis_taxbaseamt (BigDecimal pis_taxbaseamt);
-
-	/** Get pis_taxbaseamt	  */
-	public BigDecimal getpis_taxbaseamt();
-
-    /** Column name pis_taxrate */
-    public static final String COLUMNNAME_pis_taxrate = "pis_taxrate";
-
-	/** Set pis_taxrate	  */
-	public void setpis_taxrate (BigDecimal pis_taxrate);
-
-	/** Get pis_taxrate	  */
-	public BigDecimal getpis_taxrate();
-
-    /** Column name pis_taxstatus */
-    public static final String COLUMNNAME_pis_taxstatus = "pis_taxstatus";
-
-	/** Set pis_taxstatus	  */
-	public void setpis_taxstatus (String pis_taxstatus);
-
-	/** Get pis_taxstatus	  */
-	public String getpis_taxstatus();
-
-    /** Column name productncm */
-    public static final String COLUMNNAME_productncm = "productncm";
-
-	/** Set productncm	  */
-	public void setproductncm (String productncm);
-
-	/** Get productncm	  */
-	public String getproductncm();
-
-    /** Column name productuom */
-    public static final String COLUMNNAME_productuom = "productuom";
-
-	/** Set productuom	  */
-	public void setproductuom (String productuom);
-
-	/** Get productuom	  */
-	public String getproductuom();
 }

@@ -335,58 +335,6 @@ public interface I_LBR_Boleto
 	  */
 	public boolean isPaid();
 
-    /** Column name LBR_AgencyNo */
-    public static final String COLUMNNAME_LBR_AgencyNo = "LBR_AgencyNo";
-
-	/** Set Agency Number.
-	  * Agency Number
-	  */
-	public void setLBR_AgencyNo (String LBR_AgencyNo);
-
-	/** Get Agency Number.
-	  * Agency Number
-	  */
-	public String getLBR_AgencyNo();
-
-    /** Column name LBR_BPTypeBR */
-    public static final String COLUMNNAME_LBR_BPTypeBR = "LBR_BPTypeBR";
-
-	/** Set Brazilian BP Type.
-	  * Brazilian BP Type (Identifies if the BP is a Legal Entity or an Individual)
-	  */
-	public void setLBR_BPTypeBR (String LBR_BPTypeBR);
-
-	/** Get Brazilian BP Type.
-	  * Brazilian BP Type (Identifies if the BP is a Legal Entity or an Individual)
-	  */
-	public String getLBR_BPTypeBR();
-
-    /** Column name LBR_BillFold */
-    public static final String COLUMNNAME_LBR_BillFold = "LBR_BillFold";
-
-	/** Set Bill Fold.
-	  * Type of Bill Fold - For Bank Usage
-	  */
-	public void setLBR_BillFold (String LBR_BillFold);
-
-	/** Get Bill Fold.
-	  * Type of Bill Fold - For Bank Usage
-	  */
-	public String getLBR_BillFold();
-
-    /** Column name LBR_BillKind */
-    public static final String COLUMNNAME_LBR_BillKind = "LBR_BillKind";
-
-	/** Set Bill Kind.
-	  * Defines the kind of Bill
-	  */
-	public void setLBR_BillKind (String LBR_BillKind);
-
-	/** Get Bill Kind.
-	  * Defines the kind of Bill
-	  */
-	public String getLBR_BillKind();
-
     /** Column name LBR_Boleto_ID */
     public static final String COLUMNNAME_LBR_Boleto_ID = "LBR_Boleto_ID";
 
@@ -399,214 +347,6 @@ public interface I_LBR_Boleto
 	  * Primary Key table LBR_Boleto
 	  */
 	public int getLBR_Boleto_ID();
-
-    /** Column name LBR_Cessionary */
-    public static final String COLUMNNAME_LBR_Cessionary = "LBR_Cessionary";
-
-	/** Set Cessionary.
-	  * Identifies the Cessionary
-	  */
-	public void setLBR_Cessionary (String LBR_Cessionary);
-
-	/** Get Cessionary.
-	  * Identifies the Cessionary
-	  */
-	public String getLBR_Cessionary();
-
-    /** Column name LBR_ClientCode */
-    public static final String COLUMNNAME_LBR_ClientCode = "LBR_ClientCode";
-
-	/** Set Client Code.
-	  * Client Code - needed for some Banks
-	  */
-	public void setLBR_ClientCode (String LBR_ClientCode);
-
-	/** Get Client Code.
-	  * Client Code - needed for some Banks
-	  */
-	public String getLBR_ClientCode();
-
-    /** Column name LBR_DocDate */
-    public static final String COLUMNNAME_LBR_DocDate = "LBR_DocDate";
-
-	/** Set Document Date.
-	  * Identifies the Document Date
-	  */
-	public void setLBR_DocDate (Timestamp LBR_DocDate);
-
-	/** Get Document Date.
-	  * Identifies the Document Date
-	  */
-	public Timestamp getLBR_DocDate();
-
-    /** Column name LBR_HasSue */
-    public static final String COLUMNNAME_LBR_HasSue = "LBR_HasSue";
-
-	/** Set Has Sue.
-	  * Define if this Document must be Sue
-	  */
-	public void setLBR_HasSue (boolean LBR_HasSue);
-
-	/** Get Has Sue.
-	  * Define if this Document must be Sue
-	  */
-	public boolean isLBR_HasSue();
-
-    /** Column name LBR_Instruction1 */
-    public static final String COLUMNNAME_LBR_Instruction1 = "LBR_Instruction1";
-
-	/** Set Instruction 1.
-	  * Identifies the Instrucion 1
-	  */
-	public void setLBR_Instruction1 (String LBR_Instruction1);
-
-	/** Get Instruction 1.
-	  * Identifies the Instrucion 1
-	  */
-	public String getLBR_Instruction1();
-
-    /** Column name LBR_Instruction2 */
-    public static final String COLUMNNAME_LBR_Instruction2 = "LBR_Instruction2";
-
-	/** Set Instruction 2.
-	  * Identifies the Instrucion 2
-	  */
-	public void setLBR_Instruction2 (String LBR_Instruction2);
-
-	/** Get Instruction 2.
-	  * Identifies the Instrucion 2
-	  */
-	public String getLBR_Instruction2();
-
-    /** Column name LBR_Instruction3 */
-    public static final String COLUMNNAME_LBR_Instruction3 = "LBR_Instruction3";
-
-	/** Set Instruction 3.
-	  * Identifies the Instrucion 3
-	  */
-	public void setLBR_Instruction3 (String LBR_Instruction3);
-
-	/** Get Instruction 3.
-	  * Identifies the Instrucion 3
-	  */
-	public String getLBR_Instruction3();
-
-    /** Column name LBR_Interest */
-    public static final String COLUMNNAME_LBR_Interest = "LBR_Interest";
-
-	/** Set Interest.
-	  * Defines the Interest
-	  */
-	public void setLBR_Interest (BigDecimal LBR_Interest);
-
-	/** Get Interest.
-	  * Defines the Interest
-	  */
-	public BigDecimal getLBR_Interest();
-
-    /** Column name LBR_IsCancelled */
-    public static final String COLUMNNAME_LBR_IsCancelled = "LBR_IsCancelled";
-
-	/** Set IsCancelled.
-	  * Defines if the Document IsCancelled
-	  */
-	public void setLBR_IsCancelled (boolean LBR_IsCancelled);
-
-	/** Get IsCancelled.
-	  * Defines if the Document IsCancelled
-	  */
-	public boolean isLBR_IsCancelled();
-
-    /** Column name LBR_OccurNo */
-    public static final String COLUMNNAME_LBR_OccurNo = "LBR_OccurNo";
-
-	/** Set Occurrence Number.
-	  * Defines the Occurrence Number
-	  */
-	public void setLBR_OccurNo (int LBR_OccurNo);
-
-	/** Get Occurrence Number.
-	  * Defines the Occurrence Number
-	  */
-	public int getLBR_OccurNo();
-
-    /** Column name LBR_PayScheduleNo */
-    public static final String COLUMNNAME_LBR_PayScheduleNo = "LBR_PayScheduleNo";
-
-	/** Set PaySchedule Number.
-	  * Defines the PaySchedule Number
-	  */
-	public void setLBR_PayScheduleNo (String LBR_PayScheduleNo);
-
-	/** Get PaySchedule Number.
-	  * Defines the PaySchedule Number
-	  */
-	public String getLBR_PayScheduleNo();
-
-    /** Column name LBR_PaymentLocation1 */
-    public static final String COLUMNNAME_LBR_PaymentLocation1 = "LBR_PaymentLocation1";
-
-	/** Set Payment Location 1.
-	  * Identifies the Payment Location 1
-	  */
-	public void setLBR_PaymentLocation1 (String LBR_PaymentLocation1);
-
-	/** Get Payment Location 1.
-	  * Identifies the Payment Location 1
-	  */
-	public String getLBR_PaymentLocation1();
-
-    /** Column name LBR_PaymentLocation2 */
-    public static final String COLUMNNAME_LBR_PaymentLocation2 = "LBR_PaymentLocation2";
-
-	/** Set Payment Location 2.
-	  * Identifies the Payment Location 2
-	  */
-	public void setLBR_PaymentLocation2 (String LBR_PaymentLocation2);
-
-	/** Get Payment Location 2.
-	  * Identifies the Payment Location 2
-	  */
-	public String getLBR_PaymentLocation2();
-
-    /** Column name LBR_ReceiverName */
-    public static final String COLUMNNAME_LBR_ReceiverName = "LBR_ReceiverName";
-
-	/** Set Receiver Name.
-	  * Name of the Receiver
-	  */
-	public void setLBR_ReceiverName (String LBR_ReceiverName);
-
-	/** Get Receiver Name.
-	  * Name of the Receiver
-	  */
-	public String getLBR_ReceiverName();
-
-    /** Column name LBR_SueDays */
-    public static final String COLUMNNAME_LBR_SueDays = "LBR_SueDays";
-
-	/** Set Sue Days.
-	  * Define the Sue Days
-	  */
-	public void setLBR_SueDays (int LBR_SueDays);
-
-	/** Get Sue Days.
-	  * Define the Sue Days
-	  */
-	public int getLBR_SueDays();
-
-    /** Column name LBR_jBoletoNo */
-    public static final String COLUMNNAME_LBR_jBoletoNo = "LBR_jBoletoNo";
-
-	/** Set jBoleto Number.
-	  * Identifies the bank number at jBoleto
-	  */
-	public void setLBR_jBoletoNo (String LBR_jBoletoNo);
-
-	/** Get jBoleto Number.
-	  * Identifies the bank number at jBoleto
-	  */
-	public String getLBR_jBoletoNo();
 
     /** Column name Postal */
     public static final String COLUMNNAME_Postal = "Postal";
@@ -662,4 +402,264 @@ public interface I_LBR_Boleto
 	  * User who updated this records
 	  */
 	public int getUpdatedBy();
+
+    /** Column name lbr_AgencyNo */
+    public static final String COLUMNNAME_lbr_AgencyNo = "lbr_AgencyNo";
+
+	/** Set Agency Number.
+	  * Agency Number
+	  */
+	public void setlbr_AgencyNo (String lbr_AgencyNo);
+
+	/** Get Agency Number.
+	  * Agency Number
+	  */
+	public String getlbr_AgencyNo();
+
+    /** Column name lbr_BPTypeBR */
+    public static final String COLUMNNAME_lbr_BPTypeBR = "lbr_BPTypeBR";
+
+	/** Set Brazilian BP Type.
+	  * Brazilian BP Type (Identifies if the BP is a Legal Entity or an Individual)
+	  */
+	public void setlbr_BPTypeBR (String lbr_BPTypeBR);
+
+	/** Get Brazilian BP Type.
+	  * Brazilian BP Type (Identifies if the BP is a Legal Entity or an Individual)
+	  */
+	public String getlbr_BPTypeBR();
+
+    /** Column name lbr_BillFold */
+    public static final String COLUMNNAME_lbr_BillFold = "lbr_BillFold";
+
+	/** Set Bill Fold.
+	  * Type of Bill Fold - For Bank Usage
+	  */
+	public void setlbr_BillFold (String lbr_BillFold);
+
+	/** Get Bill Fold.
+	  * Type of Bill Fold - For Bank Usage
+	  */
+	public String getlbr_BillFold();
+
+    /** Column name lbr_BillKind */
+    public static final String COLUMNNAME_lbr_BillKind = "lbr_BillKind";
+
+	/** Set Bill Kind.
+	  * Defines the kind of Bill
+	  */
+	public void setlbr_BillKind (String lbr_BillKind);
+
+	/** Get Bill Kind.
+	  * Defines the kind of Bill
+	  */
+	public String getlbr_BillKind();
+
+    /** Column name lbr_Cessionary */
+    public static final String COLUMNNAME_lbr_Cessionary = "lbr_Cessionary";
+
+	/** Set Cessionary.
+	  * Identifies the Cessionary
+	  */
+	public void setlbr_Cessionary (String lbr_Cessionary);
+
+	/** Get Cessionary.
+	  * Identifies the Cessionary
+	  */
+	public String getlbr_Cessionary();
+
+    /** Column name lbr_ClientCode */
+    public static final String COLUMNNAME_lbr_ClientCode = "lbr_ClientCode";
+
+	/** Set Client Code.
+	  * Client Code - needed for some Banks
+	  */
+	public void setlbr_ClientCode (String lbr_ClientCode);
+
+	/** Get Client Code.
+	  * Client Code - needed for some Banks
+	  */
+	public String getlbr_ClientCode();
+
+    /** Column name lbr_DocDate */
+    public static final String COLUMNNAME_lbr_DocDate = "lbr_DocDate";
+
+	/** Set Document Date.
+	  * Identifies the Document Date
+	  */
+	public void setlbr_DocDate (Timestamp lbr_DocDate);
+
+	/** Get Document Date.
+	  * Identifies the Document Date
+	  */
+	public Timestamp getlbr_DocDate();
+
+    /** Column name lbr_HasSue */
+    public static final String COLUMNNAME_lbr_HasSue = "lbr_HasSue";
+
+	/** Set Has Sue.
+	  * Define if this Document must be Sue
+	  */
+	public void setlbr_HasSue (boolean lbr_HasSue);
+
+	/** Get Has Sue.
+	  * Define if this Document must be Sue
+	  */
+	public boolean islbr_HasSue();
+
+    /** Column name lbr_Instruction1 */
+    public static final String COLUMNNAME_lbr_Instruction1 = "lbr_Instruction1";
+
+	/** Set Instruction 1.
+	  * Identifies the Instrucion 1
+	  */
+	public void setlbr_Instruction1 (String lbr_Instruction1);
+
+	/** Get Instruction 1.
+	  * Identifies the Instrucion 1
+	  */
+	public String getlbr_Instruction1();
+
+    /** Column name lbr_Instruction2 */
+    public static final String COLUMNNAME_lbr_Instruction2 = "lbr_Instruction2";
+
+	/** Set Instruction 2.
+	  * Identifies the Instrucion 2
+	  */
+	public void setlbr_Instruction2 (String lbr_Instruction2);
+
+	/** Get Instruction 2.
+	  * Identifies the Instrucion 2
+	  */
+	public String getlbr_Instruction2();
+
+    /** Column name lbr_Instruction3 */
+    public static final String COLUMNNAME_lbr_Instruction3 = "lbr_Instruction3";
+
+	/** Set Instruction 3.
+	  * Identifies the Instrucion 3
+	  */
+	public void setlbr_Instruction3 (String lbr_Instruction3);
+
+	/** Get Instruction 3.
+	  * Identifies the Instrucion 3
+	  */
+	public String getlbr_Instruction3();
+
+    /** Column name lbr_Interest */
+    public static final String COLUMNNAME_lbr_Interest = "lbr_Interest";
+
+	/** Set Interest.
+	  * Defines the Interest
+	  */
+	public void setlbr_Interest (BigDecimal lbr_Interest);
+
+	/** Get Interest.
+	  * Defines the Interest
+	  */
+	public BigDecimal getlbr_Interest();
+
+    /** Column name lbr_IsCancelled */
+    public static final String COLUMNNAME_lbr_IsCancelled = "lbr_IsCancelled";
+
+	/** Set IsCancelled.
+	  * Defines if the Document IsCancelled
+	  */
+	public void setlbr_IsCancelled (boolean lbr_IsCancelled);
+
+	/** Get IsCancelled.
+	  * Defines if the Document IsCancelled
+	  */
+	public boolean islbr_IsCancelled();
+
+    /** Column name lbr_OccurNo */
+    public static final String COLUMNNAME_lbr_OccurNo = "lbr_OccurNo";
+
+	/** Set Occurrence Number.
+	  * Defines the Occurrence Number
+	  */
+	public void setlbr_OccurNo (int lbr_OccurNo);
+
+	/** Get Occurrence Number.
+	  * Defines the Occurrence Number
+	  */
+	public int getlbr_OccurNo();
+
+    /** Column name lbr_PayScheduleNo */
+    public static final String COLUMNNAME_lbr_PayScheduleNo = "lbr_PayScheduleNo";
+
+	/** Set PaySchedule Number.
+	  * Defines the PaySchedule Number
+	  */
+	public void setlbr_PayScheduleNo (String lbr_PayScheduleNo);
+
+	/** Get PaySchedule Number.
+	  * Defines the PaySchedule Number
+	  */
+	public String getlbr_PayScheduleNo();
+
+    /** Column name lbr_PaymentLocation1 */
+    public static final String COLUMNNAME_lbr_PaymentLocation1 = "lbr_PaymentLocation1";
+
+	/** Set Payment Location 1.
+	  * Identifies the Payment Location 1
+	  */
+	public void setlbr_PaymentLocation1 (String lbr_PaymentLocation1);
+
+	/** Get Payment Location 1.
+	  * Identifies the Payment Location 1
+	  */
+	public String getlbr_PaymentLocation1();
+
+    /** Column name lbr_PaymentLocation2 */
+    public static final String COLUMNNAME_lbr_PaymentLocation2 = "lbr_PaymentLocation2";
+
+	/** Set Payment Location 2.
+	  * Identifies the Payment Location 2
+	  */
+	public void setlbr_PaymentLocation2 (String lbr_PaymentLocation2);
+
+	/** Get Payment Location 2.
+	  * Identifies the Payment Location 2
+	  */
+	public String getlbr_PaymentLocation2();
+
+    /** Column name lbr_ReceiverName */
+    public static final String COLUMNNAME_lbr_ReceiverName = "lbr_ReceiverName";
+
+	/** Set Receiver Name.
+	  * Name of the Receiver
+	  */
+	public void setlbr_ReceiverName (String lbr_ReceiverName);
+
+	/** Get Receiver Name.
+	  * Name of the Receiver
+	  */
+	public String getlbr_ReceiverName();
+
+    /** Column name lbr_SueDays */
+    public static final String COLUMNNAME_lbr_SueDays = "lbr_SueDays";
+
+	/** Set Sue Days.
+	  * Define the Sue Days
+	  */
+	public void setlbr_SueDays (int lbr_SueDays);
+
+	/** Get Sue Days.
+	  * Define the Sue Days
+	  */
+	public int getlbr_SueDays();
+
+    /** Column name lbr_jBoletoNo */
+    public static final String COLUMNNAME_lbr_jBoletoNo = "lbr_jBoletoNo";
+
+	/** Set jBoleto Number.
+	  * Identifies the bank number at jBoleto
+	  */
+	public void setlbr_jBoletoNo (String lbr_jBoletoNo);
+
+	/** Get jBoleto Number.
+	  * Identifies the bank number at jBoleto
+	  */
+	public String getlbr_jBoletoNo();
 }

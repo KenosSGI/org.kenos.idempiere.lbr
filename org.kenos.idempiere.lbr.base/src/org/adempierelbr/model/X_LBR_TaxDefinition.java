@@ -20,7 +20,11 @@ package org.adempierelbr.model;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.Properties;
-import org.compiere.model.*;
+
+import org.compiere.model.I_Persistent;
+import org.compiere.model.MTable;
+import org.compiere.model.PO;
+import org.compiere.model.POInfo;
 
 /** Generated Model for LBR_TaxDefinition
  *  @author iDempiere (generated) 
@@ -31,7 +35,7 @@ public class X_LBR_TaxDefinition extends PO implements I_LBR_TaxDefinition, I_Pe
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20170105L;
+	private static final long serialVersionUID = 20170116L;
 
     /** Standard Constructor */
     public X_LBR_TaxDefinition (Properties ctx, int LBR_TaxDefinition_ID, String trxName)
@@ -43,11 +47,11 @@ public class X_LBR_TaxDefinition extends PO implements I_LBR_TaxDefinition, I_Pe
 // N
 			setIsSOTrx (null);
 // B
-			setLBR_IsSubTributaria (null);
-// B
 			setLBR_TaxDefinition_ID (0);
 			setValidFrom (new Timestamp( System.currentTimeMillis() ));
 // @#Date@
+			setlbr_IsSubTributaria (null);
+// B
         } */
     }
 
@@ -284,32 +288,6 @@ public class X_LBR_TaxDefinition extends PO implements I_LBR_TaxDefinition, I_Pe
 		return ii.intValue();
 	}
 
-	/** Estados Identicos = 0 */
-	public static final String LBR_DESTIONATIONTYPE_EstadosIdenticos = "0";
-	/** Estados Diferentes = 1 */
-	public static final String LBR_DESTIONATIONTYPE_EstadosDiferentes = "1";
-	/** Estrangeiro = 2 */
-	public static final String LBR_DESTIONATIONTYPE_Estrangeiro = "2";
-	/** Zona Franca = 3 */
-	public static final String LBR_DESTIONATIONTYPE_ZonaFranca = "3";
-	/** Set Destination Type.
-		@param LBR_DestionationType 
-		Defines the Destination Type
-	  */
-	public void setLBR_DestionationType (String LBR_DestionationType)
-	{
-
-		set_Value (COLUMNNAME_LBR_DestionationType, LBR_DestionationType);
-	}
-
-	/** Get Destination Type.
-		@return Defines the Destination Type
-	  */
-	public String getLBR_DestionationType () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_DestionationType);
-	}
-
 	public org.adempierelbr.model.I_LBR_FiscalGroup_BPartner getLBR_FiscalGroup_BPartner() throws RuntimeException
     {
 		return (org.adempierelbr.model.I_LBR_FiscalGroup_BPartner)MTable.get(getCtx(), org.adempierelbr.model.I_LBR_FiscalGroup_BPartner.Table_Name)
@@ -390,30 +368,6 @@ public class X_LBR_TaxDefinition extends PO implements I_LBR_TaxDefinition, I_Pe
 		return (String)get_Value(COLUMNNAME_LBR_IndIEDest);
 	}
 
-	/** Yes = Y */
-	public static final String LBR_ISSUBTRIBUTARIA_Yes = "Y";
-	/** No = N */
-	public static final String LBR_ISSUBTRIBUTARIA_No = "N";
-	/** Both = B */
-	public static final String LBR_ISSUBTRIBUTARIA_Both = "B";
-	/** Set Is Substituicao Tributaria.
-		@param LBR_IsSubTributaria 
-		Defines the Is Substituicao Tributaria Status
-	  */
-	public void setLBR_IsSubTributaria (String LBR_IsSubTributaria)
-	{
-
-		set_Value (COLUMNNAME_LBR_IsSubTributaria, LBR_IsSubTributaria);
-	}
-
-	/** Get Is Substituicao Tributaria.
-		@return Defines the Is Substituicao Tributaria Status
-	  */
-	public String getLBR_IsSubTributaria () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_IsSubTributaria);
-	}
-
 	public org.adempierelbr.model.I_LBR_NCM getLBR_NCM() throws RuntimeException
     {
 		return (org.adempierelbr.model.I_LBR_NCM)MTable.get(getCtx(), org.adempierelbr.model.I_LBR_NCM.Table_Name)
@@ -468,42 +422,6 @@ public class X_LBR_TaxDefinition extends PO implements I_LBR_TaxDefinition, I_Pe
 		if (ii == null)
 			 return 0;
 		return ii.intValue();
-	}
-
-	/** 0 - Domestic = 0 */
-	public static final String LBR_PRODUCTSOURCE_0_Domestic = "0";
-	/** 1 - Imported = 1 */
-	public static final String LBR_PRODUCTSOURCE_1_Imported = "1";
-	/** 2 - Imported - Acquired from a domestic distributor = 2 */
-	public static final String LBR_PRODUCTSOURCE_2_Imported_AcquiredFromADomesticDistributor = "2";
-	/** 3 - Domestic with between 40 percent and 70 percent Imported = 3 */
-	public static final String LBR_PRODUCTSOURCE_3_DomesticWithBetween40PercentAnd70PercentImported = "3";
-	/** 4 - Product acquired from Manaus = 4 */
-	public static final String LBR_PRODUCTSOURCE_4_ProductAcquiredFromManaus = "4";
-	/** 5 - Domestic until 40 percent Imported = 5 */
-	public static final String LBR_PRODUCTSOURCE_5_DomesticUntil40PercentImported = "5";
-	/** 6 - Foreign - Direct import no similar national = 6 */
-	public static final String LBR_PRODUCTSOURCE_6_Foreign_DirectImportNoSimilarNational = "6";
-	/** 7 - Foreign - Acquired from a domestic distributor no similar national = 7 */
-	public static final String LBR_PRODUCTSOURCE_7_Foreign_AcquiredFromADomesticDistributorNoSimilarNational = "7";
-	/** 8 - Domestic above 70 percent Imported = 8 */
-	public static final String LBR_PRODUCTSOURCE_8_DomesticAbove70PercentImported = "8";
-	/** Set Product Source.
-		@param LBR_ProductSource 
-		Defines the Product Source
-	  */
-	public void setLBR_ProductSource (String LBR_ProductSource)
-	{
-
-		set_Value (COLUMNNAME_LBR_ProductSource, LBR_ProductSource);
-	}
-
-	/** Get Product Source.
-		@return Defines the Product Source
-	  */
-	public String getLBR_ProductSource () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_ProductSource);
 	}
 
 	/** Sul = 0 */
@@ -627,39 +545,12 @@ public class X_LBR_TaxDefinition extends PO implements I_LBR_TaxDefinition, I_Pe
 	/** Get Brazilian Tax.
 		@return Primary key table LBR_Tax
 	  */
-	public Object getLBR_Tax_ID () 
+	public Integer getLBR_Tax_ID () 
 	{
-				return get_Value(COLUMNNAME_LBR_Tax_ID);
-	}
-
-	/** End User = END */
-	public static final String LBR_TRANSACTIONTYPE_EndUser = "END";
-	/** Manufacturing = MAN */
-	public static final String LBR_TRANSACTIONTYPE_Manufacturing = "MAN";
-	/** Import = IMP */
-	public static final String LBR_TRANSACTIONTYPE_Import = "IMP";
-	/** Export = EXP */
-	public static final String LBR_TRANSACTIONTYPE_Export = "EXP";
-	/** Resale = RES */
-	public static final String LBR_TRANSACTIONTYPE_Resale = "RES";
-	/** End User (Double Base) = EN2 */
-	public static final String LBR_TRANSACTIONTYPE_EndUserDoubleBase = "EN2";
-	/** Set Transaction Type.
-		@param LBR_TransactionType 
-		Defines the Transaction Type
-	  */
-	public void setLBR_TransactionType (String LBR_TransactionType)
-	{
-
-		set_Value (COLUMNNAME_LBR_TransactionType, LBR_TransactionType);
-	}
-
-	/** Get Transaction Type.
-		@return Defines the Transaction Type
-	  */
-	public String getLBR_TransactionType () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_TransactionType);
+		Integer ii = (Integer)get_Value(COLUMNNAME_LBR_Tax_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
 	}
 
 	public org.compiere.model.I_M_Product getM_Product() throws RuntimeException
@@ -787,5 +678,121 @@ public class X_LBR_TaxDefinition extends PO implements I_LBR_TaxDefinition, I_Pe
 	public Timestamp getValidTo () 
 	{
 		return (Timestamp)get_Value(COLUMNNAME_ValidTo);
+	}
+
+	/** Estados Identicos = 0 */
+	public static final String LBR_DESTIONATIONTYPE_EstadosIdenticos = "0";
+	/** Estados Diferentes = 1 */
+	public static final String LBR_DESTIONATIONTYPE_EstadosDiferentes = "1";
+	/** Estrangeiro = 2 */
+	public static final String LBR_DESTIONATIONTYPE_Estrangeiro = "2";
+	/** Zona Franca = 3 */
+	public static final String LBR_DESTIONATIONTYPE_ZonaFranca = "3";
+	/** Set Destination Type.
+		@param lbr_DestionationType 
+		Defines the Destination Type
+	  */
+	public void setlbr_DestionationType (String lbr_DestionationType)
+	{
+
+		set_Value (COLUMNNAME_lbr_DestionationType, lbr_DestionationType);
+	}
+
+	/** Get Destination Type.
+		@return Defines the Destination Type
+	  */
+	public String getlbr_DestionationType () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_DestionationType);
+	}
+
+	/** Yes = Y */
+	public static final String LBR_ISSUBTRIBUTARIA_Yes = "Y";
+	/** No = N */
+	public static final String LBR_ISSUBTRIBUTARIA_No = "N";
+	/** Both = B */
+	public static final String LBR_ISSUBTRIBUTARIA_Both = "B";
+	/** Set Is Substituicao Tributaria.
+		@param lbr_IsSubTributaria 
+		Defines the Is Substituicao Tributaria Status
+	  */
+	public void setlbr_IsSubTributaria (String lbr_IsSubTributaria)
+	{
+
+		set_Value (COLUMNNAME_lbr_IsSubTributaria, lbr_IsSubTributaria);
+	}
+
+	/** Get Is Substituicao Tributaria.
+		@return Defines the Is Substituicao Tributaria Status
+	  */
+	public String getlbr_IsSubTributaria () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_IsSubTributaria);
+	}
+
+	/** 0 - Domestic = 0 */
+	public static final String LBR_PRODUCTSOURCE_0_Domestic = "0";
+	/** 1 - Imported = 1 */
+	public static final String LBR_PRODUCTSOURCE_1_Imported = "1";
+	/** 2 - Imported - Acquired from a domestic distributor = 2 */
+	public static final String LBR_PRODUCTSOURCE_2_Imported_AcquiredFromADomesticDistributor = "2";
+	/** 3 - Domestic with between 40 percent and 70 percent Imported = 3 */
+	public static final String LBR_PRODUCTSOURCE_3_DomesticWithBetween40PercentAnd70PercentImported = "3";
+	/** 4 - Product acquired from Manaus = 4 */
+	public static final String LBR_PRODUCTSOURCE_4_ProductAcquiredFromManaus = "4";
+	/** 5 - Domestic until 40 percent Imported = 5 */
+	public static final String LBR_PRODUCTSOURCE_5_DomesticUntil40PercentImported = "5";
+	/** 6 - Foreign - Direct import no similar national = 6 */
+	public static final String LBR_PRODUCTSOURCE_6_Foreign_DirectImportNoSimilarNational = "6";
+	/** 7 - Foreign - Acquired from a domestic distributor no similar national = 7 */
+	public static final String LBR_PRODUCTSOURCE_7_Foreign_AcquiredFromADomesticDistributorNoSimilarNational = "7";
+	/** 8 - Domestic above 70 percent Imported = 8 */
+	public static final String LBR_PRODUCTSOURCE_8_DomesticAbove70PercentImported = "8";
+	/** Set Product Source.
+		@param lbr_ProductSource 
+		Defines the Product Source
+	  */
+	public void setlbr_ProductSource (String lbr_ProductSource)
+	{
+
+		set_Value (COLUMNNAME_lbr_ProductSource, lbr_ProductSource);
+	}
+
+	/** Get Product Source.
+		@return Defines the Product Source
+	  */
+	public String getlbr_ProductSource () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_ProductSource);
+	}
+
+	/** End User = END */
+	public static final String LBR_TRANSACTIONTYPE_EndUser = "END";
+	/** Manufacturing = MAN */
+	public static final String LBR_TRANSACTIONTYPE_Manufacturing = "MAN";
+	/** Import = IMP */
+	public static final String LBR_TRANSACTIONTYPE_Import = "IMP";
+	/** Export = EXP */
+	public static final String LBR_TRANSACTIONTYPE_Export = "EXP";
+	/** Resale = RES */
+	public static final String LBR_TRANSACTIONTYPE_Resale = "RES";
+	/** End User (Double Base) = EN2 */
+	public static final String LBR_TRANSACTIONTYPE_EndUserDoubleBase = "EN2";
+	/** Set Transaction Type.
+		@param lbr_TransactionType 
+		Defines the Transaction Type
+	  */
+	public void setlbr_TransactionType (String lbr_TransactionType)
+	{
+
+		set_Value (COLUMNNAME_lbr_TransactionType, lbr_TransactionType);
+	}
+
+	/** Get Transaction Type.
+		@return Defines the Transaction Type
+	  */
+	public String getlbr_TransactionType () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_TransactionType);
 	}
 }

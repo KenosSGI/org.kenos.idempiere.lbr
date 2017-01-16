@@ -25,7 +25,7 @@ import org.compiere.util.KeyNamePair;
  *  @version Release 4.1
  */
 @SuppressWarnings("all")
-public interface I_W_C_DocType 
+public interface I_W_C_DocType extends I_C_DocType 
 {
 
     /** TableName=C_DocType */
@@ -35,8 +35,53 @@ public interface I_W_C_DocType
     public static final int Table_ID = 217;
 
 
-    /** Column name LBR_DocBaseType */
-    public static final String COLUMNNAME_LBR_DocBaseType = "LBR_DocBaseType";
+    /** Column name LBR_DocTypeMovement_ID */
+    public static final String COLUMNNAME_LBR_DocTypeMovement_ID = "LBR_DocTypeMovement_ID";
+
+	/** Set Movement DocType.
+	  * Defines the Movement Document Type used for the Material Movement
+	  */
+	public void setLBR_DocTypeMovement_ID (int LBR_DocTypeMovement_ID);
+
+	/** Get Movement DocType.
+	  * Defines the Movement Document Type used for the Material Movement
+	  */
+	public int getLBR_DocTypeMovement_ID();
+
+	public org.compiere.model.I_C_DocType getLBR_DocTypeMovement() throws RuntimeException;
+
+    /** Column name LBR_DocTypeNF_ID */
+    public static final String COLUMNNAME_LBR_DocTypeNF_ID = "LBR_DocTypeNF_ID";
+
+	/** Set NF DocType.
+	  * Defines the NF Document Type used for the Nota Fiscal Window
+	  */
+	public void setLBR_DocTypeNF_ID (int LBR_DocTypeNF_ID);
+
+	/** Get NF DocType.
+	  * Defines the NF Document Type used for the Nota Fiscal Window
+	  */
+	public int getLBR_DocTypeNF_ID();
+
+	public org.compiere.model.I_C_DocType getLBR_DocTypeNF() throws RuntimeException;
+
+    /** Column name M_Warehouse_ID */
+    public static final String COLUMNNAME_M_Warehouse_ID = "M_Warehouse_ID";
+
+	/** Set Warehouse.
+	  * Storage Warehouse and Service Point
+	  */
+	public void setM_Warehouse_ID (int M_Warehouse_ID);
+
+	/** Get Warehouse.
+	  * Storage Warehouse and Service Point
+	  */
+	public int getM_Warehouse_ID();
+
+	public org.compiere.model.I_M_Warehouse getM_Warehouse() throws RuntimeException;
+
+    /** Column name lbr_DocBaseType */
+    public static final String COLUMNNAME_lbr_DocBaseType = "lbr_DocBaseType";
 
 	/** Consignation Sales Order = OVEC- */
 	public static final String LBR_DOCBASETYPE_ConsignationSalesOrder = "OVEC-";
@@ -90,149 +135,119 @@ public interface I_W_C_DocType
 	/** Set LBR DocBaseType.
 	  * Localization Brasil Document Base Type
 	  */
-	public void setLBR_DocBaseType (String LBR_DocBaseType);
+	public void setlbr_DocBaseType (String lbr_DocBaseType);
 
 	/** Get LBR DocBaseType.
 	  * Localization Brasil Document Base Type
 	  */
-	public String getLBR_DocBaseType();
+	public String getlbr_DocBaseType();
 
-    /** Column name LBR_DocTypeMovement_ID */
-    public static final String COLUMNNAME_LBR_DocTypeMovement_ID = "LBR_DocTypeMovement_ID";
-
-	/** Set Movement DocType.
-	  * Defines the Movement Document Type used for the Material Movement
-	  */
-	public void setLBR_DocTypeMovement_ID (int LBR_DocTypeMovement_ID);
-
-	/** Get Movement DocType.
-	  * Defines the Movement Document Type used for the Material Movement
-	  */
-	public int getLBR_DocTypeMovement_ID();
-
-	public org.compiere.model.I_C_DocType getLBR_DocTypeMovement() throws RuntimeException;
-
-    /** Column name LBR_DocTypeNF_ID */
-    public static final String COLUMNNAME_LBR_DocTypeNF_ID = "LBR_DocTypeNF_ID";
-
-	/** Set NF DocType.
-	  * Defines the NF Document Type used for the Nota Fiscal Window
-	  */
-	public void setLBR_DocTypeNF_ID (int LBR_DocTypeNF_ID);
-
-	/** Get NF DocType.
-	  * Defines the NF Document Type used for the Nota Fiscal Window
-	  */
-	public int getLBR_DocTypeNF_ID();
-
-	public org.compiere.model.I_C_DocType getLBR_DocTypeNF() throws RuntimeException;
-
-    /** Column name LBR_GenerateMovement */
-    public static final String COLUMNNAME_LBR_GenerateMovement = "LBR_GenerateMovement";
+    /** Column name lbr_GenerateMovement */
+    public static final String COLUMNNAME_lbr_GenerateMovement = "lbr_GenerateMovement";
 
 	/** Set Generate Movement.
 	  * Indicates if this document generates a material movement insted of a material shipment/receipt
 	  */
-	public void setLBR_GenerateMovement (boolean LBR_GenerateMovement);
+	public void setlbr_GenerateMovement (boolean lbr_GenerateMovement);
 
 	/** Get Generate Movement.
 	  * Indicates if this document generates a material movement insted of a material shipment/receipt
 	  */
-	public boolean isLBR_GenerateMovement();
+	public boolean islbr_GenerateMovement();
 
-    /** Column name LBR_HasFiscalDocument */
-    public static final String COLUMNNAME_LBR_HasFiscalDocument = "LBR_HasFiscalDocument";
+    /** Column name lbr_HasFiscalDocument */
+    public static final String COLUMNNAME_lbr_HasFiscalDocument = "lbr_HasFiscalDocument";
 
 	/** Set Has Fiscal Document.
 	  * Identifies if the this document has fiscal document
 	  */
-	public void setLBR_HasFiscalDocument (boolean LBR_HasFiscalDocument);
+	public void setlbr_HasFiscalDocument (boolean lbr_HasFiscalDocument);
 
 	/** Get Has Fiscal Document.
 	  * Identifies if the this document has fiscal document
 	  */
-	public boolean isLBR_HasFiscalDocument();
+	public boolean islbr_HasFiscalDocument();
 
-    /** Column name LBR_HasOpenItems */
-    public static final String COLUMNNAME_LBR_HasOpenItems = "LBR_HasOpenItems";
+    /** Column name lbr_HasOpenItems */
+    public static final String COLUMNNAME_lbr_HasOpenItems = "lbr_HasOpenItems";
 
 	/** Set Has Open Items.
 	  * Identifies if this Document Has Open Items
 	  */
-	public void setLBR_HasOpenItems (boolean LBR_HasOpenItems);
+	public void setlbr_HasOpenItems (boolean lbr_HasOpenItems);
 
 	/** Get Has Open Items.
 	  * Identifies if this Document Has Open Items
 	  */
-	public boolean isLBR_HasOpenItems();
+	public boolean islbr_HasOpenItems();
 
-    /** Column name LBR_IsAutomaticInvoice */
-    public static final String COLUMNNAME_LBR_IsAutomaticInvoice = "LBR_IsAutomaticInvoice";
+    /** Column name lbr_IsAutomaticInvoice */
+    public static final String COLUMNNAME_lbr_IsAutomaticInvoice = "lbr_IsAutomaticInvoice";
 
 	/** Set Automatic Invoice.
 	  * Identifies if this Document generates Invoices automatically
 	  */
-	public void setLBR_IsAutomaticInvoice (boolean LBR_IsAutomaticInvoice);
+	public void setlbr_IsAutomaticInvoice (boolean lbr_IsAutomaticInvoice);
 
 	/** Get Automatic Invoice.
 	  * Identifies if this Document generates Invoices automatically
 	  */
-	public boolean isLBR_IsAutomaticInvoice();
+	public boolean islbr_IsAutomaticInvoice();
 
-    /** Column name LBR_IsAutomaticShipment */
-    public static final String COLUMNNAME_LBR_IsAutomaticShipment = "LBR_IsAutomaticShipment";
+    /** Column name lbr_IsAutomaticShipment */
+    public static final String COLUMNNAME_lbr_IsAutomaticShipment = "lbr_IsAutomaticShipment";
 
 	/** Set Automatic Shipment.
 	  * Identifies if this Document generates Shipments automatically
 	  */
-	public void setLBR_IsAutomaticShipment (boolean LBR_IsAutomaticShipment);
+	public void setlbr_IsAutomaticShipment (boolean lbr_IsAutomaticShipment);
 
 	/** Get Automatic Shipment.
 	  * Identifies if this Document generates Shipments automatically
 	  */
-	public boolean isLBR_IsAutomaticShipment();
+	public boolean islbr_IsAutomaticShipment();
 
-    /** Column name LBR_IsManufactured */
-    public static final String COLUMNNAME_LBR_IsManufactured = "LBR_IsManufactured";
+    /** Column name lbr_IsManufactured */
+    public static final String COLUMNNAME_lbr_IsManufactured = "lbr_IsManufactured";
 
 	/** Set Is Manufactured.
 	  * Defines if the Product is Manufactured
 	  */
-	public void setLBR_IsManufactured (boolean LBR_IsManufactured);
+	public void setlbr_IsManufactured (boolean lbr_IsManufactured);
 
 	/** Get Is Manufactured.
 	  * Defines if the Product is Manufactured
 	  */
-	public boolean isLBR_IsManufactured();
+	public boolean islbr_IsManufactured();
 
-    /** Column name LBR_IsOwnDocument */
-    public static final String COLUMNNAME_LBR_IsOwnDocument = "LBR_IsOwnDocument";
+    /** Column name lbr_IsOwnDocument */
+    public static final String COLUMNNAME_lbr_IsOwnDocument = "lbr_IsOwnDocument";
 
 	/** Set Is Own Document.
 	  * Identifies this is an own document
 	  */
-	public void setLBR_IsOwnDocument (boolean LBR_IsOwnDocument);
+	public void setlbr_IsOwnDocument (boolean lbr_IsOwnDocument);
 
 	/** Get Is Own Document.
 	  * Identifies this is an own document
 	  */
-	public boolean isLBR_IsOwnDocument();
+	public boolean islbr_IsOwnDocument();
 
-    /** Column name LBR_IsReturn */
-    public static final String COLUMNNAME_LBR_IsReturn = "LBR_IsReturn";
+    /** Column name lbr_IsReturn */
+    public static final String COLUMNNAME_lbr_IsReturn = "lbr_IsReturn";
 
 	/** Set Is Return.
 	  * Defines if the is a return of manufactured products
 	  */
-	public void setLBR_IsReturn (boolean LBR_IsReturn);
+	public void setlbr_IsReturn (boolean lbr_IsReturn);
 
 	/** Get Is Return.
 	  * Defines if the is a return of manufactured products
 	  */
-	public boolean isLBR_IsReturn();
+	public boolean islbr_IsReturn();
 
-    /** Column name LBR_NFModel */
-    public static final String COLUMNNAME_LBR_NFModel = "LBR_NFModel";
+    /** Column name lbr_NFModel */
+    public static final String COLUMNNAME_lbr_NFModel = "lbr_NFModel";
 
 	/** Nota Fiscal = 01 */
 	public static final String LBR_NFMODEL_NotaFiscal = "01";
@@ -340,24 +355,24 @@ public interface I_W_C_DocType
 	/** Set NF Model.
 	  * Identifies the model of Nota Fiscal
 	  */
-	public void setLBR_NFModel (String LBR_NFModel);
+	public void setlbr_NFModel (String lbr_NFModel);
 
 	/** Get NF Model.
 	  * Identifies the model of Nota Fiscal
 	  */
-	public String getLBR_NFModel();
+	public String getlbr_NFModel();
 
-    /** Column name LBR_NFSerie */
-    public static final String COLUMNNAME_LBR_NFSerie = "LBR_NFSerie";
+    /** Column name lbr_NFSerie */
+    public static final String COLUMNNAME_lbr_NFSerie = "lbr_NFSerie";
 
 	/** Set NF Serie	  */
-	public void setLBR_NFSerie (String LBR_NFSerie);
+	public void setlbr_NFSerie (String lbr_NFSerie);
 
 	/** Get NF Serie	  */
-	public String getLBR_NFSerie();
+	public String getlbr_NFSerie();
 
-    /** Column name LBR_NFeTpEmi */
-    public static final String COLUMNNAME_LBR_NFeTpEmi = "LBR_NFeTpEmi";
+    /** Column name lbr_NFeTpEmi */
+    public static final String COLUMNNAME_lbr_NFeTpEmi = "lbr_NFeTpEmi";
 
 	/** Normal = 1 */
 	public static final String LBR_NFETPEMI_Normal = "1";
@@ -376,23 +391,8 @@ public interface I_W_C_DocType
 
 
 	/** Set Tipo de Emissão NFe	  */
-	public void setLBR_NFeTpEmi (String LBR_NFeTpEmi);
+	public void setlbr_NFeTpEmi (String lbr_NFeTpEmi);
 
 	/** Get Tipo de Emissão NFe	  */
-	public String getLBR_NFeTpEmi();
-
-    /** Column name M_Warehouse_ID */
-    public static final String COLUMNNAME_M_Warehouse_ID = "M_Warehouse_ID";
-
-	/** Set Warehouse.
-	  * Storage Warehouse and Service Point
-	  */
-	public void setM_Warehouse_ID (int M_Warehouse_ID);
-
-	/** Get Warehouse.
-	  * Storage Warehouse and Service Point
-	  */
-	public int getM_Warehouse_ID();
-
-	public org.compiere.model.I_M_Warehouse getM_Warehouse() throws RuntimeException;
+	public String getlbr_NFeTpEmi();
 }

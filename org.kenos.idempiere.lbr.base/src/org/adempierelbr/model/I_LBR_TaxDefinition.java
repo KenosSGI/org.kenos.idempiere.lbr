@@ -207,19 +207,6 @@ public interface I_LBR_TaxDefinition
 
 	public org.adempierelbr.model.I_LBR_CFOP getLBR_CFOP() throws RuntimeException;
 
-    /** Column name LBR_DestionationType */
-    public static final String COLUMNNAME_LBR_DestionationType = "LBR_DestionationType";
-
-	/** Set Destination Type.
-	  * Defines the Destination Type
-	  */
-	public void setLBR_DestionationType (String LBR_DestionationType);
-
-	/** Get Destination Type.
-	  * Defines the Destination Type
-	  */
-	public String getLBR_DestionationType();
-
     /** Column name LBR_FiscalGroup_BPartner_ID */
     public static final String COLUMNNAME_LBR_FiscalGroup_BPartner_ID = "LBR_FiscalGroup_BPartner_ID";
 
@@ -263,19 +250,6 @@ public interface I_LBR_TaxDefinition
 	  */
 	public String getLBR_IndIEDest();
 
-    /** Column name LBR_IsSubTributaria */
-    public static final String COLUMNNAME_LBR_IsSubTributaria = "LBR_IsSubTributaria";
-
-	/** Set Is Substituicao Tributaria.
-	  * Defines the Is Substituicao Tributaria Status
-	  */
-	public void setLBR_IsSubTributaria (String LBR_IsSubTributaria);
-
-	/** Get Is Substituicao Tributaria.
-	  * Defines the Is Substituicao Tributaria Status
-	  */
-	public String getLBR_IsSubTributaria();
-
     /** Column name LBR_NCM_ID */
     public static final String COLUMNNAME_LBR_NCM_ID = "LBR_NCM_ID";
 
@@ -305,19 +279,6 @@ public interface I_LBR_TaxDefinition
 	public int getLBR_ProductCategory_ID();
 
 	public org.adempierelbr.model.I_LBR_ProductCategory getLBR_ProductCategory() throws RuntimeException;
-
-    /** Column name LBR_ProductSource */
-    public static final String COLUMNNAME_LBR_ProductSource = "LBR_ProductSource";
-
-	/** Set Product Source.
-	  * Defines the Product Source
-	  */
-	public void setLBR_ProductSource (String LBR_ProductSource);
-
-	/** Get Product Source.
-	  * Defines the Product Source
-	  */
-	public String getLBR_ProductSource();
 
     /** Column name LBR_RegionFrom */
     public static final String COLUMNNAME_LBR_RegionFrom = "LBR_RegionFrom";
@@ -367,19 +328,6 @@ public interface I_LBR_TaxDefinition
 	  * Primary key table LBR_Tax
 	  */
 	public Object getLBR_Tax_ID();
-
-    /** Column name LBR_TransactionType */
-    public static final String COLUMNNAME_LBR_TransactionType = "LBR_TransactionType";
-
-	/** Set Transaction Type.
-	  * Defines the Transaction Type
-	  */
-	public void setLBR_TransactionType (String LBR_TransactionType);
-
-	/** Get Transaction Type.
-	  * Defines the Transaction Type
-	  */
-	public String getLBR_TransactionType();
 
     /** Column name M_Product_ID */
     public static final String COLUMNNAME_M_Product_ID = "M_Product_ID";
@@ -478,4 +426,56 @@ public interface I_LBR_TaxDefinition
 	  * Valid to including this date (last day)
 	  */
 	public Timestamp getValidTo();
+
+    /** Column name lbr_DestionationType */
+    public static final String COLUMNNAME_lbr_DestionationType = "lbr_DestionationType";
+
+	/** Set Destination Type.
+	  * Defines the Destination Type
+	  */
+	public void setlbr_DestionationType (String lbr_DestionationType);
+
+	/** Get Destination Type.
+	  * Defines the Destination Type
+	  */
+	public String getlbr_DestionationType();
+
+    /** Column name lbr_IsSubTributaria */
+    public static final String COLUMNNAME_lbr_IsSubTributaria = "lbr_IsSubTributaria";
+
+	/** Set Is Substituicao Tributaria.
+	  * Defines the Is Substituicao Tributaria Status
+	  */
+	public void setlbr_IsSubTributaria (String lbr_IsSubTributaria);
+
+	/** Get Is Substituicao Tributaria.
+	  * Defines the Is Substituicao Tributaria Status
+	  */
+	public String getlbr_IsSubTributaria();
+
+    /** Column name lbr_ProductSource */
+    public static final String COLUMNNAME_lbr_ProductSource = "lbr_ProductSource";
+
+	/** Set Product Source.
+	  * Defines the Product Source
+	  */
+	public void setlbr_ProductSource (String lbr_ProductSource);
+
+	/** Get Product Source.
+	  * Defines the Product Source
+	  */
+	public String getlbr_ProductSource();
+
+    /** Column name lbr_TransactionType */
+    public static final String COLUMNNAME_lbr_TransactionType = "lbr_TransactionType";
+
+	/** Set Transaction Type.
+	  * Defines the Transaction Type
+	  */
+	public void setlbr_TransactionType (String lbr_TransactionType);
+
+	/** Get Transaction Type.
+	  * Defines the Transaction Type
+	  */
+	public String getlbr_TransactionType();
 }

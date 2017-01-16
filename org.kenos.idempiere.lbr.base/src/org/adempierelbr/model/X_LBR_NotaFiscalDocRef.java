@@ -32,7 +32,7 @@ public class X_LBR_NotaFiscalDocRef extends PO implements I_LBR_NotaFiscalDocRef
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20170105L;
+	private static final long serialVersionUID = 20170116L;
 
     /** Standard Constructor */
     public X_LBR_NotaFiscalDocRef (Properties ctx, int LBR_NotaFiscalDocRef_ID, String trxName)
@@ -138,49 +138,6 @@ public class X_LBR_NotaFiscalDocRef extends PO implements I_LBR_NotaFiscalDocRef
 		return (String)get_Value(COLUMNNAME_DocumentNo);
 	}
 
-	/** PJ - Legal Entity = PJ */
-	public static final String LBR_BPTYPEBR_PJ_LegalEntity = "PJ";
-	/** PF - Individual = PF */
-	public static final String LBR_BPTYPEBR_PF_Individual = "PF";
-	/** PM - Individual Minor = PM */
-	public static final String LBR_BPTYPEBR_PM_IndividualMinor = "PM";
-	/** XX - Foreigner = XX */
-	public static final String LBR_BPTYPEBR_XX_Foreigner = "XX";
-	/** Set Brazilian BP Type.
-		@param LBR_BPTypeBR 
-		Brazilian BP Type (Identifies if the BP is a Legal Entity or an Individual)
-	  */
-	public void setLBR_BPTypeBR (String LBR_BPTypeBR)
-	{
-
-		set_Value (COLUMNNAME_LBR_BPTypeBR, LBR_BPTypeBR);
-	}
-
-	/** Get Brazilian BP Type.
-		@return Brazilian BP Type (Identifies if the BP is a Legal Entity or an Individual)
-	  */
-	public String getLBR_BPTypeBR () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_BPTypeBR);
-	}
-
-	/** Set CNPJ.
-		@param LBR_CNPJ 
-		Used to identify Legal Entities in Brazil
-	  */
-	public void setLBR_CNPJ (String LBR_CNPJ)
-	{
-		set_Value (COLUMNNAME_LBR_CNPJ, LBR_CNPJ);
-	}
-
-	/** Get CNPJ.
-		@return Used to identify Legal Entities in Brazil
-	  */
-	public String getLBR_CNPJ () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_CNPJ);
-	}
-
 	/** Set CCO Number.
 		@param LBR_COOno CCO Number	  */
 	public void setLBR_COOno (String LBR_COOno)
@@ -193,23 +150,6 @@ public class X_LBR_NotaFiscalDocRef extends PO implements I_LBR_NotaFiscalDocRef
 	public String getLBR_COOno () 
 	{
 		return (String)get_Value(COLUMNNAME_LBR_COOno);
-	}
-
-	/** Set CPF.
-		@param LBR_CPF 
-		Used to identify individuals in Brazil
-	  */
-	public void setLBR_CPF (String LBR_CPF)
-	{
-		set_Value (COLUMNNAME_LBR_CPF, LBR_CPF);
-	}
-
-	/** Get CPF.
-		@return Used to identify individuals in Brazil
-	  */
-	public String getLBR_CPF () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_CPF);
 	}
 
 	/** NF Manual (1/1A) = M */
@@ -237,23 +177,6 @@ public class X_LBR_NotaFiscalDocRef extends PO implements I_LBR_NotaFiscalDocRef
 		return (String)get_Value(COLUMNNAME_LBR_FiscalDocRefType);
 	}
 
-	/** Set IE.
-		@param LBR_IE 
-		Used to Identify the IE (State Tax ID)
-	  */
-	public void setLBR_IE (String LBR_IE)
-	{
-		set_Value (COLUMNNAME_LBR_IE, LBR_IE);
-	}
-
-	/** Get IE.
-		@return Used to Identify the IE (State Tax ID)
-	  */
-	public String getLBR_IE () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_IE);
-	}
-
 	/** 1 - Contribuinte de ICMS = 1 */
 	public static final String LBR_INDIEDEST_1_ContribuinteDeICMS = "1";
 	/** 2 - Contribuinte de ICMS - Isento = 2 */
@@ -276,123 +199,6 @@ public class X_LBR_NotaFiscalDocRef extends PO implements I_LBR_NotaFiscalDocRef
 	public String getLBR_IndIEDest () 
 	{
 		return (String)get_Value(COLUMNNAME_LBR_IndIEDest);
-	}
-
-	/** Nota Fiscal = 01 */
-	public static final String LBR_NFMODEL_NotaFiscal = "01";
-	/** Nota Fiscal Avulsa = 1B */
-	public static final String LBR_NFMODEL_NotaFiscalAvulsa = "1B";
-	/** Nota Fiscal de Venda a Consumidor = 02 */
-	public static final String LBR_NFMODEL_NotaFiscalDeVendaAConsumidor = "02";
-	/** Cupom Fiscal emitido por ECF = 2D */
-	public static final String LBR_NFMODEL_CupomFiscalEmitidoPorECF = "2D";
-	/** Bilhete de Passagem emitido por ECF = 2E */
-	public static final String LBR_NFMODEL_BilheteDePassagemEmitidoPorECF = "2E";
-	/** Nota Fiscal de Produtor = 04 */
-	public static final String LBR_NFMODEL_NotaFiscalDeProdutor = "04";
-	/** Nota Fiscal/Conta de Energia Elétrica = 06 */
-	public static final String LBR_NFMODEL_NotaFiscalContaDeEnergiaElétrica = "06";
-	/** Nota Fiscal de Serviço de Transporte = 07 */
-	public static final String LBR_NFMODEL_NotaFiscalDeServiçoDeTransporte = "07";
-	/** Conhecimento de Transporte Rodoviário de Cargas = 08 */
-	public static final String LBR_NFMODEL_ConhecimentoDeTransporteRodoviárioDeCargas = "08";
-	/** Conhecimento de Transporte de Cargas Avulso = 8B */
-	public static final String LBR_NFMODEL_ConhecimentoDeTransporteDeCargasAvulso = "8B";
-	/** Conhecimento de Transporte Aquaviário de Cargas = 09 */
-	public static final String LBR_NFMODEL_ConhecimentoDeTransporteAquaviárioDeCargas = "09";
-	/** Conhecimento Aéreo = 10 */
-	public static final String LBR_NFMODEL_ConhecimentoAéreo = "10";
-	/** Conhecimento de Transporte Ferroviário de Cargas = 11 */
-	public static final String LBR_NFMODEL_ConhecimentoDeTransporteFerroviárioDeCargas = "11";
-	/** Bilhete de Passagem Rodoviário = 13 */
-	public static final String LBR_NFMODEL_BilheteDePassagemRodoviário = "13";
-	/** Bilhete de Passagem Aquaviário = 14 */
-	public static final String LBR_NFMODEL_BilheteDePassagemAquaviário = "14";
-	/** Bilhete de Passagem e Nota de Bagagem = 15 */
-	public static final String LBR_NFMODEL_BilheteDePassagemENotaDeBagagem = "15";
-	/** Despacho de Transporte = 17 */
-	public static final String LBR_NFMODEL_DespachoDeTransporte = "17";
-	/** Bilhete de Passagem Ferroviário = 16 */
-	public static final String LBR_NFMODEL_BilheteDePassagemFerroviário = "16";
-	/** Resumo de Movimento Diário = 18 */
-	public static final String LBR_NFMODEL_ResumoDeMovimentoDiário = "18";
-	/** Ordem de Coleta de Cargas = 20 */
-	public static final String LBR_NFMODEL_OrdemDeColetaDeCargas = "20";
-	/** Nota Fiscal de Serviço de Comunicação = 21 */
-	public static final String LBR_NFMODEL_NotaFiscalDeServiçoDeComunicação = "21";
-	/** Nota Fiscal de Serviço de Telecomunicação = 22 */
-	public static final String LBR_NFMODEL_NotaFiscalDeServiçoDeTelecomunicação = "22";
-	/** GNRE = 23 */
-	public static final String LBR_NFMODEL_GNRE = "23";
-	/** Autorização de Carregamento e Transporte = 24 */
-	public static final String LBR_NFMODEL_AutorizaçãoDeCarregamentoETransporte = "24";
-	/** Manifesto de Carga = 25 */
-	public static final String LBR_NFMODEL_ManifestoDeCarga = "25";
-	/** Conhecimento de Transporte Multimodal de Cargas = 26 */
-	public static final String LBR_NFMODEL_ConhecimentoDeTransporteMultimodalDeCargas = "26";
-	/** Nota Fiscal de Transporte Ferroviário de Cargas = 27 */
-	public static final String LBR_NFMODEL_NotaFiscalDeTransporteFerroviárioDeCargas = "27";
-	/** Nota Fiscal/Conta de Fornecimento de Gás Canalizado = 28 */
-	public static final String LBR_NFMODEL_NotaFiscalContaDeFornecimentoDeGásCanalizado = "28";
-	/** Nota Fiscal/Conta de Fornecimento de Água Canalizada = 29 */
-	public static final String LBR_NFMODEL_NotaFiscalContaDeFornecimentoDeÁguaCanalizada = "29";
-	/** Bilhete/Recibo do Passageiro = 30 */
-	public static final String LBR_NFMODEL_BilheteReciboDoPassageiro = "30";
-	/** Nota Fiscal Eletrônica = 55 */
-	public static final String LBR_NFMODEL_NotaFiscalEletrônica = "55";
-	/** Conhecimento de Transporte Eletrônico – CT-e = 57 */
-	public static final String LBR_NFMODEL_ConhecimentoDeTransporteEletrônicoCT_E = "57";
-	/** Nota Fiscal de Serviços Eletrônica (RPS) = S1 */
-	public static final String LBR_NFMODEL_NotaFiscalDeServiçosEletrônicaRPS = "S1";
-	/** Nota Fiscal de Consumidor Eletrônica = 56 */
-	public static final String LBR_NFMODEL_NotaFiscalDeConsumidorEletrônica = "56";
-	/** Set NF Model.
-		@param LBR_NFModel 
-		Identifies the model of Nota Fiscal
-	  */
-	public void setLBR_NFModel (String LBR_NFModel)
-	{
-
-		set_Value (COLUMNNAME_LBR_NFModel, LBR_NFModel);
-	}
-
-	/** Get NF Model.
-		@return Identifies the model of Nota Fiscal
-	  */
-	public String getLBR_NFModel () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_NFModel);
-	}
-
-	/** Set NF Serie.
-		@param LBR_NFSerie NF Serie	  */
-	public void setLBR_NFSerie (String LBR_NFSerie)
-	{
-		set_Value (COLUMNNAME_LBR_NFSerie, LBR_NFSerie);
-	}
-
-	/** Get NF Serie.
-		@return NF Serie	  */
-	public String getLBR_NFSerie () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_NFSerie);
-	}
-
-	/** Set NFe ID.
-		@param LBR_NFeID 
-		Identification of NFe
-	  */
-	public void setLBR_NFeID (String LBR_NFeID)
-	{
-		set_Value (COLUMNNAME_LBR_NFeID, LBR_NFeID);
-	}
-
-	/** Get NFe ID.
-		@return Identification of NFe
-	  */
-	public String getLBR_NFeID () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_NFeID);
 	}
 
 	public org.adempierelbr.model.I_LBR_NotaFiscal getLBR_NFeReferenced() throws RuntimeException
@@ -474,5 +280,199 @@ public class X_LBR_NotaFiscalDocRef extends PO implements I_LBR_NotaFiscalDocRef
 		if (ii == null)
 			 return 0;
 		return ii.intValue();
+	}
+
+	/** PJ - Legal Entity = PJ */
+	public static final String LBR_BPTYPEBR_PJ_LegalEntity = "PJ";
+	/** PF - Individual = PF */
+	public static final String LBR_BPTYPEBR_PF_Individual = "PF";
+	/** PM - Individual Minor = PM */
+	public static final String LBR_BPTYPEBR_PM_IndividualMinor = "PM";
+	/** XX - Foreigner = XX */
+	public static final String LBR_BPTYPEBR_XX_Foreigner = "XX";
+	/** Set Brazilian BP Type.
+		@param lbr_BPTypeBR 
+		Brazilian BP Type (Identifies if the BP is a Legal Entity or an Individual)
+	  */
+	public void setlbr_BPTypeBR (String lbr_BPTypeBR)
+	{
+
+		set_Value (COLUMNNAME_lbr_BPTypeBR, lbr_BPTypeBR);
+	}
+
+	/** Get Brazilian BP Type.
+		@return Brazilian BP Type (Identifies if the BP is a Legal Entity or an Individual)
+	  */
+	public String getlbr_BPTypeBR () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_BPTypeBR);
+	}
+
+	/** Set CNPJ.
+		@param lbr_CNPJ 
+		Used to identify Legal Entities in Brazil
+	  */
+	public void setlbr_CNPJ (String lbr_CNPJ)
+	{
+		set_Value (COLUMNNAME_lbr_CNPJ, lbr_CNPJ);
+	}
+
+	/** Get CNPJ.
+		@return Used to identify Legal Entities in Brazil
+	  */
+	public String getlbr_CNPJ () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_CNPJ);
+	}
+
+	/** Set CPF.
+		@param lbr_CPF 
+		Used to identify individuals in Brazil
+	  */
+	public void setlbr_CPF (String lbr_CPF)
+	{
+		set_Value (COLUMNNAME_lbr_CPF, lbr_CPF);
+	}
+
+	/** Get CPF.
+		@return Used to identify individuals in Brazil
+	  */
+	public String getlbr_CPF () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_CPF);
+	}
+
+	/** Set IE.
+		@param lbr_IE 
+		Used to Identify the IE (State Tax ID)
+	  */
+	public void setlbr_IE (String lbr_IE)
+	{
+		set_Value (COLUMNNAME_lbr_IE, lbr_IE);
+	}
+
+	/** Get IE.
+		@return Used to Identify the IE (State Tax ID)
+	  */
+	public String getlbr_IE () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_IE);
+	}
+
+	/** Nota Fiscal = 01 */
+	public static final String LBR_NFMODEL_NotaFiscal = "01";
+	/** Nota Fiscal Avulsa = 1B */
+	public static final String LBR_NFMODEL_NotaFiscalAvulsa = "1B";
+	/** Nota Fiscal de Venda a Consumidor = 02 */
+	public static final String LBR_NFMODEL_NotaFiscalDeVendaAConsumidor = "02";
+	/** Cupom Fiscal emitido por ECF = 2D */
+	public static final String LBR_NFMODEL_CupomFiscalEmitidoPorECF = "2D";
+	/** Bilhete de Passagem emitido por ECF = 2E */
+	public static final String LBR_NFMODEL_BilheteDePassagemEmitidoPorECF = "2E";
+	/** Nota Fiscal de Produtor = 04 */
+	public static final String LBR_NFMODEL_NotaFiscalDeProdutor = "04";
+	/** Nota Fiscal/Conta de Energia Elétrica = 06 */
+	public static final String LBR_NFMODEL_NotaFiscalContaDeEnergiaElétrica = "06";
+	/** Nota Fiscal de Serviço de Transporte = 07 */
+	public static final String LBR_NFMODEL_NotaFiscalDeServiçoDeTransporte = "07";
+	/** Conhecimento de Transporte Rodoviário de Cargas = 08 */
+	public static final String LBR_NFMODEL_ConhecimentoDeTransporteRodoviárioDeCargas = "08";
+	/** Conhecimento de Transporte de Cargas Avulso = 8B */
+	public static final String LBR_NFMODEL_ConhecimentoDeTransporteDeCargasAvulso = "8B";
+	/** Conhecimento de Transporte Aquaviário de Cargas = 09 */
+	public static final String LBR_NFMODEL_ConhecimentoDeTransporteAquaviárioDeCargas = "09";
+	/** Conhecimento Aéreo = 10 */
+	public static final String LBR_NFMODEL_ConhecimentoAéreo = "10";
+	/** Conhecimento de Transporte Ferroviário de Cargas = 11 */
+	public static final String LBR_NFMODEL_ConhecimentoDeTransporteFerroviárioDeCargas = "11";
+	/** Bilhete de Passagem Rodoviário = 13 */
+	public static final String LBR_NFMODEL_BilheteDePassagemRodoviário = "13";
+	/** Bilhete de Passagem Aquaviário = 14 */
+	public static final String LBR_NFMODEL_BilheteDePassagemAquaviário = "14";
+	/** Bilhete de Passagem e Nota de Bagagem = 15 */
+	public static final String LBR_NFMODEL_BilheteDePassagemENotaDeBagagem = "15";
+	/** Despacho de Transporte = 17 */
+	public static final String LBR_NFMODEL_DespachoDeTransporte = "17";
+	/** Bilhete de Passagem Ferroviário = 16 */
+	public static final String LBR_NFMODEL_BilheteDePassagemFerroviário = "16";
+	/** Resumo de Movimento Diário = 18 */
+	public static final String LBR_NFMODEL_ResumoDeMovimentoDiário = "18";
+	/** Ordem de Coleta de Cargas = 20 */
+	public static final String LBR_NFMODEL_OrdemDeColetaDeCargas = "20";
+	/** Nota Fiscal de Serviço de Comunicação = 21 */
+	public static final String LBR_NFMODEL_NotaFiscalDeServiçoDeComunicação = "21";
+	/** Nota Fiscal de Serviço de Telecomunicação = 22 */
+	public static final String LBR_NFMODEL_NotaFiscalDeServiçoDeTelecomunicação = "22";
+	/** GNRE = 23 */
+	public static final String LBR_NFMODEL_GNRE = "23";
+	/** Autorização de Carregamento e Transporte = 24 */
+	public static final String LBR_NFMODEL_AutorizaçãoDeCarregamentoETransporte = "24";
+	/** Manifesto de Carga = 25 */
+	public static final String LBR_NFMODEL_ManifestoDeCarga = "25";
+	/** Conhecimento de Transporte Multimodal de Cargas = 26 */
+	public static final String LBR_NFMODEL_ConhecimentoDeTransporteMultimodalDeCargas = "26";
+	/** Nota Fiscal de Transporte Ferroviário de Cargas = 27 */
+	public static final String LBR_NFMODEL_NotaFiscalDeTransporteFerroviárioDeCargas = "27";
+	/** Nota Fiscal/Conta de Fornecimento de Gás Canalizado = 28 */
+	public static final String LBR_NFMODEL_NotaFiscalContaDeFornecimentoDeGásCanalizado = "28";
+	/** Nota Fiscal/Conta de Fornecimento de Água Canalizada = 29 */
+	public static final String LBR_NFMODEL_NotaFiscalContaDeFornecimentoDeÁguaCanalizada = "29";
+	/** Bilhete/Recibo do Passageiro = 30 */
+	public static final String LBR_NFMODEL_BilheteReciboDoPassageiro = "30";
+	/** Nota Fiscal Eletrônica = 55 */
+	public static final String LBR_NFMODEL_NotaFiscalEletrônica = "55";
+	/** Conhecimento de Transporte Eletrônico – CT-e = 57 */
+	public static final String LBR_NFMODEL_ConhecimentoDeTransporteEletrônicoCT_E = "57";
+	/** Nota Fiscal de Serviços Eletrônica (RPS) = S1 */
+	public static final String LBR_NFMODEL_NotaFiscalDeServiçosEletrônicaRPS = "S1";
+	/** Nota Fiscal de Consumidor Eletrônica = 56 */
+	public static final String LBR_NFMODEL_NotaFiscalDeConsumidorEletrônica = "56";
+	/** Set NF Model.
+		@param lbr_NFModel 
+		Identifies the model of Nota Fiscal
+	  */
+	public void setlbr_NFModel (String lbr_NFModel)
+	{
+
+		set_Value (COLUMNNAME_lbr_NFModel, lbr_NFModel);
+	}
+
+	/** Get NF Model.
+		@return Identifies the model of Nota Fiscal
+	  */
+	public String getlbr_NFModel () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_NFModel);
+	}
+
+	/** Set NF Serie.
+		@param lbr_NFSerie NF Serie	  */
+	public void setlbr_NFSerie (String lbr_NFSerie)
+	{
+		set_Value (COLUMNNAME_lbr_NFSerie, lbr_NFSerie);
+	}
+
+	/** Get NF Serie.
+		@return NF Serie	  */
+	public String getlbr_NFSerie () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_NFSerie);
+	}
+
+	/** Set NFe ID.
+		@param lbr_NFeID 
+		Identification of NFe
+	  */
+	public void setlbr_NFeID (String lbr_NFeID)
+	{
+		set_Value (COLUMNNAME_lbr_NFeID, lbr_NFeID);
+	}
+
+	/** Get NFe ID.
+		@return Identification of NFe
+	  */
+	public String getlbr_NFeID () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_NFeID);
 	}
 }

@@ -121,19 +121,6 @@ public interface I_LBR_NCMTax
 	  */
 	public boolean isActive();
 
-    /** Column name LBR_HasSubstitution */
-    public static final String COLUMNNAME_LBR_HasSubstitution = "LBR_HasSubstitution";
-
-	/** Set Has Substitution.
-	  * Defines if the record has Substituion
-	  */
-	public void setLBR_HasSubstitution (boolean LBR_HasSubstitution);
-
-	/** Get Has Substitution.
-	  * Defines if the record has Substituion
-	  */
-	public boolean isLBR_HasSubstitution();
-
     /** Column name LBR_NCMTax_ID */
     public static final String COLUMNNAME_LBR_NCMTax_ID = "LBR_NCMTax_ID";
 
@@ -199,4 +186,17 @@ public interface I_LBR_NCMTax
 	  * Valid from including this date (first day)
 	  */
 	public Timestamp getValidFrom();
+
+    /** Column name lbr_HasSubstitution */
+    public static final String COLUMNNAME_lbr_HasSubstitution = "lbr_HasSubstitution";
+
+	/** Set Has Substitution.
+	  * Defines if the record has Substituion
+	  */
+	public void setlbr_HasSubstitution (boolean lbr_HasSubstitution);
+
+	/** Get Has Substitution.
+	  * Defines if the record has Substituion
+	  */
+	public boolean islbr_HasSubstitution();
 }

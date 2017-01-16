@@ -25,7 +25,7 @@ import org.compiere.util.KeyNamePair;
  *  @version Release 4.1
  */
 @SuppressWarnings("all")
-public interface I_W_C_Bank 
+public interface I_W_C_Bank extends I_C_Bank 
 {
 
     /** TableName=C_Bank */

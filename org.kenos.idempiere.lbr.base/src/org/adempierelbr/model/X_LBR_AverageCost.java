@@ -30,7 +30,7 @@ public class X_LBR_AverageCost extends PO implements I_LBR_AverageCost, I_Persis
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20170105L;
+	private static final long serialVersionUID = 20170116L;
 
     /** Standard Constructor */
     public X_LBR_AverageCost (Properties ctx, int LBR_AverageCost_ID, String trxName)
@@ -40,29 +40,29 @@ public class X_LBR_AverageCost extends PO implements I_LBR_AverageCost, I_Persis
         {
 			setC_Period_ID (0);
 			setLBR_AverageCost_ID (0);
-			setLBR_AvgCost_ConfirmMAN (null);
-// N
-			setLBR_AvgCost_ConfirmPUR (null);
-// N
-			setLBR_AvgCost_CreateMAN (null);
-// N
-			setLBR_AvgCost_CreatePUR (null);
-// N
-			setLBR_AvgCost_RePostAcct (null);
-// N
-			setLBR_AvgStep1 (false);
-// N
-			setLBR_AvgStep2 (false);
-// N
-			setLBR_AvgStep3 (false);
-// N
-			setLBR_AvgStep4 (false);
-// N
-			setLBR_AvgStep5 (false);
-// N
 			setM_CostElement_ID (0);
 			setName (null);
 			setProcessed (false);
+// N
+			setlbr_AvgCost_ConfirmMAN (null);
+// N
+			setlbr_AvgCost_ConfirmPUR (null);
+// N
+			setlbr_AvgCost_CreateMAN (null);
+// N
+			setlbr_AvgCost_CreatePUR (null);
+// N
+			setlbr_AvgCost_RePostAcct (null);
+// N
+			setlbr_AvgStep1 (false);
+// N
+			setlbr_AvgStep2 (false);
+// N
+			setlbr_AvgStep3 (false);
+// N
+			setlbr_AvgStep4 (false);
+// N
+			setlbr_AvgStep5 (false);
 // N
         } */
     }
@@ -163,181 +163,6 @@ public class X_LBR_AverageCost extends PO implements I_LBR_AverageCost, I_Persis
 		return ii.intValue();
 	}
 
-	/** Set AvgCost - Confirm Manufactured.
-		@param LBR_AvgCost_ConfirmMAN AvgCost - Confirm Manufactured	  */
-	public void setLBR_AvgCost_ConfirmMAN (String LBR_AvgCost_ConfirmMAN)
-	{
-		set_Value (COLUMNNAME_LBR_AvgCost_ConfirmMAN, LBR_AvgCost_ConfirmMAN);
-	}
-
-	/** Get AvgCost - Confirm Manufactured.
-		@return AvgCost - Confirm Manufactured	  */
-	public String getLBR_AvgCost_ConfirmMAN () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_AvgCost_ConfirmMAN);
-	}
-
-	/** Set AvgCost - Confirm Purchased.
-		@param LBR_AvgCost_ConfirmPUR AvgCost - Confirm Purchased	  */
-	public void setLBR_AvgCost_ConfirmPUR (String LBR_AvgCost_ConfirmPUR)
-	{
-		set_Value (COLUMNNAME_LBR_AvgCost_ConfirmPUR, LBR_AvgCost_ConfirmPUR);
-	}
-
-	/** Get AvgCost - Confirm Purchased.
-		@return AvgCost - Confirm Purchased	  */
-	public String getLBR_AvgCost_ConfirmPUR () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_AvgCost_ConfirmPUR);
-	}
-
-	/** Set AvgCost - Create Record Manufactured.
-		@param LBR_AvgCost_CreateMAN AvgCost - Create Record Manufactured	  */
-	public void setLBR_AvgCost_CreateMAN (String LBR_AvgCost_CreateMAN)
-	{
-		set_Value (COLUMNNAME_LBR_AvgCost_CreateMAN, LBR_AvgCost_CreateMAN);
-	}
-
-	/** Get AvgCost - Create Record Manufactured.
-		@return AvgCost - Create Record Manufactured	  */
-	public String getLBR_AvgCost_CreateMAN () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_AvgCost_CreateMAN);
-	}
-
-	/** Set AvgCost - Create Record Purchased.
-		@param LBR_AvgCost_CreatePUR AvgCost - Create Record Purchased	  */
-	public void setLBR_AvgCost_CreatePUR (String LBR_AvgCost_CreatePUR)
-	{
-		set_Value (COLUMNNAME_LBR_AvgCost_CreatePUR, LBR_AvgCost_CreatePUR);
-	}
-
-	/** Get AvgCost - Create Record Purchased.
-		@return AvgCost - Create Record Purchased	  */
-	public String getLBR_AvgCost_CreatePUR () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_AvgCost_CreatePUR);
-	}
-
-	/** Set AvgCost - RePost Acct.
-		@param LBR_AvgCost_RePostAcct AvgCost - RePost Acct	  */
-	public void setLBR_AvgCost_RePostAcct (String LBR_AvgCost_RePostAcct)
-	{
-		set_Value (COLUMNNAME_LBR_AvgCost_RePostAcct, LBR_AvgCost_RePostAcct);
-	}
-
-	/** Get AvgCost - RePost Acct.
-		@return AvgCost - RePost Acct	  */
-	public String getLBR_AvgCost_RePostAcct () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_AvgCost_RePostAcct);
-	}
-
-	/** Set Step 1.
-		@param LBR_AvgStep1 Step 1	  */
-	public void setLBR_AvgStep1 (boolean LBR_AvgStep1)
-	{
-		set_Value (COLUMNNAME_LBR_AvgStep1, Boolean.valueOf(LBR_AvgStep1));
-	}
-
-	/** Get Step 1.
-		@return Step 1	  */
-	public boolean isLBR_AvgStep1 () 
-	{
-		Object oo = get_Value(COLUMNNAME_LBR_AvgStep1);
-		if (oo != null) 
-		{
-			 if (oo instanceof Boolean) 
-				 return ((Boolean)oo).booleanValue(); 
-			return "Y".equals(oo);
-		}
-		return false;
-	}
-
-	/** Set Step 2.
-		@param LBR_AvgStep2 Step 2	  */
-	public void setLBR_AvgStep2 (boolean LBR_AvgStep2)
-	{
-		set_Value (COLUMNNAME_LBR_AvgStep2, Boolean.valueOf(LBR_AvgStep2));
-	}
-
-	/** Get Step 2.
-		@return Step 2	  */
-	public boolean isLBR_AvgStep2 () 
-	{
-		Object oo = get_Value(COLUMNNAME_LBR_AvgStep2);
-		if (oo != null) 
-		{
-			 if (oo instanceof Boolean) 
-				 return ((Boolean)oo).booleanValue(); 
-			return "Y".equals(oo);
-		}
-		return false;
-	}
-
-	/** Set Step 3.
-		@param LBR_AvgStep3 Step 3	  */
-	public void setLBR_AvgStep3 (boolean LBR_AvgStep3)
-	{
-		set_Value (COLUMNNAME_LBR_AvgStep3, Boolean.valueOf(LBR_AvgStep3));
-	}
-
-	/** Get Step 3.
-		@return Step 3	  */
-	public boolean isLBR_AvgStep3 () 
-	{
-		Object oo = get_Value(COLUMNNAME_LBR_AvgStep3);
-		if (oo != null) 
-		{
-			 if (oo instanceof Boolean) 
-				 return ((Boolean)oo).booleanValue(); 
-			return "Y".equals(oo);
-		}
-		return false;
-	}
-
-	/** Set Step 4.
-		@param LBR_AvgStep4 Step 4	  */
-	public void setLBR_AvgStep4 (boolean LBR_AvgStep4)
-	{
-		set_Value (COLUMNNAME_LBR_AvgStep4, Boolean.valueOf(LBR_AvgStep4));
-	}
-
-	/** Get Step 4.
-		@return Step 4	  */
-	public boolean isLBR_AvgStep4 () 
-	{
-		Object oo = get_Value(COLUMNNAME_LBR_AvgStep4);
-		if (oo != null) 
-		{
-			 if (oo instanceof Boolean) 
-				 return ((Boolean)oo).booleanValue(); 
-			return "Y".equals(oo);
-		}
-		return false;
-	}
-
-	/** Set Step 5.
-		@param LBR_AvgStep5 Step 5	  */
-	public void setLBR_AvgStep5 (boolean LBR_AvgStep5)
-	{
-		set_Value (COLUMNNAME_LBR_AvgStep5, Boolean.valueOf(LBR_AvgStep5));
-	}
-
-	/** Get Step 5.
-		@return Step 5	  */
-	public boolean isLBR_AvgStep5 () 
-	{
-		Object oo = get_Value(COLUMNNAME_LBR_AvgStep5);
-		if (oo != null) 
-		{
-			 if (oo instanceof Boolean) 
-				 return ((Boolean)oo).booleanValue(); 
-			return "Y".equals(oo);
-		}
-		return false;
-	}
-
 	public org.compiere.model.I_M_CostElement getM_CostElement() throws RuntimeException
     {
 		return (org.compiere.model.I_M_CostElement)MTable.get(getCtx(), org.compiere.model.I_M_CostElement.Table_Name)
@@ -398,6 +223,181 @@ public class X_LBR_AverageCost extends PO implements I_LBR_AverageCost, I_Persis
 	public boolean isProcessed () 
 	{
 		Object oo = get_Value(COLUMNNAME_Processed);
+		if (oo != null) 
+		{
+			 if (oo instanceof Boolean) 
+				 return ((Boolean)oo).booleanValue(); 
+			return "Y".equals(oo);
+		}
+		return false;
+	}
+
+	/** Set AvgCost - Confirm Manufactured.
+		@param lbr_AvgCost_ConfirmMAN AvgCost - Confirm Manufactured	  */
+	public void setlbr_AvgCost_ConfirmMAN (String lbr_AvgCost_ConfirmMAN)
+	{
+		set_Value (COLUMNNAME_lbr_AvgCost_ConfirmMAN, lbr_AvgCost_ConfirmMAN);
+	}
+
+	/** Get AvgCost - Confirm Manufactured.
+		@return AvgCost - Confirm Manufactured	  */
+	public String getlbr_AvgCost_ConfirmMAN () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_AvgCost_ConfirmMAN);
+	}
+
+	/** Set AvgCost - Confirm Purchased.
+		@param lbr_AvgCost_ConfirmPUR AvgCost - Confirm Purchased	  */
+	public void setlbr_AvgCost_ConfirmPUR (String lbr_AvgCost_ConfirmPUR)
+	{
+		set_Value (COLUMNNAME_lbr_AvgCost_ConfirmPUR, lbr_AvgCost_ConfirmPUR);
+	}
+
+	/** Get AvgCost - Confirm Purchased.
+		@return AvgCost - Confirm Purchased	  */
+	public String getlbr_AvgCost_ConfirmPUR () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_AvgCost_ConfirmPUR);
+	}
+
+	/** Set AvgCost - Create Record Manufactured.
+		@param lbr_AvgCost_CreateMAN AvgCost - Create Record Manufactured	  */
+	public void setlbr_AvgCost_CreateMAN (String lbr_AvgCost_CreateMAN)
+	{
+		set_Value (COLUMNNAME_lbr_AvgCost_CreateMAN, lbr_AvgCost_CreateMAN);
+	}
+
+	/** Get AvgCost - Create Record Manufactured.
+		@return AvgCost - Create Record Manufactured	  */
+	public String getlbr_AvgCost_CreateMAN () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_AvgCost_CreateMAN);
+	}
+
+	/** Set AvgCost - Create Record Purchased.
+		@param lbr_AvgCost_CreatePUR AvgCost - Create Record Purchased	  */
+	public void setlbr_AvgCost_CreatePUR (String lbr_AvgCost_CreatePUR)
+	{
+		set_Value (COLUMNNAME_lbr_AvgCost_CreatePUR, lbr_AvgCost_CreatePUR);
+	}
+
+	/** Get AvgCost - Create Record Purchased.
+		@return AvgCost - Create Record Purchased	  */
+	public String getlbr_AvgCost_CreatePUR () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_AvgCost_CreatePUR);
+	}
+
+	/** Set AvgCost - RePost Acct.
+		@param lbr_AvgCost_RePostAcct AvgCost - RePost Acct	  */
+	public void setlbr_AvgCost_RePostAcct (String lbr_AvgCost_RePostAcct)
+	{
+		set_Value (COLUMNNAME_lbr_AvgCost_RePostAcct, lbr_AvgCost_RePostAcct);
+	}
+
+	/** Get AvgCost - RePost Acct.
+		@return AvgCost - RePost Acct	  */
+	public String getlbr_AvgCost_RePostAcct () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_AvgCost_RePostAcct);
+	}
+
+	/** Set Step 1.
+		@param lbr_AvgStep1 Step 1	  */
+	public void setlbr_AvgStep1 (boolean lbr_AvgStep1)
+	{
+		set_Value (COLUMNNAME_lbr_AvgStep1, Boolean.valueOf(lbr_AvgStep1));
+	}
+
+	/** Get Step 1.
+		@return Step 1	  */
+	public boolean islbr_AvgStep1 () 
+	{
+		Object oo = get_Value(COLUMNNAME_lbr_AvgStep1);
+		if (oo != null) 
+		{
+			 if (oo instanceof Boolean) 
+				 return ((Boolean)oo).booleanValue(); 
+			return "Y".equals(oo);
+		}
+		return false;
+	}
+
+	/** Set Step 2.
+		@param lbr_AvgStep2 Step 2	  */
+	public void setlbr_AvgStep2 (boolean lbr_AvgStep2)
+	{
+		set_Value (COLUMNNAME_lbr_AvgStep2, Boolean.valueOf(lbr_AvgStep2));
+	}
+
+	/** Get Step 2.
+		@return Step 2	  */
+	public boolean islbr_AvgStep2 () 
+	{
+		Object oo = get_Value(COLUMNNAME_lbr_AvgStep2);
+		if (oo != null) 
+		{
+			 if (oo instanceof Boolean) 
+				 return ((Boolean)oo).booleanValue(); 
+			return "Y".equals(oo);
+		}
+		return false;
+	}
+
+	/** Set Step 3.
+		@param lbr_AvgStep3 Step 3	  */
+	public void setlbr_AvgStep3 (boolean lbr_AvgStep3)
+	{
+		set_Value (COLUMNNAME_lbr_AvgStep3, Boolean.valueOf(lbr_AvgStep3));
+	}
+
+	/** Get Step 3.
+		@return Step 3	  */
+	public boolean islbr_AvgStep3 () 
+	{
+		Object oo = get_Value(COLUMNNAME_lbr_AvgStep3);
+		if (oo != null) 
+		{
+			 if (oo instanceof Boolean) 
+				 return ((Boolean)oo).booleanValue(); 
+			return "Y".equals(oo);
+		}
+		return false;
+	}
+
+	/** Set Step 4.
+		@param lbr_AvgStep4 Step 4	  */
+	public void setlbr_AvgStep4 (boolean lbr_AvgStep4)
+	{
+		set_Value (COLUMNNAME_lbr_AvgStep4, Boolean.valueOf(lbr_AvgStep4));
+	}
+
+	/** Get Step 4.
+		@return Step 4	  */
+	public boolean islbr_AvgStep4 () 
+	{
+		Object oo = get_Value(COLUMNNAME_lbr_AvgStep4);
+		if (oo != null) 
+		{
+			 if (oo instanceof Boolean) 
+				 return ((Boolean)oo).booleanValue(); 
+			return "Y".equals(oo);
+		}
+		return false;
+	}
+
+	/** Set Step 5.
+		@param lbr_AvgStep5 Step 5	  */
+	public void setlbr_AvgStep5 (boolean lbr_AvgStep5)
+	{
+		set_Value (COLUMNNAME_lbr_AvgStep5, Boolean.valueOf(lbr_AvgStep5));
+	}
+
+	/** Get Step 5.
+		@return Step 5	  */
+	public boolean islbr_AvgStep5 () 
+	{
+		Object oo = get_Value(COLUMNNAME_lbr_AvgStep5);
 		if (oo != null) 
 		{
 			 if (oo instanceof Boolean) 

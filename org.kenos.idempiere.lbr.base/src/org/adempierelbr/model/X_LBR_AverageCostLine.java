@@ -32,7 +32,7 @@ public class X_LBR_AverageCostLine extends PO implements I_LBR_AverageCostLine, 
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20170105L;
+	private static final long serialVersionUID = 20170116L;
 
     /** Standard Constructor */
     public X_LBR_AverageCostLine (Properties ctx, int LBR_AverageCostLine_ID, String trxName)
@@ -42,11 +42,11 @@ public class X_LBR_AverageCostLine extends PO implements I_LBR_AverageCostLine, 
         {
 			setLBR_AverageCostLine_ID (0);
 			setLBR_AverageCost_ID (0);
-			setLBR_AvgCostType (null);
-// P
-			setLBR_AvgCostZoom (null);
-// N
 			setM_Product_ID (0);
+			setlbr_AvgCostType (null);
+// P
+			setlbr_AvgCostZoom (null);
+// N
         } */
     }
 
@@ -240,39 +240,6 @@ public class X_LBR_AverageCostLine extends PO implements I_LBR_AverageCostLine, 
 		return ii.intValue();
 	}
 
-	/** Purchased = P */
-	public static final String LBR_AVGCOSTTYPE_Purchased = "P";
-	/** Manufactured = M */
-	public static final String LBR_AVGCOSTTYPE_Manufactured = "M";
-	/** Set AvgCost Type.
-		@param LBR_AvgCostType AvgCost Type	  */
-	public void setLBR_AvgCostType (String LBR_AvgCostType)
-	{
-
-		set_Value (COLUMNNAME_LBR_AvgCostType, LBR_AvgCostType);
-	}
-
-	/** Get AvgCost Type.
-		@return AvgCost Type	  */
-	public String getLBR_AvgCostType () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_AvgCostType);
-	}
-
-	/** Set AvgCost - Zoom.
-		@param LBR_AvgCostZoom AvgCost - Zoom	  */
-	public void setLBR_AvgCostZoom (String LBR_AvgCostZoom)
-	{
-		set_Value (COLUMNNAME_LBR_AvgCostZoom, LBR_AvgCostZoom);
-	}
-
-	/** Get AvgCost - Zoom.
-		@return AvgCost - Zoom	  */
-	public String getLBR_AvgCostZoom () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_AvgCostZoom);
-	}
-
 	public org.compiere.model.I_M_Product getM_Product() throws RuntimeException
     {
 		return (org.compiere.model.I_M_Product)MTable.get(getCtx(), org.compiere.model.I_M_Product.Table_Name)
@@ -299,5 +266,38 @@ public class X_LBR_AverageCostLine extends PO implements I_LBR_AverageCostLine, 
 		if (ii == null)
 			 return 0;
 		return ii.intValue();
+	}
+
+	/** Purchased = P */
+	public static final String LBR_AVGCOSTTYPE_Purchased = "P";
+	/** Manufactured = M */
+	public static final String LBR_AVGCOSTTYPE_Manufactured = "M";
+	/** Set AvgCost Type.
+		@param lbr_AvgCostType AvgCost Type	  */
+	public void setlbr_AvgCostType (String lbr_AvgCostType)
+	{
+
+		set_Value (COLUMNNAME_lbr_AvgCostType, lbr_AvgCostType);
+	}
+
+	/** Get AvgCost Type.
+		@return AvgCost Type	  */
+	public String getlbr_AvgCostType () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_AvgCostType);
+	}
+
+	/** Set AvgCost - Zoom.
+		@param lbr_AvgCostZoom AvgCost - Zoom	  */
+	public void setlbr_AvgCostZoom (String lbr_AvgCostZoom)
+	{
+		set_Value (COLUMNNAME_lbr_AvgCostZoom, lbr_AvgCostZoom);
+	}
+
+	/** Get AvgCost - Zoom.
+		@return AvgCost - Zoom	  */
+	public String getlbr_AvgCostZoom () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_AvgCostZoom);
 	}
 }

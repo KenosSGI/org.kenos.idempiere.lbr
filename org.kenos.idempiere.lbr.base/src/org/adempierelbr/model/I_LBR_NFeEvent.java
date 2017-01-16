@@ -184,32 +184,6 @@ public interface I_LBR_NFeEvent
 	  */
 	public boolean isActive();
 
-    /** Column name LBR_CNPJ */
-    public static final String COLUMNNAME_LBR_CNPJ = "LBR_CNPJ";
-
-	/** Set CNPJ.
-	  * Used to identify Legal Entities in Brazil
-	  */
-	public void setLBR_CNPJ (String LBR_CNPJ);
-
-	/** Get CNPJ.
-	  * Used to identify Legal Entities in Brazil
-	  */
-	public String getLBR_CNPJ();
-
-    /** Column name LBR_CPF */
-    public static final String COLUMNNAME_LBR_CPF = "LBR_CPF";
-
-	/** Set CPF.
-	  * Used to identify individuals in Brazil
-	  */
-	public void setLBR_CPF (String LBR_CPF);
-
-	/** Get CPF.
-	  * Used to identify individuals in Brazil
-	  */
-	public String getLBR_CPF();
-
     /** Column name LBR_EventType */
     public static final String COLUMNNAME_LBR_EventType = "LBR_EventType";
 
@@ -227,41 +201,6 @@ public interface I_LBR_NFeEvent
 
 	/** Get NFe Event	  */
 	public int getLBR_NFeEvent_ID();
-
-    /** Column name LBR_NFeID */
-    public static final String COLUMNNAME_LBR_NFeID = "LBR_NFeID";
-
-	/** Set NFe ID.
-	  * Identification of NFe
-	  */
-	public void setLBR_NFeID (String LBR_NFeID);
-
-	/** Get NFe ID.
-	  * Identification of NFe
-	  */
-	public String getLBR_NFeID();
-
-    /** Column name LBR_NFeProt */
-    public static final String COLUMNNAME_LBR_NFeProt = "LBR_NFeProt";
-
-	/** Set NFe Protocol	  */
-	public void setLBR_NFeProt (String LBR_NFeProt);
-
-	/** Get NFe Protocol	  */
-	public String getLBR_NFeProt();
-
-    /** Column name LBR_NFeStatus */
-    public static final String COLUMNNAME_LBR_NFeStatus = "LBR_NFeStatus";
-
-	/** Set NFe Status.
-	  * Status of NFe
-	  */
-	public void setLBR_NFeStatus (String LBR_NFeStatus);
-
-	/** Get NFe Status.
-	  * Status of NFe
-	  */
-	public String getLBR_NFeStatus();
 
     /** Column name LBR_NotaFiscal_ID */
     public static final String COLUMNNAME_LBR_NotaFiscal_ID = "LBR_NotaFiscal_ID";
@@ -334,4 +273,65 @@ public interface I_LBR_NFeEvent
 	  * User who updated this records
 	  */
 	public int getUpdatedBy();
+
+    /** Column name lbr_CNPJ */
+    public static final String COLUMNNAME_lbr_CNPJ = "lbr_CNPJ";
+
+	/** Set CNPJ.
+	  * Used to identify Legal Entities in Brazil
+	  */
+	public void setlbr_CNPJ (String lbr_CNPJ);
+
+	/** Get CNPJ.
+	  * Used to identify Legal Entities in Brazil
+	  */
+	public String getlbr_CNPJ();
+
+    /** Column name lbr_CPF */
+    public static final String COLUMNNAME_lbr_CPF = "lbr_CPF";
+
+	/** Set CPF.
+	  * Used to identify individuals in Brazil
+	  */
+	public void setlbr_CPF (String lbr_CPF);
+
+	/** Get CPF.
+	  * Used to identify individuals in Brazil
+	  */
+	public String getlbr_CPF();
+
+    /** Column name lbr_NFeID */
+    public static final String COLUMNNAME_lbr_NFeID = "lbr_NFeID";
+
+	/** Set NFe ID.
+	  * Identification of NFe
+	  */
+	public void setlbr_NFeID (String lbr_NFeID);
+
+	/** Get NFe ID.
+	  * Identification of NFe
+	  */
+	public String getlbr_NFeID();
+
+    /** Column name lbr_NFeProt */
+    public static final String COLUMNNAME_lbr_NFeProt = "lbr_NFeProt";
+
+	/** Set NFe Protocol	  */
+	public void setlbr_NFeProt (String lbr_NFeProt);
+
+	/** Get NFe Protocol	  */
+	public String getlbr_NFeProt();
+
+    /** Column name lbr_NFeStatus */
+    public static final String COLUMNNAME_lbr_NFeStatus = "lbr_NFeStatus";
+
+	/** Set NFe Status.
+	  * Status of NFe
+	  */
+	public void setlbr_NFeStatus (String lbr_NFeStatus);
+
+	/** Get NFe Status.
+	  * Status of NFe
+	  */
+	public String getlbr_NFeStatus();
 }

@@ -30,7 +30,7 @@ public class X_LBR_NFeWebService extends PO implements I_LBR_NFeWebService, I_Pe
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20170105L;
+	private static final long serialVersionUID = 20170116L;
 
     /** Standard Constructor */
     public X_LBR_NFeWebService (Properties ctx, int LBR_NFeWebService_ID, String trxName)
@@ -38,10 +38,10 @@ public class X_LBR_NFeWebService extends PO implements I_LBR_NFeWebService, I_Pe
       super (ctx, LBR_NFeWebService_ID, trxName);
       /** if (LBR_NFeWebService_ID == 0)
         {
-			setLBR_NFeEnv (null);
 			setLBR_NFeWebService_ID (0);
 			setName (null);
 			setURL (null);
+			setlbr_NFeEnv (null);
         } */
     }
 
@@ -99,25 +99,6 @@ public class X_LBR_NFeWebService extends PO implements I_LBR_NFeWebService, I_Pe
 		if (ii == null)
 			 return 0;
 		return ii.intValue();
-	}
-
-	/** Production = 1 */
-	public static final String LBR_NFEENV_Production = "1";
-	/** Homologation = 2 */
-	public static final String LBR_NFEENV_Homologation = "2";
-	/** Set NFe Environment.
-		@param LBR_NFeEnv NFe Environment	  */
-	public void setLBR_NFeEnv (String LBR_NFeEnv)
-	{
-
-		set_Value (COLUMNNAME_LBR_NFeEnv, LBR_NFeEnv);
-	}
-
-	/** Get NFe Environment.
-		@return NFe Environment	  */
-	public String getLBR_NFeEnv () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_NFeEnv);
 	}
 
 	/** Set WebService NFe.
@@ -214,5 +195,24 @@ public class X_LBR_NFeWebService extends PO implements I_LBR_NFeWebService, I_Pe
 	public String getVersionNo () 
 	{
 		return (String)get_Value(COLUMNNAME_VersionNo);
+	}
+
+	/** Production = 1 */
+	public static final String LBR_NFEENV_Production = "1";
+	/** Homologation = 2 */
+	public static final String LBR_NFEENV_Homologation = "2";
+	/** Set NFe Environment.
+		@param lbr_NFeEnv NFe Environment	  */
+	public void setlbr_NFeEnv (String lbr_NFeEnv)
+	{
+
+		set_Value (COLUMNNAME_lbr_NFeEnv, lbr_NFeEnv);
+	}
+
+	/** Get NFe Environment.
+		@return NFe Environment	  */
+	public String getlbr_NFeEnv () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_NFeEnv);
 	}
 }
