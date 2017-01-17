@@ -6,4 +6,5 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Require-Bundle: org.adempiere.base;bundle-version="4.1.0",
  org.kenos.idempiere.lbr.base;bundle-version="1.0.0"
-Export-Package: org.adempierelbr.model
+Export-Package: org.adempierelbr.model,
+ org.adempierelbr.validator

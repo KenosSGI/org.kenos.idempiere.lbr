@@ -6,5 +6,9 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Require-Bundle: org.adempiere.base;bundle-version="4.1.0",
  org.kenos.idempiere.lbr.base;bundle-version="1.0.0",
- org.kenos.idempiere.lbr.tax;bundle-version="1.0.0"
+ org.kenos.idempiere.lbr.tax;bundle-version="1.0.0",
+ org.adempiere.report.jasper.library,
+ org.adempiere.report.jasper,
+ org.adempiere.pipo,
+ bcprov
 Export-Package: org.adempierelbr.model

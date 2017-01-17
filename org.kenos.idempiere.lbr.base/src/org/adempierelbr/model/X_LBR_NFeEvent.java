@@ -509,6 +509,8 @@ public class X_LBR_NFeEvent extends PO implements I_LBR_NFeEvent, I_Persistent
 	public static final String LBR_NFESTATUS_150_AutorizadoOUsoDaNF_EAutorizaçãoForaDePrazo = "150";
 	/** 151-Cancelamento de NF-e homologado fora de prazo = 151 */
 	public static final String LBR_NFESTATUS_151_CancelamentoDeNF_EHomologadoForaDePrazo = "151";
+	/** 155-Cancelamento de NF-e homologado fora de prazo = 155 */
+	public static final String LBR_NFESTATUS_155_CancelamentoDeNF_EHomologadoForaDePrazo = "155";
 	/** 201-Rejeição: Número máximo de numeração a inutilizar ultrapassou o limite = 201 */
 	public static final String LBR_NFESTATUS_201_RejeiçãoNúmeroMáximoDeNumeraçãoAInutilizarUltrapassouOLimite = "201";
 	/** 202-Rejeição: Falha no reconhecimento da autoria ou integridade do arquivo digital = 202 */

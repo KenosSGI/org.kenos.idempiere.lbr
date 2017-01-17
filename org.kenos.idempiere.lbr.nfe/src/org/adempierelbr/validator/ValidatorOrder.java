@@ -15,7 +15,6 @@ package org.adempierelbr.validator;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Properties;
 import java.util.logging.Level;
 
@@ -23,7 +22,6 @@ import org.adempiere.model.POWrapper;
 import org.adempierelbr.model.MLBRTax;
 import org.adempierelbr.wrapper.I_W_C_DocType;
 import org.adempierelbr.wrapper.I_W_C_OrderLine;
-import org.compiere.apps.search.Info_Column;
 import org.compiere.model.MClient;
 import org.compiere.model.MDocType;
 import org.compiere.model.MInOut;
@@ -32,7 +30,7 @@ import org.compiere.model.MInvoice;
 import org.compiere.model.MInvoiceLine;
 import org.compiere.model.MOrder;
 import org.compiere.model.MOrderLine;
-import org.compiere.model.MStorage;
+import org.compiere.model.MStorageOnHand;
 import org.compiere.model.MWarehouse;
 import org.compiere.model.ModelValidationEngine;
 import org.compiere.model.ModelValidator;
@@ -221,30 +219,6 @@ public class ValidatorOrder implements ModelValidator
 	}	//	docValidate
 
 	/**
-	 * 	Update Info Window Columns.
-	 * 	- add new Columns
-	 * 	- remove columns
-	 * 	- change dispay sequence
-	 *	@param columns array of columns
-	 *	@param sqlFrom from clause, can be modified
-	 *	@param sqlOrder order by clause, can me modified
-	 *	@return true if you updated columns, sequence or sql From clause
-	 */
-	public boolean updateInfoColumns (ArrayList<Info_Column> columns,
-		StringBuffer sqlFrom, StringBuffer sqlOrder)
-	{
-		/**		*
-		int AD_Role_ID = Env.getAD_Role_ID (Env.getCtx());	// Can be Role/User specific
-		String from = sqlFrom.toString();
-		if (from.startsWith ("M_Product"))
-		{
-			columns.add (new Info_Column("Header", "'sql'", String.class).seq(35));
-			return true;
-		}/**	*/
-		return false;
-	}	//	updateInfoColumns
-
-	/**
 	 * 	String Representation
 	 *	@return info
 	 */
@@ -287,7 +261,7 @@ public class ValidatorOrder implements ModelValidator
 			//	Location
 			Integer M_Locator_ID = (Integer)oLine.get_Value("M_Locator_ID");
 			if (M_Locator_ID == null || M_Locator_ID.intValue() == 0){
-				M_Locator_ID = MStorage.getM_Locator_ID (oLine.getM_Warehouse_ID(),
+				M_Locator_ID = MStorageOnHand.getM_Locator_ID (oLine.getM_Warehouse_ID(),
 					oLine.getM_Product_ID(), oLine.getM_AttributeSetInstance_ID(),
 					MovementQty, trx);
 			}

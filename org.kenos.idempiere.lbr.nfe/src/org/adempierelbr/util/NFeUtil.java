@@ -47,7 +47,6 @@ import org.compiere.model.MOrgInfo;
 import org.compiere.util.CLogger;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
-import org.compiere.utils.DigestOfFile;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -254,7 +253,8 @@ public abstract class NFeUtil
 	public static boolean updateAttach(MLBRNotaFiscal nf, File xml){
 
 		if (xml != null){
-			MAttachment attachDist = nf.createAttachment(true);
+			nf.getAttachment(true);	//	FIX
+			MAttachment attachDist = nf.createAttachment();
 			attachDist.addEntry(xml);
 			return attachDist.save();
 		}
@@ -346,13 +346,13 @@ public abstract class NFeUtil
 		File attachedFile = new File(localFile);
 		if (attachedFile.exists())
 		{
-			String localMD5hash = DigestOfFile.GetLocalMD5Hash(attachedFile);
-			String entryMD5hash = DigestOfFile.getMD5Hash(entry.getData());
-			if (localMD5hash.equals(entryMD5hash))
-			{
-				log.fine("no need to download: local file is up-to-date");
-			}
-			else
+//			String localMD5hash = DigestOfFile.GetLocalMD5Hash(attachedFile);
+//			String entryMD5hash = DigestOfFile.getMD5Hash(entry.getData());
+//			if (localMD5hash.equals(entryMD5hash))
+//			{
+//				log.fine("no need to download: local file is up-to-date");
+//			}
+//			else
 			{
 				log.fine("file attached is different that local one, download and replace");
 				File downloadedFile = new File(downloadedLocalFile);

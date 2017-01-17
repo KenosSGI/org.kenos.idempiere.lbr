@@ -1580,7 +1580,8 @@ public class NFeXMLGenerator
 		if (nf.getAttachment (true) != null)
 			nf.getAttachment ().delete (true);
 		
-		MAttachment attachNFe = nf.createAttachment(true);
+		nf.getAttachment(true); //	FIX
+		MAttachment attachNFe = nf.createAttachment();
 		attachNFe.addEntry(nfeID + FILE_EXT, document.xmlText(NFeUtil.getXmlOpt()).toString().getBytes("UTF-8"));
 		attachNFe.save();
 		

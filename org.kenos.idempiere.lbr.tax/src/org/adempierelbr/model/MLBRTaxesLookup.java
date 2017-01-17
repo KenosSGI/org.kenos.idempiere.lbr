@@ -145,4 +145,19 @@ public final class MLBRTaxesLookup extends Lookup
 		log.log(Level.SEVERE, "not implemented");
 		return null;
 	}   //  getData
+
+	@Override
+	public ArrayList<Object> getData(boolean mandatory, boolean onlyValidated,
+			boolean onlyActive, boolean temporary, boolean shortlist)
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean containsKeyNoDirect(Object key)
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
 }	//	MLBRTaxesLookup

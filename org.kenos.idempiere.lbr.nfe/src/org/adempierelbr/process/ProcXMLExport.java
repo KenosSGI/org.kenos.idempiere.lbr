@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.logging.Level;
 
 import org.adempiere.exceptions.AdempiereException;
-import org.adempiere.pipo.CreateZipFile;
+import org.adempiere.pipo2.Zipper;
 import org.adempierelbr.model.MLBRNotaFiscal;
 import org.adempierelbr.util.TextUtil;
 import org.compiere.model.MAttachment;
@@ -186,7 +186,7 @@ public class ProcXMLExport extends SvrProcess
 			//
 			String fileName = p_FilePath + "XML_NFe_" + TextUtil.timeToString(dateFrom, "ddMMyyyy") 
 			+ "_" + TextUtil.timeToString(dateTo, "ddMMyyyy") + ".zip";
-			CreateZipFile.zipFolder(new File(p_Temp), new File(fileName), p_FolderKey + File.separator + "**");
+			Zipper.zipFolder(new File(p_Temp), new File(fileName), p_FolderKey + File.separator + "**");
 			//
 		}
 		else
@@ -195,7 +195,7 @@ public class ProcXMLExport extends SvrProcess
 				//
 				String fileName = "XML_NFe_" + TextUtil.timeToString(dateFrom, "ddMMyyyy") 
 				+ "_" + TextUtil.timeToString(dateTo, "ddMMyyyy") + ".zip";
-				CreateZipFile.zipFolder(new File(p_Temp), new File(p_Temp+fileName), p_FolderKey + File.separator + "**");
+				Zipper.zipFolder(new File(p_Temp), new File(p_Temp+fileName), p_FolderKey + File.separator + "**");
 				Class<?> clazz = Class.forName("org.adempierelbr.webui.adapter.XMLExportAdapter");
 				Constructor<?> constructor = clazz.getConstructor (String.class, File.class);
 				//

@@ -2840,7 +2840,9 @@ public class X_LBR_NotaFiscal extends PO implements I_LBR_NotaFiscal, I_Persiste
 	{
 		return (String)get_Value(COLUMNNAME_lbr_NFeProt);
 	}
-
+	
+	/** lbr_NFeStatus AD_Reference_ID=1100004 */
+	public static final int LBR_NFESTATUS_AD_Reference_ID=1100004;
 	/** 100-Autorizado o uso da NF-e = 100 */
 	public static final String LBR_NFESTATUS_100_AutorizadoOUsoDaNF_E = "100";
 	/** 101-Cancelamento de NF-e homologado = 101 */

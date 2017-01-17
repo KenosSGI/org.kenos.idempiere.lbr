@@ -16,9 +16,7 @@ import java.math.BigDecimal;
 import java.util.Properties;
 
 import org.adempiere.model.POWrapper;
-import org.adempierelbr.model.MLBRBoleto;
 import org.adempierelbr.model.MLBRNotaFiscal;
-import org.adempierelbr.model.MLBRProductMovementFiller;
 import org.adempierelbr.model.MLBRTax;
 import org.adempierelbr.wrapper.I_W_C_DocType;
 import org.adempierelbr.wrapper.I_W_C_Invoice;
@@ -41,7 +39,6 @@ import org.compiere.model.ModelValidator;
 import org.compiere.model.PO;
 import org.compiere.process.DocAction;
 import org.compiere.util.CLogger;
-import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.compiere.util.Msg;
 
@@ -429,16 +426,16 @@ public class ValidatorInvoice implements ModelValidator
 		 * 	Após reativar, anular, fechar ou estornar executa:
 		 * 		Cancela retenções, boleto e CNAB
 		 */
-		else if ((timing == TIMING_AFTER_REACTIVATE || timing == TIMING_AFTER_VOID || timing == TIMING_AFTER_CLOSE || timing == TIMING_AFTER_REVERSECORRECT))
-		{
-			String sql = "UPDATE C_Invoice SET LBR_Withhold_Invoice_ID=NULL WHERE LBR_Withhold_Invoice_ID=" + invoice.getC_Invoice_ID();
-
-			DB.executeUpdate (sql, invoice.get_TrxName());
-
-			// Cancela o Boleto e CNAB
-			MLBRBoleto.cancelBoleto (invoice.getCtx(), invoice.getC_Invoice_ID(), invoice.get_TrxName());
-
-		}	//	TIMING_AFTER_REACTIVATE, VOID, CLOSE, REVERSECORRECT
+//		else if ((timing == TIMING_AFTER_REACTIVATE || timing == TIMING_AFTER_VOID || timing == TIMING_AFTER_CLOSE || timing == TIMING_AFTER_REVERSECORRECT))
+//		{
+//			String sql = "UPDATE C_Invoice SET LBR_Withhold_Invoice_ID=NULL WHERE LBR_Withhold_Invoice_ID=" + invoice.getC_Invoice_ID();
+//
+//			DB.executeUpdate (sql, invoice.get_TrxName());
+//
+//			// Cancela o Boleto e CNAB
+//			MLBRBoleto.cancelBoleto (invoice.getCtx(), invoice.getC_Invoice_ID(), invoice.get_TrxName());
+//
+//		}	//	TIMING_AFTER_REACTIVATE, VOID, CLOSE, REVERSECORRECT
 
 		/**
 		 * 	Antes de reativar, anular, fechar ou estornar executa:

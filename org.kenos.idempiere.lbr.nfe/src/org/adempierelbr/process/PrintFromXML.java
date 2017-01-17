@@ -27,7 +27,9 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.logging.Level;
 
+import org.adempiere.base.Service;
 import org.adempiere.exceptions.AdempiereException;
+import org.adempiere.report.jasper.JRViewerProvider;
 import org.adempierelbr.model.MLBRNFeEvent;
 import org.adempierelbr.model.MLBRNFeLot;
 import org.adempierelbr.model.MLBRNotaFiscal;
@@ -44,7 +46,6 @@ import org.compiere.model.MProcess;
 import org.compiere.model.Query;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
-import org.compiere.report.ReportStarter;
 import org.compiere.util.Env;
 
 import br.inf.portalfiscal.nfe.v310.NfeProcDocument;
@@ -322,7 +323,8 @@ public class PrintFromXML extends SvrProcess
     		return "@Success@";
 		}
 		
-		ReportStarter.getReportViewerProvider ().openViewer (jasperPrint, "Impress\u00E3o de Documento");
+		JRViewerProvider viewerLauncher = Service.locator().locate(JRViewerProvider.class).getService();
+		viewerLauncher.openViewer (jasperPrint, "Impress\u00E3o de Documento");
 		
 		return "@Success@";
 	}	//	doIt

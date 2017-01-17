@@ -465,7 +465,8 @@ public class MLBRNFeEvent extends X_LBR_NFeEvent implements DocAction
 					procEventoNFe.setRetEvento(retEvento);
 					
 					//	Arquivo de resposta final
-					MAttachment attachEvent = createAttachment (true);
+					getAttachment(true);	//	FIX
+					MAttachment attachEvent = createAttachment ();
 					attachEvent.addEntry (infEv.getId() + xmlExtension, (NFeUtil.XML_HEADER + procEventoNFeDoc.xmlText(NFeUtil.getXmlOpt())).getBytes("UTF-8"));
 					attachEvent.save();
 				}
