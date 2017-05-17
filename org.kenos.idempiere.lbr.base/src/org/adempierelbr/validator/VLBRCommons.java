@@ -82,7 +82,6 @@ public class VLBRCommons implements ModelValidator
 			log.info("Initializing global validator: "+this.toString());
 
 		//	ModelChange
-		engine.addModelChange (MAttachment.Table_Name, this);
 		engine.addModelChange (MInvoiceLine.Table_Name, this);
 		engine.addModelChange (MInOutLine.Table_Name, this);
 		engine.addModelChange (MLocation.Table_Name, this);
@@ -187,55 +186,6 @@ public class VLBRCommons implements ModelValidator
 		//	Validar Movimentação de Estoque
 		else if (MMovementLine.Table_Name.equals(po.get_TableName()))
 			return modelChange ((MMovementLine) po, type);
-		
-		return null;
-	}	//	modelChange
-	
-	/**
-     *	Model Change of a monitored Table.
-     *	Called after PO.beforeSave/PO.beforeDelete
-     *	when you called addModelChange for the table
-     *	@param po persistent object
-     *	@param type TYPE_
-     *	@return error message or null
-     *	@exception Exception if the recipient wishes the change to be not accept.
-     */
-	public String modelChange (MAttachment att, int type) throws Exception
-	{
-//		if (type == TYPE_BEFORE_DELETE && att.getAD_Table_ID() == MLBRNFeEvent.Table_ID)
-//		{
-//			MLBRNFeEvent event = new MLBRNFeEvent (Env.getCtx(), att.getRecord_ID(), att.get_TrxName());
-//			
-//			if (event.isProcessed())
-//				return "N\u00E3o \u00E9 permitido alterar um anexo de um registro j\u00E1 processado.";
-//		}
-//		
-//		if (type == TYPE_AFTER_CHANGE || type == TYPE_AFTER_NEW)
-//		{
-//			if (att.getAD_Table_ID() == MLBRNotaFiscal.Table_ID)
-//			{
-//				MLBRNotaFiscal nf = new MLBRNotaFiscal(Env.getCtx(),att.getRecord_ID(), att.get_TrxName());
-//				
-//				//	Carrega o ID da NFe apenas para as Notas de Entrada que não seja documento próprio.
-//				if (!nf.isSOTrx() && !nf.islbr_IsOwnDocument())
-//				{
-//					for (MAttachmentEntry entry : att.getEntries())
-//					{
-//						try
-//						{
-//							NFeDocument nfeXml = NFeDocument.Factory.parse (new String (entry.getData(), "UTF-8"));
-//							//
-//							if (nfeXml != null)
-//							{
-//								nf.setlbr_NFeID(nfeXml.getNFe().getInfNFe().getId().replace("NFe", ""));
-//								nf.save();
-//							}
-//						}
-//						catch (Exception e){}
-//					}
-//				}
-//			}
-//		}
 		
 		return null;
 	}	//	modelChange
