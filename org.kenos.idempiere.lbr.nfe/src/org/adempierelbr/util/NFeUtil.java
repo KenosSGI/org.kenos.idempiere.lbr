@@ -16,13 +16,17 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.StringWriter;
+import java.math.BigInteger;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -36,6 +40,7 @@ import org.adempiere.exceptions.AdempiereException;
 import org.adempiere.model.POWrapper;
 import org.adempierelbr.model.MLBRNotaFiscal;
 import org.adempierelbr.wrapper.I_W_C_City;
+import org.apache.commons.codec.binary.Base64;
 import org.apache.xmlbeans.XmlException;
 import org.apache.xmlbeans.XmlObject;
 import org.apache.xmlbeans.XmlOptions;
@@ -69,6 +74,7 @@ public abstract class NFeUtil
 	/** Versão				*/
 	public static final String VERSAO_LAYOUT	= "3.10";
 	public static final String VERSAO_APP		= "Kenos ERP 3.10";
+	public static final String VERSAO_QR_CODE 	= "100";
 	@Deprecated
 	public static final String VERSAO_CCE		= "1.00";
 	public static final String VERSAO_EVENTO	= "1.00";
@@ -346,13 +352,13 @@ public abstract class NFeUtil
 		File attachedFile = new File(localFile);
 		if (attachedFile.exists())
 		{
-//			String localMD5hash = DigestOfFile.GetLocalMD5Hash(attachedFile);
-//			String entryMD5hash = DigestOfFile.getMD5Hash(entry.getData());
-//			if (localMD5hash.equals(entryMD5hash))
-//			{
-//				log.fine("no need to download: local file is up-to-date");
-//			}
-//			else
+			String localMD5hash = hashMD5 (attachedFile);
+			String entryMD5hash = hashMD5 (entry.getData());
+			if (localMD5hash.equals(entryMD5hash))
+			{
+				log.fine("no need to download: local file is up-to-date");
+			}
+			else
 			{
 				log.fine("file attached is different that local one, download and replace");
 				File downloadedFile = new File(downloadedLocalFile);
@@ -708,4 +714,100 @@ public abstract class NFeUtil
 			throw new AdempiereException (result.toString());
 		}
 	}	//	validate
+	
+
+	
+	
+	/**
+	 * Monta parâmetros a serem colocados em uma URL
+	 * 
+	 * @param parametros
+	 * @return
+	 */
+	public static String generateQRCodeParamsURL(Map<String, String> parametros) {
+
+		String ret = "";
+		int nParameter = 0;
+
+		for (String key : parametros.keySet()) {
+
+			if (nParameter > 0)
+				ret += "&";
+
+			ret += key + "=" + parametros.get(key);
+
+			nParameter++;
+		}
+
+		return ret;
+	}
+
+	/**
+	 * Encode byte array to Digest Code in SHA-1 method
+	 * 
+	 * Source:
+	 * http://www.guj.com.br/17236-nota-fiscal-eletronica---validar-assinatura
+	 * 
+	 * @param data
+	 *            byte[]
+	 * @return String digest
+	 */
+	public static String getDigestBase64String(byte[] data) throws Exception {
+		MessageDigest messageDisgester = MessageDigest.getInstance("SHA-1");
+		return new String(Base64.encodeBase64(messageDisgester.digest(data)));
+	}
+	
+	/**
+	 * 	Convert Date
+	 * 	@param ts
+	 * 	@return
+	 */
+	public static String normalizeTZ (Timestamp ts)
+	{
+		StringBuffer timeStr = new StringBuffer (TextUtil.timeToString (ts, "yyyy-MM-dd'T'HH:mm:ssZ"));
+		return timeStr.insert (timeStr.length() - 2, ':').toString();
+	}	//	convertDate
+	
+	/**
+	 * 		Hash the file
+	 * 	@param ba
+	 * 	@return md5 hash of file
+	 */
+	public static String hashMD5 (File file)
+	{
+		//	No file provided
+		if (file == null)
+			return "";
+
+		try
+		{
+			String text = TextUtil.readFile (file);
+			return hashMD5 (text.getBytes());
+		}
+		catch (Exception e)
+		{
+			return "";
+		}
+	}	//	hash
+	
+	/**
+	 * 		Hash the byte array
+	 * 	@param ba
+	 * 	@return md5 hash of file
+	 */
+	public static String hashMD5 (byte[] ba)
+	{
+		try
+		{
+			MessageDigest md = MessageDigest.getInstance ("MD5");
+			md.update (ba);
+			//
+			byte[] digest = md.digest();
+			return new BigInteger(1, digest).toString(16);
+		}
+		catch (NoSuchAlgorithmException e)
+		{
+			return "";
+		}
+	}	//	hash
 }	//	NFeUtil
