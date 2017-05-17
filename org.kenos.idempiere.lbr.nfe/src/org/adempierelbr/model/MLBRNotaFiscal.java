@@ -3301,7 +3301,11 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 	public boolean voidIt()
 	{
 		log.info("voidIt - " + toString());
-		
+		// Before Void
+		m_processMsg = ModelValidationEngine.get().fireDocValidate(this, ModelValidator.TIMING_BEFORE_VOID);
+		if (m_processMsg != null)
+			return false;
+				
 		//	Anular a NF
 		if (DOCSTATUS_Completed.equals(getDocStatus()))
 		{
