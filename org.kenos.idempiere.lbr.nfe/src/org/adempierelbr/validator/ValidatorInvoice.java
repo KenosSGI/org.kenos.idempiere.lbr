@@ -423,21 +423,6 @@ public class ValidatorInvoice implements ModelValidator
 		}	//	TIMING_AFTER_COMPLETE
 
 		/**
-		 * 	Após reativar, anular, fechar ou estornar executa:
-		 * 		Cancela retenções, boleto e CNAB
-		 */
-//		else if ((timing == TIMING_AFTER_REACTIVATE || timing == TIMING_AFTER_VOID || timing == TIMING_AFTER_CLOSE || timing == TIMING_AFTER_REVERSECORRECT))
-//		{
-//			String sql = "UPDATE C_Invoice SET LBR_Withhold_Invoice_ID=NULL WHERE LBR_Withhold_Invoice_ID=" + invoice.getC_Invoice_ID();
-//
-//			DB.executeUpdate (sql, invoice.get_TrxName());
-//
-//			// Cancela o Boleto e CNAB
-//			MLBRBoleto.cancelBoleto (invoice.getCtx(), invoice.getC_Invoice_ID(), invoice.get_TrxName());
-//
-//		}	//	TIMING_AFTER_REACTIVATE, VOID, CLOSE, REVERSECORRECT
-
-		/**
 		 * 	Antes de reativar, anular, fechar ou estornar executa:
 		 * 		Valida os vínculos de Retenção, antes de liberar a reativação
 		 */
