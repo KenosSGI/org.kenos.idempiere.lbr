@@ -32,7 +32,7 @@ public class X_LBR_NFSkipped extends PO implements I_LBR_NFSkipped, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20170116L;
+	private static final long serialVersionUID = 20170626L;
 
     /** Standard Constructor */
     public X_LBR_NFSkipped (Properties ctx, int LBR_NFSkipped_ID, String trxName)
@@ -242,8 +242,8 @@ public class X_LBR_NFSkipped extends PO implements I_LBR_NFSkipped, I_Persistent
 	public static final String LBR_NFMODEL_ConhecimentoDeTransporteEletrônicoCT_E = "57";
 	/** Nota Fiscal de Serviços Eletrônica (RPS) = S1 */
 	public static final String LBR_NFMODEL_NotaFiscalDeServiçosEletrônicaRPS = "S1";
-	/** Nota Fiscal de Consumidor Eletrônica = 56 */
-	public static final String LBR_NFMODEL_NotaFiscalDeConsumidorEletrônica = "56";
+	/** Nota Fiscal de Consumidor Eletrônica = 65 */
+	public static final String LBR_NFMODEL_NotaFiscalDeConsumidorEletrônica = "65";
 	/** Set NF Model.
 		@param lbr_NFModel 
 		Identifies the model of Nota Fiscal

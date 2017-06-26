@@ -151,12 +151,12 @@ public interface I_LBR_NCMTax
 	/** Set Brazilian Tax.
 	  * Primary key table LBR_Tax
 	  */
-	public void setLBR_Tax_ID (Object LBR_Tax_ID);
+	public void setLBR_Tax_ID (int LBR_Tax_ID);
 
 	/** Get Brazilian Tax.
 	  * Primary key table LBR_Tax
 	  */
-	public Object getLBR_Tax_ID();
+	public int getLBR_Tax_ID();
 
     /** Column name Updated */
     public static final String COLUMNNAME_Updated = "Updated";

@@ -544,6 +544,7 @@ public class ValidatorBPartner implements ModelValidator
 	    }
 	    return true;
 	} //validaCPNJ
+
 	/**
 	 *	consultaCNPJ
 	 *	Check if this CNPJ is already on database

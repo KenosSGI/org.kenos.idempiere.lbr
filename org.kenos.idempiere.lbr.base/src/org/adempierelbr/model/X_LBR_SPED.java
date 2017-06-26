@@ -30,7 +30,7 @@ public class X_LBR_SPED extends PO implements I_LBR_SPED, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20170116L;
+	private static final long serialVersionUID = 20170626L;
 
     /** Standard Constructor */
     public X_LBR_SPED (Properties ctx, int LBR_SPED_ID, String trxName)

@@ -30,7 +30,7 @@ public class X_LBR_LegalMessage extends PO implements I_LBR_LegalMessage, I_Pers
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20170116L;
+	private static final long serialVersionUID = 20170626L;
 
     /** Standard Constructor */
     public X_LBR_LegalMessage (Properties ctx, int LBR_LegalMessage_ID, String trxName)
@@ -50,7 +50,7 @@ public class X_LBR_LegalMessage extends PO implements I_LBR_LegalMessage, I_Pers
     }
 
     /** AccessLevel
-      * @return 3 - Client - Org 
+      * @return 6 - System - Client 
       */
     protected int get_AccessLevel()
     {

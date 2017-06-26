@@ -33,7 +33,7 @@ public class X_LBR_IBPTax extends PO implements I_LBR_IBPTax, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20170116L;
+	private static final long serialVersionUID = 20170626L;
 
     /** Standard Constructor */
     public X_LBR_IBPTax (Properties ctx, int LBR_IBPTax_ID, String trxName)
@@ -43,7 +43,6 @@ public class X_LBR_IBPTax extends PO implements I_LBR_IBPTax, I_Persistent
         {
 			setC_Region_ID (0);
 			setLBR_IBPTax_ID (0);
-			setLBR_NCM_ID (0);
 			setLBR_TaxRateCity (Env.ZERO);
 // 0
 			setLBR_TaxRateRegion (Env.ZERO);
@@ -144,6 +143,34 @@ public class X_LBR_IBPTax extends PO implements I_LBR_IBPTax, I_Persistent
 	public int getLBR_IBPTax_ID () 
 	{
 		Integer ii = (Integer)get_Value(COLUMNNAME_LBR_IBPTax_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
+	public org.adempierelbr.model.I_LBR_NBS getLBR_NBS() throws RuntimeException
+    {
+		return (org.adempierelbr.model.I_LBR_NBS)MTable.get(getCtx(), org.adempierelbr.model.I_LBR_NBS.Table_Name)
+			.getPO(getLBR_NBS_ID(), get_TrxName());	}
+
+	/** Set NBS.
+		@param LBR_NBS_ID 
+		Primary key table LBR_NBS
+	  */
+	public void setLBR_NBS_ID (int LBR_NBS_ID)
+	{
+		if (LBR_NBS_ID < 1) 
+			set_Value (COLUMNNAME_LBR_NBS_ID, null);
+		else 
+			set_Value (COLUMNNAME_LBR_NBS_ID, Integer.valueOf(LBR_NBS_ID));
+	}
+
+	/** Get NBS.
+		@return Primary key table LBR_NBS
+	  */
+	public int getLBR_NBS_ID () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_LBR_NBS_ID);
 		if (ii == null)
 			 return 0;
 		return ii.intValue();

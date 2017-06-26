@@ -25,6 +25,7 @@ import java.sql.Timestamp;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -38,7 +39,10 @@ import javax.xml.transform.stream.StreamResult;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.adempiere.model.POWrapper;
+import org.adempierelbr.model.MLBRCSC;
+import org.adempierelbr.model.MLBRNFeWebService;
 import org.adempierelbr.model.MLBRNotaFiscal;
+import org.adempierelbr.model.X_LBR_DI;
 import org.adempierelbr.wrapper.I_W_C_City;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.xmlbeans.XmlException;
@@ -48,7 +52,10 @@ import org.apache.xmlbeans.XmlValidationError;
 import org.compiere.model.MAttachment;
 import org.compiere.model.MAttachmentEntry;
 import org.compiere.model.MCity;
+import org.compiere.model.MOrder;
 import org.compiere.model.MOrgInfo;
+import org.compiere.model.MTable;
+import org.compiere.model.Query;
 import org.compiere.util.CLogger;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
@@ -57,6 +64,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import br.inf.portalfiscal.nfe.v310.NFeDocument;
 import br.inf.portalfiscal.www.nfe.wsdl.recepcaoevento.NfeCabecMsg;
 import br.inf.portalfiscal.www.nfe.wsdl.recepcaoevento.NfeCabecMsgE;
 
@@ -756,6 +764,97 @@ public abstract class NFeUtil
 		MessageDigest messageDisgester = MessageDigest.getInstance("SHA-1");
 		return new String(Base64.encodeBase64(messageDisgester.digest(data)));
 	}
+
+	/**
+	 * 	Generate QRCode
+	 * 
+	 * @param nf
+	 * @param digestValue
+	 * @param nfeID
+	 * @return
+	 * @throws Exception
+	 */
+	public static String generateQRCodeNFCeURL (MLBRNotaFiscal nf, String digestValue, String nfeID, String cDest, Timestamp dhEmi, String vICMS, String tpAmb) throws Exception
+	{
+		String envType 	= nf.getlbr_NFeEnv();
+		//
+		if (envType == null || envType.isEmpty())
+			throw new Exception ("Ambiente da NF-e deve ser preenchido.");
+		
+		if (nf.getOrg_Location_ID() <= 0)
+			throw new Exception ("Endereço da Organização deve ser preenchido.");
+		
+		// URL
+		String url = MLBRNFeWebService.getURL (MLBRNFeWebService.NFCE_CONSULTA_QRCODE, envType, NFeUtil.VERSAO_LAYOUT, nf.getOrg_Location().getC_Region_ID());
+		
+		// CSC
+		MLBRCSC csc = MLBRCSC.get (nf.getAD_Org_ID());
+		
+		// QRCode
+		String chNFe = nfeID;
+		String nVersao = NFeUtil.VERSAO_QR_CODE;
+		String vNF = TextUtil.bigdecimalToString(nf.getGrandTotal());
+		String digest = digestValue;
+		String tokenID = csc.getValue();//"000001";//
+		String token = csc.getName();//"C1774291-A86A-4ADA-B247-791207C6CF50";//
+
+		// generate
+		return generateQRCodeNFCeURL(chNFe, nVersao, tpAmb, cDest, dhEmi, vNF, vICMS, digest, tokenID, token, url);
+	}	//	generateQRCodeNFCeURL
+	
+	/**
+	 * Generate NFC-e QRCode
+	 * 
+	 * Especs:
+	 * http://www.nfe.fazenda.gov.br/portal/exibirArquivo.aspx?conteudo=jKHRw%
+	 * 20g4V%20E=
+	 * 
+	 * @param chNFe
+	 * @param nVersao
+	 * @param tpAmb
+	 * @param cDest
+	 * @param dhEmi
+	 * @param vNF
+	 * @param vICMS
+	 * @param digest
+	 * @param tokenID
+	 * @param token
+	 * @param url
+	 * @return
+	 * @throws Exception
+	 */
+	public static String generateQRCodeNFCeURL(String chNFe, String nVersao, String tpAmb, String cDest,
+			Timestamp dhEmi, String vNF, String vICMS, String digest, String tokenID, String token, String url)
+					throws Exception
+	{
+		if (url == null || url.isEmpty())
+			throw new Exception("URL de consulta pelo QrCode é inválida");
+		//
+		if (tokenID == null || tokenID.isEmpty() || token == null || token.isEmpty())
+			throw new Exception(
+					"CSC inválido! Empresa não possui chave de segurança para o QR-Code cadastrada na UF, ou as chaves existentes foram revogadas");
+		//
+		Map<String, String> parametros = new LinkedHashMap<String, String>();
+		parametros.put("chNFe", chNFe);
+		parametros.put("nVersao", nVersao);
+		parametros.put("tpAmb", tpAmb);
+		if (!TextUtil.toNumeric(cDest).isEmpty()){
+			parametros.put("cDest", TextUtil.toNumeric(cDest));
+		}
+		parametros.put("dhEmi", TextUtil.convertStringToHex(normalizeTZ (dhEmi)));
+		parametros.put("vNF", vNF);
+		parametros.put("vICMS", vICMS);
+		parametros.put("digVal", TextUtil.convertStringToHex(digest));
+		parametros.put("cIdToken", TextUtil.lPad(tokenID, 6) + token);
+		      
+		// Calcula o hash do QR Code:
+		String hashQRCodeStr = generateQRCodeParamsURL(parametros);
+		String hashQRCode = TextUtil.byteArrayToHexString(TextUtil.generateSHA1(hashQRCodeStr));
+
+		parametros.put("cIdToken", TextUtil.lPad(tokenID, 6));
+		parametros.put("cHashQRCode", hashQRCode);
+		return url + "?" + NFeUtil.generateQRCodeParamsURL(parametros);
+	}	//	generateQRCodeNFCeURL
 	
 	/**
 	 * 	Convert Date
@@ -810,4 +909,43 @@ public abstract class NFeUtil
 			return "";
 		}
 	}	//	hash
+	
+	/**
+	 * 	Extract the Digest Value from NFe
+	 * 
+	 * @param 	nfeDoc NFe Document
+	 * @return	Digest Value from NFe Signature or "" in case of error
+	 */
+	public static String extractDigestValue (NFeDocument nfeDoc)
+	{
+		try
+		{
+			String reference = nfeDoc.getNFe().getSignature().getSignedInfo().xmlText(NFeUtil.getXmlOpt());
+			
+			// 	Extract Digest Value
+			return reference.substring(reference.indexOf("<DigestValue>")+13, reference.indexOf("</DigestValue>"));
+		}
+		catch (Exception e)
+		{
+			return "";
+		}
+	}	//	extractDisgestValue
+	
+	/**
+	 * 	Obtém as DIs (Declaração de Importação) associadas a este pedido
+	 * 	@param order
+	 * 	@return array de DI
+	 */
+	public static X_LBR_DI[] getDIs (MOrder order)
+	{
+		String whereClause = "LBR_DI_ID IN (SELECT LBR_DI_ID FROM C_OrderLine WHERE C_Order_ID = ?)";
+
+		MTable table = MTable.get(order.getCtx(), X_LBR_DI.Table_Name);
+		Query query =  new Query(order.getCtx(), table, whereClause, order.get_TrxName());
+	 		  query.setParameters(new Object[]{order.getC_Order_ID()});
+
+		List<X_LBR_DI> list = query.list();
+
+		return list.toArray(new X_LBR_DI[list.size()]);
+	}	//	getDIs
 }	//	NFeUtil

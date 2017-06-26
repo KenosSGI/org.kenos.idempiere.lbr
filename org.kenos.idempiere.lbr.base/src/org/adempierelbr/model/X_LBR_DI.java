@@ -34,7 +34,7 @@ public class X_LBR_DI extends PO implements I_LBR_DI, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20170116L;
+	private static final long serialVersionUID = 20170626L;
 
     /** Standard Constructor */
     public X_LBR_DI (Properties ctx, int LBR_DI_ID, String trxName)

@@ -30,7 +30,7 @@ public class X_LBR_NCM_CEST extends PO implements I_LBR_NCM_CEST, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20170116L;
+	private static final long serialVersionUID = 20170626L;
 
     /** Standard Constructor */
     public X_LBR_NCM_CEST (Properties ctx, int LBR_NCM_CEST_ID, String trxName)

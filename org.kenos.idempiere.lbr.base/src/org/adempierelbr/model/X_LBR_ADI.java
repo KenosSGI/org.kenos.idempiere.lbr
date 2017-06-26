@@ -33,7 +33,7 @@ public class X_LBR_ADI extends PO implements I_LBR_ADI, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20170116L;
+	private static final long serialVersionUID = 20170626L;
 
     /** Standard Constructor */
     public X_LBR_ADI (Properties ctx, int LBR_ADI_ID, String trxName)
@@ -149,9 +149,9 @@ public class X_LBR_ADI extends PO implements I_LBR_ADI, I_Persistent
 	public void setLBR_DI_ID (int LBR_DI_ID)
 	{
 		if (LBR_DI_ID < 1) 
-			set_Value (COLUMNNAME_LBR_DI_ID, null);
+			set_ValueNoCheck (COLUMNNAME_LBR_DI_ID, null);
 		else 
-			set_Value (COLUMNNAME_LBR_DI_ID, Integer.valueOf(LBR_DI_ID));
+			set_ValueNoCheck (COLUMNNAME_LBR_DI_ID, Integer.valueOf(LBR_DI_ID));
 	}
 
 	/** Get Declaracao de Importacao.

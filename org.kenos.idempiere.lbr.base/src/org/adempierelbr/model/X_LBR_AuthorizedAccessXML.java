@@ -31,7 +31,7 @@ public class X_LBR_AuthorizedAccessXML extends PO implements I_LBR_AuthorizedAcc
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20170116L;
+	private static final long serialVersionUID = 20170626L;
 
     /** Standard Constructor */
     public X_LBR_AuthorizedAccessXML (Properties ctx, int LBR_AuthorizedAccessXML_ID, String trxName)

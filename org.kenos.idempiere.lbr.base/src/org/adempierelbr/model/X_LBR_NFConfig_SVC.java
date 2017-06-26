@@ -32,7 +32,7 @@ public class X_LBR_NFConfig_SVC extends PO implements I_LBR_NFConfig_SVC, I_Pers
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20170116L;
+	private static final long serialVersionUID = 20170626L;
 
     /** Standard Constructor */
     public X_LBR_NFConfig_SVC (Properties ctx, int LBR_NFConfig_SVC_ID, String trxName)

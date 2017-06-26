@@ -30,7 +30,7 @@ public class X_LBR_TaxBaseType extends PO implements I_LBR_TaxBaseType, I_Persis
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20170116L;
+	private static final long serialVersionUID = 20170626L;
 
     /** Standard Constructor */
     public X_LBR_TaxBaseType (Properties ctx, int LBR_TaxBaseType_ID, String trxName)

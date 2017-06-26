@@ -108,8 +108,15 @@ public class MLBRBoleto extends X_LBR_Boleto
 		//	Ocorrência para cobranças não registradas
 		if (documentNo == null || documentNo.length() <= 0)
 			return  "";
-		//
-		int index = documentNo.indexOf("/") + 1;
+		
+		int index = 0;
+		
+		// Nova regra de registro do Id Da Fatura, Número do Documento e Parcela no Arquivo CNAB.
+		if (documentNo.contains("P"))
+			index = documentNo.indexOf("P") + 1;
+		else
+			index = documentNo.indexOf("/") + 1;
+		
 		String LBR_PayScheduleNo = documentNo.substring(index, index + 2).trim();
 		
 		return LBR_PayScheduleNo;
@@ -612,7 +619,22 @@ public class MLBRBoleto extends X_LBR_Boleto
 			MLocation Location = null;
 			MRegion Region = null;
 
-			BPLocation = BPartner.getLocation(invoice.getC_BPartner_Location_ID());
+			BPLocation = BPartner.getLocation(invoice.getC_BPartner_Location_ID());			
+			
+			if (!BPLocation.isPayFrom())
+			{
+				// Procurar um Endereço de Cobrança
+				MBPartnerLocation LocationPayFrom = new Query(Env.getCtx(), MBPartnerLocation.Table_Name,
+						"AD_Client_ID = ? AND C_BPartner_ID = ? AND IsPayFrom = 'Y' AND IsActive = 'Y'", invoice.get_TrxName())
+						.setParameters(invoice.getAD_Client_ID(), invoice.getC_BPartner_ID())
+						.first();
+				
+				// Se Encontrar um Endereço de Cobrança substituir a localização
+				if (LocationPayFrom != null)
+					BPLocation = LocationPayFrom;
+				
+			}
+			
 			Location = MLocation.get(ctx, BPLocation.getC_Location_ID(), trx);
 			Region = new MRegion(ctx, Location.getC_Region_ID(),trx);
 

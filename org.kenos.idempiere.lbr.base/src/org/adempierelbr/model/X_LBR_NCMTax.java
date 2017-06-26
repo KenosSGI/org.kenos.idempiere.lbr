@@ -20,11 +20,7 @@ package org.adempierelbr.model;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.Properties;
-
-import org.compiere.model.I_Persistent;
-import org.compiere.model.MTable;
-import org.compiere.model.PO;
-import org.compiere.model.POInfo;
+import org.compiere.model.*;
 import org.compiere.util.KeyNamePair;
 
 /** Generated Model for LBR_NCMTax
@@ -36,7 +32,7 @@ public class X_LBR_NCMTax extends PO implements I_LBR_NCMTax, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20170116L;
+	private static final long serialVersionUID = 20170626L;
 
     /** Standard Constructor */
     public X_LBR_NCMTax (Properties ctx, int LBR_NCMTax_ID, String trxName)
@@ -177,15 +173,18 @@ public class X_LBR_NCMTax extends PO implements I_LBR_NCMTax, I_Persistent
 		@param LBR_Tax_ID 
 		Primary key table LBR_Tax
 	  */
-	public void setLBR_Tax_ID (Object LBR_Tax_ID)
+	public void setLBR_Tax_ID (int LBR_Tax_ID)
 	{
-		set_Value (COLUMNNAME_LBR_Tax_ID, LBR_Tax_ID);
+		if (LBR_Tax_ID < 1) 
+			set_Value (COLUMNNAME_LBR_Tax_ID, null);
+		else 
+			set_Value (COLUMNNAME_LBR_Tax_ID, Integer.valueOf(LBR_Tax_ID));
 	}
 
 	/** Get Brazilian Tax.
 		@return Primary key table LBR_Tax
 	  */
-	public Integer getLBR_Tax_ID () 
+	public int getLBR_Tax_ID () 
 	{
 		Integer ii = (Integer)get_Value(COLUMNNAME_LBR_Tax_ID);
 		if (ii == null)

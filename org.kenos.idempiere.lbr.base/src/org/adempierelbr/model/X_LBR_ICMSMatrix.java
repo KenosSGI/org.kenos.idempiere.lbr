@@ -20,11 +20,7 @@ package org.adempierelbr.model;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.Properties;
-
-import org.compiere.model.I_Persistent;
-import org.compiere.model.MTable;
-import org.compiere.model.PO;
-import org.compiere.model.POInfo;
+import org.compiere.model.*;
 
 /** Generated Model for LBR_ICMSMatrix
  *  @author iDempiere (generated) 
@@ -35,7 +31,7 @@ public class X_LBR_ICMSMatrix extends PO implements I_LBR_ICMSMatrix, I_Persiste
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20170116L;
+	private static final long serialVersionUID = 20170626L;
 
     /** Standard Constructor */
     public X_LBR_ICMSMatrix (Properties ctx, int LBR_ICMSMatrix_ID, String trxName)
@@ -147,14 +143,17 @@ public class X_LBR_ICMSMatrix extends PO implements I_LBR_ICMSMatrix, I_Persiste
 
 	/** Set ST Tax.
 		@param LBR_STTax_ID ST Tax	  */
-	public void setLBR_STTax_ID (Object LBR_STTax_ID)
+	public void setLBR_STTax_ID (int LBR_STTax_ID)
 	{
-		set_Value (COLUMNNAME_LBR_STTax_ID, LBR_STTax_ID);
+		if (LBR_STTax_ID < 1) 
+			set_Value (COLUMNNAME_LBR_STTax_ID, null);
+		else 
+			set_Value (COLUMNNAME_LBR_STTax_ID, Integer.valueOf(LBR_STTax_ID));
 	}
 
 	/** Get ST Tax.
 		@return ST Tax	  */
-	public Integer getLBR_STTax_ID () 
+	public int getLBR_STTax_ID () 
 	{
 		Integer ii = (Integer)get_Value(COLUMNNAME_LBR_STTax_ID);
 		if (ii == null)
@@ -166,15 +165,18 @@ public class X_LBR_ICMSMatrix extends PO implements I_LBR_ICMSMatrix, I_Persiste
 		@param LBR_Tax_ID 
 		Primary key table LBR_Tax
 	  */
-	public void setLBR_Tax_ID (Object LBR_Tax_ID)
+	public void setLBR_Tax_ID (int LBR_Tax_ID)
 	{
-		set_Value (COLUMNNAME_LBR_Tax_ID, LBR_Tax_ID);
+		if (LBR_Tax_ID < 1) 
+			set_Value (COLUMNNAME_LBR_Tax_ID, null);
+		else 
+			set_Value (COLUMNNAME_LBR_Tax_ID, Integer.valueOf(LBR_Tax_ID));
 	}
 
 	/** Get Brazilian Tax.
 		@return Primary key table LBR_Tax
 	  */
-	public Integer getLBR_Tax_ID () 
+	public int getLBR_Tax_ID () 
 	{
 		Integer ii = (Integer)get_Value(COLUMNNAME_LBR_Tax_ID);
 		if (ii == null)

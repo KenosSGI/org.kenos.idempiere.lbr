@@ -30,7 +30,7 @@ public class X_LBR_NFeWebService extends PO implements I_LBR_NFeWebService, I_Pe
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20170116L;
+	private static final long serialVersionUID = 20170626L;
 
     /** Standard Constructor */
     public X_LBR_NFeWebService (Properties ctx, int LBR_NFeWebService_ID, String trxName)

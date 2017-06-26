@@ -130,6 +130,21 @@ public interface I_LBR_IBPTax
 	/** Get Tabela de Impostos do IBPT	  */
 	public int getLBR_IBPTax_ID();
 
+    /** Column name LBR_NBS_ID */
+    public static final String COLUMNNAME_LBR_NBS_ID = "LBR_NBS_ID";
+
+	/** Set NBS.
+	  * Primary key table LBR_NBS
+	  */
+	public void setLBR_NBS_ID (int LBR_NBS_ID);
+
+	/** Get NBS.
+	  * Primary key table LBR_NBS
+	  */
+	public int getLBR_NBS_ID();
+
+	public org.adempierelbr.model.I_LBR_NBS getLBR_NBS() throws RuntimeException;
+
     /** Column name LBR_NCM_ID */
     public static final String COLUMNNAME_LBR_NCM_ID = "LBR_NCM_ID";
 

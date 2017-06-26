@@ -30,7 +30,7 @@ public class X_LBR_Formula extends PO implements I_LBR_Formula, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20170116L;
+	private static final long serialVersionUID = 20170626L;
 
     /** Standard Constructor */
     public X_LBR_Formula (Properties ctx, int LBR_Formula_ID, String trxName)

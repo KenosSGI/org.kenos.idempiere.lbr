@@ -14,6 +14,7 @@
 package org.adempierelbr.process;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -21,6 +22,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.net.URL;
+import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -32,6 +34,7 @@ import org.adempiere.exceptions.AdempiereException;
 import org.adempiere.report.jasper.JRViewerProvider;
 import org.adempierelbr.model.MLBRNFeEvent;
 import org.adempierelbr.model.MLBRNFeLot;
+import org.adempierelbr.model.MLBRNFeWebService;
 import org.adempierelbr.model.MLBRNotaFiscal;
 import org.adempierelbr.nfse.INFSe;
 import org.adempierelbr.nfse.NFSeUtil;
@@ -47,6 +50,12 @@ import org.compiere.model.Query;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
 import org.compiere.util.Env;
+
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.EncodeHintType;
+import com.google.zxing.WriterException;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.qrcode.QRCodeWriter;
 
 import br.inf.portalfiscal.nfe.v310.NfeProcDocument;
 import net.sf.jasperreports.engine.JRException;
@@ -73,6 +82,9 @@ public class PrintFromXML extends SvrProcess
 			
 	private MProcess process = null;
 	private String reportName = "";
+	
+	// Informações da Organização
+	private MOrgInfo oi;
 	
 	/**
 	 * 	Prepare - e.g., get Parameters.
@@ -110,16 +122,21 @@ public class PrintFromXML extends SvrProcess
 		String numberPattern 	= "###0.00";
 		Locale locale			= Locale.US;
 		boolean printLogo		= true;
+		Map<String, Object> qrFiles = new HashMap<String, Object>();
+
 		//	Arquivo com os XML das notas Autorizadas relacionadas do lote.
 		File lotXML 			= File.createTempFile ("lotXMLAut", ".xml");
 		
 		MAttachment att = null;
 	    int tableID = getProcessInfo().getTable_ID();
-		
+
 		//	Carta de Correção Eletrônica
 		if (tableID == MLBRNFeEvent.Table_ID)
 		{
 			MLBRNFeEvent event = new MLBRNFeEvent (Env.getCtx(), p_Record_ID, get_TrxName());
+			
+			// Organização
+			oi = MOrgInfo.get(Env.getCtx(), event.getAD_Org_ID(), null);
 			
 			if (!"135".equals (event.getlbr_NFeStatus()) && !"136".equals (event.getlbr_NFeStatus()))
 				return "CC-e n\u00E3o processada corretamente, n\u00E3o \u00E9 poss\u00EDvel fazer a impress\u00E3o";
@@ -141,6 +158,9 @@ public class PrintFromXML extends SvrProcess
 		{
 			MLBRNotaFiscal doc = new MLBRNotaFiscal(getCtx(), p_Record_ID, get_TrxName());
 			
+			// Organização
+			oi = MOrgInfo.get(Env.getCtx(), doc.getAD_Org_ID(), null);
+			
 			//	Nota Fiscal de Serviço Eletrônica
 			if (MLBRNotaFiscal.LBR_NFMODEL_NotaFiscalDeServiçosEletrônicaRPS.equals(doc.getlbr_NFModel()))
 			{
@@ -150,6 +170,31 @@ public class PrintFromXML extends SvrProcess
 					return infSe.printNFSe(doc);
 				else
 					return "Documento sem formato de impress\u00E3o dispon\u00EDvel ou impress\u00E3o n\u00E3o permitida";
+			}
+			
+			else if (MLBRNotaFiscal.LBR_NFMODEL_NotaFiscalDeConsumidorEletrônica.equals (doc.getlbr_NFModel ()))
+			{
+				ByteArrayOutputStream out = new ByteArrayOutputStream();
+				try 
+				{
+					Map<EncodeHintType, Object> hints = new EnumMap<EncodeHintType, Object>(EncodeHintType.class);
+					hints.put(EncodeHintType.CHARACTER_SET, "UTF-8");
+					hints.put(EncodeHintType.MARGIN, 2);
+					//
+					MatrixToImageWriter.writeToStream(new QRCodeWriter().encode(doc.get_ValueAsString("LBR_NFCeQRCodeURL"), BarcodeFormat.QR_CODE, 300, 300, hints), "PNG", out);
+				}
+				catch (WriterException e)
+				{
+					e.printStackTrace();
+					log.severe("Não foi possível gerar o DANFE da NFC-e. Erro: " + e.getMessage());
+					throw new AdempiereException("Não foi possível gerar o QRCode da NFC-e.");
+				}
+				
+				//	URL
+				String url = MLBRNFeWebService.getURL (MLBRNFeWebService.NFCE_CONSULTA_QRCODE, doc.getlbr_NFeEnv(), NFeUtil.VERSAO_LAYOUT, doc.getOrg_Location().getC_Region_ID());
+				
+				qrFiles.put("QRCode", new ByteArrayInputStream(((ByteArrayOutputStream) out).toByteArray()));
+				qrFiles.put("URLConsulta", url);
 			}
 
 			att = doc.getAttachment (true);
@@ -162,11 +207,8 @@ public class PrintFromXML extends SvrProcess
 				reportName = "DanfeMainPortraitA4.jasper";
 			else if (MLBRNotaFiscal.LBR_DANFEFORMAT_2_NormalDANFE_Landscape.equals(doc.getlbr_DANFEFormat()))
 				reportName = "DanfeMainLandscapeA4.jasper";
-//			if (process.getJasperReport() == null || process.getJasperReport().isEmpty())
-////				reportName = "DanfeMainPortraitA4.jasper";
-//				reportName = "DanfeMainLandscapeA4.jasper";
-//			else
-//				reportName = process.getJasperReport();
+			else if (MLBRNotaFiscal.LBR_DANFEFORMAT_4_DANFENFC_E.equals(doc.getlbr_DANFEFormat()))
+				reportName = "DanfeNFCe.jasper";
 			
 			if (MLBRNotaFiscal.LBR_NFESTATUS_101_CancelamentoDeNF_EHomologado.equals(doc.getlbr_NFeStatus()))
 				message = "CANCELADO    CANCELADO\nC\u00D3PIA DE SEGURAN\u00C7A";
@@ -181,11 +223,14 @@ public class PrintFromXML extends SvrProcess
 			//	Lote da NF-e
 			MLBRNFeLot doc = new MLBRNFeLot(getCtx(), p_Record_ID, get_TrxName());
 			
+			// Organização
+			oi = MOrgInfo.get(Env.getCtx(), doc.getAD_Org_ID(), null);
+			
 			//	Lista de NF-e relacionada ao Lote.
 			List <MLBRNotaFiscal> nfs = new Query (Env.getCtx(), MLBRNotaFiscal.Table_Name, "LBR_NFeStatus = '100' AND LBR_NFeLot_ID = ?", get_TrxName())
 										.setParameters(doc.getLBR_NFeLot_ID())
 										.setOrderBy("DocumentNo")
-										.list();			
+										.list();
 			
 			//	Gravar os XMLs no Arquivo nfXmlAutorized
 			OutputStreamWriter osw = new OutputStreamWriter (new FileOutputStream(lotXML), TextUtil.UTF8);
@@ -300,6 +345,7 @@ public class PrintFromXML extends SvrProcess
 		}
 		
 		Map<String, Object> files = getReportFile (printLogo);
+		files.putAll(qrFiles);
 		
 		if (message != null)
 			files.put("msgPrevisualizacao", message);
@@ -310,7 +356,7 @@ public class PrintFromXML extends SvrProcess
 		dataSource.setDatePattern(datePattern);
 		dataSource.setNumberPattern(numberPattern);
 		dataSource.setLocale(locale);
-
+		
 		//	Fill
 		JasperPrint jasperPrint = JasperFillManager.fillReport (jasperReport, files, dataSource);
 
@@ -381,9 +427,12 @@ public class PrintFromXML extends SvrProcess
 			}
 		}
 		
-		MPInstance pinstance = new MPInstance (getCtx(), getAD_PInstance_ID(), null);
-		MOrgInfo oi = MOrgInfo.get (getCtx(), pinstance.getAD_Org_ID(), null);
-		
+		if (oi == null)
+		{
+			MPInstance pinstance = new MPInstance (getCtx(), getAD_PInstance_ID(), null);
+			oi = MOrgInfo.get (getCtx(), pinstance.getAD_Org_ID(), null);
+		}
+				
 		//	Logo not found
 		if (oi.getLogo_ID() <= 0 || !printLogo)
 			return map;
@@ -429,6 +478,10 @@ public class PrintFromXML extends SvrProcess
 		if (reportName.startsWith("ReportCCe"))
 			return new String[]{};	//	No Subreports for this document
 		
+		// NFC-e 
+		if (reportName.startsWith("DanfeNFCe"))
+			return new String[]{}; //	No Subreports for this document
+						
 		//	Not found, try to catch all from the given path
 		URL dirURL = clazz.getClassLoader().getResource(path);
 		if (dirURL != null && dirURL.getProtocol().equals("file"))

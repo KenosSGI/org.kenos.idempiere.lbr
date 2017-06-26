@@ -33,7 +33,7 @@ public class X_LBR_NotaFiscal extends PO implements I_LBR_NotaFiscal, I_Persiste
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20170116L;
+	private static final long serialVersionUID = 20170626L;
 
     /** Standard Constructor */
     public X_LBR_NotaFiscal (Properties ctx, int LBR_NotaFiscal_ID, String trxName)
@@ -525,6 +525,20 @@ public class X_LBR_NotaFiscal extends PO implements I_LBR_NotaFiscal, I_Persiste
 		return (String)get_Value(COLUMNNAME_DocumentNote);
 	}
 
+	/** Set Error Msg.
+		@param ErrorMsg Error Msg	  */
+	public void setErrorMsg (String ErrorMsg)
+	{
+		set_Value (COLUMNNAME_ErrorMsg, ErrorMsg);
+	}
+
+	/** Get Error Msg.
+		@return Error Msg	  */
+	public String getErrorMsg () 
+	{
+		return (String)get_Value(COLUMNNAME_ErrorMsg);
+	}
+
 	/** Set Freight Amount.
 		@param FreightAmt 
 		Freight Amount 
@@ -874,6 +888,20 @@ public class X_LBR_NotaFiscal extends PO implements I_LBR_NotaFiscal, I_Persiste
 		return (String)get_Value(COLUMNNAME_LBR_IndPres);
 	}
 
+	/** Set NFC-e QRCode URL.
+		@param LBR_NFCeQRCodeURL NFC-e QRCode URL	  */
+	public void setLBR_NFCeQRCodeURL (String LBR_NFCeQRCodeURL)
+	{
+		set_Value (COLUMNNAME_LBR_NFCeQRCodeURL, LBR_NFCeQRCodeURL);
+	}
+
+	/** Get NFC-e QRCode URL.
+		@return NFC-e QRCode URL	  */
+	public String getLBR_NFCeQRCodeURL () 
+	{
+		return (String)get_Value(COLUMNNAME_LBR_NFCeQRCodeURL);
+	}
+
 	public org.adempierelbr.model.I_LBR_NFeLot getLBR_NFeLot() throws RuntimeException
     {
 		return (org.adempierelbr.model.I_LBR_NFeLot)MTable.get(getCtx(), org.adempierelbr.model.I_LBR_NFeLot.Table_Name)
@@ -937,6 +965,31 @@ public class X_LBR_NotaFiscal extends PO implements I_LBR_NotaFiscal, I_Persiste
 		if (bd == null)
 			 return Env.ZERO;
 		return bd;
+	}
+
+	public org.adempierelbr.model.I_LBR_PartnerDFe getLBR_PartnerDFe() throws RuntimeException
+    {
+		return (org.adempierelbr.model.I_LBR_PartnerDFe)MTable.get(getCtx(), org.adempierelbr.model.I_LBR_PartnerDFe.Table_Name)
+			.getPO(getLBR_PartnerDFe_ID(), get_TrxName());	}
+
+	/** Set Partner Doc Fiscal.
+		@param LBR_PartnerDFe_ID Partner Doc Fiscal	  */
+	public void setLBR_PartnerDFe_ID (int LBR_PartnerDFe_ID)
+	{
+		if (LBR_PartnerDFe_ID < 1) 
+			set_Value (COLUMNNAME_LBR_PartnerDFe_ID, null);
+		else 
+			set_Value (COLUMNNAME_LBR_PartnerDFe_ID, Integer.valueOf(LBR_PartnerDFe_ID));
+	}
+
+	/** Get Partner Doc Fiscal.
+		@return Partner Doc Fiscal	  */
+	public int getLBR_PartnerDFe_ID () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_LBR_PartnerDFe_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
 	}
 
 	/** Set Reactivate Nota Fiscal.
@@ -2573,7 +2626,9 @@ public class X_LBR_NotaFiscal extends PO implements I_LBR_NotaFiscal, I_Persiste
 	{
 		return (String)get_Value(COLUMNNAME_lbr_NFENo);
 	}
-
+	
+	/** lbr_NFeStatus AD_Reference_ID=1100004 */
+	public static final int LBR_NFESTATUS_AD_Reference_ID=1100004;
 	/** Nota Fiscal = 01 */
 	public static final String LBR_NFMODEL_NotaFiscal = "01";
 	/** Nota Fiscal Avulsa = 1B */
@@ -2640,8 +2695,8 @@ public class X_LBR_NotaFiscal extends PO implements I_LBR_NotaFiscal, I_Persiste
 	public static final String LBR_NFMODEL_ConhecimentoDeTransporteEletrônicoCT_E = "57";
 	/** Nota Fiscal de Serviços Eletrônica (RPS) = S1 */
 	public static final String LBR_NFMODEL_NotaFiscalDeServiçosEletrônicaRPS = "S1";
-	/** Nota Fiscal de Consumidor Eletrônica = 56 */
-	public static final String LBR_NFMODEL_NotaFiscalDeConsumidorEletrônica = "56";
+	/** Nota Fiscal de Consumidor Eletrônica = 65 */
+	public static final String LBR_NFMODEL_NotaFiscalDeConsumidorEletrônica = "65";
 	/** Set NF Model.
 		@param lbr_NFModel 
 		Identifies the model of Nota Fiscal
@@ -2840,9 +2895,7 @@ public class X_LBR_NotaFiscal extends PO implements I_LBR_NotaFiscal, I_Persiste
 	{
 		return (String)get_Value(COLUMNNAME_lbr_NFeProt);
 	}
-	
-	/** lbr_NFeStatus AD_Reference_ID=1100004 */
-	public static final int LBR_NFESTATUS_AD_Reference_ID=1100004;
+
 	/** 100-Autorizado o uso da NF-e = 100 */
 	public static final String LBR_NFESTATUS_100_AutorizadoOUsoDaNF_E = "100";
 	/** 101-Cancelamento de NF-e homologado = 101 */

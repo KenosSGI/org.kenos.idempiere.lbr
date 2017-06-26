@@ -22,7 +22,7 @@ import java.util.Properties;
  * 	@author Ricardo Santana (Kenos, www.kenos.com.br)
  * 	@version $Id: MLBRNCMTax.java, v1.0 2011/11/14 9:38:36 AM, ralexsander Exp $
  */
-public class MLBRNCMTax extends X_LBR_NCMTax 
+public class MLBRNCMTax extends X_LBR_NCMTax
 {
 	/**
 	 *

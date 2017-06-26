@@ -30,7 +30,7 @@ public class X_LBR_Bank extends PO implements I_LBR_Bank, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20170116L;
+	private static final long serialVersionUID = 20170626L;
 
     /** Standard Constructor */
     public X_LBR_Bank (Properties ctx, int LBR_Bank_ID, String trxName)

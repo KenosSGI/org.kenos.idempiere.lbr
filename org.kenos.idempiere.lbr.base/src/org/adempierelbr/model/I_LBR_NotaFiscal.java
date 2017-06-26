@@ -326,6 +326,15 @@ public interface I_LBR_NotaFiscal
 	  */
 	public String getDocumentNote();
 
+    /** Column name ErrorMsg */
+    public static final String COLUMNNAME_ErrorMsg = "ErrorMsg";
+
+	/** Set Error Msg	  */
+	public void setErrorMsg (String ErrorMsg);
+
+	/** Get Error Msg	  */
+	public String getErrorMsg();
+
     /** Column name FreightAmt */
     public static final String COLUMNNAME_FreightAmt = "FreightAmt";
 
@@ -532,6 +541,15 @@ public interface I_LBR_NotaFiscal
 	  */
 	public String getLBR_IndPres();
 
+    /** Column name LBR_NFCeQRCodeURL */
+    public static final String COLUMNNAME_LBR_NFCeQRCodeURL = "LBR_NFCeQRCodeURL";
+
+	/** Set NFC-e QRCode URL	  */
+	public void setLBR_NFCeQRCodeURL (String LBR_NFCeQRCodeURL);
+
+	/** Get NFC-e QRCode URL	  */
+	public String getLBR_NFCeQRCodeURL();
+
     /** Column name LBR_NFeLot_ID */
     public static final String COLUMNNAME_LBR_NFeLot_ID = "LBR_NFeLot_ID";
 
@@ -564,6 +582,17 @@ public interface I_LBR_NotaFiscal
 
 	/** Get Other Charges Amount	  */
 	public BigDecimal getLBR_OtherChargesAmt();
+
+    /** Column name LBR_PartnerDFe_ID */
+    public static final String COLUMNNAME_LBR_PartnerDFe_ID = "LBR_PartnerDFe_ID";
+
+	/** Set Partner Doc Fiscal	  */
+	public void setLBR_PartnerDFe_ID (int LBR_PartnerDFe_ID);
+
+	/** Get Partner Doc Fiscal	  */
+	public int getLBR_PartnerDFe_ID();
+
+	public org.adempierelbr.model.I_LBR_PartnerDFe getLBR_PartnerDFe() throws RuntimeException;
 
     /** Column name LBR_ProcReactivateNF */
     public static final String COLUMNNAME_LBR_ProcReactivateNF = "LBR_ProcReactivateNF";

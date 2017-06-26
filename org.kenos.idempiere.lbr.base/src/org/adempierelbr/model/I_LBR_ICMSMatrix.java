@@ -138,10 +138,10 @@ public interface I_LBR_ICMSMatrix
     public static final String COLUMNNAME_LBR_STTax_ID = "LBR_STTax_ID";
 
 	/** Set ST Tax	  */
-	public void setLBR_STTax_ID (Object LBR_STTax_ID);
+	public void setLBR_STTax_ID (int LBR_STTax_ID);
 
 	/** Get ST Tax	  */
-	public Object getLBR_STTax_ID();
+	public int getLBR_STTax_ID();
 
     /** Column name LBR_Tax_ID */
     public static final String COLUMNNAME_LBR_Tax_ID = "LBR_Tax_ID";
@@ -149,12 +149,12 @@ public interface I_LBR_ICMSMatrix
 	/** Set Brazilian Tax.
 	  * Primary key table LBR_Tax
 	  */
-	public void setLBR_Tax_ID (Object LBR_Tax_ID);
+	public void setLBR_Tax_ID (int LBR_Tax_ID);
 
 	/** Get Brazilian Tax.
 	  * Primary key table LBR_Tax
 	  */
-	public Object getLBR_Tax_ID();
+	public int getLBR_Tax_ID();
 
     /** Column name To_Region_ID */
     public static final String COLUMNNAME_To_Region_ID = "To_Region_ID";

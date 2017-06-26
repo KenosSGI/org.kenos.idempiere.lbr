@@ -18,6 +18,7 @@ import java.util.Properties;
 import org.adempiere.model.POWrapper;
 import org.adempierelbr.model.MLBRNotaFiscal;
 import org.adempierelbr.model.MLBRTax;
+import org.adempierelbr.process.PrintFromXML;
 import org.adempierelbr.wrapper.I_W_C_DocType;
 import org.adempierelbr.wrapper.I_W_C_Invoice;
 import org.adempierelbr.wrapper.I_W_C_InvoiceLine;
@@ -32,15 +33,18 @@ import org.compiere.model.MInvoice;
 import org.compiere.model.MInvoiceLine;
 import org.compiere.model.MOrder;
 import org.compiere.model.MOrderLine;
+import org.compiere.model.MPInstance;
 import org.compiere.model.MPaymentTerm;
 import org.compiere.model.MSysConfig;
 import org.compiere.model.ModelValidationEngine;
 import org.compiere.model.ModelValidator;
 import org.compiere.model.PO;
 import org.compiere.process.DocAction;
+import org.compiere.process.ProcessInfo;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
 import org.compiere.util.Msg;
+import org.compiere.util.Trx;
 
 /**
  * ValidatorInvoice
@@ -399,6 +403,29 @@ public class ValidatorInvoice implements ModelValidator
 					nf.setDocStatus(MLBRNotaFiscal.DOCSTATUS_InProgress);
 					nf.setDocAction(MLBRNotaFiscal.DOCACTION_Complete);
 					nf.saveEx();
+					
+					//	Completa a NFCe automaticamente
+					if (MLBRNotaFiscal.LBR_NFMODEL_NotaFiscalDeConsumidorEletrônica.equals(nf.getlbr_NFModel()))
+					{
+						String status = nf.completeIt();
+						nf.saveEx();
+						
+						//	Se completado corretamente, iniciar impressão
+						if (!MLBRNotaFiscal.DOCSTATUS_Invalid.equals(status))
+						{
+							MPInstance instance = new MPInstance (ctx, 1120040, nf.getLBR_NotaFiscal_ID());
+							instance.save();
+							
+							ProcessInfo pInfo = new ProcessInfo("Impressão da NF-e e NFC-e", 1120040);
+							pInfo.setRecord_ID(nf.getLBR_NotaFiscal_ID());
+							pInfo.setTable_ID(MLBRNotaFiscal.Table_ID);
+							pInfo.setAD_Process_ID(1120040);
+							pInfo.setAD_PInstance_ID(instance.get_ID());
+							
+							Trx.get (nf.get_TrxName(), false).commit();
+							new PrintFromXML().startProcess(ctx, pInfo, null);
+						}
+					}
 				}
 				catch (Exception e) 
 				{
