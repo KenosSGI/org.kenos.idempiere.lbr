@@ -12,9 +12,6 @@
  *****************************************************************************/
 package org.adempierelbr.validator;
 
-import java.util.ArrayList;
-
-import org.compiere.apps.search.Info_Column;
 import org.compiere.model.MClient;
 import org.compiere.model.MDocType;
 import org.compiere.model.MSequence;
@@ -168,31 +165,6 @@ public class ValidatorDocType implements ModelValidator
 	{
 		return null;
 	}	//	docValidate
-
-	/**
-	 * 	Update Info Window Columns.
-	 * 	- add new Columns
-	 * 	- remove columns
-	 * 	- change display sequence
-	 *	@param columns array of columns
-	 *	@param sqlFrom from clause, can be modified
-	 *	@param sqlOrder order by clause, can me modified
-	 *	@return true if you updated columns, sequence or sql From clause
-	 */
-	public boolean updateInfoColumns (ArrayList<Info_Column> columns,
-		StringBuffer sqlFrom, StringBuffer sqlOrder)
-	{
-		/**		*
-		int AD_Role_ID = Env.getAD_Role_ID (Env.getCtx());	// Can be Role/User specific
-		String from = sqlFrom.toString();
-		if (from.startsWith ("M_Product"))
-		{
-			columns.add (new Info_Column("Header", "'sql'", String.class).seq(35));
-			return true;
-		}/** 	*/
-		return false;
-	}	//	updateInfoColumns
-
 
 	/**
 	 * 	String Representation

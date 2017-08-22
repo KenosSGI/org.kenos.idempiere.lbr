@@ -16,15 +16,15 @@
  *****************************************************************************/
 package org.adempierelbr.process;
 
-import java.util.logging.*;
+import java.util.logging.Level;
 
 import org.adempierelbr.model.X_LBR_AverageCost;
 import org.adempierelbr.model.X_LBR_AverageCostLine;
-import org.compiere.apps.*;
-import org.compiere.model.*;
+import org.compiere.model.MPeriod;
+import org.compiere.model.MQuery;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
-import org.compiere.util.*;
+import org.compiere.util.DB;
 
 /**
  * 	ProcAvgCostZoom
@@ -115,12 +115,12 @@ public class ProcAvgCostZoom extends SvrProcess
 		query.addRestriction(restriction);
 		log.info("AD_Window_ID=" + AD_Window_ID	+ " - " + query); 
 		
-		AWindow frame = new AWindow(null);
-		if (!frame.initWindow(AD_Window_ID, query))
-			return "";
-		
-		AEnv.showCenterScreen(frame);
-		frame = null;
+//		AWindow frame = new AWindow(null);
+//		if (!frame.initWindow(AD_Window_ID, query))
+//			return "";
+//		
+//		AEnv.showCenterScreen(frame);
+//		frame = null;
 		
 		return "";
 	}	//	doIt	

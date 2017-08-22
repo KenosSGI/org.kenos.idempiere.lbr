@@ -4,8 +4,7 @@ Bundle-Name: Base
 Bundle-SymbolicName: org.kenos.idempiere.lbr.base
 Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Require-Bundle: org.adempiere.base;bundle-version="4.1.0",
- org.adempiere.ui.swing;bundle-version="4.1.0"
+Require-Bundle: org.adempiere.base;bundle-version="4.1.0"
 Export-Package: org.adempierelbr.model,
  org.adempierelbr.util,
  org.adempierelbr.wrapper
