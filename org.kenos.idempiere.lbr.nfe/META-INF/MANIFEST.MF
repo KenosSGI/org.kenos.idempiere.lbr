@@ -11,5 +11,7 @@ Require-Bundle: org.adempiere.base;bundle-version="4.1.0",
  org.adempiere.report.jasper,
  org.adempiere.pipo,
  bcprov
-Export-Package: org.adempierelbr.model
+Eclipse-RegisterBuddy: org.adempiere.base
+Export-Package: org.adempierelbr.callout,
+ org.adempierelbr.model
 Import-Package: org.adempierelbr.model
