@@ -7,3 +7,5 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Require-Bundle: org.adempiere.base;bundle-version="4.1.0",
  org.kenos.idempiere.lbr.base;bundle-version="1.0.0",
  org.kenos.idempiere.lbr.nfe;bundle-version="1.0.0"
+Eclipse-RegisterBuddy: org.adempiere.base
+Export-Package: org.adempierelbr.callout
