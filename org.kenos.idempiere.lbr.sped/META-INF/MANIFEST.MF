@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Sped
 Bundle-SymbolicName: org.kenos.idempiere.lbr.sped
 Bundle-Version: 1.0.0.qualifier
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Require-Bundle: org.adempiere.base;bundle-version="4.1.0",
  org.kenos.idempiere.lbr.base;bundle-version="1.0.0",
  org.kenos.idempiere.lbr.tax,
