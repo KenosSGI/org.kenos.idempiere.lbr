@@ -176,9 +176,8 @@ public final class WTaxesDialog extends Window
 	{
 		Caption caption = new Caption(Msg.getMsg(Env.getCtx(),"Parameter"));
 		parameterPanel.appendChild(caption);
-		parameterPanel.setStyle("background-color: transparent;");
+		parameterPanel.setStyle("background-color: transparent; padding-top: 5px;");
 		toolBar.setOrient("vertical");
-		toolBar.setVflex("true");
 		toolBar.setStyle("border: none; margin: 5px;");
 
 		bSave.setImage(ThemeManager.getThemeResource("images/Save24.png"));
@@ -199,11 +198,8 @@ public final class WTaxesDialog extends Window
 		toolBar.appendChild(bIgnore);
 		toolBar.appendChild(new Separator());
 		toolBar.appendChild(bNew);
-		toolBar.appendChild(new Separator());
 		toolBar.appendChild(bSave);
-		toolBar.appendChild(new Separator());
 		toolBar.appendChild(bSaveNew);
-		toolBar.appendChild(new Separator());
 		toolBar.appendChild(bDelete);
 
 		northPanel.appendChild(parameterPanel);
@@ -300,20 +296,20 @@ public final class WTaxesDialog extends Window
 		m_rows.setParent(parameterLayout);
 		
 		// Add description
-		m_newRow = true;
-		Row row = new Row();
-		f_Description.setStyle("font-decoration: italic;");
-		f_Description.setText("Para ADICIONAR um imposto, clique em 'Novo', preencha os campos e clique em 'Salvar' ou 'Salvar/Criar'" +
-				" para que em seguida seja criado um novo registro." +
-				" Para ALTERAR, clique sobre o imposto na grade, faça as alterações no(s) campo(s) e clique em 'Salvar'." +
-				" Para EXCLUIR, clique sobre o imposto na grade e clique em 'Excluir'." +
-				" Caso não deseje salvar as alterações, utilize a opção 'Desfazer mudanças'.");
-		Cell cell = new Cell();
-		cell.setColspan(4);
-		cell.appendChild(f_Description);
-		row.appendChild(cell);
-		row.setStyle("background-color: transparent; padding: 10px");
-		m_rows.appendChild(row);
+		String desc = Msg.getMsg (Env.getCtx(), "LBR_TaxDialogTxt");
+		if (desc != null && !desc.isEmpty())
+		{
+			m_newRow = true;
+			Row row = new Row();
+			f_Description.setStyle("font-decoration: italic;");
+			f_Description.setText(desc);
+			Cell cell = new Cell();
+			cell.setColspan(4);
+			cell.appendChild(f_Description);
+			row.appendChild(cell);
+			row.setStyle("background-color: transparent; padding: 10px");
+			m_rows.appendChild(row);
+		}
 		
 		// Campos
 		GridField field = null; 
