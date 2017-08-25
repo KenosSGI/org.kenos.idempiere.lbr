@@ -41,6 +41,7 @@ import org.adempiere.webui.panel.StatusBarPanel;
 import org.adempiere.webui.session.SessionManager;
 import org.adempiere.webui.theme.ThemeManager;
 import org.adempiere.webui.window.FDialog;
+import org.adempierelbr.model.DisplayTypeFactory;
 import org.adempierelbr.model.MLBRTax;
 import org.adempierelbr.model.MLBRTaxLine;
 import org.compiere.model.GridField;
@@ -64,6 +65,7 @@ import org.zkoss.zul.Div;
 import org.zkoss.zul.Groupbox;
 import org.zkoss.zul.Hbox;
 import org.zkoss.zul.North;
+import org.zkoss.zul.Separator;
 import org.zkoss.zul.South;
 import org.zkoss.zul.Vbox;
 
@@ -149,6 +151,8 @@ public final class WTaxesDialog extends Window
 	private Grid parameterLayout = new Grid();
 	private ToolBar toolBar = new ToolBar();
 	private ToolBarButton bSave = new ToolBarButton();
+	private ToolBarButton bSaveNew = new ToolBarButton();
+	private ToolBarButton bNew = new ToolBarButton();
 	private ToolBarButton bIgnore = new ToolBarButton();
 	private ToolBarButton bDelete = new ToolBarButton();
 	private Row m_row;
@@ -174,11 +178,18 @@ public final class WTaxesDialog extends Window
 		parameterPanel.appendChild(caption);
 		parameterPanel.setStyle("background-color: transparent;");
 		toolBar.setOrient("vertical");
-		toolBar.setStyle("border: none; margin: 5px");
+		toolBar.setVflex("true");
+		toolBar.setStyle("border: none; margin: 5px;");
 
 		bSave.setImage(ThemeManager.getThemeResource("images/Save24.png"));
 		bSave.setTooltiptext(Msg.getMsg(Env.getCtx(),"Save"));
 		bSave.addEventListener(Events.ON_CLICK, this);
+		bSaveNew.setImage(ThemeManager.getThemeResource("images/SaveCreate24.png"));
+		bSaveNew.setTooltiptext(Msg.getMsg(Env.getCtx(),"SaveCreate"));
+		bSaveNew.addEventListener(Events.ON_CLICK, this);
+		bNew.setImage(ThemeManager.getThemeResource("images/New24.png"));
+		bNew.setTooltiptext(Msg.getMsg(Env.getCtx(),"New"));
+		bNew.addEventListener(Events.ON_CLICK, this);
 		bIgnore.setImage(ThemeManager.getThemeResource("images/Ignore24.png"));
 		bIgnore.setTooltiptext(Msg.getMsg(Env.getCtx(),"Ignore"));
 		bIgnore.addEventListener(Events.ON_CLICK, this);
@@ -186,11 +197,17 @@ public final class WTaxesDialog extends Window
 		bDelete.setTooltiptext(Msg.getMsg(Env.getCtx(),"Delete"));
 		bDelete.addEventListener(Events.ON_CLICK, this);
 		toolBar.appendChild(bIgnore);
+		toolBar.appendChild(new Separator());
+		toolBar.appendChild(bNew);
+		toolBar.appendChild(new Separator());
 		toolBar.appendChild(bSave);
+		toolBar.appendChild(new Separator());
+		toolBar.appendChild(bSaveNew);
+		toolBar.appendChild(new Separator());
 		toolBar.appendChild(bDelete);
 
 		northPanel.appendChild(parameterPanel);
-		parameterPanel.setWidth("95%");
+		parameterPanel.setWidth("100%");
 		northPanel.appendChild(toolBar);
 		northPanel.setWidth("100%");
 
@@ -212,6 +229,7 @@ public final class WTaxesDialog extends Window
 		Center cRegion = new Center();
 		cRegion.setParent(layout);
 		m_adTabPanel.setVflex("true");
+		m_adTabPanel.setStyle("padding-top: 10px");
 		cRegion.appendChild(m_adTabPanel);
 
 		South sRegion = new South();
@@ -243,7 +261,7 @@ public final class WTaxesDialog extends Window
 		Env.setContext(Env.getCtx(), m_WindowNo, "LBR_TaxBaseType_ID", 0);
 		
 		// Model
-		int AD_Window_ID = 2000000; // Transaction Tax
+		int AD_Window_ID = DisplayTypeFactory.WINDOW_TAX_TRX; // Transaction Tax
 		GridWindowVO wVO = AEnv.getMWindowVO (m_WindowNo, AD_Window_ID, 0);
 		
 		if (wVO == null)
@@ -285,9 +303,11 @@ public final class WTaxesDialog extends Window
 		m_newRow = true;
 		Row row = new Row();
 		f_Description.setStyle("font-decoration: italic;");
-		f_Description.setText("Para ADICIONAR um imposto, clique em 'Desfazer', preencha os campos e clique em 'Salvar'." +
+		f_Description.setText("Para ADICIONAR um imposto, clique em 'Novo', preencha os campos e clique em 'Salvar' ou 'Salvar/Criar'" +
+				" para que em seguida seja criado um novo registro." +
 				" Para ALTERAR, clique sobre o imposto na grade, faça as alterações no(s) campo(s) e clique em 'Salvar'." +
-				" Para EXCLUIR, clique sobre o imposto na grade e clique em 'Excluir'.");
+				" Para EXCLUIR, clique sobre o imposto na grade e clique em 'Excluir'." +
+				" Caso não deseje salvar as alterações, utilize a opção 'Desfazer mudanças'.");
 		Cell cell = new Cell();
 		cell.setColspan(4);
 		cell.appendChild(f_Description);
@@ -435,6 +455,13 @@ public final class WTaxesDialog extends Window
 			action_Ignore();
 		else if (event.getTarget() == bDelete)
 			action_Delete();
+		else if (event.getTarget() == bNew)
+			action_New();
+		else if (event.getTarget() == bSaveNew)
+		{
+			action_Save();
+			action_New();
+		}
 	}
 
 	private void action_Delete() {
@@ -650,7 +677,7 @@ public final class WTaxesDialog extends Window
 	/**
 	 *	Ignore
 	 */
-	private void action_Ignore()
+	private void action_New()
 	{
 		//	Tax Name
 		if (f_LBR_TaxName_ID != null)
@@ -676,6 +703,27 @@ public final class WTaxesDialog extends Window
 		Env.setContext(Env.getCtx(), m_WindowNo, "LBR_TaxName_ID", 0);
 		Env.setContext(Env.getCtx(), m_WindowNo, "LBR_TaxStatus_ID", 0);
 		Env.setContext(Env.getCtx(), m_WindowNo, "LBR_TaxBaseType_ID", 0);
+	}
+
+
+	/**
+	 *	Ignore
+	 */
+	private void action_Ignore()
+	{
+		//	Save current row to use later
+		int currentRow = m_mTab.getCurrentRow();
+		
+		//	Fix, because the ignore button does not work on first row
+		MQuery query = new MQuery();
+		query.addRestriction("AD_Client_ID", MQuery.EQUAL, -1);
+		m_mTab.setQuery(query);
+		m_mTab.query(false);
+		
+		//	Re-query using default query
+		m_mTab.setQuery(m_query);
+		m_mTab.query(false);
+		m_mTab.setCurrentRow(currentRow);
 	}
 
 	/**
@@ -731,6 +779,7 @@ public final class WTaxesDialog extends Window
 		
 		if (evt.getPropertyName().equalsIgnoreCase("LBR_TaxName_ID")) {
 			f_LBR_TaxStatus_ID.setValue(null);
+			f_LBR_TaxStatus_ID.dynamicDisplay();
 			f_LBR_TaxBaseType_ID.setValue(null);
 			f_LBR_TaxBaseType_ID.dynamicDisplay();
 		} else if (evt.getPropertyName().equalsIgnoreCase("LBR_TaxStatus_ID")) {

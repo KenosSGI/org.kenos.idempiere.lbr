@@ -9,7 +9,9 @@ import org.compiere.util.Language;
 public class DisplayTypeFactory implements IDisplayTypeFactory {
 	/** Display Type 1000006	Brazilian Taxes	*/
 	public static final int BRAZILIAN_TAXES     = 1000006;
-
+	/** Tax Transaction Window 1120131			*/
+	public static final int WINDOW_TAX_TRX     	= 1120131;
+	
 	@Override
 	public boolean isID(int displayType) {
 		if (displayType == BRAZILIAN_TAXES)
