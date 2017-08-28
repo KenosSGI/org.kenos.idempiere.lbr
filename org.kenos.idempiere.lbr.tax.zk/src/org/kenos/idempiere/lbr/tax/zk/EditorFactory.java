@@ -1,10 +1,11 @@
-package org.adempierelbr.model;
+package org.kenos.idempiere.lbr.tax.zk;
 
 import org.adempiere.webui.editor.WEditor;
 import org.adempiere.webui.factory.IEditorFactory;
 import org.adempierelbr.webui.editor.WTaxesEditor;
 import org.compiere.model.GridField;
 import org.compiere.model.GridTab;
+import org.kenos.idempiere.lbr.tax.DisplayTypeFactory;
 
 public class EditorFactory implements IEditorFactory {
 
