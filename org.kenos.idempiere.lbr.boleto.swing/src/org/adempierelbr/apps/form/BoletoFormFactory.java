@@ -17,8 +17,13 @@ public class BoletoFormFactory implements IFormFactory
 	@Override
 	public FormPanel newFormInstance (String formName)
 	{
+		//	Billing
 		if (GenBilling.GEN_BILLING_SWING.equals(formName))
 			return new VGenBilling();
+		
+		//	CNAB
+		if (GenCNAB.GEN_CNAB_SWING.equals(formName))
+			return new VGenCNAB();
 		return null;
 	}	//	newFormInstance
 }	//	BoletoFormFactory
