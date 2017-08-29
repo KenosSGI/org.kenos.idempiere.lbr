@@ -5,6 +5,7 @@ Bundle-SymbolicName: org.kenos.idempiere.lbr.nfe
 Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Require-Bundle: org.adempiere.base;bundle-version="4.1.0",
+ org.adempiere.ui;bundle-version="4.1.0",
  org.kenos.idempiere.lbr.tax;bundle-version="1.0.0",
  org.kenos.idempiere.lbr.base;bundle-version="1.0.0",
  org.adempiere.report.jasper.library,
@@ -13,5 +14,5 @@ Require-Bundle: org.adempiere.base;bundle-version="4.1.0",
  bcprov
 Eclipse-RegisterBuddy: org.adempiere.base
 Export-Package: org.adempierelbr.callout,
+ org.adempierelbr.grid,
  org.adempierelbr.model
-Import-Package: org.adempierelbr.model
