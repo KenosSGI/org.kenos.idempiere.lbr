@@ -119,13 +119,6 @@ public class VLBRCommons implements ModelValidator
 		log.info ("AD_User_ID=" + AD_User_ID);
 		
 		/**
-		 * Registra a classe de CreateFrom para o Lote da NFe para a versão SWING
-		 * 		para a versão ZK veja @see org.adempiere.webui.session.WebUIServlet
-		 */
-//		if (Ini.isClient())
-//			VCreateFromFactory.registerClass (MLBRNFeLot.Table_ID, VCreateFromNFeLotUI.class);
-		
-		/**
 		 * 	Grava a variável que permite saber se a LBR está habilitada
 		 */
 		boolean enabled = MSysConfig.getBooleanValue ("LBR_ENABLED", false, MClient.get (Env.getCtx()).getAD_Client_ID());
