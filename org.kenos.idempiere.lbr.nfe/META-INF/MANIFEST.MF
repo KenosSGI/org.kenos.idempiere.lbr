@@ -15,4 +15,5 @@ Require-Bundle: org.adempiere.base;bundle-version="4.1.0",
 Eclipse-RegisterBuddy: org.adempiere.base
 Export-Package: org.adempierelbr.callout,
  org.adempierelbr.grid,
- org.adempierelbr.model
+ org.adempierelbr.model,
+ org.kenos.apps.form
