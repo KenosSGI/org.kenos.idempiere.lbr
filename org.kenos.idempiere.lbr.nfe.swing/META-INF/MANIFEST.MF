@@ -5,10 +5,11 @@ Bundle-SymbolicName: org.kenos.idempiere.lbr.nfe.swing
 Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Require-Bundle: org.adempiere.base;bundle-version="4.1.0",
+ org.adempiere.ui,
  org.adempiere.ui.swing;bundle-version="4.1.0",
  org.kenos.idempiere.lbr.base;bundle-version="1.0.0",
  org.kenos.idempiere.lbr.nfe;bundle-version="1.0.0"
-Service-Component: OSGI-INF/CreateFromFactory.xml
+Service-Component: OSGI-INF/CreateFromFactory.xml,OSGI-INF/NFeFormFactory.xml
 Export-Package: org.adempierelbr.grid,
  org.kenos.idempiere.lbr.nfe.swing
 Bundle-ActivationPolicy: lazy
