@@ -13,7 +13,10 @@ Require-Bundle: org.adempiere.base;bundle-version="4.1.0",
  org.adempiere.pipo,
  bcprov
 Eclipse-RegisterBuddy: org.adempiere.base
-Export-Package: org.adempierelbr.callout,
+Export-Package: br.inf.portalfiscal.nfe.v310,
+ org.adempierelbr.callout,
  org.adempierelbr.grid,
  org.adempierelbr.model,
+ org.adempierelbr.nfe.beans,
+ org.adempierelbr.util,
  org.kenos.apps.form
