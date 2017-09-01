@@ -8,6 +8,9 @@ Require-Bundle: org.adempiere.base;bundle-version="4.1.0",
  org.adempiere.ui;bundle-version="4.1.0",
  org.adempiere.ui.zk;bundle-version="4.1.0",
  org.kenos.idempiere.lbr.base;bundle-version="1.0.0",
- org.kenos.idempiere.lbr.nfe;bundle-version="1.0.0"
-Service-Component: OSGI-INF/CreateFromFactory.xml
+ org.kenos.idempiere.lbr.nfe;bundle-version="1.0.0",
+ zcommon;bundle-version="8.0.1",
+ zk;bundle-version="8.0.1",
+ zul;bundle-version="8.0.1"
+Service-Component: OSGI-INF/CreateFromFactory.xml,OSGI-INF/NFeFormFactory.xml
 Bundle-ActivationPolicy: lazy
