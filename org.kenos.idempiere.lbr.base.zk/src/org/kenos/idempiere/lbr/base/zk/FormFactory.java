@@ -5,6 +5,7 @@ import org.adempiere.webui.panel.ADForm;
 import org.adempiere.webui.panel.IFormController;
 import org.kenos.idempiere.lbr.base.zk.form.WInOutGen;
 import org.kenos.idempiere.lbr.base.zk.form.WInvoiceGen;
+import org.kenos.idempiere.lbr.base.zk.form.WPayment;
 
 /**
  * 		Boleto form factory
@@ -33,6 +34,14 @@ public class FormFactory implements IFormFactory
 		{
 			WInOutGen inout = new WInOutGen();
 			IFormController controller = (IFormController) inout;
+			ADForm form = controller.getForm();
+			form.setICustomForm(controller);
+			return form;
+		}
+		else if (formName.equals ("org.kenos.apps.form.VPayment"))
+		{
+			WPayment payment = new WPayment();
+			IFormController controller = (IFormController) payment;
 			ADForm form = controller.getForm();
 			form.setICustomForm(controller);
 			return form;
