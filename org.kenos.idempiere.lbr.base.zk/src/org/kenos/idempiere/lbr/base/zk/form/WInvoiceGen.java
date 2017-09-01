@@ -243,7 +243,7 @@ public class WInvoiceGen extends InvoiceGen implements IFormController, EventLis
 		KeyNamePair docTypeKNPair = (KeyNamePair)cmbDocType.getSelectedItem().toKeyNamePair();
 		String docActionSelected = (String)docAction.getValue();
 		
-//		m_ConsolidateDoc = cbConsolidateDoc.isSelected();
+		m_ConsolidateDoc = cbConsolidateDoc.isSelected();
 		
 		return generate(form.getStatusBar(), docTypeKNPair, docActionSelected);
 	}	//	generateShipments
