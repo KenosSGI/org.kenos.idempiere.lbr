@@ -16,10 +16,7 @@ package org.kenos.apps.form;
 import java.util.ArrayList;
 import java.util.logging.Level;
 
-import org.adempiere.webui.component.Checkbox;
 import org.adempiere.webui.component.Label;
-import org.adempiere.webui.component.Listbox;
-import org.adempiere.webui.component.ListboxFactory;
 import org.adempiere.webui.component.Row;
 import org.adempiere.webui.editor.WSearchEditor;
 import org.adempiere.webui.editor.WTableDirEditor;
@@ -30,14 +27,10 @@ import org.adempiere.webui.panel.IFormController;
 import org.adempiere.webui.util.ZKUpdateUtil;
 import org.compiere.model.MLookup;
 import org.compiere.model.MLookupFactory;
-import org.compiere.model.MOrder;
-import org.compiere.model.MRMA;
-import org.compiere.model.MSysConfig;
 import org.compiere.process.DocAction;
 import org.compiere.util.CLogger;
 import org.compiere.util.DisplayType;
 import org.compiere.util.Env;
-import org.compiere.util.KeyNamePair;
 import org.compiere.util.Language;
 import org.compiere.util.Msg;
 import org.zkoss.zk.ui.WrongValueException;
@@ -66,11 +59,8 @@ public class WNotaFiscal extends NotaFiscal implements IFormController, EventLis
 	private WTableDirEditor fManifest;
 	private Label lBPartner = new Label();
 	private WSearchEditor fBPartner;
-	private Label     lDocType = new Label();
-	private Listbox  cmbDocType = ListboxFactory.newDropdownListbox();
 	private Label   lDocAction = new Label();
 	private WTableDirEditor docAction;
-	private Checkbox cbConsolidateDoc = new Checkbox();
 	
 	public WNotaFiscal()
 	{
@@ -110,9 +100,6 @@ public class WNotaFiscal extends NotaFiscal implements IFormController, EventLis
 		lOrgRec.setText(Msg.translate(Env.getCtx(), "AD_Org_ID"));
 		lBPartner.setText(Msg.translate(Env.getCtx(), "C_BPartner_ID"));
 		lManifest.setText(Msg.translate(Env.getCtx(), "LBR_EventType"));
-
-		cbConsolidateDoc.setText(Msg.translate(Env.getCtx(), "ConsolidateDocument"));
-		cbConsolidateDoc.setSelected(true);
 		
 		Row row = form.getEmitParameterPanel().newRows().newRow();
 		row.appendCellChild(lOrg.rightAlign());
@@ -153,7 +140,7 @@ public class WNotaFiscal extends NotaFiscal implements IFormController, EventLis
 		fManifest = new WTableDirEditor ("LBR_EventType", true, false, true, manifestL);
 		fManifest.addValueChangeListener(this);
 		fManifest.setValue("210210");
-
+		m_LBR_EventType = "210210";
 		//
 		MLookup bpL = MLookupFactory.get (Env.getCtx(), form.getWindowNo(), 0, 2762, DisplayType.Search);
 		fBPartner = new WSearchEditor ("C_BPartner_ID", false, false, true, bpL);
@@ -165,18 +152,6 @@ public class WNotaFiscal extends NotaFiscal implements IFormController, EventLis
 				false, "AD_Ref_List.Value IN ('CO','PR')");
 		docAction = new WTableDirEditor("DocAction", true, false, true,docActionL);
 		docAction.setValue(DocAction.ACTION_Complete);
-//		docAction.addValueChangeListener(this);
-        
-//      Document Type Sales Order/Vendor RMA
-        lDocType.setText(Msg.translate(Env.getCtx(), "C_DocType_ID"));
-        cmbDocType.addItem(new KeyNamePair(MOrder.Table_ID, Msg.translate(Env.getCtx(), "Order")));
-        cmbDocType.addItem(new KeyNamePair(MRMA.Table_ID, Msg.translate(Env.getCtx(), "CustomerRMA")));
-        cmbDocType.addActionListener(this);
-        cmbDocType.setSelectedIndex(0);
-        
-		docAction.setValue(MSysConfig.getValue("LBR_INVOICEGEN_DOCACTION","CO",Env.getAD_Client_ID(Env.getCtx())));
-        
-        form.getStatusBar().setStatusLine(Msg.getMsg(Env.getCtx(), "InvGenerateSel"));//@@
 	}	//	fillPicks
     
 	/**
@@ -184,11 +159,13 @@ public class WNotaFiscal extends NotaFiscal implements IFormController, EventLis
 	 */
 	public void executeQuery()
 	{
-		KeyNamePair docTypeKNPair = cmbDocType.getSelectedItem().toKeyNamePair();
-//		executeQuery(docTypeKNPair, form.getMiniTable());
-		form.getminiTableEmitEmit().repaint();
-		form.getminiTableEmitRec().repaint();
-		form.getminiTableEmitInut().repaint();
+		executeQueryEmit (form.getMiniTableEmit());
+		executeQueryRec (form.getMiniTableRec());
+		executeQueryInut (form.getMiniTableInut());
+		
+		form.getMiniTableEmit().repaint();
+		form.getMiniTableRec().repaint();
+		form.getMiniTableInut().repaint();
 		form.invalidate();
 	}   //  executeQuery
 
@@ -198,15 +175,6 @@ public class WNotaFiscal extends NotaFiscal implements IFormController, EventLis
 	 */
 	public void onEvent(Event e)
 	{
-		if (log.isLoggable(Level.INFO)) log.info("Cmd=" + e.getTarget().getId());
-		//
-		if(cmbDocType.equals(e.getTarget()))
-		{
-		    form.postQueryEvent();
-		    return;
-		}
-		
-		//
 		validate();
 	}	//	actionPerformed
 	
@@ -234,6 +202,11 @@ public class WNotaFiscal extends NotaFiscal implements IFormController, EventLis
 		if (log.isLoggable(Level.INFO)) log.info(e.getPropertyName() + "=" + e.getNewValue());
 		if (e.getPropertyName().equals("AD_Org_ID"))
 			m_AD_Org_ID = e.getNewValue();
+		if (e.getPropertyName().equals("LBR_EventType"))
+		{
+			m_LBR_EventType = e.getNewValue();
+			return;
+		}
 		if (e.getPropertyName().equals("C_BPartner_ID"))
 		{
 			m_C_BPartner_ID = e.getNewValue();
@@ -247,12 +220,6 @@ public class WNotaFiscal extends NotaFiscal implements IFormController, EventLis
 	 */
 	public String generate()
 	{
-		KeyNamePair docTypeKNPair = (KeyNamePair)cmbDocType.getSelectedItem().toKeyNamePair();
-		String docActionSelected = (String)docAction.getValue();
-		
-//		m_ConsolidateDoc = cbConsolidateDoc.isSelected();
-		
-//		return generate(form.getStatusBar(), docTypeKNPair, docActionSelected);
 		return null;
 	}	//	generateShipments
 	

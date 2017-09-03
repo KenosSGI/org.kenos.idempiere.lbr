@@ -13,21 +13,17 @@
  *****************************************************************************/
 package org.kenos.apps.form;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 
-import org.adempiere.util.Callback;
 import org.adempiere.webui.LayoutUtils;
+import org.adempiere.webui.apps.AEnv;
 import org.adempiere.webui.apps.BusyDialog;
+import org.adempiere.webui.apps.ProcessParameterPanel;
 import org.adempiere.webui.apps.WProcessCtl;
 import org.adempiere.webui.component.Button;
 import org.adempiere.webui.component.ConfirmPanel;
 import org.adempiere.webui.component.DesktopTabpanel;
-import org.adempiere.webui.component.DocumentLink;
 import org.adempiere.webui.component.Grid;
 import org.adempiere.webui.component.GridFactory;
 import org.adempiere.webui.component.ListboxFactory;
@@ -36,7 +32,6 @@ import org.adempiere.webui.component.Tabbox;
 import org.adempiere.webui.component.Tabpanels;
 import org.adempiere.webui.component.Tabs;
 import org.adempiere.webui.component.WListbox;
-import org.adempiere.webui.component.Window;
 import org.adempiere.webui.event.WTableModelEvent;
 import org.adempiere.webui.event.WTableModelListener;
 import org.adempiere.webui.panel.ADForm;
@@ -44,23 +39,19 @@ import org.adempiere.webui.panel.StatusBarPanel;
 import org.adempiere.webui.session.SessionManager;
 import org.adempiere.webui.util.ZKUpdateUtil;
 import org.adempiere.webui.window.FDialog;
-import org.adempiere.webui.window.SimplePDFViewer;
-import org.compiere.minigrid.IDColumn;
+import org.adempierelbr.model.MLBRNFeEvent;
+import org.adempierelbr.model.MLBRNotaFiscal;
+import org.adempierelbr.model.MLBRPartnerDFe;
+import org.compiere.apps.IProcessParameter;
+import org.compiere.model.MOrg;
 import org.compiere.model.MQuery;
 import org.compiere.model.MTable;
-import org.compiere.model.PrintInfo;
-import org.compiere.print.MPrintFormat;
-import org.compiere.print.ReportEngine;
-import org.compiere.process.ProcessInfoLog;
-import org.compiere.process.ProcessInfoUtil;
+import org.compiere.process.ProcessInfo;
+import org.compiere.process.ProcessInfoParameter;
 import org.compiere.util.CLogger;
-import org.compiere.util.DisplayType;
+import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.compiere.util.Msg;
-import org.zkoss.zhtml.Table;
-import org.zkoss.zhtml.Td;
-import org.zkoss.zhtml.Text;
-import org.zkoss.zhtml.Tr;
 import org.zkoss.zk.au.out.AuEcho;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
@@ -70,13 +61,14 @@ import org.zkoss.zul.Borderlayout;
 import org.zkoss.zul.Center;
 import org.zkoss.zul.Div;
 import org.zkoss.zul.Html;
-import org.zkoss.zul.Label;
 import org.zkoss.zul.North;
 import org.zkoss.zul.South;
 
 /**
- * Generate custom form window
+ * 		Nota Fiscal Panel
  * 
+ * 	@author Ricardo Santana (Kenos, www.kenos.com.br)
+ * 	@version $Id: WNotaFiscalForm.java, v1.0 2017/09/02 8:35:32 PM, ralexsander Exp $
  */
 public class WNotaFiscalForm extends ADForm implements EventListener<Event>, WTableModelListener
 {
@@ -85,37 +77,49 @@ public class WNotaFiscalForm extends ADForm implements EventListener<Event>, WTa
 	 */
 	private static final long serialVersionUID = 4240430312911412710L;
 
+	//	Form
 	private NotaFiscal genForm;
 	
 	/**	Logger			*/
 	private static CLogger log = CLogger.getCLogger(WNotaFiscalForm.class);
-	//
+	
+	//	Tabbed Panel
 	private Tabbox tabbedPane = new Tabbox();
-	private Borderlayout nfeEmitPanel = new Borderlayout();
+	
+	//	North Panels
 	private Grid selNorthPanelEmit = GridFactory.newGridLayout();
 	private Grid selNorthPanelRec = GridFactory.newGridLayout();
 	private Grid selNorthPanelInut = GridFactory.newGridLayout();
-	private ConfirmPanel confirmPanelEmit = new ConfirmPanel(true, true, false, true, false, true, true);
-	private ConfirmPanel confirmPanelRec = new ConfirmPanel(true, true, false, true, false, true, true);
-	private ConfirmPanel confirmPanelInut = new ConfirmPanel(true, true, false, false, false, false, true);
-	private StatusBarPanel statusBar = new StatusBarPanel();
-	private Borderlayout nfeRecPanel = new Borderlayout();
-	private Borderlayout nfeInutPanel = new Borderlayout();
-	private Html info = new Html();
+	
+	//	Confirm Panels
+	private ConfirmPanel confirmPanelEmit = new ConfirmPanel(true, true, false, false, false, true);
+	private ConfirmPanel confirmPanelRec = new ConfirmPanel(true, true, false, false, false, true);
+	private ConfirmPanel confirmPanelInut = new ConfirmPanel(true, true, false, false, false, false);
+
+	//	Tables
 	private WListbox miniTableEmit = ListboxFactory.newDataTable();
 	private WListbox miniTableRec = ListboxFactory.newDataTable();
 	private WListbox miniTableInut = ListboxFactory.newDataTable();
+	
+	//	Additional buttons
+	private Button printEmitButton = new ConfirmPanel().createButton("Print");
+	private Button printRecButton = new ConfirmPanel().createButton("Print");
+	private Button downloadButton = new ConfirmPanel().createButton("Next");
+
+	//	Panels
+	private Borderlayout nfeEmitPanel = new Borderlayout();
+	private Borderlayout nfeRecPanel = new Borderlayout();
+	private Borderlayout nfeInutPanel = new Borderlayout();
+	private StatusBarPanel statusBar = new StatusBarPanel();
+	private Html info = new Html();
 	private BusyDialog progressWindow;
 	private Div messageDiv;
-	private Table logMessageTable;
-	
-	private int[] m_ids;
 	
 	public WNotaFiscalForm(NotaFiscal genForm)
 	{
 		log.info("");
 		this.genForm = genForm;
-	}
+	}	//	WNotaFiscalForm
 	
 	@Override
 	protected void initForm() 
@@ -160,6 +164,14 @@ public class WNotaFiscalForm extends ADForm implements EventListener<Event>, WTa
 	 */
 	void zkInit() throws Exception
 	{
+		confirmPanelEmit.addComponentsLeft(printEmitButton);
+		printEmitButton.addActionListener(this);
+		//
+		confirmPanelRec.addComponentsLeft(printRecButton);
+		confirmPanelRec.addComponentsLeft(downloadButton);
+		printRecButton.addActionListener(this);
+		downloadButton.addActionListener(this);
+		downloadButton.setTooltiptext("Download");
 		//
 		ZKUpdateUtil.setWidth(nfeEmitPanel, "99%");
 		ZKUpdateUtil.setHeight(nfeEmitPanel, "90%");
@@ -259,9 +271,6 @@ public class WNotaFiscalForm extends ADForm implements EventListener<Event>, WTa
 		statusBar.setStatusDB(" ");
 		//	Tabbed Pane Listener
 		tabbedPane.addEventListener(Events.ON_SELECT, this);
-		
-		Button button = confirmPanelEmit.getButton(ConfirmPanel.A_OK);
-		button.setEnabled(false);
 	}	//	dynInit
 
 	public void postQueryEvent() 
@@ -291,39 +300,212 @@ public class WNotaFiscalForm extends ADForm implements EventListener<Event>, WTa
 	 */
 	public void onEvent(Event e) throws Exception
 	{
-		log.info("Cmd=" + e.getTarget().getId());
+
+		log.info("Cmd=" + e.getTarget());
 		//
 		if (e.getTarget().getId().equals(ConfirmPanel.A_CANCEL))
 		{
 			dispose();
 			return;
 		}
+		
+		else if (e.getTarget() == confirmPanelEmit.getButton(ConfirmPanel.A_ZOOM))
+		{
+			try
+			{
+				List<Integer> selection = genForm.getSelectedKeys(miniTableEmit);
+				if (selection == null || selection.size() == 0)
+					return;
+				
+				//	Generate where
+				String where = "LBR_NotaFiscal_ID IN (";
+				for (Integer LBR_NotaFiscal_ID : selection)
+				{
+					where += LBR_NotaFiscal_ID + ", ";
+				}
+				where += "0)";
+				
+				int count = DB.getSQLValue(null, "SELECT COUNT('1') FROM LBR_NotaFiscal WHERE IsSOTrx='Y' AND " + where);
+				
+				//	Open NF Out
+				if (count > 0)
+				{
+					//	Query
+					MQuery query = new MQuery(MLBRNotaFiscal.Table_Name);
+					query.addRestriction(where);
+					
+					AEnv.zoom (1000015, query);
+				}
+				
+				count = DB.getSQLValue(null, "SELECT COUNT('1') FROM LBR_NotaFiscal WHERE IsSOTrx='N' AND " + where);
+				
+				//	Open NF In
+				if (count > 0)
+				{
+					//	Query
+					MQuery query = new MQuery(MLBRNotaFiscal.Table_Name);
+					query.addRestriction(where);
+					
+					AEnv.zoom (1000019, query);
+				}
+			}
+			catch (Exception ex)
+			{
+				FDialog.error(m_WindowNo, this, "Error", ex.getLocalizedMessage());
+			}
+		}
+		
+		else if (e.getTarget() == confirmPanelRec.getButton(ConfirmPanel.A_ZOOM))
+		{
+			try
+			{				
+				List<Integer> selection = genForm.getSelectedKeys(miniTableRec);
+				if (selection == null || selection.size() == 0)
+					return;
+				
+				//	Generate where
+				String where = "LBR_PartnerDFe_ID IN (";
+				for (Integer LBR_PartnerDFe_ID : selection)
+				{
+					where += LBR_PartnerDFe_ID + ", ";
+				}
+				where += "0)";
+				
+				//	Query
+				MQuery query = new MQuery(MLBRPartnerDFe.Table_Name);
+				query.addRestriction(where);
+				
+				AEnv.zoom(MTable.get(Env.getCtx(), MLBRPartnerDFe.Table_Name).getAD_Window_ID(), query);
+			}
+			catch (Exception ex)
+			{
+				FDialog.error(m_WindowNo, this, "Error", ex.getLocalizedMessage());
+			}
+		}
+		
+		else if (e.getTarget() == confirmPanelRec.getButton(ConfirmPanel.A_REFRESH))
+		{
+			ProcessInfoParameter pip = new ProcessInfoParameter (MOrg.COLUMNNAME_AD_Org_ID, genForm.m_AD_Org_ID, null, null, null);
+			//
+			ProcessInfo pi = startProcess(1120159, genForm.getTitle(), m_WindowNo, new ProcessInfoParameter[]{pip});
+			statusBar.setStatusLine(pi.getSummary(), pi.isError());
+			genForm.executeQuery();
+		}
+		
+		else if (e.getTarget() == printEmitButton)
+		{
+			List<Integer> keys = genForm.getSelectedKeys(miniTableEmit);
+			if (keys.size() == 0)
+				return;
+			
+			//	Print From XML
+			ProcessInfo pi = startProcess(1120040, genForm.getTitle(), m_WindowNo, MLBRNotaFiscal.Table_ID, keys.get(0), null);
+			statusBar.setStatusLine(pi.getSummary(), pi.isError());
+		}
+		
+		else if (e.getTarget() == printRecButton)
+		{
+			List<Integer> keys = genForm.getSelectedKeys(miniTableRec);
+			if (keys.size() == 0)
+				return;
+			
+			//	Print From XML
+			ProcessInfo pi = startProcess(1120040, genForm.getTitle(), m_WindowNo, MLBRPartnerDFe.Table_ID, keys.get(0), null);
+			statusBar.setStatusLine(pi.getSummary(), pi.isError());
+		}
+		
+		else if (e.getTarget() == downloadButton)
+		{
+			ProcessInfoParameter pip = new ProcessInfoParameter (MLBRPartnerDFe.COLUMNNAME_AD_Org_ID, genForm.m_AD_Org_ID, null, null, null);
+			
+			//	Download DF-e XML
+			ProcessInfo pi = startProcess(1120162, genForm.getTitle(), m_WindowNo, new ProcessInfoParameter[]{pip});
+			statusBar.setStatusLine(pi.getSummary(), pi.isError());
+			genForm.executeQuery();
+		}
+		
 		else if (e.getTarget().getId().equals(ConfirmPanel.A_REFRESH))
 		{
-			postQueryEvent();
+			genForm.executeQuery();
 		}
-		else if (e.getTarget() instanceof Tab)
+		
+		else if (e.getTarget() == confirmPanelEmit.getButton(ConfirmPanel.A_CUSTOMIZE))
 		{
-			int index = tabbedPane.getSelectedIndex();
-			genForm.setSelectionActive(index == 0);
-			if (index == 0)
+			genForm.selectAll(miniTableEmit);
+		}
+		
+		else if (e.getTarget() == confirmPanelRec.getButton(ConfirmPanel.A_CUSTOMIZE))
+		{
+			genForm.selectAll(miniTableRec);
+		}
+		
+		else if (e.getTarget() == confirmPanelRec.getOKButton())
+		{
+			if (MLBRNFeEvent.LBR_EVENTTYPE_OperacaoNaoRealizada.equals(genForm.m_LBR_EventType))
 			{
-//				tabbedPane.getTabpanel(1).getLinkedTab().setDisabled(true);
+				FDialog.warn(m_WindowNo, "LBR_ManifestOpNotCompleted");
+
+				genForm.saveSelection(miniTableRec);
+				List<Integer> selection = genForm.getSelection();
+				if (selection == null || selection.size() == 0)
+					return;
+				
+				//	Generate where
+				String where = "LBR_PartnerDFe_ID IN (";
+				for (Integer LBR_PartnerDFe_ID : selection)
+				{
+					where += LBR_PartnerDFe_ID + ", ";
+				}
+				where += "0)";
+				
+				//	Query
+				MQuery query = new MQuery(MLBRPartnerDFe.Table_Name);
+				query.addRestriction(where);
+				
+				AEnv.zoom(MTable.get(Env.getCtx(), MLBRPartnerDFe.Table_Name).getAD_Window_ID(), query);
+				
+				return;
 			}
-			if (index == 0 && miniTableEmit.getSelectedCount() > 0)
+			
+			try
 			{
-				postQueryEvent();
+				genForm.saveSelection(miniTableRec);
+				List<Integer> selection = genForm.getSelection();
+				if (selection == null || selection.size() == 0)
+					return;
+				
+				//	Generate where
+				for (Integer LBR_PartnerDFe_ID : selection)
+				{
+					MLBRPartnerDFe dfe = new MLBRPartnerDFe (Env.getCtx(), LBR_PartnerDFe_ID, null);
+					String lastManifest = dfe.getLastManifest();
+					
+					//	Já num estado de Manifestação Final, portanto ignorar
+					if (dfe.isLBR_IsManifested()
+							|| MLBRNFeEvent.LBR_EVENTTYPE_ConfirmacaoDaOperacao.equals(lastManifest) 
+							|| MLBRNFeEvent.LBR_EVENTTYPE_OperacaoNaoRealizada.equals(lastManifest))
+						continue;
+					
+					//	Estados imcompatíveis
+					else if ((MLBRNFeEvent.LBR_EVENTTYPE_CienciaDaOperacao.equals(lastManifest) 
+							&& MLBRNFeEvent.LBR_EVENTTYPE_DesconhecimentoDaOperacao.equals(genForm.m_LBR_EventType))
+						|| (MLBRNFeEvent.LBR_EVENTTYPE_DesconhecimentoDaOperacao.equals(lastManifest) 
+							&& MLBRNFeEvent.LBR_EVENTTYPE_CienciaDaOperacao.equals(genForm.m_LBR_EventType)))
+						continue;
+					
+					ProcessInfoParameter pip = new ProcessInfoParameter (MLBRNFeEvent.COLUMNNAME_LBR_EventType, genForm.m_LBR_EventType, null, null, null); 
+					//
+					ProcessInfo pi = startProcess (1120161, genForm.getTitle(), m_WindowNo, MLBRPartnerDFe.Table_ID, LBR_PartnerDFe_ID, new ProcessInfoParameter[]{pip});
+					statusBar.setStatusLine(pi.getSummary(), pi.isError());
+				}
 			}
-			return;
+			catch (Exception ex)
+			{
+				FDialog.error(m_WindowNo, this, "Error", ex.getLocalizedMessage());
+			}
+			
+			genForm.executeQuery();
 		}
-		else if (e.getTarget().getId().equals(ConfirmPanel.A_OK))
-		{
-			genForm.validate();
-		}
-		else
-		{
-			super.onEvent(e);
-		}				
 	}	//	actionPerformed
 
 	/**
@@ -332,20 +514,6 @@ public class WNotaFiscalForm extends ADForm implements EventListener<Event>, WTa
 	 */
 	public void tableChanged(WTableModelEvent e)
 	{
-		int rowsSelected = 0;
-		int rows = miniTableEmit.getRowCount();
-		for (int i = 0; i < rows; i++)
-		{
-			IDColumn id = (IDColumn)miniTableEmit.getValueAt(i, 0);     //  ID in column 0
-			if (id != null && id.isSelected())
-				rowsSelected++;
-		}
-		statusBar.setStatusDB(" " + rowsSelected + " ");
-		if (tabbedPane.getSelectedIndex() == 0)
-		{
-			Button button = confirmPanelRec.getButton(ConfirmPanel.A_OK);
-			button.setEnabled(rowsSelected > 0);			
-		}
 	}   //  tableChanged
 
 	/**
@@ -369,131 +537,6 @@ public class WNotaFiscalForm extends ADForm implements EventListener<Event>, WTa
 		Clients.response(new AuEcho(this, "runProcess", null));		
 	}	//	generate
 
-	/**
-	 * Internal use, don't call this directly
-	 */
-	public void runProcess() 
-	{
-		final WProcessCtl worker = new WProcessCtl(null, getWindowNo(), genForm.getProcessInfo(), genForm.getTrx());
-		try {                    						
-			worker.run();     //  complete tasks in unlockUI / generateShipments_complete						
-		} finally{						
-			unlockUI();
-		}
-	}
-	
-	/**
-	 *  Complete generating shipments.
-	 *  Called from Unlock UI
-	 *  @param pi process info
-	 */
-	private void generateComplete ()
-	{
-		if (progressWindow != null) {
-			progressWindow.dispose();
-			progressWindow = null;
-		}
-		
-		//  Switch Tabs
-//		tabbedPane.getTabpanel(1).getLinkedTab().setDisabled(false);
-//		tabbedPane.setSelectedIndex(1);		
-		//
-		ProcessInfoUtil.setLogFromDB(genForm.getProcessInfo());
-		StringBuilder iText = new StringBuilder();
-		iText.append("<b>").append(genForm.getProcessInfo().getSummary())
-			.append("</b><br>(")
-			.append(Msg.getMsg(Env.getCtx(), genForm.getTitle()))
-			//  Shipments are generated depending on the Delivery Rule selection in the Order
-			.append(")<br><br>");
-		info.setContent(iText.toString());
-		
-		//If log Message Table presents, remove it
-		if(logMessageTable!=null){
-			messageDiv.removeChild(logMessageTable);
-		}
-		appendRecordLogInfo(genForm.getProcessInfo().getLogs());
-		
-		//	Get results
-		int[] ids = genForm.getProcessInfo().getIDs();
-		if (ids == null || ids.length == 0)
-			return;
-		if (log.isLoggable(Level.CONFIG)) log.config("PrintItems=" + ids.length);
-		
-		m_ids = ids;
-		if (!genForm.getProcessInfo().isError())
-			Clients.response(new AuEcho(this, "onAfterProcess", null));
-		
-	}   //  generateShipments_complete
-	
-	
-	public void onAfterProcess()
-	{
-		//	OK to print
-		FDialog.ask(getWindowNo(), this, genForm.getAskPrintMsg(), new Callback<Boolean>() {
-			
-			@Override
-			public void onCallback(Boolean result) 
-			{
-				if (result) 
-				{
-					Clients.showBusy("Processing...");
-					Clients.response(new AuEcho(WNotaFiscalForm.this, "onPrint", null));
-				}
-				
-			}
-		});
-	}
-	
-	public void onPrint() 
-	{
-//		Loop through all items
-		List<File> pdfList = new ArrayList<File>();
-		for (int i = 0; i < m_ids.length; i++)
-		{
-			int RecordID = m_ids[i];
-			ReportEngine re = null;
-			
-			if(genForm.getPrintFormat() != null)
-			{
-				MPrintFormat format = genForm.getPrintFormat();
-				MTable table = MTable.get(Env.getCtx(),format.getAD_Table_ID());
-				MQuery query = new MQuery(table.getTableName());
-				query.addRestriction(table.getTableName() + "_ID", MQuery.EQUAL, RecordID);
-				//	Engine
-				PrintInfo info = new PrintInfo(table.getTableName(),table.get_Table_ID(), RecordID);               
-				re = new ReportEngine(Env.getCtx(), format, query, info);
-			}
-			else
-			{	
-				re = ReportEngine.get (Env.getCtx(), genForm.getReportEngineType(), RecordID);
-			}	
-			
-			pdfList.add(re.getPDF());				
-		}
-		
-		if (pdfList.size() > 1) {
-			try {
-				File outFile = File.createTempFile(genForm.getClass().getName(), ".pdf");					
-//				AEnv.mergePdf(pdfList, outFile);
-
-				Clients.clearBusy();
-				Window win = new SimplePDFViewer(getFormName(), new FileInputStream(outFile));
-				SessionManager.getAppDesktop().showWindow(win, "center");
-			} catch (Exception e) {
-				log.log(Level.SEVERE, e.getLocalizedMessage(), e);
-			}
-		} else if (pdfList.size() > 0) {
-			Clients.clearBusy();
-			try {
-				Window win = new SimplePDFViewer(getFormName(), new FileInputStream(pdfList.get(0)));
-				SessionManager.getAppDesktop().showWindow(win, "center");
-			} catch (Exception e)
-			{
-				log.log(Level.SEVERE, e.getLocalizedMessage(), e);
-			}
-		}
-	}
-
 	/**************************************************************************
 	 *  Lock User Interface.
 	 *  Called from the Worker before processing
@@ -505,18 +548,9 @@ public class WNotaFiscalForm extends ADForm implements EventListener<Event>, WTa
 		progressWindow.setPage(this.getPage());
 		progressWindow.doHighlighted();
 	}   //  lockUI
-
-	/**
-	 *  Unlock User Interface.
-	 *  Called from the Worker when processing is done
-	 *  @param pi result of execute ASync call
-	 */
-	public void unlockUI ()
-	{		
-		generateComplete();
-	}   //  unlockUI
 	
-	public void dispose() {
+	public void dispose()
+	{
 		SessionManager.getAppDesktop().closeActiveWindow();
 	}
 	
@@ -535,17 +569,17 @@ public class WNotaFiscalForm extends ADForm implements EventListener<Event>, WTa
 		return selNorthPanelInut;
 	}
 
-	public WListbox getminiTableEmitEmit()
+	public WListbox getMiniTableEmit()
 	{
 		return miniTableEmit;
 	}
 	
-	public WListbox getminiTableEmitRec()
+	public WListbox getMiniTableRec()
 	{
 		return miniTableRec;
 	}
 	
-	public WListbox getminiTableEmitInut()
+	public WListbox getMiniTableInut()
 	{
 		return miniTableInut;
 	}
@@ -554,86 +588,24 @@ public class WNotaFiscalForm extends ADForm implements EventListener<Event>, WTa
 	{
 		return statusBar;
 	}
+
+	public ProcessInfo startProcess (int AD_Process_ID, String title, int windowNo, ProcessInfoParameter[] pips)
+	{
+		return startProcess(AD_Process_ID, title, windowNo, 0, 0, pips);
+	}	//	startProcess
 	
-	/**
-	 *append process log info to response panel
-	 * @param m_logs
-	 */
-	private void appendRecordLogInfo(ProcessInfoLog[] m_logs) {
-		if (m_logs == null)
-			return ;
+	public ProcessInfo startProcess (int AD_Process_ID, String title, int windowNo, int AD_Table_ID, int Record_ID, ProcessInfoParameter[] pips)
+	{
+		//  Prepare Process
+		ProcessInfo pi = new ProcessInfo (title, AD_Process_ID, AD_Table_ID, Record_ID);
+		pi.setAD_User_ID (Env.getAD_User_ID(Env.getCtx()));
+		pi.setAD_Client_ID(Env.getAD_Client_ID(Env.getCtx()));
 		
-		SimpleDateFormat dateFormat = DisplayType.getDateFormat(DisplayType.Date);
-
-		logMessageTable = new Table();
-		logMessageTable.setId("logrecords");
-		logMessageTable.setDynamicProperty("border", "1");
-		logMessageTable.setDynamicProperty("cellpadding", "0");
-		logMessageTable.setDynamicProperty("cellspacing", "0");
-		logMessageTable.setDynamicProperty("width", "100%");
-    	
-    	this.appendChild(logMessageTable);
-
-    	boolean datePresents = false;
-		boolean numberPresents = false;
-		boolean msgPresents = false;
-
-		for (ProcessInfoLog log : m_logs) {
-			if (log.getP_Date() != null)
-				datePresents = true;
-			if (log.getP_Number() != null)
-				numberPresents = true;
-			if (log.getP_Msg() != null)
-				msgPresents = true;
-		}
-
+		ProcessParameterPanel pp = new ProcessParameterPanel(windowNo, pi);
+		pi.setParameter(pips);
 		
-    	for (int i = 0; i < m_logs.length; i++)
-		{
-		
-    		Tr tr = new Tr();
-    		logMessageTable.appendChild(tr);
-        	
-    		ProcessInfoLog log = m_logs[i];
-			
-    		if (datePresents) {
-				Td td = new Td();
-				if (log.getP_Date() != null) {
-					Label label = new Label(dateFormat.format(log.getP_Date()));
-					td.appendChild(label);
-					// label.setStyle("padding-right:100px");
-				}
-				tr.appendChild(td);
-
-			}
-
-			if (numberPresents) {
-
-				Td td = new Td();
-				if (log.getP_Number() != null) {
-					Label labelPno = new Label("" + log.getP_Number());
-					td.appendChild(labelPno);
-				}
-				tr.appendChild(td);
-			}
-			
-			if (msgPresents && !genForm.getProcessInfo().isError()) {
-				Td td = new Td();
-				if (log.getP_Msg() != null) {
-					if (log.getAD_Table_ID() > 0 && log.getRecord_ID() > 0) {
-						DocumentLink recordLink = new DocumentLink(log.getP_Msg(), log.getAD_Table_ID(), log.getRecord_ID());
-												
-						td.appendChild(recordLink);
-					} else {
-						Text t = new Text();
-						t.setEncode(false);
-						t.setValue(log.getP_Msg());
-						td.appendChild(t);
-					}
-				}
-				tr.appendChild(td);
-			}
-		}
-    	messageDiv.appendChild(logMessageTable);
-	}
-		}
+		//	Execute Process
+		WProcessCtl.process (null, windowNo, (IProcessParameter) pp, pi, null);
+		return pi;
+	}	//	startProcess
+}	//	WNotaFiscalForm
