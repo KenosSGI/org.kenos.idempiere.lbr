@@ -16,6 +16,8 @@ public class ProcessFactory implements IProcessFactory
 	{
 		if (CopyOrder.PROCESS_NAME.equals (className))
 			return new CopyOrder ();
+		if (InvoiceGenerate.PROCESS_NAME.equals (className))
+			return new InvoiceGenerate ();
 		return null;
 	}	//	newProcessInstance
 }	//	CalloutFactory
