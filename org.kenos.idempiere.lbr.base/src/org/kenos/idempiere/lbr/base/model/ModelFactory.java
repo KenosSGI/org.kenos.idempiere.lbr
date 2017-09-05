@@ -19,6 +19,8 @@ public class ModelFactory implements IModelFactory
 	{
 		if (MRequisition.Table_Name.equals(tableName))
 			return MRequisition.class;
+		else if (MRMA.Table_Name.equals(tableName))
+			return MRMA.class;
 		return null;
 	}	//	getClass
 
@@ -27,6 +29,8 @@ public class ModelFactory implements IModelFactory
 	{
 		if (MRequisition.Table_Name.equals(tableName))
 			return new MRequisition (Env.getCtx(), Record_ID, trxName);
+		else if (MRMA.Table_Name.equals(tableName))
+			return new MRMA (Env.getCtx(), Record_ID, trxName);
 		return null;
 	}	//	getPO
 
@@ -35,6 +39,8 @@ public class ModelFactory implements IModelFactory
 	{
 		if (MRequisition.Table_Name.equals(tableName))
 			return new MRequisition (Env.getCtx(), rs, trxName);
+		else if (MRMA.Table_Name.equals(tableName))
+			return new MRMA (Env.getCtx(), rs, trxName);
 		return null;
 	}	//	getPO
 }	//	ModelFactory
