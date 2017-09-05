@@ -1,4 +1,4 @@
-package org.kenos.idempiere.lbr.callout;
+package org.kenos.idempiere.lbr.nfe.callout;
 
 import java.util.Properties;
 
