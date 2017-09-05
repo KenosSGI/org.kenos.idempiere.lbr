@@ -11,6 +11,7 @@ import org.adempierelbr.model.MLBRTaxName;
 import org.compiere.model.MCommission;
 import org.compiere.model.MCommissionDetail;
 import org.compiere.model.MCommissionLine;
+import org.compiere.model.MCommissionRun;
 import org.compiere.model.MInvoice;
 import org.compiere.model.MInvoiceLine;
 import org.compiere.model.MOrderLine;
@@ -40,6 +41,11 @@ public class MCommissionAmt extends org.compiere.model.MCommissionAmt
 	public MCommissionAmt (Properties ctx, ResultSet rs, String trxName)
 	{
 		super (ctx, rs, trxName);
+	}	//	MCommissionAmt
+
+	public MCommissionAmt (MCommissionRun comRun, int c_CommissionLine_ID)
+	{
+		super (comRun, c_CommissionLine_ID);
 	}	//	MCommissionAmt
 
 	/**

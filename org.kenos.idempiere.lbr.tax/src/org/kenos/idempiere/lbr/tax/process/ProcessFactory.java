@@ -1,4 +1,4 @@
-package org.kenos.idempiere.lbr.base.process;
+package org.kenos.idempiere.lbr.tax.process;
 
 import org.adempiere.base.IProcessFactory;
 import org.compiere.process.ProcessCall;

@@ -14,7 +14,7 @@
  * ComPiere, Inc., 2620 Augustine Dr. #245, Santa Clara, CA 95054, USA        *
  * or via info@compiere.org or http://www.compiere.org/license.html           *
  *****************************************************************************/
-package org.kenos.idempiere.lbr.base.process;
+package org.kenos.idempiere.lbr.tax.process;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -25,7 +25,6 @@ import java.util.GregorianCalendar;
 import java.util.logging.Level;
 
 import org.compiere.model.MCommission;
-import org.compiere.model.MCommissionAmt;
 import org.compiere.model.MCommissionDetail;
 import org.compiere.model.MCommissionLine;
 import org.compiere.model.MCommissionRun;
@@ -38,6 +37,7 @@ import org.compiere.util.AdempiereUserError;
 import org.compiere.util.DB;
 import org.compiere.util.DisplayType;
 import org.compiere.util.Language;
+import org.kenos.idempiere.lbr.tax.model.MCommissionAmt;
 
 /**
  *	Commission Calculation	
