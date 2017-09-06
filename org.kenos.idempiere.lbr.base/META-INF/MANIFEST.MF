@@ -6,13 +6,18 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Require-Bundle: org.adempiere.base;bundle-version="4.1.0",
  org.adempiere.base.process;bundle-version="4.1.0",
- org.adempiere.ui;bundle-version="4.1.0"
-Service-Component: OSGI-INF/ModelFactory.xml,OSGI-INF/ProcessFactory.xml
+ org.adempiere.ui;bundle-version="4.1.0",
+ org.eclipse.osgi.services
+Service-Component: OSGI-INF/ModelFactory.xml,
+ OSGI-INF/ProcessFactory.xml,
+ OSGI-INF/EventHandler.xml
 Eclipse-RegisterBuddy: org.adempiere.base
 Export-Package: org.adempierelbr.callout,
  org.adempierelbr.model,
  org.adempierelbr.util,
  org.adempierelbr.wrapper,
  org.kenos.idempiere.lbr.base.form
+Bundle-ClassPath: .,
+ lib/dom4j.jar
 Import-Package: org.joda.time;version="2.9.6"
 Bundle-ActivationPolicy: lazy

@@ -19,7 +19,6 @@ import org.compiere.model.MAttachment;
 import org.compiere.model.MAttributeSetInstance;
 import org.compiere.model.MBankAccount;
 import org.compiere.model.MClient;
-import org.compiere.model.MClientInfo;
 import org.compiere.model.MInOutLine;
 import org.compiere.model.MInvoice;
 import org.compiere.model.MInvoiceLine;
@@ -116,23 +115,9 @@ public class VLBRCommons implements ModelValidator
 	 */
 	public String login (int AD_Org_ID, int AD_Role_ID, int AD_User_ID)
 	{
-		log.info ("AD_User_ID=" + AD_User_ID);
-		
 		/**
-		 * 	Grava a variável que permite saber se a LBR está habilitada
+		 * 	Movido para org.kenos.idempiere.lbr.base.event.EventHandler
 		 */
-		boolean enabled = MSysConfig.getBooleanValue ("LBR_ENABLED", false, MClient.get (Env.getCtx()).getAD_Client_ID());
-		
-		if (enabled)
-			log.fine ("LBR is ENABLED.");
-		else
-			log.fine ("LBR is DISABLED.");
-
-		//	Set Enviroment
-		Env.setContext(Env.getCtx(), "#LBR_ENABLED", enabled);
-		
-		//	Set BPartner Cash
-		Env.setContext(Env.getCtx(), "#POS_BPartner_ID", MClientInfo.get(Env.getCtx()).getC_BPartnerCashTrx_ID());
 		
 		return null;
 	}	//	login

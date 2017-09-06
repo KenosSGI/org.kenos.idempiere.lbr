@@ -95,21 +95,10 @@ public class ValidatorBPartner implements ModelValidator
 	 */
 	public String login (int AD_Org_ID, int AD_Role_ID, int AD_User_ID)
 	{
-		log.info("AD_User_ID=" + AD_User_ID);
-
-		if (getAD_Client_ID() > 0 && AD_Org_ID == 0 && AD_User_ID != 100)
-			return "Não é possível logar com Org = *";
-
-		Boolean isUseUnifiedBP = MSysConfig.getBooleanValue("LBR_USE_UNIFIED_BP", false);
-
-		if(isUseUnifiedBP)
-			log.info("LBR: Usando PN unificados.");
-		else
-			log.info("LBR: Usando um PN por Filial (Normal).");
-
-		//	Load Enviroment
-		Env.setContext(Env.getCtx(), "#LBR_USE_UNIFIED_BP", isUseUnifiedBP);
-
+		/**
+		 * 	Movido para org.kenos.idempiere.lbr.base.event.EventHandler
+		 */
+		
 		return null;
 	}	//	login
 
