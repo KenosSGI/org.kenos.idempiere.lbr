@@ -12,6 +12,6 @@ Require-Bundle: org.adempiere.base;bundle-version="4.1.0",
  zcommon;bundle-version="8.0.1",
  zk;bundle-version="8.0.1",
  zul;bundle-version="8.0.1"
-Service-Component: OSGI-INF/FormFactory.xml
+Service-Component: OSGI-INF/FormFactory.xml,OSGI-INF/EditorFactory.xml
 Bundle-ActivationPolicy: lazy
 Export-Package: org.kenos.idempiere.lbr.base.zk.form
