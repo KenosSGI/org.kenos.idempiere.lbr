@@ -5,6 +5,7 @@ import org.compiere.grid.ed.VEditor;
 import org.compiere.model.GridField;
 import org.compiere.model.GridTab;
 import org.compiere.model.MLocationLookup;
+import org.compiere.model.MPAttributeLookup;
 import org.compiere.util.DisplayType;
 
 /**
@@ -19,7 +20,9 @@ public class EditorFactory implements IEditorFactory
 		if (mField == null || mField.isHeading())
 			return null;
 		if (DisplayType.Location == mField.getDisplayType())
-			return new VLocation (mTab, mField.getColumnName(), mField.isMandatory(false), mField.isReadOnly(), mField.isUpdateable(), (MLocationLookup)mField.getLookup());
+			return new VLocation (mTab, mField.getColumnName(), mField.isMandatory(false), mField.isReadOnly(), mField.isUpdateable(), (MLocationLookup) mField.getLookup());
+		if (DisplayType.PAttribute == mField.getDisplayType())
+			return new VPAttribute(mTab, mField.isMandatory(false), mField.isReadOnly(), mField.isUpdateable(), mTab.getWindowNo(), (MPAttributeLookup) mField.getLookup());
 		return null;
 	}	//	getEditor
 }	//	EditorFactory

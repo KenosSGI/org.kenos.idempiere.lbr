@@ -21,6 +21,8 @@ public class EditorFactory implements IEditorFactory
             return null;
 		if (gridField.getDisplayType() == DisplayType.Location)
 			return new WLocationEditor(gridField);
+		if (gridField.getDisplayType() == DisplayType.PAttribute)
+			return new WPAttributeEditor(gridTab, gridField);
 		return null;
 	}	//	getEditor
 }	//	EditorFactory
