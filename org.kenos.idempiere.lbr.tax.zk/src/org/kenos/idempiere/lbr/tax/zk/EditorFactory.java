@@ -7,28 +7,28 @@ import org.compiere.model.GridField;
 import org.compiere.model.GridTab;
 import org.kenos.idempiere.lbr.tax.DisplayTypeFactory;
 
-public class EditorFactory implements IEditorFactory {
-
+/**
+ * 	Editor Factory for LBR editors
+ *
+ */
+public class EditorFactory implements IEditorFactory
+{
+	/**
+	 * 	Get editor
+	 */
 	@Override
-	public WEditor getEditor(GridTab gridTab, GridField gridField,
-			boolean tableEditor) {
-		if (gridField == null) {
-            return null;
-        }
+	public WEditor getEditor (GridTab gridTab, GridField gridField, boolean tableEditor)
+	{
+		if (gridField == null || gridField.isHeading())
+			return null;
 
-        WEditor editor = null;
-        int displayType = gridField.getDisplayType();
+		int displayType = gridField.getDisplayType();
 
-        /** Not a Field */
-        if (gridField.isHeading()) {
-            return null;
-        }
-        
-		if (displayType == DisplayTypeFactory.BRAZILIAN_TAXES) {
-            editor = new WTaxesEditor(gridTab, gridField);
-        }
+		if (displayType == DisplayTypeFactory.BRAZILIAN_TAXES)
+		{
+			return new WTaxesEditor(gridTab, gridField);
+		}
 
-        return editor;
-	}
-
-}
+		return null;
+	}	//	getEditor
+}	//	EditorFactory
