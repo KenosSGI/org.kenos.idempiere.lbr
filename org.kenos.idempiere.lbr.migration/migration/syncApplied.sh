@@ -60,8 +60,8 @@ do
 done < VERSIONS
 
 #	Sort by file name
-sort -o /tmp/lisFS.txt /tmp/lisFS.txt
-sort -o /tmp/lisDB.txt /tmp/lisDB.txt
+sort -u -o /tmp/lisFS.txt /tmp/lisFS.txt
+sort -u -o /tmp/lisDB.txt /tmp/lisDB.txt
 echo
 
 APPLIED=N
