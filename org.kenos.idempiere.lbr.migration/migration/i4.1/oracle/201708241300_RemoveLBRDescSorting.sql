@@ -22,5 +22,5 @@ ALTER TABLE AD_PrintFormatItem DROP COLUMN LBR_Descending
 ;
 
 -- 16/08/2017 16h40min35s BRT
-SELECT Register_Migration_Script ('201708241300_RemoveDescOrder.sql') FROM DUAL
+SELECT Register_Migration_Script ('201708241300_RemoveLBRDescSorting.sql') FROM DUAL
 ;
