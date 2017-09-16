@@ -12,3 +12,5 @@ Eclipse-RegisterBuddy: org.adempiere.base, org.adempiere.ui.swing
 Export-Package: org.adempierelbr.apps.form,
  org.adempierelbr.callout
 Import-Package: org.adempiere.pipo2
+Bundle-ClassPath: .,
+ lib/jBoleto.jar

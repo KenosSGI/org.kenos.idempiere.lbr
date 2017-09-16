@@ -9,3 +9,6 @@ Require-Bundle: org.adempiere.base;bundle-version="4.1.0",
  org.kenos.idempiere.lbr.nfe;bundle-version="1.0.0",
  org.adempiere.report.jasper.library,
  org.adempiere.report.jasper
+Bundle-ClassPath: lib/mdfebeans-v100a-sources.jar,
+ lib/mdfebeans-v100a.jar,
+ .
