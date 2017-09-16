@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Swing
-Bundle-SymbolicName: org.kenos.idempiere.lbr.nfe.zk
+Bundle-SymbolicName: org.kenos.idempiere.lbr.nfe.zk;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Require-Bundle: org.adempiere.base;bundle-version="4.1.0",
@@ -13,4 +13,3 @@ Require-Bundle: org.adempiere.base;bundle-version="4.1.0",
  zk;bundle-version="8.0.1",
  zul;bundle-version="8.0.1"
 Service-Component: OSGI-INF/CreateFromFactory.xml,OSGI-INF/NFeFormFactory.xml
-Bundle-ActivationPolicy: lazy

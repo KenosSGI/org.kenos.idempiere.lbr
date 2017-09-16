@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Zk
-Bundle-SymbolicName: org.kenos.idempiere.lbr.boleto.zk
+Bundle-SymbolicName: org.kenos.idempiere.lbr.boleto.zk;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Require-Bundle: org.adempiere.base;bundle-version="4.1.0",
@@ -22,4 +22,3 @@ Import-Package: org.adempiere.pipo2,
  org.adempiere.webui.theme,
  org.adempiere.webui.window,
  org.apache.commons.io;version="2.2.0"
-Bundle-ActivationPolicy: lazy
