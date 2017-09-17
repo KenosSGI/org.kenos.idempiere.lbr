@@ -8,5 +8,6 @@ Require-Bundle: org.adempiere.base;bundle-version="4.1.0",
  org.adempiere.ui.swing;bundle-version="4.1.0",
  org.kenos.idempiere.lbr.base;bundle-version="1.0.0",
  org.kenos.idempiere.lbr.boleto;bundle-version="1.0.0"
-Service-Component: OSGI-INF/BoletoFormFactory.xml
+Service-Component: OSGI-INF/FormFactory.xml
 Import-Package: org.adempiere.pipo2
+Bundle-ActivationPolicy: lazy

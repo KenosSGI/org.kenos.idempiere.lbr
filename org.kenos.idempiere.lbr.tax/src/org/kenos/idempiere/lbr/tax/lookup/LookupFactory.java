@@ -1,4 +1,4 @@
-package org.kenos.idempiere.lbr.tax;
+package org.kenos.idempiere.lbr.tax.lookup;
 
 import org.adempiere.base.ILookupFactory;
 import org.adempierelbr.model.MLBRTaxesLookup;

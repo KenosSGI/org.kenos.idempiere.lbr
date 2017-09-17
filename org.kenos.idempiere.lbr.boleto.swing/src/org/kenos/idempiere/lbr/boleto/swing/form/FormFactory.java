@@ -1,6 +1,10 @@
-package org.adempierelbr.apps.form;
+package org.kenos.idempiere.lbr.boleto.swing.form;
 
 import org.adempiere.ui.swing.factory.IFormFactory;
+import org.adempierelbr.apps.form.GenBilling;
+import org.adempierelbr.apps.form.GenCNAB;
+import org.adempierelbr.apps.form.VGenBilling;
+import org.adempierelbr.apps.form.VGenCNAB;
 import org.compiere.apps.form.FormPanel;
 
 /**
@@ -9,7 +13,7 @@ import org.compiere.apps.form.FormPanel;
  * 	@author Ricardo Santana (Kenos, www.kenos.com.br)
  *	@version $Id: BoletoFormFactory.java, v1.0 2017/08/28 13:06:59 PM, ralexsander Exp $
  */
-public class BoletoFormFactory implements IFormFactory
+public class FormFactory implements IFormFactory
 {
 	/**
 	 * 	Try to find the form 

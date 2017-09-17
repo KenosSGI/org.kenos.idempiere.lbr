@@ -1,4 +1,4 @@
-package org.kenos.idempiere.lbr.tax;
+package org.kenos.idempiere.lbr.tax.lookup;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;

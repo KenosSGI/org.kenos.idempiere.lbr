@@ -62,3 +62,4 @@ Bundle-ClassPath: .,
  lib/sunpkcs11.jar,
  lib/zxing-core-2.2.jar,
  lib/zxing-javase-2.2.jar
+Bundle-ActivationPolicy: lazy

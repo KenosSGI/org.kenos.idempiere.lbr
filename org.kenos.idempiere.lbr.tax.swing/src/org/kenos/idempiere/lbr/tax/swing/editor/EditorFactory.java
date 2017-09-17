@@ -1,11 +1,11 @@
-package org.kenos.idempiere.lbr.tax.swing;
+package org.kenos.idempiere.lbr.tax.swing.editor;
 
 import org.adempiere.ui.swing.factory.IEditorFactory;
 import org.adempierelbr.grid.ed.VTaxes;
 import org.compiere.grid.ed.VEditor;
 import org.compiere.model.GridField;
 import org.compiere.model.GridTab;
-import org.kenos.idempiere.lbr.tax.DisplayTypeFactory;
+import org.kenos.idempiere.lbr.tax.lookup.DisplayTypeFactory;
 
 /**
  * 	@author Ricardo Santana (Kenos, www.kenos.com.br)

@@ -1,4 +1,4 @@
-package org.kenos.idempiere.lbr.boleto.zk;
+package org.kenos.idempiere.lbr.boleto.zk.form;
 
 import org.adempiere.webui.factory.IFormFactory;
 import org.adempiere.webui.panel.ADForm;
@@ -14,7 +14,7 @@ import org.adempierelbr.apps.form.WGenCNAB;
  * 	@author Ricardo Santana (Kenos, www.kenos.com.br)
  *	@version $Id: BoletoFormFactory.java, v1.0 2017/08/28 13:06:59 PM, ralexsander Exp $
  */
-public class BoletoFormFactory implements IFormFactory
+public class FormFactory implements IFormFactory
 {
 	/**
 	 * 	Try to find the form 

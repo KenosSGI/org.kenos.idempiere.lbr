@@ -1,4 +1,4 @@
-package org.kenos.idempiere.lbr.base.zk;
+package org.kenos.idempiere.lbr.base.zk.form;
 
 import org.adempiere.webui.factory.IFormFactory;
 import org.adempiere.webui.panel.ADForm;

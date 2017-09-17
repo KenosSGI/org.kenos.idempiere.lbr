@@ -1,4 +1,4 @@
-package org.kenos.idempiere.lbr.nfe.zk;
+package org.kenos.idempiere.lbr.nfe.zk.form;
 
 import org.adempiere.webui.factory.IFormFactory;
 import org.adempiere.webui.panel.ADForm;
@@ -9,7 +9,7 @@ import org.kenos.apps.form.WNotaFiscal;
  * 	@author Ricardo Santana (Kenos, www.kenos.com.br)
  *	@version $Id: NFeFromFactory.java, v1.0 2017/08/28 6:32:03 PM, ralexsander Exp $
  */
-public class NFeFromFactory implements IFormFactory
+public class FormFactory implements IFormFactory
 {
 	@Override
 	public ADForm newFormInstance (String formName)

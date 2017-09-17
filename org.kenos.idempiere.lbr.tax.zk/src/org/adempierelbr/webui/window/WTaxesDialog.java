@@ -52,7 +52,7 @@ import org.compiere.util.CLogger;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.compiere.util.Msg;
-import org.kenos.idempiere.lbr.tax.DisplayTypeFactory;
+import org.kenos.idempiere.lbr.tax.lookup.DisplayTypeFactory;
 import org.zkoss.zk.ui.Page;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;

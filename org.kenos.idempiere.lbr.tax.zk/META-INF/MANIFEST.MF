@@ -17,3 +17,4 @@ Import-Package: org.adempiere.webui.component,
  org.adempiere.webui.event,
  org.adempiere.webui.theme,
  org.adempiere.webui.window
+Bundle-ActivationPolicy: lazy

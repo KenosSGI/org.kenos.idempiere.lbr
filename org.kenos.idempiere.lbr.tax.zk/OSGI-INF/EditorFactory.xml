@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="EditorFactory">
-   <implementation class="org.kenos.idempiere.lbr.tax.zk.EditorFactory"/>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="org.kenos.idempiere.lbr.tax.zk.editor.EditorFactory">
+   <implementation class="org.kenos.idempiere.lbr.tax.zk.editor.EditorFactory"/>
    <property name="service.ranking" type="Integer" value="10"/>
    <service>
       <provide interface="org.adempiere.webui.factory.IEditorFactory"/>

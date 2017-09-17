@@ -10,3 +10,4 @@ Require-Bundle: org.adempiere.base;bundle-version="4.1.0",
 Service-Component: OSGI-INF/FormFactory.xml,
  OSGI-INF/InfoFactory.xml,
  OSGI-INF/EditorFactory.xml
+Bundle-ActivationPolicy: lazy

@@ -1,4 +1,4 @@
-package org.kenos.idempiere.lbr.base.swing;
+package org.kenos.idempiere.lbr.base.swing.form;
 
 import org.adempiere.ui.swing.factory.IFormFactory;
 import org.compiere.apps.form.FormPanel;

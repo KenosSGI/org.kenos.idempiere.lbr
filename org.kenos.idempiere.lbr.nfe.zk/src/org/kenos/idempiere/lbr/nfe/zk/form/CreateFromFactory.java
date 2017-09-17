@@ -1,4 +1,4 @@
-package org.kenos.idempiere.lbr.nfe.zk;
+package org.kenos.idempiere.lbr.nfe.zk.form;
 
 import org.adempierelbr.model.MLBRNFeLot;
 import org.adempierelbr.webui.apps.form.WCreateFromNFeLotUI;

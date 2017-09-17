@@ -13,7 +13,7 @@ Require-Bundle: org.adempiere.base;bundle-version="4.1.0",
  zul;bundle-version="8.0.1",
  zcommon;bundle-version="8.0.1",
  org.adempiere.ui
-Service-Component: OSGI-INF/BoletoFormFactory.xml
+Service-Component: OSGI-INF/FormFactory.xml
 Import-Package: org.adempiere.pipo2,
  org.adempiere.webui.component,
  org.adempiere.webui.editor,
@@ -22,3 +22,4 @@ Import-Package: org.adempiere.pipo2,
  org.adempiere.webui.theme,
  org.adempiere.webui.window,
  org.apache.commons.io;version="2.2.0"
+Bundle-ActivationPolicy: lazy

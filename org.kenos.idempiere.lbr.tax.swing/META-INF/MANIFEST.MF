@@ -8,3 +8,4 @@ Service-Component: OSGI-INF/EditorFactory.xml
 Require-Bundle: org.adempiere.base;bundle-version="4.1.0",
  org.kenos.idempiere.lbr.tax;bundle-version="1.0.0",
  org.adempiere.ui.swing;bundle-version="4.1.0"
+Bundle-ActivationPolicy: lazy
