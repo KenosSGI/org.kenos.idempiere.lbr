@@ -49,7 +49,7 @@ psql -d $DATABASE -U $USER $ADDPG -q -t -c "SELECT Name FROM AD_MigrationScript"
 > /tmp/lisFS.txt
 
 #	Check all available scripts
-while read FOLDER;
+{ cat VERSIONS; echo; } | while read FOLDER;
 do
     if [ -d ${FOLDER}/postgresql ]
     then
@@ -57,7 +57,7 @@ do
         find . -name '*.sql' -type f -exec basename {} \; | sort | sed ':a;N;$!ba;s/\n/ /g' >> /tmp/lisFS.txt
         cd ../..
     fi
-done < VERSIONS
+done
 
 #	Sort by file name
 sort -u -o /tmp/lisFS.txt /tmp/lisFS.txt
