@@ -20,3 +20,4 @@ Export-Package: org.adempierelbr.callout,
 Bundle-ClassPath: .,
  lib/dom4j.jar
 Import-Package: org.joda.time;version="2.9.6"
+Bundle-ActivationPolicy: lazy
