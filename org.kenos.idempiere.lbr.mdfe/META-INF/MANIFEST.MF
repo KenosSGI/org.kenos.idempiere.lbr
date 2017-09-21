@@ -12,3 +12,4 @@ Require-Bundle: org.adempiere.base;bundle-version="4.1.0",
 Bundle-ClassPath: lib/mdfebeans-v100a-sources.jar,
  lib/mdfebeans-v100a.jar,
  .
+Export-Package: org.adempierelbr.model
