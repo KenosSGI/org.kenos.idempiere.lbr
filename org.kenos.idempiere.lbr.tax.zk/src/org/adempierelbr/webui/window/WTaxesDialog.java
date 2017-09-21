@@ -771,7 +771,10 @@ public final class WTaxesDialog extends Window
 		Object newValue = evt.getNewValue();
 
 		if (newValue instanceof Integer)
+		{
 			Env.setContext(Env.getCtx(), m_WindowNo, evt.getPropertyName(), ((Integer)newValue).intValue());
+			Env.setContext(Env.getCtx(), m_WindowNo, 1, evt.getPropertyName(), ((Integer)newValue).intValue());
+		}
 		
 		if (evt.getPropertyName().equalsIgnoreCase("LBR_TaxName_ID")) {
 			f_LBR_TaxStatus_ID.setValue(null);
