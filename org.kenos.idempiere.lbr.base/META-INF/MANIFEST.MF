@@ -15,6 +15,7 @@ Eclipse-RegisterBuddy: org.adempiere.base
 Export-Package: org.adempierelbr.callout,
  org.adempierelbr.model,
  org.adempierelbr.util,
+ org.adempierelbr.validator,
  org.adempierelbr.wrapper,
  org.kenos.idempiere.lbr.base.event,
  org.kenos.idempiere.lbr.base.form
