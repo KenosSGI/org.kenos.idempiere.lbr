@@ -19,6 +19,7 @@ Export-Package: br.inf.portalfiscal.nfe.v310,
  org.adempierelbr.grid,
  org.adempierelbr.model,
  org.adempierelbr.nfe.beans,
+ org.adempierelbr.nfse,
  org.adempierelbr.util,
  org.kenos.apps.form
 Bundle-ClassPath: .,
