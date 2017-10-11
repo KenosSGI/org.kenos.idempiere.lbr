@@ -3,8 +3,14 @@
   <rm:locator pattern="^org\.kenos\.idempiere\.lbr(\..+)?" searchPathRef="local"/>
   <rm:locator searchPathRef="idempiere.p2"/>
   <rm:searchPath name="local">
-    <rm:provider componentTypes="eclipse.feature,osgi.bundle" readerType="local">
+    <rm:provider componentTypes="osgi.bundle" readerType="local">
       <rm:uri format="{0}/{1}">
+        <bc:propertyRef key="workspace.root"/>
+        <bc:propertyRef key="buckminster.component"/>
+      </rm:uri>
+    </rm:provider>
+    <rm:provider componentTypes="eclipse.feature" readerType="local">
+      <rm:uri format="{0}/{1}-feature">
         <bc:propertyRef key="workspace.root"/>
         <bc:propertyRef key="buckminster.component"/>
       </rm:uri>
