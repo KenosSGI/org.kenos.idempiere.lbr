@@ -18,8 +18,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 
-import javax.swing.table.TableModel;
-
 import org.adempiere.pipo2.Zipper;
 import org.adempiere.webui.component.Button;
 import org.adempiere.webui.component.ConfirmPanel;
@@ -41,7 +39,6 @@ import org.adempiere.webui.session.SessionManager;
 import org.adempiere.webui.window.FDialog;
 import org.adempierelbr.util.TextUtil;
 import org.apache.commons.io.FileUtils;
-import org.compiere.minigrid.IDColumn;
 import org.compiere.model.MBankAccount;
 import org.compiere.process.ProcessInfo;
 import org.compiere.util.Env;
@@ -223,19 +220,6 @@ public class WGenCNAB extends GenCNAB
 		else if (e.getTarget() == bRefresh || e.getTarget() == fieldBankAccount)
 			loadTableInfo();
 
-		//	Selct All
-		else if (e.getTarget().equals("SelectAll"))
-		{
-			TableModel model = (TableModel) miniTable.getModel();
-			int rows = model.getRowCount();
-			for (int i = 0; i < rows; i++)
-			{
-				IDColumn record = (IDColumn) model.getValueAt(i, 0);
-				record.setSelected(true);
-				model.setValueAt(record, i, 0);
-			}
-			calculateSelection();
-		}
 	}   //  actionPerformed
 
 	/**
