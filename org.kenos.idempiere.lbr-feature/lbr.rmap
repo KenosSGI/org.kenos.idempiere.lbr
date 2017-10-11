@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rm:rmap xmlns:bc="http://www.eclipse.org/buckminster/Common-1.0" xmlns:rm="http://www.eclipse.org/buckminster/RMap-1.0">
+  <rm:locator pattern="^org\.kenos\.idempiere\.lbr(\..+)?" searchPathRef="local"/>
+  <rm:locator searchPathRef="idempiere.p2"/>
+  <rm:searchPath name="local">
+    <rm:provider componentTypes="eclipse.feature,osgi.bundle" readerType="local">
+      <rm:uri format="{0}/{1}">
+        <bc:propertyRef key="workspace.root"/>
+        <bc:propertyRef key="buckminster.component"/>
+      </rm:uri>
+    </rm:provider>
+  </rm:searchPath>
+  <rm:searchPath name="idempiere.p2">
+    <rm:provider componentTypes="osgi.bundle,eclipse.feature" readerType="p2" mutable="false">
+      <rm:property key="buckminster.mutable" value="false"/>
+      <rm:uri format="file:///tmp/idempiere.p2/">
+        <bc:propertyRef key="workspace.root"/>
+        <bc:propertyRef key="buckminster.component"/>
+      </rm:uri>
+    </rm:provider>
+  </rm:searchPath>
+</rm:rmap>
