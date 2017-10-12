@@ -20,6 +20,7 @@ Export-Package: org.adempierelbr.callout,
  org.kenos.idempiere.lbr.base.event,
  org.kenos.idempiere.lbr.base.form
 Bundle-ClassPath: .,
- lib/dom4j.jar
+ lib/dom4j.jar,
+ lib/stax-api.jar
 Import-Package: org.joda.time;version="2.9.6"
 Bundle-ActivationPolicy: lazy
