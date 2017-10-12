@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="org.kenos.idempiere.lbr.swing"
-      label="Lbr-swing-feature"
-      version="1.0.0.qualifier">
+      label="LBR Swing (Optional)"
+      version="1.0.0.qualifier"
+      provider-name="Kenos">
 
-   <description url="http://www.example.com/description">
-      [Enter Feature Description here.]
+   <description url="http://www.kenos.com.br">
+      Localization Brazil Swing
+===
+Swing functions to be used with LBR Core
    </description>
 
    <copyright url="http://www.example.com/copyright">

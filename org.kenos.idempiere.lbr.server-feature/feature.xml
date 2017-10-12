@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="org.kenos.idempiere.lbr.server"
-      label="Server-feature"
-      version="1.0.0.qualifier">
+      label="LBR Core (Required)"
+      version="1.0.0.qualifier"
+      provider-name="Kenos">
 
-   <description url="http://www.example.com/description">
-      [Enter Feature Description here.]
+   <description url="http://www.kenos.com.br">
+      Localization Brazil Core
+===
+Core functions for Localization Brazil, including web interface plugins (ZK)
    </description>
 
    <copyright url="http://www.example.com/copyright">
@@ -85,4 +88,5 @@
          install-size="0"
          version="0.0.0"
          unpack="false"/>
+
 </feature>
