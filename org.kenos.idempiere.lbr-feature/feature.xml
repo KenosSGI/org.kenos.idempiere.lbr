@@ -16,74 +16,12 @@
       [Enter License Description here.]
    </license>
 
-   <plugin
-         id="org.kenos.idempiere.lbr.base"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
+   <includes
+         id="org.kenos.idempiere.lbr.server"
+         version="0.0.0"/>
 
-   <plugin
-         id="org.kenos.idempiere.lbr.base.zk"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.kenos.idempiere.lbr.boleto"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.kenos.idempiere.lbr.boleto.zk"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.kenos.idempiere.lbr.mdfe"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.kenos.idempiere.lbr.nfe"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.kenos.idempiere.lbr.nfe.zk"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.kenos.idempiere.lbr.sped"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.kenos.idempiere.lbr.tax"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.kenos.idempiere.lbr.tax.zk"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
+   <includes
+         id="org.kenos.idempiere.lbr.swing"
+         version="0.0.0"/>
 
 </feature>
