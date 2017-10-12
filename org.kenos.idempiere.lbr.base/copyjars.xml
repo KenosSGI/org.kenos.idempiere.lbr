@@ -1,0 +1,7 @@
+<project name="zklibrary" basedir="." default="copy">
+	<target name="copy">
+		<mkdir dir="lib" />
+		<get src="${url.maven2}/maven2/javax/xml/stream/stax-api/1.0-2/stax-api-1.0-2.jar" dest="lib/stax-api.jar" usetimestamp="true" verbose="true" retries="5" />
+		<get src="${url.maven2}/maven2/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar" dest="lib/dom4j.jar" usetimestamp="true" verbose="true" retries="5" />
+	</target>
+</project>
