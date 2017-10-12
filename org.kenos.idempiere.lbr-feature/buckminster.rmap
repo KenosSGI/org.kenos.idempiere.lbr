@@ -5,7 +5,7 @@
 	xmlns:maven="http://www.eclipse.org/buckminster/MavenProvider-1.0" 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <rm:locator pattern="^org\.kenos\.idempiere\.lbr(\..+)?" searchPathRef="local"/>
-  <rm:locator pattern="^org\.apache\.servicemix\.bundles\.xmlbeans$" searchPathRef="bundles.maven"/>
+  <rm:locator pattern="^org\.apache\.servicemix\.bundles(\..+)" searchPathRef="bundles.maven"/>
   <rm:locator searchPathRef="idempiere.p2"/>
   <rm:searchPath name="local">
     <rm:provider componentTypes="osgi.bundle" readerType="local">
@@ -36,6 +36,7 @@
       <rm:property key="buckminster.mutable" value="false"/>
       <rm:uri format="${url.maven2}"/>
       <maven:mappings>
+      	<maven:entry artifactId="org.apache.servicemix.bundles.dom4j" groupId="org.apache.servicemix.bundles" name="org.apache.servicemix.bundles.dom4j"/>
         <maven:entry artifactId="org.apache.servicemix.bundles.xmlbeans" groupId="org.apache.servicemix.bundles" name="org.apache.servicemix.bundles.xmlbeans"/>
       </maven:mappings>
     </rm:provider>
