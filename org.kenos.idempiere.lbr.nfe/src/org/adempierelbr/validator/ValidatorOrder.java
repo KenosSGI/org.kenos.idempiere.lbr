@@ -40,6 +40,8 @@ import org.compiere.model.ModelValidator;
 import org.compiere.model.PO;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
+import org.kenos.idempiere.lbr.nfe.importvalidator.ImportValidatorBPartner;
+import org.kenos.idempiere.lbr.nfe.importvalidator.ImportValidatorOrder;
 
 /**
  *	ValidatorOrder
@@ -69,6 +71,10 @@ public class ValidatorOrder implements ModelValidator
 	 */
 	public void initialize (ModelValidationEngine engine, MClient client)
 	{
+		// Register Import Validators
+		engine.addImportValidate(ImportValidatorBPartner.ImportTableName, new ImportValidatorBPartner());		
+		engine.addImportValidate(ImportValidatorOrder.ImportTableName, new ImportValidatorOrder());
+				
 		if (client != null) 
 		{
 			m_AD_Client_ID = client.getAD_Client_ID();
