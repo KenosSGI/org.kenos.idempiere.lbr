@@ -1,41 +1,18 @@
 package org.adempierelbr.nfse;
 
-import java.util.HashMap;
+import java.util.List;
 import java.util.logging.Level;
 
+import org.adempiere.base.Service;
 import org.adempierelbr.model.MLBRNotaFiscal;
-import org.adempierelbr.nfse.sp.NFSeImpl;
 import org.compiere.model.MOrgInfo;
 import org.compiere.util.CLogger;
+import org.kenos.idempiere.lbr.base.nfse.INFSeFactory;
 
 public class NFSeUtil
 {
 	/**	Static Logger	*/
 	private static CLogger 	s_log = CLogger.getCLogger (NFSeUtil.class);
-
-	/** Registered classes map (AD_Table_ID -> Class) */
-	private static HashMap<Integer, Class<? extends INFSe>> s_registeredClasses = null;
-
-	/**
-	 * Register custom INFSe* class
-	 * @param C_City_ID
-	 * @param cl custom class
-	 */
-	public static final void registerClass (int C_City_ID, Class<? extends INFSe> cl)
-	{
-		s_registeredClasses.put (C_City_ID, cl);
-		s_log.info("Registered C_City_ID=" + C_City_ID + ", Class=" + cl);
-	}	//	registerClass
-	
-	static
-	{
-		// 	Register defaults:
-		s_registeredClasses = new HashMap<Integer, Class<? extends INFSe>>();
-		
-		//	Prefeitura de SP
-		s_registeredClasses.put (NFSeImpl.C_City_ID, NFSeImpl.class);
-	}
-	
 
 	/**
 	 *  Factory - called from APanel
@@ -55,10 +32,22 @@ public class NFSeUtil
 	 *  @param  mTab        Model Tab for the trx
 	 *  @return JDialog
 	 */
+	@SuppressWarnings("unchecked")
 	public static INFSe get (int C_City_ID)
 	{
 		INFSe retValue = null;
-		Class<? extends INFSe> cl = s_registeredClasses.get (C_City_ID);
+		Class<? extends INFSe> cl = null;
+		
+		List<INFSeFactory> factoryList = Service.locator().list(INFSeFactory.class).getServices();
+		
+		for (INFSeFactory factory : factoryList)
+		{
+			cl = (Class<? extends INFSe>) factory.getClass(C_City_ID);
+			
+			if (cl != null)
+				break;
+		}
+		
 		if (cl != null)
 		{
 			try

@@ -32,8 +32,6 @@
 	<classpathentry exported="true" kind="lib" path="lib/nfebeans-v6v.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/nfebeans-v8i2-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/nfebeans-v8i2.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/nfsebeans-v01-sources.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/nfsebeans-v01.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/siscomexbeans-v100-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/siscomexbeans-v100.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/sunpkcs11.jar"/>
