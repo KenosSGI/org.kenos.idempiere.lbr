@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:element name="reciborecepcao" >
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="nfd" >
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="recibo">
+										  <xs:complexType>
+										    <xs:sequence>
+										      <xs:element type="xs:string" name="codrecibo"/>
+										      <xs:element type="xs:string" name="datahora"/>
+										      <xs:element type="xs:byte" name="numeronotas"/>
+										      <xs:element type="xs:byte" name="codmunicipio"/>
+										    </xs:sequence>
+										  </xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>		
+							</xs:element>	
+				</xs:sequence>
+		</xs:complexType>		
+	</xs:element>			
+</xs:schema>
