@@ -43,7 +43,7 @@ public class ImportValidatorBPartner implements ImportValidator
  			bpw.setlbr_BPTypeBR(impBPw.getlbr_BPTypeBR());
  			
  			//	Se o Campo CNPJ estiver Preenchido
- 			if (!impBPw.getlbr_CNPJ().equals(""))
+ 			if (impBPw.getlbr_CNPJ() != null && !"".equals(impBPw.getlbr_CNPJ()))
 			{
  				//	Validar CNPJ
 				Boolean ok = ValidatorBPartner.validaCNPJ(impBPw.getlbr_CNPJ());
@@ -62,7 +62,7 @@ public class ImportValidatorBPartner implements ImportValidator
 				}
 			}
  			//	Se o Campo CPF estiver Preenchido
- 			else if (!impBPw.getlbr_CPF().equals(""))
+ 			else if (impBPw.getlbr_CPF()!= null && !"".equals(impBPw.getlbr_CPF()))
 			{
  				//	Validar CPF 				
 				Boolean ok = ValidatorBPartner.validaCPF(impBPw.getlbr_CPF());
@@ -82,17 +82,17 @@ public class ImportValidatorBPartner implements ImportValidator
 			}
  			
  			//	Se o Campo IE estiver Preenchido 
- 			if (impBPw.getlbr_IE() != null && !impBPw.getlbr_IE().equals(""))
+ 			if (impBPw.getlbr_IE() != null && !"".equals(impBPw.getlbr_IE()))
 			{
  				bpw.setlbr_IE(impBPw.getlbr_IE());
 			}
  			
  			//	Se o Campo CCM estiver Preenchido 
- 			if (impBPw.getlbr_CCM() != null && !impBPw.getlbr_CCM().equals(""))
+ 			if (impBPw.getlbr_CCM() != null && !"".equals(impBPw.getlbr_CCM()))
  				bpw.setlbr_CCM(impBPw.getlbr_CCM());
  			
  			//	Se o Campo RG estiver Preenchido 
-			if (impBPw.getlbr_RG() != null && !impBPw.getlbr_RG().equals(""))
+			if (impBPw.getlbr_RG() != null && !"".equals(impBPw.getlbr_RG()))
 				bpw.setlbr_RG(impBPw.getlbr_RG());
 			
 			//	Se o Campo Representante de Venda estiver Preenchido 
