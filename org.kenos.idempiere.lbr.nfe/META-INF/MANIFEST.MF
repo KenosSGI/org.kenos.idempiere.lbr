@@ -69,5 +69,6 @@ Bundle-ClassPath: .,
  lib/siscomexbeans-v100.jar,
  lib/sunpkcs11.jar,
  lib/zxing-core-2.2.jar,
- lib/zxing-javase-2.2.jar
+ lib/zxing-javase-2.2.jar,
+ lib/stax.jar
 Bundle-ActivationPolicy: lazy
