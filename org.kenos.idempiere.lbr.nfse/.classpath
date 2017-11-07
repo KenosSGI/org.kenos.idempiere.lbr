@@ -6,6 +6,7 @@
 			<accessrule kind="accessible" pattern="org/apache/axis2/**"/>
 			<accessrule kind="accessible" pattern="org/apache/axiom/**"/>
 			<accessrule kind="accessible" pattern="org/compiere/**"/>
+			<accessrule kind="accessible" pattern="org/apache/commons/**"/>
 		</accessrules>
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
