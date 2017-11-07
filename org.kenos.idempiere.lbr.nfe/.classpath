@@ -41,6 +41,8 @@
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins">
 		<accessrules>
 			<accessrule kind="accessible" pattern="org/apache/poi/**"/>
+			<accessrule kind="accessible" pattern="org/apache/axis2/**"/>
+			<accessrule kind="nonaccessible" pattern="org/apache/axiom/**"/>
 		</accessrules>
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
