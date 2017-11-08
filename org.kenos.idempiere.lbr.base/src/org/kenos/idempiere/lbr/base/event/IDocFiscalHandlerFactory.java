@@ -9,4 +9,5 @@ package org.kenos.idempiere.lbr.base.event;
 public interface IDocFiscalHandlerFactory
 {
 	public IDocFiscalHandler getHandler (String tableName);
+	public IDocFiscalHandler getHandlerProcess (String process);
 }	//	IDocFiscalHandlerFactory
