@@ -13,10 +13,13 @@
 package org.adempierelbr.process;
 
 import java.io.StringReader;
+import java.util.List;
+import java.util.UUID;
 import java.util.logging.Level;
 
 import javax.xml.stream.XMLInputFactory;
 
+import org.adempiere.base.Service;
 import org.adempierelbr.model.MLBRDigitalCertificate;
 import org.adempierelbr.model.MLBRNFConfig;
 import org.adempierelbr.model.MLBRNFeWebService;
@@ -24,14 +27,18 @@ import org.adempierelbr.model.MLBRNotaFiscal;
 import org.adempierelbr.nfe.api.NfeStatusServico2Stub;
 import org.adempierelbr.util.BPartnerUtil;
 import org.adempierelbr.util.NFeUtil;
+import org.adempierelbr.wrapper.I_W_AD_OrgInfo;
 import org.apache.axiom.om.OMElement;
 import org.compiere.model.MLocation;
 import org.compiere.model.MOrgInfo;
 import org.compiere.model.MRefList;
+import org.compiere.model.MSysConfig;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
+import org.kenos.idempiere.lbr.base.event.IDocFiscalHandler;
+import org.kenos.idempiere.lbr.base.event.IDocFiscalHandlerFactory;
 
 import br.inf.portalfiscal.nfe.v310.ConsStatServDocument;
 import br.inf.portalfiscal.nfe.v310.RetConsStatServDocument;
@@ -136,9 +143,6 @@ public class ProcStatusServico extends SvrProcess
 		//	Tipo de Emissão
 		if (p_LBR_TPEmis == null)
 			p_LBR_TPEmis = MLBRNFConfig.LBR_TPEMIS_EmissãoNormal;
-
-		//	Inicializa o Certificado
-		MLBRDigitalCertificate.setCertificate (getCtx(), p_AD_Org_ID);
 		//
 		StringBuilder msg = new StringBuilder ();
 				
@@ -152,20 +156,7 @@ public class ProcStatusServico extends SvrProcess
 			statServ.setXServ(XServ.STATUS);
 			statServ.setVersao(NFeUtil.VERSAO_LAYOUT);
 			
-			//	XML
-			StringReader xml = new StringReader (NFeUtil.wrapMsg (statServDoc.xmlText(NFeUtil.getXmlOpt())));
-			
-			//	Mensagem
-			NfeDadosMsg dadosMsg = NfeDadosMsg.Factory.parse (XMLInputFactory.newInstance().createXMLStreamReader(xml));
-			
-			//	Cabeçalho
-			NfeCabecMsg cabecMsg = new NfeCabecMsg ();
-			cabecMsg.setCUF(region);
-			cabecMsg.setVersaoDados(NFeUtil.VERSAO_LAYOUT);
-
-			NfeCabecMsgE cabecMsgE = new NfeCabecMsgE ();
-			cabecMsgE.setNfeCabecMsg(cabecMsg);
-
+			//	URL
 			String serviceType = null;
 			if (MLBRNotaFiscal.LBR_NFMODEL_NotaFiscalEletrônica.equals(p_LBR_NFModel))
 				serviceType = MLBRNFeWebService.STATUSSERVICO;
@@ -175,14 +166,67 @@ public class ProcStatusServico extends SvrProcess
 			
 			String url = MLBRNFeWebService.getURL (serviceType, p_LBR_EnvType, NFeUtil.VERSAO_LAYOUT, p_LBR_TPEmis, orgLoc.getC_Region_ID());
 			
-			NfeStatusServico2Stub.setAmbiente(url);
-			NfeStatusServico2Stub stub = new NfeStatusServico2Stub();
-
-			OMElement nfeStatusServicoNF2 = stub.nfeStatusServicoNF2(dadosMsg.getExtraElement(), cabecMsgE);
-			String respStatus = nfeStatusServicoNF2.toString();
-
+			String xmlText = statServDoc.xmlText(NFeUtil.getXmlOpt());
+			String remoteURL = MSysConfig.getValue("LBR_REMOTE_PKCS11_URL", "http://localhost:8888/pkcs11");
+			final StringBuilder respStatus = new StringBuilder();
+			
+			//	Try to find a service for PKCS#11 for transmit
+			IDocFiscalHandler handler = null;
+			List<IDocFiscalHandlerFactory> list = Service.locator ().list (IDocFiscalHandlerFactory.class).getServices();
+			for (IDocFiscalHandlerFactory docFiscal : list)
+			{
+				handler = docFiscal.getHandlerProcess(ProcStatusServico.class.getName());
+				if (handler != null)
+					break;
+			}
+			
+			// 	We have both, the URL for the local app and the Plugin transmitter
+			if (remoteURL != null && handler != null)
+			{
+				synchronized (respStatus)
+				{
+					String uuid = UUID.randomUUID().toString();
+					handler.transmitDocument(IDocFiscalHandler.DOC_NFE_STATUS, orgInfo.get_ValueAsString(I_W_AD_OrgInfo.COLUMNNAME_lbr_CNPJ), 
+							uuid, remoteURL, url, region, xmlText, respStatus);
+					
+					//	Wait until process is completed
+					respStatus.wait();
+					
+					//	Error message
+					if (respStatus.toString().startsWith("@Error="))
+						throw new Exception (respStatus.toString().substring(7));
+				}	//	synchronized
+			}
+			
+			//	Local execution
+			else
+			{
+				//	Inicializa o Certificado
+				MLBRDigitalCertificate.setCertificate (getCtx(), p_AD_Org_ID);
+				
+				//	XML
+				StringReader xml = new StringReader (NFeUtil.wrapMsg (xmlText));
+				
+				//	Mensagem
+				NfeDadosMsg dadosMsg = NfeDadosMsg.Factory.parse (XMLInputFactory.newInstance().createXMLStreamReader(xml));
+				
+				//	Cabeçalho
+				NfeCabecMsg cabecMsg = new NfeCabecMsg ();
+				cabecMsg.setCUF(region);
+				cabecMsg.setVersaoDados(NFeUtil.VERSAO_LAYOUT);
+	
+				NfeCabecMsgE cabecMsgE = new NfeCabecMsgE ();
+				cabecMsgE.setNfeCabecMsg(cabecMsg);
+				
+				NfeStatusServico2Stub.setAmbiente(url);
+				NfeStatusServico2Stub stub = new NfeStatusServico2Stub();
+	
+				OMElement nfeStatusServicoNF2 = stub.nfeStatusServicoNF2(dadosMsg.getExtraElement(), cabecMsgE);
+				respStatus.append(nfeStatusServicoNF2.toString());
+			}
+			
 			//	Resposta
-			RetConsStatServDocument retConsStatServDoc = RetConsStatServDocument.Factory.parse (respStatus);
+			RetConsStatServDocument retConsStatServDoc = RetConsStatServDocument.Factory.parse (respStatus.toString());
 			TRetConsStatServ ret = retConsStatServDoc.getRetConsStatServ();
 			
 			msg = new StringBuilder("@Success@<br />");
