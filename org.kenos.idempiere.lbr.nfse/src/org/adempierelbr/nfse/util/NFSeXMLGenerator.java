@@ -299,7 +299,7 @@ public class NFSeXMLGenerator
 		return 0;
 	}	//	toLong
 	
-	private static void sign (int AD_Org_ID, TpRPS rps)
+	private static void sign (int AD_Org_ID, TpRPS rps) throws Exception
 	{
 		StringBuilder ascii = new StringBuilder ("");
 		//

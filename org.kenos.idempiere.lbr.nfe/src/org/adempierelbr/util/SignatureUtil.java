@@ -59,13 +59,18 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import org.adempiere.base.Service;
 import org.adempiere.exceptions.AdempiereException;
 import org.adempierelbr.model.MLBRDigitalCertificate;
 import org.apache.xmlbeans.XmlCursor;
+import org.apache.xmlbeans.XmlException;
 import org.apache.xmlbeans.XmlObject;
 import org.compiere.model.MOrgInfo;
+import org.compiere.model.MSysConfig;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
+import org.kenos.idempiere.lbr.base.event.IDocFiscalHandler;
+import org.kenos.idempiere.lbr.base.event.IDocFiscalHandlerFactory;
 import org.w3.x2000.x09.xmldsig.SignatureDocument;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
@@ -230,6 +235,41 @@ public class SignatureUtil
 	{
 		log.fine ("Signing document: " + xml);
 
+		String remoteURL = MSysConfig.getValue("LBR_REMOTE_PKCS11_URL", "http://localhost:8888/pkcs11");
+		final StringBuilder respStatus = new StringBuilder(xml.xmlText (NFeUtil.getXmlOpt ()));
+		
+		//	Try to find a service for PKCS#11 for transmit
+		IDocFiscalHandler handler = null;
+		List<IDocFiscalHandlerFactory> list = Service.locator ().list (IDocFiscalHandlerFactory.class).getServices();
+		for (IDocFiscalHandlerFactory docFiscal : list)
+		{
+			handler = docFiscal.getHandler (SignatureUtil.class.getName());
+			if (handler != null)
+				break;
+		}
+		
+		// 	We have both, the URL for the local app and the Plugin transmitter
+		if (remoteURL != null && handler != null)
+		{
+			log.fine ("Document will be signed remotely: " + remoteURL);
+
+			synchronized (respStatus)
+			{
+				handler.signDocument (remoteURL, oi.get_ValueAsString("lbr_CNPJ"), respStatus);
+				
+				//	Wait until process is completed
+				respStatus.wait();
+				
+				//	Error message
+				if (respStatus.toString().startsWith("@Error="))
+					throw new Exception (respStatus.toString().substring(7));
+				
+				//	Recreate document
+				insertSignature (rootCursor, respStatus.toString());
+				return;
+			}	//	synchronized
+		}
+		
 		//	Load Certificates
 		loadKeys (oi);
 
@@ -297,6 +337,18 @@ public class SignatureUtil
 		String xmlSignature = sw.toString();
 		xmlSignature = xmlSignature.substring(xmlSignature.indexOf("<Signature"), xmlSignature.indexOf("</Signature>")+12);
 		
+		insertSignature (rootCursor, xmlSignature);
+	}	//	assinarDocumento
+
+	/**
+	 * 	Move the signature to XML Object
+	 * 
+	 * @param rootCursor
+	 * @param xmlSignature
+	 * @throws XmlException
+	 */
+	private void insertSignature (XmlCursor rootCursor, String xmlSignature) throws XmlException
+	{
 		SignatureDocument signatureDocument = SignatureDocument.Factory.parse (xmlSignature);
 		
 		//	Cursor da assinatura
@@ -307,17 +359,52 @@ public class SignatureUtil
 		//	Adiciona a assinatura no documento
 		rootCursor.toEndToken();
 		cursor.moveXml(rootCursor);
-	}	//	assinarDocumento
+	}	//	insertSignature
 	
 	/**
 	 * 		Assinatura RPS usando SHA1withRSA + Base64
 	 * 
 	 * 	@param ascii
 	 * 	@return
+	 * @throws InterruptedException 
 	 */
-	public String signASCII (String ascii) 
+	public String signASCII (String ascii) throws Exception 
 	{
 		log.fine("Signing: " + ascii);
+		String remoteURL = MSysConfig.getValue("LBR_REMOTE_PKCS11_URL", "http://localhost:8888/pkcs11");
+		final StringBuilder respStatus = new StringBuilder(ascii);
+		
+		//	Try to find a service for PKCS#11 for transmit
+		IDocFiscalHandler handler = null;
+		List<IDocFiscalHandlerFactory> list = Service.locator ().list (IDocFiscalHandlerFactory.class).getServices();
+		for (IDocFiscalHandlerFactory docFiscal : list)
+		{
+			handler = docFiscal.getHandler (SignatureUtil.class.getName());
+			if (handler != null)
+				break;
+		}
+		
+		// 	We have both, the URL for the local app and the Plugin transmitter
+		if (remoteURL != null && handler != null)
+		{
+			log.fine ("Document will be signed remotely: " + remoteURL);
+
+			synchronized (respStatus)
+			{
+				handler.signText (remoteURL, oi.get_ValueAsString("lbr_CNPJ"), respStatus);
+				
+				//	Wait until process is completed
+				respStatus.wait();
+				
+				//	Error message
+				if (respStatus.toString().startsWith("@Error="))
+					throw new Exception (respStatus.toString().substring(7));
+				
+				//	Recreate document
+				return respStatus.toString();
+			}	//	synchronized
+		}
+		
 		String encoded = null;
 		//
 		try 

@@ -175,7 +175,7 @@ public class ProcStatusServico extends SvrProcess
 			List<IDocFiscalHandlerFactory> list = Service.locator ().list (IDocFiscalHandlerFactory.class).getServices();
 			for (IDocFiscalHandlerFactory docFiscal : list)
 			{
-				handler = docFiscal.getHandlerProcess(ProcStatusServico.class.getName());
+				handler = docFiscal.getHandler (ProcStatusServico.class.getName());
 				if (handler != null)
 					break;
 			}

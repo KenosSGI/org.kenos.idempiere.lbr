@@ -592,8 +592,9 @@ public class NFSeImpl implements INFSe
 	 * 	Sign RPS
 	 * 	@param AD_Org_ID
 	 * 	@param rps
+	 * @throws Exception 
 	 */
-	private static void sign (int AD_Org_ID, TpRPS rps)
+	private static void sign (int AD_Org_ID, TpRPS rps) throws Exception
 	{
 		StringBuilder ascii = new StringBuilder ("");
 		//

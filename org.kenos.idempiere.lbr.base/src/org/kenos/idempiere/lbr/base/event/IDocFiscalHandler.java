@@ -23,12 +23,23 @@ public interface IDocFiscalHandler
 	/**
 	 * 	Signs the Fiscal Document using a remote PKCS#11 certificate
 	 * 
-	 * 	@param tableName
-	 * 	@param Doc_ID
-	 * 	@param xml
+	 * 	@param remoteURL URL of Remote Signature App
+	 * 	@param cnpjf CNPJ or CPF
+	 * 	@param xml Document to be Signed
+	 * 	@throws Exception 
 	 */
-	public void signDocument (String tableName, Integer Doc_ID, String cnpjf, String xml);
+	public void signDocument (String remoteURL, String cnpjf, StringBuilder xml) throws Exception;
 	
+	/**
+	 * 	Signs the Fiscal Document using a remote PKCS#11 certificate
+	 * 
+	 * 	@param urlPK URL of Remote Signature App
+	 * 	@param cnpjf CNPJ or CPF
+	 * 	@param xml Document to be Signed
+	 * 	@throws Exception 
+	 */
+	public void signText (String remoteURL, String get_ValueAsString, StringBuilder respStatus) throws Exception;
+
 	/**
 	 * 	Transmits the Fiscal Document using a remote PKCS#11 certificate
 	 * 
@@ -42,4 +53,5 @@ public interface IDocFiscalHandler
 	 * 	@throws Exception
 	 */
 	public void transmitDocument (String docType, String cnpjf, String uuid, String urlPK, String urlDoc, String regionCode, String xml, StringBuilder result) throws Exception;
+
 }	//	IDocFiscalHandler
