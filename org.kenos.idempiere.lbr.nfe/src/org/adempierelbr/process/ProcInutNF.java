@@ -240,7 +240,7 @@ public class ProcInutNF extends SvrProcess
 		List<IDocFiscalHandlerFactory> list = Service.locator ().list (IDocFiscalHandlerFactory.class).getServices();
 		for (IDocFiscalHandlerFactory docFiscal : list)
 		{
-			handler = docFiscal.getHandler (ProcStatusServico.class.getName());
+			handler = docFiscal.getHandler (ProcInutNF.class.getName());
 			if (handler != null)
 				break;
 		}
