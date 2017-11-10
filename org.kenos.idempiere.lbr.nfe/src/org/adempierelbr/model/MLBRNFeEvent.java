@@ -21,13 +21,16 @@ import java.security.cert.CertificateExpiredException;
 import java.security.cert.CertificateNotYetValidException;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Properties;
+import java.util.UUID;
 
 import javax.net.ssl.SSLException;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
+import org.adempiere.base.Service;
 import org.adempiere.exceptions.AdempiereException;
 import org.adempiere.model.POWrapper;
 import org.adempierelbr.nfe.NFeXMLGenerator;
@@ -44,12 +47,15 @@ import org.apache.xmlbeans.XmlObject;
 import org.compiere.model.MAttachment;
 import org.compiere.model.MDocType;
 import org.compiere.model.MOrgInfo;
+import org.compiere.model.MSysConfig;
 import org.compiere.model.ModelValidationEngine;
 import org.compiere.model.ModelValidator;
 import org.compiere.process.DocAction;
 import org.compiere.process.DocumentEngine;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
+import org.kenos.idempiere.lbr.base.event.IDocFiscalHandler;
+import org.kenos.idempiere.lbr.base.event.IDocFiscalHandlerFactory;
 
 import br.inf.portalfiscal.nfe.evento.generico.EnvEventoDocument;
 import br.inf.portalfiscal.nfe.evento.generico.ProcEventoNFeDocument;
@@ -392,29 +398,68 @@ public class MLBRNFeEvent extends X_LBR_NFeEvent implements DocAction
 				return DocAction.STATUS_Invalid;
 			}
 			
-			XMLStreamReader dadosXML = XMLInputFactory.newInstance().createXMLStreamReader (new StringReader (NFeUtil.XML_HEADER + NFeUtil.wrapMsg (xml.toString ())));
-
+			//	URL
+			String url = ws.getURL();
+			
 			//	Prepara a Transmissão
 			MLBRDigitalCertificate.setCertificate (getCtx(), oi.getAD_Org_ID());
-			NfeDadosMsg dadosMsg = NfeDadosMsg.Factory.parse(dadosXML);
 			
-			NfeCabecMsg cabecMsg = new NfeCabecMsg();
-			cabecMsg.setCUF("" + NFeUtil.getRegionCode (oi));
-			cabecMsg.setVersaoDados(NFeUtil.VERSAO_EVENTO);
+			String remoteURL = MSysConfig.getValue("LBR_REMOTE_PKCS11_URL", "http://localhost:8888/pkcs11");
+			final StringBuilder respStatus = new StringBuilder();
 			
-			NfeCabecMsgE cabecMsgE = new NfeCabecMsgE();
-			cabecMsgE.setNfeCabecMsg(cabecMsg);
+			//	Try to find a service for PKCS#11 for transmit
+			IDocFiscalHandler handler = null;
+			List<IDocFiscalHandlerFactory> list = Service.locator ().list (IDocFiscalHandlerFactory.class).getServices();
+			for (IDocFiscalHandlerFactory docFiscal : list)
+			{
+				handler = docFiscal.getHandler (MLBRNFeEvent.class.getName());
+				if (handler != null)
+					break;
+			}
 			
-			RecepcaoEventoStub stub = new RecepcaoEventoStub(ws.getURL());
+			// 	We have both, the URL for the local app and the Plugin transmitter
+			if (remoteURL != null && handler != null)
+			{
+				synchronized (respStatus)
+				{
+					String uuid = UUID.randomUUID().toString();
+					handler.transmitDocument(IDocFiscalHandler.DOC_NFE_STATUS, oi.get_ValueAsString(I_W_AD_OrgInfo.COLUMNNAME_lbr_CNPJ), 
+							uuid, remoteURL, url, "" + NFeUtil.getRegionCode (oi), NFeUtil.XML_HEADER + NFeUtil.wrapMsg (xml.toString ()), respStatus);
+					
+					//	Wait until process is completed
+					respStatus.wait();
+					
+					//	Error message
+					if (respStatus.toString().startsWith("@Error="))
+						throw new Exception (respStatus.toString().substring(7));
+				}	//	synchronized
+			}
+			else
+			{
+				XMLStreamReader dadosXML = XMLInputFactory.newInstance().createXMLStreamReader (new StringReader (NFeUtil.XML_HEADER + NFeUtil.wrapMsg (xml.toString ())));
 
-			//	Resposta do SEFAZ
-			String respLote = NFeUtil.XML_HEADER + stub.nfeRecepcaoEvento (dadosMsg.getExtraElement(), cabecMsgE).toString();
-			log.fine (respLote);
+				NfeDadosMsg dadosMsg = NfeDadosMsg.Factory.parse(dadosXML);
+				
+				NfeCabecMsg cabecMsg = new NfeCabecMsg();
+				cabecMsg.setCUF("" + NFeUtil.getRegionCode (oi));
+				cabecMsg.setVersaoDados(NFeUtil.VERSAO_EVENTO);
+				
+				NfeCabecMsgE cabecMsgE = new NfeCabecMsgE();
+				cabecMsgE.setNfeCabecMsg(cabecMsg);
+				
+				RecepcaoEventoStub stub = new RecepcaoEventoStub(url);
+
+				//	Resposta do SEFAZ
+				String respLote = NFeUtil.XML_HEADER + stub.nfeRecepcaoEvento (dadosMsg.getExtraElement(), cabecMsgE).toString();
+				log.fine (respLote);
+				
+				respStatus.append(respLote);
+			}
 			
 			//	SchemaTypeLoader necessário, pois o RetEnvEventoDocument existe com a mesma namespace para outros docs
 			//		ref. http://ateneatech.com/blog/desenredando-xmlbeans
 			SchemaTypeLoader stl = XmlBeans.typeLoaderUnion(new SchemaTypeLoader[]{RetEnvEventoDocument.type.getTypeSystem(), XmlBeans.getContextTypeLoader()});			
-			TRetEnvEvento retEnvEvento = ((RetEnvEventoDocument) stl.parse (respLote, null, null)).getRetEnvEvento();
+			TRetEnvEvento retEnvEvento = ((RetEnvEventoDocument) stl.parse (respStatus.toString(), null, null)).getRetEnvEvento();
 			
 			if (!LBR_NFESTATUS_128_LoteDeEventoProcessado.equals (retEnvEvento.getCStat()))
 				throw new AdempiereException (retEnvEvento.getXMotivo());
@@ -472,7 +517,7 @@ public class MLBRNFeEvent extends X_LBR_NFeEvent implements DocAction
 				}
 				else
 				{
-					log.severe("XML Sent: " + xml + "\nXML Response: " + respLote);
+					log.severe("XML Sent: " + xml + "\nXML Response: " + respStatus.toString());
 					throw new AdempiereException (infReturn.getCStat() + " - " + infReturn.getXMotivo());
 				}
 			}

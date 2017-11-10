@@ -1,6 +1,8 @@
 package org.adempierelbr.process;
 
 import java.io.StringReader;
+import java.util.List;
+import java.util.UUID;
 import java.util.logging.Level;
 
 import javax.xml.stream.FactoryConfigurationError;
@@ -8,6 +10,7 @@ import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
+import org.adempiere.base.Service;
 import org.adempiere.exceptions.AdempiereException;
 import org.adempiere.model.POWrapper;
 import org.adempierelbr.model.MLBRDigitalCertificate;
@@ -35,6 +38,8 @@ import org.compiere.util.AdempiereUserError;
 import org.compiere.util.CLogger;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
+import org.kenos.idempiere.lbr.base.event.IDocFiscalHandler;
+import org.kenos.idempiere.lbr.base.event.IDocFiscalHandlerFactory;
 
 import br.inf.portalfiscal.nfe.v6v.ConsCadDocument;
 import br.inf.portalfiscal.nfe.v6v.RetConsCadDocument;
@@ -304,29 +309,63 @@ public class ConsultaCadastro extends SvrProcess
 			
 			//	XML
 			StringBuilder xml =  new StringBuilder (consCadDoc.xmlText(NFeUtil.getXmlOpt()));
-			XMLStreamReader dadosXML = XMLInputFactory.newInstance().createXMLStreamReader(new StringReader(NFeUtil.wrapMsg(xml.toString())));
-	
-			//	Mensagem
-			NfeDadosMsg dadosMsg = NfeDadosMsg.Factory.parse (dadosXML);
-			
-			//	Cabeçalho
-			NfeCabecMsg cabecMsg = new NfeCabecMsg ();
-			cabecMsg.setCUF("" + NFeUtil.getRegionCode (oi));
-			cabecMsg.setVersaoDados("2.00");
-
-			NfeCabecMsgE cabecMsgE = new NfeCabecMsgE ();
-			cabecMsgE.setNfeCabecMsg(cabecMsg);
 			
 			MLBRNFConfig config = MLBRNFConfig.get(oi.getAD_Org_ID());
-
 			String url = MLBRNFeWebService.getURL (MLBRNFeWebService.CADCONSULTACADASTRO, config.getlbr_NFeEnv(), NFeUtil.VERSAO_LAYOUT, DB.getSQLValue(null, "SELECT C_Region_ID FROM C_Region WHERE Name='"+p_UF+"' AND C_Country_ID=?", 139));
-			CadConsultaCadastro2Stub stub = new CadConsultaCadastro2Stub(url);
 
-			OMElement nfeConsulta = stub.consultaCadastro2 (dadosMsg.getExtraElement(), cabecMsgE);
-			String respStatus = nfeConsulta.toString();
+			String remoteURL = MSysConfig.getValue("LBR_REMOTE_PKCS11_URL", "http://localhost:8888/pkcs11");
+			final StringBuilder respStatus = new StringBuilder();
+			
+			//	Try to find a service for PKCS#11 for transmit
+			IDocFiscalHandler handler = null;
+			List<IDocFiscalHandlerFactory> list = Service.locator ().list (IDocFiscalHandlerFactory.class).getServices();
+			for (IDocFiscalHandlerFactory docFiscal : list)
+			{
+				handler = docFiscal.getHandler (ConsultaCadastro.class.getName());
+				if (handler != null)
+					break;
+			}
+			
+			// 	We have both, the URL for the local app and the Plugin transmitter
+			if (remoteURL != null && handler != null)
+			{
+				synchronized (respStatus)
+				{
+					String uuid = UUID.randomUUID().toString();
+					handler.transmitDocument(IDocFiscalHandler.DOC_NFE_STATUS, oiW.getlbr_CNPJ(), 
+							uuid, remoteURL, url, "" + NFeUtil.getRegionCode (oi), xml.toString(), respStatus);
+					
+					//	Wait until process is completed
+					respStatus.wait();
+					
+					//	Error message
+					if (respStatus.toString().startsWith("@Error="))
+						throw new Exception (respStatus.toString().substring(7));
+				}	//	synchronized
+			}
+			else
+			{
+				XMLStreamReader dadosXML = XMLInputFactory.newInstance().createXMLStreamReader(new StringReader(NFeUtil.wrapMsg(xml.toString())));
+				
+				//	Mensagem
+				NfeDadosMsg dadosMsg = NfeDadosMsg.Factory.parse (dadosXML);
+				
+				//	Cabeçalho
+				NfeCabecMsg cabecMsg = new NfeCabecMsg ();
+				cabecMsg.setCUF("" + NFeUtil.getRegionCode (oi));
+				cabecMsg.setVersaoDados("2.00");
+
+				NfeCabecMsgE cabecMsgE = new NfeCabecMsgE ();
+				cabecMsgE.setNfeCabecMsg(cabecMsg);
+
+				CadConsultaCadastro2Stub stub = new CadConsultaCadastro2Stub(url);
+
+				OMElement nfeConsulta = stub.consultaCadastro2 (dadosMsg.getExtraElement(), cabecMsgE);
+				respStatus.append(nfeConsulta.toString());
+			}
 
 			//	Resposta
-			return RetConsCadDocument.Factory.parse (respStatus);
+			return RetConsCadDocument.Factory.parse (respStatus.toString());
 		}
 		catch (XMLStreamException e)
 		{

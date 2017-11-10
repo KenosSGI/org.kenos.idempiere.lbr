@@ -18,14 +18,17 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.UUID;
 import java.util.logging.Level;
 
+import org.adempiere.base.Service;
 import org.adempierelbr.model.MLBRDigitalCertificate;
 import org.adempierelbr.model.MLBRNotaFiscal;
 import org.adempierelbr.nfse.sp.api.LoteNFeStub;
 import org.adempierelbr.util.NFeUtil;
 import org.adempierelbr.util.SignatureUtil;
 import org.adempierelbr.util.TextUtil;
+import org.adempierelbr.wrapper.I_W_AD_OrgInfo;
 import org.compiere.model.MOrgInfo;
 import org.compiere.model.MSequence;
 import org.compiere.model.MSysConfig;
@@ -36,6 +39,8 @@ import org.compiere.util.AdempiereUserError;
 import org.compiere.util.CLogger;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
+import org.kenos.idempiere.lbr.base.event.IDocFiscalHandler;
+import org.kenos.idempiere.lbr.base.event.IDocFiscalHandlerFactory;
 
 import br.gov.sp.prefeitura.nfe.PedidoEnvioLoteRPSDocument;
 import br.gov.sp.prefeitura.nfe.PedidoEnvioLoteRPSDocument.PedidoEnvioLoteRPS;
@@ -199,20 +204,69 @@ public class NFSETransmit extends SvrProcess
 		//	Valida o documento
 		NFeUtil.validate (envioLoteRPSDoc);
 
-		//	Stub
-		LoteNFeStub stub = new LoteNFeStub();
+		String remoteURL = MSysConfig.getValue("LBR_REMOTE_PKCS11_URL", "http://localhost:8888/pkcs11");
+		final StringBuilder respStatus = new StringBuilder();
 		
-		//	Monta o Lote para Teste
-		if (MSysConfig.getBooleanValue ("LBR_DEBUG_RPS", false, getAD_Client_ID()))
-			retornoXML = stub.testeEnvioLoteRPS(1, xml.toString());
+		//	Try to find a service for PKCS#11 for transmit
+		IDocFiscalHandler handler = null;
+		List<IDocFiscalHandlerFactory> list = Service.locator ().list (IDocFiscalHandlerFactory.class).getServices();
+		for (IDocFiscalHandlerFactory docFiscal : list)
+		{
+			handler = docFiscal.getHandler (NFSETransmit.class.getName());
+			if (handler != null)
+				break;
+		}
 		
-		//	Envio o Lote
-		else if (getTable_ID() == 0)
-			retornoXML = stub.envioLoteRPS(1, xml.toString());
-		
-		//	Envia o RPS único
-		else if (MLBRNotaFiscal.Table_ID == getTable_ID())
-			retornoXML = stub.envioRPS (1, xml.toString());
+		// 	We have both, the URL for the local app and the Plugin transmitter
+		if (remoteURL != null && handler != null)
+		{
+			synchronized (respStatus)
+			{
+				String flags = "";
+				
+				//	Flags
+				if (MSysConfig.getBooleanValue ("LBR_DEBUG_RPS", false, getAD_Client_ID()))
+					flags += "debug";
+				
+				//	Envio o Lote
+				else if (getTable_ID() == 0)
+					flags += "lot";
+				
+				//	Envia o RPS único
+				else if (MLBRNotaFiscal.Table_ID == getTable_ID())
+					flags += "single";
+				
+				String uuid = UUID.randomUUID().toString();
+				handler.transmitDocument(IDocFiscalHandler.DOC_NFSE, oi.get_ValueAsString(I_W_AD_OrgInfo.COLUMNNAME_lbr_CNPJ), 
+						uuid, remoteURL, "", flags, xml.toString(), respStatus);
+				
+				//	Wait until process is completed
+				respStatus.wait();
+				
+				//	Error message
+				if (respStatus.toString().startsWith("@Error="))
+					throw new Exception (respStatus.toString().substring(7));
+				
+				retornoXML = respStatus.toString();
+			}	//	synchronized
+		}
+		else
+		{
+			//	Stub
+			LoteNFeStub stub = new LoteNFeStub();
+			
+			//	Monta o Lote para Teste
+			if (MSysConfig.getBooleanValue ("LBR_DEBUG_RPS", false, getAD_Client_ID()))
+				retornoXML = stub.testeEnvioLoteRPS(1, xml.toString());
+			
+			//	Envio o Lote
+			else if (getTable_ID() == 0)
+				retornoXML = stub.envioLoteRPS(1, xml.toString());
+			
+			//	Envia o RPS único
+			else if (MLBRNotaFiscal.Table_ID == getTable_ID())
+				retornoXML = stub.envioRPS (1, xml.toString());
+		}
 		
 		log.fine (retornoXML);
 

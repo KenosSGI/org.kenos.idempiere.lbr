@@ -16,12 +16,15 @@ package org.adempierelbr.process;
 import java.io.File;
 import java.io.StringReader;
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Properties;
+import java.util.UUID;
 import java.util.logging.Level;
 
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamReader;
 
+import org.adempiere.base.Service;
 import org.adempiere.exceptions.AdempiereException;
 import org.adempiere.model.POWrapper;
 import org.adempierelbr.mdfe.util.MDFeUtil;
@@ -31,13 +34,17 @@ import org.adempierelbr.model.MLBRNFeWebService;
 import org.adempierelbr.util.NFeUtil;
 import org.adempierelbr.util.SignatureUtil;
 import org.adempierelbr.util.TextUtil;
+import org.adempierelbr.wrapper.I_W_AD_OrgInfo;
 import org.adempierelbr.wrapper.I_W_C_City;
 import org.compiere.model.MAttachment;
 import org.compiere.model.MCity;
 import org.compiere.model.MOrgInfo;
+import org.compiere.model.MSysConfig;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
 import org.compiere.util.CLogger;
+import org.kenos.idempiere.lbr.base.event.IDocFiscalHandler;
+import org.kenos.idempiere.lbr.base.event.IDocFiscalHandlerFactory;
 
 import br.inf.portalfiscal.mdfe.EnviMDFeDocument;
 import br.inf.portalfiscal.mdfe.MDFeDocument;
@@ -144,24 +151,62 @@ public class MDFeRecepcao extends SvrProcess
 		MLBRDigitalCertificate.setCertificate (p_ctx, mdfe.getAD_Org_ID());
 		
 		I_W_C_City city = POWrapper.create (new MCity (p_ctx, MOrgInfo.get(p_ctx, mdfe.getAD_Org_ID(), null).getC_Location().getC_City_ID(), null), I_W_C_City.class);
-		
-		//	Cabeçalho
-		MDFeRecepcaoStub.MdfeCabecMsg header = new MDFeRecepcaoStub.MdfeCabecMsg();
-		header.setCUF((city.getlbr_CityCode()+"").substring(0, 2));
-		header.setVersaoDados(MDFeUtil.VERSION);
-		
-		MDFeRecepcaoStub.MdfeCabecMsgE headerE = new MDFeRecepcaoStub.MdfeCabecMsgE();
-		headerE.setMdfeCabecMsg(header);
-		
-		//	Conteúdo
-		MDFeRecepcaoStub.MdfeDadosMsg content = MDFeRecepcaoStub.MdfeDadosMsg.Factory.parse (data);
-		
-		//	Consulta
-		MDFeRecepcaoStub.setAmbiente(MLBRNFeWebService.get (MDFeUtil.TYPE_RECEPCAO, mdfe.getlbr_NFeEnv(), MDFeUtil.VERSION, MDFeUtil.MDFE_REGION));
-		MDFeRecepcaoStub stub = new MDFeRecepcaoStub();
-		
-		StringBuilder result = new StringBuilder (MDFeUtil.HEADER + stub.mdfeRecepcaoLote (content, headerE).getExtraElement().toString());
 
+		MLBRNFeWebService url = MLBRNFeWebService.get (MDFeUtil.TYPE_RECEPCAO, mdfe.getlbr_NFeEnv(), MDFeUtil.VERSION, MDFeUtil.MDFE_REGION);
+		if (url == null)
+			throw new Exception ("URL for MDF-e not found");
+
+		String region = (city.getlbr_CityCode()+"").substring(0, 2);
+		String remoteURL = MSysConfig.getValue("LBR_REMOTE_PKCS11_URL", "http://localhost:8888/pkcs11");
+		final StringBuilder result = new StringBuilder();
+		
+		//	Try to find a service for PKCS#11 for transmit
+		IDocFiscalHandler handler = null;
+		List<IDocFiscalHandlerFactory> list = Service.locator ().list (IDocFiscalHandlerFactory.class).getServices();
+		for (IDocFiscalHandlerFactory docFiscal : list)
+		{
+			handler = docFiscal.getHandler (ProcStatusServico.class.getName());
+			if (handler != null)
+				break;
+		}
+		
+		// 	We have both, the URL for the local app and the Plugin transmitter
+		if (remoteURL != null && handler != null)
+		{
+			synchronized (result)
+			{
+				String uuid = UUID.randomUUID().toString();
+				handler.transmitDocument(IDocFiscalHandler.DOC_NFE_STATUS, oi.get_ValueAsString(I_W_AD_OrgInfo.COLUMNNAME_lbr_CNPJ), 
+						uuid, remoteURL, url.getURL(), region, MDFeUtil.getWrapped (sb), result);	//	FIXME MDFe URL
+				
+				//	Wait until process is completed
+				result.wait();
+				
+				//	Error message
+				if (result.toString().startsWith("@Error="))
+					throw new Exception (result.toString().substring(7));
+			}	//	synchronized
+		}
+		else
+		{
+			//	Cabeçalho
+			MDFeRecepcaoStub.MdfeCabecMsg header = new MDFeRecepcaoStub.MdfeCabecMsg();
+			header.setCUF(region);
+			header.setVersaoDados(MDFeUtil.VERSION);
+			
+			MDFeRecepcaoStub.MdfeCabecMsgE headerE = new MDFeRecepcaoStub.MdfeCabecMsgE();
+			headerE.setMdfeCabecMsg(header);
+			
+			//	Conteúdo
+			MDFeRecepcaoStub.MdfeDadosMsg content = MDFeRecepcaoStub.MdfeDadosMsg.Factory.parse (data);
+			
+			//	Consulta
+			MDFeRecepcaoStub.setAmbiente(url);
+			MDFeRecepcaoStub stub = new MDFeRecepcaoStub();
+			
+			result.append(MDFeUtil.HEADER + stub.mdfeRecepcaoLote (content, headerE).getExtraElement().toString());
+		}
+		
 		s_log.fine (result.toString());
 
 		TRetEnviMDFe ret = RetEnviMDFeDocument.Factory.parse (result.toString()).getRetEnviMDFe();

@@ -8,12 +8,32 @@ package org.kenos.idempiere.lbr.base.event;
  */
 public interface IDocFiscalHandler
 {
+	//	DF-e
+	public static final String DOC_DFE 			= "dfe";
+	public static final String DOC_DFE_XML 		= "dfe-xml";
+
+	//	NF-e
 	public static final String DOC_NFE 			= "nfe";
-	public static final String DOC_NFE_STATUS 	= "nfestatus";
+	public static final String DOC_NFE_EVENT 	= "nfe-event";
+	public static final String DOC_NFE_INUT 	= "nfe-inut";
+	public static final String DOC_NFE_RET 		= "nfe-ret";
+	public static final String DOC_NFE_STATUS 	= "nfe-status";
+	public static final String DOC_NFE_CAD 		= "nfe-cad";
+	public static final String DOC_NFE_CONSULT 	= "nfe-consult";
+
+	//	NFC-e
+	public static final String DOC_NFCE 		= "nfce";
+
+	//	NFS-e
+	public static final String DOC_NFSE 		= "nfse";
+
+	//	MDF-e
 	public static final String DOC_MDFE 		= "mdfe";
-	public static final String DOC_MDFE_STATUS 	= "mdfestatus";
-	public static final String DOC_CADASTRO 	= "cad";
-	//
+	public static final String DOC_MDFE_EVENT 	= "mdfe-event";
+	public static final String DOC_MDFE_RET 	= "mdfe-ret";
+	public static final String DOC_MDFE_STATUS 	= "mdfe-status";
+	
+	//	Events
 	public static final String EVENT_PKCS11 				= "pkcs11";
 	public static final String EVENT_PKCS11_FLUSH			= "pkcs11-flush";
 	public static final String EVENT_PKCS11_PING 			= "pkcs11-ping";

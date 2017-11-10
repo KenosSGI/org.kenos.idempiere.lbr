@@ -14,11 +14,14 @@
 package org.adempierelbr.process;
 
 import java.io.StringReader;
+import java.util.List;
+import java.util.UUID;
 import java.util.logging.Level;
 
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamReader;
 
+import org.adempiere.base.Service;
 import org.adempiere.exceptions.AdempiereException;
 import org.adempiere.model.POWrapper;
 import org.adempierelbr.mdfe.util.MDFeUtil;
@@ -27,12 +30,16 @@ import org.adempierelbr.model.MLBRMDFe;
 import org.adempierelbr.model.MLBRNFeWebService;
 import org.adempierelbr.model.MLBRNotaFiscal;
 import org.adempierelbr.util.NFeUtil;
+import org.adempierelbr.wrapper.I_W_AD_OrgInfo;
 import org.adempierelbr.wrapper.I_W_C_City;
 import org.compiere.model.MCity;
 import org.compiere.model.MOrgInfo;
 import org.compiere.model.MRefList;
+import org.compiere.model.MSysConfig;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
+import org.kenos.idempiere.lbr.base.event.IDocFiscalHandler;
+import org.kenos.idempiere.lbr.base.event.IDocFiscalHandlerFactory;
 
 import br.inf.portalfiscal.mdfe.ConsStatServMDFeDocument;
 import br.inf.portalfiscal.mdfe.RetConsStatServMDFeDocument;
@@ -102,14 +109,6 @@ public class StatusMDFe extends SvrProcess
 			//	Certificado
 			MLBRDigitalCertificate.setCertificate (getCtx(), oi.getAD_Org_ID());
 			
-			//	Cabeçalho
-			MDFeStatusServicoStub.MdfeCabecMsg header = new MDFeStatusServicoStub.MdfeCabecMsg ();
-			header.setCUF((city.getlbr_CityCode()+"").substring(0, 2));
-			header.setVersaoDados(MDFeUtil.VERSION);
-			
-			MDFeStatusServicoStub.MdfeCabecMsgE headerE = new MDFeStatusServicoStub.MdfeCabecMsgE ();
-			headerE.setMdfeCabecMsg(header);
-			
 			//	XML
 			ConsStatServMDFeDocument statDoc = ConsStatServMDFeDocument.Factory.newInstance();
 			TConsStatServ status = statDoc.addNewConsStatServMDFe();
@@ -121,21 +120,65 @@ public class StatusMDFe extends SvrProcess
 			log.fine (xml.toString());
 			
 //			ValidaXML.ValidaDocEx (sw.toString(), MDFeUtil.XSD_VERSION + "/consStatServMDFe_v1.00.xsd");
-			
-			XMLStreamReader xmlReader = XMLInputFactory.newInstance().createXMLStreamReader(new StringReader(MDFeUtil.getWrapped (xml)));
-			
-			//	Conteúdo
-			MDFeStatusServicoStub.MdfeDadosMsg content = MDFeStatusServicoStub.MdfeDadosMsg.Factory.parse (xmlReader);
-			
-			//	Consulta
-			MDFeStatusServicoStub.setAmbiente (MLBRNFeWebService.get (MDFeUtil.TYPE_STATUS, p_LBR_NFeEnv, MDFeUtil.VERSION, MDFeUtil.MDFE_REGION));
-			MDFeStatusServicoStub stub = new MDFeStatusServicoStub();
-			
-			StringBuilder result = new StringBuilder (MDFeUtil.HEADER + stub.mdfeStatusServicoMDF (content, headerE).getExtraElement().toString());
 
-			log.fine (result.toString());
+			String regionCode = (city.getlbr_CityCode()+"").substring(0, 2);
+			MLBRNFeWebService ws = MLBRNFeWebService.get (MDFeUtil.TYPE_STATUS, p_LBR_NFeEnv, MDFeUtil.VERSION, MDFeUtil.MDFE_REGION);
 			
-			TRetConsStatServ ret = RetConsStatServMDFeDocument.Factory.parse(result.toString()).getRetConsStatServMDFe();
+			String remoteURL = MSysConfig.getValue("LBR_REMOTE_PKCS11_URL", "http://localhost:8888/pkcs11");
+			final StringBuilder respStatus = new StringBuilder("");
+			
+			//	Try to find a service for PKCS#11 for transmit
+			IDocFiscalHandler handler = null;
+			List<IDocFiscalHandlerFactory> list = Service.locator ().list (IDocFiscalHandlerFactory.class).getServices();
+			for (IDocFiscalHandlerFactory docFiscal : list)
+			{
+				handler = docFiscal.getHandler (ProcStatusServico.class.getName());
+				if (handler != null)
+					break;
+			}
+			
+			// 	We have both, the URL for the local app and the Plugin transmitter
+			if (remoteURL != null && handler != null)
+			{
+				synchronized (respStatus)
+				{
+					String uuid = UUID.randomUUID().toString();
+					handler.transmitDocument(IDocFiscalHandler.DOC_NFE_STATUS, oi.get_ValueAsString(I_W_AD_OrgInfo.COLUMNNAME_lbr_CNPJ), 
+							uuid, remoteURL, ws.getURL(), regionCode, MDFeUtil.getWrapped (xml), respStatus);
+					
+					//	Wait until process is completed
+					respStatus.wait();
+					
+					//	Error message
+					if (respStatus.toString().startsWith("@Error="))
+						throw new Exception (respStatus.toString().substring(7));
+				}	//	synchronized
+			}
+			else
+			{
+				//	Cabeçalho
+				MDFeStatusServicoStub.MdfeCabecMsg header = new MDFeStatusServicoStub.MdfeCabecMsg ();
+				header.setCUF(regionCode);
+				header.setVersaoDados(MDFeUtil.VERSION);
+				
+				MDFeStatusServicoStub.MdfeCabecMsgE headerE = new MDFeStatusServicoStub.MdfeCabecMsgE ();
+				headerE.setMdfeCabecMsg(header);
+				
+				XMLStreamReader xmlReader = XMLInputFactory.newInstance().createXMLStreamReader(new StringReader(MDFeUtil.getWrapped (xml)));
+				
+				//	Conteúdo
+				MDFeStatusServicoStub.MdfeDadosMsg content = MDFeStatusServicoStub.MdfeDadosMsg.Factory.parse (xmlReader);
+				
+				//	Consulta
+				MDFeStatusServicoStub.setAmbiente (ws);
+				MDFeStatusServicoStub stub = new MDFeStatusServicoStub();
+				
+				respStatus.append(MDFeUtil.HEADER + stub.mdfeStatusServicoMDF (content, headerE).getExtraElement().toString());
+			}
+
+			log.fine (respStatus.toString());
+			
+			TRetConsStatServ ret = RetConsStatServMDFeDocument.Factory.parse(respStatus.toString()).getRetConsStatServMDFe();
 			
 			StringBuilder msg = new StringBuilder("<br />");
 			msg.append("<br />Ambiente: ").append(ret.getTpAmb()).append(" - ").append(MRefList.getListName (getCtx(), MLBRMDFe.LBR_NFEENV_AD_Reference_ID, ret.getTpAmb().toString()));

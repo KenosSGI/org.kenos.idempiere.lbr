@@ -15,12 +15,15 @@ package org.adempierelbr.process;
 
 import java.io.File;
 import java.io.StringReader;
+import java.util.List;
 import java.util.Properties;
+import java.util.UUID;
 import java.util.logging.Level;
 
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamReader;
 
+import org.adempiere.base.Service;
 import org.adempiere.exceptions.AdempiereException;
 import org.adempiere.model.POWrapper;
 import org.adempierelbr.mdfe.util.MDFeUtil;
@@ -30,11 +33,13 @@ import org.adempierelbr.model.MLBRNFeWebService;
 import org.adempierelbr.model.MLBRNotaFiscal;
 import org.adempierelbr.util.NFeUtil;
 import org.adempierelbr.util.TextUtil;
+import org.adempierelbr.wrapper.I_W_AD_OrgInfo;
 import org.adempierelbr.wrapper.I_W_C_City;
 import org.compiere.Adempiere;
 import org.compiere.model.MAttachment;
 import org.compiere.model.MCity;
 import org.compiere.model.MOrgInfo;
+import org.compiere.model.MSysConfig;
 import org.compiere.model.PO;
 import org.compiere.model.Query;
 import org.compiere.process.ProcessInfo;
@@ -43,6 +48,8 @@ import org.compiere.process.SvrProcess;
 import org.compiere.util.CLogMgt;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
+import org.kenos.idempiere.lbr.base.event.IDocFiscalHandler;
+import org.kenos.idempiere.lbr.base.event.IDocFiscalHandlerFactory;
 
 import br.inf.portalfiscal.mdfe.ConsReciMDFeDocument;
 import br.inf.portalfiscal.mdfe.RetConsReciMDFeDocument;
@@ -146,18 +153,14 @@ public class MDFeRetRecepcao extends SvrProcess
 		
 		Properties ctx = mdfe.getCtx();
 		
-		I_W_C_City city = POWrapper.create (new MCity (ctx, MOrgInfo.get (ctx, mdfe.getAD_Org_ID(), null).getC_Location().getC_City_ID(), null), I_W_C_City.class);
+		MOrgInfo oi = MOrgInfo.get (ctx, mdfe.getAD_Org_ID(), null);
+		I_W_C_City city = POWrapper.create (new MCity (ctx, oi.getC_Location().getC_City_ID(), null), I_W_C_City.class);
 		
 		//	Certificado
 		MLBRDigitalCertificate.setCertificate (ctx, mdfe.getAD_Org_ID());
-		
-		//	Cabeçalho
-		MDFeRetRecepcaoStub.MdfeCabecMsg header = new MDFeRetRecepcaoStub.MdfeCabecMsg ();
-		header.setCUF((city.getlbr_CityCode()+"").substring(0, 2));
-		header.setVersaoDados(MDFeUtil.VERSION);
-		
-		MDFeRetRecepcaoStub.MdfeCabecMsgE headerE = new MDFeRetRecepcaoStub.MdfeCabecMsgE ();
-		headerE.setMdfeCabecMsg(header);
+
+		String regionCode = (city.getlbr_CityCode()+"").substring(0, 2);
+		MLBRNFeWebService ws = MLBRNFeWebService.get (MDFeUtil.TYPE_RETRECEPCAO, mdfe.getlbr_NFeEnv(), MDFeUtil.VERSION, MDFeUtil.MDFE_REGION);
 		
 		//	XML
 		ConsReciMDFeDocument recDoc = ConsReciMDFeDocument.Factory.newInstance();
@@ -170,23 +173,62 @@ public class MDFeRetRecepcao extends SvrProcess
 		StringBuilder xml = new StringBuilder (recDoc.xmlText(NFeUtil.getXmlOpt()));
 		
 		s_log.fine (xml.toString());
-		
-//		ValidaXML.ValidaDocEx (sw.toString(), MDFeUtil.XSD_VERSION + "/consReciMDFe_v1.00.xsd");
-		
+				
 		XMLStreamReader xmlReader = XMLInputFactory.newInstance().createXMLStreamReader(new StringReader(MDFeUtil.getWrapped (xml)));
 		
-		//	Conteúdo
-		MDFeRetRecepcaoStub.MdfeDadosMsg content = MDFeRetRecepcaoStub.MdfeDadosMsg.Factory.parse (xmlReader);
+		String remoteURL = MSysConfig.getValue("LBR_REMOTE_PKCS11_URL", "http://localhost:8888/pkcs11");
+		final StringBuilder respStatus = new StringBuilder("");
 		
-		//	Consulta
-		MDFeRetRecepcaoStub.setAmbiente (MLBRNFeWebService.get (MDFeUtil.TYPE_RETRECEPCAO, mdfe.getlbr_NFeEnv(), MDFeUtil.VERSION, MDFeUtil.MDFE_REGION));
-		MDFeRetRecepcaoStub stub = new MDFeRetRecepcaoStub();
+		//	Try to find a service for PKCS#11 for transmit
+		IDocFiscalHandler handler = null;
+		List<IDocFiscalHandlerFactory> list = Service.locator ().list (IDocFiscalHandlerFactory.class).getServices();
+		for (IDocFiscalHandlerFactory docFiscal : list)
+		{
+			handler = docFiscal.getHandler (ProcStatusServico.class.getName());
+			if (handler != null)
+				break;
+		}
 		
-		StringBuilder result = new StringBuilder (MDFeUtil.HEADER + stub.mdfeRetRecepcao (content, headerE).getExtraElement().toString());
-
-		s_log.fine (result.toString());
+		// 	We have both, the URL for the local app and the Plugin transmitter
+		if (remoteURL != null && handler != null)
+		{
+			synchronized (respStatus)
+			{
+				String uuid = UUID.randomUUID().toString();
+				handler.transmitDocument(IDocFiscalHandler.DOC_NFE_STATUS, oi.get_ValueAsString(I_W_AD_OrgInfo.COLUMNNAME_lbr_CNPJ), 
+						uuid, remoteURL, ws.getURL(), regionCode, MDFeUtil.getWrapped (xml), respStatus);
+				
+				//	Wait until process is completed
+				respStatus.wait();
+				
+				//	Error message
+				if (respStatus.toString().startsWith("@Error="))
+					throw new Exception (respStatus.toString().substring(7));
+			}	//	synchronized
+		}
+		else
+		{
+			//	Cabeçalho
+			MDFeRetRecepcaoStub.MdfeCabecMsg header = new MDFeRetRecepcaoStub.MdfeCabecMsg ();
+			header.setCUF(regionCode);
+			header.setVersaoDados(MDFeUtil.VERSION);
+			
+			MDFeRetRecepcaoStub.MdfeCabecMsgE headerE = new MDFeRetRecepcaoStub.MdfeCabecMsgE ();
+			headerE.setMdfeCabecMsg(header);
+			
+			//	Conteúdo
+			MDFeRetRecepcaoStub.MdfeDadosMsg content = MDFeRetRecepcaoStub.MdfeDadosMsg.Factory.parse (xmlReader);
+			
+			//	Consulta
+			MDFeRetRecepcaoStub.setAmbiente (ws);
+			MDFeRetRecepcaoStub stub = new MDFeRetRecepcaoStub();
+			
+			respStatus.append(MDFeUtil.HEADER + stub.mdfeRetRecepcao (content, headerE).getExtraElement().toString());
+		}
 		
-		TRetConsReciMDFe ret = RetConsReciMDFeDocument.Factory.parse(result.toString()).getRetConsReciMDFe();
+		s_log.fine (respStatus.toString());
+		
+		TRetConsReciMDFe ret = RetConsReciMDFeDocument.Factory.parse(respStatus.toString()).getRetConsReciMDFe();
 		
 		if (MDFeUtil.STATUS_PROCESSADO.equals (ret.getCStat()) && ret.getProtMDFe() != null && ret.getProtMDFe().getInfProt() != null)
 		{
@@ -206,7 +248,7 @@ public class MDFeRetRecepcao extends SvrProcess
 				//	Add Attachment Entry
 				MAttachment attachment = mdfe.createAttachment();
 				//
-				attachment.addEntry (new File (TextUtil.generateTmpFile (result.toString(), mdfe.getlbr_NFeRecID() + "-pro-rec.xml")));
+				attachment.addEntry (new File (TextUtil.generateTmpFile (respStatus.toString(), mdfe.getlbr_NFeRecID() + "-pro-rec.xml")));
 				attachment.save();
 				
 				mdfe.setProcessed(true);

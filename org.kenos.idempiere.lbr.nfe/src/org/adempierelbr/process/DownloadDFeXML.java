@@ -3,6 +3,7 @@ package org.adempierelbr.process;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.logging.Level;
 
 import javax.xml.stream.FactoryConfigurationError;
@@ -10,6 +11,7 @@ import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
+import org.adempiere.base.Service;
 import org.adempiere.model.POWrapper;
 import org.adempierelbr.model.MLBRDigitalCertificate;
 import org.adempierelbr.model.MLBRNFConfig;
@@ -23,6 +25,7 @@ import org.apache.axiom.om.OMElement;
 import org.apache.xmlbeans.XmlException;
 import org.compiere.model.MOrg;
 import org.compiere.model.MOrgInfo;
+import org.compiere.model.MSysConfig;
 import org.compiere.model.Query;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
@@ -30,6 +33,8 @@ import org.compiere.util.AdempiereUserError;
 import org.compiere.util.CLogger;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
+import org.kenos.idempiere.lbr.base.event.IDocFiscalHandler;
+import org.kenos.idempiere.lbr.base.event.IDocFiscalHandlerFactory;
 
 import br.inf.portalfiscal.nfe.dfe.DistDFeIntDocument;
 import br.inf.portalfiscal.nfe.dfe.DistDFeIntDocument.DistDFeInt;
@@ -196,15 +201,51 @@ public class DownloadDFeXML extends SvrProcess
 			StringBuilder xml =  new StringBuilder (dwDoc.xmlText(NFeUtil.getXmlOpt()));
 			XMLStreamReader dadosXML = XMLInputFactory.newInstance().createXMLStreamReader(new StringReader(NFeUtil.wrapMsg(xml.toString())));
 			
-//			Mensagem
-			NfeDadosMsg_type0 dadosMsg = NfeDadosMsg_type0.Factory.parse (dadosXML);
-			NFeDistribuicaoDFeStub stub = new NFeDistribuicaoDFeStub();
-
-			OMElement nfeConsulta = stub.nfeDistDFeInteresse (dadosMsg).getExtraElement();
-			String respStatus = nfeConsulta.toString();
+			String url = "https://www1.nfe.fazenda.gov.br/NFeDistribuicaoDFe/NFeDistribuicaoDFe.asmx";
+//			String url = MLBRNFeWebService.getURL (MLBRNFeWebService.CONSULTANFEDEST, oiW.getlbr_NFeEnv(), NFeUtil.VERSAO_LAYOUT, oi.getC_Location().getC_Region_ID());
+			
+			String remoteURL = MSysConfig.getValue("LBR_REMOTE_PKCS11_URL", "http://localhost:8888/pkcs11");
+			final StringBuilder respStatus = new StringBuilder();
+			
+			//	Try to find a service for PKCS#11 for transmit
+			IDocFiscalHandler handler = null;
+			List<IDocFiscalHandlerFactory> list = Service.locator ().list (IDocFiscalHandlerFactory.class).getServices();
+			for (IDocFiscalHandlerFactory docFiscal : list)
+			{
+				handler = docFiscal.getHandler (DownloadDFeXML.class.getName());
+				if (handler != null)
+					break;
+			}
+			
+			// 	We have both, the URL for the local app and the Plugin transmitter
+			if (remoteURL != null && handler != null)
+			{
+				synchronized (respStatus)
+				{
+					String uuid = UUID.randomUUID().toString();
+					handler.transmitDocument (IDocFiscalHandler.DOC_DFE_XML, oi.get_ValueAsString(I_W_AD_OrgInfo.COLUMNNAME_lbr_CNPJ), 
+							uuid, remoteURL, url, "35", xml.toString(), respStatus);
+					
+					//	Wait until process is completed
+					respStatus.wait();
+					
+					//	Error message
+					if (respStatus.toString().startsWith("@Error="))
+						throw new Exception (respStatus.toString().substring(7));
+				}	//	synchronized
+			}
+			else
+			{
+				//	Mensagem
+				NfeDadosMsg_type0 dadosMsg = NfeDadosMsg_type0.Factory.parse (dadosXML);
+				NFeDistribuicaoDFeStub stub = new NFeDistribuicaoDFeStub(url);
+	
+				OMElement nfeConsulta = stub.nfeDistDFeInteresse (dadosMsg).getExtraElement();
+				respStatus.append(nfeConsulta.toString());
+			}
 
 			//	Resposta
-			return RetDistDFeIntDocument.Factory.parse (respStatus);
+			return RetDistDFeIntDocument.Factory.parse (respStatus.toString());
 		}
 		catch (XMLStreamException e)
 		{
