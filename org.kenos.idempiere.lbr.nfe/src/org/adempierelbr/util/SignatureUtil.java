@@ -235,7 +235,7 @@ public class SignatureUtil
 	{
 		log.fine ("Signing document: " + xml);
 
-		String remoteURL = MSysConfig.getValue("LBR_REMOTE_PKCS11_URL", "http://localhost:8888/pkcs11");
+		String remoteURL = MSysConfig.getValue("LBR_REMOTE_PKCS11_URL", oi.getAD_Client_ID(), oi.getAD_Org_ID());
 		final StringBuilder respStatus = new StringBuilder(xml.xmlText (NFeUtil.getXmlOpt ()));
 		
 		//	Try to find a service for PKCS#11 for transmit
@@ -371,7 +371,7 @@ public class SignatureUtil
 	public String signASCII (String ascii) throws Exception 
 	{
 		log.fine("Signing: " + ascii);
-		String remoteURL = MSysConfig.getValue("LBR_REMOTE_PKCS11_URL", "http://localhost:8888/pkcs11");
+		String remoteURL = MSysConfig.getValue("LBR_REMOTE_PKCS11_URL", oi.getAD_Client_ID(), oi.getAD_Org_ID());
 		final StringBuilder respStatus = new StringBuilder(ascii);
 		
 		//	Try to find a service for PKCS#11 for transmit

@@ -167,7 +167,7 @@ public class ProcStatusServico extends SvrProcess
 			String url = MLBRNFeWebService.getURL (serviceType, p_LBR_EnvType, NFeUtil.VERSAO_LAYOUT, p_LBR_TPEmis, orgLoc.getC_Region_ID());
 			
 			String xmlText = statServDoc.xmlText(NFeUtil.getXmlOpt());
-			String remoteURL = MSysConfig.getValue("LBR_REMOTE_PKCS11_URL", "http://localhost:8888/pkcs11");
+			String remoteURL = MSysConfig.getValue("LBR_REMOTE_PKCS11_URL", orgInfo.getAD_Client_ID(), orgInfo.getAD_Org_ID());
 			final StringBuilder respStatus = new StringBuilder();
 			
 			//	Try to find a service for PKCS#11 for transmit

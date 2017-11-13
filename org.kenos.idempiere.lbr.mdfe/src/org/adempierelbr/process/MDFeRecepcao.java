@@ -157,7 +157,7 @@ public class MDFeRecepcao extends SvrProcess
 			throw new Exception ("URL for MDF-e not found");
 
 		String region = (city.getlbr_CityCode()+"").substring(0, 2);
-		String remoteURL = MSysConfig.getValue("LBR_REMOTE_PKCS11_URL", "http://localhost:8888/pkcs11");
+		String remoteURL = MSysConfig.getValue("LBR_REMOTE_PKCS11_URL", mdfe.getAD_Client_ID(), mdfe.getAD_Org_ID());
 		final StringBuilder result = new StringBuilder();
 		
 		//	Try to find a service for PKCS#11 for transmit

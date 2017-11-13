@@ -204,7 +204,7 @@ public class NFSETransmit extends SvrProcess
 		//	Valida o documento
 		NFeUtil.validate (envioLoteRPSDoc);
 
-		String remoteURL = MSysConfig.getValue("LBR_REMOTE_PKCS11_URL", "http://localhost:8888/pkcs11");
+		String remoteURL = MSysConfig.getValue("LBR_REMOTE_PKCS11_URL", oi.getAD_Client_ID(), oi.getAD_Org_ID());
 		final StringBuilder respStatus = new StringBuilder();
 		
 		//	Try to find a service for PKCS#11 for transmit
