@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Zk
+Bundle-Name: LBR Base ZK
 Bundle-SymbolicName: org.kenos.idempiere.lbr.base.zk;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8

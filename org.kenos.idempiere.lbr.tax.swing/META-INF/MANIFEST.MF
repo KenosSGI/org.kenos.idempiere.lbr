@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Swing
+Bundle-Name: LBR Tax Swing
 Bundle-SymbolicName: org.kenos.idempiere.lbr.tax.swing;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
