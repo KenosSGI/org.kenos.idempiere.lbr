@@ -401,8 +401,8 @@ public class ValidatorInvoice implements ModelValidator
 					nf.setDocAction(MLBRNotaFiscal.DOCACTION_Complete);
 					nf.saveEx();
 					
-					//	Completa a NFCe automaticamente
-					if (MLBRNotaFiscal.LBR_NFMODEL_NotaFiscalDeConsumidorEletrônica.equals(nf.getlbr_NFModel()))
+					//	Completa a NFe automaticamente
+					if (wDocType.islbr_IsAutomaticNF())
 					{
 						String status = nf.completeIt();
 						nf.saveEx();
