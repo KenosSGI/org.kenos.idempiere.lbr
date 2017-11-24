@@ -395,4 +395,17 @@ public interface I_W_C_DocType extends I_C_DocType
 
 	/** Get Tipo de Emissão NFe	  */
 	public String getlbr_NFeTpEmi();
+	
+	/** Column name lbr_IsAutomaticNF */
+    public static final String COLUMNNAME_lbr_IsAutomaticNF = "lbr_IsAutomaticNF";
+
+	/** Set Automatic NF.
+	  * Identifies if this Document generates Eletronic NF automatically
+	  */
+	public void setlbr_IsAutomaticNF (boolean lbr_IsAutomaticNF);
+
+	/** Get Automatic NF.
+	  * Identifies if this Document generates Eletronic NF automatically
+	  */
+	public boolean islbr_IsAutomaticNF();
 }
