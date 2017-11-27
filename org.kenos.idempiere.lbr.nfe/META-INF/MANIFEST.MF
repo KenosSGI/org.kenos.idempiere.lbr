@@ -12,9 +12,9 @@ Require-Bundle: org.adempiere.base;bundle-version="4.1.0",
  org.adempiere.report.jasper,
  org.adempiere.pipo,
  bcprov,
- org.apache.commons.logging;bundle-version="1.1.1",
  com.sun.mail.javax.mail;bundle-version="1.5.6"
 Service-Component: OSGI-INF/CalloutFactory.xml
+ , OSGI-INF/ProcessFactory.xml
 Eclipse-RegisterBuddy: org.adempiere.base
 Export-Package: br.inf.portalfiscal.nfe.v310,
  org.adempierelbr.callout,
@@ -72,6 +72,7 @@ Bundle-ActivationPolicy: lazy
 Import-Package: javax.xml.stream,
  javax.xml.stream.events,
  javax.xml.stream.util,
+ org.apache.commons.logging;version="1.1.0",
  org.apache.xmlbeans,
  org.apache.xmlbeans.impl.schema,
  org.apache.xmlbeans.impl.values
