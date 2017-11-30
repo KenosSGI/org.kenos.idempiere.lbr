@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.UUID;
 import java.util.logging.Level;
 
 import javax.imageio.ImageIO;
@@ -29,6 +30,7 @@ import org.adempierelbr.model.MLBRNotaFiscalLine;
 import org.adempierelbr.model.X_LBR_NFTax;
 import org.adempierelbr.model.X_LBR_TaxGroup;
 import org.adempierelbr.nfse.sp.api.LoteNFeStub;
+import org.adempierelbr.nfse.util.NFSETransmit;
 import org.adempierelbr.process.ProcEMailNFe;
 import org.adempierelbr.process.ProcReturnRPS;
 import org.adempierelbr.util.BPartnerUtil;
@@ -36,6 +38,7 @@ import org.adempierelbr.util.NFeUtil;
 import org.adempierelbr.util.SignatureUtil;
 import org.adempierelbr.util.TextUtil;
 import org.adempierelbr.validator.VLBROrder;
+import org.adempierelbr.wrapper.I_W_AD_OrgInfo;
 import org.adempierelbr.wrapper.I_W_C_BPartner;
 import org.adempierelbr.wrapper.I_W_C_Invoice;
 import org.apache.xmlbeans.XmlCalendar;
@@ -52,6 +55,8 @@ import org.compiere.model.X_C_City;
 import org.compiere.util.CLogger;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
+import org.kenos.idempiere.lbr.base.event.IDocFiscalHandler;
+import org.kenos.idempiere.lbr.base.event.IDocFiscalHandlerFactory;
 
 import br.gov.sp.prefeitura.nfe.PedidoEnvioLoteRPSDocument;
 import br.gov.sp.prefeitura.nfe.PedidoEnvioLoteRPSDocument.PedidoEnvioLoteRPS;
@@ -143,7 +148,7 @@ public class NFSeImpl implements INFSe
 		tpRPS.setStatusRPS(TpStatusNFe.N);				//	FIXME
 		tpRPS.setTributacaoRPS("T");					//	FIXME
 		tpRPS.setValorServicos(toBD (nf.getlbr_ServiceTotalAmt()));
-		tpRPS.setValorDeducoes(Env.ZERO);
+		tpRPS.setValorDeducoes(Env.ZERO.stripTrailingZeros());
 		
 		BigDecimal v_PIS 	= toBD (nf.getTaxAmt("PIS")).abs();
 		BigDecimal v_COFINS = toBD (nf.getTaxAmt("COFINS")).abs();
@@ -467,7 +472,7 @@ public class NFSeImpl implements INFSe
 		cabecalho.setDtFim (calTo);
 		cabecalho.setQtdRPS (envioLoteRPS.sizeOfRPSArray());
 		cabecalho.setValorTotalServicos (servTotal);
-		cabecalho.setValorTotalDeducoes(dedTotal);
+		cabecalho.setValorTotalDeducoes(dedTotal.stripTrailingZeros());
 		
 		//	Gera o XML em arquivo para Assinatura	
 		new SignatureUtil (oi, SignatureUtil.RPS).sign (envioLoteRPSDoc, envioLoteRPSDoc.getPedidoEnvioLoteRPS().newCursor());
@@ -482,22 +487,71 @@ public class NFSeImpl implements INFSe
 		//	Valida o documento
 		NFeUtil.validate (envioLoteRPSDoc);
 
-		//	Set certificate
-		MLBRDigitalCertificate.setCertificate (ctx, p_AD_Org_ID);
-
-		//	Stub
-		LoteNFeStub stub = new LoteNFeStub();
+//		String remoteURL = MSysConfig.getValue("LBR_REMOTE_PKCS11_URL", oi.getAD_Client_ID(), oi.getAD_Org_ID());
+//		final StringBuilder respStatus = new StringBuilder();
+//		
+//		//	Try to find a service for PKCS#11 for transmit
+//		IDocFiscalHandler handler = null;
+//		List<IDocFiscalHandlerFactory> list = Service.locator ().list (IDocFiscalHandlerFactory.class).getServices();
+//		for (IDocFiscalHandlerFactory docFiscal : list)
+//		{
+//			handler = docFiscal.getHandler (NFSETransmit.class.getName());
+//			if (handler != null)
+//				break;
+//		}
+//		
+//		// 	We have both, the URL for the local app and the Plugin transmitter
+//		if (remoteURL != null && handler != null)
+//		{
+//			synchronized (respStatus)
+//			{
+//				String flags = "";
+//				
+//				//	Flags
+//				if (MSysConfig.getBooleanValue ("LBR_DEBUG_RPS", false, Env.getAD_Client_ID(Env.getCtx())))
+//					flags += "debug";
+//				
+//				//	Envio o Lote
+//				else if (nfs.size() > 1)
+//					flags += "lot";
+//				
+//				//	Envia o RPS único
+//				else
+//					flags += "single";
+//				
+//				String uuid = UUID.randomUUID().toString();
+//				handler.transmitDocument(IDocFiscalHandler.DOC_NFSE, oi.get_ValueAsString(I_W_AD_OrgInfo.COLUMNNAME_lbr_CNPJ), 
+//						uuid, remoteURL, "", flags, xml.toString(), respStatus);
+//				
+//				//	Wait until process is completed
+//				respStatus.wait();
+//				
+//				//	Error message
+//				if (respStatus.toString().startsWith("@Error="))
+//					throw new Exception (respStatus.toString().substring(7));
+//				
+//				retornoXML = respStatus.toString();
+//			}	//	synchronized
+//		}
+//		else
+		{
+			//	Set certificate
+			MLBRDigitalCertificate.setCertificate (ctx, p_AD_Org_ID);
+	
+			//	Stub
+			LoteNFeStub stub = new LoteNFeStub();
+			
+			//	Monta o Lote para Teste
+			if (MSysConfig.getBooleanValue ("LBR_DEBUG_RPS", false, oi.getAD_Client_ID()))
+				retornoXML = stub.testeEnvioLoteRPS(1, xml.toString());
+			
+			//	Envio o Lote
+			else 
+				retornoXML = stub.envioLoteRPS(1, xml.toString());
+			
+			log.fine (retornoXML);
+		}
 		
-		//	Monta o Lote para Teste
-		if (MSysConfig.getBooleanValue ("LBR_DEBUG_RPS", false, oi.getAD_Client_ID()))
-			retornoXML = stub.testeEnvioLoteRPS(1, xml.toString());
-		
-		//	Envio o Lote
-		else 
-			retornoXML = stub.envioLoteRPS(1, xml.toString());
-		
-		log.fine (retornoXML);
-
 		//	Processa o Retorno
 		RetornoEnvioLoteRPS result = RetornoEnvioLoteRPSDocument.Factory.parse(retornoXML).getRetornoEnvioLoteRPS();
 		
