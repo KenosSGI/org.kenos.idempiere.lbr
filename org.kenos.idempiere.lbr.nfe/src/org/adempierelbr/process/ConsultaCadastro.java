@@ -27,6 +27,7 @@ import org.apache.axiom.om.OMElement;
 import org.apache.xmlbeans.XmlException;
 import org.compiere.model.MBPartner;
 import org.compiere.model.MBPartnerLocation;
+import org.compiere.model.MClientInfo;
 import org.compiere.model.MLocation;
 import org.compiere.model.MOrg;
 import org.compiere.model.MOrgInfo;
@@ -219,7 +220,17 @@ public class ConsultaCadastro extends SvrProcess
 			MBPartner bpartner = new MBPartner(Env.getCtx(), 0, null);	
 			
 			//	Parceiro de Negócio Modelo
-			MBPartner bpModel = new MBPartner(Env.getCtx(), 2000000, null);				
+			MClientInfo clientinfo = MClientInfo.get(Env.getCtx());
+			
+			MBPartner bpModel = null;
+			
+			if (clientinfo.getC_BPartnerCashTrx() != null)
+				bpModel = (MBPartner) clientinfo.getC_BPartnerCashTrx();
+			else
+			{
+				log.warning("Preencher Parceiro de Negócio Modelo na Janela Empresa");
+				return "@Success@" + result.toString();
+			}
 			
 			//	Copiar Padrão do Parceiro de Negócio Modelo para o Novo Parceiro de Negócio
 			PO.copyValues(bpModel, bpartner);
