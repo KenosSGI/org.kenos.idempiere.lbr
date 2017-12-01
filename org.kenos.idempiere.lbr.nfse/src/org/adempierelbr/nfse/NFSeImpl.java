@@ -487,53 +487,53 @@ public class NFSeImpl implements INFSe
 		//	Valida o documento
 		NFeUtil.validate (envioLoteRPSDoc);
 
-//		String remoteURL = MSysConfig.getValue("LBR_REMOTE_PKCS11_URL", oi.getAD_Client_ID(), oi.getAD_Org_ID());
-//		final StringBuilder respStatus = new StringBuilder();
-//		
-//		//	Try to find a service for PKCS#11 for transmit
-//		IDocFiscalHandler handler = null;
-//		List<IDocFiscalHandlerFactory> list = Service.locator ().list (IDocFiscalHandlerFactory.class).getServices();
-//		for (IDocFiscalHandlerFactory docFiscal : list)
-//		{
-//			handler = docFiscal.getHandler (NFSETransmit.class.getName());
-//			if (handler != null)
-//				break;
-//		}
-//		
-//		// 	We have both, the URL for the local app and the Plugin transmitter
-//		if (remoteURL != null && handler != null)
-//		{
-//			synchronized (respStatus)
-//			{
-//				String flags = "";
-//				
-//				//	Flags
-//				if (MSysConfig.getBooleanValue ("LBR_DEBUG_RPS", false, Env.getAD_Client_ID(Env.getCtx())))
-//					flags += "debug";
-//				
-//				//	Envio o Lote
-//				else if (nfs.size() > 1)
-//					flags += "lot";
-//				
-//				//	Envia o RPS único
-//				else
-//					flags += "single";
-//				
-//				String uuid = UUID.randomUUID().toString();
-//				handler.transmitDocument(IDocFiscalHandler.DOC_NFSE, oi.get_ValueAsString(I_W_AD_OrgInfo.COLUMNNAME_lbr_CNPJ), 
-//						uuid, remoteURL, "", flags, xml.toString(), respStatus);
-//				
-//				//	Wait until process is completed
-//				respStatus.wait();
-//				
-//				//	Error message
-//				if (respStatus.toString().startsWith("@Error="))
-//					throw new Exception (respStatus.toString().substring(7));
-//				
-//				retornoXML = respStatus.toString();
-//			}	//	synchronized
-//		}
-//		else
+		String remoteURL = MSysConfig.getValue("LBR_REMOTE_PKCS11_URL", oi.getAD_Client_ID(), oi.getAD_Org_ID());
+		final StringBuilder respStatus = new StringBuilder();
+		
+		//	Try to find a service for PKCS#11 for transmit
+		IDocFiscalHandler handler = null;
+		List<IDocFiscalHandlerFactory> list = Service.locator ().list (IDocFiscalHandlerFactory.class).getServices();
+		for (IDocFiscalHandlerFactory docFiscal : list)
+		{
+			handler = docFiscal.getHandler (NFSETransmit.class.getName());
+			if (handler != null)
+				break;
+		}
+		
+		// 	We have both, the URL for the local app and the Plugin transmitter
+		if (remoteURL != null && handler != null)
+		{
+			synchronized (respStatus)
+			{
+				String flags = "";
+				
+				//	Flags
+				if (MSysConfig.getBooleanValue ("LBR_DEBUG_RPS", false, Env.getAD_Client_ID(Env.getCtx())))
+					flags += "debug";
+				
+				//	Envio o Lote
+				else if (nfs.size() > 1)
+					flags += "lot";
+				
+				//	Envia o RPS único
+				else
+					flags += "single";
+				
+				String uuid = UUID.randomUUID().toString();
+				handler.transmitDocument(IDocFiscalHandler.DOC_NFSE, oi.get_ValueAsString(I_W_AD_OrgInfo.COLUMNNAME_lbr_CNPJ), 
+						uuid, remoteURL, "", flags, xml.toString(), respStatus);
+				
+				//	Wait until process is completed
+				respStatus.wait();
+				
+				//	Error message
+				if (respStatus.toString().startsWith("@Error="))
+					throw new Exception (respStatus.toString().substring(7));
+				
+				retornoXML = respStatus.toString();
+			}	//	synchronized
+		}
+		else
 		{
 			//	Set certificate
 			MLBRDigitalCertificate.setCertificate (ctx, p_AD_Org_ID);
