@@ -479,7 +479,7 @@ public class ConsultaCadastro extends SvrProcess
 				
 				//	Cabeçalho
 				NfeCabecMsg cabecMsg = new NfeCabecMsg ();
-				cabecMsg.setCUF("" + NFeUtil.getRegionCode (oi));
+				cabecMsg.setCUF("" + NFeUtil.getRegionCode (p_UF));
 				cabecMsg.setVersaoDados("2.00");
 
 				NfeCabecMsgE cabecMsgE = new NfeCabecMsgE ();
