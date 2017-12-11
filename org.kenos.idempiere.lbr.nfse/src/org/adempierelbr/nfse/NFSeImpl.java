@@ -250,8 +250,11 @@ public class NFSeImpl implements INFSe
 			sign (nf.getAD_Org_ID(), tpRPS);
 		}
 		
-		//	Ignorar o erro, pois há casos que é gerado o arquivo RPS e não necessita de assinatura
-		catch (Exception e){}
+		//	Colocar o erro no log
+		catch (Exception e)
+		{
+			log.warning (e.getMessage());
+		}
 		//
 		return tpRPS.xmlText(NFeUtil.getXmlOpt()).getBytes(NFeUtil.NFE_ENCODING);
 	}	//	getXML
