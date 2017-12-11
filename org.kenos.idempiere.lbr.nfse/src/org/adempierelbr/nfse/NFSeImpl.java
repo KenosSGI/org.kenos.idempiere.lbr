@@ -253,7 +253,7 @@ public class NFSeImpl implements INFSe
 		//	Colocar o erro no log
 		catch (Exception e)
 		{
-			log.warning (e.getMessage());
+			log.log (Level.SEVERE, tpRPS.xmlText(), e);
 		}
 		//
 		return tpRPS.xmlText(NFeUtil.getXmlOpt()).getBytes(NFeUtil.NFE_ENCODING);
