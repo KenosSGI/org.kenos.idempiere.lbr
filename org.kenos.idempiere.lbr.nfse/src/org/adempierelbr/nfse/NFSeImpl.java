@@ -447,6 +447,11 @@ public class NFSeImpl implements INFSe
 			//
 			rps.add (tpRPS);
 			
+			//	Fix ZULU Date/Time
+			Calendar date = new XmlCalendar ();
+			date.setTimeInMillis(tpRPS.getDataEmissao().getTime().getTime());
+			tpRPS.setDataEmissao(date);
+			
 			servTotal  = servTotal.add(tpRPS.getValorServicos());
 			dedTotal = dedTotal.add(tpRPS.getValorDeducoes());
 			

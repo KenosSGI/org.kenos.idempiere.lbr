@@ -37,8 +37,8 @@ import org.compiere.util.CLogger;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.compiere.util.Ini;
-import org.zkoss.util.media.AMedia;
-import org.zkoss.zul.Filedownload;
+
+import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 
 /**
  *  	Process to Generate RPS
@@ -158,9 +158,8 @@ public class ProcGenerateRPS extends SvrProcess
 		String dateTo = TextUtil.timeToString (p_DateTo, "ddMMyyyy");
 		//
 		fileName += "RPS_" + dateFrom + "_" + dateTo + ext;
-		generate (ctx, trxName, fileName);
 		//
-		return "@Success@";
+		return "@Success@" + generate (ctx, trxName, fileName);
 	}	//	doIt
 	
 	/**
@@ -173,7 +172,7 @@ public class ProcGenerateRPS extends SvrProcess
 	 * @param dateTo
 	 * @throws IOException
 	 */
-	private void generate (Properties ctx, String trxName, String fileName) throws Exception
+	private String generate (Properties ctx, String trxName, String fileName) throws Exception
 	{
 		MOrgInfo OrgInfo = MOrgInfo.get(ctx, p_AD_Org_ID, trxName);
 //		String ccm = OrgInfo.get_ValueAsString("lbr_CCM");
@@ -210,13 +209,15 @@ public class ProcGenerateRPS extends SvrProcess
 		
 		//	Save locally
 		if (Ini.isClient())
-			File.createTempFile (fileName, ".txt");
+		{
+			TextUtil.generateFile (result.toString(), fileName, ISO88591.displayName());
+			return "";
+		}
 		
 		//	Download
 		else
 		{
-			AMedia media = new AMedia (fileName, "txt", "charset=" + ISO88591, result.toString());
-			Filedownload.save (media);
+			return "<br/><a download=\"" + fileName + "\" href=\"data:application/octet-stream;charset=" + ISO88591.displayName() + ";base64," + Base64.encode(result.toString().getBytes()) + "\" target=\"_blank\">Clique aqui para copiar o RPS</a>";
 		}
 	}	//	generate
 

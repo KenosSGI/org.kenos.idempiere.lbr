@@ -8,10 +8,7 @@ Require-Bundle: org.adempiere.base;bundle-version="4.1.0",
  org.adempiere.report.jasper;bundle-version="4.1.0",
  org.kenos.idempiere.lbr.base;bundle-version="1.0.0",
  org.kenos.idempiere.lbr.nfe;bundle-version="1.0.0",
- org.kenos.idempiere.lbr.tax;bundle-version="1.0.0",
- zcommon;bundle-version="8.0.1",
- zk;bundle-version="8.0.1",
- zul
+ org.kenos.idempiere.lbr.tax;bundle-version="1.0.0"
 Service-Component: OSGI-INF/NFSeFactory.xml,
  OSGI-INF/ProcessFactory.xml
 Import-Package: net.sf.jasperreports.engine,
