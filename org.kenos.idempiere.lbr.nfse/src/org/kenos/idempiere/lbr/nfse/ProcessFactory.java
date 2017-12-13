@@ -1,7 +1,7 @@
 package org.kenos.idempiere.lbr.nfse;
 
 import org.adempiere.base.IProcessFactory;
-import org.adempierelbr.nfse.util.ProcGenerateRPS;
+import org.adempierelbr.process.ProcGenerateRPS;
 import org.compiere.process.ProcessCall;
 
 /**

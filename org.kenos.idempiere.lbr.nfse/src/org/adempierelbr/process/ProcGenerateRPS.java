@@ -14,52 +14,59 @@ package org.adempierelbr.process;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Constructor;
 import java.nio.charset.Charset;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
 
+import org.adempiere.exceptions.AdempiereException;
 import org.adempierelbr.model.MLBRNotaFiscal;
-import org.adempierelbr.nfse.util.NFSeRPSGenerator;
+import org.adempierelbr.nfse.INFSe;
+import org.adempierelbr.nfse.NFSeUtil;
+import org.adempierelbr.nfse.util.NFSETransmit;
 import org.adempierelbr.util.TextUtil;
 import org.compiere.model.MOrgInfo;
 import org.compiere.model.MSequence;
 import org.compiere.model.MSysConfig;
 import org.compiere.model.Query;
+import org.compiere.process.ProcessInfo;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
 import org.compiere.util.CLogger;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.compiere.util.Ini;
+import org.zkoss.util.media.AMedia;
+import org.zkoss.zul.Filedownload;
 
 /**
- *	ProcGenerateRPS
- *
- *  Process to Generate RPS
+ *  	Process to Generate RPS
  *  
+ *  @author Ricardo Santana (Kenos, www.kenos.com.br)
+ *  	<li>	Transmissão via webservices
  *	 
  *	@author Alvaro Montenegro
  *  @contributor Mario Grigioni (Kenos, www.kenos.com.br), mgrigioni
- *  @contributor Ricardo Santana (Kenos, www.kenos.com.br), ralexsander
  *	@version $Id: ProcGenerateRPS.java, v2.0 2008/04/17 10:37:22 PM, amontenegro Exp $
  */
 public class ProcGenerateRPS extends SvrProcess
 {
 	/** Data Emissão     	*/
-	private Timestamp p_DateFrom;
-	private Timestamp p_DateTo;
+	private Timestamp 	p_DateFrom;
+	private Timestamp 	p_DateTo;
 	
 	/**	Arquivo	            */
-	private String p_FilePath = null;
+	private String 		p_FilePath = null;
+	
+	/**	Organização			*/
+	private Integer 	p_AD_Org_ID;
+	
+	/**	Transmissão			*/
+	private boolean		p_Transmit = true;
 	
 	/**	Extensão do Arquivo	*/
 	public static final String ext = ".txt";
-	
-	/**	Organização			*/
-	private Integer p_AD_Org_ID;
 	
 	/**	Logger				*/
 	private static CLogger log = CLogger.getCLogger(ProcGenerateRPS.class);
@@ -91,6 +98,10 @@ public class ProcGenerateRPS extends SvrProcess
 			{
 				p_AD_Org_ID = para[i].getParameterAsInt();
 			}
+			else if (name.equals("LBR_NFETransmitter"))
+			{
+				p_Transmit = para[i].getParameterAsBoolean();
+			}
 			else
 				log.log(Level.SEVERE, "prepare - Unknown Parameter: " + name);
 		}
@@ -111,7 +122,9 @@ public class ProcGenerateRPS extends SvrProcess
 		if (p_AD_Org_ID <= 0)
 			return "No organization found";
 		
-		else if (p_FilePath == null && Ini.isClient())
+		else if (p_FilePath == null 	//	Sem caminho
+				&& !p_Transmit 			//	Para arquivo gerado local, não transmitido auto
+				&& Ini.isClient())		//	Cliente Swing
 			return "Selecione onde deseja salvar o arquivo";
 		
 		else if (!Ini.isClient())
@@ -120,17 +133,34 @@ public class ProcGenerateRPS extends SvrProcess
 		Properties ctx = getCtx();
 		String     trxName = get_TrxName();
 		String     fileName = p_FilePath;
+		
+		//	Transmitir via webservices
+		if (p_Transmit)
+		{
+			ProcessInfo pi = new ProcessInfo ("", 1120125);	//	FIXME: Hardcoded
+			pi.setParameter(new ProcessInfoParameter[]
+					{
+						new ProcessInfoParameter (MLBRNotaFiscal.COLUMNNAME_AD_Org_ID, p_AD_Org_ID, null, "Organization", null), 
+						new ProcessInfoParameter (MLBRNotaFiscal.COLUMNNAME_DateDoc, p_DateFrom, p_DateTo, "Date From", "Date To")
+					});
+			pi.setAD_Client_ID(getAD_Client_ID());
+			pi.setAD_User_ID(getAD_User_ID());
+			NFSETransmit transmitter = new NFSETransmit ();
+			transmitter.startProcess (getCtx(), pi, null);
+			//
+			return pi.getSummary();
+		}
 		//
 	    if (!fileName.endsWith(File.separator) && Ini.isClient()) 
 	    	fileName += File.separator;
 		//
-		String dateFrom = TextUtil.timeToString(p_DateFrom, "ddMMyyyy");
-		String dateTo = TextUtil.timeToString(p_DateTo, "ddMMyyyy");
+		String dateFrom = TextUtil.timeToString (p_DateFrom, "ddMMyyyy");
+		String dateTo = TextUtil.timeToString (p_DateTo, "ddMMyyyy");
 		//
 		fileName += "RPS_" + dateFrom + "_" + dateTo + ext;
 		generate (ctx, trxName, fileName);
 		//
-		return "GenerateRPS Process Completed ";
+		return "@Success@";
 	}	//	doIt
 	
 	/**
@@ -146,16 +176,13 @@ public class ProcGenerateRPS extends SvrProcess
 	private void generate (Properties ctx, String trxName, String fileName) throws Exception
 	{
 		MOrgInfo OrgInfo = MOrgInfo.get(ctx, p_AD_Org_ID, trxName);
-		String ccm = OrgInfo.get_ValueAsString("lbr_CCM");
-		//
-		StringBuffer result = new StringBuffer("");
-		result.append(NFSeRPSGenerator.generateHeader(ccm, p_DateFrom, p_DateTo));
+//		String ccm = OrgInfo.get_ValueAsString("lbr_CCM");
 		//
 		final String whereClause = "IsCancelled='N' AND DateDoc BETWEEN " + 
 			DB.TO_DATE(p_DateFrom) + " AND " + 
 			DB.TO_DATE(p_DateTo) + " AND AD_Org_ID=? AND IsPrinted='N' " +
-			"AND Processed='Y' "+
-			"AND C_DocType_ID IN (SELECT C_DocType_ID FROM C_DocType WHERE lbr_NFModel LIKE 'RPS%') ";
+			"AND DocStatus='IP' "+
+			"AND lbr_NFModel='S1' ";
 		//
 		List<MLBRNotaFiscal> list = new Query (Env.getCtx(), MLBRNotaFiscal.Table_Name, whereClause, trxName)
 			.setParameters(new Object[]{p_AD_Org_ID})
@@ -170,26 +197,27 @@ public class ProcGenerateRPS extends SvrProcess
 				nf.setDocumentNo(MSequence.getDocumentNo(nf.getC_DocTypeTarget_ID(), trxName, false));
 				nf.save();
 			}
-			result.append(NFSeRPSGenerator.generateRPS(nf.getLBR_NotaFiscal_ID(), trxName));
 		}
-		result.append(NFSeRPSGenerator.generateFooter());
+		//
+		int C_City_ID = OrgInfo.getC_Location().getC_City_ID();
+		INFSe infSe = NFSeUtil.get (C_City_ID);
 		
-		//	Versão SWING
+		if (infSe == null)
+			throw new AdempiereException ("Cidade não suportada");
+		
+		//	Generate RPS
+		StringBuilder result = infSe.getRPS (list);
+		
+		//	Save locally
 		if (Ini.isClient())
-			TextUtil.generateFile(result.toString(), fileName, ISO88591.displayName());
+			File.createTempFile (fileName, ".txt");
 		
+		//	Download
 		else
-			try
-			{
-				Class<?> clazz = Class.forName("org.adempierelbr.webui.adapter.RPSAdapter");
-				Constructor<?> constructor = clazz.getConstructor (String.class, StringBuffer.class);
-				//
-				constructor.newInstance (fileName, result);
-			} 
-			catch (Exception e)
-			{
-				log.log (Level.SEVERE, "Error saving RPS", e);
-			}
+		{
+			AMedia media = new AMedia (fileName, "txt", "charset=" + ISO88591, result.toString());
+			Filedownload.save (media);
+		}
 	}	//	generate
 
 }	//	ProcGenerateRPS
