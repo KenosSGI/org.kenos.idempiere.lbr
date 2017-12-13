@@ -16,6 +16,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.sql.Timestamp;
+import java.util.Base64;
 import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -37,8 +38,6 @@ import org.compiere.util.CLogger;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.compiere.util.Ini;
-
-import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 
 /**
  *  	Process to Generate RPS
@@ -217,7 +216,7 @@ public class ProcGenerateRPS extends SvrProcess
 		//	Download
 		else
 		{
-			return "<br/><a download=\"" + fileName + "\" href=\"data:application/octet-stream;charset=" + ISO88591.displayName() + ";base64," + Base64.encode(result.toString().getBytes()) + "\" target=\"_blank\">Clique aqui para copiar o RPS</a>";
+			return "<br/><a download=\"" + fileName + "\" href=\"data:application/octet-stream;charset=" + ISO88591.displayName() + ";base64," + Base64.getEncoder().encode(result.toString().getBytes()) + "\" target=\"_blank\">Clique aqui para copiar o RPS</a>";
 		}
 	}	//	generate
 
