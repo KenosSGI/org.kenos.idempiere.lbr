@@ -11,6 +11,11 @@ import java.util.Properties;
  */
 public class MLBRBSSetupLine extends X_LBR_BSSetupLine
 {
+	/**
+	 * 	Serial
+	 */
+	private static final long serialVersionUID = 3836550552161044095L;
+
 	/**************************************************************************
 	 *  Default Constructor
 	 *  @param Properties ctx

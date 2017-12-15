@@ -15,6 +15,11 @@ import org.compiere.util.Env;
  */
 public class MLBRBSSetup extends X_LBR_BSSetup
 {
+	/**
+	 * 	Serial
+	 */
+	private static final long serialVersionUID = 6812159955413617397L;
+
 	/**************************************************************************
 	 *  Default Constructor
 	 *  @param Properties ctx
