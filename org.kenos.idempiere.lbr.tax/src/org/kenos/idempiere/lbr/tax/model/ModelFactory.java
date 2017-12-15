@@ -19,8 +19,6 @@ public class ModelFactory implements IModelFactory
 	{
 		if (MCommissionAmt.Table_Name.equals(tableName))
 			return MCommissionAmt.class;
-		else if (MOrderLine.Table_Name.equals(tableName))
-			return MOrderLine.class;
 		return null;
 	}	//	getClass
 
@@ -29,8 +27,6 @@ public class ModelFactory implements IModelFactory
 	{
 		if (MCommissionAmt.Table_Name.equals(tableName))
 			return new MCommissionAmt (Env.getCtx(), Record_ID, trxName);
-		else if (MOrderLine.Table_Name.equals(tableName))
-			return new MOrderLine (Env.getCtx(), Record_ID, trxName);
 		return null;
 	}	//	getPO
 
@@ -39,8 +35,6 @@ public class ModelFactory implements IModelFactory
 	{
 		if (MCommissionAmt.Table_Name.equals(tableName))
 			return new MCommissionAmt (Env.getCtx(), rs, trxName);
-		else if (MOrderLine.Table_Name.equals(tableName))
-			return new MOrderLine (Env.getCtx(), rs, trxName);
 		return null;
 	}	//	getPO
 }	//	ModelFactory

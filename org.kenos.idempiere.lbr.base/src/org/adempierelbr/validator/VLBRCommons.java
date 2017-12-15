@@ -25,6 +25,8 @@ import org.compiere.model.MInvoiceLine;
 import org.compiere.model.MLocation;
 import org.compiere.model.MMovementLine;
 import org.compiere.model.MOrder;
+import org.compiere.model.MProductPricing;
+import org.compiere.model.MProduction;
 import org.compiere.model.MRequisition;
 import org.compiere.model.MRequisitionLine;
 import org.compiere.model.MSysConfig;
@@ -39,6 +41,7 @@ import org.compiere.util.CLogger;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.compiere.util.Msg;
+import org.kenos.idempiere.lbr.base.model.MLBRProductionGroup;
 
 /**
  * 		Procedimentos comuns, necessários para o LBR
@@ -89,6 +92,7 @@ public class VLBRCommons implements ModelValidator
 		engine.addModelChange (MAttributeSetInstance.Table_Name, this);
 		engine.addModelChange (MInvoice.Table_Name, this);
 		engine.addModelChange (MOrder.Table_Name, this);
+		engine.addModelChange (MProduction.Table_Name, this);
 		
 		//	DocValidate
 		engine.addDocValidate(MTimeExpense.Table_Name, this);
@@ -168,6 +172,10 @@ public class VLBRCommons implements ModelValidator
 		//	Validar Movimentação de Estoque
 		else if (MMovementLine.Table_Name.equals(po.get_TableName()))
 			return modelChange ((MMovementLine) po, type);
+
+		//	Validar Produção
+		else if (MProduction.Table_Name.equals(po.get_TableName()))
+			return modelChange ((MProduction) po, type);
 		
 		return null;
 	}	//	modelChange
@@ -304,6 +312,34 @@ public class VLBRCommons implements ModelValidator
 				return Msg.translate(Env.getCtx(), "Tipo de Documento Inválido");
 		}
 		
+		return null;
+	}	//	modelChange
+	
+	/**
+     *	Model Change of a monitored Table.
+     *	Called after PO.beforeSave/PO.beforeDelete
+     *	when you called addModelChange for the table
+     *	@param po persistent object
+     *	@param type TYPE_
+     *	@return error message or null
+     *	@exception Exception if the recipient wishes the change to be not accept.
+     */
+	public String modelChange (MProduction prod, int type) throws Exception
+	{
+		if (prod.is_ValueChanged (MLBRProductionGroup.COLUMNNAME_LBR_ProductionGroup_ID)
+				&& prod.get_ValueAsInt(MLBRProductionGroup.COLUMNNAME_LBR_ProductionGroup_ID) > 0)
+		{
+			//	Production Group
+			MLBRProductionGroup pg = new MLBRProductionGroup (Env.getCtx(), prod.get_ValueAsInt(MLBRProductionGroup.COLUMNNAME_LBR_ProductionGroup_ID), null);
+			MProductPricing pp = new MProductPricing (prod.getM_Product_ID(), pg.getC_BPartner_ID(), prod.getProductionQty(), false, null);
+			
+			//	Set Price
+			if (pp != null)
+			{
+				pp.setM_PriceList_ID (pg.getM_PriceList_ID());
+				prod.set_ValueOfColumn("PriceEntered", pp.getPriceStd());
+			}
+		}
 		return null;
 	}	//	modelChange
 	

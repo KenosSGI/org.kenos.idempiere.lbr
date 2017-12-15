@@ -19,6 +19,7 @@ Export-Package: org.adempierelbr.callout,
  org.adempierelbr.wrapper,
  org.kenos.idempiere.lbr.base.event,
  org.kenos.idempiere.lbr.base.form,
+ org.kenos.idempiere.lbr.base.model,
  org.kenos.idempiere.lbr.base.nfse
 Bundle-ClassPath: .,
  lib/dom4j.jar,

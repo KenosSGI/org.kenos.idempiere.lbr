@@ -10,7 +10,9 @@ Eclipse-RegisterBuddy: org.adempiere.base
 Service-Component: OSGI-INF/DisplayTypeFactory.xml,
  OSGI-INF/LookupFactory.xml,
  OSGI-INF/ModelFactory.xml,
- OSGI-INF/ProcessFactory.xml 
+ OSGI-INF/ProcessFactory.xml,
+ OSGI-INF/CalloutFactory.xml,
+ OSGI-INF/ModelValidatorFactory.xml
 Export-Package: org.adempierelbr.model,
  org.adempierelbr.validator,
  org.kenos.idempiere.lbr.tax.lookup

@@ -23,6 +23,8 @@ public class ModelFactory implements IModelFactory
 			return MRMA.class;
 		else if (MTimeExpense.Table_Name.equals(tableName))
 			return MTimeExpense.class;
+		else if (MLBRProductionGroup.Table_Name.equals(tableName))
+			return MLBRProductionGroup.class;
 		return null;
 	}	//	getClass
 
@@ -35,6 +37,8 @@ public class ModelFactory implements IModelFactory
 			return new MRMA (Env.getCtx(), Record_ID, trxName);
 		else if (MTimeExpense.Table_Name.equals(tableName))
 			return new MTimeExpense (Env.getCtx(), Record_ID, trxName);
+		else if (MLBRProductionGroup.Table_Name.equals(tableName))
+			return new MLBRProductionGroup (Env.getCtx(), Record_ID, trxName);
 		return null;
 	}	//	getPO
 
@@ -47,6 +51,8 @@ public class ModelFactory implements IModelFactory
 			return new MRMA (Env.getCtx(), rs, trxName);
 		else if (MTimeExpense.Table_Name.equals(tableName))
 			return new MTimeExpense (Env.getCtx(), rs, trxName);
+		else if (MLBRProductionGroup.Table_Name.equals(tableName))
+			return new MLBRProductionGroup (Env.getCtx(), rs, trxName);
 		return null;
 	}	//	getPO
 }	//	ModelFactory

@@ -44,7 +44,6 @@ import org.adempierelbr.wrapper.I_W_C_Invoice;
 import org.apache.xmlbeans.XmlCalendar;
 import org.compiere.model.MBPartner;
 import org.compiere.model.MBPartnerLocation;
-import org.compiere.model.MDocType;
 import org.compiere.model.MInvoice;
 import org.compiere.model.MLocation;
 import org.compiere.model.MOrgInfo;
@@ -110,7 +109,6 @@ public class NFSeImpl implements INFSe
 		Properties ctx = Env.getCtx();
 		String trxName = nf.get_TrxName();
 		//
-		MDocType dt = new MDocType (ctx, nf.getC_DocTypeTarget_ID(), trxName);
 		MLBRNotaFiscalLine[] nfLines = nf.getLines ();
 		I_W_C_BPartner bp = POWrapper.create(new MBPartner (Env.getCtx(), nf.getC_BPartner_ID(), trxName), I_W_C_BPartner.class);
 		//
@@ -137,7 +135,7 @@ public class NFSeImpl implements INFSe
 		
 		tpChaveRPS.setInscricaoPrestador(toLong (MOrgInfo.get(ctx, nf.getAD_Org_ID(), null).get_ValueAsString("lbr_CCM")));
 		tpChaveRPS.setNumeroRPS(toLong (nf.getDocumentNo()));
-		tpChaveRPS.setSerieRPS(dt.get_ValueAsString("lbr_NFSerie"));
+		tpChaveRPS.setSerieRPS(nf.getlbr_NFSerie());
 		
 		Calendar cal = new XmlCalendar ();
 		cal.setTimeInMillis (nf.getDateDoc().getTime());

@@ -7,7 +7,6 @@ import java.util.logging.Level;
 
 import javax.xml.stream.FactoryConfigurationError;
 import javax.xml.stream.XMLInputFactory;
-import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
 import org.adempiere.base.Service;
@@ -494,17 +493,9 @@ public class ConsultaCadastro extends SvrProcess
 			//	Resposta
 			return RetConsCadDocument.Factory.parse (respStatus.toString());
 		}
-		catch (XMLStreamException e)
+		catch (FactoryConfigurationError | Exception e)
 		{
-			e.printStackTrace();
-		}
-		catch (FactoryConfigurationError e)
-		{
-			e.printStackTrace();
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
+			log.log (Level.SEVERE, consCadDoc.xmlText(), e);
 		}
 		return null;
 	}	//	doIt
