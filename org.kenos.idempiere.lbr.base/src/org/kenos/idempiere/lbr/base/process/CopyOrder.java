@@ -85,6 +85,8 @@ public class CopyOrder extends SvrProcess
 			p_DateDoc = new Timestamp (System.currentTimeMillis());
 		//
 		MOrder from = new MOrder (getCtx(), p_C_Order_ID, get_TrxName());
+		if (from.getC_BPartner().isProspect())
+			return "@Error@<br>Não é possível criar um pedido para um Parceiro de Negócios em Perspectiva (Prospect). Atualize o cadastro do Parceiro e tente novamente.";
 		MOrder newOrder = MOrder.copyFrom (from, p_DateDoc, 
 			dt.getC_DocType_ID(), dt.isSOTrx(), false, true, get_TrxName());		//	copy ASI
 		newOrder.setC_DocTypeTarget_ID(p_C_DocType_ID);
