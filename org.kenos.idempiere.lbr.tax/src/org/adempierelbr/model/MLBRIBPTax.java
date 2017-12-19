@@ -22,14 +22,16 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.Properties;
 
+import org.adempiere.base.Service;
 import org.adempierelbr.util.TextUtil;
 import org.compiere.model.MRegion;
 import org.compiere.model.Query;
 import org.compiere.util.CLogger;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
-import org.kenos.ibpt.IBPT;
-import org.kenos.ibpt.bean.IBPTResponse;
+import org.kenos.idempiere.lbr.tax.ibpt.IBPT;
+import org.kenos.idempiere.lbr.tax.ibpt.IBPTResponse;
+import org.kenos.idempiere.lbr.tax.ibpt.IIBPTFactory;
 
 /**
  * 		Model for MLBRIBPTax
@@ -325,12 +327,13 @@ public class MLBRIBPTax extends X_LBR_IBPTax
 	 */
 	public static String importFromAPI (Properties ctx, String apiKey, String cnpj, int p_C_Region_ID, boolean p_DeleteOld, String trxName) throws Exception
 	{
-		List<MLBRNCM> ncmList = new Query(Env.getCtx(), MLBRNCM.Table_Name, "AD_Client_ID = ? AND LBR_NCM_ID IN (SELECT LBR_NCM_ID FROM M_Product)", null)
-				.setParameters(Env.getAD_Client_ID(ctx))
+		int AD_Client_ID = Env.getAD_Client_ID(ctx);
+		List<MLBRNCM> ncmList = new Query(Env.getCtx(), MLBRNCM.Table_Name, "AD_Client_ID IN (0,?) AND EXISTS (SELECT '1' FROM M_Product zp WHERE zp.AD_Client_ID=? AND zp.LBR_NCM_ID=LBR_NCM.LBR_NCM_ID)", null)
+				.setParameters(AD_Client_ID, AD_Client_ID)
 				.list();
 		
-		List<MLBRNBS> nbsList = new Query(Env.getCtx(), MLBRNBS.Table_Name, "AD_Client_ID = ? AND LBR_NBS_ID IN (SELECT LBR_NBS_ID FROM M_Product)", null)
-				.setParameters(Env.getAD_Client_ID(ctx))
+		List<MLBRNBS> nbsList = new Query(Env.getCtx(), MLBRNBS.Table_Name, "AD_Client_ID IN (0,?) AND EXISTS (SELECT '1' FROM M_Product zp WHERE zp.AD_Client_ID=? AND zp.LBR_NBS_ID=LBR_NBS.LBR_NBS_ID)", null)
+				.setParameters(AD_Client_ID, AD_Client_ID)
 				.list();
 		
 		return importFromAPI (ctx, apiKey, cnpj, p_C_Region_ID, p_DeleteOld, ncmList, nbsList, trxName);
@@ -364,17 +367,34 @@ public class MLBRIBPTax extends X_LBR_IBPTax
 		//	Try to get API
 		IBPT api = null;
 		
+		//	Try from classpath
 		try
 		{
 			api = IBPT.Factory.newInstance (apiKey);
 		}
-		catch (Exception e)
+		catch (Exception e) {}
+		
+		//	Try from OSGi
+		try
 		{
-			return "@Error@ não foi encontrado o plugin do IBPT online.";
+			List<IIBPTFactory> factoryList = Service.locator().list(IIBPTFactory.class).getServices();
+			for (IIBPTFactory factory : factoryList)
+			{
+				api = factory.getIBPT(apiKey);
+				if (api != null)
+					break;
+			}
 		}
+		catch (Exception e) {}
+		
+		if (api == null)
+			return "@Error@ não foi encontrado o plugin do IBPT online.";
 		
 		int countNCM = 0;
 		int countNBS = 0;
+		
+		//	Fix problem with org.glassfish.jersey.internal.RuntimeDelegateImpl
+		System.setProperty ("javax.ws.rs.ext.RuntimeDelegate", "org.apache.cxf.jaxrs.impl.RuntimeDelegateImpl");
 		
 		// para cada linha, inserir no BD
 		for (MLBRNCM ncm : ncmList) 

@@ -15,7 +15,7 @@ Service-Component: OSGI-INF/DisplayTypeFactory.xml,
  OSGI-INF/ModelValidatorFactory.xml
 Export-Package: org.adempierelbr.model,
  org.adempierelbr.validator,
+ org.kenos.idempiere.lbr.tax.ibpt,
  org.kenos.idempiere.lbr.tax.lookup
-Bundle-ClassPath: lib/ibpt-interfaces-1.0.jar,
- .
+Bundle-ClassPath: .
 Bundle-ActivationPolicy: lazy
