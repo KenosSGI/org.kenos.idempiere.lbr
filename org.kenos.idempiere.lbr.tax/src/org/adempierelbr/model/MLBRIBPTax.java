@@ -394,6 +394,7 @@ public class MLBRIBPTax extends X_LBR_IBPTax
 		int countNBS = 0;
 		
 		//	Fix problem with org.glassfish.jersey.internal.RuntimeDelegateImpl
+		//		solution found at https://goo.gl/S8nciX -> thank to user mkwyche
 		System.setProperty ("javax.ws.rs.ext.RuntimeDelegate", "org.apache.cxf.jaxrs.impl.RuntimeDelegateImpl");
 		
 		// para cada linha, inserir no BD
