@@ -797,11 +797,11 @@ UPDATE AD_Tab SET Parent_Column_ID=1129909,Updated=TO_TIMESTAMP('2017-12-15 10:2
 ;
 
 -- 15/12/2017 10h25min58s BRST
-INSERT INTO AD_Field (AD_Field_ID,Name,AD_Tab_ID,AD_Column_ID,IsDisplayed,DisplayLength,SeqNo,SortNo,IsSameLine,IsHeading,IsFieldOnly,IsEncrypted,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,IsReadOnly,IsCentrallyMaintained,EntityType,AD_Field_UU,IsDisplayedGrid,SeqNoGrid,XPosition,ColumnSpan,NumLines,IsQuickEntry,IsDefaultFocus,IsAdvancedField) VALUES (2000000,'Production Group',1120282,1129930,'Y',0,280,0,'N','N','N','N',0,0,'Y',TO_TIMESTAMP('2017-12-15 10:25:58','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2017-12-15 10:25:58','YYYY-MM-DD HH24:MI:SS'),100,'N','Y','LBRA','8433de9a-c001-4c26-b51c-61b55e2e2787','Y',260,1,1,1,'N','N','N')
+INSERT INTO AD_Field (AD_Field_ID,Name,AD_Tab_ID,AD_Column_ID,IsDisplayed,DisplayLength,SeqNo,SortNo,IsSameLine,IsHeading,IsFieldOnly,IsEncrypted,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,IsReadOnly,IsCentrallyMaintained,EntityType,AD_Field_UU,IsDisplayedGrid,SeqNoGrid,XPosition,ColumnSpan,NumLines,IsQuickEntry,IsDefaultFocus,IsAdvancedField) VALUES (1127291,'Production Group',1120282,1129930,'Y',0,280,0,'N','N','N','N',0,0,'Y',TO_TIMESTAMP('2017-12-15 10:25:58','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2017-12-15 10:25:58','YYYY-MM-DD HH24:MI:SS'),100,'N','Y','LBRA','8433de9a-c001-4c26-b51c-61b55e2e2787','Y',260,1,1,1,'N','N','N')
 ;
 
 -- 15/12/2017 10h26min33s BRST
-UPDATE AD_Field SET IsDisplayed='Y', SeqNo=40, AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, XPosition=4, ColumnSpan=2, IsToolbarButton=NULL,Updated=TO_TIMESTAMP('2017-12-15 10:26:33','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=2000000
+UPDATE AD_Field SET IsDisplayed='Y', SeqNo=40, AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, XPosition=4, ColumnSpan=2, IsToolbarButton=NULL,Updated=TO_TIMESTAMP('2017-12-15 10:26:33','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1127291
 ;
 
 -- 15/12/2017 10h26min33s BRST
@@ -909,7 +909,7 @@ UPDATE AD_Field SET SeqNo=0, AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, Is
 ;
 
 -- 15/12/2017 10h26min44s BRST
-UPDATE AD_Field SET IsReadOnly='Y', AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, IsToolbarButton=NULL,Updated=TO_TIMESTAMP('2017-12-15 10:26:44','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=2000000
+UPDATE AD_Field SET IsReadOnly='Y', AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, IsToolbarButton=NULL,Updated=TO_TIMESTAMP('2017-12-15 10:26:44','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1127291
 ;
 
 -- 15/12/2017 12h0min37s BRST
@@ -1264,3 +1264,11 @@ UPDATE AD_TreeNodeMM SET Parent_ID=1000023, SeqNo=23, Updated=statement_timestam
 UPDATE AD_Process SET Classname='org.kenos.idempiere.lbr.nfe.process.GenerateNF',Updated=TO_TIMESTAMP('2017-12-15 15:37:58','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Process_ID=1120199
 ;
 
+-- 15/12/2017 15h37min58s BRST
+UPDATE AD_Column SET IsMandatory='N' WHERE AD_Column_ID=1126691
+;
+
+-- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
+-- 20/12/2017 17h18min11s BRST
+INSERT INTO t_alter_column values('m_production','DateStart','TIMESTAMP',null,'NULL')
+;
