@@ -20,7 +20,11 @@ package org.adempierelbr.model;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.Properties;
-import org.compiere.model.*;
+
+import org.compiere.model.I_Persistent;
+import org.compiere.model.MTable;
+import org.compiere.model.PO;
+import org.compiere.model.POInfo;
 
 /** Generated Model for LBR_ProductionGroup
  *  @author iDempiere (generated) 
@@ -418,17 +422,23 @@ public class X_LBR_ProductionGroup extends PO implements I_LBR_ProductionGroup, 
 		@param LBR_Tax_ID 
 		Primary key table LBR_Tax
 	  */
-	public void setLBR_Tax_ID (Object LBR_Tax_ID)
+	public void setLBR_Tax_ID (int LBR_Tax_ID)
 	{
-		set_Value (COLUMNNAME_LBR_Tax_ID, LBR_Tax_ID);
+		if (LBR_Tax_ID < 1) 
+			set_Value (COLUMNNAME_LBR_Tax_ID, null);
+		else 
+			set_Value (COLUMNNAME_LBR_Tax_ID, Integer.valueOf(LBR_Tax_ID));
 	}
 
 	/** Get Brazilian Tax.
 		@return Primary key table LBR_Tax
 	  */
-	public Object getLBR_Tax_ID () 
+	public int getLBR_Tax_ID () 
 	{
-				return get_Value(COLUMNNAME_LBR_Tax_ID);
+		Integer ii = (Integer)get_Value(COLUMNNAME_LBR_Tax_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
 	}
 
 	public org.compiere.model.I_M_PriceList getM_PriceList() throws RuntimeException
