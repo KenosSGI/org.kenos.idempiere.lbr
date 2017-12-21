@@ -8,6 +8,7 @@ import org.adempiere.exceptions.AdempiereException;
 import org.compiere.model.MDocType;
 import org.compiere.model.MMovement;
 import org.compiere.model.MMovementLine;
+import org.compiere.model.MProduct;
 import org.compiere.model.MProduction;
 import org.compiere.model.MProductionLine;
 import org.compiere.process.SvrProcess;
@@ -46,8 +47,10 @@ public class POGMoveToProducer extends SvrProcess
 			for (MProductionLine pl : p.getLines())
 			{
 				//	Do nothing, continue
-				if (pl.getMovementQty().negate().signum() <= 0
-						|| pl.getM_Product().getM_Locator_ID() == pl.getM_Locator_ID())
+				if (pl.getMovementQty().negate().signum() <= 0										//	Negative
+						|| pl.getM_Product().getM_Locator_ID() == pl.getM_Locator_ID()				//	Same locator
+						|| !pl.getM_Product().isStocked()											//	Not stocked
+						|| !MProduct.PRODUCTTYPE_Item.equals (pl.getM_Product().getProductType()))	//	Not physical
 					continue;
 				
 				int M_Locator_ID = pl.getM_Product().getM_Locator_ID();
