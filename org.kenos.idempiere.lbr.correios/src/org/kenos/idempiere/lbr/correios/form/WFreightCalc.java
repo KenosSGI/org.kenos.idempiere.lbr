@@ -851,7 +851,13 @@ public class WFreightCalc extends ADForm implements IFormController, EventListen
 			for (MOrderLine ol : order.getLines())
 			{
 				if (ol.getM_Product_ID() > 0)
-					weight.add(ol.getQtyOrdered().subtract(ol.getQtyDelivered()).multiply(ol.getProduct().getWeight()));
+				{
+					BigDecimal qty = ol.getQtyOrdered();
+					BigDecimal delivered = ol.getQtyDelivered();
+					BigDecimal prodWeight = ol.getProduct().getWeight();
+					//
+					weight = weight.add(qty.subtract(delivered).multiply(prodWeight));
+				}
 			}
 			
 			//	Date Promissed
