@@ -35,6 +35,8 @@ public class POGBOMDrop extends SvrProcess
 			if (!p.getM_Product().isBOM())
 				return "@Error@ Produto [" + p.getM_Product().getValue() + "] não possuí Lista de Materiais";
 			p.createLines (false);
+			p.setIsCreated ("Y");
+			p.save();
 			
 			//	Update locator
 			if (pg.getM_Warehouse_ID() <= 0)
