@@ -17,6 +17,10 @@ public class ProcessFactory implements IProcessFactory
 	{
 		if (PrintFromXML.class.getName().equals (className))
 			return new PrintFromXML ();
+		if (GenerateNF.class.getName().equals (className))
+			return new GenerateNF ();
+		if (POGBGenInvoice.class.getName().equals (className))
+			return new POGBGenInvoice ();
 		return null;
 	}	//	newProcessInstance
 }	//	CalloutFactory

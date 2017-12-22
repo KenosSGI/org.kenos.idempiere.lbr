@@ -70,6 +70,8 @@ import org.compiere.model.MInvoice;
 import org.compiere.model.MInvoiceLine;
 import org.compiere.model.MInvoiceTax;
 import org.compiere.model.MLocation;
+import org.compiere.model.MMovement;
+import org.compiere.model.MMovementLine;
 import org.compiere.model.MOrder;
 import org.compiere.model.MOrderLine;
 import org.compiere.model.MOrderTax;
@@ -99,6 +101,7 @@ import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.compiere.util.Msg;
 import org.compiere.util.Trx;
+import org.kenos.idempiere.lbr.base.model.MLBRProductionGroup;
 
 import br.inf.portalfiscal.nfe.v310.InutNFeDocument;
 import br.inf.portalfiscal.nfe.v310.NFeDocument;
@@ -1356,6 +1359,124 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 	/**
 	 * 	Gera a NF
 	 */
+	public boolean generateNF (MMovement move, Boolean isOwnDocument, int p_C_DocType_ID)
+	{
+		BigDecimal totalItem = Env.ZERO, totalService = Env.ZERO;
+		//
+		Boolean isSOTrx = true;
+		int lineNo = 1;
+		
+		/**
+		 * 	Limpa os valores antigos
+		 */
+		clear();
+		
+		//	Dados mestre
+		setDateDoc(move.getMovementDate());
+		setIsSOTrx(isSOTrx);
+		setlbr_IsOwnDocument(isOwnDocument);
+		
+		//	Dados da Organização
+		setOrgInfo(POWrapper.create(MOrgInfo.get(getCtx(), move.getAD_Org_ID(), get_TrxName()), I_W_AD_OrgInfo.class));
+		
+		//	Transaction Type
+		setlbr_TransactionType (LBR_TRANSACTIONTYPE_Manufacturing);
+		
+		//	Dados do Parceiro
+		MBPartnerLocation bpLocation = new MBPartnerLocation (getCtx(), move.getC_BPartner_Location_ID(), get_TrxName());
+		setBPartner(bpLocation);
+		
+		//	Parceiro da Fatura
+		setInvoiceBPartner(bpLocation);
+		
+		//	Tipo de Documento
+		if (p_C_DocType_ID > 0)
+			setC_DocTypeTarget_ID(p_C_DocType_ID);
+		else
+			setC_DocTypeTarget_ID();
+		
+		// Imprime Descontos
+		setIsDiscountPrinted(false);
+		
+		//	Entrega
+//		setShipmentBPartner(invoice);
+		
+		//  Description
+		setDescription();
+		
+		//	Se não estiver salva
+		if (get_ID() < 1)
+			save ();
+		
+		//	Impostos
+//		setTaxes(invoice);
+		
+		I_W_C_DocType dt = POWrapper.create(new MDocType (getCtx(), getC_DocType_ID(), get_TrxName()), I_W_C_DocType.class);
+		String serie = "";
+		
+		if (dt.getlbr_NFSerie() != null && !dt.getlbr_NFSerie().isEmpty())
+			serie = dt.getlbr_NFSerie();
+		
+		//	Não permitir a NF sem série
+		else
+			serie = "1";
+		
+		if (getlbr_NFSerie() == null && isOwnDocument)
+			setlbr_NFSerie(serie);
+		
+		setlbr_NFModel(LBR_NFMODEL_NotaFiscalEletrônica);
+		
+		//	Documents
+		int p_LBR_CFOP_ID	 	= 0;
+		int p_LBR_Tax_ID 		= 0;
+		int p_M_CostElement_ID 	= 100;
+		
+		int p_POG_ID = move.get_ValueAsInt(MLBRProductionGroup.COLUMNNAME_LBR_ProductionGroup_ID);
+		if (p_POG_ID > 0)
+		{
+			MLBRProductionGroup pog = new MLBRProductionGroup (Env.getCtx(), p_POG_ID, get_TrxName());
+			p_LBR_CFOP_ID = pog.getLBR_CFOP_ID();
+			p_LBR_Tax_ID = pog.getLBR_Tax_ID();
+		}
+		
+		//	Linhas
+		for (MMovementLine line : move.getLines (true))
+		{
+			MLBRNotaFiscalLine nfLine = new MLBRNotaFiscalLine (this);
+			nfLine.setAD_Org_ID(line.getAD_Org_ID());
+			nfLine.save();
+			//
+			nfLine.setLine(lineNo++);
+			nfLine.setMovementLine(line, p_LBR_CFOP_ID, p_LBR_Tax_ID, p_M_CostElement_ID);
+			nfLine.save();
+			//
+			totalItem = totalItem.add(nfLine.getLineTotalAmt());
+			//
+			if (nfLine.getLBR_CFOP_ID() > 0 
+					&& (getlbr_CFOPNote() == null || getlbr_CFOPNote().length() < 1))
+				setlbr_CFOPNote(nfLine.getLBR_CFOP().getDescription());
+		}
+		
+		//	Valores
+		setTotalLines(totalItem);
+		setlbr_ServiceTotalAmt(totalService);
+		setDiscountAmt(getDiscount());
+		
+		//	Nota do Documento (Mensagens Legais) e Descrição
+		setLBR_FiscalObs ();
+		setDescription ();
+		
+		//	O peso normalemnte vem da expedição, porém alguns casos a NF é feita com base no pedido
+		//		ou na fatura, portanto é necessário recalcular o peso
+		if (Env.ZERO.compareTo (getlbr_GrossWeight()) == 0)
+			calculateWeight();
+				
+		return true;
+	}	//	generateNF
+	
+	/**
+	 * 	Gera a NF
+	 */
 	public boolean generateNF (MOrder order, Boolean IsOwnDocument)
 	{
 		BigDecimal totalItem = Env.ZERO, totalService = Env.ZERO;
@@ -1775,7 +1896,7 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 	 * 	Ajusta o Tipo de Documento correto para a NF
 	 * 		de acordo com a Organização ou pela Fatura
 	 */
-	private void setC_DocTypeTarget_ID ()
+	public void setC_DocTypeTarget_ID ()
 	{
 		
 		I_W_C_Invoice invoice = POWrapper.create(new MInvoice(getCtx(), getC_Invoice_ID(), get_TrxName()), I_W_C_Invoice.class);
@@ -3962,7 +4083,7 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 	/**
 	 * 	Calculate the NF weight
 	 */
-	private void calculateWeight ()
+	public void calculateWeight ()
 	{
 		BigDecimal weight = Env.ZERO;
 		for (MLBRNotaFiscalLine nfl : getLines())

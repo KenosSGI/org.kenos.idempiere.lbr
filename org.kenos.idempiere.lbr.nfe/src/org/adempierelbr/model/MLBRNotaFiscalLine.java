@@ -25,9 +25,13 @@ import org.adempierelbr.wrapper.I_W_C_InvoiceLine;
 import org.adempierelbr.wrapper.I_W_C_OrderLine;
 import org.adempierelbr.wrapper.I_W_C_Tax;
 import org.adempierelbr.wrapper.I_W_M_Product;
+import org.compiere.model.MAcctSchema;
 import org.compiere.model.MCharge;
+import org.compiere.model.MClient;
 import org.compiere.model.MConversionRate;
+import org.compiere.model.MCost;
 import org.compiere.model.MInvoiceLine;
+import org.compiere.model.MMovementLine;
 import org.compiere.model.MOrderLine;
 import org.compiere.model.MProduct;
 import org.compiere.model.MSysConfig;
@@ -504,6 +508,72 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 	}	//	setInvoiceLine
 	
 	/**
+	 * 		Define os valores referentes a Linha da Movimentação de Estoque
+	 * 	
+	 * 	@param line
+	 */
+	public void setMovementLine (MMovementLine line, int p_LBR_CFOP_ID, int p_LBR_Tax_ID, int p_M_CostElement_ID)
+	{
+		//	Product
+		setProduct (line.getProduct());
+		
+		//  Seguro
+		setlbr_InsuranceAmt(Env.ZERO);
+		
+		//	Frete
+		setFreightAmt(Env.ZERO);
+		
+		//  Outras Despesas Acessórias
+		setLBR_OtherChargesAmt(Env.ZERO);
+		
+		setC_UOM_ID (line.getProduct().getC_UOM_ID());
+		setLBR_CFOP_ID (p_LBR_CFOP_ID);
+		
+		//	Número de Série
+		if (line.getM_AttributeSetInstance_ID()>0 
+				&& line.getM_AttributeSetInstance().getSerNo() != null
+				&& (MSysConfig.getBooleanValue("LBR_PRINT_SERIALNUMBER_NF", true, getAD_Client_ID())))
+			appendDescription("Núm. de Série: " + line.getM_AttributeSetInstance().getSerNo());
+		
+		//	Impostos
+		if (p_LBR_Tax_ID > 0)
+		{
+			MLBRTax tax = new MLBRTax (getCtx(), p_LBR_Tax_ID, get_TrxName());
+			for (MLBRTaxLine tl : tax.getLines())
+			{
+				int Child_Tax_ID = tl.getChild_Tax_ID (0);
+				//
+				if (!tl.islbr_PostTax() || Child_Tax_ID < 1)
+					continue;
+				
+				I_W_C_Tax taxAD = POWrapper.create(new MTax (getCtx(), Child_Tax_ID, get_TrxName()), I_W_C_Tax.class);
+				
+				if (taxAD.getLBR_TaxGroup_ID() < 1)
+					continue;
+				
+				MLBRNFLineTax nfLineTax = new MLBRNFLineTax (this);
+				nfLineTax.setTaxes (tl);
+				nfLineTax.setLBR_TaxGroup_ID(taxAD.getLBR_TaxGroup_ID());
+				nfLineTax.save();
+			}
+		}
+		
+		//	Valores
+		setQty (line.getMovementQty());
+		
+		//	Cost
+		MAcctSchema as = MClient.get (line.getCtx ()).getAcctSchema();
+		MCost mCost = MCost.get (line.getProduct(), line.getM_AttributeSetInstance_ID(), as, line.getAD_Org_ID(), p_M_CostElement_ID, line.get_TrxName());
+		BigDecimal costPrice = Env.ZERO;
+		
+		if (mCost != null)
+			costPrice = mCost.getCurrentCostPrice();
+		
+		//	Cost Price
+		setPrice(MLBRNotaFiscal.CURRENCY_BRL, costPrice, costPrice , false, false);
+	}	//	setMovementLine
+	
+	/**
 	 * 		Define os valores referentes a Linha da Fatura
 	 * 	
 	 * 	@param oLine
@@ -735,7 +805,7 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 		setlbr_ProductSource(productW.getlbr_ProductSource());
 	}	//	setProduct
 
-	private void appendDescription (String text)
+	public void appendDescription (String text)
 	{
 		String desc = getDescription();
 		if (desc == null)
