@@ -1272,3 +1272,7 @@ UPDATE AD_Column SET IsMandatory='N' WHERE AD_Column_ID=1126691
 -- 20/12/2017 17h18min11s BRST
 INSERT INTO t_alter_column values('m_production','DateStart','TIMESTAMP',null,'NULL')
 ;
+ALTER TABLE M_Production ALTER COLUMN DateStart DROP NOT NULL
+;
+UPDATE AD_Process SET ClassName='org.kenos.idempiere.lbr.nfe.process.POGBGenInvoice' WHERE ClassName='org.kenos.idempiere.lbr.base.process.POGBGenInvoice'
+;
