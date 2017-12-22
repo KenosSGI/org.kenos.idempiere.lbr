@@ -15,11 +15,13 @@ package org.adempierelbr.model;
 
 import java.math.BigDecimal;
 import java.sql.ResultSet;
+import java.util.List;
 import java.util.Properties;
 
 import org.adempiere.model.POWrapper;
 import org.adempierelbr.wrapper.I_W_C_Tax;
 import org.compiere.model.MTax;
+import org.compiere.model.Query;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
 
@@ -67,6 +69,21 @@ public class MLBRTaxLine extends X_LBR_TaxLine implements Comparable
 	 */
 	public int getChild_Tax_ID (int C_Tax_ID)
 	{
+		if (C_Tax_ID < 1)
+		{
+			List<MTax> taxes = new Query (getCtx(), MTax.Table_Name, "LBR_TaxName_ID=?", get_TrxName())
+				.setParameters(getLBR_TaxName_ID())
+				.setClient_ID()
+				.list();
+			for (MTax tax : taxes)
+			{
+				if (tax.get_ValueAsInt("LBR_TaxGroup_ID") > 0)
+					return tax.getC_Tax_ID();
+			}
+			//
+			return -1;
+		}
+		
 		MTax parent = new MTax (getCtx(), C_Tax_ID, get_TrxName());
 		
 		if (!parent.isSummary())
