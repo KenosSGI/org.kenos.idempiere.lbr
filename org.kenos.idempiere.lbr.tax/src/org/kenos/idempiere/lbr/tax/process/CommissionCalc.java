@@ -365,6 +365,7 @@ public class CommissionCalc extends SvrProcess
 	 *	@param comAmt parent
 	 * @throws Exception 
 	 */
+	@SuppressWarnings("resource")
 	private void createDetail (String sql, MCommissionAmt comAmt) throws Exception
 	{
 		PreparedStatement pstmt = null;
