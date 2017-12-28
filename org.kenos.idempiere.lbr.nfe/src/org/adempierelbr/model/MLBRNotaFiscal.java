@@ -19,8 +19,11 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
+import java.text.DecimalFormat;
 import java.text.MessageFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -61,6 +64,7 @@ import org.compiere.model.MAttachmentEntry;
 import org.compiere.model.MBPartner;
 import org.compiere.model.MBPartnerLocation;
 import org.compiere.model.MClientInfo;
+import org.compiere.model.MColumn;
 import org.compiere.model.MConversionRate;
 import org.compiere.model.MCost;
 import org.compiere.model.MCountry;
@@ -101,6 +105,7 @@ import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.compiere.util.Msg;
 import org.compiere.util.Trx;
+import org.compiere.util.Util;
 import org.kenos.idempiere.lbr.base.model.MLBRProductionGroup;
 
 import br.inf.portalfiscal.nfe.v310.InutNFeDocument;
@@ -2986,7 +2991,7 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 			}
 		}
 		//
-		return Env.parseVariable ("@" + variable + "@", doc, get_TrxName(), false);
+		return parseVariable ("@" + variable + "@", doc, get_TrxName(), false);
 	}	//	parseVariable
 	
 	/**
@@ -4096,4 +4101,124 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		setlbr_GrossWeight(weight);
 		setlbr_NetWeight(weight);
 	}	//	calculateWeight
+
+	/**
+	 * Parse expression, replaces global or PO properties @tag@ with actual value. Differente from Env.parseVariable
+	 * 	because this allows to perform a Query
+	 * 
+	 * @param expression
+	 * @param po
+	 * @param trxName
+	 * @return String
+	 */
+	public static String parseVariable(String expression, PO po, String trxName, boolean keepUnparseable) {
+		if (expression == null || expression.length() == 0)
+			return "";
+
+		String token;
+		String inStr = new String(expression);
+		StringBuilder outStr = new StringBuilder();
+
+		int i = inStr.indexOf('@');
+		while (i != -1)
+		{
+			outStr.append(inStr.substring(0, i));			// up to @
+			inStr = inStr.substring(i+1, inStr.length());	// from first @
+
+			int j = inStr.indexOf('@');						// next @
+			if (j < 0)
+			{
+				return "";						//	no second tag
+			}
+
+			token = inStr.substring(0, j);
+
+			//format string
+			String format = "";
+			int f = token.indexOf('<');
+			if (f > 0 && token.endsWith(">")) {
+				format = token.substring(f+1, token.length()-1);
+				token = token.substring(0, f);
+			}
+
+			Properties ctx = po != null ? po.getCtx() : Env.getCtx();
+			if (token.startsWith("#") || token.startsWith("$")) {
+				//take from context
+				String v = Env.getContext(ctx, token);
+				if (v != null && v.length() > 0)
+					outStr.append(v);
+				else if (keepUnparseable) {
+					outStr.append("@").append(token);
+					if (!Util.isEmpty(format))
+						outStr.append("<").append(format).append(">");
+					outStr.append("@");
+				}
+			} else if (po != null) {
+				//take from po
+				if (po.get_ColumnIndex(token) >= 0) {
+					Object v = po.get_Value(token);
+					MColumn colToken = MColumn.get(ctx, po.get_TableName(), token);
+					String foreignTable = colToken.getReferenceTableName();
+					if (v != null) {
+						if (format != null && format.length() > 0) {
+							if (v instanceof Integer && (Integer) v > 0 && !Util.isEmpty(foreignTable)) {
+								int tblIndex = format.indexOf(".");
+								String tableName = null;
+								if (tblIndex > 0)
+									tableName = format.substring(0, tblIndex);
+								else
+									tableName = foreignTable;
+								MTable table = MTable.get(ctx, tableName);
+								if (table != null && tableName.equalsIgnoreCase(foreignTable)) {
+									String columnName = tblIndex > 0 ? format.substring(tblIndex + 1) : format;
+//									MColumn column = table.getColumn(columnName);
+//									if (column != null) {
+//										if (column.isSecure()) {
+//											outStr.append("********");
+//										} else {
+											String value = DB.getSQLValueString(trxName,"SELECT " + columnName + " FROM " + tableName + " WHERE " + tableName + "_ID = ?", (Integer)v);
+											if (value != null)
+												outStr.append(value);
+//										}
+//									}
+								}
+							} else if (v instanceof Date) {
+								SimpleDateFormat df = new SimpleDateFormat(format);
+								outStr.append(df.format((Date)v));
+							} else if (v instanceof Number) {
+								DecimalFormat df = new DecimalFormat(format);
+								outStr.append(df.format(((Number)v).doubleValue()));
+							} else {
+								MessageFormat mf = new MessageFormat(format);
+								outStr.append(mf.format(v));
+							}
+						} else {
+							if (colToken != null && colToken.isSecure()) {
+								v = "********";
+							}
+							outStr.append(v.toString());
+						}
+					}
+				} else if (keepUnparseable) {
+					outStr.append("@").append(token);
+					if (!Util.isEmpty(format))
+						outStr.append("<").append(format).append(">");
+					outStr.append("@");
+				}
+			}
+			else if (keepUnparseable)
+			{
+				outStr.append("@"+token);
+				if (format.length() > 0)
+					outStr.append("<"+format+">");
+				outStr.append("@");
+			}
+			
+			inStr = inStr.substring(j+1, inStr.length());	// from second @
+			i = inStr.indexOf('@');
+		}
+		outStr.append(inStr);						// add the rest of the string
+
+		return outStr.toString();
+	}
 }	//	MLBRNotaFiscal
