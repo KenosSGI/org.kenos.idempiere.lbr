@@ -14,16 +14,16 @@
  * ComPiere, Inc., 2620 Augustine Dr. #245, Santa Clara, CA 95054, USA        *
  * or via info@compiere.org or http://www.compiere.org/license.html           *
  *****************************************************************************/
-package org.kenos.idempiere.lbr.base.process;
+package org.kenos.idempiere.lbr.tax.process;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.logging.Level;
 
 import org.compiere.model.MDocType;
-import org.compiere.model.MOrder;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
+import org.kenos.idempiere.lbr.tax.model.MOrder;
 
 /**
  *	Copy Order and optionally close
