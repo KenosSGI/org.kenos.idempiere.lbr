@@ -429,11 +429,15 @@ public class WPOGManage extends ADForm implements IFormController, WTableModelLi
 			//		Verifica outras ordens parciais para preencher o sufixo
 			int next = DB.getSQLValue(null, "SELECT COALESCE(COUNT(*),0)+1 FROM M_Production WHERE LBR_Ref_Production_ID=?", prod_orig.getM_Production_ID());
 			prod_new.set_CustomColumn("DocumentNo", (String) prod_orig.get_Value("DocumentNo") + "-" + next);
-			prod_new.set_CustomColumn("LBR_Ref_Production_ID", prod_orig.getM_Production_ID());
 			prod_new.setAD_Org_ID(prod_orig.getAD_Org_ID());
 			prod_new.setProductionQty(psplit.newQty);
 			prod_new.setIsCreated(MProduction.ISCREATED_Yes);
 			prod_new.save();
+			
+			//		Adicionando Produção Origem como referencia
+			prod_new.set_CustomColumn("LBR_Ref_Production_ID", prod_orig.getM_Production_ID());
+			prod_new.save();
+
 			//
 			MProductionLine[] lines = prod_orig.getLines ();
 			prod_orig.setProductionQty(psplit.remainQty);
