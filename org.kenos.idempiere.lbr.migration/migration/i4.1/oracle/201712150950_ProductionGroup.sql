@@ -1277,3 +1277,106 @@ ALTER TABLE M_Production MODIFY DateStart DATE DEFAULT NULL
 ;
 UPDATE AD_Process SET ClassName='org.kenos.idempiere.lbr.nfe.process.POGBGenInvoice' WHERE ClassName='org.kenos.idempiere.lbr.base.process.POGBGenInvoice'
 ;
+-- 26/12/2017 16h8min9s BRST
+INSERT INTO AD_Workflow (Name,Description,AD_Workflow_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AccessLevel,EntityType,Author,WorkingTime,Duration,Version,Cost,DurationUnit,WaitingTime,PublishStatus,IsDefault,AD_Table_ID,Value,WorkflowType,IsValid,DocumentNo,QtyBatchSize,IsBetaFunctionality,Yield,AD_Workflow_UU) VALUES ('Process_LBR_ProductionGroup','(Standard Process Production Group)',1120024,0,0,'Y',TO_DATE('2017-12-26 16:08:08','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2017-12-26 16:08:08','YYYY-MM-DD HH24:MI:SS'),100,'1','LBRA','Kenos Ltda',0,1,0,0,'D',0,'T','N',1120582,'Process_LBR_ProductionGroup','P','N','10000000',1,'N',100,'92e93321-1fab-4e69-bdcd-b92c6f76f676')
+;
+
+-- 26/12/2017 16h9min31s BRST
+INSERT INTO AD_WF_Node (AD_WF_Node_ID,Name,AD_Workflow_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,Action,IsCentrallyMaintained,YPosition,EntityType,XPosition,Limit,Duration,Cost,WaitingTime,WorkingTime,Priority,JoinElement,SplitElement,WaitTime,DocAction,Value,DynPriorityChange,IsMilestone,IsSubcontracting,UnitsCycles,OverlapUnits,Yield,AD_WF_Node_UU) VALUES (1120092,'(DocAuto)',1120024,0,0,'Y',TO_DATE('2017-12-26 16:09:31','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2017-12-26 16:09:31','YYYY-MM-DD HH24:MI:SS'),100,'D','Y',0,'LBRA',0,0,0,0,0,0,0,'X','X',0,'--','(DocAuto)',0,'N','N',0,0,100,'7090f387-c6dc-4148-b10d-3ce7491c23c4')
+;
+
+-- 26/12/2017 16h9min56s BRST
+INSERT INTO AD_WF_Node (AD_WF_Node_ID,Name,AD_Workflow_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,Action,IsCentrallyMaintained,YPosition,EntityType,XPosition,Limit,Duration,Cost,WaitingTime,WorkingTime,Priority,JoinElement,SplitElement,WaitTime,DocAction,Value,DynPriorityChange,IsMilestone,IsSubcontracting,UnitsCycles,OverlapUnits,Yield,AD_WF_Node_UU) VALUES (1120093,'(DocComplete)',1120024,0,0,'Y',TO_DATE('2017-12-26 16:09:55','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2017-12-26 16:09:55','YYYY-MM-DD HH24:MI:SS'),100,'D','Y',0,'LBRA',0,0,0,0,0,0,0,'X','X',0,'--','(DocComplete)',0,'N','N',0,0,100,'b742b74f-5171-4673-91d0-bc49d7954fc3')
+;
+
+-- 26/12/2017 16h10min16s BRST
+INSERT INTO AD_WF_Node (AD_WF_Node_ID,Name,AD_Workflow_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,Action,IsCentrallyMaintained,YPosition,EntityType,XPosition,Limit,Duration,Cost,WaitingTime,WorkingTime,Priority,JoinElement,SplitElement,WaitTime,DocAction,Value,DynPriorityChange,IsMilestone,IsSubcontracting,UnitsCycles,OverlapUnits,Yield,AD_WF_Node_UU) VALUES (1120094,'(DocPrepare)',1120024,0,0,'Y',TO_DATE('2017-12-26 16:10:16','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2017-12-26 16:10:16','YYYY-MM-DD HH24:MI:SS'),100,'D','Y',0,'LBRA',0,0,0,0,0,0,0,'X','X',0,'PR','(DocPrepare)',0,'N','N',0,0,100,'071aa1a2-4d96-4f96-9be1-8544d6de8dd9')
+;
+
+-- 26/12/2017 16h10min44s BRST
+INSERT INTO AD_WF_Node (AD_WF_Node_ID,Name,AD_Workflow_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,Action,IsCentrallyMaintained,YPosition,EntityType,XPosition,Limit,Duration,Cost,WaitingTime,WorkingTime,Priority,JoinElement,SplitElement,WaitTime,DocAction,Value,DynPriorityChange,IsMilestone,IsSubcontracting,UnitsCycles,OverlapUnits,Yield,AD_WF_Node_UU) VALUES (1120095,'(Start)',1120024,0,0,'Y',TO_DATE('2017-12-26 16:10:43','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2017-12-26 16:10:43','YYYY-MM-DD HH24:MI:SS'),100,'Z','Y',0,'LBRA',0,0,0,0,0,0,0,'X','X',0,'CO','(Start)',0,'N','N',0,0,100,'de77efdc-23cc-42b6-8109-22481a919cd0')
+;
+
+-- 26/12/2017 16h11min19s BRST
+INSERT INTO AD_WF_NodeNext (AD_WF_Node_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Client_ID,AD_Org_ID,AD_WF_Next_ID,EntityType,SeqNo,AD_WF_NodeNext_ID,IsStdUserWorkflow,AD_WF_NodeNext_UU) VALUES (1120095,'Y',TO_DATE('2017-12-26 16:11:19','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2017-12-26 16:11:19','YYYY-MM-DD HH24:MI:SS'),100,0,0,1120092,'LBRA',10,1120070,'N','88e5afba-c5d8-46d4-874d-04a1ba857aac')
+;
+
+-- 26/12/2017 16h11min26s BRST
+INSERT INTO AD_WF_NodeNext (AD_WF_Node_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Client_ID,AD_Org_ID,AD_WF_Next_ID,EntityType,SeqNo,AD_WF_NodeNext_ID,IsStdUserWorkflow,AD_WF_NodeNext_UU) VALUES (1120095,'Y',TO_DATE('2017-12-26 16:11:26','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2017-12-26 16:11:26','YYYY-MM-DD HH24:MI:SS'),100,0,0,1120094,'LBRA',999,1120071,'N','adf876a6-d270-42fb-ab95-d8119ab90bc4')
+;
+
+-- 26/12/2017 16h11min46s BRST
+INSERT INTO AD_WF_NodeNext (AD_WF_Node_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Client_ID,AD_Org_ID,AD_WF_Next_ID,EntityType,SeqNo,AD_WF_NodeNext_ID,IsStdUserWorkflow,AD_WF_NodeNext_UU) VALUES (1120094,'Y',TO_DATE('2017-12-26 16:11:45','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2017-12-26 16:11:45','YYYY-MM-DD HH24:MI:SS'),100,0,0,1120093,'U',10,1120072,'N','89e3fd1f-b2f1-460e-83a7-150a02f0dacd')
+;
+
+-- 26/12/2017 16h11min55s BRST
+UPDATE AD_WF_NodeNext SET EntityType='LBRA',Updated=TO_DATE('2017-12-26 16:11:55','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_WF_NodeNext_ID=1120072
+;
+
+-- 26/12/2017 16h12min13s BRST
+INSERT INTO AD_Process (AD_Process_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,Name,IsReport,Value,IsDirectPrint,AccessLevel,EntityType,Statistic_Count,Statistic_Seconds,AD_Workflow_ID,IsBetaFunctionality,IsServerProcess,ShowHelp,AD_Process_UU) VALUES (1120203,0,0,'Y',TO_DATE('2017-12-26 16:12:13','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2017-12-26 16:12:13','YYYY-MM-DD HH24:MI:SS'),100,'Process Production Group','N','LBR_ProductionGroup Process','N','1','LBRA',0,0,1120024,'N','N','Y','b3bb925a-7e53-42a9-8a36-927515b6712d')
+;
+
+-- 26/12/2017 16h12min39s BRST
+UPDATE AD_Workflow SET AD_WF_Node_ID=1120095, IsValid='Y',Updated=TO_DATE('2017-12-26 16:12:39','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Workflow_ID=1120024
+;
+
+-- 26/12/2017 16h13min9s BRST
+UPDATE AD_Column SET AD_Process_ID=1120203,Updated=TO_DATE('2017-12-26 16:13:09','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1129927
+;
+
+-- Dec 26, 2017 5:35:34 PM BRST
+INSERT INTO AD_Form (AD_Form_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,Name,Classname,AccessLevel,EntityType,IsBetaFunctionality,AD_Form_UU) VALUES (1120024,0,0,'Y',TO_DATE('2017-12-26 17:35:33','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2017-12-26 17:35:33','YYYY-MM-DD HH24:MI:SS'),100,'Manage Production Group','org.kenos.idempiere.lbr.base.form.POGManage','3','LBRA','N','f89255bf-fa16-4ed6-8aff-b01b24e0ffbe')
+;
+
+-- Dec 26, 2017 5:35:49 PM BRST
+INSERT INTO AD_Process (AD_Process_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,Name,IsReport,Value,IsDirectPrint,AccessLevel,EntityType,Statistic_Count,Statistic_Seconds,IsBetaFunctionality,IsServerProcess,AD_Form_ID,CopyFromProcess,AD_Process_UU) VALUES (1120205,0,0,'Y',TO_DATE('2017-12-26 17:35:49','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2017-12-26 17:35:49','YYYY-MM-DD HH24:MI:SS'),100,'Manage Production Group','N','POGManage','N','7','LBRA',0,0,'N','N',1120024,'N','1fd2d894-2e75-46ab-8784-75cdaf78823e')
+;
+
+-- Dec 26, 2017 5:36:49 PM BRST
+INSERT INTO AD_ToolBarButton (AD_Client_ID,AD_Org_ID,Created,CreatedBy,ComponentName,IsActive,AD_ToolBarButton_ID,Name,Updated,UpdatedBy,IsCustomization,AD_ToolBarButton_UU,Action,AD_Tab_ID,AD_Process_ID,SeqNo) VALUES (0,0,TO_DATE('2017-12-26 17:36:49','YYYY-MM-DD HH24:MI:SS'),100,'POGManage','Y',2000006,'Manage Production Group',TO_DATE('2017-12-26 17:36:49','YYYY-MM-DD HH24:MI:SS'),100,'N','8c14d56f-d17e-4d52-bcd2-6c23c337638e','W',1120281,1120205,90)
+;
+
+-- 27/12/2017 17h2min36s BRST
+INSERT INTO AD_Element (AD_Element_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,ColumnName,Name,PrintName,EntityType,AD_Element_UU) VALUES (1122426,0,0,'Y',TO_DATE('2017-12-27 17:02:34','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2017-12-27 17:02:34','YYYY-MM-DD HH24:MI:SS'),100,'LBR_Ref_Production_ID','Referenced Production','Referenced Production','LBRA','567784eb-04fe-49fe-ab3a-feeb545b8f8e')
+;
+
+-- 27/12/2017 17h3min14s BRST
+INSERT INTO AD_Column (AD_Column_ID,Version,Name,AD_Table_ID,ColumnName,FieldLength,IsKey,IsParent,IsMandatory,IsTranslated,IsIdentifier,SeqNo,IsEncrypted,AD_Reference_ID,AD_Reference_Value_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Element_ID,IsUpdateable,IsSelectionColumn,EntityType,IsSyncDatabase,IsAlwaysUpdateable,IsAutocomplete,IsAllowLogging,AD_Column_UU,IsAllowCopy,SeqNoSelection,IsToolbarButton,IsSecure) VALUES (1130142,0,'Referenced Production',325,'LBR_Ref_Production_ID',10,'N','N','N','N','N',0,'N',30,200080,0,0,'Y',TO_DATE('2017-12-27 17:03:13','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2017-12-27 17:03:13','YYYY-MM-DD HH24:MI:SS'),100,1122426,'Y','N','LBRA','N','N','N','Y','e88d0ea2-d8aa-4673-9268-a5bea437efff','Y',0,'N','N')
+;
+
+-- 27/12/2017 17h3min20s BRST
+UPDATE AD_Column SET FKConstraintName='LBRRefProduction_MProduction', FKConstraintType='N',Updated=TO_DATE('2017-12-27 17:03:20','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1130142
+;
+
+-- 27/12/2017 17h3min20s BRST
+ALTER TABLE M_Production ADD LBR_Ref_Production_ID NUMBER(10) DEFAULT NULL 
+;
+
+-- 27/12/2017 17h3min20s BRST
+ALTER TABLE M_Production ADD CONSTRAINT LBRRefProduction_MProduction FOREIGN KEY (LBR_Ref_Production_ID) REFERENCES m_production(m_production_id) DEFERRABLE INITIALLY DEFERRED
+;
+
+-- 29/12/2017 11h39min8s BRST
+INSERT INTO AD_Message (MsgType,MsgText,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Message_ID,Value,EntityType,AD_Message_UU) VALUES ('I','Aqui você pode dividir uma Produção Individual para que seja feita a emissão parcial. Além disso você pode distribuir insumos para múltiplos Produtos, por exemplo: Você pode apontar o consumos de alguns insumos de forma global que o sistema irá fazer o apontamento da quantidade total proporcional a cada Item da Lista de Materiais.',0,0,'Y',TO_DATE('2017-12-29 11:39:07','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2017-12-29 11:39:07','YYYY-MM-DD HH24:MI:SS'),100,1120040,'LBR_POGManageHelp','LBRA','ce8b7152-7ce2-4327-984b-ffde7da85ab9')
+;
+
+-- 29/12/2017 11h40min55s BRST
+UPDATE AD_ToolBarButton SET DisplayLogic='@DocStatus@=CO | @DocStatus@=WC',Updated=TO_DATE('2017-12-29 11:40:55','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_ToolBarButton_ID=2000006
+;
+
+-- 29/12/2017 11h42min33s BRST
+UPDATE AD_ToolBarButton SET DisplayLogic='@DocStatus@=CO',Updated=TO_DATE('2017-12-29 11:42:33','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_ToolBarButton_ID=2000005
+;
+
+-- 29/12/2017 11h42min44s BRST
+UPDATE AD_ToolBarButton SET DisplayLogic='@DocStatus@=CO | @DocStatus@=WC',Updated=TO_DATE('2017-12-29 11:42:44','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_ToolBarButton_ID=2000004
+;
+
+-- 29/12/2017 11h43min18s BRST
+UPDATE AD_ToolBarButton SET DisplayLogic='1=2',Updated=TO_DATE('2017-12-29 11:43:18','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_ToolBarButton_ID=2000003
+;
+
+-- 27/12/2017 18h2min34s BRST
+SELECT Register_Migration_Script ('201712150950_ProductionGroup.sql') FROM DUAL
+;
