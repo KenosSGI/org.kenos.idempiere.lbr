@@ -1416,7 +1416,7 @@ CREATE OR REPLACE VIEW rv_lbr_orderinproduction AS
     pg.docstatus,
     pg.dateordered,
     pg.datepromised,
-    bomqtyonhand(pl.m_product_id, NULL, pl.m_locator_id) AS bomqtyonhand
+    bomqtyonhand(pl.m_product_id, NULL, pl.m_locator_id) AS QtyOnHand
    FROM lbr_productiongroup pg,
     m_production p,
     m_productionline pl
@@ -1495,11 +1495,7 @@ INSERT INTO AD_Column (AD_Column_ID,Version,Name,Description,Help,AD_Table_ID,Co
 ;
 
 -- 27/12/2017 17h15min14s BRST
-INSERT INTO AD_Element (AD_Element_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,ColumnName,Name,PrintName,EntityType,AD_Element_UU) VALUES (1122427,0,0,'Y',TO_TIMESTAMP('2017-12-27 17:15:13','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2017-12-27 17:15:13','YYYY-MM-DD HH24:MI:SS'),100,'bomqtyonhand','bomqtyonhand','bomqtyonhand','LBRA','e296c54a-54e3-42eb-868f-93d85ed2dac9')
-;
-
--- 27/12/2017 17h15min14s BRST
-INSERT INTO AD_Column (AD_Column_ID,Version,Name,AD_Table_ID,ColumnName,FieldLength,IsKey,IsParent,IsMandatory,IsTranslated,IsIdentifier,IsEncrypted,AD_Reference_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Element_ID,IsUpdateable,IsSelectionColumn,EntityType,IsAlwaysUpdateable,AD_Column_UU,IsToolbarButton) VALUES (1130157,0.0,'bomqtyonhand',1120587,'bomqtyonhand',131089,'N','N','N','N','N','N',29,0,0,'Y',TO_TIMESTAMP('2017-12-27 17:15:13','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2017-12-27 17:15:13','YYYY-MM-DD HH24:MI:SS'),100,1122427,'N','N','LBRA','N','646e395f-37b4-407f-b07b-0bd7e5ee85cf','N')
+INSERT INTO AD_Column (AD_Column_ID,Version,Name,AD_Table_ID,ColumnName,FieldLength,IsKey,IsParent,IsMandatory,IsTranslated,IsIdentifier,IsEncrypted,AD_Reference_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Element_ID,IsUpdateable,IsSelectionColumn,EntityType,IsAlwaysUpdateable,AD_Column_UU,IsToolbarButton) VALUES (1130157,0.0,'QtyOnHand',1120587,'QtyOnHand',131089,'N','N','N','N','N','N',29,0,0,'Y',TO_TIMESTAMP('2017-12-27 17:15:13','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2017-12-27 17:15:13','YYYY-MM-DD HH24:MI:SS'),100,530,'N','N','LBRA','N','646e395f-37b4-407f-b07b-0bd7e5ee85cf','N')
 ;
 
 -- 27/12/2017 17h17min17s BRST
@@ -1677,7 +1673,7 @@ CREATE OR REPLACE VIEW rv_lbr_itensmovproduction AS
     pg.docstatus,
     pg.dateordered,
     pg.datepromised,
-    bomqtyonhand(pl.m_product_id, NULL, pl.m_locator_id) AS bomqtyonhand
+    bomqtyonhand(pl.m_product_id, NULL, pl.m_locator_id) AS QtyOnHand
    FROM lbr_productiongroup pg,
     m_production p,
     m_productionline pl
@@ -1765,7 +1761,7 @@ INSERT INTO AD_Column (AD_Column_ID,Version,Name,Description,Help,AD_Table_ID,Co
 ;
 
 -- 27/12/2017 17h58min36s BRST
-INSERT INTO AD_Column (AD_Column_ID,Version,Name,AD_Table_ID,ColumnName,FieldLength,IsKey,IsParent,IsMandatory,IsTranslated,IsIdentifier,IsEncrypted,AD_Reference_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Element_ID,IsUpdateable,IsSelectionColumn,EntityType,IsAlwaysUpdateable,AD_Column_UU,IsToolbarButton,FKConstraintType) VALUES (1130172,0.0,'bomqtyonhand',1120588,'bomqtyonhand',131089,'N','N','N','N','N','N',29,0,0,'Y',TO_TIMESTAMP('2017-12-27 17:58:36','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2017-12-27 17:58:36','YYYY-MM-DD HH24:MI:SS'),100,1122427,'N','N','LBRA','N','f3e96f0b-a930-43a9-9735-746df6439adf','N','N')
+INSERT INTO AD_Column (AD_Column_ID,Version,Name,AD_Table_ID,ColumnName,FieldLength,IsKey,IsParent,IsMandatory,IsTranslated,IsIdentifier,IsEncrypted,AD_Reference_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Element_ID,IsUpdateable,IsSelectionColumn,EntityType,IsAlwaysUpdateable,AD_Column_UU,IsToolbarButton,FKConstraintType) VALUES (1130172,0.0,'QtyOnHand',1120588,'QtyOnHand',131089,'N','N','N','N','N','N',29,0,0,'Y',TO_TIMESTAMP('2017-12-27 17:58:36','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2017-12-27 17:58:36','YYYY-MM-DD HH24:MI:SS'),100,530,'N','N','LBRA','N','f3e96f0b-a930-43a9-9735-746df6439adf','N','N')
 ;
 
 -- 27/12/2017 18h0min0s BRST
