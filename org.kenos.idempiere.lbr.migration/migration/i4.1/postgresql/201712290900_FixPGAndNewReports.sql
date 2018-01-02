@@ -2019,6 +2019,10 @@ $BODY$
   COST 100;
 ALTER FUNCTION bomqtyonhandbylocator(numeric, numeric, numeric)
   OWNER TO adempiere;
+  
+  -- 27/12/2017 18h2min34s BRST
+UPDATE AD_Column SET IsIdentifier = 'Y' WHERE AD_Column_ID=1129925
+;
 
 -- 27/12/2017 18h2min34s BRST
 SELECT Register_Migration_Script ('201712290900_FixPGAndNewReports.sql') FROM DUAL
