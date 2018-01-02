@@ -478,6 +478,12 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 				&& (MSysConfig.getBooleanValue("LBR_PRINT_SERIALNUMBER_NF", true, getAD_Client_ID())))
 			appendDescription("Núm. de Série: " + iLine.getM_AttributeSetInstance().getSerNo());
 		
+		//	Lote
+		if (iLine.getM_AttributeSetInstance_ID()>0 
+				&& iLine.getM_AttributeSetInstance().getLot() != null
+				&& (MSysConfig.getBooleanValue("LBR_PRINT_LOT_NF", false, getAD_Client_ID())))
+			appendDescription("Lote: " + iLine.getM_AttributeSetInstance().getLot());
+		
 		//	Impostos
 		MLBRTax tax = new MLBRTax (getCtx(), iLineW.getLBR_Tax_ID(), get_TrxName());
 				
