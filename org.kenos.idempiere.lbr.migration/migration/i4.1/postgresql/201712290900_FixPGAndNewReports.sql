@@ -1416,7 +1416,7 @@ CREATE OR REPLACE VIEW rv_lbr_orderinproduction AS
     pg.docstatus,
     pg.dateordered,
     pg.datepromised,
-    bomqtyonhand(pl.m_product_id, NULL, pl.m_locator_id) AS QtyOnHand
+    bomqtyonhandbylocator(pl.m_product_id, NULL, pl.m_locator_id) AS QtyOnHand
    FROM lbr_productiongroup pg,
     m_production p,
     m_productionline pl
@@ -1673,13 +1673,13 @@ CREATE OR REPLACE VIEW rv_lbr_itensmovproduction AS
     pg.docstatus,
     pg.dateordered,
     pg.datepromised,
-    bomqtyonhand(pl.m_product_id, NULL, pl.m_locator_id) AS QtyOnHand
+    bomqtyonhandbylocator(pl.m_product_id, NULL, pl.m_locator_id) AS QtyOnHand
    FROM lbr_productiongroup pg,
     m_production p,
     m_productionline pl
   WHERE pg.lbr_productiongroup_id = p.lbr_productiongroup_id AND p.m_production_id = pl.m_production_id AND pg.docstatus = 'CO'::bpchar AND pl.isendproduct = 'N'::bpchar AND p.DocStatus NOT IN ('CO', 'CL')
   GROUP BY pg.ad_client_id, pg.ad_org_id, pg.isactive, pg.created, pg.createdby, pg.updated, pg.updatedby, pg.lbr_productiongroup_id, pl.m_product_id, pl.m_locator_id
- HAVING bomqtyonhand(pl.m_product_id, NULL, pl.m_locator_id) < (sum(pl.movementqty) * (-1)::numeric);
+ HAVING bomqtyonhandbylocator(pl.m_product_id, NULL, pl.m_locator_id) < (sum(pl.movementqty) * (-1)::numeric);
 
 ALTER TABLE rv_lbr_itensmovproduction
   OWNER TO adempiere;
@@ -1896,11 +1896,11 @@ UPDATE AD_TreeNodeMM SET Parent_ID=1000035, SeqNo=6, Updated=statement_timestamp
 UPDATE AD_TreeNodeMM SET Parent_ID=1000035, SeqNo=7, Updated=statement_timestamp() WHERE AD_Tree_ID=10 AND Node_ID=1000034
 ;
 
--- Function: bomqtyonhand(numeric, numeric, numeric)
+-- Function: bomqtyonhandbylocator(numeric, numeric, numeric)
 
--- DROP FUNCTION bomqtyonhand(numeric, numeric, numeric);
+-- DROP FUNCTION bomqtyonhandbylocator(numeric, numeric, numeric);
 
-CREATE OR REPLACE FUNCTION bomqtyonhand(
+CREATE OR REPLACE FUNCTION bomqtyonhandbylocator(
     product_id numeric,
     warehouse_id numeric,
     locator_id numeric)
@@ -1995,7 +1995,7 @@ BEGIN
 			END IF;
 		--	Another BOM
 		ELSIF (bom.IsBOM = 'Y') THEN
-			v_ProductQty := Bomqtyonhand (bom.M_ProductBOM_ID, myWarehouse_ID, Locator_ID);
+			v_ProductQty := bomqtyonhandbylocator (bom.M_ProductBOM_ID, myWarehouse_ID, Locator_ID);
 			--	How much can we make overall
 			IF (v_ProductQty < v_Quantity) THEN
 				v_Quantity := v_ProductQty;
@@ -2017,7 +2017,7 @@ END;
 $BODY$
   LANGUAGE plpgsql STABLE
   COST 100;
-ALTER FUNCTION bomqtyonhand(numeric, numeric, numeric)
+ALTER FUNCTION bomqtyonhandbylocator(numeric, numeric, numeric)
   OWNER TO adempiere;
 
 -- 27/12/2017 18h2min34s BRST
