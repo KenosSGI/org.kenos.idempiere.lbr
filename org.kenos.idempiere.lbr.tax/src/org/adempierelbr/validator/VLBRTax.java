@@ -489,6 +489,17 @@ public class VLBRTax implements ModelValidator
 		
 		if (save)
 		{
+			/**
+			 * 		Ignore changes - This is necessary because sometimes
+			 * 	on preparing the order, the GrandTotal and Total Lines
+			 * 	is not updated correctly
+			 */
+			for (int i = 0; i < parentPO.get_ColumnCount(); i++)
+			{
+				if (parentPO.is_ValueChanged(i))
+					parentPO.set_ValueNoCheck(parentPO.get_ColumnName(i), parentPO.get_ValueOld(i));
+			}
+			
 			String sql = "UPDATE " + parentPO.get_TableName() + " i "
 					+ " SET TotalLines=?, GrandTotal=? "
 						+ "WHERE " + parentPO.get_TableName() + "_ID=?";
