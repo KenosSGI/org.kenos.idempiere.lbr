@@ -494,11 +494,16 @@ public class VLBRTax implements ModelValidator
 			 * 	on preparing the order, the GrandTotal and Total Lines
 			 * 	is not updated correctly
 			 */
-			for (int i = 0; i < parentPO.get_ColumnCount(); i++)
-			{
-				if (parentPO.is_ValueChanged(i))
-					parentPO.set_ValueNoCheck(parentPO.get_ColumnName(i), parentPO.get_ValueOld(i));
-			}
+			if (MOrder.Table_Name.equals(parentPO.get_TableName()))
+				for (int i = 0; i < parentPO.get_ColumnCount(); i++)
+				{
+					if (parentPO.is_ValueChanged(i))
+					{
+						if ("C_DocType_ID".equals(parentPO.get_ColumnName(i)))
+							continue;
+						parentPO.set_ValueNoCheck(parentPO.get_ColumnName(i), parentPO.get_ValueOld(i));
+					}
+				}
 			
 			String sql = "UPDATE " + parentPO.get_TableName() + " i "
 					+ " SET TotalLines=?, GrandTotal=? "
