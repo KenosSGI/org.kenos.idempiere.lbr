@@ -1317,6 +1317,7 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 				continue;
 			
 			MLBRNotaFiscalLine nfLine = new MLBRNotaFiscalLine (this);
+			nfLine.setAD_Org_ID(getAD_Org_ID());
 			nfLine.save();
 			//
 			nfLine.setLine(lineNo++);
