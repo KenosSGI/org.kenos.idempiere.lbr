@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fontfamilies>
+  <fontFamily name="Arial">
+     <normal>org/kenos/idempiere/lbr/jasper/fonts/Arial.ttf</normal>
+     <bold>org/kenos/idempiere/lbr/jasper/fonts/Arial_Bold.ttf</bold>
+     <italic>org/kenos/idempiere/lbr/jasper/fonts/Arial_Italic.ttf</italic>
+     <bolditalic>org/kenos/idempiere/lbr/jasper/fonts/Arial_Bold_Italic.ttf</bolditalic>
+     <pdfembedded>true</pdfembedded>
+  </fontFamily>
+  <fontFamily name="Comic Sans Test">
+     <normal>org/kenos/idempiere/lbr/jasper/fonts/Comic_Sans_MS.ttf</normal>
+     <bold>org/kenos/idempiere/lbr/jasper/fonts/Comic_Sans_MS_Bold.ttf</bold>
+     <pdfembedded>true</pdfembedded>
+  </fontFamily>
+  <fontFamily name="Courier New">
+     <normal>org/kenos/idempiere/lbr/jasper/fonts/Courier_New.ttf</normal>
+     <bold>org/kenos/idempiere/lbr/jasper/fonts/Courier_New_Bold.ttf</bold>
+     <italic>org/kenos/idempiere/lbr/jasper/fonts/Courier_New_Italic.ttf</italic>
+     <bolditalic>org/kenos/idempiere/lbr/jasper/fonts/Courier_New_Bold_Italic.ttf</bolditalic>
+     <pdfembedded>true</pdfembedded>
+  </fontFamily>
+  <fontFamily name="Georgia">
+     <normal>org/kenos/idempiere/lbr/jasper/fonts/Georgia.ttf</normal>
+     <bold>org/kenos/idempiere/lbr/jasper/fonts/Georgia_Bold.ttf</bold>
+     <italic>org/kenos/idempiere/lbr/jasper/fonts/Georgia_Italic.ttf</italic>
+     <bolditalic>org/kenos/idempiere/lbr/jasper/fonts/Georgia_Bold_Italic.ttf</bolditalic>
+     <pdfembedded>true</pdfembedded>
+  </fontFamily>
+  <fontFamily name="Monospaced">
+     <normal>org/kenos/idempiere/lbr/jasper/fonts/LiberationMono-Regular.ttf</normal>
+     <bold>org/kenos/idempiere/lbr/jasper/fonts/LiberationMono-Bold.ttf</bold>
+     <italic>org/kenos/idempiere/lbr/jasper/fonts/LiberationMono-Italic.ttf</italic>
+     <bolditalic>org/kenos/idempiere/lbr/jasper/fonts/LiberationMono-BoldItalic.ttf</bolditalic>
+     <pdfembedded>true</pdfembedded>
+  </fontFamily>
+  <fontFamily name="Times New Roman">
+     <normal>org/kenos/idempiere/lbr/jasper/fonts/Times_New_Roman.ttf</normal>
+     <bold>org/kenos/idempiere/lbr/jasper/fonts/Times_New_Roman_Bold.ttf</bold>
+     <italic>org/kenos/idempiere/lbr/jasper/fonts/Times_New_Roman_Italic.ttf</italic>
+     <bolditalic>org/kenos/idempiere/lbr/jasper/fonts/Times_New_Roman_Bold_Italic.ttf</bolditalic>
+     <pdfembedded>true</pdfembedded>
+  </fontFamily>
+  <fontFamily name="Verdana">
+     <normal>org/kenos/idempiere/lbr/jasper/fonts/Verdana.ttf</normal>
+     <bold>org/kenos/idempiere/lbr/jasper/fonts/Verdana_Bold.ttf</bold>
+     <italic>org/kenos/idempiere/lbr/jasper/fonts/Verdana_Italic.ttf</italic>
+     <bolditalic>org/kenos/idempiere/lbr/jasper/fonts/Verdana_Bold_Italic.ttf</bolditalic>
+     <pdfembedded>true</pdfembedded>
+  </fontFamily>
+</fontfamilies>
+
