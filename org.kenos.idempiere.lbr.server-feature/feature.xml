@@ -111,7 +111,7 @@ Core functions for Localization Brazil, including web interface plugins (ZK)
          unpack="false"/>
 
    <plugin
-         id="org.adempiere.report.jasper.fonts"
+         id="org.kenos.idempiere.lbr.jasper.fonts"
          download-size="0"
          install-size="0"
          version="0.0.0"
