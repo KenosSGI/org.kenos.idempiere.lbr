@@ -15,9 +15,9 @@ package org.adempierelbr.process;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.lang.reflect.Constructor;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.logging.Level;
 
@@ -316,35 +316,35 @@ public class ProcXMLExport extends SvrProcess
 		processResult (resume.getAbsolutePath() + File.separator + "Resumo.xls", rows);
 		
 		//		Versão SWING
-		if (Ini.isClient())
-		{
-			if (!(p_FilePath.endsWith(File.separator)))
-				p_FilePath += File.separator;
-			//
-			String fileName = p_FilePath + "XML_NFe_" + TextUtil.timeToString(dateFrom, "ddMMyyyy") 
-			+ "_" + TextUtil.timeToString(dateTo, "ddMMyyyy") + ".zip";
-			Zipper.zipFolder(new File(p_Temp), new File(fileName), p_FolderKey + File.separator + "**");
-			//
-		}
-		else
-			try
-			{
-				//
+//		if (Ini.isClient())
+//		{
+//			if (!(p_FilePath.endsWith(File.separator)))
+//				p_FilePath += File.separator;
+//			//
+//			String fileName = p_FilePath + "XML_NFe_" + TextUtil.timeToString(dateFrom, "ddMMyyyy") 
+//			+ "_" + TextUtil.timeToString(dateTo, "ddMMyyyy") + ".zip";
+//			Zipper.zipFolder(new File(p_Temp), new File(fileName), p_FolderKey + File.separator + "**");
+//			//
+//		}
+//		else
+//			try
+//			{
+//				//
 				String fileName = "XML_NFe_" + TextUtil.timeToString(dateFrom, "ddMMyyyy") 
 				+ "_" + TextUtil.timeToString(dateTo, "ddMMyyyy") + ".zip";
 				Zipper.zipFolder(new File(p_Temp), new File(p_Temp+fileName), p_FolderKey + File.separator + "**");
-				Class<?> clazz = Class.forName("org.adempierelbr.webui.adapter.XMLExportAdapter");
-				Constructor<?> constructor = clazz.getConstructor (String.class, File.class);
-				//
-				constructor.newInstance (fileName, new File(p_Temp + fileName));
-			} 
-			catch (Exception e)
-			{
-				log.log (Level.SEVERE, "Error saving XML", e);
-			}
+//				Class<?> clazz = Class.forName("org.adempierelbr.webui.adapter.XMLExportAdapter");
+//				Constructor<?> constructor = clazz.getConstructor (String.class, File.class);
+//				//
+//				constructor.newInstance (fileName, new File(p_Temp + fileName));
+//			} 
+//			catch (Exception e)
+//			{
+//				log.log (Level.SEVERE, "Error saving XML", e);
+//			}
 		log.info("finale");
 		//
-		return "@Success@<br /><br />Resumo:<br />" + nfs.size() + " Nota(s) emitida(s) incluída(s)<br />" + dfes.size() + " Nota(s) recebida(s) incluída(s) com " + countDFeXML + " XML(s)";
+		return "@Success@<br /><br />Resumo:<br />" + nfs.size() + " Nota(s) emitida(s) incluída(s)<br />" + dfes.size() + " Nota(s) recebida(s) incluída(s) com " + countDFeXML + " XML(s)<br/><a download=\"" + fileName + "\" href=\"data:application/octet-stream;charset=UTF-8;base64," + Base64.getEncoder().encode(new File(p_Temp+fileName).toString().getBytes()) + "\" target=\"_blank\">Clique aqui para copiar o RPS</a>";
 	}	//	doIt
 	
 	/**
