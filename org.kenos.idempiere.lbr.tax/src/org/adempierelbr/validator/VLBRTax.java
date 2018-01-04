@@ -133,18 +133,33 @@ public class VLBRTax implements ModelValidator
 		 * 		e houve alguma alteração que pode comprometer
 		 * 		os calculos do imposto.
 		 */
-		else if (type == TYPE_BEFORE_CHANGE
-				&& isChangeAffectTaxes (po))
+		else if (type == TYPE_BEFORE_CHANGE)
 		{
-			String result = calculateTaxes (po);
+			String result = null;
+			//
+			if (isChangeAffectTaxes (po))
+			{
+				result = calculateTaxes (po);
+				
+				if (result != null)
+					return result;
+				
+				/**
+				 * 	Atualiza os impostos na C_OrderTax
+				 */
+				result = updateTax(po, false) ? null : "@LBR|ErrorSavingTaxes@";
+			}
 			
 			if (result != null)
 				return result;
-			
+
 			/**
-			 * 	Atualiza os impostos na C_OrderTax
+			 * 	Recalculate Taxes
 			 */
-			return updateTax(po, false) ? null : "@LBR|ErrorSavingTaxes@";
+			if (MOrder.Table_Name.equals(po.get_TableName()))
+				((MOrder) po).calculateTaxTotal();
+			if (MInvoice.Table_Name.equals(po.get_TableName()))
+				((MInvoice) po).calculateTaxTotal();
 		}
 		
 		return null;
@@ -359,7 +374,7 @@ public class VLBRTax implements ModelValidator
 	 * 	@param order
 	 * 	@return true if sucess
 	 */
-	private boolean updateTax (PO po, boolean save)
+	public static boolean updateTax (PO po, boolean save)
 	{
 		PO parentPO = po;
 		
@@ -385,7 +400,6 @@ public class VLBRTax implements ModelValidator
 		}
 			
 		log.fine("[PO=" + parentPO + ", Save=" + save + "]");
-		BigDecimal totalLines = Env.ZERO;
 
 		//	Delete Taxes
 		DB.executeUpdateEx("DELETE " + tableName + "Tax " +
@@ -410,7 +424,6 @@ public class VLBRTax implements ModelValidator
 					//
 					processTax(taxes, tax, oLine.getC_Tax_ID());
 				}
-				totalLines = totalLines.add(oLine.getLineNetAmt());
 			}
 		
 		//	All Lines - Invoice
@@ -429,11 +442,7 @@ public class VLBRTax implements ModelValidator
 					//
 					processTax(taxes, tax, iLine.getC_Tax_ID());
 				}
-				totalLines = totalLines.add(iLine.getLineNetAmt());
 			}
-		
-		//	Total
-		BigDecimal grandTotal = totalLines;
 		
 		//	Grava os impostos na C_OrderTax
 		for (Integer C_Tax_ID : taxes.keySet())
@@ -471,46 +480,6 @@ public class VLBRTax implements ModelValidator
 				if (!newITax.save(parentPO.get_TrxName()))
 					return false;
 			}
-			//
-			if (!isTaxItaxncluded)
-				grandTotal = grandTotal.add(taxAmt);
-		}
-
-		if (MOrder.Table_Name.equals(tableName))
-		{
-			/**
-			 * 	Para o pedido o valor do SEGURO, FRETE e SISCOMEX
-			 * 		são adicionados no total, já para a fatura
-			 * 		é adicionado uma nova linha.
-			 */
-			totalLines = totalLines.add(VLBROrder.getChargeAmt(parentPO));
-			grandTotal = grandTotal.add(VLBROrder.getChargeAmt(parentPO));
-		}
-		
-		if (save)
-		{
-			/**
-			 * 		Ignore changes - This is necessary because sometimes
-			 * 	on preparing the order, the GrandTotal and Total Lines
-			 * 	is not updated correctly
-			 */
-			if (MOrder.Table_Name.equals(parentPO.get_TableName()))
-				for (int i = 0; i < parentPO.get_ColumnCount(); i++)
-				{
-					if (parentPO.is_ValueChanged(i))
-					{
-						if ("C_DocType_ID".equals(parentPO.get_ColumnName(i)))
-							continue;
-						parentPO.set_ValueNoCheck(parentPO.get_ColumnName(i), parentPO.get_ValueOld(i));
-					}
-				}
-			
-			String sql = "UPDATE " + parentPO.get_TableName() + " i "
-					+ " SET TotalLines=?, GrandTotal=? "
-						+ "WHERE " + parentPO.get_TableName() + "_ID=?";
-			int no = DB.executeUpdate (sql, new Object[]{totalLines, grandTotal, parentPO.get_ID()}, false, parentPO.get_TrxName());
-			if (no != 1)
-				log.warning("(2) #" + no);
 		}
 		
 		return true;
@@ -523,7 +492,7 @@ public class VLBRTax implements ModelValidator
 	 * 	@param C_Tax_ID
 	 * 	@param tax
 	 */
-	private void processTax (Map<Integer, Object[]> taxes,
+	private static void processTax (Map<Integer, Object[]> taxes,
 			MLBRTax tax, int C_Tax_ID)
 	{
 		for (MLBRTaxLine tl : tax.getLines())
