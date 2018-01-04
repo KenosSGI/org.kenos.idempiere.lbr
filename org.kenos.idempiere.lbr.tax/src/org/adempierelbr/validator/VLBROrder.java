@@ -906,7 +906,7 @@ public class VLBROrder implements ModelValidator
 		
 		//	Compõe o Total do Seguro para a Fatura
 		else if (MInvoice.Table_Name.equals(po.get_TableName()))
-			for (MInvoiceLine il : ((MInvoice) po).getLines())
+			for (MInvoiceLine il : ((MInvoice) po).getLines(true))
 			{
 				I_W_C_InvoiceLine olW = POWrapper.create(il, I_W_C_InvoiceLine.class);
 				//
