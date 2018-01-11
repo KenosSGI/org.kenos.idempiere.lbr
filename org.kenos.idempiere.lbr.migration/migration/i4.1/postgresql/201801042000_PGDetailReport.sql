@@ -39,7 +39,7 @@ ALTER TABLE rv_lbr_pgdetail
 
 -- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
 -- 04/01/2018 18h2min17s BRST
-INSERT INTO AD_Table (AD_Table_ID,Name,TableName,LoadSeq,AccessLevel,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,IsSecurityEnabled,IsDeleteable,IsHighVolume,IsView,EntityType,ImportTable,IsChangeLog,ReplicationType,CopyColumnsFromTable,IsCentrallyMaintained,AD_Table_UU,Processing,DatabaseViewDrop,CopyComponentsFromView,IsSystemLanguage) VALUES (1120591,'Production Group Detail','RV_LBR_PGDetail',0,'3',0,0,'Y',TO_TIMESTAMP('2018-01-04 18:02:16','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2018-01-04 18:02:16','YYYY-MM-DD HH24:MI:SS'),100,'N','N','N','N','LBRA','N','Y','L','N','Y','cf57a7c2-f70e-4a08-a014-8e2ce955a5c5','N','N','N','N')
+INSERT INTO AD_Table (AD_Table_ID,Name,TableName,LoadSeq,AccessLevel,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,IsSecurityEnabled,IsDeleteable,IsHighVolume,IsView,EntityType,ImportTable,IsChangeLog,ReplicationType,CopyColumnsFromTable,IsCentrallyMaintained,AD_Table_UU,Processing,DatabaseViewDrop,CopyComponentsFromView,IsSystemLanguage) VALUES (1120591,'Production Group Detail','RV_LBR_PGDetail',0,'3',0,0,'Y',TO_TIMESTAMP('2018-01-04 18:02:16','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2018-01-04 18:02:16','YYYY-MM-DD HH24:MI:SS'),100,'N','N','N','Y','LBRA','N','Y','L','N','Y','cf57a7c2-f70e-4a08-a014-8e2ce955a5c5','N','N','N','N')
 ;
 
 -- 04/01/2018 18h2min44s BRST

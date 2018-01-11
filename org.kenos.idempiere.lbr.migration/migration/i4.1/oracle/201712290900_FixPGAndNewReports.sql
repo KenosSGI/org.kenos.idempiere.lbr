@@ -1,6 +1,130 @@
 SET SQLBLANKLINES ON
 SET DEFINE OFF
 
+-- Function: bomqtyonhandbylocator(numeric, numeric, numeric)
+
+-- DROP FUNCTION bomqtyonhandbylocator(numeric, numeric, numeric);
+
+CREATE OR REPLACE FUNCTION bomqtyonhandbylocator(
+    product_id numeric,
+    warehouse_id numeric,
+    locator_id numeric)
+  RETURNS numeric AS
+$BODY$
+DECLARE
+	myWarehouse_ID		numeric;
+ 	v_Quantity		numeric := 99999;	--	unlimited
+	v_IsBOM			CHAR(1);
+	v_IsStocked		CHAR(1);
+	v_ProductType		CHAR(1);
+ 	v_ProductQty		numeric;
+	v_StdPrecision		int;
+	bom			record;
+	
+BEGIN
+	--	Check Parameters
+	myWarehouse_ID := Warehouse_ID;
+	IF (myWarehouse_ID IS NULL) THEN
+		IF (Locator_ID IS NULL) THEN
+			RETURN 0;
+		ELSE
+			SELECT 	SUM(M_Warehouse_ID) INTO myWarehouse_ID
+			FROM	M_LOCATOR
+			WHERE	M_Locator_ID=Locator_ID;
+		END IF;
+	END IF;
+	IF (myWarehouse_ID IS NULL) THEN
+		RETURN 0;
+	END IF;
+
+	--	Check, if product exists and if it is stocked
+	BEGIN
+		SELECT	IsBOM, ProductType, IsStocked
+	 	  INTO	v_IsBOM, v_ProductType, v_IsStocked
+		FROM M_PRODUCT
+		WHERE M_Product_ID=Product_ID;
+		--
+	EXCEPTION	--	not found
+		WHEN OTHERS THEN
+			RETURN 0;
+	END;
+	--	Unlimited capacity if no item
+	IF (v_IsBOM='N' AND (v_ProductType<>'I' OR v_IsStocked='N')) THEN
+		RETURN v_Quantity;
+	--	Stocked item
+	ELSIF (v_IsStocked='Y') THEN
+		--	Get ProductQty
+		SELECT 	COALESCE(SUM(QtyOnHand), 0)
+		  INTO	v_ProductQty
+		FROM 	M_Storageonhand s
+		  JOIN M_Locator l ON (s.M_Locator_ID=l.M_Locator_ID)
+		WHERE s.M_Product_ID=Product_ID AND l.M_Warehouse_ID=myWarehouse_ID AND 
+		CASE WHEN Locator_ID IS NOT NULL THEN 
+			s.M_Locator_ID = Locator_ID
+		ELSE
+			s.M_Locator_ID IS NOT NULL
+		END;
+		--
+		RETURN v_ProductQty;
+	END IF;
+
+	--	Go through BOM
+	FOR bom IN 	--	Get BOM Product info
+		SELECT b.M_ProductBOM_ID, b.BOMQty, p.IsBOM, p.IsStocked, p.ProductType
+		FROM M_PRODUCT_BOM b, M_PRODUCT p
+		WHERE b.M_ProductBOM_ID=p.M_Product_ID
+		  AND b.M_Product_ID=product_ID
+		  AND b.M_ProductBOM_ID != Product_ID
+		  AND p.IsBOM='Y'
+		  AND p.IsVerified='Y'
+		  AND b.IsActive='Y'
+	LOOP
+		--	Stocked Items "leaf node"
+		IF (bom.ProductType = 'I' AND bom.IsStocked = 'Y') THEN
+			--	Get v_ProductQty
+			SELECT 	COALESCE(SUM(QtyOnHand), 0)
+			  INTO	v_ProductQty
+			FROM 	M_Storageonhand s
+			  JOIN M_Locator l ON (s.M_Locator_ID=l.M_Locator_ID)
+			WHERE s.M_Product_ID=bom.M_ProductBOM_ID AND l.M_Warehouse_ID=myWarehouse_ID;
+			--	Get Rounding Precision
+			SELECT 	COALESCE(MAX(u.StdPrecision), 0)
+			  INTO	v_StdPrecision
+			FROM 	C_UOM u, M_PRODUCT p
+			WHERE u.C_UOM_ID=p.C_UOM_ID AND p.M_Product_ID=bom.M_ProductBOM_ID;
+			--	How much can we make with this product
+			v_ProductQty := ROUND (v_ProductQty/bom.BOMQty, v_StdPrecision);
+			--	How much can we make overall
+			IF (v_ProductQty < v_Quantity) THEN
+				v_Quantity := v_ProductQty;
+			END IF;
+		--	Another BOM
+		ELSIF (bom.IsBOM = 'Y') THEN
+			v_ProductQty := bomqtyonhandbylocator (bom.M_ProductBOM_ID, myWarehouse_ID, Locator_ID);
+			--	How much can we make overall
+			IF (v_ProductQty < v_Quantity) THEN
+				v_Quantity := v_ProductQty;
+			END IF;
+		END IF;
+	END LOOP;	--	BOM
+
+	IF (v_Quantity > 0) THEN
+		--	Get Rounding Precision for Product
+		SELECT 	COALESCE(MAX(u.StdPrecision), 0)
+		  INTO	v_StdPrecision
+		FROM 	C_UOM u, M_PRODUCT p
+		WHERE u.C_UOM_ID=p.C_UOM_ID AND p.M_Product_ID=Product_ID;
+		--
+		RETURN ROUND (v_Quantity, v_StdPrecision);
+	END IF;
+	RETURN 0;
+END;
+$BODY$
+  LANGUAGE plpgsql STABLE
+  COST 100;
+ALTER FUNCTION bomqtyonhandbylocator(numeric, numeric, numeric)
+  OWNER TO adempiere;
+
 -- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
 -- 22/12/2017 15h9min18s BRST
 UPDATE AD_Column SET DefaultValue='@#Date@',Updated=TO_DATE('2017-12-22 15:09:18','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1129920
@@ -1898,130 +2022,6 @@ UPDATE AD_TreeNodeMM SET Parent_ID=1000035, SeqNo=6, Updated=SysDate WHERE AD_Tr
 -- 27/12/2017 18h2min34s BRST
 UPDATE AD_TreeNodeMM SET Parent_ID=1000035, SeqNo=7, Updated=SysDate WHERE AD_Tree_ID=10 AND Node_ID=1000034
 ;
-
--- Function: bomqtyonhandbylocator(numeric, numeric, numeric)
-
--- DROP FUNCTION bomqtyonhandbylocator(numeric, numeric, numeric);
-
-CREATE OR REPLACE FUNCTION bomqtyonhandbylocator(
-    product_id numeric,
-    warehouse_id numeric,
-    locator_id numeric)
-  RETURNS numeric AS
-$BODY$
-DECLARE
-	myWarehouse_ID		numeric;
- 	v_Quantity		numeric := 99999;	--	unlimited
-	v_IsBOM			CHAR(1);
-	v_IsStocked		CHAR(1);
-	v_ProductType		CHAR(1);
- 	v_ProductQty		numeric;
-	v_StdPrecision		int;
-	bom			record;
-	
-BEGIN
-	--	Check Parameters
-	myWarehouse_ID := Warehouse_ID;
-	IF (myWarehouse_ID IS NULL) THEN
-		IF (Locator_ID IS NULL) THEN
-			RETURN 0;
-		ELSE
-			SELECT 	SUM(M_Warehouse_ID) INTO myWarehouse_ID
-			FROM	M_LOCATOR
-			WHERE	M_Locator_ID=Locator_ID;
-		END IF;
-	END IF;
-	IF (myWarehouse_ID IS NULL) THEN
-		RETURN 0;
-	END IF;
-
-	--	Check, if product exists and if it is stocked
-	BEGIN
-		SELECT	IsBOM, ProductType, IsStocked
-	 	  INTO	v_IsBOM, v_ProductType, v_IsStocked
-		FROM M_PRODUCT
-		WHERE M_Product_ID=Product_ID;
-		--
-	EXCEPTION	--	not found
-		WHEN OTHERS THEN
-			RETURN 0;
-	END;
-	--	Unlimited capacity if no item
-	IF (v_IsBOM='N' AND (v_ProductType<>'I' OR v_IsStocked='N')) THEN
-		RETURN v_Quantity;
-	--	Stocked item
-	ELSIF (v_IsStocked='Y') THEN
-		--	Get ProductQty
-		SELECT 	COALESCE(SUM(QtyOnHand), 0)
-		  INTO	v_ProductQty
-		FROM 	M_Storageonhand s
-		  JOIN M_Locator l ON (s.M_Locator_ID=l.M_Locator_ID)
-		WHERE s.M_Product_ID=Product_ID AND l.M_Warehouse_ID=myWarehouse_ID AND 
-		CASE WHEN Locator_ID IS NOT NULL THEN 
-			s.M_Locator_ID = Locator_ID
-		ELSE
-			s.M_Locator_ID IS NOT NULL
-		END;
-		--
-		RETURN v_ProductQty;
-	END IF;
-
-	--	Go through BOM
-	FOR bom IN 	--	Get BOM Product info
-		SELECT b.M_ProductBOM_ID, b.BOMQty, p.IsBOM, p.IsStocked, p.ProductType
-		FROM M_PRODUCT_BOM b, M_PRODUCT p
-		WHERE b.M_ProductBOM_ID=p.M_Product_ID
-		  AND b.M_Product_ID=product_ID
-		  AND b.M_ProductBOM_ID != Product_ID
-		  AND p.IsBOM='Y'
-		  AND p.IsVerified='Y'
-		  AND b.IsActive='Y'
-	LOOP
-		--	Stocked Items "leaf node"
-		IF (bom.ProductType = 'I' AND bom.IsStocked = 'Y') THEN
-			--	Get v_ProductQty
-			SELECT 	COALESCE(SUM(QtyOnHand), 0)
-			  INTO	v_ProductQty
-			FROM 	M_Storageonhand s
-			  JOIN M_Locator l ON (s.M_Locator_ID=l.M_Locator_ID)
-			WHERE s.M_Product_ID=bom.M_ProductBOM_ID AND l.M_Warehouse_ID=myWarehouse_ID;
-			--	Get Rounding Precision
-			SELECT 	COALESCE(MAX(u.StdPrecision), 0)
-			  INTO	v_StdPrecision
-			FROM 	C_UOM u, M_PRODUCT p
-			WHERE u.C_UOM_ID=p.C_UOM_ID AND p.M_Product_ID=bom.M_ProductBOM_ID;
-			--	How much can we make with this product
-			v_ProductQty := ROUND (v_ProductQty/bom.BOMQty, v_StdPrecision);
-			--	How much can we make overall
-			IF (v_ProductQty < v_Quantity) THEN
-				v_Quantity := v_ProductQty;
-			END IF;
-		--	Another BOM
-		ELSIF (bom.IsBOM = 'Y') THEN
-			v_ProductQty := bomqtyonhandbylocator (bom.M_ProductBOM_ID, myWarehouse_ID, Locator_ID);
-			--	How much can we make overall
-			IF (v_ProductQty < v_Quantity) THEN
-				v_Quantity := v_ProductQty;
-			END IF;
-		END IF;
-	END LOOP;	--	BOM
-
-	IF (v_Quantity > 0) THEN
-		--	Get Rounding Precision for Product
-		SELECT 	COALESCE(MAX(u.StdPrecision), 0)
-		  INTO	v_StdPrecision
-		FROM 	C_UOM u, M_PRODUCT p
-		WHERE u.C_UOM_ID=p.C_UOM_ID AND p.M_Product_ID=Product_ID;
-		--
-		RETURN ROUND (v_Quantity, v_StdPrecision);
-	END IF;
-	RETURN 0;
-END;
-$BODY$
-  LANGUAGE plpgsql STABLE
-  COST 100;
-ALTER FUNCTION bomqtyonhandbylocator(numeric, numeric, numeric)
-  OWNER TO adempiere;
 
 -- 27/12/2017 18h2min34s BRST
 UPDATE AD_Column SET IsIdentifier = 'Y' WHERE AD_Column_ID=1129925
