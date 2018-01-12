@@ -28,13 +28,14 @@ import org.compiere.util.Env;
 public class ReProcessOrder extends SvrProcess
 {
 	/**	Order	*/
-	private int p_C_Order_ID;
+	private int p_Record_ID;
 
 	private boolean p_ReCalculateTax	= false;
 	private boolean p_ReDefineTax 		= false;
 	private boolean p_ReDefineCFOP 		= false;
 	private boolean p_DistributeFreight	= false;
 	private boolean p_EnforcePrice 		= false;
+	private boolean p_UnReserveStock	= false;
 	
 	@Override
 	protected void prepare()
@@ -61,16 +62,47 @@ public class ReProcessOrder extends SvrProcess
 			else if (name.equals("LBR_EnforcePriceList"))
 				p_EnforcePrice = "Y".equals(para[i].getParameter());
 			
+			else if (name.equals("LBR_UnreserveStock"))
+				p_UnReserveStock = "Y".equals(para[i].getParameter());
+			
 			else
 				log.log(Level.SEVERE, "Unknown Parameter: " + name);
 		}
-		p_C_Order_ID = getRecord_ID();
+		p_Record_ID = getRecord_ID();
 	}	//	prepare
 
 	@Override
 	protected String doIt() throws Exception
 	{
-		MOrder order = new MOrder (getCtx(), p_C_Order_ID, get_TrxName());
+		MOrder order = null;
+		MOrderLine orderLine = null;
+		
+		//	Process Order Line
+		if (MOrderLine.Table_ID == getTable_ID())
+		{
+			orderLine = new MOrderLine (getCtx(), p_Record_ID, get_TrxName());
+			order = orderLine.getParent();
+		}
+		
+		//	Process Order
+		else if (MOrder.Table_ID == getTable_ID())
+			order = new MOrder (getCtx(), p_Record_ID, get_TrxName());
+		
+		//	Do It
+		processOrder (order, orderLine, p_ReCalculateTax, p_ReDefineTax, p_ReDefineCFOP, p_DistributeFreight, p_EnforcePrice, p_UnReserveStock);
+		return "@Success@";
+	}	//	doIt
+	
+	/**
+	 * 		Process Order
+	 * 
+	 * 	@param order
+	 * 	@param p_ReDefineTax
+	 * 	@param p_ReDefineCFOP
+	 */
+	public static void processOrder (MOrder order, MOrderLine single, boolean p_ReCalculateTax, 
+			boolean p_ReDefineTax, boolean p_ReDefineCFOP, boolean p_DistributeFreight, boolean p_EnforcePrice, boolean p_UnReserveStock)
+	{
 		I_W_AD_OrgInfo oi = POWrapper.create(MOrgInfo.get(Env.getCtx(), order.getAD_Org_ID(), null), I_W_AD_OrgInfo.class);
 		I_W_C_Order o = POWrapper.create(order, I_W_C_Order.class);
 		I_W_C_BPartner bp = POWrapper.create(new MBPartner (Env.getCtx(), o.getC_BPartner_ID(), null), I_W_C_BPartner.class);
@@ -78,7 +110,18 @@ public class ReProcessOrder extends SvrProcess
 		//
 		if (p_ReDefineTax || p_ReDefineCFOP)
 		{
-			for (MOrderLine ol : order.getLines())
+			MOrderLine[] lines = null;
+			
+			//	Single line process
+			if (single != null)
+				lines = new MOrderLine[]{single};
+			
+			//	All lines from order
+			else
+				lines = order.getLines();
+			
+			//	Process
+			for (MOrderLine ol : lines)
 			{
 				I_W_M_Product p = POWrapper.create(new MProduct (Env.getCtx(), ol.getM_Product_ID(), null), I_W_M_Product.class);
 				Object[] taxation = MLBRTax.getTaxes (o.getC_DocTypeTarget_ID(), o.isSOTrx(), o.getlbr_TransactionType(), p, oi, bp, bpLoc, o.getDateAcct());
@@ -108,6 +151,5 @@ public class ReProcessOrder extends SvrProcess
 				ol.save();
 			}
 		}
-		return "@Success@";
-	}	//	doIt
+	}	//	processOrder
 }	//	ReProcessOrder
