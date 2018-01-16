@@ -8,6 +8,7 @@ import java.util.logging.Level;
 import org.adempierelbr.model.MLBRTax;
 import org.adempierelbr.wrapper.I_W_C_OrderLine;
 import org.compiere.model.MBPartner;
+import org.compiere.model.MDocType;
 import org.compiere.model.MOrderLine;
 import org.compiere.model.MOrg;
 import org.compiere.model.PO;
@@ -185,4 +186,27 @@ public class MOrder extends org.compiere.model.MOrder
 		
 		return to;
 	}	//	copyFrom
+	
+	/**
+	 * 	Un-Reserve Stock
+	 * 
+	 * 	@param dt Document Type
+	 * 	@param lines Lines
+	 * 	@return
+	 */
+	public boolean unReserveStock(MDocType dt, MOrderLine[] lines)
+	{
+		String docAction = getDocAction();
+		
+		//	Temporary change doc status to remove reserve
+		setDocAction(DOCACTION_Void);
+		
+		//	Remove reserves if any
+		boolean reserveStock = super.reserveStock(dt, lines);
+		
+		//	Revert doc action
+		setDocAction(docAction);
+		
+		return reserveStock;
+	}	//	unReserveStock
 }	//	MOrder

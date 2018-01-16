@@ -9,16 +9,18 @@ import org.adempierelbr.model.MLBRTaxLine;
 import org.adempierelbr.wrapper.I_W_AD_OrgInfo;
 import org.adempierelbr.wrapper.I_W_C_BPartner;
 import org.adempierelbr.wrapper.I_W_C_Order;
+import org.adempierelbr.wrapper.I_W_C_OrderLine;
 import org.adempierelbr.wrapper.I_W_M_Product;
 import org.compiere.model.MBPartner;
 import org.compiere.model.MBPartnerLocation;
-import org.compiere.model.MOrder;
 import org.compiere.model.MOrderLine;
 import org.compiere.model.MOrgInfo;
 import org.compiere.model.MProduct;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
+import org.compiere.util.CLogger;
 import org.compiere.util.Env;
+import org.kenos.idempiere.lbr.tax.model.MOrder;
 
 /**
  * 		ReProcess Order
@@ -27,6 +29,9 @@ import org.compiere.util.Env;
  */
 public class ReProcessOrder extends SvrProcess
 {
+	/**	Logger							*/
+	private static CLogger log = CLogger.getCLogger (ReProcessOrder.class);
+	
 	/**	Order	*/
 	private int p_Record_ID;
 
@@ -35,8 +40,11 @@ public class ReProcessOrder extends SvrProcess
 	private boolean p_ReDefineCFOP 		= false;
 	private boolean p_DistributeFreight	= false;
 	private boolean p_EnforcePrice 		= false;
-	private boolean p_UnReserveStock	= false;
+	private boolean p_UnReserveStock	= true;
 	
+	/**
+	 *  Prepare - e.g., get Parameters.
+	 */
 	@Override
 	protected void prepare()
 	{
@@ -81,12 +89,15 @@ public class ReProcessOrder extends SvrProcess
 		if (MOrderLine.Table_ID == getTable_ID())
 		{
 			orderLine = new MOrderLine (getCtx(), p_Record_ID, get_TrxName());
-			order = orderLine.getParent();
+			order = new MOrder(getCtx(), orderLine.getC_Order_ID(), get_TrxName());
 		}
 		
 		//	Process Order
 		else if (MOrder.Table_ID == getTable_ID())
 			order = new MOrder (getCtx(), p_Record_ID, get_TrxName());
+		
+		else
+			return "@Error@ process not ready for [AD_Table_ID=" + getTable_ID() + "]";
 		
 		//	Do It
 		processOrder (order, orderLine, p_ReCalculateTax, p_ReDefineTax, p_ReDefineCFOP, p_DistributeFreight, p_EnforcePrice, p_UnReserveStock);
@@ -94,11 +105,16 @@ public class ReProcessOrder extends SvrProcess
 	}	//	doIt
 	
 	/**
-	 * 		Process Order
+	 * 	Process Order
 	 * 
-	 * 	@param order
-	 * 	@param p_ReDefineTax
-	 * 	@param p_ReDefineCFOP
+	 * @param order	- Order to be processed, mandatory
+	 * @param single - Order Line, if null all lines from Order will be processed
+	 * @param p_ReCalculateTax - Indicates if the Taxes should be recalculated
+	 * @param p_ReDefineTax - Indicates if the Taxes should be redefined from configuration
+	 * @param p_ReDefineCFOP - Indicates if CFOP should be redefined from configuration
+	 * @param p_DistributeFreight - Distributes the Freight Value from order header to Order Lines
+	 * @param p_EnforcePrice - Enforce Price List
+	 * @param p_UnReserveStock - Unreserve Stock
 	 */
 	public static void processOrder (MOrder order, MOrderLine single, boolean p_ReCalculateTax, 
 			boolean p_ReDefineTax, boolean p_ReDefineCFOP, boolean p_DistributeFreight, boolean p_EnforcePrice, boolean p_UnReserveStock)
@@ -107,21 +123,23 @@ public class ReProcessOrder extends SvrProcess
 		I_W_C_Order o = POWrapper.create(order, I_W_C_Order.class);
 		I_W_C_BPartner bp = POWrapper.create(new MBPartner (Env.getCtx(), o.getC_BPartner_ID(), null), I_W_C_BPartner.class);
 		MBPartnerLocation bpLoc = (MBPartnerLocation) order.getBill_Location(); 
-		//
-		if (p_ReDefineTax || p_ReDefineCFOP)
+		
+		//	Redefine data from configuration
+		MOrderLine[] lines = null;
+		
+		//	Single line process
+		if (single != null)
+			lines = new MOrderLine[]{single};
+		
+		//	All lines from order
+		else
+			lines = order.getLines();
+		
+		//	Process
+		for (MOrderLine ol : lines)
 		{
-			MOrderLine[] lines = null;
-			
-			//	Single line process
-			if (single != null)
-				lines = new MOrderLine[]{single};
-			
-			//	All lines from order
-			else
-				lines = order.getLines();
-			
-			//	Process
-			for (MOrderLine ol : lines)
+			//	Redefine data from configuration
+			if (p_ReDefineTax || p_ReDefineCFOP)
 			{
 				I_W_M_Product p = POWrapper.create(new MProduct (Env.getCtx(), ol.getM_Product_ID(), null), I_W_M_Product.class);
 				Object[] taxation = MLBRTax.getTaxes (o.getC_DocTypeTarget_ID(), o.isSOTrx(), o.getlbr_TransactionType(), p, oi, bp, bpLoc, o.getDateAcct());
@@ -148,8 +166,32 @@ public class ReProcessOrder extends SvrProcess
 					//
 					ol.set_CustomColumn("LBR_Tax_ID", tax.getLBR_Tax_ID());
 				}
-				ol.save();
 			}
+
+			//	Tax Definition implies that taxes was already calculated, 
+			//		only recalculated when definition is not checked
+			if (p_ReCalculateTax && !p_ReDefineTax)
+				ol.set_ValueOfColumn(I_W_C_OrderLine.COLUMNNAME_lbr_RecalculateTax, true);
+			
+			//	Fill the Price on line(s) using current price list
+			if (p_EnforcePrice)
+				ol.setPrice();
+			
+			ol.save();
+		}
+		
+		//	Distribute Freight
+		if (p_DistributeFreight)
+		{
+			order.setFreightCostRule(MOrder.FREIGHTCOSTRULE_FixPrice);
+			order.save();
+		}
+		
+		//	Remove reserves from stock
+		if (p_UnReserveStock)
+		{
+			if (!order.unReserveStock (null, lines))
+				log.severe("Could not unreserve stock");
 		}
 	}	//	processOrder
 }	//	ReProcessOrder
