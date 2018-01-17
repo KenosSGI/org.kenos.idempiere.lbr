@@ -44,7 +44,10 @@ public class CalloutFactory implements IColumnCalloutFactory
 		else if (MOrderLine.Table_Name.equals(tableName))
 		{
 			if (TextUtil.match (columnName, I_W_C_OrderLine.COLUMNNAME_LBR_Tax_ID))
+			{
+				callouts.add (new OrderLinePromissed());
 				callouts.add (new RecalculateTaxes());
+			}
 		}
 		else if (MInvoice.Table_Name.equals(tableName))
 		{
