@@ -40,7 +40,7 @@ public class ReProcessOrder extends SvrProcess
 	private boolean p_ReDefineCFOP 		= false;
 	private boolean p_DistributeFreight	= false;
 	private boolean p_EnforcePrice 		= false;
-	private boolean p_UnReserveStock	= true;
+	private boolean p_UnReserveStock	= false;
 	
 	/**
 	 *  Prepare - e.g., get Parameters.
