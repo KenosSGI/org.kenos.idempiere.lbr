@@ -378,7 +378,7 @@ public class MLBRTax extends X_LBR_Tax
 		//
 		try
 		{
-			System.out.println ("Formula=" + formula);
+			log.finer ("Formula=" + formula);
 			
 			/**
 			 * 	Permite recursividade nas fórmulas
@@ -393,7 +393,7 @@ public class MLBRTax extends X_LBR_Tax
 			for (MLBRTaxName txName : MLBRTaxName.getTaxNames())
 				if (formula.indexOf(txName.getName().trim()) > 0)
 				{
-					System.out.println ("Fill to ZERO, TaxName=" + txName.getName().trim() + "=0");
+					log.finer ("Fill to ZERO, TaxName=" + txName.getName().trim() + "=0");
 					bsh.set(txName.getName().trim(), 1/Math.pow (10, 17));
 				}
 			
@@ -403,13 +403,13 @@ public class MLBRTax extends X_LBR_Tax
 				Double amt = tLine.getlbr_TaxRate().setScale(17, BigDecimal.ROUND_HALF_UP)
 						.divide(Env.ONEHUNDRED, BigDecimal.ROUND_HALF_UP).doubleValue();
 				//
-				System.out.println ("Set Tax Rate, TaxName=" + tLine.getLBR_TaxName().getName().trim() + "=" + amt);
+				log.finer ("Set Tax Rate, TaxName=" + tLine.getLBR_TaxName().getName().trim() + "=" + amt);
 				bsh.set(tLine.getLBR_TaxName().getName().trim(), amt);
 			}
 			//	Ajusta os parâmetros opcionais (ex. Frete, SISCOMEX)
 			if (params != null) for (String key : params.keySet())
 			{				
-				System.out.println ("Set Parameters, Parameter=" + key + "=" + params.get(key).doubleValue());
+				log.finer ("Set Parameters, Parameter=" + key + "=" + params.get(key).doubleValue());
 				bsh.set(key, params.get(key).doubleValue());
 			}
 			//
@@ -668,7 +668,7 @@ public class MLBRTax extends X_LBR_Tax
 		 */
 		if (!MProduct.PRODUCTTYPE_Service.equals(p.getProductType()))
 		{
-			System.out.println ("######## Processing Tax for Organization: " + oi + ", Taxes: " + new MLBRTax(ctx, oi.getLBR_Tax_ID(), null));
+			log.finer ("######## Processing Tax for Organization: " + oi + ", Taxes: " + new MLBRTax(ctx, oi.getLBR_Tax_ID(), null));
 			processTaxes(taxes, oi.getLBR_Tax_ID());
 		}
 		
@@ -681,7 +681,7 @@ public class MLBRTax extends X_LBR_Tax
 			MLBRNCM ncm = new MLBRNCM (Env.getCtx(), p.getLBR_NCM_ID(), null);
 			
 			hasSubstitution = ncm.islbr_HasSubstitution();
-			System.out.println ("######## Processing Tax for NCM: " + ncm + ", Taxes: " + new MLBRTax(ctx, ncm.getLBR_Tax_ID(), null));
+			log.finer ("######## Processing Tax for NCM: " + ncm + ", Taxes: " + new MLBRTax(ctx, ncm.getLBR_Tax_ID(), null));
 			processTaxes(taxes, ncm.getLBR_Tax_ID());
 			
 			MLBRNCMTax ncmTax = ncm.getLBR_Tax_ID(oi.getAD_Org_ID(), bp_C_Region_ID, dateAcct);
@@ -689,7 +689,7 @@ public class MLBRTax extends X_LBR_Tax
 			if (ncmTax != null)
 			{
 				hasSubstitution = ncmTax.islbr_HasSubstitution();
-				System.out.println ("######## Processing Tax for NCM Line: " + ncmTax + ", Taxes: " + new MLBRTax(ctx, ncmTax.getLBR_Tax_ID(), null));
+				log.finer ("######## Processing Tax for NCM Line: " + ncmTax + ", Taxes: " + new MLBRTax(ctx, ncmTax.getLBR_Tax_ID(), null));
 				processTaxes(taxes, ncmTax.getLBR_Tax_ID());
 			}
 		}
@@ -701,7 +701,7 @@ public class MLBRTax extends X_LBR_Tax
 		//
 		if (mICMS != null && mICMS.getLBR_Tax_ID() > 0 && !MProduct.PRODUCTTYPE_Service.equals(p.getProductType()))
 		{
-			System.out.println ("######## Processing Tax for ICMS Matrix: " + mICMS + ", Taxes: " + new MLBRTax(ctx, mICMS.getLBR_Tax_ID(), null));
+			log.finer ("######## Processing Tax for ICMS Matrix: " + mICMS + ", Taxes: " + new MLBRTax(ctx, mICMS.getLBR_Tax_ID(), null));
 			processTaxes(taxes, mICMS.getLBR_Tax_ID());
 			
 			//	Puxa a alíquota interna para cálculo do ICMSST
@@ -710,7 +710,7 @@ public class MLBRTax extends X_LBR_Tax
 				//	ICMS ST específico
 				if (mICMS.getLBR_STTax_ID() > 0)
 				{
-					System.out.println ("######## Processing Tax for ICMS ST Matrix: " + mICMS + ", Taxes: " + new MLBRTax(ctx, mICMS.getLBR_STTax_ID(), null));
+					log.finer ("######## Processing Tax for ICMS ST Matrix: " + mICMS + ", Taxes: " + new MLBRTax(ctx, mICMS.getLBR_STTax_ID(), null));
 					processTaxes(taxes, mICMS.getLBR_STTax_ID());
 				}
 				
@@ -721,7 +721,7 @@ public class MLBRTax extends X_LBR_Tax
 					//
 					if (mICMSST != null && mICMSST.getLBR_STTax_ID() > 0)
 					{
-						System.out.println ("######## Processing Tax for ICMS ST Matrix: " + mICMSST + ", Taxes: " + new MLBRTax(ctx, mICMSST.getLBR_STTax_ID(), null));
+						log.finer ("######## Processing Tax for ICMS ST Matrix: " + mICMSST + ", Taxes: " + new MLBRTax(ctx, mICMSST.getLBR_STTax_ID(), null));
 						processTaxes(taxes, mICMSST.getLBR_STTax_ID());
 					}
 				}
@@ -736,7 +736,7 @@ public class MLBRTax extends X_LBR_Tax
 		//
 		if (MProduct.PRODUCTTYPE_Service.equals(p.getProductType()) && mISS != null && mISS.getLBR_Tax_ID() > 0)
 		{
-			System.out.println ("######## Processing Tax for ISS Matrix: " + mISS + ", Taxes: " + new MLBRTax(ctx, mISS.getLBR_Tax_ID(), null));
+			log.finer ("######## Processing Tax for ISS Matrix: " + mISS + ", Taxes: " + new MLBRTax(ctx, mISS.getLBR_Tax_ID(), null));
 			processTaxes(taxes, mISS.getLBR_Tax_ID());
 		}
 		
@@ -775,7 +775,7 @@ public class MLBRTax extends X_LBR_Tax
 		//
 		if (cFOPLine != null)
 		{
-			System.out.println ("######## Processing Tax for CFOP Line: " + cFOPLine + ", Taxes: " + new MLBRTax(ctx, cFOPLine.getLBR_Tax_ID(), null));
+			log.finer ("######## Processing Tax for CFOP Line: " + cFOPLine + ", Taxes: " + new MLBRTax(ctx, cFOPLine.getLBR_Tax_ID(), null));
 			processTaxes (taxes, cFOPLine.getLBR_Tax_ID());
 			//
 			if (cFOPLine.getLBR_LegalMessage_ID() > 0)
@@ -797,7 +797,7 @@ public class MLBRTax extends X_LBR_Tax
 		//
 		for (MLBRTaxDefinition td : taxesDef)
 		{
-			System.out.println ("######## Processing Tax for Tax Definition: " + td + ", Taxes: " + new MLBRTax(ctx, td.getLBR_Tax_ID(), null));
+			log.finer ("######## Processing Tax for Tax Definition: " + td + ", Taxes: " + new MLBRTax(ctx, td.getLBR_Tax_ID(), null));
 			processTaxes (taxes, td.getLBR_Tax_ID());
 			
 			//	CFOP
