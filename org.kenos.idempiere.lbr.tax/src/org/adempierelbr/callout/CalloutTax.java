@@ -147,7 +147,7 @@ public class CalloutTax extends CalloutEngine
 	@SuppressWarnings("unchecked")
 	public String getTaxes (Properties ctx, int WindowNo, GridTab mTab, GridField mField, Object value)
 	{
-		if (mField == null)
+		if (mField == null || value == null)
 			return "";
 
 		Integer M_Product_ID = (Integer) mTab.getValue(MOrderLine.COLUMNNAME_M_Product_ID);
