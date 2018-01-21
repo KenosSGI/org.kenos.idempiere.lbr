@@ -163,28 +163,33 @@ public class CalloutTax extends CalloutEngine
 		if (AD_Org_ID == null)
 			AD_Org_ID = 0;
 		
-		I_W_AD_OrgInfo oi = POWrapper.create(MOrgInfo.get(Env.getCtx(), AD_Org_ID, null), I_W_AD_OrgInfo.class);
+		I_W_AD_OrgInfo oi = POWrapper.create(MOrgInfo.get(ctx, AD_Org_ID, null), I_W_AD_OrgInfo.class);
 
 		Object[] taxation = null;
 		MBPartnerLocation bpLoc = null;
 
-		if (mTab.getTableName().equals(MOrderLine.Table_Name)) {
+		if (mTab.getTableName().equals(MOrderLine.Table_Name))
+		{
 			C_Order_ID = (Integer) mTab.getValue(MOrderLine.COLUMNNAME_C_Order_ID);
 
+			//	Do not proceed with invalid Order ID
 			if (C_Order_ID == null)
-				C_Order_ID = 0;
+				return null;
 
-			I_W_C_Order o = POWrapper.create(new MOrder (Env.getCtx(), C_Order_ID, null), I_W_C_Order.class);
-			I_W_M_Product p = POWrapper.create(new MProduct (Env.getCtx(), M_Product_ID, null), I_W_M_Product.class);
-			I_W_C_BPartner bp = POWrapper.create(new MBPartner (Env.getCtx(), o.getC_BPartner_ID(), null), I_W_C_BPartner.class);
+			I_W_C_Order o = POWrapper.create(new MOrder (ctx, C_Order_ID, null), I_W_C_Order.class);
+			I_W_M_Product p = POWrapper.create(new MProduct (ctx, M_Product_ID, null), I_W_M_Product.class);
+			I_W_C_BPartner bp = POWrapper.create(new MBPartner (ctx, o.getC_BPartner_ID(), null), I_W_C_BPartner.class);
 			bpLoc = (MBPartnerLocation) o.getBill_Location(); 
 			taxation = MLBRTax.getTaxes (o.getC_DocTypeTarget_ID(), o.isSOTrx(), o.getlbr_TransactionType(), p, oi, bp, bpLoc, o.getDateAcct());
 
-		} else if (mTab.getTableName().equals(MInvoiceLine.Table_Name)) {
+		} 
+		else if (mTab.getTableName().equals(MInvoiceLine.Table_Name))
+		{
 			C_Invoice_ID = (Integer) mTab.getValue(MInvoiceLine.COLUMNNAME_C_Invoice_ID);
 
+			//	Do not proceed with invalid Invoice ID
 			if (C_Invoice_ID == null)
-				C_Invoice_ID = 0;
+				return null;
 
 			I_W_C_Invoice i = POWrapper.create(new MInvoice (Env.getCtx(), C_Invoice_ID, null), I_W_C_Invoice.class);
 			I_W_M_Product p = POWrapper.create(new MProduct (Env.getCtx(), M_Product_ID, null), I_W_M_Product.class);
