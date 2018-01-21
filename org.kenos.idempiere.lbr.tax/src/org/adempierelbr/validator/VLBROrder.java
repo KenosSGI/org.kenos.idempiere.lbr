@@ -207,15 +207,16 @@ public class VLBROrder implements ModelValidator
 
 			//	Faz a pesquisa dos impostos padrão
 			if (orderLine.get_ValueAsBoolean(I_W_C_OrderLine.COLUMNNAME_lbr_RecalculateTax) 
-					&& olW.getLBR_Tax_ID() == 0)
+					&& (olW.getLBR_Tax_ID() == 0 || olW.getLBR_CFOP_ID() == 0))
 			{
-				Object[] taxation = MLBRTax.getTaxes (olW);
+				Object[] taxation = MLBRTax.getTaxes (olW, orderLine.get_TrxName());
 				//
 				if (taxation != null)
 				{
 					Map<Integer, MLBRTaxLine> taxes = (Map<Integer, MLBRTaxLine>) taxation[0];
-					//
-					if (taxes != null && taxes.size() > 0)
+					
+					//	Ajusta os Impostos
+					if (olW.getLBR_Tax_ID() == 0 && taxes != null && taxes.size() > 0)
 					{
 						MLBRTax tax = new MLBRTax (Env.getCtx(), 0, null);
 						tax.save();
@@ -232,7 +233,22 @@ public class VLBROrder implements ModelValidator
 						//
 						olW.setLBR_Tax_ID(tax.getLBR_Tax_ID());
 					}
+					
+					//	Ajusta o CFOP
+					if (olW.getLBR_CFOP_ID() == 0 && ((Integer) taxation[2]) > 0)
+						olW.setLBR_CFOP_ID((Integer) taxation[2]);
 				}
+			}
+			
+			//	**************************
+			
+			//	If new record, force ERP to assign next line when the document already has lines created
+			int lines = DB.getSQLValue (orderLine.get_TrxName(), "SELECT COUNT('1') FROM C_OrderLine WHERE C_Order_ID=?", orderLine.getC_Order_ID());
+			if (lines > 0 && olW.getLine() == 10)
+			{
+				String sql = "SELECT COALESCE(MAX(Line),0)+10 FROM C_OrderLine WHERE C_Order_ID=?";
+				int ii = DB.getSQLValue (orderLine.get_TrxName(), sql, orderLine.getC_Order_ID());
+				olW.setLine (ii);
 			}
 		}
 		return null;
@@ -252,7 +268,7 @@ public class VLBROrder implements ModelValidator
 		if (type == TYPE_BEFORE_NEW && iLine.getC_OrderLine_ID() > 0)
 		{
 			I_W_C_InvoiceLine iLineW = POWrapper.create(iLine, I_W_C_InvoiceLine.class);
-			I_W_C_OrderLine oLineW = POWrapper.create(new MOrderLine(Env.getCtx(), iLine.getC_OrderLine_ID(), null), I_W_C_OrderLine.class);
+			I_W_C_OrderLine oLineW = POWrapper.create(new MOrderLine(Env.getCtx(), iLine.getC_OrderLine_ID(), iLine.get_TrxName()), I_W_C_OrderLine.class);
 			//
 			iLineW.setFreightAmt(iLineW.getQtyInvoiced().multiply(oLineW.getFreightAmt()).divide(oLineW.getQtyOrdered(), 2, BigDecimal.ROUND_HALF_UP));
 			iLineW.setlbr_SISCOMEXAmt(iLineW.getQtyInvoiced().multiply(oLineW.getlbr_SISCOMEXAmt()).divide(oLineW.getQtyOrdered(), 2, BigDecimal.ROUND_HALF_UP));
