@@ -26,6 +26,7 @@ import org.adempiere.base.Service;
 import org.adempiere.model.POWrapper;
 import org.adempierelbr.model.MLBRDigitalCertificate;
 import org.adempierelbr.model.MLBRNFConfig;
+import org.adempierelbr.model.MLBRNFeWebService;
 import org.adempierelbr.model.MLBRNotaFiscal;
 import org.adempierelbr.model.MLBRPartnerDFe;
 import org.adempierelbr.nfe.api.NFeDistribuicaoDFeStub;
@@ -79,6 +80,9 @@ import br.inf.portalfiscal.www.nfe.wsdl.nfedistribuicaodfe.NfeDadosMsg_type0;
  */
 public class GetDFe extends SvrProcess
 {
+	/** Process ID 					*/
+	public static final int AD_Process_ID = 1120159;
+	
 	/**	Organization				*/
 	private int p_AD_Org_ID = -1;
 	
@@ -253,10 +257,7 @@ public class GetDFe extends SvrProcess
 		{
 			//	Prepara a Transmissão
 			MLBRDigitalCertificate.setCertificate (Env.getCtx(), oi.getAD_Org_ID());
-
-			
-			String url = "https://www1.nfe.fazenda.gov.br/NFeDistribuicaoDFe/NFeDistribuicaoDFe.asmx";
-//			String url = MLBRNFeWebService.getURL (MLBRNFeWebService.CONSULTANFEDEST, oiW.getlbr_NFeEnv(), NFeUtil.VERSAO_LAYOUT, oi.getC_Location().getC_Region_ID());
+			String url = MLBRNFeWebService.getURL (MLBRNFeWebService.DISTRIBUICAONFE, config.getlbr_NFeEnv(), NFeUtil.VERSAO_LAYOUT, -1);
 			
 			//	XML
 			StringBuilder xml =  new StringBuilder (consDFeDoc.xmlText(NFeUtil.getXmlOpt()));

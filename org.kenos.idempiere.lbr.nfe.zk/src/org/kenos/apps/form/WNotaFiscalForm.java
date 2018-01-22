@@ -42,6 +42,9 @@ import org.adempiere.webui.window.FDialog;
 import org.adempierelbr.model.MLBRNFeEvent;
 import org.adempierelbr.model.MLBRNotaFiscal;
 import org.adempierelbr.model.MLBRPartnerDFe;
+import org.adempierelbr.process.DownloadDFeXML;
+import org.adempierelbr.process.GetDFe;
+import org.adempierelbr.process.PrintFromXML;
 import org.compiere.apps.IProcessParameter;
 import org.compiere.model.MOrg;
 import org.compiere.model.MQuery;
@@ -386,8 +389,8 @@ public class WNotaFiscalForm extends ADForm implements EventListener<Event>, WTa
 		else if (e.getTarget() == confirmPanelRec.getButton(ConfirmPanel.A_REFRESH))
 		{
 			ProcessInfoParameter pip = new ProcessInfoParameter (MOrg.COLUMNNAME_AD_Org_ID, genForm.m_AD_Org_ID, null, null, null);
-			//
-			ProcessInfo pi = startProcess(1120159, genForm.getTitle(), m_WindowNo, new ProcessInfoParameter[]{pip});
+			//	Get DFe
+			ProcessInfo pi = startProcess(GetDFe.AD_Process_ID, genForm.getTitle(), m_WindowNo, new ProcessInfoParameter[]{pip});
 			statusBar.setStatusLine(pi.getSummary(), pi.isError());
 			genForm.executeQuery();
 		}
@@ -399,7 +402,7 @@ public class WNotaFiscalForm extends ADForm implements EventListener<Event>, WTa
 				return;
 			
 			//	Print From XML
-			ProcessInfo pi = startProcess(1120040, genForm.getTitle(), m_WindowNo, MLBRNotaFiscal.Table_ID, keys.get(0), null);
+			ProcessInfo pi = startProcess(PrintFromXML.AD_Process_ID, genForm.getTitle(), m_WindowNo, MLBRNotaFiscal.Table_ID, keys.get(0), null);
 			statusBar.setStatusLine(pi.getSummary(), pi.isError());
 		}
 		
@@ -410,7 +413,7 @@ public class WNotaFiscalForm extends ADForm implements EventListener<Event>, WTa
 				return;
 			
 			//	Print From XML
-			ProcessInfo pi = startProcess(1120040, genForm.getTitle(), m_WindowNo, MLBRPartnerDFe.Table_ID, keys.get(0), null);
+			ProcessInfo pi = startProcess(PrintFromXML.AD_Process_ID, genForm.getTitle(), m_WindowNo, MLBRPartnerDFe.Table_ID, keys.get(0), null);
 			statusBar.setStatusLine(pi.getSummary(), pi.isError());
 		}
 		
@@ -419,7 +422,7 @@ public class WNotaFiscalForm extends ADForm implements EventListener<Event>, WTa
 			ProcessInfoParameter pip = new ProcessInfoParameter (MLBRPartnerDFe.COLUMNNAME_AD_Org_ID, genForm.m_AD_Org_ID, null, null, null);
 			
 			//	Download DF-e XML
-			ProcessInfo pi = startProcess(1120162, genForm.getTitle(), m_WindowNo, new ProcessInfoParameter[]{pip});
+			ProcessInfo pi = startProcess(DownloadDFeXML.AD_Process_ID, genForm.getTitle(), m_WindowNo, new ProcessInfoParameter[]{pip});
 			statusBar.setStatusLine(pi.getSummary(), pi.isError());
 			genForm.executeQuery();
 		}

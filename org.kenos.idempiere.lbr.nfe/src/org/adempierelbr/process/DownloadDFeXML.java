@@ -55,6 +55,9 @@ import br.inf.portalfiscal.www.nfe.wsdl.nfedistribuicaodfe.NfeDadosMsg_type0;
  */
 public class DownloadDFeXML extends SvrProcess
 {
+	/** Process ID 					*/
+	public static final int AD_Process_ID = 1120162;
+	
 	/**	Organization				*/
 	private int p_AD_Org_ID = -1;
 	

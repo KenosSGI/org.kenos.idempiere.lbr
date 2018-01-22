@@ -75,6 +75,9 @@ import net.sf.jasperreports.engine.util.JRLoader;
  */
 public class PrintFromXML extends SvrProcess
 {
+	/** Process ID 					*/
+	public static final int AD_Process_ID = 1120040;
+	
 	/**	Record ID	*/
 	private int p_Record_ID = 0;
 	
