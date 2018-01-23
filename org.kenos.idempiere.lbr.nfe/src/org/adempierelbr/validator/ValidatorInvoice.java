@@ -36,9 +36,11 @@ import org.compiere.model.MOrderLine;
 import org.compiere.model.MPInstance;
 import org.compiere.model.MPaymentTerm;
 import org.compiere.model.MSysConfig;
+import org.compiere.model.MTax;
 import org.compiere.model.ModelValidationEngine;
 import org.compiere.model.ModelValidator;
 import org.compiere.model.PO;
+import org.compiere.model.Query;
 import org.compiere.process.DocAction;
 import org.compiere.process.ProcessInfo;
 import org.compiere.util.CLogger;
@@ -270,7 +272,18 @@ public class ValidatorInvoice implements ModelValidator
 					iLineW.setLBR_Tax_ID (newTax.getLBR_Tax_ID());
 				}
 			}
-		}	//	new
+			
+			// Adicionar Taxa Padrão (BR) na Linha do Tipo Descrição
+			if (iLine.isDescription() && iLineW.getC_Tax_ID() == 0)
+			{
+				MTax tax = (MTax) new Query(Env.getCtx(), MTax.Table_Name, "AD_Client_ID=? AND IsDefault='Y'", iLine.get_TrxName())
+							.setParameters(iLineW.getAD_Client_ID())
+							.first();
+				
+				iLineW.setC_Tax_ID(tax.getC_Tax_ID());
+			}
+			
+		}	//	new		
 		//
 		return null;
 	} 	//	modelChange
