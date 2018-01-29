@@ -38,6 +38,7 @@ import org.compiere.model.MWarehouse;
 import org.compiere.model.ModelValidationEngine;
 import org.compiere.model.ModelValidator;
 import org.compiere.model.PO;
+import org.compiere.model.Query;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
 import org.kenos.idempiere.lbr.nfe.importvalidator.ImportValidatorBPartner;
@@ -212,7 +213,15 @@ public class ValidatorOrder implements ModelValidator
 
 					//	Shipment
 					if (dtW.islbr_IsAutomaticShipment())
+					{
+						// Apenas Regra de Entrega Pedido Completo ou Forçar podem gerar Expedição Automatica
+						// Forçar Pedido Completo se a Regra for Invalida para Geração Automática
+						if (!MOrder.DELIVERYRULE_CompleteOrder.equals(order.getDeliveryRule())
+							&& !MOrder.DELIVERYRULE_Force.equals(order.getDeliveryRule()))
+							order.setDeliveryRule(MOrder.DELIVERYRULE_CompleteOrder);
+						
 						shipment = createShipment(order, dt, order.getDateOrdered());
+					}
 					
 					//	Complete
 					if (shipment != null)
@@ -241,6 +250,32 @@ public class ValidatorOrder implements ModelValidator
 					}
 				}
 			}	//	After Complete
+			if (timing == TIMING_BEFORE_REACTIVATE)
+			{
+				MDocType dt = MDocType.get (ctx, order.getC_DocTypeTarget_ID());
+				I_W_C_DocType dtW = POWrapper.create(dt, I_W_C_DocType.class); 
+				String DocSubTypeSO = dt.getDocSubTypeSO();
+
+				//	Somente Venda Padrão
+				if (DocSubTypeSO != null && !(DocSubTypeSO.equals(MDocType.DOCSUBTYPESO_WarehouseOrder) ||
+					  DocSubTypeSO.equals(MDocType.DOCSUBTYPESO_POSOrder)))
+				{
+					// Verify if exist a Valid Shipment
+					Boolean validShipment = new Query(Env.getCtx(), MInOut.Table_Name, "C_Order_ID = ? AND DocStatus IN ('CO', 'CL')", null)
+											.setParameters(order.getC_Order_ID())
+											.count() > 0;
+					
+					// Verify if exist a Valid Invoice				
+					Boolean validInvoice = new Query(Env.getCtx(), MInvoice.Table_Name, "C_Order_ID = ? AND DocStatus IN ('CO', 'CL')", null)
+							.setParameters(order.getC_Order_ID())
+							.count() > 0;
+					
+					//	Shipment / Invoice Generated Automaticly
+					if ((dtW.islbr_IsAutomaticShipment() && validShipment) ||
+							(dtW.islbr_IsAutomaticInvoice()	&& validInvoice))
+							return "Impossível Reativar - Estorne Fatura e/ou Remessa Gerada Automáticamente";
+				}		
+			}
 		}
 		//
 		return null;
