@@ -2112,4 +2112,19 @@ public interface I_LBR_NotaFiscal
 	  * Valor aproximado total de tributos federais, estaduais e municipais.
 	  */
 	public BigDecimal getlbr_vTotTrib();
+	
+	/** Column name M_Movement_ID */
+    public static final String COLUMNNAME_M_Movement_ID = "M_Movement_ID";
+
+	/** Set Movement.
+	  * Movement
+	  */
+	public void setM_Movement_ID (int M_Movement_ID);
+
+	/** Get .
+	  * Movement
+	  */
+	public int getM_Movement_ID();
+
+	public org.compiere.model.I_M_Movement getM_Movement() throws RuntimeException;
 }

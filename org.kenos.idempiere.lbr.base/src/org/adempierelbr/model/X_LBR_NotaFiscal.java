@@ -21,7 +21,12 @@ import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.Properties;
-import org.compiere.model.*;
+
+import org.compiere.model.I_C_Location;
+import org.compiere.model.I_Persistent;
+import org.compiere.model.MTable;
+import org.compiere.model.PO;
+import org.compiere.model.POInfo;
 import org.compiere.util.Env;
 
 /** Generated Model for LBR_NotaFiscal
@@ -4416,5 +4421,33 @@ public class X_LBR_NotaFiscal extends PO implements I_LBR_NotaFiscal, I_Persiste
 		if (bd == null)
 			 return Env.ZERO;
 		return bd;
+	}
+	
+	public org.compiere.model.I_M_Movement getM_Movement() throws RuntimeException
+    {
+		return (org.compiere.model.I_M_Movement)MTable.get(getCtx(), org.compiere.model.I_M_Movement.Table_Name)
+			.getPO(getM_Movement_ID(), get_TrxName());	}
+
+	/** Set Movement.
+		@param M_Movement_ID 
+		Movement
+	  */
+	public void setM_Movement_ID (int M_Movement_ID)
+	{
+		if (M_Movement_ID < 1) 
+			set_Value (COLUMNNAME_M_Movement_ID, null);
+		else 
+			set_Value (COLUMNNAME_M_Movement_ID, Integer.valueOf(M_Movement_ID));
+	}
+
+	/** Get Movement.
+		@return Movement
+	  */
+	public int getM_Movement_ID () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_M_Movement_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
 	}
 }
