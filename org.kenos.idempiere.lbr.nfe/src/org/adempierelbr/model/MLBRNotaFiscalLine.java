@@ -496,6 +496,25 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 				appendDescription ("Vencto: " + TextUtil.timeToString (guaranteeDate, "dd/MM/yyyy"));
 		}
 		
+		//	Impressão do Pedido de Referencia e Item (xPed e nItemPed)
+		if (MSysConfig.getBooleanValue("LBR_PRINT_XPED_NF", true, getAD_Client_ID()))
+		{
+			//	Linha do Pedido
+			MOrderLine oLine = (MOrderLine) iLine.getC_OrderLine();
+			
+			String description = "";
+			
+			//	Pedido de Referência
+			if (!oLine.get_ValueAsString("POReference").isEmpty())
+				description = description + "Pedido de Referência: " + oLine.get_ValueAsString("POReference");
+
+			//	Item do Pedido
+			if (!oLine.get_ValueAsString("LBR_PORef_Item").isEmpty())
+				description = description + " - Item: " + oLine.get_ValueAsString("LBR_PORef_Item");	
+			
+			appendDescription(description);
+		}
+		
 		//	Impostos
 		MLBRTax tax = new MLBRTax (getCtx(), iLineW.getLBR_Tax_ID(), get_TrxName());
 				

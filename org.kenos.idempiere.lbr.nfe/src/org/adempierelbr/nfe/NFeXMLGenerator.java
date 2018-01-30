@@ -928,7 +928,7 @@ public class NFeXMLGenerator
 				MOrderLine orderline = new MOrderLine (Env.getCtx(), nfl.getC_InvoiceLine().getC_OrderLine_ID(), null);
 				
 				//	Preenche o pedido referenciado (xPed)
-				String xPed = orderline.getParent().getPOReference();
+				String xPed = orderline.get_ValueAsString("POReference");
 				if (xPed != null && !xPed.trim().isEmpty())
 				{
 					//	Trim XPed
@@ -940,7 +940,7 @@ public class NFeXMLGenerator
 				}
 				
 				//	Preenche o item do pedido referenciado (nItemPed)
-				String nItemPed = orderline.get_ValueAsString("POReference");
+				String nItemPed = orderline.get_ValueAsString("LBR_PORef_Item");
 				if (nItemPed != null && !nItemPed.trim().isEmpty())
 					prod.setNItemPed(nItemPed);
 			}
