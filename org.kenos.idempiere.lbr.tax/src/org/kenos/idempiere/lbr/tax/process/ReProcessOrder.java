@@ -19,6 +19,7 @@ import org.compiere.model.MProduct;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
 import org.compiere.util.CLogger;
+import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.kenos.idempiere.lbr.tax.model.MOrder;
 
@@ -41,6 +42,7 @@ public class ReProcessOrder extends SvrProcess
 	private boolean p_DistributeFreight	= false;
 	private boolean p_EnforcePrice 		= false;
 	private boolean p_UnReserveStock	= false;
+	private int p_M_PriceList_ID		= -1;
 	
 	/**
 	 *  Prepare - e.g., get Parameters.
@@ -73,6 +75,9 @@ public class ReProcessOrder extends SvrProcess
 			else if (name.equals("LBR_UnreserveStock"))
 				p_UnReserveStock = "Y".equals(para[i].getParameter());
 			
+			else if (name.equals(MOrder.COLUMNNAME_M_PriceList_ID))
+				p_M_PriceList_ID = para[i].getParameterAsInt();
+			
 			else
 				log.log(Level.SEVERE, "Unknown Parameter: " + name);
 		}
@@ -100,7 +105,7 @@ public class ReProcessOrder extends SvrProcess
 			return "@Error@ process not ready for [AD_Table_ID=" + getTable_ID() + "]";
 		
 		//	Do It
-		processOrder (order, orderLine, p_ReCalculateTax, p_ReDefineTax, p_ReDefineCFOP, p_DistributeFreight, p_EnforcePrice, p_UnReserveStock);
+		processOrder (order, orderLine, p_ReCalculateTax, p_ReDefineTax, p_ReDefineCFOP, p_DistributeFreight, p_EnforcePrice, p_M_PriceList_ID, p_UnReserveStock);
 		return "@Success@";
 	}	//	doIt
 	
@@ -117,7 +122,7 @@ public class ReProcessOrder extends SvrProcess
 	 * @param p_UnReserveStock - Unreserve Stock
 	 */
 	public static void processOrder (MOrder order, MOrderLine single, boolean p_ReCalculateTax, 
-			boolean p_ReDefineTax, boolean p_ReDefineCFOP, boolean p_DistributeFreight, boolean p_EnforcePrice, boolean p_UnReserveStock)
+			boolean p_ReDefineTax, boolean p_ReDefineCFOP, boolean p_DistributeFreight, boolean p_EnforcePrice, int p_M_PriceList_ID, boolean p_UnReserveStock)
 	{
 		I_W_AD_OrgInfo oi = POWrapper.create(MOrgInfo.get(Env.getCtx(), order.getAD_Org_ID(), null), I_W_AD_OrgInfo.class);
 		I_W_C_Order o = POWrapper.create(order, I_W_C_Order.class);
@@ -134,6 +139,18 @@ public class ReProcessOrder extends SvrProcess
 		//	All lines from order
 		else
 			lines = order.getLines();
+		
+		//	Check price list
+		if (p_EnforcePrice 
+				&& p_M_PriceList_ID > 0
+				&& p_M_PriceList_ID != order.getM_PriceList_ID())
+		{
+			//	Do not save to avoid error
+			order.setM_PriceList_ID (p_M_PriceList_ID);
+			
+			//	Make changes directly
+			DB.executeUpdate ("UPDATE C_Order SET M_PriceList_ID=" + p_M_PriceList_ID + " WHERE C_Order_ID=" + order.getC_Order_ID(), order.get_TrxName());
+		}
 		
 		//	Process
 		for (MOrderLine ol : lines)
@@ -175,16 +192,19 @@ public class ReProcessOrder extends SvrProcess
 			
 			//	Fill the Price on line(s) using current price list
 			if (p_EnforcePrice)
+			{
+				ol.setHeaderInfo(order);
 				ol.setPrice();
+			}
 			
-			ol.save();
+			ol.saveEx();
 		}
 		
 		//	Distribute Freight
-		if (p_DistributeFreight)
+		if (!p_EnforcePrice && p_DistributeFreight)
 		{
 			order.setFreightCostRule(MOrder.FREIGHTCOSTRULE_FixPrice);
-			order.save();
+			order.saveEx();
 		}
 		
 		//	Remove reserves from stock
