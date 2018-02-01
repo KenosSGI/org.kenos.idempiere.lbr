@@ -42,6 +42,7 @@ import org.adempierelbr.wrapper.I_W_M_Product;
 import org.compiere.model.MAttachment;
 import org.compiere.model.MCountry;
 import org.compiere.model.MDocType;
+import org.compiere.model.MLocation;
 import org.compiere.model.MOrderLine;
 import org.compiere.model.MOrgInfo;
 import org.compiere.model.MProduct;
@@ -444,10 +445,10 @@ public class NFeXMLGenerator
 		ide.setMod(TMod.Enum.forString (chaveNFE.getMod()));
 		ide.setSerie(nf.getlbr_NFSerie());
 		ide.setNNF(nf.getDocumentNo());
-		ide.setDhEmi(normalizeTZ (nf.getDateDoc()));
+		ide.setDhEmi(verifyUTC((MLocation)oi.getC_Location(), normalizeTZ (nf.getDateDoc())));	// FIXME
 		
 		if (nf.getlbr_DateInOut() != null)
-			ide.setDhSaiEnt(normalizeTZ (nf.getlbr_DateInOut()));
+			ide.setDhSaiEnt(verifyUTC((MLocation)oi.getC_Location(), normalizeTZ (nf.getlbr_DateInOut())));	// FIXME
 		
 		ide.setTpNF (nf.isSOTrx() ? TP_NF_SAIDA : TP_NF_ENTRADA);
 		ide.setIdDest (nf.getIdDestinoOp ());
@@ -1833,4 +1834,21 @@ public class NFeXMLGenerator
 	{
 		return TextUtil.toNumeric (value);
 	}	//	toNumericStr
+	
+	/**
+	 * Verify UTC
+	 * @param l
+	 * @param date
+	 * @return
+	 */
+	private static String verifyUTC(MLocation l, String date)	// FIXME
+	{
+		//	Devido ao Horário de Verão não ser aplicado para as Regiões Norte e Nordeste do Brasil temos que ajustar o UTC para -03:00
+		if ((BPartnerUtil.REGION_Norte.equals(BPartnerUtil.getBRRegion (l.getC_Region_ID()))
+				|| BPartnerUtil.REGION_Nordeste.equals(BPartnerUtil.getBRRegion (l.getC_Region_ID())))
+				&& date.endsWith("-02:00"))
+			date = date.replace("-02:00", "-03:00");
+		
+		return date;
+	}
 }	//	NFeXMLGenerator
