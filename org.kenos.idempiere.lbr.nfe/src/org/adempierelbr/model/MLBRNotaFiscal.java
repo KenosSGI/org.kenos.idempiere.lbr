@@ -4112,7 +4112,12 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		NfeInutilizacao2Stub stub = new NfeInutilizacao2Stub(url);
 
 		//	Faz a chamada
-		OMElement nfeStatusServicoNF2 = stub.nfeInutilizacaoNF2(dadosMsg.getExtraElement(), cabecMsgE);
+		OMElement nfeStatusServicoNF2 = null;
+		if ("BA".equals(oi.getC_Location().getRegionName()))
+			nfeStatusServicoNF2 = stub.nfeInutilizacaoNF(dadosMsg.getExtraElement(), cabecMsgE);
+		else
+			nfeStatusServicoNF2 = stub.nfeInutilizacaoNF2(dadosMsg.getExtraElement(), cabecMsgE);
+		
 		String respStatus = nfeStatusServicoNF2.toString();
 		
 		//	Processa o retorno
