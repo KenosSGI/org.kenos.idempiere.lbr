@@ -114,6 +114,9 @@ public abstract class NFeUtil
 
 	/**	XML Options			*/
 	private static XmlOptions xmlOptions 			= null;
+	
+	/**	Region BA			*/
+	public static final String REGION_CODE_BA = "29";
 			
 	/**
 	 * Gera o cabeçalho da NFe

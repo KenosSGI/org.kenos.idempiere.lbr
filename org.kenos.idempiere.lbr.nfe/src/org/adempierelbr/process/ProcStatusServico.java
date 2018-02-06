@@ -25,6 +25,7 @@ import org.adempierelbr.model.MLBRNFConfig;
 import org.adempierelbr.model.MLBRNFeWebService;
 import org.adempierelbr.model.MLBRNotaFiscal;
 import org.adempierelbr.nfe.api.NfeStatusServico2Stub;
+import org.adempierelbr.nfe.api.NfeStatusServicoStub;
 import org.adempierelbr.util.BPartnerUtil;
 import org.adempierelbr.util.NFeUtil;
 import org.adempierelbr.wrapper.I_W_AD_OrgInfo;
@@ -47,9 +48,6 @@ import br.inf.portalfiscal.nfe.v310.TCodUfIBGE;
 import br.inf.portalfiscal.nfe.v310.TConsStatServ;
 import br.inf.portalfiscal.nfe.v310.TConsStatServ.XServ;
 import br.inf.portalfiscal.nfe.v310.TRetConsStatServ;
-import br.inf.portalfiscal.www.nfe.wsdl.nfestatusservico2.NfeCabecMsg;
-import br.inf.portalfiscal.www.nfe.wsdl.nfestatusservico2.NfeCabecMsgE;
-import br.inf.portalfiscal.www.nfe.wsdl.nfestatusservico2.NfeDadosMsg;
 
 /**
  * 	Processo para consultar o Status do Serviço
@@ -207,22 +205,42 @@ public class ProcStatusServico extends SvrProcess
 				//	XML
 				StringReader xml = new StringReader (NFeUtil.wrapMsg (xmlText));
 				
-				//	Mensagem
-				NfeDadosMsg dadosMsg = NfeDadosMsg.Factory.parse (XMLInputFactory.newInstance().createXMLStreamReader(xml));
-				
-				//	Cabeçalho
-				NfeCabecMsg cabecMsg = new NfeCabecMsg ();
-				cabecMsg.setCUF(region);
-				cabecMsg.setVersaoDados(NFeUtil.VERSAO_LAYOUT);
-	
-				NfeCabecMsgE cabecMsgE = new NfeCabecMsgE ();
-				cabecMsgE.setNfeCabecMsg(cabecMsg);
-				
-				NfeStatusServico2Stub.setAmbiente(url);
-				NfeStatusServico2Stub stub = new NfeStatusServico2Stub();
-	
-				OMElement nfeStatusServicoNF2 = stub.nfeStatusServicoNF2(dadosMsg.getExtraElement(), cabecMsgE);
-				respStatus.append(nfeStatusServicoNF2.toString());
+				if (NFeUtil.REGION_CODE_BA.equals(region))
+				{
+					//	Mensagem
+					br.inf.portalfiscal.www.nfe.wsdl.nfestatusservico.NfeDadosMsg dadosMsg = br.inf.portalfiscal.www.nfe.wsdl.nfestatusservico.NfeDadosMsg.Factory.parse (XMLInputFactory.newInstance().createXMLStreamReader(xml));
+					
+					//	Cabeçalho
+					br.inf.portalfiscal.www.nfe.wsdl.nfestatusservico.NfeCabecMsg cabecMsg = new br.inf.portalfiscal.www.nfe.wsdl.nfestatusservico.NfeCabecMsg ();
+					cabecMsg.setCUF(region);
+					cabecMsg.setVersaoDados(NFeUtil.VERSAO_LAYOUT);
+		
+					br.inf.portalfiscal.www.nfe.wsdl.nfestatusservico.NfeCabecMsgE cabecMsgE = new br.inf.portalfiscal.www.nfe.wsdl.nfestatusservico.NfeCabecMsgE ();
+					cabecMsgE.setNfeCabecMsg(cabecMsg);
+					
+					NfeStatusServicoStub stub = new NfeStatusServicoStub(url);
+		
+					OMElement nfeStatusServicoNF2 = stub.nfeStatusServicoNF(dadosMsg.getExtraElement(), cabecMsgE);
+					respStatus.append(nfeStatusServicoNF2.toString());
+				}
+				else
+				{
+					//	Mensagem
+					br.inf.portalfiscal.www.nfe.wsdl.nfestatusservico2.NfeDadosMsg dadosMsg = br.inf.portalfiscal.www.nfe.wsdl.nfestatusservico2.NfeDadosMsg.Factory.parse (XMLInputFactory.newInstance().createXMLStreamReader(xml));
+					
+					//	Cabeçalho
+					br.inf.portalfiscal.www.nfe.wsdl.nfestatusservico2.NfeCabecMsg cabecMsg = new br.inf.portalfiscal.www.nfe.wsdl.nfestatusservico2.NfeCabecMsg ();
+					cabecMsg.setCUF(region);
+					cabecMsg.setVersaoDados(NFeUtil.VERSAO_LAYOUT);
+		
+					br.inf.portalfiscal.www.nfe.wsdl.nfestatusservico2.NfeCabecMsgE cabecMsgE = new br.inf.portalfiscal.www.nfe.wsdl.nfestatusservico2.NfeCabecMsgE ();
+					cabecMsgE.setNfeCabecMsg(cabecMsg);
+					
+					NfeStatusServico2Stub stub = new NfeStatusServico2Stub(url);
+		
+					OMElement nfeStatusServicoNF2 = stub.nfeStatusServicoNF2(dadosMsg.getExtraElement(), cabecMsgE);
+					respStatus.append(nfeStatusServicoNF2.toString());
+				}
 			}
 			
 			//	Resposta

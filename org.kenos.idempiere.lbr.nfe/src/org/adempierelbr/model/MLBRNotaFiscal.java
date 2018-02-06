@@ -38,6 +38,7 @@ import org.adempiere.model.POWrapper;
 import org.adempierelbr.exceptions.NotaFiscalNotFoundException;
 import org.adempierelbr.nfe.NFeXMLGenerator;
 import org.adempierelbr.nfe.api.NfeInutilizacao2Stub;
+import org.adempierelbr.nfe.api.NfeInutilizacaoStub;
 import org.adempierelbr.nfse.INFSe;
 import org.adempierelbr.nfse.NFSeUtil;
 import org.adempierelbr.process.PrintFromXML;
@@ -124,9 +125,6 @@ import br.inf.portalfiscal.nfe.v310.TNFe.InfNFe.Ide.IdDest.Enum;
 import br.inf.portalfiscal.nfe.v310.TNfeProc;
 import br.inf.portalfiscal.nfe.v310.TProtNFe;
 import br.inf.portalfiscal.nfe.v310.TProtNFe.InfProt;
-import br.inf.portalfiscal.www.nfe.wsdl.nfeinutilizacao2.NfeCabecMsg;
-import br.inf.portalfiscal.www.nfe.wsdl.nfeinutilizacao2.NfeCabecMsgE;
-import br.inf.portalfiscal.www.nfe.wsdl.nfeinutilizacao2.NfeDadosMsg;
 import bsh.EvalError;
 import bsh.Interpreter;
 
@@ -4085,35 +4083,70 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		
 		//	XML
 		StringReader xml = new StringReader (NFeUtil.wrapMsg (inutNFeDocument.xmlText(NFeUtil.getXmlOpt())));
+		String respStatus = null;
 		
-		//	Mensagem
-		NfeDadosMsg dadosMsg = NfeDadosMsg.Factory.parse (XMLInputFactory.newInstance().createXMLStreamReader(xml));
-		
-		//	Cabeçalho
-		NfeCabecMsg cabecMsg = new NfeCabecMsg ();
-		cabecMsg.setCUF(regionCode);
-		cabecMsg.setVersaoDados(NFeUtil.VERSAO_LAYOUT);
-
-		NfeCabecMsgE cabecMsgE = new NfeCabecMsgE ();
-		cabecMsgE.setNfeCabecMsg(cabecMsg);
-
-		//	Inicializa o Certificado
-		MLBRDigitalCertificate.setCertificate (ctx, p_AD_Org_ID);
+		if (NFeUtil.REGION_CODE_BA.equals(regionCode))
+		{
+			//	Mensagem
+			br.inf.portalfiscal.www.nfe.wsdl.nfeinutilizacao.NfeDadosMsg dadosMsg = br.inf.portalfiscal.www.nfe.wsdl.nfeinutilizacao.NfeDadosMsg.Factory.parse (XMLInputFactory.newInstance().createXMLStreamReader(xml));
 			
-		//	Recupera a URL de Transmissão
-		String serviceType = null;
-		if (MLBRNotaFiscal.LBR_NFMODEL_NotaFiscalEletrônica.equals(nfModel))
-			serviceType = MLBRNFeWebService.INUTILIZACAO;		
-		else if (MLBRNotaFiscal.LBR_NFMODEL_NotaFiscalDeConsumidorEletrônica.equals(nfModel))
-			serviceType = MLBRNFeWebService.NFCE_INUTILIZACAO;
-		
-		String url = MLBRNFeWebService.getURL (serviceType, p_LBR_EnvType, NFeUtil.VERSAO_LAYOUT, oi.getC_Location().getC_Region_ID());
-		
-		NfeInutilizacao2Stub stub = new NfeInutilizacao2Stub(url);
-
-		//	Faz a chamada
-		OMElement nfeStatusServicoNF2 = stub.nfeInutilizacaoNF2(dadosMsg.getExtraElement(), cabecMsgE);
-		String respStatus = nfeStatusServicoNF2.toString();
+			//	Cabeçalho
+			br.inf.portalfiscal.www.nfe.wsdl.nfeinutilizacao.NfeCabecMsg cabecMsg = new br.inf.portalfiscal.www.nfe.wsdl.nfeinutilizacao.NfeCabecMsg ();
+			cabecMsg.setCUF(regionCode);
+			cabecMsg.setVersaoDados(NFeUtil.VERSAO_LAYOUT);
+	
+			br.inf.portalfiscal.www.nfe.wsdl.nfeinutilizacao.NfeCabecMsgE cabecMsgE = new br.inf.portalfiscal.www.nfe.wsdl.nfeinutilizacao.NfeCabecMsgE ();
+			cabecMsgE.setNfeCabecMsg(cabecMsg);
+	
+			//	Inicializa o Certificado
+			MLBRDigitalCertificate.setCertificate (ctx, p_AD_Org_ID);
+				
+			//	Recupera a URL de Transmissão
+			String serviceType = null;
+			if (MLBRNotaFiscal.LBR_NFMODEL_NotaFiscalEletrônica.equals(nfModel))
+				serviceType = MLBRNFeWebService.INUTILIZACAO;		
+			else if (MLBRNotaFiscal.LBR_NFMODEL_NotaFiscalDeConsumidorEletrônica.equals(nfModel))
+				serviceType = MLBRNFeWebService.NFCE_INUTILIZACAO;
+			
+			String url = MLBRNFeWebService.getURL (serviceType, p_LBR_EnvType, NFeUtil.VERSAO_LAYOUT, oi.getC_Location().getC_Region_ID());
+			
+			NfeInutilizacaoStub stub = new NfeInutilizacaoStub(url);
+	
+			//	Faz a chamada
+			OMElement nfeStatusServicoNF2 = stub.nfeInutilizacaoNF(dadosMsg.getExtraElement(), cabecMsgE);
+			respStatus = nfeStatusServicoNF2.toString();
+		}
+		else
+		{
+			//	Mensagem
+			br.inf.portalfiscal.www.nfe.wsdl.nfeinutilizacao2.NfeDadosMsg dadosMsg = br.inf.portalfiscal.www.nfe.wsdl.nfeinutilizacao2.NfeDadosMsg.Factory.parse (XMLInputFactory.newInstance().createXMLStreamReader(xml));
+			
+			//	Cabeçalho
+			br.inf.portalfiscal.www.nfe.wsdl.nfeinutilizacao2.NfeCabecMsg cabecMsg = new br.inf.portalfiscal.www.nfe.wsdl.nfeinutilizacao2.NfeCabecMsg ();
+			cabecMsg.setCUF(regionCode);
+			cabecMsg.setVersaoDados(NFeUtil.VERSAO_LAYOUT);
+	
+			br.inf.portalfiscal.www.nfe.wsdl.nfeinutilizacao2.NfeCabecMsgE cabecMsgE = new br.inf.portalfiscal.www.nfe.wsdl.nfeinutilizacao2.NfeCabecMsgE ();
+			cabecMsgE.setNfeCabecMsg(cabecMsg);
+	
+			//	Inicializa o Certificado
+			MLBRDigitalCertificate.setCertificate (ctx, p_AD_Org_ID);
+				
+			//	Recupera a URL de Transmissão
+			String serviceType = null;
+			if (MLBRNotaFiscal.LBR_NFMODEL_NotaFiscalEletrônica.equals(nfModel))
+				serviceType = MLBRNFeWebService.INUTILIZACAO;		
+			else if (MLBRNotaFiscal.LBR_NFMODEL_NotaFiscalDeConsumidorEletrônica.equals(nfModel))
+				serviceType = MLBRNFeWebService.NFCE_INUTILIZACAO;
+			
+			String url = MLBRNFeWebService.getURL (serviceType, p_LBR_EnvType, NFeUtil.VERSAO_LAYOUT, oi.getC_Location().getC_Region_ID());
+			
+			NfeInutilizacao2Stub stub = new NfeInutilizacao2Stub(url);
+	
+			//	Faz a chamada
+			OMElement nfeStatusServicoNF2 = stub.nfeInutilizacaoNF2(dadosMsg.getExtraElement(), cabecMsgE);
+			respStatus = nfeStatusServicoNF2.toString();
+		}
 		
 		//	Processa o retorno
 		br.inf.portalfiscal.nfe.v310.TRetInutNFe.InfInut retInutNFe = RetInutNFeDocument.Factory.parse (respStatus).getRetInutNFe().getInfInut();

@@ -16,6 +16,7 @@ import org.adempierelbr.model.MLBRNFSkipped;
 import org.adempierelbr.model.MLBRNFeWebService;
 import org.adempierelbr.model.MLBRNotaFiscal;
 import org.adempierelbr.nfe.api.NfeInutilizacao2Stub;
+import org.adempierelbr.nfe.api.NfeInutilizacaoStub;
 import org.adempierelbr.util.BPartnerUtil;
 import org.adempierelbr.util.NFeUtil;
 import org.adempierelbr.util.SignatureUtil;
@@ -40,9 +41,6 @@ import br.inf.portalfiscal.nfe.v310.TAmb;
 import br.inf.portalfiscal.nfe.v310.TCodUfIBGE;
 import br.inf.portalfiscal.nfe.v310.TInutNFe;
 import br.inf.portalfiscal.nfe.v310.TMod;
-import br.inf.portalfiscal.www.nfe.wsdl.nfeinutilizacao2.NfeCabecMsg;
-import br.inf.portalfiscal.www.nfe.wsdl.nfeinutilizacao2.NfeCabecMsgE;
-import br.inf.portalfiscal.www.nfe.wsdl.nfeinutilizacao2.NfeDadosMsg;
 
 /**
  * 		Inutiliza uma NF ou uma Sequência de NF
@@ -265,26 +263,52 @@ public class ProcInutNF extends SvrProcess
 		
 		else
 		{
-			//	Mensagem
-			NfeDadosMsg dadosMsg = NfeDadosMsg.Factory.parse (XMLInputFactory.newInstance().createXMLStreamReader(xml));
-			
-			//	Cabeçalho
-			NfeCabecMsg cabecMsg = new NfeCabecMsg ();
-			cabecMsg.setCUF(regionCode);
-			cabecMsg.setVersaoDados(NFeUtil.VERSAO_LAYOUT);
-
-			NfeCabecMsgE cabecMsgE = new NfeCabecMsgE ();
-			cabecMsgE.setNfeCabecMsg(cabecMsg);
-
-			//	Inicializa o Certificado
-			MLBRDigitalCertificate.setCertificate (ctx, p_AD_Org_ID);
-			
-			//	Recupera a URL de Transmissão
-			NfeInutilizacao2Stub stub = new NfeInutilizacao2Stub(url);
-
-			//	Faz a chamada
-			OMElement nfeStatusServicoNF2 = stub.nfeInutilizacaoNF2(dadosMsg.getExtraElement(), cabecMsgE);
-			respStatus.append(nfeStatusServicoNF2.toString());
+			if (NFeUtil.REGION_CODE_BA.equals(regionCode))
+			{
+				//	Mensagem
+				br.inf.portalfiscal.www.nfe.wsdl.nfeinutilizacao.NfeDadosMsg dadosMsg = br.inf.portalfiscal.www.nfe.wsdl.nfeinutilizacao.NfeDadosMsg.Factory.parse (XMLInputFactory.newInstance().createXMLStreamReader(xml));
+				
+				//	Cabeçalho
+				br.inf.portalfiscal.www.nfe.wsdl.nfeinutilizacao.NfeCabecMsg cabecMsg = new br.inf.portalfiscal.www.nfe.wsdl.nfeinutilizacao.NfeCabecMsg ();
+				cabecMsg.setCUF(regionCode);
+				cabecMsg.setVersaoDados(NFeUtil.VERSAO_LAYOUT);
+	
+				br.inf.portalfiscal.www.nfe.wsdl.nfeinutilizacao.NfeCabecMsgE cabecMsgE = new br.inf.portalfiscal.www.nfe.wsdl.nfeinutilizacao.NfeCabecMsgE ();
+				cabecMsgE.setNfeCabecMsg(cabecMsg);
+	
+				//	Inicializa o Certificado
+				MLBRDigitalCertificate.setCertificate (ctx, p_AD_Org_ID);
+				
+				//	Recupera a URL de Transmissão
+				NfeInutilizacaoStub stub = new NfeInutilizacaoStub(url);
+	
+				//	Faz a chamada
+				OMElement nfeStatusServicoNF2 = stub.nfeInutilizacaoNF(dadosMsg.getExtraElement(), cabecMsgE);
+				respStatus.append(nfeStatusServicoNF2.toString());
+			}
+			else
+			{
+				//	Mensagem
+				br.inf.portalfiscal.www.nfe.wsdl.nfeinutilizacao2.NfeDadosMsg dadosMsg = br.inf.portalfiscal.www.nfe.wsdl.nfeinutilizacao2.NfeDadosMsg.Factory.parse (XMLInputFactory.newInstance().createXMLStreamReader(xml));
+				
+				//	Cabeçalho
+				br.inf.portalfiscal.www.nfe.wsdl.nfeinutilizacao2.NfeCabecMsg cabecMsg = new br.inf.portalfiscal.www.nfe.wsdl.nfeinutilizacao2.NfeCabecMsg ();
+				cabecMsg.setCUF(regionCode);
+				cabecMsg.setVersaoDados(NFeUtil.VERSAO_LAYOUT);
+	
+				br.inf.portalfiscal.www.nfe.wsdl.nfeinutilizacao2.NfeCabecMsgE cabecMsgE = new br.inf.portalfiscal.www.nfe.wsdl.nfeinutilizacao2.NfeCabecMsgE ();
+				cabecMsgE.setNfeCabecMsg(cabecMsg);
+	
+				//	Inicializa o Certificado
+				MLBRDigitalCertificate.setCertificate (ctx, p_AD_Org_ID);
+				
+				//	Recupera a URL de Transmissão
+				NfeInutilizacao2Stub stub = new NfeInutilizacao2Stub(url);
+	
+				//	Faz a chamada
+				OMElement nfeStatusServicoNF2 = stub.nfeInutilizacaoNF2(dadosMsg.getExtraElement(), cabecMsgE);
+				respStatus.append(nfeStatusServicoNF2.toString());
+			}
 		}
 		
 		//	Processa o retorno
