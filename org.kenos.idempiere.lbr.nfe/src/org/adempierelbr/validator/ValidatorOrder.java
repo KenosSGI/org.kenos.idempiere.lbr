@@ -34,6 +34,7 @@ import org.compiere.model.MInvoiceLine;
 import org.compiere.model.MOrder;
 import org.compiere.model.MOrderLine;
 import org.compiere.model.MStorageOnHand;
+import org.compiere.model.MSysConfig;
 import org.compiere.model.MWarehouse;
 import org.compiere.model.ModelValidationEngine;
 import org.compiere.model.ModelValidator;
@@ -250,7 +251,8 @@ public class ValidatorOrder implements ModelValidator
 					}
 				}
 			}	//	After Complete
-			if (timing == TIMING_BEFORE_REACTIVATE)
+			
+			else if (timing == TIMING_BEFORE_REACTIVATE)
 			{
 				MDocType dt = MDocType.get (ctx, order.getC_DocTypeTarget_ID());
 				I_W_C_DocType dtW = POWrapper.create(dt, I_W_C_DocType.class); 
@@ -275,6 +277,27 @@ public class ValidatorOrder implements ModelValidator
 							(dtW.islbr_IsAutomaticInvoice()	&& validInvoice))
 							return "Impossível Reativar - Estorne Fatura e/ou Remessa Gerada Automáticamente";
 				}		
+			}
+			
+			/**
+			 * Não Anular Pedido com Fatura ou Remessa Válida
+			 */
+			else if (timing == TIMING_BEFORE_VOID &&
+					!MSysConfig.getBooleanValue("LBR_ALLOW_VOID_ORDER_WITH_INVOICE_SHIPMENT", false, order.getAD_Client_ID()))
+			{
+				// Verify if exist a Valid Shipment
+				Boolean validShipment = new Query(Env.getCtx(), MInOut.Table_Name, "C_Order_ID = ? AND DocStatus IN ('CO', 'CL')", null)
+										.setParameters(order.getC_Order_ID())
+										.count() > 0;
+				
+				// Verify if exist a Valid Invoice				
+				Boolean validInvoice = new Query(Env.getCtx(), MInvoice.Table_Name, "C_Order_ID = ? AND DocStatus IN ('CO', 'CL')", null)
+						.setParameters(order.getC_Order_ID())
+						.count() > 0;
+						
+				//	Shipment / Invoice Generated Automaticly
+				if (validShipment || validInvoice)
+						return "Impossível Anular se houver Fatura ou Remessa Válida";
 			}
 		}
 		//
