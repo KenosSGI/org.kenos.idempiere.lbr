@@ -149,6 +149,12 @@ public class ValidatorOrder implements ModelValidator
 		if (type == TYPE_BEFORE_NEW)
 		{
 			//	TODO
+			
+			//	Validar Conversão de Unidada de Medida na Linha do Pedido
+			if (MSysConfig.getBooleanValue("LBR_VALIDATE_UOM_CONVERT_ON_ORDERLINE",false,oLine.getAD_Client_ID()) &&
+					oLine.getProduct().getC_UOM_ID() != oLine.getC_UOM_ID() && 
+					!oLine.getQtyEntered().multiply(oLine.getPriceEntered()).equals(oLine.getQtyOrdered().multiply(oLine.getPriceActual())))				
+				return "Problema ao fazer a conversão de Unidade de Medida. Valor Calculado difere do Valor de Entrada";
 		}
 
 		/**
