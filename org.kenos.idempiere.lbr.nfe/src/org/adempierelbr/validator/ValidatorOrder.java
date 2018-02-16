@@ -165,6 +165,21 @@ public class ValidatorOrder implements ModelValidator
 			MLBRTax tax = new MLBRTax (Env.getCtx(), oLineW.getLBR_Tax_ID(), oLine.get_TrxName());
 			tax.delete (true, oLine.get_TrxName());
 		}
+		
+		/**
+		 * Comparar Quantidade do Pedido a Quantidade Entregue / Faturada antes da alteração
+		 */
+		else if (type == TYPE_BEFORE_CHANGE)
+		{
+			//	Não permitir Alteração na Quantidade do Pedido se a mesma for Menor que a 
+			//	Quantidade já Entregue ou já Faturada
+			if (oLine.getQtyDelivered().intValue() > 0 || oLine.getQtyInvoiced().intValue() > 0)
+			{
+				if (oLine.getQtyOrdered().compareTo(oLine.getQtyDelivered()) == -1 ||
+						oLine.getQtyOrdered().compareTo(oLine.getQtyInvoiced()) == -1)
+						return "Quantidade do Pedido não pode ser Menor que a Quantidade Já Entregue ou Fatura";
+			}	
+		}
 
 		return null;
 	}	//	modelChange
