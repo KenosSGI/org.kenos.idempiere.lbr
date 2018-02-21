@@ -14,7 +14,8 @@ Service-Component: OSGI-INF/DisplayTypeFactory.xml,
  OSGI-INF/ProcessFactory.xml,
  OSGI-INF/CalloutFactory.xml,
  OSGI-INF/ModelValidatorFactory.xml,
- OSGI-INF/TaxProviderFactory.xml
+ OSGI-INF/TaxProviderFactory.xml,
+ OSGI-INF/DocAcctFactory.xml
 Export-Package: org.adempierelbr.model,
  org.adempierelbr.validator,
  org.kenos.idempiere.lbr.tax.ibpt,
