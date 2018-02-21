@@ -326,6 +326,7 @@ public class WPayment extends Payment
 		else if (e.getTarget() == bGenerate)
 		{
 			generatePaySelect();
+			loadTableInfo();
 		}
 
 		else if (e.getTarget() == bCancel)
