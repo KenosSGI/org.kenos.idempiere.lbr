@@ -29,7 +29,7 @@ public final class DocTax
 	 * 	@param salesTax sales tax flag
 	 */
 	public DocTax (int C_Tax_ID, String name, BigDecimal rate, 
-		BigDecimal taxBaseAmt, BigDecimal amount, boolean salesTax, boolean includedTax)
+		BigDecimal taxBaseAmt, BigDecimal amount, boolean salesTax, boolean includedTax, boolean taxRecoverable)
 	{
 		m_C_Tax_ID = C_Tax_ID;
 		m_name = name;
@@ -38,6 +38,7 @@ public final class DocTax
 		m_amount = amount;
 		m_includedTax = includedTax;
 		m_salesTax = salesTax;
+		m_taxRecoverable = taxRecoverable;
 	}	//	DocTax
 
 	/** Tax ID              */
@@ -54,6 +55,8 @@ public final class DocTax
 	private boolean		m_includedTax = true;
 	/** Sales Tax			*/
 	private boolean		m_salesTax = false;
+	/** Recoverable Tax		*/
+	private boolean		m_taxRecoverable = true;
 	
 	/**	Logger			*/
 	private static CLogger log = CLogger.getCLogger(DocTax.class);
@@ -186,6 +189,15 @@ public final class DocTax
 	{
 		return m_includedTax;
 	}	//	isIncludedTax
+
+	/**
+	 * 	Is Recoverable Tax
+	 *	@return recoverable tax
+	 */
+	public boolean isRecoverableTax()
+	{
+		return m_taxRecoverable;
+	}	//	isRecoverableTax
 	
 	/**
 	 *	Return String representation

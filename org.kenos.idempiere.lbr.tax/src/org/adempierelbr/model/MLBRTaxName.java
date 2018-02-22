@@ -26,6 +26,10 @@ public class MLBRTaxName extends X_LBR_TaxName
 	private static final long serialVersionUID = -3454360861235382468L;
 
 	public static final int TAX_ICMSPROD 	= 1106000;
+	public static final int TAX_PISPROD 	= 1106001;
+	public static final int TAX_COFINSPROD 	= 1106002;
+	public static final int TAX_IPI 		= 1106003;
+	public static final int TAX_II 			= 1106004;
 	public static final int TAX_ICMSST 		= 1106012;
 	public static final int TAX_DIFAL 		= 1120002;
 	public static final int TAX_DIFALORIGEM	= 1120001;

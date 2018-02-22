@@ -19,6 +19,8 @@ public class ModelFactory implements IModelFactory
 	{
 		if (MCommissionAmt.Table_Name.equals(tableName))
 			return MCommissionAmt.class;
+		if (MTaxConfigAcct.Table_Name.equals(tableName))
+			return MTaxConfigAcct.class;
 		return null;
 	}	//	getClass
 
@@ -27,6 +29,8 @@ public class ModelFactory implements IModelFactory
 	{
 		if (MCommissionAmt.Table_Name.equals(tableName))
 			return new MCommissionAmt (Env.getCtx(), Record_ID, trxName);
+		if (MTaxConfigAcct.Table_Name.equals(tableName))
+			return new MTaxConfigAcct (Env.getCtx(), Record_ID, trxName);
 		return null;
 	}	//	getPO
 
@@ -35,6 +39,8 @@ public class ModelFactory implements IModelFactory
 	{
 		if (MCommissionAmt.Table_Name.equals(tableName))
 			return new MCommissionAmt (Env.getCtx(), rs, trxName);
+		if (MTaxConfigAcct.Table_Name.equals(tableName))
+			return new MTaxConfigAcct (Env.getCtx(), rs, trxName);
 		return null;
 	}	//	getPO
 }	//	ModelFactory

@@ -29,6 +29,7 @@ import java.util.Map;
 import java.util.logging.Level;
 
 import org.adempiere.exceptions.AverageCostingZeroQtyException;
+import org.adempierelbr.model.MLBRTaxName;
 import org.compiere.acct.Doc;
 import org.compiere.acct.DocLine;
 import org.compiere.acct.Fact;
@@ -49,6 +50,7 @@ import org.compiere.model.X_M_Cost;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.compiere.util.Trx;
+import org.kenos.idempiere.lbr.tax.model.MTaxConfigAcct;
 
 /**
  *  Post Invoice Documents.
@@ -113,13 +115,16 @@ public class Doc_Invoice extends Doc
 	{
 		Map<Integer, List<DocTax>> map = new HashMap<Integer, List<DocTax>>();
 		String sql = "SELECT (SELECT MAX(C_Tax_ID) FROM C_Tax t WHERE t.Parent_Tax_ID=il.C_Tax_ID AND t.LBR_TaxName_ID=tl.LBR_TaxName_ID) AS C_Tax_ID, "
-				+ "il.C_InvoiceLine_ID, tn.Name, tl.LBR_TaxRate AS Rate, tl.LBR_TaxBaseAmt AS TaxBaseAmt, tl.LBR_TaxAmt AS TaxAmt, i.IsSOTrx AS IsSalesTax, tl.IsTaxIncluded "
+				+ "il.C_InvoiceLine_ID, tn.Name, tl.LBR_TaxRate AS Rate, tl.LBR_TaxBaseAmt AS TaxBaseAmt, tl.LBR_TaxAmt AS TaxAmt, "
+				+ "i.IsSOTrx AS IsSalesTax, tl.IsTaxIncluded, tl.LBR_TaxName_ID "
 				+ "FROM C_InvoiceLine il, C_Invoice i, LBR_TaxLine tl, LBR_TaxName tn "
 				+ "WHERE il.C_Invoice_ID=? AND il.LBR_Tax_ID=tl.LBR_Tax_ID AND tn.LBR_TaxName_ID=tl.LBR_TaxName_ID AND i.C_Invoice_ID=il.C_Invoice_ID";
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try
 		{
+			Map<Integer, MTaxConfigAcct> cache = new HashMap<Integer, MTaxConfigAcct>();
+			//
 			pstmt = DB.prepareStatement(sql, getTrxName());
 			pstmt.setInt(1, get_ID());
 			rs = pstmt.executeQuery();
@@ -128,6 +133,17 @@ public class Doc_Invoice extends Doc
 			{
 				int C_Tax_ID = rs.getInt("C_Tax_ID");
 				int C_InvoiceLine_ID = rs.getInt("C_InvoiceLine_ID");
+				int LBR_TaxName_ID = rs.getInt("LBR_TaxName_ID");
+				//
+				if (C_Tax_ID <= 0)
+					continue;
+				
+				//	Put in cache, even null
+				if (!cache.containsKey(C_InvoiceLine_ID))
+					cache.put (C_InvoiceLine_ID, MTaxConfigAcct.get (C_InvoiceLine_ID));
+				
+				MTaxConfigAcct config = cache.get (C_InvoiceLine_ID);
+				
 				String name = rs.getString("Name");
 				BigDecimal rate = rs.getBigDecimal("Rate");
 				BigDecimal taxBaseAmt = rs.getBigDecimal("TaxBaseAmt");
@@ -135,8 +151,32 @@ public class Doc_Invoice extends Doc
 				boolean salesTax = "Y".equals(rs.getString("IsSalesTax"));
 				boolean taxIncluded = "Y".equals(rs.getString("IsTaxIncluded"));
 				//
+				boolean taxRecoverable = true;
+				if (config != null)
+				{
+					if (MLBRTaxName.TAX_PISPROD == LBR_TaxName_ID 
+							&& MTaxConfigAcct.LBR_RECOVERABLEPIS_No.equals (config.getLBR_RecoverablePIS()))
+						taxRecoverable = false;
+					
+					else if (MLBRTaxName.TAX_COFINSPROD == LBR_TaxName_ID 
+						&& MTaxConfigAcct.LBR_RECOVERABLECOFINS_No.equals (config.getLBR_RecoverableCOFINS()))
+						taxRecoverable = false;
+					
+					else if (MLBRTaxName.TAX_ICMSPROD == LBR_TaxName_ID 
+						&& MTaxConfigAcct.LBR_RECOVERABLEICMS_No.equals (config.getLBR_RecoverableICMS()))
+						taxRecoverable = false;
+					
+					else if (MLBRTaxName.TAX_ICMSST == LBR_TaxName_ID 
+						&& MTaxConfigAcct.LBR_RECOVERABLEICMSST_No.equals (config.getLBR_RecoverableICMSST()))
+						taxRecoverable = false;
+					
+					else if (MLBRTaxName.TAX_IPI == LBR_TaxName_ID 
+						&& MTaxConfigAcct.LBR_RECOVERABLEIPI_No.equals (config.getLBR_RecoverableIPI()))
+						taxRecoverable = false;
+				}
+				
 				DocTax taxLine = new DocTax(C_Tax_ID, name, rate,
-					taxBaseAmt, amount, salesTax, taxIncluded);
+					taxBaseAmt, amount, salesTax, taxIncluded, taxRecoverable);
 				if (log.isLoggable(Level.FINE)) log.fine(taxLine.toString());
 				
 				List<DocTax> list = null;
@@ -494,12 +534,15 @@ public class Doc_Invoice extends Doc
 					//  TaxDue                  CR
 					for (DocTax dt : m_taxes.get(p_lines[i].get_ID()))
 					{
-						if (dt.isIncludedTax())
+						if (dt.isIncludedTax() && dt.isRecoverableTax())
 							includedTax = includedTax.add(dt.getAmount());
-						FactLine tl = fact.createLine(null, dt.getAccount(dt.getAPTaxType(), as),
-							getC_Currency_ID(), dt.getAmount(), null);
-						if (tl != null)
-							tl.setC_Tax_ID(dt.getC_Tax_ID());
+						if (dt.isRecoverableTax())
+						{
+							FactLine tl = fact.createLine(null, dt.getAccount(dt.getAPTaxType(), as),
+								getC_Currency_ID(), dt.getAmount(), null);
+							if (tl != null)
+								tl.setC_Tax_ID(dt.getC_Tax_ID());
+						}
 					}
 				}
 				
