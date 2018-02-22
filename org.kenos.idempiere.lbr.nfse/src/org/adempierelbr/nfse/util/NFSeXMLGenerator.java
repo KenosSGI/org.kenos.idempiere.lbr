@@ -18,6 +18,7 @@ import java.util.Calendar;
 import java.util.Properties;
 import java.util.logging.Level;
 
+import org.adempiere.model.POWrapper;
 import org.adempierelbr.model.MLBRNotaFiscal;
 import org.adempierelbr.model.MLBRNotaFiscalLine;
 import org.adempierelbr.model.X_LBR_NFTax;
@@ -26,6 +27,7 @@ import org.adempierelbr.util.BPartnerUtil;
 import org.adempierelbr.util.NFeUtil;
 import org.adempierelbr.util.SignatureUtil;
 import org.adempierelbr.util.TextUtil;
+import org.adempierelbr.wrapper.I_W_C_BPartner;
 import org.apache.xmlbeans.XmlCalendar;
 import org.compiere.Adempiere;
 import org.compiere.model.MBPartner;
@@ -119,6 +121,7 @@ public class NFSeXMLGenerator
 		MDocType dt = new MDocType (ctx, nf.getC_DocTypeTarget_ID(), trxName);
 		MLBRNotaFiscalLine[] nfLines = nf.getLines ();
 		MBPartner bp = new MBPartner (Env.getCtx(), nf.getC_BPartner_ID(), trxName);
+		I_W_C_BPartner bpW = POWrapper.create(bp, I_W_C_BPartner.class);
 		//
 		MBPartnerLocation bpartLoc = new MBPartnerLocation(ctx, nf.getC_BPartner_Location_ID(), trxName);
 		MLocation bpLoc = bpartLoc.getLocation(false);
@@ -179,7 +182,7 @@ public class NFSeXMLGenerator
 		//
 		TpCPFCNPJ tpCPFCNPJ = tpRPS.addNewCPFCNPJTomador();
 		//
-		if (MLBRNotaFiscal.LBR_BPTYPEBR_PF_Individual.equals(BPartnerUtil.getBPTypeBR (bp)))
+		if (MLBRNotaFiscal.LBR_BPTYPEBR_PF_Individual.equals(bpW.getlbr_BPTypeBR()))
 			tpCPFCNPJ.setCPF(TextUtil.toNumeric (nf.getlbr_BPCNPJ()));
 		else
 			tpCPFCNPJ.setCNPJ(TextUtil.toNumeric (nf.getlbr_BPCNPJ()));
