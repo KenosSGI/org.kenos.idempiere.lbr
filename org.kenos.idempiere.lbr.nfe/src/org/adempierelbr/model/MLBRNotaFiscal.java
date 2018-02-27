@@ -23,6 +23,7 @@ import java.text.DecimalFormat;
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -824,6 +825,12 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 			nfeProc.setVersao(NFeUtil.VERSAO_LAYOUT);
 			nfeProc.setNFe(nfe.getNFe());
 			nfeProc.setProtNFe(protNFe);
+			
+			//	Inclusão de Name Space
+			String xmlText = nfeProcDoc.xmlText (NFeUtil.getXmlOpt());
+			List<String> config = Arrays.asList (MSysConfig.getValue ("LBR_INCLUDE_XMLNS_NFE", "NONE", nf.getAD_Client_ID()).split(","));
+			if (config.contains("ALL") || config.contains(nf.getlbr_BPCNPJ()))
+				xmlText = xmlText.replaceAll ("<NFe>", "<NFe xmlns=\"http://www.portalfiscal.inf.br/nfe\">");
 			
 			//	Atualiza o anexo
 			attachment.addEntry(nf.getlbr_NFeID() + "-dst.xml", nfeProcDoc.xmlText(NFeUtil.getXmlOpt()).getBytes(NFeUtil.NFE_ENCODING));
