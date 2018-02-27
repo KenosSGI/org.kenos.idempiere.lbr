@@ -1418,6 +1418,8 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		//	Entrega
 //		setShipmentBPartner(invoice);
 		
+		setDeliveryViaRule(MLBRNotaFiscal.DELIVERYVIARULE_Delivery);
+		
 		//  Description
 		setDescription();
 		
@@ -1446,7 +1448,7 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		//	Documents
 		int p_LBR_CFOP_ID	 	= 0;
 		int p_LBR_Tax_ID 		= 0;
-		int p_M_CostElement_ID 	= 100;
+		int p_M_CostElement_ID 	= 2000000;
 		
 		int p_POG_ID = move.get_ValueAsInt(MLBRProductionGroup.COLUMNNAME_LBR_ProductionGroup_ID);
 		if (p_POG_ID > 0)
@@ -1544,9 +1546,8 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		setlbr_NFModel(MLBRNotaFiscal.LBR_NFMODEL_NotaFiscalEletrônica);
 		
 		//	Documents
-		int p_LBR_CFOP_ID	 	= pg.getLBR_CFOP_ID();
 		int p_LBR_Tax_ID 		= pg.getLBR_Tax_ID();
-		int p_M_CostElement_ID 	= 100;
+		int p_M_CostElement_ID 	= 2000000;
 		
 		//	Linhas
 		for (MProduction prd : productions)
@@ -1575,6 +1576,9 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 				nfLine.setLBR_OtherChargesAmt(Env.ZERO);
 				
 				nfLine.setC_UOM_ID (p.getC_UOM_ID());
+				
+				int p_LBR_CFOP_ID = line.get_ValueAsInt("LBR_CFOP_ID");
+				
 				nfLine.setLBR_CFOP_ID (p_LBR_CFOP_ID);
 				
 				//	Número de Série
@@ -1606,16 +1610,24 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 					}
 				}
 				
-				//	Valores
-				nfLine.setQty (line.getMovementQty());
+				//	Quantidade não pode ser negativa
+				nfLine.setQty ((line.getMovementQty().signum() > 0 ? line.getMovementQty() : line.getMovementQty().negate()));
 				
 				//	Cost
 				MAcctSchema as = MClient.get (line.getCtx ()).getAcctSchema();
-				MCost mCost = MCost.get (p, line.getM_AttributeSetInstance_ID(), as, line.getAD_Org_ID(), p_M_CostElement_ID, line.get_TrxName());
+				MCost mCost = null;
 				BigDecimal costPrice = Env.ZERO;
 				
-				if (mCost != null)
+				mCost = MCost.get (p, line.getM_AttributeSetInstance_ID(), as, line.getAD_Org_ID(), p_M_CostElement_ID, line.get_TrxName());
+				
+				if (mCost != null && mCost.getCurrentCostPrice().compareTo(BigDecimal.ZERO) > 0)
 					costPrice = mCost.getCurrentCostPrice();
+				else
+				{
+					//	Buscar da Organização * se não houver Custo na Organização
+					mCost = MCost.get (p, line.getM_AttributeSetInstance_ID(), as, 0, p_M_CostElement_ID, line.get_TrxName());
+					costPrice = mCost.getCurrentCostPrice();
+				}
 				
 				//	Cost Price
 				nfLine.setPrice(MLBRNotaFiscal.CURRENCY_BRL, costPrice, costPrice , false, false);				

@@ -600,11 +600,20 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 		
 		//	Cost
 		MAcctSchema as = MClient.get (line.getCtx ()).getAcctSchema();
-		MCost mCost = MCost.get (line.getProduct(), line.getM_AttributeSetInstance_ID(), as, line.getAD_Org_ID(), p_M_CostElement_ID, line.get_TrxName());
+		MCost mCost = null;
 		BigDecimal costPrice = Env.ZERO;
 		
-		if (mCost != null)
+		mCost = MCost.get (line.getProduct(), line.getM_AttributeSetInstance_ID(), as, line.getAD_Org_ID(), p_M_CostElement_ID, line.get_TrxName());
+		
+		if (mCost != null && mCost.getCurrentCostPrice().compareTo(BigDecimal.ZERO) > 0)
 			costPrice = mCost.getCurrentCostPrice();
+		else
+		{
+			//	Buscar da Organização * se não houver Custo na Organização
+			mCost = MCost.get (line.getProduct(), line.getM_AttributeSetInstance_ID(), as, 0, p_M_CostElement_ID, line.get_TrxName());
+			costPrice = mCost.getCurrentCostPrice();
+		}
+			
 		
 		//	Cost Price
 		setPrice(MLBRNotaFiscal.CURRENCY_BRL, costPrice, costPrice , false, false);
