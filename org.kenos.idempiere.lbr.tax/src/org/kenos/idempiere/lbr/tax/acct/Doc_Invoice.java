@@ -536,6 +536,8 @@ public class Doc_Invoice extends Doc
 					{
 						if (dt.isIncludedTax() && dt.isRecoverableTax())
 							includedTax = includedTax.add(dt.getAmount());
+						else if (!dt.isIncludedTax() && !dt.isRecoverableTax())
+							includedTax = includedTax.add(dt.getAmount().negate());
 						if (dt.isRecoverableTax())
 						{
 							FactLine tl = fact.createLine(null, dt.getAccount(dt.getAPTaxType(), as),
