@@ -95,13 +95,14 @@ public class ProcAvgCostCreate extends SvrProcess
 		{
 			sql = "SELECT DISTINCT p.M_Product_ID, QtyOnDate(p.M_Product_ID, "+DB.TO_DATE(period.getStartDate())+"), " +
 						 "c.CurrentCostPrice, " +
-						 "SUM(il.PriceEntered*il.QtyEntered), SUM(il.QtyEntered) " +
+						 "SUM(CASE WHEN f.AmtAcctDR<>0 THEN f.AmtAcctDR ELSE il.PriceEntered*il.QtyEntered END), " +
+						 "SUM(il.QtyEntered) " +
 					"FROM C_Invoice i " +
 						 "INNER JOIN C_InvoiceLine il ON i.C_Invoice_ID = il.C_Invoice_ID " +
 						 "INNER JOIN C_DocType dt ON dt.C_DocType_ID=i.C_DocTypeTarget_ID " +
 						 "INNER JOIN M_Product p ON p.M_Product_ID = il.M_Product_ID " +
-						 "INNER JOIN M_Cost c ON (c.M_Product_ID = il.M_Product_ID AND " +
-						 "c.M_CostElement_ID = ?) " +
+						 "INNER JOIN M_Cost c ON (c.M_Product_ID = il.M_Product_ID AND c.M_CostElement_ID = ?) " +
+						 "LEFT JOIN Fact_Acct f ON (f.Line_ID=il.C_InvoiceLine_ID AND f.AD_Table_ID=318 AND il.C_Tax_ID=f.C_Tax_ID) " +
 					"WHERE i.DocStatus IN ('CL', 'CO') " +
 						 "AND p.ProductType = 'I' " +
 						 "AND i.AD_Client_ID = ? " +
@@ -119,16 +120,18 @@ public class ProcAvgCostCreate extends SvrProcess
 		//	Fabricados
 		else if (costType.equals(MANUFACTURED))
 		{
-			sql = "SELECT pp.M_Product_ID, QtyOnDate(pp.M_Product_ID, " +
-					DB.TO_DATE(period.getStartDate()) + "), c.CurrentCostPrice AS CurrentCostPrice, " +
-					"SUM(ProductionQty) * c.CurrentCostPrice AS CumulatedAmt, SUM(ProductionQty) AS CumulatedQty " +
+			sql = "SELECT pr.M_Product_ID, QtyOnDate(pr.M_Product_ID, " +
+					DB.TO_DATE(period.getStartDate()) + "), cz.CurrentCostPrice AS CurrentCostPrice, " +
+					"SUM(CASE WHEN pl.IsEndProduct='N' THEN pl.QtyUsed*c.CurrentCostPrice ELSE pr.PriceEntered*pr.ProductionQty END) AS CumulatedAmt, " +
+					"SUM(CASE WHEN pl.IsEndProduct='Y' THEN pr.ProductionQty ELSE 0 END) AS CumulatedQty " +
 					"FROM M_Production pr " +
-						"INNER JOIN M_ProductionPlan pp ON pr.M_Production_ID=pp.M_Production_ID " +
-						"INNER JOIN M_Cost c ON (c.M_Product_ID=pp.M_Product_ID AND c.M_CostElement_ID=?) " +
+						"INNER JOIN M_ProductionLine pl ON (pl.M_Production_ID=pr.M_Production_ID) " +
+						"INNER JOIN M_Cost c ON (c.M_Product_ID=pl.M_Product_ID AND c.M_CostElement_ID=?) " +
+						"INNER JOIN M_Cost cz ON (cz.M_Product_ID=pr.M_Product_ID AND cz.M_CostElement_ID=c.M_CostElement_ID) " +
 					"WHERE pr.Processed='Y' " +
 						"AND pr.AD_Client_ID=? " +
 						"AND TRUNC(pr.MovementDate) BETWEEN "+DB.TO_DATE(period.getStartDate())+" AND "+DB.TO_DATE(period.getEndDate())+
-					"GROUP BY pp.M_Product_ID, c.CurrentCostPrice";
+					"GROUP BY pr.M_Product_ID, cz.CurrentCostPrice";
 		}
 		
 		PreparedStatement pstmt = null;
@@ -207,7 +210,7 @@ public class ProcAvgCostCreate extends SvrProcess
 				while (!allLevelsOK)
 				{
 					//	Caclula o custo baseado na BOM
-					DB.executeUpdateEx (!prodBased ? sqlProd : sqlBOM, params, trxName);
+					DB.executeUpdateEx (prodBased ? sqlProd : sqlBOM, params, trxName);
 					
 					//	Faz a conta do custo médio ponderado
 					DB.executeUpdateEx (sqlCalc, new Object[]{avgCost.getLBR_AverageCost_ID()}, trxName);
