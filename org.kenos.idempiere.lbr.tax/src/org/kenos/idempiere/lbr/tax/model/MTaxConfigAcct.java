@@ -52,7 +52,7 @@ public class MTaxConfigAcct extends X_LBR_TaxConfigAcct
 		int C_BPartner_ID	= i.getC_BPartner_ID();
 		int C_DocType_ID	= i.getC_DocType_ID();
 		int C_Region_ID 	= 0;
-		int LBR_BPartnerCategory_ID		= bp.get_ValueAsInt("LBR_BPartnerCategory_ID");
+		int LBR_BPartnerCategory_ID		= (i.isSOTrx() ? bp.get_ValueAsInt("LBR_CustomerCategory_ID") : bp.get_ValueAsInt("LBR_VendorCategory_ID"));
 		int LBR_FiscalGroup_BPartner_ID	= bp.get_ValueAsInt("LBR_FiscalGroup_BPartner_ID");
 		int LBR_FiscalGroup_Product_ID  = 0;
 		int LBR_NCM_ID 					= 0;
