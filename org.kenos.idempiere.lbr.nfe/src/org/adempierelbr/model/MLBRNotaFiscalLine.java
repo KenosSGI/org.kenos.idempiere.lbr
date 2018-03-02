@@ -31,6 +31,7 @@ import org.compiere.model.MCharge;
 import org.compiere.model.MClient;
 import org.compiere.model.MConversionRate;
 import org.compiere.model.MCost;
+import org.compiere.model.MInOutLine;
 import org.compiere.model.MInvoiceLine;
 import org.compiere.model.MMovementLine;
 import org.compiere.model.MOrderLine;
@@ -718,6 +719,57 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 			setPrice(oLine.getParent().getC_Currency_ID(), oLine.getPriceEntered(), oLine.getPriceList(), includeDIFAL, isFOB);
 		}
 	}	//	setOrderLine
+	
+	/**
+	 * 		Define os valores referentes a Linha da Remessa
+	 * 	
+	 * 	@param oLine
+	 */
+	public void setInOutLine (MInOutLine iLine, boolean isDescription)
+	{
+		I_W_C_OrderLine oLineW = POWrapper.create (new MOrderLine(Env.getCtx(), iLine.getC_OrderLine_ID(), get_TrxName()), I_W_C_OrderLine.class);
+		
+		setProduct (iLine.getProduct());
+		
+		if (!isDescription)
+		{
+			setC_UOM_ID(iLine.getC_UOM_ID());
+			setLBR_CFOP_ID(oLineW.getLBR_CFOP_ID());			
+			
+			//	Número de Série
+			if (iLine.getM_AttributeSetInstance_ID()>0 
+					&& iLine.getM_AttributeSetInstance().getSerNo() != null
+					&& (MSysConfig.getBooleanValue("LBR_PRINT_SERIALNUMBER_NF", true, getAD_Client_ID())))
+				appendDescription("Núm. de Série: " + iLine.getM_AttributeSetInstance().getSerNo());
+			
+			//		Impostos
+			MLBRTax tax = new MLBRTax (getCtx(), oLineW.getLBR_Tax_ID(), get_TrxName());
+					
+			for (MLBRTaxLine tl : tax.getLines())
+			{
+				int Child_Tax_ID = tl.getChild_Tax_ID (oLineW.getC_Tax_ID());
+				//
+				if (!tl.islbr_PostTax() || Child_Tax_ID < 1)
+					continue;
+				
+				I_W_C_Tax taxAD = POWrapper.create(new MTax (getCtx(), Child_Tax_ID, get_TrxName()), I_W_C_Tax.class);
+				
+				if (taxAD.getLBR_TaxGroup_ID() < 1)
+					continue;
+				
+				MLBRNFLineTax nfLineTax = new MLBRNFLineTax (this);
+				nfLineTax.setTaxes (tl);
+				nfLineTax.setLBR_TaxGroup_ID(taxAD.getLBR_TaxGroup_ID());
+				nfLineTax.save();
+			}
+			
+			//	Valores
+			setQty(iLine.getQtyEntered());
+			boolean includeDIFAL = MSysConfig.getBooleanValue("LBR_ADD_DIFAL_PROD", true, getAD_Client_ID(), getAD_Org_ID());
+			boolean isFOB = getParent().getC_Invoice_ID() > 0 ? !getParent().getC_Invoice().isTaxIncluded() : false;
+			setPrice(iLine.getParent().getC_Currency_ID(), oLineW.getPriceEntered(), oLineW.getPriceList(), includeDIFAL, isFOB);
+		}
+	}	//	setInOutLine
 
 	/**
 	 * 		Define os preços

@@ -57,6 +57,7 @@ import org.adempierelbr.wrapper.I_W_C_DocType;
 import org.adempierelbr.wrapper.I_W_C_Invoice;
 import org.adempierelbr.wrapper.I_W_C_Order;
 import org.adempierelbr.wrapper.I_W_C_Tax;
+import org.adempierelbr.wrapper.I_W_M_InOut;
 import org.adempierelbr.wrapper.I_W_M_Shipper;
 import org.apache.axiom.om.OMElement;
 import org.apache.xmlbeans.XmlException;
@@ -73,6 +74,7 @@ import org.compiere.model.MCost;
 import org.compiere.model.MCountry;
 import org.compiere.model.MDocType;
 import org.compiere.model.MInOut;
+import org.compiere.model.MInOutLine;
 import org.compiere.model.MInvoice;
 import org.compiere.model.MInvoiceLine;
 import org.compiere.model.MInvoiceTax;
@@ -1771,6 +1773,120 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		return true;
 	}	//	generateNF
 	
+	/**
+	 * 	Gera a NF
+	 */
+	public boolean generateNF (MInOut inout, Boolean IsOwnDocument)
+	{
+		BigDecimal totalItem = Env.ZERO, totalService = Env.ZERO;
+		//
+		Boolean isSOTrx = true;
+		int lineNo = 1;		
+		
+		/**
+		 * 	Limpa os valores antigos
+		 */
+		clear();
+				
+		//	Dados mestre
+		setDateDoc(inout.getDateAcct());
+		setIsSOTrx(isSOTrx);
+		setlbr_IsOwnDocument(IsOwnDocument);
+		if (!MSysConfig.getBooleanValue("LBR_DATEINOUT_NF", true, getAD_Client_ID()))
+			setlbr_DateInOut(inout.getDateAcct());
+		
+		MOrder order = new MOrder(Env.getCtx(), inout.getC_Order_ID(), get_TrxName());
+		
+		// Não continuar se a Remessa não tiver um Pedido relacionado
+		if (order == null)
+			return false;
+		
+		//	Dados da Organização
+		setOrgInfo(POWrapper.create(MOrgInfo.get(getCtx(), inout.getAD_Org_ID(), get_TrxName()), I_W_AD_OrgInfo.class));
+		
+		//	Dados da Remessa e Pedido
+		setInOut(POWrapper.create(inout, I_W_M_InOut.class));
+		
+		//	Parceiro da Fatura
+		//setInvoiceBPartner(new MBPartnerLocation(getCtx(), order.getC_BPartner_Location_ID(), get_TrxName()));
+		
+		//	Tipo de Documento
+		setC_DocTypeTarget_ID();
+		
+		// Imprime Descontos
+		if (LBR_NFMODEL_NotaFiscalDeServiçosEletrônicaRPS.equals(getNFModel()))
+			setIsDiscountPrinted(false);
+		else
+			setIsDiscountPrinted(order.isDiscountPrinted());
+		
+		//	Entrega
+		setShipmentBPartner (inout, null, null);		
+		
+		//	Natureza da Operação do Tipo de Documento do Pedido		
+		MDocType dtorder = new MDocType(getCtx(),getC_Order().getC_DocType_ID(),get_TrxName());
+		
+		// Se o campo estiver preenchido adicionar na Natureza da Operação
+		if (dtorder.get_ValueAsString("lbr_CFOPNote") != null &&
+				!dtorder.get_ValueAsString("lbr_CFOPNote").isEmpty())
+			setlbr_CFOPNote(dtorder.get_ValueAsString("lbr_CFOPNote"));
+		
+		if (get_ID() < 1 && !save())
+		{
+			m_processMsg = "Could not save the Nota Fiscal (New Record)";
+			log.log(Level.SEVERE, m_processMsg);
+			return false;
+		}
+		
+		//		Impostos
+		setTaxes(order);
+		
+		//	Linhas
+		for (MInOutLine iLine : inout.getLines())
+		{
+			//	Ignorar as Linhas de Descrição da Fatura
+			if (iLine.isDescription())
+				continue;
+			
+			/**
+			 * 	Estes valores já foram ajustado no nível do cabeçalho,
+			 * 		portanto devem ser ignorados
+			 */
+			if (iLine.getM_Product_ID() > 0
+					&& (iLine.getM_Product_ID() == cInfoW.getM_ProductFreight_ID()
+					|| iLine.getM_Product_ID() == cInfoW.getLBR_ProductInsurance_ID()
+					|| iLine.getM_Product_ID() == cInfoW.getLBR_ProductOtherCharges_ID()
+					|| iLine.getM_Product_ID() == cInfoW.getLBR_ProductSISCOMEX_ID()
+					|| iLine.getM_Product_ID() == cInfoW.getLBR_ProductWithhold_ID()))
+				continue;
+			
+			MLBRNotaFiscalLine nfLine = new MLBRNotaFiscalLine (this);
+			nfLine.save();
+			nfLine.setLine(lineNo++);
+			nfLine.setInOutLine(iLine, false);
+			nfLine.save();
+			//
+			if (nfLine.islbr_IsService())
+				totalService = totalService.add(nfLine.getLineTotalAmt());
+			else
+				totalItem = totalItem.add(nfLine.getLineTotalAmt());
+			
+			if (nfLine.getLBR_CFOP_ID() > 0 
+					&& (getlbr_CFOPNote() == null || getlbr_CFOPNote().length() < 1))
+				setlbr_CFOPNote(nfLine.getLBR_CFOP().getDescription());
+		}
+		
+		//	Valores
+		setTotalLines(totalItem);
+		setlbr_ServiceTotalAmt(totalService);
+		
+		//	O peso normalemnte vem da expedição, porém alguns casos a NF é feita com base no pedido
+		//		ou na fatura, portanto é necessário recalcular o peso
+		if (Env.ZERO.compareTo (getlbr_GrossWeight()) == 0)
+			calculateWeight();
+		
+		return true;
+	}	//	generateNF
+	
 	@Deprecated
 	public void GenerateXMLAutomatic()
 	{
@@ -2182,7 +2298,7 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 	}	//	setInvoice
 	
 	/**
-	 * 		Invoice Info
+	 * 		Order Info
 	 * 	@param wOrgInfo
 	 */
 	public void setOrder (I_W_C_Order wOrder)
@@ -2212,7 +2328,38 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		
 		//	Dados do Parceiro
 		setBPartner(new MBPartnerLocation (getCtx(), wOrder.getC_BPartner_Location_ID(), get_TrxName()));
-	}	//	setInvoice
+	}	//	Invoice
+	
+	/**
+	 * 		Shipment Info
+	 * 	@param wOrgInfo
+	 */
+	public void setInOut (I_W_M_InOut wInOut)
+	{
+		setAD_Org_ID(wInOut.getAD_Org_ID());
+		setC_Order_ID(wInOut.getC_Order_ID());
+		setM_InOut_ID(wInOut.getM_InOut_ID());
+		
+		MOrder order = new MOrder(Env.getCtx(), wInOut.getC_Order_ID(), get_TrxName());
+		I_W_C_Order wOrder = POWrapper.create(order, I_W_C_Order.class);
+		//
+		setlbr_TransactionType (wOrder.getlbr_TransactionType());
+		setLBR_IndPres(wOrder.getLBR_IndPres());
+		setC_PaymentTerm_ID(wOrder.getC_PaymentTerm_ID());
+		
+		//	Total do Pedido
+		if (wOrder.getC_Currency_ID() != CURRENCY_BRL)
+		{
+			BigDecimal grandTotal = MConversionRate.convert(Env.getCtx(), wOrder.getGrandTotal(), 
+					wOrder.getC_Currency_ID(), CURRENCY_BRL, getAD_Client_ID(), getAD_Org_ID());
+			setGrandTotal(grandTotal);
+		}
+		else
+			setGrandTotal(wOrder.getGrandTotal());
+		
+		//	Dados do Parceiro
+		setBPartner(new MBPartnerLocation (getCtx(), wInOut.getC_BPartner_Location_ID(), get_TrxName()));
+	}	//	setInOut
 	
 	/**
 	 * 		Organization Info
