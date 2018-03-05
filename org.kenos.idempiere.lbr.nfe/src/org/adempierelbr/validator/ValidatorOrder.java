@@ -173,7 +173,8 @@ public class ValidatorOrder implements ModelValidator
 		{
 			//	Não permitir Alteração na Quantidade do Pedido se a mesma for Menor que a 
 			//	Quantidade já Entregue ou já Faturada
-			if (oLine.getQtyDelivered().intValue() > 0 || oLine.getQtyInvoiced().intValue() > 0)
+			if (oLine.is_ValueChanged(I_W_C_OrderLine.COLUMNNAME_QtyEntered) &&
+					(oLine.getQtyDelivered().intValue() > 0 || oLine.getQtyInvoiced().intValue() > 0))
 			{
 				if (oLine.getQtyOrdered().compareTo(oLine.getQtyDelivered()) == -1 ||
 						oLine.getQtyOrdered().compareTo(oLine.getQtyInvoiced()) == -1)
