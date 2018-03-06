@@ -40,6 +40,8 @@ public class CalloutFactory implements IColumnCalloutFactory
 		{
 			if (TextUtil.match (columnName, MOrder.COLUMNNAME_C_BPartner_ID))
 				callouts.add (new SalesFields ());
+			if (TextUtil.match (columnName, MOrder.COLUMNNAME_Bill_BPartner_ID))
+				callouts.add (new CreditCheck ());
 		}
 		else if (MOrderLine.Table_Name.equals(tableName))
 		{
@@ -52,7 +54,10 @@ public class CalloutFactory implements IColumnCalloutFactory
 		else if (MInvoice.Table_Name.equals(tableName))
 		{
 			if (TextUtil.match (columnName, MOrder.COLUMNNAME_C_BPartner_ID))
+			{
 				callouts.add (new SalesFields ());
+				callouts.add (new CreditCheck ());
+			}
 		}
 		else if (MInvoiceLine.Table_Name.equals(tableName))
 		{
