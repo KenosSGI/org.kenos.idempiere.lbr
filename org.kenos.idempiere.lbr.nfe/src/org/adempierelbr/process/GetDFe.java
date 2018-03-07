@@ -405,7 +405,8 @@ public class GetDFe extends SvrProcess
 				try
 				{
 					pDFe.setLBR_EventType(resEvento.getTpEvento());
-				} catch (Exception e) {}
+				} 
+				catch (Exception e) {}
 				pDFe.setProcessed(true);
 				if (pDFe.save())
 					count.event++;
@@ -435,7 +436,11 @@ public class GetDFe extends SvrProcess
 				pDFe.setDocumentNote(resEvento.getXEvento());
 				pDFe.setDateTrx(NFeUtil.stringToTime (resProcEvento.getProcEventoNFe().getEvento().getInfEvento().getDhEvento()));
 				pDFe.setlbr_NFeProt(resEvento.getNProt());
-				pDFe.setLBR_EventType(resEvento.getTpEvento());
+				try
+				{
+					pDFe.setLBR_EventType(resEvento.getTpEvento());
+				} 
+				catch (Exception e) {}
 				pDFe.setProcessed(true);
 				if (pDFe.save())
 				{
