@@ -7,6 +7,7 @@ import java.util.logging.Level;
 import org.adempiere.base.IDocFactory;
 import org.compiere.acct.Doc;
 import org.compiere.model.MAcctSchema;
+import org.compiere.model.MAllocationHdr;
 import org.compiere.model.MInvoice;
 import org.compiere.model.MTable;
 import org.compiere.util.CLogger;
@@ -71,6 +72,8 @@ public class DocAcctFactory implements IDocFactory
 	{
 		if (MInvoice.Table_ID == AD_Table_ID)
 			return new Doc_Invoice (as, rs, trxName);
+		if (MAllocationHdr.Table_ID == AD_Table_ID)
+			return new Doc_AllocationHdr (as, rs, trxName);
 		return null;
 	}	//	getDocument
 }	//	DocFactory
