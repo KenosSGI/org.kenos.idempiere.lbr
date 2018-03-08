@@ -835,7 +835,7 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 				xmlText = xmlText.replaceAll ("<NFe>", "<NFe xmlns=\"http://www.portalfiscal.inf.br/nfe\">");
 			
 			//	Atualiza o anexo
-			attachment.addEntry(nf.getlbr_NFeID() + "-dst.xml", nfeProcDoc.xmlText(NFeUtil.getXmlOpt()).getBytes(NFeUtil.NFE_ENCODING));
+			attachment.addEntry(nf.getlbr_NFeID() + "-dst.xml", xmlText.getBytes(NFeUtil.NFE_ENCODING));
 			attachment.save();
 			
 			//	Envia o e-mail para o cliente
