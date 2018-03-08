@@ -1,3 +1,6 @@
+SET SQLBLANKLINES ON
+SET DEFINE OFF
+
 -- 04/08/2017 17h15min32s BRT
 -- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
 INSERT INTO AD_Process (AccessLevel,AD_Client_ID,AD_Org_ID,AD_Process_ID,Classname,CopyFromProcess,Created,CreatedBy,EntityType,IsActive,IsBetaFunctionality,IsDirectPrint,IsReport,IsServerProcess,Name,ShowHelp,Statistic_Count,Statistic_Seconds,Updated,UpdatedBy,Value) VALUES ('3',0,0,1120193,'org.adempierelbr.process.ProcAdditionalNFe','N',TO_DATE('2017-08-04 17:15:30','YYYY-MM-DD HH24:MI:SS'),100,'LBRA','Y','N','N','N','N','Generate Additional NF-e','Y',0,0,TO_DATE('2017-08-04 17:15:30','YYYY-MM-DD HH24:MI:SS'),100,'ProcAdditionalNFe')
