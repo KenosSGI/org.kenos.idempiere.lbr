@@ -35,6 +35,10 @@
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins">
 		<accessrules>
 			<accessrule kind="accessible" pattern="org/apache/poi/**"/>
+			<accessrule kind="accessible" pattern="org/adempierelbr/**"/>
+			<accessrule kind="accessible" pattern="org/kenos/idempiere/lbr/base/event/*"/>
+			<accessrule kind="accessible" pattern="org/kenos/idempiere/lbr/base/model/*"/>
+			<accessrule kind="accessible" pattern="org/kenos/idempiere/lbr/base/nfse/*"/>
 		</accessrules>
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
