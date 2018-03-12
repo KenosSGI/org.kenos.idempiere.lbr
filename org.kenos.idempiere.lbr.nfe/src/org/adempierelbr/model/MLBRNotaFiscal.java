@@ -1418,7 +1418,20 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		setIsDiscountPrinted(false);
 		
 		//	Entrega
-//		setShipmentBPartner(invoice);
+		MLocation location = new MLocation (getCtx(), bpLocation.getC_Location_ID(), get_TrxName());
+		MCountry country = new MCountry (getCtx(), location.getC_Country_ID(), get_TrxName());
+
+		//	Endereço de Entrega
+		setlbr_BPDeliveryCNPJ(BPartnerUtil.getCNPJ_CPF (bpLocation));	//	CNPJ
+		setlbr_BPDeliveryIE(BPartnerUtil.getIE (bpLocation));   		//	IE
+		//
+		setlbr_BPDeliveryAddress1(location.getAddress1());	//	Rua
+		setlbr_BPDeliveryAddress2(location.getAddress2());	//	Número
+		setlbr_BPDeliveryAddress3(location.getAddress3());	//	Bairro
+		setlbr_BPDeliveryAddress4(location.getAddress4());	//	Complemento
+		setlbr_BPDeliveryCity(location.getCity());			//	Cidade
+		setlbr_BPDeliveryPostal(location.getPostal());		//	CEP
+		setlbr_BPDeliveryCountry(country.getCountryCode());	//	País
 		
 		setDeliveryViaRule(MLBRNotaFiscal.DELIVERYVIARULE_Delivery);
 		
@@ -1480,6 +1493,7 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		
 		//	Valores
 		setTotalLines(totalItem);
+		setGrandTotal(totalItem);
 		setlbr_ServiceTotalAmt(totalService);
 		setDiscountAmt(getDiscount());
 		
@@ -1530,7 +1544,20 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		setIsDiscountPrinted(false);
 		
 		//	Entrega
-//		setShipmentBPartner(invoice);
+		MLocation location = new MLocation (getCtx(), bpLocation.getC_Location_ID(), get_TrxName());
+		MCountry country = new MCountry (getCtx(), location.getC_Country_ID(), get_TrxName());
+
+		//	Endereço de Entrega
+		setlbr_BPDeliveryCNPJ(BPartnerUtil.getCNPJ_CPF (bpLocation));	//	CNPJ
+		setlbr_BPDeliveryIE(BPartnerUtil.getIE (bpLocation));   		//	IE
+		//
+		setlbr_BPDeliveryAddress1(location.getAddress1());	//	Rua
+		setlbr_BPDeliveryAddress2(location.getAddress2());	//	Número
+		setlbr_BPDeliveryAddress3(location.getAddress3());	//	Bairro
+		setlbr_BPDeliveryAddress4(location.getAddress4());	//	Complemento
+		setlbr_BPDeliveryCity(location.getCity());			//	Cidade
+		setlbr_BPDeliveryPostal(location.getPostal());		//	CEP
+		setlbr_BPDeliveryCountry(country.getCountryCode());	//	País
 		
 		//  Description
 		setDescription();
@@ -1649,6 +1676,7 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		
 		//	Valores
 		setTotalLines(totalItem);
+		setGrandTotal(totalItem);
 		setlbr_ServiceTotalAmt(totalService);
 		setDiscountAmt(Env.ZERO);
 		
