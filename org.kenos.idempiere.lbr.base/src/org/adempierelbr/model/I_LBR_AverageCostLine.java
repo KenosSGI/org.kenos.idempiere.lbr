@@ -93,6 +93,32 @@ public interface I_LBR_AverageCostLine
 	  */
 	public BigDecimal getCumulatedAmt();
 
+    /** Column name CumulatedAmt */
+    public static final String COLUMNNAME_LBR_LandedCostAmt = "LBR_LandedCostAmt";
+
+	/** Set Accumulated Amt.
+	  * Total Amount
+	  */
+	public void setLBR_LandedCostAmt (BigDecimal LBR_LandedCostAmt);
+
+	/** Get Accumulated Amt.
+	  * Total Amount
+	  */
+	public BigDecimal getLBR_LandedCostAmt();
+
+    /** Column name CumulatedAmt */
+    public static final String COLUMNNAME_LBR_LandedCostQty = "LBR_LandedCostQty";
+
+	/** Set Accumulated Amt.
+	  * Total Amount
+	  */
+	public void setLBR_LandedCostQty (BigDecimal LBR_LandedCostQty);
+
+	/** Get Accumulated Amt.
+	  * Total Amount
+	  */
+	public BigDecimal getLBR_LandedCostQty();
+
     /** Column name CumulatedQty */
     public static final String COLUMNNAME_CumulatedQty = "CumulatedQty";
 

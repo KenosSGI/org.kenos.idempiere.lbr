@@ -98,6 +98,46 @@ public class X_LBR_AverageCostLine extends PO implements I_LBR_AverageCostLine, 
 		return bd;
 	}
 
+	/** Set Accumulated Amt.
+		@param CumulatedAmt 
+		Total Amount
+	  */
+	public void setLBR_LandedCostAmt (BigDecimal LBR_LandedCostAmt)
+	{
+		set_Value (COLUMNNAME_LBR_LandedCostAmt, LBR_LandedCostAmt);
+	}
+
+	/** Get Accumulated Amt.
+		@return Total Amount
+	  */
+	public BigDecimal getLBR_LandedCostAmt () 
+	{
+		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_LBR_LandedCostAmt);
+		if (bd == null)
+			 return Env.ZERO;
+		return bd;
+	}
+
+	/** Set Accumulated Amt.
+		@param CumulatedAmt 
+		Total Amount
+	  */
+	public void setLBR_LandedCostQty (BigDecimal LBR_LandedCostQty)
+	{
+		set_Value (COLUMNNAME_LBR_LandedCostQty, LBR_LandedCostQty);
+	}
+
+	/** Get Accumulated Amt.
+		@return Total Amount
+	  */
+	public BigDecimal getLBR_LandedCostQty () 
+	{
+		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_LBR_LandedCostQty);
+		if (bd == null)
+			 return Env.ZERO;
+		return bd;
+	}
+
 	/** Set Accumulated Qty.
 		@param CumulatedQty 
 		Total Quantity

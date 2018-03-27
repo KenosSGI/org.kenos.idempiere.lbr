@@ -93,10 +93,24 @@ public class ProcAvgCostCreate extends SvrProcess
 		//	Comprados
 		if (costType.equals(PUCHASED))
 		{
-			sql = "SELECT DISTINCT p.M_Product_ID, QtyOnDate(p.M_Product_ID, "+DB.TO_DATE(period.getStartDate())+"), " +
+			sql = "SELECT DISTINCT p.M_Product_ID, QtyOnDate(p.M_Product_ID, "+DB.TO_DATE(period.getStartDate())+") AS QtyOnDate, " +
 						 "c.CurrentCostPrice, " +
-						 "SUM(CASE WHEN f.AmtAcctDR<>0 THEN f.AmtAcctDR ELSE il.PriceEntered*il.QtyEntered END), " +
-						 "SUM(il.QtyEntered) " +
+						 "SUM(CASE WHEN f.AmtAcctDR<>0 THEN f.AmtAcctDR ELSE il.PriceEntered*il.QtyEntered END) AS CumulatedAmt, " +
+						 "SUM(il.QtyEntered) AS CumulatedQty, " +
+						 "COALESCE ((SELECT SUM(lc.Amt) " +
+					        "FROM C_LandedCostAllocation lc, C_InvoiceLine zil, C_Invoice zi " +
+					        "WHERE zi.C_Invoice_ID=zil.C_Invoice_ID " +
+					        "AND zil.C_InvoiceLine_ID=lc.C_InvoiceLine_ID " +
+					        "AND lc.M_Product_ID=p.M_Product_ID " +
+					        "AND zi.DocStatus IN ('CL', 'CO') " +
+					        "AND zi.DateAcct BETWEEN " + DB.TO_DATE(period.getStartDate()) + " AND " + DB.TO_DATE(period.getEndDate()) + "),0) AS LBR_LandedCostAmt, " +
+						 "COALESCE ((SELECT SUM(lc.Qty) " +
+					        "FROM C_LandedCostAllocation lc, C_InvoiceLine zil, C_Invoice zi " +
+					        "WHERE zi.C_Invoice_ID=zil.C_Invoice_ID " +
+					        "AND zil.C_InvoiceLine_ID=lc.C_InvoiceLine_ID " +
+					        "AND lc.M_Product_ID=p.M_Product_ID " +
+					        "AND zi.DocStatus IN ('CL', 'CO') " +
+					        "AND zi.DateAcct BETWEEN " + DB.TO_DATE(period.getStartDate()) + " AND " + DB.TO_DATE(period.getEndDate()) + "),0) AS LBR_LandedCostQty " +
 					"FROM C_Invoice i " +
 						 "INNER JOIN C_InvoiceLine il ON i.C_Invoice_ID = il.C_Invoice_ID " +
 						 "INNER JOIN C_DocType dt ON dt.C_DocType_ID=i.C_DocTypeTarget_ID " +
@@ -121,9 +135,9 @@ public class ProcAvgCostCreate extends SvrProcess
 		else if (costType.equals(MANUFACTURED))
 		{
 			sql = "SELECT pr.M_Product_ID, QtyOnDate(pr.M_Product_ID, " +
-					DB.TO_DATE(period.getStartDate()) + "), cz.CurrentCostPrice AS CurrentCostPrice, " +
+					DB.TO_DATE(period.getStartDate()) + ") AS QtyOnDate, cz.CurrentCostPrice AS CurrentCostPrice, " +
 					"SUM(CASE WHEN pl.IsEndProduct='N' THEN pl.QtyUsed*c.CurrentCostPrice ELSE pr.PriceEntered*pr.ProductionQty END) AS CumulatedAmt, " +
-					"SUM(CASE WHEN pl.IsEndProduct='Y' THEN pr.ProductionQty ELSE 0 END) AS CumulatedQty " +
+					"SUM(CASE WHEN pl.IsEndProduct='Y' THEN pr.ProductionQty ELSE 0 END) AS CumulatedQty, 0 AS LBR_LandedCostAmt, 0 AS LBR_LandedCostQty " +
 					"FROM M_Production pr " +
 						"INNER JOIN M_ProductionLine pl ON (pl.M_Production_ID=pr.M_Production_ID) " +
 						"INNER JOIN M_Cost c ON (c.M_Product_ID=pl.M_Product_ID AND c.M_CostElement_ID=?) " +
@@ -148,23 +162,30 @@ public class ProcAvgCostCreate extends SvrProcess
 			{
 				X_LBR_AverageCostLine line = new X_LBR_AverageCostLine(getCtx(), 0, trxName);
 				line.setLBR_AverageCost_ID(p_LBR_AverageCost_ID);
-				line.setM_Product_ID(rs.getInt(1));
-				line.setCurrentQty(rs.getBigDecimal(2));
-				line.setCurrentCostPrice(rs.getBigDecimal(3));
-				line.setCumulatedAmt(rs.getBigDecimal(4));
-				line.setCumulatedQty(rs.getBigDecimal(5));
+				line.setM_Product_ID(rs.getInt("M_Product_ID"));
+				line.setCurrentQty(rs.getBigDecimal("QtyOnDate"));
+				line.setCurrentCostPrice(rs.getBigDecimal("CurrentCostPrice"));
+				line.setCumulatedAmt(rs.getBigDecimal("CumulatedAmt"));
+				line.setCumulatedQty(rs.getBigDecimal("CumulatedQty"));
+				line.setLBR_LandedCostAmt(rs.getBigDecimal("LBR_LandedCostAmt"));
+				line.setLBR_LandedCostQty(rs.getBigDecimal("LBR_LandedCostQty"));
 				line.setlbr_AvgCostType(costType);
 				
 				BigDecimal totCurrent = line.getCurrentCostPrice().multiply(line.getCurrentQty());
 				BigDecimal totCumulated = line.getCumulatedAmt();
 				BigDecimal total = totCurrent.add(totCumulated);
 				BigDecimal sumQty = line.getCurrentQty().add(line.getCumulatedQty());
+				BigDecimal landed = Env.ZERO;
 				if(sumQty.signum() == 0)
 				{
 					sumQty = Env.ONE;
 					line.setDescription("ERRO NO CALCULO, DIVIDIDO POR ZERO");
 				}
-				line.setFutureCostPrice(total.divide(sumQty, 12, BigDecimal.ROUND_HALF_UP));
+				if (line.getLBR_LandedCostQty() != null && line.getLBR_LandedCostQty().signum() == 1)
+				{
+					landed = line.getLBR_LandedCostAmt().divide(line.getLBR_LandedCostQty(), 12, BigDecimal.ROUND_HALF_UP);
+				}
+				line.setFutureCostPrice(total.divide(sumQty, 12, BigDecimal.ROUND_HALF_UP).add(landed));
 				line.save();
 			}
 			
