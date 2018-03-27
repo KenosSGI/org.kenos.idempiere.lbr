@@ -82,9 +82,6 @@ CREATE OR REPLACE VIEW rv_lbr_c_order AS
     o.lbr_indpres
    FROM c_order o;
 
-ALTER TABLE rv_lbr_c_order
-  OWNER TO idempierelbr;
-
 -- View: rv_lbr_quote
 
 DROP VIEW rv_lbr_quote;
@@ -169,9 +166,6 @@ CREATE OR REPLACE VIEW rv_lbr_quote AS
      LEFT JOIN c_doctype dt ON q.c_doctypetarget_id = dt.c_doctype_id
      LEFT JOIN c_order o ON o.ref_order_id = q.c_order_id
   WHERE dt.docsubtypeso = 'ON'::bpchar;
-
-ALTER TABLE rv_lbr_quote
-  OWNER TO idempierelbr;
 
 -- 21/09/2017 17h6min28s BRT
 UPDATE AD_Column SET Name='Freight Terms', Description=NULL, Help=NULL, ColumnName='FOB', FieldLength=10, AD_Reference_ID=17, AD_Reference_Value_ID=200030, AD_Element_ID=200270,Updated=TO_TIMESTAMP('2017-09-21 17:06:28','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1129568
