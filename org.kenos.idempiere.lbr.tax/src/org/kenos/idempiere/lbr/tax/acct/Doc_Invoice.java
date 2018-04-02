@@ -29,7 +29,10 @@ import java.util.Map;
 import java.util.logging.Level;
 
 import org.adempiere.exceptions.AverageCostingZeroQtyException;
+import org.adempiere.model.POWrapper;
 import org.adempierelbr.model.MLBRTaxName;
+import org.adempierelbr.validator.VLBROrder;
+import org.adempierelbr.wrapper.I_W_AD_ClientInfo;
 import org.compiere.acct.Doc;
 import org.compiere.acct.DocLine;
 import org.compiere.acct.Fact;
@@ -150,8 +153,14 @@ public class Doc_Invoice extends Doc
 				BigDecimal amount = rs.getBigDecimal("TaxAmt");
 				boolean salesTax = "Y".equals(rs.getString("IsSalesTax"));
 				boolean taxIncluded = "Y".equals(rs.getString("IsTaxIncluded"));
-				//
+				
+				//	Mostly taxes should be recoverable
 				boolean taxRecoverable = true;
+				
+				//	Import Tax not recoverable for default
+				if (MLBRTaxName.TAX_II == LBR_TaxName_ID)
+					taxRecoverable = false;
+				
 				if (config != null)
 				{
 					if (MLBRTaxName.TAX_PISPROD == LBR_TaxName_ID 
@@ -219,6 +228,17 @@ public class Doc_Invoice extends Doc
 			MInvoiceLine line = lines[i];
 			if (line.isDescription())
 				continue;
+
+			//	Client Configuration
+			I_W_AD_ClientInfo clientInfoW = POWrapper.create(MClientInfo.get(Env.getCtx()), I_W_AD_ClientInfo.class); 
+			int M_Product_ID = line.getM_Product_ID();
+			if (M_Product_ID > 0 &&
+					  (clientInfoW.getLBR_ProductInsurance_ID() == M_Product_ID
+					|| clientInfoW.getLBR_ProductSISCOMEX_ID() == M_Product_ID
+					|| clientInfoW.getLBR_ProductOtherCharges_ID() == M_Product_ID
+					|| clientInfoW.getM_ProductFreight_ID() == M_Product_ID))
+				continue;
+			
 			DocLine docLine = new DocLine(line, this);
 			//	Qty
 			BigDecimal Qty = line.getQtyInvoiced();
@@ -228,8 +248,11 @@ public class Doc_Invoice extends Doc
 			//
 			BigDecimal LineNetAmt = line.getLineNetAmt();
 			BigDecimal PriceList = line.getPriceList();
+			
+			//	Charges
+			BigDecimal chargesAmt = VLBROrder.getChargeAmt (line);
 
-			docLine.setAmount (LineNetAmt, PriceList, Qty);	//	qty for discount calc
+			docLine.setAmount (LineNetAmt.add(chargesAmt), PriceList.add(chargesAmt), Qty);	//	qty for discount calc
 			if (docLine.isItem())
 				m_allLinesService = false;
 			else

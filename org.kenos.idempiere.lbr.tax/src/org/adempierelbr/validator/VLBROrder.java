@@ -939,6 +939,43 @@ public class VLBROrder implements ModelValidator
 						amount = amount.add(olW.getLBR_OtherChargesAmt());
 				}
 			}
+		//	Compõe o Total do Seguro para o Pedido
+		if (MOrderLine.Table_Name.equals(po.get_TableName()))
+		{
+			I_W_C_OrderLine olW = POWrapper.create(po, I_W_C_OrderLine.class);
+			//
+			if (olW.getM_Product_ID() > 0 
+					&& olW.getM_Product().getProductType().equals(MProduct.PRODUCTTYPE_Item))
+			{
+				if (chargeType == SISCOMEX)
+					amount = amount.add(olW.getlbr_SISCOMEXAmt());
+				else if (chargeType == FREIGHT)
+					amount = amount.add(olW.getFreightAmt());
+				else if (chargeType == INSURANCE)
+					amount = amount.add(olW.getlbr_InsuranceAmt());
+				else if (chargeType == OTHERCHARGES)
+					amount = amount.add(olW.getLBR_OtherChargesAmt());
+			}
+		}
+		
+		//	Compõe o Total do Seguro para a Fatura
+		else if (MInvoiceLine.Table_Name.equals(po.get_TableName()))
+		{
+			I_W_C_InvoiceLine olW = POWrapper.create(po, I_W_C_InvoiceLine.class);
+			//
+			if (olW.getM_Product_ID() > 0 
+					&& olW.getM_Product().getProductType().equals(MProduct.PRODUCTTYPE_Item))
+			{
+				if (chargeType == SISCOMEX)
+					amount = amount.add(olW.getlbr_SISCOMEXAmt());
+				else if (chargeType == FREIGHT)
+					amount = amount.add(olW.getFreightAmt());
+				else if (chargeType == INSURANCE)
+					amount = amount.add(olW.getlbr_InsuranceAmt());
+				else if (chargeType == OTHERCHARGES)
+					amount = amount.add(olW.getLBR_OtherChargesAmt());
+			}
+		}
 		//
 		return amount;
 	}	//	getInsuranceAmt
