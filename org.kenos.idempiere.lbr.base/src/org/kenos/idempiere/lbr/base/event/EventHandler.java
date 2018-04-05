@@ -112,9 +112,14 @@ public class EventHandler extends AbstractEventHandler
 		 * 	Grava no contexto as permissões de visualização
 		 * 		das janela de informação
 		 **/
+		boolean showEmployeeInfo = true;
+		
 		Properties ctx = Env.getCtx();
+
 		if (!MSysConfig.getBooleanValue("LBR_SHOW_EMPLOYEE_BP_INFO#" + Env.getAD_Role_ID(ctx), true, Env.getAD_Client_ID(ctx)))
-			Env.setContext(Env.getCtx(), "#LBR_SHOW_EMPLOYEE_BP_INFO", false);
+			showEmployeeInfo = false;
+		
+		Env.setContext(Env.getCtx(), "#LBR_SHOW_EMPLOYEE_BP_INFO", showEmployeeInfo);
 	}	//	doHandleLoginEvent
 
 	/**
