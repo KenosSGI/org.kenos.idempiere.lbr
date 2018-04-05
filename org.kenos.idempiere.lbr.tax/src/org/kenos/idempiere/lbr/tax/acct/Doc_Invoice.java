@@ -683,12 +683,17 @@ public class Doc_Invoice extends Doc
 					//  TaxDue                  CR
 					for (DocTax dt : m_taxes.get(p_lines[i].get_ID()))
 					{
-						if (dt.isIncludedTax())
+						if (dt.isIncludedTax() && dt.isRecoverableTax())
 							includedTax = includedTax.add(dt.getAmount());
-						FactLine tl = fact.createLine (null, dt.getAccount(dt.getAPTaxType(), as),
-								getC_Currency_ID(), null, dt.getAmount());
-						if (tl != null)
-							tl.setC_Tax_ID(dt.getC_Tax_ID());
+						else if (!dt.isIncludedTax() && !dt.isRecoverableTax())
+							includedTax = includedTax.add(dt.getAmount().negate());
+						if (dt.isRecoverableTax())
+						{
+							FactLine tl = fact.createLine (null, dt.getAccount(dt.getAPTaxType(), as),
+									getC_Currency_ID(), null, dt.getAmount());
+							if (tl != null)
+								tl.setC_Tax_ID(dt.getC_Tax_ID());
+						}
 					}
 				}
 				
