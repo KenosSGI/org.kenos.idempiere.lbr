@@ -25,6 +25,10 @@ public class ModelFactory implements IModelFactory
 			return MTimeExpense.class;
 		else if (MLBRProductionGroup.Table_Name.equals(tableName))
 			return MLBRProductionGroup.class;
+		else if (MLBRAverageCost.Table_Name.equals(tableName))
+			return MLBRAverageCost.class;
+		else if (MLBRAverageCostLine.Table_Name.equals(tableName))
+			return MLBRAverageCostLine.class;
 		return null;
 	}	//	getClass
 
@@ -39,6 +43,10 @@ public class ModelFactory implements IModelFactory
 			return new MTimeExpense (Env.getCtx(), Record_ID, trxName);
 		else if (MLBRProductionGroup.Table_Name.equals(tableName))
 			return new MLBRProductionGroup (Env.getCtx(), Record_ID, trxName);
+		else if (MLBRAverageCost.Table_Name.equals(tableName))
+			return new MLBRAverageCost (Env.getCtx(), Record_ID, trxName);
+		else if (MLBRAverageCostLine.Table_Name.equals(tableName))
+			return new MLBRAverageCostLine (Env.getCtx(), Record_ID, trxName);
 		return null;
 	}	//	getPO
 
@@ -53,6 +61,10 @@ public class ModelFactory implements IModelFactory
 			return new MTimeExpense (Env.getCtx(), rs, trxName);
 		else if (MLBRProductionGroup.Table_Name.equals(tableName))
 			return new MLBRProductionGroup (Env.getCtx(), rs, trxName);
+		else if (MLBRAverageCost.Table_Name.equals(tableName))
+			return new MLBRAverageCost (Env.getCtx(), rs, trxName);
+		else if (MLBRAverageCostLine.Table_Name.equals(tableName))
+			return new MLBRAverageCostLine (Env.getCtx(), rs, trxName);
 		return null;
 	}	//	getPO
 }	//	ModelFactory

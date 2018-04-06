@@ -29,6 +29,7 @@ import org.compiere.process.SvrProcess;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.compiere.util.Msg;
+import org.kenos.idempiere.lbr.base.model.MLBRAverageCostLine;
 
 /**
  * 	Average Cost BR
@@ -95,7 +96,7 @@ public class ProcAvgCostCreate extends SvrProcess
 		{
 			sql = "SELECT DISTINCT p.M_Product_ID, QtyOnDate(p.M_Product_ID, "+DB.TO_DATE(period.getStartDate())+") AS QtyOnDate, " +
 						 "c.CurrentCostPrice, " +
-						 "SUM(CASE WHEN f.AmtAcctDR<>0 THEN f.AmtAcctDR ELSE il.PriceEntered*il.QtyEntered END) AS CumulatedAmt, " +
+						 "SUM(CASE WHEN f.AmtAcctDR-f.AmtAcctCR<>0 THEN f.AmtAcctDR-f.AmtAcctCR ELSE il.PriceEntered*il.QtyEntered END) AS CumulatedAmt, " +
 						 "SUM(il.QtyEntered) AS CumulatedQty, " +
 						 "COALESCE ((SELECT SUM(lc.Amt) " +
 					        "FROM C_LandedCostAllocation lc, C_InvoiceLine zil, C_Invoice zi " +
@@ -123,9 +124,7 @@ public class ProcAvgCostCreate extends SvrProcess
 						 "AND i.IsSotrx = 'N' " +
 						 "AND p.IsPurchased = 'Y' " +
 						 "AND PriceEntered > 0 " +
-						 "AND QtyEntered > 0 " +
 						 "AND dt.DocBaseType = 'API' " +
-						 "AND dt.lbr_HasOpenItems = 'Y' " +
 						 "AND i.DateAcct BETWEEN "+DB.TO_DATE(period.getStartDate())+" AND "+DB.TO_DATE(period.getEndDate())+
 					" GROUP BY p.M_Product_ID, c.CurrentCostPrice " +
 					"ORDER BY CurrentCostPrice DESC";
@@ -160,7 +159,7 @@ public class ProcAvgCostCreate extends SvrProcess
 			rs = pstmt.executeQuery ();
 			while (rs.next ())
 			{
-				X_LBR_AverageCostLine line = new X_LBR_AverageCostLine(getCtx(), 0, trxName);
+				MLBRAverageCostLine line = new MLBRAverageCostLine (getCtx(), 0, trxName);
 				line.setLBR_AverageCost_ID(p_LBR_AverageCost_ID);
 				line.setM_Product_ID(rs.getInt("M_Product_ID"));
 				line.setCurrentQty(rs.getBigDecimal("QtyOnDate"));
@@ -176,7 +175,7 @@ public class ProcAvgCostCreate extends SvrProcess
 				BigDecimal total = totCurrent.add(totCumulated);
 				BigDecimal sumQty = line.getCurrentQty().add(line.getCumulatedQty());
 				BigDecimal landed = Env.ZERO;
-				if(sumQty.signum() == 0)
+				if (sumQty.signum() == 0)
 				{
 					sumQty = Env.ONE;
 					line.setDescription("ERRO NO CALCULO, DIVIDIDO POR ZERO");
