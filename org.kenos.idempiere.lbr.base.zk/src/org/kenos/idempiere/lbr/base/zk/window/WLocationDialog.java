@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 
+import org.adempiere.base.Service;
 import org.adempiere.util.Callback;
 import org.adempiere.webui.LayoutUtils;
 import org.adempiere.webui.component.Button;
@@ -47,7 +48,6 @@ import org.adempiere.webui.component.Window;
 import org.adempiere.webui.util.ZKUpdateUtil;
 import org.adempiere.webui.window.FDialog;
 import org.adempiere.webui.window.WAutoCompleterCity;
-import org.adempierelbr.util.WebServiceCep;
 import org.compiere.model.GridField;
 import org.compiere.model.MAddressValidation;
 import org.compiere.model.MBPartnerLocation;
@@ -61,6 +61,7 @@ import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.compiere.util.Msg;
 import org.compiere.util.Trx;
+import org.kenos.idempiere.lbr.base.cep.IBuscaCEP;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
@@ -890,15 +891,34 @@ public class WLocationDialog extends Window implements EventListener<Event>
 		else if (btnGetAddress.equals(event.getTarget()))
 		{
 			if(txtPostal != null
-					&& !txtPostal.getText().trim().equals(""))
+					&& !txtPostal.getText().trim().isEmpty())
 			{
-				WebServiceCep cep = WebServiceCep.searchCep(txtPostal.getText());
-				if (cep.wasSuccessful())
+				IBuscaCEP provider = null;
+				//
+				List<IBuscaCEP> candidates = Service.locator().list(IBuscaCEP.class).getServices();
+				for (IBuscaCEP candidate : candidates)
+				{
+					//	Consulta o CEP digitado
+					candidate.searchCEP (txtPostal.getText());
+					
+					//	Verifica se obteve os dados
+					if (candidate.wasSuccessful())
+					{
+						provider = candidate;
+						break;
+					}
+					
+					//	Erro
+					else
+						log.fine("Erro ao pesquisar o CEP: " + txtPostal.getText() + ", código: " + candidate.getResulCode());
+				}
+				//
+				if (provider != null)
 				{
 					boolean found = false;
 					MRegion[] regions = MRegion.getRegions(Env.getCtx(), 139);
 					for (MRegion r : regions)
-						if (r.getName() != null && r.getName().equals(cep.getUf()))
+						if (r.getName() != null && r.getName().equals(provider.getUF()))
 						{
 							for (Listitem item : lstRegion.getItems())
 							{
@@ -914,24 +934,27 @@ public class WLocationDialog extends Window implements EventListener<Event>
 							if (found)
 								break;
 						}
-					txtCity.refreshData(cep.getCidade());
-					txtCity.setRawValue(cep.getCidade());
-					txtAddress1.setText(cep.getLogradouroType() + " " + cep.getLogradouro());
-					txtAddress3.setText(cep.getBairro());
-					if (cep.getCep().length() == 8)
-						txtPostal.setText(cep.getCep().substring(0, 5) + "-" + cep.getCep().substring(5));
+					txtCity.refreshData(provider.getCidade());
+					txtCity.setRawValue(provider.getCidade());
+					if (provider.getLogradouroType() != null && !provider.getLogradouroType().isEmpty())
+						txtAddress1.setText(provider.getLogradouroType() + " " + provider.getLogradouro());
 					else
-						txtPostal.setText(cep.getCep());
+						txtAddress1.setText(provider.getLogradouro());
+					txtAddress3.setText(provider.getBairro());
+					if (provider.getCEP().length() == 8)
+						txtPostal.setText(provider.getCEP().substring(0, 5) + "-" + provider.getCEP().substring(5));
+					else
+						txtPostal.setText(provider.getCEP());
 				}
-				else if (cep.getResulCode() == 0)
-					FDialog.info(m_WindowNo, this, "CEP não encontrado na base de dados.");
-				else if (cep.getResulCode() == 14)
-					FDialog.info(m_WindowNo, this, "Não foi possível fazer a busca. (Possível problema com a Internet).");
+//				else if (provider.getResulCode() == 0)
+//					FDialog.info(m_WindowNo, this, "CEP não encontrado na base de dados.");
+//				else if (provider.getResulCode() == 14)
+//					FDialog.info(m_WindowNo, this, "Não foi possível fazer a busca. (Possível problema com a Internet).");
 				else
-					FDialog.info(m_WindowNo, this, "Erro ao fazer a busca.");
+					FDialog.info(m_WindowNo, this, "Erro ao fazer a busca no site dos Correios, tente novamente mais tarde ou digite os dados manualmente");
 			}
 			else
-				FDialog.info(m_WindowNo, this, "Preencha o CEP.");
+				FDialog.info(m_WindowNo, this, "Preencha o CEP");
 		}
 	}
 

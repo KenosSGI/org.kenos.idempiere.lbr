@@ -10,10 +10,13 @@
  * with this program; if not, write to the Free Software Foundation, Inc.,    *
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.                     *
  *****************************************************************************/
-package org.adempierelbr.util;
+package org.kenos.idempiere.lbr.base.cep.provider;
 
+import java.io.IOException;
+import java.math.BigDecimal;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -21,13 +24,14 @@ import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
+import org.kenos.idempiere.lbr.base.cep.IBuscaCEP;
 
 /**
- * Ferramenta de busca de CEP, veja o método {@link WebServiceCep#searchCep(String)} para
+ * Ferramenta de busca de CEP, veja o método {@link RepublicaVirtual#searchCep(String)} para
  * maiores informações.
  * <BR>
- * <BR>Constroi um objeto {@link WebServiceCep} com os dados XML encapsulados, a partir
- * da chamada do método estatico {@link WebServiceCep#searchCep(String)}.
+ * <BR>Constroi um objeto {@link RepublicaVirtual} com os dados XML encapsulados, a partir
+ * da chamada do método estatico {@link RepublicaVirtual#searchCep(String)}.
  * <BR>
  * <BR>Objeto contem todas as informações do XML, além de informações referente ao
  * resultado da pesquisa.
@@ -37,7 +41,7 @@ import org.dom4j.io.SAXReader;
  * <a href="http://www.dom4j.org/dom4j-1.6.1/download.html" target="_blank">dom4j.org</a>
  * <BR>
  * <BR>Exemplo de uso:
- * <BR><tt>{@link WebServiceCep} cep = {@link WebServiceCep}.searchCep("13345-325");
+ * <BR><tt>{@link RepublicaVirtual} cep = {@link RepublicaVirtual}.searchCep("13345-325");
  * 
  * <BR>//caso a busca ocorra bem, imprime os resultados.
  * <BR>if (cep.wasSuccessful()) {
@@ -62,61 +66,61 @@ import org.dom4j.io.SAXReader;
  * <BR>Ultima revisão: 09/01/2009
  * @author Tomaz Lavieri
  */
-public final class WebServiceCep {
+public class RepublicaVirtual implements IBuscaCEP {
 	
 /* Classes Internas, que auxiliam na busca do CEP */
 	/**
 	 * Enumeration para setar os parametros do XML, cada constante conhece o seu método
 	 * correspondente, invocando a partir de um atalho comum
-	 * {@link Xml#setCep(String, WebServiceCep)}.
+	 * {@link Xml#setCep(String, RepublicaVirtual)}.
 	 * @author Tomaz Lavieri
 	 */
 	private enum Xml {
 		CIDADE {
-			@Override public void setCep(String text, WebServiceCep webServiceCep) {
+			@Override public void setCep(String text, RepublicaVirtual webServiceCep) {
 				webServiceCep.setCidade(text);
 			}
 		}, 
 		BAIRRO {
-			@Override public void setCep(String text, WebServiceCep webServiceCep) {
+			@Override public void setCep(String text, RepublicaVirtual webServiceCep) {
 				webServiceCep.setBairro(text);
 			}
 		},
 		TIPO_LOGRADOURO {
-			@Override public void setCep(String text, WebServiceCep webServiceCep) {
+			@Override public void setCep(String text, RepublicaVirtual webServiceCep) {
 				webServiceCep.setLogradouroType(text);
 			}
 		},
 		LOGRADOURO {
-			@Override public void setCep(String text, WebServiceCep webServiceCep) {
+			@Override public void setCep(String text, RepublicaVirtual webServiceCep) {
 				webServiceCep.setLogradouro(text);
 			}
 		},
 		RESULTADO {
-			@Override public void setCep(String text, WebServiceCep webServiceCep) {
+			@Override public void setCep(String text, RepublicaVirtual webServiceCep) {
 				webServiceCep.setResulCode(Integer.parseInt(text));
 			}
 		},
 		RESULTADO_TXT {
-			@Override public void setCep(String text, WebServiceCep webServiceCep) {
+			@Override public void setCep(String text, RepublicaVirtual webServiceCep) {
 				webServiceCep.setResultText(text);
 			}
 		},
 		UF {
-			@Override public void setCep(String text, WebServiceCep webServiceCep) {
+			@Override public void setCep(String text, RepublicaVirtual webServiceCep) {
 				webServiceCep.setUf(text);
 			}
 		}
 		;
 		/**
 		 * Seta o texto enviado no parametro <tt>text</tt> no objeto
-		 * {@link WebServiceCep} no seu parametro correspondente. Cada constante do enum
+		 * {@link RepublicaVirtual} no seu parametro correspondente. Cada constante do enum
 		 * conhece o seu parametro a passar.
 		 * @param text {@link String} contendo o texto a ser inserido.
-		 * @param webServiceCep {@link WebServiceCep} referencia do objeto para inserir
+		 * @param webServiceCep {@link RepublicaVirtual} referencia do objeto para inserir
 		 * 		  o parametro text.
 		 */
-		public abstract void setCep(String text,WebServiceCep webServiceCep);
+		public abstract void setCep(String text,RepublicaVirtual webServiceCep);
 	}
 	/**
 	 * Classe utilitária apenas encapsula o Iterator de elements da root dentro de um
@@ -183,13 +187,16 @@ public final class WebServiceCep {
      * @param cep número do cep.
      * @return {@link Document} xml WebService do site Republic Virtual
      * @throws DocumentException Quando há problema na formação do documento XML.
-     * @throws MalformedURLException Quando a há problema no link url.
+     * @throws IOException 
      */
 	private static Document getDocument(String cep) 
-			throws DocumentException, MalformedURLException {
-		URL url = new URL(String.format(URL_STRING, cep));
+			throws DocumentException, IOException {
+		URLConnection conn = new URL(String.format(URL_STRING, cep)).openConnection();
+		conn.setConnectTimeout(TIMEOUT);
+		conn.setReadTimeout(TIMEOUT);
+		//
 		SAXReader reader = new SAXReader();
-        Document document = reader.read(url);
+        Document document = reader.read(conn.getInputStream());
         return document;
 	}
 	/**
@@ -197,10 +204,10 @@ public final class WebServiceCep {
      * @param cep número do cep.
 	 * @return {@link Element} principal (root) da arvore XML.
      * @throws DocumentException Quando há problema na formação do documento XML.
-     * @throws MalformedURLException Quando a há problema no link url.
+	 * @throws IOException 
 	 */
 	private static Element getRootElement(String cep) 
-			throws DocumentException, MalformedURLException {
+			throws DocumentException, IOException {
 		return getDocument(cep).getRootElement();
 	}
 	/**
@@ -215,17 +222,17 @@ public final class WebServiceCep {
      * @param cep número do cep.
 	 * @return
      * @throws DocumentException Quando há problema na formação do documento XML.
-     * @throws MalformedURLException Quando a há problema no link url.
+	 * @throws IOException 
 	 */
 	private static IterableElement getElements(String cep) 
-			throws DocumentException, MalformedURLException {
+			throws DocumentException, IOException {
 		return new IterableElement(getRootElement(cep).elementIterator());
 	}
 	/**
 	 * Faz uma busca a partir do cep enviado, no site 
 	 * <a href="http://www.republicavirtual.com.br" 
 	 * target="_blank">republicavirtual.com.br</a>, retornando o resultado em um objeto
-	 * {@link WebServiceCep}.
+	 * {@link RepublicaVirtual}.
 	 * <BR>
 	 * <BR>Não se faz necessário formatações, a string pode ser enviada em qualquer
 	 * formatação, pois só serão consideradas os primeiros 8 numeros da string.
@@ -237,37 +244,50 @@ public final class WebServiceCep {
 	 * @param	cep Número do cep a ser carregado. Só serão considerados os primeiros 8 
 	 * 			números da {@link String} enviada. Todos os caracters não numéricos serão
 	 * 			removidos, e a string será truncada caso seja maior que 8 caracters.
-	 * @return {@link WebServiceCep} contendo as informações da pesquisa.
+	 * @return {@link RepublicaVirtual} contendo as informações da pesquisa.
 	 */
-	public static WebServiceCep searchCep(String cep) {
+	public void searchCEP(String cep) {
 		cep = cep.replaceAll( "\\D*", "" ); //To numeric digits only
 		if (cep.length() > 8)
 			cep = cep.substring(0, 8);
-		WebServiceCep loadCep = new WebServiceCep(cep);
+		
+		//	Clear
+		this.cep = cep;
+		setException(null);
+		setCidade(null);
+		setBairro(null);
+		setLogradouroType(null);
+		setLogradouro(null);
+		setResulCode(-1);
+		setResultText(null);
+		
 		try {
 			XmlEnums enums = new XmlEnums();
 			for (Element e : getElements(cep))
-				enums.getXml(e.getQualifiedName()).setCep(e.getText(), loadCep);
+				enums.getXml(e.getQualifiedName()).setCep(e.getText(), this);
 		} catch (DocumentException ex) {
 			if (ex.getNestedException() != null && ex.getNestedException() 
 					instanceof java.net.UnknownHostException) {
-				loadCep.setResultText("Site não encontrado.");
-				loadCep.setResulCode(-14);
+				setResultText("Site não encontrado.");
+				setResulCode(-14);
 			} else {
-				loadCep.setResultText("Não foi possivel ler o documento xml.");
-				loadCep.setResulCode(-15);
+				setResultText("Não foi possivel ler o documento xml");
+				setResulCode(-15);
 			}
-			loadCep.setExceptio(ex);
+			setException(ex);
 		} catch (MalformedURLException ex) {
-			loadCep.setExceptio(ex);
-			loadCep.setResultText("Erro na formação da url.");
-			loadCep.setResulCode(-16);
+			setException(ex);
+			setResultText("Erro na formação da url");
+			setResulCode(-16);
+		} catch (IOException ex) {
+			setException(ex);
+			setResultText("Erro na conexão");
+			setResulCode(-16);
 		} catch (Exception ex) {
-			loadCep.setExceptio(ex);
-			loadCep.setResultText("Erro inesperado.");
-			loadCep.setResulCode(-17);
+			setException(ex);
+			setResultText("Erro inesperado");
+			setResulCode(-17);
 		}
-		return loadCep;
 	}
 	
 /* Campos internos de resultado da busca */
@@ -281,21 +301,25 @@ public final class WebServiceCep {
 	private String logradouroType = null;
 	private String uf = null;
 	private Exception exception;
-    
 	
 	/**
 	 * Privado para que seja invocado apenas através de {@link #searchCep(String)}
 	 * @param cep
 	 */
-    public WebServiceCep(String cep) {
+    public RepublicaVirtual(String cep) {
     	this.cep = cep;
     }
+    
+    /**
+     * 	Default constructor
+     */
+    public RepublicaVirtual() {}
 	
 	/**
 	 * Exceções lançadas pelo {@link #searchCep(String)}.
 	 * @param ex
 	 */
-	private void setExceptio(Exception ex) {
+	private void setException(Exception ex) {
 		this.exception = ex;
 	}
 /* PRIVATE métodos set, usados pela classe Xml para setar o objeto CepWebService */
@@ -360,7 +384,7 @@ public final class WebServiceCep {
 	 * 			cadastrado.
 	 */
 	public boolean wasSuccessful() {
-		return (resulCode == 1 && exception == null);
+		return ((resulCode == 1 || resulCode == 2) && exception == null);
 	}
 	/**
 	 * Informa se não existe o cep cadastrado.
@@ -404,7 +428,7 @@ public final class WebServiceCep {
 	 * Informa a Unidade Federativa
 	 * @return {@link String} contendo o nome da Unidade Federativa
 	 */
-	public String getUf() {
+	public String getUF() {
 		return uf;
 	}
 	/**
@@ -433,7 +457,39 @@ public final class WebServiceCep {
 	 * Informa o cep.
 	 * @return {@link String} contendo o cep.
 	 */
-	public String getCep() {
+	public String getCEP() {
 		return cep;
 	}
-}
+	/**
+	 * 	Webservice não fornece esta informação
+	 */
+	@Override
+	public String getCodCidadeIBGE()
+	{
+		return null;
+	}	//	getCodCidadeIBGE
+	/**
+	 * 	Webservice não fornece esta informação
+	 */
+	@Override
+	public String getCodUFIBGE()
+	{
+		return null;
+	}	//	getCodUFIBGE
+	/**
+	 * 	Webservice não fornece esta informação
+	 */
+	@Override
+	public BigDecimal getLatitude()
+	{
+		return null;
+	}	//	getLatitude
+	/**
+	 * 	Webservice não fornece esta informação
+	 */
+	@Override
+	public BigDecimal getLongitude()
+	{
+		return null;
+	}	//	getLongitude
+}	//	RepublicaVirtual

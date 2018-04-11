@@ -7,17 +7,26 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Require-Bundle: org.adempiere.base;bundle-version="4.1.0",
  org.adempiere.base.process;bundle-version="4.1.0",
  org.adempiere.ui;bundle-version="4.1.0",
- org.eclipse.osgi.services
+ org.eclipse.osgi.services,
+ com.fasterxml.jackson.core.jackson-core;bundle-version="2.5.0",
+ com.fasterxml.jackson.core.jackson-annotations;bundle-version="2.5.0",
+ com.fasterxml.jackson.core.jackson-databind,
+ org.eclipse.osgi,
+ org.adempiere.plugin.utils
 Service-Component: OSGI-INF/ModelFactory.xml,
  OSGI-INF/ProcessFactory.xml,
  OSGI-INF/EventHandler.xml,
- OSGI-INF/CalloutFactory.xml
+ OSGI-INF/CalloutFactory.xml,
+ OSGI-INF/CEPPostmonProvider.xml,
+ OSGI-INF/CEPRepVirtualProvider.xml
 Eclipse-RegisterBuddy: org.adempiere.base
 Export-Package: org.adempierelbr.callout,
  org.adempierelbr.model,
  org.adempierelbr.util,
  org.adempierelbr.validator,
  org.adempierelbr.wrapper,
+ org.kenos.idempiere.lbr.base.cep,
+ org.kenos.idempiere.lbr.base.cep.provider,
  org.kenos.idempiere.lbr.base.event,
  org.kenos.idempiere.lbr.base.form,
  org.kenos.idempiere.lbr.base.model,

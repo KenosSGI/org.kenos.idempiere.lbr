@@ -37,7 +37,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 
-import org.adempierelbr.util.WebServiceCep;
 import org.compiere.apps.ADialog;
 import org.compiere.apps.AEnv;
 import org.compiere.apps.ConfirmPanel;
@@ -63,6 +62,7 @@ import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.compiere.util.Msg;
 import org.compiere.util.Trx;
+import org.kenos.idempiere.lbr.base.cep.provider.Postmon;
 
 import com.akunagroup.uk.postcode.AddressLookupInterface;
 import com.akunagroup.uk.postcode.Postcode;
@@ -720,7 +720,8 @@ public class VLocationDialog extends CDialog
 						return;
 				}
 
-				WebServiceCep cep = WebServiceCep.searchCep(fPostal.getText());
+				Postmon cep = new Postmon();
+				cep.searchCEP(fPostal.getText());
 				if (cep.wasSuccessful())
 				{
 					//	Brazil
@@ -728,7 +729,7 @@ public class VLocationDialog extends CDialog
 					//
 					MRegion[] regions = MRegion.getRegions(Env.getCtx(), 139);
 					for (MRegion r : regions)
-						if (r.getName() != null && r.getName().equals(cep.getUf()))
+						if (r.getName() != null && r.getName().equals(cep.getUF()))
 						{
 							fRegion.setSelectedItem(r);
 							break;
@@ -736,10 +737,10 @@ public class VLocationDialog extends CDialog
 					fCity.setText(cep.getCidade());
 					fAddress1.setText(cep.getLogradouroType() + " " + cep.getLogradouro());
 					fAddress3.setText(cep.getBairro());
-					if (cep.getCep().length() == 8)
-						fPostal.setText(cep.getCep().substring(0, 5) + "-" + cep.getCep().substring(5));
+					if (cep.getCEP().length() == 8)
+						fPostal.setText(cep.getCEP().substring(0, 5) + "-" + cep.getCEP().substring(5));
 					else
-						fPostal.setText(cep.getCep());
+						fPostal.setText(cep.getCEP());
 				}
 				else if (cep.getResulCode() == 0)
 					JOptionPane.showMessageDialog(null, "CEP não encontrado na base de dados.");
