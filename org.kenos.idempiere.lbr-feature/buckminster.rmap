@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rm:rmap 
+	xmlns:bc="http://www.eclipse.org/buckminster/Common-1.0" 
+	xmlns:rm="http://www.eclipse.org/buckminster/RMap-1.0"
+	xmlns:maven="http://www.eclipse.org/buckminster/MavenProvider-1.0" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <rm:locator pattern="^org\.kenos\.idempiere\.lbr(\..+)?" searchPathRef="local"/>
+  <rm:locator pattern="^org\.apache\.servicemix\.bundles(\..+)" searchPathRef="bundles.maven"/>
+  <rm:locator searchPathRef="idempiere.p2"/>
+  <rm:searchPath name="local">
+    <rm:provider componentTypes="osgi.bundle" readerType="local">
+      <rm:uri format="{0}/{1}">
+        <bc:propertyRef key="workspace.root"/>
+        <bc:propertyRef key="buckminster.component"/>
+      </rm:uri>
+    </rm:provider>
+    <rm:provider componentTypes="eclipse.feature" readerType="local">
+      <rm:uri format="{0}/{1}-feature">
+        <bc:propertyRef key="workspace.root"/>
+        <bc:propertyRef key="buckminster.component"/>
+      </rm:uri>
+    </rm:provider>
+  </rm:searchPath>
+  <rm:searchPath name="idempiere.p2">
+    <rm:provider componentTypes="osgi.bundle,eclipse.feature" readerType="p2" mutable="false">
+      <rm:property key="buckminster.mutable" value="false"/>
+      <rm:uri format="${url.idempiere.p2}">
+        <bc:propertyRef key="workspace.root"/>
+        <bc:propertyRef key="buckminster.component"/>
+      </rm:uri>
+    </rm:provider>
+  </rm:searchPath>
+  <rm:searchPath name="bundles.maven">
+    <rm:provider xsi:type="maven:MavenProvider" componentTypes="osgi.bundle" readerType="maven2" source="false" mutable="false">
+      <rm:property key="buckminster.source" value="false"/>
+      <rm:property key="buckminster.mutable" value="false"/>
+      <rm:uri format="${url.maven2}"/>
+      <maven:mappings>
+      	<maven:entry artifactId="org.apache.servicemix.bundles.dom4j" groupId="org.apache.servicemix.bundles" name="org.apache.servicemix.bundles.dom4j"/>
+        <maven:entry artifactId="org.apache.servicemix.bundles.xmlbeans" groupId="org.apache.servicemix.bundles" name="org.apache.servicemix.bundles.xmlbeans"/>
+      </maven:mappings>
+    </rm:provider>
+  </rm:searchPath>
+</rm:rmap>

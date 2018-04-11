@@ -1,0 +1,125 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+  <xs:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema_v01.xsd" />
+  <xs:element name="nfse">
+    <xs:complexType>
+      <xs:sequence>
+      	<xs:element type="xs:string" name="identificador"/>
+        <xs:element name="rps">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:string" name="nro_recibo_provisorio"/>
+              <xs:element type="xs:string" name="serie_recibo_provisorio"/>
+              <xs:element type="xs:string" name="data_emissao_recibo_provisorio"/>
+              <xs:element type="xs:string" name="hora_emissao_recibo_provisorio"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="nf">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:string" name="numero"/>
+              <xs:element type="xs:string" name="situacao"/>
+              <xs:element type="xs:string" name="valor_total"/>
+              <xs:element type="xs:string" name="valor_desconto"/>
+              <xs:element type="xs:string" name="valor_ir"/>
+              <xs:element type="xs:string" name="valor_inss"/>
+              <xs:element type="xs:string" name="valor_contribuicao_social"/>
+              <xs:element type="xs:string" name="valor_rps"/>
+              <xs:element type="xs:string" name="valor_pis"/>
+              <xs:element type="xs:string" name="valor_cofins"/>
+              <xs:element type="xs:string" name="observacao"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="prestador">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:string" name="cpfcnpj"/>
+              <xs:element type="xs:string" name="cidade"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="tomador">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:string" name="endereco_informado"/>
+              <xs:element type="xs:string" name="tipo"/>
+              <xs:element type="xs:string" name="identificador"/>
+              <xs:element type="xs:string" name="estado"/>
+              <xs:element type="xs:string" name="pais"/>
+              <xs:element type="xs:string" name="cpfcnpj"/>
+              <xs:element type="xs:string" name="ie"/>
+              <xs:element type="xs:string" name="nome_razao_social"/>
+              <xs:element type="xs:string" name="sobrenome_nome_fantasia"/>
+              <xs:element type="xs:string" name="logradouro"/>
+              <xs:element type="xs:string" name="email"/>
+              <xs:element type="xs:string" name="numero_residencia"/>
+              <xs:element type="xs:string" name="complemento"/>
+              <xs:element type="xs:string" name="ponto_referencia"/>
+              <xs:element type="xs:string" name="bairro"/>
+              <xs:element type="xs:string" name="cidade"/>
+              <xs:element type="xs:string" name="cep"/>
+              <xs:element type="xs:string" name="ddd_fone_comercial"/>
+              <xs:element type="xs:string" name="fone_comercial"/>
+              <xs:element type="xs:string" name="ddd_fone_residencial"/>
+              <xs:element type="xs:string" name="fone_residencial"/>
+              <xs:element type="xs:string" name="ddd_fax"/>
+              <xs:element type="xs:string" name="fone_fax"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="itens">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="lista">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element type="xs:string" name="codigo_local_prestacao_servico"/>
+                    <xs:element type="xs:string" name="codigo_item_lista_servico"/>
+                    <xs:element type="xs:string" name="descritivo"/>
+                    <xs:element type="xs:string" name="aliquota_item_lista_servico"/>
+                    <xs:element type="xs:string" name="situacao_tributaria"/>
+                    <xs:element type="xs:string" name="valor_tributavel"/>
+                    <xs:element type="xs:string" name="valor_deducao"/>
+                    <xs:element type="xs:string" name="valor_issrf"/>
+                    <xs:element type="xs:string" name="tributa_municipio_prestador"/>
+                    <xs:element type="xs:string" name="unidade_codigo"/>
+                    <xs:element type="xs:string" name="unidade_quantidade"/>
+                    <xs:element type="xs:string" name="unidade_valor_unitario"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="genericos">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="linha">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element type="xs:string" name="titulo"/>
+                    <xs:element type="xs:string" name="descricao"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="produtos">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:string" name="descricao"/>
+              <xs:element type="xs:string" name="valor"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element ref="ds:Signature" minOccurs="1" maxOccurs="1">
+          <xs:annotation>
+            <xs:documentation>Assinatura digital do contribuinte que gerou o RPS contido da mensagem XML.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

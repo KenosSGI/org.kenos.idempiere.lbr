@@ -1,0 +1,18 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: LBR Correios Freight
+Bundle-SymbolicName: org.kenos.idempiere.lbr.correios;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Require-Bundle: org.adempiere.base;bundle-version="4.1.0",
+ org.adempiere.ui.zk,
+ org.adempiere.plugin.utils;bundle-version="4.1.0",
+ zcommon;bundle-version="8.0.1",
+ zk;bundle-version="8.0.1",
+ zul;bundle-version="8.0.1",
+ org.kenos.idempiere.lbr.nfe;bundle-version="1.0.0"
+Service-Component: OSGI-INF/FormFactory.xml
+Bundle-ActivationPolicy: lazy
+Bundle-ClassPath: .
+Bundle-Activator: org.adempiere.plugin.utils.Incremental2PackActivator
+Bundle-Vendor: Kenos

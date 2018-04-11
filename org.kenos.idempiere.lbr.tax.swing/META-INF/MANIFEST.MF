@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: LBR Tax Swing
+Bundle-SymbolicName: org.kenos.idempiere.lbr.tax.swing;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Service-Component: OSGI-INF/EditorFactory.xml
+Require-Bundle: org.adempiere.base;bundle-version="4.1.0",
+ org.kenos.idempiere.lbr.tax;bundle-version="1.0.0",
+ org.adempiere.ui.swing;bundle-version="4.1.0"
+Bundle-ActivationPolicy: lazy

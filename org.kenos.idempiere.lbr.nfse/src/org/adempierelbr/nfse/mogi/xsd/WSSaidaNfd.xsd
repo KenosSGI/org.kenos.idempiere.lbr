@@ -1,0 +1,112 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element name="WSSaida">
+    <xs:complexType>
+      <xs:sequence>
+		  <xs:element name="tbnfd">
+		    <xs:complexType>
+		      <xs:sequence>
+		        <xs:element name="nfdok">
+		          <xs:complexType>
+		            <xs:sequence>
+		              <xs:element name="NewDataSet">
+		                <xs:complexType>
+		                  <xs:sequence>
+		                    <xs:element name="NOTA_FISCAL">
+		                      <xs:complexType>
+		                        <xs:sequence>
+		                          <xs:element type="xs:float" name="Cae"/>
+		                          <xs:element type="xs:string" name="DataEmissao"/>
+		                          <xs:element type="xs:short" name="NaturezaOperacao"/>
+		                          <xs:element type="xs:int" name="NumeroNota"/>
+		                          <xs:element type="xs:string" name="NumeroRps"/>
+		                          <xs:element type="xs:string" name="SituacaoNf"/>
+		                          <xs:element type="xs:string" name="ChaveValidacao"/>
+		                          <xs:element type="xs:string" name="ClienteNomeRazaoSocial"/>
+		                          <xs:element type="xs:string" name="ClienteNomeFantasia"/>
+		                          <xs:element type="xs:long" name="ClienteCNPJCPF"/>
+		                          <xs:element type="xs:string" name="ClienteEndereco"/>
+		                          <xs:element type="xs:string" name="ClienteBairro"/>
+		                          <xs:element type="xs:string" name="ClienteNumeroLogradouro"/>
+		                          <xs:element type="xs:string" name="ClienteCidade"/>
+		                          <xs:element type="xs:string" name="ClienteUF"/>
+		                          <xs:element type="xs:string" name="ClientePais"/>
+		                          <xs:element type="xs:string" name="ClienteFone"/>
+		                          <xs:element type="xs:string" name="ClienteFax"/>
+		                          <xs:element type="xs:string" name="ClienteInscricaoMunicipal"/>
+		                          <xs:element type="xs:int" name="ClienteCEP"/>
+		                          <xs:element type="xs:string" name="ClienteEmail"/>
+		                          <xs:element type="xs:string" name="ClienteInscricaoEstadual"/>
+		                          <xs:element type="xs:float" name="BaseCalculo"/>
+		                          <xs:element type="xs:float" name="ISSQNCliente"/>
+		                          <xs:element type="xs:float" name="ISSQNSemRetencao"/>
+		                          <xs:element type="xs:float" name="ISSQNTotal"/>
+		                          <xs:element type="xs:float" name="Irrf"/>
+		                          <xs:element type="xs:float" name="Cofins"/>
+		                          <xs:element type="xs:float" name="Inss"/>
+		                          <xs:element type="xs:float" name="Csll"/>
+		                          <xs:element type="xs:float" name="Pis"/>
+		                          <xs:element type="xs:float" name="ValorTotalNota"/>
+		                          <xs:element type="xs:string" name="FreteCNPJ"/>
+		                          <xs:element type="xs:string" name="FreteRazaoSocial"/>
+		                          <xs:element type="xs:string" name="FreteEndereco"/>
+		                          <xs:element type="xs:string" name="FreteEmitente"/>
+		                          <xs:element type="xs:string" name="FreteDestinatario"/>
+		                          <xs:element type="xs:string" name="FreteQuantidade"/>
+		                          <xs:element type="xs:string" name="FreteEspecie"/>
+		                          <xs:element type="xs:string" name="FretePesoLiquido"/>
+		                          <xs:element type="xs:string" name="FretePesoBruto"/>
+		                          <xs:element type="xs:string" name="Serie"/>
+		                          <xs:element type="xs:string" name="SerieSimplificada"/>
+		                          <xs:element type="xs:byte" name="CodigoSerie"/>
+		                          <xs:element type="xs:string" name="Observacao"/>
+		                          <xs:element type="xs:string" name="servicoCidade"/>
+		                          <xs:element type="xs:string" name="servicoEstado"/>
+		                          <xs:element type="xs:string" name="TimbreContribuinteLogo"/>
+		                          <xs:element type="xs:string" name="TimbreContribuinteLinha1"/>
+		                          <xs:element type="xs:string" name="TimbreContribuinteLinha2"/>
+		                          <xs:element type="xs:string" name="TimbreContribuinteLinha3"/>
+		                          <xs:element type="xs:string" name="TimbreContribuinteLinha4"/>
+		                          <xs:element type="xs:string" name="TimbrePrefeituraLogo"/>
+		                          <xs:element type="xs:string" name="TimbrePrefeituraLinha1"/>
+		                          <xs:element type="xs:string" name="TimbrePrefeituraLinha2"/>
+		                          <xs:element type="xs:string" name="TimbrePrefeituraLinha3"/>
+		                          <xs:element name="FATURA">
+		                            <xs:complexType>
+		                              <xs:sequence>
+		                                <xs:element type="xs:byte" name="Numero"/>
+		                                <xs:element type="xs:string" name="Vencimento"/>
+		                                <xs:element type="xs:float" name="Valor"/>
+		                              </xs:sequence>
+		                            </xs:complexType>
+		                          </xs:element>
+		                          <xs:element name="ITENS">
+		                            <xs:complexType>
+		                              <xs:sequence>
+		                                <xs:element type="xs:float" name="Quantidade"/>
+		                                <xs:element type="xs:string" name="CodigoAtividade"/>
+		                                <xs:element type="xs:string" name="Servico"/>
+		                                <xs:element type="xs:float" name="ValorUnitario"/>
+		                                <xs:element type="xs:float" name="ValorTotal"/>
+		                                <xs:element type="xs:string" name="ImpostoRetido"/>
+		                                <xs:element type="xs:float" name="Aliquota"/>
+		                              </xs:sequence>
+		                            </xs:complexType>
+		                          </xs:element>
+		                        </xs:sequence>
+		                      </xs:complexType>
+		                    </xs:element>
+		                  </xs:sequence>
+		                </xs:complexType>
+		              </xs:element>
+		            </xs:sequence>
+		            <xs:attribute type="xs:int" name="numeronfd"/>
+		          </xs:complexType>
+		        </xs:element>
+		      </xs:sequence>
+		    </xs:complexType>
+		  </xs:element>
+		</xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

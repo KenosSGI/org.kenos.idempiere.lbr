@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: LBR Base Swing
+Bundle-SymbolicName: org.kenos.idempiere.lbr.base.swing;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Require-Bundle: org.adempiere.base;bundle-version="4.1.0",
+ org.adempiere.ui;bundle-version="4.1.0",
+ org.adempiere.ui.swing,
+ org.kenos.idempiere.lbr.base;bundle-version="1.0.0"
+Service-Component: OSGI-INF/FormFactory.xml,
+ OSGI-INF/InfoFactory.xml,
+ OSGI-INF/EditorFactory.xml
+Bundle-ActivationPolicy: lazy

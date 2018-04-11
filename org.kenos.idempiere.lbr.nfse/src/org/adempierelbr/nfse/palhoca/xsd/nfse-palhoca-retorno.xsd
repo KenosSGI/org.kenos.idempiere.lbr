@@ -1,0 +1,26 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="retorno">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="mensagem">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:string" name="codigo"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element type="xs:string" name="numero_nfse"/>
+        <xs:element type="xs:string" name="serie_nfse"/>
+        <xs:element type="xs:string" name="data_nfse"/>
+        <xs:element type="xs:string" name="hora_nfse"/>
+        <xs:element type="xs:string" name="situacao_codigo_nfse"/>
+        <xs:element type="xs:string" name="situacao_descricao_nfse"/>
+        <xs:element type="xs:string" name="arquivo_gerador_nfse"/>
+        <xs:element type="xs:string" name="nome_arquivo_gerado_eletron"/>
+        <xs:element type="xs:string" name="link_nfse"/>
+        <xs:element type="xs:string" name="cod_verificador_autenticidade"/>
+        <xs:element type="xs:string" name="codigo_html"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

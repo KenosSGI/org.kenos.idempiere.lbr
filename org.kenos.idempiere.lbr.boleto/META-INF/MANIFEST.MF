@@ -1,8 +1,16 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Boleto
-Bundle-SymbolicName: org.kenos.idempiere.lbr.boleto
+Bundle-Name: LBR Boleto Core
+Bundle-SymbolicName: org.kenos.idempiere.lbr.boleto;singleton:=true
 Bundle-Version: 1.0.0.qualifier
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Require-Bundle: org.adempiere.base;bundle-version="4.1.0",
- org.kenos.idempiere.lbr.base;bundle-version="1.0.0"
+ org.adempiere.ui;bundle-version="4.1.0",
+ org.kenos.idempiere.lbr.base;bundle-version="1.0.0",
+ org.kenos.idempiere.lbr.nfe;bundle-version="1.0.0"
+Eclipse-RegisterBuddy: org.adempiere.base, org.adempiere.ui.swing
+Export-Package: org.adempierelbr.apps.form,
+ org.adempierelbr.callout
+Import-Package: org.adempiere.pipo2
+Bundle-ClassPath: .,
+ lib/jBoleto.jar

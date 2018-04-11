@@ -1,0 +1,20 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: LBR Tax ZK
+Bundle-SymbolicName: org.kenos.idempiere.lbr.tax.zk;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Require-Bundle: org.adempiere.base;bundle-version="4.1.0",
+ org.kenos.idempiere.lbr.base;bundle-version="1.0.0",
+ org.kenos.idempiere.lbr.tax;bundle-version="1.0.0",
+ org.adempiere.ui.zk;bundle-version="4.1.0",
+ zk;bundle-version="8.0.1",
+ zul;bundle-version="8.0.1",
+ zcommon;bundle-version="8.0.1"
+Service-Component: OSGI-INF/EditorFactory.xml
+Import-Package: org.adempiere.webui.component,
+ org.adempiere.webui.editor,
+ org.adempiere.webui.event,
+ org.adempiere.webui.theme,
+ org.adempiere.webui.window
+Bundle-ActivationPolicy: lazy

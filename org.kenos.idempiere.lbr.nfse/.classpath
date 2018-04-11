@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins">
+		<accessrules>
+			<accessrule kind="accessible" pattern="org/apache/axis2/**"/>
+			<accessrule kind="accessible" pattern="org/apache/axiom/**"/>
+			<accessrule kind="accessible" pattern="org/compiere/**"/>
+			<accessrule kind="accessible" pattern="org/apache/commons/**"/>
+		</accessrules>
+	</classpathentry>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry exported="true" kind="lib" path="lib/nfse-mogi-v100-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/nfse-mogi-v100.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/nfse-palhoca-v100-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/nfse-palhoca-v100.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/nfsebeans-v01-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/nfsebeans-v01.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: LBR NFe Swing
+Bundle-SymbolicName: org.kenos.idempiere.lbr.nfe.swing;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Require-Bundle: org.adempiere.base;bundle-version="4.1.0",
+ org.adempiere.ui,
+ org.adempiere.ui.swing;bundle-version="4.1.0",
+ org.kenos.idempiere.lbr.base;bundle-version="1.0.0",
+ org.kenos.idempiere.lbr.nfe;bundle-version="1.0.0"
+Service-Component: OSGI-INF/CreateFromFactory.xml,
+ OSGI-INF/FormFactory.xml,
+ OSGI-INF/InfoFactory.xml
+Export-Package: org.adempierelbr.grid,
+ org.kenos.idempiere.lbr.nfe.swing
+Bundle-ActivationPolicy: lazy
