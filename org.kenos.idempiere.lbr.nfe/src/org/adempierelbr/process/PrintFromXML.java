@@ -16,11 +16,8 @@ package org.adempierelbr.process;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.util.EnumMap;
 import java.util.HashMap;
@@ -129,7 +126,7 @@ public class PrintFromXML extends SvrProcess
 		Map<String, Object> qrFiles = new HashMap<String, Object>();
 
 		//	Arquivo com os XML das notas Autorizadas relacionadas do lote.
-		File lotXML 			= File.createTempFile ("lotXMLAut", ".xml");
+		StringBuilder lotXML 	= null;
 		
 		MAttachment att = null;
 	    int tableID = getProcessInfo().getTable_ID();
@@ -241,6 +238,9 @@ public class PrintFromXML extends SvrProcess
 		//	Lote da Nota Fiscal Eletrônica
 		else if (tableID == MLBRNFeLot.Table_ID)
 		{
+			//	Initialize
+			lotXML = new StringBuilder();
+			
 			//	Lote da NF-e
 			MLBRNFeLot doc = new MLBRNFeLot(getCtx(), p_Record_ID, get_TrxName());
 			
@@ -253,11 +253,11 @@ public class PrintFromXML extends SvrProcess
 										.setOrderBy("DocumentNo")
 										.list();
 			
-			//	Gravar os XMLs no Arquivo nfXmlAutorized
-			OutputStreamWriter osw = new OutputStreamWriter (new FileOutputStream(lotXML), TextUtil.UTF8);
+			if (nfs.size() == 0)
+				return "@Error@ nenhuma NF encontrada para impressão";
 			
 			//	Adicionar Tab Principal do Arquivo
-			osw.append(NFeUtil.XML_HEADER).append("<NFeLot>");
+			lotXML.append(NFeUtil.XML_HEADER).append("<NFeLot>");
 			
 			//	Lista de Notas Fiscais Autorizadas
 			for (MLBRNotaFiscal nf : nfs)
@@ -274,7 +274,7 @@ public class PrintFromXML extends SvrProcess
 						try
 						{
 							//	Grava o XML no Arquivo nfXmlAutorized
-							osw.append(new String (entry.getData(), TextUtil.UTF8).replace (NFeUtil.XML_HEADER, ""));
+							lotXML.append(new String (entry.getData(), TextUtil.UTF8).replace (NFeUtil.XML_HEADER, ""));
 						}
 						catch (Exception e)
 						{
@@ -285,10 +285,7 @@ public class PrintFromXML extends SvrProcess
 			}
 			
 			//	Fechar Tag Principal
-			osw.append("</NFeLot>");
-			
-			//	Fechando Arquivo
-			osw.close();
+			lotXML.append("</NFeLot>");
 
 			//	Verifica o nome do arquivo principal da Primeira Nota do Lote.
 			if (MLBRNotaFiscal.LBR_DANFEFORMAT_1_NormalDANFE_Portrait.equals(nfs.get(0).getlbr_DANFEFormat()))
@@ -310,7 +307,7 @@ public class PrintFromXML extends SvrProcess
 		//	Lote da Nota Fiscal Eletrônica
 		if (tableID == MLBRNFeLot.Table_ID)
 		{
-			xml = new FileInputStream (lotXML);
+			xml = new ByteArrayInputStream (lotXML.toString().getBytes(TextUtil.UTF8));
 		}
 		else
 		{	
