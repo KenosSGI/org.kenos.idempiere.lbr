@@ -389,6 +389,7 @@ public class Doc_Invoice extends Doc
 							if (tl != null)
 							{
 								tl.setC_Tax_ID(dt.getC_Tax_ID());
+								tl.setLine_ID(p_lines[i].get_ID());
 								tl.setM_Product_ID(p_lines[i].getM_Product_ID());
 							}
 						}
@@ -479,7 +480,10 @@ public class Doc_Invoice extends Doc
 							FactLine tl = fact.createLine(null, dt.getAccount(DocTax.ACCTTYPE_TaxDue, as),
 								getC_Currency_ID(), amt, null);
 							if (tl != null)
+							{
 								tl.setC_Tax_ID(dt.getC_Tax_ID());
+								tl.setLine_ID(p_lines[i].get_ID());
+							}
 						}
 					}
 				}
@@ -566,7 +570,10 @@ public class Doc_Invoice extends Doc
 							FactLine tl = fact.createLine(null, dt.getAccount(dt.getAPTaxType(), as),
 								getC_Currency_ID(), dt.getAmount(), null);
 							if (tl != null)
+							{
 								tl.setC_Tax_ID(dt.getC_Tax_ID());
+								tl.setLine_ID(p_lines[i].get_ID());
+							}
 						}
 					}
 				}
@@ -692,7 +699,10 @@ public class Doc_Invoice extends Doc
 							FactLine tl = fact.createLine (null, dt.getAccount(dt.getAPTaxType(), as),
 									getC_Currency_ID(), null, dt.getAmount());
 							if (tl != null)
+							{
 								tl.setC_Tax_ID(dt.getC_Tax_ID());
+								tl.setLine_ID(p_lines[i].get_ID());
+							}
 						}
 					}
 				}
