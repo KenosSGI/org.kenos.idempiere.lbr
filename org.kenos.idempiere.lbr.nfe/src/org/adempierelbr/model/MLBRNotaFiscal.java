@@ -1512,7 +1512,7 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 	/**
 	 * 	Gera a NF
 	 */
-	public boolean generateNF (MLBRProductionGroup pg, List<MProduction> productions, Boolean isOwnDocument)
+	public boolean generateNF (MLBRProductionGroup pg, List<MProduction> productions, Boolean isOwnDocument, String lbr_NFeEntrada)
 	{		
 		BigDecimal totalItem = Env.ZERO, totalService = Env.ZERO;
 		//
@@ -1520,6 +1520,9 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		int lineNo = 1;
 		
 		//	Dados mestre
+		if (lbr_NFeEntrada != null && !lbr_NFeEntrada.isEmpty())
+			setDocumentNo(lbr_NFeEntrada);
+		
 		setDateDoc(pg.getDatePromised());
 		setIsSOTrx(isSOTrx);
 		setlbr_IsOwnDocument(isOwnDocument);

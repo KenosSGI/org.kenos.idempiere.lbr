@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.adempierelbr.model.MLBRNotaFiscal;
 import org.compiere.model.MProduction;
+import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
 import org.kenos.idempiere.lbr.base.model.MLBRProductionGroup;
 
@@ -18,10 +19,23 @@ public class POGBGenInvoice extends SvrProcess
 {
 	private int p_LBR_ProductionGroup_ID;
 	
+	private String p_lbr_NFEntrada = null;
+	
 	@Override
 	protected void prepare()
 	{
 		p_LBR_ProductionGroup_ID = getRecord_ID();
+		
+		ProcessInfoParameter[] para = getParameter();
+		for (int i = 0; i < para.length; i++)
+		{
+			String name = para[i].getParameterName();
+			if (para[i].getParameter() == null)
+				;
+			else if (name.equals("lbr_NFEntrada"))
+				p_lbr_NFEntrada = (String) para[i].getParameter();
+		}	
+	
 	}	//	prepare
 
 	@Override
@@ -48,7 +62,7 @@ public class POGBGenInvoice extends SvrProcess
 		MLBRNotaFiscal nf = new MLBRNotaFiscal (getCtx(), 0, get_TrxName());
 		
 		//	Gerar Nota Fiscal a Partir das Produções Completadas
-		nf.generateNF(pg, lines, false);
+		nf.generateNF(pg, lines, false, p_lbr_NFEntrada);
 		
 		nf.save();
 		
