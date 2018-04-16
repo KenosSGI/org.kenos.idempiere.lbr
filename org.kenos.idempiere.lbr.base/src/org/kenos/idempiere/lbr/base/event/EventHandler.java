@@ -101,9 +101,9 @@ public class EventHandler extends AbstractEventHandler
 		Boolean isUseUnifiedBP = MSysConfig.getBooleanValue("LBR_USE_UNIFIED_BP", false);
 
 		if(isUseUnifiedBP)
-			log.info("LBR: Usando PN unificados.");
+			log.fine ("LBR: Usando PN unificados.");
 		else
-			log.info("LBR: Usando um PN por Filial (Normal).");
+			log.fine ("LBR: Usando um PN por Filial (Normal).");
 
 		//	Load Enviroment
 		Env.setContext(Env.getCtx(), "#LBR_USE_UNIFIED_BP", isUseUnifiedBP);
