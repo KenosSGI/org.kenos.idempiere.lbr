@@ -29,8 +29,13 @@ public class CreditCheck implements IColumnCallout
 			String columnName = MOrder.Table_Name.equals(mTab.getTableName()) ? 
 						MOrder.COLUMNNAME_Bill_BPartner_ID : MInvoice.COLUMNNAME_C_BPartner_ID;
 			
+			//	Check for a valid business partner
+			Integer C_BPartner_ID = (Integer) mTab.getValue(columnName);
+			if (C_BPartner_ID == null || C_BPartner_ID.intValue() < 1)
+				return "";
+
 			//	Check if theres a problem finding the Business Partner
-			MBPartner bp = new MBPartner (ctx, (Integer) mTab.getValue(columnName), null);
+			MBPartner bp = new MBPartner (ctx, C_BPartner_ID, null);
 			if (bp != null)
 			{
 				if (MBPartner.SOCREDITSTATUS_CreditStop.equals(bp.getSOCreditStatus()))
