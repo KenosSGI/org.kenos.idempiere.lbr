@@ -13,7 +13,9 @@ import org.adempierelbr.util.TextUtil;
 import org.adempierelbr.wrapper.I_W_AD_OrgInfo;
 import org.compiere.model.MAttachmentEntry;
 import org.compiere.model.MBPartner;
+import org.compiere.model.MChangeLog;
 import org.compiere.model.MClient;
+import org.compiere.model.MColumn;
 import org.compiere.model.MOrgInfo;
 import org.compiere.model.MShipper;
 import org.compiere.model.MSysConfig;
@@ -21,6 +23,7 @@ import org.compiere.model.MUser;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
 import org.compiere.util.CLogger;
+import org.compiere.util.DB;
 import org.compiere.util.EMail;
 import org.compiere.util.Env;
 import org.compiere.util.Msg;
@@ -269,11 +272,23 @@ public class ProcEMailNFe extends SvrProcess
 		//
 		if (mail.send().equals(EMail.SENT_OK))
 		{
-			nf.setLBR_EMailSent (true);
-			nf.save();
+			//	Mark as e-mail sent
+			int count = DB.executeUpdate ("UPDATE LBR_NotaFiscal SET LBR_EMailSent='Y' WHERE LBR_NotaFiscal_ID=?", nf.getLBR_NotaFiscal_ID(), null);
+			
+			//	Force save the log
+			if (count == 1)
+			{
+				int AD_Session_ID = Env.getContextAsInt(nf.getCtx(), "#AD_Session_ID");
+				MChangeLog c = new MChangeLog (nf.getCtx(), 0, null, AD_Session_ID, MLBRNotaFiscal.Table_ID, 
+						MColumn.getColumn_ID(MLBRNotaFiscal.Table_Name, MLBRNotaFiscal.COLUMNNAME_LBR_EMailSent), 
+						nf.getLBR_NotaFiscal_ID(), nf.getAD_Client_ID(), nf.getAD_Org_ID(), nf.isLBR_EMailSent(), true, MChangeLog.EVENTCHANGELOG_Update);
+				c.save();
+			}
 		}
 		else
+		{
 			return "@Error@ " + mail.getSentMsg();
+		}
 		//
 		return "@Success@";
 	}	//	sendEmailNFe
