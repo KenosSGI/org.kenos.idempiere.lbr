@@ -79,6 +79,31 @@ public class ProcEMailNFe extends SvrProcess
 	}	//	doIt
 	
 	/**
+	 * 		Método para enviar e-mail da NF-e numa nova thread
+	 * 
+	 * @param nf
+	 * @param force
+	 * @return
+	 */
+	public static void sendEmailNFeThread (final MLBRNotaFiscal nf, final boolean force)
+	{
+		Thread thread = new Thread ("Timeout") 
+		{
+			public void run ()
+			{
+				//	Make sure the transaction is new
+				String result = ProcEMailNFe.sendEmailNFe (new MLBRNotaFiscal (nf.getCtx(), nf.getLBR_NotaFiscal_ID(), null), force);
+				
+				if (result.indexOf ("@Success@") == -1)
+					log.fine ("Erro ao enviar e-mail da NF #" + nf.getlbr_NFeID() + ", Resultado: " + result);
+			}
+		};
+		
+		//	Timeout check
+		thread.start();
+	}	//	sendEmailNFeThread
+	
+	/**
 	 * 	Método para enviar e-mail da NF-e
 	 * 
 	 * @param nf

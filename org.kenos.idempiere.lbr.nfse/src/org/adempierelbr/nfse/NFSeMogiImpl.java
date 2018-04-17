@@ -461,7 +461,7 @@ public class NFSeMogiImpl implements INFSe
 
 				nf.setlbr_NFeStatus(MLBRNotaFiscal.LBR_NFESTATUS_100_AutorizadoOUsoDaNF_E);
 				ProcReturnRPS.proccessNFSe (nf, ""+nfdOk.getNumeronfd(), nf.getlbr_NFeProt());
-				ProcEMailNFe.sendEmailNFe (nf, false);
+				ProcEMailNFe.sendEmailNFeThread (nf, false);
 			}
 			else
 			{
