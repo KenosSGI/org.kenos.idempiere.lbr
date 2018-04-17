@@ -22,6 +22,7 @@ import org.compiere.model.ModelValidationEngine;
 import org.compiere.model.ModelValidator;
 import org.compiere.model.PO;
 import org.compiere.util.CLogger;
+import org.compiere.util.DB;
 import org.compiere.util.Env;
 
 import br.inf.portalfiscal.nfe.v310.NFeDocument;
@@ -121,6 +122,9 @@ public class VLBRNFe implements ModelValidator
      */
 	public String modelChange (MAttachment att, int type) throws Exception
 	{
+		/**
+		 * 	Não permite excluir anexos de Eventos já processados
+		 */
 		if (type == TYPE_BEFORE_DELETE && att.getAD_Table_ID() == MLBRNFeEvent.Table_ID)
 		{
 			MLBRNFeEvent event = new MLBRNFeEvent (Env.getCtx(), att.getRecord_ID(), att.get_TrxName());
@@ -129,11 +133,26 @@ public class VLBRNFe implements ModelValidator
 				return "N\u00E3o \u00E9 permitido alterar um anexo de um registro j\u00E1 processado.";
 		}
 		
-		if (type == TYPE_AFTER_CHANGE || type == TYPE_AFTER_NEW)
+		/**
+		 * 	Validação dos anexos da NF
+		 */
+		else if (att.getAD_Table_ID() == MLBRNotaFiscal.Table_ID)
 		{
-			if (att.getAD_Table_ID() == MLBRNotaFiscal.Table_ID)
+			/**
+			 * 	Verifica se a NF existe no BD, pois nos casos de geração automática, 
+			 * 		a transação do anexo não é a mesma da NF.
+			 */
+			int count = DB.getSQLValue(att.get_TrxName(), "SELECT COUNT(*) FROM LBR_NotaFiscal WHERE LBR_NotaFiscal_ID=" + att.getRecord_ID());
+			if (count != 1)
+				return null;
+			
+			/**
+			 * 	Preenche a chave da NFe para as NFs de entrada (de fornecedor)
+			 */
+			if (type == TYPE_AFTER_CHANGE || type == TYPE_AFTER_NEW)
 			{
-				MLBRNotaFiscal nf = new MLBRNotaFiscal(Env.getCtx(),att.getRecord_ID(), att.get_TrxName());
+				
+				MLBRNotaFiscal nf = new MLBRNotaFiscal(Env.getCtx(), att.getRecord_ID(), att.get_TrxName());
 				
 				//	Carrega o ID da NFe apenas para as Notas de Entrada que não seja documento próprio.
 				if (!nf.isSOTrx() && !nf.islbr_IsOwnDocument())
@@ -146,13 +165,24 @@ public class VLBRNFe implements ModelValidator
 							//
 							if (nfeXml != null)
 							{
-								nf.setlbr_NFeID(nfeXml.getNFe().getInfNFe().getId().replace("NFe", ""));
+								nf.setlbr_NFeID (nfeXml.getNFe().getInfNFe().getId().replace("NFe", ""));
 								nf.save();
 							}
 						}
 						catch (Exception e){}
 					}
 				}
+			}
+			
+			/**
+			 * 	Não permite excluir anexos de Eventos já processados
+			 */
+			else if (type == TYPE_BEFORE_DELETE)
+			{
+				MLBRNotaFiscal nf = new MLBRNotaFiscal(Env.getCtx(), att.getRecord_ID(), att.get_TrxName());
+				
+				if (nf.islbr_IsOwnDocument() && MLBRNotaFiscal.DOCSTATUS_Completed.equals(nf.getDocStatus()))
+					return "N\u00E3o \u00E9 permitido alterar um anexo de um registro j\u00E1 processado.";
 			}
 		}
 		
