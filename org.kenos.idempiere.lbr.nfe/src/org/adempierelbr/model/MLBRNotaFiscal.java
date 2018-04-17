@@ -2901,6 +2901,22 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		if (getC_DocType_ID() != getC_DocTypeTarget_ID())
 			setC_DocType_ID(getC_DocTypeTarget_ID()); 	//	Define que o C_DocType_ID = C_DocTypeTarget_ID
 		
+		//	Tenta sempre preencher a Organização com base nos documentos vinculados
+		if (getAD_Org_ID() < 1)
+		{
+			//	Tenta pela fatura
+			if (getC_Invoice_ID() > 0)
+				setAD_Org_ID (getC_Invoice().getAD_Org_ID());
+			
+			//	Pela remessa
+			else if (getM_InOut_ID() > 0)
+				setAD_Org_ID (getM_InOut().getAD_Org_ID());
+			
+			//	Pelo pedido
+			else if (getC_Order_ID() > 0)
+				setAD_Org_ID (getC_Order().getAD_Org_ID());
+		}
+		
 		//	Sempre deixar a NF aberta para correção em caso de erro
 		if (DOCSTATUS_Invalid.equals(getDocStatus()))
 			setProcessed(false);
