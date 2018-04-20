@@ -38,6 +38,10 @@ public class RMA implements IColumnCallout
 	 */
 	private String getInOutNF (Properties ctx, int WindowNo, GridTab mTab, GridField mField, Object value, Object oldValue)
 	{
+		//	Do not proceed when null
+		if (value == null)
+			return "";
+		
 		// 	ID NF-e
 		int LBR_NotaFiscal_ID = (Integer) value;
 
