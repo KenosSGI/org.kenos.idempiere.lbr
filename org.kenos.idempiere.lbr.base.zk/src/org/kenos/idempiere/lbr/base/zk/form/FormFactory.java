@@ -51,6 +51,14 @@ public class FormFactory implements IFormFactory
 			form.setICustomForm(controller);
 			return form;
 		}
+		else if (formName.equals ("org.kenos.idempiere.lbr.base.form.POGInvoiceGen"))
+		{
+			WPOGInvoiceGen pogInvoiceGen = new WPOGInvoiceGen();
+			IFormController controller = (IFormController) pogInvoiceGen;
+			ADForm form = controller.getForm();
+			form.setICustomForm(controller);
+			return form;
+		}
 		return null;
 	}
 }	//	FormFactory
