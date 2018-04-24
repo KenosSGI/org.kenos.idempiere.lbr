@@ -9,6 +9,8 @@ import org.compiere.acct.Doc;
 import org.compiere.model.MAcctSchema;
 import org.compiere.model.MAllocationHdr;
 import org.compiere.model.MInvoice;
+import org.compiere.model.MMatchInv;
+import org.compiere.model.MMatchPO;
 import org.compiere.model.MTable;
 import org.compiere.util.CLogger;
 import org.compiere.util.DB;
@@ -74,6 +76,10 @@ public class DocAcctFactory implements IDocFactory
 			return new Doc_Invoice (as, rs, trxName);
 		if (MAllocationHdr.Table_ID == AD_Table_ID)
 			return new Doc_AllocationHdr (as, rs, trxName);
+		if (MMatchInv.Table_ID == AD_Table_ID)
+			return new Doc_MatchInv (as, rs, trxName);
+		if (MMatchPO.Table_ID == AD_Table_ID)
+			return new Doc_MatchPO (as, rs, trxName);
 		return null;
 	}	//	getDocument
 }	//	DocFactory
