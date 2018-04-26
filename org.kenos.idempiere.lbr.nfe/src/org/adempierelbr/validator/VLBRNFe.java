@@ -13,14 +13,20 @@
  *****************************************************************************/
 package org.adempierelbr.validator;
 
+import java.util.List;
+
 import org.adempierelbr.model.MLBRNFeEvent;
 import org.adempierelbr.model.MLBRNotaFiscal;
+import org.adempierelbr.model.MLBRNotaFiscalLine;
 import org.compiere.model.MAttachment;
 import org.compiere.model.MAttachmentEntry;
 import org.compiere.model.MClient;
+import org.compiere.model.MInvoice;
+import org.compiere.model.MProductionLine;
 import org.compiere.model.ModelValidationEngine;
 import org.compiere.model.ModelValidator;
 import org.compiere.model.PO;
+import org.compiere.model.Query;
 import org.compiere.util.CLogger;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
@@ -58,6 +64,9 @@ public class VLBRNFe implements ModelValidator
 
 		//	ModelChange
 		engine.addModelChange (MAttachment.Table_Name, this);
+		
+		//	Document Validate
+		engine.addDocValidate(MLBRNotaFiscal.Table_Name, this);
 	}	//	initialize
 
 	/**
@@ -200,6 +209,50 @@ public class VLBRNFe implements ModelValidator
 	 */
 	public String docValidate (PO po, int timing)
 	{
+		if (timing == TIMING_BEFORE_VOID)
+		{
+			//	Nota Fiscal
+			MLBRNotaFiscal nf = (MLBRNotaFiscal) po;
+			
+			//	Se a Nota não estiver ligada a um dos documentos abaixo
+			//	Possívelmente é uma Nota Fiscal de Industrialização. Buscar o ID da Linha da Nota Fiscal nas Linhas de Produção
+			if (!nf.isSOTrx() && MLBRNotaFiscal.LBR_TRANSACTIONTYPE_Manufacturing.equals(nf.getlbr_TransactionType())
+					&& nf.getC_Invoice_ID() == 0 && nf.getC_Order_ID() == 0 && nf.getM_Movement_ID() == 0)
+			{
+				//
+				for (MLBRNotaFiscalLine nfl : nf.getLines())
+				{
+					String where = "LBR_NotaFiscalLine_ID = ?";
+					
+					//	Verificar se Existe Linhas de Produções com o ID da Linha da Nota Fiscal
+					List<MProductionLine> pls = new Query (Env.getCtx(), MProductionLine.Table_Name, where, null)
+												.setOrderBy("IsEndProduct")
+												.setParameters(nfl.getLBR_NotaFiscalLine_ID())
+												.list();
+					
+					//	Se houver, desvincular antes de anular a Nota Fiscal
+					for (MProductionLine line : pls)
+					{
+						//	Para Anular uma Nota Fiscal de Industrialização com Produto Acabado, é necessário Anular a Fatura Primeiro
+						//	Isso por que a Linha da Produção está Vinculada a Linha da Nota Fiscal e a Linha da Nota Fiscal a Linha da Fatura
+						//	Se a Nota não Está Vinculada a Produção a Fatura ficará Valida porém sem Relacionamento com a Produção.
+						if (nfl.getC_InvoiceLine_ID() > 0 && 
+								(!MInvoice.DOCSTATUS_Reversed.equals(nfl.getC_InvoiceLine().getC_Invoice().getDocStatus())
+								&& !MInvoice.DOCSTATUS_Voided.equals(nfl.getC_InvoiceLine().getC_Invoice().getDocStatus())))
+						{
+							return "Essa Nota contém Produto Acabado. Estorne/Anule a Fatura de Industrialização " + nfl.getC_InvoiceLine().getC_Invoice().getDocumentNo() + 
+									" antes de Anular a Nota Fiscal";
+						}
+						else
+						{
+							//	Removendo Vinculo Entre a Linha da Nota Fiscal e a Linha da Produção
+							line.set_ValueNoCheck(MLBRNotaFiscalLine.COLUMNNAME_LBR_NotaFiscalLine_ID, null);
+							line.save();
+						}						
+					}
+				}
+			}
+		}
 		return null;
 	}	//	docValidate
 }	//	VLBRCommons

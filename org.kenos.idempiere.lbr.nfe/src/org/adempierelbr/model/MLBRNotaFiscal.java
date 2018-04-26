@@ -88,6 +88,7 @@ import org.compiere.model.MOrgInfo;
 import org.compiere.model.MPInstance;
 import org.compiere.model.MPInstancePara;
 import org.compiere.model.MProduct;
+import org.compiere.model.MProduction;
 import org.compiere.model.MProductionLine;
 import org.compiere.model.MRMA;
 import org.compiere.model.MRefList;
@@ -1522,7 +1523,8 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		if (lbr_NFeEntrada != null && !lbr_NFeEntrada.isEmpty())
 			setDocumentNo(lbr_NFeEntrada);
 		
-		setDateDoc(pg.getDatePromised());
+		//	Date Document is Movement Date from Production
+		setDateDoc(lines.get(0).getM_Production().getMovementDate());
 		setIsSOTrx(isSOTrx);
 		setlbr_IsOwnDocument(isOwnDocument);
 		
@@ -1658,8 +1660,23 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 				costPrice = mCost.getCurrentCostPrice();
 			}
 			
-			//	Cost Price
-			nfLine.setPrice(MLBRNotaFiscal.CURRENCY_BRL, costPrice, costPrice , false, false);
+			//	If End Product get Price from Production
+			if (line.isEndProduct())
+			{
+				//	Production
+				MProduction production = (MProduction) line.getM_Production();
+				
+				//	Price Entered from Production
+				BigDecimal priceEntered = (BigDecimal)production.get_Value("PriceEntered");
+				
+				//	Price
+				nfLine.setPrice(MLBRNotaFiscal.CURRENCY_BRL, priceEntered, priceEntered , false, false);				
+			}
+			else
+			{
+				//	Cost Price
+				nfLine.setPrice(MLBRNotaFiscal.CURRENCY_BRL, costPrice, costPrice , false, false);
+			}
 			
 			nfLine.saveEx();
 			//
