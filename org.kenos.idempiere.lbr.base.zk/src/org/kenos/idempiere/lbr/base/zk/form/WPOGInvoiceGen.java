@@ -31,9 +31,6 @@ import org.adempierelbr.model.MLBRNotaFiscal;
 import org.adempierelbr.model.MLBRNotaFiscalLine;
 import org.adempierelbr.model.MLBRTax;
 import org.adempierelbr.wrapper.I_W_C_Invoice;
-import org.compiere.model.MAcctSchema;
-import org.compiere.model.MClient;
-import org.compiere.model.MCost;
 import org.compiere.model.MDocType;
 import org.compiere.model.MInvoice;
 import org.compiere.model.MInvoiceLine;
@@ -252,11 +249,14 @@ public class WPOGInvoiceGen extends ADForm implements IFormController, WTableMod
 		//	All clicks events
 		if (Events.ON_CLICK.equals(eventName))
 		{
-			if (nfNumber.getText().isEmpty())
-				log.warning ("Preencher " + Msg.translate (Env.getCtx(), "lbr_NFEntrada"));
-			
-			else if (confirmPanel.getButton(ConfirmPanel.A_OK).equals(source))
+			if (confirmPanel.getButton(ConfirmPanel.A_OK).equals(source))
 			{
+				if (nfNumber.getText().isEmpty())
+				{
+					log.warning ("Preencher " + Msg.translate (Env.getCtx(), "lbr_NFEntrada"));
+					return;
+				}
+				
 				List<MProduction> productions = new ArrayList<MProduction>();
 				List<MProductionLine> lines = new ArrayList<MProductionLine>();
 				Map<Integer, Vector<Object>> products = new HashMap<Integer, Vector<Object>>();
@@ -306,6 +306,7 @@ public class WPOGInvoiceGen extends ADForm implements IFormController, WTableMod
 						}
 					}
 				
+				//	Generate Invoice and Nota Fiscal
 				processGenerate(productions, lines, nfNumber.getText());				
 				
 				//	Refresh
@@ -324,17 +325,7 @@ public class WPOGInvoiceGen extends ADForm implements IFormController, WTableMod
 				createProductionGrid ();
 				miniTableComp.clear();
 				grpSelectionComp.setVisible(false);
-			}	
-		}
-		else if (Events.ON_CANCEL.equals(eventName))
-		{
-			dispose();
-		}
-		else
-		{
-			createProductionGrid ();
-			miniTableComp.clear();
-			grpSelectionComp.setVisible(false);
+			}
 		}
 	}	//	onEvent
 	
@@ -429,7 +420,6 @@ public class WPOGInvoiceGen extends ADForm implements IFormController, WTableMod
 		
 		//	Documents
 		int p_LBR_Tax_ID 		= pg.getLBR_Tax_ID();
-		int p_M_CostElement_ID 	= 2000000;
 		
 		//	Invoice
 		MInvoice invoice = new MInvoice (Env.getCtx(), 0 , null);
@@ -442,7 +432,9 @@ public class WPOGInvoiceGen extends ADForm implements IFormController, WTableMod
 		wInvoice.setAD_Org_ID(pg.getAD_Org_ID());
 		wInvoice.setIsSOTrx(isSOTrx);
 		wInvoice.setC_BPartner_ID(pg.getC_BPartner_ID());
-		wInvoice.setDateInvoiced (pg.getDatePromised());
+		
+		//	Date Invoice is Movement Date from Production
+		wInvoice.setDateInvoiced (lines.get(0).getM_Production().getMovementDate());
 		wInvoice.setM_PriceList_ID(MPriceList.getDefault(Env.getCtx(), isSOTrx).getM_PriceList_ID());
 		wInvoice.setIsSOTrx(isSOTrx);
 		wInvoice.setlbr_NFEntrada(lbr_NFEntrada);
@@ -494,25 +486,12 @@ public class WPOGInvoiceGen extends ADForm implements IFormController, WTableMod
 			if (!iLine.save())
 				throw new IllegalStateException("Could not create Invoice Line (o)");
 			if (log.isLoggable(Level.FINE)) log.fine(line.toString());
-			
-			//	Cost
-			MAcctSchema as = MClient.get (line.getCtx ()).getAcctSchema();
-			MCost mCost = null;
-			BigDecimal costPrice = Env.ZERO;
-			
-			mCost = MCost.get (p, line.getM_AttributeSetInstance_ID(), as, line.getAD_Org_ID(), p_M_CostElement_ID, line.get_TrxName());
-			
-			if (mCost != null && mCost.getCurrentCostPrice().compareTo(BigDecimal.ZERO) > 0)
-				costPrice = mCost.getCurrentCostPrice();
-			else
-			{
-				//	Source from Organization * if there aren't Organization Cost
-				mCost = MCost.get (p, line.getM_AttributeSetInstance_ID(), as, 0, p_M_CostElement_ID, line.get_TrxName());
-				costPrice = mCost.getCurrentCostPrice();
-			}
+		
+			//	Production
+			MProduction production = (MProduction) line.getM_Production();
 			
 			//	Cost Price
-			iLine.setPrice(costPrice);				
+			iLine.setPrice((BigDecimal)production.get_Value("PriceEntered"));				
 			
 			iLine.save();
 			//
@@ -634,6 +613,7 @@ public class WPOGInvoiceGen extends ADForm implements IFormController, WTableMod
 		sql.append("INNER JOIN M_Product pr ON (pr.M_Product_ID=p.M_Product_ID) ");
 		sql.append("WHERE p.LBR_ProductionGroup_ID=? ");
 		sql.append("AND p.IsActive='Y' AND p.IsCreated='Y' ");
+		sql.append("AND p.M_Production_ID IN (SELECT M_Production_ID FROM M_ProductionLine WHERE M_Production_ID = p.M_Production_ID AND LBR_NotaFiscalLine_ID IS NULL)");
 		
 		if (log.isLoggable(Level.FINE)) log.fine("InvSQL=" + sql.toString());
 		
