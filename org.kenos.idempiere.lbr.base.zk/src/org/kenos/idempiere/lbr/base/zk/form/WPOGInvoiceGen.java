@@ -15,6 +15,7 @@ import java.util.Properties;
 import java.util.Vector;
 import java.util.logging.Level;
 
+import org.adempiere.exceptions.AdempiereException;
 import org.adempiere.model.POWrapper;
 import org.adempiere.webui.component.ConfirmPanel;
 import org.adempiere.webui.component.Datebox;
@@ -252,10 +253,7 @@ public class WPOGInvoiceGen extends ADForm implements IFormController, WTableMod
 			if (confirmPanel.getButton(ConfirmPanel.A_OK).equals(source))
 			{
 				if (nfNumber.getText().isEmpty())
-				{
-					log.warning ("Preencher " + Msg.translate (Env.getCtx(), "lbr_NFEntrada"));
-					return;
-				}
+					throw new AdempiereException ("Preencher " + Msg.translate (Env.getCtx(), "lbr_NFEntrada"));
 				
 				List<MProduction> productions = new ArrayList<MProduction>();
 				List<MProductionLine> lines = new ArrayList<MProductionLine>();
@@ -358,15 +356,24 @@ public class WPOGInvoiceGen extends ADForm implements IFormController, WTableMod
 		//	Add End Product to the List
 		for (MProduction production : productions)
 		{
-			if (MProduction.DOCSTATUS_Drafted.equals(production.getDocStatus()))
+			//FIXME : Cria Transação antes de Validar se Existe Saldo em Estoque
+			
+			/*if (MProduction.DOCSTATUS_Drafted.equals(production.getDocStatus()))
 			{
 				production.setMovementDate(movementeDate);
 				production.save();
 				
-				production.setDocStatus(production.completeIt());
-				
-				production.save();
-			}
+				try
+				{	
+					production.setDocStatus(production.completeIt());
+					production.saveEx();
+				}
+				catch(Exception e)
+				{
+					return null;
+				}
+					
+			}*/
 			
 			for (MProductionLine linesEndProduct : production.getLines())
 			{
@@ -612,7 +619,7 @@ public class WPOGInvoiceGen extends ADForm implements IFormController, WTableMod
 		sql.append("M_Production p ");
 		sql.append("INNER JOIN M_Product pr ON (pr.M_Product_ID=p.M_Product_ID) ");
 		sql.append("WHERE p.LBR_ProductionGroup_ID=? ");
-		sql.append("AND p.IsActive='Y' AND p.IsCreated='Y' ");
+		sql.append("AND p.Processed='N' AND p.IsActive='Y' AND p.IsCreated='Y' ");
 		sql.append("AND p.M_Production_ID IN (SELECT M_Production_ID FROM M_ProductionLine WHERE M_Production_ID = p.M_Production_ID AND LBR_NotaFiscalLine_ID IS NULL)");
 		
 		if (log.isLoggable(Level.FINE)) log.fine("InvSQL=" + sql.toString());
