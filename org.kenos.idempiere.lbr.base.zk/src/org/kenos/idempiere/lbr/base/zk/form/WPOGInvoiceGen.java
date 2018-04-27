@@ -619,7 +619,7 @@ public class WPOGInvoiceGen extends ADForm implements IFormController, WTableMod
 		sql.append("M_Production p ");
 		sql.append("INNER JOIN M_Product pr ON (pr.M_Product_ID=p.M_Product_ID) ");
 		sql.append("WHERE p.LBR_ProductionGroup_ID=? ");
-		sql.append("AND p.Processed='N' AND p.IsActive='Y' AND p.IsCreated='Y' ");
+		sql.append("AND p.Processed='Y' AND p.IsActive='Y' AND p.IsCreated='Y' ");
 		sql.append("AND p.M_Production_ID IN (SELECT M_Production_ID FROM M_ProductionLine WHERE M_Production_ID = p.M_Production_ID AND LBR_NotaFiscalLine_ID IS NULL)");
 		
 		if (log.isLoggable(Level.FINE)) log.fine("InvSQL=" + sql.toString());
