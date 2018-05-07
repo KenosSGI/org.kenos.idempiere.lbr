@@ -28,6 +28,8 @@ import java.util.Map;
 import java.util.logging.Level;
 
 import org.adempiere.exceptions.AverageCostingZeroQtyException;
+import org.adempiere.model.POWrapper;
+import org.adempierelbr.wrapper.I_W_C_DocType;
 import org.compiere.acct.Doc;
 import org.compiere.acct.DocLine;
 import org.compiere.acct.Doc_Order;
@@ -41,6 +43,7 @@ import org.compiere.model.MAcctSchemaElement;
 import org.compiere.model.MConversionRate;
 import org.compiere.model.MCostDetail;
 import org.compiere.model.MCurrency;
+import org.compiere.model.MDocType;
 import org.compiere.model.MInOut;
 import org.compiere.model.MInOutLine;
 import org.compiere.model.MInvoice;
@@ -160,6 +163,13 @@ public class Doc_MatchInv extends Doc
 		}
 //		MMatchInv matchInv = (MMatchInv)getPO();
 
+		//	Envio para Consignação e Industrialização
+		if (m_invoiceLine != null)
+		{
+			I_W_C_DocType doctype = POWrapper.create(new MDocType (Env.getCtx(), m_invoiceLine.getC_Invoice().getC_DocTypeTarget_ID(), null), I_W_C_DocType.class);
+			if ("FAEC-".equals(doctype.getlbr_DocBaseType()) || "FAEI-".equals(doctype.getlbr_DocBaseType()))
+				return facts;
+		}
 		//  create Fact Header
 		Fact fact = new Fact(this, as, Fact.POST_Actual);
 		setC_Currency_ID (as.getC_Currency_ID());

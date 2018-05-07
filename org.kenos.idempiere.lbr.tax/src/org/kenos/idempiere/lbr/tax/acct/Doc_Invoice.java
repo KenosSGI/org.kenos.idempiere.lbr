@@ -33,6 +33,7 @@ import org.adempiere.model.POWrapper;
 import org.adempierelbr.model.MLBRTaxName;
 import org.adempierelbr.validator.VLBROrder;
 import org.adempierelbr.wrapper.I_W_AD_ClientInfo;
+import org.adempierelbr.wrapper.I_W_C_DocType;
 import org.compiere.acct.Doc;
 import org.compiere.acct.DocLine;
 import org.compiere.acct.Fact;
@@ -44,6 +45,7 @@ import org.compiere.model.MClientInfo;
 import org.compiere.model.MConversionRate;
 import org.compiere.model.MCostDetail;
 import org.compiere.model.MCurrency;
+import org.compiere.model.MDocType;
 import org.compiere.model.MInvoice;
 import org.compiere.model.MInvoiceLine;
 import org.compiere.model.MLandedCostAllocation;
@@ -357,6 +359,11 @@ public class Doc_Invoice extends Doc
 		if (!as.isAccrual())
 			return facts;
 
+		//	Envio para Consignação e Industrialização
+		I_W_C_DocType doctype = POWrapper.create(new MDocType (Env.getCtx(), getC_DocType_ID(), null), I_W_C_DocType.class);
+		if ("FAEC-".equals(doctype.getlbr_DocBaseType()) || "FAEI-".equals(doctype.getlbr_DocBaseType()))
+			return facts;
+		
 		//  ** ARI, ARF
 		if (getDocumentType().equals(DOCTYPE_ARInvoice)
 			|| getDocumentType().equals(DOCTYPE_ARProForma))

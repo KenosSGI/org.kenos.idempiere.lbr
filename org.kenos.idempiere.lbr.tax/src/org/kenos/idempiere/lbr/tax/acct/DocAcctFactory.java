@@ -8,9 +8,11 @@ import org.adempiere.base.IDocFactory;
 import org.compiere.acct.Doc;
 import org.compiere.model.MAcctSchema;
 import org.compiere.model.MAllocationHdr;
+import org.compiere.model.MInOut;
 import org.compiere.model.MInvoice;
 import org.compiere.model.MMatchInv;
 import org.compiere.model.MMatchPO;
+import org.compiere.model.MProduction;
 import org.compiere.model.MTable;
 import org.compiere.util.CLogger;
 import org.compiere.util.DB;
@@ -80,6 +82,10 @@ public class DocAcctFactory implements IDocFactory
 			return new Doc_MatchInv (as, rs, trxName);
 		if (MMatchPO.Table_ID == AD_Table_ID)
 			return new Doc_MatchPO (as, rs, trxName);
+		if (MProduction.Table_ID == AD_Table_ID)
+			return new Doc_Production (as, rs, trxName);
+		if (MInOut.Table_ID == AD_Table_ID)
+			return new Doc_InOut (as, rs, trxName);
 		return null;
 	}	//	getDocument
 }	//	DocFactory
