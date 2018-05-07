@@ -46,7 +46,7 @@ INSERT INTO AD_Ref_List_Trl (AD_Ref_List_ID, AD_Language, AD_Client_ID, AD_Org_I
   VALUES (1121830, 'en_US', 0, 0, 'Y', '2018-05-07 11:04:30.0', 100, '2018-05-07 11:04:30.0', 100, 'Industrialization Return Invoice', NULL, 'N', 'eb644d5e-ac1f-49f2-9a9f-3aa4f0c176c0')
 ;
 INSERT INTO AD_Ref_List_Trl (AD_Ref_List_ID, AD_Language, AD_Client_ID, AD_Org_ID, IsActive, Created, CreatedBy, Updated, UpdatedBy, Name, Description, IsTranslated, AD_Ref_List_Trl_UU)
-  VALUES (1121828, 'pt_BR', 0, 0, 'Y', '2018-05-07 11:02:08.0', 100, '2018-05-07 11:09:30.274', 100, 'Fatura de Envio de Industrialização', NULL, 'N', 'a851a362-d32a-4784-a2ee-92fd3a4fb51d')
+  VALUES (1121828, 'pt_BR', 0, 0, 'Y', '2018-05-07 11:02:08.0', 100, '2018-05-07 11:09:30.274', 100, 'Fatura de Envio para Industrialização', NULL, 'N', 'a851a362-d32a-4784-a2ee-92fd3a4fb51d')
 ;
 INSERT INTO AD_Ref_List_Trl (AD_Ref_List_ID, AD_Language, AD_Client_ID, AD_Org_ID, IsActive, Created, CreatedBy, Updated, UpdatedBy, Name, Description, IsTranslated, AD_Ref_List_Trl_UU)
   VALUES (1121830, 'pt_BR', 0, 0, 'Y', '2018-05-07 11:04:30.0', 100, '2018-05-07 11:09:35.673', 100, 'Fatura de Retorno de Industrialização', NULL, 'N', 'c709bebd-4081-4f4f-a109-d7aba97a5974')
