@@ -47,6 +47,7 @@ import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.compiere.util.KeyNamePair;
 import org.compiere.util.Msg;
+import org.compiere.util.Trx;
 import org.kenos.idempiere.lbr.base.model.MLBRProductionGroup;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
@@ -356,29 +357,30 @@ public class WPOGInvoiceGen extends ADForm implements IFormController, WTableMod
 		//	Add End Product to the List
 		for (MProduction production : productions)
 		{
-			//FIXME : Cria Transação antes de Validar se Existe Saldo em Estoque
-			
-			/*if (MProduction.DOCSTATUS_Drafted.equals(production.getDocStatus()))
+			if (MProduction.DOCSTATUS_Drafted.equals(production.getDocStatus()))
 			{
-				production.setMovementDate(movementeDate);
-				production.save();
+				//	Cria Transação para que o IDempiere faça um Rollback se houver erro
+				Trx trx = null;
 				
-				try
-				{	
-					production.setDocStatus(production.completeIt());
-					production.saveEx();
-				}
-				catch(Exception e)
+				if (production.get_TrxName() == null)
 				{
-					return null;
+					trx = Trx.get(Trx.createTrxName(), true);				
+					production.set_TrxName(trx.getTrxName());
 				}
+				
+				production.setMovementDate(movementeDate);				
+				production.setDocStatus(production.completeIt());
+				production.save();
 					
-			}*/
+			}
 			
-			for (MProductionLine linesEndProduct : production.getLines())
+			if (MProduction.DOCSTATUS_Completed.equals(production.getDocStatus()))
 			{
-				if (linesEndProduct.get_ValueAsInt("LBR_NotaFiscalLine_ID") == 0 && linesEndProduct.isEndProduct())
-					lines.add(linesEndProduct);
+				for (MProductionLine linesEndProduct : production.getLines())
+				{
+					if (linesEndProduct.get_ValueAsInt("LBR_NotaFiscalLine_ID") == 0 && linesEndProduct.isEndProduct())
+						lines.add(linesEndProduct);
+				}
 			}
 		}
 		
@@ -618,8 +620,8 @@ public class WPOGInvoiceGen extends ADForm implements IFormController, WTableMod
 		sql.append("p.ProductionQty, p.ProductionQty AS MovementQty FROM ");
 		sql.append("M_Production p ");
 		sql.append("INNER JOIN M_Product pr ON (pr.M_Product_ID=p.M_Product_ID) ");
-		sql.append("WHERE p.LBR_ProductionGroup_ID=? ");
-		sql.append("AND p.Processed='Y' AND p.IsActive='Y' AND p.IsCreated='Y' ");
+		sql.append("WHERE p.LBR_ProductionGroup_ID=? AND p.DocStatus NOT IN ('VO', 'RE') ");
+		sql.append("AND p.IsActive='Y' AND p.IsCreated='Y' ");
 		sql.append("AND p.M_Production_ID IN (SELECT M_Production_ID FROM M_ProductionLine WHERE M_Production_ID = p.M_Production_ID AND LBR_NotaFiscalLine_ID IS NULL)");
 		
 		if (log.isLoggable(Level.FINE)) log.fine("InvSQL=" + sql.toString());
