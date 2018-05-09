@@ -35,6 +35,7 @@ import org.compiere.model.MOrder;
 import org.compiere.model.MOrderLine;
 import org.compiere.model.MPInstance;
 import org.compiere.model.MPaymentTerm;
+import org.compiere.model.MRMA;
 import org.compiere.model.MSysConfig;
 import org.compiere.model.MTax;
 import org.compiere.model.ModelValidationEngine;
@@ -160,7 +161,9 @@ public class ValidatorInvoice implements ModelValidator
 	public String modelChange (MInvoice invoice, int type) throws Exception
 	{
 		int C_Order_ID = invoice.getC_Order_ID();
-		if (C_Order_ID <= 0 || (type != TYPE_BEFORE_NEW && type != TYPE_BEFORE_CHANGE))
+		int M_RMA_ID = invoice.getM_RMA_ID()
+				;
+		if ((C_Order_ID <= 0 && M_RMA_ID <=0) || (type != TYPE_BEFORE_NEW && type != TYPE_BEFORE_CHANGE))
 			return null;
 
 		//	Se o campo Pedido for alterado, atualizar a Fatura com base no pedido.
@@ -198,6 +201,21 @@ public class ValidatorInvoice implements ModelValidator
 				
 			//	Has tax Withhold
 			wInvoice.setLBR_HasWithhold(wOrder.isLBR_HasWithhold());
+		}
+		else if (invoice.is_ValueChanged(MInvoice.COLUMNNAME_M_RMA_ID) || type == TYPE_BEFORE_NEW)
+		{
+			I_W_C_Invoice invoiceW = POWrapper.create(invoice, I_W_C_Invoice.class);
+			
+			//	If Transaction Type is Null get From the Origin Order
+			if (invoiceW.getlbr_TransactionType() == null)
+			{
+				MRMA rma = (MRMA) invoice.getM_RMA();
+				
+				MOrder originalOrder = (MOrder) rma.getInOut().getC_Order();
+				I_W_C_Order originalOrderW = POWrapper.create(originalOrder, I_W_C_Order.class);
+				
+				invoiceW.setlbr_TransactionType(originalOrderW.getlbr_TransactionType());
+			}
 		}
 
 		return null;
@@ -284,7 +302,21 @@ public class ValidatorInvoice implements ModelValidator
 				iLineW.setC_Tax_ID(tax.getC_Tax_ID());
 			}
 			
-		}	//	new		
+		}	//	new	
+		
+		//	Invoice Created from RMA using process Create From, don't fill M_RMA_ID on the Invoice's Header
+		else if (type == TYPE_BEFORE_NEW && iLineW.getM_RMALine_ID() > 0)
+		{
+			MInvoice invoice = (MInvoice) iLineW.getC_Invoice();
+			I_W_C_Invoice invoiceW = POWrapper.create(invoice, I_W_C_Invoice.class);
+			
+			//	If RMA is Null fill it
+			if (invoiceW.getM_RMA_ID() == 0)
+			{
+				invoiceW.setM_RMA_ID( iLineW.getM_RMALine().getM_RMA_ID());
+				invoice.save();
+			}
+		}
 		//
 		return null;
 	} 	//	modelChange
