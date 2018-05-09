@@ -16,6 +16,7 @@ import java.util.Vector;
 import java.util.logging.Level;
 
 import org.adempiere.exceptions.AdempiereException;
+import org.adempiere.webui.component.Combobox;
 import org.adempiere.webui.component.ConfirmPanel;
 import org.adempiere.webui.component.Label;
 import org.adempiere.webui.component.ListModelTable;
@@ -84,6 +85,10 @@ public class WPOGManage extends ADForm implements IFormController, WTableModelLi
 	private WSearchEditor fProduct;
 	private Label lPlannedQty = new Label();
 	private Textbox tPlannedQty = new Textbox();
+	private Label lCopyFrom= new Label(Msg.getMsg (Env.getCtx(), "CopyFrom"));
+	private Combobox cbCopyFrom = new Combobox();
+	private Label lMovementQty = new Label(Msg.getMsg (Env.getCtx(), "MovementQty"));
+	private Textbox tMovementQty = new Textbox();
 	
 	private Object m_M_Product_ID;
 	
@@ -98,8 +103,9 @@ public class WPOGManage extends ADForm implements IFormController, WTableModelLi
 	private static final int MODE_DIST			= 3;
 	private static final int MODE_DIST_COMP		= 4;
 	private static final int MODE_ADD			= 5;
-	private static final int MODE_DELETE		= 6;
-	private static final int MODE_CHANGE		= 7;
+	private static final int MODE_ADD_COPY		= 6;
+	private static final int MODE_DELETE		= 7;
+	private static final int MODE_CHANGE		= 8;	
 	
 	@Override
 	public ADForm getForm()
@@ -123,8 +129,9 @@ public class WPOGManage extends ADForm implements IFormController, WTableModelLi
 			m_mode.addItem(new KeyNamePair (3, "Distribuir"));
 //			m_mode.addItem(new KeyNamePair (4, "Distribuir e Completar"));
 			m_mode.addItem(new KeyNamePair (5, "Adicionar Insumo"));
-			m_mode.addItem(new KeyNamePair (6, "Excluir Insumo"));
-			m_mode.addItem(new KeyNamePair (7, "Alterar Insumo"));
+			m_mode.addItem(new KeyNamePair (6, "Adicionar Insumo (Avançado)"));
+			m_mode.addItem(new KeyNamePair (7, "Excluir Insumo"));
+			m_mode.addItem(new KeyNamePair (8, "Alterar Insumo"));
 			m_mode.addEventListener(Events.ON_SELECT, this);
 			
 			lProduct.setText(Msg.translate(Env.getCtx(), "M_Product_ID"));
@@ -143,13 +150,19 @@ public class WPOGManage extends ADForm implements IFormController, WTableModelLi
 			grpSelectionProd.appendChild(new Space());
 			ZKUpdateUtil.setHflex(fProduct.getComponent(), "min");
 			fProduct.getComponent().setWidth("10px");
-			System.out.println(fProduct.getComponent().getHflex());
 			grpSelectionProd.appendChild(fProduct.getComponent());
 			grpSelectionProd.appendChild(new Space());
 			grpSelectionProd.appendChild(lPlannedQty);
 			grpSelectionProd.appendChild(new Space());
 			grpSelectionProd.appendChild(tPlannedQty);
 			grpSelectionProd.appendChild(new Space());
+			grpSelectionProd.appendChild(lCopyFrom);
+			grpSelectionProd.appendChild(new Space());
+			grpSelectionProd.appendChild(cbCopyFrom);
+			grpSelectionProd.appendChild(new Space());
+			grpSelectionProd.appendChild(lMovementQty);
+			grpSelectionProd.appendChild(new Space());
+			grpSelectionProd.appendChild(tMovementQty);
 			grpSelectionProd.appendChild(new Separator());
 			grpSelectionProd.appendChild(miniTableProd);
 			grpSelectionComp.appendChild(miniTableComp);
@@ -159,6 +172,10 @@ public class WPOGManage extends ADForm implements IFormController, WTableModelLi
 			fProduct.setVisible(false);
 			lPlannedQty.setVisible(false);
 			tPlannedQty.setVisible(false);
+			lCopyFrom.setVisible(false);
+			cbCopyFrom.setVisible(false);
+			lMovementQty.setVisible(false);
+			tMovementQty.setVisible(false);
 			
 			//	Center
 			createMainPanel ();
@@ -249,6 +266,9 @@ public class WPOGManage extends ADForm implements IFormController, WTableModelLi
 		//  Set Model
 		ListModelTable modelI = new ListModelTable(getComponentData());
 		miniTableComp.setData(modelI, columnNames);
+		
+		ListModelTable modelICombo = new ListModelTable(getComponentCombo());
+		cbCopyFrom.setModel(modelICombo);
 		//
 		int index=0;
 		miniTableComp.setColumnClass (index++, Boolean.class, false);		//  0-Selection
@@ -269,10 +289,21 @@ public class WPOGManage extends ADForm implements IFormController, WTableModelLi
 				createComponentGrid ();
 				
 				//	If Mode Add, change or Delete Don't Let Change Qty
-				if (mode == MODE_ADD || mode == MODE_CHANGE || mode == MODE_DELETE)
-					miniTableComp.setColumnReadOnly(4, true);				
+				if (mode == MODE_ADD || mode == MODE_ADD_COPY)
+				{	
+					miniTableComp.setColumnReadOnly(4, true);
+					miniTableComp.setColumnReadOnly(0, true);
+				}
+				else if (mode == MODE_CHANGE || mode == MODE_DELETE)
+				{
+					miniTableComp.setColumnReadOnly(4, true);
+					miniTableComp.setColumnReadOnly(0, false);
+				}
 				else
-					miniTableComp.setColumnReadOnly(4, false);				
+				{	
+					miniTableComp.setColumnReadOnly(0, false);
+					miniTableComp.setColumnReadOnly(4, false);
+				}	
 			}
 			catch (Exception e)
 			{
@@ -446,10 +477,12 @@ public class WPOGManage extends ADForm implements IFormController, WTableModelLi
 					createProductionGrid ();
 					miniTableComp.clear();
 				}
-				else if (mode == MODE_DELETE || mode == MODE_CHANGE || mode == MODE_ADD)
+				else if (mode == MODE_DELETE || mode == MODE_CHANGE || mode == MODE_ADD || mode == MODE_ADD_COPY)
 				{
 					List<MProduction> productions = new ArrayList<MProduction>();
 					Map<Integer, Vector<Object>> products = new HashMap<Integer, Vector<Object>>();
+					
+					BigDecimal totalProductionQty = BigDecimal.ZERO;
 					
 					//  Process Lines, store all selected productions
 					int rows = miniTableProd.getRowCount();
@@ -480,19 +513,71 @@ public class WPOGManage extends ADForm implements IFormController, WTableModelLi
 						}
 					}
 					
-					//	Delete / Change all Production Lines that has selected products
+					if (mode == MODE_ADD_COPY)
+					{	
+						for (MProduction production : productions)
+							totalProductionQty = totalProductionQty.add(production.getProductionQty());
+					}
+					
+					//	Add / Delete / Change all Production Lines that has selected products
 					for (MProduction production : productions)
 					{	
-						if (mode == MODE_ADD)
+						if (mode == MODE_ADD || mode == MODE_ADD_COPY)
 						{
-							if (tPlannedQty.getText().isEmpty() || m_M_Product_ID == null)
-								throw new AdempiereException("Informa o Produto e Quantidade Planejada");
+							if (m_M_Product_ID == null)
+								throw new AdempiereException("Informa o Produto à ser Adicionado");
+							
+							if (mode == MODE_ADD && tPlannedQty.getText().isEmpty())
+								throw new AdempiereException("Informa a Quantidade Planejada");
+							
+							if (mode == MODE_ADD_COPY && cbCopyFrom.getText().isEmpty())
+								throw new AdempiereException("Informa o Insumo para Copiar a Quantidade Planejada");
+								 
 								
 							//	Qty Plan to Produce one Product
-							BigDecimal qty = new BigDecimal(TextUtil.toNumeric(tPlannedQty.getText()));
+							BigDecimal qty = BigDecimal.ZERO;
+							BigDecimal totalqty = BigDecimal.ZERO;
+							BigDecimal movementQty = BigDecimal.ZERO;
 							
-							//	Qty Plan Multiply By Production Qty
-							BigDecimal totalqty = qty.multiply(production.getProductionQty()).setScale(2, RoundingMode.HALF_UP);
+							if (cbCopyFrom.getSelectedItem() == null)
+							{								
+								qty = new BigDecimal(TextUtil.toNumeric(tPlannedQty.getText()));
+								
+								if (BigDecimal.ZERO.compareTo(qty) == 0)
+									throw new AdempiereException ("Quantidade Planejada não pode ser 0");
+							
+								//	Qty Plan Multiply By Production Qty
+								totalqty = qty.multiply(production.getProductionQty()).setScale(2, RoundingMode.HALF_UP);
+							}
+							else
+							{								
+								for (MProductionLine pl : production.getLines())
+								{
+									
+									Vector<Object> line = cbCopyFrom.getSelectedItem().getValue();
+									KeyNamePair knp = (KeyNamePair) line.get(0);
+									
+									if (knp.getKey() == pl.getM_Product_ID())
+									{	
+										totalqty = pl.getPlannedQty();
+										break;
+									}	
+										
+								}
+								
+								if (totalqty.equals(BigDecimal.ZERO))
+										throw new AdempiereException ("Insumo Indicado para Copia não Encontrado");
+								
+								if (!tMovementQty.getText().isEmpty())
+								{
+									movementQty = new BigDecimal(TextUtil.toNumeric(tMovementQty.getText()));
+									
+									BigDecimal productionQty = production.getProductionQty();
+									
+									if (totalProductionQty.compareTo(BigDecimal.ZERO) > 0)
+										totalqty = productionQty.multiply(movementQty).divide(totalProductionQty,2, BigDecimal.ROUND_HALF_UP).setScale(2, BigDecimal.ROUND_HALF_UP);
+								}
+							}
 							
 							MLBRProductionGroup pg = new MLBRProductionGroup (Env.getCtx(), production.get_ValueAsInt("LBR_ProductionGroup_ID"), null);
 							String xyz = String.valueOf (pg.getLBR_ProductionGroup_ID());
@@ -510,22 +595,28 @@ public class WPOGManage extends ADForm implements IFormController, WTableModelLi
 							pl.save();
 							continue;
 						}
-						
-						for (MProductionLine pl : production.getLines())
+						else
 						{
-							if (!pl.isEndProduct() && products.containsKey (pl.getM_Product_ID()))
+							System.out.println(products.size());
+							if (mode == MODE_CHANGE && products.size() > 1)
+								throw new AdempiereException ("Selecione apenas 1 insumo para Alteração");						
+						
+							for (MProductionLine pl : production.getLines())
 							{
-								if (productSentToProducer(production.get_ValueAsInt("LBR_ProductionGroup_ID"), pl.getM_Product_ID()))
-									throw new AdempiereException ("Produto " + pl.getM_Product().getValue() + " já Movimentado ou Aguardando Movimentação. Impossível Excluir / Alterar");
-								
-								if (mode == MODE_DELETE)
+								if (!pl.isEndProduct() && products.containsKey (pl.getM_Product_ID()))
 								{
-									pl.delete(false);
-								}
-								else
-								{
-									pl.setM_Product_ID((Integer)m_M_Product_ID);
-									pl.saveEx();
+									if (productSentToProducer(production.get_ValueAsInt("LBR_ProductionGroup_ID"), pl.getM_Product_ID()))
+										throw new AdempiereException ("Produto " + pl.getM_Product().getValue() + " já Movimentado ou Aguardando Movimentação. Impossível Excluir / Alterar");
+									
+									if (mode == MODE_DELETE)
+									{
+										pl.delete(false);
+									}
+									else
+									{
+										pl.setM_Product_ID((Integer)m_M_Product_ID);
+										pl.saveEx();
+									}
 								}
 							}
 						}
@@ -535,6 +626,8 @@ public class WPOGManage extends ADForm implements IFormController, WTableModelLi
 					m_M_Product_ID = 0;
 					fProduct.setValue(null);
 					tPlannedQty.setValue(null);
+					cbCopyFrom.setValue(null);
+					tMovementQty.setValue(null);
 				}				
 			}
 			else if (confirmPanel.getButton(ConfirmPanel.A_CANCEL).equals(source))
@@ -564,18 +657,22 @@ public class WPOGManage extends ADForm implements IFormController, WTableModelLi
 				grpSelectionComp.setVisible(false);
 			
 			//	If Mode Add, change or Delete Don't Let Change Qty
-			if (mode == MODE_ADD || mode == MODE_CHANGE || mode == MODE_DELETE)
+			if (mode == MODE_ADD || mode == MODE_CHANGE || mode == MODE_DELETE || mode == MODE_ADD_COPY)
 				miniTableProd.setColumnReadOnly(5, true);
 			else
 				miniTableProd.setColumnReadOnly(5, false);
 			
 			//	if Add or Change show Product and Planned Qty
-			if (mode != MODE_ADD && mode != MODE_CHANGE)
+			if (mode != MODE_ADD && mode != MODE_ADD_COPY && mode != MODE_CHANGE)
 			{
 				lProduct.setVisible(false);
 				fProduct.setVisible(false);
 				lPlannedQty.setVisible(false);
 				tPlannedQty.setVisible(false);
+				lCopyFrom.setVisible(false);
+				cbCopyFrom.setVisible(false);
+				lMovementQty.setVisible(false);
+				tMovementQty.setVisible(false);				
 			}
 			else if (mode == MODE_ADD)
 			{
@@ -583,6 +680,21 @@ public class WPOGManage extends ADForm implements IFormController, WTableModelLi
 				fProduct.setVisible(true);
 				lPlannedQty.setVisible(true);
 				tPlannedQty.setVisible(true);
+				lCopyFrom.setVisible(false);
+				cbCopyFrom.setVisible(false);
+				lMovementQty.setVisible(false);
+				tMovementQty.setVisible(false);
+			}
+			else if (mode == MODE_ADD_COPY)
+			{
+				lProduct.setVisible(true);
+				fProduct.setVisible(true);
+				lPlannedQty.setVisible(false);
+				tPlannedQty.setVisible(false);
+				lCopyFrom.setVisible(true);
+				cbCopyFrom.setVisible(true);
+				lMovementQty.setVisible(true);
+				tMovementQty.setVisible(true);
 			}
 			else if (mode == MODE_CHANGE)
 			{
@@ -590,6 +702,10 @@ public class WPOGManage extends ADForm implements IFormController, WTableModelLi
 				fProduct.setVisible(true);
 				lPlannedQty.setVisible(false);
 				tPlannedQty.setVisible(false);
+				lCopyFrom.setVisible(false);
+				cbCopyFrom.setVisible(false);
+				lMovementQty.setVisible(false);
+				tMovementQty.setVisible(false);	
 			}
 				
 		}
@@ -718,6 +834,75 @@ public class WPOGManage extends ADForm implements IFormController, WTableModelLi
 				line.add(knp);									//  2-ProductName
 				line.add(rs.getBigDecimal("PlannedQty"));		//  3-Production Qty
 				line.add(rs.getBigDecimal("QtyUsed"));			//  4-Movement Qty
+				data.add(line);
+			}
+		}
+		catch (SQLException e)
+		{
+			log.log(Level.SEVERE, sql.toString(), e);
+		}
+		finally
+		{
+			DB.close(rs, pstmt);
+		}
+		
+		return data;
+	}	//	getProductionData
+	
+	/**
+	 * 	Retrieve the data of components
+	 * 	@return
+	 * @throws Exception 
+	 */
+	private Vector<Vector<Object>> getComponentCombo () throws Exception
+	{
+		Vector<Integer> selected = new Vector<Integer>();
+		int rows = miniTableProd.getRowCount();
+		for (int i = 0; i < rows; i++)
+		{
+			if (((Boolean)miniTableProd.getValueAt(i, 0)).booleanValue())
+			{
+				KeyNamePair knp = (KeyNamePair) miniTableProd.getValueAt(i, 1);
+				selected.add(knp.getKey());
+			}
+		}
+		
+		if (selected.size() < 1)
+			throw new Exception ("Sem produtos selecionados");
+		
+		Vector<Vector<Object>> data = new Vector<Vector<Object>>();
+		StringBuilder sql = new StringBuilder("SELECT pl.Description, ");
+		sql.append("pr.Value || ' - ' || pr.Name AS ProductName, pl.M_Product_ID, ");
+		sql.append("SUM (pl.QtyUsed) AS QtyUsed, SUM (pl.PlannedQty) AS PlannedQty FROM ");
+		sql.append("M_ProductionLine pl ");
+		sql.append("INNER JOIN M_Product pr ON (pr.M_Product_ID=pl.M_Product_ID) ");
+		sql.append("WHERE pl.IsEndProduct='N' AND pl.M_Production_ID IN (");//.append(" AND LBR_Ref_Production_ID IS NULL ");
+		sql.append(String.join (",", Collections.nCopies (selected.size(), "?")));
+		sql.append(") AND pl.IsActive='Y' ");
+		
+		if (log.isLoggable(Level.FINE)) log.fine("InvSQL=" + sql.toString());
+		
+		// role security
+		sql = new StringBuilder( MRole.getDefault(Env.getCtx(), false).addAccessSQL(sql.toString(), "pl", MRole.SQL_FULLYQUALIFIED, MRole.SQL_RO ));
+		sql.append(" GROUP BY pl.Description, pl.M_Product_ID, pr.Value, pr.Name");
+		sql.append(" ORDER BY pr.Value ");
+
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try
+		{
+			int index = 1;
+			pstmt = DB.prepareStatement(sql.toString(), null);
+			for (Integer s : selected)
+				pstmt.setInt(index++, s);
+			//
+			rs = pstmt.executeQuery();
+			while (rs.next())
+			{
+				Vector<Object> line = new Vector<Object>();
+				KeyNamePair knp = new KeyNamePair(rs.getInt("M_Product_ID"), rs.getString("ProductName"));
+				//
+				line.add(knp);									//  2-ProductName
 				data.add(line);
 			}
 		}
