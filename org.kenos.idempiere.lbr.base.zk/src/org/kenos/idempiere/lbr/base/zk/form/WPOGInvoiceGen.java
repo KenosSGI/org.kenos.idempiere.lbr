@@ -338,6 +338,9 @@ public class WPOGInvoiceGen extends ADForm implements IFormController, WTableMod
 	 */
 	private String processGenerate(List<MProduction> productions, List<MProductionLine> materials, String lbr_NFEntrada) throws Exception
 	{
+		//	Create Trasaction to controll the process. If there is an error, it's necessary to force a Rollback. It will avoid problem on Storage
+		String trxName = Trx.createTrxName();
+		
 		//	Movement Date
 		Timestamp movementeDate = new Timestamp(movDate.getValue().getTime());
 		
@@ -349,7 +352,7 @@ public class WPOGInvoiceGen extends ADForm implements IFormController, WTableMod
 			return null;
 		
 		//	Production Group
-		MLBRProductionGroup pg = new MLBRProductionGroup (Env.getCtx(), productions.get(0).get_ValueAsInt("LBR_ProductionGroup_ID"), null);
+		MLBRProductionGroup pg = new MLBRProductionGroup (Env.getCtx(), productions.get(0).get_ValueAsInt("LBR_ProductionGroup_ID"), trxName);
 		
 		//	Production Line
 		List<MProductionLine> lines = new ArrayList<MProductionLine>();
@@ -358,19 +361,19 @@ public class WPOGInvoiceGen extends ADForm implements IFormController, WTableMod
 		for (MProduction production : productions)
 		{
 			if (MProduction.DOCSTATUS_Drafted.equals(production.getDocStatus()))
-			{
-				//	Cria Transação para que o IDempiere faça um Rollback se houver erro
-				Trx trx = null;
-				
-				if (production.get_TrxName() == null)
+			{				
+				try
 				{
-					trx = Trx.get(Trx.createTrxName(), true);				
-					production.set_TrxName(trx.getTrxName());
+					production.set_TrxName(trxName);
+					production.setMovementDate(movementeDate);				
+					production.setDocStatus(production.completeIt());
+					production.save();
 				}
-				
-				production.setMovementDate(movementeDate);				
-				production.setDocStatus(production.completeIt());
-				production.save();
+				catch (Exception e)
+				{
+					Trx.get (trxName, false).rollback ();
+					throw new AdempiereException(e.getMessage());
+				}
 					
 			}
 			
@@ -391,6 +394,9 @@ public class WPOGInvoiceGen extends ADForm implements IFormController, WTableMod
 		//	Add Material
 		for (MProductionLine linesMaterial : materials)
 		{
+			//	Material Line must be in the same Trx
+			linesMaterial.set_TrxName(trxName);
+			
 			if (linesMaterial.get_ValueAsInt("LBR_NotaFiscalLine_ID") == 0 && !linesMaterial.isEndProduct())
 				lines.add(linesMaterial);
 		}
@@ -409,6 +415,14 @@ public class WPOGInvoiceGen extends ADForm implements IFormController, WTableMod
 		//	Create Invoice
 		if (createInvoice)
 			InvoiceGenerate(pg, lines, lbr_NFEntrada);
+		
+		try
+		{
+			Trx.get (trxName, false).commit();
+		}
+		catch (Exception e) {
+			throw new AdempiereException(e.getMessage());
+		}		
 		
 		return null;
 		
@@ -431,12 +445,12 @@ public class WPOGInvoiceGen extends ADForm implements IFormController, WTableMod
 		int p_LBR_Tax_ID 		= pg.getLBR_Tax_ID();
 		
 		//	Invoice
-		MInvoice invoice = new MInvoice (Env.getCtx(), 0 , null);
+		MInvoice invoice = new MInvoice (Env.getCtx(), 0 , pg.get_TrxName());
 		
 		I_W_C_Invoice wInvoice = POWrapper.create(invoice, I_W_C_Invoice.class);
 		
 		// Invoice Doc Type
-		MDocType doctype = new MDocType (Env.getCtx(), pg.getC_DocTypeTarget_ID(), null);
+		MDocType doctype = new MDocType (Env.getCtx(), pg.getC_DocTypeTarget_ID(), invoice.get_TrxName());
 		
 		wInvoice.setAD_Org_ID(pg.getAD_Org_ID());
 		wInvoice.setIsSOTrx(isSOTrx);
@@ -468,7 +482,7 @@ public class WPOGInvoiceGen extends ADForm implements IFormController, WTableMod
 				continue;
 			
 			// Add Product
-			MProduct p = new MProduct (Env.getCtx(), line.getM_Product_ID(), null);
+			MProduct p = new MProduct (Env.getCtx(), line.getM_Product_ID(), invoice.get_TrxName());
 			
 			MInvoiceLine iLine = new MInvoiceLine (invoice);
 			iLine.setProduct(p);
@@ -483,7 +497,7 @@ public class WPOGInvoiceGen extends ADForm implements IFormController, WTableMod
 			//	Tax
 			if (p_LBR_Tax_ID > 0)
 			{
-				MLBRTax tax = new MLBRTax (Env.getCtx(), p_LBR_Tax_ID, null);
+				MLBRTax tax = new MLBRTax (Env.getCtx(), p_LBR_Tax_ID, invoice.get_TrxName());
 				MLBRTax newTax = tax.copyTo();
 				//
 				iLine.set_ValueOfColumn("LBR_Tax_ID", newTax.getLBR_Tax_ID());
