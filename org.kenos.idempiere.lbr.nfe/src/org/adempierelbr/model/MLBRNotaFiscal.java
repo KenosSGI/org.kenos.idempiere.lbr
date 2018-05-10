@@ -1599,7 +1599,7 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 			nfLine.setLine(lineNo++);
 			
 			
-			MProduct p = new MProduct (getCtx(), line.getM_Product_ID(), null);
+			MProduct p = new MProduct (getCtx(), line.getM_Product_ID(), get_TrxName());
 			
 //			Product
 			nfLine.setProduct (p);
