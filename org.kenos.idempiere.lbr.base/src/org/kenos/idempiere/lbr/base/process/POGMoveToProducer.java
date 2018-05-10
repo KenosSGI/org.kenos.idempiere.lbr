@@ -11,6 +11,7 @@ import org.compiere.model.MMovementLine;
 import org.compiere.model.MProduct;
 import org.compiere.model.MProduction;
 import org.compiere.model.MProductionLine;
+import org.compiere.model.MStorageOnHand;
 import org.compiere.process.SvrProcess;
 import org.compiere.util.Env;
 import org.kenos.idempiere.lbr.base.model.MLBRProductionGroup;
@@ -53,8 +54,14 @@ public class POGMoveToProducer extends SvrProcess
 						|| !MProduct.PRODUCTTYPE_Item.equals (pl.getM_Product().getProductType()))	//	Not physical
 					continue;
 				
-				int M_Locator_ID = pl.getM_Product().getM_Locator_ID();
+				//	Get Locator
+				int M_Locator_ID = MStorageOnHand.getM_Locator_ID (p.getM_Locator().getM_Warehouse_ID(),
+						pl.getM_Product_ID(), pl.getM_AttributeSetInstance_ID(),
+						pl.getPlannedQty(), get_TrxName());
+				
 				if (M_Locator_ID <= 0)
+					M_Locator_ID = pl.getM_Product().getM_Locator_ID();
+				else if (M_Locator_ID <= 0)
 					M_Locator_ID = p.getM_Locator_ID();
 				
 				//	Same locator
