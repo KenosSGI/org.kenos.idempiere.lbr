@@ -740,6 +740,8 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		if (protNFe == null || protNFe.getInfProt() == null)
 			throw new Exception ("Protocolo inválido");
 
+		Boolean sendMail = false;
+		
 		InfProt infProt = protNFe.getInfProt();
 			
 		String chNFe	= infProt.getChNFe();
@@ -836,15 +838,8 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 			
 			//	Atualiza o anexo
 			attachment.addEntry(nf.getlbr_NFeID() + "-dst.xml", xmlText.getBytes(NFeUtil.NFE_ENCODING));
-			attachment.save();
-			
-			//	Envia o e-mail para o cliente
-			//	em caso de erro o try/catch evita que o processamento não seja commitado
-			try
-			{
-				ProcEMailNFe.sendEmailNFeThread (nf, false);
-			}
-			catch (Exception e) {}
+			if (attachment.save())
+				sendMail = true;
 		}
 		
 		//	Notas Fiscais Denegadas
@@ -870,6 +865,18 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		
 		//	Save changes
 		nf.save();
+		
+		//	Send mail
+		if (sendMail)
+		{
+			//	Envia o e-mail para o cliente
+			//	em caso de erro o try/catch evita que o processamento não seja commitado
+			try
+			{
+				ProcEMailNFe.sendEmailNFeThread (nf, false);
+			}
+			catch (Exception e) {}
+		}
 	}	//	authorizeNFe
 
 	/**
