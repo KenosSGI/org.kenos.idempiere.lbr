@@ -85,9 +85,9 @@ public class WPOGManage extends ADForm implements IFormController, WTableModelLi
 	private WSearchEditor fProduct;
 	private Label lPlannedQty = new Label();
 	private Textbox tPlannedQty = new Textbox();
-	private Label lCopyFrom= new Label(Msg.getMsg (Env.getCtx(), "CopyFrom"));
+	private Label lCopyFrom= new Label();
 	private Combobox cbCopyFrom = new Combobox();
-	private Label lMovementQty = new Label(Msg.getMsg (Env.getCtx(), "MovementQty"));
+	private Label lMovementQty = new Label();
 	private Textbox tMovementQty = new Textbox();
 	
 	private Object m_M_Product_ID;
@@ -140,6 +140,8 @@ public class WPOGManage extends ADForm implements IFormController, WTableModelLi
 			fProduct.addValueChangeListener(this);
 			
 			lPlannedQty.setText(Msg.translate(Env.getCtx(), "PlannedQty"));
+			lCopyFrom.setText(Msg.getMsg (Env.getCtx(), "CopyFrom"));
+			lMovementQty.setText(Msg.getMsg (Env.getCtx(), "MovementQty"));
 			
 			//	Top Selection Panel
 			grpSelectionProd.appendChild(l_help);
@@ -566,7 +568,10 @@ public class WPOGManage extends ADForm implements IFormController, WTableModelLi
 								}
 								
 								if (totalqty.equals(BigDecimal.ZERO))
-										throw new AdempiereException ("Insumo Indicado para Copia não Encontrado");
+								{	
+										log.warning ("Insumo Indicado para Copia não Encontrado");
+										continue;
+								}	
 								
 								if (!tMovementQty.getText().isEmpty())
 								{
@@ -593,7 +598,7 @@ public class WPOGManage extends ADForm implements IFormController, WTableModelLi
 							pl.setLine(line);
 							pl.setM_Locator_ID(locator.getM_Locator_ID());
 							pl.save();
-							continue;
+
 						}
 						else
 						{
@@ -803,7 +808,7 @@ public class WPOGManage extends ADForm implements IFormController, WTableModelLi
 		sql.append("SUM (pl.QtyUsed) AS QtyUsed, SUM (pl.PlannedQty) AS PlannedQty FROM ");
 		sql.append("M_ProductionLine pl ");
 		sql.append("INNER JOIN M_Product pr ON (pr.M_Product_ID=pl.M_Product_ID) ");
-		sql.append("WHERE pl.IsEndProduct='N' AND pl.M_Production_ID IN (");//.append(" AND LBR_Ref_Production_ID IS NULL ");
+		sql.append("WHERE pl.IsEndProduct='N' AND pr.ProductType='I' AND pl.M_Production_ID IN (");//.append(" AND LBR_Ref_Production_ID IS NULL ");
 		sql.append(String.join (",", Collections.nCopies (selected.size(), "?")));
 		sql.append(") AND pl.IsActive='Y' ");
 		
