@@ -32,7 +32,6 @@ import org.adempiere.webui.panel.ADForm;
 import org.adempiere.webui.panel.IFormController;
 import org.adempiere.webui.session.SessionManager;
 import org.adempiere.webui.util.ZKUpdateUtil;
-import org.adempierelbr.util.TextUtil;
 import org.compiere.model.MLocator;
 import org.compiere.model.MLookup;
 import org.compiere.model.MLookupFactory;
@@ -543,7 +542,7 @@ public class WPOGManage extends ADForm implements IFormController, WTableModelLi
 							
 							if (cbCopyFrom.getSelectedItem() == null)
 							{								
-								qty = new BigDecimal(TextUtil.toNumeric(tPlannedQty.getText()));
+								qty = new BigDecimal(tPlannedQty.getText().replace(",", "."));
 								
 								if (BigDecimal.ZERO.compareTo(qty) == 0)
 									throw new AdempiereException ("Quantidade Planejada não pode ser 0");
@@ -575,7 +574,7 @@ public class WPOGManage extends ADForm implements IFormController, WTableModelLi
 								
 								if (!tMovementQty.getText().isEmpty())
 								{
-									movementQty = new BigDecimal(TextUtil.toNumeric(tMovementQty.getText()));
+									movementQty = new BigDecimal(tMovementQty.getText().replace(",", "."));
 									
 									BigDecimal productionQty = production.getProductionQty();
 									
