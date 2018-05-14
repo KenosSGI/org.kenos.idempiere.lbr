@@ -19,6 +19,7 @@ import org.compiere.process.DocAction;
 import org.compiere.process.DocOptions;
 import org.compiere.process.DocumentEngine;
 import org.compiere.util.Env;
+import org.compiere.util.Trx;
 import org.kenos.idempiere.lbr.base.process.POGBOMDrop;
 
 /**
@@ -76,18 +77,21 @@ public class MLBRProductionGroup extends X_LBR_ProductionGroup implements DocAct
 		{
 			options[0] = DOCACTION_Complete;
 			options[1] = DOCACTION_Re_Activate;
-			index=2;
+			options[2] = DOCACTION_Void;
+			index=3;
 		}
 		else if (DOCSTATUS_Completed.equals(docStatus))
 		{
 			options[0] = DOCACTION_Close;
 			options[1] = DOCACTION_Re_Activate;
-			index=2;
+			options[2] = DOCACTION_Void;
+			index=3;
 		}
 		else if (!DOCSTATUS_Closed.equals(docStatus))
 		{
 			options[0] = DOCACTION_Complete;
-			index=1;
+			options[1] = DOCACTION_Void;
+			index=2;
 		}
 		//
 		return index;
@@ -228,10 +232,58 @@ public class MLBRProductionGroup extends X_LBR_ProductionGroup implements DocAct
 		return null;
 	}	//	completeIt
 
-	@Override
+	
 	public boolean voidIt()
 	{
-		return false;
+		m_processMsg = ModelValidationEngine.get().fireDocValidate(this, ModelValidator.TIMING_BEFORE_VOID);
+		if (m_processMsg != null)
+			return false;
+		
+		String trxName = Trx.createTrxName();
+		
+		try
+		{			
+			for (MProduction p : this.getProduction())
+			{
+				p.set_TrxName(trxName);
+				
+				if (MProduction.DOCSTATUS_Drafted.equals(p.getDocStatus()))
+				{					
+						if (p.voidIt())
+						{
+							p.setProcessed (true);
+							p.setDocAction (DOCACTION_None);
+							p.setDocStatus (DOCSTATUS_Voided);
+							p.save();
+						}	
+				}
+				else if (MProduction.DOCSTATUS_Completed.equals(p.getDocStatus()) || 
+						MProduction.DOCSTATUS_Closed.equals(p.getDocStatus()))
+				{
+					m_processMsg = "Impossível Anular Pedido de Industrialização com Item a Produzir Completado";
+					Trx trx = Trx.get(trxName, false);
+					trx.rollback();				
+					return false;
+				}			 
+					
+			}
+			
+			Trx trx = Trx.get(trxName, false);
+			trx.commit();
+			
+			setProcessed (true);
+			setDocAction (DOCACTION_None);
+			setDocStatus (DOCSTATUS_Voided);
+			return true;
+		
+		}
+		catch(Exception e)
+		{
+			m_processMsg = e.getMessage();
+			Trx trx = Trx.get(trxName, false);
+			trx.rollback();
+			return false;					
+		}		
 	}
 
 	@Override
