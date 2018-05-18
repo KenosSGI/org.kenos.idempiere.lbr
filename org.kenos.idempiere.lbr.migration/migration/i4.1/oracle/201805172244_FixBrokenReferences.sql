@@ -1,0 +1,30 @@
+SET SQLBLANKLINES ON
+SET DEFINE OFF
+
+-- Fix Table References w/o a Reference Value (changed to Table Direct) 
+-- 17/05/2018 22h34min16s BRT
+UPDATE AD_Column SET IsIdentifier='Y', SeqNo=1,Updated=TO_DATE('2018-05-17 22:34:16','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1128623
+;
+
+-- 17/05/2018 22h34min28s BRT
+UPDATE AD_Column SET AD_Reference_ID=19,Updated=TO_DATE('2018-05-17 22:34:28','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1128693
+;
+
+-- 17/05/2018 22h37min34s BRT
+UPDATE AD_Column SET AD_Reference_Value_ID=110,Updated=TO_DATE('2018-05-17 22:37:34','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1126667
+;
+
+-- 17/05/2018 22h38min10s BRT
+UPDATE AD_Column SET AD_Reference_ID=19,Updated=TO_DATE('2018-05-17 22:38:10','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1125224
+;
+
+-- 17/05/2018 22h38min41s BRT
+UPDATE AD_Column SET AD_Reference_ID=19,Updated=TO_DATE('2018-05-17 22:38:41','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1000489
+;
+
+-- 17/05/2018 22h39min17s BRT
+UPDATE AD_Column SET AD_Reference_ID=19,Updated=TO_DATE('2018-05-17 22:39:17','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1100099
+;
+
+SELECT Register_Migration_Script ('201805172244_FixBrokenReferences.sql') FROM DUAL
+;
