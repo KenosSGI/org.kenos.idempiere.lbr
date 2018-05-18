@@ -142,14 +142,14 @@ public class ReProcessOrder extends SvrProcess
 		
 		//	Check price list
 		if (p_EnforcePrice 
-				&& p_M_PriceList_ID > 0
-				&& p_M_PriceList_ID != order.getM_PriceList_ID())
+				&& p_M_PriceList_ID > 0)
 		{
 			//	Do not save to avoid error
 			order.setM_PriceList_ID (p_M_PriceList_ID);
+			order.setIsTaxIncluded (order.getM_PriceList().isTaxIncluded());
 			
 			//	Make changes directly
-			DB.executeUpdate ("UPDATE C_Order SET M_PriceList_ID=" + p_M_PriceList_ID + " WHERE C_Order_ID=" + order.getC_Order_ID(), order.get_TrxName());
+			DB.executeUpdate ("UPDATE C_Order SET IsTaxIncluded='" + (order.isTaxIncluded() ? "Y" : "N") + "', M_PriceList_ID=" + p_M_PriceList_ID + " WHERE C_Order_ID=" + order.getC_Order_ID(), order.get_TrxName());
 		}
 		
 		//	Process
@@ -187,7 +187,7 @@ public class ReProcessOrder extends SvrProcess
 
 			//	Tax Definition implies that taxes was already calculated, 
 			//		only recalculated when definition is not checked
-			if (p_ReCalculateTax && !p_ReDefineTax)
+			if ((p_ReCalculateTax && !p_ReDefineTax) || p_EnforcePrice)
 				ol.set_ValueOfColumn(I_W_C_OrderLine.COLUMNNAME_lbr_RecalculateTax, true);
 			
 			//	Fill the Price on line(s) using current price list
