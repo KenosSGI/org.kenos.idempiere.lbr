@@ -363,6 +363,11 @@ public class Doc_Invoice extends Doc
 		I_W_C_DocType doctype = POWrapper.create(new MDocType (Env.getCtx(), getC_DocType_ID(), null), I_W_C_DocType.class);
 		if ("FAEC-".equals(doctype.getlbr_DocBaseType()) || "FAEI-".equals(doctype.getlbr_DocBaseType()))
 			return facts;
+
+		//	Envio para Transferência
+		Boolean taxesOnly = false;
+		if ("FAET-".equals(doctype.getlbr_DocBaseType()))
+			taxesOnly = true;
 		
 		//  ** ARI, ARF
 		if (getDocumentType().equals(DOCTYPE_ARInvoice)
@@ -399,8 +404,26 @@ public class Doc_Invoice extends Doc
 								tl.setLine_ID(p_lines[i].get_ID());
 								tl.setM_Product_ID(p_lines[i].getM_Product_ID());
 							}
+							
+							if (taxesOnly)
+							{
+								tl = fact.createLine(null, dt.getAccount(DocTax.ACCTTYPE_TaxCredit, as),
+										getC_Currency_ID(), amt, null);
+								if (tl != null)
+								{
+									tl.setC_Tax_ID(dt.getC_Tax_ID());
+									tl.setLine_ID(p_lines[i].get_ID());
+									tl.setM_Product_ID(p_lines[i].getM_Product_ID());
+								}
+							}
 						}
 					}
+				}
+				
+				if (taxesOnly)
+				{
+					facts.add(fact);
+					return facts;
 				}
 				
 				amt = p_lines[i].getAmtSource().subtract(includedTax);
