@@ -6,9 +6,9 @@ LEFT JOIN LBR_NFTax_v pis ON (nf.LBR_NotaFiscal_ID=pis.LBR_NotaFiscal_ID AND pis
 LEFT JOIN LBR_NFTax_v cofins ON (nf.LBR_NotaFiscal_ID=cofins.LBR_NotaFiscal_ID AND cofins.TaxIndicator=''COFINS'')
 LEFT JOIN LBR_NFTax_v ipi ON (nf.LBR_NotaFiscal_ID=ipi.LBR_NotaFiscal_ID AND ipi.TaxIndicator=''IPI'')
 LEFT JOIN LBR_NFTax_v icmsst ON (nf.LBR_NotaFiscal_ID=icmsst.LBR_NotaFiscal_ID AND icmsst.TaxIndicator=''ICMSST'')
-LEFT JOIN LBR_NFTax_v difal ON (nf.LBR_NotaFiscal_ID=icmsst.LBR_NotaFiscal_ID AND icmsst.TaxIndicator=''ICMSDIFAL'')
-LEFT JOIN LBR_NFTax_v difalo ON (nf.LBR_NotaFiscal_ID=icmsst.LBR_NotaFiscal_ID AND icmsst.TaxIndicator=''ICMSDIFALORIG'')
-LEFT JOIN LBR_NFTax_v fcp ON (nf.LBR_NotaFiscal_ID=icmsst.LBR_NotaFiscal_ID AND icmsst.TaxIndicator=''FCP'')')
+LEFT JOIN LBR_NFTax_v difal ON (nf.LBR_NotaFiscal_ID=difal.LBR_NotaFiscal_ID AND difal.TaxIndicator=''ICMSDIFAL'')
+LEFT JOIN LBR_NFTax_v difalo ON (nf.LBR_NotaFiscal_ID=difalo.LBR_NotaFiscal_ID AND difalo.TaxIndicator=''ICMSDIFALORIG'')
+LEFT JOIN LBR_NFTax_v fcp ON (nf.LBR_NotaFiscal_ID=fcp.LBR_NotaFiscal_ID AND fcp.TaxIndicator=''FCP'')')
 ;
 
 -- 22/05/2018 10h15min50s BRT
