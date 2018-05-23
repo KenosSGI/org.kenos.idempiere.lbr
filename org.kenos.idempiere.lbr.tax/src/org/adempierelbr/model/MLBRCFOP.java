@@ -173,7 +173,7 @@ public class MLBRCFOP extends X_LBR_CFOP
 		String whereClause = "IsActive='Y' AND AD_Org_ID IN (0, ?) AND C_DocType_ID=? "
 				+ "AND (LBR_ProductCategory_ID=?  OR LBR_ProductCategory_ID IS NULL) "
 				+ "AND (LBR_BPartnerCategory_ID=? OR LBR_BPartnerCategory_ID IS NULL) "
-				+ "AND (lbr_TransactionType=? OR lbr_TransactionType IS NULL)"
+				+ "AND (lbr_TransactionType=? OR lbr_TransactionType IS NULL) "
 				+ "AND lbr_DestionationType=? "
 				+ "AND lbr_IsSubTributaria IN ('B', ?) "
 				+ "AND lbr_IsManufactured IN ('B', ?) "
