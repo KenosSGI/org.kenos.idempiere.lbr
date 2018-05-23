@@ -2822,6 +2822,19 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		StringBuffer description = new StringBuffer("");
 		List<Integer> legalMsg = new ArrayList<Integer>();
 		
+		//	Adicionar DI na Descrição da NF
+		for (X_LBR_NFDI di : getDIs())
+		{
+			if (description.length() > 0)
+				description.append("\n");			
+			description.append(parse("DI: " + di.getlbr_DI() + "".trim()));	
+			description.append(parse(" - Data: " + TextUtil.timeToString(di.getDateTrx(), "dd/MM/yyyy") + "".trim()));	
+			description.append(parse(" - Taxa Siscomex: " + getlbr_TotalSISCOMEX() + "".trim()));
+			description.append(parse(" - PIS: " + TextUtil.bigdecimalToString (getPISAmt()) + "".trim()));
+			description.append(parse(" - COFINS: " + TextUtil.bigdecimalToString (getCOFINSAmt()) + "".trim()));
+			description.append(parse(" - II: " + TextUtil.bigdecimalToString (getIIAmt()) + "".trim()));	
+		}
+		
 		//	Mensagens Legais Linha
 		for (MLBRNotaFiscalLine nfl : getLines())
 		{
@@ -2873,6 +2886,25 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 	public void setDescription ()
 	{
 		StringBuffer description = new StringBuffer();
+		
+		//	Endereço de Entrega Diferente do Endereço da Fatura
+		if ((DELIVERYVIARULE_Delivery.equals(getDeliveryViaRule()) ||
+				DELIVERYVIARULE_Shipper.equals(getDeliveryViaRule()))
+				&& !isSameDeliveryAddr())
+		{	
+			if (description.length() > 0)
+				description.append("\n");
+			
+			String address = 	getlbr_BPDeliveryAddress1() + "," + getlbr_BPDeliveryAddress2() + " - " +
+								getlbr_BPDeliveryAddress3() + " - " + getlbr_BPDeliveryAddress4() + " - " +
+								"CEP: " + getlbr_BPDeliveryPostal() + " - " + getlbr_BPDeliveryCity() + "/" + 
+								getlbr_BPDeliveryRegion();
+			
+			address = address.replace("null - ", "").trim();
+			
+			description.append("ENDEREÇO DE ENTREGA: " + address);
+		}
+		
 		//	Tipo de Documento
 		if (getC_DocTypeTarget_ID() > 0 && getC_DocTypeTarget().getDocumentNote() != null)
 			description.append(parse (getC_DocTypeTarget().getDocumentNote().trim()));
@@ -2894,14 +2926,6 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 			if (description.length() > 0)
 				description.append("\n");			
 			description.append(parse("Chave de Acesso da NF-e Referenciada: " + nfref.getlbr_NFeID() + "".trim()));	
-		}
-		
-		//	Adicionar DI na Descrição da NF
-		for (X_LBR_NFDI di : getDIs())
-		{
-			if (description.length() > 0)
-				description.append("\n");			
-			description.append(parse("DI: " + di.getlbr_DI() + "".trim()));	
 		}
 		
 		setDescription(parse (description.toString()).replace("\n\n\n", "\n\n"));
