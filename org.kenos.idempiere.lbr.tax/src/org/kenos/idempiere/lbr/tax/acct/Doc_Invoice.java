@@ -366,7 +366,8 @@ public class Doc_Invoice extends Doc
 
 		//	Envio para Transferência
 		Boolean taxesOnly = false;
-		if ("FAET-".equals(doctype.getlbr_DocBaseType()))
+		if ("FAET-".equals(doctype.getlbr_DocBaseType()) 
+				|| "FART+".equals(doctype.getlbr_DocBaseType()))
 			taxesOnly = true;
 		
 		//  ** ARI, ARF
@@ -604,9 +605,24 @@ public class Doc_Invoice extends Doc
 								tl.setC_Tax_ID(dt.getC_Tax_ID());
 								tl.setLine_ID(p_lines[i].get_ID());
 							}
+							
+							if (taxesOnly)
+							{
+								tl = fact.createLine(null, dt.getAccount(DocTax.ACCTTYPE_TaxExpense, as),
+									getC_Currency_ID(), null, dt.getAmount());
+								if (tl != null)
+								{
+									tl.setC_Tax_ID(dt.getC_Tax_ID());
+									tl.setLine_ID(p_lines[i].get_ID());
+								}
+							}
 						}
 					}
 				}
+				
+				//	Do not proceed next postings
+				if (taxesOnly)
+					continue;
 				
 				DocLine line = p_lines[i];
 				boolean landedCost = landedCost(as, fact, line, true);
@@ -660,6 +676,13 @@ public class Doc_Invoice extends Doc
 							line.getDescription(), getTrxName());
 				}
 			}
+			
+			if (taxesOnly)
+			{
+				facts.add(fact);
+				return facts;
+			}
+			
 			//  Set Locations
 			FactLine[] fLines = fact.getLines();
 			for (int i = 0; i < fLines.length; i++)
