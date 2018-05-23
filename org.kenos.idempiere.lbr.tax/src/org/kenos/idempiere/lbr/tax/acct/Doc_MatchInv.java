@@ -29,6 +29,7 @@ import java.util.logging.Level;
 
 import org.adempiere.exceptions.AverageCostingZeroQtyException;
 import org.adempiere.model.POWrapper;
+import org.adempierelbr.util.TextUtil;
 import org.adempierelbr.wrapper.I_W_C_DocType;
 import org.compiere.acct.Doc;
 import org.compiere.acct.DocLine;
@@ -167,7 +168,7 @@ public class Doc_MatchInv extends Doc
 		if (m_invoiceLine != null)
 		{
 			I_W_C_DocType doctype = POWrapper.create(new MDocType (Env.getCtx(), m_invoiceLine.getC_Invoice().getC_DocTypeTarget_ID(), null), I_W_C_DocType.class);
-			if ("FAEC-".equals(doctype.getlbr_DocBaseType()) || "FAEI-".equals(doctype.getlbr_DocBaseType()))
+			if (TextUtil.match(doctype.getlbr_DocBaseType(), "FAEC-", "FAEI-", "FART+"))
 				return facts;
 		}
 		//  create Fact Header

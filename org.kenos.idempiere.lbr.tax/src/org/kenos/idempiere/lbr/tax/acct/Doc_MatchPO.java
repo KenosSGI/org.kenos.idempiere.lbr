@@ -26,6 +26,7 @@ import java.util.Map;
 import java.util.logging.Level;
 
 import org.adempiere.model.POWrapper;
+import org.adempierelbr.util.TextUtil;
 import org.adempierelbr.wrapper.I_W_C_DocType;
 import org.compiere.acct.Doc;
 import org.compiere.acct.Fact;
@@ -78,7 +79,6 @@ public class Doc_MatchPO extends Doc
 	//
 	private int         m_M_InOutLine_ID = 0;
 	private MInOutLine		m_ioLine = null;
-	@SuppressWarnings("unused")
 	private int         m_C_InvoiceLine_ID = 0;
 
 	private ProductCost m_pc;
@@ -188,7 +188,7 @@ public class Doc_MatchPO extends Doc
 		if (m_C_InvoiceLine_ID > 0)
 		{
 			I_W_C_DocType doctype = POWrapper.create (new MDocType (Env.getCtx(), new MInvoiceLine (Env.getCtx(), m_C_InvoiceLine_ID, null).getC_Invoice().getC_DocTypeTarget_ID(), null), I_W_C_DocType.class);
-			if ("FAEC-".equals(doctype.getlbr_DocBaseType()) || "FAEI-".equals(doctype.getlbr_DocBaseType()))
+			if (TextUtil.match(doctype.getlbr_DocBaseType(), "FAEC-", "FAEI-", "FART+"))
 				return facts;
 		}
 
