@@ -72,6 +72,37 @@ public class MLBRAverageCost extends X_LBR_AverageCost
 		return true;
 	}	//	beforeSave
 	
+	@Override
+	protected boolean afterSave(boolean newRecord, boolean success)
+	{
+		if (success)
+		{
+			//	Just processed
+			if (is_ValueChanged(COLUMNNAME_Processed) && isProcessed())
+			{
+				//	Save a historic price
+				String sql = "INSERT INTO LBR_AverageCostLine (LBR_AverageCostLine_ID, AD_Client_ID, AD_Org_ID, IsActive, Created, CreatedBy, \n" + 
+						"    Updated, UpdatedBy, LBR_AverageCost_ID, M_product_ID, LBR_AvgCostType, Description, CumulatedAmt, CumulatedQty, \n" + 
+						"    CurrentCostPrice, FutureCostPrice, LBR_AvgCostZoom, CurrentQty, LBR_AverageCostLine_UU, LBR_LandedCostAmt, LBR_LandedCostQty) \n" + 
+						"SELECT \n" + 
+						"    NextID (1120032, 'N'), a.AD_Client_ID, a.AD_Org_ID, 'Y', SYSDATE, a.UpdatedBy, SYSDATE, a.UpdatedBy, a.LBR_AverageCost_ID, \n" + 
+						"    p.M_Product_ID, 'H', NULL, 0, 0, c.CurrentCostPrice, c.CurrentCostPrice, 'N', QtyOnDate (p.M_Product_ID, " + DB.TO_DATE(getC_Period().getStartDate()) + "), \n" + 
+						"    UUID_Generate_V4(), 0, 0 \n" + 
+						"FROM \n" + 
+						"    M_Product p, M_Cost c, LBR_AverageCost a \n" + 
+						"WHERE \n" + 
+						"    p.M_Product_ID=c.M_Product_ID \n" + 
+						"AND c.M_CostElement_ID=a.M_CostElement_ID \n" + 
+						"AND c.CurrentCostPrice>0 \n" + 
+						"AND a.LBR_AverageCost_ID=? \n" + 
+						"AND NOT EXISTS (SELECT '1' FROM LBR_AverageCostLine cl WHERE cl.M_Product_ID=p.M_Product_ID AND cl.LBR_AverageCost_ID=a.LBR_AverageCost_ID)";
+				//
+				DB.executeUpdate(sql, getLBR_AverageCost_ID(), get_TrxName());
+			}
+		}
+		return true;
+	}
+	
 	/**
 	 * 	Delete
 	 */
