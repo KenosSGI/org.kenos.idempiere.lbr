@@ -3698,6 +3698,11 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 			return null;
 		}
 		
+		//	Create a new Transaction
+		String trxName = get_TrxName();
+		if (trxName == null)
+			trxName = Trx.createTrxName("DANFE");
+		
 		//	Process Info Parameter
 		ProcessInfoParameter pip = new ProcessInfoParameter("FileName", file.getAbsolutePath(), null, null, null);
 		
@@ -3707,14 +3712,20 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		pi.setRecord_ID(instance.getRecord_ID());
 		pi.setTable_ID(Table_ID);
 		pi.setParameter(new ProcessInfoParameter[]{pip});
-		pi.setTransactionName(get_TrxName());
+		pi.setTransactionName(trxName);
     	
     		try
 		{
-	    		Trx trx = Trx.get(get_TrxName(), false);
+	    		Trx trx = Trx.get(trxName, false);
 	    		
 	    		SvrProcess proc = new PrintFromXML ();
 	    		proc.startProcess (getCtx(), pi, trx);
+	    		
+	    		if (get_TrxName() == null && trx.isActive())
+	    		{
+	    			trx.commit();
+				trx.close();
+	    		}
 		}
 		catch (Exception e)
 		{
