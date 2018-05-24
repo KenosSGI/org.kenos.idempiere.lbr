@@ -42,6 +42,7 @@ import org.adempierelbr.nfe.api.NfeInutilizacao2Stub;
 import org.adempierelbr.nfe.api.NfeInutilizacaoStub;
 import org.adempierelbr.nfse.INFSe;
 import org.adempierelbr.nfse.NFSeUtil;
+import org.adempierelbr.process.ConsultNFe;
 import org.adempierelbr.process.PrintFromXML;
 import org.adempierelbr.process.ProcEMailNFe;
 import org.adempierelbr.util.BPartnerUtil;
@@ -93,6 +94,7 @@ import org.compiere.model.MProductionLine;
 import org.compiere.model.MRMA;
 import org.compiere.model.MRefList;
 import org.compiere.model.MRegion;
+import org.compiere.model.MRole;
 import org.compiere.model.MShipper;
 import org.compiere.model.MSysConfig;
 import org.compiere.model.MTable;
@@ -864,6 +866,7 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		}
 		
 		//	Save changes
+		nf.setProcessing(false);
 		nf.save();
 		
 		//	Send mail
@@ -1847,10 +1850,6 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 			setlbr_DateInOut(inout.getDateAcct());
 		
 		MOrder order = new MOrder(Env.getCtx(), inout.getC_Order_ID(), get_TrxName());
-		
-		// Não continuar se a Remessa não tiver um Pedido relacionado
-		if (order == null)
-			return false;
 		
 		//	Dados da Organização
 		setOrgInfo(POWrapper.create(MOrgInfo.get(getCtx(), inout.getAD_Org_ID(), get_TrxName()), I_W_AD_OrgInfo.class));
@@ -3071,6 +3070,13 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		if (getlbr_BPShipperRegion() != null && !getlbr_BPShipperRegion().isEmpty())
 			setlbr_BPShipperRegion(getlbr_BPShipperRegion().toUpperCase());
 		
+		//		Mark as processing because the automatic fix will be triggered in afterSave method
+		//	users can't make changes if the document is processing
+		if (is_ValueChanged (I_LBR_NotaFiscal.COLUMNNAME_lbr_NFeStatus)
+				&& TextUtil.match(getlbr_NFeStatus(), LBR_NFESTATUS_204_DuplicidadeDeNF_E, LBR_NFESTATUS_539_RejeiçãoDuplicidadeDeNF_EComDiferençaNaChaveDeAcesso))
+		{
+			setProcessing (true);
+		}
 		return true;
 	}	//	beforeSave
 
@@ -3084,6 +3090,75 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 	{
 		if (success)
 		{
+			//	Valida automaticamente os casos de duplicidade de NF
+			if (is_ValueChanged (I_LBR_NotaFiscal.COLUMNNAME_lbr_NFeStatus))
+			{
+				if (TextUtil.match(getlbr_NFeStatus(), LBR_NFESTATUS_204_DuplicidadeDeNF_E, LBR_NFESTATUS_539_RejeiçãoDuplicidadeDeNF_EComDiferençaNaChaveDeAcesso))
+				{
+					//	Access inside thread
+					final MLBRNotaFiscal nf = new MLBRNotaFiscal (getCtx(), getLBR_NotaFiscal_ID(), get_TrxName());
+					
+					new Thread ("Fix Duplicated Error") 
+					{
+						public void run ()
+						{
+							Properties ctx = nf.getCtx();
+							
+							//	Can't access process, do nothing
+							if (!MRole.get (ctx, Env.getAD_Role_ID (ctx)).getProcessAccess (1120192))
+								return;
+							
+							try
+							{
+								int counterLimit = 0;
+								Thread.sleep (2*1000);	//	2 secs waiting time, then 5 secs
+								
+								//	Wait until the transaction is closed by other processes
+								//	max of 60 interactions, resulting in a 5 minutes total
+								while (counterLimit < 60)
+								{
+									Trx trx = Trx.get (nf.get_TrxName(), false);
+									
+									//	Transaction closed or inactive, abort
+									if (trx == null || !trx.isActive ())
+										counterLimit = 999;
+									
+									else
+									{
+										counterLimit++;
+										Thread.sleep (5*1000);	//	5 secs waiting time
+									}
+								} 
+								
+								int AD_Process_ID = 1120192;
+								MPInstance instance = new MPInstance(ctx, AD_Process_ID, nf.getLBR_NotaFiscal_ID());
+								instance.save();
+								
+								ProcessInfo pi = new ProcessInfo ("", AD_Process_ID);
+								pi.setAD_PInstance_ID (instance.getAD_PInstance_ID());
+								pi.setAD_Client_ID(nf.getAD_Client_ID());
+								pi.setRecord_ID(nf.getLBR_NotaFiscal_ID());
+								
+								String trxName = Trx.createTrxName ("FixDuplNFe");
+								Trx trx = Trx.get (trxName, false);
+								SvrProcess proc = new ConsultNFe();
+					    			proc.startProcess (ctx, pi, trx);
+								//
+								if (trx.isActive())
+								{
+									trx.commit();
+									trx.close();
+								}
+							}
+							catch (Exception e)
+							{
+								e.printStackTrace();
+							}
+						}
+					}.start();
+				}
+			}
+			
 			//	Continuar apenas se houver alteração no campo DocStatus
 			if (!is_ValueChanged (I_LBR_NotaFiscal.COLUMNNAME_DocStatus))
 				return success;
