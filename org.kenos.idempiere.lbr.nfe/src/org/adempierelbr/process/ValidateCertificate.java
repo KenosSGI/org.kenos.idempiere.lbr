@@ -33,6 +33,7 @@ import org.compiere.util.Msg;
  * 	@author Ricardo Santana (Kenos, www.kenos.com.br)
  *	@version $Id: ValidateCertificate.java, v1.0 2016/06/16 11:03:19 AM, ralexsander Exp $
  */
+@SuppressWarnings("deprecation")
 public class ValidateCertificate extends SvrProcess
 {
 	/** 
