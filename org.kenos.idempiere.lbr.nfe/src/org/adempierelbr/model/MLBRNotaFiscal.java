@@ -3709,16 +3709,16 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		pi.setParameter(new ProcessInfoParameter[]{pip});
 		pi.setTransactionName(get_TrxName());
     	
-    	try
+    		try
 		{
-    		Trx trx = Trx.get(get_TrxName(), false);
-    		
-    		SvrProcess proc = new PrintFromXML ();
-    		proc.startProcess (getCtx(), pi, trx);
+	    		Trx trx = Trx.get(get_TrxName(), false);
+	    		
+	    		SvrProcess proc = new PrintFromXML ();
+	    		proc.startProcess (getCtx(), pi, trx);
 		}
 		catch (Exception e)
 		{
-			log.log(Level.SEVERE, "Unable to start the process for PDF creation");
+			log.log (Level.SEVERE, "Unable to start the process for PDF creation", e);
 		}
 		return file;
 	}	//	createPDF
