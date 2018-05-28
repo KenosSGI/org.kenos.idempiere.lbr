@@ -1978,65 +1978,21 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		List<String> sources = new ArrayList<String>();
 		List<String> keys = new ArrayList<String>();
 		
+		//	Origem e Versão das informações
+		String source = "";
+		String key = "";
+		
 		BigDecimal taxAmtFed 	= Env.ZERO;
 		BigDecimal taxAmtReg = Env.ZERO;
 		BigDecimal taxAmtCity 	= Env.ZERO;
 		BigDecimal taxAmtGrandTotal 	= Env.ZERO;
+		
+		MLBRNFConfig nfConfig = MLBRNFConfig.get(getAD_Org_ID());
 	
-		// para cada linha, somar calcular o valor aproximado dos impostos
-		for (MLBRNotaFiscalLine line : getLines())
+		if (MLBRNFConfig.LBR_IBPTCONFIGURATION_RealTaxValue.equals(nfConfig.getLBR_IBPTConfiguration()))
 		{
-			MProduct product = (MProduct) line.getM_Product();
-			
-			// Verificar se é um Serviço
-			Boolean isservice = MProduct.PRODUCTTYPE_Service.equals(product.getProductType());
-			
-			// somente linhas que tenham NCM
-			if (line.getLBR_NCM_ID() <= 0 || !line.getLBR_CFOP().isLBR_IsShowIBPT()
-					&& !isservice)
-				continue;
-			
-			// origem pra definir se é importado ou nacional
-			String productSource = line.getlbr_ProductSource() != null ? 
-					line.getlbr_ProductSource() : MLBRNotaFiscalLine.LBR_PRODUCTSOURCE_0_Domestic;
-
-			//	IBPT		
-			MLBRIBPTax ibpt = null;
-			
-			// NF de Produto (NCM)
-			if (!isservice)
-			{
-				ibpt = MLBRIBPTax.getByNCM (getCtx(), getOrg_Location().getC_Region_ID(), 
-						line.getLBR_NCM_ID(), getDateDoc(), line.get_TrxName());
-				
-				if (ibpt == null)
-				{
-					log.warning("No IBPT Tax found for NCM: " + line.getlbr_NCMName());
-					continue;
-				}
-			}
-			// NF de Serviço (NBS)
-			else
-			{
-				// somente Serviços que tenham NBS
-				if (product.get_ValueAsInt("LBR_NBS_ID") <= 0)
-					continue;
-				
-				ibpt = MLBRIBPTax.getByNBS (getCtx(), getOrg_Location().getC_Region_ID(), 
-						product.get_ValueAsInt("LBR_NBS_ID"), getDateDoc(), line.get_TrxName());
-				
-				if (ibpt == null)
-				{
-					log.warning("No IBPT Tax found for NBS: " + product.get_ValueAsInt("LBR_NBS_ID"));
-					continue;
-				}
-			}
-			
-			
-
-			//	Origem e Versão das informações
-			String source = ibpt.getLBR_Source();
-			String key = ibpt.getValue();
+			source = "-";
+			key = "-";
 			
 			if (source != null && !sources.contains(source.trim()))
 				sources.add(source.trim());
@@ -2044,55 +2000,168 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 			if (key != null && !keys.contains(key.trim()))
 				keys.add(key.trim());
 			
-			//		Importado?
-			//	1 - Importado
-			//	2 - Importado, adquirido no mercado nacional
-			//	6 - Importado, sem similar nacional
-			//	7 - Importado, sem similar nacional, adquirido no mercado nacional
-			boolean imported = "1267".indexOf(productSource) != -1;
+			for (MLBRNotaFiscalLine line : getLines())
+			{
+				// Tributos Federal, Regional e Municipal
+				BigDecimal amtFed = Env.ZERO;
+				BigDecimal amtReg = Env.ZERO;
+				BigDecimal amtCity = Env.ZERO;
+				
+				//	Total Tributos Federal, Regional e Municipal
+				BigDecimal taxAmtTotal 	= Env.ZERO;
+				
+				X_LBR_NFLineTax[] taxes = line.getTaxes();
 
-			// % rate
-			BigDecimal taxRate 		= ibpt.getlbr_TaxRate(imported);
-			BigDecimal taxRateReg 	= ibpt.getLBR_TaxRateRegion();
-			BigDecimal taxRateCity 	= ibpt.getLBR_TaxRateCity();
-			
-			// Tributos Federal, Regional e Municipal
-			BigDecimal amtFed = Env.ZERO;
-			BigDecimal amtReg = Env.ZERO;
-			BigDecimal amtCity = Env.ZERO;
-			
-			//	Total Tributos Federal, Regional e Municipal
-			BigDecimal taxAmtTotal 	= Env.ZERO;
-
-			//	check for inconsistenses
-			if (taxRate == null || taxRate.signum() != 1)
-				taxRate 	= Env.ZERO;
-			
-			if (taxRateReg == null || taxRateReg.signum() != 1)
-				taxRateReg 	= Env.ZERO;
-			
-			if (taxRateCity == null || taxRateCity.signum() != 1)
-				taxRateCity = Env.ZERO;
-			
-			//	Impostos
-			amtFed = line.getLineTotalAmt().multiply (taxRate.divide(Env.ONEHUNDRED, 17, BigDecimal.ROUND_HALF_UP));
-			amtReg = line.getLineTotalAmt().multiply (taxRateReg.divide(Env.ONEHUNDRED, 17, BigDecimal.ROUND_HALF_UP));
-			amtCity = line.getLineTotalAmt().multiply (taxRateCity.divide(Env.ONEHUNDRED, 17, BigDecimal.ROUND_HALF_UP));
-
-			// total do imposto
-			taxAmtFed 	= taxAmtFed.add (amtFed);
-			taxAmtReg 	= taxAmtReg.add (amtReg);
-			taxAmtCity 	= taxAmtCity.add (amtCity);
-			
-			//	Soma do Total dos Impostos
-			taxAmtTotal = taxAmtTotal.add(amtFed).add(amtReg).add(amtCity);
-			
-			//	Adiciona Valor Total de Tributos na Linha
-			line.setlbr_vTotTrib(taxAmtTotal.setScale(2, RoundingMode.HALF_UP));
-			line.save();
-			
-			//	Total de Tributos de Todas as Linhas
-			taxAmtGrandTotal = taxAmtGrandTotal.add(taxAmtTotal.setScale(2, RoundingMode.HALF_UP));
+				for (X_LBR_NFLineTax nflt : taxes)
+				{					
+					//	Impostos Federeais: II, IPI, IR, PIS, COFINS, CSLL, INSS
+					
+					if ("II".equals(nflt.getLBR_TaxGroup().getName()) ||
+							"IPI".equals(nflt.getLBR_TaxGroup().getName()) ||
+							"IR".equals(nflt.getLBR_TaxGroup().getName()) ||
+							"PIS".equals(nflt.getLBR_TaxGroup().getName()) ||
+							"COFINS".equals(nflt.getLBR_TaxGroup().getName()) ||
+							"CSLL".equals(nflt.getLBR_TaxGroup().getName()) ||
+							"INSS".equals(nflt.getLBR_TaxGroup().getName()))
+						amtFed = amtFed.add(nflt.getlbr_TaxAmt());
+					
+					//	Impostos Regionais: ICMS
+					
+					if ("ICMS".equals(nflt.getLBR_TaxGroup().getName()))
+						amtReg = amtReg.add(nflt.getlbr_TaxAmt());
+					
+					//	Impostos Cidade: ISS
+					if ("ISS".equals(nflt.getLBR_TaxGroup().getName()))
+						amtCity = amtCity.add(nflt.getlbr_TaxAmt());							
+				}
+				
+				// total do imposto
+				taxAmtFed 	= taxAmtFed.add (amtFed);
+				taxAmtReg 	= taxAmtReg.add (amtReg);
+				taxAmtCity 	= taxAmtCity.add (amtCity);
+				
+				//	Soma do Total dos Impostos
+				taxAmtTotal = taxAmtTotal.add(amtFed).add(amtReg).add(amtCity);
+				
+				//	Adiciona Valor Total de Tributos na Linha
+				line.setlbr_vTotTrib(taxAmtTotal.setScale(2, RoundingMode.HALF_UP));
+				line.save();
+				
+				//	Total de Tributos de Todas as Linhas
+				taxAmtGrandTotal = taxAmtGrandTotal.add(taxAmtTotal.setScale(2, RoundingMode.HALF_UP));
+			}
+		}
+		else
+		{
+			// para cada linha, somar calcular o valor aproximado dos impostos
+			for (MLBRNotaFiscalLine line : getLines())
+			{
+				MProduct product = (MProduct) line.getM_Product();
+				
+				// Verificar se é um Serviço
+				Boolean isservice = MProduct.PRODUCTTYPE_Service.equals(product.getProductType());
+				
+				// somente linhas que tenham NCM
+				if (line.getLBR_NCM_ID() <= 0 || !line.getLBR_CFOP().isLBR_IsShowIBPT()
+						&& !isservice)
+					continue;
+				
+				// origem pra definir se é importado ou nacional
+				String productSource = line.getlbr_ProductSource() != null ? 
+						line.getlbr_ProductSource() : MLBRNotaFiscalLine.LBR_PRODUCTSOURCE_0_Domestic;
+	
+				//	IBPT		
+				MLBRIBPTax ibpt = null;
+				
+				// NF de Produto (NCM)
+				if (!isservice)
+				{
+					ibpt = MLBRIBPTax.getByNCM (getCtx(), getOrg_Location().getC_Region_ID(), 
+							line.getLBR_NCM_ID(), getDateDoc(), line.get_TrxName());
+					
+					if (ibpt == null)
+					{
+						log.warning("No IBPT Tax found for NCM: " + line.getlbr_NCMName());
+						continue;
+					}
+				}
+				// NF de Serviço (NBS)
+				else
+				{
+					// somente Serviços que tenham NBS
+					if (product.get_ValueAsInt("LBR_NBS_ID") <= 0)
+						continue;
+					
+					ibpt = MLBRIBPTax.getByNBS (getCtx(), getOrg_Location().getC_Region_ID(), 
+							product.get_ValueAsInt("LBR_NBS_ID"), getDateDoc(), line.get_TrxName());
+					
+					if (ibpt == null)
+					{
+						log.warning("No IBPT Tax found for NBS: " + product.get_ValueAsInt("LBR_NBS_ID"));
+						continue;
+					}
+				}				
+	
+				//	Origem e Versão das informações
+				source = ibpt.getLBR_Source();
+				key = ibpt.getValue();
+				
+				if (source != null && !sources.contains(source.trim()))
+					sources.add(source.trim());
+	
+				if (key != null && !keys.contains(key.trim()))
+					keys.add(key.trim());
+				
+				//		Importado?
+				//	1 - Importado
+				//	2 - Importado, adquirido no mercado nacional
+				//	6 - Importado, sem similar nacional
+				//	7 - Importado, sem similar nacional, adquirido no mercado nacional
+				boolean imported = "1267".indexOf(productSource) != -1;
+	
+				// % rate
+				BigDecimal taxRate 		= ibpt.getlbr_TaxRate(imported);
+				BigDecimal taxRateReg 	= ibpt.getLBR_TaxRateRegion();
+				BigDecimal taxRateCity 	= ibpt.getLBR_TaxRateCity();
+				
+				// Tributos Federal, Regional e Municipal
+				BigDecimal amtFed = Env.ZERO;
+				BigDecimal amtReg = Env.ZERO;
+				BigDecimal amtCity = Env.ZERO;
+				
+				//	Total Tributos Federal, Regional e Municipal
+				BigDecimal taxAmtTotal 	= Env.ZERO;
+	
+				//	check for inconsistenses
+				if (taxRate == null || taxRate.signum() != 1)
+					taxRate 	= Env.ZERO;
+				
+				if (taxRateReg == null || taxRateReg.signum() != 1)
+					taxRateReg 	= Env.ZERO;
+				
+				if (taxRateCity == null || taxRateCity.signum() != 1)
+					taxRateCity = Env.ZERO;
+				
+				//	Impostos
+				amtFed = line.getLineTotalAmt().multiply (taxRate.divide(Env.ONEHUNDRED, 17, BigDecimal.ROUND_HALF_UP));
+				amtReg = line.getLineTotalAmt().multiply (taxRateReg.divide(Env.ONEHUNDRED, 17, BigDecimal.ROUND_HALF_UP));
+				amtCity = line.getLineTotalAmt().multiply (taxRateCity.divide(Env.ONEHUNDRED, 17, BigDecimal.ROUND_HALF_UP));
+	
+				// total do imposto
+				taxAmtFed 	= taxAmtFed.add (amtFed);
+				taxAmtReg 	= taxAmtReg.add (amtReg);
+				taxAmtCity 	= taxAmtCity.add (amtCity);
+				
+				//	Soma do Total dos Impostos
+				taxAmtTotal = taxAmtTotal.add(amtFed).add(amtReg).add(amtCity);
+				
+				//	Adiciona Valor Total de Tributos na Linha
+				line.setlbr_vTotTrib(taxAmtTotal.setScale(2, RoundingMode.HALF_UP));
+				line.save();
+				
+				//	Total de Tributos de Todas as Linhas
+				taxAmtGrandTotal = taxAmtGrandTotal.add(taxAmtTotal.setScale(2, RoundingMode.HALF_UP));
+			}
 		}
 		
 		//	Valor Total de Tributos da NF
