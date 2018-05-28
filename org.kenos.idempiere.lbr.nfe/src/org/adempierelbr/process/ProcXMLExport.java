@@ -70,6 +70,7 @@ public class ProcXMLExport extends SvrProcess
 	private int p_C_BP_Group_ID 		= 0;
 	private int p_M_Shipper_ID 			= 0;
 	private Boolean p_LBR_IsCancelled	= false;
+	private Boolean p_LBR_IsSOTrx		= null;
 
 	/**	Include DF-e	*/
 	private boolean p_IncludeDFe		= true;
@@ -114,6 +115,8 @@ public class ProcXMLExport extends SvrProcess
 				p_M_Shipper_ID = para[i].getParameterAsInt();
 			else if (name.equals("lbr_IsCancelled"))
 				p_LBR_IsCancelled = para[i].getParameterAsBoolean();
+			else if (name.equals("IsSOTrx"))
+				p_LBR_IsSOTrx = "Y".equals (para[i].getParameterAsString());
 			else
 				log.log(Level.SEVERE, "prepare - Unknown Parameter: " + name);
 		}
@@ -160,6 +163,12 @@ public class ProcXMLExport extends SvrProcess
 		
 		if (p_C_BP_Group_ID > 0)
 			whereClause.append(" AND EXISTS (SELECT '1' FROM C_BPartner bp WHERE bp.C_BPartner_ID=LBR_NotaFiscal.C_BPartner_ID AND bp.C_BP_Group_ID ="+p_C_BP_Group_ID+")");
+		
+		if (p_LBR_IsSOTrx != null)
+			if (p_LBR_IsSOTrx)
+				whereClause.append(" AND IsSOTrx='Y'");
+			else
+				whereClause.append(" AND IsSOTrx='N'");
 		
 		List<ExportRow> rows = new ArrayList<ExportRow>();
 		List<MLBRNotaFiscal> nfs = new Query(Env.getCtx(), MLBRNotaFiscal.Table_Name, whereClause.toString(), null)
