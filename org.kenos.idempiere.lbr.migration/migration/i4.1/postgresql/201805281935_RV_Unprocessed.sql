@@ -1,4 +1,9 @@
- SELECT gl_journal.ad_client_id,
+-- View: rv_unprocessed
+
+-- DROP VIEW rv_unprocessed;
+
+CREATE OR REPLACE VIEW rv_unprocessed AS 
+SELECT gl_journal.ad_client_id,
     gl_journal.ad_org_id,
     gl_journal.created,
     gl_journal.createdby,

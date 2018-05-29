@@ -1,3 +1,11 @@
+SET SQLBLANKLINES ON
+SET DEFINE OFF
+
+-- View: rv_unprocessed
+
+-- DROP VIEW rv_unprocessed;
+
+CREATE OR REPLACE VIEW rv_unprocessed AS
 SELECT   AD_Client_ID,
             AD_Org_ID,
             Created,
