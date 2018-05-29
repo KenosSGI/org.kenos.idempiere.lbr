@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--iDempiere(r) Release 4.1_2016-10-31 -Smart Suite ERP, CRM and SCM- (c) 1999-2016 iDempiere(r); Implementation: iDempiere - Supported by iDempiere community--><!--<!DOCTYPE idempiereTrl PUBLIC "-//ComPiere, Inc.//DTD iDempiere Translation 1.0//EN" "http://www.idempiere.com/dtd/idempiereTrl.dtd">--><idempiereTrl language="pt_BR" table="AD_InfoColumn">
+ <row id="200005" trl="Y">
+  <value column="Name" original="Vendor">Fornecedor</value>
+  <value column="Description" original="Current Vendor">Fornecedor Atual</value>
+  <value column="Help" original=""/>
+ </row>
+ <row id="200006" trl="Y">
+  <value column="Name" original="D">D</value>
+  <value column="Description" original="This product is no longer available">Este produto foi descontinuado</value>
+  <value column="Help" original="The Discontinued check box indicates a product that has been discontinued.">Indica se o produto foi descontinuado.</value>
+ </row>
+ <row trl="N" uuid="84ee73da-d3a3-4b64-870f-1cd585b94895">
+  <value column="Name" original="CNPJ/CPF/ID">CNPJ/CPF/ID</value>
+  <value column="Description" original="Tax Identification">Tax Identification</value>
+  <value column="Help" original="The Tax ID field identifies the legal Identification number of this Entity.">The Tax ID field identifies the legal Identification number of this Entity.</value>
+ </row>
+</idempiereTrl>
