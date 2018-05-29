@@ -371,4 +371,9 @@ this field define where request, error,.. occupy.</value>
   <value column="Description" original="Get the IBPT data from the internet API">Obtém os dados do IBPT via API online</value>
   <value column="Help" original=""/>
  </row>
+ <row trl="N" uuid="67ebb474-78fd-4cef-8bf6-131b8786640e">
+  <value column="Name" original="NF de Saída">NF de Saída</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
 </idempiereTrl>

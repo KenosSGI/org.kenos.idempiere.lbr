@@ -7115,4 +7115,10 @@ Impressão:
   <value column="Description" original=""/>
   <value column="Help" original=""/>
  </row>
+ <row trl="Y" uuid="9890f096-e9ac-4b1f-9a2a-6c61ab959980">
+  <value column="Name" original="Historic">Histórico</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original="">Histórico de Custo</value>
+  <value column="Help" original="">Histórico de Custo</value>
+ </row>
 </idempiereTrl>

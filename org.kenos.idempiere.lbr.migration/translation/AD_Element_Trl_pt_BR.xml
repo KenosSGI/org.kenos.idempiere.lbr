@@ -59522,17 +59522,6 @@ Usar @AMT@ quando for identificar o valor do Produto/Serviço</value>
   <value column="PO_Name" original=""/>
   <value column="PO_PrintName" original=""/>
  </row>
- <row trl="Y" uuid="62f5002e-8bdb-4f39-829f-f08fcce536a3">
-  <value column="Name" original="INCOTERMS">INCOTERMS</value>
-  <value column="PrintName" original="INCOTERMS">INCOTERMS</value>
-  <value column="Description" original="International Commercial Terms">International Commercial Terms</value>
-  <value column="Help" original="The Incoterms rules or International Commercial Terms are a series of pre-defined commercial terms published by the International Chamber of Commerce (ICC) that are widely used in International commercial transactions or Procurement processes. A series of three-letter trade terms related to common contractual sales practices, the Incoterms rules are intended primarily to clearly communicate the tasks, costs, and risks associated with the transportation and delivery of goods.&#10;The Incoterms rules are accepted by governments, legal authorities, and practitioners worldwide for the interpretation of most commonly used terms in international trade. They are intended to reduce or remove altogether uncertainties arising from different interpretation of the rules in different countries. ">The Incoterms rules or International Commercial Terms are a series of pre-defined commercial terms published by the International Chamber of Commerce (ICC) that are widely used in International commercial transactions or Procurement processes. A series of three-letter trade terms related to common contractual sales practices, the Incoterms rules are intended primarily to clearly communicate the tasks, costs, and risks associated with the transportation and delivery of goods.
-The Incoterms rules are accepted by governments, legal authorities, and practitioners worldwide for the interpretation of most commonly used terms in international trade. They are intended to reduce or remove altogether uncertainties arising from different interpretation of the rules in different countries. </value>
-  <value column="PO_Description" original=""/>
-  <value column="PO_Help" original=""/>
-  <value column="PO_Name" original=""/>
-  <value column="PO_PrintName" original=""/>
- </row>
  <row trl="Y" uuid="0ed33dd0-a037-43ca-a18e-235ded60bd88">
   <value column="Name" original="Product FCI">FCI do Produto</value>
   <value column="PrintName" original="Product FCI">FCI do Produto</value>
@@ -62110,6 +62099,26 @@ The Incoterms rules are accepted by governments, legal authorities, and practiti
   <value column="PrintName" original="DIFALO CST">DIFALO CST</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+ </row>
+ <row trl="Y" uuid="ecac81eb-614e-41c7-a7aa-ea6c4c61b86d">
+  <value column="Name" original="IBPT Configuration">Configuração IBPT</value>
+  <value column="PrintName" original="IBPT Configuration">Configuração IBPT</value>
+  <value column="Description" original="">Selecione a opção desejada para Calcular o Total de Tributos Aproximado</value>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+ </row>
+ <row trl="Y" uuid="46296287-f942-4867-8978-0deff7205ffd">
+  <value column="Name" original="IBPT API Key">Chave API IBPT</value>
+  <value column="PrintName" original="IBPT API Key">Chave API IBPT</value>
+  <value column="Description" original="Key to Conect to IBPT API">Chave para Conexão com a API (Online) do IBPT</value>
+  <value column="Help" original="">Chave deve ser usada para se conectar com a API do IBPT e obter informações para calcular o Valor Aproximado dos Impostos de uma Nota Fiscal.</value>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
   <value column="PO_Name" original=""/>

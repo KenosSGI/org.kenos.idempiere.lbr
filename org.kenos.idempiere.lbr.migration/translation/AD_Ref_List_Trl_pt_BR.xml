@@ -9256,4 +9256,36 @@
   <value column="Name" original="Resale (RE 574.706)">Revenda (RE 574.706)</value>
   <value column="Description" original=""/>
  </row>
+ <row trl="Y" uuid="2bf1d06d-693c-4842-b2f1-b981f508af77">
+  <value column="Name" original="Transfer Out Invoice">Fatura de Saída de Transferência</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="ca9f66a6-1949-4112-b35b-f18f84718a15">
+  <value column="Name" original="Transfer In Invoice">Fatura de Entrada de Transferência</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="bcd9a999-9072-4a3f-82ea-b43f2241acba">
+  <value column="Name" original="Transfer Shipment">Expedição de Transferência de Mercadoria</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="d680a020-c982-48da-999f-979db45977f2">
+  <value column="Name" original="Transfer Receipt">Recebimento de Transferência de Mercadoria</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="a697fbe2-b905-4515-ba83-f7259473ff67">
+  <value column="Name" original="API (Online)">API (Online)</value>
+  <value column="Description" original="Calculate Total Tax of Nota Fiscal from API (Online) IBPT">Calcular Total Aproximado dos Impostos da Nota Fiscal a partir da API (Online) do IBPT</value>
+ </row>
+ <row trl="Y" uuid="163a4955-dd0d-4109-b0a7-a6b534d4350d">
+  <value column="Name" original="Offline (IBPT Table)">Offline (Tabela IBPT)</value>
+  <value column="Description" original="Calculate Total Tax of Nota Fiscal from IBPT Table.">Calcular Total Aproximado dos Impostos da Nota Fiscal a partir da Tabela do IBPT</value>
+ </row>
+ <row trl="Y" uuid="36e06ceb-9514-4ada-b2ad-ff2e3665a74e">
+  <value column="Name" original="Real Tax Value">Valor dos Impostos (Real)</value>
+  <value column="Description" original="Calcule using Real Tax Value">Calcular Total Aproximado dos Impostos a partir do Valor dos Impostos Real indicados na Nota Fiscal</value>
+ </row>
+ <row trl="N" uuid="40f36af5-cca7-4078-b1a8-3cf16141aa6c">
+  <value column="Name" original="Historic">Historic</value>
+  <value column="Description" original=""/>
+ </row>
 </idempiereTrl>

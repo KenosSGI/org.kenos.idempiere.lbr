@@ -3070,4 +3070,22 @@
   <value column="Description" original="Finds Invoice From Production Group">Encontra a Fatura pelo Pedido de Industrialização</value>
   <value column="Help" original=""/>
  </row>
+ <row trl="N" uuid="6b4091cd-204d-497f-874e-6fe294b3296c">
+  <value column="Name" original="Production Group &lt;-&gt; Nota Fiscal (SO)"><![CDATA[Production Group <-> Nota Fiscal (SO)]]></value>
+  <value column="Description" original="Finds Nota Fiscal (SO) From Production Group">Finds Nota Fiscal (SO) From Production Group</value>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="65e23a7d-aa8b-4455-a8ca-fcad8829516d">
+  <value column="Name" original="Nota Fiscal (SO) &lt;-&gt; Production Group"><![CDATA[Nota Fiscal (SO) <-> Production Group]]></value>
+  <value column="Description" original="Finds Production Group From Nota Fiscal (SO)">Finds Production Group From Nota Fiscal (SO)</value>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="24736887-8314-4caf-9059-46e30c97a679">
+  <value column="Name" original="IBPT Configuration List">Lista Configuração IBPT</value>
+  <value column="Description" original="IBPT Configuration List">Lista Configuração IBPT</value>
+  <value column="Help" original="Choose one of the options&#10; - API (Online)&#10; - Offline (IBPT Table)&#10; - Real Tax Value">Escolha uma das Opções:
+ - API (Online)
+ - Offline (Tabela IBPT)
+ - Valor dos Impostos (Real)</value>
+ </row>
 </idempiereTrl>

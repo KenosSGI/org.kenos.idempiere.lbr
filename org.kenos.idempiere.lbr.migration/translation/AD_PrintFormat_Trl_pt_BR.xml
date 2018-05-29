@@ -372,12 +372,4 @@
   <value column="Name" original="RV_LBR_Boleto">RV_LBR_Boleto</value>
   <value column="Description" original=""/>
  </row>
- <row trl="Y" uuid="69ce2bd8-ac78-4fc5-86cf-4384357cd8f1">
-  <value column="Name" original="Relatório Nota Fiscal">Relatório Nota Fiscal</value>
-  <value column="Description" original=""/>
- </row>
- <row trl="Y" uuid="ede5a4c2-078a-43d8-b06a-9e434a00583a">
-  <value column="Name" original="Relatório Detalhes Nota Fiscal">Relatório Detalhes Nota Fiscal</value>
-  <value column="Description" original=""/>
- </row>
 </idempiereTrl>
