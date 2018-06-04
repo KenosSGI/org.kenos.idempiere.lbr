@@ -4064,7 +4064,7 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 						//	Wait 15 secs before check if NF is processed
 						//		15 secs is the SeFaz recommended time
 						log.finer ("pause");
-						Thread.sleep(5000);
+						Thread.sleep(15000);
 						log.finer ("resume");
 					} 
 					catch (InterruptedException ex)
