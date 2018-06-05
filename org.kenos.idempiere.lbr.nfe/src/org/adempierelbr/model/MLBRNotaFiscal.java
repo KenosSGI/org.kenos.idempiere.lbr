@@ -1398,7 +1398,7 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		clear();
 		
 		//	Dados mestre
-		setDateDoc(move.getMovementDate());
+		setDateDoc(getCreated());
 		setIsSOTrx(isSOTrx);
 		setlbr_IsOwnDocument(isOwnDocument);
 		
