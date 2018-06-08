@@ -5594,7 +5594,7 @@ Please contact administrator.</value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="53149" trl="Y">
-  <value column="MsgText" original="Reply">Reponder</value>
+  <value column="MsgText" original="Reply">Responder</value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="53161" trl="Y">

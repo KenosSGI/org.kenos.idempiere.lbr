@@ -3491,9 +3491,9 @@ Exemplo: Uma aba com C_DocType_ID (1), DocumentNo (-2) será classificada em ord
   <value column="PO_PrintName" original=""/>
  </row>
  <row id="603" trl="Y">
-  <value column="Name" original="UPC/EAN">UPC/EAN</value>
-  <value column="PrintName" original="UPC/EAN">UPC/EAN</value>
-  <value column="Description" original="Bar Code (Universal Product Code or its superset European Article Number)">Código de Barras (Universal Product Code ou o seu superconjunto European Article Number)</value>
+  <value column="Name" original="UPC/EAN">GTIN/EAN</value>
+  <value column="PrintName" original="UPC/EAN">GTIN/EAN</value>
+  <value column="Description" original="Bar Code (Universal Product Code or its superset European Article Number)">Código de Barras (GTIN)</value>
   <value column="Help" original="Use this field to enter the bar code for the product in any of the bar code symbologies (Codabar, Code 25, Code 39, Code 93, Code 128, UPC (A), UPC (E), EAN-13, EAN-8, ITF, ITF-14, ISBN, ISSN, JAN-13, JAN-8, POSTNET and FIM, MSI/Plessey, and Pharmacode) ">Use este campo para digitar o código de barras do produto em qualquer das simbologias de código de barras (Codabar, Código 25, Código 39, Código 93, Código 128, UPC (A), UPC (E), EAN-13, EAN-8, ITF, ITF-14, ISBN, ISSN, JAN-13, JAN-8, POSTNET e FIM, MSI/Plessey, e Pharmacode) </value>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
