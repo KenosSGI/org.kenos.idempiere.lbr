@@ -25,7 +25,7 @@ import org.compiere.util.KeyNamePair;
  *  @version Release 4.1
  */
 @SuppressWarnings("all")
-public interface I_W_M_ProductionPlan extends I_M_ProductionPlan 
+public interface I_W_M_ProductionPlan 
 {
 
     /** TableName=M_ProductionPlan */
@@ -34,6 +34,21 @@ public interface I_W_M_ProductionPlan extends I_M_ProductionPlan
     /** AD_Table_ID=385 */
     public static final int Table_ID = 385;
 
+
+    /** Column name C_UOM_ID */
+    public static final String COLUMNNAME_C_UOM_ID = "C_UOM_ID";
+
+	/** Set UOM.
+	  * Unit of Measure
+	  */
+	public void setC_UOM_ID (int C_UOM_ID);
+
+	/** Get UOM.
+	  * Unit of Measure
+	  */
+	public int getC_UOM_ID();
+
+	public org.compiere.model.I_C_UOM getC_UOM() throws RuntimeException;
 
     /** Column name QtyDelivered */
     public static final String COLUMNNAME_QtyDelivered = "QtyDelivered";

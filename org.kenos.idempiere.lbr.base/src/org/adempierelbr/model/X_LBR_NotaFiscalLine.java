@@ -32,7 +32,7 @@ public class X_LBR_NotaFiscalLine extends PO implements I_LBR_NotaFiscalLine, I_
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20170626L;
+	private static final long serialVersionUID = 20180611L;
 
     /** Standard Constructor */
     public X_LBR_NotaFiscalLine (Properties ctx, int LBR_NotaFiscalLine_ID, String trxName)
@@ -40,6 +40,8 @@ public class X_LBR_NotaFiscalLine extends PO implements I_LBR_NotaFiscalLine, I_
       super (ctx, LBR_NotaFiscalLine_ID, trxName);
       /** if (LBR_NotaFiscalLine_ID == 0)
         {
+			setLBR_AFRMMAmt (Env.ZERO);
+// 0
 			setLBR_NotaFiscalLine_ID (0);
 			setlbr_IsService (false);
 // 'N'
@@ -207,6 +209,60 @@ public class X_LBR_NotaFiscalLine extends PO implements I_LBR_NotaFiscalLine, I_
 		return bd;
 	}
 
+	/** Set AFRMM Amount.
+		@param LBR_AFRMMAmt AFRMM Amount	  */
+	public void setLBR_AFRMMAmt (BigDecimal LBR_AFRMMAmt)
+	{
+		set_Value (COLUMNNAME_LBR_AFRMMAmt, LBR_AFRMMAmt);
+	}
+
+	/** Get AFRMM Amount.
+		@return AFRMM Amount	  */
+	public BigDecimal getLBR_AFRMMAmt () 
+	{
+		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_LBR_AFRMMAmt);
+		if (bd == null)
+			 return Env.ZERO;
+		return bd;
+	}
+
+	/** Tracking = R00 */
+	public static final String LBR_ATTRIBUTETYPE_Tracking = "R00";
+	/** Medicine = X01 */
+	public static final String LBR_ATTRIBUTETYPE_Medicine = "X01";
+	/** Fuel = X02 */
+	public static final String LBR_ATTRIBUTETYPE_Fuel = "X02";
+	/** Vehicle = X03 */
+	public static final String LBR_ATTRIBUTETYPE_Vehicle = "X03";
+	/** Gun = X04 */
+	public static final String LBR_ATTRIBUTETYPE_Gun = "X04";
+	/** Medicine and Tracking = R01 */
+	public static final String LBR_ATTRIBUTETYPE_MedicineAndTracking = "R01";
+	/** Fuel and Tracking = R02 */
+	public static final String LBR_ATTRIBUTETYPE_FuelAndTracking = "R02";
+	/** Vehicle and Tracking = R03 */
+	public static final String LBR_ATTRIBUTETYPE_VehicleAndTracking = "R03";
+	/** Gun and Tracking = R04 */
+	public static final String LBR_ATTRIBUTETYPE_GunAndTracking = "R04";
+	/** Exempt Paper = X05 */
+	public static final String LBR_ATTRIBUTETYPE_ExemptPaper = "X05";
+	/** Exempt Paper and Tracking = R05 */
+	public static final String LBR_ATTRIBUTETYPE_ExemptPaperAndTracking = "R05";
+	/** Set Attribute Type.
+		@param LBR_AttributeType Attribute Type	  */
+	public void setLBR_AttributeType (String LBR_AttributeType)
+	{
+
+		set_Value (COLUMNNAME_LBR_AttributeType, LBR_AttributeType);
+	}
+
+	/** Get Attribute Type.
+		@return Attribute Type	  */
+	public String getLBR_AttributeType () 
+	{
+		return (String)get_Value(COLUMNNAME_LBR_AttributeType);
+	}
+
 	/** Set CEST Name.
 		@param LBR_CESTName CEST Name	  */
 	public void setLBR_CESTName (String LBR_CESTName)
@@ -275,6 +331,20 @@ public class X_LBR_NotaFiscalLine extends PO implements I_LBR_NotaFiscalLine, I_
 		if (ii == null)
 			 return 0;
 		return ii.intValue();
+	}
+
+	/** Set CNPJ Manufacturer.
+		@param LBR_CNPJManufacturer CNPJ Manufacturer	  */
+	public void setLBR_CNPJManufacturer (String LBR_CNPJManufacturer)
+	{
+		set_Value (COLUMNNAME_LBR_CNPJManufacturer, LBR_CNPJManufacturer);
+	}
+
+	/** Get CNPJ Manufacturer.
+		@return CNPJ Manufacturer	  */
+	public String getLBR_CNPJManufacturer () 
+	{
+		return (String)get_Value(COLUMNNAME_LBR_CNPJManufacturer);
 	}
 
 	/** Set FCI Value.
@@ -372,6 +442,11 @@ public class X_LBR_NotaFiscalLine extends PO implements I_LBR_NotaFiscalLine, I_
 		return ii.intValue();
 	}
 
+	public org.adempierelbr.model.I_LBR_NFDI getLBR_NFDI() throws RuntimeException
+    {
+		return (org.adempierelbr.model.I_LBR_NFDI)MTable.get(getCtx(), org.adempierelbr.model.I_LBR_NFDI.Table_Name)
+			.getPO(getLBR_NFDI_ID(), get_TrxName());	}
+
 	/** Set DI.
 		@param LBR_NFDI_ID DI	  */
 	public void setLBR_NFDI_ID (int LBR_NFDI_ID)
@@ -413,6 +488,20 @@ public class X_LBR_NotaFiscalLine extends PO implements I_LBR_NotaFiscalLine, I_
 		if (ii == null)
 			 return 0;
 		return ii.intValue();
+	}
+
+	/** Set LBR_NotaFiscalLine_UU.
+		@param LBR_NotaFiscalLine_UU LBR_NotaFiscalLine_UU	  */
+	public void setLBR_NotaFiscalLine_UU (String LBR_NotaFiscalLine_UU)
+	{
+		set_Value (COLUMNNAME_LBR_NotaFiscalLine_UU, LBR_NotaFiscalLine_UU);
+	}
+
+	/** Get LBR_NotaFiscalLine_UU.
+		@return LBR_NotaFiscalLine_UU	  */
+	public String getLBR_NotaFiscalLine_UU () 
+	{
+		return (String)get_Value(COLUMNNAME_LBR_NotaFiscalLine_UU);
 	}
 
 	public org.adempierelbr.model.I_LBR_NotaFiscal getLBR_NotaFiscal() throws RuntimeException
@@ -458,6 +547,58 @@ public class X_LBR_NotaFiscalLine extends PO implements I_LBR_NotaFiscalLine, I_
 		if (bd == null)
 			 return Env.ZERO;
 		return bd;
+	}
+
+	/** Set Order Reference Item.
+		@param LBR_PORef_Item 
+		Item reference to the Order Reference indicated in the same document
+	  */
+	public void setLBR_PORef_Item (String LBR_PORef_Item)
+	{
+		set_Value (COLUMNNAME_LBR_PORef_Item, LBR_PORef_Item);
+	}
+
+	/** Get Order Reference Item.
+		@return Item reference to the Order Reference indicated in the same document
+	  */
+	public String getLBR_PORef_Item () 
+	{
+		return (String)get_Value(COLUMNNAME_LBR_PORef_Item);
+	}
+
+	/** LBR_ScaleProduction AD_Reference_ID=319 */
+	public static final int LBR_SCALEPRODUCTION_AD_Reference_ID=319;
+	/** Yes = Y */
+	public static final String LBR_SCALEPRODUCTION_Yes = "Y";
+	/** No = N */
+	public static final String LBR_SCALEPRODUCTION_No = "N";
+	/** Set Scale Production.
+		@param LBR_ScaleProduction Scale Production	  */
+	public void setLBR_ScaleProduction (String LBR_ScaleProduction)
+	{
+
+		set_Value (COLUMNNAME_LBR_ScaleProduction, LBR_ScaleProduction);
+	}
+
+	/** Get Scale Production.
+		@return Scale Production	  */
+	public String getLBR_ScaleProduction () 
+	{
+		return (String)get_Value(COLUMNNAME_LBR_ScaleProduction);
+	}
+
+	/** Set Tax Benefit Code.
+		@param LBR_TaxBenefitCode Tax Benefit Code	  */
+	public void setLBR_TaxBenefitCode (String LBR_TaxBenefitCode)
+	{
+		set_Value (COLUMNNAME_LBR_TaxBenefitCode, LBR_TaxBenefitCode);
+	}
+
+	/** Get Tax Benefit Code.
+		@return Tax Benefit Code	  */
+	public String getLBR_TaxBenefitCode () 
+	{
+		return (String)get_Value(COLUMNNAME_LBR_TaxBenefitCode);
 	}
 
 	/** Set Line No.
@@ -543,6 +684,23 @@ public class X_LBR_NotaFiscalLine extends PO implements I_LBR_NotaFiscalLine, I_
 	public String getManufacturer () 
 	{
 		return (String)get_Value(COLUMNNAME_Manufacturer);
+	}
+
+	/** Set Order Reference.
+		@param POReference 
+		Transaction Reference Number (Sales Order, Purchase Order) of your Business Partner
+	  */
+	public void setPOReference (String POReference)
+	{
+		set_Value (COLUMNNAME_POReference, POReference);
+	}
+
+	/** Get Order Reference.
+		@return Transaction Reference Number (Sales Order, Purchase Order) of your Business Partner
+	  */
+	public String getPOReference () 
+	{
+		return (String)get_Value(COLUMNNAME_POReference);
 	}
 
 	/** Set Price.
@@ -637,6 +795,23 @@ public class X_LBR_NotaFiscalLine extends PO implements I_LBR_NotaFiscalLine, I_
 		if (bd == null)
 			 return Env.ZERO;
 		return bd;
+	}
+
+	/** Set UPC/EAN.
+		@param UPC 
+		Bar Code (Universal Product Code or its superset European Article Number)
+	  */
+	public void setUPC (String UPC)
+	{
+		set_Value (COLUMNNAME_UPC, UPC);
+	}
+
+	/** Get UPC/EAN.
+		@return Bar Code (Universal Product Code or its superset European Article Number)
+	  */
+	public String getUPC () 
+	{
+		return (String)get_Value(COLUMNNAME_UPC);
 	}
 
 	/** Set Partner Product Key.
@@ -844,26 +1019,6 @@ public class X_LBR_NotaFiscalLine extends PO implements I_LBR_NotaFiscalLine, I_
 		return (String)get_Value(COLUMNNAME_lbr_ProductSource);
 	}
 
-	/** Set Tax Quantity.
-		@param lbr_qTrib 
-		Defines the Tax Quantity
-	  */
-	public void setlbr_qTrib (BigDecimal lbr_qTrib)
-	{
-		set_Value (COLUMNNAME_lbr_qTrib, lbr_qTrib);
-	}
-
-	/** Get Tax Quantity.
-		@return Defines the Tax Quantity
-	  */
-	public BigDecimal getlbr_qTrib () 
-	{
-		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_lbr_qTrib);
-		if (bd == null)
-			 return Env.ZERO;
-		return bd;
-	}
-
 	/** Set Service Taxes.
 		@param lbr_ServiceTaxes 
 		String with all Taxes Names and Taxes Rates
@@ -961,9 +1116,9 @@ public class X_LBR_NotaFiscalLine extends PO implements I_LBR_NotaFiscalLine, I_
 		return (String)get_Value(COLUMNNAME_lbr_UOMName);
 	}
 
-	public I_C_UOM getlbr_UTri() throws RuntimeException
+	public org.compiere.model.I_C_UOM getlbr_UTri() throws RuntimeException
     {
-		return (I_C_UOM)MTable.get(getCtx(), I_C_UOM.Table_Name)
+		return (org.compiere.model.I_C_UOM)MTable.get(getCtx(), org.compiere.model.I_C_UOM.Table_Name)
 			.getPO(getlbr_UTribID(), get_TrxName());	}
 
 	/** Set UTrib.
@@ -1001,6 +1156,26 @@ public class X_LBR_NotaFiscalLine extends PO implements I_LBR_NotaFiscalLine, I_
 	public String getlbr_UTribName () 
 	{
 		return (String)get_Value(COLUMNNAME_lbr_UTribName);
+	}
+
+	/** Set Tax Quantity.
+		@param lbr_qTrib 
+		Defines the Tax Quantity
+	  */
+	public void setlbr_qTrib (BigDecimal lbr_qTrib)
+	{
+		set_Value (COLUMNNAME_lbr_qTrib, lbr_qTrib);
+	}
+
+	/** Get Tax Quantity.
+		@return Defines the Tax Quantity
+	  */
+	public BigDecimal getlbr_qTrib () 
+	{
+		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_lbr_qTrib);
+		if (bd == null)
+			 return Env.ZERO;
+		return bd;
 	}
 
 	/** Set Total de Tributo.

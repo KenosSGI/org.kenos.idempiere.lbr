@@ -88,6 +88,19 @@ public interface I_W_C_OrderLine extends I_C_OrderLine
 	/** Get Other Charges Amount	  */
 	public BigDecimal getLBR_OtherChargesAmt();
 
+    /** Column name LBR_PORef_Item */
+    public static final String COLUMNNAME_LBR_PORef_Item = "LBR_PORef_Item";
+
+	/** Set Order Reference Item.
+	  * Item reference to the Order Reference indicated in the same document
+	  */
+	public void setLBR_PORef_Item (String LBR_PORef_Item);
+
+	/** Get Order Reference Item.
+	  * Item reference to the Order Reference indicated in the same document
+	  */
+	public String getLBR_PORef_Item();
+
     /** Column name LBR_Tax_ID */
     public static final String COLUMNNAME_LBR_Tax_ID = "LBR_Tax_ID";
 
@@ -170,24 +183,6 @@ public interface I_W_C_OrderLine extends I_C_OrderLine
 	  */
 	public BigDecimal getlbr_InsuranceAmt();
 
-    /** Column name lbr_IsPriceBR */
-    public static final String COLUMNNAME_lbr_IsPriceBR = "lbr_IsPriceBR";
-
-	/** Set Is Price BR	  */
-	public void setlbr_IsPriceBR (boolean lbr_IsPriceBR);
-
-	/** Get Is Price BR	  */
-	public boolean islbr_IsPriceBR();
-
-    /** Column name lbr_PriceEnteredBR */
-    public static final String COLUMNNAME_lbr_PriceEnteredBR = "lbr_PriceEnteredBR";
-
-	/** Set Price Entered BR	  */
-	public void setlbr_PriceEnteredBR (BigDecimal lbr_PriceEnteredBR);
-
-	/** Get Price Entered BR	  */
-	public BigDecimal getlbr_PriceEnteredBR();
-
     /** Column name lbr_RecalculateTax */
     public static final String COLUMNNAME_lbr_RecalculateTax = "lbr_RecalculateTax";
 
@@ -196,21 +191,6 @@ public interface I_W_C_OrderLine extends I_C_OrderLine
 
 	/** Get Recalculate Tax	  */
 	public boolean islbr_RecalculateTax();
-
-    /** Column name lbr_Ref_C_InvoiceLine_ID */
-    public static final String COLUMNNAME_lbr_Ref_C_InvoiceLine_ID = "lbr_Ref_C_InvoiceLine_ID";
-
-	/** Set Reference Invoice Line.
-	  * Reference Invoice Line
-	  */
-	public void setlbr_Ref_C_InvoiceLine_ID (int lbr_Ref_C_InvoiceLine_ID);
-
-	/** Get Reference Invoice Line.
-	  * Reference Invoice Line
-	  */
-	public int getlbr_Ref_C_InvoiceLine_ID();
-
-	public org.compiere.model.I_C_InvoiceLine getlbr_Ref_C_InvoiceLine() throws RuntimeException;
 
     /** Column name lbr_SISCOMEXAmt */
     public static final String COLUMNNAME_lbr_SISCOMEXAmt = "lbr_SISCOMEXAmt";

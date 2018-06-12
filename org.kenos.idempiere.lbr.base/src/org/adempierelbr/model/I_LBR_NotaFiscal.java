@@ -574,6 +574,15 @@ public interface I_LBR_NotaFiscal
 	  */
 	public int getLBR_NotaFiscal_ID();
 
+    /** Column name LBR_NotaFiscal_UU */
+    public static final String COLUMNNAME_LBR_NotaFiscal_UU = "LBR_NotaFiscal_UU";
+
+	/** Set LBR_NotaFiscal_UU	  */
+	public void setLBR_NotaFiscal_UU (String LBR_NotaFiscal_UU);
+
+	/** Get LBR_NotaFiscal_UU	  */
+	public String getLBR_NotaFiscal_UU();
+
     /** Column name LBR_OtherChargesAmt */
     public static final String COLUMNNAME_LBR_OtherChargesAmt = "LBR_OtherChargesAmt";
 
@@ -683,6 +692,15 @@ public interface I_LBR_NotaFiscal
 	  */
 	public String getLBR_TPEmis();
 
+    /** Column name LBR_TaxRegime */
+    public static final String COLUMNNAME_LBR_TaxRegime = "LBR_TaxRegime";
+
+	/** Set Tax Regime	  */
+	public void setLBR_TaxRegime (String LBR_TaxRegime);
+
+	/** Get Tax Regime	  */
+	public String getLBR_TaxRegime();
+
     /** Column name M_InOut_ID */
     public static final String COLUMNNAME_M_InOut_ID = "M_InOut_ID";
 
@@ -697,6 +715,21 @@ public interface I_LBR_NotaFiscal
 	public int getM_InOut_ID();
 
 	public org.compiere.model.I_M_InOut getM_InOut() throws RuntimeException;
+
+    /** Column name M_Movement_ID */
+    public static final String COLUMNNAME_M_Movement_ID = "M_Movement_ID";
+
+	/** Set Inventory Move.
+	  * Movement of Inventory
+	  */
+	public void setM_Movement_ID (int M_Movement_ID);
+
+	/** Get Inventory Move.
+	  * Movement of Inventory
+	  */
+	public int getM_Movement_ID();
+
+	public org.compiere.model.I_M_Movement getM_Movement() throws RuntimeException;
 
     /** Column name M_RMA_ID */
     public static final String COLUMNNAME_M_RMA_ID = "M_RMA_ID";
@@ -725,6 +758,8 @@ public interface I_LBR_NotaFiscal
 	  * Method or manner of product delivery
 	  */
 	public int getM_Shipper_ID();
+
+	public org.compiere.model.I_M_Shipper getM_Shipper() throws RuntimeException;
 
     /** Column name NoPackages */
     public static final String COLUMNNAME_NoPackages = "NoPackages";
@@ -1985,6 +2020,19 @@ public interface I_LBR_NotaFiscal
 	  */
 	public String getlbr_PackingType();
 
+    /** Column name lbr_PaymentRule */
+    public static final String COLUMNNAME_lbr_PaymentRule = "lbr_PaymentRule";
+
+	/** Set Payment Rule.
+	  * How you pay the invoice
+	  */
+	public void setlbr_PaymentRule (String lbr_PaymentRule);
+
+	/** Get Payment Rule.
+	  * How you pay the invoice
+	  */
+	public String getlbr_PaymentRule();
+
     /** Column name lbr_ProcCancelNF */
     public static final String COLUMNNAME_lbr_ProcCancelNF = "lbr_ProcCancelNF";
 
@@ -2112,19 +2160,4 @@ public interface I_LBR_NotaFiscal
 	  * Valor aproximado total de tributos federais, estaduais e municipais.
 	  */
 	public BigDecimal getlbr_vTotTrib();
-	
-	/** Column name M_Movement_ID */
-    public static final String COLUMNNAME_M_Movement_ID = "M_Movement_ID";
-
-	/** Set Movement.
-	  * Movement
-	  */
-	public void setM_Movement_ID (int M_Movement_ID);
-
-	/** Get .
-	  * Movement
-	  */
-	public int getM_Movement_ID();
-
-	public org.compiere.model.I_M_Movement getM_Movement() throws RuntimeException;
 }

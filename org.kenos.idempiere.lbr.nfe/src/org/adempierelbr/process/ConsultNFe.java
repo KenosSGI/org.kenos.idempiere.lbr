@@ -14,8 +14,7 @@ import org.adempierelbr.model.MLBRNFeEvent;
 import org.adempierelbr.model.MLBRNFeWebService;
 import org.adempierelbr.model.MLBRNotaFiscal;
 import org.adempierelbr.nfe.NFeXMLGenerator;
-import org.adempierelbr.nfe.api.NfeConsulta2Stub;
-import org.adempierelbr.nfe.api.NfeConsultaStub;
+import org.adempierelbr.nfe.api.NFeConsultaProtocolo4Stub;
 import org.adempierelbr.util.BPartnerUtil;
 import org.adempierelbr.util.NFeUtil;
 import org.apache.axiom.om.OMElement;
@@ -27,14 +26,15 @@ import org.compiere.process.SvrProcess;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
 
-import br.inf.portalfiscal.nfe.v310.ConsSitNFeDocument;
-import br.inf.portalfiscal.nfe.v310.RetConsSitNFeDocument;
-import br.inf.portalfiscal.nfe.v310.TAmb;
-import br.inf.portalfiscal.nfe.v310.TConsSitNFe;
-import br.inf.portalfiscal.nfe.v310.TProtNFe.InfProt;
-import br.inf.portalfiscal.nfe.v310.TRetCancNFe.InfCanc;
-import br.inf.portalfiscal.nfe.v310.TRetConsSitNFe;
-import br.inf.portalfiscal.nfe.v310.TVerConsSitNFe;
+import br.inf.portalfiscal.nfe.v400.ConsSitNFeDocument;
+import br.inf.portalfiscal.nfe.v400.RetConsSitNFeDocument;
+import br.inf.portalfiscal.nfe.v400.TAmb;
+import br.inf.portalfiscal.nfe.v400.TConsSitNFe;
+import br.inf.portalfiscal.nfe.v400.TProtNFe.InfProt;
+import br.inf.portalfiscal.nfe.v400.TRetCancNFe.InfCanc;
+import br.inf.portalfiscal.nfe.v400.TRetConsSitNFe;
+import br.inf.portalfiscal.nfe.v400.TVerConsSitNFe;
+import br.inf.portalfiscal.www.nfe.wsdl.nfeconsultaprotocolo4.NfeDadosMsg;
 
 /**
  * 		Consulta os dados da NF-e diretamenta na SeFaz
@@ -189,25 +189,36 @@ public class ConsultNFe extends SvrProcess
 			TConsSitNFe consNFe = consNFeDoc.addNewConsSitNFe();
 			consNFe.setTpAmb(TAmb.Enum.forString(p_LBR_EnvType));
 			consNFe.setXServ(TConsSitNFe.XServ.CONSULTAR);
-			consNFe.setVersao(TVerConsSitNFe.X_3_10);
+			consNFe.setVersao(TVerConsSitNFe.X_4_00);
 			consNFe.setChNFe(p_LBR_NFeID);
 			
 			//	XML
 			StringReader xml = new StringReader (NFeUtil.wrapMsg (consNFeDoc.xmlText(NFeUtil.getXmlOpt())));
 			String respStatus = null;
 			
-			if (NFeUtil.REGION_CODE_BA.equals(region))
+//			if (NFeUtil.REGION_CODE_BA.equals(region))
+//			{
+//				//	Mensagem
+//				br.inf.portalfiscal.www.nfe.wsdl.nfeconsulta.NfeDadosMsg dadosMsg = br.inf.portalfiscal.www.nfe.wsdl.nfeconsulta.NfeDadosMsg.Factory.parse (XMLInputFactory.newInstance().createXMLStreamReader(xml));
+//	
+//				String serviceType = null;
+//				if (MLBRNotaFiscal.LBR_NFMODEL_NotaFiscalEletrônica.equals(p_LBR_NFModel))
+//					serviceType = MLBRNFeWebService.CONSULTA;
+//				
+//				else if (MLBRNotaFiscal.LBR_NFMODEL_NotaFiscalDeConsumidorEletrônica.equals(p_LBR_NFModel))
+//					serviceType = MLBRNFeWebService.NFCE_CONSULTA;
+//				
+//				String url = MLBRNFeWebService.getURL (serviceType, p_LBR_EnvType, NFeUtil.VERSAO_LAYOUT, p_LBR_TPEmis, orgLoc.getC_Region_ID());
+//				
+//				NFeConsultaProtocolo4Stub stub = new NFeConsultaProtocolo4Stub(url);
+//	
+//				OMElement nfeConsNF2 = stub.nfeConsultaNF(dadosMsg.getExtraElement());
+//				respStatus = nfeConsNF2.toString();
+//			}
+//			else
 			{
 				//	Mensagem
-				br.inf.portalfiscal.www.nfe.wsdl.nfeconsulta.NfeDadosMsg dadosMsg = br.inf.portalfiscal.www.nfe.wsdl.nfeconsulta.NfeDadosMsg.Factory.parse (XMLInputFactory.newInstance().createXMLStreamReader(xml));
-				
-				//	Cabeçalho
-				br.inf.portalfiscal.www.nfe.wsdl.nfeconsulta.NfeCabecMsg cabecMsg = new br.inf.portalfiscal.www.nfe.wsdl.nfeconsulta.NfeCabecMsg ();
-				cabecMsg.setCUF(region);
-				cabecMsg.setVersaoDados(NFeUtil.VERSAO_LAYOUT);
-	
-				br.inf.portalfiscal.www.nfe.wsdl.nfeconsulta.NfeCabecMsgE cabecMsgE = new br.inf.portalfiscal.www.nfe.wsdl.nfeconsulta.NfeCabecMsgE ();
-				cabecMsgE.setNfeCabecMsg(cabecMsg);
+				NfeDadosMsg dadosMsg = NfeDadosMsg.Factory.parse (XMLInputFactory.newInstance().createXMLStreamReader(xml));
 	
 				String serviceType = null;
 				if (MLBRNotaFiscal.LBR_NFMODEL_NotaFiscalEletrônica.equals(p_LBR_NFModel))
@@ -218,36 +229,9 @@ public class ConsultNFe extends SvrProcess
 				
 				String url = MLBRNFeWebService.getURL (serviceType, p_LBR_EnvType, NFeUtil.VERSAO_LAYOUT, p_LBR_TPEmis, orgLoc.getC_Region_ID());
 				
-				NfeConsultaStub stub = new NfeConsultaStub(url);
+				NFeConsultaProtocolo4Stub stub = new NFeConsultaProtocolo4Stub(url);
 	
-				OMElement nfeConsNF2 = stub.nfeConsultaNF(dadosMsg.getExtraElement(), cabecMsgE);
-				respStatus = nfeConsNF2.toString();
-			}
-			else
-			{
-				//	Mensagem
-				br.inf.portalfiscal.www.nfe.wsdl.nfeconsulta2.NfeDadosMsg dadosMsg = br.inf.portalfiscal.www.nfe.wsdl.nfeconsulta2.NfeDadosMsg.Factory.parse (XMLInputFactory.newInstance().createXMLStreamReader(xml));
-				
-				//	Cabeçalho
-				br.inf.portalfiscal.www.nfe.wsdl.nfeconsulta2.NfeCabecMsg cabecMsg = new br.inf.portalfiscal.www.nfe.wsdl.nfeconsulta2.NfeCabecMsg ();
-				cabecMsg.setCUF(region);
-				cabecMsg.setVersaoDados(NFeUtil.VERSAO_LAYOUT);
-	
-				br.inf.portalfiscal.www.nfe.wsdl.nfeconsulta2.NfeCabecMsgE cabecMsgE = new br.inf.portalfiscal.www.nfe.wsdl.nfeconsulta2.NfeCabecMsgE ();
-				cabecMsgE.setNfeCabecMsg(cabecMsg);
-	
-				String serviceType = null;
-				if (MLBRNotaFiscal.LBR_NFMODEL_NotaFiscalEletrônica.equals(p_LBR_NFModel))
-					serviceType = MLBRNFeWebService.CONSULTA;
-				
-				else if (MLBRNotaFiscal.LBR_NFMODEL_NotaFiscalDeConsumidorEletrônica.equals(p_LBR_NFModel))
-					serviceType = MLBRNFeWebService.NFCE_CONSULTA;
-				
-				String url = MLBRNFeWebService.getURL (serviceType, p_LBR_EnvType, NFeUtil.VERSAO_LAYOUT, p_LBR_TPEmis, orgLoc.getC_Region_ID());
-				
-				NfeConsulta2Stub stub = new NfeConsulta2Stub(url);
-	
-				OMElement nfeConsNF2 = stub.nfeConsultaNF2(dadosMsg.getExtraElement(), cabecMsgE);
+				OMElement nfeConsNF2 = stub.nfeConsultaNF(dadosMsg.getExtraElement());
 				respStatus = nfeConsNF2.toString();
 			}
 			

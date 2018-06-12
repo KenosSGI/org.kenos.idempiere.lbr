@@ -185,6 +185,15 @@ public interface I_LBR_NotaFiscalDocRef
 	/** Get Referenced Documents	  */
 	public int getLBR_NotaFiscalDocRef_ID();
 
+    /** Column name LBR_NotaFiscalDocRef_UU */
+    public static final String COLUMNNAME_LBR_NotaFiscalDocRef_UU = "LBR_NotaFiscalDocRef_UU";
+
+	/** Set LBR_NotaFiscalDocRef_UU	  */
+	public void setLBR_NotaFiscalDocRef_UU (String LBR_NotaFiscalDocRef_UU);
+
+	/** Get LBR_NotaFiscalDocRef_UU	  */
+	public String getLBR_NotaFiscalDocRef_UU();
+
     /** Column name LBR_NotaFiscal_ID */
     public static final String COLUMNNAME_LBR_NotaFiscal_ID = "LBR_NotaFiscal_ID";
 

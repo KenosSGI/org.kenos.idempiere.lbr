@@ -180,7 +180,7 @@ public class ProcEMailNFe extends SvrProcess
 							MLBRNotaFiscal.LBR_NFESTATUS_110_UsoDenegado,
 							MLBRNotaFiscal.LBR_NFESTATUS_135_EventoRegistradoEVinculadoANF_E,
 							MLBRNotaFiscal.LBR_NFESTATUS_302_RejeiçãoIrregularidadeFiscalDoDestinatário,
-							MLBRNotaFiscal.LBR_NFESTATUS_999_RejeiçãoErroNãoCatalogadoInformarAMensagemDeErroCapturadoNoTratamentoDaExceção))))
+							MLBRNotaFiscal.LBR_NFESTATUS_999_RejeiçãoErroNãoCatalogado))))
 		{
 			log.warning("NF-e não foi autorizada");
 			return "NF-e não foi autorizada";

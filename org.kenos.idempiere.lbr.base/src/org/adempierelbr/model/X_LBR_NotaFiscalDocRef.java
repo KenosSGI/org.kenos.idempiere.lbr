@@ -32,7 +32,7 @@ public class X_LBR_NotaFiscalDocRef extends PO implements I_LBR_NotaFiscalDocRef
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20170626L;
+	private static final long serialVersionUID = 20180611L;
 
     /** Standard Constructor */
     public X_LBR_NotaFiscalDocRef (Properties ctx, int LBR_NotaFiscalDocRef_ID, String trxName)
@@ -162,6 +162,8 @@ public class X_LBR_NotaFiscalDocRef extends PO implements I_LBR_NotaFiscalDocRef
 	public static final String LBR_FISCALDOCREFTYPE_NF_E = "N";
 	/** CT-e = T */
 	public static final String LBR_FISCALDOCREFTYPE_CT_E = "T";
+	/** NF Venda a Consumidor (Modelo 2) = 2 */
+	public static final String LBR_FISCALDOCREFTYPE_NFVendaAConsumidorModelo2 = "2";
 	/** Set Type Fiscal Document Referenced.
 		@param LBR_FiscalDocRefType Type Fiscal Document Referenced	  */
 	public void setLBR_FiscalDocRefType (String LBR_FiscalDocRefType)
@@ -253,6 +255,20 @@ public class X_LBR_NotaFiscalDocRef extends PO implements I_LBR_NotaFiscalDocRef
     {
         return new KeyNamePair(get_ID(), String.valueOf(getLBR_NotaFiscalDocRef_ID()));
     }
+
+	/** Set LBR_NotaFiscalDocRef_UU.
+		@param LBR_NotaFiscalDocRef_UU LBR_NotaFiscalDocRef_UU	  */
+	public void setLBR_NotaFiscalDocRef_UU (String LBR_NotaFiscalDocRef_UU)
+	{
+		set_Value (COLUMNNAME_LBR_NotaFiscalDocRef_UU, LBR_NotaFiscalDocRef_UU);
+	}
+
+	/** Get LBR_NotaFiscalDocRef_UU.
+		@return LBR_NotaFiscalDocRef_UU	  */
+	public String getLBR_NotaFiscalDocRef_UU () 
+	{
+		return (String)get_Value(COLUMNNAME_LBR_NotaFiscalDocRef_UU);
+	}
 
 	public org.adempierelbr.model.I_LBR_NotaFiscal getLBR_NotaFiscal() throws RuntimeException
     {

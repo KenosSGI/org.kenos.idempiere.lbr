@@ -17,6 +17,7 @@
 package org.adempierelbr.wrapper;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import org.compiere.model.*;
 import org.compiere.util.KeyNamePair;
 
@@ -25,7 +26,7 @@ import org.compiere.util.KeyNamePair;
  *  @version Release 4.1
  */
 @SuppressWarnings("all")
-public interface I_W_M_Production extends I_M_Production 
+public interface I_W_M_Production 
 {
 
     /** TableName=M_Production */
@@ -34,6 +35,34 @@ public interface I_W_M_Production extends I_M_Production
     /** AD_Table_ID=325 */
     public static final int Table_ID = 325;
 
+
+    /** Column name C_Invoice_ID */
+    public static final String COLUMNNAME_C_Invoice_ID = "C_Invoice_ID";
+
+	/** Set Invoice.
+	  * Invoice Identifier
+	  */
+	public void setC_Invoice_ID (int C_Invoice_ID);
+
+	/** Get Invoice.
+	  * Invoice Identifier
+	  */
+	public int getC_Invoice_ID();
+
+	public org.compiere.model.I_C_Invoice getC_Invoice() throws RuntimeException;
+
+    /** Column name DateStart */
+    public static final String COLUMNNAME_DateStart = "DateStart";
+
+	/** Set Date Start.
+	  * Date Start for this Order
+	  */
+	public void setDateStart (Timestamp DateStart);
+
+	/** Get Date Start.
+	  * Date Start for this Order
+	  */
+	public Timestamp getDateStart();
 
     /** Column name IsCancelled */
     public static final String COLUMNNAME_IsCancelled = "IsCancelled";
@@ -48,6 +77,19 @@ public interface I_W_M_Production extends I_M_Production
 	  */
 	public boolean isCancelled();
 
+    /** Column name LBR_NotaFiscal_ID */
+    public static final String COLUMNNAME_LBR_NotaFiscal_ID = "LBR_NotaFiscal_ID";
+
+	/** Set Nota Fiscal.
+	  * Primary key table LBR_NotaFiscal
+	  */
+	public void setLBR_NotaFiscal_ID (int LBR_NotaFiscal_ID);
+
+	/** Get Nota Fiscal.
+	  * Primary key table LBR_NotaFiscal
+	  */
+	public int getLBR_NotaFiscal_ID();
+
     /** Column name LBR_ProcCancelProduction */
     public static final String COLUMNNAME_LBR_ProcCancelProduction = "LBR_ProcCancelProduction";
 
@@ -56,6 +98,39 @@ public interface I_W_M_Production extends I_M_Production
 
 	/** Get Cancel Production	  */
 	public String getLBR_ProcCancelProduction();
+
+    /** Column name LBR_ProductionGroup_ID */
+    public static final String COLUMNNAME_LBR_ProductionGroup_ID = "LBR_ProductionGroup_ID";
+
+	/** Set Production Group	  */
+	public void setLBR_ProductionGroup_ID (int LBR_ProductionGroup_ID);
+
+	/** Get Production Group	  */
+	public int getLBR_ProductionGroup_ID();
+
+    /** Column name LBR_Ref_Production_ID */
+    public static final String COLUMNNAME_LBR_Ref_Production_ID = "LBR_Ref_Production_ID";
+
+	/** Set Referenced Production	  */
+	public void setLBR_Ref_Production_ID (int LBR_Ref_Production_ID);
+
+	/** Get Referenced Production	  */
+	public int getLBR_Ref_Production_ID();
+
+	public org.compiere.model.I_M_Production getLBR_Ref_Production() throws RuntimeException;
+
+    /** Column name PriceEntered */
+    public static final String COLUMNNAME_PriceEntered = "PriceEntered";
+
+	/** Set Price.
+	  * Price Entered - the price based on the selected/base UoM
+	  */
+	public void setPriceEntered (BigDecimal PriceEntered);
+
+	/** Get Price.
+	  * Price Entered - the price based on the selected/base UoM
+	  */
+	public BigDecimal getPriceEntered();
 
     /** Column name lbr_IsManufactured */
     public static final String COLUMNNAME_lbr_IsManufactured = "lbr_IsManufactured";

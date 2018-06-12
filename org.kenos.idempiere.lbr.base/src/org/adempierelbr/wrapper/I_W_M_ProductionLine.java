@@ -25,7 +25,7 @@ import org.compiere.util.KeyNamePair;
  *  @version Release 4.1
  */
 @SuppressWarnings("all")
-public interface I_W_M_ProductionLine extends I_M_ProductionLine 
+public interface I_W_M_ProductionLine 
 {
 
     /** TableName=M_ProductionLine */
@@ -34,6 +34,47 @@ public interface I_W_M_ProductionLine extends I_M_ProductionLine
     /** AD_Table_ID=326 */
     public static final int Table_ID = 326;
 
+
+    /** Column name C_UOM_ID */
+    public static final String COLUMNNAME_C_UOM_ID = "C_UOM_ID";
+
+	/** Set UOM.
+	  * Unit of Measure
+	  */
+	public void setC_UOM_ID (int C_UOM_ID);
+
+	/** Get UOM.
+	  * Unit of Measure
+	  */
+	public int getC_UOM_ID();
+
+	public org.compiere.model.I_C_UOM getC_UOM() throws RuntimeException;
+
+    /** Column name LBR_CFOP_ID */
+    public static final String COLUMNNAME_LBR_CFOP_ID = "LBR_CFOP_ID";
+
+	/** Set CFOP.
+	  * Primary key table LBR_CFOP
+	  */
+	public void setLBR_CFOP_ID (int LBR_CFOP_ID);
+
+	/** Get CFOP.
+	  * Primary key table LBR_CFOP
+	  */
+	public int getLBR_CFOP_ID();
+
+    /** Column name LBR_NotaFiscalLine_ID */
+    public static final String COLUMNNAME_LBR_NotaFiscalLine_ID = "LBR_NotaFiscalLine_ID";
+
+	/** Set Nota Fiscal Line.
+	  * Primary key table LBR_NotaFiscalLine
+	  */
+	public void setLBR_NotaFiscalLine_ID (int LBR_NotaFiscalLine_ID);
+
+	/** Get Nota Fiscal Line.
+	  * Primary key table LBR_NotaFiscalLine
+	  */
+	public int getLBR_NotaFiscalLine_ID();
 
     /** Column name QtyDelivered */
     public static final String COLUMNNAME_QtyDelivered = "QtyDelivered";
