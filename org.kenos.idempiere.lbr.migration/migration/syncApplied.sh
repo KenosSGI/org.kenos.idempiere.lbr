@@ -12,6 +12,7 @@ if [ -z "$PSQL" ]; then
 fi
 
 #	Variables
+PGPASS=~/.pgpass
 DATABASE=${2}
 USER=${3}
 ADDPG=${4}   # i.e. "-h localhost -p 5432"
@@ -19,7 +20,10 @@ MIGRATIONDIR=${1}
 MSGERROR=""
 APPLIED=N
 
-#	Password prompt
+#	Default connection
+HOST=localhost
+PORT=5432
+
 echo
 echo "========================================="
 echo " iDempiere Synchronization Script Tool"
@@ -32,12 +36,69 @@ echo "        Database: ${DATABASE}"
 echo "            User: ${USER}"
 echo "       PG Params: ${ADDPG}"
 echo "Migration Folder: ${MIGRATIONDIR}"
-echo
-read -s -p "Enter Password: " pass
+
+#	Check if .pgpass exists
+if [ ! -f "$PGPASS" ]; then
+	> $PGPASS
+	chmod 0600 $PGPASS
+fi
+
+patternHost=".*-h[[:blank:]][[:blank:]]*\([[:alnum:]][[:alnum:],.]*\).*"
+patternPort=".*-p[[:blank:]][[:blank:]]*\([[:digit:]]\{1,5\}\).*"
+
+hostFound=`echo $ADDPG | sed "s/$patternHost/FOUND/g"`
+portFound=`echo $ADDPG | sed "s/$patternPort/FOUND/g"`
+ 
+#	Check if we have a hostname parameter
+if [ "x$hostFound" = "xFOUND" ]; then
+
+	#	Same regex with escaped parenthesis
+	HOST=`echo $ADDPG | sed "s/$patternHost/\1/g"`
+fi
+
+#	Check if we have a port parameter
+if [ "x$portFound" = "xFOUND" ]; then
+
+	#	Same regex with escaped parenthesis
+	PORT=`echo $ADDPG | sed "s/$patternPort/\1/g"`
+fi
+
+echo "        Hostname: ${HOST}"
+echo "            Port: ${PORT}"
 echo
 
-#	Password
-PGPASSWORD=$pass
+#	Check if password is already saved
+if ! grep -q "$HOST\:$PORT\:\*\:$USER\:*" $PGPASS; then
+	
+	#	Password prompt
+	read -p "Enter Password: " pass
+	echo
+	
+	echo "$HOST:$PORT:*:$USER:$pass" >> $PGPASS
+	
+fi
+
+#	Check if connection is OK
+THECOUNT=`psql --quiet -d $DATABASE -U $USER $ADDPG -qwAt -c "SELECT 1"`
+
+#	Prompt for password until connection can be made
+#while [[ ! $THECOUNT -eq 1 ]]; do
+while [ ! "x$THECOUNT" = "x1" ]; do
+
+	read -p "Enter Password: " pass
+	echo
+	
+	sed "s/^$HOST:$PORT:\*:$USER:.*/$HOST:$PORT:\*:$USER:$pass/" $PGPASS > $PGPASS.tmp
+	mv $PGPASS.tmp $PGPASS
+	chmod 0600 $PGPASS
+	
+	THECOUNT=`psql --quiet -d $DATABASE -U $USER $ADDPG -qwAt -c "SELECT 1"`
+
+done
+
+# 	Connection OK
+echo
+echo "Connection OK"
 
 #	Go to working dir
 cd $MIGRATIONDIR
@@ -54,7 +115,7 @@ do
     if [ -d ${FOLDER}/postgresql ]
     then
         cd ${FOLDER}/postgresql
-        find . -name '*.sql' -type f -exec basename {} \; | sort | sed ':a;N;$!ba;s/\n/ /g' >> /tmp/lisFS.txt
+        find . -name '*.sql' -type f -exec basename {} \; | sort >> /tmp/lisFS.txt
         cd ../..
     fi
 done
@@ -122,6 +183,9 @@ else
     echo "Database is up to date, no scripts to apply"
     echo
 fi
+
+# remove trash
+rm /tmp/lisDB.txt /tmp/lisFS.txt
 
 #	Show errors
 if [ -n "$MSGERROR" ]
