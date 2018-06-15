@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 
 import org.adempiere.model.POWrapper;
+import org.adempierelbr.model.MLBRDocTypeAcct;
 import org.adempierelbr.wrapper.I_W_C_DocType;
 import org.compiere.acct.Doc;
 import org.compiere.acct.DocLine;
@@ -252,8 +253,10 @@ public class Doc_InOut extends Doc
 				}
 				
 				//  CoGS            DR
-				dr = fact.createLine(line,
-					line.getAccount(ProductCost.ACCTTYPE_P_Cogs, as),
+				MAccount account = MLBRDocTypeAcct.getAccount(getCtx(), doctype.getC_DocType_ID(), "P001", null, getDateAcct(), as);
+				if (account == null)
+					account = line.getAccount(ProductCost.ACCTTYPE_P_Cogs, as);
+				dr = fact.createLine(line, account,
 					as.getC_Currency_ID(), costs, null);
 				if (dr == null)
 				{
@@ -524,8 +527,10 @@ public class Doc_InOut extends Doc
 				}
 
 				//  CoGS            CR
-				cr = fact.createLine(line,
-					line.getAccount(ProductCost.ACCTTYPE_P_Cogs, as),
+				MAccount account = MLBRDocTypeAcct.getAccount(getCtx(), doctype.getC_DocType_ID(), "P001", null, getDateAcct(), as);
+				if (account == null)
+					account = line.getAccount(ProductCost.ACCTTYPE_P_Cogs, as);
+				cr = fact.createLine(line, account,
 					as.getC_Currency_ID(), null, costs);
 				if (cr == null)
 				{
@@ -690,10 +695,13 @@ public class Doc_InOut extends Doc
 						return null;
 					}
 				}
+				
+				MAccount account = MLBRDocTypeAcct.getAccount(getCtx(), doctype.getC_DocType_ID(), "P002", null, getDateAcct(), as);
+				if (account == null)
+					account = getAccount(Doc.ACCTTYPE_NotInvoicedReceipts, as);
 
 				//  NotInvoicedReceipt				CR
-				cr = fact.createLine(line,
-					getAccount(Doc.ACCTTYPE_NotInvoicedReceipts, as),
+				cr = fact.createLine(line, account,
 					C_Currency_ID, null, costs);
 				//
 				if (cr == null)
@@ -844,6 +852,7 @@ public class Doc_InOut extends Doc
 				//  NotInvoicedReceipt				DR
 				// Elaine 2008/06/26
 				/*dr = fact.createLine(line,
+				 * 
 					getAccount(Doc.ACCTTYPE_NotInvoicedReceipts, as),
 					as.getC_Currency_ID(), costs , null);*/
 				dr = fact.createLine(line,

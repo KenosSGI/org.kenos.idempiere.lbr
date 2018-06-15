@@ -46,7 +46,8 @@ public class MLBRDocTypeAcct extends X_LBR_DocTypeAcct
 	 */
 	public static MAccount getAccount (Properties ctx, int pC_DocType_ID, String acctName, String taxIndicator, Timestamp dateAcct, MAcctSchema as)
 	{
-		String sql = COLUMNNAME_C_DocType_ID+"=? AND "+COLUMNNAME_Name+"=? AND ("+DB.TO_DATE(dateAcct)+" BETWEEN ValidFrom AND ValidTo "
+		String sql = COLUMNNAME_IsActive+"='Y' AND "+COLUMNNAME_C_DocType_ID+"=? AND "
+				+ COLUMNNAME_Name+"=? AND ("+DB.TO_DATE(dateAcct)+" BETWEEN ValidFrom AND ValidTo "
 				+ "OR "+DB.TO_DATE(dateAcct)+">=ValidFrom AND ValidTo IS NULL) ";
 		//
 		List<Object> params = new ArrayList<Object>();

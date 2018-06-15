@@ -516,7 +516,10 @@ public class Doc_Invoice extends Doc
 						{
 							if (dt.isIncludedTax())
 								includedTax = includedTax.add(dt.getAmount());
-							FactLine tl = fact.createLine(null, dt.getAccount(DocTax.ACCTTYPE_TaxDue, as),
+							MAccount account = MLBRDocTypeAcct.getAccount(getCtx(), doctype.getC_DocType_ID(), "T001", dt.getName(), getDateAcct(), as);
+							if (account == null)
+								account = dt.getAccount(DocTax.ACCTTYPE_TaxDue, as);
+							FactLine tl = fact.createLine(null, account,
 								getC_Currency_ID(), amt, null);
 							if (tl != null)
 							{
@@ -606,7 +609,10 @@ public class Doc_Invoice extends Doc
 							includedTax = includedTax.add(dt.getAmount().negate());
 						if (dt.isRecoverableTax())
 						{
-							FactLine tl = fact.createLine(null, dt.getAccount(dt.getAPTaxType(), as),
+							MAccount account = MLBRDocTypeAcct.getAccount(getCtx(), doctype.getC_DocType_ID(), "T002", dt.getName(), getDateAcct(), as);
+							if (account == null)
+								account = dt.getAccount(dt.getAPTaxType(), as);
+							FactLine tl = fact.createLine(null, account,
 								getC_Currency_ID(), dt.getAmount(), null);
 							if (tl != null)
 							{
@@ -616,7 +622,10 @@ public class Doc_Invoice extends Doc
 							
 							if (taxesOnly)
 							{
-								tl = fact.createLine(null, dt.getAccount(DocTax.ACCTTYPE_TaxExpense, as),
+								account = MLBRDocTypeAcct.getAccount(getCtx(), doctype.getC_DocType_ID(), "T003", dt.getName(), getDateAcct(), as);
+								if (account == null)
+									account = dt.getAccount(DocTax.ACCTTYPE_TaxExpense, as);
+								tl = fact.createLine(null, account,
 									getC_Currency_ID(), null, dt.getAmount());
 								if (tl != null)
 								{
