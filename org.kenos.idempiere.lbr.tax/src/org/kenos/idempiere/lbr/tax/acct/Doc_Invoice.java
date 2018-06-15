@@ -30,6 +30,7 @@ import java.util.logging.Level;
 
 import org.adempiere.exceptions.AverageCostingZeroQtyException;
 import org.adempiere.model.POWrapper;
+import org.adempierelbr.model.MLBRDocTypeAcct;
 import org.adempierelbr.model.MLBRTaxName;
 import org.adempierelbr.validator.VLBROrder;
 import org.adempierelbr.wrapper.I_W_AD_ClientInfo;
@@ -120,7 +121,7 @@ public class Doc_Invoice extends Doc
 	{
 		Map<Integer, List<DocTax>> map = new HashMap<Integer, List<DocTax>>();
 		String sql = "SELECT (SELECT MAX(C_Tax_ID) FROM C_Tax t WHERE t.Parent_Tax_ID=il.C_Tax_ID AND t.LBR_TaxName_ID=tl.LBR_TaxName_ID) AS C_Tax_ID, "
-				+ "il.C_InvoiceLine_ID, tn.Name, tl.LBR_TaxRate AS Rate, tl.LBR_TaxBaseAmt AS TaxBaseAmt, tl.LBR_TaxAmt AS TaxAmt, "
+				+ "il.C_InvoiceLine_ID, TRIM(tn.Name) AS Name, tl.LBR_TaxRate AS Rate, tl.LBR_TaxBaseAmt AS TaxBaseAmt, tl.LBR_TaxAmt AS TaxAmt, "
 				+ "i.IsSOTrx AS IsSalesTax, tl.IsTaxIncluded, tl.LBR_TaxName_ID "
 				+ "FROM C_InvoiceLine il, C_Invoice i, LBR_TaxLine tl, LBR_TaxName tn "
 				+ "WHERE il.C_Invoice_ID=? AND il.LBR_Tax_ID=tl.LBR_Tax_ID AND tn.LBR_TaxName_ID=tl.LBR_TaxName_ID AND i.C_Invoice_ID=il.C_Invoice_ID";
@@ -397,7 +398,11 @@ public class Doc_Invoice extends Doc
 						{
 							if (dt.isIncludedTax())
 								includedTax = includedTax.add(amt);
-							FactLine tl = fact.createLine(null, dt.getAccount(DocTax.ACCTTYPE_TaxDue, as),
+							MAccount account = MLBRDocTypeAcct.getAccount(getCtx(), doctype.getC_DocType_ID(), "T001", dt.getName(), getDateAcct(), as);
+							if (account == null)
+								account = dt.getAccount(DocTax.ACCTTYPE_TaxDue, as);
+							//
+							FactLine tl = fact.createLine(null, account,
 								getC_Currency_ID(), null, amt);
 							if (tl != null)
 							{
@@ -408,7 +413,10 @@ public class Doc_Invoice extends Doc
 							
 							if (taxesOnly)
 							{
-								tl = fact.createLine(null, dt.getAccount(DocTax.ACCTTYPE_TaxCredit, as),
+								account = MLBRDocTypeAcct.getAccount(getCtx(), doctype.getC_DocType_ID(), "T002", dt.getName(), getDateAcct(), as);
+								if (account == null)
+									account = dt.getAccount(DocTax.ACCTTYPE_TaxCredit, as);
+								tl = fact.createLine(null, account,
 										getC_Currency_ID(), amt, null);
 								if (tl != null)
 								{
