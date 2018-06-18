@@ -15,11 +15,8 @@ package org.adempierelbr.process;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
 import java.util.logging.Level;
 
@@ -41,6 +38,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.compiere.model.MAttachment;
 import org.compiere.model.MAttachmentEntry;
+import org.compiere.model.MBPartner;
 import org.compiere.model.MOrgInfo;
 import org.compiere.model.MSysConfig;
 import org.compiere.model.Query;
@@ -65,15 +63,14 @@ public class ProcXMLExport extends SvrProcess
 	
 	/**	Document Type	*/
 	private int p_C_DocTypeTarget_ID 	= 0;
-	private int p_AD_Org_ID 			= 0;
-	private int p_C_BPartner_ID 		= 0;
-	private int p_C_BP_Group_ID 		= 0;
+	private int p_AD_Org_ID 				= 0;
+	private int p_C_BPartner_ID 			= 0;
+	private int p_C_BP_Group_ID 			= 0;
 	private int p_M_Shipper_ID 			= 0;
 	private Boolean p_LBR_IsCancelled	= false;
 	private Boolean p_LBR_IsSOTrx		= null;
-
-	/**	Include DF-e	*/
-	private boolean p_IncludeDFe		= true;
+	private Boolean p_LBR_IsOwnDocument	= null;
+	private Boolean p_LBR_EMailSent		= null;
 
 	/**	Period			*/
 	private Timestamp dateFrom;
@@ -96,27 +93,31 @@ public class ProcXMLExport extends SvrProcess
 			String name = para[i].getParameterName();
 			if (para[i].getParameter() == null)
 				;
-			else if (name.equals("DateDoc"))
+			else if (name.equals (MLBRNotaFiscal.COLUMNNAME_DateDoc))
 			{
 				dateFrom 	= (Timestamp) para[i].getParameter();
 				dateTo 		= (Timestamp) para[i].getParameter_To();
 			}
-			else if (name.equals("C_DocTypeTarget_ID"))
+			else if (name.equals (MLBRNotaFiscal.COLUMNNAME_C_DocTypeTarget_ID))
 				p_C_DocTypeTarget_ID = para[i].getParameterAsInt();
-			else if (name.equals("File_Directory"))
+			else if (name.equals ("File_Directory"))
 				p_FilePath = para[i].getParameter().toString();
-			else if (name.equals("AD_Org_ID"))
+			else if (name.equals (MLBRNotaFiscal.COLUMNNAME_AD_Org_ID))
 				p_AD_Org_ID = para[i].getParameterAsInt();
-			else if (name.equals("C_BPartner_ID"))
+			else if (name.equals (MLBRNotaFiscal.COLUMNNAME_C_BPartner_ID))
 				p_C_BPartner_ID = para[i].getParameterAsInt();
-			else if (name.equals("C_BP_Group_ID"))
+			else if (name.equals (MBPartner.COLUMNNAME_C_BP_Group_ID))
 				p_C_BP_Group_ID = para[i].getParameterAsInt();
-			else if (name.equals("M_Shipper_ID"))
+			else if (name.equals (MLBRNotaFiscal.COLUMNNAME_M_Shipper_ID))
 				p_M_Shipper_ID = para[i].getParameterAsInt();
-			else if (name.equals("lbr_IsCancelled"))
+			else if (name.equals (MLBRNotaFiscal.COLUMNNAME_IsCancelled))
 				p_LBR_IsCancelled = para[i].getParameterAsBoolean();
-			else if (name.equals("IsSOTrx"))
-				p_LBR_IsSOTrx = "Y".equals (para[i].getParameterAsString());
+			else if (name.equals (MLBRNotaFiscal.COLUMNNAME_IsSOTrx))
+				p_LBR_IsSOTrx =  "Y".equals (para[i].getParameterAsString());
+			else if (name.equals(MLBRNotaFiscal.COLUMNNAME_lbr_IsOwnDocument))
+				p_LBR_IsOwnDocument = "Y".equals (para[i].getParameterAsString());
+			else if (name.equals(MLBRNotaFiscal.COLUMNNAME_LBR_EMailSent))
+				p_LBR_EMailSent = "Y".equals (para[i].getParameterAsString());
 			else
 				log.log(Level.SEVERE, "prepare - Unknown Parameter: " + name);
 		}
@@ -170,11 +171,24 @@ public class ProcXMLExport extends SvrProcess
 			else
 				whereClause.append(" AND IsSOTrx='N'");
 		
+		if (p_LBR_IsOwnDocument != null)
+			if (p_LBR_IsOwnDocument)
+				whereClause.append(" AND " + MLBRNotaFiscal.COLUMNNAME_lbr_IsOwnDocument + "='Y'");
+			else
+				whereClause.append(" AND " + MLBRNotaFiscal.COLUMNNAME_lbr_IsOwnDocument + "='N'");
+		
+		if (p_LBR_EMailSent != null)
+			if (p_LBR_EMailSent)
+				whereClause.append(" AND " + MLBRNotaFiscal.COLUMNNAME_LBR_EMailSent + "='Y'");
+			else
+				whereClause.append(" AND " + MLBRNotaFiscal.COLUMNNAME_LBR_EMailSent + "='N'");
+		
 		List<ExportRow> rows = new ArrayList<ExportRow>();
 		List<MLBRNotaFiscal> nfs = new Query(Env.getCtx(), MLBRNotaFiscal.Table_Name, whereClause.toString(), null)
 					.setParameters(new Object[]{Env.getAD_Client_ID(Env.getCtx())})
 					.list();
 		
+		int countNFeXML = 0;
 		int countDFeXML = 0;
 		//		
 		for (MLBRNotaFiscal nf : nfs)
@@ -233,8 +247,11 @@ public class ProcXMLExport extends SvrProcess
 				
 				//	Adicionar no Relatório como Emitidas Apenas que as NFs Válidas
 				if (!nf.isCancelled())
+				{
 					rows.add(new ExportRow (TextUtil.toNumeric(nf.getlbr_CNPJ()), "Emitidas", nf.getlbr_NFeStatus(), nf.getDateDoc(), null, nf.isSOTrx(), 
 							nf.getBPName(), nf.getDocumentNo(), nf.getlbr_NFSerie(), nf.getlbr_NFeID(), null));
+					countNFeXML++;
+				}
 						
 				//	Adicionar Eventos da NFe				
 				List<MLBRNFeEvent> events = nf.getNFeEvents();
@@ -271,14 +288,14 @@ public class ProcXMLExport extends SvrProcess
 		whereClause = new StringBuilder("AD_Client_ID=?")
 				.append(" AND TRUNC (DateDoc) BETWEEN " + DB.TO_DATE(dateFrom))
 				.append(" AND " + DB.TO_DATE(dateTo))
-				.append(" AND DocumentType='0'");
+				.append(" AND DocumentType=?");
 		
 		List<MLBRPartnerDFe> dfes = new Query(Env.getCtx(), MLBRPartnerDFe.Table_Name, whereClause.toString(), null)
-				.setParameters(new Object[]{Env.getAD_Client_ID(Env.getCtx())})
+				.setParameters(new Object[]{Env.getAD_Client_ID(Env.getCtx()), MLBRPartnerDFe.DOCUMENTTYPE_NF_E})
 				.list();
 		
 		/**	Incluir documentos destinados (DF-e)	*/
-		if (p_IncludeDFe)
+		if (p_LBR_IsOwnDocument == null || !p_LBR_IsOwnDocument)
 		{
 			for (MLBRPartnerDFe dfe : dfes)
 			{
@@ -326,29 +343,23 @@ public class ProcXMLExport extends SvrProcess
 			resume.mkdirs();
 		processResult (resume.getAbsolutePath() + File.separator + "Resumo.xls", rows);
 		
-		//		Versão SWING
-		if (Ini.isClient())
-		{
-			if (!(p_FilePath.endsWith(File.separator)))
-				p_FilePath += File.separator;
-			//
-			String fileName = p_FilePath + "XML_NFe_" + TextUtil.timeToString(dateFrom, "ddMMyyyy") 
-			+ "_" + TextUtil.timeToString(dateTo, "ddMMyyyy") + ".zip";
-			Zipper.zipFolder(new File(p_Temp), new File(fileName), p_FolderKey + File.separator + "**");
-			//
-		}
-		else
-		{
-			String fileName = "XML_NFe_" + TextUtil.timeToString(dateFrom, "ddMMyyyy") 
-			+ "_" + TextUtil.timeToString(dateTo, "ddMMyyyy") + ".zip";
-			Zipper.zipFolder(new File(p_Temp), new File(p_Temp+fileName), p_FolderKey + File.separator + "**");
-			String encoded = new String (Base64.getEncoder().encode(Files.readAllBytes(Paths.get(p_Temp+fileName))));
-			//
-			return "@Success@<br /><br />Resumo:<br />" + nfs.size() + " Nota(s) emitida(s) incluída(s)<br />" + dfes.size() + " Nota(s) recebida(s) incluída(s) com " + countDFeXML + " XML(s)<br/><a download=\"" + fileName + "\" href=\"data:application/octet-stream;charset=UTF-8;base64," + encoded + "\" target=\"_blank\">Clique aqui para copiar o RPS</a>";
-		} 
+		//	Web Interface
+		if (p_FilePath == null || !Ini.isClient())
+			p_FilePath = p_Temp;
+		//	Swing Interface
+		if (!p_FilePath.endsWith (File.separator))
+			p_FilePath += File.separator;
+		//	Name of file
+		String fileName = "XML_NFe_" + TextUtil.timeToString(dateFrom, "ddMMyyyy") + "_" + TextUtil.timeToString(dateTo, "ddMMyyyy") + ".zip";
+		//	ZIP the XML together
+		File zipFile = new File(p_FilePath+fileName);
+		Zipper.zipFolder (new File (p_Temp), zipFile, p_FolderKey + File.separator + "**");
+		//	Make download available
+		if (!Ini.isClient() && processUI != null)
+				processUI.download(zipFile);
 		log.info("finale");
 		//
-		return "@Success@<br /><br />Resumo:<br />" + nfs.size() + " Nota(s) emitida(s) incluída(s)<br />" + dfes.size() + " Nota(s) recebida(s) incluída(s) com " + countDFeXML + " XML(s)";
+		return "@Success@<br /><br />Resumo:<br />" + countNFeXML+ " Nota(s) emitida(s) incluída(s)<br />" + dfes.size() + " Nota(s) recebida(s) incluída(s) com " + countDFeXML + " XML(s)";
 	}	//	doIt
 	
 	/**
