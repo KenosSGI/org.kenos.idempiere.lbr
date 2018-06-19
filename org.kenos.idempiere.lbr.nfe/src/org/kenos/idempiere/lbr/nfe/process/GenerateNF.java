@@ -3,6 +3,7 @@ package org.kenos.idempiere.lbr.nfe.process;
 import java.util.logging.Level;
 
 import org.adempierelbr.model.MLBRNotaFiscal;
+import org.compiere.model.MDocType;
 import org.compiere.model.MInOut;
 import org.compiere.model.MInvoice;
 import org.compiere.model.MMovement;
@@ -27,6 +28,7 @@ public class GenerateNF extends SvrProcess
 	private int p_C_Invoice_ID 		= 0;
 	private int p_M_InOut_ID 		= 0;
 	private int p_M_Movement_ID 	= 0;
+	private String p_lbr_NFEntrada	= "";
 	
 	/**
 	 * 	Prepare parameters
@@ -51,6 +53,8 @@ public class GenerateNF extends SvrProcess
 				p_M_InOut_ID = para.getParameterAsInt();
 			else if (name.equals(MMovement.COLUMNNAME_M_Movement_ID))
 				p_M_Movement_ID = para.getParameterAsInt();
+			else if (name.equals("lbr_NFEntrada"))
+				p_lbr_NFEntrada = para.getParameterAsString();
 			else
 				log.log (Level.SEVERE, "Unknown Parameter: " + name);
 		}
@@ -112,8 +116,15 @@ public class GenerateNF extends SvrProcess
 				}
 			}
 			
+			MDocType doctype = MDocType.get(getCtx(), p_C_DocType_ID);
+			
+			if (!doctype.get_ValueAsBoolean("lbr_IsOwnDocument") &&
+					p_lbr_NFEntrada.isEmpty())
+				return "Obrigatório Preencher Número da NF para Tipo de Documento " + doctype.getName();
+			
 			MLBRNotaFiscal nf = new MLBRNotaFiscal (getCtx(), 0, get_TrxName());
-			nf.generateNF(move, true, p_C_DocType_ID);
+			nf.setDocumentNo(p_lbr_NFEntrada);
+			nf.generateNF(move, doctype.get_ValueAsBoolean("lbr_IsOwnDocument"), p_C_DocType_ID);
 			nf.save();
 		}
 		

@@ -1387,9 +1387,11 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 	 */
 	public boolean generateNF (MMovement move, Boolean isOwnDocument, int p_C_DocType_ID)
 	{
+		MDocType doctype = MDocType.get(getCtx(), p_C_DocType_ID);
+		
 		BigDecimal totalItem = Env.ZERO, totalService = Env.ZERO;
 		//
-		Boolean isSOTrx = true;
+		Boolean isSOTrx = doctype.isSOTrx();
 		int lineNo = 1;
 		
 		/**
