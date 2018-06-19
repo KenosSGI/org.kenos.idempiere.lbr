@@ -12,18 +12,32 @@ import org.compiere.model.MProduct;
 import org.compiere.model.MProduction;
 import org.compiere.model.MProductionLine;
 import org.compiere.model.MStorageOnHand;
+import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
 import org.compiere.util.Env;
 import org.kenos.idempiere.lbr.base.model.MLBRProductionGroup;
 
 public class POGMoveToProducer extends SvrProcess
 {
+	//	Production Made from a External Producer
 	private int p_LBR_ProductionGroup_ID;
+	
+	//	Return Material not Used by Producer
+	private Boolean p_IsReturn = false;
 	
 	@Override
 	protected void prepare()
 	{
 		p_LBR_ProductionGroup_ID = getRecord_ID();
+		
+		for (ProcessInfoParameter para : getParameter())
+		{
+			String name = para.getParameterName();
+			if (para.getParameter() == null)
+				;
+			else if (name.equals("lbr_IsReturn"))
+				p_IsReturn = para.getParameterAsBoolean();
+		}		
 	}	//	prepare
 
 	@Override
@@ -41,6 +55,11 @@ public class POGMoveToProducer extends SvrProcess
 		movement.setC_BPartner_Location_ID(pg.getC_BPartner_Location_ID());
 		movement.set_ValueOfColumn(MLBRProductionGroup.COLUMNNAME_LBR_ProductionGroup_ID, pg.getLBR_ProductionGroup_ID());
 		movement.setDescription ("Documento de Movimentação para a OP: " + pg.get_ValueAsString ("DocumentNo"));
+		
+		//	Add Description to Return Material not Used by Producer
+		if (p_IsReturn)
+			movement.setDescription(movement.getDescription() + " - Devolução de Material");
+		
 		movement.saveEx();
 		
 		for (MProduction p : pg.getProduction())
@@ -70,8 +89,18 @@ public class POGMoveToProducer extends SvrProcess
 				
 				PLines line = new PLines ();
 				line.setM_Product_ID(pl.getM_Product_ID());
-				line.setM_Locator_ID(M_Locator_ID);
-				line.setM_LocatorTo_ID(pl.getM_Locator_ID());
+				
+				//	Return Material not Used by Producer
+				if (!p_IsReturn)
+				{	
+					line.setM_Locator_ID(M_Locator_ID);
+					line.setM_LocatorTo_ID(pl.getM_Locator_ID());
+				}
+				else
+				{
+					line.setM_Locator_ID(pl.getM_Locator_ID());
+					line.setM_LocatorTo_ID(M_Locator_ID);
+				}
 				
 				if (map.containsKey(line.toString()))
 					line = map.get(line.toString());
