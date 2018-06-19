@@ -29,6 +29,7 @@ import org.adempiere.webui.event.ValueChangeListener;
 import org.adempiere.webui.panel.ADForm;
 import org.adempiere.webui.panel.IFormController;
 import org.adempiere.webui.util.ZKUpdateUtil;
+import org.adempiere.webui.window.FDialog;
 import org.compiere.model.MLookup;
 import org.compiere.model.MLookupFactory;
 import org.compiere.model.MOrder;
@@ -210,6 +211,12 @@ public class WInvoiceGen extends InvoiceGen implements IFormController, EventLis
 			throw new WrongValueException(docAction.getComponent(), Msg.translate(Env.getCtx(), "FillMandatory"));
 
 		form.saveSelection();
+		
+		if (selectHasNegative)
+		{	
+			FDialog.error (1, form, "Impossível Gerar Fatura Negativa.");
+			return;
+		}
 
 		ArrayList<Integer> selection = getSelection();
 		if (selection != null && selection.size() > 0 && isSelectionActive())
