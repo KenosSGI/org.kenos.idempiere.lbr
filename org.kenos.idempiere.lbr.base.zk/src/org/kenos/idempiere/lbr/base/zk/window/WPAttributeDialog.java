@@ -581,6 +581,17 @@ public class WPAttributeDialog extends Window implements EventListener<Event>
 			else
 				m_editors.add (editor);
 		}
+		else if (MAttribute.ATTRIBUTEVALUETYPE_Date.equals(attribute.getAttributeValueType()))
+		{
+			Datebox editor = new Datebox();
+			setDateAttribute(attribute, editor);
+			row.appendChild(editor);
+			ZKUpdateUtil.setHflex(editor, "1");
+			if (readOnly)
+				editor.setEnabled(false);
+			else
+				m_editors.add (editor);
+		}
 		else	//	Text Field
 		{
 			Textbox editor = new Textbox();
@@ -606,6 +617,11 @@ public class WPAttributeDialog extends Window implements EventListener<Event>
 			NumberBox editor = (NumberBox) m_editors.get(index);
 			setNumberAttribute(attribute, editor);
 		}
+		else if (MAttribute.ATTRIBUTEVALUETYPE_Date.equals(attribute.getAttributeValueType()))
+		{
+			Datebox editor = (Datebox) m_editors.get(index);
+			setDateAttribute(attribute, editor);
+		}
 		else	//	Text Field
 		{
 			Textbox editor = (Textbox) m_editors.get(index);
@@ -617,6 +633,12 @@ public class WPAttributeDialog extends Window implements EventListener<Event>
 		MAttributeInstance instance = attribute.getMAttributeInstance (m_M_AttributeSetInstance_ID);
 		if (instance != null)
 			editor.setText(instance.getValue());
+	}
+
+	private void setDateAttribute(MAttribute attribute, Datebox editor) {
+		MAttributeInstance instance = attribute.getMAttributeInstance (m_M_AttributeSetInstance_ID);
+		if (instance != null)
+			editor.setValue(instance.getValueDate());
 	}
 
 	private void setNumberAttribute(MAttribute attribute, NumberBox editor) {
@@ -1018,6 +1040,15 @@ public class WPAttributeDialog extends Window implements EventListener<Event>
 				//setMAttributeInstance doesn't work without decimal point
 				if (value != null && value.scale() == 0)
 					value = value.setScale(1, BigDecimal.ROUND_HALF_UP);
+				attributes[i].setMAttributeInstance(m_M_AttributeSetInstance_ID, value);
+			}
+			else if (MAttribute.ATTRIBUTEVALUETYPE_Date.equals(attributes[i].getAttributeValueType()))
+			{
+				Datebox editor = (Datebox)m_editors.get(i);
+				Date value = editor.getValue();
+				if (log.isLoggable(Level.FINE)) log.fine(attributes[i].getName() + "=" + value);
+				if (attributes[i].isMandatory() && value == null)
+					mandatory += " - " + attributes[i].getName();
 				attributes[i].setMAttributeInstance(m_M_AttributeSetInstance_ID, value);
 			}
 			else

@@ -1164,6 +1164,7 @@ public abstract class TextUtil
 	/**
 	 * 		Remove acentos de uma string
 	 * 
+	 * 	@deprecated use {@link org.compiere.Util#deleteAccents(String)}
 	 * 	@param s
 	 * 	@return
 	 */
@@ -1175,6 +1176,7 @@ public abstract class TextUtil
 	/**
 	 * 		Remove acentos de uma string
 	 * 
+	 * 	@deprecated use {@link org.compiere.Util#deleteAccents(String)}
 	 * 	@param s
 	 * 	@return
 	 */
@@ -1185,6 +1187,8 @@ public abstract class TextUtil
 
 	/**
 	 * 		Remove acentos de uma string
+	 * 
+	 * 	@deprecated use {@link org.compiere.Util#deleteAccents(String)}
 	 * 	@param str
 	 * 	@param stripSpecial
 	 * 	@return

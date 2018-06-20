@@ -5,8 +5,8 @@ SET DEFINE OFF
 
 -- DROP VIEW rv_unprocessed;
 
-CREATE OR REPLACE VIEW rv_unprocessed AS
-SELECT   AD_Client_ID,
+  CREATE OR REPLACE FORCE VIEW "ADEMPIERE"."RV_UNPROCESSED" ("AD_CLIENT_ID", "AD_ORG_ID", "CREATED", "CREATEDBY", "UPDATED", "UPDATEDBY", "ISACTIVE", "DOCUMENTNO", "DATEDOC", "DATEACCT", "AD_TABLE_ID", "RECORD_ID", "ISSOTRX", "POSTED", "PROCESSING", "PROCESSED", "DOCSTATUS") AS 
+  SELECT   AD_Client_ID,
             AD_Org_ID,
             Created,
             CreatedBy,
@@ -22,7 +22,7 @@ SELECT   AD_Client_ID,
             posted,
             processing,
             processed,
-            docstatus
+            CAST (docstatus AS char(2))
      FROM   GL_JOURNAL
     WHERE   DocStatus NOT IN ('CO','CL','VO','RE')
    UNION
@@ -65,7 +65,7 @@ SELECT   AD_Client_ID,
             posted,
             processing,
             processed,
-            docstatus
+            CAST (docstatus AS char(2))
      FROM   C_INVOICE
     WHERE   DocStatus NOT IN ('CO','CL','VO','RE')
    UNION
@@ -85,7 +85,7 @@ SELECT   AD_Client_ID,
             posted,
             processing,
             processed,
-            docstatus
+            CAST (docstatus AS char(2))
      FROM   M_INOUT
     WHERE   DocStatus NOT IN ('CO','CL','VO','RE')
    UNION
@@ -105,7 +105,7 @@ SELECT   AD_Client_ID,
             posted,
             processing,
             processed,
-            docstatus
+            CAST (docstatus AS char(2))
      FROM   M_INVENTORY
     WHERE   DocStatus NOT IN ('CO','CL','VO','RE')
    UNION
@@ -125,7 +125,7 @@ SELECT   AD_Client_ID,
             posted,
             processing,
             processed,
-            docstatus
+            CAST (docstatus AS char(2))
      FROM   M_MOVEMENT
     WHERE   DocStatus NOT IN ('CO','CL','VO','RE')
    UNION
@@ -145,7 +145,7 @@ SELECT   AD_Client_ID,
             posted,
             processing,
             processed,
-            docstatus
+            CAST (docstatus AS char(2))
      FROM   C_CASH
     WHERE   DocStatus NOT IN ('CO','CL','VO','RE')
    UNION
@@ -165,7 +165,7 @@ SELECT   AD_Client_ID,
             posted,
             processing,
             processed,
-            docstatus
+            CAST (docstatus AS char(2))
      FROM   C_PAYMENT
     WHERE   DocStatus NOT IN ('CO','CL','VO','RE')
    UNION
@@ -185,7 +185,7 @@ SELECT   AD_Client_ID,
             posted,
             processing,
             processed,
-            docstatus
+            CAST (docstatus AS char(2))
      FROM   C_ALLOCATIONHDR
     WHERE   DocStatus NOT IN ('CO','CL','VO','RE')
    UNION
@@ -205,7 +205,7 @@ SELECT   AD_Client_ID,
             posted,
             processing,
             processed,
-            docstatus
+            CAST (docstatus AS char(2))
      FROM   C_BANKSTATEMENT
     WHERE   DocStatus NOT IN ('CO','CL','VO','RE')
    UNION
@@ -265,7 +265,7 @@ SELECT   AD_Client_ID,
             posted,
             processing,
             processed,
-            docstatus
+            CAST (docstatus AS char(2))
      FROM   C_ORDER
     WHERE   DocStatus NOT IN ('CO','CL','VO','RE')
    UNION
@@ -285,7 +285,7 @@ SELECT   AD_Client_ID,
             posted,
             processing,
             processed,
-            docstatus
+            CAST (docstatus AS char(2))
      FROM   M_REQUISITION
     WHERE   DocStatus NOT IN ('CO','CL','VO','RE')
    UNION
@@ -296,20 +296,20 @@ SELECT   AD_Client_ID,
             Updated,
             UpdatedBy,
             IsActive,
-            documentno,
+            documentNo,
             MovementDate,
             MovementDate,
             325,
             M_Production_ID,
-            'N',
+            'N' AS issotrx,
             posted,
             processing,
             processed,
             CAST (docstatus AS char(2))
      FROM   M_PRODUCTION
     WHERE   lbr_productiongroup_id IS NULL AND DocStatus NOT IN ('CO','CL','VO','RE')
-    UNION
-   SELECT   AD_Client_ID,
+   UNION
+    SELECT  AD_Client_ID,
             AD_Org_ID,
             Created,
             CreatedBy,
@@ -367,7 +367,8 @@ SELECT   AD_Client_ID,
             processed,
             CAST (docstatus AS char(2))
      FROM   LBR_NFEEVENT
-    WHERE   DocStatus NOT IN('CO','CL','VO','RE');
+    WHERE   DocStatus NOT IN('CO','CL','VO','RE')
+    ;
     
 SELECT Register_Migration_Script ('201805281935_RV_Unprocessed.sql') FROM DUAL
 ;

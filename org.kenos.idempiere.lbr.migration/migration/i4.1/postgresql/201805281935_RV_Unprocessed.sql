@@ -1,9 +1,9 @@
 -- View: rv_unprocessed
 
--- DROP VIEW rv_unprocessed;
+-- DROP VIEW adempiere.rv_unprocessed;
 
-CREATE OR REPLACE VIEW rv_unprocessed AS 
-SELECT gl_journal.ad_client_id,
+ CREATE OR REPLACE VIEW adempiere.rv_unprocessed AS 
+ SELECT gl_journal.ad_client_id,
     gl_journal.ad_org_id,
     gl_journal.created,
     gl_journal.createdby,
@@ -20,7 +20,7 @@ SELECT gl_journal.ad_client_id,
     gl_journal.processing,
     gl_journal.processed,
     gl_journal.docstatus
-   FROM gl_journal
+   FROM adempiere.gl_journal
   WHERE gl_journal.docstatus <> ALL (ARRAY['CO'::bpchar, 'CL'::bpchar, 'VO'::bpchar, 'RE'::bpchar])
 UNION
  SELECT c_invoice.ad_client_id,
@@ -40,7 +40,7 @@ UNION
     c_invoice.processing,
     c_invoice.processed,
     c_invoice.docstatus
-   FROM c_invoice
+   FROM adempiere.c_invoice
   WHERE c_invoice.docstatus <> ALL (ARRAY['CO'::bpchar, 'CL'::bpchar, 'VO'::bpchar, 'RE'::bpchar])
 UNION
  SELECT m_inout.ad_client_id,
@@ -60,7 +60,7 @@ UNION
     m_inout.processing,
     m_inout.processed,
     m_inout.docstatus
-   FROM m_inout
+   FROM adempiere.m_inout
   WHERE m_inout.docstatus <> ALL (ARRAY['CO'::bpchar, 'CL'::bpchar, 'VO'::bpchar, 'RE'::bpchar])
 UNION
  SELECT m_inventory.ad_client_id,
@@ -80,7 +80,7 @@ UNION
     m_inventory.processing,
     m_inventory.processed,
     m_inventory.docstatus
-   FROM m_inventory
+   FROM adempiere.m_inventory
   WHERE m_inventory.docstatus <> ALL (ARRAY['CO'::bpchar, 'CL'::bpchar, 'VO'::bpchar, 'RE'::bpchar])
 UNION
  SELECT m_movement.ad_client_id,
@@ -100,7 +100,7 @@ UNION
     m_movement.processing,
     m_movement.processed,
     m_movement.docstatus
-   FROM m_movement
+   FROM adempiere.m_movement
   WHERE m_movement.docstatus <> ALL (ARRAY['CO'::bpchar, 'CL'::bpchar, 'VO'::bpchar, 'RE'::bpchar])
 UNION
  SELECT c_cash.ad_client_id,
@@ -120,7 +120,7 @@ UNION
     c_cash.processing,
     c_cash.processed,
     c_cash.docstatus
-   FROM c_cash
+   FROM adempiere.c_cash
   WHERE c_cash.docstatus <> ALL (ARRAY['CO'::bpchar, 'CL'::bpchar, 'VO'::bpchar, 'RE'::bpchar])
 UNION
  SELECT c_payment.ad_client_id,
@@ -140,7 +140,7 @@ UNION
     c_payment.processing,
     c_payment.processed,
     c_payment.docstatus
-   FROM c_payment
+   FROM adempiere.c_payment
   WHERE c_payment.docstatus <> ALL (ARRAY['CO'::bpchar, 'CL'::bpchar, 'VO'::bpchar, 'RE'::bpchar])
 UNION
  SELECT c_allocationhdr.ad_client_id,
@@ -160,7 +160,7 @@ UNION
     c_allocationhdr.processing,
     c_allocationhdr.processed,
     c_allocationhdr.docstatus
-   FROM c_allocationhdr
+   FROM adempiere.c_allocationhdr
   WHERE c_allocationhdr.docstatus <> ALL (ARRAY['CO'::bpchar, 'CL'::bpchar, 'VO'::bpchar, 'RE'::bpchar])
 UNION
  SELECT c_bankstatement.ad_client_id,
@@ -180,7 +180,7 @@ UNION
     c_bankstatement.processing,
     c_bankstatement.processed,
     c_bankstatement.docstatus
-   FROM c_bankstatement
+   FROM adempiere.c_bankstatement
   WHERE c_bankstatement.docstatus <> ALL (ARRAY['CO'::bpchar, 'CL'::bpchar, 'VO'::bpchar, 'RE'::bpchar])
 UNION
  SELECT c_order.ad_client_id,
@@ -200,7 +200,7 @@ UNION
     c_order.processing,
     c_order.processed,
     c_order.docstatus
-   FROM c_order
+   FROM adempiere.c_order
   WHERE c_order.docstatus <> ALL (ARRAY['CO'::bpchar, 'CL'::bpchar, 'VO'::bpchar, 'RE'::bpchar])
 UNION
  SELECT m_requisition.ad_client_id,
@@ -220,7 +220,7 @@ UNION
     m_requisition.processing,
     m_requisition.processed,
     m_requisition.docstatus
-   FROM m_requisition
+   FROM adempiere.m_requisition
   WHERE m_requisition.docstatus <> ALL (ARRAY['CO'::bpchar, 'CL'::bpchar, 'VO'::bpchar, 'RE'::bpchar])
 UNION
   SELECT lbr_productiongroup.ad_client_id,
@@ -236,11 +236,11 @@ UNION
     1120582 AS ad_table_id,
     lbr_productiongroup.lbr_productiongroup_id AS record_id,
     'N'::bpchar AS issotrx,
-    'Y'::bpchar AS posted,
-    'N'::bpchar AS processing,
-    lbr_productiongroup.docstatus,
-    lbr_productiongroup.processed
-   FROM lbr_productiongroup
+    'Y'::char AS posted,
+    'N'::char AS processing,
+    lbr_productiongroup.processed,
+    lbr_productiongroup.docstatus::char(2)
+   FROM adempiere.lbr_productiongroup
   WHERE lbr_productiongroup.docstatus <> ALL (ARRAY['CO'::bpchar, 'CL'::bpchar, 'VO'::bpchar, 'RE'::bpchar, 'WC'::bpchar])
 UNION
   SELECT lbr_notafiscal.ad_client_id,
@@ -256,11 +256,11 @@ UNION
     1000027 AS ad_table_id,
     lbr_notafiscal.lbr_notafiscal_id AS record_id,
     lbr_notafiscal.issotrx,
-    'Y'::bpchar AS posted,
+    'Y'::char AS posted,
     lbr_notafiscal.processing,
     lbr_notafiscal.processed,
-    lbr_notafiscal.docstatus    
-   FROM lbr_notafiscal
+    lbr_notafiscal.docstatus::char(2)    
+   FROM adempiere.lbr_notafiscal
   WHERE lbr_notafiscal.docstatus <> ALL (ARRAY['CO'::bpchar, 'CL'::bpchar, 'VO'::bpchar, 'RE'::bpchar])
 UNION
   SELECT lbr_nfeevent.ad_client_id,
@@ -276,11 +276,11 @@ UNION
     1120247 AS ad_table_id,
     lbr_nfeevent.lbr_nfeevent_id AS record_id,
     'N'::bpchar AS issotrx,
-    'Y'::bpchar AS posted,
-    'N'::bpchar AS processing,   
+    'Y'::char AS posted,
+    'N'::char AS processing,   
     lbr_nfeevent.processed,
-    lbr_nfeevent.docstatus
-   FROM lbr_nfeevent
+    lbr_nfeevent.docstatus::char(2)
+   FROM adempiere.lbr_nfeevent
   WHERE lbr_nfeevent.docstatus <> ALL (ARRAY['CO'::bpchar, 'CL'::bpchar, 'VO'::bpchar, 'RE'::bpchar])
 UNION
   SELECT m_production.ad_client_id,
@@ -299,8 +299,8 @@ UNION
     m_production.posted,
     m_production.processing,
     m_production.processed,
-    m_production.docstatus
-   FROM m_production
+    m_production.docstatus::char(2)
+   FROM adempiere.m_production
   WHERE m_production.lbr_productiongroup_id IS NULL AND m_production.docstatus <> ALL (ARRAY['CO'::bpchar, 'CL'::bpchar, 'VO'::bpchar, 'RE'::bpchar]);
 
 SELECT Register_Migration_Script ('201805281935_RV_Unprocessed.sql') FROM DUAL

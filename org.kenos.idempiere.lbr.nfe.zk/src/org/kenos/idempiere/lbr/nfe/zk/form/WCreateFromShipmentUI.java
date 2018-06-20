@@ -739,7 +739,7 @@ public class WCreateFromShipmentUI extends CreateFromShipment implements EventLi
 		sql.append(" FROM LBR_NotaFiscal nf, LBR_NotaFiscalLine nfl, ");
 		sql.append(" C_InvoiceLine il, C_OrderLine ol, C_OrderLine rol, C_Order ro");
 		sql.append(" WHERE nf.LBR_NotaFiscal_ID=?");		//	#1
-		sql.append(" AND ro.C_Order_ID=l.C_Order_ID");
+		sql.append(" AND rol.C_OrderLine_ID=l.C_OrderLine_ID");
 		sql.append(" AND nf.LBR_NotaFiscal_ID=nfl.LBR_NotaFiscal_ID");
 		sql.append(" AND il.C_InvoiceLine_ID=nfl.C_InvoiceLine_ID");
 		sql.append(" AND il.C_OrderLine_ID=ol.C_OrderLine_ID");

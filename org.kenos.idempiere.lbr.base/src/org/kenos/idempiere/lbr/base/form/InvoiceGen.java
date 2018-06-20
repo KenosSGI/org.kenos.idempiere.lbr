@@ -55,6 +55,7 @@ public class InvoiceGen extends GenForm
 	public Object 			m_AD_Org_ID = null;
 	public Object 			m_C_BPartner_ID = null;
 	public boolean			m_ConsolidateDoc	= true;
+	public boolean			selectHasNegative	= false;
 	
 	public void dynInit() throws Exception
 	{
@@ -226,6 +227,7 @@ public class InvoiceGen extends GenForm
 		//  Array of Integers
 		ArrayList<Integer> results = new ArrayList<Integer>();
 		setSelection(null);
+		selectHasNegative = false;
 
 		//	Get selected entries
 		int rows = miniTable.getRowCount();
@@ -234,7 +236,16 @@ public class InvoiceGen extends GenForm
 			IDColumn id = (IDColumn)miniTable.getValueAt(i, 0);     //  ID in column 0
 		//	log.fine( "Row=" + i + " - " + id);
 			if (id != null && id.isSelected())
+			{
+				// Valid Total Line (7) And Grand Total (8)
+				BigDecimal totaLine = (BigDecimal) miniTable.getValueAt(i, 6);
+				BigDecimal grandTotal = (BigDecimal) miniTable.getValueAt(i, 7);
+				if (totaLine.compareTo(BigDecimal.ZERO) == -1 ||
+						grandTotal.compareTo(BigDecimal.ZERO) == -1)
+					selectHasNegative = true;
+
 				results.add(id.getRecord_ID());
+			}	
 		}
 
 		if (results.size() == 0)
