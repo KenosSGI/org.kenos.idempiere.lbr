@@ -20,14 +20,20 @@ import java.util.ArrayList;
 import java.util.Properties;
 import java.util.logging.Level;
 
+import org.adempiere.model.POWrapper;
+import org.adempierelbr.util.TextUtil;
+import org.adempierelbr.wrapper.I_W_AD_OrgInfo;
+import org.adempierelbr.wrapper.I_W_M_Warehouse;
 import org.compiere.model.MClient;
 import org.compiere.model.MInOut;
 import org.compiere.model.MInOutLine;
 import org.compiere.model.MMovement;
 import org.compiere.model.MMovementLine;
 import org.compiere.model.MOrderLine;
+import org.compiere.model.MOrgInfo;
 import org.compiere.model.MProduct;
 import org.compiere.model.MSysConfig;
+import org.compiere.model.MWarehouse;
 import org.compiere.model.ModelValidationEngine;
 import org.compiere.model.ModelValidator;
 import org.compiere.model.PO;
@@ -207,7 +213,7 @@ public class ValidatorInOut implements ModelValidator
 
 		if(lines == null || lines.length <= 0)
 			return Msg.getMsg(ctx, "NoLines");
-
+		
 		for(MMovementLine line : lines) {
 			if(line.getM_Product_ID() <=0 || line.getM_Locator_ID() <=0){
 				msg = "Produto ou Localizador inválido";
@@ -236,10 +242,35 @@ public class ValidatorInOut implements ModelValidator
 				msg = "Sem saldo na linha=" + line.getLine();
 				break;
 			}
+			
+			//	CNPJ of locator from and locator to should be the same
+			if (!MSysConfig.getBooleanValue ("LBR_ALLOW_CROSS_ORG_MOVEMENT", false) 
+					&& line.getM_Locator().getM_Warehouse_ID() != line.getM_LocatorTo().getM_Warehouse_ID())
+			{
+				I_W_M_Warehouse wFrom = POWrapper.create (MWarehouse.get(mov.getCtx(), line.getM_Locator().getM_Warehouse_ID(), null), I_W_M_Warehouse.class);
+				I_W_M_Warehouse wTo = POWrapper.create (MWarehouse.get(mov.getCtx(), line.getM_LocatorTo().getM_Warehouse_ID(), null), I_W_M_Warehouse.class);
+
+				//	Allow cross-org when the warehouse is third-party
+				if (TextUtil.match (wFrom.getlbr_WarehouseType(), I_W_M_Warehouse.LBR_WAREHOUSETYPE_NossoEmPoderDeTerceiros, I_W_M_Warehouse.LBR_WAREHOUSETYPE_TerceirosEmNossoPoder)
+						|| TextUtil.match (wTo.getlbr_WarehouseType(), I_W_M_Warehouse.LBR_WAREHOUSETYPE_NossoEmPoderDeTerceiros, I_W_M_Warehouse.LBR_WAREHOUSETYPE_TerceirosEmNossoPoder))
+					continue;
+					
+				I_W_AD_OrgInfo oiFrom = POWrapper.create (MOrgInfo.get(mov.getCtx(), line.getM_Locator().getAD_Org_ID(), null), I_W_AD_OrgInfo.class);
+				I_W_AD_OrgInfo oiTo = POWrapper.create (MOrgInfo.get(mov.getCtx(), line.getM_LocatorTo().getAD_Org_ID(), null), I_W_AD_OrgInfo.class);
+				
+				String cnpjFrom = TextUtil.toNumeric(oiFrom.getlbr_CNPJ());
+				String cnpjTo = TextUtil.toNumeric(oiTo.getlbr_CNPJ());
+				
+				if (!cnpjFrom.equals(cnpjTo))
+				{
+					msg = "Não é possível efetuar a movimentação entre armazéns com CNPJs diferentes. Linha #" + line.getLine();
+					break;
+				}
+			}
 		}
 
 		return msg;
-	}
+	}	//	docValidate
 
 	/**
 	 *	Validate Shipment/Receipt.
