@@ -7,8 +7,10 @@ import java.util.Map;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.compiere.model.MDocType;
+import org.compiere.model.MLocator;
 import org.compiere.model.MMovement;
 import org.compiere.model.MMovementLine;
+import org.compiere.model.MWarehouse;
 import org.compiere.model.Query;
 import org.compiere.process.SvrProcess;
 import org.compiere.util.Env;
@@ -61,6 +63,12 @@ public class POGReturnNotUsed extends SvrProcess
 		{
 			for (MMovementLine movSentLine : movSent.getLines(false))
 			{
+				//	If Not Sent to Producer, Don't add to return
+				MWarehouse wHouse = (MWarehouse) MLocator.get(Env.getCtx(), movSentLine.getM_LocatorTo_ID()).getM_Warehouse();
+				
+				if ("OWN".equals(wHouse.get_ValueAsString("lbr_WarehouseType")))
+					break;
+					
 				PLines line = new PLines ();
 				line.setM_Product_ID(movSentLine.getM_Product_ID());
 				line.setM_Locator_ID(movSentLine.getM_LocatorTo_ID());
