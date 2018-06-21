@@ -1488,6 +1488,10 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		//	Linhas
 		for (MMovementLine line : move.getLines (true))
 		{
+			//	Se for NF de Entrada, buscar CFOP da Movimentação
+			if (!isSOTrx())
+				p_LBR_CFOP_ID = line.get_ValueAsInt("LBR_CFOP_ID");
+			
 			MLBRNotaFiscalLine nfLine = new MLBRNotaFiscalLine (this);
 			nfLine.setAD_Org_ID(line.getAD_Org_ID());
 			nfLine.save();
