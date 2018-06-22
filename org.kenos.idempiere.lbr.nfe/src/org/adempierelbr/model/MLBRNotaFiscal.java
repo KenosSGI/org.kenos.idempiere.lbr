@@ -1994,14 +1994,16 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		BigDecimal taxAmtGrandTotal 	= Env.ZERO;
 		
 		MLBRNFConfig nfConfig = MLBRNFConfig.get(getAD_Org_ID());
+		
+		if (nfConfig == null)
+			return;
 	
 		if (MLBRNFConfig.LBR_IBPTCONFIGURATION_RealTaxValue.equals(nfConfig.getLBR_IBPTConfiguration()))
 		{
 			source = "-";
 			key = "-";
 			
-			if (source != null && !sources.contains(source.trim()))
-				sources.add(source.trim());
+			sources.add(source);
 
 			if (key != null && !keys.contains(key.trim()))
 				keys.add(key.trim());
