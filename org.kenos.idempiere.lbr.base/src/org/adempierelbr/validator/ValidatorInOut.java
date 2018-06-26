@@ -81,6 +81,7 @@ public class ValidatorInOut implements ModelValidator
 			log.info("Initializing global validator: "+this.toString());
 		}
 
+		engine.addModelChange(MInOut.Table_Name, this);
 		engine.addDocValidate(MInOut.Table_Name, this);
 		engine.addDocValidate(MMovement.Table_Name, this);
 	}	//	initialize
@@ -119,6 +120,30 @@ public class ValidatorInOut implements ModelValidator
      */
 	public String modelChange (PO po, int type) throws Exception
 	{
+		if (MInOut.Table_Name.equals(po.get_TableName()))
+			return modelChange((MInOut) po, type);
+		return null;
+	}	//	modelChange
+
+    /**
+     *	Model Change of a monitored Table.
+     *	Called after PO.beforeSave/PO.beforeDelete
+     *	when you called addModelChange for the table
+     *	@param inout
+     *	@param type TYPE_
+     *	@return error message or null
+     *	@exception Exception if the recipient wishes the change to be not accept.
+     */
+	public String modelChange (MInOut io, int type) throws Exception
+	{
+		if (type == TYPE_BEFORE_NEW)
+		{
+			if (io.getMovementType() != null && io.getMovementType().endsWith("+"))
+				io.setIsSOTrx(false);
+			else
+				io.setIsSOTrx(true);
+		}
+			
 		return null;
 	}	//	modelChange
 

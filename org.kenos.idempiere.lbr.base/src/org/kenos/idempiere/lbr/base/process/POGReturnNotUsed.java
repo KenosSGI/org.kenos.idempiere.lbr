@@ -2,25 +2,25 @@ package org.kenos.idempiere.lbr.base.process;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.compiere.model.MDocType;
+import org.compiere.model.MLocator;
 import org.compiere.model.MMovement;
 import org.compiere.model.MMovementLine;
-import org.compiere.model.MProduct;
-import org.compiere.model.MProduction;
-import org.compiere.model.MProductionLine;
-import org.compiere.model.MStorageOnHand;
+import org.compiere.model.MWarehouse;
+import org.compiere.model.Query;
 import org.compiere.process.SvrProcess;
 import org.compiere.util.Env;
 import org.kenos.idempiere.lbr.base.model.MLBRProductionGroup;
 
 /**
- * Send Material to Producer
+ * Return from Producer Material Not Used
  *
  */
-public class POGMoveToProducer extends SvrProcess
+public class POGReturnNotUsed extends SvrProcess
 {
 	private int p_LBR_ProductionGroup_ID;
 	
@@ -37,6 +37,17 @@ public class POGMoveToProducer extends SvrProcess
 		//
 		MLBRProductionGroup pg = new MLBRProductionGroup (getCtx(), p_LBR_ProductionGroup_ID, null);
 		
+		String where = "LBR_ProductionGroup_ID = ? AND DocStatus IN ('CO', 'CL')";
+		
+		//	Movement to Producer already made
+		List<MMovement> sentToProducer = new Query (Env.getCtx(), MMovement.Table_Name, where, null)
+										.setParameters(p_LBR_ProductionGroup_ID)
+										.list();
+		
+		//	Verify if Material was sent
+		if (sentToProducer.isEmpty())
+			return "Impossível Retornar Insumo se Não houve envio ao produtor";
+		
 		//	Movement
 		MMovement movement = new MMovement (pg.getCtx(), 0, pg.get_TrxName());
 		movement.setAD_Org_ID(pg.getAD_Org_ID());
@@ -44,43 +55,29 @@ public class POGMoveToProducer extends SvrProcess
 		movement.setC_BPartner_ID(pg.getC_BPartner_ID());
 		movement.setC_BPartner_Location_ID(pg.getC_BPartner_Location_ID());
 		movement.set_ValueOfColumn(MLBRProductionGroup.COLUMNNAME_LBR_ProductionGroup_ID, pg.getLBR_ProductionGroup_ID());
-		movement.setDescription ("Documento de Movimentação para a OP: " + pg.get_ValueAsString ("DocumentNo"));
+		movement.setDescription ("Documento de Movimentação para a OP: " + pg.get_ValueAsString ("DocumentNo") + " - Devolução de Material");
 		movement.saveEx();
 		
-		for (MProduction p : pg.getProduction())
+		//	All Material sent
+		for (MMovement movSent : sentToProducer)
 		{
-			for (MProductionLine pl : p.getLines())
+			for (MMovementLine movSentLine : movSent.getLines(false))
 			{
-				//	Do nothing, continue
-				if (pl.getMovementQty().negate().signum() <= 0										//	Negative
-						|| pl.getM_Product().getM_Locator_ID() == pl.getM_Locator_ID()				//	Same locator
-						|| !pl.getM_Product().isStocked()											//	Not stocked
-						|| !MProduct.PRODUCTTYPE_Item.equals (pl.getM_Product().getProductType()))	//	Not physical
-					continue;
+				//	If Not Sent to Producer, Don't add to return
+				MWarehouse wHouse = (MWarehouse) MLocator.get(Env.getCtx(), movSentLine.getM_LocatorTo_ID()).getM_Warehouse();
 				
-				//	Get Locator
-				int M_Locator_ID = MStorageOnHand.getM_Locator_ID (p.getM_Locator().getM_Warehouse_ID(),
-						pl.getM_Product_ID(), pl.getM_AttributeSetInstance_ID(),
-						pl.getPlannedQty(), get_TrxName());
-				
-				if (M_Locator_ID <= 0)
-					M_Locator_ID = pl.getM_Product().getM_Locator_ID();
-				else if (M_Locator_ID <= 0)
-					M_Locator_ID = p.getM_Locator_ID();
-				
-				//	Same locator
-				if (M_Locator_ID == pl.getM_Locator_ID())
-					continue;
-				
+				if ("OWN".equals(wHouse.get_ValueAsString("lbr_WarehouseType")))
+					break;
+					
 				PLines line = new PLines ();
-				line.setM_Product_ID(pl.getM_Product_ID());
-				line.setM_Locator_ID(M_Locator_ID);
-				line.setM_LocatorTo_ID(pl.getM_Locator_ID());
+				line.setM_Product_ID(movSentLine.getM_Product_ID());
+				line.setM_Locator_ID(movSentLine.getM_LocatorTo_ID());
+				line.setM_LocatorTo_ID(movSentLine.getM_Locator_ID());
 				
 				if (map.containsKey(line.toString()))
 					line = map.get(line.toString());
 				
-				line.setQty(line.getQty().add(pl.getMovementQty().negate()));
+				line.setQty(line.getQty().add(movSentLine.getMovementQty()));
 				map.put(line.toString(), line);
 			}
 		}

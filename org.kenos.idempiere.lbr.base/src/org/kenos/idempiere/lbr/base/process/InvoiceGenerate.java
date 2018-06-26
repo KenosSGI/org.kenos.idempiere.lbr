@@ -135,7 +135,7 @@ public class InvoiceGenerate extends SvrProcess
 			p_DateInvoiced = new Timestamp(System.currentTimeMillis());
 
 		//	DocAction check
-		if (!DocAction.ACTION_Complete.equals(p_docAction))
+		if (!DocAction.ACTION_None.equals(p_docAction) && !DocAction.ACTION_Complete.equals(p_docAction))
 			p_docAction = DocAction.ACTION_Prepare;
 	}	//	prepare
 
@@ -554,7 +554,7 @@ public class InvoiceGenerate extends SvrProcess
 
 			} else {
 
-				if (!m_invoice.processIt(p_docAction))
+				if (!DocAction.ACTION_None.equals(p_docAction) && !m_invoice.processIt(p_docAction))
 				{
 					log.warning("completeInvoice - failed: " + m_invoice);
 					addBufferLog(0, null, null,"completeInvoice - failed: " + m_invoice,m_invoice.get_Table_ID(),m_invoice.getC_Invoice_ID()); // Elaine 2008/11/25
