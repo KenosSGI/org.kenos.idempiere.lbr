@@ -113,7 +113,7 @@ public class InvoiceGen extends GenForm
         sql = new StringBuilder(MRole.getDefault().addAccessSQL(sql.toString(), "ic", true, false));
         // Replace C_Order by C_Invoice_Candidate_v
         int idxtable = sql.indexOf(" C_Order ic");
-        sql.replace(idxtable, idxtable+" C_Order ic".length(), " C_Invoice_Candidate_v ic");
+        sql.replace(idxtable, idxtable+" C_Order ic".length(), " LBR_C_Invoice_Candidate_v ic");
         
         return sql.toString();
 	}
