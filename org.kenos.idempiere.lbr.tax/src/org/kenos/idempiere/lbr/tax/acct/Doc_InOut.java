@@ -734,8 +734,7 @@ public class Doc_InOut extends Doc
 						if (!dr.updateReverseLine (MInOut.Table_ID,
 								m_Reversal_ID, line.getReversalLine_ID(),Env.ONE))
 						{
-							p_Error = "Original Receipt not posted yet";
-							return null;
+							fact.remove(dr);
 						}
 					}
 					else if (landedCost.signum() != 0)
