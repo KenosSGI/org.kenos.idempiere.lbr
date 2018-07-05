@@ -59,6 +59,22 @@ public class FormFactory implements IFormFactory
 			form.setICustomForm(controller);
 			return form;
 		}
+		else if (formName.equals ("org.kenos.idempiere.lbr.base.form.POGDistribMaterial"))
+		{
+			WPOGDistribMaterial pogDistribMaterial = new WPOGDistribMaterial();
+			IFormController controller = (IFormController) pogDistribMaterial;
+			ADForm form = controller.getForm();
+			form.setICustomForm(controller);
+			return form;
+		}
+		else if (formName.equals ("org.kenos.idempiere.lbr.base.form.POGManageMoveToProducer"))
+		{
+			WPOGManageMoveToProducer pogManageMoveToProducer = new WPOGManageMoveToProducer();
+			IFormController controller = (IFormController) pogManageMoveToProducer;
+			ADForm form = controller.getForm();
+			form.setICustomForm(controller);
+			return form;
+		}
 		return null;
 	}
 }	//	FormFactory
