@@ -288,6 +288,16 @@ Selecionando "Onde Usado" irá mostrar em qual(is) LDM(s) este componente é usa
   <value column="Description" original=""/>
   <value column="Help" original=""/>
  </row>
+ <row trl="Y" uuid="0833c179-da14-4831-b92c-3b28442c0943">
+  <value column="Name" original="Form Distribute Remaining Material">Distribuir Insumo Remanescente</value>
+  <value column="Description" original="Form Distribute Remaining Material sent to Industrialization to be used in others productions sent to the same productor">Distribuir Insumo Remanescente enviado à Industrialização para ser usado em outras produções enviadas ao mesmo Fornecedor</value>
+  <value column="Help" original="Form Distribute Remaining Material sent to Industrialization to be used in others productions sent to the same productor">Distribuir Insumo Remanescente enviado à Industrialização para ser usado em outras produções enviadas ao mesmo Fornecedor</value>
+ </row>
+ <row trl="Y" uuid="f473f5d6-93a3-46de-8315-ae065fa569a2">
+  <value column="Name" original="Manage Move To Producer">Gerenciar Envio ao Produtor</value>
+  <value column="Description" original="Manage the Movements created to Send Material to Industrialization before complete it">Gerenciar Movimento de Material criado para Enviar Insumo para Industrialização antes de Completa - los</value>
+  <value column="Help" original="Manage the Movements created to Send Material to Industrialization before complete it. Choose Business Partner and Movement Date. Only Movements not Complete will appears in the form.">Gerenciar Movimento de Material criado para Enviar Insumo para Industrialização antes de Completa - los. Escolha o Parceiro de Negócio e Data de Movimentação. Apenas Movimento de Material não completados irão aparecer no formulário.</value>
+ </row>
  <row trl="Y" uuid="b3bed596-2853-4950-9908-24c0d660686c">
   <value column="Name" original="Freight Calc">Cálculo de Frete (Correios)</value>
   <value column="Description" original="Freight calculation for Brazilian Post Service (Correios)">Sistema de cálculo de frete para o serviço de postagem brasileiro (Correios)</value>
