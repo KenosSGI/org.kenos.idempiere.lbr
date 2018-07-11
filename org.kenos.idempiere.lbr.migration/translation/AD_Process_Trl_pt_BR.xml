@@ -2515,15 +2515,25 @@ d. Transaction Date, will become in-service-date for the newly created asset.</v
   <value column="Description" original="">Insumos Aguardando Movimentação</value>
   <value column="Help" original="">Insumos Aguardando a movimentação para o Produtor no Armazém de Poder em Terceiros</value>
  </row>
- <row trl="N" uuid="a009bf34-9d0c-4135-b5c4-a0cbc983eeae">
-  <value column="Name" original="Production Group Detail">Production Group Detail</value>
-  <value column="Description" original="Report Production Group and Production">Report Production Group and Production</value>
-  <value column="Help" original=""/>
+ <row trl="Y" uuid="a009bf34-9d0c-4135-b5c4-a0cbc983eeae">
+  <value column="Name" original="Production Group Detail">Detalhes de Pedido de Industrialização</value>
+  <value column="Description" original="Report Production Group and Production">Relatório com Detalhes de todos os Pedido de Industrialização</value>
+  <value column="Help" original="">Relatório com Detalhes de todos os Pedido de Industrialização</value>
  </row>
  <row trl="Y" uuid="5b3c0fc0-ba3a-42e0-b57a-ea6b93eb1b99">
   <value column="Name" original="Re-Process Order">Re-Processar Pedido</value>
   <value column="Description" original="This script will re-process order values, such as Taxes, Prices, etc.">Este processo irá re-processar um pedido, verificando CFOP, Impostos, Preços, etc.</value>
   <value column="Help" original="">Recalcular Impostos irá apenas recalcular, baseado nas alíquotas atuais. Redefinir Impostos irá sobrescrever as configurações de impostos do pedido baseado na regra padrão de configuração de impostos. Redefinir CFOP irá buscar o CFOP padrão da configuração. Ratear Frete irá ratear o frete baseado nos valores. Forçar Preço de Lista irá substituir o preço do pedido com o preço mais atual da Lista de Preços. Desfazer Reserva irá remover as reservas de estoque, possibilitando a alteração ou remoção do produto neste pedido.</value>
+ </row>
+ <row trl="Y" uuid="3d6d7e21-b673-4c0e-b7ac-8a2a22d1aae0">
+  <value column="Name" original="Return Not Used From Producer">Retornar Insumos Não Utilizados</value>
+  <value column="Description" original="Move back to internal warehouse the products not used by the Producer">Retornar para o Armazém Interno os Insumos que não foram utilizados na industrialização</value>
+  <value column="Help" original="Move back to internal warehouse the products not used by the Producer">Retornar para o Armazém Interno os Insumos que não foram utilizados na industrialização</value>
+ </row>
+ <row trl="Y" uuid="714808ff-94f8-47c0-a29b-eaffce45edd5">
+  <value column="Name" original="Distribute Remaining Material">Distribuir Insumo Remanescente</value>
+  <value column="Description" original="Distribute Remaining Material sent to Industrialization to be used in others productions sent to the same productor">Distribuir Insumo Remanescente enviado à Industrialização para ser usado em outras produções enviadas ao mesmo Fornecedor</value>
+  <value column="Help" original="Distribute Remaining Material sent to Industrialization to be used in others productions sent to the same productor">Distribuir Insumo Remanescente enviado à Industrialização para ser usado em outras produções enviadas ao mesmo Fornecedor</value>
  </row>
  <row trl="Y" uuid="5efaeb22-fe9f-47ae-a1ae-228b3395e68e">
   <value column="Name" original="Freight Calc">Cálculo de Frete (Correios)</value>

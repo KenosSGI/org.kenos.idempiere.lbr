@@ -32,10 +32,10 @@
 		<defaultValueExpression><![CDATA[2000257]]></defaultValueExpression>
 	</parameter>
 	<parameter name="C_Period_ID" class="java.lang.Integer" isForPrompting="false">
-		<defaultValueExpression><![CDATA[2000013]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA[2000016]]></defaultValueExpression>
 	</parameter>
 	<parameter name="M_Product_ID" class="java.lang.Integer" isForPrompting="false">
-		<defaultValueExpression><![CDATA[2003667]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA[2004737]]></defaultValueExpression>
 	</parameter>
 	<queryString>
 		<![CDATA[SELECT 
