@@ -2530,6 +2530,16 @@ d. Transaction Date, will become in-service-date for the newly created asset.</v
   <value column="Description" original="Move back to internal warehouse the products not used by the Producer">Retornar para o Armazém Interno os Insumos que não foram utilizados na industrialização</value>
   <value column="Help" original="Move back to internal warehouse the products not used by the Producer">Retornar para o Armazém Interno os Insumos que não foram utilizados na industrialização</value>
  </row>
+ <row trl="Y" uuid="b3426bb9-1c70-4ace-8d5d-33b084816bad">
+  <value column="Name" original="Inventory Detail">Detalhes de Inventário e Uso Interno</value>
+  <value column="Description" original="Physical and Internal Use Detail">Detalhes de Inventário e Uso Interno</value>
+  <value column="Help" original="">Com este relatório pode-se analisar o Estoque Físico (Inventário), Uso Interno e Ajuste de Custo.</value>
+ </row>
+ <row trl="Y" uuid="f7671fd6-4f4d-40a0-9e0f-2e6a8cff25db">
+  <value column="Name" original="RMA Details">Detalhes de ARM</value>
+  <value column="Description" original="RMA Details">Detalhes de ARM</value>
+  <value column="Help" original="This report can help to see all exchange and return of products.">Este relatório auxilia na visualização das devoluções em geral.</value>
+ </row>
  <row trl="Y" uuid="714808ff-94f8-47c0-a29b-eaffce45edd5">
   <value column="Name" original="Distribute Remaining Material">Distribuir Insumo Remanescente</value>
   <value column="Description" original="Distribute Remaining Material sent to Industrialization to be used in others productions sent to the same productor">Distribuir Insumo Remanescente enviado à Industrialização para ser usado em outras produções enviadas ao mesmo Fornecedor</value>
