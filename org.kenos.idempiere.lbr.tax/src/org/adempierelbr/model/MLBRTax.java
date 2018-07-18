@@ -39,6 +39,7 @@ import org.compiere.model.MInvoice;
 import org.compiere.model.MOrder;
 import org.compiere.model.MOrgInfo;
 import org.compiere.model.MProduct;
+import org.compiere.model.MSysConfig;
 import org.compiere.model.MTable;
 import org.compiere.model.Query;
 import org.compiere.util.CLogger;
@@ -72,13 +73,13 @@ public class MLBRTax extends X_LBR_Tax
 	private static final BigDecimal ONEHUNDRED 	= Env.ONEHUNDRED.setScale(17, BigDecimal.ROUND_HALF_UP);
 	
 	/**	SISCOMEX		*/
-	public static final String SISCOMEX 	= "SISCOMEX";
+	public static final String SISCOMEX 		= "SISCOMEX";
 	
 	/**	Freight			*/
 	public static final String FREIGHT 		= "FREIGHT";
 	
 	/**	OTHERCHARGES		*/
-	public static final String OTHERCHARGES = "OTHERCHARGES";
+	public static final String OTHERCHARGES 	= "OTHERCHARGES";
 	
 	/**	Insurance		*/
 	public static final String INSURANCE 	= "INSURANCE";
@@ -397,6 +398,9 @@ public class MLBRTax extends X_LBR_Tax
 					bsh.set(txName.getName().trim(), 1/Math.pow (10, 17));
 				}
 			
+			//	Ajusta o MVA automaticamente
+			boolean adjustIVA = MSysConfig.getBooleanValue("LBR_AUTOMATOC_ADJUST_IVA", true);
+				
 			//	Ajusta as alíquotas
 			for (MLBRTaxLine tLine : getLines())
 			{
@@ -405,13 +409,19 @@ public class MLBRTax extends X_LBR_Tax
 				//
 				log.finer ("Set Tax Rate, TaxName=" + tLine.getLBR_TaxName().getName().trim() + "=" + amt);
 				bsh.set(tLine.getLBR_TaxName().getName().trim(), amt);
+				
+				//	Caso ICMS seja zero, não ajustar o MVA
+				if (MLBRTax.TAX_ICMS == tLine.getLBR_TaxName_ID() && amt == 0.0)
+					adjustIVA = false;
 			}
 			//	Ajusta os parâmetros opcionais (ex. Frete, SISCOMEX)
 			if (params != null) for (String key : params.keySet())
-			{				
+			{			
 				log.finer ("Set Parameters, Parameter=" + key + "=" + params.get(key).doubleValue());
 				bsh.set(key, params.get(key).doubleValue());
 			}
+			//	Ajusta do MVA
+			bsh.set ("FIXMVA", adjustIVA ? 1.0 : 0.0);
 			//
 			result = new BigDecimal ((Double) bsh.eval(formula));
 		}

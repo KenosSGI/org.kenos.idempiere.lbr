@@ -372,4 +372,8 @@
   <value column="Name" original="RV_LBR_Boleto">RV_LBR_Boleto</value>
   <value column="Description" original=""/>
  </row>
+ <row trl="N" uuid="0344db2b-55df-4b94-b553-086fdb3f764a">
+  <value column="Name" original="RMADetail">RMA Detail</value>
+  <value column="Description" original=""/>
+ </row>
 </idempiereTrl>

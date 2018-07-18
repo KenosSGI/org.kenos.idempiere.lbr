@@ -3023,6 +3023,23 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 				description.append(parse(order.get_Value("lbr_NFDescription").toString().trim()));
 			}
 		}
+		else if (getM_RMA_ID() > 0)
+		{
+			// RMA
+			MRMA rma = (MRMA) getM_RMA();
+			
+			// Nota Fiscal indicada na RMA
+			MLBRNotaFiscal nfrma = new MLBRNotaFiscal (Env.getCtx(), rma.get_ValueAsInt("LBR_NotaFiscal_ID"), null);
+			
+			// Verifica se a NF Indicada no RMA é uma NF-e
+			if (nfrma.getLBR_NotaFiscal_ID() > 0 && 
+					nfrma.getlbr_NFModel().equals(MLBRNotaFiscal.LBR_NFMODEL_NotaFiscalEletrônica))
+			{
+				if (description.length() > 0)
+					description.append("\n");
+				description.append(parse("Devolução referente a NF-e " + nfrma.getDocumentNo() + " Emitida em " + TextUtil.timeToString(nfrma.getDateTrx(), "dd/MM/yyyy") + " no Valor de R$ " + TextUtil.toNumeric(nfrma.getGrandTotal()) + "".trim()));	
+			}
+		}
 		
 		// Descrição NF Referênciada
 		for (MLBRNotaFiscalDocRef nfref : MLBRNotaFiscalDocRef.get(getLBR_NotaFiscal_ID(), get_TrxName()))

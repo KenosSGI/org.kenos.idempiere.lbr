@@ -10,5 +10,5 @@ END;
 /
 
 -- 22/06/2018 15h53min3s BRT
-SELECT Register_Migration_Script ('201806221450_IDEMPIERE-3734_UnaccentSearch_ora.sql') FROM DUAL
+SELECT Register_Migration_Script ('201806221450_IDEMPIERE-3734_UnaccentSearch.sql') FROM DUAL
 ;
