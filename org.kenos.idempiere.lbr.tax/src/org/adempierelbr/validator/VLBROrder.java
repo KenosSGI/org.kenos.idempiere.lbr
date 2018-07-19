@@ -33,6 +33,7 @@ import org.compiere.model.MOrderLine;
 import org.compiere.model.MOrgInfo;
 import org.compiere.model.MProduct;
 import org.compiere.model.MSysConfig;
+import org.compiere.model.MUOMConversion;
 import org.compiere.model.ModelValidationEngine;
 import org.compiere.model.ModelValidator;
 import org.compiere.model.PO;
@@ -249,6 +250,22 @@ public class VLBROrder implements ModelValidator
 				String sql = "SELECT COALESCE(MAX(Line),0)+10 FROM C_OrderLine WHERE C_Order_ID=?";
 				int ii = DB.getSQLValue (orderLine.get_TrxName(), sql, orderLine.getC_Order_ID());
 				olW.setLine (ii);
+			}
+			
+			//	Quantidade do Pedido zerado nos casos de copiar de um pedido fechado
+			if (orderLine.getQtyEntered().signum() != 0 && orderLine.getQtyOrdered().signum() == 0)
+			{
+				//	Usar processo somente nos casos onde as linhas estão sendo copiadas via processo
+				int count = DB.getSQLValue (orderLine.get_TrxName(), "SELECT COUNT(*) FROM AD_PInstance WHERE AD_Process_ID=211 AND Record_ID=? AND IsProcessing='Y'", orderLine.getC_Order_ID());
+				if (count == 1)
+				{
+					BigDecimal QtyOrdered = MUOMConversion.convertProductFrom (orderLine.getCtx(), orderLine.getM_Product_ID(), orderLine.getC_UOM_ID(), orderLine.getQtyEntered());
+					if (QtyOrdered == null)
+						orderLine.setQtyOrdered(orderLine.getQtyEntered());
+					else
+						orderLine.setQtyOrdered(QtyOrdered);
+					orderLine.setLineNetAmt();
+				}
 			}
 		}
 		return null;
