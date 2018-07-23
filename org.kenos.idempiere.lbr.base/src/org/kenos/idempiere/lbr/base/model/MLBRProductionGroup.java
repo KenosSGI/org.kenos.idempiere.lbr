@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import org.adempiere.base.Service;
 import org.adempierelbr.model.X_LBR_ProductionGroup;
 import org.adempierelbr.util.TextUtil;
 import org.compiere.model.MDocType;
@@ -20,6 +21,7 @@ import org.compiere.process.DocOptions;
 import org.compiere.process.DocumentEngine;
 import org.compiere.util.Env;
 import org.compiere.util.Trx;
+import org.kenos.idempiere.lbr.base.process.IPOGBOMDrop;
 import org.kenos.idempiere.lbr.base.process.POGBOMDrop;
 
 /**
@@ -204,7 +206,11 @@ public class MLBRProductionGroup extends X_LBR_ProductionGroup implements DocAct
 				//	Only when the order was not dropped previously
 				if (!MProduction.ISCREATED_Yes.equals(p.getIsCreated()))	
 				{
-					m_processMsg = POGBOMDrop.dropBOM (p, this);
+					List<IPOGBOMDrop> list = Service.locator().list(IPOGBOMDrop.class).getServices();
+					
+					IPOGBOMDrop pogdrop = list.get(0);
+					
+					m_processMsg = pogdrop.dropBOM (p, this);
 					if (m_processMsg != null)
 						return DOCSTATUS_Invalid;
 				}

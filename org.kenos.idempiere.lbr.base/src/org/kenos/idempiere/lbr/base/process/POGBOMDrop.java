@@ -7,7 +7,7 @@ import org.compiere.model.MProductionLine;
 import org.compiere.process.SvrProcess;
 import org.kenos.idempiere.lbr.base.model.MLBRProductionGroup;
 
-public class POGBOMDrop extends SvrProcess
+public class POGBOMDrop extends SvrProcess implements IPOGBOMDrop
 {
 	private int p_LBR_ProductionGroup_ID;
 	
@@ -44,7 +44,7 @@ public class POGBOMDrop extends SvrProcess
 	 * @param p_M_Locator_ID
 	 * @return
 	 */
-	public static String dropBOM (MProduction p_production, MLBRProductionGroup pg)
+	public String dropBOM (MProduction p_production, MLBRProductionGroup pg)
 	{
 		String xyz = String.valueOf (pg.getLBR_ProductionGroup_ID ());
 		MLocator locator = MLocator.get (pg.getCtx(), pg.getM_Warehouse_ID(), "PRD-" + pg.getDocumentNo(), xyz, xyz, xyz);
@@ -60,8 +60,10 @@ public class POGBOMDrop extends SvrProcess
 	 * @param p_M_Locator_ID
 	 * @return
 	 */
-	public static String dropBOM (MProduction p_production, int p_M_Locator_ID)
+	public String dropBOM (org.compiere.model.MProduction production, int p_M_Locator_ID)
 	{
+		MProduction p_production = (MProduction) production;
+		
 		//	Delete before continue
 		for (MProductionLine pl : p_production.getLines())
 			pl.delete(true);
