@@ -18,7 +18,9 @@ package org.adempierelbr.model;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import org.compiere.model.*;
+
+import org.compiere.model.I_C_UOM;
+import org.compiere.model.MTable;
 import org.compiere.util.KeyNamePair;
 
 /** Generated Interface for LBR_NotaFiscalLine
@@ -573,18 +575,18 @@ public interface I_LBR_NotaFiscalLine
 	  */
 	public String getlbr_ProductSource();
 	
-	/** Column name lbr_qTrib */
-    public static final String COLUMNNAME_lbr_qTrib = "lbr_qTrib";
+	/** Column name LBR_qTrib */
+    public static final String COLUMNNAME_LBR_qTrib = "LBR_qTrib";
 
 	/** Set Tax Quantity.
 	  * Defines the Tax Quantity
 	  */
-	public void setlbr_qTrib (BigDecimal lbr_qTrib);
+	public void setLBR_qTrib (BigDecimal LBR_qTrib);
 
 	/** Get Tax Quantity.
 	  * Defines the Tax Quantity
 	  */
-	public BigDecimal getlbr_qTrib();
+	public BigDecimal getLBR_qTrib();
 
     /** Column name lbr_ServiceTaxes */
     public static final String COLUMNNAME_lbr_ServiceTaxes = "lbr_ServiceTaxes";
@@ -679,16 +681,29 @@ public interface I_LBR_NotaFiscalLine
 	  */
 	public BigDecimal getlbr_vTotTrib();
 	
-	 /** Column name lbr_vUnTrib */
-    public static final String COLUMNNAME_lbr_vUnTrib = "lbr_vUnTrib";
+	/** Column name LBR_vUnTrib */
+    public static final String COLUMNNAME_LBR_vUnTrib = "LBR_vUnTrib";
 
 	/** Set Unit Tax Price.
 	  * Defines the Unit Tax Price
 	  */
-	public void setlbr_vUnTrib (BigDecimal lbr_vUnTrib);
+	public void setLBR_vUnTrib (BigDecimal LBR_vUnTrib);
 
 	/** Get Unit Tax Price.
 	  * Defines the Unit Tax Price
 	  */
-	public BigDecimal getlbr_vUnTrib();
+	public BigDecimal getLBR_vUnTrib();
+	
+	/** Column name X12DE355 */
+    public static final String COLUMNNAME_X12DE355 = "X12DE355";
+
+	/** Set UOM Code.
+	  * UOM EDI X12 Code
+	  */
+	public void setX12DE355 (String X12DE355);
+
+	/** Get UOM Code.
+	  * UOM EDI X12 Code
+	  */
+	public String getX12DE355();
 }

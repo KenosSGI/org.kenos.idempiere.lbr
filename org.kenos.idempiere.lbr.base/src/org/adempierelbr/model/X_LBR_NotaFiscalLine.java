@@ -845,20 +845,20 @@ public class X_LBR_NotaFiscalLine extends PO implements I_LBR_NotaFiscalLine, I_
 	}
 
 	/** Set Tax Quantity.
-		@param lbr_qTrib 
-		Defines the Tax Quantity
+	@param LBR_qTrib 
+	Defines the Tax Quantity
 	  */
-	public void setlbr_qTrib (BigDecimal lbr_qTrib)
+	public void setLBR_qTrib (BigDecimal LBR_qTrib)
 	{
-		set_Value (COLUMNNAME_lbr_qTrib, lbr_qTrib);
+		set_Value (COLUMNNAME_LBR_qTrib, LBR_qTrib);
 	}
-
+	
 	/** Get Tax Quantity.
 		@return Defines the Tax Quantity
 	  */
-	public BigDecimal getlbr_qTrib () 
+	public BigDecimal getLBR_qTrib () 
 	{
-		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_lbr_qTrib);
+		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_LBR_qTrib);
 		if (bd == null)
 			 return Env.ZERO;
 		return bd;
@@ -1024,22 +1024,39 @@ public class X_LBR_NotaFiscalLine extends PO implements I_LBR_NotaFiscalLine, I_
 	}
 
 	/** Set Unit Tax Price.
-		@param lbr_vUnTrib 
-		Defines the Unit Tax Price
+	@param LBR_vUnTrib 
+	Defines the Unit Tax Price
 	  */
-	public void setlbr_vUnTrib (BigDecimal lbr_vUnTrib)
+	public void setLBR_vUnTrib (BigDecimal LBR_vUnTrib)
 	{
-		set_Value (COLUMNNAME_lbr_vUnTrib, lbr_vUnTrib);
+		set_Value (COLUMNNAME_LBR_vUnTrib, LBR_vUnTrib);
 	}
-
+	
 	/** Get Unit Tax Price.
 		@return Defines the Unit Tax Price
 	  */
-	public BigDecimal getlbr_vUnTrib () 
+	public BigDecimal getLBR_vUnTrib () 
 	{
-		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_lbr_vUnTrib);
+		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_LBR_vUnTrib);
 		if (bd == null)
 			 return Env.ZERO;
 		return bd;
+	}
+	
+	/** Set UOM Code.
+	@param X12DE355 
+	UOM EDI X12 Code
+	  */
+	public void setX12DE355 (String X12DE355)
+	{
+		set_Value (COLUMNNAME_X12DE355, X12DE355);
+	}
+	
+	/** Get UOM Code.
+		@return UOM EDI X12 Code
+	  */
+	public String getX12DE355 () 
+	{
+		return (String)get_Value(COLUMNNAME_X12DE355);
 	}
 }
