@@ -39,6 +39,7 @@ import org.compiere.model.MPriceList;
 import org.compiere.model.MProduct;
 import org.compiere.model.MProduction;
 import org.compiere.model.MProductionLine;
+import org.compiere.model.MRefList;
 import org.compiere.model.MRole;
 import org.compiere.model.MSysConfig;
 import org.compiere.process.ProcessInfo;
@@ -165,6 +166,7 @@ public class WPOGInvoiceGen extends ADForm implements IFormController, WTableMod
 		columnNames.add (Msg.translate(ctx, "M_Product_ID"));
 		columnNames.add (Msg.translate(ctx, "ProductionQty"));
 		columnNames.add (Msg.translate(ctx, "MovementQty"));
+		columnNames.add (Msg.translate(ctx, "DocStatus"));
 
 		//	Clear
 		miniTableProd.clear();
@@ -631,7 +633,7 @@ public class WPOGInvoiceGen extends ADForm implements IFormController, WTableMod
 		Vector<Vector<Object>> data = new Vector<Vector<Object>>();
 		StringBuilder sql = new StringBuilder("SELECT p.M_Production_ID, p.DocumentNo, p.Name, ");
 		sql.append("p.MovementDate, pr.Value || ' - ' || pr.Name AS ProductName, ");
-		sql.append("p.ProductionQty, p.ProductionQty AS MovementQty FROM ");
+		sql.append("p.ProductionQty, p.ProductionQty AS MovementQty, p.DocStatus FROM ");
 		sql.append("M_Production p ");
 		sql.append("INNER JOIN M_Product pr ON (pr.M_Product_ID=p.M_Product_ID) ");
 		sql.append("WHERE p.LBR_ProductionGroup_ID=? AND p.DocStatus NOT IN ('VO', 'RE') ");
@@ -661,8 +663,10 @@ public class WPOGInvoiceGen extends ADForm implements IFormController, WTableMod
 				line.add(knp);									//  1-DocumentNo
 				line.add(rs.getTimestamp("MovementDate"));		//  2-MovementDate
 				line.add(rs.getString("ProductName"));			//  3-Product
-				line.add(rs.getBigDecimal("ProductionQty"));	//  4-Production Qty
+				line.add(rs.getBigDecimal("ProductionQty"));		//  4-Production Qty
 				line.add(rs.getBigDecimal("MovementQty"));		//  5-Movement Qty
+				String status = rs.getString("DocStatus");		//  6-Document Status
+				line.add(MRefList.getListName(Env.getCtx(), MLBRProductionGroup.DOCSTATUS_AD_Reference_ID, status));
 				data.add(line);
 			}
 		}
