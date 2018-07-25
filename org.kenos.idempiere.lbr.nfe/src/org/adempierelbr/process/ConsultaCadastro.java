@@ -16,7 +16,7 @@ import org.adempierelbr.model.MLBRDigitalCertificate;
 import org.adempierelbr.model.MLBRNFConfig;
 import org.adempierelbr.model.MLBRNFeWebService;
 import org.adempierelbr.model.MLBRNotaFiscal;
-import org.adempierelbr.nfe.api.CadConsultaCadastro2Stub;
+import org.adempierelbr.nfe.api.CadConsultaCadastro4Stub;
 import org.adempierelbr.util.BPartnerUtil;
 import org.adempierelbr.util.NFeUtil;
 import org.adempierelbr.util.TextUtil;
@@ -51,9 +51,7 @@ import br.inf.portalfiscal.nfe.v6v.TConsCad.InfCons;
 import br.inf.portalfiscal.nfe.v6v.TRetConsCad;
 import br.inf.portalfiscal.nfe.v6v.TRetConsCad.InfCons.InfCad;
 import br.inf.portalfiscal.nfe.v6v.TUfCons;
-import br.inf.portalfiscal.www.nfe.wsdl.cadconsultacadastro2.NfeCabecMsg;
-import br.inf.portalfiscal.www.nfe.wsdl.cadconsultacadastro2.NfeCabecMsgE;
-import br.inf.portalfiscal.www.nfe.wsdl.cadconsultacadastro2.NfeDadosMsg;
+import br.inf.portalfiscal.www.nfe.wsdl.cadconsultacadastro4.NfeDadosMsg;
 
 /**
  * 		Consulta de Cadastro
@@ -181,7 +179,7 @@ public class ConsultaCadastro extends SvrProcess
 		RetConsCadDocument bpResponse = ConsultaCadastro.doIt (MOrgInfo.get (getCtx(), p_AD_Org_ID, null), p_CNPJ, p_CPF, p_IE, uf);
 		
 		if (bpResponse == null)
-			throw new AdempiereUserError ("Error consulting Business Partner data. Check log for more info.");
+			throw new AdempiereUserError ("Erro ao consultar dados ou a SeFaz não possuí serviço de Consulta de Cadastro.");
 
 		TRetConsCad retConsCad = bpResponse.getRetConsCad();
 		br.inf.portalfiscal.nfe.v6v.TRetConsCad.InfCons infCons = retConsCad.getInfCons();
@@ -475,18 +473,10 @@ public class ConsultaCadastro extends SvrProcess
 				
 				//	Mensagem
 				NfeDadosMsg dadosMsg = NfeDadosMsg.Factory.parse (dadosXML);
-				
-				//	Cabeçalho
-				NfeCabecMsg cabecMsg = new NfeCabecMsg ();
-				cabecMsg.setCUF("" + NFeUtil.getRegionCode (p_UF));
-				cabecMsg.setVersaoDados("2.00");
 
-				NfeCabecMsgE cabecMsgE = new NfeCabecMsgE ();
-				cabecMsgE.setNfeCabecMsg(cabecMsg);
+				CadConsultaCadastro4Stub stub = new CadConsultaCadastro4Stub(url);
 
-				CadConsultaCadastro2Stub stub = new CadConsultaCadastro2Stub(url);
-
-				OMElement nfeConsulta = stub.consultaCadastro2 (dadosMsg.getExtraElement(), cabecMsgE);
+				OMElement nfeConsulta = stub.consultaCadastro (dadosMsg.getExtraElement());
 				respStatus.append(nfeConsulta.toString());
 			}
 

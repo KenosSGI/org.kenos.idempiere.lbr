@@ -25,7 +25,7 @@ import org.compiere.util.KeyNamePair;
  *  @version Release 4.1
  */
 @SuppressWarnings("all")
-public interface I_W_M_Product extends I_M_Product 
+public interface I_W_M_Product extends I_M_Product
 {
 
     /** TableName=M_Product */
@@ -34,6 +34,49 @@ public interface I_W_M_Product extends I_M_Product
     /** AD_Table_ID=208 */
     public static final int Table_ID = 208;
 
+
+    /** Column name LBR_AttributeType */
+    public static final String COLUMNNAME_LBR_AttributeType = "LBR_AttributeType";
+
+	/** Tracking = R00 */
+	public static final String LBR_ATTRIBUTETYPE_Tracking = "R00";
+
+	/** Medicine = X01 */
+	public static final String LBR_ATTRIBUTETYPE_Medicine = "X01";
+
+	/** Fuel = X02 */
+	public static final String LBR_ATTRIBUTETYPE_Fuel = "X02";
+
+	/** Vehicle = X03 */
+	public static final String LBR_ATTRIBUTETYPE_Vehicle = "X03";
+
+	/** Gun = X04 */
+	public static final String LBR_ATTRIBUTETYPE_Gun = "X04";
+
+	/** Medicine and Tracking = R01 */
+	public static final String LBR_ATTRIBUTETYPE_MedicineAndTracking = "R01";
+
+	/** Fuel and Tracking = R02 */
+	public static final String LBR_ATTRIBUTETYPE_FuelAndTracking = "R02";
+
+	/** Vehicle and Tracking = R03 */
+	public static final String LBR_ATTRIBUTETYPE_VehicleAndTracking = "R03";
+
+	/** Gun and Tracking = R04 */
+	public static final String LBR_ATTRIBUTETYPE_GunAndTracking = "R04";
+
+	/** Exempt Paper = X05 */
+	public static final String LBR_ATTRIBUTETYPE_ExemptPaper = "X05";
+
+	/** Exempt Paper and Tracking = R05 */
+	public static final String LBR_ATTRIBUTETYPE_ExemptPaperAndTracking = "R05";
+
+
+	/** Set Attribute Type	  */
+	public void setLBR_AttributeType (String LBR_AttributeType);
+
+	/** Get Attribute Type	  */
+	public String getLBR_AttributeType();
 
     /** Column name LBR_CEST_ID */
     public static final String COLUMNNAME_LBR_CEST_ID = "LBR_CEST_ID";
@@ -69,6 +112,19 @@ public interface I_W_M_Product extends I_M_Product
 
 	/** Get Legal Product Description	  */
 	public String getLBR_LegalProductDescription();
+
+    /** Column name LBR_NBS_ID */
+    public static final String COLUMNNAME_LBR_NBS_ID = "LBR_NBS_ID";
+
+	/** Set NBS.
+	  * Primary key table LBR_NBS
+	  */
+	public void setLBR_NBS_ID (int LBR_NBS_ID);
+
+	/** Get NBS.
+	  * Primary key table LBR_NBS
+	  */
+	public int getLBR_NBS_ID();
 
     /** Column name LBR_NCM_ID */
     public static final String COLUMNNAME_LBR_NCM_ID = "LBR_NCM_ID";

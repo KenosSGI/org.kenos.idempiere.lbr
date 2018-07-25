@@ -18,9 +18,7 @@ package org.adempierelbr.model;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-
-import org.compiere.model.I_C_UOM;
-import org.compiere.model.MTable;
+import org.compiere.model.*;
 import org.compiere.util.KeyNamePair;
 
 /** Generated Interface for LBR_NotaFiscalLine
@@ -177,6 +175,24 @@ public interface I_LBR_NotaFiscalLine
 	  */
 	public boolean isActive();
 
+    /** Column name LBR_AFRMMAmt */
+    public static final String COLUMNNAME_LBR_AFRMMAmt = "LBR_AFRMMAmt";
+
+	/** Set AFRMM Amount	  */
+	public void setLBR_AFRMMAmt (BigDecimal LBR_AFRMMAmt);
+
+	/** Get AFRMM Amount	  */
+	public BigDecimal getLBR_AFRMMAmt();
+
+    /** Column name LBR_AttributeType */
+    public static final String COLUMNNAME_LBR_AttributeType = "LBR_AttributeType";
+
+	/** Set Attribute Type	  */
+	public void setLBR_AttributeType (String LBR_AttributeType);
+
+	/** Get Attribute Type	  */
+	public String getLBR_AttributeType();
+
     /** Column name LBR_CESTName */
     public static final String COLUMNNAME_LBR_CESTName = "LBR_CESTName";
 
@@ -215,6 +231,15 @@ public interface I_LBR_NotaFiscalLine
 	public int getLBR_CFOP_ID();
 
 	public org.adempierelbr.model.I_LBR_CFOP getLBR_CFOP() throws RuntimeException;
+
+    /** Column name LBR_CNPJManufacturer */
+    public static final String COLUMNNAME_LBR_CNPJManufacturer = "LBR_CNPJManufacturer";
+
+	/** Set CNPJ Manufacturer	  */
+	public void setLBR_CNPJManufacturer (String LBR_CNPJManufacturer);
+
+	/** Get CNPJ Manufacturer	  */
+	public String getLBR_CNPJManufacturer();
 
     /** Column name LBR_FCIValue */
     public static final String COLUMNNAME_LBR_FCIValue = "LBR_FCIValue";
@@ -281,6 +306,8 @@ public interface I_LBR_NotaFiscalLine
 	/** Get DI	  */
 	public int getLBR_NFDI_ID();
 
+	public org.adempierelbr.model.I_LBR_NFDI getLBR_NFDI() throws RuntimeException;
+
     /** Column name LBR_NotaFiscalLine_ID */
     public static final String COLUMNNAME_LBR_NotaFiscalLine_ID = "LBR_NotaFiscalLine_ID";
 
@@ -293,6 +320,15 @@ public interface I_LBR_NotaFiscalLine
 	  * Primary key table LBR_NotaFiscalLine
 	  */
 	public int getLBR_NotaFiscalLine_ID();
+
+    /** Column name LBR_NotaFiscalLine_UU */
+    public static final String COLUMNNAME_LBR_NotaFiscalLine_UU = "LBR_NotaFiscalLine_UU";
+
+	/** Set LBR_NotaFiscalLine_UU	  */
+	public void setLBR_NotaFiscalLine_UU (String LBR_NotaFiscalLine_UU);
+
+	/** Get LBR_NotaFiscalLine_UU	  */
+	public String getLBR_NotaFiscalLine_UU();
 
     /** Column name LBR_NotaFiscal_ID */
     public static final String COLUMNNAME_LBR_NotaFiscal_ID = "LBR_NotaFiscal_ID";
@@ -317,6 +353,37 @@ public interface I_LBR_NotaFiscalLine
 
 	/** Get Other Charges Amount	  */
 	public BigDecimal getLBR_OtherChargesAmt();
+
+    /** Column name LBR_PORef_Item */
+    public static final String COLUMNNAME_LBR_PORef_Item = "LBR_PORef_Item";
+
+	/** Set Order Reference Item.
+	  * Item reference to the Order Reference indicated in the same document
+	  */
+	public void setLBR_PORef_Item (String LBR_PORef_Item);
+
+	/** Get Order Reference Item.
+	  * Item reference to the Order Reference indicated in the same document
+	  */
+	public String getLBR_PORef_Item();
+
+    /** Column name LBR_ScaleProduction */
+    public static final String COLUMNNAME_LBR_ScaleProduction = "LBR_ScaleProduction";
+
+	/** Set Scale Production	  */
+	public void setLBR_ScaleProduction (String LBR_ScaleProduction);
+
+	/** Get Scale Production	  */
+	public String getLBR_ScaleProduction();
+
+    /** Column name LBR_TaxBenefitCode */
+    public static final String COLUMNNAME_LBR_TaxBenefitCode = "LBR_TaxBenefitCode";
+
+	/** Set Tax Benefit Code	  */
+	public void setLBR_TaxBenefitCode (String LBR_TaxBenefitCode);
+
+	/** Get Tax Benefit Code	  */
+	public String getLBR_TaxBenefitCode();
 
     /** Column name Line */
     public static final String COLUMNNAME_Line = "Line";
@@ -371,6 +438,19 @@ public interface I_LBR_NotaFiscalLine
 	  * Manufacturer of the Product
 	  */
 	public String getManufacturer();
+
+    /** Column name POReference */
+    public static final String COLUMNNAME_POReference = "POReference";
+
+	/** Set Order Reference.
+	  * Transaction Reference Number (Sales Order, Purchase Order) of your Business Partner
+	  */
+	public void setPOReference (String POReference);
+
+	/** Get Order Reference.
+	  * Transaction Reference Number (Sales Order, Purchase Order) of your Business Partner
+	  */
+	public String getPOReference();
 
     /** Column name Price */
     public static final String COLUMNNAME_Price = "Price";
@@ -436,6 +516,19 @@ public interface I_LBR_NotaFiscalLine
 	  * Quantity
 	  */
 	public BigDecimal getQty();
+
+    /** Column name UPC */
+    public static final String COLUMNNAME_UPC = "UPC";
+
+	/** Set UPC/EAN.
+	  * Bar Code (Universal Product Code or its superset European Article Number)
+	  */
+	public void setUPC (String UPC);
+
+	/** Get UPC/EAN.
+	  * Bar Code (Universal Product Code or its superset European Article Number)
+	  */
+	public String getUPC();
 
     /** Column name Updated */
     public static final String COLUMNNAME_Updated = "Updated";
@@ -574,19 +667,6 @@ public interface I_LBR_NotaFiscalLine
 	  * Defines the Product Source
 	  */
 	public String getlbr_ProductSource();
-	
-	/** Column name LBR_qTrib */
-    public static final String COLUMNNAME_LBR_qTrib = "LBR_qTrib";
-
-	/** Set Tax Quantity.
-	  * Defines the Tax Quantity
-	  */
-	public void setLBR_qTrib (BigDecimal LBR_qTrib);
-
-	/** Get Tax Quantity.
-	  * Defines the Tax Quantity
-	  */
-	public BigDecimal getLBR_qTrib();
 
     /** Column name lbr_ServiceTaxes */
     public static final String COLUMNNAME_lbr_ServiceTaxes = "lbr_ServiceTaxes";
@@ -639,8 +719,8 @@ public interface I_LBR_NotaFiscalLine
 	  * Defines the UOM Name
 	  */
 	public String getlbr_UOMName();
-	
-	 /** Column name lbr_UTribID */
+
+    /** Column name lbr_UTribID */
     public static final String COLUMNNAME_lbr_UTribID = "lbr_UTribID";
 
 	/** Set UTrib.
@@ -653,7 +733,7 @@ public interface I_LBR_NotaFiscalLine
 	  */
 	public int getlbr_UTribID();
 
-	public I_C_UOM getlbr_UTri() throws RuntimeException;
+	public org.compiere.model.I_C_UOM getlbr_UTri() throws RuntimeException;
 
     /** Column name lbr_UTribName */
     public static final String COLUMNNAME_lbr_UTribName = "lbr_UTribName";
@@ -668,6 +748,19 @@ public interface I_LBR_NotaFiscalLine
 	  */
 	public String getlbr_UTribName();
 
+    /** Column name LBR_qTrib */
+    public static final String COLUMNNAME_LBR_qTrib = "LBR_qTrib";
+
+	/** Set Tax Quantity.
+	  * Defines the Tax Quantity
+	  */
+	public void setLBR_qTrib (BigDecimal LBR_qTrib);
+
+	/** Get Tax Quantity.
+	  * Defines the Tax Quantity
+	  */
+	public BigDecimal getLBR_qTrib();
+
     /** Column name lbr_vTotTrib */
     public static final String COLUMNNAME_lbr_vTotTrib = "lbr_vTotTrib";
 
@@ -680,8 +773,8 @@ public interface I_LBR_NotaFiscalLine
 	  * Valor aproximado total de tributos federais, estaduais e municipais.
 	  */
 	public BigDecimal getlbr_vTotTrib();
-	
-	/** Column name LBR_vUnTrib */
+
+    /** Column name LBR_vUnTrib */
     public static final String COLUMNNAME_LBR_vUnTrib = "LBR_vUnTrib";
 
 	/** Set Unit Tax Price.
