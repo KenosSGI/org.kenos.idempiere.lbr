@@ -1011,6 +1011,10 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 	 */
 	public void setAttributes (MProduct product, Map<Integer, BigDecimal> attributes)
 	{
+		//	Nothing to do
+		if (product == null || product.getM_Product_ID() < 1)
+			return;
+		
 		I_W_M_Product productW = POWrapper.create (product, I_W_M_Product.class);
 		
 		//	Attributes
