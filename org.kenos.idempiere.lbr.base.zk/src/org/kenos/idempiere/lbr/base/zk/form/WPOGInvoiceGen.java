@@ -202,6 +202,7 @@ public class WPOGInvoiceGen extends ADForm implements IFormController, WTableMod
 		columnNames.add (Msg.translate(ctx, "M_Product_ID"));
 		columnNames.add (Msg.translate(ctx, "PlannedQty"));
 		columnNames.add (Msg.translate(ctx, "QtyUsed"));
+		columnNames.add (Msg.translate(ctx, "MovementQty"));
 
 		//	Clear
 		miniTableComp.clear();
@@ -215,10 +216,11 @@ public class WPOGInvoiceGen extends ADForm implements IFormController, WTableMod
 		//
 		int index=0;
 		miniTableComp.setColumnClass (index++, Boolean.class, false);		//  0-Selection
-		miniTableComp.setColumnClass (index++, String.class, true); 		//  1-Description
+		miniTableComp.setColumnClass (index++, String.class, true); 			//  1-Description
 		miniTableComp.setColumnClass (index++, KeyNamePair.class, true);	//  2-Product
 		miniTableComp.setColumnClass (index++, BigDecimal.class, true);		//  3-Production Qty
-		miniTableComp.setColumnClass (index++, BigDecimal.class, true);	//  4-Movement Qty
+		miniTableComp.setColumnClass (index++, BigDecimal.class, true);		//  4-Qty Used
+		miniTableComp.setColumnClass (index++, BigDecimal.class, true);		//  5-Qty Movement
 	}	//	createComponentGrid
 
 	@Override
@@ -575,9 +577,17 @@ public class WPOGInvoiceGen extends ADForm implements IFormController, WTableMod
 		Vector<Vector<Object>> data = new Vector<Vector<Object>>();
 		StringBuilder sql = new StringBuilder("SELECT pl.Description, ");
 		sql.append("pr.Value || ' - ' || pr.Name AS ProductName, pl.M_Product_ID, ");
-		sql.append("SUM (pl.QtyUsed) AS QtyUsed, SUM (pl.PlannedQty) AS PlannedQty FROM ");
-		sql.append("M_ProductionLine pl ");
+		sql.append("SUM (pl.QtyUsed) AS QtyUsed, SUM (pl.PlannedQty) AS PlannedQty, ");
+		sql.append("ROUND((COALESCE(mov.MovementQty, 0) / (SELECT sum (PlannedQty) FROM M_ProductionLine plz WHERE EXISTS ");
+		sql.append("(SELECT 1 FROM M_Production WHERE M_Production_ID = plz.M_Production_ID AND LBR_ProductionGroup_ID = ?) ");
+		sql.append("AND plz.M_Product_ID = pl.M_Product_ID) * SUM(pl.PlannedQty)),2) as MovementQty ");
+		sql.append("FROM M_ProductionLine pl ");
 		sql.append("INNER JOIN M_Product pr ON (pr.M_Product_ID=pl.M_Product_ID) ");
+		sql.append("INNER JOIN M_Production p ON (p.M_Production_ID = pl.M_Production_ID) ");
+		sql.append("LEFT JOIN (SELECT sum (MovementQty) AS MovementQty, M_Product_ID, LBR_ProductionGroup_ID, DocStatus, M_LocatorTo_ID FROM M_MovementLine ml ");
+		sql.append("INNER JOIN M_Movement m ON m.M_Movement_ID = ml.M_Movement_ID GROUP BY M_Product_ID, LBR_ProductionGroup_ID, DocStatus, M_LocatorTo_ID) mov ");
+		sql.append("ON mov.M_Product_ID = pr.M_Product_ID AND mov.LBR_ProductionGroup_ID = ? AND mov.DocStatus IN ('CO', 'CL') ");
+		sql.append("AND (SELECT Value FROM M_Locator WHERE M_Locator_ID = mov.M_LocatorTo_ID) LIKE 'PRD%' ");
 		sql.append("WHERE pl.LBR_NotaFiscalLine_ID IS NULL AND pl.IsEndProduct='N' AND pr.ProductType='I' AND pl.M_Production_ID IN (");//.append(" AND LBR_Ref_Production_ID IS NULL ");
 		sql.append(String.join (",", Collections.nCopies (selected.size(), "?")));
 		sql.append(") AND pl.IsActive='Y' ");
@@ -586,15 +596,20 @@ public class WPOGInvoiceGen extends ADForm implements IFormController, WTableMod
 		
 		// role security
 		sql = new StringBuilder( MRole.getDefault(Env.getCtx(), false).addAccessSQL(sql.toString(), "pl", MRole.SQL_FULLYQUALIFIED, MRole.SQL_RO ));
-		sql.append(" GROUP BY pl.Description, pl.M_Product_ID, pr.Value, pr.Name");
+		sql.append(" GROUP BY pl.Description, pl.M_Product_ID, pr.Value, pr.Name, mov.MovementQty");
 		sql.append(" ORDER BY pr.Value ");
 
+		System.out.println("SQL: " + sql);
+		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try
 		{
 			int index = 1;
 			pstmt = DB.prepareStatement(sql.toString(), null);
+			
+			pstmt.setInt(index++, m_LBR_ProductionGroup_ID);
+			pstmt.setInt(index++, m_LBR_ProductionGroup_ID);
 			for (Integer s : selected)
 				pstmt.setInt(index++, s);
 			//
@@ -608,7 +623,8 @@ public class WPOGInvoiceGen extends ADForm implements IFormController, WTableMod
 				//
 				line.add(knp);									//  2-ProductName
 				line.add(rs.getBigDecimal("PlannedQty"));		//  3-Production Qty
-				line.add(rs.getBigDecimal("QtyUsed"));			//  4-Movement Qty
+				line.add(rs.getBigDecimal("QtyUsed"));			//  4-QtyUsed
+				line.add(rs.getBigDecimal("MovementQty"));	//	5-Movement Qty
 				data.add(line);
 			}
 		}
