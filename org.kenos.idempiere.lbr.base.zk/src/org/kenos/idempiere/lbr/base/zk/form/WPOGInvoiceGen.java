@@ -17,6 +17,7 @@ import java.util.logging.Level;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.adempiere.model.POWrapper;
+import org.adempiere.webui.component.Button;
 import org.adempiere.webui.component.ConfirmPanel;
 import org.adempiere.webui.component.Datebox;
 import org.adempiere.webui.component.Label;
@@ -25,6 +26,7 @@ import org.adempiere.webui.component.Textbox;
 import org.adempiere.webui.component.WListbox;
 import org.adempiere.webui.event.WTableModelEvent;
 import org.adempiere.webui.event.WTableModelListener;
+import org.adempiere.webui.factory.ButtonFactory;
 import org.adempiere.webui.panel.ADForm;
 import org.adempiere.webui.panel.IFormController;
 import org.adempiere.webui.session.SessionManager;
@@ -50,6 +52,7 @@ import org.compiere.util.KeyNamePair;
 import org.compiere.util.Msg;
 import org.compiere.util.Trx;
 import org.kenos.idempiere.lbr.base.model.MLBRProductionGroup;
+import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.event.Events;
@@ -85,6 +88,10 @@ public class WPOGInvoiceGen extends ADForm implements IFormController, WTableMod
 	private Textbox nfNumber = new Textbox();
 	private Label nfDate = new Label(Msg.translate (Env.getCtx(), "MovementDate"));
 	private Datebox movDate = new Datebox();
+	private Button bSelectAllProd = ButtonFactory.createNamedButton("SelectAll", false, true);  
+	private Button bSelectAllComp = ButtonFactory.createNamedButton("SelectAll", false, true); 
+	private Boolean selectAllProd = false;
+	private Boolean selectAllComp = false;
 	
 	/**	Result Table	*/
 	private WListbox miniTableProd = new WListbox();
@@ -127,6 +134,8 @@ public class WPOGInvoiceGen extends ADForm implements IFormController, WTableMod
 //			updatePackageWeight ();
 
 			confirmPanel.addActionListener(Events.ON_CLICK, this);
+			bSelectAllProd.addEventListener(Events.ON_CLICK, this);
+			bSelectAllComp.addEventListener(Events.ON_CLICK, this);
 		}
 		catch(Exception e)
 		{
@@ -141,8 +150,10 @@ public class WPOGInvoiceGen extends ADForm implements IFormController, WTableMod
 	{
 		this.appendChild(new Separator());
 		this.appendChild(grpSelectionProd);
+		grpSelectionProd.appendChild(bSelectAllProd);	
 		this.appendChild(new Separator());
 		this.appendChild(grpSelectionComp);
+		grpSelectionComp.appendChild(bSelectAllComp);
 		this.appendChild(new Separator());
 		this.appendChild(confirmPanel);
 		this.appendChild(new Separator());
@@ -186,6 +197,8 @@ public class WPOGInvoiceGen extends ADForm implements IFormController, WTableMod
 		miniTableProd.setColumnClass (index++, String.class, true);			//  3-Product
 		miniTableProd.setColumnClass (index++, BigDecimal.class, true);		//  4-Production Qty
 		miniTableProd.setColumnClass (index++, BigDecimal.class, true);	//  5-Movement Qty
+		
+		selectAllProd = false;
 	}	//	createProductionGrid
 	
 	/**
@@ -221,6 +234,8 @@ public class WPOGInvoiceGen extends ADForm implements IFormController, WTableMod
 		miniTableComp.setColumnClass (index++, BigDecimal.class, true);		//  3-Production Qty
 		miniTableComp.setColumnClass (index++, BigDecimal.class, true);		//  4-Qty Used
 		miniTableComp.setColumnClass (index++, BigDecimal.class, true);		//  5-Qty Movement
+		
+		selectAllComp = false;
 	}	//	createComponentGrid
 
 	@Override
@@ -246,6 +261,7 @@ public class WPOGInvoiceGen extends ADForm implements IFormController, WTableMod
 	@Override
 	public void onEvent(Event e) throws Exception
 	{
+		Component comp = e.getTarget();
 		String eventName = e.getName();
 		if (log.isLoggable(Level.CONFIG)) log.config(eventName);
 		
@@ -329,6 +345,25 @@ public class WPOGInvoiceGen extends ADForm implements IFormController, WTableMod
 				miniTableComp.clear();
 				grpSelectionComp.setVisible(false);
 			}
+			else  if(eventName.equals(Events.ON_CLICK))
+	        {
+	    		if (comp == bSelectAllProd)
+	    		{
+	    			selectAllProd = (selectAllProd ? false : true);
+	    			for (int i = 0; i < miniTableProd.getItemCount(); i++)
+	    			{
+	    				miniTableProd.setValueAt(new Boolean (selectAllProd), i, 0);
+	    			}
+	    		}
+	    		else if (comp == bSelectAllComp)
+	    		{
+	    			selectAllComp = (selectAllComp ? false : true);
+	    			for (int i = 0; i < miniTableComp.getItemCount(); i++)
+	    			{
+	    				miniTableComp.setValueAt(new Boolean (selectAllComp), i, 0);
+	    			}
+	    		}
+	        }
 		}
 	}	//	onEvent
 	
@@ -598,8 +633,6 @@ public class WPOGInvoiceGen extends ADForm implements IFormController, WTableMod
 		sql = new StringBuilder( MRole.getDefault(Env.getCtx(), false).addAccessSQL(sql.toString(), "pl", MRole.SQL_FULLYQUALIFIED, MRole.SQL_RO ));
 		sql.append(" GROUP BY pl.Description, pl.M_Product_ID, pr.Value, pr.Name, mov.MovementQty");
 		sql.append(" ORDER BY pr.Value ");
-
-		System.out.println("SQL: " + sql);
 		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;

@@ -16,6 +16,7 @@ import java.util.Vector;
 import java.util.logging.Level;
 
 import org.adempiere.exceptions.AdempiereException;
+import org.adempiere.webui.component.Button;
 import org.adempiere.webui.component.Combobox;
 import org.adempiere.webui.component.ConfirmPanel;
 import org.adempiere.webui.component.Label;
@@ -28,6 +29,7 @@ import org.adempiere.webui.event.ValueChangeEvent;
 import org.adempiere.webui.event.ValueChangeListener;
 import org.adempiere.webui.event.WTableModelEvent;
 import org.adempiere.webui.event.WTableModelListener;
+import org.adempiere.webui.factory.ButtonFactory;
 import org.adempiere.webui.panel.ADForm;
 import org.adempiere.webui.panel.IFormController;
 import org.adempiere.webui.session.SessionManager;
@@ -49,6 +51,7 @@ import org.compiere.util.Env;
 import org.compiere.util.KeyNamePair;
 import org.compiere.util.Msg;
 import org.kenos.idempiere.lbr.base.model.MLBRProductionGroup;
+import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.event.Events;
@@ -88,6 +91,10 @@ public class WPOGManage extends ADForm implements IFormController, WTableModelLi
 	private Combobox cbCopyFrom = new Combobox();
 	private Label lMovementQty = new Label();
 	private Textbox tMovementQty = new Textbox();
+	private Button bSelectAllProduction = ButtonFactory.createNamedButton("SelectAll", false, true);  
+	private Button bSelectAllComponent = ButtonFactory.createNamedButton("SelectAll", false, true); 
+	private Boolean selectAllProduction = false;
+	private Boolean selectAllComponent = false;
 	
 	private Object m_M_Product_ID;
 	
@@ -166,7 +173,12 @@ public class WPOGManage extends ADForm implements IFormController, WTableModelLi
 			grpSelectionProd.appendChild(tMovementQty);
 			grpSelectionProd.appendChild(new Separator());
 			grpSelectionProd.appendChild(miniTableProd);
+			grpSelectionProd.appendChild(new Separator());
+			grpSelectionProd.appendChild(bSelectAllProduction);			
+			grpSelectionComp.appendChild(new Separator());
 			grpSelectionComp.appendChild(miniTableComp);
+			grpSelectionProd.appendChild(new Separator());
+			grpSelectionComp.appendChild(bSelectAllComponent);
 			grpSelectionComp.setVisible(false);
 			
 			lProduct.setVisible(false);
@@ -183,6 +195,8 @@ public class WPOGManage extends ADForm implements IFormController, WTableModelLi
 //			updatePackageWeight ();
 
 			confirmPanel.addActionListener(Events.ON_CLICK, this);
+			bSelectAllProduction.addEventListener(Events.ON_CLICK, this);
+			bSelectAllComponent.addEventListener(Events.ON_CLICK, this);
 		}
 		catch(Exception e)
 		{
@@ -212,7 +226,7 @@ public class WPOGManage extends ADForm implements IFormController, WTableModelLi
 	 * 	Create the Production Grid
 	 */
 	private void createProductionGrid ()
-	{
+	{		
 		Properties ctx = Env.getCtx ();
 		//
 		Vector<String> columnNames = new Vector<String>();
@@ -241,6 +255,8 @@ public class WPOGManage extends ADForm implements IFormController, WTableModelLi
 		miniTableProd.setColumnClass (index++, String.class, true);			//  3-Product
 		miniTableProd.setColumnClass (index++, BigDecimal.class, true);		//  4-Production Qty
 		miniTableProd.setColumnClass (index++, BigDecimal.class, false);	//  5-Movement Qty
+		
+		selectAllProduction = false;
 	}	//	createProductionGrid
 	
 	/**
@@ -279,6 +295,8 @@ public class WPOGManage extends ADForm implements IFormController, WTableModelLi
 		miniTableComp.setColumnClass (index++, BigDecimal.class, true);		//  3-Production Qty
 		miniTableComp.setColumnClass (index++, BigDecimal.class, false);	//  4-Qty Used
 		miniTableComp.setColumnClass (index++, BigDecimal.class, false);	//  5-Movement Qty
+		
+		selectAllComponent = false;
 	}	//	createComponentGrid
 
 	@Override
@@ -323,6 +341,7 @@ public class WPOGManage extends ADForm implements IFormController, WTableModelLi
 	@Override
 	public void onEvent(Event e) throws Exception
 	{
+		Component comp = e.getTarget();
 		String eventName = e.getName();
 		if (log.isLoggable(Level.CONFIG)) log.config(eventName);
 		
@@ -603,7 +622,6 @@ public class WPOGManage extends ADForm implements IFormController, WTableModelLi
 						}
 						else
 						{
-							System.out.println(products.size());
 							if (mode == MODE_CHANGE && products.size() > 1)
 								throw new AdempiereException ("Selecione apenas 1 insumo para Alteração");						
 						
@@ -646,6 +664,25 @@ public class WPOGManage extends ADForm implements IFormController, WTableModelLi
 				createProductionGrid ();
 				miniTableComp.clear();
 			}	
+			else  if(eventName.equals(Events.ON_CLICK))
+	        {
+	    		if (comp == bSelectAllProduction)
+	    		{
+	    			selectAllProduction = (selectAllProduction ? false : true);
+	    			for (int i = 0; i < miniTableProd.getItemCount(); i++)
+	    			{
+	    				miniTableProd.setValueAt(new Boolean (selectAllProduction), i, 0);
+	    			}
+	    		}
+	    		else if (comp == bSelectAllComponent)
+	    		{
+	    			selectAllComponent = (selectAllComponent ? false : true);
+	    			for (int i = 0; i < miniTableComp.getItemCount(); i++)
+	    			{
+	    				miniTableComp.setValueAt(new Boolean (selectAllComponent), i, 0);
+	    			}
+	    		}
+	        }
 		}
 		else if (Events.ON_SELECT.equals(eventName))
 		{
