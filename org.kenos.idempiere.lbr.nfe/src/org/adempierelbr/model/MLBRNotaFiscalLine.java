@@ -624,7 +624,7 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 		
 		//	References
 		if (iLine.getC_OrderLine_ID() > 0)
-			setPOReference (POWrapper.create (new MOrderLine (iLine.getCtx(), iLine.getC_OrderLine_ID(), null), I_W_C_OrderLine.class));
+			setPOReference (POWrapper.create (new MOrderLine (iLine.getCtx(), iLine.getC_OrderLine_ID(), get_TrxName()), I_W_C_OrderLine.class));
 		
 		boolean includeDIFAL = MSysConfig.getBooleanValue("LBR_ADD_DIFAL_PROD", true, getAD_Client_ID(), getAD_Org_ID());
 		boolean isFOB = getParent().getC_Invoice_ID() > 0 ? !getParent().getC_Invoice().isTaxIncluded() : false;
