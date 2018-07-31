@@ -96,5 +96,9 @@ UPDATE AD_Process_Para SET ColumnName='LBR_vUnTrib', Name='Unit Tax Price', Desc
 UPDATE AD_InfoColumn SET ColumnName='LBR_vUnTrib', Name='Unit Tax Price', Description='Defines the Unit Tax Price', Help='Defines the Unit Tax Price' WHERE AD_Element_ID=1122416 AND IsCentrallyMaintained='Y'
 ;
 
+-- 26/06/2018 11h24min43s BRT
+UPDATE AD_Column SET ReadOnlyLogic='@IsManual@!Y' WHERE AD_Column_ID=1130360
+;
+
 SELECT Register_Migration_Script ('201807231500_ChangeFieldUOMNFExport.sql') FROM DUAL
 ;
