@@ -22,7 +22,6 @@ import org.compiere.process.DocumentEngine;
 import org.compiere.util.Env;
 import org.compiere.util.Trx;
 import org.kenos.idempiere.lbr.base.process.IPOGBOMDrop;
-import org.kenos.idempiere.lbr.base.process.POGBOMDrop;
 
 /**
  * 		Model for Production Group
