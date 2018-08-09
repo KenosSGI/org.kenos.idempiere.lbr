@@ -1740,6 +1740,17 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		setLBR_FiscalObs ();
 		setDescription ();
 		
+		StringBuffer description = new StringBuffer();
+		
+		description.append(getDescription().toString());
+		
+		if (description.length() > 0)
+			description.append("\n");
+		
+		description.append("Pedido de Industrialização: " + pg.getDocumentNo());
+		
+		setDescription(description.toString());
+		
 		//	O peso normalemnte vem da expedição, porém alguns casos a NF é feita com base no pedido
 		//		ou na fatura, portanto é necessário recalcular o peso
 		if (Env.ZERO.compareTo (getlbr_GrossWeight()) == 0)
@@ -3038,6 +3049,18 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 				if (description.length() > 0)
 					description.append("\n");
 				description.append(parse("Devolução referente a NF-e " + nfrma.getDocumentNo() + " Emitida em " + TextUtil.timeToString(nfrma.getDateTrx(), "dd/MM/yyyy") + " no Valor de R$ " + TextUtil.toNumeric(nfrma.getGrandTotal()) + "".trim()));	
+			}
+		}
+		else if (getM_Movement_ID() > 0)
+		{
+			MMovement mov = (MMovement) getM_Movement();
+			
+			if (mov.get_ValueAsInt("LBR_ProductionGroup_ID") > 0)
+			{
+				MLBRProductionGroup pg = new MLBRProductionGroup (Env.getCtx(), mov.get_ValueAsInt("LBR_ProductionGroup_ID"), get_TrxName());
+				if (description.length() > 0)
+					description.append("\n");
+				description.append("Pedido de Industrialização: " + pg.getDocumentNo());
 			}
 		}
 		
