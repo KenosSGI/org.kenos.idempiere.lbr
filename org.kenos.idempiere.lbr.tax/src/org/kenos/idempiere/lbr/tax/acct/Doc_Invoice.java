@@ -430,10 +430,7 @@ public class Doc_Invoice extends Doc
 				}
 				
 				if (taxesOnly)
-				{
-					facts.add(fact);
-					return facts;
-				}
+					continue;
 				
 				amt = p_lines[i].getAmtSource().subtract(includedTax);
 				BigDecimal dAmt = null;
@@ -618,6 +615,8 @@ public class Doc_Invoice extends Doc
 							{
 								tl.setC_Tax_ID(dt.getC_Tax_ID());
 								tl.setLine_ID(p_lines[i].get_ID());
+								if (taxesOnly)
+									tl.setM_Product_ID(p_lines[i].getM_Product_ID());
 							}
 							
 							if (taxesOnly)
@@ -631,6 +630,7 @@ public class Doc_Invoice extends Doc
 								{
 									tl.setC_Tax_ID(dt.getC_Tax_ID());
 									tl.setLine_ID(p_lines[i].get_ID());
+									tl.setM_Product_ID(p_lines[i].getM_Product_ID());
 								}
 							}
 						}
