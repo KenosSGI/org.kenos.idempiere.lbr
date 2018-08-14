@@ -33,6 +33,7 @@ import org.compiere.model.MInvoice;
 import org.compiere.model.MInvoiceLine;
 import org.compiere.model.MOrder;
 import org.compiere.model.MOrderLine;
+import org.compiere.model.MOrderPaySchedule;
 import org.compiere.model.MStorageOnHand;
 import org.compiere.model.MSysConfig;
 import org.compiere.model.MWarehouse;
@@ -202,7 +203,20 @@ public class ValidatorOrder implements ModelValidator
 			Properties ctx = order.getCtx();
 			String     trx = order.get_TrxName();
 			
-			if (timing == TIMING_BEFORE_COMPLETE)
+			if (timing == TIMING_BEFORE_PREPARE)
+			{
+				if (!order.validatePaySchedule())
+				{	
+					MOrderPaySchedule[] schedule = MOrderPaySchedule.getOrderPaySchedule
+					(order.getCtx(), order.getC_Order_ID(), 0, order.get_TrxName());
+					
+					for (MOrderPaySchedule s : schedule)
+					{
+						s.deleteEx(true);
+					}
+				}
+			}			
+			else if (timing == TIMING_BEFORE_COMPLETE)
 			{
 				I_W_C_Order orderW = POWrapper.create (order, I_W_C_Order.class);
 				
