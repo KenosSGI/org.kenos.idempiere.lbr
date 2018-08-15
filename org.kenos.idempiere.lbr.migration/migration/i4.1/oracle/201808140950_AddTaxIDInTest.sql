@@ -1,0 +1,10 @@
+SET SQLBLANKLINES ON
+SET DEFINE OFF
+
+-- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
+-- 14/08/2018 9h46min33s BRT
+ALTER TABLE Test ADD LBR_Tax_ID NUMBER(10) DEFAULT NULL 
+;
+
+SELECT Register_Migration_Script ('201808140950_AddTaxIDInTest.sql') FROM DUAL
+;
