@@ -205,6 +205,20 @@ public class ValidatorOrder implements ModelValidator
 			
 			if (timing == TIMING_BEFORE_PREPARE)
 			{
+				//	Doc Type
+				MDocType docType = (MDocType) order.getC_DocTypeTarget();
+				
+				//	If Proposal or Quotation don't need to set Shipper
+				if (MOrder.DELIVERYVIARULE_Shipper.equals(order.getDeliveryViaRule()) && 
+						order.getM_Shipper_ID() == 0 &&
+							(MDocType.DOCSUBTYPESO_Proposal.equals(docType.getDocSubTypeSO()) ||
+									MDocType.DOCSUBTYPESO_Quotation.equals(docType.getDocSubTypeSO())))
+				{	
+					order.setDeliveryViaRule(MOrder.DELIVERYVIARULE_Delivery);
+					order.saveEx();
+				}	
+					
+				
 				if (!order.validatePaySchedule())
 				{	
 					MOrderPaySchedule[] schedule = MOrderPaySchedule.getOrderPaySchedule
