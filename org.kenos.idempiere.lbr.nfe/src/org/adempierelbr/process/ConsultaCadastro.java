@@ -22,10 +22,12 @@ import org.adempierelbr.util.NFeUtil;
 import org.adempierelbr.util.TextUtil;
 import org.adempierelbr.wrapper.I_W_AD_OrgInfo;
 import org.adempierelbr.wrapper.I_W_C_BPartner;
+import org.adempierelbr.wrapper.I_W_C_City;
 import org.apache.axiom.om.OMElement;
 import org.apache.xmlbeans.XmlException;
 import org.compiere.model.MBPartner;
 import org.compiere.model.MBPartnerLocation;
+import org.compiere.model.MCity;
 import org.compiere.model.MClientInfo;
 import org.compiere.model.MLocation;
 import org.compiere.model.MOrg;
@@ -48,6 +50,7 @@ import br.inf.portalfiscal.nfe.v6v.ConsCadDocument;
 import br.inf.portalfiscal.nfe.v6v.RetConsCadDocument;
 import br.inf.portalfiscal.nfe.v6v.TConsCad;
 import br.inf.portalfiscal.nfe.v6v.TConsCad.InfCons;
+import br.inf.portalfiscal.nfe.v6v.TEndereco;
 import br.inf.portalfiscal.nfe.v6v.TRetConsCad;
 import br.inf.portalfiscal.nfe.v6v.TRetConsCad.InfCons.InfCad;
 import br.inf.portalfiscal.nfe.v6v.TUfCons;
@@ -190,6 +193,8 @@ public class ConsultaCadastro extends SvrProcess
 		InfCad infCad = infCons.getInfCadArray(0);
 		
 		String xRegApur = infCad.getXRegApur();
+		TEndereco ender = infCad.getEnder();
+		//
 		StringBuffer result = new StringBuffer ("<br /><br /><b>Razão Social: </b>").append (infCad.getXNome())
 				.append ("<br /><b>Nome Fantasia: </b>").append (infCad.getXFant())
 				.append ("<br /><br><b><font color=\"").append ((InfCad.CSit.X_1.equals(infCad.getCSit()) ? "00CC66\">H" : "FF0000\">In") + "abilitado</font></b>")
@@ -200,12 +205,12 @@ public class ConsultaCadastro extends SvrProcess
 				.append ("<br /><b>IE: </b>").append (infCad.getIE())
 				.append ("<br /><b>IE (Única): </b>").append (infCad.getIEUnica())
 				.append ("<br /><b>IE (Atual): </b>").append (infCad.getIEAtual())
-				.append ("<br /><b>Logradouro: </b>").append (infCad.getEnder().getXLgr())
-				.append ("<br /><b>Número: </b>").append (infCad.getEnder().getNro())
-				.append ("<br /><b>Complemento: </b>").append (infCad.getEnder().getXCpl())
-				.append ("<br /><b>Bairro: </b>").append (infCad.getEnder().getXBairro())
-				.append ("<br /><b>Município: </b>").append (infCad.getEnder().getXMun()).append(" (").append(infCad.getEnder().getCMun()).append(")")
-				.append ("<br /><b>CEP: </b>").append (infCad.getEnder().getCEP())
+				.append ("<br /><b>Logradouro: </b>").append (ender.getXLgr())
+				.append ("<br /><b>Número: </b>").append (ender.getNro())
+				.append ("<br /><b>Complemento: </b>").append (ender.getXCpl())
+				.append ("<br /><b>Bairro: </b>").append (ender.getXBairro())
+				.append ("<br /><b>Município: </b>").append (ender.getXMun()).append(" (").append(ender.getCMun()).append(")")
+				.append ("<br /><b>CEP: </b>").append (ender.getCEP())
 				.append ("<br /><b>UF: </b>").append (infCad.getUF());
 		
 		//	Create business partner
@@ -312,28 +317,34 @@ public class ConsultaCadastro extends SvrProcess
 			
 			// Localização do Parceiro de Negócio
 			MBPartnerLocation bpartnerLocation = new MBPartnerLocation(bpartner);
-			bpartnerLocation.setName(infCad.getEnder().getXBairro() + " - " + infCad.getUF().toString());
+			bpartnerLocation.setName(ender.getXBairro() + " - " + infCad.getUF().toString());
 			
 			// Estado
-			int region_id = 0;
+			String cityName = ender.getXMun();
+			int C_Region_ID = p_C_Region_ID;
 			
 			//	Identificar ID do Estado
 			for (MRegion r : MRegion.getRegions(Env.getCtx(), 139))
 			{	
 				if (infCad.getUF().toString().equals(r.getName()))
 				{	
-					region_id = r.getC_Region_ID();
+					C_Region_ID = r.getC_Region_ID();
+					
+					MCity city = new Query (getCtx(), MCity.Table_Name, MCity.COLUMNNAME_C_Region_ID+"=? AND "+I_W_C_City.COLUMNNAME_lbr_CityCode+"=?", get_TrxName())
+						.setParameters(C_Region_ID, ender.getCMun()).first();
+					if (city != null)
+						cityName = city.getName();
 					break;
 				}	
 			}
 			
 			// Salvando Localização do Novo Parceiro de Negócio
-			MLocation location  = new MLocation(Env.getCtx(), 139, region_id, infCad.getEnder().getXMun(), null);			
-			location.setAddress1(infCad.getEnder().getXLgr());
-			location.setAddress2(infCad.getEnder().getNro());
-			location.setAddress3(infCad.getEnder().getXBairro());
-			location.setAddress4(infCad.getEnder().getXCpl());			
-			location.setPostal(infCad.getEnder().getCEP());
+			MLocation location  = new MLocation(Env.getCtx(), 139, C_Region_ID, cityName, null);			
+			location.setAddress1(ender.getXLgr());
+			location.setAddress2(ender.getNro());
+			location.setAddress3(ender.getXBairro());
+			location.setAddress4(ender.getXCpl());			
+			location.setPostal(ender.getCEP());
 			location.setRegionName(infCad.getUF().toString());
 			location.saveEx();
 						
