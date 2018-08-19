@@ -57,6 +57,7 @@ import com.google.zxing.qrcode.QRCodeWriter;
 
 import br.inf.portalfiscal.nfe.v400.NfeProcDocument;
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRParameter;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -121,7 +122,7 @@ public class PrintFromXML extends SvrProcess
 		String extension 		= "dst.xml";
 		String datePattern 		= "yyyy-MM-dd'T'HH:mm:ssZ";
 		String numberPattern 	= "###0.00";
-		Locale locale			= Locale.US;
+		Locale locale			= new Locale( "pt", "BR" );
 		boolean printLogo		= true;
 		Map<String, Object> qrFiles = new HashMap<String, Object>();
 
@@ -367,13 +368,16 @@ public class PrintFromXML extends SvrProcess
 		
 		if (message != null)
 			files.put("msgPrevisualizacao", message);
+		
+		//	BR Locale
+		files.put( JRParameter.REPORT_LOCALE, locale );
 
 		//	Load the report
 		JasperReport jasperReport = (JasperReport) JRLoader.loadObject ( (InputStream) files.remove (reportName));
 		JRXmlDataSource dataSource = new JRXmlDataSource ( xml , jasperReport.getQuery().getText() );
 		dataSource.setDatePattern(datePattern);
 		dataSource.setNumberPattern(numberPattern);
-		dataSource.setLocale(locale);
+		dataSource.setLocale(Locale.US);
 
 		//	Fill
 		JasperPrint jasperPrint = JasperFillManager.fillReport (jasperReport, files, dataSource);
