@@ -36,3 +36,4 @@ Bundle-ClassPath: .,
  lib/stax-api.jar
 Import-Package: org.joda.time;version="2.9.6"
 Bundle-ActivationPolicy: lazy
+Automatic-Module-Name: org.kenos.idempiere.lbr.base
