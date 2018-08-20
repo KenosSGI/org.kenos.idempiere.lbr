@@ -20,6 +20,8 @@ public class ProcessFactory implements IProcessFactory
 			return new CommissionCalc ();
 		if (ReProcessOrder.class.getName().equals(className))
 			return new ReProcessOrder ();
+		if (org.compiere.process.CopyFromOrder.class.getName().equals(className))
+			return new CopyFromOrder ();
 		return null;
 	}
 }	//	CalloutFactory
