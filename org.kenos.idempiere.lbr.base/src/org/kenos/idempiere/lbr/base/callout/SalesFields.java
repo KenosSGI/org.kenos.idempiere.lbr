@@ -6,9 +6,11 @@ import org.adempiere.base.IColumnCallout;
 import org.adempiere.model.POWrapper;
 import org.adempierelbr.wrapper.I_W_C_BPartner;
 import org.adempierelbr.wrapper.I_W_C_Invoice;
+import org.adempierelbr.wrapper.I_W_C_Order;
 import org.compiere.model.GridField;
 import org.compiere.model.GridTab;
 import org.compiere.model.MBPartner;
+import org.compiere.model.MBankAccount;
 import org.compiere.model.MInvoice;
 import org.compiere.model.MOrder;
 
@@ -39,8 +41,15 @@ public class SalesFields implements IColumnCallout
 			mTab.setValue(I_W_C_BPartner.COLUMNNAME_lbr_PaymentRule, bpW.getlbr_PaymentRule());
 		
 		//	Bank Account
-		if (bpW.getC_BankAccount_ID() > 0)
-			mTab.setValue(I_W_C_BPartner.COLUMNNAME_C_BankAccount_ID, bpW.getC_BankAccount_ID());
+		int C_BankAccount_ID = bpW.getC_BankAccount_ID();
+		if (C_BankAccount_ID > 0)
+		{
+			Object org = mTab.getValue(I_W_C_Order.COLUMNNAME_AD_Org_ID);
+			//
+			MBankAccount ba = new MBankAccount (ctx, C_BankAccount_ID, null);
+			if (org != null && ((Integer)org).intValue() == ba.getAD_Org_ID())
+				mTab.setValue(I_W_C_BPartner.COLUMNNAME_C_BankAccount_ID, C_BankAccount_ID);
+		}
 		
 		//	Orders only
 		if (MOrder.Table_Name.equals (mTab.getTableName()))
