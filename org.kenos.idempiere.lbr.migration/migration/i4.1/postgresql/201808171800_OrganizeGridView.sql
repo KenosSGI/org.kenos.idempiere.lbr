@@ -1,6 +1,3 @@
-SET SQLBLANKLINES ON
-SET DEFINE OFF
-
 -- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
 -- 17/08/2018 15h59min34s BRT
 UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=1000875
@@ -1038,7 +1035,7 @@ UPDATE AD_Field SET SeqNoGrid=150,IsDisplayedGrid='Y' WHERE AD_Field_ID=1000234
 UPDATE AD_Field SET SeqNoGrid=80,IsDisplayedGrid='Y' WHERE AD_Field_ID=3412
 ;
 
--- 17/08/2018 16h33min27s BRT
+-- 17/08/2018 16h33min28s BRT
 UPDATE AD_Field SET SeqNoGrid=90,IsDisplayedGrid='Y' WHERE AD_Field_ID=3416
 ;
 
@@ -4718,5 +4715,854 @@ UPDATE AD_Field SET SeqNoGrid=80,IsDisplayedGrid='Y' WHERE AD_Field_ID=3997
 UPDATE AD_Field SET SeqNoGrid=90,IsDisplayedGrid='Y' WHERE AD_Field_ID=10585
 ;
 
-SELECT Register_Migration_Script ('201808171800_OrganizeGridViewSomeWindows.sql') FROM DUAL
+-- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
+-- 21/08/2018 10h16min32s BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=1123973
+;
+
+-- 21/08/2018 10h16min32s BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=1127296
+;
+
+-- 21/08/2018 10h16min32s BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=1128
+;
+
+-- 21/08/2018 10h16min32s BRT
+UPDATE AD_Field SET SeqNoGrid=10,IsDisplayedGrid='Y' WHERE AD_Field_ID=1120
+;
+
+-- 21/08/2018 10h16min32s BRT
+UPDATE AD_Field SET SeqNoGrid=20,IsDisplayedGrid='Y' WHERE AD_Field_ID=1127
+;
+
+-- 21/08/2018 10h16min32s BRT
+UPDATE AD_Field SET SeqNoGrid=40,IsDisplayedGrid='Y' WHERE AD_Field_ID=10829
+;
+
+-- 21/08/2018 10h16min32s BRT
+UPDATE AD_Field SET SeqNoGrid=50,IsDisplayedGrid='Y' WHERE AD_Field_ID=1123
+;
+
+-- 21/08/2018 10h16min32s BRT
+UPDATE AD_Field SET SeqNoGrid=60,IsDisplayedGrid='Y' WHERE AD_Field_ID=1000233
+;
+
+-- 21/08/2018 10h16min32s BRT
+UPDATE AD_Field SET SeqNoGrid=70,IsDisplayedGrid='Y' WHERE AD_Field_ID=1000232
+;
+
+-- 21/08/2018 10h16min32s BRT
+UPDATE AD_Field SET SeqNoGrid=80,IsDisplayedGrid='Y' WHERE AD_Field_ID=2880
+;
+
+-- 21/08/2018 10h16min32s BRT
+UPDATE AD_Field SET SeqNoGrid=90,IsDisplayedGrid='Y' WHERE AD_Field_ID=1132
+;
+
+-- 21/08/2018 10h16min32s BRT
+UPDATE AD_Field SET SeqNoGrid=100,IsDisplayedGrid='Y' WHERE AD_Field_ID=1133
+;
+
+-- 21/08/2018 10h18min59s BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=2111
+;
+
+-- 21/08/2018 10h18min59s BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=6559
+;
+
+-- 21/08/2018 10h18min59s BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=1093
+;
+
+-- 21/08/2018 10h18min59s BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=1086
+;
+
+-- 21/08/2018 10h18min59s BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=1107
+;
+
+-- 21/08/2018 10h18min59s BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=2590
+;
+
+-- 21/08/2018 10h18min59s BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=1572
+;
+
+-- 21/08/2018 10h18min59s BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=6558
+;
+
+-- 21/08/2018 10h18min59s BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=6561
+;
+
+-- 21/08/2018 10h18min59s BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=1108
+;
+
+-- 21/08/2018 10h18min59s BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=1109
+;
+
+-- 21/08/2018 10h18min59s BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=1104
+;
+
+-- 21/08/2018 10h18min59s BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=1103
+;
+
+-- 21/08/2018 10h18min59s BRT
+UPDATE AD_Field SET SeqNoGrid=30,IsDisplayedGrid='Y' WHERE AD_Field_ID=1085
+;
+
+-- 21/08/2018 10h18min59s BRT
+UPDATE AD_Field SET SeqNoGrid=40,IsDisplayedGrid='Y' WHERE AD_Field_ID=1000277
+;
+
+-- 21/08/2018 10h18min59s BRT
+UPDATE AD_Field SET SeqNoGrid=50,IsDisplayedGrid='Y' WHERE AD_Field_ID=1094
+;
+
+-- 21/08/2018 10h18min59s BRT
+UPDATE AD_Field SET SeqNoGrid=60,IsDisplayedGrid='Y' WHERE AD_Field_ID=1573
+;
+
+-- 21/08/2018 10h18min59s BRT
+UPDATE AD_Field SET SeqNoGrid=70,IsDisplayedGrid='Y' WHERE AD_Field_ID=1127181
+;
+
+-- 21/08/2018 10h18min59s BRT
+UPDATE AD_Field SET SeqNoGrid=80,IsDisplayedGrid='Y' WHERE AD_Field_ID=1114
+;
+
+-- 21/08/2018 10h18min59s BRT
+UPDATE AD_Field SET SeqNoGrid=90,IsDisplayedGrid='Y' WHERE AD_Field_ID=1077
+;
+
+-- 21/08/2018 10h18min59s BRT
+UPDATE AD_Field SET SeqNoGrid=100,IsDisplayedGrid='Y' WHERE AD_Field_ID=1099
+;
+
+-- 21/08/2018 10h18min59s BRT
+UPDATE AD_Field SET SeqNoGrid=110,IsDisplayedGrid='Y' WHERE AD_Field_ID=1112
+;
+
+-- 21/08/2018 10h18min59s BRT
+UPDATE AD_Field SET SeqNoGrid=120,IsDisplayedGrid='Y' WHERE AD_Field_ID=1113
+;
+
+-- 21/08/2018 10h18min59s BRT
+UPDATE AD_Field SET SeqNoGrid=130,IsDisplayedGrid='Y' WHERE AD_Field_ID=1082
+;
+
+-- 21/08/2018 10h21min6s BRT
+UPDATE AD_Field SET AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, IsToolbarButton=NULL, IsDefaultFocus='Y',Updated=TO_TIMESTAMP('2018-08-21 10:21:06','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1127
+;
+
+-- 21/08/2018 10h35min47s BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=3441
+;
+
+-- 21/08/2018 10h35min47s BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=3447
+;
+
+-- 21/08/2018 10h35min47s BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=3443
+;
+
+-- 21/08/2018 10h35min47s BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=3444
+;
+
+-- 21/08/2018 10h35min47s BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=3458
+;
+
+-- 21/08/2018 10h35min47s BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=6507
+;
+
+-- 21/08/2018 10h35min47s BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=3452
+;
+
+-- 21/08/2018 10h35min47s BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=6505
+;
+
+-- 21/08/2018 10h35min47s BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=3455
+;
+
+-- 21/08/2018 10h35min47s BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=3429
+;
+
+-- 21/08/2018 10h35min47s BRT
+UPDATE AD_Field SET SeqNoGrid=30,IsDisplayedGrid='Y' WHERE AD_Field_ID=3428
+;
+
+-- 21/08/2018 10h35min47s BRT
+UPDATE AD_Field SET SeqNoGrid=40,IsDisplayedGrid='Y' WHERE AD_Field_ID=3435
+;
+
+-- 21/08/2018 10h35min47s BRT
+UPDATE AD_Field SET SeqNoGrid=50,IsDisplayedGrid='Y' WHERE AD_Field_ID=1000284
+;
+
+-- 21/08/2018 10h35min47s BRT
+UPDATE AD_Field SET SeqNoGrid=60,IsDisplayedGrid='Y' WHERE AD_Field_ID=3436
+;
+
+-- 21/08/2018 10h35min47s BRT
+UPDATE AD_Field SET SeqNoGrid=70,IsDisplayedGrid='Y' WHERE AD_Field_ID=3419
+;
+
+-- 21/08/2018 10h35min48s BRT
+UPDATE AD_Field SET SeqNoGrid=80,IsDisplayedGrid='Y' WHERE AD_Field_ID=3451
+;
+
+-- 21/08/2018 10h35min48s BRT
+UPDATE AD_Field SET SeqNoGrid=90,IsDisplayedGrid='Y' WHERE AD_Field_ID=3420
+;
+
+-- 21/08/2018 10h35min48s BRT
+UPDATE AD_Field SET SeqNoGrid=100,IsDisplayedGrid='Y' WHERE AD_Field_ID=3439
+;
+
+-- 21/08/2018 10h35min48s BRT
+UPDATE AD_Field SET SeqNoGrid=110,IsDisplayedGrid='Y' WHERE AD_Field_ID=1122786
+;
+
+-- 21/08/2018 10h35min48s BRT
+UPDATE AD_Field SET SeqNoGrid=120,IsDisplayedGrid='Y' WHERE AD_Field_ID=1122732
+;
+
+-- 21/08/2018 10h35min48s BRT
+UPDATE AD_Field SET SeqNoGrid=130,IsDisplayedGrid='Y' WHERE AD_Field_ID=3449
+;
+
+-- 21/08/2018 10h35min48s BRT
+UPDATE AD_Field SET SeqNoGrid=140,IsDisplayedGrid='Y' WHERE AD_Field_ID=3450
+;
+
+-- 21/08/2018 10h35min48s BRT
+UPDATE AD_Field SET SeqNoGrid=150,IsDisplayedGrid='Y' WHERE AD_Field_ID=3425
+;
+
+-- 21/08/2018 10h36min48s BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=3412
+;
+
+-- 21/08/2018 10h36min48s BRT
+UPDATE AD_Field SET SeqNoGrid=10,IsDisplayedGrid='Y' WHERE AD_Field_ID=3403
+;
+
+-- 21/08/2018 10h36min48s BRT
+UPDATE AD_Field SET SeqNoGrid=20,IsDisplayedGrid='Y' WHERE AD_Field_ID=3386
+;
+
+-- 21/08/2018 10h36min48s BRT
+UPDATE AD_Field SET SeqNoGrid=30,IsDisplayedGrid='Y' WHERE AD_Field_ID=3387
+;
+
+-- 21/08/2018 10h36min48s BRT
+UPDATE AD_Field SET SeqNoGrid=40,IsDisplayedGrid='Y' WHERE AD_Field_ID=10827
+;
+
+-- 21/08/2018 10h36min48s BRT
+UPDATE AD_Field SET SeqNoGrid=50,IsDisplayedGrid='Y' WHERE AD_Field_ID=10826
+;
+
+-- 21/08/2018 10h36min48s BRT
+UPDATE AD_Field SET SeqNoGrid=60,IsDisplayedGrid='Y' WHERE AD_Field_ID=3405
+;
+
+-- 21/08/2018 10h36min48s BRT
+UPDATE AD_Field SET SeqNoGrid=70,IsDisplayedGrid='Y' WHERE AD_Field_ID=1000235
+;
+
+-- 21/08/2018 10h36min48s BRT
+UPDATE AD_Field SET SeqNoGrid=80,IsDisplayedGrid='Y' WHERE AD_Field_ID=1000234
+;
+
+-- 21/08/2018 10h36min48s BRT
+UPDATE AD_Field SET SeqNoGrid=100,IsDisplayedGrid='Y' WHERE AD_Field_ID=3391
+;
+
+-- 21/08/2018 10h36min48s BRT
+UPDATE AD_Field SET SeqNoGrid=110,IsDisplayedGrid='Y' WHERE AD_Field_ID=3392
+;
+
+-- 21/08/2018 10h36min48s BRT
+UPDATE AD_Field SET SeqNoGrid=120,IsDisplayedGrid='Y' WHERE AD_Field_ID=1122733
+;
+
+-- 21/08/2018 10h36min48s BRT
+UPDATE AD_Field SET SeqNoGrid=130,IsDisplayedGrid='Y' WHERE AD_Field_ID=1120321
+;
+
+-- 21/08/2018 10h36min48s BRT
+UPDATE AD_Field SET SeqNoGrid=140,IsDisplayedGrid='Y' WHERE AD_Field_ID=1120322
+;
+
+-- 21/08/2018 10h37min18s BRT
+UPDATE AD_Field SET AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, IsToolbarButton=NULL, IsDefaultFocus='Y',Updated=TO_TIMESTAMP('2018-08-21 10:37:18','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=3386
+;
+
+-- 21/08/2018 11h3min14s BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=2961
+;
+
+-- 21/08/2018 11h3min14s BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=2962
+;
+
+-- 21/08/2018 11h3min14s BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=2770
+;
+
+-- 21/08/2018 11h3min14s BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=2763
+;
+
+-- 21/08/2018 11h3min14s BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=3112
+;
+
+-- 21/08/2018 11h3min14s BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=1000879
+;
+
+-- 21/08/2018 11h3min14s BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=1000287
+;
+
+-- 21/08/2018 11h3min14s BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=1000868
+;
+
+-- 21/08/2018 11h3min14s BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=1000288
+;
+
+-- 21/08/2018 11h3min14s BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=1122737
+;
+
+-- 21/08/2018 11h3min14s BRT
+UPDATE AD_Field SET SeqNoGrid=70,IsDisplayedGrid='Y' WHERE AD_Field_ID=1000290
+;
+
+-- 21/08/2018 11h3min14s BRT
+UPDATE AD_Field SET SeqNoGrid=80,IsDisplayedGrid='Y' WHERE AD_Field_ID=2954
+;
+
+-- 21/08/2018 11h3min14s BRT
+UPDATE AD_Field SET SeqNoGrid=90,IsDisplayedGrid='Y' WHERE AD_Field_ID=2766
+;
+
+-- 21/08/2018 11h3min14s BRT
+UPDATE AD_Field SET SeqNoGrid=100,IsDisplayedGrid='Y' WHERE AD_Field_ID=2774
+;
+
+-- 21/08/2018 11h3min14s BRT
+UPDATE AD_Field SET SeqNoGrid=110,IsDisplayedGrid='Y' WHERE AD_Field_ID=2786
+;
+
+-- 21/08/2018 11h3min14s BRT
+UPDATE AD_Field SET SeqNoGrid=120,IsDisplayedGrid='Y' WHERE AD_Field_ID=2780
+;
+
+-- 21/08/2018 11h3min14s BRT
+UPDATE AD_Field SET SeqNoGrid=130,IsDisplayedGrid='Y' WHERE AD_Field_ID=2778
+;
+
+-- 21/08/2018 11h3min14s BRT
+UPDATE AD_Field SET SeqNoGrid=140,IsDisplayedGrid='Y' WHERE AD_Field_ID=3899
+;
+
+-- 21/08/2018 11h6min3s BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=1122755
+;
+
+-- 21/08/2018 11h6min3s BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=6566
+;
+
+-- 21/08/2018 11h6min3s BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=2989
+;
+
+-- 21/08/2018 11h6min3s BRT
+UPDATE AD_Field SET SeqNoGrid=10,IsDisplayedGrid='Y' WHERE AD_Field_ID=2994
+;
+
+-- 21/08/2018 11h6min3s BRT
+UPDATE AD_Field SET SeqNoGrid=20,IsDisplayedGrid='Y' WHERE AD_Field_ID=2996
+;
+
+-- 21/08/2018 11h6min3s BRT
+UPDATE AD_Field SET SeqNoGrid=40,IsDisplayedGrid='Y' WHERE AD_Field_ID=10822
+;
+
+-- 21/08/2018 11h6min3s BRT
+UPDATE AD_Field SET SeqNoGrid=50,IsDisplayedGrid='Y' WHERE AD_Field_ID=1000237
+;
+
+-- 21/08/2018 11h6min3s BRT
+UPDATE AD_Field SET SeqNoGrid=60,IsDisplayedGrid='Y' WHERE AD_Field_ID=1000236
+;
+
+-- 21/08/2018 11h6min3s BRT
+UPDATE AD_Field SET SeqNoGrid=70,IsDisplayedGrid='Y' WHERE AD_Field_ID=2995
+;
+
+-- 21/08/2018 11h6min3s BRT
+UPDATE AD_Field SET SeqNoGrid=80,IsDisplayedGrid='Y' WHERE AD_Field_ID=2999
+;
+
+-- 21/08/2018 11h6min44s BRT
+UPDATE AD_Field SET AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, IsToolbarButton=NULL, IsDefaultFocus='Y',Updated=TO_TIMESTAMP('2018-08-21 11:06:44','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=2996
+;
+
+-- 21/08/2018 11h15min18s BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=3351
+;
+
+-- 21/08/2018 11h15min18s BRT
+UPDATE AD_Field SET SeqNoGrid=60,IsDisplayedGrid='Y' WHERE AD_Field_ID=1001065
+;
+
+-- 21/08/2018 11h15min18s BRT
+UPDATE AD_Field SET SeqNoGrid=70,IsDisplayedGrid='Y' WHERE AD_Field_ID=1000296
+;
+
+-- 21/08/2018 11h15min18s BRT
+UPDATE AD_Field SET SeqNoGrid=80,IsDisplayedGrid='Y' WHERE AD_Field_ID=1000478
+;
+
+-- 21/08/2018 11h15min18s BRT
+UPDATE AD_Field SET SeqNoGrid=90,IsDisplayedGrid='Y' WHERE AD_Field_ID=3344
+;
+
+-- 21/08/2018 11h15min18s BRT
+UPDATE AD_Field SET SeqNoGrid=100,IsDisplayedGrid='Y' WHERE AD_Field_ID=3348
+;
+
+-- 21/08/2018 11h15min18s BRT
+UPDATE AD_Field SET SeqNoGrid=110,IsDisplayedGrid='Y' WHERE AD_Field_ID=3333
+;
+
+-- 21/08/2018 11h15min18s BRT
+UPDATE AD_Field SET SeqNoGrid=120,IsDisplayedGrid='Y' WHERE AD_Field_ID=3325
+;
+
+-- 21/08/2018 11h15min18s BRT
+UPDATE AD_Field SET SeqNoGrid=130,IsDisplayedGrid='Y' WHERE AD_Field_ID=3328
+;
+
+-- 21/08/2018 11h15min18s BRT
+UPDATE AD_Field SET SeqNoGrid=140,IsDisplayedGrid='Y' WHERE AD_Field_ID=3331
+;
+
+-- 21/08/2018 11h15min18s BRT
+UPDATE AD_Field SET SeqNoGrid=150,IsDisplayedGrid='Y' WHERE AD_Field_ID=3343
+;
+
+-- 21/08/2018 11h15min18s BRT
+UPDATE AD_Field SET SeqNoGrid=160,IsDisplayedGrid='Y' WHERE AD_Field_ID=3337
+;
+
+-- 21/08/2018 11h15min18s BRT
+UPDATE AD_Field SET SeqNoGrid=170,IsDisplayedGrid='Y' WHERE AD_Field_ID=1122744
+;
+
+-- 21/08/2018 11h15min18s BRT
+UPDATE AD_Field SET SeqNoGrid=180,IsDisplayedGrid='Y' WHERE AD_Field_ID=3335
+;
+
+-- 21/08/2018 11h15min18s BRT
+UPDATE AD_Field SET SeqNoGrid=190,IsDisplayedGrid='Y' WHERE AD_Field_ID=3900
+;
+
+-- 21/08/2018 11h16min45s BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=3374
+;
+
+-- 21/08/2018 11h16min45s BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=3365
+;
+
+-- 21/08/2018 11h16min45s BRT
+UPDATE AD_Field SET SeqNoGrid=10,IsDisplayedGrid='Y' WHERE AD_Field_ID=3369
+;
+
+-- 21/08/2018 11h16min45s BRT
+UPDATE AD_Field SET SeqNoGrid=20,IsDisplayedGrid='Y' WHERE AD_Field_ID=3371
+;
+
+-- 21/08/2018 11h16min46s BRT
+UPDATE AD_Field SET SeqNoGrid=40,IsDisplayedGrid='Y' WHERE AD_Field_ID=10824
+;
+
+-- 21/08/2018 11h16min46s BRT
+UPDATE AD_Field SET SeqNoGrid=50,IsDisplayedGrid='Y' WHERE AD_Field_ID=1000240
+;
+
+-- 21/08/2018 11h16min46s BRT
+UPDATE AD_Field SET SeqNoGrid=60,IsDisplayedGrid='Y' WHERE AD_Field_ID=1000239
+;
+
+-- 21/08/2018 11h17min30s BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=2999
+;
+
+-- 21/08/2018 11h17min30s BRT
+UPDATE AD_Field SET SeqNoGrid=80,IsDisplayedGrid='Y' WHERE AD_Field_ID=8264
+;
+
+-- 21/08/2018 11h17min56s BRT
+UPDATE AD_Field SET AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, IsToolbarButton=NULL, IsDefaultFocus='Y',Updated=TO_TIMESTAMP('2018-08-21 11:17:56','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=3371
+;
+
+-- 21/08/2018 11h33min50s BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=3497
+;
+
+-- 21/08/2018 11h33min50s BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=3475
+;
+
+-- 21/08/2018 11h33min50s BRT
+UPDATE AD_Field SET SeqNoGrid=60,IsDisplayedGrid='Y' WHERE AD_Field_ID=1001067
+;
+
+-- 21/08/2018 11h33min50s BRT
+UPDATE AD_Field SET SeqNoGrid=70,IsDisplayedGrid='Y' WHERE AD_Field_ID=3489
+;
+
+-- 21/08/2018 11h33min50s BRT
+UPDATE AD_Field SET SeqNoGrid=80,IsDisplayedGrid='Y' WHERE AD_Field_ID=3481
+;
+
+-- 21/08/2018 11h33min50s BRT
+UPDATE AD_Field SET SeqNoGrid=90,IsDisplayedGrid='Y' WHERE AD_Field_ID=3487
+;
+
+-- 21/08/2018 11h33min50s BRT
+UPDATE AD_Field SET SeqNoGrid=100,IsDisplayedGrid='Y' WHERE AD_Field_ID=3501
+;
+
+-- 21/08/2018 11h33min50s BRT
+UPDATE AD_Field SET SeqNoGrid=110,IsDisplayedGrid='Y' WHERE AD_Field_ID=3495
+;
+
+-- 21/08/2018 11h33min50s BRT
+UPDATE AD_Field SET SeqNoGrid=120,IsDisplayedGrid='Y' WHERE AD_Field_ID=3504
+;
+
+-- 21/08/2018 11h33min50s BRT
+UPDATE AD_Field SET SeqNoGrid=130,IsDisplayedGrid='Y' WHERE AD_Field_ID=3494
+;
+
+-- 21/08/2018 11h33min50s BRT
+UPDATE AD_Field SET SeqNoGrid=140,IsDisplayedGrid='Y' WHERE AD_Field_ID=3505
+;
+
+-- 21/08/2018 11h57min47s BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=3517
+;
+
+-- 21/08/2018 11h57min47s BRT
+UPDATE AD_Field SET SeqNoGrid=10,IsDisplayedGrid='Y' WHERE AD_Field_ID=3518
+;
+
+-- 21/08/2018 11h57min47s BRT
+UPDATE AD_Field SET SeqNoGrid=20,IsDisplayedGrid='Y' WHERE AD_Field_ID=3515
+;
+
+-- 21/08/2018 11h57min47s BRT
+UPDATE AD_Field SET SeqNoGrid=60,IsDisplayedGrid='Y' WHERE AD_Field_ID=3516
+;
+
+-- 21/08/2018 11h57min47s BRT
+UPDATE AD_Field SET SeqNoGrid=70,IsDisplayedGrid='Y' WHERE AD_Field_ID=9239
+;
+
+-- 21/08/2018 11h57min47s BRT
+UPDATE AD_Field SET SeqNoGrid=80,IsDisplayedGrid='Y' WHERE AD_Field_ID=9241
+;
+
+-- 21/08/2018 11h57min47s BRT
+UPDATE AD_Field SET SeqNoGrid=90,IsDisplayedGrid='Y' WHERE AD_Field_ID=9238
+;
+
+-- 21/08/2018 11h57min47s BRT
+UPDATE AD_Field SET SeqNoGrid=100,IsDisplayedGrid='Y' WHERE AD_Field_ID=9240
+;
+
+-- 21/08/2018 11h58min9s BRT
+UPDATE AD_Field SET AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, IsToolbarButton=NULL, IsDefaultFocus='Y',Updated=TO_TIMESTAMP('2018-08-21 11:58:09','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=3515
+;
+
+-- 21/08/2018 11h58min59s BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=2929
+;
+
+-- 21/08/2018 11h58min59s BRT
+UPDATE AD_Field SET SeqNoGrid=80,IsDisplayedGrid='Y' WHERE AD_Field_ID=2944
+;
+
+-- 21/08/2018 11h58min59s BRT
+UPDATE AD_Field SET SeqNoGrid=90,IsDisplayedGrid='Y' WHERE AD_Field_ID=2937
+;
+
+-- 21/08/2018 11h58min59s BRT
+UPDATE AD_Field SET SeqNoGrid=100,IsDisplayedGrid='Y' WHERE AD_Field_ID=2943
+;
+
+-- 21/08/2018 11h58min59s BRT
+UPDATE AD_Field SET SeqNoGrid=110,IsDisplayedGrid='Y' WHERE AD_Field_ID=6879
+;
+
+-- 21/08/2018 11h58min59s BRT
+UPDATE AD_Field SET SeqNoGrid=120,IsDisplayedGrid='Y' WHERE AD_Field_ID=54716
+;
+
+-- 21/08/2018 11h58min59s BRT
+UPDATE AD_Field SET SeqNoGrid=130,IsDisplayedGrid='Y' WHERE AD_Field_ID=2939
+;
+
+-- 21/08/2018 11h58min59s BRT
+UPDATE AD_Field SET SeqNoGrid=140,IsDisplayedGrid='Y' WHERE AD_Field_ID=3280
+;
+
+-- 21/08/2018 11h59min8s BRT
+UPDATE AD_Field SET SeqNoGrid=10,IsDisplayedGrid='Y' WHERE AD_Field_ID=2949
+;
+
+-- 21/08/2018 11h59min8s BRT
+UPDATE AD_Field SET SeqNoGrid=20,IsDisplayedGrid='Y' WHERE AD_Field_ID=2718
+;
+
+-- 21/08/2018 11h59min17s BRT
+UPDATE AD_Field SET AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, IsToolbarButton=NULL, IsDefaultFocus='Y',Updated=TO_TIMESTAMP('2018-08-21 11:59:17','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=2718
+;
+
+-- 21/08/2018 12h0min27s BRT
+UPDATE AD_Field SET SeqNoGrid=10,IsDisplayedGrid='Y' WHERE AD_Field_ID=52005
+;
+
+-- 21/08/2018 12h0min27s BRT
+UPDATE AD_Field SET SeqNoGrid=20,IsDisplayedGrid='Y' WHERE AD_Field_ID=201688
+;
+
+-- 21/08/2018 12h1min1s BRT
+UPDATE AD_Field SET AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, IsToolbarButton=NULL, IsDefaultFocus='Y',Updated=TO_TIMESTAMP('2018-08-21 12:01:01','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=201688
+;
+
+-- 21/08/2018 12h1min55s BRT
+UPDATE AD_Field SET SeqNoGrid=10,IsDisplayedGrid='Y' WHERE AD_Field_ID=57973
+;
+
+-- 21/08/2018 12h1min55s BRT
+UPDATE AD_Field SET SeqNoGrid=20,IsDisplayedGrid='Y' WHERE AD_Field_ID=201689
+;
+
+-- 21/08/2018 12h2min4s BRT
+UPDATE AD_Field SET AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, IsToolbarButton=NULL, IsDefaultFocus='Y',Updated=TO_TIMESTAMP('2018-08-21 12:02:04','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=201689
+;
+
+-- 21/08/2018 12h2min53s BRT
+UPDATE AD_Field SET SeqNoGrid=10,IsDisplayedGrid='Y' WHERE AD_Field_ID=57763
+;
+
+-- 21/08/2018 12h2min53s BRT
+UPDATE AD_Field SET SeqNoGrid=20,IsDisplayedGrid='Y' WHERE AD_Field_ID=57764
+;
+
+-- 21/08/2018 12h3min15s BRT
+UPDATE AD_Field SET AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, IsToolbarButton=NULL, IsDefaultFocus='Y',Updated=TO_TIMESTAMP('2018-08-21 12:03:15','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=57764
+;
+
+-- 21/08/2018 12h3min55s BRT
+UPDATE AD_Field SET SeqNoGrid=10,IsDisplayedGrid='Y' WHERE AD_Field_ID=57902
+;
+
+-- 21/08/2018 12h3min55s BRT
+UPDATE AD_Field SET SeqNoGrid=20,IsDisplayedGrid='Y' WHERE AD_Field_ID=57903
+;
+
+-- 21/08/2018 12h6min1s BRT
+UPDATE AD_Field SET AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, IsToolbarButton=NULL, IsDefaultFocus='Y',Updated=TO_TIMESTAMP('2018-08-21 12:06:01','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=57903
+;
+
+-- 21/08/2018 12h10min46s BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=5737
+;
+
+-- 21/08/2018 12h10min46s BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=5736
+;
+
+-- 21/08/2018 12h10min46s BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=5117
+;
+
+-- 21/08/2018 12h10min46s BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=1125384
+;
+
+-- 21/08/2018 12h10min46s BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=1125383
+;
+
+-- 21/08/2018 12h10min46s BRT
+UPDATE AD_Field SET SeqNoGrid=100,IsDisplayedGrid='Y' WHERE AD_Field_ID=4362
+;
+
+-- 21/08/2018 12h14min8s BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=4122
+;
+
+-- 21/08/2018 12h14min8s BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=8357
+;
+
+-- 21/08/2018 12h14min8s BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=6863
+;
+
+-- 21/08/2018 12h14min8s BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=6864
+;
+
+-- 21/08/2018 12h14min8s BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=8936
+;
+
+-- 21/08/2018 12h14min8s BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=8359
+;
+
+-- 21/08/2018 12h14min8s BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=8356
+;
+
+-- 21/08/2018 12h14min8s BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=8358
+;
+
+-- 21/08/2018 12h14min8s BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=8694
+;
+
+-- 21/08/2018 12h14min8s BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=8692
+;
+
+-- 21/08/2018 12h14min8s BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=8361
+;
+
+-- 21/08/2018 12h14min8s BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=8360
+;
+
+-- 21/08/2018 12h14min8s BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=8362
+;
+
+-- 21/08/2018 12h14min8s BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=8691
+;
+
+-- 21/08/2018 12h14min8s BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=8689
+;
+
+-- 21/08/2018 12h14min8s BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=8688
+;
+
+-- 21/08/2018 12h14min8s BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=8693
+;
+
+-- 21/08/2018 12h14min8s BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=4014
+;
+
+-- 21/08/2018 12h14min8s BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=4012
+;
+
+-- 21/08/2018 12h14min8s BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=4008
+;
+
+-- 21/08/2018 12h14min9s BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=4005
+;
+
+-- 21/08/2018 12h14min9s BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=4004
+;
+
+-- 21/08/2018 12h14min9s BRT
+UPDATE AD_Field SET SeqNoGrid=10,IsDisplayedGrid='Y' WHERE AD_Field_ID=4124
+;
+
+-- 21/08/2018 12h14min9s BRT
+UPDATE AD_Field SET SeqNoGrid=20,IsDisplayedGrid='Y' WHERE AD_Field_ID=8935
+;
+
+-- 21/08/2018 12h14min9s BRT
+UPDATE AD_Field SET SeqNoGrid=30,IsDisplayedGrid='Y' WHERE AD_Field_ID=4010
+;
+
+-- 21/08/2018 12h14min9s BRT
+UPDATE AD_Field SET SeqNoGrid=40,IsDisplayedGrid='Y' WHERE AD_Field_ID=4125
+;
+
+-- 21/08/2018 12h14min9s BRT
+UPDATE AD_Field SET SeqNoGrid=50,IsDisplayedGrid='Y' WHERE AD_Field_ID=4126
+;
+
+-- 21/08/2018 12h14min9s BRT
+UPDATE AD_Field SET SeqNoGrid=60,IsDisplayedGrid='Y' WHERE AD_Field_ID=4011
+;
+
+-- 21/08/2018 12h14min9s BRT
+UPDATE AD_Field SET SeqNoGrid=70,IsDisplayedGrid='Y' WHERE AD_Field_ID=4013
+;
+
+-- 21/08/2018 12h14min9s BRT
+UPDATE AD_Field SET SeqNoGrid=80,IsDisplayedGrid='Y' WHERE AD_Field_ID=4009
+;
+
+-- 21/08/2018 12h14min9s BRT
+UPDATE AD_Field SET SeqNoGrid=90,IsDisplayedGrid='Y' WHERE AD_Field_ID=8934
+;
+
+-- 21/08/2018 12h14min9s BRT
+UPDATE AD_Field SET SeqNoGrid=100,IsDisplayedGrid='Y' WHERE AD_Field_ID=8690
+;
+
+-- 21/08/2018 12h14min9s BRT
+UPDATE AD_Field SET SeqNoGrid=110,IsDisplayedGrid='Y' WHERE AD_Field_ID=4121
+;
+
+-- 21/08/2018 12h14min9s BRT
+UPDATE AD_Field SET SeqNoGrid=120,IsDisplayedGrid='Y' WHERE AD_Field_ID=4127
+;
+
+SELECT Register_Migration_Script ('201808171800_OrganizeGridView.sql') FROM DUAL
 ;
