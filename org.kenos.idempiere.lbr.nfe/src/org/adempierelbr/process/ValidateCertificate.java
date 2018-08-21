@@ -16,12 +16,13 @@ import java.util.Map;
 import org.adempierelbr.model.MLBRDigitalCertificate;
 import org.adempierelbr.util.TextUtil;
 import org.bouncycastle.asn1.ASN1InputStream;
+import org.bouncycastle.asn1.ASN1ObjectIdentifier;
+import org.bouncycastle.asn1.ASN1OctetString;
+import org.bouncycastle.asn1.ASN1Primitive;
+import org.bouncycastle.asn1.ASN1Sequence;
+import org.bouncycastle.asn1.ASN1TaggedObject;
 import org.bouncycastle.asn1.DERIA5String;
-import org.bouncycastle.asn1.DERObjectIdentifier;
-import org.bouncycastle.asn1.DEROctetString;
 import org.bouncycastle.asn1.DERPrintableString;
-import org.bouncycastle.asn1.DERSequence;
-import org.bouncycastle.asn1.DERTaggedObject;
 import org.bouncycastle.asn1.DERUTF8String;
 import org.compiere.model.MAttachment;
 import org.compiere.process.SvrProcess;
@@ -272,41 +273,38 @@ public class ValidateCertificate extends SvrProcess
 		public static OIDGeneric getInstance(byte[] data) throws IOException, Exception {
 			@SuppressWarnings("resource")
 			ASN1InputStream is = new ASN1InputStream(data);
-			DERSequence sequence = (DERSequence) is.readObject();
-			DERObjectIdentifier objectIdentifier = (DERObjectIdentifier) sequence.getObjectAt(0);
-			DERTaggedObject tag = (DERTaggedObject) sequence.getObjectAt(1);
-			DEROctetString octetString = null;
-			DERPrintableString printableString = null;
-			DERUTF8String utf8String = null;
-			DERIA5String ia5String = null;
+			ASN1Sequence sequence = (ASN1Sequence) is.readObject();
+			ASN1ObjectIdentifier objectIdentifier = (ASN1ObjectIdentifier) sequence.getObjectAt(0);
+			ASN1TaggedObject tag = (ASN1TaggedObject) sequence.getObjectAt(1);
+			ASN1Primitive tagObj = tag.getObject();
 
-			try {
-				octetString = (DEROctetString) DEROctetString.getInstance(tag);
-			} catch (Exception ex) {
-				try {
-					printableString = DERPrintableString.getInstance(tag);
-				} catch (Exception e1) {
-					try {
-						utf8String = DERUTF8String.getInstance(tag);
-					} catch (Exception e2) {
-						ia5String = DERIA5String.getInstance(tag);
-					}
-				}
-			}
-
+			while (tagObj instanceof ASN1TaggedObject)
+				tagObj = ((ASN1TaggedObject)tagObj).getObject();
+			
 			OIDGeneric oidGenerico = new OIDGeneric();
-
 			oidGenerico.setOid(objectIdentifier.getId());
 
-			if (octetString != null) {
-				oidGenerico.setData(new String(octetString.getOctets()));
-			} else if (printableString != null) {
-				oidGenerico.setData(printableString.getString());
-			} else if (utf8String != null) {
-				oidGenerico.setData(utf8String.getString());
-			} else {
-				oidGenerico.setData(ia5String.getString());
+			if (tagObj instanceof ASN1OctetString)
+			{
+				ASN1OctetString instance = ASN1OctetString.getInstance(tagObj);
+				oidGenerico.setData(new String(instance.getOctets()));
 			}
+			else if (tagObj instanceof DERPrintableString)
+			{
+				DERPrintableString instance = DERPrintableString.getInstance(tagObj);
+				oidGenerico.setData(instance.getString());
+			}
+			else if (tagObj instanceof DERUTF8String)
+			{
+				DERUTF8String instance = DERUTF8String.getInstance(tagObj);
+				oidGenerico.setData(instance.getString());
+			}
+			else if (tagObj instanceof DERIA5String)
+			{
+				DERIA5String instance = DERIA5String.getInstance(tagObj);
+				oidGenerico.setData(instance.getString());
+			}
+			
 			oidGenerico.initialize();
 			return oidGenerico;
 		}
