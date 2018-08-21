@@ -5567,5 +5567,61 @@ UPDATE AD_Field SET SeqNoGrid=110,IsDisplayedGrid='Y' WHERE AD_Field_ID=4121
 UPDATE AD_Field SET SeqNoGrid=120,IsDisplayedGrid='Y' WHERE AD_Field_ID=4127
 ;
 
+-- 21/08/2018 15h15min20s BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=202394
+;
+
+-- 21/08/2018 15h15min20s BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=2279
+;
+
+-- 21/08/2018 15h15min20s BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=2276
+;
+
+-- 21/08/2018 15h15min20s BRT
+UPDATE AD_Field SET SeqNoGrid=10,IsDisplayedGrid='Y' WHERE AD_Field_ID=2277
+;
+
+-- 21/08/2018 15h15min20s BRT
+UPDATE AD_Field SET SeqNoGrid=20,IsDisplayedGrid='Y' WHERE AD_Field_ID=2894
+;
+
+-- 21/08/2018 15h15min20s BRT
+UPDATE AD_Field SET SeqNoGrid=30,IsDisplayedGrid='Y' WHERE AD_Field_ID=2895
+;
+
+-- 21/08/2018 15h15min20s BRT
+UPDATE AD_Field SET SeqNoGrid=40,IsDisplayedGrid='Y' WHERE AD_Field_ID=11011
+;
+
+-- 21/08/2018 15h15min44s BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=202396
+;
+
+-- 21/08/2018 15h15min44s BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=3472
+;
+
+-- 21/08/2018 15h15min44s BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N' WHERE AD_Field_ID=3469
+;
+
+-- 21/08/2018 15h15min44s BRT
+UPDATE AD_Field SET SeqNoGrid=10,IsDisplayedGrid='Y' WHERE AD_Field_ID=3470
+;
+
+-- 21/08/2018 15h15min44s BRT
+UPDATE AD_Field SET SeqNoGrid=20,IsDisplayedGrid='Y' WHERE AD_Field_ID=3473
+;
+
+-- 21/08/2018 15h15min44s BRT
+UPDATE AD_Field SET SeqNoGrid=30,IsDisplayedGrid='Y' WHERE AD_Field_ID=3474
+;
+
+-- 21/08/2018 15h15min44s BRT
+UPDATE AD_Field SET SeqNoGrid=40,IsDisplayedGrid='Y' WHERE AD_Field_ID=11010
+;
+
 SELECT Register_Migration_Script ('201808171800_OrganizeGridView.sql') FROM DUAL
 ;
