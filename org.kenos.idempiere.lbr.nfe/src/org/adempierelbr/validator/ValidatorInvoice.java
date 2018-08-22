@@ -31,6 +31,7 @@ import org.compiere.model.MDocType;
 import org.compiere.model.MInOutLine;
 import org.compiere.model.MInvoice;
 import org.compiere.model.MInvoiceLine;
+import org.compiere.model.MInvoicePaySchedule;
 import org.compiere.model.MOrder;
 import org.compiere.model.MOrderLine;
 import org.compiere.model.MPInstance;
@@ -375,10 +376,33 @@ public class ValidatorInvoice implements ModelValidator
 		I_W_C_DocType wDocType = POWrapper.create (new MDocType(ctx, invoice.getC_DocTypeTarget_ID(), trxName), I_W_C_DocType.class);
 		
 		/**
+		 * 	Antes de Preparar:
+		 * 		Se Total Geral do Pedido for Diferente do Total Geral da Fatura
+		 * 		Programação de Pagamento possívelmente irá apresentar erro
+		 * 		Nessa situação, deletar a programação de pagamento para ser Re-criada no Preparar da Fatura
+		 */
+		if (timing == TIMING_BEFORE_PREPARE)
+		{			
+			MOrder order = (MOrder) invoice.getC_Order();
+			
+			if (order != null && order.getC_Order_ID() > 0 &&
+					!order.getGrandTotal().equals(invoice.getGrandTotal()))
+			{
+				MInvoicePaySchedule[] schedule = MInvoicePaySchedule.getInvoicePaySchedule
+						(invoice.getCtx(), invoice.getC_Invoice_ID(), 0, invoice.get_TrxName());
+						
+						for (MInvoicePaySchedule s : schedule)
+						{
+							s.deleteEx(true);
+						}
+			}
+		}
+			
+		/**
 		 * 	Após preparar executa:
 		 * 		Validação do número da Nota Fiscal de Entrada
 		 */
-		if (timing == TIMING_AFTER_PREPARE)
+		else if (timing == TIMING_AFTER_PREPARE)
 		{
 			/**
 			 * 	Quando gera documento fiscal de terceiros E
