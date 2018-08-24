@@ -1726,8 +1726,11 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 					&& (getlbr_CFOPNote() == null || getlbr_CFOPNote().length() < 1))
 				setlbr_CFOPNote(nfLine.getLBR_CFOP().getDescription());
 			
-			line.set_ValueNoCheck(MLBRNotaFiscalLine.COLUMNNAME_LBR_NotaFiscalLine_ID, nfLine.getLBR_NotaFiscalLine_ID());
-			line.save();
+			//	Add NF Line To Production Line
+			//  Isntance in the Same Transaction
+			MProductionLine pLine = new MProductionLine (Env.getCtx(), line.getM_ProductionLine_ID(), nfLine.get_TrxName());
+			pLine.set_ValueNoCheck(MLBRNotaFiscalLine.COLUMNNAME_LBR_NotaFiscalLine_ID, nfLine.getLBR_NotaFiscalLine_ID());
+			pLine.save();
 		}
 		
 		//	Valores
