@@ -92,6 +92,7 @@ public class WPOGInvoiceGen extends ADForm implements IFormController, WTableMod
 	private Button bSelectAllComp = ButtonFactory.createNamedButton("SelectAll", false, true); 
 	private Boolean selectAllProd = false;
 	private Boolean selectAllComp = false;
+	private Label grandTotalProd = new Label("Total Geral: 0");
 	
 	/**	Result Table	*/
 	private WListbox miniTableProd = new WListbox();
@@ -150,7 +151,9 @@ public class WPOGInvoiceGen extends ADForm implements IFormController, WTableMod
 	{
 		this.appendChild(new Separator());
 		this.appendChild(grpSelectionProd);
-		grpSelectionProd.appendChild(bSelectAllProd);	
+		grpSelectionProd.appendChild(bSelectAllProd);
+		grpSelectionProd.appendChild(new Space());
+		grpSelectionProd.appendChild(grandTotalProd.rightAlign());
 		this.appendChild(new Separator());
 		this.appendChild(grpSelectionComp);
 		grpSelectionComp.appendChild(bSelectAllComp);
@@ -177,6 +180,9 @@ public class WPOGInvoiceGen extends ADForm implements IFormController, WTableMod
 		columnNames.add (Msg.translate(ctx, "M_Product_ID"));
 		columnNames.add (Msg.translate(ctx, "ProductionQty"));
 		columnNames.add (Msg.translate(ctx, "MovementQty"));
+		columnNames.add (Msg.translate(ctx, "PriceEntered"));
+		columnNames.add (Msg.translate(ctx, "GrandTotal"));
+		columnNames.add (Msg.translate(ctx, "IsInvoiced"));
 		columnNames.add (Msg.translate(ctx, "DocStatus"));
 
 		//	Clear
@@ -192,11 +198,14 @@ public class WPOGInvoiceGen extends ADForm implements IFormController, WTableMod
 		//
 		int index=0;
 		miniTableProd.setColumnClass (index++, Boolean.class, false);		//  0-Selection
-		miniTableProd.setColumnClass (index++, KeyNamePair.class, true); 		//  1-DocumentNo
+		miniTableProd.setColumnClass (index++, KeyNamePair.class, true); 	//  1-DocumentNo
 		miniTableProd.setColumnClass (index++, Timestamp.class, true);		//  2-MovementDate
 		miniTableProd.setColumnClass (index++, String.class, true);			//  3-Product
 		miniTableProd.setColumnClass (index++, BigDecimal.class, true);		//  4-Production Qty
-		miniTableProd.setColumnClass (index++, BigDecimal.class, true);	//  5-Movement Qty
+		miniTableProd.setColumnClass (index++, BigDecimal.class, true);		//  5-Movement Qty
+		miniTableProd.setColumnClass (index++, BigDecimal.class, true);		//  6-Price Entered
+		miniTableProd.setColumnClass (index++, BigDecimal.class, true);		//  7-GrandTotal
+		miniTableProd.setColumnClass (index++, Boolean.class, true);		//  8-Is Invoiced
 		
 		selectAllProd = false;
 	}	//	createProductionGrid
@@ -229,7 +238,7 @@ public class WPOGInvoiceGen extends ADForm implements IFormController, WTableMod
 		//
 		int index=0;
 		miniTableComp.setColumnClass (index++, Boolean.class, false);		//  0-Selection
-		miniTableComp.setColumnClass (index++, String.class, true); 			//  1-Description
+		miniTableComp.setColumnClass (index++, String.class, true); 		//  1-Description
 		miniTableComp.setColumnClass (index++, KeyNamePair.class, true);	//  2-Product
 		miniTableComp.setColumnClass (index++, BigDecimal.class, true);		//  3-Production Qty
 		miniTableComp.setColumnClass (index++, BigDecimal.class, true);		//  4-Qty Used
@@ -243,6 +252,16 @@ public class WPOGInvoiceGen extends ADForm implements IFormController, WTableMod
 	{
 		try
 		{
+			BigDecimal grandTotal = BigDecimal.ZERO;
+			
+			for (int i = 0; i < miniTableProd.getItemCount(); i++)
+			{	
+				if (((Boolean)miniTableProd.getValueAt(i, 0)).booleanValue())
+					grandTotal = grandTotal.add((BigDecimal)miniTableProd.getValueAt(i, 7));
+			}
+			
+			grandTotalProd.setValue("Total Geral: " + grandTotal);
+				
 			createComponentGrid ();
 			grpSelectionComp.setVisible(true);
 		}
@@ -436,7 +455,8 @@ public class WPOGInvoiceGen extends ADForm implements IFormController, WTableMod
 			//	Material Line must be in the same Trx
 			linesMaterial.set_TrxName(trxName);
 			
-			if (linesMaterial.get_ValueAsInt("LBR_NotaFiscalLine_ID") == 0 && !linesMaterial.isEndProduct())
+			if (linesMaterial.get_ValueAsInt("LBR_NotaFiscalLine_ID") == 0 && !linesMaterial.isEndProduct()
+					&& MProduction.DOCSTATUS_Completed.equals(linesMaterial.getM_Production().getDocStatus()))
 				lines.add(linesMaterial);
 		}
 		
@@ -449,7 +469,7 @@ public class WPOGInvoiceGen extends ADForm implements IFormController, WTableMod
 		//	Gerar Nota Fiscal a Partir das Produções Completadas
 		nf.generateNF(pg, lines, false, lbr_NFEntrada);
 		
-		nf.save();
+		nf.saveEx();
 		
 		//	Create Invoice
 		if (createInvoice)
@@ -555,14 +575,16 @@ public class WPOGInvoiceGen extends ADForm implements IFormController, WTableMod
 			//	Cost Price
 			iLine.setPrice((BigDecimal)production.get_Value("PriceEntered"));				
 			
-			iLine.save();
+			iLine.saveEx();
 			//
 			totalItem = totalItem.add(iLine.getLineTotalAmt());
 			
+			MProductionLine pLine = new MProductionLine (Env.getCtx(), line.getM_ProductionLine_ID(), iLine.get_TrxName());
+
 			//	Add Invoice Line on Nota Fiscal Line
-			if (line.get_ValueAsInt("LBR_NotaFiscalLine_ID") > 0)
-			{	
-				MLBRNotaFiscalLine nfl = new MLBRNotaFiscalLine (Env.getCtx(), line.get_ValueAsInt("LBR_NotaFiscalLine_ID"), line.get_TrxName());
+			if (pLine.get_ValueAsInt("LBR_NotaFiscalLine_ID") > 0)
+			{
+				MLBRNotaFiscalLine nfl = new MLBRNotaFiscalLine (Env.getCtx(), pLine.get_ValueAsInt("LBR_NotaFiscalLine_ID"), pLine.get_TrxName());
 				nfl.setC_InvoiceLine_ID(iLine.getC_InvoiceLine_ID());
 				nfl.save();
 			}
@@ -657,7 +679,7 @@ public class WPOGInvoiceGen extends ADForm implements IFormController, WTableMod
 				line.add(knp);									//  2-ProductName
 				line.add(rs.getBigDecimal("PlannedQty"));		//  3-Production Qty
 				line.add(rs.getBigDecimal("QtyUsed"));			//  4-QtyUsed
-				line.add(rs.getBigDecimal("MovementQty"));	//	5-Movement Qty
+				line.add(rs.getBigDecimal("MovementQty"));		//	5-Movement Qty
 				data.add(line);
 			}
 		}
@@ -682,12 +704,17 @@ public class WPOGInvoiceGen extends ADForm implements IFormController, WTableMod
 		Vector<Vector<Object>> data = new Vector<Vector<Object>>();
 		StringBuilder sql = new StringBuilder("SELECT p.M_Production_ID, p.DocumentNo, p.Name, ");
 		sql.append("p.MovementDate, pr.Value || ' - ' || pr.Name AS ProductName, ");
-		sql.append("p.ProductionQty, p.ProductionQty AS MovementQty, p.DocStatus FROM ");
-		sql.append("M_Production p ");
+		sql.append("p.ProductionQty, p.ProductionQty AS MovementQty, p.DocStatus, p.PriceEntered, ");
+		sql.append("(p.PriceEntered * p.ProductionQty) AS GrandTotal, ");
+		sql.append("(SELECT CASE WHEN LBR_NotaFiscalLine_ID IS NULL THEN FALSE ELSE TRUE END FROM M_ProductionLine ");
+		sql.append("WHERE M_Production_ID = p.M_Production_ID AND M_Product_ID = p.M_Product_ID) AS IsInvoiced ");
+		sql.append("FROM M_Production p ");
 		sql.append("INNER JOIN M_Product pr ON (pr.M_Product_ID=p.M_Product_ID) ");
 		sql.append("WHERE p.LBR_ProductionGroup_ID=? AND p.DocStatus NOT IN ('VO', 'RE') ");
 		sql.append("AND p.IsActive='Y' AND p.IsCreated='Y' ");
-		sql.append("AND p.M_Production_ID IN (SELECT M_Production_ID FROM M_ProductionLine WHERE M_Production_ID = p.M_Production_ID AND LBR_NotaFiscalLine_ID IS NULL)");
+		sql.append("AND EXISTS (SELECT 1 FROM M_ProductionLine plz, M_Production pz, M_Product pdz WHERE plz.M_Production_ID = pz.M_Production_ID ");
+		sql.append("AND plz.M_Production_ID = p.M_Production_ID AND pdz.M_Product_ID = plz.M_Product_ID ");
+		sql.append("AND pdz.ProductType='I' AND plz.LBR_NotaFiscalLine_ID IS NULL)");
 		
 		if (log.isLoggable(Level.FINE)) log.fine("InvSQL=" + sql.toString());
 		
@@ -712,9 +739,12 @@ public class WPOGInvoiceGen extends ADForm implements IFormController, WTableMod
 				line.add(knp);									//  1-DocumentNo
 				line.add(rs.getTimestamp("MovementDate"));		//  2-MovementDate
 				line.add(rs.getString("ProductName"));			//  3-Product
-				line.add(rs.getBigDecimal("ProductionQty"));		//  4-Production Qty
+				line.add(rs.getBigDecimal("ProductionQty"));	//  4-Production Qty
 				line.add(rs.getBigDecimal("MovementQty"));		//  5-Movement Qty
-				String status = rs.getString("DocStatus");		//  6-Document Status
+				line.add(rs.getBigDecimal("PriceEntered"));		//  6-Price Entered
+				line.add(rs.getBigDecimal("GrandTotal"));		//  7-Grand Total
+				line.add(rs.getBoolean("IsInvoiced"));			//  8-Is Invoiced
+				String status = rs.getString("DocStatus");		//  9-Document Status
 				line.add(MRefList.getListName(Env.getCtx(), MLBRProductionGroup.DOCSTATUS_AD_Reference_ID, status));
 				data.add(line);
 			}
