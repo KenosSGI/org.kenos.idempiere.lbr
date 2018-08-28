@@ -162,7 +162,12 @@ public class WPAttributeEditor extends WEditor implements ContextMenuListener
 		{
 			//	Unlink the Attribute Set Instance from document
 			if (event.getTarget() == unlinkItem)
+			{
+				//	Proceed only when field is Read/Write
+				if (!isReadWrite())
+					return;
 				processChanges(0, 0);
+			}
 
 			else
 				cmd_dialog();
