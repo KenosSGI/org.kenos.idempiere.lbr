@@ -34,10 +34,13 @@ import org.compiere.model.GridTab;
 import org.compiere.model.Lookup;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
+import org.compiere.util.Msg;
+import org.compiere.util.Util;
 import org.kenos.idempiere.lbr.base.zk.window.WPAttributeDialog;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.event.Events;
+import org.zkoss.zul.Menuitem;
 
 /**
  *
@@ -60,8 +63,12 @@ public class WPAttributeEditor extends WEditor implements ContextMenuListener
 
 	private GridTab m_GridTab;
 
+	private static final String UNLINK_EVENT = "UNLINK";
+
 	/**	No Instance Key					*/
 	private static Integer		NO_INSTANCE = new Integer(0);
+
+	private Menuitem unlinkItem;
 
 	public WPAttributeEditor(GridTab gridTab, GridField gridField)
 	{
@@ -80,6 +87,14 @@ public class WPAttributeEditor extends WEditor implements ContextMenuListener
 
 		//	Popup
 		popupMenu = new WEditorPopupMenu(true, false, false);
+		
+		unlinkItem = new Menuitem();
+        unlinkItem.setAttribute(WEditorPopupMenu.EVENT_ATTRIBUTE, UNLINK_EVENT);
+        unlinkItem.setLabel(Util.cleanAmp(Msg.getMsg(Env.getCtx(), "Ignore")).intern());
+        unlinkItem.setImage(ThemeManager.getThemeResource("images/Undo16.png"));
+        unlinkItem.addEventListener(Events.ON_CLICK, this);
+        popupMenu.appendChild(unlinkItem);
+        
 		addChangeLogMenu(popupMenu);
 		
 		getComponent().getTextbox().setReadonly(true);
@@ -145,7 +160,12 @@ public class WPAttributeEditor extends WEditor implements ContextMenuListener
 		}
 		else if (Events.ON_CLICK.equals(event.getName()))
 		{
-			cmd_dialog();
+			//	Unlink the Attribute Set Instance from document
+			if (event.getTarget() == unlinkItem)
+				processChanges(0, 0);
+
+			else
+				cmd_dialog();
 		}
 	}
 
