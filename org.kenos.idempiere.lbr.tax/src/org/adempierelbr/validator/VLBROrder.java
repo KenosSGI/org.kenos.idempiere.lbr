@@ -884,6 +884,12 @@ public class VLBROrder implements ModelValidator
 			chgLine.setQty(Env.ONE);
 			chgLine.setDescription("Inserido Automáticamente");
 			chgLine.setM_Product_ID(M_Product_ID);
+
+			//	Case Invoice is Reversal, should be negative
+			if (invoice.isReversal())
+				chgLine.setQty(Env.ONE.negate());
+			else
+				chgLine.setQty(Env.ONE);
 		}		
 		//
 		chgLine.setPrice(amount);
