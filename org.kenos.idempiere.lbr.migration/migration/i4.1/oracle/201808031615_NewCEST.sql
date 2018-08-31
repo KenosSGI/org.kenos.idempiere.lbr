@@ -7,19 +7,6 @@ WHERE Value~'^(\d{2})(\d{3})(\d{2})$'
 ;
 
 
--- Installation Wizard
--- 02/08/2018 11h48min58s BRT
-UPDATE AD_Table SET AccessLevel='6',Updated=TO_DATE('2018-08-02 11:48:58','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Table_ID=1000009
-;
-
--- 02/08/2018 11h49min13s BRT
-UPDATE AD_Table SET AccessLevel='6',Updated=TO_DATE('2018-08-02 11:49:13','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Table_ID=1120531
-;
-
--- 02/08/2018 11h49min23s BRT
-UPDATE AD_Table SET AccessLevel='6',Updated=TO_DATE('2018-08-02 11:49:23','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Table_ID=1120542
-;
-
 -- 02/08/2018 11h51min22s BRT
 INSERT INTO AD_TableIndex (AD_Client_ID,AD_Org_ID,AD_TableIndex_ID,AD_TableIndex_UU,Created,CreatedBy,EntityType,IsActive,Name,Updated,UpdatedBy,AD_Table_ID,IsCreateConstraint,IsUnique,Processing,TableIndexDrop,IsKey) VALUES (0,0,1120000,'b2d6bff6-f5cc-4ec9-9295-3e0c4c6329f0',TO_DATE('2018-08-02 11:51:22','YYYY-MM-DD HH24:MI:SS'),100,'LBRA','Y','LBR_CEST_VALUE',TO_DATE('2018-08-02 11:51:22','YYYY-MM-DD HH24:MI:SS'),100,1120531,'N','Y','N','N','N')
 ;
