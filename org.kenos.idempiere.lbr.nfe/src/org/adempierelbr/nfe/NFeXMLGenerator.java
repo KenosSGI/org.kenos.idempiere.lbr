@@ -1789,7 +1789,6 @@ public class NFeXMLGenerator
 				{
 					if (shipperCNPJF.length() == 11)
 						transporta.setCPF (shipperCNPJF);
-					
 					else if (shipperCNPJF.length() == 14)
 						transporta.setCNPJ (shipperCNPJF);
 				}
@@ -1892,6 +1891,8 @@ public class NFeXMLGenerator
 					
 					if (discountAmt.signum() == 1)
 						fat.setVDesc (normalize (discountAmt));
+					else
+						fat.setVDesc (normalize (BigDecimal.ZERO));
 					
 					fat.setVLiq (normalize (nf.getGrandTotal())); 					// 	Valor Liquido
 					
