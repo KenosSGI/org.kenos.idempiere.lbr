@@ -1902,7 +1902,7 @@ public class NFeXMLGenerator
 				    for (MLBROpenItem openItem : MLBROpenItem.getOpenItem (nf.getC_Invoice_ID(), trxName))
 				    {
 				    	Dup dup = cobr.addNewDup();
-				    	dup.setNDup(fatNo + "/" + Integer.toString (dupCounter++));
+				    	dup.setNDup(TextUtil.lPad(dupCounter++, 3));
 				    	dup.setDVenc(normalize (openItem.getDueDate()));
 				    	dup.setVDup(normalize (openItem.getGrandTotal().abs()));
 					}
