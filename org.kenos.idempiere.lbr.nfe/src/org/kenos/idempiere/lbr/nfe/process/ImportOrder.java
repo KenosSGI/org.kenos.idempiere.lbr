@@ -502,7 +502,7 @@ public class ImportOrder extends SvrProcess
 		//	INSERT Prices
 		sql = new StringBuilder ("INSERT INTO M_ProductPrice ")
 				.append("SELECT M_PriceList_Version_ID, M_Product_ID, o.AD_Client_ID, 0, 'Y', now(), 100, now(), ")
-				.append("100, o.PriceActual, o.PriceActual, o.PriceActual ")
+				.append("100, o.PriceActual, o.PriceActual, o.PriceActual, UUID_Generate_V4(), NextID (165, 'N') ")
 				.append("FROM M_PriceList_Version plv, I_Order o ")
 				.append("WHERE plv.M_PriceList_ID=o.M_PriceList_ID AND o.I_IsImported<>'Y' ")
 				.append("AND NOT EXISTS (SELECT '1' FROM M_ProductPrice pp WHERE pp.M_Product_ID=o.M_Product_ID AND pp.M_PriceList_Version_ID=plv.M_PriceList_Version_ID)");
