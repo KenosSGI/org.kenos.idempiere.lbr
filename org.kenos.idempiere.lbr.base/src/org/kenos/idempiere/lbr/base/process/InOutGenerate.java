@@ -36,6 +36,7 @@ import org.compiere.model.MOrder;
 import org.compiere.model.MOrderLine;
 import org.compiere.model.MProduct;
 import org.compiere.model.MStorageOnHand;
+import org.compiere.model.MSysConfig;
 import org.compiere.process.DocAction;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
@@ -464,11 +465,22 @@ public class InOutGenerate extends SvrProcess
 		
 		//	Product
 		MProduct product = orderLine.getProduct();
-		boolean linePerASI = false;
+		boolean fillASI = false;
 		if (product.getM_AttributeSet_ID() > 0)
 		{
 			MAttributeSet mas = MAttributeSet.get(getCtx(), product.getM_AttributeSet_ID());
-			linePerASI = mas.isInstanceAttribute();
+			//
+			if (mas.isInstanceAttribute())
+			{
+				//	Fill attribute only when the qty on hand is the same as qty delivered (last part in storage)
+				if (MSysConfig.getBooleanValue("LBR_FILL_ATTRIBUTE_INOUT_LAST_ITEM", false, m_shipment.getAD_Client_ID())
+						&& MStorageOnHand.getQtyOnHand(orderLine.getM_Product_ID(), p_M_Warehouse_ID, 0, get_TrxName()).compareTo(qty) == 0)
+					fillASI = true;
+				
+				//	Fill attribute on inout line
+				else if (MSysConfig.getBooleanValue("LBR_FILL_ATTRIBUTE_INOUT", false, m_shipment.getAD_Client_ID()))
+					fillASI = true;
+			}
 		}
 	
 		//	Inventory Lines
@@ -520,7 +532,7 @@ public class InOutGenerate extends SvrProcess
 				line.setQtyEntered(line.getMovementQty().multiply(orderLine.getQtyEntered())
 					.divide(orderLine.getQtyOrdered(), 12, BigDecimal.ROUND_HALF_UP));
 			line.setLine(m_line + orderLine.getLine());
-			if (linePerASI)
+			if (fillASI)
 				line.setM_AttributeSetInstance_ID(storage.getM_AttributeSetInstance_ID());
 			if (!line.save())
 				throw new IllegalStateException("Could not create Shipment Line");
