@@ -64,6 +64,9 @@ public class POGBOMDrop extends SvrProcess implements IPOGBOMDrop
 	{
 		MProduction p_production = (MProduction) production;
 		
+		if (!MProduction.DOCSTATUS_Drafted.equals(p_production.getDocStatus()))
+			return null;
+		
 		//	Delete before continue
 		for (MProductionLine pl : p_production.getLines())
 			pl.delete(true);
