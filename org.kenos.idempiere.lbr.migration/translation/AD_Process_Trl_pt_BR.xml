@@ -2380,7 +2380,7 @@ d. Transaction Date, will become in-service-date for the newly created asset.</v
  <row trl="Y" uuid="9240aedf-07ae-4d7a-9d51-cde8570f6e3b">
   <value column="Name" original="Export XML">Exportar XML da NF-e</value>
   <value column="Description" original="Export all XML archives in range of dates">Exporta todos os arquivos XML dentro de um intervalo de datas</value>
-  <value column="Help" original=""/>
+  <value column="Help" original="">Este processo exporta os arquivos XML entre um intervalo de datas. O parâmetro Organização permite a escolha de qual será a organização que o processo exportará os XML. A NF de Saída indica se a Nota Fiscal é de Saída (Sim) ou de Entrada (Não). Os parâmetros Parceiro de Negócios ou Grupo de Parceiros busca os XML de um determinado Parceiro de Negócios ou daquele Grupo. O parâmetro Transportadora indica a Transportadora que estava encarregada de transportar o(os) produto(os). O Documento próprio vem marcado como Sim por padrão, pois indica que a NF foi emitida pela própria empresa, caso seja marcado como Não, será exportado somente as Notas Fiscais emitidas pelos Fornecedores. O parâmetro E-mail Enviado, quando marcado como Não, exporta os XML que não foram enviados por e-mail automaticamente.</value>
  </row>
  <row trl="Y" uuid="04ddab86-6781-40fd-a617-46767ef4cbcb">
   <value column="Name" original="Return RPS Process">Processar Retorno do RPS</value>
