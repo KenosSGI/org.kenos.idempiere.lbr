@@ -1,6 +1,7 @@
 package org.kenos.idempiere.lbr.base.process;
 
 import org.adempiere.base.IProcessFactory;
+import org.adempiere.report.jasper.ReportStarter;
 import org.compiere.process.ProcessCall;
 
 /**
@@ -11,6 +12,9 @@ import org.compiere.process.ProcessCall;
  */
 public class ProcessFactory implements IProcessFactory
 {
+	/**	Report starter of this plugin	*/
+	private static final String REPORT_STARTER = ProcessFactory.class.getPackage().getName() + ".ReportStarter";
+	
 	@Override
 	public ProcessCall newProcessInstance (String className)
 	{
@@ -20,6 +24,8 @@ public class ProcessFactory implements IProcessFactory
 			return new InvoiceGenerateRMA ();
 		if (InOutGenerate.PROCESS_NAME.equals (className))
 			return new InOutGenerate ();
+		if (REPORT_STARTER.equals (className))
+			return new ReportStarter () {};
 		return null;
 	}	//	newProcessInstance
-}	//	CalloutFactory
+}	//	ProcessFactory
