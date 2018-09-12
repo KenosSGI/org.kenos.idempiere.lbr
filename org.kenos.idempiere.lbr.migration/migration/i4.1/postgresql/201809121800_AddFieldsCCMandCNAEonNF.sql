@@ -56,7 +56,7 @@ UPDATE AD_Field SET IsDisplayed='Y', SeqNo=902, AD_Reference_Value_ID=NULL, AD_V
 ;
 
 -- 12/09/2018 14h17min22s BRT
-UPDATE AD_Field SET IsDisplayed='Y', SeqNo=1155, AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, XPosition=1, IsToolbarButton=NULL,Updated=TO_TIMESTAMP('2018-09-12 14:17:22','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1001084
+UPDATE AD_Field SET IsDisplayed='Y', SeqNo=1155, AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, ColumnSpan=2, XPosition=1, IsToolbarButton=NULL,Updated=TO_TIMESTAMP('2018-09-12 14:17:22','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1001084
 ;
 
 SELECT Register_Migration_Script ('201809121800_AddFieldsCCMandCNAEonNF.sql') FROM DUAL
