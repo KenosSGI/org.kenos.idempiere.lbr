@@ -229,6 +229,7 @@ public class POGInvoiceGen extends ADForm
 						{
 							newTaxLine.delete(true);
 							MLBRTaxLine txl = taxLine.copy ();
+							txl.set_TrxName(invoice.get_TrxName());
 							txl.setLBR_Tax_ID(newTax.getLBR_Tax_ID());
 							txl.saveEx();
 						}
