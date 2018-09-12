@@ -1547,6 +1547,19 @@ public interface I_LBR_NotaFiscal
 	  */
 	public String getlbr_CFOPReference();
 
+    /** Column name lbr_CNAE */
+    public static final String COLUMNNAME_lbr_CNAE = "lbr_CNAE";
+
+	/** Set CNAE.
+	  * Classificação Nacional de Atividades Econômicas
+	  */
+	public void setlbr_CNAE (String lbr_CNAE);
+
+	/** Get CNAE.
+	  * Classificação Nacional de Atividades Econômicas
+	  */
+	public String getlbr_CNAE();
+
     /** Column name lbr_CNPJ */
     public static final String COLUMNNAME_lbr_CNPJ = "lbr_CNPJ";
 

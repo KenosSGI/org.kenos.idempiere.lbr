@@ -2366,6 +2366,23 @@ public class X_LBR_NotaFiscal extends PO implements I_LBR_NotaFiscal, I_Persiste
 		return (String)get_Value(COLUMNNAME_lbr_CFOPReference);
 	}
 
+	/** Set CNAE.
+		@param lbr_CNAE 
+		Classificação Nacional de Atividades Econômicas
+	  */
+	public void setlbr_CNAE (String lbr_CNAE)
+	{
+		set_Value (COLUMNNAME_lbr_CNAE, lbr_CNAE);
+	}
+
+	/** Get CNAE.
+		@return Classificação Nacional de Atividades Econômicas
+	  */
+	public String getlbr_CNAE () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_CNAE);
+	}
+
 	/** Set CNPJ.
 		@param lbr_CNPJ 
 		Used to identify Legal Entities in Brazil
