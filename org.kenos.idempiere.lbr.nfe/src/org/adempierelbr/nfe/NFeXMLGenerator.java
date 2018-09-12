@@ -586,6 +586,12 @@ public class NFeXMLGenerator
 		emit.setXNome(normalize (oi.getlbr_LegalEntity()));
 		emit.setXFant(normalize (oi.getlbr_Fantasia()));
 		
+		if (nf.getlbr_CNAE() != null && !nf.getlbr_CNAE().isEmpty())
+			emit.setCNAE(normalize (nf.getlbr_CNAE()));
+		
+		if (nf.getlbr_OrgCCM() != null && !nf.getlbr_OrgCCM().isEmpty())
+			emit.setIM(normalize (nf.getlbr_OrgCCM()));
+		
 		TEnderEmi enderEmit = emit.addNewEnderEmit();
 		enderEmit.setXLgr(normalize (nf.getlbr_OrgAddress1()));
 		enderEmit.setNro(normalize (nf.getlbr_OrgAddress2()));
