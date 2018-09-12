@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Product BOM" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+<!-- Created with Jaspersoft Studio version 6.5.0.final using JasperReports Library version 6.5.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Product BOM" language="groovy" pageWidth="595" pageHeight="842" whenNoDataType="NoPages" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6225d5a3-6ac4-4136-8523-0b99f7f21f70">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -65,18 +66,21 @@ WHERE M_Product_ID = $P{RECORD_ID}]]>
 	<title>
 		<band height="76">
 			<frame>
-				<reportElement mode="Opaque" x="-20" y="-20" width="595" height="92" backcolor="#87CEEB"/>
+				<reportElement mode="Opaque" x="-20" y="-20" width="595" height="92" backcolor="#87CEEB" uuid="4f2a864c-56e8-458d-a55f-476ef461a7b1"/>
 				<staticText>
-					<reportElement x="0" y="20" width="595" height="33" forecolor="#000000"/>
+					<reportElement x="0" y="20" width="595" height="33" forecolor="#000000" uuid="fcb6af21-2bfc-4573-859a-1188322fad54"/>
 					<textElement verticalAlignment="Middle">
 						<font fontName="Arial" size="26" isBold="true"/>
 					</textElement>
 					<text><![CDATA[    Detalhes do Produto]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="0" y="53" width="595" height="20" forecolor="#000000"/>
+					<reportElement x="0" y="53" width="595" height="20" forecolor="#000000" uuid="01368c5e-59be-4919-bc58-3865162d679f">
+						<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+					</reportElement>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font fontName="Arial" size="10" isBold="false"/>
+						<paragraph lineSpacing="Proportional" rightIndent="5"/>
 					</textElement>
 					<text><![CDATA[Exibe informações detalhadas sobre o Produto      ]]></text>
 				</staticText>
@@ -86,178 +90,193 @@ WHERE M_Product_ID = $P{RECORD_ID}]]>
 	<columnHeader>
 		<band height="420">
 			<staticText>
-				<reportElement mode="Opaque" x="0" y="22" width="90" height="20" forecolor="#000000" backcolor="#F5F5F5"/>
+				<reportElement mode="Opaque" x="0" y="22" width="90" height="20" forecolor="#000000" backcolor="#F5F5F5" uuid="13ee80c1-2f5d-46c9-b979-cf81cc6e9a99"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Produto: ]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="90" y="22" width="465" height="20" forecolor="#000000" backcolor="#F5F5F5"/>
+				<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="90" y="22" width="465" height="20" forecolor="#000000" backcolor="#F5F5F5" uuid="5cc1aeb4-7156-4c29-bfe7-a7166f81b4f2">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="false"/>
+					<paragraph leftIndent="2"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{produto}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{produto}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Opaque" x="0" y="89" width="555" height="25" forecolor="#000000" backcolor="#E6E6E6"/>
+				<reportElement mode="Opaque" x="0" y="89" width="555" height="25" forecolor="#000000" backcolor="#E6E6E6" uuid="4745b6a6-4f07-4c77-a5d3-205997221b0e"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Descrição do Produto]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="0" y="44" width="90" height="20" forecolor="#000000" backcolor="#F5F5F5"/>
+				<reportElement mode="Opaque" x="0" y="44" width="90" height="20" forecolor="#000000" backcolor="#F5F5F5" uuid="c9647567-f8df-4630-8689-5ad12a716f04"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Descrição: ]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement mode="Opaque" x="90" y="44" width="465" height="20" forecolor="#000000" backcolor="#F5F5F5"/>
+				<reportElement mode="Opaque" x="90" y="44" width="465" height="20" forecolor="#000000" backcolor="#F5F5F5" uuid="48ed429b-3bcb-4d9d-bbf2-57f1ae0f1e15">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="false"/>
+					<paragraph leftIndent="2"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{descricao}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{descricao}]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement x="-20" y="88" width="595" height="1" forecolor="#666666"/>
+				<reportElement x="-20" y="88" width="595" height="1" forecolor="#666666" uuid="713bae50-064a-46e0-9b2f-d63d54f95978"/>
 			</line>
 			<line>
-				<reportElement x="-20" y="114" width="595" height="1" forecolor="#666666"/>
+				<reportElement x="-20" y="114" width="595" height="1" forecolor="#666666" uuid="36d426f5-48c8-4887-933d-7fe3ffdc5d7c"/>
 			</line>
 			<staticText>
-				<reportElement mode="Opaque" x="0" y="186" width="555" height="25" forecolor="#000000" backcolor="#E6E6E6"/>
+				<reportElement mode="Opaque" x="0" y="186" width="555" height="25" forecolor="#000000" backcolor="#E6E6E6" uuid="30f4d709-5675-402c-8508-d580ba89a47e"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Estado do Produto]]></text>
 			</staticText>
 			<line>
-				<reportElement x="-20" y="185" width="595" height="1" forecolor="#666666"/>
+				<reportElement x="-20" y="185" width="595" height="1" forecolor="#666666" uuid="73e0596d-d4bc-4818-a896-4db9b0d8020b"/>
 			</line>
 			<line>
-				<reportElement x="-20" y="211" width="595" height="1" forecolor="#666666"/>
+				<reportElement x="-20" y="211" width="595" height="1" forecolor="#666666" uuid="06cd8321-56d9-4f30-acb6-d3dab6d88b4b"/>
 			</line>
 			<line>
-				<reportElement positionType="Float" x="-20" y="306" width="595" height="1" forecolor="#666666"/>
+				<reportElement positionType="Float" x="-20" y="306" width="595" height="1" forecolor="#666666" uuid="f772c4b4-ca6a-46f5-b543-b7cf8935cfe4"/>
 			</line>
 			<staticText>
-				<reportElement positionType="Float" mode="Opaque" x="0" y="281" width="555" height="25" forecolor="#000000" backcolor="#E6E6E6"/>
+				<reportElement positionType="Float" mode="Opaque" x="0" y="281" width="555" height="25" forecolor="#000000" backcolor="#E6E6E6" uuid="61ea0c28-5bff-40cf-8d84-6aebef8f6308"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Tributário]]></text>
 			</staticText>
 			<line>
-				<reportElement positionType="Float" x="-20" y="280" width="595" height="1" forecolor="#666666"/>
+				<reportElement positionType="Float" x="-20" y="280" width="595" height="1" forecolor="#666666" uuid="39336a35-5b30-4353-897c-f93b956983b6"/>
 			</line>
 			<line>
-				<reportElement positionType="Float" x="-20" y="402" width="595" height="1" forecolor="#666666"/>
+				<reportElement positionType="Float" x="-20" y="402" width="595" height="1" forecolor="#666666" uuid="7a0406d0-e8cd-4aba-879a-df71e01b4b50"/>
 			</line>
 			<line>
-				<reportElement positionType="Float" x="-20" y="376" width="595" height="1" forecolor="#666666"/>
+				<reportElement positionType="Float" x="-20" y="376" width="595" height="1" forecolor="#666666" uuid="dba5c98c-d4db-4294-b2ce-f51c13ee8a1a"/>
 			</line>
 			<staticText>
-				<reportElement positionType="Float" mode="Opaque" x="0" y="377" width="555" height="25" forecolor="#000000" backcolor="#E6E6E6"/>
+				<reportElement positionType="Float" mode="Opaque" x="0" y="377" width="555" height="25" forecolor="#000000" backcolor="#E6E6E6" uuid="ecb85d1d-6973-4c58-9fee-e1d1f29b88de"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Comentário]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="Float" x="0" y="405" width="555" height="15" backcolor="#F5F5F5"/>
+				<reportElement positionType="Float" x="0" y="405" width="555" height="15" backcolor="#F5F5F5" uuid="fadb8da4-e5e8-465d-8a6a-e0decae4e935"/>
 				<textElement>
 					<font fontName="Arial" size="12"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{comentario}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{comentario}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Opaque" x="0" y="119" width="100" height="20" forecolor="#000000" backcolor="#F5F5F5"/>
+				<reportElement mode="Opaque" x="0" y="119" width="100" height="20" forecolor="#000000" backcolor="#F5F5F5" uuid="661f2a3d-0541-4f67-8416-a8f6a34d2973"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Volume: ]]></text>
 			</staticText>
 			<textField pattern="###0.000" isBlankWhenNull="true">
-				<reportElement mode="Opaque" x="100" y="119" width="193" height="20" forecolor="#000000" backcolor="#F5F5F5"/>
+				<reportElement mode="Opaque" x="100" y="119" width="193" height="20" forecolor="#000000" backcolor="#F5F5F5" uuid="8ecdb062-e234-488b-a814-297bb424153d"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="false" isStrikeThrough="false"/>
 				</textElement>
-				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{volume}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{volume}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Opaque" x="293" y="141" width="124" height="20" forecolor="#000000" backcolor="#F5F5F5"/>
+				<reportElement mode="Opaque" x="293" y="141" width="124" height="20" forecolor="#000000" backcolor="#F5F5F5" uuid="28472969-5216-4af2-8be5-94b4572e4057"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Lista de Material: ]]></text>
 			</staticText>
 			<textField pattern="" isBlankWhenNull="true">
-				<reportElement mode="Opaque" x="417" y="141" width="138" height="20" forecolor="#000000" backcolor="#F5F5F5"/>
+				<reportElement mode="Opaque" x="417" y="141" width="138" height="20" forecolor="#000000" backcolor="#F5F5F5" uuid="65f6f29c-6c57-490e-a2ee-d00fca8203bb">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="false"/>
+					<paragraph leftIndent="2"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{material}.equals("Y") ? "Sim" : "Não"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{material}.equals("Y") ? "Sim" : "Não"]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Opaque" x="0" y="141" width="100" height="20" forecolor="#000000" backcolor="#F5F5F5"/>
+				<reportElement mode="Opaque" x="0" y="141" width="100" height="20" forecolor="#000000" backcolor="#F5F5F5" uuid="d24ed77d-4070-49d3-846f-c0d626896df7"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Estocado: ]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement mode="Opaque" x="100" y="141" width="193" height="20" forecolor="#000000" backcolor="#F5F5F5"/>
+				<reportElement mode="Opaque" x="100" y="141" width="193" height="20" forecolor="#000000" backcolor="#F5F5F5" uuid="a812c4e0-49fe-4aab-a1c8-64020598b669">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="false"/>
+					<paragraph leftIndent="2"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{estocado}.equals("Y") ? "Produto Estocado" : "Produto Fantasma"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{estocado}.equals("Y") ? "Produto Estocado" : "Produto Fantasma"]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Opaque" x="0" y="66" width="90" height="20" forecolor="#000000" backcolor="#F5F5F5"/>
+				<reportElement mode="Opaque" x="0" y="66" width="90" height="20" forecolor="#000000" backcolor="#F5F5F5" uuid="7de9315d-d889-43d9-b295-209363e57a38"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Categoria: ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="0" y="163" width="100" height="20" forecolor="#000000" backcolor="#F5F5F5"/>
+				<reportElement mode="Opaque" x="0" y="163" width="100" height="20" forecolor="#000000" backcolor="#F5F5F5" uuid="16dbea92-25eb-47b3-b6b1-e72d15abbb50"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Unid.Medida: ]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement mode="Opaque" x="100" y="163" width="193" height="20" forecolor="#000000" backcolor="#F5F5F5"/>
+				<reportElement mode="Opaque" x="100" y="163" width="193" height="20" forecolor="#000000" backcolor="#F5F5F5" uuid="c5b498f4-f73c-4a44-a596-2ec69c25a510">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="false"/>
+					<paragraph leftIndent="2"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{medida}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{medida}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Opaque" x="0" y="214" width="120" height="20" forecolor="#000000" backcolor="#F5F5F5"/>
+				<reportElement mode="Opaque" x="0" y="214" width="120" height="20" forecolor="#000000" backcolor="#F5F5F5" uuid="f6594b7f-5c55-4c7f-b7c2-811cdface78b"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Vendido: ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="274" y="214" width="147" height="20" forecolor="#000000" backcolor="#F5F5F5"/>
+				<reportElement mode="Opaque" x="274" y="214" width="147" height="20" forecolor="#000000" backcolor="#F5F5F5" uuid="f90949a7-24c8-41fe-8ccc-ed18b122d080"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Comprado: ]]></text>
 			</staticText>
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-				<reportElement isPrintRepeatedValues="false" mode="Opaque" x="422" y="236" width="133" height="20" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" forecolor="#000000" backcolor="#F5F5F5"/>
+				<reportElement isPrintRepeatedValues="false" mode="Opaque" x="422" y="236" width="133" height="20" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" forecolor="#000000" backcolor="#F5F5F5" uuid="e07ad972-e396-438b-92e4-71ac2cdc8711"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="false"/>
 				</textElement>
-				<textFieldExpression class="java.util.Date"><![CDATA[$F{descontinuadoem}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{descontinuadoem}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Opaque" x="274" y="236" width="148" height="20" isRemoveLineWhenBlank="true" forecolor="#000000" backcolor="#F5F5F5">
+				<reportElement mode="Opaque" x="274" y="236" width="148" height="20" isRemoveLineWhenBlank="true" forecolor="#000000" backcolor="#F5F5F5" uuid="fd4a265b-8604-495a-b9e2-3889d64061e6">
 					<printWhenExpression><![CDATA[$F{descontinuado}.equals("Y") ? " " : Boolean.valueOf($F{descontinuado})]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
@@ -266,21 +285,27 @@ WHERE M_Product_ID = $P{RECORD_ID}]]>
 				<text><![CDATA[Descontinuado em: ]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement mode="Opaque" x="120" y="214" width="154" height="20" forecolor="#000000" backcolor="#F5F5F5"/>
+				<reportElement mode="Opaque" x="120" y="214" width="154" height="20" forecolor="#000000" backcolor="#F5F5F5" uuid="9553bae8-a737-4a2f-89ad-04f4fd09a570">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="false"/>
+					<paragraph leftIndent="2"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{vendido}.equals("Y") ? "Sim" : "Não"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{vendido}.equals("Y") ? "Sim" : "Não"]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement mode="Opaque" x="421" y="214" width="134" height="20" forecolor="#000000" backcolor="#F5F5F5"/>
+				<reportElement mode="Opaque" x="421" y="214" width="134" height="20" forecolor="#000000" backcolor="#F5F5F5" uuid="63f77685-b7d0-49f3-871c-55f9c1fe7abd">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="false"/>
+					<paragraph leftIndent="2"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{comprado}.equals("Y") ? "Sim" : "Não"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{comprado}.equals("Y") ? "Sim" : "Não"]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Opaque" x="0" y="236" width="120" height="20" isRemoveLineWhenBlank="true" forecolor="#000000" backcolor="#F5F5F5">
+				<reportElement mode="Opaque" x="0" y="236" width="120" height="20" isRemoveLineWhenBlank="true" forecolor="#000000" backcolor="#F5F5F5" uuid="50894487-a78d-4389-8c17-6631e5aa3050">
 					<printWhenExpression><![CDATA[$F{descontinuado}.equals("Y") ? " " : Boolean.valueOf($F{descontinuado})]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
@@ -289,162 +314,189 @@ WHERE M_Product_ID = $P{RECORD_ID}]]>
 				<text><![CDATA[Descontinuado: ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="Float" mode="Opaque" x="0" y="353" width="171" height="20" forecolor="#000000" backcolor="#F5F5F5"/>
+				<reportElement positionType="Float" mode="Opaque" x="0" y="353" width="171" height="20" forecolor="#000000" backcolor="#F5F5F5" uuid="89f72ccf-8511-483e-8413-078eed2a247b"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Origem: ]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="Float" mode="Opaque" x="171" y="353" width="384" height="20" forecolor="#000000" backcolor="#F5F5F5"/>
+				<reportElement positionType="Float" mode="Opaque" x="171" y="353" width="384" height="20" forecolor="#000000" backcolor="#F5F5F5" uuid="9c6f71ba-9b46-4201-a83e-fb193fd29dac">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="false"/>
+					<paragraph leftIndent="2"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{origem}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{origem}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement positionType="Float" mode="Opaque" x="0" y="258" width="120" height="20" forecolor="#000000" backcolor="#F5F5F5"/>
+				<reportElement positionType="Float" mode="Opaque" x="0" y="258" width="120" height="20" forecolor="#000000" backcolor="#F5F5F5" uuid="f17e7f0f-80d0-4e7a-a7c3-e03373e44b3e"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[EAN: ]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="Float" mode="Opaque" x="120" y="258" width="435" height="20" forecolor="#000000" backcolor="#F5F5F5"/>
+				<reportElement positionType="Float" mode="Opaque" x="120" y="258" width="435" height="20" forecolor="#000000" backcolor="#F5F5F5" uuid="cdc3195d-3c70-4852-8f6f-31bf2372237d">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="false"/>
+					<paragraph leftIndent="2"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{upc}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{upc}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="Float" mode="Opaque" x="171" y="331" width="384" height="20" forecolor="#000000" backcolor="#F5F5F5"/>
+				<reportElement positionType="Float" mode="Opaque" x="171" y="331" width="384" height="20" forecolor="#000000" backcolor="#F5F5F5" uuid="f086f74a-1ab1-45cb-ad23-7b414d446f87">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="false"/>
+					<paragraph leftIndent="2"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{codigoncm}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{codigoncm}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="Float" mode="Opaque" x="171" y="309" width="384" height="20" forecolor="#000000" backcolor="#F5F5F5"/>
+				<reportElement positionType="Float" mode="Opaque" x="171" y="309" width="384" height="20" forecolor="#000000" backcolor="#F5F5F5" uuid="3b47b90c-bf25-4d4c-95f2-c0f658932206">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="false"/>
+					<paragraph leftIndent="2"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{tributaria}.equals("Y") ? "Sim" : "Não"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{tributaria}.equals("Y") ? "Sim" : "Não"]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement positionType="Float" mode="Opaque" x="0" y="309" width="171" height="20" forecolor="#000000" backcolor="#F5F5F5"/>
+				<reportElement positionType="Float" mode="Opaque" x="0" y="309" width="171" height="20" forecolor="#000000" backcolor="#F5F5F5" uuid="17fecce7-7554-4731-a9b4-8a19d2c65a2a"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Substituição Tributária: ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="Float" mode="Opaque" x="0" y="331" width="171" height="20" forecolor="#000000" backcolor="#F5F5F5"/>
+				<reportElement positionType="Float" mode="Opaque" x="0" y="331" width="171" height="20" forecolor="#000000" backcolor="#F5F5F5" uuid="223cc308-d31e-4245-be27-5cd2dda3aad7"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[NCM: ]]></text>
 			</staticText>
 			<textField pattern="###0.000" isBlankWhenNull="true">
-				<reportElement mode="Opaque" x="417" y="119" width="138" height="20" forecolor="#000000" backcolor="#F5F5F5"/>
+				<reportElement mode="Opaque" x="417" y="119" width="138" height="20" forecolor="#000000" backcolor="#F5F5F5" uuid="07b6ee63-7a55-44d5-ac37-b795772c0ef4"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="false"/>
 				</textElement>
-				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{peso}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{peso}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Opaque" x="293" y="119" width="124" height="20" forecolor="#000000" backcolor="#F5F5F5"/>
+				<reportElement mode="Opaque" x="293" y="119" width="124" height="20" forecolor="#000000" backcolor="#F5F5F5" uuid="9b84a638-e5a1-4c59-9635-c8422e994e4a"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Peso: ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="0" y="0" width="90" height="20" forecolor="#000000" backcolor="#F5F5F5"/>
+				<reportElement mode="Opaque" x="0" y="0" width="90" height="20" forecolor="#000000" backcolor="#F5F5F5" uuid="5f3522c3-4295-4dfa-8d03-bab29a04f5a0"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Código: ]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="90" y="0" width="203" height="20" forecolor="#000000" backcolor="#F5F5F5"/>
+				<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="90" y="0" width="203" height="20" forecolor="#000000" backcolor="#F5F5F5" uuid="166d1099-8e0f-443c-be03-2d42518c0745">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="false"/>
+					<paragraph leftIndent="2"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{codigo}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{codigo}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Opaque" x="293" y="0" width="124" height="20" forecolor="#000000" backcolor="#F5F5F5"/>
+				<reportElement mode="Opaque" x="293" y="0" width="124" height="20" forecolor="#000000" backcolor="#F5F5F5" uuid="541e8fea-cae4-4352-94d9-56c68120a99a"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[ SKU: ]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement mode="Opaque" x="417" y="0" width="138" height="20" forecolor="#000000" backcolor="#F5F5F5"/>
+				<reportElement mode="Opaque" x="417" y="0" width="138" height="20" forecolor="#000000" backcolor="#F5F5F5" uuid="e2703100-357b-4d7d-a4f9-bb15d3a0b75f">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="false"/>
+					<paragraph leftIndent="2"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{sku}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{sku}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement mode="Opaque" x="90" y="66" width="465" height="20" forecolor="#000000" backcolor="#F5F5F5"/>
+				<reportElement mode="Opaque" x="90" y="66" width="465" height="20" forecolor="#000000" backcolor="#F5F5F5" uuid="0a34c101-1a4b-4bc1-bd68-0effdfbb8b7e">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="false"/>
+					<paragraph leftIndent="2"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{categoria}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{categoria}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="true">
-				<reportElement mode="Opaque" x="417" y="163" width="138" height="20" forecolor="#000000" backcolor="#F5F5F5"/>
+				<reportElement mode="Opaque" x="417" y="163" width="138" height="20" forecolor="#000000" backcolor="#F5F5F5" uuid="91c23e50-1591-48af-9794-f2ed4d91460b">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="false"/>
+					<paragraph leftIndent="2"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{tipoproduto}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{tipoproduto}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Opaque" x="293" y="163" width="124" height="20" forecolor="#000000" backcolor="#F5F5F5"/>
+				<reportElement mode="Opaque" x="293" y="163" width="124" height="20" forecolor="#000000" backcolor="#F5F5F5" uuid="8cd9b317-e8aa-4ff1-aacb-f074e829a4c3"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Tipo do Produto: ]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement mode="Opaque" x="120" y="236" width="154" height="20" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" forecolor="#000000" backcolor="#F5F5F5"/>
+				<reportElement mode="Opaque" x="120" y="236" width="154" height="20" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" forecolor="#000000" backcolor="#F5F5F5" uuid="d92495d7-c95f-4ff6-a58a-84d2c44b10d1">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="false"/>
+					<paragraph leftIndent="2"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[($F{descontinuado} == "N" )? "" : ($F{descontinuado}.equals("Y") ? " Sim" : " Não")]]></textFieldExpression>
+				<textFieldExpression><![CDATA[($F{descontinuado} == "N" )? "" : ($F{descontinuado}.equals("Y") ? " Sim" : " Não")]]></textFieldExpression>
 			</textField>
 		</band>
 	</columnHeader>
 	<pageFooter>
 		<band height="17">
 			<textField evaluationTime="Report">
-				<reportElement mode="Opaque" x="515" y="4" width="40" height="13" backcolor="#E6E6E6"/>
+				<reportElement mode="Opaque" x="515" y="4" width="40" height="13" backcolor="#E6E6E6" uuid="5880d8b2-2bde-4893-aeec-7e898db4194c"/>
 				<textElement>
 					<font fontName="Arial" size="8"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement mode="Opaque" x="0" y="4" width="515" height="13" backcolor="#E6E6E6"/>
+				<reportElement mode="Opaque" x="0" y="4" width="515" height="13" backcolor="#E6E6E6" uuid="5d6ae038-2c7d-43eb-8186-6d42fad67a9e"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial" size="8"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement mode="Transparent" x="0" y="4" width="555" height="13" backcolor="#E6E6E6"/>
+				<reportElement mode="Transparent" x="0" y="4" width="555" height="13" backcolor="#E6E6E6" uuid="50a04a11-ddb6-48be-b116-474220bf636a"/>
 				<textElement textAlignment="Center">
 					<font fontName="Arial" size="8"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA["www.kenos.com.br"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["www.kenos.com.br"]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy HH:mm:ss">
-				<reportElement x="0" y="4" width="120" height="13"/>
+				<reportElement x="0" y="4" width="120" height="13" uuid="1d7f7388-a757-466e-a7c1-0853c645454c"/>
 				<textElement>
 					<font fontName="Arial" size="8"/>
 				</textElement>
-				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>
