@@ -5,6 +5,7 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins">
 		<accessrules>
+			<accessrule kind="accessible" pattern="org/adempiere/report/jasper/*"/>
 			<accessrule kind="accessible" pattern="org/apache/axis2/**"/>
 			<accessrule kind="accessible" pattern="org/apache/axiom/**"/>
 			<accessrule kind="accessible" pattern="org/apache/xmlbeans/**"/>
