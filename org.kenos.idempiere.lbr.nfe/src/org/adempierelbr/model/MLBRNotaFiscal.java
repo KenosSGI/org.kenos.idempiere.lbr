@@ -77,12 +77,14 @@ import org.compiere.model.MInOut;
 import org.compiere.model.MInOutLine;
 import org.compiere.model.MInvoice;
 import org.compiere.model.MInvoiceLine;
+import org.compiere.model.MInvoicePaySchedule;
 import org.compiere.model.MInvoiceTax;
 import org.compiere.model.MLocation;
 import org.compiere.model.MMovement;
 import org.compiere.model.MMovementLine;
 import org.compiere.model.MOrder;
 import org.compiere.model.MOrderLine;
+import org.compiere.model.MOrderPaySchedule;
 import org.compiere.model.MOrderTax;
 import org.compiere.model.MOrgInfo;
 import org.compiere.model.MPInstance;
@@ -1233,6 +1235,9 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		//	Dados da Fatura
 		setInvoice(POWrapper.create(invoice, I_W_C_Invoice.class));
 		
+		// Programação de Pagamento
+		setPaySchedule(POWrapper.create(invoice, I_W_C_Invoice.class));
+		
 		//	Parceiro da Fatura
 		setInvoiceBPartner(new MBPartnerLocation(getCtx(), invoice.getC_BPartner_Location_ID(), get_TrxName()));
 		
@@ -1797,6 +1802,9 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		
 		//	Dados da Fatura
 		setOrder(POWrapper.create(order, I_W_C_Order.class));
+		
+		// Programação de Pagamento
+		setPaySchedule(POWrapper.create(order, I_W_C_Order.class));
 		
 		//	Parceiro da Fatura
 		setInvoiceBPartner(new MBPartnerLocation(getCtx(), order.getC_BPartner_Location_ID(), get_TrxName()));
@@ -2529,6 +2537,55 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		//	Dados do Parceiro
 		setBPartner(new MBPartnerLocation (getCtx(), wInOut.getC_BPartner_Location_ID(), get_TrxName()));
 	}	//	setInOut
+	
+	/**
+	 * Nota Fiscal PaySchedule from Invoice
+	 * @param wInvoice
+	 */
+	public void setPaySchedule (I_W_C_Invoice wInvoice)
+	{
+		MInvoicePaySchedule[] ipss = MInvoicePaySchedule.getInvoicePaySchedule(getCtx(), wInvoice.getC_Invoice_ID(), 0, get_TrxName());
+		for (MInvoicePaySchedule ips : ipss)
+		{
+			MLBRNFPaySchedule nfps = new MLBRNFPaySchedule(getCtx(), 0, get_TrxName());
+			PO.copyValues(nfps,ips);
+			nfps.setLBR_NotaFiscal_ID(getLBR_NotaFiscal_ID());
+			nfps.setAD_Org_ID(ips.getAD_Org_ID());
+			nfps.setProcessing(ips.isProcessing());
+			nfps.setIsActive(ips.isActive());
+			nfps.setDueAmt(ips.getDueAmt());
+			nfps.setDiscountAmt(ips.getDiscountAmt());
+			nfps.setDueDate(ips.getDueDate());
+			nfps.setDiscountDate(ips.getDiscountDate());
+			nfps.setC_PaySchedule_ID(ips.getC_PaySchedule_ID());
+			nfps.setIsValid(ips.isValid());
+			nfps.saveEx();
+		}
+	}
+	
+	/**
+	 * Nota Fiscal PaySchedule from 
+	 * @param wOrder
+	 */
+	public void setPaySchedule (I_W_C_Order wOrder)
+	{
+		MOrderPaySchedule[] opss = MOrderPaySchedule.getOrderPaySchedule(getCtx(), wOrder.getC_Order_ID(), 0, get_TrxName());
+		for (MOrderPaySchedule ops : opss)
+		{
+			MLBRNFPaySchedule nfps = new MLBRNFPaySchedule(getCtx(), 0, get_TrxName());
+			nfps.setLBR_NotaFiscal_ID(getLBR_NotaFiscal_ID());
+			nfps.setAD_Org_ID(ops.getAD_Org_ID());
+			nfps.setProcessing(ops.isProcessing());
+			nfps.setIsActive(ops.isActive());
+			nfps.setDueAmt(ops.getDueAmt());
+			nfps.setDiscountAmt(ops.getDiscountAmt());
+			nfps.setDueDate(ops.getDueDate());
+			nfps.setDiscountDate(ops.getDiscountDate());
+			nfps.setC_PaySchedule_ID(ops.getC_PaySchedule_ID());
+			nfps.setIsValid(ops.isValid());
+			nfps.saveEx();
+		}
+	}
 	
 	/**
 	 * 		Organization Info

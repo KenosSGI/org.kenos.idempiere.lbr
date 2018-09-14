@@ -25,10 +25,10 @@ import org.adempiere.model.POWrapper;
 import org.adempierelbr.model.MLBRAuthorizedAccessXML;
 import org.adempierelbr.model.MLBRCSC;
 import org.adempierelbr.model.MLBRNFLineMA;
+import org.adempierelbr.model.MLBRNFPaySchedule;
 import org.adempierelbr.model.MLBRNotaFiscal;
 import org.adempierelbr.model.MLBRNotaFiscalDocRef;
 import org.adempierelbr.model.MLBRNotaFiscalLine;
-import org.adempierelbr.model.MLBROpenItem;
 import org.adempierelbr.model.MLBRTaxStatus;
 import org.adempierelbr.model.X_LBR_NFDI;
 import org.adempierelbr.model.X_LBR_NFLineTax;
@@ -424,6 +424,7 @@ public class NFeXMLGenerator
 		Properties ctx = nf.getCtx();
 		boolean nfce = MLBRNotaFiscal.LBR_NFMODEL_NotaFiscalDeConsumidorEletrônica.equals(nf.getlbr_NFModel()); 
 		boolean unknownCustomer = false;
+		BigDecimal pagAmt = BigDecimal.ZERO;
 		
 		if (nfce)
 			unknownCustomer = true;
@@ -1906,12 +1907,15 @@ public class NFeXMLGenerator
 					int dupCounter = 1;
 					
 				    //	Adiciona as duplicatas da fatura
-				    for (MLBROpenItem openItem : MLBROpenItem.getOpenItem (nf.getC_Invoice_ID(), trxName))
+				    for (MLBRNFPaySchedule nfps : MLBRNFPaySchedule.getNFPaySchedule (nf.getCtx(), nf.getLBR_NotaFiscal_ID(), 0, trxName))
 				    {
 				    	Dup dup = cobr.addNewDup();
 				    	dup.setNDup(TextUtil.lPad(dupCounter++, 3));
-				    	dup.setDVenc(normalize (openItem.getDueDate()));
-				    	dup.setVDup(normalize (openItem.getGrandTotal().abs()));
+				    	dup.setDVenc(normalize (nfps.getDueDate()));
+				    	dup.setVDup(normalize (nfps.getDueAmt().abs()));
+				    	
+				    	// Total à pagar
+				    	pagAmt = pagAmt.add(nfps.getDueAmt().abs());
 					}
 				}
 			}
@@ -1922,7 +1926,11 @@ public class NFeXMLGenerator
 		//	YA. Formas de Pagamento
 		Pag pag = infNFe.addNewPag();
 		DetPag dPag = pag.addNewDetPag();
-		dPag.setVPag(normalize (nf.getGrandTotal().abs()));
+		
+		if (pagAmt.compareTo(BigDecimal.ZERO) > 0)
+			dPag.setVPag(normalize (pagAmt));
+		else
+			dPag.setVPag(normalize (nf.getGrandTotal().abs()));
 		// 	Para as notas com finalidade de Ajuste ou Devolução
 		if (TextUtil.match(ide.getFinNFe(), FIN_NFE_AJUSTE, FIN_NFE_DEVOLUCAO)
 				//	NFs sem valores a receber (simples remessas, transferêncisa, etc)
