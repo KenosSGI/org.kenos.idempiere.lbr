@@ -587,8 +587,10 @@ public class NFeXMLGenerator
 		emit.setXNome(normalize (oi.getlbr_LegalEntity()));
 		emit.setXFant(normalize (oi.getlbr_Fantasia()));
 		
-		if (nf.getlbr_CNAE() != null && !nf.getlbr_CNAE().isEmpty())
-			emit.setCNAE(normalize (nf.getlbr_CNAE()));
+		String cnae = toNumericStr(nf.getlbr_CNAE());
+		
+		if (cnae != null && !cnae.isEmpty() && cnae.length() == 7)
+			emit.setCNAE(cnae);
 		
 		if (nf.getlbr_OrgCCM() != null && !nf.getlbr_OrgCCM().isEmpty())
 			emit.setIM(normalize (nf.getlbr_OrgCCM()));
