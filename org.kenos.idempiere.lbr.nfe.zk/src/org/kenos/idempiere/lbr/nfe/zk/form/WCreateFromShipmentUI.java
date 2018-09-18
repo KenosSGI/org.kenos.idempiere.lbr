@@ -46,7 +46,6 @@ import org.adempiere.webui.editor.WStringEditor;
 import org.adempiere.webui.event.ValueChangeEvent;
 import org.adempiere.webui.event.ValueChangeListener;
 import org.adempiere.webui.util.ZKUpdateUtil;
-import org.compiere.grid.CreateFromShipment;
 import org.compiere.model.GridTab;
 import org.compiere.model.MLocatorLookup;
 import org.compiere.model.MLookup;
