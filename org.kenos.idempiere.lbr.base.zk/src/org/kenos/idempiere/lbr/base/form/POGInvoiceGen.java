@@ -176,6 +176,7 @@ public class POGInvoiceGen extends ADForm
 		//	Date Invoice is Movement Date from Production
 		wInvoice.setDateInvoiced (lines.get(0).getM_Production().getMovementDate());
 		wInvoice.setM_PriceList_ID(MPriceList.getDefault(Env.getCtx(), isSOTrx).getM_PriceList_ID());
+		wInvoice.setIsTaxIncluded(MPriceList.getDefault(Env.getCtx(), isSOTrx).isTaxIncluded());
 		wInvoice.setIsSOTrx(isSOTrx);
 		wInvoice.setlbr_NFEntrada(lbr_NFEntrada);
 		
