@@ -587,13 +587,17 @@ public class NFeXMLGenerator
 		emit.setXNome(normalize (oi.getlbr_LegalEntity()));
 		emit.setXFant(normalize (oi.getlbr_Fantasia()));
 		
-		String cnae = toNumericStr(nf.getlbr_CNAE());
-		
-		if (cnae != null && !cnae.isEmpty() && cnae.length() == 7)
-			emit.setCNAE(cnae);
-		
 		if (nf.getlbr_OrgCCM() != null && !nf.getlbr_OrgCCM().isEmpty())
+		{
 			emit.setIM(normalize (nf.getlbr_OrgCCM()));
+		
+			//CNAE é um Campo Opcional. Pode ser informado quando a Inscrição
+			//Municipal (id:C19) for informada.
+			String cnae = toNumericStr(nf.getlbr_CNAE());
+			
+			if (cnae != null && !cnae.isEmpty() && cnae.length() == 7)
+				emit.setCNAE(cnae);
+		}			
 		
 		TEnderEmi enderEmit = emit.addNewEnderEmit();
 		enderEmit.setXLgr(normalize (nf.getlbr_OrgAddress1()));

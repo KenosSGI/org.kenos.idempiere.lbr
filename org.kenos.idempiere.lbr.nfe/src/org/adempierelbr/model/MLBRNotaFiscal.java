@@ -2604,6 +2604,7 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		setlbr_IE(wOrgInfo.getlbr_IE());
 		setlbr_OrgPhone(wOrgInfo.getPhone());
 		setlbr_CNAE(wOrgInfo.getlbr_CNAE());
+		setLBR_TaxRegime(wOrgInfo.getLBR_TaxRegime());
 		
 		//	Endereço
 		setOrg_Location_ID(orgLoc.getC_Location_ID());
