@@ -1235,9 +1235,6 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		//	Dados da Fatura
 		setInvoice(POWrapper.create(invoice, I_W_C_Invoice.class));
 		
-		// Programação de Pagamento
-		setPaySchedule(POWrapper.create(invoice, I_W_C_Invoice.class));
-		
 		//	Parceiro da Fatura
 		setInvoiceBPartner(new MBPartnerLocation(getCtx(), invoice.getC_BPartner_Location_ID(), get_TrxName()));
 		
@@ -1265,6 +1262,9 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		
 		//	Impostos
 		setTaxes(invoice);
+		
+		// Programação de Pagamento
+		setPaySchedule(POWrapper.create(invoice, I_W_C_Invoice.class));
 		
 		I_W_C_DocType dt = POWrapper.create(new MDocType (getCtx(), getC_DocType_ID(), get_TrxName()), I_W_C_DocType.class);
 		String serie = "";
@@ -1802,10 +1802,6 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		
 		//	Dados da Fatura
 		setOrder(POWrapper.create(order, I_W_C_Order.class));
-		
-		// Programação de Pagamento
-		setPaySchedule(POWrapper.create(order, I_W_C_Order.class));
-		
 		//	Parceiro da Fatura
 		setInvoiceBPartner(new MBPartnerLocation(getCtx(), order.getC_BPartner_Location_ID(), get_TrxName()));
 		
@@ -1821,8 +1817,14 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		//	Entrega
 		setShipmentBPartner (null, null, order);
 		
+		if (get_ID() < 1)
+			save ();	
+		
 		//	Impostos
 		setTaxes(order);
+		
+		// Programação de Pagamento
+		setPaySchedule(POWrapper.create(order, I_W_C_Order.class));
 		
 		//	Natureza da Operação do Tipo de Documento do Pedido		
 		MDocType dtorder = new MDocType(getCtx(),getC_Order().getC_DocType_ID(),get_TrxName());
@@ -2559,7 +2561,7 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 			nfps.setDiscountDate(ips.getDiscountDate());
 			nfps.setC_PaySchedule_ID(ips.getC_PaySchedule_ID());
 			nfps.setIsValid(ips.isValid());
-			nfps.saveEx();
+			nfps.save();
 		}
 	}
 	
@@ -2583,7 +2585,7 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 			nfps.setDiscountDate(ops.getDiscountDate());
 			nfps.setC_PaySchedule_ID(ops.getC_PaySchedule_ID());
 			nfps.setIsValid(ops.isValid());
-			nfps.saveEx();
+			nfps.save();
 		}
 	}
 	
