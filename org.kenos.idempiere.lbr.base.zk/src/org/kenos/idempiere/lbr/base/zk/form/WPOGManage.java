@@ -294,7 +294,7 @@ public class WPOGManage extends ADForm implements IFormController, WTableModelLi
 		miniTableComp.setColumnClass (index++, KeyNamePair.class, true);	//  2-Product
 		miniTableComp.setColumnClass (index++, BigDecimal.class, true);		//  3-Production Qty
 		miniTableComp.setColumnClass (index++, BigDecimal.class, false);	//  4-Qty Used
-		miniTableComp.setColumnClass (index++, BigDecimal.class, false);	//  5-Movement Qty
+		miniTableComp.setColumnClass (index++, BigDecimal.class, true);		//  5-Movement Qty
 		
 		selectAllComponent = false;
 	}	//	createComponentGrid
