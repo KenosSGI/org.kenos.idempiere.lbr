@@ -29,6 +29,7 @@ import org.adempierelbr.model.MLBRNFPaySchedule;
 import org.adempierelbr.model.MLBRNotaFiscal;
 import org.adempierelbr.model.MLBRNotaFiscalDocRef;
 import org.adempierelbr.model.MLBRNotaFiscalLine;
+import org.adempierelbr.model.MLBROpenItem;
 import org.adempierelbr.model.MLBRTaxStatus;
 import org.adempierelbr.model.X_LBR_NFDI;
 import org.adempierelbr.model.X_LBR_NFLineTax;
@@ -1912,16 +1913,31 @@ public class NFeXMLGenerator
 					//	Contador de duplicata
 					int dupCounter = 1;
 					
-				    //	Adiciona as duplicatas da fatura
-				    for (MLBRNFPaySchedule nfps : MLBRNFPaySchedule.getNFPaySchedule (nf.getCtx(), nf.getLBR_NotaFiscal_ID(), 0, trxName))
-				    {
-				    	Dup dup = cobr.addNewDup();
-				    	dup.setNDup(TextUtil.lPad(dupCounter++, 3));
-				    	dup.setDVenc(normalize (nfps.getDueDate()));
-				    	dup.setVDup(normalize (nfps.getDueAmt().abs()));
-				    	
-				    	// Total à pagar
-				    	pagAmt = pagAmt.add(nfps.getDueAmt().abs());
+					
+					if (MLBRNFPaySchedule.getNFPaySchedule (nf.getCtx(), nf.getLBR_NotaFiscal_ID(), 0, trxName).length > 0)
+					{	
+					    //	Adiciona as duplicatas da fatura
+					    for (MLBRNFPaySchedule nfps : MLBRNFPaySchedule.getNFPaySchedule (nf.getCtx(), nf.getLBR_NotaFiscal_ID(), 0, trxName))
+					    {
+					    	Dup dup = cobr.addNewDup();
+					    	dup.setNDup(TextUtil.lPad(dupCounter++, 3));
+					    	dup.setDVenc(normalize (nfps.getDueDate()));
+					    	dup.setVDup(normalize (nfps.getDueAmt().abs()));
+					    	
+					    	// Total à pagar
+					    	pagAmt = pagAmt.add(nfps.getDueAmt().abs());
+						}
+					}
+					else
+					{				    
+					    //	Adiciona as duplicatas da fatura
+					    for (MLBROpenItem openItem : MLBROpenItem.getOpenItem (nf.getC_Invoice_ID(), trxName))
+					    {
+					    	Dup dup = cobr.addNewDup();
+					    	dup.setNDup(TextUtil.lPad(dupCounter++, 3));
+					    	dup.setDVenc(normalize (openItem.getDueDate()));
+					    	dup.setVDup(normalize (openItem.getGrandTotal().abs()));
+						}
 					}
 				}
 			}
