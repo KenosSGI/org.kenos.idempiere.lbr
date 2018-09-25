@@ -53,6 +53,7 @@ import org.adempierelbr.validator.VLBROrder;
 import org.adempierelbr.wrapper.I_W_AD_ClientInfo;
 import org.adempierelbr.wrapper.I_W_AD_OrgInfo;
 import org.adempierelbr.wrapper.I_W_C_BPartner;
+import org.adempierelbr.wrapper.I_W_C_Country;
 import org.adempierelbr.wrapper.I_W_C_DocType;
 import org.adempierelbr.wrapper.I_W_C_Invoice;
 import org.adempierelbr.wrapper.I_W_C_Order;
@@ -2601,6 +2602,7 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		//	Dados da Organização
 		setAD_Org_ID(wOrgInfo.getAD_Org_ID());
 		setlbr_OrgName(wOrgInfo.getlbr_LegalEntity());
+		setlbr_Fantasia(wOrgInfo.getlbr_Fantasia());
 		setlbr_OrgCCM(wOrgInfo.getlbr_CCM());
 		setlbr_CNPJ(wOrgInfo.getlbr_CNPJ());
 		setlbr_IE(wOrgInfo.getlbr_IE());
@@ -2654,8 +2656,12 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		if (BPTypeBR != null && !BPTypeBR.isEmpty())
 			setlbr_BPTypeBR(BPTypeBR);
 		
+		if (bp.getTaxID() != null && !bp.getTaxID().isEmpty())
+			setTaxID(bp.getTaxID());
+		
 		MLocation location = new MLocation(getCtx(),bpLocation.getC_Location_ID(),get_TrxName());
 		MCountry country = new MCountry(getCtx(),location.getC_Country_ID(),get_TrxName());
+		I_W_C_Country wcountry = POWrapper.create(country, I_W_C_Country.class);
 
 		//	Endereço do Destinatário
 		setlbr_BPAddress1(location.getAddress1());	//	Rua
@@ -2665,6 +2671,7 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		setlbr_BPCity(location.getCity());   		//	Cidade
 		setlbr_BPPostal(location.getPostal());   	//	CEP
 		setlbr_BPCountry(country.getCountryCode());	//	País
+		setlbr_CountryCode(wcountry.getlbr_CountryCode());
 
 		if (country.get_ID() != BRAZIL)
 			setlbr_BPRegion("EX");

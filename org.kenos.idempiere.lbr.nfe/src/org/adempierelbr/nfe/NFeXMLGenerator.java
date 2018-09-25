@@ -586,7 +586,7 @@ public class NFeXMLGenerator
 		Emit emit = infNFe.addNewEmit();
 		emit.setCNPJ(chaveNFE.getCNPJ());
 		emit.setXNome(normalize (oi.getlbr_LegalEntity()));
-		emit.setXFant(normalize (oi.getlbr_Fantasia()));
+		emit.setXFant(normalize (nf.getlbr_Fantasia()));
 		
 		if (nf.getlbr_OrgCCM() != null && !nf.getlbr_OrgCCM().isEmpty())
 		{
@@ -660,7 +660,7 @@ public class NFeXMLGenerator
 				//	Estrangeiro
 				else if (MLBRNotaFiscal.LBR_BPTYPEBR_XX_Foreigner.equals(nf.getlbr_BPTypeBR()))
 				{
-					String taxID = nf.getC_BPartner().getTaxID();
+					String taxID = nf.getTaxID();
 					
 					//	ID do Estrangeiro OK
 					if (taxID != null && taxID.trim().length() >= 5)
@@ -740,8 +740,8 @@ public class NFeXMLGenerator
 					dest.setIndIEDest(IND_IE_NAO_CONTRIB);
 				}
 				
-				if (country.getlbr_CountryCode() != null)
-					enderDest.setCPais(country.getlbr_CountryCode().substring(1));
+				if (nf.getlbr_CountryCode() != null)
+					enderDest.setCPais(nf.getlbr_CountryCode().substring(1));
 				
 				enderDest.setXPais(((MCountry) POWrapper.getPO (country)).get_Translation (MCountry.COLUMNNAME_Name, LBRUtils.AD_LANGUAGE));
 				
@@ -1209,7 +1209,7 @@ public class NFeXMLGenerator
 				
 				//	Product Source
 				I_W_M_Product prdct = POWrapper.create(MProduct.get(ctx, nfl.getM_Product_ID()), I_W_M_Product.class);
-				String productSource = prdct.getlbr_ProductSource();
+				String productSource = nfl.getlbr_ProductSource();
 				
 				if (CST_ICMS_00.equals (taxStatus))
 				{
