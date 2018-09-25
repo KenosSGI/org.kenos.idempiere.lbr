@@ -180,6 +180,19 @@ public interface I_LBR_PartnerDFe
 	  */
 	public boolean isActive();
 
+    /** Column name IsCancelled */
+    public static final String COLUMNNAME_IsCancelled = "IsCancelled";
+
+	/** Set Cancelled.
+	  * The transaction was cancelled
+	  */
+	public void setIsCancelled (boolean IsCancelled);
+
+	/** Get Cancelled.
+	  * The transaction was cancelled
+	  */
+	public boolean isCancelled();
+
     /** Column name IsSOTrx */
     public static final String COLUMNNAME_IsSOTrx = "IsSOTrx";
 

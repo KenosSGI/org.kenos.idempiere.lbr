@@ -45,6 +45,8 @@ public class X_LBR_PartnerDFe extends PO implements I_LBR_PartnerDFe, I_Persiste
 			setDateDoc (new Timestamp( System.currentTimeMillis() ));
 			setDateTrx (new Timestamp( System.currentTimeMillis() ));
 			setDocumentType (null);
+			setIsCancelled (false);
+// N
 			setIsSOTrx (false);
 // N
 			setLBR_IsManifested (false);
@@ -210,6 +212,30 @@ public class X_LBR_PartnerDFe extends PO implements I_LBR_PartnerDFe, I_Persiste
 		return bd;
 	}
 
+	/** Set Cancelled.
+		@param IsCancelled 
+		The transaction was cancelled
+	  */
+	public void setIsCancelled (boolean IsCancelled)
+	{
+		set_Value (COLUMNNAME_IsCancelled, Boolean.valueOf(IsCancelled));
+	}
+
+	/** Get Cancelled.
+		@return The transaction was cancelled
+	  */
+	public boolean isCancelled () 
+	{
+		Object oo = get_Value(COLUMNNAME_IsCancelled);
+		if (oo != null) 
+		{
+			 if (oo instanceof Boolean) 
+				 return ((Boolean)oo).booleanValue(); 
+			return "Y".equals(oo);
+		}
+		return false;
+	}
+
 	/** Set Sales Transaction.
 		@param IsSOTrx 
 		This is a Sales Transaction
@@ -272,6 +298,28 @@ public class X_LBR_PartnerDFe extends PO implements I_LBR_PartnerDFe, I_Persiste
 	public static final String LBR_EVENTTYPE_MDF_ECancelado = "610611";
 	/** Vistoria SUFRAMA = 990900 */
 	public static final String LBR_EVENTTYPE_VistoriaSUFRAMA = "990900";
+	/** Registro de Passagem para NF-e = 610500 */
+	public static final String LBR_EVENTTYPE_RegistroDePassagemParaNF_E = "610500";
+	/** Registro de Passagem Automatico MDFe = 610552 */
+	public static final String LBR_EVENTTYPE_RegistroDePassagemAutomaticoMDFe = "610552";
+	/** Registro de Passagem Automatico MDF-e com CT-e = 610554 */
+	public static final String LBR_EVENTTYPE_RegistroDePassagemAutomaticoMDF_EComCT_E = "610554";
+	/** MDF-e Autorizado para NF-e = 610610 */
+	public static final String LBR_EVENTTYPE_MDF_EAutorizadoParaNF_E = "610610";
+	/** MDF-e Autorizado com CT-e = 610614 */
+	public static final String LBR_EVENTTYPE_MDF_EAutorizadoComCT_E = "610614";
+	/** Cancelamento de MDF-e Autorizado com CT-e = 610615 */
+	public static final String LBR_EVENTTYPE_CancelamentoDeMDF_EAutorizadoComCT_E = "610615";
+	/** Averbação para Exportação = 790700 */
+	public static final String LBR_EVENTTYPE_AverbaçãoParaExportação = "790700";
+	/** MDF-e Autorizado para CT-e = 310610 */
+	public static final String LBR_EVENTTYPE_MDF_EAutorizadoParaCT_E = "310610";
+	/** MDF-e Cancelado Vinculado a CT-e = 310611 */
+	public static final String LBR_EVENTTYPE_MDF_ECanceladoVinculadoACT_E = "310611";
+	/** Registro de Passagem de NFe propagado pelo MDFe = 610510 */
+	public static final String LBR_EVENTTYPE_RegistroDePassagemDeNFePropagadoPeloMDFe = "610510";
+	/** Registro de Passagem de NFe propagado pelo MDFe/CTe = 610514 */
+	public static final String LBR_EVENTTYPE_RegistroDePassagemDeNFePropagadoPeloMDFeCTe = "610514";
 	/** Set Event Type.
 		@param LBR_EventType Event Type	  */
 	public void setLBR_EventType (String LBR_EventType)
@@ -353,6 +401,8 @@ public class X_LBR_PartnerDFe extends PO implements I_LBR_PartnerDFe, I_Persiste
 	public static final String LBR_SITNF_1_Authorized = "1";
 	/** 2 - Use denied = 2 */
 	public static final String LBR_SITNF_2_UseDenied = "2";
+	/** 3 - Cancelled = 3 */
+	public static final String LBR_SITNF_3_Cancelled = "3";
 	/** Set NF Status.
 		@param LBR_SitNF 
 		NF Status
