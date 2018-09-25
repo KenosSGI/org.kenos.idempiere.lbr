@@ -11,6 +11,7 @@ import org.adempierelbr.wrapper.I_W_C_OrderLine;
 import org.compiere.model.MBPartner;
 import org.compiere.model.MInvoice;
 import org.compiere.model.MInvoiceLine;
+import org.compiere.model.MMovementLine;
 import org.compiere.model.MOrder;
 import org.compiere.model.MOrderLine;
 
@@ -63,6 +64,11 @@ public class CalloutFactory implements IColumnCalloutFactory
 		{
 			if (TextUtil.match (columnName, I_W_C_OrderLine.COLUMNNAME_LBR_Tax_ID))
 				callouts.add (new RecalculateTaxes());
+		}
+		else if (MMovementLine.Table_Name.equals(tableName))
+		{
+			if (TextUtil.match (columnName, MMovementLine.COLUMNNAME_M_Product_ID))
+				callouts.add (new MovementLine());
 		}
 		
 		IColumnCallout[] result = new IColumnCallout[callouts.size()];
