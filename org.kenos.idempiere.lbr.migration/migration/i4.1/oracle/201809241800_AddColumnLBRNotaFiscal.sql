@@ -47,5 +47,10 @@ UPDATE AD_Column SET ReadOnlyLogic='@IsManual@!Y',Updated=TO_DATE('2018-09-24 18
 ALTER TABLE LBR_NotaFiscal ADD lbr_CountryCode VARCHAR2(5) DEFAULT NULL 
 ;
 
+-- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
+-- 25/09/2018 11h27min26s BRT
+UPDATE AD_Column SET ReadOnlyLogic='@IsManual@!Y',Updated=TO_DATE('2018-09-25 11:27:26','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1130450
+;
+
 SELECT Register_Migration_Script ('201809241800_AddColumnLBRNotaFiscal.sql') FROM DUAL
 ;
