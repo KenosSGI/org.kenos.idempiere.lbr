@@ -2400,6 +2400,23 @@ public class X_LBR_NotaFiscal extends PO implements I_LBR_NotaFiscal, I_Persiste
 		return (String)get_Value(COLUMNNAME_lbr_CNPJ);
 	}
 
+	/** Set Country Code.
+		@param lbr_CountryCode 
+		Country Code used for issue Nota Fiscal
+	  */
+	public void setlbr_CountryCode (String lbr_CountryCode)
+	{
+		set_Value (COLUMNNAME_lbr_CountryCode, lbr_CountryCode);
+	}
+
+	/** Get Country Code.
+		@return Country Code used for issue Nota Fiscal
+	  */
+	public String getlbr_CountryCode () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_CountryCode);
+	}
+
 	/** 1 - Normal DANFE - Portrait = 1 */
 	public static final String LBR_DANFEFORMAT_1_NormalDANFE_Portrait = "1";
 	/** 2 - Normal DANFE - Landscape = 2 */
@@ -2498,6 +2515,20 @@ public class X_LBR_NotaFiscal extends PO implements I_LBR_NotaFiscal, I_Persiste
 	public String getlbr_DigestValue () 
 	{
 		return (String)get_Value(COLUMNNAME_lbr_DigestValue);
+	}
+
+	/** Set Fantasia.
+		@param lbr_Fantasia Fantasia	  */
+	public void setlbr_Fantasia (String lbr_Fantasia)
+	{
+		set_Value (COLUMNNAME_lbr_Fantasia, lbr_Fantasia);
+	}
+
+	/** Get Fantasia.
+		@return Fantasia	  */
+	public String getlbr_Fantasia () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_Fantasia);
 	}
 
 	/** NFe Normal = 1 */
@@ -4619,6 +4650,23 @@ public class X_LBR_NotaFiscal extends PO implements I_LBR_NotaFiscal, I_Persiste
 	public String getlbr_TransactionType () 
 	{
 		return (String)get_Value(COLUMNNAME_lbr_TransactionType);
+	}
+
+	/** Set Tax ID.
+		@param TaxID 
+		Tax Identification
+	  */
+	public void setTaxID (String TaxID)
+	{
+		set_ValueNoCheck (COLUMNNAME_TaxID, TaxID);
+	}
+
+	/** Get Tax ID.
+		@return Tax Identification
+	  */
+	public String getTaxID () 
+	{
+		return (String)get_Value(COLUMNNAME_TaxID);
 	}
 
 	/** Set Total de Tributo.

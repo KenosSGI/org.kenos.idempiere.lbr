@@ -1573,6 +1573,19 @@ public interface I_LBR_NotaFiscal
 	  */
 	public String getlbr_CNPJ();
 
+    /** Column name lbr_CountryCode */
+    public static final String COLUMNNAME_lbr_CountryCode = "lbr_CountryCode";
+
+	/** Set Country Code.
+	  * Country Code used for issue Nota Fiscal
+	  */
+	public void setlbr_CountryCode (String lbr_CountryCode);
+
+	/** Get Country Code.
+	  * Country Code used for issue Nota Fiscal
+	  */
+	public String getlbr_CountryCode();
+
     /** Column name lbr_DANFEFormat */
     public static final String COLUMNNAME_lbr_DANFEFormat = "lbr_DANFEFormat";
 
@@ -1627,6 +1640,15 @@ public interface I_LBR_NotaFiscal
 
 	/** Get Digest Value	  */
 	public String getlbr_DigestValue();
+
+    /** Column name lbr_Fantasia */
+    public static final String COLUMNNAME_lbr_Fantasia = "lbr_Fantasia";
+
+	/** Set Fantasia	  */
+	public void setlbr_Fantasia (String lbr_Fantasia);
+
+	/** Get Fantasia	  */
+	public String getlbr_Fantasia();
 
     /** Column name lbr_FinNFe */
     public static final String COLUMNNAME_lbr_FinNFe = "lbr_FinNFe";
@@ -2173,4 +2195,17 @@ public interface I_LBR_NotaFiscal
 	  * Valor aproximado total de tributos federais, estaduais e municipais.
 	  */
 	public BigDecimal getlbr_vTotTrib();
+
+/** Column name TaxID */
+    public static final String COLUMNNAME_TaxID = "TaxID";
+
+	/** Set Tax ID.
+	  * Tax Identification
+	  */
+	public void setTaxID (String TaxID);
+
+	/** Get Tax ID.
+	  * Tax Identification
+	  */
+	public String getTaxID();
 }
