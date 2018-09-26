@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.adempiere.base.IColumnCallout;
 import org.adempiere.base.IColumnCalloutFactory;
+import org.adempierelbr.model.MLBRNotaFiscalLine;
 import org.adempierelbr.wrapper.I_W_M_RMA;
 import org.compiere.model.MRMA;
 
@@ -27,6 +28,11 @@ public class CalloutFactory implements IColumnCalloutFactory
 		{
 			if (I_W_M_RMA.COLUMNNAME_LBR_NotaFiscal_ID.equals(columnName))
 				callouts.add (new RMA ());
+		}
+		else if (MLBRNotaFiscalLine.Table_Name.equals(tableName))
+		{
+			if (MLBRNotaFiscalLine.COLUMNNAME_M_Product_ID.equals(columnName))
+				callouts.add (new NotaFiscalLine ());
 		}
 		
 		IColumnCallout[] result = new IColumnCallout[callouts.size()];
