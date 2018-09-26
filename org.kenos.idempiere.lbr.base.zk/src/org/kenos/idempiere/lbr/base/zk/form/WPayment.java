@@ -49,6 +49,7 @@ import org.adempiere.webui.panel.IFormController;
 import org.adempiere.webui.session.SessionManager;
 import org.adempiere.webui.util.ZKUpdateUtil;
 import org.adempiere.webui.window.FDialog;
+import org.compiere.model.MDocType;
 import org.compiere.process.ProcessInfo;
 import org.compiere.util.Env;
 import org.compiere.util.KeyNamePair;
@@ -241,10 +242,7 @@ public class WPayment extends Payment
 		else
 			fieldBankAccount.setSelectedIndex(0);
 		
-		ArrayList<KeyNamePair> bpartnerData = getBPartnerData();
-		for(KeyNamePair pp : bpartnerData)
-			fieldBPartner.appendItem(pp.getName(), pp);
-		fieldBPartner.setSelectedIndex(0);
+		fillBPartnerData();
 
 		ArrayList<KeyNamePair> docTypeData = getDocTypeData();
 		for(KeyNamePair pp : docTypeData)
@@ -257,6 +255,19 @@ public class WPayment extends Payment
 		fieldPayDate.setMandatory(true);
 		fieldPayDate.setValue(new Timestamp(System.currentTimeMillis()));
 	}   //  dynInit
+	
+	/**
+	 * 
+	 */
+	private void fillBPartnerData()
+	{
+		fieldBPartner.removeAllItems();
+		
+		ArrayList<KeyNamePair> bpartnerData = getBPartnerData();
+		for(KeyNamePair pp : bpartnerData)
+			fieldBPartner.appendItem(pp.getName(), pp);
+		fieldBPartner.setSelectedIndex(0);
+	}
 
 	/**
 	 *  Load Bank Info - Load Info from Bank Account and valid Documents (PaymentRule)
@@ -318,6 +329,22 @@ public class WPayment extends Payment
 	 */
 	public void onEvent (Event e)
 	{
+		// If change DType, Reload Business Partner List
+		if (e.getTarget() == fieldDtype)
+		{	
+			KeyNamePair docType = (KeyNamePair) fieldDtype.getSelectedItem().getValue();
+			int C_DocType_ID = docType.getKey();
+			
+			MDocType dt = new MDocType (Env.getCtx(), C_DocType_ID, null);
+			
+			if (MDocType.DOCBASETYPE_APPayment.equals(dt.getDocBaseType()))
+				m_IsSOTrx = false;
+			else if (MDocType.DOCBASETYPE_ARReceipt.equals(dt.getDocBaseType()))
+				m_IsSOTrx = true;
+			
+			fillBPartnerData();
+		}
+		
 		//  Update Bank Info
 		if (e.getTarget() == fieldBankAccount)
 			loadBankInfo();
