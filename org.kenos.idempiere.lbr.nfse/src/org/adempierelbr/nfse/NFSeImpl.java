@@ -133,7 +133,7 @@ public class NFSeImpl implements INFSe
 		TpChaveRPS tpChaveRPS 		= TpChaveRPS.Factory.newInstance(); 
 		TpRPS tpRPS					= TpRPS.Factory.newInstance();
 		
-		tpChaveRPS.setInscricaoPrestador(toLong (MOrgInfo.get(ctx, nf.getAD_Org_ID(), null).get_ValueAsString("lbr_CCM")));
+		tpChaveRPS.setInscricaoPrestador(toLong (nf.getlbr_OrgCCM()));
 		tpChaveRPS.setNumeroRPS(toLong (nf.getDocumentNo()));
 		tpChaveRPS.setSerieRPS(nf.getlbr_NFSerie());
 		
