@@ -136,6 +136,14 @@ public class WNotaFiscal extends NotaFiscal implements IFormController, EventLis
 		fOrgRec = new WTableDirEditor ("AD_Org_ID", true, false, true, orgL);
 		fOrgRec.addValueChangeListener(this);
 		
+		//	Default Organization
+		int AD_Org_ID = Env.getAD_Org_ID(Env.getCtx());
+		if (AD_Org_ID > 0)
+		{
+			fOrg.setValue(AD_Org_ID);
+			fOrgRec.setValue(AD_Org_ID);
+		}
+		
 		MLookup manifestL = MLookupFactory.get (Env.getCtx(), form.getWindowNo(), 0, DisplayType.List, Language.getBaseLanguage(), "LBR_EventType", 1120226, false, null);
 		fManifest = new WTableDirEditor ("LBR_EventType", true, false, true, manifestL);
 		fManifest.addValueChangeListener(this);
