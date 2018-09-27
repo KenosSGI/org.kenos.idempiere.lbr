@@ -125,6 +125,7 @@ public class GenerateNF extends SvrProcess
 			MLBRNotaFiscal nf = new MLBRNotaFiscal (getCtx(), 0, get_TrxName());
 			nf.setDocumentNo(p_lbr_NFEntrada);
 			nf.generateNF(move, doctype.get_ValueAsBoolean("lbr_IsOwnDocument"), p_C_DocType_ID);
+			nf.m_justCreated = true;
 			nf.save();
 		}
 		

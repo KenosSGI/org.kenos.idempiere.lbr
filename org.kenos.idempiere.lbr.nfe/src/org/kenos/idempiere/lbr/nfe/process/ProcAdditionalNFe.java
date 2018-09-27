@@ -123,6 +123,7 @@ public class ProcAdditionalNFe extends SvrProcess
 		
 		// Gerando NF Complementar a partir da Fatura
 		nfCompl.generateNF((MInvoice)nf.getC_Invoice(), nf.isSOTrx());
+		nfCompl.m_justCreated = true;
 		
 		// Organização
 		MOrg org = new MOrg (Env.getCtx(), nf.getC_Invoice().getAD_Org_ID(), null);

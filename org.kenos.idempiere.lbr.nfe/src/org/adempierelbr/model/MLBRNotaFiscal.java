@@ -3967,6 +3967,8 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 	private String		m_processMsg = null;
 	/**	Just Prepared Flag			*/
 	private boolean		m_justPrepared = false;
+	/** Just Created				*/
+	public boolean		m_justCreated = false;
 
 	private I_W_AD_ClientInfo cInfoW;
 	
@@ -4016,7 +4018,7 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 			}
 			
 			//	Prepara a NF de forma automática
-			if (!isManual())
+			if (!isManual() && !m_justCreated)
 			{
 				//	Gera a NF a partir da Fatura
 				if (getC_Invoice_ID() > 0)

@@ -479,6 +479,7 @@ public class ValidatorInvoice implements ModelValidator
 				//	Cria e processa as informações para a tabela de NF
 				MLBRNotaFiscal nf = new MLBRNotaFiscal (Env.getCtx(), 0, invoice.get_TrxName());
 				nf.generateNF(invoice, isOwnDocument);
+				nf.m_justCreated = true;
 				nf.save();
 				
 				//	Gera o XML da NF-e efetuando a ação Preparar na NF
