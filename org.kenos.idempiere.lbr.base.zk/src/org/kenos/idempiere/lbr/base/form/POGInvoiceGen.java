@@ -124,6 +124,7 @@ public class POGInvoiceGen extends ADForm
 		MLBRNotaFiscal nf = new MLBRNotaFiscal (Env.getCtx(), 0, pg.get_TrxName());
 		//	Gerar Nota Fiscal a Partir das Produções Completadas
 		nf.generateNF(pg, lines, false, lbr_NFEntrada);
+		nf.m_justCreated = true;
 		
 		nf.saveEx();
 		
