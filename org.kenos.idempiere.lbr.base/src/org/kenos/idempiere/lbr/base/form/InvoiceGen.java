@@ -134,8 +134,8 @@ public class InvoiceGen extends GenForm
 		sql.append("AND dt.DocBaseType = 'SOO' ");
 		sql.append("AND NOT EXISTS (SELECT * FROM C_Invoice i ");
 		sql.append("WHERE i.M_RMA_ID=rma.M_RMA_ID AND i.DocStatus IN ('IP', 'CO', 'CL')) ");
-		sql.append("AND EXISTS (SELECT * FROM C_InvoiceLine il INNER JOIN M_InOutLine iol ");
-		sql.append("ON il.M_InOutLine_ID=iol.M_InOutLine_ID INNER JOIN C_Invoice i ");
+		sql.append("AND EXISTS (SELECT * FROM C_InvoiceLine il LEFT JOIN M_InOutLine iol ");
+		sql.append("ON il.M_InOutLine_ID=iol.M_InOutLine_ID OR il.M_InOutLine_ID IS NULL INNER JOIN C_Invoice i ");
 		sql.append("ON i.C_Invoice_ID=il.C_Invoice_ID WHERE i.DocStatus IN ('CO', 'CL') ");
 		sql.append("AND EXISTS ");
 		sql.append("(SELECT '1' FROM M_RMALine rl WHERE rl.M_RMA_ID=rma.M_RMA_ID ");
