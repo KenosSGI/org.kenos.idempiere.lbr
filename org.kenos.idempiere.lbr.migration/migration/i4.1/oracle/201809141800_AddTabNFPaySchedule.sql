@@ -190,5 +190,5 @@ UPDATE AD_Field SET Name='Boleto Comments', Description='Define the Boleto Comme
 UPDATE AD_Field SET IsDisplayed='N' WHERE AD_Field_ID=1125497
 ;
 
-SELECT Register_Migration_Script ('201809141800_AddTabNFPaySchedule') FROM DUAL
+SELECT Register_Migration_Script ('201809141800_AddTabNFPaySchedule.sql') FROM DUAL
 ;
