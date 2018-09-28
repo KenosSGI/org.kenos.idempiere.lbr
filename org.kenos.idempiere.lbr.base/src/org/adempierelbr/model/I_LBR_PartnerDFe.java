@@ -242,6 +242,15 @@ public interface I_LBR_PartnerDFe
 	/** Get Partner Doc Fiscal	  */
 	public int getLBR_PartnerDFe_ID();
 
+    /** Column name LBR_PartnerDFe_UU */
+    public static final String COLUMNNAME_LBR_PartnerDFe_UU = "LBR_PartnerDFe_UU";
+
+	/** Set LBR_PartnerDFe_UU	  */
+	public void setLBR_PartnerDFe_UU (String LBR_PartnerDFe_UU);
+
+	/** Get LBR_PartnerDFe_UU	  */
+	public String getLBR_PartnerDFe_UU();
+
     /** Column name LBR_SitNF */
     public static final String COLUMNNAME_LBR_SitNF = "LBR_SitNF";
 
@@ -377,4 +386,17 @@ public interface I_LBR_PartnerDFe
 
 	/** Get NFe Protocol	  */
 	public String getlbr_NFeProt();
+
+    /** Column name lbr_NFeStatus */
+    public static final String COLUMNNAME_lbr_NFeStatus = "lbr_NFeStatus";
+
+	/** Set NFe Status.
+	  * Status of NFe
+	  */
+	public void setlbr_NFeStatus (String lbr_NFeStatus);
+
+	/** Get NFe Status.
+	  * Status of NFe
+	  */
+	public String getlbr_NFeStatus();
 }
