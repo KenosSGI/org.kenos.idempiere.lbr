@@ -302,12 +302,19 @@ public class ProcXMLExport extends SvrProcess
 		{
 			for (MLBRPartnerDFe dfe : dfes)
 			{
-				I_W_AD_OrgInfo oi = POWrapper.create(MOrgInfo.get(getCtx(), dfe.getAD_Org_ID(), null), I_W_AD_OrgInfo.class);
-				rows.add(new ExportRow (TextUtil.toNumeric(oi.getlbr_CNPJ()), "Recebidas", null, dfe.getDateDoc(), null, dfe.isSOTrx(), 
-						dfe.getBPName(), dfe.getlbr_NFeID().substring(26, 35), dfe.getlbr_NFeID().substring(23, 26), dfe.getlbr_NFeID(), null));
+				String desc = "";
 				
 				MAttachment attachment = dfe.getAttachment();
+				
 				if (attachment == null)
+					desc = "XML não Encontrado";
+				
+				I_W_AD_OrgInfo oi = POWrapper.create(MOrgInfo.get(getCtx(), dfe.getAD_Org_ID(), null), I_W_AD_OrgInfo.class);
+				rows.add(new ExportRow (TextUtil.toNumeric(oi.getlbr_CNPJ()), "Recebidas", null, dfe.getDateDoc(), null, dfe.isSOTrx(), 
+						dfe.getBPName(), dfe.getlbr_NFeID().substring(26, 35), dfe.getlbr_NFeID().substring(23, 26), dfe.getlbr_NFeID(), desc));
+				
+				// XML não Encontrado
+				if (!desc.isEmpty())
 					continue;
 				
 				if (!dfe.isLBR_IsXMLValid())
