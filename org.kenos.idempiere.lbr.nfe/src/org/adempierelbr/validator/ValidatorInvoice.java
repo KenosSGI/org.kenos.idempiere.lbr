@@ -18,6 +18,7 @@ import java.util.Properties;
 import org.adempiere.model.POWrapper;
 import org.adempierelbr.model.MLBRNotaFiscal;
 import org.adempierelbr.model.MLBRTax;
+import org.adempierelbr.model.MPaymentTerm;
 import org.adempierelbr.process.PrintFromXML;
 import org.adempierelbr.wrapper.I_W_C_DocType;
 import org.adempierelbr.wrapper.I_W_C_Invoice;
@@ -35,7 +36,6 @@ import org.compiere.model.MInvoicePaySchedule;
 import org.compiere.model.MOrder;
 import org.compiere.model.MOrderLine;
 import org.compiere.model.MPInstance;
-import org.compiere.model.MPaymentTerm;
 import org.compiere.model.MRMA;
 import org.compiere.model.MSysConfig;
 import org.compiere.model.MTax;
@@ -385,8 +385,10 @@ public class ValidatorInvoice implements ModelValidator
 		{			
 			MOrder order = (MOrder) invoice.getC_Order();
 			
-			if (order != null && order.getC_Order_ID() > 0 &&
-					!order.getGrandTotal().equals(invoice.getGrandTotal()))
+			if ((order != null && order.getC_Order_ID() > 0 &&
+					!order.getGrandTotal().equals(invoice.getGrandTotal())) ||
+					(! (MInvoice.PAYMENTRULE_OnCredit.equals(invoice.getPaymentRule()) 
+							|| MInvoice.PAYMENTRULE_DirectDebit.equals(invoice.getPaymentRule()))))
 			{
 				MInvoicePaySchedule[] schedule = MInvoicePaySchedule.getInvoicePaySchedule
 						(invoice.getCtx(), invoice.getC_Invoice_ID(), 0, invoice.get_TrxName());
@@ -431,7 +433,9 @@ public class ValidatorInvoice implements ModelValidator
 			/**
 			 * 	1 - Validação da Condição de Pagamento
 			 */
-			if (!invoice.validatePaySchedule())
+			if (!invoice.validatePaySchedule() ||
+					(! (MInvoice.PAYMENTRULE_OnCredit.equals(invoice.getPaymentRule()) 
+							|| MInvoice.PAYMENTRULE_DirectDebit.equals(invoice.getPaymentRule()))))
 			{
 				MPaymentTerm pt = new MPaymentTerm(invoice.getCtx(), invoice.getC_PaymentTerm_ID(), null);
 				log.fine(pt.toString());
