@@ -147,7 +147,7 @@ public class DownloadDFeXML extends SvrProcess
 			String cStat = retDownloadNFe.getCStat();
 			//
 			if (MLBRNotaFiscal.LBR_NFESTATUS_138_DocumentoLocalizadoParaODestinatário.equals(cStat))
-				GetDFe.processResult (getCtx(), retDownloadNFe.getLoteDistDFeInt(), count);
+				GetDFe.processResult (getCtx(), retDownloadNFe.getLoteDistDFeInt(), count, p_AD_Org_ID);
 			
 			//	Falha
 			else if (MLBRNotaFiscal.LBR_NFESTATUS_653_RejeiçãoNF_ECanceladaArquivoIndisponívelParaDownload.equals(cStat)

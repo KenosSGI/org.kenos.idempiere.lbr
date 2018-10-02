@@ -172,7 +172,7 @@ public class GetDFe extends SvrProcess
 			String currentNSU 	= retConsNFeDest.getUltNSU();
 			
 			//	Save results
-			GetDFe.processResult (getCtx(), retConsNFeDest.getLoteDistDFeInt(), count);
+			GetDFe.processResult (getCtx(), retConsNFeDest.getLoteDistDFeInt(), count, p_AD_Org_ID);
 			
 			//	Try to adquire more documets
 			while (true)
@@ -196,7 +196,7 @@ public class GetDFe extends SvrProcess
 					currentNSU 	= retLoop.getUltNSU();
 					
 					//	Save Results
-					processResult (getCtx(), retLoop.getLoteDistDFeInt(), count);
+					processResult (getCtx(), retLoop.getLoteDistDFeInt(), count, p_AD_Org_ID);
 				}
 				
 				//	Ignore errors, use first status
@@ -328,7 +328,7 @@ public class GetDFe extends SvrProcess
 	 * @param countEvent
 	 * @throws Exception 
 	 */
-	public static void processResult (Properties ctx, LoteDistDFeInt lote, Counter count) throws Exception
+	public static void processResult (Properties ctx, LoteDistDFeInt lote, Counter count, int p_AD_Org_ID) throws Exception
 	{
 		//	Process Responses
 		for (DocZip zip : lote.getDocZipArray())
@@ -356,6 +356,7 @@ public class GetDFe extends SvrProcess
 				ResNFe resNFe = resNFeDoc.getResNFe();
 				
 				MLBRPartnerDFe pDFe = new MLBRPartnerDFe (ctx, 0, null);
+				pDFe.setAD_Org_ID(p_AD_Org_ID);
 				pDFe.setDocumentType(MLBRPartnerDFe.DOCUMENTTYPE_NF_E);
 				pDFe.setlbr_NFeID(resNFe.getChNFe());
 				pDFe.setlbr_CNPJ(resNFe.getCNPJ());
@@ -393,6 +394,7 @@ public class GetDFe extends SvrProcess
 				ResEvento resEvento = reEventoDoc.getResEvento();
 				//
 				MLBRPartnerDFe pDFe = new MLBRPartnerDFe (ctx, 0, null);
+				pDFe.setAD_Org_ID(p_AD_Org_ID);
 				pDFe.setDocumentType(MLBRPartnerDFe.DOCUMENTTYPE_Evento);
 				pDFe.setlbr_NFeID(resEvento.getChNFe());
 				pDFe.setlbr_CNPJ(resEvento.getCNPJ());
@@ -427,6 +429,7 @@ public class GetDFe extends SvrProcess
 				InfEvento resEvento = resProcEvento.getProcEventoNFe().getRetEvento().getInfEvento();
 				//
 				MLBRPartnerDFe pDFe = new MLBRPartnerDFe (ctx, 0, null);
+				pDFe.setAD_Org_ID(p_AD_Org_ID);
 				pDFe.setDocumentType(MLBRPartnerDFe.DOCUMENTTYPE_Evento);
 				pDFe.setlbr_NFeID(resEvento.getChNFe());
 				pDFe.setlbr_CNPJ(resEvento.getCNPJDest());
@@ -478,6 +481,7 @@ public class GetDFe extends SvrProcess
 					Emit emit = nfe.getEmit();
 					//
 					pDFe = new MLBRPartnerDFe (ctx, 0, null);
+					pDFe.setAD_Org_ID(p_AD_Org_ID);
 					pDFe.setDocumentType(MLBRPartnerDFe.DOCUMENTTYPE_NF_E);
 					pDFe.setlbr_NFeID(resNFe.getChNFe());
 					pDFe.setlbr_CNPJ(emit.getCNPJ());
