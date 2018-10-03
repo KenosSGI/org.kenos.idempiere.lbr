@@ -140,6 +140,7 @@ public class WNotaFiscal extends NotaFiscal implements IFormController, EventLis
 		int AD_Org_ID = Env.getAD_Org_ID(Env.getCtx());
 		if (AD_Org_ID > 0)
 		{
+			m_AD_Org_ID = AD_Org_ID;
 			fOrg.setValue(AD_Org_ID);
 			fOrgRec.setValue(AD_Org_ID);
 		}
