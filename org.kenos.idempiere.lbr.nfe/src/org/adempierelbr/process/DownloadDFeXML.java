@@ -117,7 +117,7 @@ public class DownloadDFeXML extends SvrProcess
 					+ "AND LBR_IsXMLValid='N' "		//	Not Downloaded Yet
 					+ "AND DocumentType='0' "		//	Only NF-e (Exclude Events)
 					+ "AND IsCancelled='N' "		//	Not Cancelled
-					+ "AND LBR_NFeStatus NOT IN ('137','653') "	//	Unavailable Download
+					+ "AND LBR_NFeStatus NOT IN ('137','653') OR LBR_NFeStatus IS NULL "	//	Unavailable Download
 					+ "AND EXISTS (SELECT '1' FROM LBR_NFeEvent e "
 								 + "WHERE e.LBR_PartnerDFe_ID=LBR_PartnerDFe.LBR_PartnerDFe_ID "
 								 +   "AND e.DocStatus IN ('CL','CO') "
