@@ -554,7 +554,7 @@ public class ValidatorInvoice implements ModelValidator
 			if (!MSysConfig.getBooleanValue("LBR_ALLOW_REVERSE_INVOICE_WITH_NF", false, wInvoice.getAD_Client_ID()))
 			{
 				for (MLBRNotaFiscal nf : MLBRNotaFiscal.get(invoice.getCtx(), invoice.getC_Invoice_ID(), trxName))
-					if (!MLBRNotaFiscal.DOCSTATUS_Voided.equals(nf.getDocStatus()))
+					if (!nf.allowReverseDocs())
 						return "Não é possível estornar uma Fatura, cancele as Notas Fiscais vinculadas primeiro.";
 			}
 		}

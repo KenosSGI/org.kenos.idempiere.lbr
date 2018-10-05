@@ -4984,4 +4984,24 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 
 		return outStr.toString();
 	}
+	
+	/**
+	 * Allow to Reverse Documents Related to Nota Fiscal
+	 * @return
+	 */
+	public Boolean allowReverseDocs()
+	{
+		if (MLBRNotaFiscal.DOCSTATUS_Voided.equals(getDocStatus()) || isCancelled() ||
+				MLBRNotaFiscal.LBR_NFESTATUS_101_CancelamentoDeNF_EHomologado.equals(getlbr_NFeStatus()) ||
+				MLBRNotaFiscal.LBR_NFESTATUS_102_InutilizaçãoDeNúmeroHomologado.equals(getlbr_NFeStatus()) ||
+				MLBRNotaFiscal.LBR_NFESTATUS_301_UsoDenegadoIrregularidadeFiscalDoEmitente.equals(getlbr_NFeStatus()) ||
+				MLBRNotaFiscal.LBR_NFESTATUS_302_RejeiçãoIrregularidadeFiscalDoDestinatário.equals(getlbr_NFeStatus()) ||
+				MLBRNotaFiscal.LBR_NFESTATUS_303_UsoDenegadoDestinatárioNãoHabilitadoAOperarNaUF.equals(getlbr_NFeStatus()) ||
+				MLBRNotaFiscal.LBR_NFESTATUS_999_RejeiçãoErroNãoCatalogado.equals(getlbr_NFeStatus())				)
+			return true;
+		
+		return false;		
+	}
+	
+	
 }	//	MLBRNotaFiscal
