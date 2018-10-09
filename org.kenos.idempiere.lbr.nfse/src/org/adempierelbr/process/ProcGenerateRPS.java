@@ -16,7 +16,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.sql.Timestamp;
-import java.util.Base64;
 import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -127,7 +126,7 @@ public class ProcGenerateRPS extends SvrProcess
 			return "Selecione onde deseja salvar o arquivo";
 		
 		else if (!Ini.isClient())
-			p_FilePath = "";
+			p_FilePath = System.getProperty("java.io.tmpdir") + File.separator;
 		//
 		Properties ctx = getCtx();
 		String     trxName = get_TrxName();
@@ -206,18 +205,17 @@ public class ProcGenerateRPS extends SvrProcess
 		//	Generate RPS
 		StringBuilder result = infSe.getRPS (list);
 		
-		//	Save locally
-		if (Ini.isClient())
-		{
-			TextUtil.generateFile (result.toString(), fileName, ISO88591.displayName());
-			return "";
-		}
+		File file = new File (fileName);
+		if (file.exists())
+			file.delete();
 		
-		//	Download
-		else
-		{
-			return "<br/><a download=\"" + fileName + "\" href=\"data:application/octet-stream;charset=" + ISO88591.displayName() + ";base64," + Base64.getEncoder().encode(result.toString().getBytes()) + "\" target=\"_blank\">Clique aqui para copiar o RPS</a>";
-		}
+		TextUtil.generateFile (result.toString(), fileName, ISO88591.displayName());
+		
+		//	Save locally
+		if (!Ini.isClient())
+			processUI.download(file);
+		
+		return "@Success@";
 	}	//	generate
 
 }	//	ProcGenerateRPS
