@@ -326,7 +326,7 @@ public class ValidatorInOut implements ModelValidator
 				//BF 3037141 - Pablo Boff Pigozzo
 				if (timing == TIMING_BEFORE_REVERSECORRECT
 						&& !MSysConfig.getBooleanValue("LBR_ALLOW_REVERSE_SHIP_RECEIT_WITH_OPEN_INVOICE", true, inOut.getAD_Client_ID())
-						&& DB.getSQLValue(trx, "SELECT COUNT(*) FROM C_InvoiceLine il, C_Invoice i WHERE i.C_Invoice_ID=il.C_Invoice_ID AND i.DocStatus IN ('CO','CL') AND il.M_InOutLine_ID=?", line.getM_InOutLine_ID()) > 0)
+						&& DB.getSQLValue(trx, "SELECT COUNT(*) FROM C_InvoiceLine il, C_Invoice i WHERE i.C_Invoice_ID=il.C_Invoice_ID AND i.DocStatus NOT IN ('VO','RE') AND il.M_InOutLine_ID=?", line.getM_InOutLine_ID()) > 0)
 					return "Fatura(s) em aberto. Impossível continuar com o estorno.";
 
 				int C_OrderLine_ID = line.getC_OrderLine_ID();
