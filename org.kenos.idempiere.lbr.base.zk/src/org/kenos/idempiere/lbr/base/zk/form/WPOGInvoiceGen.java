@@ -476,7 +476,7 @@ public class WPOGInvoiceGen extends POGInvoiceGen implements IFormController, WT
 		sql.append("p.ProductionQty, p.ProductionQty AS MovementQty, p.DocStatus, p.PriceEntered, ");
 		sql.append("(p.PriceEntered * p.ProductionQty) AS GrandTotal, ");
 		sql.append("(SELECT CASE WHEN LBR_NotaFiscalLine_ID IS NULL THEN FALSE ELSE TRUE END FROM M_ProductionLine ");
-		sql.append("WHERE M_Production_ID = p.M_Production_ID AND M_Product_ID = p.M_Product_ID) AS IsInvoiced ");
+		sql.append("WHERE M_Production_ID = p.M_Production_ID AND M_Product_ID = p.M_Product_ID AND IsEndProduct='Y') AS IsInvoiced ");
 		sql.append("FROM M_Production p ");
 		sql.append("INNER JOIN M_Product pr ON (pr.M_Product_ID=p.M_Product_ID) ");
 		sql.append("WHERE p.LBR_ProductionGroup_ID=? AND p.DocStatus NOT IN ('VO', 'RE') ");
