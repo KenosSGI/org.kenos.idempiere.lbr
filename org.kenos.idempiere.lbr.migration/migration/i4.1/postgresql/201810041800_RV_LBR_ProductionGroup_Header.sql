@@ -156,10 +156,6 @@ INSERT INTO AD_ViewColumn (AD_Client_ID,AD_Org_ID,AD_ViewColumn_ID,AD_ViewColumn
 INSERT INTO AD_ViewColumn (AD_Client_ID,AD_Org_ID,AD_ViewColumn_ID,AD_ViewColumn_UU,Created,CreatedBy,EntityType,IsActive,Updated,UpdatedBy,AD_ViewComponent_ID,ColumnName,ColumnSQL,SeqNo) VALUES (0,0,1120352,'8c57a01f-4f34-49a4-9f3e-97dadde18b66',TO_TIMESTAMP('2018-10-04 16:16:24','YYYY-MM-DD HH24:MI:SS'),100,'LBRA','Y',TO_TIMESTAMP('2018-10-04 16:16:24','YYYY-MM-DD HH24:MI:SS'),100,1120006,'DateStart','p.DateStart',210)
 ;
 
--- 04/10/2018 16h16min46s BRT
-INSERT INTO AD_ViewColumn (AD_Client_ID,AD_Org_ID,AD_ViewColumn_ID,AD_ViewColumn_UU,Created,CreatedBy,EntityType,IsActive,Updated,UpdatedBy,AD_ViewComponent_ID,ColumnName,ColumnSQL,SeqNo) VALUES (0,0,1120353,'25f6dd67-26f2-4403-84ee-d5378886c928',TO_TIMESTAMP('2018-10-04 16:16:45','YYYY-MM-DD HH24:MI:SS'),100,'LBRA','Y',TO_TIMESTAMP('2018-10-04 16:16:45','YYYY-MM-DD HH24:MI:SS'),100,1120006,'SalesRep_ID','p.SalesRep_ID',220)
-;
-
 -- 04/10/2018 16h16min59s BRT
 INSERT INTO AD_ViewColumn (AD_Client_ID,AD_Org_ID,AD_ViewColumn_ID,AD_ViewColumn_UU,Created,CreatedBy,EntityType,IsActive,Updated,UpdatedBy,AD_ViewComponent_ID,ColumnName,ColumnSQL,SeqNo) VALUES (0,0,1120354,'0332c1b5-af3c-4b16-ab1b-e499da6df0c9',TO_TIMESTAMP('2018-10-04 16:16:58','YYYY-MM-DD HH24:MI:SS'),100,'LBRA','Y',TO_TIMESTAMP('2018-10-04 16:16:58','YYYY-MM-DD HH24:MI:SS'),100,1120006,'lbr_LegalEntity','p.lbr_LegalEntity',230)
 ;
@@ -177,7 +173,7 @@ INSERT INTO AD_ViewColumn (AD_Client_ID,AD_Org_ID,AD_ViewColumn_ID,AD_ViewColumn
 ;
 
 -- 04/10/2018 16h18min43s BRT
-CREATE OR REPLACE VIEW RV_LBR_ProductionGroup_Header(LBR_ProductionGroup_ID, AD_Client_ID, AD_Org_ID, IsActive, Created, CreatedBy, Updated, UpdatedBy, C_BPartner_ID, C_BPartner_Location_ID, DatePromised, DateOrdered, DocumentNo, LBR_CFOP_ID, M_PriceList_ID, C_DocTypeTarget_ID, DocStatus, Description, LBR_Tax_ID, M_Warehouse_ID, DateStart, SalesRep_ID, lbr_LegalEntity, C_Location_ID, lbr_CNPJ) AS SELECT p.LBR_ProductionGroup_ID AS LBR_ProductionGroup_ID, p.AD_Client_ID AS AD_Client_ID, p.AD_Org_ID AS AD_Org_ID, p.IsActive AS IsActive, p.Created AS Created, p.CreatedBy AS CreatedBy, p.Updated AS Updated, p.UpdatedBy AS UpdatedBy, p.C_BPartner_ID AS C_BPartner_ID, p.C_BPartner_Location_ID AS C_BPartner_Location_ID, p.DatePromised AS DatePromised, p.DateOrdered AS DateOrdered, p.DocumentNo AS DocumentNo, p.LBR_CFOP_ID AS LBR_CFOP_ID, p.M_PriceList_ID AS M_PriceList_ID, p.C_DocTypeTarget_ID AS C_DocTypeTarget_ID, p.DocStatus AS DocStatus, p.Description AS Description, p.LBR_Tax_ID AS LBR_Tax_ID, p.M_Warehouse_ID AS M_Warehouse_ID, p.DateStart AS DateStart, p.SalesRep_ID AS SalesRep_ID, oi.lbr_LegalEntity AS lbr_LegalEntity, oi.C_Location_ID AS C_Location_ID, oi.lbr_CNPJ AS lbr_CNPJ FROM LBR_ProductionGroup p INNER JOIN AD_OrgInfo oi ON oi.AD_Org_ID = p.AD_Org_ID
+CREATE OR REPLACE VIEW RV_LBR_ProductionGroup_Header(LBR_ProductionGroup_ID, AD_Client_ID, AD_Org_ID, IsActive, Created, CreatedBy, Updated, UpdatedBy, C_BPartner_ID, C_BPartner_Location_ID, DatePromised, DateOrdered, DocumentNo, LBR_CFOP_ID, M_PriceList_ID, C_DocTypeTarget_ID, DocStatus, Description, LBR_Tax_ID, M_Warehouse_ID, DateStart, lbr_LegalEntity, C_Location_ID, lbr_CNPJ) AS SELECT p.LBR_ProductionGroup_ID AS LBR_ProductionGroup_ID, p.AD_Client_ID AS AD_Client_ID, p.AD_Org_ID AS AD_Org_ID, p.IsActive AS IsActive, p.Created AS Created, p.CreatedBy AS CreatedBy, p.Updated AS Updated, p.UpdatedBy AS UpdatedBy, p.C_BPartner_ID AS C_BPartner_ID, p.C_BPartner_Location_ID AS C_BPartner_Location_ID, p.DatePromised AS DatePromised, p.DateOrdered AS DateOrdered, p.DocumentNo AS DocumentNo, p.LBR_CFOP_ID AS LBR_CFOP_ID, p.M_PriceList_ID AS M_PriceList_ID, p.C_DocTypeTarget_ID AS C_DocTypeTarget_ID, p.DocStatus AS DocStatus, p.Description AS Description, p.LBR_Tax_ID AS LBR_Tax_ID, p.M_Warehouse_ID AS M_Warehouse_ID, p.DateStart AS DateStart, oi.lbr_LegalEntity AS lbr_LegalEntity, oi.C_Location_ID AS C_Location_ID, oi.lbr_CNPJ AS lbr_CNPJ FROM LBR_ProductionGroup p INNER JOIN AD_OrgInfo oi ON oi.AD_Org_ID = p.AD_Org_ID
 ;
 
 -- 04/10/2018 16h18min58s BRT
@@ -267,10 +263,6 @@ INSERT INTO AD_Column (AD_Column_ID,Version,Name,Description,Help,AD_Table_ID,Co
 
 -- 04/10/2018 16h19min6s BRT
 INSERT INTO AD_Column (AD_Column_ID,Version,Name,Description,AD_Table_ID,ColumnName,FieldLength,IsKey,IsParent,IsMandatory,IsTranslated,IsIdentifier,IsEncrypted,AD_Reference_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Element_ID,IsUpdateable,IsSelectionColumn,EntityType,IsAlwaysUpdateable,AD_Column_UU,IsToolbarButton) VALUES (1130494,0.0,'Date Start','Date Start for this Order',1120605,'DateStart',29,'N','N','N','N','N','N',16,0,0,'Y',TO_TIMESTAMP('2018-10-04 16:19:05','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2018-10-04 16:19:05','YYYY-MM-DD HH24:MI:SS'),100,53280,'N','N','LBRA','N','6646211a-830e-4a12-8adc-0238917f563b','N')
-;
-
--- 04/10/2018 16h19min6s BRT
-INSERT INTO AD_Column (AD_Column_ID,Version,Name,Description,Help,AD_Table_ID,ColumnName,FieldLength,IsKey,IsParent,IsMandatory,IsTranslated,IsIdentifier,IsEncrypted,AD_Reference_ID,AD_Reference_Value_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Element_ID,IsUpdateable,IsSelectionColumn,EntityType,IsAlwaysUpdateable,AD_Column_UU,IsToolbarButton) VALUES (1130495,0.0,'Sales Representative','Sales Representative or Company Agent','The Sales Representative indicates the Sales Rep for this Region.  Any Sales Rep must be a valid internal user.',1120605,'SalesRep_ID',10,'N','N','N','N','N','N',18,190,0,0,'Y',TO_TIMESTAMP('2018-10-04 16:19:06','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2018-10-04 16:19:06','YYYY-MM-DD HH24:MI:SS'),100,1063,'N','N','LBRA','N','50d22080-5f09-4522-aa03-02eb33f15631','N')
 ;
 
 -- 04/10/2018 16h19min6s BRT
