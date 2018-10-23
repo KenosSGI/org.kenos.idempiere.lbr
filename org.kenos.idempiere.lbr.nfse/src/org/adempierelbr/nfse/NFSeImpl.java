@@ -40,7 +40,6 @@ import org.adempierelbr.util.TextUtil;
 import org.adempierelbr.validator.VLBROrder;
 import org.adempierelbr.wrapper.I_W_AD_OrgInfo;
 import org.adempierelbr.wrapper.I_W_C_BPartner;
-import org.adempierelbr.wrapper.I_W_C_Invoice;
 import org.apache.xmlbeans.XmlCalendar;
 import org.compiere.model.MBPartner;
 import org.compiere.model.MBPartnerLocation;
@@ -162,13 +161,13 @@ public class NFSeImpl implements INFSe
 		BigDecimal v_CSLL 	= toBD (nf.getTaxAmt("CSLL")).abs();
 		
 		//	Impostos com Retenção
-		I_W_C_Invoice invoice = POWrapper.create(new MInvoice (Env.getCtx(), nf.getC_Invoice_ID(), null), I_W_C_Invoice.class);
+		MInvoice invoice = new MInvoice (Env.getCtx(), nf.getC_Invoice_ID(), null);
 		
 		// Verificar quais impostos possui retenção
 		List<String> haswithhold = VLBROrder.hasWithHold ((MInvoice) nf.getC_Invoice());
 		
 		// Se a Flag Possui retenção estiver desmarcada não adicionar os impostos
-		if (invoice.isLBR_HasWithhold())
+		if (invoice.get_ValueAsBoolean("LBR_HasWithhold"))
 		{	
 			if (v_PIS.signum() == 1 && haswithhold.contains("PIS-COFINS-CSLL"))
 				tpRPS.setValorPIS(v_PIS);
