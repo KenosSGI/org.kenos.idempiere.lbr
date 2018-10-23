@@ -284,7 +284,7 @@ public class ConsultaCadastro extends SvrProcess
 			bpartnerNew.setName2((infCad.getXFant() == null ? infCad.getXNome() : infCad.getXFant()));			
 			
 			//	Regime Tributário do Parceiro de Negócio
-			if (xRegApur.toUpperCase().startsWith("NORMAL"))
+			if (xRegApur != null && xRegApur.toUpperCase().startsWith("NORMAL"))
 				bpartnerNew.setLBR_TaxRegime(I_W_C_BPartner.LBR_TAXREGIME_Normal);
 			
 			//	Simples e MEI
