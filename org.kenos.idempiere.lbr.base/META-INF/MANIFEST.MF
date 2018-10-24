@@ -18,7 +18,8 @@ Service-Component: OSGI-INF/ModelFactory.xml,
  OSGI-INF/CalloutFactory.xml,
  OSGI-INF/CEPPostmonProvider.xml,
  OSGI-INF/CEPRepVirtualProvider.xml,
- OSGI-INF/POGBOMDropBaseProvider.xml
+ OSGI-INF/POGBOMDropBaseProvider.xml,
+ OSGI-INF/LocatorCheckEvent.xml
 Eclipse-RegisterBuddy: org.adempiere.base
 Export-Package: org.adempierelbr.callout,
  org.adempierelbr.model,
