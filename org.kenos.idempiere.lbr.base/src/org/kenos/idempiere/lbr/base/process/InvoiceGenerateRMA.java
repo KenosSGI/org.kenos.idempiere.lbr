@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 
 import org.adempiere.exceptions.AdempiereException;
+import org.compiere.model.MInOut;
 import org.compiere.model.MInvoice;
 import org.compiere.model.MInvoiceLine;
 import org.compiere.model.MRMA;
@@ -49,11 +50,18 @@ public class InvoiceGenerateRMA extends SvrProcess
     private boolean     p_Selection = false;
     /** Invoice Document Action */
     private String      p_docAction = DocAction.ACTION_Complete;
+    /** Consolidate				*/
+	private boolean		p_ConsolidateDocument = true;
     
     /** Number of Invoices      */
     private int         m_created = 0;
     /** Invoice Date            */
     private Timestamp   m_dateinvoiced = null;
+    
+    /**	The current Invoice	*/
+	private MInvoice 	m_invoice = null;
+	
+	private String rmaDocumentInfo = null;
 
     /**
      *  Prepare - e.g., get Parameters.
@@ -71,6 +79,8 @@ public class InvoiceGenerateRMA extends SvrProcess
                 p_Selection = "Y".equals(para[i].getParameter());
             else if (name.equals("DocAction"))
                 p_docAction = (String)para[i].getParameter();
+            else if (name.equals("ConsolidateDocument"))
+				p_ConsolidateDocument = "Y".equals(para[i].getParameter());
             else
                 log.log(Level.SEVERE, "Unknown Parameter: " + name);
         }
@@ -84,11 +94,13 @@ public class InvoiceGenerateRMA extends SvrProcess
 
     protected String doIt() throws Exception
     {
+    	// Selection
         if (!p_Selection)
         {
             throw new IllegalStateException("Shipments can only be generated from selection");
         }
         
+        //	Select
         String sql = "SELECT rma.M_RMA_ID FROM M_RMA rma, T_Selection "
             + "WHERE rma.DocStatus='CO' AND rma.IsSOTrx='Y' AND rma.AD_Client_ID=? "
             + "AND rma.M_RMA_ID = T_Selection.T_Selection_ID " 
@@ -103,10 +115,35 @@ public class InvoiceGenerateRMA extends SvrProcess
             pstmt.setInt(2, getAD_PInstance_ID());
             rs = pstmt.executeQuery();
             
+            // List
             while (rs.next())
             {
-                generateInvoice(rs.getInt(1));
+            	// RMA
+            	MRMA rma = new MRMA(getCtx(), rs.getInt(1), get_TrxName());
+            	
+            	// Shippment
+            	MInOut io = (MInOut) rma.getInOut();
+            	
+            	// Document Information
+            	rmaDocumentInfo = rma.getDocumentInfo();
+            	
+            	// Complete Invoice
+            	if (!p_ConsolidateDocument
+            			|| (m_invoice != null 
+    					&& m_invoice.getC_BPartner_Location_ID() != io.getC_BPartner_Location_ID())
+    					|| (m_invoice != null && m_invoice.getAD_Org_ID() != rma.getAD_Org_ID()))
+            		generateInvoice();
+            	
+            	// Create New Invoice
+            	if (m_invoice == null)
+            		m_invoice = createInvoice(rma);
+            	
+            	// Create Lines
+            	createInvoiceLine(rma);
             }
+            
+            // Complete Invoice
+            generateInvoice();
         }
         catch (Exception ex)
         {
@@ -121,6 +158,11 @@ public class InvoiceGenerateRMA extends SvrProcess
         return msgreturn.toString();
     }
     
+    /**
+     * Invoice Document Type Id
+     * @param M_RMA_ID
+     * @return
+     */
     private int getInvoiceDocTypeId(int M_RMA_ID)
     {
         String docTypeSQl = "SELECT dt.C_DocTypeInvoice_ID FROM C_DocType dt "
@@ -132,6 +174,11 @@ public class InvoiceGenerateRMA extends SvrProcess
         return docTypeId;
     }
     
+    /**
+     * Create Invoice Based on RMA
+     * @param rma
+     * @return
+     */
     private MInvoice createInvoice(MRMA rma)
     {
         int docTypeId = getInvoiceDocTypeId(rma.get_ID());
@@ -153,6 +200,28 @@ public class InvoiceGenerateRMA extends SvrProcess
         return invoice;
     }
     
+    /**
+     * Create Invoice Line Based on RMA
+     * @param rma
+     */
+    private void createInvoiceLine(MRMA rma)
+    {
+		MInvoiceLine invoiceLines[] = createInvoiceLines(rma, m_invoice);
+		        
+        if (invoiceLines.length == 0)
+        {
+            StringBuilder msglog = new StringBuilder("No invoice lines created: M_RMA_ID=")
+                    .append(rma.getM_RMA_ID()).append(", M_Invoice_ID=").append(m_invoice.get_ID());
+        	log.log(Level.WARNING, msglog.toString());
+        }
+    }
+    
+    /**
+     * Create Invoice Line on Invoice
+     * @param rma
+     * @param invoice
+     * @return
+     */
     private MInvoiceLine[] createInvoiceLines(MRMA rma, MInvoice invoice)
     {
         ArrayList<MInvoiceLine> invLineList = new ArrayList<MInvoiceLine>();
@@ -187,40 +256,36 @@ public class InvoiceGenerateRMA extends SvrProcess
         return invLines;
     }
     
-    
-    private void generateInvoice(int M_RMA_ID)
-    {
-        MRMA rma = new MRMA(getCtx(), M_RMA_ID, get_TrxName());
-        statusUpdate(Msg.getMsg(getCtx(), "Processing") + " " + rma.getDocumentInfo());
+    /**
+     * Complete Generate Invoice
+     */
+    private void generateInvoice()
+    {        
+        statusUpdate(Msg.getMsg(getCtx(), "Processing") + " " + rmaDocumentInfo);        
         
-        MInvoice invoice = createInvoice(rma);
-        MInvoiceLine invoiceLines[] = createInvoiceLines(rma, invoice);
+        StringBuilder processMsg = new StringBuilder().append(m_invoice.getDocumentNo());
         
-        if (invoiceLines.length == 0)
-        {
-            StringBuilder msglog = new StringBuilder("No invoice lines created: M_RMA_ID=")
-                    .append(M_RMA_ID).append(", M_Invoice_ID=").append(invoice.get_ID());
-        	log.log(Level.WARNING, msglog.toString());
-        }
+        if (MRMA.DOCACTION_None.equals(p_docAction))
+        	log.log(Level.WARNING, "DoAction None");
         
-        StringBuilder processMsg = new StringBuilder().append(invoice.getDocumentNo());
-        
-        if (!invoice.processIt(p_docAction))
+        else if (!m_invoice.processIt(p_docAction))
         {
             processMsg.append(" (NOT Processed)");
-            StringBuilder msg = new StringBuilder("Invoice Processing failed: ").append(invoice).append(" - ").append(invoice.getProcessMsg());
+            StringBuilder msg = new StringBuilder("Invoice Processing failed: ").append(m_invoice).append(" - ").append(m_invoice.getProcessMsg());
             log.warning(msg.toString());
             throw new IllegalStateException(msg.toString());
         }
         
-        if (!invoice.save())
+        if (!m_invoice.save())
         {
             throw new IllegalStateException("Could not update invoice");
         }
         
         // Add processing information to process log
         String message = Msg.parseTranslation(getCtx(), "@InvoiceProcessed@ " + processMsg.toString()); 
-        addBufferLog(invoice.getC_Invoice_ID(), invoice.getDateInvoiced(), null, message, invoice.get_Table_ID(), invoice.getC_Invoice_ID());
+        addBufferLog(m_invoice.getC_Invoice_ID(), m_invoice.getDateInvoiced(), null, message, m_invoice.get_Table_ID(), m_invoice.getC_Invoice_ID());
         m_created++;
+        
+        m_invoice = null;
     }
 }
