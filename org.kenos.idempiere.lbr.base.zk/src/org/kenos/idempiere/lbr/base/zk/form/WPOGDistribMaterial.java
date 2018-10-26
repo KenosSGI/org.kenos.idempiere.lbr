@@ -19,6 +19,7 @@ import org.adempiere.webui.event.WTableModelListener;
 import org.adempiere.webui.panel.ADForm;
 import org.adempiere.webui.panel.IFormController;
 import org.adempiere.webui.session.SessionManager;
+import org.adempiere.webui.window.FDialog;
 import org.compiere.model.MDocType;
 import org.compiere.model.MLocator;
 import org.compiere.model.MMovement;
@@ -408,13 +409,14 @@ public class WPOGDistribMaterial extends ADForm implements IFormController, WTab
 		if (selected.size() > 1)
 		{
 			grpSelectionIndLocator.setVisible(false);
+			FDialog.error(0, "Selecione apenas 1 Insumo");
 			throw new Exception ("Selecione apenas 1 Insumo");
 		}
 		
 		MLBRProductionGroup pg = new MLBRProductionGroup (Env.getCtx(), m_LBR_ProductionGroup_ID, null);
 		
 		Vector<Vector<Object>> data = new Vector<Vector<Object>>();
-		StringBuilder sql = new StringBuilder("SELECT l.M_Locator_ID, ");
+		StringBuilder sql = new StringBuilder("SELECT DISTINCT l.M_Locator_ID, ");
 		sql.append("l.Value AS LocatorName, l.created, prod.value || '-' || prod.name AS ProductName, bomqtyonhandbylocator(str.M_Product_ID, NULL, l.M_Locator_ID) AS QtyOnHand, str.M_Product_ID, str.M_AttributeSetInstance_ID ");
 		sql.append("FROM M_Locator l ");
 		sql.append("LEFT JOIN M_Warehouse w ON w.M_Warehouse_ID = l.M_Warehouse_ID ");
