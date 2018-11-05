@@ -90,6 +90,7 @@ import org.compiere.model.MOrderTax;
 import org.compiere.model.MOrgInfo;
 import org.compiere.model.MPInstance;
 import org.compiere.model.MPInstancePara;
+import org.compiere.model.MPeriod;
 import org.compiere.model.MProduct;
 import org.compiere.model.MProduction;
 import org.compiere.model.MProductionLine;
@@ -117,6 +118,7 @@ import org.compiere.util.Env;
 import org.compiere.util.Msg;
 import org.compiere.util.Trx;
 import org.compiere.util.Util;
+import org.kenos.idempiere.lbr.base.model.MLBRAverageCostLine;
 import org.kenos.idempiere.lbr.base.model.MLBRProductionGroup;
 
 import br.inf.portalfiscal.nfe.v400.InutNFeDocument;
@@ -1695,15 +1697,31 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 			MCost mCost = null;
 			BigDecimal costPrice = Env.ZERO;
 			
-			mCost = MCost.get (p, line.getM_AttributeSetInstance_ID(), as, line.getAD_Org_ID(), p_M_CostElement_ID, line.get_TrxName());
+			String where = " M_Product_ID=? AND LBR_AverageCost_ID IN " + 
+					"(SELECT LBR_AverageCost_ID FROM LBR_AverageCost WHERE C_Period_ID=?)";
 			
-			if (mCost != null && mCost.getCurrentCostPrice().compareTo(BigDecimal.ZERO) > 0)
-				costPrice = mCost.getCurrentCostPrice();
+			//	Buscar Custo do Período
+			MLBRAverageCostLine acl = new Query (Env.getCtx(), MLBRAverageCostLine.Table_Name, where, get_TrxName())
+										.setParameters(p.getM_Product_ID(), MPeriod.get(Env.getCtx(), pg.getDateOrdered(), pg.getAD_Org_ID(), get_TrxName()).getC_Period_ID())
+										.first();
+			
+			if (acl != null && acl.getCurrentCostPrice().compareTo(BigDecimal.ZERO) > 0)
+			{
+				costPrice = acl.getCurrentCostPrice();
+			}
 			else
 			{
-				//	Buscar da Organização * se não houver Custo na Organização
-				mCost = MCost.get (p, line.getM_AttributeSetInstance_ID(), as, 0, p_M_CostElement_ID, line.get_TrxName());
-				costPrice = mCost.getCurrentCostPrice();
+				// Se Custo do Período não identificado, buscar custo Atual.
+				mCost = MCost.get (p, line.getM_AttributeSetInstance_ID(), as, line.getAD_Org_ID(), p_M_CostElement_ID, line.get_TrxName());
+				
+				if (mCost != null && mCost.getCurrentCostPrice().compareTo(BigDecimal.ZERO) > 0)
+					costPrice = mCost.getCurrentCostPrice();
+				else
+				{
+					//	Buscar da Organização * se não houver Custo na Organização
+					mCost = MCost.get (p, line.getM_AttributeSetInstance_ID(), as, 0, p_M_CostElement_ID, line.get_TrxName());
+					costPrice = mCost.getCurrentCostPrice();
+				}
 			}
 			
 			//	If End Product get Price from Production

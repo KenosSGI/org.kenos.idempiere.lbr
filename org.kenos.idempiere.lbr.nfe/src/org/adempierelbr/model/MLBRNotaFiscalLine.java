@@ -43,8 +43,10 @@ import org.compiere.model.MConversionRate;
 import org.compiere.model.MCost;
 import org.compiere.model.MInOutLine;
 import org.compiere.model.MInvoiceLine;
+import org.compiere.model.MMovement;
 import org.compiere.model.MMovementLine;
 import org.compiere.model.MOrderLine;
+import org.compiere.model.MPeriod;
 import org.compiere.model.MProduct;
 import org.compiere.model.MSysConfig;
 import org.compiere.model.MTable;
@@ -54,6 +56,8 @@ import org.compiere.model.Query;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.compiere.util.Msg;
+import org.kenos.idempiere.lbr.base.model.MLBRAverageCostLine;
+import org.kenos.idempiere.lbr.base.model.MLBRProductionGroup;
 
 /**
  *	MNotaFiscalLine
@@ -642,6 +646,16 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 		MProduct product = line.getProduct();
 		setProduct (product);
 		
+		MMovement mov = (MMovement) line.getM_Movement();
+		MLBRProductionGroup pg = new MLBRProductionGroup (Env.getCtx(), mov.get_ValueAsInt("LBR_ProductionGroup_ID"), line.get_TrxName());
+		
+		Timestamp dateOrdered = null;
+		
+		if (pg != null && pg.getLBR_ProductionGroup_ID() > 0)
+			dateOrdered = pg.getDateOrdered();
+		else
+			dateOrdered = mov.getMovementDate();
+		
 		Map<Integer, BigDecimal> attributes = new  HashMap<Integer, BigDecimal>();
 		if (line.getM_AttributeSetInstance_ID() > 0)
 			attributes.put(line.getM_AttributeSetInstance_ID(), line.getMovementQty());
@@ -698,17 +712,32 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 		MCost mCost = null;
 		BigDecimal costPrice = Env.ZERO;
 		
-		mCost = MCost.get (line.getProduct(), line.getM_AttributeSetInstance_ID(), as, line.getAD_Org_ID(), p_M_CostElement_ID, line.get_TrxName());
+		String where = " M_Product_ID=? AND LBR_AverageCost_ID IN " + 
+				"(SELECT LBR_AverageCost_ID FROM LBR_AverageCost WHERE C_Period_ID=?)";
 		
-		if (mCost != null && mCost.getCurrentCostPrice().compareTo(BigDecimal.ZERO) > 0)
-			costPrice = mCost.getCurrentCostPrice();
+		//	Buscar Custo do Período
+		MLBRAverageCostLine acl = new Query (Env.getCtx(), MLBRAverageCostLine.Table_Name, where, get_TrxName())
+									.setParameters(product.getM_Product_ID(), MPeriod.get(Env.getCtx(), dateOrdered, getAD_Org_ID(), get_TrxName()).getC_Period_ID())
+									.first();
+		
+		if (acl != null && acl.getCurrentCostPrice().compareTo(BigDecimal.ZERO) > 0)
+		{
+			costPrice = acl.getCurrentCostPrice();
+		}
 		else
 		{
-			//	Buscar da Organização * se não houver Custo na Organização
-			mCost = MCost.get (line.getProduct(), line.getM_AttributeSetInstance_ID(), as, 0, p_M_CostElement_ID, line.get_TrxName());
-			costPrice = mCost.getCurrentCostPrice();
-		}
+			// Se Custo do Período não identificado, buscar custo Atual.		
+			mCost = MCost.get (line.getProduct(), line.getM_AttributeSetInstance_ID(), as, line.getAD_Org_ID(), p_M_CostElement_ID, line.get_TrxName());
 			
+			if (mCost != null && mCost.getCurrentCostPrice().compareTo(BigDecimal.ZERO) > 0)
+				costPrice = mCost.getCurrentCostPrice();
+			else
+			{
+				//	Buscar da Organização * se não houver Custo na Organização
+				mCost = MCost.get (line.getProduct(), line.getM_AttributeSetInstance_ID(), as, 0, p_M_CostElement_ID, line.get_TrxName());
+				costPrice = mCost.getCurrentCostPrice();
+			}
+		}			
 		
 		//	Cost Price
 		setPrice(MLBRNotaFiscal.CURRENCY_BRL, costPrice, costPrice , false, false);
