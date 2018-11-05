@@ -119,7 +119,7 @@ public class NFSeImpl implements INFSe
 		//
 		if (c != null && c.get_ValueAsString("lbr_CityCode") != null)
 			cityCode = c.get_ValueAsString("lbr_CityCode");
-		
+		 
 		//	Gera a sequência de RPS neste momento
 		if (!MSysConfig.getBooleanValue("LBR_REALTIME_RPS_NUMBER", true, nf.getAD_Client_ID())
 				&& MLBRNotaFiscal.RPS_TEMP.equals(nf.getDocumentNo()))
@@ -187,10 +187,13 @@ public class NFSeImpl implements INFSe
 		//
 		TpCPFCNPJ tpCPFCNPJ = tpRPS.addNewCPFCNPJTomador();
 		//
-		if (MLBRNotaFiscal.LBR_BPTYPEBR_PF_Individual.equals(bp.getlbr_BPTypeBR()))
+		if (MLBRNotaFiscal.LBR_BPTYPEBR_PF_Individual.equals(nf.getlbr_BPTypeBR()))
 			tpCPFCNPJ.setCPF(TextUtil.toNumeric (nf.getlbr_BPCNPJ()));
-		else
+		else if (MLBRNotaFiscal.LBR_BPTYPEBR_PJ_LegalEntity.equals(nf.getlbr_BPTypeBR()))
 			tpCPFCNPJ.setCNPJ(TextUtil.toNumeric (nf.getlbr_BPCNPJ()));
+		else
+			tpCPFCNPJ.setCNPJ(TextUtil.toNumeric("00000000000000")); // Referente a Notas de Exportação com CNPJ zeros
+
 		//
 		String ccm = bp.getlbr_CCM();
 		if (bp != null && ccm != null && !ccm.trim().isEmpty() && "3550308".equals(cityCode)) // São Paulo
@@ -199,16 +202,22 @@ public class NFSeImpl implements INFSe
 		tpRPS.setInscricaoEstadualTomador(toLong (nf.getlbr_BPIE()));
 		tpRPS.setRazaoSocialTomador(nf.getBPName());
 		//
-		TpEndereco end = tpRPS.addNewEnderecoTomador();
-//		end.setTipoLogradouro(nf.getlbr_BPAddress1());
-		end.setLogradouro(nf.getlbr_BPAddress1());
-		end.setNumeroEndereco(nf.getlbr_BPAddress2());
-		end.setBairro(nf.getlbr_BPAddress3());
-		if (nf.getlbr_BPAddress4() != null)
-			end.setComplementoEndereco(nf.getlbr_BPAddress4());
-		end.setCEP(TextUtil.toNumeric (nf.getlbr_BPPostal()));
-		end.setCidade(toInt (cityCode));	//	Cod. da Cidade
-		end.setUF(nf.getlbr_BPRegion());
+		if (!MLBRNotaFiscal.LBR_BPTYPEBR_XX_Foreigner.equals(nf.getlbr_BPTypeBR()))
+		{
+			TpEndereco end = tpRPS.addNewEnderecoTomador();
+			end.setTipoLogradouro(nf.getlbr_BPAddress1());
+			end.setLogradouro(nf.getlbr_BPAddress1());
+			end.setNumeroEndereco(nf.getlbr_BPAddress2());
+			end.setBairro(nf.getlbr_BPAddress3());
+			if (nf.getlbr_BPAddress4() != null)
+				end.setComplementoEndereco(nf.getlbr_BPAddress4());
+					
+			end.setCEP(TextUtil.toNumeric (nf.getlbr_BPPostal()));
+			
+			end.setCidade(toInt (cityCode));	//	Cod. da Cidade
+					
+			end.setUF(nf.getlbr_BPRegion());
+		}
 		//
 		BigDecimal aliquota = Env.ZERO;
 		String serviceCode = "";
@@ -367,7 +376,7 @@ public class NFSeImpl implements INFSe
 			if (dateFrom == null || tpRPS.getDataEmissao().getTime().before (dateFrom))
 				dateFrom = new Timestamp (tpRPS.getDataEmissao().getTime().getTime());
 			if (dateTo == null || tpRPS.getDataEmissao().getTime().after (dateTo))
-				dateTo = new Timestamp (tpRPS.getDataEmissao().getTime().getTime());
+				dateTo = new Timestamp (tpRPS.getDataEmissao().getTime().getTime());	
 		}
 		
 		//	Cabeçalho
@@ -461,7 +470,7 @@ public class NFSeImpl implements INFSe
 			xmlCal.set(Calendar.MONTH, 			cal.get (Calendar.MONTH));
 			xmlCal.set(Calendar.DAY_OF_MONTH, 	cal.get (Calendar.DAY_OF_MONTH));
 			
-			//	Set date withou timezone
+			//	Set date without timezone
 			tpRPS.setDataEmissao(xmlCal);
 			
 			servTotal  = servTotal.add(tpRPS.getValorServicos());
