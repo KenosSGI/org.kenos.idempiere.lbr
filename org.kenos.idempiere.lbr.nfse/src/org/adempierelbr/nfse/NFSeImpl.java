@@ -205,7 +205,6 @@ public class NFSeImpl implements INFSe
 		if (!MLBRNotaFiscal.LBR_BPTYPEBR_XX_Foreigner.equals(nf.getlbr_BPTypeBR()))
 		{
 			TpEndereco end = tpRPS.addNewEnderecoTomador();
-			end.setTipoLogradouro(nf.getlbr_BPAddress1());
 			end.setLogradouro(nf.getlbr_BPAddress1());
 			end.setNumeroEndereco(nf.getlbr_BPAddress2());
 			end.setBairro(nf.getlbr_BPAddress3());
