@@ -1218,12 +1218,12 @@ public class NFeXMLGenerator
 					icms00.setCST(Det.Imposto.ICMS.ICMS00.CST.X_00);
 					icms00.setModBC(InfNFe.Det.Imposto.ICMS.ICMS00.ModBC.X_0);	//	FIXME
 					icms00.setVBC(normalize  (icmsTax.getlbr_TaxBaseAmt()));
-					icms00.setPICMS(normalize4  (icmsTax.getlbr_TaxRate()));
+					icms00.setPICMS(normalize2to4  (icmsTax.getlbr_TaxRate()));
 					icms00.setVICMS(normalize  (icmsTax.getlbr_TaxAmt()));
 					// v4.00
 					if (fcpTax != null)
 					{
-						icms00.setPFCP(normalize4(fcpTax.getlbr_TaxRate()));
+						icms00.setPFCP(normalize2to4(fcpTax.getlbr_TaxRate()));
 						icms00.setVFCP(normalize(fcpTax.getlbr_TaxAmt()));
 					}
 				}
@@ -1236,32 +1236,32 @@ public class NFeXMLGenerator
 						icms10.setCST(Det.Imposto.ICMS.ICMS10.CST.X_10);
 						icms10.setModBC(InfNFe.Det.Imposto.ICMS.ICMS10.ModBC.X_0);		//	FIXME
 						icms10.setVBC(normalize  (icmsTax.getlbr_TaxBaseAmt()));
-						icms10.setPICMS(normalize4  (icmsTax.getlbr_TaxRate()));
+						icms10.setPICMS(normalize2to4  (icmsTax.getlbr_TaxRate()));
 						icms10.setVICMS(normalize  (icmsTax.getlbr_TaxAmt()));
 						icms10.setModBCST(InfNFe.Det.Imposto.ICMS.ICMS10.ModBCST.X_4);	//	FIXME: MVA %
 						
 						//	MVA - IVA
 //						if (nfl.getMVA)	//	FIXME
-//						icms10.setPMVAST(normalize4  (nfl.getMVA, 4));
+//						icms10.setPMVAST(normalize2to4  (nfl.getMVA, 4));
 						
 						//	Redução na BC
 						if (icmsSTTax.getlbr_TaxBase() != null 
 								&& icmsSTTax.getlbr_TaxBase().signum() == 1
 								&& icmsSTTax.getlbr_TaxBase().compareTo(Env.ONEHUNDRED) != 0)
-							icms10.setPRedBCST(normalize4  (icmsSTTax.getlbr_TaxBase()));
+							icms10.setPRedBCST(normalize2to4  (icmsSTTax.getlbr_TaxBase()));
 						
 						//	ICMS ST
 						icms10.setVBCST(normalize  (icmsSTTax.getlbr_TaxBaseAmt()));
-						icms10.setPICMSST(normalize4  (icmsSTTax.getlbr_TaxRate()));
+						icms10.setPICMSST(normalize2to4  (icmsSTTax.getlbr_TaxRate()));
 						icms10.setVICMSST(normalize  (icmsSTTax.getlbr_TaxAmt()));
 						// v4.00
 						if (fcpTax != null)
 						{
 							icms10.setVBCFCP(normalize(fcpTax.getlbr_TaxBaseAmt()));
-							icms10.setPFCP(normalize4(fcpTax.getlbr_TaxRate()));
+							icms10.setPFCP(normalize2to4(fcpTax.getlbr_TaxRate()));
 							icms10.setVFCP(normalize(fcpTax.getlbr_TaxAmt()));
 							icms10.setVBCFCPST(normalize(fcpTax.getlbr_TaxBaseAmt()));
-							icms10.setPFCPST(normalize4(fcpTax.getlbr_TaxRate()));
+							icms10.setPFCPST(normalize2to4(fcpTax.getlbr_TaxRate()));
 							icms10.setVFCPST(normalize(fcpTax.getlbr_TaxAmt()));
 						}
 					}
@@ -1272,16 +1272,16 @@ public class NFeXMLGenerator
 					icms20.setOrig(Torig.Enum.forString(productSource));
 					icms20.setCST(Det.Imposto.ICMS.ICMS20.CST.X_20);
 					icms20.setModBC(InfNFe.Det.Imposto.ICMS.ICMS20.ModBC.X_0);		//	FIXME
-					icms20.setPRedBC(normalize4  (icmsTax.getlbr_TaxBase()));
+					icms20.setPRedBC(normalize2to4  (icmsTax.getlbr_TaxBase()));
 					icms20.setVBC(normalize  (icmsTax.getlbr_TaxBaseAmt()));
-					icms20.setPICMS(normalize4  (icmsTax.getlbr_TaxRate()));
+					icms20.setPICMS(normalize2to4  (icmsTax.getlbr_TaxRate()));
 					icms20.setVICMS(normalize  (icmsTax.getlbr_TaxAmt()));
 					
 					// v4.00
 					if (fcpTax != null)
 					{
 						icms20.setVBCFCP(normalize4(fcpTax.getlbr_TaxBaseAmt()));
-						icms20.setPFCP(normalize4(fcpTax.getlbr_TaxRate()));
+						icms20.setPFCP(normalize2to4(fcpTax.getlbr_TaxRate()));
 						icms20.setVFCP(normalize4(fcpTax.getlbr_TaxAmt()));
 					}
 				}
@@ -1296,23 +1296,23 @@ public class NFeXMLGenerator
 						
 						//	MVA - IVA
 //						if (nfl.getMVA)	//	FIXME
-//						icms10.setPMVAST(normalize4  (nfl.getMVA, 4));
+//						icms10.setPMVAST(normalize2to4  (nfl.getMVA, 4));
 						
 						//	Redução na BC
 						if (icmsSTTax.getlbr_TaxBase() != null 
 								&& icmsSTTax.getlbr_TaxBase().signum() == 1
 								&& icmsSTTax.getlbr_TaxBase().compareTo(Env.ONEHUNDRED) != 0)
-							icms30.setPRedBCST(normalize4  (icmsSTTax.getlbr_TaxBase()));
+							icms30.setPRedBCST(normalize2to4  (icmsSTTax.getlbr_TaxBase()));
 						
 						icms30.setVBCST(normalize (icmsSTTax.getlbr_TaxBaseAmt()));
-						icms30.setPICMSST(normalize4  (icmsSTTax.getlbr_TaxRate()));
+						icms30.setPICMSST(normalize2to4  (icmsSTTax.getlbr_TaxRate()));
 						icms30.setVICMSST(normalize (icmsSTTax.getlbr_TaxAmt()));
 						
 						// v4.00
 						if (fcpTax != null)
 						{
 							icms30.setVBCFCPST(normalize4(fcpTax.getlbr_TaxBaseAmt()));
-							icms30.setPFCPST(normalize4(fcpTax.getlbr_TaxRate()));
+							icms30.setPFCPST(normalize2to4(fcpTax.getlbr_TaxRate()));
 							icms30.setVFCPST(normalize4(fcpTax.getlbr_TaxAmt()));
 						}
 					}
@@ -1336,7 +1336,7 @@ public class NFeXMLGenerator
 					if (fcpTax != null)
 					{
 						icms51.setVBCFCP(normalize4(fcpTax.getlbr_TaxBaseAmt()));
-						icms51.setPFCP(normalize4(fcpTax.getlbr_TaxRate()));
+						icms51.setPFCP(normalize2to4(fcpTax.getlbr_TaxRate()));
 						icms51.setVFCP(normalize4(fcpTax.getlbr_TaxAmt()));
 					}
 				}
@@ -1356,7 +1356,7 @@ public class NFeXMLGenerator
 						if (fcpTax != null)
 						{
 							icms60.setVBCFCPSTRet(normalize4(fcpTax.getlbr_TaxBaseAmt()));
-							icms60.setPFCPSTRet(normalize4(fcpTax.getlbr_TaxRate()));
+							icms60.setPFCPSTRet(normalize2to4(fcpTax.getlbr_TaxRate()));
 							icms60.setVFCPSTRet(normalize4(fcpTax.getlbr_TaxAmt()));
 						}
 					}
@@ -1368,9 +1368,9 @@ public class NFeXMLGenerator
 						ICMS70 icms70 = imposto.addNewICMS().addNewICMS70();
 						icms70.setOrig(Torig.Enum.forString(productSource));
 						icms70.setCST(Det.Imposto.ICMS.ICMS70.CST.X_70);
-						icms70.setPRedBC(normalize (icmsTax.getlbr_TaxBase()));
+						icms70.setPRedBC(normalize2to4 (icmsTax.getlbr_TaxBase()));
 						icms70.setVBC(normalize (icmsTax.getlbr_TaxBaseAmt()));
-						icms70.setPICMS(normalize4  (icmsTax.getlbr_TaxRate()));
+						icms70.setPICMS(normalize2to4  (icmsTax.getlbr_TaxRate()));
 						icms70.setVICMS(normalize  (icmsTax.getlbr_TaxAmt()));
 						icms70.setModBC(InfNFe.Det.Imposto.ICMS.ICMS70.ModBC.X_0);
 						
@@ -1378,24 +1378,24 @@ public class NFeXMLGenerator
 						if (icmsSTTax.getlbr_TaxBase() != null 
 								&& icmsSTTax.getlbr_TaxBase().signum() == 1
 								&& icmsSTTax.getlbr_TaxBase().compareTo(Env.ONEHUNDRED) != 0)
-							icms70.setPRedBCST(normalize4  (icmsSTTax.getlbr_TaxBase()));
+							icms70.setPRedBCST(normalize2to4  (icmsSTTax.getlbr_TaxBase()));
 						
 						icms70.setModBCST(InfNFe.Det.Imposto.ICMS.ICMS70.ModBCST.X_4);
 						icms70.setVBCST(normalize (icmsSTTax.getlbr_TaxBaseAmt()));
-						icms70.setPICMSST(normalize4  (icmsSTTax.getlbr_TaxRate()));
+						icms70.setPICMSST(normalize2to4  (icmsSTTax.getlbr_TaxRate()));
 						icms70.setVICMSST(normalize  (icmsSTTax.getlbr_TaxAmt()));
 						
 						// v4.00
 						if (fcpTax != null)
 						{
 							icms70.setVBCFCP(normalize4(fcpTax.getlbr_TaxBaseAmt()));
-							icms70.setPFCP(normalize4(fcpTax.getlbr_TaxRate()));
+							icms70.setPFCP(normalize2to4(fcpTax.getlbr_TaxRate()));
 							icms70.setVFCP(normalize4(fcpTax.getlbr_TaxAmt()));
 						}
 						if (fcpTaxST != null)
 						{
 							icms70.setVBCFCPST(normalize4(fcpTaxST.getlbr_TaxBaseAmt()));
-							icms70.setPFCPST(normalize4(fcpTaxST.getlbr_TaxRate()));
+							icms70.setPFCPST(normalize2to4(fcpTaxST.getlbr_TaxRate()));
 							icms70.setVFCPST(normalize4(fcpTaxST.getlbr_TaxAmt()));
 						}
 					}
@@ -1410,13 +1410,13 @@ public class NFeXMLGenerator
 					if (fcpTax != null)
 					{
 						icms90.setVBCFCP(normalize4(fcpTax.getlbr_TaxBaseAmt()));
-						icms90.setPFCP(normalize4(fcpTax.getlbr_TaxRate()));
+						icms90.setPFCP(normalize2to4(fcpTax.getlbr_TaxRate()));
 						icms90.setVFCP(normalize4(fcpTax.getlbr_TaxAmt()));
 					}
 					if (fcpTaxST != null)
 					{
 						icms90.setVBCFCPST(normalize4(fcpTaxST.getlbr_TaxBaseAmt()));
-						icms90.setPFCPST(normalize4(fcpTaxST.getlbr_TaxRate()));
+						icms90.setPFCPST(normalize2to4(fcpTaxST.getlbr_TaxRate()));
 						icms90.setVFCPST(normalize4(fcpTaxST.getlbr_TaxAmt()));
 					}
 				}
@@ -1425,7 +1425,7 @@ public class NFeXMLGenerator
 					ICMSSN101 icmssn101 = imposto.addNewICMS().addNewICMSSN101();
 					icmssn101.setOrig(Torig.Enum.forString(productSource));
 					icmssn101.setCSOSN(Det.Imposto.ICMS.ICMSSN101.CSOSN.X_101);
-					icmssn101.setPCredSN(normalize4  (icmsTax.getlbr_TaxRate()));
+					icmssn101.setPCredSN(normalize2to4  (icmsTax.getlbr_TaxRate()));
 					icmssn101.setVCredICMSSN(normalize  (icmsTax.getlbr_TaxAmt()));
 				}
 				else if (TextUtil.match(taxStatus, CSOSN_102, CSOSN_103, CSOSN_300, CSOSN_400))
@@ -1447,21 +1447,21 @@ public class NFeXMLGenerator
 						if (icmsSTTax.getlbr_TaxBase() != null 
 								&& icmsSTTax.getlbr_TaxBase().signum() == 1
 								&& icmsSTTax.getlbr_TaxBase().compareTo(Env.ONEHUNDRED) != 0)
-							icmssn201.setPRedBCST(normalize4  (icmsSTTax.getlbr_TaxBase()));
+							icmssn201.setPRedBCST(normalize2to4  (icmsSTTax.getlbr_TaxBase()));
 						
 						icmssn201.setVBCST(normalize (icmsSTTax.getlbr_TaxBaseAmt()));
-						icmssn201.setPICMSST(normalize4  (icmsSTTax.getlbr_TaxRate()));
+						icmssn201.setPICMSST(normalize2to4  (icmsSTTax.getlbr_TaxRate()));
 						icmssn201.setVICMSST(normalize  (icmsSTTax.getlbr_TaxAmt()));
-						icmssn201.setPCredSN(normalize4  (icmsTax.getlbr_TaxRate()));
+						icmssn201.setPCredSN(normalize2to4  (icmsTax.getlbr_TaxRate()));
 						icmssn201.setVCredICMSSN(normalize  (icmsTax.getlbr_TaxAmt()));
-						icmssn201.setPCredSN(normalize4  (icmsTax.getlbr_TaxRate()));
+						icmssn201.setPCredSN(normalize2to4  (icmsTax.getlbr_TaxRate()));
 						icmssn201.setVCredICMSSN(normalize(icmsTax.getlbr_TaxAmt()));
 						
 						// v4.00
 						if (fcpTaxST != null)
 						{
 							icmssn201.setVBCFCPST(normalize(fcpTaxST.getlbr_TaxBaseAmt()));
-							icmssn201.setPFCPST(normalize4(fcpTaxST.getlbr_TaxRate()));
+							icmssn201.setPFCPST(normalize2to4(fcpTaxST.getlbr_TaxRate()));
 							icmssn201.setVFCPST(normalize4(fcpTaxST.getlbr_TaxAmt()));
 						}
 					}
@@ -1479,17 +1479,17 @@ public class NFeXMLGenerator
 						if (icmsSTTax.getlbr_TaxBase() != null 
 								&& icmsSTTax.getlbr_TaxBase().signum() == 1
 								&& icmsSTTax.getlbr_TaxBase().compareTo(Env.ONEHUNDRED) != 0)
-							icmssn202.setPRedBCST(normalize4  (icmsSTTax.getlbr_TaxBase()));
+							icmssn202.setPRedBCST(normalize2to4  (icmsSTTax.getlbr_TaxBase()));
 						
 						icmssn202.setVBCST(normalize (icmsSTTax.getlbr_TaxBaseAmt()));
-						icmssn202.setPICMSST(normalize4  (icmsSTTax.getlbr_TaxRate()));
+						icmssn202.setPICMSST(normalize2to4  (icmsSTTax.getlbr_TaxRate()));
 						icmssn202.setVICMSST(normalize  (icmsSTTax.getlbr_TaxAmt()));
 
 						// v4.00
 						if (fcpTaxST != null)
 						{
 							icmssn202.setVBCFCPST(normalize (fcpTaxST.getlbr_TaxBaseAmt()));
-							icmssn202.setPFCPST(normalize4  (fcpTaxST.getlbr_TaxRate()));
+							icmssn202.setPFCPST(normalize2to4  (fcpTaxST.getlbr_TaxRate()));
 							icmssn202.setVFCPST(normalize  (fcpTaxST.getlbr_TaxAmt()));
 						}
 					}
@@ -1505,7 +1505,7 @@ public class NFeXMLGenerator
 					if (fcpTaxST != null)
 					{
 						icmssn500.setVBCFCPSTRet(normalize (fcpTaxST.getlbr_TaxBaseAmt()));
-						icmssn500.setPFCPSTRet(normalize4 (fcpTaxST.getlbr_TaxRate()));
+						icmssn500.setPFCPSTRet(normalize2to4 (fcpTaxST.getlbr_TaxRate()));
 						icmssn500.setVFCPSTRet(normalize (fcpTaxST.getlbr_TaxAmt()));
 						icmssn500.setPST(normalize4 (icmsTax.getlbr_TaxRate().add(fcpTaxST.getlbr_TaxRate())));
 					}
@@ -1517,14 +1517,14 @@ public class NFeXMLGenerator
 					icmssn900.setCSOSN(Det.Imposto.ICMS.ICMSSN900.CSOSN.X_900);
 					icmssn900.setModBC(Det.Imposto.ICMS.ICMSSN900.ModBC.X_0);
 					icmssn900.setVBC(normalize (icmsTax.getlbr_TaxBaseAmt()));
-					icmssn900.setPICMS(normalize4  (icmsTax.getlbr_TaxRate()));
+					icmssn900.setPICMS(normalize2to4  (icmsTax.getlbr_TaxRate()));
 					icmssn900.setVICMS(normalize  (icmsTax.getlbr_TaxAmt()));
 					
 					// v4.00
 					if (fcpTaxST != null)
 					{
 						icmssn900.setVBCFCPST(normalize (fcpTax.getlbr_TaxBaseAmt()));
-						icmssn900.setPFCPST(normalize4 (fcpTax.getlbr_TaxRate()));
+						icmssn900.setPFCPST(normalize2to4 (fcpTax.getlbr_TaxRate()));
 						icmssn900.setVFCPST(normalize (fcpTax.getlbr_TaxAmt()));
 					}
 				}
@@ -1553,7 +1553,7 @@ public class NFeXMLGenerator
 					IPITrib ipiTrib = ipi.addNewIPITrib();
 					ipiTrib.setCST(TIpi.IPITrib.CST.Enum.forString(taxStatus));
 					ipiTrib.setVBC(normalize  (ipiTax.getlbr_TaxBaseAmt()));
-					ipiTrib.setPIPI(normalize4  (ipiTax.getlbr_TaxRate()));
+					ipiTrib.setPIPI(normalize2to4  (ipiTax.getlbr_TaxRate()));
 					ipiTrib.setVIPI(normalize  (ipiTax.getlbr_TaxAmt()));
 				}
 				
@@ -1603,7 +1603,7 @@ public class NFeXMLGenerator
 					PISAliq pisAliq = imposto.addNewPIS().addNewPISAliq();
 					pisAliq.setCST(Det.Imposto.PIS.PISAliq.CST.Enum.forString (taxStatus));
 					pisAliq.setVBC(normalize  (pisTax.getlbr_TaxBaseAmt()));
-					pisAliq.setPPIS(normalize  (pisTax.getlbr_TaxRate()));
+					pisAliq.setPPIS(normalize2to4  (pisTax.getlbr_TaxRate()));
 					pisAliq.setVPIS(normalize  (pisTax.getlbr_TaxAmt()));
 				}
 				else if (TextUtil.match (taxStatus, CST_PC_03))
@@ -1624,14 +1624,14 @@ public class NFeXMLGenerator
 					PISOutr pisOutr = imposto.addNewPIS().addNewPISOutr();
 					pisOutr.setCST(Det.Imposto.PIS.PISOutr.CST.Enum.forString (taxStatus));
 					pisOutr.setVBC(normalize  (pisTax.getlbr_TaxBaseAmt()));
-					pisOutr.setPPIS(normalize  (pisTax.getlbr_TaxRate()));
+					pisOutr.setPPIS(normalize2to4  (pisTax.getlbr_TaxRate()));
 					pisOutr.setVPIS(normalize  (pisTax.getlbr_TaxAmt()));
 				}
 				else if (false)	//	FIXME PIS ST
 				{
 					PISST pisST = imposto.addNewPISST();
 					pisST.setVBC(normalize  (pisTax.getlbr_TaxBaseAmt()));
-					pisST.setPPIS(normalize  (pisTax.getlbr_TaxRate()));
+					pisST.setPPIS(normalize2to4  (pisTax.getlbr_TaxRate()));
 					pisST.setVPIS(normalize  (pisTax.getlbr_TaxAmt()));
 				}
 			}
@@ -1649,7 +1649,7 @@ public class NFeXMLGenerator
 					COFINSAliq cofinsAliq = imposto.addNewCOFINS().addNewCOFINSAliq();
 					cofinsAliq.setCST(Det.Imposto.COFINS.COFINSAliq.CST.Enum.forString (taxStatus));
 					cofinsAliq.setVBC(normalize  (cofinsTax.getlbr_TaxBaseAmt()));
-					cofinsAliq.setPCOFINS(normalize  (cofinsTax.getlbr_TaxRate()));
+					cofinsAliq.setPCOFINS(normalize2to4  (cofinsTax.getlbr_TaxRate()));
 					cofinsAliq.setVCOFINS(normalize  (cofinsTax.getlbr_TaxAmt()));
 				}
 				else if (TextUtil.match (taxStatus, CST_PC_03))
@@ -1670,14 +1670,14 @@ public class NFeXMLGenerator
 					COFINSOutr cofinsOutr = imposto.addNewCOFINS().addNewCOFINSOutr();
 					cofinsOutr.setCST(Det.Imposto.COFINS.COFINSOutr.CST.Enum.forString (taxStatus));
 					cofinsOutr.setVBC(normalize  (cofinsTax.getlbr_TaxBaseAmt()));
-					cofinsOutr.setPCOFINS(normalize  (cofinsTax.getlbr_TaxRate()));
+					cofinsOutr.setPCOFINS(normalize2to4  (cofinsTax.getlbr_TaxRate()));
 					cofinsOutr.setVCOFINS(normalize  (cofinsTax.getlbr_TaxAmt()));
 				}
 				else if (false)	//	FIXME COFINS ST
 				{
 					COFINSST cofinsST = imposto.addNewCOFINSST();
 					cofinsST.setVBC(normalize  (cofinsTax.getlbr_TaxBaseAmt()));
-					cofinsST.setPCOFINS(normalize  (cofinsTax.getlbr_TaxRate()));
+					cofinsST.setPCOFINS(normalize2to4  (cofinsTax.getlbr_TaxRate()));
 					cofinsST.setVCOFINS(normalize  (cofinsTax.getlbr_TaxAmt()));
 				}
 			}
@@ -1718,7 +1718,7 @@ public class NFeXMLGenerator
 				
 				ICMSUFDest nflICMSDest = imposto.addNewICMSUFDest();
 				nflICMSDest.setVBCUFDest (normalize (nfl.getTaxBaseAmt ("ICMSDIFAL")));
-				nflICMSDest.setPFCPUFDest (normalize (nfl.getTaxRate ("FCP")));
+				nflICMSDest.setPFCPUFDest (normalize2to4 (nfl.getTaxRate ("FCP")));
 				// v.400
 				nflICMSDest.setVBCFCPUFDest(normalize(nfl.getTaxBaseAmt("FCP")));
 				
@@ -2111,6 +2111,7 @@ public class NFeXMLGenerator
 	 * 			100.00		-> 100.00
 	 * 			100.1234	-> 100.12
 	 * 			40.789		->  40.79
+	 * 			8.8			->	 8.8
 	 * @param value
 	 * @return
 	 */
@@ -2132,6 +2133,28 @@ public class NFeXMLGenerator
 	private static String normalize3 (BigDecimal value)
 	{
 		return TextUtil.bigdecimalToString (value, 3);
+	}	//	normalize4
+	
+	/**
+	 * 	Converts BD to String, with up to 4 decimals,
+	 * 		with no trailing zeroes
+	 * 
+	 * 	E.g. 	10.12000 	->  10.12
+	 * 			100.00		-> 100
+	 * 			100.10		-> 100.10
+	 * 			100.12345	-> 100.1235
+	 * @param value
+	 * @return
+	 */
+	private static String normalize2to4 (BigDecimal value)
+	{
+		String result = TextUtil.bdToStringNoTrail (value, 4);
+		int trail = result.indexOf(".");
+		if (trail == -1)
+			return result + ".00";
+		else if (result.substring(trail).length() == 2)
+			return result + "0";
+		return result;
 	}	//	normalize4
 	
 	/**
