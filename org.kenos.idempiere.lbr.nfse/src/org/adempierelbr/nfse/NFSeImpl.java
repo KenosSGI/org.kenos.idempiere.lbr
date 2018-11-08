@@ -192,7 +192,7 @@ public class NFSeImpl implements INFSe
 		else if (MLBRNotaFiscal.LBR_BPTYPEBR_PJ_LegalEntity.equals(nf.getlbr_BPTypeBR()))
 			tpCPFCNPJ.setCNPJ(TextUtil.toNumeric (nf.getlbr_BPCNPJ()));
 		else
-			tpCPFCNPJ.setCNPJ(TextUtil.toNumeric("00000000000000")); // Referente a Notas de Exportação com CNPJ zeros
+			tpCPFCNPJ.setCNPJ(TextUtil.lPad("", 14)); // Referente a Notas de Exportação com CNPJ zeros
 
 		//
 		String ccm = bp.getlbr_CCM();
