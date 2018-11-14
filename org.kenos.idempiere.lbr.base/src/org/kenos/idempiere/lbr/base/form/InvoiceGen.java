@@ -139,7 +139,7 @@ public class InvoiceGen extends GenForm
 		sql.append("ON (i.C_Invoice_ID=il.C_Invoice_ID) WHERE i.DocStatus IN ('CO', 'CL') ");
 		sql.append("AND EXISTS ");
 		sql.append("(SELECT '1' FROM M_RMALine rl WHERE rl.M_RMA_ID=rma.M_RMA_ID ");
-		sql.append("AND (rl.M_InOutLine_ID IS NOT NULL) AND (rl.QtyDelivered < rl.Qty OR rl.QtyInvoiced < rl.Qty))) ");
+		sql.append("AND (rl.M_InOutLine_ID IS NOT NULL) AND (rl.QtyInvoiced IS NULL OR rl.QtyInvoiced < rl.Qty))) ");
 		sql.append("AND rma.AD_Client_ID=?");
 
         if (m_AD_Org_ID != null)
