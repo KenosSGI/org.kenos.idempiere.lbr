@@ -1826,7 +1826,8 @@ public class NFeXMLGenerator
 					transporta.setUF(TUf.Enum.forString(shipperRegion));
 				
 				//	Placa do Veículo. Formato (XXX-0000/UF)
-				if (shipperPlate != null && !shipperPlate.isEmpty())
+				if (shipperPlate != null && !shipperPlate.isEmpty() && 
+						TextUtil.retiraEspecial(shipperPlate).length() > 0)
 				{
 					//	Encontrar posição da / na variável shipperPlate para Seperar a Placa da UF do Veículo
 					int pos = 0;
