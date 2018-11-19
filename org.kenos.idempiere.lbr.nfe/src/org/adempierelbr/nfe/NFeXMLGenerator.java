@@ -855,12 +855,6 @@ public class NFeXMLGenerator
 					//	Não Contribuinte
 					&& MLBRNotaFiscal.LBR_INDIEDEST_9_NãoContribuinteDeICMS.equals(nf.getLBR_IndIEDest())
 					
-					//	Não pode ser Devolução de Mercadoria
-					&& !MLBRNotaFiscal.LBR_FINNFE_DevoluçãoRetornoDeMercadoria.equals(nf.getlbr_FinNFe())
-					
-					//	Saída
-					&& nf.isSOTrx()
-					
 					//	Estados Diferentes
 					&& nf.getlbr_OrgRegion() != null && nf.getlbr_BPRegion() != null 
 					&& !nf.getlbr_OrgRegion().equals(nf.getlbr_BPRegion()))
