@@ -259,6 +259,7 @@ public class WPOGDistribMaterial extends ADForm implements IFormController, WTab
 						movement.setC_BPartner_ID(pg.getC_BPartner_ID());
 						movement.setC_BPartner_Location_ID(pg.getC_BPartner_Location_ID());
 						movement.setDescription ("Documento de Distribuição de Insumo Remanescente para a OP: " + pg.get_ValueAsString ("DocumentNo"));
+						movement.set_ValueOfColumn(MLBRProductionGroup.COLUMNNAME_LBR_ProductionGroup_ID, pg.getLBR_ProductionGroup_ID());
 						movement.saveEx();
 						
 						//	Add Lines

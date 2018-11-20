@@ -413,7 +413,7 @@ public class WPOGInvoiceGen extends POGInvoiceGen implements IFormController, WT
 		sql.append("LEFT JOIN (SELECT sum (MovementQty) AS MovementQty, M_Product_ID, LBR_ProductionGroup_ID, DocStatus, M_LocatorTo_ID FROM M_MovementLine ml ");
 		sql.append("INNER JOIN M_Movement m ON m.M_Movement_ID = ml.M_Movement_ID GROUP BY M_Product_ID, LBR_ProductionGroup_ID, DocStatus, M_LocatorTo_ID) mov ");
 		sql.append("ON mov.M_Product_ID = pr.M_Product_ID AND mov.LBR_ProductionGroup_ID = ? AND mov.DocStatus IN ('CO', 'CL') ");
-		sql.append("AND (SELECT Value FROM M_Locator WHERE M_Locator_ID = mov.M_LocatorTo_ID) LIKE 'PRD%' ");
+		sql.append("AND (SELECT Value FROM M_Locator WHERE M_Locator_ID = mov.M_Locator_ID) NOT LIKE 'PRD%' ");
 		sql.append("WHERE pl.LBR_NotaFiscalLine_ID IS NULL AND pl.IsEndProduct='N' AND pr.ProductType='I' AND pl.M_Production_ID IN (");//.append(" AND LBR_Ref_Production_ID IS NULL ");
 		sql.append(String.join (",", Collections.nCopies (selected.size(), "?")));
 		sql.append(") AND pl.IsActive='Y' ");
