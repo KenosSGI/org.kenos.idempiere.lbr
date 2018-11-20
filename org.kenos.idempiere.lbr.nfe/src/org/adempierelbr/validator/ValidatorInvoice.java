@@ -404,7 +404,7 @@ public class ValidatorInvoice implements ModelValidator
 		 * 	Após preparar executa:
 		 * 		Validação do número da Nota Fiscal de Entrada
 		 */
-		else if (timing == TIMING_AFTER_PREPARE)
+		else if (timing == TIMING_BEFORE_COMPLETE)
 		{
 			/**
 			 * 	Quando gera documento fiscal de terceiros E
