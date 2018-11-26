@@ -376,4 +376,12 @@
   <value column="Name" original="RMADetail">RMA Detail</value>
   <value column="Description" original=""/>
  </row>
+  <row trl="N" uuid="7d871df7-8c79-4a17-9a9e-016c1fe6cfba">
+  <value column="Name" original="ARM em Aberto">ARM em Aberto</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="a5a406b7-0b12-4082-864f-ac3d6b966d58">
+  <value column="Name" original="ARM em Aberto">ARM em Aberto</value>
+  <value column="Description" original=""/>
+ </row>
 </idempiereTrl>

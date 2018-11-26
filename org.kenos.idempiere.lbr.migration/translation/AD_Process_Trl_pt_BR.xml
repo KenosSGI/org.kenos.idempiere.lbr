@@ -2547,4 +2547,9 @@ d. Transaction Date, will become in-service-date for the newly created asset.</v
   <value column="Description" original="Freight calculation for Brazilian Post Service (Correios)">Sistema de cálculo de frete para o serviço de postagem brasileiro (Correios)</value>
   <value column="Help" original=""/>
  </row>
+ <row trl="Y" uuid="ef60eabf-ac1c-4c90-89c9-0c83166e8707">
+  <value column="Name" original="RMA Open">ARM em Aberto</value>
+  <value column="Description" original="RMA Open">ARM em Aberto</value>
+  <value column="Help" original="This report can help to see all RMA Not Invoiced or Delivered">Relatório exibe ARMs que não foram Faturadas ou Expedidas</value>
+ </row>
 </idempiereTrl>
