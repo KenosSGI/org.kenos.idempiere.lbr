@@ -168,7 +168,7 @@ UPDATE AD_TreeNodeMM SET Parent_ID=53242, SeqNo=6, Updated=statement_timestamp()
 ;
 
 -- 26/11/2018 13h57min25s BRST
-UPDATE AD_ReportView SET OrderByClause='Qty < COALESCE(QtyDelivered,0) OR Qty < COALESCE(QtyInvoiced,0)',Updated=TO_TIMESTAMP('2018-11-26 13:57:25','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_ReportView_ID=1120040
+UPDATE AD_ReportView SET whereClause='Qty > COALESCE(QtyDelivered,0) OR Qty > COALESCE(QtyInvoiced,0)',Updated=TO_TIMESTAMP('2018-11-26 13:57:25','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_ReportView_ID=1120040
 ;
 
 SELECT Register_Migration_Script ('201811261550_RV_LBR_RMAOpen.sql') FROM DUAL
