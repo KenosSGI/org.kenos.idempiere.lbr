@@ -2552,4 +2552,9 @@ d. Transaction Date, will become in-service-date for the newly created asset.</v
   <value column="Description" original="RMA Open">ARM em Aberto</value>
   <value column="Help" original="This report can help to see all RMA Not Invoiced or Delivered">Relatório exibe ARMs que não foram Faturadas ou Expedidas</value>
  </row>
+  <row trl="N" uuid="3632b682-a1e7-4be7-8959-469301277a63">
+  <value column="Name" original="RV_LBR_RequestDetails">Detalhes de Solicitações</value>
+  <value column="Description" original="">Relatório para analisar as Solicitações</value>
+  <value column="Help" original="">Este relatório auxília na análise das Solicitações</value>
+ </row>
 </idempiereTrl>
