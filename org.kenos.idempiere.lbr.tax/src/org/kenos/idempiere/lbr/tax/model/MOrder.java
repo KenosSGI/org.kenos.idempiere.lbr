@@ -1,5 +1,6 @@
 package org.kenos.idempiere.lbr.tax.model;
 
+import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.Properties;
@@ -11,6 +12,9 @@ import org.compiere.model.MBPartner;
 import org.compiere.model.MDocType;
 import org.compiere.model.MOrderLine;
 import org.compiere.model.MOrg;
+import org.compiere.model.MProduct;
+import org.compiere.model.ModelValidationEngine;
+import org.compiere.model.ModelValidator;
 import org.compiere.model.PO;
 import org.compiere.util.Env;
 
@@ -209,4 +213,49 @@ public class MOrder extends org.compiere.model.MOrder
 		
 		return reserveStock;
 	}	//	unReserveStock
+	
+	/**
+	 * 	Close Document.
+	 * 	Cancel not delivered Quantities
+	 * 	@return true if success 
+	 */
+	public boolean closeIt()
+	{
+		if (log.isLoggable(Level.INFO)) log.info(toString());
+		// Before Close
+		m_processMsg = ModelValidationEngine.get().fireDocValidate(this,ModelValidator.TIMING_BEFORE_CLOSE);
+		if (m_processMsg != null)
+			return false;
+		
+		//	Close Not delivered Qty - SO/PO
+		MOrderLine[] lines = getLines(true, MOrderLine.COLUMNNAME_M_Product_ID);
+		for (int i = 0; i < lines.length; i++)
+		{
+			MOrderLine line = lines[i];
+			BigDecimal old = line.getQtyOrdered();
+			if (old.compareTo(line.getQtyDelivered()) != 0 
+					&& !MProduct.PRODUCTTYPE_Service.equals(line.getM_Product().getProductType()))
+			{
+				line.setQtyLostSales(line.getQtyOrdered().subtract(line.getQtyDelivered()));
+				line.setQtyOrdered(line.getQtyDelivered());
+				//	QtyEntered unchanged
+				line.addDescription("Close (" + old + ")");
+				line.saveEx(get_TrxName());
+			}
+		}
+		//	Clear Reservations
+		if (!reserveStock(null, lines))
+		{
+			m_processMsg = "Cannot unreserve Stock (close)";
+			return false;
+		}
+		
+		setProcessed(true);
+		setDocAction(DOCACTION_None);
+		// After Close
+		m_processMsg = ModelValidationEngine.get().fireDocValidate(this,ModelValidator.TIMING_AFTER_CLOSE);
+		if (m_processMsg != null)
+			return false;
+		return true;
+	}	//	closeIt
 }	//	MOrder
