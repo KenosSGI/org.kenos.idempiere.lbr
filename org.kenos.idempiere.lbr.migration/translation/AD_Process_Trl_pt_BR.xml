@@ -2390,7 +2390,7 @@ d. Transaction Date, will become in-service-date for the newly created asset.</v
  <row trl="Y" uuid="f016818f-b920-4df7-8c98-fd68fc8c8828">
   <value column="Name" original="Relatório Nota Fiscal">Relatório Nota Fiscal</value>
   <value column="Description" original="Relatório Nota Fiscal">Relatório Nota Fiscal</value>
-  <value column="Help" original="Gerar Relatório de Nota Fiscal Autorizadas, Canceladas ou Inutilizadas tanto de Entrada como de Saída.">Gerar Relatório de Nota Fiscal conforme o Estado da Nota Fiscal, Data de Emissão entre outros filtros.</value>
+  <value column="Help" original="Gerar Relatório de Nota Fiscal Autorizadas, Canceladas ou Inutilizadas tanto de Entrada como de Saída.">Gerar Relatório de Nota Fiscal conforme o Estado da Nota Fiscal, Data de Emissão entre outros filtros.  Para Notas Fiscais de Serviço, o parâmetro Ambiente da NF-e deve estar vazio.</value>
  </row>
  <row trl="Y" uuid="57b225be-29df-4a80-82e8-bd4bde8fc23d">
   <value column="Name" original="Recurring Run">Execução de Recorrentes</value>
@@ -2415,7 +2415,7 @@ d. Transaction Date, will become in-service-date for the newly created asset.</v
  <row trl="Y" uuid="86001521-8e28-4bf6-9173-55731d8afcb8">
   <value column="Name" original="Relatório Detalhes Nota Fiscal">Relatório Detalhes Nota Fiscal</value>
   <value column="Description" original="Relatório Detalhes Nota Fiscal">Relatório Detalhes Nota Fiscal</value>
-  <value column="Help" original="Gerar Relatório de Nota Fiscal Autorizadas, Canceladas ou Inutilizadas tanto de Entrada como de Saída.">Gerar Relatório Detalado de Nota Fiscal Autorizadas, Canceladas ou Inutilizadas tanto de Entrada como de Saída.</value>
+  <value column="Help" original="Gerar Relatório de Nota Fiscal Autorizadas, Canceladas ou Inutilizadas tanto de Entrada como de Saída.">Gerar Relatório Detalhado de Notas Fiscais Autorizadas, Canceladas ou Inutilizadas, tanto de Entrada como de Saída. Para Notas Fiscais de Serviço, o parâmetro Ambiente da NF-e deve estar vazio.</value>
  </row>
  <row trl="Y" uuid="6108bd35-8abb-4190-83d5-412a60e9e222">
   <value column="Name" original="Sales Products">Detalhe Produtos Vendidos</value>
