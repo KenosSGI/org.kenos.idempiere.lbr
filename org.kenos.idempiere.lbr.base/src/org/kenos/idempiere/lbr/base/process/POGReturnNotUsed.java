@@ -10,6 +10,7 @@ import org.compiere.model.MDocType;
 import org.compiere.model.MLocator;
 import org.compiere.model.MMovement;
 import org.compiere.model.MMovementLine;
+import org.compiere.model.MStorageOnHand;
 import org.compiere.model.MWarehouse;
 import org.compiere.model.Query;
 import org.compiere.process.SvrProcess;
@@ -84,14 +85,21 @@ public class POGReturnNotUsed extends SvrProcess
 		
 		for (String key : map.keySet())
 		{
-			MMovementLine ml = new MMovementLine (movement);
 			PLines lines = map.get(key);
+			
+			//	Return Qty On Hand
+			BigDecimal qtyOnHand = MStorageOnHand.getQtyOnHandForLocator(lines.getM_Product_ID(), lines.getM_Locator_ID(), lines.getM_AttributeSetInstance_ID(), pg.get_TrxName());
+			
+			if (qtyOnHand.compareTo(BigDecimal.ZERO) <= 0)
+				continue;
+			
+			MMovementLine ml = new MMovementLine (movement);
 			
 			//	Movement details
 			ml.setM_Product_ID(lines.getM_Product_ID());
 			ml.setM_Locator_ID(lines.getM_Locator_ID());
 			ml.setM_LocatorTo_ID(lines.getM_LocatorTo_ID());
-			ml.setMovementQty(lines.getQty());
+			ml.setMovementQty(qtyOnHand);
 			ml.setM_AttributeSetInstanceTo_ID(lines.getM_AttributeSetInstance_ID());
 			//
 			ml.saveEx();
