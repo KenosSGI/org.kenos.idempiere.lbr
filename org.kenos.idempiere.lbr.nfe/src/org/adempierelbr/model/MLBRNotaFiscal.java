@@ -2969,6 +2969,7 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 	 */
 	private void clear ()
 	{
+		//	Totais
 		setGrandTotal(Env.ZERO);
 		setTotalLines(Env.ZERO);
 		setlbr_TotalCIF(Env.ZERO);
@@ -2978,6 +2979,18 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		setlbr_NetWeight(Env.ZERO);
 		setlbr_GrossWeight(Env.ZERO);
 		
+		//	Transportadora
+		setlbr_BPShipperName("");
+		setlbr_BPShipperAddress("");
+		setlbr_BPShipperAddress3("");		
+		setlbr_BPShipperPostal("");
+		setlbr_BPShipperCity("");
+		setlbr_BPShipperRegion("");
+		setlbr_BPShipperCNPJ("");
+		setlbr_BPShipperIE("");
+		setlbr_BPShipperLicensePlate("");
+		setlbr_BPShipperCountry("");
+
 		//	Apaga as Linhas e Impostos
 		for (MLBRNFTax nft : getTaxes())
 		{
