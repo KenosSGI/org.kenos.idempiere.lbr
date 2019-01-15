@@ -114,7 +114,7 @@ public class VLBRNFe implements ModelValidator
 	public String modelChange (PO po, int type) throws Exception
 	{
 		//	Anexo
-		if (MAttachment.Table_Name.equals(po.get_TableName()))
+		if (po instanceof MAttachment)
 			return modelChange ((MAttachment) po, type);
 		
 		return null;
