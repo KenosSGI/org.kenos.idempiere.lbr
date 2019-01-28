@@ -76,10 +76,10 @@ public interface I_LBR_FactFiscal
     public static final String COLUMNNAME_BPCountryCode = "BPCountryCode";
 
 	/** Set Código do País do PN	  */
-	public void setBPCountryCode (int BPCountryCode);
+	public void setBPCountryCode (String BPCountryCode);
 
 	/** Get Código do País do PN	  */
-	public int getBPCountryCode();
+	public String getBPCountryCode();
 
     /** Column name BPName */
     public static final String COLUMNNAME_BPName = "BPName";

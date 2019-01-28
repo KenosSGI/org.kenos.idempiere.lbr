@@ -91,19 +91,19 @@ public class X_LBR_FactFiscal extends PO implements I_LBR_FactFiscal, I_Persiste
 
 	/** Set Código do País do PN.
 		@param BPCountryCode Código do País do PN	  */
-	public void setBPCountryCode (int BPCountryCode)
+	public void setBPCountryCode (String BPCountryCode)
 	{
-		set_Value (COLUMNNAME_BPCountryCode, Integer.valueOf(BPCountryCode));
+		set_Value (COLUMNNAME_BPCountryCode, BPCountryCode);
 	}
 
 	/** Get Código do País do PN.
 		@return Código do País do PN	  */
-	public int getBPCountryCode () 
+	public String getBPCountryCode () 
 	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_BPCountryCode);
+		String ii = get_ValueAsString(COLUMNNAME_BPCountryCode);
 		if (ii == null)
-			 return 0;
-		return ii.intValue();
+			 return "";
+		return ii;
 	}
 
 	/** Set BP Name.
