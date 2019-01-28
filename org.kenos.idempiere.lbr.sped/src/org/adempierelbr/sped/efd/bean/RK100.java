@@ -12,48 +12,69 @@
  *****************************************************************************/
 package org.adempierelbr.sped.efd.bean;
 
+import java.sql.Timestamp;
+
 import org.adempierelbr.annotation.XMLFieldProperties;
 import org.adempierelbr.sped.RegSped;
 
 /**
- * REGISTRO K001: ABERTURA DO BLOCO K
+ * REGISTRO K100: PERíODO DE APURAÇÃO DO ICMS/IPI
  * 
- * @author Ricardo Santana (Kenos, www.kenos.com.br)
- * @version $Id: RH001.java, 08/02/2011, 12:01:00, ralexsander
+ * @author Rogério Feitosa (Kenos, www.kenos.com.br)
+ * @version $Id: RK100.java, v1.0 2019/01/09 10:56:21, kenos_rfeitosa Exp $
  */
-public class RK001 extends RegSped
-{	
-	@XMLFieldProperties(minSize = 1, maxSize = 1, id = "IND_MOV")
-	private String IND_MOV;
+public class RK100 extends RegSped
+{
+	@XMLFieldProperties(id = "DT_INI")
+	private Timestamp DT_INI;
+	@XMLFieldProperties(id = "DT_FIN")
+	private Timestamp DT_FIN;
 
 	/**
 	 * Constructor
 	 * 
 	 * @param IND_MOV
 	 */
-	public RK001()
-	{
+	public RK100() {
 		super();
-	} // RK001
+	} // RK100	
+		
+	/**
+	 * 
+	 * @return
+	 */
+	public Timestamp getDT_INI()
+	{
+		return DT_INI;
+	}
+
+	/**
+	 * 
+	 * @param dT_INI
+	 */
+	public void setDT_INI(Timestamp dT_INI)
+	{
+		DT_INI = dT_INI;
+	}
 
 	/**
 	 * 
 	 * @return
 	 */
-	public String getIND_MOV()
+	public Timestamp getDT_FIN()
 	{
-		return IND_MOV;
-	}	
-	
+		return DT_FIN;
+	}
+
 	/**
 	 * 
-	 * @param iND_MOV
+	 * @param dT_FIN
 	 */
-	public void setIND_MOV(String iND_MOV)
+	public void setDT_FIN(Timestamp dT_FIN)
 	{
-		IND_MOV = iND_MOV;
+		DT_FIN = dT_FIN;
 	}
-	
+
 	/**
 	 * 
 	 */
@@ -62,4 +83,4 @@ public class RK001 extends RegSped
 		return 0;
 	}
 
-} // RH001
+} // RK100

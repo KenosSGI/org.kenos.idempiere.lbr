@@ -9,3 +9,6 @@ Require-Bundle: org.adempiere.base;bundle-version="4.1.0",
  org.kenos.idempiere.lbr.tax,
  org.kenos.idempiere.lbr.nfe;bundle-version="1.0.0",
  org.apache.commons.beanutils
+Service-Component: OSGI-INF/ProcessFactory.xml,
+ OSGI-INF/ModelFactory.xml
+Bundle-ActivationPolicy: lazy

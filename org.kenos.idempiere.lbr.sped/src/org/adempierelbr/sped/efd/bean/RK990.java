@@ -16,7 +16,7 @@ import org.adempierelbr.annotation.XMLFieldProperties;
 import org.adempierelbr.sped.RegSped;
 
 /**
- * REGISTRO H990: ENCERRAMENTO DO BLOCO H
+ * REGISTRO H990: ENCERRAMENTO DO BLOCO K
  * 
  * @author Ricardo Santana (Kenos, www.kenos.com.br)
  * @version $Id: RH990.java, 08/02/2011, 12:07:00, ralexsander
