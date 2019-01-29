@@ -330,8 +330,8 @@ public class VLBRCommons implements ModelValidator
 				&& prod.get_ValueAsInt(MLBRProductionGroup.COLUMNNAME_LBR_ProductionGroup_ID) > 0)
 		{
 			//	Production Group
-			MLBRProductionGroup pg = new MLBRProductionGroup (Env.getCtx(), prod.get_ValueAsInt(MLBRProductionGroup.COLUMNNAME_LBR_ProductionGroup_ID), null);
-			MProductPricing pp = new MProductPricing (prod.getM_Product_ID(), pg.getC_BPartner_ID(), prod.getProductionQty(), false, null);
+			MLBRProductionGroup pg = new MLBRProductionGroup (Env.getCtx(), prod.get_ValueAsInt(MLBRProductionGroup.COLUMNNAME_LBR_ProductionGroup_ID), prod.get_TrxName());
+			MProductPricing pp = new MProductPricing (prod.getM_Product_ID(), pg.getC_BPartner_ID(), prod.getProductionQty(), false, prod.get_TrxName());
 			
 			//	Set Price
 			if (pp != null)
