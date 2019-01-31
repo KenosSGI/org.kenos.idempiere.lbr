@@ -202,7 +202,8 @@ public abstract class CreateFromShipment extends CreateFrom
 				+ " p.M_Locator_ID, loc.Value, " // 5..6
 				+ " COALESCE(l.M_Product_ID,0),COALESCE(p.Name,c.Name), " //	7..8
 				+ " po.VendorProductNo, " // 9
-				+ " l.C_OrderLine_ID,l.Line "	//	10..11
+				+ " l.C_OrderLine_ID,l.Line, "	//	10..11
+				+ " p.Value "	//	12
 				+ "FROM C_OrderLine l"
 				+ " LEFT OUTER JOIN M_Product_PO po ON (l.M_Product_ID = po.M_Product_ID AND l.C_BPartner_ID = po.C_BPartner_ID) "
 				+ " LEFT OUTER JOIN M_MatchPO m ON (l.C_OrderLine_ID=m.C_OrderLine_ID AND ");
@@ -220,7 +221,7 @@ public abstract class CreateFromShipment extends CreateFrom
 		sql.append(" WHERE l.C_Order_ID=? "			//	#1
 				+ "GROUP BY l.QtyOrdered,CASE WHEN l.QtyOrdered=0 THEN 0 ELSE l.QtyEntered/l.QtyOrdered END, "
 				+ "l.C_UOM_ID,COALESCE(uom.UOMSymbol,uom.Name), p.M_Locator_ID, loc.Value, po.VendorProductNo, "
-				+ "l.M_Product_ID,COALESCE(p.Name,c.Name), l.Line,l.C_OrderLine_ID "
+				+ "l.M_Product_ID,COALESCE(p.Name,c.Name), l.Line,l.C_OrderLine_ID, p.Value "
 				+ "ORDER BY l.Line");
 		//
 		if (log.isLoggable(Level.FINER)) log.finer(sql.toString());
@@ -243,14 +244,15 @@ public abstract class CreateFromShipment extends CreateFrom
 				line.add(pp);                           //  2-UOM
 				// Add locator
 				line.add(getLocatorKeyNamePair(rs.getInt(5)));// 3-Locator
+				line.add(rs.getString(12)); // 4 - Value Product
 				// Add product
-				pp = new KeyNamePair(rs.getInt(7), rs.getString(8));
-				line.add(pp);                           //  4-Product
-				line.add(rs.getString(9));				// 5-VendorProductNo
+				pp = new KeyNamePair(rs.getInt(7), rs.getString(8));				
+				line.add(pp);                           //  5-Product
+				line.add(rs.getString(9));				// 6-VendorProductNo
 				pp = new KeyNamePair(rs.getInt(10), rs.getString(11));
-				line.add(pp);                           //  6-OrderLine
-				line.add(null);                         //  7-Ship
-				line.add(null);                         //  8-Invoice
+				line.add(pp);                           //  7-OrderLine
+				line.add(null);                         //  8-Ship
+				line.add(null);                         //  9-Invoice
 				data.add(line);
 			}
 		}
@@ -279,7 +281,7 @@ public abstract class CreateFromShipment extends CreateFrom
 			
 	    Vector<Vector<Object>> data = new Vector<Vector<Object>>();
 	    StringBuilder sqlStmt = new StringBuilder();
-	    sqlStmt.append("SELECT rl.M_RMALine_ID, rl.line, rl.Qty - rl.QtyDelivered, p.M_Product_ID, COALESCE(p.Name, c.Name), uom.C_UOM_ID, COALESCE(uom.UOMSymbol,uom.Name) ");
+	    sqlStmt.append("SELECT rl.M_RMALine_ID, rl.line, rl.Qty - rl.QtyDelivered, p.M_Product_ID, COALESCE(p.Name, c.Name), uom.C_UOM_ID, COALESCE(uom.UOMSymbol,uom.Name), p.Value ");
 	    sqlStmt.append("FROM M_RMALine rl INNER JOIN M_InOutLine iol ON rl.M_InOutLine_ID=iol.M_InOutLine_ID ");
 	          
 	    if (Env.isBaseLanguage(Env.getCtx(), "C_UOM"))
@@ -298,7 +300,7 @@ public abstract class CreateFromShipment extends CreateFrom
 	           
 	    sqlStmt.append(" UNION ");
 	    
-	    sqlStmt.append("SELECT rl.M_RMALine_ID, rl.line, rl.Qty - rl.QtyDelivered, p.M_Product_ID, p.Name, uom.C_UOM_ID, COALESCE(uom.UOMSymbol,uom.Name) ");
+	    sqlStmt.append("SELECT rl.M_RMALine_ID, rl.line, rl.Qty - rl.QtyDelivered, p.M_Product_ID, p.Name, uom.C_UOM_ID, COALESCE(uom.UOMSymbol,uom.Name), p.Value ");
 	    sqlStmt.append("FROM M_RMALine rl INNER JOIN M_Product p ON p.M_Product_ID = rl.M_Product_ID ");
 	    if (Env.isBaseLanguage(Env.getCtx(), "C_UOM"))
         {
@@ -314,7 +316,7 @@ public abstract class CreateFromShipment extends CreateFrom
 	    
 	    sqlStmt.append(" UNION ");
 	            
-	    sqlStmt.append("SELECT rl.M_RMALine_ID, rl.line, rl.Qty - rl.QtyDelivered, 0, c.Name, uom.C_UOM_ID, COALESCE(uom.UOMSymbol,uom.Name) ");
+	    sqlStmt.append("SELECT rl.M_RMALine_ID, rl.line, rl.Qty - rl.QtyDelivered, 0, c.Name, uom.C_UOM_ID, COALESCE(uom.UOMSymbol,uom.Name), '' AS Value ");
 	    sqlStmt.append("FROM M_RMALine rl INNER JOIN C_Charge c ON c.C_Charge_ID = rl.C_Charge_ID ");
 	    if (Env.isBaseLanguage(Env.getCtx(), "C_UOM"))
         {
@@ -347,13 +349,14 @@ public abstract class CreateFromShipment extends CreateFrom
 	            KeyNamePair pp = new KeyNamePair(rs.getInt(6), rs.getString(7));
 	            line.add(pp); // 2-UOM
 				line.add(getLocatorKeyNamePair(0));
+				line.add(rs.getString(8)); // 4 - Value Product
 	            pp = new KeyNamePair(rs.getInt(4), rs.getString(5));
-				line.add(pp); // 4-Product
-				line.add(null); //5-Vendor Product No
-				line.add(null); //6-Order
+				line.add(pp); // 5-Product
+				line.add(null); //6-Vendor Product No
+				line.add(null); //7-Order
 				pp = new KeyNamePair(rs.getInt(1), rs.getString(2));
-				line.add(pp);   //7-RMA
-				line.add(null); //8-invoice
+				line.add(pp);   //8-RMA
+				line.add(null); //9-invoice
 	            data.add(line);
             }
 	    }
@@ -386,7 +389,7 @@ public abstract class CreateFromShipment extends CreateFrom
 				+ " l.C_UOM_ID,COALESCE(uom.UOMSymbol,uom.Name)," // 3..4
 				+ " p.M_Locator_ID, loc.Value, " // 5..6
 				+ " l.M_Product_ID,p.Name, po.VendorProductNo, l.C_InvoiceLine_ID,l.Line," // 7..11
-				+ " l.C_OrderLine_ID " // 12
+				+ " l.C_OrderLine_ID, p.Value " // 12
 				+ " FROM C_InvoiceLine l "); 
 		if (Env.isBaseLanguage(Env.getCtx(), "C_UOM"))
 			sql.append(" LEFT OUTER JOIN C_UOM uom ON (l.C_UOM_ID=uom.C_UOM_ID)");
@@ -404,7 +407,7 @@ public abstract class CreateFromShipment extends CreateFrom
 		.append("GROUP BY l.QtyInvoiced,l.QtyEntered/l.QtyInvoiced,"
 				+ "l.C_UOM_ID,COALESCE(uom.UOMSymbol,uom.Name),"
 				+ "p.M_Locator_ID, loc.Value, "
-				+ "l.M_Product_ID,p.Name, po.VendorProductNo, l.C_InvoiceLine_ID,l.Line,l.C_OrderLine_ID ")
+				+ "l.M_Product_ID,p.Name, po.VendorProductNo, l.C_InvoiceLine_ID,l.Line,l.C_OrderLine_ID, p.Value ")
 				.append("ORDER BY l.Line");
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -425,17 +428,18 @@ public abstract class CreateFromShipment extends CreateFrom
 				line.add(pp); // 2-UOM
 				// Add locator
 				line.add(getLocatorKeyNamePair(rs.getInt(5))); // 3-Locator
+				line.add(rs.getString(13)); // 4 - Value Product
 				pp = new KeyNamePair(rs.getInt(7), rs.getString(8));
-				line.add(pp); // 4-Product
-				line.add(rs.getString(9));				// 5-VendorProductNo
+				line.add(pp); // 5-Product
+				line.add(rs.getString(9));				// 6-VendorProductNo
 				int C_OrderLine_ID = rs.getInt(12);
 				if (rs.wasNull())
-					line.add(null); // 6-Order
+					line.add(null); // 7-Order
 				else
 					line.add(new KeyNamePair(C_OrderLine_ID, "."));
-				line.add(null); // 7-Ship
+				line.add(null); // 8-Ship
 				pp = new KeyNamePair(rs.getInt(10), rs.getString(11));
-				line.add(pp); // 8-Invoice
+				line.add(pp); // 9-Invoice
 				data.add(line);
 			}
 		}
@@ -519,11 +523,12 @@ public abstract class CreateFromShipment extends CreateFrom
 		miniTable.setColumnClass(1, BigDecimal.class, false);      //  Qty
 		miniTable.setColumnClass(2, String.class, true);          //  UOM
 		miniTable.setColumnClass(3, String.class, false);  //  Locator
-		miniTable.setColumnClass(4, String.class, true);   //  Product
-		miniTable.setColumnClass(5, String.class, true); //  VendorProductNo
-		miniTable.setColumnClass(6, String.class, true);     //  Order
-		miniTable.setColumnClass(7, String.class, true);     //  Ship
-		miniTable.setColumnClass(8, String.class, true);   //  Invoice
+		miniTable.setColumnClass(4, String.class, true); //  Value Product
+		miniTable.setColumnClass(5, String.class, true);   //  Product
+		miniTable.setColumnClass(6, String.class, true); //  VendorProductNo
+		miniTable.setColumnClass(7, String.class, true);     //  Order
+		miniTable.setColumnClass(8, String.class, true);     //  Ship
+		miniTable.setColumnClass(9, String.class, true);   //  Invoice
 		
 		//  Table UI
 		miniTable.autoSize();
@@ -571,20 +576,20 @@ public abstract class CreateFromShipment extends CreateFrom
 				// If a locator is specified on the product, choose that otherwise default locator
 				M_Locator_ID = pp!=null && pp.getKey()!=0 ? pp.getKey() : defaultLocator_ID;
 
-				pp = (KeyNamePair) miniTable.getValueAt(i, 4); // Product
+				pp = (KeyNamePair) miniTable.getValueAt(i, 5); // Product
 				int M_Product_ID = pp.getKey();
 				int C_OrderLine_ID = 0;
-				pp = (KeyNamePair) miniTable.getValueAt(i, 6); // OrderLine
+				pp = (KeyNamePair) miniTable.getValueAt(i, 7); // OrderLine
 				if (pp != null)
 					C_OrderLine_ID = pp.getKey();
 				int M_RMALine_ID = 0;
-				pp = (KeyNamePair) miniTable.getValueAt(i, 7); // RMA
+				pp = (KeyNamePair) miniTable.getValueAt(i, 8); // RMA
 				// If we have RMA
 				if (pp != null)
 					M_RMALine_ID = pp.getKey();
 				int C_InvoiceLine_ID = 0;
 				MInvoiceLine il = null;
-				pp = (KeyNamePair) miniTable.getValueAt(i, 8); // InvoiceLine
+				pp = (KeyNamePair) miniTable.getValueAt(i, 9); // InvoiceLine
 				if (pp != null)
 					C_InvoiceLine_ID = pp.getKey();
 				if (C_InvoiceLine_ID != 0)
@@ -781,6 +786,7 @@ public abstract class CreateFromShipment extends CreateFrom
 	    columnNames.add(Msg.translate(Env.getCtx(), "Quantity"));
 	    columnNames.add(Msg.translate(Env.getCtx(), "C_UOM_ID"));
 	    columnNames.add(Msg.translate(Env.getCtx(), "M_Locator_ID"));
+	    columnNames.add(Msg.translate(Env.getCtx(), "Value"));
 	    columnNames.add(Msg.translate(Env.getCtx(), "M_Product_ID"));
 	    columnNames.add(Msg.getElement(Env.getCtx(), "VendorProductNo", false));
 	    columnNames.add(Msg.getElement(Env.getCtx(), "C_Order_ID", false));

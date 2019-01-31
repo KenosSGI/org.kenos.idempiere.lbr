@@ -701,11 +701,12 @@ public class WCreateFromShipmentUI extends CreateFromShipment implements EventLi
 		 *  Qty             - 1
 		 *  C_UOM_ID        - 2
 		 *  M_Locator_ID    - 3
-		 *  M_Product_ID    - 4
-		 *  VendorProductNo - 5
-		 *  OrderLine       - 6
-		 *  ShipmentLine    - 7
-		 *  InvoiceLine     - 8
+		 *  Value Product	- 4
+		 *  M_Product_ID    - 5
+		 *  VendorProductNo - 6
+		 *  OrderLine       - 7
+		 *  ShipmentLine    - 8
+		 *  InvoiceLine     - 9
 		 */
 		if (log.isLoggable(Level.CONFIG)) log.config("LBR_NotaFiscal_ID=" + LBR_NotaFiscal_ID);
 
@@ -719,7 +720,8 @@ public class WCreateFromShipmentUI extends CreateFromShipment implements EventLi
 				+ " p.M_Locator_ID, loc.Value, " // 5..6
 				+ " COALESCE(l.M_Product_ID,0),COALESCE(p.Name,c.Name), " //	7..8
 				+ " po.VendorProductNo, " // 9
-				+ " l.C_OrderLine_ID,l.Line "	//	10..11
+				+ " l.C_OrderLine_ID,l.Line, "	//	10..11
+				+ " p.Value "
 				+ "FROM C_OrderLine l"
 				+ " LEFT OUTER JOIN M_Product_PO po ON (l.M_Product_ID = po.M_Product_ID AND l.C_BPartner_ID = po.C_BPartner_ID) "
 				+ " LEFT OUTER JOIN M_MatchPO m ON (l.C_OrderLine_ID=m.C_OrderLine_ID AND ");
@@ -748,7 +750,7 @@ public class WCreateFromShipmentUI extends CreateFromShipment implements EventLi
 		sql.append(" AND ro.DocStatus IN ('CL','CO')) "	
 				+ "GROUP BY l.QtyOrdered,CASE WHEN l.QtyOrdered=0 THEN 0 ELSE l.QtyEntered/l.QtyOrdered END, "
 				+ "l.C_UOM_ID,COALESCE(uom.UOMSymbol,uom.Name), p.M_Locator_ID, loc.Value, po.VendorProductNo, "
-				+ "l.M_Product_ID,COALESCE(p.Name,c.Name), l.Line,l.C_OrderLine_ID "
+				+ "l.M_Product_ID,COALESCE(p.Name,c.Name), l.Line,l.C_OrderLine_ID, p.Name, p.Value, c.Name "
 				+ "HAVING l.QtyOrdered-SUM(COALESCE(m.Qty,0))-COALESCE((SELECT SUM(MovementQty) FROM M_InOutLine iol "
 				+ "JOIN M_InOut io ON iol.M_InOut_ID=io.M_InOut_ID WHERE l.C_OrderLine_ID=iol.C_OrderLine_ID AND io.Processed='N'),0)>0 "
 				+ "ORDER BY l.Line");
@@ -773,14 +775,15 @@ public class WCreateFromShipmentUI extends CreateFromShipment implements EventLi
 				line.add(pp);                           //  2-UOM
 				// Add locator
 				line.add(getLocatorKeyNamePair(rs.getInt(5)));// 3-Locator
+				line.add(rs.getString(12));	//	4-Value Product
 				// Add product
 				pp = new KeyNamePair(rs.getInt(7), rs.getString(8));
-				line.add(pp);                           //  4-Product
-				line.add(rs.getString(9));				// 5-VendorProductNo
+				line.add(pp);                           //  5-Product
+				line.add(rs.getString(9));				// 6-VendorProductNo
 				pp = new KeyNamePair(rs.getInt(10), rs.getString(11));
-				line.add(pp);                           //  6-OrderLine
-				line.add(null);                         //  7-Ship
-				line.add(null);                         //  8-Invoice
+				line.add(pp);                           //  7-OrderLine
+				line.add(null);                         //  8-Ship
+				line.add(null);                         //  9-Invoice
 				data.add(line);
 			}
 		}
