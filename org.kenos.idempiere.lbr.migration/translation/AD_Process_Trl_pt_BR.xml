@@ -2357,6 +2357,16 @@ d. Transaction Date, will become in-service-date for the newly created asset.</v
   <value column="Description" original="Import Replenish for Products">Importar Níveis de Reabastecimento de um Produto no Estoque</value>
   <value column="Help" original=""/>
  </row>
+ <row id="1120155" trl="Y">
+  <value column="Name" original="Product BOM Report">Relatório de Lista de Materiais</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row id="1120156" trl="N">
+  <value column="Name" original="Product Detail Report">Relatório de Detalhes de Produto</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
  <row trl="Y" uuid="7b0b45f7-a642-4fc2-b666-db4839b15185">
   <value column="Name" original="Get Partner DF-e">Obter Documentos Fiscais (DF-e)</value>
   <value column="Description" original="Get DFe">Obter Documentos Fiscais (DF-e)</value>
@@ -2522,19 +2532,24 @@ d. Transaction Date, will become in-service-date for the newly created asset.</v
   <value column="Description" original="This script will re-process order values, such as Taxes, Prices, etc.">Este processo irá re-processar um pedido, verificando CFOP, Impostos, Preços, etc.</value>
   <value column="Help" original="">Recalcular Impostos irá apenas recalcular, baseado nas alíquotas atuais. Redefinir Impostos irá sobrescrever as configurações de impostos do pedido baseado na regra padrão de configuração de impostos. Redefinir CFOP irá buscar o CFOP padrão da configuração. Ratear Frete irá ratear o frete baseado nos valores. Forçar Preço de Lista irá substituir o preço do pedido com o preço mais atual da Lista de Preços. Desfazer Reserva irá remover as reservas de estoque, possibilitando a alteração ou remoção do produto neste pedido.</value>
  </row>
+ <row id="1120216" trl="Y">
+  <value column="Name" original="Skip NF Number">Inutilização de Numeração de NF-e</value>
+  <value column="Description" original="Skip NF Number">Inutilização de Número/Sequência de NF</value>
+  <value column="Help" original="Register at SeFaz that some NF numbering will not be used">Inutiliza um número ou uma sequência, informando a SeFaz que estes números não serão usados</value>
+ </row>
  <row trl="Y" uuid="3d6d7e21-b673-4c0e-b7ac-8a2a22d1aae0">
   <value column="Name" original="Return Not Used From Producer">Retornar Insumos Não Utilizados</value>
   <value column="Description" original="Move back to internal warehouse the products not used by the Producer">Retornar para o Armazém Interno os Insumos que não foram utilizados na industrialização</value>
   <value column="Help" original="Move back to internal warehouse the products not used by the Producer">Retornar para o Armazém Interno os Insumos que não foram utilizados na industrialização</value>
  </row>
  <row trl="Y" uuid="b3426bb9-1c70-4ace-8d5d-33b084816bad">
-  <value column="Name" original="Inventory Detail">Detalhes de Inventário e Uso Interno</value>
+  <value column="Name" original="Inventory Details">Detalhes de Inventário e Uso Interno</value>
   <value column="Description" original="Physical and Internal Use Detail">Detalhes de Inventário e Uso Interno</value>
-  <value column="Help" original="">Com este relatório pode-se analisar o Estoque Físico (Inventário), Uso Interno e Ajuste de Custo.</value>
+  <value column="Help" original="With this report you can have details about your physical and internal use inventory.">Com este relatório pode-se analisar o Estoque Físico (Inventário), Uso Interno e Ajuste de Custo.</value>
  </row>
  <row trl="Y" uuid="f7671fd6-4f4d-40a0-9e0f-2e6a8cff25db">
   <value column="Name" original="RMA Details">Detalhes de ARM</value>
-  <value column="Description" original="RMA Details">Detalhes de ARM</value>
+  <value column="Description" original="RMA Detailss">Detalhes de ARM</value>
   <value column="Help" original="This report can help to see all exchange and return of products.">Este relatório auxilia na visualização das devoluções em geral.</value>
  </row>
  <row trl="Y" uuid="714808ff-94f8-47c0-a29b-eaffce45edd5">
@@ -2542,9 +2557,9 @@ d. Transaction Date, will become in-service-date for the newly created asset.</v
   <value column="Description" original="Distribute Remaining Material sent to Industrialization to be used in others productions sent to the same productor">Distribuir Insumo Remanescente enviado à Industrialização para ser usado em outras produções enviadas ao mesmo Fornecedor</value>
   <value column="Help" original="Distribute Remaining Material sent to Industrialization to be used in others productions sent to the same productor">Distribuir Insumo Remanescente enviado à Industrialização para ser usado em outras produções enviadas ao mesmo Fornecedor</value>
  </row>
- <row trl="Y" uuid="5efaeb22-fe9f-47ae-a1ae-228b3395e68e">
-  <value column="Name" original="Freight Calc">Cálculo de Frete (Correios)</value>
-  <value column="Description" original="Freight calculation for Brazilian Post Service (Correios)">Sistema de cálculo de frete para o serviço de postagem brasileiro (Correios)</value>
+ <row trl="N" uuid="7c11921c-ff62-4454-823f-6052c054c689">
+  <value column="Name" original="Requisition Print">Requisition Print</value>
+  <value column="Description" original="Requisition Print">Requisition Print</value>
   <value column="Help" original=""/>
  </row>
  <row trl="Y" uuid="ef60eabf-ac1c-4c90-89c9-0c83166e8707">
@@ -2552,9 +2567,19 @@ d. Transaction Date, will become in-service-date for the newly created asset.</v
   <value column="Description" original="RMA Open">ARM em Aberto</value>
   <value column="Help" original="This report can help to see all RMA Not Invoiced or Delivered">Relatório exibe ARMs que não foram Faturadas ou Expedidas</value>
  </row>
-  <row trl="N" uuid="3632b682-a1e7-4be7-8959-469301277a63">
+ <row trl="N" uuid="3632b682-a1e7-4be7-8959-469301277a63">
   <value column="Name" original="RV_LBR_RequestDetails">Detalhes de Solicitações</value>
   <value column="Description" original="">Relatório para analisar as Solicitações</value>
   <value column="Help" original="">Este relatório auxília na análise das Solicitações</value>
+ </row>
+ <row trl="Y" uuid="21704ddb-b6b0-4890-ba32-48166a3fd5a3">
+  <value column="Name" original="Generate Book Inventory">Gerar Estoque Escriturado</value>
+  <value column="Description" original="">Gerar Estoque Escriturado</value>
+  <value column="Help" original="">Gerar Estoque Escriturado para o Bloco K</value>
+ </row>
+ <row trl="Y" uuid="5efaeb22-fe9f-47ae-a1ae-228b3395e68e">
+  <value column="Name" original="Freight Calc">Cálculo de Frete (Correios)</value>
+  <value column="Description" original="Freight calculation for Brazilian Post Service (Correios)">Sistema de cálculo de frete para o serviço de postagem brasileiro (Correios)</value>
+  <value column="Help" original=""/>
  </row>
 </idempiereTrl>

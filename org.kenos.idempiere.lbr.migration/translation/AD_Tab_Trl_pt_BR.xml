@@ -7121,4 +7121,46 @@ Impressão:
   <value column="Description" original="">Histórico de Custo</value>
   <value column="Help" original="">Histórico de Custo</value>
  </row>
+ <row id="1120287" trl="Y">
+  <value column="Name" original="Line Attributes">Atributos das Linhas</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row id="1120288" trl="Y">
+  <value column="Name" original="Line Tracking">Rastreio</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="a2d24b8a-877a-4c4a-a6d5-d1db5e6406d2">
+  <value column="Name" original="Accounting">Accounting</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="bb936381-fca8-41ad-bffc-c10c8d3d53a9">
+  <value column="Name" original="Book Inventory">Book Inventory</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original="Book Inventory for SPED"/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="315ed824-1223-43ed-b195-bcadc4bc0eaf">
+  <value column="Name" original="Book Inventory (ReValidate)">Book Inventory</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original="Re-validate Book Inventory for SPED for before period"/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="1fb147fc-7471-4563-80bb-27c33f89ba7d">
+  <value column="Name" original="Book Inventory">Estoque Escriturado</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original="Book Inventory for SPED">Estoque Escriturado</value>
+  <value column="Help" original="">Estoque Escriturado utilizado no SPED Fiscal para o Bloco K</value>
+ </row>
+ <row trl="Y" uuid="01b6ef44-3c03-4f73-a14e-c5af26350c77">
+  <value column="Name" original="Book Inventory (ReValidate)">Estoque Escriturado (Correção)</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original="Re-validate Book Inventory for SPED for before period">Estoque Escriturado (Correção)</value>
+  <value column="Help" original="">Correção do Estoque Escriturado de períodos anteriores do SPED Fiscal, Bloco K</value>
+ </row>
 </idempiereTrl>

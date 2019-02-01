@@ -56015,6 +56015,16 @@ Example this value = 60. user can't reuse password in history has age < 60
   <value column="PO_Name" original=""/>
   <value column="PO_PrintName" original=""/>
  </row>
+ <row id="203219" trl="N">
+  <value column="Name" original="Value">Value</value>
+  <value column="PrintName" original="Value">Value</value>
+  <value column="Description" original="Date Value">Date Value</value>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+ </row>
  <row trl="Y" uuid="f04c47ed-7cb5-43fa-b216-69c75292fae8">
   <value column="Name" original="Bill Fold">Carteira</value>
   <value column="PrintName" original="Bill Fold">Carteira</value>
@@ -59522,6 +59532,17 @@ Usar @AMT@ quando for identificar o valor do Produto/Serviço</value>
   <value column="PO_Name" original=""/>
   <value column="PO_PrintName" original=""/>
  </row>
+ <row trl="Y" uuid="62f5002e-8bdb-4f39-829f-f08fcce536a3">
+  <value column="Name" original="INCOTERMS">INCOTERMS</value>
+  <value column="PrintName" original="INCOTERMS">INCOTERMS</value>
+  <value column="Description" original="International Commercial Terms">International Commercial Terms</value>
+  <value column="Help" original="The Incoterms rules or International Commercial Terms are a series of pre-defined commercial terms published by the International Chamber of Commerce (ICC) that are widely used in International commercial transactions or Procurement processes. A series of three-letter trade terms related to common contractual sales practices, the Incoterms rules are intended primarily to clearly communicate the tasks, costs, and risks associated with the transportation and delivery of goods.&#10;The Incoterms rules are accepted by governments, legal authorities, and practitioners worldwide for the interpretation of most commonly used terms in international trade. They are intended to reduce or remove altogether uncertainties arising from different interpretation of the rules in different countries. ">The Incoterms rules or International Commercial Terms are a series of pre-defined commercial terms published by the International Chamber of Commerce (ICC) that are widely used in International commercial transactions or Procurement processes. A series of three-letter trade terms related to common contractual sales practices, the Incoterms rules are intended primarily to clearly communicate the tasks, costs, and risks associated with the transportation and delivery of goods.
+The Incoterms rules are accepted by governments, legal authorities, and practitioners worldwide for the interpretation of most commonly used terms in international trade. They are intended to reduce or remove altogether uncertainties arising from different interpretation of the rules in different countries. </value>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+ </row>
  <row trl="Y" uuid="0ed33dd0-a037-43ca-a18e-235ded60bd88">
   <value column="Name" original="Product FCI">FCI do Produto</value>
   <value column="PrintName" original="Product FCI">FCI do Produto</value>
@@ -62119,6 +62140,510 @@ Usar @AMT@ quando for identificar o valor do Produto/Serviço</value>
   <value column="PrintName" original="IBPT API Key">Chave API IBPT</value>
   <value column="Description" original="Key to Conect to IBPT API">Chave para Conexão com a API (Online) do IBPT</value>
   <value column="Help" original="">Chave deve ser usada para se conectar com a API do IBPT e obter informações para calcular o Valor Aproximado dos Impostos de uma Nota Fiscal.</value>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+ </row>
+ <row id="1122474" trl="Y">
+  <value column="Name" original="Scale Production">Escala Relevante</value>
+  <value column="PrintName" original="Scale Production">Escala Relevante</value>
+  <value column="Description" original="">Indicador de Produção em escala relevante, conforme Cláusula 23 do Convenio ICMS 52/2017</value>
+  <value column="Help" original="">Indicador de Produção em escala relevante, conforme Cláusula 23 do Convenio ICMS 52/2017:
+S - Produzido em Escala Relevante;
+N – Produzido em Escala NÃO Relevante.
+Nota: preenchimento obrigatório para produtos com NCM relacionado no Anexo XXVII do Convenio 52/2017</value>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+ </row>
+ <row id="1122475" trl="Y">
+  <value column="Name" original="CNPJ Manufacturer">CNPJ do Fabricante</value>
+  <value column="PrintName" original="CNPJ Manufacturer">CNPJ do Fabricante</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+ </row>
+ <row id="1122476" trl="Y">
+  <value column="Name" original="Tax Benefit Code">Código de Benefício Fiscal</value>
+  <value column="PrintName" original="Tax Benefit Code">Código de Benefício Fiscal</value>
+  <value column="Description" original="">Código de Benefício Fiscal na UF  aplicado ao item</value>
+  <value column="Help" original="">Código de Benefício Fiscal utilizado pela UF, aplicado ao item.
+Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, nas UF que o exigem.</value>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+ </row>
+ <row id="1122477" trl="Y">
+  <value column="Name" original="AFRMM Amount">Valor do AFRMM</value>
+  <value column="PrintName" original="AFRMM Amount">Valor do AFRMM</value>
+  <value column="Description" original="">Valor do Adicional ao Frete para Renovação da Marinha Mercante</value>
+  <value column="Help" original="">Valor do Adicional ao Frete para Renovação da Marinha Mercante (AFRMM)</value>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+ </row>
+ <row id="1122478" trl="Y">
+  <value column="Name" original="NF Line Material Attributes">Atributos da Linha da NF</value>
+  <value column="PrintName" original="NF Line Material Attributes">Atributos da Linha da NF</value>
+  <value column="Description" original="">Atributos para especificação dos produtos na Linha da NF</value>
+  <value column="Help" original="">Atributos para especificação dos produtos na Linha da NF devido a exigência na composição do XML da NF-e, exemplos: Medicamentos, Veículos, Combustíveis, etc.</value>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+ </row>
+ <row id="1122479" trl="Y">
+  <value column="Name" original="Production Date">Data de Fabricação</value>
+  <value column="PrintName" original="Production Date">Data de Fabricação</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+ </row>
+ <row id="1122480" trl="Y">
+  <value column="Name" original="ANVISA Code">Código ANVISA</value>
+  <value column="PrintName" original="ANVISA Code">Código ANVISA</value>
+  <value column="Description" original="">Código de Produto da ANVISA</value>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+ </row>
+ <row id="1122481" trl="Y">
+  <value column="Name" original="ANP Code">Código da ANP</value>
+  <value column="PrintName" original="ANP Code">Código da ANP</value>
+  <value column="Description" original="">Código de produto da ANP</value>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+ </row>
+ <row id="1122482" trl="Y">
+  <value column="Name" original="ANP Description">Descrição na ANP</value>
+  <value column="PrintName" original="ANP Description">Descrição na ANP</value>
+  <value column="Description" original="">Descrição do produto conforme ANP</value>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+ </row>
+ <row id="1122483" trl="Y">
+  <value column="Name" original="% GLP Derivative">% GLP Derivado</value>
+  <value column="PrintName" original="% GLP Derivative">% GLP Derivado</value>
+  <value column="Description" original="">Percentual do GLP derivado do petróleo</value>
+  <value column="Help" original="">Percentual do GLP derivado do petróleo no produto GLP (cProdANP=210203001)</value>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+ </row>
+ <row id="1122484" trl="Y">
+  <value column="Name" original="% Gas Interior">% Gás Nacional</value>
+  <value column="PrintName" original="% Gas Interior">% Gás Nacional</value>
+  <value column="Description" original="">Percentual de Gás Natural Nacional</value>
+  <value column="Help" original="">Percentual de Gás Natural Nacional – GLGNn para o produto GLP (cProdANP=210203001)</value>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+ </row>
+ <row id="1122485" trl="Y">
+  <value column="Name" original="% Gas Imported">% Gás Importado</value>
+  <value column="PrintName" original="% Gas Imported">% Gás Importado</value>
+  <value column="Description" original="">Percentual de Gás Natural Importado</value>
+  <value column="Help" original="">Percentual de Gás Natural Importado – GLGNi para o produto GLP (cProdANP=210203001)</value>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+ </row>
+ <row id="1122486" trl="Y">
+  <value column="Name" original="Start Amount">Valor de Partida</value>
+  <value column="PrintName" original="Start Amount">Valor de Partida</value>
+  <value column="Description" original="">Valor de partida (cProdANP=210203001)</value>
+  <value column="Help" original="">Valor de partida (cProdANP=210203001)</value>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+ </row>
+ <row id="1122487" trl="Y">
+  <value column="Name" original="CODIF">CODIF</value>
+  <value column="PrintName" original="CODIF">CODIF</value>
+  <value column="Description" original="Authorization Code from CODIF">Código de autorização / registro do CODIF</value>
+  <value column="Help" original="">Código de autorização / registro do CODIF</value>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+ </row>
+ <row id="1122488" trl="Y">
+  <value column="Name" original="Operation Type">Tipo da operação</value>
+  <value column="PrintName" original="Operation Type">Tipo da operação</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+ </row>
+ <row id="1122489" trl="Y">
+  <value column="Name" original="Chassis">Chassis</value>
+  <value column="PrintName" original="Chassis">Chassis</value>
+  <value column="Description" original="">Chassi do veículo</value>
+  <value column="Help" original="">Chassi do veículo</value>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+ </row>
+ <row id="1122490" trl="Y">
+  <value column="Name" original="Color Code">Código da Cor</value>
+  <value column="PrintName" original="Color Code">Código da Cor</value>
+  <value column="Description" original="">Código da Cor do Veículo na Montadora</value>
+  <value column="Help" original="">Código da Cor do Veículo na Montadora</value>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+ </row>
+ <row id="1122491" trl="Y">
+  <value column="Name" original="Color Description">Descrição da Cor</value>
+  <value column="PrintName" original="Color Description">Descrição da Cor</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+ </row>
+ <row id="1122492" trl="N">
+  <value column="Name" original="Engine Power (CV)">Potência Motor</value>
+  <value column="PrintName" original="Engine Power">Potência Motor</value>
+  <value column="Description" original="">Potência Motor (CV)</value>
+  <value column="Help" original="">Potência Motor em CV</value>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+ </row>
+ <row id="1122493" trl="Y">
+  <value column="Name" original="Cylinder">Cilindradas</value>
+  <value column="PrintName" original="Cylinder">Cilindradas</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+ </row>
+ <row id="1122494" trl="Y">
+  <value column="Name" original="Vehicle Serial">Serial do Veículo</value>
+  <value column="PrintName" original="Vehicle Serial">Serial do Veículo</value>
+  <value column="Description" original="">Número de Série do Veículo</value>
+  <value column="Help" original="">Número de Série do Veículo</value>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+ </row>
+ <row id="1122495" trl="Y">
+  <value column="Name" original="Fuel Type">Tipo de combustível</value>
+  <value column="PrintName" original="Fuel Type">Tipo de combustível</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+ </row>
+ <row id="1122496" trl="Y">
+  <value column="Name" original="Engine Number">Número de Motor</value>
+  <value column="PrintName" original="Engine Number">Número de Motor</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+ </row>
+ <row id="1122497" trl="Y">
+  <value column="Name" original="Traction Capacity">Capacidade de Tração</value>
+  <value column="PrintName" original="Traction Capacity">Capacidade de Tração</value>
+  <value column="Description" original="">Capacidade Máxima de Tração</value>
+  <value column="Help" original="">Capacidade Máxima de Tração</value>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+ </row>
+ <row id="1122498" trl="Y">
+  <value column="Name" original="Wheel Base">Distância entre eixos</value>
+  <value column="PrintName" original="Wheel Base">Distância entre eixos</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+ </row>
+ <row id="1122499" trl="Y">
+  <value column="Name" original="Year Model">Ano de Fabricação</value>
+  <value column="PrintName" original="Year Model">Ano de Fabricação</value>
+  <value column="Description" original="">Ano Modelo de Fabricação</value>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+ </row>
+ <row id="1122500" trl="Y">
+  <value column="Name" original="Year Production">Ano de Fabricação</value>
+  <value column="PrintName" original="Year Production">Ano de Fabricação</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+ </row>
+ <row id="1122501" trl="Y">
+  <value column="Name" original="Paint Type">Tipo de Pintura</value>
+  <value column="PrintName" original="Paint Type">Tipo de Pintura</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+ </row>
+ <row id="1122502" trl="Y">
+  <value column="Name" original="Vehicle Type">Tipo de Veículo</value>
+  <value column="PrintName" original="Vehicle Type">Tipo de Veículo</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+ </row>
+ <row id="1122503" trl="Y">
+  <value column="Name" original="Vehicle Kind">Espécie de Veículo</value>
+  <value column="PrintName" original="Vehicle Kind">Espécie de Veículo</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+ </row>
+ <row id="1122504" trl="Y">
+  <value column="Name" original="VIN">VIN</value>
+  <value column="PrintName" original="VIN">VIN</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+ </row>
+ <row id="1122505" trl="Y">
+  <value column="Name" original="Vehicle Condition">Condição do Veículo</value>
+  <value column="PrintName" original="Vehicle Condition">Condição do Veículo</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+ </row>
+ <row id="1122506" trl="Y">
+  <value column="Name" original="Brand Code">Código Marca Modelo</value>
+  <value column="PrintName" original="Brand Code">Código Marca Modelo</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+ </row>
+ <row id="1122507" trl="Y">
+  <value column="Name" original="Color (DENAT)">Código da Cor DENATRAN</value>
+  <value column="PrintName" original="Color (DENAT)">Código da Cor DENATRAN</value>
+  <value column="Description" original="">Código da Cor DENATRAN</value>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+ </row>
+ <row id="1122508" trl="Y">
+  <value column="Name" original="Max. Capacity">Lotação</value>
+  <value column="PrintName" original="Max. Capacity">Lotação</value>
+  <value column="Description" original="">Capacidade máxima de lotação</value>
+  <value column="Help" original="">Capacidade máxima de lotação</value>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+ </row>
+ <row id="1122509" trl="Y">
+  <value column="Name" original="Restriction">Restrição</value>
+  <value column="PrintName" original="Restriction">Restrição</value>
+  <value column="Description" original="">Restrição</value>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+ </row>
+ <row id="1122510" trl="Y">
+  <value column="Name" original="Gun Type">Tipo de Arma</value>
+  <value column="PrintName" original="Gun Type">Tipo de Arma</value>
+  <value column="Description" original="">Indicador do tipo de arma de fogo</value>
+  <value column="Help" original="">Indicador do tipo de arma de fogo</value>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+ </row>
+ <row id="1122511" trl="Y">
+  <value column="Name" original="Gun Serial">Serial da Arma</value>
+  <value column="PrintName" original="Gun Serial">Serial da Arma</value>
+  <value column="Description" original="">Número de série da arma</value>
+  <value column="Help" original="">Número de série da arma</value>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+ </row>
+ <row id="1122512" trl="Y">
+  <value column="Name" original="Gun Barrel">Serial do Cano</value>
+  <value column="PrintName" original="Gun Barrel">Serial do Cano</value>
+  <value column="Description" original="">Número de série do cano</value>
+  <value column="Help" original="">Número de série do cano</value>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+ </row>
+ <row id="1122513" trl="Y">
+  <value column="Name" original="RECOPI">RECOPI</value>
+  <value column="PrintName" original="RECOPI">RECOPI</value>
+  <value column="Description" original="">Número do RECOPI</value>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+ </row>
+ <row id="1122514" trl="Y">
+  <value column="Name" original="Attribute Type">Tipo de Atributo</value>
+  <value column="PrintName" original="Attribute Type">Tipo de Atributo</value>
+  <value column="Description" original="">Tipo de Atributo da NF (Medicamentos, Combustíveis, etc)</value>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+ </row>
+ <row id="1122515" trl="Y">
+  <value column="Name" original="Max Price">Preço Máximo</value>
+  <value column="PrintName" original="Max Price">Preço Máximo</value>
+  <value column="Description" original="">Preço Máximo ao Consumidor</value>
+  <value column="Help" original="">Preço Máximo ao Consumidor</value>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+ </row>
+ <row id="1122516" trl="Y">
+  <value column="Name" original="XML Mapping">Mapear no XML</value>
+  <value column="PrintName" original="XML Mapping">Mapear no XML</value>
+  <value column="Description" original="XML Mapping of NF-e">Mapear no XML da NF-e</value>
+  <value column="Help" original="">Mapeia este atributo para uma TAG específica no XML da NF-e</value>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+ </row>
+ <row trl="N" uuid="92b16d5a-e448-494a-9c1f-a9c1609a6b8a">
+  <value column="Name" original="Document Type Accounting">Document Type Accounting</value>
+  <value column="PrintName" original="Document Type Accounting">Document Type Accounting</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+ </row>
+ <row trl="N" uuid="d46301f4-5582-4803-aea4-2d21d765e633">
+  <value column="Name" original="NFSe EMail">NFSe EMail</value>
+  <value column="PrintName" original="NFSe EMail">NFSe EMail</value>
+  <value column="Description" original="NFSe EMail separated by semicolon">NFSe EMail separated by semicolon</value>
+  <value column="Help" original="NFSe EMail separated by semicolon">NFSe EMail separated by semicolon</value>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+ </row>
+ <row trl="N" uuid="8ddf034b-6bf2-4f26-aa08-3b20701b46df">
+  <value column="Name" original="Billing EMail">Billing EMail</value>
+  <value column="PrintName" original="Billing EMail">Billing EMail</value>
+  <value column="Description" original="Billing EMail separated by semicolon">Billing EMail separated by semicolon</value>
+  <value column="Help" original="Billing EMail separated by semicolon">Billing EMail separated by semicolon</value>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+ </row>
+ <row trl="N" uuid="64fc023d-a282-47f5-97a8-875c78328374">
+  <value column="Name" original="Nota Fiscal Payment Schedule">Nota Fiscal Payment Schedule</value>
+  <value column="PrintName" original="Nota Fiscal Payment Schedule">Nota Fiscal Payment Schedule</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+ </row>
+ <row trl="N" uuid="674a22df-98b5-44de-8806-ae39a14088f0">
+  <value column="Name" original="LBR_NFPaySchedule_UU">LBR_NFPaySchedule_UU</value>
+  <value column="PrintName" original="LBR_NFPaySchedule_UU">LBR_NFPaySchedule_UU</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+ </row>
+ <row trl="Y" uuid="e424f619-b6d5-4938-949e-cc7bfb912260">
+  <value column="Name" original="Book Inventory">Estoque Escriturado</value>
+  <value column="PrintName" original="Book Inventory">Estoque Escriturado</value>
+  <value column="Description" original="">Estoque Escriturado utilizado o SPED Fiscal</value>
+  <value column="Help" original="">Estoque Escriturado utilizado o SPED Fiscal Bloco K</value>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+ </row>
+ <row trl="N" uuid="31855a41-93b7-435e-a6c4-b2eb8a79ffdb">
+  <value column="Name" original="LBR_BookInventory_UU">LBR_BookInventory_UU</value>
+  <value column="PrintName" original="LBR_BookInventory_UU">LBR_BookInventory_UU</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
   <value column="PO_Name" original=""/>

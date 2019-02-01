@@ -1516,4 +1516,344 @@
   <value column="Name" original="Landed Cost Clearing">Landed Cost Clearing</value>
   <value column="Description" original="Account for Landed Cost Clearing">Account for Landed Cost Clearing</value>
  </row>
+ <row trl="N" uuid="5493f98e-c517-4afd-9dfd-e842a5afdbde">
+  <value column="Name" original="Variação Mix">Variação Mix</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="21ad248a-82a7-4245-8df4-3483f2ea07d7">
+  <value column="Name" original="Ajustes do Inventário">Ajustes do Inventário</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="c88aa72f-1399-4ecf-aa7d-2e541d2134eb">
+  <value column="Name" original="Variação do Custo Médio">Variação do Custo Médio</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="867ce0b2-a8ce-4def-928f-ff4d1775f359">
+  <value column="Name" original="Estoque de Produtos">Estoque de Produtos</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="21a9cc65-549c-4373-b496-4048a4951015">
+  <value column="Name" original="Provisão de Duplicatas de Ordens de Venda">Provisão de Duplicatas de Ordens de Venda</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="b0e191dc-9f3f-4759-ac2a-6eec411b1d4c">
+  <value column="Name" original="Variação do Custo Na Entrada">Variação do Custo Na Entrada</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="1c349394-82a8-431a-92a3-ddbdbc6396fe">
+  <value column="Name" original="Caixa">Caixa</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="70f7e4e0-966b-4376-8e98-f93fd44fed8a">
+  <value column="Name" original="Provisão de Duplicatas de Ordens de Compra">Provisão de Duplicatas de Ordens de Compra</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="0d757164-0eb9-4211-913f-fdc02082d06a">
+  <value column="Name" original="Juros Ativos">Juros Ativos</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="7f57b197-1d87-4429-bbab-03aaa37763b8">
+  <value column="Name" original="Diferença de Câmbio - Contas Em Moeda Estrangeira">Diferença de Câmbio - Contas Em Moeda Estrangeira</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="6d0a0107-2508-4955-b5e5-a8c99c6ec973">
+  <value column="Name" original="Descontos Obtidos">Descontos Obtidos</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="db894781-2acd-4784-85ac-76a2af6cf6d9">
+  <value column="Name" original="Diferença de Câmbio - Contas Em Moeda Estrangeira">Diferença de Câmbio - Contas Em Moeda Estrangeira</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="a1364517-f454-4863-9db7-f94b22f6cbd0">
+  <value column="Name" original="Diferenças do Caixa">Diferenças do Caixa</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="0e46b642-4ee1-4206-92b8-ff76c730512c">
+  <value column="Name" original="Outras Despesas Bancárias">Outras Despesas Bancárias</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="d592b229-df0e-45e0-a46c-ba1f8d7c92a2">
+  <value column="Name" original="Banco - Créditos Não Conciliados">Banco - Créditos Não Conciliados</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="b2117216-8f2d-4023-9577-efe50f0f6689">
+  <value column="Name" original="Custo Produto Vendido">Custo Produto Vendido</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="02bcc984-687b-4e7f-88d7-b6dff364e6a3">
+  <value column="Name" original="Diferença da Variação do Custo na Entrada">Diferença da Variação do Custo na Entrada</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="86b6d375-a129-419a-b8b9-cb1d4ded809a">
+  <value column="Name" original="Transitória EM - Fornecedores">Transitória EM - Fornecedores</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="eca935c2-3a70-44a4-aace-47a30dbcd0c3">
+  <value column="Name" original="Diferença de Câmbio - Contas Em Moeda Estrangeira">Diferença de Câmbio - Contas Em Moeda Estrangeira</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="d33320de-53e9-4722-b1c6-c5836232c265">
+  <value column="Name" original="Outras Receitas">Outras Receitas</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="7b7b308e-32c9-437c-9418-fa86bf7e1ad0">
+  <value column="Name" original="Multas Fiscais - Juros - Correção Monetária">Multas Fiscais - Juros - Correção Monetária</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="602ab2ef-5c27-4fc6-a2e7-eac721ddeb44">
+  <value column="Name" original="Custo Padrão do Produto">Custo Padrão do Produto</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="e083d690-e029-494b-aa95-30908f782741">
+  <value column="Name" original="Variação">Variação</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="6a2c49ba-769b-4712-b431-9c597a7fcde8">
+  <value column="Name" original="Outros Lançamentos (Carga Automática)">Outros Lançamentos (Carga Automática)</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="0534baf8-dbe9-4dad-86a3-7d29446556a7">
+  <value column="Name" original="Transitória - Pagamentos Selecionados">Transitória - Pagamentos Selecionados</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="3788f3cc-21c1-4690-9078-09f22a0c8e3e">
+  <value column="Name" original="Empresas do Grupo">Empresas do Grupo</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="09363329-5464-48cf-bd9c-056cd3747bfe">
+  <value column="Name" original="Baixa de Duplicatas a Receber">Baixa de Duplicatas a Receber</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="68dd7e17-0fb7-46d8-9bfd-8876bc7cf889">
+  <value column="Name" original="Descontos Recebidos">Descontos Recebidos</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="12bc99e5-9a35-4fcb-bfe1-e3fd3b9a3c05">
+  <value column="Name" original="Reavaliação do Inventário">Reavaliação do Inventário</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="119f7967-153b-403f-9639-6dad8707d353">
+  <value column="Name" original="Produção de Terceiros">Produção de Terceiros</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="79422508-64f9-4cd1-891e-417e547a1b47">
+  <value column="Name" original="Variação do Custo Na Saída">Variação do Custo Na Saída</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="5c675799-28fa-41a9-b1a4-b4157eb2210a">
+  <value column="Name" original="Projetos">Projetos</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="e7f27654-2c77-4e58-8336-fa782ccac4c6">
+  <value column="Name" original="Projetos em Andamento">Projetos em Andamento</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="e56285c6-a2a0-4e0d-9637-07f2897f3b83">
+  <value column="Name" original="Receitas de Vendas">Receitas de Vendas</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="dba7b7ab-0c67-437a-9681-c3e374e0cdae">
+  <value column="Name" original="Troca de Variação">Troca de Variação</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="7a3985e6-d5eb-4650-bb0c-28245023d22c">
+  <value column="Name" original="Impostos Sobre Receitas">Impostos Sobre Receitas</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="17081c7f-0f07-4755-b2b1-03ac2908d4d9">
+  <value column="Name" original="Diferença de Câmbio - Contas Em Moeda Estrangeira">Diferença de Câmbio - Contas Em Moeda Estrangeira</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="2277622b-1031-4dcb-b225-051e9c6aa5b5">
+  <value column="Name" original="Sucata">Sucata</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="837abd6f-8ffd-472c-bae9-921fb5e07220">
+  <value column="Name" original="Adiantamentos a Fornecedores">Adiantamentos a Fornecedores</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="7c49fad9-5b1a-4181-9391-aa462210c943">
+  <value column="Name" original="Duplicatas a Pagar">Duplicatas a Pagar</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="048ca4a6-cc31-47e0-bd5b-861504e4fb69">
+  <value column="Name" original="Trabalho (Absorvido)">Trabalho (Absorvido)</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="373397fc-05ec-4f90-8ff1-70608b39cdd2">
+  <value column="Name" original="Ajustes das Diferenças de Inventário">Ajustes das Diferenças de Inventário</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="5df3e2a0-5621-4201-8bd6-f54d6ee0ec1b">
+  <value column="Name" original="Adiantamento Viagem">Adiantamento Viagem</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="25c8fadf-09bd-4299-bddb-353398c84f05">
+  <value column="Name" original="Diferença de Câmbio - Conciliação">Diferença de Câmbio - Conciliação</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="e66b7309-44f9-4c8f-9249-9fb615b958b3">
+  <value column="Name" original="Transitória EF - Clientes">Transitória EF - Clientes</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="edb9b1fd-38ed-40ba-84c1-76f2c983f0d5">
+  <value column="Name" original="Diferenças do Fim do Exercício - A Conciliar">Diferenças do Fim do Exercício - A Conciliar</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="562e3159-c5b7-4c48-9e10-c1395eb45f16">
+  <value column="Name" original="Impostos a Recuperar">Impostos a Recuperar</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="9c1bf2de-a795-4f13-a2f3-f041e28307f9">
+  <value column="Name" original="Duplicatas a Receber - Serviços">Duplicatas a Receber - Serviços</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="70271c4a-d6e3-428d-ab24-b14821bcbfdb">
+  <value column="Name" original="Duplicatas a Receber - Vendas">Duplicatas a Receber - Vendas</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="51ebff58-be56-449b-8674-545bddb34668">
+  <value column="Name" original="Retenções">Retenções</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="beb2b35e-4a60-406b-9bf6-91eb18be9347">
+  <value column="Name" original="Taxa de Variação">Taxa de Variação</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="1bfcc6e9-1723-4555-9d82-d9537c158b82">
+  <value column="Name" original="Diferenças não Conciliadas">Diferenças não Conciliadas</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="8e941a7a-21f0-47d3-892f-6de7c45e0bb2">
+  <value column="Name" original="Lucros Exercícios Anteriores">Lucros Exercícios Anteriores</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="68815f82-6395-4527-88ab-d2ee2b5cbfea">
+  <value column="Name" original="Descontos Financeiros Concedidos">Descontos Financeiros Concedidos</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="61342729-0855-44cc-aa42-67db3052616d">
+  <value column="Name" original="Custo de Produção">Custo de Produção</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="86ca8d74-02c4-4109-8769-3c3446d79f76">
+  <value column="Name" original="Despesas de Colaboradores">Despesas de Colaboradores</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="a80b83ed-1564-483c-bd79-4e4861518daf">
+  <value column="Name" original="Estoque - Inventário Geral">Estoque - Inventário Geral</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="8fdc9777-4cc5-4a9c-b495-f3392e4e9096">
+  <value column="Name" original="Estoque - Varejo">Estoque - Varejo</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="4db640a1-acb1-430f-89ad-bae958ee7fb0">
+  <value column="Name" original="Duplicatas a Pagar - Serviços">Duplicatas a Pagar - Serviços</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="cdc5aec7-4748-4057-8f2e-a55acc9a9abd">
+  <value column="Name" original="Estoque - Em Produção">Estoque - Em Produção</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="aded6b42-ecb3-430d-8513-4d5c5b2facf9">
+  <value column="Name" original="Despesas Administrativas">Despesas Administrativas</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="792e2b33-07c9-436a-8c06-4684f6aa16c7">
+  <value column="Name" original="Custo dos Serviços Prestados">Custo dos Serviços Prestados</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="c35968fd-256c-4266-9236-688c425d7579">
+  <value column="Name" original="Diferença de Câmbio">Diferença de Câmbio</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="46cff889-6542-4f69-83d9-524140fd0ac0">
+  <value column="Name" original="Carga (Absorvida)">Carga (Absorvida)</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="41442960-8c8a-42af-95fb-2c6132f960bc">
+  <value column="Name" original="Conta Padrão">Conta Padrão</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="28dc1428-b9cf-45eb-8e23-7f2cc29cadd3">
+  <value column="Name" original="Impostos e Taxas">Impostos e Taxas</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="7c52ee3e-31bd-4a81-8aaa-7516b4243553">
+  <value column="Name" original="Diferença de Câmbio - Não Realizada">Diferença de Câmbio - Não Realizada</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="c5b5d179-093f-4a5e-9c9f-4f78b65a2d2a">
+  <value column="Name" original="Diferença de Câmbio">Diferença de Câmbio</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="7849b68d-a8d0-48d7-889d-3716622c42d8">
+  <value column="Name" original="Impostos a Receber">Impostos a Receber</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="44491962-b079-4e3f-8352-3b1b953e4d21">
+  <value column="Name" original="Banco - Créditos Não Identificados">Banco - Créditos Não Identificados</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="d3bdfec3-a76e-49d0-80de-c6b1b9d6fa68">
+  <value column="Name" original="Ajustes de Custo Operacional">Ajustes de Custo Operacional</value>
+  <value column="Description" original="Default Landed Cost Clearing">Default Landed Cost Clearing</value>
+ </row>
+ <row trl="N" uuid="6229f3bc-3697-4ae2-9228-0fa136d37c37">
+  <value column="Name" original="Outras Despesas do Caixa">Outras Despesas do Caixa</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="9c7335ef-09bb-4f00-bf4a-e8cb7983d641">
+  <value column="Name" original="Adiantamentos de Clientes">Adiantamentos de Clientes</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="438b2e3c-bd49-48ce-a489-29efcc47926f">
+  <value column="Name" original="Caixa em Compensação">Caixa em Compensação</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="f3c4b368-ff51-49b1-a8ce-d90714009734">
+  <value column="Name" original="Outras Receitas do Caixa">Outras Receitas do Caixa</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="5b77c3f5-3862-461f-b4f8-6f2ed86e9ebf">
+  <value column="Name" original="Banco - Transitória Compensação">Banco - Transitória Compensação</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="6a5d2c72-016c-4e0c-8861-36a825b3401c">
+  <value column="Name" original="Desconto para Pagamento Antecipado">Desconto para Pagamento Antecipado</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="5847650b-eefb-48d7-8d4a-d332693ee6b8">
+  <value column="Name" original="Transitória EM - Clientes">Transitória EM - Clientes</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="39a6c5a9-6b92-4b71-b41f-1a785444bafe">
+  <value column="Name" original="Ajustes do Custo do Produto">Ajustes do Custo do Produto</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="f90f68ff-b5f0-4cc5-8f7b-397c70043fc9">
+  <value column="Name" original="Transitória EF - Clientes">Transitória EF - Clientes</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="0159bc33-a1cf-4caa-b492-c27683030fba">
+  <value column="Name" original="Empresas do Grupo">Empresas do Grupo</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="9ebdb017-3d7a-4429-869b-a92f3ef9b33e">
+  <value column="Name" original="Diferença de Câmbio - Não Realizada">Diferença de Câmbio - Não Realizada</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="03e006eb-7ed1-4d65-94d9-48706a80e1a8">
+  <value column="Name" original="Outras Despesas">Outras Despesas</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="89ac6c95-122d-41ce-92fe-70596c5e614d">
+  <value column="Name" original="Impostos A Recolher">Impostos A Recolher</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="984f2028-b4c4-46f7-882a-8000ba681a05">
+  <value column="Name" original="Banco">Banco</value>
+  <value column="Description" original=""/>
+ </row>
 </idempiereTrl>

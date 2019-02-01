@@ -2345,4 +2345,9 @@ MRP - 110	 No exists Dem</value>
   <value column="Description" original="Production Order Group">Pedido de Industrialização</value>
   <value column="Help" original=""/>
  </row>
+ <row trl="N" uuid="98b1c960-2d93-4245-b6c0-26b4f1c7dbe3">
+  <value column="Name" original="Book Inventory">Book Inventory</value>
+  <value column="Description" original="Book Inventory for SPED">Book Inventory for SPED</value>
+  <value column="Help" original="Book Inventory for SPED"/>
+ </row>
 </idempiereTrl>

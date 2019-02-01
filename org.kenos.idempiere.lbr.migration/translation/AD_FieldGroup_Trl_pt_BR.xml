@@ -282,4 +282,22 @@
  <row trl="Y" uuid="820545d5-5d0e-4890-bf5f-9f0b30884f33">
   <value column="Name" original="Formula">Fórmula</value>
  </row>
+ <row id="1120063" trl="Y">
+  <value column="Name" original="Tracking Detail">Detalhes de Rastreabilidade</value>
+ </row>
+ <row id="1120064" trl="Y">
+  <value column="Name" original="Medicine Detail">Detalhes de Medicamentos</value>
+ </row>
+ <row id="1120065" trl="Y">
+  <value column="Name" original="Fuel Detail">Detalhes de Combustíveis</value>
+ </row>
+ <row id="1120066" trl="Y">
+  <value column="Name" original="Vehicle Detail">Detalhes de Veículos</value>
+ </row>
+ <row id="1120067" trl="Y">
+  <value column="Name" original="Gun Detail">Detalhes de Armamentos</value>
+ </row>
+ <row id="1120068" trl="Y">
+  <value column="Name" original="Exempt Paper Detail">Detalhes de Papel Imune</value>
+ </row>
 </idempiereTrl>
