@@ -12,3 +12,4 @@ Require-Bundle: org.adempiere.base;bundle-version="4.1.0",
 Service-Component: OSGI-INF/ProcessFactory.xml,
  OSGI-INF/ModelFactory.xml
 Bundle-ActivationPolicy: lazy
+Automatic-Module-Name: org.kenos.idempiere.lbr.sped
