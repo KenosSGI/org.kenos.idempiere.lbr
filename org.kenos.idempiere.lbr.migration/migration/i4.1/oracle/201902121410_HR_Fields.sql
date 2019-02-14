@@ -1,11 +1,6 @@
 SET SQLBLANKLINES ON
 SET DEFINE OFF
 
--- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
--- 13/02/2019 15h33min9s BRST
-INSERT INTO AD_Element (AD_Element_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,ColumnName,Name,PrintName,EntityType,AD_Element_UU) VALUES (1122856,0,0,'Y',TO_DATE('2019-02-13 15:33:09','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2019-02-13 15:33:09','YYYY-MM-DD HH24:MI:SS'),100,'KNSTest','KNSTest','KNSTest','U','f2c4028d-be3a-4142-8135-148f29a098c0')
-;
-
 -- 13/02/2019 15h33min39s BRST
 UPDATE AD_Menu SET IsActive='Y',Updated=TO_DATE('2019-02-13 15:33:39','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Menu_ID=53108
 ;
@@ -368,11 +363,6 @@ UPDATE AD_Field SET SeqNo=60, AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, C
 
 -- 13/02/2019 15h49min37s BRST
 UPDATE AD_Field SET SeqNo=0, AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, IsToolbarButton=NULL,Updated=TO_DATE('2019-02-13 15:49:37','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1128121
-;
-
--- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
--- 14/02/2019 15h33min11s BRST
-INSERT INTO AD_Element (AD_Element_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,ColumnName,Name,PrintName,EntityType,AD_Element_UU) VALUES (1122859,0,0,'Y',TO_DATE('2019-02-14 15:33:11','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2019-02-14 15:33:11','YYYY-MM-DD HH24:MI:SS'),100,'KNS_TTT','KNS_TTT','KNS_TTT','U','b2d4ef65-5445-46bf-908b-175782e59152')
 ;
 
 -- 14/02/2019 15h35min20s BRST
@@ -997,6 +987,19 @@ UPDATE AD_Field SET SeqNoGrid=50,IsDisplayedGrid='Y' WHERE AD_Field_ID=1128085
 
 -- 14/02/2019 16h21min48s BRST
 UPDATE AD_Field SET SeqNoGrid=60,IsDisplayedGrid='Y' WHERE AD_Field_ID=1128088
+;
+
+-- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
+-- 14/02/2019 17h51min11s BRST
+INSERT INTO AD_Style (AD_Client_ID,AD_Org_ID,Created,CreatedBy,IsActive,Updated,UpdatedBy,AD_Style_ID,AD_Style_UU,Name) VALUES (0,0,TO_DATE('2019-02-14 17:51:11','YYYY-MM-DD HH24:MI:SS'),100,'Y',TO_DATE('2019-02-14 17:51:11','YYYY-MM-DD HH24:MI:SS'),100,1120000,'0d9b5e95-842d-4124-a8a1-0cdf5caeff70','User Image 3x4')
+;
+
+-- 14/02/2019 17h51min34s BRST
+INSERT INTO AD_StyleLine (AD_Client_ID,AD_Org_ID,Created,CreatedBy,IsActive,Updated,UpdatedBy,AD_Style_ID,AD_StyleLine_ID,AD_StyleLine_UU,InlineStyle,DisplayLogic,Line) VALUES (0,0,TO_DATE('2019-02-14 17:51:34','YYYY-MM-DD HH24:MI:SS'),100,'Y',TO_DATE('2019-02-14 17:51:34','YYYY-MM-DD HH24:MI:SS'),100,1120000,1120000,'e600c96a-89e1-4762-b61d-d6759351c4d9','width: 165px; height: 220px; position: absolute; left: 50%; margin-left: -60px;','@_Editor_IsGridView@=N',10)
+;
+
+-- 14/02/2019 17h52min30s BRST
+UPDATE AD_Field SET IsFieldOnly='Y', AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, XPosition=5, ColumnSpan=2, IsToolbarButton=NULL, AD_LabelStyle_ID=1120000, AD_FieldStyle_ID=1120000,Updated=TO_DATE('2019-02-14 17:52:30','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1128128
 ;
 
 SELECT Register_Migration_Script ('201902121410_HR_Fields.sql') FROM DUAL
