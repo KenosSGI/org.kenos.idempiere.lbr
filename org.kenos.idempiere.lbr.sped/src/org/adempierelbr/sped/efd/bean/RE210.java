@@ -222,9 +222,6 @@ public class RE210 extends RegSped {
 			else if(getrE250().get(getrE250().indexOf(reg)).getVL_OR().compareTo(SLD_VL_DEVOL)  <= 0)
 			{
 				//
-				System.out.println("getrE250().indexOf(reg)).getVL_OR() >> " + getrE250().get(getrE250().indexOf(reg)).getVL_OR());
-				
-				//
 				SLD_VL_DEVOL = SLD_VL_DEVOL.subtract(getrE250().get(getrE250().indexOf(reg)).getVL_OR());
 				getrE250().get(getrE250().indexOf(reg)).setVL_OR(Env.ZERO);
 			}				
