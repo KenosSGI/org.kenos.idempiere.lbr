@@ -449,8 +449,8 @@ public class ConsultaCadastro extends SvrProcess
 			StringBuilder xml =  new StringBuilder (consCadDoc.xmlText(NFeUtil.getXmlOpt()));
 			
 			MLBRNFConfig config = MLBRNFConfig.get(oi.getAD_Org_ID());
-			String url = "https://hnfe.fazenda.mg.gov.br/nfe2/services/CadConsultaCadastro4";//MLBRNFeWebService.getURL (MLBRNFeWebService.CADCONSULTACADASTRO, config.getlbr_NFeEnv(), NFeUtil.VERSAO_LAYOUT, DB.getSQLValue(null, "SELECT C_Region_ID FROM C_Region WHERE Name='"+p_UF+"' AND C_Country_ID=?", 139));
-//			String url = MLBRNFeWebService.getURL (MLBRNFeWebService.CADCONSULTACADASTRO, config.getlbr_NFeEnv(), NFeUtil.VERSAO_LAYOUT, DB.getSQLValue(null, "SELECT C_Region_ID FROM C_Region WHERE Name='"+p_UF+"' AND C_Country_ID=?", 139));
+//			String url = "https://hnfe.fazenda.mg.gov.br/nfe2/services/CadConsultaCadastro4";//MLBRNFeWebService.getURL (MLBRNFeWebService.CADCONSULTACADASTRO, config.getlbr_NFeEnv(), NFeUtil.VERSAO_LAYOUT, DB.getSQLValue(null, "SELECT C_Region_ID FROM C_Region WHERE Name='"+p_UF+"' AND C_Country_ID=?", 139));
+			String url = MLBRNFeWebService.getURL (MLBRNFeWebService.CADCONSULTACADASTRO, config.getlbr_NFeEnv(), NFeUtil.VERSAO_LAYOUT, DB.getSQLValue(null, "SELECT C_Region_ID FROM C_Region WHERE Name='"+p_UF+"' AND C_Country_ID=?", 139));
 
 			String remoteURL = MSysConfig.getValue("LBR_REMOTE_PKCS11_URL", oi.getAD_Client_ID(), oi.getAD_Org_ID());
 			final StringBuilder respStatus = new StringBuilder();
