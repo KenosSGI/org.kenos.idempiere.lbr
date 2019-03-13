@@ -535,8 +535,8 @@ public class NFeXMLGenerator
 		{
 			NFref nFref = ide.addNewNFref();
 
-			if (docRef.getLBR_NotaFiscal_ID() > 0)
-				dateDocRef = docRef.getLBR_NotaFiscal().getDateDoc();
+			if (docRef.getLBR_NFeReferenced_ID() > 0)
+				dateDocRef = docRef.getLBR_NFeReferenced().getDateDoc();
 			
 			//	NF-e
 			if (MLBRNotaFiscalDocRef.LBR_FISCALDOCREFTYPE_NF_E.equals(docRef.getLBR_FiscalDocRefType()))
