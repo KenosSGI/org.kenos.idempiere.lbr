@@ -527,16 +527,21 @@ public class NFeXMLGenerator
 		ide.setProcEmi (TProcEmi.X_0);
 		ide.setVerProc (NFeUtil.VERSAO_APP);
 		
+		Timestamp dateDocRef = null;
+		
 		//	BA. Documento Fiscal Referenciado
 		MLBRNotaFiscalDocRef[] docRefs = MLBRNotaFiscalDocRef.get (nf.getLBR_NotaFiscal_ID(), nf.get_TrxName());		
 		for (MLBRNotaFiscalDocRef docRef: docRefs)
 		{
 			NFref nFref = ide.addNewNFref();
+
+			if (docRef.getLBR_NotaFiscal_ID() > 0)
+				dateDocRef = docRef.getLBR_NotaFiscal().getDateDoc();
 			
 			//	NF-e
 			if (MLBRNotaFiscalDocRef.LBR_FISCALDOCREFTYPE_NF_E.equals(docRef.getLBR_FiscalDocRefType()))
 				nFref.setRefNFe(docRef.getlbr_NFeID());
-			
+				
 			//	NF Modelo 1, 1-A ou 2
 			else if (TextUtil.match(docRef.getLBR_FiscalDocRefType(), 
 						MLBRNotaFiscalDocRef.LBR_FISCALDOCREFTYPE_NFManual11A, 
@@ -1685,7 +1690,11 @@ public class NFeXMLGenerator
 			//	Somente Consumidor Final
 			if (icmsDest)
 			{
-				Timestamp dateDoc = nfl.getParent().getDateDoc();
+				Timestamp dateDoc = nf.getDateDoc();
+				
+				if (MLBRNotaFiscal.LBR_FINNFE_DevoluçãoRetornoDeMercadoria.equals(nf.getlbr_FinNFe()) && dateDocRef != null)
+					dateDoc = dateDocRef;
+				
 				Calendar cal = new GregorianCalendar ();
 				cal.setTimeInMillis(dateDoc.getTime());
 				BigDecimal partICMSRate = Env.ZERO;
