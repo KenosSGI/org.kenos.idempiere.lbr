@@ -38,6 +38,20 @@ public class InfoFactory implements IInfoFactory
 	                    multiSelection, value,whereClause, lookup);
     			}
     		}
+    	}
+		else
+		{
+			info = new InfoWindow(WindowNo, tableName, keyColumn, value, multiSelection, whereClause, AD_InfoWindow_ID, lookup);
+        	if (!info.loadedOK()) {
+	            info = new InfoGeneralPanel (value, WindowNo,
+	                tableName, keyColumn,
+	                multiSelection, whereClause, lookup);
+	        	if (!info.loadedOK()) {
+	        		info.dispose(false);
+	        		info = null;
+	        	}
+        	}
+		}
     		return info;
 	}	//	create
 
@@ -74,6 +88,9 @@ public class InfoFactory implements IInfoFactory
 
 			info.setTitle("Product Info");
 		}
+		else
+			info = create(lookup.getWindowNo(), tableName, keyColumn, queryValue, false, whereClause, AD_InfoWindow_ID, true);
+		
 		return info;
 	}	//	create
 
