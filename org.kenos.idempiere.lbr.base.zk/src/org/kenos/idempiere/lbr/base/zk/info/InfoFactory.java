@@ -31,13 +31,12 @@ public class InfoFactory implements IInfoFactory
 		{
 			info = new InfoProductWindow(WindowNo, tableName, keyColumn, value, multiSelection, whereClause, AD_InfoWindow_ID, lookup);
 			if (!info.loadedOK()) 
-    			{
+			{
 	            info = new InfoProductPanel ( WindowNo,
 	            		Env.getContextAsInt(Env.getCtx(), WindowNo, "M_Warehouse_ID"),
 	    				Env.getContextAsInt(Env.getCtx(), WindowNo, "M_PriceList_ID"),
 	                    multiSelection, value,whereClause, lookup);
-    			}
-    		}
+			}
     	}
 		else
 		{
@@ -52,7 +51,7 @@ public class InfoFactory implements IInfoFactory
 	        	}
         	}
 		}
-    		return info;
+    	return info;
 	}	//	create
 
 	@Override
