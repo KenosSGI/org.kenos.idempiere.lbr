@@ -847,7 +847,7 @@ public class WPOGManage extends ADForm implements IFormController, WTableModelLi
 		StringBuilder sql = new StringBuilder("SELECT pl.Description, ");
 		sql.append("pr.Value || ' - ' || pr.Name AS ProductName, pl.M_Product_ID, ");
 		sql.append("SUM (pl.QtyUsed) AS QtyUsed, SUM (pl.PlannedQty) AS PlannedQty, ");
-		sql.append("ROUND((COALESCE(mov.MovementQty, 0) / (SELECT sum (PlannedQty) FROM M_ProductionLine plz WHERE EXISTS ");
+		sql.append("ROUND((COALESCE(mov.MovementQty, 0) / (SELECT CASE WHEN sum (PlannedQty) = 0 THEN 1::integer ELSE sum (PlannedQty) END FROM M_ProductionLine plz WHERE EXISTS ");
 		sql.append("(SELECT 1 FROM M_Production WHERE M_Production_ID = plz.M_Production_ID AND plz.IsEndProduct='N' AND LBR_ProductionGroup_ID = ?) ");
 		sql.append("AND plz.M_Product_ID = pl.M_Product_ID) * SUM(pl.PlannedQty)),2) as MovementQty ");
 		sql.append("FROM M_ProductionLine pl ");
