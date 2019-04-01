@@ -481,21 +481,32 @@ public class VLBRCommons implements ModelValidator
 		 */
 		if (TYPE_BEFORE_NEW == type || TYPE_BEFORE_CHANGE == type)
 		{
-			if(!MSysConfig.getBooleanValue("LBR_ALLOW_DUPLICATED_SERIAL_NUMBER", true, asi.getAD_Client_ID()))
+			if (!MSysConfig.getBooleanValue("LBR_ALLOW_DUPLICATED_SERIAL_NUMBER", true, asi.getAD_Client_ID()) && asi.getSerNo() != null)
 			{
-				String whereClause = " M_AttributeSetInstance_ID IN (SELECT M_AttributeSetInstance.M_AttributeSetInstance_ID FROM M_AttributeSetInstance "
-									+ "INNER JOIN M_Storage ON M_Storage.M_AttributeSetInstance_ID = M_AttributeSetInstance.M_AttributeSetInstance_ID "
-									+ "INNER JOIN M_AttributeSet ON M_AttributeSetInstance.M_AttributeSet_ID = "
-									+ "M_AttributeSet.M_AttributeSet_ID "
-									+ "WHERE M_AttributeSetInstance.serno=? AND M_AttributeSet.M_AttributeSet_ID=?)";
+				String whereClause = "EXISTS (SELECT 1 FROM M_AttributeSetInstance asi, M_AttributeSet a \n" + 
+						"WHERE asi.M_AttributeSetInstance_ID=M_AttributeSetInstance.M_AttributeSetInstance_ID \n" + 
+						"AND asi.M_AttributeSet_ID = a.M_AttributeSet_ID \n" + 
+						"AND asi.SerNo=? AND a.M_AttributeSet_ID=? AND asi.M_AttributeSetInstance_ID<>?)";
 								
 				List <MAttributeSetInstance> asiList = new Query(asi.getCtx(),MAttributeSetInstance.Table_Name, whereClause, null)
-				.setParameters(asi.getSerNo(),asi.getM_AttributeSet_ID())
+				.setParameters(asi.getSerNo(),asi.getM_AttributeSet_ID(), asi.getM_AttributeSetInstance_ID())
 				.list();					
 				if (!asiList.isEmpty())
-				{
-					return "Número de Série já existe";
-				}
+					return "Número de Série já existe, selecione o número de série existente.";
+			}
+			
+			if (!MSysConfig.getBooleanValue("LBR_ALLOW_DUPLICATED_LOT_NUMBER", true, asi.getAD_Client_ID()) && asi.getLot() != null)
+			{
+				String whereClause = "EXISTS (SELECT 1 FROM M_AttributeSetInstance asi, M_AttributeSet a \n" + 
+						"WHERE asi.M_AttributeSetInstance_ID=M_AttributeSetInstance.M_AttributeSetInstance_ID \n" + 
+						"AND asi.M_AttributeSet_ID = a.M_AttributeSet_ID \n" + 
+						"AND asi.Lot=? AND a.M_AttributeSet_ID=? AND asi.M_AttributeSetInstance_ID<>?)";
+								
+				List <MAttributeSetInstance> asiList = new Query(asi.getCtx(),MAttributeSetInstance.Table_Name, whereClause, null)
+				.setParameters(asi.getLot(), asi.getM_AttributeSet_ID(), asi.getM_AttributeSetInstance_ID())
+				.list();					
+				if (!asiList.isEmpty())
+					return "Lote já existe, selecione o lote existente clicando no botão 'Selecione um Registro Existente'.";
 			}
 		}
 		return null;
