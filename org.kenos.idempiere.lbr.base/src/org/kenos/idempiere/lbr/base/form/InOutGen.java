@@ -31,6 +31,7 @@ import org.compiere.minigrid.IMiniTable;
 import org.compiere.model.MPInstance;
 import org.compiere.model.MPInstancePara;
 import org.compiere.model.MRMA;
+import org.compiere.model.MRefList;
 import org.compiere.model.MRole;
 import org.compiere.print.ReportEngine;
 import org.compiere.process.ProcessInfo;
@@ -73,19 +74,22 @@ public class InOutGen extends GenForm
 		miniTable.addColumn("C_DocType_ID");
 		miniTable.addColumn("DocumentNo");
 		miniTable.addColumn("C_BPartner_ID");
+		miniTable.addColumn("DeliveryViaRule");
 		miniTable.addColumn("DateOrdered");
 		miniTable.addColumn("TotalLines");
 		//
 		miniTable.setMultiSelection(true);
 
 		//  set details
-		miniTable.setColumnClass(0, IDColumn.class, false, " ");
-		miniTable.setColumnClass(1, String.class, true, Msg.translate(Env.getCtx(), "AD_Org_ID"));
-		miniTable.setColumnClass(2, String.class, true, Msg.translate(Env.getCtx(), "C_DocType_ID"));
-		miniTable.setColumnClass(3, String.class, true, Msg.translate(Env.getCtx(), "DocumentNo"));
-		miniTable.setColumnClass(4, String.class, true, Msg.translate(Env.getCtx(), "C_BPartner_ID"));
-		miniTable.setColumnClass(5, Timestamp.class, true, Msg.translate(Env.getCtx(), "DateOrdered"));
-		miniTable.setColumnClass(6, BigDecimal.class, true, Msg.translate(Env.getCtx(), "TotalLines"));
+		int index = 0;
+		miniTable.setColumnClass(index++, IDColumn.class, false, " ");
+		miniTable.setColumnClass(index++, String.class, true, Msg.translate(Env.getCtx(), "AD_Org_ID"));
+		miniTable.setColumnClass(index++, String.class, true, Msg.translate(Env.getCtx(), "C_DocType_ID"));
+		miniTable.setColumnClass(index++, String.class, true, Msg.translate(Env.getCtx(), "DocumentNo"));
+		miniTable.setColumnClass(index++, String.class, true, Msg.translate(Env.getCtx(), "C_BPartner_ID"));
+		miniTable.setColumnClass(index++, String.class, true, Msg.translate(Env.getCtx(), "DeliveryViaRule"));
+		miniTable.setColumnClass(index++, Timestamp.class, true, Msg.translate(Env.getCtx(), "DateOrdered"));
+		miniTable.setColumnClass(index++, BigDecimal.class, true, Msg.translate(Env.getCtx(), "TotalLines"));
 		//
 		miniTable.autoSize();
 	}
@@ -98,7 +102,7 @@ public class InOutGen extends GenForm
 	{
 	//  Create SQL
         StringBuilder sql = new StringBuilder(
-            "SELECT C_Order_ID, o.Name, dt.Name, DocumentNo, bp.Name, DateOrdered, TotalLines "
+            "SELECT C_Order_ID, o.Name, dt.Name, DocumentNo, bp.Name, DateOrdered, TotalLines, DeliveryViaRule "
 	    	// use C_Order instead of M_InOut_Candidate_v for access purposes, will be replaced later
             + "FROM C_Order ic, AD_Org o, C_BPartner bp, C_DocType dt "
             + "WHERE ic.AD_Org_ID=o.AD_Org_ID"
@@ -132,7 +136,7 @@ public class InOutGen extends GenForm
 	{
 	    StringBuilder sql = new StringBuilder();
 	    
-	    sql.append("SELECT rma.M_RMA_ID, org.Name, dt.Name, rma.DocumentNo, bp.Name, rma.Created, rma.Amt ");
+	    sql.append("SELECT rma.M_RMA_ID, org.Name, dt.Name, rma.DocumentNo, bp.Name, rma.Created, rma.Amt, 'P' AS DeliveryViaRule ");
 	    sql.append("FROM M_RMA rma INNER JOIN AD_Org org ON rma.AD_Org_ID=org.AD_Org_ID ");
 	    sql.append("INNER JOIN C_DocType dt ON rma.C_DocType_ID=dt.C_DocType_ID ");
 	    sql.append("INNER JOIN C_BPartner bp ON rma.C_BPartner_ID=bp.C_BPartner_ID ");
@@ -191,6 +195,12 @@ public class InOutGen extends GenForm
 			//
 			while (rs.next())
 			{
+				String deliveryViaRule = rs.getString(8);
+				
+				//	Translate
+				if (deliveryViaRule != null)
+					deliveryViaRule = MRefList.getListName(Env.getAD_Language(Env.getCtx()), 152, deliveryViaRule);
+				
 				//  extend table
 				miniTable.setRowCount(row+1);
 				//  set values
@@ -199,8 +209,9 @@ public class InOutGen extends GenForm
 				miniTable.setValueAt(rs.getString(3), row, 2);              //  DocType
 				miniTable.setValueAt(rs.getString(4), row, 3);              //  Doc No
 				miniTable.setValueAt(rs.getString(5), row, 4);              //  BPartner
-				miniTable.setValueAt(rs.getTimestamp(6), row, 5);           //  DateOrdered
-				miniTable.setValueAt(rs.getBigDecimal(7), row, 6);          //  TotalLines
+				miniTable.setValueAt(deliveryViaRule, row, 5);              //  DeliveryViaRule
+				miniTable.setValueAt(rs.getTimestamp(6), row, 6);           //  DateOrdered
+				miniTable.setValueAt(rs.getBigDecimal(7), row, 7);          //  TotalLines
 				//  prepare next
 				row++;
 			}
