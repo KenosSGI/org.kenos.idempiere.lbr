@@ -4190,6 +4190,11 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		if (DOCSTATUS_Completed.equals(getDocStatus()))
 			return getDocStatus();
 		
+		m_processMsg = ModelValidationEngine.get().fireDocValidate(this, ModelValidator.TIMING_BEFORE_COMPLETE);
+		
+		if (m_processMsg != null)
+			return DocAction.STATUS_Invalid;
+		
 		try
 		{
 			if (!islbr_IsOwnDocument())
