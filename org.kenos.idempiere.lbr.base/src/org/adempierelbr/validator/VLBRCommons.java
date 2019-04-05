@@ -500,7 +500,7 @@ public class VLBRCommons implements ModelValidator
 				String whereClause = "EXISTS (SELECT 1 FROM M_AttributeSetInstance asi, M_AttributeSet a \n" + 
 						"WHERE asi.M_AttributeSetInstance_ID=M_AttributeSetInstance.M_AttributeSetInstance_ID \n" + 
 						"AND asi.M_AttributeSet_ID = a.M_AttributeSet_ID \n" + 
-						"AND asi.Lot=? AND a.M_AttributeSet_ID=? AND asi.M_AttributeSetInstance_ID<>?)";
+						"AND asi.SerNo IS NULL AND asi.Lot=? AND a.M_AttributeSet_ID=? AND asi.M_AttributeSetInstance_ID<>?)";
 								
 				List <MAttributeSetInstance> asiList = new Query(asi.getCtx(),MAttributeSetInstance.Table_Name, whereClause, null)
 				.setParameters(asi.getLot(), asi.getM_AttributeSet_ID(), asi.getM_AttributeSetInstance_ID())
