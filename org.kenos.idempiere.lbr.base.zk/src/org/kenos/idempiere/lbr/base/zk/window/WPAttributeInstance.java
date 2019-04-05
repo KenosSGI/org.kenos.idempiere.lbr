@@ -280,7 +280,7 @@ public class WPAttributeInstance extends Window implements EventListener<Event>
 	{
 		m_sql = m_table.prepareTable (s_layout, s_sqlFrom, 
 					(m_M_Warehouse_ID != 0 && sameWarehouse.isChecked()) ? s_sqlWhere : s_sqlWhereWithoutWarehouse, false, "s")
-				+ " ORDER BY asi.GuaranteeDate, s.QtyOnHand, asi.SerNo";	//	oldest, smallest first, serial number
+				+ " ORDER BY GuaranteeDate, QtyOnHand, SerNo";	//	oldest, smallest first, serial number
 		
 		String sql = m_sql;
 		int pos = m_sql.lastIndexOf(" ORDER BY ");
@@ -302,8 +302,17 @@ public class WPAttributeInstance extends Window implements EventListener<Event>
 		//	Include description (serial number, lot, attributes) filter
 		String desc = descBox.getText();
 		if (desc != null && !desc.trim().isEmpty())
-		{
 			sql += m_sqlFilterASI;
+
+		//	Not in Storage
+		if (!positiveOnly.isChecked() && showAll.isChecked())
+		{
+			sql += " UNION SELECT asi.M_AttributeSetInstance_ID, asi.Description, asi.Lot, asi.SerNo, asi.GuaranteeDate, '--' AS Value, -1 AS M_Locator_ID, \n" + 
+				"0 AS QtyOnHand, 0 AS QtyReserved, 0 AS QtyOrdered, 0 AS GuaranteeDaysMin, 0, 0 \n" + 
+				"FROM M_AttributeSetInstance asi \n" + 
+				"WHERE NOT EXISTS (SELECT '1' FROM M_Storage s WHERE s.M_AttributeSetInstance_ID=asi.M_AttributeSetInstance_ID) \n" + 
+				"AND EXISTS (SELECT '1' FROM RV_AttributeProductRelation v WHERE v.M_AttributeSetInstance_ID=asi.M_AttributeSetInstance_ID AND v.M_Product_ID=?) \n" + 
+				"AND asi.Description LIKE ? ";
 		}
 		
 		//	Include ORDER BY again
@@ -321,6 +330,11 @@ public class WPAttributeInstance extends Window implements EventListener<Event>
 				pstmt.setInt(index++, m_M_Warehouse_ID);
 			if (desc != null && !desc.trim().isEmpty())
 				pstmt.setString(index++, "%" + desc.trim() + "%");
+			if (!positiveOnly.isChecked() && showAll.isChecked())
+			{
+				pstmt.setInt(index++, m_M_Product_ID);
+				pstmt.setString(index++, "%" + desc.trim() + "%");
+			}
 			rs = pstmt.executeQuery();
 			m_table.loadTable(rs);
 		}
@@ -341,9 +355,9 @@ public class WPAttributeInstance extends Window implements EventListener<Event>
 			detach();
 		else if (e.getTarget().getId().equals("Cancel"))
 		{
-			detach();
 			m_M_AttributeSetInstance_ID = -1;
 			m_M_AttributeSetInstanceName = null;
+			detach();
 		}
 		else if (e.getTarget() == positiveOnly)
 		{
