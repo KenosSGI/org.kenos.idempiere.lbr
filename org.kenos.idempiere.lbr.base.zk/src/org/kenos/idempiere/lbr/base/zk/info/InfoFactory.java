@@ -31,27 +31,14 @@ public class InfoFactory implements IInfoFactory
 		{
 			info = new InfoProductWindow(WindowNo, tableName, keyColumn, value, multiSelection, whereClause, AD_InfoWindow_ID, lookup);
 			if (!info.loadedOK()) 
-			{
+    			{
 	            info = new InfoProductPanel ( WindowNo,
 	            		Env.getContextAsInt(Env.getCtx(), WindowNo, "M_Warehouse_ID"),
 	    				Env.getContextAsInt(Env.getCtx(), WindowNo, "M_PriceList_ID"),
 	                    multiSelection, value,whereClause, lookup);
-			}
-    	}
-		else
-		{
-			info = new InfoWindow(WindowNo, tableName, keyColumn, value, multiSelection, whereClause, AD_InfoWindow_ID, lookup);
-        	if (!info.loadedOK()) {
-	            info = new InfoGeneralPanel (value, WindowNo,
-	                tableName, keyColumn,
-	                multiSelection, whereClause, lookup);
-	        	if (!info.loadedOK()) {
-	        		info.dispose(false);
-	        		info = null;
-	        	}
-        	}
-		}
-    	return info;
+    			}
+    		}
+    		return info;
 	}	//	create
 
 	@Override
@@ -87,9 +74,6 @@ public class InfoFactory implements IInfoFactory
 
 			info.setTitle("Product Info");
 		}
-		else
-			info = create(lookup.getWindowNo(), tableName, keyColumn, queryValue, false, whereClause, AD_InfoWindow_ID, true);
-		
 		return info;
 	}	//	create
 
