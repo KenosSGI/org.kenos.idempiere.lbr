@@ -31,14 +31,31 @@ public class InfoFactory implements IInfoFactory
 		{
 			info = new InfoProductWindow(WindowNo, tableName, keyColumn, value, multiSelection, whereClause, AD_InfoWindow_ID, lookup);
 			if (!info.loadedOK()) 
-    			{
+			{
 	            info = new InfoProductPanel ( WindowNo,
 	            		Env.getContextAsInt(Env.getCtx(), WindowNo, "M_Warehouse_ID"),
 	    				Env.getContextAsInt(Env.getCtx(), WindowNo, "M_PriceList_ID"),
 	                    multiSelection, value,whereClause, lookup);
-    			}
-    		}
-    		return info;
+			}
+    	}
+		//	Diferente dos Formulários Padrões
+		else if (!tableName.equals("C_BPartner") && !tableName.equals("C_Invoice") && 
+				!tableName.equals("A_Asset") && !tableName.equals("C_Order") &&
+				!tableName.equals("M_InOut") && !tableName.equals("C_Payment") &&
+				!tableName.equals("C_CashLine") && !tableName.equals("S_ResourceAssignment"))
+		{
+			info = new InfoWindow(WindowNo, tableName, keyColumn, value, multiSelection, whereClause, AD_InfoWindow_ID, lookup);
+        	if (!info.loadedOK()) {
+	            info = new InfoGeneralPanel (value, WindowNo,
+	                tableName, keyColumn,
+	                multiSelection, whereClause, lookup);
+	        	if (!info.loadedOK()) {
+	        		info.dispose(false);
+	        		info = null;
+	        	}
+        	}
+		}
+    	return info;
 	}	//	create
 
 	@Override
@@ -74,6 +91,9 @@ public class InfoFactory implements IInfoFactory
 
 			info.setTitle("Product Info");
 		}
+		else
+			info = create(lookup.getWindowNo(), tableName, keyColumn, queryValue, false, whereClause, AD_InfoWindow_ID, true);
+		
 		return info;
 	}	//	create
 
