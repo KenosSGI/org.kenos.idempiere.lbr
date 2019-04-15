@@ -69,19 +69,22 @@ public class NotaFiscal extends GenForm
 		miniTable.addColumn("DateDoc");
 		miniTable.addColumn("TotalLines");
 		miniTable.addColumn("GrandTotal");
+		miniTable.addColumn("IsPrinted");
 		//
 		miniTable.setMultiSelection(true);
 		//  set details
-		miniTable.setColumnClass(0, IDColumn.class, false, " ");
-		miniTable.setColumnClass(1, String.class, true, Msg.translate(Env.getCtx(), "C_DocType_ID"));
-		miniTable.setColumnClass(2, String.class, true, Msg.translate(Env.getCtx(), "LBR_NFeStatus"));
-		miniTable.setColumnClass(3, Boolean.class, true, "S");
-		miniTable.setColumnClass(4, String.class, true, Msg.translate(Env.getCtx(), "DocumentNo"));
-		miniTable.setColumnClass(5, String.class, true, Msg.translate(Env.getCtx(), "LBR_NFSerie"));
-		miniTable.setColumnClass(6, String.class, true, Msg.translate(Env.getCtx(), "C_BPartner_ID"));
-		miniTable.setColumnClass(7, Timestamp.class, true, Msg.translate(Env.getCtx(), "DateDoc"));
-		miniTable.setColumnClass(8, BigDecimal.class, true, Msg.translate(Env.getCtx(), "TotalLines"));
-		miniTable.setColumnClass(9, BigDecimal.class, true, Msg.translate(Env.getCtx(), "GrandTotal"));
+		int index =0;
+		miniTable.setColumnClass(index++, IDColumn.class, false, " ");
+		miniTable.setColumnClass(index++, String.class, true, Msg.translate(Env.getCtx(), "C_DocType_ID"));
+		miniTable.setColumnClass(index++, String.class, true, Msg.translate(Env.getCtx(), "LBR_NFeStatus"));
+		miniTable.setColumnClass(index++, Boolean.class, true, "S");
+		miniTable.setColumnClass(index++, String.class, true, Msg.translate(Env.getCtx(), "DocumentNo"));
+		miniTable.setColumnClass(index++, String.class, true, Msg.translate(Env.getCtx(), "LBR_NFSerie"));
+		miniTable.setColumnClass(index++, String.class, true, Msg.translate(Env.getCtx(), "C_BPartner_ID"));
+		miniTable.setColumnClass(index++, Timestamp.class, true, Msg.translate(Env.getCtx(), "DateDoc"));
+		miniTable.setColumnClass(index++, BigDecimal.class, true, Msg.translate(Env.getCtx(), "TotalLines"));
+		miniTable.setColumnClass(index++, BigDecimal.class, true, Msg.translate(Env.getCtx(), "GrandTotal"));
+		miniTable.setColumnClass(index++, Boolean.class, true, Msg.translate(Env.getCtx(), "IsPrinted"));
 		//
 		miniTable.autoSize();
 	}
@@ -149,7 +152,7 @@ public class NotaFiscal extends GenForm
 	    StringBuffer sql = new StringBuffer();
 	    sql.append("SELECT nf.LBR_NotaFiscal_ID, dt.Name, COALESCE (rl.Name, nf.LBR_NFeStatus, '000-Sem Status') AS Status, nf.IsSOTrx, ");
 		sql.append("LPAD (nf.DocumentNo, 12, '0') AS DocumentNo, LPAD (COALESCE (nf.LBR_NFSerie, '0'), 3, '0') AS LBR_NFSerie, ");
-		sql.append("bp.Name, nf.DateDoc, nf.TotalLines, nf.GrandTotal ");
+		sql.append("bp.Name, nf.DateDoc, nf.TotalLines, nf.GrandTotal, nf.IsPrinted ");
 		sql.append(" FROM LBR_NotaFiscal nf ");
 		sql.append(" INNER JOIN AD_Org o ON (nf.AD_Org_ID=o.AD_Org_ID) ");
 		sql.append(" INNER JOIN C_BPartner bp ON (nf.C_BPartner_ID=bp.C_BPartner_ID) ");
@@ -259,6 +262,7 @@ public class NotaFiscal extends GenForm
 				miniTableEmit.setValueAt(rs.getTimestamp(8), row, 7);           //  DateOrdered
 				miniTableEmit.setValueAt(rs.getBigDecimal(9), row, 8);          //  TotalLines
 				miniTableEmit.setValueAt(rs.getBigDecimal(10), row, 9);         //  GrandTotal
+				miniTableEmit.setValueAt("Y".equals(rs.getString(11)), row, 10);  //  Printed
 				//  prepare next
 				row++;
 			}

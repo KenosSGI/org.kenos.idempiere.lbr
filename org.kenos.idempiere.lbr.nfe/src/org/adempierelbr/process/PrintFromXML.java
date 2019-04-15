@@ -45,6 +45,7 @@ import org.compiere.model.MOrgInfo;
 import org.compiere.model.MPInstance;
 import org.compiere.model.MProcess;
 import org.compiere.model.Query;
+import org.compiere.model.X_T_Report;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
 import org.compiere.util.Env;
@@ -81,6 +82,7 @@ public class PrintFromXML extends SvrProcess
 	
 	/** PDF File 	*/
 	private String p_PDFFile = null;
+	private String p_ViewID = null;
 			
 	private MProcess process = null;
 	private String reportName = "";
@@ -101,6 +103,8 @@ public class PrintFromXML extends SvrProcess
 				;
 			else if (name.equals("FileName"))
 				p_PDFFile = (String) para[i].getParameter();
+			else if (name.equals("ViewID"))
+				p_ViewID = (String) para[i].getParameter();
 			else
 				log.log (Level.SEVERE, "Unknown Parameter: " + name);
 		}
@@ -237,20 +241,30 @@ public class PrintFromXML extends SvrProcess
 		}
 		
 		//	Lote da Nota Fiscal Eletrônica
-		else if (tableID == MLBRNFeLot.Table_ID)
+		else if (tableID == MLBRNFeLot.Table_ID || tableID == X_T_Report.Table_ID)
 		{
 			//	Initialize
 			lotXML = new StringBuilder();
 			
-			//	Lote da NF-e
-			MLBRNFeLot doc = new MLBRNFeLot(getCtx(), p_Record_ID, get_TrxName());
-			
-			// Organização
-			oi = MOrgInfo.get(Env.getCtx(), doc.getAD_Org_ID(), null);
-			
 			//	Lista de NF-e relacionada ao Lote.
-			List <MLBRNotaFiscal> nfs = new Query (Env.getCtx(), MLBRNotaFiscal.Table_Name, "LBR_NFeStatus = '100' AND LBR_NFeLot_ID = ?", get_TrxName())
-										.setParameters(doc.getLBR_NFeLot_ID())
+			List <MLBRNotaFiscal> nfs = null;
+			
+			if (tableID == MLBRNFeLot.Table_ID)
+			{
+				//	Lote da NF-e
+				MLBRNFeLot doc = new MLBRNFeLot(getCtx(), p_Record_ID, get_TrxName());
+				
+				// Organização
+				oi = MOrgInfo.get(Env.getCtx(), doc.getAD_Org_ID(), null);
+				
+					nfs = new Query (Env.getCtx(), MLBRNotaFiscal.Table_Name, "LBR_NFeStatus = '100' AND LBR_NFeLot_ID = ?", get_TrxName())
+											.setParameters(doc.getLBR_NFeLot_ID())
+											.setOrderBy("DocumentNo")
+											.list();
+			}
+			else if (tableID == X_T_Report.Table_ID)
+				nfs = new Query (Env.getCtx(), MLBRNotaFiscal.Table_Name, "LBR_NFeStatus = '100' AND EXISTS (SELECT 1 FROM T_Selection s WHERE s.T_Selection_ID=LBR_NotaFiscal.LBR_NotaFiscal_ID AND s.ViewID=?)", get_TrxName())
+										.setParameters(p_ViewID)
 										.setOrderBy("DocumentNo")
 										.list();
 			
@@ -306,7 +320,7 @@ public class PrintFromXML extends SvrProcess
 		InputStream xmlTmp = null;
 		
 		//	Lote da Nota Fiscal Eletrônica
-		if (tableID == MLBRNFeLot.Table_ID)
+		if (tableID == MLBRNFeLot.Table_ID || tableID == X_T_Report.Table_ID)
 		{
 			xml = new ByteArrayInputStream (lotXML.toString().getBytes(TextUtil.UTF8));
 		}
@@ -342,7 +356,7 @@ public class PrintFromXML extends SvrProcess
 		try
 		{
 			//	Lote da Nota Fiscal Eletrônica
-			if (tableID != MLBRNFeLot.Table_ID)
+			if (tableID != MLBRNFeLot.Table_ID && tableID != X_T_Report.Table_ID)
 			{
 				/*
 				 * 	Tenta encontrar o formato de impressão baseado no XML

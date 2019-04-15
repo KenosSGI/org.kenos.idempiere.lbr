@@ -14,6 +14,7 @@
 package org.kenos.apps.form;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.logging.Level;
 
 import org.adempiere.webui.LayoutUtils;
@@ -49,6 +50,7 @@ import org.compiere.apps.IProcessParameter;
 import org.compiere.model.MOrg;
 import org.compiere.model.MQuery;
 import org.compiere.model.MTable;
+import org.compiere.model.X_T_Report;
 import org.compiere.process.ProcessInfo;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.util.CLogger;
@@ -303,7 +305,6 @@ public class WNotaFiscalForm extends ADForm implements EventListener<Event>, WTa
 	 */
 	public void onEvent(Event e) throws Exception
 	{
-
 		log.info("Cmd=" + e.getTarget());
 		//
 		if (e.getTarget().getId().equals(ConfirmPanel.A_CANCEL))
@@ -398,12 +399,31 @@ public class WNotaFiscalForm extends ADForm implements EventListener<Event>, WTa
 		else if (e.getTarget() == printEmitButton)
 		{
 			List<Integer> keys = genForm.getSelectedKeys(miniTableEmit);
-			if (keys.size() == 0)
+			if (keys.size() == 1)
+			{
+				//	Print From XML
+				ProcessInfo pi = startProcess(PrintFromXML.AD_Process_ID, genForm.getTitle(), m_WindowNo, MLBRNotaFiscal.Table_ID, keys.get(0), null);
+				statusBar.setStatusLine(pi.getSummary(), pi.isError());
+			}
+			else if (keys.size() > 1)
+			{
+				String uuid = UUID.randomUUID().toString().substring(0, 30);
+				
+				//	Populate IDs
+				for (Integer key : keys)
+				{
+					int updated = DB.executeUpdate ("UPDATE T_Selection SET ViewID=? WHERE AD_PInstance_ID=-1 AND T_Selection_ID=?", new Object[] {uuid, key}, true, null);
+					if (updated <= 0)
+						DB.executeUpdate ("INSERT INTO T_Selection VALUES (-1, ?, ?)", new Object[] {key, uuid}, true, null);
+				}
+				
+				ProcessInfoParameter pip = new ProcessInfoParameter ("ViewID", uuid, null, null, null);
+				ProcessInfo pi = startProcess(PrintFromXML.AD_Process_ID, genForm.getTitle(), m_WindowNo, X_T_Report.Table_ID, keys.get(0), new ProcessInfoParameter[] {pip});
+				statusBar.setStatusLine(pi.getSummary(), pi.isError());
+			}
+			else
 				return;
 			
-			//	Print From XML
-			ProcessInfo pi = startProcess(PrintFromXML.AD_Process_ID, genForm.getTitle(), m_WindowNo, MLBRNotaFiscal.Table_ID, keys.get(0), null);
-			statusBar.setStatusLine(pi.getSummary(), pi.isError());
 		}
 		
 		else if (e.getTarget() == printRecButton)
