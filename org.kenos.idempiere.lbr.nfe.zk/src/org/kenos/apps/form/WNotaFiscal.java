@@ -13,11 +13,15 @@
  *****************************************************************************/
 package org.kenos.apps.form;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Level;
 
+import org.adempiere.webui.component.Datebox;
 import org.adempiere.webui.component.Label;
 import org.adempiere.webui.component.Row;
+import org.adempiere.webui.editor.WDateEditor;
 import org.adempiere.webui.editor.WSearchEditor;
 import org.adempiere.webui.editor.WTableDirEditor;
 import org.adempiere.webui.event.ValueChangeEvent;
@@ -36,6 +40,7 @@ import org.compiere.util.Msg;
 import org.zkoss.zk.ui.WrongValueException;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
+import org.zkoss.zk.ui.event.Events;
 import org.zkoss.zul.Space;
 
 /**
@@ -61,6 +66,8 @@ public class WNotaFiscal extends NotaFiscal implements IFormController, EventLis
 	private WSearchEditor fBPartner;
 	private Label   lDocAction = new Label();
 	private WTableDirEditor docAction;
+	private Label lDateDoc = new Label();
+	private WDateEditor fDateDoc = new WDateEditor();
 	
 	public WNotaFiscal()
 	{
@@ -100,6 +107,7 @@ public class WNotaFiscal extends NotaFiscal implements IFormController, EventLis
 		lOrgRec.setText(Msg.translate(Env.getCtx(), "AD_Org_ID"));
 		lBPartner.setText(Msg.translate(Env.getCtx(), "C_BPartner_ID"));
 		lManifest.setText(Msg.translate(Env.getCtx(), "LBR_EventType"));
+		lDateDoc.setText(Msg.translate(Env.getCtx(), "DateDoc"));
 		
 		Row row = form.getEmitParameterPanel().newRows().newRow();
 		row.appendCellChild(lOrg.rightAlign());
@@ -108,6 +116,9 @@ public class WNotaFiscal extends NotaFiscal implements IFormController, EventLis
 		row.appendCellChild(lBPartner.rightAlign());
 		ZKUpdateUtil.setHflex(fBPartner.getComponent(), "true");
 		row.appendCellChild(fBPartner.getComponent());
+		row.appendCellChild(lDateDoc.rightAlign());
+		ZKUpdateUtil.setHflex(fDateDoc.getComponent(), "true");
+		row.appendCellChild(fDateDoc.getComponent());
 		row.appendCellChild(lDocAction.rightAlign());
 		ZKUpdateUtil.setHflex(docAction.getComponent(), "true");
 		row.appendCellChild(docAction.getComponent());
@@ -144,6 +155,9 @@ public class WNotaFiscal extends NotaFiscal implements IFormController, EventLis
 			fOrg.setValue(AD_Org_ID);
 			fOrgRec.setValue(AD_Org_ID);
 		}
+		
+		//
+		fDateDoc.addValueChangeListener(this);
 		
 		MLookup manifestL = MLookupFactory.get (Env.getCtx(), form.getWindowNo(), 0, DisplayType.List, Language.getBaseLanguage(), "LBR_EventType", 1120226, false, null);
 		fManifest = new WTableDirEditor ("LBR_EventType", true, false, true, manifestL);
@@ -221,6 +235,13 @@ public class WNotaFiscal extends NotaFiscal implements IFormController, EventLis
 			m_C_BPartner_ID = e.getNewValue();
 			fBPartner.setValue(m_C_BPartner_ID);	//	display value
 		}
+		
+		if (e.getPropertyName().equals("Date"))
+		{
+			m_DateDoc = e.getNewValue();
+			fDateDoc.setValue(m_DateDoc);
+		}
+		
 		form.postQueryEvent();
 	}	//	vetoableChange
 	
