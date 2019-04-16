@@ -48,6 +48,7 @@ public class NotaFiscal extends GenForm
 	public Object 			m_AD_Org_ID 	= null;
 	public Object 			m_C_BPartner_ID = null;
 	public Object 			m_LBR_EventType = null;
+	public Object			m_DateDoc = null;
 	
 	public void dynInit() throws Exception
 	{
@@ -160,14 +161,21 @@ public class NotaFiscal extends GenForm
 		sql.append(" LEFT JOIN AD_Ref_List rl ON (nf.LBR_NFeStatus=rl.Value AND rl.AD_Reference_ID=1100004) ");
 		sql.append(" WHERE nf.LBR_IsOwnDocument='Y' AND (nf.LBR_NFModel IN ('55', '56'))");
 		sql.append(" AND nf.IsCancelled='N' AND nf.AD_Client_ID=?");
-		sql.append(" AND (nf.Updated>=").append(DB.TO_DATE(TimeUtil.addDays (new Timestamp (System.currentTimeMillis()), -2)));
-		sql.append(" OR nf.LBR_NFeStatus IS NULL ");
-		sql.append(" OR nf.LBR_NFeStatus NOT IN ('100', '101', '102', '135', '150', '151', '155'))");
+		
+		//	Data Selecionada ou -2 Dias
+		if (m_DateDoc != null)
+			sql.append(" AND nf.DateDoc=").append(DB.TO_DATE((Timestamp)m_DateDoc));
+		else
+		{	
+			sql.append(" AND (nf.Updated>=").append(DB.TO_DATE(TimeUtil.addDays (new Timestamp (System.currentTimeMillis()), -2)));		
+			sql.append(" OR nf.LBR_NFeStatus IS NULL ");
+			sql.append(" OR nf.LBR_NFeStatus NOT IN ('100', '101', '102', '135', '150', '151', '155'))");
+		}	
 
 		if (m_AD_Org_ID != null)
             sql.append(" AND nf.AD_Org_ID=").append(m_AD_Org_ID);
         if (m_C_BPartner_ID != null)
-            sql.append(" AND nf.C_BPartner_ID=").append(m_C_BPartner_ID);
+            sql.append(" AND nf.C_BPartner_ID=").append(m_C_BPartner_ID);       
         
         int AD_User_ID = Env.getContextAsInt(Env.getCtx(), "#AD_User_ID");
         String lockedIDs = MPrivateAccess.getLockedRecordWhere(MOrder.Table_ID, AD_User_ID);
