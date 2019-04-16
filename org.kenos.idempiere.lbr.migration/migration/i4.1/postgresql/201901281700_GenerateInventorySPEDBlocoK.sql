@@ -464,5 +464,18 @@ ALTER TABLE LBR_BookInventory ADD COLUMN LBR_SPED_ID NUMERIC(10) DEFAULT NULL
 ALTER TABLE LBR_BookInventory ADD CONSTRAINT LBRSPED_LBRBookInventory FOREIGN KEY (LBR_SPED_ID) REFERENCES lbr_sped(lbr_sped_id) DEFERRABLE INITIALLY DEFERRED
 ;
 
+-- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
+-- 16/04/2019 13h26min13s BRT
+UPDATE AD_Column SET IsMandatory='Y',Updated=TO_TIMESTAMP('2019-04-16 13:26:13','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1130587
+;
+
+-- 16/04/2019 13h26min17s BRT
+INSERT INTO t_alter_column values('lbr_bookinventory','MovementDate','TIMESTAMP',null,null)
+;
+
+-- 16/04/2019 13h26min17s BRT
+INSERT INTO t_alter_column values('lbr_bookinventory','MovementDate',null,'NOT NULL',null)
+;
+
 SELECT Register_Migration_Script ('201901281700_GenerateInventorySPEDBlocoK.sql') FROM DUAL
 ;

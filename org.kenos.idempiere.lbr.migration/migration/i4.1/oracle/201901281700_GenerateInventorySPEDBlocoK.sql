@@ -467,5 +467,18 @@ UPDATE AD_Field SET SeqNo=0, AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, Is
 UPDATE AD_Field SET SeqNo=0, AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, IsToolbarButton=NULL,Updated=TO_DATE('2019-01-24 17:14:14','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1000257
 ;
 
+-- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
+-- 16/04/2019 13h26min13s BRT
+UPDATE AD_Column SET IsMandatory='Y',Updated=TO_DATE('2019-04-16 13:26:13','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1130587
+;
+
+-- 16/04/2019 13h26min17s BRT
+ALTER TABLE LBR_BookInventory MODIFY MovementDate DATE
+;
+
+-- 16/04/2019 13h26min17s BRT
+ALTER TABLE LBR_BookInventory MODIFY MovementDate NOT NULL
+;
+
 SELECT Register_Migration_Script ('201901281700_GenerateInventorySPEDBlocoK.sql') FROM DUAL
 ;
