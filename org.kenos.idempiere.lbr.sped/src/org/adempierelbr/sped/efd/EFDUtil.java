@@ -2426,7 +2426,7 @@ public class EFDUtil {
 		// sql
 		String sql = " SELECT AD_Client_ID, AD_Org_ID, C_BPartner_ID, SUM(QtyBook) AS QtyBook,	" + 
 				" lbr_WarehouseType, movementdate, M_Product_ID,			" +
-				" isRevalidate																	" +
+				" isRevalidate, MovementDate																	" +
 				" FROM LBR_BookInventory														" +
 				" WHERE AD_Client_ID = ? 														" + // # 1
 				" AND AD_Org_ID = ?																" + // # 2

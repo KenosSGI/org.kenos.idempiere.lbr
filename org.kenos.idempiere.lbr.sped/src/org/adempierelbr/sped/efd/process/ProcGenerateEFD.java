@@ -734,6 +734,9 @@ public class ProcGenerateEFD extends SvrProcess
 					// Quantidade em Mãos
 					BigDecimal qtyBook = rs.getBigDecimal("QtyBook");
 					
+					//
+					Timestamp movDate = rs.getTimestamp("MovementDate");
+					
 					// Se Revalidar for igual a falso, Adicionar ao Bloco K200
 					if (!"Y".equals(rs.getString("isRevalidate")))
 						// criar registro RK200
@@ -749,7 +752,7 @@ public class ProcGenerateEFD extends SvrProcess
 						blocoK.addrK280(EFDUtil.createRK280(
 								r0200.getCOD_ITEM(), 
 								partner.getValue(), 
-								dateTo,
+								movDate,
 								IND_PROP,
 								qtyBook));
 						
