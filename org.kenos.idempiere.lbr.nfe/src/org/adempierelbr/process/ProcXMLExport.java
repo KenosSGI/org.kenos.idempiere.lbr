@@ -63,12 +63,13 @@ public class ProcXMLExport extends SvrProcess
 	
 	/**	Document Type	*/
 	private int p_C_DocTypeTarget_ID 	= 0;
-	private int p_AD_Org_ID 				= 0;
-	private int p_C_BPartner_ID 			= 0;
-	private int p_C_BP_Group_ID 			= 0;
+	private int p_AD_Org_ID 			= 0;
+	private int p_C_BPartner_ID 		= 0;
+	private int p_C_BP_Group_ID 		= 0;
 	private int p_M_Shipper_ID 			= 0;
-	private Boolean p_LBR_IsCancelled	= false;
-	private Boolean p_LBR_IsSOTrx		= null;
+	private Boolean p_IsCancelled		= false;
+	private Boolean p_IsSOTrx			= null;
+	private Boolean p_LBR_IncludeDANFE	= false;
 	private Boolean p_LBR_IsOwnDocument	= null;
 	private Boolean p_LBR_EMailSent		= null;
 
@@ -111,9 +112,11 @@ public class ProcXMLExport extends SvrProcess
 			else if (name.equals (MLBRNotaFiscal.COLUMNNAME_M_Shipper_ID))
 				p_M_Shipper_ID = para[i].getParameterAsInt();
 			else if (name.equals (MLBRNotaFiscal.COLUMNNAME_IsCancelled))
-				p_LBR_IsCancelled = para[i].getParameterAsBoolean();
+				p_IsCancelled = para[i].getParameterAsBoolean();
+			else if (name.equals ("LBR_IncludeDANFE"))
+				p_LBR_IncludeDANFE = para[i].getParameterAsBoolean();
 			else if (name.equals (MLBRNotaFiscal.COLUMNNAME_IsSOTrx))
-				p_LBR_IsSOTrx =  "Y".equals (para[i].getParameterAsString());
+				p_IsSOTrx =  "Y".equals (para[i].getParameterAsString());
 			else if (name.equals(MLBRNotaFiscal.COLUMNNAME_lbr_IsOwnDocument))
 				p_LBR_IsOwnDocument = "Y".equals (para[i].getParameterAsString());
 			else if (name.equals(MLBRNotaFiscal.COLUMNNAME_LBR_EMailSent))
@@ -165,8 +168,8 @@ public class ProcXMLExport extends SvrProcess
 		if (p_C_BP_Group_ID > 0)
 			whereClause.append(" AND EXISTS (SELECT '1' FROM C_BPartner bp WHERE bp.C_BPartner_ID=LBR_NotaFiscal.C_BPartner_ID AND bp.C_BP_Group_ID ="+p_C_BP_Group_ID+")");
 		
-		if (p_LBR_IsSOTrx != null)
-			if (p_LBR_IsSOTrx)
+		if (p_IsSOTrx != null)
+			if (p_IsSOTrx)
 				whereClause.append(" AND IsSOTrx='Y'");
 			else
 				whereClause.append(" AND IsSOTrx='N'");
@@ -200,7 +203,7 @@ public class ProcXMLExport extends SvrProcess
 						nf.getBPName(), nf.getDocumentNo(), nf.getlbr_NFSerie(), nf.getlbr_NFeID(), null));
 				
 				//	Se o campo Incluir Documentos Cancelados estiver desmarcado não adicionar o XML da NF ao arquivo
-				if (!p_LBR_IsCancelled)
+				if (!p_IsCancelled)
 					continue;
 				
 				// NF Inutilizada não possui XML
@@ -236,7 +239,7 @@ public class ProcXMLExport extends SvrProcess
 				+ File.separator + "Emitidas" + File.separator + (nf.isSOTrx() ? "Saída" : "Entrada");
 				
 				//	Arquivo XML
-				String fileName = folder + File.separator + xml.getName();
+				String fileName = folder + File.separator + nf.getDocumentNo() + "_" + xml.getName();
 				//
 				File file = new File (folder);
 				if (!file.exists())
@@ -284,6 +287,13 @@ public class ProcXMLExport extends SvrProcess
 						log.finer ("Saving to >> " + fileNameEvent);
 						xmlEvent.getFile (new File (fileNameEvent));
 					}
+				}
+				
+				//	Include DANFE
+				if (p_LBR_IncludeDANFE)
+				{
+					File danfe = new File (folder + File.separator + nf.getDocumentNo() + "_" + nf.getlbr_NFeID() + ".pdf");
+					nf.createPDF(danfe);
 				}
 			}
 		}
