@@ -778,6 +778,7 @@ public class WPOGManage extends ADForm implements IFormController, WTableModelLi
 			prod_new.setAD_Org_ID(prod_orig.getAD_Org_ID());
 			prod_new.setProductionQty(psplit.newQty);
 			prod_new.setIsCreated(MProduction.ISCREATED_Yes);
+			prod_new.set_ValueNoCheck("LBR_ProductionGroup_ID", prod_orig.get_Value("LBR_ProductionGroup_ID"));
 			prod_new.save();
 			
 			//		Adicionando Produção Origem como referencia
