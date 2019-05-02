@@ -85,6 +85,45 @@ public class X_LBR_NFConfig extends PO implements I_LBR_NFConfig, I_Persistent
       return sb.toString();
     }
 
+	/** Set CSRT Code.
+		@param LBR_CSRTCode 
+		CSRT Code used to generate Hash CSRT
+	  */
+	public void setLBR_CSRTCode (String LBR_CSRTCode)
+	{
+		set_Value (COLUMNNAME_LBR_CSRTCode, LBR_CSRTCode);
+	}
+
+	/** Get CSRT Code.
+		@return CSRT Code used to generate Hash CSRT
+	  */
+	public String getLBR_CSRTCode () 
+	{
+		return (String)get_Value(COLUMNNAME_LBR_CSRTCode);
+	}
+
+	/** Set CSRT ID.
+		@param LBR_CSRTID 
+		CSRT ID corresponding to the CSRT Code
+	  */
+	public void setLBR_CSRTID (int LBR_CSRTID)
+	{
+		set_Value (COLUMNNAME_LBR_CSRTID, Integer.valueOf(LBR_CSRTID));
+	}
+
+	/** Get CSRT ID.
+		@return CSRT ID corresponding to the CSRT Code
+	  */
+	public int getLBR_CSRTID () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_LBR_CSRTID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
+	/** lbr_DANFEFormat AD_Reference_ID=1100002 */
+	public static final int LBR_DANFEFORMAT_AD_Reference_ID=1100002;
 	/** 1 - Normal DANFE - Portrait = 1 */
 	public static final String LBR_DANFEFORMAT_1_NormalDANFE_Portrait = "1";
 	/** 2 - Normal DANFE - Landscape = 2 */

@@ -1711,6 +1711,24 @@ public class X_LBR_NotaFiscal extends PO implements I_LBR_NotaFiscal, I_Persiste
 		return (String)get_Value(COLUMNNAME_lbr_BPDeliveryCountry);
 	}
 
+
+	/** Set BP Delivery Email.
+		@param LBR_BPDeliveryEmail 
+		BP Delivery Email
+	  */
+	public void setLBR_BPDeliveryEmail (String LBR_BPDeliveryEmail)
+	{
+		set_Value (COLUMNNAME_LBR_BPDeliveryEmail, LBR_BPDeliveryEmail);
+	}
+
+	/** Get BP Delivery Email.
+		@return BP Delivery Email
+	  */
+	public String getLBR_BPDeliveryEmail () 
+	{
+		return (String)get_Value(COLUMNNAME_LBR_BPDeliveryEmail);
+	}
+
 	/** Set BP Delivery IE.
 		@param lbr_BPDeliveryIE 
 		BP Delivery IE - Copied from the BP Location into Brazilan Legal and Tax Books
@@ -1726,6 +1744,37 @@ public class X_LBR_NotaFiscal extends PO implements I_LBR_NotaFiscal, I_Persiste
 	public String getlbr_BPDeliveryIE () 
 	{
 		return (String)get_Value(COLUMNNAME_lbr_BPDeliveryIE);
+	}
+
+	/** Set BP Delivery Name.
+		@param LBR_BPDeliveryName BP Delivery Name	  */
+	public void setLBR_BPDeliveryName (String LBR_BPDeliveryName)
+	{
+		set_Value (COLUMNNAME_LBR_BPDeliveryName, LBR_BPDeliveryName);
+	}
+
+	/** Get BP Delivery Name.
+		@return BP Delivery Name	  */
+	public String getLBR_BPDeliveryName () 
+	{
+		return (String)get_Value(COLUMNNAME_LBR_BPDeliveryName);
+	}
+
+	/** Set BP Delivery Phone.
+		@param LBR_BPDeliveryPhone 
+		BP Delivery Phone
+	  */
+	public void setLBR_BPDeliveryPhone (String LBR_BPDeliveryPhone)
+	{
+		set_Value (COLUMNNAME_LBR_BPDeliveryPhone, LBR_BPDeliveryPhone);
+	}
+
+	/** Get BP Delivery Phone.
+		@return BP Delivery Phone
+	  */
+	public String getLBR_BPDeliveryPhone () 
+	{
+		return (String)get_Value(COLUMNNAME_LBR_BPDeliveryPhone);
 	}
 
 	/** Set BP Delivery Postal.
@@ -2400,6 +2449,23 @@ public class X_LBR_NotaFiscal extends PO implements I_LBR_NotaFiscal, I_Persiste
 		return (String)get_Value(COLUMNNAME_lbr_CNPJ);
 	}
 
+	/** Set CSRT Hash.
+		@param LBR_CSRTHash 
+		CSRT Hash is generated using NFe ID and CSRT Code
+	  */
+	public void setLBR_CSRTHash (String LBR_CSRTHash)
+	{
+		set_Value (COLUMNNAME_LBR_CSRTHash, LBR_CSRTHash);
+	}
+
+	/** Get CSRT Hash.
+		@return CSRT Hash is generated using NFe ID and CSRT Code
+	  */
+	public String getLBR_CSRTHash () 
+	{
+		return (String)get_Value(COLUMNNAME_LBR_CSRTHash);
+	}
+
 	/** Set Country Code.
 		@param lbr_CountryCode 
 		Country Code used for issue Nota Fiscal
@@ -2722,6 +2788,23 @@ public class X_LBR_NotaFiscal extends PO implements I_LBR_NotaFiscal, I_Persiste
 	public String getlbr_MotivoScan () 
 	{
 		return (String)get_Value(COLUMNNAME_lbr_MotivoScan);
+	}
+
+	/** LBR_MsgIntSEFAZ AD_Reference_ID=1120322 */
+	public static final int LBR_MSGINTSEFAZ_AD_Reference_ID=1120322;
+	/** Set Message from SEFAZ.
+		@param LBR_MsgIntSEFAZ Message from SEFAZ	  */
+	public void setLBR_MsgIntSEFAZ (String LBR_MsgIntSEFAZ)
+	{
+
+		set_Value (COLUMNNAME_LBR_MsgIntSEFAZ, LBR_MsgIntSEFAZ);
+	}
+
+	/** Get Message from SEFAZ.
+		@return Message from SEFAZ	  */
+	public String getLBR_MsgIntSEFAZ () 
+	{
+		return (String)get_Value(COLUMNNAME_LBR_MsgIntSEFAZ);
 	}
 
 	/** Set NCM Reference.
