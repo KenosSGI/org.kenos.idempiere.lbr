@@ -777,6 +777,7 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		String dhRecbto = infProt.getDhRecbto().toString();
 		String cStat 	= infProt.getCStat();
 		String nProt 	= infProt.getNProt();
+		String cMsg		= infProt.getCMsg();
 		
 		if (infProt.getDigVal() != null)
 			digVal = infProt.xgetDigVal().getStringValue();
@@ -894,6 +895,17 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		//	Save changes
 		nf.setProcessing(false);
 		nf.save();
+		
+		//	Mensagem de Aviso do Interesse do SEFAZ ao Emitente
+		try
+        {
+			if (cMsg != null)
+			{	
+	        	nf.setLBR_MsgIntSEFAZ(cMsg);;
+	        	nf.save();
+			}	
+        }
+		catch (Exception e) {}
 		
 		//	Send mail
 		if (sendMail)
@@ -1477,6 +1489,10 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		setlbr_BPDeliveryPostal(location.getPostal());		//	CEP
 		setlbr_BPDeliveryCountry(country.getCountryCode());	//	País
 		
+		// NT 2018.005
+		setLBR_BPDeliveryName(bpLocation.getC_BPartner().getName());
+		setLBR_BPDeliveryPhone(bpLocation.getPhone());
+		
 		setDeliveryViaRule(MLBRNotaFiscal.DELIVERYVIARULE_Delivery);
 		
 		//  Description
@@ -1610,6 +1626,10 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		setlbr_BPDeliveryCity(location.getCity());			//	Cidade
 		setlbr_BPDeliveryPostal(location.getPostal());		//	CEP
 		setlbr_BPDeliveryCountry(country.getCountryCode());	//	País
+		
+		// NT 2018.005
+		setLBR_BPDeliveryName(bpLocation.getC_BPartner().getName());
+		setLBR_BPDeliveryPhone(bpLocation.getPhone());
 		
 		//  Description
 		setDescription();
@@ -2859,6 +2879,10 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		setlbr_BPDeliveryCity(location.getCity());			//	Cidade
 		setlbr_BPDeliveryPostal(location.getPostal());		//	CEP
 		setlbr_BPDeliveryCountry(country.getCountryCode());	//	País
+		
+		// NT 2018.005
+		setLBR_BPDeliveryName(bpLocation.getC_BPartner().getName());
+		setLBR_BPDeliveryPhone(bpLocation.getPhone());
 
 		//	Importação / Exportação
 		if (country.get_ID() != BRAZIL)
