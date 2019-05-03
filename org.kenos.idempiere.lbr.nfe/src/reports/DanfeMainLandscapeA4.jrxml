@@ -11,9 +11,9 @@
 	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w2" value="461"/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="XML"/>
 	<property name="com.jaspersoft.studio.report.description" value=""/>
+	<import value="net.sf.jasperreports.engine.*"/>
 	<import value="java.util.*"/>
 	<import value="net.sf.jasperreports.engine.data.*"/>
-	<import value="net.sf.jasperreports.engine.*"/>
 	<parameter name="DanfeMainLandscapeA4_Sub_Item" class="java.io.InputStream" isForPrompting="false">
 		<defaultValueExpression><![CDATA[new java.io.FileInputStream ("/home/kenos/workspace/adempierelbr/nfe2/src/reports/DanfeMainLandscapeA4_Sub_Item.jasper")]]></defaultValueExpression>
 	</parameter>
@@ -1634,7 +1634,7 @@ $F{valorTotalServicos}.signum() == 1 ? Boolean.TRUE : Boolean.FALSE]]></printWhe
 		<groupHeader>
 			<band height="10" splitType="Stretch">
 				<subreport isUsingCache="true">
-					<reportElement key="subreport-1" positionType="FixRelativeToBottom" stretchType="ContainerBottom" mode="Transparent" x="-30" y="0" width="61" height="10" isRemoveLineWhenBlank="true" uuid="2b39f4d7-acb0-46ae-9851-efbffea48851"/>
+					<reportElement key="subreport-1" mode="Transparent" x="-30" y="0" width="61" height="10" isRemoveLineWhenBlank="true" uuid="2b39f4d7-acb0-46ae-9851-efbffea48851"/>
 					<subreportParameter name="ImpFrente">
 						<subreportParameterExpression><![CDATA[$P{Frente}]]></subreportParameterExpression>
 					</subreportParameter>

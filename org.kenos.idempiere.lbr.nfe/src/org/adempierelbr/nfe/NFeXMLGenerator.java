@@ -786,7 +786,7 @@ public class NFeXMLGenerator
 						retOuEntreg.setCNPJ(toNumericStr (nf.getlbr_BPDeliveryCNPJ()));
 					
 					if (nf.getlbr_BPDeliveryIE() != null)
-						retOuEntreg.setIE(nf.getlbr_BPDeliveryIE());
+						retOuEntreg.setIE(toNumericStr(nf.getlbr_BPDeliveryIE()));
 					//
 					if (nf.getLBR_BPDeliveryName() != null && !nf.getLBR_BPDeliveryName().isEmpty())
 						retOuEntreg.setXNome(normalize(nf.getLBR_BPDeliveryName()));
@@ -805,7 +805,7 @@ public class NFeXMLGenerator
 					I_W_C_Country countryDL = POWrapper.create(new MCountry(ctx, nf.getlbr_Delivery_Location().getC_Location().getC_Country_ID(), trxName), I_W_C_Country.class);
 					retOuEntreg.setXPais(((MCountry) POWrapper.getPO (countryDL)).get_Translation (MCountry.COLUMNNAME_Name, LBRUtils.AD_LANGUAGE));
 					
-					if (nf.getlbr_BPDeliveryCountry() != null)
+					if (nf.getlbr_CountryCode() != null)
 						retOuEntreg.setCPais(nf.getlbr_CountryCode().substring(1));
 					
 					if (nf.getLBR_BPDeliveryPhone() != null)
@@ -2085,35 +2085,39 @@ public class NFeXMLGenerator
 		//
 		MLBRNFConfig config = MLBRNFConfig.get(nf.getAD_Org_ID());
 		
-					
-		//	Add Technical Resposible
-		X_LBR_SystemResponsible sresp = new Query(Env.getCtx(), X_LBR_SystemResponsible.Table_Name, "", null)
-										.first();
-		if (sresp != null && sresp.getlbr_CNPJ() != null && sresp.getContactName() != null
-				&& sresp.getEMail() != null && sresp.getPhone() != null)
-		{							
-			//	add Technical Responsible
-			TInfRespTec respTec = infNFe.addNewInfRespTec();
-			respTec.setCNPJ(TextUtil.toNumeric(sresp.getlbr_CNPJ()));
-			respTec.setXContato(sresp.getContactName().trim());
-			respTec.setEmail(sresp.getEMail().trim());
-			respTec.setFone(toNumericStr(sresp.getPhone()));
-			
-			//
-			if (config != null && config.getLBR_CSRTCode() != null)
-			{
-				//	CSRT Hash
-				byte[] CSRTHash = generateCSRTHash (nfeID, config.getLBR_CSRTCode());
+		if (config != null && 
+				!MLBRNFConfig.LBR_CONFIGSYSTEMRESP_NotInformSystemResponsible.equals(config.getLBR_ConfigSystemResp()))
+		{	
+						
+			//	Add Technical Resposible
+			X_LBR_SystemResponsible sresp = new Query(Env.getCtx(), X_LBR_SystemResponsible.Table_Name, "", null)
+											.first();
+			if (sresp != null && sresp.getlbr_CNPJ() != null && sresp.getContactName() != null
+					&& sresp.getEMail() != null && sresp.getPhone() != null)
+			{							
+				//	add Technical Responsible
+				TInfRespTec respTec = infNFe.addNewInfRespTec();
+				respTec.setCNPJ(TextUtil.toNumeric(sresp.getlbr_CNPJ()));
+				respTec.setXContato(sresp.getContactName().trim());
+				respTec.setEmail(sresp.getEMail().trim());
+				respTec.setFone(toNumericStr(sresp.getPhone()));
 				
-				if (CSRTHash != null)
+				//
+				if (config.getLBR_CSRTCode() != null)
 				{
-					String hash = new String (CSRTHash);				
-					nf.setLBR_CSRTHash(hash);
-					respTec.setIdCSRT(TextUtil.lPad(config.getLBR_CSRTID(), 2));
-					respTec.setHashCSRT(CSRTHash);
+					//	CSRT Hash
+					byte[] CSRTHash = generateCSRTHash (nfeID, config.getLBR_CSRTCode());
+					
+					if (CSRTHash != null)
+					{
+						String hash = new String (CSRTHash);				
+						nf.setLBR_CSRTHash(hash);
+						respTec.setIdCSRT(TextUtil.lPad(config.getLBR_CSRTID(), 2));
+						respTec.setHashCSRT(CSRTHash);
+					}
 				}
 			}
-		}
+		}	
 		
 
 		log.fine ("Signing NF-e");
