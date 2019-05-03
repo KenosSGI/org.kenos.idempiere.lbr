@@ -788,7 +788,9 @@ public class NFeXMLGenerator
 					if (nf.getlbr_BPDeliveryIE() != null)
 						retOuEntreg.setIE(nf.getlbr_BPDeliveryIE());
 					//
-					retOuEntreg.setXNome(nf.getLBR_BPDeliveryName());
+					if (nf.getLBR_BPDeliveryName() != null && !nf.getLBR_BPDeliveryName().isEmpty())
+						retOuEntreg.setXNome(normalize(nf.getLBR_BPDeliveryName()));
+					
 					retOuEntreg.setXLgr(normalize (nf.getlbr_BPDeliveryAddress1()));
 					retOuEntreg.setNro(normalize (nf.getlbr_BPDeliveryAddress2()));
 					
@@ -2087,8 +2089,8 @@ public class NFeXMLGenerator
 		//	Add Technical Resposible
 		X_LBR_SystemResponsible sresp = new Query(Env.getCtx(), X_LBR_SystemResponsible.Table_Name, "", null)
 										.first();
-		if (sresp != null && !sresp.getlbr_CNPJ().isEmpty() && !sresp.getContactName().isEmpty()
-				&& !sresp.getEMail().isEmpty() && !sresp.getPhone().isEmpty())
+		if (sresp != null && sresp.getlbr_CNPJ() != null && sresp.getContactName() != null
+				&& sresp.getEMail() != null && sresp.getPhone() != null)
 		{							
 			//	add Technical Responsible
 			TInfRespTec respTec = infNFe.addNewInfRespTec();
