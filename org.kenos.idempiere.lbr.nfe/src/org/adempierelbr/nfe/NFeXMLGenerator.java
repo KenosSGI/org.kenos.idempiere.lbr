@@ -798,16 +798,16 @@ public class NFeXMLGenerator
 					retOuEntreg.setXBairro(normalize (nf.getlbr_BPDeliveryAddress3()));
 					
 					if (nf.getlbr_BPDeliveryPostal() != null)
-						retOuEntreg.setCEP(nf.getlbr_BPDeliveryPostal());
+						retOuEntreg.setCEP(toNumericStr(nf.getlbr_BPDeliveryPostal()));
 					
 					I_W_C_Country countryDL = POWrapper.create(new MCountry(ctx, nf.getlbr_Delivery_Location().getC_Location().getC_Country_ID(), trxName), I_W_C_Country.class);
 					retOuEntreg.setXPais(((MCountry) POWrapper.getPO (countryDL)).get_Translation (MCountry.COLUMNNAME_Name, LBRUtils.AD_LANGUAGE));
 					
 					if (nf.getlbr_BPDeliveryCountry() != null)
-						retOuEntreg.setCPais(nf.getlbr_BPDeliveryCountry().substring(1));
+						retOuEntreg.setCPais(nf.getlbr_CountryCode().substring(1));
 					
 					if (nf.getLBR_BPDeliveryPhone() != null)
-						retOuEntreg.setFone(nf.getLBR_BPDeliveryPhone());
+						retOuEntreg.setFone(toNumericStr(nf.getLBR_BPDeliveryPhone()));
 					
 					if (nf.getLBR_BPDeliveryEmail() != null)
 						retOuEntreg.setEmail(nf.getLBR_BPDeliveryEmail());
