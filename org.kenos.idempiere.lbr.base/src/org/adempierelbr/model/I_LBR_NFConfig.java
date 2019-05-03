@@ -1,6 +1,6 @@
 /******************************************************************************
- * Product: iDempiere ERP & CRM Smart Business Solution                       *
- * Copyright (C) 1999-2012 ComPiere, Inc. All Rights Reserved.                *
+ * Product: AdempiereLBR ERP & CRM Smart Business Solution                    *
+ * Copyright (C) 1999-2007 ComPiere, Inc. All Rights Reserved.                *
  * This program is free software, you can redistribute it and/or modify it    *
  * under the terms version 2 of the GNU General Public License as published   *
  * by the Free Software Foundation. This program is distributed in the hope   *
@@ -22,10 +22,9 @@ import org.compiere.model.*;
 import org.compiere.util.KeyNamePair;
 
 /** Generated Interface for LBR_NFConfig
- *  @author iDempiere (generated) 
- *  @version Release 4.1
+ *  @author Adempiere (generated) 
+ *  @version Release 3.6.0LTS
  */
-@SuppressWarnings("all")
 public interface I_LBR_NFConfig 
 {
 
@@ -93,6 +92,15 @@ public interface I_LBR_NFConfig
 	  */
 	public boolean isActive();
 
+    /** Column name LBR_ConfigSystemResp */
+    public static final String COLUMNNAME_LBR_ConfigSystemResp = "LBR_ConfigSystemResp";
+
+	/** Set Configure System Responsible	  */
+	public void setLBR_ConfigSystemResp (String LBR_ConfigSystemResp);
+
+	/** Get Configure System Responsible	  */
+	public String getLBR_ConfigSystemResp();
+
     /** Column name LBR_CSRTCode */
     public static final String COLUMNNAME_LBR_CSRTCode = "LBR_CSRTCode";
 
@@ -137,28 +145,6 @@ public interface I_LBR_NFConfig
 	/** Get Data contingência	  */
 	public Timestamp getlbr_DateScan();
 
-    /** Column name LBR_IBPT_API_Key */
-    public static final String COLUMNNAME_LBR_IBPT_API_Key = "LBR_IBPT_API_Key";
-
-	/** Set IBPT API Key.
-	  * Key to Conect to IBPT API
-	  */
-	public void setLBR_IBPT_API_Key (String LBR_IBPT_API_Key);
-
-	/** Get IBPT API Key.
-	  * Key to Conect to IBPT API
-	  */
-	public String getLBR_IBPT_API_Key();
-
-    /** Column name LBR_IBPTConfiguration */
-    public static final String COLUMNNAME_LBR_IBPTConfiguration = "LBR_IBPTConfiguration";
-
-	/** Set IBPT Configuration	  */
-	public void setLBR_IBPTConfiguration (String LBR_IBPTConfiguration);
-
-	/** Get IBPT Configuration	  */
-	public String getLBR_IBPTConfiguration();
-
     /** Column name lbr_MotivoScan */
     public static final String COLUMNNAME_lbr_MotivoScan = "lbr_MotivoScan";
 
@@ -176,15 +162,6 @@ public interface I_LBR_NFConfig
 
 	/** Get NF Configuration	  */
 	public int getLBR_NFConfig_ID();
-
-    /** Column name LBR_NFConfig_UU */
-    public static final String COLUMNNAME_LBR_NFConfig_UU = "LBR_NFConfig_UU";
-
-	/** Set LBR_NFConfig_UU	  */
-	public void setLBR_NFConfig_UU (String LBR_NFConfig_UU);
-
-	/** Get LBR_NFConfig_UU	  */
-	public String getLBR_NFConfig_UU();
 
     /** Column name lbr_NFeEnv */
     public static final String COLUMNNAME_lbr_NFeEnv = "lbr_NFeEnv";

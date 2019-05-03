@@ -1,6 +1,6 @@
 /******************************************************************************
- * Product: iDempiere ERP & CRM Smart Business Solution                       *
- * Copyright (C) 1999-2012 ComPiere, Inc. All Rights Reserved.                *
+ * Product: AdempiereLBR ERP & CRM Smart Business Solution                    *
+ * Copyright (C) 1999-2007 ComPiere, Inc. All Rights Reserved.                *
  * This program is free software, you can redistribute it and/or modify it    *
  * under the terms version 2 of the GNU General Public License as published   *
  * by the Free Software Foundation. This program is distributed in the hope   *
@@ -23,15 +23,15 @@ import java.util.Properties;
 import org.compiere.model.*;
 
 /** Generated Model for LBR_NFConfig
- *  @author iDempiere (generated) 
- *  @version Release 4.1 - $Id$ */
+ *  @author ADempiereLBR (generated) 
+ *  @version Release 3.6.0LTS - $Id$ */
 public class X_LBR_NFConfig extends PO implements I_LBR_NFConfig, I_Persistent 
 {
 
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20180528L;
+	private static final long serialVersionUID = 20190503L;
 
     /** Standard Constructor */
     public X_LBR_NFConfig (Properties ctx, int LBR_NFConfig_ID, String trxName)
@@ -39,10 +39,10 @@ public class X_LBR_NFConfig extends PO implements I_LBR_NFConfig, I_Persistent
       super (ctx, LBR_NFConfig_ID, trxName);
       /** if (LBR_NFConfig_ID == 0)
         {
+			setLBR_ConfigSystemResp (null);
+// N
 			setlbr_DANFEFormat (null);
 // 1
-			setLBR_IBPTConfiguration (null);
-// C
 			setLBR_NFConfig_ID (0);
 			setlbr_NFeEnv (null);
 // 2
@@ -84,6 +84,27 @@ public class X_LBR_NFConfig extends PO implements I_LBR_NFConfig, I_Persistent
         .append(get_ID()).append("]");
       return sb.toString();
     }
+
+	/** LBR_ConfigSystemResp AD_Reference_ID=1120323 */
+	public static final int LBR_CONFIGSYSTEMRESP_AD_Reference_ID=1120323;
+	/** Inform System Responsible = I */
+	public static final String LBR_CONFIGSYSTEMRESP_InformSystemResponsible = "I";
+	/** Not Inform System Responsible = N */
+	public static final String LBR_CONFIGSYSTEMRESP_NotInformSystemResponsible = "N";
+	/** Set Configure System Responsible.
+		@param LBR_ConfigSystemResp Configure System Responsible	  */
+	public void setLBR_ConfigSystemResp (String LBR_ConfigSystemResp)
+	{
+
+		set_Value (COLUMNNAME_LBR_ConfigSystemResp, LBR_ConfigSystemResp);
+	}
+
+	/** Get Configure System Responsible.
+		@return Configure System Responsible	  */
+	public String getLBR_ConfigSystemResp () 
+	{
+		return (String)get_Value(COLUMNNAME_LBR_ConfigSystemResp);
+	}
 
 	/** Set CSRT Code.
 		@param LBR_CSRTCode 
@@ -165,44 +186,6 @@ public class X_LBR_NFConfig extends PO implements I_LBR_NFConfig, I_Persistent
 		return (Timestamp)get_Value(COLUMNNAME_lbr_DateScan);
 	}
 
-	/** Set IBPT API Key.
-		@param LBR_IBPT_API_Key 
-		Key to Conect to IBPT API
-	  */
-	public void setLBR_IBPT_API_Key (String LBR_IBPT_API_Key)
-	{
-		set_Value (COLUMNNAME_LBR_IBPT_API_Key, LBR_IBPT_API_Key);
-	}
-
-	/** Get IBPT API Key.
-		@return Key to Conect to IBPT API
-	  */
-	public String getLBR_IBPT_API_Key () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_IBPT_API_Key);
-	}
-
-	/** API (Online) = A */
-	public static final String LBR_IBPTCONFIGURATION_APIOnline = "A";
-	/** Offline (IBPT Table) = C */
-	public static final String LBR_IBPTCONFIGURATION_OfflineIBPTTable = "C";
-	/** Real Tax Value = R */
-	public static final String LBR_IBPTCONFIGURATION_RealTaxValue = "R";
-	/** Set IBPT Configuration.
-		@param LBR_IBPTConfiguration IBPT Configuration	  */
-	public void setLBR_IBPTConfiguration (String LBR_IBPTConfiguration)
-	{
-
-		set_Value (COLUMNNAME_LBR_IBPTConfiguration, LBR_IBPTConfiguration);
-	}
-
-	/** Get IBPT Configuration.
-		@return IBPT Configuration	  */
-	public String getLBR_IBPTConfiguration () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_IBPTConfiguration);
-	}
-
 	/** Set Motivo contingência.
 		@param lbr_MotivoScan Motivo contingência	  */
 	public void setlbr_MotivoScan (String lbr_MotivoScan)
@@ -237,20 +220,8 @@ public class X_LBR_NFConfig extends PO implements I_LBR_NFConfig, I_Persistent
 		return ii.intValue();
 	}
 
-	/** Set LBR_NFConfig_UU.
-		@param LBR_NFConfig_UU LBR_NFConfig_UU	  */
-	public void setLBR_NFConfig_UU (String LBR_NFConfig_UU)
-	{
-		set_Value (COLUMNNAME_LBR_NFConfig_UU, LBR_NFConfig_UU);
-	}
-
-	/** Get LBR_NFConfig_UU.
-		@return LBR_NFConfig_UU	  */
-	public String getLBR_NFConfig_UU () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_NFConfig_UU);
-	}
-
+	/** lbr_NFeEnv AD_Reference_ID=1100001 */
+	public static final int LBR_NFEENV_AD_Reference_ID=1100001;
 	/** Production = 1 */
 	public static final String LBR_NFEENV_Production = "1";
 	/** Homologation = 2 */
@@ -270,6 +241,8 @@ public class X_LBR_NFConfig extends PO implements I_LBR_NFConfig, I_Persistent
 		return (String)get_Value(COLUMNNAME_lbr_NFeEnv);
 	}
 
+	/** lbr_NFModel AD_Reference_ID=1120009 */
+	public static final int LBR_NFMODEL_AD_Reference_ID=1120009;
 	/** Nota Fiscal = 01 */
 	public static final String LBR_NFMODEL_NotaFiscal = "01";
 	/** Nota Fiscal Avulsa = 1B */
@@ -404,6 +377,8 @@ public class X_LBR_NFConfig extends PO implements I_LBR_NFConfig, I_Persistent
 		return false;
 	}
 
+	/** LBR_TPEmis AD_Reference_ID=1120246 */
+	public static final int LBR_TPEMIS_AD_Reference_ID=1120246;
 	/** Emissão Normal = 1 */
 	public static final String LBR_TPEMIS_EmissãoNormal = "1";
 	/** Contingência FS-IA = 2 */
