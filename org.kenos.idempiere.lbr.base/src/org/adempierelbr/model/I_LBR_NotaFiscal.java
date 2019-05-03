@@ -1053,6 +1053,19 @@ public interface I_LBR_NotaFiscal
 	  */
 	public String getlbr_BPDeliveryCountry();
 
+    /** Column name LBR_BPDeliveryEmail */
+    public static final String COLUMNNAME_LBR_BPDeliveryEmail = "LBR_BPDeliveryEmail";
+
+	/** Set BP Delivery Email.
+	  * BP Delivery Email
+	  */
+	public void setLBR_BPDeliveryEmail (String LBR_BPDeliveryEmail);
+
+	/** Get BP Delivery Email.
+	  * BP Delivery Email
+	  */
+	public String getLBR_BPDeliveryEmail();
+
     /** Column name lbr_BPDeliveryIE */
     public static final String COLUMNNAME_lbr_BPDeliveryIE = "lbr_BPDeliveryIE";
 
@@ -1065,6 +1078,28 @@ public interface I_LBR_NotaFiscal
 	  * BP Delivery IE - Copied from the BP Location into Brazilan Legal and Tax Books
 	  */
 	public String getlbr_BPDeliveryIE();
+
+    /** Column name LBR_BPDeliveryName */
+    public static final String COLUMNNAME_LBR_BPDeliveryName = "LBR_BPDeliveryName";
+
+	/** Set BP Delivery Name	  */
+	public void setLBR_BPDeliveryName (String LBR_BPDeliveryName);
+
+	/** Get BP Delivery Name	  */
+	public String getLBR_BPDeliveryName();
+
+    /** Column name LBR_BPDeliveryPhone */
+    public static final String COLUMNNAME_LBR_BPDeliveryPhone = "LBR_BPDeliveryPhone";
+
+	/** Set BP Delivery Phone.
+	  * BP Delivery Phone
+	  */
+	public void setLBR_BPDeliveryPhone (String LBR_BPDeliveryPhone);
+
+	/** Get BP Delivery Phone.
+	  * BP Delivery Phone
+	  */
+	public String getLBR_BPDeliveryPhone();
 
     /** Column name lbr_BPDeliveryPostal */
     public static final String COLUMNNAME_lbr_BPDeliveryPostal = "lbr_BPDeliveryPostal";
@@ -1573,8 +1608,21 @@ public interface I_LBR_NotaFiscal
 	  */
 	public String getlbr_CNPJ();
 
-    /** Column name lbr_CountryCode */
-    public static final String COLUMNNAME_lbr_CountryCode = "lbr_CountryCode";
+        /** Column name LBR_CSRTHash */
+        public static final String COLUMNNAME_LBR_CSRTHash = "LBR_CSRTHash";
+
+	/** Set CSRT Hash.
+	  * CSRT Hash is generated using NFe ID and CSRT Code
+	  */
+	public void setLBR_CSRTHash (String LBR_CSRTHash);
+
+	/** Get CSRT Hash.
+	  * CSRT Hash is generated using NFe ID and CSRT Code
+	  */
+	public String getLBR_CSRTHash();
+
+        /** Column name lbr_CountryCode */
+        public static final String COLUMNNAME_lbr_CountryCode = "lbr_CountryCode";
 
 	/** Set Country Code.
 	  * Country Code used for issue Nota Fiscal
@@ -1771,6 +1819,15 @@ public interface I_LBR_NotaFiscal
 
 	/** Get Motivo contingência	  */
 	public String getlbr_MotivoScan();
+
+    /** Column name LBR_MsgIntSEFAZ */
+    public static final String COLUMNNAME_LBR_MsgIntSEFAZ = "LBR_MsgIntSEFAZ";
+
+	/** Set Message from SEFAZ	  */
+	public void setLBR_MsgIntSEFAZ (String LBR_MsgIntSEFAZ);
+
+	/** Get Message from SEFAZ	  */
+	public String getLBR_MsgIntSEFAZ();
 
     /** Column name lbr_NCMReference */
     public static final String COLUMNNAME_lbr_NCMReference = "lbr_NCMReference";

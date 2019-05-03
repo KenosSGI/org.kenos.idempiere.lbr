@@ -93,6 +93,32 @@ public interface I_LBR_NFConfig
 	  */
 	public boolean isActive();
 
+    /** Column name LBR_CSRTCode */
+    public static final String COLUMNNAME_LBR_CSRTCode = "LBR_CSRTCode";
+
+	/** Set CSRT Code.
+	  * CSRT Code used to generate Hash CSRT
+	  */
+	public void setLBR_CSRTCode (String LBR_CSRTCode);
+
+	/** Get CSRT Code.
+	  * CSRT Code used to generate Hash CSRT
+	  */
+	public String getLBR_CSRTCode();
+
+    /** Column name LBR_CSRTID */
+    public static final String COLUMNNAME_LBR_CSRTID = "LBR_CSRTID";
+
+	/** Set CSRT ID.
+	  * CSRT ID corresponding to the CSRT Code
+	  */
+	public void setLBR_CSRTID (int LBR_CSRTID);
+
+	/** Get CSRT ID.
+	  * CSRT ID corresponding to the CSRT Code
+	  */
+	public int getLBR_CSRTID();
+
     /** Column name lbr_DANFEFormat */
     public static final String COLUMNNAME_lbr_DANFEFormat = "lbr_DANFEFormat";
 
