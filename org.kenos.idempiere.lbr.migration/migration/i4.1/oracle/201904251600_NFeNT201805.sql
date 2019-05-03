@@ -1143,5 +1143,13 @@ UPDATE AD_Field SET AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, ColumnSpan=
 UPDATE AD_Field SET AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, XPosition=4, ColumnSpan=2, IsToolbarButton=NULL,Updated=TO_DATE('2019-05-02 17:48:54','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1128188
 ;
 
+-- 03/05/2019 12h24min52s BRT
+UPDATE AD_Field SET SeqNo=120, AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, SeqNoGrid=120, IsToolbarButton=NULL,Updated=TO_DATE('2019-05-03 12:24:52','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100, ColumnSpan=2 WHERE AD_Field_ID=1128171
+;
+
+-- 03/05/2019 12h24min59s BRT
+UPDATE AD_Field SET SeqNo=130, AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, SeqNoGrid=130, IsToolbarButton=NULL,Updated=TO_DATE('2019-05-03 12:24:59','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100, XPosition=4, ColumnSpan=2 WHERE AD_Field_ID=1128172
+;
+
 SELECT Register_Migration_Script ('201904251600_NFeNT201805.sql') FROM DUAL
 ;
