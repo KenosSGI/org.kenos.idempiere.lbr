@@ -45,8 +45,8 @@ public class X_LBR_CNAB extends PO implements I_LBR_CNAB, I_Persistent
 // N
 			setLBR_CNAB_ID (0);
 			setRoutingNo (null);
-			setlbr_DocDate (new Timestamp( System.currentTimeMillis() ));
-			setlbr_IsCancelled (false);
+			setDateDoc (new Timestamp( System.currentTimeMillis() ));
+			setIsCancelled (false);
 // 'N'
         } */
     }
@@ -1122,37 +1122,37 @@ public class X_LBR_CNAB extends PO implements I_LBR_CNAB, I_Persistent
 	}
 
 	/** Set Document Date.
-		@param lbr_DocDate 
+		@param DateDoc 
 		Identifies the Document Date
 	  */
-	public void setlbr_DocDate (Timestamp lbr_DocDate)
+	public void setDateDoc (Timestamp DateDoc)
 	{
-		set_Value (COLUMNNAME_lbr_DocDate, lbr_DocDate);
+		set_Value (COLUMNNAME_DateDoc, DateDoc);
 	}
 
 	/** Get Document Date.
 		@return Identifies the Document Date
 	  */
-	public Timestamp getlbr_DocDate () 
+	public Timestamp getDateDoc () 
 	{
-		return (Timestamp)get_Value(COLUMNNAME_lbr_DocDate);
+		return (Timestamp)get_Value(COLUMNNAME_DateDoc);
 	}
 
 	/** Set IsCancelled.
-		@param lbr_IsCancelled 
+		@param IsCancelled 
 		Defines if the Document IsCancelled
 	  */
-	public void setlbr_IsCancelled (boolean lbr_IsCancelled)
+	public void setIsCancelled (boolean IsCancelled)
 	{
-		set_Value (COLUMNNAME_lbr_IsCancelled, Boolean.valueOf(lbr_IsCancelled));
+		set_Value (COLUMNNAME_IsCancelled, Boolean.valueOf(IsCancelled));
 	}
 
 	/** Get IsCancelled.
 		@return Defines if the Document IsCancelled
 	  */
-	public boolean islbr_IsCancelled () 
+	public boolean isCancelled () 
 	{
-		Object oo = get_Value(COLUMNNAME_lbr_IsCancelled);
+		Object oo = get_Value(COLUMNNAME_IsCancelled);
 		if (oo != null) 
 		{
 			 if (oo instanceof Boolean) 

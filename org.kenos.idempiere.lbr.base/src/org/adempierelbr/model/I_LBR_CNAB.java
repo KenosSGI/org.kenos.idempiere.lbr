@@ -876,29 +876,29 @@ public interface I_LBR_CNAB
 	  */
 	public String getlbr_CNABField9();
 
-    /** Column name lbr_DocDate */
-    public static final String COLUMNNAME_lbr_DocDate = "lbr_DocDate";
+    /** Column name DateDoc */
+    public static final String COLUMNNAME_DateDoc = "DateDoc";
 
 	/** Set Document Date.
 	  * Identifies the Document Date
 	  */
-	public void setlbr_DocDate (Timestamp lbr_DocDate);
+	public void setDateDoc (Timestamp DateDoc);
 
 	/** Get Document Date.
 	  * Identifies the Document Date
 	  */
-	public Timestamp getlbr_DocDate();
+	public Timestamp getDateDoc();
 
-    /** Column name lbr_IsCancelled */
-    public static final String COLUMNNAME_lbr_IsCancelled = "lbr_IsCancelled";
+    /** Column name IsCancelled */
+    public static final String COLUMNNAME_IsCancelled = "IsCancelled";
 
 	/** Set IsCancelled.
 	  * Defines if the Document IsCancelled
 	  */
-	public void setlbr_IsCancelled (boolean lbr_IsCancelled);
+	public void setIsCancelled (boolean IsCancelled);
 
 	/** Get IsCancelled.
 	  * Defines if the Document IsCancelled
 	  */
-	public boolean islbr_IsCancelled();
+	public boolean isCancelled();
 }

@@ -57,10 +57,10 @@ public class X_LBR_Boleto extends PO implements I_LBR_Boleto, I_Persistent
 			setlbr_BPTypeBR (null);
 			setlbr_BillFold (null);
 			setlbr_Cessionary (null);
-			setlbr_DocDate (new Timestamp( System.currentTimeMillis() ));
+			setDateDoc (new Timestamp( System.currentTimeMillis() ));
 			setlbr_HasSue (false);
 // 'N'
-			setlbr_IsCancelled (false);
+			setIsCancelled (false);
 // 'N'
 			setlbr_ReceiverName (null);
 			setlbr_jBoletoNo (null);
@@ -644,20 +644,20 @@ public class X_LBR_Boleto extends PO implements I_LBR_Boleto, I_Persistent
 	}
 
 	/** Set Document Date.
-		@param lbr_DocDate 
+		@param DateDoc 
 		Identifies the Document Date
 	  */
-	public void setlbr_DocDate (Timestamp lbr_DocDate)
+	public void setDateDoc (Timestamp DateDoc)
 	{
-		set_Value (COLUMNNAME_lbr_DocDate, lbr_DocDate);
+		set_Value (COLUMNNAME_DateDoc, DateDoc);
 	}
 
 	/** Get Document Date.
 		@return Identifies the Document Date
 	  */
-	public Timestamp getlbr_DocDate () 
+	public Timestamp getDateDoc () 
 	{
-		return (Timestamp)get_Value(COLUMNNAME_lbr_DocDate);
+		return (Timestamp)get_Value(COLUMNNAME_DateDoc);
 	}
 
 	/** Set Has Sue.
@@ -756,20 +756,20 @@ public class X_LBR_Boleto extends PO implements I_LBR_Boleto, I_Persistent
 	}
 
 	/** Set IsCancelled.
-		@param lbr_IsCancelled 
+		@param IsCancelled 
 		Defines if the Document IsCancelled
 	  */
-	public void setlbr_IsCancelled (boolean lbr_IsCancelled)
+	public void setIsCancelled (boolean IsCancelled)
 	{
-		set_Value (COLUMNNAME_lbr_IsCancelled, Boolean.valueOf(lbr_IsCancelled));
+		set_Value (COLUMNNAME_IsCancelled, Boolean.valueOf(IsCancelled));
 	}
 
 	/** Get IsCancelled.
 		@return Defines if the Document IsCancelled
 	  */
-	public boolean islbr_IsCancelled () 
+	public boolean isCancelled () 
 	{
-		Object oo = get_Value(COLUMNNAME_lbr_IsCancelled);
+		Object oo = get_Value(COLUMNNAME_IsCancelled);
 		if (oo != null) 
 		{
 			 if (oo instanceof Boolean) 
