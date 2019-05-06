@@ -23,15 +23,15 @@ import java.util.Properties;
 import org.compiere.model.*;
 
 /** Generated Model for LBR_NFConfig
- *  @author ADempiereLBR (generated) 
- *  @version Release 3.6.0LTS - $Id$ */
+ *  @author iDempiere (generated) 
+ *  @version Release 4.1 - $Id$ */
 public class X_LBR_NFConfig extends PO implements I_LBR_NFConfig, I_Persistent 
 {
 
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20190503L;
+	private static final long serialVersionUID = 20180528L;
 
     /** Standard Constructor */
     public X_LBR_NFConfig (Properties ctx, int LBR_NFConfig_ID, String trxName)
@@ -186,6 +186,44 @@ public class X_LBR_NFConfig extends PO implements I_LBR_NFConfig, I_Persistent
 		return (Timestamp)get_Value(COLUMNNAME_lbr_DateScan);
 	}
 
+	/** Set IBPT API Key.
+		@param LBR_IBPT_API_Key 
+		Key to Conect to IBPT API
+	  */
+	public void setLBR_IBPT_API_Key (String LBR_IBPT_API_Key)
+	{
+		set_Value (COLUMNNAME_LBR_IBPT_API_Key, LBR_IBPT_API_Key);
+	}
+
+	/** Get IBPT API Key.
+		@return Key to Conect to IBPT API
+	  */
+	public String getLBR_IBPT_API_Key () 
+	{
+		return (String)get_Value(COLUMNNAME_LBR_IBPT_API_Key);
+	}
+
+	/** API (Online) = A */
+	public static final String LBR_IBPTCONFIGURATION_APIOnline = "A";
+	/** Offline (IBPT Table) = C */
+	public static final String LBR_IBPTCONFIGURATION_OfflineIBPTTable = "C";
+	/** Real Tax Value = R */
+	public static final String LBR_IBPTCONFIGURATION_RealTaxValue = "R";
+	/** Set IBPT Configuration.
+		@param LBR_IBPTConfiguration IBPT Configuration	  */
+	public void setLBR_IBPTConfiguration (String LBR_IBPTConfiguration)
+	{
+
+		set_Value (COLUMNNAME_LBR_IBPTConfiguration, LBR_IBPTConfiguration);
+	}
+
+	/** Get IBPT Configuration.
+		@return IBPT Configuration	  */
+	public String getLBR_IBPTConfiguration () 
+	{
+		return (String)get_Value(COLUMNNAME_LBR_IBPTConfiguration);
+	}
+
 	/** Set Motivo contingência.
 		@param lbr_MotivoScan Motivo contingência	  */
 	public void setlbr_MotivoScan (String lbr_MotivoScan)
@@ -218,6 +256,20 @@ public class X_LBR_NFConfig extends PO implements I_LBR_NFConfig, I_Persistent
 		if (ii == null)
 			 return 0;
 		return ii.intValue();
+	}
+
+	/** Set LBR_NFConfig_UU.
+		@param LBR_NFConfig_UU LBR_NFConfig_UU	  */
+	public void setLBR_NFConfig_UU (String LBR_NFConfig_UU)
+	{
+		set_Value (COLUMNNAME_LBR_NFConfig_UU, LBR_NFConfig_UU);
+	}
+
+	/** Get LBR_NFConfig_UU.
+		@return LBR_NFConfig_UU	  */
+	public String getLBR_NFConfig_UU () 
+	{
+		return (String)get_Value(COLUMNNAME_LBR_NFConfig_UU);
 	}
 
 	/** lbr_NFeEnv AD_Reference_ID=1100001 */
