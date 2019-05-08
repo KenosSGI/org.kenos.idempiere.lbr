@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 3.7.2  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ImpressaoDanfeRetratoA4Report" pageWidth="595" pageHeight="842" whenNoDataType="NoPages" columnWidth="535" leftMargin="30" rightMargin="30" topMargin="20" bottomMargin="20">
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 3.6.2  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ImpressaoDanfeRetratoA4Report" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="30" rightMargin="30" topMargin="20" bottomMargin="20">
 	<property name="ireport.scriptlethandling" value="0"/>
 	<property name="ireport.encoding" value="UTF-8"/>
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="797"/>
 	<property name="net.sf.jasperreports.awt.ignore.missing.font" value="true"/>
-	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="421"/>
-	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w2" value="565"/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="XML"/>
 	<import value="net.sf.jasperreports.engine.*"/>
 	<import value="java.util.*"/>
@@ -22,14 +20,14 @@
 	</parameter>
 	<parameter name="msgPrevisualizacao" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="DanfeMainPortraitA4_Sub_Item" class="java.io.InputStream" isForPrompting="false">
-		<defaultValueExpression><![CDATA[new java.io.FileInputStream ("/home/kenos/workspace/adempierelbr/nfe2/src/reports/DanfeMainPortraitA4_Sub_Item.jasper")]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA[new java.io.FileInputStream ("/Users/rsantana/workspace/adempiere/adempierelbr/nfe2/src/reports/DanfeMainPortraitA4_Sub_Item.jasper")]]></defaultValueExpression>
 	</parameter>
 	<parameter name="LOGO" class="java.io.InputStream" isForPrompting="false"/>
 	<parameter name="DanfeMainPortraitA4_Sub_Invoice" class="java.io.InputStream" isForPrompting="false">
-		<defaultValueExpression><![CDATA[new java.io.FileInputStream ("/home/kenos/workspace/adempierelbr/nfe2/src/reports/DanfeMainPortraitA4_Sub_Invoice.jasper")]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA[new java.io.FileInputStream ("/Users/rsantana/workspace/adempiere/adempierelbr/nfe2/src/reports/DanfeMainPortraitA4_Sub_Invoice.jasper")]]></defaultValueExpression>
 	</parameter>
 	<parameter name="DanfeMainPortraitA4_Sub_InfCompl" class="java.io.InputStream" isForPrompting="false">
-		<defaultValueExpression><![CDATA[new java.io.FileInputStream ("/home/kenos/workspace/adempierelbr/nfe2/src/reports/DanfeMainPortraitA4_Sub_InfCompl.jasper")]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA[new java.io.FileInputStream ("/Users/rsantana/workspace/adempiere/adempierelbr/nfe2/src/reports/DanfeMainPortraitA4_Sub_InfCompl.jasper")]]></defaultValueExpression>
 	</parameter>
 	<queryString language="xPath">
 		<![CDATA[//NFe]]>
@@ -120,41 +118,44 @@
 	<field name="destinatarioInscricaoEstadual" class="java.lang.String">
 		<fieldDescription><![CDATA[infNFe/dest/IE]]></fieldDescription>
 	</field>
-	<field name="retirarEntregarNome" class="java.lang.String">
-		<fieldDescription><![CDATA[infNFe/entrega/xNome]]></fieldDescription>
-	</field>
-	<field name="retirarEntregarIE" class="java.lang.String">
-		<fieldDescription><![CDATA[infNFe/entrega/IE]]></fieldDescription>
-	</field>
-	<field name="retirarEntregarEndereco" class="java.lang.String">
-		<fieldDescription><![CDATA[infNFe/entrega/xLgr]]></fieldDescription>
-	</field>
-	<field name="retirarEntregarNo" class="java.lang.String">
-		<fieldDescription><![CDATA[infNFe/entrega/nro]]></fieldDescription>
-	</field>
-	<field name="retirarEntregarComplemento" class="java.lang.String">
-		<fieldDescription><![CDATA[infNFe/entrega/xCpl]]></fieldDescription>
-	</field>
-	<field name="retirarEntregarBairro" class="java.lang.String">
-		<fieldDescription><![CDATA[infNFe/entrega/xBairro]]></fieldDescription>
-	</field>
-	<field name="retirarEntregarCep" class="java.lang.String">
-		<fieldDescription><![CDATA[infNFe/entrega/CEP]]></fieldDescription>
-	</field>
-	<field name="retirarEntregarMunicipio" class="java.lang.String">
-		<fieldDescription><![CDATA[infNFe/entrega/xMun]]></fieldDescription>
-	</field>
-	<field name="retirarEntregarUF" class="java.lang.String">
-		<fieldDescription><![CDATA[infNFe/entrega/UF]]></fieldDescription>
-	</field>
-	<field name="retirarEntregarCnpjCpf" class="java.lang.String">
-		<fieldDescription><![CDATA[infNFe/entrega/CNPJ | infNFe/entrega/CPF]]></fieldDescription>
-	</field>
-	<field name="retirarEntregarFone" class="java.lang.String">
-		<fieldDescription><![CDATA[infNFe/entrega/fone]]></fieldDescription>
-	</field>
 	<field name="fatura" class="java.lang.String">
 		<fieldDescription><![CDATA[infNFe/infAdic/obsCont[@xCampo='billnote']/xTexto]]></fieldDescription>
+	</field>
+	<field name="retirarBool" class="java.lang.String">
+		<fieldDescription><![CDATA[boolean(infNFe/retirada/xNome)]]></fieldDescription>
+	</field>
+	<field name="retirarEntregarNome" class="java.lang.String">
+		<fieldDescription><![CDATA[infNFe/entrega/xNome | infNFe/retirada/xNome]]></fieldDescription>
+	</field>
+	<field name="retirarEntregarIE" class="java.lang.String">
+		<fieldDescription><![CDATA[infNFe/entrega/IE | infNFe/retirada/IE]]></fieldDescription>
+	</field>
+	<field name="retirarEntregarEndereco" class="java.lang.String">
+		<fieldDescription><![CDATA[infNFe/entrega/xLgr | infNFe/retirada/xLgr]]></fieldDescription>
+	</field>
+	<field name="retirarEntregarNo" class="java.lang.String">
+		<fieldDescription><![CDATA[infNFe/entrega/nro | infNFe/retirada/nro]]></fieldDescription>
+	</field>
+	<field name="retirarEntregarComplemento" class="java.lang.String">
+		<fieldDescription><![CDATA[infNFe/entrega/xCpl | infNFe/retirada/xCpl]]></fieldDescription>
+	</field>
+	<field name="retirarEntregarBairro" class="java.lang.String">
+		<fieldDescription><![CDATA[infNFe/entrega/xBairro | infNFe/retirada/xBairro]]></fieldDescription>
+	</field>
+	<field name="retirarEntregarCep" class="java.lang.String">
+		<fieldDescription><![CDATA[infNFe/entrega/CEP | infNFe/retirada/CEP]]></fieldDescription>
+	</field>
+	<field name="retirarEntregarMunicipio" class="java.lang.String">
+		<fieldDescription><![CDATA[infNFe/entrega/xMun | infNFe/retirada/xMun]]></fieldDescription>
+	</field>
+	<field name="retirarEntregarUF" class="java.lang.String">
+		<fieldDescription><![CDATA[infNFe/entrega/UF | infNFe/retirada/UF]]></fieldDescription>
+	</field>
+	<field name="retirarEntregarCnpjCpf" class="java.lang.String">
+		<fieldDescription><![CDATA[infNFe/entrega/CNPJ | infNFe/entrega/CPF | infNFe/retirada/CNPJ | infNFe/retirada/CPF]]></fieldDescription>
+	</field>
+	<field name="retirarEntregarFone" class="java.lang.String">
+		<fieldDescription><![CDATA[infNFe/entrega/fone | infNFe/retirada/fone]]></fieldDescription>
 	</field>
 	<field name="baseIcms" class="java.math.BigDecimal">
 		<fieldDescription><![CDATA[infNFe/total/ICMSTot/vBC]]></fieldDescription>
@@ -417,7 +418,7 @@ $F{valorTotalServicos}.signum() == 1 ? Boolean.TRUE : Boolean.FALSE]]></printWhe
 					<textElement textAlignment="Right" verticalAlignment="Middle" lineSpacing="Single">
 						<font fontName="Arial" size="8"/>
 					</textElement>
-					<textFieldExpression class="java.lang.String"><![CDATA[$F{valorTotalServicos}]]></textFieldExpression>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{valorTotalServicos}]]></textFieldExpression>
 				</textField>
 				<textField pattern="#,##0.00" isBlankWhenNull="true">
 					<reportElement key="textField-22" mode="Transparent" x="260" y="19" width="131" height="12"/>
@@ -430,7 +431,7 @@ $F{valorTotalServicos}.signum() == 1 ? Boolean.TRUE : Boolean.FALSE]]></printWhe
 					<textElement textAlignment="Right" verticalAlignment="Middle" lineSpacing="Single">
 						<font fontName="Arial" size="8"/>
 					</textElement>
-					<textFieldExpression class="java.lang.String"><![CDATA[$F{baseIssqn}]]></textFieldExpression>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{baseIssqn}]]></textFieldExpression>
 				</textField>
 				<textField pattern="#,##0.00" isBlankWhenNull="true">
 					<reportElement key="textField-23" mode="Transparent" x="401" y="19" width="128" height="12"/>
@@ -443,7 +444,7 @@ $F{valorTotalServicos}.signum() == 1 ? Boolean.TRUE : Boolean.FALSE]]></printWhe
 					<textElement textAlignment="Right" verticalAlignment="Middle" lineSpacing="Single">
 						<font fontName="Arial" size="8"/>
 					</textElement>
-					<textFieldExpression class="java.lang.String"><![CDATA[$F{valorIssqn}]]></textFieldExpression>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{valorIssqn}]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupFooter>
@@ -468,17 +469,17 @@ $F{valorTotalServicos}.signum() == 1 ? Boolean.TRUE : Boolean.FALSE]]></printWhe
 					</reportElement>
 				</rectangle>
 				<rectangle radius="1">
-					<reportElement key="rectangle-6" mode="Transparent" x="327" y="2" width="206" height="95">
+					<reportElement key="rectangle-6" mode="Transparent" x="339" y="2" width="195" height="95">
 						<printWhenExpression><![CDATA[Boolean.valueOf(!$P{PreImpresso}.booleanValue())]]></printWhenExpression>
 					</reportElement>
 				</rectangle>
 				<rectangle radius="1">
-					<reportElement key="rectangle-5" mode="Transparent" x="2" y="2" width="223" height="95">
+					<reportElement key="rectangle-5" mode="Transparent" x="2" y="2" width="239" height="95">
 						<printWhenExpression><![CDATA[Boolean.valueOf(!$P{PreImpresso}.booleanValue())]]></printWhenExpression>
 					</reportElement>
 				</rectangle>
 				<staticText>
-					<reportElement key="staticText-4" mode="Transparent" x="228" y="0" width="96" height="15">
+					<reportElement key="staticText-4" mode="Transparent" x="242" y="0" width="96" height="15">
 						<printWhenExpression><![CDATA[Boolean.valueOf(!$P{PreImpresso}.booleanValue())]]></printWhenExpression>
 					</reportElement>
 					<box>
@@ -493,7 +494,7 @@ $F{valorTotalServicos}.signum() == 1 ? Boolean.TRUE : Boolean.FALSE]]></printWhe
 					<text><![CDATA[DANFE]]></text>
 				</staticText>
 				<staticText>
-					<reportElement key="staticText-5" mode="Transparent" x="228" y="14" width="96" height="19">
+					<reportElement key="staticText-5" mode="Transparent" x="242" y="14" width="96" height="19">
 						<printWhenExpression><![CDATA[Boolean.valueOf(!$P{PreImpresso}.booleanValue())]]></printWhenExpression>
 					</reportElement>
 					<box>
@@ -508,7 +509,7 @@ $F{valorTotalServicos}.signum() == 1 ? Boolean.TRUE : Boolean.FALSE]]></printWhe
 					<text><![CDATA[Documento Auxiliar da Nota Fiscal Eletrônica]]></text>
 				</staticText>
 				<staticText>
-					<reportElement key="staticText-6" mode="Transparent" x="228" y="45" width="46" height="11">
+					<reportElement key="staticText-6" mode="Transparent" x="246" y="45" width="46" height="11">
 						<printWhenExpression><![CDATA[Boolean.valueOf(!$P{PreImpresso}.booleanValue())]]></printWhenExpression>
 					</reportElement>
 					<box>
@@ -523,7 +524,7 @@ $F{valorTotalServicos}.signum() == 1 ? Boolean.TRUE : Boolean.FALSE]]></printWhe
 					<text><![CDATA[1 - Saída]]></text>
 				</staticText>
 				<staticText>
-					<reportElement key="staticText-7" mode="Transparent" x="228" y="34" width="46" height="11">
+					<reportElement key="staticText-7" mode="Transparent" x="246" y="34" width="46" height="11">
 						<printWhenExpression><![CDATA[Boolean.valueOf(!$P{PreImpresso}.booleanValue())]]></printWhenExpression>
 					</reportElement>
 					<box>
@@ -538,12 +539,12 @@ $F{valorTotalServicos}.signum() == 1 ? Boolean.TRUE : Boolean.FALSE]]></printWhe
 					<text><![CDATA[0 - Entrada]]></text>
 				</staticText>
 				<rectangle radius="1">
-					<reportElement key="rectangle-7" mode="Transparent" x="279" y="34" width="27" height="21">
+					<reportElement key="rectangle-7" mode="Transparent" x="293" y="34" width="27" height="21">
 						<printWhenExpression><![CDATA[Boolean.valueOf(!$P{PreImpresso}.booleanValue())]]></printWhenExpression>
 					</reportElement>
 				</rectangle>
 				<staticText>
-					<reportElement key="staticText-8" mode="Transparent" x="329" y="5" width="191" height="6">
+					<reportElement key="staticText-8" mode="Transparent" x="343" y="5" width="178" height="6">
 						<printWhenExpression><![CDATA[Boolean.valueOf(!$P{PreImpresso}.booleanValue())]]></printWhenExpression>
 					</reportElement>
 					<box>
@@ -638,12 +639,12 @@ $F{valorTotalServicos}.signum() == 1 ? Boolean.TRUE : Boolean.FALSE]]></printWhe
 					<text><![CDATA[CNPJ]]></text>
 				</staticText>
 				<rectangle radius="1">
-					<reportElement key="rectangle-12" mode="Transparent" x="327" y="43" width="205" height="19">
+					<reportElement key="rectangle-12" mode="Transparent" x="339" y="43" width="195" height="19">
 						<printWhenExpression><![CDATA[Boolean.valueOf(!$P{PreImpresso}.booleanValue())]]></printWhenExpression>
 					</reportElement>
 				</rectangle>
 				<staticText>
-					<reportElement key="staticText-13" mode="Transparent" x="328" y="45" width="189" height="7">
+					<reportElement key="staticText-13" mode="Transparent" x="343" y="45" width="174" height="7">
 						<printWhenExpression><![CDATA[Boolean.valueOf(!$P{PreImpresso}.booleanValue())]]></printWhenExpression>
 					</reportElement>
 					<box>
@@ -658,7 +659,7 @@ $F{valorTotalServicos}.signum() == 1 ? Boolean.TRUE : Boolean.FALSE]]></printWhe
 					<text><![CDATA[CHAVE DE ACESSO]]></text>
 				</staticText>
 				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
-					<reportElement key="textField-4" stretchType="RelativeToTallestObject" mode="Transparent" x="228" y="83" width="55" height="12"/>
+					<reportElement key="textField-4" stretchType="RelativeToTallestObject" mode="Transparent" x="242" y="83" width="55" height="12"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -671,7 +672,7 @@ $F{valorTotalServicos}.signum() == 1 ? Boolean.TRUE : Boolean.FALSE]]></printWhe
 					<textFieldExpression class="java.lang.String"><![CDATA["Página " + $V{PAGE_NUMBER}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" evaluationTime="Group" evaluationGroup="Grupo03" pattern="" isBlankWhenNull="true">
-					<reportElement key="textField-5" stretchType="RelativeToTallestObject" mode="Transparent" x="283" y="83" width="42" height="12"/>
+					<reportElement key="textField-5" stretchType="RelativeToTallestObject" mode="Transparent" x="297" y="83" width="42" height="12"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -684,7 +685,7 @@ $F{valorTotalServicos}.signum() == 1 ? Boolean.TRUE : Boolean.FALSE]]></printWhe
 					<textFieldExpression class="java.lang.String"><![CDATA[" de " + $V{PAGE_NUMBER}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
-					<reportElement key="textField-7" mode="Transparent" x="50" y="5" width="173" height="43"/>
+					<reportElement key="textField-7" mode="Transparent" x="50" y="5" width="189" height="43"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -697,7 +698,7 @@ $F{valorTotalServicos}.signum() == 1 ? Boolean.TRUE : Boolean.FALSE]]></printWhe
 					<textFieldExpression class="java.lang.String"><![CDATA[$F{emitenteRazaoSocial}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
-					<reportElement key="textField-9" mode="Transparent" x="5" y="49" width="218" height="47"/>
+					<reportElement key="textField-9" mode="Transparent" x="5" y="49" width="234" height="47"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -714,7 +715,7 @@ $F{valorTotalServicos}.signum() == 1 ? Boolean.TRUE : Boolean.FALSE]]></printWhe
 ( !org.adempierelbr.util.TextUtil.isBlankOrNull($F{emitenteTelefone}) ? " - Fone/Fax: " + $F{emitenteTelefone} : "" )]]></textFieldExpression>
 				</textField>
 				<textField isBlankWhenNull="true">
-					<reportElement key="textField-12" mode="Transparent" x="283" y="37" width="19" height="17"/>
+					<reportElement key="textField-12" mode="Transparent" x="297" y="37" width="19" height="17"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -727,7 +728,7 @@ $F{valorTotalServicos}.signum() == 1 ? Boolean.TRUE : Boolean.FALSE]]></printWhe
 					<textFieldExpression class="java.lang.String"><![CDATA[$F{saidaEntrada}]]></textFieldExpression>
 				</textField>
 				<textField isBlankWhenNull="true">
-					<reportElement key="textField-13" mode="Transparent" x="232" y="58" width="89" height="15"/>
+					<reportElement key="textField-13" mode="Transparent" x="246" y="58" width="89" height="15"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -740,7 +741,7 @@ $F{valorTotalServicos}.signum() == 1 ? Boolean.TRUE : Boolean.FALSE]]></printWhe
 					<textFieldExpression class="java.lang.String"><![CDATA[org.adempierelbr.util.JasperUtil.maskNFeNo ($F{numeroNfe})]]></textFieldExpression>
 				</textField>
 				<textField isBlankWhenNull="true">
-					<reportElement key="textField-14" mode="Transparent" x="232" y="72" width="89" height="12"/>
+					<reportElement key="textField-14" mode="Transparent" x="246" y="72" width="89" height="12"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -760,7 +761,7 @@ $F{valorTotalServicos}.signum() == 1 ? Boolean.TRUE : Boolean.FALSE]]></printWhe
 						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
-					<imageExpression class="java.lang.String"><![CDATA[$P{LOGO}]]></imageExpression>
+					<imageExpression class="java.io.InputStream"><![CDATA[$P{LOGO}]]></imageExpression>
 				</image>
 				<textField isBlankWhenNull="true">
 					<reportElement key="textField-15" mode="Transparent" x="5" y="104" width="330" height="12"/>
@@ -814,8 +815,8 @@ $F{valorTotalServicos}.signum() == 1 ? Boolean.TRUE : Boolean.FALSE]]></printWhe
 					</textElement>
 					<textFieldExpression class="java.lang.String"><![CDATA[org.adempierelbr.util.JasperUtil.maskCNPJF ($F{emitenteCnpj})]]></textFieldExpression>
 				</textField>
-				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-					<reportElement key="textField-19" mode="Transparent" x="327" y="51" width="205" height="10"/>
+				<textField isBlankWhenNull="true">
+					<reportElement key="textField-19" mode="Transparent" x="340" y="51" width="193" height="11"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -823,19 +824,19 @@ $F{valorTotalServicos}.signum() == 1 ? Boolean.TRUE : Boolean.FALSE]]></printWhe
 						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
-						<font fontName="Arial" size="6" isBold="true"/>
+						<font fontName="Arial" size="7" isBold="true"/>
 					</textElement>
 					<textFieldExpression class="java.lang.String"><![CDATA[org.adempierelbr.util.JasperUtil.maskDANFE ($F{chaveAcesso})]]></textFieldExpression>
 				</textField>
 				<image hAlign="Center" vAlign="Middle">
-					<reportElement key="image-3" mode="Opaque" x="329" y="63" width="200" height="31"/>
+					<reportElement key="image-3" mode="Opaque" x="343" y="63" width="187" height="31"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
-					<imageExpression class="java.lang.String"><![CDATA[$F{codigoBarrasContingencia}]]></imageExpression>
+					<imageExpression class="java.awt.Image"><![CDATA[$F{codigoBarrasContingencia}]]></imageExpression>
 				</image>
 				<textField isBlankWhenNull="true">
 					<reportElement key="textField-66" mode="Transparent" x="343" y="104" width="187" height="12"/>
@@ -846,7 +847,7 @@ $F{valorTotalServicos}.signum() == 1 ? Boolean.TRUE : Boolean.FALSE]]></printWhe
 						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
-						<font fontName="Arial" size="6" isBold="true"/>
+						<font fontName="Arial" size="7" isBold="true"/>
 					</textElement>
 					<textFieldExpression class="java.lang.String"><![CDATA[( $F{codigoTipoEmissao} != null && ( $F{codigoTipoEmissao}.equals("2") || $F{codigoTipoEmissao}.equals("5") ) ? $F{dadosNfe} : (!org.adempierelbr.util.TextUtil.isBlankOrNull($F{numeroRegistroDPEC})? $F{numeroRegistroDPEC}+" "+$F{dataRegistroDPEC} : ($F{situacao}.equals("100") ? org.adempierelbr.util.JasperUtil.protocol ($F{protocoloDataAutorizacao}, $F{dhRecbto}) :"" ) ) )]]></textFieldExpression>
 				</textField>
@@ -864,7 +865,7 @@ $F{valorTotalServicos}.signum() == 1 ? Boolean.TRUE : Boolean.FALSE]]></printWhe
 					<textFieldExpression class="java.lang.String"><![CDATA[($F{codigoTipoEmissao} != null && ( $F{codigoTipoEmissao}.equals("2") || $F{codigoTipoEmissao}.equals("5") ) ? "DADOS DA NF-E" : (!org.adempierelbr.util.TextUtil.isBlankOrNull($F{numeroRegistroDPEC})? "NÚMERO DE REGISTRO DPEC" : ($F{situacao}.equals("100") ? "PROTOCOLO DE AUTORIZAÇÃO DE USO" :"" ) ) )]]></textFieldExpression>
 				</textField>
 				<textField isBlankWhenNull="false">
-					<reportElement key="textField-68" x="333" y="63" width="193" height="32">
+					<reportElement key="textField-68" x="347" y="63" width="180" height="32">
 						<printWhenExpression><![CDATA[new Boolean(!($F{codigoTipoEmissao}.equals("2") || $F{codigoTipoEmissao}.equals("5")))]]></printWhenExpression>
 					</reportElement>
 					<box>
@@ -879,7 +880,7 @@ $F{valorTotalServicos}.signum() == 1 ? Boolean.TRUE : Boolean.FALSE]]></printWhe
 					<textFieldExpression class="java.lang.String"><![CDATA["Consulta de autenticidade no portal nacional da NF-e www.nfe.fazenda.gov.br/portal ou no site da Sefaz Autorizadora"]]></textFieldExpression>
 				</textField>
 				<componentElement>
-					<reportElement x="329" y="11" width="200" height="31"/>
+					<reportElement x="343" y="11" width="187" height="31"/>
 					<jr:barbecue xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" type="Code128C" drawText="false" checksumRequired="false" barHeight="90">
 						<jr:codeExpression><![CDATA[$F{chaveAcesso}.substring(3)]]></jr:codeExpression>
 					</jr:barbecue>
@@ -1186,7 +1187,7 @@ $F{valorTotalServicos}.signum() == 1 ? Boolean.TRUE : Boolean.FALSE]]></printWhe
 					<textElement textAlignment="Left" verticalAlignment="Middle" lineSpacing="Single">
 						<font fontName="Arial" size="8"/>
 					</textElement>
-					<textFieldExpression class="java.lang.String"><![CDATA[org.adempierelbr.util.JasperUtil.toTS ($F{dataEmissao})]]></textFieldExpression>
+					<textFieldExpression class="java.sql.Timestamp"><![CDATA[org.adempierelbr.util.JasperUtil.toTS ($F{dataEmissao})]]></textFieldExpression>
 				</textField>
 				<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
 					<reportElement key="textField-28" mode="Transparent" x="456" y="40" width="71" height="12"/>
@@ -1199,7 +1200,7 @@ $F{valorTotalServicos}.signum() == 1 ? Boolean.TRUE : Boolean.FALSE]]></printWhe
 					<textElement textAlignment="Left" verticalAlignment="Middle" lineSpacing="Single">
 						<font fontName="Arial" size="8"/>
 					</textElement>
-					<textFieldExpression class="java.lang.String"><![CDATA[org.adempierelbr.util.JasperUtil.toTS ($F{dataSaidaEntrada})]]></textFieldExpression>
+					<textFieldExpression class="java.sql.Timestamp"><![CDATA[org.adempierelbr.util.JasperUtil.toTS ($F{dataSaidaEntrada})]]></textFieldExpression>
 				</textField>
 				<textField isBlankWhenNull="true">
 					<reportElement key="textField-29" mode="Transparent" x="383" y="40" width="65" height="12"/>
@@ -1305,7 +1306,7 @@ $F{valorTotalServicos}.signum() == 1 ? Boolean.TRUE : Boolean.FALSE]]></printWhe
 					<textElement textAlignment="Left" verticalAlignment="Middle" lineSpacing="Single">
 						<font fontName="Arial" size="8"/>
 					</textElement>
-					<textFieldExpression class="java.lang.String"><![CDATA[org.adempierelbr.util.JasperUtil.toTS ($F{horaSaida})]]></textFieldExpression>
+					<textFieldExpression class="java.sql.Timestamp"><![CDATA[org.adempierelbr.util.JasperUtil.toTS ($F{horaSaida})]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupHeader>
@@ -1313,7 +1314,7 @@ $F{valorTotalServicos}.signum() == 1 ? Boolean.TRUE : Boolean.FALSE]]></printWhe
 			<band splitType="Stretch"/>
 		</groupFooter>
 	</group>
-	<group name="Grupo09" footerPosition="StackAtBottom">
+	<group name="Group04-A" footerPosition="StackAtBottom">
 		<groupExpression><![CDATA[$F{numeroNfe}]]></groupExpression>
 		<groupHeader>
 			<band height="73">
@@ -1335,7 +1336,7 @@ $F{valorTotalServicos}.signum() == 1 ? Boolean.TRUE : Boolean.FALSE]]></printWhe
 				</rectangle>
 				<staticText>
 					<reportElement key="staticText-22" mode="Transparent" x="4" y="4" width="230" height="10">
-						<printWhenExpression><![CDATA[Boolean.valueOf(!$P{PreImpresso}.booleanValue())]]></printWhenExpression>
+						<printWhenExpression><![CDATA[Boolean.valueOf(!$P{PreImpresso}.booleanValue()) && !Boolean.valueOf($F{retirarBool})]]></printWhenExpression>
 					</reportElement>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1347,6 +1348,21 @@ $F{valorTotalServicos}.signum() == 1 ? Boolean.TRUE : Boolean.FALSE]]></printWhe
 						<font fontName="Arial" size="7" isBold="true" isItalic="false"/>
 					</textElement>
 					<text><![CDATA[INFORMAÇÕES DO LOCAL DE ENTREGA	]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-22" mode="Transparent" x="4" y="4" width="230" height="10">
+						<printWhenExpression><![CDATA[Boolean.valueOf(!$P{PreImpresso}.booleanValue()) && Boolean.valueOf($F{retirarBool})]]></printWhenExpression>
+					</reportElement>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement lineSpacing="Single">
+						<font fontName="Arial" size="7" isBold="true" isItalic="false"/>
+					</textElement>
+					<text><![CDATA[INFORMAÇÕES DO LOCAL DE RETIRADA	]]></text>
 				</staticText>
 				<rectangle radius="1">
 					<reportElement key="rectangle-32" mode="Opaque" x="2" y="13" width="354" height="20" backcolor="#DEDEDE">
@@ -1648,7 +1664,7 @@ $F{valorTotalServicos}.signum() == 1 ? Boolean.TRUE : Boolean.FALSE]]></printWhe
 						<subreportParameterExpression><![CDATA[$P{PreImpresso}]]></subreportParameterExpression>
 					</subreportParameter>
 					<dataSourceExpression><![CDATA[((net.sf.jasperreports.engine.data.JRXmlDataSource)$P{REPORT_DATA_SOURCE}).subDataSource("/NFe/infNFe/cobr//dup")]]></dataSourceExpression>
-					<subreportExpression class="java.lang.String"><![CDATA[$P{DanfeMainPortraitA4_Sub_Invoice}]]></subreportExpression>
+					<subreportExpression class="java.io.InputStream"><![CDATA[$P{DanfeMainPortraitA4_Sub_Invoice}]]></subreportExpression>
 				</subreport>
 			</band>
 		</groupHeader>
@@ -2176,7 +2192,7 @@ $F{valorTotalServicos}.signum() == 1 ? Boolean.TRUE : Boolean.FALSE]]></printWhe
 					<textElement textAlignment="Right" verticalAlignment="Middle" lineSpacing="Single">
 						<font fontName="Arial" size="8"/>
 					</textElement>
-					<textFieldExpression class="java.lang.String"><![CDATA[$F{baseIcms}]]></textFieldExpression>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{baseIcms}]]></textFieldExpression>
 				</textField>
 				<textField pattern="#,##0.00" isBlankWhenNull="true">
 					<reportElement key="textField-39" mode="Transparent" x="116" y="18" width="101" height="12"/>
@@ -2189,7 +2205,7 @@ $F{valorTotalServicos}.signum() == 1 ? Boolean.TRUE : Boolean.FALSE]]></printWhe
 					<textElement textAlignment="Right" verticalAlignment="Middle" lineSpacing="Single">
 						<font fontName="Arial" size="8"/>
 					</textElement>
-					<textFieldExpression class="java.lang.String"><![CDATA[$F{valorIcms}]]></textFieldExpression>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{valorIcms}]]></textFieldExpression>
 				</textField>
 				<textField pattern="#,##0.00" isBlankWhenNull="true">
 					<reportElement key="textField-40" mode="Transparent" x="225" y="18" width="100" height="12"/>
@@ -2202,7 +2218,7 @@ $F{valorTotalServicos}.signum() == 1 ? Boolean.TRUE : Boolean.FALSE]]></printWhe
 					<textElement textAlignment="Right" verticalAlignment="Middle" lineSpacing="Single">
 						<font fontName="Arial" size="8"/>
 					</textElement>
-					<textFieldExpression class="java.lang.String"><![CDATA[$F{baseIcmsSubstituicao}]]></textFieldExpression>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{baseIcmsSubstituicao}]]></textFieldExpression>
 				</textField>
 				<textField pattern="#,##0.00" isBlankWhenNull="true">
 					<reportElement key="textField-41" mode="Transparent" x="335" y="18" width="99" height="12"/>
@@ -2215,7 +2231,7 @@ $F{valorTotalServicos}.signum() == 1 ? Boolean.TRUE : Boolean.FALSE]]></printWhe
 					<textElement textAlignment="Right" verticalAlignment="Middle" lineSpacing="Single">
 						<font fontName="Arial" size="8"/>
 					</textElement>
-					<textFieldExpression class="java.lang.String"><![CDATA[$F{valorIcmsSubstituicao}]]></textFieldExpression>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{valorIcmsSubstituicao}]]></textFieldExpression>
 				</textField>
 				<textField pattern="#,##0.00" isBlankWhenNull="true">
 					<reportElement key="textField-42" mode="Transparent" x="441" y="18" width="88" height="12"/>
@@ -2228,7 +2244,7 @@ $F{valorTotalServicos}.signum() == 1 ? Boolean.TRUE : Boolean.FALSE]]></printWhe
 					<textElement textAlignment="Right" verticalAlignment="Middle" lineSpacing="Single">
 						<font fontName="Arial" size="8"/>
 					</textElement>
-					<textFieldExpression class="java.lang.String"><![CDATA[$F{valorTotalProduto}]]></textFieldExpression>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{valorTotalProduto}]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement key="staticText-67" mode="Transparent" x="443" y="34" width="80" height="8">
@@ -2256,7 +2272,7 @@ $F{valorTotalServicos}.signum() == 1 ? Boolean.TRUE : Boolean.FALSE]]></printWhe
 					<textElement textAlignment="Right" verticalAlignment="Middle" lineSpacing="Single">
 						<font fontName="Arial" size="8"/>
 					</textElement>
-					<textFieldExpression class="java.lang.String"><![CDATA[$F{valorIpi}]]></textFieldExpression>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{valorIpi}]]></textFieldExpression>
 				</textField>
 				<textField pattern="#,##0.00" isBlankWhenNull="true">
 					<reportElement key="textField-44" mode="Transparent" x="240" y="39" width="100" height="12"/>
@@ -2269,7 +2285,7 @@ $F{valorTotalServicos}.signum() == 1 ? Boolean.TRUE : Boolean.FALSE]]></printWhe
 					<textElement textAlignment="Right" verticalAlignment="Middle" lineSpacing="Single">
 						<font fontName="Arial" size="8"/>
 					</textElement>
-					<textFieldExpression class="java.lang.String"><![CDATA[$F{outrasDespesas}]]></textFieldExpression>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{outrasDespesas}]]></textFieldExpression>
 				</textField>
 				<textField pattern="#,##0.00" isBlankWhenNull="true">
 					<reportElement key="textField-45" mode="Transparent" x="164" y="39" width="70" height="12"/>
@@ -2282,7 +2298,7 @@ $F{valorTotalServicos}.signum() == 1 ? Boolean.TRUE : Boolean.FALSE]]></printWhe
 					<textElement textAlignment="Right" verticalAlignment="Middle" lineSpacing="Single">
 						<font fontName="Arial" size="8"/>
 					</textElement>
-					<textFieldExpression class="java.lang.String"><![CDATA[$F{desconto}]]></textFieldExpression>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{desconto}]]></textFieldExpression>
 				</textField>
 				<textField pattern="#,##0.00" isBlankWhenNull="true">
 					<reportElement key="textField-46" mode="Transparent" x="85" y="39" width="70" height="12"/>
@@ -2295,7 +2311,7 @@ $F{valorTotalServicos}.signum() == 1 ? Boolean.TRUE : Boolean.FALSE]]></printWhe
 					<textElement textAlignment="Right" verticalAlignment="Middle" lineSpacing="Single">
 						<font fontName="Arial" size="8"/>
 					</textElement>
-					<textFieldExpression class="java.lang.String"><![CDATA[$F{valorSeguro}]]></textFieldExpression>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{valorSeguro}]]></textFieldExpression>
 				</textField>
 				<textField pattern="#,##0.00" isBlankWhenNull="true">
 					<reportElement key="textField-47" mode="Transparent" x="6" y="39" width="70" height="12"/>
@@ -2308,7 +2324,7 @@ $F{valorTotalServicos}.signum() == 1 ? Boolean.TRUE : Boolean.FALSE]]></printWhe
 					<textElement textAlignment="Right" verticalAlignment="Middle" lineSpacing="Single">
 						<font fontName="Arial" size="8"/>
 					</textElement>
-					<textFieldExpression class="java.lang.String"><![CDATA[$F{valorFrete}]]></textFieldExpression>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{valorFrete}]]></textFieldExpression>
 				</textField>
 				<textField isBlankWhenNull="true">
 					<reportElement key="textField-48" mode="Transparent" x="5" y="73" width="180" height="12"/>
@@ -2477,7 +2493,7 @@ $F{valorTotalServicos}.signum() == 1 ? Boolean.TRUE : Boolean.FALSE]]></printWhe
 					<textElement textAlignment="Right" verticalAlignment="Middle" lineSpacing="Single">
 						<font fontName="Arial" size="8"/>
 					</textElement>
-					<textFieldExpression class="java.lang.String"><![CDATA[$F{transportadorPesoBruto}]]></textFieldExpression>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{transportadorPesoBruto}]]></textFieldExpression>
 				</textField>
 				<textField pattern="#,##0.000" isBlankWhenNull="true">
 					<reportElement key="textField-63" mode="Transparent" x="462" y="113" width="68" height="12"/>
@@ -2490,7 +2506,7 @@ $F{valorTotalServicos}.signum() == 1 ? Boolean.TRUE : Boolean.FALSE]]></printWhe
 					<textElement textAlignment="Right" verticalAlignment="Middle" lineSpacing="Single">
 						<font fontName="Arial" size="8"/>
 					</textElement>
-					<textFieldExpression class="java.lang.String"><![CDATA[$F{transportadorPesoLiquido}]]></textFieldExpression>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{transportadorPesoLiquido}]]></textFieldExpression>
 				</textField>
 				<textField pattern="#,##0.00" isBlankWhenNull="true">
 					<reportElement key="textField-64" mode="Transparent" x="441" y="39" width="88" height="12"/>
@@ -2503,7 +2519,7 @@ $F{valorTotalServicos}.signum() == 1 ? Boolean.TRUE : Boolean.FALSE]]></printWhe
 					<textElement textAlignment="Right" verticalAlignment="Middle" lineSpacing="Single">
 						<font fontName="Arial" size="8"/>
 					</textElement>
-					<textFieldExpression class="java.lang.String"><![CDATA[$F{valorTotalNota}]]></textFieldExpression>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{valorTotalNota}]]></textFieldExpression>
 				</textField>
 				<textField isBlankWhenNull="true">
 					<reportElement key="textField-69" mode="Transparent" x="187" y="73" width="86" height="12"/>
@@ -2600,7 +2616,7 @@ $F{valorTotalServicos}.signum() == 1 ? Boolean.TRUE : Boolean.FALSE]]></printWhe
 						<subreportParameterExpression><![CDATA[$P{PreImpresso}]]></subreportParameterExpression>
 					</subreportParameter>
 					<dataSourceExpression><![CDATA[((net.sf.jasperreports.engine.data.JRXmlDataSource)$P{REPORT_DATA_SOURCE}).subDataSource("/NFe/infNFe//det")]]></dataSourceExpression>
-					<subreportExpression class="java.lang.String"><![CDATA[$P{DanfeMainPortraitA4_Sub_Item}]]></subreportExpression>
+					<subreportExpression class="java.io.InputStream"><![CDATA[$P{DanfeMainPortraitA4_Sub_Item}]]></subreportExpression>
 				</subreport>
 			</band>
 		</groupHeader>
@@ -2622,7 +2638,7 @@ $F{valorTotalServicos}.signum() == 1 ? Boolean.TRUE : Boolean.FALSE]]></printWhe
 						<subreportParameterExpression><![CDATA[$P{PreImpresso}]]></subreportParameterExpression>
 					</subreportParameter>
 					<dataSourceExpression><![CDATA[((net.sf.jasperreports.engine.data.JRXmlDataSource)$P{REPORT_DATA_SOURCE}).subDataSource("/NFe/infNFe/infAdic")]]></dataSourceExpression>
-					<subreportExpression class="java.lang.String"><![CDATA[$P{DanfeMainPortraitA4_Sub_InfCompl}]]></subreportExpression>
+					<subreportExpression class="java.io.InputStream"><![CDATA[$P{DanfeMainPortraitA4_Sub_InfCompl}]]></subreportExpression>
 				</subreport>
 			</band>
 		</groupHeader>
