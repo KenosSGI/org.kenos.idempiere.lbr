@@ -120,37 +120,37 @@
 		<fieldDescription><![CDATA[infNFe/dest/IE]]></fieldDescription>
 	</field>
 	<field name="retirarEntregarNome" class="java.lang.String">
-		<fieldDescription><![CDATA[infNFe/entrega/xNome | infNFe/retirada/xNome]]></fieldDescription>
+		<fieldDescription><![CDATA[infNFe/entrega/xNome]]></fieldDescription>
 	</field>
 	<field name="retirarEntregarIE" class="java.lang.String">
-		<fieldDescription><![CDATA[infNFe/entrega/IE | infNFe/retirada/IE]]></fieldDescription>
+		<fieldDescription><![CDATA[infNFe/entrega/IE]]></fieldDescription>
 	</field>
 	<field name="retirarEntregarEndereco" class="java.lang.String">
-		<fieldDescription><![CDATA[infNFe/entrega/xLgr | infNFe/retirada/xLgr]]></fieldDescription>
+		<fieldDescription><![CDATA[infNFe/entrega/xLgr]]></fieldDescription>
 	</field>
 	<field name="retirarEntregarNo" class="java.lang.String">
-		<fieldDescription><![CDATA[infNFe/entrega/nro | infNFe/retirada/nro]]></fieldDescription>
+		<fieldDescription><![CDATA[infNFe/entrega/nro]]></fieldDescription>
 	</field>
 	<field name="retirarEntregarComplemento" class="java.lang.String">
-		<fieldDescription><![CDATA[infNFe/entrega/xCpl | infNFe/retirada/xCpl]]></fieldDescription>
+		<fieldDescription><![CDATA[infNFe/entrega/xCpl]]></fieldDescription>
 	</field>
 	<field name="retirarEntregarBairro" class="java.lang.String">
-		<fieldDescription><![CDATA[infNFe/entrega/xBairro | infNFe/retirada/xBairro]]></fieldDescription>
+		<fieldDescription><![CDATA[infNFe/entrega/xBairro]]></fieldDescription>
 	</field>
 	<field name="retirarEntregarCep" class="java.lang.String">
-		<fieldDescription><![CDATA[infNFe/entrega/CEP | infNFe/retirada/CEP]]></fieldDescription>
+		<fieldDescription><![CDATA[infNFe/entrega/CEP]]></fieldDescription>
 	</field>
 	<field name="retirarEntregarMunicipio" class="java.lang.String">
-		<fieldDescription><![CDATA[infNFe/entrega/xMun | infNFe/retirada/xMun]]></fieldDescription>
+		<fieldDescription><![CDATA[infNFe/entrega/xMun]]></fieldDescription>
 	</field>
 	<field name="retirarEntregarUF" class="java.lang.String">
-		<fieldDescription><![CDATA[infNFe/entrega/UF | infNFe/retirada/UF]]></fieldDescription>
+		<fieldDescription><![CDATA[infNFe/entrega/UF]]></fieldDescription>
 	</field>
 	<field name="retirarEntregarCnpjCpf" class="java.lang.String">
-		<fieldDescription><![CDATA[infNFe/entrega/CNPJ | infNFe/entrega/CPF | infNFe/retirada/CNPJ | infNFe/retirada/CPF]]></fieldDescription>
+		<fieldDescription><![CDATA[infNFe/entrega/CNPJ | infNFe/entrega/CPF]]></fieldDescription>
 	</field>
 	<field name="retirarEntregarFone" class="java.lang.String">
-		<fieldDescription><![CDATA[infNFe/entrega/fone | infNFe/retirada/fone]]></fieldDescription>
+		<fieldDescription><![CDATA[infNFe/entrega/fone]]></fieldDescription>
 	</field>
 	<field name="fatura" class="java.lang.String">
 		<fieldDescription><![CDATA[infNFe/infAdic/obsCont[@xCampo='billnote']/xTexto]]></fieldDescription>
