@@ -3149,24 +3149,6 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 	{
 		StringBuffer description = new StringBuffer();
 		
-		//	Endereço de Entrega Diferente do Endereço da Fatura
-		if ((DELIVERYVIARULE_Delivery.equals(getDeliveryViaRule()) ||
-				DELIVERYVIARULE_Shipper.equals(getDeliveryViaRule()))
-				&& !isSameDeliveryAddr())
-		{	
-			if (description.length() > 0)
-				description.append("\n");
-			
-			String address = 	getlbr_BPDeliveryAddress1() + "," + getlbr_BPDeliveryAddress2() + " - " +
-								getlbr_BPDeliveryAddress3() + " - " + getlbr_BPDeliveryAddress4() + " - " +
-								"CEP: " + getlbr_BPDeliveryPostal() + " - " + getlbr_BPDeliveryCity() + "/" + 
-								getlbr_BPDeliveryRegion();
-			
-			address = address.replace("null - ", "").trim();
-			
-			description.append("ENDEREÇO DE ENTREGA: " + address);
-		}
-		
 		//	Tipo de Documento
 		if (getC_DocTypeTarget_ID() > 0 && getC_DocTypeTarget().getDocumentNote() != null)
 			description.append(parse (getC_DocTypeTarget().getDocumentNote().trim()));
