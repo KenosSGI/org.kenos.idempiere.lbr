@@ -242,6 +242,12 @@ public class WFreightCalc extends ADForm implements IFormController, EventListen
 			{
 				if (getGridTab() != null)
 				{
+					if (getGridTab().getValueAsBoolean(MOrder.COLUMNNAME_Processed))
+					{
+						Messagebox.show("Pedido já processado, não é possível atualizar o frete. Re-abra o pedido primeiramente");
+						return;
+					}
+					
 					//	Single result
 					if (miniTable.getItemCount() == 1)
 						miniTable.setSelectedIndex(0);
@@ -253,7 +259,6 @@ public class WFreightCalc extends ADForm implements IFormController, EventListen
 						
 						ListCell codeCell = (ListCell) children.get(0);
 						ListCell priceCell = (ListCell) children.get(1);
-						System.out.println(""+codeCell.getTooltip());
 						BigDecimal price = new BigDecimal (String.valueOf (priceCell.getLabel()).replace(".", "").replace(",", "."));
 						
 						if (price.signum() == 1)
