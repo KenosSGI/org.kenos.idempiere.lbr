@@ -2765,10 +2765,17 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 	 */
 	public void setShipmentBPartner (MInvoice invoice)
 	{
-		int M_InOut_ID = LBRUtils.getInOutFromInvoice (invoice);
-		//
-		if (M_InOut_ID > 0)
-			setShipmentBPartner(new MInOut (Env.getCtx(), M_InOut_ID, get_TrxName()), invoice, null);
+		// Todas a Expedições relacionadas a Fatura
+		Integer M_InOut_ID [] = LBRUtils.getInOutsFromInvoice (invoice);
+		
+		//		
+		if (M_InOut_ID.length > 0)
+		{	
+			for (int i = 0; i < M_InOut_ID.length; i++)
+			{	
+				setShipmentBPartner(new MInOut (Env.getCtx(), M_InOut_ID[i], get_TrxName()), invoice, null);
+			}
+		}	
 		else
 			setShipmentBPartner(null, invoice, null);
 	}	//	setShipmentBPartner
@@ -2790,27 +2797,58 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		 */
 		if (io != null && io.getM_InOut_ID() != 0)
 		{
-			bpLocation = new MBPartnerLocation (getCtx(), io.getC_BPartner_Location_ID(), get_TrxName());
-
-			//	Número de volumes definido na expedição
-			int noPackages = io.getNoPackages();
-			if (noPackages <= 0)
-				noPackages = 1;
-			
-			//	Dados exclusivos da Expedição/Recebimento
-			setM_InOut_ID(io.getM_InOut_ID());
-			setFreightCostRule (io.getFreightCostRule());
-			setlbr_GrossWeight(io.getWeight());
-			setlbr_NetWeight(io.getWeight());
-			setNoPackages(io.getNoPackages());
-			setDeliveryViaRule(io.getDeliveryViaRule());
-
-			M_Shipper_ID = io.getM_Shipper_ID();
-			
-			if (MSysConfig.getValue("LBR_NFESPECIE",  getAD_Client_ID()) != null )
-				setlbr_PackingType(MSysConfig.getValue("LBR_NFESPECIE", getAD_Client_ID()));
+			if (getM_InOut_ID() == 0)
+			{	
+				bpLocation = new MBPartnerLocation (getCtx(), io.getC_BPartner_Location_ID(), get_TrxName());
+	
+				//	Número de volumes definido na expedição
+				int noPackages = io.getNoPackages();
+				if (noPackages <= 0)
+					noPackages = 1;
+				
+				//	Dados exclusivos da Expedição/Recebimento
+				setM_InOut_ID(io.getM_InOut_ID());
+				setFreightCostRule (io.getFreightCostRule());
+				setlbr_GrossWeight(io.getWeight());
+				setlbr_NetWeight(io.getWeight());
+				setNoPackages(io.getNoPackages());
+				setDeliveryViaRule(io.getDeliveryViaRule());
+	
+				M_Shipper_ID = io.getM_Shipper_ID();
+				
+				if (MSysConfig.getValue("LBR_NFESPECIE",  getAD_Client_ID()) != null )
+					setlbr_PackingType(MSysConfig.getValue("LBR_NFESPECIE", getAD_Client_ID()));
+				else
+					setlbr_PackingType(MSysConfig.getValue("VOLUME"));
+			}
 			else
-				setlbr_PackingType(MSysConfig.getValue("VOLUME"));
+			{
+				//	Se já exitir uma expedição ligada a Nota e a expedição informada for diferente
+				//	Somar Volume e Peso
+				if (getM_InOut_ID() != io.getM_InOut_ID())
+				{
+					//	Volume
+					if (getNoPackages() > 0)
+						setNoPackages(getNoPackages() + io.getNoPackages());
+					else
+						setNoPackages(io.getNoPackages());
+					
+					//	Peso
+					if (getlbr_GrossWeight().intValue() > 0)
+						setlbr_GrossWeight(getlbr_GrossWeight().add(io.getWeight()));
+					else
+						setlbr_GrossWeight(io.getWeight());
+					
+					if (getlbr_NetWeight().intValue() > 0)
+						setlbr_NetWeight(getlbr_NetWeight().add(io.getWeight()));
+					else
+						setlbr_NetWeight(io.getWeight());
+				}
+				
+				//	Se já houver uma expedição ligada a fatura, sair sem prosseguir
+				return;
+				
+			}
 		}
 		
 		/**
