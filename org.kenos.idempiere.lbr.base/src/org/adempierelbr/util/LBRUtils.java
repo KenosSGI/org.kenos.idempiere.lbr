@@ -1,5 +1,7 @@
 package org.adempierelbr.util;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import org.compiere.model.MBPartner;
@@ -238,4 +240,28 @@ public abstract class LBRUtils
 		
 		return M_InOut_ID;
 	}	//	getInOutFromInvoice
+	
+	/**
+	 * 	Obtém os recebimentos/remessas associado a uma fatura.
+	 * @param invoice
+	 * @return
+	 */
+	public static Integer[] getInOutsFromInvoice (MInvoice invoice)
+	{
+		List<Integer> M_InOut_IDs = new ArrayList<Integer>();
+		int M_InOut_ID = 0;
+		
+		for (MInvoiceLine il : invoice.getLines())
+		{
+			if (il.getM_InOutLine_ID() > 0)
+			{
+				M_InOut_ID = il.getM_InOutLine().getM_InOut_ID();
+				
+				if (!M_InOut_IDs.contains(M_InOut_ID))
+					M_InOut_IDs.add(M_InOut_ID);
+			}
+		}
+		
+		return M_InOut_IDs.toArray(new Integer[M_InOut_IDs.size()]);
+	}	//	getInOutsFromInvoice
 }	//	LBRUtils
