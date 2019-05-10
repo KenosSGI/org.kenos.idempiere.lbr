@@ -18,7 +18,9 @@ import org.compiere.util.Env;
 import org.kenos.idempiere.lbr.base.model.MLBRProductionGroup;
 
 /**
- * Return from Producer Material Not Used
+ *	Return from Producer Material Not Used
+ *	@version $Id: POGReturnNotUsed.java, v1.0 2018/06/21 12:05:44, kenos_rfeitosa Exp $
+ *	@author Rogério Feitosa (Kenos, www.kenos.com.br)
  *
  */
 public class POGReturnNotUsed extends SvrProcess
@@ -56,7 +58,7 @@ public class POGReturnNotUsed extends SvrProcess
 		movement.setC_BPartner_ID(pg.getC_BPartner_ID());
 		movement.setC_BPartner_Location_ID(pg.getC_BPartner_Location_ID());
 		movement.set_ValueOfColumn(MLBRProductionGroup.COLUMNNAME_LBR_ProductionGroup_ID, pg.getLBR_ProductionGroup_ID());
-		movement.setDescription ("Documento de Movimentação para a OP: " + pg.get_ValueAsString ("DocumentNo") + " - Devolução de Material");
+		movement.setDescription ("Documento de Movimentação para a OP: " + pg.get_ValueAsString ("DocumentNo") + " - Devolução de Material não Utilizado na Industrialização");
 		movement.saveEx();
 		
 		//	All Material sent
