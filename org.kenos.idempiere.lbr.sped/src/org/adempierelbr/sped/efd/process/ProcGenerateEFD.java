@@ -729,7 +729,10 @@ public class ProcGenerateEFD extends SvrProcess
 							rs.getString("lbr_WarehouseType").equals("3WN") ? "1" : "0";
 					
 					//	Parceiro de Negócio
-					MBPartner partner = new MBPartner(Env.getCtx(), rs.getInt("C_BPartner_ID"), null);
+					String bpValue = "";
+					
+					if (rs.getInt("C_BPartner_ID") > 0)
+						bpValue = new MBPartner(Env.getCtx(), rs.getInt("C_BPartner_ID"), null).getValue();
 					
 					// Quantidade em Mãos
 					BigDecimal qtyBook = rs.getBigDecimal("QtyBook");
@@ -742,7 +745,7 @@ public class ProcGenerateEFD extends SvrProcess
 						// criar registro RK200
 						blocoK.addrK200(EFDUtil.createRK200(
 								r0200.getCOD_ITEM(), 
-								partner.getValue(), 
+								bpValue, 
 								dateTo,
 								IND_PROP,
 								qtyBook));
@@ -751,7 +754,7 @@ public class ProcGenerateEFD extends SvrProcess
 						//K280 indica Correção de Apontamento de um período anterior
 						blocoK.addrK280(EFDUtil.createRK280(
 								r0200.getCOD_ITEM(), 
-								partner.getValue(), 
+								bpValue, 
 								movDate,
 								IND_PROP,
 								qtyBook));

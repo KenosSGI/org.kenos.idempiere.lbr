@@ -16,8 +16,8 @@ public class ProcessFactory implements IProcessFactory
 	{
 		if (ProcGenerateEFD.class.getName().equals (className))
 			return new ProcGenerateEFD ();	
-		else if (ProcGeneratedBookInv.class.getName().equals (className))
-			return new ProcGeneratedBookInv ();
+		else if (GeneratedBookInv.class.getName().equals (className))
+			return new GeneratedBookInv ();
 		return null;
 	}	//	newProcessInstance
 }	//	CalloutFactory
