@@ -130,6 +130,66 @@
                   <destFileName>siscomexbeans-v100.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
+                  <groupId>org.apache.ws.commons.axiom</groupId>
+                  <artifactId>axiom-api</artifactId>
+                  <version>1.2.13</version>
+                </artifactItem>
+                <artifactItem>
+                  <groupId>org.apache.ws.commons.axiom</groupId>
+                  <artifactId>axiom-impl</artifactId>
+                  <version>1.2.13</version>
+                </artifactItem>
+                <artifactItem>
+                  <groupId>org.apache.axis2</groupId>
+                  <artifactId>axis2-adb</artifactId>
+                  <version>1.6.2</version>
+                </artifactItem>
+                <artifactItem>
+                  <groupId>org.apache.axis2</groupId>
+                  <artifactId>axis2-kernel</artifactId>
+                  <version>1.6.2</version>
+                </artifactItem>
+                <artifactItem>
+                  <groupId>org.apache.axis2</groupId>
+                  <artifactId>axis2-transport-http</artifactId>
+                  <version>1.6.2</version>
+                </artifactItem>
+                <artifactItem>
+                  <groupId>org.apache.axis2</groupId>
+                  <artifactId>axis2-transport-local</artifactId>
+                  <version>1.6.2</version>
+                </artifactItem>
+                <artifactItem>
+                  <groupId>commons-codec</groupId>
+                  <artifactId>commons-codec</artifactId>
+                  <version>1.3</version>
+                </artifactItem>
+                <artifactItem>
+                  <groupId>commons-httpclient</groupId>
+                  <artifactId>commons-httpclient</artifactId>
+                  <version>3.1</version>
+                </artifactItem>
+                <artifactItem>
+                  <groupId>org.apache.httpcomponents</groupId>
+                  <artifactId>httpcore</artifactId>
+                  <version>4.0</version>
+                </artifactItem>
+                <artifactItem>
+                  <groupId>org.apache.neethi</groupId>
+                  <artifactId>neethi</artifactId>
+                  <version>3.0.2</version>
+                </artifactItem>
+                <artifactItem>
+                  <groupId>wsdl4j</groupId>
+                  <artifactId>wsdl4j</artifactId>
+                  <version>1.6.2</version>
+                </artifactItem>
+                <artifactItem>
+                  <groupId>org.apache.ws.commons.schema</groupId>
+                  <artifactId>XmlSchema</artifactId>
+                  <version>1.4.7</version>
+                </artifactItem>
+                <artifactItem>
                   <groupId>local.sunpkcs11</groupId>
                   <artifactId>sunpkcs11</artifactId>
                   <version>NOT_INFORMED</version>
