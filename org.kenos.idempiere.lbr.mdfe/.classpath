@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="lib" path="lib/mdfebeans-v100a-sources.jar"/>
-	<classpathentry kind="lib" path="lib/mdfebeans-v100a.jar"/>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins">
 		<accessrules>
 			<accessrule kind="accessible" pattern="org/adempiere/report/jasper/*"/>
@@ -12,6 +15,7 @@
 			<accessrule kind="accessible" pattern="com/google/zxing/**"/>
 		</accessrules>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="output" path="bin"/>
+	<classpathentry kind="lib" path="lib/mdfebeans-v100a-sources.jar"/>
+	<classpathentry kind="lib" path="lib/mdfebeans-v100a.jar"/>
+	<classpathentry kind="output" path="target/classes"/>
 </classpath>

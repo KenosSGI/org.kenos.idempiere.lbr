@@ -2,10 +2,9 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: LBR IBPT
 Bundle-SymbolicName: org.kenos.idempiere.lbr.ibpt
-Bundle-Version: 1.0.0.qualifier
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-Version: 6.2.0.qualifier
 Require-Bundle: org.kenos.idempiere.lbr.tax;bundle-version="1.0.0",
- org.adempiere.plugin.utils;bundle-version="4.1.0"
+ org.adempiere.plugin.utils;bundle-version="6.2.0"
 Service-Component: OSGI-INF/IBPTFactory.xml
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: lib/ibpt-1.0.jar,

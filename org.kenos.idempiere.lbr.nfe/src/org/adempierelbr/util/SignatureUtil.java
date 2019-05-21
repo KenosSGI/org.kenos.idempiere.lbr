@@ -26,6 +26,7 @@ import java.security.Security;
 import java.security.Signature;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Enumeration;
@@ -75,8 +76,6 @@ import org.w3.x2000.x09.xmldsig.SignatureDocument;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
-
-import sun.misc.BASE64Encoder;
 
 /**
  * 	Assina o arquivo XML
@@ -415,7 +414,7 @@ public class SignatureUtil
 			Signature dsa = Signature.getInstance ("SHA1withRSA");
 			dsa.initSign(getPrivateKey());
 			dsa.update(ascii.getBytes(NFeUtil.NFE_ENCODING));
-			encoded = new String (new BASE64Encoder().encode (dsa.sign()).getBytes(), NFeUtil.NFE_ENCODING);
+			encoded = new String (Base64.getEncoder().encode (dsa.sign()), NFeUtil.NFE_ENCODING);
 			//
 			log.fine("Signature: " + encoded);
 		} 

@@ -2,9 +2,8 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: LBR SPED Core
 Bundle-SymbolicName: org.kenos.idempiere.lbr.sped;singleton:=true
-Bundle-Version: 1.0.0.qualifier
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Require-Bundle: org.adempiere.base;bundle-version="4.1.0",
+Bundle-Version: 6.2.0.qualifier
+Require-Bundle: org.adempiere.base;bundle-version="6.2.0",
  org.kenos.idempiere.lbr.base;bundle-version="1.0.0",
  org.kenos.idempiere.lbr.tax,
  org.kenos.idempiere.lbr.nfe;bundle-version="1.0.0",

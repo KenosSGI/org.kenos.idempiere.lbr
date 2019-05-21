@@ -118,7 +118,7 @@ public class VCreateFromNFeLotUI extends CreateFromNFeLot implements VetoableCha
 	 *  Load NFeLot data into Table
 	 *  @param data data
 	 */
-	protected void loadTableOIS (Vector<?> data)
+	protected void loadTableOIS (Vector<Vector<Object>> data)
 	{
 		//  Remove previous listeners
 		dialog.getMiniTable().getModel().removeTableModelListener(dialog);

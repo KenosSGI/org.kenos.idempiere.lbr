@@ -1048,7 +1048,7 @@ public class WPAttributeDialog extends Window implements EventListener<Event>
 				if (log.isLoggable(Level.FINE)) log.fine(attributes[i].getName() + "=" + value);
 				if (attributes[i].isMandatory() && value == null)
 					mandatory += " - " + attributes[i].getName();
-				attributes[i].setMAttributeInstance(m_M_AttributeSetInstance_ID, value);
+				attributes[i].setMAttributeInstance(m_M_AttributeSetInstance_ID, value == null ? null : new Timestamp (value.getTime()));
 			}
 			else
 			{

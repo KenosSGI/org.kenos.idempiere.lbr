@@ -2,11 +2,10 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: LBR Boleto Swing
 Bundle-SymbolicName: org.kenos.idempiere.lbr.boleto.swing;singleton:=true
-Bundle-Version: 1.0.0.qualifier
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Require-Bundle: org.adempiere.base;bundle-version="4.1.0",
- org.adempiere.ui;bundle-version="4.1.0",
- org.adempiere.ui.swing;bundle-version="4.1.0",
+Bundle-Version: 6.2.0.qualifier
+Require-Bundle: org.adempiere.base;bundle-version="6.2.0",
+ org.adempiere.ui;bundle-version="6.2.0",
+ org.adempiere.ui.swing;bundle-version="6.2.0",
  org.kenos.idempiere.lbr.base;bundle-version="1.0.0",
  org.kenos.idempiere.lbr.boleto;bundle-version="1.0.0"
 Service-Component: OSGI-INF/FormFactory.xml

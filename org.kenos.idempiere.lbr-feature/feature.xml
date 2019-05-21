@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="org.kenos.idempiere.lbr"
+      id="org.kenos.idempiere.lbr.feature"
       label="LBR Feature"
-      version="1.0.0.qualifier">
+      version="6.2.0.qualifier">
 
-   <description url="http://www.example.com/description">
-      [Enter Feature Description here.]
+   <description url="http://www.kenos.com.br">
+      Localization Brazil Core
+===
+Core functions for Localization Brazil, including web interface plugins (ZK)
    </description>
 
    <copyright url="http://www.example.com/copyright">
@@ -16,13 +18,96 @@
       [Enter License Description here.]
    </license>
 
-   <includes
-         id="org.kenos.idempiere.lbr.server"
-         version="0.0.0"/>
+   <plugin
+         id="org.kenos.idempiere.lbr.base"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
 
-   <includes
-         id="org.kenos.idempiere.lbr.swing"
-         version="0.0.0"/>
+   <plugin
+         id="org.kenos.idempiere.lbr.base.zk"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.kenos.idempiere.lbr.boleto"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.kenos.idempiere.lbr.boleto.zk"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.kenos.idempiere.lbr.mdfe"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.kenos.idempiere.lbr.nfe"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.kenos.idempiere.lbr.nfe.zk"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.kenos.idempiere.lbr.sped"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.kenos.idempiere.lbr.tax"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.kenos.idempiere.lbr.tax.zk"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.kenos.idempiere.lbr.nfse"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.kenos.idempiere.lbr.correios"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.kenos.idempiere.lbr.ibpt"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
 
    <plugin
          id="org.idempiere.webservices"

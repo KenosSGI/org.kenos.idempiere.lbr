@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="org.kenos.idempiere.lbr.server"
-      label="LBR Core (Required)"
-      version="1.0.0.qualifier"
+      id="org.kenos.idempiere.lbr.server.feature"
+      label="LBR Server (Required)"
+      version="6.2.0.qualifier"
       provider-name="Kenos">
 
    <description url="http://www.kenos.com.br">
