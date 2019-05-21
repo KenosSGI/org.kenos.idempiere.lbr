@@ -1,0 +1,29 @@
+<!-- build with
+mvn verify -Didempiere.target=org.idempierelbr.p2.targetplatform
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.kenos.idempiere</groupId>
+	<version>6.2.0-SNAPSHOT</version>
+	<artifactId>org.kenos.idempiere.lbr</artifactId>
+	<packaging>pom</packaging>
+	<modules>
+		<module>org.kenos.idempiere.lbr.base</module>
+		<module>org.kenos.idempiere.lbr.base.zk</module>
+		<module>org.kenos.idempiere.lbr.tax</module>
+		<module>org.kenos.idempiere.lbr.tax.zk</module>
+		<module>org.kenos.idempiere.lbr.boleto</module>
+		<module>org.kenos.idempiere.lbr.boleto.zk</module>
+		<module>org.kenos.idempiere.lbr.correios</module>
+		<module>org.kenos.idempiere.lbr.ibpt</module>
+		<module>org.kenos.idempiere.lbr.nfe</module>
+		<module>org.kenos.idempiere.lbr.nfe.zk</module>
+		<module>org.kenos.idempiere.lbr.nfse</module>
+		<module>org.kenos.idempiere.lbr.mdfe</module>
+		<module>org.kenos.idempiere.lbr.sped</module>
+		<module>org.kenos.idempiere.lbr-feature</module>
+		<module>org.kenos.idempiere.lbr.p2.targetplatform</module>
+		<module>org.kenos.idempiere.lbr.p2</module>
+	</modules>
+</project>
