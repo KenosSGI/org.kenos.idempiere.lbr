@@ -10,3 +10,6 @@ syntax: regexp
 
 syntax: regexp
 ^.*/target$
+
+syntax: regexp
+org.kenos.idempiere.lbr.p2.targetplatform.target.orig
