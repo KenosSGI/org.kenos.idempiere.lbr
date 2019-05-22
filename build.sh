@@ -14,7 +14,7 @@ fi
 echo "Updating target platform with current folder"
 
 CURRENT_DIR="$(pwd | sed 's/\//\\\//g' | sed 's/ /\\ /g')"
-COMMAND="sed 's/<repository location=\"file:\/\/\/.*iDempiere6\.2\/org\.idempiere\.p2\/target\/repository\"\/>/<repository location=\"file:\/\/$CURRENT_DIR\/..\/iDempiere6\.2\/org\.idempiere\.p2\/target\/repository\"\/>/g' $TARGET_FILE.orig > $TARGET_FILE"
+COMMAND="sed 's/<repository location=\"file:\/\/.*iDempiere6\.2\/org\.idempiere\.p2\/target\/repository\"\/>/<repository location=\"file:\/\/$CURRENT_DIR\/..\/iDempiere6\.2\/org\.idempiere\.p2\/target\/repository\"\/>/g' $TARGET_FILE.orig > $TARGET_FILE"
 
 # Change path
 eval $COMMAND
