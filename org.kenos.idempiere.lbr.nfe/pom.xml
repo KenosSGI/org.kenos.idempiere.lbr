@@ -34,10 +34,10 @@
             <configuration>
               <artifactItems>
                 <artifactItem>
-                  <groupId>local.nfebeans-canc-v101-souces</groupId>
-                  <artifactId>nfebeans-canc-v101-souces</artifactId>
+                  <groupId>local.nfebeans-canc-v101-sources</groupId>
+                  <artifactId>nfebeans-canc-v101-sources</artifactId>
                   <version>NOT_INFORMED</version>
-                  <destFileName>nfebeans-canc-v101-souces.jar</destFileName>
+                  <destFileName>nfebeans-canc-v101-sources.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>local.nfebeans-canc-v101</groupId>
@@ -46,10 +46,10 @@
                   <destFileName>nfebeans-canc-v101.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
-                  <groupId>local.nfebeans-cce-v101-souces</groupId>
-                  <artifactId>nfebeans-cce-v101-souces</artifactId>
+                  <groupId>local.nfebeans-cce-v101-sources</groupId>
+                  <artifactId>nfebeans-cce-v101-sources</artifactId>
                   <version>NOT_INFORMED</version>
-                  <destFileName>nfebeans-cce-v101-souces.jar</destFileName>
+                  <destFileName>nfebeans-cce-v101-sources.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>local.nfebeans-cce-v101</groupId>
@@ -70,10 +70,10 @@
                   <destFileName>nfebeans-dfe-v102.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
-                  <groupId>local.nfebeans-gen-v101-souces</groupId>
-                  <artifactId>nfebeans-gen-v101-souces</artifactId>
+                  <groupId>local.nfebeans-gen-v101-sources</groupId>
+                  <artifactId>nfebeans-gen-v101-sources</artifactId>
                   <version>NOT_INFORMED</version>
-                  <destFileName>nfebeans-gen-v101-souces.jar</destFileName>
+                  <destFileName>nfebeans-gen-v101-sources.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>local.nfebeans-gen-v101</groupId>
@@ -82,10 +82,10 @@
                   <destFileName>nfebeans-gen-v101.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
-                  <groupId>local.nfebeans-manif-v101-souces</groupId>
-                  <artifactId>nfebeans-manif-v101-souces</artifactId>
+                  <groupId>local.nfebeans-manif-v101-sources</groupId>
+                  <artifactId>nfebeans-manif-v101-sources</artifactId>
                   <version>NOT_INFORMED</version>
-                  <destFileName>nfebeans-manif-v101-souces.jar</destFileName>
+                  <destFileName>nfebeans-manif-v101-sources.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>local.nfebeans-manif-v101</groupId>

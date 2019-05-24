@@ -4,14 +4,14 @@
 # Obs. copiar as libs descritas abaixo para /tmp/
 
 mvn deploy:deploy-file \
-  -DgroupId=local.nfebeans-canc-v101-souces \
-  -DartifactId=nfebeans-canc-v101-souces \
+  -DgroupId=local.nfebeans-canc-v101-sources \
+  -DartifactId=nfebeans-canc-v101-sources \
   -Dversion=NOT_INFORMED \
   -Durl=file:./local-maven-repo/ \
   -Dpackaging=jar \
   -DrepositoryId=local-maven-repo \
   -DupdateReleaseInfo=true \
-  -Dfile=/tmp/nfebeans-canc-v101-souces.jar \
+  -Dfile=/tmp/nfebeans-canc-v101-sources.jar \
   -Didempiere.target=org.kenos.idempiere.lbr.p2.targetplatform
 
 mvn deploy:deploy-file \
@@ -26,14 +26,14 @@ mvn deploy:deploy-file \
   -Didempiere.target=org.kenos.idempiere.lbr.p2.targetplatform
 
 mvn deploy:deploy-file \
-  -DgroupId=local.nfebeans-cce-v101-souces \
-  -DartifactId=nfebeans-cce-v101-souces \
+  -DgroupId=local.nfebeans-cce-v101-sources \
+  -DartifactId=nfebeans-cce-v101-sources \
   -Dversion=NOT_INFORMED \
   -Durl=file:./local-maven-repo/ \
   -Dpackaging=jar \
   -DrepositoryId=local-maven-repo \
   -DupdateReleaseInfo=true \
-  -Dfile=/tmp/nfebeans-cce-v101-souces.jar \
+  -Dfile=/tmp/nfebeans-cce-v101-sources.jar \
   -Didempiere.target=org.kenos.idempiere.lbr.p2.targetplatform
 
 mvn deploy:deploy-file \
@@ -70,14 +70,14 @@ mvn deploy:deploy-file \
   -Didempiere.target=org.kenos.idempiere.lbr.p2.targetplatform
 
 mvn deploy:deploy-file \
-  -DgroupId=local.nfebeans-gen-v101-souces \
-  -DartifactId=nfebeans-gen-v101-souces \
+  -DgroupId=local.nfebeans-gen-v101-sources \
+  -DartifactId=nfebeans-gen-v101-sources \
   -Dversion=NOT_INFORMED \
   -Durl=file:./local-maven-repo/ \
   -Dpackaging=jar \
   -DrepositoryId=local-maven-repo \
   -DupdateReleaseInfo=true \
-  -Dfile=/tmp/nfebeans-gen-v101-souces.jar \
+  -Dfile=/tmp/nfebeans-gen-v101-sources.jar \
   -Didempiere.target=org.kenos.idempiere.lbr.p2.targetplatform
 
 mvn deploy:deploy-file \
@@ -92,14 +92,14 @@ mvn deploy:deploy-file \
   -Didempiere.target=org.kenos.idempiere.lbr.p2.targetplatform
 
 mvn deploy:deploy-file \
-  -DgroupId=local.nfebeans-manif-v101-souces \
-  -DartifactId=nfebeans-manif-v101-souces \
+  -DgroupId=local.nfebeans-manif-v101-sources \
+  -DartifactId=nfebeans-manif-v101-sources \
   -Dversion=NOT_INFORMED \
   -Durl=file:./local-maven-repo/ \
   -Dpackaging=jar \
   -DrepositoryId=local-maven-repo \
   -DupdateReleaseInfo=true \
-  -Dfile=/tmp/nfebeans-manif-v101-souces.jar \
+  -Dfile=/tmp/nfebeans-manif-v101-sources.jar \
   -Didempiere.target=org.kenos.idempiere.lbr.p2.targetplatform
 
 mvn deploy:deploy-file \

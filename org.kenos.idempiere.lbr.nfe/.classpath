@@ -28,15 +28,15 @@
 	<classpathentry exported="true" kind="lib" path="lib/neethi.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/wsdl4j.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/XmlSchema.jar"/>
-	<classpathentry kind="lib" path="lib/nfebeans-canc-v101-souces.jar"/>
+	<classpathentry kind="lib" path="lib/nfebeans-canc-v101-sources.jar"/>
 	<classpathentry kind="lib" path="lib/nfebeans-canc-v101.jar"/>
-	<classpathentry kind="lib" path="lib/nfebeans-cce-v101-souces.jar"/>
+	<classpathentry kind="lib" path="lib/nfebeans-cce-v101-sources.jar"/>
 	<classpathentry kind="lib" path="lib/nfebeans-cce-v101.jar"/>
 	<classpathentry kind="lib" path="lib/nfebeans-dfe-v102-sources.jar"/>
 	<classpathentry kind="lib" path="lib/nfebeans-dfe-v102.jar"/>
-	<classpathentry kind="lib" path="lib/nfebeans-gen-v101-souces.jar"/>
+	<classpathentry kind="lib" path="lib/nfebeans-gen-v101-sources.jar"/>
 	<classpathentry kind="lib" path="lib/nfebeans-gen-v101.jar"/>
-	<classpathentry kind="lib" path="lib/nfebeans-manif-v101-souces.jar"/>
+	<classpathentry kind="lib" path="lib/nfebeans-manif-v101-sources.jar"/>
 	<classpathentry kind="lib" path="lib/nfebeans-manif-v101.jar"/>
 	<classpathentry kind="lib" path="lib/nfebeans-v6v-sources.jar"/>
 	<classpathentry kind="lib" path="lib/nfebeans-v6v.jar"/>
