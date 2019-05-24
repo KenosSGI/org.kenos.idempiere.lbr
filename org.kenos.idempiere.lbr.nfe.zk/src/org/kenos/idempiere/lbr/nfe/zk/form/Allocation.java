@@ -149,7 +149,7 @@ public class Allocation
 			while (rs.next())
 			{
 				Vector<Object> line = new Vector<Object>();
-				line.add(new Boolean(false));       //  0-Selection
+				line.add(Boolean.FALSE);       //  0-Selection
 				line.add(rs.getTimestamp(1));       //  1-TrxDate
 				KeyNamePair pp = new KeyNamePair(rs.getInt(3), rs.getString(2));
 				line.add(pp);                       //  2-DocumentNo
@@ -285,7 +285,7 @@ public class Allocation
 			while (rs.next())
 			{
 				Vector<Object> line = new Vector<Object>();
-				line.add(new Boolean(false));       //  0-Selection
+				line.add(Boolean.FALSE);       //  0-Selection
 				line.add(rs.getTimestamp("DueDate"));       //  1-TrxDate
 				line.add(rs.getTimestamp("DateInvoiced"));       //  DueDate
 				KeyNamePair pp = new KeyNamePair(rs.getInt(3), rs.getString(2));

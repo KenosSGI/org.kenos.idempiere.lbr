@@ -441,7 +441,7 @@ public class WPOGInvoiceGen extends POGInvoiceGen implements IFormController, WT
 			while (rs.next())
 			{
 				Vector<Object> line = new Vector<Object>();
-				line.add(new Boolean(false));					//  0-Selection
+				line.add(Boolean.FALSE);					//  0-Selection
 				line.add(rs.getString("Description"));			//  1-Description
 				KeyNamePair knp = new KeyNamePair(rs.getInt("M_Product_ID"), rs.getString("ProductName"));
 				//
@@ -502,7 +502,7 @@ public class WPOGInvoiceGen extends POGInvoiceGen implements IFormController, WT
 			while (rs.next())
 			{
 				Vector<Object> line = new Vector<Object>();
-				line.add(new Boolean(false));					//  0-Selection
+				line.add(Boolean.FALSE);					//  0-Selection
 				KeyNamePair knp = new KeyNamePair(rs.getInt("M_Production_ID"), rs.getString("DocumentNo"));
 				//
 				line.add(knp);									//  1-DocumentNo

@@ -104,7 +104,7 @@ public abstract class CreateFromNFeLot extends CreateFrom
 			while (rs.next())
 			{
 				Vector<Object> line = new Vector<Object>(6);
-				line.add(new Boolean(false));       //  0-Selection
+				line.add(Boolean.FALSE);       //  0-Selection
 				//
 				KeyNamePair kp = new KeyNamePair(rs.getInt(6), rs.getString(1));
 				//

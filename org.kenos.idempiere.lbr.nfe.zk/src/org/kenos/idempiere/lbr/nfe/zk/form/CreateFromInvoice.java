@@ -250,7 +250,7 @@ public abstract class CreateFromInvoice extends CreateFrom
 			while (rs.next())
 			{
 				Vector<Object> line = new Vector<Object>(7);
-				line.add(new Boolean(false));           //  0-Selection
+				line.add(Boolean.FALSE);           //  0-Selection
 				BigDecimal qtyMovement = rs.getBigDecimal(1);
 				BigDecimal multiplier = rs.getBigDecimal(2);
 				BigDecimal qtyEntered = qtyMovement.multiply(multiplier);
@@ -341,7 +341,7 @@ public abstract class CreateFromInvoice extends CreateFrom
 	        while (rs.next())
             {
 	            Vector<Object> line = new Vector<Object>(7);
-	            line.add(new Boolean(false));   // 0-Selection
+	            line.add(Boolean.FALSE);   // 0-Selection
 	            line.add(rs.getBigDecimal(3));  // 1-Qty
 	            KeyNamePair pp = new KeyNamePair(rs.getInt(6), rs.getString(7));
 	            line.add(pp); // 2-UOM

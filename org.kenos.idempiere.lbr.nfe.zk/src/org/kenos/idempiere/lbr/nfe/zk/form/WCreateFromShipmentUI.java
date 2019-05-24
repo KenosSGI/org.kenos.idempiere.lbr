@@ -766,7 +766,7 @@ public class WCreateFromShipmentUI extends CreateFromShipment implements EventLi
 			while (rs.next())
 			{
 				Vector<Object> line = new Vector<Object>();
-				line.add(new Boolean(false));           //  0-Selection
+				line.add(Boolean.FALSE);           //  0-Selection
 				BigDecimal qtyOrdered = rs.getBigDecimal(1);
 				BigDecimal multiplier = rs.getBigDecimal(2);
 				BigDecimal qtyEntered = qtyOrdered.multiply(multiplier);

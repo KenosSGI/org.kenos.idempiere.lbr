@@ -432,7 +432,7 @@ public class WPOGManageMoveToProducer extends ADForm implements IFormController,
 			while (rs.next())
 			{
 				Vector<Object> line = new Vector<Object>();
-				line.add(new Boolean(true));					//  0-Selection
+				line.add(Boolean.TRUE);					//  0-Selection
 				line.add(rs.getString("Description"));			//  1-Description
 				KeyNamePair knp = new KeyNamePair(rs.getInt("M_Product_ID"), rs.getString("ProductName"));
 				//
@@ -493,7 +493,7 @@ public class WPOGManageMoveToProducer extends ADForm implements IFormController,
 			while (rs.next())
 			{
 				Vector<Object> line = new Vector<Object>();
-				line.add(new Boolean(true));					//  0-Selection
+				line.add(Boolean.TRUE);					//  0-Selection
 				KeyNamePair knp = new KeyNamePair(rs.getInt("M_Movement_ID"), rs.getString("Mov_DocumentNo"));		
 				
 				KeyNamePair knpPg = new KeyNamePair(rs.getInt("LBR_ProductionGroup_ID"), rs.getString("DocumentNo"));

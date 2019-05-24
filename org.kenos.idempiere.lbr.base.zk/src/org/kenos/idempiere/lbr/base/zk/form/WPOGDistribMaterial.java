@@ -359,7 +359,7 @@ public class WPOGDistribMaterial extends ADForm implements IFormController, WTab
 			while (rs.next())
 			{
 				Vector<Object> line = new Vector<Object>();
-				line.add(new Boolean(false));					//  0-Selection
+				line.add(Boolean.FALSE);					//  0-Selection
 				line.add(rs.getString("Description"));			//  1-Description
 				KeyNamePair knp = new KeyNamePair(rs.getInt("M_Product_ID"), rs.getString("ProductName"));
 				//
@@ -447,7 +447,7 @@ public class WPOGDistribMaterial extends ADForm implements IFormController, WTab
 			while (rs.next())
 			{
 				Vector<Object> line = new Vector<Object>();
-				line.add(new Boolean(false));																	//  0-Selection
+				line.add(Boolean.FALSE);																	//  0-Selection
 				KeyNamePair knpLoc = new KeyNamePair(rs.getInt("M_Locator_ID"), rs.getString("LocatorName"));
 				//
 				line.add(knpLoc);																				//  1-Locator
