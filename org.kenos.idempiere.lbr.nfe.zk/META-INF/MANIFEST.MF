@@ -14,3 +14,6 @@ Require-Bundle: org.adempiere.base;bundle-version="6.2.0",
 Service-Component: OSGI-INF/CreateFromFactory.xml,
  OSGI-INF/FormFactory.xml
 Bundle-ActivationPolicy: lazy
+Automatic-Module-Name: org.kenos.idempiere.lbr.nfe.zk
+Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-Vendor: Kenos www.kenos.com.br

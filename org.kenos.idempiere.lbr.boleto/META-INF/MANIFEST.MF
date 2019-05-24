@@ -13,3 +13,6 @@ Export-Package: org.adempierelbr.apps.form,
 Import-Package: org.adempiere.pipo2
 Bundle-ClassPath: .,
  lib/jBoleto.jar
+Automatic-Module-Name: org.kenos.idempiere.lbr.boleto
+Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-Vendor: Kenos www.kenos.com.br

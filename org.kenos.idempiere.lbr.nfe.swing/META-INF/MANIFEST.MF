@@ -14,3 +14,6 @@ Service-Component: OSGI-INF/CreateFromFactory.xml,
 Export-Package: org.adempierelbr.grid,
  org.kenos.idempiere.lbr.nfe.swing
 Bundle-ActivationPolicy: lazy
+Automatic-Module-Name: org.kenos.idempiere.lbr.nfe.swing
+Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-Vendor: Kenos www.kenos.com.br

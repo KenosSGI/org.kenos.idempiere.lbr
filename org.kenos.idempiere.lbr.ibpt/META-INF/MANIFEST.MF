@@ -9,3 +9,6 @@ Service-Component: OSGI-INF/IBPTFactory.xml
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: lib/ibpt-1.0.jar,
  .
+Automatic-Module-Name: org.kenos.idempiere.lbr.ibpt
+Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-Vendor: Kenos www.kenos.com.br

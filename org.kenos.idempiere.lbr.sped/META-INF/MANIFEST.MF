@@ -12,3 +12,5 @@ Service-Component: OSGI-INF/ProcessFactory.xml,
  OSGI-INF/ModelFactory.xml
 Bundle-ActivationPolicy: lazy
 Automatic-Module-Name: org.kenos.idempiere.lbr.sped
+Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-Vendor: Kenos www.kenos.com.br

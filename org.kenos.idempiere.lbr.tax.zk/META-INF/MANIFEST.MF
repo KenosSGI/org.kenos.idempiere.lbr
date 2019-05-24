@@ -17,3 +17,6 @@ Import-Package: org.adempiere.webui.component,
  org.adempiere.webui.theme,
  org.adempiere.webui.window
 Bundle-ActivationPolicy: lazy
+Automatic-Module-Name: org.kenos.idempiere.lbr.tax.zk
+Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-Vendor: Kenos www.kenos.com.br

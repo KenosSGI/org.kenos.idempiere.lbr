@@ -15,3 +15,6 @@ Service-Component: OSGI-INF/FormFactory.xml,OSGI-INF/EditorFactory.xml,OSGI-INF/
 Export-Package: org.kenos.idempiere.lbr.base.form,
  org.kenos.idempiere.lbr.base.zk.form
 Bundle-ActivationPolicy: lazy
+Automatic-Module-Name: org.kenos.idempiere.lbr.base.zk
+Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-Vendor: Kenos www.kenos.com.br

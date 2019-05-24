@@ -24,3 +24,5 @@ Export-Package: org.adempierelbr.model,
 Bundle-ClassPath: .
 Bundle-ActivationPolicy: lazy
 Automatic-Module-Name: org.kenos.idempiere.lbr.tax
+Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-Vendor: Kenos www.kenos.com.br

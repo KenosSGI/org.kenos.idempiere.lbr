@@ -14,5 +14,7 @@ Service-Component: OSGI-INF/FormFactory.xml
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: .
 Bundle-Activator: org.adempiere.plugin.utils.Incremental2PackActivator
-Bundle-Vendor: Kenos
+Bundle-Vendor: Kenos www.kenos.com.br
 Import-Package: javax.activation
+Automatic-Module-Name: org.kenos.idempiere.lbr.correios
+Bundle-RequiredExecutionEnvironment: JavaSE-11

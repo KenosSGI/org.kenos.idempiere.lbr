@@ -5,3 +5,6 @@ Bundle-SymbolicName: org.kenos.idempiere.lbr.jasper.fonts
 Bundle-Version: 6.2.0.qualifier
 Export-Package: org.kenos.idempiere.lbr.jasper.fonts
 Fragment-Host: net.sf.jasperreports.engine
+Automatic-Module-Name: org.kenos.idempiere.lbr.jasper.fonts
+Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-Vendor: Kenos www.kenos.com.br

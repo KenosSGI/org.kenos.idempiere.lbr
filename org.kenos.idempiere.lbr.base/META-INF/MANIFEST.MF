@@ -39,3 +39,5 @@ Bundle-ClassPath: .,
 Import-Package: org.joda.time;version="2.9.6"
 Bundle-ActivationPolicy: lazy
 Automatic-Module-Name: org.kenos.idempiere.lbr.base
+Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-Vendor: Kenos www.kenos.com.br

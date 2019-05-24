@@ -17,3 +17,6 @@ Import-Package: javax.activation,
  org.apache.xmlbeans,
  org.apache.xmlbeans.impl.schema,
  org.apache.xmlbeans.impl.values
+Automatic-Module-Name: org.kenos.idempiere.lbr.mdfe
+Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-Vendor: Kenos www.kenos.com.br

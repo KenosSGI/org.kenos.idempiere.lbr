@@ -27,3 +27,6 @@ Bundle-ClassPath: lib/nfse-mogi-v100-sources.jar,
  .
 Export-Package: org.kenos.idempiere.lbr.nfse
 Bundle-ActivationPolicy: lazy
+Automatic-Module-Name: org.kenos.idempiere.lbr.nfse
+Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-Vendor: Kenos www.kenos.com.br
