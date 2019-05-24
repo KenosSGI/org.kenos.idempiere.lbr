@@ -33,6 +33,7 @@ import org.compiere.model.MOrg;
 import org.compiere.model.MOrgInfo;
 import org.compiere.model.MSysConfig;
 import org.compiere.util.Env;
+import org.compiere.util.Util;
 
 /**
  * MItau
@@ -115,12 +116,12 @@ public class MItau implements I_Bank
 	        	cnab.setlbr_CNABField33(MLBRCNAB.CNABFormat(bpartner.get_ValueAsString("lbr_CNPJ"),14)); //CPF ou CPNJ
 	        }
 
-	        cnab.setlbr_CNABField34(TextUtil.stripAccents(boleto.getlbr_ReceiverName()).toUpperCase()); //NOME
+	        cnab.setlbr_CNABField34(Util.deleteAccents(boleto.getlbr_ReceiverName()).toUpperCase()); //NOME
 	        cnab.setlbr_CNABField35(null); //Preencher com Espaços em Branco
-	        cnab.setlbr_CNABField36(TextUtil.stripAccents(boleto.getAddress()).toUpperCase()); 	//	Logradouro (Rua, Número e Complemento)
-	        cnab.setlbr_CNABField37(TextUtil.stripAccents(boleto.getAddress3()).toUpperCase()); 	//	Bairro
+	        cnab.setlbr_CNABField36(Util.deleteAccents(boleto.getAddress()).toUpperCase()); 	//	Logradouro (Rua, Número e Complemento)
+	        cnab.setlbr_CNABField37(Util.deleteAccents(boleto.getAddress3()).toUpperCase()); 	//	Bairro
 	        cnab.setlbr_CNABField38(MLBRCNAB.CNABFormat(boleto.getPostal(),8)); //CEP
-	        cnab.setlbr_CNABField39(TextUtil.stripAccents(boleto.getCity()).toUpperCase()); //Cidade
+	        cnab.setlbr_CNABField39(Util.deleteAccents(boleto.getCity()).toUpperCase()); //Cidade
 	        cnab.setlbr_CNABField40(boleto.getRegionName()); //Estado
 	        
 	        //	Nota Fiscal

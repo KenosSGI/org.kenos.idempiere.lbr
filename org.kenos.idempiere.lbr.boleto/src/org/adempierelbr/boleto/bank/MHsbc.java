@@ -31,6 +31,7 @@ import org.compiere.model.MInvoice;
 import org.compiere.model.MOrg;
 import org.compiere.model.MOrgInfo;
 import org.compiere.util.Env;
+import org.compiere.util.Util;
 
 /**
  * MHsbc
@@ -104,16 +105,16 @@ public class MHsbc implements I_Bank
 	        	cnab.setlbr_CNABField33(MLBRCNAB.CNABFormat(bpartner.get_ValueAsString("lbr_CNPJ"),14)); //CPF ou CPNJ
 	        }
 
-	        cnab.setlbr_CNABField34(TextUtil.stripAccents(boleto.getlbr_ReceiverName()).toUpperCase()); //NOME
-	        cnab.setlbr_CNABField35(TextUtil.stripAccents(boleto.getAddress1()).toUpperCase()); //Logradouro
+	        cnab.setlbr_CNABField34(Util.deleteAccents(boleto.getlbr_ReceiverName()).toUpperCase()); //NOME
+	        cnab.setlbr_CNABField35(Util.deleteAccents(boleto.getAddress1()).toUpperCase()); //Logradouro
 	        cnab.setlbr_CNABField36(null);
-	        cnab.setlbr_CNABField37(TextUtil.stripAccents(boleto.getAddress3()).toUpperCase()); //Bairro
+	        cnab.setlbr_CNABField37(Util.deleteAccents(boleto.getAddress3()).toUpperCase()); //Bairro
 
 	        String getcep = MLBRCNAB.CNABFormat(boleto.getPostal(),8);
 
 	        cnab.setlbr_CNABField38(getcep.substring(0, 5)); //CEP
 	        cnab.setlbr_CNABField39(getcep.substring(5, 8)); //Sufixo CEP
-	        cnab.setlbr_CNABField40(TextUtil.stripAccents(boleto.getCity()).toUpperCase()); //Cidade
+	        cnab.setlbr_CNABField40(Util.deleteAccents(boleto.getCity()).toUpperCase()); //Cidade
 	        cnab.setlbr_CNABField41(boleto.getRegionName()); //Estado
 	        cnab.setlbr_CNABField42(null); //Sacador / Avalista
 	        cnab.setlbr_CNABField43(null); //Tipo Bloqueto

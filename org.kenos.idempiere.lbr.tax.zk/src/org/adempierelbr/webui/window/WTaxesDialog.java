@@ -733,7 +733,7 @@ public final class WTaxesDialog extends Window
 			// Delete new tax
 			deleteRecords(m_MLBRTax_new);
 			// Return id of original tax
-			return m_MLBRTax_original == null ? null : new Integer(m_MLBRTax_original.get_ID());
+			return m_MLBRTax_original == null ? null : m_MLBRTax_original.get_ID();
 		}
 		
 		// Check no. of tax lines. If none, try to delete tax (new). Return null;
@@ -744,7 +744,7 @@ public final class WTaxesDialog extends Window
 		}
 		
 		// Return id of new tax
-		return new Integer(m_MLBRTax_new.get_ID());
+		return m_MLBRTax_new.get_ID();
 	}
 	
 	/**

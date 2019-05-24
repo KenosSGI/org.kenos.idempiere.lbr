@@ -164,6 +164,7 @@ public class MLBRBoleto extends X_LBR_Boleto
 	 * @param trx com a Transaçao
 	 * @return LBR_Boleto_ID 
 	 */
+	@SuppressWarnings("resource")
 	public static int getLBR_Boleto_ID(String DocumentNo, String LBR_PayScheduleNo, int C_Invoice_ID, String trx)
 	{
 		int LBR_Boleto_ID = -1;

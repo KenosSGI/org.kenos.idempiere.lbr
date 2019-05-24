@@ -31,6 +31,7 @@ import org.compiere.model.MInvoice;
 import org.compiere.model.MOrg;
 import org.compiere.model.MSequence;
 import org.compiere.util.Env;
+import org.compiere.util.Util;
 
 /**
  * MBradesco
@@ -114,8 +115,8 @@ public class MBradesco implements I_Bank
 	        	cnab.setlbr_CNABField37(MLBRCNAB.CNABFormat(bpartner.get_ValueAsString("lbr_CNPJ"),14)); //CPF ou CPNJ
 	        }
 
-	        cnab.setlbr_CNABField38(TextUtil.stripAccents(boleto.getlbr_ReceiverName()).toUpperCase()); //NOME
-	        cnab.setlbr_CNABField39(TextUtil.stripAccents(boleto.getAddress1()).toUpperCase() + "," + TextUtil.stripAccents(boleto.getCity()).toUpperCase()); //Logradouro
+	        cnab.setlbr_CNABField38(Util.deleteAccents(boleto.getlbr_ReceiverName()).toUpperCase()); //NOME
+	        cnab.setlbr_CNABField39(Util.deleteAccents(boleto.getAddress1()).toUpperCase() + "," + Util.deleteAccents(boleto.getCity()).toUpperCase()); //Logradouro
 	        cnab.setlbr_CNABField40(null); //1a Mensagem
 
 	        String getcep = MLBRCNAB.CNABFormat(boleto.getPostal(),8);

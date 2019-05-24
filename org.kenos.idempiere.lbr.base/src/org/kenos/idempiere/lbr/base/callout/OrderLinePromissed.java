@@ -29,18 +29,22 @@ public class OrderLinePromissed implements IColumnCallout
 		if (value == null)
 			return "";
 		
-		//	Order
-		MOrder order = new MOrder(ctx, new Integer(mTab.get_ValueAsString(MOrder.COLUMNNAME_C_Order_ID)), null);		
-		
-		//	Fill the PromissedDate
-		MProductPO[] pos = MProductPO.getOfProduct (ctx, (Integer) mTab.getValue(MProduct.COLUMNNAME_M_Product_ID), null);
-		for (MProductPO po : pos)
+		Integer order_id = (Integer) mTab.getValue(MOrder.COLUMNNAME_C_Order_ID);
+		if (order_id != null && order_id > 0)
 		{
-			if (po.getC_BPartner_ID() == order.getC_BPartner_ID ()
-					&& po.getDeliveryTime_Promised() > 0)
+			//	Order
+			MOrder order = new MOrder(ctx, order_id, null);		
+			
+			//	Fill the PromissedDate
+			MProductPO[] pos = MProductPO.getOfProduct (ctx, (Integer) mTab.getValue(MProduct.COLUMNNAME_M_Product_ID), null);
+			for (MProductPO po : pos)
 			{
-				mTab.setValue(MOrderLine.COLUMNNAME_DatePromised, TimeUtil.addDays (order.getDateOrdered(), po.getDeliveryTime_Promised()));
-				break;
+				if (po.getC_BPartner_ID() == order.getC_BPartner_ID ()
+						&& po.getDeliveryTime_Promised() > 0)
+				{
+					mTab.setValue(MOrderLine.COLUMNNAME_DatePromised, TimeUtil.addDays (order.getDateOrdered(), po.getDeliveryTime_Promised()));
+					break;
+				}
 			}
 		}
 		

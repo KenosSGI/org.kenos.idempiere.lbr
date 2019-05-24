@@ -155,7 +155,7 @@ public class WTaxesEditor extends WEditor implements ContextMenuListener
 		if (m_value == null)
             return null;
 		
-		return new Integer(((X_LBR_Tax) m_value).getLBR_Tax_ID());
+		return ((X_LBR_Tax) m_value).getLBR_Tax_ID();
 	}
 
 	@Override

@@ -32,6 +32,7 @@ import org.compiere.model.MInvoice;
 import org.compiere.model.MOrg;
 import org.compiere.model.MOrgInfo;
 import org.compiere.util.Env;
+import org.compiere.util.Util;
 
 /**
  * 	Bank Banco Real Model
@@ -157,18 +158,18 @@ public class MBancoReal implements I_Bank
 				cnab.setlbr_CNABField39(CNPJ_Cedente); 				//	CPF ou CPNJ
 			}
 			//
-			cnab.setlbr_CNABField40(TextUtil.stripAccents(boleto.getlbr_ReceiverName())
+			cnab.setlbr_CNABField40(Util.deleteAccents(boleto.getlbr_ReceiverName())
 					.toUpperCase()); 								//	Nome do sacado
-			cnab.setlbr_CNABField41(TextUtil.stripAccents(boleto.getAddress1() + ", " +
+			cnab.setlbr_CNABField41(Util.deleteAccents(boleto.getAddress1() + ", " +
 					boleto.getAddress2()).toUpperCase()); 			//	Endereço do Sacado
-			cnab.setlbr_CNABField42(TextUtil.stripAccents(boleto.getAddress3())
+			cnab.setlbr_CNABField42(Util.deleteAccents(boleto.getAddress3())
 					.toUpperCase()); 								//	Bairro
 			//
 			String CEP = MLBRCNAB.CNABFormat(boleto.getPostal(),8);
 			cnab.setlbr_CNABField43(CEP.substring(0, 5)); 			//	CEP
 			cnab.setlbr_CNABField44(CEP.substring(5, 8)); 			//	Complemento do CEP
 			//
-			cnab.setlbr_CNABField45(TextUtil.stripAccents(boleto.getCity())
+			cnab.setlbr_CNABField45(Util.deleteAccents(boleto.getCity())
 					.toUpperCase()); 								//	Cidade
 			cnab.setlbr_CNABField46(boleto.getRegionName()); 		//	Estado
 			cnab.setlbr_CNABField47(null); 							//	Nome do sacador

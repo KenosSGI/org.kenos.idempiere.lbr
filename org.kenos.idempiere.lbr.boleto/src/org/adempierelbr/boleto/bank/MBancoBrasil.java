@@ -33,6 +33,7 @@ import org.compiere.model.MOrg;
 import org.compiere.model.MOrgInfo;
 import org.compiere.model.MSequence;
 import org.compiere.util.Env;
+import org.compiere.util.Util;
 
 
 /**
@@ -141,7 +142,7 @@ public class MBancoBrasil implements I_Bank
 	        // Instrução Codificada 1 - Protestar
 	        if (boleto.islbr_HasSue() && boleto.getlbr_SueDays() > 0){
 	        	cnab.setlbr_CNABField34("06"); 											// Protesto Automático
-	        	cnab.setlbr_CNABField51(MLBRCNAB.CNABFormat(new Integer(boleto.getlbr_SueDays()).toString(),2)); //Dias para Protestar
+	        	cnab.setlbr_CNABField51(MLBRCNAB.CNABFormat(String.valueOf(boleto.getlbr_SueDays()),2)); //Dias para Protestar
 	        }
 	        else{
 	        	cnab.setlbr_CNABField34("00"); 											// Protesto Automático
@@ -175,18 +176,18 @@ public class MBancoBrasil implements I_Bank
 	        	cnab.setlbr_CNABField42(MLBRCNAB.CNABFormat(bpartner.get_ValueAsString("lbr_CNPJ"),14)); 	// CPF ou CPNJ
 	        }
 
-	        String nomeSacado = TextUtil.retiraEspecial(TextUtil.stripAccents(boleto.getlbr_ReceiverName()));
+	        String nomeSacado = TextUtil.retiraEspecial(Util.deleteAccents(boleto.getlbr_ReceiverName()));
 	        cnab.setlbr_CNABField43(nomeSacado.toUpperCase()); 											// NOME
 
 	        cnab.setlbr_CNABField44(null); 																// BRANCOS
 
-	        String enderecoSacado = TextUtil.retiraEspecial(TextUtil.stripAccents(boleto.getAddress()));
+	        String enderecoSacado = TextUtil.retiraEspecial(Util.deleteAccents(boleto.getAddress()));
 	        cnab.setlbr_CNABField45(enderecoSacado.toUpperCase()); 										// Logradouro
 
 	        cnab.setlbr_CNABField46(null); 																// BRANCOS
 	        cnab.setlbr_CNABField47(MLBRCNAB.CNABFormat(boleto.getPostal(),8)); 							// CEP
 
-	        String cidadeSacado = TextUtil.retiraEspecial(TextUtil.stripAccents(boleto.getCity()));
+	        String cidadeSacado = TextUtil.retiraEspecial(Util.deleteAccents(boleto.getCity()));
 	        cnab.setlbr_CNABField48(cidadeSacado.toUpperCase()); 										// Cidade Sacado
 
 	        cnab.setlbr_CNABField49(boleto.getRegionName()); 											// UF
@@ -275,7 +276,7 @@ public class MBancoBrasil implements I_Bank
         	// Instrução 1
 	        if (boleto.islbr_HasSue() && boleto.getlbr_SueDays() > 0){
 	        	cnab.setlbr_CNABField31("06"); 											// Protesto Automático
-	        	cnab.setlbr_CNABField48(MLBRCNAB.CNABFormat(new Integer(boleto.getlbr_SueDays()).toString(),2)); //Dias para Protestar
+	        	cnab.setlbr_CNABField48(MLBRCNAB.CNABFormat(String.valueOf(boleto.getlbr_SueDays()),2)); //Dias para Protestar
 	        }
 	        else{
 	        	cnab.setlbr_CNABField31("00"); 											// Protesto Automático (ZERO - Sem instruções )
@@ -311,18 +312,18 @@ public class MBancoBrasil implements I_Bank
 	        	cnab.setlbr_CNABField39(MLBRCNAB.CNABFormat(bpartner.get_ValueAsString("lbr_CNPJ"),14)); 	// Número do CNPJ ou CPF do Sacado
 	        }
 
-	        String nomeSacado = TextUtil.retiraEspecial(TextUtil.stripAccents(boleto.getlbr_ReceiverName()));
+	        String nomeSacado = TextUtil.retiraEspecial(Util.deleteAccents(boleto.getlbr_ReceiverName()));
 	        cnab.setlbr_CNABField40(nomeSacado.toUpperCase());											// Nome do Sacado
 
 	        cnab.setlbr_CNABField41(null); 																// BRANCOS
 
-	        String enderecoSacado = TextUtil.retiraEspecial(TextUtil.stripAccents(boleto.getAddress()));
+	        String enderecoSacado = TextUtil.retiraEspecial(Util.deleteAccents(boleto.getAddress()));
 	        cnab.setlbr_CNABField42(enderecoSacado.toUpperCase()); 										// Endereço do Sacado
 
 	        cnab.setlbr_CNABField43(null); 																// BRANCOS
 	        cnab.setlbr_CNABField44(MLBRCNAB.CNABFormat(boleto.getPostal(),8)); 							// CEP do Sacado
 
-	        String cidadeSacado = TextUtil.retiraEspecial(TextUtil.stripAccents(boleto.getCity()));
+	        String cidadeSacado = TextUtil.retiraEspecial(Util.deleteAccents(boleto.getCity()));
 	        cnab.setlbr_CNABField45(cidadeSacado.toUpperCase()); 										// Cidade do Sacado
 	        cnab.setlbr_CNABField46(boleto.getRegionName()); 											// UF do sacado
 	        cnab.setlbr_CNABField47(""); 																// Observações/Mensagem ou Sacador/Avalista
