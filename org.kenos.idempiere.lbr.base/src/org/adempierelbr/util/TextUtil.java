@@ -74,7 +74,7 @@ public abstract class TextUtil
 	public static final String PIPE = "|";
 
 	/**	Round 			*/
-	public static final String ZERO_STRING = Env.ZERO.setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString();
+	public static final String ZERO_STRING = Env.ZERO.setScale(2, RoundingMode.HALF_UP).toPlainString();
 
 	/** Alfabeto        */
 	public static final String[] ALFAB = {"A","B","C","D","E",
@@ -897,7 +897,7 @@ public abstract class TextUtil
 			return ZERO_STRING;
 		//
 		return value
-				.setScale (scale, BigDecimal.ROUND_HALF_UP)	//	Set scale
+				.setScale (scale, RoundingMode.HALF_UP)	//	Set scale
 				.stripTrailingZeros()						//	Remove trailing zeros
 				.toPlainString();							//	Convert to String
 	}	//	bigdecimalToString
@@ -913,7 +913,7 @@ public abstract class TextUtil
 		if (value == null)
 			return ZERO_STRING;
 		//
-		return value.setScale(scale, BigDecimal.ROUND_HALF_UP).toPlainString();
+		return value.setScale(scale, RoundingMode.HALF_UP).toPlainString();
 	}	//	bigdecimalToString
 
 	/**

@@ -14,6 +14,7 @@
 package org.adempierelbr.model;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.ResultSet;
 import java.util.Properties;
 
@@ -95,10 +96,10 @@ public class MLBRADILine extends X_LBR_ADILine
 			return Env.ZERO;
 		
 		//	Valor da DI dividido pelo total de itens
-		total = sDI.divide(countTotal, 17, BigDecimal.ROUND_HALF_UP);
+		total = sDI.divide(countTotal, 17, RoundingMode.HALF_UP);
 		
 		//	Valor da ADI dividido pelo total dos itens da ADI
-		total = total.add(sADI.divide(countADI, 17, BigDecimal.ROUND_HALF_UP));
+		total = total.add(sADI.divide(countADI, 17, RoundingMode.HALF_UP));
 		
 		return total;
 	}	//	getSISCOMEX

@@ -2,6 +2,7 @@ package org.adempierelbr.nfse;
 
 import java.io.File;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.List;
@@ -154,11 +155,11 @@ public class NFSeTubaraoImpl implements INFSe
 				item = item + nfl.getProductName() + separator;
 				
 				//	Valor Unitário 				
-				item = item + nfl.getPrice().setScale(2, BigDecimal.ROUND_HALF_UP) + separator;
-				PriceTotal = PriceTotal.add(nfl.getPrice().setScale(2, BigDecimal.ROUND_HALF_UP));
+				item = item + nfl.getPrice().setScale(2, RoundingMode.HALF_UP) + separator;
+				PriceTotal = PriceTotal.add(nfl.getPrice().setScale(2, RoundingMode.HALF_UP));
 				
 				//	Valor Total				
-				item = item + nfl.getLineTotalAmt().setScale(2, BigDecimal.ROUND_HALF_UP) + separator;
+				item = item + nfl.getLineTotalAmt().setScale(2, RoundingMode.HALF_UP) + separator;
 				
 				//	Indicador de Fim da Linha				
 				item = item + end;

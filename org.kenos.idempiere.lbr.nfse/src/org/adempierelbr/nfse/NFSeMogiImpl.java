@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.net.URL;
 import java.sql.Timestamp;
 import java.util.List;
@@ -150,7 +151,7 @@ public class NFSeMogiImpl implements INFSe
 				Fatura fatura = faturaDoc.addNewFatura();
 				fatura.setNumfatura(i);
 				fatura.setVencimentofatura(TextUtil.timeToString(parcela.getDueDate(), "dd/MM/yyyy"));
-				fatura.setValorfatura(parcela.getDueAmt().setScale(2, BigDecimal.ROUND_HALF_UP).toString().replace(".", ","));
+				fatura.setValorfatura(parcela.getDueAmt().setScale(2, RoundingMode.HALF_UP).toString().replace(".", ","));
 				i++;
 			}
 		}
@@ -166,7 +167,7 @@ public class NFSeMogiImpl implements INFSe
 			Fatura fatura = faturaDoc.addNewFatura();
 			fatura.setNumfatura(1);
 			fatura.setVencimentofatura(TextUtil.timeToString(date, "dd/MM/yyyy"));
-			fatura.setValorfatura(invoice.getGrandTotal().setScale(2, BigDecimal.ROUND_HALF_UP).toString().replace(".", ","));
+			fatura.setValorfatura(invoice.getGrandTotal().setScale(2, RoundingMode.HALF_UP).toString().replace(".", ","));
 		}
 			
 		
@@ -577,7 +578,7 @@ public class NFSeMogiImpl implements INFSe
 	{
 		if (value == null)
 			return Env.ZERO;
-		return value.setScale(2, BigDecimal.ROUND_HALF_UP).stripTrailingZeros();
+		return value.setScale(2, RoundingMode.HALF_UP).stripTrailingZeros();
 	}	//	toBD
 	
 	/**

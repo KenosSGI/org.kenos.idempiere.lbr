@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.net.URL;
 import java.util.List;
 import java.util.Properties;
@@ -265,7 +266,7 @@ public class NFSePalhocaImpl implements INFSe
 		if (grandTotal == null)
 			grandTotal = Env.ZERO;
 		
-		return grandTotal.setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString().replace(".", ",");
+		return grandTotal.setScale(2, RoundingMode.HALF_UP).toPlainString().replace(".", ",");
 	}	//	toReal
 
 	/**

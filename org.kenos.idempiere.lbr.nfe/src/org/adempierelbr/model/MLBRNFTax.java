@@ -13,6 +13,7 @@
 package org.adempierelbr.model;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.ResultSet;
 import java.util.Properties;
 
@@ -79,7 +80,7 @@ public class MLBRNFTax extends X_LBR_NFTax
 		if (lbr_TaxAmt == null)
 			lbr_TaxAmt = Env.ZERO;
 		//
-		super.setlbr_TaxAmt (lbr_TaxAmt.setScale(2, BigDecimal.ROUND_HALF_UP));
+		super.setlbr_TaxAmt (lbr_TaxAmt.setScale(2, RoundingMode.HALF_UP));
 	}	//	setlbr_TaxAmt
 	
 	/**
@@ -91,7 +92,7 @@ public class MLBRNFTax extends X_LBR_NFTax
 		if (lbr_TaxBaseAmt == null)
 			lbr_TaxBaseAmt = Env.ZERO;
 		//
-		super.setlbr_TaxBaseAmt (lbr_TaxBaseAmt.setScale(2, BigDecimal.ROUND_HALF_UP));
+		super.setlbr_TaxBaseAmt (lbr_TaxBaseAmt.setScale(2, RoundingMode.HALF_UP));
 	}	//	setlbr_TaxBaseAmt
 	
 	/**

@@ -1,6 +1,7 @@
 package org.adempierelbr.validator;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -461,8 +462,8 @@ public class VLBRTax implements ModelValidator
 				newOTax.setC_Order_ID(parentPO.get_ID());
 				newOTax.setC_Tax_ID(C_Tax_ID);
 				newOTax.setIsTaxIncluded(isTaxItaxncluded);
-				newOTax.setTaxBaseAmt(taxBaseAmt.setScale(2, BigDecimal.ROUND_HALF_UP));
-				newOTax.setTaxAmt(taxAmt.setScale(2, BigDecimal.ROUND_HALF_UP));
+				newOTax.setTaxBaseAmt(taxBaseAmt.setScale(2, RoundingMode.HALF_UP));
+				newOTax.setTaxAmt(taxAmt.setScale(2, RoundingMode.HALF_UP));
 				//
 				if (!newOTax.save(parentPO.get_TrxName()))
 					return false;
@@ -474,8 +475,8 @@ public class VLBRTax implements ModelValidator
 				newITax.setC_Invoice_ID(parentPO.get_ID());
 				newITax.setC_Tax_ID(C_Tax_ID);
 				newITax.setIsTaxIncluded(isTaxItaxncluded);
-				newITax.setTaxBaseAmt(taxBaseAmt.setScale(2, BigDecimal.ROUND_HALF_UP));
-				newITax.setTaxAmt(taxAmt.setScale(2, BigDecimal.ROUND_HALF_UP));
+				newITax.setTaxBaseAmt(taxBaseAmt.setScale(2, RoundingMode.HALF_UP));
+				newITax.setTaxAmt(taxAmt.setScale(2, RoundingMode.HALF_UP));
 				//
 				if (!newITax.save(parentPO.get_TrxName()))
 					return false;

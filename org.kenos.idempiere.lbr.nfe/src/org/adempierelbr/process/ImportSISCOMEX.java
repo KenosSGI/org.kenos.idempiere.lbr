@@ -2,6 +2,7 @@ package org.adempierelbr.process;
 
 import java.io.File;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -184,8 +185,8 @@ public class ImportSISCOMEX extends SvrProcess
 			{
 				counterDI++;
 				BigDecimal multiplier = toBD (adicao.getCondicaoVendaValorReais())
-								.divide(toBD (adicao.getCondicaoVendaValorMoeda()), 17, BigDecimal.ROUND_HALF_UP)
-								.divide(Env.ONEHUNDRED, 6, BigDecimal.ROUND_HALF_UP);
+								.divide(toBD (adicao.getCondicaoVendaValorMoeda()), 17, RoundingMode.HALF_UP)
+								.divide(Env.ONEHUNDRED, 6, RoundingMode.HALF_UP);
 				//
 				BigDecimal freightAdi = Env.ZERO;
 				BigDecimal insuranceAdi = Env.ZERO;
@@ -248,13 +249,13 @@ public class ImportSISCOMEX extends SvrProcess
 					
 					if (index == totalItems)
 					{
-						imp.setAmtInsurance (toBD (adicao.getSeguroValorReais()).subtract (insuranceAdi).setScale(2, BigDecimal.ROUND_HALF_UP));
-						imp.setAmtFreight(toBD (adicao.getFreteValorReais()).subtract (freightAdi).setScale(2, BigDecimal.ROUND_HALF_UP));
+						imp.setAmtInsurance (toBD (adicao.getSeguroValorReais()).subtract (insuranceAdi).setScale(2, RoundingMode.HALF_UP));
+						imp.setAmtFreight(toBD (adicao.getFreteValorReais()).subtract (freightAdi).setScale(2, RoundingMode.HALF_UP));
 					}
 					else
 					{
-						imp.setAmtInsurance(toBD (adicao.getSeguroValorReais()).divide(new BigDecimal(totalItems), 2, BigDecimal.ROUND_HALF_UP));
-						imp.setAmtFreight(toBD (adicao.getFreteValorReais()).divide(new BigDecimal(totalItems), 2, BigDecimal.ROUND_HALF_UP));
+						imp.setAmtInsurance(toBD (adicao.getSeguroValorReais()).divide(new BigDecimal(totalItems), 2, RoundingMode.HALF_UP));
+						imp.setAmtFreight(toBD (adicao.getFreteValorReais()).divide(new BigDecimal(totalItems), 2, RoundingMode.HALF_UP));
 						insuranceAdi = insuranceAdi.add(imp.getAmtInsurance());
 						freightAdi = freightAdi.add(imp.getAmtFreight());
 					}
@@ -263,7 +264,7 @@ public class ImportSISCOMEX extends SvrProcess
 					//		somente para INCOTERM que o frete/seguro constam no preço
 					if (!adicao.getCondicaoVendaIncoterm().startsWith("E") 
 							&& !adicao.getCondicaoVendaIncoterm().startsWith("F"))
-						imp.setPrice(imp.getPrice().subtract(imp.getAmtInsurance().add(imp.getAmtFreight()).divide(imp.getQty(), 17, BigDecimal.ROUND_HALF_UP)).setScale(7, BigDecimal.ROUND_HALF_UP));
+						imp.setPrice(imp.getPrice().subtract(imp.getAmtInsurance().add(imp.getAmtFreight()).divide(imp.getQty(), 17, RoundingMode.HALF_UP)).setScale(7, RoundingMode.HALF_UP));
 					
 					//	Ajusta o total da linha	
 					imp.setTotalLine(imp.getAmtInsurance().add(imp.getAmtFreight()).add(imp.getQty().multiply(imp.getPrice())));
@@ -280,7 +281,7 @@ public class ImportSISCOMEX extends SvrProcess
 		BigDecimal siscomex = getSISCOMEX (counterDI);
 		for (ImportFormat imp : list)
 		{
-			imp.setAmtSISCOMEX(siscomex.multiply(imp.getTotalLine()).divide(total, 2, BigDecimal.ROUND_HALF_UP));
+			imp.setAmtSISCOMEX(siscomex.multiply(imp.getTotalLine()).divide(total, 2, RoundingMode.HALF_UP));
 		}
 
 	}	//	XMLtoImportFormat
@@ -312,7 +313,7 @@ public class ImportSISCOMEX extends SvrProcess
 				result = result.add(new BigDecimal (214.5));
 		}
 		
-		return result.setScale(2, BigDecimal.ROUND_HALF_UP);
+		return result.setScale(2, RoundingMode.HALF_UP);
 	}
 	
 	/**

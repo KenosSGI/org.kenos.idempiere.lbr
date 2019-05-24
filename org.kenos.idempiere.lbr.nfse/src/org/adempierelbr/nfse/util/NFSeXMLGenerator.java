@@ -14,6 +14,7 @@
 package org.adempierelbr.nfse.util;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Calendar;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -222,7 +223,7 @@ public class NFSeXMLGenerator
 						&& p.get_ValueAsString("lbr_ServiceCode") != null)
 				{
 					serviceCode = p.get_ValueAsString("lbr_ServiceCode");	//	FIXME : Copiar para LBR_NotaFiscalLine
-					aliquota = toBD (nfLine.getTaxRate("ISS").divide(Env.ONEHUNDRED, 17, BigDecimal.ROUND_HALF_UP));
+					aliquota = toBD (nfLine.getTaxRate("ISS").divide(Env.ONEHUNDRED, 17, RoundingMode.HALF_UP));
 					break;
 				}
 			}
@@ -279,7 +280,7 @@ public class NFSeXMLGenerator
 	{
 		if (value == null)
 			return Env.ZERO;
-		return value.setScale(2, BigDecimal.ROUND_HALF_UP).stripTrailingZeros();
+		return value.setScale(2, RoundingMode.HALF_UP).stripTrailingZeros();
 	}
 	
 	private static Long toLong (String longStr)

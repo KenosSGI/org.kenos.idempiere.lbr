@@ -1,6 +1,7 @@
 package org.adempierelbr.validator;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -289,10 +290,10 @@ public class VLBROrder implements ModelValidator
 			//
 			if (oLineW.getQtyOrdered().signum() != 0)
 			{
-				iLineW.setFreightAmt(iLineW.getQtyInvoiced().multiply(oLineW.getFreightAmt()).divide(oLineW.getQtyOrdered(), 2, BigDecimal.ROUND_HALF_UP));
-				iLineW.setlbr_SISCOMEXAmt(iLineW.getQtyInvoiced().multiply(oLineW.getlbr_SISCOMEXAmt()).divide(oLineW.getQtyOrdered(), 2, BigDecimal.ROUND_HALF_UP));
-				iLineW.setlbr_InsuranceAmt(iLineW.getQtyInvoiced().multiply(oLineW.getlbr_InsuranceAmt()).divide(oLineW.getQtyOrdered(), 2, BigDecimal.ROUND_HALF_UP));
-				iLineW.setLBR_OtherChargesAmt(iLineW.getQtyInvoiced().multiply(oLineW.getLBR_OtherChargesAmt()).divide(oLineW.getQtyOrdered(), 2, BigDecimal.ROUND_HALF_UP));
+				iLineW.setFreightAmt(iLineW.getQtyInvoiced().multiply(oLineW.getFreightAmt()).divide(oLineW.getQtyOrdered(), 2, RoundingMode.HALF_UP));
+				iLineW.setlbr_SISCOMEXAmt(iLineW.getQtyInvoiced().multiply(oLineW.getlbr_SISCOMEXAmt()).divide(oLineW.getQtyOrdered(), 2, RoundingMode.HALF_UP));
+				iLineW.setlbr_InsuranceAmt(iLineW.getQtyInvoiced().multiply(oLineW.getlbr_InsuranceAmt()).divide(oLineW.getQtyOrdered(), 2, RoundingMode.HALF_UP));
+				iLineW.setLBR_OtherChargesAmt(iLineW.getQtyInvoiced().multiply(oLineW.getLBR_OtherChargesAmt()).divide(oLineW.getQtyOrdered(), 2, RoundingMode.HALF_UP));
 			}
 		}
 		return null;
@@ -618,7 +619,7 @@ public class VLBROrder implements ModelValidator
 			
 			//	Faz o rateiro do valor do frete
 			BigDecimal lineAmt 			= ol.getLineNetAmt();
-			BigDecimal lineFreightAmt 	= lineAmt.multiply(freightAmt).divide(totalLines, 2, BigDecimal.ROUND_HALF_UP);
+			BigDecimal lineFreightAmt 	= lineAmt.multiply(freightAmt).divide(totalLines, 2, RoundingMode.HALF_UP);
 			
 			//	Verifica se a linha atual é a última linha,
 			//		caso positivo, o valor residual é inserido nesta linha
@@ -718,7 +719,7 @@ public class VLBROrder implements ModelValidator
 			
 			//	Faz o rateiro do Outras Despesas por Linha
 			BigDecimal lineAmt 	     		= ol.getLineNetAmt();
-			BigDecimal lineOtherChargesAmt 	= lineAmt.multiply(otherChargesAmt).divide(totalLines, 2, BigDecimal.ROUND_HALF_UP);
+			BigDecimal lineOtherChargesAmt 	= lineAmt.multiply(otherChargesAmt).divide(totalLines, 2, RoundingMode.HALF_UP);
 			
 			//	Verifica se a linha atual é a última linha,
 			//		caso positivo, o valor residual é inserido nesta linha
@@ -806,7 +807,7 @@ public class VLBROrder implements ModelValidator
 			
 			//	Faz o rateiro do Seguro por Linha
 			BigDecimal lineAmt 	     		= ol.getLineNetAmt();
-			BigDecimal lineInsuranceAmt 	= lineAmt.multiply(insuranceAmt).divide(totalLines, 2, BigDecimal.ROUND_HALF_UP);
+			BigDecimal lineInsuranceAmt 	= lineAmt.multiply(insuranceAmt).divide(totalLines, 2, RoundingMode.HALF_UP);
 			
 			//	Verifica se a linha atual é a última linha,
 			//		caso positivo, o valor residual é inserido nesta linha

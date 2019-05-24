@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.Timestamp;
@@ -658,7 +659,7 @@ public class NFSeImpl implements INFSe
 	{
 		if (value == null)
 			return Env.ZERO;
-		return value.setScale(2, BigDecimal.ROUND_HALF_UP).stripTrailingZeros();
+		return value.setScale(2, RoundingMode.HALF_UP).stripTrailingZeros();
 	}	//	toBD
 	
 	private static Long toLong (String longStr)

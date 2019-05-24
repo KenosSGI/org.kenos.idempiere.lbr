@@ -17,6 +17,7 @@ import static org.adempierelbr.model.MLBRNFLineMA.MATCH_TRACKING;
 import static org.adempierelbr.model.MLBRNFLineMA.MATCH_VEHICLE;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -1028,7 +1029,7 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 		//	Incluí o ICMS do Diferencial da Alíquota na NF
 		BigDecimal amtDIFAL = Env.ZERO;
 		if (includeDIFAL)
-			amtDIFAL = getTaxAmt("ICMSDIFAL").add(getTaxAmt("ICMSDIFALORIG")).add(getTaxAmt("FCP")).divide(getQty(), BigDecimal.ROUND_HALF_UP, 2);
+			amtDIFAL = getTaxAmt("ICMSDIFAL").add(getTaxAmt("ICMSDIFALORIG")).add(getTaxAmt("FCP")).divide(getQty(), 2, RoundingMode.HALF_UP);
 		
 		//	Verifica o preço após a conversão para BRL
 		if (price == null || priceList == null)
@@ -1043,14 +1044,14 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 			if (freightAmt == null)
 				freightAmt = Env.ZERO;
 			else
-				freightAmt = freightAmt.divide(getQty(), 17, BigDecimal.ROUND_HALF_UP);
+				freightAmt = freightAmt.divide(getQty(), 17, RoundingMode.HALF_UP);
 			
 			//	Imposto de Importação
 			BigDecimal iiAmt = getTaxAmt("II");
 			if (iiAmt == null)
 				iiAmt = Env.ZERO;
 			else
-				iiAmt = iiAmt.divide(getQty(), 17, BigDecimal.ROUND_HALF_UP);
+				iiAmt = iiAmt.divide(getQty(), 17, RoundingMode.HALF_UP);
 			
 			//	Ajusta o preço unitário
 			price = iiAmt.add(freightAmt).add(price);
@@ -1315,7 +1316,7 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 		if (Price == null)
 			Price = Env.ZERO;
 		//
-		super.setPrice(Price.setScale(10, BigDecimal.ROUND_HALF_UP));
+		super.setPrice(Price.setScale(10, RoundingMode.HALF_UP));
 	}	//	setPrice
 	
 	/**
@@ -1327,7 +1328,7 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 		if (Qty == null)
 			Qty = Env.ZERO;
 		//
-		super.setQty(Qty.setScale(4, BigDecimal.ROUND_HALF_UP));
+		super.setQty(Qty.setScale(4, RoundingMode.HALF_UP));
 	}	//	setQty
 	
 	/**

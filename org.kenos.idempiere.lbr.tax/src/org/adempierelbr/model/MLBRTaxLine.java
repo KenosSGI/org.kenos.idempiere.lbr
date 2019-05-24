@@ -14,6 +14,7 @@
 package org.adempierelbr.model;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.ResultSet;
 import java.util.List;
 import java.util.Properties;
@@ -181,6 +182,6 @@ public class MLBRTaxLine extends X_LBR_TaxLine implements Comparable
 		if (getLBR_TaxName() == null)
 			return super.toString();
 		//
-		return "MLBRTaxLine[ID=" + getLBR_TaxLine_ID() + ", Name=" + ("" + getLBR_TaxName().getName()).trim() + ", Rate=" + getlbr_TaxRate().setScale(4, BigDecimal.ROUND_HALF_UP) + ", IsTaxIncluded=" + isTaxIncluded()  + "]";
+		return "MLBRTaxLine[ID=" + getLBR_TaxLine_ID() + ", Name=" + ("" + getLBR_TaxName().getName()).trim() + ", Rate=" + getlbr_TaxRate().setScale(4, RoundingMode.HALF_UP) + ", IsTaxIncluded=" + isTaxIncluded()  + "]";
 	}	//	toString
 }	//	MLBRTaxLine

@@ -14,6 +14,7 @@
 package org.adempierelbr.model;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -69,8 +70,8 @@ public class MLBRTax extends X_LBR_Tax
 	private static CLogger log = CLogger.getCLogger(MLBRTax.class);
 
 	/**	Numereals		*/
-	private static final BigDecimal ONE 		= Env.ONE.setScale(17, BigDecimal.ROUND_HALF_UP);
-	private static final BigDecimal ONEHUNDRED 	= Env.ONEHUNDRED.setScale(17, BigDecimal.ROUND_HALF_UP);
+	private static final BigDecimal ONE 		= Env.ONE.setScale(17, RoundingMode.HALF_UP);
+	private static final BigDecimal ONEHUNDRED 	= Env.ONEHUNDRED.setScale(17, RoundingMode.HALF_UP);
 	
 	/**	SISCOMEX		*/
 	public static final String SISCOMEX 		= "SISCOMEX";
@@ -194,7 +195,7 @@ public class MLBRTax extends X_LBR_Tax
 			 */
 			if (calculationType == TYPE_AMOUNT)
 			{
-				taxBase = params.get(AMT).setScale(17, BigDecimal.ROUND_HALF_UP);
+				taxBase = params.get(AMT).setScale(17, RoundingMode.HALF_UP);
 				taxAmt = getTaxAmt (taxBase, taxLine.getlbr_TaxRate(), false);
 			}
 			
@@ -206,7 +207,7 @@ public class MLBRTax extends X_LBR_Tax
 			{
 				taxLine.setQty(params.get(QTY));
 				//
-//				taxBase = params.get(AMT).setScale(17, BigDecimal.ROUND_HALF_UP);
+//				taxBase = params.get(AMT).setScale(17, RoundingMode.HALF_UP);
 				taxAmt = getTaxAmt (taxLine.getLBR_TaxListAmt(), params.get(QTY), true);
 			}
 			
@@ -235,15 +236,15 @@ public class MLBRTax extends X_LBR_Tax
 					
 					//	Valores adicionais para a BC
 					if (taxFormula.getLBR_FormulaAdd_ID() > 0)
-						taxBaseAdd = evalFormula (taxFormula.getLBR_FormulaAdd().getlbr_Formula(), params).setScale(17, BigDecimal.ROUND_HALF_UP);
+						taxBaseAdd = evalFormula (taxFormula.getLBR_FormulaAdd().getlbr_Formula(), params).setScale(17, RoundingMode.HALF_UP);
 					
 					//	Valor base para ínicio do cálculo
 					if (taxFormula.getLBR_FormulaBase_ID() > 0)
-						amountBase = evalFormula (taxFormula.getLBR_FormulaBase().getlbr_Formula(), params).setScale(17, BigDecimal.ROUND_HALF_UP);
+						amountBase = evalFormula (taxFormula.getLBR_FormulaBase().getlbr_Formula(), params).setScale(17, RoundingMode.HALF_UP);
 					
 					//	Caso não tenha sido parametrizado, utilizar apenas o valor do documento
 					else
-						amountBase = params.get(AMT).setScale(17, BigDecimal.ROUND_HALF_UP);
+						amountBase = params.get(AMT).setScale(17, RoundingMode.HALF_UP);
 					
 					//	Marca se o imposto está incluso no preço
 					taxLine.setIsTaxIncluded(taxFormula.isTaxIncluded());
@@ -259,7 +260,7 @@ public class MLBRTax extends X_LBR_Tax
 				 *  		1 - (Red. BC / 100)			*
 				 ***************************************/
 				taxBase = taxBaseAdd.add(factor.multiply(amountBase))
-						.multiply(ONE.subtract(taxLine.getlbr_TaxBase().setScale(17, BigDecimal.ROUND_HALF_UP).divide(ONEHUNDRED, 17, BigDecimal.ROUND_HALF_UP))).setScale(2, BigDecimal.ROUND_HALF_UP);
+						.multiply(ONE.subtract(taxLine.getlbr_TaxBase().setScale(17, RoundingMode.HALF_UP).divide(ONEHUNDRED, 17, RoundingMode.HALF_UP))).setScale(2, RoundingMode.HALF_UP);
 				
 				//	Alíquota de Imposto
 				BigDecimal taxRate = taxLine.getlbr_TaxRate();
@@ -285,7 +286,7 @@ public class MLBRTax extends X_LBR_Tax
 			if (taxFormula != null 
 					&& taxFormula.get_ColumnIndex(MLBRTaxFormula.COLUMNNAME_Percentage) > 0		//	Compatibility Legacy 
 					&& Env.ONEHUNDRED.compareTo (taxFormula.getPercentage()) != 0)
-				taxAmt = taxAmt.multiply (taxFormula.getPercentage().divide (Env.ONEHUNDRED, 17, BigDecimal.ROUND_HALF_UP)).setScale(2, BigDecimal.ROUND_HALF_UP);
+				taxAmt = taxAmt.multiply (taxFormula.getPercentage().divide (Env.ONEHUNDRED, 17, RoundingMode.HALF_UP)).setScale(2, RoundingMode.HALF_UP);
 			
 			//	Inverte o valor dos impostos para os casos de retenção
 			if (MLBRTaxName.LBR_TAXTYPE_Service.equals(taxName.getlbr_TaxType())
@@ -344,13 +345,13 @@ public class MLBRTax extends X_LBR_Tax
 
 		//	Quantity Based
 		if (isQty)
-			result = taxBase.multiply(taxRateOrQty.setScale(17, BigDecimal.ROUND_HALF_UP));
+			result = taxBase.multiply(taxRateOrQty.setScale(17, RoundingMode.HALF_UP));
 		
 		//	Tax Rate
 		else
-			result = taxBase.multiply(taxRateOrQty.setScale(17, BigDecimal.ROUND_HALF_UP)).divide(ONEHUNDRED, 17, BigDecimal.ROUND_HALF_UP);
+			result = taxBase.multiply(taxRateOrQty.setScale(17, RoundingMode.HALF_UP)).divide(ONEHUNDRED, 17, RoundingMode.HALF_UP);
 		
-		return result.setScale(2, BigDecimal.ROUND_HALF_UP);
+		return result.setScale(2, RoundingMode.HALF_UP);
 	}	//	getTaxAmt
 
 	/**
@@ -404,8 +405,8 @@ public class MLBRTax extends X_LBR_Tax
 			//	Ajusta as alíquotas
 			for (MLBRTaxLine tLine : getLines())
 			{
-				Double amt = tLine.getlbr_TaxRate().setScale(17, BigDecimal.ROUND_HALF_UP)
-						.divide(Env.ONEHUNDRED, BigDecimal.ROUND_HALF_UP).doubleValue();
+				Double amt = tLine.getlbr_TaxRate().setScale(17, RoundingMode.HALF_UP)
+						.divide(Env.ONEHUNDRED, RoundingMode.HALF_UP).doubleValue();
 				//
 				log.finer ("Set Tax Rate, TaxName=" + tLine.getLBR_TaxName().getName().trim() + "=" + amt);
 				bsh.set(tLine.getLBR_TaxName().getName().trim(), amt);

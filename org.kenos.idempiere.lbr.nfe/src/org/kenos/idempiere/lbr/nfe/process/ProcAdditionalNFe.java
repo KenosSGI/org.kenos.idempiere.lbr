@@ -1,6 +1,7 @@
 package org.kenos.idempiere.lbr.nfe.process;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 import java.util.logging.Level;
 
@@ -350,7 +351,7 @@ public class ProcAdditionalNFe extends SvrProcess
 					BigDecimal taxBaseAmt = nfLine.getQty().multiply(nfLine.getPrice());
 					BigDecimal rate = nflTax.getlbr_TaxRate();
 					
-					taxAmt = taxBaseAmt.multiply(rate.setScale(17, BigDecimal.ROUND_HALF_UP)).divide(new BigDecimal(100), 17, BigDecimal.ROUND_HALF_UP);
+					taxAmt = taxBaseAmt.multiply(rate.setScale(17, RoundingMode.HALF_UP)).divide(new BigDecimal(100), 17, RoundingMode.HALF_UP);
 					
 					nflTax.setlbr_TaxAmt(taxAmt);
 					nflTax.setlbr_TaxBaseAmt(taxBaseAmt);

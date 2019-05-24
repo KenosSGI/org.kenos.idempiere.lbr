@@ -1,6 +1,7 @@
 package org.kenos.idempiere.lbr.tax.model;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.ResultSet;
 import java.util.Properties;
 
@@ -203,6 +204,6 @@ public class MCommissionAmt extends org.compiere.model.MCommissionAmt
 		result = new BigDecimal ((Double)bsh.eval(formula.getlbr_Formula()));
 		
 		// Return de Result	
-		return result.setScale(2, BigDecimal.ROUND_HALF_UP);		
+		return result.setScale(2, RoundingMode.HALF_UP);		
 	}	//	calculateFormula
 }	//	MCommissionAmt

@@ -17,6 +17,7 @@
 package org.kenos.idempiere.lbr.base.process;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
@@ -455,7 +456,7 @@ public class InOutGenerate extends SvrProcess
 			if (orderLine.getQtyEntered().compareTo(orderLine.getQtyOrdered()) != 0)
 				line.setQtyEntered(qty
 					.multiply(orderLine.getQtyEntered())
-					.divide(orderLine.getQtyOrdered(), 12, BigDecimal.ROUND_HALF_UP));
+					.divide(orderLine.getQtyOrdered(), 12, RoundingMode.HALF_UP));
 			line.setLine(m_line + orderLine.getLine());
 			if (!line.save())
 				throw new IllegalStateException("Could not create Shipment Line");
@@ -530,7 +531,7 @@ public class InOutGenerate extends SvrProcess
 				line.setQty(line.getMovementQty().add(deliver));
 			if (orderLine.getQtyEntered().compareTo(orderLine.getQtyOrdered()) != 0)
 				line.setQtyEntered(line.getMovementQty().multiply(orderLine.getQtyEntered())
-					.divide(orderLine.getQtyOrdered(), 12, BigDecimal.ROUND_HALF_UP));
+					.divide(orderLine.getQtyOrdered(), 12, RoundingMode.HALF_UP));
 			line.setLine(m_line + orderLine.getLine());
 			if (fillASI)
 				line.setM_AttributeSetInstance_ID(storage.getM_AttributeSetInstance_ID());
@@ -558,7 +559,7 @@ public class InOutGenerate extends SvrProcess
 				 line.setQty(toDeliver);
 				 if (orderLine.getQtyEntered().compareTo(orderLine.getQtyOrdered()) != 0)
 					 line.setQtyEntered(line.getMovementQty().multiply(orderLine.getQtyEntered())
-						 .divide(orderLine.getQtyOrdered(), 12, BigDecimal.ROUND_HALF_UP));
+						 .divide(orderLine.getQtyOrdered(), 12, RoundingMode.HALF_UP));
 				 line.setLine(m_line + orderLine.getLine());
 			     if (!line.save())
 					 throw new IllegalStateException("Could not create Shipment Line");

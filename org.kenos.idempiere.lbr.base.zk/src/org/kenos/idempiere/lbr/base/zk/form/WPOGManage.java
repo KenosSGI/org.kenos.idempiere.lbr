@@ -482,7 +482,7 @@ public class WPOGManage extends ADForm implements IFormController, WTableModelLi
 							//	Make the distribution
 							else
 							{
-								qty = total.multiply (pl.getPlannedQty ()).divide (planned, pl.getM_Product().getC_UOM().getStdPrecision(), BigDecimal.ROUND_HALF_UP);
+								qty = total.multiply (pl.getPlannedQty ()).divide (planned, pl.getM_Product().getC_UOM().getStdPrecision(), RoundingMode.HALF_UP);
 								remaining = remaining.subtract (qty);
 								
 								//	Increase the counter
@@ -600,7 +600,7 @@ public class WPOGManage extends ADForm implements IFormController, WTableModelLi
 									BigDecimal productionQty = production.getProductionQty();
 									
 									if (totalProductionQty.compareTo(BigDecimal.ZERO) > 0)
-										totalqty = productionQty.multiply(movementQty).divide(totalProductionQty,2, BigDecimal.ROUND_HALF_UP).setScale(2, BigDecimal.ROUND_HALF_UP);
+										totalqty = productionQty.multiply(movementQty).divide(totalProductionQty,2, RoundingMode.HALF_UP).setScale(2, RoundingMode.HALF_UP);
 								}
 							}
 							
@@ -795,7 +795,7 @@ public class WPOGManage extends ADForm implements IFormController, WTableModelLi
 			//
 			for (MProductionLine line : lines)
 			{
-				BigDecimal unitQty = line.getPlannedQty().divide(psplit.oldQty, 16, BigDecimal.ROUND_HALF_UP);
+				BigDecimal unitQty = line.getPlannedQty().divide(psplit.oldQty, 16, RoundingMode.HALF_UP);
 				MProductionLine line_new = new MProductionLine (prod_new);
 				//	***	Nova Linha
 				line_new.setM_Locator_ID(line.getM_Locator_ID());

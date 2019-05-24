@@ -17,6 +17,7 @@
 package org.adempierelbr.process;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.logging.Level;
@@ -182,9 +183,9 @@ public class ProcAvgCostCreate extends SvrProcess
 				}
 				if (line.getLBR_LandedCostQty() != null && line.getLBR_LandedCostQty().signum() == 1)
 				{
-					landed = line.getLBR_LandedCostAmt().divide(line.getLBR_LandedCostQty(), 12, BigDecimal.ROUND_HALF_UP);
+					landed = line.getLBR_LandedCostAmt().divide(line.getLBR_LandedCostQty(), 12, RoundingMode.HALF_UP);
 				}
-				line.setFutureCostPrice(total.divide(sumQty, 12, BigDecimal.ROUND_HALF_UP).add(landed));
+				line.setFutureCostPrice(total.divide(sumQty, 12, RoundingMode.HALF_UP).add(landed));
 				line.save();
 			}
 			

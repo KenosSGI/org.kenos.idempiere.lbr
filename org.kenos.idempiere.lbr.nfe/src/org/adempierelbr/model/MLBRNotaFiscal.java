@@ -399,7 +399,7 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 				currentCost = currentCost.add(cost.getCurrentCostPrice().multiply(line.getQty()));
 		}
 
-		return currentCost.setScale(2, BigDecimal.ROUND_HALF_UP);
+		return currentCost.setScale(2, RoundingMode.HALF_UP);
 	} //getCost
 
 	/**
@@ -1108,9 +1108,9 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 					}
 					
 					if (line.getQty().compareTo(Env.ONE) == 1)
-						serviceDescription += ", Valor Unitário R$ " + line.getPrice().setScale(2, BigDecimal.ROUND_HALF_UP).toString().replace('.', ',');
+						serviceDescription += ", Valor Unitário R$ " + line.getPrice().setScale(2, RoundingMode.HALF_UP).toString().replace('.', ',');
 					
-					serviceDescription += ", Valor Total R$ " + line.getLineTotalAmt().setScale(2, BigDecimal.ROUND_HALF_UP).toString().replace('.', ',') + ".";
+					serviceDescription += ", Valor Total R$ " + line.getLineTotalAmt().setScale(2, RoundingMode.HALF_UP).toString().replace('.', ',') + ".";
 					//
 					serviceDescription += "\n";
 				}
@@ -1128,7 +1128,7 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 				{
 					header += "\n" + TextUtil.rPad("Valor Bruto:", 15);
 					header += "- R$ ";
-					header += TextUtil.lPad(getlbr_ServiceTotalAmt().setScale(2, BigDecimal.ROUND_HALF_UP).toString().replace('.', ','), ' ', 13);
+					header += TextUtil.lPad(getlbr_ServiceTotalAmt().setScale(2, RoundingMode.HALF_UP).toString().replace('.', ','), ' ', 13);
 					header += "\n\n";
 					//
 					if (taxes.length == 1)
@@ -1146,12 +1146,12 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 						//
 						content += TextUtil.rPad(tg.getName(), 15);
 						content += "- R$ ";
-						content += TextUtil.lPad(tax.getlbr_TaxAmt().abs().setScale(2, BigDecimal.ROUND_HALF_UP).toString().replace('.', ','), ' ', 13);
+						content += TextUtil.lPad(tax.getlbr_TaxAmt().abs().setScale(2, RoundingMode.HALF_UP).toString().replace('.', ','), ' ', 13);
 						content += "\n";
 					}
 					footer += "\n" + TextUtil.rPad("Valor Líquido:", 15);
 					footer += "- R$ ";
-					footer += TextUtil.lPad(getGrandTotal().setScale(2, BigDecimal.ROUND_HALF_UP).toString().replace('.', ','), ' ', 13);
+					footer += TextUtil.lPad(getGrandTotal().setScale(2, RoundingMode.HALF_UP).toString().replace('.', ','), ' ', 13);
 					footer += "\n";
 				}
 			
@@ -1172,7 +1172,7 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 					{
 						serviceDescription += TextUtil.timeToString(oi.getDueDate(), "dd/MM/yyyy");
 						serviceDescription += "     - R$ ";
-						serviceDescription += TextUtil.lPad(oi.getGrandTotal().setScale(2, BigDecimal.ROUND_HALF_UP).toString().replace('.', ','), ' ', 13);
+						serviceDescription += TextUtil.lPad(oi.getGrandTotal().setScale(2, RoundingMode.HALF_UP).toString().replace('.', ','), ' ', 13);
 						serviceDescription += "\n";
 					}
 				}
@@ -2238,9 +2238,9 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 					taxRateCity = Env.ZERO;
 				
 				//	Impostos
-				amtFed = line.getLineTotalAmt().multiply (taxRate.divide(Env.ONEHUNDRED, 17, BigDecimal.ROUND_HALF_UP));
-				amtReg = line.getLineTotalAmt().multiply (taxRateReg.divide(Env.ONEHUNDRED, 17, BigDecimal.ROUND_HALF_UP));
-				amtCity = line.getLineTotalAmt().multiply (taxRateCity.divide(Env.ONEHUNDRED, 17, BigDecimal.ROUND_HALF_UP));
+				amtFed = line.getLineTotalAmt().multiply (taxRate.divide(Env.ONEHUNDRED, 17, RoundingMode.HALF_UP));
+				amtReg = line.getLineTotalAmt().multiply (taxRateReg.divide(Env.ONEHUNDRED, 17, RoundingMode.HALF_UP));
+				amtCity = line.getLineTotalAmt().multiply (taxRateCity.divide(Env.ONEHUNDRED, 17, RoundingMode.HALF_UP));
 	
 				// total do imposto
 				taxAmtFed 	= taxAmtFed.add (amtFed);
@@ -2267,8 +2267,8 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		if (taxAmtFed.signum() == 1 || taxAmtReg.signum() == 1)
 		{
 			// aliquota geral = valor do imposto dividido pelo valor total da NF - fonte: Manual IBPT
-			BigDecimal taxRateFedTotal = taxAmtFed.divide(getGrandTotal(), 17, BigDecimal.ROUND_HALF_UP);
-			BigDecimal taxRateRegTotal = taxAmtReg.divide(getGrandTotal(), 17, BigDecimal.ROUND_HALF_UP);
+			BigDecimal taxRateFedTotal = taxAmtFed.divide(getGrandTotal(), 17, RoundingMode.HALF_UP);
+			BigDecimal taxRateRegTotal = taxAmtReg.divide(getGrandTotal(), 17, RoundingMode.HALF_UP);
 			
 			//	Check inconsistences
 			if (sources.size() == 0)
@@ -2357,7 +2357,7 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 			else
 				billNote += " R$ ";
 			//
-			billNote += oi.getGrandTotal().setScale(2, BigDecimal.ROUND_HALF_UP).toString().replace('.', ',');
+			billNote += oi.getGrandTotal().setScale(2, RoundingMode.HALF_UP).toString().replace('.', ',');
 			
 			billNote += " | ";
 		}
@@ -3097,7 +3097,7 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 			GrandTotal = Env.ZERO;
 		
 		//	Manual de Integração 4.01 - página 152
-		super.setGrandTotal(GrandTotal.setScale(2, BigDecimal.ROUND_HALF_UP));
+		super.setGrandTotal(GrandTotal.setScale(2, RoundingMode.HALF_UP));
 	}	//	setGrandTotal
 	
 	/**
@@ -3110,7 +3110,7 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 			TotalLines = Env.ZERO;
 		
 		//	Manual de Integração 4.01 - página 152
-		super.setTotalLines(TotalLines.setScale(2, BigDecimal.ROUND_HALF_UP));
+		super.setTotalLines(TotalLines.setScale(2, RoundingMode.HALF_UP));
 	}	//	setTotalLines
 	
 	/**
