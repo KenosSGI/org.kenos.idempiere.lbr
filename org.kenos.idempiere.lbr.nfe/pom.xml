@@ -2,9 +2,9 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.idempiere</groupId>
-	<artifactId>org.idempiere.parent</artifactId>
+	<artifactId>org.kenos.idempiere.lbr</artifactId>
 	<version>6.2.0-SNAPSHOT</version>
-	<relativePath>../../iDempiere6.2/org.idempiere.parent/pom.xml</relativePath>
+	<relativePath>../pom.xml</relativePath>
   </parent>
   <artifactId>org.kenos.idempiere.lbr.nfe</artifactId>
   <packaging>eclipse-plugin</packaging>
@@ -132,62 +132,62 @@
                 <artifactItem>
                   <groupId>org.apache.ws.commons.axiom</groupId>
                   <artifactId>axiom-api</artifactId>
-                  <version>1.2.13</version>
+                  <version>${axiom.version}</version>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.ws.commons.axiom</groupId>
                   <artifactId>axiom-impl</artifactId>
-                  <version>1.2.13</version>
+                  <version>${axiom.version}</version>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.axis2</groupId>
                   <artifactId>axis2-adb</artifactId>
-                  <version>1.6.2</version>
+                  <version>${axis2.version}</version>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.axis2</groupId>
                   <artifactId>axis2-kernel</artifactId>
-                  <version>1.6.2</version>
+                  <version>${axis2.version}</version>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.axis2</groupId>
                   <artifactId>axis2-transport-http</artifactId>
-                  <version>1.6.2</version>
+                  <version>${axis2.version}</version>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.axis2</groupId>
                   <artifactId>axis2-transport-local</artifactId>
-                  <version>1.6.2</version>
+                  <version>${axis2.version}</version>
                 </artifactItem>
                 <artifactItem>
                   <groupId>commons-codec</groupId>
                   <artifactId>commons-codec</artifactId>
-                  <version>1.3</version>
+                  <version>${commons.codec.version}</version>
                 </artifactItem>
                 <artifactItem>
                   <groupId>commons-httpclient</groupId>
                   <artifactId>commons-httpclient</artifactId>
-                  <version>3.1</version>
+                  <version>${commons.httpclient.version}</version>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.httpcomponents</groupId>
                   <artifactId>httpcore</artifactId>
-                  <version>4.0</version>
+                  <version>${httpcomponents.version}</version>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.neethi</groupId>
                   <artifactId>neethi</artifactId>
-                  <version>3.0.2</version>
+                  <version>${neethi.version}</version>
                 </artifactItem>
                 <artifactItem>
                   <groupId>wsdl4j</groupId>
                   <artifactId>wsdl4j</artifactId>
-                  <version>1.6.2</version>
+                  <version>${wsdl4j.version}</version>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.ws.commons.schema</groupId>
                   <artifactId>XmlSchema</artifactId>
-                  <version>1.4.7</version>
+                  <version>${XmlSchema.version}</version>
                 </artifactItem>
                 <artifactItem>
                   <groupId>local.sunpkcs11</groupId>
