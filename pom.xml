@@ -24,6 +24,7 @@ mvn verify -Didempiere.target=org.idempierelbr.p2.targetplatform
 		<XmlSchema.version>1.4.7</XmlSchema.version>
 	</properties>
 	<version>6.2.0-SNAPSHOT</version>
+	<groupId>org.kenos.idempiere</groupId>
 	<artifactId>org.kenos.idempiere.lbr</artifactId>
 	<packaging>pom</packaging>
 	<modules>
