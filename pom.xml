@@ -11,7 +11,6 @@ mvn verify -Didempiere.target=org.idempierelbr.p2.targetplatform
 		<relativePath>../iDempiere6.2/org.idempiere.parent/pom.xml</relativePath>
 	</parent>
 	<properties>
-		<idempiere.path>1.0-2</idempiere.path>
 		<dom4j.version>1.5</dom4j.version>
 		<stax.version>1.0-2</stax.version>
 		<axiom.version>1.2.13</axiom.version>
