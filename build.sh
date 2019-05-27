@@ -7,12 +7,20 @@ configure () {
 
 	# Ask for iDempiere folder
 	while true; do
-	read -e -p "Select the location of iDempiere project [$PWD/../iDempiere6.2]: " IDEMPIERE_FOLDER
+	read -e -p "Select the absolute location of iDempiere project [$PWD/../iDempiere6.2]: " IDEMPIERE_FOLDER
 	case $IDEMPIERE_FOLDER in
 		"" ) if [ ! -f "$PWD/../iDempiere6.2/org.idempiere.parent/pom.xml" ]; then echo "Error:	File pom.xml not found => $IDEMPIERE_FOLDER/org.idempiere.parent/pom.xml"; else IDEMPIERE_FOLDER="$PWD/../iDempiere6.2"; break; fi;;
 		* ) if [ ! -f "$IDEMPIERE_FOLDER/org.idempiere.parent/pom.xml" ]; then echo "Error:	File pom.xml not found => $IDEMPIERE_FOLDER/org.idempiere.parent/pom.xml"; else break; fi;;
 	esac
 	done
+	
+	if [[ ! $IDEMPIERE_FOLDER == \/* ]]
+	then
+		echo
+		echo "ERROR: Path must be absolute from root /, do not use ~, ./, or ../"
+		echo
+		exit 1
+	fi
 	
 	# Create backups
 	if [ ! -f "$TARGET_FILE.orig" ]
