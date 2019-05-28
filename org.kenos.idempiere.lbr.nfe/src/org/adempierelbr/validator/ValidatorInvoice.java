@@ -494,8 +494,21 @@ public class ValidatorInvoice implements ModelValidator
 					nf.setDocAction(MLBRNotaFiscal.DOCACTION_Complete);
 					nf.saveEx();
 					
+					//	Verificar se o campo Completar NF Automaticamente está marcado no Tipo de Documento da Fatura
+					//	Se marcado, Todas as Notas geradas através  da fatura serão completadas automaticamente
+					Boolean generateNFAut = wDocType.islbr_IsAutomaticNF();					
+					
+					if (!generateNFAut)
+					{
+						//	Se não estiver definido no Tipo de Documento da fatura, 
+						//	verificar se o campo está marcado no Tipo de Documento da Nota Fiscal
+						//	Se estiver, apenas as NFs da Organização do Tipo de Documento serão completadas automaticamente.
+						I_W_C_DocType wDocTypeNF = POWrapper.create (new MDocType(ctx, nf.getC_DocTypeTarget_ID(), trxName), I_W_C_DocType.class);
+						generateNFAut = wDocTypeNF.islbr_IsAutomaticNF();
+					}
+					
 					//	Completa a NFe automaticamente
-					if (wDocType.islbr_IsAutomaticNF())
+					if (generateNFAut)
 					{
 						String status = nf.completeIt();
 						nf.saveEx();
