@@ -429,7 +429,7 @@ public class WPOGManage extends ADForm implements IFormController, WTableModelLi
 							Vector<Object> vec = new Vector<Object>();
 							vec.add((BigDecimal) miniTableComp.getValueAt(i, 4));	//	0-New Quantity to distribute
 							vec.add((BigDecimal) miniTableComp.getValueAt(i, 3));	//	1-Qty planned of BOM
-							vec.add(new Integer (0));								//	2-Number of Production Lines for this product
+							vec.add(Integer.valueOf (0));								//	2-Number of Production Lines for this product
 							//
 							products.put (knp.getKey(), vec);
 						}

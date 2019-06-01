@@ -311,7 +311,7 @@ public class WPOGInvoiceGen extends POGInvoiceGen implements IFormController, WT
 						Vector<Object> vec = new Vector<Object>();
 						vec.add((BigDecimal) miniTableComp.getValueAt(i, 4));	//	0-New Quantity to distribute
 						vec.add((BigDecimal) miniTableComp.getValueAt(i, 3));	//	1-Qty planned of BOM
-						vec.add(new Integer (0));								//	2-Number of Production Lines for this product
+						vec.add(Integer.valueOf (0));								//	2-Number of Production Lines for this product
 						//
 						products.put (knp.getKey(), vec);
 					}
@@ -329,7 +329,7 @@ public class WPOGInvoiceGen extends POGInvoiceGen implements IFormController, WT
 							Integer count = (Integer) vec.remove(2);
 							
 							//	Increase the Production Line count
-							vec.add (new Integer (count.intValue()+1));
+							vec.add (Integer.valueOf (count.intValue()+1));
 						}
 					}
 				
@@ -360,7 +360,7 @@ public class WPOGInvoiceGen extends POGInvoiceGen implements IFormController, WT
 	    			selectAllProd = (selectAllProd ? false : true);
 	    			for (int i = 0; i < miniTableProd.getItemCount(); i++)
 	    			{
-	    				miniTableProd.setValueAt(new Boolean (selectAllProd), i, 0);
+	    				miniTableProd.setValueAt(Boolean.valueOf (selectAllProd), i, 0);
 	    			}
 	    		}
 	    		else if (comp == bSelectAllComp)
@@ -368,7 +368,7 @@ public class WPOGInvoiceGen extends POGInvoiceGen implements IFormController, WT
 	    			selectAllComp = (selectAllComp ? false : true);
 	    			for (int i = 0; i < miniTableComp.getItemCount(); i++)
 	    			{
-	    				miniTableComp.setValueAt(new Boolean (selectAllComp), i, 0);
+	    				miniTableComp.setValueAt(Boolean.valueOf (selectAllComp), i, 0);
 	    			}
 	    		}
 	        }

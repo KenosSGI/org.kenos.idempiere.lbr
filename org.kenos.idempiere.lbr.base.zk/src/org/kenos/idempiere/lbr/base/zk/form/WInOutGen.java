@@ -18,8 +18,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 
+import org.adempiere.webui.ClientInfo;
+import org.adempiere.webui.LayoutUtils;
 import org.adempiere.webui.apps.form.WGenForm;
 import org.adempiere.webui.component.Checkbox;
+import org.adempiere.webui.component.Column;
+import org.adempiere.webui.component.Columns;
 import org.adempiere.webui.component.Datebox;
 import org.adempiere.webui.component.Label;
 import org.adempiere.webui.component.Listbox;
@@ -44,10 +48,12 @@ import org.compiere.util.Env;
 import org.compiere.util.KeyNamePair;
 import org.compiere.util.Msg;
 import org.kenos.idempiere.lbr.base.form.InOutGen;
+import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.WrongValueException;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.event.Events;
+import org.zkoss.zul.North;
 import org.zkoss.zul.Space;
 
 /**
@@ -69,6 +75,8 @@ public class WInOutGen extends InOutGen implements IFormController, EventListene
 	private Listbox  cmbDocType = ListboxFactory.newDropdownListbox();
 	private Label   lDocAction = new Label();
 	private WTableDirEditor docAction;
+
+	private int noOfColumn;
 
 	private Label lDatePromised = new Label();
 	private Datebox fDatePromised = new Datebox();
@@ -96,6 +104,8 @@ public class WInOutGen extends InOutGen implements IFormController, EventListene
 		{
 			log.log(Level.SEVERE, "init", ex);
 		}
+		
+		ClientInfo.onClientInfo(form, this::onClientInfo);
 	}	//	init
 
 	/**
@@ -111,6 +121,8 @@ public class WInOutGen extends InOutGen implements IFormController, EventListene
 	 */
 	void zkInit() throws Exception
 	{
+		setupColumns();
+		
 		lBPartner.setText(Msg.translate(Env.getCtx(), "C_BPartner_ID"));
 		lDatePromised.setText(Msg.translate(Env.getCtx(), "DatePromised"));
 		lDateShipped.setText(Msg.translate(Env.getCtx(), "MovementDate"));		
@@ -149,7 +161,34 @@ public class WInOutGen extends InOutGen implements IFormController, EventListene
 		row.appendCellChild(cbConsolidateDoc, 2);
 		row.appendCellChild(cbUnconfirmedInOut, 2);
 		row.appendCellChild(new Space());
+		
+		if (noOfColumn < 6)
+			LayoutUtils.compactTo(form.getParameterPanel(), noOfColumn);
+		else
+			LayoutUtils.expandTo(form.getParameterPanel(), noOfColumn, true);
 	}	//	jbInit
+
+	protected void setupColumns() {
+		noOfColumn = 6;
+		if (ClientInfo.maxWidth(ClientInfo.MEDIUM_WIDTH-1))
+		{
+			if (ClientInfo.maxWidth(ClientInfo.SMALL_WIDTH-1))
+				noOfColumn = 2;
+			else
+				noOfColumn = 4;
+		}
+		if (noOfColumn == 2)
+		{
+			Columns columns = new Columns();
+			Column column = new Column();
+			column.setWidth("35%");
+			columns.appendChild(column);
+			column = new Column();
+			column.setWidth("65%");
+			columns.appendChild(column);
+			form.getParameterPanel().appendChild(columns);
+		}
+	}
 
 	/**
 	 *	Fill Picks.
@@ -200,9 +239,43 @@ public class WInOutGen extends InOutGen implements IFormController, EventListene
 	{
 		KeyNamePair docTypeKNPair = cmbDocType.getSelectedItem().toKeyNamePair();
 		executeQuery(docTypeKNPair, form.getMiniTable());
+		if (ClientInfo.maxHeight(ClientInfo.SMALL_HEIGHT-1))
+		{
+			Component comp = form.getParameterPanel().getParent();
+			if (comp instanceof North)
+				((North)comp).setOpen(false);
+		}
 		form.getMiniTable().repaint();
 		form.invalidate();
 	}   //  executeQuery
+
+	protected void onClientInfo()
+	{
+		if (ClientInfo.isMobile() && form.getPage() != null) 
+		{
+			if (noOfColumn > 0 && form.getParameterPanel().getRows() != null)
+			{
+				int t = 6;
+				if (ClientInfo.maxWidth(ClientInfo.MEDIUM_WIDTH-1))
+				{
+					if (ClientInfo.maxWidth(ClientInfo.SMALL_WIDTH-1))
+						t = 2;
+					else
+						t = 4;
+				}
+				if (t != noOfColumn)
+				{
+					form.getParameterPanel().getRows().detach();
+					if (form.getParameterPanel().getColumns() != null)
+						form.getParameterPanel().getColumns().detach();
+					try {
+						zkInit();
+						form.invalidate();
+					} catch (Exception e1) {}
+				}
+			}
+		}
+	}
 
 	/**
 	 *	Action Listener

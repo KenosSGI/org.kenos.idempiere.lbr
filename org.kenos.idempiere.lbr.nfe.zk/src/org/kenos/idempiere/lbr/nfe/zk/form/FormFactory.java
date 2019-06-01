@@ -23,15 +23,6 @@ public class FormFactory implements IFormFactory
 			form.setICustomForm(controller);
 			return form;
 		}
-		else if ("org.compiere.apps.form.VAllocation".equals(formName)
-				|| "org.compiere.apps.form.WAllocation".equals(formName))
-		{
-			WAllocation alloc = new WAllocation();
-			IFormController controller = (IFormController) alloc;
-			ADForm form = controller.getForm();
-			form.setICustomForm(controller);
-			return form;
-		}
 		return null;
 	}	//	newFormInstance
 }	//	FormFactory

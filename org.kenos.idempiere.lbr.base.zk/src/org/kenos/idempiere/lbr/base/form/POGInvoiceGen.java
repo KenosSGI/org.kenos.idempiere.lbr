@@ -160,7 +160,7 @@ public class POGInvoiceGen extends ADForm
 		//	Documents
 		int p_LBR_Tax_ID 		= pg.getLBR_Tax_ID();
 		
-		MOrgInfo oi = MOrgInfo.get(Env.getCtx(), pg.getAD_Org_ID());
+		MOrgInfo oi = MOrgInfo.get(Env.getCtx(), pg.getAD_Org_ID(), null);
 		
 		//	Invoice
 		MInvoice invoice = new MInvoice (Env.getCtx(), 0 , pg.get_TrxName());

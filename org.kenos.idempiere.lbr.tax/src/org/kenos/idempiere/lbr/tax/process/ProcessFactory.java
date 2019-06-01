@@ -14,10 +14,6 @@ public class ProcessFactory implements IProcessFactory
 	@Override
 	public ProcessCall newProcessInstance (String className)
 	{
-		if (org.compiere.process.CopyOrder.class.getName().equals (className))
-			return new CopyOrder ();
-		if ("org.compiere.process.CommissionCalc".equals(className))
-			return new CommissionCalc ();
 		if (ReProcessOrder.class.getName().equals(className))
 			return new ReProcessOrder ();
 		if (org.compiere.process.CopyFromOrder.class.getName().equals(className))

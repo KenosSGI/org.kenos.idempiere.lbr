@@ -68,6 +68,7 @@ import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.compiere.util.KeyNamePair;
 import org.compiere.util.Msg;
+import org.compiere.util.Trx;
 import org.zkoss.zk.ui.HtmlBasedComponent;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
@@ -111,9 +112,9 @@ public class WPAttributeDialog extends Window implements EventListener<Event>
 	{
 		super ();
 		this.setTitle(Msg.translate(Env.getCtx(), "M_AttributeSetInstance_ID"));
-		ZKUpdateUtil.setWidth(this, "500px");
-		this.setSclass("popup-dialog");
-//		ZKUpdateUtil.setHeight(this, "600px");
+		if (!ThemeManager.isUseCSSForWindowSize())
+			ZKUpdateUtil.setWindowWidthX(this, 500);
+		this.setSclass("popup-dialog pattribute-dialog");
 		this.setBorder("normal");
 		this.setShadow(true);
 		this.setSizable(true);
@@ -507,12 +508,14 @@ public class WPAttributeDialog extends Window implements EventListener<Event>
 			for (int i = 0; i < m_editors.size(); i++)
 			{
 				HtmlBasedComponent editor = m_editors.get(i);
-				if (editor instanceof InputElement)
+				if (editor instanceof Listbox)
+ 					((Listbox)editor).setEnabled(rw);
+ 				else if (editor instanceof NumberBox)
+ 					((NumberBox)editor).setEnabled(rw);
+				else if (editor instanceof Datebox)
+					((Datebox)editor).setEnabled(rw);
+				else if (editor instanceof InputElement)
 					((InputElement)editor).setReadonly(!rw);
-				else if (editor instanceof Listbox)
-					((Listbox)editor).setEnabled(rw);
-				else if (editor instanceof NumberBox)
-					((NumberBox)editor).setEnabled(rw);
 			}
 		}
 
@@ -581,16 +584,16 @@ public class WPAttributeDialog extends Window implements EventListener<Event>
 			else
 				m_editors.add (editor);
 		}
-		else if (MAttribute.ATTRIBUTEVALUETYPE_Date.equals(attribute.getAttributeValueType()))
+		else if(MAttribute.ATTRIBUTEVALUETYPE_Date.equals(attribute.getAttributeValueType()))
 		{
 			Datebox editor = new Datebox();
 			setDateAttribute(attribute, editor);
 			row.appendChild(editor);
-			ZKUpdateUtil.setHflex(editor, "1");
-			if (readOnly)
+			if(readOnly)
 				editor.setEnabled(false);
 			else
-				m_editors.add (editor);
+				m_editors.add(editor);
+			
 		}
 		else	//	Text Field
 		{
@@ -617,9 +620,9 @@ public class WPAttributeDialog extends Window implements EventListener<Event>
 			NumberBox editor = (NumberBox) m_editors.get(index);
 			setNumberAttribute(attribute, editor);
 		}
-		else if (MAttribute.ATTRIBUTEVALUETYPE_Date.equals(attribute.getAttributeValueType()))
+		else if(MAttribute.ATTRIBUTEVALUETYPE_Date.equals(attribute.getAttributeValueType()))
 		{
-			Datebox editor = (Datebox) m_editors.get(index);
+			Datebox editor = (Datebox)m_editors.get(index);
 			setDateAttribute(attribute, editor);
 		}
 		else	//	Text Field
@@ -635,18 +638,21 @@ public class WPAttributeDialog extends Window implements EventListener<Event>
 			editor.setText(instance.getValue());
 	}
 
-	private void setDateAttribute(MAttribute attribute, Datebox editor) {
-		MAttributeInstance instance = attribute.getMAttributeInstance (m_M_AttributeSetInstance_ID);
-		if (instance != null)
-			editor.setValue(instance.getValueDate());
-	}
-
 	private void setNumberAttribute(MAttribute attribute, NumberBox editor) {
 		MAttributeInstance instance = attribute.getMAttributeInstance (m_M_AttributeSetInstance_ID);
 		if (instance != null)
 			editor.setValue(instance.getValueNumber());
 		else
 			editor.setValue(Env.ZERO);		
+	}
+	
+	private void setDateAttribute(MAttribute attribute,Datebox editor)
+	{
+		MAttributeInstance instance = attribute.getMAttributeInstance(m_M_AttributeSetInstance_ID);
+		if(instance != null)
+			editor.setValue(instance.getValueDate());
+		else
+			editor.setValue(null);
 	}
 
 	private void setListAttribute(MAttribute attribute, Listbox editor) {
@@ -806,12 +812,7 @@ public class WPAttributeDialog extends Window implements EventListener<Event>
 		for (int i = 0; i < m_editors.size(); i++)
 		{
 			HtmlBasedComponent editor = m_editors.get(i);
-			if (editor instanceof InputElement)
-			{
-				((InputElement)editor).setReadonly(false);
-				((InputElement)editor).setText(null);
-			}
-			else if (editor instanceof Listbox)
+			if (editor instanceof Listbox)
 			{
 				((Listbox)editor).setEnabled(true);
 				((Listbox)editor).setSelectedItem(null);
@@ -820,6 +821,16 @@ public class WPAttributeDialog extends Window implements EventListener<Event>
 			{
 				((NumberBox)editor).setEnabled(true);
 				((NumberBox)editor).setValue(null);
+			}
+			else if (editor instanceof Datebox)
+			{
+				((Datebox)editor).setEnabled(true);
+				((Datebox)editor).setValue(null);
+			}
+			else if (editor instanceof InputElement)
+			{
+				((InputElement)editor).setReadonly(false);
+				((InputElement)editor).setText(null);
 			}
 		}
 		fieldDescription.setText("");
@@ -830,12 +841,15 @@ public class WPAttributeDialog extends Window implements EventListener<Event>
 		for (int i = 0; i < m_editors.size(); i++)
 		{
 			HtmlBasedComponent editor = m_editors.get(i);
-			if (editor instanceof InputElement)
-				((InputElement)editor).setReadonly(!check);
+			if (editor instanceof Datebox)
+				((Datebox) editor).setEnabled(check);
 			else if (editor instanceof Listbox)
-				((Listbox)editor).setEnabled(check);
+				((Listbox) editor).setEnabled(check);
 			else if (editor instanceof NumberBox)
-				((NumberBox)editor).setEnabled(check);
+				((NumberBox) editor).setEnabled(check);
+			else if (editor instanceof InputElement)
+				((InputElement) editor).setReadonly(!check);
+				
 		}	
 		
 	}
@@ -929,12 +943,15 @@ public class WPAttributeDialog extends Window implements EventListener<Event>
 		for (int i = 0; i < m_editors.size(); i++)
 		{
 			HtmlBasedComponent editor = m_editors.get(i);
-			if (editor instanceof InputElement)
-				((InputElement)editor).setReadonly(!rw);
-			else if (editor instanceof Listbox)
-				((Listbox)editor).setEnabled(rw);
+			if (editor instanceof Listbox)
+				((Listbox) editor).setEnabled(rw);
 			else if (editor instanceof NumberBox)
-				((NumberBox)editor).setEnabled(rw);
+				((NumberBox) editor).setEnabled(rw);
+			else if (editor instanceof Datebox)
+				((Datebox) editor).setEnabled(rw);
+			else if (editor instanceof InputElement)
+				((InputElement) editor).setReadonly(!rw);
+				
 		}	
 	}	//	cmd_newEdit
 
@@ -972,12 +989,24 @@ public class WPAttributeDialog extends Window implements EventListener<Event>
 	private boolean saveSelection()
 	{
 		log.info("");
+		
 		MAttributeSet as = m_masi.getMAttributeSet();
+		
 		if (as == null)
+		{
 			return true;
+		}
+		Trx trx = null;
+		String mandatory = "";
+	  try {
+		String trxName = Trx.createTrxName("WPAD");
+		trx = Trx.get(trxName, false);
+		trx.setDisplayName(getClass().getName()+"_saveSelection");
+		m_masi.set_TrxName(trxName);
+		as.set_TrxName(trxName);
+		
 		//
 		m_changed = false;
-		String mandatory = "";
 		if (!m_productWindow && as.isLot())
 		{
 			if (log.isLoggable(Level.FINE)) log.fine("Lot=" + fieldLotString.getText ());
@@ -1007,6 +1036,7 @@ public class WPAttributeDialog extends Window implements EventListener<Event>
 			m_changed = true;
 		}	//	GuaranteeDate
 
+		
 		//	***	Save Attributes ***
 		//	New Instance
 		if (mandatory.isEmpty() && (m_changed || m_masi.getM_AttributeSetInstance_ID() == 0))
@@ -1017,7 +1047,9 @@ public class WPAttributeDialog extends Window implements EventListener<Event>
 		}
 
 		//	Save Instance Attributes
+	
 		MAttribute[] attributes = as.getMAttributes(!m_productWindow);
+		MAttribute.set_TrxName(attributes, trxName);
 		for (int i = 0; i < attributes.length; i++)
 		{
 			if (MAttribute.ATTRIBUTEVALUETYPE_List.equals(attributes[i].getAttributeValueType()))
@@ -1044,12 +1076,12 @@ public class WPAttributeDialog extends Window implements EventListener<Event>
 			}
 			else if (MAttribute.ATTRIBUTEVALUETYPE_Date.equals(attributes[i].getAttributeValueType()))
 			{
-				Datebox editor = (Datebox)m_editors.get(i);
+				Datebox editor = (Datebox) m_editors.get(i);
 				Date value = editor.getValue();
-				if (log.isLoggable(Level.FINE)) log.fine(attributes[i].getName() + "=" + value);
+				Timestamp ts = value != null ? new Timestamp(value.getTime()) : null;
 				if (attributes[i].isMandatory() && value == null)
 					mandatory += " - " + attributes[i].getName();
-				attributes[i].setMAttributeInstance(m_M_AttributeSetInstance_ID, value == null ? null : new Timestamp (value.getTime()));
+				attributes[i].setMAttributeInstance(m_M_AttributeSetInstance_ID, ts);
 			}
 			else
 			{
@@ -1076,6 +1108,23 @@ public class WPAttributeDialog extends Window implements EventListener<Event>
 			m_masi.setDescription ();
 			m_masi.saveEx();
 		}
+	  }
+	  finally {
+		  if (trx != null) {
+				if (!m_changed || mandatory.length() > 0)
+				{
+					// Rollback
+					trx.rollback();
+				}
+				else
+				{
+					// Commit
+					trx.commit();
+				}
+				trx.close();
+				trx = null;
+		  }
+	  }
 		return true;
 	}	//	saveSelection
 

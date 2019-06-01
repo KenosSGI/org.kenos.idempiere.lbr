@@ -29,6 +29,7 @@ import java.util.logging.Level;
 
 import org.adempiere.base.Service;
 import org.adempiere.util.Callback;
+import org.adempiere.webui.ClientInfo;
 import org.adempiere.webui.LayoutUtils;
 import org.adempiere.webui.component.Button;
 import org.adempiere.webui.component.Checkbox;
@@ -45,6 +46,7 @@ import org.adempiere.webui.component.Row;
 import org.adempiere.webui.component.Rows;
 import org.adempiere.webui.component.Textbox;
 import org.adempiere.webui.component.Window;
+import org.adempiere.webui.theme.ThemeManager;
 import org.adempiere.webui.util.ZKUpdateUtil;
 import org.adempiere.webui.window.FDialog;
 import org.adempiere.webui.window.WAutoCompleterCity;
@@ -95,8 +97,7 @@ public class WLocationDialog extends Window implements EventListener<Event>
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 5368065537791919302L;
-	
+	private static final long serialVersionUID = -9116270523919373406L;
 	private static final String LABEL_STYLE = "white-space: nowrap;";
 	/** Logger          */
 	private static CLogger log = CLogger.getCLogger(WLocationDialog.class);
@@ -104,6 +105,8 @@ public class WLocationDialog extends Window implements EventListener<Event>
 	private Label lblAddress2;
 	private Label lblAddress3;
 	private Label lblAddress4;
+	private Label lblAddress5;
+	private Label lblComments;
 	private Label lblCity;
 	private Label lblZip;
 	private Label lblRegion;
@@ -115,6 +118,8 @@ public class WLocationDialog extends Window implements EventListener<Event>
 	private Textbox txtAddress2;
 	private Textbox txtAddress3;
 	private Textbox txtAddress4;
+	private Textbox txtAddress5;
+	private Textbox txtComments;
 	private WAutoCompleterCity txtCity;
 	private Textbox txtPostal;
 	private Textbox txtPostalAdd;
@@ -137,6 +142,8 @@ public class WLocationDialog extends Window implements EventListener<Event>
 	private boolean isAddress2Mandatory = false;
 	private boolean isAddress3Mandatory = false;
 	private boolean isAddress4Mandatory = false;
+	private boolean isAddress5Mandatory = false;
+	private boolean isCommentsMandatory = false;
 	private boolean isPostalMandatory = false;
 	private boolean isPostalAddMandatory = false;
 
@@ -204,10 +211,20 @@ public class WLocationDialog extends Window implements EventListener<Event>
 
 		setRegion();
 		initLocation();
-		//               
-		ZKUpdateUtil.setWidth(this, "350px");
-		ZKUpdateUtil.setHeight(this, "360px"); // required fixed height for ZK to auto adjust the position based on available space
-		this.setSclass("popup-dialog");
+		//
+		if (!ThemeManager.isUseCSSForWindowSize()) 
+		{
+			ZKUpdateUtil.setWindowWidthX(this, 380);
+			ZKUpdateUtil.setWindowHeightX(this, 420); // required fixed height for ZK to auto adjust the position based on available space
+		}
+		else
+		{
+			addCallback(AFTER_PAGE_ATTACHED, t -> {
+				ZKUpdateUtil.setCSSHeight(this);
+				ZKUpdateUtil.setCSSWidth(this);
+			});
+		}
+		this.setSclass("popup-dialog location-dialog");
 		this.setClosable(true);
 		this.setBorder("normal");
 		this.setShadow(true);
@@ -224,6 +241,10 @@ public class WLocationDialog extends Window implements EventListener<Event>
 		lblAddress3.setStyle(LABEL_STYLE);
 		lblAddress4     = new Label(Msg.getElement(Env.getCtx(), "Address4"));
 		lblAddress4.setStyle(LABEL_STYLE);
+		lblAddress5     = new Label(Msg.getElement(Env.getCtx(), "Address5"));
+		lblAddress5.setStyle(LABEL_STYLE);
+		lblComments     = new Label(Msg.getElement(Env.getCtx(), "Comments"));
+		lblComments.setStyle(LABEL_STYLE);
 		lblCity         = new Label(Msg.getMsg(Env.getCtx(), "City"));
 		lblCity.setStyle(LABEL_STYLE);
 		lblZip          = new Label(Msg.getMsg(Env.getCtx(), "Postal"));
@@ -249,6 +270,12 @@ public class WLocationDialog extends Window implements EventListener<Event>
 		txtAddress4 = new Textbox();
 		txtAddress4.setCols(20);
 		txtAddress4.setMaxlength(MLocation.getFieldLength(MLocation.COLUMNNAME_Address4));
+		txtAddress5 = new Textbox();
+		txtAddress5.setCols(20);
+		txtAddress5.setMaxlength(MLocation.getFieldLength(MLocation.COLUMNNAME_Address5));
+		txtComments = new Textbox();
+		txtComments.setCols(20);
+		txtComments.setMaxlength(MLocation.getFieldLength(MLocation.COLUMNNAME_Comments));
 
 		//autocomplete City
 		txtCity = new WAutoCompleterCity(m_WindowNo);
@@ -303,13 +330,21 @@ public class WLocationDialog extends Window implements EventListener<Event>
 		lstAddressValidation = new Listbox();
 		lstAddressValidation.setMold("select");
 		ZKUpdateUtil.setWidth(lstAddressValidation, "154px");
-		lstAddressValidation.setRows(0);		
+		lstAddressValidation.setRows(0);	
 
 		btnGetAddress = new Button("Pesquisar CEP");
 		LayoutUtils.addSclass("txt-btn", btnGetAddress);
-		btnGetAddress.addEventListener(Events.ON_CLICK,this);
-		
+		btnGetAddress.addEventListener(Events.ON_CLICK,this);	
+
 		mainPanel = GridFactory.newGridLayout();
+		
+		if (ClientInfo.isMobile())
+		{
+			if (ClientInfo.maxWidth(ClientInfo.EXTRA_SMALL_WIDTH) || ClientInfo.maxHeight(ClientInfo.SMALL_HEIGHT))
+			{
+				confirmPanel.addButtonSclass("btn-medium small-image-btn");
+			}
+		}
 	}
 
 	private void init()
@@ -344,6 +379,16 @@ public class WLocationDialog extends Window implements EventListener<Event>
 		pnlAddress4.appendChild(lblAddress4.rightAlign());
 		pnlAddress4.appendChild(txtAddress4);
 		ZKUpdateUtil.setHflex(txtAddress4, "1");
+
+		Row pnlAddress5 = new Row();
+		pnlAddress5.appendChild(lblAddress5.rightAlign());
+		pnlAddress5.appendChild(txtAddress5);
+		ZKUpdateUtil.setHflex(txtAddress5, "1");
+
+		Row pnlComments = new Row();
+		pnlComments.appendChild(lblComments.rightAlign());
+		pnlComments.appendChild(txtComments);
+		ZKUpdateUtil.setHflex(txtComments, "1");
 
 		Row pnlCity     = new Row();
 		pnlCity.appendChild(lblCity.rightAlign());
@@ -551,6 +596,8 @@ public class WLocationDialog extends Window implements EventListener<Event>
 		isAddress2Mandatory = false;
 		isAddress3Mandatory = false;
 		isAddress4Mandatory = false;
+		isAddress5Mandatory = false;
+		isCommentsMandatory = false;
 		isPostalMandatory = false;
 		isPostalAddMandatory = false;
 		StringTokenizer st = new StringTokenizer(ds, "@", false);
@@ -564,6 +611,9 @@ public class WLocationDialog extends Window implements EventListener<Event>
 				// if (m_location.getCountry().isPostcodeLookup()) {
 					// addLine(line++, lOnline, fOnline);
 				// }
+			} else if (s.startsWith("Com")) {
+				addComponents((Row)txtComments.getParent());
+				isCommentsMandatory = s.endsWith("!");
 			} else if (s.startsWith("A1")) {
 				addComponents((Row)txtAddress1.getParent());
 				isAddress1Mandatory = s.endsWith("!");
@@ -576,6 +626,9 @@ public class WLocationDialog extends Window implements EventListener<Event>
 			} else if (s.startsWith("A4")) {
 				addComponents((Row)txtAddress4.getParent());
 				isAddress4Mandatory = s.endsWith("!");
+			} else if (s.startsWith("A5")) {
+				addComponents((Row)txtAddress5.getParent());
+				isAddress5Mandatory = s.endsWith("!");
 			} else if (s.startsWith("C")) {
 				addComponents((Row)txtCity.getParent());
 				isCityMandatory = s.endsWith("!");
@@ -591,6 +644,7 @@ public class WLocationDialog extends Window implements EventListener<Event>
 			}
 		}
 
+		setPlaceholders();
 		//      Fill it
 		if (m_location.getC_Location_ID() != 0)
 		{
@@ -598,6 +652,8 @@ public class WLocationDialog extends Window implements EventListener<Event>
 			txtAddress2.setText(m_location.getAddress2());
 			txtAddress3.setText(m_location.getAddress3());
 			txtAddress4.setText(m_location.getAddress4());
+			txtAddress5.setText(m_location.getAddress5());
+			txtComments.setText(m_location.getComments());
 			txtCity.setText(m_location.getCity());
 			txtPostal.setText(m_location.getPostal());
 			txtPostalAdd.setText(m_location.getPostal_Add());
@@ -786,6 +842,8 @@ public class WLocationDialog extends Window implements EventListener<Event>
 			m_location.setAddress2(txtAddress2.getValue());
 			m_location.setAddress3(txtAddress3.getValue());
 			m_location.setAddress4(txtAddress4.getValue());
+			m_location.setAddress5(txtAddress5.getValue());
+			m_location.setComments(txtComments.getValue());
 			m_location.setC_City_ID(txtCity.getC_City_ID()); 
 			m_location.setCity(txtCity.getValue());
 			m_location.setPostal(txtPostal.getValue());
@@ -946,10 +1004,6 @@ public class WLocationDialog extends Window implements EventListener<Event>
 					else
 						txtPostal.setText(provider.getCEP());
 				}
-//				else if (provider.getResulCode() == 0)
-//					FDialog.info(m_WindowNo, this, "CEP não encontrado na base de dados.");
-//				else if (provider.getResulCode() == 14)
-//					FDialog.info(m_WindowNo, this, "Não foi possível fazer a busca. (Possível problema com a Internet).");
 				else
 					FDialog.info(m_WindowNo, this, "Erro ao fazer a busca no site dos Correios, tente novamente mais tarde ou digite os dados manualmente");
 			}
@@ -973,6 +1027,12 @@ public class WLocationDialog extends Window implements EventListener<Event>
 		}
 		if (isAddress4Mandatory && txtAddress4.getText().trim().length() == 0) {
 			fields = fields + " " + "@Address4@, ";
+		}
+		if (isAddress5Mandatory && txtAddress5.getText().trim().length() == 0) {
+			fields = fields + " " + "@Address5@, ";
+		}
+		if (isCommentsMandatory && txtComments.getText().trim().length() == 0) {
+			fields = fields + " " + "@Comments@, ";
 		}
 		if (isCityMandatory && txtCity.getValue().trim().length() == 0) {
 			fields = fields + " " + "@C_City_ID@, ";
@@ -999,11 +1059,14 @@ public class WLocationDialog extends Window implements EventListener<Event>
 	private boolean action_OK()
 	{
 		Trx trx = Trx.get(Trx.createTrxName("WLocationDialog"), true);
+		trx.setDisplayName(getClass().getName()+"_action_Ok");
 		m_location.set_TrxName(trx.getTrxName());
 		m_location.setAddress1(txtAddress1.getValue());
 		m_location.setAddress2(txtAddress2.getValue());
 		m_location.setAddress3(txtAddress3.getValue());
 		m_location.setAddress4(txtAddress4.getValue());
+		m_location.setAddress5(txtAddress5.getValue());
+		m_location.setComments(txtComments.getValue());
 		m_location.setC_City_ID(txtCity.getC_City_ID()); 
 		m_location.setCity(txtCity.getValue());
 		m_location.setPostal(txtPostal.getValue());
@@ -1051,12 +1114,13 @@ public class WLocationDialog extends Window implements EventListener<Event>
 				|| (bplocname >= 3 && changedRegion)
 				) {
 	        	if (   m_GridField != null && m_GridField.getGridTab() != null
-	        		&& "C_BPartner_Location".equals(m_GridField.getGridTab().getTableName()))
+	        		&& "C_BPartner_Location".equals(m_GridField.getGridTab().getTableName()) 
+	        		&& !m_GridField.getGridTab().getValueAsBoolean("IsPreserveCustomName"))
 	    		{
 	        		m_GridField.getGridTab().setValue("Name", ".");
 	    		} else {
 	    			//Update BP_Location name IDEMPIERE 417
-	    			int bplID = DB.getSQLValueEx(trx.getTrxName(), "SELECT C_BPartner_Location_ID FROM C_BPartner_Location WHERE C_Location_ID = " + m_location.getC_Location_ID());
+	    			int bplID = DB.getSQLValueEx(trx.getTrxName(), MLocation.updateBPLocName, m_location.getC_Location_ID());
 	    			if (bplID>0)
 	    			{
 	    				MBPartnerLocation bpl = new MBPartnerLocation(Env.getCtx(), bplID, trx.getTrxName());
@@ -1103,6 +1167,8 @@ public class WLocationDialog extends Window implements EventListener<Event>
 		String address = "";
 		address = address + (txtAddress1.getText() != null ? txtAddress1.getText() + ", " : "");
 		address = address + (txtAddress2.getText() != null ? txtAddress2.getText() + ", " : "");
+		address = address + (txtAddress3.getText() != null ? txtAddress3.getText() + ", " : "");
+		address = address + (txtAddress4.getText() != null ? txtAddress4.getText() + ", " : "");
 		address = address + (txtCity.getText() != null ? txtCity.getText() + ", " : "");
 		if (region != null)
 			address = address + (region.getName() != null ? region.getName() + ", " : "");
@@ -1110,4 +1176,17 @@ public class WLocationDialog extends Window implements EventListener<Event>
 		address = address + (c.getName() != null ? c.getName() : "");
 		return address.replace(" ", "+");
 	}	
+
+	void setPlaceholders() {
+		txtAddress1.setPlaceholder(MCountry.get(Env.getCtx(), s_oldCountry_ID).get_Translation("PlaceholderAddress1"));
+		txtAddress2.setPlaceholder(MCountry.get(Env.getCtx(), s_oldCountry_ID).get_Translation("PlaceholderAddress2"));
+		txtAddress3.setPlaceholder(MCountry.get(Env.getCtx(), s_oldCountry_ID).get_Translation("PlaceholderAddress3"));
+		txtAddress4.setPlaceholder(MCountry.get(Env.getCtx(), s_oldCountry_ID).get_Translation("PlaceholderAddress4"));
+		txtAddress5.setPlaceholder(MCountry.get(Env.getCtx(), s_oldCountry_ID).get_Translation("PlaceholderAddress5"));
+		txtComments.setPlaceholder(MCountry.get(Env.getCtx(), s_oldCountry_ID).get_Translation("PlaceholderComments"));
+		txtCity.setPlaceholder(MCountry.get(Env.getCtx(), s_oldCountry_ID).get_Translation("PlaceholderCity"));
+		txtPostal.setPlaceholder(MCountry.get(Env.getCtx(), s_oldCountry_ID).get_Translation("PlaceholderPostal"));
+		txtPostalAdd.setPlaceholder(MCountry.get(Env.getCtx(), s_oldCountry_ID).get_Translation("PlaceholderPostal_Add"));
+		// TODO set the placeholder for Region (ATM, lstRegion doesn't handle placeholder)	
+	}
 }
