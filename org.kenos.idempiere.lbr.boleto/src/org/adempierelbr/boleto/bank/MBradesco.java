@@ -98,7 +98,7 @@ public class MBradesco implements I_Bank
 	        //Protestar
 	        if (boleto.islbr_HasSue() && boleto.getlbr_SueDays() > 0){
 	        	cnab.setlbr_CNABField29("06"); //Protesto Automático
-	        	cnab.setlbr_CNABField30(MLBRCNAB.CNABFormat(new Integer(boleto.getlbr_SueDays()).toString(),2)); //Dias para Protestar
+	        	cnab.setlbr_CNABField30(MLBRCNAB.CNABFormat(Integer.valueOf(boleto.getlbr_SueDays()).toString(),2)); //Dias para Protestar
 	        }
 	        cnab.setlbr_CNABField31(MLBRCNAB.CNABFormat(String.format("%,.2f", boleto.getlbr_Interest()),13)); //Juros
 	        cnab.setlbr_CNABField32(MLBRCNAB.CNABDateFormat(boleto.getDiscountDate())); //Desconto Até

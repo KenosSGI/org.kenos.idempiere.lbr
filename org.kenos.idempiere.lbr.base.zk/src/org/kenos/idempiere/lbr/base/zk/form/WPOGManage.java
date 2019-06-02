@@ -447,7 +447,7 @@ public class WPOGManage extends ADForm implements IFormController, WTableModelLi
 								Integer count = (Integer) vec.remove(2);
 								
 								//	Increase the Production Line count
-								vec.add (new Integer (count.intValue()+1));
+								vec.add (Integer.valueOf (count.intValue()+1));
 							}
 						}
 					
@@ -529,7 +529,7 @@ public class WPOGManage extends ADForm implements IFormController, WTableModelLi
 							Vector<Object> vec = new Vector<Object>();
 							vec.add((BigDecimal) miniTableComp.getValueAt(i, 4));	//	0-New Quantity to distribute
 							vec.add((BigDecimal) miniTableComp.getValueAt(i, 3));	//	1-Qty planned of BOM
-							vec.add(new Integer (0));								//	2-Number of Production Lines for this product
+							vec.add(Integer.valueOf (0));								//	2-Number of Production Lines for this product
 							//
 							products.put (knp.getKey(), vec);
 						}
@@ -671,7 +671,7 @@ public class WPOGManage extends ADForm implements IFormController, WTableModelLi
 	    			selectAllProduction = (selectAllProduction ? false : true);
 	    			for (int i = 0; i < miniTableProd.getItemCount(); i++)
 	    			{
-	    				miniTableProd.setValueAt(new Boolean (selectAllProduction), i, 0);
+	    				miniTableProd.setValueAt(Boolean.valueOf (selectAllProduction), i, 0);
 	    			}
 	    		}
 	    		else if (comp == bSelectAllComponent)
@@ -679,7 +679,7 @@ public class WPOGManage extends ADForm implements IFormController, WTableModelLi
 	    			selectAllComponent = (selectAllComponent ? false : true);
 	    			for (int i = 0; i < miniTableComp.getItemCount(); i++)
 	    			{
-	    				miniTableComp.setValueAt(new Boolean (selectAllComponent), i, 0);
+	    				miniTableComp.setValueAt(Boolean.valueOf (selectAllComponent), i, 0);
 	    			}
 	    		}
 	        }

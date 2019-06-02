@@ -283,7 +283,7 @@ public class WPOGManageMoveToProducer extends ADForm implements IFormController,
 						Vector<Object> vec = new Vector<Object>();
 						vec.add((BigDecimal) miniTableComp.getValueAt(i, 4));	//	0-New Quantity to distribute
 						vec.add((BigDecimal) miniTableComp.getValueAt(i, 3));	//	1-Qty Movement
-						vec.add(new Integer (0));								//	2-Number of Movement Lines for this product
+						vec.add(Integer.valueOf (0));								//	2-Number of Movement Lines for this product
 						//
 						products.put (knp.getKey(), vec);
 					}
@@ -305,7 +305,7 @@ public class WPOGManageMoveToProducer extends ADForm implements IFormController,
 							Integer count = (Integer) vec.remove(2);
 							
 							//	Increase the Movement Line count
-							vec.add (new Integer (count.intValue()+1));
+							vec.add (Integer.valueOf (count.intValue()+1));
 						}
 					}
 				}	

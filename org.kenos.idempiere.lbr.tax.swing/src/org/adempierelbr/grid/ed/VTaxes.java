@@ -300,7 +300,7 @@ public class VTaxes extends JComponent
 	{
 		if (m_value == null)
 			return null;
-		return new Integer(m_value.getLBR_Tax_ID());
+		return Integer.valueOf(m_value.getLBR_Tax_ID());
 	}	//	getValue
 
 	/**
@@ -354,7 +354,7 @@ public class VTaxes extends JComponent
 		{
 			Integer ii = null;
 			if (m_value != null)
-				ii = new Integer(m_value.getLBR_Tax_ID());
+				ii = Integer.valueOf(m_value.getLBR_Tax_ID());
 	
 			//  force Change - user does not realize that embedded object is already saved.
 			fireVetoableChange(m_columnName, null, null);

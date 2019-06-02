@@ -295,7 +295,7 @@ public class VTaxesDialog extends CDialog implements ActionListener, VetoableCha
 	 */
 	private void addLine()
 	{
-		Integer LBR_TaxLine_ID = new Integer(0);
+		Integer LBR_TaxLine_ID = Integer.valueOf(0);
 		//
 		MLookup TaxL = MLookupFactory.get (Env.getCtx(), 0, 0, 1000221, DisplayType.Search);
 		VLookup vTax = new VLookup ("LBR_TaxName_ID", true, false, true, TaxL);
