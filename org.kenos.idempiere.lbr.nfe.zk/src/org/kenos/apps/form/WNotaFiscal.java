@@ -13,13 +13,12 @@
  *****************************************************************************/
 package org.kenos.apps.form;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.logging.Level;
 
-import org.adempiere.webui.component.Datebox;
 import org.adempiere.webui.component.Label;
+import org.adempiere.webui.component.Listbox;
+import org.adempiere.webui.component.ListboxFactory;
 import org.adempiere.webui.component.Row;
 import org.adempiere.webui.editor.WDateEditor;
 import org.adempiere.webui.editor.WSearchEditor;
@@ -40,7 +39,6 @@ import org.compiere.util.Msg;
 import org.zkoss.zk.ui.WrongValueException;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
-import org.zkoss.zk.ui.event.Events;
 import org.zkoss.zul.Space;
 
 /**
@@ -68,6 +66,11 @@ public class WNotaFiscal extends NotaFiscal implements IFormController, EventLis
 	private WTableDirEditor docAction;
 	private Label lDateDoc = new Label();
 	private WDateEditor fDateDoc = new WDateEditor();
+	private Label lIsPrinted = new Label();
+	private Listbox fIsPrinted = new Listbox();
+	
+	private final String IsPrinted_OPTION_YES = Msg.translate(Env.getCtx(), "Yes");
+	private final String IsPrinted_OPTION_NO = Msg.translate(Env.getCtx(), "No");
 	
 	public WNotaFiscal()
 	{
@@ -107,7 +110,8 @@ public class WNotaFiscal extends NotaFiscal implements IFormController, EventLis
 		lOrgRec.setText(Msg.translate(Env.getCtx(), "AD_Org_ID"));
 		lBPartner.setText(Msg.translate(Env.getCtx(), "C_BPartner_ID"));
 		lManifest.setText(Msg.translate(Env.getCtx(), "LBR_EventType"));
-		lDateDoc.setText(Msg.translate(Env.getCtx(), "DateDoc"));
+		lDateDoc.setText(Msg.translate(Env.getCtx(), "Date"));
+		lIsPrinted.setText(Msg.translate(Env.getCtx(), "IsPrinted"));		
 		
 		Row row = form.getEmitParameterPanel().newRows().newRow();
 		row.appendCellChild(lOrg.rightAlign());
@@ -118,11 +122,13 @@ public class WNotaFiscal extends NotaFiscal implements IFormController, EventLis
 		row.appendCellChild(fBPartner.getComponent());
 		row.appendCellChild(lDateDoc.rightAlign());
 		ZKUpdateUtil.setHflex(fDateDoc.getComponent(), "true");
-		row.appendCellChild(fDateDoc.getComponent());
+		row.appendCellChild(fDateDoc.getComponent());		
+		row.appendCellChild(lIsPrinted.rightAlign());
+		row.appendCellChild(fIsPrinted);
 		row.appendCellChild(lDocAction.rightAlign());
 		ZKUpdateUtil.setHflex(docAction.getComponent(), "true");
 		row.appendCellChild(docAction.getComponent());
-		row.appendCellChild(new Space());
+
 		
 		row = form.getRecParameterPanel().newRows().newRow();
 		row.appendCellChild(lOrgRec.rightAlign());
@@ -169,12 +175,17 @@ public class WNotaFiscal extends NotaFiscal implements IFormController, EventLis
 		fBPartner = new WSearchEditor ("C_BPartner_ID", false, false, true, bpL);
 		fBPartner.addValueChangeListener(this);
 		//      Document Action Prepared/ Completed
-		lDocAction.setText(Msg.translate(Env.getCtx(), "DocAction"));
+		lDocAction.setText(Msg.translate(Env.getCtx(), "Action"));
 		MLookup docActionL = MLookupFactory.get(Env.getCtx(), form.getWindowNo(), 3495 /* C_Invoice.DocAction */,
 				DisplayType.List, Env.getLanguage(Env.getCtx()), "DocAction", 135 /* _Document Action */,
 				false, "AD_Ref_List.Value IN ('CO','PR')");
 		docAction = new WTableDirEditor("DocAction", true, false, true,docActionL);
 		docAction.setValue(DocAction.ACTION_Complete);
+		
+		String[] list = {"", IsPrinted_OPTION_YES, IsPrinted_OPTION_NO};
+		
+		fIsPrinted = ListboxFactory.newDropdownListbox (list);
+		fIsPrinted.addActionListener(this);
 	}	//	fillPicks
     
 	/**
@@ -198,7 +209,21 @@ public class WNotaFiscal extends NotaFiscal implements IFormController, EventLis
 	 */
 	public void onEvent(Event e)
 	{
-		validate();
+		if(fIsPrinted.equals(e.getTarget()))
+		{
+			String Printed = (String) fIsPrinted.getSelectedItem().getValue();
+			
+			if (IsPrinted_OPTION_YES.equals(Printed))
+				m_IsPrinted = true;
+			else if (IsPrinted_OPTION_NO.equals(Printed))
+				m_IsPrinted = false;
+			else
+				m_IsPrinted = null;
+			
+			form.postQueryEvent();
+		}
+		else
+			validate();
 	}	//	actionPerformed
 	
 	public void validate()
@@ -240,7 +265,7 @@ public class WNotaFiscal extends NotaFiscal implements IFormController, EventLis
 		{
 			m_DateDoc = e.getNewValue();
 			fDateDoc.setValue(m_DateDoc);
-		}
+		}	
 		
 		form.postQueryEvent();
 	}	//	vetoableChange
