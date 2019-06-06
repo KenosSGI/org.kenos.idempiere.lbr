@@ -12,4 +12,7 @@ syntax: regexp
 ^.*/target$
 
 syntax: regexp
-org.kenos.idempiere.lbr.p2.targetplatform.target.orig
+^.*org.kenos.idempiere.lbr.p2.targetplatform.target$
+
+syntax: regexp
+^pom.xml$

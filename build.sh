@@ -22,24 +22,11 @@ configure () {
 		exit 1
 	fi
 	
-	# Create backups
-	if [ ! -f "$TARGET_FILE.orig" ]
-	then
-		echo "Backing up the target file ..."
-		cp "$TARGET_FILE" "$TARGET_FILE.orig"
-	fi
-	
-	if [ ! -f "pom.xml.orig" ]
-	then
-		echo "Backing up the pom.xml"
-		cp "pom.xml" "pom.xml.orig"
-	fi
-	
 	# Update target
 	echo
 	echo "Updating target platform ... done"
 	CURRENT_DIR="$(echo $IDEMPIERE_FOLDER | sed 's/\//\\\//g' | sed 's/ /\\ /g')"
-	COMMAND="sed 's/<repository location=\"file:\/\/.*\/org\.idempiere\.p2\/target\/repository\"\/>/<repository location=\"file:\/\/$CURRENT_DIR\/org\.idempiere\.p2\/target\/repository\"\/>/g' $TARGET_FILE.orig > $TARGET_FILE"
+	COMMAND="sed 's/<repository location=\"\${IDEMPIERE-FOLDER}\/org\.idempiere\.p2\/target\/repository\"\/>/<repository location=\"file:\/\/$CURRENT_DIR\/org\.idempiere\.p2\/target\/repository\"\/>/g' $TARGET_FILE.template > $TARGET_FILE"
 	
 	# Change path
 	eval $COMMAND
@@ -54,7 +41,7 @@ configure () {
 	echo
 	echo "Updating pom.xml ... done"
 	CURRENT_DIR="$(echo ${back}${IDEMPIERE_FOLDER#$common_part/} | sed 's/\//\\\//g' | sed 's/ /\\ /g')"
-	COMMAND="sed 's/<relativePath>.*\/org\.idempiere\.parent\/pom\.xml<\/relativePath>/<relativePath>$CURRENT_DIR\/org\.idempiere\.parent\/pom\.xml<\/relativePath>/g' pom.xml.orig > pom.xml"
+	COMMAND="sed 's/<relativePath>.*\/org\.idempiere\.parent\/pom\.xml<\/relativePath>/<relativePath>$CURRENT_DIR\/org\.idempiere\.parent\/pom\.xml<\/relativePath>/g' pom.xml.template > pom.xml"
 	
 	# Change path on pom.xml
 	eval $COMMAND
