@@ -6,6 +6,6 @@
 	<version>6.2.0-SNAPSHOT</version>
 	<relativePath>../pom.xml</relativePath>
   </parent>
-  <artifactId>org.kenos.idempiere.lbr.server.feature</artifactId>
-  <packaging>eclipse-feature</packaging>
+  <artifactId>org.kenos.idempiere.lbr.jasper.fonts</artifactId>
+  <packaging>eclipse-plugin</packaging>
 </project>
