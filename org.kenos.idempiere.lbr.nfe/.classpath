@@ -15,7 +15,7 @@
 			<accessrule kind="accessible" pattern="org/kenos/idempiere/lbr/base/nfse/*"/>
 		</accessrules>
 	</classpathentry>
-	<classpathentry kind="src" path="src/"/>
+	<classpathentry kind="src" path="src"/>
 	<classpathentry exported="true" kind="lib" path="lib/axiom-api.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/axiom-impl.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/axis2-adb.jar"/>
@@ -28,21 +28,13 @@
 	<classpathentry exported="true" kind="lib" path="lib/neethi.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/wsdl4j.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/XmlSchema.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/nfebeans-canc-v101-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/nfebeans-canc-v101.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/nfebeans-cce-v101-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/nfebeans-cce-v101.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/nfebeans-dfe-v102-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/nfebeans-dfe-v102.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/nfebeans-gen-v101-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/nfebeans-gen-v101.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/nfebeans-manif-v101-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/nfebeans-manif-v101.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/nfebeans-v6v-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/nfebeans-v6v.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/nfebeans-v9-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/nfebeans-v9.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/siscomexbeans-v100-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/siscomexbeans-v100.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/sunpkcs11.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/zxing-core-2.2.jar"/>

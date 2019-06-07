@@ -5,9 +5,9 @@ Bundle-SymbolicName: org.kenos.idempiere.lbr.nfse;singleton:=true
 Bundle-Version: 6.2.0.qualifier
 Require-Bundle: org.adempiere.base;bundle-version="6.2.0",
  org.adempiere.report.jasper;bundle-version="6.2.0",
- org.kenos.idempiere.lbr.base;bundle-version="1.0.0",
- org.kenos.idempiere.lbr.nfe;bundle-version="1.0.0",
- org.kenos.idempiere.lbr.tax;bundle-version="1.0.0",
+ org.kenos.idempiere.lbr.base;bundle-version="6.2.0",
+ org.kenos.idempiere.lbr.nfe;bundle-version="6.2.0",
+ org.kenos.idempiere.lbr.tax;bundle-version="6.2.0",
  org.apache.commons.io;bundle-version="2.6.0"
 Service-Component: OSGI-INF/NFSeFactory.xml,
  OSGI-INF/ProcessFactory.xml
