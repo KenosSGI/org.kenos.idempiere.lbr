@@ -178,9 +178,9 @@ public class WNotaFiscalForm extends ADForm implements EventListener<Event>, WTa
 		downloadButton.addActionListener(this);
 		downloadButton.setTooltiptext("Download");
 		//
-		ZKUpdateUtil.setWidth(nfeEmitPanel, "99%");
-		ZKUpdateUtil.setHeight(nfeEmitPanel, "90%");
-		nfeEmitPanel.setStyle("border: none; position: absolute");
+		ZKUpdateUtil.setWidth(nfeEmitPanel, "100%");
+		ZKUpdateUtil.setHeight(nfeEmitPanel, "100%");
+		nfeEmitPanel.setStyle("border: none; position: relative");
 		DesktopTabpanel tabpanel = new DesktopTabpanel();
 		tabpanel.appendChild(nfeEmitPanel);
 		Tabpanels tabPanels = new Tabpanels();
@@ -194,6 +194,9 @@ public class WNotaFiscalForm extends ADForm implements EventListener<Event>, WTa
 		North north = new North();
 		nfeEmitPanel.appendChild(north);
 		north.appendChild(selNorthPanelEmit);
+		north.setCollapsible(true);
+		north.setSplittable(true);
+		LayoutUtils.addSlideSclass(north);
 		
 		South south = new South();
 		nfeEmitPanel.appendChild(south);
@@ -204,7 +207,6 @@ public class WNotaFiscalForm extends ADForm implements EventListener<Event>, WTa
 		center.appendChild(miniTableEmit);
 		ZKUpdateUtil.setVflex(miniTableEmit, "1");
 		ZKUpdateUtil.setHflex(miniTableEmit, "1");
-		//ZKUpdateUtil.setHeight(miniTableEmit, "99%");
 		confirmPanelEmit.addActionListener(this);
 		//
 		tabpanel = new DesktopTabpanel();
@@ -214,13 +216,15 @@ public class WNotaFiscalForm extends ADForm implements EventListener<Event>, WTa
 		north = new North();
 		nfeRecPanel.appendChild(north);
 		north.appendChild(selNorthPanelRec);
+		north.setCollapsible(true);
+		north.setSplittable(true);
+		LayoutUtils.addSlideSclass(north);
 		
 		tab = new Tab(Msg.getMsg(Env.getCtx(), "Notas Fiscais Recebidas"));
 		tabs.appendChild(tab);
-//		tab.setDisabled(true);
-		ZKUpdateUtil.setWidth(nfeRecPanel, "99%");
-		ZKUpdateUtil.setHeight(nfeRecPanel, "90%");
-		nfeRecPanel.setStyle("border: none; position: absolute");
+		ZKUpdateUtil.setWidth(nfeRecPanel, "100%");
+		ZKUpdateUtil.setHeight(nfeRecPanel, "100%");
+		nfeRecPanel.setStyle("border: none; position: relative");
 		center = new Center();
 		nfeRecPanel.appendChild(center);
 		messageDiv = new Div();
@@ -238,13 +242,15 @@ public class WNotaFiscalForm extends ADForm implements EventListener<Event>, WTa
 		north = new North();
 		nfeInutPanel.appendChild(north);
 		north.appendChild(selNorthPanelInut);
+		north.setCollapsible(true);
+		north.setSplittable(true);
+		LayoutUtils.addSlideSclass(north);
 		
 		tab = new Tab(Msg.getMsg(Env.getCtx(), "Notas Fiscais Inutilizadas"));
 		tabs.appendChild(tab);
-//		tab.setDisabled(true);
-		ZKUpdateUtil.setWidth(nfeInutPanel, "99%");
-		ZKUpdateUtil.setHeight(nfeInutPanel, "90%");
-		nfeInutPanel.setStyle("border: none; position: absolute");
+		ZKUpdateUtil.setWidth(nfeInutPanel, "100%");
+		ZKUpdateUtil.setHeight(nfeInutPanel, "100%");
+		nfeInutPanel.setStyle("border: none; position: relative");
 		center = new Center();
 		nfeInutPanel.appendChild(center);
 		messageDiv = new Div();
@@ -253,7 +259,7 @@ public class WNotaFiscalForm extends ADForm implements EventListener<Event>, WTa
 		south = new South();
 		nfeInutPanel.appendChild(south);
 		south.appendChild(confirmPanelInut);
-		confirmPanelInut.addActionListener(this);		
+		confirmPanelInut.addActionListener(this);
 	}	//	jbInit
 
 	/**

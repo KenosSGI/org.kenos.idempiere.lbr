@@ -25,8 +25,12 @@ import java.util.logging.Level;
 
 import org.adempiere.util.Callback;
 import org.adempiere.util.IProcessUI;
+import org.adempiere.webui.ClientInfo;
+import org.adempiere.webui.LayoutUtils;
 import org.adempiere.webui.component.Button;
 import org.adempiere.webui.component.Checkbox;
+import org.adempiere.webui.component.Column;
+import org.adempiere.webui.component.Columns;
 import org.adempiere.webui.component.ConfirmPanel;
 import org.adempiere.webui.component.Grid;
 import org.adempiere.webui.component.GridFactory;
@@ -56,6 +60,7 @@ import org.compiere.util.KeyNamePair;
 import org.compiere.util.Msg;
 import org.compiere.util.ValueNamePair;
 import org.kenos.idempiere.lbr.base.form.Payment;
+import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.WrongValueException;
 import org.zkoss.zk.ui.event.Event;
@@ -66,7 +71,6 @@ import org.zkoss.zul.Center;
 import org.zkoss.zul.North;
 import org.zkoss.zul.Separator;
 import org.zkoss.zul.South;
-import org.zkoss.zul.Space;
 
 /**
  *  Create Manual Payments From (AP) Invoices or (AR) Credit Memos.
@@ -113,6 +117,7 @@ public class WPayment extends Payment
 	@SuppressWarnings("unused")
 	private ProcessInfo m_pi;
 	private boolean m_isLock;
+	private int noOfColumn;
 	
 	/**
 	 *	Initialize Panel
@@ -134,6 +139,8 @@ public class WPayment extends Payment
 		{
 			log.log(Level.SEVERE, "", e);
 		}
+		
+		ClientInfo.onClientInfo(form, this::onClientInfo);
 	}	//	init
 
 	/**
@@ -142,15 +149,16 @@ public class WPayment extends Payment
 	 */
 	private void zkInit() throws Exception
 	{
+		setupColumns();
 		//
 		form.appendChild(mainPanel);
 		mainPanel.appendChild(mainLayout);
 		mainPanel.setStyle("width: 100%; height: 100%; padding: 0; margin: 0");
 		ZKUpdateUtil.setHeight(mainLayout, "100%");
-		ZKUpdateUtil.setWidth(mainLayout, "99%");
+		ZKUpdateUtil.setWidth(mainLayout, "100%");
 		parameterPanel.appendChild(parameterLayout);
 		//
-		labelBankAccount.setText(Msg.translate(Env.getCtx(), "C_BankAccount_ID"));
+//		labelBankAccount.setText(Msg.translate(Env.getCtx(), "C_BankAccount_ID"));
 		fieldBankAccount.addActionListener(this);
 		labelBPartner.setText(Msg.translate(Env.getCtx(), "C_BPartner_ID"));
 		fieldBPartner.addActionListener(this);
@@ -175,34 +183,26 @@ public class WPayment extends Payment
 		bCancel.addActionListener(this);
 		//
 		North north = new North();
-		north.setStyle("border: none");
+		north.setBorder ("none");
 		mainLayout.appendChild(north);
 		north.appendChild(parameterPanel);
+		north.setCollapsible(true);
+		north.setSplittable(true);
+		LayoutUtils.addSlideSclass(north);
 		
 		Rows rows = parameterLayout.newRows();
 		Row row = rows.newRow();
 		row.appendCellChild(labelBankAccount.rightAlign());
 		row.appendCellChild(fieldBankAccount);
-//		row.appendChild(labelBankBalance.rightAlign());
-//		Panel balancePanel = new Panel();
-//		balancePanel.appendChild(labelCurrency);
-//		balancePanel.appendChild(labelBalance);
-//		row.appendChild(balancePanel);
-		row.appendCellChild(new Space());
 		
 		row = rows.newRow();
 		row.appendCellChild(labelBPartner.rightAlign());
 		row.appendCellChild(fieldBPartner);
-		row.appendCellChild(new Space());
 		row.appendCellChild(onlyDue);
-		row.appendCellChild(new Space());
 		
 		row = rows.newRow();
 		row.appendCellChild(labelDtype.rightAlign());
 		row.appendCellChild(fieldDtype);
-		row.appendCellChild(new Space());
-		row.appendCellChild(new Space());
-		row.appendCellChild(new Space());
 		
 		row = rows.newRow();
 		row.appendCellChild(labelPayDate.rightAlign());
@@ -212,7 +212,7 @@ public class WPayment extends Payment
 		row.appendCellChild(bRefresh);
 
 		South south = new South();
-		south.setStyle("border: none");
+		south.setBorder ("none");
 		mainLayout.appendChild(south);
 		southPanel = new Panel();
 		southPanel.appendChild(dataStatus);
@@ -223,7 +223,34 @@ public class WPayment extends Payment
 		//
 		commandPanel.addButton(bGenerate);
 		commandPanel.getButton(ConfirmPanel.A_OK).setVisible(false);
+		
+		if (noOfColumn < 6)
+			LayoutUtils.compactTo(parameterLayout, noOfColumn);
+		else
+			LayoutUtils.expandTo(parameterLayout, noOfColumn, true);
 	}   //  jbInit
+
+	protected void setupColumns() {
+		noOfColumn = 6;
+		if (ClientInfo.maxWidth(ClientInfo.MEDIUM_WIDTH-1))
+		{
+			if (ClientInfo.maxWidth(ClientInfo.SMALL_WIDTH-1))
+				noOfColumn = 2;
+			else
+				noOfColumn = 4;
+		}
+		if (noOfColumn == 2)
+		{
+			Columns columns = new Columns();
+			Column column = new Column();
+			column.setWidth("35%");
+			columns.appendChild(column);
+			column = new Column();
+			column.setWidth("65%");
+			columns.appendChild(column);
+			parameterLayout.appendChild(columns);
+		}
+	}
 
 	/**
 	 *  Dynamic Init.
@@ -312,6 +339,13 @@ public class WPayment extends Payment
 		loadTableInfo(bi, payDate, paymentRule, onlyDue.isSelected(), bpartner, docType, miniTable);
 		
 		calculateSelection();
+		
+		if (ClientInfo.maxHeight(ClientInfo.SMALL_HEIGHT-1))
+		{
+			Component comp = parameterPanel.getParent();
+			if (comp instanceof North)
+				((North)comp).setOpen(false);
+		}
 	}   //  loadTableInfo
 
 	/**
@@ -440,19 +474,31 @@ public class WPayment extends Payment
 		if (!m_isLock) return;
 		m_isLock = false;
 		m_pi = pi;
-		Clients.clearBusy();	
-		
+		Clients.clearBusy();
+
 		this.dispose();
-	}
+	}	//	unlockUI
 
-	public void executeASync(ProcessInfo pi) {
-	}
+	/**
+	 * 	Execute ASync
+	 */
+	public void executeASync (ProcessInfo pi) 
+	{
+	}	//	executeASync
 
-	public boolean isUILocked() {
+	/**
+	 * 	Check if User Interface is Unlocked
+	 */
+	public boolean isUILocked () 
+	{
 		return m_isLock;
-	}
+	}	//	isUILocked
 
-	public ADForm getForm() {
+	/**
+	 * 	Return AD Form for ZK
+	 */
+	public ADForm getForm () 
+	{
 		return form;
 	}
 
@@ -484,5 +530,35 @@ public class WPayment extends Payment
 				FDialog.askForInput(m_WindowNo, null, message, callback);
 			}
 		}, new Event("onAskForInput"));
+	}
+
+	protected void onClientInfo()
+	{
+		if (ClientInfo.isMobile() && form.getPage() != null) 
+		{
+			if (noOfColumn > 0 && parameterLayout.getRows() != null)
+			{
+				int t = 6;
+				if (ClientInfo.maxWidth(ClientInfo.MEDIUM_WIDTH-1))
+				{
+					if (ClientInfo.maxWidth(ClientInfo.SMALL_WIDTH-1))
+						t = 2;
+					else
+						t = 4;
+				}
+				if (t != noOfColumn)
+				{
+					parameterLayout.getRows().detach();
+					if (parameterLayout.getColumns() != null)
+						parameterLayout.getColumns().detach();
+					try
+					{
+						zkInit();
+						form.invalidate();
+					}
+					catch (Exception e1) {}
+				}
+			}
+		}
 	}
 }   //  VPaySelect

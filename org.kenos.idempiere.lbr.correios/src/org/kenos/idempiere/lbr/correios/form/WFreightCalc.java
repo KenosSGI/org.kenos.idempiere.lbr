@@ -8,8 +8,13 @@ import java.util.List;
 import java.util.logging.Level;
 
 import org.adempiere.exceptions.AdempiereException;
+import org.adempiere.webui.ClientInfo;
+import org.adempiere.webui.LayoutUtils;
+import org.adempiere.webui.component.Borderlayout;
 import org.adempiere.webui.component.Button;
 import org.adempiere.webui.component.Checkbox;
+import org.adempiere.webui.component.Column;
+import org.adempiere.webui.component.Columns;
 import org.adempiere.webui.component.ConfirmPanel;
 import org.adempiere.webui.component.Datebox;
 import org.adempiere.webui.component.Grid;
@@ -26,6 +31,7 @@ import org.adempiere.webui.component.Textbox;
 import org.adempiere.webui.panel.ADForm;
 import org.adempiere.webui.panel.IFormController;
 import org.adempiere.webui.session.SessionManager;
+import org.adempiere.webui.util.ZKUpdateUtil;
 import org.adempierelbr.util.TextUtil;
 import org.compiere.model.MFreightCategory;
 import org.compiere.model.MOrder;
@@ -50,11 +56,13 @@ import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.event.Events;
 import org.zkoss.zul.Caption;
+import org.zkoss.zul.Center;
 import org.zkoss.zul.Decimalbox;
 import org.zkoss.zul.Div;
 import org.zkoss.zul.Groupbox;
 import org.zkoss.zul.Messagebox;
-import org.zkoss.zul.Separator;
+import org.zkoss.zul.North;
+import org.zkoss.zul.South;
 import org.zkoss.zul.Space;
 
 /**
@@ -105,6 +113,7 @@ public class WFreightCalc extends ADForm implements IFormController, EventListen
 	private Button b_query = new Button();
 	private Label l_help = new Label (Msg.getMsg (Env.getCtx(), "LBR_FreightCalcHelp"));
 	private Label l_warning = new Label ("");
+	private int noOfColumn;
 	
 	/**	Result Table	*/
 	private Listbox miniTable = new Listbox();
@@ -117,6 +126,11 @@ public class WFreightCalc extends ADForm implements IFormController, EventListen
 	/**	Cached Packaging Types	*/
 	private List<X_M_ShipperPackaging> listPack = null;
 
+	public WFreightCalc()
+	{
+		ClientInfo.onClientInfo(this, this::onClientInfo);
+	}
+	
 	/**
 	 * 	Process Events
 	 */
@@ -234,7 +248,16 @@ public class WFreightCalc extends ADForm implements IFormController, EventListen
 				if (TextUtil.toNumeric(f_zipFrom.getText()).length() != 8 || TextUtil.toNumeric(f_zipTo.getText()).length() != 8)
 					Messagebox.show("CEP Inválido, confira o CEP digitado");
 				else
+				{
 					getFreight ();
+
+					if (ClientInfo.maxHeight(ClientInfo.SMALL_HEIGHT-1))
+					{
+						Component comp = selectionPanel.getParent().getParent();
+						if (comp instanceof North)
+							((North)comp).setOpen(false);
+					}
+				}
 			}
 	
 			//	OK button
@@ -331,6 +354,35 @@ public class WFreightCalc extends ADForm implements IFormController, EventListen
 		}
 	}	//	onEvent
 
+	protected void onClientInfo()
+	{
+		if (ClientInfo.isMobile() && getPage() != null) 
+		{
+			if (noOfColumn > 0 && selectionPanel.getRows() != null)
+			{
+				int t = 6;
+				if (ClientInfo.maxWidth(ClientInfo.MEDIUM_WIDTH-1))
+				{
+					if (ClientInfo.maxWidth(ClientInfo.SMALL_WIDTH-1))
+						t = 2;
+					else
+						t = 4;
+				}
+				if (t != noOfColumn)
+				{
+					selectionPanel.getRows().detach();
+					if (selectionPanel.getColumns() != null)
+						selectionPanel.getColumns().detach();
+					try
+					{
+						initForm();
+						selectionPanel.invalidate();
+					} catch (Exception e1) {}
+				}
+			}
+		}
+	}
+
 	/**	
 	 * 	Update Gross Weight
 	 */
@@ -373,6 +425,8 @@ public class WFreightCalc extends ADForm implements IFormController, EventListen
 	protected void initForm ()
 	{
 		log.info("");
+		
+		setupColumns();
 
 		//	Shipper config
 		String uu = MSysConfig.getValue ("LBR_CORREIOS_SHIPPER", Env.getAD_Client_ID(Env.getCtx()));
@@ -420,7 +474,24 @@ public class WFreightCalc extends ADForm implements IFormController, EventListen
 		{
 			log.log(Level.SEVERE, "", e);
 		}
+		
+		if (noOfColumn < 6)
+			LayoutUtils.compactTo(selectionPanel, noOfColumn);
+		else
+			LayoutUtils.expandTo(selectionPanel, noOfColumn, true);
 	}	//	initForm
+
+	protected void setupColumns()
+	{
+		noOfColumn = 6;
+		if (ClientInfo.maxWidth(ClientInfo.MEDIUM_WIDTH-1))
+		{
+			if (ClientInfo.maxWidth(ClientInfo.SMALL_WIDTH-1))
+				noOfColumn = 2;
+			else
+				noOfColumn = 4;
+		}
+	}
 	
 	/**
 	 * 	Creates the selection panel
@@ -503,40 +574,50 @@ public class WFreightCalc extends ADForm implements IFormController, EventListen
 		Component rightAlign = new Label(Msg.getElement (Env.getCtx(), "Length")).rightAlign();
 		row.appendCellChild(rightAlign);
 		row.appendCellChild(f_length);
+		if (noOfColumn == 2) row = rows.newRow();
 		row.appendCellChild(new Label(Msg.getElement (Env.getCtx(), "Width")).rightAlign());
 		row.appendCellChild(f_width);
+		if (noOfColumn == 2) row = rows.newRow();
 		row.appendCellChild(new Label(Msg.getElement (Env.getCtx(), "Height")).rightAlign());
 		row.appendCellChild(f_height, 1);
 		
 		row = rows.newRow();
 		row.appendCellChild(new Label(Msg.getElement (Env.getCtx(), "Weight")).rightAlign());
 		row.appendCellChild(f_weight);
+		if (noOfColumn == 2) row = rows.newRow();
 		row.appendCellChild(new Label("Peso Embalagem").rightAlign());
 		row.appendCellChild(f_weightPackage);
+		if (noOfColumn == 2) row = rows.newRow();
 		row.appendCellChild(new Label(Msg.getElement (Env.getCtx(), "ArcDiameter")).rightAlign());
 		row.appendCellChild(f_diameter, 1);
 		
 		row = rows.newRow();
 		row.appendCellChild(new Label(Msg.getElement (Env.getCtx(), "Postal")).rightAlign());
 		row.appendCellChild(f_zipFrom);
+		if (noOfColumn == 2) row = rows.newRow();
 		row.appendCellChild(new Label(Msg.getElement (Env.getCtx(), "Postal_To")).rightAlign());
 		row.appendCellChild(f_zipTo);
+		if (noOfColumn == 2) row = rows.newRow();
 		row.appendCellChild(new Label(Msg.getElement (Env.getCtx(), "Amount")).rightAlign());
 		row.appendCellChild(f_amount);
 		
 		row = rows.newRow();
 		row.appendCellChild(new Space());
 		row.appendCellChild(cb_onHand);
+		if (noOfColumn == 2) row = rows.newRow();
 		row.appendCellChild(new Label(Msg.getElement (Env.getCtx(), "FormatType")).rightAlign());
 		row.appendCellChild(f_format, 1);
+		if (noOfColumn == 2) row = rows.newRow();
 		row.appendCellChild(new Label(Msg.getElement (Env.getCtx(), "PickDate")).rightAlign());
 		row.appendCellChild(f_date, 1);
 		
 		row = rows.newRow();
 		row.appendCellChild(new Space());
 		row.appendCellChild(cb_confirmReceipt);
+		if (noOfColumn == 2) row = rows.newRow();
 		row.appendCellChild(new Label(Msg.getElement (Env.getCtx(), "lbr_GrossWeight")).rightAlign());
 		row.appendCellChild(f_weightTotal);
+		if (noOfColumn == 2) row = rows.newRow();
 		row.appendCellChild(makeCenterAlign (b_query), 2);
 		
 		//	Selection Panel
@@ -556,13 +637,28 @@ public class WFreightCalc extends ADForm implements IFormController, EventListen
 	 */
 	private void createMainPanel ()
 	{
-		this.appendChild(new Separator());
-		this.appendChild(grpSelectionPanel);
-		this.appendChild(new Separator());
-		this.appendChild(grpSelectProd);
-		this.appendChild(new Separator());
-		this.appendChild(confirmPanel);
-		this.appendChild(new Separator());
+		
+		North north = new North();
+		north.setCollapsible(true);
+		north.setSplittable(true);
+		north.appendChild(grpSelectionPanel);
+		LayoutUtils.addSlideSclass(north);
+		
+		Borderlayout selPanel = new Borderlayout();
+		ZKUpdateUtil.setWidth(selPanel, "100%");
+		ZKUpdateUtil.setHeight(selPanel, "100%");
+		selPanel.setStyle("border: none; position: relative");
+		selPanel.appendChild(north);
+		
+		Center center = new Center();
+		selPanel.appendChild(center);
+		
+		South south = new South();
+		selPanel.appendChild(south);
+
+		this.appendChild(selPanel);
+		center.appendChild(grpSelectProd);
+		south.appendChild(confirmPanel);
 		this.setBorder("normal");
 		this.setContentStyle("overflow: auto");
 		//
@@ -886,6 +982,13 @@ public class WFreightCalc extends ADForm implements IFormController, EventListen
 				try
 				{
 					getFreight ();
+
+					if (ClientInfo.maxHeight(ClientInfo.SMALL_HEIGHT-1))
+					{
+						Component comp = selectionPanel.getParent().getParent();
+						if (comp instanceof North)
+							((North)comp).setOpen(false);
+					}
 				}
 				catch (Exception e) {}
 		}

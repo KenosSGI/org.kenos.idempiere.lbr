@@ -16,6 +16,12 @@ package org.kenos.apps.form;
 import java.util.ArrayList;
 import java.util.logging.Level;
 
+import org.adempiere.webui.ClientInfo;
+import org.adempiere.webui.LayoutUtils;
+import org.adempiere.webui.component.Column;
+import org.adempiere.webui.component.Columns;
+import org.zkoss.zk.ui.Component;
+import org.zkoss.zul.North;
 import org.adempiere.webui.component.Label;
 import org.adempiere.webui.component.Listbox;
 import org.adempiere.webui.component.ListboxFactory;
@@ -68,6 +74,7 @@ public class WNotaFiscal extends NotaFiscal implements IFormController, EventLis
 	private WDateEditor fDateDoc = new WDateEditor();
 	private Label lIsPrinted = new Label();
 	private Listbox fIsPrinted = new Listbox();
+	private int noOfColumn;
 	
 	private final String IsPrinted_OPTION_YES = Msg.translate(Env.getCtx(), "Yes");
 	private final String IsPrinted_OPTION_NO = Msg.translate(Env.getCtx(), "No");
@@ -91,6 +98,8 @@ public class WNotaFiscal extends NotaFiscal implements IFormController, EventLis
 		{
 			log.log(Level.SEVERE, "init", ex);
 		}
+		
+		ClientInfo.onClientInfo(form, this::onClientInfo);
 	}	//	init
 	
 	/**
@@ -106,6 +115,8 @@ public class WNotaFiscal extends NotaFiscal implements IFormController, EventLis
 	 */
 	void zkInit() throws Exception
 	{
+		setupColumns();
+		//
 		lOrg.setText(Msg.translate(Env.getCtx(), "AD_Org_ID"));
 		lOrgRec.setText(Msg.translate(Env.getCtx(), "AD_Org_ID"));
 		lBPartner.setText(Msg.translate(Env.getCtx(), "C_BPartner_ID"));
@@ -138,7 +149,44 @@ public class WNotaFiscal extends NotaFiscal implements IFormController, EventLis
 		ZKUpdateUtil.setHflex(fManifest.getComponent(), "true");
 		row.appendCellChild(fManifest.getComponent());
 		row.appendCellChild(new Space());
+		
+		if (noOfColumn < 6)
+		{
+			LayoutUtils.compactTo(form.getEmitParameterPanel(), noOfColumn);
+			LayoutUtils.compactTo(form.getInutParameterPanel(), noOfColumn);
+			LayoutUtils.compactTo(form.getRecParameterPanel(), noOfColumn);
+		}
+		else
+		{
+			LayoutUtils.expandTo(form.getEmitParameterPanel(), noOfColumn, true);
+			LayoutUtils.expandTo(form.getInutParameterPanel(), noOfColumn, true);
+			LayoutUtils.expandTo(form.getRecParameterPanel(), noOfColumn, true);
+		}
 	}	//	jbInit
+
+	protected void setupColumns() {
+		noOfColumn = 6;
+		if (ClientInfo.maxWidth(ClientInfo.MEDIUM_WIDTH-1))
+		{
+			if (ClientInfo.maxWidth(ClientInfo.SMALL_WIDTH-1))
+				noOfColumn = 2;
+			else
+				noOfColumn = 4;
+		}
+		if (noOfColumn == 2)
+		{
+			Columns columns = new Columns();
+			Column column = new Column();
+			column.setWidth("35%");
+			columns.appendChild(column);
+			column = new Column();
+			column.setWidth("65%");
+			columns.appendChild(column);
+			form.getEmitParameterPanel().appendChild(columns);
+			form.getInutParameterPanel().appendChild(columns);
+			form.getRecParameterPanel().appendChild(columns);
+		}
+	}
 
 	/**
 	 *	Fill Picks.
@@ -196,12 +244,55 @@ public class WNotaFiscal extends NotaFiscal implements IFormController, EventLis
 		executeQueryEmit (form.getMiniTableEmit());
 		executeQueryRec (form.getMiniTableRec());
 		executeQueryInut (form.getMiniTableInut());
+
+		if (ClientInfo.maxHeight(ClientInfo.SMALL_HEIGHT-1))
+		{
+			Component comp = form.getEmitParameterPanel().getParent();
+			if (comp instanceof North)
+				((North)comp).setOpen(false);
+			
+			comp = form.getInutParameterPanel().getParent();
+			if (comp instanceof North)
+				((North)comp).setOpen(false);
+			
+			comp = form.getRecParameterPanel().getParent();
+			if (comp instanceof North)
+				((North)comp).setOpen(false);
+		}
 		
 		form.getMiniTableEmit().repaint();
 		form.getMiniTableRec().repaint();
 		form.getMiniTableInut().repaint();
 		form.invalidate();
 	}   //  executeQuery
+
+	protected void onClientInfo()
+	{
+		if (ClientInfo.isMobile() && form.getPage() != null) 
+		{
+			if (noOfColumn > 0 && form.getEmitParameterPanel().getRows() != null)
+			{
+				int t = 6;
+				if (ClientInfo.maxWidth(ClientInfo.MEDIUM_WIDTH-1))
+				{
+					if (ClientInfo.maxWidth(ClientInfo.SMALL_WIDTH-1))
+						t = 2;
+					else
+						t = 4;
+				}
+				if (t != noOfColumn)
+				{
+					form.getEmitParameterPanel().getRows().detach();
+					if (form.getEmitParameterPanel().getColumns() != null)
+						form.getEmitParameterPanel().getColumns().detach();
+					try {
+						zkInit();
+						form.invalidate();
+					} catch (Exception e1) {}
+				}
+			}
+		}
+	}
 
 	/**
 	 *	Action Listener
