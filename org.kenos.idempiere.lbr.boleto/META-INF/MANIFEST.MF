@@ -13,4 +13,8 @@ Export-Package: org.adempierelbr.apps.form,
  org.adempierelbr.callout
 Import-Package: org.adempiere.pipo2
 Bundle-ClassPath: .,
+ lib/bcmail-jdk14.jar,
+ lib/bcprov-jdk14.jar,
+ lib/bctsp-jdk14.jar,
+ lib/itext.jar,
  lib/jBoleto.jar
