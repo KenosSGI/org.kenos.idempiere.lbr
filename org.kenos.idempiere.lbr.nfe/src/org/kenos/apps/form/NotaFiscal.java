@@ -49,6 +49,7 @@ public class NotaFiscal extends GenForm
 	public Object 			m_C_BPartner_ID = null;
 	public Object 			m_LBR_EventType = null;
 	public Object			m_DateDoc = null;
+	public Object			m_IsPrinted = null;
 	
 	public void dynInit() throws Exception
 	{
@@ -175,7 +176,10 @@ public class NotaFiscal extends GenForm
 		if (m_AD_Org_ID != null)
             sql.append(" AND nf.AD_Org_ID=").append(m_AD_Org_ID);
         if (m_C_BPartner_ID != null)
-            sql.append(" AND nf.C_BPartner_ID=").append(m_C_BPartner_ID);       
+            sql.append(" AND nf.C_BPartner_ID=").append(m_C_BPartner_ID);     
+        
+        if (m_IsPrinted != null)
+        	sql.append(" AND nf.IsPrinted = '" + ((Boolean)m_IsPrinted == true ? "Y' " : "N' "));
         
         int AD_User_ID = Env.getContextAsInt(Env.getCtx(), "#AD_User_ID");
         String lockedIDs = MPrivateAccess.getLockedRecordWhere(MOrder.Table_ID, AD_User_ID);

@@ -324,10 +324,16 @@ public class ValidatorInOut implements ModelValidator
 				MOrderLine oline = new MOrderLine(ctx, line.getC_OrderLine_ID(), trx);
 
 				//BF 3037141 - Pablo Boff Pigozzo
-				if (timing == TIMING_BEFORE_REVERSECORRECT
+				if ((timing == TIMING_BEFORE_REVERSECORRECT || timing == TIMING_BEFORE_REVERSEACCRUAL)
 						&& !MSysConfig.getBooleanValue("LBR_ALLOW_REVERSE_SHIP_RECEIT_WITH_OPEN_INVOICE", true, inOut.getAD_Client_ID())
 						&& DB.getSQLValue(trx, "SELECT COUNT(*) FROM C_InvoiceLine il, C_Invoice i WHERE i.C_Invoice_ID=il.C_Invoice_ID AND i.DocStatus NOT IN ('VO','RE') AND il.M_InOutLine_ID=?", line.getM_InOutLine_ID()) > 0)
 					return "Fatura(s) em aberto. Impossível continuar com o estorno.";
+			
+				//	Validate Ship on RMA
+				if ((timing == TIMING_BEFORE_REVERSECORRECT || timing == TIMING_BEFORE_REVERSEACCRUAL)
+						&& !MSysConfig.getBooleanValue("LBR_ALLOW_REVERSE_SHIP_RECEIT_WITH_OPEN_RMA", true, inOut.getAD_Client_ID())
+						&& DB.getSQLValue(trx, "SELECT COUNT(*) FROM M_RMALine rl, M_RMA r WHERE r.M_RMA_ID=rl.M_RMA_ID AND r.DocStatus NOT IN ('VO','RE') AND rl.M_InOutLine_ID=?", line.getM_InOutLine_ID()) > 0)
+					return "ARM(s) em aberto. Impossível continuar com o estorno.";
 
 				int C_OrderLine_ID = line.getC_OrderLine_ID();
 				if (C_OrderLine_ID != 0)

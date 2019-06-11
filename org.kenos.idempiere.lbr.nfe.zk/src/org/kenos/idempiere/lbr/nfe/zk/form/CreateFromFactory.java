@@ -7,6 +7,7 @@ import org.compiere.grid.ICreateFromFactory;
 import org.compiere.model.GridTab;
 import org.compiere.model.MInOut;
 import org.compiere.model.MInvoice;
+import org.kenos.idempiere.lbr.base.model.MRMA;
 
 /**
  * 	@author Ricardo Santana (Kenos, www.kenos.com.br)
@@ -24,6 +25,8 @@ public class CreateFromFactory implements ICreateFromFactory
 			return new WCreateFromInvoiceUI(mTab);
 		if (MInOut.Table_ID == AD_Table_ID)
 			return new WCreateFromShipmentUI(mTab);
+		if (MRMA.Table_ID == AD_Table_ID)
+			return new WCreateFromRMAUI(mTab);
 		return null;
 	}	//	create
 }	//	CreateFromFactory

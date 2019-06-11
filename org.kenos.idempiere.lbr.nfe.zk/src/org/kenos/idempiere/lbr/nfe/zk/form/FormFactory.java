@@ -4,6 +4,7 @@ import org.adempiere.webui.factory.IFormFactory;
 import org.adempiere.webui.panel.ADForm;
 import org.adempiere.webui.panel.IFormController;
 import org.kenos.apps.form.WNotaFiscal;
+import org.kenos.apps.form.WNotaFiscalAdditional;
 
 /**
  * 	@author Ricardo Santana (Kenos, www.kenos.com.br)
@@ -19,6 +20,14 @@ public class FormFactory implements IFormFactory
 		{
 			WNotaFiscal invoice = new WNotaFiscal();
 			IFormController controller = (IFormController) invoice;
+			ADForm form = controller.getForm();
+			form.setICustomForm(controller);
+			return form;
+		}
+		else if ("org.kenos.apps.form.VNotaFiscalAdditional".equals(formName))
+		{
+			WNotaFiscalAdditional alloc = new WNotaFiscalAdditional();
+			IFormController controller = (IFormController) alloc;
 			ADForm form = controller.getForm();
 			form.setICustomForm(controller);
 			return form;
