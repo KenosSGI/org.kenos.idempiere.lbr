@@ -12,7 +12,11 @@ Export-Package: org.adempierelbr.apps.form,
  org.adempierelbr.callout
 Import-Package: org.adempiere.pipo2
 Bundle-ClassPath: .,
- lib/jBoleto.jar
+ lib/jBoleto.jar,
+ lib/bcmail-jdk14.jar,
+ lib/bcprov-jdk14.jar,
+ lib/bctsp-jdk14.jar,
+ lib/itext.jar
 Automatic-Module-Name: org.kenos.idempiere.lbr.boleto
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Bundle-Vendor: Kenos www.kenos.com.br

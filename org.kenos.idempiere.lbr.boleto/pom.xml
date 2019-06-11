@@ -34,6 +34,26 @@
             <configuration>
               <artifactItems>
                 <artifactItem>
+                  <groupId>com.lowagie</groupId>
+                  <artifactId>itext</artifactId>
+                  <version>${itext.version}</version>
+                </artifactItem>
+                <artifactItem>
+                  <groupId>bouncycastle</groupId>
+                  <artifactId>bcmail-jdk14</artifactId>
+                  <version>${bouncycastle.version}</version>
+                </artifactItem>
+                <artifactItem>
+                  <groupId>bouncycastle</groupId>
+                  <artifactId>bcprov-jdk14</artifactId>
+                  <version>${bouncycastle.version}</version>
+                </artifactItem>
+                <artifactItem>
+                  <groupId>bouncycastle</groupId>
+                  <artifactId>bctsp-jdk14</artifactId>
+                  <version>${bouncycastle.version}</version>
+                </artifactItem>
+                <artifactItem>
                   <groupId>local.jBoleto</groupId>
                   <artifactId>jBoleto</artifactId>
                   <version>NOT_INFORMED</version>
