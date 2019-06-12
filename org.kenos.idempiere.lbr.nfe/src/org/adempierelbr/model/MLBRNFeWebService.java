@@ -36,7 +36,7 @@ public class MLBRNFeWebService extends X_LBR_NFeWebService
 	private static final long serialVersionUID = 1L;
 	
 	public static final String CADCONSULTACADASTRO	= "NfeConsultaCadastro";
-	public static final String STATUSSERVICO			= "NfeStatusServico";
+	public static final String STATUSSERVICO		= "NfeStatusServico";
 	public static final String CONSULTA				= "NfeConsultaProtocolo";
 	public static final String INUTILIZACAO			= "NfeInutilizacao";
 	public static final String CANCELAMENTO			= "NfeCancelamento";
@@ -49,12 +49,13 @@ public class MLBRNFeWebService extends X_LBR_NFeWebService
 	public static final String DOWNLOADNFE			= "DownloadNFe";
 	public static final String DISTRIBUICAONFE		= "NFeDistribuicaoDFe";
 	
-	public static final String NFCE_CONSULTA 		= "NFCeConsulta"; 		// 	Consulta NFCe pela chave de acesso
-	public static final String NFCE_CONSULTA_QRCODE 	= "NFCeConsultaQRCode"; // 	URL da consulta do QR-Code
+	public static final String NFCE_CONSULTA 		= "NFCeConsulta"; 		//	URL da consulta de Protocolo
+	public static final String NFCE_CONSULTA_QRCODE = "NFCeConsultaQRCode"; // 	URL da consulta NFCe pelo QR-Code
+	public static final String NFCE_CONSULTA_CHAVE 	= "NFCeConsultaChave"; 	// 	URL da consulta NFCe pela chave de acesso
 	public static final String NFCE_STATUSSERVICO	= "NFCeStatusServico";
 	public static final String NFCE_AUTORIZACAO		= "NFCeAutorizacao";
 	public static final String NFCE_RETAUTORIZACAO	= "NFCeRetAutorizacao";
-	public static final String NFCE_INUTILIZACAO		= "NFCeInutilizacao";
+	public static final String NFCE_INUTILIZACAO	= "NFCeInutilizacao";
 	public static final String SERVICEGINFES 		= "ServiceGinfesImplService";
 
 	/**************************************************************************
