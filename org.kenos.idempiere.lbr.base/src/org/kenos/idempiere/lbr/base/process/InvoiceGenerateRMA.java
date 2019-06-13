@@ -127,11 +127,12 @@ public class InvoiceGenerateRMA extends SvrProcess
             	// Document Information
             	rmaDocumentInfo = rma.getDocumentInfo();
             	
-            	// Complete Invoice
-            	if (!p_ConsolidateDocument
-            			|| (m_invoice != null 
-    					&& m_invoice.getC_BPartner_Location_ID() != io.getC_BPartner_Location_ID())
-    					|| (m_invoice != null && m_invoice.getAD_Org_ID() != rma.getAD_Org_ID()))
+            	// Complete the previously created Invoice if consolidate flag is not checked or
+            	if (m_invoice != null && (!p_ConsolidateDocument
+            			// Location is different or
+            			|| m_invoice.getC_BPartner_Location_ID() != io.getC_BPartner_Location_ID()
+            			// Organization is different
+    					|| m_invoice.getAD_Org_ID() != rma.getAD_Org_ID()))
             		generateInvoice();
             	
             	// Create New Invoice
@@ -190,7 +191,8 @@ public class InvoiceGenerateRMA extends SvrProcess
         
         MInvoice invoice = new MInvoice(getCtx(), 0, get_TrxName());
         invoice.setRMA(rma);
-        
+        if (rma.getInOut_ID() > 0)
+        	invoice.setC_BPartner_Location_ID(rma.getInOut().getC_BPartner_Location_ID());
         invoice.setC_DocTypeTarget_ID(docTypeId);
         if (!invoice.save())
         {
