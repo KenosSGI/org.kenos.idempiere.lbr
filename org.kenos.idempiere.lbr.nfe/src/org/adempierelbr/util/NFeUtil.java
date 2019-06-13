@@ -80,7 +80,7 @@ public abstract class NFeUtil
 	/** Versão				*/
 	public static final String VERSAO_LAYOUT	= "4.00";
 	public static final String VERSAO_APP		= "Kenos ERP 4.00";
-	public static final String VERSAO_QR_CODE 	= "100";
+	public static final String VERSAO_QR_CODE 	= "2";
 	@Deprecated
 	public static final String VERSAO_CCE		= "1.00";
 	public static final String VERSAO_EVENTO	= "1.00";
@@ -761,9 +761,9 @@ public abstract class NFeUtil
 		for (String key : parametros.keySet()) {
 
 			if (nParameter > 0)
-				ret += "&";
+				ret += "|";
 
-			ret += key + "=" + parametros.get(key);
+			ret += parametros.get(key);
 
 			nParameter++;
 		}
@@ -859,22 +859,22 @@ public abstract class NFeUtil
 		parametros.put("chNFe", chNFe);
 		parametros.put("nVersao", nVersao);
 		parametros.put("tpAmb", tpAmb);
-		if (!TextUtil.toNumeric(cDest).isEmpty()){
-			parametros.put("cDest", TextUtil.toNumeric(cDest));
-		}
-		parametros.put("dhEmi", TextUtil.convertStringToHex(normalizeTZ (dhEmi)));
-		parametros.put("vNF", vNF);
-		parametros.put("vICMS", vICMS);
-		parametros.put("digVal", TextUtil.convertStringToHex(digest));
-		parametros.put("cIdToken", TextUtil.lPad(tokenID, 6) + token);
+//		if (!TextUtil.toNumeric(cDest).isEmpty()){
+//			parametros.put("cDest", TextUtil.toNumeric(cDest));
+//		}
+//		parametros.put("dhEmi", TextUtil.convertStringToHex(normalizeTZ (dhEmi)));
+//		parametros.put("vNF", vNF);
+//		parametros.put("vICMS", vICMS);
+//		parametros.put("digVal", TextUtil.convertStringToHex(digest));
+		parametros.put("cIdToken", TextUtil.toNumeric(tokenID));
 		      
 		// Calcula o hash do QR Code:
 		String hashQRCodeStr = generateQRCodeParamsURL(parametros);
 		String hashQRCode = TextUtil.byteArrayToHexString(TextUtil.generateSHA1(hashQRCodeStr));
 
-		parametros.put("cIdToken", TextUtil.lPad(tokenID, 6));
+		//	Somente usado para criar o Hash
 		parametros.put("cHashQRCode", hashQRCode);
-		return url + "?" + NFeUtil.generateQRCodeParamsURL(parametros);
+		return url + "?p=" + NFeUtil.generateQRCodeParamsURL(parametros);
 	}	//	generateQRCodeNFCeURL
 	
 	/**

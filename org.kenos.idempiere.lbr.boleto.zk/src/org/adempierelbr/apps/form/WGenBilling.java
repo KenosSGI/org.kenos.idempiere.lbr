@@ -20,8 +20,12 @@ import java.util.Date;
 import java.util.logging.Level;
 
 import org.adempiere.pipo2.Zipper;
+import org.adempiere.webui.ClientInfo;
+import org.adempiere.webui.LayoutUtils;
 import org.adempiere.webui.component.Button;
 import org.adempiere.webui.component.Checkbox;
+import org.adempiere.webui.component.Column;
+import org.adempiere.webui.component.Columns;
 import org.adempiere.webui.component.ConfirmPanel;
 import org.adempiere.webui.component.Grid;
 import org.adempiere.webui.component.GridFactory;
@@ -48,6 +52,7 @@ import org.compiere.util.Env;
 import org.compiere.util.KeyNamePair;
 import org.compiere.util.Msg;
 import org.zkoss.util.media.AMedia;
+import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.util.Clients;
@@ -57,7 +62,6 @@ import org.zkoss.zul.Filedownload;
 import org.zkoss.zul.North;
 import org.zkoss.zul.Separator;
 import org.zkoss.zul.South;
-import org.zkoss.zul.Space;
 
 /**
  *  	Generate Bills for ZK interface
@@ -95,6 +99,7 @@ public class WGenBilling extends GenBilling
 	@SuppressWarnings("unused")
 	private ProcessInfo m_pi;
 	private boolean m_isLock;
+	private int noOfColumn;
 	
 	/**
 	 *	Initialize Panel
@@ -114,6 +119,8 @@ public class WGenBilling extends GenBilling
 		{
 			log.log(Level.SEVERE, "", e);
 		}
+		
+		ClientInfo.onClientInfo(form, this::onClientInfo);
 	}	//	init
 
 	/**
@@ -122,6 +129,7 @@ public class WGenBilling extends GenBilling
 	 */
 	private void zkInit() throws Exception
 	{
+		setupColumns();
 		//
 		form.appendChild(mainPanel);
 		mainPanel.appendChild(mainLayout);
@@ -149,24 +157,23 @@ public class WGenBilling extends GenBilling
 		bCancel.addActionListener(this);
 		//
 		North north = new North();
-		north.setStyle("border: none");
+		north.setBorder ("none");
 		mainLayout.appendChild(north);
 		north.appendChild(parameterPanel);
+		north.setCollapsible(true);
+		north.setSplittable(true);
+		LayoutUtils.addSlideSclass(north);
 		
 		Rows rows = parameterLayout.newRows();
 		Row row = rows.newRow();
 		row.appendChild(labelBankAccount.rightAlign());
 		row.appendChild(fieldBankAccount);
-		row.appendChild(new Space());
-		row.appendChild(new Space());
-		row.appendChild(new Space());
 		
 		row = rows.newRow();
 		row.appendChild(labelBPartner.rightAlign());
 		row.appendChild(fieldBPartner);
 		row.appendChild(labelDate.rightAlign());
 		row.appendChild(fieldDate.getComponent());
-		row.appendChild(new Space());
 		
 		row = rows.newRow();
 		row.appendChild(labelDtype.rightAlign());
@@ -177,7 +184,7 @@ public class WGenBilling extends GenBilling
 		row.appendChild(bRefresh);
 
 		South south = new South();
-		south.setStyle("border: none");
+		south.setBorder ("none");
 		mainLayout.appendChild(south);
 		southPanel = new Panel();
 		southPanel.appendChild(dataStatus);
@@ -188,7 +195,34 @@ public class WGenBilling extends GenBilling
 		//
 		commandPanel.addButton(bGenerate);
 		commandPanel.getButton(ConfirmPanel.A_OK).setVisible(false);
+		
+		if (noOfColumn < 6)
+			LayoutUtils.compactTo(parameterLayout, noOfColumn);
+		else
+			LayoutUtils.expandTo(parameterLayout, noOfColumn, true);
 	}   //  jbInit
+
+	protected void setupColumns() {
+		noOfColumn = 6;
+		if (ClientInfo.maxWidth(ClientInfo.MEDIUM_WIDTH-1))
+		{
+			if (ClientInfo.maxWidth(ClientInfo.SMALL_WIDTH-1))
+				noOfColumn = 2;
+			else
+				noOfColumn = 4;
+		}
+		if (noOfColumn == 2)
+		{
+			Columns columns = new Columns();
+			Column column = new Column();
+			column.setWidth("35%");
+			columns.appendChild(column);
+			column = new Column();
+			column.setWidth("65%");
+			columns.appendChild(column);
+			parameterLayout.appendChild(columns);
+		}
+	}
 
 	/**
 	 *  Dynamic Init.
@@ -258,6 +292,13 @@ public class WGenBilling extends GenBilling
 		loadTableInfo (org, bi, bpartner, docType, dateFrom, dateTo, isPrinted.isSelected(), miniTable);
 		
 		calculateSelection();
+		
+		if (ClientInfo.maxHeight(ClientInfo.SMALL_HEIGHT-1))
+		{
+			Component comp = parameterPanel.getParent();
+			if (comp instanceof North)
+				((North)comp).setOpen(false);
+		}
 	}   //  loadTableInfo
 
 	/**
@@ -403,4 +444,34 @@ public class WGenBilling extends GenBilling
 	{
 		return form;
 	}	//	getForm
+
+	protected void onClientInfo()
+	{
+		if (ClientInfo.isMobile() && form.getPage() != null) 
+		{
+			if (noOfColumn > 0 && parameterLayout.getRows() != null)
+			{
+				int t = 6;
+				if (ClientInfo.maxWidth(ClientInfo.MEDIUM_WIDTH-1))
+				{
+					if (ClientInfo.maxWidth(ClientInfo.SMALL_WIDTH-1))
+						t = 2;
+					else
+						t = 4;
+				}
+				if (t != noOfColumn)
+				{
+					parameterLayout.getRows().detach();
+					if (parameterLayout.getColumns() != null)
+						parameterLayout.getColumns().detach();
+					try
+					{
+						zkInit();
+						form.invalidate();
+					}
+					catch (Exception e1) {}
+				}
+			}
+		}
+	}
 }   //  WGenBilling

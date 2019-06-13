@@ -27,6 +27,7 @@ import org.adempierelbr.model.MLBRCSC;
 import org.adempierelbr.model.MLBRNFConfig;
 import org.adempierelbr.model.MLBRNFLineMA;
 import org.adempierelbr.model.MLBRNFPaySchedule;
+import org.adempierelbr.model.MLBRNFeWebService;
 import org.adempierelbr.model.MLBRNotaFiscal;
 import org.adempierelbr.model.MLBRNotaFiscalDocRef;
 import org.adempierelbr.model.MLBRNotaFiscalLine;
@@ -2160,8 +2161,11 @@ public class NFeXMLGenerator
 				
 				if (vNFCeQRCodeURL != null && !vNFCeQRCodeURL.isEmpty())
 				{
+					String url_chave = MLBRNFeWebService.getURL (MLBRNFeWebService.NFCE_CONSULTA_CHAVE, nf.getlbr_NFeEnv(), NFeUtil.VERSAO_LAYOUT, nf.getOrg_Location().getC_Region_ID());
+					
 					InfNFeSupl supl = nfe.addNewInfNFeSupl();
 					supl.setQrCode(vNFCeQRCodeURL);
+					supl.setUrlChave(url_chave);
 					nf.setLBR_NFCeQRCodeURL(vNFCeQRCodeURL);
 				}
 			} 
