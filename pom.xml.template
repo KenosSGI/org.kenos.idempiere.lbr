@@ -40,6 +40,7 @@ mvn verify -Didempiere.target=org.idempierelbr.p2.targetplatform
 		<module>org.kenos.idempiere.lbr.nfse</module>
 		<module>org.kenos.idempiere.lbr.mdfe</module>
 		<module>org.kenos.idempiere.lbr.sped</module>
+		<module>org.kenos.idempiere.lbr.jasper.fonts</module>
 		<module>org.kenos.idempiere.lbr-feature</module>
 		<module>org.kenos.idempiere.lbr.p2.targetplatform</module>
 		<module>org.kenos.idempiere.lbr.p2</module>
