@@ -2906,7 +2906,7 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 				&& M_Shipper_ID > 0)
 			setShipper(new MShipper (Env.getCtx(), M_Shipper_ID, get_TrxName()));
 		
-		else if (getDeliveryViaRule() != null && !MInOut.DELIVERYVIARULE_Pickup.equals(getDeliveryViaRule()))
+		if (getDeliveryViaRule() != null && !MInOut.DELIVERYVIARULE_Pickup.equals(getDeliveryViaRule()))
 		{
 			MLocation location = new MLocation (getCtx(), bpLocation.getC_Location_ID(), get_TrxName());
 			MCountry country = new MCountry (getCtx(), location.getC_Country_ID(), get_TrxName());
