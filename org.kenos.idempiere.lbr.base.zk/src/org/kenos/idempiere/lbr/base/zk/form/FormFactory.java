@@ -18,63 +18,40 @@ public class FormFactory implements IFormFactory
 	@Override
 	public ADForm newFormInstance (String formName)
 	{
+		IFormController controller = null;
+				
 		//	Check the form name
 		if (formName.equals ("org.compiere.apps.form.VInvoiceGen"))
-		{
-			WInvoiceGen invoice = new WInvoiceGen();
-			IFormController controller = (IFormController) invoice;
-			ADForm form = controller.getForm();
-			form.setICustomForm(controller);
-			return form;
-		}
+			controller = new WInvoiceGen();
+
 		else if (formName.equals ("org.compiere.apps.form.VInOutGen"))
-		{
-			WInOutGen inout = new WInOutGen();
-			IFormController controller = (IFormController) inout;
-			ADForm form = controller.getForm();
-			form.setICustomForm(controller);
-			return form;
-		}
+			controller = new WInOutGen();
+
 		else if (formName.equals ("org.kenos.apps.form.VPayment"))
-		{
-			WPayment payment = new WPayment();
-			IFormController controller = (IFormController) payment;
-			ADForm form = controller.getForm();
-			form.setICustomForm(controller);
-			return form;
-		}
+			controller = new WPayment();
+
 		else if (formName.equals ("org.kenos.idempiere.lbr.base.form.POGManage"))
-		{
-			WPOGManage manage = new WPOGManage();
-			IFormController controller = (IFormController) manage;
-			ADForm form = controller.getForm();
-			form.setICustomForm(controller);
-			return form;
-		}
+			controller = new WPOGManage();
+
 		else if (formName.equals ("org.kenos.idempiere.lbr.base.form.POGInvoiceGen"))
-		{
-			WPOGInvoiceGen pogInvoiceGen = new WPOGInvoiceGen();
-			IFormController controller = (IFormController) pogInvoiceGen;
-			ADForm form = controller.getForm();
-			form.setICustomForm(controller);
-			return form;
-		}
+			controller = new WPOGInvoiceGen();
+
 		else if (formName.equals ("org.kenos.idempiere.lbr.base.form.POGDistribMaterial"))
-		{
-			WPOGDistribMaterial pogDistribMaterial = new WPOGDistribMaterial();
-			IFormController controller = (IFormController) pogDistribMaterial;
-			ADForm form = controller.getForm();
-			form.setICustomForm(controller);
-			return form;
-		}
+			controller = new WPOGDistribMaterial();
+
 		else if (formName.equals ("org.kenos.idempiere.lbr.base.form.POGManageMoveToProducer"))
+			controller = new WPOGManageMoveToProducer();
+
+		else if (formName.equals ("org.compiere.apps.form.VMatch"))
+			controller = new WMatch();
+
+		if (controller != null)
 		{
-			WPOGManageMoveToProducer pogManageMoveToProducer = new WPOGManageMoveToProducer();
-			IFormController controller = (IFormController) pogManageMoveToProducer;
 			ADForm form = controller.getForm();
 			form.setICustomForm(controller);
 			return form;
 		}
+		
 		return null;
 	}
 }	//	FormFactory
