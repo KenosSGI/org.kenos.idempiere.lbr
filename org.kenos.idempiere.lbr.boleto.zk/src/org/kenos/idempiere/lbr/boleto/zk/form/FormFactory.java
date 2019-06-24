@@ -22,29 +22,22 @@ public class FormFactory implements IFormFactory
 	@Override
 	public ADForm newFormInstance (String formName)
 	{
+		IFormController controller = null;
+		
 		//	Check the form name
-		if (GenBilling.GEN_BILLING_SWING.equals(formName)
-				|| GenBilling.GEN_BILLING_ZK.equals(formName))
+		if (GenBilling.GEN_BILLING_SWING.equals(formName) || GenBilling.GEN_BILLING_ZK.equals(formName))
+			controller = new WGenBilling();
+			
+		else if (GenCNAB.GEN_CNAB_SWING.equals(formName) || GenCNAB.GEN_CNAB_ZK.equals(formName))
+			controller = new WGenCNAB();
+
+		if (controller != null)
 		{
-			//	Convert from IFormController to ADForm
-			WGenBilling genBilling = new WGenBilling();
-			IFormController controller = (IFormController) genBilling;
 			ADForm form = controller.getForm();
 			form.setICustomForm(controller);
 			return form;
 		}
 		
-		//	Check the form name
-		else if (GenCNAB.GEN_CNAB_SWING.equals(formName)
-					|| GenCNAB.GEN_CNAB_ZK.equals(formName))
-		{
-			//	Convert from IFormController to ADForm
-			WGenCNAB genBilling = new WGenCNAB();
-			IFormController controller = (IFormController) genBilling;
-			ADForm form = controller.getForm();
-			form.setICustomForm(controller);
-			return form;
-		}
 		return null;
 	}
-}	//	BoletoFormFactory
+}	//	FormFactory

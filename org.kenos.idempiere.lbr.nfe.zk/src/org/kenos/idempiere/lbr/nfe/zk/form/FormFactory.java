@@ -15,23 +15,21 @@ public class FormFactory implements IFormFactory
 	@Override
 	public ADForm newFormInstance (String formName)
 	{
-		if ("org.kenos.apps.form.VNotaFiscal".equals(formName)
-				|| "org.kenos.apps.form.WNotaFiscal".equals(formName))
-		{
-			WNotaFiscal invoice = new WNotaFiscal();
-			IFormController controller = (IFormController) invoice;
-			ADForm form = controller.getForm();
-			form.setICustomForm(controller);
-			return form;
-		}
+		IFormController controller = null;
+		
+		if ("org.kenos.apps.form.VNotaFiscal".equals(formName) || "org.kenos.apps.form.WNotaFiscal".equals(formName))
+			controller = new WNotaFiscal();
+		
 		else if ("org.kenos.apps.form.VNotaFiscalAdditional".equals(formName))
+			controller = new WNotaFiscalAdditional();
+			
+		if (controller != null)
 		{
-			WNotaFiscalAdditional alloc = new WNotaFiscalAdditional();
-			IFormController controller = (IFormController) alloc;
 			ADForm form = controller.getForm();
 			form.setICustomForm(controller);
 			return form;
 		}
+		
 		return null;
 	}	//	newFormInstance
 }	//	FormFactory
