@@ -84,6 +84,7 @@ public class MovementToProduction extends SvrProcess
 		
 		//	Movement
 		MMovement movement = new MMovement (getCtx(), 0, get_TrxName());
+		movement.setAD_Org_ID(production.getAD_Org_ID());
 		movement.setC_DocType_ID (p_C_DocType_ID);
 		movement.setDescription ("Documento de Movimentação para a OP: " + production.get_ValueAsString ("DocumentNo"));
 		movement.set_ValueNoCheck(MProduction.COLUMNNAME_M_Production_ID, production.getM_Production_ID());
@@ -144,6 +145,7 @@ public class MovementToProduction extends SvrProcess
 					
 					//	Movement details
 					MMovementLine ml = new MMovementLine (movement);
+					ml.setAD_Org_ID(movement.getAD_Org_ID());
 					ml.setM_Product_ID(M_Product_ID);
 					ml.setM_Locator_ID(s.getM_Locator_ID());
 					ml.setM_LocatorTo_ID(M_Locator_ID);
