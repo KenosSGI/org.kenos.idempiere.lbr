@@ -51,6 +51,7 @@ import org.zkoss.zk.ui.WrongValueException;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zul.North;
+import org.zkoss.zul.Space;
 
 /**
  * Generate Invoice (manual) view class
@@ -137,6 +138,13 @@ public class WInvoiceGen extends InvoiceGen implements IFormController, EventLis
 		row.appendCellChild(lDocAction.rightAlign());
 		ZKUpdateUtil.setHflex(docAction.getComponent(), "true");
 		row.appendCellChild(docAction.getComponent());
+		
+		row = new Row();
+		form.getParameterPanel().getRows().appendChild(row);
+		row.appendCellChild(new Space());
+		row.appendCellChild(cbConsolidateDoc, 2);
+		row.appendCellChild(new Space(), 3);
+		
 		if (noOfColumn < 6)
 			LayoutUtils.compactTo(form.getParameterPanel(), noOfColumn);
 		else
