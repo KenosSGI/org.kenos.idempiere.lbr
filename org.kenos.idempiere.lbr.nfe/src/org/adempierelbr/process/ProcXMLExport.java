@@ -236,7 +236,7 @@ public class ProcXMLExport extends SvrProcess
 			{
 				//	Pasta para adicionar o XML das NFs de Entrada e Saída
 				String folder = p_Temp + p_FolderKey + File.separator + TextUtil.toNumeric(nf.getlbr_CNPJ()) 
-				+ File.separator + "Emitidas" + File.separator + (nf.isSOTrx() ? "Saída" : "Entrada");
+				+ File.separator + "Emitidas" + File.separator + (nf.isSOTrx() ? "Saida" : "Entrada");
 				
 				//	Arquivo XML
 				String fileName = folder + File.separator + nf.getDocumentNo() + "_" + xml.getName();
@@ -274,7 +274,7 @@ public class ProcXMLExport extends SvrProcess
 						//	Pasta dos Eventos
 						folder = p_Temp + p_FolderKey + File.separator + TextUtil.toNumeric(nf.getlbr_CNPJ()) 
 						+ File.separator + "Emitidas" + File.separator + 
-						(nf.isSOTrx() ? "Saída" + File.separator + "Eventos" : 
+						(nf.isSOTrx() ? "Saida" + File.separator + "Eventos" : 
 							"Entrada" + File.separator + "Eventos");
 						
 						//	XML
@@ -344,7 +344,7 @@ public class ProcXMLExport extends SvrProcess
 				if (xml != null)
 				{
 					String folder = p_Temp + p_FolderKey + File.separator + TextUtil.toNumeric(oi.getlbr_CNPJ()) 
-							+ File.separator + "Recebidas" + File.separator + (dfe.isSOTrx() ? "Saída" : "Entrada");
+							+ File.separator + "Recebidas" + File.separator + (dfe.isSOTrx() ? "Saida" : "Entrada");
 					String fileName = folder + File.separator + xml.getName();
 					//
 					File file = new File (folder);
@@ -552,7 +552,7 @@ public class ProcXMLExport extends SvrProcess
 			this.status 	= status;
 			this.dateDoc 	= dateDoc;
 			this.dateInOut 	= dateInOut;
-			this.isSOTrx 	= isSOTrx ? "Saída" : "Entrada";
+			this.isSOTrx 	= isSOTrx ? "Saida" : "Entrada";
 			this.bpName 	= bpName;
 			this.documentNo = documentNo;
 			this.serieNo 	= serieNo;
