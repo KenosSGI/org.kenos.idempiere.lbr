@@ -1838,7 +1838,8 @@ public class NFeXMLGenerator
 		if (!nfce)
 		{
 			
-			if (nf.getM_Shipper_ID() > 0)
+			if (nf.getM_Shipper_ID() > 0 
+					&& MLBRNotaFiscal.DELIVERYVIARULE_Shipper.equals(nf.getDeliveryViaRule()))
 			{
 				Transporta transporta = transp.addNewTransporta();
 				
