@@ -2816,7 +2816,11 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 	
 				M_Shipper_ID = io.getM_Shipper_ID();
 				
-				if (MSysConfig.getValue("LBR_NFESPECIE",  getAD_Client_ID()) != null )
+				I_W_M_InOut wio = POWrapper.create(io, I_W_M_InOut.class);
+				
+				if (wio.getlbr_PackingType() != null && !wio.getlbr_PackingType().isEmpty())
+					setlbr_PackingType (wio.getlbr_PackingType());
+				else if (MSysConfig.getValue("LBR_NFESPECIE",  getAD_Client_ID()) != null )
 					setlbr_PackingType(MSysConfig.getValue("LBR_NFESPECIE", getAD_Client_ID()));
 				else
 					setlbr_PackingType(MSysConfig.getValue("VOLUME"));
