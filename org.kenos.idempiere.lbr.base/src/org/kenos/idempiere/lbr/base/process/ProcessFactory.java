@@ -24,6 +24,8 @@ public class ProcessFactory implements IProcessFactory
 			return new InvoiceGenerateRMA ();
 		if (InOutGenerate.PROCESS_NAME.equals (className))
 			return new InOutGenerate ();
+		if (StorageCleanup.PROCESS_NAME.equals (className))
+			return new StorageCleanup ();
 		if (REPORT_STARTER.equals (className))
 			return new ReportStarter () {};
 		return null;
