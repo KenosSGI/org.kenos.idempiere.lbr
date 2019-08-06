@@ -181,70 +181,8 @@ public class StorageCleanup extends SvrProcess
 				break;
 		}	//	for all movements
 		
-//		mh.saveEx();
-//		StringBuilder msglog= new StringBuilder("@M_Movement_ID@ ").append(mh.getDocumentNo()).append(" (") 
-//				.append(MRefList.get(getCtx(), MMovement.DOCSTATUS_AD_Reference_ID, 
-//						mh.getDocStatus(), get_TrxName())).append(")");
-//		addLog(0, null, new BigDecimal(lines), msglog.toString());
-
-		eliminateReservation(target);
 		return lines;
 	}	//	move
-
-	/**
-	 * 	Eliminate Reserved/Ordered
-	 *	@param target target Storage
-	 */
-	private void eliminateReservation(MStorageOnHand target)
-	{
-		/*
-		//	Negative Ordered / Reserved Qty
-		if (target.getQtyReserved().signum() != 0 || target.getQtyOrdered().signum() != 0)
-		{
-			int M_Locator_ID = target.getM_Locator_ID();
-			MStorageOnHand storage0 = MStorageOnHand.get(getCtx(), M_Locator_ID, 
-				target.getM_Product_ID(), 0, get_TrxName());
-			if (storage0 == null)
-			{
-				MLocator defaultLoc = MLocator.getDefault(getCtx(), M_Locator_ID);
-				if (M_Locator_ID != defaultLoc.getM_Locator_ID())
-				{
-					M_Locator_ID = defaultLoc.getM_Locator_ID();
-					storage0 = MStorageOnHand.get(getCtx(), M_Locator_ID, 
-						target.getM_Product_ID(), 0, get_TrxName());
-				}
-			}
-			if (storage0 != null)
-			{
-				BigDecimal reserved = Env.ZERO;
-				BigDecimal ordered = Env.ZERO;
-				if (target.getQtyReserved().add(storage0.getQtyReserved()).signum() >= 0)
-					reserved = target.getQtyReserved();		//	negative
-				if (target.getQtyOrdered().add(storage0.getQtyOrdered()).signum() >= 0)
-					ordered = target.getQtyOrdered();		//	negative
-				//	Eliminate Reservation
-				if (reserved.signum() != 0 || ordered.signum() != 0)
-				{
-					if (MStorageOnHand.add(getCtx(), target.getM_Warehouse_ID(), target.getM_Locator_ID(), 
-						target.getM_Product_ID(), 
-						target.getM_AttributeSetInstance_ID(), target.getM_AttributeSetInstance_ID(),
-						Env.ZERO,  get_TrxName()))
-					{
-						if (MStorageOnHand.add(getCtx(), storage0.getM_Warehouse_ID(), storage0.getM_Locator_ID(), 
-							storage0.getM_Product_ID(), 
-							storage0.getM_AttributeSetInstance_ID(), storage0.getM_AttributeSetInstance_ID(),
-							Env.ZERO, get_TrxName()))
-							log.info("Reserved=" + reserved + ",Ordered=" + ordered);
-						else
-							log.warning("Failed Storage0 Update");
-					}
-					else
-						log.warning("Failed Target Update");
-				}
-			}
-		}
-		*/
-	}	//	eliminateReservation
 	
 	/**
 	 * 	Get Storage Sources
