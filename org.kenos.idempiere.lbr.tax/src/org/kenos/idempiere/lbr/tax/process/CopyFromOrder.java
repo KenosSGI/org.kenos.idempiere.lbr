@@ -31,8 +31,10 @@ import org.kenos.idempiere.lbr.tax.model.MOrder;
  */
 public class CopyFromOrder extends SvrProcess
 {
-	/**	The Order				*/
-	private int		p_C_Order_ID = 0;
+	/**	The Order					*/
+	private int		p_C_Order_ID 	= 0;
+	/**	Copy attribute set instance	*/
+	private boolean	p_CopyASI 		= false;
 
 	/**
 	 *  Prepare - e.g., get Parameters.
@@ -47,6 +49,8 @@ public class CopyFromOrder extends SvrProcess
 				;
 			else if (name.equals("C_Order_ID"))
 				p_C_Order_ID = ((BigDecimal)para[i].getParameter()).intValue();
+			else if (name.equals("LBR_CopyASI"))
+				p_CopyASI = para[i].getParameterAsBoolean();
 			else
 				log.log(Level.SEVERE, "Unknown Parameter: " + name);
 		}
@@ -68,7 +72,7 @@ public class CopyFromOrder extends SvrProcess
 		MOrder from = new MOrder (getCtx(), p_C_Order_ID, get_TrxName());
 		MOrder to = new MOrder (getCtx(), To_C_Order_ID, get_TrxName());
 		//
-		int no = to.copyLinesFrom (from, false, false);		//	no Attributes
+		int no = to.copyLinesFrom (from, false, p_CopyASI);		//	no Attributes
 		//
 		return "@Copied@=" + no;
 	}	//	doIt
