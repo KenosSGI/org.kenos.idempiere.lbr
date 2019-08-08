@@ -14,3 +14,6 @@ Bundle-ActivationPolicy: lazy
 Automatic-Module-Name: org.kenos.idempiere.lbr.sped
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Bundle-Vendor: Kenos www.kenos.com.br
+Export-Package: org.adempierelbr.process,
+ org.adempierelbr.sped.efd.process,
+ org.adempierelbr.sped.process
