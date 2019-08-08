@@ -63,6 +63,8 @@ public class MOrder extends org.compiere.model.MOrder
 			line.setQtyDelivered(Env.ZERO);
 			line.setQtyInvoiced(Env.ZERO);
 			line.setQtyReserved(Env.ZERO);
+			line.setQtyLostSales(Env.ZERO);
+			line.setQtyOrdered(Env.ZERO);
 			line.setDateDelivered(null);
 			line.setDateInvoiced(null);
 			//
