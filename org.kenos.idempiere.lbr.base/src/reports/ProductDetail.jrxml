@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.5.0.final using JasperReports Library version 6.5.0  -->
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Product BOM" language="groovy" pageWidth="595" pageHeight="842" whenNoDataType="NoPages" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6225d5a3-6ac4-4136-8523-0b99f7f21f70">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<parameter name="RECORD_ID" class="java.lang.Integer">
 		<defaultValueExpression><![CDATA[2000257]]></defaultValueExpression>
 	</parameter>
@@ -29,7 +31,8 @@ pr.Discontinued		AS Descontinuado,
 pr.LBR_HasSubstitution	AS Tributaria,
 pr.DiscontinuedAT	AS DescontinuadoEm,
 rt.Name			AS TipoProduto,
-tr.ad_language		AS Idioma
+tr.ad_language		AS Idioma,
+i.Binarydata AS Imagem
 
 FROM M_Product pr
 JOIN M_Product_Category pc ON pc.M_Product_Category_ID = pr.M_Product_Category_ID
@@ -38,6 +41,7 @@ JOIN C_UOM u ON u.C_UOM_ID = pr.C_UOM_ID
 LEFT JOIN AD_Ref_List rl ON (pr.LBR_ProductSource = rl.Value AND rl.AD_Reference_ID = 1000031)
 LEFT JOIN AD_Ref_List rt ON (pr.ProductType = rt.Value AND rt.AD_Reference_ID = 270)
 LEFT JOIN AD_Ref_List_Trl tr ON (rl.AD_Ref_List_ID  = tr.AD_Ref_List_ID AND  tr.AD_Language = 'pt_BR')
+LEFT JOIN AD_Image i ON (i.AD_Image_ID=pr.AD_Image_ID)
 
 
 WHERE M_Product_ID = $P{RECORD_ID}]]>
@@ -63,6 +67,7 @@ WHERE M_Product_ID = $P{RECORD_ID}]]>
 	<field name="descontinuadoem" class="java.sql.Timestamp"/>
 	<field name="tipoproduto" class="java.lang.String"/>
 	<field name="idioma" class="java.lang.String"/>
+	<field name="imagem" class="java.io.InputStream"/>
 	<title>
 		<band height="76">
 			<frame>
@@ -468,6 +473,15 @@ WHERE M_Product_ID = $P{RECORD_ID}]]>
 			</textField>
 		</band>
 	</columnHeader>
+	<columnFooter>
+		<band height="120">
+			<printWhenExpression><![CDATA[$F{imagem} != null]]></printWhenExpression>
+			<image>
+				<reportElement x="217" y="0" width="120" height="120" uuid="748aad4f-9274-4d46-91d7-20be4215869f"/>
+				<imageExpression><![CDATA[$F{imagem}]]></imageExpression>
+			</image>
+		</band>
+	</columnFooter>
 	<pageFooter>
 		<band height="17">
 			<textField evaluationTime="Report">
