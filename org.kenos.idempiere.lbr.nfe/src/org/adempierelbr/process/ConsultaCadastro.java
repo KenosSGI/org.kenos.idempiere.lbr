@@ -320,7 +320,7 @@ public class ConsultaCadastro extends SvrProcess
 			
 			// Localização do Parceiro de Negócio
 			MBPartnerLocation bpartnerLocation = new MBPartnerLocation(bpartner);
-			bpartnerLocation.setName(ender.getXBairro() + " - " + infCad.getUF().toString());
+			bpartnerLocation.setName(".");
 			
 			// Estado
 			String cityName = ender.getXMun();
@@ -351,7 +351,7 @@ public class ConsultaCadastro extends SvrProcess
 			location.setRegionName(infCad.getUF().toString());
 			location.saveEx();
 						
-			bpartnerLocation.setC_Location_ID(location.getC_Location_ID());			
+			bpartnerLocation.setC_Location_ID(location.getC_Location_ID());		
 			bpartnerLocation.saveEx();
 		}
 		
