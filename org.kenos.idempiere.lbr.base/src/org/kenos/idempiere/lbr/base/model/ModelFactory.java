@@ -21,6 +21,8 @@ public class ModelFactory implements IModelFactory
 			return MRequisition.class;
 		else if (MRMA.Table_Name.equals(tableName))
 			return MRMA.class;
+		else if (MRMALine.Table_Name.equals(tableName))
+			return MRMALine.class;
 		else if (MTimeExpense.Table_Name.equals(tableName))
 			return MTimeExpense.class;
 		else if (MLBRProductionGroup.Table_Name.equals(tableName))
@@ -39,6 +41,8 @@ public class ModelFactory implements IModelFactory
 			return new MRequisition (Env.getCtx(), Record_ID, trxName);
 		else if (MRMA.Table_Name.equals(tableName))
 			return new MRMA (Env.getCtx(), Record_ID, trxName);
+		else if (MRMALine.Table_Name.equals(tableName))
+			return new MRMALine (Env.getCtx(), Record_ID, trxName);
 		else if (MTimeExpense.Table_Name.equals(tableName))
 			return new MTimeExpense (Env.getCtx(), Record_ID, trxName);
 		else if (MLBRProductionGroup.Table_Name.equals(tableName))
@@ -57,6 +61,8 @@ public class ModelFactory implements IModelFactory
 			return new MRequisition (Env.getCtx(), rs, trxName);
 		else if (MRMA.Table_Name.equals(tableName))
 			return new MRMA (Env.getCtx(), rs, trxName);
+		else if (MRMALine.Table_Name.equals(tableName))
+			return new MRMALine (Env.getCtx(), rs, trxName);
 		else if (MTimeExpense.Table_Name.equals(tableName))
 			return new MTimeExpense (Env.getCtx(), rs, trxName);
 		else if (MLBRProductionGroup.Table_Name.equals(tableName))
