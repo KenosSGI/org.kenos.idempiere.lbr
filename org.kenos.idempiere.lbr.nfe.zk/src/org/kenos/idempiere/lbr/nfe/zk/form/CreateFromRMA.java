@@ -24,12 +24,12 @@ import org.compiere.apps.IStatusBar;
 import org.compiere.grid.CreateFrom;
 import org.compiere.minigrid.IMiniTable;
 import org.compiere.model.GridTab;
-import org.compiere.model.MRMA;
-import org.compiere.model.MRMALine;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.compiere.util.KeyNamePair;
 import org.compiere.util.Msg;
+import org.kenos.idempiere.lbr.base.model.MRMA;
+import org.kenos.idempiere.lbr.base.model.MRMALine;
 
 /**
  *  Create Transactions for RMA
@@ -95,7 +95,7 @@ public abstract class CreateFromRMA extends CreateFrom {
             while (rs.next())
             {
                 Vector<Object> line = new Vector<Object>(8);
-                line.add(new Boolean(false));           //  0-Selection
+                line.add(Boolean.valueOf(false));           //  0-Selection
                 
                 KeyNamePair lineKNPair = new KeyNamePair(rs.getInt(1), rs.getString(2)); // 1-Line
                 line.add(lineKNPair);
