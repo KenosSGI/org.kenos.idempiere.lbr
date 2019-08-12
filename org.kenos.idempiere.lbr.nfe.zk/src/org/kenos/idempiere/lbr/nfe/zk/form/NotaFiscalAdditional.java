@@ -536,7 +536,7 @@ public class NotaFiscalAdditional extends ADForm
 			while (rs.next())
 			{
 				Vector<Object> line = new Vector<Object>();
-				line.add(new Boolean(false));					//  0-Selection
+				line.add(Boolean.valueOf(false));					//  0-Selection
 				KeyNamePair knp = new KeyNamePair(rs.getInt("LBR_NotaFiscalLine_ID"), rs.getString("Line"));
 				//
 				line.add(knp);									//  1-DocumentNo
@@ -604,7 +604,7 @@ public class NotaFiscalAdditional extends ADForm
 			while (rs.next())
 			{
 				Vector<Object> line = new Vector<Object>();
-				line.add(new Boolean(false));					//  0-Selection
+				line.add(Boolean.valueOf(false));					//  0-Selection
 				KeyNamePair knp = new KeyNamePair(rs.getInt("C_OrderLine_ID"), rs.getString("Line"));
 				//
 				line.add(knp);									//  1-DocumentNo
@@ -675,7 +675,7 @@ public class NotaFiscalAdditional extends ADForm
 			while (rs.next())
 			{
 				Vector<Object> line = new Vector<Object>();
-				line.add(new Boolean(false));					//  0-Selection
+				line.add(Boolean.valueOf(false));					//  0-Selection
 				KeyNamePair knp = new KeyNamePair(rs.getInt("M_InOutLine_ID"), rs.getString("Line"));
 				//
 				line.add(knp);									//  1-DocumentNo
