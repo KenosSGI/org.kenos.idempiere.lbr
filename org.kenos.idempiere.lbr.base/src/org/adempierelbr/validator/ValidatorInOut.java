@@ -358,7 +358,7 @@ public class ValidatorInOut implements ModelValidator
 					BigDecimal qty = (oline.getM_Product().getC_UOM_ID() == oline.getC_UOM_ID() ? oline.getQtyEntered() : oline.getQtyOrdered());
 					
 					if (MSysConfig.getBooleanValue("LBR_MATCH_SHIPMENT_RECEIPT_AND_ORDER_QTY", false, inOut.getAD_Client_ID())
-						&& oline.getQtyDelivered().add(line.getQtyEntered()).doubleValue() > qty.doubleValue())
+						&& oline.getQtyDelivered().add(line.getMovementQty()).doubleValue() > qty.doubleValue())
 					return "Nao e possivel fazer recebimento maior que o pedido. Linha do pedido #" + line.getLine();
 				}
 			} // for;
