@@ -27,6 +27,7 @@ import org.compiere.model.ModelValidationEngine;
 import org.compiere.model.ModelValidator;
 import org.compiere.model.PO;
 import org.compiere.util.CLogger;
+import org.compiere.util.DB;
 import org.compiere.util.Env;
 
 /**
@@ -60,6 +61,7 @@ public class VLBRRMA implements ModelValidator
 
 		//	ModelChange
 		engine.addModelChange (MInvoiceLine.Table_Name, this);
+		engine.addModelChange (MRMALine.Table_Name, this);
 	}	//	initialize
 
 	/**
@@ -98,6 +100,9 @@ public class VLBRRMA implements ModelValidator
 		//	InvoiceLine
 		if (MInvoiceLine.Table_Name.equals(po.get_TableName()))
 			return modelChange ((MInvoiceLine) po, type);
+		//	InvoiceLine
+		else if (MRMALine.Table_Name.equals(po.get_TableName()))
+				return modelChange ((MRMALine) po, type);
 		
 		return null;
 	}	//	modelChange
@@ -153,6 +158,24 @@ public class VLBRRMA implements ModelValidator
 	    			ilW.setLBR_CFOP_ID (((Integer) taxation[2]));
     		}
 		}
+		
+		return null;
+	}	//	modelChange
+	
+	/**
+     *	Model Change of a monitored Table.
+     *	Called after PO.beforeSave/PO.beforeDelete
+     *	when you called addModelChange for the table
+     *	@param po persistent object
+     *	@param type TYPE_
+     *	@return error message or null
+     *	@exception Exception if the recipient wishes the change to be not accept.
+     */
+	public String modelChange (MRMALine il, int type) throws Exception
+	{
+		if (type == TYPE_AFTER_NEW || type == TYPE_AFTER_CHANGE || type == TYPE_AFTER_DELETE)
+			DB.executeUpdate("UPDATE M_RMA SET Amt = (SELECT SUM(LineNetAmt) FROM M_RMALine WHERE M_RMA_ID = " + il.getM_RMA_ID() + 
+					") WHERE M_RMA_ID = " + il.getM_RMA_ID(), il.get_TrxName());
 		
 		return null;
 	}	//	modelChange
