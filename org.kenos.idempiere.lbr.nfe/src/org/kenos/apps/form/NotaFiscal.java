@@ -209,7 +209,8 @@ public class NotaFiscal extends GenForm
         sql.append("WHERE r.Value=LBR_EventType AND r.AD_Reference_ID=1120226 AND a.Row_Number=1) AS LBR_EventType, dfe.LBR_IsXMLValid ");
 		sql.append("FROM LBR_PartnerDFe dfe ");
 		sql.append("INNER JOIN AD_Org o ON (dfe.AD_Org_ID=o.AD_Org_ID) ");
-		sql.append("WHERE dfe.DocumentType='0' AND (dfe.LBR_IsManifested='N' OR dfe.Updated>=").append(DB.TO_DATE(TimeUtil.addDays (new Timestamp (System.currentTimeMillis()), -2)));
+		sql.append("WHERE dfe.DocumentType='0' AND dfe.Updated>=").append(DB.TO_DATE(TimeUtil.addDays (new Timestamp (System.currentTimeMillis()), -180))); // Maior que 6 meses
+		sql.append(" AND (dfe.LBR_IsManifested='N' OR dfe.Updated>=").append(DB.TO_DATE(TimeUtil.addDays (new Timestamp (System.currentTimeMillis()), -2)));
 		sql.append(") AND dfe.AD_Client_ID=?");
         
         if (m_AD_Org_ID != null)
