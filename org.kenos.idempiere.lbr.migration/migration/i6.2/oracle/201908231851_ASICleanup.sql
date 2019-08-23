@@ -1,17 +1,8 @@
 SET SQLBLANKLINES ON
 SET DEFINE OFF
 
--- ASI Cleanup Process
--- 23 de ago de 2019 15:39:40 BRT
-INSERT INTO AD_Process (AD_Process_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,Name,Description,IsReport,Value,IsDirectPrint,AccessLevel,EntityType,Statistic_Count,Statistic_Seconds,IsBetaFunctionality,IsServerProcess,ShowHelp,CopyFromProcess,AD_Process_UU,AllowMultipleExecution) VALUES (200115,0,0,'Y',TO_DATE('2019-08-23 15:39:40','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2019-08-23 15:39:40','YYYY-MM-DD HH24:MI:SS'),100,'ASI Cleanup','Delete unused Attribute Set Instance','N','LBR_ASICleanup','N','3','U',0,0,'N','N','Y','N','6875928d-caa0-4897-9449-28a51cd9435e','P')
-;
-
--- 23 de ago de 2019 15:39:53 BRT
-UPDATE AD_Process SET Value='LBR_ASICleanup2',Updated=TO_DATE('2019-08-23 15:39:53','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Process_ID=200115
-;
-
 -- 23 de ago de 2019 15:39:57 BRT
-INSERT INTO AD_Process (AD_Process_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,Name,Description,IsReport,Value,IsDirectPrint,AccessLevel,EntityType,Statistic_Count,Statistic_Seconds,IsBetaFunctionality,IsServerProcess,ShowHelp,CopyFromProcess,AD_Process_UU,AllowMultipleExecution) VALUES (1120236,0,0,'Y',TO_DATE('2019-08-23 15:39:56','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2019-08-23 15:39:56','YYYY-MM-DD HH24:MI:SS'),100,'ASI Cleanup','Delete unused Attribute Set Instance','N','LBR_ASICleanup','N','3','U',0,0,'N','N','Y','N','c3a610ed-8347-41f2-ad90-48077a3210dd','P')
+INSERT INTO AD_Process (AD_Process_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,Name,Description,IsReport,Value,IsDirectPrint,AccessLevel,EntityType,Statistic_Count,Statistic_Seconds,IsBetaFunctionality,IsServerProcess,ShowHelp,CopyFromProcess,AD_Process_UU,AllowMultipleExecution,ClassName) VALUES (1120236,0,0,'Y',TO_DATE('2019-08-23 15:39:56','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2019-08-23 15:39:56','YYYY-MM-DD HH24:MI:SS'),100,'ASI Cleanup','Delete unused Attribute Set Instance','N','LBR_ASICleanup','N','3','U',0,0,'N','N','Y','N','c3a610ed-8347-41f2-ad90-48077a3210dd','P','org.kenos.idempiere.lbr.base.process.ASICleanup')
 ;
 
 -- 23 de ago de 2019 15:43:22 BRT
@@ -511,6 +502,6 @@ UPDATE AD_TreeNodeMM SET Parent_ID=1000000, SeqNo=6, Updated=SysDate WHERE AD_Tr
 ;
 
 -- 23 de ago de 2019 15:45:19 BRT
-SELECT Register_Migration_Script ('20190823_ASICleanup.sql') FROM DUAL
+SELECT Register_Migration_Script ('201908231851_ASICleanup.sql') FROM DUAL
 ;
 
