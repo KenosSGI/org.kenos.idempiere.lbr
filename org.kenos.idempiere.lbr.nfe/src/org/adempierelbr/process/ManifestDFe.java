@@ -100,7 +100,8 @@ public class ManifestDFe extends SvrProcess
 			
 			// 	Update DF-e
 			if (MLBRNFeEvent.LBR_EVENTTYPE_OperacaoNaoRealizada.equals(p_EventType)
-					|| MLBRNFeEvent.LBR_EVENTTYPE_ConfirmacaoDaOperacao.equals(p_EventType))
+					|| MLBRNFeEvent.LBR_EVENTTYPE_ConfirmacaoDaOperacao.equals(p_EventType)
+					|| MLBRNFeEvent.LBR_EVENTTYPE_DesconhecimentoDaOperacao.equals(p_EventType))
 			{
 				dfe.setLBR_IsManifested(true);
 				dfe.save();
