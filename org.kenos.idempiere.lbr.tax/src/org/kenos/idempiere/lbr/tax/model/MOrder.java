@@ -60,11 +60,14 @@ public class MOrder extends org.compiere.model.MOrder
 			PO.copyValues(fromLines[i], line, getAD_Client_ID(), getAD_Org_ID());
 			line.setC_Order_ID(getC_Order_ID());
 			//
+			if (line.getQtyLostSales().signum() != 0) {
+				line.setQtyOrdered(line.getQtyLostSales().add(line.getQtyDelivered()));
+				line.setQtyLostSales(Env.ZERO);
+			}
+			
 			line.setQtyDelivered(Env.ZERO);
 			line.setQtyInvoiced(Env.ZERO);
 			line.setQtyReserved(Env.ZERO);
-			line.setQtyLostSales(Env.ZERO);
-			line.setQtyOrdered(Env.ZERO);
 			line.setDateDelivered(null);
 			line.setDateInvoiced(null);
 			//
