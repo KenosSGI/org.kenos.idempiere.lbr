@@ -36,17 +36,20 @@ import org.adempiere.webui.session.SessionManager;
 import org.adempiere.webui.util.ZKUpdateUtil;
 import org.compiere.minigrid.ColumnInfo;
 import org.compiere.model.MDocType;
+import org.compiere.model.MImage;
 import org.compiere.model.MRole;
 import org.compiere.model.MSysConfig;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.compiere.util.Msg;
 import org.compiere.util.Util;
+import org.zkoss.image.AImage;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.event.Events;
 import org.zkoss.zk.ui.event.SwipeEvent;
 import org.zkoss.zul.Center;
+import org.zkoss.zul.Image;
 import org.zkoss.zul.South;
 
 /**
@@ -77,6 +80,7 @@ public class InfoProductWindow extends InfoWindow {
 	protected String m_sqlProductprice;
     
 	protected Textbox fieldDescription;
+	protected Image imageField;
     
     /** ASI							*/
 	protected int	m_M_AttributeSetInstance_ID;
@@ -274,6 +278,14 @@ public class InfoProductWindow extends InfoWindow {
 		desktopTabPanel.appendChild(fieldDescription);
 		tabPanels.appendChild(desktopTabPanel);
 
+		tab = new Tab(Msg.translate(Env.getCtx(), "AD_Image_ID"));
+		tabs.appendChild(tab);
+		desktopTabPanel = new Tabpanel();
+		ZKUpdateUtil.setHeight(desktopTabPanel, "100%");
+		imageField = new Image();
+		desktopTabPanel.appendChild(imageField);
+		tabPanels.appendChild(desktopTabPanel);
+		
 		tab = new Tab(Msg.translate(Env.getCtx(), "Substitute_ID"));
 		tabs.appendChild(tab);
 		desktopTabPanel = new Tabpanel();
@@ -652,6 +664,25 @@ public class InfoProductWindow extends InfoWindow {
 			DB.close(rs, pstmt);
 			rs = null; pstmt = null;
 		}
+		
+		try
+		{
+			sql = "SELECT AD_Image_ID FROM M_Product WHERE M_Product_ID=?";
+			
+			int AD_Image_ID = DB.getSQLValue(null, sql, m_M_Product_ID);
+			if (AD_Image_ID > 0)
+			{
+				MImage mImage = MImage.get (Env.getCtx(), AD_Image_ID);
+				imageField.setContent(new AImage(mImage.getName(), mImage.getData()));
+			}
+			else
+				imageField.setSrc(null);
+		}
+		catch (Exception e)
+		{
+			log.log (Level.WARNING, sql, e);
+		}
+		
 	}	//	refresh
 	
 	// Elaine 2008/11/26
