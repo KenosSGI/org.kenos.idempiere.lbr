@@ -3,6 +3,7 @@ package org.adempierelbr.process;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 import java.util.UUID;
 import java.util.logging.Level;
 
@@ -101,7 +102,22 @@ public class DownloadDFeXML extends SvrProcess
 		if (p_AD_Org_ID <= 0)
 			throw new AdempiereUserError ("@FillMandatory@  @AD_Org_ID@");
 		
-		MOrgInfo oi = MOrgInfo.get (getCtx(), p_AD_Org_ID, null);
+		return DownloadXML(Env.getCtx(), p_AD_Org_ID, p_NFeID, get_TrxName());
+		
+	}	//	doIt
+	
+	/**
+	 * 
+	 * @param ctx
+	 * @param AD_Org_ID
+	 * @param p_NFeID
+	 * @param trxName
+	 * @return
+	 * @throws Exception
+	 */
+	public static String DownloadXML(Properties ctx, int AD_Org_ID, String p_NFeID, String trxName) throws Exception
+	{		
+		MOrgInfo oi = MOrgInfo.get (ctx, AD_Org_ID, null);
 		
 		//	Separar as chaves da NFe
 		List<String> nfes_all = new ArrayList<String>();
@@ -123,7 +139,7 @@ public class DownloadDFeXML extends SvrProcess
 								 +   "AND e.DocStatus IN ('CL','CO') "
 								 +   "AND e.LBR_EventType LIKE '2102%')";		//	Only Manifested DF-e
 			
-			List<MLBRPartnerDFe> lDFe = new Query (getCtx(), MLBRPartnerDFe.Table_Name, whereClause, get_TrxName())
+			List<MLBRPartnerDFe> lDFe = new Query (ctx, MLBRPartnerDFe.Table_Name, whereClause, trxName)
 					.setParameters(new Object[]{oi.getAD_Org_ID()})
 					.list();
 				
@@ -147,22 +163,22 @@ public class DownloadDFeXML extends SvrProcess
 			String cStat = retDownloadNFe.getCStat();
 			//
 			if (MLBRNotaFiscal.LBR_NFESTATUS_138_DocumentoLocalizadoParaODestinatário.equals(cStat))
-				GetDFe.processResult (getCtx(), retDownloadNFe.getLoteDistDFeInt(), count, p_AD_Org_ID);
+				GetDFe.processResult (ctx, retDownloadNFe.getLoteDistDFeInt(), count, AD_Org_ID);
 			
 			//	Falha
 			else if (MLBRNotaFiscal.LBR_NFESTATUS_653_RejeiçãoNF_ECanceladaArquivoIndisponívelParaDownload.equals(cStat)
 					&& retDownloadNFe.getXMotivo().toUpperCase().contains("CANCELADA"))
-				DB.executeUpdate("UPDATE LBR_PartnerDFe SET IsCancelled='Y' WHERE LBR_NFeID='" + nfe + "'", get_TrxName());
+				DB.executeUpdate("UPDATE LBR_PartnerDFe SET IsCancelled='Y' WHERE LBR_NFeID='" + nfe + "'", trxName);
 			
 			//	Set Status
-			DB.executeUpdate("UPDATE LBR_PartnerDFe SET LBR_NFeStatus='" + cStat + "' WHERE LBR_NFeID='" + nfe + "'", get_TrxName());
+			DB.executeUpdate("UPDATE LBR_PartnerDFe SET LBR_NFeStatus='" + cStat + "' WHERE LBR_NFeID='" + nfe + "'", trxName);
 		}
 		
 		return "@Success@ <br />" + 
 				count.nfe + " - Downloads obtidos<br />" +
 				count.err + " - Pedidos não processados<br />" +
 				"Adquiridas em " + count.loop + " pesquisa(s)";
-	}	//	doIt
+	}
 	
 	/**
 	 * 		Consulta a SeFaz para fazer o Download do arquivo XML da NFe

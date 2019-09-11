@@ -73,7 +73,7 @@ import br.inf.portalfiscal.nfe.v400.TProtNFe.InfProt;
 import br.inf.portalfiscal.www.nfe.wsdl.nfedistribuicaodfe.NfeDadosMsg_type0;
 
 /**
- * 		Consulta de Cadastro
+ * 		Buscar Documento Fiscal emitido contra Organização
  * 
  * 	@author Ricardo Santana (Kenos, www.kenos.com.br)
  *	@version $Id: GetDFe.java, v1.0 2013/MM/DD 4:08:49 PM, ralexsander Exp $
@@ -142,7 +142,7 @@ public class GetDFe extends SvrProcess
 			//
 			addLog ("Somente permitido uma consulta por hora. ");
 			addLog ("A próxima consulta poderá ser feita em " + TextUtil.timeToString(cal.getTime(), "dd/MM/yyyy' às 'HH'h 'mm'm e 'ss's'") );
-			return "@Error@";
+			return "@Error@ Somente permitido uma consulta por hora. A próxima consulta poderá ser feita em " + TextUtil.timeToString(cal.getTime(), "dd/MM/yyyy' às 'HH'h 'mm'm e 'ss's'");
 		}
 		
 		MOrgInfo oi = MOrgInfo.get (getCtx(), p_AD_Org_ID, null);
