@@ -385,6 +385,18 @@ public interface I_LBR_NotaFiscalLine
 	/** Get Tax Benefit Code	  */
 	public String getLBR_TaxBenefitCode();
 
+    /** Column name LBR_VAM */
+    public static final String COLUMNNAME_LBR_VAM = "LBR_VAM";
+
+	/** Set VAM.
+	  * VAM (value-added margin)
+	  */
+	public void setLBR_VAM (BigDecimal LBR_VAM);
+
+	/** Get VAM.
+	  * VAM (value-added margin)
+	  */
+	public BigDecimal getLBR_VAM();
     /** Column name Line */
     public static final String COLUMNNAME_Line = "Line";
 

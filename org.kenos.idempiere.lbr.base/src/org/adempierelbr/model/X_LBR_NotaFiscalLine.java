@@ -601,6 +601,25 @@ public class X_LBR_NotaFiscalLine extends PO implements I_LBR_NotaFiscalLine, I_
 		return (String)get_Value(COLUMNNAME_LBR_TaxBenefitCode);
 	}
 
+	/** Set VAM.
+		@param LBR_VAM 
+		VAM (value-added margin)
+	  */
+	public void setLBR_VAM (BigDecimal LBR_VAM)
+	{
+		set_Value (COLUMNNAME_LBR_VAM, LBR_VAM);
+	}
+
+	/** Get VAM.
+		@return VAM (value-added margin)
+	  */
+	public BigDecimal getLBR_VAM () 
+	{
+		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_LBR_VAM);
+		if (bd == null)
+			 return Env.ZERO;
+		return bd;
+	}
 	/** Set Line No.
 		@param Line 
 		Unique line for this document
