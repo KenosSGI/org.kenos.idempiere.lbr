@@ -34,7 +34,7 @@ public class X_LBR_PartnerDFe extends PO implements I_LBR_PartnerDFe, I_Persiste
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20180928L;
+	private static final long serialVersionUID = 20190918L;
 
     /** Standard Constructor */
     public X_LBR_PartnerDFe (Properties ctx, int LBR_PartnerDFe_ID, String trxName)
@@ -53,10 +53,10 @@ public class X_LBR_PartnerDFe extends PO implements I_LBR_PartnerDFe, I_Persiste
 // N
 			setLBR_IsXMLValid (false);
 // N
+			setlbr_NFeProt (null);
 			setLBR_PartnerDFe_ID (0);
 			setProcessed (false);
 // N
-			setlbr_NFeProt (null);
         } */
     }
 
@@ -260,6 +260,54 @@ public class X_LBR_PartnerDFe extends PO implements I_LBR_PartnerDFe, I_Persiste
 		return false;
 	}
 
+	/** Set CNPJ.
+		@param lbr_CNPJ 
+		Used to identify Legal Entities in Brazil
+	  */
+	public void setlbr_CNPJ (String lbr_CNPJ)
+	{
+		set_Value (COLUMNNAME_lbr_CNPJ, lbr_CNPJ);
+	}
+
+	/** Get CNPJ.
+		@return Used to identify Legal Entities in Brazil
+	  */
+	public String getlbr_CNPJ () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_CNPJ);
+	}
+
+	/** Set CPF.
+		@param lbr_CPF 
+		Used to identify individuals in Brazil
+	  */
+	public void setlbr_CPF (String lbr_CPF)
+	{
+		set_Value (COLUMNNAME_lbr_CPF, lbr_CPF);
+	}
+
+	/** Get CPF.
+		@return Used to identify individuals in Brazil
+	  */
+	public String getlbr_CPF () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_CPF);
+	}
+
+	/** Set Digest Value.
+		@param lbr_DigestValue Digest Value	  */
+	public void setlbr_DigestValue (String lbr_DigestValue)
+	{
+		set_Value (COLUMNNAME_lbr_DigestValue, lbr_DigestValue);
+	}
+
+	/** Get Digest Value.
+		@return Digest Value	  */
+	public String getlbr_DigestValue () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_DigestValue);
+	}
+
 	/** Carta de Correcao = 110110 */
 	public static final String LBR_EVENTTYPE_CartaDeCorrecao = "110110";
 	/** Cancelamento = 110111 */
@@ -335,6 +383,23 @@ public class X_LBR_PartnerDFe extends PO implements I_LBR_PartnerDFe, I_Persiste
 		return (String)get_Value(COLUMNNAME_LBR_EventType);
 	}
 
+	/** Set IE.
+		@param lbr_IE 
+		Used to Identify the IE (State Tax ID)
+	  */
+	public void setlbr_IE (String lbr_IE)
+	{
+		set_Value (COLUMNNAME_lbr_IE, lbr_IE);
+	}
+
+	/** Get IE.
+		@return Used to Identify the IE (State Tax ID)
+	  */
+	public String getlbr_IE () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_IE);
+	}
+
 	/** Set Manifested.
 		@param LBR_IsManifested Manifested	  */
 	public void setLBR_IsManifested (boolean LBR_IsManifested)
@@ -375,194 +440,6 @@ public class X_LBR_PartnerDFe extends PO implements I_LBR_PartnerDFe, I_Persiste
 			return "Y".equals(oo);
 		}
 		return false;
-	}
-
-	/** Set Partner Doc Fiscal.
-		@param LBR_PartnerDFe_ID Partner Doc Fiscal	  */
-	public void setLBR_PartnerDFe_ID (int LBR_PartnerDFe_ID)
-	{
-		if (LBR_PartnerDFe_ID < 1) 
-			set_ValueNoCheck (COLUMNNAME_LBR_PartnerDFe_ID, null);
-		else 
-			set_ValueNoCheck (COLUMNNAME_LBR_PartnerDFe_ID, Integer.valueOf(LBR_PartnerDFe_ID));
-	}
-
-	/** Get Partner Doc Fiscal.
-		@return Partner Doc Fiscal	  */
-	public int getLBR_PartnerDFe_ID () 
-	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_LBR_PartnerDFe_ID);
-		if (ii == null)
-			 return 0;
-		return ii.intValue();
-	}
-
-	/** Set LBR_PartnerDFe_UU.
-		@param LBR_PartnerDFe_UU LBR_PartnerDFe_UU	  */
-	public void setLBR_PartnerDFe_UU (String LBR_PartnerDFe_UU)
-	{
-		set_Value (COLUMNNAME_LBR_PartnerDFe_UU, LBR_PartnerDFe_UU);
-	}
-
-	/** Get LBR_PartnerDFe_UU.
-		@return LBR_PartnerDFe_UU	  */
-	public String getLBR_PartnerDFe_UU () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_PartnerDFe_UU);
-	}
-
-	/** 1 - Authorized = 1 */
-	public static final String LBR_SITNF_1_Authorized = "1";
-	/** 2 - Use denied = 2 */
-	public static final String LBR_SITNF_2_UseDenied = "2";
-	/** 3 - Cancelled = 3 */
-	public static final String LBR_SITNF_3_Cancelled = "3";
-	/** Set NF Status.
-		@param LBR_SitNF 
-		NF Status
-	  */
-	public void setLBR_SitNF (String LBR_SitNF)
-	{
-
-		set_Value (COLUMNNAME_LBR_SitNF, LBR_SitNF);
-	}
-
-	/** Get NF Status.
-		@return NF Status
-	  */
-	public String getLBR_SitNF () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_SitNF);
-	}
-
-	/** Set Processed.
-		@param Processed 
-		The document has been processed
-	  */
-	public void setProcessed (boolean Processed)
-	{
-		set_Value (COLUMNNAME_Processed, Boolean.valueOf(Processed));
-	}
-
-	/** Get Processed.
-		@return The document has been processed
-	  */
-	public boolean isProcessed () 
-	{
-		Object oo = get_Value(COLUMNNAME_Processed);
-		if (oo != null) 
-		{
-			 if (oo instanceof Boolean) 
-				 return ((Boolean)oo).booleanValue(); 
-			return "Y".equals(oo);
-		}
-		return false;
-	}
-
-	/** Set Process Now.
-		@param Processing Process Now	  */
-	public void setProcessing (boolean Processing)
-	{
-		set_Value (COLUMNNAME_Processing, Boolean.valueOf(Processing));
-	}
-
-	/** Get Process Now.
-		@return Process Now	  */
-	public boolean isProcessing () 
-	{
-		Object oo = get_Value(COLUMNNAME_Processing);
-		if (oo != null) 
-		{
-			 if (oo instanceof Boolean) 
-				 return ((Boolean)oo).booleanValue(); 
-			return "Y".equals(oo);
-		}
-		return false;
-	}
-
-	/** Set Sequence.
-		@param SeqNo 
-		Method of ordering records; lowest number comes first
-	  */
-	public void setSeqNo (int SeqNo)
-	{
-		set_Value (COLUMNNAME_SeqNo, Integer.valueOf(SeqNo));
-	}
-
-	/** Get Sequence.
-		@return Method of ordering records; lowest number comes first
-	  */
-	public int getSeqNo () 
-	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_SeqNo);
-		if (ii == null)
-			 return 0;
-		return ii.intValue();
-	}
-
-	/** Set CNPJ.
-		@param lbr_CNPJ 
-		Used to identify Legal Entities in Brazil
-	  */
-	public void setlbr_CNPJ (String lbr_CNPJ)
-	{
-		set_Value (COLUMNNAME_lbr_CNPJ, lbr_CNPJ);
-	}
-
-	/** Get CNPJ.
-		@return Used to identify Legal Entities in Brazil
-	  */
-	public String getlbr_CNPJ () 
-	{
-		return (String)get_Value(COLUMNNAME_lbr_CNPJ);
-	}
-
-	/** Set CPF.
-		@param lbr_CPF 
-		Used to identify individuals in Brazil
-	  */
-	public void setlbr_CPF (String lbr_CPF)
-	{
-		set_Value (COLUMNNAME_lbr_CPF, lbr_CPF);
-	}
-
-	/** Get CPF.
-		@return Used to identify individuals in Brazil
-	  */
-	public String getlbr_CPF () 
-	{
-		return (String)get_Value(COLUMNNAME_lbr_CPF);
-	}
-
-	/** Set Digest Value.
-		@param lbr_DigestValue Digest Value	  */
-	public void setlbr_DigestValue (String lbr_DigestValue)
-	{
-		set_Value (COLUMNNAME_lbr_DigestValue, lbr_DigestValue);
-	}
-
-	/** Get Digest Value.
-		@return Digest Value	  */
-	public String getlbr_DigestValue () 
-	{
-		return (String)get_Value(COLUMNNAME_lbr_DigestValue);
-	}
-
-	/** Set IE.
-		@param lbr_IE 
-		Used to Identify the IE (State Tax ID)
-	  */
-	public void setlbr_IE (String lbr_IE)
-	{
-		set_Value (COLUMNNAME_lbr_IE, lbr_IE);
-	}
-
-	/** Get IE.
-		@return Used to Identify the IE (State Tax ID)
-	  */
-	public String getlbr_IE () 
-	{
-		return (String)get_Value(COLUMNNAME_lbr_IE);
 	}
 
 	/** Set NFe ID.
@@ -636,7 +513,7 @@ public class X_LBR_PartnerDFe extends PO implements I_LBR_PartnerDFe, I_Persiste
 	public static final String LBR_NFESTATUS_128_LoteDeEventoProcessado = "128";
 	/** 135-Evento registrado e vinculado a NF-e  = 135 */
 	public static final String LBR_NFESTATUS_135_EventoRegistradoEVinculadoANF_E = "135";
-	/** 136-Evento registrado, mas não vinculado a NF-e = 136 */
+	/** 136-Evento registrado, mas não vinculado a NF-e  = 136 */
 	public static final String LBR_NFESTATUS_136_EventoRegistradoMasNãoVinculadoANF_E = "136";
 	/** 137-Nenhum documento localizado para o Destinatário  = 137 */
 	public static final String LBR_NFESTATUS_137_NenhumDocumentoLocalizadoParaODestinatário = "137";
@@ -648,7 +525,7 @@ public class X_LBR_PartnerDFe extends PO implements I_LBR_PartnerDFe, I_Persiste
 	public static final String LBR_NFESTATUS_140_DownloadDisponibilizado = "140";
 	/** 142-Ambiente de Contingência EPEC bloqueado para o Emitente  = 142 */
 	public static final String LBR_NFESTATUS_142_AmbienteDeContingênciaEPECBloqueadoParaOEmitente = "142";
-	/** 150-Autorizado o uso da NF-e, autorização fora de prazo = 150 */
+	/** 150-Autorizado o uso da NF-e, autorização fora de prazo  = 150 */
 	public static final String LBR_NFESTATUS_150_AutorizadoOUsoDaNF_EAutorizaçãoForaDePrazo = "150";
 	/** 151-Cancelamento de NF-e homologado fora de prazo  = 151 */
 	public static final String LBR_NFESTATUS_151_CancelamentoDeNF_EHomologadoForaDePrazo = "151";
@@ -1064,8 +941,8 @@ public class X_LBR_PartnerDFe extends PO implements I_LBR_PartnerDFe, I_Persiste
 	public static final String LBR_NFESTATUS_454_RejeiçãoAnoDeInutilizaçãoNãoPodeSerInferiorA2006 = "454";
 	/** 455-Rejeição: Órgão Autor do evento diferente da UF da Chave de Acesso = 455 */
 	public static final String LBR_NFESTATUS_455_RejeiçãoÓrgãoAutorDoEventoDiferenteDaUFDaChaveDeAcesso = "455";
-	/** 461-Rejeição: Informado campos de percentual de GLP e/ou GLGNn e/ou GLGNi para produto diferente de GLP = 461 */
-	public static final String LBR_NFESTATUS_461_RejeiçãoInformadoCamposDePercentualDeGLPEOuGLGNnEOuGLGNiParaProdutoDiferenteDeGLP = "461";
+	/** 461-Rejeição: Informado campos de percentual de GLP e/ou GLGNn e/ou GLGNi para produto diferente de GLP [nItem: nnn]  = 461 */
+	public static final String LBR_NFESTATUS_461_RejeiçãoInformadoCamposDePercentualDeGLPEOuGLGNnEOuGLGNiParaProdutoDiferenteDeGLPNItemNnn = "461";
 	/** 462-Rejeição: Código Identificador do CSC no QR-Code não cadastrado na SEFAZ = 462 */
 	public static final String LBR_NFESTATUS_462_RejeiçãoCódigoIdentificadorDoCSCNoQR_CodeNãoCadastradoNaSEFAZ = "462";
 	/** 463-Rejeição: Código Identificador do CSC no QR-Code foi revogado pela empresa = 463 */
@@ -1408,8 +1285,8 @@ public class X_LBR_PartnerDFe extends PO implements I_LBR_PartnerDFe, I_Persiste
 	public static final String LBR_NFESTATUS_679_RejeiçãoModeloDaNF_EReferenciadaDiferenteDe5565 = "679";
 	/** 680-Rejeição: Chave de Acesso referenciada em duplicidade na NF-e  = 680 */
 	public static final String LBR_NFESTATUS_680_RejeiçãoChaveDeAcessoReferenciadaEmDuplicidadeNaNF_E = "680";
-	/** 681-Rejeição: Duplicidade de NF referenciada (CNPJ, Modelo, Série e Número) = 681 */
-	public static final String LBR_NFESTATUS_681_RejeiçãoDuplicidadeDeNFReferenciadaCNPJModeloSérieENúmero = "681";
+	/** 681-Rejeição: Duplicidade de NF referenciada (CNPJ, Modelo, Série e Número) [nOcor: nnn]  = 681 */
+	public static final String LBR_NFESTATUS_681_RejeiçãoDuplicidadeDeNFReferenciadaCNPJModeloSérieENúmeroNOcorNnn = "681";
 	/** 682-Rejeição: Duplicidade de NF de Produtor referenciada (IE, Modelo, Série e Número) = 682 */
 	public static final String LBR_NFESTATUS_682_RejeiçãoDuplicidadeDeNFDeProdutorReferenciadaIEModeloSérieENúmero = "682";
 	/** 683-Rejeição: Chave de Acesso referenciada com Número inválido = 683 */
@@ -1684,29 +1561,29 @@ public class X_LBR_PartnerDFe extends PO implements I_LBR_PartnerDFe, I_Persiste
 	public static final String LBR_NFESTATUS_813_RejeiçãoQR_CodeComSequênciaDeEscapeParaOE_ComercialUsarCDATA = "813";
 	/** 814-Rejeição: Nota Fiscal com grupo de comércio exterior = 814 */
 	public static final String LBR_NFESTATUS_814_RejeiçãoNotaFiscalComGrupoDeComércioExterior = "814";
-	/** 817-Rejeição: Unidade Tributável incompatível com o NCM informado na operação com Comércio Exterior = 817 */
-	public static final String LBR_NFESTATUS_817_RejeiçãoUnidadeTributávelIncompatívelComONCMInformadoNaOperaçãoComComércioExterior = "817";
-	/** 854-Rejeição: Unidade Tributável incompatível com produto informado  = 854 */
-	public static final String LBR_NFESTATUS_854_RejeiçãoUnidadeTributávelIncompatívelComProdutoInformado = "854";
-	/** 855-Rejeição: Somatório percentuais de GLP derivado do petróleo, GLGNn e GLGNi diferente de 1 = 855 */
-	public static final String LBR_NFESTATUS_855_RejeiçãoSomatórioPercentuaisDeGLPDerivadoDoPetróleoGLGNnEGLGNiDiferenteDe1 = "855";
-	/** 856-Rejeição: Campo valor de partida não preenchido para produto GLP = 856 */
-	public static final String LBR_NFESTATUS_856_RejeiçãoCampoValorDePartidaNãoPreenchidoParaProdutoGLP = "856";
+	/** 817-Rejeição: Unidade Tributável incompatível com o NCM informado na operação com Comércio Exterior [nItem:nnn] = 817 */
+	public static final String LBR_NFESTATUS_817_RejeiçãoUnidadeTributávelIncompatívelComONCMInformadoNaOperaçãoComComércioExteriorNItemNnn = "817";
+	/** 854-Rejeição: Unidade Tributável incompatível com produto informado [nItem:nnn]  = 854 */
+	public static final String LBR_NFESTATUS_854_RejeiçãoUnidadeTributávelIncompatívelComProdutoInformadoNItemNnn = "854";
+	/** 855-Rejeição: Somatório percentuais de GLP derivado do petróleo, GLGNn e GLGNi diferente de 1 [nItem:nnn]  = 855 */
+	public static final String LBR_NFESTATUS_855_RejeiçãoSomatórioPercentuaisDeGLPDerivadoDoPetróleoGLGNnEGLGNiDiferenteDe1NItemNnn = "855";
+	/** 856-Rejeição: Campo valor de partida não preenchido para produto GLP [nItem: nnn]  = 856 */
+	public static final String LBR_NFESTATUS_856_RejeiçãoCampoValorDePartidaNãoPreenchidoParaProdutoGLPNItemNnn = "856";
 	/** 857-Rejeição: Informado Duplicata Mercantil como Forma de Pagamento  = 857 */
 	public static final String LBR_NFESTATUS_857_RejeiçãoInformadoDuplicataMercantilComoFormaDePagamento = "857";
-	/** 858-Rejeição: Grupo de Tributação informado indevidamente = 858 */
-	public static final String LBR_NFESTATUS_858_RejeiçãoGrupoDeTributaçãoInformadoIndevidamente = "858";
+	/** 858-Rejeição: Grupo de Tributação informado indevidamente [nItem: nnn]  = 858 */
+	public static final String LBR_NFESTATUS_858_RejeiçãoGrupoDeTributaçãoInformadoIndevidamenteNItemNnn = "858";
 	/** 859-Rejeição: Total do FCP retido anteriormente por Substituição Tributária difere do somatório dos itens  = 859 */
 	public static final String LBR_NFESTATUS_859_RejeiçãoTotalDoFCPRetidoAnteriormentePorSubstituiçãoTributáriaDifereDoSomatórioDosItens = "859";
-	/** 860-Rejeição: Valor do FCP informado difere de base de cálculo*alíquota  = 860 */
-	public static final String LBR_NFESTATUS_860_RejeiçãoValorDoFCPInformadoDifereDeBaseDeCálculoAlíquota = "860";
+	/** 860-Rejeição: Valor do FCP informado difere de base de cálculo*alíquota [nItem:nnn]  = 860 */
+	public static final String LBR_NFESTATUS_860_RejeiçãoValorDoFCPInformadoDifereDeBaseDeCálculoAlíquotaNItemNnn = "860";
 	/** 861-Rejeição: Total do FCP difere do somatório dos itens  = 861 */
 	public static final String LBR_NFESTATUS_861_RejeiçãoTotalDoFCPDifereDoSomatórioDosItens = "861";
 	/** 862-Rejeição: Total do FCP ST difere do somatório dos itens  = 862 */
 	public static final String LBR_NFESTATUS_862_RejeiçãoTotalDoFCPSTDifereDoSomatórioDosItens = "862";
 	/** 863-Rejeição: Total do IPI devolvido difere do somatório dos itens  = 863 */
 	public static final String LBR_NFESTATUS_863_RejeiçãoTotalDoIPIDevolvidoDifereDoSomatórioDosItens = "863";
-	/** 864-Rejeição: NF-e com indicativo de Operação presencial, fora do estabelecimento e não informada NF referenciada = 864 */
+	/** 864-Rejeição: NF-e com indicativo de Operação presencial, fora do estabelecimento e não informada NF referenciada  = 864 */
 	public static final String LBR_NFESTATUS_864_RejeiçãoNF_EComIndicativoDeOperaçãoPresencialForaDoEstabelecimentoENãoInformadaNFReferenciada = "864";
 	/** 865-Rejeição: Total dos pagamentos menor que o total da nota  = 865 */
 	public static final String LBR_NFESTATUS_865_RejeiçãoTotalDosPagamentosMenorQueOTotalDaNota = "865";
@@ -1718,62 +1595,46 @@ public class X_LBR_PartnerDFe extends PO implements I_LBR_PartnerDFe, I_Persiste
 	public static final String LBR_NFESTATUS_868_RejeiçãoGruposVeiculoTransporteEReboqueNãoDevemSerInformados = "868";
 	/** 869-Rejeição: Valor do troco incorreto  = 869 */
 	public static final String LBR_NFESTATUS_869_RejeiçãoValorDoTrocoIncorreto = "869";
-	/** 870-Rejeição: Data de validade incompatível com data de fabricação  = 870 */
-	public static final String LBR_NFESTATUS_870_RejeiçãoDataDeValidadeIncompatívelComDataDeFabricação = "870";
+	/** 870-Rejeição: Data de validade incompatível com data de fabricação [nItem:nnn]  = 870 */
+	public static final String LBR_NFESTATUS_870_RejeiçãoDataDeValidadeIncompatívelComDataDeFabricaçãoNItemNnn = "870";
 	/** 871-Rejeição: O campo Forma de Pagamento deve ser preenchido com a opção “Sem Pagamento”  = 871 */
 	public static final String LBR_NFESTATUS_871_RejeiçãoOCampoFormaDePagamentoDeveSerPreenchidoComAOpçãoSemPagamento = "871";
 	/** 872-Rejeição: Informado Duplicata Mercantil como Forma de Pagamento e não preenchido o Grupo Duplicata  = 872 */
 	public static final String LBR_NFESTATUS_872_RejeiçãoInformadoDuplicataMercantilComoFormaDePagamentoENãoPreenchidoOGrupoDuplicata = "872";
-	/** 873-Rejeição: Rejeição: Operação com medicamentos não informado os campos de rastreabilidade  = 873 */
-	public static final String LBR_NFESTATUS_873_RejeiçãoRejeiçãoOperaçãoComMedicamentosNãoInformadoOsCamposDeRastreabilidade = "873";
-	/** 874-Rejeição: Percentual de FCP inválido  = 874 */
-	public static final String LBR_NFESTATUS_874_RejeiçãoPercentualDeFCPInválido = "874";
-	/** 875-Rejeição: Percentual de FCP ST inválido  = 875 */
-	public static final String LBR_NFESTATUS_875_RejeiçãoPercentualDeFCPSTInválido = "875";
-	/** 876-Rejeição: Operação interestadual para Consumidor Final e valor do FCP informado em campo diferente de vFCPUFDest (id:NA13) = 876 */
+	/** 873-Rejeição: Rejeição: Operação com medicamentos não informado os campos de rastreabilidade [nItem:nnn]  = 873 */
+	public static final String LBR_NFESTATUS_873_RejeiçãoRejeiçãoOperaçãoComMedicamentosNãoInformadoOsCamposDeRastreabilidadeNItemNnn = "873";
+	/** 874-Rejeição: Percentual de FCP inválido [nItem:nnn]  = 874 */
+	public static final String LBR_NFESTATUS_874_RejeiçãoPercentualDeFCPInválidoNItemNnn = "874";
+	/** 875-Rejeição: Percentual de FCP ST inválido [nItem:nnn]  = 875 */
+	public static final String LBR_NFESTATUS_875_RejeiçãoPercentualDeFCPSTInválidoNItemNnn = "875";
+	/** 876-Rejeição: Operação interestadual para Consumidor Final e valor do FCP informado em campo diferente de vFCPUFDest (id:NA13) [ = 876 */
 	public static final String LBR_NFESTATUS_876_RejeiçãoOperaçãoInterestadualParaConsumidorFinalEValorDoFCPInformadoEmCampoDiferenteDeVFCPUFDestIdNA13 = "876";
 	/** 877-Rejeição: Nota Fiscal sem a informação da URL de consulta por chave de acesso  = 877 */
 	public static final String LBR_NFESTATUS_877_RejeiçãoNotaFiscalSemAInformaçãoDaURLDeConsultaPorChaveDeAcesso = "877";
 	/** 878-Rejeição: Endereço do site da UF da Consulta por chave de acesso diverge do previsto  = 878 */
 	public static final String LBR_NFESTATUS_878_RejeiçãoEndereçoDoSiteDaUFDaConsultaPorChaveDeAcessoDivergeDoPrevisto = "878";
-	/** 879-Rejeição: Informado item “Produzido em Escala NÃO Relevante” e não informado CNPJ do Fabricante  = 879 */
-	public static final String LBR_NFESTATUS_879_RejeiçãoInformadoItemProduzidoEmEscalaNÃORelevanteENãoInformadoCNPJDoFabricante = "879";
-	/** 850-Rejeição: Data de vencimento da parcela não informada ou menor que a Data de vencimento da parcela anterior = 850 */
-	public static final String LBR_NFESTATUS_850_RejeiçãoDataDeVencimentoDaParcelaNãoInformadaOuMenorQueADataDeVencimentoDaParcelaAnterior = "850";
-	/** 851-Rejeição: Soma do valor das parcelas difere do Valor Líquido da Fatura = 851 */
-	public static final String LBR_NFESTATUS_851_RejeiçãoSomaDoValorDasParcelasDifereDoValorLíquidoDaFatura = "851";
-	/** 852-Rejeição: Número da parcela inválido ou não informado = 852 */
-	public static final String LBR_NFESTATUS_852_RejeiçãoNúmeroDaParcelaInválidoOuNãoInformado = "852";
-	/** 880-Rejeição: Percentual de FCP igual a zero = 880 */
-	public static final String LBR_NFESTATUS_880_RejeiçãoPercentualDeFCPIgualAZero = "880";
-	/** 881-Rejeição: Percentual de FCP ST igual a zero = 881 */
-	public static final String LBR_NFESTATUS_881_RejeiçãoPercentualDeFCPSTIgualAZero = "881";
-	/** 897-Rejeição: Valor Fatura maior que Valor Total da NF-e = 897 */
-	public static final String LBR_NFESTATUS_897_RejeiçãoValorFaturaMaiorQueValorTotalDaNF_E = "897";
-	/** 898-Rejeição: Data de vencimento da parcela não informada ou menor que Data de Autorização = 898 */
-	public static final String LBR_NFESTATUS_898_RejeiçãoDataDeVencimentoDaParcelaNãoInformadaOuMenorQueDataDeAutorização = "898";
-	/** 899-Rejeição: Informado incorretamente o campo meio de pagamento = 899 */
-	public static final String LBR_NFESTATUS_899_RejeiçãoInformadoIncorretamenteOCampoMeioDePagamento = "899";
-	/** 900-Rejeição: Data de vencimento da parcela não informada ou menor que Data de Emissão = 900 */
-	public static final String LBR_NFESTATUS_900_RejeiçãoDataDeVencimentoDaParcelaNãoInformadaOuMenorQueDataDeEmissão = "900";
-	/** 901-Rejeição: Valor do Desconto da Fatura maior que o Valor Original da Fatura = 901 */
-	public static final String LBR_NFESTATUS_901_RejeiçãoValorDoDescontoDaFaturaMaiorQueOValorOriginalDaFatura = "901";
-	/** 902-Rejeição: Valor Liquido da Fatura difere do Valor Original menos o Valor do Desconto = 902 */
-	public static final String LBR_NFESTATUS_902_RejeiçãoValorLiquidoDaFaturaDifereDoValorOriginalMenosOValorDoDesconto = "902";
-	/** 903-Rejeição: Versão informada no QR-Code (“100”) não é mais válida para a data de emissão = 903 */
-	public static final String LBR_NFESTATUS_903_RejeiçãoVersãoInformadaNoQR_Code100NãoÉMaisVálidaParaADataDeEmissão = "903";
-	/** 904-Rejeição: Informado indevidamente campo valor de pagamento = 904 */
-	public static final String LBR_NFESTATUS_904_RejeiçãoInformadoIndevidamenteCampoValorDePagamento = "904";
-	/** 905-Rejeição: Campos do grupo Fatura não informados = 905 */
-	public static final String LBR_NFESTATUS_905_RejeiçãoCamposDoGrupoFaturaNãoInformados = "905";
-	/** 906-Rejeição: Não informado campo obrigatório quando CST = 60 ou CSOSN=500 e operação com consumidor final = 906 */
-	public static final String LBR_NFESTATUS_906_RejeiçãoNãoInformadoCampoObrigatórioQuandoCSTEq60OuCSOSNEq500EOperaçãoComConsumidorFinal = "906";
-	/** 907-Rejeição: Não informado campo obrigatório quando CST = 60 ou CSOSN=500 e operação com consumidor final = 907 */
-	public static final String LBR_NFESTATUS_907_RejeiçãoNãoInformadoCampoObrigatórioQuandoCSTEq60OuCSOSNEq500EOperaçãoComConsumidorFinal = "907";
-	/** 908-Rejeição: Não informado campo obrigatório quando CST = 60 ou CSOSN=500 e operação com consumidor final = 908 */
-	public static final String LBR_NFESTATUS_908_RejeiçãoNãoInformadoCampoObrigatórioQuandoCSTEq60OuCSOSNEq500EOperaçãoComConsumidorFinal = "908";
-	/** 909-Rejeição: Não informado campo obrigatório quando CST = 60 ou CSOSN=500 e operação com consumidor final = 909 */
-	public static final String LBR_NFESTATUS_909_RejeiçãoNãoInformadoCampoObrigatórioQuandoCSTEq60OuCSOSNEq500EOperaçãoComConsumidorFinal = "909";
+	/** 879-Rejeição: Informado item “Produzido em Escala NÃO Relevante” e não informado CNPJ do Fabricante [nItem:nnn]  = 879 */
+	public static final String LBR_NFESTATUS_879_RejeiçãoInformadoItemProduzidoEmEscalaNÃORelevanteENãoInformadoCNPJDoFabricanteNItemNnn = "879";
+	/** 906-Rejeição: Não informada vBCSTRet, pST, vICMSSubstituto e vICMSSTRet = 938 */
+	public static final String LBR_NFESTATUS_906_RejeiçãoNãoInformadaVBCSTRetPSTVICMSSubstitutoEVICMSSTRet = "938";
+	/** 970-Rejeição: Código de País inexistente [local de retirada/entrega] = 970 */
+	public static final String LBR_NFESTATUS_970_RejeiçãoCódigoDePaísInexistenteLocalDeRetiradaEntrega = "970";
+	/** 971-Rejeição: IE inválida [local de retirada/entrega] = 971 */
+	public static final String LBR_NFESTATUS_971_RejeiçãoIEInválidaLocalDeRetiradaEntrega = "971";
+	/** 972-Rejeição: Obrigatória as informações do responsável técnico = 972 */
+	public static final String LBR_NFESTATUS_972_RejeiçãoObrigatóriaAsInformaçõesDoResponsávelTécnico = "972";
+	/** 973-Rejeição: CNPJ do responsável técnico inválido = 973 */
+	public static final String LBR_NFESTATUS_973_RejeiçãoCNPJDoResponsávelTécnicoInválido = "973";
+	/** 974-Rejeição: CNPJ do responsável técnico diverge do cadastrado = 974 */
+	public static final String LBR_NFESTATUS_974_RejeiçãoCNPJDoResponsávelTécnicoDivergeDoCadastrado = "974";
+	/** 975-Rejeição: Obrigatória a informação do identificador do CSRT e do Hash do CSRT = 975 */
+	public static final String LBR_NFESTATUS_975_RejeiçãoObrigatóriaAInformaçãoDoIdentificadorDoCSRTEDoHashDoCSRT = "975";
+	/** 976-Rejeição: Identificador do CSRT não cadastrado na SEFAZ = 976 */
+	public static final String LBR_NFESTATUS_976_RejeiçãoIdentificadorDoCSRTNãoCadastradoNaSEFAZ = "976";
+	/** 977-Rejeição: Identificador do CSRT revogado = 977 */
+	public static final String LBR_NFESTATUS_977_RejeiçãoIdentificadorDoCSRTRevogado = "977";
+	/** 978-Rejeição: Hash do CSRT diverge do calculado = 978 */
+	public static final String LBR_NFESTATUS_978_RejeiçãoHashDoCSRTDivergeDoCalculado = "978";
 	/** Set NFe Status.
 		@param lbr_NFeStatus 
 		Status of NFe
@@ -1790,5 +1651,145 @@ public class X_LBR_PartnerDFe extends PO implements I_LBR_PartnerDFe, I_Persiste
 	public String getlbr_NFeStatus () 
 	{
 		return (String)get_Value(COLUMNNAME_lbr_NFeStatus);
+	}
+
+	/** Set NSU.
+		@param LBR_NSU 
+		Unic Sequencial Number used on Manifest of Fiscal Documento
+	  */
+	public void setLBR_NSU (String LBR_NSU)
+	{
+		set_Value (COLUMNNAME_LBR_NSU, LBR_NSU);
+	}
+
+	/** Get NSU.
+		@return Unic Sequencial Number used on Manifest of Fiscal Documento
+	  */
+	public String getLBR_NSU () 
+	{
+		return (String)get_Value(COLUMNNAME_LBR_NSU);
+	}
+
+	/** Set Partner Doc Fiscal.
+		@param LBR_PartnerDFe_ID Partner Doc Fiscal	  */
+	public void setLBR_PartnerDFe_ID (int LBR_PartnerDFe_ID)
+	{
+		if (LBR_PartnerDFe_ID < 1) 
+			set_ValueNoCheck (COLUMNNAME_LBR_PartnerDFe_ID, null);
+		else 
+			set_ValueNoCheck (COLUMNNAME_LBR_PartnerDFe_ID, Integer.valueOf(LBR_PartnerDFe_ID));
+	}
+
+	/** Get Partner Doc Fiscal.
+		@return Partner Doc Fiscal	  */
+	public int getLBR_PartnerDFe_ID () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_LBR_PartnerDFe_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
+	/** Set LBR_PartnerDFe_UU.
+		@param LBR_PartnerDFe_UU LBR_PartnerDFe_UU	  */
+	public void setLBR_PartnerDFe_UU (String LBR_PartnerDFe_UU)
+	{
+		set_Value (COLUMNNAME_LBR_PartnerDFe_UU, LBR_PartnerDFe_UU);
+	}
+
+	/** Get LBR_PartnerDFe_UU.
+		@return LBR_PartnerDFe_UU	  */
+	public String getLBR_PartnerDFe_UU () 
+	{
+		return (String)get_Value(COLUMNNAME_LBR_PartnerDFe_UU);
+	}
+
+	/** 1 - Authorized = 1 */
+	public static final String LBR_SITNF_1_Authorized = "1";
+	/** 2 - Use denied = 2 */
+	public static final String LBR_SITNF_2_UseDenied = "2";
+	/** 3 - Cancelled = 3 */
+	public static final String LBR_SITNF_3_Cancelled = "3";
+	/** Set NF Status.
+		@param LBR_SitNF 
+		NF Status
+	  */
+	public void setLBR_SitNF (String LBR_SitNF)
+	{
+
+		set_Value (COLUMNNAME_LBR_SitNF, LBR_SitNF);
+	}
+
+	/** Get NF Status.
+		@return NF Status
+	  */
+	public String getLBR_SitNF () 
+	{
+		return (String)get_Value(COLUMNNAME_LBR_SitNF);
+	}
+
+	/** Set Processed.
+		@param Processed 
+		The document has been processed
+	  */
+	public void setProcessed (boolean Processed)
+	{
+		set_Value (COLUMNNAME_Processed, Boolean.valueOf(Processed));
+	}
+
+	/** Get Processed.
+		@return The document has been processed
+	  */
+	public boolean isProcessed () 
+	{
+		Object oo = get_Value(COLUMNNAME_Processed);
+		if (oo != null) 
+		{
+			 if (oo instanceof Boolean) 
+				 return ((Boolean)oo).booleanValue(); 
+			return "Y".equals(oo);
+		}
+		return false;
+	}
+
+	/** Set Process Now.
+		@param Processing Process Now	  */
+	public void setProcessing (boolean Processing)
+	{
+		set_Value (COLUMNNAME_Processing, Boolean.valueOf(Processing));
+	}
+
+	/** Get Process Now.
+		@return Process Now	  */
+	public boolean isProcessing () 
+	{
+		Object oo = get_Value(COLUMNNAME_Processing);
+		if (oo != null) 
+		{
+			 if (oo instanceof Boolean) 
+				 return ((Boolean)oo).booleanValue(); 
+			return "Y".equals(oo);
+		}
+		return false;
+	}
+
+	/** Set Sequence.
+		@param SeqNo 
+		Method of ordering records; lowest number comes first
+	  */
+	public void setSeqNo (int SeqNo)
+	{
+		set_Value (COLUMNNAME_SeqNo, Integer.valueOf(SeqNo));
+	}
+
+	/** Get Sequence.
+		@return Method of ordering records; lowest number comes first
+	  */
+	public int getSeqNo () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_SeqNo);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
 	}
 }
