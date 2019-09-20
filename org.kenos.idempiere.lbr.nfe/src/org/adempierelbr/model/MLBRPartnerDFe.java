@@ -216,19 +216,33 @@ public class MLBRPartnerDFe extends X_LBR_PartnerDFe
 	}	//	get
 	
 	/**
-	 * 	Procura um DF-e para a NF
+	 * 	Procura um DF-e por Tipo de Documento NF-e ou Evento
 	 * 	@param nf
 	 * 	@return
 	 */
-	public static MLBRPartnerDFe get (String key)
+	public static MLBRPartnerDFe get (String key, String DocumentType)
 	{
-		String where = "DocumentType='0' "
-				+ "AND AD_Client_ID=? "
+		String where = "AD_Client_ID=? "
 				+ "AND LBR_NFeID=? ";
+		
+		if (DocumentType != null && !DocumentType.isEmpty())
+			where = where + "AND DocumentType = '" + DocumentType + "'";
+		else
+			where = where + "AND DocumentType='0'";
 		//
 		MLBRPartnerDFe dfe = new Query (Env.getCtx(), MLBRPartnerDFe.Table_Name, where, null)
 						.setParameters(Env.getAD_Client_ID(Env.getCtx()), key)
 						.first();
 		return dfe;
+	}	//	get
+	
+	/**
+	 * 	Procura um DF-e para a NF
+	 * 	@param nf
+	 * 	@return
+	 */
+	public static MLBRPartnerDFe get (String key)
+	{		
+		return get(key, null);
 	}	//	get
 }	//	MLBRNFDest
