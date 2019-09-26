@@ -721,30 +721,6 @@ public class WFreightCalc extends ADForm implements IFormController, EventListen
 			sDsSenha73 = m_shipper.getM_ShippingProcessor().getConnectionPassword();
 		
 		/**
-		 * 04014 - SEDEX à vista
-		 * 04065 - SEDEX à vista pagamento na entrega
-		 * 04510 - PAC à vista
-		 * 04707 - PAC à vista pagamento na entrega
-		 * 40169 - SEDEX 12 ( à vista e a faturar)*
-		 * 40215 - SEDEX 10 (à vista e a faturar)*
-		 * 40290 - SEDEX Hoje Varejo*
-		 * 
-		 * Os códigos não foram alterados
-		 * 
-		 * Para clientes com contrato:
-		 * Consultar os códigos no seu contrato.
-		 * 
-		 * Obrigatório. Pode ser mais de um numa consulta separados por vírgula
-		 */
-		String nCdServico74 = "";
-		for (ValueNamePair vp : m_freights)
-		{
-			if (!nCdServico74.isEmpty())
-				nCdServico74 += ",";
-			nCdServico74 += vp.getValue();
-		}
-		
-		/**
 		 * CEP de Origem sem hífen.Exemplo: 05311900
 		 * Obrigatório		 */
 		String sCepOrigem75 = TextUtil.toNumeric (f_zipFrom.getText());
@@ -827,68 +803,93 @@ public class WFreightCalc extends ADForm implements IFormController, EventListen
 		 * Obrigatório
 		 */
 		String sDtCalculo86 = TextUtil.timeToString (f_date.getValue(), "dd/MM/yyyy");
-
-		/**
-		 * 	Cálculo do Frete
-		 */
-		CResultado result = stub.calcPrecoPrazoData (nCdEmpresa72, sDsSenha73, nCdServico74, sCepOrigem75, sCepDestino76, nVlPeso77, nCdFormato78, nVlComprimento79, nVlAltura80, nVlLargura81, nVlDiametro82, sCdMaoPropria83, nVlValorDeclarado84, sCdAvisoRecebimento85, sDtCalculo86);
 		
+		/**
+		 * 	Clean table
+		 */
 		miniTable.removeAllItems();
 		l_warning.setText("");
 		List<String> obs = new ArrayList<String>();
 		List<String> errors = new ArrayList<String>();
 		
-		for (CServico serv : result.getServicos().getCServico())
+		/**
+		 * 04014 - SEDEX à vista
+		 * 04065 - SEDEX à vista pagamento na entrega
+		 * 04510 - PAC à vista
+		 * 04707 - PAC à vista pagamento na entrega
+		 * 40169 - SEDEX 12 ( à vista e a faturar)*
+		 * 40215 - SEDEX 10 (à vista e a faturar)*
+		 * 40290 - SEDEX Hoje Varejo*
+		 * 
+		 * Os códigos não foram alterados
+		 * 
+		 * Para clientes com contrato:
+		 * Consultar os códigos no seu contrato.
+		 * 
+		 * Obrigatório. Pode ser mais de um numa consulta separados por vírgula
+		 */
+		for (ValueNamePair vp : m_freights)
 		{
-			ListItem item = new ListItem();
-			miniTable.appendChild(item);
-			
-			if ("0".equals(serv.getValor()))
-			{
-				errors.add(parseCode (serv.getCodigo()) + " - " + serv.getMsgErro());
-				continue;
-			}
-			
-			//	Put the code on tooltip
-			ListCell cell = new ListCell(parseCode (serv.getCodigo()));
-			cell.setTooltip(String.valueOf(serv.getCodigo()));
-			//
-			item.appendChild(cell);
-			item.appendChild(new ListCell(String.valueOf(serv.getValor())));
-			item.appendChild(new ListCell(String.valueOf(serv.getValorMaoPropria())));
-			item.appendChild(new ListCell(String.valueOf(serv.getValorAvisoRecebimento())));
-			item.appendChild(new ListCell(String.valueOf(serv.getValorValorDeclarado())));
-			item.appendChild(new ListCell(String.valueOf(serv.getValorSemAdicionais())));
-			item.appendChild(new ListCell(String.valueOf(serv.getPrazoEntrega() + " dias")));
-			item.addEventListener(Events.ON_DOUBLE_CLICK, this);
+			String nCdServico74 = vp.getValue();
 
-			//	Concatenate Error and Warning
-			String obsFim = serv.getObsFim();
-			String err = serv.getMsgErro();
+			/**
+			 * 	Cálculo do Frete
+			 */
+			CResultado result = stub.calcPrecoPrazoData (nCdEmpresa72, sDsSenha73, nCdServico74, sCepOrigem75, sCepDestino76, nVlPeso77, nCdFormato78, nVlComprimento79, nVlAltura80, nVlLargura81, nVlDiametro82, sCdMaoPropria83, nVlValorDeclarado84, sCdAvisoRecebimento85, sDtCalculo86);
 			
-			if (err != null && !err.equals(obsFim))
-				if (obsFim.isEmpty())
-					obsFim = err;
-				else
-					obsFim += " " + err;
 			
-			//	Only put in index if its not empty
-			if (obsFim != null && !obsFim.isEmpty())
+			for (CServico serv : result.getServicos().getCServico())
 			{
-				int index = obs.indexOf (obsFim);
-				if (index == -1)
+				ListItem item = new ListItem();
+				miniTable.appendChild(item);
+				
+				if ("0".equals(serv.getValor()))
 				{
-					obs.add(obsFim);
-					index = obs.size();
+					errors.add(parseCode (serv.getCodigo()) + " - " + serv.getMsgErro());
+					continue;
+				}
+				
+				//	Put the code on tooltip
+				ListCell cell = new ListCell(parseCode (serv.getCodigo()));
+				cell.setTooltip(String.valueOf(serv.getCodigo()));
+				//
+				item.appendChild(cell);
+				item.appendChild(new ListCell(String.valueOf(serv.getValor())));
+				item.appendChild(new ListCell(String.valueOf(serv.getValorMaoPropria())));
+				item.appendChild(new ListCell(String.valueOf(serv.getValorAvisoRecebimento())));
+				item.appendChild(new ListCell(String.valueOf(serv.getValorValorDeclarado())));
+				item.appendChild(new ListCell(String.valueOf(serv.getValorSemAdicionais())));
+				item.appendChild(new ListCell(String.valueOf(serv.getPrazoEntrega() + " dias")));
+				item.addEventListener(Events.ON_DOUBLE_CLICK, this);
+
+				//	Concatenate Error and Warning
+				String obsFim = serv.getObsFim();
+				String err = serv.getMsgErro();
+				
+				if (err != null && !err.equals(obsFim))
+					if (obsFim.isEmpty())
+						obsFim = err;
+					else
+						obsFim += " " + err;
+				
+				//	Only put in index if its not empty
+				if (obsFim != null && !obsFim.isEmpty())
+				{
+					int index = obs.indexOf (obsFim);
+					if (index == -1)
+					{
+						obs.add(obsFim);
+						index = obs.size();
+					}
+					else
+						index = index + 1;
+					
+					cell = new ListCell("Obs. " + index);
+					item.appendChild(cell);
 				}
 				else
-					index = index + 1;
-				
-				cell = new ListCell("Obs. " + index);
-				item.appendChild(cell);
+					item.appendChild(new ListCell(""));
 			}
-			else
-				item.appendChild(new ListCell(""));
 		}
 		
 		//	Display warning messages
