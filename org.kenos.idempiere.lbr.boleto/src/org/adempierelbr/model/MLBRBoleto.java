@@ -176,7 +176,7 @@ public class MLBRBoleto extends X_LBR_Boleto
 		
 		sql = " SELECT LBR_Boleto_ID 				" +
 			  "   FROM LBR_Boleto 					" +
-			  "  WHERE IsCancelled = 'N'		" +
+			  "  WHERE LBR_IsCancelled = 'N'		" +
 			  "    AND AD_Client_ID = ? 			";
 		
 		
@@ -323,7 +323,7 @@ public class MLBRBoleto extends X_LBR_Boleto
 
 	public static MLBRBoleto[] getBoleto(Properties ctx, int C_Invoice_ID, String trx){
 
-		String whereClause = "C_Invoice_ID = ? AND IsCancelled = 'N'";
+		String whereClause = "C_Invoice_ID = ? AND LBR_IsCancelled = 'N'";
 
 		MTable table = MTable.get(ctx, MLBRBoleto.Table_Name);
 		Query query =  new Query(ctx, table, whereClause, trx);
@@ -827,7 +827,7 @@ public class MLBRBoleto extends X_LBR_Boleto
 	    else
 	      	jBoletoBean.setCpfSacado(bpartner.get_ValueAsString("lbr_CNPJ"));
 
-	    jBoletoBean.setCarteira(getlbr_BillFold());
+	    jBoletoBean.setCarteira(getlbr_BillFoldNo(getlbr_BillFold()));
 
 	    String PaymentLocation1 = getlbr_PaymentLocation1();
 	    if (PaymentLocation1 == null) PaymentLocation1 = "";
@@ -878,7 +878,8 @@ public class MLBRBoleto extends X_LBR_Boleto
 	    		jBoletoBean.setCodCliente(ClientCode);
 	    }
 
-	    jBoletoBean.setEspecieDocumento(getlbr_BillKind());
+	    if (getlbr_BillKind() != null && !getlbr_BillKind().isEmpty())
+	    	jBoletoBean.setEspecieDocumento(getlbr_BillKind());
 	    jBoletoBean.setNoDocumento(invoice.getDocumentNo() + "/" + getlbr_PayScheduleNo());
 	    jBoletoBean.setNossoNumero(getDocumentNo(),JBoleto.getQtdDigitos(bank));
 	    jBoletoBean.setValorBoleto(String.valueOf(getGrandTotal()));
