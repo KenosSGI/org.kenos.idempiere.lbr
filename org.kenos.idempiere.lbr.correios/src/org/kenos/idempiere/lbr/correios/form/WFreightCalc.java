@@ -46,6 +46,7 @@ import org.compiere.util.Env;
 import org.compiere.util.KeyNamePair;
 import org.compiere.util.Msg;
 import org.compiere.util.ValueNamePair;
+import org.kenos.idempiere.lbr.base.model.SysConfig;
 import org.kenos.idempiere.lbr.correios.api.CalcPrecoPrazoWSStub;
 import org.tempuri.CResultado;
 import org.tempuri.CServico;
@@ -427,7 +428,7 @@ public class WFreightCalc extends ADForm implements IFormController, EventListen
 		setupColumns();
 
 		//	Shipper config
-		String uu = MSysConfig.getValue ("LBR_CORREIOS_SHIPPER", Env.getAD_Client_ID(Env.getCtx()));
+		String uu = MSysConfig.getValue (SysConfig.LBR_CORREIOS_SHIPPER, Env.getAD_Client_ID(Env.getCtx()));
 		if (uu == null || uu.isEmpty())
 			throw new AdempiereException ("Não foi possível determinar a transportadora dos correios");
 		

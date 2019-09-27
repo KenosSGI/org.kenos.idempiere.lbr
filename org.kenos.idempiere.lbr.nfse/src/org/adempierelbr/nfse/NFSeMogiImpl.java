@@ -39,6 +39,7 @@ import org.compiere.model.MSysConfig;
 import org.compiere.util.CLogger;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
+import org.kenos.idempiere.lbr.base.model.SysConfig;
 
 import com.sil.webservices.WSEntradaServiceStub;
 import com.sil.webservices.WSEntradaServiceStub.ConsultarAtividades;
@@ -333,9 +334,9 @@ public class NFSeMogiImpl implements INFSe
 		//	Adicionando os dados para Login de Acesso
 		NfdEntrada pEntrada = new NfdEntrada();
 		//	CPF Autorizado
-		pEntrada.setCpfUsuario(MSysConfig.getValue("KENOSERP_USER_LOGIN_NFSE_MOGI", nf.getAD_Client_ID()));
+		pEntrada.setCpfUsuario(MSysConfig.getValue(SysConfig.LBR_NFSE_MOGI_USER, nf.getAD_Client_ID()));
 		//	Senha (necessário está em hashcode)
-		pEntrada.setHashSenha(MSysConfig.getValue("KENOSERP_PASSWORD_LOGIN_NFSE_MOGI", nf.getAD_Client_ID()	));
+		pEntrada.setHashSenha(MSysConfig.getValue(SysConfig.LBR_NFSE_MOGI_PASS, nf.getAD_Client_ID()));
 		//	Código do Municipio - 3 corresponde a Mogi das Cruzes
 		pEntrada.setCodigoMunicipio(3);		
 		//	XML da NF-e
@@ -414,9 +415,9 @@ public class NFSeMogiImpl implements INFSe
 		//	Adicionando os dados para Login de Acesso
 		NfdSaida pSaida = new NfdSaida();
 		//	CPF Autorizado
-		pSaida.setCpfUsuario(MSysConfig.getValue("KENOSERP_USER_LOGIN_NFSE_MOGI", nf.getAD_Client_ID()));
+		pSaida.setCpfUsuario(MSysConfig.getValue(SysConfig.LBR_NFSE_MOGI_USER, nf.getAD_Client_ID()));
 		//	Senha (necessário está em hashcode)
-		pSaida.setHashSenha(MSysConfig.getValue("KENOSERP_PASSWORD_LOGIN_NFSE_MOGI", nf.getAD_Client_ID()));
+		pSaida.setHashSenha(MSysConfig.getValue(SysConfig.LBR_NFSE_MOGI_PASS, nf.getAD_Client_ID()));
 		//	Inscrição Municipal
 		pSaida.setInscricaoMunicipal(nf.getlbr_OrgCCM());
 		//	XML do Recibo referente a Transmissão da NF-e de Serviço

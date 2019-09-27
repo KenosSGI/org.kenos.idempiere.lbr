@@ -39,6 +39,7 @@ import org.compiere.util.CLogger;
 import org.compiere.util.Env;
 import org.kenos.idempiere.lbr.base.event.IDocFiscalHandler;
 import org.kenos.idempiere.lbr.base.event.IDocFiscalHandlerFactory;
+import org.kenos.idempiere.lbr.base.model.SysConfig;
 
 import br.inf.portalfiscal.nfe.v400.ConsStatServDocument;
 import br.inf.portalfiscal.nfe.v400.RetConsStatServDocument;
@@ -165,7 +166,7 @@ public class ProcStatusServico extends SvrProcess
 			String url = MLBRNFeWebService.getURL (serviceType, p_LBR_EnvType, NFeUtil.VERSAO_LAYOUT, p_LBR_TPEmis, orgLoc.getC_Region_ID());
 			
 			String xmlText = statServDoc.xmlText(NFeUtil.getXmlOpt());
-			String remoteURL = MSysConfig.getValue("LBR_REMOTE_PKCS11_URL", orgInfo.getAD_Client_ID(), orgInfo.getAD_Org_ID());
+			String remoteURL = MSysConfig.getValue(SysConfig.LBR_REMOTE_PKCS11_URL, orgInfo.getAD_Client_ID(), orgInfo.getAD_Org_ID());
 			final StringBuilder respStatus = new StringBuilder();
 			
 			//	Try to find a service for PKCS#11 for transmit

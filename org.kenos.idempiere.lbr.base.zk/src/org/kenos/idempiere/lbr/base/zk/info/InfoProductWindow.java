@@ -43,6 +43,7 @@ import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.compiere.util.Msg;
 import org.compiere.util.Util;
+import org.kenos.idempiere.lbr.base.model.SysConfig;
 import org.zkoss.image.AImage;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
@@ -176,7 +177,7 @@ public class InfoProductWindow extends InfoWindow {
         warehouseTbl = ListboxFactory.newDataTableAutoSize();
         
         boolean showAllWarehouses = false;
-        List<String> config = Arrays.asList (MSysConfig.getValue ("LBR_ACCESS_ALL_WAREHOUSES_ROLE", "NONE", Env.getAD_Client_ID(Env.getCtx())).split(","));
+        List<String> config = Arrays.asList (MSysConfig.getValue (SysConfig.LBR_ACCESS_ALL_WAREHOUSES_ROLE, "NONE", Env.getAD_Client_ID(Env.getCtx())).split(","));
 		if (config.contains ("ALL") || config.contains (String.valueOf (Env.getAD_Role_ID (Env.getCtx()))))
 			showAllWarehouses = true;
         

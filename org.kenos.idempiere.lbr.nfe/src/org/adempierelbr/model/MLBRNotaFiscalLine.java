@@ -59,6 +59,7 @@ import org.compiere.util.Env;
 import org.compiere.util.Msg;
 import org.kenos.idempiere.lbr.base.model.MLBRAverageCostLine;
 import org.kenos.idempiere.lbr.base.model.MLBRProductionGroup;
+import org.kenos.idempiere.lbr.base.model.SysConfig;
 
 /**
  *	MNotaFiscalLine
@@ -620,22 +621,22 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 
 			//	Número de Série
 			if (serNo != null
-					&& MSysConfig.getBooleanValue("LBR_PRINT_SERIALNUMBER_NF", true, getAD_Client_ID()))
+					&& MSysConfig.getBooleanValue(SysConfig.LBR_PRINT_SERIALNUMBER_NF, true, getAD_Client_ID()))
 				appendDescription("Núm. de Série: " + serNo);
 		
 			//	Lote
 			if (lot != null
-					&& MSysConfig.getBooleanValue("LBR_PRINT_LOT_NF", false, getAD_Client_ID()))
+					&& MSysConfig.getBooleanValue(SysConfig.LBR_PRINT_LOT_NF, false, getAD_Client_ID()))
 				appendDescription("Lote: " + lot);
 			
 			//	Vencimento
 			if (guaranteeDate != null
-					&& MSysConfig.getBooleanValue("LBR_PRINT_EXPIRE_NF", false, getAD_Client_ID()))
+					&& MSysConfig.getBooleanValue(SysConfig.LBR_PRINT_EXPIRE_NF, false, getAD_Client_ID()))
 				appendDescription ("Vencto: " + TextUtil.timeToString (guaranteeDate, "dd/MM/yyyy"));
 		}
 		
 		//	Impressão do Pedido de Referencia e Item (xPed e nItemPed)
-		if (MSysConfig.getBooleanValue("LBR_PRINT_XPED_NF", true, getAD_Client_ID()))
+		if (MSysConfig.getBooleanValue(SysConfig.LBR_PRINT_XPED_NF, true, getAD_Client_ID()))
 		{
 			//	Linha do Pedido
 			MOrderLine oLine = (MOrderLine) iLine.getC_OrderLine();
@@ -685,7 +686,7 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 		if (iLine.getC_OrderLine_ID() > 0)
 			setPOReference (POWrapper.create (new MOrderLine (iLine.getCtx(), iLine.getC_OrderLine_ID(), get_TrxName()), I_W_C_OrderLine.class));
 		
-		boolean includeDIFAL = MSysConfig.getBooleanValue("LBR_ADD_DIFAL_PROD", true, getAD_Client_ID(), getAD_Org_ID());
+		boolean includeDIFAL = MSysConfig.getBooleanValue(SysConfig.LBR_ADD_DIFAL_PROD, true, getAD_Client_ID(), getAD_Org_ID());
 		boolean isFOB = getParent().getC_Invoice_ID() > 0 ? !getParent().getC_Invoice().isTaxIncluded() : false;
 		setPrice(iLine.getParent().getC_Currency_ID(), iLine.getPriceEntered(), iLine.getPriceList(), includeDIFAL, isFOB);
 	}	//	setInvoiceLine
@@ -733,7 +734,7 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 		//	Número de Série
 		if (line.getM_AttributeSetInstance_ID()>0 
 				&& line.getM_AttributeSetInstance().getSerNo() != null
-				&& (MSysConfig.getBooleanValue("LBR_PRINT_SERIALNUMBER_NF", true, getAD_Client_ID())))
+				&& (MSysConfig.getBooleanValue(SysConfig.LBR_PRINT_SERIALNUMBER_NF, true, getAD_Client_ID())))
 			appendDescription("Núm. de Série: " + line.getM_AttributeSetInstance().getSerNo());
 		
 		//	Impostos
@@ -879,7 +880,7 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 			//	Número de Série
 			if (oLine.getM_AttributeSetInstance_ID()>0 
 					&& oLine.getM_AttributeSetInstance().getSerNo() != null
-					&& (MSysConfig.getBooleanValue("LBR_PRINT_SERIALNUMBER_NF", true, getAD_Client_ID())))
+					&& (MSysConfig.getBooleanValue(SysConfig.LBR_PRINT_SERIALNUMBER_NF, true, getAD_Client_ID())))
 				appendDescription("Núm. de Série: " + oLine.getM_AttributeSetInstance().getSerNo());
 			
 			//		Impostos
@@ -908,7 +909,7 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 			
 			//	Valores
 			setQty(oLine.getQtyEntered());
-			boolean includeDIFAL = MSysConfig.getBooleanValue("LBR_ADD_DIFAL_PROD", true, getAD_Client_ID(), getAD_Org_ID());
+			boolean includeDIFAL = MSysConfig.getBooleanValue(SysConfig.LBR_ADD_DIFAL_PROD, true, getAD_Client_ID(), getAD_Org_ID());
 			boolean isFOB = getParent().getC_Invoice_ID() > 0 ? !getParent().getC_Invoice().isTaxIncluded() : false;
 			setPrice(oLine.getParent().getC_Currency_ID(), oLine.getPriceEntered(), oLine.getPriceList(), includeDIFAL, isFOB);
 		}
@@ -946,7 +947,7 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 			//	Número de Série
 			if (iLine.getM_AttributeSetInstance_ID()>0 
 					&& iLine.getM_AttributeSetInstance().getSerNo() != null
-					&& (MSysConfig.getBooleanValue("LBR_PRINT_SERIALNUMBER_NF", true, getAD_Client_ID())))
+					&& (MSysConfig.getBooleanValue(SysConfig.LBR_PRINT_SERIALNUMBER_NF, true, getAD_Client_ID())))
 				appendDescription("Núm. de Série: " + iLine.getM_AttributeSetInstance().getSerNo());
 			
 			//		Impostos
@@ -972,7 +973,7 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 			
 			//	Valores
 			setQty(iLine.getQtyEntered());
-			boolean includeDIFAL = MSysConfig.getBooleanValue("LBR_ADD_DIFAL_PROD", true, getAD_Client_ID(), getAD_Org_ID());
+			boolean includeDIFAL = MSysConfig.getBooleanValue(SysConfig.LBR_ADD_DIFAL_PROD, true, getAD_Client_ID(), getAD_Org_ID());
 			boolean isFOB = getParent().getC_Invoice_ID() > 0 ? !getParent().getC_Invoice().isTaxIncluded() : false;
 			setPrice(iLine.getParent().getC_Currency_ID(), oLineW.getPriceEntered(), oLineW.getPriceList(), includeDIFAL, isFOB);
 		}
@@ -1204,7 +1205,7 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 		
 		if (vendorProductNo != null
 				&& !vendorProductNo.isEmpty()
-				&& (MSysConfig.getBooleanValue("LBR_PRINT_BP_PRODUCT_NO_NF", true, getAD_Client_ID())))
+				&& (MSysConfig.getBooleanValue(SysConfig.LBR_PRINT_BP_PRODUCT_NO_NF, true, getAD_Client_ID())))
 		{
 			appendDescription ("Código Interno: " + vendorProductNo);
 		}

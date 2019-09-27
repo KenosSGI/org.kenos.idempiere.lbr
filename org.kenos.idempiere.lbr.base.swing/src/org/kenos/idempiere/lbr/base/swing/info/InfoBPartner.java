@@ -49,6 +49,7 @@ import org.compiere.swing.CTextField;
 import org.compiere.util.Env;
 import org.compiere.util.KeyNamePair;
 import org.compiere.util.Msg;
+import org.kenos.idempiere.lbr.base.model.SysConfig;
 
 /**
  *	Search Business Partner and return selection
@@ -357,7 +358,7 @@ public class InfoBPartner extends Info
 		
 		//	Show Employee info
 		Properties ctx = Env.getCtx();
-		if (!MSysConfig.getBooleanValue("LBR_SHOW_EMPLOYEE_BP_INFO#" + Env.getAD_Role_ID(ctx), true, Env.getAD_Client_ID(ctx)))
+		if (!MSysConfig.getBooleanValue(SysConfig.LBR_SHOW_EMPLOYEE_BP_INFO + Env.getAD_Role_ID(ctx), true, Env.getAD_Client_ID(ctx)))
 			sql.append(" AND C_BPartner.IsEmployee='N'");
 		
 		return sql.toString();

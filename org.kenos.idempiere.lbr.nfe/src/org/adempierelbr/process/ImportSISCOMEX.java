@@ -19,6 +19,7 @@ import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
+import org.kenos.idempiere.lbr.base.model.SysConfig;
 
 import br.gov.fazenda.receita.siscomex.Adicao;
 import br.gov.fazenda.receita.siscomex.DeclaracaoImportacaoConsulta;
@@ -149,7 +150,7 @@ public class ImportSISCOMEX extends SvrProcess
 		}
 			
 		//	Regex para Identificar a Chave de Busca do Produto no Arquivo XML		
-		p_ProductRegex = MSysConfig.getValue("KNS_SISCOMEX_PRODUCT_REGEX", Env.getAD_Client_ID(Env.getCtx()));
+		p_ProductRegex = MSysConfig.getValue(SysConfig.LBR_SISCOMEX_PRODUCT_REGEX, Env.getAD_Client_ID(Env.getCtx()));
 		
 		// Read XML from SISCOMEX and put it on Import Format
 		XMLtoImportFormat();

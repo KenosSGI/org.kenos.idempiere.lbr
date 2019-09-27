@@ -8,6 +8,7 @@ import org.compiere.model.MMovementLine;
 import org.compiere.model.MProductionLine;
 import org.compiere.model.MSysConfig;
 import org.compiere.model.PO;
+import org.kenos.idempiere.lbr.base.model.SysConfig;
 import org.osgi.service.event.Event;
 
 /**
@@ -36,8 +37,8 @@ public class LocatorCheck extends AbstractEventHandler
 			if (po == null)
 				return;
 			
-			boolean allowCrossOrg 		= MSysConfig.getBooleanValue ("org.kenos.allowcrossorglocator", false, po.getAD_Client_ID());
-			boolean allowCrossOrgMove 	= MSysConfig.getBooleanValue ("org.kenos.allowcrossorglocator.inventorymove", false, po.getAD_Client_ID());
+			boolean allowCrossOrg 		= MSysConfig.getBooleanValue (SysConfig.ALLOW_CROSS_ORG_LOCATOR, false, po.getAD_Client_ID());
+			boolean allowCrossOrgMove 	= MSysConfig.getBooleanValue (SysConfig.ALLOW_CROSS_ORG_LOCATOR_INVENTORY_MOVE, false, po.getAD_Client_ID());
 			
 			//	Allow cross organization, do not proceed with validation
 			if (allowCrossOrg)

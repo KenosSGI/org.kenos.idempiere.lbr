@@ -24,6 +24,7 @@ import org.compiere.model.MProduct;
 import org.compiere.model.MSysConfig;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
+import org.kenos.idempiere.lbr.base.model.SysConfig;
 
 import br.gov.sc.palhoca.nfse.NfseDocument;
 import br.gov.sc.palhoca.nfse.NfseDocument.Nfse;
@@ -183,8 +184,8 @@ public class NFSePalhocaImpl implements INFSe
 		nfse_nf.setValorCofins(v_COFINS);
 		nfse_nf.setObservacao(nf.getDescription());
 		
-		String user = MSysConfig.getValue ("KENOSERP_USER_LOGIN_NFSE_MOGI", nf.getAD_Client_ID());
-		String pass = MSysConfig.getValue ("KENOSERP_PASSWORD_LOGIN_NFSE_MOGI", nf.getAD_Client_ID());
+		String user = MSysConfig.getValue (SysConfig.LBR_NFSE_PALHOCA_USER, nf.getAD_Client_ID());
+		String pass = MSysConfig.getValue (SysConfig.LBR_NFSE_PALHOCA_PASS, nf.getAD_Client_ID());
 		String xml = nfdDoc.xmlText(NFeUtil.getXmlOpt());
 		
 		//	Apagar XML antigos

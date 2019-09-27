@@ -42,6 +42,7 @@ import org.compiere.util.Env;
 import org.compiere.util.KeyNamePair;
 import org.compiere.util.Msg;
 import org.kenos.idempiere.lbr.base.form.InvoiceGen;
+import org.kenos.idempiere.lbr.base.model.SysConfig;
 
 /**
  * Generate Invoice (manual) view class
@@ -188,7 +189,7 @@ public class VInvoiceGen extends InvoiceGen implements FormPanel, ActionListener
         cmbDocType.addItem(new KeyNamePair(MRMA.Table_ID, Msg.translate(Env.getCtx(), "CustomerRMA")));
         cmbDocType.addActionListener(this);
         
-		docAction.setValue(MSysConfig.getValue("LBR_INVOICEGEN_DOCACTION","CO",Env.getAD_Client_ID(Env.getCtx())));
+		docAction.setValue(MSysConfig.getValue(SysConfig.LBR_INVOICEGEN_DOCACTION,"CO",Env.getAD_Client_ID(Env.getCtx())));
         
         panel.getStatusBar().setStatusLine(Msg.getMsg(Env.getCtx(), "InvGenerateSel"));//@@
 	}	//	fillPicks

@@ -56,6 +56,7 @@ import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.kenos.idempiere.lbr.base.event.IDocFiscalHandler;
 import org.kenos.idempiere.lbr.base.event.IDocFiscalHandlerFactory;
+import org.kenos.idempiere.lbr.base.model.SysConfig;
 
 import br.gov.sp.prefeitura.nfe.PedidoEnvioLoteRPSDocument;
 import br.gov.sp.prefeitura.nfe.PedidoEnvioLoteRPSDocument.PedidoEnvioLoteRPS;
@@ -122,7 +123,7 @@ public class NFSeImpl implements INFSe
 			cityCode = c.get_ValueAsString("lbr_CityCode");
 		 
 		//	Gera a sequência de RPS neste momento
-		if (!MSysConfig.getBooleanValue("LBR_REALTIME_RPS_NUMBER", true, nf.getAD_Client_ID())
+		if (!MSysConfig.getBooleanValue(SysConfig.LBR_REALTIME_RPS_NUMBER, true, nf.getAD_Client_ID())
 				&& MLBRNotaFiscal.RPS_TEMP.equals(nf.getDocumentNo()))
 		{
 			nf.setDocumentNo(MSequence.getDocumentNo(nf.getC_DocTypeTarget_ID(), trxName, false));
@@ -527,7 +528,7 @@ public class NFSeImpl implements INFSe
 		//	Valida o documento
 		NFeUtil.validate (envioLoteRPSDoc);
 
-		String remoteURL = MSysConfig.getValue("LBR_REMOTE_PKCS11_URL", oi.getAD_Client_ID(), oi.getAD_Org_ID());
+		String remoteURL = MSysConfig.getValue(SysConfig.LBR_REMOTE_PKCS11_URL, oi.getAD_Client_ID(), oi.getAD_Org_ID());
 		final StringBuilder respStatus = new StringBuilder();
 		
 		//	Try to find a service for PKCS#11 for transmit
@@ -548,7 +549,7 @@ public class NFSeImpl implements INFSe
 				String flags = "";
 				
 				//	Flags
-				if (MSysConfig.getBooleanValue ("LBR_DEBUG_RPS", false, Env.getAD_Client_ID(Env.getCtx())))
+				if (MSysConfig.getBooleanValue (SysConfig.LBR_DEBUG_RPS, false, Env.getAD_Client_ID(Env.getCtx())))
 					flags += "debug";
 				
 				//	Envio o Lote
@@ -582,7 +583,7 @@ public class NFSeImpl implements INFSe
 			LoteNFeStub stub = new LoteNFeStub();
 			
 			//	Monta o Lote para Teste
-			if (MSysConfig.getBooleanValue ("LBR_DEBUG_RPS", false, oi.getAD_Client_ID()))
+			if (MSysConfig.getBooleanValue (SysConfig.LBR_DEBUG_RPS, false, oi.getAD_Client_ID()))
 				retornoXML = stub.testeEnvioLoteRPS(1, xml.toString());
 			
 			//	Envio o Lote
@@ -867,7 +868,7 @@ public class NFSeImpl implements INFSe
 				throw new Exception ("NFS-e sem o c\u00F3digo de autoriza\u00E7\u00E3o necess\u00E1rio para a impress\u00E3o");
 			
 			//	URL de Impressão
-			String message = MSysConfig.getValue ("LBR_NFSE_SP_PRINT_URL", "https://nfe.prefeitura.sp.gov.br/contribuinte/notaprintimg.aspx?ccm={0}&nf={1}&cod={2}&imprimir=1", nf.getAD_Client_ID(), nf.getAD_Org_ID());
+			String message = MSysConfig.getValue (SysConfig.LBR_NFSE_SP_PRINT_URL, "https://nfe.prefeitura.sp.gov.br/contribuinte/notaprintimg.aspx?ccm={0}&nf={1}&cod={2}&imprimir=1", nf.getAD_Client_ID(), nf.getAD_Org_ID());
 			
 			MessageFormat mf = null;
 			mf = new MessageFormat (message);

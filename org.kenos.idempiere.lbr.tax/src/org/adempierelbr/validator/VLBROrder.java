@@ -42,6 +42,7 @@ import org.compiere.util.CLogger;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.compiere.util.Msg;
+import org.kenos.idempiere.lbr.base.model.SysConfig;
 
 /**
  * 		Utilizado para efetuar os cálculos dos impostos brasileiros.
@@ -354,7 +355,7 @@ public class VLBROrder implements ModelValidator
 					&& !MDocType.DOCSUBTYPESO_Quotation.equals(order.getC_DocTypeTarget().getDocSubTypeSO()))
 			{
 				//	Valida Cadastro do PN
-				if (MSysConfig.getBooleanValue("LBR_VALIDATE_BP_ON_SO", false, po.getAD_Client_ID()))
+				if (MSysConfig.getBooleanValue(SysConfig.LBR_VALIDATE_BP_ON_SO, false, po.getAD_Client_ID()))
 				{
 					String result = validateBPartner (order.getCtx(), order.getC_BPartner_ID(), order.getC_BPartner_Location_ID());
 					//
@@ -385,7 +386,7 @@ public class VLBROrder implements ModelValidator
 				 **/
 
 				//	Valida os Impostos
-				if (MSysConfig.getBooleanValue("LBR_VALIDATE_TAXES_ON_SO", false, po.getAD_Client_ID()))
+				if (MSysConfig.getBooleanValue(SysConfig.LBR_VALIDATE_TAXES_ON_SO, false, po.getAD_Client_ID()))
 				{
 					String result = validateTaxes (order);
 					//

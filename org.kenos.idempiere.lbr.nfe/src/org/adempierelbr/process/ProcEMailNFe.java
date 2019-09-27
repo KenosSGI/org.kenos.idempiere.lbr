@@ -28,6 +28,7 @@ import org.compiere.util.EMail;
 import org.compiere.util.Env;
 import org.compiere.util.Msg;
 import org.compiere.util.Trx;
+import org.kenos.idempiere.lbr.base.model.SysConfig;
 
 /**
  * 	Processo para enviar a NF-e para o e-mail do Cliente
@@ -222,7 +223,7 @@ public class ProcEMailNFe extends SvrProcess
 		}
 		
 		// Definir Endereço de Email para receber todas as NFs Autorizadas no Adempiere
-		String nfbyEmailto = MSysConfig.getValue("LBR_SEND_NF_BY_EMAIL_TO", "", Env.getAD_Client_ID(Env.getCtx()));
+		String nfbyEmailto = MSysConfig.getValue(SysConfig.LBR_SEND_NF_BY_EMAIL_TO, "", Env.getAD_Client_ID(Env.getCtx()));
 		
 		if (!"".equals(nfbyEmailto))
 		{
@@ -240,9 +241,9 @@ public class ProcEMailNFe extends SvrProcess
 		String emailMsgTag = null;
 		
 		if (isProductNFe)
-			emailMsgTag = MSysConfig.getValue ("LBR_CUSTOM_NFE_EMAIL_MESSAGE", "LBR_EMailNFe", nf.getAD_Client_ID());
+			emailMsgTag = MSysConfig.getValue (SysConfig.LBR_CUSTOM_NFE_EMAIL_MESSAGE, "LBR_EMailNFe", nf.getAD_Client_ID());
 		else
-			emailMsgTag = MSysConfig.getValue ("LBR_CUSTOM_NFSE_EMAIL_MESSAGE", "LBR_EMailNFSe", nf.getAD_Client_ID());
+			emailMsgTag = MSysConfig.getValue (SysConfig.LBR_CUSTOM_NFSE_EMAIL_MESSAGE, "LBR_EMailNFSe", nf.getAD_Client_ID());
 		
 		String message = Env.parseVariable (Msg.getMsg(Env.getCtx(), emailMsgTag), nf, nf.get_TrxName(), false);
 		String subject = null;

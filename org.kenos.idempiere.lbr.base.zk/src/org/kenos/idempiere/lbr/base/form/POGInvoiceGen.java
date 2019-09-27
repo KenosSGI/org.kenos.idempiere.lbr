@@ -27,6 +27,7 @@ import org.compiere.util.CLogger;
 import org.compiere.util.Env;
 import org.compiere.util.Trx;
 import org.kenos.idempiere.lbr.base.model.MLBRProductionGroup;
+import org.kenos.idempiere.lbr.base.model.SysConfig;
 import org.kenos.idempiere.lbr.base.zk.form.WPOGInvoiceGen;
 
 public class POGInvoiceGen extends ADForm 
@@ -276,7 +277,7 @@ public class POGInvoiceGen extends ADForm
 		invoice.save();
 		
 		//	Complete Invoice
-		if (MSysConfig.getBooleanValue("LBR_POG_INVOICE_COMPLETE", false, invoice.getAD_Client_ID()))
+		if (MSysConfig.getBooleanValue(SysConfig.LBR_POG_INVOICE_COMPLETE, false, invoice.getAD_Client_ID()))
 		{
 			invoice.setDocStatus(invoice.completeIt());		
 			invoice.save();

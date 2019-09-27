@@ -26,6 +26,7 @@ import org.compiere.model.MRegion;
 import org.compiere.model.MShipper;
 import org.compiere.model.MSysConfig;
 import org.compiere.util.Env;
+import org.kenos.idempiere.lbr.base.model.SysConfig;
 
 /**
  * 	Callout para facilitar o preenchimento da NF-e
@@ -187,7 +188,7 @@ public class CalloutNFe extends CalloutEngine
 		mTab.setValue (MLBRNotaFiscal.COLUMNNAME_lbr_BPSuframa, bp.getlbr_Suframa());
 		mTab.setValue (MLBRNotaFiscal.COLUMNNAME_lbr_BPTypeBR, bp.getlbr_BPTypeBR());
 		
-		if (!MSysConfig.getBooleanValue("LBR_USE_UNIFIED_BP", false))
+		if (!MSysConfig.getBooleanValue(SysConfig.LBR_USE_UNIFIED_BP, false))
 		{
 			if (MLBRNotaFiscal.LBR_BPTYPEBR_PF_Individual.equals(bp.getlbr_BPTypeBR()))
 				mTab.setValue (MLBRNotaFiscal.COLUMNNAME_lbr_BPCNPJ, bp.getlbr_CPF());
@@ -246,7 +247,7 @@ public class CalloutNFe extends CalloutEngine
 		
 		MBPartnerLocation bpl = new MBPartnerLocation (ctx, (Integer) value, null);
 		
-		if (MSysConfig.getBooleanValue("LBR_USE_UNIFIED_BP", false))
+		if (MSysConfig.getBooleanValue(SysConfig.LBR_USE_UNIFIED_BP, false))
 		{
 			I_W_C_BPartner_Location bplW = POWrapper.create(bpl, I_W_C_BPartner_Location.class);
 			mTab.setValue (MLBRNotaFiscal.COLUMNNAME_lbr_BPCNPJ, bplW.getlbr_CNPJ());
@@ -308,7 +309,7 @@ public class CalloutNFe extends CalloutEngine
 			MLocation location = new MLocation(ctx, transpLocations[0].getC_Location_ID(), null);
 			MCountry country = new MCountry(ctx,location.getC_Country_ID(),null);
 
-			if (MSysConfig.getBooleanValue("LBR_USE_UNIFIED_BP", true))
+			if (MSysConfig.getBooleanValue(SysConfig.LBR_USE_UNIFIED_BP, true))
 			{
 				mTab.setValue (MLBRNotaFiscal.COLUMNNAME_lbr_BPShipperCNPJ, transpW.getlbr_CNPJ());
 				mTab.setValue (MLBRNotaFiscal.COLUMNNAME_lbr_BPShipperIE, transpW.getlbr_IE());
@@ -446,7 +447,7 @@ public class CalloutNFe extends CalloutEngine
 		
 		MBPartnerLocation bpl = new MBPartnerLocation (ctx, (Integer) value, null);
 		
-		if (MSysConfig.getBooleanValue("LBR_USE_UNIFIED_BP", false))
+		if (MSysConfig.getBooleanValue(SysConfig.LBR_USE_UNIFIED_BP, false))
 		{
 			I_W_C_BPartner_Location bplW = POWrapper.create(bpl, I_W_C_BPartner_Location.class);
 			mTab.setValue (MLBRNotaFiscal.COLUMNNAME_lbr_BPDeliveryCNPJ, bplW.getlbr_CNPJ());

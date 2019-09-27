@@ -56,6 +56,7 @@ import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.kenos.idempiere.lbr.base.event.IDocFiscalHandler;
 import org.kenos.idempiere.lbr.base.event.IDocFiscalHandlerFactory;
+import org.kenos.idempiere.lbr.base.model.SysConfig;
 
 import br.inf.portalfiscal.nfe.evento.generico.EnvEventoDocument;
 import br.inf.portalfiscal.nfe.evento.generico.ProcEventoNFeDocument;
@@ -418,7 +419,7 @@ public class MLBRNFeEvent extends X_LBR_NFeEvent implements DocAction
 				//	Prepara a Transmissão
 				MLBRDigitalCertificate.setCertificate (getCtx(), oi.getAD_Org_ID());
 				
-				String remoteURL = MSysConfig.getValue("LBR_REMOTE_PKCS11_URL", oi.getAD_Client_ID(), oi.getAD_Org_ID());
+				String remoteURL = MSysConfig.getValue(SysConfig.LBR_REMOTE_PKCS11_URL, oi.getAD_Client_ID(), oi.getAD_Org_ID());
 				final StringBuilder respStatus = new StringBuilder();
 				
 				//	Try to find a service for PKCS#11 for transmit

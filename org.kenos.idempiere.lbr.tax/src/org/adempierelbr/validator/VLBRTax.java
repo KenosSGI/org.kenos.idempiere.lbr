@@ -26,6 +26,7 @@ import org.compiere.model.PO;
 import org.compiere.util.CLogger;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
+import org.kenos.idempiere.lbr.base.model.SysConfig;
 
 /**
  * 		Utilizado para efetuar os cálculos dos impostos brasileiros.
@@ -177,7 +178,7 @@ public class VLBRTax implements ModelValidator
 	 */
 	public String docValidate (PO po, int timing)
 	{
-		if (MSysConfig.getBooleanValue("LBR_RECALCULATE_TAXES_ON_COMPLETE", false, getAD_Client_ID()) 
+		if (MSysConfig.getBooleanValue(SysConfig.LBR_RECALCULATE_TAXES_ON_COMPLETE, false, getAD_Client_ID()) 
 				&& timing == TIMING_BEFORE_PREPARE)
 		{
 			return calculateTaxes (po);
@@ -241,7 +242,7 @@ public class VLBRTax implements ModelValidator
 				params.put(MLBRTax.QTY, oLine.getQtyEntered());
 				
 				if (oLine.getPriceList().compareTo (oLine.getPriceActual()) >= 0 && oW.isDiscountPrinted() 
-						&& MSysConfig.getBooleanValue("LBR_TAXBASE_DISCOUNT_PRINT_NF", false, getAD_Client_ID()))
+						&& MSysConfig.getBooleanValue(SysConfig.LBR_TAXBASE_DISCOUNT_PRINT_NF, false, getAD_Client_ID()))
 					params.put(MLBRTax.AMT, oLine.getPriceList().multiply(oLine.getQtyEntered()));
 				else
 					params.put(MLBRTax.AMT, oLine.getLineNetAmt());
@@ -272,7 +273,7 @@ public class VLBRTax implements ModelValidator
 				params.put(MLBRTax.QTY, iLine.getQtyEntered());
 				
 				if (iLine.getPriceList().compareTo (iLine.getPriceActual()) >= 0 && iW.isDiscountPrinted() 
-						&& MSysConfig.getBooleanValue("LBR_TAXBASE_DISCOUNT_PRINT_NF", false, iLine.getAD_Client_ID()))
+						&& MSysConfig.getBooleanValue(SysConfig.LBR_TAXBASE_DISCOUNT_PRINT_NF, false, iLine.getAD_Client_ID()))
 					params.put(MLBRTax.AMT, iLine.getPriceList().multiply(iLine.getQtyEntered()));
 				else
 					params.put(MLBRTax.AMT, iLine.getLineNetAmt());

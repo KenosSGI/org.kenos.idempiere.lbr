@@ -34,6 +34,7 @@ import org.compiere.model.MOrgInfo;
 import org.compiere.model.MSysConfig;
 import org.compiere.util.Env;
 import org.compiere.util.Util;
+import org.kenos.idempiere.lbr.base.model.SysConfig;
 
 /**
  * MItau
@@ -128,7 +129,7 @@ public class MItau implements I_Bank
 			MLBRNotaFiscal[] nfs = MLBRNotaFiscal.get(invoice.getCtx(), invoice.getC_Invoice_ID(), invoice.get_TrxName());
 			
 			// 	Enviar Número da NF via CNAB. A NF será impressa no Corpo do Boleto gerado pelo banco.
-	        if (MSysConfig.getBooleanValue("LBR_SENDNFENOONCNAB", false, Env.getAD_Client_ID(ctx)))
+	        if (MSysConfig.getBooleanValue(SysConfig.LBR_SENDNFENOONCNAB, false, Env.getAD_Client_ID(ctx)))
 	        {
 	        	String nf = "NOTA FISCAL: " +  nfs[0].getDocumentNo();
 	        	

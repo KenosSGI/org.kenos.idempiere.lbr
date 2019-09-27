@@ -49,6 +49,7 @@ import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.kenos.idempiere.lbr.base.event.IDocFiscalHandler;
 import org.kenos.idempiere.lbr.base.event.IDocFiscalHandlerFactory;
+import org.kenos.idempiere.lbr.base.model.SysConfig;
 
 import br.inf.portalfiscal.nfe.dfe.DistDFeIntDocument;
 import br.inf.portalfiscal.nfe.dfe.DistDFeIntDocument.DistDFeInt;
@@ -88,8 +89,6 @@ public class GetDFe extends SvrProcess
 	
 	/** Log							*/
 	private static CLogger log = CLogger.getCLogger (GetDFe.class);
-	
-	private static final String LBR_DFE_LAST_NSU = "LBR_DFE_LAST_NSU";
 	
 	/**
 	 *  Prepare - e.g., get Parameters.
@@ -146,7 +145,7 @@ public class GetDFe extends SvrProcess
 		}
 		
 		MOrgInfo oi = MOrgInfo.get (getCtx(), p_AD_Org_ID, null);
-		String lastNSU = MSysConfig.getValue (LBR_DFE_LAST_NSU, "000000000000000", oi.getAD_Client_ID(), oi.getAD_Org_ID());
+		String lastNSU = MSysConfig.getValue (SysConfig.LBR_DFE_LAST_NSU, "000000000000000", oi.getAD_Client_ID(), oi.getAD_Org_ID());
 		RetDistDFeIntDocument bpResponse = GetDFe.doIt (oi, lastNSU);
 		
 		if (bpResponse == null)
@@ -263,7 +262,7 @@ public class GetDFe extends SvrProcess
 			StringBuilder xml =  new StringBuilder (consDFeDoc.xmlText(NFeUtil.getXmlOpt()));
 			XMLStreamReader dadosXML = XMLInputFactory.newInstance().createXMLStreamReader(new StringReader(NFeUtil.wrapMsg(xml.toString())));
 	
-			String remoteURL = MSysConfig.getValue("LBR_REMOTE_PKCS11_URL", oi.getAD_Client_ID(), oi.getAD_Org_ID());
+			String remoteURL = MSysConfig.getValue(SysConfig.LBR_REMOTE_PKCS11_URL, oi.getAD_Client_ID(), oi.getAD_Org_ID());
 			final StringBuilder respStatus = new StringBuilder();
 			
 			//	Try to find a service for PKCS#11 for transmit
@@ -571,14 +570,14 @@ public class GetDFe extends SvrProcess
 	{
 		String sql = "AD_Org_ID=? AND Name=?";
 		MSysConfig sysConfig = new Query (getCtx(), MSysConfig.Table_Name, sql, null)
-				.setParameters(oi.getAD_Org_ID(), LBR_DFE_LAST_NSU)
+				.setParameters(oi.getAD_Org_ID(), SysConfig.LBR_DFE_LAST_NSU)
 				.first();
 		//
 		if (sysConfig == null)
 		{
 			sysConfig = new MSysConfig (getCtx(), 0, null);
 			sysConfig.setAD_Org_ID(oi.getAD_Org_ID());
-			sysConfig.setName(LBR_DFE_LAST_NSU);
+			sysConfig.setName(SysConfig.LBR_DFE_LAST_NSU);
 			sysConfig.setDescription("Last NSU for DF-e aquisition *** Do not change manually ***");
 			sysConfig.setConfigurationLevel(MSysConfig.CONFIGURATIONLEVEL_Organization);
 		}

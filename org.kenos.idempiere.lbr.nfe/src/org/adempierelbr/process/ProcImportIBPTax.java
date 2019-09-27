@@ -23,6 +23,7 @@ import org.compiere.model.MOrgInfo;
 import org.compiere.model.MSysConfig;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
+import org.kenos.idempiere.lbr.base.model.SysConfig;
 
 /**
  *	ProcImportIBPTax
@@ -128,7 +129,7 @@ public class ProcImportIBPTax extends SvrProcess
 			
 			//	if still empty after verifing NF Configuration, find System Configurator
 			if (apiKey == null || apiKey.isEmpty())
-				apiKey = MSysConfig.getValue("LBR_IBPT_API_KEY", oi.getAD_Client_ID(), oi.getAD_Org_ID());
+				apiKey = MSysConfig.getValue(SysConfig.LBR_IBPT_API_KEY, oi.getAD_Client_ID(), oi.getAD_Org_ID());
 			
 			if (apiKey == null || apiKey.isEmpty())
 				return "@Error@ chave da API não encontrada. Obtenha a chave no site do IBPT para o seu CNPJ.";

@@ -48,6 +48,7 @@ import org.compiere.util.CLogger;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.compiere.util.Ini;
+import org.kenos.idempiere.lbr.base.model.SysConfig;
 
 /**
  *	Process to export NF-e XML
@@ -59,7 +60,7 @@ public class ProcXMLExport extends SvrProcess
 {
 	/** Arquivo 		*/
 	private String p_FilePath = null;
-	private final String p_FolderKey = MSysConfig.getValue("LBR_FOLDERKEY", "ADempiereLBR", Env.getAD_Client_ID(Env.getCtx()));
+	private final String p_FolderKey = MSysConfig.getValue(SysConfig.LBR_FOLDERKEY, "ADempiereLBR", Env.getAD_Client_ID(Env.getCtx()));
 	
 	/**	Document Type	*/
 	private int p_C_DocTypeTarget_ID 	= 0;

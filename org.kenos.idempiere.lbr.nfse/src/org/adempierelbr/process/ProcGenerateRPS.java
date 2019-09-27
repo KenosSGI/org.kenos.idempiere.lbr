@@ -37,6 +37,7 @@ import org.compiere.util.CLogger;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.compiere.util.Ini;
+import org.kenos.idempiere.lbr.base.model.SysConfig;
 
 /**
  *  	Process to Generate RPS
@@ -188,7 +189,7 @@ public class ProcGenerateRPS extends SvrProcess
 		for (MLBRNotaFiscal nf : list)
 		{
 			//	Gera a sequência de RPS neste momento
-			if (!MSysConfig.getBooleanValue("LBR_REALTIME_RPS_NUMBER", true, nf.getAD_Client_ID())
+			if (!MSysConfig.getBooleanValue(SysConfig.LBR_REALTIME_RPS_NUMBER, true, nf.getAD_Client_ID())
 					&& MLBRNotaFiscal.RPS_TEMP.equals(nf.getDocumentNo()))
 			{
 				nf.setDocumentNo(MSequence.getDocumentNo(nf.getC_DocTypeTarget_ID(), trxName, false));

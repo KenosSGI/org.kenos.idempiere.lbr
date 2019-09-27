@@ -45,6 +45,7 @@ import org.compiere.util.AdempiereUserError;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.compiere.util.Msg;
+import org.kenos.idempiere.lbr.base.model.SysConfig;
 
 /**
  *	Generate Shipments.
@@ -474,12 +475,12 @@ public class InOutGenerate extends SvrProcess
 			if (mas.isInstanceAttribute())
 			{
 				//	Fill attribute only when the qty on hand is the same as qty delivered (last part in storage)
-				if (MSysConfig.getBooleanValue("LBR_FILL_ATTRIBUTE_INOUT_LAST_ITEM", false, m_shipment.getAD_Client_ID())
+				if (MSysConfig.getBooleanValue(SysConfig.LBR_FILL_ATTRIBUTE_INOUT_LAST_ITEM, false, m_shipment.getAD_Client_ID())
 						&& MStorageOnHand.getQtyOnHand(orderLine.getM_Product_ID(), p_M_Warehouse_ID, 0, get_TrxName()).compareTo(qty) == 0)
 					fillASI = true;
 				
 				//	Fill attribute on inout line
-				else if (MSysConfig.getBooleanValue("LBR_FILL_ATTRIBUTE_INOUT", false, m_shipment.getAD_Client_ID()))
+				else if (MSysConfig.getBooleanValue(SysConfig.LBR_FILL_ATTRIBUTE_INOUT, false, m_shipment.getAD_Client_ID()))
 					fillASI = true;
 			}
 		}

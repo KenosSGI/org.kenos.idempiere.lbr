@@ -44,6 +44,7 @@ import org.compiere.util.DisplayType;
 import org.compiere.util.Env;
 import org.compiere.util.KeyNamePair;
 import org.compiere.util.Msg;
+import org.kenos.idempiere.lbr.base.model.SysConfig;
 
 /**
  *  Create Invoice Transactions from PO Orders or Receipt
@@ -622,7 +623,7 @@ public abstract class CreateFromShipment extends CreateFrom
 				 * 	When enabled creates multiple lines for the same order/invoice line.
 				 * 	This is useful when the product has a serial number for each instance.
 				 */
-				if (MSysConfig.getBooleanValue("LBR_DIVIDE_PRODUCT_RECEPT_WHEN_SERIALNUMBER", false, inout.getAD_Client_ID(), inout.getAD_Org_ID())
+				if (MSysConfig.getBooleanValue(SysConfig.LBR_DIVIDE_PRODUCT_RECEPT_WHEN_SERIALNUMBER, false, inout.getAD_Client_ID(), inout.getAD_Org_ID())
 						&& product != null
 						&& product.getM_AttributeSet_ID() > 0 
 						&& product.getM_AttributeSet().isSerNo()

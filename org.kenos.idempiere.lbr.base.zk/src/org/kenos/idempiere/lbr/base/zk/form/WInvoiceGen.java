@@ -46,6 +46,7 @@ import org.compiere.util.Env;
 import org.compiere.util.KeyNamePair;
 import org.compiere.util.Msg;
 import org.kenos.idempiere.lbr.base.form.InvoiceGen;
+import org.kenos.idempiere.lbr.base.model.SysConfig;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.WrongValueException;
 import org.zkoss.zk.ui.event.Event;
@@ -205,7 +206,7 @@ public class WInvoiceGen extends InvoiceGen implements IFormController, EventLis
         cmbDocType.addActionListener(this);
         cmbDocType.setSelectedIndex(0);
         
-		docAction.setValue(MSysConfig.getValue("LBR_INVOICEGEN_DOCACTION","CO",Env.getAD_Client_ID(Env.getCtx())));
+		docAction.setValue(MSysConfig.getValue(SysConfig.LBR_INVOICEGEN_DOCACTION,"CO",Env.getAD_Client_ID(Env.getCtx())));
         
         form.getStatusBar().setStatusLine(Msg.getMsg(Env.getCtx(), "InvGenerateSel"));//@@
 	}	//	fillPicks

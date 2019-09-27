@@ -49,6 +49,7 @@ import org.compiere.util.CLogger;
 import org.compiere.util.Env;
 import org.compiere.util.Msg;
 import org.compiere.util.Trx;
+import org.kenos.idempiere.lbr.base.model.SysConfig;
 
 /**
  * ValidatorInvoice
@@ -564,7 +565,7 @@ public class ValidatorInvoice implements ModelValidator
 				return "Não é possível re-abrir uma Fatura que tem Retenções de outra Fatura.";
 			
 			//	Não Permite Estornar Fatura ligada a uma Nota Fiscal Válida
-			if (!MSysConfig.getBooleanValue("LBR_ALLOW_REVERSE_INVOICE_WITH_NF", false, wInvoice.getAD_Client_ID()))
+			if (!MSysConfig.getBooleanValue(SysConfig.LBR_ALLOW_REVERSE_INVOICE_WITH_NF, false, wInvoice.getAD_Client_ID()))
 			{
 				for (MLBRNotaFiscal nf : MLBRNotaFiscal.get(invoice.getCtx(), invoice.getC_Invoice_ID(), trxName))
 					if (!nf.allowReverseDocs())

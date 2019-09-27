@@ -18,6 +18,7 @@ import org.compiere.model.MSysConfig;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
 import org.compiere.util.DB;
+import org.kenos.idempiere.lbr.base.model.SysConfig;
 
 /**
  *	ProcLBRVersion
@@ -64,7 +65,7 @@ public class ProcLBRVersion extends SvrProcess
 		msg.append("<br/>Verifique a versão mais recente da Localização Brasil em ");
 		msg.append("<br/><a href=\"http://bitbucket.org/AdempiereLBR/adempierelbr\">http://bitbucket.org/AdempiereLBR/adempierelbr</a>");
 		msg.append("<br/><br/><b>Versão ADempiereLBR: </b>");
-		msg.append(MSysConfig.getValue("LBR_VERSION_NO") + "<br>");
+		msg.append(MSysConfig.getValue(SysConfig.LBR_VERSION_NO) + "<br>");
 		msg.append("<b>Último Script Executado: </b>");
 		msg.append(DB.getSQLValueString(null, "SELECT Name FROM AD_MigrationScript ORDER BY Created DESC") + "<br><br>");
 		msg.append("</font>");

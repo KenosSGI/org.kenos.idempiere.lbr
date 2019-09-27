@@ -48,6 +48,7 @@ import org.compiere.util.Env;
 import org.compiere.util.KeyNamePair;
 import org.compiere.util.Msg;
 import org.kenos.idempiere.lbr.base.form.InOutGen;
+import org.kenos.idempiere.lbr.base.model.SysConfig;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.WrongValueException;
 import org.zkoss.zk.ui.event.Event;
@@ -224,7 +225,7 @@ public class WInOutGen extends InOutGen implements IFormController, EventListene
 		cmbDocType.addActionListener(this);
 		cmbDocType.setSelectedIndex(0);
 		
-		docAction.setValue(MSysConfig.getValue("LBR_INOUTGEN_DOCACTION","CO",Env.getAD_Client_ID(Env.getCtx())));
+		docAction.setValue(MSysConfig.getValue(SysConfig.LBR_INOUTGEN_DOCACTION,"CO",Env.getAD_Client_ID(Env.getCtx())));
 		
 		fDatePromised.setName(MOrder.COLUMNNAME_DatePromised);
 		fDatePromised.addEventListener(Events.ON_CHANGE, this);

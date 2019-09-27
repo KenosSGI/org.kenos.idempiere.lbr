@@ -45,6 +45,7 @@ import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.kenos.idempiere.lbr.base.event.IDocFiscalHandler;
 import org.kenos.idempiere.lbr.base.event.IDocFiscalHandlerFactory;
+import org.kenos.idempiere.lbr.base.model.SysConfig;
 
 import br.inf.portalfiscal.nfe.v6v.ConsCadDocument;
 import br.inf.portalfiscal.nfe.v6v.RetConsCadDocument;
@@ -150,7 +151,7 @@ public class ConsultaCadastro extends SvrProcess
 		if (p_C_BPartner_ID <= 0 && p_CNPJ == null && p_CPF == null && p_IE == null)
 			throw new AdempiereUserError ("@FillMandatory@  @C_BPartner_ID@ @lbr_CPF@ @lbr_CNPJ@");
 		
-		else if (MSysConfig.getBooleanValue("LBR_USE_UNIFIED_BP", false) && p_C_BPartner_Location_ID <= 1)
+		else if (MSysConfig.getBooleanValue(SysConfig.LBR_USE_UNIFIED_BP, false) && p_C_BPartner_Location_ID <= 1)
 			throw new AdempiereUserError ("@FillMandatory@  @C_BPartner_Location_ID@");
 		
 		if (p_C_BPartner_ID > 0)
@@ -452,7 +453,7 @@ public class ConsultaCadastro extends SvrProcess
 //			String url = "https://hnfe.fazenda.mg.gov.br/nfe2/services/CadConsultaCadastro4";//MLBRNFeWebService.getURL (MLBRNFeWebService.CADCONSULTACADASTRO, config.getlbr_NFeEnv(), NFeUtil.VERSAO_LAYOUT, DB.getSQLValue(null, "SELECT C_Region_ID FROM C_Region WHERE Name='"+p_UF+"' AND C_Country_ID=?", 139));
 			String url = MLBRNFeWebService.getURL (MLBRNFeWebService.CADCONSULTACADASTRO, config.getlbr_NFeEnv(), NFeUtil.VERSAO_LAYOUT, DB.getSQLValue(null, "SELECT C_Region_ID FROM C_Region WHERE Name='"+p_UF+"' AND C_Country_ID=?", 139));
 
-			String remoteURL = MSysConfig.getValue("LBR_REMOTE_PKCS11_URL", oi.getAD_Client_ID(), oi.getAD_Org_ID());
+			String remoteURL = MSysConfig.getValue(SysConfig.LBR_REMOTE_PKCS11_URL, oi.getAD_Client_ID(), oi.getAD_Org_ID());
 			final StringBuilder respStatus = new StringBuilder();
 			
 			//	Try to find a service for PKCS#11 for transmit

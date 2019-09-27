@@ -45,6 +45,7 @@ import org.compiere.util.Env;
 import org.compiere.util.KeyNamePair;
 import org.compiere.util.Msg;
 import org.kenos.idempiere.lbr.base.form.InOutGen;
+import org.kenos.idempiere.lbr.base.model.SysConfig;
 
 /**
  * Generate Shipment (manual) view class
@@ -216,7 +217,7 @@ public class VInOutGen extends InOutGen implements FormPanel, ActionListener, Ve
 		cmbDocType.addItem(new KeyNamePair(MRMA.Table_ID, Msg.translate(Env.getCtx(), "VendorRMA")));
 		cmbDocType.addActionListener(this);
 		
-		docAction.setValue(MSysConfig.getValue("LBR_INOUTGEN_DOCACTION","CO",Env.getAD_Client_ID(Env.getCtx())));
+		docAction.setValue(MSysConfig.getValue(SysConfig.LBR_INOUTGEN_DOCACTION,"CO",Env.getAD_Client_ID(Env.getCtx())));
 		
 		panel.getStatusBar().setStatusLine(Msg.getMsg(Env.getCtx(), "InOutGenerateSel"));//@@
 		

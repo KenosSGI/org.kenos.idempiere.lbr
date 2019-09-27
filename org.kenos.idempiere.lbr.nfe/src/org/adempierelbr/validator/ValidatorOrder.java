@@ -43,6 +43,7 @@ import org.compiere.model.PO;
 import org.compiere.model.Query;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
+import org.kenos.idempiere.lbr.base.model.SysConfig;
 import org.kenos.idempiere.lbr.nfe.importvalidator.ImportValidatorBPartner;
 import org.kenos.idempiere.lbr.nfe.importvalidator.ImportValidatorOrder;
 
@@ -152,7 +153,7 @@ public class ValidatorOrder implements ModelValidator
 			//	TODO
 			
 			//	Validar Conversão de Unidada de Medida na Linha do Pedido
-			if (MSysConfig.getBooleanValue("LBR_VALIDATE_UOM_CONVERT_ON_ORDERLINE",false,oLine.getAD_Client_ID()) &&
+			if (MSysConfig.getBooleanValue(SysConfig.LBR_VALIDATE_UOM_CONVERT_ON_ORDERLINE,false,oLine.getAD_Client_ID()) &&
 					oLine.getProduct().getC_UOM_ID() != oLine.getC_UOM_ID() && 
 					!oLine.getQtyEntered().multiply(oLine.getPriceEntered()).equals(oLine.getQtyOrdered().multiply(oLine.getPriceActual())))				
 				return "Problema ao fazer a conversão de Unidade de Medida. Valor Calculado difere do Valor de Entrada";
@@ -333,7 +334,7 @@ public class ValidatorOrder implements ModelValidator
 			 * Não Anular Pedido com Fatura ou Remessa Válida
 			 */
 			else if (timing == TIMING_BEFORE_VOID &&
-					!MSysConfig.getBooleanValue("LBR_ALLOW_VOID_ORDER_WITH_INVOICE_SHIPMENT", false, order.getAD_Client_ID()))
+					!MSysConfig.getBooleanValue(SysConfig.LBR_ALLOW_VOID_ORDER_WITH_INVOICE_SHIPMENT, false, order.getAD_Client_ID()))
 			{
 				// Verify if exist a Valid Shipment
 				Boolean validShipment = new Query(Env.getCtx(), MInOut.Table_Name, "C_Order_ID = ? AND DocStatus IN ('CO', 'CL')", null)

@@ -25,6 +25,7 @@ import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
 import org.compiere.util.Env;
 import org.compiere.util.Ini;
+import org.kenos.idempiere.lbr.base.model.SysConfig;
 
 
 /**
@@ -44,7 +45,7 @@ public class ProcReturnCNAB extends SvrProcess
 	private String p_FilePath = "";
 	
 	/** Folder on the Server  */
-	private final String p_FolderKey = MSysConfig.getValue("LBR_FOLDERKEY", "ADempiereLBR", Env.getAD_Client_ID(Env.getCtx()));
+	private final String p_FolderKey = MSysConfig.getValue(SysConfig.LBR_FOLDERKEY, "ADempiereLBR", Env.getAD_Client_ID(Env.getCtx()));
 	/** FileName CNAB Return        */
 	private static final String FileName = "LogRetorno.CSV";
 

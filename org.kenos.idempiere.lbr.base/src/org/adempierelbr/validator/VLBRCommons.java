@@ -42,6 +42,7 @@ import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.compiere.util.Msg;
 import org.kenos.idempiere.lbr.base.model.MLBRProductionGroup;
+import org.kenos.idempiere.lbr.base.model.SysConfig;
 
 /**
  * 		Procedimentos comuns, necessários para o LBR
@@ -481,7 +482,7 @@ public class VLBRCommons implements ModelValidator
 		 */
 		if (TYPE_BEFORE_NEW == type || TYPE_BEFORE_CHANGE == type)
 		{
-			if (!MSysConfig.getBooleanValue("LBR_ALLOW_DUPLICATED_SERIAL_NUMBER", true, asi.getAD_Client_ID()) && asi.getSerNo() != null)
+			if (!MSysConfig.getBooleanValue(SysConfig.LBR_ALLOW_DUPLICATED_SERIAL_NUMBER, true, asi.getAD_Client_ID()) && asi.getSerNo() != null)
 			{
 				String whereClause = "EXISTS (SELECT 1 FROM M_AttributeSetInstance asi, M_AttributeSet a \n" + 
 						"WHERE asi.M_AttributeSetInstance_ID=M_AttributeSetInstance.M_AttributeSetInstance_ID \n" + 
@@ -495,7 +496,7 @@ public class VLBRCommons implements ModelValidator
 					return "Número de Série já existe, selecione o número de série existente.";
 			}
 			
-			if (!MSysConfig.getBooleanValue("LBR_ALLOW_DUPLICATED_LOT_NUMBER", true, asi.getAD_Client_ID()) && asi.getLot() != null)
+			if (!MSysConfig.getBooleanValue(SysConfig.LBR_ALLOW_DUPLICATED_LOT_NUMBER, true, asi.getAD_Client_ID()) && asi.getLot() != null)
 			{
 				String whereClause = "EXISTS (SELECT 1 FROM M_AttributeSetInstance asi, M_AttributeSet a \n" + 
 						"WHERE asi.M_AttributeSetInstance_ID=M_AttributeSetInstance.M_AttributeSetInstance_ID \n" + 

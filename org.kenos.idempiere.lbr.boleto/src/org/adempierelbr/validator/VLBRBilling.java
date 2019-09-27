@@ -24,6 +24,7 @@ import org.compiere.model.PO;
 import org.compiere.util.CLogger;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
+import org.kenos.idempiere.lbr.base.model.SysConfig;
 
 /**
  * 		Validator para assuntos relacionados ao Boleto
@@ -123,7 +124,7 @@ public class VLBRBilling implements ModelValidator
 	{
 		//	Permite Cancelar / Anular NF com Boletos Válidos
 		if (TIMING_BEFORE_VOID == timing
-				&& !MSysConfig.getBooleanValue("LBR_ALLOW_VOID_NF_WITH_VALID_BILL", true, nf.getAD_Client_ID())
+				&& !MSysConfig.getBooleanValue(SysConfig.LBR_ALLOW_VOID_NF_WITH_VALID_BILL, true, nf.getAD_Client_ID())
 				&& MLBRNotaFiscal.DOCSTATUS_Completed.equals(nf.getDocStatus())
 				&& MLBRNotaFiscal.LBR_NFESTATUS_100_AutorizadoOUsoDaNF_E.equals(nf.getlbr_NFeStatus())
 				&& MLBRNotaFiscal.LBR_NFMODEL_NotaFiscalEletrônica.equals(nf.getlbr_NFModel()))

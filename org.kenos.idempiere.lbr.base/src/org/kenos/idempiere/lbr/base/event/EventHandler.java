@@ -11,6 +11,7 @@ import org.compiere.model.MSysConfig;
 import org.compiere.model.PO;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
+import org.kenos.idempiere.lbr.base.model.SysConfig;
 import org.osgi.service.event.Event;
 
 /**
@@ -60,7 +61,7 @@ public class EventHandler extends AbstractEventHandler
 	private void doHandleEvent (MInOutLine iol, String topic)
 	{
 		//	Fill the Attributes on counter documents
-		if (MSysConfig.getBooleanValue ("LBR_FILL_ATTRIBUTE_COUNTER_DOC", false)
+		if (MSysConfig.getBooleanValue (SysConfig.LBR_FILL_ATTRIBUTE_COUNTER_DOC, false)
 				&& IEventTopics.PO_BEFORE_NEW.equals (topic))
 		{
 			if (iol.getM_AttributeSetInstance_ID() == 0
@@ -79,7 +80,7 @@ public class EventHandler extends AbstractEventHandler
 		/************
 		 * 	Habilita o LBR no contexto
 		 **/
-		boolean enabled = MSysConfig.getBooleanValue ("LBR_ENABLED", false, MClient.get (Env.getCtx()).getAD_Client_ID());
+		boolean enabled = MSysConfig.getBooleanValue (SysConfig.LBR_ENABLED, false, MClient.get (Env.getCtx()).getAD_Client_ID());
 		
 		if (enabled)
 			log.fine ("LBR is ENABLED.");
@@ -98,7 +99,7 @@ public class EventHandler extends AbstractEventHandler
 		/************
 		 * 	Grava no contexto o uso dos parceiros de negócios
 		 **/
-		Boolean isUseUnifiedBP = MSysConfig.getBooleanValue("LBR_USE_UNIFIED_BP", false);
+		Boolean isUseUnifiedBP = MSysConfig.getBooleanValue(SysConfig.LBR_USE_UNIFIED_BP, false);
 
 		if(isUseUnifiedBP)
 			log.fine ("LBR: Usando PN unificados.");
@@ -116,7 +117,7 @@ public class EventHandler extends AbstractEventHandler
 		
 		Properties ctx = Env.getCtx();
 
-		if (!MSysConfig.getBooleanValue("LBR_SHOW_EMPLOYEE_BP_INFO#" + Env.getAD_Role_ID(ctx), true, Env.getAD_Client_ID(ctx)))
+		if (!MSysConfig.getBooleanValue(SysConfig.LBR_SHOW_EMPLOYEE_BP_INFO + Env.getAD_Role_ID(ctx), true, Env.getAD_Client_ID(ctx)))
 			showEmployeeInfo = false;
 		
 		Env.setContext(Env.getCtx(), "#LBR_SHOW_EMPLOYEE_BP_INFO", showEmployeeInfo);

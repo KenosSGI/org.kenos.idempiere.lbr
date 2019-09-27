@@ -31,6 +31,7 @@ import org.compiere.model.Query;
 import org.compiere.util.CLogger;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
+import org.kenos.idempiere.lbr.base.model.SysConfig;
 
 /**
  *	MOpenItem
@@ -116,7 +117,7 @@ public class MLBROpenItem
 		String sql = "SELECT C_Invoice_ID, C_BPartner_ID, DateInvoiced, " + 	//	1..3
 				     "NetDays, DueDate, DiscountDate, DiscountAmt, OpenAmt, " +	//	4..8
 				     "C_InvoicePaySchedule_ID, C_PaymentTerm_ID, AD_Org_ID " + 	//	9..11
-					 "FROM " + MSysConfig.getValue ("LBR_GENBILLING_TABLE", "RV_InvoicePaySchedule", Env.getAD_Client_ID(Env.getCtx()));
+					 "FROM " + MSysConfig.getValue (SysConfig.LBR_GENBILLING_TABLE, "RV_InvoicePaySchedule", Env.getAD_Client_ID(Env.getCtx()));
 		
 		if (where != null)
 			sql += " WHERE " + where;

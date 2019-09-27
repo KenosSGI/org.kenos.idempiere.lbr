@@ -29,6 +29,7 @@ import org.compiere.model.X_C_City;
 import org.compiere.util.CLogger;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
+import org.kenos.idempiere.lbr.base.model.SysConfig;
 
 /**
  *		Utility class for ADempiereLBR BPartner
@@ -91,7 +92,7 @@ public abstract class BPartnerUtil
 			/**
 			 * 	Parceiro com CNPJ definido na localização
 			 */
-			else if(!MSysConfig.getBooleanValue("LBR_USE_UNIFIED_BP", true))
+			else if(!MSysConfig.getBooleanValue(SysConfig.LBR_USE_UNIFIED_BP, true))
 				return bpLW.getlbr_CNPJ();
 			
 			/**
@@ -125,7 +126,7 @@ public abstract class BPartnerUtil
 		/**
 		 * 	Parceiro com IE definido no cadastro de Parceiro 
 		 */
-		if (MSysConfig.getBooleanValue("LBR_USE_UNIFIED_BP", true))
+		if (MSysConfig.getBooleanValue(SysConfig.LBR_USE_UNIFIED_BP, true))
 			return bp.getLBR_IndIEDest();
 		
 		/**
@@ -156,7 +157,7 @@ public abstract class BPartnerUtil
 			/**
 			 * 	Parceiro com IE definido no cadastro de Parceiro 
 			 */
-			if (MSysConfig.getBooleanValue("LBR_USE_UNIFIED_BP", true))
+			if (MSysConfig.getBooleanValue(SysConfig.LBR_USE_UNIFIED_BP, true))
 			{
 				if (I_W_C_BPartner.LBR_INDIEDEST_2_ContribuinteDeICMS_Isento.equals(bp.getLBR_IndIEDest()))
 					return "ISENTO";
@@ -232,7 +233,7 @@ public abstract class BPartnerUtil
 			/**
 			 * 	Parceiro com IE definido no cadastro de Parceiro 
 			 */
-			if (MSysConfig.getBooleanValue("LBR_USE_UNIFIED_BP", false))
+			if (MSysConfig.getBooleanValue(SysConfig.LBR_USE_UNIFIED_BP, false))
 				return bp.getlbr_Suframa();
 			
 			/**

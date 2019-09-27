@@ -50,6 +50,7 @@ import org.compiere.util.CLogger;
 import org.compiere.util.Env;
 import org.kenos.idempiere.lbr.base.event.IDocFiscalHandler;
 import org.kenos.idempiere.lbr.base.event.IDocFiscalHandlerFactory;
+import org.kenos.idempiere.lbr.base.model.SysConfig;
 
 import br.inf.portalfiscal.mdfe.ConsReciMDFeDocument;
 import br.inf.portalfiscal.mdfe.RetConsReciMDFeDocument;
@@ -176,7 +177,7 @@ public class MDFeRetRecepcao extends SvrProcess
 				
 		XMLStreamReader xmlReader = XMLInputFactory.newInstance().createXMLStreamReader(new StringReader(MDFeUtil.getWrapped (xml)));
 		
-		String remoteURL = MSysConfig.getValue("LBR_REMOTE_PKCS11_URL", mdfe.getAD_Client_ID(), mdfe.getAD_Org_ID());
+		String remoteURL = MSysConfig.getValue(SysConfig.LBR_REMOTE_PKCS11_URL, mdfe.getAD_Client_ID(), mdfe.getAD_Org_ID());
 		final StringBuilder respStatus = new StringBuilder("");
 		
 		//	Try to find a service for PKCS#11 for transmit

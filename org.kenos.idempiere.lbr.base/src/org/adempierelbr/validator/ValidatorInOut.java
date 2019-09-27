@@ -41,6 +41,7 @@ import org.compiere.util.CLogger;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.compiere.util.Msg;
+import org.kenos.idempiere.lbr.base.model.SysConfig;
 
 /**
  *	ValidatorInOut, inclui as validações de outras tabelas que
@@ -225,7 +226,7 @@ public class ValidatorInOut implements ModelValidator
 				break;
 			}
 
-			if(!MSysConfig.getBooleanValue("LBR_ALLOW_DUPLICATED_MOVEMENTLINE_ON_MOVEMENT", true, mov.getAD_Client_ID()))
+			if(!MSysConfig.getBooleanValue(SysConfig.LBR_ALLOW_DUPLICATED_MOVEMENTLINE_ON_MOVEMENT, true, mov.getAD_Client_ID()))
 			{
 				if(prod.contains("" + line.getM_Product_ID() + "|" + line.getM_Locator_ID())){
 					msg = "Duas linhas usando o mesmo produto na mesma posição";
@@ -244,7 +245,7 @@ public class ValidatorInOut implements ModelValidator
 			}
 			
 			//	CNPJ of locator from and locator to should be the same
-			if (!MSysConfig.getBooleanValue ("LBR_ALLOW_CROSS_ORG_MOVEMENT", false) 
+			if (!MSysConfig.getBooleanValue (SysConfig.LBR_ALLOW_CROSS_ORG_MOVEMENT, false) 
 					&& line.getM_Locator().getM_Warehouse_ID() != line.getM_LocatorTo().getM_Warehouse_ID())
 			{
 				I_W_M_Warehouse wFrom = POWrapper.create (MWarehouse.get(mov.getCtx(), line.getM_Locator().getM_Warehouse_ID(), null), I_W_M_Warehouse.class);
@@ -317,7 +318,7 @@ public class ValidatorInOut implements ModelValidator
 				if (line.getQtyEntered() == Env.ZERO)
 					return "Item com quantidade ZERO na linha: #" + line.getLine() + ".";
 
-				if (!MSysConfig.getBooleanValue("LBR_ALLOW_MM_SHIP_RECEIPT_WITHOUT_ORDER", true, inOut.getAD_Client_ID())
+				if (!MSysConfig.getBooleanValue(SysConfig.LBR_ALLOW_MM_SHIP_RECEIPT_WITHOUT_ORDER, true, inOut.getAD_Client_ID())
 						&& line.getC_OrderLine_ID() == 0 && line.getM_RMALine_ID() == 0)
 					return "Ordem de Compra não disponível.";
 
@@ -325,20 +326,20 @@ public class ValidatorInOut implements ModelValidator
 
 				//BF 3037141 - Pablo Boff Pigozzo
 				if ((timing == TIMING_BEFORE_REVERSECORRECT || timing == TIMING_BEFORE_REVERSEACCRUAL)
-						&& !MSysConfig.getBooleanValue("LBR_ALLOW_REVERSE_SHIP_RECEIT_WITH_OPEN_INVOICE", true, inOut.getAD_Client_ID())
+						&& !MSysConfig.getBooleanValue(SysConfig.LBR_ALLOW_REVERSE_SHIP_RECEIT_WITH_OPEN_INVOICE, true, inOut.getAD_Client_ID())
 						&& DB.getSQLValue(trx, "SELECT COUNT(*) FROM C_InvoiceLine il, C_Invoice i WHERE i.C_Invoice_ID=il.C_Invoice_ID AND i.DocStatus NOT IN ('VO','RE') AND il.M_InOutLine_ID=?", line.getM_InOutLine_ID()) > 0)
 					return "Fatura(s) em aberto. Impossível continuar com o estorno.";
 			
 				//	Validate Ship on RMA
 				if ((timing == TIMING_BEFORE_REVERSECORRECT || timing == TIMING_BEFORE_REVERSEACCRUAL)
-						&& !MSysConfig.getBooleanValue("LBR_ALLOW_REVERSE_SHIP_RECEIT_WITH_OPEN_RMA", true, inOut.getAD_Client_ID())
+						&& !MSysConfig.getBooleanValue(SysConfig.LBR_ALLOW_REVERSE_SHIP_RECEIT_WITH_OPEN_RMA, true, inOut.getAD_Client_ID())
 						&& DB.getSQLValue(trx, "SELECT COUNT(*) FROM M_RMALine rl, M_RMA r WHERE r.M_RMA_ID=rl.M_RMA_ID AND r.DocStatus NOT IN ('VO','RE') AND rl.M_InOutLine_ID=?", line.getM_InOutLine_ID()) > 0)
 					return "ARM(s) em aberto. Impossível continuar com o estorno.";
 
 				int C_OrderLine_ID = line.getC_OrderLine_ID();
 				if (C_OrderLine_ID != 0)
 				{
-					if(!MSysConfig.getBooleanValue("LBR_ALLOW_DUPLICATED_ORDERLINE_ON_SHIP_RECEIPT", true, inOut.getAD_Client_ID())
+					if(!MSysConfig.getBooleanValue(SysConfig.LBR_ALLOW_DUPLICATED_ORDERLINE_ON_SHIP_RECEIPT, true, inOut.getAD_Client_ID())
 							&& olines.contains("" + line.getC_OrderLine_ID()))
 						return "Linha #" + line.getLine() + " duplicada.";
 					else
@@ -357,7 +358,7 @@ public class ValidatorInOut implements ModelValidator
 					//	Se Unidade de Medida do Pedido for Diferente da Unidade de Medida padrão do Produto
 					BigDecimal qty = (oline.getM_Product().getC_UOM_ID() == oline.getC_UOM_ID() ? oline.getQtyEntered() : oline.getQtyOrdered());
 					
-					if (MSysConfig.getBooleanValue("LBR_MATCH_SHIPMENT_RECEIPT_AND_ORDER_QTY", false, inOut.getAD_Client_ID())
+					if (MSysConfig.getBooleanValue(SysConfig.LBR_MATCH_SHIPMENT_RECEIPT_AND_ORDER_QTY, false, inOut.getAD_Client_ID())
 						&& oline.getQtyDelivered().add(line.getQtyEntered()).doubleValue() > qty.doubleValue())
 					return "Nao e possivel fazer recebimento maior que o pedido. Linha do pedido #" + line.getLine();
 				}

@@ -46,6 +46,7 @@ import org.compiere.model.Query;
 import org.compiere.util.CLogger;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
+import org.kenos.idempiere.lbr.base.model.SysConfig;
 
 import bsh.EvalError;
 import bsh.Interpreter;
@@ -401,7 +402,7 @@ public class MLBRTax extends X_LBR_Tax
 				}
 			
 			//	Ajusta o MVA automaticamente
-			boolean adjustIVA = MSysConfig.getBooleanValue("LBR_AUTOMATOC_ADJUST_IVA", true);
+			boolean adjustIVA = MSysConfig.getBooleanValue(SysConfig.LBR_AUTOMATOC_ADJUST_IVA, true);
 				
 			//	Ajusta as alíquotas
 			for (MLBRTaxLine tLine : getLines())

@@ -60,6 +60,7 @@ import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.kenos.idempiere.lbr.base.event.IDocFiscalHandler;
 import org.kenos.idempiere.lbr.base.event.IDocFiscalHandlerFactory;
+import org.kenos.idempiere.lbr.base.model.SysConfig;
 
 import br.inf.portalfiscal.nfe.v400.ConsReciNFeDocument;
 import br.inf.portalfiscal.nfe.v400.EnviNFeDocument;
@@ -202,7 +203,7 @@ public class MLBRNFeLot extends X_LBR_NFeLot implements DocAction, DocOptions
 		
 		String url = MLBRNFeWebService.getURL (serviceType, envType, NFeUtil.VERSAO_LAYOUT, LBR_WSType, orgLoc.getC_Region_ID());
 		
-		String remoteURL = MSysConfig.getValue("LBR_REMOTE_PKCS11_URL", oi.getAD_Client_ID(), oi.getAD_Org_ID());
+		String remoteURL = MSysConfig.getValue(SysConfig.LBR_REMOTE_PKCS11_URL, oi.getAD_Client_ID(), oi.getAD_Org_ID());
 		final StringBuilder respStatus = new StringBuilder();
 		
 		//	Try to find a service for PKCS#11 for transmit
@@ -396,7 +397,7 @@ public class MLBRNFeLot extends X_LBR_NFeLot implements DocAction, DocOptions
 			
 			String url = MLBRNFeWebService.getURL (serviceType, envType, NFeUtil.VERSAO_LAYOUT, LBR_WSType, orgLoc.getC_Region_ID());
 			
-			String remoteURL = MSysConfig.getValue("LBR_REMOTE_PKCS11_URL", oi.getAD_Client_ID(), oi.getAD_Org_ID());
+			String remoteURL = MSysConfig.getValue(SysConfig.LBR_REMOTE_PKCS11_URL, oi.getAD_Client_ID(), oi.getAD_Org_ID());
 			final StringBuilder respStatus = new StringBuilder();
 			
 			//	Try to find a service for PKCS#11 for transmit

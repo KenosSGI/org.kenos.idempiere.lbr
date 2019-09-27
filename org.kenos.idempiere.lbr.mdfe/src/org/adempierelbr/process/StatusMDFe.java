@@ -40,6 +40,7 @@ import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
 import org.kenos.idempiere.lbr.base.event.IDocFiscalHandler;
 import org.kenos.idempiere.lbr.base.event.IDocFiscalHandlerFactory;
+import org.kenos.idempiere.lbr.base.model.SysConfig;
 
 import br.inf.portalfiscal.mdfe.ConsStatServMDFeDocument;
 import br.inf.portalfiscal.mdfe.RetConsStatServMDFeDocument;
@@ -124,7 +125,7 @@ public class StatusMDFe extends SvrProcess
 			String regionCode = (city.getlbr_CityCode()+"").substring(0, 2);
 			MLBRNFeWebService ws = MLBRNFeWebService.get (MDFeUtil.TYPE_STATUS, p_LBR_NFeEnv, MDFeUtil.VERSION, MDFeUtil.MDFE_REGION);
 			
-			String remoteURL = MSysConfig.getValue("LBR_REMOTE_PKCS11_URL", oi.getAD_Client_ID(), oi.getAD_Org_ID());
+			String remoteURL = MSysConfig.getValue(SysConfig.LBR_REMOTE_PKCS11_URL, oi.getAD_Client_ID(), oi.getAD_Org_ID());
 			final StringBuilder respStatus = new StringBuilder("");
 			
 			//	Try to find a service for PKCS#11 for transmit

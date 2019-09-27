@@ -41,6 +41,7 @@ import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.kenos.idempiere.lbr.base.event.IDocFiscalHandler;
 import org.kenos.idempiere.lbr.base.event.IDocFiscalHandlerFactory;
+import org.kenos.idempiere.lbr.base.model.SysConfig;
 
 import br.gov.sp.prefeitura.nfe.PedidoEnvioLoteRPSDocument;
 import br.gov.sp.prefeitura.nfe.PedidoEnvioLoteRPSDocument.PedidoEnvioLoteRPS;
@@ -139,7 +140,7 @@ public class NFSETransmit extends SvrProcess
 			for (MLBRNotaFiscal nf : list)
 			{
 				//	Gera a sequência de RPS neste momento
-				if (!MSysConfig.getBooleanValue("LBR_REALTIME_RPS_NUMBER", true, nf.getAD_Client_ID())
+				if (!MSysConfig.getBooleanValue(SysConfig.LBR_REALTIME_RPS_NUMBER, true, nf.getAD_Client_ID())
 						&& MLBRNotaFiscal.RPS_TEMP.equals(nf.getDocumentNo()))
 				{
 					nf.setDocumentNo(MSequence.getDocumentNo(nf.getC_DocTypeTarget_ID(), get_TrxName(), false));
@@ -171,7 +172,7 @@ public class NFSETransmit extends SvrProcess
 			TpRPS rps = NFSeXMLGenerator.generateNFSe (getRecord_ID(), true, get_TrxName());
 			envioLoteRPS.setRPSArray(new TpRPS[]{rps});
 			//
-			if (MSysConfig.getBooleanValue ("LBR_DEBUG_RPS", false, getAD_Client_ID()))
+			if (MSysConfig.getBooleanValue (SysConfig.LBR_DEBUG_RPS, false, getAD_Client_ID()))
 			{			
 				/**
 				 * 	Preenche informações do Lote, pois para Teste não há 
@@ -204,7 +205,7 @@ public class NFSETransmit extends SvrProcess
 		//	Valida o documento
 		NFeUtil.validate (envioLoteRPSDoc);
 
-		String remoteURL = MSysConfig.getValue("LBR_REMOTE_PKCS11_URL", oi.getAD_Client_ID(), oi.getAD_Org_ID());
+		String remoteURL = MSysConfig.getValue(SysConfig.LBR_REMOTE_PKCS11_URL, oi.getAD_Client_ID(), oi.getAD_Org_ID());
 		final StringBuilder respStatus = new StringBuilder();
 		
 		//	Try to find a service for PKCS#11 for transmit
@@ -225,7 +226,7 @@ public class NFSETransmit extends SvrProcess
 				String flags = "";
 				
 				//	Flags
-				if (MSysConfig.getBooleanValue ("LBR_DEBUG_RPS", false, getAD_Client_ID()))
+				if (MSysConfig.getBooleanValue (SysConfig.LBR_DEBUG_RPS, false, getAD_Client_ID()))
 					flags += "debug";
 				
 				//	Envio o Lote
@@ -256,7 +257,7 @@ public class NFSETransmit extends SvrProcess
 			LoteNFeStub stub = new LoteNFeStub();
 			
 			//	Monta o Lote para Teste
-			if (MSysConfig.getBooleanValue ("LBR_DEBUG_RPS", false, getAD_Client_ID()))
+			if (MSysConfig.getBooleanValue (SysConfig.LBR_DEBUG_RPS, false, getAD_Client_ID()))
 				retornoXML = stub.testeEnvioLoteRPS(1, xml.toString());
 			
 			//	Envio o Lote
@@ -276,7 +277,7 @@ public class NFSETransmit extends SvrProcess
 		TpEvento[] erros 			= null;
 		TpChaveNFeRPS[] chaveNFeRPS = null;
 
-		if (getTable_ID() == 0 || MSysConfig.getBooleanValue ("LBR_DEBUG_RPS", false, getAD_Client_ID()))
+		if (getTable_ID() == 0 || MSysConfig.getBooleanValue (SysConfig.LBR_DEBUG_RPS, false, getAD_Client_ID()))
 		{
 			RetornoEnvioLoteRPS result = RetornoEnvioLoteRPSDocument.Factory.parse(retornoXML).getRetornoEnvioLoteRPS();
 			sucesso = result.getCabecalho().getSucesso();

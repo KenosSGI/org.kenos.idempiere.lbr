@@ -72,6 +72,7 @@ import org.compiere.util.CLogger;
 import org.compiere.util.Env;
 import org.kenos.idempiere.lbr.base.event.IDocFiscalHandler;
 import org.kenos.idempiere.lbr.base.event.IDocFiscalHandlerFactory;
+import org.kenos.idempiere.lbr.base.model.SysConfig;
 import org.w3.x2000.x09.xmldsig.SignatureDocument;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
@@ -234,7 +235,7 @@ public class SignatureUtil
 	{
 		log.fine ("Signing document: " + xml);
 
-		String remoteURL = MSysConfig.getValue("LBR_REMOTE_PKCS11_URL", oi.getAD_Client_ID(), oi.getAD_Org_ID());
+		String remoteURL = MSysConfig.getValue(SysConfig.LBR_REMOTE_PKCS11_URL, oi.getAD_Client_ID(), oi.getAD_Org_ID());
 		final StringBuilder respStatus = new StringBuilder(xml.xmlText (NFeUtil.getXmlOpt ()));
 		
 		//	Try to find a service for PKCS#11 for transmit
@@ -370,7 +371,7 @@ public class SignatureUtil
 	public String signASCII (String ascii) throws Exception 
 	{
 		log.fine("Signing: " + ascii);
-		String remoteURL = MSysConfig.getValue("LBR_REMOTE_PKCS11_URL", oi.getAD_Client_ID(), oi.getAD_Org_ID());
+		String remoteURL = MSysConfig.getValue(SysConfig.LBR_REMOTE_PKCS11_URL, oi.getAD_Client_ID(), oi.getAD_Org_ID());
 		final StringBuilder respStatus = new StringBuilder(ascii);
 		
 		//	Try to find a service for PKCS#11 for transmit

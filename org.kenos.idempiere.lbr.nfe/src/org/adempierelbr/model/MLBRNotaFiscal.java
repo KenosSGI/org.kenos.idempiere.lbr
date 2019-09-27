@@ -120,6 +120,7 @@ import org.compiere.util.Trx;
 import org.compiere.util.Util;
 import org.kenos.idempiere.lbr.base.model.MLBRAverageCostLine;
 import org.kenos.idempiere.lbr.base.model.MLBRProductionGroup;
+import org.kenos.idempiere.lbr.base.model.SysConfig;
 
 import br.inf.portalfiscal.nfe.v400.InutNFeDocument;
 import br.inf.portalfiscal.nfe.v400.NFeDocument;
@@ -301,7 +302,7 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 			if (m_refNCM.containsKey(ncmName))
 			{
 				//	Retorna o NCM
-				if (!MSysConfig.getBooleanValue("LBR_REF_NCM", false, Env.getAD_Client_ID(Env.getCtx())))
+				if (!MSysConfig.getBooleanValue(SysConfig.LBR_REF_NCM, false, Env.getAD_Client_ID(Env.getCtx())))
 					return ncmName;
 				//	Retorna a Chave
 				else
@@ -313,7 +314,7 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 				m_refNCM.put(ncmName, cl);
 				setNCMReference(ncmName,cl,true);
 				//	Retorna o NCM
-				if (!MSysConfig.getBooleanValue("LBR_REF_NCM", false, Env.getAD_Client_ID(Env.getCtx())))
+				if (!MSysConfig.getBooleanValue(SysConfig.LBR_REF_NCM, false, Env.getAD_Client_ID(Env.getCtx())))
 					return ncmName;
 				//	Retorna a Chave
 				else
@@ -607,7 +608,7 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 			if (m_refCFOP.containsKey(cfopName))
 			{
 				//	Retorna o CFOP
-				if (!MSysConfig.getBooleanValue("LBR_REF_CFOP", false, Env.getAD_Client_ID(Env.getCtx())))
+				if (!MSysConfig.getBooleanValue(SysConfig.LBR_REF_CFOP, false, Env.getAD_Client_ID(Env.getCtx())))
 					return cfopName;
 				//	Retorna a Chave
 				else
@@ -620,7 +621,7 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 				setCFOPNote(cfop.getDescription() + ", ",true);
 				setCFOPReference(cfopName,cl);
 				//	Retorna o CFOP
-				if (!MSysConfig.getBooleanValue("LBR_REF_CFOP", false, Env.getAD_Client_ID(Env.getCtx())))
+				if (!MSysConfig.getBooleanValue(SysConfig.LBR_REF_CFOP, false, Env.getAD_Client_ID(Env.getCtx())))
 					return cfopName;
 				//	Retorna a Chave
 				else
@@ -711,14 +712,14 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		if (m_CFOPReference == null
 				|| m_CFOPReference.equals(""))
 		{
-			if (MSysConfig.getBooleanValue("LBR_REF_CFOP", false, Env.getAD_Client_ID(Env.getCtx())))
+			if (MSysConfig.getBooleanValue(SysConfig.LBR_REF_CFOP, false, Env.getAD_Client_ID(Env.getCtx())))
 				m_CFOPReference = cl + "-" + cfopName;
 			else
 				m_CFOPReference = cfopName;
 		}
 		else
 		{
-			if (MSysConfig.getBooleanValue("LBR_REF_CFOP", false, Env.getAD_Client_ID(Env.getCtx())))
+			if (MSysConfig.getBooleanValue(SysConfig.LBR_REF_CFOP, false, Env.getAD_Client_ID(Env.getCtx())))
 				m_CFOPReference += ", " + cl + "-" + cfopName;
 			else
 				m_CFOPReference += ", " + cfopName;
@@ -861,7 +862,7 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 			
 			//	Inclusão de Name Space
 			String xmlText = nfeProcDoc.xmlText (NFeUtil.getXmlOpt());
-			List<String> config = Arrays.asList (MSysConfig.getValue ("LBR_INCLUDE_XMLNS_NFE", "NONE", nf.getAD_Client_ID()).split(","));
+			List<String> config = Arrays.asList (MSysConfig.getValue (SysConfig.LBR_INCLUDE_XMLNS_NFE, "NONE", nf.getAD_Client_ID()).split(","));
 			if (config.contains("ALL") || config.contains(nf.getlbr_BPCNPJ()))
 				xmlText = xmlText.replaceAll ("<NFe>", "<NFe xmlns=\"http://www.portalfiscal.inf.br/nfe\">");
 			
@@ -1241,7 +1242,7 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		setlbr_IsOwnDocument(IsOwnDocument);
 		
 		//	Preenche a data de saida da NF
-		if (!MSysConfig.getBooleanValue("LBR_DATEINOUT_NF", true, getAD_Client_ID()))
+		if (!MSysConfig.getBooleanValue(SysConfig.LBR_DATEINOUT_NF, true, getAD_Client_ID()))
 			setlbr_DateInOut(invoice.getDateAcct());
 		
 		//	Dados da Organização
@@ -1683,7 +1684,7 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 			//	Número de Série
 			if (line.getM_AttributeSetInstance_ID()>0 
 					&& line.getM_AttributeSetInstance().getSerNo() != null
-					&& (MSysConfig.getBooleanValue("LBR_PRINT_SERIALNUMBER_NF", true, getAD_Client_ID())))
+					&& (MSysConfig.getBooleanValue(SysConfig.LBR_PRINT_SERIALNUMBER_NF, true, getAD_Client_ID())))
 				nfLine.appendDescription("Núm. de Série: " + line.getM_AttributeSetInstance().getSerNo());
 			
 			//	Impostos
@@ -1833,7 +1834,7 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		setDateDoc(order.getDateAcct());
 		setIsSOTrx(isSOTrx);
 		setlbr_IsOwnDocument(IsOwnDocument);
-		if (!MSysConfig.getBooleanValue("LBR_DATEINOUT_NF", true, getAD_Client_ID()))
+		if (!MSysConfig.getBooleanValue(SysConfig.LBR_DATEINOUT_NF, true, getAD_Client_ID()))
 			setlbr_DateInOut(order.getDateAcct());
 		
 		//	Dados da Organização
@@ -1939,7 +1940,7 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		setDateDoc(inout.getDateAcct());
 		setIsSOTrx(isSOTrx);
 		setlbr_IsOwnDocument(IsOwnDocument);
-		if (!MSysConfig.getBooleanValue("LBR_DATEINOUT_NF", true, getAD_Client_ID()))
+		if (!MSysConfig.getBooleanValue(SysConfig.LBR_DATEINOUT_NF, true, getAD_Client_ID()))
 			setlbr_DateInOut(inout.getDateAcct());
 		
 		MOrder order = new MOrder(Env.getCtx(), inout.getC_Order_ID(), get_TrxName());
@@ -2050,7 +2051,7 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 				}
 				//
 				else if (model.equals("55") && 
-						MSysConfig.getBooleanValue("LBR_AUTO_GENERATE_XML", false, getAD_Client_ID()))
+						MSysConfig.getBooleanValue(SysConfig.LBR_AUTO_GENERATE_XML, false, getAD_Client_ID()))
 					NFeXMLGenerator.generate (getCtx(), getLBR_NotaFiscal_ID(), get_TrxName());
 			}
 		} 
@@ -2816,10 +2817,10 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 	
 				M_Shipper_ID = io.getM_Shipper_ID();
 				
-				if (MSysConfig.getValue("LBR_NFESPECIE",  getAD_Client_ID()) != null )
-					setlbr_PackingType(MSysConfig.getValue("LBR_NFESPECIE", getAD_Client_ID()));
+				if (MSysConfig.getValue(SysConfig.LBR_NFESPECIE,  getAD_Client_ID()) != null )
+					setlbr_PackingType(MSysConfig.getValue(SysConfig.LBR_NFESPECIE, getAD_Client_ID()));
 				else
-					setlbr_PackingType(MSysConfig.getValue("VOLUME"));
+					setlbr_PackingType(MSysConfig.getValue(SysConfig.LBR_VOLUME));
 			}
 			else
 			{
@@ -3291,7 +3292,7 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 				//
 				if (nfModel != null && nfModel.startsWith("RPS"))
 				{
-					if (!MSysConfig.getBooleanValue("LBR_REALTIME_RPS_NUMBER", true, getAD_Client_ID()))
+					if (!MSysConfig.getBooleanValue(SysConfig.LBR_REALTIME_RPS_NUMBER, true, getAD_Client_ID()))
 						setDocumentNo(RPS_TEMP);
 				}
 				

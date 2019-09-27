@@ -59,6 +59,7 @@ import org.compiere.util.Env;
 import org.jboleto.JBoleto;
 import org.jboleto.JBoletoBean;
 import org.jboleto.JBoletoPrint;
+import org.kenos.idempiere.lbr.base.model.SysConfig;
 
 /**
  * MBoleto
@@ -726,7 +727,7 @@ public class MLBRBoleto extends X_LBR_Boleto
 
 					//	Nota Fiscal
 					MLBRNotaFiscal[] nfs = MLBRNotaFiscal.get(invoice.getCtx(), invoice.getC_Invoice_ID(), invoice.get_TrxName());
-					if (MSysConfig.getBooleanValue("LBR_PRINTNFENOONBILLING", true) && nfs.length > 0)
+					if (MSysConfig.getBooleanValue(SysConfig.LBR_PRINTNFENOONBILLING, true) && nfs.length > 0)
 					{
 						String type = "NOTA FISCAL: ";
 						String docNo = nfs[0].getDocumentNo();

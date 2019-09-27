@@ -30,6 +30,7 @@ import org.compiere.model.PO;
 import org.compiere.util.CLogger;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
+import org.kenos.idempiere.lbr.base.model.SysConfig;
 
 /**
  *	ValidatorBPartner
@@ -168,7 +169,7 @@ public class ValidatorBPartner implements ModelValidator
 	private String modelChange(MBPartnerLocation bpl)
 	{
 		//	BF [ 2808639 ] - Erro notado pelo usuario gmichels
-		if (!MSysConfig.getBooleanValue("LBR_USE_UNIFIED_BP", false))
+		if (!MSysConfig.getBooleanValue(SysConfig.LBR_USE_UNIFIED_BP, false))
 			return "";
 
 		MBPartner bp = new MBPartner(Env.getCtx(), bpl.getC_BPartner_ID(), bpl.get_TrxName());
@@ -274,7 +275,7 @@ public class ValidatorBPartner implements ModelValidator
 				if (!consultaCNPJ (CNPJ, bp.getAD_Client_ID(), bp.getC_BPartner_ID(), bp_po.get_TableName()))
 					return "CNPJ Duplicado";
 
-				if (MSysConfig.getBooleanValue ("LBR_USE_UNIFIED_BP", false))
+				if (MSysConfig.getBooleanValue (SysConfig.LBR_USE_UNIFIED_BP, false))
 					bp.setlbr_CNPJ (CNPJ.substring(0, 10) + "/0000-00");
 				
 				//	Remove o CPF
@@ -516,7 +517,7 @@ public class ValidatorBPartner implements ModelValidator
 	 */
 	public boolean consultaCNPJ(String xCNPJ, int AD_Client_ID, int C_BPartner_ID, String TableName)
 	{
-		Boolean isUnifiedBP = MSysConfig.getBooleanValue("LBR_USE_UNIFIED_BP", false);
+		Boolean isUnifiedBP = MSysConfig.getBooleanValue(SysConfig.LBR_USE_UNIFIED_BP, false);
 		int iCNPJ = 0;
 		String sql = "SELECT COUNT(lbr_CNPJ) " +
 				     "FROM " + TableName + " ";
