@@ -129,6 +129,8 @@ public class GetDFe extends SvrProcess
 		if (p_AD_Org_ID <= 0)
 			throw new AdempiereUserError ("@FillMandatory@  @AD_Org_ID@");
 		
+		Boolean consultOneNSU = false;
+		
 		//	Limit execution for each 1h and 10min to avoid being locked out from SeFaz
 		Calendar cal = new GregorianCalendar();
 		cal.setTime(new Date());
@@ -145,7 +147,8 @@ public class GetDFe extends SvrProcess
 		
 		if (!p_LBR_NSU.isEmpty())
 		{
-			bpResponse = GetDFe.doIt (oi, p_LBR_NSU, false);
+			consultOneNSU = true;
+			bpResponse = GetDFe.doIt (oi, p_LBR_NSU, consultOneNSU);
 		}
 		else
 		{
@@ -161,7 +164,7 @@ public class GetDFe extends SvrProcess
 			}
 		
 			String lastNSU = MSysConfig.getValue (LBR_DFE_LAST_NSU, "000000000000000", oi.getAD_Client_ID(), oi.getAD_Org_ID());
-			bpResponse = GetDFe.doIt (oi, lastNSU, true);
+			bpResponse = GetDFe.doIt (oi, lastNSU, consultOneNSU);
 		}
 		
 		if (bpResponse == null)
@@ -189,38 +192,41 @@ public class GetDFe extends SvrProcess
 			//	Save results
 			GetDFe.processResult (getCtx(), retConsNFeDest.getLoteDistDFeInt(), count, p_AD_Org_ID);
 			
-			//	Try to adquire more documets
-			while (true)
-			{
-				if (maxNSU == null || currentNSU == null 		//	Invalid Max global or session NSU
-						|| currentNSU.equals (maxNSU) 			//	All documents adquired
-						|| (count.nfe + count.event) > 500)		//	Maximum documents reached
-					break;
-				
-				RetDistDFeInt retLoop = GetDFe.doIt (oi, currentNSU, true).getRetDistDFeInt();
-				
-				//	Document Found
-				if (MLBRNotaFiscal.LBR_NFESTATUS_138_DocumentoLocalizadoParaODestinatário
-						.equals(retLoop.getCStat()))
+			if (!consultOneNSU)
+			{			
+				//	Try to adquire more documets
+				while (true)
 				{
-					//	Loop count
-					count.loop++;
+					if (maxNSU == null || currentNSU == null 		//	Invalid Max global or session NSU
+							|| currentNSU.equals (maxNSU) 			//	All documents adquired
+							|| (count.nfe + count.event) > 500)		//	Maximum documents reached
+						break;
 					
-					//	NSU control
-					maxNSU 		= retLoop.getMaxNSU();
-					currentNSU 	= retLoop.getUltNSU();
+					RetDistDFeInt retLoop = GetDFe.doIt (oi, currentNSU, true).getRetDistDFeInt();
 					
-					//	Save Results
-					processResult (getCtx(), retLoop.getLoteDistDFeInt(), count, p_AD_Org_ID);
-				}
+					//	Document Found
+					if (MLBRNotaFiscal.LBR_NFESTATUS_138_DocumentoLocalizadoParaODestinatário
+							.equals(retLoop.getCStat()))
+					{
+						//	Loop count
+						count.loop++;
+						
+						//	NSU control
+						maxNSU 		= retLoop.getMaxNSU();
+						currentNSU 	= retLoop.getUltNSU();
+						
+						//	Save Results
+						processResult (getCtx(), retLoop.getLoteDistDFeInt(), count, p_AD_Org_ID);
+					}
+					
+					//	Ignore errors, use first status
+					else
+						break;				
 				
-				//	Ignore errors, use first status
-				else
-					break;
+					//	Set max NSU, next runs will start from this NSU
+					setNSU (oi, maxNSU);
+				}
 			}
-			
-			//	Set max NSU, next runs will start from this NSU
-			setNSU (oi, maxNSU);
 			
 			return "@Success@ - " + retConsNFeDest.getXMotivo() + "<br />" + 
 							count.nfe + " - Notas Fiscais obtidas<br />" +
@@ -243,7 +249,7 @@ public class GetDFe extends SvrProcess
 	 * 	@return
 	 * 	@throws XmlException 
 	 */
-	public static RetDistDFeIntDocument doIt (MOrgInfo oi, String nsu, Boolean isLastNSU) throws XmlException
+	public static RetDistDFeIntDocument doIt (MOrgInfo oi, String nsu, Boolean consultOneNSU) throws XmlException
 	{
 		I_W_AD_OrgInfo oiW = POWrapper.create(oi, I_W_AD_OrgInfo.class);
 		DistDFeIntDocument consDFeDoc = DistDFeIntDocument.Factory.newInstance();
@@ -262,7 +268,7 @@ public class GetDFe extends SvrProcess
 		else
 			consDFe.setCNPJ(CNPJF);
 		
-		if (isLastNSU)
+		if (!consultOneNSU)
 		{
 			DistNSU distNSU = consDFe.addNewDistNSU();
 			distNSU.setUltNSU(nsu);
@@ -353,6 +359,10 @@ public class GetDFe extends SvrProcess
 	 */
 	public static void processResult (Properties ctx, LoteDistDFeInt lote, Counter count, int p_AD_Org_ID) throws Exception
 	{
+		//	Para consulta de apenas um NSU, esse campo pode vir nulo
+		if (count == null)
+			count = new Counter();
+		
 		//	Process Responses
 		for (DocZip zip : lote.getDocZipArray())
 		{
