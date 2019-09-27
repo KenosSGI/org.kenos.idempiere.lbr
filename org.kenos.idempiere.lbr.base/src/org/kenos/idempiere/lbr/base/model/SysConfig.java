@@ -23,7 +23,7 @@ public class SysConfig
 	public static final String LBR_ALLOW_VOID_NF_WITH_VALID_BILL 				= "LBR_ALLOW_VOID_NF_WITH_VALID_BILL";
 	public static final String LBR_ALLOW_VOID_ORDER_WITH_INVOICE_SHIPMENT 		= "LBR_ALLOW_VOID_ORDER_WITH_INVOICE_SHIPMENT";
 	public static final String LBR_AUTO_GENERATE_XML 							= "LBR_AUTO_GENERATE_XML";
-	public static final String LBR_AUTOMATOC_ADJUST_IVA 						= "LBR_AUTOMATOC_ADJUST_IVA";
+	public static final String LBR_AUTOMATIC_ADJUST_MVA 						= "LBR_AUTOMATIC_ADJUST_MVA";
 	public static final String LBR_CORREIOS_SHIPPER 							= "LBR_CORREIOS_SHIPPER";
 	public static final String LBR_CUSTOM_NFE_EMAIL_MESSAGE 					= "LBR_CUSTOM_NFE_EMAIL_MESSAGE";
 	public static final String LBR_CUSTOM_NFSE_EMAIL_MESSAGE 					= "LBR_CUSTOM_NFSE_EMAIL_MESSAGE";
