@@ -401,8 +401,8 @@ public class MLBRTax extends X_LBR_Tax
 					bsh.set(txName.getName().trim(), 1/Math.pow (10, 17));
 				}
 			
-			//	Ajusta o MVA automaticamente
-			boolean adjustIVA = MSysConfig.getBooleanValue(SysConfig.LBR_AUTOMATOC_ADJUST_IVA, true);
+			//	Ajusta o MVA automaticamente	// FIXME: Remover a retro-compatibilidade futuramente
+			boolean adjustIVA = MSysConfig.getBooleanValue(SysConfig.LBR_AUTOMATIC_ADJUST_MVA, MSysConfig.getBooleanValue("LBR_AUTOMATOC_ADJUST_IVA", true));
 				
 			//	Ajusta as alíquotas
 			for (MLBRTaxLine tLine : getLines())
