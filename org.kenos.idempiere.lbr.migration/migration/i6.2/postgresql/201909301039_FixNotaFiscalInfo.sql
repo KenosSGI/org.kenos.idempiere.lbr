@@ -15,5 +15,13 @@ UPDATE AD_InfoColumn SET SeqNoSelection=20,Updated=TO_TIMESTAMP('2019-09-30 10:2
 UPDATE AD_InfoColumn SET SeqNoSelection=10,Updated=TO_TIMESTAMP('2019-09-30 10:25:03','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_InfoColumn_ID=1120006
 ;
 
+-- 30 de set de 2019 10:51:22 BRT
+UPDATE AD_InfoColumn SET IsKey='Y',Updated=TO_TIMESTAMP('2019-09-30 10:51:22','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_InfoColumn_ID=1120003
+;
+
+-- 30 de set de 2019 10:51:54 BRT
+UPDATE AD_InfoColumn SET IsIdentifier='Y',Updated=TO_TIMESTAMP('2019-09-30 10:51:54','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_InfoColumn_ID=1120006
+;
+
 SELECT Register_Migration_Script ('201909301039_FixNotaFiscalInfo.sql') FROM DUAL
 ;
