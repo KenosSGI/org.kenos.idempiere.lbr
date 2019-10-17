@@ -11,25 +11,27 @@
  * with this program; if not, write to the Free Software Foundation, Inc.,    *
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.                     *
  *****************************************************************************/
-package org.adempierelbr.model;
+package org.kenos.idempiere.lbr.mdfe.model;
 
 import java.sql.ResultSet;
 import java.util.Properties;
 
-import org.compiere.util.DB;
+import org.adempierelbr.model.X_LBR_MDFeToll;
+import org.adempierelbr.validator.ValidatorBPartner;
+import org.compiere.util.Msg;
 
 /**
- * 		Model for MDF-e Driver Instance
+ * 		Model for MDF-e Toll
  * 
  * 	@author Ricardo Santana (Kenos, www.kenos.com.br)
- *	@version $Id: MLBRMDFeDriverInstance.java, v1.0 2014/01/28 5:09:44 PM, ralexsander Exp $
+ *	@version $Id: MLBRMDFeToll.java, v1.0 2014/01/28 5:09:44 PM, ralexsander Exp $
  */
-public class MLBRMDFeDriverInstance extends X_LBR_MDFe_DriverInstance
+public class MLBRMDFeToll extends X_LBR_MDFeToll
 {
 	/**
 	 * 	Serial
 	 */
-	private static final long serialVersionUID = 631150892726614466L;
+	private static final long serialVersionUID = 6688410325078224750L;
 
 	/**************************************************************************
 	 *  Default Constructor
@@ -37,10 +39,10 @@ public class MLBRMDFeDriverInstance extends X_LBR_MDFe_DriverInstance
 	 *  @param int LBR_Tax_ID (0 create new)
 	 *  @param String trx
 	 */
-	public MLBRMDFeDriverInstance (Properties ctx, int LBR_MDFeDriverInstance_ID, String trx)
+	public MLBRMDFeToll (Properties ctx, int LBR_MDFeToll_ID, String trx)
 	{
-		super (ctx, LBR_MDFeDriverInstance_ID, trx);
-	}	//	MLBRMDFeDriverInstance
+		super (ctx, LBR_MDFeToll_ID, trx);
+	}	//	MLBRMDFeToll
 
 	/**
 	 *  Load Constructor
@@ -48,44 +50,20 @@ public class MLBRMDFeDriverInstance extends X_LBR_MDFe_DriverInstance
 	 *  @param rs result set record
 	 *  @param trxName transaction
 	 */
-	public MLBRMDFeDriverInstance (Properties ctx, ResultSet rs, String trxName)
+	public MLBRMDFeToll (Properties ctx, ResultSet rs, String trxName)
 	{
 		super (ctx, rs, trxName);
-	}	//	MLBRMDFeDriverInstance
+	}	//	MLBRMDFeToll
 	
-
-	/**
-	 *  Load Constructor
-	 *  @param ctx context
-	 *  @param rs result set record
-	 *  @param trxName transaction
-	 */
-	public MLBRMDFeDriverInstance (MLBRMDFe mdfe)
-	{
-		this (mdfe.getCtx(), 0, mdfe.get_TrxName());
-		
-		setLBR_MDFe_ID (mdfe.getLBR_MDFe_ID());
-	}	//	MLBRMDFeDriverInstance
-	
-	/**
-	 * 	Called before Save for Pre-Save Operation
-	 * 	@param newRecord new record
-	 *	@return true if record can be saved
-	 */
 	@Override
 	protected boolean beforeSave (boolean newRecord)
 	{
-		if (!newRecord)
-			return true;
-		
-		//	Get Line No
-		if (getLine() == 0)
+		if (!ValidatorBPartner.validaCNPJ(getlbr_BPCNPJ())
+				|| (getlbr_BPShipperCNPJ() != null && getlbr_BPShipperCNPJ().length() > 13 && !ValidatorBPartner.validaCNPJ(getlbr_BPShipperCNPJ())))
 		{
-			String sql = "SELECT COALESCE(MAX(Line),0)+10 FROM LBR_MDFe_DriverInstance WHERE LBR_MDFe_ID=?";
-			int ii = DB.getSQLValue (get_TrxName(), sql, getLBR_MDFe_ID());
-			setLine (ii);
+			log.saveError ("Error", Msg.parseTranslation(getCtx(), "@lbr_CNPJ@ @Invalid@"));
+			return false;
 		}
-			
-		return true;
+		return super.beforeSave(newRecord);
 	}	//	beforeSave
-}	//	MLBRMDFeDriverInstance
+}	//	MLBRMDFeToll

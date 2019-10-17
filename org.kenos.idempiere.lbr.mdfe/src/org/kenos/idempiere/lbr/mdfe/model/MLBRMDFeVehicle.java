@@ -11,23 +11,25 @@
  * with this program; if not, write to the Free Software Foundation, Inc.,    *
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.                     *
  *****************************************************************************/
-package org.adempierelbr.model;
+package org.kenos.idempiere.lbr.mdfe.model;
 
 import java.sql.ResultSet;
 import java.util.Properties;
 
+import org.adempierelbr.model.X_LBR_MDFeVehicle;
+
 /**
- * 		Model for MDF-e Load
+ * 		Model for MDF-e Vehicle
  * 
  * 	@author Ricardo Santana (Kenos, www.kenos.com.br)
- *	@version $Id: MLBRMDFeLoad.java, v1.0 2014/01/28 5:09:44 PM, ralexsander Exp $
+ *	@version $Id: MLBRMDFeVehicle.java, v1.0 2014/01/28 5:09:44 PM, ralexsander Exp $
  */
-public class MLBRMDFeLoad extends X_LBR_MDFeLoad
+public class MLBRMDFeVehicle extends X_LBR_MDFeVehicle
 {
 	/**
 	 * 	Serial
 	 */
-	private static final long serialVersionUID = -8534782013071479636L;
+	private static final long serialVersionUID = 3615590645371614516L;
 
 	/**************************************************************************
 	 *  Default Constructor
@@ -35,10 +37,10 @@ public class MLBRMDFeLoad extends X_LBR_MDFeLoad
 	 *  @param int LBR_Tax_ID (0 create new)
 	 *  @param String trx
 	 */
-	public MLBRMDFeLoad (Properties ctx, int LBR_MDFeLoad_ID, String trx)
+	public MLBRMDFeVehicle (Properties ctx, int LBR_MDFeVehicle_ID, String trx)
 	{
-		super (ctx, LBR_MDFeLoad_ID, trx);
-	}	//	MLBRMDFeLoad
+		super (ctx, LBR_MDFeVehicle_ID, trx);
+	}	//	MLBRMDFeVehicle
 
 	/**
 	 *  Load Constructor
@@ -46,21 +48,20 @@ public class MLBRMDFeLoad extends X_LBR_MDFeLoad
 	 *  @param rs result set record
 	 *  @param trxName transaction
 	 */
-	public MLBRMDFeLoad (Properties ctx, ResultSet rs, String trxName)
+	public MLBRMDFeVehicle (Properties ctx, ResultSet rs, String trxName)
 	{
 		super (ctx, rs, trxName);
-	}	//	MLBRMDFeLoad
+	}	//	MLBRMDFeVehicle
 	
-	/**
-	 *  Load Constructor
-	 *  @param ctx context
-	 *  @param rs result set record
-	 *  @param trxName transaction
-	 */
-	public MLBRMDFeLoad (MLBRMDFe mdfe)
+	@Override
+	protected boolean beforeSave(boolean newRecord)
 	{
-		this (mdfe.getCtx(), 0, mdfe.get_TrxName());
-		
-		setLBR_MDFe_ID (mdfe.getLBR_MDFe_ID());
-	}	//	MLBRMDFeDriverInstance
-}	//	MLBRMDFeLoad
+		if (newRecord)
+		{
+			//	Preenchimento da Placa automaticamente
+			if (getValue() == null || getValue().isBlank())
+				setValue(getlbr_BPShipperLicensePlate());
+		}
+		return true;
+	}
+}	//	MLBRMDFeVehicle

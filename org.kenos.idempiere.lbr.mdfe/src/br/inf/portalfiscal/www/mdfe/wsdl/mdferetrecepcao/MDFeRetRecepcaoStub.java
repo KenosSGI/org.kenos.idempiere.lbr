@@ -140,7 +140,7 @@ public class MDFeRetRecepcaoStub extends org.apache.axis2.client.Stub
 	/**
 	 * Auto generated method signature
 	 * 
-	 * @see br.inf.portalfiscal.www.mdfe.wsdl.mdferetrecepcao.MDFeRetRecepcao#mdfeRetRecepcao
+	 * @see br.inf.portalfiscal.www.org.kenos.idempiere.lbr.mdfe.process.MDFeRetRecepcao#mdfeRetRecepcao
 	 * @param mdfeDadosMsg0
 	 * @param mdfeCabecMsg1
 	 */
@@ -321,7 +321,7 @@ public class MDFeRetRecepcaoStub extends org.apache.axis2.client.Stub
 	/**
 	 * Auto generated method signature for Asynchronous Invocations
 	 * 
-	 * @see br.inf.portalfiscal.www.mdfe.wsdl.mdferetrecepcao.MDFeRetRecepcao#startmdfeRetRecepcao
+	 * @see br.inf.portalfiscal.www.org.kenos.idempiere.lbr.mdfe.process.MDFeRetRecepcao#startmdfeRetRecepcao
 	 * @param mdfeDadosMsg0
 	 * @param mdfeCabecMsg1
 	 */

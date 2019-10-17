@@ -11,23 +11,25 @@
  * with this program; if not, write to the Free Software Foundation, Inc.,    *
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.                     *
  *****************************************************************************/
-package org.adempierelbr.model;
+package org.kenos.idempiere.lbr.mdfe.model;
 
 import java.sql.ResultSet;
 import java.util.Properties;
 
+import org.adempierelbr.model.X_LBR_MDFeSeal;
+
 /**
- * 		Model for MDF-e Vehicle
+ * 		Model for MDF-e Seal
  * 
  * 	@author Ricardo Santana (Kenos, www.kenos.com.br)
- *	@version $Id: MLBRMDFeVehicle.java, v1.0 2014/01/28 5:09:44 PM, ralexsander Exp $
+ *	@version $Id: MLBRMDFeSeal.java, v1.0 2014/01/28 5:09:44 PM, ralexsander Exp $
  */
-public class MLBRMDFeVehicle extends X_LBR_MDFeVehicle
+public class MLBRMDFeSeal extends X_LBR_MDFeSeal
 {
 	/**
 	 * 	Serial
 	 */
-	private static final long serialVersionUID = 3615590645371614516L;
+	private static final long serialVersionUID = 5837101320408030497L;
 
 	/**************************************************************************
 	 *  Default Constructor
@@ -35,10 +37,10 @@ public class MLBRMDFeVehicle extends X_LBR_MDFeVehicle
 	 *  @param int LBR_Tax_ID (0 create new)
 	 *  @param String trx
 	 */
-	public MLBRMDFeVehicle (Properties ctx, int LBR_MDFeVehicle_ID, String trx)
+	public MLBRMDFeSeal (Properties ctx, int LBR_MDFeSeal_ID, String trx)
 	{
-		super (ctx, LBR_MDFeVehicle_ID, trx);
-	}	//	MLBRMDFeVehicle
+		super (ctx, LBR_MDFeSeal_ID, trx);
+	}	//	MLBRMDFeSeal
 
 	/**
 	 *  Load Constructor
@@ -46,20 +48,8 @@ public class MLBRMDFeVehicle extends X_LBR_MDFeVehicle
 	 *  @param rs result set record
 	 *  @param trxName transaction
 	 */
-	public MLBRMDFeVehicle (Properties ctx, ResultSet rs, String trxName)
+	public MLBRMDFeSeal (Properties ctx, ResultSet rs, String trxName)
 	{
 		super (ctx, rs, trxName);
-	}	//	MLBRMDFeVehicle
-	
-	@Override
-	protected boolean beforeSave(boolean newRecord)
-	{
-		if (newRecord)
-		{
-			//	Preenchimento da Placa automaticamente
-			if (getValue() == null || getValue().isBlank())
-				setValue(getlbr_BPShipperLicensePlate());
-		}
-		return true;
-	}
-}	//	MLBRMDFeVehicle
+	}	//	MLBRMDFeSeal
+}	//	MLBRMDFeSeal

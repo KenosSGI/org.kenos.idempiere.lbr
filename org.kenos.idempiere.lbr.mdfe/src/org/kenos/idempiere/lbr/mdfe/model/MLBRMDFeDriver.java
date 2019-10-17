@@ -11,26 +11,27 @@
  * with this program; if not, write to the Free Software Foundation, Inc.,    *
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.                     *
  *****************************************************************************/
-package org.adempierelbr.model;
+package org.kenos.idempiere.lbr.mdfe.model;
 
 import java.sql.ResultSet;
 import java.util.Properties;
 
+import org.adempierelbr.model.X_LBR_MDFeDriver;
 import org.adempierelbr.validator.ValidatorBPartner;
 import org.compiere.util.Msg;
 
 /**
- * 		Model for MDF-e Toll
+ * 		Model for MDF-e Driver
  * 
  * 	@author Ricardo Santana (Kenos, www.kenos.com.br)
- *	@version $Id: MLBRMDFeToll.java, v1.0 2014/01/28 5:09:44 PM, ralexsander Exp $
+ *	@version $Id: MLBRMDFeDriver.java, v1.0 2014/01/28 5:09:44 PM, ralexsander Exp $
  */
-public class MLBRMDFeToll extends X_LBR_MDFeToll
+public class MLBRMDFeDriver extends X_LBR_MDFeDriver
 {
 	/**
 	 * 	Serial
 	 */
-	private static final long serialVersionUID = 6688410325078224750L;
+	private static final long serialVersionUID = 202031551017882486L;
 
 	/**************************************************************************
 	 *  Default Constructor
@@ -38,10 +39,10 @@ public class MLBRMDFeToll extends X_LBR_MDFeToll
 	 *  @param int LBR_Tax_ID (0 create new)
 	 *  @param String trx
 	 */
-	public MLBRMDFeToll (Properties ctx, int LBR_MDFeToll_ID, String trx)
+	public MLBRMDFeDriver (Properties ctx, int LBR_MDFeDriver_ID, String trx)
 	{
-		super (ctx, LBR_MDFeToll_ID, trx);
-	}	//	MLBRMDFeToll
+		super (ctx, LBR_MDFeDriver_ID, trx);
+	}	//	MLBRMDFeDriver
 
 	/**
 	 *  Load Constructor
@@ -49,20 +50,19 @@ public class MLBRMDFeToll extends X_LBR_MDFeToll
 	 *  @param rs result set record
 	 *  @param trxName transaction
 	 */
-	public MLBRMDFeToll (Properties ctx, ResultSet rs, String trxName)
+	public MLBRMDFeDriver (Properties ctx, ResultSet rs, String trxName)
 	{
 		super (ctx, rs, trxName);
-	}	//	MLBRMDFeToll
+	}	//	MLBRMDFeDriver
 	
 	@Override
 	protected boolean beforeSave (boolean newRecord)
 	{
-		if (!ValidatorBPartner.validaCNPJ(getlbr_BPCNPJ())
-				|| (getlbr_BPShipperCNPJ() != null && getlbr_BPShipperCNPJ().length() > 13 && !ValidatorBPartner.validaCNPJ(getlbr_BPShipperCNPJ())))
+		if (!ValidatorBPartner.validaCPF(getlbr_CPF()))
 		{
-			log.saveError ("Error", Msg.parseTranslation(getCtx(), "@lbr_CNPJ@ @Invalid@"));
+			log.saveError ("Error", Msg.parseTranslation(getCtx(), "@lbr_CPF@ @Invalid@"));
 			return false;
 		}
-		return super.beforeSave(newRecord);
+		return true;
 	}	//	beforeSave
-}	//	MLBRMDFeToll
+}	//	MLBRMDFeDriver

@@ -11,7 +11,7 @@
  * with this program; if not, write to the Free Software Foundation, Inc.,    *
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.                     *
  *****************************************************************************/
-package org.adempierelbr.model;
+package org.kenos.idempiere.lbr.mdfe.model;
 
 import java.io.File;
 import java.math.BigDecimal;
@@ -25,11 +25,9 @@ import javax.xml.bind.JAXBException;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.adempiere.model.POWrapper;
-import org.adempierelbr.mdfe.util.MDFeUtil;
+import org.adempierelbr.model.MLBRNFeWebService;
+import org.adempierelbr.model.X_LBR_MDFe;
 import org.adempierelbr.nfe.beans.ChaveNFE;
-import org.adempierelbr.process.MDFeRecepcao;
-import org.adempierelbr.process.MDFeRegEvento;
-import org.adempierelbr.process.MDFeRetRecepcao;
 import org.adempierelbr.util.NFeUtil;
 import org.adempierelbr.util.SignatureUtil;
 import org.adempierelbr.util.TextUtil;
@@ -49,6 +47,10 @@ import org.compiere.process.DocOptions;
 import org.compiere.process.DocumentEngine;
 import org.compiere.util.Env;
 import org.compiere.util.Msg;
+import org.kenos.idempiere.lbr.mdfe.process.MDFeRecepcao;
+import org.kenos.idempiere.lbr.mdfe.process.MDFeRegEvento;
+import org.kenos.idempiere.lbr.mdfe.process.MDFeRetRecepcao;
+import org.kenos.idempiere.lbr.mdfe.util.MDFeUtil;
 
 import br.inf.portalfiscal.mdfe.EvCancMDFeDocument;
 import br.inf.portalfiscal.mdfe.EvEncMDFeDocument;

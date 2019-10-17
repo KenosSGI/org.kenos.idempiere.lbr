@@ -1,4 +1,4 @@
-package org.adempierelbr.mdfe.util;
+package org.kenos.idempiere.lbr.mdfe.util;
 
 import java.io.Writer;
 import java.sql.Timestamp;

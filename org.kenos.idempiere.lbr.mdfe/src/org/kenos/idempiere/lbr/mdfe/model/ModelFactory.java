@@ -3,16 +3,6 @@ package org.kenos.idempiere.lbr.mdfe.model;
 import java.sql.ResultSet;
 
 import org.adempiere.base.IModelFactory;
-import org.adempierelbr.model.MLBRMDFe;
-import org.adempierelbr.model.MLBRMDFeDriver;
-import org.adempierelbr.model.MLBRMDFeDriverInstance;
-import org.adempierelbr.model.MLBRMDFeLoad;
-import org.adempierelbr.model.MLBRMDFeRoute;
-import org.adempierelbr.model.MLBRMDFeSeal;
-import org.adempierelbr.model.MLBRMDFeToll;
-import org.adempierelbr.model.MLBRMDFeUnload;
-import org.adempierelbr.model.MLBRMDFeUnloadDoc;
-import org.adempierelbr.model.MLBRMDFeVehicle;
 import org.compiere.model.PO;
 import org.compiere.util.Env;
 

@@ -11,7 +11,7 @@
  * with this program; if not, write to the Free Software Foundation, Inc.,    *
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.                     *
  *****************************************************************************/
-package org.adempierelbr.process;
+package org.kenos.idempiere.lbr.mdfe.process;
 
 import java.io.File;
 import java.io.StringReader;
@@ -26,9 +26,7 @@ import javax.xml.stream.XMLStreamReader;
 import org.adempiere.base.Service;
 import org.adempiere.exceptions.AdempiereException;
 import org.adempiere.model.POWrapper;
-import org.adempierelbr.mdfe.util.MDFeUtil;
 import org.adempierelbr.model.MLBRDigitalCertificate;
-import org.adempierelbr.model.MLBRMDFe;
 import org.adempierelbr.model.MLBRNFeWebService;
 import org.adempierelbr.model.MLBRNotaFiscal;
 import org.adempierelbr.util.NFeUtil;
@@ -51,6 +49,8 @@ import org.compiere.util.Env;
 import org.kenos.idempiere.lbr.base.event.IDocFiscalHandler;
 import org.kenos.idempiere.lbr.base.event.IDocFiscalHandlerFactory;
 import org.kenos.idempiere.lbr.base.model.SysConfig;
+import org.kenos.idempiere.lbr.mdfe.model.MLBRMDFe;
+import org.kenos.idempiere.lbr.mdfe.util.MDFeUtil;
 
 import br.inf.portalfiscal.mdfe.ConsReciMDFeDocument;
 import br.inf.portalfiscal.mdfe.RetConsReciMDFeDocument;
@@ -188,7 +188,7 @@ public class MDFeRetRecepcao extends SvrProcess
 		List<IDocFiscalHandlerFactory> list = Service.locator ().list (IDocFiscalHandlerFactory.class).getServices();
 		for (IDocFiscalHandlerFactory docFiscal : list)
 		{
-			handler = docFiscal.getHandler (ProcStatusServico.class.getName());
+			handler = docFiscal.getHandler (MDFeRetRecepcao.class.getName());
 			if (handler != null)
 				break;
 		}

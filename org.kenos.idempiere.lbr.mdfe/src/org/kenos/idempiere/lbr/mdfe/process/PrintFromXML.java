@@ -11,7 +11,7 @@
  * with this program; if not, write to the Free Software Foundation, Inc.,    *
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.                     *
  *****************************************************************************/
-package org.adempierelbr.process;
+package org.kenos.idempiere.lbr.mdfe.process;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -29,8 +29,6 @@ import java.util.logging.Level;
 import org.adempiere.base.Service;
 import org.adempiere.exceptions.AdempiereException;
 import org.adempiere.report.jasper.JRViewerProvider;
-import org.adempierelbr.mdfe.util.MDFeUtil;
-import org.adempierelbr.model.MLBRMDFe;
 import org.adempierelbr.model.MLBRNFeEvent;
 import org.adempierelbr.model.MLBRNFeLot;
 import org.adempierelbr.model.MLBRNFeWebService;
@@ -50,6 +48,8 @@ import org.compiere.model.Query;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
 import org.compiere.util.Env;
+import org.kenos.idempiere.lbr.mdfe.model.MLBRMDFe;
+import org.kenos.idempiere.lbr.mdfe.util.MDFeUtil;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;

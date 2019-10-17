@@ -11,8 +11,6 @@ Require-Bundle: org.adempiere.base;bundle-version="6.2.0",
 Bundle-ClassPath: .,
  lib/mdfebeans-v300a.jar
 Service-Component: OSGI-INF/*.xml
-Export-Package: org.adempierelbr.callout,
- org.adempierelbr.model
 Import-Package: javax.activation,
  org.adempiere.report.jasper,
  org.apache.xmlbeans,
