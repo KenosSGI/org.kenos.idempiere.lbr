@@ -77,6 +77,9 @@ public class PrintFromXML extends SvrProcess
 	/** Process ID 					*/
 	public static final int AD_Process_ID = 1120040;
 	
+	/**	Legacy Process Name	*/
+	public static String PROCESS_NAME = "org.adempierelbr.process.PrintFromXML";
+	
 	/**	Record ID	*/
 	private int p_Record_ID = 0;
 	

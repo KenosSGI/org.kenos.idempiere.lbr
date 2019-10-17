@@ -27,6 +27,11 @@ import org.compiere.util.Msg;
  */
 public class MLBRMDFeDriver extends X_LBR_MDFeDriver
 {
+	/**
+	 * 	Serial
+	 */
+	private static final long serialVersionUID = 202031551017882486L;
+
 	/**************************************************************************
 	 *  Default Constructor
 	 *  @param Properties ctx

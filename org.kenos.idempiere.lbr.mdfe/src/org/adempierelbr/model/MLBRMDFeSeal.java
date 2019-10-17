@@ -24,6 +24,11 @@ import java.util.Properties;
  */
 public class MLBRMDFeSeal extends X_LBR_MDFeSeal
 {
+	/**
+	 * 	Serial
+	 */
+	private static final long serialVersionUID = 5837101320408030497L;
+
 	/**************************************************************************
 	 *  Default Constructor
 	 *  @param Properties ctx

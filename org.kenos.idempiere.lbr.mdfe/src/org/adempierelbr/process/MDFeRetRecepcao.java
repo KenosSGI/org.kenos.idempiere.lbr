@@ -70,6 +70,9 @@ public class MDFeRetRecepcao extends SvrProcess
 	/**	Static Logger	*/
 	private static CLogger	s_log	= CLogger.getCLogger (MDFeRetRecepcao.class);
 	
+	/**	Legacy Process Name	*/
+	public static String PROCESS_NAME = "org.adempierelbr.process.MDFeRetRecepcao";
+	
 	/**	Organization		*/
 	private int p_AD_Org_ID 		= 0;
 	

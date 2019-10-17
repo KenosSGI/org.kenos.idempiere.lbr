@@ -66,6 +66,9 @@ public class MDFeRecepcao extends SvrProcess
 	/**	Static Logger	*/
 	private static CLogger	s_log	= CLogger.getCLogger (MDFeRecepcao.class);
 	
+	/**	Legacy Process Name	*/
+	public static String PROCESS_NAME = "org.adempierelbr.process.MDFeRecepcao";
+	
 	private int p_Record_ID 		= 0;
 	
 	/**
@@ -144,6 +147,7 @@ public class MDFeRecepcao extends SvrProcess
 		StringBuilder sb = MDFeUtil.removeNS (new StringBuilder (mdFeDocument.xmlText(NFeUtil.getXmlOpt ())));
 		
 //		ValidaXML.ValidaDocEx (MDFeUtil.HEADER + sb.toString(), MDFeUtil.XSD_VERSION + "/enviMDFe_v1.00.xsd");
+		NFeUtil.validate (mdFeDocument);
 		
 		//	XML
 		XMLStreamReader data = XMLInputFactory.newInstance().createXMLStreamReader(new StringReader(MDFeUtil.getWrapped (sb)));

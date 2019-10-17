@@ -34,16 +34,16 @@
             <configuration>
               <artifactItems>
                 <artifactItem>
-                  <groupId>local.mdfebeans-v100a-sources</groupId>
-                  <artifactId>mdfebeans-v100a-sources</artifactId>
+                  <groupId>local.mdfebeans-v300a-sources</groupId>
+                  <artifactId>mdfebeans-v300a-sources</artifactId>
                   <version>NOT_INFORMED</version>
-                  <destFileName>mdfebeans-v100a-sources.jar</destFileName>
+                  <destFileName>mdfebeans-v300a-sources.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
-                  <groupId>local.mdfebeans-v100a</groupId>
-                  <artifactId>mdfebeans-v100a</artifactId>
+                  <groupId>local.mdfebeans-v300a</groupId>
+                  <artifactId>mdfebeans-v300a</artifactId>
                   <version>NOT_INFORMED</version>
-                  <destFileName>mdfebeans-v100a.jar</destFileName>
+                  <destFileName>mdfebeans-v300a.jar</destFileName>
                 </artifactItem>
               </artifactItems>
               <outputDirectory>lib</outputDirectory>

@@ -24,6 +24,11 @@ import java.util.Properties;
  */
 public class MLBRMDFeVehicle extends X_LBR_MDFeVehicle
 {
+	/**
+	 * 	Serial
+	 */
+	private static final long serialVersionUID = 3615590645371614516L;
+
 	/**************************************************************************
 	 *  Default Constructor
 	 *  @param Properties ctx
@@ -45,4 +50,16 @@ public class MLBRMDFeVehicle extends X_LBR_MDFeVehicle
 	{
 		super (ctx, rs, trxName);
 	}	//	MLBRMDFeVehicle
+	
+	@Override
+	protected boolean beforeSave(boolean newRecord)
+	{
+		if (newRecord)
+		{
+			//	Preenchimento da Placa automaticamente
+			if (getValue() == null || getValue().isBlank())
+				setValue(getlbr_BPShipperLicensePlate());
+		}
+		return true;
+	}
 }	//	MLBRMDFeVehicle

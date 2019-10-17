@@ -31,6 +31,11 @@ import org.compiere.model.X_C_City;
  */
 public class MLBRMDFeUnload extends X_LBR_MDFeUnload
 {
+	/**
+	 * 	Serial
+	 */
+	private static final long serialVersionUID = -3586002090546425444L;
+
 	/**************************************************************************
 	 *  Default Constructor
 	 *  @param Properties ctx

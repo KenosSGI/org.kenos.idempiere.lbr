@@ -27,6 +27,11 @@ import org.compiere.util.Msg;
  */
 public class MLBRMDFeToll extends X_LBR_MDFeToll
 {
+	/**
+	 * 	Serial
+	 */
+	private static final long serialVersionUID = 6688410325078224750L;
+
 	/**************************************************************************
 	 *  Default Constructor
 	 *  @param Properties ctx

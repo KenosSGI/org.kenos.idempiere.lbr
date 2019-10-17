@@ -8,10 +8,11 @@ Require-Bundle: org.adempiere.base;bundle-version="6.2.0",
  org.kenos.idempiere.lbr.nfe;bundle-version="1.0.0",
  net.sf.jasperreports.engine;bundle-version="6.6.0",
  jakarta.xml.bind-api;bundle-version="2.3.2"
-Bundle-ClassPath: lib/mdfebeans-v100a-sources.jar,
- lib/mdfebeans-v100a.jar,
- .
-Export-Package: org.adempierelbr.model
+Bundle-ClassPath: .,
+ lib/mdfebeans-v300a.jar
+Service-Component: OSGI-INF/*.xml
+Export-Package: org.adempierelbr.callout,
+ org.adempierelbr.model
 Import-Package: javax.activation,
  org.adempiere.report.jasper,
  org.apache.xmlbeans,
@@ -20,3 +21,4 @@ Import-Package: javax.activation,
 Automatic-Module-Name: org.kenos.idempiere.lbr.mdfe
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Bundle-Vendor: Kenos www.kenos.com.br
+Bundle-ActivationPolicy: lazy

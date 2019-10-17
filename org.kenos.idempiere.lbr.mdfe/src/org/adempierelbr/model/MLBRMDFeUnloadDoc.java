@@ -28,6 +28,11 @@ import org.compiere.util.Msg;
  */
 public class MLBRMDFeUnloadDoc extends X_LBR_MDFeUnloadDoc
 {
+	/**
+	 * 	Serial
+	 */
+	private static final long serialVersionUID = -5393317785289128296L;
+
 	/**************************************************************************
 	 *  Default Constructor
 	 *  @param Properties ctx

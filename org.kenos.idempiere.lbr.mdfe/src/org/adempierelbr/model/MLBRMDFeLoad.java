@@ -24,6 +24,11 @@ import java.util.Properties;
  */
 public class MLBRMDFeLoad extends X_LBR_MDFeLoad
 {
+	/**
+	 * 	Serial
+	 */
+	private static final long serialVersionUID = -8534782013071479636L;
+
 	/**************************************************************************
 	 *  Default Constructor
 	 *  @param Properties ctx

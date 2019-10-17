@@ -78,7 +78,7 @@ public class MDFeUtil
 	public static final String D7   = "1,2,3,4";
 	public static final String D8   = "01,1B,02,2D,2E,04,06,07,08,8B,09,10,11,13,14,15,16,17,18,20,21,22,23,24,25,26,27,28,55";
 
-	public static final String VERSION   = "1.00";
+	public static final String VERSION   = "3.00";
 	public static final TProcEmi.Enum EMISSAO_APLICATIVO_CONTRIB   = TProcEmi.X_0;
 	
 	public static final String HEADER = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
@@ -88,13 +88,12 @@ public class MDFeUtil
 	public static final String TYPE_RETRECEPCAO 	= "MDFeRetRecepcao";
 	public static final String TYPE_RECEPCAOEVENTO 	= "MDFeRecepcaoEvento";
 	public static final String TYPE_CONSULTA 		= "MDFeConsulta";
+	public static final String TYPE_NAOENCERRADOS 	= "MDFeConsNaoEnc";
 	public static final String TYPE_STATUS 			= "MDFeStatusServico";
+	public static final String TYPE_QRCODEURL 		= "MDFeQRCodeURL";
 	
 	/**	MDFe Ambiente Único, registrado como SP	*/
 	public static final int MDFE_REGION				= 465;
-	
-	/**	Versão do CSD	*/
-	public static final String XSD_VERSION 			= "PL_MDFe_100a_NT012014";
 	
 	public static final String STATUS_AUTORIZADO 			= "100";
 	public static final String STATUS_CANCELADO 			= "101";
@@ -113,6 +112,8 @@ public class MDFeUtil
 
 	public static final String ENCODING 					= "UTF-8";
 	
+	public static final String qrCode = "{0}?chMDFe={1}&tpAmb={2}";
+	
 	/**
 	 * 	Format Date and Time to XML Standard
 	 * 	@param ts
@@ -130,7 +131,7 @@ public class MDFeUtil
 	 */
 	public static String formatTime (Timestamp ts)
 	{
-		return TextUtil.timeToString (ts, "yyyy-MM-dd'T'HH:mm:ss");
+		return TextUtil.timeToString (ts, "yyyy-MM-dd'T'HH:mm:ssXXX");
 	}	//	formatTime
 	
 	/**
