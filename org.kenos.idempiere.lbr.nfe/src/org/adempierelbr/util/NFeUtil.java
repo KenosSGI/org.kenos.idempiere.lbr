@@ -737,7 +737,7 @@ public abstract class NFeUtil
 		if (!isValid)
 		{
 			String result = NFeUtil.formatErrorMsg (validationErrors);
-			log.fine (xmlNFe.toString());
+			log.warning (xmlNFe.toString());
 			
 			//	Errors
 			throw new AdempiereException (result.toString());
