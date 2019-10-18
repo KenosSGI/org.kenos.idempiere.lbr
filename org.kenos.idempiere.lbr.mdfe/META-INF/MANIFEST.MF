@@ -20,4 +20,8 @@ Automatic-Module-Name: org.kenos.idempiere.lbr.mdfe
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Bundle-Vendor: Kenos www.kenos.com.br
 Bundle-ActivationPolicy: lazy
-Export-Package: org.kenos.idempiere.lbr.mdfe.model
+Export-Package: org.kenos.idempiere.lbr.mdfe.callout,
+ org.kenos.idempiere.lbr.mdfe.model,
+ org.kenos.idempiere.lbr.mdfe.print,
+ org.kenos.idempiere.lbr.mdfe.process,
+ org.kenos.idempiere.lbr.mdfe.util

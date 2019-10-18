@@ -17,14 +17,17 @@ import java.io.File;
 import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 import javax.xml.bind.JAXBException;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.adempiere.model.POWrapper;
+import org.adempierelbr.model.MLBRAuthorizedAccessXML;
 import org.adempierelbr.model.MLBRNFeWebService;
 import org.adempierelbr.model.X_LBR_MDFe;
 import org.adempierelbr.nfe.beans.ChaveNFE;
@@ -32,6 +35,7 @@ import org.adempierelbr.util.NFeUtil;
 import org.adempierelbr.util.SignatureUtil;
 import org.adempierelbr.util.TextUtil;
 import org.adempierelbr.wrapper.I_W_AD_OrgInfo;
+import org.adempierelbr.wrapper.I_W_C_BPartner;
 import org.adempierelbr.wrapper.I_W_C_City;
 import org.apache.xmlbeans.XmlCursor;
 import org.compiere.model.MAttachment;
@@ -73,6 +77,7 @@ import br.inf.portalfiscal.mdfe.TEmit;
 import br.inf.portalfiscal.mdfe.TEndeEmi;
 import br.inf.portalfiscal.mdfe.TMDFe;
 import br.inf.portalfiscal.mdfe.TMDFe.InfMDFe;
+import br.inf.portalfiscal.mdfe.TMDFe.InfMDFe.AutXML;
 import br.inf.portalfiscal.mdfe.TMDFe.InfMDFe.Emit;
 import br.inf.portalfiscal.mdfe.TMDFe.InfMDFe.Ide;
 import br.inf.portalfiscal.mdfe.TMDFe.InfMDFe.Ide.InfMunCarrega;
@@ -796,6 +801,41 @@ public class MLBRMDFe extends X_LBR_MDFe implements DocAction, DocOptions
 			Lacres lac = infMDFe.addNewLacres();
 			lac.setNLacre(seal.getName());
 		}
+		
+		/**
+		 * 	Autorizados
+		 */
+		List<MLBRAuthorizedAccessXML> accessXMLs = Arrays.asList (MLBRAuthorizedAccessXML.get (oi.getAD_Org_ID (), 0));
+		
+		//	PJ
+		accessXMLs.stream()
+			//	Only PJ
+			.filter(x -> I_W_C_BPartner.LBR_BPTYPEBR_PJ_LegalEntity.equals(x.getlbr_BPTypeBR()))
+			//	Only one field needed
+			.map(MLBRAuthorizedAccessXML::getCNPJ)
+			//	Make it Unique
+			.collect(Collectors.toSet())
+			//	Include
+			.forEach(x -> 
+			{
+				AutXML autXML = infMDFe.addNewAutXML();
+				autXML.setCNPJ(x);
+			});
+		
+		//	PF
+		accessXMLs.stream()
+			//	Only PF
+			.filter(x -> I_W_C_BPartner.LBR_BPTYPEBR_PF_Individual.equals(x.getlbr_BPTypeBR()))
+			//	Only one field needed
+			.map(MLBRAuthorizedAccessXML::getCPF)
+			//	Make it Unique
+			.collect(Collectors.toSet())
+			//	Include
+			.forEach(x -> 
+			{
+				AutXML autXML = infMDFe.addNewAutXML();
+				autXML.setCPF(x);
+			});
 		
 		/**	
 		 *  QR Code Consulta

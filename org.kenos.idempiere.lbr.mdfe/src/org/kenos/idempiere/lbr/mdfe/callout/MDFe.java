@@ -5,6 +5,7 @@ import java.util.Properties;
 import org.adempiere.base.IColumnCallout;
 import org.adempiere.model.POWrapper;
 import org.adempierelbr.model.MLBRNotaFiscal;
+import org.adempierelbr.util.TextUtil;
 import org.adempierelbr.wrapper.I_W_C_BPartner;
 import org.compiere.model.GridField;
 import org.compiere.model.GridTab;
@@ -49,7 +50,7 @@ public class MDFe
 					if (name == null || name.isEmpty())
 						mTab.setValue("Name", bp.getName());
 					
-					if (cpf == null || cpf.isEmpty())
+					if (cpf == null || TextUtil.toNumeric(cpf).isBlank())
 						mTab.setValue("lbr_CPF", bp.getlbr_CPF());
 				}
 			}
