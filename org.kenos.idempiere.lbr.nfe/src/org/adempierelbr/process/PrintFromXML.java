@@ -49,6 +49,8 @@ import org.compiere.model.X_T_Report;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
 import org.compiere.util.Env;
+import org.kenos.idempiere.lbr.base.event.IDocFiscalPrint;
+import org.kenos.idempiere.lbr.base.event.IDocFiscalPrintFactory;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
@@ -59,6 +61,7 @@ import com.google.zxing.qrcode.QRCodeWriter;
 import br.inf.portalfiscal.nfe.v400.NfeProcDocument;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRParameter;
+import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -136,8 +139,38 @@ public class PrintFromXML extends SvrProcess
 		MAttachment att = null;
 	    int tableID = getProcessInfo().getTable_ID();
 		
+	    IDocFiscalPrint printDocument = null;
+	    List<IDocFiscalPrintFactory> factoryList = Service.locator().list(IDocFiscalPrintFactory.class).getServices();
+		
+		for (IDocFiscalPrintFactory factory : factoryList)
+		{
+			printDocument = factory.get (tableID, Env.getCtx(), p_Record_ID, get_TrxName());
+			if (printDocument != null)
+				break;
+		}
+	    
+		//	Generic Print
+		if (printDocument != null)
+		{
+			//	Parameters
+			reportName 	= printDocument.getReportName();
+			extension 	= printDocument.getExtension();
+			datePattern = printDocument.getDatePattern();
+			att 		= printDocument.getAttachment();
+
+			//	Put files
+			qrFiles.putAll(printDocument.getParameters());
+
+			//	Message
+			message = printDocument.getMessage();
+			
+			//	In case of error, do not proceed
+			if (printDocument.isError())
+				return message;
+		}
+		
 		//	Carta de Correção Eletrônica
-		if (tableID == MLBRNFeEvent.Table_ID)
+		else if (tableID == MLBRNFeEvent.Table_ID)
 		{
 			MLBRNFeEvent event = new MLBRNFeEvent (Env.getCtx(), p_Record_ID, get_TrxName());
 			
@@ -377,7 +410,7 @@ public class PrintFromXML extends SvrProcess
 			reportName = reportName.replace("[FORMAT]", "Portrait");
 		}
 		
-		Map<String, Object> files = getReportFile (printLogo);
+		Map<String, Object> files = getReportFile (printLogo, printDocument != null);	//	Generic Print must provide report file
 		files.putAll(qrFiles);
 		
 		if (message != null)
@@ -386,8 +419,16 @@ public class PrintFromXML extends SvrProcess
 		//	BR Locale
 		files.put( JRParameter.REPORT_LOCALE, locale );
 
+		JasperReport jasperReport = null;
+		
+		//	Compile the report
+		if (reportName.endsWith("jrxml"))
+			jasperReport = JasperCompileManager.compileReport( (InputStream) files.remove (reportName));
+		
 		//	Load the report
-		JasperReport jasperReport = (JasperReport) JRLoader.loadObject ( (InputStream) files.remove (reportName));
+		else
+			jasperReport = (JasperReport) JRLoader.loadObject ( (InputStream) files.remove (reportName));
+		
 		JRXmlDataSource dataSource = new JRXmlDataSource ( xml , jasperReport.getQuery().getText() );
 		dataSource.setDatePattern(datePattern);
 		dataSource.setNumberPattern(numberPattern);
@@ -418,12 +459,11 @@ public class PrintFromXML extends SvrProcess
 	 * 	@throws AdempiereException
 	 * 	@throws IOException 
 	 */
-	private Map<String, Object> getReportFile (boolean printLogo) throws AdempiereException, IOException
+	private Map<String, Object> getReportFile (boolean printLogo, boolean reportFound) throws AdempiereException, IOException
 	{
 		//	Procura o relatório anexado no processo
 		MAttachment att = process.getAttachment (true);
 		Map<String, Object> map = new HashMap<String, Object>();
-		boolean found = false;
 
 		if (att != null)
 		{
@@ -433,14 +473,14 @@ public class PrintFromXML extends SvrProcess
 				String name = entry.getName();
 				//
 				if (name.equals (reportName))
-					found = true;
+					reportFound = true;
 				//
 				map.put (name, entry.getInputStream());
 			}
 		}
 
 		//	Se não existir anexado, utiliza o default do resource
-		if (!found)
+		if (!reportFound)
 		{
 			ClassLoader cl = getClass().getClassLoader();
 			InputStream report = cl.getResourceAsStream("reports/" + reportName);
