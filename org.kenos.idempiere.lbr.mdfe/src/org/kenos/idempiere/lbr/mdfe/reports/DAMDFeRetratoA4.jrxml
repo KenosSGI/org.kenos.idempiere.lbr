@@ -195,7 +195,7 @@
 					<textElement textAlignment="Left" verticalAlignment="Middle">
 						<font fontName="Arial" size="10" pdfFontName="Courier"/>
 					</textElement>
-					<textFieldExpression class="java.lang.String"><![CDATA[$F{logradouroEmitente} + ", " + $F{numeroLogradouroEmitente} + ($F{complementoEmitente} == null ? "" : "\n" + $F{complementoEmitente}) + "\n" + ($F{bairroEmitente} == null ? "" : $F{bairroEmitente} + " - ") + $F{municipioEmitente} + " - " + $F{ufEmitente} + " - CEP: " + org.adempierelbr.mdfe.util.MDFeUtil.formatCEP ($F{cepEmitente})]]></textFieldExpression>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{logradouroEmitente} + ", " + $F{numeroLogradouroEmitente} + ($F{complementoEmitente} == null ? "" : "\n" + $F{complementoEmitente}) + "\n" + ($F{bairroEmitente} == null ? "" : $F{bairroEmitente} + " - ") + $F{municipioEmitente} + " - " + $F{ufEmitente} + " - CEP: " + org.kenos.idempiere.lbr.mdfe.util.MDFeUtil.formatCEP ($F{cepEmitente})]]></textFieldExpression>
 				</textField>
 				<textField isBlankWhenNull="true">
 					<reportElement key="textField-179" x="168" y="100" width="96" height="12"/>
@@ -400,7 +400,7 @@
 					<textElement textAlignment="Center">
 						<font fontName="Arial" size="10" pdfFontName="Courier"/>
 					</textElement>
-					<textFieldExpression class="java.lang.String"><![CDATA[org.adempierelbr.mdfe.util.MDFeUtil.getMDFeProtocol ($F{chaveAcesso})]]></textFieldExpression>
+					<textFieldExpression class="java.lang.String"><![CDATA[org.kenos.idempiere.lbr.mdfe.util.MDFeUtil.getMDFeProtocol ($F{chaveAcesso})]]></textFieldExpression>
 				</textField>
 				<textField isBlankWhenNull="true">
 					<reportElement key="textField-151" x="6" y="236" width="551" height="12"/>
@@ -413,7 +413,7 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" size="10" pdfFontName="Courier"/>
 					</textElement>
-					<textFieldExpression class="java.lang.String"><![CDATA[org.adempierelbr.mdfe.util.MDFeUtil.formatMDFeKey ($F{chaveAcesso})]]></textFieldExpression>
+					<textFieldExpression class="java.lang.String"><![CDATA[org.kenos.idempiere.lbr.mdfe.util.MDFeUtil.formatMDFeKey ($F{chaveAcesso})]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement key="staticText-213" x="6" y="227" width="98" height="10"/>
@@ -552,7 +552,7 @@
 					<textElement verticalAlignment="Middle">
 						<font fontName="Arial" size="10" pdfFontName="Courier"/>
 					</textElement>
-					<textFieldExpression class="java.lang.String"><![CDATA[org.adempierelbr.mdfe.util.MDFeUtil.formatCNPJ ($F{cnpjEmitente})]]></textFieldExpression>
+					<textFieldExpression class="java.lang.String"><![CDATA[org.kenos.idempiere.lbr.mdfe.util.MDFeUtil.formatCNPJ ($F{cnpjEmitente})]]></textFieldExpression>
 				</textField>
 				<line>
 					<reportElement key="line-193" x="2" y="225" width="560" height="1">

@@ -78,7 +78,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font fontName="Arial" size="7" pdfFontName="Courier"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[org.adempierelbr.mdfe.util.MDFeUtil.formatCPF ($F{cpf})]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[org.kenos.idempiere.lbr.mdfe.util.MDFeUtil.formatCPF ($F{cpf})]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Auto" isBlankWhenNull="true">
 				<reportElement key="textField-4" x="69" y="1" width="206" height="10"/>

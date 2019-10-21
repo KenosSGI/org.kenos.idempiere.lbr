@@ -58,7 +58,7 @@ public class DocFiscalPrint implements IDocFiscalPrint
 	@Override
 	public String getReportName()
 	{
-		return "DAMDFeRetratoA4.jrxml";
+		return "DAMDFeRetratoA4.jasper";
 	}	//	getReportName
 
 	@Override

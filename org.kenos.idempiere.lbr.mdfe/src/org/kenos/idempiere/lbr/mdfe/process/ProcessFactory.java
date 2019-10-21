@@ -1,6 +1,7 @@
 package org.kenos.idempiere.lbr.mdfe.process;
 
 import org.adempiere.base.IProcessFactory;
+import org.adempierelbr.process.PrintFromXML;
 import org.compiere.process.ProcessCall;
 
 /**
@@ -11,6 +12,9 @@ import org.compiere.process.ProcessCall;
  */
 public class ProcessFactory implements IProcessFactory
 {
+	/**	Report starter of this plugin	*/
+	private static final String PRINTFROMXML = ProcessFactory.class.getPackage().getName() + ".ReportStarter";
+	
 	@Override
 	public ProcessCall newProcessInstance (String className)
 	{
@@ -23,8 +27,8 @@ public class ProcessFactory implements IProcessFactory
 		if (MDFeRetRecepcao.PROCESS_NAME.equals(className) || MDFeRetRecepcao.class.getName().equals(className))
 			return new MDFeRetRecepcao();
 		
-//		if (PrintFromXML.PROCESS_NAME.equals(className) || PrintFromXML.class.getName().equals(className))
-//			return new PrintFromXML();
+		if (PRINTFROMXML.equals(className))
+			return new PrintFromXML() {};
 		
 		if (StatusMDFe.PROCESS_NAME.equals(className) || StatusMDFe.class.getName().equals(className))
 			return new StatusMDFe();

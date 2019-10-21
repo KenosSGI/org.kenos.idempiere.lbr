@@ -91,7 +91,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="7" pdfFontName="Courier"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[org.adempierelbr.mdfe.util.MDFeUtil.formatCNPJ ($F{cnpjEmpresaPagadora})]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[org.kenos.idempiere.lbr.mdfe.util.MDFeUtil.formatCNPJ ($F{cnpjEmpresaPagadora})]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" evaluationTime="Auto" isBlankWhenNull="true">
 				<reportElement key="textField-2" stretchType="RelativeToTallestObject" x="91" y="2" width="86" height="10" isRemoveLineWhenBlank="true"/>
@@ -104,7 +104,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="7" pdfFontName="Courier"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[org.adempierelbr.mdfe.util.MDFeUtil.formatCNPJ ($F{cnpjEmpresaFornecedora})]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[org.kenos.idempiere.lbr.mdfe.util.MDFeUtil.formatCNPJ ($F{cnpjEmpresaFornecedora})]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" evaluationTime="Auto" isBlankWhenNull="true">
 				<reportElement key="textField-3" stretchType="RelativeToTallestObject" x="179" y="2" width="99" height="10" isRemoveLineWhenBlank="true"/>
