@@ -28,8 +28,10 @@ import javax.xml.bind.JAXBException;
 import org.adempiere.exceptions.AdempiereException;
 import org.adempiere.model.POWrapper;
 import org.adempierelbr.model.MLBRAuthorizedAccessXML;
+import org.adempierelbr.model.MLBRNFConfig;
 import org.adempierelbr.model.MLBRNFeWebService;
 import org.adempierelbr.model.X_LBR_MDFe;
+import org.adempierelbr.model.X_LBR_SystemResponsible;
 import org.adempierelbr.nfe.beans.ChaveNFE;
 import org.adempierelbr.util.NFeUtil;
 import org.adempierelbr.util.SignatureUtil;
@@ -80,21 +82,26 @@ import br.inf.portalfiscal.mdfe.TMDFe.InfMDFe;
 import br.inf.portalfiscal.mdfe.TMDFe.InfMDFe.AutXML;
 import br.inf.portalfiscal.mdfe.TMDFe.InfMDFe.Emit;
 import br.inf.portalfiscal.mdfe.TMDFe.InfMDFe.Ide;
+import br.inf.portalfiscal.mdfe.TMDFe.InfMDFe.Ide.IndCanalVerde;
+import br.inf.portalfiscal.mdfe.TMDFe.InfMDFe.Ide.IndCarregaPosterior;
 import br.inf.portalfiscal.mdfe.TMDFe.InfMDFe.Ide.InfMunCarrega;
 import br.inf.portalfiscal.mdfe.TMDFe.InfMDFe.Ide.InfPercurso;
 import br.inf.portalfiscal.mdfe.TMDFe.InfMDFe.InfAdic;
 import br.inf.portalfiscal.mdfe.TMDFe.InfMDFe.InfDoc;
 import br.inf.portalfiscal.mdfe.TMDFe.InfMDFe.InfDoc.InfMunDescarga;
-//import br.inf.portalfiscal.mdfe.TMDFe.InfMDFe.InfDoc.InfMunDescarga.InfCT;
 import br.inf.portalfiscal.mdfe.TMDFe.InfMDFe.InfDoc.InfMunDescarga.InfCTe;
-//import br.inf.portalfiscal.mdfe.TMDFe.InfMDFe.InfDoc.InfMunDescarga.InfNF;
 import br.inf.portalfiscal.mdfe.TMDFe.InfMDFe.InfDoc.InfMunDescarga.InfNFe;
 import br.inf.portalfiscal.mdfe.TMDFe.InfMDFe.InfModal;
 import br.inf.portalfiscal.mdfe.TMDFe.InfMDFe.Lacres;
+import br.inf.portalfiscal.mdfe.TMDFe.InfMDFe.Seg;
+import br.inf.portalfiscal.mdfe.TMDFe.InfMDFe.Seg.InfResp;
+import br.inf.portalfiscal.mdfe.TMDFe.InfMDFe.Seg.InfResp.RespSeg;
+import br.inf.portalfiscal.mdfe.TMDFe.InfMDFe.Seg.InfSeg;
 import br.inf.portalfiscal.mdfe.TMDFe.InfMDFe.Tot;
 import br.inf.portalfiscal.mdfe.TMDFe.InfMDFeSupl;
 import br.inf.portalfiscal.mdfe.TModMD;
 import br.inf.portalfiscal.mdfe.TModalMD;
+import br.inf.portalfiscal.mdfe.TRespTec;
 import br.inf.portalfiscal.mdfe.TRetEvento;
 import br.inf.portalfiscal.mdfe.TUf;
 
@@ -487,7 +494,7 @@ public class MLBRMDFe extends X_LBR_MDFe implements DocAction, DocOptions
 		 * 	Identificação
 		 */
 		Ide ide = infMDFe.addNewIde();
-		ide.setCUF (TCodUfIBGE.Enum.forString((""+orgCity.getlbr_CityCode()).substring(0,2)));
+		ide.setCUF (TCodUfIBGE.Enum.forString(String.valueOf (orgCity.getlbr_CityCode()).substring(0,2)));
 		ide.setTpAmb (TAmb.Enum.forString(getlbr_NFeEnv ()));
 		ide.setTpEmit (TEmit.Enum.forString(getLBR_MDFeIssuerType ()));
 		ide.setMod (TModMD.Enum.forString(getlbr_NFModel ()));
@@ -502,7 +509,7 @@ public class MLBRMDFe extends X_LBR_MDFe implements DocAction, DocOptions
 		 */
 		ChaveNFE key = new ChaveNFE();
 		//
-		key.setCUF((""+orgCity.getlbr_CityCode()).substring(0,2));	//	2-Código do Estado
+		key.setCUF(String.valueOf (orgCity.getlbr_CityCode()).substring(0,2));	//	2-Código do Estado
 		key.setAAMM(TextUtil.timeToString (getDateDoc(), "yyMM"));	//	4-Ano e Mês
 		key.setCNPJ(TextUtil.toNumeric(oi.getlbr_CNPJ()));			//	14-CNPJ
 		key.setMod(getlbr_NFModel());								//	2-Modelo
@@ -511,7 +518,7 @@ public class MLBRMDFe extends X_LBR_MDFe implements DocAction, DocOptions
 		key.setTpEmis(getLBR_CommType());							//	1-Forma Emissão
 		key.setCNF(ide.getCMDF());									//	8-Random
 		
-		ide.setCDV (""+key.getDigito());
+		ide.setCDV (key.getDigito());
 		ide.setModal (TModalMD.Enum.forString(getLBR_ShipmentType ()));
 		ide.setDhEmi (MDFeUtil.formatTime (getDateDoc()));
 		ide.setTpEmis (Ide.TpEmis.Enum.forString(getLBR_CommType()));
@@ -519,6 +526,11 @@ public class MLBRMDFe extends X_LBR_MDFe implements DocAction, DocOptions
 		ide.setVerProc (MDFeUtil.VERSION);
 		ide.setUFIni (TUf.Enum.forString (getRegionBegin ()));
 		ide.setUFFim (TUf.Enum.forString (getRegionEnd ()));
+		
+		if (MLBRMDFe.LBR_GREENCHANNEL_Yes.equals(getLBR_GreenChannel()))
+			ide.setIndCanalVerde(IndCanalVerde.X_1);
+		if (MLBRMDFe.LBR_POSTLOADING_Yes.equals(getLBR_PostLoading()))
+			ide.setIndCarregaPosterior(IndCarregaPosterior.X_1);
 		
 		/**
 		 * 	Locais de Carregamento
@@ -528,7 +540,7 @@ public class MLBRMDFe extends X_LBR_MDFe implements DocAction, DocOptions
 			I_W_C_City city = POWrapper.create(new MCity (p_ctx, load.getC_City_ID(), null), I_W_C_City.class);
 			//
 			InfMunCarrega mc = ide.addNewInfMunCarrega();
-			mc.setCMunCarrega(""+city.getlbr_CityCode());
+			mc.setCMunCarrega(String.valueOf (city.getlbr_CityCode()));
 			mc.setXMunCarrega(city.getName());
 		}
 		
@@ -565,7 +577,7 @@ public class MLBRMDFe extends X_LBR_MDFe implements DocAction, DocOptions
 		
 		I_W_C_City city = POWrapper.create(new MCity (p_ctx, oi.getC_Location().getC_City_ID(), null), I_W_C_City.class);
 		
-		end.setCMun(""+city.getlbr_CityCode());
+		end.setCMun(String.valueOf (city.getlbr_CityCode()));
 		end.setXMun(city.getName());
 		end.setCEP(TextUtil.toNumeric(oi.getC_Location().getPostal()));
 		if (oi.getC_Location().getC_Region_ID() > 0)
@@ -601,7 +613,7 @@ public class MLBRMDFe extends X_LBR_MDFe implements DocAction, DocOptions
 			{
 				InfCIOT ciot = antt.addNewInfCIOT();
 				ciot.setCIOT(getLBR_CIOT());
-//		FIXME	ciot.setCNPJ("");
+//				ciot.setCNPJ("");
 //				ciot.setCPF("");
 			}
 			
@@ -682,13 +694,9 @@ public class MLBRMDFe extends X_LBR_MDFe implements DocAction, DocOptions
 
 				Disp disp = ped.addNewDisp();
 				disp.setCNPJForn(TextUtil.toNumeric(toll.getlbr_BPCNPJ()));
-				
-				if (toll.getlbr_BPShipperCNPJ() != null
-						&& toll.getlbr_BPShipperCNPJ().length() > 13)
-					disp.setCNPJPg(TextUtil.toNumeric(toll.getlbr_BPShipperCNPJ()));
-				
-				if (toll.getPOReference() != null &&  TextUtil.toNumeric (toll.getPOReference()).length() > 0)
-					disp.setNCompra(TextUtil.toNumeric (toll.getPOReference()));
+				disp.setCNPJPg(TextUtil.toNumeric(toll.getlbr_BPShipperCNPJ()));
+				disp.setNCompra(TextUtil.toNumeric (toll.getPOReference()));
+				disp.setVValePed(TextUtil.toNumeric(TextUtil.toNumeric(toll.getAmount(), 2)));
 			}
 			
 //			ValidaXML.ValidaDocEx (MDFeUtil.marshall (rodo).toString (), MDFeUtil.XSD_VERSION + "/mdfeModalRodoviario_v1.00.xsd");
@@ -737,7 +745,7 @@ public class MLBRMDFe extends X_LBR_MDFe implements DocAction, DocOptions
 			I_W_C_City unloadCity = POWrapper.create(new MCity (p_ctx, unload.getC_City_ID(), null), I_W_C_City.class);
 			//
 			InfMunDescarga desc = doc.addNewInfMunDescarga(); 
-			desc.setCMunDescarga(""+unloadCity.getlbr_CityCode());
+			desc.setCMunDescarga(String.valueOf (unloadCity.getlbr_CityCode()));
 			desc.setXMunDescarga(unloadCity.getName());
 			
 			//	CT-e
@@ -745,7 +753,8 @@ public class MLBRMDFe extends X_LBR_MDFe implements DocAction, DocOptions
 			{
 				InfCTe cte = desc.addNewInfCTe();
 				cte.setChCTe(uDocument.getlbr_NFeID());
-//		FIXME		cte.setSegCodBarra(uDocument.getlbr_Barcode2());
+				if (uDocument.getlbr_Barcode2() != null)
+					cte.setSegCodBarra(uDocument.getlbr_Barcode2());
 				//
 				countCTe++;
 			}
@@ -755,7 +764,8 @@ public class MLBRMDFe extends X_LBR_MDFe implements DocAction, DocOptions
 			{
 				InfNFe nfe = desc.addNewInfNFe();
 				nfe.setChNFe(uDocument.getlbr_NFeID());
-//				nfe.setSegCodBarra(uDocument.getlbr_Barcode2());
+				if (uDocument.getlbr_Barcode2() != null)
+					nfe.setSegCodBarra(uDocument.getlbr_Barcode2());
 				//
 				countNFe++;
 			}
@@ -765,10 +775,10 @@ public class MLBRMDFe extends X_LBR_MDFe implements DocAction, DocOptions
 		Tot tot = infMDFe.addNewTot();
 		
 		if (countCTe > 0)
-			tot.setQCTe ("" + countCTe);
+			tot.setQCTe (String.valueOf (countCTe));
 		
 		if (countNFe > 0)
-			tot.setQNFe ("" + countNFe);
+			tot.setQNFe (String.valueOf (countNFe));
 		
 		tot.setVCarga(TextUtil.bigdecimalToString (getGrandTotal()));
 		tot.setCUnid(InfMDFe.Tot.CUnid.Enum.forString(getLBR_WeightUOM()));
@@ -801,6 +811,45 @@ public class MLBRMDFe extends X_LBR_MDFe implements DocAction, DocOptions
 			Lacres lac = infMDFe.addNewLacres();
 			lac.setNLacre(seal.getName());
 		}
+		
+		/**
+		 * 	Seguro
+		 */
+		getInsurance().stream().forEach(ins -> 
+		{
+			Seg seg = infMDFe.addNewSeg();
+			InfResp infResp = seg.addNewInfResp();
+			infResp.setRespSeg(RespSeg.Enum.forString(ins.getLBR_InsuResp()));
+			//
+			if (ins.getCNPJ() != null)
+				infResp.setCNPJ(ins.getCNPJ());
+			else if (ins.getCPF() != null)
+				infResp.setCPF(ins.getCPF());
+			
+			if (ins.getA_Insurance_Co() != null && ins.getInsuranceCNPJ() != null)
+			{
+				InfSeg infSeg = seg.addNewInfSeg();
+				infSeg.setXSeg(ins.getA_Insurance_Co().trim());
+				infSeg.setCNPJ(ins.getInsuranceCNPJ());
+			}
+			
+			//	Apolice
+			if (ins.getLBR_InsurancePolicy() != null)
+				seg.setNApol(ins.getLBR_InsurancePolicy().trim());
+			
+			//	Averbação
+			if (ins.getLBR_InsuranceAnnot() != null)
+			{
+				Arrays.asList(ins.getLBR_InsuranceAnnot().split(";")).stream()
+					.filter(s -> !s.isBlank())
+					.map(TextUtil::toNumeric)
+					.collect(Collectors.toSet())
+					.forEach(annot ->
+					{
+						seg.addNAver(annot);
+					});
+			}
+		});
 		
 		/**
 		 * 	Autorizados
@@ -836,6 +885,37 @@ public class MLBRMDFe extends X_LBR_MDFe implements DocAction, DocOptions
 				AutXML autXML = infMDFe.addNewAutXML();
 				autXML.setCPF(x);
 			});
+		
+		MLBRNFConfig config = MLBRNFConfig.get(getAD_Org_ID());
+		
+		//	Add Technical Resposible
+		X_LBR_SystemResponsible sresp = new Query(Env.getCtx(), X_LBR_SystemResponsible.Table_Name, "", null)
+										.first();
+		if (sresp != null && sresp.getlbr_CNPJ() != null && sresp.getContactName() != null
+				&& sresp.getEMail() != null && sresp.getPhone() != null)
+		{							
+			//	add Technical Responsible
+			TRespTec respTec = infMDFe.addNewInfRespTec();
+			respTec.setCNPJ(TextUtil.toNumeric(sresp.getlbr_CNPJ()));
+			respTec.setXContato(sresp.getContactName().trim());
+			respTec.setEmail(sresp.getEMail().trim());
+			respTec.setFone(TextUtil.toNumeric(sresp.getPhone()));
+			
+			//
+			if (config != null && config.getLBR_CSRTCode() != null)
+			{
+				//	CSRT Hash
+				byte[] CSRTHash = TextUtil.generateCSRTHash (key.toString() + ide.getCDV(), config.getLBR_CSRTCode());
+				
+				if (CSRTHash != null)
+				{
+					String hash = new String (CSRTHash);				
+					setLBR_CSRTHash(hash);
+					respTec.setIdCSRT(TextUtil.lPad(config.getLBR_CSRTID(), 2));
+					respTec.setHashCSRT(CSRTHash);
+				}
+			}
+		}
 		
 		/**	
 		 *  QR Code Consulta
@@ -948,10 +1028,13 @@ public class MLBRMDFe extends X_LBR_MDFe implements DocAction, DocOptions
 		{
 			I_W_AD_OrgInfo oi = POWrapper.create(MOrgInfo.get (p_ctx, getAD_Org_ID(), get_TrxName()), I_W_AD_OrgInfo.class);
 			//
-			MLBRMDFeLoad load = new MLBRMDFeLoad (this);
-			load.setC_Region_ID (oi.getC_Location().getC_Region_ID());
-			load.setC_City_ID(oi.getC_Location().getC_City_ID());
-			load.save();
+			if (oi.getC_Location_ID() > 0)
+			{
+				MLBRMDFeLoad load = new MLBRMDFeLoad (this);
+				load.setC_Region_ID (oi.getC_Location().getC_Region_ID());
+				load.setC_City_ID(oi.getC_Location().getC_City_ID());
+				load.save();
+			}
 		}
 		return true;
 	}	//	afterSave
@@ -1012,6 +1095,18 @@ public class MLBRMDFe extends X_LBR_MDFe implements DocAction, DocOptions
 	 	List<MLBRMDFeSeal> list = query.list();
 	 	return list.toArray(new MLBRMDFeSeal[list.size()]);
 	}	//	getSeal
+
+	/**
+	 *  Get Insurance
+	 *  @return List<MLBRMDFeInsurance> lines
+	 */
+	public List<MLBRMDFeInsurance> getInsurance ()
+	{
+		Query query =  new Query (getCtx(), MLBRMDFeInsurance.Table_Name, "LBR_MDFe_ID=?", get_TrxName());
+	 		  query.setParameters(new Object[]{getLBR_MDFe_ID()});
+	 	//
+	 	return query.list();
+	}	//	getInsurance
 	
 	/**
 	 *  Get Driver

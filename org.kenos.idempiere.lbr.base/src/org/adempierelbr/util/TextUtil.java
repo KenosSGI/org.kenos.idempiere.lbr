@@ -35,6 +35,7 @@ import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.Date;
 import java.util.Locale;
 import java.util.StringJoiner;
@@ -1244,4 +1245,30 @@ public abstract class TextUtil
 		}
 		return "";
 	}	//	stripSpecial
+
+	/**
+	 * 
+	 * @param nfeID
+	 * @return
+	 */
+	public static byte[] generateCSRTHash(String nfeID, String CSRTCode)
+	{
+		try
+		{
+			//	Concatenar NFe ID + CSRT Code
+			String concat = CSRTCode + nfeID;
+			
+			//	Gerando hash com Algoritmo SHA-1 e convertendo para Base 64
+			byte [] result = Base64.getEncoder().encode(generateSHA1(concat));
+			
+			//	Resultado
+			return result;
+		}
+		catch (Exception e)
+		{
+			log.saveError(e.getMessage(), e);
+		}		
+		
+		return null;
+	}	//	generateCSRTHash
 }	//	TextUtil

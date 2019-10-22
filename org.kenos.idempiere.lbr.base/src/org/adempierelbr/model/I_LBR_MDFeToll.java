@@ -64,6 +64,19 @@ public interface I_LBR_MDFeToll
 	  */
 	public int getAD_Org_ID();
 
+    /** Column name Amount */
+    public static final String COLUMNNAME_Amount = "Amount";
+
+	/** Set Amount.
+	  * Amount in a defined currency
+	  */
+	public void setAmount (BigDecimal Amount);
+
+	/** Get Amount.
+	  * Amount in a defined currency
+	  */
+	public BigDecimal getAmount();
+
     /** Column name Created */
     public static final String COLUMNNAME_Created = "Created";
 

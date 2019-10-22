@@ -212,7 +212,7 @@ public class MDFeUtil
 		if (key == null)
 			return "";
 		//
-		return format ("####.####.####.####.####.####.####.####.####.####.####", TextUtil.toNumeric (key));
+		return format ("#### #### #### #### #### #### #### #### #### #### ####", TextUtil.toNumeric (key));
 	}	//	formatMDFeKey
 	
 	/**

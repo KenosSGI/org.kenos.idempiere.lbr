@@ -13,6 +13,7 @@ import org.compiere.model.MBPartner;
 import org.compiere.model.MCity;
 import org.compiere.util.Env;
 import org.kenos.idempiere.lbr.mdfe.model.MLBRMDFe;
+import org.kenos.idempiere.lbr.mdfe.model.MLBRMDFeInsurance;
 
 /**
  * 		Callout for MDF-e
@@ -101,4 +102,30 @@ public class MDFe
 			return "";
 		}	//	start
 	}	//	Void
+	
+	public static class FillBPartner implements IColumnCallout 
+	{
+		/**
+		 * 	Ajusta o campo de Ação do Documento para Anular
+		 * 
+		 * @param ctx
+		 * @param WindowNo
+		 * @param mTab
+		 * @param mField
+		 * @param value
+		 * @return
+		 */
+		public String start (Properties ctx, int WindowNo, GridTab mTab, GridField mField, Object value, Object oldValue)
+		{
+			if (value == null || value.toString().isEmpty())
+				return "";
+			
+			MBPartner bp = new MBPartner (ctx, (Integer) value, null);
+			mTab.setValue(MLBRMDFeInsurance.COLUMNNAME_lbr_BPTypeBR, bp.get_Value(I_W_C_BPartner.COLUMNNAME_lbr_BPTypeBR));
+			mTab.setValue(MLBRMDFeInsurance.COLUMNNAME_lbr_CNPJ, bp.get_Value(I_W_C_BPartner.COLUMNNAME_lbr_CNPJ));
+			mTab.setValue(MLBRMDFeInsurance.COLUMNNAME_lbr_CPF, bp.get_Value(I_W_C_BPartner.COLUMNNAME_lbr_CPF));
+			//
+			return "";
+		}	//	start
+	}	//	FillBPartner
 }	//	MDFe

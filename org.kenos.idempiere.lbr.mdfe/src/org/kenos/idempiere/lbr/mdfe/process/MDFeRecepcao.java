@@ -229,7 +229,10 @@ public class MDFeRecepcao extends SvrProcess
 			
 			//	Refresh
 			if (mdfe.getAttachment(true) != null)
+			{
 				mdfe.getAttachment(false).delete(true);
+				mdfe.getAttachment(true);
+			}
 			
 			//	Add Attachment Entry
 			MAttachment attachment = mdfe.createAttachment();

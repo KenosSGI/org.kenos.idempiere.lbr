@@ -13,7 +13,7 @@ import org.compiere.process.ProcessCall;
 public class ProcessFactory implements IProcessFactory
 {
 	/**	Report starter of this plugin	*/
-	private static final String PRINTFROMXML = ProcessFactory.class.getPackage().getName() + ".ReportStarter";
+	private static final String PRINTFROMXML = ProcessFactory.class.getPackage().getName() + ".PrintFromXML";
 	
 	@Override
 	public ProcessCall newProcessInstance (String className)

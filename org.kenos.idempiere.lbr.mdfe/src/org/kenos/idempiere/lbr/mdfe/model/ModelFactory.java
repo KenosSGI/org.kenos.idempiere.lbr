@@ -23,6 +23,8 @@ public class ModelFactory implements IModelFactory
 			return MLBRMDFeDriver.class;
 		if (MLBRMDFeDriverInstance.Table_Name.equals(tableName))
 			return MLBRMDFeDriverInstance.class;
+		if (MLBRMDFeInsurance.Table_Name.equals(tableName))
+			return MLBRMDFeInsurance.class;
 		if (MLBRMDFeLoad.Table_Name.equals(tableName))
 			return MLBRMDFeLoad.class;
 		if (MLBRMDFeRoute.Table_Name.equals(tableName))
@@ -49,6 +51,8 @@ public class ModelFactory implements IModelFactory
 			return new MLBRMDFeDriver (Env.getCtx(), Record_ID, trxName);
 		if (MLBRMDFeDriverInstance.Table_Name.equals(tableName))
 			return new MLBRMDFeDriverInstance (Env.getCtx(), Record_ID, trxName);
+		if (MLBRMDFeInsurance.Table_Name.equals(tableName))
+			return new MLBRMDFeInsurance (Env.getCtx(), Record_ID, trxName);
 		if (MLBRMDFeLoad.Table_Name.equals(tableName))
 			return new MLBRMDFeLoad (Env.getCtx(), Record_ID, trxName);
 		if (MLBRMDFeRoute.Table_Name.equals(tableName))
@@ -75,6 +79,8 @@ public class ModelFactory implements IModelFactory
 			return new MLBRMDFeDriver (Env.getCtx(), rs, trxName);
 		if (MLBRMDFeDriverInstance.Table_Name.equals(tableName))
 			return new MLBRMDFeDriverInstance (Env.getCtx(), rs, trxName);
+		if (MLBRMDFeInsurance.Table_Name.equals(tableName))
+			return new MLBRMDFeInsurance (Env.getCtx(), rs, trxName);
 		if (MLBRMDFeLoad.Table_Name.equals(tableName))
 			return new MLBRMDFeLoad (Env.getCtx(), rs, trxName);
 		if (MLBRMDFeRoute.Table_Name.equals(tableName))

@@ -8,6 +8,7 @@ import org.adempiere.base.IColumnCalloutFactory;
 import org.adempierelbr.util.TextUtil;
 import org.kenos.idempiere.lbr.mdfe.model.MLBRMDFe;
 import org.kenos.idempiere.lbr.mdfe.model.MLBRMDFeDriver;
+import org.kenos.idempiere.lbr.mdfe.model.MLBRMDFeInsurance;
 import org.kenos.idempiere.lbr.mdfe.model.MLBRMDFeLoad;
 import org.kenos.idempiere.lbr.mdfe.model.MLBRMDFeUnload;
 
@@ -36,9 +37,14 @@ public class CalloutFactory implements IColumnCalloutFactory
 				(MLBRMDFe.Table_Name.equals(tableName) 
 						&& MLBRMDFe.COLUMNNAME_LBR_EndRegion_ID.equals(columnName)))
 			callouts.add (new MDFe.ClearCity());
+		
 		else if (MLBRMDFe.Table_Name.equals(tableName) 
 				&& MLBRMDFe.COLUMNNAME_lbr_MotivoCancel.equals(columnName))
 			callouts.add (new MDFe.Void());
+		
+		else if (MLBRMDFeInsurance.Table_Name.equals(tableName)
+				&& MLBRMDFeInsurance.COLUMNNAME_C_BPartner_ID.equals(columnName))
+			callouts.add (new MDFe.FillBPartner());
 		
 		IColumnCallout[] result = new IColumnCallout[callouts.size()];
 		return callouts.toArray (result);

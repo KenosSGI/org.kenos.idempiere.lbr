@@ -2,7 +2,6 @@ package org.kenos.idempiere.lbr.mdfe.print;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -122,14 +121,6 @@ public class DocFiscalPrint implements IDocFiscalPrint
 		
 		//	Main Report
 		map.put (reportName, report);
-		
-		//	SubReports and Resources
-		Arrays.asList (new String[]{"DAMDFeRetratoA4_Sub_ValePedagio.jasper", "DAMDFeRetratoA4_Sub_Motoristas.jasper"})
-			.stream()
-			.forEach(sub ->
-			{
-				map.put (sub.replaceAll("\\.jasper|\\.jrxml", ""), cl.getResourceAsStream(packageName + sub));
-			});
 
 		return map;
 	}	//	doIt

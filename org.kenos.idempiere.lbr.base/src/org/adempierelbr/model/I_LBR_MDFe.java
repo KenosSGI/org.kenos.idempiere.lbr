@@ -136,6 +136,19 @@ public interface I_LBR_MDFe
 	  */
 	public Timestamp getDateDoc();
 
+    /** Column name DateStartPlan */
+    public static final String COLUMNNAME_DateStartPlan = "DateStartPlan";
+
+	/** Set Start Plan.
+	  * Planned Start Date
+	  */
+	public void setDateStartPlan (Timestamp DateStartPlan);
+
+	/** Get Start Plan.
+	  * Planned Start Date
+	  */
+	public Timestamp getDateStartPlan();
+
     /** Column name DateTrx */
     public static final String COLUMNNAME_DateTrx = "DateTrx";
 
@@ -240,6 +253,19 @@ public interface I_LBR_MDFe
 	  */
 	public String getLBR_CIOT();
 
+    /** Column name LBR_CSRTHash */
+    public static final String COLUMNNAME_LBR_CSRTHash = "LBR_CSRTHash";
+
+	/** Set CSRT Hash.
+	  * CSRT Hash is generated using NFe ID and CSRT Code
+	  */
+	public void setLBR_CSRTHash (String LBR_CSRTHash);
+
+	/** Get CSRT Hash.
+	  * CSRT Hash is generated using NFe ID and CSRT Code
+	  */
+	public String getLBR_CSRTHash();
+
     /** Column name LBR_CommType */
     public static final String COLUMNNAME_LBR_CommType = "LBR_CommType";
 
@@ -258,7 +284,16 @@ public interface I_LBR_MDFe
 	/** Get End Region	  */
 	public int getLBR_EndRegion_ID();
 
-	public org.compiere.model.I_C_Region getLBR_EndRegion() throws RuntimeException;
+	public I_C_Region getLBR_EndRegion() throws RuntimeException;
+
+    /** Column name LBR_GreenChannel */
+    public static final String COLUMNNAME_LBR_GreenChannel = "LBR_GreenChannel";
+
+	/** Set Green Channel	  */
+	public void setLBR_GreenChannel (String LBR_GreenChannel);
+
+	/** Get Green Channel	  */
+	public String getLBR_GreenChannel();
 
     /** Column name LBR_MDFeIssuerType */
     public static final String COLUMNNAME_LBR_MDFeIssuerType = "LBR_MDFeIssuerType";
@@ -316,11 +351,24 @@ public interface I_LBR_MDFe
     /** Column name LBR_MDFe_ID */
     public static final String COLUMNNAME_LBR_MDFe_ID = "LBR_MDFe_ID";
 
-	/** Set Manifesto Eletronico de Documentos	  */
+	/** Set MDF-e.
+	  * Manifesto Eletrônico de Documentos Fiscais
+	  */
 	public void setLBR_MDFe_ID (int LBR_MDFe_ID);
 
-	/** Get Manifesto Eletronico de Documentos	  */
+	/** Get MDF-e.
+	  * Manifesto Eletrônico de Documentos Fiscais
+	  */
 	public int getLBR_MDFe_ID();
+
+    /** Column name LBR_PostLoading */
+    public static final String COLUMNNAME_LBR_PostLoading = "LBR_PostLoading";
+
+	/** Set Post Loading	  */
+	public void setLBR_PostLoading (String LBR_PostLoading);
+
+	/** Get Post Loading	  */
+	public String getLBR_PostLoading();
 
     /** Column name LBR_RNTRC */
     public static final String COLUMNNAME_LBR_RNTRC = "LBR_RNTRC";

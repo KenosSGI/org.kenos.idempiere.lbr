@@ -2105,7 +2105,7 @@ public class NFeXMLGenerator
 				if (config != null && config.getLBR_CSRTCode() != null)
 				{
 					//	CSRT Hash
-					byte[] CSRTHash = generateCSRTHash (nfeID, config.getLBR_CSRTCode());
+					byte[] CSRTHash = TextUtil.generateCSRTHash (nfeID, config.getLBR_CSRTCode());
 					
 					if (CSRTHash != null)
 					{
@@ -2351,31 +2351,5 @@ public class NFeXMLGenerator
 			date = date.replace("-02:00", "-03:00");
 		
 		return date;
-	}
-
-	/**
-	 * 
-	 * @param nfeID
-	 * @return
-	 */
-	private static byte[] generateCSRTHash(String nfeID, String CSRTCode)
-	{
-		try
-		{
-			//	Concatenar NFe ID + CSRT Code
-			String concat = CSRTCode + nfeID;
-			
-			//	Gerando hash com Algoritmo SHA-1 e convertendo para Base 64
-			byte [] result = Base64.encodeBase64(TextUtil.generateSHA1(concat));
-			
-			//	Resultado
-			return result;
-		}
-		catch (Exception e)
-		{
-			log.saveError(e.getMessage(), e);
-		}		
-		
-		return null;
 	}
 }	//	NFeXMLGenerator
