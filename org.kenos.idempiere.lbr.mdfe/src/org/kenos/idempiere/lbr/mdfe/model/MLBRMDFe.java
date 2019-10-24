@@ -527,6 +527,8 @@ public class MLBRMDFe extends X_LBR_MDFe implements DocAction, DocOptions
 		ide.setUFIni (TUf.Enum.forString (getRegionBegin ()));
 		ide.setUFFim (TUf.Enum.forString (getRegionEnd ()));
 		
+		if (getDateStartPlan() != null)
+			ide.setDhIniViagem(MDFeUtil.formatTime (getDateStartPlan()));
 		if (MLBRMDFe.LBR_GREENCHANNEL_Yes.equals(getLBR_GreenChannel()))
 			ide.setIndCanalVerde(IndCanalVerde.X_1);
 		if (MLBRMDFe.LBR_POSTLOADING_Yes.equals(getLBR_PostLoading()))
@@ -1024,16 +1026,35 @@ public class MLBRMDFe extends X_LBR_MDFe implements DocAction, DocOptions
 	@Override
 	protected boolean afterSave (boolean newRecord, boolean success)
 	{
-		if (newRecord && success && LBR_MDFEISSUERTYPE_Non_ShipperProvider.equals (getLBR_MDFeIssuerType()))
+		if (newRecord && success)
 		{
-			I_W_AD_OrgInfo oi = POWrapper.create(MOrgInfo.get (p_ctx, getAD_Org_ID(), get_TrxName()), I_W_AD_OrgInfo.class);
-			//
-			if (oi.getC_Location_ID() > 0)
+			I_W_AD_OrgInfo oi = POWrapper.create (MOrgInfo.get (p_ctx, getAD_Org_ID(), get_TrxName()), I_W_AD_OrgInfo.class);
+			
+			//	Fill the load City same as Organization
+			if (LBR_MDFEISSUERTYPE_Non_ShipperProvider.equals (getLBR_MDFeIssuerType())
+					&& oi.getC_Location_ID() > 0)
 			{
 				MLBRMDFeLoad load = new MLBRMDFeLoad (this);
 				load.setC_Region_ID (oi.getC_Location().getC_Region_ID());
-				load.setC_City_ID(oi.getC_Location().getC_City_ID());
+				load.setC_City_ID (oi.getC_Location().getC_City_ID());
 				load.save();
+				
+				//	Post-loading must have same city on both load and unload
+				if (LBR_POSTLOADING_Yes.equals(getLBR_PostLoading()))
+				{
+					MLBRMDFeUnload unload = new MLBRMDFeUnload(getCtx(), 0, get_TrxName());
+					unload.setC_Region_ID (oi.getC_Location().getC_Region_ID());
+					unload.setC_City_ID (oi.getC_Location().getC_City_ID());
+					unload.save();
+				}
+			}
+			
+			//	Fill the default Driver name
+			if (getLBR_MDFeVehicle().getLBR_MDFeDriver_ID() > 0)
+			{
+				MLBRMDFeDriverInstance di = new MLBRMDFeDriverInstance (this);
+				di.setLBR_MDFeDriver_ID(getLBR_MDFeVehicle().getLBR_MDFeDriver_ID());
+				di.save();
 			}
 		}
 		return true;
@@ -1053,6 +1074,18 @@ public class MLBRMDFe extends X_LBR_MDFe implements DocAction, DocOptions
 	 	return list.toArray(new MLBRMDFeLoad[list.size()]);
 	}	//	getLoadPlaces
 	
+	/**
+	 *  Get Unload Place
+	 *  @return MLBRMDFeUnload line or null if not found
+	 */
+	public MLBRMDFeUnload getUnloadPlace (int p_C_City_ID)
+	{
+		MTable table = MTable.get (getCtx(), MLBRMDFeUnload.Table_Name);
+		Query query =  new Query (getCtx(), table, "LBR_MDFe_ID=? AND C_City_ID=?", get_TrxName());
+	 		  query.setParameters(new Object[]{getLBR_MDFe_ID(), p_C_City_ID});
+	 	//
+	 	return query.firstOnly();
+	}	//	getUnloadPlace
 	
 	/**
 	 *  Get Unload Places

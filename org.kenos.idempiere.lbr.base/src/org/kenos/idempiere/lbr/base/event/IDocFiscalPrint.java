@@ -1,7 +1,6 @@
 package org.kenos.idempiere.lbr.base.event;
 
 import java.util.Map;
-import java.util.Properties;
 
 import org.compiere.model.MAttachment;
 

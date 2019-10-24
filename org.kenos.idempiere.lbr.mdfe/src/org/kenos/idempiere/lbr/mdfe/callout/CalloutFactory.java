@@ -11,6 +11,7 @@ import org.kenos.idempiere.lbr.mdfe.model.MLBRMDFeDriver;
 import org.kenos.idempiere.lbr.mdfe.model.MLBRMDFeInsurance;
 import org.kenos.idempiere.lbr.mdfe.model.MLBRMDFeLoad;
 import org.kenos.idempiere.lbr.mdfe.model.MLBRMDFeUnload;
+import org.kenos.idempiere.lbr.mdfe.model.MLBRMDFeUnloadDoc;
 
 /**
  * 		Callout Factory
@@ -45,6 +46,10 @@ public class CalloutFactory implements IColumnCalloutFactory
 		else if (MLBRMDFeInsurance.Table_Name.equals(tableName)
 				&& MLBRMDFeInsurance.COLUMNNAME_C_BPartner_ID.equals(columnName))
 			callouts.add (new MDFe.FillBPartner());
+		
+		else if (MLBRMDFeUnloadDoc.Table_Name.equals(tableName)
+				&& MLBRMDFeUnloadDoc.COLUMNNAME_LBR_NotaFiscal_ID.equals(columnName))
+			callouts.add (new MDFe.FillNFe());
 		
 		IColumnCallout[] result = new IColumnCallout[callouts.size()];
 		return callouts.toArray (result);

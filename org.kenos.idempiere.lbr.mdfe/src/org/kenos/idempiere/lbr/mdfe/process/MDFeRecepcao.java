@@ -146,7 +146,7 @@ public class MDFeRecepcao extends SvrProcess
 		
 		StringBuilder sb = MDFeUtil.removeNS (new StringBuilder (mdFeDocument.xmlText(NFeUtil.getXmlOpt ())));
 		
-//		ValidaXML.ValidaDocEx (MDFeUtil.HEADER + sb.toString(), MDFeUtil.XSD_VERSION + "/enviMDFe_v1.00.xsd");
+		//	Validate document
 		NFeUtil.validate (mdFeDocument);
 		
 		//	XML
@@ -242,12 +242,6 @@ public class MDFeRecepcao extends SvrProcess
 			mdfe.setProcessed(true);
 			mdfe.setDocAction(MLBRMDFe.DOCACTION_Complete);
 			mdfe.setDocStatus(MLBRMDFe.DOCSTATUS_WaitingConfirmation);
-		}
-		
-		else
-		{
-			mdfe.setDocAction(MLBRMDFe.DOCACTION_Complete);
-			mdfe.setDocStatus(MLBRMDFe.DOCSTATUS_Invalid);
 		}
 	}	//	getReturn
 }	//	RetRecepcao

@@ -108,6 +108,7 @@ public class MDFeUtil
 	public static final String EVENTO_CANCELAMENTO 			= "110111";
 	public static final String EVENTO_ENCERRAMENTO 			= "110112";
 	public static final String EVENTO_INCLUSAO_CONDUTOR		= "110114";
+	public static final String EVENTO_INCLUSAO_DFE 			= "110115";
 	public static final String EVENTO_REGISTO_PASSAGEM 		= "310620";
 
 	public static final String ENCODING 					= "UTF-8";

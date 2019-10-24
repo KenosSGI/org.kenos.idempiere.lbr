@@ -132,6 +132,31 @@ public class X_LBR_MDFeVehicle extends PO implements I_LBR_MDFeVehicle, I_Persis
 		return ii.intValue();
 	}
 
+	public org.adempierelbr.model.I_LBR_MDFeDriver getLBR_MDFeDriver() throws RuntimeException
+    {
+		return (org.adempierelbr.model.I_LBR_MDFeDriver)MTable.get(getCtx(), org.adempierelbr.model.I_LBR_MDFeDriver.Table_Name)
+			.getPO(getLBR_MDFeDriver_ID(), get_TrxName());	}
+
+	/** Set MDFe Driver.
+		@param LBR_MDFeDriver_ID MDFe Driver	  */
+	public void setLBR_MDFeDriver_ID (int LBR_MDFeDriver_ID)
+	{
+		if (LBR_MDFeDriver_ID < 1) 
+			set_Value (COLUMNNAME_LBR_MDFeDriver_ID, null);
+		else 
+			set_Value (COLUMNNAME_LBR_MDFeDriver_ID, Integer.valueOf(LBR_MDFeDriver_ID));
+	}
+
+	/** Get MDFe Driver.
+		@return MDFe Driver	  */
+	public int getLBR_MDFeDriver_ID () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_LBR_MDFeDriver_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
 	/** Set MDFe Vehicle.
 		@param LBR_MDFeVehicle_ID MDFe Vehicle	  */
 	public void setLBR_MDFeVehicle_ID (int LBR_MDFeVehicle_ID)

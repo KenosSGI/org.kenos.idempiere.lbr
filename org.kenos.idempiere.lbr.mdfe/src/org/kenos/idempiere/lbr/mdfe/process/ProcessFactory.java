@@ -29,9 +29,12 @@ public class ProcessFactory implements IProcessFactory
 		
 		if (PRINTFROMXML.equals(className))
 			return new PrintFromXML() {};
-		
+			
 		if (StatusMDFe.PROCESS_NAME.equals(className) || StatusMDFe.class.getName().equals(className))
 			return new StatusMDFe();
+		
+		if (IncludeDocument.class.getName().equals(className))
+			return new IncludeDocument();
 		
 		return null;
 	}	//	newProcessInstance

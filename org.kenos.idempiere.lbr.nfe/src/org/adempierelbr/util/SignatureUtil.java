@@ -63,6 +63,7 @@ import javax.xml.transform.stream.StreamResult;
 import org.adempiere.base.Service;
 import org.adempiere.exceptions.AdempiereException;
 import org.adempierelbr.model.MLBRDigitalCertificate;
+import org.apache.xmlbeans.XmlBeans;
 import org.apache.xmlbeans.XmlCursor;
 import org.apache.xmlbeans.XmlException;
 import org.apache.xmlbeans.XmlObject;
@@ -94,7 +95,7 @@ public class SignatureUtil
 	public static final String EVENTO				="4";
 	public static final String RPS					="5";
 	public static final String RECEPCAO_MDFE		="6";
-	public static final String OUTROS	="9";
+	public static final String OUTROS				="9";
 	
 	/**		Algoritmos		*/
 	private static final String C14N_TRANSFORM_METHOD = "http://www.w3.org/TR/2001/REC-xml-c14n-20010315";
@@ -335,7 +336,7 @@ public class SignatureUtil
 		trans.transform(new DOMSource(doc), new StreamResult (sw));
 		//
 		String xmlSignature = sw.toString();
-		xmlSignature = xmlSignature.substring(xmlSignature.indexOf("<Signature"), xmlSignature.indexOf("</Signature>")+12);
+		xmlSignature = xmlSignature.substring(xmlSignature.indexOf("<Signature"), xmlSignature.indexOf("</Signature>")+12).replaceAll("&#13;\n|\n", "");
 		
 		insertSignature (rootCursor, xmlSignature);
 	}	//	assinarDocumento
@@ -349,7 +350,7 @@ public class SignatureUtil
 	 */
 	private void insertSignature (XmlCursor rootCursor, String xmlSignature) throws XmlException
 	{
-		SignatureDocument signatureDocument = SignatureDocument.Factory.parse (xmlSignature);
+		XmlObject signatureDocument = XmlBeans.getContextTypeLoader().parse(xmlSignature, SignatureDocument.type, null);
 		
 		//	Cursor da assinatura
 		XmlCursor cursor = signatureDocument.newCursor();

@@ -123,6 +123,17 @@ public interface I_LBR_MDFeVehicle
 	  */
 	public boolean isActive();
 
+    /** Column name LBR_MDFeDriver_ID */
+    public static final String COLUMNNAME_LBR_MDFeDriver_ID = "LBR_MDFeDriver_ID";
+
+	/** Set MDFe Driver	  */
+	public void setLBR_MDFeDriver_ID (int LBR_MDFeDriver_ID);
+
+	/** Get MDFe Driver	  */
+	public int getLBR_MDFeDriver_ID();
+
+	public org.adempierelbr.model.I_LBR_MDFeDriver getLBR_MDFeDriver() throws RuntimeException;
+
     /** Column name LBR_MDFeVehicle_ID */
     public static final String COLUMNNAME_LBR_MDFeVehicle_ID = "LBR_MDFeVehicle_ID";
 

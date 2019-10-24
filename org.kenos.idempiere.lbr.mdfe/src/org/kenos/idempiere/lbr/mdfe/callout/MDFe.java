@@ -14,6 +14,7 @@ import org.compiere.model.MCity;
 import org.compiere.util.Env;
 import org.kenos.idempiere.lbr.mdfe.model.MLBRMDFe;
 import org.kenos.idempiere.lbr.mdfe.model.MLBRMDFeInsurance;
+import org.kenos.idempiere.lbr.mdfe.model.MLBRMDFeUnloadDoc;
 
 /**
  * 		Callout for MDF-e
@@ -106,7 +107,7 @@ public class MDFe
 	public static class FillBPartner implements IColumnCallout 
 	{
 		/**
-		 * 	Ajusta o campo de Ação do Documento para Anular
+		 * 	Preenche os dados de Parceiro de Negócios
 		 * 
 		 * @param ctx
 		 * @param WindowNo
@@ -128,4 +129,29 @@ public class MDFe
 			return "";
 		}	//	start
 	}	//	FillBPartner
+	
+	public static class FillNFe implements IColumnCallout 
+	{
+		/**
+		 * 	Preenche os dados da NFe no campo de documento de descarregamento
+		 * 
+		 * @param ctx
+		 * @param WindowNo
+		 * @param mTab
+		 * @param mField
+		 * @param value
+		 * @return
+		 */
+		public String start (Properties ctx, int WindowNo, GridTab mTab, GridField mField, Object value, Object oldValue)
+		{
+			if (value == null || value.toString().isEmpty())
+				return "";
+			
+			MLBRNotaFiscal nf = new MLBRNotaFiscal (ctx, (Integer) value, null);
+			mTab.setValue(MLBRMDFeUnloadDoc.COLUMNNAME_lbr_NFeID, nf.getlbr_NFeID());
+			mTab.setValue(MLBRMDFeUnloadDoc.COLUMNNAME_GrandTotal, nf.getGrandTotal());
+			//
+			return "";
+		}	//	start
+	}	//	FillNFe
 }	//	MDFe

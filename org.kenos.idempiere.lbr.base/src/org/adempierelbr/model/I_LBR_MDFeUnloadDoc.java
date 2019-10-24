@@ -108,6 +108,19 @@ public interface I_LBR_MDFeUnloadDoc
 	  */
 	public Timestamp getDateDoc();
 
+    /** Column name DateTrx */
+    public static final String COLUMNNAME_DateTrx = "DateTrx";
+
+	/** Set Transaction Date.
+	  * Transaction Date
+	  */
+	public void setDateTrx (Timestamp DateTrx);
+
+	/** Get Transaction Date.
+	  * Transaction Date
+	  */
+	public Timestamp getDateTrx();
+
     /** Column name Description */
     public static final String COLUMNNAME_Description = "Description";
 
@@ -179,6 +192,21 @@ public interface I_LBR_MDFeUnloadDoc
 	public int getLBR_MDFeUnload_ID();
 
 	public org.adempierelbr.model.I_LBR_MDFeUnload getLBR_MDFeUnload() throws RuntimeException;
+
+    /** Column name LBR_NotaFiscal_ID */
+    public static final String COLUMNNAME_LBR_NotaFiscal_ID = "LBR_NotaFiscal_ID";
+
+	/** Set Nota Fiscal.
+	  * Primary key table LBR_NotaFiscal
+	  */
+	public void setLBR_NotaFiscal_ID (int LBR_NotaFiscal_ID);
+
+	/** Get Nota Fiscal.
+	  * Primary key table LBR_NotaFiscal
+	  */
+	public int getLBR_NotaFiscal_ID();
+
+	public org.adempierelbr.model.I_LBR_NotaFiscal getLBR_NotaFiscal() throws RuntimeException;
 
     /** Column name LBR_SubSerie */
     public static final String COLUMNNAME_LBR_SubSerie = "LBR_SubSerie";
@@ -269,4 +297,13 @@ public interface I_LBR_MDFeUnloadDoc
 	  * Identification of NFe
 	  */
 	public String getlbr_NFeID();
+
+    /** Column name lbr_NFeProt */
+    public static final String COLUMNNAME_lbr_NFeProt = "lbr_NFeProt";
+
+	/** Set NFe Protocol	  */
+	public void setlbr_NFeProt (String lbr_NFeProt);
+
+	/** Get NFe Protocol	  */
+	public String getlbr_NFeProt();
 }

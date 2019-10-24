@@ -120,6 +120,23 @@ public class X_LBR_MDFeUnloadDoc extends PO implements I_LBR_MDFeUnloadDoc, I_Pe
 		return (Timestamp)get_Value(COLUMNNAME_DateDoc);
 	}
 
+	/** Set Transaction Date.
+		@param DateTrx 
+		Transaction Date
+	  */
+	public void setDateTrx (Timestamp DateTrx)
+	{
+		set_Value (COLUMNNAME_DateTrx, DateTrx);
+	}
+
+	/** Get Transaction Date.
+		@return Transaction Date
+	  */
+	public Timestamp getDateTrx () 
+	{
+		return (Timestamp)get_Value(COLUMNNAME_DateTrx);
+	}
+
 	/** Set Description.
 		@param Description 
 		Optional short description of the record
@@ -228,6 +245,34 @@ public class X_LBR_MDFeUnloadDoc extends PO implements I_LBR_MDFeUnloadDoc, I_Pe
 		return ii.intValue();
 	}
 
+	public org.adempierelbr.model.I_LBR_NotaFiscal getLBR_NotaFiscal() throws RuntimeException
+    {
+		return (org.adempierelbr.model.I_LBR_NotaFiscal)MTable.get(getCtx(), org.adempierelbr.model.I_LBR_NotaFiscal.Table_Name)
+			.getPO(getLBR_NotaFiscal_ID(), get_TrxName());	}
+
+	/** Set Nota Fiscal.
+		@param LBR_NotaFiscal_ID 
+		Primary key table LBR_NotaFiscal
+	  */
+	public void setLBR_NotaFiscal_ID (int LBR_NotaFiscal_ID)
+	{
+		if (LBR_NotaFiscal_ID < 1) 
+			set_Value (COLUMNNAME_LBR_NotaFiscal_ID, null);
+		else 
+			set_Value (COLUMNNAME_LBR_NotaFiscal_ID, Integer.valueOf(LBR_NotaFiscal_ID));
+	}
+
+	/** Get Nota Fiscal.
+		@return Primary key table LBR_NotaFiscal
+	  */
+	public int getLBR_NotaFiscal_ID () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_LBR_NotaFiscal_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
 	/** Set Sub Serie.
 		@param LBR_SubSerie 
 		Sub Serie
@@ -325,5 +370,19 @@ public class X_LBR_MDFeUnloadDoc extends PO implements I_LBR_MDFeUnloadDoc, I_Pe
 	public String getlbr_NFeID () 
 	{
 		return (String)get_Value(COLUMNNAME_lbr_NFeID);
+	}
+
+	/** Set NFe Protocol.
+		@param lbr_NFeProt NFe Protocol	  */
+	public void setlbr_NFeProt (String lbr_NFeProt)
+	{
+		set_Value (COLUMNNAME_lbr_NFeProt, lbr_NFeProt);
+	}
+
+	/** Get NFe Protocol.
+		@return NFe Protocol	  */
+	public String getlbr_NFeProt () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_NFeProt);
 	}
 }
