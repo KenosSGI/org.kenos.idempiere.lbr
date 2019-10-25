@@ -3050,6 +3050,7 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		setlbr_InsuranceAmt(Env.ZERO);
 		setlbr_NetWeight(Env.ZERO);
 		setlbr_GrossWeight(Env.ZERO);
+		setNoPackages(0);
 		
 		//	Transportadora
 		setlbr_BPShipperName(null);
