@@ -1,5 +1,6 @@
 package org.kenos.idempiere.lbr.base.zk.editor;
 
+import org.adempiere.webui.editor.WDateEditor;
 import org.adempiere.webui.editor.WEditor;
 import org.adempiere.webui.factory.IEditorFactory;
 import org.compiere.model.GridField;
@@ -23,6 +24,20 @@ public class EditorFactory implements IEditorFactory
 			return new WLocationEditor(gridField);
 		if (gridField.getDisplayType() == DisplayType.PAttribute)
 			return new WPAttributeEditor(gridTab, gridField);
+		if (gridField.getDisplayType() == DisplayType.Date)
+		{
+			return new WDateEditor(gridField)
+			{
+				@Override
+				public void setValue(Object value)
+				{
+					//	FIXME Temporary Fix due Daylight Saving Time bug in ZK/Java/PG
+					//	Fortaleza does not have DST
+					getComponent().setTimeZone("America/Fortaleza");
+					super.setValue(value);
+				}
+			};
+		}
 		return null;
 	}	//	getEditor
 }	//	EditorFactory
