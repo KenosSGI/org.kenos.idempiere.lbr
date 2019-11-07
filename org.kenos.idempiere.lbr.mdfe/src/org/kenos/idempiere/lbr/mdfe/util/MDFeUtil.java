@@ -85,6 +85,7 @@ public class MDFeUtil
 	public static final String STATUS = "STATUS";
 	
 	public static final String TYPE_RECEPCAO 		= "MDFeRecepcao";
+	public static final String TYPE_RECEPCAOSINC 	= "MDFeRecepcaoSinc";
 	public static final String TYPE_RETRECEPCAO 	= "MDFeRetRecepcao";
 	public static final String TYPE_RECEPCAOEVENTO 	= "MDFeRecepcaoEvento";
 	public static final String TYPE_CONSULTA 		= "MDFeConsulta";
@@ -150,9 +151,29 @@ public class MDFeUtil
 	 * 	@param sw
 	 * 	@return String
 	 */
+	public static String getWrapped (String s)
+	{
+		return getWrapped(new StringBuilder(s), "wrapper", null);
+	}	//	getWrapped
+
+	/**
+	 * 	Return wrapped XML
+	 * 	@param sw
+	 * 	@return String
+	 */
 	public static String getWrapped (StringBuilder sb)
 	{
-		return HEADER + "<wrapper>" + removeNS (sb) + "</wrapper>";
+		return getWrapped(sb, "wrapper", null);
+	}	//	getWrapped
+
+	/**
+	 * 	Return wrapped XML
+	 * 	@param sw
+	 * 	@return String
+	 */
+	public static String getWrapped (StringBuilder sb, String tagName, String xmlns)
+	{
+		return HEADER + "<" + tagName + (xmlns != null && !xmlns.trim().isEmpty() ? " xmlns=\"" + xmlns + "\"" : "" ) + ">" + removeNS (sb) + "</" + tagName + ">";
 	}	//	getWrapped
 
 	/**

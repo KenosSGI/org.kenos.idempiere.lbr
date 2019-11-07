@@ -1,20 +1,20 @@
 
 /**
- * MDFeRecepcaoEventoStub.java
+ * MDFeDistribuicaoDFeStub.java
  *
  * This file was auto-generated from WSDL
  * by the Apache Axis2 version: 1.6.2  Built on : Apr 17, 2012 (05:33:49 IST)
  */
-        package br.inf.portalfiscal.www.mdfe.wsdl.mdferecepcaoevento;
+        package br.inf.portalfiscal.www.mdfe.wsdl.mdfedistribuicaodfe;
 
         
 
         /*
-        *  MDFeRecepcaoEventoStub java implementation
+        *  MDFeDistribuicaoDFeStub java implementation
         */
 
         
-        public class MDFeRecepcaoEventoStub extends org.apache.axis2.client.Stub
+        public class MDFeDistribuicaoDFeStub extends org.apache.axis2.client.Stub
         {
         protected org.apache.axis2.description.AxisOperation[] _operations;
 
@@ -38,7 +38,7 @@
     private void populateAxisService() throws org.apache.axis2.AxisFault {
 
      //creating the Service with a unique name
-     _service = new org.apache.axis2.description.AxisService("MDFeRecepcaoEvento" + getUniqueSuffix());
+     _service = new org.apache.axis2.description.AxisService("MDFeDistribuicaoDFe" + getUniqueSuffix());
      addAnonymousOperations();
 
         //creating the operations
@@ -49,7 +49,7 @@
                    __operation = new org.apache.axis2.description.OutInAxisOperation();
                 
 
-            __operation.setName(new javax.xml.namespace.QName("http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeRecepcaoEvento", "mdfeRecepcaoEvento"));
+            __operation.setName(new javax.xml.namespace.QName("http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeDistribuicaoDFe", "mdfeDistDFeInteresse"));
 	    _service.addOperation(__operation);
 	    
 
@@ -71,7 +71,7 @@
       *Constructor that takes in a configContext
       */
 
-    public MDFeRecepcaoEventoStub(org.apache.axis2.context.ConfigurationContext configurationContext,
+    public MDFeDistribuicaoDFeStub(org.apache.axis2.context.ConfigurationContext configurationContext,
        java.lang.String targetEndpoint)
        throws org.apache.axis2.AxisFault {
          this(configurationContext,targetEndpoint,false);
@@ -81,7 +81,7 @@
    /**
      * Constructor that takes in a configContext  and useseperate listner
      */
-   public MDFeRecepcaoEventoStub(org.apache.axis2.context.ConfigurationContext configurationContext,
+   public MDFeDistribuicaoDFeStub(org.apache.axis2.context.ConfigurationContext configurationContext,
         java.lang.String targetEndpoint, boolean useSeparateListener)
         throws org.apache.axis2.AxisFault {
          //To populate AxisService
@@ -104,25 +104,25 @@
     /**
      * Default Constructor
      */
-    public MDFeRecepcaoEventoStub(org.apache.axis2.context.ConfigurationContext configurationContext) throws org.apache.axis2.AxisFault {
+    public MDFeDistribuicaoDFeStub(org.apache.axis2.context.ConfigurationContext configurationContext) throws org.apache.axis2.AxisFault {
         
-                    this(configurationContext,"https://mdfe.svrs.rs.gov.br/ws/MDFeRecepcaoEvento/MDFeRecepcaoEvento.asmx" );
+                    this(configurationContext,"https://mdfe.svrs.rs.gov.br/ws/MDFeDistribuicaoDFe/MDFeDistribuicaoDFe.asmx" );
                 
     }
 
     /**
      * Default Constructor
      */
-    public MDFeRecepcaoEventoStub() throws org.apache.axis2.AxisFault {
+    public MDFeDistribuicaoDFeStub() throws org.apache.axis2.AxisFault {
         
-                    this("https://mdfe.svrs.rs.gov.br/ws/MDFeRecepcaoEvento/MDFeRecepcaoEvento.asmx" );
+                    this("https://mdfe.svrs.rs.gov.br/ws/MDFeDistribuicaoDFe/MDFeDistribuicaoDFe.asmx" );
                 
     }
 
     /**
      * Constructor taking the target endpoint
      */
-    public MDFeRecepcaoEventoStub(java.lang.String targetEndpoint) throws org.apache.axis2.AxisFault {
+    public MDFeDistribuicaoDFeStub(java.lang.String targetEndpoint) throws org.apache.axis2.AxisFault {
         this(null,targetEndpoint);
     }
 
@@ -132,7 +132,7 @@
                     /**
                      * Auto generated method signature
                      * 
-                     * @see br.inf.portalfiscal.www.mdfe.wsdl.mdferecepcaoevento.MDFeRecepcaoEvento#mdfeRecepcaoEvento
+                     * @see br.inf.portalfiscal.www.mdfe.wsdl.mdfedistribuicaodfe.MDFeDistribuicaoDFe#mdfeDistDFeInteresse
                      * @param mdfeDadosMsg0
                     
                      * @param mdfeCabecMsg1
@@ -141,9 +141,9 @@
 
                     
 
-                            public  br.inf.portalfiscal.www.mdfe.wsdl.mdferecepcaoevento.MDFeRecepcaoEventoStub.MdfeRecepcaoEventoResult mdfeRecepcaoEvento(
+                            public  br.inf.portalfiscal.www.mdfe.wsdl.mdfedistribuicaodfe.MDFeDistribuicaoDFeStub.MdfeDistDFeInteresseResult mdfeDistDFeInteresse(
 
-                            br.inf.portalfiscal.www.mdfe.wsdl.mdferecepcaoevento.MDFeRecepcaoEventoStub.MdfeDadosMsg mdfeDadosMsg0,br.inf.portalfiscal.www.mdfe.wsdl.mdferecepcaoevento.MDFeRecepcaoEventoStub.MdfeCabecMsgE mdfeCabecMsg1)
+                            br.inf.portalfiscal.www.mdfe.wsdl.mdfedistribuicaodfe.MDFeDistribuicaoDFeStub.MdfeDadosMsg mdfeDadosMsg0,br.inf.portalfiscal.www.mdfe.wsdl.mdfedistribuicaodfe.MDFeDistribuicaoDFeStub.MdfeCabecMsgE mdfeCabecMsg1)
                         
 
                     throws java.rmi.RemoteException
@@ -152,7 +152,7 @@
               org.apache.axis2.context.MessageContext _messageContext = null;
               try{
                org.apache.axis2.client.OperationClient _operationClient = _serviceClient.createClient(_operations[0].getName());
-              _operationClient.getOptions().setAction("http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeRecepcaoEvento/mdfeRecepcaoEvento");
+              _operationClient.getOptions().setAction("http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeDistribuicaoDFe/mdfeDistDFeInteresse");
               _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
               
@@ -171,16 +171,16 @@
                                                     
                                                     env = toEnvelope(getFactory(_operationClient.getOptions().getSoapVersionURI()),
                                                     mdfeDadosMsg0,
-                                                    optimizeContent(new javax.xml.namespace.QName("http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeRecepcaoEvento",
-                                                    "mdfeRecepcaoEvento")), new javax.xml.namespace.QName("http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeRecepcaoEvento",
-                                                    "mdfeRecepcaoEvento"));
+                                                    optimizeContent(new javax.xml.namespace.QName("http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeDistribuicaoDFe",
+                                                    "mdfeDistDFeInteresse")), new javax.xml.namespace.QName("http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeDistribuicaoDFe",
+                                                    "mdfeDistDFeInteresse"));
                                                 
                                                env.build();
                                     
                                         // add the children only if the parameter is not null
                                         if (mdfeCabecMsg1!=null){
                                             
-                                                    org.apache.axiom.om.OMElement omElementmdfeCabecMsg1 = toOM(mdfeCabecMsg1, optimizeContent(new javax.xml.namespace.QName("http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeRecepcaoEvento", "mdfeRecepcaoEvento")));
+                                                    org.apache.axiom.om.OMElement omElementmdfeCabecMsg1 = toOM(mdfeCabecMsg1, optimizeContent(new javax.xml.namespace.QName("http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeDistribuicaoDFe", "mdfeDistDFeInteresse")));
                                                     addHeader(omElementmdfeCabecMsg1,env);
                                                 
                                         }
@@ -204,25 +204,25 @@
                 
                                 java.lang.Object object = fromOM(
                                              _returnEnv.getBody().getFirstElement() ,
-                                             br.inf.portalfiscal.www.mdfe.wsdl.mdferecepcaoevento.MDFeRecepcaoEventoStub.MdfeRecepcaoEventoResult.class,
+                                             br.inf.portalfiscal.www.mdfe.wsdl.mdfedistribuicaodfe.MDFeDistribuicaoDFeStub.MdfeDistDFeInteresseResult.class,
                                               getEnvelopeNamespaces(_returnEnv));
 
                                
-                                        return (br.inf.portalfiscal.www.mdfe.wsdl.mdferecepcaoevento.MDFeRecepcaoEventoStub.MdfeRecepcaoEventoResult)object;
+                                        return (br.inf.portalfiscal.www.mdfe.wsdl.mdfedistribuicaodfe.MDFeDistribuicaoDFeStub.MdfeDistDFeInteresseResult)object;
                                    
          }catch(org.apache.axis2.AxisFault f){
 
             org.apache.axiom.om.OMElement faultElt = f.getDetail();
             if (faultElt!=null){
-                if (faultExceptionNameMap.containsKey(new org.apache.axis2.client.FaultMapKey(faultElt.getQName(),"mdfeRecepcaoEvento"))){
+                if (faultExceptionNameMap.containsKey(new org.apache.axis2.client.FaultMapKey(faultElt.getQName(),"mdfeDistDFeInteresse"))){
                     //make the fault by reflection
                     try{
-                        java.lang.String exceptionClassName = (java.lang.String)faultExceptionClassNameMap.get(new org.apache.axis2.client.FaultMapKey(faultElt.getQName(),"mdfeRecepcaoEvento"));
+                        java.lang.String exceptionClassName = (java.lang.String)faultExceptionClassNameMap.get(new org.apache.axis2.client.FaultMapKey(faultElt.getQName(),"mdfeDistDFeInteresse"));
                         java.lang.Class exceptionClass = java.lang.Class.forName(exceptionClassName);
                         java.lang.reflect.Constructor constructor = exceptionClass.getConstructor(String.class);
                         java.lang.Exception ex = (java.lang.Exception) constructor.newInstance(f.getMessage());
                         //message class
-                        java.lang.String messageClassName = (java.lang.String)faultMessageMap.get(new org.apache.axis2.client.FaultMapKey(faultElt.getQName(),"mdfeRecepcaoEvento"));
+                        java.lang.String messageClassName = (java.lang.String)faultMessageMap.get(new org.apache.axis2.client.FaultMapKey(faultElt.getQName(),"mdfeDistDFeInteresse"));
                         java.lang.Class messageClass = java.lang.Class.forName(messageClassName);
                         java.lang.Object messageObject = fromOM(faultElt,messageClass,null);
                         java.lang.reflect.Method m = exceptionClass.getMethod("setFaultMessage",
@@ -266,23 +266,23 @@
                 /**
                 * Auto generated method signature for Asynchronous Invocations
                 * 
-                * @see br.inf.portalfiscal.www.mdfe.wsdl.mdferecepcaoevento.MDFeRecepcaoEvento#startmdfeRecepcaoEvento
+                * @see br.inf.portalfiscal.www.mdfe.wsdl.mdfedistribuicaodfe.MDFeDistribuicaoDFe#startmdfeDistDFeInteresse
                     * @param mdfeDadosMsg0
                 
                     * @param mdfeCabecMsg1
                 
                 */
-                public  void startmdfeRecepcaoEvento(
+                public  void startmdfeDistDFeInteresse(
 
-                 br.inf.portalfiscal.www.mdfe.wsdl.mdferecepcaoevento.MDFeRecepcaoEventoStub.MdfeDadosMsg mdfeDadosMsg0,br.inf.portalfiscal.www.mdfe.wsdl.mdferecepcaoevento.MDFeRecepcaoEventoStub.MdfeCabecMsgE mdfeCabecMsg1,
+                 br.inf.portalfiscal.www.mdfe.wsdl.mdfedistribuicaodfe.MDFeDistribuicaoDFeStub.MdfeDadosMsg mdfeDadosMsg0,br.inf.portalfiscal.www.mdfe.wsdl.mdfedistribuicaodfe.MDFeDistribuicaoDFeStub.MdfeCabecMsgE mdfeCabecMsg1,
                     
 
-                  final br.inf.portalfiscal.www.mdfe.wsdl.mdferecepcaoevento.MDFeRecepcaoEventoCallbackHandler callback)
+                  final br.inf.portalfiscal.www.mdfe.wsdl.mdfedistribuicaodfe.MDFeDistribuicaoDFeCallbackHandler callback)
 
                 throws java.rmi.RemoteException{
 
               org.apache.axis2.client.OperationClient _operationClient = _serviceClient.createClient(_operations[0].getName());
-             _operationClient.getOptions().setAction("http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeRecepcaoEvento/mdfeRecepcaoEvento");
+             _operationClient.getOptions().setAction("http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeDistribuicaoDFe/mdfeDistDFeInteresse");
              _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
               
@@ -301,14 +301,14 @@
                                                     
                                                     env = toEnvelope(getFactory(_operationClient.getOptions().getSoapVersionURI()),
                                                     mdfeDadosMsg0,
-                                                    optimizeContent(new javax.xml.namespace.QName("http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeRecepcaoEvento",
-                                                    "mdfeRecepcaoEvento")), new javax.xml.namespace.QName("http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeRecepcaoEvento",
-                                                    "mdfeRecepcaoEvento"));
+                                                    optimizeContent(new javax.xml.namespace.QName("http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeDistribuicaoDFe",
+                                                    "mdfeDistDFeInteresse")), new javax.xml.namespace.QName("http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeDistribuicaoDFe",
+                                                    "mdfeDistDFeInteresse"));
                                                 
                                          // add the soap_headers only if they are not null
                                         if (mdfeCabecMsg1!=null){
                                            
-                                                    org.apache.axiom.om.OMElement omElementmdfeCabecMsg1 = toOM(mdfeCabecMsg1, optimizeContent(new javax.xml.namespace.QName("http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeRecepcaoEvento", "mdfeRecepcaoEvento")));
+                                                    org.apache.axiom.om.OMElement omElementmdfeCabecMsg1 = toOM(mdfeCabecMsg1, optimizeContent(new javax.xml.namespace.QName("http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeDistribuicaoDFe", "mdfeDistDFeInteresse")));
                                                     addHeader(omElementmdfeCabecMsg1,env);
                                                 
                                         }
@@ -329,13 +329,13 @@
                                 org.apache.axiom.soap.SOAPEnvelope resultEnv = resultContext.getEnvelope();
                                 
                                         java.lang.Object object = fromOM(resultEnv.getBody().getFirstElement(),
-                                                                         br.inf.portalfiscal.www.mdfe.wsdl.mdferecepcaoevento.MDFeRecepcaoEventoStub.MdfeRecepcaoEventoResult.class,
+                                                                         br.inf.portalfiscal.www.mdfe.wsdl.mdfedistribuicaodfe.MDFeDistribuicaoDFeStub.MdfeDistDFeInteresseResult.class,
                                                                          getEnvelopeNamespaces(resultEnv));
-                                        callback.receiveResultmdfeRecepcaoEvento(
-                                        (br.inf.portalfiscal.www.mdfe.wsdl.mdferecepcaoevento.MDFeRecepcaoEventoStub.MdfeRecepcaoEventoResult)object);
+                                        callback.receiveResultmdfeDistDFeInteresse(
+                                        (br.inf.portalfiscal.www.mdfe.wsdl.mdfedistribuicaodfe.MDFeDistribuicaoDFeStub.MdfeDistDFeInteresseResult)object);
                                         
                             } catch (org.apache.axis2.AxisFault e) {
-                                callback.receiveErrormdfeRecepcaoEvento(e);
+                                callback.receiveErrormdfeDistDFeInteresse(e);
                             }
                             }
 
@@ -344,15 +344,15 @@
 									org.apache.axis2.AxisFault f = (org.apache.axis2.AxisFault) error;
 									org.apache.axiom.om.OMElement faultElt = f.getDetail();
 									if (faultElt!=null){
-										if (faultExceptionNameMap.containsKey(new org.apache.axis2.client.FaultMapKey(faultElt.getQName(),"mdfeRecepcaoEvento"))){
+										if (faultExceptionNameMap.containsKey(new org.apache.axis2.client.FaultMapKey(faultElt.getQName(),"mdfeDistDFeInteresse"))){
 											//make the fault by reflection
 											try{
-													java.lang.String exceptionClassName = (java.lang.String)faultExceptionClassNameMap.get(new org.apache.axis2.client.FaultMapKey(faultElt.getQName(),"mdfeRecepcaoEvento"));
+													java.lang.String exceptionClassName = (java.lang.String)faultExceptionClassNameMap.get(new org.apache.axis2.client.FaultMapKey(faultElt.getQName(),"mdfeDistDFeInteresse"));
 													java.lang.Class exceptionClass = java.lang.Class.forName(exceptionClassName);
 													java.lang.reflect.Constructor constructor = exceptionClass.getConstructor(String.class);
                                                     java.lang.Exception ex = (java.lang.Exception) constructor.newInstance(f.getMessage());
 													//message class
-													java.lang.String messageClassName = (java.lang.String)faultMessageMap.get(new org.apache.axis2.client.FaultMapKey(faultElt.getQName(),"mdfeRecepcaoEvento"));
+													java.lang.String messageClassName = (java.lang.String)faultMessageMap.get(new org.apache.axis2.client.FaultMapKey(faultElt.getQName(),"mdfeDistDFeInteresse"));
 														java.lang.Class messageClass = java.lang.Class.forName(messageClassName);
 													java.lang.Object messageObject = fromOM(faultElt,messageClass,null);
 													java.lang.reflect.Method m = exceptionClass.getMethod("setFaultMessage",
@@ -360,37 +360,37 @@
 													m.invoke(ex,new java.lang.Object[]{messageObject});
 													
 					
-										            callback.receiveErrormdfeRecepcaoEvento(new java.rmi.RemoteException(ex.getMessage(), ex));
+										            callback.receiveErrormdfeDistDFeInteresse(new java.rmi.RemoteException(ex.getMessage(), ex));
                                             } catch(java.lang.ClassCastException e){
                                                 // we cannot intantiate the class - throw the original Axis fault
-                                                callback.receiveErrormdfeRecepcaoEvento(f);
+                                                callback.receiveErrormdfeDistDFeInteresse(f);
                                             } catch (java.lang.ClassNotFoundException e) {
                                                 // we cannot intantiate the class - throw the original Axis fault
-                                                callback.receiveErrormdfeRecepcaoEvento(f);
+                                                callback.receiveErrormdfeDistDFeInteresse(f);
                                             } catch (java.lang.NoSuchMethodException e) {
                                                 // we cannot intantiate the class - throw the original Axis fault
-                                                callback.receiveErrormdfeRecepcaoEvento(f);
+                                                callback.receiveErrormdfeDistDFeInteresse(f);
                                             } catch (java.lang.reflect.InvocationTargetException e) {
                                                 // we cannot intantiate the class - throw the original Axis fault
-                                                callback.receiveErrormdfeRecepcaoEvento(f);
+                                                callback.receiveErrormdfeDistDFeInteresse(f);
                                             } catch (java.lang.IllegalAccessException e) {
                                                 // we cannot intantiate the class - throw the original Axis fault
-                                                callback.receiveErrormdfeRecepcaoEvento(f);
+                                                callback.receiveErrormdfeDistDFeInteresse(f);
                                             } catch (java.lang.InstantiationException e) {
                                                 // we cannot intantiate the class - throw the original Axis fault
-                                                callback.receiveErrormdfeRecepcaoEvento(f);
+                                                callback.receiveErrormdfeDistDFeInteresse(f);
                                             } catch (org.apache.axis2.AxisFault e) {
                                                 // we cannot intantiate the class - throw the original Axis fault
-                                                callback.receiveErrormdfeRecepcaoEvento(f);
+                                                callback.receiveErrormdfeDistDFeInteresse(f);
                                             }
 									    } else {
-										    callback.receiveErrormdfeRecepcaoEvento(f);
+										    callback.receiveErrormdfeDistDFeInteresse(f);
 									    }
 									} else {
-									    callback.receiveErrormdfeRecepcaoEvento(f);
+									    callback.receiveErrormdfeDistDFeInteresse(f);
 									}
 								} else {
-								    callback.receiveErrormdfeRecepcaoEvento(error);
+								    callback.receiveErrormdfeDistDFeInteresse(error);
 								}
                             }
 
@@ -403,7 +403,7 @@
                                 try {
                                     _messageContext.getTransportOut().getSender().cleanup(_messageContext);
                                 } catch (org.apache.axis2.AxisFault axisFault) {
-                                    callback.receiveErrormdfeRecepcaoEvento(axisFault);
+                                    callback.receiveErrormdfeDistDFeInteresse(axisFault);
                                 }
                             }
                 });
@@ -452,7 +452,7 @@
         }
         return false;
     }
-     //https://mdfe.svrs.rs.gov.br/ws/MDFeRecepcaoEvento/MDFeRecepcaoEvento.asmx
+     //https://mdfe.svrs.rs.gov.br/ws/MDFeDistribuicaoDFe/MDFeDistribuicaoDFe.asmx
         public static class ExtensionMapper{
 
           public static java.lang.Object getTypeObject(java.lang.String namespaceURI,
@@ -461,7 +461,7 @@
 
               
                   if (
-                  "http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeRecepcaoEvento".equals(namespaceURI) &&
+                  "http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeDistribuicaoDFe".equals(namespaceURI) &&
                   "mdfeCabecMsg".equals(typeName)){
                    
                             return  MdfeCabecMsg.Factory.parse(reader);
@@ -475,11 +475,434 @@
 
         }
     
+        public static class MdfeDistDFeInteresseResult
+        implements org.apache.axis2.databinding.ADBBean{
+        
+                public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName(
+                "http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeDistribuicaoDFe",
+                "mdfeDistDFeInteresseResult",
+                "ns1");
+
+            
+
+                        /**
+                        * field for ExtraElement
+                        */
+
+                        
+                                    protected org.apache.axiom.om.OMElement localExtraElement ;
+                                
+
+                           /**
+                           * Auto generated getter method
+                           * @return org.apache.axiom.om.OMElement
+                           */
+                           public  org.apache.axiom.om.OMElement getExtraElement(){
+                               return localExtraElement;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param ExtraElement
+                               */
+                               public void setExtraElement(org.apache.axiom.om.OMElement param){
+                            
+                                            this.localExtraElement=param;
+                                    
+
+                               }
+                            
+
+     
+     
+        /**
+        *
+        * @param parentQName
+        * @param factory
+        * @return org.apache.axiom.om.OMElement
+        */
+       public org.apache.axiom.om.OMElement getOMElement (
+               final javax.xml.namespace.QName parentQName,
+               final org.apache.axiom.om.OMFactory factory) throws org.apache.axis2.databinding.ADBException{
+
+
+        
+               org.apache.axiom.om.OMDataSource dataSource =
+                       new org.apache.axis2.databinding.ADBDataSource(this,MY_QNAME);
+               return factory.createOMElement(dataSource,MY_QNAME);
+            
+        }
+
+         public void serialize(final javax.xml.namespace.QName parentQName,
+                                       javax.xml.stream.XMLStreamWriter xmlWriter)
+                                throws javax.xml.stream.XMLStreamException, org.apache.axis2.databinding.ADBException{
+                           serialize(parentQName,xmlWriter,false);
+         }
+
+         public void serialize(final javax.xml.namespace.QName parentQName,
+                               javax.xml.stream.XMLStreamWriter xmlWriter,
+                               boolean serializeType)
+            throws javax.xml.stream.XMLStreamException, org.apache.axis2.databinding.ADBException{
+            
+                
+
+
+                java.lang.String prefix = null;
+                java.lang.String namespace = null;
+                
+
+                    prefix = parentQName.getPrefix();
+                    namespace = parentQName.getNamespaceURI();
+                    writeStartElement(prefix, namespace, parentQName.getLocalPart(), xmlWriter);
+                
+                  if (serializeType){
+               
+
+                   java.lang.String namespacePrefix = registerPrefix(xmlWriter,"http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeDistribuicaoDFe");
+                   if ((namespacePrefix != null) && (namespacePrefix.trim().length() > 0)){
+                       writeAttribute("xsi","http://www.w3.org/2001/XMLSchema-instance","type",
+                           namespacePrefix+":mdfeDistDFeInteresseResult",
+                           xmlWriter);
+                   } else {
+                       writeAttribute("xsi","http://www.w3.org/2001/XMLSchema-instance","type",
+                           "mdfeDistDFeInteresseResult",
+                           xmlWriter);
+                   }
+
+               
+                   }
+               
+                            
+                            if (localExtraElement != null) {
+                                localExtraElement.serialize(xmlWriter);
+                            } else {
+                               throw new org.apache.axis2.databinding.ADBException("extraElement cannot be null!!");
+                            }
+                        
+                    xmlWriter.writeEndElement();
+               
+
+        }
+
+        private static java.lang.String generatePrefix(java.lang.String namespace) {
+            if(namespace.equals("http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeDistribuicaoDFe")){
+                return "ns1";
+            }
+            return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
+        }
+
+        /**
+         * Utility method to write an element start tag.
+         */
+        private void writeStartElement(java.lang.String prefix, java.lang.String namespace, java.lang.String localPart,
+                                       javax.xml.stream.XMLStreamWriter xmlWriter) throws javax.xml.stream.XMLStreamException {
+            java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+            if (writerPrefix != null) {
+                xmlWriter.writeStartElement(namespace, localPart);
+            } else {
+                if (namespace.length() == 0) {
+                    prefix = "";
+                } else if (prefix == null) {
+                    prefix = generatePrefix(namespace);
+                }
+
+                xmlWriter.writeStartElement(prefix, localPart, namespace);
+                xmlWriter.writeNamespace(prefix, namespace);
+                xmlWriter.setPrefix(prefix, namespace);
+            }
+        }
+        
+        /**
+         * Util method to write an attribute with the ns prefix
+         */
+        private void writeAttribute(java.lang.String prefix,java.lang.String namespace,java.lang.String attName,
+                                    java.lang.String attValue,javax.xml.stream.XMLStreamWriter xmlWriter) throws javax.xml.stream.XMLStreamException{
+            if (xmlWriter.getPrefix(namespace) == null) {
+                xmlWriter.writeNamespace(prefix, namespace);
+                xmlWriter.setPrefix(prefix, namespace);
+            }
+            xmlWriter.writeAttribute(namespace,attName,attValue);
+        }
+
+        /**
+         * Util method to write an attribute without the ns prefix
+         */
+        private void writeAttribute(java.lang.String namespace,java.lang.String attName,
+                                    java.lang.String attValue,javax.xml.stream.XMLStreamWriter xmlWriter) throws javax.xml.stream.XMLStreamException{
+            if (namespace.equals("")) {
+                xmlWriter.writeAttribute(attName,attValue);
+            } else {
+                registerPrefix(xmlWriter, namespace);
+                xmlWriter.writeAttribute(namespace,attName,attValue);
+            }
+        }
+
+
+           /**
+             * Util method to write an attribute without the ns prefix
+             */
+            private void writeQNameAttribute(java.lang.String namespace, java.lang.String attName,
+                                             javax.xml.namespace.QName qname, javax.xml.stream.XMLStreamWriter xmlWriter) throws javax.xml.stream.XMLStreamException {
+
+                java.lang.String attributeNamespace = qname.getNamespaceURI();
+                java.lang.String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
+                if (attributePrefix == null) {
+                    attributePrefix = registerPrefix(xmlWriter, attributeNamespace);
+                }
+                java.lang.String attributeValue;
+                if (attributePrefix.trim().length() > 0) {
+                    attributeValue = attributePrefix + ":" + qname.getLocalPart();
+                } else {
+                    attributeValue = qname.getLocalPart();
+                }
+
+                if (namespace.equals("")) {
+                    xmlWriter.writeAttribute(attName, attributeValue);
+                } else {
+                    registerPrefix(xmlWriter, namespace);
+                    xmlWriter.writeAttribute(namespace, attName, attributeValue);
+                }
+            }
+        /**
+         *  method to handle Qnames
+         */
+
+        private void writeQName(javax.xml.namespace.QName qname,
+                                javax.xml.stream.XMLStreamWriter xmlWriter) throws javax.xml.stream.XMLStreamException {
+            java.lang.String namespaceURI = qname.getNamespaceURI();
+            if (namespaceURI != null) {
+                java.lang.String prefix = xmlWriter.getPrefix(namespaceURI);
+                if (prefix == null) {
+                    prefix = generatePrefix(namespaceURI);
+                    xmlWriter.writeNamespace(prefix, namespaceURI);
+                    xmlWriter.setPrefix(prefix,namespaceURI);
+                }
+
+                if (prefix.trim().length() > 0){
+                    xmlWriter.writeCharacters(prefix + ":" + org.apache.axis2.databinding.utils.ConverterUtil.convertToString(qname));
+                } else {
+                    // i.e this is the default namespace
+                    xmlWriter.writeCharacters(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(qname));
+                }
+
+            } else {
+                xmlWriter.writeCharacters(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(qname));
+            }
+        }
+
+        private void writeQNames(javax.xml.namespace.QName[] qnames,
+                                 javax.xml.stream.XMLStreamWriter xmlWriter) throws javax.xml.stream.XMLStreamException {
+
+            if (qnames != null) {
+                // we have to store this data until last moment since it is not possible to write any
+                // namespace data after writing the charactor data
+                java.lang.StringBuffer stringToWrite = new java.lang.StringBuffer();
+                java.lang.String namespaceURI = null;
+                java.lang.String prefix = null;
+
+                for (int i = 0; i < qnames.length; i++) {
+                    if (i > 0) {
+                        stringToWrite.append(" ");
+                    }
+                    namespaceURI = qnames[i].getNamespaceURI();
+                    if (namespaceURI != null) {
+                        prefix = xmlWriter.getPrefix(namespaceURI);
+                        if ((prefix == null) || (prefix.length() == 0)) {
+                            prefix = generatePrefix(namespaceURI);
+                            xmlWriter.writeNamespace(prefix, namespaceURI);
+                            xmlWriter.setPrefix(prefix,namespaceURI);
+                        }
+
+                        if (prefix.trim().length() > 0){
+                            stringToWrite.append(prefix).append(":").append(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(qnames[i]));
+                        } else {
+                            stringToWrite.append(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(qnames[i]));
+                        }
+                    } else {
+                        stringToWrite.append(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(qnames[i]));
+                    }
+                }
+                xmlWriter.writeCharacters(stringToWrite.toString());
+            }
+
+        }
+
+
+        /**
+         * Register a namespace prefix
+         */
+        private java.lang.String registerPrefix(javax.xml.stream.XMLStreamWriter xmlWriter, java.lang.String namespace) throws javax.xml.stream.XMLStreamException {
+            java.lang.String prefix = xmlWriter.getPrefix(namespace);
+            if (prefix == null) {
+                prefix = generatePrefix(namespace);
+                javax.xml.namespace.NamespaceContext nsContext = xmlWriter.getNamespaceContext();
+                while (true) {
+                    java.lang.String uri = nsContext.getNamespaceURI(prefix);
+                    if (uri == null || uri.length() == 0) {
+                        break;
+                    }
+                    prefix = org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
+                }
+                xmlWriter.writeNamespace(prefix, namespace);
+                xmlWriter.setPrefix(prefix, namespace);
+            }
+            return prefix;
+        }
+
+
+  
+        /**
+        * databinding method to get an XML representation of this object
+        *
+        */
+        public javax.xml.stream.XMLStreamReader getPullParser(javax.xml.namespace.QName qName)
+                    throws org.apache.axis2.databinding.ADBException{
+
+
+        
+                 java.util.ArrayList elementList = new java.util.ArrayList();
+                 java.util.ArrayList attribList = new java.util.ArrayList();
+
+                
+                            if (localExtraElement != null){
+                                elementList.add(org.apache.axis2.databinding.utils.Constants.OM_ELEMENT_KEY);
+                                elementList.add(localExtraElement);
+                            } else {
+                               throw new org.apache.axis2.databinding.ADBException("extraElement cannot be null!!");
+                            }
+                        
+
+                return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
+            
+            
+
+        }
+
+  
+
+     /**
+      *  Factory class that keeps the parse method
+      */
+    public static class Factory{
+
+        
+        
+
+        /**
+        * static method to create the object
+        * Precondition:  If this object is an element, the current or next start element starts this object and any intervening reader events are ignorable
+        *                If this object is not an element, it is a complex type and the reader is at the event just after the outer start element
+        * Postcondition: If this object is an element, the reader is positioned at its end element
+        *                If this object is a complex type, the reader is positioned at the end element of its outer element
+        */
+        public static MdfeDistDFeInteresseResult parse(javax.xml.stream.XMLStreamReader reader) throws java.lang.Exception{
+            MdfeDistDFeInteresseResult object =
+                new MdfeDistDFeInteresseResult();
+
+            int event;
+            java.lang.String nillableValue = null;
+            java.lang.String prefix ="";
+            java.lang.String namespaceuri ="";
+            try {
+                
+                while (!reader.isStartElement() && !reader.isEndElement())
+                    reader.next();
+
+                
+                if (reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","type")!=null){
+                  java.lang.String fullTypeName = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance",
+                        "type");
+                  if (fullTypeName!=null){
+                    java.lang.String nsPrefix = null;
+                    if (fullTypeName.indexOf(":") > -1){
+                        nsPrefix = fullTypeName.substring(0,fullTypeName.indexOf(":"));
+                    }
+                    nsPrefix = nsPrefix==null?"":nsPrefix;
+
+                    java.lang.String type = fullTypeName.substring(fullTypeName.indexOf(":")+1);
+                    
+                            if (!"mdfeDistDFeInteresseResult".equals(type)){
+                                //find namespace for the prefix
+                                java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
+                                return (MdfeDistDFeInteresseResult)ExtensionMapper.getTypeObject(
+                                     nsUri,type,reader);
+                              }
+                        
+
+                  }
+                
+
+                }
+
+                
+
+                
+                // Note all attributes that were handled. Used to differ normal attributes
+                // from anyAttributes.
+                java.util.Vector handledAttributes = new java.util.Vector();
+                
+
+                
+                    
+                    reader.next();
+                
+                                    
+                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
+                                
+                                   if (reader.isStartElement()){
+                                
+                                    
+                                     
+                                     //use the QName from the parser as the name for the builder
+                                     javax.xml.namespace.QName startQname1 = reader.getName();
+
+                                     // We need to wrap the reader so that it produces a fake START_DOCUMENT event
+                                     // this is needed by the builder classes
+                                     org.apache.axis2.databinding.utils.NamedStaxOMBuilder builder1 =
+                                         new org.apache.axis2.databinding.utils.NamedStaxOMBuilder(
+                                             new org.apache.axis2.util.StreamWrapper(reader),startQname1);
+                                     object.setExtraElement(builder1.getOMElement());
+                                       
+                                         reader.next();
+                                     
+                              }  // End of if for expected property start element
+                                
+                                else{
+                                    // A start element we are not expecting indicates an invalid parameter was passed
+                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
+                                }
+                              
+                            while (!reader.isStartElement() && !reader.isEndElement())
+                                reader.next();
+                            
+                                if (reader.isStartElement())
+                                // A start element we are not expecting indicates a trailing invalid property
+                                throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
+                            
+
+
+
+            } catch (javax.xml.stream.XMLStreamException e) {
+                throw new java.lang.Exception(e);
+            }
+
+            return object;
+        }
+
+        }//end of factory class
+
+        
+
+        }
+           
+    
         public static class MdfeCabecMsgE
         implements org.apache.axis2.databinding.ADBBean{
         
                 public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName(
-                "http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeRecepcaoEvento",
+                "http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeDistribuicaoDFe",
                 "mdfeCabecMsg",
                 "ns1");
 
@@ -558,7 +981,7 @@
         }
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
-            if(namespace.equals("http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeRecepcaoEvento")){
+            if(namespace.equals("http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeDistribuicaoDFe")){
                 return "ns1";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
@@ -781,7 +1204,7 @@
                 while(!reader.isEndElement()) {
                     if (reader.isStartElement() ){
                 
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeRecepcaoEvento","mdfeCabecMsg").equals(reader.getName())){
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeDistribuicaoDFe","mdfeCabecMsg").equals(reader.getName())){
                                 
                                                 object.setMdfeCabecMsg(MdfeCabecMsg.Factory.parse(reader));
                                             
@@ -818,7 +1241,7 @@
         implements org.apache.axis2.databinding.ADBBean{
         
                 public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName(
-                "http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeRecepcaoEvento",
+                "http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeDistribuicaoDFe",
                 "mdfeDadosMsg",
                 "ns1");
 
@@ -899,7 +1322,7 @@
                   if (serializeType){
                
 
-                   java.lang.String namespacePrefix = registerPrefix(xmlWriter,"http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeRecepcaoEvento");
+                   java.lang.String namespacePrefix = registerPrefix(xmlWriter,"http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeDistribuicaoDFe");
                    if ((namespacePrefix != null) && (namespacePrefix.trim().length() > 0)){
                        writeAttribute("xsi","http://www.w3.org/2001/XMLSchema-instance","type",
                            namespacePrefix+":mdfeDadosMsg",
@@ -926,7 +1349,7 @@
         }
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
-            if(namespace.equals("http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeRecepcaoEvento")){
+            if(namespace.equals("http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeDistribuicaoDFe")){
                 return "ns1";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
@@ -1237,434 +1660,11 @@
         }
            
     
-        public static class MdfeRecepcaoEventoResult
-        implements org.apache.axis2.databinding.ADBBean{
-        
-                public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName(
-                "http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeRecepcaoEvento",
-                "mdfeRecepcaoEventoResult",
-                "ns1");
-
-            
-
-                        /**
-                        * field for ExtraElement
-                        */
-
-                        
-                                    protected org.apache.axiom.om.OMElement localExtraElement ;
-                                
-
-                           /**
-                           * Auto generated getter method
-                           * @return org.apache.axiom.om.OMElement
-                           */
-                           public  org.apache.axiom.om.OMElement getExtraElement(){
-                               return localExtraElement;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param ExtraElement
-                               */
-                               public void setExtraElement(org.apache.axiom.om.OMElement param){
-                            
-                                            this.localExtraElement=param;
-                                    
-
-                               }
-                            
-
-     
-     
-        /**
-        *
-        * @param parentQName
-        * @param factory
-        * @return org.apache.axiom.om.OMElement
-        */
-       public org.apache.axiom.om.OMElement getOMElement (
-               final javax.xml.namespace.QName parentQName,
-               final org.apache.axiom.om.OMFactory factory) throws org.apache.axis2.databinding.ADBException{
-
-
-        
-               org.apache.axiom.om.OMDataSource dataSource =
-                       new org.apache.axis2.databinding.ADBDataSource(this,MY_QNAME);
-               return factory.createOMElement(dataSource,MY_QNAME);
-            
-        }
-
-         public void serialize(final javax.xml.namespace.QName parentQName,
-                                       javax.xml.stream.XMLStreamWriter xmlWriter)
-                                throws javax.xml.stream.XMLStreamException, org.apache.axis2.databinding.ADBException{
-                           serialize(parentQName,xmlWriter,false);
-         }
-
-         public void serialize(final javax.xml.namespace.QName parentQName,
-                               javax.xml.stream.XMLStreamWriter xmlWriter,
-                               boolean serializeType)
-            throws javax.xml.stream.XMLStreamException, org.apache.axis2.databinding.ADBException{
-            
-                
-
-
-                java.lang.String prefix = null;
-                java.lang.String namespace = null;
-                
-
-                    prefix = parentQName.getPrefix();
-                    namespace = parentQName.getNamespaceURI();
-                    writeStartElement(prefix, namespace, parentQName.getLocalPart(), xmlWriter);
-                
-                  if (serializeType){
-               
-
-                   java.lang.String namespacePrefix = registerPrefix(xmlWriter,"http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeRecepcaoEvento");
-                   if ((namespacePrefix != null) && (namespacePrefix.trim().length() > 0)){
-                       writeAttribute("xsi","http://www.w3.org/2001/XMLSchema-instance","type",
-                           namespacePrefix+":mdfeRecepcaoEventoResult",
-                           xmlWriter);
-                   } else {
-                       writeAttribute("xsi","http://www.w3.org/2001/XMLSchema-instance","type",
-                           "mdfeRecepcaoEventoResult",
-                           xmlWriter);
-                   }
-
-               
-                   }
-               
-                            
-                            if (localExtraElement != null) {
-                                localExtraElement.serialize(xmlWriter);
-                            } else {
-                               throw new org.apache.axis2.databinding.ADBException("extraElement cannot be null!!");
-                            }
-                        
-                    xmlWriter.writeEndElement();
-               
-
-        }
-
-        private static java.lang.String generatePrefix(java.lang.String namespace) {
-            if(namespace.equals("http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeRecepcaoEvento")){
-                return "ns1";
-            }
-            return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
-        }
-
-        /**
-         * Utility method to write an element start tag.
-         */
-        private void writeStartElement(java.lang.String prefix, java.lang.String namespace, java.lang.String localPart,
-                                       javax.xml.stream.XMLStreamWriter xmlWriter) throws javax.xml.stream.XMLStreamException {
-            java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
-            if (writerPrefix != null) {
-                xmlWriter.writeStartElement(namespace, localPart);
-            } else {
-                if (namespace.length() == 0) {
-                    prefix = "";
-                } else if (prefix == null) {
-                    prefix = generatePrefix(namespace);
-                }
-
-                xmlWriter.writeStartElement(prefix, localPart, namespace);
-                xmlWriter.writeNamespace(prefix, namespace);
-                xmlWriter.setPrefix(prefix, namespace);
-            }
-        }
-        
-        /**
-         * Util method to write an attribute with the ns prefix
-         */
-        private void writeAttribute(java.lang.String prefix,java.lang.String namespace,java.lang.String attName,
-                                    java.lang.String attValue,javax.xml.stream.XMLStreamWriter xmlWriter) throws javax.xml.stream.XMLStreamException{
-            if (xmlWriter.getPrefix(namespace) == null) {
-                xmlWriter.writeNamespace(prefix, namespace);
-                xmlWriter.setPrefix(prefix, namespace);
-            }
-            xmlWriter.writeAttribute(namespace,attName,attValue);
-        }
-
-        /**
-         * Util method to write an attribute without the ns prefix
-         */
-        private void writeAttribute(java.lang.String namespace,java.lang.String attName,
-                                    java.lang.String attValue,javax.xml.stream.XMLStreamWriter xmlWriter) throws javax.xml.stream.XMLStreamException{
-            if (namespace.equals("")) {
-                xmlWriter.writeAttribute(attName,attValue);
-            } else {
-                registerPrefix(xmlWriter, namespace);
-                xmlWriter.writeAttribute(namespace,attName,attValue);
-            }
-        }
-
-
-           /**
-             * Util method to write an attribute without the ns prefix
-             */
-            private void writeQNameAttribute(java.lang.String namespace, java.lang.String attName,
-                                             javax.xml.namespace.QName qname, javax.xml.stream.XMLStreamWriter xmlWriter) throws javax.xml.stream.XMLStreamException {
-
-                java.lang.String attributeNamespace = qname.getNamespaceURI();
-                java.lang.String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
-                if (attributePrefix == null) {
-                    attributePrefix = registerPrefix(xmlWriter, attributeNamespace);
-                }
-                java.lang.String attributeValue;
-                if (attributePrefix.trim().length() > 0) {
-                    attributeValue = attributePrefix + ":" + qname.getLocalPart();
-                } else {
-                    attributeValue = qname.getLocalPart();
-                }
-
-                if (namespace.equals("")) {
-                    xmlWriter.writeAttribute(attName, attributeValue);
-                } else {
-                    registerPrefix(xmlWriter, namespace);
-                    xmlWriter.writeAttribute(namespace, attName, attributeValue);
-                }
-            }
-        /**
-         *  method to handle Qnames
-         */
-
-        private void writeQName(javax.xml.namespace.QName qname,
-                                javax.xml.stream.XMLStreamWriter xmlWriter) throws javax.xml.stream.XMLStreamException {
-            java.lang.String namespaceURI = qname.getNamespaceURI();
-            if (namespaceURI != null) {
-                java.lang.String prefix = xmlWriter.getPrefix(namespaceURI);
-                if (prefix == null) {
-                    prefix = generatePrefix(namespaceURI);
-                    xmlWriter.writeNamespace(prefix, namespaceURI);
-                    xmlWriter.setPrefix(prefix,namespaceURI);
-                }
-
-                if (prefix.trim().length() > 0){
-                    xmlWriter.writeCharacters(prefix + ":" + org.apache.axis2.databinding.utils.ConverterUtil.convertToString(qname));
-                } else {
-                    // i.e this is the default namespace
-                    xmlWriter.writeCharacters(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(qname));
-                }
-
-            } else {
-                xmlWriter.writeCharacters(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(qname));
-            }
-        }
-
-        private void writeQNames(javax.xml.namespace.QName[] qnames,
-                                 javax.xml.stream.XMLStreamWriter xmlWriter) throws javax.xml.stream.XMLStreamException {
-
-            if (qnames != null) {
-                // we have to store this data until last moment since it is not possible to write any
-                // namespace data after writing the charactor data
-                java.lang.StringBuffer stringToWrite = new java.lang.StringBuffer();
-                java.lang.String namespaceURI = null;
-                java.lang.String prefix = null;
-
-                for (int i = 0; i < qnames.length; i++) {
-                    if (i > 0) {
-                        stringToWrite.append(" ");
-                    }
-                    namespaceURI = qnames[i].getNamespaceURI();
-                    if (namespaceURI != null) {
-                        prefix = xmlWriter.getPrefix(namespaceURI);
-                        if ((prefix == null) || (prefix.length() == 0)) {
-                            prefix = generatePrefix(namespaceURI);
-                            xmlWriter.writeNamespace(prefix, namespaceURI);
-                            xmlWriter.setPrefix(prefix,namespaceURI);
-                        }
-
-                        if (prefix.trim().length() > 0){
-                            stringToWrite.append(prefix).append(":").append(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(qnames[i]));
-                        } else {
-                            stringToWrite.append(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(qnames[i]));
-                        }
-                    } else {
-                        stringToWrite.append(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(qnames[i]));
-                    }
-                }
-                xmlWriter.writeCharacters(stringToWrite.toString());
-            }
-
-        }
-
-
-        /**
-         * Register a namespace prefix
-         */
-        private java.lang.String registerPrefix(javax.xml.stream.XMLStreamWriter xmlWriter, java.lang.String namespace) throws javax.xml.stream.XMLStreamException {
-            java.lang.String prefix = xmlWriter.getPrefix(namespace);
-            if (prefix == null) {
-                prefix = generatePrefix(namespace);
-                javax.xml.namespace.NamespaceContext nsContext = xmlWriter.getNamespaceContext();
-                while (true) {
-                    java.lang.String uri = nsContext.getNamespaceURI(prefix);
-                    if (uri == null || uri.length() == 0) {
-                        break;
-                    }
-                    prefix = org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
-                }
-                xmlWriter.writeNamespace(prefix, namespace);
-                xmlWriter.setPrefix(prefix, namespace);
-            }
-            return prefix;
-        }
-
-
-  
-        /**
-        * databinding method to get an XML representation of this object
-        *
-        */
-        public javax.xml.stream.XMLStreamReader getPullParser(javax.xml.namespace.QName qName)
-                    throws org.apache.axis2.databinding.ADBException{
-
-
-        
-                 java.util.ArrayList elementList = new java.util.ArrayList();
-                 java.util.ArrayList attribList = new java.util.ArrayList();
-
-                
-                            if (localExtraElement != null){
-                                elementList.add(org.apache.axis2.databinding.utils.Constants.OM_ELEMENT_KEY);
-                                elementList.add(localExtraElement);
-                            } else {
-                               throw new org.apache.axis2.databinding.ADBException("extraElement cannot be null!!");
-                            }
-                        
-
-                return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
-            
-            
-
-        }
-
-  
-
-     /**
-      *  Factory class that keeps the parse method
-      */
-    public static class Factory{
-
-        
-        
-
-        /**
-        * static method to create the object
-        * Precondition:  If this object is an element, the current or next start element starts this object and any intervening reader events are ignorable
-        *                If this object is not an element, it is a complex type and the reader is at the event just after the outer start element
-        * Postcondition: If this object is an element, the reader is positioned at its end element
-        *                If this object is a complex type, the reader is positioned at the end element of its outer element
-        */
-        public static MdfeRecepcaoEventoResult parse(javax.xml.stream.XMLStreamReader reader) throws java.lang.Exception{
-            MdfeRecepcaoEventoResult object =
-                new MdfeRecepcaoEventoResult();
-
-            int event;
-            java.lang.String nillableValue = null;
-            java.lang.String prefix ="";
-            java.lang.String namespaceuri ="";
-            try {
-                
-                while (!reader.isStartElement() && !reader.isEndElement())
-                    reader.next();
-
-                
-                if (reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","type")!=null){
-                  java.lang.String fullTypeName = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance",
-                        "type");
-                  if (fullTypeName!=null){
-                    java.lang.String nsPrefix = null;
-                    if (fullTypeName.indexOf(":") > -1){
-                        nsPrefix = fullTypeName.substring(0,fullTypeName.indexOf(":"));
-                    }
-                    nsPrefix = nsPrefix==null?"":nsPrefix;
-
-                    java.lang.String type = fullTypeName.substring(fullTypeName.indexOf(":")+1);
-                    
-                            if (!"mdfeRecepcaoEventoResult".equals(type)){
-                                //find namespace for the prefix
-                                java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (MdfeRecepcaoEventoResult)ExtensionMapper.getTypeObject(
-                                     nsUri,type,reader);
-                              }
-                        
-
-                  }
-                
-
-                }
-
-                
-
-                
-                // Note all attributes that were handled. Used to differ normal attributes
-                // from anyAttributes.
-                java.util.Vector handledAttributes = new java.util.Vector();
-                
-
-                
-                    
-                    reader.next();
-                
-                                    
-                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
-                                
-                                   if (reader.isStartElement()){
-                                
-                                    
-                                     
-                                     //use the QName from the parser as the name for the builder
-                                     javax.xml.namespace.QName startQname1 = reader.getName();
-
-                                     // We need to wrap the reader so that it produces a fake START_DOCUMENT event
-                                     // this is needed by the builder classes
-                                     org.apache.axis2.databinding.utils.NamedStaxOMBuilder builder1 =
-                                         new org.apache.axis2.databinding.utils.NamedStaxOMBuilder(
-                                             new org.apache.axis2.util.StreamWrapper(reader),startQname1);
-                                     object.setExtraElement(builder1.getOMElement());
-                                       
-                                         reader.next();
-                                     
-                              }  // End of if for expected property start element
-                                
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                              
-                            while (!reader.isStartElement() && !reader.isEndElement())
-                                reader.next();
-                            
-                                if (reader.isStartElement())
-                                // A start element we are not expecting indicates a trailing invalid property
-                                throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                            
-
-
-
-            } catch (javax.xml.stream.XMLStreamException e) {
-                throw new java.lang.Exception(e);
-            }
-
-            return object;
-        }
-
-        }//end of factory class
-
-        
-
-        }
-           
-    
         public static class MdfeCabecMsg
         implements org.apache.axis2.databinding.ADBBean{
         /* This type was generated from the piece of schema that had
                 name = mdfeCabecMsg
-                Namespace URI = http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeRecepcaoEvento
+                Namespace URI = http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeDistribuicaoDFe
                 Namespace Prefix = ns1
                 */
             
@@ -1872,7 +1872,7 @@
                   if (serializeType){
                
 
-                   java.lang.String namespacePrefix = registerPrefix(xmlWriter,"http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeRecepcaoEvento");
+                   java.lang.String namespacePrefix = registerPrefix(xmlWriter,"http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeDistribuicaoDFe");
                    if ((namespacePrefix != null) && (namespacePrefix.trim().length() > 0)){
                        writeAttribute("xsi","http://www.w3.org/2001/XMLSchema-instance","type",
                            namespacePrefix+":mdfeCabecMsg",
@@ -1894,7 +1894,7 @@
                                      }
                              }
                          if (localCUFTracker){
-                                    namespace = "http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeRecepcaoEvento";
+                                    namespace = "http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeDistribuicaoDFe";
                                     writeStartElement(null, namespace, "cUF", xmlWriter);
                              
 
@@ -1912,7 +1912,7 @@
                                     
                                    xmlWriter.writeEndElement();
                              } if (localVersaoDadosTracker){
-                                    namespace = "http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeRecepcaoEvento";
+                                    namespace = "http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeDistribuicaoDFe";
                                     writeStartElement(null, namespace, "versaoDados", xmlWriter);
                              
 
@@ -1936,7 +1936,7 @@
         }
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
-            if(namespace.equals("http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeRecepcaoEvento")){
+            if(namespace.equals("http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeDistribuicaoDFe")){
                 return "ns1";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
@@ -2115,7 +2115,7 @@
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
                  if (localCUFTracker){
-                                      elementList.add(new javax.xml.namespace.QName("http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeRecepcaoEvento",
+                                      elementList.add(new javax.xml.namespace.QName("http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeDistribuicaoDFe",
                                                                       "cUF"));
                                  
                                         if (localCUF != null){
@@ -2124,7 +2124,7 @@
                                            throw new org.apache.axis2.databinding.ADBException("cUF cannot be null!!");
                                         }
                                     } if (localVersaoDadosTracker){
-                                      elementList.add(new javax.xml.namespace.QName("http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeRecepcaoEvento",
+                                      elementList.add(new javax.xml.namespace.QName("http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeDistribuicaoDFe",
                                                                       "versaoDados"));
                                  
                                         if (localVersaoDados != null){
@@ -2238,7 +2238,7 @@
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeRecepcaoEvento","cUF").equals(reader.getName())){
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeDistribuicaoDFe","cUF").equals(reader.getName())){
                                 
                                     nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
                                     if ("true".equals(nillableValue) || "1".equals(nillableValue)){
@@ -2262,7 +2262,7 @@
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeRecepcaoEvento","versaoDados").equals(reader.getName())){
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeDistribuicaoDFe","versaoDados").equals(reader.getName())){
                                 
                                     nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
                                     if ("true".equals(nillableValue) || "1".equals(nillableValue)){
@@ -2307,12 +2307,12 @@
         }
            
     
-            private  org.apache.axiom.om.OMElement  toOM(br.inf.portalfiscal.www.mdfe.wsdl.mdferecepcaoevento.MDFeRecepcaoEventoStub.MdfeDadosMsg param, boolean optimizeContent)
+            private  org.apache.axiom.om.OMElement  toOM(br.inf.portalfiscal.www.mdfe.wsdl.mdfedistribuicaodfe.MDFeDistribuicaoDFeStub.MdfeDadosMsg param, boolean optimizeContent)
             throws org.apache.axis2.AxisFault {
 
             
                         try{
-                             return param.getOMElement(br.inf.portalfiscal.www.mdfe.wsdl.mdferecepcaoevento.MDFeRecepcaoEventoStub.MdfeDadosMsg.MY_QNAME,
+                             return param.getOMElement(br.inf.portalfiscal.www.mdfe.wsdl.mdfedistribuicaodfe.MDFeDistribuicaoDFeStub.MdfeDadosMsg.MY_QNAME,
                                           org.apache.axiom.om.OMAbstractFactory.getOMFactory());
                         } catch(org.apache.axis2.databinding.ADBException e){
                             throw org.apache.axis2.AxisFault.makeFault(e);
@@ -2321,12 +2321,12 @@
 
             }
         
-            private  org.apache.axiom.om.OMElement  toOM(br.inf.portalfiscal.www.mdfe.wsdl.mdferecepcaoevento.MDFeRecepcaoEventoStub.MdfeRecepcaoEventoResult param, boolean optimizeContent)
+            private  org.apache.axiom.om.OMElement  toOM(br.inf.portalfiscal.www.mdfe.wsdl.mdfedistribuicaodfe.MDFeDistribuicaoDFeStub.MdfeDistDFeInteresseResult param, boolean optimizeContent)
             throws org.apache.axis2.AxisFault {
 
             
                         try{
-                             return param.getOMElement(br.inf.portalfiscal.www.mdfe.wsdl.mdferecepcaoevento.MDFeRecepcaoEventoStub.MdfeRecepcaoEventoResult.MY_QNAME,
+                             return param.getOMElement(br.inf.portalfiscal.www.mdfe.wsdl.mdfedistribuicaodfe.MDFeDistribuicaoDFeStub.MdfeDistDFeInteresseResult.MY_QNAME,
                                           org.apache.axiom.om.OMAbstractFactory.getOMFactory());
                         } catch(org.apache.axis2.databinding.ADBException e){
                             throw org.apache.axis2.AxisFault.makeFault(e);
@@ -2335,12 +2335,12 @@
 
             }
         
-            private  org.apache.axiom.om.OMElement  toOM(br.inf.portalfiscal.www.mdfe.wsdl.mdferecepcaoevento.MDFeRecepcaoEventoStub.MdfeCabecMsgE param, boolean optimizeContent)
+            private  org.apache.axiom.om.OMElement  toOM(br.inf.portalfiscal.www.mdfe.wsdl.mdfedistribuicaodfe.MDFeDistribuicaoDFeStub.MdfeCabecMsgE param, boolean optimizeContent)
             throws org.apache.axis2.AxisFault {
 
             
                         try{
-                             return param.getOMElement(br.inf.portalfiscal.www.mdfe.wsdl.mdferecepcaoevento.MDFeRecepcaoEventoStub.MdfeCabecMsgE.MY_QNAME,
+                             return param.getOMElement(br.inf.portalfiscal.www.mdfe.wsdl.mdfedistribuicaodfe.MDFeDistribuicaoDFeStub.MdfeCabecMsgE.MY_QNAME,
                                           org.apache.axiom.om.OMAbstractFactory.getOMFactory());
                         } catch(org.apache.axis2.databinding.ADBException e){
                             throw org.apache.axis2.AxisFault.makeFault(e);
@@ -2350,14 +2350,14 @@
             }
         
                                     
-                                        private  org.apache.axiom.soap.SOAPEnvelope toEnvelope(org.apache.axiom.soap.SOAPFactory factory, br.inf.portalfiscal.www.mdfe.wsdl.mdferecepcaoevento.MDFeRecepcaoEventoStub.MdfeDadosMsg param, boolean optimizeContent, javax.xml.namespace.QName methodQName)
+                                        private  org.apache.axiom.soap.SOAPEnvelope toEnvelope(org.apache.axiom.soap.SOAPFactory factory, br.inf.portalfiscal.www.mdfe.wsdl.mdfedistribuicaodfe.MDFeDistribuicaoDFeStub.MdfeDadosMsg param, boolean optimizeContent, javax.xml.namespace.QName methodQName)
                                         throws org.apache.axis2.AxisFault{
 
                                              
                                                     try{
 
                                                             org.apache.axiom.soap.SOAPEnvelope emptyEnvelope = factory.getDefaultEnvelope();
-                                                            emptyEnvelope.getBody().addChild(param.getOMElement(br.inf.portalfiscal.www.mdfe.wsdl.mdferecepcaoevento.MDFeRecepcaoEventoStub.MdfeDadosMsg.MY_QNAME,factory));
+                                                            emptyEnvelope.getBody().addChild(param.getOMElement(br.inf.portalfiscal.www.mdfe.wsdl.mdfedistribuicaodfe.MDFeDistribuicaoDFeStub.MdfeDadosMsg.MY_QNAME,factory));
                                                             return emptyEnvelope;
                                                         } catch(org.apache.axis2.databinding.ADBException e){
                                                             throw org.apache.axis2.AxisFault.makeFault(e);
@@ -2387,30 +2387,30 @@
 
         try {
         
-                if (br.inf.portalfiscal.www.mdfe.wsdl.mdferecepcaoevento.MDFeRecepcaoEventoStub.MdfeDadosMsg.class.equals(type)){
+                if (br.inf.portalfiscal.www.mdfe.wsdl.mdfedistribuicaodfe.MDFeDistribuicaoDFeStub.MdfeDadosMsg.class.equals(type)){
                 
-                           return br.inf.portalfiscal.www.mdfe.wsdl.mdferecepcaoevento.MDFeRecepcaoEventoStub.MdfeDadosMsg.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+                           return br.inf.portalfiscal.www.mdfe.wsdl.mdfedistribuicaodfe.MDFeDistribuicaoDFeStub.MdfeDadosMsg.Factory.parse(param.getXMLStreamReaderWithoutCaching());
                     
 
                 }
            
-                if (br.inf.portalfiscal.www.mdfe.wsdl.mdferecepcaoevento.MDFeRecepcaoEventoStub.MdfeRecepcaoEventoResult.class.equals(type)){
+                if (br.inf.portalfiscal.www.mdfe.wsdl.mdfedistribuicaodfe.MDFeDistribuicaoDFeStub.MdfeDistDFeInteresseResult.class.equals(type)){
                 
-                           return br.inf.portalfiscal.www.mdfe.wsdl.mdferecepcaoevento.MDFeRecepcaoEventoStub.MdfeRecepcaoEventoResult.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+                           return br.inf.portalfiscal.www.mdfe.wsdl.mdfedistribuicaodfe.MDFeDistribuicaoDFeStub.MdfeDistDFeInteresseResult.Factory.parse(param.getXMLStreamReaderWithoutCaching());
                     
 
                 }
            
-                if (br.inf.portalfiscal.www.mdfe.wsdl.mdferecepcaoevento.MDFeRecepcaoEventoStub.MdfeCabecMsgE.class.equals(type)){
+                if (br.inf.portalfiscal.www.mdfe.wsdl.mdfedistribuicaodfe.MDFeDistribuicaoDFeStub.MdfeCabecMsgE.class.equals(type)){
                 
-                           return br.inf.portalfiscal.www.mdfe.wsdl.mdferecepcaoevento.MDFeRecepcaoEventoStub.MdfeCabecMsgE.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+                           return br.inf.portalfiscal.www.mdfe.wsdl.mdfedistribuicaodfe.MDFeDistribuicaoDFeStub.MdfeCabecMsgE.Factory.parse(param.getXMLStreamReaderWithoutCaching());
                     
 
                 }
            
-                if (br.inf.portalfiscal.www.mdfe.wsdl.mdferecepcaoevento.MDFeRecepcaoEventoStub.MdfeCabecMsgE.class.equals(type)){
+                if (br.inf.portalfiscal.www.mdfe.wsdl.mdfedistribuicaodfe.MDFeDistribuicaoDFeStub.MdfeCabecMsgE.class.equals(type)){
                 
-                           return br.inf.portalfiscal.www.mdfe.wsdl.mdferecepcaoevento.MDFeRecepcaoEventoStub.MdfeCabecMsgE.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+                           return br.inf.portalfiscal.www.mdfe.wsdl.mdfedistribuicaodfe.MDFeDistribuicaoDFeStub.MdfeCabecMsgE.Factory.parse(param.getXMLStreamReaderWithoutCaching());
                     
 
                 }

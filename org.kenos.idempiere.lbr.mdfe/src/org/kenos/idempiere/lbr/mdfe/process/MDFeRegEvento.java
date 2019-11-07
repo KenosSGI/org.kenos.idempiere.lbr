@@ -260,8 +260,7 @@ public class MDFeRegEvento extends SvrProcess
 			MDFeRecepcaoEventoStub.MdfeDadosMsg content = MDFeRecepcaoEventoStub.MdfeDadosMsg.Factory.parse (xmlReader);
 			
 			//	Consulta
-			MDFeRecepcaoEventoStub.setAmbiente (ws);
-			MDFeRecepcaoEventoStub stub = new MDFeRecepcaoEventoStub();
+			MDFeRecepcaoEventoStub stub = new MDFeRecepcaoEventoStub(ws.getURL());
 			
 			respStatus.append(MDFeUtil.HEADER + stub.mdfeRecepcaoEvento (content, headerE).getExtraElement().toString());
 		}

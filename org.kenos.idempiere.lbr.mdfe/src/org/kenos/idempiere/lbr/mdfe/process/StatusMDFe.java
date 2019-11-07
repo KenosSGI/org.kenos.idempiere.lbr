@@ -174,8 +174,7 @@ public class StatusMDFe extends SvrProcess
 				MDFeStatusServicoStub.MdfeDadosMsg content = MDFeStatusServicoStub.MdfeDadosMsg.Factory.parse (xmlReader);
 				
 				//	Consulta
-				MDFeStatusServicoStub.setAmbiente (ws);
-				MDFeStatusServicoStub stub = new MDFeStatusServicoStub();
+				MDFeStatusServicoStub stub = new MDFeStatusServicoStub(ws.getURL());
 				
 				respStatus.append(MDFeUtil.HEADER + stub.mdfeStatusServicoMDF (content, headerE).getExtraElement().toString());
 			}

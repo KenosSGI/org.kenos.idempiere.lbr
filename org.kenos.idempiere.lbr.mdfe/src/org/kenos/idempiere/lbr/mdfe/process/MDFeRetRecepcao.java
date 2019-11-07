@@ -224,8 +224,7 @@ public class MDFeRetRecepcao extends SvrProcess
 			MDFeRetRecepcaoStub.MdfeDadosMsg content = MDFeRetRecepcaoStub.MdfeDadosMsg.Factory.parse (xmlReader);
 			
 			//	Consulta
-			MDFeRetRecepcaoStub.setAmbiente (ws);
-			MDFeRetRecepcaoStub stub = new MDFeRetRecepcaoStub();
+			MDFeRetRecepcaoStub stub = new MDFeRetRecepcaoStub(ws.getURL());
 			
 			respStatus.append(MDFeUtil.HEADER + stub.mdfeRetRecepcao (content, headerE).getExtraElement().toString());
 		}
