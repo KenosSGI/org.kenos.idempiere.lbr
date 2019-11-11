@@ -2799,7 +2799,7 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		if (io != null && io.getM_InOut_ID() != 0)
 		{
 			if (getM_InOut_ID() == 0)
-			{	
+			{
 				bpLocation = new MBPartnerLocation (getCtx(), io.getC_BPartner_Location_ID(), get_TrxName());
 	
 				//	Número de volumes definido na expedição
@@ -2812,15 +2812,13 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 				setFreightCostRule (io.getFreightCostRule());
 				setlbr_GrossWeight(io.getWeight());
 				setlbr_NetWeight(io.getWeight());
-				setNoPackages(io.getNoPackages());
+				setNoPackages(noPackages);
 				setDeliveryViaRule(io.getDeliveryViaRule());
 	
 				M_Shipper_ID = io.getM_Shipper_ID();
 				
 				if (MSysConfig.getValue(SysConfig.LBR_NFESPECIE,  getAD_Client_ID()) != null )
 					setlbr_PackingType(MSysConfig.getValue(SysConfig.LBR_NFESPECIE, getAD_Client_ID()));
-				else
-					setlbr_PackingType(MSysConfig.getValue(SysConfig.LBR_VOLUME));
 			}
 			else
 			{
@@ -2828,11 +2826,16 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 				//	Somar Volume e Peso
 				if (getM_InOut_ID() != io.getM_InOut_ID())
 				{
+					//	Número de volumes definido na expedição
+					int noPackages = io.getNoPackages();
+					if (noPackages <= 0)
+						noPackages = 1;
+					
 					//	Volume
 					if (getNoPackages() > 0)
-						setNoPackages(getNoPackages() + io.getNoPackages());
+						setNoPackages(getNoPackages() + noPackages);
 					else
-						setNoPackages(io.getNoPackages());
+						setNoPackages(noPackages);
 					
 					//	Peso
 					if (getlbr_GrossWeight().intValue() > 0)
