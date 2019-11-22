@@ -66,6 +66,9 @@ public class ProcInutNF extends SvrProcess
 	/**	Environment		*/
 	private String p_LBR_EnvType = null;
 	
+	/**	Atualizar NF		*/
+	private boolean p_LBR_UpdateNFe = false;
+	
 	/**
 	 *  Prepare - e.g., get Parameters.
 	 */
@@ -96,6 +99,10 @@ public class ProcInutNF extends SvrProcess
 				p_NFModel = (String) para[i].getParameter();
 			else if (name.equals(MLBRNotaFiscal.COLUMNNAME_lbr_NFSerie))
 				p_NFSerie = (String) para[i].getParameter();
+			
+			//	Atualizar NFe
+			else if (name.equals("LBR_UpdateNFe"))
+				p_LBR_UpdateNFe = "Y".equals(para[i].getParameter());
 			else
 				log.log(Level.SEVERE, "prepare - Unknown Parameter: " + name);
 		}
@@ -157,6 +164,50 @@ public class ProcInutNF extends SvrProcess
 		
 		if (ret.getDhRecbto() != null)
 			msg.append("<br />Data do Recebimento: ").append(ret.getDhRecbto());
+		
+		//	Atualiza os dados da NF-e
+		if (p_LBR_UpdateNFe 
+				&& p_DocumentNo_To.intValue() == p_DocumentNo.intValue() 
+				//	Inutilização já ocorrida anteriormente
+				&& MLBRNotaFiscal.LBR_NFESTATUS_563_RejeiçãoJáExistePedidoDeInutilizaçãoComAMesmaFaixaDeInutilização.equals(ret.getCStat()))
+		{
+			MLBRNotaFiscal nfe = MLBRNotaFiscal.getNFe(getCtx(), oi.get_ValueAsString(MLBRNotaFiscal.COLUMNNAME_lbr_CNPJ), 
+					MLBRNotaFiscal.LBR_NFMODEL_NotaFiscalEletrônica, String.valueOf (p_DocumentNo), String.valueOf (p_NFSerie), get_TrxName());
+			//
+			if (nfe != null && nfe.getAD_Org_ID() == p_AD_Org_ID 
+					//	Documento Próprio
+					&& nfe.islbr_IsOwnDocument() 
+					//	NF não processada
+					&& !nfe.isProcessed()
+					//	Mesmo ambiente
+					&& p_LBR_EnvType.equals(nfe.getlbr_NFeEnv()))
+			{
+				nfe.setDocAction (MLBRNotaFiscal.DOCACTION_None);
+				nfe.setDocStatus (MLBRNotaFiscal.DOCSTATUS_Voided);
+				nfe.setProcessed(true);
+				nfe.setIsCancelled(true);
+				if (nfe.getlbr_MotivoCancel() == null)
+					nfe.setlbr_MotivoCancel(p_Just);
+				//
+				try
+		        {
+					nfe.setlbr_NFeStatus (MLBRNotaFiscal.LBR_NFESTATUS_102_InutilizaçãoDeNúmeroHomologado);
+		        }
+		        catch (IllegalArgumentException e)
+		        {
+		        	e.printStackTrace();
+		        }
+				
+				if (nfe.save())
+					msg.append("<br /><br /><font color=\"008800\">Os dados de inutilização foram atualizados na NFe</font>");
+				else
+					msg.append("<br /><br />Falha na atualização da NF.");
+			}
+			
+			//	NF não encontrada
+			else
+				msg.append("<br /><br />Nota Fiscal não encontrada para fazer a atualização dos dados de inutilização.");
+		}
 		
 		return msg.toString();
 	}	//	doIt

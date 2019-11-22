@@ -116,6 +116,7 @@ import org.compiere.process.SvrProcess;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.compiere.util.Msg;
+import org.compiere.util.TimeUtil;
 import org.compiere.util.Trx;
 import org.compiere.util.Util;
 import org.kenos.idempiere.lbr.base.model.MLBRAverageCostLine;
@@ -3252,6 +3253,9 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 	 */
 	protected boolean beforeSave (boolean newRecord)
 	{
+		System.out.println(getlbr_NFeStatus());
+		setlbr_NFeStatus("444");
+		
 		if (getC_DocTypeTarget_ID () == 0
 				|| !"NFB".equals (getC_DocTypeTarget().getDocBaseType()))
 			throw new FillMandatoryException (COLUMNNAME_C_DocTypeTarget_ID);
@@ -4495,10 +4499,18 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 				try
 				{
 					String regionCode = BPartnerUtil.getRegionCode (new MLocation (p_ctx, getOrg_Location_ID(), null));
+					
+					//	Date is empty
+					Timestamp dateDoc = getDateDoc();
+					if (dateDoc == null)
+					{
+						dateDoc = TimeUtil.getDay(0);
+						setDateDoc(dateDoc);
+					}
 					//
 					TRetInutNFe.InfInut ret = invalidateNF (p_ctx, getAD_Org_ID(), getlbr_CNPJ(), 
 								regionCode, getlbr_NFeEnv(), getlbr_NFModel(), Integer.parseInt(getDocumentNo()), 
-								Integer.parseInt(getDocumentNo()), getlbr_NFSerie(), getlbr_MotivoCancel(), getDateDoc());
+								Integer.parseInt(getDocumentNo()), getlbr_NFSerie(), getlbr_MotivoCancel(), dateDoc);
 					//
 					if (MLBRNotaFiscal.LBR_NFESTATUS_102_InutilizaçãoDeNúmeroHomologado.equals(ret.getCStat()))	//	OK
 					{
