@@ -4501,13 +4501,15 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 								regionCode, getlbr_NFeEnv(), getlbr_NFModel(), Integer.parseInt(getDocumentNo()), 
 								Integer.parseInt(getDocumentNo()), getlbr_NFSerie(), getlbr_MotivoCancel(), dateDoc);
 					//
-					if (MLBRNotaFiscal.LBR_NFESTATUS_102_InutilizaçãoDeNúmeroHomologado.equals(ret.getCStat()))	//	OK
+					if (MLBRNotaFiscal.LBR_NFESTATUS_102_InutilizaçãoDeNúmeroHomologado.equals(ret.getCStat())	//	OK
+							|| MLBRNotaFiscal.LBR_NFESTATUS_563_RejeiçãoJáExistePedidoDeInutilizaçãoComAMesmaFaixaDeInutilização.equals(ret.getCStat())
+							|| MLBRNotaFiscal.LBR_NFESTATUS_206_RejeiçãoNF_EJáEstáInutilizadaNaBaseDeDadosDaSEFAZ.equals(ret.getCStat()))
 					{
 						setDocAction (DOCACTION_None);
 						setDocStatus (DOCSTATUS_Voided);
 						setProcessed(true);
 						setIsCancelled(true);
-						setlbr_NFeStatus (ret.getCStat());
+						setlbr_NFeStatus (MLBRNotaFiscal.LBR_NFESTATUS_102_InutilizaçãoDeNúmeroHomologado);
 				        return true;
 					}
 					else

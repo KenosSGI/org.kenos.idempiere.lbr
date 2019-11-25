@@ -169,7 +169,9 @@ public class ProcInutNF extends SvrProcess
 		if (p_LBR_UpdateNFe 
 				&& p_DocumentNo_To.intValue() == p_DocumentNo.intValue() 
 				//	Inutilização já ocorrida anteriormente
-				&& MLBRNotaFiscal.LBR_NFESTATUS_563_RejeiçãoJáExistePedidoDeInutilizaçãoComAMesmaFaixaDeInutilização.equals(ret.getCStat()))
+				&& TextUtil.match(ret.getCStat(), 
+						MLBRNotaFiscal.LBR_NFESTATUS_563_RejeiçãoJáExistePedidoDeInutilizaçãoComAMesmaFaixaDeInutilização,
+						MLBRNotaFiscal.LBR_NFESTATUS_206_RejeiçãoNF_EJáEstáInutilizadaNaBaseDeDadosDaSEFAZ))
 		{
 			MLBRNotaFiscal nfe = MLBRNotaFiscal.getNFe(getCtx(), oi.get_ValueAsString(MLBRNotaFiscal.COLUMNNAME_lbr_CNPJ), 
 					MLBRNotaFiscal.LBR_NFMODEL_NotaFiscalEletrônica, String.valueOf (p_DocumentNo), String.valueOf (p_NFSerie), get_TrxName());
