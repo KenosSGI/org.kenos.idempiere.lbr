@@ -484,12 +484,7 @@ public class MLBRNFeEvent extends X_LBR_NFeEvent implements DocAction
 												LBR_NFESTATUS_151_CancelamentoDeNF_EHomologadoForaDePrazo,
 												LBR_NFESTATUS_155_CancelamentoDeNF_EHomologadoForaDePrazo))
 					{
-						try
-						{
-							setlbr_NFeStatus (cStat);	
-						}
-						catch (Exception e) {}
-						
+						setlbr_NFeStatus (cStat);
 						setDateTrx (NFeUtil.stringToTime (infReturn.getDhRegEvento()));
 						setStatus (infReturn.getXMotivo ());
 						setlbr_CNPJ (infReturn.getCNPJDest ());

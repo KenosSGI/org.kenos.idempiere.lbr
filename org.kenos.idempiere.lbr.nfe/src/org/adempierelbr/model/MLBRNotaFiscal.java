@@ -794,16 +794,8 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
         Timestamp ts = NFeUtil.stringToTime (dhRecbto);
         //
         nf.setlbr_DigestValue(digVal);
-        
-        try
-        {
-        	nf.setlbr_NFeStatus(cStat);
-        	nf.save();
-        }
-        catch (IllegalArgumentException e)
-        {
-        	e.printStackTrace();
-        }
+    	nf.setlbr_NFeStatus(cStat);
+    	nf.save();
         
         nf.setlbr_NFeProt(nProt);
         nf.setDateTrx(ts);
@@ -4515,16 +4507,8 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 						setDocStatus (DOCSTATUS_Voided);
 						setProcessed(true);
 						setIsCancelled(true);
-						//
-						try
-				        {
-							setlbr_NFeStatus (ret.getCStat());
-				        }
-				        catch (IllegalArgumentException e)
-				        {
-				        	e.printStackTrace();
-				        }
-						return true;
+						setlbr_NFeStatus (ret.getCStat());
+				        return true;
 					}
 					else
 					{

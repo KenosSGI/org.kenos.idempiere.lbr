@@ -1,0 +1,24 @@
+-- 25 de nov de 2019 15:13:34 BRT
+UPDATE AD_Column SET AD_Reference_ID=10,Updated=TO_TIMESTAMP('2019-11-25 15:13:34','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1100065
+;
+
+-- 25 de nov de 2019 15:13:49 BRT
+UPDATE AD_Field SET AD_Reference_ID=17, AD_Reference_Value_ID=1100004,Updated=TO_TIMESTAMP('2019-11-25 15:13:49','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1125014
+;
+
+-- 25 de nov de 2019 15:14:03 BRT
+UPDATE AD_Field SET AD_Reference_ID=17, AD_Reference_Value_ID=1100004,Updated=TO_TIMESTAMP('2019-11-25 15:14:03','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1100050
+;
+
+-- 25 de nov de 2019 15:15:03 BRT
+UPDATE AD_Column SET AD_Reference_ID=10,Updated=TO_TIMESTAMP('2019-11-25 15:15:03','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1122488
+;
+
+-- 25 de nov de 2019 15:15:24 BRT
+UPDATE AD_Field SET AD_Reference_ID=17, AD_Reference_Value_ID=1100004,Updated=TO_TIMESTAMP('2019-11-25 15:15:24','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1121208
+;
+
+-- 25 de nov de 2019 15:15:24 BRT
+SELECT Register_Migration_Script ('201911251517_FixNFeStatus.sql') FROM DUAL
+;
+
