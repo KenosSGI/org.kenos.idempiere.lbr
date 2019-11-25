@@ -3253,9 +3253,6 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 	 */
 	protected boolean beforeSave (boolean newRecord)
 	{
-		System.out.println(getlbr_NFeStatus());
-		setlbr_NFeStatus("444");
-		
 		if (getC_DocTypeTarget_ID () == 0
 				|| !"NFB".equals (getC_DocTypeTarget().getDocBaseType()))
 			throw new FillMandatoryException (COLUMNNAME_C_DocTypeTarget_ID);
