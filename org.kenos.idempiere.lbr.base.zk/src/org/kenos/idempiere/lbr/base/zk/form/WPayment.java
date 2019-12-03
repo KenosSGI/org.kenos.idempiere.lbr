@@ -620,7 +620,7 @@ public class WPayment extends Payment
     	if (null!=listItem && listItem.toString().length() > 0 && getHistoryDays(selectedHistoryValue) > 0)
     	{
     		StringBuilder where = new StringBuilder();
-    		where.append("i.Created >= ");
+    		where.append("i.DueDate >= ");
     		where.append("SysDate-").append(getHistoryDays(selectedHistoryValue));
     		return where.toString();
     	}
