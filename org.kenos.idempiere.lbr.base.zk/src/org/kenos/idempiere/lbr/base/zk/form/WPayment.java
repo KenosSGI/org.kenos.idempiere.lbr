@@ -35,6 +35,7 @@ import org.adempiere.webui.component.ConfirmPanel;
 import org.adempiere.webui.component.Grid;
 import org.adempiere.webui.component.GridFactory;
 import org.adempiere.webui.component.Label;
+import org.adempiere.webui.component.ListItem;
 import org.adempiere.webui.component.Listbox;
 import org.adempiere.webui.component.ListboxFactory;
 import org.adempiere.webui.component.Panel;
@@ -118,7 +119,25 @@ public class WPayment extends Payment
 	private ProcessInfo m_pi;
 	private boolean m_isLock;
 	private int noOfColumn;
+
+	private static final String HISTORY_LABEL= "History";
+	private Listbox historyCombo = ListboxFactory.newDropdownListbox();
 	
+	// values and label for history combo
+	private static final String HISTORY_DAY_ALL = "All";
+	private static final String HISTORY_DAY_YEAR = "Year";
+	private static final String HISTORY_DAY_MONTH = "Month";
+	private static final String HISTORY_DAY_WEEK = "Week";
+	private static final String HISTORY_DAY_DAY = "Day";
+	ValueNamePair[] historyItems = new ValueNamePair[] {
+			new ValueNamePair("",                " "),
+			new ValueNamePair(HISTORY_DAY_ALL,   Msg.getMsg(Env.getCtx(), HISTORY_DAY_ALL)),
+			new ValueNamePair(HISTORY_DAY_YEAR,  Msg.getMsg(Env.getCtx(), HISTORY_DAY_YEAR)),
+			new ValueNamePair(HISTORY_DAY_MONTH, Msg.getMsg(Env.getCtx(), HISTORY_DAY_MONTH)),
+			new ValueNamePair(HISTORY_DAY_WEEK,  Msg.getMsg(Env.getCtx(), HISTORY_DAY_WEEK)),
+			new ValueNamePair(HISTORY_DAY_DAY,   Msg.getMsg(Env.getCtx(), HISTORY_DAY_DAY))
+	};
+		
 	/**
 	 *	Initialize Panel
 	 */
@@ -157,8 +176,17 @@ public class WPayment extends Payment
 		ZKUpdateUtil.setHeight(mainLayout, "100%");
 		ZKUpdateUtil.setWidth(mainLayout, "100%");
 		parameterPanel.appendChild(parameterLayout);
+
+        // adding history combo
+        prepareHistoryCombo();
+        Label labelHistory = new Label(Msg.getMsg(Env.getCtx(), HISTORY_LABEL));
+        if (ClientInfo.maxWidth(639))
+        	labelHistory.setStyle("vertical-align: middle; display: block;padding-left: 4px; padding-top: 4px;");
+        else
+        	labelHistory.setStyle("vertical-align: middle;");
+        
 		//
-//		labelBankAccount.setText(Msg.translate(Env.getCtx(), "C_BankAccount_ID"));
+		labelBankAccount.setText(Msg.translate(Env.getCtx(), "C_BankAccount_ID"));
 		fieldBankAccount.addActionListener(this);
 		labelBPartner.setText(Msg.translate(Env.getCtx(), "C_BPartner_ID"));
 		fieldBPartner.addActionListener(this);
@@ -192,6 +220,10 @@ public class WPayment extends Payment
 		
 		Rows rows = parameterLayout.newRows();
 		Row row = rows.newRow();
+		row.appendCellChild(labelHistory.rightAlign());
+		row.appendCellChild(historyCombo);
+		
+		row = rows.newRow();
 		row.appendCellChild(labelBankAccount.rightAlign());
 		row.appendCellChild(fieldBankAccount);
 		
@@ -335,8 +367,12 @@ public class WPayment extends Payment
 		ValueNamePair paymentRule = (ValueNamePair) fieldPaymentRule.getSelectedItem().getValue();
 		KeyNamePair bpartner = (KeyNamePair) fieldBPartner.getSelectedItem().getValue();
 		KeyNamePair docType = (KeyNamePair) fieldDtype.getSelectedItem().getValue();
-
-		loadTableInfo(bi, payDate, paymentRule, onlyDue.isSelected(), bpartner, docType, miniTable);
+		String historic = null;
+		
+		if (historyCombo.getSelectedItem() != null)
+			historic = addHistoryRestriction(historyCombo.getSelectedItem());
+		
+		loadTableInfo(bi, payDate, paymentRule, onlyDue.isSelected(), bpartner, docType, historic, miniTable);
 		
 		calculateSelection();
 		
@@ -379,12 +415,8 @@ public class WPayment extends Payment
 			fillBPartnerData();
 		}
 		
-		//  Update Bank Info
-		if (e.getTarget() == fieldBankAccount)
-			loadBankInfo();
-
 		//  Generate PaySelection
-		else if (e.getTarget() == bGenerate)
+		if (e.getTarget() == bGenerate)
 		{
 			generatePaySelect();
 			loadTableInfo();
@@ -395,7 +427,7 @@ public class WPayment extends Payment
 
 		//  Update Open Invoices
 		else if (e.getTarget() == fieldBPartner || e.getTarget() == bRefresh || e.getTarget() == fieldDtype
-				|| e.getTarget() == fieldPaymentRule || e.getTarget() == onlyDue)
+				|| e.getTarget() == fieldPaymentRule || e.getTarget() == onlyDue || e.getTarget() == fieldBankAccount || e.getTarget() == historyCombo)
 			loadTableInfo();
 
 		else if (DialogEvents.ON_WINDOW_CLOSE.equals(e.getName())) {
@@ -560,5 +592,58 @@ public class WPayment extends Payment
 				}
 			}
 		}
+	}
+    
+    /**
+     * preparing combo of history
+     */
+    private void prepareHistoryCombo()
+    {
+    	historyCombo.setId("historyCombo");
+    	for (ValueNamePair vnp : historyItems) {
+        	historyCombo.appendItem(vnp.getName(), vnp.getValue());
+        	if (HISTORY_DAY_WEEK.equals(vnp.getValue()))
+        		historyCombo.setSelectedIndex(historyCombo.getItemCount()-1);
+    	}
+    	historyCombo.addActionListener(this);
+    }
+
+    /**
+     * Adding where clause from history data
+     * @param listItem
+     */
+    private String addHistoryRestriction(ListItem listItem)
+    {
+    	String selectedHistoryValue = historyCombo.getSelectedItem().getValue();
+    	log.fine("History combo selected value  =" +selectedHistoryValue);
+
+    	if (null!=listItem && listItem.toString().length() > 0 && getHistoryDays(selectedHistoryValue) > 0)
+    	{
+    		StringBuilder where = new StringBuilder();
+    		where.append("i.Created >= ");
+    		where.append("SysDate-").append(getHistoryDays(selectedHistoryValue));
+    		return where.toString();
+    	}
+    	return null;
+    }
+    
+    /**
+     * Get days from selected values of history combo
+     * @param selectedItem
+     * @return
+     */
+    private int getHistoryDays(String selectedItem) 
+	{
+    	int retDays = 0;
+		if (selectedItem.equals(HISTORY_DAY_DAY))
+			retDays = 1;
+		else if (selectedItem.equals(HISTORY_DAY_WEEK))
+			retDays = 7;
+		else if (selectedItem.equals(HISTORY_DAY_MONTH))
+			retDays = 31;
+		else if (selectedItem.equals(HISTORY_DAY_YEAR))
+			retDays = 365;
+		return retDays;
+		
 	}
 }   //  VPaySelect

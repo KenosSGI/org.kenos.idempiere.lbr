@@ -228,7 +228,7 @@ public class Payment
 	 *  Query and create TableInfo
 	 */
 	public void loadTableInfo(BankInfo bi, Timestamp payDate, ValueNamePair paymentRule, boolean onlyDue, 
-			KeyNamePair bpartner, KeyNamePair docType, IMiniTable miniTable)
+			KeyNamePair bpartner, KeyNamePair docType, String restriction, IMiniTable miniTable)
 	{
 		log.config("");
 		//  not yet initialized
@@ -262,6 +262,9 @@ public class Payment
 			m_IsSOTrx = true;
 		else
 			return;
+		
+		if (restriction != null)
+			sql += " AND " + restriction;
 			
 		sql += " ORDER BY 2,3";
 
