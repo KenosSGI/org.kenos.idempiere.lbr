@@ -259,7 +259,7 @@ public class VPayment extends Payment implements FormPanel, ActionListener, Tabl
 		KeyNamePair bpartner = (KeyNamePair)fieldBPartner.getSelectedItem();
 		KeyNamePair docType = (KeyNamePair)fieldDtype.getSelectedItem();
 
-		loadTableInfo(bi, payDate, paymentRule, onlyDue.isSelected(), bpartner, docType, miniTable);
+		loadTableInfo(bi, payDate, paymentRule, onlyDue.isSelected(), bpartner, docType, null, miniTable);
 		
 		calculateSelection();
 	}   //  loadTableInfo
