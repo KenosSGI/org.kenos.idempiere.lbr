@@ -53,6 +53,7 @@ import org.kenos.idempiere.lbr.base.model.SysConfig;
 
 import br.inf.portalfiscal.nfe.dfe.DistDFeIntDocument;
 import br.inf.portalfiscal.nfe.dfe.DistDFeIntDocument.DistDFeInt;
+import br.inf.portalfiscal.nfe.dfe.DistDFeIntDocument.DistDFeInt.ConsNSU;
 import br.inf.portalfiscal.nfe.dfe.DistDFeIntDocument.DistDFeInt.DistNSU;
 import br.inf.portalfiscal.nfe.dfe.ResEventoDocument;
 import br.inf.portalfiscal.nfe.dfe.ResEventoDocument.ResEvento;
@@ -74,7 +75,7 @@ import br.inf.portalfiscal.nfe.v400.TProtNFe.InfProt;
 import br.inf.portalfiscal.www.nfe.wsdl.nfedistribuicaodfe.NfeDadosMsg_type0;
 
 /**
- * 		Consulta de Cadastro
+ * 		Buscar Documento Fiscal emitido contra Organização
  * 
  * 	@author Ricardo Santana (Kenos, www.kenos.com.br)
  *	@version $Id: GetDFe.java, v1.0 2013/MM/DD 4:08:49 PM, ralexsander Exp $
@@ -86,6 +87,8 @@ public class GetDFe extends SvrProcess
 	
 	/**	Organization				*/
 	private int p_AD_Org_ID = -1;
+	
+	private String p_LBR_NSU = "";
 	
 	/** Log							*/
 	private static CLogger log = CLogger.getCLogger (GetDFe.class);
@@ -105,6 +108,9 @@ public class GetDFe extends SvrProcess
 			else if (MOrg.COLUMNNAME_AD_Org_ID.equals (name))
 				p_AD_Org_ID = para[i].getParameterAsInt();
 			
+			else if (MLBRPartnerDFe.COLUMNNAME_LBR_NSU.equals (name))
+				p_LBR_NSU = para[i].getParameterAsString();
+			
 			else
 				log.log(Level.SEVERE, "Unknown Parameter: " + name);
 		}		
@@ -122,6 +128,8 @@ public class GetDFe extends SvrProcess
 		if (p_AD_Org_ID <= 0)
 			throw new AdempiereUserError ("@FillMandatory@  @AD_Org_ID@");
 		
+		Boolean consultOneNSU = false;
+		
 		//	Limit execution for each 1h and 10min to avoid being locked out from SeFaz
 		Calendar cal = new GregorianCalendar();
 		cal.setTime(new Date());
@@ -133,21 +141,33 @@ public class GetDFe extends SvrProcess
 				+ " AND Result=1 "
 				+ " AND Created >= " + DB.TO_DATE (new Timestamp (cal.getTimeInMillis()), false);
 		
-		Timestamp lastCreated = DB.getSQLValueTS (null, sql);
-		if (lastCreated != null)
-		{
-			cal.setTime(lastCreated);
-			cal.add(Calendar.HOUR, 1);
-			//
-			addLog ("Somente permitido uma consulta por hora. ");
-			addLog ("A próxima consulta poderá ser feita em " + TextUtil.timeToString(cal.getTime(), "dd/MM/yyyy' às 'HH'h 'mm'm e 'ss's'") );
-			return "@Error@";
-		}
-		
 		MOrgInfo oi = MOrgInfo.get (getCtx(), p_AD_Org_ID, null);
-		String lastNSU = MSysConfig.getValue (SysConfig.LBR_DFE_LAST_NSU, "000000000000000", oi.getAD_Client_ID(), oi.getAD_Org_ID());
-		RetDistDFeIntDocument bpResponse = GetDFe.doIt (oi, lastNSU);
+		RetDistDFeIntDocument bpResponse;
 		
+		if (!p_LBR_NSU.isEmpty())
+		{
+			consultOneNSU = true;
+			bpResponse = GetDFe.doIt (oi, p_LBR_NSU, consultOneNSU);
+		}
+		else
+		{
+			Timestamp lastCreated = DB.getSQLValueTS (null, sql);
+			if (lastCreated != null)
+			{
+				cal.setTime(lastCreated);
+				cal.add(Calendar.HOUR, 1);
+				//
+				addLog ("Somente permitido uma consulta por hora. ");
+				addLog ("A próxima consulta poderá ser feita em " + TextUtil.timeToString(cal.getTime(), "dd/MM/yyyy' às 'HH'h 'mm'm e 'ss's'") );
+				return "@Error@ Somente permitido uma consulta por hora. A próxima consulta poderá ser feita em " + TextUtil.timeToString(cal.getTime(), "dd/MM/yyyy' às 'HH'h 'mm'm e 'ss's'");
+			}
+		
+			oi = MOrgInfo.get (getCtx(), p_AD_Org_ID, null);
+			String lastNSU = MSysConfig.getValue (SysConfig.LBR_DFE_LAST_NSU, "000000000000000", oi.getAD_Client_ID(), oi.getAD_Org_ID());
+			bpResponse = GetDFe.doIt (oi, lastNSU, consultOneNSU);
+
+		}
+
 		if (bpResponse == null)
 			throw new AdempiereUserError ("Error consulting Business Partner data. Check log for more info.");
 
@@ -173,38 +193,41 @@ public class GetDFe extends SvrProcess
 			//	Save results
 			GetDFe.processResult (getCtx(), retConsNFeDest.getLoteDistDFeInt(), count, p_AD_Org_ID);
 			
-			//	Try to adquire more documets
-			while (true)
-			{
-				if (maxNSU == null || currentNSU == null 		//	Invalid Max global or session NSU
-						|| currentNSU.equals (maxNSU) 			//	All documents adquired
-						|| (count.nfe + count.event) > 500)		//	Maximum documents reached
-					break;
-				
-				RetDistDFeInt retLoop = GetDFe.doIt (oi, currentNSU).getRetDistDFeInt();
-				
-				//	Document Found
-				if (MLBRNotaFiscal.LBR_NFESTATUS_138_DocumentoLocalizadoParaODestinatário
-						.equals(retLoop.getCStat()))
+			if (!consultOneNSU)
+			{			
+				//	Try to adquire more documets
+				while (true)
 				{
-					//	Loop count
-					count.loop++;
+					if (maxNSU == null || currentNSU == null 		//	Invalid Max global or session NSU
+							|| currentNSU.equals (maxNSU) 			//	All documents adquired
+							|| (count.nfe + count.event) > 500)		//	Maximum documents reached
+						break;
 					
-					//	NSU control
-					maxNSU 		= retLoop.getMaxNSU();
-					currentNSU 	= retLoop.getUltNSU();
+					RetDistDFeInt retLoop = GetDFe.doIt (oi, currentNSU, true).getRetDistDFeInt();
 					
-					//	Save Results
-					processResult (getCtx(), retLoop.getLoteDistDFeInt(), count, p_AD_Org_ID);
-				}
+					//	Document Found
+					if (MLBRNotaFiscal.LBR_NFESTATUS_138_DocumentoLocalizadoParaODestinatário
+							.equals(retLoop.getCStat()))
+					{
+						//	Loop count
+						count.loop++;
+						
+						//	NSU control
+						maxNSU 		= retLoop.getMaxNSU();
+						currentNSU 	= retLoop.getUltNSU();
+						
+						//	Save Results
+						processResult (getCtx(), retLoop.getLoteDistDFeInt(), count, p_AD_Org_ID);
+					}
+					
+					//	Ignore errors, use first status
+					else
+						break;				
 				
-				//	Ignore errors, use first status
-				else
-					break;
+					//	Set max NSU, next runs will start from this NSU
+					setNSU (oi, maxNSU);
+				}
 			}
-			
-			//	Set max NSU, next runs will start from this NSU
-			setNSU (oi, maxNSU);
 			
 			return "@Success@ - " + retConsNFeDest.getXMotivo() + "<br />" + 
 							count.nfe + " - Notas Fiscais obtidas<br />" +
@@ -227,7 +250,7 @@ public class GetDFe extends SvrProcess
 	 * 	@return
 	 * 	@throws XmlException 
 	 */
-	public static RetDistDFeIntDocument doIt (MOrgInfo oi, String lastNSU) throws XmlException
+	public static RetDistDFeIntDocument doIt (MOrgInfo oi, String nsu, Boolean consultOneNSU) throws XmlException
 	{
 		I_W_AD_OrgInfo oiW = POWrapper.create(oi, I_W_AD_OrgInfo.class);
 		DistDFeIntDocument consDFeDoc = DistDFeIntDocument.Factory.newInstance();
@@ -246,8 +269,16 @@ public class GetDFe extends SvrProcess
 		else
 			consDFe.setCNPJ(CNPJF);
 		
-		DistNSU distNSU = consDFe.addNewDistNSU();
-		distNSU.setUltNSU(lastNSU);
+		if (!consultOneNSU)
+		{
+			DistNSU distNSU = consDFe.addNewDistNSU();
+			distNSU.setUltNSU(nsu);
+		}
+		else
+		{
+			ConsNSU consNSU = consDFe.addNewConsNSU();
+			consNSU.setNSU(nsu);
+		}
 		
 		//	Validar XML
 		NFeUtil.validate (consDFeDoc);
@@ -329,6 +360,10 @@ public class GetDFe extends SvrProcess
 	 */
 	public static void processResult (Properties ctx, LoteDistDFeInt lote, Counter count, int p_AD_Org_ID) throws Exception
 	{
+		//	Para consulta de apenas um NSU, esse campo pode vir nulo
+		if (count == null)
+			count = new Counter();
+		
 		//	Process Responses
 		for (DocZip zip : lote.getDocZipArray())
 		{
@@ -366,6 +401,7 @@ public class GetDFe extends SvrProcess
 				pDFe.setGrandTotal(new BigDecimal (resNFe.getVNF()));
 				pDFe.setlbr_DigestValue(resNFe.xgetDigVal().getStringValue());
 				pDFe.setDateTrx(NFeUtil.stringToTime (resNFe.getDhRecbto().toString()));
+				pDFe.setLBR_NSU(zip.getNSU());
 				try
 				{
 					pDFe.setLBR_SitNF(resNFe.getCSitNFe().toString());
@@ -403,6 +439,7 @@ public class GetDFe extends SvrProcess
 				pDFe.setDocumentNote(resEvento.getXEvento());
 				pDFe.setDateTrx(NFeUtil.stringToTime (resEvento.getDhRecbto().toString()));
 				pDFe.setlbr_NFeProt(resEvento.getNProt());
+				pDFe.setLBR_NSU(zip.getNSU());
 				try
 				{
 					pDFe.setLBR_EventType(resEvento.getTpEvento());
@@ -438,6 +475,7 @@ public class GetDFe extends SvrProcess
 				pDFe.setDocumentNote(resEvento.getXEvento());
 				pDFe.setDateTrx(NFeUtil.stringToTime (resProcEvento.getProcEventoNFe().getEvento().getInfEvento().getDhEvento()));
 				pDFe.setlbr_NFeProt(resEvento.getNProt());
+				pDFe.setLBR_NSU(zip.getNSU());
 				try
 				{
 					pDFe.setLBR_EventType(resEvento.getTpEvento());
@@ -491,6 +529,7 @@ public class GetDFe extends SvrProcess
 					pDFe.setGrandTotal(new BigDecimal (nfe.getTotal().getICMSTot().getVNF()));
 					pDFe.setlbr_DigestValue(resNFe.xgetDigVal().getStringValue());
 					pDFe.setDateTrx(NFeUtil.stringToTime (resNFe.getDhRecbto().toString()));
+					pDFe.setLBR_NSU(zip.getNSU());
 					
 					//	Autorizado
 					if (MLBRNotaFiscal.LBR_NFESTATUS_100_AutorizadoOUsoDaNF_E.equals(resNFe.getCStat()))

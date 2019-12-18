@@ -47,4 +47,14 @@ public interface I_W_M_InOut extends I_M_InOut
 	  * Number of the Customer NF
 	  */
 	public String getlbr_NFEntrada();
+	
+	/** Set Packing Type.
+	  * Packing Type
+	  */
+	public void setlbr_PackingType (String lbr_PackingType);
+
+	/** Get Packing Type.
+	  *Packing Type
+	  */
+	public String getlbr_PackingType();
 }

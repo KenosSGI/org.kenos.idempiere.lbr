@@ -191,7 +191,6 @@ public class ProcInutNF extends SvrProcess
 				if (nfe.getlbr_MotivoCancel() == null)
 					nfe.setlbr_MotivoCancel(p_Just);
 				nfe.setlbr_NFeStatus (MLBRNotaFiscal.LBR_NFESTATUS_102_InutilizaçãoDeNúmeroHomologado);
-		        
 				if (nfe.save())
 					msg.append("<br /><br /><font color=\"008800\">Os dados de inutilização foram atualizados na NFe</font>");
 				else
