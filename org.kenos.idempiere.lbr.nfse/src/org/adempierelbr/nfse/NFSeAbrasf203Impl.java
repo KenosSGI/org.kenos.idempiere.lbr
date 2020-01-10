@@ -32,30 +32,28 @@ import org.compiere.model.MProduct;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
 
-import br.com.ginfes.cabecalhoV03.CabecalhoDocument;
-import br.com.ginfes.cabecalhoV03.CabecalhoDocument.Cabecalho;
-import br.com.ginfes.servicoCancelarNfseEnvioV03.CancelarNfseEnvioDocument.CancelarNfseEnvio;
-import br.com.ginfes.servicoEnviarLoteRpsEnvioV03.EnviarLoteRpsEnvioDocument;
-import br.com.ginfes.servicoEnviarLoteRpsEnvioV03.EnviarLoteRpsEnvioDocument.EnviarLoteRpsEnvio;
-import br.com.ginfes.servicoEnviarLoteRpsRespostaV03.EnviarLoteRpsRespostaDocument;
-import br.com.ginfes.servicoEnviarLoteRpsRespostaV03.EnviarLoteRpsRespostaDocument.EnviarLoteRpsResposta;
-import br.com.ginfes.tiposV03.TcContato;
-import br.com.ginfes.tiposV03.TcCpfCnpj;
-import br.com.ginfes.tiposV03.TcDadosServico;
-import br.com.ginfes.tiposV03.TcDadosTomador;
-import br.com.ginfes.tiposV03.TcEndereco;
-import br.com.ginfes.tiposV03.TcIdentificacaoNfse;
-import br.com.ginfes.tiposV03.TcIdentificacaoPrestador;
-import br.com.ginfes.tiposV03.TcIdentificacaoRps;
-import br.com.ginfes.tiposV03.TcIdentificacaoTomador;
-import br.com.ginfes.tiposV03.TcInfPedidoCancelamento;
-import br.com.ginfes.tiposV03.TcInfRps;
-import br.com.ginfes.tiposV03.TcLoteRps;
-import br.com.ginfes.tiposV03.TcLoteRps.ListaRps;
-import br.com.ginfes.tiposV03.TcPedidoCancelamento;
-import br.com.ginfes.tiposV03.TcRps;
-import br.com.ginfes.tiposV03.TcValores;
-import br.com.ginfes.tiposV03.TsCodigoMunicipioIbge;
+import br.org.abrasf.nfse.CabecalhoDocument;
+import br.org.abrasf.nfse.CabecalhoDocument.Cabecalho;
+import br.org.abrasf.nfse.CancelarNfseEnvioDocument.CancelarNfseEnvio;
+import br.org.abrasf.nfse.EnviarLoteRpsRespostaDocument;
+import br.org.abrasf.nfse.EnviarLoteRpsRespostaDocument.EnviarLoteRpsResposta;
+import br.org.abrasf.nfse.TcContato;
+import br.org.abrasf.nfse.TcCpfCnpj;
+import br.org.abrasf.nfse.TcDadosServico;
+import br.org.abrasf.nfse.TcDadosTomador;
+import br.org.abrasf.nfse.TcDeclaracaoPrestacaoServico;
+import br.org.abrasf.nfse.TcEndereco;
+import br.org.abrasf.nfse.TcIdentificacaoNfse;
+import br.org.abrasf.nfse.TcIdentificacaoPrestador;
+import br.org.abrasf.nfse.TcIdentificacaoRps;
+import br.org.abrasf.nfse.TcIdentificacaoTomador;
+import br.org.abrasf.nfse.TcInfDeclaracaoPrestacaoServico;
+import br.org.abrasf.nfse.TcInfPedidoCancelamento;
+import br.org.abrasf.nfse.TcInfRps;
+import br.org.abrasf.nfse.TcPedidoCancelamento;
+import br.org.abrasf.nfse.TcValoresDeclaracaoServico;
+import br.org.abrasf.nfse.TsCodigoMunicipioIbge;
+import br.org.abrasf.nfse.TsItemListaServico;
 import br.org.abrasf.nfse.webservice.NfseWSServiceStub;
 import br.org.abrasf.nfse.webservice.NfseWSServiceStub.CancelarNfseRequest;
 import br.org.abrasf.nfse.webservice.NfseWSServiceStub.GerarNfseRequest;
@@ -69,10 +67,10 @@ import br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.RecepcionarLoteRps
  * 	@author Rogério Feitosa (Kenos, www.kenos.com.br)
  *	@version $Id: NFSeIndaiatubaImpl.java, v1.0 2019/07/31 14:59:06, SFUSER Exp $
  */
-public class NFSeAbrasfImpl implements INFSe
+public class NFSeAbrasf203Impl implements INFSe
 {
 	/** Log				*/
-	private static CLogger log = CLogger.getCLogger(NFSeAbrasfImpl.class);
+	private static CLogger log = CLogger.getCLogger(NFSeAbrasf203Impl.class);
 	
 	/** Cidades que utilizam padrão Abrasf 
 	 *	
@@ -139,245 +137,8 @@ public class NFSeAbrasfImpl implements INFSe
 	 */
 	public byte[] getXML(MLBRNotaFiscal nf)
 	{
-		//	Indicate City to set namespace and url
-		String version = getVersion(nf.getOrg_Location().getC_City_ID());	
-		
-		if (ABRASF_VERSION_1_00.equals(version))
-			return getXMLV1 (nf);
-		else if (ABRASF_VERSION_2_03.equals(version))
-			return getXMLV2 (nf);
-		else
-			new AdempiereException("Abrasf Version not difined");
-		
-		return null;
-		
-	}	//	getXML
-	
-	
-	public byte[] getXMLV1(MLBRNotaFiscal nf)
-	{
 		//	ID da Organização
 		int p_AD_Org_ID = nf.getAD_Org_ID();
-		
-		//	Informações da Organização
-		MOrgInfo orgInf = MOrgInfo.get (nf.getCtx(), p_AD_Org_ID, null);
-		I_W_AD_OrgInfo woi = POWrapper.create(orgInf, I_W_AD_OrgInfo.class);
-		
-		//	Parceiro de Negócio
-		MBPartner partner = new MBPartner(Env.getCtx(), nf.getC_BPartner_ID(), null);
-		
-		MInvoice invoice = (MInvoice)nf.getC_Invoice();
-		I_W_C_Invoice winvoice = POWrapper.create(invoice, I_W_C_Invoice.class);
-		
-		// Data da NF
-		Calendar dateDoc = Calendar.getInstance();
-		dateDoc.setTime(nf.getDateDoc());		
-		
-		//	Criar RPS
-		//	Envio do Lote RPS
-		EnviarLoteRpsEnvioDocument enviarLotDoc = EnviarLoteRpsEnvioDocument.Factory.newInstance();
-		EnviarLoteRpsEnvio enviarLot = enviarLotDoc.addNewEnviarLoteRpsEnvio();
-		
-		//	Lote RPS
-		TcLoteRps loteRps = enviarLot.addNewLoteRps();
-		//	Identificação do Lote do RPS
-		loteRps.setNumeroLote(new BigDecimal(nf.getDocumentNo()).intValue());
-		loteRps.setCnpj(TextUtil.retiraEspecial(nf.getlbr_CNPJ()));
-		loteRps.setInscricaoMunicipal(TextUtil.retiraEspecial(nf.getlbr_OrgCCM()));
-		loteRps.setQuantidadeRps(1);
-		
-		//	Lista de RPS
-		ListaRps listaRps = loteRps.addNewListaRps();
-		TcRps rps = listaRps.addNewRps();
-		
-		//	Informações do RPS
-		TcInfRps infRps = rps.addNewInfRps();
-		
-		//	Identificação do RPS
-		TcIdentificacaoRps identRps = infRps.addNewIdentificacaoRps();
-		identRps.setNumero(new BigDecimal(nf.getDocumentNo()).intValue());
-		identRps.setSerie(nf.getlbr_NFSerie());
-		identRps.setTipo((byte)1);
-		infRps.setIdentificacaoRps(identRps);
-		
-		/** Natureza de Operação
-			Código de natureza da operação
-				1 – Tributação no município
-				2 - Tributação fora do município
-				3 - Isenção
-				4 - Imune
-				5 –Exigibilidade suspensa por decisão judicial
-				6 – Exigibilidade suspensa por procedimento
-				administrativo
-		*/
-		infRps.setNaturezaOperacao((byte)1);
-		
-		//	Data Emissão
-		infRps.setDataEmissao(dateDoc);
-		//	Optando do Simples Nacionals
-		infRps.setOptanteSimplesNacional("S".equals(woi.getLBR_TaxRegime()) ? (byte)1 : (byte)2);			
-		// Possui Incentivo Fiscal
-		infRps.setIncentivadorCultural((byte)2);		
-		
-		/*	Código de status do RPS
-			1 – Normal
-			2 – Cancelado
-		*/		
-		infRps.setStatus((byte)1);
-		
-		//	Competencia
-		//rps.setCompetencia(dateDoc);
-		
-		//	Identificação do Prestador de Serviço
-		TcIdentificacaoPrestador indprestador = infRps.addNewPrestador();
-		indprestador.setCnpj(TextUtil.retiraEspecial(nf.getlbr_CNPJ()));
-		//	Inscrição Municipal Organização
-		if (nf.getlbr_OrgCCM() != null && !nf.getlbr_OrgCCM().isEmpty())
-			indprestador.setInscricaoMunicipal(TextUtil.retiraEspecial(nf.getlbr_OrgCCM()));
-		
-		//	Identificação do Parceiro de Negócio Tomador do Serviço
-		TcDadosTomador dadosTomador = infRps.addNewTomador();
-		TcIdentificacaoTomador tomador = dadosTomador.addNewIdentificacaoTomador(); 
-		TcCpfCnpj cpfcnpjTomador = tomador.addNewCpfCnpj();
-		
-		// CPF ou CNPJ do Parceiro de Negócio
-		if (MLBRNotaFiscal.LBR_BPTYPEBR_PJ_LegalEntity.equals(nf.getlbr_BPTypeBR()))
-			cpfcnpjTomador.setCnpj(TextUtil.retiraEspecial(nf.getlbr_BPCNPJ()));
-		else
-			cpfcnpjTomador.setCpf(TextUtil.retiraEspecial(nf.getlbr_BPCNPJ()));
-		
-		//	Inscriçaõ Municipal do Parceiro de Negócio
-		if (partner.get_ValueAsString("LBR_CCM") != null && !partner.get_ValueAsString("LBR_CCM").isEmpty())
-			tomador.setInscricaoMunicipal(partner.get_ValueAsString("LBR_CCM"));
-		
-		//	Dados do Tomador do Serviço / Parceiro de Negócio
-		dadosTomador.setRazaoSocial(TextUtil.retiraEspecial(nf.getBPName()));
-		
-		//	Endereço Tomador
-		TcEndereco endTomador = dadosTomador.addNewEndereco();
-		endTomador.setEndereco(TextUtil.retiraEspecial(nf.getlbr_BPAddress1()));
-		endTomador.setNumero(TextUtil.retiraEspecial(nf.getlbr_BPAddress2()));
-		endTomador.setBairro(TextUtil.retiraEspecial(nf.getlbr_BPAddress3()));
-		endTomador.setCodigoMunicipio(new BigDecimal(BPartnerUtil.getCityCode (nf.getlbr_BPRegion(), nf.getlbr_BPCity())).intValue());
-		endTomador.setCep(new BigDecimal(TextUtil.toNumeric (nf.getlbr_BPPostal())).intValue());
-		
-		
-		//	Descrição do Serviço
-		String descricaoServico = "";
-		String serviceCode = "";
-		BigDecimal aliquota = BigDecimal.ZERO;
-		
-		//	Serviços Prestados
-		//	É possível descrever vários serviços numa mesma NFS-e, desde que relacionados a um
-		//	único item da Lista, de mesma alíquota e para o mesmo tomador de serviço 
-		for (MLBRNotaFiscalLine nfl : nf.getLines())
-		{
-			//	Apenas Serviço
-			if (!nfl.islbr_IsService())
-				continue;
-			
-			//
-			if (nfl.getM_Product_ID() > 0)
-			{
-				// Descrição dos Serviços
-				if (nfl.getProductName()!= null && !nfl.getProductName().isEmpty())
-				{
-					if (descricaoServico.isEmpty())
-						descricaoServico = nfl.getProductName();
-					else
-						descricaoServico = descricaoServico + "\n" + nfl.getProductName();
-				}
-				
-				//	Identificação do Serviço
-				MProduct p = new MProduct (Env.getCtx(), nfl.getM_Product_ID(), null);
-				
-				//	Código do Serviço é Obrigatório
-				if (p.get_ValueAsString("lbr_ServiceCode") != null)
-				{
-					//	Mesmo código de serviço para todos os serviços prestados
-					if (serviceCode.equals(""))
-						serviceCode = p.get_ValueAsString("lbr_ServiceCode");	//	FIXME : Copiar para LBR_NotaFiscalLine
-					else if (!serviceCode.equals(p.get_ValueAsString("lbr_ServiceCode")))
-					{
-						nf.setErrorMsg("Impossível gerar NFS-e. Todos os serviços da NFS-e devem conter o mesmo Código de Serviço");
-						return null;
-					}
-						
-					//	Mesma Alíquota de ISS para todos os serviços prestados
-					if (aliquota.equals(BigDecimal.ZERO))
-							aliquota = nfl.getTaxRate("ISS");
-					else if (!aliquota.equals(nfl.getTaxRate("ISS")))
-					{
-						nf.setErrorMsg("Impossível gerar XML NFS-e. Todos os serviços da NFS-e devem conter o mesmo Código de Serviço");
-						return null;
-					}
-				}								
-			}
-		}
-		
-		//	Identificação dos Serviços prestados
-		TcDadosServico dadosServico = infRps.addNewServico();		
-	
-		// Discriminação do Serviço
-		dadosServico.setDiscriminacao(descricaoServico);
-		dadosServico.setItemListaServico(serviceCode);
-		//dadosServico.setIssRetido((byte)(winvoice.isLBR_HasWithhold() ? 1 : 1));
-		dadosServico.setCodigoMunicipio(new BigDecimal(BPartnerUtil.getCityCode (nf.getlbr_BPRegion(), nf.getlbr_BPCity())).intValue());
-		
-		//	Valores dos Serviços
-		TcValores valores = dadosServico.addNewValores();
-		valores.setValorServicos(toBD(nf.getlbr_ServiceTotalAmt()));
-		valores.setValorDeducoes(BigDecimal.ZERO);
-		
-		//	Total de Imposto
-		BigDecimal v_PIS 	= toBD (nf.getTaxAmt("PIS")).abs();
-		BigDecimal v_COFINS = toBD (nf.getTaxAmt("COFINS")).abs();
-		BigDecimal v_INSS 	= toBD (nf.getTaxAmt("INSS")).abs();
-		BigDecimal v_IR 	= toBD (nf.getTaxAmt("IR")).abs();
-		BigDecimal v_CSLL 	= toBD (nf.getTaxAmt("CSLL")).abs();
-		
-		// Valores da NFS-e
-		valores.setValorPis(v_PIS);
-		valores.setValorCofins(v_COFINS);
-		valores.setValorInss(v_INSS);
-		valores.setValorIr(v_IR);
-		valores.setValorCsll(v_CSLL);
-		valores.setOutrasRetencoes(BigDecimal.ZERO);
-		valores.setDescontoIncondicionado(BigDecimal.ZERO);
-		valores.setDescontoCondicionado(toBD(nf.getDiscountAmt()));
-		valores.setIssRetido((byte)2);
-		valores.setValorLiquidoNfse(toBD(nf.getlbr_ServiceTotalAmt()));
-		
-		try
-		{
-			//	Valida o documento
-			NFeUtil.validate (enviarLotDoc);
-			
-			//	Adiciona o Certificado
-			MLBRDigitalCertificate.setCertificate (nf.getCtx(), p_AD_Org_ID);
-			
-			//	Assina o XML
-			//new SignatureUtil (orgInf, SignatureUtil.RPS, "").sign (enviarLotDoc, enviarLotDoc.getEnviarLoteRpsEnvio().getLoteRps().getListaRps().getRpsArray(0).newCursor());
-			
-			//	Assina o Lote
-			new SignatureUtil (orgInf, SignatureUtil.RPS, "").sign (enviarLotDoc, enviarLotDoc.getEnviarLoteRpsEnvio().newCursor());
-					
-			return enviarLotDoc.xmlText(NFeUtil.getXmlOpt()).getBytes(NFeUtil.NFE_ENCODING);
-		
-		}
-		catch (Exception e)
-		{
-			nf.setErrorMsg(e.toString());
-			nf.saveEx();
-			throw new AdempiereException(e.getMessage());
-		}
-		
-	}	//	getXML
-	
-	public byte[] getXMLV2(MLBRNotaFiscal nf)
-	{
-		//	ID da Organização
-		/*int p_AD_Org_ID = nf.getAD_Org_ID();
 		
 		//	Informações da Organização
 		MOrgInfo orgInf = MOrgInfo.get (nf.getCtx(), p_AD_Org_ID, null);
@@ -512,7 +273,7 @@ public class NFSeAbrasfImpl implements INFSe
 	
 		// Discriminação do Serviço
 		dadosServico.setDiscriminacao(descricaoServico);
-		dadosServico.setItemListaServico(Enum.forString(serviceCode));
+		dadosServico.setItemListaServico(TsItemListaServico.Enum.forString(serviceCode));
 		dadosServico.setIssRetido((byte)(winvoice.isLBR_HasWithhold() ? 1 : 1));
 		dadosServico.setCodigoMunicipio(nf.getlbr_BPCityCode());
 		
@@ -523,7 +284,7 @@ public class NFSeAbrasfImpl implements INFSe
 			4 - Exportação;
 			5 - Imunidade;
 			6 - Exigibilidade Suspensa por Decisão Judicial;
-			7 - Exigibilidade Suspensa por Processo Administrativo
+			7 - Exigibilidade Suspensa por Processo Administrativo*/
 		
 		dadosServico.setExigibilidadeISS((byte)1);
 		dadosServico.setMunicipioIncidencia(nf.getlbr_BPCityCode());
@@ -576,12 +337,9 @@ public class NFSeAbrasfImpl implements INFSe
 			nf.setErrorMsg(e.toString());
 			nf.saveEx();
 			throw new AdempiereException(e.getMessage());
-		}*/
-		
-		return null;
+		}
 		
 	}	//	getXML
-
 	
 	@Override
 	public StringBuilder getRPS(List<MLBRNotaFiscal> nfs) throws Exception
