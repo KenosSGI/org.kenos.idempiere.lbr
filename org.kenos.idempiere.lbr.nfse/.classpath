@@ -22,5 +22,7 @@
 	<classpathentry exported="true" kind="lib" path="lib/nfsebeans-v01.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/nfse-abrasf-v100.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/nfse-abrasf-v100-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/nfse-abrasf-v203-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/nfse-abrasf-v203.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

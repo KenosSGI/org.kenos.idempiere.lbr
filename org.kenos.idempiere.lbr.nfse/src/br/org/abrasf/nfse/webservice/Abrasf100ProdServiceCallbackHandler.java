@@ -11,7 +11,7 @@ package br.org.abrasf.nfse.webservice;
  *  ServiceGinfesImplServiceCallbackHandler Callback class, Users can extend this class and implement
  *  their own receiveResult and receiveError methods.
  */
-public abstract class SaoCaetanoSulServiceCallbackHandler {
+public abstract class Abrasf100ProdServiceCallbackHandler {
     protected Object clientData;
 
     /**
@@ -20,14 +20,14 @@ public abstract class SaoCaetanoSulServiceCallbackHandler {
      * @param clientData Object mechanism by which the user can pass in user data
      * that will be avilable at the time this callback is called.
      */
-    public SaoCaetanoSulServiceCallbackHandler(Object clientData) {
+    public Abrasf100ProdServiceCallbackHandler(Object clientData) {
         this.clientData = clientData;
     }
 
     /**
      * Please use this constructor if you don't want to set any clientData
      */
-    public SaoCaetanoSulServiceCallbackHandler() {
+    public Abrasf100ProdServiceCallbackHandler() {
         this.clientData = null;
     }
 
@@ -43,7 +43,7 @@ public abstract class SaoCaetanoSulServiceCallbackHandler {
      * override this method for handling normal response from consultarLoteRps operation
      */
     public void receiveResultconsultarLoteRps(
-        br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarLoteRpsResponse result) {
+        br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarLoteRpsResponse result) {
     }
 
     /**
@@ -58,7 +58,7 @@ public abstract class SaoCaetanoSulServiceCallbackHandler {
      * override this method for handling normal response from recepcionarLoteRpsV3 operation
      */
     public void receiveResultrecepcionarLoteRpsV3(
-        br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.RecepcionarLoteRpsV3Response result) {
+        br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.RecepcionarLoteRpsV3Response result) {
     }
 
     /**
@@ -73,7 +73,7 @@ public abstract class SaoCaetanoSulServiceCallbackHandler {
      * override this method for handling normal response from consultarNfsePorRps operation
      */
     public void receiveResultconsultarNfsePorRps(
-        br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarNfsePorRpsResponse result) {
+        br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarNfsePorRpsResponse result) {
     }
 
     /**
@@ -88,7 +88,7 @@ public abstract class SaoCaetanoSulServiceCallbackHandler {
      * override this method for handling normal response from consultarNfse operation
      */
     public void receiveResultconsultarNfse(
-        br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarNfseResponse result) {
+        br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarNfseResponse result) {
     }
 
     /**
@@ -103,7 +103,7 @@ public abstract class SaoCaetanoSulServiceCallbackHandler {
      * override this method for handling normal response from consultarNfsePorRpsV3 operation
      */
     public void receiveResultconsultarNfsePorRpsV3(
-        br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarNfsePorRpsV3Response result) {
+        br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarNfsePorRpsV3Response result) {
     }
 
     /**
@@ -118,7 +118,7 @@ public abstract class SaoCaetanoSulServiceCallbackHandler {
      * override this method for handling normal response from recepcionarLoteRps operation
      */
     public void receiveResultrecepcionarLoteRps(
-        br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.RecepcionarLoteRpsResponse result) {
+        br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.RecepcionarLoteRpsResponse result) {
     }
 
     /**
@@ -133,7 +133,7 @@ public abstract class SaoCaetanoSulServiceCallbackHandler {
      * override this method for handling normal response from consultarSituacaoLoteRpsV3 operation
      */
     public void receiveResultconsultarSituacaoLoteRpsV3(
-        br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarSituacaoLoteRpsV3Response result) {
+        br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarSituacaoLoteRpsV3Response result) {
     }
 
     /**
@@ -148,7 +148,7 @@ public abstract class SaoCaetanoSulServiceCallbackHandler {
      * override this method for handling normal response from consultarNfseV3 operation
      */
     public void receiveResultconsultarNfseV3(
-        br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarNfseV3Response result) {
+        br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarNfseV3Response result) {
     }
 
     /**
@@ -163,7 +163,7 @@ public abstract class SaoCaetanoSulServiceCallbackHandler {
      * override this method for handling normal response from cancelarNfse operation
      */
     public void receiveResultcancelarNfse(
-        br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.CancelarNfseResponse result) {
+        br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.CancelarNfseResponse result) {
     }
 
     /**
@@ -178,7 +178,7 @@ public abstract class SaoCaetanoSulServiceCallbackHandler {
      * override this method for handling normal response from consultarSituacaoLoteRps operation
      */
     public void receiveResultconsultarSituacaoLoteRps(
-        br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarSituacaoLoteRpsResponse result) {
+        br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarSituacaoLoteRpsResponse result) {
     }
 
     /**
@@ -193,7 +193,7 @@ public abstract class SaoCaetanoSulServiceCallbackHandler {
      * override this method for handling normal response from cancelarNfseV3 operation
      */
     public void receiveResultcancelarNfseV3(
-        br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.CancelarNfseV3Response result) {
+        br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.CancelarNfseV3Response result) {
     }
 
     /**
@@ -208,7 +208,7 @@ public abstract class SaoCaetanoSulServiceCallbackHandler {
      * override this method for handling normal response from consultarLoteRpsV3 operation
      */
     public void receiveResultconsultarLoteRpsV3(
-        br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarLoteRpsV3Response result) {
+        br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarLoteRpsV3Response result) {
     }
 
     /**

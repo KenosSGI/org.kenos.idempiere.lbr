@@ -19,7 +19,8 @@ Import-Package: javax.activation,
  org.apache.xmlbeans,
  org.apache.xmlbeans.impl.schema,
  org.apache.xmlbeans.impl.values
-Bundle-ClassPath: lib/nfse-mogi-v100-sources.jar,
+Bundle-ClassPath: .,
+ lib/nfse-mogi-v100-sources.jar,
  lib/nfse-mogi-v100.jar,
  lib/nfse-palhoca-v100-sources.jar,
  lib/nfse-palhoca-v100.jar,
@@ -27,7 +28,8 @@ Bundle-ClassPath: lib/nfse-mogi-v100-sources.jar,
  lib/nfsebeans-v01.jar,
  lib/nfse-abrasf-v100-sources.jar,
  lib/nfse-abrasf-v100.jar,
- .
+ lib/nfse-abrasf-v203-sources.jar,
+ lib/nfse-abrasf-v203.jar
 Export-Package: org.kenos.idempiere.lbr.nfse
 Bundle-ActivationPolicy: lazy
 Automatic-Module-Name: org.kenos.idempiere.lbr.nfse

@@ -58,8 +58,8 @@ import br.org.abrasf.nfse.webservice.NfseWSServiceStub;
 import br.org.abrasf.nfse.webservice.NfseWSServiceStub.CancelarNfseRequest;
 import br.org.abrasf.nfse.webservice.NfseWSServiceStub.GerarNfseRequest;
 import br.org.abrasf.nfse.webservice.NfseWSServiceStub.Input;
-import br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub;
-import br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.RecepcionarLoteRpsV3;
+import br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub;
+import br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.RecepcionarLoteRpsV3;
 
 /**
  * 		NFS-e para a cidade de Indaiatuba/SP
@@ -398,7 +398,7 @@ public class NFSeAbrasf203Impl implements INFSe
 		/**
 		 *	Enviar NF-e
 		 */		
-		SaoCaetanoSulServiceStub rpsStub = new SaoCaetanoSulServiceStub();
+		Abrasf100ProdServiceStub rpsStub = new Abrasf100ProdServiceStub();
 		
 		RecepcionarLoteRpsV3 rpsResponse = new RecepcionarLoteRpsV3();
 		rpsResponse.setArg0(inputXmlNfse.getNfseCabecMsg());

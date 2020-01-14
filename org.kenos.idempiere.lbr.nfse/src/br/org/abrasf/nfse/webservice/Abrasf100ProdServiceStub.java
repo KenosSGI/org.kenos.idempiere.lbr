@@ -13,7 +13,7 @@ import javax.xml.stream.XMLStreamReader;
 /*
  *  ServiceGinfesImplServiceStub java implementation
  */
-public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
+public class Abrasf100ProdServiceStub extends org.apache.axis2.client.Stub {
     private static int counter = 0;
     protected org.apache.axis2.description.AxisOperation[] _operations;
 
@@ -26,7 +26,7 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
     /**
      *Constructor that takes in a configContext
      */
-    public SaoCaetanoSulServiceStub(
+    public Abrasf100ProdServiceStub(
         org.apache.axis2.context.ConfigurationContext configurationContext,
         java.lang.String targetEndpoint) throws org.apache.axis2.AxisFault {
         this(configurationContext, targetEndpoint, false);
@@ -35,7 +35,7 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
     /**
      * Constructor that takes in a configContext  and useseperate listner
      */
-    public SaoCaetanoSulServiceStub(
+    public Abrasf100ProdServiceStub(
         org.apache.axis2.context.ConfigurationContext configurationContext,
         java.lang.String targetEndpoint, boolean useSeparateListener)
         throws org.apache.axis2.AxisFault {
@@ -55,7 +55,7 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
     /**
      * Default Constructor
      */
-    public SaoCaetanoSulServiceStub(
+    public Abrasf100ProdServiceStub(
         org.apache.axis2.context.ConfigurationContext configurationContext)
         throws org.apache.axis2.AxisFault {
         this(configurationContext,
@@ -65,14 +65,14 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
     /**
      * Default Constructor
      */
-    public SaoCaetanoSulServiceStub() throws org.apache.axis2.AxisFault {
+    public Abrasf100ProdServiceStub() throws org.apache.axis2.AxisFault {
         this("https://producao.ginfes.com.br//ServiceGinfesImpl");
     }
 
     /**
      * Constructor taking the target endpoint
      */
-    public SaoCaetanoSulServiceStub(java.lang.String targetEndpoint)
+    public Abrasf100ProdServiceStub(java.lang.String targetEndpoint)
         throws org.apache.axis2.AxisFault {
         this(null, targetEndpoint);
     }
@@ -207,8 +207,8 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
      * @see br.org.abrasf.nfse.webservice.ServiceGinfesImplService#consultarLoteRps
      * @param consultarLoteRps0
      */
-    public br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarLoteRpsResponse consultarLoteRps(
-        br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarLoteRps consultarLoteRps0)
+    public br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarLoteRpsResponse consultarLoteRps(
+        br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarLoteRps consultarLoteRps0)
         throws java.rmi.RemoteException {
         org.apache.axis2.context.MessageContext _messageContext = new org.apache.axis2.context.MessageContext();
 
@@ -250,9 +250,9 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
 
             java.lang.Object object = fromOM(_returnEnv.getBody()
                                                        .getFirstElement(),
-                    br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarLoteRpsResponse.class);
+                    br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarLoteRpsResponse.class);
 
-            return (br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarLoteRpsResponse) object;
+            return (br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarLoteRpsResponse) object;
         } catch (org.apache.axis2.AxisFault f) {
             org.apache.axiom.om.OMElement faultElt = f.getDetail();
 
@@ -319,8 +319,8 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
      * @param consultarLoteRps0
      */
     public void startconsultarLoteRps(
-        br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarLoteRps consultarLoteRps0,
-        final br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceCallbackHandler callback)
+        br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarLoteRps consultarLoteRps0,
+        final br.org.abrasf.nfse.webservice.Abrasf100ProdServiceCallbackHandler callback)
         throws java.rmi.RemoteException {
         org.apache.axis2.client.OperationClient _operationClient = _serviceClient.createClient(_operations[0].getName());
         _operationClient.getOptions()
@@ -361,8 +361,8 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
 
                         java.lang.Object object = fromOM(resultEnv.getBody()
                                                                   .getFirstElement(),
-                                br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarLoteRpsResponse.class);
-                        callback.receiveResultconsultarLoteRps((br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarLoteRpsResponse) object);
+                                br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarLoteRpsResponse.class);
+                        callback.receiveResultconsultarLoteRps((br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarLoteRpsResponse) object);
                     } catch (org.apache.axis2.AxisFault e) {
                         callback.receiveErrorconsultarLoteRps(e);
                     }
@@ -468,8 +468,8 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
      * @see br.org.abrasf.nfse.webservice.ServiceGinfesImplService#recepcionarLoteRpsV3
      * @param recepcionarLoteRpsV32
      */
-    public br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.RecepcionarLoteRpsV3Response recepcionarLoteRpsV3(
-        br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.RecepcionarLoteRpsV3 recepcionarLoteRpsV32)
+    public br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.RecepcionarLoteRpsV3Response recepcionarLoteRpsV3(
+        br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.RecepcionarLoteRpsV3 recepcionarLoteRpsV32)
         throws java.rmi.RemoteException {
         org.apache.axis2.context.MessageContext _messageContext = new org.apache.axis2.context.MessageContext();
 
@@ -512,9 +512,9 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
 
             java.lang.Object object = fromOM(_returnEnv.getBody()
                                                        .getFirstElement(),
-                    br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.RecepcionarLoteRpsV3Response.class);
+                    br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.RecepcionarLoteRpsV3Response.class);
 
-            return (br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.RecepcionarLoteRpsV3Response) object;
+            return (br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.RecepcionarLoteRpsV3Response) object;
         } catch (org.apache.axis2.AxisFault f) {
             org.apache.axiom.om.OMElement faultElt = f.getDetail();
 
@@ -581,8 +581,8 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
      * @param recepcionarLoteRpsV32
      */
     public void startrecepcionarLoteRpsV3(
-        br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.RecepcionarLoteRpsV3 recepcionarLoteRpsV32,
-        final br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceCallbackHandler callback)
+        br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.RecepcionarLoteRpsV3 recepcionarLoteRpsV32,
+        final br.org.abrasf.nfse.webservice.Abrasf100ProdServiceCallbackHandler callback)
         throws java.rmi.RemoteException {
         org.apache.axis2.client.OperationClient _operationClient = _serviceClient.createClient(_operations[1].getName());
         _operationClient.getOptions()
@@ -623,8 +623,8 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
 
                         java.lang.Object object = fromOM(resultEnv.getBody()
                                                                   .getFirstElement(),
-                                br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.RecepcionarLoteRpsV3Response.class);
-                        callback.receiveResultrecepcionarLoteRpsV3((br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.RecepcionarLoteRpsV3Response) object);
+                                br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.RecepcionarLoteRpsV3Response.class);
+                        callback.receiveResultrecepcionarLoteRpsV3((br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.RecepcionarLoteRpsV3Response) object);
                     } catch (org.apache.axis2.AxisFault e) {
                         callback.receiveErrorrecepcionarLoteRpsV3(e);
                     }
@@ -730,8 +730,8 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
      * @see br.org.abrasf.nfse.webservice.ServiceGinfesImplService#consultarNfsePorRps
      * @param consultarNfsePorRps4
      */
-    public br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarNfsePorRpsResponse consultarNfsePorRps(
-        br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarNfsePorRps consultarNfsePorRps4)
+    public br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarNfsePorRpsResponse consultarNfsePorRps(
+        br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarNfsePorRps consultarNfsePorRps4)
         throws java.rmi.RemoteException {
         org.apache.axis2.context.MessageContext _messageContext = new org.apache.axis2.context.MessageContext();
 
@@ -774,9 +774,9 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
 
             java.lang.Object object = fromOM(_returnEnv.getBody()
                                                        .getFirstElement(),
-                    br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarNfsePorRpsResponse.class);
+                    br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarNfsePorRpsResponse.class);
 
-            return (br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarNfsePorRpsResponse) object;
+            return (br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarNfsePorRpsResponse) object;
         } catch (org.apache.axis2.AxisFault f) {
             org.apache.axiom.om.OMElement faultElt = f.getDetail();
 
@@ -843,8 +843,8 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
      * @param consultarNfsePorRps4
      */
     public void startconsultarNfsePorRps(
-        br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarNfsePorRps consultarNfsePorRps4,
-        final br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceCallbackHandler callback)
+        br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarNfsePorRps consultarNfsePorRps4,
+        final br.org.abrasf.nfse.webservice.Abrasf100ProdServiceCallbackHandler callback)
         throws java.rmi.RemoteException {
         org.apache.axis2.client.OperationClient _operationClient = _serviceClient.createClient(_operations[2].getName());
         _operationClient.getOptions()
@@ -885,8 +885,8 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
 
                         java.lang.Object object = fromOM(resultEnv.getBody()
                                                                   .getFirstElement(),
-                                br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarNfsePorRpsResponse.class);
-                        callback.receiveResultconsultarNfsePorRps((br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarNfsePorRpsResponse) object);
+                                br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarNfsePorRpsResponse.class);
+                        callback.receiveResultconsultarNfsePorRps((br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarNfsePorRpsResponse) object);
                     } catch (org.apache.axis2.AxisFault e) {
                         callback.receiveErrorconsultarNfsePorRps(e);
                     }
@@ -992,8 +992,8 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
      * @see br.org.abrasf.nfse.webservice.ServiceGinfesImplService#consultarNfse
      * @param consultarNfse6
      */
-    public br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarNfseResponse consultarNfse(
-        br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarNfse consultarNfse6)
+    public br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarNfseResponse consultarNfse(
+        br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarNfse consultarNfse6)
         throws java.rmi.RemoteException {
         org.apache.axis2.context.MessageContext _messageContext = new org.apache.axis2.context.MessageContext();
 
@@ -1035,9 +1035,9 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
 
             java.lang.Object object = fromOM(_returnEnv.getBody()
                                                        .getFirstElement(),
-                    br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarNfseResponse.class);
+                    br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarNfseResponse.class);
 
-            return (br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarNfseResponse) object;
+            return (br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarNfseResponse) object;
         } catch (org.apache.axis2.AxisFault f) {
             org.apache.axiom.om.OMElement faultElt = f.getDetail();
 
@@ -1104,8 +1104,8 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
      * @param consultarNfse6
      */
     public void startconsultarNfse(
-        br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarNfse consultarNfse6,
-        final br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceCallbackHandler callback)
+        br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarNfse consultarNfse6,
+        final br.org.abrasf.nfse.webservice.Abrasf100ProdServiceCallbackHandler callback)
         throws java.rmi.RemoteException {
         org.apache.axis2.client.OperationClient _operationClient = _serviceClient.createClient(_operations[3].getName());
         _operationClient.getOptions()
@@ -1146,8 +1146,8 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
 
                         java.lang.Object object = fromOM(resultEnv.getBody()
                                                                   .getFirstElement(),
-                                br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarNfseResponse.class);
-                        callback.receiveResultconsultarNfse((br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarNfseResponse) object);
+                                br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarNfseResponse.class);
+                        callback.receiveResultconsultarNfse((br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarNfseResponse) object);
                     } catch (org.apache.axis2.AxisFault e) {
                         callback.receiveErrorconsultarNfse(e);
                     }
@@ -1252,8 +1252,8 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
      * @see br.org.abrasf.nfse.webservice.ServiceGinfesImplService#consultarNfsePorRpsV3
      * @param consultarNfsePorRpsV38
      */
-    public br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarNfsePorRpsV3Response consultarNfsePorRpsV3(
-        br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarNfsePorRpsV3 consultarNfsePorRpsV38)
+    public br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarNfsePorRpsV3Response consultarNfsePorRpsV3(
+        br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarNfsePorRpsV3 consultarNfsePorRpsV38)
         throws java.rmi.RemoteException {
         org.apache.axis2.context.MessageContext _messageContext = new org.apache.axis2.context.MessageContext();
 
@@ -1296,9 +1296,9 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
 
             java.lang.Object object = fromOM(_returnEnv.getBody()
                                                        .getFirstElement(),
-                    br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarNfsePorRpsV3Response.class);
+                    br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarNfsePorRpsV3Response.class);
 
-            return (br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarNfsePorRpsV3Response) object;
+            return (br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarNfsePorRpsV3Response) object;
         } catch (org.apache.axis2.AxisFault f) {
             org.apache.axiom.om.OMElement faultElt = f.getDetail();
 
@@ -1365,8 +1365,8 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
      * @param consultarNfsePorRpsV38
      */
     public void startconsultarNfsePorRpsV3(
-        br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarNfsePorRpsV3 consultarNfsePorRpsV38,
-        final br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceCallbackHandler callback)
+        br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarNfsePorRpsV3 consultarNfsePorRpsV38,
+        final br.org.abrasf.nfse.webservice.Abrasf100ProdServiceCallbackHandler callback)
         throws java.rmi.RemoteException {
         org.apache.axis2.client.OperationClient _operationClient = _serviceClient.createClient(_operations[4].getName());
         _operationClient.getOptions()
@@ -1407,8 +1407,8 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
 
                         java.lang.Object object = fromOM(resultEnv.getBody()
                                                                   .getFirstElement(),
-                                br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarNfsePorRpsV3Response.class);
-                        callback.receiveResultconsultarNfsePorRpsV3((br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarNfsePorRpsV3Response) object);
+                                br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarNfsePorRpsV3Response.class);
+                        callback.receiveResultconsultarNfsePorRpsV3((br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarNfsePorRpsV3Response) object);
                     } catch (org.apache.axis2.AxisFault e) {
                         callback.receiveErrorconsultarNfsePorRpsV3(e);
                     }
@@ -1514,8 +1514,8 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
      * @see br.org.abrasf.nfse.webservice.ServiceGinfesImplService#recepcionarLoteRps
      * @param recepcionarLoteRps10
      */
-    public br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.RecepcionarLoteRpsResponse recepcionarLoteRps(
-        br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.RecepcionarLoteRps recepcionarLoteRps10)
+    public br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.RecepcionarLoteRpsResponse recepcionarLoteRps(
+        br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.RecepcionarLoteRps recepcionarLoteRps10)
         throws java.rmi.RemoteException {
         org.apache.axis2.context.MessageContext _messageContext = new org.apache.axis2.context.MessageContext();
 
@@ -1558,9 +1558,9 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
 
             java.lang.Object object = fromOM(_returnEnv.getBody()
                                                        .getFirstElement(),
-                    br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.RecepcionarLoteRpsResponse.class);
+                    br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.RecepcionarLoteRpsResponse.class);
 
-            return (br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.RecepcionarLoteRpsResponse) object;
+            return (br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.RecepcionarLoteRpsResponse) object;
         } catch (org.apache.axis2.AxisFault f) {
             org.apache.axiom.om.OMElement faultElt = f.getDetail();
 
@@ -1627,8 +1627,8 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
      * @param recepcionarLoteRps10
      */
     public void startrecepcionarLoteRps(
-        br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.RecepcionarLoteRps recepcionarLoteRps10,
-        final br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceCallbackHandler callback)
+        br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.RecepcionarLoteRps recepcionarLoteRps10,
+        final br.org.abrasf.nfse.webservice.Abrasf100ProdServiceCallbackHandler callback)
         throws java.rmi.RemoteException {
         org.apache.axis2.client.OperationClient _operationClient = _serviceClient.createClient(_operations[5].getName());
         _operationClient.getOptions()
@@ -1669,8 +1669,8 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
 
                         java.lang.Object object = fromOM(resultEnv.getBody()
                                                                   .getFirstElement(),
-                                br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.RecepcionarLoteRpsResponse.class);
-                        callback.receiveResultrecepcionarLoteRps((br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.RecepcionarLoteRpsResponse) object);
+                                br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.RecepcionarLoteRpsResponse.class);
+                        callback.receiveResultrecepcionarLoteRps((br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.RecepcionarLoteRpsResponse) object);
                     } catch (org.apache.axis2.AxisFault e) {
                         callback.receiveErrorrecepcionarLoteRps(e);
                     }
@@ -1776,8 +1776,8 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
      * @see br.org.abrasf.nfse.webservice.ServiceGinfesImplService#consultarSituacaoLoteRpsV3
      * @param consultarSituacaoLoteRpsV312
      */
-    public br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarSituacaoLoteRpsV3Response consultarSituacaoLoteRpsV3(
-        br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarSituacaoLoteRpsV3 consultarSituacaoLoteRpsV312)
+    public br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarSituacaoLoteRpsV3Response consultarSituacaoLoteRpsV3(
+        br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarSituacaoLoteRpsV3 consultarSituacaoLoteRpsV312)
         throws java.rmi.RemoteException {
         org.apache.axis2.context.MessageContext _messageContext = new org.apache.axis2.context.MessageContext();
 
@@ -1821,9 +1821,9 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
 
             java.lang.Object object = fromOM(_returnEnv.getBody()
                                                        .getFirstElement(),
-                    br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarSituacaoLoteRpsV3Response.class);
+                    br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarSituacaoLoteRpsV3Response.class);
 
-            return (br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarSituacaoLoteRpsV3Response) object;
+            return (br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarSituacaoLoteRpsV3Response) object;
         } catch (org.apache.axis2.AxisFault f) {
             org.apache.axiom.om.OMElement faultElt = f.getDetail();
 
@@ -1893,8 +1893,8 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
      * @param consultarSituacaoLoteRpsV312
      */
     public void startconsultarSituacaoLoteRpsV3(
-        br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarSituacaoLoteRpsV3 consultarSituacaoLoteRpsV312,
-        final br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceCallbackHandler callback)
+        br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarSituacaoLoteRpsV3 consultarSituacaoLoteRpsV312,
+        final br.org.abrasf.nfse.webservice.Abrasf100ProdServiceCallbackHandler callback)
         throws java.rmi.RemoteException {
         org.apache.axis2.client.OperationClient _operationClient = _serviceClient.createClient(_operations[6].getName());
         _operationClient.getOptions()
@@ -1936,8 +1936,8 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
 
                         java.lang.Object object = fromOM(resultEnv.getBody()
                                                                   .getFirstElement(),
-                                br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarSituacaoLoteRpsV3Response.class);
-                        callback.receiveResultconsultarSituacaoLoteRpsV3((br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarSituacaoLoteRpsV3Response) object);
+                                br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarSituacaoLoteRpsV3Response.class);
+                        callback.receiveResultconsultarSituacaoLoteRpsV3((br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarSituacaoLoteRpsV3Response) object);
                     } catch (org.apache.axis2.AxisFault e) {
                         callback.receiveErrorconsultarSituacaoLoteRpsV3(e);
                     }
@@ -2043,8 +2043,8 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
      * @see br.org.abrasf.nfse.webservice.ServiceGinfesImplService#consultarNfseV3
      * @param consultarNfseV314
      */
-    public br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarNfseV3Response consultarNfseV3(
-        br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarNfseV3 consultarNfseV314)
+    public br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarNfseV3Response consultarNfseV3(
+        br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarNfseV3 consultarNfseV314)
         throws java.rmi.RemoteException {
         org.apache.axis2.context.MessageContext _messageContext = new org.apache.axis2.context.MessageContext();
 
@@ -2086,9 +2086,9 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
 
             java.lang.Object object = fromOM(_returnEnv.getBody()
                                                        .getFirstElement(),
-                    br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarNfseV3Response.class);
+                    br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarNfseV3Response.class);
 
-            return (br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarNfseV3Response) object;
+            return (br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarNfseV3Response) object;
         } catch (org.apache.axis2.AxisFault f) {
             org.apache.axiom.om.OMElement faultElt = f.getDetail();
 
@@ -2155,8 +2155,8 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
      * @param consultarNfseV314
      */
     public void startconsultarNfseV3(
-        br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarNfseV3 consultarNfseV314,
-        final br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceCallbackHandler callback)
+        br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarNfseV3 consultarNfseV314,
+        final br.org.abrasf.nfse.webservice.Abrasf100ProdServiceCallbackHandler callback)
         throws java.rmi.RemoteException {
         org.apache.axis2.client.OperationClient _operationClient = _serviceClient.createClient(_operations[7].getName());
         _operationClient.getOptions()
@@ -2197,8 +2197,8 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
 
                         java.lang.Object object = fromOM(resultEnv.getBody()
                                                                   .getFirstElement(),
-                                br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarNfseV3Response.class);
-                        callback.receiveResultconsultarNfseV3((br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarNfseV3Response) object);
+                                br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarNfseV3Response.class);
+                        callback.receiveResultconsultarNfseV3((br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarNfseV3Response) object);
                     } catch (org.apache.axis2.AxisFault e) {
                         callback.receiveErrorconsultarNfseV3(e);
                     }
@@ -2304,8 +2304,8 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
      * @see br.org.abrasf.nfse.webservice.ServiceGinfesImplService#cancelarNfse
      * @param cancelarNfse16
      */
-    public br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.CancelarNfseResponse cancelarNfse(
-        br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.CancelarNfse cancelarNfse16)
+    public br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.CancelarNfseResponse cancelarNfse(
+        br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.CancelarNfse cancelarNfse16)
         throws java.rmi.RemoteException {
         org.apache.axis2.context.MessageContext _messageContext = new org.apache.axis2.context.MessageContext();
 
@@ -2347,9 +2347,9 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
 
             java.lang.Object object = fromOM(_returnEnv.getBody()
                                                        .getFirstElement(),
-                    br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.CancelarNfseResponse.class);
+                    br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.CancelarNfseResponse.class);
 
-            return (br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.CancelarNfseResponse) object;
+            return (br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.CancelarNfseResponse) object;
         } catch (org.apache.axis2.AxisFault f) {
             org.apache.axiom.om.OMElement faultElt = f.getDetail();
 
@@ -2416,8 +2416,8 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
      * @param cancelarNfse16
      */
     public void startcancelarNfse(
-        br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.CancelarNfse cancelarNfse16,
-        final br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceCallbackHandler callback)
+        br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.CancelarNfse cancelarNfse16,
+        final br.org.abrasf.nfse.webservice.Abrasf100ProdServiceCallbackHandler callback)
         throws java.rmi.RemoteException {
         org.apache.axis2.client.OperationClient _operationClient = _serviceClient.createClient(_operations[8].getName());
         _operationClient.getOptions()
@@ -2458,8 +2458,8 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
 
                         java.lang.Object object = fromOM(resultEnv.getBody()
                                                                   .getFirstElement(),
-                                br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.CancelarNfseResponse.class);
-                        callback.receiveResultcancelarNfse((br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.CancelarNfseResponse) object);
+                                br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.CancelarNfseResponse.class);
+                        callback.receiveResultcancelarNfse((br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.CancelarNfseResponse) object);
                     } catch (org.apache.axis2.AxisFault e) {
                         callback.receiveErrorcancelarNfse(e);
                     }
@@ -2564,8 +2564,8 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
      * @see br.org.abrasf.nfse.webservice.ServiceGinfesImplService#consultarSituacaoLoteRps
      * @param consultarSituacaoLoteRps18
      */
-    public br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarSituacaoLoteRpsResponse consultarSituacaoLoteRps(
-        br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarSituacaoLoteRps consultarSituacaoLoteRps18)
+    public br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarSituacaoLoteRpsResponse consultarSituacaoLoteRps(
+        br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarSituacaoLoteRps consultarSituacaoLoteRps18)
         throws java.rmi.RemoteException {
         org.apache.axis2.context.MessageContext _messageContext = new org.apache.axis2.context.MessageContext();
 
@@ -2609,9 +2609,9 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
 
             java.lang.Object object = fromOM(_returnEnv.getBody()
                                                        .getFirstElement(),
-                    br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarSituacaoLoteRpsResponse.class);
+                    br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarSituacaoLoteRpsResponse.class);
 
-            return (br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarSituacaoLoteRpsResponse) object;
+            return (br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarSituacaoLoteRpsResponse) object;
         } catch (org.apache.axis2.AxisFault f) {
             org.apache.axiom.om.OMElement faultElt = f.getDetail();
 
@@ -2680,8 +2680,8 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
      * @param consultarSituacaoLoteRps18
      */
     public void startconsultarSituacaoLoteRps(
-        br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarSituacaoLoteRps consultarSituacaoLoteRps18,
-        final br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceCallbackHandler callback)
+        br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarSituacaoLoteRps consultarSituacaoLoteRps18,
+        final br.org.abrasf.nfse.webservice.Abrasf100ProdServiceCallbackHandler callback)
         throws java.rmi.RemoteException {
         org.apache.axis2.client.OperationClient _operationClient = _serviceClient.createClient(_operations[9].getName());
         _operationClient.getOptions()
@@ -2723,8 +2723,8 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
 
                         java.lang.Object object = fromOM(resultEnv.getBody()
                                                                   .getFirstElement(),
-                                br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarSituacaoLoteRpsResponse.class);
-                        callback.receiveResultconsultarSituacaoLoteRps((br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarSituacaoLoteRpsResponse) object);
+                                br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarSituacaoLoteRpsResponse.class);
+                        callback.receiveResultconsultarSituacaoLoteRps((br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarSituacaoLoteRpsResponse) object);
                     } catch (org.apache.axis2.AxisFault e) {
                         callback.receiveErrorconsultarSituacaoLoteRps(e);
                     }
@@ -2830,8 +2830,8 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
      * @see br.org.abrasf.nfse.webservice.ServiceGinfesImplService#cancelarNfseV3
      * @param cancelarNfseV320
      */
-    public br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.CancelarNfseV3Response cancelarNfseV3(
-        br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.CancelarNfseV3 cancelarNfseV320)
+    public br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.CancelarNfseV3Response cancelarNfseV3(
+        br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.CancelarNfseV3 cancelarNfseV320)
         throws java.rmi.RemoteException {
         org.apache.axis2.context.MessageContext _messageContext = new org.apache.axis2.context.MessageContext();
 
@@ -2873,9 +2873,9 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
 
             java.lang.Object object = fromOM(_returnEnv.getBody()
                                                        .getFirstElement(),
-                    br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.CancelarNfseV3Response.class);
+                    br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.CancelarNfseV3Response.class);
 
-            return (br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.CancelarNfseV3Response) object;
+            return (br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.CancelarNfseV3Response) object;
         } catch (org.apache.axis2.AxisFault f) {
             org.apache.axiom.om.OMElement faultElt = f.getDetail();
 
@@ -2942,8 +2942,8 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
      * @param cancelarNfseV320
      */
     public void startcancelarNfseV3(
-        br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.CancelarNfseV3 cancelarNfseV320,
-        final br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceCallbackHandler callback)
+        br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.CancelarNfseV3 cancelarNfseV320,
+        final br.org.abrasf.nfse.webservice.Abrasf100ProdServiceCallbackHandler callback)
         throws java.rmi.RemoteException {
         org.apache.axis2.client.OperationClient _operationClient = _serviceClient.createClient(_operations[10].getName());
         _operationClient.getOptions()
@@ -2984,8 +2984,8 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
 
                         java.lang.Object object = fromOM(resultEnv.getBody()
                                                                   .getFirstElement(),
-                                br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.CancelarNfseV3Response.class);
-                        callback.receiveResultcancelarNfseV3((br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.CancelarNfseV3Response) object);
+                                br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.CancelarNfseV3Response.class);
+                        callback.receiveResultcancelarNfseV3((br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.CancelarNfseV3Response) object);
                     } catch (org.apache.axis2.AxisFault e) {
                         callback.receiveErrorcancelarNfseV3(e);
                     }
@@ -3091,8 +3091,8 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
      * @see br.org.abrasf.nfse.webservice.ServiceGinfesImplService#consultarLoteRpsV3
      * @param consultarLoteRpsV322
      */
-    public br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarLoteRpsV3Response consultarLoteRpsV3(
-        br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarLoteRpsV3 consultarLoteRpsV322)
+    public br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarLoteRpsV3Response consultarLoteRpsV3(
+        br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarLoteRpsV3 consultarLoteRpsV322)
         throws java.rmi.RemoteException {
         org.apache.axis2.context.MessageContext _messageContext = new org.apache.axis2.context.MessageContext();
 
@@ -3135,9 +3135,9 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
 
             java.lang.Object object = fromOM(_returnEnv.getBody()
                                                        .getFirstElement(),
-                    br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarLoteRpsV3Response.class);
+                    br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarLoteRpsV3Response.class);
 
-            return (br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarLoteRpsV3Response) object;
+            return (br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarLoteRpsV3Response) object;
         } catch (org.apache.axis2.AxisFault f) {
             org.apache.axiom.om.OMElement faultElt = f.getDetail();
 
@@ -3204,8 +3204,8 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
      * @param consultarLoteRpsV322
      */
     public void startconsultarLoteRpsV3(
-        br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarLoteRpsV3 consultarLoteRpsV322,
-        final br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceCallbackHandler callback)
+        br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarLoteRpsV3 consultarLoteRpsV322,
+        final br.org.abrasf.nfse.webservice.Abrasf100ProdServiceCallbackHandler callback)
         throws java.rmi.RemoteException {
         org.apache.axis2.client.OperationClient _operationClient = _serviceClient.createClient(_operations[11].getName());
         _operationClient.getOptions()
@@ -3246,8 +3246,8 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
 
                         java.lang.Object object = fromOM(resultEnv.getBody()
                                                                   .getFirstElement(),
-                                br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarLoteRpsV3Response.class);
-                        callback.receiveResultconsultarLoteRpsV3((br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarLoteRpsV3Response) object);
+                                br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarLoteRpsV3Response.class);
+                        callback.receiveResultconsultarLoteRpsV3((br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarLoteRpsV3Response) object);
                     } catch (org.apache.axis2.AxisFault e) {
                         callback.receiveErrorconsultarLoteRpsV3(e);
                     }
@@ -3362,10 +3362,10 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
     }
 
     private org.apache.axiom.om.OMElement toOM(
-        br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarLoteRps param,
+        br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarLoteRps param,
         boolean optimizeContent) throws org.apache.axis2.AxisFault {
         try {
-            return param.getOMElement(br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarLoteRps.MY_QNAME,
+            return param.getOMElement(br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarLoteRps.MY_QNAME,
                 org.apache.axiom.om.OMAbstractFactory.getOMFactory());
         } catch (org.apache.axis2.databinding.ADBException e) {
             throw org.apache.axis2.AxisFault.makeFault(e);
@@ -3373,10 +3373,10 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
     }
 
     private org.apache.axiom.om.OMElement toOM(
-        br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarLoteRpsResponse param,
+        br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarLoteRpsResponse param,
         boolean optimizeContent) throws org.apache.axis2.AxisFault {
         try {
-            return param.getOMElement(br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarLoteRpsResponse.MY_QNAME,
+            return param.getOMElement(br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarLoteRpsResponse.MY_QNAME,
                 org.apache.axiom.om.OMAbstractFactory.getOMFactory());
         } catch (org.apache.axis2.databinding.ADBException e) {
             throw org.apache.axis2.AxisFault.makeFault(e);
@@ -3384,10 +3384,10 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
     }
 
     private org.apache.axiom.om.OMElement toOM(
-        br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.RecepcionarLoteRpsV3 param,
+        br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.RecepcionarLoteRpsV3 param,
         boolean optimizeContent) throws org.apache.axis2.AxisFault {
         try {
-            return param.getOMElement(br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.RecepcionarLoteRpsV3.MY_QNAME,
+            return param.getOMElement(br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.RecepcionarLoteRpsV3.MY_QNAME,
                 org.apache.axiom.om.OMAbstractFactory.getOMFactory());
         } catch (org.apache.axis2.databinding.ADBException e) {
             throw org.apache.axis2.AxisFault.makeFault(e);
@@ -3395,10 +3395,10 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
     }
 
     private org.apache.axiom.om.OMElement toOM(
-        br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.RecepcionarLoteRpsV3Response param,
+        br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.RecepcionarLoteRpsV3Response param,
         boolean optimizeContent) throws org.apache.axis2.AxisFault {
         try {
-            return param.getOMElement(br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.RecepcionarLoteRpsV3Response.MY_QNAME,
+            return param.getOMElement(br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.RecepcionarLoteRpsV3Response.MY_QNAME,
                 org.apache.axiom.om.OMAbstractFactory.getOMFactory());
         } catch (org.apache.axis2.databinding.ADBException e) {
             throw org.apache.axis2.AxisFault.makeFault(e);
@@ -3406,10 +3406,10 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
     }
 
     private org.apache.axiom.om.OMElement toOM(
-        br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarNfsePorRps param,
+        br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarNfsePorRps param,
         boolean optimizeContent) throws org.apache.axis2.AxisFault {
         try {
-            return param.getOMElement(br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarNfsePorRps.MY_QNAME,
+            return param.getOMElement(br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarNfsePorRps.MY_QNAME,
                 org.apache.axiom.om.OMAbstractFactory.getOMFactory());
         } catch (org.apache.axis2.databinding.ADBException e) {
             throw org.apache.axis2.AxisFault.makeFault(e);
@@ -3417,10 +3417,10 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
     }
 
     private org.apache.axiom.om.OMElement toOM(
-        br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarNfsePorRpsResponse param,
+        br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarNfsePorRpsResponse param,
         boolean optimizeContent) throws org.apache.axis2.AxisFault {
         try {
-            return param.getOMElement(br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarNfsePorRpsResponse.MY_QNAME,
+            return param.getOMElement(br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarNfsePorRpsResponse.MY_QNAME,
                 org.apache.axiom.om.OMAbstractFactory.getOMFactory());
         } catch (org.apache.axis2.databinding.ADBException e) {
             throw org.apache.axis2.AxisFault.makeFault(e);
@@ -3428,10 +3428,10 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
     }
 
     private org.apache.axiom.om.OMElement toOM(
-        br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarNfse param,
+        br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarNfse param,
         boolean optimizeContent) throws org.apache.axis2.AxisFault {
         try {
-            return param.getOMElement(br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarNfse.MY_QNAME,
+            return param.getOMElement(br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarNfse.MY_QNAME,
                 org.apache.axiom.om.OMAbstractFactory.getOMFactory());
         } catch (org.apache.axis2.databinding.ADBException e) {
             throw org.apache.axis2.AxisFault.makeFault(e);
@@ -3439,10 +3439,10 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
     }
 
     private org.apache.axiom.om.OMElement toOM(
-        br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarNfseResponse param,
+        br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarNfseResponse param,
         boolean optimizeContent) throws org.apache.axis2.AxisFault {
         try {
-            return param.getOMElement(br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarNfseResponse.MY_QNAME,
+            return param.getOMElement(br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarNfseResponse.MY_QNAME,
                 org.apache.axiom.om.OMAbstractFactory.getOMFactory());
         } catch (org.apache.axis2.databinding.ADBException e) {
             throw org.apache.axis2.AxisFault.makeFault(e);
@@ -3450,10 +3450,10 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
     }
 
     private org.apache.axiom.om.OMElement toOM(
-        br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarNfsePorRpsV3 param,
+        br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarNfsePorRpsV3 param,
         boolean optimizeContent) throws org.apache.axis2.AxisFault {
         try {
-            return param.getOMElement(br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarNfsePorRpsV3.MY_QNAME,
+            return param.getOMElement(br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarNfsePorRpsV3.MY_QNAME,
                 org.apache.axiom.om.OMAbstractFactory.getOMFactory());
         } catch (org.apache.axis2.databinding.ADBException e) {
             throw org.apache.axis2.AxisFault.makeFault(e);
@@ -3461,10 +3461,10 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
     }
 
     private org.apache.axiom.om.OMElement toOM(
-        br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarNfsePorRpsV3Response param,
+        br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarNfsePorRpsV3Response param,
         boolean optimizeContent) throws org.apache.axis2.AxisFault {
         try {
-            return param.getOMElement(br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarNfsePorRpsV3Response.MY_QNAME,
+            return param.getOMElement(br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarNfsePorRpsV3Response.MY_QNAME,
                 org.apache.axiom.om.OMAbstractFactory.getOMFactory());
         } catch (org.apache.axis2.databinding.ADBException e) {
             throw org.apache.axis2.AxisFault.makeFault(e);
@@ -3472,10 +3472,10 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
     }
 
     private org.apache.axiom.om.OMElement toOM(
-        br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.RecepcionarLoteRps param,
+        br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.RecepcionarLoteRps param,
         boolean optimizeContent) throws org.apache.axis2.AxisFault {
         try {
-            return param.getOMElement(br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.RecepcionarLoteRps.MY_QNAME,
+            return param.getOMElement(br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.RecepcionarLoteRps.MY_QNAME,
                 org.apache.axiom.om.OMAbstractFactory.getOMFactory());
         } catch (org.apache.axis2.databinding.ADBException e) {
             throw org.apache.axis2.AxisFault.makeFault(e);
@@ -3483,10 +3483,10 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
     }
 
     private org.apache.axiom.om.OMElement toOM(
-        br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.RecepcionarLoteRpsResponse param,
+        br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.RecepcionarLoteRpsResponse param,
         boolean optimizeContent) throws org.apache.axis2.AxisFault {
         try {
-            return param.getOMElement(br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.RecepcionarLoteRpsResponse.MY_QNAME,
+            return param.getOMElement(br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.RecepcionarLoteRpsResponse.MY_QNAME,
                 org.apache.axiom.om.OMAbstractFactory.getOMFactory());
         } catch (org.apache.axis2.databinding.ADBException e) {
             throw org.apache.axis2.AxisFault.makeFault(e);
@@ -3494,10 +3494,10 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
     }
 
     private org.apache.axiom.om.OMElement toOM(
-        br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarSituacaoLoteRpsV3 param,
+        br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarSituacaoLoteRpsV3 param,
         boolean optimizeContent) throws org.apache.axis2.AxisFault {
         try {
-            return param.getOMElement(br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarSituacaoLoteRpsV3.MY_QNAME,
+            return param.getOMElement(br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarSituacaoLoteRpsV3.MY_QNAME,
                 org.apache.axiom.om.OMAbstractFactory.getOMFactory());
         } catch (org.apache.axis2.databinding.ADBException e) {
             throw org.apache.axis2.AxisFault.makeFault(e);
@@ -3505,10 +3505,10 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
     }
 
     private org.apache.axiom.om.OMElement toOM(
-        br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarSituacaoLoteRpsV3Response param,
+        br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarSituacaoLoteRpsV3Response param,
         boolean optimizeContent) throws org.apache.axis2.AxisFault {
         try {
-            return param.getOMElement(br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarSituacaoLoteRpsV3Response.MY_QNAME,
+            return param.getOMElement(br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarSituacaoLoteRpsV3Response.MY_QNAME,
                 org.apache.axiom.om.OMAbstractFactory.getOMFactory());
         } catch (org.apache.axis2.databinding.ADBException e) {
             throw org.apache.axis2.AxisFault.makeFault(e);
@@ -3516,10 +3516,10 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
     }
 
     private org.apache.axiom.om.OMElement toOM(
-        br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarNfseV3 param,
+        br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarNfseV3 param,
         boolean optimizeContent) throws org.apache.axis2.AxisFault {
         try {
-            return param.getOMElement(br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarNfseV3.MY_QNAME,
+            return param.getOMElement(br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarNfseV3.MY_QNAME,
                 org.apache.axiom.om.OMAbstractFactory.getOMFactory());
         } catch (org.apache.axis2.databinding.ADBException e) {
             throw org.apache.axis2.AxisFault.makeFault(e);
@@ -3527,10 +3527,10 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
     }
 
     private org.apache.axiom.om.OMElement toOM(
-        br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarNfseV3Response param,
+        br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarNfseV3Response param,
         boolean optimizeContent) throws org.apache.axis2.AxisFault {
         try {
-            return param.getOMElement(br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarNfseV3Response.MY_QNAME,
+            return param.getOMElement(br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarNfseV3Response.MY_QNAME,
                 org.apache.axiom.om.OMAbstractFactory.getOMFactory());
         } catch (org.apache.axis2.databinding.ADBException e) {
             throw org.apache.axis2.AxisFault.makeFault(e);
@@ -3538,10 +3538,10 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
     }
 
     private org.apache.axiom.om.OMElement toOM(
-        br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.CancelarNfse param,
+        br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.CancelarNfse param,
         boolean optimizeContent) throws org.apache.axis2.AxisFault {
         try {
-            return param.getOMElement(br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.CancelarNfse.MY_QNAME,
+            return param.getOMElement(br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.CancelarNfse.MY_QNAME,
                 org.apache.axiom.om.OMAbstractFactory.getOMFactory());
         } catch (org.apache.axis2.databinding.ADBException e) {
             throw org.apache.axis2.AxisFault.makeFault(e);
@@ -3549,10 +3549,10 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
     }
 
     private org.apache.axiom.om.OMElement toOM(
-        br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.CancelarNfseResponse param,
+        br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.CancelarNfseResponse param,
         boolean optimizeContent) throws org.apache.axis2.AxisFault {
         try {
-            return param.getOMElement(br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.CancelarNfseResponse.MY_QNAME,
+            return param.getOMElement(br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.CancelarNfseResponse.MY_QNAME,
                 org.apache.axiom.om.OMAbstractFactory.getOMFactory());
         } catch (org.apache.axis2.databinding.ADBException e) {
             throw org.apache.axis2.AxisFault.makeFault(e);
@@ -3560,10 +3560,10 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
     }
 
     private org.apache.axiom.om.OMElement toOM(
-        br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarSituacaoLoteRps param,
+        br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarSituacaoLoteRps param,
         boolean optimizeContent) throws org.apache.axis2.AxisFault {
         try {
-            return param.getOMElement(br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarSituacaoLoteRps.MY_QNAME,
+            return param.getOMElement(br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarSituacaoLoteRps.MY_QNAME,
                 org.apache.axiom.om.OMAbstractFactory.getOMFactory());
         } catch (org.apache.axis2.databinding.ADBException e) {
             throw org.apache.axis2.AxisFault.makeFault(e);
@@ -3571,10 +3571,10 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
     }
 
     private org.apache.axiom.om.OMElement toOM(
-        br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarSituacaoLoteRpsResponse param,
+        br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarSituacaoLoteRpsResponse param,
         boolean optimizeContent) throws org.apache.axis2.AxisFault {
         try {
-            return param.getOMElement(br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarSituacaoLoteRpsResponse.MY_QNAME,
+            return param.getOMElement(br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarSituacaoLoteRpsResponse.MY_QNAME,
                 org.apache.axiom.om.OMAbstractFactory.getOMFactory());
         } catch (org.apache.axis2.databinding.ADBException e) {
             throw org.apache.axis2.AxisFault.makeFault(e);
@@ -3582,10 +3582,10 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
     }
 
     private org.apache.axiom.om.OMElement toOM(
-        br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.CancelarNfseV3 param,
+        br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.CancelarNfseV3 param,
         boolean optimizeContent) throws org.apache.axis2.AxisFault {
         try {
-            return param.getOMElement(br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.CancelarNfseV3.MY_QNAME,
+            return param.getOMElement(br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.CancelarNfseV3.MY_QNAME,
                 org.apache.axiom.om.OMAbstractFactory.getOMFactory());
         } catch (org.apache.axis2.databinding.ADBException e) {
             throw org.apache.axis2.AxisFault.makeFault(e);
@@ -3593,10 +3593,10 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
     }
 
     private org.apache.axiom.om.OMElement toOM(
-        br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.CancelarNfseV3Response param,
+        br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.CancelarNfseV3Response param,
         boolean optimizeContent) throws org.apache.axis2.AxisFault {
         try {
-            return param.getOMElement(br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.CancelarNfseV3Response.MY_QNAME,
+            return param.getOMElement(br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.CancelarNfseV3Response.MY_QNAME,
                 org.apache.axiom.om.OMAbstractFactory.getOMFactory());
         } catch (org.apache.axis2.databinding.ADBException e) {
             throw org.apache.axis2.AxisFault.makeFault(e);
@@ -3604,10 +3604,10 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
     }
 
     private org.apache.axiom.om.OMElement toOM(
-        br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarLoteRpsV3 param,
+        br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarLoteRpsV3 param,
         boolean optimizeContent) throws org.apache.axis2.AxisFault {
         try {
-            return param.getOMElement(br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarLoteRpsV3.MY_QNAME,
+            return param.getOMElement(br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarLoteRpsV3.MY_QNAME,
                 org.apache.axiom.om.OMAbstractFactory.getOMFactory());
         } catch (org.apache.axis2.databinding.ADBException e) {
             throw org.apache.axis2.AxisFault.makeFault(e);
@@ -3615,10 +3615,10 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
     }
 
     private org.apache.axiom.om.OMElement toOM(
-        br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarLoteRpsV3Response param,
+        br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarLoteRpsV3Response param,
         boolean optimizeContent) throws org.apache.axis2.AxisFault {
         try {
-            return param.getOMElement(br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarLoteRpsV3Response.MY_QNAME,
+            return param.getOMElement(br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarLoteRpsV3Response.MY_QNAME,
                 org.apache.axiom.om.OMAbstractFactory.getOMFactory());
         } catch (org.apache.axis2.databinding.ADBException e) {
             throw org.apache.axis2.AxisFault.makeFault(e);
@@ -3627,14 +3627,14 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
 
     private org.apache.axiom.soap.SOAPEnvelope toEnvelope(
         org.apache.axiom.soap.SOAPFactory factory,
-        br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarLoteRps param,
+        br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarLoteRps param,
         boolean optimizeContent, javax.xml.namespace.QName elementQName)
         throws org.apache.axis2.AxisFault {
         try {
             org.apache.axiom.soap.SOAPEnvelope emptyEnvelope = factory.getDefaultEnvelope();
             emptyEnvelope.getBody()
                          .addChild(param.getOMElement(
-                    br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarLoteRps.MY_QNAME,
+                    br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarLoteRps.MY_QNAME,
                     factory));
 
             return emptyEnvelope;
@@ -3646,14 +3646,14 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
     /* methods to provide back word compatibility */
     private org.apache.axiom.soap.SOAPEnvelope toEnvelope(
         org.apache.axiom.soap.SOAPFactory factory,
-        br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.RecepcionarLoteRpsV3 param,
+        br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.RecepcionarLoteRpsV3 param,
         boolean optimizeContent, javax.xml.namespace.QName elementQName)
         throws org.apache.axis2.AxisFault {
         try {
             org.apache.axiom.soap.SOAPEnvelope emptyEnvelope = factory.getDefaultEnvelope();
             emptyEnvelope.getBody()
                          .addChild(param.getOMElement(
-                    br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.RecepcionarLoteRpsV3.MY_QNAME,
+                    br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.RecepcionarLoteRpsV3.MY_QNAME,
                     factory));
 
             return emptyEnvelope;
@@ -3665,14 +3665,14 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
     /* methods to provide back word compatibility */
     private org.apache.axiom.soap.SOAPEnvelope toEnvelope(
         org.apache.axiom.soap.SOAPFactory factory,
-        br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarNfsePorRps param,
+        br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarNfsePorRps param,
         boolean optimizeContent, javax.xml.namespace.QName elementQName)
         throws org.apache.axis2.AxisFault {
         try {
             org.apache.axiom.soap.SOAPEnvelope emptyEnvelope = factory.getDefaultEnvelope();
             emptyEnvelope.getBody()
                          .addChild(param.getOMElement(
-                    br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarNfsePorRps.MY_QNAME,
+                    br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarNfsePorRps.MY_QNAME,
                     factory));
 
             return emptyEnvelope;
@@ -3684,14 +3684,14 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
     /* methods to provide back word compatibility */
     private org.apache.axiom.soap.SOAPEnvelope toEnvelope(
         org.apache.axiom.soap.SOAPFactory factory,
-        br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarNfse param,
+        br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarNfse param,
         boolean optimizeContent, javax.xml.namespace.QName elementQName)
         throws org.apache.axis2.AxisFault {
         try {
             org.apache.axiom.soap.SOAPEnvelope emptyEnvelope = factory.getDefaultEnvelope();
             emptyEnvelope.getBody()
                          .addChild(param.getOMElement(
-                    br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarNfse.MY_QNAME,
+                    br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarNfse.MY_QNAME,
                     factory));
 
             return emptyEnvelope;
@@ -3703,14 +3703,14 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
     /* methods to provide back word compatibility */
     private org.apache.axiom.soap.SOAPEnvelope toEnvelope(
         org.apache.axiom.soap.SOAPFactory factory,
-        br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarNfsePorRpsV3 param,
+        br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarNfsePorRpsV3 param,
         boolean optimizeContent, javax.xml.namespace.QName elementQName)
         throws org.apache.axis2.AxisFault {
         try {
             org.apache.axiom.soap.SOAPEnvelope emptyEnvelope = factory.getDefaultEnvelope();
             emptyEnvelope.getBody()
                          .addChild(param.getOMElement(
-                    br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarNfsePorRpsV3.MY_QNAME,
+                    br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarNfsePorRpsV3.MY_QNAME,
                     factory));
 
             return emptyEnvelope;
@@ -3722,14 +3722,14 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
     /* methods to provide back word compatibility */
     private org.apache.axiom.soap.SOAPEnvelope toEnvelope(
         org.apache.axiom.soap.SOAPFactory factory,
-        br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.RecepcionarLoteRps param,
+        br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.RecepcionarLoteRps param,
         boolean optimizeContent, javax.xml.namespace.QName elementQName)
         throws org.apache.axis2.AxisFault {
         try {
             org.apache.axiom.soap.SOAPEnvelope emptyEnvelope = factory.getDefaultEnvelope();
             emptyEnvelope.getBody()
                          .addChild(param.getOMElement(
-                    br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.RecepcionarLoteRps.MY_QNAME,
+                    br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.RecepcionarLoteRps.MY_QNAME,
                     factory));
 
             return emptyEnvelope;
@@ -3741,14 +3741,14 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
     /* methods to provide back word compatibility */
     private org.apache.axiom.soap.SOAPEnvelope toEnvelope(
         org.apache.axiom.soap.SOAPFactory factory,
-        br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarSituacaoLoteRpsV3 param,
+        br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarSituacaoLoteRpsV3 param,
         boolean optimizeContent, javax.xml.namespace.QName elementQName)
         throws org.apache.axis2.AxisFault {
         try {
             org.apache.axiom.soap.SOAPEnvelope emptyEnvelope = factory.getDefaultEnvelope();
             emptyEnvelope.getBody()
                          .addChild(param.getOMElement(
-                    br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarSituacaoLoteRpsV3.MY_QNAME,
+                    br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarSituacaoLoteRpsV3.MY_QNAME,
                     factory));
 
             return emptyEnvelope;
@@ -3760,14 +3760,14 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
     /* methods to provide back word compatibility */
     private org.apache.axiom.soap.SOAPEnvelope toEnvelope(
         org.apache.axiom.soap.SOAPFactory factory,
-        br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarNfseV3 param,
+        br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarNfseV3 param,
         boolean optimizeContent, javax.xml.namespace.QName elementQName)
         throws org.apache.axis2.AxisFault {
         try {
             org.apache.axiom.soap.SOAPEnvelope emptyEnvelope = factory.getDefaultEnvelope();
             emptyEnvelope.getBody()
                          .addChild(param.getOMElement(
-                    br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarNfseV3.MY_QNAME,
+                    br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarNfseV3.MY_QNAME,
                     factory));
 
             return emptyEnvelope;
@@ -3779,14 +3779,14 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
     /* methods to provide back word compatibility */
     private org.apache.axiom.soap.SOAPEnvelope toEnvelope(
         org.apache.axiom.soap.SOAPFactory factory,
-        br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.CancelarNfse param,
+        br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.CancelarNfse param,
         boolean optimizeContent, javax.xml.namespace.QName elementQName)
         throws org.apache.axis2.AxisFault {
         try {
             org.apache.axiom.soap.SOAPEnvelope emptyEnvelope = factory.getDefaultEnvelope();
             emptyEnvelope.getBody()
                          .addChild(param.getOMElement(
-                    br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.CancelarNfse.MY_QNAME,
+                    br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.CancelarNfse.MY_QNAME,
                     factory));
 
             return emptyEnvelope;
@@ -3798,14 +3798,14 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
     /* methods to provide back word compatibility */
     private org.apache.axiom.soap.SOAPEnvelope toEnvelope(
         org.apache.axiom.soap.SOAPFactory factory,
-        br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarSituacaoLoteRps param,
+        br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarSituacaoLoteRps param,
         boolean optimizeContent, javax.xml.namespace.QName elementQName)
         throws org.apache.axis2.AxisFault {
         try {
             org.apache.axiom.soap.SOAPEnvelope emptyEnvelope = factory.getDefaultEnvelope();
             emptyEnvelope.getBody()
                          .addChild(param.getOMElement(
-                    br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarSituacaoLoteRps.MY_QNAME,
+                    br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarSituacaoLoteRps.MY_QNAME,
                     factory));
 
             return emptyEnvelope;
@@ -3817,14 +3817,14 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
     /* methods to provide back word compatibility */
     private org.apache.axiom.soap.SOAPEnvelope toEnvelope(
         org.apache.axiom.soap.SOAPFactory factory,
-        br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.CancelarNfseV3 param,
+        br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.CancelarNfseV3 param,
         boolean optimizeContent, javax.xml.namespace.QName elementQName)
         throws org.apache.axis2.AxisFault {
         try {
             org.apache.axiom.soap.SOAPEnvelope emptyEnvelope = factory.getDefaultEnvelope();
             emptyEnvelope.getBody()
                          .addChild(param.getOMElement(
-                    br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.CancelarNfseV3.MY_QNAME,
+                    br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.CancelarNfseV3.MY_QNAME,
                     factory));
 
             return emptyEnvelope;
@@ -3836,14 +3836,14 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
     /* methods to provide back word compatibility */
     private org.apache.axiom.soap.SOAPEnvelope toEnvelope(
         org.apache.axiom.soap.SOAPFactory factory,
-        br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarLoteRpsV3 param,
+        br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarLoteRpsV3 param,
         boolean optimizeContent, javax.xml.namespace.QName elementQName)
         throws org.apache.axis2.AxisFault {
         try {
             org.apache.axiom.soap.SOAPEnvelope emptyEnvelope = factory.getDefaultEnvelope();
             emptyEnvelope.getBody()
                          .addChild(param.getOMElement(
-                    br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarLoteRpsV3.MY_QNAME,
+                    br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarLoteRpsV3.MY_QNAME,
                     factory));
 
             return emptyEnvelope;
@@ -3865,124 +3865,124 @@ public class SaoCaetanoSulServiceStub extends org.apache.axis2.client.Stub {
     private java.lang.Object fromOM(org.apache.axiom.om.OMElement param,
         java.lang.Class type) throws org.apache.axis2.AxisFault {
         try {
-            if (br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.CancelarNfse.class.equals(
+            if (br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.CancelarNfse.class.equals(
                         type)) {
-                return br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.CancelarNfse.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+                return br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.CancelarNfse.Factory.parse(param.getXMLStreamReaderWithoutCaching());
             }
 
-            if (br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.CancelarNfseResponse.class.equals(
+            if (br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.CancelarNfseResponse.class.equals(
                         type)) {
-                return br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.CancelarNfseResponse.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+                return br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.CancelarNfseResponse.Factory.parse(param.getXMLStreamReaderWithoutCaching());
             }
 
-            if (br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.CancelarNfseV3.class.equals(
+            if (br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.CancelarNfseV3.class.equals(
                         type)) {
-                return br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.CancelarNfseV3.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+                return br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.CancelarNfseV3.Factory.parse(param.getXMLStreamReaderWithoutCaching());
             }
 
-            if (br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.CancelarNfseV3Response.class.equals(
+            if (br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.CancelarNfseV3Response.class.equals(
                         type)) {
-                return br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.CancelarNfseV3Response.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+                return br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.CancelarNfseV3Response.Factory.parse(param.getXMLStreamReaderWithoutCaching());
             }
 
-            if (br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarLoteRps.class.equals(
+            if (br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarLoteRps.class.equals(
                         type)) {
-                return br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarLoteRps.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+                return br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarLoteRps.Factory.parse(param.getXMLStreamReaderWithoutCaching());
             }
 
-            if (br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarLoteRpsResponse.class.equals(
+            if (br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarLoteRpsResponse.class.equals(
                         type)) {
-                return br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarLoteRpsResponse.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+                return br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarLoteRpsResponse.Factory.parse(param.getXMLStreamReaderWithoutCaching());
             }
 
-            if (br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarLoteRpsV3.class.equals(
+            if (br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarLoteRpsV3.class.equals(
                         type)) {
-                return br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarLoteRpsV3.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+                return br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarLoteRpsV3.Factory.parse(param.getXMLStreamReaderWithoutCaching());
             }
 
-            if (br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarLoteRpsV3Response.class.equals(
+            if (br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarLoteRpsV3Response.class.equals(
                         type)) {
-                return br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarLoteRpsV3Response.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+                return br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarLoteRpsV3Response.Factory.parse(param.getXMLStreamReaderWithoutCaching());
             }
 
-            if (br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarNfse.class.equals(
+            if (br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarNfse.class.equals(
                         type)) {
-                return br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarNfse.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+                return br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarNfse.Factory.parse(param.getXMLStreamReaderWithoutCaching());
             }
 
-            if (br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarNfsePorRps.class.equals(
+            if (br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarNfsePorRps.class.equals(
                         type)) {
-                return br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarNfsePorRps.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+                return br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarNfsePorRps.Factory.parse(param.getXMLStreamReaderWithoutCaching());
             }
 
-            if (br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarNfsePorRpsResponse.class.equals(
+            if (br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarNfsePorRpsResponse.class.equals(
                         type)) {
-                return br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarNfsePorRpsResponse.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+                return br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarNfsePorRpsResponse.Factory.parse(param.getXMLStreamReaderWithoutCaching());
             }
 
-            if (br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarNfsePorRpsV3.class.equals(
+            if (br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarNfsePorRpsV3.class.equals(
                         type)) {
-                return br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarNfsePorRpsV3.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+                return br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarNfsePorRpsV3.Factory.parse(param.getXMLStreamReaderWithoutCaching());
             }
 
-            if (br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarNfsePorRpsV3Response.class.equals(
+            if (br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarNfsePorRpsV3Response.class.equals(
                         type)) {
-                return br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarNfsePorRpsV3Response.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+                return br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarNfsePorRpsV3Response.Factory.parse(param.getXMLStreamReaderWithoutCaching());
             }
 
-            if (br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarNfseResponse.class.equals(
+            if (br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarNfseResponse.class.equals(
                         type)) {
-                return br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarNfseResponse.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+                return br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarNfseResponse.Factory.parse(param.getXMLStreamReaderWithoutCaching());
             }
 
-            if (br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarNfseV3.class.equals(
+            if (br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarNfseV3.class.equals(
                         type)) {
-                return br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarNfseV3.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+                return br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarNfseV3.Factory.parse(param.getXMLStreamReaderWithoutCaching());
             }
 
-            if (br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarNfseV3Response.class.equals(
+            if (br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarNfseV3Response.class.equals(
                         type)) {
-                return br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarNfseV3Response.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+                return br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarNfseV3Response.Factory.parse(param.getXMLStreamReaderWithoutCaching());
             }
 
-            if (br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarSituacaoLoteRps.class.equals(
+            if (br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarSituacaoLoteRps.class.equals(
                         type)) {
-                return br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarSituacaoLoteRps.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+                return br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarSituacaoLoteRps.Factory.parse(param.getXMLStreamReaderWithoutCaching());
             }
 
-            if (br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarSituacaoLoteRpsResponse.class.equals(
+            if (br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarSituacaoLoteRpsResponse.class.equals(
                         type)) {
-                return br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarSituacaoLoteRpsResponse.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+                return br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarSituacaoLoteRpsResponse.Factory.parse(param.getXMLStreamReaderWithoutCaching());
             }
 
-            if (br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarSituacaoLoteRpsV3.class.equals(
+            if (br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarSituacaoLoteRpsV3.class.equals(
                         type)) {
-                return br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarSituacaoLoteRpsV3.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+                return br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarSituacaoLoteRpsV3.Factory.parse(param.getXMLStreamReaderWithoutCaching());
             }
 
-            if (br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarSituacaoLoteRpsV3Response.class.equals(
+            if (br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarSituacaoLoteRpsV3Response.class.equals(
                         type)) {
-                return br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.ConsultarSituacaoLoteRpsV3Response.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+                return br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarSituacaoLoteRpsV3Response.Factory.parse(param.getXMLStreamReaderWithoutCaching());
             }
 
-            if (br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.RecepcionarLoteRps.class.equals(
+            if (br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.RecepcionarLoteRps.class.equals(
                         type)) {
-                return br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.RecepcionarLoteRps.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+                return br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.RecepcionarLoteRps.Factory.parse(param.getXMLStreamReaderWithoutCaching());
             }
 
-            if (br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.RecepcionarLoteRpsResponse.class.equals(
+            if (br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.RecepcionarLoteRpsResponse.class.equals(
                         type)) {
-                return br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.RecepcionarLoteRpsResponse.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+                return br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.RecepcionarLoteRpsResponse.Factory.parse(param.getXMLStreamReaderWithoutCaching());
             }
 
-            if (br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.RecepcionarLoteRpsV3.class.equals(
+            if (br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.RecepcionarLoteRpsV3.class.equals(
                         type)) {
-                return br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.RecepcionarLoteRpsV3.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+                return br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.RecepcionarLoteRpsV3.Factory.parse(param.getXMLStreamReaderWithoutCaching());
             }
 
-            if (br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.RecepcionarLoteRpsV3Response.class.equals(
+            if (br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.RecepcionarLoteRpsV3Response.class.equals(
                         type)) {
-                return br.org.abrasf.nfse.webservice.SaoCaetanoSulServiceStub.RecepcionarLoteRpsV3Response.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+                return br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.RecepcionarLoteRpsV3Response.Factory.parse(param.getXMLStreamReaderWithoutCaching());
             }
         } catch (java.lang.Exception e) {
             throw org.apache.axis2.AxisFault.makeFault(e);
