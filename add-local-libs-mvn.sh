@@ -1,7 +1,16 @@
 #!/bin/bash
 
-# Adiciona as libs no repositório local maven
-# Obs. copiar as libs descritas abaixo para /tmp/
+#
+# ADICIONAR LIBS NO REPOSITÓRIO LOCAL MAVEN
+#
+# Esse bash deve ser utilizado para adicionar libs no repositório local maven.
+# As libs abaixo são necessárias para o funcionamento do IDempiere-LBR
+# 
+# OBSERVAÇÃO
+# 1 - Copiar as libs descritas abaixo para a pasta /tmp/ para que o processo seja executado sem erros
+# 2 - Se esse processo já foi executado anteriormente e você quer adicionar uma lib pontual, você pode fazer uma copia do script ou alterar esse deixando apenas a lib que você deseja adicionar.
+# CUIDADO - SE O ARQUIVO FOR ALTERADO PARA ADICIONAR APENAS 1(UMA) LIB, LEMBRE-SE DE VOLTAR O ARQUIVO PARA O ESTADO ATUAL. NÃO COMMIT O ARQUIVO ALTERADO.
+# 3 - Os arquivo serão adicionados na pasta local-maven-repo da pasta atual. Copie para o repositorio local do mave na sua maquina. Exemplo: /home/kenos/.m2/repository/local
 
 mvn deploy:deploy-file \
   -DgroupId=local.nfebeans-canc-v101-sources \
