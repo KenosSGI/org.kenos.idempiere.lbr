@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.net.URL;
+import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Properties;
@@ -22,10 +23,9 @@ import org.adempierelbr.util.NFeUtil;
 import org.adempierelbr.util.SignatureUtil;
 import org.adempierelbr.util.TextUtil;
 import org.adempierelbr.wrapper.I_W_AD_OrgInfo;
-import org.adempierelbr.wrapper.I_W_C_Invoice;
+import org.adempierelbr.wrapper.I_W_C_BPartner;
 import org.apache.axis2.transport.http.HTTPConstants;
 import org.compiere.model.MBPartner;
-import org.compiere.model.MInvoice;
 import org.compiere.model.MOrgInfo;
 import org.compiere.model.MProduct;
 import org.compiere.util.CLogger;
@@ -34,16 +34,15 @@ import org.compiere.util.Env;
 import br.com.ginfes.cabecalhoV03.CabecalhoDocument;
 import br.com.ginfes.cabecalhoV03.CabecalhoDocument.Cabecalho;
 import br.com.ginfes.servicoCancelarNfseEnvioV03.CancelarNfseEnvioDocument.CancelarNfseEnvio;
-import br.com.ginfes.servicoConsultarNfseRespostaV03.ConsultarNfseRespostaDocument;
-import br.com.ginfes.servicoConsultarNfseRespostaV03.ConsultarNfseRespostaDocument.ConsultarNfseResposta;
 import br.com.ginfes.servicoConsultarNfseRpsEnvioV03.ConsultarNfseRpsEnvioDocument;
 import br.com.ginfes.servicoConsultarNfseRpsEnvioV03.ConsultarNfseRpsEnvioDocument.ConsultarNfseRpsEnvio;
-import br.com.ginfes.servicoConsultarSituacaoLoteRpsEnvioV03.ConsultarSituacaoLoteRpsEnvioDocument.ConsultarSituacaoLoteRpsEnvio;
+import br.com.ginfes.servicoConsultarNfseRpsRespostaV03.ConsultarNfseRpsRespostaDocument;
+import br.com.ginfes.servicoConsultarNfseRpsRespostaV03.ConsultarNfseRpsRespostaDocument.ConsultarNfseRpsResposta;
 import br.com.ginfes.servicoEnviarLoteRpsEnvioV03.EnviarLoteRpsEnvioDocument;
 import br.com.ginfes.servicoEnviarLoteRpsEnvioV03.EnviarLoteRpsEnvioDocument.EnviarLoteRpsEnvio;
 import br.com.ginfes.servicoEnviarLoteRpsRespostaV03.EnviarLoteRpsRespostaDocument;
 import br.com.ginfes.servicoEnviarLoteRpsRespostaV03.EnviarLoteRpsRespostaDocument.EnviarLoteRpsResposta;
-import br.com.ginfes.tiposV03.ListaMensagemRetornoDocument.ListaMensagemRetorno;
+import br.com.ginfes.tiposV03.TcContato;
 import br.com.ginfes.tiposV03.TcCpfCnpj;
 import br.com.ginfes.tiposV03.TcDadosServico;
 import br.com.ginfes.tiposV03.TcDadosTomador;
@@ -52,18 +51,17 @@ import br.com.ginfes.tiposV03.TcIdentificacaoNfse;
 import br.com.ginfes.tiposV03.TcIdentificacaoPrestador;
 import br.com.ginfes.tiposV03.TcIdentificacaoRps;
 import br.com.ginfes.tiposV03.TcIdentificacaoTomador;
+import br.com.ginfes.tiposV03.TcInfNfse;
 import br.com.ginfes.tiposV03.TcInfPedidoCancelamento;
 import br.com.ginfes.tiposV03.TcInfRps;
 import br.com.ginfes.tiposV03.TcLoteRps;
 import br.com.ginfes.tiposV03.TcLoteRps.ListaRps;
-import br.com.ginfes.tiposV03.TcMensagemRetorno;
 import br.com.ginfes.tiposV03.TcPedidoCancelamento;
 import br.com.ginfes.tiposV03.TcRps;
 import br.com.ginfes.tiposV03.TcValores;
 import br.com.ginfes.tiposV03.TsCodigoMunicipioIbge;
 import br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub;
 import br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarNfsePorRpsV3;
-import br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarSituacaoLoteRpsV3;
 import br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.RecepcionarLoteRpsV3;
 import br.org.abrasf.nfse.webservice.NfseWSServiceStub;
 import br.org.abrasf.nfse.webservice.NfseWSServiceStub.CancelarNfseRequest;
@@ -119,7 +117,7 @@ public class NFSeAbrasf100Impl implements INFSe
 	
 	public String getType()
 	{
-		return TYPE_ASYNCHRONOUS;
+		return TYPE_SYNCHRONOUS;
 	}	//	getType
 
 	/**
@@ -136,13 +134,6 @@ public class NFSeAbrasf100Impl implements INFSe
 		
 		//	Parceiro de Negócio
 		MBPartner partner = new MBPartner(Env.getCtx(), nf.getC_BPartner_ID(), null);
-		
-		MInvoice invoice = (MInvoice)nf.getC_Invoice();
-		I_W_C_Invoice winvoice = POWrapper.create(invoice, I_W_C_Invoice.class);
-		
-		// Data da NF
-		Calendar dateDoc = Calendar.getInstance();
-		dateDoc.setTime(nf.getDateDoc());		
 		
 		//	Criar RPS
 		//	Envio do Lote RPS
@@ -177,16 +168,26 @@ public class NFSeAbrasf100Impl implements INFSe
 				2 - Tributação fora do município
 				3 - Isenção
 				4 - Imune
-				5 –Exigibilidade suspensa por decisão judicial
+				5 – Exigibilidade suspensa por decisão judicial
 				6 – Exigibilidade suspensa por procedimento
 				administrativo
 		*/
 		infRps.setNaturezaOperacao((byte)1);
 		
+		// Data da NF
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(nf.getDateDoc());
+		
+		// Removendo Timezone e Milissegundos. A Data deve estar no formato 2020-01-15T00:00:00
+		calendar.clear(Calendar.ZONE_OFFSET);
+		calendar.clear(Calendar.MILLISECOND);
+		
 		//	Data Emissão
-		infRps.setDataEmissao(dateDoc);
+		infRps.setDataEmissao(calendar);		
+		
 		//	Optando do Simples Nacionals
-		infRps.setOptanteSimplesNacional("S".equals(woi.getLBR_TaxRegime()) ? (byte)1 : (byte)2);			
+		infRps.setOptanteSimplesNacional("S".equals(woi.getLBR_TaxRegime()) ? (byte)1 : (byte)2);
+		
 		// Possui Incentivo Fiscal
 		infRps.setIncentivadorCultural((byte)2);		
 		
@@ -233,7 +234,15 @@ public class NFSeAbrasf100Impl implements INFSe
 		endTomador.setCep(new BigDecimal(TextUtil.toNumeric (nf.getlbr_BPPostal())).intValue());
 		endTomador.setUf(TextUtil.retiraEspecial(nf.getlbr_BPRegion()));
 		
+		MBPartner bp = (MBPartner) nf.getC_BPartner();
 		
+		//	Contato
+		if (bp.get_ValueAsString("LBR_EMailNFSe") != null && !bp.get_ValueAsString("LBR_EMailNFSe").isEmpty())
+		{
+			TcContato contato = dadosTomador.addNewContato();
+			contato.setEmail(bp.get_ValueAsString("LBR_EMailNFSe"));
+		}
+				
 		//	Descrição do Serviço
 		String descricaoServico = "";
 		String serviceCode = "";
@@ -271,8 +280,7 @@ public class NFSeAbrasf100Impl implements INFSe
 						serviceCode = p.get_ValueAsString("lbr_ServiceCode");	//	FIXME : Copiar para LBR_NotaFiscalLine
 					else if (!serviceCode.equals(p.get_ValueAsString("lbr_ServiceCode")))
 					{
-						nf.setErrorMsg("Impossível gerar NFS-e. Todos os serviços da NFS-e devem conter o mesmo Código de Serviço");
-						return null;
+						throw new AdempiereException("Impossível gerar NFS-e. Todos os serviços da NFS-e devem conter o mesmo Código de Serviço");
 					}
 						
 					//	Mesma Alíquota de ISS para todos os serviços prestados
@@ -280,10 +288,9 @@ public class NFSeAbrasf100Impl implements INFSe
 							aliquota = nfl.getTaxRate("ISS");
 					else if (!aliquota.equals(nfl.getTaxRate("ISS")))
 					{
-						nf.setErrorMsg("Impossível gerar XML NFS-e. Todos os serviços da NFS-e devem conter o mesmo Código de Serviço");
-						return null;
+						throw new AdempiereException("Impossível gerar XML NFS-e. Todos os serviços da NFS-e devem conter a mesma Alíquota");
 					}
-				}								
+				}							
 			}
 		}
 		
@@ -291,12 +298,20 @@ public class NFSeAbrasf100Impl implements INFSe
 		TcDadosServico dadosServico = infRps.addNewServico();		
 	
 		// Discriminação do Serviço
-		dadosServico.setDiscriminacao(descricaoServico);
-		dadosServico.setItemListaServico(serviceCode);
+		dadosServico.setDiscriminacao(TextUtil.retiraEspecial(descricaoServico));
+		
+		//	Se o código do serviço possui / Ex. 14.01/3530300
+		//	Valor Antes da Barra, Codigo do Serviço, Valor depois da Barra, Código de Tributação do Município
+		if (serviceCode.contains("/"))
+			dadosServico.setItemListaServico(serviceCode.substring(0, serviceCode.indexOf("/")));
+		else
+			dadosServico.setItemListaServico(serviceCode);
+		
 		//dadosServico.setIssRetido((byte)(winvoice.isLBR_HasWithhold() ? 1 : 1));
 		dadosServico.setCodigoMunicipio(new BigDecimal(BPartnerUtil.getCityCode (nf.getlbr_BPRegion(), nf.getlbr_BPCity())).intValue());
-		//	FIXME
-		dadosServico.setCodigoTributacaoMunicipio("3530340");
+		
+		if (serviceCode.contains("/"))
+			dadosServico.setCodigoTributacaoMunicipio(serviceCode.substring(serviceCode.indexOf("/") + 1, serviceCode.length()));
 		
 		//	Valores dos Serviços
 		TcValores valores = dadosServico.addNewValores();
@@ -309,6 +324,7 @@ public class NFSeAbrasf100Impl implements INFSe
 		BigDecimal v_INSS 	= toBD (nf.getTaxAmt("INSS")).abs();
 		BigDecimal v_IR 	= toBD (nf.getTaxAmt("IR")).abs();
 		BigDecimal v_CSLL 	= toBD (nf.getTaxAmt("CSLL")).abs();
+		BigDecimal v_ISS 	= toBD (nf.getTaxAmt("ISS")).abs();		
 		
 		// Valores da NFS-e
 		valores.setValorPis(v_PIS);
@@ -320,6 +336,16 @@ public class NFSeAbrasf100Impl implements INFSe
 		valores.setDescontoIncondicionado(BigDecimal.ZERO);
 		valores.setDescontoCondicionado(toBD(nf.getDiscountAmt()));
 		valores.setIssRetido((byte)2);
+		
+		//	FIXME: Mesmo informando a Aliquota corretamento, retorna o erro
+		//	Codigo:E204 Mensagem:Valor da aliquota informado não condiz com a lista de serviços do município. Correcao:Informe o valor da aliquota correto. 
+		/*if (BigDecimal.ZERO.compareTo(aliquota) != 0)
+		{
+			valores.setBaseCalculo(toBD(nf.getlbr_ServiceTotalAmt()));
+			valores.setAliquota(toBD(aliquota.divide(new BigDecimal(100)),4, false)); // Alíquota. Valor percentual. Formato: 0.0000 Ex: 1% = 0.01 / 25,5% = 0.255 / 100% = 1.0000 ou 1
+			valores.setValorIss(v_ISS);
+		}*/
+		
 		valores.setValorLiquidoNfse(toBD(nf.getlbr_ServiceTotalAmt()));
 		
 		try
@@ -335,7 +361,8 @@ public class NFSeAbrasf100Impl implements INFSe
 			
 			//	Assina o Lote
 			new SignatureUtil (orgInf, SignatureUtil.RPS, "").sign (enviarLotDoc, enviarLotDoc.getEnviarLoteRpsEnvio().newCursor());
-					
+
+			//	Gerado XML Válido e Assinado
 			return enviarLotDoc.xmlText(NFeUtil.getXmlOpt()).getBytes(NFeUtil.NFE_ENCODING);
 		
 		}
@@ -365,16 +392,11 @@ public class NFSeAbrasf100Impl implements INFSe
 		byte[] xmlData = nf.getAttachmentData("xml");
 		if (xmlData == null || xmlData.length == 0)
 			xmlData = getXML (nf);	//	Gera um novo XML
-			
+		
 		String xml = new String (xmlData, NFeUtil.NFE_ENCODING);
-			
-		CabecalhoDocument headerDoc = CabecalhoDocument.Factory.newInstance();
-		Cabecalho header = headerDoc.addNewCabecalho();
-		header.setVersao("3");
-		header.setVersaoDados("3");	
 		
 		Input inputXmlNfse = new Input();
-		inputXmlNfse.setNfseCabecMsg(headerDoc.xmlText());
+		inputXmlNfse.setNfseCabecMsg(getHeaderDoc());
 		inputXmlNfse.setNfseDadosMsg(xml);
 		
 		//	Set certificate
@@ -417,14 +439,65 @@ public class NFSeAbrasf100Impl implements INFSe
 		// Retorno do Envio do XML
 		EnviarLoteRpsResposta resposta = EnviarLoteRpsRespostaDocument.Factory.parse(retornoEnvioXMLNFSe).getEnviarLoteRpsResposta();
 		
+		//	Adicionar Protocolo do Lote
+		if (resposta != null && !resposta.getProtocolo().isEmpty())
+		{
+			nf.setlbr_NFeProt(resposta.getProtocolo());
+			nf.save();
+			
+			// Aguardar 15 Seg para fazer a consulta da NFS-e
+			try 
+			{
+				//	Wait 15 secs before check if NF is processed
+				//		15 secs is the SeFaz recommended time, so using as a default
+				log.finer ("pause");
+				Thread.sleep(15000);
+				log.finer ("resume");
+			} 
+			catch (InterruptedException ex)
+			{
+			    Thread.currentThread().interrupt();
+			}
+			
+			//	Consultar NFS-e
+			return consult(nf);
+		}
+		else
+			return false;
+	}	//	transmit
+	
+	/**
+	 * 	Transmissão de RPS em lote
+	 */
+	public boolean transmit (Properties ctx, int AD_Org_ID, String trxName, List<MLBRNotaFiscal> nfs) throws Exception
+	{
+		log.info ("NFSETransmit Process");
+		
+		return false;
+	}	//	transmit
+	
+	/**
+	 * Consultar Estado da NF-e de Serviço após a Transmissão
+	 */
+	public boolean consult(MLBRNotaFiscal nf) throws Exception
+	{
+		log.info ("NFSE Consult Process");
+		
 		//	Lista de Mensgem veio vazia nos testes, efetuando consulta por RPS para identificar situação da NFS-e
 		//ListaMensagemRetorno listaMsgRetorno = resposta.getListaMensagemRetorno();
+		
+		//	Produção
+		Abrasf100ProdServiceStub rpsStub = new Abrasf100ProdServiceStub();
+		
+		//	Homologação
+		br.org.abrasf.nfse.webservice.Abrasf100HomologServiceGinfesImplServiceStub rpsStubHom = 
+				new br.org.abrasf.nfse.webservice.Abrasf100HomologServiceGinfesImplServiceStub();
 		
 		// Consultar NFS-e através do RPS
 		ConsultarNfseRpsEnvioDocument consultDoc = ConsultarNfseRpsEnvioDocument.Factory.newInstance();
 		ConsultarNfseRpsEnvio consult = consultDoc.addNewConsultarNfseRpsEnvio();
 		TcIdentificacaoRps identRps = consult.addNewIdentificacaoRps();
-		identRps.setNumero(resposta.getNumeroLote());
+		identRps.setNumero(new BigDecimal(nf.getDocumentNo()).intValue());
 		identRps.setSerie(nf.getlbr_NFSerie());
 		identRps.setTipo((byte)1);
 		
@@ -447,104 +520,90 @@ public class NFSeAbrasf100Impl implements INFSe
 		//	Assina o Lote
 		new SignatureUtil (orgInf, SignatureUtil.RPS, "").sign (consultDoc, consultDoc.getConsultarNfseRpsEnvio().newCursor());
 		
+		//	Retorno consulta da NFS-e
 		String retornoConsultaNFe = "";
-		ConsultarNfseResposta respConsultaNFe = null;
+		ConsultarNfseRpsResposta respConsultaRpsNFe = null;
 		
 		//	Produção
 		if (MLBRNotaFiscal.LBR_NFEENV_Production.equals(nf.getlbr_NFeEnv()))
 		{
 			ConsultarNfsePorRpsV3 consult3 = new ConsultarNfsePorRpsV3();
-			consult3.setArg0(headerDoc.xmlText());
+			consult3.setArg0(getHeaderDoc());
 			consult3.setArg1(consultDoc.xmlText(NFeUtil.getXmlOpt()));
 			
 			retornoConsultaNFe = rpsStub.consultarNfsePorRpsV3(consult3).get_return();
-			respConsultaNFe = ConsultarNfseRespostaDocument.Factory.parse(retornoConsultaNFe).getConsultarNfseResposta();
-			log.warning(retornoConsultaNFe);
+			
+			respConsultaRpsNFe = ConsultarNfseRpsRespostaDocument.Factory.parse(retornoConsultaNFe).getConsultarNfseRpsResposta();
+			
+			try
+			{
+				respConsultaRpsNFe = ConsultarNfseRpsRespostaDocument.Factory.parse(retornoConsultaNFe).getConsultarNfseRpsResposta();
+			}
+			catch (Exception e)
+			{
+				//	Processar a Regex
+				//	Identifica a String Inteira = .+(Codigo>.+Correcao>).+
+				//	Substitui pelo grupo "$1"
+				String erro = retornoConsultaNFe.replaceAll(".+(Codigo>E.+Correcao>).+", "$1") // REGEX
+						.replaceAll("</ns4:Codigo><ns4:", "\n")
+						.replaceAll("</ns4:Mensagem><ns4:", "\n")
+						.replaceAll("</ns4:Correcao>", "")
+						.replaceAll(">", ":");
+
+				throw new AdempiereException(erro);
+			}
+			
 		}
 		//	Homologação
 		else
 		{
 			br.org.abrasf.nfse.webservice.Abrasf100HomologServiceGinfesImplServiceStub.ConsultarNfsePorRpsV3 consult3 = 
 					new br.org.abrasf.nfse.webservice.Abrasf100HomologServiceGinfesImplServiceStub.ConsultarNfsePorRpsV3();
-			consult3.setArg0(headerDoc.xmlText());
+			consult3.setArg0(getHeaderDoc());
 			consult3.setArg1(consultDoc.xmlText(NFeUtil.getXmlOpt()));
 			
 			retornoConsultaNFe = rpsStubHom.consultarNfsePorRpsV3(consult3).get_return();
-			respConsultaNFe = ConsultarNfseRespostaDocument.Factory.parse(retornoConsultaNFe).getConsultarNfseResposta();
-			log.warning(retornoConsultaNFe);
-		}
-		
-		//	Lista de Mensagens de Erro ao Consultar NFS-e
-		ListaMensagemRetorno listaMsgRetorno = respConsultaNFe.getListaMensagemRetorno();
-		
-		//	Varrer Lista de Mensagens de Erro
-		if (listaMsgRetorno != null && listaMsgRetorno.sizeOfMensagemRetornoArray() > 0)
-		{
-			String msgErro = "";
-			for (TcMensagemRetorno MsgRetorno : listaMsgRetorno.getMensagemRetornoArray())
+			
+			try
 			{
-				log.warning(MsgRetorno.getCodigo() + " - " + MsgRetorno.getMensagem());
-				
-				msgErro = msgErro + MsgRetorno.getCodigo() + " - " + MsgRetorno.getMensagem() + "\n";
+				respConsultaRpsNFe = ConsultarNfseRpsRespostaDocument.Factory.parse(retornoConsultaNFe).getConsultarNfseRpsResposta();
 			}
-			
-			nf.setDocStatus(MLBRNotaFiscal.DOCSTATUS_Invalid);
-			nf.setlbr_NFeStatus(MLBRNotaFiscal.LBR_NFESTATUS_215_RejeiçãoFalhaNoSchemaXML);
-			nf.save();
-			
+			catch (Exception e)
+			{
+				//	Processar a Regex
+				//	Identifica a String Inteira = .+(Codigo>.+Correcao>).+
+				//	Substitui pelo grupo "$1"
+				String erro = retornoConsultaNFe.replaceAll(".+(Codigo>E.+Correcao>).+", "$1") // REGEX
+												.replaceAll("</ns4:Codigo><ns4:", "\n")
+												.replaceAll("</ns4:Mensagem><ns4:", "\n")
+												.replaceAll("</ns4:Correcao>", "")
+												.replaceAll(">", ":")
+												.replaceAll("\"", "");
+				throw new AdempiereException(erro);
+			}			
 		}
-		else
-		{				
-			nf.setlbr_NFeProt(resposta.getProtocolo());
-			nf.setDocStatus(MLBRNotaFiscal.DOCSTATUS_InProgress);
-			//nf.setlbr_NFeStatus(MLBRNotaFiscal.LBR_NFESTATUS_100_AutorizadoOUsoDaNF_E);
-		}
 		
-		return true;
-	}	//	transmit
-	
-	/**
-	 * 	Transmissão de RPS em lote
-	 */
-	public boolean transmit (Properties ctx, int AD_Org_ID, String trxName, List<MLBRNotaFiscal> nfs) throws Exception
-	{
-		log.info ("NFSETransmit Process");
-		
-		return false;
-	}	//	transmit
-	
-	/**
-	 * Consultar Estado da NF-e de Serviço após a Transmissão
-	 */
-	public boolean consult(MLBRNotaFiscal nf) throws Exception
-	{
-		log.info ("NFSE Consult Process");
-		
-		CabecalhoDocument headerDoc = CabecalhoDocument.Factory.newInstance();
-		Cabecalho header = headerDoc.addNewCabecalho();
-		header.setVersao("3");
-		header.setVersaoDados("3");
-		
-		ConsultarSituacaoLoteRpsEnvio consSitRps = ConsultarSituacaoLoteRpsEnvio.Factory.newInstance();
-		//	Identificação do Prestador de Serviço
-		TcIdentificacaoPrestador indprestador = consSitRps.addNewPrestador();
-		indprestador.setCnpj(TextUtil.retiraEspecial(nf.getlbr_CNPJ()));
-		//	Inscrição Municipal Organização
-		if (nf.getlbr_OrgCCM() != null && !nf.getlbr_OrgCCM().isEmpty())
-			indprestador.setInscricaoMunicipal(TextUtil.retiraEspecial(nf.getlbr_OrgCCM()));
-		consSitRps.setProtocolo(nf.getlbr_NFeProt());
-		
-		ConsultarSituacaoLoteRpsV3 consult = new ConsultarSituacaoLoteRpsV3();
-		//	Header
-		consult.setArg0(headerDoc.xmlText());
-		//	XML Consult
-		consult.setArg1(consSitRps.xmlText());
-		
-		
-		
-		
+		//	Resposta Consulta NFS-e
+		if (respConsultaRpsNFe != null)
+		{
+			TcInfNfse nfse = respConsultaRpsNFe.getCompNfse().getNfse().getInfNfse();
+			if (nfse != null)
+			{
+				nf.setlbr_NFENo(String.valueOf(nfse.getNumero()));
+				nf.setlbr_DigestValue(String.valueOf(nfse.getCodigoVerificacao()));
+				nf.setDateTrx(new Timestamp(nfse.getDataEmissao().getTimeInMillis()));
+				nf.setlbr_NFeStatus(MLBRNotaFiscal.LBR_NFESTATUS_100_AutorizadoOUsoDaNF_E);
+				nf.setDocStatus(MLBRNotaFiscal.DOCSTATUS_Completed);
+				nf.save();
+				return true;
+			}
+			else
+			{
+				throw new AdempiereException("NFSe Transmit Failed");
+			}
+		}	
 				
-		return true;
+		return false;
 	}	// consult
 	
 	
@@ -557,6 +616,20 @@ public class NFSeAbrasf100Impl implements INFSe
 	}
 	
 	/**
+	 * Get Rps Header
+	 * @return
+	 */
+	private String getHeaderDoc()
+	{
+		CabecalhoDocument headerDoc = CabecalhoDocument.Factory.newInstance();
+		Cabecalho header = headerDoc.addNewCabecalho();
+		header.setVersao("3");
+		header.setVersaoDados("3");
+		
+		return headerDoc.xmlText();
+	}
+	
+	/**
 	 * Obter link de Validação da NFS-e e Link para Visualização da Impressão
 	 * @param nf
 	 * @return
@@ -566,12 +639,19 @@ public class NFSeAbrasf100Impl implements INFSe
 		return "";		
 	}	
 	
-	
 	private static BigDecimal toBD (BigDecimal value)
+	{
+		return toBD(value, 2, true);
+	}
+	
+	private static BigDecimal toBD (BigDecimal value, int scale, Boolean stripTrailingZeros)
 	{
 		if (value == null)
 			return Env.ZERO;
-		return value.setScale(2, BigDecimal.ROUND_HALF_UP).stripTrailingZeros();
+		if (stripTrailingZeros)
+			return value.setScale(scale, BigDecimal.ROUND_HALF_UP).stripTrailingZeros();
+		else
+			return value.setScale(scale, BigDecimal.ROUND_HALF_UP);
 	}	//	toBD
 	
 	/**
