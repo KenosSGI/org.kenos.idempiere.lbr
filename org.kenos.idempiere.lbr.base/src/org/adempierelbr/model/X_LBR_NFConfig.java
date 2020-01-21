@@ -1,6 +1,6 @@
 /******************************************************************************
- * Product: AdempiereLBR ERP & CRM Smart Business Solution                    *
- * Copyright (C) 1999-2007 ComPiere, Inc. All Rights Reserved.                *
+ * Product: iDempiere ERP & CRM Smart Business Solution                       *
+ * Copyright (C) 1999-2012 ComPiere, Inc. All Rights Reserved.                *
  * This program is free software, you can redistribute it and/or modify it    *
  * under the terms version 2 of the GNU General Public License as published   *
  * by the Free Software Foundation. This program is distributed in the hope   *
@@ -24,14 +24,14 @@ import org.compiere.model.*;
 
 /** Generated Model for LBR_NFConfig
  *  @author iDempiere (generated) 
- *  @version Release 4.1 - $Id$ */
+ *  @version Release 6.2 - $Id$ */
 public class X_LBR_NFConfig extends PO implements I_LBR_NFConfig, I_Persistent 
 {
 
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20180528L;
+	private static final long serialVersionUID = 20200120L;
 
     /** Standard Constructor */
     public X_LBR_NFConfig (Properties ctx, int LBR_NFConfig_ID, String trxName)
@@ -41,19 +41,23 @@ public class X_LBR_NFConfig extends PO implements I_LBR_NFConfig, I_Persistent
         {
 			setLBR_ConfigSystemResp (null);
 // N
-			setlbr_DANFEFormat (null);
-// 1
+			setLBR_IBPTConfiguration (null);
+// C
+			setLBR_ISSQNAgreement (false);
+// N
 			setLBR_NFConfig_ID (0);
-			setlbr_NFeEnv (null);
-// 2
-			setlbr_NFModel (null);
-// 55
 			setLBR_ReverseInOut (false);
 // N
 			setLBR_ReverseInvoice (false);
 // N
 			setLBR_TPEmis (null);
 // 1
+			setlbr_DANFEFormat (null);
+// 1
+			setlbr_NFModel (null);
+// 55
+			setlbr_NFeEnv (null);
+// 2
         } */
     }
 
@@ -85,25 +89,21 @@ public class X_LBR_NFConfig extends PO implements I_LBR_NFConfig, I_Persistent
       return sb.toString();
     }
 
-	/** LBR_ConfigSystemResp AD_Reference_ID=1120323 */
-	public static final int LBR_CONFIGSYSTEMRESP_AD_Reference_ID=1120323;
-	/** Inform System Responsible = I */
-	public static final String LBR_CONFIGSYSTEMRESP_InformSystemResponsible = "I";
-	/** Not Inform System Responsible = N */
-	public static final String LBR_CONFIGSYSTEMRESP_NotInformSystemResponsible = "N";
-	/** Set Configure System Responsible.
-		@param LBR_ConfigSystemResp Configure System Responsible	  */
-	public void setLBR_ConfigSystemResp (String LBR_ConfigSystemResp)
+	/** Set Classname.
+		@param Classname 
+		Java Classname
+	  */
+	public void setClassname (String Classname)
 	{
-
-		set_Value (COLUMNNAME_LBR_ConfigSystemResp, LBR_ConfigSystemResp);
+		set_Value (COLUMNNAME_Classname, Classname);
 	}
 
-	/** Get Configure System Responsible.
-		@return Configure System Responsible	  */
-	public String getLBR_ConfigSystemResp () 
+	/** Get Classname.
+		@return Java Classname
+	  */
+	public String getClassname () 
 	{
-		return (String)get_Value(COLUMNNAME_LBR_ConfigSystemResp);
+		return (String)get_Value(COLUMNNAME_Classname);
 	}
 
 	/** Set CSRT Code.
@@ -143,8 +143,220 @@ public class X_LBR_NFConfig extends PO implements I_LBR_NFConfig, I_Persistent
 		return ii.intValue();
 	}
 
-	/** lbr_DANFEFormat AD_Reference_ID=1100002 */
-	public static final int LBR_DANFEFORMAT_AD_Reference_ID=1100002;
+	/** Inform System Responsible = I */
+	public static final String LBR_CONFIGSYSTEMRESP_InformSystemResponsible = "I";
+	/** Not Inform System Responsible = N */
+	public static final String LBR_CONFIGSYSTEMRESP_NotInformSystemResponsible = "N";
+	/** Set System Responsible.
+		@param LBR_ConfigSystemResp System Responsible	  */
+	public void setLBR_ConfigSystemResp (String LBR_ConfigSystemResp)
+	{
+
+		set_Value (COLUMNNAME_LBR_ConfigSystemResp, LBR_ConfigSystemResp);
+	}
+
+	/** Get System Responsible.
+		@return System Responsible	  */
+	public String getLBR_ConfigSystemResp () 
+	{
+		return (String)get_Value(COLUMNNAME_LBR_ConfigSystemResp);
+	}
+
+	/** API (Online) = A */
+	public static final String LBR_IBPTCONFIGURATION_APIOnline = "A";
+	/** Offline (IBPT Table) = C */
+	public static final String LBR_IBPTCONFIGURATION_OfflineIBPTTable = "C";
+	/** Real Tax Value = R */
+	public static final String LBR_IBPTCONFIGURATION_RealTaxValue = "R";
+	/** Set IBPT Configuration.
+		@param LBR_IBPTConfiguration IBPT Configuration	  */
+	public void setLBR_IBPTConfiguration (String LBR_IBPTConfiguration)
+	{
+
+		set_Value (COLUMNNAME_LBR_IBPTConfiguration, LBR_IBPTConfiguration);
+	}
+
+	/** Get IBPT Configuration.
+		@return IBPT Configuration	  */
+	public String getLBR_IBPTConfiguration () 
+	{
+		return (String)get_Value(COLUMNNAME_LBR_IBPTConfiguration);
+	}
+
+	/** Set IBPT API Key.
+		@param LBR_IBPT_API_Key 
+		Key to Conect to IBPT API
+	  */
+	public void setLBR_IBPT_API_Key (String LBR_IBPT_API_Key)
+	{
+		set_Value (COLUMNNAME_LBR_IBPT_API_Key, LBR_IBPT_API_Key);
+	}
+
+	/** Get IBPT API Key.
+		@return Key to Conect to IBPT API
+	  */
+	public String getLBR_IBPT_API_Key () 
+	{
+		return (String)get_Value(COLUMNNAME_LBR_IBPT_API_Key);
+	}
+
+	/** Set ISSQN Agreement.
+		@param LBR_ISSQNAgreement 
+		Indicates if the city has ISSQN agreement to issue NF-e combined
+	  */
+	public void setLBR_ISSQNAgreement (boolean LBR_ISSQNAgreement)
+	{
+		set_Value (COLUMNNAME_LBR_ISSQNAgreement, Boolean.valueOf(LBR_ISSQNAgreement));
+	}
+
+	/** Get ISSQN Agreement.
+		@return Indicates if the city has ISSQN agreement to issue NF-e combined
+	  */
+	public boolean isLBR_ISSQNAgreement () 
+	{
+		Object oo = get_Value(COLUMNNAME_LBR_ISSQNAgreement);
+		if (oo != null) 
+		{
+			 if (oo instanceof Boolean) 
+				 return ((Boolean)oo).booleanValue(); 
+			return "Y".equals(oo);
+		}
+		return false;
+	}
+
+	/** Set NF Configuration.
+		@param LBR_NFConfig_ID NF Configuration	  */
+	public void setLBR_NFConfig_ID (int LBR_NFConfig_ID)
+	{
+		if (LBR_NFConfig_ID < 1) 
+			set_ValueNoCheck (COLUMNNAME_LBR_NFConfig_ID, null);
+		else 
+			set_ValueNoCheck (COLUMNNAME_LBR_NFConfig_ID, Integer.valueOf(LBR_NFConfig_ID));
+	}
+
+	/** Get NF Configuration.
+		@return NF Configuration	  */
+	public int getLBR_NFConfig_ID () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_LBR_NFConfig_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
+	/** Set LBR_NFConfig_UU.
+		@param LBR_NFConfig_UU LBR_NFConfig_UU	  */
+	public void setLBR_NFConfig_UU (String LBR_NFConfig_UU)
+	{
+		set_Value (COLUMNNAME_LBR_NFConfig_UU, LBR_NFConfig_UU);
+	}
+
+	/** Get LBR_NFConfig_UU.
+		@return LBR_NFConfig_UU	  */
+	public String getLBR_NFConfig_UU () 
+	{
+		return (String)get_Value(COLUMNNAME_LBR_NFConfig_UU);
+	}
+
+	/** Set Reverse InOut.
+		@param LBR_ReverseInOut 
+		Allow to Reverse InOut related with the NF
+	  */
+	public void setLBR_ReverseInOut (boolean LBR_ReverseInOut)
+	{
+		set_Value (COLUMNNAME_LBR_ReverseInOut, Boolean.valueOf(LBR_ReverseInOut));
+	}
+
+	/** Get Reverse InOut.
+		@return Allow to Reverse InOut related with the NF
+	  */
+	public boolean isLBR_ReverseInOut () 
+	{
+		Object oo = get_Value(COLUMNNAME_LBR_ReverseInOut);
+		if (oo != null) 
+		{
+			 if (oo instanceof Boolean) 
+				 return ((Boolean)oo).booleanValue(); 
+			return "Y".equals(oo);
+		}
+		return false;
+	}
+
+	/** Set Reverse Invoice.
+		@param LBR_ReverseInvoice 
+		Allow to Reverse Invoice related with the NF
+	  */
+	public void setLBR_ReverseInvoice (boolean LBR_ReverseInvoice)
+	{
+		set_Value (COLUMNNAME_LBR_ReverseInvoice, Boolean.valueOf(LBR_ReverseInvoice));
+	}
+
+	/** Get Reverse Invoice.
+		@return Allow to Reverse Invoice related with the NF
+	  */
+	public boolean isLBR_ReverseInvoice () 
+	{
+		Object oo = get_Value(COLUMNNAME_LBR_ReverseInvoice);
+		if (oo != null) 
+		{
+			 if (oo instanceof Boolean) 
+				 return ((Boolean)oo).booleanValue(); 
+			return "Y".equals(oo);
+		}
+		return false;
+	}
+
+	/** Emissão Normal = 1 */
+	public static final String LBR_TPEMIS_EmissãoNormal = "1";
+	/** Contingência FS-IA = 2 */
+	public static final String LBR_TPEMIS_ContingênciaFS_IA = "2";
+	/** Contingência SCAN = 3 */
+	public static final String LBR_TPEMIS_ContingênciaSCAN = "3";
+	/** Contingência DPEC = 4 */
+	public static final String LBR_TPEMIS_ContingênciaDPEC = "4";
+	/** Contingência FS-DA = 5 */
+	public static final String LBR_TPEMIS_ContingênciaFS_DA = "5";
+	/** Contingência SVC-AN = 6 */
+	public static final String LBR_TPEMIS_ContingênciaSVC_AN = "6";
+	/** Contingência SVC-RS = 7 */
+	public static final String LBR_TPEMIS_ContingênciaSVC_RS = "7";
+	/** Contingência off-line da NFC-e = 9 */
+	public static final String LBR_TPEMIS_ContingênciaOff_LineDaNFC_E = "9";
+	/** Set Tipo de Emissão.
+		@param LBR_TPEmis 
+		Indicar o Tipo de Emissão da NF-e.
+	  */
+	public void setLBR_TPEmis (String LBR_TPEmis)
+	{
+
+		set_Value (COLUMNNAME_LBR_TPEmis, LBR_TPEmis);
+	}
+
+	/** Get Tipo de Emissão.
+		@return Indicar o Tipo de Emissão da NF-e.
+	  */
+	public String getLBR_TPEmis () 
+	{
+		return (String)get_Value(COLUMNNAME_LBR_TPEmis);
+	}
+
+	/** Set Version No.
+		@param VersionNo 
+		Version Number
+	  */
+	public void setVersionNo (String VersionNo)
+	{
+		set_ValueNoCheck (COLUMNNAME_VersionNo, VersionNo);
+	}
+
+	/** Get Version No.
+		@return Version Number
+	  */
+	public String getVersionNo () 
+	{
+		return (String)get_Value(COLUMNNAME_VersionNo);
+	}
+
 	/** 1 - Normal DANFE - Portrait = 1 */
 	public static final String LBR_DANFEFORMAT_1_NormalDANFE_Portrait = "1";
 	/** 2 - Normal DANFE - Landscape = 2 */
@@ -186,44 +398,6 @@ public class X_LBR_NFConfig extends PO implements I_LBR_NFConfig, I_Persistent
 		return (Timestamp)get_Value(COLUMNNAME_lbr_DateScan);
 	}
 
-	/** Set IBPT API Key.
-		@param LBR_IBPT_API_Key 
-		Key to Conect to IBPT API
-	  */
-	public void setLBR_IBPT_API_Key (String LBR_IBPT_API_Key)
-	{
-		set_Value (COLUMNNAME_LBR_IBPT_API_Key, LBR_IBPT_API_Key);
-	}
-
-	/** Get IBPT API Key.
-		@return Key to Conect to IBPT API
-	  */
-	public String getLBR_IBPT_API_Key () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_IBPT_API_Key);
-	}
-
-	/** API (Online) = A */
-	public static final String LBR_IBPTCONFIGURATION_APIOnline = "A";
-	/** Offline (IBPT Table) = C */
-	public static final String LBR_IBPTCONFIGURATION_OfflineIBPTTable = "C";
-	/** Real Tax Value = R */
-	public static final String LBR_IBPTCONFIGURATION_RealTaxValue = "R";
-	/** Set IBPT Configuration.
-		@param LBR_IBPTConfiguration IBPT Configuration	  */
-	public void setLBR_IBPTConfiguration (String LBR_IBPTConfiguration)
-	{
-
-		set_Value (COLUMNNAME_LBR_IBPTConfiguration, LBR_IBPTConfiguration);
-	}
-
-	/** Get IBPT Configuration.
-		@return IBPT Configuration	  */
-	public String getLBR_IBPTConfiguration () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_IBPTConfiguration);
-	}
-
 	/** Set Motivo contingência.
 		@param lbr_MotivoScan Motivo contingência	  */
 	public void setlbr_MotivoScan (String lbr_MotivoScan)
@@ -238,63 +412,6 @@ public class X_LBR_NFConfig extends PO implements I_LBR_NFConfig, I_Persistent
 		return (String)get_Value(COLUMNNAME_lbr_MotivoScan);
 	}
 
-	/** Set NF Configuration.
-		@param LBR_NFConfig_ID NF Configuration	  */
-	public void setLBR_NFConfig_ID (int LBR_NFConfig_ID)
-	{
-		if (LBR_NFConfig_ID < 1) 
-			set_ValueNoCheck (COLUMNNAME_LBR_NFConfig_ID, null);
-		else 
-			set_ValueNoCheck (COLUMNNAME_LBR_NFConfig_ID, Integer.valueOf(LBR_NFConfig_ID));
-	}
-
-	/** Get NF Configuration.
-		@return NF Configuration	  */
-	public int getLBR_NFConfig_ID () 
-	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_LBR_NFConfig_ID);
-		if (ii == null)
-			 return 0;
-		return ii.intValue();
-	}
-
-	/** Set LBR_NFConfig_UU.
-		@param LBR_NFConfig_UU LBR_NFConfig_UU	  */
-	public void setLBR_NFConfig_UU (String LBR_NFConfig_UU)
-	{
-		set_Value (COLUMNNAME_LBR_NFConfig_UU, LBR_NFConfig_UU);
-	}
-
-	/** Get LBR_NFConfig_UU.
-		@return LBR_NFConfig_UU	  */
-	public String getLBR_NFConfig_UU () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_NFConfig_UU);
-	}
-
-	/** lbr_NFeEnv AD_Reference_ID=1100001 */
-	public static final int LBR_NFEENV_AD_Reference_ID=1100001;
-	/** Production = 1 */
-	public static final String LBR_NFEENV_Production = "1";
-	/** Homologation = 2 */
-	public static final String LBR_NFEENV_Homologation = "2";
-	/** Set NFe Environment.
-		@param lbr_NFeEnv NFe Environment	  */
-	public void setlbr_NFeEnv (String lbr_NFeEnv)
-	{
-
-		set_Value (COLUMNNAME_lbr_NFeEnv, lbr_NFeEnv);
-	}
-
-	/** Get NFe Environment.
-		@return NFe Environment	  */
-	public String getlbr_NFeEnv () 
-	{
-		return (String)get_Value(COLUMNNAME_lbr_NFeEnv);
-	}
-
-	/** lbr_NFModel AD_Reference_ID=1120009 */
-	public static final int LBR_NFMODEL_AD_Reference_ID=1120009;
 	/** Nota Fiscal = 01 */
 	public static final String LBR_NFMODEL_NotaFiscal = "01";
 	/** Nota Fiscal Avulsa = 1B */
@@ -381,87 +498,22 @@ public class X_LBR_NFConfig extends PO implements I_LBR_NFConfig, I_Persistent
 		return (String)get_Value(COLUMNNAME_lbr_NFModel);
 	}
 
-	/** Set Reverse InOut.
-		@param LBR_ReverseInOut 
-		Allow to Reverse InOut related with the NF
-	  */
-	public void setLBR_ReverseInOut (boolean LBR_ReverseInOut)
+	/** Production = 1 */
+	public static final String LBR_NFEENV_Production = "1";
+	/** Homologation = 2 */
+	public static final String LBR_NFEENV_Homologation = "2";
+	/** Set NFe Environment.
+		@param lbr_NFeEnv NFe Environment	  */
+	public void setlbr_NFeEnv (String lbr_NFeEnv)
 	{
-		set_Value (COLUMNNAME_LBR_ReverseInOut, Boolean.valueOf(LBR_ReverseInOut));
+
+		set_Value (COLUMNNAME_lbr_NFeEnv, lbr_NFeEnv);
 	}
 
-	/** Get Reverse InOut.
-		@return Allow to Reverse InOut related with the NF
-	  */
-	public boolean isLBR_ReverseInOut () 
+	/** Get NFe Environment.
+		@return NFe Environment	  */
+	public String getlbr_NFeEnv () 
 	{
-		Object oo = get_Value(COLUMNNAME_LBR_ReverseInOut);
-		if (oo != null) 
-		{
-			 if (oo instanceof Boolean) 
-				 return ((Boolean)oo).booleanValue(); 
-			return "Y".equals(oo);
-		}
-		return false;
-	}
-
-	/** Set Reverse Invoice.
-		@param LBR_ReverseInvoice 
-		Allow to Reverse Invoice related with the NF
-	  */
-	public void setLBR_ReverseInvoice (boolean LBR_ReverseInvoice)
-	{
-		set_Value (COLUMNNAME_LBR_ReverseInvoice, Boolean.valueOf(LBR_ReverseInvoice));
-	}
-
-	/** Get Reverse Invoice.
-		@return Allow to Reverse Invoice related with the NF
-	  */
-	public boolean isLBR_ReverseInvoice () 
-	{
-		Object oo = get_Value(COLUMNNAME_LBR_ReverseInvoice);
-		if (oo != null) 
-		{
-			 if (oo instanceof Boolean) 
-				 return ((Boolean)oo).booleanValue(); 
-			return "Y".equals(oo);
-		}
-		return false;
-	}
-
-	/** LBR_TPEmis AD_Reference_ID=1120246 */
-	public static final int LBR_TPEMIS_AD_Reference_ID=1120246;
-	/** Emissão Normal = 1 */
-	public static final String LBR_TPEMIS_EmissãoNormal = "1";
-	/** Contingência FS-IA = 2 */
-	public static final String LBR_TPEMIS_ContingênciaFS_IA = "2";
-	/** Contingência SCAN = 3 */
-	public static final String LBR_TPEMIS_ContingênciaSCAN = "3";
-	/** Contingência DPEC = 4 */
-	public static final String LBR_TPEMIS_ContingênciaDPEC = "4";
-	/** Contingência FS-DA = 5 */
-	public static final String LBR_TPEMIS_ContingênciaFS_DA = "5";
-	/** Contingência SVC-AN = 6 */
-	public static final String LBR_TPEMIS_ContingênciaSVC_AN = "6";
-	/** Contingência SVC-RS = 7 */
-	public static final String LBR_TPEMIS_ContingênciaSVC_RS = "7";
-	/** Contingência off-line da NFC-e = 9 */
-	public static final String LBR_TPEMIS_ContingênciaOff_LineDaNFC_E = "9";
-	/** Set Tipo de Emissão.
-		@param LBR_TPEmis 
-		Indicar o Tipo de Emissão da NF-e.
-	  */
-	public void setLBR_TPEmis (String LBR_TPEmis)
-	{
-
-		set_Value (COLUMNNAME_LBR_TPEmis, LBR_TPEmis);
-	}
-
-	/** Get Tipo de Emissão.
-		@return Indicar o Tipo de Emissão da NF-e.
-	  */
-	public String getLBR_TPEmis () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_TPEmis);
+		return (String)get_Value(COLUMNNAME_lbr_NFeEnv);
 	}
 }
