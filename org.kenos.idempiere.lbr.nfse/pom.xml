@@ -33,6 +33,30 @@
             </goals>
             <configuration>
               <artifactItems>
+              	<artifactItem>
+                  <groupId>local.nfse-abrasf-v100-sources</groupId>
+                  <artifactId>nfse-abrasf-v100-sources</artifactId>
+                  <version>NOT_INFORMED</version>
+                  <destFileName>nfse-abrasf-v100-sources.jar</destFileName>
+                </artifactItem>
+                <artifactItem>
+                  <groupId>local.nfse-abrasf-v100</groupId>
+                  <artifactId>nfse-abrasf-v100</artifactId>
+                  <version>NOT_INFORMED</version>
+                  <destFileName>nfse-abrasf-v100.jar</destFileName>
+                </artifactItem>
+                <artifactItem>
+                  <groupId>local.nfse-abrasf-v203-sources</groupId>
+                  <artifactId>nfse-abrasf-v203-sources</artifactId>
+                  <version>NOT_INFORMED</version>
+                  <destFileName>nfse-abrasf-v203-sources.jar</destFileName>
+                </artifactItem>
+                <artifactItem>
+                  <groupId>local.nfse-abrasf-v203</groupId>
+                  <artifactId>nfse-abrasf-v203</artifactId>
+                  <version>NOT_INFORMED</version>
+                  <destFileName>nfse-abrasf-v203.jar</destFileName>
+                </artifactItem>
                 <artifactItem>
                   <groupId>local.nfse-mogi-v100-sources</groupId>
                   <artifactId>nfse-mogi-v100-sources</artifactId>

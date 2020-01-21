@@ -1,5 +1,11 @@
 pom.xml
+<<<<<<< HEAD
 */target/
 */lib/
 */bin/
+=======
+**/target/
+**/lib/
+**/bin/
+>>>>>>> refs/remotes/origin/feature/abrasf
 org.kenos.idempiere.lbr.p2.targetplatform/org.kenos.idempiere.lbr.p2.targetplatform.target

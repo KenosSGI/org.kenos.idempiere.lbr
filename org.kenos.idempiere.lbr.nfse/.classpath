@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
+	<classpathentry kind="src" path="src/"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-11">
 		<attributes>
 			<attribute name="module" value="true"/>
@@ -19,6 +20,9 @@
 	<classpathentry exported="true" kind="lib" path="lib/nfse-palhoca-v100.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/nfsebeans-v01-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/nfsebeans-v01.jar"/>
-	<classpathentry kind="src" path="src/"/>
+	<classpathentry exported="true" kind="lib" path="lib/nfse-abrasf-v100.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/nfse-abrasf-v100-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/nfse-abrasf-v203-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/nfse-abrasf-v203.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

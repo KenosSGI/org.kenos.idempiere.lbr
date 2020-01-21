@@ -8,7 +8,8 @@ Require-Bundle: org.adempiere.base;bundle-version="6.2.0",
  org.kenos.idempiere.lbr.base;bundle-version="6.2.0",
  org.kenos.idempiere.lbr.nfe;bundle-version="6.2.0",
  org.kenos.idempiere.lbr.tax;bundle-version="6.2.0",
- org.apache.commons.io;bundle-version="2.6.0"
+ org.apache.commons.io;bundle-version="2.6.0",
+ org.apache.commons.logging;bundle-version="1.2.0"
 Service-Component: OSGI-INF/NFSeFactory.xml,
  OSGI-INF/ProcessFactory.xml
 Import-Package: javax.activation,
@@ -18,13 +19,17 @@ Import-Package: javax.activation,
  org.apache.xmlbeans,
  org.apache.xmlbeans.impl.schema,
  org.apache.xmlbeans.impl.values
-Bundle-ClassPath: lib/nfse-mogi-v100-sources.jar,
+Bundle-ClassPath: .,
+ lib/nfse-mogi-v100-sources.jar,
  lib/nfse-mogi-v100.jar,
  lib/nfse-palhoca-v100-sources.jar,
  lib/nfse-palhoca-v100.jar,
  lib/nfsebeans-v01-sources.jar,
  lib/nfsebeans-v01.jar,
- .
+ lib/nfse-abrasf-v100-sources.jar,
+ lib/nfse-abrasf-v100.jar,
+ lib/nfse-abrasf-v203-sources.jar,
+ lib/nfse-abrasf-v203.jar
 Export-Package: org.kenos.idempiere.lbr.nfse
 Bundle-ActivationPolicy: lazy
 Automatic-Module-Name: org.kenos.idempiere.lbr.nfse
