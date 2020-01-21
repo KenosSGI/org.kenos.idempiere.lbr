@@ -32,11 +32,8 @@ import org.compiere.model.MProduct;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
 
-import br.org.abrasf.nfse.CabecalhoDocument;
 import br.org.abrasf.nfse.CabecalhoDocument.Cabecalho;
 import br.org.abrasf.nfse.CancelarNfseEnvioDocument.CancelarNfseEnvio;
-import br.org.abrasf.nfse.EnviarLoteRpsRespostaDocument;
-import br.org.abrasf.nfse.EnviarLoteRpsRespostaDocument.EnviarLoteRpsResposta;
 import br.org.abrasf.nfse.TcContato;
 import br.org.abrasf.nfse.TcCpfCnpj;
 import br.org.abrasf.nfse.TcDadosServico;
@@ -58,11 +55,9 @@ import br.org.abrasf.nfse.webservice.NfseWSServiceStub;
 import br.org.abrasf.nfse.webservice.NfseWSServiceStub.CancelarNfseRequest;
 import br.org.abrasf.nfse.webservice.NfseWSServiceStub.GerarNfseRequest;
 import br.org.abrasf.nfse.webservice.NfseWSServiceStub.Input;
-import br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub;
-import br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.RecepcionarLoteRpsV3;
 
 /**
- * 		NFS-e para a cidade de Indaiatuba/SP
+ * 		NFS-e de Cidades que Utilizam Abrasf Versão 2.03 - Ginfes
  * 
  * 	@author Rogério Feitosa (Kenos, www.kenos.com.br)
  *	@version $Id: NFSeIndaiatubaImpl.java, v1.0 2019/07/31 14:59:06, SFUSER Exp $
@@ -92,15 +87,11 @@ public class NFSeAbrasf203Impl implements INFSe
 	public String namespace = "";
 	public String url = "";
 	public Integer C_City_ID = 0;
-	public String version = "";
-	public static final String ABRASF_VERSION_1_00 = "1.00"; 
-	public static final String ABRASF_VERSION_2_03 = "2.03";
 	
 	/**
 	 * Cidades que utilizam NFS-e Abrasf
 	 */
 	public static final Integer	 INDAIATUBA_ID = 1004960;
-	public static final Integer	 SAOCAETANODOSUL_ID = 1005270;
 	
 	/**
 	 * 
@@ -115,23 +106,9 @@ public class NFSeAbrasf203Impl implements INFSe
 	
 	public String getType()
 	{
-		return TYPE_ASYNCHRONOUS;
+		return TYPE_SYNCHRONOUS;
 	}	//	getType
 	
-	/**
-	 * get Abrasf Version
-	 * @param c_city_id
-	 */
-	private String getVersion(int c_city_id)
-	{
-		if(SAOCAETANODOSUL_ID.intValue() == c_city_id)
-			return ABRASF_VERSION_1_00;
-		else if(INDAIATUBA_ID.intValue() == c_city_id)
-			return ABRASF_VERSION_2_03;
-		else
-			return "";
-	}
-
 	/**
 	 * Gera e Retorna XML da NFS-e
 	 */
@@ -354,82 +331,6 @@ public class NFSeAbrasf203Impl implements INFSe
 	{
 		log.info ("NFSETransmit Process");	
 		
-		//	Indicate City to set namespace and url
-		String version = getVersion(nf.getOrg_Location().getC_City_ID());	
-		
-		if (ABRASF_VERSION_1_00.equals(version))
-			return transmitv1 (nf);
-		else if (ABRASF_VERSION_2_03.equals(version))
-			return transmitv2 (nf);
-		else
-			new AdempiereException("Abrasf Version not difined");		
-		
-		return true;
-	}	//	transmit
-	
-	/**
-	 * 
-	 * @param nf
-	 * @param xml
-	 * @return
-	 * @throws Exception
-	 */
-	public boolean transmitv1(MLBRNotaFiscal nf) throws Exception
-	{
-		//	Procura o XML nos anexos
-		byte[] xmlData = nf.getAttachmentData("xml");
-		if (xmlData == null || xmlData.length == 0)
-			xmlData = getXML (nf);	//	Gera um novo XML
-			
-		String xml = new String (xmlData, NFeUtil.NFE_ENCODING);
-			
-		CabecalhoDocument headerDoc = CabecalhoDocument.Factory.newInstance();
-		Cabecalho header = headerDoc.addNewCabecalho();
-		header.setVersao("3");
-		header.setVersaoDados("3");	
-		
-		Input inputXmlNfse = new Input();
-		inputXmlNfse.setNfseCabecMsg(headerDoc.xmlText());
-		inputXmlNfse.setNfseDadosMsg(xml);
-		
-		//	Set certificate
-		MLBRDigitalCertificate.setCertificate (Env.getCtx(), nf.getAD_Org_ID());
-		
-		/**
-		 *	Enviar NF-e
-		 */		
-		Abrasf100ProdServiceStub rpsStub = new Abrasf100ProdServiceStub();
-		
-		RecepcionarLoteRpsV3 rpsResponse = new RecepcionarLoteRpsV3();
-		rpsResponse.setArg0(inputXmlNfse.getNfseCabecMsg());
-		rpsResponse.setArg1(inputXmlNfse.getNfseDadosMsg());
-		
-		String retornoXML = rpsStub.recepcionarLoteRpsV3(rpsResponse).get_return();
-		
-		log.fine (retornoXML);
-		
-		EnviarLoteRpsResposta resposta = EnviarLoteRpsRespostaDocument.Factory.parse(retornoXML).getEnviarLoteRpsResposta();
-			
-		if (resposta != null)
-		{
-			nf.setDocStatus(MLBRNotaFiscal.DOCSTATUS_InProgress);
-			nf.setlbr_NFeStatus(MLBRNotaFiscal.LBR_NFESTATUS_215_RejeiçãoFalhaNoSchemaXML);
-			nf.setErrorMsg(resposta.xmlText());
-			nf.save();
-		}		
-		
-		return true;
-	}
-	
-	/**
-	 * 
-	 * @param nf
-	 * @param xml
-	 * @return
-	 * @throws Exception
-	 */
-	public boolean transmitv2(MLBRNotaFiscal nf) throws Exception
-	{
 		//	Procura o XML nos anexos
 		byte[] xmlData = nf.getAttachmentData("xml");
 		if (xmlData == null || xmlData.length == 0)
@@ -438,7 +339,7 @@ public class NFSeAbrasf203Impl implements INFSe
 		String xml = new String (xmlData, NFeUtil.NFE_ENCODING);
 			
 		Cabecalho header = Cabecalho.Factory.newInstance();
-		header.setVersao(version);
+		header.setVersao("2.03");
 		header.setVersaoDados("");
 		
 		/**
@@ -462,7 +363,7 @@ public class NFSeAbrasf203Impl implements INFSe
 		String result = nfseStub.gerarNfse(gerarNfseRequest).getGerarNfseResponse().getOutputXML();
 		
 		return true;
-	}
+	}	//	transmit
 	
 	/**
 	 * 	Transmissão de RPS em lote
