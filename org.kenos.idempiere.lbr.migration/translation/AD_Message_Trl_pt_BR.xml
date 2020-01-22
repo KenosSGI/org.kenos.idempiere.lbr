@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!--iDempiere(r) Release 4.1_2016-10-31 -Smart Suite ERP, CRM and SCM- (c) 1999-2016 iDempiere(r); Implementation: iDempiere - Supported by iDempiere community--><!--<!DOCTYPE idempiereTrl PUBLIC "-//ComPiere, Inc.//DTD iDempiere Translation 1.0//EN" "http://www.idempiere.com/dtd/idempiereTrl.dtd">--><idempiereTrl language="pt_BR" table="AD_Message">
+<!--iDempiere(r) Release 6.2_2019-01-06 -Smart Suite ERP, CRM and SCM- (c) 1999-2019 iDempiere(r); Implementation: iDempiere - Supported by iDempiere community--><!--<!DOCTYPE idempiereTrl PUBLIC "-//ComPiere, Inc.//DTD iDempiere Translation 1.0//EN" "http://www.idempiere.com/dtd/idempiereTrl.dtd">--><idempiereTrl language="pt_BR" table="AD_Message">
  <row id="101" trl="Y">
   <value column="MsgText" original="zero">zero</value>
   <value column="MsgTip" original=""/>
@@ -65,7 +65,7 @@
   <value column="MsgTip" original="You don't have the privileges">Você não tem os privilégios</value>
  </row>
  <row id="117" trl="Y">
-  <value column="MsgText" original="Client &amp; Organization Data"><![CDATA[Dados da Empresa & Organização]]></value>
+  <value column="MsgText" original="Client &amp; Organization Data" xml:space="preserve"><![CDATA[Dados da Empresa & Organização]]></value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="118" trl="Y">
@@ -85,7 +85,7 @@
   <value column="MsgTip" original=""/>
  </row>
  <row id="122" trl="Y">
-  <value column="MsgText" original="System &amp; Client Data"><![CDATA[Sistema & Dado de Cliente]]></value>
+  <value column="MsgText" original="System &amp; Client Data" xml:space="preserve"><![CDATA[Sistema & Dado de Cliente]]></value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="123" trl="Y">
@@ -137,7 +137,7 @@
   <value column="MsgTip" original=""/>
  </row>
  <row id="135" trl="Y">
-  <value column="MsgText" original="&amp;Advanced"><![CDATA[&Avançado]]></value>
+  <value column="MsgText" original="&amp;Advanced" xml:space="preserve"><![CDATA[&Avançado]]></value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="136" trl="Y">
@@ -261,11 +261,11 @@
   <value column="MsgTip" original=""/>
  </row>
  <row id="166" trl="Y">
-  <value column="MsgText" original="&amp;Cancel"><![CDATA[&Cancelar]]></value>
+  <value column="MsgText" original="&amp;Cancel" xml:space="preserve"><![CDATA[&Cancelar]]></value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="167" trl="Y">
-  <value column="MsgText" original="&amp;Cancel Query"><![CDATA[&Cancelar Pesquisa]]></value>
+  <value column="MsgText" original="&amp;Cancel Query" xml:space="preserve"><![CDATA[&Cancelar Pesquisa]]></value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="168" trl="Y">
@@ -350,7 +350,7 @@ Por favor altere o Livro-Caixa somente após completar a transação</value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="188" trl="Y">
-  <value column="MsgText" original="&amp;Copy Record"><![CDATA[&Copiar Registro]]></value>
+  <value column="MsgText" original="&amp;Copy Record" xml:space="preserve"><![CDATA[&Copiar Registro]]></value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="189" trl="Y">
@@ -455,7 +455,7 @@ Continuar?</value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="214" trl="Y">
-  <value column="MsgText" original="&amp;Delete record"><![CDATA[&Apagar Registro]]></value>
+  <value column="MsgText" original="&amp;Delete record" xml:space="preserve"><![CDATA[&Apagar Registro]]></value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="215" trl="Y">
@@ -535,7 +535,7 @@ Continuar?</value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="234" trl="Y">
-  <value column="MsgText" original="&amp;Edit"><![CDATA[&Editar]]></value>
+  <value column="MsgText" original="&amp;Edit" xml:space="preserve"><![CDATA[&Editar]]></value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="235" trl="Y">
@@ -543,11 +543,11 @@ Continuar?</value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="236" trl="Y">
-  <value column="MsgText" original="e&amp;Xit Window"><![CDATA[F&echar Janela]]></value>
+  <value column="MsgText" original="e&amp;Xit Window" xml:space="preserve"><![CDATA[F&echar Janela]]></value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="237" trl="Y">
-  <value column="MsgText" original="Enter &amp;Query"><![CDATA[Ente &Consulta]]></value>
+  <value column="MsgText" original="Enter &amp;Query" xml:space="preserve"><![CDATA[Ente &Consulta]]></value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="238" trl="Y">
@@ -579,7 +579,7 @@ Continuar?</value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="245" trl="Y">
-  <value column="MsgText" original="&amp;Expand Tree"><![CDATA[&Árvore expandida]]></value>
+  <value column="MsgText" original="&amp;Expand Tree" xml:space="preserve"><![CDATA[&Árvore expandida]]></value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="246" trl="Y">
@@ -611,7 +611,7 @@ Continuar?</value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="253" trl="Y">
-  <value column="MsgText" original="&amp;File"><![CDATA[&Arquivo]]></value>
+  <value column="MsgText" original="&amp;File" xml:space="preserve"><![CDATA[&Arquivo]]></value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="254" trl="Y">
@@ -631,7 +631,7 @@ Continuar?</value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="258" trl="Y">
-  <value column="MsgText" original="&lt;Select File to Load&gt;"><![CDATA[<Selecione Arquivo para Carregar>]]></value>
+  <value column="MsgText" original="&lt;Select File to Load&gt;" xml:space="preserve"><![CDATA[<Selecione Arquivo para Carregar>]]></value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="259" trl="Y">
@@ -679,7 +679,7 @@ Continuar?</value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="270" trl="Y">
-  <value column="MsgText" original="&amp;Lookup Record"><![CDATA[&Registro de Pesquisa]]></value>
+  <value column="MsgText" original="&amp;Lookup Record" xml:space="preserve"><![CDATA[&Registro de Pesquisa]]></value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="271" trl="Y">
@@ -735,7 +735,7 @@ Continuar?</value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="284" trl="Y">
-  <value column="MsgText" original="&amp;Go"><![CDATA[&Ir]]></value>
+  <value column="MsgText" original="&amp;Go" xml:space="preserve"><![CDATA[&Ir]]></value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="285" trl="Y">
@@ -763,11 +763,11 @@ Continuar?</value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="291" trl="Y">
-  <value column="MsgText" original="&amp;Help"><![CDATA[&Ajuda]]></value>
+  <value column="MsgText" original="&amp;Help" xml:space="preserve"><![CDATA[&Ajuda]]></value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="292" trl="Y">
-  <value column="MsgText" original="History records"><![CDATA[&Registros Históricos]]></value>
+  <value column="MsgText" original="History records" xml:space="preserve"><![CDATA[&Registros Históricos]]></value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="293" trl="Y">
@@ -779,7 +779,7 @@ Continuar?</value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="295" trl="Y">
-  <value column="MsgText" original="&amp;Undo changes"><![CDATA[&Desfazer mudanças]]></value>
+  <value column="MsgText" original="&amp;Undo changes" xml:space="preserve"><![CDATA[&Desfazer mudanças]]></value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="296" trl="Y">
@@ -819,15 +819,11 @@ Continuar?</value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="305" trl="Y">
-  <value column="MsgText" original="Product &amp;Info"><![CDATA[&Informação do Produto]]></value>
+  <value column="MsgText" original="Product &amp;Info" xml:space="preserve"><![CDATA[&Informação do Produto]]></value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="306" trl="Y">
   <value column="MsgText" original="Inserted">Inserido</value>
-  <value column="MsgTip" original=""/>
- </row>
- <row id="307" trl="Y">
-  <value column="MsgText" original="Generate Invoices (manual)">Gerar Faturas / Notas Fiscais  (Manual)</value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="308" trl="Y">
@@ -960,7 +956,7 @@ Problema: </value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="340" trl="Y">
-  <value column="MsgText" original="Grid t&amp;Oggle"><![CDATA[Gra&de]]></value>
+  <value column="MsgText" original="Grid t&amp;Oggle" xml:space="preserve"><![CDATA[Gra&de]]></value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="341" trl="Y">
@@ -972,7 +968,7 @@ Problema: </value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="343" trl="Y">
-  <value column="MsgText" original="&amp;Name"><![CDATA[&Nome]]></value>
+  <value column="MsgText" original="&amp;Name" xml:space="preserve"><![CDATA[&Nome]]></value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="344" trl="Y">
@@ -984,11 +980,11 @@ Problema: </value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="346" trl="Y">
-  <value column="MsgText" original="&lt;Query active&gt; Navigate or Update record"><![CDATA[<Query active> Navigate or Update record]]></value>
+  <value column="MsgText" original="&lt;Query active&gt; Navigate or Update record" xml:space="preserve"><![CDATA[<Query active> Navigate or Update record]]></value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="347" trl="Y">
-  <value column="MsgText" original="New"><![CDATA[&Novo Registro]]></value>
+  <value column="MsgText" original="New" xml:space="preserve"><![CDATA[&Novo Registro]]></value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="348" trl="Y">
@@ -1064,7 +1060,7 @@ Problema: </value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="366" trl="Y">
-  <value column="MsgText" original="&amp;OK"><![CDATA[&OK]]></value>
+  <value column="MsgText" original="&amp;OK" xml:space="preserve"><![CDATA[&OK]]></value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="367" trl="Y">
@@ -1108,7 +1104,7 @@ Problema: </value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="377" trl="Y">
-  <value column="MsgText" original="{0,choice,0#No Lines|1#1 Line|1&lt;{0} Lines} - {1,number,#,##0.00} - Total: {2,number,#,##0.00} {3} = {4,number,#,##0.00}"><![CDATA[{0,choice,0#Sem Linhas|1#1 Linha|1<{0} Linhas} - {1,number,#,##0.00} - Total: {2,number,#,##0.00} {3} = {4,number,#,##0.00}]]></value>
+  <value column="MsgText" original="{0,choice,0#No Lines|1#1 Line|1&lt;{0} Lines} - {1,number,#,##0.00} - Total: {2,number,#,##0.00} {3} = {4,number,#,##0.00}" xml:space="preserve"><![CDATA[{0,choice,0#Sem Linhas|1#1 Linha|1<{0} Linhas} - {1,number,#,##0.00} - Total: {2,number,#,##0.00} {3} = {4,number,#,##0.00}]]></value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="378" trl="Y">
@@ -1301,7 +1297,7 @@ Entre com o pagamento depois de completar a transação.</value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="425" trl="Y">
-  <value column="MsgText" original="&amp;Print"><![CDATA[&Imprimir]]></value>
+  <value column="MsgText" original="&amp;Print" xml:space="preserve"><![CDATA[&Imprimir]]></value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="426" trl="Y">
@@ -1462,7 +1458,7 @@ Entre com o pagamento depois de completar a transação.</value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="465" trl="Y">
-  <value column="MsgText" original="Re&amp;Query"><![CDATA[A&tualizar]]></value>
+  <value column="MsgText" original="Re&amp;Query" xml:space="preserve"><![CDATA[A&tualizar]]></value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="466" trl="Y">
@@ -1494,7 +1490,7 @@ Entre com o pagamento depois de completar a transação.</value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="473" trl="Y">
-  <value column="MsgText" original="&amp;Report"><![CDATA[&Relatório]]></value>
+  <value column="MsgText" original="&amp;Report" xml:space="preserve"><![CDATA[&Relatório]]></value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="474" trl="Y">
@@ -1597,7 +1593,7 @@ Detalhes: </value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="497" trl="Y">
-  <value column="MsgText" original="&amp;Save changes"><![CDATA[&Salvar Mudanças]]></value>
+  <value column="MsgText" original="&amp;Save changes" xml:space="preserve"><![CDATA[&Salvar Mudanças]]></value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="498" trl="Y">
@@ -1693,7 +1689,7 @@ Detalhes: </value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="521" trl="Y">
-  <value column="MsgText" original="Select Record &amp; Return"><![CDATA[Selecione Registro & Retorne]]></value>
+  <value column="MsgText" original="Select Record &amp; Return" xml:space="preserve"><![CDATA[Selecione Registro & Retorne]]></value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="522" trl="Y">
@@ -1877,7 +1873,7 @@ Detalhes: </value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="567" trl="Y">
-  <value column="MsgText" original="&amp;Tools"><![CDATA[&Ferramentas]]></value>
+  <value column="MsgText" original="&amp;Tools" xml:space="preserve"><![CDATA[&Ferramentas]]></value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="568" trl="Y">
@@ -1978,7 +1974,7 @@ Você deseja imprimir o aviso das remessas em separado ?</value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="592" trl="Y">
-  <value column="MsgText" original="&amp;Key"><![CDATA[&Chave]]></value>
+  <value column="MsgText" original="&amp;Key" xml:space="preserve"><![CDATA[&Chave]]></value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="593" trl="Y">
@@ -2006,7 +2002,7 @@ Você deseja imprimir o aviso das remessas em separado ?</value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="599" trl="Y">
-  <value column="MsgText" original="&amp;View"><![CDATA[&Visualizar]]></value>
+  <value column="MsgText" original="&amp;View" xml:space="preserve"><![CDATA[&Visualizar]]></value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="600" trl="Y">
@@ -2018,7 +2014,7 @@ Você deseja imprimir o aviso das remessas em separado ?</value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="602" trl="Y">
-  <value column="MsgText" original="&amp;Enter Query"><![CDATA[&Entre a Consulta]]></value>
+  <value column="MsgText" original="&amp;Enter Query" xml:space="preserve"><![CDATA[&Entre a Consulta]]></value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="603" trl="Y">
@@ -2058,7 +2054,7 @@ Você deseja imprimir o aviso das remessas em separado ?</value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="612" trl="Y">
-  <value column="MsgText" original="&amp;Warehouse"><![CDATA[&Armazém]]></value>
+  <value column="MsgText" original="&amp;Warehouse" xml:space="preserve"><![CDATA[&Armazém]]></value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="613" trl="Y">
@@ -2082,7 +2078,7 @@ Você deseja imprimir o aviso das remessas em separado ?</value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="618" trl="Y">
-  <value column="MsgText" original="&amp;Zoom"><![CDATA[&Zoom]]></value>
+  <value column="MsgText" original="&amp;Zoom" xml:space="preserve"><![CDATA[&Zoom]]></value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="619" trl="Y">
@@ -2607,7 +2603,7 @@ Thank you for using Adempiere Customer Asset Management
   <value column="MsgTip" original=""/>
  </row>
  <row id="757" trl="Y">
-  <value column="MsgText" original="Active &amp;Workflows"><![CDATA[&Fluxos de Trabalhos Ativos]]></value>
+  <value column="MsgText" original="Active &amp;Workflows" xml:space="preserve"><![CDATA[&Fluxos de Trabalhos Ativos]]></value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="758" trl="Y">
@@ -2615,7 +2611,7 @@ Thank you for using Adempiere Customer Asset Management
   <value column="MsgTip" original=""/>
  </row>
  <row id="759" trl="Y">
-  <value column="MsgText" original="&amp;Zoom Across (where used)"><![CDATA[&Zoom Transversal (onde usado)]]></value>
+  <value column="MsgText" original="&amp;Zoom Across (where used)" xml:space="preserve"><![CDATA[&Zoom Transversal (onde usado)]]></value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="760" trl="Y">
@@ -2688,11 +2684,11 @@ Thank you for using Adempiere Customer Asset Management
   <value column="MsgTip" original=""/>
  </row>
  <row id="777" trl="Y">
-  <value column="MsgText" original="&amp;Product"><![CDATA[&Produto]]></value>
+  <value column="MsgText" original="&amp;Product" xml:space="preserve"><![CDATA[&Produto]]></value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="778" trl="Y">
-  <value column="MsgText" original="&amp;Business Partner"><![CDATA[&Parceiro de Negócios]]></value>
+  <value column="MsgText" original="&amp;Business Partner" xml:space="preserve"><![CDATA[&Parceiro de Negócios]]></value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="779" trl="Y">
@@ -2741,7 +2737,7 @@ Thank you for using Adempiere Customer Asset Management
  </row>
  <row id="790" trl="Y">
   <value column="MsgText" original="The Product UoM needs to be the smallest UoM">A UdM do Produto precisa ser a menor UdM</value>
-  <value column="MsgTip" original="Divide Rate  must be &gt;= 1 and always result in a valid UoM unit. &#10;Example: To convert Each to Pair, the Multiply Rate is 0.5"><![CDATA[Taxa de Divisão deve ser >= 1 e sempre resulta em uma unidade UDM válida. 
+  <value column="MsgTip" original="Divide Rate  must be &gt;= 1 and always result in a valid UoM unit. &#10;Example: To convert Each to Pair, the Multiply Rate is 0.5" xml:space="preserve"><![CDATA[Taxa de Divisão deve ser >= 1 e sempre resulta em uma unidade UDM válida. 
 Exemplo: Para converter Cada para Par, a taxa de Multiplicar é 0,5]]></value>
  </row>
  <row id="791" trl="Y">
@@ -2866,11 +2862,11 @@ Verifique o log de erros e o formato do arquivo Accounting*.csv - Nenhuma Conta 
   <value column="MsgTip" original=""/>
  </row>
  <row id="821" trl="Y">
-  <value column="MsgText" original="&amp;Check Requests"><![CDATA[&Verificar Solicitações]]></value>
+  <value column="MsgText" original="&amp;Check Requests" xml:space="preserve"><![CDATA[&Verificar Solicitações]]></value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="822" trl="Y">
-  <value column="MsgText" original="&amp;Archived Documents/Reports"><![CDATA[&Documentos Arquivados/Relatórios]]></value>
+  <value column="MsgText" original="&amp;Archived Documents/Reports" xml:space="preserve"><![CDATA[&Documentos Arquivados/Relatórios]]></value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="823" trl="Y">
@@ -3016,15 +3012,15 @@ Você quer continuar?</value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="858" trl="Y">
-  <value column="MsgText" original="Workflow &amp;Activities"><![CDATA[Fluxo de Trabalho &Atividades]]></value>
+  <value column="MsgText" original="Workflow &amp;Activities" xml:space="preserve"><![CDATA[Fluxo de Trabalho &Atividades]]></value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="859" trl="Y">
-  <value column="MsgText" original="&amp;Workflow"><![CDATA[&Fluxo de Trabalho]]></value>
+  <value column="MsgText" original="&amp;Workflow" xml:space="preserve"><![CDATA[&Fluxo de Trabalho]]></value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="860" trl="Y">
-  <value column="MsgText" original="&amp;Lookup"><![CDATA[&Lookup]]></value>
+  <value column="MsgText" original="&amp;Lookup" xml:space="preserve"><![CDATA[&Lookup]]></value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="861" trl="Y">
@@ -3036,11 +3032,11 @@ Você quer continuar?</value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="863" trl="Y">
-  <value column="MsgText" original="&amp;OK"><![CDATA[&OK]]></value>
+  <value column="MsgText" original="&amp;OK" xml:space="preserve"><![CDATA[&OK]]></value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="864" trl="Y">
-  <value column="MsgText" original="&amp;Document No"><![CDATA[&Nº do Documento]]></value>
+  <value column="MsgText" original="&amp;Document No" xml:space="preserve"><![CDATA[&Nº do Documento]]></value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="865" trl="Y">
@@ -3048,7 +3044,7 @@ Você quer continuar?</value>
   <value column="MsgTip" original="Cache Window Definitions on Client">Definição de Janela Cache na Empresa</value>
  </row>
  <row id="866" trl="Y">
-  <value column="MsgText" original="&amp;Performance"><![CDATA[&Desempenho]]></value>
+  <value column="MsgText" original="&amp;Performance" xml:space="preserve"><![CDATA[&Desempenho]]></value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="867" trl="Y">
@@ -3136,11 +3132,11 @@ Você quer continuar?</value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="888" trl="Y">
-  <value column="MsgText" original="Select &amp;All"><![CDATA[Selecionar &tudo]]></value>
+  <value column="MsgText" original="Select &amp;All" xml:space="preserve"><![CDATA[Selecionar &tudo]]></value>
   <value column="MsgTip" original=""/>
  </row>
- <row id="20001" trl="N">
-  <value column="MsgText" original="Asset Depreciation Amount">Asset Depreciation Amount</value>
+ <row id="20001" trl="Y">
+  <value column="MsgText" original="Asset Depreciation Amount">Valor da Depreciação</value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="50000" trl="Y">
@@ -3948,7 +3944,7 @@ Você quer continuar?</value>
   <value column="MsgTip" original=" "> </value>
  </row>
  <row id="52186" trl="Y">
-  <value column="MsgText" original="This utility is to import the a list of Black Listed Cheques from a csv file into the system,&lt;br&gt;The csv file should look like the one shown below including the header:"><![CDATA[Este utilitário é para importar a lista Negra de Cheques de um arquivo CSV dentro do sistema,<br>O arquivo CSV deve ser semelhante ao mostrado abaixo, incluindo o cabeçalho:]]></value>
+  <value column="MsgText" original="This utility is to import the a list of Black Listed Cheques from a csv file into the system,&lt;br&gt;The csv file should look like the one shown below including the header:" xml:space="preserve"><![CDATA[Este utilitário é para importar a lista Negra de Cheques de um arquivo CSV dentro do sistema,<br>O arquivo CSV deve ser semelhante ao mostrado abaixo, incluindo o cabeçalho:]]></value>
   <value column="MsgTip" original=" "> </value>
  </row>
  <row id="52187" trl="Y">
@@ -3956,7 +3952,7 @@ Você quer continuar?</value>
   <value column="MsgTip" original=" "> </value>
  </row>
  <row id="52188" trl="Y">
-  <value column="MsgText" original="This utility is to import the products and Stock in Hand from a csv file into the system,&lt;br&gt; For importing the garment products, the CSV file name should containg the word 'Garment' &lt;br&gt;The csv file should look like the one shown below including the header"><![CDATA[Este utilitário é para importar os produto e Estoque em Mãos de um arquivo CSV dentro do sistema,<bt>Para importar os produtos de vestuário, o arquivo CSV deve conter a palavra 'Vestuário' <br>O arquivo CSV deve ser semelhante ao mostrado abaixo, incluindo o cabeçalho]]></value>
+  <value column="MsgText" original="This utility is to import the products and Stock in Hand from a csv file into the system,&lt;br&gt; For importing the garment products, the CSV file name should containg the word 'Garment' &lt;br&gt;The csv file should look like the one shown below including the header" xml:space="preserve"><![CDATA[Este utilitário é para importar os produto e Estoque em Mãos de um arquivo CSV dentro do sistema,<bt>Para importar os produtos de vestuário, o arquivo CSV deve conter a palavra 'Vestuário' <br>O arquivo CSV deve ser semelhante ao mostrado abaixo, incluindo o cabeçalho]]></value>
   <value column="MsgTip" original=" "> </value>
  </row>
  <row id="52189" trl="Y">
@@ -5961,8 +5957,9 @@ Please contact administrator.</value>
   <value column="MsgText" original="Payment transaction already voided">Transação de pagamento já anulada</value>
   <value column="MsgTip" original=""/>
  </row>
- <row id="200102" trl="N">
-  <value column="MsgText" original="Payment transaction already delayed capture">Payment transaction already delayed capture</value>
+ <row id="200102" trl="Y">
+  <value column="MsgText" original="Payment transaction already delayed capture">Payment transaction already delayed capture
+A captura da Transação de Pagamento está atrasada</value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="200103" trl="Y">
@@ -6134,7 +6131,7 @@ Please contact administrator.</value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="200152" trl="Y">
-  <value column="MsgText" original="Csv file must not contain '&gt;' in header record {0}. "><![CDATA[O arquivo CSV não pode conter '>' no cabeçalho {0}.]]></value>
+  <value column="MsgText" original="Csv file must not contain '&gt;' in header record {0}. " xml:space="preserve"><![CDATA[O arquivo CSV não pode conter '>' no cabeçalho {0}.]]></value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="200153" trl="Y">
@@ -6142,7 +6139,7 @@ Please contact administrator.</value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="200154" trl="Y">
-  <value column="MsgText" original="Wrong detail name{0}, it must contain the character '&gt;':{1} "><![CDATA[Nome do detalhe errado {0}, é necessário conter o caractere '>':{1} ]]></value>
+  <value column="MsgText" original="Wrong detail name{0}, it must contain the character '&gt;':{1} " xml:space="preserve"><![CDATA[Nome do detalhe errado {0}, é necessário conter o caractere '>':{1} ]]></value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="200155" trl="Y">
@@ -6534,11 +6531,11 @@ Please contact administrator.</value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="200274" trl="Y">
-  <value column="MsgText" original="Your search returned more than the maximum number of results allowed.&lt;br&gt;Please narrow down your search criteria and try your search again."><![CDATA[Sua pesquisa retornou mais registros do que o máximo permitido.<br>Por favor, refine sua pesquisa e tente novamente.]]></value>
+  <value column="MsgText" original="Your search returned more than the maximum number of results allowed.&lt;br&gt;Please narrow down your search criteria and try your search again." xml:space="preserve"><![CDATA[Sua pesquisa retornou mais registros do que o máximo permitido.<br>Por favor, refine sua pesquisa e tente novamente.]]></value>
   <value column="MsgTip" original=""/>
  </row>
- <row id="200275" trl="N">
-  <value column="MsgText" original="Process Menu">Process Menu</value>
+ <row id="200275" trl="Y">
+  <value column="MsgText" original="Process Menu">Menu de Processos</value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="200303" trl="Y">
@@ -6609,6 +6606,14 @@ Please contact administrator.</value>
   <value column="MsgText" original="Selected {0} rows">Selecionado(a) {0} linha(s)</value>
   <value column="MsgTip" original=""/>
  </row>
+ <row id="200369" trl="Y">
+  <value column="MsgText" original="Permalink">Permalink</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200370" trl="Y">
+  <value column="MsgText" original="Right click and copy link for a permanent link to this record.">Clique com o botão direito para obter um link permanente para este registro</value>
+  <value column="MsgTip" original=""/>
+ </row>
  <row id="200393" trl="Y">
   <value column="MsgText" original="Could not convert currency {0} to project currency {1} - conversion type : {2} / conversion date : {3,date,short}">Não é possível converter a moeda {0} para a moeda do projeto {1} - tipo de conversão: {2} / data da conversão: {3,date,short}</value>
   <value column="MsgTip" original=""/>
@@ -6641,12 +6646,192 @@ Please contact administrator.</value>
   <value column="MsgText" original="{0} resolved multiple times = ({1})">{0} resolvido várias vezes = ({1})</value>
   <value column="MsgTip" original=""/>
  </row>
+ <row id="200411" trl="Y">
+  <value column="MsgText" original="Post-it">Post-it</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200412" trl="Y">
+  <value column="MsgText" original="Created by {0} / {1}">Criado por {0} / {1}</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200413" trl="Y">
+  <value column="MsgText" original="Updated by {0} / {1}">Atualizado por {0} / {1}</value>
+  <value column="MsgTip" original=""/>
+ </row>
  <row id="200414" trl="Y">
   <value column="MsgText" original="@#System_Name@ Trace Information">@#System_Name@ - Rastreamento de Erros</value>
   <value column="MsgTip" original=""/>
  </row>
- <row id="200431" trl="N">
-  <value column="MsgText" original="The {0} warehouse does not allow negative inventory for Product = {1}, ASI = {2}, Locator = {3} (Shortage of {4})">The {0} warehouse does not allow negative inventory for Product = {1}, ASI = {2}, Locator = {3} (Shortage of {4})</value>
+ <row id="200431" trl="Y">
+  <value column="MsgText" original="The {0} warehouse does not allow negative inventory for Product = {1}, ASI = {2}, Locator = {3} (Shortage of {4})">O armazém {0} não permite quantidade negativa para o produto = {1}, ICA = {2}, Localizador = {3} ({4} a menor)</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200432" trl="Y">
+  <value column="MsgText" original="Can''t resolve reference table for column &quot;{0}&quot;">Não foi possível resolver a referência da tabela para a coluna "{0}"</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200435" trl="Y">
+  <value column="MsgText" original="Add To Favourites">Adicionar aos Favoritos</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200436" trl="Y">
+  <value column="MsgText" original="Remove From Favourites">Remover dos Favoritos</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200437" trl="Y">
+  <value column="MsgText" original="Select location to move selected item to">Selecione o local para qual deseja mover o item selecionado</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200438" trl="Y">
+  <value column="MsgText" original="From">De</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200439" trl="Y">
+  <value column="MsgText" original="To">Para</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200442" trl="Y">
+  <value column="MsgText" original="Warning">Aviso</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200443" trl="Y">
+  <value column="MsgText" original="Stop">Parar</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200444" trl="Y">
+  <value column="MsgText" original="Uninstall">Desinstalar</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200445" trl="Y">
+  <value column="MsgText" original="Install">Instalar</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200446" trl="Y">
+  <value column="MsgText" original="Id">Id</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200447" trl="Y">
+  <value column="MsgText" original="State">Estado</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200448" trl="Y">
+  <value column="MsgText" original="Version">Versão</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200449" trl="Y">
+  <value column="MsgText" original="Plugins">Plugins</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200450" trl="Y">
+  <value column="MsgText" original="Request a Read Receipt">Exigir a Confirmação de Leitura</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200452" trl="Y">
+  <value column="MsgText" original="Row">Linha</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200453" trl="Y">
+  <value column="MsgText" original="Your password will expire in {0} days">A sua senha irá expirar em {0} dias</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200471" trl="Y">
+  <value column="MsgText" original="Invoice has already allocations">A fatura já possuí alocações</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200472" trl="Y">
+  <value column="MsgText" original="Cannot create a credit memo from a credit memo">Não é possível criar uma Carta de Crédito de uma Carta de Crédito</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200473" trl="Y">
+  <value column="MsgText" original="Credit Memo already exists">Carta de Crédito já existe</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200480" trl="Y">
+  <value column="MsgText" original="IBAN is invalid">IBAN inválido</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200481" trl="Y">
+  <value column="MsgText" original="Only centralized data">Somente dados centralizados</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200483" trl="Y">
+  <value column="MsgText" original="Another instance of this process is already running, please wait until it finishes to run it again.">Outra instância deste mesmo processo está em curso, por favor aguarde até a finalização e tente novamente.</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200486" trl="Y">
+  <value column="MsgText" original="Defaults">Padrões</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200487" trl="Y">
+  <value column="MsgText" original="Warehouse cannot be changed because there are lines.">Não é possível trocar o armazém pois já existem linhas.</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200488" trl="Y">
+  <value column="MsgText" original="The table has already a key column, there can be just one key.">A tabela já possuí uma chave primária, só deve haver uma por tabela.</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200489" trl="Y">
+  <value column="MsgText" original="Failed when processing document">Falha no processamento do documento</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200492" trl="Y">
+  <value column="MsgText" original="For">Para</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200493" trl="Y">
+  <value column="MsgText" original="this Client and Organization">esta Empresa e Organização</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200494" trl="Y">
+  <value column="MsgText" original="all Organizations of this Client">todas Organizações desta Empresa</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200495" trl="Y">
+  <value column="MsgText" original="entire System">todo o Sistema</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200496" trl="Y">
+  <value column="MsgText" original="this User">este Usuário</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200497" trl="Y">
+  <value column="MsgText" original="all Users">todos Usuários</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200498" trl="Y">
+  <value column="MsgText" original="and this Window">e esta Janela</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200499" trl="Y">
+  <value column="MsgText" original="and all Windows">e todas Janelas</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200500" trl="Y">
+  <value column="MsgText" original="and this Process">e este Processo</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200501" trl="Y">
+  <value column="MsgText" original="and all Process">e todos Processos</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200502" trl="Y">
+  <value column="MsgText" original="and this Info Window">e esta Janela de Informações</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200503" trl="Y">
+  <value column="MsgText" original="and all Info Window">e todas Janelas de Informação</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200510" trl="Y">
+  <value column="MsgText" original="Close Windows to the Right">Fechar as abas à direita</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200511" trl="Y">
+  <value column="MsgText" original="Close Windows to the Left">Fechar abas à direita</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200512" trl="Y">
+  <value column="MsgText" original="No query columns found">Não foi encontrado colunas de pesquisa</value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="520010" trl="Y">
@@ -6679,68 +6864,6 @@ Please contact administrator.</value>
  </row>
  <row id="523853" trl="Y">
   <value column="MsgText" original="Shipment/Receipt has different Sales/Purchase transaction than RMA">Shipment/Receipt has different Sales/Purchase transaction than RMA</value>
-  <value column="MsgTip" original=""/>
- </row>
- <row trl="Y" uuid="5749db9f-c3f3-403c-bf0c-780fdaa942af">
-  <value column="MsgText" original="The selected warehouse is not Third Party.">O Armazém selecionado não está em poder de terceiros.</value>
-  <value column="MsgTip" original="Please, select a Third Party Warehouse.">Selecione um armazém que se encontra em poder de terceiros.</value>
- </row>
- <row trl="Y" uuid="a209d4fa-c733-4bb5-bfe3-55276710a4bd">
-  <value column="MsgText" original="Prezado Cliente,&#10;&#10;Segue o boleto da Empresa {0}. A Nota Fiscal é enviada pelo site da Prefeitura de São Paulo.&#10;&#10;Atenciosamente,&#10;Cobrança - {0}&#10;Telefone: {1}">Prezado Cliente,
-
-Segue o boleto da Empresa {0}. A Nota Fiscal é enviada pelo site da Prefeitura de São Paulo.
-
-Atenciosamente,
-Cobrança - {0}
-Telefone: {1}</value>
-  <value column="MsgTip" original=""/>
- </row>
- <row trl="Y" uuid="e9bb2c0f-f2a4-467a-9bc0-1f5668d53f24">
-  <value column="MsgText" original="Este e-mail &amp;eacute; enviado automaticamente, por favor n&amp;atilde;o responda.&lt;br /&gt;&lt;br /&gt;Prezado cliente,&lt;br /&gt;&lt;br /&gt;Anexo &amp;agrave; este e-mail voc&amp;ecirc; est&amp;aacute; recebendo o arquivo XML da Nota Fiscal Eletr&amp;ocirc;nica. Este arquivo deve ser armazenado eletronicamente por sua empresa pelo prazo de 05 (cinco) anos, conforme previsto na legisla&amp;ccedil;&amp;atilde;o tribut&amp;aacute;ria (Art. 173 do C&amp;oacute;digo Tribut&amp;aacute;rio Nacional e &amp;sect; 4&amp;ordm; da Lei 5.172 de 25/10/1966).&lt;br /&gt;&lt;br /&gt;O DANFE em papel seguir&amp;aacute; junto com a mercadoria e poder&amp;aacute; ser arquivado para apresenta&amp;ccedil;&amp;atilde;o ao fisco quando solicitado. Todavia, se sua empresa tamb&amp;eacute;m for emitente de NF-e, o arquivamento eletr&amp;ocirc;nico do XML de seus fornecedores &amp;eacute; obrigat&amp;oacute;rio, sendo pass&amp;iacute;vel de fiscaliza&amp;ccedil;&amp;atilde;o.&lt;br /&gt;&lt;br /&gt;Para se certificar que esta NF-e &amp;eacute; v&amp;aacute;lida, queira por favor consultar sua autenticidade no site nacional do projeto NF-e (www.nfe.fazenda.gov.br), utilizando a chave de acesso contida no DANFE.&lt;br /&gt;&lt;br /&gt;--&lt;br /&gt;Atenciosamente,&lt;br /&gt;@AD_Org_ID&lt;Name&gt;@.&lt;br /&gt;Nota Fiscal emitida pelo sistema Kenos ERP Adempiere (www.kenos.com.br)"><![CDATA[Este e-mail é enviado automaticamente, por favor não responda.<br><br>Prezado cliente,<br><br>Anexo à este e-mail você está recebendo o arquivo XML da Nota Fiscal Eletrônica. Este arquivo deve ser armazenado eletronicamente por sua empresa pelo prazo de 05 (cinco) anos, conforme previsto na legislação tributária (Art. 173 do Código Tributário Nacional e § 4º da Lei 5.172 de 25/10/1966).<br><br>O DANFE em papel seguirá junto com a mercadoria e poderá ser arquivado para apresentação ao fisco quando solicitado. Todavia, se sua empresa também for emitente de NF-e, o arquivamento eletrônico do XML de seus fornecedores é obrigatório, sendo passível de fiscalização.<br><br>Para se certificar que esta NF-e é válida, queira por favor consultar sua autenticidade no site nacional do projeto NF-e (www.nfe.fazenda.gov.br), utilizando a chave de acesso contida no DANFE.<br><br>--<br>Atenciosamente,<br>@AD_Org_ID<Name>@.<br>Nota Fiscal emitida pelo sistema Kenos ERP Adempiere (www.kenos.com.br)]]></value>
-  <value column="MsgTip" original=""/>
- </row>
- <row trl="Y" uuid="b150da86-3efd-4d8b-ad5c-64bd08caad2f">
-  <value column="MsgText" original="Save Error - No Change">Erro ao Salvar Registro - Sem modificações</value>
-  <value column="MsgTip" original=""/>
- </row>
- <row trl="Y" uuid="f1e338f6-447c-4a08-b4f2-7c5c59a3b150">
-  <value column="MsgText" original="Trib Aprox R$ {0,number,#,##0.00} ({1,number,#,##0.00}%) Federal e R$ {2,number,#,##0.00} ({3,number,#,##0.00}%) Estadual, Fonte(s): {4} {5}">Trib Aprox R$ {0,number,#,##0.00} ({1,number,#,##0.00}%) Federal e R$ {2,number,#,##0.00} ({3,number,#,##0.00}%) Estadual, Fonte(s): {4} {5}</value>
-  <value column="MsgTip" original=""/>
- </row>
- <row trl="Y" uuid="d7e5238b-bcb8-48c0-a6e2-8926b6ac2694">
-  <value column="MsgText" original="Este e-mail &amp;eacute; enviado automaticamente, por favor n&amp;atilde;o responda.&lt;br /&gt;&lt;br /&gt;Prezado cliente,&lt;br /&gt;&lt;br /&gt;Anexo &amp;agrave; este e-mail voc&amp;ecirc; est&amp;aacute; recebendo o arquivo PDF da Nota Fiscal de Servi&amp;ccedil;os Eletr&amp;ocirc;nica. &lt;br /&gt;&lt;br /&gt;Para se certificar que esta NFS-e &amp;eacute; v&amp;aacute;lida, queira por favor consultar sua autenticidade no site da prefeitura emitente da NFS-e.&lt;br /&gt;&lt;br /&gt;--&lt;br /&gt;Atenciosamente,&lt;br /&gt;@AD_Org_ID&lt;Name&gt;@.&lt;br /&gt;Nota Fiscal emitida pelo sistema Kenos ERP Adempiere (www.kenos.com.br)"><![CDATA[Este e-mail é enviado automaticamente, por favor não responda.<br><br>Prezado cliente,<br><br>Anexo à este e-mail você está recebendo o arquivo PDF da Nota Fiscal de Serviços Eletrônica. <br><br>Para se certificar que esta NFS-e é válida, queira por favor consultar sua autenticidade no site da prefeitura emitente da NFS-e.<br><br>--<br>Atenciosamente,<br>@AD_Org_ID<Name>@.<br>Nota Fiscal emitida pelo sistema Kenos ERP Adempiere (www.kenos.com.br)]]></value>
-  <value column="MsgTip" original=""/>
- </row>
- <row trl="Y" uuid="98593a40-2c07-4cca-a48b-5c6dbcc7c0f1">
-  <value column="MsgText" original="To manifest operation not completed you must do it on DFe window and fill the reason field.">Para manifestar uma operação não realizada é necessário especificar o motivo. Para isso você será redirecionado para a janela de DF-e.</value>
-  <value column="MsgTip" original=""/>
- </row>
- <row trl="Y" uuid="5e8c63bd-b71c-45cf-b84d-35d393992b76">
-  <value column="MsgText" original="Para ADICIONAR um imposto, clique em 'Novo', preencha os campos e clique em 'Salvar' ou 'Salvar/Criar' para que em seguida seja criado um novo registro. Para ALTERAR, clique sobre o imposto na grade, faça as alterações no(s) campo(s) e clique em 'Salvar'. Para EXCLUIR, clique sobre o imposto na grade e clique em 'Excluir'. Caso não deseje salvar as alterações, utilize a opção 'Desfazer'.">Para ADICIONAR um imposto, clique em 'Novo', preencha os campos e clique em 'Salvar' ou 'Salvar/Criar' para que em seguida seja criado um novo registro. Para ALTERAR, clique sobre o imposto na grade, faça as alterações no(s) campo(s) e clique em 'Salvar'. Para EXCLUIR, clique sobre o imposto na grade e clique em 'Excluir'. Caso não deseje salvar as alterações, utilize a opção 'Desfazer'.</value>
-  <value column="MsgTip" original=""/>
- </row>
- <row trl="Y" uuid="ce8b7152-7ce2-4327-984b-ffde7da85ab9">
-  <value column="MsgText" original="Aqui você pode dividir uma Produção Individual para que seja feita a emissão parcial. Além disso você pode distribuir insumos para múltiplos Produtos, por exemplo: Você pode apontar o consumos de alguns insumos de forma global que o sistema irá fazer o apontamento da quantidade total proporcional a cada Item da Lista de Materiais.">Aqui você pode dividir uma Produção Individual para que seja feita a emissão parcial. Além disso você pode distribuir insumos para múltiplos Produtos, por exemplo: Você pode apontar o consumos de alguns insumos de forma global que o sistema irá fazer o apontamento da quantidade total proporcional a cada Item da Lista de Materiais.</value>
-  <value column="MsgTip" original=""/>
- </row>
- <row trl="Y" uuid="a69021e8-a52f-4881-be58-4f43bae30c43">
-  <value column="MsgText" original="{0,choice,0#No Lines|1#1 Line|1&lt;{0} Lines} - Products R$ {1,number,#,##0.00} - Grand Total R$ {2,number,#,##0.00}"><![CDATA[{0,choice,0#Sem Linhas|1#1 Linha|1<{0} Linhas} - Total dos Produtos R$ {1,number,#,##0.00} - Total Geral R$ {2,number,#,##0.00}]]></value>
-  <value column="MsgTip" original=""/>
- </row>
- <row trl="Y" uuid="a11f5088-d240-45ae-b86e-ae1efdbf169e">
-  <value column="MsgText" original="Aqui você pode gerar uma Fatura de Cobrança, Nota Fiscal de Entrada de Produto Acabado e Notas Fiscais de Retorno de Insumos das Produções Individuais existentes nesse Pedido de Industrialização. Fatura de Cobrança será gerada apenas com os Produtos Acabados. Você poderá gerar 1 (uma) ou Várias Notas Fiscais de Retorno de Industrialização. O Produto Acabado sempre entrar na Primeira Nota Fiscal Emitida pelo Processo. A Fatura de Cobrança contém apenas os Produtos Acabado. Ela será gerada quando o processo for executado pela Primeira vez. Os Insumos desaparecerão da Lista quando a Nota Fiscal correspondente a ele for emitida.">Aqui você pode gerar uma Fatura de Cobrança, Nota Fiscal de Entrada de Produto Acabado e Notas Fiscais de Retorno de Insumos das Produções Individuais existentes nesse Pedido de Industrialização. Fatura de Cobrança será gerada apenas com os Produtos Acabados. Você poderá gerar 1 (uma) ou Várias Notas Fiscais de Retorno de Industrialização. O Produto Acabado sempre entrar na Primeira Nota Fiscal Emitida pelo Processo. A Fatura de Cobrança contém apenas os Produtos Acabado. Ela será gerada quando o processo for executado pela Primeira vez. Os Insumos desaparecerão da Lista quando a Nota Fiscal correspondente a ele for emitida.</value>
-  <value column="MsgTip" original=""/>
- </row>
- <row trl="N" uuid="977b3a48-8d8d-4b50-8934-32a1c3b19f27">
-  <value column="MsgText" original="Esse formulário permite a Distribuição dos Insumos remanescentes de uma Industrialização concluída para serem utilizados em uma nova Industrialização enviada ao mesmo fornecedor.">Esse formulário permite a Distribuição dos Insumos remanescentes de uma Industrialização concluída para serem utilizados em uma nova Industrialização enviada ao mesmo fornecedor.</value>
-  <value column="MsgTip" original=""/>
- </row>
- <row trl="N" uuid="6b3d93df-d18c-48d1-b0f7-dd21dc45e69e">
-  <value column="MsgText" original="Gerenciar Movimentação de Material criada para Envio de Insumo para Industrialização. Apenas as Movimentação de Material destinadas à Industrialização e não Completadas serão exibidas no formulário. Escolha o Parceiro de Negócio e a Data da Movimentação desejada. Informe a quantidade real separada para envio. O Sistema irá distribuir a Diferença entre as Linhas de Movimentação.">Gerenciar Movimentação de Material criada para Envio de Insumo para Industrialização. Apenas as Movimentação de Material destinadas à Industrialização e não Completadas serão exibidas no formulário. Escolha o Parceiro de Negócio e a Data da Movimentação desejada. Informe a quantidade real separada para envio. O Sistema irá distribuir a Diferença entre as Linhas de Movimentação.</value>
-  <value column="MsgTip" original=""/>
- </row>
- <row trl="Y" uuid="abfbe3f0-a251-4228-af61-490a035ebea1">
-  <value column="MsgText" original="Informe os dados abaixo para fazer o cálculo do frete nos Correios. As medidas somente tem efeito para saber os tamanhos mínimos e máximos de cada pacote, não influenciando no preço (para preço do balcão). Além do preço do balcão o sistema mostra os preços de contrato, caso sua empresa tenha um contrato de prestação de serviços configurado.">Informe os dados abaixo para fazer o cálculo do frete nos Correios. As medidas somente tem efeito para saber os tamanhos mínimos e máximos de cada pacote, não influenciando no preço (para preço do balcão). Além do preço do balcão o sistema mostra os preços de contrato, caso sua empresa tenha um contrato de prestação de serviços configurado.</value>
   <value column="MsgTip" original=""/>
  </row>
 </idempiereTrl>

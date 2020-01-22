@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!--iDempiere(r) Release 4.1_2016-10-31 -Smart Suite ERP, CRM and SCM- (c) 1999-2016 iDempiere(r); Implementation: iDempiere - Supported by iDempiere community--><!--<!DOCTYPE idempiereTrl PUBLIC "-//ComPiere, Inc.//DTD iDempiere Translation 1.0//EN" "http://www.idempiere.com/dtd/idempiereTrl.dtd">--><idempiereTrl language="pt_BR" table="AD_Form">
+<!--iDempiere(r) Release 6.2_2019-01-06 -Smart Suite ERP, CRM and SCM- (c) 1999-2019 iDempiere(r); Implementation: iDempiere - Supported by iDempiere community--><!--<!DOCTYPE idempiereTrl PUBLIC "-//ComPiere, Inc.//DTD iDempiere Translation 1.0//EN" "http://www.idempiere.com/dtd/idempiereTrl.dtd">--><idempiereTrl language="pt_BR" table="AD_Form">
  <row id="100" trl="Y">
   <value column="Name" original="Generate Invoices (manual)">Gerar Faturas (Manual)</value>
   <value column="Description" original="Select and generate invoices">Selecionar e gerar faturas</value>
@@ -9,11 +9,6 @@
   <value column="Name" original="Import File Loader">Carregador de Arquivo de Importação</value>
   <value column="Description" original="Load flat Files into import tables">Carregar arquivos planos nas tabelas de importação</value>
   <value column="Help" original="The Import File Loader parses the content of a flat file and loads it into import tables. Comments start with a '[' and end with a ']' and are ignored; example: [Some Heading].">O Carregador de Arquivo de Importação analisa o conteúdo de um arquivo plano e o carrega nas tabelas de importação. Comentários começam com um '[' e terminam com um ']' e são ignorados; exemplo: [Algum Título].</value>
- </row>
- <row id="102" trl="Y">
-  <value column="Name" original="Initial Client Setup">Configuração Inicial da Empresa</value>
-  <value column="Description" original="Initial new Client/Tenant Setup">Configuração Inicial da Empresa/Locador</value>
-  <value column="Help" original="Set up a new Client/Tenant of the system">Configure uma nova Empresa/Locatário do sistema</value>
  </row>
  <row id="103" trl="Y">
   <value column="Name" original="Material Transactions">Transações de Materiais</value>
@@ -42,7 +37,7 @@
  </row>
  <row id="108" trl="Y">
   <value column="Name" original="Matching PO-Receipt-Invoice">Conciliar Pedido de Compra-Recebimento-Fatura</value>
-  <value column="Description" original="Match Purchase Orders, Receipts, Vendor Invoices"><![CDATA[Conciliar Pedidos de Compra <-> Recebimentos de Materiais <-> Faturas]]></value>
+  <value column="Description" original="Match Purchase Orders, Receipts, Vendor Invoices" xml:space="preserve"><![CDATA[Conciliar Pedidos de Compra <-> Recebimentos de Materiais <-> Faturas]]></value>
   <value column="Help" original="Make sure that the Receipts and Invoices are processed. If you want to match partial shipment, make sure that &quot;Same Quantity&quot; is not selected.">Para conciliar documentos, é necessários que os mesmos estejam processados. Para conciliar remessas parciais, desmarque a opção Mesma Quantidade.</value>
  </row>
  <row id="109" trl="Y">
@@ -64,7 +59,7 @@ Selecione os pedidos para gerar as expedições.</value>
  <row id="112" trl="Y">
   <value column="Name" original="Merge Entities">Fundir Entidades</value>
   <value column="Description" original="Merge From Entity to To Entity - Delete From">Fundir "de Entidade" para "para Entidade" - Apagar "de"</value>
-  <value column="Help" original="&lt;i&gt;Dangerous - Please are aware of what you are doing!&lt;/i&gt;&#10;All instances of the From entity (e.g. Customer A) are changed to the To entity (e.g. Customer B). &#10;The From entity (e.g. Customer A) is deleted. &#10;&lt;p&gt;&lt;b&gt;There is NO undo nor trace !  Please do a backup first&lt;/b&gt; Please be aware that you may be changing history records (e.g. invoices, etc.) ! &lt;/p&gt;&#10;&lt;p&gt;&lt;b&gt;Side effects:&lt;/b&gt; Merging Products are likely to distort product costs; Merging Business Partners may result in incorrect open item balance. Check with support on remedies.&#10;&lt;p&gt;&lt;b&gt;Restrictions:&lt;/b&gt; Accounting and Inventory conflicts are not resolved in this version."><![CDATA[<i>Perigo - Por favor, tenha certeza de que você sabe o que está fazendo!</i>
+  <value column="Help" original="&lt;i&gt;Dangerous - Please are aware of what you are doing!&lt;/i&gt;&#10;All instances of the From entity (e.g. Customer A) are changed to the To entity (e.g. Customer B). &#10;The From entity (e.g. Customer A) is deleted. &#10;&lt;p&gt;&lt;b&gt;There is NO undo nor trace !  Please do a backup first&lt;/b&gt; Please be aware that you may be changing history records (e.g. invoices, etc.) ! &lt;/p&gt;&#10;&lt;p&gt;&lt;b&gt;Side effects:&lt;/b&gt; Merging Products are likely to distort product costs; Merging Business Partners may result in incorrect open item balance. Check with support on remedies.&lt;/p&gt;&#10;&lt;p&gt;&lt;b&gt;Restrictions:&lt;/b&gt; Accounting and Inventory conflicts are not resolved in this version.&lt;/p&gt;" xml:space="preserve"><![CDATA[<i>Perigo - Por favor, tenha certeza de que você sabe o que está fazendo!</i>
 Todas as instâncias da entidade de origem (por exemplo, Cliente A) serão alteradas para a entidade destino (por exemplo, Cliente B). 
 A entidade de origem (por exemplo, Cliente A) será apagada.
 <p><b>NÃO há modo de desfazer ou rastrear essa operação! Favor efetuar um backup primeiro</b> Por favor, observe que registros de histórico serão modificados (por exemplo, faturas etc.) ! </p>
@@ -112,9 +107,9 @@ A entidade de origem (por exemplo, Cliente A) será apagada.
   <value column="Help" original="Select one or two attributes if a Product Attribute and display/maintain products in a row or table grid.">Selecione um ou dois atributos de um Atributo de Produto e exiba/gerencie os produto em uma linha ou uma grade de tabela.</value>
  </row>
  <row id="53001" trl="Y">
-  <value column="Name" original="BOM &amp; Formula Info"><![CDATA[Informações de LDM & Fórmula]]></value>
+  <value column="Name" original="BOM &amp; Formula Info" xml:space="preserve"><![CDATA[Informações de LDM & Fórmula]]></value>
   <value column="Description" original="Shows in two different panels the parent-component relationship for the product entered in the Product field.">Mostra em dois painéis diferentes a relação dos componentes-pai para o produto entrado no campo Produto.</value>
-  <value column="Help" original="The BOM &amp; Formula Review option menu shows in two different panels the parent-component relationship for the product entered in the Product field.&#10;&#10;You need to introduce the parent product you want to see its components then click the OK button, next drag the left margin of the panel to the right and you will have the two panels.&#10;&#10;When you need to consult an implosion, click the implosion check box and enter the component you wish to consult and tick the Implosion check box.&#10;&#10;You need to introduce the parent product you want to see its components then click the OK button, next drag the left margin of the panel to the right and you will have the two panels.&#10;&#10;The left panel shows the BOM hierarchies in a tree form. The right panel shows the information connected with the BOM for every product in it"><![CDATA[The BOM & Formula Review option menu shows in two different panels the parent-component relationship for the product entered in the Product field.
+  <value column="Help" original="The BOM &amp; Formula Review option menu shows in two different panels the parent-component relationship for the product entered in the Product field.&#10;&#10;You need to introduce the parent product you want to see its components then click the OK button, next drag the left margin of the panel to the right and you will have the two panels.&#10;&#10;When you need to consult an implosion, click the implosion check box and enter the component you wish to consult and tick the Implosion check box.&#10;&#10;You need to introduce the parent product you want to see its components then click the OK button, next drag the left margin of the panel to the right and you will have the two panels.&#10;&#10;The left panel shows the BOM hierarchies in a tree form. The right panel shows the information connected with the BOM for every product in it" xml:space="preserve"><![CDATA[The BOM & Formula Review option menu shows in two different panels the parent-component relationship for the product entered in the Product field.
 
 You need to introduce the parent product you want to see its components then click the OK button, next drag the left margin of the panel to the right and you will have the two panels.
 
@@ -154,8 +149,8 @@ Quando você aprova uma ordem planejada, você está dizendo ao sistema que a or
   <value column="Help" original="It shows graphically of the required and available time for each manufacturing resource.">Mostra graficamente os tempos requeridos e disponíveis para cada recurso de fabricação</value>
  </row>
  <row id="53007" trl="Y">
-  <value column="Name" original="Order Receipt &amp; Issue"><![CDATA[Recebimento da Ordem & Emissão]]></value>
-  <value column="Description" original="Order Receipt &amp; Issue"><![CDATA[Recebimento da Ordem & Emissão]]></value>
+  <value column="Name" original="Order Receipt &amp; Issue" xml:space="preserve"><![CDATA[Recebimento da Ordem & Emissão]]></value>
+  <value column="Description" original="Order Receipt &amp; Issue" xml:space="preserve"><![CDATA[Recebimento da Ordem & Emissão]]></value>
   <value column="Help" original="The form shows at the upper side static information around the product and the manufacturing resource where it has to be made, it also shows a summary of the quantities to be controlled in the MO such as the Original and delivered quantities and the Quantity to deliver for the MO up to date.&#10;&#10;If the production process requires production in batch, then the Qty Batchs shows the Number of batches the shop floor needs to do and the Qty Batch Size contains the size of every batch to be produced.&#10;&#10;&#10;If you want to issue the MO components before you receive the finished product you should tick the checkbox Is Delivery, this case is recommended when you have a long to medium lead time and you want to have the inventory quantities as reliable as possible at every moment.&#10;&#10;If you have small lead time and you wish to save clerk time then you must tick Is Backflush checkbox and you will receive the finished product at the same time you issue automatically the components&#10;&#10;The Backflush Group field is used when you want to issue just components belonging to this group. (This characteristic could not be included in the current version).&#10;&#10;At the lower part of the window you can find the list of every MO component, this can be modified according with the real products and quantities given to the shop floor.&#10;&#10;The quantities to be issued are selected with the checkbox at the first column of the list of components. If the actual quantity is different from the standard quantity showed in the column Qty to deliver you should edit this field to enter the right quantity to be issued.&#10;&#10;Finally a message box asks if you want to close the OM document, you should click the ok button if this MO does not have any more transactions and has to be closed.&#10;&#10;">O formulário mostra no lado superior a informação estática em torno do produto e os recursos de fabricação, onde ele tem que ser feito, ele mostra também um resumo das quantidades a ser controladas na OP tais como as quantidades Original e enviadas e a Quantidade a enviar para a OP até a presente data.
 
 Se o processo de produção requer a produção em lote, então as Quantidades do Lote mostra o Número de lotes que o chão de fabrica precisa fazer e o Tamanho da Quantidade do Lote contém o tamanho de cada lote a ser produzido.
@@ -184,12 +179,6 @@ Por último, uma caixa de mensagem perguntando se você deseja fechar o document
   <value column="Name" original="Payroll Action Notice">Aviso de Ação de Folha de Pagamento</value>
   <value column="Description" original="Payroll Action Notice let entry the events that happend with any Employee">Aviso de Ação de Folha de Pagamento permite entrar os eventos que acontecem com cada Empregado</value>
   <value column="Help" original=""/>
- </row>
- <row id="53010" trl="Y">
-  <value column="Name" original="Generate Shipments &amp; Invoices (manual)"><![CDATA[Gerar Remessas & Faturas (manual)]]></value>
-  <value column="Description" original="Select and generate shipments &amp; Invoices"><![CDATA[Selecionar e gerar remessas & Faturas]]></value>
-  <value column="Help" original="Generate Shipments &amp; Invoices from Orders.  &#10;Select the orders to generate the shipments &amp; Invoices for."><![CDATA[Gerar Remessas & Faturas de Pedidos.  
-Selecione o pedido para gerar a remessa & Fatura para.]]></value>
  </row>
  <row id="53012" trl="Y">
   <value column="Name" original="Material Receipt Distribution Order">Ordem de Distribuição de Material Recebido</value>
@@ -243,64 +232,24 @@ Selecionando "Onde Usado" irá mostrar em qual(is) LDM(s) este componente é usa
   <value column="Description" original=""/>
   <value column="Help" original=""/>
  </row>
- <row trl="Y" uuid="07c89983-be0f-4dc1-a075-75c0a91d4c02">
-  <value column="Name" original="Generate Bills">Geração de Boletos</value>
-  <value column="Description" original=""/>
+ <row id="200009" trl="Y">
+  <value column="Name" original="Compare Field Suggestion">Comparar sugestão de Campo</value>
+  <value column="Description" original="Review field changes for label, descriptipn and help">Revisar sugestões de mudanças para campos, descrições, etc</value>
   <value column="Help" original=""/>
  </row>
- <row trl="Y" uuid="ed0b17cb-341b-4f43-8e02-318c30f1f76d">
-  <value column="Name" original="Print Nota Fiscal">Impressão Nota Fiscal</value>
-  <value column="Description" original=""/>
+ <row id="200010" trl="Y">
+  <value column="Name" original="Compare Context Help Suggestion">Comparar sugestão de Ajuda de Contexto</value>
+  <value column="Description" original="Review changes for context help">Revisar sugestões de mudanças</value>
   <value column="Help" original=""/>
  </row>
- <row trl="Y" uuid="57deb0a8-b811-4d1f-ae55-a2c6f31f1195">
-  <value column="Name" original="Generate CNAB">Geração CNAB</value>
-  <value column="Description" original=""/>
-  <value column="Help" original=""/>
+ <row id="200011" trl="Y">
+  <value column="Name" original="idempiereMonitor">idempiereMonitor</value>
+  <value column="Description" original="Form to configure access to /idempiereMonitor - do not add to menu">Form to configure access to /idempiereMonitor - do not add to menu</value>
+  <value column="Help" original="">Formulário para configurar o acesso ao /idempiereMonitor - não adicionar ao menu</value>
  </row>
- <row trl="Y" uuid="258e45af-73cc-4e5b-9b8b-9b9eac431054">
-  <value column="Name" original="Outras Notas Fiscais">Outras Notas Fiscais</value>
-  <value column="Description" original=""/>
-  <value column="Help" original=""/>
- </row>
- <row trl="Y" uuid="4bb4b80a-7456-45a5-95b6-494567d1c5ab">
-  <value column="Name" original="Nota Fiscal">Nota Fiscal</value>
-  <value column="Description" original="Visualizar Notas Fiscais">Visualizar Notas Fiscais</value>
-  <value column="Help" original="Visualizar Notas Fiscais">Visualizar Notas Fiscais</value>
- </row>
- <row trl="Y" uuid="e982d5d1-bed8-4676-a9c2-16879be7aacb">
-  <value column="Name" original="Confrontar XML do DF-e">Confrontar XML do DF-e</value>
-  <value column="Description" original="Confrontar XML do Documento Fiscal Eletrônico">Confrontar XML do Documento Fiscal Eletrônico</value>
-  <value column="Help" original="Confrontar XML do Documento Fiscal Eletrônico">Confrontar XML do Documento Fiscal Eletrônico</value>
- </row>
- <row trl="Y" uuid="f860b626-22fc-470f-9441-7d87e60a2ae0">
-  <value column="Name" original="Payment / Receipt (Manual)">Pagamento / Recebimento (Manual)</value>
-  <value column="Description" original="Manual Payment / Receipt Selection">Seleção manual de Pagamentos e Recebimentos</value>
-  <value column="Help" original="Select invoices for payment.">Selecione faturas para gerar os pagamentos e recebimentos</value>
- </row>
- <row trl="Y" uuid="f89255bf-fa16-4ed6-8aff-b01b24e0ffbe">
-  <value column="Name" original="Manage Production Group">Gerenciamento de Divisão / Distribuição</value>
-  <value column="Description" original=""/>
-  <value column="Help" original=""/>
- </row>
- <row trl="Y" uuid="2be15466-dad6-41d2-a174-8d8b31329b09">
-  <value column="Name" original="Invoice Production Group">Gerar a Fatura à Pagar</value>
-  <value column="Description" original=""/>
-  <value column="Help" original=""/>
- </row>
- <row trl="Y" uuid="0833c179-da14-4831-b92c-3b28442c0943">
-  <value column="Name" original="Form Distribute Remaining Material">Distribuir Insumo Remanescente</value>
-  <value column="Description" original="Form Distribute Remaining Material sent to Industrialization to be used in others productions sent to the same productor">Distribuir Insumo Remanescente enviado à Industrialização para ser usado em outras produções enviadas ao mesmo Fornecedor</value>
-  <value column="Help" original="Form Distribute Remaining Material sent to Industrialization to be used in others productions sent to the same productor">Distribuir Insumo Remanescente enviado à Industrialização para ser usado em outras produções enviadas ao mesmo Fornecedor</value>
- </row>
- <row trl="Y" uuid="f473f5d6-93a3-46de-8315-ae065fa569a2">
-  <value column="Name" original="Manage Move To Producer">Gerenciar Envio ao Produtor</value>
-  <value column="Description" original="Manage the Movements created to Send Material to Industrialization before complete it">Gerenciar Movimento de Material criado para Enviar Insumo para Industrialização antes de Completa - los</value>
-  <value column="Help" original="Manage the Movements created to Send Material to Industrialization before complete it. Choose Business Partner and Movement Date. Only Movements not Complete will appears in the form.">Gerenciar Movimento de Material criado para Enviar Insumo para Industrialização antes de Completa - los. Escolha o Parceiro de Negócio e Data de Movimentação. Apenas Movimento de Material não completados irão aparecer no formulário.</value>
- </row>
- <row trl="Y" uuid="b3bed596-2853-4950-9908-24c0d660686c">
-  <value column="Name" original="Freight Calc">Cálculo de Frete (Correios)</value>
-  <value column="Description" original="Freight calculation for Brazilian Post Service (Correios)">Sistema de cálculo de frete para o serviço de postagem brasileiro (Correios)</value>
+ <row id="200012" trl="Y">
+  <value column="Name" original="Apache Felix Web Console">Apache Felix Web Console</value>
+  <value column="Description" original="Form to configure access to /osgi/system/console - do not add to menu">Form para configurar acesso para /osgi/system/console - não adicionar ao menu</value>
   <value column="Help" original=""/>
  </row>
 </idempiereTrl>

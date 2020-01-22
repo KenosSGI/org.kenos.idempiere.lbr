@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!--iDempiere(r) Release 4.1_2016-10-31 -Smart Suite ERP, CRM and SCM- (c) 1999-2016 iDempiere(r); Implementation: iDempiere - Supported by iDempiere community--><!--<!DOCTYPE idempiereTrl PUBLIC "-//ComPiere, Inc.//DTD iDempiere Translation 1.0//EN" "http://www.idempiere.com/dtd/idempiereTrl.dtd">--><idempiereTrl language="pt_BR" table="C_Currency">
+<!--iDempiere(r) Release 6.2_2019-01-06 -Smart Suite ERP, CRM and SCM- (c) 1999-2019 iDempiere(r); Implementation: iDempiere - Supported by iDempiere community--><!--<!DOCTYPE idempiereTrl PUBLIC "-//ComPiere, Inc.//DTD iDempiere Translation 1.0//EN" "http://www.idempiere.com/dtd/idempiereTrl.dtd">--><idempiereTrl language="pt_BR" table="C_Currency">
  <row id="100" trl="Y">
   <value column="Description" original="US Dollar">Dolar Americano</value>
   <value column="CurSymbol" original="$">$</value>
@@ -8,46 +8,6 @@
   <value column="Description" original="Euro">Euro</value>
   <value column="CurSymbol" original="E">E</value>
  </row>
- <row id="103" trl="Y">
-  <value column="Description" original="Deutsche Mark">Marco Alemão</value>
-  <value column="CurSymbol" original="DM">DM</value>
- </row>
- <row id="104" trl="Y">
-  <value column="Description" original="Austrian Schilling">Xelim Austríaco</value>
-  <value column="CurSymbol" original="Sch">Sch</value>
- </row>
- <row id="105" trl="Y">
-  <value column="Description" original="Belgian Franc">Franco Belga</value>
-  <value column="CurSymbol" original="BFr">BFr</value>
- </row>
- <row id="106" trl="Y">
-  <value column="Description" original="Finish Mark">Marco Finish</value>
-  <value column="CurSymbol" original="FM">FM</value>
- </row>
- <row id="107" trl="Y">
-  <value column="Description" original="Irish Pound">Libra Irlandesa</value>
-  <value column="CurSymbol" original="I£">I£</value>
- </row>
- <row id="108" trl="Y">
-  <value column="Description" original="Italian Lira">Lira Italiana</value>
-  <value column="CurSymbol" original="L">L</value>
- </row>
- <row id="109" trl="Y">
-  <value column="Description" original="Dutch Gilder">Florim Holandês</value>
-  <value column="CurSymbol" original="Fl">Fl</value>
- </row>
- <row id="110" trl="Y">
-  <value column="Description" original="Portugese Escudo">Escudo Português</value>
-  <value column="CurSymbol" original="Es">Es</value>
- </row>
- <row id="111" trl="Y">
-  <value column="Description" original="Spannish Peseto">Peso Espanhol</value>
-  <value column="CurSymbol" original="Pts">Pts</value>
- </row>
- <row id="112" trl="Y">
-  <value column="Description" original="French Franc">Franco Francês</value>
-  <value column="CurSymbol" original="Fr">Sexta</value>
- </row>
  <row id="113" trl="Y">
   <value column="Description" original="Japanese Yen">Yen Japonês</value>
   <value column="CurSymbol" original="¥">¥</value>
@@ -55,10 +15,6 @@
  <row id="114" trl="Y">
   <value column="Description" original="British Pound">Libra Britânica</value>
   <value column="CurSymbol" original="£">£</value>
- </row>
- <row id="115" trl="Y">
-  <value column="Description" original="Swiss Franc (invalid currency code - use CHF)">Franco Suíço (código de moeda inválido - use CHF)</value>
-  <value column="CurSymbol" original="SFr">SFr</value>
  </row>
  <row id="116" trl="Y">
   <value column="Description" original="Canadian Dollar">Dolar Canadense</value>
@@ -567,10 +523,6 @@
  <row id="313" trl="Y">
   <value column="Description" original="Sri Lanka Rupee">Rúpia do Sri Lanka</value>
   <value column="CurSymbol" original="SLRs">SLRs</value>
- </row>
- <row id="314" trl="Y">
-  <value column="Description" original="Tolar">Tolar</value>
-  <value column="CurSymbol" original="SlT">SlT</value>
  </row>
  <row id="315" trl="Y">
   <value column="Description" original="Somali Shilling">Xelim de Somali</value>

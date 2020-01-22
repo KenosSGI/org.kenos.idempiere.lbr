@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!--iDempiere(r) Release 4.1_2016-10-31 -Smart Suite ERP, CRM and SCM- (c) 1999-2016 iDempiere(r); Implementation: iDempiere - Supported by iDempiere community--><!--<!DOCTYPE idempiereTrl PUBLIC "-//ComPiere, Inc.//DTD iDempiere Translation 1.0//EN" "http://www.idempiere.com/dtd/idempiereTrl.dtd">--><idempiereTrl language="pt_BR" table="PA_DashboardContent">
- <row id="50000" trl="Y">
-  <value column="Name" original="Atividades">Atividades</value>
-  <value column="Description" original="Workflow activities, notices and requests">Atividades de workflow, avisos, solicitações, etc.</value>
-  <value column="HTML" original=""/>
- </row>
+<!--iDempiere(r) Release 6.2_2019-01-06 -Smart Suite ERP, CRM and SCM- (c) 1999-2019 iDempiere(r); Implementation: iDempiere - Supported by iDempiere community--><!--<!DOCTYPE idempiereTrl PUBLIC "-//ComPiere, Inc.//DTD iDempiere Translation 1.0//EN" "http://www.idempiere.com/dtd/idempiereTrl.dtd">--><idempiereTrl language="pt_BR" table="PA_DashboardContent">
  <row id="50001" trl="Y">
   <value column="Name" original="Favoritos">Favoritos</value>
   <value column="Description" original="User favourities">Favoritos</value>
@@ -28,11 +23,6 @@
  <row id="200000" trl="Y">
   <value column="Name" original="Recent Items">Itens Recentes</value>
   <value column="Description" original="Recent items">Itens visualizados recentemente</value>
-  <value column="HTML" original=""/>
- </row>
- <row id="200001" trl="N">
-  <value column="Name" original="Menu">Menu</value>
-  <value column="Description" original="Menu">Menu</value>
   <value column="HTML" original=""/>
  </row>
  <row id="200002" trl="Y">

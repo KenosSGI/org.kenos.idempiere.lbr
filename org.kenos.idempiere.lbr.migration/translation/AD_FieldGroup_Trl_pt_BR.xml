@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!--iDempiere(r) Release 4.1_2016-10-31 -Smart Suite ERP, CRM and SCM- (c) 1999-2016 iDempiere(r); Implementation: iDempiere - Supported by iDempiere community--><!--<!DOCTYPE idempiereTrl PUBLIC "-//ComPiere, Inc.//DTD iDempiere Translation 1.0//EN" "http://www.idempiere.com/dtd/idempiereTrl.dtd">--><idempiereTrl language="pt_BR" table="AD_FieldGroup">
+<!--iDempiere(r) Release 6.2_2019-01-06 -Smart Suite ERP, CRM and SCM- (c) 1999-2019 iDempiere(r); Implementation: iDempiere - Supported by iDempiere community--><!--<!DOCTYPE idempiereTrl PUBLIC "-//ComPiere, Inc.//DTD iDempiere Translation 1.0//EN" "http://www.idempiere.com/dtd/idempiereTrl.dtd">--><idempiereTrl language="pt_BR" table="AD_FieldGroup">
  <row id="101" trl="Y">
   <value column="Name" original="Status">Estado</value>
  </row>
@@ -207,97 +207,7 @@
  <row id="200018" trl="Y">
   <value column="Name" original="Background Job">Background (Trabalho)</value>
  </row>
- <row trl="Y" uuid="578722b2-0d1b-47a8-bd90-2f1d0f80d771">
-  <value column="Name" original="Brazilian Locatization">Localização Brasileira</value>
- </row>
- <row trl="Y" uuid="2fae8c3f-13a3-472c-b778-4ac15c4464d6">
-  <value column="Name" original="Organização">Organização</value>
- </row>
- <row trl="Y" uuid="7ac4f23b-02de-49f2-b782-e3f6458924ca">
-  <value column="Name" original="Envio de Lote">Envio de Lote</value>
- </row>
- <row trl="Y" uuid="04f853b6-ff07-4ef2-b8ca-933b559788e9">
-  <value column="Name" original="Resposta do Lote">Resposta do Lote</value>
- </row>
- <row trl="Y" uuid="ae242755-86d2-4c8a-aaec-ffb9f5f95b3a">
-  <value column="Name" original="NF-e">NF-e</value>
- </row>
- <row trl="Y" uuid="0e4f533d-880f-4fa2-981f-3cc43257b981">
-  <value column="Name" original="Adiçıes da DI">Adições da DI</value>
- </row>
- <row trl="Y" uuid="d0f8c8fa-66ac-4c23-b90d-a2cdacc7e39f">
-  <value column="Name" original="Validation">Validação</value>
- </row>
- <row trl="Y" uuid="3dfc2243-4ece-4440-a7b9-cc4657d9bb78">
-  <value column="Name" original="Step 1 - Purchased Itens">Passo 1 - Produtos Comprados</value>
- </row>
- <row trl="Y" uuid="12060c66-973b-4e54-a39c-f7c0aefea953">
-  <value column="Name" original="Step 2 - Manufactured Itens">Passo 2 - Produtos Fabricados</value>
- </row>
- <row trl="Y" uuid="f35d0140-42af-4be3-b8ed-88f93f8fd03e">
-  <value column="Name" original="Step 3 - RePost">Passo 3 - Re-Postar</value>
- </row>
- <row trl="Y" uuid="c3e6f2e1-d5b1-4328-8eff-63ecd2d1467f">
-  <value column="Name" original="Road">Rodoviário</value>
- </row>
- <row trl="Y" uuid="a09d760f-4e5a-4e8d-883f-6fb85a4de237">
-  <value column="Name" original="Transmission">Transmissão</value>
- </row>
- <row trl="Y" uuid="55c4c1bf-c093-47fb-a147-e83e69924ece">
-  <value column="Name" original="Additional Info">Informações Adicionais</value>
- </row>
- <row trl="Y" uuid="13c2b73c-8fc2-4c79-aa83-598961e39f91">
-  <value column="Name" original="Owner">Proprietário</value>
- </row>
- <row trl="Y" uuid="d5fdc892-c7a1-43e2-8f2e-64c0fa0c2b16">
-  <value column="Name" original="Closing">Encerramento</value>
- </row>
- <row trl="Y" uuid="a9a54ec3-d68f-4f37-b739-7d221c197c9c">
-  <value column="Name" original="NF Detalhes do Parceiro de Negócios">NF Detalhes do Parceiro de Negócios</value>
- </row>
- <row trl="Y" uuid="67e7208a-8782-487e-b0f1-f441c1a0444e">
-  <value column="Name" original="NF Local de Entrega ou Retirada">NF Local de Entrega ou Retirada</value>
- </row>
- <row trl="Y" uuid="7515b33e-f186-481c-b389-cc7fcca4126c">
-  <value column="Name" original="NF Transportadora">NF Transportadora e Volumes</value>
- </row>
- <row trl="Y" uuid="bf15cec0-f10c-4a06-a0d0-4874249d888e">
-  <value column="Name" original="NF Detalhes da Transportadora">NF Detalhes da Transportadora</value>
- </row>
- <row trl="Y" uuid="4dc6a259-a011-4237-9ba2-d1f70407702b">
-  <value column="Name" original="NF Detalhes da Organização">NF Detalhes da Organização</value>
- </row>
- <row trl="Y" uuid="dae0c80d-f4b0-458a-89f3-a532a0057282">
-  <value column="Name" original="NF Cancelamento">NF Cancelamento</value>
- </row>
- <row trl="Y" uuid="e2301850-aed1-4055-a3f2-43adbb09d4ce">
-  <value column="Name" original="NF Contingencia">NF Contingência</value>
- </row>
- <row trl="Y" uuid="918e59db-8e5e-4562-81dc-9b79cab31f6b">
-  <value column="Name" original="NF Importação">NF Importação</value>
- </row>
- <row trl="Y" uuid="3c3d98a6-b624-46cf-b1f5-fb8f01af45fd">
-  <value column="Name" original="Query Script">Script de Pesquisa</value>
- </row>
- <row trl="Y" uuid="820545d5-5d0e-4890-bf5f-9f0b30884f33">
-  <value column="Name" original="Formula">Fórmula</value>
- </row>
- <row id="1120063" trl="Y">
-  <value column="Name" original="Tracking Detail">Detalhes de Rastreabilidade</value>
- </row>
- <row id="1120064" trl="Y">
-  <value column="Name" original="Medicine Detail">Detalhes de Medicamentos</value>
- </row>
- <row id="1120065" trl="Y">
-  <value column="Name" original="Fuel Detail">Detalhes de Combustíveis</value>
- </row>
- <row id="1120066" trl="Y">
-  <value column="Name" original="Vehicle Detail">Detalhes de Veículos</value>
- </row>
- <row id="1120067" trl="Y">
-  <value column="Name" original="Gun Detail">Detalhes de Armamentos</value>
- </row>
- <row id="1120068" trl="Y">
-  <value column="Name" original="Exempt Paper Detail">Detalhes de Papel Imune</value>
+ <row id="200022" trl="N">
+  <value column="Name" original="Placeholders">Placeholders</value>
  </row>
 </idempiereTrl>

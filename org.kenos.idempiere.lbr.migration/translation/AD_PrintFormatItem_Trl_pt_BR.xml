@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!--iDempiere(r) Release 4.1_2016-10-31 -Smart Suite ERP, CRM and SCM- (c) 1999-2016 iDempiere(r); Implementation: iDempiere - Supported by iDempiere community--><!--<!DOCTYPE idempiereTrl PUBLIC "-//ComPiere, Inc.//DTD iDempiere Translation 1.0//EN" "http://www.idempiere.com/dtd/idempiereTrl.dtd">--><idempiereTrl language="pt_BR" table="AD_PrintFormatItem">
+<!--iDempiere(r) Release 6.2_2019-01-06 -Smart Suite ERP, CRM and SCM- (c) 1999-2019 iDempiere(r); Implementation: iDempiere - Supported by iDempiere community--><!--<!DOCTYPE idempiereTrl PUBLIC "-//ComPiere, Inc.//DTD iDempiere Translation 1.0//EN" "http://www.idempiere.com/dtd/idempiereTrl.dtd">--><idempiereTrl language="pt_BR" table="AD_PrintFormatItem">
  <row id="2147" trl="Y">
   <value column="Name" original="Rectangle">Rectangle</value>
   <value column="PrintName" original=""/>
@@ -196,8 +196,8 @@
   <value column="PrintNameSuffix" original=""/>
  </row>
  <row id="200153" trl="N">
-  <value column="Name" original="Master BOM"><![CDATA[BOM & Formula]]></value>
-  <value column="PrintName" original="Master BOM"><![CDATA[LDM & Fórmula]]></value>
+  <value column="Name" original="Master BOM" xml:space="preserve"><![CDATA[BOM & Formula]]></value>
+  <value column="PrintName" original="Master BOM" xml:space="preserve"><![CDATA[LDM & Fórmula]]></value>
   <value column="PrintNameSuffix" original=""/>
  </row>
 </idempiereTrl>
