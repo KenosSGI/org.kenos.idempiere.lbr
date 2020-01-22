@@ -3140,11 +3140,11 @@ Você quer continuar?</value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="50000" trl="Y">
-  <value column="MsgText" original="Close All Windows">Feche Todas as Janelas</value>
+  <value column="MsgText" original="Close All Windows">Fechar Todas as Janelas</value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="50001" trl="Y">
-  <value column="MsgText" original="Close Other Windows">Feche Outras Janelas</value>
+  <value column="MsgText" original="Close Other Windows">Fechar Outras Janelas</value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="50002" trl="Y">
@@ -6823,11 +6823,11 @@ A captura da Transação de Pagamento está atrasada</value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="200510" trl="Y">
-  <value column="MsgText" original="Close Windows to the Right">Fechar as abas à direita</value>
+  <value column="MsgText" original="Close Windows to the Right">Fechar Janelas à Direita</value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="200511" trl="Y">
-  <value column="MsgText" original="Close Windows to the Left">Fechar abas à direita</value>
+  <value column="MsgText" original="Close Windows to the Left">Fechar Janelas à Esquerda</value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="200512" trl="Y">
