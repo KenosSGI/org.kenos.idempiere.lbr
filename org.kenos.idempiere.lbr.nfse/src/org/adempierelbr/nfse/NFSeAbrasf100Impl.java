@@ -439,31 +439,52 @@ public class NFSeAbrasf100Impl implements INFSe
 		// Retorno do Envio do XML
 		EnviarLoteRpsResposta resposta = EnviarLoteRpsRespostaDocument.Factory.parse(retornoEnvioXMLNFSe).getEnviarLoteRpsResposta();
 		
-		//	Adicionar Protocolo do Lote
-		if (resposta != null && !resposta.getProtocolo().isEmpty())
-		{
-			nf.setlbr_NFeProt(resposta.getProtocolo());
-			nf.save();
-			
-			// Aguardar 15 Seg para fazer a consulta da NFS-e
-			try 
+		try
+		{		
+			//	Adicionar Protocolo do Lote
+			if (resposta != null && !resposta.getProtocolo().isEmpty())
 			{
-				//	Wait 15 secs before check if NF is processed
-				//		15 secs is the SeFaz recommended time, so using as a default
-				log.finer ("pause");
-				Thread.sleep(15000);
-				log.finer ("resume");
-			} 
-			catch (InterruptedException ex)
-			{
-			    Thread.currentThread().interrupt();
+				nf.setlbr_NFeProt(resposta.getProtocolo());
+				nf.save();			
 			}
+			else
+				throw new AdempiereException("Erro ao Transmitir NFS-e");
+		}
+		catch (Exception e)
+		{
+			//	Processar a Regex
+			//	Identifica a String Inteira = .+(Codigo>.+Correcao>).+
+			//	Substitui pelo grupo "$1"
+			String erro = retornoEnvioXMLNFSe.replaceAll(".+(Codigo>E.+Correcao>).+", "$1") // REGEX
+					.replaceAll("</ns4:Codigo><ns4:", "\n")
+					.replaceAll("</ns4:Mensagem><ns4:", "\n")
+					.replaceAll("</ns4:Correcao>", "")
+					.replaceAll(">", ":");
+
+			throw new AdempiereException(erro);
+		}
+			
+		// Aguardar 15 Seg para fazer a consulta da NFS-e
+		try 
+		{
+			//	Wait 15 secs before check if NF is processed
+			//		15 secs is the SeFaz recommended time, so using as a default
+			log.finer ("pause");
+			
+			Thread.sleep(15000);
+			
+			log.finer ("resume");
 			
 			//	Consultar NFS-e
 			return consult(nf);
+		} 
+		catch (InterruptedException ex)
+		{
+		    Thread.currentThread().interrupt();
 		}
-		else
-			return false;
+		
+		return false;
+
 	}	//	transmit
 	
 	/**
