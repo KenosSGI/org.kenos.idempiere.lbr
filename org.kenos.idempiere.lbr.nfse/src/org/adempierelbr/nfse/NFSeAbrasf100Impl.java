@@ -220,7 +220,7 @@ public class NFSeAbrasf100Impl implements INFSe
 		
 		//	Inscriçaõ Municipal do Parceiro de Negócio
 		if (partner.get_ValueAsString("LBR_CCM") != null && !partner.get_ValueAsString("LBR_CCM").isEmpty())
-			tomador.setInscricaoMunicipal(partner.get_ValueAsString("LBR_CCM"));
+			tomador.setInscricaoMunicipal(TextUtil.retiraEspecial(partner.get_ValueAsString("LBR_CCM")));
 		
 		//	Dados do Tomador do Serviço / Parceiro de Negócio
 		dadosTomador.setRazaoSocial(TextUtil.retiraEspecial(nf.getBPName()));
