@@ -483,8 +483,8 @@ public class NFSeAbrasf100Impl implements INFSe
 	{
 		log.info ("NFSE Consult Process");
 		
-		//	Lista de Mensgem veio vazia nos testes, efetuando consulta por RPS para identificar situação da NFS-e
-		//ListaMensagemRetorno listaMsgRetorno = resposta.getListaMensagemRetorno();
+		//	Set certificate
+		MLBRDigitalCertificate.setCertificate (Env.getCtx(), nf.getAD_Org_ID());
 		
 		//	Produção
 		Abrasf100ProdServiceStub rpsStub = new Abrasf100ProdServiceStub();
