@@ -46,7 +46,6 @@ import org.adempierelbr.util.TextUtil;
 import org.adempierelbr.wrapper.I_W_AD_OrgInfo;
 import org.adempierelbr.wrapper.I_W_C_Country;
 import org.adempierelbr.wrapper.I_W_M_Product;
-import org.apache.commons.codec.binary.Base64;
 import org.compiere.model.MAttachment;
 import org.compiere.model.MCountry;
 import org.compiere.model.MDocType;
@@ -61,6 +60,7 @@ import org.compiere.util.Env;
 
 import br.inf.portalfiscal.nfe.v400.NFeDocument;
 import br.inf.portalfiscal.nfe.v400.TAmb;
+import br.inf.portalfiscal.nfe.v400.TCListServ;
 import br.inf.portalfiscal.nfe.v400.TCodUfIBGE;
 import br.inf.portalfiscal.nfe.v400.TEnderEmi;
 import br.inf.portalfiscal.nfe.v400.TEndereco;
@@ -103,6 +103,9 @@ import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Det.Imposto.ICMS.ICMSSN900;
 import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Det.Imposto.ICMSUFDest;
 import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Det.Imposto.ICMSUFDest.PICMSInter;
 import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Det.Imposto.II;
+import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Det.Imposto.ISSQN;
+import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Det.Imposto.ISSQN.IndISS;
+import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Det.Imposto.ISSQN.IndIncentivo;
 import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Det.Imposto.PIS.PISAliq;
 import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Det.Imposto.PIS.PISNT;
 import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Det.Imposto.PIS.PISOutr;
@@ -139,6 +142,7 @@ import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Pag.DetPag;
 import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Pag.DetPag.TPag;
 import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Total;
 import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Total.ICMSTot;
+import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Total.ISSQNtot;
 import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Transp;
 import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Transp.Transporta;
 import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Transp.Vol;
@@ -601,7 +605,7 @@ public class NFeXMLGenerator
 		
 		if (nf.getlbr_OrgCCM() != null && !nf.getlbr_OrgCCM().isEmpty())
 		{
-			emit.setIM(normalize (nf.getlbr_OrgCCM()));
+			emit.setIM(toNumericStr (nf.getlbr_OrgCCM()));
 		
 			//CNAE é um Campo Opcional. Pode ser informado quando a Inscrição
 			//Municipal (id:C19) for informada.
@@ -1215,8 +1219,49 @@ public class NFeXMLGenerator
 			else
 				imposto.setVTotTrib(normalize(BigDecimal.ZERO));
 			
+			//	U. ISSQN - Quando exitir ISSQN, não adicionar grupo do ICMS
+			if (nfl.getISSTax() != null)
+			{
+				X_LBR_NFLineTax issTax = nfl.getISSTax();
+				
+				ISSQN issqn = imposto.addNewISSQN();
+				
+				MProduct product = (MProduct) nfl.getM_Product();
+				
+				issqn.setVBC(normalize(issTax.getlbr_TaxBaseAmt()));
+				issqn.setVAliq(normalize(issTax.getlbr_TaxRate()));
+				issqn.setVISSQN(normalize(issTax.getlbr_TaxAmt()));
+			
+				// Código do Município onde ocorre o serviço e onde o imposto deve ser recolhido.
+				// O CMun pode ser diferente do Municipio do Prestador e do Tomador
+				// No padrão será o Código do Prestador
+				issqn.setCMunFG(BPartnerUtil.getCityCode (nf.getlbr_OrgRegion(), nf.getlbr_OrgCity()));
+				
+				// Codigo da Abrasf
+				issqn.setCListServ(TCListServ.Enum.forString(product.get_ValueAsString ("lbr_ServiceCode")));				
+				
+				// 1=Exigível, 2=Não incidência; 3=Isenção; 4=Exportação;
+				// 5=Imunidade; 6=Exigibilidade Suspensa por Decisão Judicial;
+				// 7=Exigibilidade Suspensa por Processo Administrativo;
+				issqn.setIndISS(IndISS.X_1); 
+				
+				// O Código de serviço utilizado pelo sefaz é o mesmo Codigo de serviço da Abrasf
+				issqn.setCServico(product.get_ValueAsString ("lbr_ServiceCode"));
+				
+				// Código do Municipio. Se for em outro Pais informar "9999999"
+				issqn.setCMun(BPartnerUtil.getCityCode (nf.getlbr_OrgRegion(), nf.getlbr_OrgCity())); // Prestador
+				
+				//	Informar apenas quando CMun for igual a 9999999
+				//issqn.setCPais();
+				
+				// Quando o IndISS for 7 - Exigibilidade Suspensa por Processo Administrativ, informar o Processo
+				//issqn.setNProcesso(); 
+				
+				// Quando o IndISS for 3 - Isento (1 - SIM |  2 - NÃO)
+				issqn.setIndIncentivo(IndIncentivo.X_2); 
+			}			
 			//	N. ICMS Normal e ST
-			if (nfl.getICMSTax() != null)
+			else if (nfl.getICMSTax() != null)
 			{
 				X_LBR_NFLineTax icmsTax = nfl.getICMSTax();
 				
@@ -1683,6 +1728,18 @@ public class NFeXMLGenerator
 				}
 			}
 			
+			//	Q. PIS SERV
+			if (nfl.getPISSERVTax() != null)
+			{
+				X_LBR_NFLineTax pisservTax = nfl.getPISSERVTax();
+				
+				PISAliq pisAliq = imposto.addNewPIS().addNewPISAliq();
+				pisAliq.setCST(Det.Imposto.PIS.PISAliq.CST.Enum.forString (CST_PC_01));
+				pisAliq.setVBC(normalize  (pisservTax.getlbr_TaxBaseAmt()));
+				pisAliq.setPPIS(normalize2to4  (pisservTax.getlbr_TaxRate()));
+				pisAliq.setVPIS(normalize  (pisservTax.getlbr_TaxAmt()));
+			}
+			
 			//	S. COFINS
 			X_LBR_NFLineTax cofinsTax = nfl.getCOFINSTax();
 			if (cofinsTax != null)
@@ -1729,7 +1786,17 @@ public class NFeXMLGenerator
 				}
 			}
 			
-			//	TODO 	U. ISSQN
+			//	Q. PIS SERV
+			if (nfl.getCOFINSSERVTax() != null)
+			{
+				X_LBR_NFLineTax cofinsServTax = nfl.getCOFINSSERVTax();
+				
+				COFINSAliq cofinsAliq = imposto.addNewCOFINS().addNewCOFINSAliq();
+				cofinsAliq.setCST(Det.Imposto.COFINS.COFINSAliq.CST.Enum.forString (CST_PC_01));
+				cofinsAliq.setVBC(normalize  (cofinsServTax.getlbr_TaxBaseAmt()));
+				cofinsAliq.setPCOFINS(normalize2to4  (cofinsServTax.getlbr_TaxRate()));
+				cofinsAliq.setVCOFINS(normalize  (cofinsServTax.getlbr_TaxAmt()));
+			}
 			
 			//	TODO	UA. Tributos Devolvidos (para o item da NF-e)
 //			ImpostoDevol impostoDevol = det.addNewImpostoDevol();
@@ -1819,7 +1886,13 @@ public class NFeXMLGenerator
 			icmsTot.setVTotTrib(normalize(nf.getlbr_vTotTrib()));
 		
 		//	W01. Total da NF-e / ISSQN
-//		ISSQNtot issqNtot = total.addNewISSQNtot();
+		ISSQNtot issqNtot = total.addNewISSQNtot();
+		issqNtot.setVServ(normalize(nf.getlbr_ServiceTotalAmt()));
+		issqNtot.setVBC(normalize(nf.getTaxBaseAmt("ISS")));
+		issqNtot.setVISS(normalize(nf.getTaxAmt("ISS")));
+		issqNtot.setDCompet(TextUtil.timeToString (nf.getDateDoc(), "yyyy-MM-dd"));
+		issqNtot.setVPIS(normalize(nf.getTaxAmt("PISSERV")));
+		issqNtot.setVCOFINS(normalize(nf.getTaxAmt("COFINSSERV")));
 		
 		//	W02. Total da NF-e / Retenção de Tributos
 //		RetTrib retTrib = total.addNewRetTrib();
