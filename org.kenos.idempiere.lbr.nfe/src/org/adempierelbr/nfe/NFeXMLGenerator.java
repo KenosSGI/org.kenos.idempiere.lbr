@@ -1452,6 +1452,17 @@ public class NFeXMLGenerator
 					icms90.setOrig(Torig.Enum.forString(productSource));
 					icms90.setCST(Det.Imposto.ICMS.ICMS90.CST.X_90);
 					
+					if (icmsTax.getlbr_TaxAmt() != null && icmsTax.getlbr_TaxAmt().signum() == 1)
+					{
+						icms90.setModBC(ICMS90.ModBC.X_3);	//	TODO: Valor da Operação
+						icms90.setVBC(normalize  (icmsTax.getlbr_TaxBaseAmt()));
+						icms90.setPICMS(normalize2to4  (icmsTax.getlbr_TaxRate()));
+						icms90.setVICMS(normalize  (icmsTax.getlbr_TaxAmt()));
+						
+						if (icmsTax.getlbr_TaxBase() != null && icmsTax.getlbr_TaxBase().signum() == 1)
+							icms90.setPRedBC(normalize2to4  (icmsTax.getlbr_TaxBase()));
+					}
+					
 					// v4.00
 					if (fcpTax != null)
 					{
