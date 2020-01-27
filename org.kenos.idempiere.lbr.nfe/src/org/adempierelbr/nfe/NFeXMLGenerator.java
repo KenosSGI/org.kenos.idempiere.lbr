@@ -45,15 +45,12 @@ import org.adempierelbr.util.SignatureUtil;
 import org.adempierelbr.util.TextUtil;
 import org.adempierelbr.wrapper.I_W_AD_OrgInfo;
 import org.adempierelbr.wrapper.I_W_C_Country;
-import org.adempierelbr.wrapper.I_W_M_Product;
-import org.apache.commons.codec.binary.Base64;
 import org.compiere.model.MAttachment;
 import org.compiere.model.MCountry;
 import org.compiere.model.MDocType;
 import org.compiere.model.MLocation;
 import org.compiere.model.MOrderLine;
 import org.compiere.model.MOrgInfo;
-import org.compiere.model.MProduct;
 import org.compiere.model.Query;
 import org.compiere.util.AdempiereUserError;
 import org.compiere.util.CLogger;
@@ -1243,7 +1240,6 @@ public class NFeXMLGenerator
 				String taxStatus = new MLBRTaxStatus (nf.getCtx(), LBR_TaxStatus_ID, null).getTaxStatus(nf.isSOTrx());
 				
 				//	Product Source
-				I_W_M_Product prdct = POWrapper.create(MProduct.get(ctx, nfl.getM_Product_ID()), I_W_M_Product.class);
 				String productSource = nfl.getlbr_ProductSource();
 				
 				if (CST_ICMS_00.equals (taxStatus))
