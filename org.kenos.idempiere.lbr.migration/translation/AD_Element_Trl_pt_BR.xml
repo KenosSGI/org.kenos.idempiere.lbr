@@ -10339,7 +10339,7 @@ Strings podem estar entre aspas simples (opcional)]]></value>
   <value column="Name" original="Entity Type">Tipo de Entidade</value>
   <value column="PrintName" original="Entity Type">Tipo de Entidade</value>
   <value column="Description" original="Dictionary Entity Type; Determines ownership and synchronization">Tipo de Entidade de Dicionário; Determina a propriedade e a sincronização</value>
-  <value column="Help" original="The Entity Types &quot;Dictionary&quot;, &quot;iDempiere&quot; and &quot;Application&quot; might be automatically synchronized and customizations deleted or overwritten.  &#10;&#10;For customizations, copy the entity and select &quot;User&quot;!">Os Tipos de Entidades "Dicionário", "Adempiere" e "Aplicação" podem ser automaticamente sincronizados e personalização apagadas ou reescritas.  
+  <value column="Help" original="The Entity Types &quot;Dictionary&quot;, &quot;iDempiere&quot; and &quot;Application&quot; might be automatically synchronized and customizations deleted or overwritten.  &#10;&#10;For customizations, copy the entity and select &quot;User&quot;!">Os Tipos de Entidades "Dicionário", "iDempiere" e "Aplicação" podem ser automaticamente sincronizados e personalização apagadas ou reescritas.  
 Para personalizações, copie a entidade e selecione "Usuário"!</value>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
@@ -14477,8 +14477,8 @@ Se nenhuma é entrada, a impressora padrão é usada. Você especifica sua impre
  <row id="2087" trl="Y">
   <value column="Name" original="Alert">Alerta</value>
   <value column="PrintName" original="Alert">Alerta</value>
-  <value column="Description" original="iDempiere Alert">Alerta Adempiere</value>
-  <value column="Help" original="iDempiere Alerts allow you define system conditions you want to be alerted of">Os Alertas do Adempiere permitem a você definir condições do sistema das quais você deseja ser alertado</value>
+  <value column="Description" original="iDempiere Alert">Alerta iDempiere</value>
+  <value column="Help" original="iDempiere Alerts allow you define system conditions you want to be alerted of">Os Alertas do iDempiere permitem a você definir condições do sistema das quais você deseja ser alertado</value>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
   <value column="PO_Name" original=""/>
@@ -14884,8 +14884,8 @@ Se nenhuma é entrada, a impressora padrão é usada. Você especifica sua impre
  <row id="2124" trl="Y">
   <value column="Name" original="Internal Users">Usuários Internos</value>
   <value column="PrintName" original="Internal Users">Usuários Internos</value>
-  <value column="Description" original="Number of Internal Users for iDempiere Support">Número de Usuários Internos para o Suporte Adempiere</value>
-  <value column="Help" original="You can purchase professioal support from iDempiere, Inc. or their partners.  See http://www.idempiere.org for details.&#10;">"Você pode adquirir suporte profissional de Adempiere, Inc. ou seus parceiros. Veja http://www.adempiere.com para detalhes.
+  <value column="Description" original="Number of Internal Users for iDempiere Support">Número de Usuários Internos para o Suporte iDempiere</value>
+  <value column="Help" original="You can purchase professioal support from iDempiere, Inc. or their partners.  See http://www.idempiere.org for details.&#10;">"Você pode adquirir suporte profissional dos parceiros iDempiere. Veja http://www.idempiere.org para detalhes.
 "</value>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
@@ -15546,7 +15546,7 @@ Se ativo, o estado é definido automaticamente para Credito Retido, se o Saldo T
   <value column="Name" original="System Registration">Registro do Sistema</value>
   <value column="PrintName" original="Registration">Registro</value>
   <value column="Description" original="System Registration">Registro do Sistema</value>
-  <value column="Help" original="The System Registration helps iDempiere to help the installed base">O "Registro do Sistema" permite que a Adempiere ajude a base instalada</value>
+  <value column="Help" original="The System Registration helps iDempiere to help the installed base">O "Registro do Sistema" permite que a iDempiere ajude a base instalada</value>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
   <value column="PO_Name" original=""/>
@@ -15712,7 +15712,7 @@ Você habilita-a pela definição do parâmetro COMPIERE_SECURE do seu script de
   <value column="Name" original="Can Export">Pode Exportar</value>
   <value column="PrintName" original="Can Export">Pode Exportar</value>
   <value column="Description" original="Users with this role can export data">Usuários com este perfil podem exportar dados</value>
-  <value column="Help" original="You can restrict the ability to export data from iDempiere.">Você pode restringir a abilidade de exportar dados a partir do Adempiere.</value>
+  <value column="Help" original="You can restrict the ability to export data from iDempiere.">Você pode restringir a abilidade de exportar dados a partir do iDempiere.</value>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
   <value column="PO_Name" original=""/>
@@ -15723,7 +15723,7 @@ Você habilita-a pela definição do parâmetro COMPIERE_SECURE do seu script de
   <value column="Name" original="Can Report">Pode Emitir Relatórios</value>
   <value column="PrintName" original="Can Report">Pode Emitir Relatórios</value>
   <value column="Description" original="Users with this role can create reports">Usuários com este perfil podem criar relatórios</value>
-  <value column="Help" original="You can restrict the ability to report on data.">Você pode restringir a abilidade de criar relatórios com os dados a partir do Adempiere.</value>
+  <value column="Help" original="You can restrict the ability to report on data.">Você pode restringir a abilidade de criar relatórios com os dados a partir do iDempiere.</value>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
   <value column="PO_Name" original=""/>
@@ -18632,7 +18632,7 @@ Se a razão e quantidade não é 0, a quantidade é calculada baseada na razão,
  <row id="2488" trl="Y">
   <value column="Name" original="Start Implementation/Production">Iniciar Implementação/Produção</value>
   <value column="PrintName" original="Start Implementation/Production">Iniciar Implementação/Produção</value>
-  <value column="Description" original="The day you started the implementation (if implementing) - or production (went life) with iDempiere">É o dia em que você iniciou a implementação (se estiver implementando) ou a produção (vida real, trabalho sério) com o Adempiere</value>
+  <value column="Description" original="The day you started the implementation (if implementing) - or production (went life) with iDempiere">É o dia em que você iniciou a implementação (se estiver implementando) ou dia que entrou em produção com o iDempiere</value>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
@@ -19240,7 +19240,7 @@ Este padrão pode ser sobrescrito pela definição explícita de relações do c
   <value column="Name" original="LDAP Domain">Domínio LDAP</value>
   <value column="PrintName" original="LDAP Domain">Domínio LDAP</value>
   <value column="Description" original="Directory service domain name - e.g. idempiere.org">Nome de domínio de serviço de diretórios - por ex. soliton.com.br</value>
-  <value column="Help" original="If LDAP Host and Domain is specified, the user is authenticated via LDAP. The password in the User table is not used for connecting to iDempiere.">Se for especificado o domínio e o servidor LDAP, o usuário será autenticado via LDAP. A senha na tabela de usuários não será utilizada para conectar ao Adempiere.</value>
+  <value column="Help" original="If LDAP Host and Domain is specified, the user is authenticated via LDAP. The password in the User table is not used for connecting to iDempiere.">Se for especificado o domínio e o servidor LDAP, o usuário será autenticado via LDAP. A senha na tabela de usuários não será utilizada para conectar ao iDempiere.</value>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
   <value column="PO_Name" original=""/>
@@ -20481,7 +20481,7 @@ Os Dias de Lembra são os dias quando o próximo lembrete de e-mail é enviado.<
   <value column="PrintName" original="IBAN">IBAN</value>
   <value column="Description" original="International Bank Account Number">Número de Conta Bancária Internacional</value>
   <value column="Help" original="If your bank provides an International Bank Account Number, enter it here&#10;Details ISO 13616 and http://www.ecbs.org. The account number has the maximum length of 22 characters (without spaces). The IBAN is often printed with a apace after 4 characters. Do not enter the spaces in iDempiere.">Se seu banco provê um Número de Conta Bancária Internacional, entre ele aqui.
-Detalhes em ISO 13616 e http://www.ecbs.org. O número da conta tem um comprimento máximo de 22 caracteres (sem espaços). O IBAN é frequantemente impresso com um espaço após 4 caractere. Não entre estes espaços no Adempiere.</value>
+Detalhes em ISO 13616 e http://www.ecbs.org. O número da conta tem um comprimento máximo de 22 caracteres (sem espaços). O IBAN é frequantemente impresso com um espaço após 4 caractere. Não entre estes espaços no iDempiere.</value>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
   <value column="PO_Name" original=""/>
@@ -20570,7 +20570,7 @@ A classe é chamada para o cliente e permite validar documentos no estágio de p
   <value column="Name" original="Auto Archive">Auto Arquivar</value>
   <value column="PrintName" original="Auto Archive">Auto Arquivar</value>
   <value column="Description" original="Enable and level of automatic Archive of documents">Habilitação e nível de arquivamento automático de documentos</value>
-  <value column="Help" original="iDempiere allows to automatically create archives of Documents (e.g. Invoices) or Reports. You view the archived material with the Archive Viewer">Adempiere permite a criação automática de arquivos de Documentos (ex. Faturas) ou Relatórios. Você visualiza o material arquivado com o "Visualizador de Arquivos"</value>
+  <value column="Help" original="iDempiere allows to automatically create archives of Documents (e.g. Invoices) or Reports. You view the archived material with the Archive Viewer">iDempiere permite a criação automática de arquivos de Documentos (ex. Faturas) ou Relatórios. Você visualiza o material arquivado com o "Visualizador de Arquivos"</value>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
   <value column="PO_Name" original=""/>
@@ -20581,7 +20581,7 @@ A classe é chamada para o cliente e permite validar documentos no estágio de p
   <value column="Name" original="Date Pattern">Formato de Data</value>
   <value column="PrintName" original="Date Pattern">Formato de Data</value>
   <value column="Description" original="Java Date Pattern">Formato de Data Java</value>
-  <value column="Help" original="Option Date pattern in Java notation. Examples: dd.MM.yyyy - dd/MM/yyyy&#10;If the pattern for your language is not correct, please create a iDempiere support request with the correct information">Formato de Data opcional em notação Java. Exemplos: dd.MM.yyyy - dd/MM/yyyy Se o formato para o seu idioma não estiver correto, por favor crie uma solicitação de suporte no site de apoio do Adempiere com a informação correta</value>
+  <value column="Help" original="Option Date pattern in Java notation. Examples: dd.MM.yyyy - dd/MM/yyyy&#10;If the pattern for your language is not correct, please create a iDempiere support request with the correct information">Formato de Data opcional em notação Java. Exemplos: dd.MM.yyyy - dd/MM/yyyy Se o formato para o seu idioma não estiver correto, por favor crie uma solicitação de suporte no site de apoio do iDempiere com a informação correta</value>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
   <value column="PO_Name" original=""/>
@@ -20593,7 +20593,7 @@ A classe é chamada para o cliente e permite validar documentos no estágio de p
   <value column="PrintName" original="Decimal Point">Ponto Decimal</value>
   <value column="Description" original="The number notation has a decimal point (no decimal comma)">A notação numérica tem um ponto decimal (e não uma vírgula decimal)</value>
   <value column="Help" original="If selected, Numbers are printed with a decimal point &quot;.&quot; - otherwise with a decimal comma &quot;,&quot;.  The thousand separator is the opposite.&#10;If the pattern for your language is not correct, please create a iDempiere support request with the correct information">Se selecionado, Números são impressos com um ponto decimal "." - de outra forma uma vírgula decimal ",". O separador de milhar é o oposto.
-Se o padrão para o seu idioma não está correto, favor criar um pedido de apoio Adempiere com a informação correta</value>
+Se o padrão para o seu idioma não está correto, favor criar um pedido de apoio iDempiere com a informação correta</value>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
   <value column="PO_Name" original=""/>
@@ -20605,7 +20605,7 @@ Se o padrão para o seu idioma não está correto, favor criar um pedido de apoi
   <value column="PrintName" original="Media Size">Tamanho do Papel</value>
   <value column="Description" original="Java Media Size">Tamanho do Papel Java</value>
   <value column="Help" original="The Java Media Size. Example: &quot;MediaSize.ISO.A4&quot; (the package javax.print.attribute.standard is assumed). If you define your own media size, use the fully qualified name.&#10;If the pattern for your language is not correct, please create a iDempiere support request with the correct information">O Tamanho de Mídia Java. Exemplo: "MediaSize.ISO.A4" ( o pacote javax.print.attribute.standard é assumido). Se você define sua própria mídia, use o nome qualificado.
-Se o padrão para o seu idioma não está correto, favor criar um pedido de apoio Adempiere com a informação correta</value>
+Se o padrão para o seu idioma não está correto, favor criar um pedido de apoio iDempiere com a informação correta</value>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
   <value column="PO_Name" original=""/>
@@ -20617,7 +20617,7 @@ Se o padrão para o seu idioma não está correto, favor criar um pedido de apoi
   <value column="PrintName" original="Time Pattern">Formato de Horas</value>
   <value column="Description" original="Java Time Pattern">Formato de Horas Java</value>
   <value column="Help" original="Option Time pattern in Java notation. Examples: &quot;hh:mm:ss aaa z&quot; - &quot;HH:mm:ss&quot;&#10;If the pattern for your language is not correct, please create a iDempiere support request with the correct information">Padrão opcional de tempo em notação Java. Exemplos: "hh:mm:ss aaa z" - "HH:mm:ss"
-Se o padrão para o seu idioma não está correto, favor criar um pedido de apoio Adempiere com a informação correta</value>
+Se o padrão para o seu idioma não está correto, favor criar um pedido de apoio iDempiere com a informação correta</value>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
   <value column="PO_Name" original=""/>
@@ -26583,7 +26583,7 @@ O ID é relacionado de 1 para 1 para o ID do contêiner</value>
  <row id="53227" trl="Y">
   <value column="Name" original="Post if Clearing Equal">Lançar se Compensação Igual</value>
   <value column="PrintName" original="Post if Clearing Equal">Lançar se Compensação Igual</value>
-  <value column="Description" original="This flag controls if Adempiere must post when clearing (transit) and final accounts are the same">Esta marcador controla se Adempiere deve lançar no apuramento (trânsito) e as contas finais são as mesmas</value>
+  <value column="Description" original="This flag controls if Adempiere must post when clearing (transit) and final accounts are the same">Esta marcador controla se iDempiere deve lançar no apuramento (trânsito) e as contas finais são as mesmas</value>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
@@ -27080,7 +27080,7 @@ Use o campo Pós-Dedução de Estoque para agrupar os componentes no Método Pó
   <value column="Name" original="Yield %">Rendimento %</value>
   <value column="PrintName" original="Yield %">Rendimento %</value>
   <value column="Description" original="The Yield is the percentage of a lot that is expected to be of acceptable wuality may fall below 100 percent">O Rendimento é o percentual de um lote que se espera ser de qualidade aceitável, pode cair abaixo de 100 por cento</value>
-  <value column="Help" original="ADempiere Calculate the total yield for a product from the yield for each activity when the process Workflow Cost Roll-Up is executed.&#10;&#10;The expected yield for an Activity can be expressed as:&#10;&#10;Yield = Acceptable Units at Activity End x 100&#10;&#10;The Total manufacturing yield for a product is determined by multiplying the yied percentage for each activity.&#10;&#10;Manufacturing Yield = Yield % for Activity 10 x Yied % for Activity 20 , etc &#10;&#10;Take care when setting yield to anything but 100% particularly when yied is used for multiples activities&#10;&#10;">Adempiere Calcula o rendimento total de um produto a partir da produtividade de cada atividade, quando o processo de Fluxo de Trabalho de Custo Cumulativo é executado.
+  <value column="Help" original="ADempiere Calculate the total yield for a product from the yield for each activity when the process Workflow Cost Roll-Up is executed.&#10;&#10;The expected yield for an Activity can be expressed as:&#10;&#10;Yield = Acceptable Units at Activity End x 100&#10;&#10;The Total manufacturing yield for a product is determined by multiplying the yied percentage for each activity.&#10;&#10;Manufacturing Yield = Yield % for Activity 10 x Yied % for Activity 20 , etc &#10;&#10;Take care when setting yield to anything but 100% particularly when yied is used for multiples activities&#10;&#10;">iDempiere Calcula o rendimento total de um produto a partir da produtividade de cada atividade, quando o processo de Fluxo de Trabalho de Custo Cumulativo é executado.
 
 O rendimento esperado para uma Atividade pode ser expressado como:
 

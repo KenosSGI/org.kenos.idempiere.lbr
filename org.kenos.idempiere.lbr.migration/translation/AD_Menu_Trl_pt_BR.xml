@@ -114,7 +114,7 @@
  </row>
  <row id="456" trl="Y">
   <value column="Name" original="Server">Servidor</value>
-  <value column="Description" original="iDempiere Server Maintenance">Manutenção do Servidor Adempiere</value>
+  <value column="Description" original="iDempiere Server Maintenance">Manutenção do Servidor iDempiere</value>
  </row>
  <row id="457" trl="Y">
   <value column="Name" original="Sales Orders">Pedidos de Vendas</value>
@@ -130,7 +130,7 @@
  </row>
  <row id="501" trl="Y">
   <value column="Name" original="Workflow">Fluxo de Trabalho</value>
-  <value column="Description" original="iDempiere Workflow">Fluxo de Trabalho Adempiere</value>
+  <value column="Description" original="iDempiere Workflow">Fluxo de Trabalho iDempiere</value>
  </row>
  <row id="522" trl="Y">
   <value column="Name" original="Costing">Custeio</value>

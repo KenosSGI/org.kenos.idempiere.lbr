@@ -1886,7 +1886,7 @@ Detalhes: </value>
  </row>
  <row id="570" trl="Y">
   <value column="MsgText" original="User Interface Theme">Tema de Interface de Usuário</value>
-  <value column="MsgTip" original="Window  - Metal - iDempiere">Janela - Metal - Adempiere</value>
+  <value column="MsgTip" original="Window  - Metal - iDempiere">Janela - Metal - iDempiere</value>
  </row>
  <row id="571" trl="Y">
   <value column="MsgText" original="Under Limit Price">Abaixo do Preço Limite</value>
@@ -2430,7 +2430,7 @@ Por favor pare e migre o banco de dados imediatamente.</value>
  </row>
  <row id="713" trl="Y">
   <value column="MsgText" original="Dictionary Maintenance">Manutenção de Dicionário</value>
-  <value column="MsgTip" original="Only for internal iDempiere Dictionary Maintenence - DO NOT SELECT">Somente para Manutenção interna de Dicionário Adempiere - NÃO SELECIONAR</value>
+  <value column="MsgTip" original="Only for internal iDempiere Dictionary Maintenence - DO NOT SELECT">Somente para Manutenção interna de Dicionário iDempiere - NÃO SELECIONAR</value>
  </row>
  <row id="714" trl="Y">
   <value column="MsgText" original="No Translation">Sem Tradução</value>
@@ -2562,7 +2562,7 @@ Por favor pare e migre o banco de dados imediatamente.</value>
 Version = {2} - Lot = {3} - SerNo = {4}
 Guarantee Date = {5,date,short}
 
-Thank you for using Adempiere Customer Asset Management
+Thank you for using iDempiere Customer Asset Management
 </value>
   <value column="MsgTip" original=""/>
  </row>
@@ -2831,7 +2831,7 @@ Verifique o log de erros e o formato do arquivo Accounting*.csv - Nenhuma Conta 
  </row>
  <row id="813" trl="Y">
   <value column="MsgText" original="Trace File">Arquivo de Rastreamento</value>
-  <value column="MsgTip" original="Create Trace file in iDempiere directory or in user home directory">Cria o Arquivo de Rastreamento no diretório do Adempiere ou no diretório padrão do usuário</value>
+  <value column="MsgTip" original="Create Trace file in iDempiere directory or in user home directory">Cria o Arquivo de Rastreamento no diretório do iDempiere ou no diretório padrão do usuário</value>
  </row>
  <row id="814" trl="Y">
   <value column="MsgText" original="Run Processes on Server">Executar Processos no Servidor</value>
@@ -3049,11 +3049,11 @@ Você quer continuar?</value>
  </row>
  <row id="867" trl="Y">
   <value column="MsgText" original="System Name">Nome do Sistema</value>
-  <value column="MsgTip" original="Name your iDempiere System installation, e.g. Joe Block, Inc.">Dê um nome à sua instalação de Sistema Adempiere, por exemplo Soliton Ltda.</value>
+  <value column="MsgTip" original="Name your iDempiere System installation, e.g. Joe Block, Inc.">Dê um nome à sua instalação de Sistema iDempiere, por exemplo Soliton Ltda.</value>
  </row>
  <row id="868" trl="Y">
   <value column="MsgText" original="Existing Support Contract">Contrato de Suporte Existente</value>
-  <value column="MsgTip" original="Sign up for iDempiere Support - also supports the product development">Assine para obter o suporte Adempiere - também para suporte de desenvolvimento de produto</value>
+  <value column="MsgTip" original="Sign up for iDempiere Support - also supports the product development">Assine para obter o suporte iDempiere - também para suporte de desenvolvimento de produto</value>
  </row>
  <row id="869" trl="Y">
   <value column="MsgText" original="Supported Users">Usuários de suporte</value>

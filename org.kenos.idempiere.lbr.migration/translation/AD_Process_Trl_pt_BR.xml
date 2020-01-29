@@ -477,7 +477,7 @@ Observação: Se você digitar somente um Nº de documento A PARTIR do valor, to
  <row id="205" trl="Y">
   <value column="Name" original="Cache Reset">Limpar o Cache</value>
   <value column="Description" original="Reset Cache of the System ** Close all Windows before proceeding **">Reiniciar Cache do Sistema ** Feche todas as Janelas antes de Prosseguir **</value>
-  <value column="Help" original="To increase performance, iDempiere caches repeatedly used data. This process clears the local cache.">Para aumentar o desempenho, o Adempiere guarda dados utilizados repetidamente na memória cache. Este processo limpa a memória cache local.</value>
+  <value column="Help" original="To increase performance, iDempiere caches repeatedly used data. This process clears the local cache.">Para aumentar o desempenho, o iDempiere guarda dados utilizados repetidamente na memória cache. Este processo limpa a memória cache local.</value>
  </row>
  <row id="206" trl="Y">
   <value column="Name" original="Import Orders">Importar Pedidos</value>
@@ -710,9 +710,9 @@ Selecione tanto um Grupo de Parceiro de Negócios como um Parceiro de Negócios 
  </row>
  <row id="250" trl="Y">
   <value column="Name" original="Register Now!">Registre Agora!</value>
-  <value column="Description" original="Registrations help us to better serve the iDempiere User Base.">Ao se registrar você nos ajuda a melhor servir a base de usuários Adempiere.</value>
+  <value column="Description" original="Registrations help us to better serve the iDempiere User Base.">Ao se registrar você nos ajuda a melhor servir a base de usuários iDempiere.</value>
   <value column="Help" original="We will NOT make the data available to any third party or use the information for other than statistical purposes.  &#10;It will help us, if you would allow to publish your use of iDempiere. We will contact you directly before we publish any information.&#10;">Nós NÃO disponibilizaremos os dados a terceiros ou uso de informações para outros fins que não estatísticos.  
-Ele vai nos ajudar, se você permitir publicar o seu uso do Adempiere. Entraremos em contato diretamente antes de publicar qualquer informação.
+Ele vai nos ajudar, se você permitir publicar o seu uso do iDempiere. Entraremos em contato diretamente antes de publicar qualquer informação.
 </value>
  </row>
  <row id="251" trl="Y">

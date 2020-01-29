@@ -1361,8 +1361,8 @@
   <value column="Description" original="Application Dictionary (synchronized)">Dicionário de Aplicação (sincronizado)</value>
  </row>
  <row id="488" trl="Y">
-  <value column="Name" original="iDempiere">Adempiere</value>
-  <value column="Description" original="iDempiere Application (synchronized)">Aplicação Adempiere (sincronizada)</value>
+  <value column="Name" original="iDempiere">iDempiere</value>
+  <value column="Description" original="iDempiere Application (synchronized)">Aplicação iDempiere (sincronizada)</value>
  </row>
  <row id="489" trl="Y">
   <value column="Name" original="User maintained">Mantido pelo usuário</value>

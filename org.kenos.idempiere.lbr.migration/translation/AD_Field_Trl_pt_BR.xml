@@ -62,7 +62,7 @@
  </row>
  <row id="5899" trl="Y">
   <value column="Name" original="System Name">Nome do Sistema</value>
-  <value column="Description" original="Name your iDempiere System installation, e.g. Joe Block, Inc.">Dê um nome à sua instalação de Sistema Adempiere, por exemplo Soliton Ltda.</value>
+  <value column="Description" original="Name your iDempiere System installation, e.g. Joe Block, Inc.">Dê um nome à sua instalação de Sistema iDempiere, por exemplo Soliton Ltda.</value>
   <value column="Help" original="The name if the system to differentiate support contracts">É o nome para o sistema diferenciar contratos de suporte</value>
   <value column="Placeholder" original=""/>
  </row>

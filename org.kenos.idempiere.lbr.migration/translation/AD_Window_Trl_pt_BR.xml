@@ -691,8 +691,8 @@ Note que informação de acesso é mantida em cache e requer logar novamente ou 
  </row>
  <row id="276" trl="Y">
   <value column="Name" original="Alert">Alerta</value>
-  <value column="Description" original="iDempiere Alert">Alerta Adempiere</value>
-  <value column="Help" original="iDempiere Alerts allow you define system conditions you want to be alerted of">Os Alertas do Adempiere permitem a você definir condições do sistema das quais você deseja ser alertado</value>
+  <value column="Description" original="iDempiere Alert">Alerta iDempiere</value>
+  <value column="Help" original="iDempiere Alerts allow you define system conditions you want to be alerted of">Os Alertas do iDempiere permitem a você definir condições do sistema das quais você deseja ser alertado</value>
  </row>
  <row id="277" trl="Y">
   <value column="Name" original="Import Bank Statement">Importar Extrato Bancário</value>
@@ -1307,7 +1307,7 @@ MRP - 110	 No exists Dem</value>
  <row id="53058" trl="Y">
   <value column="Name" original="Depreciation Methods">Métodos de Depreciação</value>
   <value column="Description" original="Depreciation Methods">Métodos de Depreciação</value>
-  <value column="Help" original="The Depreciation method windows allows the user to review the depreciation calculations available in Adempiere">A janela "Métodos de Depreciação" permite o usuário revisar os cálculos de depreciação disponíveis no Adempiere</value>
+  <value column="Help" original="The Depreciation method windows allows the user to review the depreciation calculations available in Adempiere">A janela "Métodos de Depreciação" permite o usuário revisar os cálculos de depreciação disponíveis no iDempiere</value>
  </row>
  <row id="53059" trl="Y">
   <value column="Name" original="Depreciation Tables">Tabelas de Depreciação</value>
@@ -1317,7 +1317,7 @@ MRP - 110	 No exists Dem</value>
  <row id="53060" trl="Y">
   <value column="Name" original="Depreciation First Year Conventions ">Convenções de Depreciação do Primeiro Ano </value>
   <value column="Description" original="Setup for depreciation Setups">Configuração para a Configuração de Depreciação</value>
-  <value column="Help" original="Allows user to define what depreciation conventions are available in Adempiere">Permite o usuário definir quais convenções de depreciação estão disponíveis no Adempiere</value>
+  <value column="Help" original="Allows user to define what depreciation conventions are available in Adempiere">Permite o usuário definir quais convenções de depreciação estão disponíveis no iDempiere</value>
  </row>
  <row id="53061" trl="Y">
   <value column="Name" original="Depreciation Calculation Method">Método de Cálculo de Depreciação</value>
