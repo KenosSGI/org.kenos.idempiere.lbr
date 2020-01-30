@@ -2298,7 +2298,7 @@ public class NFeXMLGenerator
 	public static String normalize (String text)
 	{
 		if (text == null || text.isEmpty())
-			return text;
+			return null;
 		
 		//	Substitui o travessão por hífen
 		text = text.replaceAll ("–", "-");
