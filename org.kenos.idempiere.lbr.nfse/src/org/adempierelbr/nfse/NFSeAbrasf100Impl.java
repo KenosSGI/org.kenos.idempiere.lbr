@@ -11,6 +11,7 @@ import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Properties;
+import java.util.logging.Level;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.adempiere.model.POWrapper;
@@ -18,6 +19,7 @@ import org.adempierelbr.model.MLBRDigitalCertificate;
 import org.adempierelbr.model.MLBRNotaFiscal;
 import org.adempierelbr.model.MLBRNotaFiscalLine;
 import org.adempierelbr.nfse.util.FixedTxt;
+import org.adempierelbr.process.PrintFromXML;
 import org.adempierelbr.util.BPartnerUtil;
 import org.adempierelbr.util.NFeUtil;
 import org.adempierelbr.util.SignatureUtil;
@@ -25,11 +27,19 @@ import org.adempierelbr.util.TextUtil;
 import org.adempierelbr.wrapper.I_W_AD_OrgInfo;
 import org.adempierelbr.wrapper.I_W_C_BPartner;
 import org.apache.axis2.transport.http.HTTPConstants;
+import org.compiere.model.MAttachment;
 import org.compiere.model.MBPartner;
 import org.compiere.model.MOrgInfo;
+import org.compiere.model.MPInstance;
+import org.compiere.model.MPInstancePara;
 import org.compiere.model.MProduct;
+import org.compiere.process.ProcessInfo;
+import org.compiere.process.ProcessInfoParameter;
+import org.compiere.process.SvrProcess;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
+import org.compiere.util.Msg;
+import org.compiere.util.Trx;
 
 import br.com.ginfes.cabecalhoV03.CabecalhoDocument;
 import br.com.ginfes.cabecalhoV03.CabecalhoDocument.Cabecalho;
@@ -298,6 +308,10 @@ public class NFSeAbrasf100Impl implements INFSe
 		TcDadosServico dadosServico = infRps.addNewServico();		
 	
 		// Discriminação do Serviço
+		if (nf.getDescription() != null 
+				&& !nf.getDescription().isEmpty())
+			descricaoServico = descricaoServico + "\n" + nf.getDescription();
+		
 		dadosServico.setDiscriminacao(TextUtil.retiraEspecial(descricaoServico));
 		
 		//	Se o código do serviço possui / Ex. 14.01/3530300
@@ -306,7 +320,7 @@ public class NFSeAbrasf100Impl implements INFSe
 			dadosServico.setItemListaServico(serviceCode.substring(0, serviceCode.indexOf("/")));
 		else
 			dadosServico.setItemListaServico(serviceCode);
-		
+
 		//dadosServico.setIssRetido((byte)(winvoice.isLBR_HasWithhold() ? 1 : 1));
 		dadosServico.setCodigoMunicipio(new BigDecimal(BPartnerUtil.getCityCode (nf.getlbr_BPRegion(), nf.getlbr_BPCity())).intValue());
 		
@@ -616,6 +630,14 @@ public class NFSeAbrasf100Impl implements INFSe
 				nf.setlbr_NFeStatus(MLBRNotaFiscal.LBR_NFESTATUS_100_AutorizadoOUsoDaNF_E);
 				nf.setDocStatus(MLBRNotaFiscal.DOCSTATUS_Completed);
 				nf.save();
+				
+				//	Anexar XML Autorizado
+				String xmlAut = respConsultaRpsNFe.xmlText();
+
+				MAttachment attachNFe = nf.createAttachment();
+				attachNFe.addEntry("NFSE-" + nf.getlbr_NFENo() + FILE_XML_NFSE_AUTORIZADO, xmlAut.replaceAll("\\&\\#[0-9A-Za-z]*;|\\n", "").getBytes(NFeUtil.NFE_ENCODING));
+				attachNFe.save();
+				
 				return true;
 			}
 			else
@@ -1597,54 +1619,8 @@ public class NFSeAbrasf100Impl implements INFSe
 	 * Pegar DANFE no formato de PDF
 	 */
 	public File getPDF(MLBRNotaFiscal nf)
-	{
-		File PDF = null;
-		InputStream is = null;
-		
-		try
-		{
-			//	XML com a URL da DANFE
-			String xml = getURLVisualizarNF(nf);
-			
-			//	URL de Impressão
-			String path = getTagValue(xml.replace("amp;", ""), "urlAutenticidade");
-			
-			//	URL
-			URL url = new URL (path);
-			
-			//	Abrir Stream
-			is = url.openStream();
-			
-			//	String Buffere com a estimativa de Quantidade de Bytes da String
-			byte[] buffer = new byte[is.available()];
-			
-			//	Receber dados
-		    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-
-		    //	Quantidade de Bytes Lidos
-		    int bytesRead;
-		    
-		    //	Leitura dos Bytes
-		    while ((bytesRead = is.read(buffer)) != -1)
-		    {
-		        baos.write(buffer, 0, bytesRead);
-		    }
-		    
-			//	Criar Arquivo no Temp
-			PDF = File.createTempFile("NFSe" + nf.getlbr_NFENo() + "-", ".pdf");
-			
-			//	Preencher o Arquivo.
-			FileOutputStream file = new FileOutputStream(PDF);
-			file.write(baos.toByteArray());
-			file.flush();
-			file.close();
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-		
-		return PDF;
+	{		
+		return null;
 	}	
 	
 	/**
