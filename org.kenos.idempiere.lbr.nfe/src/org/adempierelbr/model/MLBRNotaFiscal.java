@@ -2731,6 +2731,7 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 
 		setlbr_BPInvoiceCNPJ(BPartnerUtil.getCNPJ_CPF (bpLocation));	//	CNPJ
 		setlbr_BPInvoiceIE(BPartnerUtil.getIE (bpLocation));   			//	IE
+		setTaxID(bpLocation.getC_BPartner().getTaxID());				//	Tax ID - Estrangeiro
 		//
 		setlbr_BPInvoiceAddress1(location.getAddress1());	//	Rua
 		setlbr_BPInvoiceAddress2(location.getAddress2());	//	Número
