@@ -644,6 +644,12 @@ public class NFeXMLGenerator
 		//		USO EXCLUSIVO DO FISCO
 		//	Avulsa avulsa = infNFe.addNewAvulsa();
 		
+		//	Endereço do destinatário
+		I_W_C_Country country = POWrapper.create(new MCountry(ctx, nf.getC_BPartner_Location().getC_Location().getC_Country_ID(), trxName), I_W_C_Country.class);
+		
+		if (country == null)
+			throw new AdempiereException ("Country not found");
+		
 		//	E. Identificação do Destinatário da Nota Fiscal eletrônica
 		if (!nfce || nf.getlbr_BPTypeBR() != null)
 		{
@@ -683,12 +689,6 @@ public class NFeXMLGenerator
 				if (nf.getBPName() != null)
 					dest.setXNome(normalize (nf.getBPName()));
 			}
-			
-			//	Endereço do destinatário
-			I_W_C_Country country = POWrapper.create(new MCountry(ctx, nf.getC_BPartner_Location().getC_Location().getC_Country_ID(), trxName), I_W_C_Country.class);
-			
-			if (country == null)
-				throw new AdempiereException ("Country not found");
 			
 			/**
 			 * 	Nota 1: No caso de NFC-e informar indIEDest=9 e não
@@ -883,6 +883,9 @@ public class NFeXMLGenerator
 					
 					//	Não Contribuinte
 					&& MLBRNotaFiscal.LBR_INDIEDEST_9_NãoContribuinteDeICMS.equals(nf.getLBR_IndIEDest())
+					
+					//	Brasil
+					&& country.getC_Country_ID() == MLBRNotaFiscal.BRAZIL
 					
 					//	Estados Diferentes
 					&& nf.getlbr_OrgRegion() != null && nf.getlbr_BPRegion() != null 
@@ -1521,30 +1524,30 @@ public class NFeXMLGenerator
 				}
 				else if (TextUtil.match(taxStatus, CSOSN_202, CSOSN_203))
 				{
-					if (icmsSTTax != null)
-					{
-						ICMSSN202 icmssn202 = imposto.addNewICMS().addNewICMSSN202();
-						icmssn202.setOrig(Torig.Enum.forString(productSource));
-						icmssn202.setCSOSN(Det.Imposto.ICMS.ICMSSN202.CSOSN.Enum.forString(taxStatus));
-						icmssn202.setModBCST(Det.Imposto.ICMS.ICMSSN202.ModBCST.X_4);
-						
-						//	Redução na BC
-						if (icmsSTTax.getlbr_TaxBase() != null 
-								&& icmsSTTax.getlbr_TaxBase().signum() == 1
-								&& icmsSTTax.getlbr_TaxBase().compareTo(Env.ONEHUNDRED) != 0)
-							icmssn202.setPRedBCST(normalize2to4  (icmsSTTax.getlbr_TaxBase()));
-						
-						icmssn202.setVBCST(normalize (icmsSTTax.getlbr_TaxBaseAmt()));
-						icmssn202.setPICMSST(normalize2to4  (icmsSTTax.getlbr_TaxRate()));
-						icmssn202.setVICMSST(normalize  (icmsSTTax.getlbr_TaxAmt()));
+					if (icmsSTTax == null)
+						throw new Exception ("Escolhido CSOSN do ICMS com Substiruíção Tributária (202/203) e não incluído Substiruíção Tributária");
+					
+					ICMSSN202 icmssn202 = imposto.addNewICMS().addNewICMSSN202();
+					icmssn202.setOrig(Torig.Enum.forString(productSource));
+					icmssn202.setCSOSN(Det.Imposto.ICMS.ICMSSN202.CSOSN.Enum.forString(taxStatus));
+					icmssn202.setModBCST(Det.Imposto.ICMS.ICMSSN202.ModBCST.X_4);
+					
+					//	Redução na BC
+					if (icmsSTTax.getlbr_TaxBase() != null 
+							&& icmsSTTax.getlbr_TaxBase().signum() == 1
+							&& icmsSTTax.getlbr_TaxBase().compareTo(Env.ONEHUNDRED) != 0)
+						icmssn202.setPRedBCST(normalize2to4  (icmsSTTax.getlbr_TaxBase()));
+					
+					icmssn202.setVBCST(normalize (icmsSTTax.getlbr_TaxBaseAmt()));
+					icmssn202.setPICMSST(normalize2to4  (icmsSTTax.getlbr_TaxRate()));
+					icmssn202.setVICMSST(normalize  (icmsSTTax.getlbr_TaxAmt()));
 
-						// v4.00
-						if (fcpTaxST != null)
-						{
-							icmssn202.setVBCFCPST(normalize (fcpTaxST.getlbr_TaxBaseAmt()));
-							icmssn202.setPFCPST(normalize2to4  (fcpTaxST.getlbr_TaxRate()));
-							icmssn202.setVFCPST(normalize  (fcpTaxST.getlbr_TaxAmt()));
-						}
+					// v4.00
+					if (fcpTaxST != null)
+					{
+						icmssn202.setVBCFCPST(normalize (fcpTaxST.getlbr_TaxBaseAmt()));
+						icmssn202.setPFCPST(normalize2to4  (fcpTaxST.getlbr_TaxRate()));
+						icmssn202.setVFCPST(normalize  (fcpTaxST.getlbr_TaxAmt()));
 					}
 				}
 				else if (CSOSN_500.equals (taxStatus))
