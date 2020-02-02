@@ -959,4 +959,167 @@ As datas Válido Desde e Válido Até indcam o período válido de tempo para us
   <value column="Help" original="The Display Search Key checkbox indicates if the Search Key will display in the tree before the Name">The Display Search Key checkbox indicates if the Search Key will display in the tree before the Name</value>
   <value column="Placeholder" original=""/>
  </row>
+ <row trl="Y" uuid="ada61bf0-d349-4c95-a323-4e6a59f2354a">
+  <value column="Name" original="Print Bill">Boleto Impresso</value>
+  <value column="Description" original="Indicates if this Account is used to Print Bills">Define se o Boleto foi Impresso</value>
+  <value column="Help" original="Indicates if this Account is used to Print Bills">Define se o Boleto foi Impresso</value>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="639ea4c2-a26d-4ff4-899c-787723172ade">
+  <value column="Name" original="Discount %">Desconto %</value>
+  <value column="Description" original="Discount in percent">Desconto em percentual</value>
+  <value column="Help" original="The Discount indicates the discount applied or taken as a percentage.">Define o Desconto da Linha</value>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="bd86eb78-6579-47e7-97f2-cd39e07bea5a">
+  <value column="Name" original="Discount %">Desconto %</value>
+  <value column="Description" original="Discount in percent">Desconto em percentual</value>
+  <value column="Help" original="The Discount indicates the discount applied or taken as a percentage.">O campo Desconto indica em percentual o Desconto aplicado ou recebido.</value>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="15add03d-ce86-45a1-8072-174d5d8d8b91">
+  <value column="Name" original="Item da Adição">Item da Adição</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="b985eb63-1dce-4204-8ac6-50887c2750a8">
+  <value column="Name" original="Adição">Adição</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="27713edc-c130-4039-a0bd-8c70f2fc9db2">
+  <value column="Name" original="Tax Rate">Alíquota Nacional</value>
+  <value column="Description" original="Indicates the Tax Rate">Indica a Alíquota do Imposto Nacional (%)</value>
+  <value column="Help" original="Indicates the Tax Rate">Indica a Alíquota do Imposto Nacional (%)</value>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="97d2e8d5-5000-4a87-9c58-4e34e78db833">
+  <value column="Name" original="Description">Informações ao Fisco</value>
+  <value column="Description" original="Optional short description of the record">Informações ao Fisco</value>
+  <value column="Help" original="A description is limited to 255 characters.">Informações ao Fisco</value>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="1d49731b-828f-4b65-bf25-c5e2a2b60b7f">
+  <value column="Name" original="Add Driver">Incluir Motorista</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="91f22d70-e9e5-4de6-a54d-b16eece5ad35">
+  <value column="Name" original="NFe ID">Número/Chave</value>
+  <value column="Description" original="Identification of NFe">Número ou chave do documento fiscal (CT, CT-e, NF, NF-e)</value>
+  <value column="Help" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="14835c8b-fdce-45a7-9391-ca2e82b89b59">
+  <value column="Name" original="Vendor CNPJ">CNPJ do Fornecedor</value>
+  <value column="Description" original="BP CNPJ - Copied from the BP into Brazilan Legal and Tax Books">CNPJ do Fornecedor</value>
+  <value column="Help" original="BP CNPJ - Copied from the BP into Brazilan Legal and Tax Books">CNPJ do Fornecedor</value>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="2af5112d-121d-4be8-9311-db776c5bf75e">
+  <value column="Name" original="Payer CNPJ">CNPJ do Pagador</value>
+  <value column="Description" original="BP Shipper CNPJ - Copied from the BP Location into Brazilan Legal and Tax Books">CNPJ do Pagador</value>
+  <value column="Help" original="BP Shipper CNPJ - Copied from the BP Location into Brazilan Legal and Tax Books">CNPJ do Pagador</value>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="28659387-3652-4dee-a302-49d56b0da251">
+  <value column="Name" original="Vehicle Weight">Tara (Peso)</value>
+  <value column="Description" original="Weight of a product">Weight of a product</value>
+  <value column="Help" original="The Weight indicates the weight  of the product in the Weight UOM of the Client">The Weight indicates the weight  of the product in the Weight UOM of the Client</value>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="31299a39-24c5-49e5-a32a-ce413aadadfa">
+  <value column="Name" original="Status">Estado</value>
+  <value column="Description" original="Status of Answer NFe"/>
+  <value column="Help" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="220a89ed-c5fa-4b62-909b-0339c6c8bd5d">
+  <value column="Name" original="MDFe Key">Chave do MDF-e</value>
+  <value column="Description" original="Identification of NFe">Chave do MDF-e</value>
+  <value column="Help" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="48dac8ea-e1bb-4e5f-8a8e-e9323281e540">
+  <value column="Name" original="MDFe Protocol">Protocolo</value>
+  <value column="Description" original="">Protocolo</value>
+  <value column="Help" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="ac203f88-d6ef-46df-b4cc-fbeb6b13cd67">
+  <value column="Name" original="Receipt No">Recibo</value>
+  <value column="Description" original="">Número do Recibo da Transmissão</value>
+  <value column="Help" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="bd933ded-f455-43fb-a9cc-5cf9593a4a6c">
+  <value column="Name" original="Vehicle Region">UF da Placa</value>
+  <value column="Description" original="Sales coverage region">UF do Liceciamento do Veículo</value>
+  <value column="Help" original="The Sales Region indicates a specific area of sales coverage.">UF do Liceciamento do Veículo</value>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="0eb63fc5-7a25-4085-b524-c0705e5fbc41">
+  <value column="Name" original="Add Protocol">Protocolo da Inclusão</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="bddfedb1-8a0e-41f9-a260-225672a4ffc2">
+  <value column="Name" original="Add Date">Data da Inclusão</value>
+  <value column="Description" original="Add Date">Data da Inclusão</value>
+  <value column="Help" original="The Transaction Date indicates the date of the transaction.">The Transaction Date indicates the date of the transaction.</value>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="96bf7e50-2c75-401d-8db4-0be1142a3e0e">
+  <value column="Name" original="Price Match Difference">Tolerância de Preço</value>
+  <value column="Description" original="Difference between Purchase and Invoice Price per matched line">Diferença entre o preço da fatura e da linha correspondente</value>
+  <value column="Help" original="The difference between purchase and invoice price may be used for requiring explicit approval if a Price Match Tolerance is defined on Business Partner Group level.">A diferença entre da fatura e a que consta na linha do extrato.</value>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="e7e143d2-dc0a-47a2-b4a0-d8dbffc5107f">
+  <value column="Name" original="Text">Texto do Extrato</value>
+  <value column="Description" original="">Texto a ser procurado no Extrato Bancário</value>
+  <value column="Help" original="">Define qual texto será procurado no Extrato Bancário, é possível usar o caractere curinga % para ampliar a pesquisa (SQL LIKE)</value>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="b370f4b2-ebca-46b1-84b6-79e9d8e6be99">
+  <value column="Name" original="Complete Production">Complete Production</value>
+  <value column="Description" original="Complete Production">Complete Production</value>
+  <value column="Help" original="Indication that this is complete">Indication that this is complete</value>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="30d81233-6751-4546-ae8b-779e55a03311">
+  <value column="Name" original="Create/Update Production lines">Create/Update Production lines</value>
+  <value column="Description" original="Process which will create production lines based on BOM, or recreate with an optional adjusted quantity">Process which will create production lines based on BOM, or recreate with an optional adjusted quantity</value>
+  <value column="Help" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="d37772a6-a043-4d91-86bb-0ae5bb1eb602">
+  <value column="Name" original="Name 2">Nome Social</value>
+  <value column="Description" original="Additional Name">Additional Name</value>
+  <value column="Help" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="de205bc0-2749-42a6-909b-92f593b8f8bd">
+  <value column="Name" original="Search Key">Chave de Busca</value>
+  <value column="Description" original="Search key for the record in the format required - must be unique">Chave de pesquisa para o registro no formato necessário - tem que ser único e exclusivo</value>
+  <value column="Help" original="A search key allows you a fast method of finding a particular record.&#10;If you leave the search key empty, the system automatically creates a numeric number.  The document sequence used for this fallback number is defined in the &quot;Maintain Sequence&quot; window with the name &quot;DocumentNo_&lt;TableName&gt;&quot;, where TableName is the actual name of the table (e.g. C_Order)." xml:space="preserve"><![CDATA[Uma chave de pesquisa permite a você um método rápido de encontrar um registro particular.
+Se você deixa a chave de pesquisa vazia, o sistema automaticamente cria um valor numérico. A sequência de documento usada para número reservado é definido na janela "Gerenciamento da Sequência" com o nome "DocumentNo_<TableName>", onde TableName é o nome atual da tabela( i.e. C_Order).]]></value>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="5202f97a-911f-4b0f-8bb5-2d011abd9ff3">
+  <value column="Name" original="Generate Book Inventory">Gerar Estoque Escriturado</value>
+  <value column="Description" original="">Gerar Estoque Escriturado para o Bloco K</value>
+  <value column="Help" original="">Gerar Estoque Escriturado para o Bloco K</value>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="5f2522fe-9638-4b04-865d-43ecb6ce37e6">
+  <value column="Name" original="Default Driver">Motorista Padrão</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
 </idempiereTrl>

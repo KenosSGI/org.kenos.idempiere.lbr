@@ -105,6 +105,11 @@
   <value column="Description" original="Account Element">Elemento de Contas</value>
   <value column="Help" original=""/>
  </row>
+ <row id="26" trl="Y">
+  <value column="Name" original="RowID">ID de Linha</value>
+  <value column="Description" original="Row ID Data Type">Tipo de Dados de ID de Linha</value>
+  <value column="Help" original=""/>
+ </row>
  <row id="27" trl="Y">
   <value column="Name" original="Color">Cor</value>
   <value column="Description" original="Color element">Elemento de Cor</value>
@@ -787,6 +792,11 @@
  </row>
  <row id="234" trl="N">
   <value column="Name" original="_Posted Status">_Posted Status</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row id="235" trl="N">
+  <value column="Name" original="PA_Report AmountType (deprecated)">PA_Report AmountType (deprecated)</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
  </row>
@@ -2590,6 +2600,21 @@
   <value column="Description" original="Multiple execution rule list">Multiple execution rule list</value>
   <value column="Help" original=""/>
  </row>
+ <row id="200161" trl="N">
+  <value column="Name" original="Chosen Multiple Selection List">Chosen Multiple Selection List</value>
+  <value column="Description" original="Chosen multiple selection box for reference list">Chosen multiple selection box for reference list</value>
+  <value column="Help" original=""/>
+ </row>
+ <row id="200162" trl="N">
+  <value column="Name" original="Chosen Multiple Selection Table">Chosen Multiple Selection Table</value>
+  <value column="Description" original="Chosen multiple selection box for table list">Chosen multiple selection box for table list</value>
+  <value column="Help" original=""/>
+ </row>
+ <row id="200163" trl="N">
+  <value column="Name" original="Chosen Multiple Selection Search">Chosen Multiple Selection Search</value>
+  <value column="Description" original="Chosen multiple selection box for search">Chosen multiple selection box for search</value>
+  <value column="Help" original=""/>
+ </row>
  <row id="200165" trl="N">
   <value column="Name" original="AD_Table with ID Column">AD_Table with ID Column</value>
   <value column="Description" original=""/>
@@ -2602,6 +2627,654 @@
  </row>
  <row id="200167" trl="N">
   <value column="Name" original="Activate/Deactivate/Delete">Activate/Deactivate/Delete</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row id="200169" trl="N">
+  <value column="Name" original="ReportOutputType">ReportOutputType</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row id="200170" trl="N">
+  <value column="Name" original="ViewFindResult">ViewFindResult</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row id="200171" trl="N">
+  <value column="Name" original="RelType C_Invoice -&gt; C_Invoice (CM)" xml:space="preserve"><![CDATA[RelType C_Invoice -> C_Invoice (CM)]]></value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row id="200173" trl="N">
+  <value column="Name" original="Scheduler State">Scheduler State</value>
+  <value column="Description" original="View and change the state of a scheduler">View and change the state of a scheduler</value>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="ce3394a1-d738-41d1-847f-940c53d1081d">
+  <value column="Name" original="BPTypeBR">Tipo de Pessoa</value>
+  <value column="Description" original="">Usado para Idenficar se o Parceiro é Pessoa Física ou Pessoa Jurídica</value>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="509612b8-eed5-4bb0-b7c1-3f770c6ab1d6">
+  <value column="Name" original="Brazilian Banks">Bancos Brasileiros</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="56658570-18d6-4140-8829-9129efdb7863">
+  <value column="Name" original="lbr_FieldAlignment">LBR_FieldAlignment</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="bc30019e-81bc-4485-8da8-0d91f32f177b">
+  <value column="Name" original="lbr_PrintFormat">LBR_PrintFormat</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="f0294a2f-c26c-4d15-bad5-ef3e762578c7">
+  <value column="Name" original="lbr_Taxes">lbr_Impostos</value>
+  <value column="Description" original="LBR DisplayType - lbr_Taxes">LBR Tipo de Exibição - lbr_Impostos</value>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="baac2ff9-700f-4ae5-9e48-ea64f09fe469">
+  <value column="Name" original="lbr_OccurType">LBR_OccurType</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="d3c66aef-2d8f-4710-bce7-bf0240e3ccd0">
+  <value column="Name" original="LBR_Boleto">LBR_Boleto</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="6d0295d3-1c28-4f71-b14a-0d23c70300ad">
+  <value column="Name" original="C_BankAccount (Bill Print)">C_BankAccount (Impressão de Boleto)</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="3cadab06-b026-46a4-a863-ae016f4824ef">
+  <value column="Name" original="lbr_DestionationType">LBR_DestionationType</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="07290398-68b1-469a-a33b-f5af7abe913a">
+  <value column="Name" original="LBR_ProductCategory">LBR_ProductCategory</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="022e4d00-7907-41f5-b425-3adf08ce8305">
+  <value column="Name" original="LBR_BPartnerCategory">LBR_BPartnerCategory</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="d830cad0-6505-4bf7-b098-c08e0d4cc08b">
+  <value column="Name" original="LBR_CFOP">LBR_CFOP</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="1ac7b3f6-3405-4868-ab93-20d9b767da0d">
+  <value column="Name" original="LBR_NCM">LBR_NCM</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="767025ce-1df1-4681-9ed3-342153c03fb6">
+  <value column="Name" original="LBR_FiscalGroup_Product">LBR_FiscalGroup_Product</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="b7dc129d-b944-4d98-9df5-8f211f3638bc">
+  <value column="Name" original="LBR_FiscalGroup_BPartner">LBR_FiscalGroup_BPartner</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="fee21b8f-9fce-402a-b1f9-d53935f285ab">
+  <value column="Name" original="lbr_ExceptionType">LBR_ExceptionType</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="b1f66437-9952-4ca1-a5df-f452c822e506">
+  <value column="Name" original="LBR_TaxType">LBR_TaxType</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="591e762f-98c4-4632-9f84-fff24a87f48c">
+  <value column="Name" original="LBR_TaxName">LBR_TaxName</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="e38b064e-f735-4767-9b79-58563d08b71f">
+  <value column="Name" original="lbr_TransactionType (Sales/Purchase)">LBR_TransactionType (Sales/Purchase)</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="e0428266-7087-482b-bc47-f53978b8cdec">
+  <value column="Name" original="LBR_NotaFiscal">LBR_NotaFiscal</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="9ffe68d5-ab59-4aa4-a967-806980319400">
+  <value column="Name" original="lbr_Yes_No_Both">Sim-Não-Ambos</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="d65c5570-a970-4712-b112-ee7a495b88dc">
+  <value column="Name" original="lbr_WithholdFrequency">LBR_WithholdFrequency</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="61af452c-d73c-4303-9f06-9282a7eee34e">
+  <value column="Name" original="lbr_TaxStatus">LBR_TaxStatus</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="6963edbd-0e77-4649-a283-e32ffa109fc6">
+  <value column="Name" original="LBR_LegalMessage">LBR_LegalMessage</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="e032f553-bd6a-4ad4-b248-323d484a8f45">
+  <value column="Name" original="lbr_ProductSource">LBR_ProductSource</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="12158289-7b35-4cd1-8357-935e2d013141">
+  <value column="Name" original="lbr_TaxGroup">LBR_TaxGroup</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="9407b9de-fa07-4d9b-8904-1bf268359a23">
+  <value column="Name" original="LBR_NotaFiscalLine">LBR_NotaFiscalLine</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="7a03c67f-c2f0-4b24-99fb-0a3bdb5eb5cd">
+  <value column="Name" original="C_City">C_City</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="5058d20d-3fa2-48be-8fc2-5f090c67a6e4">
+  <value column="Name" original="lbr_PaymentRule">Forma de Pagamento</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="1b6304e9-2bfd-40d0-b411-32fb4ffe6277">
+  <value column="Name" original="C_BankAccount ">C_BankAccount</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="a1841c75-c6f4-4398-ab32-df4335a14b30">
+  <value column="Name" original="LBR_DocBaseType">LBR_DocBaseType</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="85996d63-d819-47f6-a1d5-a85f381eaddb">
+  <value column="Name" original="LBR_NFType">LBR_NFType</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="652224cd-f94e-4d6a-88bc-bdcdd3893d64">
+  <value column="Name" original="LBR_DigitalCertificate - lbr_CertType">LBR_DigitalCertificate - lbr_CertType</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="ab52a452-b1bc-4780-8a5f-696170c15862">
+  <value column="Name" original="C_DocType - lbr_NFeEnv">C_DocType - lbr_NFeEnv</value>
+  <value column="Description" original="NFe Environment">NFe Environment</value>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="8190b894-e059-4858-9d9a-dd1c9fb339ee">
+  <value column="Name" original="C_DocType - lbr_DANFEFormat">C_DocType - lbr_DANFEFormat</value>
+  <value column="Description" original="DANFE Format">DANFE Format</value>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="930de522-da1b-47a3-b8bb-3d9e6121d9ef">
+  <value column="Name" original="LBR_DigitalCertificate">LBR_DigitalCertificate</value>
+  <value column="Description" original="Digital Certificate">Digital Certificate</value>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="3bdae657-d06e-40cd-9567-e04cc5a375a0">
+  <value column="Name" original="LBR_NFeStatus">LBR_NFeStatus</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="02cfef1b-2aea-402b-a6f1-b10d89cf84dc">
+  <value column="Name" original="LBR_NFDI - NF">LBR_NFDI - NF</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="03e996d0-3f46-48c9-be93-0e8e540ce599">
+  <value column="Name" original="lbr_FinNFe">lbr_FinNFe</value>
+  <value column="Description" original="Finalidade NFe">Finalidade NFe</value>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="cf504e4c-203d-4c23-8688-29b1ca200114">
+  <value column="Name" original="lbr_TaxStatusIPI">LBR_TaxStatusIPI</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="e45758cc-f163-455e-b07b-cfd014a18f4c">
+  <value column="Name" original="lbr_NFModel (Modelos de Documentos Fiscais)">LBR_NFModel (Modelos de Documentos Fiscais)</value>
+  <value column="Description" original="Tabela com códigos de Documentos Fiscais">Tabela com códigos de Documentos Fiscais</value>
+  <value column="Help" original="http://www.sped.fazenda.gov.br/spedtabelas/AppConsulta/publico/aspx/ConsultaTabelasExternas.aspx?CodSistema=SpedFiscal">http://www.sped.fazenda.gov.br/spedtabelas/AppConsulta/publico/aspx/ConsultaTabelasExternas.aspx?CodSistema=SpedFiscal</value>
+ </row>
+ <row trl="Y" uuid="76867311-e83e-4027-8869-1a917d391774">
+  <value column="Name" original="lbr_DIType">lbr_DIType</value>
+  <value column="Description" original="Tipo do Documento de importação">Tipo do Documento de importação</value>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="6bb65ff1-7ea6-4d86-b31e-03503c4060a6">
+  <value column="Name" original="lbr_DEType">lbr_DEType</value>
+  <value column="Description" original="Tipo do Documento de exportação">Tipo do Documento de exportação</value>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="b2f06a32-c997-4a51-b755-50c9aabef306">
+  <value column="Name" original="lbr_CHCType">lbr_CHCType</value>
+  <value column="Description" original="Tipo de Conhecimento de Transporte">Tipo de Conhecimento de Transporte</value>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="dac3ec27-a0c4-4931-bd9e-4fd5b017a7c1">
+  <value column="Name" original="LBR_DE">LBR_DE</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="3b712f83-d07b-4468-b8bc-ee13aa82ec09">
+  <value column="Name" original="lbr_AvgCostType">LBR_AvgCostType</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="1c357b9f-de41-4399-824a-03b1f2009296">
+  <value column="Name" original="lbr_AvgCostType_MAN">LBR_AvgCostType_MAN</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="1aa7cb33-c291-4857-8874-edc056718aa0">
+  <value column="Name" original="lbr_AvgCostType_PUR">LBR_AvgCostType_PUR</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="a843c394-6452-4900-96ef-defde9f9028d">
+  <value column="Name" original="lbr_WarehouseType">LBR_WarehouseType</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="6017408c-a10e-42a6-ae20-99403da462c3">
+  <value column="Name" original="LBR_Formula">LBR_Formula</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="670c8054-0335-4a49-b7c9-d1ad61b39661">
+  <value column="Name" original="LBR_NotaFiscal - lbr_RPSStatus">LBR_NotaFiscal - LBR_RPSStatus</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="f5037e4d-30a2-4e8b-b81e-23e535e57ae8">
+  <value column="Name" original="lbr_NFeTpEmi">LBR_NFeTpEmi</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="42879465-a986-4194-bafb-95a05497e00d">
+  <value column="Name" original="LBR_FreightCostRule">LBR_FreightCostRule</value>
+  <value column="Description" original="Regra de custo do frete">Regra de custo do frete</value>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="47684e08-fd2d-4393-a3a3-ecf217832ff3">
+  <value column="Name" original="LBR_COD_OR">LBR_COD_OR</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="bc5f6fda-8834-4941-8bf5-04ce4146f934">
+  <value column="Name" original="LBR_Ind_Proc">LBR_Ind_Proc</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="be1a8d0b-8f1b-4e79-a57c-7587980c5532">
+  <value column="Name" original="LBR_TypeCodAjustes">LBR_TypeCodAjustes</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="925a300c-8abf-42a1-83cc-76aa89a4c25a">
+  <value column="Name" original="C_Order - LBR_INCOTERMS">C_Order - LBR_INCOTERMS</value>
+  <value column="Description" original="International Commercial Terms">International Commercial Terms</value>
+  <value column="Help" original="International Commercial Terms">International Commercial Terms</value>
+ </row>
+ <row trl="N" uuid="2f5c7995-a1c8-4ced-94ba-4010c1d417f6">
+  <value column="Name" original="LBR_MDFe - LBR_MDFeIssuerType">LBR_MDFe - LBR_MDFeIssuerType</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="3210c992-e2ec-4f03-a022-0fe7b8489e3e">
+  <value column="Name" original="LBR_MDFe - LBR_ShipmentType">LBR_MDFe - LBR_ShipmentType</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="79dfbef9-a614-4344-a7e2-5eee0d64bd4f">
+  <value column="Name" original="LBR_CommType">LBR_CommType</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="40d91386-6fb5-4fb3-a66e-ed4b6afdf1f2">
+  <value column="Name" original="LBR_MDFe - LBR_WeightUOM">LBR_MDFe - LBR_WeightUOM</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="28ad32ed-64b9-4d58-80c8-2743df02f096">
+  <value column="Name" original="LBR_MDFeUnloadDoc - LBR_MDFeDocType">LBR_MDFeUnloadDoc - LBR_MDFeDocType</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="4c5f597d-2e43-408a-b146-0d839b335e0f">
+  <value column="Name" original="LBR_MDFeVehicle">LBR_MDFeVehicle</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="c324307d-05c4-4005-a555-bac557200265">
+  <value column="Name" original="LBR_MDFeVehicle - LBR_VehicleType">LBR_MDFeVehicle - LBR_VehicleType</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="e53b778a-f302-4b4a-b1af-6644341d6cf0">
+  <value column="Name" original="LBR_MDFeVehicle - LBR_TruckType">LBR_MDFeVehicle - LBR_TruckType</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="89fa8baf-be4f-4b94-90f8-683e7a1cd5f7">
+  <value column="Name" original="LBR_MDFeVehicle - LBR_OwnerType">LBR_MDFeVehicle - LBR_OwnerType</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="f868a5d8-13b0-4a98-a671-8fc696b1daff">
+  <value column="Name" original="Tax Regime">Regime Tributário</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="7a2f183c-f20f-4b79-a4cc-887000dc2b48">
+  <value column="Name" original="LBR_IndPres">LBR_IndPres</value>
+  <value column="Description" original="Indicador de presença do comprador no estabelecimento comercial no momento da operação">Indicador de presença do comprador no estabelecimento comercial no momento da operação</value>
+  <value column="Help" original="Criado para ser usado no Elemento LBR_IndPres">Criado para ser usado no Elemento LBR_IndPres</value>
+ </row>
+ <row trl="N" uuid="c333cc2b-b0f9-4d8a-89be-75b9784d9869">
+  <value column="Name" original="LBR_IndTot">LBR_IndTot</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="f6f103eb-59d9-449c-8924-bf88b34e0698">
+  <value column="Name" original="LBR_FiscalDocRefType">LBR_FiscalDocRefType</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="f91062bf-26cf-400b-9800-d0ef78a205a9">
+  <value column="Name" original="LBR_NFeLot - LBR_NFeLotMethod">LBR_NFeLot - LBR_NFeLotMethod</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="3d490ab4-e35c-4613-8a2b-8fbd681928e9">
+  <value column="Name" original="LBR_NFeWebService - LBR_WSType">LBR_NFeWebService - LBR_WSType</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="74065991-30e1-4c81-80e2-5487b8945168">
+  <value column="Name" original="_Document Action NF-e">_Document Action NF-e</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="045f095b-238a-4890-9029-1beb459ac731">
+  <value column="Name" original="_Document Status NF-e">_Document Status NF-e</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="d60a17ed-c968-4af1-aaec-15e0fee1e3af">
+  <value column="Name" original="LBR_TaxName - LBR_WithholdType">LBR_TaxName - LBR_WithholdType</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="caf588ef-32e0-4f39-bc31-0059f6fc8f1f">
+  <value column="Name" original="BPTypeBR (PF PJ only)">Tipo de Pessoa (somente PF PJ)</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="9193d21a-20d6-4944-bd6b-68f8e7f9a2f7">
+  <value column="Name" original="LBR_PartnerDFe - LBR_SitNFe">LBR_PartnerDFe - LBR_SitNFe</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="35e25113-7028-4224-9e4a-02909733e613">
+  <value column="Name" original="LBR_PartnerDFe - DocumentType">LBR_PartnerDFe - DocumentType</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="c64442d6-0adc-4462-93f7-81e38d0243b7">
+  <value column="Name" original="LBR_EventType (All)">LBR_EventType (All)</value>
+  <value column="Description" original="Type of Events"/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="07fcd0ec-9164-4200-8eb7-00cac3dba326">
+  <value column="Name" original="CST Group">Grupo CST</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="ef80b406-8faa-442e-9ca5-f9ce372b5cd0">
+  <value column="Name" original="AD_OrgInfo - lbr_IndAtividade">AD_OrgInfo - lbr_IndAtividade</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="b287dd49-047e-4a2d-bf7f-0f31c3f43192">
+  <value column="Name" original="M_Product - lbr_ItemTypeBR">M_Product - lbr_ItemTypeBR</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="5a35ff9d-dc5d-44eb-885d-36b87e3358e6">
+  <value column="Name" original="LBR_EventType">LBR_EventType</value>
+  <value column="Description" original="Type of Events">Type of Events</value>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="7231ad57-de52-4735-81fa-9d960cb0f1c6">
+  <value column="Name" original="LBR_EventType (Manifest)">LBR_EventType (Manifest)</value>
+  <value column="Description" original="Type of Events">Type of Events</value>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="8d0de055-3f75-43ae-8eca-f2b5084cb9ea">
+  <value column="Name" original="LBR_IndIEDest">LBR_IndIEDest</value>
+  <value column="Description" original="LBR_IndIEDest">LBR_IndIEDest</value>
+  <value column="Help" original="Indicador da IE do Destinatário">Indicador da IE do Destinatário</value>
+ </row>
+ <row trl="N" uuid="b05b29d9-aeb2-4d56-8c50-5460cfb53be7">
+  <value column="Name" original="BR Regions">BR Regions</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="cf739c2a-e745-40bf-9e43-4cb0873ad79c">
+  <value column="Name" original="Tax Regime - Consult">Regime Tributário - Consultas</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="6ee29a21-3a78-4386-aedf-709e71d9e94d">
+  <value column="Name" original="Tipo Emissão NF">Tipo Emissão NF</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="089b9da9-88d4-43ac-ab70-bad853d834b6">
+  <value column="Name" original="LBR_BSMatcherType">LBR_BSMatcherType</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="a4856892-e67f-4700-aff3-38a236314d53">
+  <value column="Name" original="RelType C_Order (Sales) &lt;= Quote (Sales)" xml:space="preserve"><![CDATA[RelType C_Order (Sales) <= Quote (Sales)]]></value>
+  <value column="Description" original="Finds C_Order_IDs for a given Quote">Finds C_Order_IDs for a given Quote</value>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="a2ba96a3-15ef-4855-9aa8-b4d7135f3e1b">
+  <value column="Name" original="RelType Quote (Sales) &lt;= C_Order_ID (Sales)" xml:space="preserve"><![CDATA[RelType Quote (Sales) <= C_Order_ID (Sales)]]></value>
+  <value column="Description" original="Finds Quote for a given C_C_Order_ID">Finds Quote for a given C_C_Order_ID</value>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="ada0f2dd-6652-4656-845c-beaa7768fb23">
+  <value column="Name" original="lbr_quotestatus">Estado da Cotação</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="54e89a68-900b-4375-afb9-95a8b2f2d44e">
+  <value column="Name" original="LBR_NBS">LBR_NBS</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="ef34e5b5-bf7a-4739-82ea-9b918de446b8">
+  <value column="Name" original="lbr_NFModel (NFe e NFCe)">lbr_NFModel (NFe e NFCe)</value>
+  <value column="Description" original="Tabela com códigos de Documentos Fiscais eletrônicos">Tabela com códigos de Documentos Fiscais eletrônicos</value>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="64e26c32-0964-4ca6-9994-4f2d2c725b24">
+  <value column="Name" original="LBR_AdditionalNFeType">Tipo NF-e Adicional</value>
+  <value column="Description" original="">Escolha uma das NF-e Adicional da Lista</value>
+  <value column="Help" original="">Escolha uma das NF-e Adicional da Lista que pode ser NF-e Complementar, NF-e Triangular e NF-e para Entregas Futuras</value>
+ </row>
+ <row trl="Y" uuid="44a7fb9f-ff61-43dd-ae20-439a04361cfa">
+  <value column="Name" original="Production Group &lt;-&gt; Nota Fiscal (PO)" xml:space="preserve"><![CDATA[Pedido de Industrialização <-> Nota Fiscal (Entrada)]]></value>
+  <value column="Description" original="Finds Nota Fiscal From Production Group">Encontra a Nota Fiscal pelo Pedido de Industrialização</value>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="67c89b4b-0571-4338-a202-898d42bc7ed6">
+  <value column="Name" original="Nota Fiscal (PO) &lt;-&gt; Production Group" xml:space="preserve"><![CDATA[Nota Fiscal (Entrada) <-> Pedido de Industrialização]]></value>
+  <value column="Description" original="Finds Production Group From Nota Fiscal">Encontra o Pedido de Industrialização pela Nota Fiscal</value>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="1d879272-8969-4513-bf79-4230e4bf3dfe">
+  <value column="Name" original="Invoice (Vendor) &lt;-&gt; Production Group" xml:space="preserve"><![CDATA[Fatura (Fornecedor) <-> Pedido de Industrialização]]></value>
+  <value column="Description" original="Finds Production Group From Invoice">Encontra os Pedidos de Industrialização pela Fatura</value>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="f85c3177-e88b-48ef-81e7-2501b10c52c8">
+  <value column="Name" original="Production Group &lt;-&gt; Invoice (Vendor)" xml:space="preserve"><![CDATA[Pedido de Industrialização <-> Fatura (Fornecedor)]]></value>
+  <value column="Description" original="Finds Invoice From Production Group">Encontra a Fatura pelo Pedido de Industrialização</value>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="6b4091cd-204d-497f-874e-6fe294b3296c">
+  <value column="Name" original="Production Group &lt;-&gt; Nota Fiscal (SO)" xml:space="preserve"><![CDATA[Production Group <-> Nota Fiscal (SO)]]></value>
+  <value column="Description" original="Finds Nota Fiscal (SO) From Production Group">Finds Nota Fiscal (SO) From Production Group</value>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="65e23a7d-aa8b-4455-a8ca-fcad8829516d">
+  <value column="Name" original="Nota Fiscal (SO) &lt;-&gt; Production Group" xml:space="preserve"><![CDATA[Nota Fiscal (SO) <-> Production Group]]></value>
+  <value column="Description" original="Finds Production Group From Nota Fiscal (SO)">Finds Production Group From Nota Fiscal (SO)</value>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="24736887-8314-4caf-9059-46e30c97a679">
+  <value column="Name" original="IBPT Configuration List">Lista Configuração IBPT</value>
+  <value column="Description" original="IBPT Configuration List">Lista Configuração IBPT</value>
+  <value column="Help" original="Choose one of the options&#10; - API (Online)&#10; - Offline (IBPT Table)&#10; - Real Tax Value">Escolha uma das Opções:
+ - API (Online)
+ - Offline (Tabela IBPT)
+ - Valor dos Impostos (Real)</value>
+ </row>
+ <row trl="N" uuid="82efa872-d6a5-49ad-b29c-638cc54488b5">
+  <value column="Name" original="LBR_VeOperType">LBR_VeOperType</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="618bd1e5-094a-475f-acc1-03f96597ca23">
+  <value column="Name" original="LBR_VeTpFuel">LBR_VeTpFuel</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="8a7a451a-af84-4ba1-8f74-91c3ad99e735">
+  <value column="Name" original="LBR_VeType">LBR_VeType</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="9229c990-8ab8-4cde-b368-9e5e2fdfc5c4">
+  <value column="Name" original="LBR_VeKind">LBR_VeKind</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="0aea2469-06cf-455c-8fbf-07e0135e48eb">
+  <value column="Name" original="LBR_VeVIN">LBR_VeVIN</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="fc6a2d7a-ae5d-453d-8628-cf053262c984">
+  <value column="Name" original="LBR_VeCondition">LBR_VeCondition</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="9a284c59-13a3-44ec-9dc1-eba6c1f78ac2">
+  <value column="Name" original="LBR_VeColorDENAT">LBR_VeColorDENAT</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="5336b7ef-50b1-4846-97fb-8a8f2fb435d3">
+  <value column="Name" original="LBR_VeRestriction">LBR_VeRestriction</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="c9740dcf-0c71-47ce-93c3-693e7c9f00f6">
+  <value column="Name" original="LBR_GunType">LBR_GunType</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="623fd4fc-bc88-45f4-9047-6a3dfc7504a6">
+  <value column="Name" original="LBR_AttributeType">LBR_AttributeType</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="90af196e-70cb-46c1-937e-36d140dc0d26">
+  <value column="Name" original="LBR_XMLMapping">LBR_XMLMapping</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="45786f89-df67-480b-8d57-74582eb61d7d">
+  <value column="Name" original="LBR_DocKind">LBR_DocKind</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="9774ba05-ade2-475c-896b-d6caedf5ade4">
+  <value column="Name" original="LBR_DisabilityType">LBR_DisabilityType</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="416cd504-8fd9-4508-be62-0152dc528e7d">
+  <value column="Name" original="LBR_Gender">LBR_Gender</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="9912c745-7513-4ee9-9c2c-fd6a258ff05e">
+  <value column="Name" original="LBR_EducationLevel">LBR_EducationLevel</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="cf41a715-d55a-4db1-860c-0c688ceb2661">
+  <value column="Name" original="LBR_MaritalStatus">LBR_MaritalStatus</value>
+  <value column="Description" original=""/>
+  <value column="Help" original="e-Social">e-Social</value>
+ </row>
+ <row trl="N" uuid="9df9c5c9-1b77-430e-9b04-3129e83a7e8c">
+  <value column="Name" original="LBR_SalaryFrequency">LBR_SalaryFrequency</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="06663941-d7d7-4d5f-9294-19111195f7aa">
+  <value column="Name" original="LBR_SkinColor">LBR_SkinColor</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="edf05337-f6ab-451d-a3ff-3719412dd70e">
+  <value column="Name" original="LBR_BloodType">LBR_BloodType</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="ff3d5d33-dc64-4510-bc4a-debd98a08269">
+  <value column="Name" original="LBR_YesOnly">LBR_YesOnly</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="e9df60a5-7422-4c96-845b-25da17a31b26">
+  <value column="Name" original="LBR_MsgIntSEFAZ">LBR_MsgIntSEFAZ</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="c81cca8f-c1f6-4fbb-a989-86eda417ee2f">
+  <value column="Name" original="LBR_ConfigSystemResp">LBR_ConfigSystemResp</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="763522e6-9017-4e03-8097-0fe037f0d666">
+  <value column="Name" original="LBR_MDFeInsurance - LBR_InsuResp">LBR_MDFeInsurance - LBR_InsuResp</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
  </row>

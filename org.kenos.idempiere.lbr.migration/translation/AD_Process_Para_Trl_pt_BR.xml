@@ -413,6 +413,20 @@
   <value column="Placeholder" original=""/>
   <value column="Placeholder2" original=""/>
  </row>
+ <row id="200060" trl="N">
+  <value column="Name" original="Financial Year Month">Financial Year Month</value>
+  <value column="Description" original="The only valid date format is: YYYY-MM">The only valid date format is: YYYY-MM</value>
+  <value column="Help" original="The only valid date format is: YYYY-MM">The only valid date format is: YYYY-MM</value>
+  <value column="Placeholder" original="From">De</value>
+  <value column="Placeholder2" original="To">Para</value>
+ </row>
+ <row id="200062" trl="N">
+  <value column="Name" original="Financial Year Month">Financial Year Month</value>
+  <value column="Description" original="The only valid date format is: YYYY-MM">The only valid date format is: YYYY-MM</value>
+  <value column="Help" original="The only valid date format is: YYYY-MM">The only valid date format is: YYYY-MM</value>
+  <value column="Placeholder" original="From">De</value>
+  <value column="Placeholder2" original="To">Para</value>
+ </row>
  <row id="200071" trl="Y">
   <value column="Name" original="Document Type">Tipo de Documento</value>
   <value column="Description" original="Inventory Cost Adjustment Document Type">Tipo de Documento de ajuste de custo</value>
@@ -480,6 +494,41 @@ this field define where request, error,.. occupy.</value>
  <row id="200226" trl="N">
   <value column="Name" original="Folder">Folder</value>
   <value column="Description" original="Path on the server where the pack in files are located">Path on the server where the pack in files are located</value>
+  <value column="Help" original=""/>
+  <value column="Placeholder" original=""/>
+  <value column="Placeholder2" original=""/>
+ </row>
+ <row trl="Y" uuid="fbe0bf3f-77e4-4d4c-ad49-e940e4dd09de">
+  <value column="Name" original="File_Directory">Diretório</value>
+  <value column="Description" original="">Diretório onde será salvo o Arquivo de Log do Retorno</value>
+  <value column="Help" original=""/>
+  <value column="Placeholder" original=""/>
+  <value column="Placeholder2" original=""/>
+ </row>
+ <row trl="Y" uuid="a7e95a82-a5a4-4c2c-b531-ee1f2df2f78b">
+  <value column="Name" original="Reason">Justificativa</value>
+  <value column="Description" original="">Justificava para Operações não Realizadas</value>
+  <value column="Help" original=""/>
+  <value column="Placeholder" original=""/>
+  <value column="Placeholder2" original=""/>
+ </row>
+ <row trl="N" uuid="ee64a5cb-3e50-43ed-93f0-dc7947270017">
+  <value column="Name" original="Incluir Documentos Cancelados">Incluir Documentos Cancelados</value>
+  <value column="Description" original="Incluir Documentos Cancelados">Incluir Documentos Cancelados</value>
+  <value column="Help" original="Inclui os XML cancelados das Notas Fiscais.">Inclui os XML cancelados das Notas Fiscais.</value>
+  <value column="Placeholder" original=""/>
+  <value column="Placeholder2" original=""/>
+ </row>
+ <row trl="Y" uuid="6c14791c-270b-4ed1-aec7-832d9e8c902f">
+  <value column="Name" original="Online Processing">Obter dados online via API</value>
+  <value column="Description" original="Get the IBPT data from the internet API">Obtém os dados do IBPT via API online</value>
+  <value column="Help" original=""/>
+  <value column="Placeholder" original=""/>
+  <value column="Placeholder2" original=""/>
+ </row>
+ <row trl="N" uuid="67ebb474-78fd-4cef-8bf6-131b8786640e">
+  <value column="Name" original="NF de Saída">NF de Saída</value>
+  <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="Placeholder" original=""/>
   <value column="Placeholder2" original=""/>

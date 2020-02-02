@@ -10,6 +10,11 @@
   <value column="Description" original="Load flat Files into import tables">Carregar arquivos planos nas tabelas de importação</value>
   <value column="Help" original="The Import File Loader parses the content of a flat file and loads it into import tables. Comments start with a '[' and end with a ']' and are ignored; example: [Some Heading].">O Carregador de Arquivo de Importação analisa o conteúdo de um arquivo plano e o carrega nas tabelas de importação. Comentários começam com um '[' e terminam com um ']' e são ignorados; exemplo: [Algum Título].</value>
  </row>
+ <row id="102" trl="Y">
+  <value column="Name" original="Initial Client Setup">Configuração Inicial da Empresa</value>
+  <value column="Description" original="Initial new Client/Tenant Setup">Configuração Inicial da Empresa/Locador</value>
+  <value column="Help" original="Set up a new Client/Tenant of the system">Configure uma nova Empresa/Locatário do sistema</value>
+ </row>
  <row id="103" trl="Y">
   <value column="Name" original="Material Transactions">Transações de Materiais</value>
   <value column="Description" original="Material Transactions">Transações de Materiais</value>
@@ -180,6 +185,12 @@ Por último, uma caixa de mensagem perguntando se você deseja fechar o document
   <value column="Description" original="Payroll Action Notice let entry the events that happend with any Employee">Aviso de Ação de Folha de Pagamento permite entrar os eventos que acontecem com cada Empregado</value>
   <value column="Help" original=""/>
  </row>
+ <row id="53010" trl="Y">
+  <value column="Name" original="Generate Shipments &amp; Invoices (manual)" xml:space="preserve"><![CDATA[Gerar Remessas & Faturas (manual)]]></value>
+  <value column="Description" original="Select and generate shipments &amp; Invoices" xml:space="preserve"><![CDATA[Selecionar e gerar remessas & Faturas]]></value>
+  <value column="Help" original="Generate Shipments &amp; Invoices from Orders.  &#10;Select the orders to generate the shipments &amp; Invoices for." xml:space="preserve"><![CDATA[Gerar Remessas & Faturas de Pedidos.  
+Selecione o pedido para gerar a remessa & Fatura para.]]></value>
+ </row>
  <row id="53012" trl="Y">
   <value column="Name" original="Material Receipt Distribution Order">Ordem de Distribuição de Material Recebido</value>
   <value column="Description" original="Material Receipt Distribution Order">Ordem de Distribuição de Material Recebido</value>
@@ -252,7 +263,62 @@ Selecionando "Onde Usado" irá mostrar em qual(is) LDM(s) este componente é usa
   <value column="Description" original="Form to configure access to /osgi/system/console - do not add to menu">Form para configurar acesso para /osgi/system/console - não adicionar ao menu</value>
   <value column="Help" original=""/>
  </row>
-  <row trl="Y" uuid="efe75687-b13b-400a-98e2-fce552db58fa">
+ <row trl="Y" uuid="07c89983-be0f-4dc1-a075-75c0a91d4c02">
+  <value column="Name" original="Generate Bills">Geração de Boletos</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="ed0b17cb-341b-4f43-8e02-318c30f1f76d">
+  <value column="Name" original="Print Nota Fiscal">Impressão Nota Fiscal</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="57deb0a8-b811-4d1f-ae55-a2c6f31f1195">
+  <value column="Name" original="Generate CNAB">Geração CNAB</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="258e45af-73cc-4e5b-9b8b-9b9eac431054">
+  <value column="Name" original="Outras Notas Fiscais">Outras Notas Fiscais</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="4bb4b80a-7456-45a5-95b6-494567d1c5ab">
+  <value column="Name" original="Nota Fiscal">Nota Fiscal</value>
+  <value column="Description" original="Visualizar Notas Fiscais">Visualizar Notas Fiscais</value>
+  <value column="Help" original="Visualizar Notas Fiscais">Visualizar Notas Fiscais</value>
+ </row>
+ <row trl="Y" uuid="e982d5d1-bed8-4676-a9c2-16879be7aacb">
+  <value column="Name" original="Confrontar XML do DF-e">Confrontar XML do DF-e</value>
+  <value column="Description" original="Confrontar XML do Documento Fiscal Eletrônico">Confrontar XML do Documento Fiscal Eletrônico</value>
+  <value column="Help" original="Confrontar XML do Documento Fiscal Eletrônico">Confrontar XML do Documento Fiscal Eletrônico</value>
+ </row>
+ <row trl="Y" uuid="f860b626-22fc-470f-9441-7d87e60a2ae0">
+  <value column="Name" original="Payment / Receipt (Manual)">Pagamento / Recebimento (Manual)</value>
+  <value column="Description" original="Manual Payment / Receipt Selection">Seleção manual de Pagamentos e Recebimentos</value>
+  <value column="Help" original="Select invoices for payment.">Selecione faturas para gerar os pagamentos e recebimentos</value>
+ </row>
+ <row trl="Y" uuid="f89255bf-fa16-4ed6-8aff-b01b24e0ffbe">
+  <value column="Name" original="Manage Production Group">Gerenciamento de Divisão / Distribuição</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="2be15466-dad6-41d2-a174-8d8b31329b09">
+  <value column="Name" original="Invoice Production Group">Gerar a Fatura à Pagar</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="0833c179-da14-4831-b92c-3b28442c0943">
+  <value column="Name" original="Form Distribute Remaining Material">Distribuir Insumo Remanescente</value>
+  <value column="Description" original="Form Distribute Remaining Material sent to Industrialization to be used in others productions sent to the same productor">Distribuir Insumo Remanescente enviado à Industrialização para ser usado em outras produções enviadas ao mesmo Fornecedor</value>
+  <value column="Help" original="Form Distribute Remaining Material sent to Industrialization to be used in others productions sent to the same productor">Distribuir Insumo Remanescente enviado à Industrialização para ser usado em outras produções enviadas ao mesmo Fornecedor</value>
+ </row>
+ <row trl="Y" uuid="f473f5d6-93a3-46de-8315-ae065fa569a2">
+  <value column="Name" original="Manage Move To Producer">Gerenciar Envio ao Produtor</value>
+  <value column="Description" original="Manage the Movements created to Send Material to Industrialization before complete it">Gerenciar Movimento de Material criado para Enviar Insumo para Industrialização antes de Completa - los</value>
+  <value column="Help" original="Manage the Movements created to Send Material to Industrialization before complete it. Choose Business Partner and Movement Date. Only Movements not Complete will appears in the form.">Gerenciar Movimento de Material criado para Enviar Insumo para Industrialização antes de Completa - los. Escolha o Parceiro de Negócio e Data de Movimentação. Apenas Movimento de Material não completados irão aparecer no formulário.</value>
+ </row>
+ <row trl="Y" uuid="efe75687-b13b-400a-98e2-fce552db58fa">
   <value column="Name" original="Generate Additional Nota Fiscal">Gerar Nota Fiscal Adicional</value>
   <value column="Description" original="Use this form do create Additional Nota Fiscal as NF to Complement, NF Trinagular (Shipment) or Future Deliveries's NF-e">Gerar Nota Fiscal Adicional como NF Complementar, NF Triangular (Remessa), NF de Entregas Faturas ou NF de Anulação de Valores</value>
   <value column="Help" original=""/>

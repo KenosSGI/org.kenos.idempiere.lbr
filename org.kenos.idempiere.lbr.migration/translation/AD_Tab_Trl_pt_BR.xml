@@ -148,6 +148,12 @@ O tipo de ação (atividade) determina a execução: "Rota" pode ser usada em co
   <value column="Description" original="Workflow Node Transition">Transição de Nó de Fluxo de Trabalho</value>
   <value column="Help" original="The Next Nodes Tab defines the order or Nodes or Steps in a Workflow.">A Aba "Próximos Nós" define a ordem ou Nós, ou Passos em um Fluxo de Trabalho.</value>
  </row>
+ <row id="125" trl="Y">
+  <value column="Name" original="Previous Node">Nó Anterior</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
  <row id="126" trl="Y">
   <value column="Name" original="Task Translation">Tradução de Tarefas</value>
   <value column="CommitWarning" original=""/>
@@ -555,6 +561,12 @@ Lançamentos são gerados para um esquema contábil, se o esquema é válido e q
   <value column="Description" original="Define Vendor Accounting">Definir Contabilidade de Fornecedores</value>
   <value column="Help" original="The Vendor Accounting Tab defines the default accounts to use when this business partner is referenced in an accounts payable transaction.">A Aba "Contabilidade de Fornecedores" define as contas padrão a serem usadas quando este parceiro de negócios for referenciado em uma transação de contas a pagar.</value>
  </row>
+ <row id="214" trl="Y">
+  <value column="Name" original="Employee Accounting">Contabilidade de Funcionários</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original="Define Employee Accounting">Definir Contabilidade de Funcionários</value>
+  <value column="Help" original="The Employee Accounting Tab defines the default accounts to use when this business partner is referenced on a expense reimbursement.">A Aba "Contabilidade de Funcionários" define as contas padrão a serem usadas quando este parceiro de negócios for referenciado em uma transação de reembolso de despesas.</value>
+ </row>
  <row id="215" trl="Y">
   <value column="Name" original="City">Cidade</value>
   <value column="CommitWarning" original=""/>
@@ -581,6 +593,24 @@ Salvar/apagar o registo inicia processos que podem demorar um pouco.</value>
   <value column="CommitWarning" original=""/>
   <value column="Description" original="Define Location">Definir Localização</value>
   <value column="Help" original="The Location Tab defines the physical location of a business partner.  A business partner may have multiple location records.">A Aba "Localização" define a localização física de um parceiro de negócios.  Um parceiro de negócios pode ter múltiplos registros de localização.</value>
+ </row>
+ <row id="223" trl="Y">
+  <value column="Name" original="Customer">Cliente</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original="Define Customer Parameters">Definir Parâmetros de Cliente</value>
+  <value column="Help" original="The Customer Tab defines a Business Partner who is a customer of this organization.  If the Customer check box is selected then the necessary fields will display. ">A Aba "Cliente" define um Parceiro de Negócios que é um cliente desta organização.  Se a caixa de verificação "Cliente" for selecionada, então os campos necessários serão mostrados. </value>
+ </row>
+ <row id="224" trl="Y">
+  <value column="Name" original="Vendor">Fornecedor</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original="Define Vendor Parameters">Definir Parâmetros de Fornecedor</value>
+  <value column="Help" original="The Vendor Tab defines a Business Partner that is a Vendor for this Organization.  If the Vendor check box is selected the necessary fields will display.">A Aba "Fornecedor" define um Parceiro de Negócios que é um fornecedor desta organização.  Se a caixa de verificação "Fornecedor" for selecionada, então os campos necessários serão mostrados.</value>
+ </row>
+ <row id="225" trl="Y">
+  <value column="Name" original="Employee">Funcionário</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original="Define Employee Parameters">Definir Parâmetros de Funcionário</value>
+  <value column="Help" original="The Employee Tab defines a Business Partner who is an Employee of this organization.  If the Employee is also a Sales Representative then the check box should be selected.">A Aba "Funcionário" define um Parceiro de Negócios que é um Funcionário desta organização.  Se o Funcionário for também um Representante de Vendas então a caixa de verificação correspondente deve ser selecionada.</value>
  </row>
  <row id="226" trl="Y">
   <value column="Name" original="Bank Account">Conta Bancária</value>
@@ -754,6 +784,12 @@ Você pode definir a Organização, se é ela uma despesa, caso contrário, ela 
   <value column="CommitWarning" original=""/>
   <value column="Description" original="Enter Inventory Movement Line">Introduzir a Linha de Movimentação de Estoque</value>
   <value column="Help" original="The Move Line Tab defines the product and quantity to be moved and the location it is moving from and to.  ">A Aba "Linha de Movimento" define o produto, quantidade a ser movimentada e o local que ele está sendo movido de e para.  </value>
+ </row>
+ <row id="262" trl="Y">
+  <value column="Name" original="Product Transactions">Transações de Produtos</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original="Transactions for stored Products">Transações para Produtos armazenados</value>
+  <value column="Help" original=""/>
  </row>
  <row id="263" trl="Y">
   <value column="Name" original="Invoice">Fatura</value>
@@ -1111,6 +1147,12 @@ Note que pagamentos impressos são arquivados em Seleção de Pagamento (Pagamen
   <value column="CommitWarning" original=""/>
   <value column="Description" original="Charge Accounting">Contabilidade de Despesa</value>
   <value column="Help" original="The Accounting Tab defines the accounting parameters used for transactions including a charge or charges.">A Aba "Contabilidade" define os parâmetros contábeis usados para transações envolvendo um débito ou despesas.</value>
+ </row>
+ <row id="332" trl="Y">
+  <value column="Name" original="Accounting">Contabilidade</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original="Organization Accounting">Contabilidade da Organização</value>
+  <value column="Help" original="The Organization Accounting Tab defines the default accounting parameters to be used by this Organization.">A Aba "Contabilidade da Organização" define os parâmetros contábeis padrão a serem usados por esta Organização.</value>
  </row>
  <row id="333" trl="Y">
   <value column="Name" original="Accounting">Contabilidade</value>
@@ -1704,6 +1746,12 @@ Se o nome não é encontrado, o Tamanho X/Y com a dimensão é usado. Tamanho e 
   <value column="Description" original="Print Format Translation">Tradução de Formato de Impressão</value>
   <value column="Help" original=""/>
  </row>
+ <row id="434" trl="Y">
+  <value column="Name" original="Graph">Gráfico</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original="Define Graph to be included">Definir Gráfico a ser incluído</value>
+  <value column="Help" original=""/>
+ </row>
  <row id="435" trl="Y">
   <value column="Name" original="Print Table Format">Formato de Impressão de Tabela</value>
   <value column="CommitWarning" original=""/>
@@ -1801,6 +1849,12 @@ iDempiere tenta mapear produtos já existentes, se a UPC, a Chave e o Nº do Pro
   <value column="CommitWarning" original=""/>
   <value column="Description" original="Asset used internally or by customers">Ativo usado internamente ou por clientes</value>
   <value column="Help" original="An asset is either created by purchasing or by delivering a product.  An asset can be used internally or be a customer asset.">Um ativo é criado ou ao comprar ou ao entregar um produto.  Um ativo pode ser usado internamente ou ser um ativo de cliente.</value>
+ </row>
+ <row id="451" trl="Y">
+  <value column="Name" original="Delivery">Entrega</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original="Delivery or availability">Entrega ou Disponibilidade</value>
+  <value column="Help" original="Record of delivery or availability">Registro de Entrega ou Disponibilidade</value>
  </row>
  <row id="452" trl="Y">
   <value column="Name" original="Asset Group">Grupo de Ativo</value>
@@ -2500,6 +2554,12 @@ A verificação do saldo opcional aplica à importação inteira, não para lote
   <value column="Description" original="All Invoice Liness where the Agent &quot;owns&quot; the Invoice, the Business Partner or the Product">Todas as Linhas de Fatura onde o Agente "possui" a Fatura, o Parceiro de Negócios ou o Produto</value>
   <value column="Help" original=""/>
  </row>
+ <row id="569" trl="Y">
+  <value column="Name" original="Accounting">Contabilidade</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original="Currency Accounting">Moeda Contábil</value>
+  <value column="Help" original="The Accounting Tab defines the accounting parameters used for transactions including a currency. Please nore that if not defined, the default accounts of the Accounting Schema are used!">A Aba "Contabilidade" define os parâmetros contábeis usados para transações envolvendo uma moeda. Por favor note que se não for definido, as contas padrão do Esquema Contábil serão usadas!</value>
+ </row>
  <row id="570" trl="Y">
   <value column="Name" original="Conversion Type">Tipo de Conversão</value>
   <value column="CommitWarning" original=""/>
@@ -2553,6 +2613,24 @@ A verificação do saldo opcional aplica à importação inteira, não para lote
   <value column="CommitWarning" original=""/>
   <value column="Description" original="Responsible for Workflow Execution">Responsável pela Execução do Fluxo de Trabalho</value>
   <value column="Help" original="The ultimate responsibility for a workflow is with an actual user. The Workflow Responsible allows to define ways to find that actual User.">A responsabilidade final por um Fluxo de Trabalho é do usuário real. A Responsabilidade do Fluxo de Trabalho permite definir meios de encontrar aquele usuário real.</value>
+ </row>
+ <row id="579" trl="Y">
+  <value column="Name" original="Block">Bloco</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original="Workflow Transaction Execution Block">Bloco de Execução de Transação de Fluxo de Trabalho</value>
+  <value column="Help" original="A workflow execution block is optional and allows all work to be performed in a single transaction. If one step (node activity) fails, the entire work is rolled back.">Um Bloco de Execução de Fluxo de Trabalho é opcional e permite que todo o trabalho seja executado em uma única transação. Se um passo (atividade de nó) falhar, todo o trabalho é desfeito.</value>
+ </row>
+ <row id="580" trl="Y">
+  <value column="Name" original="Data">Dados</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original="Workflow Process Context">Contexto do Processo de Fluxo de Trabalho</value>
+  <value column="Help" original="Context information of the workflow process and activity">Informação de Contexto do Processo de Fluxo de Trabalho e atividade</value>
+ </row>
+ <row id="581" trl="Y">
+  <value column="Name" original="Result">Resultado</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original="Result of the Workflow Process Activity">Resultado da Atividade do Processo de Fluxo de Trabalho</value>
+  <value column="Help" original="Activity Result of the execution of the Workflow Process Instrance">Resultado da Atividade da execução da Instância de Processo de Fluxo de Trabalho</value>
  </row>
  <row id="582" trl="Y">
   <value column="Name" original="Event">Evento</value>
@@ -2867,6 +2945,18 @@ Se a razão e quantidade não é 0, a quantidade é calculada baseada na razão,
   <value column="Description" original="Dinning Run Line">Linha de Execução de Cobrança</value>
   <value column="Help" original="Maintain the information of the dunning letter line">Gerenciamento da informaçãp da linha da carta de cobrança</value>
  </row>
+ <row id="636" trl="Y">
+  <value column="Name" original="Org Assignment">Atribuição da Org.</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original="User Assigment to Organization">Designação de Usuário a uma Organização</value>
+  <value column="Help" original="Assign Users to Organizations">Designar Usuários a Organizações</value>
+ </row>
+ <row id="637" trl="Y">
+  <value column="Name" original="Org Assignment">Atribuição da Org.</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original="User Assigment to Organization">Designação de Usuário a uma Organização</value>
+  <value column="Help" original="Assign Users to Organizations">Designar Usuários a Organizações</value>
+ </row>
  <row id="638" trl="Y">
   <value column="Name" original="Log">Registro</value>
   <value column="CommitWarning" original=""/>
@@ -2939,6 +3029,12 @@ A distribuição é rateada com base no percentual das linhas. Se o percentual t
   <value column="CommitWarning" original=""/>
   <value column="Description" original="Assignment of Atrributes to Products">Designação de Atributos a Produtos</value>
   <value column="Help" original="Determines, which attributes are assigned to a product">Determina quais atributos são designados a um produto</value>
+ </row>
+ <row id="651" trl="Y">
+  <value column="Name" original="Access Audit">Auditoria de Acesso</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original="Log of Access to data or resources">Registro de Acesso a dados ou recursos</value>
+  <value column="Help" original="Logging needs to be explicitly enabled / written.">A operação de registros (logging) precisa ser explicitamente liberada / escrita.</value>
  </row>
  <row id="652" trl="Y">
   <value column="Name" original="Counter Document">Contra Documento</value>
@@ -3277,6 +3373,12 @@ Se uma LDM é referenciada e ativada no Tipo de Solicitação, uma Solicitação
   <value column="Description" original="Maintain Request Category">Gerenciamento da Categoria da Solicitação</value>
   <value column="Help" original="Category or Topic of the Request ">Categoria ou Tópico da Solicitação </value>
  </row>
+ <row id="707" trl="Y">
+  <value column="Name" original="Download">Download</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original="Maintain Product Downloads">Gerenciamento de Downloads de Produtos</value>
+  <value column="Help" original="Define downloads for a product.  If the product is an asset, the user can download the data.">Definir downloads para um produto.  O usuário pode fazer download dos dados caso o produto seja um ativo.</value>
+ </row>
  <row id="708" trl="Y">
   <value column="Name" original="User Mail">Emails enviados</value>
   <value column="CommitWarning" original=""/>
@@ -3427,6 +3529,12 @@ Indireta: Usuários com Papel, Assinantes de atualizações para Categoria de So
   <value column="Name" original="Change Notice">Aviso de Alteração</value>
   <value column="CommitWarning" original=""/>
   <value column="Description" original="Bill of Materials (Engineering) Change Notice (Version)">Aviso de Alteração (versão) de Lista de Materiais (Engenharia)</value>
+  <value column="Help" original=""/>
+ </row>
+ <row id="734" trl="Y">
+  <value column="Name" original="BOM">LDM</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original="Bill of Material of Change Notice">Aviso de Alteração da Lista de Materiais</value>
   <value column="Help" original=""/>
  </row>
  <row id="735" trl="Y">
@@ -4226,6 +4334,36 @@ Se o perfil é excluído (padrão), os cessionários pode ver tudo, mas o conte�
   <value column="Description" original=""/>
   <value column="Help" original=""/>
  </row>
+ <row id="53020" trl="Y">
+  <value column="Name" original="Access">Acesso</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row id="53021" trl="Y">
+  <value column="Name" original="Block">Bloco</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original="  ">  </value>
+ </row>
+ <row id="53022" trl="Y">
+  <value column="Name" original="Parameter">Parâmetro</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row id="53023" trl="Y">
+  <value column="Name" original="Node Translation">Tradução de Nó</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row id="53024" trl="Y">
+  <value column="Name" original="Condition">Condição</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
  <row id="53025" trl="Y">
   <value column="Name" original="Activity">Atividade</value>
   <value column="CommitWarning" original=""/>
@@ -4790,6 +4928,12 @@ Valido De/Para é determinado pelo imposto pai.]]></value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
  </row>
+ <row id="53137" trl="Y">
+  <value column="Name" original="Access Audit">Auditoria de Acesso</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original="Log of Access to data or resources">Registro de Acesso a dados ou recursos</value>
+  <value column="Help" original="Logging needs to be explicitly enabled / written.">A operação de registros (logging) precisa ser explicitamente liberada / escrita.</value>
+ </row>
  <row id="53138" trl="Y">
   <value column="Name" original="Revaluation Entry">Entrada de Reavaliação</value>
   <value column="CommitWarning" original=""/>
@@ -4938,6 +5082,18 @@ Valido De/Para é determinado pelo imposto pai.]]></value>
   <value column="Name" original="Asset Balances">Saldos de Ativos</value>
   <value column="CommitWarning" original=""/>
   <value column="Description" original="Asset Balance Report and Adjustments">Relatório e Ajustes de Saldos Ativos</value>
+  <value column="Help" original=""/>
+ </row>
+ <row id="53163" trl="Y">
+  <value column="Name" original="Cost Details">Detalhes de Custo</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original="Cost Detail">Detalhe de Custo</value>
+  <value column="Help" original=""/>
+ </row>
+ <row id="53164" trl="Y">
+  <value column="Name" original="Asset Usage">Uso do Ativo</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original="Record Asset Usage">Registro de Uso de Ativo</value>
   <value column="Help" original=""/>
  </row>
  <row id="53165" trl="Y">
@@ -5306,6 +5462,32 @@ Valido De/Para é determinado pelo imposto pai.]]></value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
  </row>
+ <row id="53286" trl="Y">
+  <value column="Name" original="BOM">LDM</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original="Bill of Material product lines">Linhas de Lista de Materiais de Produto</value>
+  <value column="Help" original="The Bill of Materials tab defines those products that are generated from other products.  A Bill of Material (BOM) is one or more Products or BOMs.&#10;&#10;Available Quantity:&#10;- Stored BOMs have to be created via &quot;Production&quot;&#10;- The available quantity of a non-stored BOMs is dynamically calculated&#10;- The attribute &quot;Stored&quot; is defined in the &quot;Product&quot; tab&#10;&#10;Price:&#10;- BOMs must be listed in Pricelists&#10;- If the price is 0.00, the price is dynamically calculated&#10;&#10;Printing:&#10;- Usually, only the BOM information is printed&#10;- For invoices, delivery slips and pick lists, you have the option to print the details&#10;- In the details, the quantity is listed - and the price, if this is dynamically calculated">A Aba Lista de Materiais define aqueles produtos que são gerados de outros produtos. Uma Lista de Materiais (LDM) é um ou mais Produtos ou LDMs.
+
+Quantidade Disponível:
+- LDMs Armazenadas tem que ser criadas via "Produção"
+- A quantidade disponível de LDMs não armazenadas é calculada dinamicamente
+- O atributo "Armazenado" é definido na aba "Produto"
+
+Preço:
+- LDMs devem ser listadas nas Listas de Preços
+- Se o preço é 0,00, o preço é dinamicamente calculado
+
+Impressão:
+- Geralmente, somente a informação LDM é impressa
+- Para faturas,  combinação de remessas e listas de seleção, você tem a opção de imprimir os detalhes
+- Nos detalhes, a quantidade é listada - e o preço, se ele é calculado dinamicamente</value>
+ </row>
+ <row id="53287" trl="Y">
+  <value column="Name" original="Components">Componentes</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original="Components">Componentes</value>
+  <value column="Help" original="Components of Bill fo Material">Componentes da Lista de Materiais</value>
+ </row>
  <row id="53289" trl="Y">
   <value column="Name" original="Costs">Custos</value>
   <value column="CommitWarning" original=""/>
@@ -5383,6 +5565,12 @@ Valido De/Para é determinado pelo imposto pai.]]></value>
   <value column="CommitWarning" original=""/>
   <value column="Description" original=""/>
   <value column="Help" original="This table holds all necessary information to process asset transfers and create the appropriate entry">Esta tabela guarda os dados necessários para processar mudanças de ativos</value>
+ </row>
+ <row id="53328" trl="Y">
+  <value column="Name" original="Class">Classe</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
  </row>
  <row id="53329" trl="Y">
   <value column="Name" original="Funding Mode">Modo do Financiamento</value>
@@ -6416,6 +6604,18 @@ Valido De/Para é determinado pelo imposto pai.]]></value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
  </row>
+ <row id="200234" trl="N">
+  <value column="Name" original="Process Customization">Personalização de Processo</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original="User defined Process">Personalização de Processo</value>
+  <value column="Help" original="User defined Process">Personalização de Processo</value>
+ </row>
+ <row id="200235" trl="N">
+  <value column="Name" original="User defined Process Parameter">Personalização de Parâmetro</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original="User defined Process Parameter">Personalização de Parâmetro</value>
+  <value column="Help" original="User defined Process Parameter">Personalização de Parâmetro</value>
+ </row>
  <row id="200262" trl="Y">
   <value column="Name" original="User Roles">Perfis do Usuário</value>
   <value column="CommitWarning" original=""/>
@@ -6442,6 +6642,685 @@ Valido De/Para é determinado pelo imposto pai.]]></value>
  </row>
  <row id="200266" trl="Y">
   <value column="Name" original="User Roles">Perfis do Usuário</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row id="200271" trl="N">
+  <value column="Name" original="Translation">Translation</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row id="200272" trl="N">
+  <value column="Name" original="Translation">Translation</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row id="200275" trl="N">
+  <value column="Name" original="User Queries">User Queries</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original="View and maintain saved queries">View and maintain saved queries</value>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="3a3e9f23-0ece-4654-9e95-2cc3a809117a">
+  <value column="Name" original="Bank">Banco</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="03725fa1-9f63-4e40-b2d6-3ee1cb9b6b7e">
+  <value column="Name" original="Info">Info</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="b7bc1373-d2ec-4c7b-975e-fc68779156d0">
+  <value column="Name" original="NCM">NCM</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="27a91726-9448-4dcf-89a7-24aed2839308">
+  <value column="Name" original="CFOP">CFOP</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="b6c1a46a-6db8-4971-b1a1-cb2075d254c3">
+  <value column="Name" original="Category">Categoria</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="c469f737-5c21-40b7-b53e-97346e348a28">
+  <value column="Name" original="Category">Categoria</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="27d9e0b4-5fbd-4447-9d0c-0faf21b988fe">
+  <value column="Name" original="Line">Linha</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="1d5b3cbb-4685-40d8-93e6-28bcb3b5f694">
+  <value column="Name" original="Matrix">Matriz</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="4218ca91-2700-4db0-8e67-cf7aad03a26a">
+  <value column="Name" original="Group">Grupo</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="32a35acd-6214-415c-8df7-369508434401">
+  <value column="Name" original="Group">Grupo</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="3e147d79-f7c2-4bb4-87fc-5b760619aa87">
+  <value column="Name" original="Tax">Imposto</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="1bba99bf-d00d-46df-8a42-ddda3ea9b033">
+  <value column="Name" original="Formula">Fórmula</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="68507edd-fe01-4755-85e0-b5c7fa51dbae">
+  <value column="Name" original="Header">Cabeçalho</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original="">Cabeçalho da Nota Fiscal</value>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="58b5efdb-52f1-40e4-ab18-9a6d0bca44c7">
+  <value column="Name" original="Line">Linha</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="74dc2324-b309-4c18-9ac6-e1e10399bc5c">
+  <value column="Name" original="Legal Message">Mensagem Legal</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="dcff3010-fe3b-4268-bdc3-e1c395f4e6c4">
+  <value column="Name" original="Group">Grupo</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="7bd6bd6c-fca8-4c09-ba2e-472e95cee72e">
+  <value column="Name" original="Nota Fiscal Tax">Imposto Nota Fiscal</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="edf0712d-53b4-4401-9d90-c535be0781e7">
+  <value column="Name" original="Nota Fiscal Line Tax">Imposto Linha</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="e008101d-e8f0-49d4-b8a6-083a2749e6a2">
+  <value column="Name" original="Header">Cabeçalho</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original="">Cabeçalho da Nota Fiscal</value>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="5f5a8c14-b5c0-4e04-aa6d-bc813eb53511">
+  <value column="Name" original="Nota Fiscal Tax">Imposto Nota Fiscal</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="25302fd5-08c9-4657-a787-368d11ae2d24">
+  <value column="Name" original="Line">Linha</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="d37b382e-84dd-4a1b-803a-86eda536bc54">
+  <value column="Name" original="Nota Fiscal Line Tax">Imposto Linha</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="3d62f891-354b-45da-bb43-d68b9a201273">
+  <value column="Name" original="ISS Matrix">Matriz de ISS</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="c627e385-0de1-48c6-aaee-c2f92791f218">
+  <value column="Name" original="Boleto">Boleto</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="47e7c4c8-8365-40d7-9f18-9d090e2e84ee">
+  <value column="Name" original="Manufacture">Industrialização</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original="Manufacture">Industrialização</value>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="e31736e9-c982-4878-9edf-214ab5cb1a1f">
+  <value column="Name" original="Manufacture Plan">Planejamento</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="9910c087-c935-4995-9820-5f59521a9bdd">
+  <value column="Name" original="Manufacture Line">Linha</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="68f358e4-a44c-4f11-952e-c5b2b1f96418">
+  <value column="Name" original="Digital Certificate">Certificado Digital</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original="Store all digital certificates">Armazena os certificados digitais</value>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="fac54e85-b4ad-4a97-b38f-3cfdf502e2a4">
+  <value column="Name" original="NFe Lot">Lote da NF-e</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="63823729-c877-4204-82cb-848f9346876d">
+  <value column="Name" original="DI">DI</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="5eb4ef53-cbcf-436d-9f39-e1e40bcfb3c4">
+  <value column="Name" original="NCM Tax">Imposto por NCM</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="bc8e920f-34d9-45a8-aa08-b56fa69a8817">
+  <value column="Name" original="CFOP">CFOP</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="5a78db49-0f07-42ed-9b5d-dea69f0a72dd">
+  <value column="Name" original="Tax Definition">Definição de Impostos</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="63fa8ce7-c0c4-40c0-9cab-4614465ec7bc">
+  <value column="Name" original="Tax Status">Situação Tributária</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="70d17ed5-1bf2-491a-8ae6-4ff226c877c0">
+  <value column="Name" original="WebService">WebService</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="b3413c00-f93f-4d4b-a44a-391f4b39599a">
+  <value column="Name" original="DE">DE</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="8edfa004-a96e-4c82-8a4e-b16c868f21d9">
+  <value column="Name" original="Average Cost">Custo Médio</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="03a517c1-0bf8-4def-b297-ab09ff8359d7">
+  <value column="Name" original="Purchased Itens">Itens Comprados</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="16019e9e-dd9e-42ec-8685-574be2dc6ec9">
+  <value column="Name" original="Manufactured Itens">Itens Fabricados</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="19a8c256-f0d4-40a0-85e1-572e4d3a50e5">
+  <value column="Name" original="Formulas">Formulas</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="60df815f-f513-4a3c-9619-2a824f12ec88">
+  <value column="Name" original="DI">DI</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="2a645ae7-a857-409a-ad29-c5814ac8a58e">
+  <value column="Name" original="Adicao">Adição</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="26e00b35-8305-4d39-bb73-de8e6164b65f">
+  <value column="Name" original="Itens da Adicao">Itens da Adição</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original="Aba Incluida">Aba Incluida</value>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="0ea9c05f-b69b-49aa-bf45-22badd1918f4">
+  <value column="Name" original="Event">Evento</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="ab7cbee4-6706-4788-8de8-5b3e40d673cd">
+  <value column="Name" original="Tax Base Type">Tipo da Base</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="c1e0d8c5-57f1-4290-9741-af96df8ad556">
+  <value column="Name" original="Gerar SPED">Gerar SPED</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="c0285da9-3957-4d42-82cf-21ef22d7a30d">
+  <value column="Name" original="Apuração de Impostos">Apuração de Impostos</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="6d7eacb6-3e30-4d3a-8bee-3221ab8fa89c">
+  <value column="Name" original="Outros Lançamentos">Outros Lançamentos</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="793abf05-f497-4bd8-9c65-49f294612776">
+  <value column="Name" original="Total de Transações com Cartão">Total de Transações com Cartão</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="8ab4a94d-1daa-49ba-9497-d49b111fc89d">
+  <value column="Name" original="Tabela de Impostos do IBPT">Tabela de Impostos do IBPT</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="26ca4653-fccb-4ac5-ab2c-984f2ad74832">
+  <value column="Name" original="FCI">FCI</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original="Ficha de Conteúdo de Importação">Ficha de Conteúdo de Importação</value>
+  <value column="Help" original="Ficha de Conteúdo de Importação">Ficha de Conteúdo de Importação</value>
+ </row>
+ <row trl="Y" uuid="51567f5b-b10f-499a-9f38-5cd078e83cdc">
+  <value column="Name" original="MDF-e">MDF-e</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original="Manifesto Eletrônico de Documentos">Manifesto Eletrônico de Documentos</value>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="7d3b9de6-650e-48e0-8ac3-44f19992b35f">
+  <value column="Name" original="Load">Carregamento</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="87414dc3-31a1-4dc4-a160-1eeee273bfe4">
+  <value column="Name" original="Route">Percurso</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="53b57204-9321-45b6-b1b7-d8bfab1716de">
+  <value column="Name" original="Unload">Descarregamento</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="6b0922b9-b86d-48d7-a78d-6d212e868094">
+  <value column="Name" original="Document">Documento</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original="Documento relacionado ao Descarregamento da MDF-e">Documento relacionado ao Descarregamento da MDF-e</value>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="c02b955e-35a8-4b01-9309-7ed6e6330b4e">
+  <value column="Name" original="Seal">Lacre</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original="Documento relacionado ao Descarregamento da MDF-e">Documento relacionado ao Descarregamento da MDF-e</value>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="a8f0c7b4-2333-4f64-8411-6f2fe7e82080">
+  <value column="Name" original="Toll">Pedágio</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="537ce3b9-b5d5-410b-9c9e-9d0f933847d5">
+  <value column="Name" original="Driver">Motorista</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="afd750f3-6e7b-4c4f-93df-e431f520b609">
+  <value column="Name" original="Driver">Motorista</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="17d8fb5b-323d-4846-b75a-dc6432ec16bc">
+  <value column="Name" original="Vehicle">Veículo</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="a01dc3c5-9953-4dea-a324-1bacf521ce7a">
+  <value column="Name" original="Authorized Access to XML NFe">Acesso ao XML</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="b720a5a3-a0aa-43b3-a25d-6acd1d75778f">
+  <value column="Name" original="Authorized Access to XML NFe">Acesso ao XML</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="6fb3aa33-5ea2-4030-87b0-55fbc04ad49b">
+  <value column="Name" original="Referenced Documents">Documento Referenciado</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="17744384-f1d8-4f25-9b4f-80aa3944a0c8">
+  <value column="Name" original="Referenced Documents">Documento Referenciado</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="e410abec-ec7f-4317-bedf-b4546771aba6">
+  <value column="Name" original="Nota Fiscal (Skipped)">Nota Fiscal (Inutilizadas)</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="389825ac-1433-4cae-a2b0-5fa7469b5ed9">
+  <value column="Name" original="Replenish">Importar Níveis de Estoque</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original="Import Replenish">Importar Níveis de Reabastecimento de um Produto no Estoque</value>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="79df3b7e-fb8f-440b-8364-d2a19aa896b3">
+  <value column="Name" original="Payment Schedule">Programação de Pagamentos</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="b9510da6-1b08-45ca-9b86-dccfd6f08cf5">
+  <value column="Name" original="NF-e">NF-e</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="e3dd737d-8fe9-4059-aa63-59b8519bacb8">
+  <value column="Name" original="Eventos">Eventos</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="2fb57a0d-c7bf-4335-b680-61efdd78113c">
+  <value column="Name" original="Tax Legal Framework">Enquadramento Legal Imposto</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="aa27b638-7189-4a14-8aa0-b5015950794d">
+  <value column="Name" original="Shipper">Transportadora</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="286f3e28-3c62-4a28-bf09-0ac50e037b5b">
+  <value column="Name" original="CEST">CEST</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original="CEST">CEST</value>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="aa06cec1-c3be-4249-a844-b3eda0ce658f">
+  <value column="Name" original="CEST">CEST</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original="Brazilian Specifier Code Tax">Código Especificador da Substituição Tributária</value>
+  <value column="Help" original="Brazilian Specifier Code Tax">Código Especificador da Substituição Tributária</value>
+ </row>
+ <row trl="Y" uuid="d11c11fc-b2e0-44e0-83ed-dcd4289a4197">
+  <value column="Name" original="NCM">NCM</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original="Mercosur Common Nomenclature">Nomenclatura Comum do Mercosul</value>
+  <value column="Help" original="Mercosur Common Nomenclature">Nomenclatura Comum do Mercosul</value>
+ </row>
+ <row trl="Y" uuid="d2bc21f9-6a78-424e-84d9-4fc21dcd0888">
+  <value column="Name" original="NF Config">Configurações</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original="Basic NF configuration">Configurações básicas da NF-e</value>
+  <value column="Help" original="">Configurações básicas da NF-e, Formato de Impressão da DANFE, Contingência, etc.</value>
+ </row>
+ <row trl="Y" uuid="6ab71c0b-2e5c-4d90-9aea-b19598d54d13">
+  <value column="Name" original="SVC Schedule">Agendamento SVC</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original="SVC Schedule">Agendamento SVC</value>
+  <value column="Help" original="">Agendamento do serviço de contingência da NF-e</value>
+ </row>
+ <row trl="Y" uuid="cff36481-ff0a-44f5-a7d3-bd5b2309d958">
+  <value column="Name" original="Matcher Setup">Config. da Conciliação</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original="">Configurações da Rotina de Conciliação Bancária</value>
+  <value column="Help" original="">Aqui é possível configurar como o confrontador de Extrato Bancária irá atuar</value>
+ </row>
+ <row trl="Y" uuid="64920c20-4ac0-4f5c-b843-df6a1e200fd4">
+  <value column="Name" original="Setup Line">Linha da Configuração</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original="">Configurações adicionais por Identificação do Texto do Extrato</value>
+  <value column="Help" original="">É possivel definir algumas ações de acordo com o texto encontrado no Extrato. Por exemplo, direcionar as despesas de Tarifas Bancárias para as contas específicas.</value>
+ </row>
+ <row trl="Y" uuid="095ee17f-5368-4be1-8329-b232805fdfb3">
+  <value column="Name" original="Order Line Tax">Imposto da Linha</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original="Order Tax">Imposto da Linha</value>
+  <value column="Help" original="The Order Tax Tab displays the tax amount for an Order based on the lines entered.">Mostra os valores dos impostos para a linha do pedido</value>
+ </row>
+ <row trl="Y" uuid="a7d2a1d3-b052-46ee-88c6-a28afdd91b5d">
+  <value column="Name" original="Order Line Tax">Imposto da Linha</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original="Order Line Tax">Imposto da Linha</value>
+  <value column="Help" original="The Order Tax Tab displays the tax associated with the Order Lines.">Mostra os valores dos impostos para a linha do pedido</value>
+ </row>
+ <row trl="Y" uuid="2d78dbd0-8a4d-4318-89a8-91575345e520">
+  <value column="Name" original="Invoice Line Tax">Imposto da Linha</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original="Customer Invoice Tax">Imposto da Linha</value>
+  <value column="Help" original="The Invoice Tax Tab displays the total tax due based on the Invoice Lines.">Mostra os impostos da linha da fatura</value>
+ </row>
+ <row trl="Y" uuid="72ac24b4-8e1d-4ff9-97c8-fa6e2ee05ffa">
+  <value column="Name" original="Invoice Line Tax">Imposto da Linha</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original="Vendor Invoice Tax">Imposto da Linha</value>
+  <value column="Help" original="The Invoice Tax Tab displays the total tax due based on the Invoice Lines.&#10;">Mostra os impostos da linha da fatura</value>
+ </row>
+ <row trl="Y" uuid="8638ce16-719f-4857-8a19-99a710455189">
+  <value column="Name" original="NBS">NBS</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="28cf24f2-1c4b-4aea-b259-eb9d7e7728e6">
+  <value column="Name" original="CSC">CSC</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original="CSC">CSC</value>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="205f94f0-490e-49f4-b688-64512f7c4925">
+  <value column="Name" original="Invoice Pay Schedule">Programação de Pagamentos</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original="Vendor Invoice Tax">Programação de Pagamento de Fatura</value>
+  <value column="Help" original="The Invoice Tax Tab displays the total tax due based on the Invoice Lines.&#10;">
+</value>
+ </row>
+ <row trl="Y" uuid="f756fe01-354f-434e-a469-b654bbf59513">
+  <value column="Name" original="Tax Header">Cabeçalho do Imposto</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="fd6c3e24-437f-4273-b77b-284e545bb2f0">
+  <value column="Name" original="Tax Line">Linha do Imposto</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="03fdd13a-d182-40fe-9ff6-d1f5b8e3e2b4">
+  <value column="Name" original="Header">Cabeçalho</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="7ed23dd9-8e24-40ec-b587-115278cd79f0">
+  <value column="Name" original="Production">Itens para Produzir</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="4a865b7e-9654-47bd-a94b-3699f4d68277">
+  <value column="Name" original="Production Line">Insumos por Item</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="39f0d901-a49e-414b-9f84-abf87f63c2b4">
+  <value column="Name" original="Tax Config">Configuração Tributária</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="9890f096-e9ac-4b1f-9a2a-6c61ab959980">
+  <value column="Name" original="Historic">Histórico</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original="">Histórico de Custo</value>
+  <value column="Help" original="">Histórico de Custo</value>
+ </row>
+ <row trl="Y" uuid="a5c91fa6-ed4e-4d56-85dd-ea62d65470f4">
+  <value column="Name" original="Line Attributes">Atributos das Linhas</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="6c4483fe-6371-4e9d-8ee6-fad8652f6e1a">
+  <value column="Name" original="Line Tracking">Rastreio</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="a2d24b8a-877a-4c4a-a6d5-d1db5e6406d2">
+  <value column="Name" original="Accounting">Accounting</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="749ac5e5-45fa-4d2b-946c-71de3f7130a1">
+  <value column="Name" original="Book Inventory">Book Inventory</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original="Book Inventory for SPED">Book Inventory for SPED</value>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="7208347a-a5bb-4192-8a56-a22e544ed45f">
+  <value column="Name" original="Book Inventory (ReValidate)">Book Inventory (ReValidate)</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original="Re-validate Book Inventory for SPED for before period">Re-validate Book Inventory for SPED for before period</value>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="96937fa0-bdb9-4081-a419-75b35df3ec56">
+  <value column="Name" original="Document">Documentos</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original="Maintain Payroll Employee">Maintain Payroll Employee</value>
+  <value column="Help" original="The Business Partner Tab defines any Entity with whom an organization transacts.">The Business Partner Tab defines any Entity with whom an organization transacts.</value>
+ </row>
+ <row trl="Y" uuid="29534744-ae31-4c53-8740-521f298ed356">
+  <value column="Name" original="Disability">Deficiência</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original="Maintain Payroll Employee">Maintain Payroll Employee</value>
+  <value column="Help" original="The Business Partner Tab defines any Entity with whom an organization transacts.">The Business Partner Tab defines any Entity with whom an organization transacts.</value>
+ </row>
+ <row trl="Y" uuid="d9795f08-5e6f-434d-9a67-45f7b287dae2">
+  <value column="Name" original="Dependent">Dependentes</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original="Maintain Payroll Employee">Maintain Payroll Employee</value>
+  <value column="Help" original="The Business Partner Tab defines any Entity with whom an organization transacts.">The Business Partner Tab defines any Entity with whom an organization transacts.</value>
+ </row>
+ <row trl="N" uuid="7ef03ce5-6506-4c0b-b09f-0fa939b1e793">
+  <value column="Name" original="CBO SubGroup">CBO SubGroup</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="8ec40f5a-9bfe-4f48-8967-8616e2f16a73">
+  <value column="Name" original="CBO">CBO</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="76150e9a-5d9e-4e27-91c5-4470a75d54be">
+  <value column="Name" original="Job Role">Job Role</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="c0138b07-bb74-45ac-a0a8-b1d5783786a7">
+  <value column="Name" original="Job Title">Job Title</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="98bd3cf3-dfe4-48b9-af6b-89f06790746f">
+  <value column="Name" original="History">Histórico</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original="Maintain Payroll Employee">Maintain Payroll Employee</value>
+  <value column="Help" original="The Business Partner Tab defines any Entity with whom an organization transacts.">The Business Partner Tab defines any Entity with whom an organization transacts.</value>
+ </row>
+ <row trl="Y" uuid="4f8d9cb5-520b-4f8f-b37f-76c080a1a8e5">
+  <value column="Name" original="Vacation">Férias</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original="Maintain Payroll Employee Vacation">Mantém o cadastro de férias</value>
+  <value column="Help" original="The Business Partner Tab defines any Entity with whom an organization transacts.">The Business Partner Tab defines any Entity with whom an organization transacts.</value>
+ </row>
+ <row trl="Y" uuid="60dceaab-6fee-40ca-a3fa-b00597406daa">
+  <value column="Name" original="Line">Linha</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original="Maintain Payroll Employee Vacation">Maintain Payroll Employee Vacation</value>
+  <value column="Help" original="The Business Partner Tab defines any Entity with whom an organization transacts.">The Business Partner Tab defines any Entity with whom an organization transacts.</value>
+ </row>
+ <row trl="N" uuid="34381ecb-1de8-474b-b152-efee3f0a552b">
+  <value column="Name" original="System Technical Responsible">System Technical Responsible</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original="System Technical Responsible"/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="f3a48306-5ccc-4285-ad5d-1fc16a0c08b4">
+  <value column="Name" original="Insurance">Seguro</value>
   <value column="CommitWarning" original=""/>
   <value column="Description" original=""/>
   <value column="Help" original=""/>

@@ -130,6 +130,11 @@ Se vários pedidos de um parceiro de negócios tem a mesma nota de localização
   <value column="Help" original="Report lists products to be replenished. Note that a product can have only one current vendor. If there are more then vendor per product, both records are reset.  You need to select a current vendor manually.&lt;br&gt;&#10;Movements are only created, if a sourcing warehouse is defined for the warehouse to be replenished." xml:space="preserve"><![CDATA[Relatório lista os produtos a serem reabastecidos. Note-se que um produto pode ter apenas um fornecedor atual. Se houver mais de fornecedor por produto, ambos os registros são zerados. Você precisa selecionar um fornecedor atual manualmente.<br>
 Os movimentos são criados somente, se um abastecimento de armazém está definido para o armazém a ser reabastecido.]]></value>
  </row>
+ <row id="126" trl="Y">
+  <value column="Name" original="Order Drilldown">Desdobramento de Pedido (Drilldown)</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
  <row id="127" trl="Y">
   <value column="Name" original="Invoice Transactions (Acct)">Transações de Faturas (Data Contábil)</value>
   <value column="Description" original="Invoice Transactions by Accounting Date">Transações de Faturas por Data Contábil</value>
@@ -243,7 +248,7 @@ Os movimentos são criados somente, se um abastecimento de armazém está defini
  <row id="151" trl="Y">
   <value column="Name" original="Invoice Transactions (Doc)">Transações de Faturas (Data da Fatura)</value>
   <value column="Description" original="Invoice Transactions by Invoice Date">Transações de Faturas por Data da Fatura</value>
-  <value column="Help" original="The report lists the invoice transactiobs by invoice date">O relatório lista as transações de faturas com base na data da fatura informada.</value>
+  <value column="Help" original="The report lists the invoice transactions by invoice date">O relatório lista as transações de faturas com base na data da fatura informada.</value>
  </row>
  <row id="152" trl="Y">
   <value column="Name" original="Invoice Detail &amp; Margin">Detalhes de Faturas (c/ Margem)</value>
@@ -280,6 +285,11 @@ Os movimentos são criados somente, se um abastecimento de armazém está defini
   <value column="Description" original="Product Transaction Value">Valor da Transação de Produto</value>
   <value column="Help" original="The report shows product transactions with current vendor prices">O relatório mostra transações de produto com preços atuais de fornecedores</value>
  </row>
+ <row id="162" trl="Y">
+  <value column="Name" original="Project Status Summary">Resumo do Estado dos Projetos</value>
+  <value column="Description" original="Project Status of Project Cycle">Estado do Projeto do "Ciclo de Projeto"</value>
+  <value column="Help" original=""/>
+ </row>
  <row id="164" trl="Y">
   <value column="Name" original="Generate Order">Gerar Pedido</value>
   <value column="Description" original="Generate Order from Project">Gerar Pedido a partir de Projeto</value>
@@ -308,6 +318,11 @@ Os movimentos são criados somente, se um abastecimento de armazém está defini
  <row id="169" trl="Y">
   <value column="Name" original="Process Journal">Processar Livro Razão (Lançamento)</value>
   <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row id="170" trl="Y">
+  <value column="Name" original="Cash Journal Detail">Detalhe de Livro Caixa</value>
+  <value column="Description" original="Detail Cash Journal Information">Detalhar Informação do Livro Caixa</value>
   <value column="Help" original=""/>
  </row>
  <row id="171" trl="Y">
@@ -468,6 +483,11 @@ Observação: Se você digitar somente um Nº de documento A PARTIR do valor, to
   <value column="Name" original="Create Report">Gerar Relatório</value>
   <value column="Description" original="Create Financial Report">Criar Relatório Financeiro</value>
   <value column="Help" original="The default period is the current period. You can optionally enter other restrictions.  You can select an alternative Reporting Hierarchy.">O período padrão é o período atual. Você pode opcionalmente digitar outras restrições.  Você pode selecionar uma Hierarquia de Relatórios alternativa.</value>
+ </row>
+ <row id="203" trl="Y">
+  <value column="Name" original="Update Accounting Balance">Atualizar Balanço Contábil</value>
+  <value column="Description" original="Update Daily Accounting Balances">Atualizar Balanços Contábeis Diários</value>
+  <value column="Help" original="This process is run automatically">Este processo é executado automaticamente</value>
  </row>
  <row id="204" trl="Y">
   <value column="Name" original="Statement of Accounts">Demonstrativo de Contas</value>
@@ -655,11 +675,21 @@ Os custos são em moeda do Esquema de Contábil - as linhas são na moeda da lis
  <row id="238" trl="Y">
   <value column="Name" original="Aging">Cobrança</value>
   <value column="Description" original="Aging Report">Relatório de Cobrança</value>
-  <value column="Help" original="The aging report allows you to report on Open Items (Invoices). Select the aging buckets, you want to have in your report. If you select a currency, you get only invoices of that currency, otherwise the amounts are converted to your primary accounting currency. If you do not select a Statement Date, the system date is used to calculate the buckets. If you do not list the individual invoices, the Due Date is the earliest due date for the business partner and the Due Days are the average due days of all invoices.&lt;br&gt;&#10;&lt;br&gt;&#10;If you select an Account Date the report will generate the Aging as of that date. The report will exclude documents after the selected date.&lt;br&gt;&#10;&lt;br&gt;&#10;For example: A customer has one invoice for $100 with the Account Date of 03/31/08 and one payment for $100 with the Account Date of 05/01/08. The report will show the following balances based on the Account Date selected: 03/15/08= 0; 04/15/08=100; 05/15/08 = 0.&#10;" xml:space="preserve"><![CDATA[O relatório exibe os itens em aberto, classificados por Dias a Vencer e Dias em Atraso em relação a uma data base (data do extrato). Se a data não for informada, a data do dia será utilizada. Se uma moeda for selecionada, apenas faturas naquela moeda serão apresentadas, caso contrário os valores serão convertidos para a sua moeda contábil primária. Se a opção Listar Faturas (individuais) estiver desmarcada, a Data de Vencimento exibida será o vencimento mais antigo do parceiro de negócios. E o valor da coluna Dias em Atraso será uma média de todas as faturas.<br>
+  <value column="Help" original="The aging report allows you to report on Open Items (Invoices). Select the aging buckets, you want to have in your report. If you select a currency, you get only invoices of that currency.&#13;&#10;If you fill the &quot;Convert Amounts in Currency&quot;, all amounts will be converted in that currency. If you do not select a Statement Date, the system date is used to calculate the buckets. If you do not list the individual invoices, the Due Date is the earliest due date for the business partner and the Due Days are the average due days of all invoices.&lt;br&gt;&#13;&#10;&lt;br&gt;&#13;&#10;If you select an Account Date the report will generate the Aging as of that date. The report will exclude documents after the selected date.&lt;br&gt;&#13;&#10;&lt;br&gt;&#13;&#10;For example: A customer has one invoice for $100 with the Account Date of 03/31/08 and one payment for $100 with the Account Date of 05/01/08. The report will show the following balances based on the Account Date selected: 03/15/08= 0; 04/15/08=100; 05/15/08 = 0.&#13;&#10;" xml:space="preserve"><![CDATA[O relatório exibe os itens em aberto, classificados por Dias a Vencer e Dias em Atraso em relação a uma data base (data do extrato). Se a data não for informada, a data do dia será utilizada. Se uma moeda for selecionada, apenas faturas naquela moeda serão apresentadas, caso contrário os valores serão convertidos para a sua moeda contábil primária. Se a opção Listar Faturas (individuais) estiver desmarcada, a Data de Vencimento exibida será o vencimento mais antigo do parceiro de negócios. E o valor da coluna Dias em Atraso será uma média de todas as faturas.<br>
 <br>
 Se o campo Data Contábil for selecionado, o relatório exibirá as classificações com base na data contábil da fatura. O relatório ignora faturas com datas superiores à informada.<br>
 <br>
 Exemplo: considere uma fatura (cliente) no valor de 100,00 com data contábil de 31/03/2008 e um pagamento de 100,00 com data contábil de 01/05/2008. O relatório exibirá saldos diferentes de acordo com a data do extrato informada: 1) Data do Extrato: 15/03/2008, o  saldo é 0,00. 2) Data do Extrato: 14/04/2008, o saldo é 100,00. 3) Data do Extrato: 15/05/2008, o saldo é 0,00.]]></value>
+ </row>
+ <row id="239" trl="Y">
+  <value column="Name" original="Clicks Monthy">Cliques Mensais</value>
+  <value column="Description" original="Clicks per Month">Cliques por Mês</value>
+  <value column="Help" original="The report shows active advertisement Click Count per Month.">O relatório mostra a Contagem de Cliques de propaganda ativa por mês.</value>
+ </row>
+ <row id="240" trl="Y">
+  <value column="Name" original="Clicks Unprocessed">Cliques não Processados</value>
+  <value column="Description" original="Unprocessed Clicks">Cliques não Processados</value>
+  <value column="Help" original="The Report shows Clicks, which could not be processed (URL not matched to Click Count)">O relatório mostra Cliques que não puderam ser processados (URL não coincidiu com Contagem de Cliques)</value>
  </row>
  <row id="241" trl="Y">
   <value column="Name" original="Delete Notices">Apagar Avisos</value>
@@ -904,6 +934,11 @@ Se uma margem foi entrada na Linha de Quantidade SdC, ele substitui a margem ger
   <value column="Description" original="Print Format Detail Report">Relatório de Detalhe de Formato de Impressão</value>
   <value column="Help" original="Print Format with Item details">Formato de Impressão com detalhes dos itens</value>
  </row>
+ <row id="288" trl="Y">
+  <value column="Name" original="Reset Password">Resetar Senha</value>
+  <value column="Description" original="Reset Passwords for User">Reseta as Senhas para um Usuário</value>
+  <value column="Help" original="You can change User Passwords and EMail settings.  You do not need to know/enter the password, if you are an Administrator.">Você pode alterar as Senhas de Usuário e as configurações de email.  Você não necessita saber ou digitar a senha se você for um Administrador.</value>
+ </row>
  <row id="289" trl="Y">
   <value column="Name" original="Create Dunning Run">Gerar Processamento de Cobrança</value>
   <value column="Description" original="Create Dunning Run Entries based on the Dunning Level criteria">Cria entradas de Processamento de Cobrança baseado nos critérios de Nível de Cobrança</value>
@@ -1001,6 +1036,12 @@ Opcionalmente como (5), você pode ativar para alocação dos pagamentos para a 
   <value column="Description" original="Reapply changes">Refazer as alterações</value>
   <value column="Help" original="You can reapply certain changes.">Você pode reaplicar certas alterações.</value>
  </row>
+ <row id="308" trl="Y">
+  <value column="Name" original="Reapply Customizations">Reaplicar Personalizações</value>
+  <value column="Description" original="If you identified customizations in the Change Log, you can reapply them">Se você identificou personalizações no Registro de Alterações (log), você pode reaplicá-las</value>
+  <value column="Help" original="The migration &quot;resets&quot; the system to the current/original setting.  If selected in the Change Log, you can save the customization and re-apply them.  Please note that you need to check, if your customization has no negative side effect in the new release. &lt;br&gt;&#10;Shut down the Application Server before running this process and set the Trace level (in Preference) higher or equals  WARNING." xml:space="preserve"><![CDATA[A migração "restabelece"o sistema para a configuração atual/original. Se for selecionado o Log de Alterações, você pode salvar a personalização e reaplicá-los. Por favor note que você precisa verificar se sua personalização não tem nenhum efeito colateral negativo na nova versão. <br>
+Desligue o Servidor de Aplicação antes de executar este processo e defina o nível de Rastreamento (em preferência) maior ou igual ATENÇÃO.]]></value>
+ </row>
  <row id="309" trl="Y">
   <value column="Name" original="Workflow to Client">Fluxo de Trabalho para Empresa</value>
   <value column="Description" original="Move custom workflow elements to the current client">Move o fluxo de trabalho personalizado para a empresa atual</value>
@@ -1010,6 +1051,12 @@ Opcionalmente como (5), você pode ativar para alocação dos pagamentos para a 
   <value column="Name" original="Trial Balance">Balancete de Verificação</value>
   <value column="Description" original="Trial Balance for a period or date range">Balancete de Verificação para um período ou intervalo de datas</value>
   <value column="Help" original="Select a Period (current period if empty) or enter a Account Date Range. If an account is selected, the balance is calculated based on the account type and the primary calendar of the client (i.e. for revenue/expense accounts from the beginning of the year). If no account is selected, the balance is the sum of all transactions before the selected account range or first day of the period selected. You can select an alternative Reporting Hierarchy.">Selecione um Período (período atual se vazio) ou digite uma Faixas de Datas Contábeis. Se uma conta for selecionada, o balanço será calculado baseado no tipo de conta e no calendário primário da empresa (i.e. para contas de receitas/despesas a partir do início do ano). Se nenhuma conta for selecionada, o balanço será a soma de todas as transações antes da Faixa de Datas Contábeis ou o primeiro dia do período selecionado. Você pode selecionar uma Hierarquia de Relatórios alternativa.</value>
+ </row>
+ <row id="311" trl="Y">
+  <value column="Name" original="Product UOM Convert">Converter UDM de Produto</value>
+  <value column="Description" original="Brack-up or repackage same Products with different UOM">Desdobrar ou reembalar os mesmos produtos com diferentes unidades de medida (UDM)</value>
+  <value column="Help" original="Example: &quot;Product EA&quot; has a defined UOM Conversion to &quot;Product 6Pack&quot; and vice versa.  &#10;This is a one-step replacement for defining BOM and creating/processes a Production.">Exemplo: "Produto EA" tem uma definição de conversão UDM para "Produto 6pack" e vice-versa.  
+Este é um substituto de uma etapa para a definição de LDM e criação/processos uma Produção.</value>
  </row>
  <row id="312" trl="Y">
   <value column="Name" original="Print Dunning Letters">Imprimir Cartas de Cobrança</value>
@@ -1180,6 +1227,16 @@ Note que o suporte é restrito a configuração e teste, mas não para recupera�
   <value column="Description" original="Validate Staging Area">Validar Área de Preparação</value>
   <value column="Help" original=""/>
  </row>
+ <row id="345" trl="Y">
+  <value column="Name" original="Deploy Web Project">Implantar Projeto Web</value>
+  <value column="Description" original="Deploy Web Project">Implantar Projeto Web</value>
+  <value column="Help" original="The process deploys the media to the media server(s) and then copies the stage to the container.">O processo implanta a mídia para o servidor(es) de mídia e depois copia o preparado para o contêiner.</value>
+ </row>
+ <row id="346" trl="Y">
+  <value column="Name" original="Verify BOMs">Verificar LDMs</value>
+  <value column="Description" original="Verify BOM Structures">Verificar Estruturas de LDM</value>
+  <value column="Help" original="The Verify BOM Structures checks the elements and steps which comprise a Bill of Materials.">A Verificação Estruturas de LDM verifica os elementos e passos que compõem uma Lista de Materiais.</value>
+ </row>
  <row id="347" trl="Y">
   <value column="Name" original="Validate">Validar</value>
   <value column="Description" original="Validate Template">Validar Modelo</value>
@@ -1194,6 +1251,11 @@ Note que o suporte é restrito a configuração e teste, mas não para recupera�
   <value column="Name" original="Validate">Validar</value>
   <value column="Description" original="Validate Info Window SQL">Validar Informação na Janela SQL</value>
   <value column="Help" original="Validate generated Info Window SQL">Validar a Informação gerada na Janela SQL</value>
+ </row>
+ <row id="350" trl="Y">
+  <value column="Name" original="Rebuild Index">Reconstruir Índices</value>
+  <value column="Description" original=""/>
+  <value column="Help" original="Be carefull, this process will reindex all tables and records which are marked to get indexed. Depending on the number of documents this could take a long time. This should only be run if you have removed stop words, if this is mentioned to be run after migration.">Cuidado, este processo irá reindexar todas as tabelas e registros que estão marcadas para ser indexados. Dependendo do número de documentos isso pode levar um longo tempo. Isso somente deve ser executado se você tiver removido palavras de parada, se isso é mencionado para ser executado após a migração.</value>
  </row>
  <row id="352" trl="Y">
   <value column="Name" original="Media Direct Deploy">Mídia de Implantação Direta</value>
@@ -1248,6 +1310,16 @@ Note que o suporte é restrito a configuração e teste, mas não para recupera�
  <row id="52002" trl="Y">
   <value column="Name" original="Generate Invoices for Vendor RMA">Gerar Faturas para ARM de Fornecedor</value>
   <value column="Description" original="Generate Invoices from open vendor RMA based on selection.">Gerar Faturas a partir de ARM em aberto de Fornecedor baseado em seleção.</value>
+  <value column="Help" original=""/>
+ </row>
+ <row id="52003" trl="Y">
+  <value column="Name" original="Update Role Menu">Menu de Atualização de Papel (Função)</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row id="53002" trl="Y">
+  <value column="Name" original="Setup Web POS">Configuração de Posterita</value>
+  <value column="Description" original=""/>
   <value column="Help" original=""/>
  </row>
  <row id="53004" trl="Y">
@@ -1417,6 +1489,11 @@ Você também pode incluir ordens de Distribuição que têm confirmações pend
   <value column="Description" original="Let create every cost elements defined for a Organization, Accounting Schema, Warehouse, Resource, Cost Type ,Product and Product Attribute Set Instance .">Vamos criar todo elemento de custo definido para a Organização, Esquema Contábil, Armazém, Recurso, Tipo de Custo, Produto e Conjunto de Instância de Atributos de Produto.</value>
   <value column="Help" original="With this process is possible to create every cost elements defined for a Organization, Accounting Schema, Warehouse, Resource, Cost Type and Product.">Com este processo é possível criar todos os elementos de custos definidos para uma Organização, Esquema Contábil, Armazém, Recursos, Tipo de Custos e Produto.</value>
  </row>
+ <row id="53054" trl="Y">
+  <value column="Name" original="Product Costing">Custeio de Produto</value>
+  <value column="Description" original="To watch the cost elements for every set of Product, Organization, Accounting Schema, Warehouse, Resource and Cost Type">Para assistir os elementos de custo para todo conjunto de Produto, Organização, Esquema Contábil, Armazém, Recurso e Tipo de Custo</value>
+  <value column="Help" original="To watch the cost elements for every set of Product, Organization, Accounting Schema, Warehouse, Resource and Cost Type.&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;">Para assistir os elementos de custo para todo conjunto de Produto, Organização, Esquema Contábil, Armazém, Recurso e Tipo de Custo.												</value>
+ </row>
  <row id="53056" trl="Y">
   <value column="Name" original="Copy Price to Standard Cost">Copiar Preço para o Custo Padrão</value>
   <value column="Description" original="This process allow copy a Price from Price list Version to Element Cost">Este Processo permite copiar um Preço da Versão de Lista de Preço para o Elemento de Custo</value>
@@ -1434,6 +1511,11 @@ Fluxo de Trabalho dos Custos Indiretos = Soma de todas as Operações de Custos 
 
 Fluxo de Trabalho de Custos = Fluxo de Trabalho do Custo da Mão-de-Obra + Fluxo de Trabalho dos Custos Indiretos
 </value>
+ </row>
+ <row id="53060" trl="Y">
+  <value column="Name" original="Cost Workflow &amp; Process Details" xml:space="preserve"><![CDATA[Fluxo de Trabalho de Custos & Detalhes de Processo]]></value>
+  <value column="Description" original="This report show every cost element to a BOM or Formula ">Este relatório mostra todos elementos de custos para uma LDM ou Fórmula </value>
+  <value column="Help" original="This report show every cost element to a BOM or Formula ">Este relatório mostra todos elementos de custos para uma LDM ou Fórmula </value>
  </row>
  <row id="53062" trl="Y">
   <value column="Name" original="Bill of Material &amp; Formula Cost Roll-UP" xml:space="preserve"><![CDATA[Lista de Material & Fórmula de Custo Roll-Up]]></value>
@@ -1459,8 +1541,18 @@ Custo Total da LDM = Soma de todos os Elementos de Custo]]></value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
  </row>
+ <row id="53068" trl="Y">
+  <value column="Name" original="Update Sequence No">Alteração de Nº de Sequência</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
  <row id="53069" trl="Y">
   <value column="Name" original="Apply Migration Scripts">Aplicar Scripts de Migração</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row id="53070" trl="Y">
+  <value column="Name" original="Prepare Migration Scripts">Preparar Script de Migração</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
  </row>
@@ -1516,6 +1608,11 @@ Custo Total da LDM = Soma de todos os Elementos de Custo]]></value>
  </row>
  <row id="53093" trl="Y">
   <value column="Name" original="Build Depreciation Forecast File">Construir Arquivo de Previsão de Depreciação</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row id="53095" trl="Y">
+  <value column="Name" original="Process Entry">Processar Entrada</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
  </row>
@@ -1594,6 +1691,11 @@ Custo Total da LDM = Soma de todos os Elementos de Custo]]></value>
   <value column="Description" original="Asset Convention Report">Relatório de Conversão de Ativos</value>
   <value column="Help" original=""/>
  </row>
+ <row id="53127" trl="Y">
+  <value column="Name" original="A_Depreciation_Entry_Cleanup">A_Depreciation_Entry_Cleanup</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
  <row id="53129" trl="Y">
   <value column="Name" original="Depreciation Calculation Methods">RV_Depreciation_Calculation_Methods</value>
   <value column="Description" original="List Depreciation Calculation Methods Available">Listar Métodos Disponíveis para Cálculo de Depreciação</value>
@@ -1638,6 +1740,11 @@ Consolidar para um documento deixe a distribuição nos documentos atuais com in
   <value column="Name" original="Distribution Order Detail">Detalhe da Ordem de Distribuição</value>
   <value column="Description" original="Distribution Order Detail Report">Relatório de Detalhes de Ordem de Distribuição</value>
   <value column="Help" original="The report includes order detail information Distribution Orders.">O relatório inclui informações de detalhes do pedido das Ordens de Distribuição.</value>
+ </row>
+ <row id="53152" trl="Y">
+  <value column="Name" original="Immediate Bank Transfer">Transferência Bancária Imediata</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
  </row>
  <row id="53153" trl="Y">
   <value column="Name" original="Bank/Cash Transfer">Transferência Bancária</value>
@@ -2020,6 +2127,11 @@ d. Transaction Date, will become in-service-date for the newly created asset.</v
   <value column="Description" original=""/>
   <value column="Help" original=""/>
  </row>
+ <row id="200038" trl="N">
+  <value column="Name" original="Complex Fact View">Complex Fact View</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
  <row id="200039" trl="Y">
   <value column="Name" original="Verify Language Configuration">Verificar Configurações de Idioma</value>
   <value column="Description" original=""/>
@@ -2199,5 +2311,400 @@ For example:<br />
   <value column="Name" original="Delete">Apagar</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="62b6accd-6624-4d22-a9c0-ddf576be70eb">
+  <value column="Name" original="Generate CNAB">Geração CNAB</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="4e72e467-c085-4843-8014-a37fe774edcb">
+  <value column="Name" original="Return CNAB">Retorno CNAB</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="56ac2565-bc8a-4927-859e-e942057a3173">
+  <value column="Name" original="ProcCreatePO">Criar linhas do Pedido</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="0b5d454b-2055-4d4b-bd99-526ea139625b">
+  <value column="Name" original="ProcCancelBoleto">Cancelar Boleto</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="8f37f964-ffff-45a8-a55e-15ee2396dda7">
+  <value column="Name" original="Sobre ADempiereLBR">Sobre AdempiereLBR</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="91e3d029-8ce9-454b-8831-4f3a4b70d252">
+  <value column="Name" original="ProcGenerateRPS">Geração Arquivo RPS</value>
+  <value column="Description" original="Process to Generate RPS File (NFe)">Processo para Geração de Arquivo RPS (NFe)</value>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="111a7b30-c613-4e28-8d47-c5cad6c2de83">
+  <value column="Name" original="Check the status of NF-e services">Consultar Disponibilidade da SeFaz</value>
+  <value column="Description" original="Check the status of reception services of NF-e and NFC-e">Testa o status do serviço de recepção da NF-e e NFC-e</value>
+  <value column="Help" original="This process will try to check the condition of SeFaz services regarding NF-e and NFC-e reception">Este processo irá verificar se o serviço de recepção de notas está funcionando na SeFaz. Caso a SeFaz esteja enfrentando algum problema o processo irá retornar a informação e previsão de normalização. Em caso de erro na consulta, verifique diretamente na SeFaz do seu estado.</value>
+ </row>
+ <row trl="Y" uuid="50398867-4bf5-48de-9508-5a706b6871af">
+  <value column="Name" original="ProcConsultaCadastro">Consultar Cadastro</value>
+  <value column="Description" original="Consulta o Cadastro de um Parceiro de Negócio no SEFAZ">Consulta o Cadastro de um Parceiro de Negócio no SEFAZ</value>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="7a419483-4948-4dde-9ae7-4b36786922a7">
+  <value column="Name" original="AvgCost - Create Records (Manufactured)">Custo Médio - Criar (Fabricados)</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="3b514dce-38d7-458c-b3bc-6d058b736607">
+  <value column="Name" original="AvgCost - Create Records (Purchased)">Custo Médio - Criar (Comprados)</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="2dc35379-1d94-41b1-879c-e1909916ab3a">
+  <value column="Name" original="AvgCost - Update Records (Manufactured)">Custo Médio - Atualizar (Fabricados)</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="9983b657-6fb5-45aa-be01-7ced3548ad63">
+  <value column="Name" original="AvgCost - Update Records (Purchased)">Custo Médio - Atualizar (Comprados)</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="237c515b-d7a6-46fc-b972-b8d3df812df1">
+  <value column="Name" original="AvgCost - RePost Acct">Custo Médio - Re-Postar Contabilidade</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="7f53ab57-8775-4dd1-83a0-7b95cb1b7db8">
+  <value column="Name" original="AvgCost Zoom">Custo Médio Zoom</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="f0139ee9-024b-4fa8-978c-c275a7243266">
+  <value column="Name" original="Process NFeEvent">Process NFeEvent</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="40a0eee1-4075-45a4-8e5c-9086e76021d4">
+  <value column="Name" original="Print From XML">Impressão pelo XML</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="4add4db2-be80-43ef-8f41-1f2e95910544">
+  <value column="Name" original="Cancel Production">Cancelar Produção</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="54eb2b6f-19e5-45ae-b7a5-90672b217e5a">
+  <value column="Name" original="Processar SPED">Processar SPED</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="2c16225a-4e85-4fd5-88b9-c5f1b07342ef">
+  <value column="Name" original="Import IBPT average taxes">Importar Impostos via IBPT</value>
+  <value column="Description" original="Import the average taxes from IBPT">Efetuar a importação da tabela de aliquotas aproximadas de impostos do IBPT</value>
+  <value column="Help" original="Import average taxes from IBPT. This info is mandatory for customer invoices. You can choose getting this data online or from a CSV file.">Você pode optar pela importação online ou por arquivo CSV. Marque a opção "Excluir registros antigos" para que todos os registros obsoletos sejam apagados antes da importação.</value>
+ </row>
+ <row trl="Y" uuid="5b5b4098-37cf-40cd-822b-31774be88ea6">
+  <value column="Name" original="Service Status MDFe">Consulta Estado do Serviço MDF-e</value>
+  <value column="Description" original="Check if service is up">Consulta Estado do Serviço MDF-e</value>
+  <value column="Help" original="Check if service is up an running">Consulta se o estado do serviço MDF-e está no ar</value>
+ </row>
+ <row trl="Y" uuid="6701256d-131f-48be-9f41-13ff11403795">
+  <value column="Name" original="Process MDFe">Processar MDFe</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="d749600b-2e67-4af8-8873-7d8cd44c4007">
+  <value column="Name" original="MDFe Consulta do Envio (Retorno da Recepção)">MDFe Consulta do Envio (Retorno da Recepção)</value>
+  <value column="Description" original="MDFe Consulta do Envio (Retorno da Recepção)">MDFe Consulta do Envio (Retorno da Recepção)</value>
+  <value column="Help" original="MDFe Consulta do Envio (Retorno da Recepção)">MDFe Consulta do Envio (Retorno da Recepção)</value>
+ </row>
+ <row trl="Y" uuid="5f6181f2-6c1a-455b-9139-ce1d5c2488d6">
+  <value column="Name" original="Include Driver">Incluir Motorista</value>
+  <value column="Description" original="Include a driver to an existing MDF-e">Incluir um motorista para um MDF-e em andamento</value>
+  <value column="Help" original="">Com este processo é possível incluir um novo motorista para um MDF-e já existente.</value>
+ </row>
+ <row trl="Y" uuid="261f292d-61ad-4120-b9c8-b5c63349996b">
+  <value column="Name" original="Process Nota Fiscal">Processar Nota Fiscal</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="edd6bd78-297a-4d5f-963d-0227e9a6630c">
+  <value column="Name" original="Process NFe Lot">Processar Lote da NFe</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="2418e667-c250-4f74-b15b-31491c23d876">
+  <value column="Name" original="Send EMail">Enviar EMail</value>
+  <value column="Description" original="Send EMail with Nota Fiscal">Enviar EMail com a Nota Fiscal</value>
+  <value column="Help" original="Send EMail with Nota Fiscal">Envia o EMail da Nota Fiscal com o XML e DANFE para Notas Fiscais modelo 55 e 56. Para RPS e Notas Fiscais de Serviço é enviado apenas o PDF da Nota Fiscal.</value>
+ </row>
+ <row trl="Y" uuid="bbd7a57e-7bea-48fc-9c05-89494608ac24">
+  <value column="Name" original="Create Movement Lines">Criar Linhas de Movimentação</value>
+  <value column="Description" original="Create Movement List">Criar Lista de Produto para Movimentação de Estoque</value>
+  <value column="Help" original="Lines with products to move between locator are generated by this process. You can exclude or include lines freely">As linhas com os produtos à serem Movimentados entre Estoques são geradas através do processo. Você pode excluir ou acrescentar novas linhas manualmente.</value>
+ </row>
+ <row trl="Y" uuid="78f24b27-f79d-4701-9f38-51aa721d3f9b">
+  <value column="Name" original="Import Replenish">Importar Níveis de Estoque</value>
+  <value column="Description" original="Import Replenish for Products">Importar Níveis de Reabastecimento de um Produto no Estoque</value>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="4cfe462f-0b06-4931-9f32-bf53af81454a">
+  <value column="Name" original="Product BOM Report">Relatório de Lista de Materiais</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="c1a4979a-fa32-4b7a-b5fa-8a2312b58194">
+  <value column="Name" original="Product Detail Report">Relatório de Detalhes de Produto</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="7b0b45f7-a642-4fc2-b666-db4839b15185">
+  <value column="Name" original="Get Partner DF-e">Obter Documentos Fiscais (DF-e)</value>
+  <value column="Description" original="Get DFe">Obter Documentos Fiscais (DF-e)</value>
+  <value column="Help" original="Consult NF Issued to you on government SeFaz">Consultar na SeFaz as NFs emitidas para o seu CNPJ nos últimos 90 dias.</value>
+ </row>
+ <row trl="Y" uuid="60b17f78-4a36-4083-8ded-1cbaa1a323c9">
+  <value column="Name" original="ProcTaxAssessment">Gerar Apuração de Impostos</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="7cb1a679-12f1-4bdf-8a52-117dad109b2f">
+  <value column="Name" original="Manifest DFe">Manifestar Documento Fiscal (DF-e)</value>
+  <value column="Description" original="Manifest the Fiscal Document DFe">Manifestar Documento Fiscal (DF-e)</value>
+  <value column="Help" original="">Manifesta o documento fiscal emitido para sua organização. Para os casos onde a operação é desconhecida deverá ser preenchido obrigatóriamente um motivo.</value>
+ </row>
+ <row trl="Y" uuid="db60bcbb-641b-4533-9cb5-c994631fa0fb">
+  <value column="Name" original="Download Partner XML">Download XML (DF-e)</value>
+  <value column="Description" original="Download Partner XML">Download do arquivo XML (DF-e)</value>
+  <value column="Help" original="Download Partner XML for all Manifested DF-e">Faz o download do arquivo XML do Documento Fiscal Eletrônico. Para que o download seja habilitado é necessário a NF-e emitida para a sua organização tenha sido manifestada previamente. Para tentar buscar todos os Downloads disponível deixe o campo "Chave da NF-e" em branco.</value>
+ </row>
+ <row trl="Y" uuid="9240aedf-07ae-4d7a-9d51-cde8570f6e3b">
+  <value column="Name" original="Export XML">Exportar XML da NF-e</value>
+  <value column="Description" original="Export all XML archives in range of dates">Exporta todos os arquivos XML dentro de um intervalo de datas</value>
+  <value column="Help" original="">Este processo exporta os arquivos XML entre um intervalo de datas. O parâmetro Organização permite a escolha de qual será a organização que o processo exportará os XML. A NF de Saída indica se a Nota Fiscal é de Saída (Sim) ou de Entrada (Não). Os parâmetros Parceiro de Negócios ou Grupo de Parceiros busca os XML de um determinado Parceiro de Negócios ou daquele Grupo. O parâmetro Transportadora indica a Transportadora que estava encarregada de transportar o(os) produto(os). O Documento próprio vem marcado como Sim por padrão, pois indica que a NF foi emitida pela própria empresa, caso seja marcado como Não, será exportado somente as Notas Fiscais emitidas pelos Fornecedores. O parâmetro E-mail Enviado, quando marcado como Não, exporta os XML que não foram enviados por e-mail automaticamente.</value>
+ </row>
+ <row trl="Y" uuid="04ddab86-6781-40fd-a617-46767ef4cbcb">
+  <value column="Name" original="Return RPS Process">Processar Retorno do RPS</value>
+  <value column="Description" original="Process the file with results of RPS processing">Processar Retorno do RPS</value>
+  <value column="Help" original="Process the file with results of RPS processing">Processa o arquivo de retorno do RPS</value>
+ </row>
+ <row trl="Y" uuid="f016818f-b920-4df7-8c98-fd68fc8c8828">
+  <value column="Name" original="Relatório Nota Fiscal">Relatório Nota Fiscal</value>
+  <value column="Description" original="Relatório Nota Fiscal">Relatório Nota Fiscal</value>
+  <value column="Help" original="Gerar Relatório de Nota Fiscal Autorizadas, Canceladas ou Inutilizadas tanto de Entrada como de Saída.">Gerar Relatório de Nota Fiscal conforme o Estado da Nota Fiscal, Data de Emissão entre outros filtros.  Para Notas Fiscais de Serviço, o parâmetro Ambiente da NF-e deve estar vazio.</value>
+ </row>
+ <row trl="Y" uuid="57b225be-29df-4a80-82e8-bd4bde8fc23d">
+  <value column="Name" original="Recurring Run">Execução de Recorrentes</value>
+  <value column="Description" original="Recurring Run">Execução de Recorrentes</value>
+  <value column="Help" original="Execute All Recurring documents">Executa todos os documentos recorrentes que estejam com a Data da Próxima Execução vencidas</value>
+ </row>
+ <row trl="Y" uuid="300f58fa-23c8-45c7-bdfa-1c67e9d32af5">
+  <value column="Name" original="Match DFe (Basic)">Confrontrar DF-e (Básico)</value>
+  <value column="Description" original="Match DFe">Confrontrar DF-e (Básico)</value>
+  <value column="Help" original="">Confrontrar DF-e com a NF-e para o preenchimento dos campos Chave, Série e Digest Value</value>
+ </row>
+ <row trl="Y" uuid="31e77d76-698c-4239-a76d-179da325c292">
+  <value column="Name" original="Import Siscomex To Purchase Order">Importar XML Siscomex para PC</value>
+  <value column="Description" original="">Importar para a Janela Importar Pedido os dados obtidos do XML do Siscomex Web</value>
+  <value column="Help" original="">Utilize o XML do Siscomex para gerar um Registro na janela Importar Pedido. O Registro criado na Janela Importar Pedido irá gerar o Pedido de Compra.</value>
+ </row>
+ <row trl="Y" uuid="e2e2c383-a364-4416-b42a-5b342ea91e10">
+  <value column="Name" original="Validate">Validar</value>
+  <value column="Description" original="Validate the Digital Certificate">Valida o Certificado Digital</value>
+  <value column="Help" original="Validate the Digital Certificate (PKCS#11 or PKCS#12 only)">Faz a validação do certificado digital, usando o pseudônimo e a senha. Válido somente para os certificados PKCS#11 ou PKCS#12. Caso seu certificado PKCS#11 certifique-se que o mesmo esteja conectado no computador antes de iniciar o teste.</value>
+ </row>
+ <row trl="Y" uuid="86001521-8e28-4bf6-9173-55731d8afcb8">
+  <value column="Name" original="Relatório Detalhes Nota Fiscal">Relatório Detalhes Nota Fiscal</value>
+  <value column="Description" original="Relatório Detalhes Nota Fiscal">Relatório Detalhes Nota Fiscal</value>
+  <value column="Help" original="Gerar Relatório de Nota Fiscal Autorizadas, Canceladas ou Inutilizadas tanto de Entrada como de Saída.">Gerar Relatório Detalhado de Notas Fiscais Autorizadas, Canceladas ou Inutilizadas, tanto de Entrada como de Saída. Para Notas Fiscais de Serviço, o parâmetro Ambiente da NF-e deve estar vazio.</value>
+ </row>
+ <row trl="Y" uuid="6108bd35-8abb-4190-83d5-412a60e9e222">
+  <value column="Name" original="Sales Products">Detalhe Produtos Vendidos</value>
+  <value column="Description" original="Report include information about Sales Products. Report ordered showing the best selling product at least sold">Detalhe Produtos Vendidos</value>
+  <value column="Help" original="Report include information about Sales Products. Report ordered showing the best selling product at least sold">Informações sobre Venda de Produtos. Relatório ordenado mostrando do produto mais vendido ao menos vendido</value>
+ </row>
+ <row trl="Y" uuid="f6ccd7e6-605f-4bf9-ba53-0d2c4ca8f237">
+  <value column="Name" original="Sales Summary">Resumo de Vendas</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="6d52e690-cd99-40db-8acf-2bada9572773">
+  <value column="Name" original="Quote convert">Converter Cotação</value>
+  <value column="Description" original="Convert Complete Proposal or Quotation to Order by Button on Order's Window">Converter Cotação com Estado Completado a partir do Botão na Janela Pedido de Venda</value>
+  <value column="Help" original="You can convert a Proposal or Quotation to any other Order document type. You would use this process, if you want to maintain/keep the Proposal or Quotation. The document status needs to be In Process.">Converter Cotação com Estado Completado a partir do Botão na Janela Pedido de Venda. Ao converter a cotação em um Pedido de Venda, a mesma será fechada automaticamente.</value>
+ </row>
+ <row trl="N" uuid="25e937d7-b6b2-46c1-956c-8d1e88314b4c">
+  <value column="Name" original="Quote Summary">Resumo das Cotações</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="eb927738-cfe9-426f-9328-06beae7f8461">
+  <value column="Name" original="Invoice Payment Schedule Detail">Detalhe de Parcelamento (Fatura)</value>
+  <value column="Description" original="Invoice Payment Schedule Detail">Detalhe de Parcelamento (Fatura)</value>
+  <value column="Help" original="Invoice Payment Schedule Detail">Detalhe de Parcelamento (Fatura)</value>
+ </row>
+ <row trl="Y" uuid="86c6b25e-1aae-4d09-b5ff-2e523a3b4f80">
+  <value column="Name" original="Bill Detail">Detalhe de Boleto</value>
+  <value column="Description" original="Bill Detail">Detalhe do Boleto</value>
+  <value column="Help" original="Bill Detail">Detalhe do Boleto</value>
+ </row>
+ <row trl="Y" uuid="e24d14a1-f588-48e5-87ea-d15c06c6d088">
+  <value column="Name" original="Consult NFe Protocol">Consultar Protocolo da NFe</value>
+  <value column="Description" original="Consult the protocol info on SeFaz">Consulta o protocolo da NFe na SeFaz</value>
+  <value column="Help" original="This process will connect to SeFaz and consult the protocol data using the NFe ID">Este processo conecta na SeFaz e tenta obter os dados do protocolo de autorização. Caso a NFe conste no sistema e não tenha os dados do protocolo, você poderá marcar a opção "Atualizar dados..." para que o protocolo seja salvo na NFe. Você também pode consultar uma NFe emitida por um fornecedor para validar se os dados do protocolo são válidos.</value>
+ </row>
+ <row trl="N" uuid="4faba9cb-90db-445f-9010-ef49330c233d">
+  <value column="Name" original="Generate Additional NF-e">Gerar Nota Fiscal Adicional</value>
+  <value column="Description" original="Generate NF Additional as NF to Complement, NF Trinagular (Shipment) or Future Deliveries's NF-e">Gerar Nota Fiscal Adicional como NF Complementar, NF Triangular (Remessa) ou NF de Entregas Futuras</value>
+  <value column="Help" original="User process to Generate the following NF's Type:&#10; - NF to Complement&#10; - NF Trinagular (Shipment only, NF of Billing must be generated by Adempiere's Default Process)&#10; - Future Deliveries's NF-e">Utilize o processo para Gerar os seguintes tipos de Nota Fiscal: Nota Fiscal Complementar, Nota Fiscal Triangular (Remessa apenas, Nota Fiscal de Cobrança deve ser gerada pelo processo padrão) e Nota Fiscal de Entregas Futuras.</value>
+ </row>
+ <row trl="Y" uuid="77d47875-2bfd-4c40-920e-647df834ca17">
+  <value column="Name" original="BOM Drop">Explodir LDM</value>
+  <value column="Description" original="Creates the production lines by exploding the bill of materials">Explode a Lista de Materiais, incluindo desta forma todos os insumos necessários para a fabricação</value>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="854453e0-33fe-4f81-92e3-4c360170e798">
+  <value column="Name" original="Move to Producer">Criar Envio para o Produtor</value>
+  <value column="Description" original="Move the products to the Producer">Cria um documento de movimentação de material para o Produtor Externo</value>
+  <value column="Help" original="Move the products from all lines to the Producer">Cria um documento de movimentação de material do estoque de Matéria-Prima para o estoque de Materiais em Poder de Terceiros</value>
+ </row>
+ <row trl="Y" uuid="599ddb17-afbf-4397-8c26-32e676ee36a8">
+  <value column="Name" original="Generate Invoice to Pay Producer">Gera a Fatura à Pagar</value>
+  <value column="Description" original="Generate the Invoices to Pay the Producer">Gera as Faturas de Contas a Pagar para o Produtor</value>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="edc65157-f275-4951-801a-92cc0b9a0829">
+  <value column="Name" original="Generate NF">Gerar Notas Fiscais</value>
+  <value column="Description" original="Generate NF from another document">Gerar Notas Fiscais a partir de outro documento</value>
+  <value column="Help" original="">Este processo permite a geração de uma Nota Fiscal a partir de um Pedido, Remessa, Fatura ou Movimentação.</value>
+ </row>
+ <row trl="Y" uuid="31dfe921-cec5-49d1-b0a5-b26d596d5ef6">
+  <value column="Name" original="Make To Order Candidate">Pedido de Venda pendente de Produção</value>
+  <value column="Description" original="Make To Order Candidate">Pedido de Venda pendente de Produção</value>
+  <value column="Help" original="">Mostra os pedidos de vendas que não tem um Pedido de Produção vinculado</value>
+ </row>
+ <row trl="Y" uuid="b3bb925a-7e53-42a9-8a36-927515b6712d">
+  <value column="Name" original="Process Production Group">Processo de Pedido de Industrialização</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="9f5406c8-715c-447e-b56c-43fc0671c81a">
+  <value column="Name" original="Report Production Group">Relatório de Pedidos de Industrialização</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="1fd2d894-2e75-46ab-8784-75cdaf78823e">
+  <value column="Name" original="Manage Production Group">Gerenciamento de Divisão/Distribuição</value>
+  <value column="Description" original="">Faz o gerenciamento do Pedido de Industrialização</value>
+  <value column="Help" original="">Faz o gerenciamento do Pedido de Industrialização, permitindo a divisão e/ou distribuição das quantidades dos produtos e insumos</value>
+ </row>
+ <row trl="Y" uuid="db11f883-c90c-48ad-b4bb-499c000ad2e0">
+  <value column="Name" original="Material To Purchase">Material Pendente</value>
+  <value column="Description" original="Material To Purchase">Material Pendente de Compra</value>
+  <value column="Help" original="">Mostra os Pedidos de Industrialização com Insumos sem quantidade suficiente, necessitando movimentar ou comprar os itens</value>
+ </row>
+ <row trl="Y" uuid="def40a04-15bb-4f86-a853-471c3c0b6503">
+  <value column="Name" original="Order In Production">Pedidos de Industrialização em Aberto</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="18b9208c-c3fd-4be2-9324-0e24fc060a5d">
+  <value column="Name" original="Itens Movement Production">Insumos Aguardando Movimentação</value>
+  <value column="Description" original="">Insumos Aguardando Movimentação</value>
+  <value column="Help" original="">Insumos Aguardando a movimentação para o Produtor no Armazém de Poder em Terceiros</value>
+ </row>
+ <row trl="Y" uuid="a009bf34-9d0c-4135-b5c4-a0cbc983eeae">
+  <value column="Name" original="Production Group Detail">Detalhes de Pedido de Industrialização</value>
+  <value column="Description" original="Report Production Group and Production">Relatório com Detalhes de todos os Pedido de Industrialização</value>
+  <value column="Help" original="">Relatório com Detalhes de todos os Pedido de Industrialização</value>
+ </row>
+ <row trl="Y" uuid="5b3c0fc0-ba3a-42e0-b57a-ea6b93eb1b99">
+  <value column="Name" original="Re-Process Order">Re-Processar Pedido</value>
+  <value column="Description" original="This script will re-process order values, such as Taxes, Prices, etc.">Este processo irá re-processar um pedido, verificando CFOP, Impostos, Preços, etc.</value>
+  <value column="Help" original="">Recalcular Impostos irá apenas recalcular, baseado nas alíquotas atuais. Redefinir Impostos irá sobrescrever as configurações de impostos do pedido baseado na regra padrão de configuração de impostos. Redefinir CFOP irá buscar o CFOP padrão da configuração. Ratear Frete irá ratear o frete baseado nos valores. Forçar Preço de Lista irá substituir o preço do pedido com o preço mais atual da Lista de Preços. Desfazer Reserva irá remover as reservas de estoque, possibilitando a alteração ou remoção do produto neste pedido.</value>
+ </row>
+ <row trl="Y" uuid="5af9cba5-449d-4994-a27a-c84226b5b901">
+  <value column="Name" original="Skip NF Number">Inutilização de Numeração de NF-e</value>
+  <value column="Description" original="Skip NF Number">Inutilização de Número/Sequência de NF</value>
+  <value column="Help" original="Register at SeFaz that some NF numbering will not be used">Inutiliza um número ou uma sequência, informando a SeFaz que estes números não serão usados</value>
+ </row>
+ <row trl="Y" uuid="3d6d7e21-b673-4c0e-b7ac-8a2a22d1aae0">
+  <value column="Name" original="Return Not Used From Producer">Retornar Insumos Não Utilizados</value>
+  <value column="Description" original="Move back to internal warehouse the products not used by the Producer">Retornar para o Armazém Interno os Insumos que não foram utilizados na industrialização</value>
+  <value column="Help" original="Move back to internal warehouse the products not used by the Producer">Retornar para o Armazém Interno os Insumos que não foram utilizados na industrialização</value>
+ </row>
+ <row trl="Y" uuid="b3426bb9-1c70-4ace-8d5d-33b084816bad">
+  <value column="Name" original="Inventory Details">Detalhes de Inventário e Uso Interno</value>
+  <value column="Description" original="Physical and Internal Use Detail">Detalhes de Inventário e Uso Interno</value>
+  <value column="Help" original="With this report you can have details about your physical and internal use inventory.">Com este relatório pode-se analisar o Estoque Físico (Inventário), Uso Interno e Ajuste de Custo.</value>
+ </row>
+ <row trl="Y" uuid="f7671fd6-4f4d-40a0-9e0f-2e6a8cff25db">
+  <value column="Name" original="RMA Details">Detalhes de ARM</value>
+  <value column="Description" original="RMA Detailss">Detalhes de ARM</value>
+  <value column="Help" original="This report can help to see all exchange and return of products.">Este relatório auxilia na visualização das devoluções em geral.</value>
+ </row>
+ <row trl="Y" uuid="714808ff-94f8-47c0-a29b-eaffce45edd5">
+  <value column="Name" original="Distribute Remaining Material">Distribuir Insumo Remanescente</value>
+  <value column="Description" original="Distribute Remaining Material sent to Industrialization to be used in others productions sent to the same productor">Distribuir Insumo Remanescente enviado à Industrialização para ser usado em outras produções enviadas ao mesmo Fornecedor</value>
+  <value column="Help" original="Distribute Remaining Material sent to Industrialization to be used in others productions sent to the same productor">Distribuir Insumo Remanescente enviado à Industrialização para ser usado em outras produções enviadas ao mesmo Fornecedor</value>
+ </row>
+ <row trl="N" uuid="7c11921c-ff62-4454-823f-6052c054c689">
+  <value column="Name" original="Requisition Print">Requisition Print</value>
+  <value column="Description" original="Requisition Print">Requisition Print</value>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="ef60eabf-ac1c-4c90-89c9-0c83166e8707">
+  <value column="Name" original="RMA Open">ARM em Aberto</value>
+  <value column="Description" original="RMA Open">ARM em Aberto</value>
+  <value column="Help" original="This report can help to see all RMA Not Invoiced or Delivered">Relatório exibe ARMs que não foram Faturadas ou Expedidas</value>
+ </row>
+ <row trl="N" uuid="76763a51-c984-440e-aebc-1f2da541d733">
+  <value column="Name" original="RV_LBR_RequestDetails">RV_LBR_RequestDetails</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="884ba49e-6cd7-4883-bc7a-71e78769eb5e">
+  <value column="Name" original="Generate Book Inventory">Generate Book Inventory</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="e146cab0-82bd-47b2-9139-bfefb2216a36">
+  <value column="Name" original="Birthday Report">Relatório de Aniversariantes</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="5ceef57d-9f1c-48b9-9de9-62a004439b2b">
+  <value column="Name" original="Company Anniversary Report">Relatório de Aniversário de Empresa</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="1b3e18bf-6d92-4c98-84f0-877878a69481">
+  <value column="Name" original="Movement To Production">Movement To Production</value>
+  <value column="Description" original="Movement To Production">Movement To Production</value>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="665a580c-c849-4ad5-badd-04202564d64b">
+  <value column="Name" original="Employee Detail">Employee Detail</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="c3a610ed-8347-41f2-ad90-48077a3210dd">
+  <value column="Name" original="ASI Cleanup">ASI Cleanup</value>
+  <value column="Description" original="Delete unused Attribute Set Instance">Delete unused Attribute Set Instance</value>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="6ad5006a-6158-49ce-9aed-2999216cd4eb">
+  <value column="Name" original="Print From XML MDFe">Print From XML MDFe</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="7c3a1a56-20a5-4644-b5a3-df9f1db04330">
+  <value column="Name" original="Include Document">Incluir Documento</value>
+  <value column="Description" original="Include Document NFe to an open MDFe">Incluir NF-e ao MDF-e em aberto</value>
+  <value column="Help" original="">Incluir NF-e ao MDF-e em aberto caso o MDF-e tenha sido gerado com a informação que o carregamento será posterior a geração do MDF-e</value>
  </row>
 </idempiereTrl>
