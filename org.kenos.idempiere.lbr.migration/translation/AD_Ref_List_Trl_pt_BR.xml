@@ -5568,32 +5568,32 @@
   <value column="Name" original="Activate">Ativar</value>
   <value column="Description" original=""/>
  </row>
- <row id="200470" trl="N">
+ <row id="200470" trl="Y">
   <value column="Name" original="PDF">PDF</value>
   <value column="Description" original=""/>
  </row>
- <row id="200471" trl="N">
+ <row id="200471" trl="Y">
   <value column="Name" original="HTML">HTML</value>
   <value column="Description" original=""/>
  </row>
- <row id="200472" trl="N">
+ <row id="200472" trl="Y">
   <value column="Name" original="Excel">Excel</value>
   <value column="Description" original=""/>
  </row>
- <row id="200473" trl="N">
+ <row id="200473" trl="Y">
   <value column="Name" original="CSV">CSV</value>
   <value column="Description" original=""/>
  </row>
- <row id="200474" trl="N">
-  <value column="Name" original="Default">Default</value>
-  <value column="Description" original="Use what is defined on the Sysconfig key">Use what is defined on the Sysconfig key</value>
+ <row id="200474" trl="Y">
+  <value column="Name" original="Default">Padrão</value>
+  <value column="Description" original="Use what is defined on the Sysconfig key">Use conforme configurado na janela Configuração do Sistema</value>
  </row>
- <row id="200475" trl="N">
-  <value column="Name" original="Always in Grid View">Always in Grid View</value>
+ <row id="200475" trl="Y">
+  <value column="Name" original="Always in Grid View">Sempre em Modo Grade</value>
   <value column="Description" original=""/>
  </row>
- <row id="200476" trl="N">
-  <value column="Name" original="According to threshold">According to threshold</value>
+ <row id="200476" trl="Y">
+  <value column="Name" original="According to threshold">De acordo com o Limiar</value>
   <value column="Description" original=""/>
  </row>
  <row trl="Y" uuid="0541cb75-4048-4209-b326-8bd72f777bfd">

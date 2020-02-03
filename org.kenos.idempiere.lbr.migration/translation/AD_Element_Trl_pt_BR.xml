@@ -61845,9 +61845,9 @@ Exemplo, caso o valor seja 60, o usuário não poderá re-utilizar uma senha que
   <value column="Placeholder" original=""/>
  </row>
  <row id="203140" trl="N">
-  <value column="Name" original="Page break per record">Page break per record</value>
-  <value column="PrintName" original="Page break per record">Page break per record</value>
-  <value column="Description" original="Page Break after each record">Page Break after each record</value>
+  <value column="Name" original="Page break per record">Quebra de página por registro</value>
+  <value column="PrintName" original="Page break per record">Quebra de página por registro</value>
+  <value column="Description" original="Page Break after each record">Incluí uma quebra de página após cada registro</value>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
@@ -61855,7 +61855,7 @@ Exemplo, caso o valor seja 60, o usuário não poderá re-utilizar uma senha que
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row id="203143" trl="N">
+ <row id="203143" trl="Y">
   <value column="Name" original="User defined Process">Janela definida pelo Usuário</value>
   <value column="PrintName" original="User defined Process">Janela definida pelo Usuário</value>
   <value column="Description" original="Primary Key : User defined Process">Janela definida pelo Usuário</value>
@@ -61866,7 +61866,7 @@ Exemplo, caso o valor seja 60, o usuário não poderá re-utilizar uma senha que
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row id="203144" trl="N">
+ <row id="203144" trl="Y">
   <value column="Name" original="AD_UserDef_Proc_UU">AD_UserDef_Proc_UU</value>
   <value column="PrintName" original="AD_UserDef_Proc_UU">AD_UserDef_Proc_UU</value>
   <value column="Description" original=""/>
@@ -61877,7 +61877,7 @@ Exemplo, caso o valor seja 60, o usuário não poderá re-utilizar uma senha que
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row id="203145" trl="N">
+ <row id="203145" trl="Y">
   <value column="Name" original="AD_UserDef_Proc_Parameter_ID">Parâmetro definido pelo Usuário</value>
   <value column="PrintName" original="AD_UserDef_Proc_Parameter_ID">Parâmetro definido pelo Usuário</value>
   <value column="Description" original="Primary Key : User defined Process Parameter">Parâmetro definido pelo Usuário</value>
@@ -61888,7 +61888,7 @@ Exemplo, caso o valor seja 60, o usuário não poderá re-utilizar uma senha que
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row id="203146" trl="N">
+ <row id="203146" trl="Y">
   <value column="Name" original="AD_UserDef_Proc_Parameter_UU">AD_UserDef_Proc_Parameter_UU</value>
   <value column="PrintName" original="AD_UserDef_Proc_Parameter_UU">AD_UserDef_Proc_Parameter_UU</value>
   <value column="Description" original=""/>
@@ -62121,9 +62121,9 @@ Exemplo, caso o valor seja 60, o usuário não poderá re-utilizar uma senha que
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row id="203288" trl="N">
-  <value column="Name" original="One Payment Per Invoice">One Payment Per Invoice</value>
-  <value column="PrintName" original="One Payment Per Invoice">One Payment Per Invoice</value>
+ <row id="203288" trl="Y">
+  <value column="Name" original="One Payment Per Invoice">Um pagamento por fatura</value>
+  <value column="PrintName" original="One Payment Per Invoice">Um pagamento por fatura</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>

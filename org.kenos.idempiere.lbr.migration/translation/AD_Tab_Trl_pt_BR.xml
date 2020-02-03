@@ -6647,21 +6647,21 @@ Impressão:
   <value column="Help" original=""/>
  </row>
  <row id="200271" trl="N">
-  <value column="Name" original="Translation">Translation</value>
+  <value column="Name" original="Translation">Tradução</value>
   <value column="CommitWarning" original=""/>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
  </row>
  <row id="200272" trl="N">
-  <value column="Name" original="Translation">Translation</value>
+  <value column="Name" original="Translation">Tradução</value>
   <value column="CommitWarning" original=""/>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
  </row>
  <row id="200275" trl="N">
-  <value column="Name" original="User Queries">User Queries</value>
+  <value column="Name" original="User Queries">Pesquisas do Usuário</value>
   <value column="CommitWarning" original=""/>
-  <value column="Description" original="View and maintain saved queries">View and maintain saved queries</value>
+  <value column="Description" original="View and maintain saved queries">Ver e Gerenciar pesquisas salvas do usuário</value>
   <value column="Help" original=""/>
  </row>
  <row trl="Y" uuid="3a3e9f23-0ece-4654-9e95-2cc3a809117a">
@@ -7235,22 +7235,22 @@ Impressão:
   <value column="Description" original=""/>
   <value column="Help" original=""/>
  </row>
- <row trl="N" uuid="a2d24b8a-877a-4c4a-a6d5-d1db5e6406d2">
-  <value column="Name" original="Accounting">Accounting</value>
+ <row trl="Y" uuid="a2d24b8a-877a-4c4a-a6d5-d1db5e6406d2">
+  <value column="Name" original="Accounting">Contabilidade</value>
   <value column="CommitWarning" original=""/>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
  </row>
- <row trl="N" uuid="749ac5e5-45fa-4d2b-946c-71de3f7130a1">
-  <value column="Name" original="Book Inventory">Book Inventory</value>
+ <row trl="Y" uuid="749ac5e5-45fa-4d2b-946c-71de3f7130a1">
+  <value column="Name" original="Book Inventory">Estoque Escriturado</value>
   <value column="CommitWarning" original=""/>
-  <value column="Description" original="Book Inventory for SPED">Book Inventory for SPED</value>
+  <value column="Description" original="Book Inventory for SPED">Estoque Escriturado para uso no SPED</value>
   <value column="Help" original=""/>
  </row>
- <row trl="N" uuid="7208347a-a5bb-4192-8a56-a22e544ed45f">
-  <value column="Name" original="Book Inventory (ReValidate)">Book Inventory (ReValidate)</value>
+ <row trl="Y" uuid="7208347a-a5bb-4192-8a56-a22e544ed45f">
+  <value column="Name" original="Book Inventory (ReValidate)">Estoque Escriturado (Correção)</value>
   <value column="CommitWarning" original=""/>
-  <value column="Description" original="Re-validate Book Inventory for SPED for before period">Re-validate Book Inventory for SPED for before period</value>
+  <value column="Description" original="Re-validate Book Inventory for SPED for before period">Correção do Estoque Escriturado feito em meses anteriores</value>
   <value column="Help" original=""/>
  </row>
  <row trl="Y" uuid="96937fa0-bdb9-4081-a419-75b35df3ec56">
@@ -7271,26 +7271,26 @@ Impressão:
   <value column="Description" original="Maintain Payroll Employee">Maintain Payroll Employee</value>
   <value column="Help" original="The Business Partner Tab defines any Entity with whom an organization transacts.">The Business Partner Tab defines any Entity with whom an organization transacts.</value>
  </row>
- <row trl="N" uuid="7ef03ce5-6506-4c0b-b09f-0fa939b1e793">
-  <value column="Name" original="CBO SubGroup">CBO SubGroup</value>
+ <row trl="Y" uuid="7ef03ce5-6506-4c0b-b09f-0fa939b1e793">
+  <value column="Name" original="CBO SubGroup">Sub-Grupo CBO</value>
   <value column="CommitWarning" original=""/>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
  </row>
- <row trl="N" uuid="8ec40f5a-9bfe-4f48-8967-8616e2f16a73">
+ <row trl="Y" uuid="8ec40f5a-9bfe-4f48-8967-8616e2f16a73">
   <value column="Name" original="CBO">CBO</value>
   <value column="CommitWarning" original=""/>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
  </row>
- <row trl="N" uuid="76150e9a-5d9e-4e27-91c5-4470a75d54be">
-  <value column="Name" original="Job Role">Job Role</value>
+ <row trl="Y" uuid="76150e9a-5d9e-4e27-91c5-4470a75d54be">
+  <value column="Name" original="Job Role">Cargo</value>
   <value column="CommitWarning" original=""/>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
  </row>
- <row trl="N" uuid="c0138b07-bb74-45ac-a0a8-b1d5783786a7">
-  <value column="Name" original="Job Title">Job Title</value>
+ <row trl="Y" uuid="c0138b07-bb74-45ac-a0a8-b1d5783786a7">
+  <value column="Name" original="Job Title">Função</value>
   <value column="CommitWarning" original=""/>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
@@ -7313,8 +7313,8 @@ Impressão:
   <value column="Description" original="Maintain Payroll Employee Vacation">Maintain Payroll Employee Vacation</value>
   <value column="Help" original="The Business Partner Tab defines any Entity with whom an organization transacts.">The Business Partner Tab defines any Entity with whom an organization transacts.</value>
  </row>
- <row trl="N" uuid="34381ecb-1de8-474b-b152-efee3f0a552b">
-  <value column="Name" original="System Technical Responsible">System Technical Responsible</value>
+ <row trl="Y" uuid="34381ecb-1de8-474b-b152-efee3f0a552b">
+  <value column="Name" original="System Technical Responsible">Responsável Técnico do Sistema</value>
   <value column="CommitWarning" original=""/>
   <value column="Description" original="System Technical Responsible"/>
   <value column="Help" original=""/>

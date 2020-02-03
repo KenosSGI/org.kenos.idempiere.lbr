@@ -18,10 +18,10 @@
   <value column="Help" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="84ee73da-d3a3-4b64-870f-1cd585b94895">
+ <row trl="Y" uuid="84ee73da-d3a3-4b64-870f-1cd585b94895">
   <value column="Name" original="CNPJ/CPF/ID">CNPJ/CPF/ID</value>
-  <value column="Description" original="Tax Identification">Tax Identification</value>
-  <value column="Help" original="The Tax ID field identifies the legal Identification number of this Entity.">The Tax ID field identifies the legal Identification number of this Entity.</value>
+  <value column="Description" original="Tax Identification">Identificação Tributária</value>
+  <value column="Help" original="The Tax ID field identifies the legal Identification number of this Entity.">O campo "Identificação de Tributária" indica qual é o número de registro da entidade em seu país, ex: CNPJ, CPF, RUC, EIN, FEIN, etc</value>
   <value column="Placeholder" original=""/>
  </row>
 </idempiereTrl>

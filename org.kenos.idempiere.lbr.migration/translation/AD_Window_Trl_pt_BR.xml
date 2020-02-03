@@ -1840,8 +1840,8 @@ MRP - 110	 No exists Dem</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
  </row>
- <row id="53116" trl="N">
-  <value column="Name" original="Asset Class">Asset Class</value>
+ <row id="53116" trl="Y">
+  <value column="Name" original="Asset Class">Classe de Ativo</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
  </row>
@@ -2165,7 +2165,7 @@ MRP - 110	 No exists Dem</value>
   <value column="Description" original="Users from All Clients">Usuários de Todas as Empresas</value>
   <value column="Help" original=""/>
  </row>
- <row id="200095" trl="N">
+ <row id="200095" trl="Y">
   <value column="Name" original="Process Customization">Personalização de Processo</value>
   <value column="Description" original="Define Process Customization for Role/User">Personalização de Processo</value>
   <value column="Help" original="The customization values defined here overwrite/replace the default system definition if defined.">Personalização de Processo</value>
@@ -2180,9 +2180,9 @@ MRP - 110	 No exists Dem</value>
   <value column="Description" original="Roles from All Clients">Papel/Função de todas as Empresas</value>
   <value column="Help" original=""/>
  </row>
- <row id="200109" trl="N">
-  <value column="Name" original="User Queries">User Queries</value>
-  <value column="Description" original="View and maintain saved queries">View and maintain saved queries</value>
+ <row id="200109" trl="Y">
+  <value column="Name" original="User Queries">Pesquisas do Usuário</value>
+  <value column="Description" original="View and maintain saved queries">Visualizar e Gerenciar pesquisas salvas pelo usuário</value>
   <value column="Help" original=""/>
  </row>
  <row trl="Y" uuid="dca00534-43ae-483f-a52a-28a056dde095">
@@ -2390,7 +2390,7 @@ MRP - 110	 No exists Dem</value>
   <value column="Description" original="Production Order Group">Pedido de Industrialização</value>
   <value column="Help" original=""/>
  </row>
- <row trl="N" uuid="818d16e9-9ec8-4a98-a2e4-5c7975cd2b43">
+ <row trl="Y" uuid="818d16e9-9ec8-4a98-a2e4-5c7975cd2b43">
   <value column="Name" original="CBO">CBO</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>

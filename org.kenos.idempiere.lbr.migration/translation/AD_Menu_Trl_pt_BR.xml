@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!--iDempiere(r) Release 6.2_2019-01-06 -Smart Suite ERP, CRM and SCM- (c) 1999-2019 iDempiere(r); Implementation: iDempiere - Supported by iDempiere community--><!--<!DOCTYPE idempiereTrl PUBLIC "-//ComPiere, Inc.//DTD iDempiere Translation 1.0//EN" "http://www.idempiere.com/dtd/idempiereTrl.dtd">--><idempiereTrl language="pt_BR" table="AD_Menu">
  <row id="100" trl="Y">
-  <value column="Name" original="Invoice Inquiry">Consulta de Nota Fiscal</value>
+  <value column="Name" original="Invoice Inquiry">Relatórios de Vendas</value>
   <value column="Description" original=""/>
  </row>
  <row id="153" trl="Y">
@@ -29,7 +29,7 @@
   <value column="Description" original=""/>
  </row>
  <row id="160" trl="Y">
-  <value column="Name" original="Project Management">Administração de Projetos</value>
+  <value column="Name" original="Project Management">Gestão de Projetos</value>
   <value column="Description" original=""/>
  </row>
  <row id="161" trl="Y">
@@ -49,11 +49,11 @@
   <value column="Description" original=""/>
  </row>
  <row id="166" trl="Y">
-  <value column="Name" original="Quote-to-Invoice">Da Cotação à Fatura</value>
+  <value column="Name" original="Quote-to-Invoice">Gestão de Vendas</value>
   <value column="Description" original=""/>
  </row>
  <row id="167" trl="Y">
-  <value column="Name" original="Material Management Rules">Regras de Administração de Materiais</value>
+  <value column="Name" original="Material Management Rules">Armazéns e Produtos</value>
   <value column="Description" original=""/>
  </row>
  <row id="175" trl="Y">
@@ -61,39 +61,39 @@
   <value column="Description" original=""/>
  </row>
  <row id="183" trl="Y">
-  <value column="Name" original="Material Management">Administração de Materiais</value>
+  <value column="Name" original="Material Management">Gestão de Materiais</value>
   <value column="Description" original=""/>
  </row>
  <row id="203" trl="Y">
-  <value column="Name" original="Requisition-to-Invoice">Da Requisição à Fatura</value>
+  <value column="Name" original="Requisition-to-Invoice">Gestão de Compras</value>
   <value column="Description" original=""/>
  </row>
  <row id="218" trl="Y">
-  <value column="Name" original="System Admin">Administrador do Sistema</value>
+  <value column="Name" original="System Admin">Administração do Sistema</value>
   <value column="Description" original=""/>
  </row>
  <row id="236" trl="Y">
-  <value column="Name" original="Open Items">Itens em Aberto</value>
+  <value column="Name" original="Open Items">Gestão Financeira</value>
   <value column="Description" original=""/>
  </row>
  <row id="263" trl="Y">
-  <value column="Name" original="Partner Relations">Relacionamentos com Parceiros de Negócios</value>
+  <value column="Name" original="Partner Relations">Gestão de Parceiros de Negócios</value>
   <value column="Description" original="Customer Relations and Partner Management">Gerenciamento de Parceiros de Negócios e Relacionamento com Clientes</value>
  </row>
  <row id="271" trl="Y">
   <value column="Name" original="Service">Serviços</value>
-  <value column="Description" original="Service Management">Administração de Serviços</value>
+  <value column="Description" original="Service Management">Gestão de Serviços</value>
  </row>
  <row id="272" trl="Y">
   <value column="Name" original="Sales and Marketing">Vendas e Marketing</value>
   <value column="Description" original=""/>
  </row>
  <row id="278" trl="Y">
-  <value column="Name" original="Performance Analysis">Análise de Desempenho</value>
+  <value column="Name" original="Performance Analysis">Gestão Contábil</value>
   <value column="Description" original=""/>
  </row>
  <row id="280" trl="Y">
-  <value column="Name" original="Financial Reporting">Relatórios Financeiros</value>
+  <value column="Name" original="Financial Reporting">Relatórios Contábeis e Cubo</value>
   <value column="Description" original=""/>
  </row>
  <row id="326" trl="Y">
@@ -101,7 +101,7 @@
   <value column="Description" original="Print Definition">Definição de Impressão</value>
  </row>
  <row id="345" trl="Y">
-  <value column="Name" original="Assets">Ativos</value>
+  <value column="Name" original="Assets">Gestão de Patrimônio</value>
   <value column="Description" original=""/>
  </row>
  <row id="357" trl="Y">
@@ -165,7 +165,7 @@
   <value column="Description" original=""/>
  </row>
  <row id="53014" trl="Y">
-  <value column="Name" original="Manufacturing Management">Gerenciamento de Fabricação</value>
+  <value column="Name" original="Manufacturing Management">Gestão de Fabricação (Avançada)</value>
   <value column="Description" original="Manufacturing">Fabricação</value>
  </row>
  <row id="53016" trl="Y">
@@ -241,7 +241,7 @@
   <value column="Description" original=""/>
  </row>
  <row id="53108" trl="Y">
-  <value column="Name" original="Human Resource &amp; Payroll" xml:space="preserve"><![CDATA[Recursos Humanos & Folha de Pagamento]]></value>
+  <value column="Name" original="Human Resource &amp; Payroll">Gestão de Recursos Humanos</value>
   <value column="Description" original="Human Resource &amp; Payroll" xml:space="preserve"><![CDATA[Recursos Humanos & Folha de Pagamento]]></value>
  </row>
  <row id="53109" trl="Y">
@@ -281,19 +281,19 @@
   <value column="Description" original=""/>
  </row>
  <row id="53242" trl="Y">
-  <value column="Name" original="Returns">Devoluções</value>
+  <value column="Name" original="Returns">Gestão de Devoluções</value>
   <value column="Description" original=""/>
  </row>
  <row id="53247" trl="Y">
   <value column="Name" original="EDI">EDI</value>
   <value column="Description" original=""/>
  </row>
- <row id="53296" trl="N">
-  <value column="Name" original="Manufacturing">Manufacturing Light</value>
+ <row id="53296" trl="Y">
+  <value column="Name" original="Manufacturing">Gestão de Fabricação (Básica)</value>
   <value column="Description" original=""/>
  </row>
- <row id="53363" trl="N">
-  <value column="Name" original="Sales Management">Sales Management</value>
+ <row id="53363" trl="Y">
+  <value column="Name" original="Sales Management">Captação e Oportunidades</value>
   <value column="Description" original=""/>
  </row>
  <row id="200095" trl="N">
