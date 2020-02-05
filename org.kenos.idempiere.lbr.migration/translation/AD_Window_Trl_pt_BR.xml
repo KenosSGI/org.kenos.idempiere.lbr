@@ -639,8 +639,8 @@ A mais alta prioridade tem o Formato de Impressão, você define em um Tipo de D
   <value column="Help" original="The Import Products Window is an interim table which is used when importing external data into the system.  Selecting the 'Process' button will either add or modify the appropriate records.">A Janela "Importação de Produtos" é uma tabela interina que é utilizada ao importar dados externos para dentro do sistema.  Selecionar o botão 'Processar' vai acrescentar ou modificar os registros apropriados.</value>
  </row>
  <row id="248" trl="Y">
-  <value column="Name" original="Import Account">Importar Conta</value>
-  <value column="Description" original="Import Natural Account Values">Importação de Valores de Contas Naturais</value>
+  <value column="Name" original="Import Account">Importar Plano de Contas</value>
+  <value column="Description" original="Import Natural Account Values">Importação de Plano de Contas</value>
   <value column="Help" original="The Import Natural Account Window is an interim table which is used when importing external data into the system.  Selecting the 'Process' button will either add or modify the appropriate records.">A Janela "Importação de Contas Naturais" é uma tabela interina que é utilizada ao importar dados externos para dentro do sistema.  Selecionar o botão 'Processar' vai acrescentar ou modificar os registros apropriados.</value>
  </row>
  <row id="249" trl="Y">

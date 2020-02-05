@@ -767,7 +767,7 @@ Continuar?</value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="292" trl="Y">
-  <value column="MsgText" original="History records" xml:space="preserve"><![CDATA[&Registros Históricos]]></value>
+  <value column="MsgText" original="History records" xml:space="preserve"><![CDATA[&Limitar Histórico]]></value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="293" trl="Y">
@@ -1982,23 +1982,23 @@ Você deseja imprimir o aviso das remessas em separado ?</value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="593" trl="Y">
-  <value column="MsgText" original="Value Preference">Preferência de Valor</value>
+  <value column="MsgText" original="Value Preference">Auto Preenchimento</value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="594" trl="Y">
-  <value column="MsgText" original="Preference Value deleted">Valor Preferencial excluído</value>
+  <value column="MsgText" original="Preference Value deleted">Valor de auto preenchimento excluído</value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="595" trl="Y">
-  <value column="MsgText" original="Preference Value set">Valor Preferencial ajustado</value>
+  <value column="MsgText" original="Preference Value set">Valor de auto preenchimento criado</value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="596" trl="Y">
-  <value column="MsgText" original="Preference Value NOT found">Valor Preferencial NÃO encontrado</value>
+  <value column="MsgText" original="Preference Value NOT found">Valor de auto preenchimento NÃO encontrado</value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="597" trl="Y">
-  <value column="MsgText" original="Preference Value NOT set">Valor Preferencial NÃO ajustado</value>
+  <value column="MsgText" original="Preference Value NOT set">Valor de auto preenchimento NÃO criado</value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="598" trl="Y">
