@@ -4874,9 +4874,9 @@ Devido a arredondamentos, o valor da taxa pode diferir.</value>
   <value column="Placeholder" original=""/>
  </row>
  <row id="968" trl="Y">
-  <value column="Name" original="Charge">Despesa</value>
-  <value column="PrintName" original="Charge">Despesa</value>
-  <value column="Description" original="Additional document charges">Despesas adicionais do documento</value>
+  <value column="Name" original="Charge">Finalidade Contábil</value>
+  <value column="PrintName" original="Charge">Finalidade Contábil</value>
+  <value column="Description" original="Additional document charges">Finalidade Contábil adicionais</value>
   <value column="Help" original="The Charge indicates a type of Charge (Handling, Shipping, Restocking)">O campo "Despesa" indica o tipo de despesa (Manipulação, Despacho, Re-estocagem)</value>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
@@ -14585,9 +14585,9 @@ Se nenhuma é entrada, a impressora padrão é usada. Você especifica sua impre
   <value column="Placeholder" original=""/>
  </row>
  <row id="2096" trl="Y">
-  <value column="Name" original="Charge Name">Nome da Despesa</value>
-  <value column="PrintName" original="Charge Name">Nome da Despesa</value>
-  <value column="Description" original="Name of the Charge">Nome da Despesa</value>
+  <value column="Name" original="Charge Name">Nome da Finalidade</value>
+  <value column="PrintName" original="Charge Name">Nome da Finalidade</value>
+  <value column="Description" original="Name of the Charge">Nome da Finalidade Contábil</value>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
@@ -30828,8 +30828,8 @@ http://en.wikipedia.org/wiki/Safety_stock</value>
   <value column="Placeholder" original=""/>
  </row>
  <row id="53677" trl="Y">
-  <value column="Name" original="Charge Type">Tipo de Despesa</value>
-  <value column="PrintName" original="Charge Type">Tipo de Despesa</value>
+  <value column="Name" original="Charge Type">Tipo de Finalidade</value>
+  <value column="PrintName" original="Charge Type">Tipo de Finalidade</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -42075,8 +42075,8 @@ Product: used to quickly add products to POS order</value>
   <value column="Placeholder" original=""/>
  </row>
  <row id="200004" trl="Y">
-  <value column="Name" original="Mandatory Charge or Product">Obrigatório um Produto ou Referência Contábil</value>
-  <value column="PrintName" original="Mandatory Charge or Product">Obrigatório um Produto ou Referência Contábil</value>
+  <value column="Name" original="Mandatory Charge or Product">Obrigatório um Produto ou Finalidade Contábil</value>
+  <value column="PrintName" original="Mandatory Charge or Product">Obrigatório um Produto ou Finalidade Contábil</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -44737,8 +44737,8 @@ Product: used to quickly add products to POS order</value>
   <value column="Placeholder" original=""/>
  </row>
  <row id="200322" trl="Y">
-  <value column="Name" original="Charge for Freight">Referência Contábil para o Frete</value>
-  <value column="PrintName" original="Charge for Freight">Referência Contábil para o Frete</value>
+  <value column="Name" original="Charge for Freight">Finalidade Contábil para o Frete</value>
+  <value column="PrintName" original="Charge for Freight">Finalidade Contábil para o Frete</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>

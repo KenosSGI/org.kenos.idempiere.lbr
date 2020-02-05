@@ -273,9 +273,9 @@ Lista de preços podem ser calculadas e copiadas. Para agilizar o cálculo, os p
   <value column="Help" original="The Withholding Window defines the rule used for calculating withholding amounts.">A Janela "Retenção" define a regra usada para calcular montantes de retenção.</value>
  </row>
  <row id="161" trl="Y">
-  <value column="Name" original="Charge">Despesa</value>
-  <value column="Description" original="Maintain Charges">Gerenciamento de Despesas</value>
-  <value column="Help" original="The Charges Window defines the different charges that may be incurred.  These can include Bank Charges, Vendor Charges and Handling Charges.">A Janela "Despesa" define as diferentes despesas a que se pode ficar sujeito.  Estas podem incluir Taxas de Banco, Taxas de Fornecedores e Custos de Manuseio.</value>
+  <value column="Name" original="Charge">Finalidade Contábil</value>
+  <value column="Description" original="Maintain Charges">Gerenciamento de Finalidades Contábeis</value>
+  <value column="Help" original="The Charges Window defines the different charges that may be incurred.  These can include Bank Charges, Vendor Charges and Handling Charges.">A Janela "Finalidade Contábil" define as diferentes despesas e receitas a que se pode ficar sujeito.  Estas podem incluir Taxas de Banco, Taxas de Fornecedores e Custos de Manuseio.</value>
  </row>
  <row id="162" trl="Y">
   <value column="Name" original="Accounting Fact Details">Detalhes de Fatos Contábeis</value>
@@ -403,7 +403,7 @@ Lista de preços podem ser calculadas e copiadas. Para agilizar o cálculo, os p
   <value column="Help" original="The Process Bank Statements window allows you to reconcile your Bank Statements.  You can either enter the line items from the statement in the Statement Line tab or select the 'Create From' button to automatically generate the statement from all unreconciled payments to this bank account.  Once you have completed reconciling, select the 'Process Statement' button to mark the payments as reconciled and update the appropriate GL accounts.">a Janela "Processar Extratos Bancários" permite a você reconciliar seus Extratos Bancários.  Você pode digitar os itens a partir do extrato na Aba "Linha de Extrato" ou selecionar o botão 'Criar de' para gerar automaticamente o extrato de todos os pagamentos não reconciliados a esta conta bancária.  Assim que você tiver completado a reconciliação, selecione o botão 'Processar Extrato' para marcar os pagamentos como reconciliados e atualizar as contas apropriadas do RG (Razão Geral).</value>
  </row>
  <row id="195" trl="Y">
-  <value column="Name" original="Payment">Pagamento</value>
+  <value column="Name" original="Payment">Pagamento e Recebimento</value>
   <value column="Description" original="Process Payments and Receipts">Processar Pagamentos e Recebimentos</value>
   <value column="Help" original="The Process Payments Window allows you to enter payments and reaipts for invoices.  If the payment is for a single invoice then it can be processed here.  If it is for multiple invoices or is a partial payment then it should be processed in the Payment Allocation Window.">A Janela "Processar Pagamentos" permite a você digitar pagamentos e recibos de faturas.  Se o pagamento for para uma única fatura então ele pode ser processado aqui.  Se ele for para múltiplas faturas ou se for um pagamento parcial então ele deve ser processado na Janela "Alocação de Pagamentos".</value>
  </row>
@@ -1710,7 +1710,7 @@ MRP - 110	 No exists Dem</value>
   <value column="Help" original="The Depreciation Calcualtion Method window allows the user to define how adjustments to the fixed asset depreciation expense are handled">A janela "Método de Cálculo de Depreciação" permite o usuário definir como ajustar como são manipuladas as despesas de depreciação de ativos imobilizados</value>
  </row>
  <row id="53062" trl="Y">
-  <value column="Name" original="Charge Type">Tipo de Despesa</value>
+  <value column="Name" original="Charge Type">Tipo de Finalidade Contábil</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
  </row>
