@@ -3933,9 +3933,9 @@ Exemplo: Uma aba com C_DocType_ID (1), DocumentNo (-2) será classificada em ord
   <value column="Placeholder" original=""/>
  </row>
  <row id="613" trl="Y">
-  <value column="Name" original="User Element List 1">Lista do Usuário 1</value>
-  <value column="PrintName" original="User Element List 1">Usuário 1</value>
-  <value column="Description" original="User defined list element #1">Lista definida pelo usuário elemento #1</value>
+  <value column="Name" original="User Element List 1">Centro de Custo</value>
+  <value column="PrintName" original="User Element List 1">Centro de Custo</value>
+  <value column="Description" original="User defined list element #1">Lista definida pelo usuário elemento #1 (Centro de Custo)</value>
   <value column="Help" original="The user defined element displays the optional elements that have been defined for this account combination.">O "Elemento Definido pelo Usuário" exibe os elementos opcionais que tenham sido definidos para esta combinação de contas.</value>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
@@ -3944,9 +3944,9 @@ Exemplo: Uma aba com C_DocType_ID (1), DocumentNo (-2) será classificada em ord
   <value column="Placeholder" original=""/>
  </row>
  <row id="614" trl="Y">
-  <value column="Name" original="User Element List 2">Lista do Usuário 2</value>
-  <value column="PrintName" original="User Element List 2">Usuário 2</value>
-  <value column="Description" original="User defined list element #2">Elemento da lista definida pelo usuário #2</value>
+  <value column="Name" original="User Element List 2">Centro de Custo 2</value>
+  <value column="PrintName" original="User Element List 2">Centro de Custo 2</value>
+  <value column="Description" original="User defined list element #2">Lista definida pelo usuário elemento #1 (Centro de Custo)</value>
   <value column="Help" original="The user defined element displays the optional elements that have been defined for this account combination.">O "Elemento Definido pelo Usuário" exibe os elementos opcionais que tenham sido definidos para esta combinação de contas.</value>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
