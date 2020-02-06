@@ -371,6 +371,8 @@ public abstract class NFeUtil
 	 * @return
 	 */
 	public static Timestamp stringToTime(String dhRecbto){
+		if (dhRecbto == null)
+			return null;
 		return TextUtil.stringToTime(dhRecbto.replace('T', ' '), "yyyy-MM-dd HH:mm:ss");
 	} //StringToDate
 
