@@ -6779,7 +6779,7 @@ A captura da Transação de Pagamento está atrasada</value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="200491" trl="Y">
-  <value column="MsgText" original="Time Line">Linha do Tempo<value>
+  <value column="MsgText" original="Time Line">Linha do Tempo</value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="200492" trl="Y">
