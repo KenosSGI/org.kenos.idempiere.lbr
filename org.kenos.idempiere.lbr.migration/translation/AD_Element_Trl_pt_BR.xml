@@ -782,9 +782,9 @@
   <value column="Placeholder" original=""/>
  </row>
  <row id="198" trl="Y">
-  <value column="Name" original="Account Element">Elemento de Contas</value>
-  <value column="PrintName" original="Account Element">Elemento de Contas</value>
-  <value column="Description" original="Account Element">Elemento de Contas</value>
+  <value column="Name" original="Account Element">Elemento Contábil</value>
+  <value column="PrintName" original="Account Element">Elemento Contábil</value>
+  <value column="Description" original="Account Element">Elemento Contábil</value>
   <value column="Help" original="Account Elements can be natural accounts or user defined values.">Os "Elementos Contábeis" podem ser contas naturais ou valores definidos pelo usuário.</value>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
@@ -32074,8 +32074,8 @@ Credita Conta Trabalho em Processamento ]]></value>
   <value column="Placeholder" original=""/>
  </row>
  <row id="54070" trl="Y">
-  <value column="Name" original="Relation Type">Tipo de Relação</value>
-  <value column="PrintName" original="Relation Type">Tipo de Relação</value>
+  <value column="Name" original="Relation Type">Relação do Zoom</value>
+  <value column="PrintName" original="Relation Type">Relação do Zoom</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>

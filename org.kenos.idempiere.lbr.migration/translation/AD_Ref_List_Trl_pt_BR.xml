@@ -102,7 +102,7 @@
  </row>
  <row id="118" trl="Y">
   <value column="Name" original="Account">Conta</value>
-  <value column="Description" original="Account Element">Elemento de Contas</value>
+  <value column="Description" original="Account Element">Elemento Contábil</value>
  </row>
  <row id="119" trl="Y">
   <value column="Name" original="User defined">Definido pelo usuário</value>

@@ -5457,7 +5457,7 @@ Valido De/Para é determinado pelo imposto pai.]]></value>
   <value column="Help" original=""/>
  </row>
  <row id="53285" trl="Y">
-  <value column="Name" original="Relation Type">Tipo de Relação</value>
+  <value column="Name" original="Relation Type">Relação do Zoom</value>
   <value column="CommitWarning" original=""/>
   <value column="Description" original=""/>
   <value column="Help" original=""/>

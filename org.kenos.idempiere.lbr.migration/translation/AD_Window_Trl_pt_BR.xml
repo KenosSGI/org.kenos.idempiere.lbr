@@ -98,10 +98,10 @@ Mude a forma de como os números de documentos são gerados. Você pode adiciona
   <value column="Help" original="The Calendar Year and Periods defines the calendars that will be used for period control and reporting. You can also define non-standard calendars (e.g. business year from July to June).">A Janela "Períodos e Anos Civís" define os calendários que serão utilizados para controle de períodos e relatórios. Você também pode definir calendários não padronizados (ex. ano fiscal de Julho a Junho).</value>
  </row>
  <row id="118" trl="Y">
-  <value column="Name" original="Account Element">Elemento de Contas</value>
+  <value column="Name" original="Account Element">Elemento Contábil</value>
   <value column="Description" original="Maintain Account Elements">Gerenciamento dos Elementos de Contas</value>
-  <value column="Help" original="The Account Element Window is used to define and maintain the Accounting Element and User Defined Elements. &#10;One of the account segments is your natural account segment (Chart of Account). You may add a new account element for parallel reporting or for user defined accounting segments.">A Janela "Elemento de Contas" é usada para definir e administrar Elementos Contábeis e Elementos Definidos pelo Usuário.
-Um dos segmentos de contas é seu segmento de contas naturais (Plano de Contas). Você pode adicionar um novo elemento de contas para relatório paralelo ou para segmentos de contabilidade definidos pelo usuário.</value>
+  <value column="Help" original="The Account Element Window is used to define and maintain the Accounting Element and User Defined Elements. &#10;One of the account segments is your natural account segment (Chart of Account). You may add a new account element for parallel reporting or for user defined accounting segments.">A Janela "Elemento Contábil" é usada para definir e administrar Elementos Contábeis e Elementos Definidos pelo Usuário.
+Um dos segmentos de contas é seu segmento de contas naturais (Plano de Contas). Você pode adicionar um novo Elemento Contábil para relatório paralelo ou para segmentos de contabilidade definidos pelo usuário.</value>
  </row>
  <row id="120" trl="Y">
   <value column="Name" original="Unit of Measure">Unidade de Medida</value>
@@ -1806,7 +1806,7 @@ MRP - 110	 No exists Dem</value>
   <value column="Help" original=""/>
  </row>
  <row id="53102" trl="Y">
-  <value column="Name" original="Relation Type">Tipo de Relação</value>
+  <value column="Name" original="Relation Type">Relação do Zoom</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
  </row>
