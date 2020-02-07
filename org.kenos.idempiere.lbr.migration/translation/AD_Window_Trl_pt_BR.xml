@@ -822,7 +822,7 @@ Em geral, caixas de seleção não estão selecionadas se o valor não é "S" (i
   <value column="Help" original="Freight Categories are used to calculate the Freight for the Shipper selected">Categorias de Frete são usadas para calcular o Frete pela Transportadora selecionada</value>
  </row>
  <row id="283" trl="Y">
-  <value column="Name" original="Accounting Dimensions">Dimensões Contábeis</value>
+  <value column="Name" original="Accounting Dimensions">Dimensão Contábil</value>
   <value column="Description" original="Maintain Non-Account Dimension Trees">Gerenciamento de Árvores de Dimensões não Contábeis</value>
   <value column="Help" original="Maintain Trees of non account segment trees.  Account segment trees (as well as user defined dimensions) are mainatained in the Account Element window. Please note that you will not be able to create new entities in this window if you have not default set for all manfatory values!">Gerenciamento de Árvores de segmentos não contábeis.  Árvores de segmentos contábeis (assim como dimensões definidas pelo usuário) são mantidas na Janela "Elemento Contábil". Por favor note que você não será capaz de criar novas entidades nesta janela se você não tiver um conjunto de padrões para todos os valores obrigatórios!</value>
  </row>
