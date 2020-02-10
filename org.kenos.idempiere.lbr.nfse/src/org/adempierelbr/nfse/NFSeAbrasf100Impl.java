@@ -1,17 +1,18 @@
 package org.adempierelbr.nfse;
 
 import java.awt.Desktop;
-import java.io.ByteArrayOutputStream;
+import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
-import java.net.URL;
 import java.sql.Timestamp;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 import java.util.Properties;
-import java.util.logging.Level;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.adempiere.model.POWrapper;
@@ -19,27 +20,20 @@ import org.adempierelbr.model.MLBRDigitalCertificate;
 import org.adempierelbr.model.MLBRNotaFiscal;
 import org.adempierelbr.model.MLBRNotaFiscalLine;
 import org.adempierelbr.nfse.util.FixedTxt;
-import org.adempierelbr.process.PrintFromXML;
 import org.adempierelbr.util.BPartnerUtil;
 import org.adempierelbr.util.NFeUtil;
 import org.adempierelbr.util.SignatureUtil;
 import org.adempierelbr.util.TextUtil;
 import org.adempierelbr.wrapper.I_W_AD_OrgInfo;
-import org.adempierelbr.wrapper.I_W_C_BPartner;
 import org.apache.axis2.transport.http.HTTPConstants;
 import org.compiere.model.MAttachment;
+import org.compiere.model.MAttachmentEntry;
 import org.compiere.model.MBPartner;
+import org.compiere.model.MImage;
 import org.compiere.model.MOrgInfo;
-import org.compiere.model.MPInstance;
-import org.compiere.model.MPInstancePara;
 import org.compiere.model.MProduct;
-import org.compiere.process.ProcessInfo;
-import org.compiere.process.ProcessInfoParameter;
-import org.compiere.process.SvrProcess;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
-import org.compiere.util.Msg;
-import org.compiere.util.Trx;
 
 import br.com.ginfes.cabecalhoV03.CabecalhoDocument;
 import br.com.ginfes.cabecalhoV03.CabecalhoDocument.Cabecalho;
@@ -76,6 +70,12 @@ import br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.RecepcionarLoteRps
 import br.org.abrasf.nfse.webservice.NfseWSServiceStub;
 import br.org.abrasf.nfse.webservice.NfseWSServiceStub.CancelarNfseRequest;
 import br.org.abrasf.nfse.webservice.NfseWSServiceStub.Input;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRXmlDataSource;
+import net.sf.jasperreports.engine.util.JRLoader;
 
 /**
  * 		NFS-e de Cidades que Utilizam Abrasf Versão 1.00 - Ginfes
@@ -310,7 +310,7 @@ public class NFSeAbrasf100Impl implements INFSe
 		// Discriminação do Serviço
 		if (nf.getDescription() != null 
 				&& !nf.getDescription().isEmpty())
-			descricaoServico = descricaoServico + "\n" + nf.getDescription();
+			descricaoServico = descricaoServico + " - " + nf.getDescription();
 		
 		dadosServico.setDiscriminacao(TextUtil.retiraEspecial(descricaoServico));
 		
@@ -1620,8 +1620,103 @@ public class NFSeAbrasf100Impl implements INFSe
 	 */
 	public File getPDF(MLBRNotaFiscal nf)
 	{		
-		return null;
+		File PDF = null;
+		
+		try
+		{
+			//	Get Report
+			JasperPrint jasperPrint = getReport (nf);
+			
+			//	File in PDF
+			PDF = File.createTempFile("NFSe" + nf.getlbr_NFENo() + "-", ".pdf");
+    		JasperExportManager.exportReportToPdfFile(jasperPrint, PDF.getAbsolutePath());
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+		return PDF;
 	}	
+	
+	/**
+	 * 	Get JasperReport
+	 * @param nf
+	 * @return
+	 * @throws Exception
+	 */
+	private JasperPrint getReport (MLBRNotaFiscal nf) throws Exception
+	{
+		InputStream is = null;
+		MImage img = MImage.get(Env.getCtx(), MOrgInfo.get(Env.getCtx(), nf.getAD_Org_ID(), nf.get_TrxName()).getLogo_ID());
+		InputStream xml = null;
+		MAttachment att = null;	
+		
+		try
+		{
+			//	Map Parameters
+			Map<String, Object> map = new HashMap<String, Object>();
+			
+			//	Attachment
+			att = nf.getAttachment (true);
+			
+			if (att == null || att.getEntryCount() == 0)
+				throw new Exception ("Arquivo XML n\u00E3o encontrado para impress\u00E3o");
+			
+			MAttachmentEntry[] entries = att.getEntries();
+			
+			//	Get XML
+			for (MAttachmentEntry entry : entries)
+			{
+				//	Try to find the right file
+				if (entry.getName().endsWith("dst.xml"))
+				{
+					xml = entry.getInputStream();
+					break;
+				}
+			}
+			
+			//	Valid XML
+			if (xml == null)
+				throw new Exception ("Arquivo XML não foi encontrado");
+			
+			//	Get Logo
+			if (img.getBinaryData() != null)
+			{
+				is = new ByteArrayInputStream (img.getBinaryData());
+				map.put("logotipo", is);
+			}
+
+			//	Get Jasper
+			ClassLoader cl = getClass().getClassLoader();
+			InputStream report = cl.getResourceAsStream("org/kenos/idempiere/lbr/nfse/report/nfseAbrasf.jasper");
+			
+			JasperReport jasperReport = (JasperReport) JRLoader.loadObject (report);
+			JRXmlDataSource dataSource = new JRXmlDataSource ( xml , jasperReport.getQuery().getText() );
+			dataSource.setLocale(Locale.US);
+			
+			//	Fill
+			return JasperFillManager.fillReport (jasperReport, map, dataSource);			
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			try
+			{
+				if (is != null)
+					is.close();
+			}
+			catch (IOException ioe)
+			{
+				throw new Exception ("Erro na Impressão da Nota Fiscal de Serviço. Imprima a partir do Site da Prefeitura");
+			}
+		}
+		
+		throw new Exception ("Erro na Impressão da Nota Fiscal de Serviço. Imprima a partir do Site da Prefeitura");
+	}	//	getReport
 	
 	/**
 	 * Cancel NFS-e
