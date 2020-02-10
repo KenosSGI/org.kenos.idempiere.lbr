@@ -4676,8 +4676,8 @@ Devido a arredondamentos, o valor da taxa pode diferir.</value>
   <value column="Placeholder" original=""/>
  </row>
  <row id="930" trl="Y">
-  <value column="Name" original="SO Tax exempt">Isento de Imposto</value>
-  <value column="PrintName" original="SO Tax exempt">Isento de Imposto</value>
+  <value column="Name" original="SO Tax exempt">Isento de Imposto (Vendas)</value>
+  <value column="PrintName" original="SO Tax exempt">Isento de Imposto (Vendas)</value>
   <value column="Description" original="Business partner is exempt from tax on sales">O Parceiro de Negócios é isento de imposto</value>
   <value column="Help" original="If a business partner is exempt from tax on sales, the exempt tax rate is used. For this, you need to set up a tax rate with a 0% rate and indicate that this is your tax exempt rate.  This is required for tax reporting, so that you can track tax exempt transactions.">A alíquota de isenção de imposto é utilizada se um parceiro de negócios for isento de impostos. Para isto, você precisa ajustar a alíquota de imposto em 0% e indicar que esta é a sua alíquota de isenção de impostos.  Isto é necessário para relatórios de impostos, de tal forma que você possa rastrear transações isentas de impostos.</value>
   <value column="PO_Description" original=""/>
@@ -66782,10 +66782,10 @@ Usar @AMT@ quando for identificar o valor do Produto/Serviço</value>
   <value column="Placeholder" original=""/>
  </row>
  <row trl="Y" uuid="6c8c947e-c553-44d7-bda9-b51b6db2f1bd">
-  <value column="Name" original="NFe EMail">EMail NFe</value>
-  <value column="PrintName" original="NFe EMail">EMail NFe</value>
-  <value column="Description" original="NFe EMail separated by semicolon">EMail para recepção do XML da NFe</value>
-  <value column="Help" original="NFe EMail separated by semicolon">EMail para recepção do XML da NFe (para adicionar mais de um e-mail separe por vírgula ou ponto-e-vírgula)</value>
+  <value column="Name" original="NFe EMail">E-mail NFe</value>
+  <value column="PrintName" original="NFe EMail">E-mail NFe</value>
+  <value column="Description" original="NFe EMail separated by semicolon">E-mail para recepção do XML da NFe</value>
+  <value column="Help" original="NFe EMail separated by semicolon">E-mail para recepção do XML da NFe (para adicionar mais de um e-mail separe por vírgula ou ponto-e-vírgula)</value>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
   <value column="PO_Name" original=""/>
@@ -66793,10 +66793,10 @@ Usar @AMT@ quando for identificar o valor do Produto/Serviço</value>
   <value column="Placeholder" original=""/>
  </row>
  <row trl="Y" uuid="6910fda3-e4d2-4f1a-9d22-995d80ff61f7">
-  <value column="Name" original="EMail Sent">EMail Enviado</value>
-  <value column="PrintName" original="EMail Sent">EMail Enviado</value>
-  <value column="Description" original="Indicates if the email was sent">Indica se o email foi enviado com sucesso</value>
-  <value column="Help" original="Indicates if the email was sent">Indica se o email foi enviado com sucesso</value>
+  <value column="Name" original="EMail Sent">E-mail Enviado</value>
+  <value column="PrintName" original="EMail Sent">E-mail Enviado</value>
+  <value column="Description" original="Indicates if the email was sent">Indica se o e-mail foi enviado com sucesso</value>
+  <value column="Help" original="Indicates if the email was sent">Indica se o e-mail foi enviado com sucesso</value>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
   <value column="PO_Name" original=""/>
@@ -66804,10 +66804,10 @@ Usar @AMT@ quando for identificar o valor do Produto/Serviço</value>
   <value column="Placeholder" original=""/>
  </row>
  <row trl="Y" uuid="6f564521-a292-46c1-90f9-bf65ab33bf5b">
-  <value column="Name" original="Send EMail">Enviar EMail</value>
-  <value column="PrintName" original="Send EMail">Enviar EMail</value>
-  <value column="Description" original="Send EMail with Nota Fiscal">Enviar EMail da Nota Fiscal</value>
-  <value column="Help" original="Send EMail with Nota Fiscal">Enviar EMail da Nota Fiscal com o XML e DANFE para Notas Fiscais modelo 55 e 56. Para RPS e Notas Fiscais de Serviço é enviado apenas o PDF da Nota Fiscal</value>
+  <value column="Name" original="Send EMail">Enviar E-mail</value>
+  <value column="PrintName" original="Send EMail">Enviar E-mail</value>
+  <value column="Description" original="Send EMail with Nota Fiscal">Enviar e-mail da Nota Fiscal</value>
+  <value column="Help" original="Send EMail with Nota Fiscal">Enviar e-mail da Nota Fiscal com o XML e DANFE para Notas Fiscais modelo 55 e 56. Para RPS e Notas Fiscais de Serviço é enviado apenas o PDF da Nota Fiscal</value>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
   <value column="PO_Name" original=""/>
