@@ -1719,6 +1719,7 @@ public class NFSeAbrasf100Impl implements INFSe
 		catch (Exception e)
 		{
 			e.printStackTrace();
+			throw new Exception (e.getMessage());
 		}
 		finally
 		{
@@ -1729,11 +1730,9 @@ public class NFSeAbrasf100Impl implements INFSe
 			}
 			catch (IOException ioe)
 			{
-				throw new Exception ("Erro na Impressão da Nota Fiscal de Serviço. Imprima a partir do Site da Prefeitura(1)");
+				throw new Exception ("Erro na Impressão da Nota Fiscal de Serviço. Imprima a partir do Site da Prefeitura");
 			}
 		}
-		
-		throw new Exception ("Erro na Impressão da Nota Fiscal de Serviço. Imprima a partir do Site da Prefeitura(2)");
 	}	//	getReport
 	
 	/**
