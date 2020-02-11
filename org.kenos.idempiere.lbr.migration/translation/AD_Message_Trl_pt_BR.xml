@@ -771,7 +771,7 @@ Continuar?</value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="293" trl="Y">
-  <value column="MsgText" original="&amp;Home"><![CDATA[Área de &Trabalho]]></value>
+  <value column="MsgText" original="&amp;Home"><![CDATA[&Painel]]></value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="294" trl="Y">
@@ -3216,7 +3216,7 @@ Você quer continuar?</value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="52001" trl="Y">
-  <value column="MsgText" original="Vendor RMA">ARM de Formecedor</value>
+  <value column="MsgText" original="Vendor RMA">ARM de Fornecedor</value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="52003" trl="Y">

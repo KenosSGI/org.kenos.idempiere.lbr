@@ -2201,15 +2201,15 @@
   <value column="Description" original=""/>
  </row>
  <row id="699" trl="Y">
-  <value column="Name" original="Receivables &amp; Payables" xml:space="preserve"><![CDATA[Recebíveis & Pagáveis]]></value>
+  <value column="Name" original="Receivables &amp; Payables" xml:space="preserve"><![CDATA[Contas a Pagar e Receber]]></value>
   <value column="Description" original=""/>
  </row>
  <row id="700" trl="Y">
-  <value column="Name" original="Receivables only">Somente recebíveis</value>
+  <value column="Name" original="Receivables only">Somente Contas a Receber</value>
   <value column="Description" original=""/>
  </row>
  <row id="701" trl="Y">
-  <value column="Name" original="Payables only">Somente a pagar</value>
+  <value column="Name" original="Payables only">Somente Contas a Pagar</value>
   <value column="Description" original=""/>
  </row>
  <row id="702" trl="Y">

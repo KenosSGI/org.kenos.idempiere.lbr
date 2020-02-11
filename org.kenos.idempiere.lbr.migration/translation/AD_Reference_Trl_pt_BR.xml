@@ -2561,8 +2561,8 @@
   <value column="Help" original=""/>
  </row>
  <row id="200122" trl="Y">
-  <value column="Name" original="Dashboard Content">Conteúdo do Dashboard</value>
-  <value column="Description" original="Dashboard Content">Conteúdo do Dashboard</value>
+  <value column="Name" original="Dashboard Content">Conteúdo do Painel</value>
+  <value column="Description" original="Dashboard Content">Conteúdo do Painel</value>
   <value column="Help" original=""/>
  </row>
  <row id="200123" trl="N">

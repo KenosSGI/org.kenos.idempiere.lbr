@@ -42801,8 +42801,8 @@ Product: used to quickly add products to POS order</value>
   <value column="Placeholder" original=""/>
  </row>
  <row id="200097" trl="Y">
-  <value column="Name" original="Dashboard Preference">Preferência do Dashboard</value>
-  <value column="PrintName" original="Dashboard Preference">Preferência do Dashboard</value>
+  <value column="Name" original="Dashboard Preference">Preferência do Painel</value>
+  <value column="PrintName" original="Dashboard Preference">Preferência do Painel</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
