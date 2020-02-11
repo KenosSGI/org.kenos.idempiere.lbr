@@ -14,8 +14,10 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
 
+import org.adempiere.base.Service;
 import org.adempiere.exceptions.AdempiereException;
 import org.adempiere.model.POWrapper;
+import org.adempiere.report.jasper.JRViewerProvider;
 import org.adempierelbr.model.MLBRDigitalCertificate;
 import org.adempierelbr.model.MLBRNotaFiscal;
 import org.adempierelbr.model.MLBRNotaFiscalLine;
@@ -1601,11 +1603,9 @@ public class NFSeAbrasf100Impl implements INFSe
 	{
 		try
 		{			
-			if (!Desktop.isDesktopSupported()) 
-				return "@Error@" + "Impossível abrir o arquivo";
-			
-			//	Abrir DANFE
-			Desktop.getDesktop().open(getPDF(nf));
+			JasperPrint jasperPrint = getReport (nf);
+			JRViewerProvider viewerLauncher = Service.locator().locate(JRViewerProvider.class).getService();
+			viewerLauncher.openViewer (jasperPrint, "Impress\u00E3o de NFS-e para a Cidade de " + nf.getlbr_OrgCity());
 		}
 		catch (Exception e)
 		{
