@@ -1601,6 +1601,8 @@ public class NFSeAbrasf100Impl implements INFSe
 	 */
 	public String printNFSe(MLBRNotaFiscal nf)
 	{
+		log.fine("start printNFSe");
+		
 		try
 		{			
 			JasperPrint jasperPrint = getReport (nf);
@@ -1620,6 +1622,8 @@ public class NFSeAbrasf100Impl implements INFSe
 	 */
 	public File getPDF(MLBRNotaFiscal nf)
 	{		
+		log.fine("start getPDF");
+		
 		File PDF = null;
 		
 		try
@@ -1647,6 +1651,8 @@ public class NFSeAbrasf100Impl implements INFSe
 	 */
 	private JasperPrint getReport (MLBRNotaFiscal nf) throws Exception
 	{
+		log.fine("start getReport");
+		
 		InputStream is = null;
 		MImage img = MImage.get(Env.getCtx(), MOrgInfo.get(Env.getCtx(), nf.getAD_Org_ID(), nf.get_TrxName()).getLogo_ID());
 		InputStream xml = null;
@@ -1686,10 +1692,23 @@ public class NFSeAbrasf100Impl implements INFSe
 				is = new ByteArrayInputStream (img.getBinaryData());
 				map.put("logotipo", is);
 			}
-
+			
+			if (nf.getlbr_OrgCity() != null && !nf.getlbr_OrgCity().isEmpty())
+			{
+				map.put("municipioprestador", nf.getlbr_OrgCity());
+				map.put("orgaogerador", nf.getlbr_OrgCity());
+			}
+			
+			if (nf.getlbr_BPCity() != null && !nf.getlbr_BPCity().isEmpty())
+			{
+				map.put("municipiotomador", nf.getlbr_OrgCity());
+			}
+				
 			//	Get Jasper
 			ClassLoader cl = getClass().getClassLoader();
-			InputStream report = cl.getResourceAsStream("org/kenos/idempiere/lbr/nfse/report/nfseAbrasf.jasper");
+			InputStream report = cl.getResourceAsStream("org/kenos/idempiere/lbr/nfse/report/ImpressaoNFSEABRASF.jasper");
+			
+			log.fine("after find report");
 			
 			JasperReport jasperReport = (JasperReport) JRLoader.loadObject (report);
 			JRXmlDataSource dataSource = new JRXmlDataSource ( xml , jasperReport.getQuery().getText() );
@@ -1711,11 +1730,11 @@ public class NFSeAbrasf100Impl implements INFSe
 			}
 			catch (IOException ioe)
 			{
-				throw new Exception ("Erro na Impressão da Nota Fiscal de Serviço. Imprima a partir do Site da Prefeitura");
+				throw new Exception ("Erro na Impressão da Nota Fiscal de Serviço. Imprima a partir do Site da Prefeitura(1)");
 			}
 		}
 		
-		throw new Exception ("Erro na Impressão da Nota Fiscal de Serviço. Imprima a partir do Site da Prefeitura");
+		throw new Exception ("Erro na Impressão da Nota Fiscal de Serviço. Imprima a partir do Site da Prefeitura(2)");
 	}	//	getReport
 	
 	/**

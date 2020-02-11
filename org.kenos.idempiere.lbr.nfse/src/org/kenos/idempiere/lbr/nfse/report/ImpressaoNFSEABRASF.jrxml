@@ -1400,14 +1400,14 @@ $F{DataEmissao}.substring(0,4)+" "+$F{DataEmissao}.substring(11,19)]]></textFiel
 				</textElement>
 				<textFieldExpression><![CDATA[($P{municipioservico} == null ? "" : $P{municipioservico})]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="273" y="94" width="214" height="14" uuid="4fdc54c9-6840-4875-92a0-4fa61eb0a780"/>
 				<textElement>
 					<font fontName="Liberation Serif"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{municipioprestador}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="137" y="231" width="232" height="13" uuid="e84f9ac6-838d-4833-b0de-1d45c9261a57"/>
 				<textElement>
 					<font fontName="Liberation Serif"/>
