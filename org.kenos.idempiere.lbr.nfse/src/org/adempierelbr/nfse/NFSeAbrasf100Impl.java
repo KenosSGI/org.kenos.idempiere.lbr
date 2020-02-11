@@ -1712,7 +1712,6 @@ public class NFSeAbrasf100Impl implements INFSe
 			
 			JasperReport jasperReport = (JasperReport) JRLoader.loadObject (report);
 			JRXmlDataSource dataSource = new JRXmlDataSource ( xml , jasperReport.getQuery().getText() );
-			dataSource.setLocale(Locale.US);
 			
 			//	Fill
 			return JasperFillManager.fillReport (jasperReport, map, dataSource);			

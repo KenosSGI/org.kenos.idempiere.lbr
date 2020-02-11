@@ -5,6 +5,9 @@
 	<property name="ireport.x" value="3"/>
 	<property name="ireport.y" value="716"/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="XML"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
 	<parameter name="logotipo" class="java.io.InputStream" isForPrompting="false"/>
 	<parameter name="urlconsulta" class="java.lang.String"/>
 	<parameter name="itemlistaservico" class="java.lang.String"/>
