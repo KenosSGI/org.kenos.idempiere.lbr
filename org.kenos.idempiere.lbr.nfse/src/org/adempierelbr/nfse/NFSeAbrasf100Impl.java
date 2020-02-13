@@ -314,9 +314,9 @@ public class NFSeAbrasf100Impl implements INFSe
 		//	Alterado Enter por ponto e virgula(;) com intuito de substituir o & por \n na Impressão da NFS-e.
 		if (nf.getDescription() != null 
 				&& !nf.getDescription().isEmpty())
-			descricaoServico = descricaoServico + ";" + nf.getDescription().replaceAll("\n", ";");
+			descricaoServico = descricaoServico + ";" + nf.getDescription().trim().replaceAll("\n", ";");
 		
-		dadosServico.setDiscriminacao(descricaoServico);
+		dadosServico.setDiscriminacao(descricaoServico.replaceAll(";;", ";"));
 		
 		//	Se o código do serviço possui / Ex. 14.01/3530300
 		//	Valor Antes da Barra, Codigo do Serviço, Valor depois da Barra, Código de Tributação do Município
