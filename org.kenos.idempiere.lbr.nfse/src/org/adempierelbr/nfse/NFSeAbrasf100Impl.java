@@ -311,10 +311,10 @@ public class NFSeAbrasf100Impl implements INFSe
 	
 		//	Discriminação do Serviço
 		//	Abrasf não impede a utilização de caracter especial, porém não permite a utilização de Enter (\n)
-		//	Alterado Enter por & com intuito de substituir o & por \n na Impressão da NFS-e.
+		//	Alterado Enter por ponto e virgula(;) com intuito de substituir o & por \n na Impressão da NFS-e.
 		if (nf.getDescription() != null 
 				&& !nf.getDescription().isEmpty())
-			descricaoServico = descricaoServico + "&" + nf.getDescription().replaceAll("\n", "&");
+			descricaoServico = descricaoServico + ";" + nf.getDescription().replaceAll("\n", ";");
 		
 		dadosServico.setDiscriminacao(descricaoServico);
 		
