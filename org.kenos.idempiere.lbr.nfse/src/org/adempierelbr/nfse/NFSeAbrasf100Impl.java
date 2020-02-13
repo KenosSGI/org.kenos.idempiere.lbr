@@ -278,7 +278,7 @@ public class NFSeAbrasf100Impl implements INFSe
 					if (descricaoServico.isEmpty())
 						descricaoServico = nfl.getProductName();
 					else
-						descricaoServico = descricaoServico + "\n" + nfl.getProductName();
+						descricaoServico = descricaoServico + "-" + nfl.getProductName();
 				}
 				
 				//	Identificação do Serviço
@@ -309,12 +309,14 @@ public class NFSeAbrasf100Impl implements INFSe
 		//	Identificação dos Serviços prestados
 		TcDadosServico dadosServico = infRps.addNewServico();		
 	
-		// Discriminação do Serviço
+		//	Discriminação do Serviço
+		//	Abrasf não impede a utilização de caracter especial, porém não permite a utilização de Enter (\n)
+		//	Alterado Enter por & com intuito de substituir o & por \n na Impressão da NFS-e.
 		if (nf.getDescription() != null 
 				&& !nf.getDescription().isEmpty())
-			descricaoServico = descricaoServico + " - " + nf.getDescription();
+			descricaoServico = descricaoServico + "&" + nf.getDescription().replaceAll("\n", "&");
 		
-		dadosServico.setDiscriminacao(TextUtil.retiraEspecial(descricaoServico));
+		dadosServico.setDiscriminacao(descricaoServico);
 		
 		//	Se o código do serviço possui / Ex. 14.01/3530300
 		//	Valor Antes da Barra, Codigo do Serviço, Valor depois da Barra, Código de Tributação do Município
