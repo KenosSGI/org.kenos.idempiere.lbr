@@ -65415,12 +65415,12 @@ Usar @AMT@ quando for identificar o valor do Produto/Serviço</value>
   <value column="Placeholder" original=""/>
  </row>
  <row trl="Y" uuid="a9330e17-65e7-4437-be78-c12e066cd71f">
-  <value column="Name" original="Finalidade NFe">Finalidade NFe</value>
-  <value column="PrintName" original="Finalidade NFe">Finalidade NFe</value>
-  <value column="Description" original="Define a Finalidade da NFe">Define a Finalidade da NFe</value>
-  <value column="Help" original="1 - NFe normal&#10;2 - NFe complementar&#10;3 - NFe de ajuste&#10;4 - Devolução/Retorno de Mercadoria">1 - NFe normal
-2 - NFe complementar
-3 - NFe de ajuste</value>
+  <value column="Name" original="Finalidade NFe">Finalidade NF-e</value>
+  <value column="PrintName" original="Finalidade NFe">Finalidade NF-e</value>
+  <value column="Description" original="Define a Finalidade da NFe">Define a Finalidade da NF-e</value>
+  <value column="Help" original="1 - NFe normal&#10;2 - NFe complementar&#10;3 - NFe de ajuste&#10;4 - Devolução/Retorno de Mercadoria">1 - NF-e normal
+2 - NF-e complementar
+3 - NF-e de ajuste</value>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
   <value column="PO_Name" original=""/>
@@ -65934,8 +65934,8 @@ Usar @AMT@ quando for identificar o valor do Produto/Serviço</value>
   <value column="Placeholder" original=""/>
  </row>
  <row trl="Y" uuid="7da6c6c0-f224-4dd3-a45f-8950b30f4cac">
-  <value column="Name" original="Tipo de Emissão NFe">Tipo de Emissão NFe</value>
-  <value column="PrintName" original="Tipo de Emissão NFe">Tipo de Emissão NFe</value>
+  <value column="Name" original="Tipo de Emissão NFe">Tipo de Emissão NF-e</value>
+  <value column="PrintName" original="Tipo de Emissão NFe">Tipo de Emissão NF-e</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -65967,8 +65967,8 @@ Usar @AMT@ quando for identificar o valor do Produto/Serviço</value>
   <value column="Placeholder" original=""/>
  </row>
  <row trl="Y" uuid="82d37add-08f7-4425-bdbd-1096187ee21c">
-  <value column="Name" original="NFe Event">Evento da NFe</value>
-  <value column="PrintName" original="NFe Event">Evento da NFe</value>
+  <value column="Name" original="NFe Event">Evento da NF-e</value>
+  <value column="PrintName" original="NFe Event">Evento da NF-e</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -66672,9 +66672,9 @@ Usar @AMT@ quando for identificar o valor do Produto/Serviço</value>
   <value column="Placeholder" original=""/>
  </row>
  <row trl="Y" uuid="1d1760a8-5f5b-4bac-aadc-b77a2593bd8d">
-  <value column="Name" original="Composes NFe Total">Compõe o Total da NFe</value>
-  <value column="PrintName" original="Composes NFe Total">Compõe o Total da NFe</value>
-  <value column="Description" original="Indicates which NFe's lines composes the NFe's total value">Indica se o valor da linha entra no valor total da NFe</value>
+  <value column="Name" original="Composes NFe Total">Compõe o Total da NF-e</value>
+  <value column="PrintName" original="Composes NFe Total">Compõe o Total da NF-e</value>
+  <value column="Description" original="Indicates which NFe's lines composes the NFe's total value">Indica se o valor da linha entra no valor total da NF-e</value>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
@@ -66782,8 +66782,8 @@ Usar @AMT@ quando for identificar o valor do Produto/Serviço</value>
   <value column="Placeholder" original=""/>
  </row>
  <row trl="Y" uuid="6c8c947e-c553-44d7-bda9-b51b6db2f1bd">
-  <value column="Name" original="NFe EMail">E-mail NFe</value>
-  <value column="PrintName" original="NFe EMail">E-mail NFe</value>
+  <value column="Name" original="NFe EMail">E-mail para NF-e</value>
+  <value column="PrintName" original="NFe EMail">E-mail para NF-e</value>
   <value column="Description" original="NFe EMail separated by semicolon">E-mail para recepção do XML da NFe</value>
   <value column="Help" original="NFe EMail separated by semicolon">E-mail para recepção do XML da NFe (para adicionar mais de um e-mail separe por vírgula ou ponto-e-vírgula)</value>
   <value column="PO_Description" original=""/>
@@ -69648,8 +69648,8 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="Placeholder" original=""/>
  </row>
  <row trl="Y" uuid="91cdd3f5-2f21-4317-97a6-b48122da4e1d">
-  <value column="Name" original="NFSe EMail">E-mail NFS-e</value>
-  <value column="PrintName" original="NFSe EMail">E-mail NFS-e</value>
+  <value column="Name" original="NFSe EMail">E-mail para NFS-e</value>
+  <value column="PrintName" original="NFSe EMail">E-mail para NFS-e</value>
   <value column="Description" original="NFSe EMail separated by semicolon">E-mail para recepção da NFS-e (Nota Fiscal de Serviços)</value>
   <value column="Help" original="NFSe EMail separated by semicolon">Para envio a mais de um endereço, separe-os por ponto-e-vírgula. Caso deixe em branco o e-mail será enviado para o e-mail de recepção de NF-e</value>
   <value column="PO_Description" original=""/>
