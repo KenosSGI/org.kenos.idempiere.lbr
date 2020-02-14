@@ -9,7 +9,8 @@ Require-Bundle: org.adempiere.base;bundle-version="6.2.0",
  org.kenos.idempiere.lbr.nfe;bundle-version="6.2.0",
  org.kenos.idempiere.lbr.tax;bundle-version="6.2.0",
  org.apache.commons.io;bundle-version="2.6.0",
- org.apache.commons.logging;bundle-version="1.2.0"
+ org.apache.commons.logging;bundle-version="1.2.0",
+ net.sf.jasperreports.engine
 Service-Component: OSGI-INF/NFSeFactory.xml,
  OSGI-INF/ProcessFactory.xml
 Import-Package: javax.activation,
