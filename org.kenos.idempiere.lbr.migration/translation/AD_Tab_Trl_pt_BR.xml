@@ -109,9 +109,9 @@
   <value column="Help" original="The User Tab defines the log in for Users who have access to the system.  For application access, users need to have a role assigned.">A Aba "Usuário" define o "login" para Usuários que têm acesso ao sistema.  For application access, users need to have a role assigned.</value>
  </row>
  <row id="119" trl="Y">
-  <value column="Name" original="Role">Papel (Função)</value>
+  <value column="Name" original="Role">Perfil</value>
   <value column="CommitWarning" original=""/>
-  <value column="Description" original="Define responsibility roles">Definir funções (papéis) e responsabilidades</value>
+  <value column="Description" original="Define responsibility roles">Definir perfis e responsabilidades</value>
   <value column="Help" original="Define the role and add the client and organizations the role has access to. You can give users access to this role and modify the access of this role to windows, forms, processes and reports as well as tasks. &lt;br&gt;&#10;If the Role User Level is Manual, the assigned acces rights are not automatically updated (e.g. if a role has a restricted number of Windows/Processes it can access). You need to add organizational access unless the role has access to all organizations. The SuperUser and the user creating a new role are assigned to the role automatically.  &lt;br&gt;&#10;If you select an Organization Tree, the user has access to the leaves of  summary organizations.&#10;Note: You cannot change the System Administrator role." xml:space="preserve"><![CDATA[Define o papel e adiciona o cliente e as organizações o papel para ter acesso. Você pode dar aos usuários acesso a esse papel e modificar o acesso deste papel para janelas, formulários, processos e relatórios, bem como tarefas. <br>
 Se o nível de papel do usuário é manual, os direitos atribuídos de acesso não são atualizados automaticamente (ex., se um papel tem um número restrito de Janelas/Processos que ele pode acessar). Você precisa adicionar acesso organizacional a menos que o papel tenha acesso a todas as organizações. O superusuário e o usuário criando um novo papel é atribuído ao papel automaticamente. <br>
 Se você selecionar uma Árvore da Organização, o usuário tem acesso às folhas de resumo das organizações.
@@ -2064,7 +2064,7 @@ Note que o acesso à informação é armazenado em cache e exige um novo login o
 Note que o acesso à informação é armazenado em cache e exige um novo login ou reposição de cache.]]></value>
  </row>
  <row id="485" trl="Y">
-  <value column="Name" original="Role">Papel (Função)</value>
+  <value column="Name" original="Role">Perfil</value>
   <value column="CommitWarning" original=""/>
   <value column="Description" original="Role with Data Access Restriction">Papel (Função) com Restrição de Acesso de Dados</value>
   <value column="Help" original="Select Role for with Data Access Restrictions.&#10;Note that access information is cached and requires re-login or reset of cache.">Selecione papel para Restrição de Acesso a Dados.

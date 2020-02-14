@@ -43,9 +43,9 @@
   <value column="Placeholder2" original=""/>
  </row>
  <row id="469" trl="Y">
-  <value column="Name" original="Limit Access to Role">Limitar Acesso à Função</value>
-  <value column="Description" original="If no Role is selected, grant access to all (non-manual) roles of the Client">Se nenhum Papel for selecionado, outorga acesso a todos (não-manual) papéis do Cliente</value>
-  <value column="Help" original="The Role determines security and access a user who has this Role will have in the System.">O "Papel (Função) determina o nível de segurança e acesso que um usuário que exerça este Papel terá no Sistema.</value>
+  <value column="Name" original="Limit Access to Role">Limitar Acesso ao Perfil</value>
+  <value column="Description" original="If no Role is selected, grant access to all (non-manual) roles of the Client">Se nenhum Perfil for selecionado, outorga acesso a todos (não-manual) papéis do Cliente</value>
+  <value column="Help" original="The Role determines security and access a user who has this Role will have in the System.">O Perfil de Acesso determina o nível de segurança e acesso que um usuário que exerça este Papel terá no Sistema.</value>
   <value column="Placeholder" original=""/>
   <value column="Placeholder2" original=""/>
  </row>
@@ -92,15 +92,15 @@
   <value column="Placeholder2" original=""/>
  </row>
  <row id="50001" trl="Y">
-  <value column="Name" original="Role To">Regra Para</value>
-  <value column="Description" original="Responsibility Role">Responsabilidade do Papel (Função)</value>
+  <value column="Name" original="Role To">Perfil de Origem</value>
+  <value column="Description" original="Responsibility Role">Perfil de Origem para ser copiado</value>
   <value column="Help" original="The Role determines security and access a user who has this Role will have in the System.">O "Papel (Função) determina o nível de segurança e acesso que um usuário que exerça este Papel terá no Sistema.</value>
   <value column="Placeholder" original=""/>
   <value column="Placeholder2" original=""/>
  </row>
  <row id="50002" trl="Y">
-  <value column="Name" original="Role From">Regra De</value>
-  <value column="Description" original="Responsibility Role">Responsabilidade do Papel (Função)</value>
+  <value column="Name" original="Role From">Perfil de Destino</value>
+  <value column="Description" original="Responsibility Role">Perfil de Destino</value>
   <value column="Help" original="The Role determines security and access a user who has this Role will have in the System.">O "Papel (Função) determina o nível de segurança e acesso que um usuário que exerça este Papel terá no Sistema.</value>
   <value column="Placeholder" original=""/>
   <value column="Placeholder2" original=""/>

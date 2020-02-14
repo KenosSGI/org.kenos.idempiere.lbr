@@ -3856,7 +3856,7 @@ Você quer continuar?</value>
   <value column="MsgTip" original=" "> </value>
  </row>
  <row id="52163" trl="Y">
-  <value column="MsgText" original="Edit Role">Editar Papel (função)</value>
+  <value column="MsgText" original="Edit Role">Editar Perfil de Acesso</value>
   <value column="MsgTip" original=" "> </value>
  </row>
  <row id="52164" trl="Y">
@@ -4740,7 +4740,7 @@ Você quer continuar?</value>
   <value column="MsgTip" original=" "> </value>
  </row>
  <row id="52384" trl="Y">
-  <value column="MsgText" original="Role">Papel (Função)</value>
+  <value column="MsgText" original="Role">Perfil de Acesso</value>
   <value column="MsgTip" original=" "> </value>
  </row>
  <row id="52385" trl="Y">
@@ -4932,7 +4932,7 @@ Você quer continuar?</value>
   <value column="MsgTip" original=" "> </value>
  </row>
  <row id="52433" trl="Y">
-  <value column="MsgText" original="View Role">Visualizar Papel (função)</value>
+  <value column="MsgText" original="View Role">Visualizar Perfil de Acesso</value>
   <value column="MsgTip" original=" "> </value>
  </row>
  <row id="52434" trl="Y">

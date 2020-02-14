@@ -60,8 +60,8 @@ Não crie uma nova empresa nesta janela, mas use "Configuração Inicial de Empr
   <value column="Help" original="The Organization Window allows you to define and maintain Organizational entities.  An Organization is often a legal entity or sub-unit for which documents and transactions are processed">A Janela "Organização" permite a você definir e manter entidades Organizacionais.  Uma Organização é freqüentemente uma entidade legal ou sub-unidade para a qual documentos e transações são processados</value>
  </row>
  <row id="111" trl="Y">
-  <value column="Name" original="Role">Papel (Função)</value>
-  <value column="Description" original="Maintain User Responsibilities">Gerenciamento das Responsabilidades dos Usuários</value>
+  <value column="Name" original="Role">Perfil de Acesso</value>
+  <value column="Description" original="Maintain User Responsibilities">Gerenciamento das Responsabilidades dos Usuários pelo Perfil de Acesso</value>
   <value column="Help" original="The Role Window allows you to define the different roles that users of this system will have.  Roles control access to windows, tasks, reports, etc. For a client an Administrator and User role are predefined. You may add additional roles to control access for specific functionality or data.&#10;You can add users to the role.&#10;Note that access information is cached and requires re-login or reset of cache.">A Janela "Papel" permite você definir os diferentes papeis que os usuários terão neste sistema. Papéis controlam acesso a janelas, tarefas, relatórios, etc. para uma empresa um papel de Administrador e Usuário são predefinidos. Vocẽ pode adicionar papel adicional para controlar acesso a funcionalidades ou dados específicos.
 Você pode adicionar usuários a um papel.
 Note que informação de acesso é mantida em cache e requer um novo login ou recomposição do cache.</value>
@@ -550,7 +550,7 @@ A mais alta prioridade tem o Formato de Impressão, você define em um Tipo de D
  </row>
  <row id="229" trl="Y">
   <value column="Name" original="Window Customization">Personalização de Janela</value>
-  <value column="Description" original="Define Window Customization for Role/User">Define Personalização de Janela para o Papel (Função)/Usuário</value>
+  <value column="Description" original="Define Window Customization for Role/User">Define Personalização de Janela para o Perfil de Acesso/Usuário</value>
   <value column="Help" original="The customization values defined here overwrite/replace the default system definition if defined.">Os valores personalizados aqui sobrescrevem/substituem a definição padrão do sistema.</value>
  </row>
  <row id="231" trl="Y">
@@ -739,9 +739,9 @@ A mais alta prioridade tem o Formato de Impressão, você define em um Tipo de D
   <value column="Help" original="Validate and Import Inventory Transactions">Validar e Importar Transações de Estoque</value>
  </row>
  <row id="268" trl="Y">
-  <value column="Name" original="Role Data Access">Acesso a Dados de Função</value>
-  <value column="Description" original="Maintain Data Access Rules">Gerenciamento de Regras de Acesso a Dados</value>
-  <value column="Help" original="Maintain Data Access Roles of Roles/Responsibilties.&#10;Note that access information is cached and requires re-login or reset of cache.">Administração de Papéis de Acesso a Dados/Responsabilidades.
+  <value column="Name" original="Role Data Access">Perfil de Acesso Detalhado</value>
+  <value column="Description" original="Maintain Data Access Rules">Gerenciamento de Regras de Acesso aos Dados e Campos</value>
+  <value column="Help" original="Maintain Data Access Roles of Roles/Responsibilties.&#10;Note that access information is cached and requires re-login or reset of cache.">Administração de Perfil de Acesso aos Dados/Responsabilidades.
 Note que informação de acesso é mantida em cache e requer logar novamente ou reinicialização do cache.</value>
  </row>
  <row id="269" trl="Y">
