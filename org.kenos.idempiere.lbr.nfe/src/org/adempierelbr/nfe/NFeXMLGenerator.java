@@ -436,6 +436,7 @@ public class NFeXMLGenerator
 		boolean nfce = MLBRNotaFiscal.LBR_NFMODEL_NotaFiscalDeConsumidorEletrônica.equals(nf.getlbr_NFModel()); 
 		boolean unknownCustomer = false;
 		BigDecimal pagAmt = BigDecimal.ZERO;
+		boolean addIssQnTot = false;
 		
 		if (nfce)
 			unknownCustomer = true;
@@ -1259,6 +1260,9 @@ public class NFeXMLGenerator
 				
 				// Quando o IndISS for 3 - Isento (1 - SIM |  2 - NÃO)
 				issqn.setIndIncentivo(IndIncentivo.X_2); 
+				
+				//	Adicionar Totalizador
+				addIssQnTot = true;
 			}			
 			//	N. ICMS Normal e ST
 			else if (nfl.getICMSTax() != null)
@@ -1885,14 +1889,18 @@ public class NFeXMLGenerator
 		if (nf.getlbr_vTotTrib() != null && nf.getlbr_vTotTrib().compareTo(BigDecimal.ZERO) > 0)
 			icmsTot.setVTotTrib(normalize(nf.getlbr_vTotTrib()));
 		
-		//	W01. Total da NF-e / ISSQN
-		ISSQNtot issqNtot = total.addNewISSQNtot();
-		issqNtot.setVServ(normalize(nf.getlbr_ServiceTotalAmt()));
-		issqNtot.setVBC(normalize(nf.getTaxBaseAmt("ISS")));
-		issqNtot.setVISS(normalize(nf.getTaxAmt("ISS")));
-		issqNtot.setDCompet(TextUtil.timeToString (nf.getDateDoc(), "yyyy-MM-dd"));
-		issqNtot.setVPIS(normalize(nf.getTaxAmt("PISSERV")));
-		issqNtot.setVCOFINS(normalize(nf.getTaxAmt("COFINSSERV")));
+		//	Se houver linha de serviço, adicionar
+		if (addIssQnTot)
+		{		
+			//	W01. Total da NF-e / ISSQN
+			ISSQNtot issqNtot = total.addNewISSQNtot();
+			issqNtot.setVServ(normalize(nf.getlbr_ServiceTotalAmt()));
+			issqNtot.setVBC(normalize(nf.getTaxBaseAmt("ISS")));
+			issqNtot.setVISS(normalize(nf.getTaxAmt("ISS")));
+			issqNtot.setDCompet(TextUtil.timeToString (nf.getDateDoc(), "yyyy-MM-dd"));
+			issqNtot.setVPIS(normalize(nf.getTaxAmt("PISSERV")));
+			issqNtot.setVCOFINS(normalize(nf.getTaxAmt("COFINSSERV")));
+		}
 		
 		//	W02. Total da NF-e / Retenção de Tributos
 //		RetTrib retTrib = total.addNewRetTrib();
