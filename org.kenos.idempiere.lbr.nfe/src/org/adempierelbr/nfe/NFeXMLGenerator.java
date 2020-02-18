@@ -2059,11 +2059,11 @@ public class NFeXMLGenerator
 		InfAdic infAdic = infNFe.addNewInfAdic();
 
 		String descFiscal = nf.getlbr_FiscalOBS();
-		if (descFiscal != null && !descFiscal.trim().isEmpty())
+		if (descFiscal != null && !descFiscal.trim().isBlank())
 			infAdic.setInfAdFisco(normalize (descFiscal));
 		
 		String descriptionNF = nf.getDescription();
-		if (descriptionNF != null && !descriptionNF.isEmpty())
+		if (descriptionNF != null && !descriptionNF.isBlank())
 			infAdic.setInfCpl(normalize (descriptionNF));
 		
 		ObsCont obsCont = infAdic.addNewObsCont();
