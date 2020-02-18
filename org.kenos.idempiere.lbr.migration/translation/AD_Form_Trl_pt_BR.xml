@@ -264,7 +264,7 @@ Selecionando "Onde Usado" irá mostrar em qual(is) LDM(s) este componente é usa
   <value column="Help" original=""/>
  </row>
  <row trl="Y" uuid="07c89983-be0f-4dc1-a075-75c0a91d4c02">
-  <value column="Name" original="Generate Bills">Geração de Boletos</value>
+  <value column="Name" original="Generate Bills">Gerar Boletos</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
  </row>
@@ -274,7 +274,7 @@ Selecionando "Onde Usado" irá mostrar em qual(is) LDM(s) este componente é usa
   <value column="Help" original=""/>
  </row>
  <row trl="Y" uuid="57deb0a8-b811-4d1f-ae55-a2c6f31f1195">
-  <value column="Name" original="Generate CNAB">Geração CNAB</value>
+  <value column="Name" original="Generate CNAB">Gerar CNAB</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
  </row>

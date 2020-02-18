@@ -2313,7 +2313,7 @@ For example:<br />
   <value column="Help" original=""/>
  </row>
  <row trl="Y" uuid="62b6accd-6624-4d22-a9c0-ddf576be70eb">
-  <value column="Name" original="Generate CNAB">Geração CNAB</value>
+  <value column="Name" original="Generate CNAB">Gerar CNAB</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
  </row>
@@ -2338,7 +2338,7 @@ For example:<br />
   <value column="Help" original=""/>
  </row>
  <row trl="Y" uuid="91e3d029-8ce9-454b-8831-4f3a4b70d252">
-  <value column="Name" original="ProcGenerateRPS">Geração Arquivo RPS</value>
+  <value column="Name" original="ProcGenerateRPS">Gerar Arquivo RPS</value>
   <value column="Description" original="Process to Generate RPS File (NFe)">Processo para Geração de Arquivo RPS (NFe)</value>
   <value column="Help" original=""/>
  </row>
