@@ -3535,6 +3535,10 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		{
 			nfl.deleteEx(true);
 		}
+		for (MLBRNFPaySchedule nfps : MLBRNFPaySchedule.getNFPaySchedule(getCtx(), getLBR_NotaFiscal_ID(), 0, get_TrxName()))
+		{
+			nfps.deleteEx(true);
+		}
 		return true;
 	}	//	beforeDelete
 	
