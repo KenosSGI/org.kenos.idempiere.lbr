@@ -965,10 +965,22 @@ As datas Válido Desde e Válido Até indcam o período válido de tempo para us
   <value column="Help" original="Indicates if this Account is used to Print Bills">Define se o Boleto foi Impresso</value>
   <value column="Placeholder" original=""/>
  </row>
+ <row trl="Y" uuid="9c5b8bba-213d-4752-bf36-c94580a0ee05">
+  <value column="Name" original="Additional Information">Informações Complementares</value>
+  <value column="Description" original="Optional short description of the record">Descrição resumida opcional do registro</value>
+  <value column="Help" original="A description is limited to 255 characters.">Uma descrição é limitada a 255 caracteres.</value>
+  <value column="Placeholder" original=""/>
+ </row>
  <row trl="Y" uuid="639ea4c2-a26d-4ff4-899c-787723172ade">
   <value column="Name" original="Discount %">Desconto %</value>
   <value column="Description" original="Discount in percent">Desconto em percentual</value>
   <value column="Help" original="The Discount indicates the discount applied or taken as a percentage.">Define o Desconto da Linha</value>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="ab10dbe2-7762-46dc-9e55-138bd71dd601">
+  <value column="Name" original="Additional Information">Informações Complementares</value>
+  <value column="Description" original="Optional short description of the record">Descrição resumida opcional do registro</value>
+  <value column="Help" original="A description is limited to 255 characters.">Uma descrição é limitada a 255 caracteres.</value>
   <value column="Placeholder" original=""/>
  </row>
  <row trl="Y" uuid="bd86eb78-6579-47e7-97f2-cd39e07bea5a">
