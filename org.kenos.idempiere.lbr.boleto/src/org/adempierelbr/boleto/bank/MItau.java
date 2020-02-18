@@ -26,6 +26,7 @@ import org.adempierelbr.model.MLBRCNAB;
 import org.adempierelbr.model.MLBRNotaFiscal;
 import org.adempierelbr.util.ReturnCNABUtil;
 import org.adempierelbr.util.TextUtil;
+import org.adempierelbr.wrapper.I_W_AD_OrgInfo;
 import org.compiere.model.MBPartner;
 import org.compiere.model.MBankAccount;
 import org.compiere.model.MInvoice;
@@ -161,7 +162,7 @@ public class MItau implements I_Bank
 
 		Properties ctx = Env.getCtx();
 
-		MOrg    Org    = MOrg.get(ctx, BankA.getAD_Org_ID());
+		MOrgInfo oi = MOrgInfo.get (ctx,BankA.getAD_Org_ID(), null);
 
 		int indexCC = BankA.getAccountNo().indexOf('-');
 		String cc   = BankA.getAccountNo().substring(0, indexCC);
@@ -180,7 +181,7 @@ public class MItau implements I_Bank
 		TextUtil.addText(fw, TextUtil.pad(dv, '0', 1, true)); //DAC
 		TextUtil.addText(fw, TextUtil.pad("", ' ', 8, true)); //BRANCOS
 		//
-		TextUtil.addText(fw, TextUtil.pad(Org.getDescription().toUpperCase(), ' ', 30, false, false, true)); //NOME DA EMPRESA
+		TextUtil.addText(fw, TextUtil.pad(oi.get_ValueAsString(I_W_AD_OrgInfo.COLUMNNAME_lbr_LegalEntity).toUpperCase(), ' ', 30, false, false, true)); //NOME DA EMPRESA
 		//
 		TextUtil.addText(fw, CITAU); //CÓDIGO DO BANCO
 		TextUtil.addText(fw, TextUtil.pad(NITAU, ' ', 15, false)); //NOME DO BANCO

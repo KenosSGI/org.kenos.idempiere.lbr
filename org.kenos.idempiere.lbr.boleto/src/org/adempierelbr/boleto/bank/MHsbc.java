@@ -25,6 +25,7 @@ import org.adempierelbr.model.MLBRBoleto;
 import org.adempierelbr.model.MLBRCNAB;
 import org.adempierelbr.util.ReturnCNABUtil;
 import org.adempierelbr.util.TextUtil;
+import org.adempierelbr.wrapper.I_W_AD_OrgInfo;
 import org.compiere.model.MBPartner;
 import org.compiere.model.MBankAccount;
 import org.compiere.model.MInvoice;
@@ -136,7 +137,7 @@ public class MHsbc implements I_Bank
 
 		Properties ctx = Env.getCtx();
 
-		MOrg    Org    = MOrg.get(ctx, BankA.getAD_Org_ID());
+		MOrgInfo oi = MOrgInfo.get (ctx,BankA.getAD_Org_ID(), null);
 
 		String cc      = BankA.getAccountNo();
 		String agencia = BankA.get_ValueAsString("lbr_AgencyNo");
@@ -152,7 +153,7 @@ public class MHsbc implements I_Bank
 		TextUtil.addText(fw, TextUtil.pad((agencia + cc), '0', 11, true, true, false)); //CONTA
 		TextUtil.addText(fw, TextUtil.pad("", ' ', 2, true)); //BRANCOS
 		//
-		TextUtil.addText(fw, TextUtil.pad(Org.getDescription().toUpperCase(), ' ', 30, false, false, true)); //NOME DA EMPRESA
+		TextUtil.addText(fw, TextUtil.pad(oi.get_ValueAsString(I_W_AD_OrgInfo.COLUMNNAME_lbr_LegalEntity).toUpperCase(), ' ', 30, false, false, true)); //NOME DA EMPRESA
 		//
 		TextUtil.addText(fw, CHSBC); //CÓDIGO DO BANCO
 		TextUtil.addText(fw, TextUtil.pad(NHSBC, ' ', 15, false)); //NOME DO BANCO
