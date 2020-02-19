@@ -731,7 +731,11 @@ public class NFeXMLGenerator
 					{
 						dest.setIndIEDest (TNFe.InfNFe.Dest.IndIEDest.Enum.forString(nf.getLBR_IndIEDest()));
 						//
-						if (MLBRNotaFiscal.LBR_INDIEDEST_1_ContribuinteDeICMS.equals(nf.getLBR_IndIEDest()))
+						//	1=Contribuinte ICMS (informar a IE do destinatário);
+						//	9= Não Contribuinte, que pode ou não possuir Inscrição Estadual no Cadastro de Contribuintes do ICMS;
+						if (MLBRNotaFiscal.LBR_INDIEDEST_1_ContribuinteDeICMS.equals(nf.getLBR_IndIEDest()) || 								
+								(MLBRNotaFiscal.LBR_INDIEDEST_9_NãoContribuinteDeICMS.equals(nf.getLBR_IndIEDest()) 
+								&& nf.getlbr_BPIE() != null && !nf.getlbr_BPIE().isEmpty()))
 							dest.setIE (toNumericStr (nf.getlbr_BPIE()));
 					}
 					else
