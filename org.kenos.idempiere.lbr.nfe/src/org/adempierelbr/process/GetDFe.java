@@ -443,11 +443,7 @@ public class GetDFe extends SvrProcess
 				
 				pDFe.setlbr_NFeProt(resEvento.getNProt());
 				pDFe.setLBR_NSU(zip.getNSU());
-				try
-				{
-					pDFe.setLBR_EventType(resEvento.getTpEvento());
-				} 
-				catch (Exception e) {}
+				pDFe.setLBR_EventType(resEvento.getTpEvento());
 				pDFe.setProcessed(true);
 				if (pDFe.save())
 					count.event++;
@@ -513,43 +509,38 @@ public class GetDFe extends SvrProcess
 			if (resNFeProc != null)
 			{
 				InfProt resNFe = resNFeProc.getNfeProc().getProtNFe().getInfProt();
-				MLBRPartnerDFe pDFe = MLBRPartnerDFe.get (resNFe.getChNFe());
-
-				if (pDFe == null)
-				{
-					InfNFe nfe = resNFeProc.getNfeProc().getNFe().getInfNFe();
-					Emit emit = nfe.getEmit();
-					//
-					pDFe = new MLBRPartnerDFe (ctx, 0, null);
-					pDFe.setAD_Org_ID(p_AD_Org_ID);
-					pDFe.setDocumentType(MLBRPartnerDFe.DOCUMENTTYPE_NF_E);
-					pDFe.setlbr_NFeID(resNFe.getChNFe());
-					pDFe.setlbr_CNPJ(emit.getCNPJ());
-					pDFe.setlbr_CPF(emit.getCPF());
-					pDFe.setBPName(emit.getXNome());
-					pDFe.setlbr_IE(emit.getIE());
-					pDFe.setDateDoc(NFeUtil.stringToTime (nfe.getIde().getDhEmi()));
-					pDFe.setGrandTotal(new BigDecimal (nfe.getTotal().getICMSTot().getVNF()));
-					pDFe.setlbr_DigestValue(resNFe.xgetDigVal().getStringValue());
-					pDFe.setDateTrx(NFeUtil.stringToTime (resNFe.getDhRecbto().toString()));
-					pDFe.setLBR_NSU(zip.getNSU());
-					
-					//	Autorizado
-					if (MLBRNotaFiscal.LBR_NFESTATUS_100_AutorizadoOUsoDaNF_E.equals(resNFe.getCStat()))
-						pDFe.setLBR_SitNF(MLBRPartnerDFe.LBR_SITNF_1_Authorized);
-					
-					//	Denegado
-					else if (MLBRNotaFiscal.LBR_NFESTATUS_110_UsoDenegado.equals(resNFe.getCStat()))
-						pDFe.setLBR_SitNF(MLBRPartnerDFe.LBR_SITNF_2_UseDenied);
-					
-					pDFe.setlbr_NFeProt(resNFe.getNProt());
-					pDFe.setIsSOTrx("1".equals(nfe.getIde().getTpNF().toString()));
-					pDFe.setProcessed(true);
-					pDFe.save();
-				}
+				InfNFe nfe = resNFeProc.getNfeProc().getNFe().getInfNFe();
+				Emit emit = nfe.getEmit();
+				//
+				MLBRPartnerDFe pDFe = new MLBRPartnerDFe (ctx, 0, null);
+				pDFe.setAD_Org_ID(p_AD_Org_ID);
+				pDFe.setDocumentType(MLBRPartnerDFe.DOCUMENTTYPE_NF_E);
+				pDFe.setlbr_NFeID(resNFe.getChNFe());
+				pDFe.setlbr_CNPJ(emit.getCNPJ());
+				pDFe.setlbr_CPF(emit.getCPF());
+				pDFe.setBPName(emit.getXNome());
+				pDFe.setlbr_IE(emit.getIE());
+				pDFe.setDateDoc(NFeUtil.stringToTime (nfe.getIde().getDhEmi()));
+				pDFe.setGrandTotal(new BigDecimal (nfe.getTotal().getICMSTot().getVNF()));
+				pDFe.setlbr_DigestValue(resNFe.xgetDigVal().getStringValue());
+				pDFe.setDateTrx(NFeUtil.stringToTime (resNFe.getDhRecbto().toString()));
+				pDFe.setLBR_NSU(zip.getNSU());
+				
+				//	Autorizado
+				if (MLBRNotaFiscal.LBR_NFESTATUS_100_AutorizadoOUsoDaNF_E.equals(resNFe.getCStat()))
+					pDFe.setLBR_SitNF(MLBRPartnerDFe.LBR_SITNF_1_Authorized);
+				
+				//	Denegado
+				else if (MLBRNotaFiscal.LBR_NFESTATUS_110_UsoDenegado.equals(resNFe.getCStat()))
+					pDFe.setLBR_SitNF(MLBRPartnerDFe.LBR_SITNF_2_UseDenied);
+				
+				pDFe.setlbr_NFeProt(resNFe.getNProt());
+				pDFe.setIsSOTrx("1".equals(nfe.getIde().getTpNF().toString()));
+				pDFe.setlbr_NFeStatus(resNFe.getCStat());
+				pDFe.setProcessed(true);
 				
 				//	Tenta salvar
-				if (pDFe.getLBR_PartnerDFe_ID() > 0)
+				if (pDFe.save())
 				{
 					count.event++;
 					
