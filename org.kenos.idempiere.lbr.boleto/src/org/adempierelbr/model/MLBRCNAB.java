@@ -13,6 +13,11 @@
 package org.adempierelbr.model;
 
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
@@ -116,7 +121,14 @@ public class MLBRCNAB extends X_LBR_CNAB
 			case MLBRCNAB.SANTANDER_353	: new MSantander_353().generateFile (fileName, dateFrom, dateTo, bankAcct, trxName); break;
 			default : log.log (Level.WARNING, "Unknown Bank");
 		}
+		
+		//	Fix non-ascii chars
+		Path path = Paths.get(fileName);
+		Charset charset = StandardCharsets.UTF_8;
 
+		String content = new String(Files.readAllBytes(path), charset);
+		content = content.replaceAll("[^\\x00-\\x7F]", " ");
+		Files.write(path, content.getBytes(charset));
 	}	//	generateFile
 
 	/**************************************************************************

@@ -361,6 +361,36 @@ Revise e mude o RG e as contas Padrões. A contas atuais usadas em transações 
   <value column="Description" original="Replication Strategy">Estratégia de Replicação</value>
   <value column="Help" original=""/>
  </row>
+ <row id="50074" trl="Y">
+  <value column="Name" original="Payroll">Folha de Pagamento</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row id="50075" trl="Y">
+  <value column="Name" original="Payroll Concept Category">Categoria de Conceitos da Folha de Pagamento</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row id="50076" trl="Y">
+  <value column="Name" original="Payroll Contract">Contrato de Folha de Pagamento</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row id="50077" trl="Y">
+  <value column="Name" original="Payroll Process">Processo da Folha de Pagamento</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row id="50078" trl="Y">
+  <value column="Name" original="Payroll Table">Tabela da Folha de Pagamento</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row id="50079" trl="Y">
+  <value column="Name" original="Payroll Department">Departamento de Folha de Pagamento</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
  <row id="50080" trl="Y">
   <value column="Name" original="Payroll Employee">Folha de Pagamento de Empregados</value>
   <value column="Description" original=""/>
@@ -368,6 +398,21 @@ Revise e mude o RG e as contas Padrões. A contas atuais usadas em transações 
  </row>
  <row id="50081" trl="Y">
   <value column="Name" original="Payroll Action Notice">Aviso de Ação de Folha de Pagamento</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row id="50082" trl="Y">
+  <value column="Name" original="Payroll Table Type">Tipo de Tabela da Folha de Pagamento</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row id="50083" trl="Y">
+  <value column="Name" original="Payroll Job">Trabalho da Folha de Pagamento</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row id="50084" trl="Y">
+  <value column="Name" original="Payroll Concept Catalog">Catálogo de Conceitos da Folha de Pagamento</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
  </row>
@@ -389,6 +434,11 @@ Revise e mude o RG e as contas Padrões. A contas atuais usadas em transações 
  <row id="50102" trl="N">
   <value column="Name" original="(Start)">(Start)</value>
   <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row id="50103" trl="N">
+  <value column="Name" original="Activation Approval">Activation Approval</value>
+  <value column="Description" original="Approve asset activation">Approve asset activation</value>
   <value column="Help" original=""/>
  </row>
  <row id="50104" trl="N">

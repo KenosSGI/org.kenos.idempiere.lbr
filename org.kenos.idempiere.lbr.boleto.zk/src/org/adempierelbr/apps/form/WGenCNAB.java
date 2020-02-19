@@ -16,6 +16,7 @@ package org.adempierelbr.apps.form;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Random;
 import java.util.logging.Level;
 
 import org.adempiere.pipo2.Zipper;
@@ -298,7 +299,7 @@ public class WGenCNAB extends GenCNAB
 		if (m_noSelected == 0)
 			return;
 		
-		String filePath = System.getProperty("java.io.tmpdir") + File.separator + "CNAB_" + TextUtil.timeToString(new Date(), "yyyyMMdd");
+		String filePath = System.getProperty("java.io.tmpdir") + File.separator + "CNAB_" + TextUtil.timeToString(new Date(), "yyyyMMdd") + "_" + new Random ().nextInt (99999999);
 		File folder = new File (filePath);
 		if (!folder.exists())
 			folder.mkdirs();

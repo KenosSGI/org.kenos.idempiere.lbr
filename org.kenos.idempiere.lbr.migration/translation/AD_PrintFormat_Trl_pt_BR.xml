@@ -352,4 +352,32 @@
   <value column="Name" original="Simple Fact View">Simple Fact View</value>
   <value column="Description" original=""/>
  </row>
+ <row id="200008" trl="N">
+  <value column="Name" original="Complex Fact View">Complex Fact View</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="109edf51-0330-4b9e-b2c8-db0f3a673234">
+  <value column="Name" original="Sales Products">Sales Products</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="ae30f5f8-4e50-4315-bd5e-04fff4030b32">
+  <value column="Name" original="Quote Report Format">Quote Report Format</value>
+  <value column="Description" original="Quote Report Format">Quote Report Format</value>
+ </row>
+ <row trl="N" uuid="a42f815f-d448-495d-874a-386441794f9e">
+  <value column="Name" original="RV_LBR_InvoicePayschedule">RV_LBR_InvoicePayschedule</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="8d58bdd5-2b5c-45ba-a52e-52c5cded839a">
+  <value column="Name" original="RV_LBR_Boleto">RV_LBR_Boleto</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="a8801a62-152b-4f89-8a93-d1e3b35e19e8">
+  <value column="Name" original="Requisition Print">Requisition Print</value>
+  <value column="Description" original="Requisition Print">Requisition Print</value>
+ </row>
+ <row trl="N" uuid="226a3ae2-0048-487c-86d4-3316b23827c5">
+  <value column="Name" original="RequisitionLine">RequisitionLine</value>
+  <value column="Description" original="Requisition Line Print">Requisition Line Print</value>
+ </row>
 </idempiereTrl>

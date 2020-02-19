@@ -217,7 +217,7 @@
   <value column="MsgTip" original="Automatic calculation of write-off amount to close the open item">Cálculo automático dos valores a serem baixados para fechar o item em aberto</value>
  </row>
  <row id="155" trl="Y">
-  <value column="MsgText" original="Automatic Commit">Commit Automático</value>
+  <value column="MsgText" original="Automatic Commit">Salvar ao trocar de registro</value>
   <value column="MsgTip" original="Automatic saving of data">Salvamento automático de dados</value>
  </row>
  <row id="156" trl="Y">
@@ -767,11 +767,11 @@ Continuar?</value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="292" trl="Y">
-  <value column="MsgText" original="History records" xml:space="preserve"><![CDATA[&Registros Históricos]]></value>
+  <value column="MsgText" original="History records" xml:space="preserve"><![CDATA[&Limitar Histórico]]></value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="293" trl="Y">
-  <value column="MsgText" original="&amp;Home">Menu</value>
+  <value column="MsgText" original="&amp;Home"><![CDATA[&Painel]]></value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="294" trl="Y">
@@ -824,6 +824,10 @@ Continuar?</value>
  </row>
  <row id="306" trl="Y">
   <value column="MsgText" original="Inserted">Inserido</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="307" trl="Y">
+  <value column="MsgText" original="Generate Invoices (manual)">Gerar Faturas / Notas Fiscais  (Manual)</value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="308" trl="Y">
@@ -1886,7 +1890,7 @@ Detalhes: </value>
  </row>
  <row id="570" trl="Y">
   <value column="MsgText" original="User Interface Theme">Tema de Interface de Usuário</value>
-  <value column="MsgTip" original="Window  - Metal - iDempiere">Janela - Metal - Adempiere</value>
+  <value column="MsgTip" original="Window  - Metal - iDempiere">Janela - Metal - iDempiere</value>
  </row>
  <row id="571" trl="Y">
   <value column="MsgText" original="Under Limit Price">Abaixo do Preço Limite</value>
@@ -1978,23 +1982,23 @@ Você deseja imprimir o aviso das remessas em separado ?</value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="593" trl="Y">
-  <value column="MsgText" original="Value Preference">Preferência de Valor</value>
+  <value column="MsgText" original="Value Preference">Auto Preenchimento</value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="594" trl="Y">
-  <value column="MsgText" original="Preference Value deleted">Valor Preferencial excluído</value>
+  <value column="MsgText" original="Preference Value deleted">Valor de auto preenchimento excluído</value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="595" trl="Y">
-  <value column="MsgText" original="Preference Value set">Valor Preferencial ajustado</value>
+  <value column="MsgText" original="Preference Value set">Valor de auto preenchimento criado</value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="596" trl="Y">
-  <value column="MsgText" original="Preference Value NOT found">Valor Preferencial NÃO encontrado</value>
+  <value column="MsgText" original="Preference Value NOT found">Valor de auto preenchimento NÃO encontrado</value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="597" trl="Y">
-  <value column="MsgText" original="Preference Value NOT set">Valor Preferencial NÃO ajustado</value>
+  <value column="MsgText" original="Preference Value NOT set">Valor de auto preenchimento NÃO criado</value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="598" trl="Y">
@@ -2163,7 +2167,7 @@ Você deseja imprimir o aviso das remessas em separado ?</value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="639" trl="Y">
-  <value column="MsgText" original="To Query Value">Para o Valor da Pesquisa</value>
+  <value column="MsgText" original="To Query Value">Valor da Pesquisa (Até)</value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="640" trl="Y">
@@ -2430,7 +2434,7 @@ Por favor pare e migre o banco de dados imediatamente.</value>
  </row>
  <row id="713" trl="Y">
   <value column="MsgText" original="Dictionary Maintenance">Manutenção de Dicionário</value>
-  <value column="MsgTip" original="Only for internal iDempiere Dictionary Maintenence - DO NOT SELECT">Somente para Manutenção interna de Dicionário Adempiere - NÃO SELECIONAR</value>
+  <value column="MsgTip" original="Only for internal iDempiere Dictionary Maintenence - DO NOT SELECT">Somente para Manutenção interna de Dicionário iDempiere - NÃO SELECIONAR</value>
  </row>
  <row id="714" trl="Y">
   <value column="MsgText" original="No Translation">Sem Tradução</value>
@@ -2562,7 +2566,7 @@ Por favor pare e migre o banco de dados imediatamente.</value>
 Version = {2} - Lot = {3} - SerNo = {4}
 Guarantee Date = {5,date,short}
 
-Thank you for using Adempiere Customer Asset Management
+Thank you for using iDempiere Customer Asset Management
 </value>
   <value column="MsgTip" original=""/>
  </row>
@@ -2831,7 +2835,7 @@ Verifique o log de erros e o formato do arquivo Accounting*.csv - Nenhuma Conta 
  </row>
  <row id="813" trl="Y">
   <value column="MsgText" original="Trace File">Arquivo de Rastreamento</value>
-  <value column="MsgTip" original="Create Trace file in iDempiere directory or in user home directory">Cria o Arquivo de Rastreamento no diretório do Adempiere ou no diretório padrão do usuário</value>
+  <value column="MsgTip" original="Create Trace file in iDempiere directory or in user home directory">Cria o Arquivo de Rastreamento no diretório do iDempiere ou no diretório padrão do usuário</value>
  </row>
  <row id="814" trl="Y">
   <value column="MsgText" original="Run Processes on Server">Executar Processos no Servidor</value>
@@ -3049,11 +3053,11 @@ Você quer continuar?</value>
  </row>
  <row id="867" trl="Y">
   <value column="MsgText" original="System Name">Nome do Sistema</value>
-  <value column="MsgTip" original="Name your iDempiere System installation, e.g. Joe Block, Inc.">Dê um nome à sua instalação de Sistema Adempiere, por exemplo Soliton Ltda.</value>
+  <value column="MsgTip" original="Name your iDempiere System installation, e.g. Joe Block, Inc.">Dê um nome à sua instalação de Sistema iDempiere, por exemplo Soliton Ltda.</value>
  </row>
  <row id="868" trl="Y">
   <value column="MsgText" original="Existing Support Contract">Contrato de Suporte Existente</value>
-  <value column="MsgTip" original="Sign up for iDempiere Support - also supports the product development">Assine para obter o suporte Adempiere - também para suporte de desenvolvimento de produto</value>
+  <value column="MsgTip" original="Sign up for iDempiere Support - also supports the product development">Assine para obter o suporte iDempiere - também para suporte de desenvolvimento de produto</value>
  </row>
  <row id="869" trl="Y">
   <value column="MsgText" original="Supported Users">Usuários de suporte</value>
@@ -3212,7 +3216,7 @@ Você quer continuar?</value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="52001" trl="Y">
-  <value column="MsgText" original="Vendor RMA">ARM de Formecedor</value>
+  <value column="MsgText" original="Vendor RMA">ARM de Fornecedor</value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="52003" trl="Y">
@@ -3852,7 +3856,7 @@ Você quer continuar?</value>
   <value column="MsgTip" original=" "> </value>
  </row>
  <row id="52163" trl="Y">
-  <value column="MsgText" original="Edit Role">Editar Papel (função)</value>
+  <value column="MsgText" original="Edit Role">Editar Perfil de Acesso</value>
   <value column="MsgTip" original=" "> </value>
  </row>
  <row id="52164" trl="Y">
@@ -4736,7 +4740,7 @@ Você quer continuar?</value>
   <value column="MsgTip" original=" "> </value>
  </row>
  <row id="52384" trl="Y">
-  <value column="MsgText" original="Role">Papel (Função)</value>
+  <value column="MsgText" original="Role">Perfil de Acesso</value>
   <value column="MsgTip" original=" "> </value>
  </row>
  <row id="52385" trl="Y">
@@ -4928,7 +4932,7 @@ Você quer continuar?</value>
   <value column="MsgTip" original=" "> </value>
  </row>
  <row id="52433" trl="Y">
-  <value column="MsgText" original="View Role">Visualizar Papel (função)</value>
+  <value column="MsgText" original="View Role">Visualizar Perfil de Acesso</value>
   <value column="MsgTip" original=" "> </value>
  </row>
  <row id="52434" trl="Y">
@@ -6774,6 +6778,10 @@ A captura da Transação de Pagamento está atrasada</value>
   <value column="MsgText" original="Failed when processing document">Falha no processamento do documento</value>
   <value column="MsgTip" original=""/>
  </row>
+ <row id="200491" trl="Y">
+  <value column="MsgText" original="Time Line">Linha do Tempo</value>
+  <value column="MsgTip" original=""/>
+ </row>
  <row id="200492" trl="Y">
   <value column="MsgText" original="For">Para</value>
   <value column="MsgTip" original=""/>
@@ -6834,6 +6842,214 @@ A captura da Transação de Pagamento está atrasada</value>
   <value column="MsgText" original="No query columns found">Não foi encontrado colunas de pesquisa</value>
   <value column="MsgTip" original=""/>
  </row>
+ <row id="200515" trl="N">
+  <value column="MsgText" original="Invalid identifier: empty">Invalid identifier: empty</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200516" trl="N">
+  <value column="MsgText" original="Invalid identifier: must not contain spaces">Invalid identifier: must not contain spaces</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200517" trl="N">
+  <value column="MsgText" original="Invalid identifier: first character must be alphabetic">Invalid identifier: first character must be alphabetic</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200518" trl="N">
+  <value column="MsgText" original="Invalid identifier: just alphanumeric and underscore characters are allowed">Invalid identifier: just alphanumeric and underscore characters are allowed</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200521" trl="N">
+  <value column="MsgText" original="Missing required parameters">Missing required parameters</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200522" trl="N">
+  <value column="MsgText" original="AdminUserEmail is required">AdminUserEmail is required</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200523" trl="N">
+  <value column="MsgText" original="AdminUserEmail">AdminUserEmail</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200524" trl="N">
+  <value column="MsgText" original="is incorrect">is incorrect</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200525" trl="N">
+  <value column="MsgText" original="NormalUserEmail is required">NormalUserEmail is required</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200526" trl="N">
+  <value column="MsgText" original="NormalUserEmail">NormalUserEmail</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200527" trl="N">
+  <value column="MsgText" original="CoaFile">CoaFile</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200528" trl="N">
+  <value column="MsgText" original="does not exist">does not exist</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200529" trl="N">
+  <value column="MsgText" original="Cannot read CoaFile">Cannot read CoaFile</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200530" trl="N">
+  <value column="MsgText" original="is not a file">is not a file</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200531" trl="N">
+  <value column="MsgText" original="is empty">is empty</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200532" trl="N">
+  <value column="MsgText" original="Create client failed">Create client failed</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200535" trl="N">
+  <value column="MsgText" original="Your changes have been saved">Your changes have been saved</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200536" trl="N">
+  <value column="MsgText" original="Your suggestions have been submitted for review">Your suggestions have been submitted for review</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200537" trl="N">
+  <value column="MsgText" original="Only positive balance">Only positive balance</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200539" trl="N">
+  <value column="MsgText" original="No OrderLine">No OrderLine</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200543" trl="N">
+  <value column="MsgText" original="Order line not found">Order line not found</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200544" trl="N">
+  <value column="MsgText" original="Order not completed">Order not completed</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200545" trl="N">
+  <value column="MsgText" original="Ordered quantity already shipped">Ordered quantity already shipped</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200546" trl="N">
+  <value column="MsgText" original="Cannot save shipment header">Cannot save shipment header</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200547" trl="N">
+  <value column="MsgText" original="No Costs for">No Costs for</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200548" trl="N">
+  <value column="MsgText" original="FactLine DR not created">FactLine DR not created</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200549" trl="N">
+  <value column="MsgText" original="Original Shipment/Receipt not posted yet">Original Shipment/Receipt not posted yet</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200550" trl="N">
+  <value column="MsgText" original="FactLine CR not created">FactLine CR not created</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200553" trl="N">
+  <value column="MsgText" original="Failed to create cost detail record">Failed to create cost detail record</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200555" trl="N">
+  <value column="MsgText" original="Resubmit - No Costs for">Resubmit - No Costs for</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200556" trl="N">
+  <value column="MsgText" original="(required order line)">(required order line)</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200557" trl="N">
+  <value column="MsgText" original="DR not created">DR not created</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200558" trl="N">
+  <value column="MsgText" original="Original Receipt not posted yet">Original Receipt not posted yet</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200559" trl="N">
+  <value column="MsgText" original="CR not created">CR not created</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200560" trl="N">
+  <value column="MsgText" original="DocumentType unknown">DocumentType unknown</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200563" trl="N">
+  <value column="MsgText" original="Could not find Payment Amount for some invoices, maybe currency rate is not configured">Could not find Payment Amount for some invoices, maybe currency rate is not configured</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200564" trl="N">
+  <value column="MsgText" original="Change Scheduler State">Change Scheduler State</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200565" trl="N">
+  <value column="MsgText" original="Not Schedule">Not Schedule</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200566" trl="N">
+  <value column="MsgText" original="Scheduler Started">Scheduler Started</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200567" trl="N">
+  <value column="MsgText" original="Scheduler Stopped">Scheduler Stopped</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200568" trl="N">
+  <value column="MsgText" original="Failed to read current scheduler state">Failed to read current scheduler state</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200569" trl="N">
+  <value column="MsgText" original="Add scheduler to server and start it?">Add scheduler to server and start it?</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200570" trl="N">
+  <value column="MsgText" original="Stop scheduler?">Stop scheduler?</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200571" trl="N">
+  <value column="MsgText" original="Start scheduler?">Start scheduler?</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200572" trl="N">
+  <value column="MsgText" original="Scheduler added and started successfully">Scheduler added and started successfully</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200573" trl="N">
+  <value column="MsgText" original="Failed to add and start scheduler. Error:">Failed to add and start scheduler. Error:</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200575" trl="N">
+  <value column="MsgText" original="Scheduler stopped successfully">Scheduler stopped successfully</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200576" trl="N">
+  <value column="MsgText" original="Failed to stop scheduler. Error:">Failed to stop scheduler. Error:</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200577" trl="N">
+  <value column="MsgText" original="Scheduler started successfully">Scheduler started successfully</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200578" trl="N">
+  <value column="MsgText" original="Failed to start scheduler. Error:">Failed to start scheduler. Error:</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200579" trl="N">
+  <value column="MsgText" original="Change scheduler state">Change scheduler state</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row id="200581" trl="N">
+  <value column="MsgText" original="Share search filter with all users">Share search filter with all users</value>
+  <value column="MsgTip" original=""/>
+ </row>
  <row id="520010" trl="Y">
   <value column="MsgText" original="1 Rupee">1 Rúpia</value>
   <value column="MsgTip" original=" "> </value>
@@ -6864,6 +7080,68 @@ A captura da Transação de Pagamento está atrasada</value>
  </row>
  <row id="523853" trl="Y">
   <value column="MsgText" original="Shipment/Receipt has different Sales/Purchase transaction than RMA">Shipment/Receipt has different Sales/Purchase transaction than RMA</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row trl="Y" uuid="5749db9f-c3f3-403c-bf0c-780fdaa942af">
+  <value column="MsgText" original="The selected warehouse is not Third Party.">O Armazém selecionado não está em poder de terceiros.</value>
+  <value column="MsgTip" original="Please, select a Third Party Warehouse.">Selecione um armazém que se encontra em poder de terceiros.</value>
+ </row>
+ <row trl="Y" uuid="a209d4fa-c733-4bb5-bfe3-55276710a4bd">
+  <value column="MsgText" original="Este e-mail &amp;eacute; enviado automaticamente, por favor n&amp;atilde;o responda.&lt;br /&gt;&#10;&lt;br /&gt;&#10;Prezado cliente,&lt;br /&gt;&#10;&lt;br /&gt;&#10;Anexo &amp;agrave; este e-mail voc&amp;ecirc; est&amp;aacute; recebendo o Boleto em arquivo PDF enviado pela Empresa {0}.&lt;br /&gt;&#10;&lt;br /&gt;&#10;--&lt;br /&gt;&#10;Atenciosamente,&lt;br /&gt;&#10;{0}.&lt;br /&gt;&#10;Telefone: {1}&#10;">Prezado Cliente,
+
+Segue o boleto da Empresa {0}. A Nota Fiscal é enviada pelo site da Prefeitura de São Paulo.
+
+Atenciosamente,
+Cobrança - {0}
+Telefone: {1}</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row trl="Y" uuid="e9bb2c0f-f2a4-467a-9bc0-1f5668d53f24">
+  <value column="MsgText" original="Este e-mail &amp;eacute; enviado automaticamente, por favor n&amp;atilde;o responda.&lt;br /&gt;&lt;br /&gt;Prezado cliente,&lt;br /&gt;&lt;br /&gt;Anexo &amp;agrave; este e-mail voc&amp;ecirc; est&amp;aacute; recebendo o arquivo XML da Nota Fiscal Eletr&amp;ocirc;nica. Este arquivo deve ser armazenado eletronicamente por sua empresa pelo prazo de 05 (cinco) anos, conforme previsto na legisla&amp;ccedil;&amp;atilde;o tribut&amp;aacute;ria (Art. 173 do C&amp;oacute;digo Tribut&amp;aacute;rio Nacional e &amp;sect; 4&amp;ordm; da Lei 5.172 de 25/10/1966).&lt;br /&gt;&lt;br /&gt;O DANFE em papel seguir&amp;aacute; junto com a mercadoria e poder&amp;aacute; ser arquivado para apresenta&amp;ccedil;&amp;atilde;o ao fisco quando solicitado. Todavia, se sua empresa tamb&amp;eacute;m for emitente de NF-e, o arquivamento eletr&amp;ocirc;nico do XML de seus fornecedores &amp;eacute; obrigat&amp;oacute;rio, sendo pass&amp;iacute;vel de fiscaliza&amp;ccedil;&amp;atilde;o.&lt;br /&gt;&lt;br /&gt;Para se certificar que esta NF-e &amp;eacute; v&amp;aacute;lida, queira por favor consultar sua autenticidade no site nacional do projeto NF-e (www.nfe.fazenda.gov.br), utilizando a chave de acesso contida no DANFE.&lt;br /&gt;&lt;br /&gt;--&lt;br /&gt;Atenciosamente,&lt;br /&gt;@AD_Org_ID&lt;Name&gt;@.&lt;br /&gt;Nota Fiscal emitida pelo sistema Kenos ERP Adempiere (www.kenos.com.br)" xml:space="preserve"><![CDATA[Este e-mail é enviado automaticamente, por favor não responda.<br><br>Prezado cliente,<br><br>Anexo à este e-mail você está recebendo o arquivo XML da Nota Fiscal Eletrônica. Este arquivo deve ser armazenado eletronicamente por sua empresa pelo prazo de 05 (cinco) anos, conforme previsto na legislação tributária (Art. 173 do Código Tributário Nacional e § 4º da Lei 5.172 de 25/10/1966).<br><br>O DANFE em papel seguirá junto com a mercadoria e poderá ser arquivado para apresentação ao fisco quando solicitado. Todavia, se sua empresa também for emitente de NF-e, o arquivamento eletrônico do XML de seus fornecedores é obrigatório, sendo passível de fiscalização.<br><br>Para se certificar que esta NF-e é válida, queira por favor consultar sua autenticidade no site nacional do projeto NF-e (www.nfe.fazenda.gov.br), utilizando a chave de acesso contida no DANFE.<br><br>--<br>Atenciosamente,<br>@AD_Org_ID<Name>@.<br>Nota Fiscal emitida pelo sistema Kenos ERP Adempiere (www.kenos.com.br)]]></value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row trl="Y" uuid="b150da86-3efd-4d8b-ad5c-64bd08caad2f">
+  <value column="MsgText" original="Save Error - No Change">Erro ao Salvar Registro - Sem modificações</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row trl="Y" uuid="f1e338f6-447c-4a08-b4f2-7c5c59a3b150">
+  <value column="MsgText" original="Trib Aprox R$ {0,number,#,##0.00} ({1,number,#,##0.00}%) Federal e R$ {2,number,#,##0.00} ({3,number,#,##0.00}%) Estadual, Fonte(s): {4} {5}">Trib Aprox R$ {0,number,#,##0.00} ({1,number,#,##0.00}%) Federal e R$ {2,number,#,##0.00} ({3,number,#,##0.00}%) Estadual, Fonte(s): {4} {5}</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row trl="Y" uuid="d7e5238b-bcb8-48c0-a6e2-8926b6ac2694">
+  <value column="MsgText" original="Este e-mail &amp;eacute; enviado automaticamente, por favor n&amp;atilde;o responda.&lt;br /&gt;&lt;br /&gt;Prezado cliente,&lt;br /&gt;&lt;br /&gt;Anexo &amp;agrave; este e-mail voc&amp;ecirc; est&amp;aacute; recebendo o arquivo PDF da Nota Fiscal de Servi&amp;ccedil;os Eletr&amp;ocirc;nica. &lt;br /&gt;&lt;br /&gt;Para se certificar que esta NFS-e &amp;eacute; v&amp;aacute;lida, queira por favor consultar sua autenticidade no site da prefeitura emitente da NFS-e.&lt;br /&gt;&lt;br /&gt;--&lt;br /&gt;Atenciosamente,&lt;br /&gt;@AD_Org_ID&lt;Name&gt;@.&lt;br /&gt;Nota Fiscal emitida pelo sistema Kenos ERP Adempiere (www.kenos.com.br)" xml:space="preserve"><![CDATA[Este e-mail é enviado automaticamente, por favor não responda.<br><br>Prezado cliente,<br><br>Anexo à este e-mail você está recebendo o arquivo PDF da Nota Fiscal de Serviços Eletrônica. <br><br>Para se certificar que esta NFS-e é válida, queira por favor consultar sua autenticidade no site da prefeitura emitente da NFS-e.<br><br>--<br>Atenciosamente,<br>@AD_Org_ID<Name>@.<br>Nota Fiscal emitida pelo sistema Kenos ERP Adempiere (www.kenos.com.br)]]></value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row trl="Y" uuid="98593a40-2c07-4cca-a48b-5c6dbcc7c0f1">
+  <value column="MsgText" original="To manifest operation not completed you must do it on DFe window and fill the reason field.">Para manifestar uma operação não realizada é necessário especificar o motivo. Para isso você será redirecionado para a janela de DF-e.</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row trl="Y" uuid="5e8c63bd-b71c-45cf-b84d-35d393992b76">
+  <value column="MsgText" original="Para ADICIONAR um imposto, clique em 'Novo', preencha os campos e clique em 'Salvar' ou 'Salvar/Criar' para que em seguida seja criado um novo registro. Para ALTERAR, clique sobre o imposto na grade, faça as alterações no(s) campo(s) e clique em 'Salvar'. Para EXCLUIR, clique sobre o imposto na grade e clique em 'Excluir'. Caso não deseje salvar as alterações, utilize a opção 'Desfazer'.">Para ADICIONAR um imposto, clique em 'Novo', preencha os campos e clique em 'Salvar' ou 'Salvar/Criar' para que em seguida seja criado um novo registro. Para ALTERAR, clique sobre o imposto na grade, faça as alterações no(s) campo(s) e clique em 'Salvar'. Para EXCLUIR, clique sobre o imposto na grade e clique em 'Excluir'. Caso não deseje salvar as alterações, utilize a opção 'Desfazer'.</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row trl="Y" uuid="ce8b7152-7ce2-4327-984b-ffde7da85ab9">
+  <value column="MsgText" original="Aqui você pode dividir uma Produção Individual para que seja feita a emissão parcial. Além disso você pode distribuir insumos para múltiplos Produtos, por exemplo: Você pode apontar o consumos de alguns insumos de forma global que o sistema irá fazer o apontamento da quantidade total proporcional a cada Item da Lista de Materiais.">Aqui você pode dividir uma Produção Individual para que seja feita a emissão parcial. Além disso você pode distribuir insumos para múltiplos Produtos, por exemplo: Você pode apontar o consumos de alguns insumos de forma global que o sistema irá fazer o apontamento da quantidade total proporcional a cada Item da Lista de Materiais.</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row trl="Y" uuid="a69021e8-a52f-4881-be58-4f43bae30c43">
+  <value column="MsgText" original="{0,choice,0#No Lines|1#1 Line|1&lt;{0} Lines} - Products R$ {1,number,#,##0.00} - Grand Total R$ {2,number,#,##0.00}" xml:space="preserve"><![CDATA[{0,choice,0#Sem Linhas|1#1 Linha|1<{0} Linhas} - Total dos Produtos R$ {1,number,#,##0.00} - Total Geral R$ {2,number,#,##0.00}]]></value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row trl="Y" uuid="a11f5088-d240-45ae-b86e-ae1efdbf169e">
+  <value column="MsgText" original="Aqui você pode gerar uma Fatura de Cobrança, Nota Fiscal de Entrada de Produto Acabado e Notas Fiscais de Retorno de Insumos das Produções Individuais existentes nesse Pedido de Industrialização. Fatura de Cobrança será gerada apenas com os Produtos Acabados. Você poderá gerar 1 (uma) ou Várias Notas Fiscais de Retorno de Industrialização. O Produto Acabado sempre entrar na Primeira Nota Fiscal Emitida pelo Processo. A Fatura de Cobrança contém apenas os Produtos Acabado. Ela será gerada quando o processo for executado pela Primeira vez. Os Insumos desaparecerão da Lista quando a Nota Fiscal correspondente a ele for emitida.">Aqui você pode gerar uma Fatura de Cobrança, Nota Fiscal de Entrada de Produto Acabado e Notas Fiscais de Retorno de Insumos das Produções Individuais existentes nesse Pedido de Industrialização. Fatura de Cobrança será gerada apenas com os Produtos Acabados. Você poderá gerar 1 (uma) ou Várias Notas Fiscais de Retorno de Industrialização. O Produto Acabado sempre entrar na Primeira Nota Fiscal Emitida pelo Processo. A Fatura de Cobrança contém apenas os Produtos Acabado. Ela será gerada quando o processo for executado pela Primeira vez. Os Insumos desaparecerão da Lista quando a Nota Fiscal correspondente a ele for emitida.</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row trl="Y" uuid="977b3a48-8d8d-4b50-8934-32a1c3b19f27">
+  <value column="MsgText" original="Esse formulário permite a Distribuição dos Insumos remanescentes de uma Industrialização concluída para serem utilizados em uma nova Industrialização enviada ao mesmo fornecedor.">Esse formulário permite a Distribuição dos Insumos remanescentes de uma Industrialização concluída para serem utilizados em uma nova Industrialização enviada ao mesmo fornecedor.</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row trl="Y" uuid="6b3d93df-d18c-48d1-b0f7-dd21dc45e69e">
+  <value column="MsgText" original="Gerenciar Movimentação de Material criada para Envio de Insumo para Industrialização. Apenas as Movimentação de Material destinadas à Industrialização e não Completadas serão exibidas no formulário. Escolha o Parceiro de Negócio e a Data da Movimentação desejada. Informe a quantidade real separada para envio. O Sistema irá distribuir a Diferença entre as Linhas de Movimentação.">Gerenciar Movimentação de Material criada para Envio de Insumo para Industrialização. Apenas as Movimentação de Material destinadas à Industrialização e não Completadas serão exibidas no formulário. Escolha o Parceiro de Negócio e a Data da Movimentação desejada. Informe a quantidade real separada para envio. O Sistema irá distribuir a Diferença entre as Linhas de Movimentação.</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row trl="Y" uuid="abfbe3f0-a251-4228-af61-490a035ebea1">
+  <value column="MsgText" original="Informe os dados abaixo para fazer o cálculo do frete nos Correios. As medidas somente tem efeito para saber os tamanhos mínimos e máximos de cada pacote, não influenciando no preço (para preço do balcão). Além do preço do balcão o sistema mostra os preços de contrato, caso sua empresa tenha um contrato de prestação de serviços configurado.">Informe os dados abaixo para fazer o cálculo do frete nos Correios. As medidas somente tem efeito para saber os tamanhos mínimos e máximos de cada pacote, não influenciando no preço (para preço do balcão). Além do preço do balcão o sistema mostra os preços de contrato, caso sua empresa tenha um contrato de prestação de serviços configurado.</value>
   <value column="MsgTip" original=""/>
  </row>
 </idempiereTrl>

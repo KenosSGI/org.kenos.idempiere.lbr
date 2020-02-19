@@ -26,10 +26,10 @@ import org.adempierelbr.model.MLBRBoleto;
 import org.adempierelbr.model.MLBRCNAB;
 import org.adempierelbr.util.ReturnCNABUtil;
 import org.adempierelbr.util.TextUtil;
+import org.adempierelbr.wrapper.I_W_AD_OrgInfo;
 import org.compiere.model.MBPartner;
 import org.compiere.model.MBankAccount;
 import org.compiere.model.MInvoice;
-import org.compiere.model.MOrg;
 import org.compiere.model.MOrgInfo;
 import org.compiere.model.MSequence;
 import org.compiere.util.Env;
@@ -351,7 +351,7 @@ public class MBancoBrasil implements I_Bank
 	{
 
 		Properties ctx = Env.getCtx();
-		MOrg Org = MOrg.get(ctx,Env.getAD_Org_ID(ctx));
+		MOrgInfo oi = MOrgInfo.get (ctx,BankA.getAD_Org_ID(), null);
 
 		// Sequence
 		Integer LBR_DocSequence_ID = (Integer)BankA.get_Value("LBR_DocSequence_ID");
@@ -393,7 +393,7 @@ public class MBancoBrasil implements I_Bank
 		TextUtil.addText(fw, TextUtil.pad(cc, '0', 8, true)); 			// COD. CEDENTE
 		TextUtil.addText(fw, TextUtil.pad(dv, '0', 1, true)); 			// DV CEDENTE
 		TextUtil.addText(fw, TextUtil.pad(BankA.get_ValueAsString("lbr_ClientCode"), ' ', 6, true)); 		 // NUM CONVENIO
-		TextUtil.addText(fw, TextUtil.pad(Org.getDescription().toUpperCase(), ' ', 30, false, false, true)); // NOME DA EMPRESA
+		TextUtil.addText(fw, TextUtil.pad(oi.get_ValueAsString(I_W_AD_OrgInfo.COLUMNNAME_lbr_LegalEntity).toUpperCase(), ' ', 30, false, false, true)); // NOME DA EMPRESA
 		TextUtil.addText(fw, CBANCOBRASIL); 									// CÓDIGO DO BANCO
 		TextUtil.addText(fw, TextUtil.pad(NBANCOBRASIL, ' ', 15, false));  // NOME DO BANCO
 		TextUtil.addText(fw, MLBRCNAB.CNABDateFormat(Env.getContextAsDate(ctx, "#Date")));  // DATA DE GERAÇÃO
@@ -411,7 +411,7 @@ public class MBancoBrasil implements I_Bank
 	{
 
 		Properties ctx = Env.getCtx();  					// Contexto
-		MOrg Org = MOrg.get(ctx,BankA.getAD_Org_ID());		// Contexto
+		MOrgInfo oi = MOrgInfo.get (ctx,BankA.getAD_Org_ID(), null);
 
 		// SEQUENCIA
 		Integer LBR_DocSequence_ID = (Integer)BankA.get_Value("LBR_DocSequence_ID");
@@ -454,7 +454,7 @@ public class MBancoBrasil implements I_Bank
 		TextUtil.addText(fw, TextUtil.pad(cc, '0', 8, true)); 					// COD. CEDENTE
 		TextUtil.addText(fw, TextUtil.pad(dv, '0', 1, true)); 					// DV CEDENTE
 		TextUtil.addText(fw, TextUtil.pad(null, '0', 6, true)); 				// COMPLEMENTO DO REGISTRO
-		TextUtil.addText(fw, TextUtil.pad(Org.getDescription().toUpperCase(), ' ', 30, false, false, true)); // NOME DA EMPRESA
+		TextUtil.addText(fw, TextUtil.pad(oi.get_ValueAsString(I_W_AD_OrgInfo.COLUMNNAME_lbr_LegalEntity).toUpperCase(), ' ', 30, false, false, true)); // NOME DA EMPRESA
 		TextUtil.addText(fw, TextUtil.pad("001BANCO DO BRASIL", '0', 18, true));		// 001BANCO DO BRASIL
 		TextUtil.addText(fw, MLBRCNAB.CNABDateFormat(Env.getContextAsDate(ctx, "#Date"))); // DATA DE GERAÇÃO
 		TextUtil.addText(fw, TextUtil.pad(seqFile, '0', 7, true)); 				// SEQUENCIAL DO ARQUIVO

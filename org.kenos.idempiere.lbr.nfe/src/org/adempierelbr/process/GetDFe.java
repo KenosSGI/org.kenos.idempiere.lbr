@@ -437,7 +437,10 @@ public class GetDFe extends SvrProcess
 				pDFe.setDateDoc(NFeUtil.stringToTime(resEvento.getDhEvento()));					
 				pDFe.setSeqNo(Integer.valueOf(resEvento.getNSeqEvento()));
 				pDFe.setDocumentNote(resEvento.getXEvento());
-				pDFe.setDateTrx(NFeUtil.stringToTime (resEvento.getDhRecbto().toString()));
+				
+				if (resEvento.getDhRecbto() != null)
+					pDFe.setDateTrx(NFeUtil.stringToTime (resEvento.getDhRecbto().toString()));
+				
 				pDFe.setlbr_NFeProt(resEvento.getNProt());
 				pDFe.setLBR_NSU(zip.getNSU());
 				try

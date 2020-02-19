@@ -25,10 +25,11 @@ import org.adempierelbr.model.MLBRBoleto;
 import org.adempierelbr.model.MLBRCNAB;
 import org.adempierelbr.util.ReturnCNABUtil;
 import org.adempierelbr.util.TextUtil;
+import org.adempierelbr.wrapper.I_W_AD_OrgInfo;
 import org.compiere.model.MBPartner;
 import org.compiere.model.MBankAccount;
 import org.compiere.model.MInvoice;
-import org.compiere.model.MOrg;
+import org.compiere.model.MOrgInfo;
 import org.compiere.model.MSequence;
 import org.compiere.util.Env;
 import org.compiere.util.Util;
@@ -140,7 +141,7 @@ public class MBradesco implements I_Bank
 
 		Properties ctx = Env.getCtx();
 
-		MOrg    Org    = MOrg.get(ctx,BankA.getAD_Org_ID());
+		MOrgInfo oi = MOrgInfo.get (ctx,BankA.getAD_Org_ID(), null);
 		Integer LBR_DocSequence_ID = (Integer)BankA.get_Value("LBR_DocSequence_ID");
 
 		String seqFile = "MX" + TextUtil.pad(MLBRCNAB.CNABDateFormat(Env.getContextAsDate(ctx, "#Date")), '0', 7, true);
@@ -161,7 +162,7 @@ public class MBradesco implements I_Bank
 		TextUtil.addText(fw, TextUtil.pad("COBRANCA", ' ', 15, false)); //LITERAL DE SERVIÇO
 		TextUtil.addText(fw, TextUtil.pad(BankA.get_ValueAsString("lbr_ClientCode"), '0', 20, true)); //CÓDIGO DA EMPRESA
 		//
-		TextUtil.addText(fw, TextUtil.pad(Org.getDescription().toUpperCase(), ' ', 30, false, false, true)); //NOME DA EMPRESA
+		TextUtil.addText(fw, TextUtil.pad(oi.get_ValueAsString(I_W_AD_OrgInfo.COLUMNNAME_lbr_LegalEntity).toUpperCase(), ' ', 30, false, false, true)); //NOME DA EMPRESA
 		//
 		TextUtil.addText(fw, CBRADESCO); //CÓDIGO DO BANCO
 		TextUtil.addText(fw, TextUtil.pad(NBRADESCO, ' ', 15, false)); //NOME DO BANCO
@@ -195,7 +196,8 @@ public class MBradesco implements I_Bank
 		String cc   = BankA.getAccountNo().substring(0, indexCC);
 		String dv   = BankA.getAccountNo().substring(indexCC+1);
 		String agencia = BankA.get_ValueAsString("lbr_AgencyNo");
-		       agencia = agencia.substring(0, agencia.indexOf('-'));
+		if (agencia.indexOf('-') > 0)
+			agencia = agencia.substring(0, agencia.indexOf('-'));
 		String conta   = "0"
 						+ TextUtil.pad(BankA.get_ValueAsString("lbr_BillFold"),'0',3,true)
 						+ TextUtil.pad(agencia,'0',5,true)
