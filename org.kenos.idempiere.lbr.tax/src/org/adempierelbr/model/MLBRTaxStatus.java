@@ -14,7 +14,12 @@
 package org.adempierelbr.model;
 
 import java.sql.ResultSet;
+import java.util.List;
 import java.util.Properties;
+
+import org.compiere.model.MTable;
+import org.compiere.model.Query;
+import org.compiere.util.Env;
 
 /**
  * 
@@ -67,5 +72,40 @@ public class MLBRTaxStatus extends X_LBR_TaxStatus
 		else
 			return getName();
 	}	//	getTaxStatusName
+	
+	/**
+	 * Get Tax Status List
+	 * @param LBR_TaxGroup_ID
+	 * @return
+	 */
+	public static MLBRTaxStatus[] getTaxStatusList(int LBR_TaxGroup_ID)
+	{
+		String where =  "LBR_TaxStatus_ID IN (SELECT LBR_TaxStatus_ID FROM LBR_TaxStatus " + 
+						"WHERE LBR_TaxName_ID IN (SELECT LBR_TaxName_ID FROM C_Tax WHERE  LBR_TaxGroup_ID = ?) AND IsActive = 'Y')";
+		
+		MTable table = MTable.get (Env.getCtx(), MLBRTaxStatus.Table_Name);
+		Query query =  new Query(Env.getCtx(), table, where, null);
+	 		  query.setParameters(new Object[]{LBR_TaxGroup_ID}).setOrderBy("name");
+	 	//
+	 	List<MLBRTaxStatus> list = query.list();
+	 	return list.toArray(new MLBRTaxStatus[list.size()]);
+	}
+	
+	/**
+	 * Get Tax Status List
+	 * @param LBR_TaxGroup_ID
+	 * @return
+	 */
+	public static int getTaxStatus(int LBR_TaxGroup_ID, String taxStatus)
+	{
+		String where =  "LBR_TaxStatus_ID IN (SELECT LBR_TaxStatus_ID FROM LBR_TaxStatus " + 
+						"WHERE LBR_TaxName_ID IN (SELECT LBR_TaxName_ID FROM C_Tax WHERE  LBR_TaxGroup_ID = ? AND Name = ?) AND IsActive = 'Y')";
+		
+		MTable table = MTable.get (Env.getCtx(), MLBRTaxStatus.Table_Name);
+		Query query =  new Query(Env.getCtx(), table, where, null);
+	 		  query.setParameters(new Object[]{LBR_TaxGroup_ID,taxStatus}).setOrderBy("name");
+	 	//
+	 	return query.firstId();
+	}
 
 }	//	MLBRTaxStatus
