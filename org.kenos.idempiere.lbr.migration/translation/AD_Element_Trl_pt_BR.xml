@@ -68863,10 +68863,10 @@ Usar @AMT@ quando for identificar o valor do Produto/Serviço</value>
   <value column="Placeholder" original=""/>
  </row>
  <row trl="N" uuid="8cc0394c-1c89-48b8-ba99-c94756bb8018">
-  <value column="Name" original="Order Reference Item">Order Reference Item</value>
-  <value column="PrintName" original="Order Reference Item">Order Reference Item</value>
-  <value column="Description" original="Item reference to the Order Reference indicated in the same document">Item reference to the Order Reference indicated in the same document</value>
-  <value column="Help" original="Item reference to the Order Reference indicated in the same document">Item reference to the Order Reference indicated in the same document</value>
+  <value column="Name" original="Order Reference Item">Referência do Item (nItemPed)</value>
+  <value column="PrintName" original="Order Reference Item">Referência do Item (nItemPed)</value>
+  <value column="Description" original="Item reference to the Order Reference indicated in the same document">Número da Referência do Item de acorde com a Referência do Pedido, campo nItemPed do XML da NF-e</value>
+  <value column="Help" original="Item reference to the Order Reference indicated in the same document">Número da Referência do Item de acorde com a Referência do Pedido, campo nItemPed do XML da NF-e</value>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
   <value column="PO_Name" original=""/>
