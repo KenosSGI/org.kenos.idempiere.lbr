@@ -8,8 +8,9 @@ Require-Bundle: org.adempiere.base;bundle-version="6.2.0",
  org.kenos.idempiere.lbr.base;bundle-version="1.0.0",
  org.kenos.idempiere.lbr.nfe;bundle-version="1.0.0"
 Eclipse-RegisterBuddy: org.adempiere.base, org.adempiere.ui.swing
-Export-Package: org.adempierelbr.model,
- org.kenos.idempiere.lbr.boleto.form
+Export-Package: org.adempierelbr.apps.form,
+ org.adempierelbr.callout,
+ org.adempierelbr.model
 Import-Package: org.adempiere.pipo2
 Bundle-ClassPath: .,
  lib/jBoleto.jar,

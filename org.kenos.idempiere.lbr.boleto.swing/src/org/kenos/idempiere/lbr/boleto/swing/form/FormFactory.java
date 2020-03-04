@@ -1,11 +1,11 @@
 package org.kenos.idempiere.lbr.boleto.swing.form;
 
 import org.adempiere.ui.swing.factory.IFormFactory;
+import org.adempierelbr.apps.form.GenBilling;
+import org.adempierelbr.apps.form.GenCNAB;
 import org.adempierelbr.apps.form.VGenBilling;
 import org.adempierelbr.apps.form.VGenCNAB;
 import org.compiere.apps.form.FormPanel;
-import org.kenos.idempiere.lbr.boleto.form.GenBilling;
-import org.kenos.idempiere.lbr.boleto.form.GenCNAB;
 
 /**
  * 		Boleto form factory

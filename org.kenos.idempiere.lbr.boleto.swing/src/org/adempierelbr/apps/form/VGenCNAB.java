@@ -52,7 +52,6 @@ import org.compiere.swing.CPanel;
 import org.compiere.util.Env;
 import org.compiere.util.KeyNamePair;
 import org.compiere.util.Msg;
-import org.kenos.idempiere.lbr.boleto.form.GenCNAB;
 
 /**
  *  	Create Manual Billing CNAB

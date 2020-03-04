@@ -11,7 +11,7 @@
  * with this program; if not, write to the Free Software Foundation, Inc.,    *
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.                     *
  *****************************************************************************/
-package org.kenos.idempiere.lbr.boleto.zk.form;
+package org.adempierelbr.apps.form;
 
 import java.io.File;
 import java.sql.Timestamp;
@@ -51,7 +51,6 @@ import org.compiere.process.ProcessInfo;
 import org.compiere.util.Env;
 import org.compiere.util.KeyNamePair;
 import org.compiere.util.Msg;
-import org.kenos.idempiere.lbr.boleto.form.GenBilling;
 import org.zkoss.util.media.AMedia;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.Event;

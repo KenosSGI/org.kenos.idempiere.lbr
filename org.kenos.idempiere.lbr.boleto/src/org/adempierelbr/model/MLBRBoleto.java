@@ -324,7 +324,7 @@ public class MLBRBoleto extends X_LBR_Boleto
 
 	public static MLBRBoleto[] getBoleto(Properties ctx, int C_Invoice_ID, String trx){
 
-		String whereClause = "C_Invoice_ID = ? AND LBR_IsCancelled = 'N'";
+		String whereClause = "C_Invoice_ID = ? AND IsCancelled = 'N'";
 
 		MTable table = MTable.get(ctx, MLBRBoleto.Table_Name);
 		Query query =  new Query(ctx, table, whereClause, trx);

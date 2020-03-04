@@ -3,8 +3,10 @@ package org.kenos.idempiere.lbr.boleto.zk.form;
 import org.adempiere.webui.factory.IFormFactory;
 import org.adempiere.webui.panel.ADForm;
 import org.adempiere.webui.panel.IFormController;
-import org.kenos.idempiere.lbr.boleto.form.GenBilling;
-import org.kenos.idempiere.lbr.boleto.form.GenCNAB;
+import org.adempierelbr.apps.form.GenBilling;
+import org.adempierelbr.apps.form.GenCNAB;
+import org.adempierelbr.apps.form.WGenBilling;
+import org.adempierelbr.apps.form.WGenCNAB;
 
 /**
  * 		Boleto form factory
