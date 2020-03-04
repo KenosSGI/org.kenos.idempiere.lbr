@@ -16,7 +16,7 @@ Require-Bundle: org.adempiere.base;bundle-version="6.2.0",
 Service-Component: OSGI-INF/CalloutFactory.xml
  , OSGI-INF/ProcessFactory.xml
 Eclipse-RegisterBuddy: org.adempiere.base
-Export-Package: br.inf.portalfiscal.nfe.dfe, 
+Export-Package: br.inf.portalfiscal.nfe.dfe,
  br.inf.portalfiscal.nfe.v400,
  com.google.zxing,
  com.google.zxing.client.j2se,
@@ -24,6 +24,7 @@ Export-Package: br.inf.portalfiscal.nfe.dfe,
  org.adempierelbr.callout,
  org.adempierelbr.grid,
  org.adempierelbr.model,
+ org.adempierelbr.nfe,
  org.adempierelbr.nfe.beans,
  org.adempierelbr.nfse,
  org.adempierelbr.process,

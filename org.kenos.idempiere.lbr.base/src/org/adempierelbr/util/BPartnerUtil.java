@@ -159,10 +159,11 @@ public abstract class BPartnerUtil
 			 */
 			if (MSysConfig.getBooleanValue(SysConfig.LBR_USE_UNIFIED_BP, true))
 			{
+				//	1=Contribuinte ICMS (informar a IE do destinatário);
+				//	9=Não Contribuinte, que pode ou não possuir Inscrição
+				//		Estadual no Cadastro de Contribuintes do ICMS;
 				if (I_W_C_BPartner.LBR_INDIEDEST_2_ContribuinteDeICMS_Isento.equals(bp.getLBR_IndIEDest()))
 					return "ISENTO";
-				else if (I_W_C_BPartner.LBR_INDIEDEST_9_NãoContribuinteDeICMS.equals(bp.getLBR_IndIEDest()))
-					return "ISENTO-NÃO-CONTRIB";
 				else
 					return bp.getlbr_IE();
 			}
@@ -172,10 +173,11 @@ public abstract class BPartnerUtil
 			 */
 			else
 			{
+				//	1=Contribuinte ICMS (informar a IE do destinatário);
+				//	9=Não Contribuinte, que pode ou não possuir Inscrição
+				//		Estadual no Cadastro de Contribuintes do ICMS;
 				if (I_W_C_BPartner.LBR_INDIEDEST_2_ContribuinteDeICMS_Isento.equals(bpLW.getLBR_IndIEDest()))
 					return "ISENTO";
-				else if (I_W_C_BPartner.LBR_INDIEDEST_9_NãoContribuinteDeICMS.equals(bpLW.getLBR_IndIEDest()))
-					return "ISENTO-NÃO-CONTRIB";
 				else
 					return bpLW.getlbr_IE();
 			}

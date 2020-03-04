@@ -6883,35 +6883,35 @@ A captura da Transação de Pagamento está atrasada</value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="200527" trl="N">
-  <value column="MsgText" original="CoaFile">CoaFile</value>
+  <value column="MsgText" original="CoaFile">Arquivo do Plano de Contas</value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="200528" trl="N">
-  <value column="MsgText" original="does not exist">does not exist</value>
+  <value column="MsgText" original="does not exist">não existe</value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="200529" trl="N">
-  <value column="MsgText" original="Cannot read CoaFile">Cannot read CoaFile</value>
+  <value column="MsgText" original="Cannot read CoaFile">Não foi possível ler o arquivo de Plano de Contas</value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="200530" trl="N">
-  <value column="MsgText" original="is not a file">is not a file</value>
+  <value column="MsgText" original="is not a file">não é um arquivo</value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="200531" trl="N">
-  <value column="MsgText" original="is empty">is empty</value>
+  <value column="MsgText" original="is empty">está vazio</value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="200532" trl="N">
-  <value column="MsgText" original="Create client failed">Create client failed</value>
+  <value column="MsgText" original="Create client failed">Falha ao criar empresa</value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="200535" trl="N">
-  <value column="MsgText" original="Your changes have been saved">Your changes have been saved</value>
+  <value column="MsgText" original="Your changes have been saved">Suas alterações foram salvas</value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="200536" trl="N">
-  <value column="MsgText" original="Your suggestions have been submitted for review">Your suggestions have been submitted for review</value>
+  <value column="MsgText" original="Your suggestions have been submitted for review">Sua sugestão foi enviada para revisão</value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="200537" trl="N">

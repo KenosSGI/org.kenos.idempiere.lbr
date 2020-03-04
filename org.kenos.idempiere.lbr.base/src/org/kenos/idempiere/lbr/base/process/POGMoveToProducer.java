@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.compiere.model.MDocType;
+import org.compiere.model.MLocator;
 import org.compiere.model.MMovement;
 import org.compiere.model.MMovementLine;
 import org.compiere.model.MProduct;
@@ -64,8 +65,15 @@ public class POGMoveToProducer extends SvrProcess
 						pl.getPlannedQty(), get_TrxName());
 				
 				if (M_Locator_ID <= 0)
+				{
 					M_Locator_ID = pl.getM_Product().getM_Locator_ID();
-				else if (M_Locator_ID <= 0)
+					
+					//	If Locator identified is not the same of the Industrialization order, set zero
+					if (M_Locator_ID > 0 && MLocator.get(Env.getCtx(), M_Locator_ID).getAD_Org_ID() != pg.getAD_Org_ID())
+						M_Locator_ID = 0;
+				}
+				
+				if (M_Locator_ID <= 0)
 					M_Locator_ID = p.getM_Locator_ID();
 				
 				//	Same locator

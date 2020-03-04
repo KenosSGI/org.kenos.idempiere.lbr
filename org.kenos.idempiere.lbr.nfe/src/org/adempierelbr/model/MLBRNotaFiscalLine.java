@@ -542,6 +542,126 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 		return getTaxRate("IPI");
 	}	//	getIPIRate
 	
+	/**
+	 *  Retorno a LBR_NFLineTax do ISS
+	 *
+	 *  @return	LBR_NFLineTax
+	 */
+	public X_LBR_NFLineTax getISSTax()
+	{
+		return getTax("ISS");
+	}	//	getCOFINSTax
+	
+	/**
+	 *  Retorno o valor do ISS
+	 *
+	 *  @return	BigDecimal	Valor ISS
+	 */
+	public BigDecimal getISSAmt()
+	{
+		return getTaxAmt("ISS");
+	}	//	getIPIAmt
+	
+	/**
+	 *  Retorno o valor da Base de ISS
+	 *
+	 *  @return	BigDecimal	Base ISS
+	 */
+	public BigDecimal getISSBase()
+	{
+		return getTaxBaseAmt("ISS");
+	}	//	getIPIBase
+
+	/**
+	 *  Retorno a alíquota de ISS
+	 *
+	 *  @return	BigDecimal	Alíquota ISS
+	 */
+	public BigDecimal getISSRate()
+	{
+		return getTaxRate("ISS");
+	}	//	getIPIRate
+	
+	/**
+	 *  Retorno a LBR_NFLineTax do PISSERV
+	 *
+	 *  @return	LBR_NFLineTax
+	 */
+	public X_LBR_NFLineTax getPISSERVTax()
+	{
+		return getTax("PISSERV");
+	}	//	getCOFINSTax
+	
+	/**
+	 *  Retorno o valor do ISS
+	 *
+	 *  @return	BigDecimal	Valor PISSERV
+	 */
+	public BigDecimal getPISSERVAmt()
+	{
+		return getTaxAmt("PISSERV");
+	}	//	getIPIAmt
+	
+	/**
+	 *  Retorno o valor da Base de PISSERV
+	 *
+	 *  @return	BigDecimal	Base PISSERV
+	 */
+	public BigDecimal getPISSERVBase()
+	{
+		return getTaxBaseAmt("PISSERV");
+	}	//	getIPIBase
+
+	/**
+	 *  Retorno a alíquota de PISSERV
+	 *
+	 *  @return	BigDecimal	Alíquota PISSERV
+	 */
+	public BigDecimal getPISSERVRate()
+	{
+		return getTaxRate("PISSERV");
+	}	//	getIPIRate
+	
+	/**
+	 *  Retorno a LBR_NFLineTax do COFINSSERV
+	 *
+	 *  @return	LBR_NFLineTax
+	 */
+	public X_LBR_NFLineTax getCOFINSSERVTax()
+	{
+		return getTax("COFINSSERV");
+	}	//	getCOFINSTax
+	
+	/**
+	 *  Retorno o valor do COFINSSERV
+	 *
+	 *  @return	BigDecimal	Valor COFINSSERV
+	 */
+	public BigDecimal getCOFINSSERVAmt()
+	{
+		return getTaxAmt("COFINSSERV");
+	}	//	getIPIAmt
+	
+	/**
+	 *  Retorno o valor da Base de COFINSSERV
+	 *
+	 *  @return	BigDecimal	Base COFINSSERV
+	 */
+	public BigDecimal getCOFINSSERVBase()
+	{
+		return getTaxBaseAmt("COFINSSERV");
+	}	//	getIPIBase
+
+	/**
+	 *  Retorno a alíquota de COFINSSERV
+	 *
+	 *  @return	BigDecimal	Alíquota COFINSSERV
+	 */
+	public BigDecimal getCOFINSSERVRate()
+	{
+		return getTaxRate("COFINSSERV");
+	}	//	getIPIRate
+	
 	
 	
 	/***	New Class	***/
