@@ -1,0 +1,19 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: LBR Boleto Core
+Bundle-SymbolicName: org.kenos.idempiere.lbr.bankslip;singleton:=true
+Bundle-Version: 6.2.0.qualifier
+Require-Bundle: org.adempiere.base;bundle-version="6.2.0",
+ org.adempiere.ui;bundle-version="6.2.0",
+ org.kenos.idempiere.lbr.base;bundle-version="1.0.0",
+ org.kenos.idempiere.lbr.nfe;bundle-version="1.0.0"
+Import-Package: org.adempiere.pipo2
+Bundle-ClassPath: .,
+ lib/jBoleto.jar,
+ lib/bcmail-jdk14.jar,
+ lib/bcprov-jdk14.jar,
+ lib/bctsp-jdk14.jar,
+ lib/itext.jar
+Automatic-Module-Name: org.kenos.idempiere.lbr.boleto
+Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-Vendor: Kenos www.kenos.com.br
