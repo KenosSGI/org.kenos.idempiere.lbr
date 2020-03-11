@@ -39,6 +39,16 @@ public class MLBRBankSlip
 		// LBR_OrgName
 		// LBR_CNPJ
 		
+
+		Endereco enderecoBen = new Endereco();
+		enderecoBen.setUF(UnidadeFederativa.valueOf("SP")); // LBR_
+		enderecoBen.setLocalidade("São Paulo");
+		enderecoBen.setCep(new CEP("02017-002"));
+		enderecoBen.setBairro("Santana");
+		enderecoBen.setLogradouro("Rua Alfredo Pujol");
+		enderecoBen.setNumero("1008");
+		cedente.addEndereco(enderecoBen);
+		
 		Sacado sacado = new Sacado("Ricardo Alexsander de Santana Silva", "318.689.118-37");
 		//	BPName
 		//	LBR_BPCNPJ
