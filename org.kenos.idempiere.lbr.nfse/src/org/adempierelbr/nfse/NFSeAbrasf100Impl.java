@@ -1703,7 +1703,7 @@ public class NFSeAbrasf100Impl implements INFSe
 			
 			if (nf.getlbr_BPCity() != null && !nf.getlbr_BPCity().isEmpty())
 			{
-				map.put("municipiotomador", nf.getlbr_OrgCity());
+				map.put("municipiotomador", nf.getlbr_BPCity());
 			}
 				
 			//	Get Jasper
