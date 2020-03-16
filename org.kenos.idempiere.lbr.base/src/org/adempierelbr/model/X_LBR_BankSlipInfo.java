@@ -30,7 +30,7 @@ public class X_LBR_BankSlipInfo extends PO implements I_LBR_BankSlipInfo, I_Pers
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20200312L;
+	private static final long serialVersionUID = 20200313L;
 
     /** Standard Constructor */
     public X_LBR_BankSlipInfo (Properties ctx, int LBR_BankSlipInfo_ID, String trxName)
@@ -41,8 +41,6 @@ public class X_LBR_BankSlipInfo extends PO implements I_LBR_BankSlipInfo, I_Pers
 			setAccountNo (null);
 			setBPName (null);
 			setLBR_BankSlip_ID (0);
-			setLBR_IsAccepted (null);
-			setLBR_IssueType (null);
 			setLBR_OrgBPType (null);
 			setlbr_AgencyNo (null);
 			setlbr_BPAddress1 (null);
@@ -117,6 +115,20 @@ public class X_LBR_BankSlipInfo extends PO implements I_LBR_BankSlipInfo, I_Pers
 	public String getBPName () 
 	{
 		return (String)get_Value(COLUMNNAME_BPName);
+	}
+
+	/** Set Accord.
+		@param LBR_AccordNo Accord	  */
+	public void setLBR_AccordNo (String LBR_AccordNo)
+	{
+		set_Value (COLUMNNAME_LBR_AccordNo, LBR_AccordNo);
+	}
+
+	/** Get Accord.
+		@return Accord	  */
+	public String getLBR_AccordNo () 
+	{
+		return (String)get_Value(COLUMNNAME_LBR_AccordNo);
 	}
 
 	/** Set Account Digit.
@@ -445,44 +457,6 @@ public class X_LBR_BankSlipInfo extends PO implements I_LBR_BankSlipInfo, I_Pers
 	public String getLBR_InstructionBP () 
 	{
 		return (String)get_Value(COLUMNNAME_LBR_InstructionBP);
-	}
-
-	/** Not Accepted = 0 */
-	public static final String LBR_ISACCEPTED_NotAccepted = "0";
-	/** Is Accepted = 1 */
-	public static final String LBR_ISACCEPTED_IsAccepted = "1";
-	/** Set Accepted.
-		@param LBR_IsAccepted Accepted	  */
-	public void setLBR_IsAccepted (String LBR_IsAccepted)
-	{
-
-		set_Value (COLUMNNAME_LBR_IsAccepted, LBR_IsAccepted);
-	}
-
-	/** Get Accepted.
-		@return Accepted	  */
-	public String getLBR_IsAccepted () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_IsAccepted);
-	}
-
-	/** Direta = 1 */
-	public static final String LBR_ISSUETYPE_Direta = "1";
-	/** Escritural = 2 */
-	public static final String LBR_ISSUETYPE_Escritural = "2";
-	/** Set Issue Type.
-		@param LBR_IssueType Issue Type	  */
-	public void setLBR_IssueType (String LBR_IssueType)
-	{
-
-		set_Value (COLUMNNAME_LBR_IssueType, LBR_IssueType);
-	}
-
-	/** Get Issue Type.
-		@return Issue Type	  */
-	public String getLBR_IssueType () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_IssueType);
 	}
 
 	/** Set Manual Input.

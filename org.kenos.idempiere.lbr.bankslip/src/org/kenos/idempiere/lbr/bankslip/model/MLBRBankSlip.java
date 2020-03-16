@@ -5,8 +5,14 @@ import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.util.Properties;
 
+import org.adempiere.model.POWrapper;
 import org.adempierelbr.model.X_LBR_BankSlip;
-import org.compiere.model.MOrgInfo;
+import org.adempierelbr.util.TextUtil;
+import org.adempierelbr.wrapper.I_W_C_BPartner;
+import org.adempierelbr.wrapper.I_W_C_BankAccount;
+import org.compiere.model.MBPartner;
+import org.compiere.model.MBankAccount;
+import org.compiere.model.MLocation;
 import org.compiere.process.DocAction;
 import org.compiere.process.DocOptions;
 import org.jrimum.bopepo.BancosSuportados;
@@ -63,13 +69,25 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 		super (ctx, rs, trxName);
 	}	//	MLBRBankSlip
 	
+	/**
+	 * 	Create the PDF file of bank slip
+	 */
 	@Override
 	public File createPDF ()
 	{
-		
 		if (!BancosSuportados.isSuportado(bsi.getRoutingNo()))
 			return null;
-		
+		//
+		BoletoViewer boletoViewer = new BoletoViewer (getBankSlip ());
+		return boletoViewer.getPdfAsFile (System.clearProperty("java.io.tmpdir") + File.pathSeparator + getDocumentNo() + ".pdf");
+	}	//	createPDF
+
+	/**
+	 * 	Generate the bank slip
+	 * 	@return boleto
+	 */
+	private Boleto getBankSlip ()
+	{
 		Cedente beneficiario = new Cedente (bsi.getlbr_OrgName(), bsi.getlbr_CNPJ());
 
 		Endereco enderecoBen = new Endereco();
@@ -111,7 +129,7 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 		titulo.setDataDoDocumento(getDateDoc());
 		titulo.setDataDoVencimento(getDueDate());
 		titulo.setTipoDeDocumento(parseBankSlipKind());
-		titulo.setAceite(MLBRBankSlipInfo.LBR_ISACCEPTED_IsAccepted.equals(bsi.getLBR_IsAccepted()) ? Titulo.Aceite.A : Titulo.Aceite.N);
+		titulo.setAceite(MLBRBankSlip.LBR_ISACCEPTED_IsAccepted.equals(getLBR_IsAccepted()) ? Titulo.Aceite.A : Titulo.Aceite.N);
 	
 		Boleto boleto = new Boleto(titulo);
 		
@@ -125,17 +143,16 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 		boleto.setInstrucao6(bsi.getLBR_Instruction6());
 		boleto.setInstrucao7(bsi.getLBR_Instruction7());
 		
-		BoletoViewer boletoViewer = new BoletoViewer(boleto);
-		return boletoViewer.getPdfAsFile (System.clearProperty("java.io.tmpdir") + File.pathSeparator + getDocumentNo() + ".pdf");
-	}	//	createPDF
-
+		return boleto;
+	}	//	getBankSlip
+	
 	/**
 	 * 	Parse Bank Slip Kind from iDempiere format to Bopepo format
 	 * 	@return bopepo bank slip kind
 	 */
 	private TipoDeTitulo parseBankSlipKind ()
 	{
-		switch (Integer.valueOf (getLBR_BankSlipKind().getValueNumber().toString()))
+		switch (Integer.valueOf (bsi.getLBR_BankSlipKindCode()))
 		{
 			case 1:
 				return TipoDeTitulo.AP_APOLICE_DE_SEGURO;
@@ -260,12 +277,146 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 	@Override
 	protected boolean afterSave (boolean newRecord, boolean success)
 	{
+		boolean changed = false;
+		
 		if (newRecord)
 		{
 			//	Info
 			bsi = new MLBRBankSlipInfo (this);
 			bsi.saveEx();
 		}
+		
+		if (newRecord || is_ValueChanged(COLUMNNAME_C_BankAccount_ID))
+		{
+			I_W_C_BankAccount ba = POWrapper.create (new MBankAccount(getCtx(), getC_BankAccount_ID(), get_TrxName()), I_W_C_BankAccount.class);
+			String baNo = null;
+			String baVD = null;
+			String agencyNo = null;
+			String agencyVD = null;
+			
+			//	Split the account number and digit
+			if (ba.getAccountNo() != null)
+			{
+				if (ba.getAccountNo().indexOf("-") > 0)
+				{
+					String[] splitted = ba.getAccountNo().split("-");
+					baNo = TextUtil.toNumeric (splitted[0]);
+					baVD = TextUtil.toNumeric (splitted[1]);
+				}
+				else
+					baNo = TextUtil.toNumeric (ba.getAccountNo());
+			}
+			
+			//	Split the agency number and digit
+			if (ba.getlbr_AgencyNo() != null)
+			{
+				if (ba.getlbr_AgencyNo().indexOf("-") > 0)
+				{
+					String[] splitted = ba.getlbr_AgencyNo().split("-");
+					agencyNo = TextUtil.toNumeric (splitted[0]);
+					agencyVD = TextUtil.toNumeric (splitted[1]);
+				}
+				else
+					agencyNo = TextUtil.toNumeric (ba.getlbr_AgencyNo());
+			}
+			//
+			bsi.setRoutingNo(getC_BankAccount().getC_Bank().getRoutingNo());
+			bsi.setAccountNo(baNo);
+			bsi.setLBR_BankAccountVD(baVD);
+			bsi.setlbr_AgencyNo(agencyNo);
+			bsi.setLBR_BankAgencyVD(agencyVD);
+			//
+			changed = true;
+		}
+		
+		//	Fold
+		if (newRecord || is_ValueChanged(COLUMNNAME_LBR_BankSlipFold_ID))
+		{
+			bsi.setLBR_BankSlipFoldCode (String.valueOf (getLBR_BankSlipFold().getValueNumber()));
+			bsi.setLBR_BankSlipFoldValue (getLBR_BankSlipFold().getValue());
+			//
+			changed = true;
+		}
+		
+		//	Kind
+		if (newRecord || is_ValueChanged(COLUMNNAME_LBR_BankSlipKind_ID))
+		{
+			bsi.setLBR_BankSlipKindCode (String.valueOf (getLBR_BankSlipKind().getValueNumber()));
+			bsi.setLBR_BankSlipKindValue (getLBR_BankSlipKind().getValue());
+			//
+			changed = true;
+		}
+		
+		//	BPartner
+		if (newRecord || is_ValueChanged(COLUMNNAME_C_BPartner_Location_ID))
+		{
+			I_W_C_BPartner bp = POWrapper.create(new MBPartner (getCtx(), getC_BPartner_ID(), get_TrxName()), I_W_C_BPartner.class);
+			MLocation location = new MLocation (getCtx(), getC_BPartner_Location().getC_Location_ID(), get_TrxName());
+			//
+			String cnpjf = null;
+			String bpType = bp.getlbr_BPTypeBR();
+			//
+			if (MLBRBankSlipInfo.LBR_BPTYPEBR_PJ_LegalEntity.equals(bpType))
+				cnpjf = bp.getlbr_CNPJ();
+			else if (MLBRBankSlipInfo.LBR_BPTYPEBR_PF_Individual.equals(bpType))
+				cnpjf = bp.getlbr_CPF();
+			//
+			bsi.setBPName(bp.getName());
+			bsi.setLBR_OrgBPType(bpType);
+			bsi.setlbr_CNPJ(cnpjf);
+			bsi.setlbr_BPAddress1(location.getAddress1());
+			bsi.setlbr_BPAddress2(location.getAddress2());
+			bsi.setlbr_BPAddress3(location.getAddress3());
+			bsi.setlbr_BPAddress4(location.getAddress4());
+			bsi.setlbr_BPCity(location.getCity());
+			bsi.setlbr_BPRegion(location.getRegionName());
+			bsi.setlbr_BPPostal(location.getPostal());
+			//
+			changed = true;
+		}
+		
+		//	Guarantor - not mandatory
+		if (getGuarantorBP_Location_ID() > 0 && (is_ValueChanged(COLUMNNAME_GuarantorBP_Location_ID) || newRecord))
+		{
+			I_W_C_BPartner bp = POWrapper.create(new MBPartner (getCtx(), getGuarantorBP_ID(), get_TrxName()), I_W_C_BPartner.class);
+			MLocation location = new MLocation (getCtx(), getGuarantorBP_Location().getC_Location_ID(), get_TrxName());
+			//
+			String cnpjf = null;
+			String bpType = bp.getlbr_BPTypeBR();
+			//
+			if (MLBRBankSlipInfo.LBR_BPTYPEBR_PJ_LegalEntity.equals(bpType))
+				cnpjf = bp.getlbr_CNPJ();
+			else if (MLBRBankSlipInfo.LBR_BPTYPEBR_PF_Individual.equals(bpType))
+				cnpjf = bp.getlbr_CPF();
+			//
+			bsi.setLBR_GuarantorBPName(bp.getName());
+			bsi.setLBR_GuarantorCNPJ(cnpjf);
+			bsi.setLBR_GuarantorAddress1(location.getAddress1());
+			bsi.setLBR_GuarantorAddress2(location.getAddress2());
+			bsi.setLBR_GuarantorAddress3(location.getAddress3());
+			bsi.setLBR_GuarantorAddress4(location.getAddress4());
+			bsi.setLBR_GuarantorCity(location.getCity());
+			bsi.setLBR_GuarantorRegion(location.getRegionName());
+			bsi.setLBR_GuarantorPostal(location.getPostal());
+			//
+			changed = true;
+		}
+		
+		if (is_ValueChanged(COLUMNNAME_DateDoc) || is_ValueChanged(COLUMNNAME_DueDate) 
+				|| is_ValueChanged(COLUMNNAME_LBR_NumberInBank) || is_ValueChanged(COLUMNNAME_LBR_NumberInOrg) 
+				|| is_ValueChanged(COLUMNNAME_LBR_IsAccepted) || is_ValueChanged(COLUMNNAME_LBR_IssueType) 
+				|| is_ValueChanged(COLUMNNAME_GrandTotal) || is_ValueChanged(COLUMNNAME_DiscountAmt))
+			changed = true;
+		
+		//	Something was changed
+		if (changed)
+		{
+			Boleto boleto = getBankSlip();
+			//
+			bsi.setLBR_ManualInput(boleto.getLinhaDigitavel().write());
+			bsi.setLBR_Barcode(boleto.getCodigoDeBarras().write());
+		}
+		
 		return true;
 	}	//	afterSave
 
@@ -274,133 +425,114 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 			String orderType, String isSOTrx, int AD_Table_ID, String[] docAction,
 			String[] options, int index)
 	{
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public boolean processIt(String action) throws Exception
 	{
-		// TODO Auto-generated method stub
 		return false;
-	}
+	}	//	processIt
 
 	@Override
 	public boolean unlockIt()
 	{
-		// TODO Auto-generated method stub
 		return false;
-	}
+	}	//	unlockIt
 
 	@Override
 	public boolean invalidateIt()
 	{
-		// TODO Auto-generated method stub
 		return false;
-	}
+	}	//	invalidateIt
 
 	@Override
 	public String prepareIt()
 	{
-		// TODO Auto-generated method stub
 		return null;
-	}
+	}	//	prepareIt
 
 	@Override
 	public boolean approveIt()
 	{
-		// TODO Auto-generated method stub
 		return false;
-	}
+	}	//	approveIt
 
 	@Override
 	public boolean rejectIt()
 	{
-		// TODO Auto-generated method stub
 		return false;
-	}
+	}	//	rejectIt
 
 	@Override
 	public String completeIt()
 	{
-		// TODO Auto-generated method stub
 		return null;
-	}
+	}	//	completeIt
 
 	@Override
 	public boolean voidIt()
 	{
-		// TODO Auto-generated method stub
 		return false;
-	}
+	}	//	voidIt
 
 	@Override
 	public boolean closeIt()
 	{
-		// TODO Auto-generated method stub
 		return false;
-	}
+	}	//	closeIt
 
 	@Override
 	public boolean reverseCorrectIt()
 	{
-		// TODO Auto-generated method stub
 		return false;
-	}
+	}	//	reverseCorrectIt
 
 	@Override
 	public boolean reverseAccrualIt()
 	{
-		// TODO Auto-generated method stub
 		return false;
-	}
+	}	//	reverseAccrualIt
 
 	@Override
 	public boolean reActivateIt()
 	{
-		// TODO Auto-generated method stub
 		return false;
-	}
+	}	//	reActivateIt
 
 	@Override
 	public String getSummary()
 	{
-		// TODO Auto-generated method stub
 		return null;
-	}
+	}	//	getSummary
 
 	@Override
 	public String getDocumentInfo()
 	{
-		// TODO Auto-generated method stub
 		return null;
-	}
+	}	//	getDocumentInfo
 
 	@Override
 	public String getProcessMsg()
 	{
-		// TODO Auto-generated method stub
 		return null;
-	}
+	}	//	getProcessMsg
 
 	@Override
 	public int getDoc_User_ID()
 	{
-		// TODO Auto-generated method stub
 		return 0;
-	}
+	}	//	getDoc_User_ID
 
 	@Override
 	public int getC_Currency_ID()
 	{
-		// TODO Auto-generated method stub
 		return 0;
-	}
+	}	//	getC_Currency_ID
 
 	@Override
 	public BigDecimal getApprovalAmt()
 	{
-		// TODO Auto-generated method stub
 		return null;
-	}
+	}	//	getApprovalAmt
 }	//	MLBRBankSlip

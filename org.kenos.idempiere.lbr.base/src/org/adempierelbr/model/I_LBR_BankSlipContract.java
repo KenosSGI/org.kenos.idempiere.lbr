@@ -121,6 +121,15 @@ public interface I_LBR_BankSlipContract
 	  */
 	public boolean isActive();
 
+    /** Column name LBR_AccordNo */
+    public static final String COLUMNNAME_LBR_AccordNo = "LBR_AccordNo";
+
+	/** Set Accord	  */
+	public void setLBR_AccordNo (String LBR_AccordNo);
+
+	/** Get Accord	  */
+	public String getLBR_AccordNo();
+
     /** Column name LBR_BankSlipConfig_ID */
     public static final String COLUMNNAME_LBR_BankSlipConfig_ID = "LBR_BankSlipConfig_ID";
 
@@ -215,6 +224,24 @@ public interface I_LBR_BankSlipContract
 	public int getLBR_NumberInBankSeq_ID();
 
 	public org.compiere.model.I_AD_Sequence getLBR_NumberInBankSeq() throws RuntimeException;
+
+    /** Column name LBR_Param1 */
+    public static final String COLUMNNAME_LBR_Param1 = "LBR_Param1";
+
+	/** Set Parameter 1	  */
+	public void setLBR_Param1 (String LBR_Param1);
+
+	/** Get Parameter 1	  */
+	public String getLBR_Param1();
+
+    /** Column name LBR_Param2 */
+    public static final String COLUMNNAME_LBR_Param2 = "LBR_Param2";
+
+	/** Set Parameter 2	  */
+	public void setLBR_Param2 (String LBR_Param2);
+
+	/** Get Parameter 2	  */
+	public String getLBR_Param2();
 
     /** Column name LBR_RegisterType */
     public static final String COLUMNNAME_LBR_RegisterType = "LBR_RegisterType";

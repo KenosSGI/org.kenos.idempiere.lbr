@@ -32,7 +32,7 @@ public class X_LBR_BankSlipConfig extends PO implements I_LBR_BankSlipConfig, I_
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20200312L;
+	private static final long serialVersionUID = 20200313L;
 
     /** Standard Constructor */
     public X_LBR_BankSlipConfig (Properties ctx, int LBR_BankSlipConfig_ID, String trxName)
@@ -132,6 +132,31 @@ public class X_LBR_BankSlipConfig extends PO implements I_LBR_BankSlipConfig, I_
 	public String getLBR_BankSlipConfig_UU () 
 	{
 		return (String)get_Value(COLUMNNAME_LBR_BankSlipConfig_UU);
+	}
+
+	/** Printed and Mailed = 1 */
+	public static final String LBR_DISTRIBUTEDVIA_PrintedAndMailed = "1";
+	/** Printed with Fiscal Document = 2 */
+	public static final String LBR_DISTRIBUTEDVIA_PrintedWithFiscalDocument = "2";
+	/** Printed with Fiscal Document & E-mailed = 3r */
+	public static final String LBR_DISTRIBUTEDVIA_PrintedWithFiscalDocumentE_Mailed = "3r";
+	/** E-mailed = 4 */
+	public static final String LBR_DISTRIBUTEDVIA_E_Mailed = "4";
+	/** E-mailed with Fiscal Document XML = 5 */
+	public static final String LBR_DISTRIBUTEDVIA_E_MailedWithFiscalDocumentXML = "5";
+	/** Set Distributed Via.
+		@param LBR_DistributedVia Distributed Via	  */
+	public void setLBR_DistributedVia (String LBR_DistributedVia)
+	{
+
+		set_Value (COLUMNNAME_LBR_DistributedVia, LBR_DistributedVia);
+	}
+
+	/** Get Distributed Via.
+		@return Distributed Via	  */
+	public String getLBR_DistributedVia () 
+	{
+		return (String)get_Value(COLUMNNAME_LBR_DistributedVia);
 	}
 
 	public org.compiere.model.I_C_Charge getLBR_InterestCharge() throws RuntimeException

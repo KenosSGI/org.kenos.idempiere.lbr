@@ -33,7 +33,7 @@ public class X_LBR_BankSlip extends PO implements I_LBR_BankSlip, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20200312L;
+	private static final long serialVersionUID = 20200313L;
 
     /** Standard Constructor */
     public X_LBR_BankSlip (Properties ctx, int LBR_BankSlip_ID, String trxName)
@@ -72,17 +72,20 @@ public class X_LBR_BankSlip extends PO implements I_LBR_BankSlip, I_Persistent
 // 0
 			setLBR_Discount3Value (Env.ZERO);
 // 0
-			setLBR_DistributedVia (false);
+			setLBR_DistributedVia (null);
 			setLBR_IOFAmt (Env.ZERO);
 // 0
 			setLBR_InterestValue (Env.ZERO);
 // 0
+			setLBR_IsAccepted (null);
 			setLBR_IsPartialPayment (false);
 // N
+			setLBR_IssueType (null);
 			setLBR_IssuedBy (null);
 // 2
 			setLBR_NumberInOrg (null);
 			setLBR_RegisterType (null);
+			setLBR_ReturnAction (null);
 			setPosted (false);
 // N
 			setProcessed (false);
@@ -720,6 +723,31 @@ public class X_LBR_BankSlip extends PO implements I_LBR_BankSlip, I_Persistent
 		return ii.intValue();
 	}
 
+	public org.adempierelbr.model.I_LBR_BankSlipLayout getLBR_BankSlipLayout() throws RuntimeException
+    {
+		return (org.adempierelbr.model.I_LBR_BankSlipLayout)MTable.get(getCtx(), org.adempierelbr.model.I_LBR_BankSlipLayout.Table_Name)
+			.getPO(getLBR_BankSlipLayout_ID(), get_TrxName());	}
+
+	/** Set Bank Slip Layout.
+		@param LBR_BankSlipLayout_ID Bank Slip Layout	  */
+	public void setLBR_BankSlipLayout_ID (int LBR_BankSlipLayout_ID)
+	{
+		if (LBR_BankSlipLayout_ID < 1) 
+			set_ValueNoCheck (COLUMNNAME_LBR_BankSlipLayout_ID, null);
+		else 
+			set_ValueNoCheck (COLUMNNAME_LBR_BankSlipLayout_ID, Integer.valueOf(LBR_BankSlipLayout_ID));
+	}
+
+	/** Get Bank Slip Layout.
+		@return Bank Slip Layout	  */
+	public int getLBR_BankSlipLayout_ID () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_LBR_BankSlipLayout_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
 	/** Set Bank Slip.
 		@param LBR_BankSlip_ID Bank Slip	  */
 	public void setLBR_BankSlip_ID (int LBR_BankSlip_ID)
@@ -754,25 +782,25 @@ public class X_LBR_BankSlip extends PO implements I_LBR_BankSlip, I_Persistent
 		return (String)get_Value(COLUMNNAME_LBR_BankSlip_UU);
 	}
 
+	/** Notice with Address in File = 1 */
+	public static final String LBR_DIRECTDEBITNOTICE_NoticeWithAddressInFile = "1";
+	/** No Notice = 2 */
+	public static final String LBR_DIRECTDEBITNOTICE_NoNotice = "2";
+	/** Notice with Address in the Bank = 3 */
+	public static final String LBR_DIRECTDEBITNOTICE_NoticeWithAddressInTheBank = "3";
 	/** Set Direct Debit Notice.
 		@param LBR_DirectDebitNotice Direct Debit Notice	  */
-	public void setLBR_DirectDebitNotice (boolean LBR_DirectDebitNotice)
+	public void setLBR_DirectDebitNotice (String LBR_DirectDebitNotice)
 	{
-		set_Value (COLUMNNAME_LBR_DirectDebitNotice, Boolean.valueOf(LBR_DirectDebitNotice));
+
+		set_Value (COLUMNNAME_LBR_DirectDebitNotice, LBR_DirectDebitNotice);
 	}
 
 	/** Get Direct Debit Notice.
 		@return Direct Debit Notice	  */
-	public boolean isLBR_DirectDebitNotice () 
+	public String getLBR_DirectDebitNotice () 
 	{
-		Object oo = get_Value(COLUMNNAME_LBR_DirectDebitNotice);
-		if (oo != null) 
-		{
-			 if (oo instanceof Boolean) 
-				 return ((Boolean)oo).booleanValue(); 
-			return "Y".equals(oo);
-		}
-		return false;
+		return (String)get_Value(COLUMNNAME_LBR_DirectDebitNotice);
 	}
 
 	/** Set Discount 1 Date.
@@ -949,25 +977,29 @@ public class X_LBR_BankSlip extends PO implements I_LBR_BankSlip, I_Persistent
 		return bd;
 	}
 
+	/** Printed and Mailed = 1 */
+	public static final String LBR_DISTRIBUTEDVIA_PrintedAndMailed = "1";
+	/** Printed with Fiscal Document = 2 */
+	public static final String LBR_DISTRIBUTEDVIA_PrintedWithFiscalDocument = "2";
+	/** Printed with Fiscal Document & E-mailed = 3r */
+	public static final String LBR_DISTRIBUTEDVIA_PrintedWithFiscalDocumentE_Mailed = "3r";
+	/** E-mailed = 4 */
+	public static final String LBR_DISTRIBUTEDVIA_E_Mailed = "4";
+	/** E-mailed with Fiscal Document XML = 5 */
+	public static final String LBR_DISTRIBUTEDVIA_E_MailedWithFiscalDocumentXML = "5";
 	/** Set Distributed Via.
 		@param LBR_DistributedVia Distributed Via	  */
-	public void setLBR_DistributedVia (boolean LBR_DistributedVia)
+	public void setLBR_DistributedVia (String LBR_DistributedVia)
 	{
-		set_Value (COLUMNNAME_LBR_DistributedVia, Boolean.valueOf(LBR_DistributedVia));
+
+		set_Value (COLUMNNAME_LBR_DistributedVia, LBR_DistributedVia);
 	}
 
 	/** Get Distributed Via.
 		@return Distributed Via	  */
-	public boolean isLBR_DistributedVia () 
+	public String getLBR_DistributedVia () 
 	{
-		Object oo = get_Value(COLUMNNAME_LBR_DistributedVia);
-		if (oo != null) 
-		{
-			 if (oo instanceof Boolean) 
-				 return ((Boolean)oo).booleanValue(); 
-			return "Y".equals(oo);
-		}
-		return false;
+		return (String)get_Value(COLUMNNAME_LBR_DistributedVia);
 	}
 
 	/** Set EMail Sent.
@@ -1063,6 +1095,25 @@ public class X_LBR_BankSlip extends PO implements I_LBR_BankSlip, I_Persistent
 		return bd;
 	}
 
+	/** Not Accepted = 0 */
+	public static final String LBR_ISACCEPTED_NotAccepted = "0";
+	/** Is Accepted = 1 */
+	public static final String LBR_ISACCEPTED_IsAccepted = "1";
+	/** Set Accepted.
+		@param LBR_IsAccepted Accepted	  */
+	public void setLBR_IsAccepted (String LBR_IsAccepted)
+	{
+
+		set_Value (COLUMNNAME_LBR_IsAccepted, LBR_IsAccepted);
+	}
+
+	/** Get Accepted.
+		@return Accepted	  */
+	public String getLBR_IsAccepted () 
+	{
+		return (String)get_Value(COLUMNNAME_LBR_IsAccepted);
+	}
+
 	/** Set Halted.
 		@param LBR_IsHalted Halted	  */
 	public void setLBR_IsHalted (boolean LBR_IsHalted)
@@ -1145,6 +1196,25 @@ public class X_LBR_BankSlip extends PO implements I_LBR_BankSlip, I_Persistent
 			return "Y".equals(oo);
 		}
 		return false;
+	}
+
+	/** Direta = 1 */
+	public static final String LBR_ISSUETYPE_Direta = "1";
+	/** Escritural = 2 */
+	public static final String LBR_ISSUETYPE_Escritural = "2";
+	/** Set Issue Type.
+		@param LBR_IssueType Issue Type	  */
+	public void setLBR_IssueType (String LBR_IssueType)
+	{
+
+		set_Value (COLUMNNAME_LBR_IssueType, LBR_IssueType);
+	}
+
+	/** Get Issue Type.
+		@return Issue Type	  */
+	public String getLBR_IssueType () 
+	{
+		return (String)get_Value(COLUMNNAME_LBR_IssueType);
 	}
 
 	/** Bank = 1 */
@@ -1316,6 +1386,42 @@ public class X_LBR_BankSlip extends PO implements I_LBR_BankSlip, I_Persistent
 	public String getLBR_RegisterType () 
 	{
 		return (String)get_Value(COLUMNNAME_LBR_RegisterType);
+	}
+
+	/** Write Off = 1 */
+	public static final String LBR_RETURNACTION_WriteOff = "1";
+	/** Keep = 2 */
+	public static final String LBR_RETURNACTION_Keep = "2";
+	/** Set Return Action.
+		@param LBR_ReturnAction Return Action	  */
+	public void setLBR_ReturnAction (String LBR_ReturnAction)
+	{
+
+		set_Value (COLUMNNAME_LBR_ReturnAction, LBR_ReturnAction);
+	}
+
+	/** Get Return Action.
+		@return Return Action	  */
+	public String getLBR_ReturnAction () 
+	{
+		return (String)get_Value(COLUMNNAME_LBR_ReturnAction);
+	}
+
+	/** Set Return Days.
+		@param LBR_ReturnDays Return Days	  */
+	public void setLBR_ReturnDays (int LBR_ReturnDays)
+	{
+		set_Value (COLUMNNAME_LBR_ReturnDays, Integer.valueOf(LBR_ReturnDays));
+	}
+
+	/** Get Return Days.
+		@return Return Days	  */
+	public int getLBR_ReturnDays () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_LBR_ReturnDays);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
 	}
 
 	/** Set Posted.

@@ -124,6 +124,15 @@ public interface I_LBR_BankSlipConfig
 	/** Get LBR_BankSlipConfig_UU	  */
 	public String getLBR_BankSlipConfig_UU();
 
+    /** Column name LBR_DistributedVia */
+    public static final String COLUMNNAME_LBR_DistributedVia = "LBR_DistributedVia";
+
+	/** Set Distributed Via	  */
+	public void setLBR_DistributedVia (String LBR_DistributedVia);
+
+	/** Get Distributed Via	  */
+	public String getLBR_DistributedVia();
+
     /** Column name LBR_InterestCharge_ID */
     public static final String COLUMNNAME_LBR_InterestCharge_ID = "LBR_InterestCharge_ID";
 

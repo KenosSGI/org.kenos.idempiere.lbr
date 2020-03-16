@@ -405,6 +405,17 @@ public interface I_LBR_BankSlip
 
 	public org.adempierelbr.model.I_LBR_BankSlipKind getLBR_BankSlipKind() throws RuntimeException;
 
+    /** Column name LBR_BankSlipLayout_ID */
+    public static final String COLUMNNAME_LBR_BankSlipLayout_ID = "LBR_BankSlipLayout_ID";
+
+	/** Set Bank Slip Layout	  */
+	public void setLBR_BankSlipLayout_ID (int LBR_BankSlipLayout_ID);
+
+	/** Get Bank Slip Layout	  */
+	public int getLBR_BankSlipLayout_ID();
+
+	public org.adempierelbr.model.I_LBR_BankSlipLayout getLBR_BankSlipLayout() throws RuntimeException;
+
     /** Column name LBR_BankSlip_ID */
     public static final String COLUMNNAME_LBR_BankSlip_ID = "LBR_BankSlip_ID";
 
@@ -427,10 +438,10 @@ public interface I_LBR_BankSlip
     public static final String COLUMNNAME_LBR_DirectDebitNotice = "LBR_DirectDebitNotice";
 
 	/** Set Direct Debit Notice	  */
-	public void setLBR_DirectDebitNotice (boolean LBR_DirectDebitNotice);
+	public void setLBR_DirectDebitNotice (String LBR_DirectDebitNotice);
 
 	/** Get Direct Debit Notice	  */
-	public boolean isLBR_DirectDebitNotice();
+	public String getLBR_DirectDebitNotice();
 
     /** Column name LBR_Discount1Date */
     public static final String COLUMNNAME_LBR_Discount1Date = "LBR_Discount1Date";
@@ -517,10 +528,10 @@ public interface I_LBR_BankSlip
     public static final String COLUMNNAME_LBR_DistributedVia = "LBR_DistributedVia";
 
 	/** Set Distributed Via	  */
-	public void setLBR_DistributedVia (boolean LBR_DistributedVia);
+	public void setLBR_DistributedVia (String LBR_DistributedVia);
 
 	/** Get Distributed Via	  */
-	public boolean isLBR_DistributedVia();
+	public String getLBR_DistributedVia();
 
     /** Column name LBR_EMailSent */
     public static final String COLUMNNAME_LBR_EMailSent = "LBR_EMailSent";
@@ -571,6 +582,15 @@ public interface I_LBR_BankSlip
 	/** Get Interest Value	  */
 	public BigDecimal getLBR_InterestValue();
 
+    /** Column name LBR_IsAccepted */
+    public static final String COLUMNNAME_LBR_IsAccepted = "LBR_IsAccepted";
+
+	/** Set Accepted	  */
+	public void setLBR_IsAccepted (String LBR_IsAccepted);
+
+	/** Get Accepted	  */
+	public String getLBR_IsAccepted();
+
     /** Column name LBR_IsHalted */
     public static final String COLUMNNAME_LBR_IsHalted = "LBR_IsHalted";
 
@@ -606,6 +626,15 @@ public interface I_LBR_BankSlip
 
 	/** Get Written Off	  */
 	public boolean isLBR_IsWrittenOff();
+
+    /** Column name LBR_IssueType */
+    public static final String COLUMNNAME_LBR_IssueType = "LBR_IssueType";
+
+	/** Set Issue Type	  */
+	public void setLBR_IssueType (String LBR_IssueType);
+
+	/** Get Issue Type	  */
+	public String getLBR_IssueType();
 
     /** Column name LBR_IssuedBy */
     public static final String COLUMNNAME_LBR_IssuedBy = "LBR_IssuedBy";
@@ -696,6 +725,24 @@ public interface I_LBR_BankSlip
 
 	/** Get Register Type	  */
 	public String getLBR_RegisterType();
+
+    /** Column name LBR_ReturnAction */
+    public static final String COLUMNNAME_LBR_ReturnAction = "LBR_ReturnAction";
+
+	/** Set Return Action	  */
+	public void setLBR_ReturnAction (String LBR_ReturnAction);
+
+	/** Get Return Action	  */
+	public String getLBR_ReturnAction();
+
+    /** Column name LBR_ReturnDays */
+    public static final String COLUMNNAME_LBR_ReturnDays = "LBR_ReturnDays";
+
+	/** Set Return Days	  */
+	public void setLBR_ReturnDays (int LBR_ReturnDays);
+
+	/** Get Return Days	  */
+	public int getLBR_ReturnDays();
 
     /** Column name Posted */
     public static final String COLUMNNAME_Posted = "Posted";

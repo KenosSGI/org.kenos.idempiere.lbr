@@ -115,6 +115,15 @@ public interface I_LBR_BankSlipInfo
 	  */
 	public boolean isActive();
 
+    /** Column name LBR_AccordNo */
+    public static final String COLUMNNAME_LBR_AccordNo = "LBR_AccordNo";
+
+	/** Set Accord	  */
+	public void setLBR_AccordNo (String LBR_AccordNo);
+
+	/** Get Accord	  */
+	public String getLBR_AccordNo();
+
     /** Column name LBR_BankAccountVD */
     public static final String COLUMNNAME_LBR_BankAccountVD = "LBR_BankAccountVD";
 
@@ -321,24 +330,6 @@ public interface I_LBR_BankSlipInfo
 
 	/** Get Instruction to BP	  */
 	public String getLBR_InstructionBP();
-
-    /** Column name LBR_IsAccepted */
-    public static final String COLUMNNAME_LBR_IsAccepted = "LBR_IsAccepted";
-
-	/** Set Accepted	  */
-	public void setLBR_IsAccepted (String LBR_IsAccepted);
-
-	/** Get Accepted	  */
-	public String getLBR_IsAccepted();
-
-    /** Column name LBR_IssueType */
-    public static final String COLUMNNAME_LBR_IssueType = "LBR_IssueType";
-
-	/** Set Issue Type	  */
-	public void setLBR_IssueType (String LBR_IssueType);
-
-	/** Get Issue Type	  */
-	public String getLBR_IssueType();
 
     /** Column name LBR_ManualInput */
     public static final String COLUMNNAME_LBR_ManualInput = "LBR_ManualInput";

@@ -30,7 +30,7 @@ public class X_LBR_BankSlipContract extends PO implements I_LBR_BankSlipContract
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20200312L;
+	private static final long serialVersionUID = 20200313L;
 
     /** Standard Constructor */
     public X_LBR_BankSlipContract (Properties ctx, int LBR_BankSlipContract_ID, String trxName)
@@ -43,6 +43,7 @@ public class X_LBR_BankSlipContract extends PO implements I_LBR_BankSlipContract
 			setLBR_BankSlipFold_ID (0);
 			setLBR_BankSlipKind_ID (0);
 			setLBR_BankSlipLayout_ID (0);
+			setLBR_RegisterType (null);
 			setName (null);
         } */
     }
@@ -118,6 +119,20 @@ public class X_LBR_BankSlipContract extends PO implements I_LBR_BankSlipContract
 	public String getDescription () 
 	{
 		return (String)get_Value(COLUMNNAME_Description);
+	}
+
+	/** Set Accord.
+		@param LBR_AccordNo Accord	  */
+	public void setLBR_AccordNo (String LBR_AccordNo)
+	{
+		set_Value (COLUMNNAME_LBR_AccordNo, LBR_AccordNo);
+	}
+
+	/** Get Accord.
+		@return Accord	  */
+	public String getLBR_AccordNo () 
+	{
+		return (String)get_Value(COLUMNNAME_LBR_AccordNo);
 	}
 
 	public org.adempierelbr.model.I_LBR_BankSlipConfig getLBR_BankSlipConfig() throws RuntimeException
@@ -327,6 +342,34 @@ public class X_LBR_BankSlipContract extends PO implements I_LBR_BankSlipContract
 		if (ii == null)
 			 return 0;
 		return ii.intValue();
+	}
+
+	/** Set Parameter 1.
+		@param LBR_Param1 Parameter 1	  */
+	public void setLBR_Param1 (String LBR_Param1)
+	{
+		set_Value (COLUMNNAME_LBR_Param1, LBR_Param1);
+	}
+
+	/** Get Parameter 1.
+		@return Parameter 1	  */
+	public String getLBR_Param1 () 
+	{
+		return (String)get_Value(COLUMNNAME_LBR_Param1);
+	}
+
+	/** Set Parameter 2.
+		@param LBR_Param2 Parameter 2	  */
+	public void setLBR_Param2 (String LBR_Param2)
+	{
+		set_Value (COLUMNNAME_LBR_Param2, LBR_Param2);
+	}
+
+	/** Get Parameter 2.
+		@return Parameter 2	  */
+	public String getLBR_Param2 () 
+	{
+		return (String)get_Value(COLUMNNAME_LBR_Param2);
 	}
 
 	/** Registered = 1 */
