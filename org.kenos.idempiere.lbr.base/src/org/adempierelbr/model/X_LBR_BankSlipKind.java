@@ -17,11 +17,9 @@
 /** Generated Model - DO NOT CHANGE */
 package org.adempierelbr.model;
 
-import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.util.Properties;
 import org.compiere.model.*;
-import org.compiere.util.Env;
 
 /** Generated Model for LBR_BankSlipKind
  *  @author iDempiere (generated) 
@@ -32,7 +30,7 @@ public class X_LBR_BankSlipKind extends PO implements I_LBR_BankSlipKind, I_Pers
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20200313L;
+	private static final long serialVersionUID = 20200316L;
 
     /** Standard Constructor */
     public X_LBR_BankSlipKind (Properties ctx, int LBR_BankSlipKind_ID, String trxName)
@@ -43,7 +41,7 @@ public class X_LBR_BankSlipKind extends PO implements I_LBR_BankSlipKind, I_Pers
 			setLBR_BankSlipKind_ID (0);
 			setName (null);
 			setValue (null);
-			setValueNumber (Env.ZERO);
+			setValueNumber (0);
         } */
     }
 
@@ -164,19 +162,19 @@ public class X_LBR_BankSlipKind extends PO implements I_LBR_BankSlipKind, I_Pers
 		@param ValueNumber 
 		Numeric Value
 	  */
-	public void setValueNumber (BigDecimal ValueNumber)
+	public void setValueNumber (int ValueNumber)
 	{
-		set_Value (COLUMNNAME_ValueNumber, ValueNumber);
+		set_Value (COLUMNNAME_ValueNumber, Integer.valueOf(ValueNumber));
 	}
 
 	/** Get Value.
 		@return Numeric Value
 	  */
-	public BigDecimal getValueNumber () 
+	public int getValueNumber () 
 	{
-		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_ValueNumber);
-		if (bd == null)
-			 return Env.ZERO;
-		return bd;
+		Integer ii = (Integer)get_Value(COLUMNNAME_ValueNumber);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
 	}
 }

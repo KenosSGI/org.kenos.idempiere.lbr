@@ -183,10 +183,10 @@ public interface I_LBR_BankSlipFold
 	/** Set Value.
 	  * Numeric Value
 	  */
-	public void setValueNumber (BigDecimal ValueNumber);
+	public void setValueNumber (int ValueNumber);
 
 	/** Get Value.
 	  * Numeric Value
 	  */
-	public BigDecimal getValueNumber();
+	public int getValueNumber();
 }

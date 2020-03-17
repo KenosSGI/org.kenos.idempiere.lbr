@@ -564,6 +564,15 @@ public interface I_LBR_BankSlip
 	/** Get Interest Date	  */
 	public Timestamp getLBR_InterestDate();
 
+    /** Column name LBR_InterestDays */
+    public static final String COLUMNNAME_LBR_InterestDays = "LBR_InterestDays";
+
+	/** Set Interest Days	  */
+	public void setLBR_InterestDays (int LBR_InterestDays);
+
+	/** Get Interest Days	  */
+	public int getLBR_InterestDays();
+
     /** Column name LBR_InterestType */
     public static final String COLUMNNAME_LBR_InterestType = "LBR_InterestType";
 
@@ -681,6 +690,15 @@ public interface I_LBR_BankSlip
 	/** Get Penalty Date	  */
 	public Timestamp getLBR_PenaltyDate();
 
+    /** Column name LBR_PenaltyDays */
+    public static final String COLUMNNAME_LBR_PenaltyDays = "LBR_PenaltyDays";
+
+	/** Set Penalty Days	  */
+	public void setLBR_PenaltyDays (int LBR_PenaltyDays);
+
+	/** Get Penalty Days	  */
+	public int getLBR_PenaltyDays();
+
     /** Column name LBR_PenaltyType */
     public static final String COLUMNNAME_LBR_PenaltyType = "LBR_PenaltyType";
 
@@ -707,6 +725,15 @@ public interface I_LBR_BankSlip
 
 	/** Get Protest Date	  */
 	public Timestamp getLBR_ProtestDate();
+
+    /** Column name LBR_ProtestDays */
+    public static final String COLUMNNAME_LBR_ProtestDays = "LBR_ProtestDays";
+
+	/** Set Protest Days	  */
+	public void setLBR_ProtestDays (int LBR_ProtestDays);
+
+	/** Get Protest Days	  */
+	public int getLBR_ProtestDays();
 
     /** Column name LBR_ProtestType */
     public static final String COLUMNNAME_LBR_ProtestType = "LBR_ProtestType";

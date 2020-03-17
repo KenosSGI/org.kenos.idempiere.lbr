@@ -33,7 +33,7 @@ public class X_LBR_BankSlip extends PO implements I_LBR_BankSlip, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20200313L;
+	private static final long serialVersionUID = 20200316L;
 
     /** Standard Constructor */
     public X_LBR_BankSlip (Properties ctx, int LBR_BankSlip_ID, String trxName)
@@ -75,6 +75,8 @@ public class X_LBR_BankSlip extends PO implements I_LBR_BankSlip, I_Persistent
 			setLBR_DistributedVia (null);
 			setLBR_IOFAmt (Env.ZERO);
 // 0
+			setLBR_InterestDays (0);
+// 0
 			setLBR_InterestValue (Env.ZERO);
 // 0
 			setLBR_IsAccepted (null);
@@ -84,6 +86,10 @@ public class X_LBR_BankSlip extends PO implements I_LBR_BankSlip, I_Persistent
 			setLBR_IssuedBy (null);
 // 2
 			setLBR_NumberInOrg (null);
+			setLBR_PenaltyDays (0);
+// 0
+			setLBR_ProtestDays (0);
+// 0
 			setLBR_RegisterType (null);
 			setLBR_ReturnAction (null);
 			setPosted (false);
@@ -1057,6 +1063,23 @@ public class X_LBR_BankSlip extends PO implements I_LBR_BankSlip, I_Persistent
 		return (Timestamp)get_Value(COLUMNNAME_LBR_InterestDate);
 	}
 
+	/** Set Interest Days.
+		@param LBR_InterestDays Interest Days	  */
+	public void setLBR_InterestDays (int LBR_InterestDays)
+	{
+		set_Value (COLUMNNAME_LBR_InterestDays, Integer.valueOf(LBR_InterestDays));
+	}
+
+	/** Get Interest Days.
+		@return Interest Days	  */
+	public int getLBR_InterestDays () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_LBR_InterestDays);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
 	/** Daily Value = 1 */
 	public static final String LBR_INTERESTTYPE_DailyValue = "1";
 	/** Monthly Rate = 2 */
@@ -1292,6 +1315,23 @@ public class X_LBR_BankSlip extends PO implements I_LBR_BankSlip, I_Persistent
 		return (Timestamp)get_Value(COLUMNNAME_LBR_PenaltyDate);
 	}
 
+	/** Set Penalty Days.
+		@param LBR_PenaltyDays Penalty Days	  */
+	public void setLBR_PenaltyDays (int LBR_PenaltyDays)
+	{
+		set_Value (COLUMNNAME_LBR_PenaltyDays, Integer.valueOf(LBR_PenaltyDays));
+	}
+
+	/** Get Penalty Days.
+		@return Penalty Days	  */
+	public int getLBR_PenaltyDays () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_LBR_PenaltyDays);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
 	/** Amount = 1 */
 	public static final String LBR_PENALTYTYPE_Amount = "1";
 	/** Rate = 2 */
@@ -1340,6 +1380,23 @@ public class X_LBR_BankSlip extends PO implements I_LBR_BankSlip, I_Persistent
 	public Timestamp getLBR_ProtestDate () 
 	{
 		return (Timestamp)get_Value(COLUMNNAME_LBR_ProtestDate);
+	}
+
+	/** Set Protest Days.
+		@param LBR_ProtestDays Protest Days	  */
+	public void setLBR_ProtestDays (int LBR_ProtestDays)
+	{
+		set_Value (COLUMNNAME_LBR_ProtestDays, Integer.valueOf(LBR_ProtestDays));
+	}
+
+	/** Get Protest Days.
+		@return Protest Days	  */
+	public int getLBR_ProtestDays () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_LBR_ProtestDays);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
 	}
 
 	/** Protest Calendar Days = 1 */

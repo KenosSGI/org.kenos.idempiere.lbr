@@ -86,7 +86,7 @@ public class MLBRBankSlipConfig extends X_LBR_BankSlipConfig
 	 * 	@param days
 	 * 	@return
 	 */
-	private Timestamp addDays (Timestamp dueDate, int days)
+	public static Timestamp addDays (Timestamp dueDate, int days)
 	{
 		return addDays(dueDate, false, days);
 	}	//	addDays
@@ -98,7 +98,7 @@ public class MLBRBankSlipConfig extends X_LBR_BankSlipConfig
 	 * 	@param days
 	 * 	@return
 	 */
-	private Timestamp addDays (Timestamp dueDate, boolean businessDay, int days)
+	public static Timestamp addDays (Timestamp dueDate, boolean businessDay, int days)
 	{
 		if (dueDate == null)
 			return null;
@@ -118,12 +118,15 @@ public class MLBRBankSlipConfig extends X_LBR_BankSlipConfig
 			//	Check Day of Week
 			int dow = cal.get (Calendar.DAY_OF_WEEK);
 			
+			if (!businessDay)
+				continue;
+			
 			//	If it's Sunday, then change to Monday
-			if (businessDay && dow == Calendar.SUNDAY)
+			if (dow == Calendar.SUNDAY)
 				cal.add (Calendar.DATE, 1);
 			
 			//	If it's Saturday, then change to Monday
-			else if (businessDay && dow == Calendar.SATURDAY)
+			else if (dow == Calendar.SATURDAY)
 				cal.add (Calendar.DATE, 2);
 		}
 		//

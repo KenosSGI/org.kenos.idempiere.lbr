@@ -3,6 +3,7 @@ package org.kenos.idempiere.lbr.bankslip.model;
 import java.io.File;
 import java.math.BigDecimal;
 import java.sql.ResultSet;
+import java.util.Arrays;
 import java.util.Properties;
 
 import org.adempiere.model.POWrapper;
@@ -13,8 +14,12 @@ import org.adempierelbr.wrapper.I_W_C_BankAccount;
 import org.compiere.model.MBPartner;
 import org.compiere.model.MBankAccount;
 import org.compiere.model.MLocation;
+import org.compiere.model.ModelValidationEngine;
+import org.compiere.model.ModelValidator;
 import org.compiere.process.DocAction;
 import org.compiere.process.DocOptions;
+import org.compiere.process.DocumentEngine;
+import org.compiere.util.Msg;
 import org.jrimum.bopepo.BancosSuportados;
 import org.jrimum.bopepo.Boleto;
 import org.jrimum.bopepo.view.BoletoViewer;
@@ -50,12 +55,12 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 	 *  @param int ID (0 create new)
 	 *  @param String trx
 	 */
-	public MLBRBankSlip (Properties ctx, int LBR_BankSlip_ID, String trx)
+	public MLBRBankSlip (Properties ctx, int LBR_BankSlip_ID, String trxName)
 	{
-		super (ctx, LBR_BankSlip_ID, trx);
+		super (ctx, LBR_BankSlip_ID, trxName);
 		//
 		if (LBR_BankSlip_ID > 0)
-			bsi = MLBRBankSlipInfo.get (getCtx(), getLBR_BankSlip_ID(), get_TrxName());
+			bsi = MLBRBankSlipInfo.get (getCtx(), getLBR_BankSlip_ID(), trxName);
 	}	//	MLBRBankSlip
 
 	/**
@@ -113,7 +118,9 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 		sacado.addEndereco(enderecoSac);
 		
 		// Informando dados sobre a conta bancária do título.
-		Banco banco = BancosSuportados.valueOf(bsi.getRoutingNo()).create();
+		Banco banco = Arrays.asList(BancosSuportados.values())
+				.stream().filter(b -> bsi.getRoutingNo().equals(b.getCodigoDeCompensacao()))
+				.findFirst().get().create();
 //		banco.setImgLogo(logo);
 		
 		ContaBancaria contaBancaria = new ContaBancaria(banco);
@@ -124,7 +131,7 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 		Titulo titulo = new Titulo(contaBancaria, sacado, beneficiario);
 		titulo.setNumeroDoDocumento(getLBR_NumberInOrg());
 		titulo.setNossoNumero(getLBR_NumberInBank());
-//		titulo.setDigitoDoNossoNumero("5");
+		titulo.setDigitoDoNossoNumero("5");
 		titulo.setValor(getGrandTotal());
 		titulo.setDataDoDocumento(getDateDoc());
 		titulo.setDataDoVencimento(getDueDate());
@@ -273,17 +280,43 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 		}
 	}	//	parseBankSlipKind
 	
+	/**
+	 * 	Called before Save for Pre-Save Operation
+	 * 	@param newRecord new record
+	 *	@return true if record can be saved
+	 */
+	@Override
+	protected boolean beforeSave(boolean newRecord)
+	{
+		if (getGrandTotal().signum() < 1)
+		{
+			log.saveError("FillMandatory", Msg.getElement(getCtx(), "GrandTotal"));
+			return false;
+		}
+		//
+		return true;
+	}	//	beforeSave
 	
+	/**
+	 * 	Called after Save for Post-Save Operation
+	 * 	@param newRecord new record
+	 *	@param success true if save operation was success
+	 *	@return if save was a success
+	 */
 	@Override
 	protected boolean afterSave (boolean newRecord, boolean success)
 	{
+		//	Only proceed for success cases
+		if (!success)
+			return false;
+		
 		boolean changed = false;
 		
 		if (newRecord)
 		{
 			//	Info
 			bsi = new MLBRBankSlipInfo (this);
-			bsi.saveEx();
+			changed = true;
 		}
 		
 		if (newRecord || is_ValueChanged(COLUMNNAME_C_BankAccount_ID))
@@ -362,8 +395,8 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 				cnpjf = bp.getlbr_CPF();
 			//
 			bsi.setBPName(bp.getName());
-			bsi.setLBR_OrgBPType(bpType);
-			bsi.setlbr_CNPJ(cnpjf);
+			bsi.setlbr_BPTypeBR(bpType);
+			bsi.setlbr_BPCNPJ(cnpjf);
 			bsi.setlbr_BPAddress1(location.getAddress1());
 			bsi.setlbr_BPAddress2(location.getAddress2());
 			bsi.setlbr_BPAddress3(location.getAddress3());
@@ -410,12 +443,7 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 		
 		//	Something was changed
 		if (changed)
-		{
-			Boleto boleto = getBankSlip();
-			//
-			bsi.setLBR_ManualInput(boleto.getLinhaDigitavel().write());
-			bsi.setLBR_Barcode(boleto.getCodigoDeBarras().write());
-		}
+			bsi.saveEx();
 		
 		return true;
 	}	//	afterSave
@@ -425,14 +453,50 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 			String orderType, String isSOTrx, int AD_Table_ID, String[] docAction,
 			String[] options, int index)
 	{
-		return 0;
+		options[0] = null;
+		options[1] = null;
+		options[2] = null;
+		options[3] = null;
+		options[4] = null;
+		
+		if (DOCSTATUS_Invalid.equals(docStatus))
+		{
+			options[0] = DOCACTION_Prepare;
+			options[1] = DOCACTION_Void;
+			index=2;
+		}
+		else if (DOCSTATUS_InProgress.equals(docStatus))
+		{
+			options[0] = DOCACTION_Complete;
+			options[1] = DOCACTION_Void;
+			index=2;
+		}
+		else if (DOCSTATUS_Drafted.equals(docStatus))
+		{
+			options[0] = DOCACTION_Prepare;
+			options[1] = DOCACTION_Complete;
+			index=2;
+		}
+		else if (DOCSTATUS_Completed.equals(docStatus))
+		{
+			options[0] = DOCACTION_Void;
+			options[1] = DOCACTION_Re_Activate;
+			index=2;
+		}
+		//
+		return index;
 	}
 
 	@Override
-	public boolean processIt(String action) throws Exception
+	public boolean processIt(String processAction) throws Exception
 	{
-		return false;
+		m_processMsg = null;
+		DocumentEngine engine = new DocumentEngine (this, getDocStatus());
+		return engine.processIt (processAction, getDocAction());
 	}	//	processIt
+	
+	/**	Process Message 			*/
+	private String		m_processMsg = null;
 
 	@Override
 	public boolean unlockIt()
@@ -449,7 +513,92 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 	@Override
 	public String prepareIt()
 	{
-		return null;
+		//	Model Validator
+		m_processMsg = ModelValidationEngine.get().fireDocValidate(this, ModelValidator.TIMING_BEFORE_PREPARE);
+		if (m_processMsg != null)
+			return DocAction.STATUS_Invalid;
+		
+		MLBRBankSlipInfo bsi = MLBRBankSlipInfo.get (p_ctx, getLBR_BankSlip_ID(), get_TrxName());
+
+		if (LBR_ISSUEDBY_Organization.equals(getLBR_IssuedBy()))
+		{
+			//	Check if bank is supported
+			if (!BancosSuportados.isSuportado(bsi.getRoutingNo()))
+			{
+				m_processMsg = "Banco não suportado para emissão de boleto";
+				return DocAction.STATUS_Invalid;
+			}
+			
+			if (getLBR_NumberInBank() == null || getLBR_NumberInBank().isBlank())
+			{
+				m_processMsg = "@FillMandatory@ @LBR_NumberInBank@";
+				return DocAction.STATUS_Invalid;
+			}
+		}
+		
+		//	Validates the Business Partner
+		if (bsi.getlbr_OrgAddress1() == null 		|| bsi.getlbr_OrgAddress1().isBlank() ||
+				bsi.getlbr_OrgAddress2() == null 	|| bsi.getlbr_OrgAddress2().isBlank() ||
+				bsi.getlbr_OrgAddress3() == null 	|| bsi.getlbr_OrgAddress3().isBlank() ||
+				bsi.getlbr_OrgCity() == null 		|| bsi.getlbr_OrgCity().isBlank() ||
+				bsi.getlbr_OrgRegion() == null 		|| bsi.getlbr_OrgRegion().isBlank() ||
+				bsi.getlbr_OrgName() == null 		|| bsi.getlbr_OrgName().isBlank() ||
+				bsi.getlbr_OrgPostal() == null 		|| bsi.getlbr_OrgPostal().isBlank() ||
+				bsi.getlbr_CNPJ() == null 			|| bsi.getlbr_CNPJ().isBlank() ||
+				bsi.getLBR_OrgBPType() == null 		|| bsi.getLBR_OrgBPType().isBlank())
+		{
+			m_processMsg = "Dados da Parceiro/Pagador incompletos";
+			return DocAction.STATUS_Invalid;
+		}
+		
+		//	Validates the Organization
+		if (bsi.getlbr_BPAddress1() == null 		|| bsi.getlbr_BPAddress1().isBlank() ||
+				bsi.getlbr_BPAddress2() == null 	|| bsi.getlbr_BPAddress2().isBlank() ||
+				bsi.getlbr_BPAddress3() == null 	|| bsi.getlbr_BPAddress3().isBlank() ||
+				bsi.getlbr_BPCity() == null 		|| bsi.getlbr_BPCity().isBlank() ||
+				bsi.getlbr_BPRegion() == null 		|| bsi.getlbr_BPRegion().isBlank() ||
+				bsi.getBPName() == null 			|| bsi.getBPName().isBlank() ||
+				bsi.getlbr_BPPostal() == null 		|| bsi.getlbr_BPPostal().isBlank() ||
+				bsi.getlbr_BPCNPJ() == null 		|| bsi.getlbr_BPCNPJ().isBlank() ||
+				bsi.getlbr_BPTypeBR() == null 		|| bsi.getlbr_BPTypeBR().isBlank())
+		{
+			m_processMsg = "Dados da Organização/Beneficiário incompletos";
+			return DocAction.STATUS_Invalid;
+		}
+		
+		//	Validates the Guarantor
+		if (getGuarantorBP_Location_ID() > 0 && 
+				(bsi.getLBR_GuarantorAddress1() == null 	|| bsi.getLBR_GuarantorAddress1().isBlank() ||
+				bsi.getLBR_GuarantorAddress2() == null 		|| bsi.getLBR_GuarantorAddress2().isBlank() ||
+				bsi.getLBR_GuarantorAddress3() == null 		|| bsi.getLBR_GuarantorAddress3().isBlank() ||
+				bsi.getLBR_GuarantorCity() == null 			|| bsi.getLBR_GuarantorCity().isBlank() ||
+				bsi.getLBR_GuarantorRegion() == null 		|| bsi.getLBR_GuarantorRegion().isBlank() ||
+				bsi.getLBR_GuarantorBPName() == null 		|| bsi.getLBR_GuarantorBPName().isBlank() ||
+				bsi.getLBR_GuarantorPostal() == null 		|| bsi.getLBR_GuarantorPostal().isBlank() ||
+				bsi.getLBR_GuarantorCNPJ() == null 			|| bsi.getLBR_GuarantorCNPJ().isBlank()))
+		{
+			m_processMsg = "Dados do Avalista incompletos";
+			return DocAction.STATUS_Invalid;
+		}
+		
+		if (bsi.getAccountNo() == null || bsi.getAccountNo().isBlank())
+		{
+			m_processMsg = "Dados da Conta Bancária inválidos";
+			return DocAction.STATUS_Invalid;
+		}
+		
+		if (bsi.getLBR_BankSlipFoldCode() == null || bsi.getLBR_BankSlipFoldCode().isBlank())
+		{
+			m_processMsg = "Dados da Carteira inválidos";
+			return DocAction.STATUS_Invalid;
+		}
+		
+		//	Model Validator
+		m_processMsg = ModelValidationEngine.get().fireDocValidate(this, ModelValidator.TIMING_AFTER_PREPARE);
+		if (m_processMsg != null)
+			return DocAction.STATUS_Invalid;
+		
+		return DocAction.STATUS_InProgress;
 	}	//	prepareIt
 
 	@Override
@@ -467,7 +616,28 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 	@Override
 	public String completeIt()
 	{
-		return null;
+		//	Model Validator
+		m_processMsg = ModelValidationEngine.get().fireDocValidate(this, ModelValidator.TIMING_BEFORE_COMPLETE);
+		if (m_processMsg != null)
+			return DocAction.STATUS_Invalid;
+		
+		if (LBR_ISSUEDBY_Organization.equals(getLBR_IssuedBy()))
+		{
+			Boleto boleto = getBankSlip();
+			bsi.setLBR_ManualInput(boleto.getLinhaDigitavel().write());
+			bsi.setLBR_Barcode(boleto.getCodigoDeBarras().write());
+		}
+		
+		setDocStatus(DOCSTATUS_Completed);
+		setDocAction(DOCACTION_None);
+		setProcessed(true);
+		
+		//	Model Validator
+		m_processMsg = ModelValidationEngine.get().fireDocValidate(this, ModelValidator.TIMING_AFTER_COMPLETE);
+		if (m_processMsg != null)
+			return DocAction.STATUS_Invalid;
+		
+		return DocAction.STATUS_Completed;
 	}	//	completeIt
 
 	@Override
@@ -497,7 +667,10 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 	@Override
 	public boolean reActivateIt()
 	{
-		return false;
+		//	Validar se não existe movimentação
+		setProcessed(false);
+		
+		return true;
 	}	//	reActivateIt
 
 	@Override
@@ -515,7 +688,7 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 	@Override
 	public String getProcessMsg()
 	{
-		return null;
+		return m_processMsg;
 	}	//	getProcessMsg
 
 	@Override
@@ -533,6 +706,6 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 	@Override
 	public BigDecimal getApprovalAmt()
 	{
-		return null;
+		return getGrandTotal();
 	}	//	getApprovalAmt
 }	//	MLBRBankSlip

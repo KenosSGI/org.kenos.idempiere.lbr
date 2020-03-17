@@ -6,12 +6,12 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
-	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="src/"/>
 	<classpathentry exported="true" kind="lib" path="lib/jrimum-bopepo.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/jrimum-domkee.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/jrimum-vallia.jar"/>
-	<classpathentry kind="lib" path="lib/jrimum-utilix.jar"/>
-	<classpathentry kind="lib" path="lib/itext.jar"/>
-	<classpathentry kind="lib" path="lib/log4j.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/jrimum-utilix.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/itext.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/log4j.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

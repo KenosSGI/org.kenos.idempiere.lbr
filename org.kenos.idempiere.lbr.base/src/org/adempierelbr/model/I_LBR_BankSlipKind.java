@@ -172,10 +172,10 @@ public interface I_LBR_BankSlipKind
 	/** Set Value.
 	  * Numeric Value
 	  */
-	public void setValueNumber (BigDecimal ValueNumber);
+	public void setValueNumber (int ValueNumber);
 
 	/** Get Value.
 	  * Numeric Value
 	  */
-	public BigDecimal getValueNumber();
+	public int getValueNumber();
 }
