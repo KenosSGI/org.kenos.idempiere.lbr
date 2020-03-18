@@ -627,6 +627,7 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 			Boleto boleto = getBankSlip();
 			bsi.setLBR_ManualInput(boleto.getLinhaDigitavel().write());
 			bsi.setLBR_Barcode(boleto.getCodigoDeBarras().write());
+			bsi.saveEx();
 		}
 		
 		setDocStatus(DOCSTATUS_Completed);

@@ -14,9 +14,11 @@ Bundle-ClassPath: .,
  lib/jrimum-bopepo.jar,
  lib/jrimum-domkee.jar,
  lib/jrimum-vallia.jar,
+ lib/jrimum-texgit.jar,
  lib/jrimum-utilix.jar,
- lib/itext.jar,
- lib/log4j.jar
+ lib/log4j-api.jar,
+ lib/log4j-core.jar,
+ lib/itext.jar
 Automatic-Module-Name: org.kenos.idempiere.lbr.bankslip
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Bundle-Vendor: Kenos www.kenos.com.br
