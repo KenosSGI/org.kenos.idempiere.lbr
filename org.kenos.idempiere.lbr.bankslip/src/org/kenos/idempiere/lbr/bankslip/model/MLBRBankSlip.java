@@ -73,6 +73,8 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 	public MLBRBankSlip (Properties ctx, ResultSet rs, String trxName)
 	{
 		super (ctx, rs, trxName);
+		//
+		bsi = MLBRBankSlipInfo.get (getCtx(), getLBR_BankSlip_ID(), trxName);
 	}	//	MLBRBankSlip
 	
 	/**
@@ -92,7 +94,7 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 	 * 	Generate the bank slip
 	 * 	@return boleto
 	 */
-	private Boleto getBankSlip ()
+	public Boleto getBankSlip ()
 	{
 		Cedente beneficiario = new Cedente (bsi.getlbr_OrgName(), bsi.getlbr_CNPJ());
 
