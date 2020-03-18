@@ -13,6 +13,7 @@ import org.adempierelbr.wrapper.I_W_C_BPartner;
 import org.adempierelbr.wrapper.I_W_C_BankAccount;
 import org.compiere.model.MBPartner;
 import org.compiere.model.MBankAccount;
+import org.compiere.model.MFactAcct;
 import org.compiere.model.MLocation;
 import org.compiere.model.ModelValidationEngine;
 import org.compiere.model.ModelValidator;
@@ -131,7 +132,7 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 		Titulo titulo = new Titulo(contaBancaria, sacado, beneficiario);
 		titulo.setNumeroDoDocumento(getLBR_NumberInOrg());
 		titulo.setNossoNumero(getLBR_NumberInBank());
-		titulo.setDigitoDoNossoNumero("5");
+//		titulo.setDigitoDoNossoNumero("5");
 		titulo.setValor(getGrandTotal());
 		titulo.setDataDoDocumento(getDateDoc());
 		titulo.setDataDoVencimento(getDueDate());
@@ -670,6 +671,10 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 		//	Validar se não existe movimentação
 		setProcessed(false);
 		
+		//	Re-post facts
+		MFactAcct.deleteEx(MLBRBankSlip.Table_ID, getLBR_BankSlip_ID(), get_TrxName());
+		setPosted(false);
+		
 		return true;
 	}	//	reActivateIt
 
@@ -700,7 +705,7 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 	@Override
 	public int getC_Currency_ID()
 	{
-		return 0;
+		return 297;
 	}	//	getC_Currency_ID
 
 	@Override

@@ -16,7 +16,7 @@ public class DocAcctFactory implements IDocFactory
 	public Doc getDocument(MAcctSchema as, int AD_Table_ID, int Record_ID, String trxName)
 	{
 		if (MLBRBankSlip.Table_ID == AD_Table_ID)
-			return Doc.get(as, AD_Table_ID, Record_ID, trxName);
+			return Doc_BankSlip.get (as, AD_Table_ID, Record_ID, trxName);
 		return null;
 	}	//	getDocument
 
