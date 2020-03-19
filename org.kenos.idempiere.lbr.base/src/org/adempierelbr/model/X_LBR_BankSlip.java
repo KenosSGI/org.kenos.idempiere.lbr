@@ -33,7 +33,7 @@ public class X_LBR_BankSlip extends PO implements I_LBR_BankSlip, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20200316L;
+	private static final long serialVersionUID = 20200319L;
 
     /** Standard Constructor */
     public X_LBR_BankSlip (Properties ctx, int LBR_BankSlip_ID, String trxName)
@@ -63,6 +63,7 @@ public class X_LBR_BankSlip extends PO implements I_LBR_BankSlip, I_Persistent
 // 0
 			setLBR_BankSlipContract_ID (0);
 			setLBR_BankSlipCurrency (null);
+// 09
 			setLBR_BankSlipFold_ID (0);
 			setLBR_BankSlipKind_ID (0);
 			setLBR_BankSlip_ID (0);
@@ -528,7 +529,7 @@ public class X_LBR_BankSlip extends PO implements I_LBR_BankSlip, I_Persistent
 	  */
 	public void setGrandTotal (BigDecimal GrandTotal)
 	{
-		set_ValueNoCheck (COLUMNNAME_GrandTotal, GrandTotal);
+		set_Value (COLUMNNAME_GrandTotal, GrandTotal);
 	}
 
 	/** Get Grand Total.
@@ -665,10 +666,13 @@ public class X_LBR_BankSlip extends PO implements I_LBR_BankSlip, I_Persistent
 		return ii.intValue();
 	}
 
+	/** 09 - Brazilian Real = 09 */
+	public static final String LBR_BANKSLIPCURRENCY_09_BrazilianReal = "09";
 	/** Set Bank Slip Currency.
 		@param LBR_BankSlipCurrency Bank Slip Currency	  */
 	public void setLBR_BankSlipCurrency (String LBR_BankSlipCurrency)
 	{
+
 		set_Value (COLUMNNAME_LBR_BankSlipCurrency, LBR_BankSlipCurrency);
 	}
 
@@ -1596,7 +1600,7 @@ public class X_LBR_BankSlip extends PO implements I_LBR_BankSlip, I_Persistent
 	  */
 	public void setlbr_PayScheduleNo (int lbr_PayScheduleNo)
 	{
-		set_ValueNoCheck (COLUMNNAME_lbr_PayScheduleNo, Integer.valueOf(lbr_PayScheduleNo));
+		set_Value (COLUMNNAME_lbr_PayScheduleNo, Integer.valueOf(lbr_PayScheduleNo));
 	}
 
 	/** Get PaySchedule Number.

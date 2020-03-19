@@ -1,5 +1,6 @@
 package org.kenos.idempiere.lbr.bankslip.model;
 
+import java.awt.Image;
 import java.io.File;
 import java.math.BigDecimal;
 import java.sql.ResultSet;
@@ -10,16 +11,20 @@ import org.adempiere.model.POWrapper;
 import org.adempierelbr.model.X_LBR_BankSlip;
 import org.adempierelbr.util.TextUtil;
 import org.adempierelbr.wrapper.I_W_C_BPartner;
+import org.adempierelbr.wrapper.I_W_C_Bank;
 import org.adempierelbr.wrapper.I_W_C_BankAccount;
 import org.compiere.model.MBPartner;
+import org.compiere.model.MBank;
 import org.compiere.model.MBankAccount;
 import org.compiere.model.MFactAcct;
+import org.compiere.model.MImage;
 import org.compiere.model.MLocation;
 import org.compiere.model.ModelValidationEngine;
 import org.compiere.model.ModelValidator;
 import org.compiere.process.DocAction;
 import org.compiere.process.DocOptions;
 import org.compiere.process.DocumentEngine;
+import org.compiere.util.CCache;
 import org.compiere.util.Msg;
 import org.jrimum.bopepo.BancosSuportados;
 import org.jrimum.bopepo.Boleto;
@@ -43,6 +48,9 @@ import org.jrimum.domkee.financeiro.banco.febraban.Titulo;
  */
 public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOptions
 {
+	/**	Cache					*/
+	static private CCache<Integer,Image> s_BankCache = new CCache<Integer,Image>(MLBRBank.Table_Name, 10, 120);
+	
 	/**
 	 * 	Serial
 	 */
@@ -104,7 +112,7 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 		enderecoBen.setCep(new CEP(bsi.getlbr_OrgPostal()));
 		enderecoBen.setBairro(bsi.getlbr_OrgAddress3());
 		enderecoBen.setLogradouro(bsi.getlbr_OrgAddress1());
-		enderecoBen.setNumero(bsi.getlbr_OrgAddress1());
+		enderecoBen.setNumero(bsi.getlbr_OrgAddress2());
 		beneficiario.addEndereco(enderecoBen);
 		
 		Sacado sacado = new Sacado(bsi.getBPName(), bsi.getlbr_BPCNPJ());
@@ -119,12 +127,31 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 		enderecoSac.setNumero(bsi.getlbr_BPAddress2());
 		enderecoSac.setComplemento(bsi.getlbr_BPAddress4());
 		sacado.addEndereco(enderecoSac);
-		
+
 		// Informando dados sobre a conta bancária do título.
 		Banco banco = Arrays.asList(BancosSuportados.values())
 				.stream().filter(b -> bsi.getRoutingNo().equals(b.getCodigoDeCompensacao()))
 				.findFirst().get().create();
-//		banco.setImgLogo(logo);
+		
+		//	Has a brazilian bank model
+		Integer LBR_Bank_ID = getLBR_Bank_ID();
+		if (LBR_Bank_ID > 0)
+		{
+			//	Check if there is image on cache
+			Image image = s_BankCache.get(LBR_Bank_ID);
+			if (image == null)
+			{
+				MLBRBank bank = new MLBRBank (getCtx(), LBR_Bank_ID, null);
+				if (bank.getLogo_ID() > 0)
+					image = MImage.get(getCtx(), bank.getLogo_ID()).getImage();
+				//
+				s_BankCache.put(LBR_Bank_ID, image);
+			}
+			
+			//	Update bank logo
+			if (image != null)
+				banco.setImgLogo(image);
+		}
 		
 		ContaBancaria contaBancaria = new ContaBancaria(banco);
 		contaBancaria.setNumeroDaConta(new NumeroDaConta(Integer.valueOf (bsi.getAccountNo()), bsi.getLBR_BankAccountVD()));
@@ -156,6 +183,16 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 		return boleto;
 	}	//	getBankSlip
 	
+	/**
+	 * 	Get LBR Bank
+	 * 	@return
+	 */
+	private Integer getLBR_Bank_ID()
+	{
+		MBank b = new MBank (getCtx(), getC_Bank_ID(), null);
+		return b.get_ValueAsInt(I_W_C_Bank.COLUMNNAME_LBR_Bank_ID);
+	}	//	getLBR_Bank_ID
+
 	/**
 	 * 	Parse Bank Slip Kind from iDempiere format to Bopepo format
 	 * 	@return bopepo bank slip kind

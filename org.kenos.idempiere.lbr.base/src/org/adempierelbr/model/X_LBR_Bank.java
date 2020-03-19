@@ -20,17 +20,18 @@ package org.adempierelbr.model;
 import java.sql.ResultSet;
 import java.util.Properties;
 import org.compiere.model.*;
+import org.compiere.util.KeyNamePair;
 
 /** Generated Model for LBR_Bank
  *  @author iDempiere (generated) 
- *  @version Release 4.1 - $Id$ */
+ *  @version Release 6.2 - $Id$ */
 public class X_LBR_Bank extends PO implements I_LBR_Bank, I_Persistent 
 {
 
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20170626L;
+	private static final long serialVersionUID = 20200319L;
 
     /** Standard Constructor */
     public X_LBR_Bank (Properties ctx, int LBR_Bank_ID, String trxName)
@@ -112,6 +113,40 @@ public class X_LBR_Bank extends PO implements I_LBR_Bank, I_Persistent
 		return ii.intValue();
 	}
 
+	/** Set LBR_Bank_UU.
+		@param LBR_Bank_UU LBR_Bank_UU	  */
+	public void setLBR_Bank_UU (String LBR_Bank_UU)
+	{
+		set_Value (COLUMNNAME_LBR_Bank_UU, LBR_Bank_UU);
+	}
+
+	/** Get LBR_Bank_UU.
+		@return LBR_Bank_UU	  */
+	public String getLBR_Bank_UU () 
+	{
+		return (String)get_Value(COLUMNNAME_LBR_Bank_UU);
+	}
+
+	/** Set Logo.
+		@param Logo_ID Logo	  */
+	public void setLogo_ID (int Logo_ID)
+	{
+		if (Logo_ID < 1) 
+			set_Value (COLUMNNAME_Logo_ID, null);
+		else 
+			set_Value (COLUMNNAME_Logo_ID, Integer.valueOf(Logo_ID));
+	}
+
+	/** Get Logo.
+		@return Logo	  */
+	public int getLogo_ID () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_Logo_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
 	/** Set Name.
 		@param Name 
 		Alphanumeric identifier of the entity
@@ -128,6 +163,14 @@ public class X_LBR_Bank extends PO implements I_LBR_Bank, I_Persistent
 	{
 		return (String)get_Value(COLUMNNAME_Name);
 	}
+
+    /** Get Record ID/ColumnName
+        @return ID/ColumnName pair
+      */
+    public KeyNamePair getKeyNamePair() 
+    {
+        return new KeyNamePair(get_ID(), getName());
+    }
 
 	/** Set Routing No.
 		@param RoutingNo 

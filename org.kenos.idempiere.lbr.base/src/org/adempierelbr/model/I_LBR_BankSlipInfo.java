@@ -196,6 +196,8 @@ public interface I_LBR_BankSlipInfo
 	/** Get Bank Slip	  */
 	public int getLBR_BankSlip_ID();
 
+	public org.adempierelbr.model.I_LBR_BankSlip getLBR_BankSlip() throws RuntimeException;
+
     /** Column name LBR_Barcode */
     public static final String COLUMNNAME_LBR_Barcode = "LBR_Barcode";
 

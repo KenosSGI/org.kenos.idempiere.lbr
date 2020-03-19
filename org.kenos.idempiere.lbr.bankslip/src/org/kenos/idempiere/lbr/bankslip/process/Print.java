@@ -54,19 +54,23 @@ public class Print extends SvrProcess
 		
 		List<Boleto> bopepos = new ArrayList<Boleto>();
 		
+		//	Find candidates to be printed
 		String where = (MLBRBankSlip.Table_ID == getTable_ID() ? MLBRBankSlip.COLUMNNAME_LBR_BankSlip_ID : MLBRBankSlip.COLUMNNAME_C_Invoice_ID) + "=? ";
 		if (p_OnlyOpen)
-			where += MLBRBankSlip.COLUMNNAME_IsPaid + "='Y'";
+			where += MLBRBankSlip.COLUMNNAME_IsPaid + "='N' AND " + MLBRBankSlip.COLUMNNAME_LBR_IsWrittenOff + "='N' AND " + MLBRBankSlip.COLUMNNAME_LBR_IsHalted + "='N'";
 		
+		//	Generate bopepos to be printed
 		List<MLBRBankSlip> bss = new Query (getCtx(), MLBRBankSlip.Table_Name, where, get_TrxName()).setParameters(getRecord_ID()).list();
 		bss.stream().map(MLBRBankSlip::getBankSlip).forEach(bopepos::add);
 		
+		//	Create a viewer
 		JasperViewer jasperViewer = new JasperViewer();
 		JasperPrint jasperPrint = jasperViewer.getJasperPrint(bopepos);
 		
+		//	Print in iDempiere JR Viewer Provider
 		JRViewerProvider viewerLauncher = Service.locator().locate(JRViewerProvider.class).getService();
 		viewerLauncher.openViewer (jasperPrint, "Impress\u00E3o de Boletos");
 		
-		return null;
+		return "@Success@";
 	}	//	doIt
 }	//	Print

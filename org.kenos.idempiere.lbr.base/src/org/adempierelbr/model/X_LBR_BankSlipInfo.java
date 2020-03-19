@@ -30,7 +30,7 @@ public class X_LBR_BankSlipInfo extends PO implements I_LBR_BankSlipInfo, I_Pers
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20200316L;
+	private static final long serialVersionUID = 20200319L;
 
     /** Standard Constructor */
     public X_LBR_BankSlipInfo (Properties ctx, int LBR_BankSlipInfo_ID, String trxName)
@@ -41,20 +41,7 @@ public class X_LBR_BankSlipInfo extends PO implements I_LBR_BankSlipInfo, I_Pers
 			setAccountNo (null);
 			setBPName (null);
 			setLBR_BankSlip_ID (0);
-			setLBR_OrgBPType (null);
-			setlbr_AgencyNo (null);
-			setlbr_BPAddress1 (null);
-			setlbr_BPCNPJ (null);
-			setlbr_BPCity (null);
-			setlbr_BPPostal (null);
-			setlbr_BPRegion (null);
-			setlbr_BPTypeBR (null);
-			setlbr_CNPJ (null);
-			setlbr_OrgAddress1 (null);
-			setlbr_OrgCity (null);
-			setlbr_OrgName (null);
-			setlbr_OrgPostal (null);
-			setlbr_OrgRegion (null);
+// @LBR_BankSlip_ID@
         } */
     }
 
@@ -228,6 +215,11 @@ public class X_LBR_BankSlipInfo extends PO implements I_LBR_BankSlipInfo, I_Pers
 	{
 		return (String)get_Value(COLUMNNAME_LBR_BankSlipKindValue);
 	}
+
+	public org.adempierelbr.model.I_LBR_BankSlip getLBR_BankSlip() throws RuntimeException
+    {
+		return (org.adempierelbr.model.I_LBR_BankSlip)MTable.get(getCtx(), org.adempierelbr.model.I_LBR_BankSlip.Table_Name)
+			.getPO(getLBR_BankSlip_ID(), get_TrxName());	}
 
 	/** Set Bank Slip.
 		@param LBR_BankSlip_ID Bank Slip	  */
