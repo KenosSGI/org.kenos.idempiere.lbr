@@ -30,7 +30,7 @@ public class X_LBR_BankSlipKind extends PO implements I_LBR_BankSlipKind, I_Pers
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20200319L;
+	private static final long serialVersionUID = 20200325L;
 
     /** Standard Constructor */
     public X_LBR_BankSlipKind (Properties ctx, int LBR_BankSlipKind_ID, String trxName)
@@ -164,7 +164,7 @@ public class X_LBR_BankSlipKind extends PO implements I_LBR_BankSlipKind, I_Pers
 	  */
 	public void setValueNumber (int ValueNumber)
 	{
-		set_Value (COLUMNNAME_ValueNumber, Integer.valueOf(ValueNumber));
+		set_ValueNoCheck (COLUMNNAME_ValueNumber, Integer.valueOf(ValueNumber));
 	}
 
 	/** Get Value.

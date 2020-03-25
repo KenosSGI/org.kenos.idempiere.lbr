@@ -30,7 +30,7 @@ public class X_LBR_BankSlipOccur extends PO implements I_LBR_BankSlipOccur, I_Pe
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20200319L;
+	private static final long serialVersionUID = 20200325L;
 
     /** Standard Constructor */
     public X_LBR_BankSlipOccur (Properties ctx, int LBR_BankSlipOccur_ID, String trxName)
@@ -43,6 +43,8 @@ public class X_LBR_BankSlipOccur extends PO implements I_LBR_BankSlipOccur, I_Pe
 			setLBR_BankSlipLayout_ID (0);
 			setLBR_BankSlipOccur_ID (0);
 			setName (null);
+			setType (null);
+// O
 			setValue (null);
         } */
     }
@@ -192,12 +194,21 @@ public class X_LBR_BankSlipOccur extends PO implements I_LBR_BankSlipOccur, I_Pe
 		return (String)get_Value(COLUMNNAME_Name);
 	}
 
+	/** Liquidation = L */
+	public static final String TYPE_Liquidation = "L";
+	/** Occurrence = O */
+	public static final String TYPE_Occurrence = "O";
+	/** Register Request = R */
+	public static final String TYPE_RegisterRequest = "R";
+	/** Register Confirmed = C */
+	public static final String TYPE_RegisterConfirmed = "C";
 	/** Set Type.
 		@param Type 
 		Type of Validation (SQL, Java Script, Java Language)
 	  */
 	public void setType (String Type)
 	{
+
 		set_Value (COLUMNNAME_Type, Type);
 	}
 

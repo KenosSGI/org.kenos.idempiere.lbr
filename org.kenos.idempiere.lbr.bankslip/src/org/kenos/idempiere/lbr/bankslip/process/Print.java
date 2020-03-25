@@ -55,13 +55,17 @@ public class Print extends SvrProcess
 		List<Boleto> bopepos = new ArrayList<Boleto>();
 		
 		//	Find candidates to be printed
-		String where = (MLBRBankSlip.Table_ID == getTable_ID() ? MLBRBankSlip.COLUMNNAME_LBR_BankSlip_ID : MLBRBankSlip.COLUMNNAME_C_Invoice_ID) + "=? ";
+		String where = MLBRBankSlip.COLUMNNAME_DocStatus + "=? AND " + (MLBRBankSlip.Table_ID == getTable_ID() ? MLBRBankSlip.COLUMNNAME_LBR_BankSlip_ID : MLBRBankSlip.COLUMNNAME_C_Invoice_ID) + "=? ";
 		if (p_OnlyOpen)
 			where += MLBRBankSlip.COLUMNNAME_IsPaid + "='N' AND " + MLBRBankSlip.COLUMNNAME_LBR_IsWrittenOff + "='N' AND " + MLBRBankSlip.COLUMNNAME_LBR_IsHalted + "='N'";
 		
 		//	Generate bopepos to be printed
-		List<MLBRBankSlip> bss = new Query (getCtx(), MLBRBankSlip.Table_Name, where, get_TrxName()).setParameters(getRecord_ID()).list();
+		List<MLBRBankSlip> bss = new Query (getCtx(), MLBRBankSlip.Table_Name, where, get_TrxName()).setParameters(MLBRBankSlip.DOCSTATUS_Completed, getRecord_ID()).list();
 		bss.stream().map(MLBRBankSlip::getBankSlip).forEach(bopepos::add);
+		
+		//	Check if there are any completed bank slips
+		if (bopepos.isEmpty())
+			return "@Error@ nenhum boleto encontrado";
 		
 		//	Create a viewer
 		JasperViewer jasperViewer = new JasperViewer();

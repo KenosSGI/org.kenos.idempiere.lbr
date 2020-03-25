@@ -180,15 +180,6 @@ public interface I_LBR_BankSlipConfig
 	/** Get Accepted	  */
 	public String getLBR_IsAccepted();
 
-    /** Column name LBR_IssueType */
-    public static final String COLUMNNAME_LBR_IssueType = "LBR_IssueType";
-
-	/** Set Issue Type	  */
-	public void setLBR_IssueType (String LBR_IssueType);
-
-	/** Get Issue Type	  */
-	public String getLBR_IssueType();
-
     /** Column name LBR_Message1 */
     public static final String COLUMNNAME_LBR_Message1 = "LBR_Message1";
 

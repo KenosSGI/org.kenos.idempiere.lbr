@@ -15,6 +15,7 @@ import org.compiere.model.Query;
 import org.kenos.idempiere.lbr.bankslip.model.MLBRBankSlip;
 import org.kenos.idempiere.lbr.bankslip.model.MLBRBankSlipConfig;
 import org.kenos.idempiere.lbr.bankslip.model.MLBRBankSlipContract;
+import org.kenos.idempiere.lbr.bankslip.model.MLBRBankSlipFold;
 
 /**
  * 		Callout for Bank Slip
@@ -82,7 +83,6 @@ public class BankSlip
 		MLBRBankSlipConfig config = new MLBRBankSlipConfig (ctx, contract.getLBR_BankSlipConfig_ID(), null);
 
 		mTab.setValue (MLBRBankSlip.COLUMNNAME_LBR_IsAccepted, config.getLBR_IsAccepted());
-		mTab.setValue (MLBRBankSlip.COLUMNNAME_LBR_IssueType, config.getLBR_IssueType());
 		mTab.setValue (MLBRBankSlip.COLUMNNAME_LBR_ReturnAction, config.getLBR_ReturnAction());
 		mTab.setValue (MLBRBankSlip.COLUMNNAME_LBR_ReturnDays, config.getLBR_ReturnDays());
 		mTab.setValue (MLBRBankSlip.COLUMNNAME_LBR_DistributedVia, config.getLBR_DistributedVia());
@@ -100,6 +100,21 @@ public class BankSlip
 		//	Protest
 		mTab.setValue (MLBRBankSlip.COLUMNNAME_LBR_ProtestType, config.getLBR_ProtestType());
 		mTab.setValue (MLBRBankSlip.COLUMNNAME_LBR_ProtestDays, config.getLBR_ProtestDays());
+		
+		return "";
+	}}	//	start
+	
+	/**
+	 * 	Fill dependent fields of bank account
+	 */
+	public static class Fold implements IColumnCallout { @Override public String start (Properties ctx, int WindowNo, GridTab mTab, GridField mField, Object value, Object oldValue)
+	{
+		if (value == null)
+			return "";
+		
+		MLBRBankSlipFold fold = new MLBRBankSlipFold (ctx, (Integer) mTab.getValue (MLBRBankSlip.COLUMNNAME_LBR_BankSlipFold_ID), null);
+
+		mTab.setValue (MLBRBankSlip.COLUMNNAME_LBR_IssueType, fold.getLBR_IssueType());
 		
 		return "";
 	}}	//	start

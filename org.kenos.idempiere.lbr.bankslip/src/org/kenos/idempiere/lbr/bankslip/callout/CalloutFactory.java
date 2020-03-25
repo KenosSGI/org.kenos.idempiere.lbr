@@ -32,6 +32,8 @@ public class CalloutFactory implements IColumnCalloutFactory
 				callouts.add (new BankSlip.BankAccount ());
 			if (TextUtil.match (columnName, MLBRBankSlip.COLUMNNAME_LBR_BankSlipContract_ID))
 				callouts.add (new BankSlip.BankContract ());
+			if (TextUtil.match (columnName, MLBRBankSlip.COLUMNNAME_LBR_BankSlipFold_ID))
+				callouts.add (new BankSlip.Fold ());
 			if (TextUtil.match (columnName, MLBRBankSlip.COLUMNNAME_LBR_InterestType, MLBRBankSlip.COLUMNNAME_LBR_InterestDays))
 				callouts.add (new BankSlip.Interest ());
 			if (TextUtil.match (columnName, MLBRBankSlip.COLUMNNAME_LBR_PenaltyDays))

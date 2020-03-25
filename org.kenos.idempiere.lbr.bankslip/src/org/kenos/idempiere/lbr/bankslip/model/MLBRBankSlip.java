@@ -4,7 +4,9 @@ import java.awt.Image;
 import java.io.File;
 import java.math.BigDecimal;
 import java.sql.ResultSet;
+import java.sql.Timestamp;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Properties;
 
 import org.adempiere.model.POWrapper;
@@ -21,6 +23,7 @@ import org.compiere.model.MImage;
 import org.compiere.model.MLocation;
 import org.compiere.model.ModelValidationEngine;
 import org.compiere.model.ModelValidator;
+import org.compiere.model.Query;
 import org.compiere.process.DocAction;
 import org.compiere.process.DocOptions;
 import org.compiere.process.DocumentEngine;
@@ -669,6 +672,19 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 			bsi.saveEx();
 		}
 		
+		//	Creates the registration movement
+		if (LBR_REGISTERTYPE_Registered.equals(getLBR_RegisterType()))
+		{
+			MLBRBankSlipMov mov = createRegisterRequestMov ();
+			mov.setMovementDate(new Timestamp(System.currentTimeMillis()));
+			
+			if (mov == null || !mov.save())
+			{
+				m_processMsg = "Impossível criar a movimentação inicial do título para registro junto ao banco";
+				return DocAction.STATUS_Invalid;
+			}
+		}
+		
 		setDocStatus(DOCSTATUS_Completed);
 		setDocAction(DOCACTION_None);
 		setProcessed(true);
@@ -680,6 +696,29 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 		
 		return DocAction.STATUS_Completed;
 	}	//	completeIt
+
+	/**
+	 * 	Creates a initial movement to register bank slip in the bank
+	 * 	@return null or recently created movement
+	 */
+	private MLBRBankSlipMov createRegisterRequestMov ()
+	{
+		MLBRBankSlipLayout layout = new MLBRBankSlipLayout (getCtx(), getLBR_BankSlipLayout_ID(), get_TrxName());
+		List<MLBRBankSlipOccur> occurrences = layout.getOccurrences(true);
+		//
+		for (MLBRBankSlipOccur occur : occurrences)
+		{
+			//	Register Request found in layout
+			if (MLBRBankSlipOccur.TYPE_RegisterRequest.equals(occur.getType()))
+			{
+				MLBRBankSlipMov mov = new MLBRBankSlipMov (this);
+				mov.setOccurrence(occur);
+				return mov;
+			}
+		}
+		//	Register Request not found, may bank configuration is invalid
+		return null;
+	}	//	getRegisterRequestMov
 
 	@Override
 	public boolean voidIt()
@@ -705,17 +744,38 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 		return false;
 	}	//	reverseAccrualIt
 
+	/**
+	 * 	Re-activate a bank slip not processed
+	 */
 	@Override
 	public boolean reActivateIt()
 	{
-		//	Validar se não existe movimentação
-		setProcessed(false);
+		List<MLBRBankSlipMov> bss = new Query (getCtx(), MLBRBankSlipMov.Table_Name, MLBRBankSlipMov.COLUMNNAME_LBR_BankSlip_ID + "=?", get_TrxName()).setParameters(getLBR_BankSlip_ID()).list();
+		if (bss.size() > 1)
+		{
+			m_processMsg = "Não é possível reativar, boleto já possuí movimentos";
+			return false;
+		}
+		if (bss.size() == 1 && bss.get(0).isFileGenerated())
+		{
+			m_processMsg = "Não é possível reativar, CNAB com o boleto já foi gerado";
+			return false;
+		}
 		
 		//	Re-post facts
 		MFactAcct.deleteEx(MLBRBankSlip.Table_ID, getLBR_BankSlip_ID(), get_TrxName());
+		setProcessed(false);
 		setPosted(false);
 		
-		return true;
+		//	Clear dynamic fields
+		bsi.setLBR_ManualInput(null);
+		bsi.setLBR_Barcode(null);
+		bsi.saveEx();
+		
+		//	Remove movements
+		bss.stream().forEach(bs -> bs.deleteEx(true));
+		
+		return bss.get(0).delete(true);
 	}	//	reActivateIt
 
 	@Override

@@ -25,6 +25,11 @@ public class ModelFactory implements IModelFactory
 			return MLBRBankSlipConfig.class;
 		else if (MLBRBankSlipContract.Table_Name.equals(tableName))
 			return MLBRBankSlipContract.class;
+		else if (MLBRBankSlipMov.Table_Name.equals(tableName))
+			return MLBRBankSlipMov.class;
+		else if (MLBRBankSlipOccur.Table_Name.equals(tableName))
+			return MLBRBankSlipOccur.class;
+
 		else if (MLBRBankSlipInfo.Table_Name.equals(tableName))
 			return MLBRBankSlipInfo.class;
 		return null;
@@ -41,6 +46,11 @@ public class ModelFactory implements IModelFactory
 			return new MLBRBankSlipConfig (Env.getCtx(), Record_ID, trxName);
 		else if (MLBRBankSlipContract.Table_Name.equals(tableName))
 			return new MLBRBankSlipContract (Env.getCtx(), Record_ID, trxName);
+		else if (MLBRBankSlipMov.Table_Name.equals(tableName))
+			return new MLBRBankSlipMov (Env.getCtx(), Record_ID, trxName);
+		else if (MLBRBankSlipOccur.Table_Name.equals(tableName))
+			return new MLBRBankSlipOccur (Env.getCtx(), Record_ID, trxName);
+		
 		else if (MLBRBankSlipInfo.Table_Name.equals(tableName))
 			return MLBRBankSlipInfo.get (Env.getCtx(), Record_ID, trxName);
 		return null;
@@ -57,6 +67,11 @@ public class ModelFactory implements IModelFactory
 			return new MLBRBankSlipConfig (Env.getCtx(), rs, trxName);
 		else if (MLBRBankSlipContract.Table_Name.equals(tableName))
 			return new MLBRBankSlipContract (Env.getCtx(), rs, trxName);
+		else if (MLBRBankSlipMov.Table_Name.equals(tableName))
+			return new MLBRBankSlipMov (Env.getCtx(), rs, trxName);
+		else if (MLBRBankSlipOccur.Table_Name.equals(tableName))
+			return new MLBRBankSlipOccur (Env.getCtx(), rs, trxName);
+		
 		else if (MLBRBankSlipInfo.Table_Name.equals(tableName))
 			return new MLBRBankSlipInfo (Env.getCtx(), rs, trxName);
 		return null;

@@ -30,7 +30,7 @@ public class X_LBR_BankSlipFold extends PO implements I_LBR_BankSlipFold, I_Pers
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20200319L;
+	private static final long serialVersionUID = 20200325L;
 
     /** Standard Constructor */
     public X_LBR_BankSlipFold (Properties ctx, int LBR_BankSlipFold_ID, String trxName)
@@ -146,6 +146,25 @@ public class X_LBR_BankSlipFold extends PO implements I_LBR_BankSlipFold, I_Pers
 		if (ii == null)
 			 return 0;
 		return ii.intValue();
+	}
+
+	/** Direta = 1 */
+	public static final String LBR_ISSUETYPE_Direta = "1";
+	/** Escritural = 2 */
+	public static final String LBR_ISSUETYPE_Escritural = "2";
+	/** Set Issue Type.
+		@param LBR_IssueType Issue Type	  */
+	public void setLBR_IssueType (String LBR_IssueType)
+	{
+
+		set_Value (COLUMNNAME_LBR_IssueType, LBR_IssueType);
+	}
+
+	/** Get Issue Type.
+		@return Issue Type	  */
+	public String getLBR_IssueType () 
+	{
+		return (String)get_Value(COLUMNNAME_LBR_IssueType);
 	}
 
 	/** Set Name.

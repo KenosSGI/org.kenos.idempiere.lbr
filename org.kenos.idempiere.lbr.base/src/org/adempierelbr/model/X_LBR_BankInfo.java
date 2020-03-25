@@ -30,7 +30,7 @@ public class X_LBR_BankInfo extends PO implements I_LBR_BankInfo, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20200319L;
+	private static final long serialVersionUID = 20200325L;
 
     /** Standard Constructor */
     public X_LBR_BankInfo (Properties ctx, int LBR_BankInfo_ID, String trxName)
@@ -176,6 +176,10 @@ public class X_LBR_BankInfo extends PO implements I_LBR_BankInfo, I_Persistent
 	public static final String LBR_OCCURTYPE_Liquidation = "L";
 	/** Occurrence = O */
 	public static final String LBR_OCCURTYPE_Occurrence = "O";
+	/** Register Request = R */
+	public static final String LBR_OCCURTYPE_RegisterRequest = "R";
+	/** Register Confirmed = C */
+	public static final String LBR_OCCURTYPE_RegisterConfirmed = "C";
 	/** Set Occurrence Type.
 		@param lbr_OccurType 
 		Defines the Occurrence Type

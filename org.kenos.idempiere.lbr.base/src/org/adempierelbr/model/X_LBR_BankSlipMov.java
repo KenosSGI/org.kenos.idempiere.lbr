@@ -33,7 +33,7 @@ public class X_LBR_BankSlipMov extends PO implements I_LBR_BankSlipMov, I_Persis
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20200319L;
+	private static final long serialVersionUID = 20200325L;
 
     /** Standard Constructor */
     public X_LBR_BankSlipMov (Properties ctx, int LBR_BankSlipMov_ID, String trxName)
@@ -367,12 +367,21 @@ public class X_LBR_BankSlipMov extends PO implements I_LBR_BankSlipMov, I_Persis
 		return (Timestamp)get_Value(COLUMNNAME_MovementDate);
 	}
 
+	/** Liquidation = L */
+	public static final String TYPE_Liquidation = "L";
+	/** Occurrence = O */
+	public static final String TYPE_Occurrence = "O";
+	/** Register Request = R */
+	public static final String TYPE_RegisterRequest = "R";
+	/** Register Confirmed = C */
+	public static final String TYPE_RegisterConfirmed = "C";
 	/** Set Type.
 		@param Type 
 		Type of Validation (SQL, Java Script, Java Language)
 	  */
 	public void setType (String Type)
 	{
+
 		set_Value (COLUMNNAME_Type, Type);
 	}
 

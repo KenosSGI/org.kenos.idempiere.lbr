@@ -135,6 +135,15 @@ public interface I_LBR_BankSlipFold
 
 	public org.adempierelbr.model.I_LBR_BankSlipLayout getLBR_BankSlipLayout() throws RuntimeException;
 
+    /** Column name LBR_IssueType */
+    public static final String COLUMNNAME_LBR_IssueType = "LBR_IssueType";
+
+	/** Set Issue Type	  */
+	public void setLBR_IssueType (String LBR_IssueType);
+
+	/** Get Issue Type	  */
+	public String getLBR_IssueType();
+
     /** Column name Name */
     public static final String COLUMNNAME_Name = "Name";
 
