@@ -3779,9 +3779,9 @@ Segmentos de Contabilidade como Organização, Conta, Produto podem ter várias 
   <value column="Help" original=""/>
  </row>
  <row id="776" trl="Y">
-  <value column="Name" original="Client Share">Compartilhamento de Empresa</value>
+  <value column="Name" original="Client Share">Compartilhamento na Empresa</value>
   <value column="CommitWarning" original=""/>
-  <value column="Description" original="Force (not) sharing of client/org entities">Forçar (não) compartilhamento de entidades cliente/org</value>
+  <value column="Description" original="Force (not) sharing of client/org entities">Forçar (ou não) o compartilhamento de entidades na empresa/organização</value>
   <value column="Help" original="Business Partner can be either defined on Client level (shared) or on Org level (not shared).  You can define here of Products are always shared (i.e. always created under Organization &quot;*&quot;) or if they are not shared (i.e. you cannot enter them with Organization &quot;*&quot;).&lt;br&gt;&#10;The creation of  &quot;Client and Org&quot; shared records is the default and is ignored." xml:space="preserve"><![CDATA[Parceiro de Negócios pode tanto ser definido no nível do Cliente (compartilhado) ou em nível de Org (não compartilhado). Você pode definir aqui Produtos que são sempre compartilhados (i.e., sempre criado sob Organização "*") ou se eles não são compartilhados (i.e., você não pode entra-los com a Organização "*").<br>
 A criação de "Cliente e Org" com registros compartilhados é o padrão e é ignorado.]]></value>
  </row>

@@ -22766,9 +22766,9 @@ Segmentos Contábeis como Organização, Conta, Produto podem ter várias hierar
   <value column="Placeholder" original=""/>
  </row>
  <row id="2881" trl="Y">
-  <value column="Name" original="Client Share">Compartilhamento de Empresa</value>
-  <value column="PrintName" original="Client Share">Compartilhamento de Empresa</value>
-  <value column="Description" original="Force (not) sharing of client/org entities">Forçar (não) compartilhamento de entidades cliente/org</value>
+  <value column="Name" original="Client Share">Compartilhamento na Empresa</value>
+  <value column="PrintName" original="Client Share">Compartilhamento na Empresa</value>
+  <value column="Description" original="Force (not) sharing of client/org entities">Forçar (ou não) o compartilhamento de entidades por empresa/organização</value>
   <value column="Help" original="For entities with data access level of Client+Organization either force to share the entries or not. Example: Product and Business Partner can be either defined on Client level (shared) or on Org level (not shared).  You can define here of Products are always shared (i.e. always created under Organization &quot;*&quot;) or if they are not shared (i.e. you cannot enter them with Organization &quot;*&quot;)">For entities with data access level of Client+Organization either force to share the entries or not. Exemplo: Product and Business Partner can be either defined on Client level (shared) or on Org level (not shared).  You can define here of Products are always shared (i.e. always created under Organization "*") or if they are not shared (i.e. you cannot enter them with Organization "*")</value>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
