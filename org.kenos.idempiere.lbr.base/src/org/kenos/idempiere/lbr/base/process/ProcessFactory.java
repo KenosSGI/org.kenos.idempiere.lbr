@@ -28,6 +28,8 @@ public class ProcessFactory implements IProcessFactory
 			return new StorageCleanup ();
 		if (ASICleanup.class.getName().equals (className))
 			return new ASICleanup ();
+		if (OrderLineCreateProduction.class.getName().equals (className))
+			return new OrderLineCreateProduction ();
 		if (REPORT_STARTER.equals (className))
 			return new ReportStarter () {};
 		return null;
