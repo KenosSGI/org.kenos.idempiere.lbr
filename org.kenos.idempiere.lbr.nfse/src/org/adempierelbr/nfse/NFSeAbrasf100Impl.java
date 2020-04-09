@@ -572,6 +572,8 @@ public class NFSeAbrasf100Impl implements INFSe
 			
 			retornoConsultaNFe = rpsStub.consultarNfsePorRpsV3(consult3).get_return();
 			
+			log.info("retorn consult: " + retornoConsultaNFe);
+			
 			respConsultaRpsNFe = ConsultarNfseRpsRespostaDocument.Factory.parse(retornoConsultaNFe).getConsultarNfseRpsResposta();
 			
 			try
@@ -688,7 +690,7 @@ public class NFSeAbrasf100Impl implements INFSe
 	
 	private static BigDecimal toBD (BigDecimal value)
 	{
-		return toBD(value, 2, true);
+		return toBD(value, 2, false);
 	}
 	
 	private static BigDecimal toBD (BigDecimal value, int scale, Boolean stripTrailingZeros)
