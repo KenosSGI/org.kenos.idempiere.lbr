@@ -17,6 +17,7 @@
 
 package org.kenos.idempiere.lbr.base.process;
 
+import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
@@ -243,6 +244,18 @@ public class InvoiceGenerateRMA extends SvrProcess
             invLine.setRMALine(rmaLine);
             if (rmaLine.getM_InOutLine().getM_AttributeSetInstance_ID() > 0)
             		invLine.setM_AttributeSetInstance_ID(rmaLine.getM_InOutLine().getM_AttributeSetInstance_ID());
+            
+            try
+            {
+            	 // Freight
+                BigDecimal freightamt = invLine.getM_RMALine().getM_InOutLine().getC_OrderLine().getFreightAmt();
+                invLine.set_ValueNoCheck("freightamt", freightamt);
+            }
+            catch(Exception e)
+            {
+            	log.fine("Erro to set Freight on Invoice " + invLine.getC_Invoice_ID());
+            }
+           
             
             if (!invLine.save())
             {

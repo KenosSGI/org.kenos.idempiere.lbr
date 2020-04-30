@@ -333,6 +333,19 @@ public class ValidatorInvoice implements ModelValidator
 				invoiceW.setM_RMA_ID( iLineW.getM_RMALine().getM_RMA_ID());
 				invoice.save();
 			}
+			
+			try
+            {
+            	 // Freight
+                BigDecimal freightamt = iLineW.getM_RMALine().getM_InOutLine().getC_OrderLine().getFreightAmt();
+                
+                if (BigDecimal.ZERO.compareTo(freightamt) < 0)
+                	iLineW.setFreightAmt(freightamt);
+            }
+            catch(Exception e)
+            {
+            	log.fine("Erro to set Freight on Invoice " + iLineW.getC_Invoice_ID());
+            }
 		}
 		//
 		return null;

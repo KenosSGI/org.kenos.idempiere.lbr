@@ -562,6 +562,17 @@ public abstract class CreateFromInvoice extends CreateFrom
 				if (inoutLine != null)
 				{
 					invoiceLine.setShipLine(inoutLine);		//	overwrites
+					
+					try
+		            {
+						// Freight
+		                BigDecimal freightamt = invoiceLine.getM_RMALine().getM_InOutLine().getC_OrderLine().getFreightAmt();
+		                invoiceLine.set_ValueNoCheck("freightamt", freightamt);
+		            }
+		            catch(Exception e)
+		            {
+		            	log.fine("Erro to set Freight on Invoice " + invoiceLine.getC_Invoice_ID());
+		            }
 				}
 				else {
 					log.fine("No Receipt Line");
