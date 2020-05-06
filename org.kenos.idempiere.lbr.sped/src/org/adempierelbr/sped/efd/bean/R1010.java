@@ -59,6 +59,9 @@ public class R1010 extends RegSped
 	
 	@XMLFieldProperties(id = "IND_GIAF4", maxSize = 1, minSize = 1)
 	private String IND_GIAF4;	
+	
+	@XMLFieldProperties(id = "IND_REST_RESSARC_COMPL_ICMS", maxSize = 1, minSize = 1)
+	private String IND_REST_RESSARC_COMPL_ICMS;	
 
 	/**
 	 * Constructor
@@ -177,6 +180,14 @@ public class R1010 extends RegSped
 		IND_GIAF4 = iND_GIAF4;
 	}
 
+
+	public String getIND_REST_RESSARC_COMPL_ICMS() {
+		return IND_REST_RESSARC_COMPL_ICMS;
+	}
+
+	public void setIND_REST_RESSARC_COMPL_ICMS(String iND_REST_RESSARC_COMPL_ICMS) {
+		IND_REST_RESSARC_COMPL_ICMS = iND_REST_RESSARC_COMPL_ICMS;
+	}
 
 	@Override
 	public int compareTo(Object arg0) {
