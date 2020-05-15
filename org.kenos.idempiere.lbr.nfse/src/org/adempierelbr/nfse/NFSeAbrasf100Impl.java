@@ -574,8 +574,6 @@ public class NFSeAbrasf100Impl implements INFSe
 			
 			log.info("retorn consult: " + retornoConsultaNFe);
 			
-			respConsultaRpsNFe = ConsultarNfseRpsRespostaDocument.Factory.parse(retornoConsultaNFe).getConsultarNfseRpsResposta();
-			
 			try
 			{
 				respConsultaRpsNFe = ConsultarNfseRpsRespostaDocument.Factory.parse(retornoConsultaNFe).getConsultarNfseRpsResposta();
