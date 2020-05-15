@@ -1049,7 +1049,7 @@ $F{DataEmissao}.substring(0,4)+" "+$F{DataEmissao}.substring(11,19)]]></textFiel
 				</textElement>
 				<text><![CDATA[Valor dos Serviços:]]></text>
 			</staticText>
-			<textField pattern="¤ #,##0.00" isBlankWhenNull="false">
+			<textField pattern="#,##0.00" isBlankWhenNull="false">
 				<reportElement x="143" y="547" width="100" height="20" uuid="60117eb5-a127-4a76-8659-64f381ef5390"/>
 				<box>
 					<bottomPen lineWidth="0.75"/>
@@ -1069,7 +1069,7 @@ $F{DataEmissao}.substring(0,4)+" "+$F{DataEmissao}.substring(11,19)]]></textFiel
 				</textElement>
 				<text><![CDATA[(-) Deduções:]]></text>
 			</staticText>
-			<textField pattern="¤ #,##0.00" isBlankWhenNull="false">
+			<textField pattern="#,##0.00" isBlankWhenNull="false">
 				<reportElement x="415" y="567" width="93" height="20" uuid="8c44fd68-815c-4a0d-9c9a-4b25673e6453"/>
 				<box>
 					<bottomPen lineWidth="0.5" lineStyle="Dotted"/>
@@ -1086,7 +1086,7 @@ $F{DataEmissao}.substring(0,4)+" "+$F{DataEmissao}.substring(11,19)]]></textFiel
 				</textElement>
 				<text><![CDATA[PIS:]]></text>
 			</staticText>
-			<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="29" y="705" width="74" height="20" uuid="4ea6e922-d5b2-45d2-8115-641c15cb5e0e"/>
 				<textElement>
 					<font fontName="Arial"/>
@@ -1100,7 +1100,7 @@ $F{DataEmissao}.substring(0,4)+" "+$F{DataEmissao}.substring(11,19)]]></textFiel
 				</textElement>
 				<text><![CDATA[COFINS:]]></text>
 			</staticText>
-			<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="160" y="705" width="82" height="20" uuid="9b05a5be-2bd7-4564-95d5-e86b43ce126e"/>
 				<textElement>
 					<font fontName="Arial"/>
@@ -1114,7 +1114,7 @@ $F{DataEmissao}.substring(0,4)+" "+$F{DataEmissao}.substring(11,19)]]></textFiel
 				</textElement>
 				<text><![CDATA[INSS:]]></text>
 			</staticText>
-			<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="477" y="705" width="60" height="20" uuid="4e0e98f1-d6cb-4fac-b117-d059707ebe32">
 					<printWhenExpression><![CDATA[$F{ValorInss}!=null]]></printWhenExpression>
 				</reportElement>
@@ -1130,7 +1130,7 @@ $F{DataEmissao}.substring(0,4)+" "+$F{DataEmissao}.substring(11,19)]]></textFiel
 				</textElement>
 				<text><![CDATA[IR:]]></text>
 			</staticText>
-			<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="265" y="705" width="61" height="20" isRemoveLineWhenBlank="true" uuid="c7ddf15c-4c19-40e4-97a3-fd4e4d6a0f97"/>
 				<textElement>
 					<font fontName="Arial"/>
@@ -1144,7 +1144,7 @@ $F{DataEmissao}.substring(0,4)+" "+$F{DataEmissao}.substring(11,19)]]></textFiel
 				</textElement>
 				<text><![CDATA[CSLL:]]></text>
 			</staticText>
-			<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="366" y="705" width="69" height="20" isRemoveLineWhenBlank="true" uuid="1e657831-548b-4a3b-bd2b-5e74ea76dfa4"/>
 				<textElement>
 					<font fontName="Arial"/>
@@ -1175,7 +1175,7 @@ $F{DataEmissao}.substring(0,4)+" "+$F{DataEmissao}.substring(11,19)]]></textFiel
 				</textElement>
 				<text><![CDATA[(-) ISS Retido na Fonte:]]></text>
 			</staticText>
-			<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="143" y="627" width="100" height="20" uuid="0d08ff9f-8383-4718-b4d0-40ee9b64eec9"/>
 				<box>
 					<bottomPen lineWidth="0.5" lineStyle="Dotted"/>
@@ -1192,7 +1192,7 @@ $F{DataEmissao}.substring(0,4)+" "+$F{DataEmissao}.substring(11,19)]]></textFiel
 				</textElement>
 				<text><![CDATA[(=)Valor do ISS:]]></text>
 			</staticText>
-			<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="415" y="647" width="93" height="20" uuid="135b1784-202f-4da3-9473-1ce2a840bddc"/>
 				<textElement textAlignment="Right" verticalAlignment="Bottom">
 					<font fontName="Arial" size="11"/>
@@ -1209,7 +1209,7 @@ $F{DataEmissao}.substring(0,4)+" "+$F{DataEmissao}.substring(11,19)]]></textFiel
 				</textElement>
 				<text><![CDATA[(-) Desconto incondicionado:]]></text>
 			</staticText>
-			<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="415" y="587" width="93" height="20" uuid="e1f86d6b-0370-42f1-ad11-d8491d17e9f2"/>
 				<box>
 					<bottomPen lineWidth="0.5" lineStyle="Dotted"/>
@@ -1229,7 +1229,7 @@ $F{DataEmissao}.substring(0,4)+" "+$F{DataEmissao}.substring(11,19)]]></textFiel
 				</textElement>
 				<text><![CDATA[(-) Outras Retenções:]]></text>
 			</staticText>
-			<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="143" y="587" width="100" height="20" uuid="2f1b8f02-5ba2-40a3-93e9-a9d0cab55a88"/>
 				<box>
 					<bottomPen lineWidth="0.5" lineStyle="Dotted"/>
@@ -1249,7 +1249,7 @@ $F{DataEmissao}.substring(0,4)+" "+$F{DataEmissao}.substring(11,19)]]></textFiel
 				</textElement>
 				<text><![CDATA[(=) Base de Cálculo:]]></text>
 			</staticText>
-			<textField pattern="¤ #,##0.00">
+			<textField pattern="#,##0.00">
 				<reportElement x="415" y="607" width="93" height="20" uuid="2a09a7c9-4244-490e-99a1-d22ca8102581"/>
 				<box>
 					<bottomPen lineWidth="0.5" lineStyle="Dotted"/>
@@ -1287,7 +1287,7 @@ $F{DataEmissao}.substring(0,4)+" "+$F{DataEmissao}.substring(11,19)]]></textFiel
 				</textElement>
 				<text><![CDATA[Valor Líquido:]]></text>
 			</staticText>
-			<textField pattern="¤ #,##0.00">
+			<textField pattern="#,##0.00">
 				<reportElement x="143" y="647" width="100" height="20" uuid="2d6e8daa-bfae-4866-a191-335eba32149a"/>
 				<textElement textAlignment="Right" verticalAlignment="Bottom">
 					<font fontName="Arial" size="11"/>
@@ -1306,7 +1306,7 @@ $F{DataEmissao}.substring(0,4)+" "+$F{DataEmissao}.substring(11,19)]]></textFiel
 				</textElement>
 				<text><![CDATA[Desconto Financeiro Condicional:]]></text>
 			</staticText>
-			<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="143" y="667" width="100" height="20" uuid="0fcf6606-2a20-40b7-9569-64bef454a5f3"/>
 				<box>
 					<bottomPen lineWidth="0.0" lineStyle="Dotted"/>
@@ -1333,7 +1333,7 @@ $F{DataEmissao}.substring(0,4)+" "+$F{DataEmissao}.substring(11,19)]]></textFiel
 				</textElement>
 				<text><![CDATA[Valor dos Serviços]]></text>
 			</staticText>
-			<textField pattern="¤ #,##0.00">
+			<textField pattern="#,##0.00">
 				<reportElement x="415" y="547" width="93" height="20" uuid="f1a65949-d46b-4008-8bee-8af2e3da0cdf"/>
 				<box>
 					<bottomPen lineWidth="0.75"/>
@@ -1353,7 +1353,7 @@ $F{DataEmissao}.substring(0,4)+" "+$F{DataEmissao}.substring(11,19)]]></textFiel
 				</textElement>
 				<text><![CDATA[(-) Retenções Federais]]></text>
 			</staticText>
-			<textField pattern="¤ #,##0.00">
+			<textField pattern="#,##0.00">
 				<reportElement x="143" y="607" width="100" height="20" uuid="a5769306-9e56-473f-9b2a-9df7f6a87de2">
 					<printWhenExpression><![CDATA[true]]></printWhenExpression>
 				</reportElement>
@@ -1380,7 +1380,7 @@ $F{DataEmissao}.substring(0,4)+" "+$F{DataEmissao}.substring(11,19)]]></textFiel
 				</textElement>
 				<text><![CDATA[(-) Desconto e Deduções:]]></text>
 			</staticText>
-			<textField pattern="¤ #,##0.00">
+			<textField pattern="#,##0.00">
 				<reportElement x="143" y="567" width="99" height="20" uuid="e3cae10a-2781-4d57-bc95-c9a8b0ea8b79"/>
 				<box>
 					<bottomPen lineWidth="0.5" lineStyle="Dotted"/>
