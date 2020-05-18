@@ -29,6 +29,7 @@ import org.adempiere.webui.component.ConfirmPanel;
 import org.adempiere.webui.component.Grid;
 import org.adempiere.webui.component.GridFactory;
 import org.adempiere.webui.component.Label;
+import org.adempiere.webui.component.ListItem;
 import org.adempiere.webui.component.Listbox;
 import org.adempiere.webui.component.ListboxFactory;
 import org.adempiere.webui.component.Panel;
@@ -43,7 +44,6 @@ import org.adempiere.webui.panel.IFormController;
 import org.adempiere.webui.session.SessionManager;
 import org.adempiere.webui.window.FDialog;
 import org.adempierelbr.util.TextUtil;
-import org.compiere.model.MBankAccount;
 import org.compiere.process.ProcessInfo;
 import org.compiere.util.Env;
 import org.compiere.util.KeyNamePair;
@@ -73,8 +73,12 @@ public class WGenCNAB extends GenCNAB
 	private Panel mainPanel = new Panel();
 	private Borderlayout mainLayout = new Borderlayout();
 	private Panel parameterPanel = new Panel();
+	private Label labelOrg = new Label();
+	private Listbox fieldOrg = ListboxFactory.newDropdownListbox();
 	private Label labelBankAccount = new Label();
 	private Listbox fieldBankAccount = ListboxFactory.newDropdownListbox();
+	private Label labelBankContract = new Label();
+	private Listbox fieldBankContract = ListboxFactory.newDropdownListbox();
 	private Grid parameterLayout = GridFactory.newGridLayout();
 	private Label dataStatus = new Label();
 	private WListbox miniTable = ListboxFactory.newDataTable();
@@ -124,8 +128,12 @@ public class WGenCNAB extends GenCNAB
 		mainLayout.setWidth("99%");
 		parameterPanel.appendChild(parameterLayout);
 		//
+		labelOrg.setText(Msg.translate(Env.getCtx(), "AD_Org_ID"));
+		fieldOrg.addActionListener(this);
 		labelBankAccount.setText(Msg.translate(Env.getCtx(), "C_BankAccount_ID"));
 		fieldBankAccount.addActionListener(this);
+		labelBankContract.setText(Msg.translate(Env.getCtx(), "LBR_BankSlipContract_ID"));
+		fieldBankContract.addActionListener(this);
 		bRefresh.addActionListener(this);
 		dataStatus.setText(" ");
 		dataStatus.setPre(true);
@@ -143,9 +151,16 @@ public class WGenCNAB extends GenCNAB
 		
 		Rows rows = parameterLayout.newRows();
 		Row row = rows.newRow();
+		row.appendChild(labelOrg.rightAlign());
+		row.appendChild(fieldOrg);
+		
+		row = rows.newRow();
 		row.appendChild(labelBankAccount.rightAlign());
 		row.appendChild(fieldBankAccount);
-		row.appendChild(bRefresh);
+		
+		row = rows.newRow();
+		row.appendChild(labelBankContract.rightAlign());
+		row.appendChild(fieldBankContract);
 
 		South south = new South();
 		south.setStyle("border: none");
@@ -157,6 +172,7 @@ public class WGenCNAB extends GenCNAB
 		mainLayout.appendChild(center);
 		center.appendChild(miniTable);
 		//
+		commandPanel.addButton(bRefresh);
 		commandPanel.addButton(bGenerate);
 		commandPanel.getButton(ConfirmPanel.A_OK).setVisible(false);
 		
@@ -166,7 +182,8 @@ public class WGenCNAB extends GenCNAB
 			LayoutUtils.expandTo(parameterLayout, noOfColumn, true);
 	}   //  jbInit
 
-	protected void setupColumns() {
+	protected void setupColumns()
+	{
 		noOfColumn = 6;
 		if (ClientInfo.maxWidth(ClientInfo.MEDIUM_WIDTH-1))
 		{
@@ -196,9 +213,36 @@ public class WGenCNAB extends GenCNAB
 	 */
 	private void dynInit()
 	{
-		ArrayList<KeyNamePair> bankAccountData = getBankAccountData();
+		//	Load Organizations
+		ArrayList<KeyNamePair> orgs = getOrganization();
+		for (KeyNamePair org : orgs)
+			fieldOrg.appendItem(org.toString(), org);
+		
+		//	Check Selected Organization
+		int AD_Org_ID = -1;
+		if (fieldOrg.getSelectedItem() != null)
+		{
+			ListItem item = fieldOrg.getSelectedItem();
+			KeyNamePair knp = item.getValue();
+			AD_Org_ID = knp.getKey();
+		}
+		
+		ArrayList<KeyNamePair> bankAccountData = getBankAccountData(AD_Org_ID);
 		for (KeyNamePair bi : bankAccountData)
 			fieldBankAccount.appendItem(bi.toString(), bi);
+		
+		//	Check Selected Organization
+		int C_BankAccount_ID = -1;
+		if (fieldBankAccount.getSelectedItem() != null)
+		{
+			ListItem item = fieldBankAccount.getSelectedItem();
+			KeyNamePair knp = item.getValue();
+			C_BankAccount_ID = knp.getKey();
+		}
+		
+		ArrayList<KeyNamePair> bankContractData = getBankContractData(C_BankAccount_ID);
+		for (KeyNamePair bc : bankContractData)
+			fieldBankContract.appendItem(bc.toString(), bc);
 
 		if (fieldBankAccount.getItemCount() == 0)
 			FDialog.error(m_WindowNo, form, "VPaySelectNoBank");
@@ -214,13 +258,10 @@ public class WGenCNAB extends GenCNAB
 	 *  Query and create TableInfo
 	 */
 	private void loadTableInfo()
-	{	
-		KeyNamePair bi = (KeyNamePair)fieldBankAccount.getSelectedItem().getValue();
+	{
+		KeyNamePair bi = (KeyNamePair)fieldBankContract.getSelectedItem().getValue();
 		
-		MBankAccount bank = new MBankAccount(Env.getCtx(), bi.getKey(), null);
-		int org = bank.getAD_Org_ID();
-		
-		loadTableInfo (org, bi, miniTable);
+		loadTableInfo (bi.getKey(), miniTable);
 		
 		calculateSelection();
 		
@@ -257,8 +298,28 @@ public class WGenCNAB extends GenCNAB
 		else if (e.getTarget() == bCancel)
 			dispose();
 
+		else if (e.getTarget() == fieldOrg)
+		{
+			KeyNamePair np = fieldOrg.getSelectedItem().getValue();
+			fieldBankAccount.removeAllItems();
+			//
+			ArrayList<KeyNamePair> bankAccountData = getBankAccountData(np.getKey());
+			for (KeyNamePair bi : bankAccountData)
+				fieldBankAccount.appendItem(bi.toString(), bi);
+		}
+
+		else if (e.getTarget() == fieldBankAccount)
+		{
+			KeyNamePair np = fieldBankAccount.getSelectedItem().getValue();
+			fieldBankContract.removeAllItems();
+			//
+			ArrayList<KeyNamePair> bankContractData = getBankContractData(np.getKey());
+			for (KeyNamePair bc : bankContractData)
+				fieldBankContract.appendItem(bc.toString(), bc);
+		}
+		
 		//  Update Open Invoices
-		else if (e.getTarget() == bRefresh || e.getTarget() == fieldBankAccount)
+		else if (e.getTarget() == bRefresh || e.getTarget() == fieldBankContract)
 			loadTableInfo();
 
 	}   //  actionPerformed
@@ -303,7 +364,7 @@ public class WGenCNAB extends GenCNAB
 		//
 		deleteDir(folder);
 		
-		genCNAB (miniTable, filePath, (KeyNamePair) fieldBankAccount.getSelectedItem().getValue());
+		genCNAB (miniTable, (KeyNamePair) fieldBankAccount.getSelectedItem().getValue(), (KeyNamePair) fieldBankContract.getSelectedItem().getValue());
 		
 		File zipFile = new File(folder + ".zip");
 		if (zipFile.exists())

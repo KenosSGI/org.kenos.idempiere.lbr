@@ -5,6 +5,7 @@ import java.util.Properties;
 
 import org.adempiere.model.POWrapper;
 import org.adempierelbr.model.X_LBR_BankSlipInfo;
+import org.adempierelbr.util.TextUtil;
 import org.adempierelbr.wrapper.I_W_AD_OrgInfo;
 import org.compiere.model.I_C_Location;
 import org.compiere.model.MOrgInfo;
@@ -79,4 +80,30 @@ public class MLBRBankSlipInfo extends X_LBR_BankSlipInfo
 						.firstOnly();
 		return retValue;
 	}	//	get
+	
+	/**
+	 * 	Get valid address (Street name and Street number)
+	 * 	@return address
+	 */
+	public String getAddress (boolean includeCompl)
+	{
+		StringBuilder address = new StringBuilder();
+		//
+		if (getlbr_BPAddress1() != null)
+			address.append(getlbr_BPAddress1()).append(", ");
+		if (getlbr_BPAddress2() != null)
+			address.append(getlbr_BPAddress2());
+		if (includeCompl && getlbr_BPAddress4() != null)
+		{
+			if (!address.toString().isEmpty() && !address.toString().endsWith(", "))
+				address.append(" - ");
+			address.append(getlbr_BPAddress4());
+		}
+		//	Remove trailing
+		if (address.toString().endsWith(", "))
+			return TextUtil.retiraEspecial (address.substring (0, address.length()-2).trim().toUpperCase());
+		
+		//	Remove special chars
+		return TextUtil.retiraEspecial (address.toString().trim().toUpperCase());
+	}	//	getAddress
 }	//	MLBRBankSlipInfo

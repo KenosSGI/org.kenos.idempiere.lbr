@@ -31,3 +31,4 @@ Bundle-Vendor: Kenos www.kenos.com.br
 Import-Package: org.osgi.framework;version="1.9.0",
  org.zkoss.util.media
 Bundle-ActivationPolicy: lazy
+Export-Package: org.kenos.idempiere.lbr.bankslip

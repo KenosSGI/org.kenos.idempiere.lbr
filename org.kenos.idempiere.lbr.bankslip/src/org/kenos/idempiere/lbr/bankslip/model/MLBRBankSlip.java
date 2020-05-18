@@ -4,7 +4,6 @@ import java.awt.Image;
 import java.io.File;
 import java.math.BigDecimal;
 import java.sql.ResultSet;
-import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
@@ -60,6 +59,45 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 	private static final long serialVersionUID = -975551832184870560L;
 
 	private MLBRBankSlipInfo bsi = null;
+
+	/** Espécies */
+	public static final int ESPECIE_APOLICE_DE_SEGURO 					= 1;
+	public static final int ESPECIE_BOLETO_DE_PROPOSTA 					= 2;
+	public static final int ESPECIE_CARTAO_DE_CREDITO 					= 3;
+	public static final int ESPECIE_CEDULA_DE_PRODUTO_RURAL 			= 4;
+	public static final int ESPECIE_CHEQUE 								= 5;
+	public static final int ESPECIE_COBRANCA_SERIADA 					= 6;
+	public static final int ESPECIE_CONTA_DE_PRESTACAO_DE_SERVICO 		= 7;
+	public static final int ESPECIE_CONTRATO 							= 8;
+	public static final int ESPECIE_COSSEGURO 							= 9;
+	public static final int ESPECIE_DIVIDA_ATIVA_DA_UNIAO 				= 10;
+	public static final int ESPECIE_DIVIDA_ATIVA_DE_ESTADO 				= 11;
+	public static final int ESPECIE_DIVIDA_ATIVA_DE_MUNICIPIO 			= 12;
+	public static final int ESPECIE_DOCUMENTO_DE_DIVIDA 				= 13;
+	public static final int ESPECIE_DUPLICATA_DE_SERVICO 				= 14;
+	public static final int ESPECIE_DUPLICATA_DE_SERVICO_POR_INDICACAO 	= 15;
+	public static final int ESPECIE_DUPLICATA_MERCANTIL 				= 16;
+	public static final int ESPECIE_DUPLICATA_MERCANTIL_POR_INDICACAO 	= 17;
+	public static final int ESPECIE_DUPLICATA_RURAL 					= 18;
+	public static final int ESPECIE_ENCARGOS_CONDOMINIAIS 				= 19;
+	public static final int ESPECIE_FATURA 								= 20;
+	public static final int ESPECIE_LETRA_DE_CAMBIO 					= 21;
+	public static final int ESPECIE_MENSALIDADE_ESCOLAR 				= 22;
+	public static final int ESPECIE_NOTA_DE_CREDITO_COMERCIAL 			= 23;
+	public static final int ESPECIE_NOTA_DE_CREDITO_INDUSTRIAL 			= 24;
+	public static final int ESPECIE_NOTA_DE_CREDITO_PARA_EXPORTACAO 	= 25;
+	public static final int ESPECIE_NOTA_DE_CREDITO_RURAL 				= 26;
+	public static final int ESPECIE_NOTA_DE_DEBITO 						= 27;
+	public static final int ESPECIE_NOTA_DE_SEGURO 						= 28;
+	public static final int ESPECIE_NOTA_FISCAL 						= 29;
+	public static final int ESPECIE_NOTA_PROMISSORIA 					= 30;
+	public static final int ESPECIE_NOTA_PROMISSORIA_RURAL 				= 31;
+	public static final int ESPECIE_PARCELA_DE_CONSORCIO 				= 32;
+	public static final int ESPECIE_RECIBO 								= 33;
+	public static final int ESPECIE_TRIPLICATA_DE_SERVICO 				= 34;
+	public static final int ESPECIE_TRIPLICATA_MERCANTIL 				= 35;
+	public static final int ESPECIE_WARRANT			 					= 36;
+	public static final int ESPECIE_OUTROS 								= 999;
 	
 	/**************************************************************************
 	 *  Default Constructor
@@ -204,122 +242,122 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 	{
 		switch (Integer.valueOf (bsi.getLBR_BankSlipKindCode()))
 		{
-			case 1:
+			case ESPECIE_APOLICE_DE_SEGURO:
 				return TipoDeTitulo.AP_APOLICE_DE_SEGURO;
 				
-			case 2:
-//				return TipoDeTitulo.BOLETO_DE_PROPOSTA;
+			case ESPECIE_BOLETO_DE_PROPOSTA:
+	//			return TipoDeTitulo.BOLETO_DE_PROPOSTA;
 				return null;
 				
-			case 3:
-//				return TipoDeTitulo.CARTAO_DE_CREDITO;
+			case ESPECIE_CARTAO_DE_CREDITO:
+	//			return TipoDeTitulo.CARTAO_DE_CREDITO;
 				return null;
 				
-			case 4:
+			case ESPECIE_CEDULA_DE_PRODUTO_RURAL:
 				return TipoDeTitulo.CEDULA_DE_PRODUTO_RURAL;
 				
-			case 5:
+			case ESPECIE_CHEQUE:
 				return TipoDeTitulo.CH_CHEQUE;
 				
-			case 6:
-//				return TipoDeTitulo.COBRANCA_SERIADA;
+			case ESPECIE_COBRANCA_SERIADA:
+	//			return TipoDeTitulo.COBRANCA_SERIADA;
 				return null;
 				
-			case 7:
-//				return TipoDeTitulo.CONTA_DE_PRESTACAO_DE_SERVICO;
+			case ESPECIE_CONTA_DE_PRESTACAO_DE_SERVICO:
+	//			return TipoDeTitulo.CONTA_DE_PRESTACAO_DE_SERVICO;
 				return null;
 				
-			case 8:
-//				return TipoDeTitulo.CONTRATO;
+			case ESPECIE_CONTRATO:
+	//			return TipoDeTitulo.CONTRATO;
 				return null;
 				
-			case 9:
-//				return TipoDeTitulo.COSEGURO;
+			case ESPECIE_COSSEGURO:
+	//			return TipoDeTitulo.COSEGURO;
 				return null;
 				
-			case 10:
+			case ESPECIE_DIVIDA_ATIVA_DA_UNIAO:
 				return TipoDeTitulo.DIVIDA_ATIVA_DA_UNIAO;
 				
-			case 11:
+			case ESPECIE_DIVIDA_ATIVA_DE_ESTADO:
 				return TipoDeTitulo.DIVIDA_ATIVA_DE_ESTADO;
 				
-			case 12:
+			case ESPECIE_DIVIDA_ATIVA_DE_MUNICIPIO:
 				return TipoDeTitulo.DIVIDA_ATIVA_DE_MUNICIPIO;
 				
-			case 13:
+			case ESPECIE_DOCUMENTO_DE_DIVIDA:
 				return TipoDeTitulo.DD_DOCUMENTO_DE_DIVIDA;
 				
-			case 14:
+			case ESPECIE_DUPLICATA_DE_SERVICO:
 				return TipoDeTitulo.DS_DUPLICATA_DE_SERVICO;
 				
-			case 15:
+			case ESPECIE_DUPLICATA_DE_SERVICO_POR_INDICACAO:
 				return TipoDeTitulo.DSI_DUPLICATA_DE_SERVICO_PARA_INDICACAO;
 				
-			case 16:
+			case ESPECIE_DUPLICATA_MERCANTIL:
 				return TipoDeTitulo.DM_DUPLICATA_MERCANTIL;
 				
-			case 17:
+			case ESPECIE_DUPLICATA_MERCANTIL_POR_INDICACAO:
 				return TipoDeTitulo.DMI_DUPLICATA_MERCANTIL_PARA_INDICACAO;
 				
-			case 18:
+			case ESPECIE_DUPLICATA_RURAL:
 				return TipoDeTitulo.DR_DUPLICATA_RURAL;
 				
-			case 19:
+			case ESPECIE_ENCARGOS_CONDOMINIAIS:
 				return TipoDeTitulo.COTA_CONDOMINIAL;
 				
-			case 20:
+			case ESPECIE_FATURA:
 				return TipoDeTitulo.FAT_FATURA;
 				
-			case 21:
+			case ESPECIE_LETRA_DE_CAMBIO:
 				return TipoDeTitulo.LC_LETRA_DE_CAMBIO;
 				
-			case 22:
+			case ESPECIE_MENSALIDADE_ESCOLAR:
 				return TipoDeTitulo.ME_MENSALIDADE_ESCOLAR;
 				
-			case 23:
+			case ESPECIE_NOTA_DE_CREDITO_COMERCIAL:
 				return TipoDeTitulo.NCC_NOTA_DE_CREDITO_COMERCIAL;
 				
-			case 24:
+			case ESPECIE_NOTA_DE_CREDITO_INDUSTRIAL:
 				return TipoDeTitulo.NCI_NOTA_DE_CREDITO_INDUSTRIAL;
 				
-			case 25:
+			case ESPECIE_NOTA_DE_CREDITO_PARA_EXPORTACAO:
 				return TipoDeTitulo.NCE_NOTA_DE_CREDITO_A_EXPORTACAO;
 				
-			case 26:
+			case ESPECIE_NOTA_DE_CREDITO_RURAL:
 				return TipoDeTitulo.NCR_NOTA_DE_CREDITO_RURAL;
 				
-			case 27:
+			case ESPECIE_NOTA_DE_DEBITO:
 				return TipoDeTitulo.ND_NOTA_DE_DEBITO;
 				
-			case 28:
+			case ESPECIE_NOTA_DE_SEGURO:
 				return TipoDeTitulo.NS_NOTA_DE_SEGURO;
 				
-			case 29:
+			case ESPECIE_NOTA_FISCAL:
 				return TipoDeTitulo.NF_NOTA_FISCAL;
 				
-			case 30:
+			case ESPECIE_NOTA_PROMISSORIA:
 				return TipoDeTitulo.NP_NOTA_PROMISSORIA;
 				
-			case 31:
+			case ESPECIE_NOTA_PROMISSORIA_RURAL:
 				return TipoDeTitulo.NPR_NOTA_PROMISSORIA_RURAL;
 				
-			case 32:
+			case ESPECIE_PARCELA_DE_CONSORCIO:
 				return TipoDeTitulo.PC_PARCELA_DE_CONSORCIO;
 				
-			case 33:
+			case ESPECIE_RECIBO:
 				return TipoDeTitulo.RC_RECIBO;
 				
-			case 34:
+			case ESPECIE_TRIPLICATA_DE_SERVICO:
 				return TipoDeTitulo.TS_TRIPLICATA_DE_SERVICO;
 				
-			case 35:
+			case ESPECIE_TRIPLICATA_MERCANTIL:
 				return TipoDeTitulo.TM_TRIPLICATA_MERCANTIL;
 				
-			case 36:
-				return TipoDeTitulo.WARRANT;
-
-			default:
-				return TipoDeTitulo.DM_DUPLICATA_MERCANTIL;
+			case ESPECIE_WARRANT:
+					return TipoDeTitulo.WARRANT;
+	
+				default:
+					return TipoDeTitulo.DM_DUPLICATA_MERCANTIL;
 		}
 	}	//	parseBankSlipKind
 	
@@ -466,6 +504,7 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 				cnpjf = bp.getlbr_CPF();
 			//
 			bsi.setLBR_GuarantorBPName(bp.getName());
+			bsi.setLBR_GuarantorBPType(bpType);
 			bsi.setLBR_GuarantorCNPJ(cnpjf);
 			bsi.setLBR_GuarantorAddress1(location.getAddress1());
 			bsi.setLBR_GuarantorAddress2(location.getAddress2());
@@ -676,7 +715,7 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 		if (LBR_REGISTERTYPE_Registered.equals(getLBR_RegisterType()))
 		{
 			MLBRBankSlipMov mov = createRegisterRequestMov ();
-			mov.setMovementDate(new Timestamp(System.currentTimeMillis()));
+//			mov.setMovementDate(new Timestamp(System.currentTimeMillis()));
 			
 			if (mov == null || !mov.save())
 			{

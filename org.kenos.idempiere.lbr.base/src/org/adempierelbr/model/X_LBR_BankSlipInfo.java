@@ -30,7 +30,7 @@ public class X_LBR_BankSlipInfo extends PO implements I_LBR_BankSlipInfo, I_Pers
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20200325L;
+	private static final long serialVersionUID = 20200401L;
 
     /** Standard Constructor */
     public X_LBR_BankSlipInfo (Properties ctx, int LBR_BankSlipInfo_ID, String trxName)
@@ -323,6 +323,25 @@ public class X_LBR_BankSlipInfo extends PO implements I_LBR_BankSlipInfo, I_Pers
 	public String getLBR_GuarantorBPName () 
 	{
 		return (String)get_Value(COLUMNNAME_LBR_GuarantorBPName);
+	}
+
+	/** PF - Individual = PF */
+	public static final String LBR_GUARANTORBPTYPE_PF_Individual = "PF";
+	/** PJ - Legal Entity = PJ */
+	public static final String LBR_GUARANTORBPTYPE_PJ_LegalEntity = "PJ";
+	/** Set Guarantor Type.
+		@param LBR_GuarantorBPType Guarantor Type	  */
+	public void setLBR_GuarantorBPType (String LBR_GuarantorBPType)
+	{
+
+		set_Value (COLUMNNAME_LBR_GuarantorBPType, LBR_GuarantorBPType);
+	}
+
+	/** Get Guarantor Type.
+		@return Guarantor Type	  */
+	public String getLBR_GuarantorBPType () 
+	{
+		return (String)get_Value(COLUMNNAME_LBR_GuarantorBPType);
 	}
 
 	/** Set Guarantor CNPJ.

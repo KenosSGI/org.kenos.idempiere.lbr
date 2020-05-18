@@ -31,7 +31,7 @@ public class X_LBR_CNABFile extends PO implements I_LBR_CNABFile, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20200312L;
+	private static final long serialVersionUID = 20200331L;
 
     /** Standard Constructor */
     public X_LBR_CNABFile (Properties ctx, int LBR_CNABFile_ID, String trxName)
@@ -39,6 +39,7 @@ public class X_LBR_CNABFile extends PO implements I_LBR_CNABFile, I_Persistent
       super (ctx, LBR_CNABFile_ID, trxName);
       /** if (LBR_CNABFile_ID == 0)
         {
+			setAccountNo (null);
 			setC_BankAccount_ID (0);
 			setC_Bank_ID (0);
 			setDateDoc (new Timestamp( System.currentTimeMillis() ));
@@ -49,8 +50,10 @@ public class X_LBR_CNABFile extends PO implements I_LBR_CNABFile, I_Persistent
 			setLBR_CNABFile_ID (0);
 			setProcessed (false);
 // N
+			setRoutingNo (null);
 			setSeqNo (0);
 // 1
+			setlbr_AgencyNo (null);
         } */
     }
 
@@ -81,6 +84,23 @@ public class X_LBR_CNABFile extends PO implements I_LBR_CNABFile, I_Persistent
         .append(get_ID()).append("]");
       return sb.toString();
     }
+
+	/** Set Account No.
+		@param AccountNo 
+		Account Number
+	  */
+	public void setAccountNo (String AccountNo)
+	{
+		set_Value (COLUMNNAME_AccountNo, AccountNo);
+	}
+
+	/** Get Account No.
+		@return Account Number
+	  */
+	public String getAccountNo () 
+	{
+		return (String)get_Value(COLUMNNAME_AccountNo);
+	}
 
 	public org.compiere.model.I_C_BankAccount getC_BankAccount() throws RuntimeException
     {
@@ -196,6 +216,34 @@ public class X_LBR_CNABFile extends PO implements I_LBR_CNABFile, I_Persistent
 		return false;
 	}
 
+	/** Set Account Digit.
+		@param LBR_BankAccountVD Account Digit	  */
+	public void setLBR_BankAccountVD (String LBR_BankAccountVD)
+	{
+		set_Value (COLUMNNAME_LBR_BankAccountVD, LBR_BankAccountVD);
+	}
+
+	/** Get Account Digit.
+		@return Account Digit	  */
+	public String getLBR_BankAccountVD () 
+	{
+		return (String)get_Value(COLUMNNAME_LBR_BankAccountVD);
+	}
+
+	/** Set Agency Digit.
+		@param LBR_BankAgencyVD Agency Digit	  */
+	public void setLBR_BankAgencyVD (String LBR_BankAgencyVD)
+	{
+		set_Value (COLUMNNAME_LBR_BankAgencyVD, LBR_BankAgencyVD);
+	}
+
+	/** Get Agency Digit.
+		@return Agency Digit	  */
+	public String getLBR_BankAgencyVD () 
+	{
+		return (String)get_Value(COLUMNNAME_LBR_BankAgencyVD);
+	}
+
 	public org.adempierelbr.model.I_LBR_BankSlipContract getLBR_BankSlipContract() throws RuntimeException
     {
 		return (org.adempierelbr.model.I_LBR_BankSlipContract)MTable.get(getCtx(), org.adempierelbr.model.I_LBR_BankSlipContract.Table_Name)
@@ -279,6 +327,23 @@ public class X_LBR_CNABFile extends PO implements I_LBR_CNABFile, I_Persistent
 		return false;
 	}
 
+	/** Set Routing No.
+		@param RoutingNo 
+		Bank Routing Number
+	  */
+	public void setRoutingNo (String RoutingNo)
+	{
+		set_Value (COLUMNNAME_RoutingNo, RoutingNo);
+	}
+
+	/** Get Routing No.
+		@return Bank Routing Number
+	  */
+	public String getRoutingNo () 
+	{
+		return (String)get_Value(COLUMNNAME_RoutingNo);
+	}
+
 	/** Set Sequence.
 		@param SeqNo 
 		Method of ordering records; lowest number comes first
@@ -297,5 +362,22 @@ public class X_LBR_CNABFile extends PO implements I_LBR_CNABFile, I_Persistent
 		if (ii == null)
 			 return 0;
 		return ii.intValue();
+	}
+
+	/** Set Agency Number.
+		@param lbr_AgencyNo 
+		Agency Number
+	  */
+	public void setlbr_AgencyNo (String lbr_AgencyNo)
+	{
+		set_Value (COLUMNNAME_lbr_AgencyNo, lbr_AgencyNo);
+	}
+
+	/** Get Agency Number.
+		@return Agency Number
+	  */
+	public String getlbr_AgencyNo () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_AgencyNo);
 	}
 }

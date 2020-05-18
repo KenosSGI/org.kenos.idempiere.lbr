@@ -23,7 +23,7 @@ import org.compiere.util.KeyNamePair;
 
 /** Generated Interface for LBR_CNAB
  *  @author iDempiere (generated) 
- *  @version Release 4.1
+ *  @version Release 6.2
  */
 @SuppressWarnings("all")
 public interface I_LBR_CNAB 
@@ -95,6 +95,19 @@ public interface I_LBR_CNAB
 	  */
 	public int getCreatedBy();
 
+    /** Column name DateDoc */
+    public static final String COLUMNNAME_DateDoc = "DateDoc";
+
+	/** Set Document Date.
+	  * Date of the Document
+	  */
+	public void setDateDoc (Timestamp DateDoc);
+
+	/** Get Document Date.
+	  * Date of the Document
+	  */
+	public Timestamp getDateDoc();
+
     /** Column name IsActive */
     public static final String COLUMNNAME_IsActive = "IsActive";
 
@@ -107,6 +120,19 @@ public interface I_LBR_CNAB
 	  * The record is active in the system
 	  */
 	public boolean isActive();
+
+    /** Column name IsCancelled */
+    public static final String COLUMNNAME_IsCancelled = "IsCancelled";
+
+	/** Set Cancelled.
+	  * The transaction was cancelled
+	  */
+	public void setIsCancelled (boolean IsCancelled);
+
+	/** Get Cancelled.
+	  * The transaction was cancelled
+	  */
+	public boolean isCancelled();
 
     /** Column name IsRegistered */
     public static final String COLUMNNAME_IsRegistered = "IsRegistered";
@@ -157,6 +183,15 @@ public interface I_LBR_CNAB
 	  * Primary Key table LBR_CNAB
 	  */
 	public int getLBR_CNAB_ID();
+
+    /** Column name LBR_CNAB_UU */
+    public static final String COLUMNNAME_LBR_CNAB_UU = "LBR_CNAB_UU";
+
+	/** Set LBR_CNAB_UU	  */
+	public void setLBR_CNAB_UU (String LBR_CNAB_UU);
+
+	/** Get LBR_CNAB_UU	  */
+	public String getLBR_CNAB_UU();
 
     /** Column name RoutingNo */
     public static final String COLUMNNAME_RoutingNo = "RoutingNo";
@@ -875,30 +910,4 @@ public interface I_LBR_CNAB
 	  * CNAB Field9
 	  */
 	public String getlbr_CNABField9();
-
-    /** Column name DateDoc */
-    public static final String COLUMNNAME_DateDoc = "DateDoc";
-
-	/** Set Document Date.
-	  * Identifies the Document Date
-	  */
-	public void setDateDoc (Timestamp DateDoc);
-
-	/** Get Document Date.
-	  * Identifies the Document Date
-	  */
-	public Timestamp getDateDoc();
-
-    /** Column name IsCancelled */
-    public static final String COLUMNNAME_IsCancelled = "IsCancelled";
-
-	/** Set IsCancelled.
-	  * Defines if the Document IsCancelled
-	  */
-	public void setIsCancelled (boolean IsCancelled);
-
-	/** Get IsCancelled.
-	  * Defines if the Document IsCancelled
-	  */
-	public boolean isCancelled();
 }

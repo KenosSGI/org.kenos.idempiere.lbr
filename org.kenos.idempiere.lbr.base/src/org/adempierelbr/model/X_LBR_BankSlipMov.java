@@ -33,7 +33,7 @@ public class X_LBR_BankSlipMov extends PO implements I_LBR_BankSlipMov, I_Persis
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20200325L;
+	private static final long serialVersionUID = 20200401L;
 
     /** Standard Constructor */
     public X_LBR_BankSlipMov (Properties ctx, int LBR_BankSlipMov_ID, String trxName)
@@ -53,7 +53,6 @@ public class X_LBR_BankSlipMov extends PO implements I_LBR_BankSlipMov, I_Persis
 			setLBR_BankSlip_ID (0);
 			setLBR_InterestValue (Env.ZERO);
 // 0
-			setMovementDate (new Timestamp( System.currentTimeMillis() ));
 			setValue (null);
         } */
     }

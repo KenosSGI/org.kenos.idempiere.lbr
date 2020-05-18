@@ -30,7 +30,7 @@ public class X_LBR_BankSlipLayout extends PO implements I_LBR_BankSlipLayout, I_
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20200325L;
+	private static final long serialVersionUID = 20200401L;
 
     /** Standard Constructor */
     public X_LBR_BankSlipLayout (Properties ctx, int LBR_BankSlipLayout_ID, String trxName)

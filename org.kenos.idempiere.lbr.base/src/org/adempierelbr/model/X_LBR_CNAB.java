@@ -24,14 +24,14 @@ import org.compiere.model.*;
 
 /** Generated Model for LBR_CNAB
  *  @author iDempiere (generated) 
- *  @version Release 4.1 - $Id$ */
+ *  @version Release 6.2 - $Id$ */
 public class X_LBR_CNAB extends PO implements I_LBR_CNAB, I_Persistent 
 {
 
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20170626L;
+	private static final long serialVersionUID = 20200331L;
 
     /** Standard Constructor */
     public X_LBR_CNAB (Properties ctx, int LBR_CNAB_ID, String trxName)
@@ -39,15 +39,15 @@ public class X_LBR_CNAB extends PO implements I_LBR_CNAB, I_Persistent
       super (ctx, LBR_CNAB_ID, trxName);
       /** if (LBR_CNAB_ID == 0)
         {
+			setDateDoc (new Timestamp( System.currentTimeMillis() ));
+			setIsCancelled (false);
+// N
 			setIsRegistered (false);
 // 'N'
 			setIsSelected (false);
 // N
 			setLBR_CNAB_ID (0);
 			setRoutingNo (null);
-			setDateDoc (new Timestamp( System.currentTimeMillis() ));
-			setIsCancelled (false);
-// 'N'
         } */
     }
 
@@ -105,6 +105,47 @@ public class X_LBR_CNAB extends PO implements I_LBR_CNAB, I_Persistent
 		if (ii == null)
 			 return 0;
 		return ii.intValue();
+	}
+
+	/** Set Document Date.
+		@param DateDoc 
+		Date of the Document
+	  */
+	public void setDateDoc (Timestamp DateDoc)
+	{
+		set_Value (COLUMNNAME_DateDoc, DateDoc);
+	}
+
+	/** Get Document Date.
+		@return Date of the Document
+	  */
+	public Timestamp getDateDoc () 
+	{
+		return (Timestamp)get_Value(COLUMNNAME_DateDoc);
+	}
+
+	/** Set Cancelled.
+		@param IsCancelled 
+		The transaction was cancelled
+	  */
+	public void setIsCancelled (boolean IsCancelled)
+	{
+		set_Value (COLUMNNAME_IsCancelled, Boolean.valueOf(IsCancelled));
+	}
+
+	/** Get Cancelled.
+		@return The transaction was cancelled
+	  */
+	public boolean isCancelled () 
+	{
+		Object oo = get_Value(COLUMNNAME_IsCancelled);
+		if (oo != null) 
+		{
+			 if (oo instanceof Boolean) 
+				 return ((Boolean)oo).booleanValue(); 
+			return "Y".equals(oo);
+		}
+		return false;
 	}
 
 	/** Set Registered.
@@ -201,6 +242,20 @@ public class X_LBR_CNAB extends PO implements I_LBR_CNAB, I_Persistent
 		if (ii == null)
 			 return 0;
 		return ii.intValue();
+	}
+
+	/** Set LBR_CNAB_UU.
+		@param LBR_CNAB_UU LBR_CNAB_UU	  */
+	public void setLBR_CNAB_UU (String LBR_CNAB_UU)
+	{
+		set_Value (COLUMNNAME_LBR_CNAB_UU, LBR_CNAB_UU);
+	}
+
+	/** Get LBR_CNAB_UU.
+		@return LBR_CNAB_UU	  */
+	public String getLBR_CNAB_UU () 
+	{
+		return (String)get_Value(COLUMNNAME_LBR_CNAB_UU);
 	}
 
 	/** Set Routing No.
@@ -1119,46 +1174,5 @@ public class X_LBR_CNAB extends PO implements I_LBR_CNAB, I_Persistent
 	public String getlbr_CNABField9 () 
 	{
 		return (String)get_Value(COLUMNNAME_lbr_CNABField9);
-	}
-
-	/** Set Document Date.
-		@param DateDoc 
-		Identifies the Document Date
-	  */
-	public void setDateDoc (Timestamp DateDoc)
-	{
-		set_Value (COLUMNNAME_DateDoc, DateDoc);
-	}
-
-	/** Get Document Date.
-		@return Identifies the Document Date
-	  */
-	public Timestamp getDateDoc () 
-	{
-		return (Timestamp)get_Value(COLUMNNAME_DateDoc);
-	}
-
-	/** Set IsCancelled.
-		@param IsCancelled 
-		Defines if the Document IsCancelled
-	  */
-	public void setIsCancelled (boolean IsCancelled)
-	{
-		set_Value (COLUMNNAME_IsCancelled, Boolean.valueOf(IsCancelled));
-	}
-
-	/** Get IsCancelled.
-		@return Defines if the Document IsCancelled
-	  */
-	public boolean isCancelled () 
-	{
-		Object oo = get_Value(COLUMNNAME_IsCancelled);
-		if (oo != null) 
-		{
-			 if (oo instanceof Boolean) 
-				 return ((Boolean)oo).booleanValue(); 
-			return "Y".equals(oo);
-		}
-		return false;
 	}
 }

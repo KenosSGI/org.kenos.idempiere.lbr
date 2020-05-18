@@ -30,7 +30,7 @@ public class X_LBR_CNABFileLine extends PO implements I_LBR_CNABFileLine, I_Pers
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20200312L;
+	private static final long serialVersionUID = 20200331L;
 
     /** Standard Constructor */
     public X_LBR_CNABFileLine (Properties ctx, int LBR_CNABFileLine_ID, String trxName)

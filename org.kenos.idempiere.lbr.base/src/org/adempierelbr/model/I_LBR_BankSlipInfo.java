@@ -252,6 +252,15 @@ public interface I_LBR_BankSlipInfo
 	/** Get Guarantor Name	  */
 	public String getLBR_GuarantorBPName();
 
+    /** Column name LBR_GuarantorBPType */
+    public static final String COLUMNNAME_LBR_GuarantorBPType = "LBR_GuarantorBPType";
+
+	/** Set Guarantor Type	  */
+	public void setLBR_GuarantorBPType (String LBR_GuarantorBPType);
+
+	/** Get Guarantor Type	  */
+	public String getLBR_GuarantorBPType();
+
     /** Column name LBR_GuarantorCNPJ */
     public static final String COLUMNNAME_LBR_GuarantorCNPJ = "LBR_GuarantorCNPJ";
 

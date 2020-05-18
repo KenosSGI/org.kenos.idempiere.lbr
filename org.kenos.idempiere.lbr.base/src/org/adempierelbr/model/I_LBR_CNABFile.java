@@ -64,6 +64,19 @@ public interface I_LBR_CNABFile
 	  */
 	public int getAD_Org_ID();
 
+    /** Column name AccountNo */
+    public static final String COLUMNNAME_AccountNo = "AccountNo";
+
+	/** Set Account No.
+	  * Account Number
+	  */
+	public void setAccountNo (String AccountNo);
+
+	/** Get Account No.
+	  * Account Number
+	  */
+	public String getAccountNo();
+
     /** Column name C_BankAccount_ID */
     public static final String COLUMNNAME_C_BankAccount_ID = "C_BankAccount_ID";
 
@@ -162,6 +175,24 @@ public interface I_LBR_CNABFile
 	  */
 	public boolean isSOTrx();
 
+    /** Column name LBR_BankAccountVD */
+    public static final String COLUMNNAME_LBR_BankAccountVD = "LBR_BankAccountVD";
+
+	/** Set Account Digit	  */
+	public void setLBR_BankAccountVD (String LBR_BankAccountVD);
+
+	/** Get Account Digit	  */
+	public String getLBR_BankAccountVD();
+
+    /** Column name LBR_BankAgencyVD */
+    public static final String COLUMNNAME_LBR_BankAgencyVD = "LBR_BankAgencyVD";
+
+	/** Set Agency Digit	  */
+	public void setLBR_BankAgencyVD (String LBR_BankAgencyVD);
+
+	/** Get Agency Digit	  */
+	public String getLBR_BankAgencyVD();
+
     /** Column name LBR_BankSlipContract_ID */
     public static final String COLUMNNAME_LBR_BankSlipContract_ID = "LBR_BankSlipContract_ID";
 
@@ -204,6 +235,19 @@ public interface I_LBR_CNABFile
 	  */
 	public boolean isProcessed();
 
+    /** Column name RoutingNo */
+    public static final String COLUMNNAME_RoutingNo = "RoutingNo";
+
+	/** Set Routing No.
+	  * Bank Routing Number
+	  */
+	public void setRoutingNo (String RoutingNo);
+
+	/** Get Routing No.
+	  * Bank Routing Number
+	  */
+	public String getRoutingNo();
+
     /** Column name SeqNo */
     public static final String COLUMNNAME_SeqNo = "SeqNo";
 
@@ -234,4 +278,17 @@ public interface I_LBR_CNABFile
 	  * User who updated this records
 	  */
 	public int getUpdatedBy();
+
+    /** Column name lbr_AgencyNo */
+    public static final String COLUMNNAME_lbr_AgencyNo = "lbr_AgencyNo";
+
+	/** Set Agency Number.
+	  * Agency Number
+	  */
+	public void setlbr_AgencyNo (String lbr_AgencyNo);
+
+	/** Get Agency Number.
+	  * Agency Number
+	  */
+	public String getlbr_AgencyNo();
 }
