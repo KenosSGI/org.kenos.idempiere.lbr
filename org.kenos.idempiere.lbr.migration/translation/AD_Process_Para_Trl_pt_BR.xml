@@ -386,9 +386,9 @@
   <value column="Placeholder2" original=""/>
  </row>
  <row id="53582" trl="N">
-  <value column="Name" original="CreateOpportunity">CreateOpportunity</value>
-  <value column="Description" original="Create Opportunity">Create Opportunity</value>
-  <value column="Help" original="Create a new Sales Opportunity when converting a lead">Create a new Sales Opportunity when converting a lead</value>
+  <value column="Name" original="CreateOpportunity">Criar Oportunidade</value>
+  <value column="Description" original="Create Opportunity">Criar Oportunidade de Vendas</value>
+  <value column="Help" original="Create a new Sales Opportunity when converting a lead">Cria uma nova Oportunidade de Vendas a partir da conversão de um lead.</value>
   <value column="Placeholder" original=""/>
   <value column="Placeholder2" original=""/>
  </row>

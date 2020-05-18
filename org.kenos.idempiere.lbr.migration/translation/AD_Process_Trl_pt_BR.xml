@@ -2663,8 +2663,8 @@ For example:<br />
   <value column="Help" original="This report can help to see all RMA Not Invoiced or Delivered">Relatório exibe ARMs que não foram Faturadas ou Expedidas</value>
  </row>
  <row trl="Y" uuid="76763a51-c984-440e-aebc-1f2da541d733">
-  <value column="Name" original="RV_LBR_RequestDetails">Detalhes de Requisição</value>
-  <value column="Description" original=""/>
+  <value column="Name" original="RV_LBR_RequestDetails">Detalhes de Solicitação</value>
+  <value column="Description" original="">Lista detalhada das Solicitações</value>
   <value column="Help" original=""/>
  </row>
  <row trl="Y" uuid="884ba49e-6cd7-4883-bc7a-71e78769eb5e">
