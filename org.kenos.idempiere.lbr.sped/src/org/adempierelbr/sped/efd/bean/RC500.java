@@ -107,6 +107,24 @@ public class RC500 extends RegSped implements Comparable<Object> {
 	@XMLFieldProperties(id = "COD_GRUPO_TENSAO", isMandatory = false, maxSize = 2)
 	private String COD_GRUPO_TENSAO;
 	
+	@XMLFieldProperties(id = "CHV_DOCe", isMandatory = false, maxSize = 44)
+	private String CHV_DOCe;
+	
+	@XMLFieldProperties(id = "FIN_DOCe", isMandatory = false, maxSize = 1)
+	private String FIN_DOCe;
+	
+	@XMLFieldProperties(id = "CHV_DOCe_REF", isMandatory = false, maxSize = 44)
+	private String CHV_DOCe_REF;
+	
+	@XMLFieldProperties(id = "IND_DEST", isMandatory = false, maxSize = 1)
+	private String IND_DEST;
+	
+	@XMLFieldProperties(id = "COD_MUN_DEST", isMandatory = false, maxSize = 7)
+	private String COD_MUN_DEST;
+	
+	@XMLFieldProperties(id = "COD_CTA", isMandatory = false)
+	private String COD_CTA;
+	
 	@XMLFieldProperties(needsValidation = true, id = "RC590", isSPEDField = false)
 	private List<RC590> rC590 = new ArrayList<RC590>();
 
@@ -337,6 +355,54 @@ public class RC500 extends RegSped implements Comparable<Object> {
 
 	public void setCOD_GRUPO_TENSAO(String cOD_GRUPO_TENSAO) {
 		COD_GRUPO_TENSAO = cOD_GRUPO_TENSAO;
+	}
+
+	public String getCHV_DOCe() {
+		return CHV_DOCe;
+	}
+
+	public void setCHV_DOCe(String cHV_DOCe) {
+		CHV_DOCe = cHV_DOCe;
+	}
+
+	public String getFIN_DOCe() {
+		return FIN_DOCe;
+	}
+
+	public void setFIN_DOCe(String fIN_DOCe) {
+		FIN_DOCe = fIN_DOCe;
+	}
+
+	public String getCHV_DOCe_REF() {
+		return CHV_DOCe_REF;
+	}
+
+	public void setCHV_DOCe_REF(String cHV_DOCe_REF) {
+		CHV_DOCe_REF = cHV_DOCe_REF;
+	}
+
+	public String getIND_DEST() {
+		return IND_DEST;
+	}
+
+	public void setIND_DEST(String iND_DEST) {
+		IND_DEST = iND_DEST;
+	}
+
+	public String getCOD_MUN_DEST() {
+		return COD_MUN_DEST;
+	}
+
+	public void setCOD_MUN_DEST(String cOD_MUN_DEST) {
+		COD_MUN_DEST = cOD_MUN_DEST;
+	}
+
+	public String getCOD_CTA() {
+		return COD_CTA;
+	}
+
+	public void setCOD_CTA(String cOD_CTA) {
+		COD_CTA = cOD_CTA;
 	}
 
 	@Override

@@ -40,6 +40,7 @@ import org.adempiere.webui.event.ValueChangeListener;
 import org.adempiere.webui.panel.StatusBarPanel;
 import org.adempiere.webui.session.SessionManager;
 import org.adempiere.webui.theme.ThemeManager;
+import org.adempiere.webui.util.ZKUpdateUtil;
 import org.adempiere.webui.window.FDialog;
 import org.adempierelbr.model.MLBRTax;
 import org.adempierelbr.model.MLBRTaxLine;
@@ -65,7 +66,6 @@ import org.zkoss.zul.Div;
 import org.zkoss.zul.Groupbox;
 import org.zkoss.zul.Hbox;
 import org.zkoss.zul.North;
-import org.zkoss.zul.Separator;
 import org.zkoss.zul.South;
 import org.zkoss.zul.Vbox;
 
@@ -178,7 +178,7 @@ public final class WTaxesDialog extends Window
 		parameterPanel.appendChild(caption);
 		parameterPanel.setStyle("background-color: transparent; padding-top: 5px;");
 		toolBar.setOrient("vertical");
-		toolBar.setStyle("border: none; margin: 5px;");
+		toolBar.setStyle("border: none; margin: 5px; display: block; width: 50px; height: 248px");
 
 		bSave.setImage(ThemeManager.getThemeResource("images/Save24.png"));
 		bSave.setTooltiptext(Msg.getMsg(Env.getCtx(),"Save"));
@@ -196,16 +196,23 @@ public final class WTaxesDialog extends Window
 		bDelete.setTooltiptext(Msg.getMsg(Env.getCtx(),"Delete"));
 		bDelete.addEventListener(Events.ON_CLICK, this);
 		toolBar.appendChild(bIgnore);
-		toolBar.appendChild(new Separator());
 		toolBar.appendChild(bNew);
 		toolBar.appendChild(bSave);
 		toolBar.appendChild(bSaveNew);
 		toolBar.appendChild(bDelete);
-
+		toolBar.setOrient("vertical");
+		
+		//bIgnore.setTop("");
+		bIgnore.setStyle("top: 10px; position: absolute;");
+		bNew.setStyle("top: 40px; position: absolute;");
+		bSave.setStyle("top: 70px; position: absolute;");
+		bSaveNew.setStyle("top: 100px; position: absolute;");
+		bDelete.setStyle("top: 130px; position: absolute;");
+		
 		northPanel.appendChild(parameterPanel);
 		parameterPanel.setWidth("100%");
 		northPanel.appendChild(toolBar);
-		northPanel.setWidth("100%");
+		ZKUpdateUtil.setWidth(northPanel, "100%");
 
 		m_adTabPanel = new ADTabpanel();
 
@@ -344,6 +351,15 @@ public final class WTaxesDialog extends Window
 		f_LBR_PostTax = WebEditorFactory.getEditor(field, false);
 		addLine(field, f_LBR_PostTax, true);
 		
+		//	Change Value just to identify changes
+		f_LBR_TaxRate.addValueChangeListener(this);
+		f_LBR_TaxName_ID.addValueChangeListener(this);
+		f_LBR_TaxStatus_ID.addValueChangeListener(this);
+		f_LBR_TaxBase.addValueChangeListener(this);
+		f_LBR_LegalMessage_ID.addValueChangeListener(this);
+		f_LBR_TaxBaseType_ID.addValueChangeListener(this);
+		f_LBR_PostTax.addValueChangeListener(this);
+		
 		// Finish
 		m_query = new MQuery();
 		m_query.addRestriction("LBR_Tax_ID", MQuery.EQUAL, m_MLBRTax_new.get_ID());
@@ -440,8 +456,32 @@ public final class WTaxesDialog extends Window
 
 	public void onEvent(Event event) throws Exception {
 		if (event.getTarget().getId().equals("Ok"))	{
-			m_changed = true;
-			dispose();
+			if (m_changed)
+			{
+				FDialog.ask(0, this, "Save Changes?", new Callback<Boolean>() {
+					
+					@Override
+					public void onCallback(Boolean result) 
+					{
+						if (result)
+						{
+							action_Save();
+							m_changed = true;
+							dispose();
+						}
+						else
+						{
+							m_changed = true;
+							dispose();
+						}
+					}
+				});
+			}
+			else
+			{
+				m_changed = true;
+				dispose();
+			}
 		} else if (event.getTarget().getId().equals("Cancel")) {
 			m_changed = false;
 			dispose();
@@ -657,6 +697,8 @@ public final class WTaxesDialog extends Window
 
 		m_MLBRTax_new.setDescription();
 		m_MLBRTax_new.saveEx();
+		
+		m_changed = false;
 	}
 	
 	private boolean isEmpty(Object value) {
@@ -720,6 +762,8 @@ public final class WTaxesDialog extends Window
 		m_mTab.setQuery(m_query);
 		m_mTab.query(false);
 		m_mTab.setCurrentRow(currentRow);
+		
+		m_changed = false;
 	}
 
 	/**
@@ -769,7 +813,9 @@ public final class WTaxesDialog extends Window
 	 */
 	public void valueChange(ValueChangeEvent evt) {
 		Object newValue = evt.getNewValue();
-
+		
+		m_changed = true;
+			
 		if (newValue instanceof Integer)
 		{
 			Env.setContext(Env.getCtx(), m_WindowNo, evt.getPropertyName(), ((Integer)newValue).intValue());
