@@ -75,4 +75,6 @@ public class SysConfig
 	public static final String LBR_VERSION_NO 									= "LBR_VERSION_NO";
 	@Deprecated
 	public static final String LBR_VOLUME 										= "LBR_VOLUME";
+	@Deprecated
+	public static final String LBR_SPED_CLAS_ESTAB_IND							= "LBR_SPED_CLAS_ESTAB_IND";
 }	//	SysConfig
