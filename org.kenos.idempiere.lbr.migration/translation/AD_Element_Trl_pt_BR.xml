@@ -70769,4 +70769,15 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
+ <row trl="Y" uuid="889aa156-d4b5-44be-bf86-c9fc65dfd04f">
+  <value column="Name" original="Sales/Purchase Operation">Operação de Compra e Venda</value>
+  <value column="PrintName" original="Sales/Purchase Operation">Operação de Compra e Venda</value>
+  <value column="Description" original="Used to set Sales/Purchase Operation">Usado para identificar Operação de Compra e Venda</value>
+  <value column="Help" original=""/>
+  <value column="Placeholder" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+ </row>
 </idempiereTrl>
