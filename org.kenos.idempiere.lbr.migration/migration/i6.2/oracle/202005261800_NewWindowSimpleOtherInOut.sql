@@ -2064,6 +2064,10 @@ UPDATE AD_Field SET AD_Reference_ID=18, AD_Reference_Value_ID=170, AD_Val_Rule_I
 UPDATE AD_Field SET AD_Reference_ID=18, AD_Reference_Value_ID=170, AD_Val_Rule_ID=1120169,Updated=TO_DATE('2020-04-17 00:29:22','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1085
 ;
 
+-- 17 de abr de 2020 00:29:22 BRT
+UPDATE AD_Field SET AD_Reference_ID=18, AD_Reference_Value_ID=170, AD_Val_Rule_ID=1120169,Updated=TO_DATE('2020-04-17 00:29:22','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=3428
+;
+
 -- 17 de abr de 2020 00:49:42 BRT
 INSERT INTO AD_Menu (AD_Menu_ID,Name,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,IsSummary,IsSOTrx,IsReadOnly,EntityType,IsCentrallyMaintained,AD_Menu_UU) VALUES (1120359,'Others Operations',0,0,'Y',TO_DATE('2020-04-17 00:49:41','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2020-04-17 00:49:41','YYYY-MM-DD HH24:MI:SS'),100,'Y','N','N','LBRA','N','867bbebd-9992-47b1-abb1-10527becd07e')
 ;
