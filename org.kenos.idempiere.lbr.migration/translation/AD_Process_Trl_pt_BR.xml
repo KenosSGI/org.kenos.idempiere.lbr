@@ -2717,4 +2717,9 @@ For example:<br />
   <value column="Description" original="Freight calculation for Brazilian Post Service (Correios)">Sistema de cálculo de frete para o serviço de postagem brasileiro (Correios)</value>
   <value column="Help" original=""/>
  </row>
+ <row trl="Y" uuid="e8438030-41dc-4976-8760-b2fc91f10d22">
+  <value column="Name" original="Bank Statement Detail">Detalhes do Extrato Bancário</value>
+  <value column="Description" original="">Relatório exibe Detalhes do Extrato Bancário baseado nas linhas do Extrato</value>
+  <value column="Help" original="">Relatório exibe Detalhes do Extrato Bancário baseado nas linhas do Extrato</value>
+ </row>
 </idempiereTrl>
