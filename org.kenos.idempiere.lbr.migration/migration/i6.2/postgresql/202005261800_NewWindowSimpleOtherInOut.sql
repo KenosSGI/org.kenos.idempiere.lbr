@@ -12,8 +12,7 @@ INSERT INTO AD_Field (AD_Field_ID,Name,Description,Help,AD_Tab_ID,AD_Column_ID,I
 ;
 
 -- 16 de abr de 2020 23:38:03 BRT
-INSERT INTO AD_Field (AD_FieldSELECT Register_Migration_Script ('202005261800_NewWindowSimpleOtherInOut.sql') FROM DUAL
-;_ID,Name,Description,Help,AD_Tab_ID,AD_Column_ID,IsDisplayed,DisplayLength,SeqNo,IsSameLine,IsHeading,IsFieldOnly,IsEncrypted,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,IsReadOnly,IsCentrallyMaintained,EntityType,AD_Field_UU,IsAllowCopy,IsDisplayedGrid,SeqNoGrid,XPosition,ColumnSpan,NumLines,IsQuickEntry,IsDefaultFocus,IsAdvancedField) VALUES (1128893,'Referenced Order','Reference to corresponding Sales/Purchase Order','Reference of the Sales Order Line to the corresponding Purchase Order Line or vice versa.',1120365,10926,'N',14,0,'N','N','N','N',0,0,'Y',TO_TIMESTAMP('2020-04-16 23:38:03','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2020-04-16 23:38:03','YYYY-MM-DD HH24:MI:SS'),100,'N','Y','LBRA','754b1c49-5170-4730-8d54-d799e61cc170','N','N',0,1,2,1,'N','N','N')
+INSERT INTO AD_Field (AD_Field_ID,Name,Description,Help,AD_Tab_ID,AD_Column_ID,IsDisplayed,DisplayLength,SeqNo,IsSameLine,IsHeading,IsFieldOnly,IsEncrypted,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,IsReadOnly,IsCentrallyMaintained,EntityType,AD_Field_UU,IsAllowCopy,IsDisplayedGrid,SeqNoGrid,XPosition,ColumnSpan,NumLines,IsQuickEntry,IsDefaultFocus,IsAdvancedField) VALUES (1128893,'Referenced Order','Reference to corresponding Sales/Purchase Order','Reference of the Sales Order Line to the corresponding Purchase Order Line or vice versa.',1120365,10926,'N',14,0,'N','N','N','N',0,0,'Y',TO_TIMESTAMP('2020-04-16 23:38:03','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2020-04-16 23:38:03','YYYY-MM-DD HH24:MI:SS'),100,'N','Y','LBRA','754b1c49-5170-4730-8d54-d799e61cc170','N','N',0,1,2,1,'N','N','N')
 ;
 
 -- 16 de abr de 2020 23:38:04 BRT
