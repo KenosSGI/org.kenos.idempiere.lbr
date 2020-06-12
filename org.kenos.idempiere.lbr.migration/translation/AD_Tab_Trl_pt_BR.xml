@@ -124,10 +124,10 @@ Nota: Você não pode alterar o papel do Administrador do sistema.]]></value>
   <value column="Help" original="The User Assignment Tab displays Users who have been defined for this Role.">A Aba "Designação de Usuários" mostra usuários que tenham sido definidos para esta Função (Papel).</value>
  </row>
  <row id="121" trl="Y">
-  <value column="Name" original="User Roles">Funções de Usuários</value>
+  <value column="Name" original="User Roles">Perfis do Usuário</value>
   <value column="CommitWarning" original=""/>
-  <value column="Description" original="User Roles">Funções de Usuários</value>
-  <value column="Help" original="The User Roles Tab define the Roles each user may have.  The Roles will determine what windows, tasks, processes and workflows that a User has access to.">A Aba "Funções de Usuários" define as Funções (papéis) que cada usuário pode assumir.  As Funções vão determinar quais janelas, tarefas, processos e fluxos de trabalho a que um determinado usuário terá acesso.</value>
+  <value column="Description" original="User Roles">Perfis do Usuário</value>
+  <value column="Help" original="The User Roles Tab define the Roles each user may have.  The Roles will determine what windows, tasks, processes and workflows that a User has access to.">A Aba "Perfis do Usuário" define quais perfis (papel ou função) que cada usuário pode acessar. Os perfis vão determinar quais janelas, tarefas, processos e fluxos de trabalho a que um determinado usuário terá acesso.</value>
  </row>
  <row id="122" trl="Y">
   <value column="Name" original="Node">Nó</value>
