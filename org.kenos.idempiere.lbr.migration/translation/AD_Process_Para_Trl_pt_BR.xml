@@ -92,15 +92,15 @@
   <value column="Placeholder2" original=""/>
  </row>
  <row id="50001" trl="Y">
-  <value column="Name" original="Role To">Perfil de Origem</value>
-  <value column="Description" original="Responsibility Role">Perfil de Origem para ser copiado</value>
+  <value column="Name" original="Role To">Perfil de Destino</value>
+  <value column="Description" original="Responsibility Role">Perfil de Destino</value>
   <value column="Help" original="The Role determines security and access a user who has this Role will have in the System.">O "Papel (Função) determina o nível de segurança e acesso que um usuário que exerça este Papel terá no Sistema.</value>
   <value column="Placeholder" original=""/>
   <value column="Placeholder2" original=""/>
  </row>
  <row id="50002" trl="Y">
-  <value column="Name" original="Role From">Perfil de Destino</value>
-  <value column="Description" original="Responsibility Role">Perfil de Destino</value>
+  <value column="Name" original="Role From">Perfil de Origem</value>
+  <value column="Description" original="Responsibility Role">Perfil de Origem para ser copiado</value>
   <value column="Help" original="The Role determines security and access a user who has this Role will have in the System.">O "Papel (Função) determina o nível de segurança e acesso que um usuário que exerça este Papel terá no Sistema.</value>
   <value column="Placeholder" original=""/>
   <value column="Placeholder2" original=""/>
