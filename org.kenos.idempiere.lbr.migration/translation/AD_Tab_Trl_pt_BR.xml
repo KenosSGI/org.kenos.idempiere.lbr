@@ -3664,9 +3664,9 @@ A organização é definida para a organização da fatura]]></value>
   <value column="Help" original="If on User level, &quot;Full BP Access&quot; is NOT selected, you need to give access explicitly here. ">Se no Nível de Usuário NÃO for selecionado "Acesso Total PN", você terá de dar acesso explícito aqui. </value>
  </row>
  <row id="757" trl="Y">
-  <value column="Name" original="Queries">Perguntas</value>
+  <value column="Name" original="Queries">Pesquisas</value>
   <value column="CommitWarning" original=""/>
-  <value column="Description" original="View and maintain saved queries">Visualizar e gerenciar as perguntas salvas</value>
+  <value column="Description" original="View and maintain saved queries">Visualizar e gerenciar as pesquisas salvas</value>
   <value column="Help" original=""/>
  </row>
  <row id="758" trl="Y">
