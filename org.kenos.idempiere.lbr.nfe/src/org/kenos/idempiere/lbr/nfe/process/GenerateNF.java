@@ -2,15 +2,22 @@ package org.kenos.idempiere.lbr.nfe.process;
 
 import java.util.logging.Level;
 
+import org.adempiere.exceptions.AdempiereException;
 import org.adempierelbr.model.MLBRNotaFiscal;
 import org.compiere.model.MDocType;
 import org.compiere.model.MInOut;
+import org.compiere.model.MInOutLine;
 import org.compiere.model.MInvoice;
+import org.compiere.model.MLocator;
 import org.compiere.model.MMovement;
 import org.compiere.model.MMovementLine;
 import org.compiere.model.MOrder;
+import org.compiere.model.MOrderLine;
+import org.compiere.model.MWarehouse;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
+import org.compiere.util.Env;
+import org.compiere.util.Trx;
 
 /**
  * 		Generate NF
@@ -28,6 +35,7 @@ public class GenerateNF extends SvrProcess
 	private int p_C_Invoice_ID 		= 0;
 	private int p_M_InOut_ID 		= 0;
 	private int p_M_Movement_ID 	= 0;
+	private int p_OtherInOut_ID		= 0;
 	private String p_lbr_NFEntrada	= "";
 	
 	/**
@@ -53,6 +61,8 @@ public class GenerateNF extends SvrProcess
 				p_M_InOut_ID = para.getParameterAsInt();
 			else if (name.equals(MMovement.COLUMNNAME_M_Movement_ID))
 				p_M_Movement_ID = para.getParameterAsInt();
+			else if (name.equals("LBR_OtherInOut_ID"))
+				p_OtherInOut_ID = para.getParameterAsInt();
 			else if (name.equals("lbr_NFEntrada"))
 				p_lbr_NFEntrada = para.getParameterAsString();
 			else
@@ -66,73 +76,233 @@ public class GenerateNF extends SvrProcess
 	@Override
 	protected String doIt() throws Exception
 	{
-		if (p_AD_Org_ID < 1 || p_C_DocType_ID < 1)
-			return "@Error@ Tipo de Documento é obrigatório";
-		
-		//	Create from Order
-		if (p_C_Order_ID > 0)
+		//	Msg de Retorno
+		String erro = "";
+		String sucess = "";
+		try
 		{
+			//	Organization
+			if (p_AD_Org_ID < 1)
+				erro = "@Error@ Organização é obrigatório";		
 			
-		}
-		
-		//	Create from Invoice
-		else if (p_C_Invoice_ID > 0)
-		{
-			
-		}
-		
-		//	Create from Shipment/Receipt
-		else if (p_M_InOut_ID > 0)
-		{
-			
-		}
-		
-		//	Create from Inventory Movement
-		else if (p_M_Movement_ID > 0)
-		{
-			MMovement move = new MMovement(getCtx(), p_M_Movement_ID, get_TrxName());
-			if (!MMovement.DOCSTATUS_Completed.equals(move.getDocStatus()))
-				return "@Error@ movimentação não completada, impossível gerar a Nota Fiscal";
-			//
-			//	Pensar se esta validação é necessária
-//			if (move.get_ValueAsInt(MLBRProductionGroup.COLUMNNAME_LBR_ProductionGroup_ID) < 1)
-//				return "@Error@ a movimentação deve estar atrelada a um Pedido de Industrialização";
-			//
-			int M_Warehouse_ID = 0;
-			MMovementLine[] lines = move.getLines(true);
-			for (MMovementLine line : lines)
+			//	Create from Order
+			if (p_C_Order_ID > 0)
 			{
-				//	Store the Warehouse for the first line
-				if (M_Warehouse_ID == 0)
+				
+			}
+			
+			//	Create from Invoice
+			else if (p_C_Invoice_ID > 0)
+			{
+				
+			}
+			
+			//	Create from Shipment/Receipt
+			else if (p_M_InOut_ID > 0)
+			{
+				
+			}
+			
+			//	Create from Inventory Movement
+			else if (p_M_Movement_ID > 0)
+			{
+				if (p_C_DocType_ID < 1)
+					erro = "@Error@ Tipo de Documento é obrigatório";
+				
+				MMovement move = new MMovement(getCtx(), p_M_Movement_ID, get_TrxName());
+				if (!MMovement.DOCSTATUS_Completed.equals(move.getDocStatus()))
+					return "@Error@ movimentação não completada, impossível gerar a Nota Fiscal";
+				//
+				//	Pensar se esta validação é necessária
+//				if (move.get_ValueAsInt(MLBRProductionGroup.COLUMNNAME_LBR_ProductionGroup_ID) < 1)
+//					return "@Error@ a movimentação deve estar atrelada a um Pedido de Industrialização";
+				//
+				int M_Warehouse_ID = 0;
+				MMovementLine[] lines = move.getLines(true);
+				for (MMovementLine line : lines)
 				{
-					M_Warehouse_ID = line.getM_LocatorTo().getM_Warehouse_ID();
-					continue;
+					//	Store the Warehouse for the first line
+					if (M_Warehouse_ID == 0)
+					{
+						M_Warehouse_ID = line.getM_LocatorTo().getM_Warehouse_ID();
+						continue;
+					}
+					
+					//	Check if all lines has the same Warehouse
+					if (M_Warehouse_ID != line.getM_LocatorTo().getM_Warehouse_ID())
+					{
+						erro = "@Error@ armazém de destino deve ser o mesmo para todas as linhas";
+					}
 				}
 				
-				//	Check if all lines has the same Warehouse
-				if (M_Warehouse_ID != line.getM_LocatorTo().getM_Warehouse_ID())
+				MDocType doctype = MDocType.get(getCtx(), p_C_DocType_ID);
+				
+				if (!doctype.get_ValueAsBoolean("lbr_IsOwnDocument") &&
+						p_lbr_NFEntrada.isEmpty())
+					return "Obrigatório Preencher Número da NF para Tipo de Documento " + doctype.getName();
+				
+				MLBRNotaFiscal nf = new MLBRNotaFiscal (getCtx(), 0, get_TrxName());
+				nf.setDocumentNo(p_lbr_NFEntrada);
+				nf.generateNF(move, doctype.get_ValueAsBoolean("lbr_IsOwnDocument"), p_C_DocType_ID);
+				nf.m_justCreated = true;
+				nf.save();
+			}
+			//	Create from Other In/Out
+			else if (p_OtherInOut_ID > 0)
+			{
+				// Other In/Out
+				MOrder otherInOut = new MOrder(Env.getCtx(), p_OtherInOut_ID, get_TrxName());	
+				
+				// Shipment/Receipt
+				MInOut io = null;
+				
+				//	Verify if there is ship/receipt
+				MInOut[] shipments = otherInOut.getShipments();			
+				for (int i = 0; i < shipments.length; i++)
 				{
-					return "@Error@ armazém de destino deve ser o mesmo para todas as linhas";
+					MInOut ship = shipments[i];				
+					if (MInOut.ACTION_Complete.equals(ship.getDocStatus())
+							|| MInOut.DOCSTATUS_Closed.equals(ship.getDocStatus()) )
+					{
+						io = ship;
+						break;
+					}
+				}
+				
+				//	If not, create ship/receipt
+				if (io == null)
+					io = MInOut.createFrom(otherInOut, Env.getContextAsDate(Env.getCtx(), "#DATE"), false, false, null, true, get_TrxName());
+				
+				// Completeit
+				if (io != null && !MInOut.DOCSTATUS_Completed.equals(io.getDocStatus()))
+				{
+					if (MInOut.DOCSTATUS_Completed.equals(io.completeIt()))
+					{
+						io.setDocStatus(MInOut.DOCSTATUS_Completed);
+						io.saveEx();
+					}
+					else
+						erro =  "@Error@ Erro ao Completar Remessa/Recebimento";
+				}					
+				
+				//	If NF Number was filled, NF is not Own Document
+				boolean IsOwnDocument = p_lbr_NFEntrada.isEmpty();
+				
+				//	NF related to Ship/Receipt
+				MLBRNotaFiscal[] nfs = MLBRNotaFiscal.get(getCtx(), 0, io.getM_InOut_ID(), get_TrxName());
+				
+				// NF
+				MLBRNotaFiscal nf = null;
+				
+				//	List NFs
+				if (nfs.length > 0 )
+				{
+					//	Verify if there is NF Valid
+					for (int i = 0; i < nfs.length; i++)
+					{
+						MLBRNotaFiscal validNf = nfs[i];			
+						if (!MInOut.ACTION_Void.equals(validNf.getDocStatus()))
+						{
+							nf = validNf;
+							sucess = " - NF já existe. NF " + nf.getDocumentNo();
+							break;
+						}
+					}
+				}
+				
+				//	Valid NF was not found
+				if (nf == null)
+				{
+					// NF Created
+					nf = new MLBRNotaFiscal (getCtx(), 0, get_TrxName());
+					
+					if (!IsOwnDocument)
+						nf.setDocumentNo(p_lbr_NFEntrada);
+					
+					nf.generateNF(io, IsOwnDocument);
+					nf.m_justCreated = true;
+					nf.save();
+					
+					sucess = " - NF " + nf.getDocumentNo() + " Criada";
 				}
 			}
 			
-			MDocType doctype = MDocType.get(getCtx(), p_C_DocType_ID);
+			//	At least one document is mandatory
+			else
+				erro =  "@Error@ pelo menos um documento é necessário para a geração da NF";
 			
-			if (!doctype.get_ValueAsBoolean("lbr_IsOwnDocument") &&
-					p_lbr_NFEntrada.isEmpty())
-				return "Obrigatório Preencher Número da NF para Tipo de Documento " + doctype.getName();
+		}
+		catch(Exception e)
+		{
+			// Error
+			Trx.get(get_TrxName(), false).rollback();
 			
-			MLBRNotaFiscal nf = new MLBRNotaFiscal (getCtx(), 0, get_TrxName());
-			nf.setDocumentNo(p_lbr_NFEntrada);
-			nf.generateNF(move, doctype.get_ValueAsBoolean("lbr_IsOwnDocument"), p_C_DocType_ID);
-			nf.m_justCreated = true;
-			nf.save();
+			if (!erro.isEmpty())
+				return erro;
+		}
+
+		return "@Success@" + sucess;
+	}	//	doIt
+	
+	/**
+	 * Generate Shipment / Recept From Order
+	 * @param order
+	 * @return
+	 * @throws AdempiereException
+	 */
+	public static MInOut generateInOut (MOrder order) throws AdempiereException
+	{
+		MInOut io = new MInOut(order, order.getC_DocTypeTarget().getC_DocTypeShipment_ID(), null);
+		
+		//	Shipment / Recept
+		io.setAD_Org_ID(order.getAD_Org_ID());
+		io.setC_Order_ID(order.getC_Order_ID());
+		io.setC_BPartner_ID(order.getC_BPartner_ID());
+		io.setC_BPartner_Location_ID(order.getC_BPartner_Location_ID());
+		io.setM_Warehouse_ID(order.getM_Warehouse_ID());
+		io.setDeliveryViaRule(order.getDeliveryViaRule());
+		io.setM_Shipper_ID(order.getM_Shipper_ID());
+		io.saveEx();
+		
+		//	Lines
+		for (MOrderLine oLine : order.getLines())
+		{
+			MInOutLine iLine = new MInOutLine(io);
+			
+			int m_locator_id = 0;
+			
+			//	Get Locator from Product
+			MLocator locator = (MLocator) oLine.getM_Product().getM_Locator();
+			
+			//	Get locator From Product if Org is the same
+			if (locator != null && locator.getM_Locator_ID() > 0 && locator.getAD_Org_ID() == order.getAD_Org_ID())
+				m_locator_id = locator.getM_Locator_ID();
+			else	// Get Default Locator for Organization
+				m_locator_id = MLocator.getDefault((MWarehouse)io.getM_Warehouse()).getM_Locator_ID();
+			
+			if (m_locator_id == 0)
+				throw new IllegalArgumentException("Localizador não Identificado");
+			
+			iLine.setM_Product_ID(oLine.getM_Product_ID());
+			iLine.setQty(oLine.getQtyOrdered());
+			iLine.setDescription(oLine.getDescription());
+			iLine.setC_UOM_ID(oLine.getC_UOM_ID());
+			iLine.setM_Locator_ID(m_locator_id);
+			iLine.setC_OrderLine_ID(oLine.getC_OrderLine_ID());
+			iLine.saveEx();
 		}
 		
-		//	At least one document is mandatory
-		else
-			return "@Error@ pelo menos um documento é necessário para a geração da NF";
-
-		return "@Success@";
-	}	//	doIt
+		//	Complete it
+		io.setDocStatus(io.completeIt());
+		io.saveEx();	
+		
+		//	Close Receive
+		if (io.closeIt())
+		{
+			io.setDocStatus(MInOut.DOCSTATUS_Closed);
+			io.saveEx();
+		}	
+		
+		return io;
+	}
 }	//	GenerateNF

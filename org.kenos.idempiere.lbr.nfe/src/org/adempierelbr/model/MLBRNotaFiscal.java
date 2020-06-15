@@ -260,25 +260,51 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 	}	//	get
 
 	/**
-	 * Retorna as Notas Fiscais por período (compra, venda ou ambos)
-	 * @param dateFrom
-	 * @param dateTo
-	 * @param isSOTrx: true = venda, false = compra, null = ambos
+	 * Retorna as Notas Fiscais por Fatura ou por Remessa/Recebimento
+	 * @param ctx
+	 * @param C_Invoice_ID
+	 * @param M_InOut_ID
+	 * @param trxName
 	 * @return MNotaFiscal[]
 	 */
-	public static MLBRNotaFiscal[] get (Properties ctx, int C_Invoice_ID, String trxName)
+	public static MLBRNotaFiscal[] get (Properties ctx, int C_Invoice_ID, int M_InOut_ID, String trxName)
 	{
-		String whereClause = "C_Invoice_ID=?";
+		String whereClause = "";
+		int id = 0;
+		
+		if (C_Invoice_ID > 0)
+		{
+			whereClause = "C_Invoice_ID=?";
+			id = C_Invoice_ID;
+		}
+		else if (M_InOut_ID > 0)
+		{
+			whereClause = "M_InOut_ID=?";
+			id = M_InOut_ID;
+		}
+		
 		String orderBy = "DocumentNo";
 
 		MTable table = MTable.get(ctx, MLBRNotaFiscal.Table_Name);
 		Query q =  new Query(ctx, table, whereClause.toString(), trxName);
 	          q.setOrderBy(orderBy);
-		      q.setParameters(new Object[]{C_Invoice_ID});
+		      q.setParameters(new Object[]{id});
 
 	    List<MLBRNotaFiscal> list = q.list();
 	    MLBRNotaFiscal[] nfs = new MLBRNotaFiscal[list.size()];
 	    return list.toArray(nfs);
+	}	//	get
+	
+	/**
+	 * Retorna as Notas Fiscais por Fatura
+	 * @param ctx
+	 * @param C_Invoice_ID
+	 * @param trxName
+	 * @return MNotaFiscal[]
+	 */
+	public static MLBRNotaFiscal[] get (Properties ctx, int C_Invoice_ID, String trxName)
+	{
+	    return get(ctx, C_Invoice_ID, 0, trxName);
 	}	//	get
 
 	/**
@@ -1921,7 +1947,7 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 	{
 		BigDecimal totalItem = Env.ZERO, totalService = Env.ZERO;
 		//
-		Boolean isSOTrx = true;
+		Boolean isSOTrx = inout.isSOTrx();
 		int lineNo = 1;		
 		
 		/**
