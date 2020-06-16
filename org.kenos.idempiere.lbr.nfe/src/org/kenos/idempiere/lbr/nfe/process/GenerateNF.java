@@ -77,13 +77,12 @@ public class GenerateNF extends SvrProcess
 	protected String doIt() throws Exception
 	{
 		//	Msg de Retorno
-		String erro = "";
 		String sucess = "";
 		try
 		{
 			//	Organization
 			if (p_AD_Org_ID < 1)
-				erro = "@Error@ Organização é obrigatório";		
+				return "@Error@ Organização é obrigatório";		
 			
 			//	Create from Order
 			if (p_C_Order_ID > 0)
@@ -107,7 +106,7 @@ public class GenerateNF extends SvrProcess
 			else if (p_M_Movement_ID > 0)
 			{
 				if (p_C_DocType_ID < 1)
-					erro = "@Error@ Tipo de Documento é obrigatório";
+					return "@Error@ Tipo de Documento é obrigatório";
 				
 				MMovement move = new MMovement(getCtx(), p_M_Movement_ID, get_TrxName());
 				if (!MMovement.DOCSTATUS_Completed.equals(move.getDocStatus()))
@@ -131,7 +130,7 @@ public class GenerateNF extends SvrProcess
 					//	Check if all lines has the same Warehouse
 					if (M_Warehouse_ID != line.getM_LocatorTo().getM_Warehouse_ID())
 					{
-						erro = "@Error@ armazém de destino deve ser o mesmo para todas as linhas";
+						return "@Error@ armazém de destino deve ser o mesmo para todas as linhas";
 					}
 				}
 				
@@ -168,10 +167,27 @@ public class GenerateNF extends SvrProcess
 						break;
 					}
 				}
+								
+				// If it is other in, force because the material is being receipt
+				if (io == null && !otherInOut.isSOTrx())
+					io = generateReceipt(otherInOut);
 				
-				//	If not, create ship/receipt
-				if (io == null)
-					io = MInOut.createFrom(otherInOut, Env.getContextAsDate(Env.getCtx(), "#DATE"), false, false, null, true, get_TrxName());
+				// If is not receipt then force if Delivery Rule is force
+				else if (io == null && otherInOut.isSOTrx())
+				{
+					// Not Force
+					boolean force = false;					
+					if (MOrder.DELIVERYRULE_Force.equals(otherInOut.getDeliveryRule()))
+						force = true;
+					
+					//	If not, create ship/receipt
+					if (io == null)
+						io = MInOut.createFrom(otherInOut, Env.getContextAsDate(Env.getCtx(), "#DATE"), force, false, null, true, get_TrxName());
+				}
+								
+				// Ship/Receipt without lines
+				if (io.getLines().length <= 0)
+					return "@Error@ Erro ao Gerar Linhas Remessa/Recebimento. Confira Quantide dos Produtos em Estoque";
 				
 				// Completeit
 				if (io != null && !MInOut.DOCSTATUS_Completed.equals(io.getDocStatus()))
@@ -182,7 +198,7 @@ public class GenerateNF extends SvrProcess
 						io.saveEx();
 					}
 					else
-						erro =  "@Error@ Erro ao Completar Remessa/Recebimento";
+						return "@Error@ Erro ao Completar Remessa/Recebimento";
 				}					
 				
 				//	If NF Number was filled, NF is not Own Document
@@ -229,28 +245,26 @@ public class GenerateNF extends SvrProcess
 			
 			//	At least one document is mandatory
 			else
-				erro =  "@Error@ pelo menos um documento é necessário para a geração da NF";
+				return "@Error@ pelo menos um documento é necessário para a geração da NF";
 			
 		}
 		catch(Exception e)
 		{
 			// Error
 			Trx.get(get_TrxName(), false).rollback();
-			
-			if (!erro.isEmpty())
-				return erro;
+			return e.getMessage();
 		}
 
 		return "@Success@" + sucess;
 	}	//	doIt
 	
 	/**
-	 * Generate Shipment / Recept From Order
+	 * Generate Recept From Order
 	 * @param order
 	 * @return
 	 * @throws AdempiereException
 	 */
-	public static MInOut generateInOut (MOrder order) throws AdempiereException
+	public static MInOut generateReceipt (MOrder order) throws AdempiereException
 	{
 		MInOut io = new MInOut(order, order.getC_DocTypeTarget().getC_DocTypeShipment_ID(), null);
 		
@@ -275,16 +289,25 @@ public class GenerateNF extends SvrProcess
 			MLocator locator = (MLocator) oLine.getM_Product().getM_Locator();
 			
 			//	Get locator From Product if Org is the same
-			if (locator != null && locator.getM_Locator_ID() > 0 && locator.getAD_Org_ID() == order.getAD_Org_ID())
+			if (locator != null && locator.getM_Locator_ID() > 0 && locator.getAD_Org_ID() == order.getAD_Org_ID()
+					&& locator.getM_Warehouse_ID() == order.getM_Warehouse_ID())
 				m_locator_id = locator.getM_Locator_ID();
 			else	// Get Default Locator for Organization
-				m_locator_id = MLocator.getDefault((MWarehouse)io.getM_Warehouse()).getM_Locator_ID();
+			{
+				// Default Locator
+				MLocator defaultLocator = MLocator.getDefault((MWarehouse)io.getM_Warehouse());
+				
+				if (defaultLocator == null)
+					throw new IllegalArgumentException("Localizador Padrão do armazém " + order.getM_Warehouse().getName() + " não Identificado");
+				
+				m_locator_id = defaultLocator.getM_Locator_ID();
+			}
 			
 			if (m_locator_id == 0)
 				throw new IllegalArgumentException("Localizador não Identificado");
 			
 			iLine.setM_Product_ID(oLine.getM_Product_ID());
-			iLine.setQty(oLine.getQtyOrdered());
+			iLine.setQty(oLine.getQtyOrdered().subtract(oLine.getQtyDelivered()));
 			iLine.setDescription(oLine.getDescription());
 			iLine.setC_UOM_ID(oLine.getC_UOM_ID());
 			iLine.setM_Locator_ID(m_locator_id);
@@ -293,15 +316,11 @@ public class GenerateNF extends SvrProcess
 		}
 		
 		//	Complete it
-		io.setDocStatus(io.completeIt());
-		io.saveEx();	
-		
-		//	Close Receive
-		if (io.closeIt())
+		if (MInOut.DOCSTATUS_Completed.equals(io.completeIt()))
 		{
-			io.setDocStatus(MInOut.DOCSTATUS_Closed);
+			io.setDocStatus(MInOut.DOCSTATUS_Completed);
 			io.saveEx();
-		}	
+		}
 		
 		return io;
 	}
