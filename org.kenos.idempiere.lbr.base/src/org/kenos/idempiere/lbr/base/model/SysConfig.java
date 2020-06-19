@@ -64,6 +64,7 @@ public class SysConfig
 	public static final String LBR_REMOTE_PKCS11_URL 							= "LBR_REMOTE_PKCS11_URL";
 	public static final String LBR_SEND_NF_BY_EMAIL_TO 							= "LBR_SEND_NF_BY_EMAIL_TO";
 	public static final String LBR_SENDNFENOONCNAB 								= "LBR_SENDNFENOONCNAB";
+	public static final String LBR_SHOW_STOCK_MSG_ON_ORDER 						= "LBR_SHOW_STOCK_MSG_ON_ORDER";
 	public static final String LBR_SHOW_EMPLOYEE_BP_INFO 						= "LBR_SHOW_EMPLOYEE_BP_INFO#";
 	public static final String LBR_SISCOMEX_PRODUCT_REGEX						= "LBR_SISCOMEX_PRODUCT_REGEX";
 	public static final String LBR_TAXBASE_DISCOUNT_PRINT_NF 					= "LBR_TAXBASE_DISCOUNT_PRINT_NF";
