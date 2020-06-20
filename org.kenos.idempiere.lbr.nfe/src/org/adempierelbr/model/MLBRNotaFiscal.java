@@ -2834,6 +2834,10 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 				setlbr_NetWeight(io.getWeight());
 				setNoPackages(noPackages);
 				setDeliveryViaRule(io.getDeliveryViaRule());
+				
+				String licensePlate = io.get_ValueAsString("lbr_BPShipperLicensePlate");
+				if (licensePlate != null && !licensePlate.trim().isEmpty())
+					setlbr_BPShipperLicensePlate(licensePlate);
 	
 				M_Shipper_ID = io.getM_Shipper_ID();
 				
@@ -3258,6 +3262,19 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 				if (description.length() > 0)
 					description.append("\n");
 				description.append("Pedido de Industrialização: " + pg.getDocumentNo());
+			}
+		}
+		
+		if (getM_InOut_ID() > 0)
+		{
+			MInOut io = new MInOut (getCtx(), getM_InOut_ID(), get_TrxName());
+			if (io.get_ValueAsInt("LBR_MDFeDriver_ID") > 0)
+			{
+				X_LBR_MDFeDriver driver = new X_LBR_MDFeDriver (getCtx(), io.get_ValueAsInt("LBR_MDFeDriver_ID"), null);
+				description.append("\nMotorista: ").append(driver.getName());
+				
+				if (driver.getlbr_CPF() != null)
+					description.append("/CPF: ").append(driver.getlbr_CPF());
 			}
 		}
 		

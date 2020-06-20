@@ -7,15 +7,16 @@ import org.adempiere.base.IColumnCallout;
 import org.adempiere.base.IColumnCalloutFactory;
 import org.adempierelbr.model.MLBRNotaFiscalLine;
 import org.adempierelbr.wrapper.I_W_M_RMA;
+import org.compiere.model.MInOut;
 import org.compiere.model.MRMA;
 
 /**
  * 		Callout Factory
  * 
  * 	@author Ricardo Santana (Kenos, www.kenos.com.br)
- *	@version $Id: CalloutFactory.java, v1.0 2017/01/04 5:06:32 PM, ralexsander Exp $
+ *	@version $Id: ColumnCalloutFactory.java, v1.0 2017/01/04 5:06:32 PM, ralexsander Exp $
  */
-public class CalloutFactory implements IColumnCalloutFactory
+public class ColumnCalloutFactory implements IColumnCalloutFactory
 {
 	/**
 	 * 	Register LBR callouts for columns
@@ -34,7 +35,11 @@ public class CalloutFactory implements IColumnCalloutFactory
 			if (MLBRNotaFiscalLine.COLUMNNAME_M_Product_ID.equals(columnName))
 				callouts.add (new NotaFiscalLine ());
 		}
-		
+		else if (MInOut.Table_Name.equals(tableName))
+		{
+			if ("LBR_MDFeVehicle_ID".equals(columnName))
+				callouts.add (new Shipment ());
+		}
 		IColumnCallout[] result = new IColumnCallout[callouts.size()];
 		return callouts.toArray (result);
 	}	//	getColumnCallouts
