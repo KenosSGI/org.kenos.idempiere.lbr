@@ -3446,6 +3446,11 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		{
 			setProcessing (true);
 		}
+		
+		// Mark as Cancelled when status is voided
+		if (MLBRNotaFiscal.DOCSTATUS_Voided.equals(getDocStatus()) && !isCancelled())
+			setIsCancelled(true);
+				
 		return true;
 	}	//	beforeSave
 
