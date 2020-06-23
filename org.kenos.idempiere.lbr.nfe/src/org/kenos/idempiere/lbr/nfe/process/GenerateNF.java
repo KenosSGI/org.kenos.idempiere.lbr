@@ -3,7 +3,9 @@ package org.kenos.idempiere.lbr.nfe.process;
 import java.util.logging.Level;
 
 import org.adempiere.exceptions.AdempiereException;
+import org.adempiere.model.POWrapper;
 import org.adempierelbr.model.MLBRNotaFiscal;
+import org.adempierelbr.wrapper.I_W_C_DocType;
 import org.compiere.model.MDocType;
 import org.compiere.model.MInOut;
 import org.compiere.model.MInOutLine;
@@ -150,7 +152,17 @@ public class GenerateNF extends SvrProcess
 			else if (p_OtherInOut_ID > 0)
 			{
 				// Other In/Out
-				MOrder otherInOut = new MOrder(Env.getCtx(), p_OtherInOut_ID, get_TrxName());	
+				MOrder otherInOut = new MOrder(Env.getCtx(), p_OtherInOut_ID, get_TrxName());
+				
+				if (p_lbr_NFEntrada.isEmpty())
+				{
+					MDocType doc = (MDocType)otherInOut.getC_DocType();
+					I_W_C_DocType docInvoice = POWrapper.create((MDocType)doc.getC_DocTypeInvoice(), I_W_C_DocType.class);
+					
+					// If not Own Document NF must be filled
+					if (docInvoice != null && !docInvoice.islbr_IsOwnDocument())
+						return "Obrigado Preencher o Número da NF";
+				}
 				
 				// Shipment/Receipt
 				MInOut io = null;
@@ -182,7 +194,7 @@ public class GenerateNF extends SvrProcess
 					
 					//	If not, create ship/receipt
 					if (io == null)
-						io = MInOut.createFrom(otherInOut, Env.getContextAsDate(Env.getCtx(), "#DATE"), force, false, null, true, get_TrxName());
+						io = MInOut.createFrom(otherInOut, Env.getContextAsDate(Env.getCtx(), "#DATE"), force, true, null, true, get_TrxName());
 				}
 								
 				// Ship/Receipt without lines
@@ -237,6 +249,9 @@ public class GenerateNF extends SvrProcess
 					
 					nf.generateNF(io, IsOwnDocument);
 					nf.m_justCreated = true;
+					nf.save();
+					
+					nf.setDocStatus(nf.prepareIt());
 					nf.save();
 					
 					sucess = " - NF " + nf.getDocumentNo() + " Criada";
@@ -308,6 +323,7 @@ public class GenerateNF extends SvrProcess
 			
 			iLine.setM_Product_ID(oLine.getM_Product_ID());
 			iLine.setQty(oLine.getQtyOrdered().subtract(oLine.getQtyDelivered()));
+			iLine.setM_AttributeSetInstance_ID(oLine.getM_AttributeSetInstance_ID());
 			iLine.setDescription(oLine.getDescription());
 			iLine.setC_UOM_ID(oLine.getC_UOM_ID());
 			iLine.setM_Locator_ID(m_locator_id);

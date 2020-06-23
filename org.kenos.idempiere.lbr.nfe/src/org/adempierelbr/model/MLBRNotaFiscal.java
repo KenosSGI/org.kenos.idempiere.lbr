@@ -1976,6 +1976,16 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		//	Tipo de Documento
 		setC_DocTypeTarget_ID();
 		
+		MDocType dt = new MDocType (Env.getCtx(), getC_DocTypeTarget_ID(), get_TrxName());
+		
+		if (dt != null)
+		{
+			String nfModel = dt.get_ValueAsString("lbr_NFModel");
+			
+			if (nfModel != null && !nfModel.isEmpty())
+				setlbr_NFModel(nfModel);
+		}
+		
 		// Imprime Descontos
 		if (LBR_NFMODEL_NotaFiscalDeServiçosEletrônicaRPS.equals(getNFModel()))
 			setIsDiscountPrinted(false);
