@@ -252,7 +252,7 @@ public class NFSeAbrasf100Impl implements INFSe
 		if (bp.get_ValueAsString("LBR_EMailNFSe") != null && !bp.get_ValueAsString("LBR_EMailNFSe").isEmpty())
 		{
 			TcContato contato = dadosTomador.addNewContato();
-			contato.setEmail(bp.get_ValueAsString("LBR_EMailNFSe"));
+			contato.setEmail(bp.get_ValueAsString("LBR_EMailNFSe").trim());
 		}
 				
 		//	Descrição do Serviço
