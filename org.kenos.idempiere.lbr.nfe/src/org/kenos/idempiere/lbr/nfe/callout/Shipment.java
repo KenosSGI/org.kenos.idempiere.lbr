@@ -60,6 +60,10 @@ public class Shipment implements IColumnCallout
 			//
 			mTab.setValue(X_LBR_MDFeVehicle.COLUMNNAME_lbr_BPShipperLicensePlate, plate);
 		}
+		
+		//	Default driver
+		if (vehicle.getLBR_MDFeDriver_ID() > 0)
+			mTab.setValue(X_LBR_MDFeVehicle.COLUMNNAME_LBR_MDFeDriver_ID, vehicle.getLBR_MDFeDriver_ID());
 
 		return "";
 	}	//	start
