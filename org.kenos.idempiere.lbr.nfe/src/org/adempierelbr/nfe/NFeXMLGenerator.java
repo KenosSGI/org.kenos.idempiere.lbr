@@ -2141,7 +2141,7 @@ public class NFeXMLGenerator
 						MLBRNotaFiscal.LBR_PAYMENTRULE_DebitCard, MLBRNotaFiscal.LBR_PAYMENTRULE_StoreCredit,
 						MLBRNotaFiscal.LBR_PAYMENTRULE_FoodVoucher, MLBRNotaFiscal.LBR_PAYMENTRULE_MealVoucher,
 						MLBRNotaFiscal.LBR_PAYMENTRULE_GiftCard, MLBRNotaFiscal.LBR_PAYMENTRULE_FuelVoucher,
-						MLBRNotaFiscal.LBR_PAYMENTRULE_TradeBill, MLBRNotaFiscal.LBR_PAYMENTRULE_Bill,
+						MLBRNotaFiscal.LBR_PAYMENTRULE_TradeBillOld, MLBRNotaFiscal.LBR_PAYMENTRULE_Bill,
 						MLBRNotaFiscal.LBR_PAYMENTRULE_NoPaymentRequired, MLBRNotaFiscal.LBR_PAYMENTRULE_Other))
 				{
 					dPag.setTPag(TPag.Enum.forString(paymentRule));

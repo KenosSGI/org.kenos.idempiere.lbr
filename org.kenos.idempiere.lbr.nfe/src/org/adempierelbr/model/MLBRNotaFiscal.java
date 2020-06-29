@@ -119,6 +119,7 @@ import org.compiere.util.Msg;
 import org.compiere.util.TimeUtil;
 import org.compiere.util.Trx;
 import org.compiere.util.Util;
+import org.kenos.idempiere.lbr.base.Constants;
 import org.kenos.idempiere.lbr.base.model.MLBRAverageCostLine;
 import org.kenos.idempiere.lbr.base.model.MLBRProductionGroup;
 import org.kenos.idempiere.lbr.base.model.SysConfig;
@@ -2859,6 +2860,13 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 					setlbr_PackingType(MSysConfig.getValue(SysConfig.LBR_NFESPECIE, getAD_Client_ID()));
 				else
 					setlbr_PackingType(MSysConfig.getValue("VOLUME"));
+				
+				int LBR_MDFeVehicle_ID = io.get_ValueAsInt("LBR_MDFeVehicle_ID");
+				if (LBR_MDFeVehicle_ID > 0)
+				{
+					X_LBR_MDFeVehicle vehicle = new X_LBR_MDFeVehicle(getCtx(), LBR_MDFeVehicle_ID, get_TrxName());
+					setLBR_RNTRC(vehicle.getLBR_RNTRC());
+				}
 			}
 			else
 			{
@@ -4390,7 +4398,7 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 						throw new Exception ("Falha na transmissão da NF-e");
 					
 					if (!lot.islbr_LotSent())
-						throw new Exception ("Erro na transmissão da NF-e. " + MRefList.getListName(getCtx(), LBR_NFESTATUS_AD_Reference_ID, lot.getlbr_NFeStatus()));
+						throw new Exception ("Erro na transmissão da NF-e. " + MRefList.getListName(getCtx(), Constants.LBR_NFESTATUS_AD_Reference_ID, lot.getlbr_NFeStatus()));
 					
 					try 
 					{
