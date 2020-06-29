@@ -15,7 +15,8 @@ public class CalloutFactory implements ICalloutFactory
 	@Override
 	public Callout getCallout (String className, String methodName)
 	{
-		if (CalloutOrder.class.getName().equals(className) && "product".equals(methodName))
+		if (CalloutOrder.class.getName().equals(className) && 
+				("product".equals(methodName) || "qty".equals(methodName)))
 			return new OrderLineProduct();
 		return null;
 	}	//	getCallout
