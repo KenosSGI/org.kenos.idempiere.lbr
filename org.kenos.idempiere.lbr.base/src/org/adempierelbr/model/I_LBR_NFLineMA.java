@@ -1,6 +1,6 @@
 /******************************************************************************
- * Product: AdempiereLBR ERP & CRM Smart Business Solution                    *
- * Copyright (C) 1999-2007 ComPiere, Inc. All Rights Reserved.                *
+ * Product: iDempiere ERP & CRM Smart Business Solution                       *
+ * Copyright (C) 1999-2012 ComPiere, Inc. All Rights Reserved.                *
  * This program is free software, you can redistribute it and/or modify it    *
  * under the terms version 2 of the GNU General Public License as published   *
  * by the Free Software Foundation. This program is distributed in the hope   *
@@ -22,9 +22,10 @@ import org.compiere.model.*;
 import org.compiere.util.KeyNamePair;
 
 /** Generated Interface for LBR_NFLineMA
- *  @author Adempiere (generated) 
- *  @version Release 3.6.0LTS
+ *  @author iDempiere (generated) 
+ *  @version Release 6.2
  */
+@SuppressWarnings("all")
 public interface I_LBR_NFLineMA 
 {
 
@@ -62,6 +63,21 @@ public interface I_LBR_NFLineMA
 	  * Organizational entity within client
 	  */
 	public int getAD_Org_ID();
+
+    /** Column name C_Region_ID */
+    public static final String COLUMNNAME_C_Region_ID = "C_Region_ID";
+
+	/** Set Region.
+	  * Identifies a geographical Region
+	  */
+	public void setC_Region_ID (int C_Region_ID);
+
+	/** Get Region.
+	  * Identifies a geographical Region
+	  */
+	public int getC_Region_ID();
+
+	public org.compiere.model.I_C_Region getC_Region() throws RuntimeException;
 
     /** Column name Created */
     public static final String COLUMNNAME_Created = "Created";
@@ -145,6 +161,15 @@ public interface I_LBR_NFLineMA
 	/** Get ANVISA Code	  */
 	public String getLBR_ANVISACode();
 
+    /** Column name LBR_ANVISAMotivo */
+    public static final String COLUMNNAME_LBR_ANVISAMotivo = "LBR_ANVISAMotivo";
+
+	/** Set ANVISA Motivo	  */
+	public void setLBR_ANVISAMotivo (String LBR_ANVISAMotivo);
+
+	/** Get ANVISA Motivo	  */
+	public String getLBR_ANVISAMotivo();
+
     /** Column name LBR_AttributeType */
     public static final String COLUMNNAME_LBR_AttributeType = "LBR_AttributeType";
 
@@ -211,6 +236,15 @@ public interface I_LBR_NFLineMA
 
 	/** Get NF Line Material Attributes	  */
 	public int getLBR_NFLineMA_ID();
+
+    /** Column name LBR_NFLineMA_UU */
+    public static final String COLUMNNAME_LBR_NFLineMA_UU = "LBR_NFLineMA_UU";
+
+	/** Set LBR_NFLineMA_UU	  */
+	public void setLBR_NFLineMA_UU (String LBR_NFLineMA_UU);
+
+	/** Get LBR_NFLineMA_UU	  */
+	public String getLBR_NFLineMA_UU();
 
     /** Column name LBR_NotaFiscalLine_ID */
     public static final String COLUMNNAME_LBR_NotaFiscalLine_ID = "LBR_NotaFiscalLine_ID";
@@ -280,6 +314,19 @@ public interface I_LBR_NFLineMA
 
 	/** Get Start Amount	  */
 	public BigDecimal getLBR_StartAmt();
+
+    /** Column name LBR_UFCons */
+    public static final String COLUMNNAME_LBR_UFCons = "LBR_UFCons";
+
+	/** Set Consumption Region.
+	  * Indicate the Consumption Region
+	  */
+	public void setLBR_UFCons (String LBR_UFCons);
+
+	/** Get Consumption Region.
+	  * Indicate the Consumption Region
+	  */
+	public String getLBR_UFCons();
 
     /** Column name LBR_VeBrandCode */
     public static final String COLUMNNAME_LBR_VeBrandCode = "LBR_VeBrandCode";

@@ -1,6 +1,6 @@
 /******************************************************************************
- * Product: AdempiereLBR ERP & CRM Smart Business Solution                    *
- * Copyright (C) 1999-2007 ComPiere, Inc. All Rights Reserved.                *
+ * Product: iDempiere ERP & CRM Smart Business Solution                       *
+ * Copyright (C) 1999-2012 ComPiere, Inc. All Rights Reserved.                *
  * This program is free software, you can redistribute it and/or modify it    *
  * under the terms version 2 of the GNU General Public License as published   *
  * by the Free Software Foundation. This program is distributed in the hope   *
@@ -25,15 +25,15 @@ import org.compiere.model.*;
 import org.compiere.util.Env;
 
 /** Generated Model for LBR_NFLineMA
- *  @author ADempiereLBR (generated) 
- *  @version Release 3.6.0LTS - $Id$ */
+ *  @author iDempiere (generated) 
+ *  @version Release 6.2 - $Id$ */
 public class X_LBR_NFLineMA extends PO implements I_LBR_NFLineMA, I_Persistent 
 {
 
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20180606L;
+	private static final long serialVersionUID = 20200629L;
 
     /** Standard Constructor */
     public X_LBR_NFLineMA (Properties ctx, int LBR_NFLineMA_ID, String trxName)
@@ -75,6 +75,34 @@ public class X_LBR_NFLineMA extends PO implements I_LBR_NFLineMA, I_Persistent
         .append(get_ID()).append("]");
       return sb.toString();
     }
+
+	public org.compiere.model.I_C_Region getC_Region() throws RuntimeException
+    {
+		return (org.compiere.model.I_C_Region)MTable.get(getCtx(), org.compiere.model.I_C_Region.Table_Name)
+			.getPO(getC_Region_ID(), get_TrxName());	}
+
+	/** Set Region.
+		@param C_Region_ID 
+		Identifies a geographical Region
+	  */
+	public void setC_Region_ID (int C_Region_ID)
+	{
+		if (C_Region_ID < 1) 
+			set_Value (COLUMNNAME_C_Region_ID, null);
+		else 
+			set_Value (COLUMNNAME_C_Region_ID, Integer.valueOf(C_Region_ID));
+	}
+
+	/** Get Region.
+		@return Identifies a geographical Region
+	  */
+	public int getC_Region_ID () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_C_Region_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
 
 	/** Set Due Date.
 		@param DueDate 
@@ -159,8 +187,20 @@ public class X_LBR_NFLineMA extends PO implements I_LBR_NFLineMA, I_Persistent
 		return (String)get_Value(COLUMNNAME_LBR_ANVISACode);
 	}
 
-	/** LBR_AttributeType AD_Reference_ID=1120278 */
-	public static final int LBR_ATTRIBUTETYPE_AD_Reference_ID=1120278;
+	/** Set ANVISA Motivo.
+		@param LBR_ANVISAMotivo ANVISA Motivo	  */
+	public void setLBR_ANVISAMotivo (String LBR_ANVISAMotivo)
+	{
+		set_Value (COLUMNNAME_LBR_ANVISAMotivo, LBR_ANVISAMotivo);
+	}
+
+	/** Get ANVISA Motivo.
+		@return ANVISA Motivo	  */
+	public String getLBR_ANVISAMotivo () 
+	{
+		return (String)get_Value(COLUMNNAME_LBR_ANVISAMotivo);
+	}
+
 	/** Tracking = R00 */
 	public static final String LBR_ATTRIBUTETYPE_Tracking = "R00";
 	/** Medicine = X01 */
@@ -243,8 +283,6 @@ public class X_LBR_NFLineMA extends PO implements I_LBR_NFLineMA, I_Persistent
 		return (String)get_Value(COLUMNNAME_LBR_GunSerial);
 	}
 
-	/** LBR_GunType AD_Reference_ID=1120277 */
-	public static final int LBR_GUNTYPE_AD_Reference_ID=1120277;
 	/** Allowed Usage = 0 */
 	public static final String LBR_GUNTYPE_AllowedUsage = "0";
 	/** Restricted Use = 1 */
@@ -299,6 +337,20 @@ public class X_LBR_NFLineMA extends PO implements I_LBR_NFLineMA, I_Persistent
 		if (ii == null)
 			 return 0;
 		return ii.intValue();
+	}
+
+	/** Set LBR_NFLineMA_UU.
+		@param LBR_NFLineMA_UU LBR_NFLineMA_UU	  */
+	public void setLBR_NFLineMA_UU (String LBR_NFLineMA_UU)
+	{
+		set_Value (COLUMNNAME_LBR_NFLineMA_UU, LBR_NFLineMA_UU);
+	}
+
+	/** Get LBR_NFLineMA_UU.
+		@return LBR_NFLineMA_UU	  */
+	public String getLBR_NFLineMA_UU () 
+	{
+		return (String)get_Value(COLUMNNAME_LBR_NFLineMA_UU);
 	}
 
 	public org.adempierelbr.model.I_LBR_NotaFiscalLine getLBR_NotaFiscalLine() throws RuntimeException
@@ -425,6 +477,26 @@ public class X_LBR_NFLineMA extends PO implements I_LBR_NFLineMA, I_Persistent
 		return bd;
 	}
 
+	/** LBR_UFCons AD_Reference_ID=157 */
+	public static final int LBR_UFCONS_AD_Reference_ID=157;
+	/** Set Consumption Region.
+		@param LBR_UFCons 
+		Indicate the Consumption Region
+	  */
+	public void setLBR_UFCons (String LBR_UFCons)
+	{
+
+		set_Value (COLUMNNAME_LBR_UFCons, LBR_UFCons);
+	}
+
+	/** Get Consumption Region.
+		@return Indicate the Consumption Region
+	  */
+	public String getLBR_UFCons () 
+	{
+		return (String)get_Value(COLUMNNAME_LBR_UFCons);
+	}
+
 	/** Set Brand Code.
 		@param LBR_VeBrandCode Brand Code	  */
 	public void setLBR_VeBrandCode (String LBR_VeBrandCode)
@@ -467,8 +539,6 @@ public class X_LBR_NFLineMA extends PO implements I_LBR_NFLineMA, I_Persistent
 		return (String)get_Value(COLUMNNAME_LBR_VeColorCode);
 	}
 
-	/** LBR_VeColorDENAT AD_Reference_ID=1120275 */
-	public static final int LBR_VECOLORDENAT_AD_Reference_ID=1120275;
 	/** Yellow = 01 */
 	public static final String LBR_VECOLORDENAT_Yellow = "01";
 	/** Blue = 02 */
@@ -530,8 +600,6 @@ public class X_LBR_NFLineMA extends PO implements I_LBR_NFLineMA, I_Persistent
 		return (String)get_Value(COLUMNNAME_LBR_VeColorDesc);
 	}
 
-	/** LBR_VeCondition AD_Reference_ID=1120274 */
-	public static final int LBR_VECONDITION_AD_Reference_ID=1120274;
 	/** Finished = 1 */
 	public static final String LBR_VECONDITION_Finished = "1";
 	/** Unfinished = 2 */
@@ -584,8 +652,6 @@ public class X_LBR_NFLineMA extends PO implements I_LBR_NFLineMA, I_Persistent
 		return (String)get_Value(COLUMNNAME_LBR_VeEngineNo);
 	}
 
-	/** LBR_VeKind AD_Reference_ID=1120272 */
-	public static final int LBR_VEKIND_AD_Reference_ID=1120272;
 	/** Passenger = 01 */
 	public static final String LBR_VEKIND_Passenger = "01";
 	/** Cargo = 02 */
@@ -632,8 +698,6 @@ public class X_LBR_NFLineMA extends PO implements I_LBR_NFLineMA, I_Persistent
 		return ii.intValue();
 	}
 
-	/** LBR_VeOperType AD_Reference_ID=1120269 */
-	public static final int LBR_VEOPERTYPE_AD_Reference_ID=1120269;
 	/** Dealership Sale = 1 */
 	public static final String LBR_VEOPERTYPE_DealershipSale = "1";
 	/** Direct sale to end customer = 2 */
@@ -674,8 +738,6 @@ public class X_LBR_NFLineMA extends PO implements I_LBR_NFLineMA, I_Persistent
 		return bd;
 	}
 
-	/** LBR_VeRestriction AD_Reference_ID=1120276 */
-	public static final int LBR_VERESTRICTION_AD_Reference_ID=1120276;
 	/** None = 0 */
 	public static final String LBR_VERESTRICTION_None = "0";
 	/** Fiduciary Alienation = 1 */
@@ -717,8 +779,6 @@ public class X_LBR_NFLineMA extends PO implements I_LBR_NFLineMA, I_Persistent
 		return (String)get_Value(COLUMNNAME_LBR_VeSerial);
 	}
 
-	/** LBR_VeTpFuel AD_Reference_ID=1120270 */
-	public static final int LBR_VETPFUEL_AD_Reference_ID=1120270;
 	/** Ethanol = 01 */
 	public static final String LBR_VETPFUEL_Ethanol = "01";
 	/** Gasoline = 02 */
@@ -799,8 +859,6 @@ public class X_LBR_NFLineMA extends PO implements I_LBR_NFLineMA, I_Persistent
 		return bd;
 	}
 
-	/** LBR_VeType AD_Reference_ID=1120271 */
-	public static final int LBR_VETYPE_AD_Reference_ID=1120271;
 	/** Bicycle = 01 */
 	public static final String LBR_VETYPE_Bicycle = "01";
 	/** Moped = 02 */
@@ -868,8 +926,6 @@ public class X_LBR_NFLineMA extends PO implements I_LBR_NFLineMA, I_Persistent
 		return (String)get_Value(COLUMNNAME_LBR_VeType);
 	}
 
-	/** LBR_VeVIN AD_Reference_ID=1120273 */
-	public static final int LBR_VEVIN_AD_Reference_ID=1120273;
 	/** Remarked = R */
 	public static final String LBR_VEVIN_Remarked = "R";
 	/** Normal = N */

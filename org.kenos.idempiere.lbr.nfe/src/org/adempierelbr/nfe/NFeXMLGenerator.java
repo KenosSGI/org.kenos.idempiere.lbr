@@ -1153,13 +1153,22 @@ public class NFeXMLGenerator
 					if (attribute != null)
 					{
 						Comb comb = prod.addNewComb();
+						
+						String CODIF = attribute.getLBR_CODIF();
+						String UF = attribute.getLBR_UFCons();
+						
 						comb.setCProdANP(attribute.getLBR_ANPCode());
 						comb.setDescANP(attribute.getLBR_ANPDesc());
 						comb.setPGLP(normalize (attribute.getLBR_PercGLP()));
 						comb.setPGNn(normalize (attribute.getLBR_PercGasN()));
 						comb.setPGNi(normalize (attribute.getLBR_PercGasI()));
 						comb.setVPart(normalize (attribute.getLBR_StartAmt()));
-						comb.setCODIF(attribute.getLBR_CODIF());
+						if (CODIF != null && !CODIF.isBlank())
+							comb.setCODIF(CODIF);
+						if (UF != null && !UF.isBlank())
+							comb.setUFCons(TUf.Enum.forString(UF));
+						else
+							comb.setUFCons(TUf.Enum.forString("EX"));	//	Exterior
 					}
 				}
 				
