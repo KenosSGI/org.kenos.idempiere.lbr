@@ -2002,6 +2002,11 @@ public class NFeXMLGenerator
 					
 					//	Adicionar UF do Veículo
 					veiculo.setUF(TUf.Enum.forString(shipperPlate.substring(pos+1, shipperPlate.length())));
+					
+					//	RNTRC
+					String RNTRC = nf.getLBR_RNTRC();
+					if (RNTRC != null && !RNTRC.isBlank())
+						veiculo.setRNTC(RNTRC);
 				}
 			}
 			
