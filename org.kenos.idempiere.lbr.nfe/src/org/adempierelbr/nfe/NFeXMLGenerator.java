@@ -1156,15 +1156,34 @@ public class NFeXMLGenerator
 						
 						String CODIF = attribute.getLBR_CODIF();
 						String UF = attribute.getLBR_UFCons();
-						
+						BigDecimal percGLP = attribute.getLBR_PercGLP();
+						BigDecimal percGasN = attribute.getLBR_PercGasN();
+						BigDecimal percGasI = attribute.getLBR_PercGasI();
+						BigDecimal startAmt = attribute.getLBR_StartAmt();
+
 						comb.setCProdANP(attribute.getLBR_ANPCode());
 						comb.setDescANP(attribute.getLBR_ANPDesc());
-						comb.setPGLP(normalize (attribute.getLBR_PercGLP()));
-						comb.setPGNn(normalize (attribute.getLBR_PercGasN()));
-						comb.setPGNi(normalize (attribute.getLBR_PercGasI()));
-						comb.setVPart(normalize (attribute.getLBR_StartAmt()));
+						
+						//	Percentual do GLP derivado do petróleo no produto GLP
+						if (percGLP != null && percGLP.signum() == 1)
+							comb.setPGLP(normalize (percGLP));
+						
+						//	Percentual de Gás Natural Nacional
+						if (percGasN != null && percGasN.signum() == 1)
+							comb.setPGNn(normalize (percGasN));
+						
+						//	Percentual de Gás Natural Importado
+						if (percGasI != null && percGasI.signum() == 1)
+							comb.setPGNi(normalize (percGasI));
+						//	Valor de partida
+						if (startAmt != null && startAmt.signum() == 1)
+							comb.setVPart(normalize (startAmt));
+						
+						//	Código de autorização / registro do CODIF
 						if (CODIF != null && !CODIF.isBlank())
 							comb.setCODIF(CODIF);
+						
+						//	Sigla da UF de consumo
 						if (UF != null && !UF.isBlank())
 							comb.setUFCons(TUf.Enum.forString(UF));
 						else
