@@ -219,8 +219,11 @@ public class Payment
 	public ArrayList<ValueNamePair> getPaymentRuleData(BankInfo bi)
 	{
 		ArrayList<ValueNamePair> data = new ArrayList<ValueNamePair>();
-		ValueNamePair vp = new ValueNamePair("D", MRefList.getListName(Env.getCtx(), 195, "D"));
-		data.add(vp);
+		data.add(new ValueNamePair("A", MRefList.getListName(Env.getCtx(), 214, "A")));
+		data.add(new ValueNamePair("D", MRefList.getListName(Env.getCtx(), 214, "D")));
+		data.add(new ValueNamePair("K", MRefList.getListName(Env.getCtx(), 214, "K")));
+		data.add(new ValueNamePair("C", MRefList.getListName(Env.getCtx(), 214, "C")));
+		data.add(new ValueNamePair("X", MRefList.getListName(Env.getCtx(), 214, "X")));
 		return data;
 	}	//	getPaymentRuleData
 
@@ -360,16 +363,16 @@ public class Payment
 				p.setC_DocType_ID(invoice.isSOTrx());
 				p.setC_Currency_ID(bi.C_Currency_ID);
 				p.setPayAmt(PayAmt);
-				p.save();
+				p.saveEx();
 				
 				if (p.processIt(MPayment.ACTION_Complete))
 				{
 					p.setDocStatus(MPayment.DOCSTATUS_Completed);
-					p.save();
+					p.saveEx();
 				}
 				else
 				{
-					return Msg.translate(Env.getCtx(), "C_Payment_ID") + p.getDocumentNo() + " : " + Msg.translate(Env.getCtx(), p.getProcessMsg());
+					return Msg.translate(Env.getCtx(), "C_Invoice_ID") + " [" + invoice.getDocumentNo() + "/" + C_Invoice_ID + "] : " + Msg.translate(Env.getCtx(), p.getErrorMessage());
 				}
 
 				log.fine("C_Invoice_ID=" + C_Invoice_ID + ", PayAmt=" + PayAmt);
