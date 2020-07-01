@@ -2556,6 +2556,7 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		setlbr_TransactionType (wOrder.getlbr_TransactionType());
 		setLBR_IndPres(wOrder.getLBR_IndPres());
 		setC_PaymentTerm_ID(wOrder.getC_PaymentTerm_ID());
+		setLBR_FreightCostRule(wOrder.getLBR_FreightCostRule());
 		//		Regra de Pagamento
 		setlbr_PaymentRule(wOrder.getlbr_PaymentRule());
 		
