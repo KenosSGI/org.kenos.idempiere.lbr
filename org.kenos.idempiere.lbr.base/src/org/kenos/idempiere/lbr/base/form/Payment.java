@@ -20,12 +20,14 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Properties;
 import java.util.logging.Level;
 
 import org.compiere.minigrid.ColumnInfo;
 import org.compiere.minigrid.IDColumn;
 import org.compiere.minigrid.IMiniTable;
+import org.compiere.model.MAllocationHdr;
 import org.compiere.model.MBankAccount;
 import org.compiere.model.MDocType;
 import org.compiere.model.MInvoice;
@@ -365,14 +367,23 @@ public class Payment
 				p.setPayAmt(PayAmt);
 				p.saveEx();
 				
-				if (p.processIt(MPayment.ACTION_Complete))
+				try
 				{
+					p.processIt(MPayment.ACTION_Complete);
 					p.setDocStatus(MPayment.DOCSTATUS_Completed);
 					p.saveEx();
 				}
-				else
+				catch (Exception e)
 				{
-					return Msg.translate(Env.getCtx(), "C_Invoice_ID") + " [" + invoice.getDocumentNo() + "/" + C_Invoice_ID + "] : " + Msg.translate(Env.getCtx(), p.getErrorMessage());
+					//	Delete Allocations
+					Arrays.asList(MAllocationHdr.getOfPayment(Env.getCtx(), p.getC_Payment_ID(), trxName))
+						.stream().forEach(pag -> pag.delete(true));
+					
+					//	Delete Payment
+					p.delete(true);
+					
+					//	Inform user something went wrong
+					return Msg.translate(Env.getCtx(), "C_Invoice_ID") + " [" + invoice.getDocumentNo() + "/" + C_Invoice_ID + "] : " + Msg.translate(Env.getCtx(), e.getMessage());
 				}
 
 				log.fine("C_Invoice_ID=" + C_Invoice_ID + ", PayAmt=" + PayAmt);
