@@ -44,7 +44,7 @@ UPDATE AD_Process_Para SET DefaultValue='@C_Order_ID@',Updated=TO_TIMESTAMP('202
 ;
 
 -- 15 de jun de 2020 13:11:48 BRT
-INSERT INTO AD_ToolBarButton (AD_Client_ID,AD_Org_ID,Created,CreatedBy,ComponentName,IsActive,AD_ToolBarButton_ID,Name,Updated,UpdatedBy,IsCustomization,AD_ToolBarButton_UU,"action",AD_Tab_ID,AD_Process_ID,SeqNo) VALUES (0,0,TO_TIMESTAMP('2020-06-15 13:11:48','YYYY-MM-DD HH24:MI:SS'),100,'Gerar NF-e a partir de Outras Entradas/Saídas','Y',2000015,'Gerar NF-e a partir de Outras Entradas/Saídas',TO_TIMESTAMP('2020-06-15 13:11:48','YYYY-MM-DD HH24:MI:SS'),100,'N','7accb9eb-5dc2-455e-bfd5-c78f076813e7','W',1120365,1120245,10)
+INSERT INTO AD_ToolBarButton (AD_Client_ID,AD_Org_ID,Created,CreatedBy,ComponentName,IsActive,AD_ToolBarButton_ID,Name,Updated,UpdatedBy,IsCustomization,AD_ToolBarButton_UU,"action",AD_Tab_ID,AD_Process_ID,SeqNo) VALUES (0,0,TO_TIMESTAMP('2020-06-15 13:11:48','YYYY-MM-DD HH24:MI:SS'),100,'Gerar NF-e a partir de Outras Entradas/Saídas','Y',1120010,'Gerar NF-e a partir de Outras Entradas/Saídas',TO_TIMESTAMP('2020-06-15 13:11:48','YYYY-MM-DD HH24:MI:SS'),100,'N','7accb9eb-5dc2-455e-bfd5-c78f076813e7','W',1120365,1120245,10)
 ;
 
 -- 15 de jun de 2020 13:12:09 BRT
@@ -52,7 +52,7 @@ UPDATE AD_ToolBarButton SET ComponentName='Generate NF Other In Out', Name='Gene
 ;
 
 -- 15 de jun de 2020 13:12:22 BRT
-INSERT INTO AD_ToolBarButton (AD_Client_ID,AD_Org_ID,Created,CreatedBy,ComponentName,IsActive,AD_ToolBarButton_ID,Name,Updated,UpdatedBy,IsCustomization,AD_ToolBarButton_UU,"action",AD_Tab_ID,AD_Process_ID,SeqNo) VALUES (0,0,TO_TIMESTAMP('2020-06-15 13:12:22','YYYY-MM-DD HH24:MI:SS'),100,'Generate NF Other In Out','Y',2000016,'Generate NF Other In Out',TO_TIMESTAMP('2020-06-15 13:12:22','YYYY-MM-DD HH24:MI:SS'),100,'N','c42ff499-fbf8-4945-8118-3e9c43eb0cd6','W',1120371,1120245,10)
+INSERT INTO AD_ToolBarButton (AD_Client_ID,AD_Org_ID,Created,CreatedBy,ComponentName,IsActive,AD_ToolBarButton_ID,Name,Updated,UpdatedBy,IsCustomization,AD_ToolBarButton_UU,"action",AD_Tab_ID,AD_Process_ID,SeqNo) VALUES (0,0,TO_TIMESTAMP('2020-06-15 13:12:22','YYYY-MM-DD HH24:MI:SS'),100,'Generate NF Other In Out','Y',1120011,'Generate NF Other In Out',TO_TIMESTAMP('2020-06-15 13:12:22','YYYY-MM-DD HH24:MI:SS'),100,'N','c42ff499-fbf8-4945-8118-3e9c43eb0cd6','W',1120371,1120245,10)
 ;
 
 SELECT Register_Migration_Script ('202006151600_GenerateNFfromOtherInOut.sql') FROM DUAL
