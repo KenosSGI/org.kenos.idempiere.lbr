@@ -118,7 +118,7 @@ public class Payment
 		data.add(pp);
 		
 		String sql = MRole.getDefault().addAccessSQL(
-			"SELECT DISTINCT bp.C_BPartner_ID, bp.Name FROM C_BPartner bp", "bp",
+			"SELECT DISTINCT bp.C_BPartner_ID, UPPER(bp.Name) FROM C_BPartner bp", "bp",
 			MRole.SQL_FULLYQUALIFIED, MRole.SQL_RO)
 			+ " AND EXISTS (SELECT * FROM C_Invoice i WHERE bp.C_BPartner_ID=i.C_BPartner_ID AND i.IsPaid<>'Y' "
 			+ " AND i.IsSOTrx=?) "
