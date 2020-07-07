@@ -468,8 +468,8 @@ Se você selecionar isto, certifique-se que você não terá múltiplas as conta
   <value column="Help" original=""/>
  </row>
  <row id="200" trl="Y">
-  <value column="Name" original="Print Invoices">Imprimir Notas Fiscais</value>
-  <value column="Description" original="Print Invoices to paper or send PDF">Imprimir Notas Fiscais / Fatura em papel ou enviar PDF</value>
+  <value column="Name" original="Print Invoices">Imprimir Faturas</value>
+  <value column="Description" original="Print Invoices to paper or send PDF">Imprimir Fatura ou Enviar PDF</value>
   <value column="Help" original="(Re)Print Invoices or send them as PDF attachments to the Business Partner Contact with a valid EMail addres.&#10;&lt;br&gt;&#10;Remark: If you only enter a Document No FROM value, all invoices greater or equal that document number are printed; you can alternatively use the % character as a widcard." xml:space="preserve"><![CDATA[(Re)Imprima Faturas ou as envie como anexos PDF para o Contato do Parceiro de Negócios com um endereço de EMail válido.
 <br>
 Observação: Se você digitar somente um Nº de documento A PARTIR do valor, todas as faturas maior ou igual ao número do documento são impressos; você também pode usar o caractere % como curinga.]]></value>
