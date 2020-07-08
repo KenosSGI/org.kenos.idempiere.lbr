@@ -7350,13 +7350,13 @@ Impressão:
   <value column="Help" original="The Order Tax Tab displays the tax amount for an Order based on the lines entered.">A Aba "Imposto Outras Saídas" mostra o montante de impostos associados a Outras Saídas baseado nas linhas digitadas.</value>
  </row>
  <row trl="N" uuid="3eefc1b0-eb04-4e64-92d9-f792100229f3">
-  <value column="Name" original="Payment Schedule">Payment Schedule</value>
+  <value column="Name" original="Payment Schedule">Programação de Pagamento</value>
   <value column="CommitWarning" original=""/>
-  <value column="Description" original="Order Payment Schedule">Order Payment Schedule</value>
+  <value column="Description" original="Order Payment Schedule">Programação de Pagamento</value>
   <value column="Help" original=""/>
  </row>
  <row trl="N" uuid="a46bad9d-75b8-4900-9611-2e13e34e4cea">
-  <value column="Name" original="POS Payment">POS Payment</value>
+  <value column="Name" original="POS Payment">Pagamento PDV</value>
   <value column="CommitWarning" original=""/>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
@@ -7398,9 +7398,9 @@ Impressão:
   <value column="Help" original="The Order Tax Tab displays the tax associated with the Order Lines.">A Aba "Imposto Outras Entradas" mostra os impostos associados com as Linhas de Outras Entradas.</value>
  </row>
  <row trl="N" uuid="38aecc34-c944-4bb0-a418-101bf3b275b0">
-  <value column="Name" original="Payment Schedule">Payment Schedule</value>
+  <value column="Name" original="Payment Schedule">Programação de Pagamento</value>
   <value column="CommitWarning" original=""/>
-  <value column="Description" original="Order Payment Schedule">Order Payment Schedule</value>
+  <value column="Description" original="Order Payment Schedule">Programação de Pagamento</value>
   <value column="Help" original=""/>
  </row>
  <row trl="N" uuid="92f24b43-3c86-4fc7-b7b6-86fdb0e5ff03">
@@ -7414,5 +7414,11 @@ Impressão:
   <value column="CommitWarning" original=""/>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
+ </row>
+ <row id="2000003" trl="N">
+  <value column="Name" original="Controle de Documentos">Controle de Documentos</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original="Controle de Documentos">Controle de Documentos</value>
+  <value column="Help" original="Controle de Documentos">Controle de Documentos</value>
  </row>
 </idempiereTrl>

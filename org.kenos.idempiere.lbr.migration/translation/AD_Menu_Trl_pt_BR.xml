@@ -340,4 +340,8 @@
   <value column="Name" original="MDF-e">MDF-e</value>
   <value column="Description" original=""/>
  </row>
+ <row trl="N" uuid="867bbebd-9992-47b1-abb1-10527becd07e">
+  <value column="Name" original="Others Operations">Outras Operações</value>
+  <value column="Description" original=""/>
+ </row>
 </idempiereTrl>

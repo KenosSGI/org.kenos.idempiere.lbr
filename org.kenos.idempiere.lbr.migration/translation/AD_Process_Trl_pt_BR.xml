@@ -468,8 +468,8 @@ Se você selecionar isto, certifique-se que você não terá múltiplas as conta
   <value column="Help" original=""/>
  </row>
  <row id="200" trl="Y">
-  <value column="Name" original="Print Invoices">Imprimir Faturas</value>
-  <value column="Description" original="Print Invoices to paper or send PDF">Imprimir Fatura ou Enviar PDF</value>
+  <value column="Name" original="Print Invoices">Imprimir Notas Fiscais</value>
+  <value column="Description" original="Print Invoices to paper or send PDF">Imprimir Notas Fiscais / Fatura em papel ou enviar PDF</value>
   <value column="Help" original="(Re)Print Invoices or send them as PDF attachments to the Business Partner Contact with a valid EMail addres.&#10;&lt;br&gt;&#10;Remark: If you only enter a Document No FROM value, all invoices greater or equal that document number are printed; you can alternatively use the % character as a widcard." xml:space="preserve"><![CDATA[(Re)Imprima Faturas ou as envie como anexos PDF para o Contato do Parceiro de Negócios com um endereço de EMail válido.
 <br>
 Observação: Se você digitar somente um Nº de documento A PARTIR do valor, todas as faturas maior ou igual ao número do documento são impressos; você também pode usar o caractere % como curinga.]]></value>
@@ -2581,6 +2581,11 @@ For example:<br />
   <value column="Name" original="Generate NF">Gerar Notas Fiscais</value>
   <value column="Description" original="Generate NF from another document">Gerar Notas Fiscais a partir de outro documento</value>
   <value column="Help" original="">Este processo permite a geração de uma Nota Fiscal a partir de um Pedido, Remessa, Fatura ou Movimentação.</value>
+ </row>
+ <row trl="Y" uuid="8d41fbb9-854d-40be-9801-66331f6b2ac5">
+  <value column="Name" original="Generate NF Other In Out">Gerar NF-e a partir de Outras Entradas/Saídas</value>
+  <value column="Description" original="Generate NF from Other In Out">Gerar NF-e a partir de Outras Entradas/Saídas</value>
+  <value column="Help" original="">Este processo permite a geração de uma Nota Fiscal a partir de um documento do tipo  Outras Entradas/Saídas</value>
  </row>
  <row trl="Y" uuid="31dfe921-cec5-49d1-b0a5-b26d596d5ef6">
   <value column="Name" original="Make To Order Candidate">Pedido de Venda pendente de Produção</value>
