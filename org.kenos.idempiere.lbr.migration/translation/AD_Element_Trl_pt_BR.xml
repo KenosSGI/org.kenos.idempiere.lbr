@@ -70780,4 +70780,15 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_Name" original=""/>
   <value column="PO_PrintName" original=""/>
  </row>
+ <row trl="Y" uuid="42c83859-c05e-46b8-b5ce-c72cc48fda51">
+  <value column="Name" original="Other InOut">Outras Entradas/Saída</value>
+  <value column="PrintName" original="Other InOut">Outras Entradas/Saída</value>
+  <value column="Description" original="Other InOut Documento">Documento referente a Outras Entradas/Saída</value>
+  <value column="Help" original="Use to delivery of receive product from others operations">Usado para Enviar o Receber Produtos por Outras Entradas /Saídas</value>
+  <value column="Placeholder" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+ </row>
 </idempiereTrl>
