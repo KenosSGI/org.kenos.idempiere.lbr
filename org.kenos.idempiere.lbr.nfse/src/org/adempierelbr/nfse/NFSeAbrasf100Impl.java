@@ -26,6 +26,9 @@ import org.adempierelbr.util.NFeUtil;
 import org.adempierelbr.util.SignatureUtil;
 import org.adempierelbr.util.TextUtil;
 import org.adempierelbr.wrapper.I_W_AD_OrgInfo;
+import org.apache.axis2.AxisFault;
+import org.apache.axis2.context.ConfigurationContext;
+import org.apache.axis2.context.ConfigurationContextFactory;
 import org.apache.axis2.transport.http.HTTPConstants;
 import org.compiere.model.MAttachment;
 import org.compiere.model.MAttachmentEntry;
@@ -65,6 +68,7 @@ import br.com.ginfes.tiposV03.TcPedidoCancelamento;
 import br.com.ginfes.tiposV03.TcRps;
 import br.com.ginfes.tiposV03.TcValores;
 import br.com.ginfes.tiposV03.TsCodigoMunicipioIbge;
+import br.org.abrasf.nfse.webservice.Abrasf100HomologServiceGinfesImplServiceStub;
 import br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub;
 import br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarNfsePorRpsV3;
 import br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.RecepcionarLoteRpsV3;
@@ -422,12 +426,26 @@ public class NFSeAbrasf100Impl implements INFSe
 		 *	Enviar NF-e
 		 */
 		
+		//	Create a context to inrease timeout
+		ConfigurationContext axisContext;
+		try 
+		{
+		    axisContext = ConfigurationContextFactory.createDefaultConfigurationContext();
+		} 
+		catch (Exception e) 
+		{
+		    throw new AxisFault(e.getMessage());
+		}
+		
+		axisContext.setProperty(HTTPConstants.CONNECTION_TIMEOUT, 120*1000);
+		axisContext.setProperty(HTTPConstants.SO_TIMEOUT, 120*1000);
+		
+		
 		//	Produção
-		Abrasf100ProdServiceStub rpsStub = new Abrasf100ProdServiceStub();
+		Abrasf100ProdServiceStub rpsStub = new Abrasf100ProdServiceStub(axisContext);
 		
 		//	Homologação
-		br.org.abrasf.nfse.webservice.Abrasf100HomologServiceGinfesImplServiceStub rpsStubHom = 
-				new br.org.abrasf.nfse.webservice.Abrasf100HomologServiceGinfesImplServiceStub();
+		Abrasf100HomologServiceGinfesImplServiceStub rpsStubHom = new Abrasf100HomologServiceGinfesImplServiceStub(axisContext);
 		
 		//	Mensagem de Retorno após enviar NFS-e para Emissão
 		String retornoEnvioXMLNFSe = "";
