@@ -4,9 +4,13 @@ import java.util.Properties;
 
 import org.adempiere.base.event.AbstractEventHandler;
 import org.adempiere.base.event.IEventTopics;
+import org.compiere.model.MAcctSchema;
 import org.compiere.model.MClient;
 import org.compiere.model.MClientInfo;
+import org.compiere.model.MCost;
 import org.compiere.model.MInOutLine;
+import org.compiere.model.MOrderLine;
+import org.compiere.model.MProduct;
 import org.compiere.model.MSysConfig;
 import org.compiere.model.PO;
 import org.compiere.util.CLogger;
@@ -50,12 +54,16 @@ public class EventHandler extends AbstractEventHandler
 			//	Handle InOutLine Events
 			else if (MInOutLine.Table_Name.equals(po.get_TableName()))
 				doHandleEvent ((MInOutLine) po, topic);
+			
+			//	Handle InOutLine Events
+			else if (MOrderLine.Table_Name.equals(po.get_TableName()))
+				doHandleEvent ((MOrderLine) po, topic);
 		}
 		
 	}	//	doHandleEvent
 	
 	/**
-	 * 	Handle Order Line Events
+	 * 	Handle Shipment/Receipt Line Events
 	 * 	@param event
 	 */
 	private void doHandleEvent (MInOutLine iol, String topic)
@@ -69,6 +77,52 @@ public class EventHandler extends AbstractEventHandler
 					&& iol.getC_OrderLine().getRef_OrderLine_ID() > 0
 					&& iol.getC_OrderLine().getRef_OrderLine().getM_AttributeSetInstance_ID() > 0)
 				iol.setM_AttributeSetInstance_ID(iol.getC_OrderLine().getRef_OrderLine().getM_AttributeSetInstance_ID());
+		}
+	}	//	doHandleTableEvent
+	
+	/**
+	 * 	Handle Order Line Events
+	 * 	@param event
+	 */
+	private void doHandleEvent (MOrderLine ol, String topic)
+	{
+		//	Already filled, do nothing
+		if (ol.getPriceCost() != null && ol.getPriceCost().signum() != 0)
+			return;
+		
+		//	No product, do nothing
+		if (ol.getM_Product_ID() == 0)
+			return;
+		
+		//	FIXME: Evaluate this solution, create a field in Organization if it proves good
+		//	Invalid or not configured element cost
+		int M_ElementCost_ID = MSysConfig.getIntValue("LBR_DEFAULT_ELEMENTCOST", ol.getAD_Client_ID(), ol.getAD_Org_ID());
+		if (M_ElementCost_ID < 1)
+			return;
+		
+		MClientInfo ci = MClientInfo.get(ol.getCtx());
+		MAcctSchema as = new MAcctSchema (ol.getCtx(), ci.getC_AcctSchema1_ID(), ol.get_TrxName());
+		
+		MProduct p = new MProduct (ol.getCtx(), ol.getM_Product_ID(), ol.get_TrxName());
+		MCost cost = null;
+		
+		//	Combinations of org and ASI
+		Integer combinations[][] = { 
+				 { ol.getM_AttributeSetInstance_ID(), ol.getAD_Org_ID() },	//	With ASI, With Org
+				 { ol.getM_AttributeSetInstance_ID(), 0 },					//	With ASI, No *
+				 { 0, ol.getAD_Org_ID() },									//	No ASI, With Org
+				 { 0, 0 } };												//	No ASI, No Org
+		
+		for (Integer[] combination : combinations)
+		{
+			cost = MCost.get (p, combination[0], as, combination[1], M_ElementCost_ID, ol.get_TrxName());
+			
+			//	Current cost price found
+			if (cost != null && cost.getCurrentCostPrice().signum() != 0)
+			{
+				ol.setPriceCost(cost.getCurrentCostPrice());
+				return;
+			}
 		}
 	}	//	doHandleTableEvent
 	
@@ -131,5 +185,7 @@ public class EventHandler extends AbstractEventHandler
 	{
 		registerEvent (IEventTopics.AFTER_LOGIN);
 		registerTableEvent (IEventTopics.PO_BEFORE_NEW, MInOutLine.Table_Name);
+		registerTableEvent (IEventTopics.PO_BEFORE_NEW, MOrderLine.Table_Name);
+		registerTableEvent (IEventTopics.PO_BEFORE_CHANGE, MOrderLine.Table_Name);
 	}	//	initialize
 }	//	EventHandler
