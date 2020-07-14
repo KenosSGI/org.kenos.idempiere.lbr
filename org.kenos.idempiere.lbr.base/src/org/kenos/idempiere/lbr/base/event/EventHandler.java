@@ -120,7 +120,13 @@ public class EventHandler extends AbstractEventHandler
 			//	Current cost price found
 			if (cost != null && cost.getCurrentCostPrice().signum() != 0)
 			{
+				//	Set Cost
 				ol.setPriceCost(cost.getCurrentCostPrice());
+				
+				//	If no price limit, set cost as limit
+				if (ol.getPriceLimit() == null || ol.getPriceLimit().signum() == 0)
+					ol.setPriceCost(cost.getCurrentCostPrice());
+				
 				return;
 			}
 		}
