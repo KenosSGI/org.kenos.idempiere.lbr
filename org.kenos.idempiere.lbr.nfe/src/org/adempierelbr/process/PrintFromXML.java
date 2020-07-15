@@ -178,10 +178,10 @@ public class PrintFromXML extends SvrProcess
 			oi = MOrgInfo.get(Env.getCtx(), event.getAD_Org_ID(), null);
 			
 			if (!"135".equals (event.getlbr_NFeStatus()) && !"136".equals (event.getlbr_NFeStatus()))
-				return "CC-e n\u00E3o processada corretamente, n\u00E3o \u00E9 poss\u00EDvel fazer a impress\u00E3o";
+				return "@Error@ CC-e n\u00E3o processada corretamente, n\u00E3o \u00E9 poss\u00EDvel fazer a impress\u00E3o";
 			
 			if (!MLBRNFeEvent.LBR_EVENTTYPE_CartaDeCorrecao.equals(event.getLBR_EventType()))
-				return "Documento n\u00E3o possui modelo de impress\u00E3o";
+				return "@Error@ Documento n\u00E3o possui modelo de impress\u00E3o";
 			
 			att = event.getAttachment (true);
 			
@@ -196,6 +196,8 @@ public class PrintFromXML extends SvrProcess
 		else if (tableID == MLBRNotaFiscal.Table_ID)
 		{
 			MLBRNotaFiscal doc = new MLBRNotaFiscal(getCtx(), p_Record_ID, get_TrxName());
+			doc.setIsPrinted(true);
+			doc.save();
 			
 			// Organização
 			oi = MOrgInfo.get(Env.getCtx(), doc.getAD_Org_ID(), null);
@@ -208,7 +210,7 @@ public class PrintFromXML extends SvrProcess
 				if (infSe != null)
 					return infSe.printNFSe(doc);
 				else
-					return "Documento sem formato de impress\u00E3o dispon\u00EDvel ou impress\u00E3o n\u00E3o permitida";
+					return "@Error@ Documento sem formato de impress\u00E3o dispon\u00EDvel ou impress\u00E3o n\u00E3o permitida";
 			}
 			
 			else if (MLBRNotaFiscal.LBR_NFMODEL_NotaFiscalDeConsumidorEletrônica.equals (doc.getlbr_NFModel ()))
@@ -265,7 +267,7 @@ public class PrintFromXML extends SvrProcess
 			oi = MOrgInfo.get(Env.getCtx(), doc.getAD_Org_ID(), null);
 			
 			if (MLBRPartnerDFe.LBR_SITNF_2_UseDenied.equals(doc.getLBR_SitNF()))
-				message = "Uso Denegado         Uso Denegado       Uso Denegado";
+				message = "@Error@ Uso Denegado         Uso Denegado       Uso Denegado";
 
 			att = doc.getAttachment (true);
 			reportName = "DanfeMain[FORMAT]A4.jasper";
@@ -323,6 +325,9 @@ public class PrintFromXML extends SvrProcess
 						{
 							//	Grava o XML no Arquivo nfXmlAutorized
 							lotXML.append(new String (entry.getData(), TextUtil.UTF8).replace (NFeUtil.XML_HEADER, ""));
+							
+							nf.setIsPrinted(true);
+							nf.save();
 						}
 						catch (Exception e)
 						{
@@ -343,10 +348,10 @@ public class PrintFromXML extends SvrProcess
 		}
 		
 		else
-			return "Not implemented yet";
+			return "@Error@ Not implemented yet";
 		
 		if (att == null || att.getEntryCount() == 0)
-			return "Arquivo XML n\u00E3o encontrado para impress\u00E3o";
+			return "@Error@ Arquivo XML n\u00E3o encontrado para impress\u00E3o";
 		
 		MAttachmentEntry[] entries = att.getEntries();
 		InputStream xml = null;
@@ -384,7 +389,7 @@ public class PrintFromXML extends SvrProcess
 		}
 		
 		if (xml == null)
-			return "Arquivo XML n\u00E3o encontrado para impress\u00E3o";
+			return "@Error@ Arquivo XML n\u00E3o encontrado para impress\u00E3o";
 		
 		try
 		{
