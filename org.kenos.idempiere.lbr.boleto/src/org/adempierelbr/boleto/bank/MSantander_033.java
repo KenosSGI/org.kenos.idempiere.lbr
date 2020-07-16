@@ -208,7 +208,7 @@ public class MSantander_033 implements I_Bank
 			osw.write(TextUtil.lPad ("", 13));		//	Valor do título em outra unidade (consultar banco)
 			osw.write(TextUtil.rPad ("", 4));		//	Brancos
 			osw.write(TextUtil.lPad ("", 6));		//	Data para cobrança de multa. (Nota 4)
-			osw.write(TextUtil.lPad ("1", 1));		//	Código da carteira
+			osw.write(TextUtil.lPad (ba.get_ValueAsString("lbr_BillKind"), 1));		//	Código da carteira
 			osw.write(TextUtil.lPad ("01", 2));		//	Código da ocorrência
 			osw.write(TextUtil.rPad (seuNumero, 10));					//	Seu número
 			osw.write(TextUtil.lPad (MLBRCNAB.CNABDateFormat(boleto.getDueDate()), 6));				//	Data de vencimento do título

@@ -677,7 +677,7 @@ public class MLBRBoleto extends X_LBR_Boleto
 					newBoleto.setlbr_BPTypeBR(BPartner.get_ValueAsString("lbr_BPTypeBR")); //Tipo de Pessoa
 					newBoleto.setlbr_AgencyNo(BankA.get_ValueAsString("lbr_AgencyNo")); //Número Agência + DV
 					newBoleto.setlbr_BillFold(BankA.get_ValueAsString("lbr_BillFold")); //Carteira
-					newBoleto.setAccountNo(BankA.getAccountNo()); //Número da Conta + DV
+					newBoleto.setAccountNo(("353".equals(Bank.getRoutingNo()) || "033".equals(Bank.getRoutingNo()))?BankA.get_ValueAsString("lbr_ClientCode"): BankA.getAccountNo()); //Número da Conta + DV
 					newBoleto.setlbr_PaymentLocation1(lbrBank.getlbr_PaymentLocation1());
 					newBoleto.setlbr_PaymentLocation2(lbrBank.getlbr_PaymentLocation2());
 					newBoleto.setlbr_BillKind(BankA.get_ValueAsString("lbr_BillKind"));
