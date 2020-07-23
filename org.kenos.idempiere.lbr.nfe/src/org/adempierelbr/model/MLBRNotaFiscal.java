@@ -3559,13 +3559,27 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 			   	if (invoice != null && invoice.getDocStatus().equals(DocAction.ACTION_Complete)
 			   			&& isLBR_ReverseInvoice())
 				{
-			   		//	Estonar Fatura
-					if (invoice.reverseCorrectIt())
-					{
-						invoice.setDocStatus(MInvoice.DOCSTATUS_Reversed);
-						invoice.setDocAction(MInvoice.DOCACTION_None);
-						invoice.save();
-					}
+			   		try
+			   		{
+				   		//	Estonar Fatura
+						if (invoice.reverseCorrectIt())
+						{
+							invoice.setDocStatus(MInvoice.DOCSTATUS_Reversed);
+							invoice.setDocAction(MInvoice.DOCACTION_None);
+							invoice.save();
+						}
+			   		}
+			   		catch (Exception e)
+			   		{
+			   			log.warning("Erro ao Estornar. Tentando Estornar Provisão");
+			   			//	Estonar Fatura
+						if (invoice.reverseAccrualIt())
+						{
+							invoice.setDocStatus(MInvoice.DOCSTATUS_Reversed);
+							invoice.setDocAction(MInvoice.DOCACTION_None);
+							invoice.save();
+						}
+			   		}
 					
 				}
 			   	
@@ -3573,13 +3587,28 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 			   	if (inout != null && inout.getDocStatus().equals(DocAction.ACTION_Complete)
 			   			&& isLBR_ReverseInOut())
 				{
-			   		//	Estornar Remessa
-					if (inout.reverseCorrectIt())
-					{
-						inout.setDocStatus(MInvoice.DOCSTATUS_Reversed);
-						inout.setDocAction(MInvoice.DOCACTION_None);
-						inout.save();
-					}
+			   		try
+			   		{
+				   		//	Estornar Remessa
+						if (inout.reverseCorrectIt())
+						{
+							inout.setDocStatus(MInvoice.DOCSTATUS_Reversed);
+							inout.setDocAction(MInvoice.DOCACTION_None);
+							inout.save();
+						}
+			   		}
+			   		catch (Exception e)
+			   		{
+			   			log.warning("Erro ao Estornar. Tentando Estornar Provisão");
+			   			
+			   			//	Estornar Remessa
+						if (inout.reverseAccrualIt())
+						{
+							inout.setDocStatus(MInvoice.DOCSTATUS_Reversed);
+							inout.setDocAction(MInvoice.DOCACTION_None);
+							inout.save();
+						}
+			   		}
 					
 				}
 			}
