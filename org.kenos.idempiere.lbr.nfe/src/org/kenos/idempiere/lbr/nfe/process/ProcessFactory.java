@@ -21,6 +21,8 @@ public class ProcessFactory implements IProcessFactory
 			return new GenerateNF ();
 		if (ImportOrder.CLASSNAME.equals (className))
 			return new ImportOrder ();
+		if (GIAGenerator.class.getName().equals (className))
+			return new GIAGenerator ();
 		return null;
 	}	//	newProcessInstance
 }	//	CalloutFactory

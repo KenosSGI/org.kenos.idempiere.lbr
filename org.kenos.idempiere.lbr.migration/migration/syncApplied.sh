@@ -76,13 +76,13 @@ echo "            Port: ${PORT}"
 echo
 
 #	Check if password is already saved
-if ! grep -q "$HOST\:$PORT\:\*\:$USER\:*" $PGPASS; then
+if ! grep -q "$HOST\:$PORT\:$DATABASE\:$USER\:*" $PGPASS; then
 	
 	#	Password prompt
 	read -p "Enter Password: " pass
 	echo
 	
-	echo "$HOST:$PORT:*:$USER:$pass" >> $PGPASS
+	echo "$HOST:$PORT:$DATABASE:$USER:$pass" >> $PGPASS
 	
 fi
 
