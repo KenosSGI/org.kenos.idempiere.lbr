@@ -173,6 +173,13 @@ public class ValidatorOrder implements ModelValidator
 		 */
 		else if (type == TYPE_BEFORE_CHANGE)
 		{
+			MDocType dt = (MDocType) oLine.getC_Order().getC_DocType();			
+			Boolean salesPurchaseOp = dt.get_ValueAsBoolean("LBR_IsSalesPurchaseOperation");
+			
+			//	Se não for Operação de Compra e Venda, Quantidade Faturada acompanha a Quantidade Expedida/Recebida
+			if (!salesPurchaseOp)
+				oLine.setQtyInvoiced(oLine.getQtyDelivered());
+				
 			//	Não permitir Alteração na Quantidade do Pedido se a mesma for Menor que a 
 			//	Quantidade já Entregue ou já Faturada
 			if (oLine.is_ValueChanged(I_W_C_OrderLine.COLUMNNAME_QtyEntered) &&
@@ -181,7 +188,7 @@ public class ValidatorOrder implements ModelValidator
 				if (oLine.getQtyOrdered().compareTo(oLine.getQtyDelivered()) == -1 ||
 						oLine.getQtyOrdered().compareTo(oLine.getQtyInvoiced()) == -1)
 						return "Quantidade do Pedido não pode ser Menor que a Quantidade Já Entregue ou Fatura";
-			}	
+			}
 		}
 
 		return null;

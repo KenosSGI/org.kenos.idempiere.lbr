@@ -188,15 +188,18 @@ public class ProcXMLExport extends SvrProcess
 				whereClause.append(" AND " + MLBRNotaFiscal.COLUMNNAME_LBR_EMailSent + "='N'");
 		
 		List<ExportRow> rows = new ArrayList<ExportRow>();
-		List<MLBRNotaFiscal> nfs = new Query(Env.getCtx(), MLBRNotaFiscal.Table_Name, whereClause.toString(), null)
+		int[] ids = new Query(Env.getCtx(), MLBRNotaFiscal.Table_Name, whereClause.toString(), null)
+					.setOrderBy(MLBRNotaFiscal.COLUMNNAME_IsSOTrx + ", " + MLBRNotaFiscal.COLUMNNAME_lbr_NFSerie + ", " + MLBRNotaFiscal.COLUMNNAME_DocumentNo)
 					.setParameters(new Object[]{Env.getAD_Client_ID(Env.getCtx())})
-					.list();
+					.getIDs();
 		
 		int countNFeXML = 0;
 		int countDFeXML = 0;
 		//		
-		for (MLBRNotaFiscal nf : nfs)
+		for (int id : ids)
 		{
+			MLBRNotaFiscal nf = new MLBRNotaFiscal (Env.getCtx(), id, null);
+			
 			//	Adicionar NFs Cancelada no Arquivo de Resumo
 			if (nf.isCancelled())
 			{
@@ -210,7 +213,7 @@ public class ProcXMLExport extends SvrProcess
 				// NF Inutilizada não possui XML
 				if (MLBRNotaFiscal.LBR_NFESTATUS_102_InutilizaçãoDeNúmeroHomologado.equals(nf.getlbr_NFeStatus()))
 					continue;
-			}						
+			}
 			
 			//	Anexos da NF-e
 			MAttachment attachment = nf.getAttachment();
@@ -304,15 +307,18 @@ public class ProcXMLExport extends SvrProcess
 				.append(" AND " + DB.TO_DATE(dateTo))
 				.append(" AND DocumentType=?");
 		
-		List<MLBRPartnerDFe> dfes = new Query(Env.getCtx(), MLBRPartnerDFe.Table_Name, whereClause.toString(), null)
+		int[] dfeIDs = new Query(Env.getCtx(), MLBRPartnerDFe.Table_Name, whereClause.toString(), null)
+				.setOrderBy(MLBRPartnerDFe.COLUMNNAME_DateDoc + ", " + MLBRPartnerDFe.COLUMNNAME_lbr_CNPJ + ", " + MLBRPartnerDFe.COLUMNNAME_lbr_NFeID)
 				.setParameters(new Object[]{Env.getAD_Client_ID(Env.getCtx()), MLBRPartnerDFe.DOCUMENTTYPE_NF_E})
-				.list();
+				.getIDs();
 		
 		/**	Incluir documentos destinados (DF-e)	*/
 		if (p_LBR_IsOwnDocument == null || !p_LBR_IsOwnDocument)
 		{
-			for (MLBRPartnerDFe dfe : dfes)
+			for (int dfeID : dfeIDs)
 			{
+				MLBRPartnerDFe dfe = new MLBRPartnerDFe(Env.getCtx(), dfeID, null);
+				
 				String desc = "";
 				
 				MAttachment attachment = dfe.getAttachment();
@@ -380,7 +386,7 @@ public class ProcXMLExport extends SvrProcess
 				processUI.download(zipFile);
 		log.info("finale");
 		//
-		return "@Success@<br /><br />Resumo:<br />" + countNFeXML+ " Nota(s) emitida(s) incluída(s)<br />" + dfes.size() + " Nota(s) recebida(s) incluída(s) com " + countDFeXML + " XML(s)";
+		return "@Success@<br /><br />Resumo:<br />" + countNFeXML+ " Nota(s) emitida(s) incluída(s)<br />" + dfeIDs.length + " Nota(s) recebida(s) incluída(s) com " + countDFeXML + " XML(s)";
 	}	//	doIt
 	
 	/**
@@ -413,6 +419,7 @@ public class ProcXMLExport extends SvrProcess
 	 * @param rows
 	 * @throws IOException
 	 */
+	@SuppressWarnings("resource")
 	private void processResult (String file, List<ExportRow> rows) throws IOException
 	{
 		FileOutputStream out = new FileOutputStream(file);
@@ -428,7 +435,7 @@ public class ProcXMLExport extends SvrProcess
 		Font fRows = wb.createFont();
 
 		fTitle.setFontHeightInPoints((short) 13);
-		fTitle.setBoldweight(Font.BOLDWEIGHT_BOLD);
+		fTitle.setBold(true);
 		fRows.setFontHeightInPoints((short) 12);
 
 		csTitle.setDataFormat(HSSFDataFormat.getBuiltinFormat("text"));

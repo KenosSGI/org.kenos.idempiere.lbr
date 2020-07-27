@@ -22766,9 +22766,9 @@ Segmentos Contábeis como Organização, Conta, Produto podem ter várias hierar
   <value column="Placeholder" original=""/>
  </row>
  <row id="2881" trl="Y">
-  <value column="Name" original="Client Share">Compartilhamento de Empresa</value>
-  <value column="PrintName" original="Client Share">Compartilhamento de Empresa</value>
-  <value column="Description" original="Force (not) sharing of client/org entities">Forçar (não) compartilhamento de entidades cliente/org</value>
+  <value column="Name" original="Client Share">Compartilhamento na Empresa</value>
+  <value column="PrintName" original="Client Share">Compartilhamento na Empresa</value>
+  <value column="Description" original="Force (not) sharing of client/org entities">Forçar (ou não) o compartilhamento de entidades por empresa/organização</value>
   <value column="Help" original="For entities with data access level of Client+Organization either force to share the entries or not. Example: Product and Business Partner can be either defined on Client level (shared) or on Org level (not shared).  You can define here of Products are always shared (i.e. always created under Organization &quot;*&quot;) or if they are not shared (i.e. you cannot enter them with Organization &quot;*&quot;)">For entities with data access level of Client+Organization either force to share the entries or not. Exemplo: Product and Business Partner can be either defined on Client level (shared) or on Org level (not shared).  You can define here of Products are always shared (i.e. always created under Organization "*") or if they are not shared (i.e. you cannot enter them with Organization "*")</value>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
@@ -70768,5 +70768,27 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_Name" original=""/>
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="889aa156-d4b5-44be-bf86-c9fc65dfd04f">
+  <value column="Name" original="Sales/Purchase Operation">Operação de Compra e Venda</value>
+  <value column="PrintName" original="Sales/Purchase Operation">Operação de Compra e Venda</value>
+  <value column="Description" original="Used to set Sales/Purchase Operation">Usado para identificar Operação de Compra e Venda</value>
+  <value column="Help" original=""/>
+  <value column="Placeholder" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+ </row>
+ <row trl="Y" uuid="42c83859-c05e-46b8-b5ce-c72cc48fda51">
+  <value column="Name" original="Other InOut">Outras Entradas/Saída</value>
+  <value column="PrintName" original="Other InOut">Outras Entradas/Saída</value>
+  <value column="Description" original="Other InOut Documento">Documento referente a Outras Entradas/Saída</value>
+  <value column="Help" original="Use to delivery of receive product from others operations">Usado para Enviar o Receber Produtos por Outras Entradas /Saídas</value>
+  <value column="Placeholder" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
  </row>
 </idempiereTrl>

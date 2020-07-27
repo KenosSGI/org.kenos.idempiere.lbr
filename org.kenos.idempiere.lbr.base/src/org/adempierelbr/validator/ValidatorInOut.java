@@ -356,11 +356,20 @@ public class ValidatorInOut implements ModelValidator
 				if (timing == TIMING_BEFORE_COMPLETE && line.getM_RMALine_ID() == 0 && oline.getC_Order_ID() > 0)
 				{
 					//	Se Unidade de Medida do Pedido for Diferente da Unidade de Medida padrão do Produto
-					BigDecimal qty = (oline.getM_Product().getC_UOM_ID() == oline.getC_UOM_ID() ? oline.getQtyEntered() : oline.getQtyOrdered());
+					if (oline.getM_Product().getC_UOM_ID() == oline.getC_UOM_ID())
+					{
+						if (MSysConfig.getBooleanValue(SysConfig.LBR_MATCH_SHIPMENT_RECEIPT_AND_ORDER_QTY, false, inOut.getAD_Client_ID())
+								&& oline.getQtyDelivered().add(line.getQtyEntered()).doubleValue() > oline.getQtyEntered().doubleValue())
+							return "Nao e possivel fazer recebimento/expedição maior que o pedido. Linha do pedido #" + line.getLine();
+					}
+					else
+					{
+						if (MSysConfig.getBooleanValue(SysConfig.LBR_MATCH_SHIPMENT_RECEIPT_AND_ORDER_QTY, false, inOut.getAD_Client_ID())
+								&& oline.getQtyDelivered().add(line.getMovementQty()).doubleValue() > oline.getQtyOrdered().doubleValue())
+							return "Nao e possivel fazer recebimento/expedição maior que o pedido. Linha do pedido #" + line.getLine();
+					}
 					
-					if (MSysConfig.getBooleanValue(SysConfig.LBR_MATCH_SHIPMENT_RECEIPT_AND_ORDER_QTY, false, inOut.getAD_Client_ID())
-						&& oline.getQtyDelivered().add(line.getQtyEntered()).doubleValue() > qty.doubleValue())
-					return "Nao e possivel fazer recebimento maior que o pedido. Linha do pedido #" + line.getLine();
+					
 				}
 			} // for;
 		}

@@ -4,6 +4,7 @@ import java.util.Properties;
 
 import org.adempiere.base.IColumnCallout;
 import org.adempiere.model.POWrapper;
+import org.adempierelbr.model.MLBRNFLineMA;
 import org.adempierelbr.model.MLBRNotaFiscal;
 import org.adempierelbr.model.MLBRNotaFiscalLine;
 import org.adempierelbr.util.LBRUtils;
@@ -12,6 +13,7 @@ import org.adempierelbr.wrapper.I_W_M_Product;
 import org.compiere.model.GridField;
 import org.compiere.model.GridTab;
 import org.compiere.model.MProduct;
+import org.compiere.model.MRegion;
 
 /**
  * 		Callout for Nota Fiscal Line
@@ -23,8 +25,12 @@ public class NotaFiscalLine implements IColumnCallout
 	@Override
 	public String start (Properties ctx, int WindowNo, GridTab mTab, GridField mField, Object value, Object oldValue)
 	{
-		if (MLBRNotaFiscalLine.COLUMNNAME_M_Product_ID.equals(mField.getColumnName()))
+		String columnName = mField.getColumnName();
+		//
+		if (MLBRNotaFiscalLine.COLUMNNAME_M_Product_ID.equals(columnName))
 			return product (ctx, WindowNo, mTab, mField, value, oldValue);
+		else if (MLBRNFLineMA.COLUMNNAME_C_Region_ID.equals(columnName))
+			return region (ctx, WindowNo, mTab, mField, value, oldValue);
 		return "";
 	}	//	start
 	
@@ -102,4 +108,32 @@ public class NotaFiscalLine implements IColumnCallout
 		
 		return "";
 	}	//	product
+	
+	/**
+	 * 		Preenche a UF
+	 * 
+	 * @param ctx
+	 * @param WindowNo
+	 * @param mTab
+	 * @param mField
+	 * @param value
+	 * @param oldValue
+	 * @return "" or error
+	 */
+	private String region (Properties ctx, int WindowNo, GridTab mTab, GridField mField, Object value, Object oldValue)
+	{
+		//	Do not proceed when null
+		if (value == null)
+		{
+			mTab.setValue(MLBRNFLineMA.COLUMNNAME_LBR_UFCons, "");
+			return "";
+		}
+		
+		MRegion region = new MRegion (ctx, (Integer) value, null);
+		
+		//	Set Region Name
+		mTab.setValue(MLBRNFLineMA.COLUMNNAME_LBR_UFCons, region.getName());
+		
+		return "";
+	}	//	region
 }	//	NotaFiscalLine

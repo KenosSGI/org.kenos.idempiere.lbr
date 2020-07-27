@@ -119,6 +119,7 @@ import org.compiere.util.Msg;
 import org.compiere.util.TimeUtil;
 import org.compiere.util.Trx;
 import org.compiere.util.Util;
+import org.kenos.idempiere.lbr.base.Constants;
 import org.kenos.idempiere.lbr.base.model.MLBRAverageCostLine;
 import org.kenos.idempiere.lbr.base.model.MLBRProductionGroup;
 import org.kenos.idempiere.lbr.base.model.SysConfig;
@@ -260,25 +261,51 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 	}	//	get
 
 	/**
-	 * Retorna as Notas Fiscais por período (compra, venda ou ambos)
-	 * @param dateFrom
-	 * @param dateTo
-	 * @param isSOTrx: true = venda, false = compra, null = ambos
+	 * Retorna as Notas Fiscais por Fatura ou por Remessa/Recebimento
+	 * @param ctx
+	 * @param C_Invoice_ID
+	 * @param M_InOut_ID
+	 * @param trxName
 	 * @return MNotaFiscal[]
 	 */
-	public static MLBRNotaFiscal[] get (Properties ctx, int C_Invoice_ID, String trxName)
+	public static MLBRNotaFiscal[] get (Properties ctx, int C_Invoice_ID, int M_InOut_ID, String trxName)
 	{
-		String whereClause = "C_Invoice_ID=?";
+		String whereClause = "";
+		int id = 0;
+		
+		if (C_Invoice_ID > 0)
+		{
+			whereClause = "C_Invoice_ID=?";
+			id = C_Invoice_ID;
+		}
+		else if (M_InOut_ID > 0)
+		{
+			whereClause = "M_InOut_ID=?";
+			id = M_InOut_ID;
+		}
+		
 		String orderBy = "DocumentNo";
 
 		MTable table = MTable.get(ctx, MLBRNotaFiscal.Table_Name);
 		Query q =  new Query(ctx, table, whereClause.toString(), trxName);
 	          q.setOrderBy(orderBy);
-		      q.setParameters(new Object[]{C_Invoice_ID});
+		      q.setParameters(new Object[]{id});
 
 	    List<MLBRNotaFiscal> list = q.list();
 	    MLBRNotaFiscal[] nfs = new MLBRNotaFiscal[list.size()];
 	    return list.toArray(nfs);
+	}	//	get
+	
+	/**
+	 * Retorna as Notas Fiscais por Fatura
+	 * @param ctx
+	 * @param C_Invoice_ID
+	 * @param trxName
+	 * @return MNotaFiscal[]
+	 */
+	public static MLBRNotaFiscal[] get (Properties ctx, int C_Invoice_ID, String trxName)
+	{
+	    return get(ctx, C_Invoice_ID, 0, trxName);
 	}	//	get
 
 	/**
@@ -1921,7 +1948,7 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 	{
 		BigDecimal totalItem = Env.ZERO, totalService = Env.ZERO;
 		//
-		Boolean isSOTrx = true;
+		Boolean isSOTrx = inout.isSOTrx();
 		int lineNo = 1;		
 		
 		/**
@@ -1949,6 +1976,16 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		
 		//	Tipo de Documento
 		setC_DocTypeTarget_ID();
+		
+		MDocType dt = new MDocType (Env.getCtx(), getC_DocTypeTarget_ID(), get_TrxName());
+		
+		if (dt != null)
+		{
+			String nfModel = dt.get_ValueAsString("lbr_NFModel");
+			
+			if (nfModel != null && !nfModel.isEmpty())
+				setlbr_NFModel(nfModel);
+		}
 		
 		// Imprime Descontos
 		if (LBR_NFMODEL_NotaFiscalDeServiçosEletrônicaRPS.equals(getNFModel()))
@@ -2519,6 +2556,7 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		setlbr_TransactionType (wOrder.getlbr_TransactionType());
 		setLBR_IndPres(wOrder.getLBR_IndPres());
 		setC_PaymentTerm_ID(wOrder.getC_PaymentTerm_ID());
+		setLBR_FreightCostRule(wOrder.getLBR_FreightCostRule());
 		//		Regra de Pagamento
 		setlbr_PaymentRule(wOrder.getlbr_PaymentRule());
 		
@@ -2808,6 +2846,10 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 				setlbr_NetWeight(io.getWeight());
 				setNoPackages(noPackages);
 				setDeliveryViaRule(io.getDeliveryViaRule());
+				
+				String licensePlate = io.get_ValueAsString("lbr_BPShipperLicensePlate");
+				if (licensePlate != null && !licensePlate.trim().isEmpty())
+					setlbr_BPShipperLicensePlate(licensePlate);
 	
 				M_Shipper_ID = io.getM_Shipper_ID();
 				
@@ -2819,6 +2861,13 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 					setlbr_PackingType(MSysConfig.getValue(SysConfig.LBR_NFESPECIE, getAD_Client_ID()));
 				else
 					setlbr_PackingType(MSysConfig.getValue("VOLUME"));
+				
+				int LBR_MDFeVehicle_ID = io.get_ValueAsInt("LBR_MDFeVehicle_ID");
+				if (LBR_MDFeVehicle_ID > 0)
+				{
+					X_LBR_MDFeVehicle vehicle = new X_LBR_MDFeVehicle(getCtx(), LBR_MDFeVehicle_ID, get_TrxName());
+					setLBR_RNTRC(vehicle.getLBR_RNTRC());
+				}
 			}
 			else
 			{
@@ -3235,6 +3284,19 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 			}
 		}
 		
+		if (getM_InOut_ID() > 0)
+		{
+			MInOut io = new MInOut (getCtx(), getM_InOut_ID(), get_TrxName());
+			if (io.get_ValueAsInt("LBR_MDFeDriver_ID") > 0)
+			{
+				X_LBR_MDFeDriver driver = new X_LBR_MDFeDriver (getCtx(), io.get_ValueAsInt("LBR_MDFeDriver_ID"), null);
+				description.append("\nMotorista: ").append(driver.getName());
+				
+				if (driver.getlbr_CPF() != null)
+					description.append("/CPF: ").append(driver.getlbr_CPF());
+			}
+		}
+		
 		// Descrição NF Referênciada
 		for (MLBRNotaFiscalDocRef nfref : MLBRNotaFiscalDocRef.get(getLBR_NotaFiscal_ID(), get_TrxName()))
 		{
@@ -3393,6 +3455,11 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		{
 			setProcessing (true);
 		}
+		
+		// Mark as Cancelled when status is voided
+		if (MLBRNotaFiscal.DOCSTATUS_Voided.equals(getDocStatus()) && !isCancelled())
+			setIsCancelled(true);
+				
 		return true;
 	}	//	beforeSave
 
@@ -3492,13 +3559,27 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 			   	if (invoice != null && invoice.getDocStatus().equals(DocAction.ACTION_Complete)
 			   			&& isLBR_ReverseInvoice())
 				{
-			   		//	Estonar Fatura
-					if (invoice.reverseCorrectIt())
-					{
-						invoice.setDocStatus(MInvoice.DOCSTATUS_Reversed);
-						invoice.setDocAction(MInvoice.DOCACTION_None);
-						invoice.save();
-					}
+			   		try
+			   		{
+				   		//	Estonar Fatura
+						if (invoice.reverseCorrectIt())
+						{
+							invoice.setDocStatus(MInvoice.DOCSTATUS_Reversed);
+							invoice.setDocAction(MInvoice.DOCACTION_None);
+							invoice.save();
+						}
+			   		}
+			   		catch (Exception e)
+			   		{
+			   			log.warning("Erro ao Estornar. Tentando Estornar Provisão");
+			   			//	Estonar Fatura
+						if (invoice.reverseAccrualIt())
+						{
+							invoice.setDocStatus(MInvoice.DOCSTATUS_Reversed);
+							invoice.setDocAction(MInvoice.DOCACTION_None);
+							invoice.save();
+						}
+			   		}
 					
 				}
 			   	
@@ -3506,13 +3587,28 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 			   	if (inout != null && inout.getDocStatus().equals(DocAction.ACTION_Complete)
 			   			&& isLBR_ReverseInOut())
 				{
-			   		//	Estornar Remessa
-					if (inout.reverseCorrectIt())
-					{
-						inout.setDocStatus(MInvoice.DOCSTATUS_Reversed);
-						inout.setDocAction(MInvoice.DOCACTION_None);
-						inout.save();
-					}
+			   		try
+			   		{
+				   		//	Estornar Remessa
+						if (inout.reverseCorrectIt())
+						{
+							inout.setDocStatus(MInvoice.DOCSTATUS_Reversed);
+							inout.setDocAction(MInvoice.DOCACTION_None);
+							inout.save();
+						}
+			   		}
+			   		catch (Exception e)
+			   		{
+			   			log.warning("Erro ao Estornar. Tentando Estornar Provisão");
+			   			
+			   			//	Estornar Remessa
+						if (inout.reverseAccrualIt())
+						{
+							inout.setDocStatus(MInvoice.DOCSTATUS_Reversed);
+							inout.setDocAction(MInvoice.DOCACTION_None);
+							inout.save();
+						}
+			   		}
 					
 				}
 			}
@@ -4332,7 +4428,7 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 						throw new Exception ("Falha na transmissão da NF-e");
 					
 					if (!lot.islbr_LotSent())
-						throw new Exception ("Erro na transmissão da NF-e. " + MRefList.getListName(getCtx(), LBR_NFESTATUS_AD_Reference_ID, lot.getlbr_NFeStatus()));
+						throw new Exception ("Erro na transmissão da NF-e. " + MRefList.getListName(getCtx(), Constants.LBR_NFESTATUS_AD_Reference_ID, lot.getlbr_NFeStatus()));
 					
 					try 
 					{

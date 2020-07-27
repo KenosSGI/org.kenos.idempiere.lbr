@@ -251,7 +251,9 @@ Lista de preços podem ser calculadas e copiadas. Para agilizar o cálculo, os p
   <value column="Name" original="Account Combination">Combinação de Contas</value>
   <value column="Description" original="Maintain Valid Account Combinations ">Gerenciamento de Combinações de Contas Válidas </value>
   <value column="Help" original="The Account Combination Window defines and displays valid account combinations. ">A Janela "Combinação de Contas" define e mostra Combinações de Contas Válidas. </value>
- </row>
+ </row>Precisamos de nome do cliente, valor ,vencimento ,emissão  e numero da NF .
+
+ 
  <row id="154" trl="Y">
   <value column="Name" original="GL Budget">Orçamento de Razão Geral</value>
   <value column="Description" original="Maintain General Ledger Budgets">Gerenciamento de Orçamentos de Razão Geral</value>
@@ -2404,5 +2406,15 @@ MRP - 110	 No exists Dem</value>
   <value column="Name" original="Job Title">Função</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="f7c14fb8-3f9e-4869-a4bb-e9965b986775">
+  <value column="Name" original="Simple Order (Other Out)">Outras Saídas</value>
+  <value column="Description" original="Enter and change simple orders (other out)">Introduzir e Alterar Outras Saídas</value>
+  <value column="Help" original="The Simple Order Window allows you to enter and modify Simple Orders. Only Out Operation.">A Janela "Outras Saídas" permite a você digitar e modificar Outras Saídas.  </value>
+ </row>
+ <row trl="Y" uuid="4498e5b7-41d4-4a99-8f47-b44f7b03ba4c">
+  <value column="Name" original="Simple Order (Other In)">Outras Entradas</value>
+  <value column="Description" original="Enter and change simple orders (other In)">Introduzir e Alterar Outras Entradas</value>
+  <value column="Help" original="The Simple Order Window allows you to enter and modify Simple Orders. Only In Operation.">A Janela "Outras Entradas" define Outras Entradas para uma organização.  Quando Outras Entradas tiver sido digitado você pode gerar um Documento de Remessa ou Fatura.</value>
  </row>
 </idempiereTrl>

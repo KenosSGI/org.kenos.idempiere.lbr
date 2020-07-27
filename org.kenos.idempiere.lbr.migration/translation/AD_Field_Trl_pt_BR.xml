@@ -954,9 +954,9 @@ As datas Válido Desde e Válido Até indcam o período válido de tempo para us
   <value column="Placeholder" original=""/>
  </row>
  <row id="205898" trl="N">
-  <value column="Name" original="Display Search Key">Display Search Key</value>
-  <value column="Description" original="Displays Search Key in the tree">Displays Search Key in the tree</value>
-  <value column="Help" original="The Display Search Key checkbox indicates if the Search Key will display in the tree before the Name">The Display Search Key checkbox indicates if the Search Key will display in the tree before the Name</value>
+  <value column="Name" original="Display Search Key">Mostrar Chave de Busca</value>
+  <value column="Description" original="Displays Search Key in the tree">Mostra a chave de busca na árvore</value>
+  <value column="Help" original="The Display Search Key checkbox indicates if the Search Key will display in the tree before the Name">O campo Mostrar Chave de Busca indica se a chave de busca deverá ser mostrada antes do Nome do elemento na árvore</value>
   <value column="Placeholder" original=""/>
  </row>
  <row trl="Y" uuid="ada61bf0-d349-4c95-a323-4e6a59f2354a">

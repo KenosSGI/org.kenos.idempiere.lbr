@@ -20,12 +20,14 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Properties;
 import java.util.logging.Level;
 
 import org.compiere.minigrid.ColumnInfo;
 import org.compiere.minigrid.IDColumn;
 import org.compiere.minigrid.IMiniTable;
+import org.compiere.model.MAllocationHdr;
 import org.compiere.model.MBankAccount;
 import org.compiere.model.MDocType;
 import org.compiere.model.MInvoice;
@@ -116,7 +118,7 @@ public class Payment
 		data.add(pp);
 		
 		String sql = MRole.getDefault().addAccessSQL(
-			"SELECT DISTINCT bp.C_BPartner_ID, bp.Name FROM C_BPartner bp", "bp",
+			"SELECT DISTINCT bp.C_BPartner_ID, UPPER(bp.Name) FROM C_BPartner bp", "bp",
 			MRole.SQL_FULLYQUALIFIED, MRole.SQL_RO)
 			+ " AND EXISTS (SELECT * FROM C_Invoice i WHERE bp.C_BPartner_ID=i.C_BPartner_ID AND i.IsPaid<>'Y' "
 			+ " AND i.IsSOTrx=?) "
@@ -219,8 +221,11 @@ public class Payment
 	public ArrayList<ValueNamePair> getPaymentRuleData(BankInfo bi)
 	{
 		ArrayList<ValueNamePair> data = new ArrayList<ValueNamePair>();
-		ValueNamePair vp = new ValueNamePair("D", MRefList.getListName(Env.getCtx(), 195, "D"));
-		data.add(vp);
+		data.add(new ValueNamePair("A", MRefList.getListName(Env.getCtx(), 214, "A")));
+		data.add(new ValueNamePair("D", MRefList.getListName(Env.getCtx(), 214, "D")));
+		data.add(new ValueNamePair("K", MRefList.getListName(Env.getCtx(), 214, "K")));
+		data.add(new ValueNamePair("C", MRefList.getListName(Env.getCtx(), 214, "C")));
+		data.add(new ValueNamePair("X", MRefList.getListName(Env.getCtx(), 214, "X")));
 		return data;
 	}	//	getPaymentRuleData
 
@@ -360,16 +365,25 @@ public class Payment
 				p.setC_DocType_ID(invoice.isSOTrx());
 				p.setC_Currency_ID(bi.C_Currency_ID);
 				p.setPayAmt(PayAmt);
-				p.save();
+				p.saveEx();
 				
-				if (p.processIt(MPayment.ACTION_Complete))
+				try
 				{
+					p.processIt(MPayment.ACTION_Complete);
 					p.setDocStatus(MPayment.DOCSTATUS_Completed);
-					p.save();
+					p.saveEx();
 				}
-				else
+				catch (Exception e)
 				{
-					return Msg.translate(Env.getCtx(), "C_Payment_ID") + p.getDocumentNo() + " : " + Msg.translate(Env.getCtx(), p.getProcessMsg());
+					//	Delete Allocations
+					Arrays.asList(MAllocationHdr.getOfPayment(Env.getCtx(), p.getC_Payment_ID(), trxName))
+						.stream().forEach(pag -> pag.delete(true));
+					
+					//	Delete Payment
+					p.delete(true);
+					
+					//	Inform user something went wrong
+					return Msg.translate(Env.getCtx(), "C_Invoice_ID") + " [" + invoice.getDocumentNo() + "/" + C_Invoice_ID + "] : " + Msg.translate(Env.getCtx(), e.getMessage());
 				}
 
 				log.fine("C_Invoice_ID=" + C_Invoice_ID + ", PayAmt=" + PayAmt);

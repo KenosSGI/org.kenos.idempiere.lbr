@@ -13,8 +13,7 @@ Require-Bundle: org.adempiere.base;bundle-version="6.2.0",
  net.sf.jasperreports.engine,
  org.apache.poi.poi;bundle-version="3.15.0",
  jakarta.mail.api;bundle-version="1.6.3"
-Service-Component: OSGI-INF/CalloutFactory.xml
- , OSGI-INF/ProcessFactory.xml
+Service-Component: OSGI-INF/*.xml
 Eclipse-RegisterBuddy: org.adempiere.base
 Export-Package: br.inf.portalfiscal.nfe.dfe,
  br.inf.portalfiscal.nfe.v400,

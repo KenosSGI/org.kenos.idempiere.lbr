@@ -1313,7 +1313,7 @@ Entre com o pagamento depois de completar a transação.</value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="428" trl="Y">
-  <value column="MsgText" original="Print Invoices">Imprimir Notas Fiscais</value>
+  <value column="MsgText" original="Print Invoices">Imprimir Faturas</value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="429" trl="Y">

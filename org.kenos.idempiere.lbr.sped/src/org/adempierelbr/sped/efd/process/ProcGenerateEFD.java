@@ -31,6 +31,7 @@ import org.adempierelbr.sped.efd.bean.BLOCOE;
 import org.adempierelbr.sped.efd.bean.BLOCOG;
 import org.adempierelbr.sped.efd.bean.BLOCOH;
 import org.adempierelbr.sped.efd.bean.BLOCOK;
+import org.adempierelbr.sped.efd.bean.R0002;
 import org.adempierelbr.sped.efd.bean.R0190;
 import org.adempierelbr.sped.efd.bean.R0200;
 import org.adempierelbr.sped.efd.bean.R0460;
@@ -50,11 +51,13 @@ import org.compiere.model.MElementValue;
 import org.compiere.model.MOrgInfo;
 import org.compiere.model.MPeriod;
 import org.compiere.model.MProduct;
+import org.compiere.model.MSysConfig;
 import org.compiere.model.Query;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
+import org.kenos.idempiere.lbr.base.model.SysConfig;
 
 /**
  * Processo para geração do SPED EFD
@@ -230,6 +233,7 @@ public class ProcGenerateEFD extends SvrProcess
 	 * @return
 	 * @throws Exception
 	 */
+	@SuppressWarnings("deprecation")
 	private StringBuilder generateEFD(Timestamp dateFrom, Timestamp dateTo) throws Exception
 	{
 		
@@ -261,6 +265,21 @@ public class ProcGenerateEFD extends SvrProcess
 			
 			// 0000 - dados da empresa
 			bloco0.setR0000(EFDUtil.createR0000(getCtx(), dateFrom, dateTo, p_AD_Org_ID, null));
+			
+			/**
+			 * 	00 - Industrial - Transformação
+			 * 	01 - Industrial - Beneficiamento
+			 * 	02 - Industrial - Montagem
+			 * 	03 - Industrial - Acondicionamento ou Reacondicionamento
+			 * 	04 - Industrial - Renovação ou Recondicionamento
+			 * 	05 - Equiparado a industrial - Por opção
+			 * 	06 - Equiparado a industrial - Importação Direta
+			 * 	07 - Equiparado a industrial - Por lei específica
+			 * 	08 - Equiparado a industrial - Não enquadrado nos códigos 05, 06 ou 07
+			 * 	09 - Outros
+			 */
+			if ("0".equals(bloco0.getR0000().getIND_ATIV()))
+				bloco0.setR0002(new R0002(MSysConfig.getValue(SysConfig.LBR_SPED_CLAS_ESTAB_IND, "00", getAD_Client_ID(), p_AD_Org_ID)));
 			
 			// 0005 - dados adicionais da org
 			bloco0.setR0005(EFDUtil.createR0005(getCtx(), p_AD_Org_ID, null));

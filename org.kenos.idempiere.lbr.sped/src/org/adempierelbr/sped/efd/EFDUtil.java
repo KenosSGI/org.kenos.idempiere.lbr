@@ -119,7 +119,7 @@ public class EFDUtil {
 	/**
 	 * TODO: ALTERAR E DEIXAR DINAMICO
 	 */
-	private static final String COD_VER = "013";	// A Partir de Jan/19
+	private static final String COD_VER = "014";	// A Partir de Jan/19
 	private static final String COD_FIN = "0"; 		// Remessa do Arquivo Original
 	private static final String IND_PERFIL = "A"; 	// Perfil A
 	private static final String COD_DOC_IMP = "0"; 	// Declaração de Importacao
@@ -1136,7 +1136,7 @@ public class EFDUtil {
 		if (factFiscal.getLBR_NotaFiscalLine() != null)
 			reg.setVL_ABAT_NT(factFiscal.getLBR_NotaFiscalLine().getDiscountAmt());	
 		else
-			reg.setVL_ABAT_NT(BigDecimal.ZERO);		
+			reg.setVL_ABAT_NT(BigDecimal.ZERO);	
 		
 		/*
 		 * Definir valor da operação no registro C170 para
@@ -2303,6 +2303,7 @@ public class EFDUtil {
 		reg.setIND_GIAF1(("PE".equals(Region) ? "S" : "N"));
 		reg.setIND_GIAF3(("PE".equals(Region) ? "S" : "N"));
 		reg.setIND_GIAF4(("PE".equals(Region) ? "S" : "N"));
+		reg.setIND_REST_RESSARC_COMPL_ICMS("N");
 		
 		return reg;
 	}
@@ -2427,7 +2428,7 @@ public class EFDUtil {
 		// sql
 		String sql = " SELECT AD_Client_ID, AD_Org_ID, C_BPartner_ID, SUM(QtyBook) AS QtyBook,	" + 
 				" lbr_WarehouseType, movementdate, M_Product_ID,			" +
-				" isRevalidate, MovementDate																	" +
+				" isRevalidate																	" +
 				" FROM LBR_BookInventory														" +
 				" WHERE AD_Client_ID = ? 														" + // # 1
 				" AND AD_Org_ID = ?																" + // # 2

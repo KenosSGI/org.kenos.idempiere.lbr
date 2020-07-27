@@ -1,16 +1,15 @@
 package org.adempierelbr.nfse;
 
-import java.awt.Desktop;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
 
@@ -27,6 +26,9 @@ import org.adempierelbr.util.NFeUtil;
 import org.adempierelbr.util.SignatureUtil;
 import org.adempierelbr.util.TextUtil;
 import org.adempierelbr.wrapper.I_W_AD_OrgInfo;
+import org.apache.axis2.AxisFault;
+import org.apache.axis2.context.ConfigurationContext;
+import org.apache.axis2.context.ConfigurationContextFactory;
 import org.apache.axis2.transport.http.HTTPConstants;
 import org.compiere.model.MAttachment;
 import org.compiere.model.MAttachmentEntry;
@@ -66,6 +68,7 @@ import br.com.ginfes.tiposV03.TcPedidoCancelamento;
 import br.com.ginfes.tiposV03.TcRps;
 import br.com.ginfes.tiposV03.TcValores;
 import br.com.ginfes.tiposV03.TsCodigoMunicipioIbge;
+import br.org.abrasf.nfse.webservice.Abrasf100HomologServiceGinfesImplServiceStub;
 import br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub;
 import br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.ConsultarNfsePorRpsV3;
 import br.org.abrasf.nfse.webservice.Abrasf100ProdServiceStub.RecepcionarLoteRpsV3;
@@ -119,8 +122,7 @@ public class NFSeAbrasf100Impl implements INFSe
 	/**
 	 * 
 	 */
-	private static final String FILE_XML_RECIBO_NFSE = "-recibo.xml";
-	
+//	private static final String FILE_XML_RECIBO_NFSE = "-recibo.xml";
 	private static final String FILE_XML_NFSE_AUTORIZADO = "-nfseOK-dst.xml";
 
 	/**
@@ -252,7 +254,7 @@ public class NFSeAbrasf100Impl implements INFSe
 		if (bp.get_ValueAsString("LBR_EMailNFSe") != null && !bp.get_ValueAsString("LBR_EMailNFSe").isEmpty())
 		{
 			TcContato contato = dadosTomador.addNewContato();
-			contato.setEmail(bp.get_ValueAsString("LBR_EMailNFSe"));
+			contato.setEmail(bp.get_ValueAsString("LBR_EMailNFSe").trim());
 		}
 				
 		//	Descrição do Serviço
@@ -314,7 +316,7 @@ public class NFSeAbrasf100Impl implements INFSe
 		//	Alterado Enter por ponto e virgula(;) com intuito de substituir o & por \n na Impressão da NFS-e.
 		if (nf.getDescription() != null 
 				&& !nf.getDescription().isEmpty())
-			descricaoServico = descricaoServico + ";" + nf.getDescription().trim().replaceAll("\n", ";");
+			descricaoServico = nf.getDescription().trim().replaceAll("\n", ";");
 		
 		dadosServico.setDiscriminacao(descricaoServico.replaceAll(";;", ";"));
 		
@@ -342,7 +344,7 @@ public class NFSeAbrasf100Impl implements INFSe
 		BigDecimal v_INSS 	= toBD (nf.getTaxAmt("INSS")).abs();
 		BigDecimal v_IR 	= toBD (nf.getTaxAmt("IR")).abs();
 		BigDecimal v_CSLL 	= toBD (nf.getTaxAmt("CSLL")).abs();
-		BigDecimal v_ISS 	= toBD (nf.getTaxAmt("ISS")).abs();		
+//		BigDecimal v_ISS 	= toBD (nf.getTaxAmt("ISS")).abs();		
 		
 		// Valores da NFS-e
 		valores.setValorPis(v_PIS);
@@ -424,12 +426,26 @@ public class NFSeAbrasf100Impl implements INFSe
 		 *	Enviar NF-e
 		 */
 		
+		//	Create a context to inrease timeout
+		ConfigurationContext axisContext;
+		try 
+		{
+		    axisContext = ConfigurationContextFactory.createDefaultConfigurationContext();
+		} 
+		catch (Exception e) 
+		{
+		    throw new AxisFault(e.getMessage());
+		}
+		
+		axisContext.setProperty(HTTPConstants.CONNECTION_TIMEOUT, 120*1000);
+		axisContext.setProperty(HTTPConstants.SO_TIMEOUT, 120*1000);
+		
+		
 		//	Produção
-		Abrasf100ProdServiceStub rpsStub = new Abrasf100ProdServiceStub();
+		Abrasf100ProdServiceStub rpsStub = new Abrasf100ProdServiceStub(axisContext);
 		
 		//	Homologação
-		br.org.abrasf.nfse.webservice.Abrasf100HomologServiceGinfesImplServiceStub rpsStubHom = 
-				new br.org.abrasf.nfse.webservice.Abrasf100HomologServiceGinfesImplServiceStub();
+		Abrasf100HomologServiceGinfesImplServiceStub rpsStubHom = new Abrasf100HomologServiceGinfesImplServiceStub(axisContext);
 		
 		//	Mensagem de Retorno após enviar NFS-e para Emissão
 		String retornoEnvioXMLNFSe = "";
@@ -572,7 +588,7 @@ public class NFSeAbrasf100Impl implements INFSe
 			
 			retornoConsultaNFe = rpsStub.consultarNfsePorRpsV3(consult3).get_return();
 			
-			respConsultaRpsNFe = ConsultarNfseRpsRespostaDocument.Factory.parse(retornoConsultaNFe).getConsultarNfseRpsResposta();
+			log.info("retorn consult: " + retornoConsultaNFe);
 			
 			try
 			{
@@ -688,7 +704,7 @@ public class NFSeAbrasf100Impl implements INFSe
 	
 	private static BigDecimal toBD (BigDecimal value)
 	{
-		return toBD(value, 2, true);
+		return toBD(value, 2, false);
 	}
 	
 	private static BigDecimal toBD (BigDecimal value, int scale, Boolean stripTrailingZeros)
@@ -696,9 +712,9 @@ public class NFSeAbrasf100Impl implements INFSe
 		if (value == null)
 			return Env.ZERO;
 		if (stripTrailingZeros)
-			return value.setScale(scale, BigDecimal.ROUND_HALF_UP).stripTrailingZeros();
+			return value.setScale(scale, RoundingMode.HALF_UP).stripTrailingZeros();
 		else
-			return value.setScale(scale, BigDecimal.ROUND_HALF_UP);
+			return value.setScale(scale, RoundingMode.HALF_UP);
 	}	//	toBD
 	
 	/**
@@ -1703,7 +1719,7 @@ public class NFSeAbrasf100Impl implements INFSe
 			
 			if (nf.getlbr_BPCity() != null && !nf.getlbr_BPCity().isEmpty())
 			{
-				map.put("municipiotomador", nf.getlbr_OrgCity());
+				map.put("municipiotomador", nf.getlbr_BPCity());
 			}
 				
 			//	Get Jasper
@@ -1744,7 +1760,7 @@ public class NFSeAbrasf100Impl implements INFSe
 	 */
 	public String cancel(MLBRNotaFiscal nf)
 	{
-		MOrgInfo orgInf = MOrgInfo.get (nf.getCtx(), nf.getAD_Org_ID(), null);
+//		MOrgInfo orgInf = MOrgInfo.get (nf.getCtx(), nf.getAD_Org_ID(), null);
 		
 		CancelarNfseEnvio cancelNf = CancelarNfseEnvio.Factory.newInstance();
 		
@@ -1761,7 +1777,7 @@ public class NFSeAbrasf100Impl implements INFSe
 		identNfse.setInscricaoMunicipal(nf.getlbr_OrgCCM());*/
 		
 		TsCodigoMunicipioIbge ibge =  TsCodigoMunicipioIbge.Factory.newInstance();
-		ibge.set(BPartnerUtil.getCityCode (nf.getlbr_OrgRegion(), nf.getlbr_OrgCity()));
+		ibge.setStringValue(BPartnerUtil.getCityCode (nf.getlbr_OrgRegion(), nf.getlbr_OrgCity()));
 		identNfse.xsetCodigoMunicipio(ibge);
 		
 		Cabecalho header = Cabecalho.Factory.newInstance();
@@ -1771,7 +1787,6 @@ public class NFSeAbrasf100Impl implements INFSe
 		/**
 		 *	Enviar NF-e
 		 */
-		//
 		Input inputXmlNfse = new Input();
 		inputXmlNfse.setNfseCabecMsg(header.xmlText());
 		inputXmlNfse.setNfseDadosMsg(cancelOrder.getInfPedidoCancelamento().xmlText());
@@ -1786,9 +1801,8 @@ public class NFSeAbrasf100Impl implements INFSe
 			
 			NfseWSServiceStub nfseStub = new NfseWSServiceStub();
 			
-			nfseStub._getServiceClient().getOptions().setProperty(HTTPConstants.CHUNKED, false);	
-			
-			String result = nfseStub.cancelarNfse(resquest).getCancelarNfseResponse().getOutputXML();
+			nfseStub._getServiceClient().getOptions().setProperty(HTTPConstants.CHUNKED, false);
+			nfseStub.cancelarNfse(resquest).getCancelarNfseResponse().getOutputXML();
 		}
 		catch (Exception e)
 		{

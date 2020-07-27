@@ -108,6 +108,11 @@ public class MLBRNFLineMA extends X_LBR_NFLineMA
 				return false;
 			}
 		}
+		
+		//	Valida a UF
+		if (getC_Region_ID() > 0 && (getLBR_UFCons() == null || getLBR_UFCons().isBlank()))
+			setLBR_UFCons(getC_Region().getName());
+		
 		//	Valida os dados do rastreamento / detalhamento
 		validate();
 		//

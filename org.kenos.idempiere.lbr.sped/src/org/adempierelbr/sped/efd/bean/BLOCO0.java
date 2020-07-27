@@ -35,6 +35,9 @@ public class BLOCO0 {
 	@XMLFieldProperties(id = "R0001")
 	private R0001 r0001;
 
+	@XMLFieldProperties(id = "R0002")
+	private R0002 r0002;
+
 	@XMLFieldProperties(id = "R0005")
 	private R0005 r0005;
 
@@ -73,6 +76,14 @@ public class BLOCO0 {
 
 	public void setR0005(R0005 r0005) {
 		this.r0005 = r0005;
+	}
+
+	public R0002 getR0002() {
+		return r0002;
+	}
+
+	public void setR0002(R0002 r0002) {
+		this.r0002 = r0002;
 	}
 
 	public R0000 getR0000() {
@@ -266,6 +277,8 @@ public class BLOCO0 {
 		//
 		result.append(r0000);
 		result.append(r0001);
+		if (r0002 != null)
+			result.append(r0002);
 		result.append(r0005);
 		result.append(r0100);
 

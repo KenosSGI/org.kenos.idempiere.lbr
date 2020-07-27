@@ -193,7 +193,6 @@ public class WPayment extends Payment
 		bRefresh.addActionListener(this);
 		labelPayDate.setText(Msg.translate(Env.getCtx(), "PayDate"));
 		labelPaymentRule.setText(Msg.translate(Env.getCtx(), "PaymentRule"));
-		fieldPaymentRule.addActionListener(this);
 		labelDtype.setText(Msg.translate(Env.getCtx(), "C_DocType_ID"));
 		fieldDtype.addActionListener(this);
 		//

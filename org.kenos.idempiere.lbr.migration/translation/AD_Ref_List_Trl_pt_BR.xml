@@ -2621,11 +2621,11 @@
   <value column="Description" original=""/>
  </row>
  <row id="806" trl="Y">
-  <value column="Name" original="Client (all shared)">Cliente (todos compartilhados)</value>
+  <value column="Name" original="Client (all shared)">Empresa (compartilhada)</value>
   <value column="Description" original=""/>
  </row>
  <row id="807" trl="Y">
-  <value column="Name" original="Org (not shared)">Org (não compartilhada)</value>
+  <value column="Name" original="Org (not shared)">Organização (não compartilhada)</value>
   <value column="Description" original=""/>
  </row>
  <row id="808" trl="Y">

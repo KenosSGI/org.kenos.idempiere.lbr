@@ -2582,6 +2582,11 @@ For example:<br />
   <value column="Description" original="Generate NF from another document">Gerar Notas Fiscais a partir de outro documento</value>
   <value column="Help" original="">Este processo permite a geração de uma Nota Fiscal a partir de um Pedido, Remessa, Fatura ou Movimentação.</value>
  </row>
+ <row trl="Y" uuid="8d41fbb9-854d-40be-9801-66331f6b2ac5">
+  <value column="Name" original="Generate NF Other In Out">Gerar NF-e a partir de Outras Entradas/Saídas</value>
+  <value column="Description" original="Generate NF from Other In Out">Gerar NF-e a partir de Outras Entradas/Saídas</value>
+  <value column="Help" original="">Este processo permite a geração de uma Nota Fiscal a partir de um documento do tipo  Outras Entradas/Saídas</value>
+ </row>
  <row trl="Y" uuid="31dfe921-cec5-49d1-b0a5-b26d596d5ef6">
   <value column="Name" original="Make To Order Candidate">Pedido de Venda pendente de Produção</value>
   <value column="Description" original="Make To Order Candidate">Pedido de Venda pendente de Produção</value>
@@ -2663,8 +2668,8 @@ For example:<br />
   <value column="Help" original="This report can help to see all RMA Not Invoiced or Delivered">Relatório exibe ARMs que não foram Faturadas ou Expedidas</value>
  </row>
  <row trl="Y" uuid="76763a51-c984-440e-aebc-1f2da541d733">
-  <value column="Name" original="RV_LBR_RequestDetails">Detalhes de Requisição</value>
-  <value column="Description" original=""/>
+  <value column="Name" original="RV_LBR_RequestDetails">Detalhes de Solicitação</value>
+  <value column="Description" original="">Lista detalhada das Solicitações</value>
   <value column="Help" original=""/>
  </row>
  <row trl="Y" uuid="884ba49e-6cd7-4883-bc7a-71e78769eb5e">
@@ -2716,5 +2721,10 @@ For example:<br />
   <value column="Name" original="Freight Calc">Cálculo de Frete (Correios)</value>
   <value column="Description" original="Freight calculation for Brazilian Post Service (Correios)">Sistema de cálculo de frete para o serviço de postagem brasileiro (Correios)</value>
   <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="e8438030-41dc-4976-8760-b2fc91f10d22">
+  <value column="Name" original="Bank Statement Detail">Detalhes do Extrato Bancário</value>
+  <value column="Description" original="">Relatório exibe Detalhes do Extrato Bancário baseado nas linhas do Extrato</value>
+  <value column="Help" original="">Relatório exibe Detalhes do Extrato Bancário baseado nas linhas do Extrato</value>
  </row>
 </idempiereTrl>
