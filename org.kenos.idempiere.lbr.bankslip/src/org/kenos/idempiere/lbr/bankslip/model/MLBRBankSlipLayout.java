@@ -45,9 +45,40 @@ public class MLBRBankSlipLayout extends X_LBR_BankSlipLayout
 	 * 	@param isSOTrx
 	 * 	@return
 	 */
+	public List<MLBRBankSlipOccur> getOccurrences ()
+	{
+		String sql = MLBRBankSlipOccur.COLUMNNAME_LBR_BankSlipLayout_ID + "=?";
+		return new Query (getCtx(), MLBRBankSlipOccur.Table_Name, sql, get_TrxName()).setParameters(getLBR_BankSlipLayout_ID()).list();
+	}	//	getOccurences
+	
+	/**
+	 * 	Get Bank Slip Occurrences
+	 * 	@param isSOTrx
+	 * 	@return
+	 */
+	public List<MLBRBankSlipFold> getFolds ()
+	{
+		String sql = MLBRBankSlipFold.COLUMNNAME_LBR_BankSlipLayout_ID + "=?";
+		return new Query (getCtx(), MLBRBankSlipFold.Table_Name, sql, get_TrxName()).setParameters(getLBR_BankSlipLayout_ID()).list();
+	}	//	getFolds
+	
+	/**
+	 * 	Get Bank Slip Occurrences
+	 * 	@param isSOTrx
+	 * 	@return
+	 */
 	public List<MLBRBankSlipOccur> getOccurrences (boolean isSOTrx)
 	{
 		String sql = MLBRBankSlipOccur.COLUMNNAME_IsSOTrx + "=? AND " + MLBRBankSlipOccur.COLUMNNAME_LBR_BankSlipLayout_ID + "=?";
 		return new Query (getCtx(), MLBRBankSlipOccur.Table_Name, sql, get_TrxName()).setParameters(isSOTrx, getLBR_BankSlipLayout_ID()).list();
 	}	//	getOccurences
+	
+	/**
+	 * 	Delete record
+	 * 	@return
+	 */
+	public boolean delete() 
+	{
+		return super.delete(true);
+	}	//	delete
 }	//	MLBRBankSlipLayout

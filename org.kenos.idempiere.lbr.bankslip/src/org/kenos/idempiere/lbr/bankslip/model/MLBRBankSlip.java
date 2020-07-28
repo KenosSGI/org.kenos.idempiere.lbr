@@ -11,15 +11,19 @@ import java.util.Properties;
 import org.adempiere.model.POWrapper;
 import org.adempierelbr.model.X_LBR_BankSlip;
 import org.adempierelbr.util.TextUtil;
+import org.adempierelbr.wrapper.I_W_AD_OrgInfo;
 import org.adempierelbr.wrapper.I_W_C_BPartner;
 import org.adempierelbr.wrapper.I_W_C_Bank;
 import org.adempierelbr.wrapper.I_W_C_BankAccount;
+import org.compiere.model.I_C_Location;
 import org.compiere.model.MBPartner;
+import org.compiere.model.MBPartnerLocation;
 import org.compiere.model.MBank;
 import org.compiere.model.MBankAccount;
 import org.compiere.model.MFactAcct;
 import org.compiere.model.MImage;
 import org.compiere.model.MLocation;
+import org.compiere.model.MOrgInfo;
 import org.compiere.model.ModelValidationEngine;
 import org.compiere.model.ModelValidator;
 import org.compiere.model.Query;
@@ -487,6 +491,47 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 			bsi.setlbr_BPPostal(location.getPostal());
 			//
 			changed = true;
+		}
+		
+		//	Recipient
+		if (newRecord || is_ValueChanged(COLUMNNAME_LBR_RecipientType) || is_ValueChanged(COLUMNNAME_LBR_Recipient_Location_ID))
+		{
+			String recipientName 	= null;
+			String recipientTaxType = null;
+			String recipientTaxID 	= null;
+			I_C_Location location 	= null;
+
+			if (LBR_RECIPIENTTYPE_FIDCOr3rdParty.equals(getLBR_RecipientType()))
+			{
+				MBPartner bp = new MBPartner(getCtx(), getLBR_Recipient_ID(), get_TrxName());
+				I_W_C_BPartner bpW 	= POWrapper.create(bp, I_W_C_BPartner.class);
+				//
+				recipientName 		= bpW.getName();
+				recipientTaxType 	= bpW.getlbr_BPTypeBR();
+				recipientTaxID		= bpW.getlbr_CNPJ();
+				//
+				location = new MBPartnerLocation(getCtx(), getLBR_Recipient_Location_ID(), get_TrxName()).getC_Location();
+			}
+			else
+			{
+				I_W_AD_OrgInfo org 	= POWrapper.create(MOrgInfo.get(getCtx(), getAD_Org_ID(), get_TrxName()), I_W_AD_OrgInfo.class);
+				recipientName 		= org.getlbr_LegalEntity();
+				recipientTaxType 	= MLBRBankSlipInfo.LBR_ORGBPTYPE_PJ_LegalEntity;
+				recipientTaxID		= org.getlbr_CNPJ();
+				//
+				location = org.getC_Location();
+			}
+			//
+			bsi.setlbr_OrgName(recipientName);
+			bsi.setLBR_OrgBPType(recipientTaxType);
+			bsi.setlbr_CNPJ(recipientTaxID);
+			bsi.setlbr_OrgAddress1(location.getAddress1());
+			bsi.setlbr_OrgAddress2(location.getAddress2());
+			bsi.setlbr_OrgAddress3(location.getAddress3());
+			bsi.setlbr_OrgAddress4(location.getAddress4());
+			bsi.setlbr_OrgCity(location.getCity());
+			bsi.setlbr_OrgRegion(location.getRegionName());
+			bsi.setlbr_OrgPostal(location.getPostal());	
 		}
 		
 		//	Guarantor - not mandatory

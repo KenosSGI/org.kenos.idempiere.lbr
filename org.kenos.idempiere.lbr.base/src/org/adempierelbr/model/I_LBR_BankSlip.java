@@ -744,6 +744,37 @@ public interface I_LBR_BankSlip
 	/** Get Protest Type	  */
 	public String getLBR_ProtestType();
 
+    /** Column name LBR_RecipientType */
+    public static final String COLUMNNAME_LBR_RecipientType = "LBR_RecipientType";
+
+	/** Set Recipient Type	  */
+	public void setLBR_RecipientType (String LBR_RecipientType);
+
+	/** Get Recipient Type	  */
+	public String getLBR_RecipientType();
+
+    /** Column name LBR_Recipient_ID */
+    public static final String COLUMNNAME_LBR_Recipient_ID = "LBR_Recipient_ID";
+
+	/** Set Recipient	  */
+	public void setLBR_Recipient_ID (int LBR_Recipient_ID);
+
+	/** Get Recipient	  */
+	public int getLBR_Recipient_ID();
+
+	public org.compiere.model.I_C_BPartner getLBR_Recipient() throws RuntimeException;
+
+    /** Column name LBR_Recipient_Location_ID */
+    public static final String COLUMNNAME_LBR_Recipient_Location_ID = "LBR_Recipient_Location_ID";
+
+	/** Set Recipient Location	  */
+	public void setLBR_Recipient_Location_ID (int LBR_Recipient_Location_ID);
+
+	/** Get Recipient Location	  */
+	public int getLBR_Recipient_Location_ID();
+
+	public org.compiere.model.I_C_BPartner_Location getLBR_Recipient_Location() throws RuntimeException;
+
     /** Column name LBR_RegisterType */
     public static final String COLUMNNAME_LBR_RegisterType = "LBR_RegisterType";
 

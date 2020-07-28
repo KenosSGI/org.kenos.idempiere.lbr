@@ -33,7 +33,7 @@ public class X_LBR_BankSlip extends PO implements I_LBR_BankSlip, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20200401L;
+	private static final long serialVersionUID = 20200727L;
 
     /** Standard Constructor */
     public X_LBR_BankSlip (Properties ctx, int LBR_BankSlip_ID, String trxName)
@@ -91,6 +91,8 @@ public class X_LBR_BankSlip extends PO implements I_LBR_BankSlip, I_Persistent
 // 0
 			setLBR_ProtestDays (0);
 // 0
+			setLBR_RecipientType (null);
+// 1
 			setLBR_RegisterType (null);
 			setLBR_ReturnAction (null);
 			setPosted (false);
@@ -1428,6 +1430,75 @@ public class X_LBR_BankSlip extends PO implements I_LBR_BankSlip, I_Persistent
 	public String getLBR_ProtestType () 
 	{
 		return (String)get_Value(COLUMNNAME_LBR_ProtestType);
+	}
+
+	/** Organization = 1 */
+	public static final String LBR_RECIPIENTTYPE_Organization = "1";
+	/** FIDC or 3rd Party = 2 */
+	public static final String LBR_RECIPIENTTYPE_FIDCOr3rdParty = "2";
+	/** Set Recipient Type.
+		@param LBR_RecipientType Recipient Type	  */
+	public void setLBR_RecipientType (String LBR_RecipientType)
+	{
+
+		set_Value (COLUMNNAME_LBR_RecipientType, LBR_RecipientType);
+	}
+
+	/** Get Recipient Type.
+		@return Recipient Type	  */
+	public String getLBR_RecipientType () 
+	{
+		return (String)get_Value(COLUMNNAME_LBR_RecipientType);
+	}
+
+	public org.compiere.model.I_C_BPartner getLBR_Recipient() throws RuntimeException
+    {
+		return (org.compiere.model.I_C_BPartner)MTable.get(getCtx(), org.compiere.model.I_C_BPartner.Table_Name)
+			.getPO(getLBR_Recipient_ID(), get_TrxName());	}
+
+	/** Set Recipient.
+		@param LBR_Recipient_ID Recipient	  */
+	public void setLBR_Recipient_ID (int LBR_Recipient_ID)
+	{
+		if (LBR_Recipient_ID < 1) 
+			set_Value (COLUMNNAME_LBR_Recipient_ID, null);
+		else 
+			set_Value (COLUMNNAME_LBR_Recipient_ID, Integer.valueOf(LBR_Recipient_ID));
+	}
+
+	/** Get Recipient.
+		@return Recipient	  */
+	public int getLBR_Recipient_ID () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_LBR_Recipient_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
+	public org.compiere.model.I_C_BPartner_Location getLBR_Recipient_Location() throws RuntimeException
+    {
+		return (org.compiere.model.I_C_BPartner_Location)MTable.get(getCtx(), org.compiere.model.I_C_BPartner_Location.Table_Name)
+			.getPO(getLBR_Recipient_Location_ID(), get_TrxName());	}
+
+	/** Set Recipient Location.
+		@param LBR_Recipient_Location_ID Recipient Location	  */
+	public void setLBR_Recipient_Location_ID (int LBR_Recipient_Location_ID)
+	{
+		if (LBR_Recipient_Location_ID < 1) 
+			set_Value (COLUMNNAME_LBR_Recipient_Location_ID, null);
+		else 
+			set_Value (COLUMNNAME_LBR_Recipient_Location_ID, Integer.valueOf(LBR_Recipient_Location_ID));
+	}
+
+	/** Get Recipient Location.
+		@return Recipient Location	  */
+	public int getLBR_Recipient_Location_ID () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_LBR_Recipient_Location_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
 	}
 
 	/** Registered = 1 */

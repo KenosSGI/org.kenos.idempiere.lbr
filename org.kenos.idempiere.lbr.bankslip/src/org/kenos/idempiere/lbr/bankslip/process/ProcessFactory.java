@@ -16,6 +16,8 @@ public class ProcessFactory implements IProcessFactory
 	{
 		if (Print.class.getName().equals (className))
 			return new Print ();
+		if (CopyConfig.class.getName().equals (className))
+			return new CopyConfig ();
 		return null;
 	}	//	newProcessInstance
 }	//	ProcessFactory
