@@ -1933,6 +1933,19 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		setTotalLines(totalItem);
 		setlbr_ServiceTotalAmt(totalService);
 		
+		//	Nota do Documento (Mensagens Legais) e Descrição
+		setLBR_FiscalObs ();
+		setDescription ();
+		
+		// IBPTax - LBR-81
+		// Somente para consumidor final e for NF-e de Saída
+		if ((LBR_TRANSACTIONTYPE_EndUser.equals(getlbr_TransactionType())
+				|| LBR_TRANSACTIONTYPE_EndUserDoubleBase.equals(getlbr_TransactionType())) && isSOTrx())
+			setAproxTaxIBPT();
+		
+		//	Descrição para Nota de Serviço
+		setlbr_ServiceTaxes();
+		
 		//	O peso normalemnte vem da expedição, porém alguns casos a NF é feita com base no pedido
 		//		ou na fatura, portanto é necessário recalcular o peso
 		if (Env.ZERO.compareTo (getlbr_GrossWeight()) == 0)
@@ -2052,6 +2065,16 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		//	Valores
 		setTotalLines(totalItem);
 		setlbr_ServiceTotalAmt(totalService);
+		
+		//	Nota do Documento (Mensagens Legais) e Descrição
+		setLBR_FiscalObs ();
+		setDescription ();
+		
+		// IBPTax - LBR-81
+		// Somente para consumidor final e for NF-e de Saída
+		if ((LBR_TRANSACTIONTYPE_EndUser.equals(getlbr_TransactionType())
+				|| LBR_TRANSACTIONTYPE_EndUserDoubleBase.equals(getlbr_TransactionType())) && isSOTrx())
+			setAproxTaxIBPT();
 		
 		//	O peso normalemnte vem da expedição, porém alguns casos a NF é feita com base no pedido
 		//		ou na fatura, portanto é necessário recalcular o peso
