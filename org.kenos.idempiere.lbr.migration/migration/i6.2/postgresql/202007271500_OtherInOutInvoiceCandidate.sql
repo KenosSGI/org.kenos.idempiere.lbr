@@ -1,6 +1,3 @@
-SET SQLBLANKLINES ON
-SET DEFINE OFF
-
 -- View: adempiere.c_invoice_candidate_v
 
 DROP VIEW adempiere.c_invoice_candidate_v;
