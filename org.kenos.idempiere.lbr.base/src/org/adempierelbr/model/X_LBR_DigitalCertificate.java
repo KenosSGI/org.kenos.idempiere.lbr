@@ -270,6 +270,8 @@ public class X_LBR_DigitalCertificate extends PO implements I_LBR_DigitalCertifi
 	public static final String LBR_CERTTYPE_ICPTrustStoreJKS = "ICP";
 	/** PKCS#11 = P11 */
 	public static final String LBR_CERTTYPE_PKCS11 = "P11";
+	/** PKCS#11 = R11 */
+	public static final String LBR_CERTTYPE_PKCS11_Remote = "R11";
 	/** Set Certificate Type.
 		@param lbr_CertType 
 		Define the type of Digital Certificate

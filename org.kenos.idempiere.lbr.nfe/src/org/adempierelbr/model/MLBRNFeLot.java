@@ -399,8 +399,8 @@ public class MLBRNFeLot extends X_LBR_NFeLot implements DocAction, DocOptions
 			
 			MLBRDigitalCertificate dcOrg = new MLBRDigitalCertificate(Env.getCtx(), certOrg, null);
 			
-			//	Not Add Wrap Tag when Certificate is A3/PKCS11
-			if (MLBRDigitalCertificate.LBR_CERTTYPE_PKCS11.equals(dcOrg.getlbr_CertType()))
+			//	Not Add Wrap Tag when Certificate is A3/PKCS11 is Remote
+			if (MLBRDigitalCertificate.LBR_CERTTYPE_PKCS11_Remote.equals(dcOrg.getlbr_CertType()))
 				xmlText = consReciNFeDoc.xmlText(NFeUtil.getXmlOpt());
 			else
 				xmlText = NFeUtil.wrapMsg (consReciNFeDoc.xmlText(NFeUtil.getXmlOpt()));

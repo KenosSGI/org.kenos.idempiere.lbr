@@ -100,8 +100,8 @@ public class MLBRDigitalCertificate extends X_LBR_DigitalCertificate
 		MLBRDigitalCertificate dcWS = new MLBRDigitalCertificate(Env.getCtx(), certWS, null);
 		MLBRDigitalCertificate dcICP = MLBRDigitalCertificate.getICPTrustStore();
 		
-		//	Not set Certificate when A3/PKCS11
-		if (MLBRDigitalCertificate.LBR_CERTTYPE_PKCS11.equals(dcOrg.getlbr_CertType()))
+		//	Not set Certificate when A3/PKCS11 is Remote
+		if (MLBRDigitalCertificate.LBR_CERTTYPE_PKCS11_Remote.equals(dcOrg.getlbr_CertType()))
 			return;
 
 		if (!dcOrg.isValid())
