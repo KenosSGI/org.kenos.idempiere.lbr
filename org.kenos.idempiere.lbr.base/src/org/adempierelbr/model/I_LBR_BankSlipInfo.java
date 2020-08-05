@@ -571,6 +571,19 @@ public interface I_LBR_BankSlipInfo
 	  */
 	public String getlbr_Instruction3();
 
+    /** Column name lbr_NFeID */
+    public static final String COLUMNNAME_lbr_NFeID = "lbr_NFeID";
+
+	/** Set NFe ID.
+	  * Identification of NFe
+	  */
+	public void setlbr_NFeID (String lbr_NFeID);
+
+	/** Get NFe ID.
+	  * Identification of NFe
+	  */
+	public String getlbr_NFeID();
+
     /** Column name lbr_OrgAddress1 */
     public static final String COLUMNNAME_lbr_OrgAddress1 = "lbr_OrgAddress1";
 

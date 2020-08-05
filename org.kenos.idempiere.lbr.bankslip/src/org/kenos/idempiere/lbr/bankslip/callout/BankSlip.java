@@ -75,6 +75,13 @@ public class BankSlip
 		mTab.setValue (MLBRBankSlip.COLUMNNAME_LBR_BankSlipFold_ID, contract.getLBR_BankSlipFold_ID ());
 		mTab.setValue (MLBRBankSlip.COLUMNNAME_LBR_BankSlipKind_ID, contract.getLBR_BankSlipKind_ID ());
 		mTab.setValue (MLBRBankSlip.COLUMNNAME_LBR_RegisterType, contract.getLBR_RegisterType ());
+		mTab.setValue (MLBRBankSlip.COLUMNNAME_LBR_RecipientType, contract.getLBR_RecipientType());
+		
+		if (MLBRBankSlipContract.LBR_RECIPIENTTYPE_FIDCOr3rdParty.equals(contract.getLBR_RecipientType()))
+		{
+			mTab.setValue (MLBRBankSlip.COLUMNNAME_LBR_Recipient_ID, contract.getLBR_Recipient_ID());
+			mTab.setValue (MLBRBankSlip.COLUMNNAME_LBR_Recipient_Location_ID, contract.getLBR_Recipient_Location_ID());
+		}
 		
 		if (contract.getLBR_BankSlipConfig_ID() < 1)
 			return "";

@@ -33,7 +33,7 @@ public class X_LBR_BankSlip extends PO implements I_LBR_BankSlip, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20200727L;
+	private static final long serialVersionUID = 20200730L;
 
     /** Standard Constructor */
     public X_LBR_BankSlip (Properties ctx, int LBR_BankSlip_ID, String trxName)
@@ -1277,6 +1277,34 @@ public class X_LBR_BankSlip extends PO implements I_LBR_BankSlip, I_Persistent
 	public String getLBR_LoanContractNo () 
 	{
 		return (String)get_Value(COLUMNNAME_LBR_LoanContractNo);
+	}
+
+	public org.adempierelbr.model.I_LBR_NotaFiscal getLBR_NotaFiscal() throws RuntimeException
+    {
+		return (org.adempierelbr.model.I_LBR_NotaFiscal)MTable.get(getCtx(), org.adempierelbr.model.I_LBR_NotaFiscal.Table_Name)
+			.getPO(getLBR_NotaFiscal_ID(), get_TrxName());	}
+
+	/** Set Nota Fiscal.
+		@param LBR_NotaFiscal_ID 
+		Primary key table LBR_NotaFiscal
+	  */
+	public void setLBR_NotaFiscal_ID (int LBR_NotaFiscal_ID)
+	{
+		if (LBR_NotaFiscal_ID < 1) 
+			set_Value (COLUMNNAME_LBR_NotaFiscal_ID, null);
+		else 
+			set_Value (COLUMNNAME_LBR_NotaFiscal_ID, Integer.valueOf(LBR_NotaFiscal_ID));
+	}
+
+	/** Get Nota Fiscal.
+		@return Primary key table LBR_NotaFiscal
+	  */
+	public int getLBR_NotaFiscal_ID () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_LBR_NotaFiscal_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
 	}
 
 	/** Set Number In Bank.

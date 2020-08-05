@@ -23,7 +23,9 @@ public class FormFactory implements IFormFactory
 		//	Check the form name
 		if (GenCNAB.GEN_CNAB_SWING.equals(formName) || GenCNAB.GEN_CNAB_ZK.equals(formName))
 			controller = new WGenCNAB();
-
+		else if (GenBankSlip.GEN_BANKSLIP_SWING.equals(formName) || GenBankSlip.GEN_BANKSLIP_ZK.equals(formName))
+			controller = new WGenBankSlip();
+		
 		if (controller != null)
 		{
 			ADForm form = controller.getForm();
@@ -32,5 +34,5 @@ public class FormFactory implements IFormFactory
 		}
 		
 		return null;
-	}
+	}	//	newFormInstance
 }	//	FormFactory

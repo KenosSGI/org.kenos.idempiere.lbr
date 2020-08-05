@@ -14,28 +14,29 @@
 package org.kenos.idempiere.lbr.bankslip.form;
 
 import java.io.File;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Random;
 import java.util.logging.Level;
 
 import org.adempiere.pipo2.Zipper;
 import org.adempiere.webui.ClientInfo;
 import org.adempiere.webui.LayoutUtils;
 import org.adempiere.webui.component.Button;
+import org.adempiere.webui.component.Checkbox;
 import org.adempiere.webui.component.Column;
 import org.adempiere.webui.component.Columns;
 import org.adempiere.webui.component.ConfirmPanel;
 import org.adempiere.webui.component.Grid;
 import org.adempiere.webui.component.GridFactory;
 import org.adempiere.webui.component.Label;
-import org.adempiere.webui.component.ListItem;
 import org.adempiere.webui.component.Listbox;
 import org.adempiere.webui.component.ListboxFactory;
 import org.adempiere.webui.component.Panel;
 import org.adempiere.webui.component.Row;
 import org.adempiere.webui.component.Rows;
 import org.adempiere.webui.component.WListbox;
+import org.adempiere.webui.editor.WDateEditor;
 import org.adempiere.webui.event.WTableModelEvent;
 import org.adempiere.webui.event.WTableModelListener;
 import org.adempiere.webui.panel.ADForm;
@@ -44,16 +45,20 @@ import org.adempiere.webui.panel.IFormController;
 import org.adempiere.webui.session.SessionManager;
 import org.adempiere.webui.window.FDialog;
 import org.adempierelbr.util.TextUtil;
+import org.apache.commons.io.FileUtils;
+import org.compiere.model.MBankAccount;
 import org.compiere.process.ProcessInfo;
 import org.compiere.util.Env;
 import org.compiere.util.KeyNamePair;
 import org.compiere.util.Msg;
+import org.zkoss.util.media.AMedia;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Borderlayout;
 import org.zkoss.zul.Center;
+import org.zkoss.zul.Filedownload;
 import org.zkoss.zul.North;
 import org.zkoss.zul.Separator;
 import org.zkoss.zul.South;
@@ -64,8 +69,7 @@ import org.zkoss.zul.South;
  *  @author Ricardo Santana (Kenos, www.kenos.com.br)
  *  @version $Id: WGenBilling.java, v1.0 2012/03/27 6:13:04 PM, ralexsander Exp $
  */
-
-public class WGenCNAB extends GenCNAB
+public class WGenBankSlip extends GenBankSlip
 	implements IFormController, EventListener<Event>, WTableModelListener
 {	
 	private CustomForm form = new CustomForm();
@@ -73,19 +77,24 @@ public class WGenCNAB extends GenCNAB
 	private Panel mainPanel = new Panel();
 	private Borderlayout mainLayout = new Borderlayout();
 	private Panel parameterPanel = new Panel();
-	private Label labelOrg = new Label();
-	private Listbox fieldOrg = ListboxFactory.newDropdownListbox();
 	private Label labelBankAccount = new Label();
 	private Listbox fieldBankAccount = ListboxFactory.newDropdownListbox();
-	private Label labelBankContract = new Label();
-	private Listbox fieldBankContract = ListboxFactory.newDropdownListbox();
 	private Grid parameterLayout = GridFactory.newGridLayout();
+	private Checkbox isPrinted = new Checkbox();
+	private Label labelBPartner = new Label();
+	private Listbox fieldBPartner = ListboxFactory.newDropdownListbox();
 	private Label dataStatus = new Label();
 	private WListbox miniTable = ListboxFactory.newDataTable();
 	private ConfirmPanel commandPanel = new ConfirmPanel(true, false, false, false, false, false, false);
 	private Button bCancel = commandPanel.getButton(ConfirmPanel.A_CANCEL);
 	private Button bGenerate = commandPanel.createButton(ConfirmPanel.A_EXPORT);
 	private Button bRefresh = commandPanel.createButton(ConfirmPanel.A_REFRESH);
+	private Label labelDate = new Label();
+	private WDateEditor fieldDate = new WDateEditor();
+	private Label labelDateTo = new Label();
+	private WDateEditor fieldDateTo = new WDateEditor();
+	private Label labelDtype = new Label();
+	private Listbox fieldDtype = ListboxFactory.newDropdownListbox();
 	private Panel southPanel;
 	@SuppressWarnings("unused")
 	private ProcessInfo m_pi;
@@ -95,13 +104,14 @@ public class WGenCNAB extends GenCNAB
 	/**
 	 *	Initialize Panel
 	 */
-	public WGenCNAB()
+	public WGenBankSlip()
 	{
 		try
 		{
 			zkInit();
 			dynInit();
-			loadTableInfo();
+			
+			loadBankInfo();
 			southPanel.appendChild(new Separator());
 			southPanel.appendChild(commandPanel);
 		}
@@ -128,13 +138,18 @@ public class WGenCNAB extends GenCNAB
 		mainLayout.setWidth("99%");
 		parameterPanel.appendChild(parameterLayout);
 		//
-		labelOrg.setText(Msg.translate(Env.getCtx(), "AD_Org_ID"));
-		fieldOrg.addActionListener(this);
 		labelBankAccount.setText(Msg.translate(Env.getCtx(), "C_BankAccount_ID"));
 		fieldBankAccount.addActionListener(this);
-		labelBankContract.setText(Msg.translate(Env.getCtx(), "LBR_BankSlipContract_ID"));
-		fieldBankContract.addActionListener(this);
+		labelBPartner.setText(Msg.translate(Env.getCtx(), "C_BPartner_ID"));
+		fieldBPartner.addActionListener(this);
 		bRefresh.addActionListener(this);
+		labelDate.setText(Msg.translate(Env.getCtx(), "PayDate"));
+		labelDateTo.setText(Msg.translate(Env.getCtx(), "To"));
+		labelDtype.setText(Msg.translate(Env.getCtx(), "C_DocType_ID"));
+		fieldDtype.addActionListener(this);
+		//
+		isPrinted.setText(Msg.translate(Env.getCtx(), "IsPrinted"));
+		isPrinted.addActionListener(this);
 		dataStatus.setText(" ");
 		dataStatus.setPre(true);
 		//
@@ -142,7 +157,7 @@ public class WGenCNAB extends GenCNAB
 		bCancel.addActionListener(this);
 		//
 		North north = new North();
-		north.setStyle("border: none");
+		north.setBorder ("none");
 		mainLayout.appendChild(north);
 		north.appendChild(parameterPanel);
 		north.setCollapsible(true);
@@ -151,19 +166,25 @@ public class WGenCNAB extends GenCNAB
 		
 		Rows rows = parameterLayout.newRows();
 		Row row = rows.newRow();
-		row.appendChild(labelOrg.rightAlign());
-		row.appendChild(fieldOrg);
-		
-		row = rows.newRow();
 		row.appendChild(labelBankAccount.rightAlign());
 		row.appendChild(fieldBankAccount);
 		
 		row = rows.newRow();
-		row.appendChild(labelBankContract.rightAlign());
-		row.appendChild(fieldBankContract);
+		row.appendChild(labelBPartner.rightAlign());
+		row.appendChild(fieldBPartner);
+		row.appendChild(labelDate.rightAlign());
+		row.appendChild(fieldDate.getComponent());
+		
+		row = rows.newRow();
+		row.appendChild(labelDtype.rightAlign());
+		row.appendChild(fieldDtype);
+		row.appendChild(labelDateTo.rightAlign());
+		row.appendChild(fieldDateTo.getComponent());
+		row.appendChild(isPrinted);
+		row.appendChild(bRefresh);
 
 		South south = new South();
-		south.setStyle("border: none");
+		south.setBorder ("none");
 		mainLayout.appendChild(south);
 		southPanel = new Panel();
 		southPanel.appendChild(dataStatus);
@@ -172,7 +193,6 @@ public class WGenCNAB extends GenCNAB
 		mainLayout.appendChild(center);
 		center.appendChild(miniTable);
 		//
-		commandPanel.addButton(bRefresh);
 		commandPanel.addButton(bGenerate);
 		commandPanel.getButton(ConfirmPanel.A_OK).setVisible(false);
 		
@@ -182,8 +202,7 @@ public class WGenCNAB extends GenCNAB
 			LayoutUtils.expandTo(parameterLayout, noOfColumn, true);
 	}   //  jbInit
 
-	protected void setupColumns()
-	{
+	protected void setupColumns() {
 		noOfColumn = 6;
 		if (ClientInfo.maxWidth(ClientInfo.MEDIUM_WIDTH-1))
 		{
@@ -213,59 +232,64 @@ public class WGenCNAB extends GenCNAB
 	 */
 	private void dynInit()
 	{
-		//	Load Organizations
-		ArrayList<KeyNamePair> orgs = getOrganization();
-		for (KeyNamePair org : orgs)
-			fieldOrg.appendItem(org.toString(), org);
-		
-		//	Check Selected Organization
-		int AD_Org_ID = -1;
-		if (fieldOrg.getSelectedItem() != null)
-		{
-			ListItem item = fieldOrg.getSelectedItem();
-			KeyNamePair knp = item.getValue();
-			AD_Org_ID = knp.getKey();
-		}
-		
-		ArrayList<KeyNamePair> bankAccountData = getBankAccountData(AD_Org_ID);
+		ArrayList<KeyNamePair> bankAccountData = getBankAccountData();
 		for (KeyNamePair bi : bankAccountData)
 			fieldBankAccount.appendItem(bi.toString(), bi);
-		
-		//	Check Selected Organization
-		int C_BankAccount_ID = -1;
-		if (fieldBankAccount.getSelectedItem() != null)
-		{
-			ListItem item = fieldBankAccount.getSelectedItem();
-			KeyNamePair knp = item.getValue();
-			C_BankAccount_ID = knp.getKey();
-		}
-		
-		ArrayList<KeyNamePair> bankContractData = getBankContractData(C_BankAccount_ID);
-		for (KeyNamePair bc : bankContractData)
-			fieldBankContract.appendItem(bc.toString(), bc);
 
 		if (fieldBankAccount.getItemCount() == 0)
 			FDialog.error(m_WindowNo, form, "VPaySelectNoBank");
 		else
 			fieldBankAccount.setSelectedIndex(0);
 		
+		ArrayList<KeyNamePair> bpartnerData = getBPartnerData();
+		for(KeyNamePair pp : bpartnerData)
+			fieldBPartner.appendItem(pp.getName(), pp);
+		fieldBPartner.setSelectedIndex(0);
+
+		ArrayList<KeyNamePair> docTypeData = getDocTypeData();
+		for(KeyNamePair pp : docTypeData)
+			fieldDtype.appendItem(pp.getName(), pp);
+		
 		prepareTable(miniTable);
 		
 		miniTable.getModel().addTableModelListener(this);
+		//
+		fieldDate.setMandatory(true);
+		fieldDate.setValue(new Timestamp(System.currentTimeMillis()));
+		fieldDateTo.setMandatory(true);
+		fieldDateTo.setValue(new Timestamp(System.currentTimeMillis()));
 	}   //  dynInit
+
+	/**
+	 *  Load Bank Info - Load Info from Bank Account and valid Documents (PaymentRule)
+	 */
+	private void loadBankInfo()
+	{		
+		KeyNamePair bi = (KeyNamePair)fieldBankAccount.getSelectedItem().getValue();
+		if (bi == null)
+			return;
+	}   //  loadBankInfo
 
 	/**
 	 *  Query and create TableInfo
 	 */
 	private void loadTableInfo()
 	{
-		ListItem item = fieldBankContract.getSelectedItem();
-		if (item == null)
-			return;
+		Timestamp dateFrom = (Timestamp)fieldDate.getValue();
+		Timestamp dateTo = (Timestamp)fieldDateTo.getValue();
 		
-		KeyNamePair bi = (KeyNamePair)item.getValue();
+		miniTable.setColorCompare(dateFrom);
+		log.config("From " + dateFrom + " To " + dateTo);
 		
-		loadTableInfo (bi.getKey(), miniTable);
+		KeyNamePair bi = (KeyNamePair)fieldBankAccount.getSelectedItem().getValue();
+		
+		KeyNamePair bpartner = (KeyNamePair)fieldBPartner.getSelectedItem().getValue();
+		KeyNamePair docType = (KeyNamePair)fieldDtype.getSelectedItem().getValue();
+
+		MBankAccount bank = new MBankAccount(Env.getCtx(), bi.getKey(), null);
+		int org = bank.getAD_Org_ID();
+		
+		loadTableInfo (org, bi, bpartner, docType, dateFrom, dateTo, isPrinted.isSelected(), miniTable);
 		
 		calculateSelection();
 		
@@ -292,38 +316,22 @@ public class WGenCNAB extends GenCNAB
 	 */
 	public void onEvent (Event e)
 	{
+		//  Update Bank Info
+		if (e.getTarget() == fieldBankAccount)
+			loadBankInfo();
+
 		//  Generate PaySelection
-		if (e.getTarget() == bGenerate)
+		else if (e.getTarget() == bGenerate)
 		{
-			genCNAB ();
-			loadTableInfo ();
+			exportBilling();
+			loadTableInfo();
 		}
 
 		else if (e.getTarget() == bCancel)
 			dispose();
 
-		else if (e.getTarget() == fieldOrg)
-		{
-			KeyNamePair np = fieldOrg.getSelectedItem().getValue();
-			fieldBankAccount.removeAllItems();
-			//
-			ArrayList<KeyNamePair> bankAccountData = getBankAccountData(np.getKey());
-			for (KeyNamePair bi : bankAccountData)
-				fieldBankAccount.appendItem(bi.toString(), bi);
-		}
-
-		else if (e.getTarget() == fieldBankAccount)
-		{
-			KeyNamePair np = fieldBankAccount.getSelectedItem().getValue();
-			fieldBankContract.removeAllItems();
-			//
-			ArrayList<KeyNamePair> bankContractData = getBankContractData(np.getKey());
-			for (KeyNamePair bc : bankContractData)
-				fieldBankContract.appendItem(bc.toString(), bc);
-		}
-		
 		//  Update Open Invoices
-		else if (e.getTarget() == bRefresh || e.getTarget() == fieldBankContract)
+		else if (e.getTarget() == fieldBankAccount || e.getTarget() == fieldBPartner || e.getTarget() == bRefresh || e.getTarget() == fieldDtype || e.getTarget() == isPrinted)
 			loadTableInfo();
 
 	}   //  actionPerformed
@@ -352,7 +360,7 @@ public class WGenCNAB extends GenCNAB
 	/**
 	 *  Print Billing
 	 */
-	private void genCNAB ()
+	private void exportBilling ()
 	{
 		if (miniTable.getRowCount() == 0)
 			return;
@@ -361,16 +369,17 @@ public class WGenCNAB extends GenCNAB
 		if (m_noSelected == 0)
 			return;
 		
-		String filePath = System.getProperty("java.io.tmpdir") + File.separator + "CNAB_" + TextUtil.timeToString(new Date(), "yyyyMMdd") + "_" + new Random ().nextInt (99999999);
+		String filePath = System.getProperty("java.io.tmpdir") + File.separator + "Boletos_" + TextUtil.timeToString(new Date(), "yyyyMMdd");
+		String fileName = filePath + ".zip";
 		File folder = new File (filePath);
 		if (!folder.exists())
 			folder.mkdirs();
 		//
 		deleteDir(folder);
 		
-		genCNAB (miniTable, (KeyNamePair) fieldBankAccount.getSelectedItem().getValue(), (KeyNamePair) fieldBankContract.getSelectedItem().getValue());
+		exportBilling (miniTable, filePath, (KeyNamePair) fieldBankAccount.getSelectedItem().getValue());
 		
-		File zipFile = new File(folder + ".zip");
+		File zipFile = new File(fileName);
 		if (zipFile.exists())
 			zipFile.delete();
 		//
@@ -378,11 +387,12 @@ public class WGenCNAB extends GenCNAB
 		
 		try
 		{
-//			AMedia media = new AMedia(zipFile.getName(), null, null, FileUtils.readFileToByteArray(zipFile));
-//			Filedownload.save(media);
+			AMedia media = new AMedia(zipFile.getName(), null, null, FileUtils.readFileToByteArray(zipFile));
+			Filedownload.save(media);
 		}
 		catch (Exception e)
 		{
+			e.printStackTrace();
 			FDialog.error(m_WindowNo, form, "SaveError", "Erro ao exportar o arquivo");
 		}
 	}   //  exportBilling
@@ -407,7 +417,7 @@ public class WGenCNAB extends GenCNAB
 		if (!m_isLock) return;
 		m_isLock = false;
 		m_pi = pi;
-		Clients.clearBusy();	
+		Clients.clearBusy();
 
 		this.dispose();
 	}	//	unlockUI

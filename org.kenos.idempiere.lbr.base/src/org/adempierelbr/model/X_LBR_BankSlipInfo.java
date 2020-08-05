@@ -30,7 +30,7 @@ public class X_LBR_BankSlipInfo extends PO implements I_LBR_BankSlipInfo, I_Pers
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20200401L;
+	private static final long serialVersionUID = 20200730L;
 
     /** Standard Constructor */
     public X_LBR_BankSlipInfo (Properties ctx, int LBR_BankSlipInfo_ID, String trxName)
@@ -761,6 +761,23 @@ public class X_LBR_BankSlipInfo extends PO implements I_LBR_BankSlipInfo, I_Pers
 	public String getlbr_Instruction3 () 
 	{
 		return (String)get_Value(COLUMNNAME_lbr_Instruction3);
+	}
+
+	/** Set NFe ID.
+		@param lbr_NFeID 
+		Identification of NFe
+	  */
+	public void setlbr_NFeID (String lbr_NFeID)
+	{
+		set_Value (COLUMNNAME_lbr_NFeID, lbr_NFeID);
+	}
+
+	/** Get NFe ID.
+		@return Identification of NFe
+	  */
+	public String getlbr_NFeID () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_NFeID);
 	}
 
 	/** Set Organization Address 1.

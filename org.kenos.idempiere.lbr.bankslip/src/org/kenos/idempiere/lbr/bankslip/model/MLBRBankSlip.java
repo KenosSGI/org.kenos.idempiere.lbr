@@ -4,17 +4,21 @@ import java.awt.Image;
 import java.io.File;
 import java.math.BigDecimal;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
 import org.adempiere.model.POWrapper;
+import org.adempierelbr.model.MLBRNotaFiscal;
+import org.adempierelbr.model.MLBROpenItem;
 import org.adempierelbr.model.X_LBR_BankSlip;
 import org.adempierelbr.util.TextUtil;
 import org.adempierelbr.wrapper.I_W_AD_OrgInfo;
 import org.adempierelbr.wrapper.I_W_C_BPartner;
 import org.adempierelbr.wrapper.I_W_C_Bank;
 import org.adempierelbr.wrapper.I_W_C_BankAccount;
+import org.adempierelbr.wrapper.I_W_C_Invoice;
 import org.compiere.model.I_C_Location;
 import org.compiere.model.MBPartner;
 import org.compiere.model.MBPartnerLocation;
@@ -22,8 +26,10 @@ import org.compiere.model.MBank;
 import org.compiere.model.MBankAccount;
 import org.compiere.model.MFactAcct;
 import org.compiere.model.MImage;
+import org.compiere.model.MInvoice;
 import org.compiere.model.MLocation;
 import org.compiere.model.MOrgInfo;
+import org.compiere.model.MSysConfig;
 import org.compiere.model.ModelValidationEngine;
 import org.compiere.model.ModelValidator;
 import org.compiere.model.Query;
@@ -47,6 +53,7 @@ import org.jrimum.domkee.financeiro.banco.febraban.NumeroDaConta;
 import org.jrimum.domkee.financeiro.banco.febraban.Sacado;
 import org.jrimum.domkee.financeiro.banco.febraban.TipoDeTitulo;
 import org.jrimum.domkee.financeiro.banco.febraban.Titulo;
+import org.kenos.idempiere.lbr.base.model.SysConfig;
 
 /**
  * 	Bank Slip (Boleto) model
@@ -897,4 +904,97 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 	{
 		return getGrandTotal();
 	}	//	getApprovalAmt
+	
+	/**
+	 * 	Generate Bank Slips for an invoice
+	 * @param ctx
+	 * @param C_Invoice_ID
+	 * @param LBR_BankSlipContract_ID
+	 * @param trx
+	 * @return
+	 */
+	public static List<File> generateFromInvoice (Properties ctx, int C_Invoice_ID, int C_InvoicePaySchedule_ID, Integer LBR_BankSlipContract_ID, String trxName)
+	{
+		List<File> files = new ArrayList<File> ();
+		
+		I_W_C_Invoice invoice = POWrapper.create(new MInvoice (ctx, C_Invoice_ID, trxName), I_W_C_Invoice.class);
+		MLBROpenItem[] openItems = MLBROpenItem.getOpenItem (C_Invoice_ID, trxName);
+		
+		for (MLBROpenItem oi : openItems)
+		{
+			MLBRBankSlip bs = new MLBRBankSlip (ctx, 0, trxName);
+			bs.setAD_Org_ID(invoice.getAD_Org_ID());
+			bs.setBankSlipContract(LBR_BankSlipContract_ID);
+			bs.setC_Invoice_ID(oi.getC_Invoice_ID());
+			bs.setC_InvoicePaySchedule_ID(oi.getC_InvoicePaySchedule_ID());
+			bs.setC_BPartner_ID(invoice.getC_BPartner_ID());
+			bs.setC_BPartner_Location_ID(invoice.getC_BPartner_Location_ID());
+			bs.setDateDoc(oi.getDateInvoiced());
+			bs.setDueDate(oi.getDueDate());
+			bs.setDateAcct(oi.getDateInvoiced());
+			bs.setGrandTotal(oi.getGrandTotal());
+			
+			MLBRNotaFiscal[] nfs = MLBRNotaFiscal.get(ctx, invoice.getC_Invoice_ID(), trxName);
+			if (MSysConfig.getBooleanValue(SysConfig.LBR_PRINTNFENOONBILLING, true) && nfs.length > 0)
+				bs.setLBR_NotaFiscal_ID(nfs[0].getLBR_NotaFiscal_ID());
+		}
+		
+		return files;
+	}	//	generateFromInvoice
+
+	/**
+	 * 	Set contract information
+	 * 	@param LBR_BankSlipContract_ID
+	 */
+	private void setBankSlipContract(int LBR_BankSlipContract_ID)
+	{
+		setLBR_BankSlipContract_ID(LBR_BankSlipContract_ID);
+
+		if (LBR_BankSlipContract_ID > 0)
+		{
+			Properties ctx = getCtx();
+			
+			MLBRBankSlipContract contract = new MLBRBankSlipContract (ctx, LBR_BankSlipContract_ID, get_TrxName());
+			setLBR_BankSlipLayout_ID (contract.getLBR_BankSlipLayout_ID ());
+			setLBR_BankSlipFold_ID (contract.getLBR_BankSlipFold_ID ());
+			setLBR_BankSlipKind_ID (contract.getLBR_BankSlipKind_ID ());
+			setLBR_RegisterType (contract.getLBR_RegisterType ());
+			setLBR_RecipientType (contract.getLBR_RecipientType());
+			setC_BankAccount_ID(contract.getC_BankAccount_ID());
+			setC_Bank_ID(contract.getC_BankAccount().getC_Bank_ID());
+			setLBR_BankSlipFold_ID(contract.getLBR_BankSlipFold_ID());
+			setLBR_IssueType(contract.getLBR_BankSlipFold().getLBR_IssueType());
+			
+			if (MLBRBankSlipContract.LBR_RECIPIENTTYPE_FIDCOr3rdParty.equals(contract.getLBR_RecipientType()))
+			{
+				setLBR_Recipient_ID (contract.getLBR_Recipient_ID());
+				setLBR_Recipient_Location_ID (contract.getLBR_Recipient_Location_ID());
+			}
+			
+			if (contract.getLBR_BankSlipConfig_ID() < 1)
+				return;
+			
+			//	Set fields from configuration
+			MLBRBankSlipConfig config = new MLBRBankSlipConfig (ctx, contract.getLBR_BankSlipConfig_ID(), null);
+
+			setLBR_IsAccepted (config.getLBR_IsAccepted());
+			setLBR_ReturnAction (config.getLBR_ReturnAction());
+			setLBR_ReturnDays (config.getLBR_ReturnDays());
+			setLBR_DistributedVia (config.getLBR_DistributedVia());
+			
+			//	Interest
+			setLBR_InterestType (config.getLBR_InterestType());
+			setLBR_InterestValue (config.getLBR_InterestValue());
+			setLBR_InterestDays (config.getLBR_InterestDays());
+
+			//	Penalty
+			setLBR_PenaltyType (config.getLBR_PenaltyType());
+			setLBR_PenaltyValue (config.getLBR_PenaltyValue());
+			setLBR_PenaltyDays (config.getLBR_PenaltyDays());
+			
+			//	Protest
+			setLBR_ProtestType (config.getLBR_ProtestType());
+			setLBR_ProtestDays (config.getLBR_ProtestDays());
+		}
+	}	//	setBankSlipContract
 }	//	MLBRBankSlip
