@@ -450,7 +450,6 @@ public class ConsultaCadastro extends SvrProcess
 			StringBuilder xml =  new StringBuilder (consCadDoc.xmlText(NFeUtil.getXmlOpt()));
 			
 			MLBRNFConfig config = MLBRNFConfig.get(oi.getAD_Org_ID());
-//			String url = "https://hnfe.fazenda.mg.gov.br/nfe2/services/CadConsultaCadastro4";//MLBRNFeWebService.getURL (MLBRNFeWebService.CADCONSULTACADASTRO, config.getlbr_NFeEnv(), NFeUtil.VERSAO_LAYOUT, DB.getSQLValue(null, "SELECT C_Region_ID FROM C_Region WHERE Name='"+p_UF+"' AND C_Country_ID=?", 139));
 			String url = MLBRNFeWebService.getURL (MLBRNFeWebService.CADCONSULTACADASTRO, config.getlbr_NFeEnv(), NFeUtil.VERSAO_LAYOUT, DB.getSQLValue(null, "SELECT C_Region_ID FROM C_Region WHERE Name='"+p_UF+"' AND C_Country_ID=?", 139));
 
 			String remoteURL = MSysConfig.getValue(SysConfig.LBR_REMOTE_PKCS11_URL, oi.getAD_Client_ID(), oi.getAD_Org_ID());
@@ -472,7 +471,7 @@ public class ConsultaCadastro extends SvrProcess
 				synchronized (respStatus)
 				{
 					String uuid = UUID.randomUUID().toString();
-					handler.transmitDocument(IDocFiscalHandler.DOC_NFE_STATUS, oiW.getlbr_CNPJ(), 
+					handler.transmitDocument(IDocFiscalHandler.DOC_NFE_CAD, oiW.getlbr_CNPJ(), 
 							uuid, remoteURL, url, "" + NFeUtil.getRegionCode (oi), xml.toString(), respStatus);
 					
 					//	Wait until process is completed
@@ -491,9 +490,6 @@ public class ConsultaCadastro extends SvrProcess
 				NfeDadosMsg dadosMsg = NfeDadosMsg.Factory.parse (dadosXML);
 
 				CadConsultaCadastro4Stub stub = new CadConsultaCadastro4Stub(url);
-
-//				long timeout = 1 * 60 * 1000; // Two minutes
-//				stub._getServiceClient().getOptions().setTimeOutInMilliSeconds(timeout);
 				
 				OMElement nfeConsulta = stub.consultaCadastro (dadosMsg.getExtraElement());
 				respStatus.append(nfeConsulta.toString());

@@ -438,7 +438,7 @@ public class MLBRNFeEvent extends X_LBR_NFeEvent implements DocAction
 					synchronized (respStatus)
 					{
 						String uuid = UUID.randomUUID().toString();
-						handler.transmitDocument(IDocFiscalHandler.DOC_NFE_STATUS, oi.get_ValueAsString(I_W_AD_OrgInfo.COLUMNNAME_lbr_CNPJ), 
+						handler.transmitDocument(IDocFiscalHandler.DOC_NFE_EVENT, oi.get_ValueAsString(I_W_AD_OrgInfo.COLUMNNAME_lbr_CNPJ), 
 								uuid, remoteURL, url, "" + NFeUtil.getRegionCode (oi), NFeUtil.XML_HEADER + NFeUtil.wrapMsg (xml.toString ()), respStatus);
 						
 						//	Wait until process is completed

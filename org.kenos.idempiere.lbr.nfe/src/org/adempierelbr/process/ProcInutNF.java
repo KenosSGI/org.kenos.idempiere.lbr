@@ -2,11 +2,15 @@ package org.adempierelbr.process;
 
 import java.io.StringReader;
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Properties;
+import java.util.UUID;
 import java.util.logging.Level;
 
 import javax.xml.stream.XMLInputFactory;
 
+import org.adempiere.base.Service;
+import org.adempiere.model.POWrapper;
 import org.adempierelbr.model.MLBRDigitalCertificate;
 import org.adempierelbr.model.MLBRNFConfig;
 import org.adempierelbr.model.MLBRNFSkipped;
@@ -17,14 +21,19 @@ import org.adempierelbr.util.BPartnerUtil;
 import org.adempierelbr.util.NFeUtil;
 import org.adempierelbr.util.SignatureUtil;
 import org.adempierelbr.util.TextUtil;
+import org.adempierelbr.wrapper.I_W_AD_OrgInfo;
 import org.apache.axiom.om.OMElement;
 import org.compiere.model.MLocation;
 import org.compiere.model.MOrgInfo;
 import org.compiere.model.MRefList;
+import org.compiere.model.MSysConfig;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
+import org.kenos.idempiere.lbr.base.event.IDocFiscalHandler;
+import org.kenos.idempiere.lbr.base.event.IDocFiscalHandlerFactory;
+import org.kenos.idempiere.lbr.base.model.SysConfig;
 
 import br.inf.portalfiscal.nfe.v400.InutNFeDocument;
 import br.inf.portalfiscal.nfe.v400.RetInutNFeDocument;
@@ -33,7 +42,6 @@ import br.inf.portalfiscal.nfe.v400.TCodUfIBGE;
 import br.inf.portalfiscal.nfe.v400.TInutNFe;
 import br.inf.portalfiscal.nfe.v400.TMod;
 import br.inf.portalfiscal.nfe.v400.TRetInutNFe;
-import br.inf.portalfiscal.www.nfe.wsdl.nfeinutilizacao4.NfeDadosMsg;
 
 /**
  * 		Inutiliza uma NF ou uma Sequência de NF
@@ -227,6 +235,7 @@ public class ProcInutNF extends SvrProcess
 			Integer p_DocumentNo_To, String nfSerie, String p_Just, Timestamp p_DateDoc) throws Exception
 	{
 		MOrgInfo oi = MOrgInfo.get (ctx, p_AD_Org_ID, null);
+		I_W_AD_OrgInfo oiW = POWrapper.create(oi, I_W_AD_OrgInfo.class);
 		MLBRNFConfig config = MLBRNFConfig.get(p_AD_Org_ID, nfModel);
 		//
 		if (p_LBR_EnvType == null)
@@ -249,7 +258,6 @@ public class ProcInutNF extends SvrProcess
 		infInut.setXJust(p_Just);
 		infInut.setAno(TextUtil.timeToString(p_DateDoc, "yy"));
 		infInut.setXServ(TInutNFe.InfInut.XServ.INUTILIZAR);
-		infInut.setMod(TMod.Enum.forString(nfModel));
 		
 		String id = "ID" + infInut.getCUF() + infInut.getAno() + infInut.getCNPJ() + infInut.getMod() + 
 				TextUtil.lPad (infInut.getSerie(), 3) + TextUtil.lPad (infInut.getNNFIni(), 9) + TextUtil.lPad (infInut.getNNFFin(), 9);
@@ -261,32 +269,66 @@ public class ProcInutNF extends SvrProcess
 		//	Validate XML
 		NFeUtil.validate (inutNFeDocument);
 		
-		//	XML
-		StringReader xml = new StringReader (NFeUtil.wrapMsg (inutNFeDocument.xmlText(NFeUtil.getXmlOpt())));
-		
-		//	Mensagem
-		NfeDadosMsg dadosMsg = NfeDadosMsg.Factory.parse (XMLInputFactory.newInstance().createXMLStreamReader(xml));
-
 		//	Inicializa o Certificado
 		MLBRDigitalCertificate.setCertificate (ctx, p_AD_Org_ID);
 		
+		//	Recupera a URL de Transmissão
 		String serviceType = null;
 		if (MLBRNotaFiscal.LBR_NFMODEL_NotaFiscalEletrônica.equals(nfModel))
-			serviceType = MLBRNFeWebService.INUTILIZACAO;
-		
+			serviceType = MLBRNFeWebService.INUTILIZACAO;		
 		else if (MLBRNotaFiscal.LBR_NFMODEL_NotaFiscalDeConsumidorEletrônica.equals(nfModel))
 			serviceType = MLBRNFeWebService.NFCE_INUTILIZACAO;
 		
-		//	Recupera a URL de Transmissão
-		String url = MLBRNFeWebService.getURL (serviceType, p_LBR_EnvType, NFeUtil.VERSAO_LAYOUT, oi.getC_Location().getC_Region_ID());		
-		NFeInutilizacao4Stub stub = new NFeInutilizacao4Stub(url);
-
-		//	Faz a chamada
-		OMElement nfeStatusServicoNF2 = stub.nfeInutilizacaoNF(dadosMsg.getExtraElement());
-		String respStatus = nfeStatusServicoNF2.toString();
+		//	URL
+		String url = MLBRNFeWebService.getURL (serviceType, p_LBR_EnvType, NFeUtil.VERSAO_LAYOUT, oi.getC_Location().getC_Region_ID());
+		
+		//	XML
+		StringReader xml = new StringReader (NFeUtil.wrapMsg (inutNFeDocument.xmlText(NFeUtil.getXmlOpt())));
+		
+		String remoteURL = MSysConfig.getValue(SysConfig.LBR_REMOTE_PKCS11_URL, oi.getAD_Client_ID(), oi.getAD_Org_ID());
+		final StringBuilder respStatus = new StringBuilder();
+		
+		//	Try to find a service for PKCS#11 for transmit
+		IDocFiscalHandler handler = null;
+		List<IDocFiscalHandlerFactory> list = Service.locator ().list (IDocFiscalHandlerFactory.class).getServices();
+		for (IDocFiscalHandlerFactory docFiscal : list)
+		{
+			handler = docFiscal.getHandler (ConsultaCadastro.class.getName());
+			if (handler != null)
+				break;
+		}
+		
+		// 	We have both, the URL for the local app and the Plugin transmitter
+		if (remoteURL != null && handler != null)
+		{
+			synchronized (respStatus)
+			{
+				String uuid = UUID.randomUUID().toString();
+				handler.transmitDocument(IDocFiscalHandler.DOC_NFE_INUT, oiW.getlbr_CNPJ(), 
+						uuid, remoteURL, url, "" + NFeUtil.getRegionCode (oi), xml.toString(), respStatus);
+				
+				//	Wait until process is completed
+				respStatus.wait();
+				
+				//	Error message
+				if (respStatus.toString().startsWith("@Error="))
+					throw new Exception (respStatus.toString().substring(7));
+			}	//	synchronized
+		}
+		else
+		{
+			//	Mensagem
+			br.inf.portalfiscal.www.nfe.wsdl.nfeinutilizacao4.NfeDadosMsg dadosMsg = br.inf.portalfiscal.www.nfe.wsdl.nfeinutilizacao4.NfeDadosMsg.Factory.parse (XMLInputFactory.newInstance().createXMLStreamReader(xml));
+			
+			NFeInutilizacao4Stub stub = new NFeInutilizacao4Stub(url);
+	
+			//	Faz a chamada
+			OMElement nfeStatusServicoNF2 = stub.nfeInutilizacaoNF (dadosMsg.getExtraElement());
+			respStatus.append(nfeStatusServicoNF2.toString());
+		}
 		
 		//	Processa o retorno
-		TRetInutNFe.InfInut retInutNFe = RetInutNFeDocument.Factory.parse (respStatus).getRetInutNFe().getInfInut();
+		TRetInutNFe.InfInut retInutNFe = RetInutNFeDocument.Factory.parse (respStatus.toString()).getRetInutNFe().getInfInut();
 		
 		if (MLBRNotaFiscal.LBR_NFESTATUS_102_InutilizaçãoDeNúmeroHomologado.equals(retInutNFe.getCStat()))
 			MLBRNFSkipped.register (retInutNFe);

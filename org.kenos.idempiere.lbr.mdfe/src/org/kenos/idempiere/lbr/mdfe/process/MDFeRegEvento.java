@@ -234,7 +234,7 @@ public class MDFeRegEvento extends SvrProcess
 			synchronized (respStatus)
 			{
 				String uuid = UUID.randomUUID().toString();
-				handler.transmitDocument(IDocFiscalHandler.DOC_NFE_STATUS, oi.getlbr_CNPJ(), 
+				handler.transmitDocument(IDocFiscalHandler.DOC_MDFE_EVENT, oi.getlbr_CNPJ(), 
 						uuid, remoteURL, ws.getURL(), regionCode, MDFeUtil.getWrapped (xml), respStatus);
 				
 				//	Wait until process is completed
