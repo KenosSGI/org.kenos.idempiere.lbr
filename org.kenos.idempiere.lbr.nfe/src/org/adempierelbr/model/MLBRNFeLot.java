@@ -29,7 +29,6 @@ import javax.xml.stream.XMLInputFactory;
 
 import org.adempiere.base.Service;
 import org.adempiere.exceptions.AdempiereException;
-import org.adempiere.model.POWrapper;
 import org.adempierelbr.nfe.NFeXMLGenerator;
 import org.adempierelbr.nfe.api.NFeAutorizacao4Stub;
 import org.adempierelbr.nfe.api.NFeRetAutorizacao4Stub;
@@ -386,26 +385,7 @@ public class MLBRNFeLot extends X_LBR_NFeLot implements DocAction, DocOptions
 				NFeUtil.validate (consReciNFeDoc);
 			
 			//	XML
-			String xmlText = ""; 
-			
-			I_W_AD_OrgInfo oiW = POWrapper.create (oi, I_W_AD_OrgInfo.class);
-			
-			Integer certOrg = oiW.getLBR_DC_Org_ID();
-			
-			if (certOrg == null || certOrg.intValue() < 1)
-				certOrg = MLBRDigitalCertificate.getValidCertificate (ctx, oiW.getAD_Org_ID());
-			if (certOrg == null || certOrg.intValue() < 1)
-				throw new Exception ("Não foi encontrado um certificado para o CNPJ: " + oiW.getlbr_CNPJ() + ", válido na data/hora atual.");
-			
-			MLBRDigitalCertificate dcOrg = new MLBRDigitalCertificate(Env.getCtx(), certOrg, null);
-			
-			//	Not Add Wrap Tag when Certificate is A3/PKCS11 is Remote
-			if (MLBRDigitalCertificate.LBR_CERTTYPE_PKCS11_Remote.equals(dcOrg.getlbr_CertType()))
-				xmlText = consReciNFeDoc.xmlText(NFeUtil.getXmlOpt());
-			else
-				xmlText = NFeUtil.wrapMsg (consReciNFeDoc.xmlText(NFeUtil.getXmlOpt()));
-			
-			StringReader xml = new StringReader (xmlText);
+			String xmlText = consReciNFeDoc.xmlText(NFeUtil.getXmlOpt());
 
 			String serviceType = null;
 			if (MLBRNotaFiscal.LBR_NFMODEL_NotaFiscalEletrônica.equals(getlbr_NFModel()))
@@ -448,6 +428,8 @@ public class MLBRNFeLot extends X_LBR_NFeLot implements DocAction, DocOptions
 			}
 			else
 			{
+				StringReader xml = new StringReader (NFeUtil.wrapMsg (xmlText));
+				
 				//	Mensagem
 				NfeDadosMsg dadosMsg = NfeDadosMsg.Factory.parse (XMLInputFactory.newInstance().createXMLStreamReader(xml));
 				
