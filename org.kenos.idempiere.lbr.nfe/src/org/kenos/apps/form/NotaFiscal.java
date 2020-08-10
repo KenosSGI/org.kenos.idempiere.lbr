@@ -170,7 +170,7 @@ public class NotaFiscal extends GenForm
 		{	
 			sql.append(" AND (nf.Updated>=").append(DB.TO_DATE(TimeUtil.addDays (new Timestamp (System.currentTimeMillis()), -2)));		
 			sql.append(" OR nf.LBR_NFeStatus IS NULL ");
-			sql.append(" OR nf.LBR_NFeStatus NOT IN ('100', '101', '102', '135', '150', '151', '155'))");
+			sql.append(" OR nf.LBR_NFeStatus NOT IN ('100', '101', '102', '135', '150', '151', '155', '302'))");
 		}	
 
 		if (m_AD_Org_ID != null)
