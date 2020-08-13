@@ -283,7 +283,8 @@ public class ProcInutNF extends SvrProcess
 		String url = MLBRNFeWebService.getURL (serviceType, p_LBR_EnvType, NFeUtil.VERSAO_LAYOUT, oi.getC_Location().getC_Region_ID());
 		
 		//	XML
-		StringReader xml = new StringReader (NFeUtil.wrapMsg (inutNFeDocument.xmlText(NFeUtil.getXmlOpt())));
+		String xmlText = inutNFeDocument.xmlText(NFeUtil.getXmlOpt());
+		StringReader xml = new StringReader (NFeUtil.wrapMsg (xmlText));
 		
 		String remoteURL = MSysConfig.getValue(SysConfig.LBR_REMOTE_PKCS11_URL, oi.getAD_Client_ID(), oi.getAD_Org_ID());
 		final StringBuilder respStatus = new StringBuilder();
@@ -293,7 +294,7 @@ public class ProcInutNF extends SvrProcess
 		List<IDocFiscalHandlerFactory> list = Service.locator ().list (IDocFiscalHandlerFactory.class).getServices();
 		for (IDocFiscalHandlerFactory docFiscal : list)
 		{
-			handler = docFiscal.getHandler (ConsultaCadastro.class.getName());
+			handler = docFiscal.getHandler (ProcInutNF.class.getName());
 			if (handler != null)
 				break;
 		}
@@ -305,7 +306,7 @@ public class ProcInutNF extends SvrProcess
 			{
 				String uuid = UUID.randomUUID().toString();
 				handler.transmitDocument(IDocFiscalHandler.DOC_NFE_INUT, oiW.getlbr_CNPJ(), 
-						uuid, remoteURL, url, "" + NFeUtil.getRegionCode (oi), xml.toString(), respStatus);
+						uuid, remoteURL, url, "" + NFeUtil.getRegionCode (oi), xmlText, respStatus);
 				
 				//	Wait until process is completed
 				respStatus.wait();
