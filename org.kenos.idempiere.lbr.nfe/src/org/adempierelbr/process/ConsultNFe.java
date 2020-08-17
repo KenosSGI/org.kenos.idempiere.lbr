@@ -17,6 +17,7 @@ import org.adempierelbr.model.MLBRNFConfig;
 import org.adempierelbr.model.MLBRNFeEvent;
 import org.adempierelbr.model.MLBRNFeWebService;
 import org.adempierelbr.model.MLBRNotaFiscal;
+import org.adempierelbr.model.MLBRPartnerDFe;
 import org.adempierelbr.nfe.NFeXMLGenerator;
 import org.adempierelbr.nfe.api.NFeConsultaProtocolo4Stub;
 import org.adempierelbr.util.BPartnerUtil;
@@ -284,6 +285,7 @@ public class ConsultNFe extends SvrProcess
 			
 			//	Nota Fiscal Eletrônica
 			MLBRNotaFiscal nfe  = null;
+			MLBRPartnerDFe dfe = MLBRPartnerDFe.get(ret.getChNFe());
 			
 			//	Dados do Protocolo
 			if (ret.getProtNFe() != null)
@@ -416,9 +418,9 @@ public class ConsultNFe extends SvrProcess
 				msg.append("<br /><b>Data/Hora Recbto:</b> ").append(infCanc.getDhRecbto());
 				
 				//	Atualiza os dados do protocolo do cancelamento
-				if (p_LBR_UpdateNFe && nfe != null)
+				if (p_LBR_UpdateNFe)
 				{
-					if (!nfe.isCancelled())
+					if (nfe != null && !nfe.isCancelled())
 					{
 						//	Valida se o motivo do cancelamento foi digitado
 						String cancelReason = nfe.getlbr_MotivoCancel();
@@ -448,6 +450,15 @@ public class ConsultNFe extends SvrProcess
 						
 						msg.append("<br /><br /><font color=\"008800\">Os dados do protocolo de cancelamento foram atualizados na NFe</font>");
 					}
+					
+					else if (dfe != null && !dfe.isCancelled())
+					{
+						//	Update DFe
+						dfe.setlbr_NFeStatus(ret.getCStat());
+						dfe.setIsCancelled(true);
+						dfe.save();
+					}
+					
 					else
 						msg.append("<br /><br />Nota Fiscal já possuí dados do protocolo de cancelamento");
 				}
