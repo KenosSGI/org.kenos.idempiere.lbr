@@ -208,7 +208,10 @@ public class Payment
 			+ " AND NOT EXISTS (SELECT * FROM C_Payment p"
 			+                 " WHERE i.C_Order_ID=p.C_Order_ID AND p.IsActive='Y'"
 			+				  " AND (p.DocStatus IN ('CO','CL')) )"
-			+ " AND i.DocStatus IN ('CO','CL')"
+			//	Pending
+			+ " AND EXISTS (SELECT * FROM C_OrderLine ol"
+			+                 " WHERE i.C_Order_ID=ol.C_Order_ID AND ol.QtyInvoiced<ol.QtyOrdered )"
+			+ " AND i.DocStatus IN ('CO')"
 			+ " AND i.AD_Org_ID=?",	//	additional where & order in loadTableInfo()
 			true, "i");
 	}   //  dynInit
