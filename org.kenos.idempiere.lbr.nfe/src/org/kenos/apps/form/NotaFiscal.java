@@ -199,14 +199,14 @@ public class NotaFiscal extends GenForm
 	 */
 	private String getNFeRecSql()
 	{
-		StringBuffer sql = new StringBuffer("SELECT dfe.LBR_PartnerDFe_ID, dfe.IsSOTrx, ");
+		StringBuffer sql = new StringBuffer("SELECT MAX(dfe.LBR_PartnerDFe_ID) AS LBR_PartnerDFe_ID, dfe.IsSOTrx, ");
 		sql.append("SUBSTRING (dfe.LBR_NFeID, 26, 9) AS DocumentNo, ");
 		sql.append("SUBSTRING (dfe.LBR_NFeID, 23, 3) AS LBR_NFSerie, ");
 		sql.append("dfe.LBR_NFeID, dfe.LBR_CNPJ, dfe.BPName, dfe.DateDoc, dfe.GrandTotal, ");
 		sql.append("(SELECT MAX (r.Name) FROM (SELECT ROW_NUMBER () OVER (ORDER BY e.DateTrx DESC) AS Row_Number, ");
 		sql.append("e.LBR_EventType FROM LBR_NFeEvent e WHERE e.AD_Org_ID=dfe.AD_Org_ID "); 
         sql.append("AND e.LBR_NFeID=dfe.LBR_NFeID ORDER BY DateTrx DESC) a, AD_Ref_List r ");
-        sql.append("WHERE r.Value=LBR_EventType AND r.AD_Reference_ID=1120226 AND a.Row_Number=1) AS LBR_EventType, dfe.LBR_IsXMLValid ");
+        sql.append("WHERE r.Value=LBR_EventType AND r.AD_Reference_ID=1120226 AND a.Row_Number=1) AS LBR_EventType, MAX (dfe.LBR_IsXMLValid) AS LBR_IsXMLValid ");
 		sql.append("FROM LBR_PartnerDFe dfe ");
 		sql.append("INNER JOIN AD_Org o ON (dfe.AD_Org_ID=o.AD_Org_ID) ");
 		sql.append("WHERE dfe.DocumentType='0' AND dfe.Updated>=").append(DB.TO_DATE(TimeUtil.addDays (new Timestamp (System.currentTimeMillis()), -180))); // Maior que 6 meses
@@ -216,6 +216,7 @@ public class NotaFiscal extends GenForm
         if (m_AD_Org_ID != null)
             sql.append(" AND dfe.AD_Org_ID=").append(m_AD_Org_ID);
         
+        sql.append(" GROUP BY dfe.AD_Org_ID, dfe.LBR_IsManifested, dfe.IsSOTrx, dfe.LBR_NFeID, dfe.LBR_NFeID, dfe.LBR_CNPJ, dfe.BPName, dfe.DateDoc, dfe.GrandTotal ");
         return sql.append(" ORDER BY dfe.DateDoc DESC, dfe.BPName ").toString();
 	}	//	getNFeRecSql
 	
