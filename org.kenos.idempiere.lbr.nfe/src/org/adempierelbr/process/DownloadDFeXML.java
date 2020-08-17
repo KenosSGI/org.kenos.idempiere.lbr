@@ -1,9 +1,10 @@
 package org.adempierelbr.process;
 
 import java.io.StringReader;
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
+import java.util.Set;
 import java.util.UUID;
 import java.util.logging.Level;
 
@@ -121,7 +122,7 @@ public class DownloadDFeXML extends SvrProcess
 		MOrgInfo oi = MOrgInfo.get (ctx, AD_Org_ID, null);
 		
 		//	Separar as chaves da NFe
-		List<String> nfes_all = new ArrayList<String>();
+		Set<String> nfes_all = new HashSet<String>();
 			
 		//	Specific NF-e
 		if (p_NFeID != null && !p_NFeID.isEmpty())
@@ -134,7 +135,7 @@ public class DownloadDFeXML extends SvrProcess
 					+ "AND LBR_IsXMLValid='N' "		//	Not Downloaded Yet
 					+ "AND DocumentType='0' "		//	Only NF-e (Exclude Events)
 					+ "AND IsCancelled='N' "		//	Not Cancelled
-					+ "AND LBR_NFeStatus NOT IN ('137','653') OR LBR_NFeStatus IS NULL "	//	Unavailable Download
+					+ "AND (LBR_NFeStatus NOT IN ('137','653') OR LBR_NFeStatus IS NULL) "	//	Unavailable Download
 					+ "AND EXISTS (SELECT '1' FROM LBR_NFeEvent e "
 								 + "WHERE e.LBR_PartnerDFe_ID=LBR_PartnerDFe.LBR_PartnerDFe_ID "
 								 +   "AND e.DocStatus IN ('CL','CO') "
