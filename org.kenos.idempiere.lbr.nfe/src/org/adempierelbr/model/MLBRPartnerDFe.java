@@ -168,7 +168,7 @@ public class MLBRPartnerDFe extends X_LBR_PartnerDFe
 				params = new Object[]{getDocumentType(), getlbr_NFeID(), getlbr_NFeProt(), getLBR_NSU(), getSeqNo()};
 			}
 			
-			//	Invalid docuemnttype
+			//	Invalid document type
 			else
 			{
 				log.saveError("Error", Msg.parseTranslation(getCtx(), "@Invalid@ = @DocumentType@"));
@@ -197,6 +197,28 @@ public class MLBRPartnerDFe extends X_LBR_PartnerDFe
 		
 		return true;
 	}	//	beforeSave
+	
+	/**
+	 * 	Update cancelled NFs
+	 */
+	@Override
+	protected boolean afterSave (boolean newRecord, boolean success)
+	{
+		if (TextUtil.match(getLBR_EventType(), LBR_EVENTTYPE_Cancelamento, 
+				LBR_EVENTTYPE_CancelamentoDeMDF_EAutorizadoComCT_E,
+				LBR_EVENTTYPE_CT_ECancelado,
+				LBR_EVENTTYPE_MDF_ECancelado,
+				LBR_EVENTTYPE_MDF_ECanceladoVinculadoACT_E))
+		{
+			DB.executeUpdate("UPDATE " + Table_Name + 
+					" SET " + COLUMNNAME_IsCancelled + "='Y', " + 
+					COLUMNNAME_lbr_NFeStatus + "=? WHERE " + 
+					COLUMNNAME_IsCancelled + "='N' AND " + 
+					COLUMNNAME_lbr_NFeID + "=? AND " +
+					COLUMNNAME_DocumentType + "=?", new Object[] {getlbr_NFeStatus(), getlbr_NFeID(), DOCUMENTTYPE_NF_E}, false, get_TrxName());
+		}
+		return true;
+	}	//	afterSave
 	
 	/**
 	 * 	Procura um DF-e para a NF
@@ -235,18 +257,19 @@ public class MLBRPartnerDFe extends X_LBR_PartnerDFe
 	 * 	@param nf
 	 * 	@return
 	 */
-	public static MLBRPartnerDFe get (String key, String DocumentType)
+	public static MLBRPartnerDFe get (String key, String documentType)
 	{
 		String where = "AD_Client_ID=? "
 				+ "AND LBR_NFeID=? ";
 		
-		if (DocumentType != null && !DocumentType.isEmpty())
-			where = where + "AND DocumentType = '" + DocumentType + "'";
+		if (documentType != null && !documentType.isEmpty())
+			where = where + "AND DocumentType = '" + documentType + "'";
 		else
 			where = where + "AND DocumentType='0'";
 		//
 		MLBRPartnerDFe dfe = new Query (Env.getCtx(), MLBRPartnerDFe.Table_Name, where, null)
 						.setParameters(Env.getAD_Client_ID(Env.getCtx()), key)
+						.setOrderBy(COLUMNNAME_LBR_IsManifested + " DESC, " + COLUMNNAME_LBR_IsXMLValid + " DESC, " + COLUMNNAME_IsCancelled + " DESC")
 						.first();
 		return dfe;
 	}	//	get
