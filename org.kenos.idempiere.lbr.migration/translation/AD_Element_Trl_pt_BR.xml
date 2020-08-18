@@ -64458,8 +64458,8 @@ Usar @AMT@ quando for identificar o valor do Produto/Serviço</value>
   <value column="Placeholder" original=""/>
  </row>
  <row trl="Y" uuid="92189b09-c41e-4efc-9fc3-712a1f0a80f3">
-  <value column="Name" original="Create PO">Criar linhas do Pedido</value>
-  <value column="PrintName" original="Create PO">Criar linhas do Pedido</value>
+  <value column="Name" original="Create PO">Criar linhas a partir da Requisição</value>
+  <value column="PrintName" original="Create PO">Criar linhas a partir da Requisição</value>
   <value column="Description" original="Process to Create PO Lines from Requisition">Processo para criar linhas do Pedido a partir da Requisição</value>
   <value column="Help" original="Process to Create PO Lines from Requisition">Processo para criar linhas do Pedido a partir da Requisição</value>
   <value column="PO_Description" original=""/>
