@@ -184,11 +184,6 @@ public class MLBRPartnerDFe extends X_LBR_PartnerDFe
 			}
 		}
 		
-		//	Include NSU in Control List
-		if (newRecord || is_ValueChanged(COLUMNNAME_LBR_NSU))
-			DB.executeUpdate("INSERT INTO LBR_NSUControl (LBR_PartnerDFe_ID, LBR_NSU) VALUES (?, ?)", 
-					new Object[] {getLBR_PartnerDFe_ID(), getLBR_NSU()}, false, get_TrxName());
-		
 		return true;
 	}	//	beforeSave
 	
@@ -211,6 +206,12 @@ public class MLBRPartnerDFe extends X_LBR_PartnerDFe
 					COLUMNNAME_lbr_NFeID + "=? AND " +
 					COLUMNNAME_DocumentType + "=?", new Object[] {getlbr_NFeStatus(), getlbr_NFeID(), DOCUMENTTYPE_NF_E}, false, get_TrxName());
 		}
+
+		//	Include NSU in Control List
+		if (newRecord || is_ValueChanged(COLUMNNAME_LBR_NSU))
+			DB.executeUpdate("INSERT INTO LBR_NSUControl (LBR_PartnerDFe_ID, LBR_NSU) VALUES (?, ?)", 
+					new Object[] {getLBR_PartnerDFe_ID(), getLBR_NSU()}, false, get_TrxName());
+		
 		return true;
 	}	//	afterSave
 	
