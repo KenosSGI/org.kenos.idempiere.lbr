@@ -31,6 +31,7 @@ import org.compiere.model.MSysConfig;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
 import org.compiere.util.CLogger;
+import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.kenos.idempiere.lbr.base.event.IDocFiscalHandler;
 import org.kenos.idempiere.lbr.base.event.IDocFiscalHandlerFactory;
@@ -213,7 +214,13 @@ public class ConsultNFe extends SvrProcess
 			else if (MLBRNotaFiscal.LBR_NFMODEL_NotaFiscalDeConsumidorEletrônica.equals(p_LBR_NFModel))
 				serviceType = MLBRNFeWebService.NFCE_CONSULTA;
 			
-			String url = MLBRNFeWebService.getURL (serviceType, p_LBR_EnvType, NFeUtil.VERSAO_LAYOUT, p_LBR_TPEmis, orgLoc.getC_Region_ID());
+			//	Find the region of NF
+			String sql = "SELECT MAX (C_Region_ID) \n" + 
+					"  FROM C_City c \n" + 
+					" WHERE c.LBR_CityCode LIKE ?";
+			int C_Region_ID = DB.getSQLValue (get_TrxName(), sql, p_LBR_NFeID.substring(0, 2) + "%");
+			
+			String url = MLBRNFeWebService.getURL (serviceType, p_LBR_EnvType, NFeUtil.VERSAO_LAYOUT, p_LBR_TPEmis, C_Region_ID);
 		
 			String remoteURL = MSysConfig.getValue(SysConfig.LBR_REMOTE_PKCS11_URL, orgInfo.getAD_Client_ID(), orgInfo.getAD_Org_ID());
 			final StringBuilder respStatus = new StringBuilder();
