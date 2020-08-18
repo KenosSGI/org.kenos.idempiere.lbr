@@ -151,21 +151,20 @@ public class MLBRPartnerDFe extends X_LBR_PartnerDFe
 			String sql = "SELECT COUNT(*) FROM " + Table_Name + 
 					" WHERE " + COLUMNNAME_DocumentType 	+ "=?" +
 					  " AND " + COLUMNNAME_lbr_NFeID 		+ "=?" +
-					  " AND " + COLUMNNAME_lbr_NFeProt 		+ "=?" +
-					  " AND " + COLUMNNAME_LBR_NSU 			+ "=?";
+					  " AND " + COLUMNNAME_lbr_NFeProt 		+ "=?";
 			
 			//	NF-e
 			if (DOCUMENTTYPE_NF_E.equals(getDocumentType()))
 			{
 				sql += " AND " + COLUMNNAME_lbr_DigestValue + "=?";
-				params = new Object[]{getDocumentType(), getlbr_NFeID(), getlbr_NFeProt(), getLBR_NSU(), getlbr_DigestValue()};
+				params = new Object[]{getDocumentType(), getlbr_NFeID(), getlbr_NFeProt(), getlbr_DigestValue()};
 			}
 			
 			//	Event
 			else if (DOCUMENTTYPE_Evento.equals(getDocumentType()))
 			{
 				sql += " AND " + COLUMNNAME_SeqNo + "=?";
-				params = new Object[]{getDocumentType(), getlbr_NFeID(), getlbr_NFeProt(), getLBR_NSU(), getSeqNo()};
+				params = new Object[]{getDocumentType(), getlbr_NFeID(), getlbr_NFeProt(), getSeqNo()};
 			}
 			
 			//	Invalid document type
@@ -185,15 +184,10 @@ public class MLBRPartnerDFe extends X_LBR_PartnerDFe
 			}
 		}
 		
-		/**
-		 * 	As vezes a SeFaz manda NF duplicadas, com NSUs diferentes. Para estes casos
-		 * 	este método irá replicar a manifestação em múltiplos registros.
-		 */
-		else if (isLBR_IsManifested() && is_ValueChanged(COLUMNNAME_LBR_IsManifested))
-		{
-			String sql = "UPDATE LBR_PartnerDFe dfe SET LBR_IsManifested='Y' WHERE dfe.LBR_IsManifested='N' AND dfe.lbr_NFeID=? AND dfe.DocumentType=? AND dfe.LBR_PartnerDFe_ID<>?";
-			DB.executeUpdate (sql, new Object[] {getlbr_NFeID(), getDocumentType(), getLBR_PartnerDFe_ID()}, false, get_TrxName());
-		}
+		//	Include NSU in Control List
+		if (newRecord || is_ValueChanged(COLUMNNAME_LBR_NSU))
+			DB.executeUpdate("INSERT INTO LBR_NSUControl (LBR_PartnerDFe_ID, LBR_NSU) VALUES (?, ?)", 
+					new Object[] {getLBR_PartnerDFe_ID(), getLBR_NSU()}, false, get_TrxName());
 		
 		return true;
 	}	//	beforeSave

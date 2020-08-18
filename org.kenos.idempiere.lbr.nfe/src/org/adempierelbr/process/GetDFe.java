@@ -389,7 +389,12 @@ public class GetDFe extends SvrProcess
 			{
 				ResNFe resNFe = resNFeDoc.getResNFe();
 				
-				MLBRPartnerDFe pDFe = new MLBRPartnerDFe (ctx, 0, null);
+				MLBRPartnerDFe pDFe = MLBRPartnerDFe.get (resNFe.getChNFe());
+				
+				//	New document
+				if (pDFe == null)
+					pDFe = new MLBRPartnerDFe (ctx, 0, null);
+				
 				pDFe.setAD_Org_ID(p_AD_Org_ID);
 				pDFe.setDocumentType(MLBRPartnerDFe.DOCUMENTTYPE_NF_E);
 				pDFe.setlbr_NFeID(resNFe.getChNFe());
@@ -402,11 +407,7 @@ public class GetDFe extends SvrProcess
 				pDFe.setlbr_DigestValue(resNFe.xgetDigVal().getStringValue());
 				pDFe.setDateTrx(NFeUtil.stringToTime (resNFe.getDhRecbto().toString()));
 				pDFe.setLBR_NSU(zip.getNSU());
-				try
-				{
-					pDFe.setLBR_SitNF(resNFe.getCSitNFe().toString());
-				}
-				catch (Exception e) {}
+				pDFe.setLBR_SitNF(resNFe.getCSitNFe().toString());
 				pDFe.setlbr_NFeProt(resNFe.getNProt());
 				pDFe.setIsSOTrx("1".equals(resNFe.xgetTpNF().getStringValue()));
 				pDFe.setProcessed(true);
@@ -509,38 +510,43 @@ public class GetDFe extends SvrProcess
 			if (resNFeProc != null)
 			{
 				InfProt resNFe = resNFeProc.getNfeProc().getProtNFe().getInfProt();
-				InfNFe nfe = resNFeProc.getNfeProc().getNFe().getInfNFe();
-				Emit emit = nfe.getEmit();
-				//
-				MLBRPartnerDFe pDFe = new MLBRPartnerDFe (ctx, 0, null);
-				pDFe.setAD_Org_ID(p_AD_Org_ID);
-				pDFe.setDocumentType(MLBRPartnerDFe.DOCUMENTTYPE_NF_E);
-				pDFe.setlbr_NFeID(resNFe.getChNFe());
-				pDFe.setlbr_CNPJ(emit.getCNPJ());
-				pDFe.setlbr_CPF(emit.getCPF());
-				pDFe.setBPName(emit.getXNome());
-				pDFe.setlbr_IE(emit.getIE());
-				pDFe.setDateDoc(NFeUtil.stringToTime (nfe.getIde().getDhEmi()));
-				pDFe.setGrandTotal(new BigDecimal (nfe.getTotal().getICMSTot().getVNF()));
-				pDFe.setlbr_DigestValue(resNFe.xgetDigVal().getStringValue());
-				pDFe.setDateTrx(NFeUtil.stringToTime (resNFe.getDhRecbto().toString()));
-				pDFe.setLBR_NSU(zip.getNSU());
-				
-				//	Autorizado
-				if (MLBRNotaFiscal.LBR_NFESTATUS_100_AutorizadoOUsoDaNF_E.equals(resNFe.getCStat()))
-					pDFe.setLBR_SitNF(MLBRPartnerDFe.LBR_SITNF_1_Authorized);
-				
-				//	Denegado
-				else if (MLBRNotaFiscal.LBR_NFESTATUS_110_UsoDenegado.equals(resNFe.getCStat()))
-					pDFe.setLBR_SitNF(MLBRPartnerDFe.LBR_SITNF_2_UseDenied);
-				
-				pDFe.setlbr_NFeProt(resNFe.getNProt());
-				pDFe.setIsSOTrx("1".equals(nfe.getIde().getTpNF().toString()));
-				pDFe.setlbr_NFeStatus(resNFe.getCStat());
-				pDFe.setProcessed(true);
+				MLBRPartnerDFe pDFe = MLBRPartnerDFe.get (resNFe.getChNFe());
+
+				if (pDFe == null)
+				{
+					InfNFe nfe = resNFeProc.getNfeProc().getNFe().getInfNFe();
+					Emit emit = nfe.getEmit();
+					//
+					pDFe = new MLBRPartnerDFe (ctx, 0, null);
+					pDFe.setAD_Org_ID(p_AD_Org_ID);
+					pDFe.setDocumentType(MLBRPartnerDFe.DOCUMENTTYPE_NF_E);
+					pDFe.setlbr_NFeID(resNFe.getChNFe());
+					pDFe.setlbr_CNPJ(emit.getCNPJ());
+					pDFe.setlbr_CPF(emit.getCPF());
+					pDFe.setBPName(emit.getXNome());
+					pDFe.setlbr_IE(emit.getIE());
+					pDFe.setDateDoc(NFeUtil.stringToTime (nfe.getIde().getDhEmi()));
+					pDFe.setGrandTotal(new BigDecimal (nfe.getTotal().getICMSTot().getVNF()));
+					pDFe.setlbr_DigestValue(resNFe.xgetDigVal().getStringValue());
+					pDFe.setDateTrx(NFeUtil.stringToTime (resNFe.getDhRecbto().toString()));
+					pDFe.setLBR_NSU(zip.getNSU());
+					
+					//	Autorizado
+					if (MLBRNotaFiscal.LBR_NFESTATUS_100_AutorizadoOUsoDaNF_E.equals(resNFe.getCStat()))
+						pDFe.setLBR_SitNF(MLBRPartnerDFe.LBR_SITNF_1_Authorized);
+					
+					//	Denegado
+					else if (MLBRNotaFiscal.LBR_NFESTATUS_110_UsoDenegado.equals(resNFe.getCStat()))
+						pDFe.setLBR_SitNF(MLBRPartnerDFe.LBR_SITNF_2_UseDenied);
+					
+					pDFe.setlbr_NFeProt(resNFe.getNProt());
+					pDFe.setIsSOTrx("1".equals(nfe.getIde().getTpNF().toString()));
+					pDFe.setProcessed(true);
+					pDFe.save();
+				}
 				
 				//	Tenta salvar
-				if (pDFe.save())
+				if (pDFe.getLBR_PartnerDFe_ID() > 0)
 				{
 					count.event++;
 					
