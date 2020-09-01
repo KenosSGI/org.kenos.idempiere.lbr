@@ -1032,7 +1032,9 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		if (getC_BPartner_ID() > 0)
 		{
 			I_W_C_BPartner bp = POWrapper.create (new MBPartner (getCtx(), getC_BPartner_ID(), get_TrxName()), I_W_C_BPartner.class);
-			if (bp.getLBR_EMailNFe() != null)
+			if (LBR_NFMODEL_NotaFiscalDeServiçosEletrônicaRPS.equals(getlbr_NFModel()) && bp.getLBR_EMailNFSe() != null)
+				return bp.getLBR_EMailNFSe();
+			else if (bp.getLBR_EMailNFe() != null)
 				return bp.getLBR_EMailNFe();
 		}
 		//
