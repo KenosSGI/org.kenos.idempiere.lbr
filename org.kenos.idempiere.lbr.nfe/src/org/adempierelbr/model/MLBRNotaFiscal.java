@@ -1039,7 +1039,7 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		}
 		//
 		return "";
-	}	//	012.848.698-81
+	}	//	getLBR_EMailNFe
 	
 	/**
 	 * Captura o e-mail do contato da Fatura
