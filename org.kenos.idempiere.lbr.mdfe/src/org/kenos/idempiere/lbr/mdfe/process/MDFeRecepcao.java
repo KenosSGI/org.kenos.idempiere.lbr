@@ -177,7 +177,7 @@ public class MDFeRecepcao extends SvrProcess
 			synchronized (result)
 			{
 				String uuid = UUID.randomUUID().toString();
-				handler.transmitDocument(IDocFiscalHandler.DOC_NFE_STATUS, oi.get_ValueAsString(I_W_AD_OrgInfo.COLUMNNAME_lbr_CNPJ), 
+				handler.transmitDocument(IDocFiscalHandler.DOC_MDFE, oi.get_ValueAsString(I_W_AD_OrgInfo.COLUMNNAME_lbr_CNPJ), 
 						uuid, remoteURL, url.getURL(), region, MDFeUtil.getWrapped (sb), result);	//	FIXME MDFe URL
 				
 				//	Wait until process is completed

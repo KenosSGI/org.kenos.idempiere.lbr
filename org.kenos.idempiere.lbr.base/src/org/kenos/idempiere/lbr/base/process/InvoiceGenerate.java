@@ -41,6 +41,7 @@ import org.compiere.model.MLocation;
 import org.compiere.model.MOrder;
 import org.compiere.model.MOrderLine;
 import org.compiere.model.MOrderPaySchedule;
+import org.compiere.model.MSysConfig;
 import org.compiere.model.PO;
 import org.compiere.process.DocAction;
 import org.compiere.process.ProcessInfoParameter;
@@ -51,6 +52,7 @@ import org.compiere.util.Env;
 import org.compiere.util.Language;
 import org.compiere.util.Msg;
 import org.compiere.util.Trx;
+import org.kenos.idempiere.lbr.base.model.SysConfig;
 
 /**
  *	Generate Invoices
@@ -501,35 +503,39 @@ public class InvoiceGenerate extends SvrProcess
 				m_invoice.setC_PaymentTerm_ID(order.getC_PaymentTerm_ID());
 				m_invoice.saveEx();
 				m_invoice.load(m_invoice.get_TrxName()); // refresh from DB
-				// copy payment schedule from order if invoice doesn't have a current payment schedule
-				MOrderPaySchedule[] opss = MOrderPaySchedule.getOrderPaySchedule(getCtx(), order.getC_Order_ID(), 0, get_TrxName());
-				MInvoicePaySchedule[] ipss = MInvoicePaySchedule.getInvoicePaySchedule(getCtx(), m_invoice.getC_Invoice_ID(), 0, get_TrxName());
-				if (ipss.length == 0 && opss.length > 0) {
-					BigDecimal ogt = order.getGrandTotal();
-					BigDecimal igt = m_invoice.getGrandTotal();
-					BigDecimal percent = Env.ONE;
-					if (ogt.compareTo(igt) != 0)
-						percent = igt.divide(ogt, 10, RoundingMode.HALF_UP);
-					MCurrency cur = MCurrency.get(order.getCtx(), order.getC_Currency_ID());
-					int scale = cur.getStdPrecision();
 				
-					for (MOrderPaySchedule ops : opss) {
-						MInvoicePaySchedule ips = new MInvoicePaySchedule(getCtx(), 0, get_TrxName());
-						PO.copyValues(ops, ips);
-						if (percent != Env.ONE) {
-							BigDecimal propDueAmt = ops.getDueAmt().multiply(percent);
-							if (propDueAmt.scale() > scale)
-								propDueAmt = propDueAmt.setScale(scale, RoundingMode.HALF_UP);
-							ips.setDueAmt(propDueAmt);
+				if (!MSysConfig.getBooleanValue(SysConfig.LBR_OVERWRITE_ORDER_PAY_SCHEDULE, true))
+				{
+					// copy payment schedule from order if invoice doesn't have a current payment schedule
+					MOrderPaySchedule[] opss = MOrderPaySchedule.getOrderPaySchedule(getCtx(), order.getC_Order_ID(), 0, get_TrxName());
+					MInvoicePaySchedule[] ipss = MInvoicePaySchedule.getInvoicePaySchedule(getCtx(), m_invoice.getC_Invoice_ID(), 0, get_TrxName());
+					if (ipss.length == 0 && opss.length > 0) {
+						BigDecimal ogt = order.getGrandTotal();
+						BigDecimal igt = m_invoice.getGrandTotal();
+						BigDecimal percent = Env.ONE;
+						if (ogt.compareTo(igt) != 0)
+							percent = igt.divide(ogt, 10, RoundingMode.HALF_UP);
+						MCurrency cur = MCurrency.get(order.getCtx(), order.getC_Currency_ID());
+						int scale = cur.getStdPrecision();
+					
+						for (MOrderPaySchedule ops : opss) {
+							MInvoicePaySchedule ips = new MInvoicePaySchedule(getCtx(), 0, get_TrxName());
+							PO.copyValues(ops, ips);
+							if (percent != Env.ONE) {
+								BigDecimal propDueAmt = ops.getDueAmt().multiply(percent);
+								if (propDueAmt.scale() > scale)
+									propDueAmt = propDueAmt.setScale(scale, RoundingMode.HALF_UP);
+								ips.setDueAmt(propDueAmt);
+							}
+							ips.setC_Invoice_ID(m_invoice.getC_Invoice_ID());
+							ips.setAD_Org_ID(ops.getAD_Org_ID());
+							ips.setProcessing(ops.isProcessing());
+							ips.setIsActive(ops.isActive());
+							ips.saveEx();
 						}
-						ips.setC_Invoice_ID(m_invoice.getC_Invoice_ID());
-						ips.setAD_Org_ID(ops.getAD_Org_ID());
-						ips.setProcessing(ops.isProcessing());
-						ips.setIsActive(ops.isActive());
-						ips.saveEx();
+						m_invoice.validatePaySchedule();
+						m_invoice.saveEx();
 					}
-					m_invoice.validatePaySchedule();
-					m_invoice.saveEx();
 				}
 			}
 

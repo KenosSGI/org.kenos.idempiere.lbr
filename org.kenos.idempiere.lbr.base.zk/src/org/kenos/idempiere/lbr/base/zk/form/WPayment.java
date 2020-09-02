@@ -43,6 +43,7 @@ import org.adempiere.webui.component.Row;
 import org.adempiere.webui.component.Rows;
 import org.adempiere.webui.component.WListbox;
 import org.adempiere.webui.editor.WDateEditor;
+import org.adempiere.webui.editor.WSearchEditor;
 import org.adempiere.webui.event.DialogEvents;
 import org.adempiere.webui.event.ValueChangeEvent;
 import org.adempiere.webui.event.ValueChangeListener;
@@ -55,7 +56,10 @@ import org.adempiere.webui.session.SessionManager;
 import org.adempiere.webui.util.ZKUpdateUtil;
 import org.adempiere.webui.window.FDialog;
 import org.compiere.model.MDocType;
+import org.compiere.model.MLookup;
+import org.compiere.model.MLookupFactory;
 import org.compiere.process.ProcessInfo;
+import org.compiere.util.DisplayType;
 import org.compiere.util.Env;
 import org.compiere.util.KeyNamePair;
 import org.compiere.util.Msg;
@@ -84,9 +88,7 @@ import org.zkoss.zul.South;
  */
 public class WPayment extends Payment
 	implements IFormController, EventListener<Event>, WTableModelListener, IProcessUI, ValueChangeListener
-{
-	/** @todo withholding */
-	
+{	
 	private CustomForm form = new CustomForm();
 
 	//
@@ -101,7 +103,7 @@ public class WPayment extends Payment
 	private Label labelBalance = new Label();
 	private Checkbox onlyDue = new Checkbox();
 	private Label labelBPartner = new Label();
-	private Listbox fieldBPartner = ListboxFactory.newDropdownListbox();
+	private WSearchEditor fieldBPartner = null;
 	private Label dataStatus = new Label();
 	private WListbox miniTable = ListboxFactory.newDataTable();
 	private ConfirmPanel commandPanel = new ConfirmPanel(true, false, false, false, false, false, false);
@@ -137,7 +139,9 @@ public class WPayment extends Payment
 			new ValueNamePair(HISTORY_DAY_WEEK,  Msg.getMsg(Env.getCtx(), HISTORY_DAY_WEEK)),
 			new ValueNamePair(HISTORY_DAY_DAY,   Msg.getMsg(Env.getCtx(), HISTORY_DAY_DAY))
 	};
-		
+	
+	private Listbox typeCombo = ListboxFactory.newDropdownListbox();
+
 	/**
 	 *	Initialize Panel
 	 */
@@ -147,8 +151,8 @@ public class WPayment extends Payment
 		{
 			m_WindowNo = form.getWindowNo();
 			
-			zkInit();
 			dynInit();
+			zkInit();
 			
 			loadBankInfo();
 			southPanel.appendChild(new Separator());
@@ -180,16 +184,30 @@ public class WPayment extends Payment
         // adding history combo
         prepareHistoryCombo();
         Label labelHistory = new Label(Msg.getMsg(Env.getCtx(), HISTORY_LABEL));
+        Label labelType = new Label(Msg.getMsg(Env.getCtx(), "Type"));
         if (ClientInfo.maxWidth(639))
+        {
         	labelHistory.setStyle("vertical-align: middle; display: block;padding-left: 4px; padding-top: 4px;");
+        	labelType.setStyle("vertical-align: middle; display: block;padding-left: 4px; padding-top: 4px;");
+        }
         else
+        {
         	labelHistory.setStyle("vertical-align: middle;");
+        	labelType.setStyle("vertical-align: middle;");
+        }
         
+        //	Tipo de Documento
+        typeCombo.setId("typeCombo");
+        typeCombo.appendItem("Fatura", "I");
+        typeCombo.appendItem("Pedido", "O");
+        typeCombo.setSelectedIndex(0);
+    	typeCombo.addActionListener(this);
+    	
 		//
 		labelBankAccount.setText(Msg.translate(Env.getCtx(), "C_BankAccount_ID"));
 		fieldBankAccount.addActionListener(this);
 		labelBPartner.setText(Msg.translate(Env.getCtx(), "C_BPartner_ID"));
-		fieldBPartner.addActionListener(this);
+		fieldBPartner.addValueChangeListener(this);
 		bRefresh.addActionListener(this);
 		labelPayDate.setText(Msg.translate(Env.getCtx(), "PayDate"));
 		labelPaymentRule.setText(Msg.translate(Env.getCtx(), "PaymentRule"));
@@ -221,6 +239,8 @@ public class WPayment extends Payment
 		Row row = rows.newRow();
 		row.appendCellChild(labelHistory.rightAlign());
 		row.appendCellChild(historyCombo);
+		row.appendCellChild(labelType.rightAlign());
+		row.appendCellChild(typeCombo);
 		
 		row = rows.newRow();
 		row.appendCellChild(labelBankAccount.rightAlign());
@@ -228,7 +248,7 @@ public class WPayment extends Payment
 		
 		row = rows.newRow();
 		row.appendCellChild(labelBPartner.rightAlign());
-		row.appendCellChild(fieldBPartner);
+		row.appendCellChild(fieldBPartner.getComponent());
 		row.appendCellChild(onlyDue);
 		
 		row = rows.newRow();
@@ -300,32 +320,21 @@ public class WPayment extends Payment
 		else
 			fieldBankAccount.setSelectedIndex(0);
 		
-		fillBPartnerData();
+		MLookup bpL = MLookupFactory.get (Env.getCtx(), form.getWindowNo(), 0, 2762, DisplayType.Search);
+		fieldBPartner = new WSearchEditor ("C_BPartner_ID", false, false, true, bpL);
 
 		ArrayList<KeyNamePair> docTypeData = getDocTypeData();
 		for(KeyNamePair pp : docTypeData)
 			fieldDtype.appendItem(pp.getName(), pp);
 		
 		prepareTable(miniTable);
+		prepareTableOrder(miniTable);
 		
 		miniTable.getModel().addTableModelListener(this);
 		//
 		fieldPayDate.setMandatory(true);
 		fieldPayDate.setValue(new Timestamp(System.currentTimeMillis()));
 	}   //  dynInit
-	
-	/**
-	 * 
-	 */
-	private void fillBPartnerData()
-	{
-		fieldBPartner.removeAllItems();
-		
-		ArrayList<KeyNamePair> bpartnerData = getBPartnerData();
-		for(KeyNamePair pp : bpartnerData)
-			fieldBPartner.appendItem(pp.getName(), pp);
-		fieldBPartner.setSelectedIndex(0);
-	}
 
 	/**
 	 *  Load Bank Info - Load Info from Bank Account and valid Documents (PaymentRule)
@@ -364,14 +373,15 @@ public class WPayment extends Payment
 		BankInfo bi = (BankInfo)fieldBankAccount.getSelectedItem().getValue();
 		
 		ValueNamePair paymentRule = (ValueNamePair) fieldPaymentRule.getSelectedItem().getValue();
-		KeyNamePair bpartner = (KeyNamePair) fieldBPartner.getSelectedItem().getValue();
+		Integer bpartner = (Integer) fieldBPartner.getValue();
 		KeyNamePair docType = (KeyNamePair) fieldDtype.getSelectedItem().getValue();
 		String historic = null;
+		String type = typeCombo.getSelectedItem().getValue();
 		
 		if (historyCombo.getSelectedItem() != null)
 			historic = addHistoryRestriction(historyCombo.getSelectedItem());
 		
-		loadTableInfo(bi, payDate, paymentRule, onlyDue.isSelected(), bpartner, docType, historic, miniTable);
+		loadTableInfo(bi, payDate, paymentRule, onlyDue.isSelected(), bpartner, docType, historic, type, miniTable);
 		
 		calculateSelection();
 		
@@ -410,8 +420,6 @@ public class WPayment extends Payment
 				m_IsSOTrx = false;
 			else if (MDocType.DOCBASETYPE_ARReceipt.equals(dt.getDocBaseType()))
 				m_IsSOTrx = true;
-			
-			fillBPartnerData();
 		}
 		
 		//  Generate PaySelection
@@ -425,8 +433,9 @@ public class WPayment extends Payment
 			dispose();
 
 		//  Update Open Invoices
-		else if (e.getTarget() == fieldBPartner || e.getTarget() == bRefresh || e.getTarget() == fieldDtype
-				|| e.getTarget() == fieldPaymentRule || e.getTarget() == onlyDue || e.getTarget() == fieldBankAccount || e.getTarget() == historyCombo)
+		else if (e.getTarget() == bRefresh || e.getTarget() == fieldDtype
+				|| e.getTarget() == fieldPaymentRule || e.getTarget() == onlyDue || e.getTarget() == fieldBankAccount 
+				|| e.getTarget() == historyCombo || e.getTarget() == typeCombo)
 			loadTableInfo();
 
 		else if (DialogEvents.ON_WINDOW_CLOSE.equals(e.getName())) {
@@ -437,7 +446,7 @@ public class WPayment extends Payment
 
 	@Override
 	public void valueChange(ValueChangeEvent e) {
-		if (e.getSource() == fieldPayDate)
+		if (e.getSource() == fieldBPartner || e.getSource() == fieldPayDate)
 			loadTableInfo();
 	}
 
@@ -475,7 +484,7 @@ public class WPayment extends Payment
 			return;
 
 		String msg = generatePayment (miniTable, (ValueNamePair) fieldPaymentRule.getSelectedItem().getValue(), 
-				new Timestamp(fieldPayDate.getComponent().getValue().getTime()), 
+				new Timestamp(fieldPayDate.getComponent().getValue().getTime()), typeCombo.getSelectedItem().getValue(), 
 				(BankInfo)fieldBankAccount.getSelectedItem().getValue());
 		
 		if(msg != null && msg.length() > 0)		
@@ -613,7 +622,7 @@ public class WPayment extends Payment
      */
     private String addHistoryRestriction(ListItem listItem)
     {
-    	String selectedHistoryValue = historyCombo.getSelectedItem().getValue();
+    	String selectedHistoryValue = listItem.getValue();
     	log.fine("History combo selected value  =" +selectedHistoryValue);
 
     	if (null!=listItem && listItem.toString().length() > 0 && getHistoryDays(selectedHistoryValue) > 0)

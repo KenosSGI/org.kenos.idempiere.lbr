@@ -50,6 +50,7 @@ public class SysConfig
 	public static final String LBR_NFSE_PALHOCA_PASS 							= "LBR_NFSE_PALHOCA_PASS";
 	public static final String LBR_NFSE_PALHOCA_USER 							= "LBR_NFSE_PALHOCA_USER";
 	public static final String LBR_NFSE_SP_PRINT_URL 							= "LBR_NFSE_SP_PRINT_URL";
+	public static final String LBR_OVERWRITE_ORDER_PAY_SCHEDULE					= "LBR_OVERWRITE_ORDER_PAY_SCHEDULE";
 	public static final String LBR_POG_INVOICE_COMPLETE 						= "LBR_POG_INVOICE_COMPLETE";
 	public static final String LBR_PRINT_BP_PRODUCT_NO_NF 						= "LBR_PRINT_BP_PRODUCT_NO_NF";
 	public static final String LBR_PRINT_EXPIRE_NF 								= "LBR_PRINT_EXPIRE_NF";
@@ -62,6 +63,7 @@ public class SysConfig
 	public static final String LBR_REF_CFOP 									= "LBR_REF_CFOP";
 	public static final String LBR_REF_NCM 										= "LBR_REF_NCM";
 	public static final String LBR_REMOTE_PKCS11_URL 							= "LBR_REMOTE_PKCS11_URL";
+	public static final String LBR_REMOTE_PKCS11_TIMEOUT 						= "LBR_REMOTE_PKCS11_TIMEOUT";
 	public static final String LBR_SEND_NF_BY_EMAIL_TO 							= "LBR_SEND_NF_BY_EMAIL_TO";
 	public static final String LBR_SENDNFENOONCNAB 								= "LBR_SENDNFENOONCNAB";
 	public static final String LBR_SHOW_STOCK_MSG_ON_ORDER 						= "LBR_SHOW_STOCK_MSG_ON_ORDER";

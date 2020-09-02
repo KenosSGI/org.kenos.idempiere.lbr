@@ -385,8 +385,7 @@ public class MLBRNFeLot extends X_LBR_NFeLot implements DocAction, DocOptions
 				NFeUtil.validate (consReciNFeDoc);
 			
 			//	XML
-			String xmlText = NFeUtil.wrapMsg (consReciNFeDoc.xmlText(NFeUtil.getXmlOpt()));
-			StringReader xml = new StringReader (xmlText);
+			String xmlText = consReciNFeDoc.xmlText(NFeUtil.getXmlOpt());
 
 			String serviceType = null;
 			if (MLBRNotaFiscal.LBR_NFMODEL_NotaFiscalEletrônica.equals(getlbr_NFModel()))
@@ -429,6 +428,8 @@ public class MLBRNFeLot extends X_LBR_NFeLot implements DocAction, DocOptions
 			}
 			else
 			{
+				StringReader xml = new StringReader (NFeUtil.wrapMsg (xmlText));
+				
 				//	Mensagem
 				NfeDadosMsg dadosMsg = NfeDadosMsg.Factory.parse (XMLInputFactory.newInstance().createXMLStreamReader(xml));
 				

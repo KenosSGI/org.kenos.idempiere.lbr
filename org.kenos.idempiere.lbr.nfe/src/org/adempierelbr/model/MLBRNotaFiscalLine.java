@@ -1062,13 +1062,49 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 		if (!isDescription)
 		{
 			setC_UOM_ID(iLine.getC_UOM_ID());
-			setLBR_CFOP_ID(oLineW.getLBR_CFOP_ID());			
+			setLBR_CFOP_ID(oLineW.getLBR_CFOP_ID());
 			
-			//	Número de Série
-			if (iLine.getM_AttributeSetInstance_ID()>0 
-					&& iLine.getM_AttributeSetInstance().getSerNo() != null
-					&& (MSysConfig.getBooleanValue(SysConfig.LBR_PRINT_SERIALNUMBER_NF, true, getAD_Client_ID())))
-				appendDescription("Núm. de Série: " + iLine.getM_AttributeSetInstance().getSerNo());
+			//	Impressão dos Atributos
+			if (iLine.getM_AttributeSetInstance_ID()>0)
+			{
+				String serNo = iLine.getM_AttributeSetInstance().getSerNo();
+				String lot = iLine.getM_AttributeSetInstance().getLot();
+				Timestamp guaranteeDate = iLine.getM_AttributeSetInstance().getGuaranteeDate();
+
+				//	Número de Série
+				if (serNo != null
+						&& MSysConfig.getBooleanValue(SysConfig.LBR_PRINT_SERIALNUMBER_NF, true, getAD_Client_ID()))
+					appendDescription("Núm. de Série: " + serNo);
+			
+				//	Lote
+				if (lot != null
+						&& MSysConfig.getBooleanValue(SysConfig.LBR_PRINT_LOT_NF, false, getAD_Client_ID()))
+					appendDescription("Lote: " + lot);
+				
+				//	Vencimento
+				if (guaranteeDate != null
+						&& MSysConfig.getBooleanValue(SysConfig.LBR_PRINT_EXPIRE_NF, false, getAD_Client_ID()))
+					appendDescription ("Vencto: " + TextUtil.timeToString (guaranteeDate, "dd/MM/yyyy"));
+			}
+			
+			//	Impressão do Pedido de Referencia e Item (xPed e nItemPed)
+			if (MSysConfig.getBooleanValue(SysConfig.LBR_PRINT_XPED_NF, true, getAD_Client_ID()))
+			{
+				//	Linha do Pedido
+				MOrderLine oLine = (MOrderLine) iLine.getC_OrderLine();
+				
+				String description = "";
+				
+				//	Pedido de Referência
+				if (!oLine.get_ValueAsString("POReference").isEmpty())
+					description = description + "Pedido de Referência: " + oLine.get_ValueAsString("POReference");
+
+				//	Item do Pedido
+				if (!oLine.get_ValueAsString("LBR_PORef_Item").isEmpty())
+					description = description + " - Item: " + oLine.get_ValueAsString("LBR_PORef_Item");	
+				
+				appendDescription(description);
+			}
 			
 			//		Impostos
 			MLBRTax tax = new MLBRTax (getCtx(), oLineW.getLBR_Tax_ID(), get_TrxName());

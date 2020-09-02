@@ -259,7 +259,7 @@ public class VPayment extends Payment implements FormPanel, ActionListener, Tabl
 		KeyNamePair bpartner = (KeyNamePair)fieldBPartner.getSelectedItem();
 		KeyNamePair docType = (KeyNamePair)fieldDtype.getSelectedItem();
 
-		loadTableInfo(bi, payDate, paymentRule, onlyDue.isSelected(), bpartner, docType, null, miniTable);
+//		loadTableInfo(bi, payDate, paymentRule, onlyDue.isSelected(), bpartner, docType, null, null, miniTable);
 		
 		calculateSelection();
 	}   //  loadTableInfo
@@ -269,11 +269,11 @@ public class VPayment extends Payment implements FormPanel, ActionListener, Tabl
 		fieldBPartner.removeActionListener(this);
 		fieldBPartner.removeAllItems();
 		//
-		ArrayList<KeyNamePair> bpartnerData = getBPartnerData();
-		for(KeyNamePair pp : bpartnerData)
-			fieldBPartner.addItem(pp);
-		fieldBPartner.setSelectedIndex(0);
-		fieldBPartner.addActionListener(this);
+//		ArrayList<KeyNamePair> bpartnerData = getBPartnerData();
+//		for(KeyNamePair pp : bpartnerData)
+//			fieldBPartner.addItem(pp);
+//		fieldBPartner.setSelectedIndex(0);
+//		fieldBPartner.addActionListener(this);
 	}
 
 	/**
@@ -360,14 +360,14 @@ public class VPayment extends Payment implements FormPanel, ActionListener, Tabl
 		if (m_noSelected == 0)
 			return;
 
-		String msg = generatePayment (miniTable, (ValueNamePair) fieldPaymentRule.getSelectedItem(), 
-				fieldPayDate.getTimestamp(), (BankInfo)fieldBankAccount.getSelectedItem());
-		
-		if(msg != null && msg.length() > 0)		
-		{
-			ADialog.error(m_WindowNo, panel, "SaveError", msg);
-			return;
-		}
+//		String msg = generatePayment (miniTable, (ValueNamePair) fieldPaymentRule.getSelectedItem(), 
+//				fieldPayDate.getTimestamp(), (BankInfo)fieldBankAccount.getSelectedItem());
+//		
+//		if(msg != null && msg.length() > 0)		
+//		{
+//			ADialog.error(m_WindowNo, panel, "SaveError", msg);
+//			return;
+//		}
 	}   //  generatePaySelect
 
 	/**

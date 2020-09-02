@@ -99,6 +99,10 @@ public class MLBRDigitalCertificate extends X_LBR_DigitalCertificate
 		MLBRDigitalCertificate dcOrg = new MLBRDigitalCertificate(Env.getCtx(), certOrg, null);
 		MLBRDigitalCertificate dcWS = new MLBRDigitalCertificate(Env.getCtx(), certWS, null);
 		MLBRDigitalCertificate dcICP = MLBRDigitalCertificate.getICPTrustStore();
+		
+		//	Not set Certificate when A3/PKCS11 is Remote
+		if (MLBRDigitalCertificate.LBR_CERTTYPE_PKCS11_Remote.equals(dcOrg.getlbr_CertType()))
+			return;
 
 		if (!dcOrg.isValid())
 			throw new Exception ("Certificado da Organização inválido, acione o processo de validação do certificado no cadastro dele");

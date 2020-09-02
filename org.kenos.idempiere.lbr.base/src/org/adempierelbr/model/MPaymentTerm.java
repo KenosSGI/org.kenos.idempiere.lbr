@@ -56,8 +56,18 @@ public class MPaymentTerm extends org.compiere.model.MPaymentTerm
 	public MPaymentTerm(Properties ctx, int C_PaymentTerm_ID, String trxName)
 	{
 		super(ctx, C_PaymentTerm_ID, trxName);
-		
-	}	//	MPaymentTerm
+		if (C_PaymentTerm_ID == 0)
+		{
+			setAfterDelivery (false);
+			setNetDays (0);
+			setDiscount (Env.ZERO);
+			setDiscount2 (Env.ZERO);
+			setDiscountDays (0);
+			setDiscountDays2 (0);
+			setGraceDays (0);
+			setIsDueFixed (false);
+			setIsValid (false);
+		}	}	//	MPaymentTerm
 
 	/**
 	 * 	Load Constructor

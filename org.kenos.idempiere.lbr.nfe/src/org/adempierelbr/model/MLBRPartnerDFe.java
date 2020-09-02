@@ -151,24 +151,23 @@ public class MLBRPartnerDFe extends X_LBR_PartnerDFe
 			String sql = "SELECT COUNT(*) FROM " + Table_Name + 
 					" WHERE " + COLUMNNAME_DocumentType 	+ "=?" +
 					  " AND " + COLUMNNAME_lbr_NFeID 		+ "=?" +
-					  " AND " + COLUMNNAME_lbr_NFeProt 		+ "=?" +
-					  " AND " + COLUMNNAME_LBR_NSU 			+ "=?";
+					  " AND " + COLUMNNAME_lbr_NFeProt 		+ "=?";
 			
 			//	NF-e
 			if (DOCUMENTTYPE_NF_E.equals(getDocumentType()))
 			{
 				sql += " AND " + COLUMNNAME_lbr_DigestValue + "=?";
-				params = new Object[]{getDocumentType(), getlbr_NFeID(), getlbr_NFeProt(), getLBR_NSU(), getlbr_DigestValue()};
+				params = new Object[]{getDocumentType(), getlbr_NFeID(), getlbr_NFeProt(), getlbr_DigestValue()};
 			}
 			
 			//	Event
 			else if (DOCUMENTTYPE_Evento.equals(getDocumentType()))
 			{
 				sql += " AND " + COLUMNNAME_SeqNo + "=?";
-				params = new Object[]{getDocumentType(), getlbr_NFeID(), getlbr_NFeProt(), getLBR_NSU(), getSeqNo()};
+				params = new Object[]{getDocumentType(), getlbr_NFeID(), getlbr_NFeProt(), getSeqNo()};
 			}
 			
-			//	Invalid docuemnttype
+			//	Invalid document type
 			else
 			{
 				log.saveError("Error", Msg.parseTranslation(getCtx(), "@Invalid@ = @DocumentType@"));
@@ -185,18 +184,36 @@ public class MLBRPartnerDFe extends X_LBR_PartnerDFe
 			}
 		}
 		
-		/**
-		 * 	As vezes a SeFaz manda NF duplicadas, com NSUs diferentes. Para estes casos
-		 * 	este método irá replicar a manifestação em múltiplos registros.
-		 */
-		else if (isLBR_IsManifested() && is_ValueChanged(COLUMNNAME_LBR_IsManifested))
-		{
-			String sql = "UPDATE LBR_PartnerDFe dfe SET LBR_IsManifested='Y' WHERE dfe.LBR_IsManifested='N' AND dfe.lbr_NFeID=? AND dfe.DocumentType=? AND dfe.LBR_PartnerDFe_ID<>?";
-			DB.executeUpdate (sql, new Object[] {getlbr_NFeID(), getDocumentType(), getLBR_PartnerDFe_ID()}, false, get_TrxName());
-		}
-		
 		return true;
 	}	//	beforeSave
+	
+	/**
+	 * 	Update cancelled NFs
+	 */
+	@Override
+	protected boolean afterSave (boolean newRecord, boolean success)
+	{
+		if (TextUtil.match(getLBR_EventType(), LBR_EVENTTYPE_Cancelamento, 
+				LBR_EVENTTYPE_CancelamentoDeMDF_EAutorizadoComCT_E,
+				LBR_EVENTTYPE_CT_ECancelado,
+				LBR_EVENTTYPE_MDF_ECancelado,
+				LBR_EVENTTYPE_MDF_ECanceladoVinculadoACT_E))
+		{
+			DB.executeUpdate("UPDATE " + Table_Name + 
+					" SET " + COLUMNNAME_IsCancelled + "='Y', " + 
+					COLUMNNAME_lbr_NFeStatus + "=? WHERE " + 
+					COLUMNNAME_IsCancelled + "='N' AND " + 
+					COLUMNNAME_lbr_NFeID + "=? AND " +
+					COLUMNNAME_DocumentType + "=?", new Object[] {getlbr_NFeStatus(), getlbr_NFeID(), DOCUMENTTYPE_NF_E}, false, get_TrxName());
+		}
+
+		//	Include NSU in Control List
+		if (newRecord || is_ValueChanged(COLUMNNAME_LBR_NSU))
+			DB.executeUpdate("INSERT INTO LBR_NSUControl (LBR_PartnerDFe_ID, LBR_NSU) VALUES (?, ?)", 
+					new Object[] {getLBR_PartnerDFe_ID(), getLBR_NSU()}, false, get_TrxName());
+		
+		return true;
+	}	//	afterSave
 	
 	/**
 	 * 	Procura um DF-e para a NF
@@ -235,18 +252,19 @@ public class MLBRPartnerDFe extends X_LBR_PartnerDFe
 	 * 	@param nf
 	 * 	@return
 	 */
-	public static MLBRPartnerDFe get (String key, String DocumentType)
+	public static MLBRPartnerDFe get (String key, String documentType)
 	{
 		String where = "AD_Client_ID=? "
 				+ "AND LBR_NFeID=? ";
 		
-		if (DocumentType != null && !DocumentType.isEmpty())
-			where = where + "AND DocumentType = '" + DocumentType + "'";
+		if (documentType != null && !documentType.isEmpty())
+			where = where + "AND DocumentType = '" + documentType + "'";
 		else
 			where = where + "AND DocumentType='0'";
 		//
 		MLBRPartnerDFe dfe = new Query (Env.getCtx(), MLBRPartnerDFe.Table_Name, where, null)
 						.setParameters(Env.getAD_Client_ID(Env.getCtx()), key)
+						.setOrderBy(COLUMNNAME_LBR_IsManifested + " DESC, " + COLUMNNAME_LBR_IsXMLValid + " DESC, " + COLUMNNAME_IsCancelled + " DESC")
 						.first();
 		return dfe;
 	}	//	get

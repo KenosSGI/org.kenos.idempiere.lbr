@@ -31,6 +31,7 @@ import org.compiere.model.MAllocationHdr;
 import org.compiere.model.MBankAccount;
 import org.compiere.model.MDocType;
 import org.compiere.model.MInvoice;
+import org.compiere.model.MOrder;
 import org.compiere.model.MPayment;
 import org.compiere.model.MRefList;
 import org.compiere.model.MRole;
@@ -58,6 +59,7 @@ public class Payment
 	public DecimalFormat   m_format = DisplayType.getNumberFormat(DisplayType.Amount);
 	/** SQL for Query           */
 	private String          m_sql;
+	private String          m_sql_order;
 	/** Number of selected rows */
 	public int             m_noSelected = 0;
 	/** Client ID               */
@@ -97,42 +99,6 @@ public class Payment
 					rs.getString(2), rs.getString(4),
 					rs.getBigDecimal(5), transfers);
 				data.add(bi);
-			}
-			rs.close();
-			pstmt.close();
-		}
-		catch (SQLException e)
-		{
-			log.log(Level.SEVERE, sql, e);
-		}
-		
-		return data;
-	}
-	
-	public ArrayList<KeyNamePair> getBPartnerData()
-	{
-		ArrayList<KeyNamePair> data = new ArrayList<KeyNamePair>();
-		
-		//  Optional BusinessPartner with unpaid AP Invoices
-		KeyNamePair pp = new KeyNamePair(0, "");
-		data.add(pp);
-		
-		String sql = MRole.getDefault().addAccessSQL(
-			"SELECT DISTINCT bp.C_BPartner_ID, UPPER(bp.Name) FROM C_BPartner bp", "bp",
-			MRole.SQL_FULLYQUALIFIED, MRole.SQL_RO)
-			+ " AND EXISTS (SELECT * FROM C_Invoice i WHERE bp.C_BPartner_ID=i.C_BPartner_ID AND i.IsPaid<>'Y' "
-			+ " AND i.IsSOTrx=?) "
-			+ "ORDER BY 2";
-
-		try
-		{
-			PreparedStatement pstmt = DB.prepareStatement(sql, null);
-			pstmt.setString(1, m_IsSOTrx ? "Y" : "N");
-			ResultSet rs = pstmt.executeQuery();
-			while (rs.next())
-			{
-				pp = new KeyNamePair(rs.getInt(1), rs.getString(2));
-				data.add(pp);
 			}
 			rs.close();
 			pstmt.close();
@@ -214,6 +180,41 @@ public class Payment
 			+ " AND i.AD_Org_ID=? AND invoiceOpen(i.C_Invoice_ID,i.C_InvoicePaySchedule_ID) > 0",	//	additional where & order in loadTableInfo()
 			true, "i");
 	}   //  dynInit
+	
+	public void prepareTableOrder(IMiniTable miniTable)
+	{
+		Properties ctx = Env.getCtx();
+
+		m_sql_order = miniTable.prepareTable(new ColumnInfo[] {
+			//  0..4
+			new ColumnInfo(" ", "i.C_Order_ID", IDColumn.class, false, false, null),
+			new ColumnInfo(Msg.translate(ctx, "DateOrdered"), "i.DateOrdered AS DateOrdered", Timestamp.class, true, true, null),
+			new ColumnInfo(Msg.translate(ctx, "C_BPartner_ID"), "bp.Name", KeyNamePair.class, true, false, "i.C_BPartner_ID"),
+			new ColumnInfo(Msg.translate(ctx, "DocumentNo"), "i.DocumentNo", String.class),
+			new ColumnInfo(Msg.translate(ctx, "C_Currency_ID"), "c.ISO_Code", KeyNamePair.class, true, false, "i.C_Currency_ID"),
+			// 5..9
+			new ColumnInfo(Msg.translate(ctx, "GrandTotal"), "i.GrandTotal", BigDecimal.class),
+			new ColumnInfo(Msg.getMsg(ctx, "AmountDue"), "i.GrandTotal", BigDecimal.class),
+			new ColumnInfo(Msg.getMsg(ctx, "AmountPay"), "i.GrandTotal", BigDecimal.class)
+			},
+			//	FROM
+			"C_Order i"
+			+ " INNER JOIN C_BPartner bp ON (i.C_BPartner_ID=bp.C_BPartner_ID)"
+			+ " INNER JOIN C_Currency c ON (i.C_Currency_ID=c.C_Currency_ID)"
+			+ " INNER JOIN C_PaymentTerm p ON (i.C_PaymentTerm_ID=p.C_PaymentTerm_ID)",
+			//	WHERE
+			"i.IsSOTrx=? "
+			//	Different Payment Selection
+			+ " AND NOT EXISTS (SELECT * FROM C_Payment p"
+			+                 " WHERE i.C_Order_ID=p.C_Order_ID AND p.IsActive='Y'"
+			+				  " AND (p.DocStatus IN ('CO','CL')) )"
+			//	Pending
+			+ " AND EXISTS (SELECT * FROM C_OrderLine ol"
+			+                 " WHERE i.C_Order_ID=ol.C_Order_ID AND ol.QtyInvoiced<ol.QtyOrdered )"
+			+ " AND i.DocStatus IN ('CO')"
+			+ " AND i.AD_Org_ID=?",	//	additional where & order in loadTableInfo()
+			true, "i");
+	}   //  dynInit
 
 	/**
 	 *  Load Bank Info - Load Info from Bank Account and valid Documents (PaymentRule)
@@ -233,25 +234,30 @@ public class Payment
 	 *  Query and create TableInfo
 	 */
 	public void loadTableInfo(BankInfo bi, Timestamp payDate, ValueNamePair paymentRule, boolean onlyDue, 
-			KeyNamePair bpartner, KeyNamePair docType, String restriction, IMiniTable miniTable)
+			Integer C_BPartner_ID, KeyNamePair docType, String restriction, String type, IMiniTable miniTable)
 	{
 		log.config("");
-		//  not yet initialized
-		if (m_sql == null)
-			return;
 		
 		int AD_Org_ID = new MBankAccount (Env.getCtx(), bi.C_BankAccount_ID, null).getAD_Org_ID();
 
 		String sql = m_sql;
+		if (type.equals("O"))
+		{
+			sql = m_sql_order;
+			onlyDue = false;
+			if (restriction != null)
+				restriction = restriction.replace("DueDate", "DateOrdered");
+		}
+		//  not yet initialized
+		if (sql == null)
+			return;
 		
 		//	Only due invoices
 		if (onlyDue)
 			sql += " AND i.DueDate <= ?";
 		
 		//	BPartner filter
-		KeyNamePair pp = bpartner;
-		int C_BPartner_ID = pp.getKey();
-		if (C_BPartner_ID != 0)
+		if (C_BPartner_ID != null && C_BPartner_ID != 0)
 			sql += " AND i.C_BPartner_ID=?";
 
 		//	Document Type
@@ -279,15 +285,18 @@ public class Payment
 		{
 			int index = 1;
 			PreparedStatement pstmt = DB.prepareStatement(sql, null);
-			pstmt.setInt(index++, bi.C_Currency_ID);			//	DueAmt
-			pstmt.setTimestamp(index++, payDate);
-			pstmt.setInt(index++, bi.C_Currency_ID);
-			pstmt.setTimestamp(index++, payDate);
+			if (!type.equals("O"))
+			{
+				pstmt.setInt(index++, bi.C_Currency_ID);			//	DueAmt
+				pstmt.setTimestamp(index++, payDate);
+				pstmt.setInt(index++, bi.C_Currency_ID);
+				pstmt.setTimestamp(index++, payDate);
+			}
 			pstmt.setString(index++, m_IsSOTrx ? "Y" : "N");	//	IsSOTrx
 			pstmt.setInt(index++, AD_Org_ID);					//	Org
 			if (onlyDue)
 				pstmt.setTimestamp(index++, payDate);
-			if (C_BPartner_ID != 0)
+			if (C_BPartner_ID != null && C_BPartner_ID != 0)
 				pstmt.setInt(index++, C_BPartner_ID);
 			//
 			ResultSet rs = pstmt.executeQuery();
@@ -335,7 +344,7 @@ public class Payment
 	/**
 	 *  Generate PaySelection
 	 */
-	public String generatePayment (IMiniTable miniTable, ValueNamePair paymentRule, Timestamp payDate, BankInfo bi)
+	public String generatePayment (IMiniTable miniTable, ValueNamePair paymentRule, Timestamp payDate, String type, BankInfo bi)
 	{
 		log.info("init");
 		String trxName = null;
@@ -351,18 +360,44 @@ public class Payment
 			if (id.isSelected())
 			{
 				MPayment p = new MPayment (Env.getCtx(), 0, trxName);
-				int C_Invoice_ID = id.getRecord_ID().intValue();
+				int Doc_ID = id.getRecord_ID().intValue();
 //				BigDecimal OpenAmt = (BigDecimal)miniTable.getValueAt(i, 6);
 				BigDecimal PayAmt = (BigDecimal)miniTable.getValueAt(i, 7);
 				
-				MInvoice invoice = new MInvoice (Env.getCtx(), C_Invoice_ID, null);
-				p.setC_Invoice_ID(C_Invoice_ID);
-				p.setC_BPartner_ID(invoice.getC_BPartner_ID());
+				Boolean isSOTrx = null;
+				int C_BPartner_ID = 0;
+				String documentNo = null;
+				
+				//	Invoice Based document
+				if (!type.equals("O"))
+				{
+					MInvoice invoice = new MInvoice (Env.getCtx(), Doc_ID, null);
+					isSOTrx 		= invoice.isSOTrx();
+					C_BPartner_ID 	= invoice.getC_BPartner_ID();
+					documentNo 		= invoice.getDocumentNo();
+					
+					//	Set Invoice
+					p.setC_Invoice_ID(Doc_ID);
+				}
+				
+				//	Order based document
+				else
+				{
+					MOrder order = new MOrder (Env.getCtx(), Doc_ID, null);
+					isSOTrx	 		= order.isSOTrx();
+					C_BPartner_ID 	= order.getC_BPartner_ID();
+					documentNo 		= order.getDocumentNo();
+					
+					//	Set Order
+					p.setC_Order_ID(Doc_ID);
+				}
+				
+				p.setC_BPartner_ID(C_BPartner_ID);
 				p.setTenderType(PaymentRule);
 				p.setDateAcct(payDate);
 				p.setDateTrx(payDate);
 				p.setBankAccountDetails(bi.C_BankAccount_ID);
-				p.setC_DocType_ID(invoice.isSOTrx());
+				p.setC_DocType_ID(isSOTrx);
 				p.setC_Currency_ID(bi.C_Currency_ID);
 				p.setPayAmt(PayAmt);
 				p.saveEx();
@@ -383,10 +418,10 @@ public class Payment
 					p.delete(true);
 					
 					//	Inform user something went wrong
-					return Msg.translate(Env.getCtx(), "C_Invoice_ID") + " [" + invoice.getDocumentNo() + "/" + C_Invoice_ID + "] : " + Msg.translate(Env.getCtx(), e.getMessage());
+					return Msg.translate(Env.getCtx(), "C_Invoice_ID") + " [" + documentNo + "/" + Doc_ID + "] : " + Msg.translate(Env.getCtx(), e.getMessage());
 				}
 
-				log.fine("C_Invoice_ID=" + C_Invoice_ID + ", PayAmt=" + PayAmt);
+				log.fine("C_Invoice_ID=" + Doc_ID + ", PayAmt=" + PayAmt);
 			}
 		}   //  for all rows in table
 		

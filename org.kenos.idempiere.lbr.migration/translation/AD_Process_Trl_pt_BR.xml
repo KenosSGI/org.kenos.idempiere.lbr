@@ -2323,7 +2323,7 @@ For example:<br />
   <value column="Help" original=""/>
  </row>
  <row trl="Y" uuid="56ac2565-bc8a-4927-859e-e942057a3173">
-  <value column="Name" original="ProcCreatePO">Criar linhas do Pedido</value>
+  <value column="Name" original="ProcCreatePO">Criar linhas a partir da Requisição</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
  </row>

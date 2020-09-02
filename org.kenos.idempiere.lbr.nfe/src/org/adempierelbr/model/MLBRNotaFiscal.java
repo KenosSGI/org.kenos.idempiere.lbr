@@ -14,7 +14,6 @@ package org.adempierelbr.model;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.StringReader;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.ResultSet;
@@ -31,23 +30,20 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.logging.Level;
 
-import javax.xml.stream.XMLInputFactory;
-
 import org.adempiere.exceptions.AdempiereException;
 import org.adempiere.exceptions.FillMandatoryException;
 import org.adempiere.model.POWrapper;
 import org.adempierelbr.exceptions.NotaFiscalNotFoundException;
 import org.adempierelbr.nfe.NFeXMLGenerator;
-import org.adempierelbr.nfe.api.NFeInutilizacao4Stub;
 import org.adempierelbr.nfse.INFSe;
 import org.adempierelbr.nfse.NFSeUtil;
 import org.adempierelbr.process.ConsultNFe;
 import org.adempierelbr.process.PrintFromXML;
 import org.adempierelbr.process.ProcEMailNFe;
+import org.adempierelbr.process.ProcInutNF;
 import org.adempierelbr.util.BPartnerUtil;
 import org.adempierelbr.util.LBRUtils;
 import org.adempierelbr.util.NFeUtil;
-import org.adempierelbr.util.SignatureUtil;
 import org.adempierelbr.util.TextUtil;
 import org.adempierelbr.validator.VLBROrder;
 import org.adempierelbr.wrapper.I_W_AD_ClientInfo;
@@ -60,7 +56,6 @@ import org.adempierelbr.wrapper.I_W_C_Order;
 import org.adempierelbr.wrapper.I_W_C_Tax;
 import org.adempierelbr.wrapper.I_W_M_InOut;
 import org.adempierelbr.wrapper.I_W_M_Shipper;
-import org.apache.axiom.om.OMElement;
 import org.apache.xmlbeans.XmlException;
 import org.compiere.model.MAcctSchema;
 import org.compiere.model.MAttachment;
@@ -124,14 +119,8 @@ import org.kenos.idempiere.lbr.base.model.MLBRAverageCostLine;
 import org.kenos.idempiere.lbr.base.model.MLBRProductionGroup;
 import org.kenos.idempiere.lbr.base.model.SysConfig;
 
-import br.inf.portalfiscal.nfe.v400.InutNFeDocument;
 import br.inf.portalfiscal.nfe.v400.NFeDocument;
 import br.inf.portalfiscal.nfe.v400.NfeProcDocument;
-import br.inf.portalfiscal.nfe.v400.RetInutNFeDocument;
-import br.inf.portalfiscal.nfe.v400.TAmb;
-import br.inf.portalfiscal.nfe.v400.TCodUfIBGE;
-import br.inf.portalfiscal.nfe.v400.TInutNFe;
-import br.inf.portalfiscal.nfe.v400.TMod;
 import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Ide;
 import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Ide.IdDest.Enum;
 import br.inf.portalfiscal.nfe.v400.TNfeProc;
@@ -1043,12 +1032,14 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		if (getC_BPartner_ID() > 0)
 		{
 			I_W_C_BPartner bp = POWrapper.create (new MBPartner (getCtx(), getC_BPartner_ID(), get_TrxName()), I_W_C_BPartner.class);
-			if (bp.getLBR_EMailNFe() != null)
+			if (LBR_NFMODEL_NotaFiscalDeServiçosEletrônicaRPS.equals(getlbr_NFModel()) && bp.getLBR_EMailNFSe() != null)
+				return bp.getLBR_EMailNFSe();
+			else if (bp.getLBR_EMailNFe() != null)
 				return bp.getLBR_EMailNFe();
 		}
 		//
 		return "";
-	}	//	012.848.698-81
+	}	//	getLBR_EMailNFe
 	
 	/**
 	 * Captura o e-mail do contato da Fatura
@@ -1933,6 +1924,19 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		setTotalLines(totalItem);
 		setlbr_ServiceTotalAmt(totalService);
 		
+		//	Nota do Documento (Mensagens Legais) e Descrição
+		setLBR_FiscalObs ();
+		setDescription ();
+		
+		// IBPTax - LBR-81
+		// Somente para consumidor final e for NF-e de Saída
+		if ((LBR_TRANSACTIONTYPE_EndUser.equals(getlbr_TransactionType())
+				|| LBR_TRANSACTIONTYPE_EndUserDoubleBase.equals(getlbr_TransactionType())) && isSOTrx())
+			setAproxTaxIBPT();
+		
+		//	Descrição para Nota de Serviço
+		setlbr_ServiceTaxes();
+		
 		//	O peso normalemnte vem da expedição, porém alguns casos a NF é feita com base no pedido
 		//		ou na fatura, portanto é necessário recalcular o peso
 		if (Env.ZERO.compareTo (getlbr_GrossWeight()) == 0)
@@ -2052,6 +2056,16 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		//	Valores
 		setTotalLines(totalItem);
 		setlbr_ServiceTotalAmt(totalService);
+		
+		//	Nota do Documento (Mensagens Legais) e Descrição
+		setLBR_FiscalObs ();
+		setDescription ();
+		
+		// IBPTax - LBR-81
+		// Somente para consumidor final e for NF-e de Saída
+		if ((LBR_TRANSACTIONTYPE_EndUser.equals(getlbr_TransactionType())
+				|| LBR_TRANSACTIONTYPE_EndUserDoubleBase.equals(getlbr_TransactionType())) && isSOTrx())
+			setAproxTaxIBPT();
 		
 		//	O peso normalemnte vem da expedição, porém alguns casos a NF é feita com base no pedido
 		//		ou na fatura, portanto é necessário recalcular o peso
@@ -4605,7 +4619,7 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 						setDateDoc(dateDoc);
 					}
 					//
-					TRetInutNFe.InfInut ret = invalidateNF (p_ctx, getAD_Org_ID(), getlbr_CNPJ(), 
+					TRetInutNFe.InfInut ret = ProcInutNF.invalidateNF (p_ctx, getAD_Org_ID(), getlbr_CNPJ(), 
 								regionCode, getlbr_NFeEnv(), getlbr_NFModel(), Integer.parseInt(getDocumentNo()), 
 								Integer.parseInt(getDocumentNo()), getlbr_NFSerie(), getlbr_MotivoCancel(), dateDoc);
 					//
@@ -4811,129 +4825,6 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		//
 		return index;
 	}	//	docStatus
-	
-	/**
-	 * 	Invalidate
-	 * 
-	 * @param ctx
-	 * @param p_AD_Org_ID
-	 * @param cnpj
-	 * @param regionCode
-	 * @param p_LBR_EnvType
-	 * @param nfModel
-	 * @param p_DocumentNo
-	 * @param nfSerie
-	 * @param p_DocumentNo_To
-	 * @param p_Just
-	 * @param p_DateDoc
-	 * @return
-	 * @throws Exception
-	 */
-	public static TRetInutNFe.InfInut invalidateNF (Properties ctx, int p_AD_Org_ID, String cnpj, 
-			String regionCode, String p_LBR_EnvType, String nfModel, Integer p_DocumentNo, 
-			Integer p_DocumentNo_To, String nfSerie, String p_Just, Timestamp p_DateDoc) throws Exception
-	{
-		MOrgInfo oi = MOrgInfo.get (ctx, p_AD_Org_ID, null);
-		MLBRNFConfig config = MLBRNFConfig.get(p_AD_Org_ID, LBR_NFMODEL_NotaFiscalEletrônica);
-		//
-		if (p_LBR_EnvType == null)
-			p_LBR_EnvType = config.getlbr_NFeEnv();
-		if (p_Just == null)
-			p_Just = "Erro na emissão da NFe";
-		
-		InutNFeDocument inutNFeDocument = InutNFeDocument.Factory.newInstance();
-		TInutNFe inutNFe = inutNFeDocument.addNewInutNFe();
-		inutNFe.setVersao(NFeUtil.VERSAO_LAYOUT);
-		
-		TInutNFe.InfInut infInut = inutNFe.addNewInfInut();
-		infInut.setMod(TMod.Enum.forString (nfModel));
-		infInut.setCNPJ(TextUtil.toNumeric(cnpj));
-		infInut.setTpAmb(TAmb.Enum.forString (p_LBR_EnvType));
-		infInut.setCUF(TCodUfIBGE.Enum.forString(regionCode));
-		infInut.setSerie(nfSerie);
-		infInut.setNNFIni(p_DocumentNo.toString());
-		infInut.setNNFFin(p_DocumentNo_To.toString());
-		infInut.setXJust(p_Just);
-		infInut.setAno(TextUtil.timeToString(p_DateDoc, "yy"));
-		infInut.setXServ(TInutNFe.InfInut.XServ.INUTILIZAR);
-		
-		String id = "ID" + infInut.getCUF() + infInut.getAno() + infInut.getCNPJ() + infInut.getMod() + 
-				TextUtil.lPad (infInut.getSerie(), 3) + TextUtil.lPad (infInut.getNNFIni(), 9) + TextUtil.lPad (infInut.getNNFFin(), 9);
-		infInut.setId(id);
-		
-		//	Sign
-		new SignatureUtil (oi, SignatureUtil.INUTILIZACAO_NFE).sign (inutNFeDocument, inutNFe.newCursor());
-		
-		//	Validate XML
-		NFeUtil.validate (inutNFeDocument);
-		
-		//	XML
-		StringReader xml = new StringReader (NFeUtil.wrapMsg (inutNFeDocument.xmlText(NFeUtil.getXmlOpt())));
-		String respStatus = null;
-		
-//		if (NFeUtil.REGION_CODE_BA.equals(regionCode))
-//		{
-//			//	Mensagem
-//			br.inf.portalfiscal.www.nfe.wsdl.nfeinutilizacao.NfeDadosMsg dadosMsg = br.inf.portalfiscal.www.nfe.wsdl.nfeinutilizacao.NfeDadosMsg.Factory.parse (XMLInputFactory.newInstance().createXMLStreamReader(xml));
-//			
-//			//	Cabeçalho
-//			br.inf.portalfiscal.www.nfe.wsdl.nfeinutilizacao.NfeCabecMsg cabecMsg = new br.inf.portalfiscal.www.nfe.wsdl.nfeinutilizacao.NfeCabecMsg ();
-//			cabecMsg.setCUF(regionCode);
-//			cabecMsg.setVersaoDados(NFeUtil.VERSAO_LAYOUT);
-//	
-//			br.inf.portalfiscal.www.nfe.wsdl.nfeinutilizacao.NfeCabecMsgE cabecMsgE = new br.inf.portalfiscal.www.nfe.wsdl.nfeinutilizacao.NfeCabecMsgE ();
-//			cabecMsgE.setNfeCabecMsg(cabecMsg);
-//	
-//			//	Inicializa o Certificado
-//			MLBRDigitalCertificate.setCertificate (ctx, p_AD_Org_ID);
-//				
-//			//	Recupera a URL de Transmissão
-//			String serviceType = null;
-//			if (MLBRNotaFiscal.LBR_NFMODEL_NotaFiscalEletrônica.equals(nfModel))
-//				serviceType = MLBRNFeWebService.INUTILIZACAO;		
-//			else if (MLBRNotaFiscal.LBR_NFMODEL_NotaFiscalDeConsumidorEletrônica.equals(nfModel))
-//				serviceType = MLBRNFeWebService.NFCE_INUTILIZACAO;
-//			
-//			String url = MLBRNFeWebService.getURL (serviceType, p_LBR_EnvType, NFeUtil.VERSAO_LAYOUT, oi.getC_Location().getC_Region_ID());
-//			
-//			NfeInutilizacaoStub stub = new NfeInutilizacaoStub(url);
-//	
-//			//	Faz a chamada
-//			OMElement nfeStatusServicoNF2 = stub.nfeInutilizacaoNF(dadosMsg.getExtraElement(), cabecMsgE);
-//			respStatus = nfeStatusServicoNF2.toString();
-//		}
-//		else
-		{
-			//	Mensagem
-			br.inf.portalfiscal.www.nfe.wsdl.nfeinutilizacao4.NfeDadosMsg dadosMsg = br.inf.portalfiscal.www.nfe.wsdl.nfeinutilizacao4.NfeDadosMsg.Factory.parse (XMLInputFactory.newInstance().createXMLStreamReader(xml));
-	
-			//	Inicializa o Certificado
-			MLBRDigitalCertificate.setCertificate (ctx, p_AD_Org_ID);
-				
-			//	Recupera a URL de Transmissão
-			String serviceType = null;
-			if (MLBRNotaFiscal.LBR_NFMODEL_NotaFiscalEletrônica.equals(nfModel))
-				serviceType = MLBRNFeWebService.INUTILIZACAO;		
-			else if (MLBRNotaFiscal.LBR_NFMODEL_NotaFiscalDeConsumidorEletrônica.equals(nfModel))
-				serviceType = MLBRNFeWebService.NFCE_INUTILIZACAO;
-			
-			String url = MLBRNFeWebService.getURL (serviceType, p_LBR_EnvType, NFeUtil.VERSAO_LAYOUT, oi.getC_Location().getC_Region_ID());
-			
-			NFeInutilizacao4Stub stub = new NFeInutilizacao4Stub(url);
-	
-			//	Faz a chamada
-			OMElement nfeStatusServicoNF2 = stub.nfeInutilizacaoNF (dadosMsg.getExtraElement());
-			respStatus = nfeStatusServicoNF2.toString();
-		}
-		
-		//	Processa o retorno
-		TRetInutNFe.InfInut retInutNFe = RetInutNFeDocument.Factory.parse (respStatus).getRetInutNFe().getInfInut();
-		
-		if (MLBRNotaFiscal.LBR_NFESTATUS_102_InutilizaçãoDeNúmeroHomologado.equals(retInutNFe.getCStat()))
-			MLBRNFSkipped.register (retInutNFe);
-
-		return retInutNFe;
-	}	//	invalidateNF
 	
 	/**
 	 * 	Set void info

@@ -76,6 +76,19 @@ public interface I_W_C_BPartner extends I_C_BPartner
 	  */
 	public String getLBR_EMailNFe();
 
+    /** Column name LBR_EMailNFe */
+    public static final String COLUMNNAME_LBR_EMailNFSe = "LBR_EMailNFSe";
+
+	/** Set NFe EMail.
+	  * NFe EMail separated by semicolon
+	  */
+	public void setLBR_EMailNFSe (String LBR_EMailNFSe);
+
+	/** Get NFe EMail.
+	  * NFe EMail separated by semicolon
+	  */
+	public String getLBR_EMailNFSe();
+
     /** Column name LBR_FiscalGroup_Customer_ID */
     public static final String COLUMNNAME_LBR_FiscalGroup_Customer_ID = "LBR_FiscalGroup_Customer_ID";
 

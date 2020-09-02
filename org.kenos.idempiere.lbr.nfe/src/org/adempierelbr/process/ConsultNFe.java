@@ -2,29 +2,40 @@ package org.adempierelbr.process;
 
 import java.io.StringReader;
 import java.sql.Timestamp;
+import java.util.List;
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.xml.stream.XMLInputFactory;
 
+import org.adempiere.base.Service;
+import org.adempiere.model.POWrapper;
 import org.adempierelbr.model.MLBRDigitalCertificate;
 import org.adempierelbr.model.MLBRNFConfig;
 import org.adempierelbr.model.MLBRNFeEvent;
 import org.adempierelbr.model.MLBRNFeWebService;
 import org.adempierelbr.model.MLBRNotaFiscal;
+import org.adempierelbr.model.MLBRPartnerDFe;
 import org.adempierelbr.nfe.NFeXMLGenerator;
 import org.adempierelbr.nfe.api.NFeConsultaProtocolo4Stub;
 import org.adempierelbr.util.BPartnerUtil;
 import org.adempierelbr.util.NFeUtil;
+import org.adempierelbr.wrapper.I_W_AD_OrgInfo;
 import org.apache.axiom.om.OMElement;
 import org.compiere.model.MLocation;
 import org.compiere.model.MOrgInfo;
 import org.compiere.model.MRefList;
+import org.compiere.model.MSysConfig;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
 import org.compiere.util.CLogger;
+import org.compiere.util.DB;
 import org.compiere.util.Env;
+import org.kenos.idempiere.lbr.base.event.IDocFiscalHandler;
+import org.kenos.idempiere.lbr.base.event.IDocFiscalHandlerFactory;
+import org.kenos.idempiere.lbr.base.model.SysConfig;
 
 import br.inf.portalfiscal.nfe.v400.ConsSitNFeDocument;
 import br.inf.portalfiscal.nfe.v400.RetConsSitNFeDocument;
@@ -150,7 +161,8 @@ public class ConsultNFe extends SvrProcess
 		MOrgInfo orgInfo = MOrgInfo.get (getCtx(), p_AD_Org_ID, null);
 		if (orgInfo == null)
 			return "@Error@ <font color=\"880000\">UOrganização não encontrada</font>";
-
+		I_W_AD_OrgInfo oiW = POWrapper.create(orgInfo, I_W_AD_OrgInfo.class);
+		
 		MLocation orgLoc = new MLocation (getCtx(), orgInfo.getC_Location_ID(), null);
 		
 		//	Ambiente da NF
@@ -193,50 +205,66 @@ public class ConsultNFe extends SvrProcess
 			consNFe.setChNFe(p_LBR_NFeID);
 			
 			//	XML
-			StringReader xml = new StringReader (NFeUtil.wrapMsg (consNFeDoc.xmlText(NFeUtil.getXmlOpt())));
-			String respStatus = null;
+			String xml = consNFeDoc.xmlText(NFeUtil.getXmlOpt());
 			
-//			if (NFeUtil.REGION_CODE_BA.equals(region))
-//			{
-//				//	Mensagem
-//				br.inf.portalfiscal.www.nfe.wsdl.nfeconsulta.NfeDadosMsg dadosMsg = br.inf.portalfiscal.www.nfe.wsdl.nfeconsulta.NfeDadosMsg.Factory.parse (XMLInputFactory.newInstance().createXMLStreamReader(xml));
-//	
-//				String serviceType = null;
-//				if (MLBRNotaFiscal.LBR_NFMODEL_NotaFiscalEletrônica.equals(p_LBR_NFModel))
-//					serviceType = MLBRNFeWebService.CONSULTA;
-//				
-//				else if (MLBRNotaFiscal.LBR_NFMODEL_NotaFiscalDeConsumidorEletrônica.equals(p_LBR_NFModel))
-//					serviceType = MLBRNFeWebService.NFCE_CONSULTA;
-//				
-//				String url = MLBRNFeWebService.getURL (serviceType, p_LBR_EnvType, NFeUtil.VERSAO_LAYOUT, p_LBR_TPEmis, orgLoc.getC_Region_ID());
-//				
-//				NFeConsultaProtocolo4Stub stub = new NFeConsultaProtocolo4Stub(url);
-//	
-//				OMElement nfeConsNF2 = stub.nfeConsultaNF(dadosMsg.getExtraElement());
-//				respStatus = nfeConsNF2.toString();
-//			}
-//			else
+			String serviceType = null;
+			if (MLBRNotaFiscal.LBR_NFMODEL_NotaFiscalEletrônica.equals(p_LBR_NFModel))
+				serviceType = MLBRNFeWebService.CONSULTA;
+			
+			else if (MLBRNotaFiscal.LBR_NFMODEL_NotaFiscalDeConsumidorEletrônica.equals(p_LBR_NFModel))
+				serviceType = MLBRNFeWebService.NFCE_CONSULTA;
+			
+			//	Find the region of NF
+			String sql = "SELECT MAX (C_Region_ID) \n" + 
+					"  FROM C_City c \n" + 
+					" WHERE c.LBR_CityCode LIKE ?";
+			int C_Region_ID = DB.getSQLValue (get_TrxName(), sql, p_LBR_NFeID.substring(0, 2) + "%");
+			
+			String url = MLBRNFeWebService.getURL (serviceType, p_LBR_EnvType, NFeUtil.VERSAO_LAYOUT, p_LBR_TPEmis, C_Region_ID);
+		
+			String remoteURL = MSysConfig.getValue(SysConfig.LBR_REMOTE_PKCS11_URL, orgInfo.getAD_Client_ID(), orgInfo.getAD_Org_ID());
+			final StringBuilder respStatus = new StringBuilder();
+			
+			//	Try to find a service for PKCS#11 for transmit
+			IDocFiscalHandler handler = null;
+			List<IDocFiscalHandlerFactory> list = Service.locator ().list (IDocFiscalHandlerFactory.class).getServices();
+			for (IDocFiscalHandlerFactory docFiscal : list)
+			{
+				handler = docFiscal.getHandler (ConsultNFe.class.getName());
+				if (handler != null)
+					break;
+			}
+			
+			// 	We have both, the URL for the local app and the Plugin transmitter
+			if (remoteURL != null && handler != null)
+			{
+				synchronized (respStatus)
+				{
+					String uuid = UUID.randomUUID().toString();
+					handler.transmitDocument(IDocFiscalHandler.DOC_NFE_CONSULT, oiW.getlbr_CNPJ(), 
+							uuid, remoteURL, url, "" + NFeUtil.getRegionCode (orgInfo), xml.toString(), respStatus);
+					
+					//	Wait until process is completed
+					respStatus.wait();
+					
+					//	Error message
+					if (respStatus.toString().startsWith("@Error="))
+						throw new Exception (respStatus.toString().substring(7));
+				}	//	synchronized
+			}
+			else
 			{
 				//	Mensagem
-				NfeDadosMsg dadosMsg = NfeDadosMsg.Factory.parse (XMLInputFactory.newInstance().createXMLStreamReader(xml));
-	
-				String serviceType = null;
-				if (MLBRNotaFiscal.LBR_NFMODEL_NotaFiscalEletrônica.equals(p_LBR_NFModel))
-					serviceType = MLBRNFeWebService.CONSULTA;
-				
-				else if (MLBRNotaFiscal.LBR_NFMODEL_NotaFiscalDeConsumidorEletrônica.equals(p_LBR_NFModel))
-					serviceType = MLBRNFeWebService.NFCE_CONSULTA;
-				
-				String url = MLBRNFeWebService.getURL (serviceType, p_LBR_EnvType, NFeUtil.VERSAO_LAYOUT, p_LBR_TPEmis, orgLoc.getC_Region_ID());
+				NfeDadosMsg dadosMsg = NfeDadosMsg.Factory.parse (XMLInputFactory.newInstance().createXMLStreamReader(new StringReader (NFeUtil.wrapMsg (xml))));
 				
 				NFeConsultaProtocolo4Stub stub = new NFeConsultaProtocolo4Stub(url);
 	
 				OMElement nfeConsNF2 = stub.nfeConsultaNF(dadosMsg.getExtraElement());
-				respStatus = nfeConsNF2.toString();
+				respStatus.append(nfeConsNF2.toString());
 			}
 			
 			//	Resposta
-			RetConsSitNFeDocument retConsNFeDoc = RetConsSitNFeDocument.Factory.parse (respStatus);
+			RetConsSitNFeDocument retConsNFeDoc = RetConsSitNFeDocument.Factory.parse (respStatus.toString());
 			TRetConsSitNFe ret = retConsNFeDoc.getRetConsSitNFe();
 			
 			msg = new StringBuilder("@Success@<br />");
@@ -264,6 +292,7 @@ public class ConsultNFe extends SvrProcess
 			
 			//	Nota Fiscal Eletrônica
 			MLBRNotaFiscal nfe  = null;
+			MLBRPartnerDFe dfe = MLBRPartnerDFe.get(ret.getChNFe());
 			
 			//	Dados do Protocolo
 			if (ret.getProtNFe() != null)
@@ -396,9 +425,9 @@ public class ConsultNFe extends SvrProcess
 				msg.append("<br /><b>Data/Hora Recbto:</b> ").append(infCanc.getDhRecbto());
 				
 				//	Atualiza os dados do protocolo do cancelamento
-				if (p_LBR_UpdateNFe && nfe != null)
+				if (p_LBR_UpdateNFe)
 				{
-					if (!nfe.isCancelled())
+					if (nfe != null && !nfe.isCancelled())
 					{
 						//	Valida se o motivo do cancelamento foi digitado
 						String cancelReason = nfe.getlbr_MotivoCancel();
@@ -428,6 +457,15 @@ public class ConsultNFe extends SvrProcess
 						
 						msg.append("<br /><br /><font color=\"008800\">Os dados do protocolo de cancelamento foram atualizados na NFe</font>");
 					}
+					
+					else if (dfe != null && !dfe.isCancelled())
+					{
+						//	Update DFe
+						dfe.setlbr_NFeStatus(ret.getCStat());
+						dfe.setIsCancelled(true);
+						dfe.save();
+					}
+					
 					else
 						msg.append("<br /><br />Nota Fiscal já possuí dados do protocolo de cancelamento");
 				}
