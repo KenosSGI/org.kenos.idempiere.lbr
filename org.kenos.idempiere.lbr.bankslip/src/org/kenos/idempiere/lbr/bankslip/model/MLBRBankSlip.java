@@ -24,11 +24,13 @@ import org.compiere.model.MBPartner;
 import org.compiere.model.MBPartnerLocation;
 import org.compiere.model.MBank;
 import org.compiere.model.MBankAccount;
+import org.compiere.model.MDocType;
 import org.compiere.model.MFactAcct;
 import org.compiere.model.MImage;
 import org.compiere.model.MInvoice;
 import org.compiere.model.MLocation;
 import org.compiere.model.MOrgInfo;
+import org.compiere.model.MSequence;
 import org.compiere.model.MSysConfig;
 import org.compiere.model.ModelValidationEngine;
 import org.compiere.model.ModelValidator;
@@ -37,6 +39,7 @@ import org.compiere.process.DocAction;
 import org.compiere.process.DocOptions;
 import org.compiere.process.DocumentEngine;
 import org.compiere.util.CCache;
+import org.compiere.util.DB;
 import org.compiere.util.Msg;
 import org.jrimum.bopepo.BancosSuportados;
 import org.jrimum.bopepo.Boleto;
@@ -63,6 +66,9 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 {
 	/**	Cache					*/
 	static private CCache<Integer,Image> s_BankCache = new CCache<Integer,Image>(MLBRBank.Table_Name, 10, 120);
+	
+	/**	Document Type of Bank Slip	*/
+	static private final String DOCBASETYPE_BANKSLIP = "BSB";
 	
 	/**
 	 * 	Serial
@@ -385,9 +391,57 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 			log.saveError("FillMandatory", Msg.getElement(getCtx(), "GrandTotal"));
 			return false;
 		}
+		
+		if (newRecord)
+		{
+			if (getDocumentNo() == null)
+			{
+				String value = DB.getDocumentNo(getC_DocType_ID(), get_TrxName(), false, this);
+				if (value == null)	//	not overwritten by DocType and not manually entered
+					value = DB.getDocumentNo(getAD_Client_ID(), p_info.getTableName(), get_TrxName(), this);
+			
+				setDocumentNo(value);
+			}
+			
+			//	Local numbering
+			if (getLBR_NumberInOrg() == null)
+				setLBR_NumberInOrg(getDocumentNo());
+		
+			//	Number in the bank
+			if (getLBR_NumberInBank() == null)
+			{
+				if (getLBR_BankSlipContract().getLBR_NumberInBankSeq_ID() > 0)
+				{
+					MSequence seq = new MSequence (getCtx(), getLBR_BankSlipContract().getLBR_NumberInBankSeq_ID(), get_TrxName());
+					setLBR_NumberInBank(String.valueOf(seq.getNextID()));
+					seq.save();
+				}
+			}
+		}
 		//
 		return true;
 	}	//	beforeSave
+	
+	/**	
+	 * 	Routing No
+	 * 	@return
+	 */
+	private String getRoutingNo ()
+	{
+		if (bsi != null)
+			return bsi.getRoutingNo();
+		return null;
+	}	//	getRoutingNo
+	
+	@Override
+	public String getLBR_NumberInBank()
+	{
+		String numberInBank = super.getLBR_NumberInBank();
+		
+		if ("237".equals(getRoutingNo()))
+			return TextUtil.lPad(numberInBank, 11);
+		return numberInBank;
+	}	//	getLBR_NumberInBank
 	
 	/**
 	 * 	Called after Save for Post-Save Operation
@@ -929,6 +983,7 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 			bs.setC_InvoicePaySchedule_ID(oi.getC_InvoicePaySchedule_ID());
 			bs.setC_BPartner_ID(invoice.getC_BPartner_ID());
 			bs.setC_BPartner_Location_ID(invoice.getC_BPartner_Location_ID());
+			bs.setDocType();
 			bs.setDateDoc(oi.getDateInvoiced());
 			bs.setDueDate(oi.getDueDate());
 			bs.setDateAcct(oi.getDateInvoiced());
@@ -937,10 +992,33 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 			MLBRNotaFiscal[] nfs = MLBRNotaFiscal.get(ctx, invoice.getC_Invoice_ID(), trxName);
 			if (MSysConfig.getBooleanValue(SysConfig.LBR_PRINTNFENOONBILLING, true) && nfs.length > 0)
 				bs.setLBR_NotaFiscal_ID(nfs[0].getLBR_NotaFiscal_ID());
+			
+			//	Save new
+			bs.save();
+			
+			//	Process document
+			bs.setDocStatus(bs.completeIt());
+			bs.save();
+			
+			//	Add to PDF
+			files.add(bs.createPDF());
 		}
 		
 		return files;
 	}	//	generateFromInvoice
+
+	/**
+	 * 	Set Document Type
+	 */
+	private void setDocType() 
+	{
+		if (getC_DocType_ID() > 0)
+			return;
+		
+		int C_DocType_ID = MDocType.getDocType(DOCBASETYPE_BANKSLIP);
+		if (C_DocType_ID > 0)
+			setC_DocType_ID(C_DocType_ID);
+	}	//	setDocType
 
 	/**
 	 * 	Set contract information

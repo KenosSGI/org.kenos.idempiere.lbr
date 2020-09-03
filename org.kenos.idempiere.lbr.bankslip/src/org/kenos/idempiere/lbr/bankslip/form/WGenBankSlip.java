@@ -369,6 +369,7 @@ public class WGenBankSlip extends GenBankSlip
 		if (m_noSelected == 0)
 			return;
 		
+		System.out.println(System.getProperty("java.io.tmpdir"));
 		String filePath = System.getProperty("java.io.tmpdir") + File.separator + "Boletos_" + TextUtil.timeToString(new Date(), "yyyyMMdd");
 		String fileName = filePath + ".zip";
 		File folder = new File (filePath);

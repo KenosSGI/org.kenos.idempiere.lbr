@@ -9,6 +9,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import org.adempierelbr.util.TextUtil;
 import org.compiere.util.Env;
+import org.jrimum.vallia.digitoverificador.BoletoCodigoDeBarrasDV;
 import org.kenos.idempiere.lbr.bankslip.ICNABGenerator;
 import org.kenos.idempiere.lbr.bankslip.model.MLBRBankSlip;
 import org.kenos.idempiere.lbr.bankslip.model.MLBRBankSlipInfo;
@@ -19,13 +20,13 @@ import org.kenos.idempiere.lbr.bankslip.model.MLBRCNABFile;
  * 	Generate CNAB for Itau Bank
  * 	@author Ricardo Santana
  */
-public class Itau341 implements ICNABGenerator
+public class Bradesco237 implements ICNABGenerator
 {
 	/**	Bank Routing Number	*/
-	public static final int ROUNTING_NO = 341;
+	public static final int ROUNTING_NO = 237;
 	
 	/**	Bank Name			*/
-	private static final String BANK_NAME = "BANCO ITAU SA";
+	private static final String BANK_NAME = "BRADESCO";
 	
 	/** Org BP Type				*/
 	private static final String BPTYPE_CPF_BENEFICIARIO 		= "01";
@@ -41,6 +42,8 @@ public class Itau341 implements ICNABGenerator
 	private static final String IS_ACCEPTED 	= "A";
 	private static final String NOT_ACCEPTED 	= "N";
 	
+	private static final BoletoCodigoDeBarrasDV dv = new BoletoCodigoDeBarrasDV();
+	
 	/**
 	 * 	Generate CNAB File
 	 */
@@ -54,17 +57,17 @@ public class Itau341 implements ICNABGenerator
 		cnab.append("1"); 										//	OPERAÇÃO
 		cnab.append("REMESSA"); 								//	LITERAL DE REMESSA
 		cnab.append("01"); 										//	CÓDIGO DE SERVIÇO
-		cnab.append(lPad("COBRANCA", 15)); 						//	LITERAL DE SERVIÇO
-		cnab.append(rPad(cnabFile.getlbr_AgencyNo(), 4)); 		//	AGÊNCIA
-		cnab.append("00"); 										//	ZEROS
-		cnab.append(rPad(cnabFile.getAccountNo(), 5)); 			//	CONTA
-		cnab.append(rPad(cnabFile.getLBR_BankAccountVD(), 1)); 	//	DAC
-		cnab.append(lPad("", 8)); 								//	BRANCOS
+		cnab.append(rPad("COBRANCA", 15)); 						//	LITERAL DE SERVIÇO
+																//	CONVÊNIO
+		cnab.append(lPad(cnabFile.getLBR_BankSlipContract().getLBR_AccordNo(), 20));
 		cnab.append(lPad(cnabFile.getlbr_LegalEntity(), 30)); 	//	NOME DA EMPRESA
 		cnab.append(cnabFile.getRoutingNo()); 					//	CÓDIGO DO BANCO
 		cnab.append(lPad(BANK_NAME, 15)); 						//	NOME DO BANCO
 		cnab.append(timeToString(cnabFile.getDateDoc())); 		//	DATA DE GERAÇÃO
-		cnab.append(rPad("", 294)); 							//	BRANCOS
+		cnab.append(rPad("", 8)); 								//	BRANCOS
+		cnab.append(rPad("MX", 2)); 							//	MX
+		cnab.append(lPad(cnabFile.getSeqNo(), 7));				//	SEQUENCIAL
+		cnab.append(rPad("", 277)); 							//	BRANCOS
 		cnab.append(lPad("1", 6)); 								//	NÚMERO SEQUENCIAL
 		cnab.append(CR).append(LF);
 		
@@ -146,29 +149,54 @@ public class Itau341 implements ICNABGenerator
 			if (MLBRBankSlipInfo.LBR_BPTYPEBR_PF_Individual.equals(bsi.getlbr_BPTypeBR()))
 				payerBPTypeBR = BPTYPE_CPF_PAGADOR;
 			
-			cnab.append(rPad(orgBPTypeBR, 2));						//	CÓDIGO DE INSCRIÇÃO
-			cnab.append(lPad(orgCNPJF, 14));						//	NÚMERO DE INSCRIÇÃO
-			cnab.append(lPad(bsi.getlbr_AgencyNo(), 4));			//	AGÊNCIA
-			cnab.append(lPad(0, 2));								//	ZEROS
-			cnab.append(lPad(bsi.getAccountNo(), 5));				//	CONTA
-			cnab.append(lPad(bsi.getLBR_BankAccountVD(), 1));		//	DAC
-			cnab.append(rPad("", 4));								//	BRANCOS
-			cnab.append(lPad(0, 4));								//	INSTRUÇÃO/ALEGAÇÃO
-			cnab.append(rPad(bs.getLBR_NumberInOrg(), 25));			//	USO DA EMPRESA
-			cnab.append(lPad(bs.getLBR_NumberInBank(), 8));			//	NOSSO NÚMERO
-			cnab.append(lPad(0, 13));								//	QTDE DE MOEDA
-			cnab.append(lPad(bsi.getLBR_BankSlipFoldValue(), 3));	//	NÚMERO DA CARTEIRA
-			cnab.append(rPad("", 21));								//	USO DO BANCO
-			cnab.append(rPad(bsi.getLBR_BankSlipFoldCode(), 1));	//	CÓDIGO DA CARTEIRA	
-			cnab.append(lPad(mov.getValue(), 2));					//	CÓDIGO DA OCORRÊNCIA
-			cnab.append(rPad(bs.getDocumentNo(), 10));				//	NÚMERO DO DOCUMENTO
-			cnab.append(lPad(timeToString(bs.getDueDate()), 6));	//	DATA DE VENCIMENTO	
+			cnab.append(lPad(0, 5));								//	AGÊNCIA
+			cnab.append(rPad(null, 1));								//	DÍGITO
+			cnab.append(lPad(0, 5));								//	RAZÃO
+			cnab.append(lPad(0, 7));								//	CONTA
+			cnab.append(lPad(0, 1));								//	DÍGITO
+
+			
+			cnab.append(lPad(0, 1));								//	ZERO
+			cnab.append(lPad(bsi.getLBR_BankSlipFoldValue(), 3));	//	CARTEIRA
+			cnab.append(lPad(bsi.getlbr_AgencyNo(), 5));			//	AGÊNCIA
+			cnab.append(lPad(bsi.getAccountNo(), 7));				//	CONTA
+			cnab.append(lPad(bsi.getLBR_BankAccountVD(), 1));		//	DÍGITO
+			
+			
+			String controleParticipante = "B" + bs.getLBR_BankSlip_ID() + 
+					"F" + (bs.getC_Invoice_ID() > 0 ? bs.getC_Invoice().getDocumentNo() : "") + 
+					"P" + bs.getlbr_PayScheduleNo();
+
+			
+			cnab.append(rPad(controleParticipante, 25));			//	USO DA EMPRESA
+			cnab.append(lPad(ROUNTING_NO, 3));						//	COD BANCO
+			
+			cnab.append(lPad(0, 1));								//	MULTA
+			cnab.append(lPad(0, 4));								//	PERCENTUAL
+			
+			cnab.append(lPad(bs.getLBR_NumberInBank(), 11));		//	NOSSO NÚMERO
+			cnab.append(lPad(dv.calcule(bsi.getLBR_BankSlipFoldCode() + bs.getLBR_NumberInOrg()), 1));
+			
+			cnab.append(lPad(0, 10));								//	DESCONTO
+			cnab.append("2");
+			cnab.append("N");
+			cnab.append(rPad(null, 10));							//	BRANCOS
+			cnab.append(rPad(null, 1));								//	BRANCOS
+			cnab.append(lPad("2", 1));								//	BRANCOS
+			cnab.append(rPad(null, 2));								//	BRANCOS
+			cnab.append(lPad("01", 2));								//	BRANCOS
+			cnab.append(rPad(null, 10));							//	BRANCOS
+
+			cnab.append(rPad(bs.getLBR_NumberInOrg(), 10));
+			cnab.append(lPad(timeToString(bs.getDueDate()), 6));	//	DATA DE VENCIMENTO
 			cnab.append(lPad(bs.getGrandTotal(), 13));				//	VALOR DO TÍTULO
-			cnab.append(lPad(bsi.getRoutingNo(), 3));				//	CÓDIGO DO BANCO
-			cnab.append(lPad(0, 5));								//	AGÊNCIA COBRADORA
+			cnab.append(lPad(0, 3));								//	ZERO
+			cnab.append(lPad(0, 5));								//	ZERO
+
 			cnab.append(rPad(convertKind (bsi.getLBR_BankSlipKindValue()), 2));	//	ESPÉCIE
 			cnab.append(rPad(accepted, 1));							//	ACEITE
 			cnab.append(lPad(timeToString(bs.getDateDoc()), 6));	//	DATA DE EMISSÃO
+			
 			cnab.append(lPad(0, 2));								//	INSTRUÇÃO 1
 			cnab.append(lPad(0, 2));								//	INSTRUÇÃO 2
 			cnab.append(lPad(penaltyAmt, 13));						//	JUROS DE 1 DIA
@@ -178,18 +206,11 @@ public class Itau341 implements ICNABGenerator
 			cnab.append(lPad(bs.getDiscountAmt(), 13));				//	VALOR DO ABATIMENTO
 			cnab.append(lPad(payerBPTypeBR, 2));					//	CÓDIGO DE INSCRIÇÃO
 			cnab.append(lPad(payerCNPJF, 14));						//	NÚMERO DE INSCRIÇÃO
-			cnab.append(rPad(bsi.getBPName(), 30));					//	NOME
-			cnab.append(rPad("", 10));								//	BRANCOS
+			cnab.append(rPad(bsi.getBPName(), 40));					//	NOME
 			cnab.append(rPad(bsi.getAddress(true), 40));			//	LOGRADOURO
-			cnab.append(rPad(bsi.getlbr_BPAddress3(), 12));			//	BAIRRO
+			cnab.append(rPad("", 12));								//	1A MENSAGEM
 			cnab.append(lPad(bsi.getlbr_BPPostal(), 8));			//	CEP
-			cnab.append(rPad(bsi.getlbr_BPCity(), 15));				//	CIDADE
-			cnab.append(rPad(bsi.getlbr_BPRegion(), 2));			//	ESTADO
-			cnab.append(rPad(bsi.getLBR_GuarantorBPName(), 30));	//	SACADOR/AVALISTA
-			cnab.append(rPad("", 4));								//	BRANCOS
-			cnab.append(lPad(0, 6));								//	DATA DE MORA
-			cnab.append(lPad(0, 2));								//	PRAZO
-			cnab.append(rPad("", 1));								//	BRANCOS
+			cnab.append(rPad("", 60));								//	2A MENSAGEM
 			cnab.append(lPad(count.getAndIncrement(), 6));			//	NÚMERO SEQÜENCIAL
 		});
 		
@@ -217,28 +238,20 @@ public class Itau341 implements ICNABGenerator
 				return "02";
 			case MLBRBankSlip.ESPECIE_NOTA_DE_SEGURO:
 				return "03";
-			case MLBRBankSlip.ESPECIE_MENSALIDADE_ESCOLAR:
+			case MLBRBankSlip.ESPECIE_COBRANCA_SERIADA:
 				return "04";
 			case MLBRBankSlip.ESPECIE_RECIBO:
 				return "05";
-			case MLBRBankSlip.ESPECIE_CONTRATO:
-				return "06";
-			case MLBRBankSlip.ESPECIE_COSSEGURO:
-				return "07";
-			case MLBRBankSlip.ESPECIE_DUPLICATA_DE_SERVICO:
-				return "08";
 			case MLBRBankSlip.ESPECIE_LETRA_DE_CAMBIO:
-				return "09";
+				return "10";
 			case MLBRBankSlip.ESPECIE_NOTA_DE_DEBITO:
-				return "13";
-			case MLBRBankSlip.ESPECIE_DOCUMENTO_DE_DIVIDA:
-				return "15";
-			case MLBRBankSlip.ESPECIE_ENCARGOS_CONDOMINIAIS:
-				return "16";
-			case MLBRBankSlip.ESPECIE_CONTA_DE_PRESTACAO_DE_SERVICO:
-				return "17";
+				return "11";
+			case MLBRBankSlip.ESPECIE_DUPLICATA_DE_SERVICO:
+				return "12";
+			case MLBRBankSlip.ESPECIE_CARTAO_DE_CREDITO:
+				return "31";
 			case MLBRBankSlip.ESPECIE_BOLETO_DE_PROPOSTA:
-				return "18";
+				return "32";
 			case MLBRBankSlip.ESPECIE_OUTROS:
 				return "99";
 				

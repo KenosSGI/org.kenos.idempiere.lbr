@@ -171,7 +171,7 @@ INSERT INTO AD_Ref_List (AD_Ref_List_ID,Name,AD_Reference_ID,Value,AD_Client_ID,
 ;
 
 -- 31 de jul de 2020 09:48:02 BRT
-INSERT INTO AD_Ref_List (AD_Ref_List_ID,Name,AD_Reference_ID,Value,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,EntityType,AD_Ref_List_UU) VALUES (1122384,'Printed with Fiscal Document & E-mailed',1120358,'3r',0,0,'Y',TO_TIMESTAMP('2020-07-31 09:48:02','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2020-07-31 09:48:02','YYYY-MM-DD HH24:MI:SS'),100,'LBRA','66ef233e-fd78-44d9-8622-2e0009cc9df5')
+INSERT INTO AD_Ref_List (AD_Ref_List_ID,Name,AD_Reference_ID,Value,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,EntityType,AD_Ref_List_UU) VALUES (1122384,'Printed with Fiscal Document & E-mailed',1120358,'3',0,0,'Y',TO_TIMESTAMP('2020-07-31 09:48:02','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2020-07-31 09:48:02','YYYY-MM-DD HH24:MI:SS'),100,'LBRA','66ef233e-fd78-44d9-8622-2e0009cc9df5')
 ;
 
 -- 31 de jul de 2020 09:48:02 BRT
@@ -5070,6 +5070,10 @@ UPDATE AD_Column SET FKConstraintName='CBankAccount_LBRBoleto', FKConstraintType
 
 -- 31 de jul de 2020 09:54:31 BRT
 ALTER TABLE LBR_Boleto ADD CONSTRAINT CBankAccount_LBRBoleto FOREIGN KEY (C_BankAccount_ID) REFERENCES c_bankaccount(c_bankaccount_id) DEFERRABLE INITIALLY DEFERRED
+;
+
+-- 2 de set de 2020 15:13:39 BRT
+INSERT INTO AD_Ref_List (AD_Ref_List_ID,Name,AD_Reference_ID,Value,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,EntityType,AD_Ref_List_UU) VALUES (1122408,'Bank Slip',183,'BSB',0,0,'Y',TO_TIMESTAMP('2020-09-02 15:13:38','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2020-09-02 15:13:38','YYYY-MM-DD HH24:MI:SS'),100,'LBRA','8fcba2e3-26a9-47ca-b139-7de3e9588d4e')
 ;
 
 SELECT Register_Migration_Script ('202007311011_BankSlip.sql') FROM DUAL

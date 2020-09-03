@@ -400,8 +400,7 @@ public class GenBankSlip
 
 				try
 				{
-//					files.addAll (MLBRBankSlip.generateBoleto (Env.getCtx(), C_Invoice_ID, bi.getKey(), filePath, null, trxName));
-					files.addAll (MLBRBankSlip.generateFromInvoice (Env.getCtx(), C_Invoice_ID, 0, 0, trxName));
+					files.addAll (MLBRBankSlip.generateFromInvoice (Env.getCtx(), C_Invoice_ID, 0, bi.getKey(), trxName));
 				}
 				catch (Exception e)
 				{
