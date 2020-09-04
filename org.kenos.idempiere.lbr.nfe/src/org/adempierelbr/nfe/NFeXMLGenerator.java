@@ -1325,9 +1325,10 @@ public class NFeXMLGenerator
 				X_LBR_NFLineTax icmsSTDEST = nfl.getICMSSTDESTTax();
 				X_LBR_NFLineTax icmsSTREMET = nfl.getICMSSTREMETTax();
 				
-				if (icmsSTTax != null && 
-						nf.get_ValueAsString("LBR_IEST") != null &&
-							!nf.get_ValueAsString("LBR_IEST").isEmpty())
+				//	IE Substituto não pode ser igual ao IE do Emitente
+				if (icmsSTTax != null && nf.get_ValueAsString("LBR_IEST") != null && 
+						!nf.get_ValueAsString("LBR_IEST").isEmpty() && 
+						!toNumericStr(nf.getlbr_IE()).equals(toNumericStr(nf.get_ValueAsString("LBR_IEST"))))
 				{
 					//	IE Substituto
 					emit.setIEST(toNumericStr (nf.get_ValueAsString("LBR_IEST")));

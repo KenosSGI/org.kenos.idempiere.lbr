@@ -211,24 +211,6 @@ public class ValidatorInvoice implements ModelValidator
 			//	NF de Entrada
 			if (wOrder.getlbr_NFEntrada() != null && !wOrder.getlbr_NFEntrada().isEmpty())
 				wInvoice.setlbr_NFEntrada(wOrder.getlbr_NFEntrada());
-			else
-			{
-				for(MInvoiceLine il : invoice.getLines())
-				{
-					MInOutLine iol = (MInOutLine)il.getM_InOutLine();
-					
-					if (iol != null && iol.getM_InOutLine_ID() > 0)
-					{
-						MInOut io = (MInOut)iol.getM_InOut();
-						I_W_M_InOut wInOut = POWrapper.create (io, I_W_M_InOut.class);
-						if (wInOut.getlbr_NFEntrada() != null && !wInOut.getlbr_NFEntrada().isEmpty())
-						{
-							wInvoice.setlbr_NFEntrada(wOrder.getlbr_NFEntrada());
-							break;
-						}
-					}
-				}
-			}
 			
 			//	Bill Note
 			wInvoice.setlbr_BillNote(wOrder.getlbr_BillNote());
@@ -333,6 +315,26 @@ public class ValidatorInvoice implements ModelValidator
 					MLBRTax newTax = oTax.copyTo();
 					//
 					iLineW.setLBR_Tax_ID (newTax.getLBR_Tax_ID());
+				}
+			}
+			
+			int M_InOutLine_ID = iLine.getM_InOutLine_ID();
+			if (M_InOutLine_ID > 0)
+			{
+				MInOutLine iol = new MInOutLine(Env.getCtx(), M_InOutLine_ID, iLine.get_TrxName());
+				MInOut io = (MInOut)iol.getM_InOut();
+				
+				I_W_M_InOut wInOut = POWrapper.create (io, I_W_M_InOut.class);
+				if (wInOut.getlbr_NFEntrada() != null && !wInOut.getlbr_NFEntrada().isEmpty())
+				{
+					MInvoice invoice = (MInvoice)iLine.getC_Invoice();
+					I_W_C_Invoice invoiceW = POWrapper.create(invoice, I_W_C_Invoice.class);
+					if (invoiceW.getlbr_NFEntrada() == null ||
+							invoiceW.getlbr_NFEntrada().isEmpty())
+					{
+						invoiceW.setlbr_NFEntrada(wInOut.getlbr_NFEntrada());
+						invoice.saveEx();
+					}					
 				}
 			}
 			
