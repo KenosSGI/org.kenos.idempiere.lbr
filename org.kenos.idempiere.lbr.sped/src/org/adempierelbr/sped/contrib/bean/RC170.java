@@ -29,7 +29,7 @@ public class RC170 extends RegSped
 	@XMLFieldProperties(minSize=1, maxSize = 3, id = "NUM_ITEM", isNumber=true)
 	private String NUM_ITEM;
 		
-	@XMLFieldProperties(minSize=1, maxSize = 10, id = "COD_ITEM")
+	@XMLFieldProperties(minSize=1, maxSize = 60, id = "COD_ITEM")
 	private String COD_ITEM;
 	
 	@XMLFieldProperties(id = "DESCR_COMPL", isMandatory=false)

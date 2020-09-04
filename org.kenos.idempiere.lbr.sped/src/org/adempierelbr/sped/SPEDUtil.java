@@ -43,6 +43,7 @@ import org.adempierelbr.sped.bean.I_RD100;
 import org.adempierelbr.sped.bean.I_RD500;
 import org.adempierelbr.sped.contrib.bean.R0000;
 import org.adempierelbr.sped.contrib.bean.R0110;
+import org.adempierelbr.sped.contrib.bean.R0111;
 import org.adempierelbr.sped.contrib.bean.R0140;
 import org.adempierelbr.sped.contrib.bean.RA010;
 import org.adempierelbr.sped.contrib.bean.RA100;
@@ -104,7 +105,7 @@ public class SPEDUtil
 	public static final String EFD_VERSION 			= "";
 	
 	/**	Versão da EFD Contribuições */
-	public static final String CONTRIB_VERSION 		= "003";
+	public static final String CONTRIB_VERSION 		= "006";
 	
 	public static final String IND_OPER_CONTRATADO 	= "0";
 	public static final String IND_OPER_PRESTADO 	= "1";
@@ -797,6 +798,37 @@ public class SPEDUtil
 	}	//	getR0110
 	
 	/**
+	 * Este registro é de preenchimento obrigatório, sempre que for informado no Registro “0110”, Campo 03
+	 * (IND_APRO_CRED), o indicador correspondente ao método do Rateio Proporcional com base na Receita Bruta
+	 * (indicador “2”), na apuração de créditos vinculados a mais de um tipo de receita.
+	 * 
+	 * @param REC_BRU_NCUM_TRIB_MI
+	 * @param REC_BRU_NCUM_NT_MI
+	 * @param REC_BRU_NCUM_EXP
+	 * @param REC_BRU_CUM
+	 * @param REC_BRU_TOTAL
+	 * @return
+	 * @throws Exception
+	 */
+	public static R0111 getR0111 () throws Exception
+	{
+		BigDecimal REC_BRU_NCUM_TRIB_MI = BigDecimal.ZERO;
+		BigDecimal REC_BRU_NCUM_NT_MI = BigDecimal.ZERO;
+		BigDecimal REC_BRU_NCUM_EXP = BigDecimal.ZERO;
+		BigDecimal REC_BRU_CUM = BigDecimal.ZERO;
+		BigDecimal REC_BRU_TOTAL = BigDecimal.ZERO;
+		
+		R0111 r0111 = new R0111 ();
+		r0111.setREC_BRU_NCUM_TRIB_MI(REC_BRU_NCUM_TRIB_MI);
+		r0111.setREC_BRU_NCUM_NT_MI(REC_BRU_NCUM_NT_MI);
+		r0111.setREC_BRU_NCUM_EXP(REC_BRU_NCUM_EXP);
+		r0111.setREC_BRU_CUM(REC_BRU_CUM);
+		r0111.setREC_BRU_TOTAL(REC_BRU_TOTAL);
+		//
+		return r0111;
+	}	//	getR0111
+	
+	/**
 	 * 		Este registro tem por objetivo relacionar e informar os estabelecimentos da pessoa jurídica, 
 	 * 	no Brasil ou no exterior, que auferiram receitas no período da escrituração, realizaram operações 
 	 * 	com direito a créditos ou que sofreram retenções na fonte, no período da escrituração.
@@ -1034,6 +1066,9 @@ public class SPEDUtil
 				rM210.setCOD_CONT("51");
 				rM210.setVL_REC_BRT(mapValorItem.get(key));
 				rM210.setVL_BC_CONT(mapBCTax.get(key));
+				rM210.setVL_AJUS_ACRES_BC_PIS(Env.ZERO);
+				rM210.setVL_AJUS_REDUC_BC_PIS(Env.ZERO);
+				rM210.setVL_BC_CONT_AJUS(Env.ZERO);
 				rM210.setALIQ_PIS(key);
 				rM210.setQUANT_BC_PIS(Env.ZERO);
 				rM210.setALIQ_PIS_QUANT(null);
@@ -1303,6 +1338,9 @@ public class SPEDUtil
 				rM610.setCOD_CONT("51");
 				rM610.setVL_REC_BRT(mapValorItem.get(key));
 				rM610.setVL_BC_CONT(mapBCTax.get(key));
+				rM610.setVL_AJUS_ACRES_BC_COFINS(BigDecimal.ZERO);
+				rM610.setVL_AJUS_REDUC_BC_COFINS(BigDecimal.ZERO);
+				rM610.setVL_BC_CONT_AJUS(BigDecimal.ZERO);
 				rM610.setALIQ_COFINS(key);
 				rM610.setQUANT_BC_COFINS(Env.ZERO);
 				rM610.setALIQ_COFINS_QUANT(null);

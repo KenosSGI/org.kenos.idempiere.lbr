@@ -13,60 +13,48 @@
 package org.adempierelbr.sped.efd.bean;
 
 import java.math.BigDecimal;
-import java.sql.Timestamp;
 
 import org.adempierelbr.annotation.XMLFieldProperties;
 import org.adempierelbr.sped.RegSped;
 
 /**
- * REGISTRO C141: VENCIMENTO DA FATURA (CÓDIGO 01).
+ * 	REGISTRO 0015: DADOS DO CONTRIBUINTE SUBSTITUTO OU RESPONSÁVEL PELO ICMS DESTINO
  * 
- * @author Mario Grigioni, mgrigioni
- * @version $Id: RC141.java, 07/02/2011, 08:24:00, mgrigioni
+ * @author Rogério Feitosa
  */
-public class RC141 extends RegSped {
-
-	@XMLFieldProperties(maxSize = 2, id = "NUM_PARC")
-	private String NUM_PARC;
+public class R0015 extends RegSped
+{
+	@XMLFieldProperties(id = "UF_ST")
+	private String UF_ST;
 	
-	@XMLFieldProperties(maxSize = 8, id = "DL_VCTO")
-	private Timestamp DL_VCTO;
+	@XMLFieldProperties(id = "IE_ST")
+	private String IE_ST;
 	
-	@XMLFieldProperties(maxSize = 15, id = "VL_PARC")
-	private BigDecimal VL_PARC;
-
-	public RC141() {
+	/**
+	 * 	Constructor
+	 */
+	public R0015(String UF_ST, String IE_ST) 
+	{
 		super();
+		setUF_ST(UF_ST);
+		setIE_ST(IE_ST);
+	}	//	R0015
+
+	public String getUF_ST() {
+		return UF_ST;
 	}
 
-	public String getNUM_PARC() {
-		return NUM_PARC;
+	public void setUF_ST(String uF_ST) {
+		UF_ST = uF_ST;
 	}
 
-	public void setNUM_PARC(String nUM_PARC) {
-		NUM_PARC = nUM_PARC;
+	public String getIE_ST() {
+		return IE_ST;
 	}
 
-	public Timestamp getDL_VCTO() {
-		return DL_VCTO;
+	public void setIE_ST(String iE_ST) {
+		IE_ST = iE_ST;
 	}
-
-	public void setDL_VCTO(Timestamp dL_VCTO) {
-		DL_VCTO = dL_VCTO;
-	}
-
-	public BigDecimal getVL_PARC() {
-		return VL_PARC;
-	}
-
-	public void setVL_PARC(BigDecimal vL_PARC) {
-		VL_PARC = vL_PARC;
-	}
-
-	@Override
-	public int compareTo(Object arg0) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-} // RC141
+	
+	
+}	//	R0015

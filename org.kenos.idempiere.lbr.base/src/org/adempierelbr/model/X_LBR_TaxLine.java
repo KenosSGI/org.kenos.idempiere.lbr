@@ -25,14 +25,14 @@ import org.compiere.util.Env;
 
 /** Generated Model for LBR_TaxLine
  *  @author iDempiere (generated) 
- *  @version Release 4.1 - $Id$ */
+ *  @version Release 6.2 - $Id$ */
 public class X_LBR_TaxLine extends PO implements I_LBR_TaxLine, I_Persistent 
 {
 
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20170626L;
+	private static final long serialVersionUID = 20200813L;
 
     /** Standard Constructor */
     public X_LBR_TaxLine (Properties ctx, int LBR_TaxLine_ID, String trxName)
@@ -42,11 +42,13 @@ public class X_LBR_TaxLine extends PO implements I_LBR_TaxLine, I_Persistent
         {
 			setIsTaxIncluded (false);
 // N
-			setLBR_TaxLine_ID (0);
-			setLBR_TaxName_ID (0);
-			setLBR_Tax_ID (0);
+			setLBR_ICMSSubstituto (Env.ZERO);
+// 0
 			setlbr_PostTax (true);
 // 'Y'
+			setLBR_Tax_ID (0);
+			setLBR_TaxLine_ID (0);
+			setLBR_TaxName_ID (0);
         } */
     }
 
@@ -100,6 +102,26 @@ public class X_LBR_TaxLine extends PO implements I_LBR_TaxLine, I_Persistent
 			return "Y".equals(oo);
 		}
 		return false;
+	}
+
+	/** Set ICMS Substituto.
+		@param LBR_ICMSSubstituto 
+		Valor do ICMS próprio do Substituto
+	  */
+	public void setLBR_ICMSSubstituto (BigDecimal LBR_ICMSSubstituto)
+	{
+		set_Value (COLUMNNAME_LBR_ICMSSubstituto, LBR_ICMSSubstituto);
+	}
+
+	/** Get ICMS Substituto.
+		@return Valor do ICMS próprio do Substituto
+	  */
+	public BigDecimal getLBR_ICMSSubstituto () 
+	{
+		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_LBR_ICMSSubstituto);
+		if (bd == null)
+			 return Env.ZERO;
+		return bd;
 	}
 
 	public org.adempierelbr.model.I_LBR_LegalMessage getLBR_LegalMessage() throws RuntimeException
@@ -176,6 +198,20 @@ public class X_LBR_TaxLine extends PO implements I_LBR_TaxLine, I_Persistent
 		if (ii == null)
 			 return 0;
 		return ii.intValue();
+	}
+
+	/** Set LBR_TaxLine_UU.
+		@param LBR_TaxLine_UU LBR_TaxLine_UU	  */
+	public void setLBR_TaxLine_UU (String LBR_TaxLine_UU)
+	{
+		set_Value (COLUMNNAME_LBR_TaxLine_UU, LBR_TaxLine_UU);
+	}
+
+	/** Get LBR_TaxLine_UU.
+		@return LBR_TaxLine_UU	  */
+	public String getLBR_TaxLine_UU () 
+	{
+		return (String)get_Value(COLUMNNAME_LBR_TaxLine_UU);
 	}
 
 	/** Set Tax List Amt.

@@ -2763,6 +2763,14 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		{
 			MRegion region = new MRegion(getCtx(), location.getC_Region_ID(), get_TrxName());
 			setlbr_BPRegion(region.getName());		//	Estado
+			
+			for (MLBROrgIEST iest : MLBROrgIEST.getAllIEST(getAD_Org_ID(), region.getC_Region_ID()))
+			{
+				if (iest != null && iest.isValidFromTo(Env.getContextAsDate(Env.getCtx(), "Date")))
+				{
+					set_ValueNoCheck("LBR_IEST", iest.getLBR_IEST());
+				}
+			}
 		}
 	}	//	setBPartner
 	

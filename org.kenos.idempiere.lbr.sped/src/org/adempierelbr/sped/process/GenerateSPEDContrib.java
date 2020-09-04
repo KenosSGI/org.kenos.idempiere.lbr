@@ -23,6 +23,7 @@ import org.adempiere.exceptions.AdempiereException;
 import org.adempiere.model.POWrapper;
 import org.adempierelbr.model.MLBRFactFiscal;
 import org.adempierelbr.model.MLBRTaxAssessment;
+import org.adempierelbr.model.X_LBR_SPEDContribution;
 import org.adempierelbr.sped.SPEDComparator;
 import org.adempierelbr.sped.SPEDUtil;
 import org.adempierelbr.sped.contrib.bean.Bloco0;
@@ -36,8 +37,10 @@ import org.adempierelbr.sped.contrib.bean.BlocoM;
 import org.adempierelbr.sped.contrib.bean.R0000;
 import org.adempierelbr.sped.contrib.bean.R0100;
 import org.adempierelbr.sped.contrib.bean.SPEDContrib;
+import org.adempierelbr.util.LBRUtils;
 import org.adempierelbr.util.TextUtil;
 import org.adempierelbr.wrapper.I_W_AD_OrgInfo;
+import org.compiere.model.MAttachment;
 import org.compiere.model.MOrgInfo;
 import org.compiere.model.MPeriod;
 import org.compiere.process.ProcessInfoParameter;
@@ -73,6 +76,11 @@ public class GenerateSPEDContrib extends SvrProcess
 	/** Cód. SPED 		*/
 	private String p_CodFin = "0";
 	private String p_RecAnterior = "";
+	
+	/** 
+	 * SPED Contribuition
+	 */
+	private int p_LBR_SPEDContribuition_ID = 0;
 	
 	/** Log				*/
 	private CLogger log = CLogger.getCLogger (GenerateSPEDContrib.class);
@@ -123,15 +131,18 @@ public class GenerateSPEDContrib extends SvrProcess
 	 *  @throws Exception if not successful e.g.
 	 */
 	protected String doIt() throws Exception
-	{
-		/**
-		 * 	Check Parameters
+	{		
+		/*
+		 * Tempo inicial
 		 */
-		if (p_C_Period_ID <= 0)
-			throw new AdempiereUserError ("@FillMandatory@  @C_BankAccount_ID@");
+		long start = System.currentTimeMillis();
 		
-		if (p_AD_Org_ID == 0)
-			throw new IllegalArgumentException("@AD_Org_ID@ @Mandatory@");
+		p_LBR_SPEDContribuition_ID = getRecord_ID();
+		
+		X_LBR_SPEDContribution SPEDContrib = new X_LBR_SPEDContribution(getCtx(),p_LBR_SPEDContribuition_ID, get_TrxName());
+		
+		p_C_Period_ID = SPEDContrib.getC_Period_ID();
+		p_AD_Org_ID = SPEDContrib.getAD_Org_ID();		
 		
 		/**
 		 * 	Period Validation
@@ -152,7 +163,60 @@ public class GenerateSPEDContrib extends SvrProcess
 		
 		try
 		{
-			genSPEDContrib ();
+			/*
+			 * Rodar Processo
+			 */
+			StringBuilder result = genSPEDContrib ();
+
+			/*
+			 * Nome do arquivo
+			 * 
+			 * EDF_CNPJ_DATA.txt
+			 */
+			I_W_AD_OrgInfo oi = POWrapper.create(MOrgInfo.get(getCtx(), p_AD_Org_ID, get_TrxName()), I_W_AD_OrgInfo.class);
+			
+			String fileName = p_FilePath;
+			
+			if (!(p_FilePath.endsWith(File.separator)))
+				fileName += File.separator;
+			
+			/*
+			 * Gerar Arquivo no disco
+			 */
+			fileName += "EFD_Contrib_" + TextUtil.toNumeric(oi.getlbr_CNPJ()) + "_" + TextUtil.timeToString(dateFrom, "MMyyyy") + ".txt";
+			
+			String tmp = System.getProperty("java.io.tmpdir") +
+		             System.getProperty("file.separator");
+			
+			/*
+			 * Gerar Arquivo no disco
+			 */
+			
+			File file = new File(TextUtil.generateFile(result.toString(), tmp + "/" +  fileName));
+			
+			try
+			{
+				//	Anexa o XML na NF
+				MAttachment attachNFe = SPEDContrib.createAttachment();
+				attachNFe.addEntry(file);
+				attachNFe.save(null);
+			} 
+			catch (Exception e)
+			{
+				log.log (Level.SEVERE, "Error saving SPED", e);
+			}
+
+			/*
+			 * Tempo Final
+			 */
+			long end = System.currentTimeMillis();		
+			String tempoDecorrido = LBRUtils.elapsedTime (start, end);
+			
+			/*
+			 * Retorno
+			 */
+			return "Arquivo(s) Gerado(s) com Sucesso: " + fileName + 
+			       " <br>** Tempo decorrido: <font color=\"008800\">" + tempoDecorrido + "</font>";
 		}
 		catch (AdempiereException e)
 		{
@@ -166,17 +230,17 @@ public class GenerateSPEDContrib extends SvrProcess
 			//	Erro genérico
 			throw new AdempiereException("Unkown Error: " + e.getLocalizedMessage());
 		}
-		
-		return null;
 	}	//	doIt
 
 	/**
 	 * 	Gera o Arquivo do SPED
 	 * @throws AdempiereException, Exception 
 	 */
-	private void genSPEDContrib () throws AdempiereException, Exception
+	private StringBuilder genSPEDContrib () throws AdempiereException, Exception
 	{
-		SPEDUtil.processFacts (ctx, MLBRFactFiscal.get (ctx, dateFrom, dateTo, p_AD_Org_ID, null, trxName), SPEDUtil.TYPE_CONTRIB, trxName);
+		MLBRFactFiscal[] factFiscals = MLBRFactFiscal.get(getCtx(), dateFrom, dateTo, p_AD_Org_ID, null, null); 
+		
+		SPEDUtil.processFacts (ctx, factFiscals, SPEDUtil.TYPE_CONTRIB, trxName);
 		
 		//	Inicio do Arquivo
 		Bloco0 b0 = new Bloco0();
@@ -195,6 +259,9 @@ public class GenerateSPEDContrib extends SvrProcess
 		//	Registro 0110
 		b0.setR0110 (SPEDUtil.getR0110 (SPEDUtil.COD_INC_TRIB_CUM, SPEDUtil.IND_APRO_CRED_DIRETA, 
 				SPEDUtil.COD_TIPO_CONT_ALIQ_BASICA, ""));	//	FIXME
+		
+		b0.setR0111(SPEDUtil.getR0111());
+		
 		//	Registro 0140
 		b0.setR0140 (SPEDUtil.getR0140 (ctx, new MOrgInfo[]{orgInfo}, trxName));
 		//	Registro 0150
@@ -257,19 +324,6 @@ public class GenerateSPEDContrib extends SvrProcess
 		//	Registro M800
 		bM.setRM800 (SPEDUtil.getRM800 ());
 		
-		String fileName = p_FilePath;
-		
-		if (!(p_FilePath.endsWith(File.separator)))
-			fileName += File.separator;
-		
-		/*
-		 * Nome do arquivo
-		 * 
-		 * EDF_Contrib_CNPJ_DATA.txt
-		 */
-		I_W_AD_OrgInfo oi = POWrapper.create(MOrgInfo.get(getCtx(), p_AD_Org_ID, get_TrxName()), I_W_AD_OrgInfo.class);
-		fileName += "EFD_Contrib_" + TextUtil.toNumeric(oi.getlbr_CNPJ()) + "_" + TextUtil.timeToString(dateFrom, "MMyyyy") + ".txt";
-		
 		SPEDContrib sped = new SPEDContrib ();
 		sped.setB0 ((Bloco0) b0.get (SPEDUtil.TYPE_CONTRIB));
 		sped.setBA ((BlocoA) bA.get (SPEDUtil.TYPE_CONTRIB));
@@ -287,10 +341,12 @@ public class GenerateSPEDContrib extends SvrProcess
 		b9.setR9999 (SPEDUtil.getR9999 (SPEDUtil.TYPE_CONTRIB, regCount));
 		sped.setB9 ((Bloco9) b9.get (SPEDUtil.TYPE_CONTRIB));
 		
-		/*
-		 * Gerar Arquivo no disco
-		 */
-		TextUtil.generateFile (sped.toString(), fileName);
+		// Montar resultado			 
+		StringBuilder result = new StringBuilder();
+		result.append(sped.toString());
+		
+		return result;
+		
 		
 	}	//	genSPEDContrib
 

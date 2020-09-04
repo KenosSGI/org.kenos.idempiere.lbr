@@ -13,6 +13,8 @@ import org.adempiere.model.POWrapper;
 import org.adempierelbr.model.MLBRFactFiscal;
 import org.adempierelbr.model.MLBRNCM;
 import org.adempierelbr.model.MLBRNotaFiscal;
+import org.adempierelbr.model.MLBROpenItem;
+import org.adempierelbr.model.MLBROrgIEST;
 import org.adempierelbr.model.MLBRSalesCardTotal;
 import org.adempierelbr.model.MLBRTaxAssessment;
 import org.adempierelbr.model.X_LBR_TaxAssessmentLine;
@@ -21,6 +23,7 @@ import org.adempierelbr.sped.SPEDUtil;
 import org.adempierelbr.sped.efd.bean.R0000;
 import org.adempierelbr.sped.efd.bean.R0001;
 import org.adempierelbr.sped.efd.bean.R0005;
+import org.adempierelbr.sped.efd.bean.R0015;
 import org.adempierelbr.sped.efd.bean.R0100;
 import org.adempierelbr.sped.efd.bean.R0150;
 import org.adempierelbr.sped.efd.bean.R0190;
@@ -42,6 +45,8 @@ import org.adempierelbr.sped.efd.bean.RB990;
 import org.adempierelbr.sped.efd.bean.RC001;
 import org.adempierelbr.sped.efd.bean.RC100;
 import org.adempierelbr.sped.efd.bean.RC120;
+import org.adempierelbr.sped.efd.bean.RC140;
+import org.adempierelbr.sped.efd.bean.RC141;
 import org.adempierelbr.sped.efd.bean.RC170;
 import org.adempierelbr.sped.efd.bean.RC190;
 import org.adempierelbr.sped.efd.bean.RC195;
@@ -607,6 +612,33 @@ public class EFDUtil {
 		// return
 		return reg;			
 	}
+	
+	/**
+	 * REGISTRO 0005: DADOS COMPLEMENTARES DA ENTIDADE
+	 * 
+	 * @param factFiscal
+	 * @return
+	 */
+	public static List<R0015> createR0015(Properties ctx, int AD_Org_ID, String trxName) throws Exception
+	{
+		// 
+		List<MLBROrgIEST> iests = MLBROrgIEST.getAllIEST(AD_Org_ID);
+		List<R0015> regs = new ArrayList<R0015>();
+		
+		//
+		
+		for (MLBROrgIEST iest : iests)
+		{
+			if (iest.isValidFromTo(Env.getContextAsDate(Env.getCtx(), "Date")))
+			{
+				R0015 reg = new R0015(iest.getC_Region().getName(), iest.getLBR_IEST());		
+				regs.add(reg);
+			}
+		}
+		
+		// return
+		return regs;			
+	}
 
 
 
@@ -1048,6 +1080,42 @@ public class EFDUtil {
 		
 		//
 		return reg;
+	}
+	
+	/**
+	 * REGISTRO C140: FATURA (CÓDIGO 01)
+	 * 
+	 * @param factFiscal
+	 * @return
+	 * @throws Exception
+	 */
+	public static RC140 createRC140(MLBRFactFiscal factFiscal) throws Exception
+	{
+		if (factFiscal.getC_Invoice_ID() > 0 && MLBROpenItem.getOpenItem(factFiscal.getC_Invoice_ID(), null).length > 0)
+		{
+			//
+			RC140 reg = new RC140();
+			reg.setIND_EMIT("0");
+			reg.setIND_TIT("00");
+			reg.setNUM_TIT(factFiscal.getC_Invoice().getDocumentNo());
+			reg.setQTD_PARC(new BigDecimal(MLBROpenItem.getOpenItem(factFiscal.getC_Invoice_ID(), null).length));
+			reg.setVL_TIT(factFiscal.getC_Invoice().getGrandTotal());
+			
+			int i = 1;
+			
+			for (MLBROpenItem oi : MLBROpenItem.getOpenItem(factFiscal.getC_Invoice_ID(), null))
+			{
+				RC141 reg141 = new RC141();
+				reg141.setDL_VCTO(oi.getDateInvoiced());
+				reg141.setNUM_PARC(String.valueOf(i));
+				reg141.setVL_PARC(oi.getGrandTotal());
+				
+				reg.addrC141(reg141);
+			}
+			
+			return reg;
+		}
+		return null;
 	}
 	
 	
