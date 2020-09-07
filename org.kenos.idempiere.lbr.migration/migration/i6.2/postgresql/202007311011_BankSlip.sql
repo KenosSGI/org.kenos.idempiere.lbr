@@ -5076,5 +5076,469 @@ ALTER TABLE LBR_Boleto ADD CONSTRAINT CBankAccount_LBRBoleto FOREIGN KEY (C_Bank
 INSERT INTO AD_Ref_List (AD_Ref_List_ID,Name,AD_Reference_ID,Value,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,EntityType,AD_Ref_List_UU) VALUES (1122408,'Bank Slip',183,'BSB',0,0,'Y',TO_TIMESTAMP('2020-09-02 15:13:38','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2020-09-02 15:13:38','YYYY-MM-DD HH24:MI:SS'),100,'LBRA','8fcba2e3-26a9-47ca-b139-7de3e9588d4e')
 ;
 
+-- Sep 7, 2020, 4:50:13 PM BRT
+INSERT INTO AD_Element (AD_Element_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,ColumnName,Name,PrintName,EntityType,AD_Element_UU) VALUES (1123195,0,0,'Y',TO_TIMESTAMP('2020-09-07 16:50:12','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2020-09-07 16:50:12','YYYY-MM-DD HH24:MI:SS'),100,'LBR_CNABFile_ID','CNAB File','CNAB File','LBRA','1fc3005a-20a0-4a5b-9c4e-daf03393a172')
+;
+
+-- Sep 7, 2020, 4:50:13 PM BRT
+INSERT INTO AD_Element (AD_Element_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,ColumnName,Name,PrintName,EntityType,AD_Element_UU) VALUES (1123196,0,0,'Y',TO_TIMESTAMP('2020-09-07 16:50:13','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2020-09-07 16:50:13','YYYY-MM-DD HH24:MI:SS'),100,'LBR_CNABFile_UU','LBR_CNABFile_UU','LBR_CNABFile_UU','LBRA','c20a5ba9-9fa5-4595-86a8-f6ca61ca1edf')
+;
+
+-- Sep 7, 2020, 4:50:14 PM BRT
+INSERT INTO AD_Element (AD_Element_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,ColumnName,Name,PrintName,EntityType,AD_Element_UU) VALUES (1123197,0,0,'Y',TO_TIMESTAMP('2020-09-07 16:50:13','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2020-09-07 16:50:13','YYYY-MM-DD HH24:MI:SS'),100,'LBR_CNABFileLine_ID','CNAB File Line','CNAB File Line','LBRA','50a8c8a6-3e14-45b9-aa6a-f980f915ea62')
+;
+
+-- Sep 7, 2020, 4:50:14 PM BRT
+INSERT INTO AD_Element (AD_Element_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,ColumnName,Name,PrintName,EntityType,AD_Element_UU) VALUES (1123198,0,0,'Y',TO_TIMESTAMP('2020-09-07 16:50:14','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2020-09-07 16:50:14','YYYY-MM-DD HH24:MI:SS'),100,'LBR_CNABFileLine_UU','LBR_CNABFileLine_UU','LBR_CNABFileLine_UU','LBRA','c366a14a-379f-4a15-b321-fb13b17b7496')
+;
+
+-- 7 de set de 2020 17:07:31 BRT
+INSERT INTO AD_Window (AD_Window_ID,Name,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,WindowType,Processing,EntityType,IsSOTrx,IsDefault,WinHeight,WinWidth,IsBetaFunctionality,AD_Window_UU) VALUES (1120167,'CNAB',0,0,'Y',TO_TIMESTAMP('2020-09-07 17:07:31','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2020-09-07 17:07:31','YYYY-MM-DD HH24:MI:SS'),100,'T','N','LBRA','Y','N',0,0,'N','bcc87441-6bd9-4b08-8308-5c95188376c7')
+;
+
+-- 7 de set de 2020 17:07:32 BRT
+INSERT INTO AD_Table (AD_Table_ID,Name,AD_Window_ID,TableName,LoadSeq,AccessLevel,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,IsSecurityEnabled,IsDeleteable,IsHighVolume,IsView,EntityType,ImportTable,IsChangeLog,ReplicationType,CopyColumnsFromTable,IsCentrallyMaintained,AD_Table_UU,Processing,DatabaseViewDrop,CopyComponentsFromView,IsSystemLanguage) VALUES (1120696,'CNAB File',1120167,'LBR_CNABFile',0,'3',0,0,'Y',TO_TIMESTAMP('2020-09-07 17:07:32','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2020-09-07 17:07:32','YYYY-MM-DD HH24:MI:SS'),100,'N','Y','N','N','LBRA','N','Y','L','N','Y','e1154527-aa29-4d2f-a726-4bb76170a026','N','N','N','N')
+;
+
+-- 7 de set de 2020 17:07:32 BRT
+INSERT INTO AD_Sequence (Name,CurrentNext,IsAudited,StartNewYear,Description,IsActive,IsTableID,AD_Client_ID,AD_Org_ID,Created,CreatedBy,Updated,UpdatedBy,AD_Sequence_ID,IsAutoSequence,StartNo,IncrementNo,CurrentNextSys,AD_Sequence_UU) VALUES ('LBR_CNABFile',1000000,'N','N','Table LBR_CNABFile','Y','Y',0,0,TO_TIMESTAMP('2020-09-07 17:07:32','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2020-09-07 17:07:32','YYYY-MM-DD HH24:MI:SS'),100,1153943,'Y',1000000,1,200000,'0fe1db6a-f509-4a04-803d-4fb1ec4098ff')
+;
+
+-- 7 de set de 2020 17:07:33 BRT
+INSERT INTO AD_Column (AD_Column_ID,Version,Name,AD_Table_ID,ColumnName,FieldLength,IsKey,IsParent,IsMandatory,IsTranslated,IsIdentifier,IsEncrypted,AD_Reference_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Element_ID,IsUpdateable,IsSelectionColumn,EntityType,IsSyncDatabase,IsAlwaysUpdateable,IsAutocomplete,IsAllowLogging,AD_Column_UU,IsAllowCopy,IsToolbarButton,IsSecure,FKConstraintType,IsHtml) VALUES (1132535,0.0,'CNAB File',1120696,'LBR_CNABFile_ID',10,'Y','N','Y','N','N','N',13,0,0,'Y',TO_TIMESTAMP('2020-09-07 17:07:32','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2020-09-07 17:07:32','YYYY-MM-DD HH24:MI:SS'),100,1123195,'N','N','LBRA','Y','N','N','Y','d1c0cf8e-513f-46ab-8cc4-c8a2c2b6833f','N','N','N','N','N')
+;
+
+-- 7 de set de 2020 17:07:33 BRT
+CREATE TABLE LBR_CNABFile (LBR_CNABFile_ID NUMERIC(10) NOT NULL, CONSTRAINT LBR_CNABFile_Key PRIMARY KEY (LBR_CNABFile_ID))
+;
+
+-- 7 de set de 2020 17:07:33 BRT
+INSERT INTO AD_Column (AD_Column_ID,Version,Name,AD_Table_ID,ColumnName,FieldLength,IsKey,IsParent,IsMandatory,IsTranslated,IsIdentifier,IsEncrypted,AD_Reference_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Element_ID,IsUpdateable,IsSelectionColumn,EntityType,IsSyncDatabase,IsAlwaysUpdateable,IsAutocomplete,IsAllowLogging,AD_Column_UU,IsAllowCopy,IsToolbarButton,IsSecure,FKConstraintType,IsHtml) VALUES (1132536,0.0,'LBR_CNABFile_UU',1120696,'LBR_CNABFile_UU',36,'N','N','N','N','N','N',10,0,0,'Y',TO_TIMESTAMP('2020-09-07 17:07:33','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2020-09-07 17:07:33','YYYY-MM-DD HH24:MI:SS'),100,1123196,'N','N','LBRA','Y','N','N','Y','616750c6-fb41-4da3-87dc-ae3e97a919dd','N','N','N','N','N')
+;
+
+-- 7 de set de 2020 17:07:33 BRT
+ALTER TABLE LBR_CNABFile ADD COLUMN LBR_CNABFile_UU VARCHAR(36) DEFAULT NULL 
+;
+
+-- 7 de set de 2020 17:07:33 BRT
+ALTER TABLE LBR_CNABFile ADD CONSTRAINT LBR_CNABFile_UU_idx UNIQUE (LBR_CNABFile_UU)
+;
+
+-- 7 de set de 2020 17:07:34 BRT
+INSERT INTO AD_Column (AD_Column_ID,Version,Name,Description,Help,AD_Table_ID,AD_Val_Rule_ID,ColumnName,DefaultValue,FieldLength,IsKey,IsParent,IsMandatory,IsTranslated,IsIdentifier,IsEncrypted,AD_Reference_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Element_ID,IsUpdateable,IsSelectionColumn,EntityType,IsSyncDatabase,IsAlwaysUpdateable,IsAutocomplete,IsAllowLogging,AD_Column_UU,IsAllowCopy,IsToolbarButton,IsSecure,FKConstraintType,IsHtml) VALUES (1132537,0.0,'Client','Client/Tenant for this installation.','A Client is a company or a legal entity. You cannot share data between Clients. Tenant is a synonym for Client.',1120696,129,'AD_Client_ID','@#AD_Client_ID@',10,'N','N','Y','N','N','N',19,0,0,'Y',TO_TIMESTAMP('2020-09-07 17:07:33','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2020-09-07 17:07:33','YYYY-MM-DD HH24:MI:SS'),100,102,'N','N','LBRA','Y','N','N','Y','0d5678a9-05e4-4b4f-93ab-4675a0193773','N','N','N','D','N')
+;
+
+-- 7 de set de 2020 17:07:34 BRT
+ALTER TABLE LBR_CNABFile ADD COLUMN AD_Client_ID NUMERIC(10) NOT NULL
+;
+
+-- 7 de set de 2020 17:07:34 BRT
+INSERT INTO AD_Column (AD_Column_ID,Version,Name,Description,Help,AD_Table_ID,AD_Val_Rule_ID,ColumnName,DefaultValue,FieldLength,IsKey,IsParent,IsMandatory,IsTranslated,IsIdentifier,IsEncrypted,AD_Reference_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Element_ID,IsUpdateable,IsSelectionColumn,EntityType,IsSyncDatabase,IsAlwaysUpdateable,IsAutocomplete,IsAllowLogging,AD_Column_UU,IsAllowCopy,IsToolbarButton,IsSecure,FKConstraintType,IsHtml) VALUES (1132538,0.0,'Organization','Organizational entity within client','An organization is a unit of your client or legal entity - examples are store, department. You can share data between organizations.',1120696,104,'AD_Org_ID','@#AD_Org_ID@',10,'N','N','Y','N','N','N',19,0,0,'Y',TO_TIMESTAMP('2020-09-07 17:07:34','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2020-09-07 17:07:34','YYYY-MM-DD HH24:MI:SS'),100,113,'N','N','LBRA','Y','N','N','Y','83edea86-fe7a-435f-aa75-cde5ff48534f','N','N','N','D','N')
+;
+
+-- 7 de set de 2020 17:07:34 BRT
+ALTER TABLE LBR_CNABFile ADD COLUMN AD_Org_ID NUMERIC(10) NOT NULL
+;
+
+-- 7 de set de 2020 17:07:34 BRT
+INSERT INTO AD_Column (AD_Column_ID,Version,Name,Description,Help,AD_Table_ID,ColumnName,DefaultValue,FieldLength,IsKey,IsParent,IsMandatory,IsTranslated,IsIdentifier,IsEncrypted,AD_Reference_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Element_ID,IsUpdateable,IsSelectionColumn,EntityType,IsSyncDatabase,IsAlwaysUpdateable,IsAutocomplete,IsAllowLogging,AD_Column_UU,IsAllowCopy,IsToolbarButton,IsSecure,FKConstraintType,IsHtml) VALUES (1132539,0.0,'Created','Date this record was created','The Created field indicates the date that this record was created.',1120696,'Created','SYSDATE',29,'N','N','Y','N','N','N',16,0,0,'Y',TO_TIMESTAMP('2020-09-07 17:07:34','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2020-09-07 17:07:34','YYYY-MM-DD HH24:MI:SS'),100,245,'N','N','LBRA','Y','N','N','Y','b27a91e7-8548-4ac3-a61f-36b8835ed483','N','N','N','N','N')
+;
+
+-- 7 de set de 2020 17:07:34 BRT
+ALTER TABLE LBR_CNABFile ADD COLUMN Created TIMESTAMP DEFAULT statement_timestamp() NOT NULL
+;
+
+-- 7 de set de 2020 17:07:35 BRT
+INSERT INTO AD_Column (AD_Column_ID,Version,Name,Description,Help,AD_Table_ID,ColumnName,FieldLength,IsKey,IsParent,IsMandatory,IsTranslated,IsIdentifier,IsEncrypted,AD_Reference_ID,AD_Reference_Value_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Element_ID,IsUpdateable,IsSelectionColumn,EntityType,IsSyncDatabase,IsAlwaysUpdateable,IsAutocomplete,IsAllowLogging,AD_Column_UU,IsAllowCopy,IsToolbarButton,IsSecure,FKConstraintType,IsHtml) VALUES (1132540,0.0,'Created By','User who created this records','The Created By field indicates the user who created this record.',1120696,'CreatedBy',10,'N','N','Y','N','N','N',18,110,0,0,'Y',TO_TIMESTAMP('2020-09-07 17:07:34','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2020-09-07 17:07:34','YYYY-MM-DD HH24:MI:SS'),100,246,'N','N','LBRA','Y','N','N','Y','42ec3e75-e3db-4df9-890f-f38738e0d050','N','N','N','D','N')
+;
+
+-- 7 de set de 2020 17:07:35 BRT
+ALTER TABLE LBR_CNABFile ADD COLUMN CreatedBy NUMERIC(10) NOT NULL
+;
+
+-- 7 de set de 2020 17:07:35 BRT
+INSERT INTO AD_Column (AD_Column_ID,Version,Name,Description,Help,AD_Table_ID,ColumnName,DefaultValue,FieldLength,IsKey,IsParent,IsMandatory,IsTranslated,IsIdentifier,IsEncrypted,AD_Reference_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Element_ID,IsUpdateable,IsSelectionColumn,EntityType,IsSyncDatabase,IsAlwaysUpdateable,IsAutocomplete,IsAllowLogging,AD_Column_UU,IsAllowCopy,IsToolbarButton,IsSecure,FKConstraintType,IsHtml) VALUES (1132541,0.0,'Updated','Date this record was updated','The Updated field indicates the date that this record was updated.',1120696,'Updated','SYSDATE',29,'N','N','Y','N','N','N',16,0,0,'Y',TO_TIMESTAMP('2020-09-07 17:07:35','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2020-09-07 17:07:35','YYYY-MM-DD HH24:MI:SS'),100,607,'N','N','LBRA','Y','N','N','Y','188f6a74-f7ed-423e-b123-580a5f910f4c','N','N','N','N','N')
+;
+
+-- 7 de set de 2020 17:07:35 BRT
+ALTER TABLE LBR_CNABFile ADD COLUMN Updated TIMESTAMP DEFAULT statement_timestamp() NOT NULL
+;
+
+-- 7 de set de 2020 17:07:36 BRT
+INSERT INTO AD_Column (AD_Column_ID,Version,Name,Description,Help,AD_Table_ID,ColumnName,FieldLength,IsKey,IsParent,IsMandatory,IsTranslated,IsIdentifier,IsEncrypted,AD_Reference_ID,AD_Reference_Value_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Element_ID,IsUpdateable,IsSelectionColumn,EntityType,IsSyncDatabase,IsAlwaysUpdateable,IsAutocomplete,IsAllowLogging,AD_Column_UU,IsAllowCopy,IsToolbarButton,IsSecure,FKConstraintType,IsHtml) VALUES (1132542,0.0,'Updated By','User who updated this records','The Updated By field indicates the user who updated this record.',1120696,'UpdatedBy',10,'N','N','Y','N','N','N',18,110,0,0,'Y',TO_TIMESTAMP('2020-09-07 17:07:35','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2020-09-07 17:07:35','YYYY-MM-DD HH24:MI:SS'),100,608,'N','N','LBRA','Y','N','N','Y','f6546d1a-719c-46d7-bfaa-ebad29b6d396','N','N','N','D','N')
+;
+
+-- 7 de set de 2020 17:07:36 BRT
+ALTER TABLE LBR_CNABFile ADD COLUMN UpdatedBy NUMERIC(10) NOT NULL
+;
+
+-- 7 de set de 2020 17:07:36 BRT
+INSERT INTO AD_Column (AD_Column_ID,Version,Name,Description,Help,AD_Table_ID,ColumnName,DefaultValue,FieldLength,IsKey,IsParent,IsMandatory,IsTranslated,IsIdentifier,IsEncrypted,AD_Reference_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Element_ID,IsUpdateable,IsSelectionColumn,EntityType,IsSyncDatabase,IsAlwaysUpdateable,IsAutocomplete,IsAllowLogging,AD_Column_UU,IsAllowCopy,IsToolbarButton,IsSecure,FKConstraintType,IsHtml) VALUES (1132543,0.0,'Active','The record is active in the system','There are two methods of making records unavailable in the system: One is to delete the record, the other is to de-activate the record. A de-activated record is not available for selection, but available for reports.
+There are two reasons for de-activating and not deleting records:
+(1) The system requires the record for audit purposes.
+(2) The record is referenced by other records. E.g., you cannot delete a Business Partner, if there are invoices for this partner record existing. You de-activate the Business Partner and prevent that this record is used for future entries.',1120696,'IsActive','Y',1,'N','N','Y','N','N','N',20,0,0,'Y',TO_TIMESTAMP('2020-09-07 17:07:36','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2020-09-07 17:07:36','YYYY-MM-DD HH24:MI:SS'),100,348,'Y','N','LBRA','Y','N','N','Y','14263046-d6b7-4e09-8515-f5bac155feaf','N','N','N','N','N')
+;
+
+-- 7 de set de 2020 17:07:36 BRT
+ALTER TABLE LBR_CNABFile ADD COLUMN IsActive CHAR(1) DEFAULT 'Y' CHECK (IsActive IN ('Y','N')) NOT NULL
+;
+
+-- 7 de set de 2020 17:07:36 BRT
+INSERT INTO AD_Column (AD_Column_ID,Version,Name,Description,Help,AD_Table_ID,ColumnName,DefaultValue,FieldLength,IsKey,IsParent,IsMandatory,IsTranslated,IsIdentifier,IsEncrypted,AD_Reference_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Element_ID,IsUpdateable,IsSelectionColumn,EntityType,IsSyncDatabase,IsAlwaysUpdateable,IsAutocomplete,IsAllowLogging,AD_Column_UU,IsAllowCopy,IsToolbarButton,IsSecure,FKConstraintType,IsHtml) VALUES (1132544,0.0,'Sales Transaction','This is a Sales Transaction','The Sales Transaction checkbox indicates if this item is a Sales Transaction.',1120696,'IsSOTrx','Y',1,'N','N','Y','N','N','N',20,0,0,'Y',TO_TIMESTAMP('2020-09-07 17:07:36','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2020-09-07 17:07:36','YYYY-MM-DD HH24:MI:SS'),100,1106,'N','N','LBRA','Y','N','N','Y','a5eebf29-2491-4f8e-b74f-99f2720e6325','Y','N','N','N','N')
+;
+
+-- 7 de set de 2020 17:07:37 BRT
+ALTER TABLE LBR_CNABFile ADD COLUMN IsSOTrx CHAR(1) DEFAULT 'Y' CHECK (IsSOTrx IN ('Y','N')) NOT NULL
+;
+
+-- 7 de set de 2020 17:07:37 BRT
+INSERT INTO AD_Column (AD_Column_ID,Version,Name,Description,Help,AD_Table_ID,ColumnName,DefaultValue,FieldLength,IsKey,IsParent,IsMandatory,IsTranslated,IsIdentifier,IsEncrypted,AD_Reference_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Element_ID,IsUpdateable,IsSelectionColumn,EntityType,IsSyncDatabase,IsAlwaysUpdateable,IsAutocomplete,IsAllowLogging,AD_Column_UU,IsAllowCopy,IsToolbarButton,IsSecure,FKConstraintType,IsHtml) VALUES (1132545,0.0,'Document Date','Date of the Document','The Document Date indicates the date the document was generated.  It may or may not be the same as the accounting date.',1120696,'DateDoc','@#Date@',29,'N','N','Y','N','N','N',15,0,0,'Y',TO_TIMESTAMP('2020-09-07 17:07:37','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2020-09-07 17:07:37','YYYY-MM-DD HH24:MI:SS'),100,265,'Y','N','LBRA','Y','N','N','Y','17ada6d7-ed14-4562-b1e2-5de39a7a36ab','Y','N','N','N','N')
+;
+
+-- 7 de set de 2020 17:07:37 BRT
+ALTER TABLE LBR_CNABFile ADD COLUMN DateDoc TIMESTAMP NOT NULL
+;
+
+-- 7 de set de 2020 17:07:37 BRT
+INSERT INTO AD_Column (AD_Column_ID,Version,Name,Description,Help,AD_Table_ID,ColumnName,FieldLength,IsKey,IsParent,IsMandatory,IsTranslated,IsIdentifier,IsEncrypted,AD_Reference_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Element_ID,IsUpdateable,IsSelectionColumn,EntityType,IsSyncDatabase,IsAlwaysUpdateable,IsAutocomplete,IsAllowLogging,AD_Column_UU,IsAllowCopy,SeqNoSelection,IsToolbarButton,IsSecure,FKConstraintType,IsHtml) VALUES (1132546,0.0,'Description','Optional short description of the record','A description is limited to 255 characters.',1120696,'Description',255,'N','N','N','N','N','N',10,0,0,'Y',TO_TIMESTAMP('2020-09-07 17:07:37','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2020-09-07 17:07:37','YYYY-MM-DD HH24:MI:SS'),100,275,'Y','Y','LBRA','Y','N','N','Y','54472ec6-9d22-4c7c-b856-f2cabdc80063','Y',10,'N','N','N','N')
+;
+
+-- 7 de set de 2020 17:07:37 BRT
+ALTER TABLE LBR_CNABFile ADD COLUMN Description VARCHAR(255) DEFAULT NULL 
+;
+
+-- 7 de set de 2020 17:07:38 BRT
+INSERT INTO AD_Column (AD_Column_ID,Version,Name,Description,Help,AD_Table_ID,ColumnName,FieldLength,IsKey,IsParent,IsMandatory,IsTranslated,IsIdentifier,IsEncrypted,AD_Reference_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Element_ID,IsUpdateable,IsSelectionColumn,EntityType,IsSyncDatabase,IsAlwaysUpdateable,IsAutocomplete,IsAllowLogging,AD_Column_UU,IsAllowCopy,IsToolbarButton,IsSecure,FKConstraintName,FKConstraintType,IsHtml) VALUES (1132547,0.0,'Bank','Bank','The Bank is a unique identifier of a Bank for this Organization or for a Business Partner with whom this Organization transacts.',1120696,'C_Bank_ID',10,'N','N','Y','N','N','N',19,0,0,'Y',TO_TIMESTAMP('2020-09-07 17:07:37','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2020-09-07 17:07:37','YYYY-MM-DD HH24:MI:SS'),100,835,'N','N','LBRA','Y','N','N','Y','bde4e274-fd01-4065-b798-723eb39a14df','Y','N','N','CBank_LBRCNABFile','N','N')
+;
+
+-- 7 de set de 2020 17:07:38 BRT
+ALTER TABLE LBR_CNABFile ADD COLUMN C_Bank_ID NUMERIC(10) NOT NULL
+;
+
+-- 7 de set de 2020 17:07:38 BRT
+INSERT INTO AD_Column (AD_Column_ID,Version,Name,Description,Help,AD_Table_ID,AD_Val_Rule_ID,ColumnName,FieldLength,IsKey,IsParent,IsMandatory,IsTranslated,IsIdentifier,IsEncrypted,AD_Reference_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Element_ID,IsUpdateable,IsSelectionColumn,EntityType,IsSyncDatabase,IsAlwaysUpdateable,IsAutocomplete,IsAllowLogging,AD_Column_UU,IsAllowCopy,IsToolbarButton,IsSecure,FKConstraintName,FKConstraintType,IsHtml) VALUES (1132548,0.0,'Bank Account','Account at the Bank','The Bank Account identifies an account at this Bank.',1120696,1120183,'C_BankAccount_ID',10,'N','N','Y','N','N','N',19,0,0,'Y',TO_TIMESTAMP('2020-09-07 17:07:38','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2020-09-07 17:07:38','YYYY-MM-DD HH24:MI:SS'),100,836,'Y','N','LBRA','Y','N','N','Y','3672707e-ec2f-4ff1-a757-c739f9e533a1','Y','N','N','CBankAccount_LBRCNABFile','N','N')
+;
+
+-- 7 de set de 2020 17:07:38 BRT
+ALTER TABLE LBR_CNABFile ADD COLUMN C_BankAccount_ID NUMERIC(10) NOT NULL
+;
+
+-- 7 de set de 2020 17:07:39 BRT
+INSERT INTO AD_Column (AD_Column_ID,Version,Name,AD_Table_ID,ColumnName,FieldLength,IsKey,IsParent,IsMandatory,IsTranslated,IsIdentifier,IsEncrypted,AD_Reference_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Element_ID,IsUpdateable,IsSelectionColumn,EntityType,IsSyncDatabase,IsAlwaysUpdateable,IsAutocomplete,IsAllowLogging,AD_Column_UU,IsAllowCopy,IsToolbarButton,IsSecure,FKConstraintName,FKConstraintType,IsHtml) VALUES (1132549,0.0,'Bank Slip Contract',1120696,'LBR_BankSlipContract_ID',10,'N','N','Y','N','N','N',19,0,0,'Y',TO_TIMESTAMP('2020-09-07 17:07:38','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2020-09-07 17:07:38','YYYY-MM-DD HH24:MI:SS'),100,1123147,'N','N','LBRA','Y','N','N','Y','b8a0e1c5-20da-4e44-8547-ac4e807ddf48','Y','N','N','LBRBankSlipContract_LBRCNABFil','N','N')
+;
+
+-- 7 de set de 2020 17:07:39 BRT
+ALTER TABLE LBR_CNABFile ADD COLUMN LBR_BankSlipContract_ID NUMERIC(10) NOT NULL
+;
+
+-- 7 de set de 2020 17:07:39 BRT
+INSERT INTO AD_Column (AD_Column_ID,Version,Name,Description,Help,AD_Table_ID,ColumnName,DefaultValue,FieldLength,IsKey,IsParent,IsMandatory,IsTranslated,IsIdentifier,IsEncrypted,AD_Reference_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Element_ID,IsUpdateable,IsSelectionColumn,EntityType,IsSyncDatabase,IsAlwaysUpdateable,IsAutocomplete,IsAllowLogging,AD_Column_UU,IsAllowCopy,IsToolbarButton,IsSecure,FKConstraintType,IsHtml) VALUES (1132550,0.0,'Sequence','Method of ordering records; lowest number comes first','The Sequence indicates the order of records',1120696,'SeqNo','1',10,'N','N','Y','N','N','N',11,0,0,'Y',TO_TIMESTAMP('2020-09-07 17:07:39','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2020-09-07 17:07:39','YYYY-MM-DD HH24:MI:SS'),100,566,'Y','N','LBRA','Y','N','N','Y','af2d55c4-0f65-470b-a0a7-684f4f1c1b12','Y','N','N','N','N')
+;
+
+-- 7 de set de 2020 17:07:39 BRT
+ALTER TABLE LBR_CNABFile ADD COLUMN SeqNo NUMERIC(10) DEFAULT '1' NOT NULL
+;
+
+-- 7 de set de 2020 17:07:39 BRT
+INSERT INTO AD_Column (AD_Column_ID,Version,Name,Description,Help,AD_Table_ID,ColumnName,DefaultValue,FieldLength,IsKey,IsParent,IsMandatory,IsTranslated,IsIdentifier,IsEncrypted,AD_Reference_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Element_ID,IsUpdateable,IsSelectionColumn,EntityType,IsSyncDatabase,IsAlwaysUpdateable,IsAutocomplete,IsAllowLogging,AD_Column_UU,IsAllowCopy,IsToolbarButton,IsSecure,FKConstraintType,IsHtml) VALUES (1132551,0.0,'Processed','The document has been processed','The Processed checkbox indicates that a document has been processed.',1120696,'Processed','N',1,'N','N','Y','N','N','N',20,0,0,'Y',TO_TIMESTAMP('2020-09-07 17:07:39','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2020-09-07 17:07:39','YYYY-MM-DD HH24:MI:SS'),100,1047,'Y','N','LBRA','Y','N','N','Y','4eacc13f-ddb4-401f-875a-270ef4b08df5','Y','N','N','N','N')
+;
+
+-- 7 de set de 2020 17:07:39 BRT
+ALTER TABLE LBR_CNABFile ADD COLUMN Processed CHAR(1) DEFAULT 'N' CHECK (Processed IN ('Y','N')) NOT NULL
+;
+
+-- 7 de set de 2020 17:07:40 BRT
+INSERT INTO AD_Column (AD_Column_ID,Version,Name,Description,Help,AD_Table_ID,ColumnName,FieldLength,IsKey,IsParent,IsMandatory,IsTranslated,IsIdentifier,SeqNo,IsEncrypted,AD_Reference_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Element_ID,IsUpdateable,IsSelectionColumn,EntityType,IsSyncDatabase,IsAlwaysUpdateable,IsAutocomplete,IsAllowLogging,AD_Column_UU,IsAllowCopy,SeqNoSelection,IsToolbarButton,IsSecure,FKConstraintType,IsHtml) VALUES (1132552,0,'Routing No','Bank Routing Number','The Bank Routing Number (ABA Number) identifies a legal Bank.  It is used in routing checks and electronic transactions.',1120696,'RoutingNo',20,'N','N','Y','N','N',0,'N',10,0,0,'Y',TO_TIMESTAMP('2020-09-07 17:07:39','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2020-09-07 17:07:39','YYYY-MM-DD HH24:MI:SS'),100,964,'Y','N','LBRA','Y','N','N','Y','9ea87edd-fc63-46ca-b7ac-6877b39f5586','Y',0,'N','N','N','N')
+;
+
+-- 7 de set de 2020 17:07:40 BRT
+ALTER TABLE LBR_CNABFile ADD COLUMN RoutingNo VARCHAR(20) NOT NULL
+;
+
+-- 7 de set de 2020 17:07:40 BRT
+INSERT INTO AD_Column (AD_Column_ID,Version,Name,Description,Help,AD_Table_ID,ColumnName,FieldLength,IsKey,IsParent,IsMandatory,IsTranslated,IsIdentifier,SeqNo,IsEncrypted,AD_Reference_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Element_ID,IsUpdateable,IsSelectionColumn,EntityType,IsSyncDatabase,IsAlwaysUpdateable,IsAutocomplete,IsAllowLogging,AD_Column_UU,IsAllowCopy,SeqNoSelection,IsToolbarButton,IsSecure,FKConstraintType,IsHtml) VALUES (1132553,0,'Account No','Account Number','The Account Number indicates the Number assigned to this bank account. ',1120696,'AccountNo',20,'N','N','Y','N','N',0,'N',10,0,0,'Y',TO_TIMESTAMP('2020-09-07 17:07:40','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2020-09-07 17:07:40','YYYY-MM-DD HH24:MI:SS'),100,840,'Y','N','LBRA','Y','N','N','Y','9b49e8bd-916e-4106-8df9-043cffc8e91f','Y',0,'N','N','N','N')
+;
+
+-- 7 de set de 2020 17:07:40 BRT
+ALTER TABLE LBR_CNABFile ADD COLUMN AccountNo VARCHAR(20) NOT NULL
+;
+
+-- 7 de set de 2020 17:07:41 BRT
+INSERT INTO AD_Column (AD_Column_ID,Version,Name,AD_Table_ID,ColumnName,FieldLength,IsKey,IsParent,IsMandatory,IsTranslated,IsIdentifier,SeqNo,IsEncrypted,AD_Reference_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Element_ID,IsUpdateable,IsSelectionColumn,EntityType,IsSyncDatabase,IsAlwaysUpdateable,IsAutocomplete,IsAllowLogging,AD_Column_UU,IsAllowCopy,SeqNoSelection,IsToolbarButton,IsSecure,FKConstraintType,IsHtml) VALUES (1132554,0,'Account Digit',1120696,'LBR_BankAccountVD',3,'N','N','N','N','N',0,'N',10,0,0,'Y',TO_TIMESTAMP('2020-09-07 17:07:40','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2020-09-07 17:07:40','YYYY-MM-DD HH24:MI:SS'),100,1123120,'Y','N','LBRA','Y','N','N','Y','e0cf5008-0c02-462b-90ea-865756ccdee6','Y',0,'N','N','N','N')
+;
+
+-- 7 de set de 2020 17:07:41 BRT
+ALTER TABLE LBR_CNABFile ADD COLUMN LBR_BankAccountVD VARCHAR(3) DEFAULT NULL 
+;
+
+-- 7 de set de 2020 17:07:41 BRT
+INSERT INTO AD_Column (AD_Column_ID,Version,Name,Description,Help,AD_Table_ID,ColumnName,FieldLength,IsKey,IsParent,IsMandatory,IsTranslated,IsIdentifier,SeqNo,IsEncrypted,AD_Reference_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Element_ID,IsUpdateable,IsSelectionColumn,EntityType,IsSyncDatabase,IsAlwaysUpdateable,IsAutocomplete,IsAllowLogging,AD_Column_UU,IsAllowCopy,SeqNoSelection,IsToolbarButton,IsSecure,FKConstraintType,IsHtml) VALUES (1132555,0,'Agency Number','Agency Number','Agency Number',1120696,'lbr_AgencyNo',10,'N','N','Y','N','N',0,'N',10,0,0,'Y',TO_TIMESTAMP('2020-09-07 17:07:41','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2020-09-07 17:07:41','YYYY-MM-DD HH24:MI:SS'),100,1000001,'Y','N','LBRA','Y','N','N','Y','ce00810c-c5f9-480b-9618-53f3ae4440d0','Y',0,'N','N','N','N')
+;
+
+-- 7 de set de 2020 17:07:41 BRT
+ALTER TABLE LBR_CNABFile ADD COLUMN lbr_AgencyNo VARCHAR(10) NOT NULL
+;
+
+-- 7 de set de 2020 17:07:41 BRT
+INSERT INTO AD_Column (AD_Column_ID,Version,Name,AD_Table_ID,ColumnName,FieldLength,IsKey,IsParent,IsMandatory,IsTranslated,IsIdentifier,SeqNo,IsEncrypted,AD_Reference_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Element_ID,IsUpdateable,IsSelectionColumn,EntityType,IsSyncDatabase,IsAlwaysUpdateable,IsAutocomplete,IsAllowLogging,AD_Column_UU,IsAllowCopy,SeqNoSelection,IsToolbarButton,IsSecure,FKConstraintType,IsHtml) VALUES (1132556,0,'Agency Digit',1120696,'LBR_BankAgencyVD',3,'N','N','N','N','N',0,'N',10,0,0,'Y',TO_TIMESTAMP('2020-09-07 17:07:41','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2020-09-07 17:07:41','YYYY-MM-DD HH24:MI:SS'),100,1123121,'Y','N','LBRA','Y','N','N','Y','3cf70ed7-fde8-4a56-a918-197a25055bb9','Y',0,'N','N','N','N')
+;
+
+-- 7 de set de 2020 17:07:41 BRT
+ALTER TABLE LBR_CNABFile ADD COLUMN LBR_BankAgencyVD VARCHAR(3) DEFAULT NULL 
+;
+
+-- 7 de set de 2020 17:07:42 BRT
+INSERT INTO AD_Table (AD_Table_ID,Name,AD_Window_ID,TableName,LoadSeq,AccessLevel,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,IsSecurityEnabled,IsDeleteable,IsHighVolume,IsView,EntityType,ImportTable,IsChangeLog,ReplicationType,CopyColumnsFromTable,IsCentrallyMaintained,AD_Table_UU,Processing,DatabaseViewDrop,CopyComponentsFromView,IsSystemLanguage) VALUES (1120697,'CNAB File Line',1120167,'LBR_CNABFileLine',0,'3',0,0,'Y',TO_TIMESTAMP('2020-09-07 17:07:41','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2020-09-07 17:07:41','YYYY-MM-DD HH24:MI:SS'),100,'N','Y','N','N','LBRA','N','Y','L','N','Y','5e322347-91ca-4ff8-9675-f197f1ebbeb4','N','N','N','N')
+;
+
+-- 7 de set de 2020 17:07:42 BRT
+INSERT INTO AD_Sequence (Name,CurrentNext,IsAudited,StartNewYear,Description,IsActive,IsTableID,AD_Client_ID,AD_Org_ID,Created,CreatedBy,Updated,UpdatedBy,AD_Sequence_ID,IsAutoSequence,StartNo,IncrementNo,CurrentNextSys,AD_Sequence_UU) VALUES ('LBR_CNABFileLine',1000000,'N','N','Table LBR_CNABFileLine','Y','Y',0,0,TO_TIMESTAMP('2020-09-07 17:07:42','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2020-09-07 17:07:42','YYYY-MM-DD HH24:MI:SS'),100,1153944,'Y',1000000,1,200000,'e8255b6d-bd4b-4992-8722-4eb12535dc22')
+;
+
+-- 7 de set de 2020 17:07:43 BRT
+INSERT INTO AD_Column (AD_Column_ID,Version,Name,AD_Table_ID,ColumnName,FieldLength,IsKey,IsParent,IsMandatory,IsTranslated,IsIdentifier,IsEncrypted,AD_Reference_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Element_ID,IsUpdateable,IsSelectionColumn,EntityType,IsSyncDatabase,IsAlwaysUpdateable,IsAutocomplete,IsAllowLogging,AD_Column_UU,IsAllowCopy,IsToolbarButton,IsSecure,FKConstraintType,IsHtml) VALUES (1132557,0.0,'CNAB File Line',1120697,'LBR_CNABFileLine_ID',10,'Y','N','Y','N','N','N',13,0,0,'Y',TO_TIMESTAMP('2020-09-07 17:07:42','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2020-09-07 17:07:42','YYYY-MM-DD HH24:MI:SS'),100,1123197,'N','N','LBRA','Y','N','N','Y','5cda7052-9180-44d4-972a-cf0af4c77002','N','N','N','N','N')
+;
+
+-- 7 de set de 2020 17:07:43 BRT
+CREATE TABLE LBR_CNABFileLine (LBR_CNABFileLine_ID NUMERIC(10) NOT NULL, CONSTRAINT LBR_CNABFileLine_Key PRIMARY KEY (LBR_CNABFileLine_ID))
+;
+
+-- 7 de set de 2020 17:07:43 BRT
+INSERT INTO AD_Column (AD_Column_ID,Version,Name,AD_Table_ID,ColumnName,FieldLength,IsKey,IsParent,IsMandatory,IsTranslated,IsIdentifier,IsEncrypted,AD_Reference_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Element_ID,IsUpdateable,IsSelectionColumn,EntityType,IsSyncDatabase,IsAlwaysUpdateable,IsAutocomplete,IsAllowLogging,AD_Column_UU,IsAllowCopy,IsToolbarButton,IsSecure,FKConstraintType,IsHtml) VALUES (1132558,0.0,'LBR_CNABFileLine_UU',1120697,'LBR_CNABFileLine_UU',36,'N','N','N','N','N','N',10,0,0,'Y',TO_TIMESTAMP('2020-09-07 17:07:43','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2020-09-07 17:07:43','YYYY-MM-DD HH24:MI:SS'),100,1123198,'N','N','LBRA','Y','N','N','Y','49d36edc-7179-41c5-b092-fadbb6b1750a','N','N','N','N','N')
+;
+
+-- 7 de set de 2020 17:07:43 BRT
+ALTER TABLE LBR_CNABFileLine ADD COLUMN LBR_CNABFileLine_UU VARCHAR(36) DEFAULT NULL 
+;
+
+-- 7 de set de 2020 17:07:43 BRT
+ALTER TABLE LBR_CNABFileLine ADD CONSTRAINT LBR_CNABFileLine_UU_idx UNIQUE (LBR_CNABFileLine_UU)
+;
+
+-- 7 de set de 2020 17:07:43 BRT
+INSERT INTO AD_Column (AD_Column_ID,Version,Name,Description,Help,AD_Table_ID,AD_Val_Rule_ID,ColumnName,DefaultValue,FieldLength,IsKey,IsParent,IsMandatory,IsTranslated,IsIdentifier,IsEncrypted,AD_Reference_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Element_ID,IsUpdateable,IsSelectionColumn,EntityType,IsSyncDatabase,IsAlwaysUpdateable,IsAutocomplete,IsAllowLogging,AD_Column_UU,IsAllowCopy,IsToolbarButton,IsSecure,FKConstraintType,IsHtml) VALUES (1132559,0.0,'Client','Client/Tenant for this installation.','A Client is a company or a legal entity. You cannot share data between Clients. Tenant is a synonym for Client.',1120697,129,'AD_Client_ID','@#AD_Client_ID@',10,'N','N','Y','N','N','N',19,0,0,'Y',TO_TIMESTAMP('2020-09-07 17:07:43','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2020-09-07 17:07:43','YYYY-MM-DD HH24:MI:SS'),100,102,'N','N','LBRA','Y','N','N','Y','bee59834-c26c-4839-8714-92c264c5347c','N','N','N','D','N')
+;
+
+-- 7 de set de 2020 17:07:43 BRT
+ALTER TABLE LBR_CNABFileLine ADD COLUMN AD_Client_ID NUMERIC(10) NOT NULL
+;
+
+-- 7 de set de 2020 17:07:44 BRT
+INSERT INTO AD_Column (AD_Column_ID,Version,Name,Description,Help,AD_Table_ID,AD_Val_Rule_ID,ColumnName,DefaultValue,FieldLength,IsKey,IsParent,IsMandatory,IsTranslated,IsIdentifier,IsEncrypted,AD_Reference_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Element_ID,IsUpdateable,IsSelectionColumn,EntityType,IsSyncDatabase,IsAlwaysUpdateable,IsAutocomplete,IsAllowLogging,AD_Column_UU,IsAllowCopy,IsToolbarButton,IsSecure,FKConstraintType,IsHtml) VALUES (1132560,0.0,'Organization','Organizational entity within client','An organization is a unit of your client or legal entity - examples are store, department. You can share data between organizations.',1120697,104,'AD_Org_ID','@#AD_Org_ID@',10,'N','N','Y','N','N','N',19,0,0,'Y',TO_TIMESTAMP('2020-09-07 17:07:43','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2020-09-07 17:07:43','YYYY-MM-DD HH24:MI:SS'),100,113,'N','N','LBRA','Y','N','N','Y','bda0218f-e6bc-45b5-9ea0-ae158cc2cd5b','N','N','N','D','N')
+;
+
+-- 7 de set de 2020 17:07:44 BRT
+ALTER TABLE LBR_CNABFileLine ADD COLUMN AD_Org_ID NUMERIC(10) NOT NULL
+;
+
+-- 7 de set de 2020 17:07:44 BRT
+INSERT INTO AD_Column (AD_Column_ID,Version,Name,Description,Help,AD_Table_ID,ColumnName,DefaultValue,FieldLength,IsKey,IsParent,IsMandatory,IsTranslated,IsIdentifier,IsEncrypted,AD_Reference_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Element_ID,IsUpdateable,IsSelectionColumn,EntityType,IsSyncDatabase,IsAlwaysUpdateable,IsAutocomplete,IsAllowLogging,AD_Column_UU,IsAllowCopy,IsToolbarButton,IsSecure,FKConstraintType,IsHtml) VALUES (1132561,0.0,'Created','Date this record was created','The Created field indicates the date that this record was created.',1120697,'Created','SYSDATE',29,'N','N','Y','N','N','N',16,0,0,'Y',TO_TIMESTAMP('2020-09-07 17:07:44','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2020-09-07 17:07:44','YYYY-MM-DD HH24:MI:SS'),100,245,'N','N','LBRA','Y','N','N','Y','8150d5f2-ef16-4f18-a701-f9a02dd6799d','N','N','N','N','N')
+;
+
+-- 7 de set de 2020 17:07:44 BRT
+ALTER TABLE LBR_CNABFileLine ADD COLUMN Created TIMESTAMP DEFAULT statement_timestamp() NOT NULL
+;
+
+-- 7 de set de 2020 17:07:45 BRT
+INSERT INTO AD_Column (AD_Column_ID,Version,Name,Description,Help,AD_Table_ID,ColumnName,FieldLength,IsKey,IsParent,IsMandatory,IsTranslated,IsIdentifier,IsEncrypted,AD_Reference_ID,AD_Reference_Value_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Element_ID,IsUpdateable,IsSelectionColumn,EntityType,IsSyncDatabase,IsAlwaysUpdateable,IsAutocomplete,IsAllowLogging,AD_Column_UU,IsAllowCopy,IsToolbarButton,IsSecure,FKConstraintType,IsHtml) VALUES (1132562,0.0,'Created By','User who created this records','The Created By field indicates the user who created this record.',1120697,'CreatedBy',10,'N','N','Y','N','N','N',18,110,0,0,'Y',TO_TIMESTAMP('2020-09-07 17:07:44','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2020-09-07 17:07:44','YYYY-MM-DD HH24:MI:SS'),100,246,'N','N','LBRA','Y','N','N','Y','1b3a4b29-6f94-4c98-b181-431d056d0992','N','N','N','D','N')
+;
+
+-- 7 de set de 2020 17:07:45 BRT
+ALTER TABLE LBR_CNABFileLine ADD COLUMN CreatedBy NUMERIC(10) NOT NULL
+;
+
+-- 7 de set de 2020 17:07:45 BRT
+INSERT INTO AD_Column (AD_Column_ID,Version,Name,Description,Help,AD_Table_ID,ColumnName,DefaultValue,FieldLength,IsKey,IsParent,IsMandatory,IsTranslated,IsIdentifier,IsEncrypted,AD_Reference_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Element_ID,IsUpdateable,IsSelectionColumn,EntityType,IsSyncDatabase,IsAlwaysUpdateable,IsAutocomplete,IsAllowLogging,AD_Column_UU,IsAllowCopy,IsToolbarButton,IsSecure,FKConstraintType,IsHtml) VALUES (1132563,0.0,'Updated','Date this record was updated','The Updated field indicates the date that this record was updated.',1120697,'Updated','SYSDATE',29,'N','N','Y','N','N','N',16,0,0,'Y',TO_TIMESTAMP('2020-09-07 17:07:45','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2020-09-07 17:07:45','YYYY-MM-DD HH24:MI:SS'),100,607,'N','N','LBRA','Y','N','N','Y','155cbfd2-71f9-47cb-8916-f3e16f5ccdf2','N','N','N','N','N')
+;
+
+-- 7 de set de 2020 17:07:45 BRT
+ALTER TABLE LBR_CNABFileLine ADD COLUMN Updated TIMESTAMP DEFAULT statement_timestamp() NOT NULL
+;
+
+-- 7 de set de 2020 17:07:46 BRT
+INSERT INTO AD_Column (AD_Column_ID,Version,Name,Description,Help,AD_Table_ID,ColumnName,FieldLength,IsKey,IsParent,IsMandatory,IsTranslated,IsIdentifier,IsEncrypted,AD_Reference_ID,AD_Reference_Value_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Element_ID,IsUpdateable,IsSelectionColumn,EntityType,IsSyncDatabase,IsAlwaysUpdateable,IsAutocomplete,IsAllowLogging,AD_Column_UU,IsAllowCopy,IsToolbarButton,IsSecure,FKConstraintType,IsHtml) VALUES (1132564,0.0,'Updated By','User who updated this records','The Updated By field indicates the user who updated this record.',1120697,'UpdatedBy',10,'N','N','Y','N','N','N',18,110,0,0,'Y',TO_TIMESTAMP('2020-09-07 17:07:45','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2020-09-07 17:07:45','YYYY-MM-DD HH24:MI:SS'),100,608,'N','N','LBRA','Y','N','N','Y','7e764215-21ea-4bde-80cb-59540a8b680e','N','N','N','D','N')
+;
+
+-- 7 de set de 2020 17:07:46 BRT
+ALTER TABLE LBR_CNABFileLine ADD COLUMN UpdatedBy NUMERIC(10) NOT NULL
+;
+
+-- 7 de set de 2020 17:07:46 BRT
+INSERT INTO AD_Column (AD_Column_ID,Version,Name,Description,Help,AD_Table_ID,ColumnName,DefaultValue,FieldLength,IsKey,IsParent,IsMandatory,IsTranslated,IsIdentifier,IsEncrypted,AD_Reference_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Element_ID,IsUpdateable,IsSelectionColumn,EntityType,IsSyncDatabase,IsAlwaysUpdateable,IsAutocomplete,IsAllowLogging,AD_Column_UU,IsAllowCopy,IsToolbarButton,IsSecure,FKConstraintType,IsHtml) VALUES (1132565,0.0,'Active','The record is active in the system','There are two methods of making records unavailable in the system: One is to delete the record, the other is to de-activate the record. A de-activated record is not available for selection, but available for reports.
+There are two reasons for de-activating and not deleting records:
+(1) The system requires the record for audit purposes.
+(2) The record is referenced by other records. E.g., you cannot delete a Business Partner, if there are invoices for this partner record existing. You de-activate the Business Partner and prevent that this record is used for future entries.',1120697,'IsActive','Y',1,'N','N','Y','N','N','N',20,0,0,'Y',TO_TIMESTAMP('2020-09-07 17:07:46','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2020-09-07 17:07:46','YYYY-MM-DD HH24:MI:SS'),100,348,'Y','N','LBRA','Y','N','N','Y','fbeb6d5a-d86d-4428-9f2b-28b7af8f6668','N','N','N','N','N')
+;
+
+-- 7 de set de 2020 17:07:46 BRT
+ALTER TABLE LBR_CNABFileLine ADD COLUMN IsActive CHAR(1) DEFAULT 'Y' CHECK (IsActive IN ('Y','N')) NOT NULL
+;
+
+-- 7 de set de 2020 17:07:46 BRT
+INSERT INTO AD_Column (AD_Column_ID,Version,Name,AD_Table_ID,ColumnName,FieldLength,IsKey,IsParent,IsMandatory,IsTranslated,IsIdentifier,IsEncrypted,AD_Reference_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Element_ID,IsUpdateable,IsSelectionColumn,EntityType,IsSyncDatabase,IsAlwaysUpdateable,IsAutocomplete,IsAllowLogging,AD_Column_UU,IsAllowCopy,IsToolbarButton,IsSecure,FKConstraintName,FKConstraintType,IsHtml) VALUES (1132566,0.0,'Bank Slip Mov',1120697,'LBR_BankSlipMov_ID',10,'N','N','Y','N','N','N',19,0,0,'Y',TO_TIMESTAMP('2020-09-07 17:07:46','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2020-09-07 17:07:46','YYYY-MM-DD HH24:MI:SS'),100,1123158,'N','N','LBRA','Y','N','N','Y','c0e6c9e4-dc56-43f6-907f-2a1ae0b07e40','Y','N','N','LBRBankSlipMov_LBRCNABFileLine','N','N')
+;
+
+-- 7 de set de 2020 17:07:46 BRT
+ALTER TABLE LBR_CNABFileLine ADD COLUMN LBR_BankSlipMov_ID NUMERIC(10) NOT NULL
+;
+
+-- 7 de set de 2020 17:07:47 BRT
+INSERT INTO AD_Column (AD_Column_ID,Version,Name,Description,Help,AD_Table_ID,ColumnName,DefaultValue,FieldLength,IsKey,IsParent,IsMandatory,IsTranslated,IsIdentifier,IsEncrypted,AD_Reference_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Element_ID,IsUpdateable,IsSelectionColumn,EntityType,IsSyncDatabase,IsAlwaysUpdateable,IsAutocomplete,IsAllowLogging,AD_Column_UU,IsAllowCopy,IsToolbarButton,IsSecure,FKConstraintType,IsHtml) VALUES (1132567,0.0,'Sequence','Method of ordering records; lowest number comes first','The Sequence indicates the order of records',1120697,'SeqNo','1',10,'N','N','Y','N','N','N',11,0,0,'Y',TO_TIMESTAMP('2020-09-07 17:07:46','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2020-09-07 17:07:46','YYYY-MM-DD HH24:MI:SS'),100,566,'Y','N','LBRA','Y','N','N','Y','ccb313f1-8517-4390-82ce-6792198077e0','Y','N','N','N','N')
+;
+
+-- 7 de set de 2020 17:07:47 BRT
+ALTER TABLE LBR_CNABFileLine ADD COLUMN SeqNo NUMERIC(10) DEFAULT '1' NOT NULL
+;
+
+-- 7 de set de 2020 17:07:47 BRT
+INSERT INTO AD_Column (AD_Column_ID,Version,Name,Description,Help,AD_Table_ID,ColumnName,DefaultValue,FieldLength,IsKey,IsParent,IsMandatory,IsTranslated,IsIdentifier,IsEncrypted,AD_Reference_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Element_ID,IsUpdateable,IsSelectionColumn,EntityType,IsSyncDatabase,IsAlwaysUpdateable,IsAutocomplete,IsAllowLogging,AD_Column_UU,IsAllowCopy,IsToolbarButton,IsSecure,FKConstraintType,IsHtml) VALUES (1132568,0.0,'Processed','The document has been processed','The Processed checkbox indicates that a document has been processed.',1120697,'Processed','N',1,'N','N','Y','N','N','N',20,0,0,'Y',TO_TIMESTAMP('2020-09-07 17:07:47','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2020-09-07 17:07:47','YYYY-MM-DD HH24:MI:SS'),100,1047,'Y','N','LBRA','Y','N','N','Y','13669cd0-f79c-4868-9d3b-768980ce4c05','Y','N','N','N','N')
+;
+
+-- 7 de set de 2020 17:07:47 BRT
+ALTER TABLE LBR_CNABFileLine ADD COLUMN Processed CHAR(1) DEFAULT 'N' CHECK (Processed IN ('Y','N')) NOT NULL
+;
+
+-- 7 de set de 2020 17:07:48 BRT
+INSERT INTO AD_Column (AD_Column_ID,Version,Name,AD_Table_ID,ColumnName,FieldLength,IsKey,IsParent,IsMandatory,IsTranslated,IsIdentifier,SeqNo,IsEncrypted,AD_Reference_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Element_ID,IsUpdateable,IsSelectionColumn,EntityType,IsSyncDatabase,IsAlwaysUpdateable,IsAutocomplete,IsAllowLogging,AD_Column_UU,IsAllowCopy,IsToolbarButton,IsSecure,FKConstraintName,FKConstraintType,IsHtml) VALUES (1132569,0.0,'CNAB File',1120697,'LBR_CNABFile_ID',10,'N','Y','Y','N','N',0,'N',19,0,0,'Y',TO_TIMESTAMP('2020-09-07 17:07:47','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2020-09-07 17:07:47','YYYY-MM-DD HH24:MI:SS'),100,1123195,'N','N','U','Y','N','N','Y','60909ffe-9982-4ebc-a0ee-93856470dcd4','Y','N','N','LBRCNABFile_LBRCNABFileLine','N','N')
+;
+
+-- 7 de set de 2020 17:07:48 BRT
+ALTER TABLE LBR_CNABFileLine ADD COLUMN LBR_CNABFile_ID NUMERIC(10) NOT NULL
+;
+
+-- 7 de set de 2020 17:07:48 BRT
+INSERT INTO AD_Menu (AD_Menu_ID,Name,"action",AD_Window_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,IsSummary,IsSOTrx,IsReadOnly,EntityType,IsCentrallyMaintained,AD_Menu_UU) VALUES (1120367,'CNAB','W',1120167,0,0,'Y',TO_TIMESTAMP('2020-09-07 17:07:48','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2020-09-07 17:07:48','YYYY-MM-DD HH24:MI:SS'),100,'N','Y','N','LBRA','Y','8211ea3d-844b-459f-8626-fa820e3d75d7')
+;
+
+-- 7 de set de 2020 17:07:48 BRT
+INSERT INTO AD_TREENODEMM(AD_Client_ID, AD_Org_ID, CreatedBy, UpdatedBy, Parent_ID, SeqNo, AD_Tree_ID, Node_ID)VALUES(0, 0, 0, 0, 1000001,5, 10, 1120367)
+;
+
+-- 7 de set de 2020 17:07:49 BRT
+INSERT INTO AD_Tab (AD_Tab_ID,Name,AD_Window_ID,SeqNo,IsSingleRow,AD_Table_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,HasTree,IsInfoTab,IsTranslationTab,IsReadOnly,Processing,ImportFields,TabLevel,IsSortTab,EntityType,IsInsertRecord,IsAdvancedTab,AD_Tab_UU,TreeDisplayedOn) VALUES (1120402,'CNAB',1120167,10,'Y',1120696,0,0,'Y',TO_TIMESTAMP('2020-09-07 17:07:48','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2020-09-07 17:07:48','YYYY-MM-DD HH24:MI:SS'),100,'N','N','N','N','N','N',0,'N','LBRA','Y','N','242ef459-b343-4ac0-97f7-991ab73d5732','B')
+;
+
+-- 7 de set de 2020 17:07:49 BRT
+INSERT INTO AD_Field (AD_Field_ID,Name,AD_Tab_ID,AD_Column_ID,IsDisplayed,DisplayLength,SeqNo,IsSameLine,IsHeading,IsFieldOnly,IsEncrypted,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,IsReadOnly,IsCentrallyMaintained,EntityType,AD_Field_UU,IsDisplayedGrid,XPosition,ColumnSpan,NumLines,IsQuickEntry,IsDefaultFocus,IsAdvancedField) VALUES (1129918,'CNAB File',1120402,1132535,'N',10,0,'N','N','N','N',0,0,'Y',TO_TIMESTAMP('2020-09-07 17:07:49','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2020-09-07 17:07:49','YYYY-MM-DD HH24:MI:SS'),100,'N','Y','LBRA','401fa17a-9839-4f6c-9dc3-17cc20a39735','N',1,2,1,'N','N','N')
+;
+
+-- 7 de set de 2020 17:07:49 BRT
+INSERT INTO AD_Field (AD_Field_ID,Name,Description,Help,AD_Tab_ID,AD_Column_ID,IsDisplayed,DisplayLength,SeqNo,IsSameLine,IsHeading,IsFieldOnly,IsEncrypted,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,IsReadOnly,IsCentrallyMaintained,EntityType,AD_Field_UU,IsDisplayedGrid,SeqNoGrid,XPosition,ColumnSpan,NumLines,IsQuickEntry,IsDefaultFocus,IsAdvancedField) VALUES (1129919,'Active','The record is active in the system','There are two methods of making records unavailable in the system: One is to delete the record, the other is to de-activate the record. A de-activated record is not available for selection, but available for reports.
+There are two reasons for de-activating and not deleting records:
+(1) The system requires the record for audit purposes.
+(2) The record is referenced by other records. E.g., you cannot delete a Business Partner, if there are invoices for this partner record existing. You de-activate the Business Partner and prevent that this record is used for future entries.',1120402,1132543,'N',1,0,'N','N','N','N',0,0,'Y',TO_TIMESTAMP('2020-09-07 17:07:49','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2020-09-07 17:07:49','YYYY-MM-DD HH24:MI:SS'),100,'N','Y','LBRA','7ccc8208-4df6-4860-b2eb-7ebfd7e93938','Y',100,1,1,1,'N','N','N')
+;
+
+-- 7 de set de 2020 17:07:50 BRT
+INSERT INTO AD_Field (AD_Field_ID,Name,AD_Tab_ID,AD_Column_ID,IsDisplayed,DisplayLength,SeqNo,IsSameLine,IsHeading,IsFieldOnly,IsEncrypted,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,IsReadOnly,IsCentrallyMaintained,EntityType,AD_Field_UU,IsDisplayedGrid,XPosition,ColumnSpan,NumLines,IsQuickEntry,IsDefaultFocus,IsAdvancedField) VALUES (1129920,'LBR_CNABFile_UU',1120402,1132536,'N',36,0,'N','N','N','N',0,0,'Y',TO_TIMESTAMP('2020-09-07 17:07:49','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2020-09-07 17:07:49','YYYY-MM-DD HH24:MI:SS'),100,'N','Y','LBRA','1701347a-01d1-43fb-a75a-9a7909f82ef5','N',1,2,1,'N','N','N')
+;
+
+-- 7 de set de 2020 17:07:50 BRT
+INSERT INTO AD_Field (AD_Field_ID,Name,Description,Help,AD_Tab_ID,AD_Column_ID,IsDisplayed,DisplayLength,SeqNo,IsSameLine,IsHeading,IsFieldOnly,IsEncrypted,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,IsReadOnly,IsCentrallyMaintained,EntityType,AD_Field_UU,IsDisplayedGrid,XPosition,ColumnSpan,NumLines,IsQuickEntry,IsDefaultFocus,IsAdvancedField) VALUES (1129921,'Client','Client/Tenant for this installation.','A Client is a company or a legal entity. You cannot share data between Clients. Tenant is a synonym for Client.',1120402,1132537,'Y',10,10,'N','N','N','N',0,0,'Y',TO_TIMESTAMP('2020-09-07 17:07:50','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2020-09-07 17:07:50','YYYY-MM-DD HH24:MI:SS'),100,'N','Y','LBRA','77f5277e-c4ff-46ab-bd12-2785d7fd9606','N',1,2,1,'N','N','N')
+;
+
+-- 7 de set de 2020 17:07:51 BRT
+INSERT INTO AD_Field (AD_Field_ID,Name,Description,Help,AD_Tab_ID,AD_Column_ID,IsDisplayed,DisplayLength,SeqNo,IsSameLine,IsHeading,IsFieldOnly,IsEncrypted,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,IsReadOnly,IsCentrallyMaintained,EntityType,AD_Field_UU,IsAllowCopy,IsDisplayedGrid,SeqNoGrid,XPosition,ColumnSpan,NumLines,IsQuickEntry,IsDefaultFocus,IsAdvancedField) VALUES (1129922,'Organization','Organizational entity within client','An organization is a unit of your client or legal entity - examples are store, department. You can share data between organizations.',1120402,1132538,'Y',10,20,'N','N','N','N',0,0,'Y',TO_TIMESTAMP('2020-09-07 17:07:50','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2020-09-07 17:07:50','YYYY-MM-DD HH24:MI:SS'),100,'N','Y','LBRA','1765e648-e931-446e-9f52-f767b73f57ac','Y','Y',10,4,2,1,'N','N','N')
+;
+
+-- 7 de set de 2020 17:07:51 BRT
+INSERT INTO AD_Field (AD_Field_ID,Name,Description,Help,AD_Tab_ID,AD_Column_ID,IsDisplayed,DisplayLength,SeqNo,IsSameLine,IsHeading,IsFieldOnly,IsEncrypted,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,IsReadOnly,IsCentrallyMaintained,EntityType,AD_Field_UU,IsDisplayedGrid,SeqNoGrid,XPosition,ColumnSpan,NumLines,IsQuickEntry,IsDefaultFocus,IsAdvancedField) VALUES (1129923,'Document Date','Date of the Document','The Document Date indicates the date the document was generated.  It may or may not be the same as the accounting date.',1120402,1132545,'Y',29,30,'N','N','N','N',0,0,'Y',TO_TIMESTAMP('2020-09-07 17:07:51','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2020-09-07 17:07:51','YYYY-MM-DD HH24:MI:SS'),100,'N','Y','LBRA','8c73e18d-456e-4a60-af6a-e222cb0c37cf','Y',40,1,2,1,'N','N','N')
+;
+
+-- 7 de set de 2020 17:07:51 BRT
+INSERT INTO AD_Field (AD_Field_ID,Name,Description,Help,AD_Tab_ID,AD_Column_ID,IsDisplayed,DisplayLength,SeqNo,IsSameLine,IsHeading,IsFieldOnly,IsEncrypted,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,IsReadOnly,IsCentrallyMaintained,EntityType,AD_Field_UU,IsDisplayedGrid,SeqNoGrid,XPosition,ColumnSpan,NumLines,IsQuickEntry,IsDefaultFocus,IsAdvancedField) VALUES (1129924,'Sequence','Method of ordering records; lowest number comes first','The Sequence indicates the order of records',1120402,1132550,'Y',10,40,'N','N','N','N',0,0,'Y',TO_TIMESTAMP('2020-09-07 17:07:51','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2020-09-07 17:07:51','YYYY-MM-DD HH24:MI:SS'),100,'N','Y','LBRA','02394323-799e-4c6b-8726-75823f45cefa','Y',80,4,2,1,'N','N','N')
+;
+
+-- 7 de set de 2020 17:07:52 BRT
+INSERT INTO AD_Field (AD_Field_ID,Name,Description,Help,AD_Tab_ID,AD_Column_ID,IsDisplayed,DisplayLength,SeqNo,IsSameLine,IsHeading,IsFieldOnly,IsEncrypted,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,IsReadOnly,IsCentrallyMaintained,EntityType,AD_Field_UU,IsDisplayedGrid,SeqNoGrid,XPosition,ColumnSpan,NumLines,IsQuickEntry,IsDefaultFocus,IsAdvancedField) VALUES (1129925,'Bank','Bank','The Bank is a unique identifier of a Bank for this Organization or for a Business Partner with whom this Organization transacts.',1120402,1132547,'Y',10,50,'N','N','N','N',0,0,'Y',TO_TIMESTAMP('2020-09-07 17:07:52','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2020-09-07 17:07:52','YYYY-MM-DD HH24:MI:SS'),100,'N','Y','LBRA','1f938225-d9e8-4b4c-969a-87c1b64c79c6','Y',50,1,2,1,'N','N','N')
+;
+
+-- 7 de set de 2020 17:07:52 BRT
+INSERT INTO AD_Field (AD_Field_ID,Name,AD_Tab_ID,AD_Column_ID,IsDisplayed,DisplayLength,SeqNo,IsSameLine,IsHeading,IsFieldOnly,IsEncrypted,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,IsReadOnly,IsCentrallyMaintained,EntityType,AD_Field_UU,IsDisplayedGrid,SeqNoGrid,XPosition,ColumnSpan,NumLines,IsQuickEntry,IsDefaultFocus,IsAdvancedField) VALUES (1129926,'Bank Slip Contract',1120402,1132549,'Y',10,60,'N','N','N','N',0,0,'Y',TO_TIMESTAMP('2020-09-07 17:07:52','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2020-09-07 17:07:52','YYYY-MM-DD HH24:MI:SS'),100,'N','Y','LBRA','fc4a75ff-7031-4451-ab08-664ba219723c','Y',70,4,2,1,'N','N','N')
+;
+
+-- 7 de set de 2020 17:07:53 BRT
+INSERT INTO AD_Field (AD_Field_ID,Name,Description,Help,AD_Tab_ID,AD_Column_ID,IsDisplayed,DisplayLength,SeqNo,IsSameLine,IsHeading,IsFieldOnly,IsEncrypted,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,IsReadOnly,IsCentrallyMaintained,EntityType,AD_Field_UU,IsDisplayedGrid,SeqNoGrid,XPosition,ColumnSpan,NumLines,IsQuickEntry,IsDefaultFocus,IsAdvancedField) VALUES (1129927,'Bank Account','Account at the Bank','The Bank Account identifies an account at this Bank.',1120402,1132548,'Y',10,70,'N','N','N','N',0,0,'Y',TO_TIMESTAMP('2020-09-07 17:07:52','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2020-09-07 17:07:52','YYYY-MM-DD HH24:MI:SS'),100,'N','Y','LBRA','9f5bfdd2-bf21-450b-a968-a91a8a6ac9fa','Y',60,1,2,1,'N','N','N')
+;
+
+-- 7 de set de 2020 17:07:53 BRT
+INSERT INTO AD_Field (AD_Field_ID,Name,Description,Help,AD_Tab_ID,AD_Column_ID,IsDisplayed,DisplayLength,SeqNo,IsSameLine,IsHeading,IsFieldOnly,IsEncrypted,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,IsReadOnly,IsCentrallyMaintained,EntityType,AD_Field_UU,IsDisplayedGrid,SeqNoGrid,XPosition,ColumnSpan,NumLines,IsQuickEntry,IsDefaultFocus,IsAdvancedField) VALUES (1129928,'Sales Transaction','This is a Sales Transaction','The Sales Transaction checkbox indicates if this item is a Sales Transaction.',1120402,1132544,'Y',1,80,'N','N','N','N',0,0,'Y',TO_TIMESTAMP('2020-09-07 17:07:53','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2020-09-07 17:07:53','YYYY-MM-DD HH24:MI:SS'),100,'N','Y','LBRA','97ddbbcd-f338-4743-bf1e-e825fa52546a','Y',30,5,1,1,'N','N','N')
+;
+
+-- 7 de set de 2020 17:07:54 BRT
+INSERT INTO AD_Field (AD_Field_ID,Name,Description,Help,AD_Tab_ID,AD_Column_ID,IsDisplayed,DisplayLength,SeqNo,IsSameLine,IsHeading,IsFieldOnly,IsEncrypted,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,IsReadOnly,IsCentrallyMaintained,EntityType,AD_Field_UU,IsDisplayedGrid,SeqNoGrid,XPosition,ColumnSpan,NumLines,IsQuickEntry,IsDefaultFocus,IsAdvancedField) VALUES (1129929,'Processed','The document has been processed','The Processed checkbox indicates that a document has been processed.',1120402,1132551,'Y',1,90,'N','N','N','N',0,0,'Y',TO_TIMESTAMP('2020-09-07 17:07:53','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2020-09-07 17:07:53','YYYY-MM-DD HH24:MI:SS'),100,'N','Y','LBRA','4138c67b-a4fb-4968-9d9a-2986d1aa37ea','Y',90,6,1,1,'N','N','N')
+;
+
+-- 7 de set de 2020 17:07:54 BRT
+INSERT INTO AD_Field (AD_Field_ID,Name,Description,Help,AD_Tab_ID,AD_Column_ID,IsDisplayed,DisplayLength,SeqNo,IsSameLine,IsHeading,IsFieldOnly,IsEncrypted,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,IsReadOnly,IsCentrallyMaintained,EntityType,AD_Field_UU,IsDisplayedGrid,SeqNoGrid,XPosition,ColumnSpan,NumLines,IsQuickEntry,IsDefaultFocus,IsAdvancedField) VALUES (1129930,'Description','Optional short description of the record','A description is limited to 255 characters.',1120402,1132546,'Y',255,100,'N','N','N','N',0,0,'Y',TO_TIMESTAMP('2020-09-07 17:07:54','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2020-09-07 17:07:54','YYYY-MM-DD HH24:MI:SS'),100,'N','Y','LBRA','b1a762db-80e8-417a-9bb3-77b5ee69fcbd','Y',20,1,5,4,'N','N','N')
+;
+
+-- 7 de set de 2020 17:07:54 BRT
+INSERT INTO AD_Tab (AD_Tab_ID,Name,AD_Window_ID,SeqNo,IsSingleRow,AD_Table_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,HasTree,IsInfoTab,IsTranslationTab,IsReadOnly,AD_Column_ID,Processing,ImportFields,TabLevel,IsSortTab,EntityType,IsInsertRecord,IsAdvancedTab,AD_Tab_UU,TreeDisplayedOn) VALUES (1120403,'CNAB Line',1120167,20,'Y',1120697,0,0,'Y',TO_TIMESTAMP('2020-09-07 17:07:54','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2020-09-07 17:07:54','YYYY-MM-DD HH24:MI:SS'),100,'N','N','N','N',1132569,'N','N',1,'N','LBRA','Y','N','710cebe9-00b9-4791-9043-b0477a5bd1a7','B')
+;
+
+-- 7 de set de 2020 17:07:55 BRT
+INSERT INTO AD_Field (AD_Field_ID,Name,Description,Help,AD_Tab_ID,AD_Column_ID,IsDisplayed,DisplayLength,SeqNo,IsSameLine,IsHeading,IsFieldOnly,IsEncrypted,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,IsReadOnly,IsCentrallyMaintained,EntityType,AD_Field_UU,IsDisplayedGrid,SeqNoGrid,XPosition,ColumnSpan,NumLines,IsQuickEntry,IsDefaultFocus,IsAdvancedField) VALUES (1129931,'Active','The record is active in the system','There are two methods of making records unavailable in the system: One is to delete the record, the other is to de-activate the record. A de-activated record is not available for selection, but available for reports.
+There are two reasons for de-activating and not deleting records:
+(1) The system requires the record for audit purposes.
+(2) The record is referenced by other records. E.g., you cannot delete a Business Partner, if there are invoices for this partner record existing. You de-activate the Business Partner and prevent that this record is used for future entries.',1120403,1132565,'N',1,0,'N','N','N','N',0,0,'Y',TO_TIMESTAMP('2020-09-07 17:07:55','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2020-09-07 17:07:55','YYYY-MM-DD HH24:MI:SS'),100,'N','Y','LBRA','9e96ebcb-5298-4f9f-a0dc-0de6c1514a32','Y',50,1,2,1,'N','N','N')
+;
+
+-- 7 de set de 2020 17:07:55 BRT
+INSERT INTO AD_Field (AD_Field_ID,Name,AD_Tab_ID,AD_Column_ID,IsDisplayed,DisplayLength,SeqNo,IsSameLine,IsHeading,IsFieldOnly,IsEncrypted,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,IsReadOnly,IsCentrallyMaintained,EntityType,AD_Field_UU,IsDisplayedGrid,XPosition,ColumnSpan,NumLines,IsQuickEntry,IsDefaultFocus,IsAdvancedField) VALUES (1129932,'LBR_CNABFileLine_UU',1120403,1132558,'N',36,0,'N','N','N','N',0,0,'Y',TO_TIMESTAMP('2020-09-07 17:07:55','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2020-09-07 17:07:55','YYYY-MM-DD HH24:MI:SS'),100,'N','Y','LBRA','e25dae77-7586-4a69-966a-b78b462dd12b','N',1,2,1,'N','N','N')
+;
+
+-- 7 de set de 2020 17:07:56 BRT
+INSERT INTO AD_Field (AD_Field_ID,Name,AD_Tab_ID,AD_Column_ID,IsDisplayed,DisplayLength,SeqNo,IsSameLine,IsHeading,IsFieldOnly,IsEncrypted,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,IsReadOnly,IsCentrallyMaintained,EntityType,AD_Field_UU,IsDisplayedGrid,XPosition,ColumnSpan,NumLines,IsQuickEntry,IsDefaultFocus,IsAdvancedField) VALUES (1129933,'CNAB File Line',1120403,1132557,'N',10,0,'N','N','N','N',0,0,'Y',TO_TIMESTAMP('2020-09-07 17:07:55','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2020-09-07 17:07:55','YYYY-MM-DD HH24:MI:SS'),100,'N','Y','LBRA','ed07068a-eb8a-4f39-ac48-2cff94487eeb','N',1,2,1,'N','N','N')
+;
+
+-- 7 de set de 2020 17:07:56 BRT
+INSERT INTO AD_Field (AD_Field_ID,Name,Description,Help,AD_Tab_ID,AD_Column_ID,IsDisplayed,DisplayLength,SeqNo,IsSameLine,IsHeading,IsFieldOnly,IsEncrypted,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,IsReadOnly,IsCentrallyMaintained,EntityType,AD_Field_UU,IsDisplayedGrid,XPosition,ColumnSpan,NumLines,IsQuickEntry,IsDefaultFocus,IsAdvancedField) VALUES (1129934,'Client','Client/Tenant for this installation.','A Client is a company or a legal entity. You cannot share data between Clients. Tenant is a synonym for Client.',1120403,1132559,'Y',10,10,'N','N','N','N',0,0,'Y',TO_TIMESTAMP('2020-09-07 17:07:56','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2020-09-07 17:07:56','YYYY-MM-DD HH24:MI:SS'),100,'N','Y','LBRA','eee88ef5-ed98-47fb-a6c1-2f106e76d23c','N',1,2,1,'N','N','N')
+;
+
+-- 7 de set de 2020 17:07:57 BRT
+INSERT INTO AD_Field (AD_Field_ID,Name,Description,Help,AD_Tab_ID,AD_Column_ID,IsDisplayed,DisplayLength,SeqNo,IsSameLine,IsHeading,IsFieldOnly,IsEncrypted,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,IsReadOnly,IsCentrallyMaintained,EntityType,AD_Field_UU,IsAllowCopy,IsDisplayedGrid,SeqNoGrid,XPosition,ColumnSpan,NumLines,IsQuickEntry,IsDefaultFocus,IsAdvancedField) VALUES (1129935,'Organization','Organizational entity within client','An organization is a unit of your client or legal entity - examples are store, department. You can share data between organizations.',1120403,1132560,'Y',10,20,'N','N','N','N',0,0,'Y',TO_TIMESTAMP('2020-09-07 17:07:56','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2020-09-07 17:07:56','YYYY-MM-DD HH24:MI:SS'),100,'N','Y','LBRA','1c2b6731-3306-4d08-8e64-2cc71b326798','Y','Y',10,4,2,1,'N','N','N')
+;
+
+-- 7 de set de 2020 17:07:57 BRT
+INSERT INTO AD_Field (AD_Field_ID,Name,Description,Help,AD_Tab_ID,AD_Column_ID,IsDisplayed,DisplayLength,SeqNo,IsSameLine,IsHeading,IsFieldOnly,IsEncrypted,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,IsReadOnly,IsCentrallyMaintained,EntityType,AD_Field_UU,IsDisplayedGrid,SeqNoGrid,XPosition,ColumnSpan,NumLines,IsQuickEntry,IsDefaultFocus,IsAdvancedField) VALUES (1129936,'Sequence','Method of ordering records; lowest number comes first','The Sequence indicates the order of records',1120403,1132567,'Y',10,30,'N','N','N','N',0,0,'Y',TO_TIMESTAMP('2020-09-07 17:07:57','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2020-09-07 17:07:57','YYYY-MM-DD HH24:MI:SS'),100,'N','Y','LBRA','19f00870-5dca-427b-854d-a1022a08264e','Y',30,1,2,1,'N','N','N')
+;
+
+-- 7 de set de 2020 17:07:57 BRT
+INSERT INTO AD_Field (AD_Field_ID,Name,AD_Tab_ID,AD_Column_ID,IsDisplayed,DisplayLength,SeqNo,IsSameLine,IsHeading,IsFieldOnly,IsEncrypted,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,IsReadOnly,IsCentrallyMaintained,EntityType,AD_Field_UU,IsDisplayedGrid,SeqNoGrid,XPosition,ColumnSpan,NumLines,IsQuickEntry,IsDefaultFocus,IsAdvancedField) VALUES (1129937,'Bank Slip Mov',1120403,1132566,'Y',10,40,'N','N','N','N',0,0,'Y',TO_TIMESTAMP('2020-09-07 17:07:57','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2020-09-07 17:07:57','YYYY-MM-DD HH24:MI:SS'),100,'N','Y','LBRA','0c5475a0-3e65-4c61-a8b8-f3fff670e281','Y',20,4,2,1,'N','N','N')
+;
+
+-- 7 de set de 2020 17:07:58 BRT
+INSERT INTO AD_Field (AD_Field_ID,Name,Description,Help,AD_Tab_ID,AD_Column_ID,IsDisplayed,DisplayLength,SeqNo,IsSameLine,IsHeading,IsFieldOnly,IsEncrypted,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,IsReadOnly,IsCentrallyMaintained,EntityType,AD_Field_UU,IsDisplayedGrid,SeqNoGrid,XPosition,ColumnSpan,NumLines,IsQuickEntry,IsDefaultFocus,IsAdvancedField) VALUES (1129938,'Processed','The document has been processed','The Processed checkbox indicates that a document has been processed.',1120403,1132568,'Y',1,50,'N','N','N','N',0,0,'Y',TO_TIMESTAMP('2020-09-07 17:07:57','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2020-09-07 17:07:57','YYYY-MM-DD HH24:MI:SS'),100,'N','Y','LBRA','b961917a-10ed-4e1d-be45-8ea56f2e02c1','Y',40,2,2,1,'N','N','N')
+;
+
+-- 7 de set de 2020 17:07:58 BRT
+ALTER TABLE LBR_BankSlipConfig ADD CONSTRAINT LBRInterestCharge_LBRBankSlipC FOREIGN KEY (LBR_InterestCharge_ID) REFERENCES c_charge(c_charge_id) DEFERRABLE INITIALLY DEFERRED
+;
+
+-- 7 de set de 2020 17:07:58 BRT
+UPDATE AD_Column SET FKConstraintName='LBRPenaltyCharge_LBRBankSlipCo', FKConstraintType='N',Updated=TO_TIMESTAMP('2020-09-07 17:07:58','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1132469
+;
+
+-- 7 de set de 2020 17:07:58 BRT
+ALTER TABLE LBR_BankSlipConfig ADD CONSTRAINT LBRPenaltyCharge_LBRBankSlipCo FOREIGN KEY (LBR_PenaltyCharge_ID) REFERENCES c_charge(c_charge_id) DEFERRABLE INITIALLY DEFERRED
+;
+
+-- 7 de set de 2020 17:07:59 BRT
+UPDATE AD_Column SET FKConstraintName='lbrbanksliplayout_lbrbankslipc', FKConstraintType='N',Updated=TO_TIMESTAMP('2020-09-07 17:07:59','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1132329
+;
+
+-- 7 de set de 2020 17:07:59 BRT
+UPDATE AD_Column SET FKConstraintName='lbrbankslipfold_lbrbankslipcon', FKConstraintType='N',Updated=TO_TIMESTAMP('2020-09-07 17:07:59','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1132330
+;
+
+-- 7 de set de 2020 17:07:59 BRT
+UPDATE AD_Column SET FKConstraintName='lbrbankslipkind_lbrbankslipcon', FKConstraintType='N',Updated=TO_TIMESTAMP('2020-09-07 17:07:59','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1132331
+;
+
+-- 7 de set de 2020 17:08:00 BRT
+UPDATE AD_Column SET FKConstraintName='guarantorbp_lbrbankslip', FKConstraintType='N',Updated=TO_TIMESTAMP('2020-09-07 17:08:00','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1132379
+;
+
 SELECT Register_Migration_Script ('202007311011_BankSlip.sql') FROM DUAL
 ;

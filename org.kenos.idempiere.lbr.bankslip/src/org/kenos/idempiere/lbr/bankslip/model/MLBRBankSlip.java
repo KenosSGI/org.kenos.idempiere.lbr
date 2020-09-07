@@ -920,7 +920,8 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 		//	Remove movements
 		bss.stream().forEach(bs -> bs.deleteEx(true));
 		
-		return bss.get(0).delete(true);
+		// 	No movements or single register movement, allows to re-activate
+		return bss.size() == 0 ? true : (bss.size() == 1 ? bss.get(0).delete(true) : false);
 	}	//	reActivateIt
 
 	@Override
