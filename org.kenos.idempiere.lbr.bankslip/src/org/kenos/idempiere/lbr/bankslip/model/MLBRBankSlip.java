@@ -56,6 +56,8 @@ import org.jrimum.domkee.financeiro.banco.febraban.NumeroDaConta;
 import org.jrimum.domkee.financeiro.banco.febraban.Sacado;
 import org.jrimum.domkee.financeiro.banco.febraban.TipoDeTitulo;
 import org.jrimum.domkee.financeiro.banco.febraban.Titulo;
+import org.jrimum.vallia.digitoverificador.Modulo;
+import org.kenos.idempiere.lbr.bankslip.cnab.Bradesco237;
 import org.kenos.idempiere.lbr.base.model.SysConfig;
 
 /**
@@ -115,7 +117,7 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 	public static final int ESPECIE_TRIPLICATA_MERCANTIL 				= 35;
 	public static final int ESPECIE_WARRANT			 					= 36;
 	public static final int ESPECIE_OUTROS 								= 999;
-	
+		
 	/**************************************************************************
 	 *  Default Constructor
 	 *  @param Properties ctx
@@ -219,7 +221,7 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 		Titulo titulo = new Titulo(contaBancaria, sacado, beneficiario);
 		titulo.setNumeroDoDocumento(getLBR_NumberInOrg());
 		titulo.setNossoNumero(getLBR_NumberInBank());
-//		titulo.setDigitoDoNossoNumero("5");
+		titulo.setDigitoDoNossoNumero(bsi.getLBR_NumberInBankVD());
 		titulo.setValor(getGrandTotal());
 		titulo.setDataDoDocumento(getDateDoc());
 		titulo.setDataDoVencimento(getDueDate());
@@ -781,6 +783,9 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 			return DocAction.STATUS_Invalid;
 		}
 		
+		//	Set NIB VD
+		setNumberInBankVD();
+		
 		//	Model Validator
 		m_processMsg = ModelValidationEngine.get().fireDocValidate(this, ModelValidator.TIMING_AFTER_PREPARE);
 		if (m_processMsg != null)
@@ -788,6 +793,25 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 		
 		return DocAction.STATUS_InProgress;
 	}	//	prepareIt
+
+	private void setNumberInBankVD() 
+	{
+		String numberInBank = null;
+		
+		//	Bradesco
+		if (getRoutingNo().equals(String.valueOf(Bradesco237.ROUNTING_NO)))
+		{
+			numberInBank = TextUtil.lPad(bsi.getLBR_BankSlipFoldCode(), 2) + 
+					TextUtil.lPad(getLBR_NumberInBank(), 11);
+		}
+		
+		if (numberInBank == null)
+			bsi.setLBR_NumberInBankVD("0");
+		else
+		{
+			bsi.setLBR_NumberInBankVD(TextUtil.lPad (Modulo.calculeMod11(numberInBank, 2, 7), 1));
+		}
+	}	//	setNumberInBankVD
 
 	@Override
 	public boolean approveIt()

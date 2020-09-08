@@ -42,8 +42,6 @@ public class Bradesco237 implements ICNABGenerator
 	private static final String IS_ACCEPTED 	= "A";
 	private static final String NOT_ACCEPTED 	= "N";
 	
-	private static final BoletoCodigoDeBarrasDV dv = new BoletoCodigoDeBarrasDV();
-	
 	/**
 	 * 	Generate CNAB File
 	 */
@@ -175,7 +173,7 @@ public class Bradesco237 implements ICNABGenerator
 			cnab.append(lPad(0, 4));								//	PERCENTUAL
 			
 			cnab.append(lPad(bs.getLBR_NumberInBank(), 11));		//	NOSSO NÚMERO
-			cnab.append(lPad(dv.calcule(bsi.getLBR_BankSlipFoldCode() + bs.getLBR_NumberInOrg()), 1));
+			cnab.append(lPad(bsi.getLBR_NumberInBankVD(), 1));
 			
 			cnab.append(lPad(0, 10));								//	DESCONTO
 			cnab.append("2");

@@ -30,7 +30,7 @@ public class X_LBR_BankSlipInfo extends PO implements I_LBR_BankSlipInfo, I_Pers
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20200730L;
+	private static final long serialVersionUID = 20200907L;
 
     /** Standard Constructor */
     public X_LBR_BankSlipInfo (Properties ctx, int LBR_BankSlipInfo_ID, String trxName)
@@ -482,6 +482,20 @@ public class X_LBR_BankSlipInfo extends PO implements I_LBR_BankSlipInfo, I_Pers
 	public String getLBR_ManualInput () 
 	{
 		return (String)get_Value(COLUMNNAME_LBR_ManualInput);
+	}
+
+	/** Set Number In Bank Digit.
+		@param LBR_NumberInBankVD Number In Bank Digit	  */
+	public void setLBR_NumberInBankVD (String LBR_NumberInBankVD)
+	{
+		set_Value (COLUMNNAME_LBR_NumberInBankVD, LBR_NumberInBankVD);
+	}
+
+	/** Get Number In Bank Digit.
+		@return Number In Bank Digit	  */
+	public String getLBR_NumberInBankVD () 
+	{
+		return (String)get_Value(COLUMNNAME_LBR_NumberInBankVD);
 	}
 
 	/** PF - Individual = PF */

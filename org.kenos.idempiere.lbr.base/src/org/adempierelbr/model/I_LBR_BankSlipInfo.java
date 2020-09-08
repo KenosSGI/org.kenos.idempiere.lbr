@@ -351,6 +351,15 @@ public interface I_LBR_BankSlipInfo
 	/** Get Manual Input	  */
 	public String getLBR_ManualInput();
 
+    /** Column name LBR_NumberInBankVD */
+    public static final String COLUMNNAME_LBR_NumberInBankVD = "LBR_NumberInBankVD";
+
+	/** Set Number In Bank Digit	  */
+	public void setLBR_NumberInBankVD (String LBR_NumberInBankVD);
+
+	/** Get Number In Bank Digit	  */
+	public String getLBR_NumberInBankVD();
+
     /** Column name LBR_OrgBPType */
     public static final String COLUMNNAME_LBR_OrgBPType = "LBR_OrgBPType";
 
