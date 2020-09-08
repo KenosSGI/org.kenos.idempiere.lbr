@@ -73,12 +73,12 @@ public class MLBRCNABFile extends X_LBR_CNABFile
 		//	Sequence
 		if (newRecord && getSeqNo() == 0)
 		{
-			String nextSeq = null;
+			String nextSeq = "";
 			//
 			int seqFile = getLBR_BankSlipContract().getLBR_CNABFileSeq_ID();
 			if (seqFile > 0)
 			{
-				MSequence seq = new MSequence (getCtx(), seqFile, get_TrxName());
+				MSequence seq = new MSequence (getCtx(), seqFile, null);
 				
 				// Numeric Prefix
 				if (seq.getPrefix() != null && TextUtil.isNumber (seq.getPrefix())) 

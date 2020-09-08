@@ -311,7 +311,7 @@ public class GenCNAB
 		
 		IntStream.of(miniTable.getRowCount()).forEach(row -> 
 		{
-			KeyNamePair knp = (KeyNamePair) miniTable.getValueAt (row, 0);
+			KeyNamePair knp = (KeyNamePair) miniTable.getValueAt (row-1, 6);
 			MLBRBankSlipMov mov = new MLBRBankSlipMov (Env.getCtx(), knp.getKey(), trxName);
 			//
 			MLBRCNABFileLine line = new MLBRCNABFileLine (cnab, mov);
