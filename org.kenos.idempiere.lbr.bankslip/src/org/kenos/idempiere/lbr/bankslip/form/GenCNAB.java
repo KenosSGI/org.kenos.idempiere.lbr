@@ -312,9 +312,9 @@ public class GenCNAB
 			cnab.setLBR_BankSlipContract_ID(contract.getLBR_BankSlipContract_ID());
 			cnab.saveEx();
 			
-			IntStream.of(miniTable.getRowCount()).forEach(row -> 
+			IntStream.range(0, miniTable.getRowCount()).forEach(row -> 
 			{
-				KeyNamePair knp = (KeyNamePair) miniTable.getValueAt (row-1, 6);
+				KeyNamePair knp = (KeyNamePair) miniTable.getValueAt (row, 6);
 				MLBRBankSlipMov mov = new MLBRBankSlipMov (Env.getCtx(), knp.getKey(), trxName);
 				//
 				MLBRCNABFileLine line = new MLBRCNABFileLine (cnab, mov);
