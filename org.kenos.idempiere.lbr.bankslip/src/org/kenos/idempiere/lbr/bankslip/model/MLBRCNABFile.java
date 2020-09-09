@@ -86,6 +86,14 @@ public class MLBRCNABFile extends X_LBR_CNABFile implements DocAction, DocOption
 	}	//	getlbr_LegalEntity
 	
 	@Override
+	protected boolean beforeDelete()
+	{
+		//	Delete Lines
+		getLines().stream().forEach(l -> l.delete(true));
+		return true;
+	}	//	beforeDelete
+	
+	@Override
 	protected boolean beforeSave (boolean newRecord)
 	{
 		//	Sequence
