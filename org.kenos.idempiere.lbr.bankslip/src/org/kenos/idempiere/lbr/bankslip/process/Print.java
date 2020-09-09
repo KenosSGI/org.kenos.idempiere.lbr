@@ -75,6 +75,14 @@ public class Print extends SvrProcess
 		JRViewerProvider viewerLauncher = Service.locator().locate(JRViewerProvider.class).getService();
 		viewerLauncher.openViewer (jasperPrint, "Impress\u00E3o de Boletos");
 		
+//		BoletoViewer boletoViewer = new BoletoViewer (bopepos.get(0));
+//		boletoViewer.getPdfAsFile("/private/var/folders/7n/ggwktfc139z0sx5yz7t9vb0w0000gn/T/bb.pdf");
+//		
+//		AMedia media = new AMedia("Boleto.pdf", "pdf", "application/pdf", boletoViewer.getPdfAsByteArray());
+//		Filedownload.save(media);
+		
+//		Filedownload.save(boletoViewer.getPdfAsByteArray(), "application/pdf", "Boleto.pdf");
+		
 		return "@Success@";
 	}	//	doIt
 }	//	Print

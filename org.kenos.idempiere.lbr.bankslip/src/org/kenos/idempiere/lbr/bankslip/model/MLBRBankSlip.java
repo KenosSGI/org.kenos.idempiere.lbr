@@ -151,11 +151,36 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 	@Override
 	public File createPDF ()
 	{
+		return createPDF (null);
+	}	//	createPDF
+	
+	/**
+	 * 	Create the PDF file of bank slip with specific path
+	 */
+	public File createPDF (String filePath)
+	{
 		if (!BancosSuportados.isSuportado(bsi.getRoutingNo()))
 			return null;
 		//
 		BoletoViewer boletoViewer = new BoletoViewer (getBankSlip ());
-		return boletoViewer.getPdfAsFile (System.clearProperty("java.io.tmpdir") + File.pathSeparator + getDocumentNo() + ".pdf");
+		File tempFile;
+		
+		try
+		{
+			tempFile = File.createTempFile("Boleto", ".pdf", new File (filePath));
+			tempFile.delete();	//	Will be created later on
+			return boletoViewer.getPdfAsFile (tempFile);
+			
+//			JasperViewer viewer = new JasperViewer();
+//			JasperPrint jasperPrint = viewer.getJasperPrint(List.of(getBankSlip ()));
+//			JasperExportManager.exportReportToPdfFile(jasperPrint, tempFile.toString());
+//			return tempFile;
+		} 
+		catch (Exception e)
+		{
+			e.printStackTrace();
+			return null;
+		}
 	}	//	createPDF
 
 	/**
@@ -216,7 +241,7 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 		ContaBancaria contaBancaria = new ContaBancaria(banco);
 		contaBancaria.setNumeroDaConta(new NumeroDaConta(Integer.valueOf (bsi.getAccountNo()), bsi.getLBR_BankAccountVD()));
 		contaBancaria.setCarteira(new Carteira(Integer.valueOf(bsi.getLBR_BankSlipFoldCode())));
-		contaBancaria.setAgencia(new Agencia(Integer.valueOf(bsi.getlbr_AgencyNo())));
+		contaBancaria.setAgencia(new Agencia(bsi.getAgency(), bsi.getLBR_BankAgencyVD()));
 		
 		Titulo titulo = new Titulo(contaBancaria, sacado, beneficiario);
 		titulo.setNumeroDoDocumento(getLBR_NumberInOrg());
@@ -625,6 +650,10 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 			changed = true;
 		}
 		
+		if (newRecord || is_ValueChanged(COLUMNNAME_LBR_NumberInBank))
+			//	Set NIB VD
+			setNumberInBankVD();
+		
 		if (is_ValueChanged(COLUMNNAME_DateDoc) || is_ValueChanged(COLUMNNAME_DueDate) 
 				|| is_ValueChanged(COLUMNNAME_LBR_NumberInBank) || is_ValueChanged(COLUMNNAME_LBR_NumberInOrg) 
 				|| is_ValueChanged(COLUMNNAME_LBR_IsAccepted) || is_ValueChanged(COLUMNNAME_LBR_IssueType) 
@@ -737,7 +766,7 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 				bsi.getlbr_CNPJ() == null 			|| bsi.getlbr_CNPJ().isBlank() ||
 				bsi.getLBR_OrgBPType() == null 		|| bsi.getLBR_OrgBPType().isBlank())
 		{
-			m_processMsg = "Dados da Parceiro/Pagador incompletos";
+			m_processMsg = "Dados da Organização/Beneficiário incompletos";
 			return DocAction.STATUS_Invalid;
 		}
 		
@@ -752,7 +781,7 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 				bsi.getlbr_BPCNPJ() == null 		|| bsi.getlbr_BPCNPJ().isBlank() ||
 				bsi.getlbr_BPTypeBR() == null 		|| bsi.getlbr_BPTypeBR().isBlank())
 		{
-			m_processMsg = "Dados da Organização/Beneficiário incompletos";
+			m_processMsg = "Dados da Parceiro/Pagador incompletos";
 			return DocAction.STATUS_Invalid;
 		}
 		
@@ -783,9 +812,6 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 			return DocAction.STATUS_Invalid;
 		}
 		
-		//	Set NIB VD
-		setNumberInBankVD();
-		
 		//	Model Validator
 		m_processMsg = ModelValidationEngine.get().fireDocValidate(this, ModelValidator.TIMING_AFTER_PREPARE);
 		if (m_processMsg != null)
@@ -796,7 +822,7 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 
 	private void setNumberInBankVD() 
 	{
-		String numberInBank = null;
+		String numberInBank = getLBR_NumberInBank();
 		
 		//	Bradesco
 		if (getRoutingNo().equals(String.valueOf(Bradesco237.ROUNTING_NO)))
@@ -892,7 +918,14 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 	@Override
 	public boolean voidIt()
 	{
-		return false;
+		//	Same validations as re-activate
+		if (!reActivateIt())
+			return false;
+		
+		setProcessed(true);
+		setDocAction(DOCACTION_None);
+		
+		return true;
 	}	//	voidIt
 
 	@Override
@@ -904,13 +937,13 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 	@Override
 	public boolean reverseCorrectIt()
 	{
-		return false;
+		return voidIt();
 	}	//	reverseCorrectIt
 
 	@Override
 	public boolean reverseAccrualIt()
 	{
-		return false;
+		return voidIt();
 	}	//	reverseAccrualIt
 
 	/**
@@ -991,8 +1024,9 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 	 * @param LBR_BankSlipContract_ID
 	 * @param trx
 	 * @return
+	 * @throws Exception 
 	 */
-	public static List<File> generateFromInvoice (Properties ctx, int C_Invoice_ID, int C_InvoicePaySchedule_ID, Integer LBR_BankSlipContract_ID, String trxName)
+	public static List<File> generateFromInvoice (Properties ctx, int C_Invoice_ID, int C_InvoicePaySchedule_ID, Integer LBR_BankSlipContract_ID, String filePath, String trxName) throws Exception
 	{
 		List<File> files = new ArrayList<File> ();
 		
@@ -1022,11 +1056,17 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 			bs.save();
 			
 			//	Process document
-			bs.setDocStatus(bs.completeIt());
-			bs.save();
-			
-			//	Add to PDF
-			files.add(bs.createPDF());
+			if (MLBRBankSlip.DOCSTATUS_InProgress.equals(bs.prepareIt()))
+			{
+				bs.setDocStatus(bs.completeIt());
+				bs.save();
+				
+				if (MLBRBankSlip.DOCSTATUS_Completed.equals(bs.getDocStatus()))
+					//	Add to PDF
+					files.add(bs.createPDF(filePath));
+			}
+			else 
+				throw new Exception ("Erro ao processar o boleto da fatura [ " + oi.getC_Invoice_ID() + " ] - " + bs.getProcessMsg());
 		}
 		
 		return files;

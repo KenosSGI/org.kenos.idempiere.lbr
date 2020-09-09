@@ -80,4 +80,19 @@ public class MLBRBankSlipInfo extends X_LBR_BankSlipInfo
 		//	Remove special chars
 		return TextUtil.retiraEspecial (address.toString().trim().toUpperCase());
 	}	//	getAddress
+	
+	/**
+	 * 	Agency number
+	 * 	@return
+	 */
+	public int getAgency ()
+	{
+		try
+		{
+			return Integer.valueOf(getlbr_AgencyNo());
+		}
+		catch (Exception e) {}
+		
+		return 0;
+	}	//	getAgency
 }	//	MLBRBankSlipInfo

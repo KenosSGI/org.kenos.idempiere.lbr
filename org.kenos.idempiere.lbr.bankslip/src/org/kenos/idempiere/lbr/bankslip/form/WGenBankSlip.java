@@ -14,9 +14,10 @@
 package org.kenos.idempiere.lbr.bankslip.form;
 
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.logging.Level;
 
 import org.adempiere.pipo2.Zipper;
@@ -44,7 +45,6 @@ import org.adempiere.webui.panel.CustomForm;
 import org.adempiere.webui.panel.IFormController;
 import org.adempiere.webui.session.SessionManager;
 import org.adempiere.webui.window.FDialog;
-import org.adempierelbr.util.TextUtil;
 import org.apache.commons.io.FileUtils;
 import org.compiere.model.MBankAccount;
 import org.compiere.process.ProcessInfo;
@@ -369,25 +369,16 @@ public class WGenBankSlip extends GenBankSlip
 		if (m_noSelected == 0)
 			return;
 		
-		System.out.println(System.getProperty("java.io.tmpdir"));
-		String filePath = System.getProperty("java.io.tmpdir") + File.separator + "Boletos_" + TextUtil.timeToString(new Date(), "yyyyMMdd");
-		String fileName = filePath + ".zip";
-		File folder = new File (filePath);
-		if (!folder.exists())
-			folder.mkdirs();
-		//
-		deleteDir(folder);
-		
-		exportBilling (miniTable, filePath, (KeyNamePair) fieldBankAccount.getSelectedItem().getValue());
-		
-		File zipFile = new File(fileName);
-		if (zipFile.exists())
-			zipFile.delete();
-		//
-		Zipper.zipFolder (folder, zipFile, "**");
-		
 		try
 		{
+			Path path = Files.createTempDirectory("Boleto");
+			
+			exportBilling (miniTable, path.toString(), (KeyNamePair) fieldBankAccount.getSelectedItem().getValue());
+			
+			File zipFile = File.createTempFile("Boletos", ".zip");
+			zipFile.delete();
+			//
+			Zipper.zipFolder (path.toFile(), zipFile, "**");
 			AMedia media = new AMedia(zipFile.getName(), null, null, FileUtils.readFileToByteArray(zipFile));
 			Filedownload.save(media);
 		}

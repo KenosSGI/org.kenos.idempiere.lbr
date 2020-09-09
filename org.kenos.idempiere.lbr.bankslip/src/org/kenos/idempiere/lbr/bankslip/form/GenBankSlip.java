@@ -234,7 +234,8 @@ public class GenBankSlip
 			"i.IsSOTrx=? AND i.IsPaid='N'"
 			+ " AND (i.lbr_PaymentRule IS NULL OR i.lbr_PaymentRule='B' OR i.lbr_PaymentRule='15')"
 			+ " AND i.DocStatus IN ('CO','CL')"
-			+ " AND i.AD_Client_ID=?",	//	additional where & order in loadTableInfo()
+			+ " AND i.AD_Client_ID=?"
+			+ " AND NOT EXISTS (SELECT 1 FROM LBR_BankSlip bs WHERE bs.C_Invoice_ID=i.C_Invoice_ID AND bs.DocStatus IN ('DR', 'CL', 'CO'))",
 			true, "i");
 	}   //  dynInit
 
@@ -360,7 +361,7 @@ public class GenBankSlip
 				try
 				{
 //					MLBRBoleto.generateBoleto (Env.getCtx(), C_Invoice_ID, bi.getKey(), null, printerName, trxName);
-					MLBRBankSlip.generateFromInvoice(Env.getCtx(), C_Invoice_ID, 0, 0, trxName);
+					MLBRBankSlip.generateFromInvoice(Env.getCtx(), C_Invoice_ID, 0, 0, null, trxName);
 					Trx.get (trxName, false).commit ();
 				}
 				catch (Exception e)
@@ -400,7 +401,7 @@ public class GenBankSlip
 
 				try
 				{
-					files.addAll (MLBRBankSlip.generateFromInvoice (Env.getCtx(), C_Invoice_ID, 0, bi.getKey(), trxName));
+					files.addAll (MLBRBankSlip.generateFromInvoice (Env.getCtx(), C_Invoice_ID, 0, bi.getKey(), filePath, trxName));
 				}
 				catch (Exception e)
 				{
