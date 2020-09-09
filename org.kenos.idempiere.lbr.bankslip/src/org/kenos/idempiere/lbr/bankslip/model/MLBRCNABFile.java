@@ -1,27 +1,44 @@
 package org.kenos.idempiere.lbr.bankslip.model;
 
+import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.util.List;
 import java.util.Properties;
 
+import org.adempiere.base.Service;
+import org.adempierelbr.model.I_LBR_BankSlipLayout;
 import org.adempierelbr.model.X_LBR_CNABFile;
 import org.adempierelbr.util.TextUtil;
 import org.adempierelbr.wrapper.I_W_AD_OrgInfo;
+import org.compiere.model.MAttachment;
 import org.compiere.model.MOrgInfo;
 import org.compiere.model.MSequence;
+import org.compiere.model.ModelValidationEngine;
+import org.compiere.model.ModelValidator;
 import org.compiere.model.Query;
+import org.compiere.process.DocAction;
+import org.compiere.process.DocOptions;
+import org.compiere.process.DocumentEngine;
 import org.compiere.util.DB;
+import org.compiere.util.Env;
+import org.kenos.idempiere.lbr.bankslip.ICNABFactory;
+import org.kenos.idempiere.lbr.bankslip.ICNABGenerator;
 
 /**
  * 	CNAB File
  * 	@author Ricardo Santana
  */
-public class MLBRCNABFile extends X_LBR_CNABFile
+public class MLBRCNABFile extends X_LBR_CNABFile implements DocAction, DocOptions
 {
 	/**
 	 * 	Serial
 	 */
 	private static final long serialVersionUID = 1826027754620508514L;
+
+	/**	CNAB Generator Handler */
+	ICNABGenerator handler = null;
 
 	/**************************************************************************
 	 *  Default Constructor
@@ -53,7 +70,8 @@ public class MLBRCNABFile extends X_LBR_CNABFile
 	{
 		return new Query(p_ctx, MLBRCNABFileLine.Table_Name, MLBRCNABFileLine.COLUMNNAME_LBR_CNABFile_ID + "=?", get_TrxName())
 				.setParameters(getLBR_CNABFile_ID())
-				.firstOnly();
+				.setOrderBy(MLBRCNABFileLine.COLUMNNAME_SeqNo)
+				.list();
 	}	//	getLines
 
 	/**
@@ -110,4 +128,226 @@ public class MLBRCNABFile extends X_LBR_CNABFile
 		}
 		return super.beforeSave(newRecord);
 	}
+	
+	@Override
+	public File createPDF ()
+	{
+		return null;
+	}	//	createPDF
+	
+	@Override
+	public String getDocumentNo ()
+	{
+		return TextUtil.lPad(getRoutingNo(), 3) + "_" + TextUtil.timeToString(getDateDoc(), "YYYYMMDD") + "_" + getSeqNo();
+	}	//	getDocumentNo
+
+	@Override
+	public int customizeValidActions(String docStatus, Object processing, 
+			String orderType, String isSOTrx, int AD_Table_ID, String[] docAction,
+			String[] options, int index)
+	{
+		options[0] = null;
+		options[1] = null;
+		options[2] = null;
+		options[3] = null;
+		options[4] = null;
+		
+		if (DocAction.STATUS_Invalid.equals(docStatus))
+		{
+			options[0] = DocAction.ACTION_Prepare;
+			options[1] = DocAction.ACTION_Void;
+			index=2;
+		}
+		else if (DocAction.STATUS_InProgress.equals(docStatus))
+		{
+			options[0] = DocAction.ACTION_Complete;
+			options[1] = DocAction.ACTION_Void;
+			index=2;
+		}
+		else if (DocAction.STATUS_Drafted.equals(docStatus))
+		{
+			options[0] = DocAction.ACTION_Prepare;
+			options[1] = DocAction.ACTION_Complete;
+			index=2;
+		}
+		else if (DocAction.STATUS_Completed.equals(docStatus))
+		{
+			options[0] = DocAction.ACTION_Void;
+			options[1] = DocAction.ACTION_ReActivate;
+			index=2;
+		}
+		//
+		return index;
+	}
+
+	@Override
+	public boolean processIt(String processAction) throws Exception
+	{
+		m_processMsg = null;
+		DocumentEngine engine = new DocumentEngine (this, getDocStatus());
+		return engine.processIt (processAction, getDocAction());
+	}	//	processIt
+	
+	/**	Process Message 			*/
+	private String		m_processMsg = null;
+
+	@Override
+	public boolean unlockIt()
+	{
+		return false;
+	}	//	unlockIt
+
+	@Override
+	public boolean invalidateIt()
+	{
+		return false;
+	}	//	invalidateIt
+
+	@Override
+	public String prepareIt()
+	{
+		//	Model Validator
+		m_processMsg = ModelValidationEngine.get().fireDocValidate(this, ModelValidator.TIMING_BEFORE_PREPARE);
+		if (m_processMsg != null)
+			return DocAction.STATUS_Invalid;
+		
+		I_LBR_BankSlipLayout layout = getLBR_BankSlipContract().getLBR_BankSlipLayout();
+
+		//	Locate a handler to generate CNAB file
+		if (handler == null)
+		{
+			List<ICNABFactory> list = Service.locator ().list (ICNABFactory.class).getServices();
+			for (ICNABFactory cnabFactory : list)
+			{
+				handler = cnabFactory.getCNABGenerator(Integer.valueOf(getRoutingNo()), layout.getType());
+				if (handler != null)
+					break;
+			}
+		}
+		
+		//	Unable to find a handler
+		if (handler == null)
+		{
+			m_processMsg = "Unable to find a handler to bank [" + getRoutingNo() + "]  and layout [" + layout.getName() + "]";
+			return DocAction.STATUS_Invalid;		
+		}
+		
+		//	Model Validator
+		m_processMsg = ModelValidationEngine.get().fireDocValidate(this, ModelValidator.TIMING_AFTER_PREPARE);
+		if (m_processMsg != null)
+			return DocAction.STATUS_Invalid;
+		
+		return DocAction.STATUS_InProgress;
+	}	//	prepareIt
+
+	@Override
+	public boolean approveIt()
+	{
+		return false;
+	}	//	approveIt
+
+	@Override
+	public boolean rejectIt()
+	{
+		return false;
+	}	//	rejectIt
+
+	@Override
+	public String completeIt()
+	{
+		String cnabFileName = getRoutingNo() + "_" +  
+					getlbr_AgencyNo() + "_" + 
+					getAccountNo() + "_" + 
+					TextUtil.timeToString(getDateDoc(), "yyyyMMdd") + ".REM";
+		StringBuilder cnabFileContent = handler.generateCNABFile (this);
+		
+		try 
+		{
+			if (getAttachment (true) != null)
+				getAttachment ().delete (true);
+			
+			getAttachment(true);	//	FIX
+			MAttachment attachCNAB = createAttachment();
+			attachCNAB.addEntry(cnabFileName, cnabFileContent.toString().getBytes("UTF-8"));
+			attachCNAB.save();
+		} 
+		catch (UnsupportedEncodingException e)
+		{
+			e.printStackTrace();
+			m_processMsg = "Erro ao gerar o arquivo";
+			return DOCSTATUS_Invalid;
+		}
+		
+		setProcessed(true);
+		
+		return DOCSTATUS_Completed;
+	}	//	completeIt
+
+	@Override
+	public boolean voidIt()
+	{
+		
+		return false;
+	}	//	voidIt
+
+	@Override
+	public boolean closeIt()
+	{
+		return false;
+	}	//	closeIt
+
+	@Override
+	public boolean reverseCorrectIt()
+	{
+		return false;
+	}	//	reverseCorrectIt
+
+	@Override
+	public boolean reverseAccrualIt()
+	{
+		return false;
+	}	//	reverseAccrualIt
+	
+	@Override
+	public boolean reActivateIt()
+	{
+		setProcessed(false);
+		return true;
+	}	//	reActivateIt
+
+	@Override
+	public String getSummary()
+	{
+		return null;
+	}	//	getSummary
+
+	@Override
+	public String getDocumentInfo()
+	{
+		return null;
+	}	//	getDocumentInfo
+
+	@Override
+	public String getProcessMsg()
+	{
+		return m_processMsg;
+	}	//	getProcessMsg
+
+	@Override
+	public int getDoc_User_ID()
+	{
+		return 0;
+	}	//	getDoc_User_ID
+
+	@Override
+	public int getC_Currency_ID()
+	{
+		return 297;
+	}	//	getC_Currency_ID
+
+	@Override
+	public BigDecimal getApprovalAmt()
+	{
+		return Env.ZERO;
+	}	//	getApprovalAmt
 }	//	MLBRCNABFile

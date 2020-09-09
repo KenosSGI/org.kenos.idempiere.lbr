@@ -32,7 +32,7 @@ public interface I_LBR_CNABFile
     /** TableName=LBR_CNABFile */
     public static final String Table_Name = "LBR_CNABFile";
 
-    /** AD_Table_ID=1120669 */
+    /** AD_Table_ID=1120696 */
     public static final int Table_ID = MTable.getTable_ID(Table_Name);
 
     KeyNamePair Model = new KeyNamePair(Table_ID, Table_Name);
@@ -148,6 +148,32 @@ public interface I_LBR_CNABFile
 	  * Optional short description of the record
 	  */
 	public String getDescription();
+
+    /** Column name DocAction */
+    public static final String COLUMNNAME_DocAction = "DocAction";
+
+	/** Set Document Action.
+	  * The targeted status of the document
+	  */
+	public void setDocAction (String DocAction);
+
+	/** Get Document Action.
+	  * The targeted status of the document
+	  */
+	public String getDocAction();
+
+    /** Column name DocStatus */
+    public static final String COLUMNNAME_DocStatus = "DocStatus";
+
+	/** Set Document Status.
+	  * The current status of the document
+	  */
+	public void setDocStatus (String DocStatus);
+
+	/** Get Document Status.
+	  * The current status of the document
+	  */
+	public String getDocStatus();
 
     /** Column name IsActive */
     public static final String COLUMNNAME_IsActive = "IsActive";

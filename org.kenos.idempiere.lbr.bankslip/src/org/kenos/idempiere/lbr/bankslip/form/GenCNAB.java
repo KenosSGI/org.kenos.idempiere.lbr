@@ -217,7 +217,8 @@ public class GenCNAB
 			+ " LEFT JOIN LBR_BankSlipOccur oc ON (oc.LBR_BankSlipOccur_ID=mov.LBR_BankSlipOccur_ID) ",
 			//	WHERE
 			"bs.IsCancelled='N' "
-			+ " AND bs.LBR_BankSlipContract_ID=?",
+			+ " AND bs.LBR_BankSlipContract_ID=? "
+			+ " AND NOT EXISTS (SELECT 1 FROM LBR_CNABFileLine l WHERE l.LBR_BankSlipMov_ID=mov.LBR_BankSlipMov_ID)",
 			true, "mov");
 	}   //  dynInit
 
@@ -289,34 +290,50 @@ public class GenCNAB
 		Trx trx = Trx.get(Trx.createTrxName("CNAB"), true);
 		String trxName = trx.getTrxName();
 		
-		//  Create Lines
-		MLBRBankAccount bankAcc = new MLBRBankAccount (Env.getCtx(), ba.getKey(), null);
-		MLBRBankSlipContract contract = new MLBRBankSlipContract (Env.getCtx(), bc.getKey(), null);
-		MBank bank = bankAcc.getBank();
-		
-		//	CNAB
-		MLBRCNABFile cnab = new MLBRCNABFile (Env.getCtx(), 0, trxName);
-		cnab.setDateDoc(new Timestamp (System.currentTimeMillis()));
-		cnab.setRoutingNo(bank.getRoutingNo());
-		cnab.setlbr_AgencyNo(bankAcc.getAgencyNo());
-		cnab.setLBR_BankAgencyVD(bankAcc.getAgencyVD());
-		cnab.setAccountNo(bankAcc.getAccountNoWOVD());
-		cnab.setLBR_BankAccountVD(bankAcc.getAccountVD());
-		cnab.setAD_Org_ID(bankAcc.getAD_Org_ID());
-		cnab.setC_BankAccount_ID(bankAcc.getC_BankAccount_ID());
-		cnab.setC_Bank_ID(bank.getC_Bank_ID());
-		cnab.setIsSOTrx(true);
-		cnab.setLBR_BankSlipContract_ID(contract.getLBR_BankSlipContract_ID());
-		cnab.saveEx();
-		
-		IntStream.of(miniTable.getRowCount()).forEach(row -> 
+		try
 		{
-			KeyNamePair knp = (KeyNamePair) miniTable.getValueAt (row-1, 6);
-			MLBRBankSlipMov mov = new MLBRBankSlipMov (Env.getCtx(), knp.getKey(), trxName);
-			//
-			MLBRCNABFileLine line = new MLBRCNABFileLine (cnab, mov);
-			line.saveEx();
-		});
+			//  Create Lines
+			MLBRBankAccount bankAcc = new MLBRBankAccount (Env.getCtx(), ba.getKey(), null);
+			MLBRBankSlipContract contract = new MLBRBankSlipContract (Env.getCtx(), bc.getKey(), null);
+			MBank bank = bankAcc.getBank();
+			
+			//	CNAB
+			MLBRCNABFile cnab = new MLBRCNABFile (Env.getCtx(), 0, trxName);
+			cnab.setDateDoc(new Timestamp (System.currentTimeMillis()));
+			cnab.setRoutingNo(bank.getRoutingNo());
+			cnab.setlbr_AgencyNo(bankAcc.getAgencyNo());
+			cnab.setLBR_BankAgencyVD(bankAcc.getAgencyVD());
+			cnab.setAccountNo(bankAcc.getAccountNoWOVD());
+			cnab.setLBR_BankAccountVD(bankAcc.getAccountVD());
+			cnab.setAD_Org_ID(bankAcc.getAD_Org_ID());
+			cnab.setC_BankAccount_ID(bankAcc.getC_BankAccount_ID());
+			cnab.setC_Bank_ID(bank.getC_Bank_ID());
+			cnab.setIsSOTrx(true);
+			cnab.setLBR_BankSlipContract_ID(contract.getLBR_BankSlipContract_ID());
+			cnab.saveEx();
+			
+			IntStream.of(miniTable.getRowCount()).forEach(row -> 
+			{
+				KeyNamePair knp = (KeyNamePair) miniTable.getValueAt (row-1, 6);
+				MLBRBankSlipMov mov = new MLBRBankSlipMov (Env.getCtx(), knp.getKey(), trxName);
+				//
+				MLBRCNABFileLine line = new MLBRCNABFileLine (cnab, mov);
+				line.saveEx();
+			});
+			
+			//	Everything OK
+			trx.commit();
+		}
+		catch (Exception e)
+		{
+			//	Rollback
+			trx.rollback();
+		}
+		finally
+		{
+			//	Close
+			trx.close();
+		}
 	}   //  genCNAB
 	
 	/**

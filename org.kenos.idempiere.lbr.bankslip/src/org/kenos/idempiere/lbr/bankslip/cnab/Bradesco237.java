@@ -9,11 +9,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import org.adempierelbr.util.TextUtil;
 import org.compiere.util.Env;
-import org.jrimum.vallia.digitoverificador.BoletoCodigoDeBarrasDV;
 import org.kenos.idempiere.lbr.bankslip.ICNABGenerator;
 import org.kenos.idempiere.lbr.bankslip.model.MLBRBankSlip;
 import org.kenos.idempiere.lbr.bankslip.model.MLBRBankSlipInfo;
-import org.kenos.idempiere.lbr.bankslip.model.MLBRBankSlipMov;
 import org.kenos.idempiere.lbr.bankslip.model.MLBRCNABFile;
 
 /**
@@ -28,11 +26,11 @@ public class Bradesco237 implements ICNABGenerator
 	/**	Bank Name			*/
 	private static final String BANK_NAME = "BRADESCO";
 	
-	/** Org BP Type				*/
-	private static final String BPTYPE_CPF_BENEFICIARIO 		= "01";
-	private static final String BPTYPE_CNPJ_BENEFICIARIO 		= "02";
-	private static final String BPTYPE_CPF_SACADOR_AVALISTA 	= "03";
-	private static final String BPTYPE_CNPJ_SACADOR_AVALISTA 	= "04";
+//	/** Org BP Type				*/
+//	private static final String BPTYPE_CPF_BENEFICIARIO 		= "01";
+//	private static final String BPTYPE_CNPJ_BENEFICIARIO 		= "02";
+//	private static final String BPTYPE_CPF_SACADOR_AVALISTA 	= "03";
+//	private static final String BPTYPE_CNPJ_SACADOR_AVALISTA 	= "04";
 	
 	/** Payer BP Type				*/
 	private static final String BPTYPE_CPF_PAGADOR 		= "01";
@@ -74,26 +72,26 @@ public class Bradesco237 implements ICNABGenerator
 		//	Movements
 		cnabFile.getLines().stream().forEach(line ->
 		{
-			MLBRBankSlipMov mov 	= line.getMovement();
+//			MLBRBankSlipMov mov 	= line.getMovement();
 			MLBRBankSlip bs 		= line.getBankSlip();
 			MLBRBankSlipInfo bsi 	= line.getBankSlipInfo();
 			//
 			cnab.append(rPad(CNAB_REG_TYPE_DETAIL, 1));			//	TIPO DE REGISTRO
 			
-			String orgBPTypeBR = BPTYPE_CNPJ_BENEFICIARIO;
-			String orgCNPJF = bsi.getlbr_CNPJ();
-			//
-			if (bs.getGuarantorBP_ID() > 0)
-			{
-				if (MLBRBankSlipInfo.LBR_GUARANTORBPTYPE_PJ_LegalEntity.equals(bsi.getLBR_GuarantorBPType()))
-					orgBPTypeBR = BPTYPE_CNPJ_SACADOR_AVALISTA;
-				else if (MLBRBankSlipInfo.LBR_GUARANTORBPTYPE_PF_Individual.equals(bsi.getLBR_GuarantorBPType()))
-					orgBPTypeBR = BPTYPE_CPF_SACADOR_AVALISTA;
-				//
-				orgCNPJF = bsi.getLBR_GuarantorCNPJ();	//	CPF and CNPJ
-			}
-			else if (MLBRBankSlipInfo.LBR_ORGBPTYPE_PF_Individual.equals(bsi.getLBR_OrgBPType()))
-				orgBPTypeBR = BPTYPE_CPF_BENEFICIARIO;
+//			String orgBPTypeBR = BPTYPE_CNPJ_BENEFICIARIO;
+//			String orgCNPJF = bsi.getlbr_CNPJ();
+//			//
+//			if (bs.getGuarantorBP_ID() > 0)
+//			{
+//				if (MLBRBankSlipInfo.LBR_GUARANTORBPTYPE_PJ_LegalEntity.equals(bsi.getLBR_GuarantorBPType()))
+//					orgBPTypeBR = BPTYPE_CNPJ_SACADOR_AVALISTA;
+//				else if (MLBRBankSlipInfo.LBR_GUARANTORBPTYPE_PF_Individual.equals(bsi.getLBR_GuarantorBPType()))
+//					orgBPTypeBR = BPTYPE_CPF_SACADOR_AVALISTA;
+//				//
+//				orgCNPJF = bsi.getLBR_GuarantorCNPJ();	//	CPF and CNPJ
+//			}
+//			else if (MLBRBankSlipInfo.LBR_ORGBPTYPE_PF_Individual.equals(bsi.getLBR_OrgBPType()))
+//				orgBPTypeBR = BPTYPE_CPF_BENEFICIARIO;
 
 			//	Aceite
 			String accepted = NOT_ACCEPTED;
@@ -182,8 +180,7 @@ public class Bradesco237 implements ICNABGenerator
 			cnab.append(rPad(null, 1));								//	BRANCOS
 			cnab.append(lPad("2", 1));								//	BRANCOS
 			cnab.append(rPad(null, 2));								//	BRANCOS
-			cnab.append(lPad("01", 2));								//	BRANCOS
-			cnab.append(rPad(null, 10));							//	BRANCOS
+			cnab.append(lPad(line.getMovement().getValue(), 2));	//	IDENT. DA OCORRÊNCIA
 
 			cnab.append(rPad(bs.getLBR_NumberInOrg(), 10));
 			cnab.append(lPad(timeToString(bs.getDueDate()), 6));	//	DATA DE VENCIMENTO
@@ -191,7 +188,7 @@ public class Bradesco237 implements ICNABGenerator
 			cnab.append(lPad(0, 3));								//	ZERO
 			cnab.append(lPad(0, 5));								//	ZERO
 
-			cnab.append(rPad(convertKind (bsi.getLBR_BankSlipKindValue()), 2));	//	ESPÉCIE
+			cnab.append(rPad(convertKind (bsi.getLBR_BankSlipKindCode()), 2));	//	ESPÉCIE
 			cnab.append(rPad(accepted, 1));							//	ACEITE
 			cnab.append(lPad(timeToString(bs.getDateDoc()), 6));	//	DATA DE EMISSÃO
 			
@@ -210,6 +207,7 @@ public class Bradesco237 implements ICNABGenerator
 			cnab.append(lPad(bsi.getlbr_BPPostal(), 8));			//	CEP
 			cnab.append(rPad("", 60));								//	2A MENSAGEM
 			cnab.append(lPad(count.getAndIncrement(), 6));			//	NÚMERO SEQÜENCIAL
+			cnab.append(CR).append(LF);
 		});
 		
 		//	Footer

@@ -2,6 +2,7 @@ package org.kenos.idempiere.lbr.bankslip;
 
 import org.kenos.idempiere.lbr.bankslip.cnab.Bradesco237;
 import org.kenos.idempiere.lbr.bankslip.cnab.Itau341;
+import org.kenos.idempiere.lbr.bankslip.model.MLBRBankSlipLayout;
 
 /**
  * 		Factory for CNAB
@@ -11,15 +12,18 @@ import org.kenos.idempiere.lbr.bankslip.cnab.Itau341;
  */
 public class DefaultCNABFactory implements ICNABFactory
 {
-
 	@Override
 	public ICNABGenerator getCNABGenerator (int RoutingNo, String CNABType)
 	{
-		if (Bradesco237.ROUNTING_NO == RoutingNo)
-			return new Bradesco237();
-		
-		if (Itau341.ROUNTING_NO == RoutingNo)
-			return new Itau341();
+		//	CNAB 400 only
+		if (MLBRBankSlipLayout.TYPE_CNAB400.equals(CNABType))
+		{
+			if (Bradesco237.ROUNTING_NO == RoutingNo)
+				return new Bradesco237();
+			
+			if (Itau341.ROUNTING_NO == RoutingNo)
+				return new Itau341();
+		}
 		return null;
 	}	//	getCNABGenerator
 }	//	FormFactory

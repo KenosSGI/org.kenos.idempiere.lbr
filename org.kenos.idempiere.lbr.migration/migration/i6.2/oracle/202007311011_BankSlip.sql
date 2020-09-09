@@ -5735,5 +5735,157 @@ UPDATE AD_Field SET SeqNo=550, AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, 
 UPDATE AD_Field SET SeqNo=560, AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, IsToolbarButton=NULL,Updated=TO_DATE('2020-09-07 19:50:47','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1129767
 ;
 
+-- 8 de set de 2020 11:13:15 BRT
+INSERT INTO AD_Column (AD_Column_ID,Version,Name,Description,Help,AD_Table_ID,ColumnName,DefaultValue,FieldLength,IsKey,IsParent,IsMandatory,IsTranslated,IsIdentifier,SeqNo,IsEncrypted,AD_Reference_ID,AD_Reference_Value_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Element_ID,IsUpdateable,IsSelectionColumn,EntityType,IsSyncDatabase,IsAlwaysUpdateable,IsAutocomplete,IsAllowLogging,AD_Column_UU,IsAllowCopy,SeqNoSelection,IsToolbarButton,IsSecure,IsHtml) VALUES (1132572,0,'Document Status','The current status of the document','The Document Status indicates the status of a document at this time.  If you want to change the document status, use the Document Action field',1120696,'DocStatus','DR',2,'N','N','N','N','N',0,'N',17,131,0,0,'Y',TO_DATE('2020-09-08 11:13:14','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2020-09-08 11:13:14','YYYY-MM-DD HH24:MI:SS'),100,289,'Y','N','LBRA','N','N','N','Y','7eff0dd5-81e9-401d-bacc-93a480e3f161','Y',0,'N','N','N')
+;
+
+-- 8 de set de 2020 11:13:18 BRT
+ALTER TABLE LBR_CNABFile ADD DocStatus VARCHAR2(2) DEFAULT 'DR'
+;
+
+-- 8 de set de 2020 11:13:28 BRT
+INSERT INTO AD_Column (AD_Column_ID,Version,Name,Description,Help,AD_Table_ID,ColumnName,DefaultValue,FieldLength,IsKey,IsParent,IsMandatory,IsTranslated,IsIdentifier,SeqNo,IsEncrypted,AD_Reference_ID,AD_Reference_Value_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Element_ID,IsUpdateable,IsSelectionColumn,EntityType,IsSyncDatabase,IsAlwaysUpdateable,IsAutocomplete,IsAllowLogging,AD_Column_UU,IsAllowCopy,SeqNoSelection,IsToolbarButton,IsSecure,IsHtml) VALUES (1132573,0,'Document Action','The targeted status of the document','You find the current status in the Document Status field. The options are listed in a popup',1120696,'DocAction','CO',2,'N','N','N','N','N',0,'N',28,135,0,0,'Y',TO_DATE('2020-09-08 11:13:28','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2020-09-08 11:13:28','YYYY-MM-DD HH24:MI:SS'),100,287,'Y','N','LBRA','N','N','N','Y','8a6e9b6a-b23b-4c93-b45f-9be2c6a48a65','Y',0,'Y','N','N')
+;
+
+-- 8 de set de 2020 11:13:30 BRT
+ALTER TABLE LBR_CNABFile ADD DocAction CHAR(2) DEFAULT 'CO'
+;
+
+-- 8 de set de 2020 11:13:56 BRT
+INSERT INTO AD_Field (AD_Field_ID,Name,Description,Help,AD_Tab_ID,AD_Column_ID,IsDisplayed,DisplayLength,SeqNo,IsSameLine,IsHeading,IsFieldOnly,IsEncrypted,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,IsReadOnly,IsCentrallyMaintained,EntityType,AD_Field_UU,IsDisplayedGrid,SeqNoGrid,ColumnSpan) VALUES (1129941,'Routing No','Bank Routing Number','The Bank Routing Number (ABA Number) identifies a legal Bank.  It is used in routing checks and electronic transactions.',1120402,1132552,'Y',20,110,'N','N','N','N',0,0,'Y',TO_DATE('2020-09-08 11:13:56','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2020-09-08 11:13:56','YYYY-MM-DD HH24:MI:SS'),100,'N','Y','LBRA','991e2106-a27f-4a5c-9c10-a77d6de721cf','Y',110,2)
+;
+
+-- 8 de set de 2020 11:13:57 BRT
+INSERT INTO AD_Field (AD_Field_ID,Name,Description,Help,AD_Tab_ID,AD_Column_ID,IsDisplayed,DisplayLength,SeqNo,IsSameLine,IsHeading,IsFieldOnly,IsEncrypted,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,IsReadOnly,IsCentrallyMaintained,EntityType,AD_Field_UU,IsDisplayedGrid,SeqNoGrid,ColumnSpan) VALUES (1129942,'Account No','Account Number','The Account Number indicates the Number assigned to this bank account. ',1120402,1132553,'Y',20,120,'N','N','N','N',0,0,'Y',TO_DATE('2020-09-08 11:13:56','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2020-09-08 11:13:56','YYYY-MM-DD HH24:MI:SS'),100,'N','Y','LBRA','18682e74-0f20-49a8-8a12-cc8aa4f3ef94','Y',120,2)
+;
+
+-- 8 de set de 2020 11:13:57 BRT
+INSERT INTO AD_Field (AD_Field_ID,Name,AD_Tab_ID,AD_Column_ID,IsDisplayed,DisplayLength,SeqNo,IsSameLine,IsHeading,IsFieldOnly,IsEncrypted,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,IsReadOnly,IsCentrallyMaintained,EntityType,AD_Field_UU,IsDisplayedGrid,SeqNoGrid,ColumnSpan) VALUES (1129943,'Account Digit',1120402,1132554,'Y',3,130,'N','N','N','N',0,0,'Y',TO_DATE('2020-09-08 11:13:57','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2020-09-08 11:13:57','YYYY-MM-DD HH24:MI:SS'),100,'N','Y','LBRA','bd27bbe1-3e1c-4add-b90c-8fce02f41ac5','Y',130,2)
+;
+
+-- 8 de set de 2020 11:13:57 BRT
+INSERT INTO AD_Field (AD_Field_ID,Name,Description,Help,AD_Tab_ID,AD_Column_ID,IsDisplayed,DisplayLength,SeqNo,IsSameLine,IsHeading,IsFieldOnly,IsEncrypted,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,IsReadOnly,IsCentrallyMaintained,EntityType,AD_Field_UU,IsDisplayedGrid,SeqNoGrid,ColumnSpan) VALUES (1129944,'Agency Number','Agency Number','Agency Number',1120402,1132555,'Y',10,140,'N','N','N','N',0,0,'Y',TO_DATE('2020-09-08 11:13:57','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2020-09-08 11:13:57','YYYY-MM-DD HH24:MI:SS'),100,'N','Y','LBRA','7a7e18e8-8a4c-4f7c-8b2f-de9975a0e60b','Y',140,2)
+;
+
+-- 8 de set de 2020 11:13:58 BRT
+INSERT INTO AD_Field (AD_Field_ID,Name,AD_Tab_ID,AD_Column_ID,IsDisplayed,DisplayLength,SeqNo,IsSameLine,IsHeading,IsFieldOnly,IsEncrypted,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,IsReadOnly,IsCentrallyMaintained,EntityType,AD_Field_UU,IsDisplayedGrid,SeqNoGrid,ColumnSpan) VALUES (1129945,'Agency Digit',1120402,1132556,'Y',3,150,'N','N','N','N',0,0,'Y',TO_DATE('2020-09-08 11:13:57','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2020-09-08 11:13:57','YYYY-MM-DD HH24:MI:SS'),100,'N','Y','LBRA','53e465d8-21a7-4de9-aa46-79012f6317d2','Y',150,2)
+;
+
+-- 8 de set de 2020 11:13:58 BRT
+INSERT INTO AD_Field (AD_Field_ID,Name,Description,Help,AD_Tab_ID,AD_Column_ID,IsDisplayed,DisplayLength,SeqNo,IsSameLine,IsHeading,IsFieldOnly,IsEncrypted,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,IsReadOnly,IsCentrallyMaintained,EntityType,AD_Field_UU,IsDisplayedGrid,SeqNoGrid,ColumnSpan) VALUES (1129946,'Document Status','The current status of the document','The Document Status indicates the status of a document at this time.  If you want to change the document status, use the Document Action field',1120402,1132572,'Y',2,160,'N','N','N','N',0,0,'Y',TO_DATE('2020-09-08 11:13:58','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2020-09-08 11:13:58','YYYY-MM-DD HH24:MI:SS'),100,'N','Y','LBRA','92233f0a-b20e-43dd-baed-ac538c368180','Y',160,2)
+;
+
+-- 8 de set de 2020 11:13:58 BRT
+INSERT INTO AD_Field (AD_Field_ID,Name,Description,Help,AD_Tab_ID,AD_Column_ID,IsDisplayed,DisplayLength,SeqNo,IsSameLine,IsHeading,IsFieldOnly,IsEncrypted,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,IsReadOnly,IsCentrallyMaintained,EntityType,AD_Field_UU,IsDisplayedGrid,SeqNoGrid,XPosition,ColumnSpan) VALUES (1129947,'Document Action','The targeted status of the document','You find the current status in the Document Status field. The options are listed in a popup',1120402,1132573,'Y',2,170,'N','N','N','N',0,0,'Y',TO_DATE('2020-09-08 11:13:58','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2020-09-08 11:13:58','YYYY-MM-DD HH24:MI:SS'),100,'N','Y','LBRA','85b703f7-66e9-4f51-b6a6-987cd3ee3a50','Y',170,2,2)
+;
+
+-- 8 de set de 2020 11:14:29 BRT
+UPDATE AD_Field SET IsDisplayed='Y', SeqNo=130, AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, XPosition=4, IsToolbarButton=NULL,Updated=TO_DATE('2020-09-08 11:14:29','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1129943
+;
+
+-- 8 de set de 2020 11:14:29 BRT
+UPDATE AD_Field SET IsDisplayed='Y', SeqNo=150, AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, XPosition=4, IsToolbarButton=NULL,Updated=TO_DATE('2020-09-08 11:14:29','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1129945
+;
+
+-- 8 de set de 2020 11:14:49 BRT
+ALTER TABLE LBR_CNABFile MODIFY DocStatus VARCHAR2(2) DEFAULT 'DR'
+;
+
+-- 8 de set de 2020 11:14:59 BRT
+ALTER TABLE LBR_CNABFile MODIFY DocAction CHAR(2) DEFAULT 'CO'
+;
+
+-- 8 de set de 2020 11:16:30 BRT
+UPDATE AD_Field SET IsDisplayed='Y', SeqNo=120, AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, XPosition=4, IsToolbarButton=NULL,Updated=TO_DATE('2020-09-08 11:16:30','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1129946
+;
+
+-- 8 de set de 2020 11:16:30 BRT
+UPDATE AD_Field SET SeqNo=130, AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, IsToolbarButton=NULL,Updated=TO_DATE('2020-09-08 11:16:30','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1129942
+;
+
+-- 8 de set de 2020 11:16:30 BRT
+UPDATE AD_Field SET SeqNo=140, AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, IsToolbarButton=NULL,Updated=TO_DATE('2020-09-08 11:16:30','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1129943
+;
+
+-- 8 de set de 2020 11:16:30 BRT
+UPDATE AD_Field SET SeqNo=150, AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, IsToolbarButton=NULL,Updated=TO_DATE('2020-09-08 11:16:30','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1129944
+;
+
+-- 8 de set de 2020 11:16:30 BRT
+UPDATE AD_Field SET SeqNo=160, AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, IsToolbarButton=NULL,Updated=TO_DATE('2020-09-08 11:16:30','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1129945
+;
+
+-- 8 de set de 2020 11:16:50 BRT
+UPDATE AD_Column SET IsAlwaysUpdateable='Y',Updated=TO_DATE('2020-09-08 11:16:50','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1132546
+;
+
+-- 8 de set de 2020 11:17:03 BRT
+UPDATE AD_Field SET IsReadOnly='Y', AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, IsToolbarButton=NULL,Updated=TO_DATE('2020-09-08 11:17:03','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1129946
+;
+
+-- 8 de set de 2020 11:26:33 BRT
+UPDATE AD_ModelValidator SET IsActive='N',Updated=TO_DATE('2020-09-08 11:26:33','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_ModelValidator_ID=1120016
+;
+
+-- 8 de set de 2020 18:40:20 BRT
+INSERT INTO AD_Workflow (Name,Description,AD_Workflow_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AccessLevel,EntityType,Author,WorkingTime,Duration,Version,Cost,DurationUnit,WaitingTime,PublishStatus,IsDefault,AD_Table_ID,Value,WorkflowType,IsValid,DocumentNo,QtyBatchSize,IsBetaFunctionality,Yield,AD_Workflow_UU) VALUES ('Process_LBR_CNABFile','(Standard Process CNAB File)',1120033,0,0,'Y',TO_DATE('2020-09-08 18:40:19','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2020-09-08 18:40:19','YYYY-MM-DD HH24:MI:SS'),100,'1','LBRA','Kenos Ltda',0,1,0,0,'D',0,'R','N',1120696,'Process_LBR_CNABFile','P','N','10000000',1,'N',100,'91d9776b-22d7-422a-862f-60b5c6acbebe')
+;
+
+-- 8 de set de 2020 18:41:36 BRT
+INSERT INTO AD_WF_Node (AD_WF_Node_ID,Name,Description,AD_Workflow_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,Action,IsCentrallyMaintained,YPosition,EntityType,XPosition,Limit,Duration,Cost,WaitingTime,WorkingTime,Priority,JoinElement,SplitElement,WaitTime,DocAction,Value,DynPriorityChange,IsMilestone,IsSubcontracting,UnitsCycles,OverlapUnits,Yield,AD_WF_Node_UU,AD_InfoWindow_ID) VALUES (1120128,'(DocAuto)','(Standard Node)',1120033,0,0,'Y',TO_DATE('2020-09-08 18:41:35','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2020-09-08 18:41:35','YYYY-MM-DD HH24:MI:SS'),100,'D','Y',0,'LBRA',0,0,0,0,0,0,0,'X','X',0,'--','(DocAuto)',0,'N','N',0,0,100,'4d7eae48-ba98-4dd6-ab05-914ccba52917',200000)
+;
+
+-- 8 de set de 2020 18:41:59 BRT
+INSERT INTO AD_WF_Node (AD_WF_Node_ID,Name,Description,AD_Workflow_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,Action,IsCentrallyMaintained,YPosition,EntityType,XPosition,Limit,Duration,Cost,WaitingTime,WorkingTime,Priority,JoinElement,SplitElement,WaitTime,DocAction,Value,DynPriorityChange,IsMilestone,IsSubcontracting,UnitsCycles,OverlapUnits,Yield,AD_WF_Node_UU,AD_InfoWindow_ID) VALUES (1120129,'(DocComplete)',NULL,1120033,0,0,'Y',TO_DATE('2020-09-08 18:41:58','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2020-09-08 18:41:58','YYYY-MM-DD HH24:MI:SS'),100,'D','Y',0,'LBRA',0,0,0,0,0,0,0,'X','X',0,'--','(DocComplete)',0,'N','N',0,0,100,'fc02f0ea-d002-4e5c-b3e3-03c361441ec3',200000)
+;
+
+-- 8 de set de 2020 18:42:16 BRT
+INSERT INTO AD_WF_Node (AD_WF_Node_ID,Name,AD_Workflow_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,Action,IsCentrallyMaintained,YPosition,EntityType,XPosition,Limit,Duration,Cost,WaitingTime,WorkingTime,Priority,JoinElement,SplitElement,WaitTime,DocAction,Value,DynPriorityChange,IsMilestone,IsSubcontracting,UnitsCycles,OverlapUnits,Yield,AD_WF_Node_UU,AD_InfoWindow_ID) VALUES (1120130,'(DocPrepare)',1120033,0,0,'Y',TO_DATE('2020-09-08 18:42:15','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2020-09-08 18:42:15','YYYY-MM-DD HH24:MI:SS'),100,'D','Y',0,'LBRA',0,0,0,0,0,0,0,'X','X',0,'PR','(DocPrepare)',0,'N','N',0,0,100,'65ddf9ec-6f77-4cf2-9fdc-1796ff0090d6',200000)
+;
+
+-- 8 de set de 2020 18:42:42 BRT
+INSERT INTO AD_WF_Node (AD_WF_Node_ID,Name,AD_Workflow_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,Action,IsCentrallyMaintained,YPosition,EntityType,XPosition,Limit,Duration,Cost,WaitingTime,WorkingTime,Priority,JoinElement,SplitElement,WaitTime,DocAction,Value,DynPriorityChange,IsMilestone,IsSubcontracting,UnitsCycles,OverlapUnits,Yield,AD_WF_Node_UU,AD_InfoWindow_ID) VALUES (1120131,'(Start)',1120033,0,0,'Y',TO_DATE('2020-09-08 18:42:42','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2020-09-08 18:42:42','YYYY-MM-DD HH24:MI:SS'),100,'Z','Y',0,'LBRA',0,0,0,0,0,0,0,'X','X',0,'CO','(Start)',0,'N','N',0,0,100,'9de81b67-597e-457c-87f9-17fa59338e4e',200000)
+;
+
+-- 8 de set de 2020 18:43:10 BRT
+INSERT INTO AD_WF_NodeNext (AD_WF_Node_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Client_ID,AD_Org_ID,AD_WF_Next_ID,EntityType,SeqNo,AD_WF_NodeNext_ID,IsStdUserWorkflow,AD_WF_NodeNext_UU) VALUES (1120131,'Y',TO_DATE('2020-09-08 18:43:10','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2020-09-08 18:43:10','YYYY-MM-DD HH24:MI:SS'),100,0,0,1120130,'LBRA',10,1120079,'N','3a646a85-5f4b-4d3c-a74d-f6d67a5a0ef4')
+;
+
+-- 8 de set de 2020 18:43:19 BRT
+INSERT INTO AD_WF_NodeNext (AD_WF_Node_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Client_ID,AD_Org_ID,AD_WF_Next_ID,EntityType,SeqNo,AD_WF_NodeNext_ID,IsStdUserWorkflow,AD_WF_NodeNext_UU) VALUES (1120131,'Y',TO_DATE('2020-09-08 18:43:18','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2020-09-08 18:43:18','YYYY-MM-DD HH24:MI:SS'),100,0,0,1120128,'LBRA',100,1120080,'N','e385b17e-d36a-4669-88ba-af5eafd01071')
+;
+
+-- 8 de set de 2020 18:43:31 BRT
+INSERT INTO AD_WF_NodeNext (AD_WF_Node_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Client_ID,AD_Org_ID,AD_WF_Next_ID,EntityType,SeqNo,AD_WF_NodeNext_ID,IsStdUserWorkflow,AD_WF_NodeNext_UU) VALUES (1120130,'Y',TO_DATE('2020-09-08 18:43:30','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2020-09-08 18:43:30','YYYY-MM-DD HH24:MI:SS'),100,0,0,1120129,'LBRA',10,1120081,'N','bda2b0c2-c050-471c-b9b4-e97f4528a021')
+;
+
+-- 8 de set de 2020 18:44:06 BRT
+INSERT INTO AD_Process (AD_Process_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,Name,IsReport,Value,IsDirectPrint,AccessLevel,EntityType,Statistic_Count,Statistic_Seconds,AD_Workflow_ID,IsBetaFunctionality,IsServerProcess,ShowHelp,AD_Process_UU,AllowMultipleExecution) VALUES (1120254,0,0,'Y',TO_DATE('2020-09-08 18:44:05','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2020-09-08 18:44:05','YYYY-MM-DD HH24:MI:SS'),100,'Process CNAB File','N','LBR_CNABFile Process','N','1','LBRA',0,0,1120033,'N','N','Y','b4053e08-3d15-470b-a8b8-45b909783fc9','P')
+;
+
+-- 8 de set de 2020 18:44:26 BRT
+UPDATE AD_Column SET AD_Process_ID=1120254,Updated=TO_DATE('2020-09-08 18:44:26','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1132573
+;
+
+-- 8 de set de 2020 18:49:25 BRT
+UPDATE AD_Workflow SET AD_WF_Node_ID=1120131, IsValid='Y',Updated=TO_DATE('2020-09-08 18:49:25','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Workflow_ID=1120033
+;
+
+-- 9 de set de 2020 15:33:05 BRT
+UPDATE AD_Column SET FieldLength=2,Updated=TO_DATE('2020-09-09 15:33:05','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1132271
+;
+
+-- 9 de set de 2020 15:33:11 BRT
+ALTER TABLE LBR_BankSlipInfo MODIFY LBR_OrgBPType VARCHAR2(2) DEFAULT NULL 
+;
+
+-- 9 de set de 2020 15:33:29 BRT
+UPDATE AD_Column SET FieldLength=2,Updated=TO_DATE('2020-09-09 15:33:29','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1132281
+;
+
+-- 9 de set de 2020 15:33:32 BRT
+ALTER TABLE LBR_BankSlipInfo MODIFY lbr_BPTypeBR VARCHAR2(2) DEFAULT NULL 
+;
+
 SELECT Register_Migration_Script ('202007311011_BankSlip.sql') FROM DUAL
 ;
