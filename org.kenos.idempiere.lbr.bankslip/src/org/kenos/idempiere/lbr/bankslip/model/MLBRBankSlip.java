@@ -660,6 +660,14 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 				|| is_ValueChanged(COLUMNNAME_GrandTotal) || is_ValueChanged(COLUMNNAME_DiscountAmt))
 			changed = true;
 		
+		MLBRNotaFiscal nf = new Query (getCtx(), MLBRNotaFiscal.Table_Name, "C_Invoice_ID=? AND LBR_NFeStatus='100'", get_TrxName())
+			.setParameters(getC_Invoice_ID())
+			.first();
+		
+		if (MLBRBankSlip.LBR_RECIPIENTTYPE_FIDCOr3rdParty.equals(getLBR_RecipientType()) 
+				&& nf != null)
+			bsi.setlbr_NFeID(nf.getlbr_NFeID ());
+		
 		//	Something was changed
 		if (changed)
 			bsi.saveEx();

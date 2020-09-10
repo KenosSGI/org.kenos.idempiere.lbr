@@ -58,7 +58,7 @@ public class Bradesco237 implements ICNABGenerator
 		cnab.append(lPad(cnabFile.getLBR_BankSlipContract().getLBR_AccordNo(), 20));
 		cnab.append(lPad(cnabFile.getlbr_LegalEntity(), 30)); 	//	NOME DA EMPRESA
 		cnab.append(cnabFile.getRoutingNo()); 					//	CÓDIGO DO BANCO
-		cnab.append(lPad(BANK_NAME, 15)); 						//	NOME DO BANCO
+		cnab.append(rPad(BANK_NAME, 15)); 						//	NOME DO BANCO
 		cnab.append(timeToString(cnabFile.getDateDoc())); 		//	DATA DE GERAÇÃO
 		cnab.append(rPad("", 8)); 								//	BRANCOS
 		cnab.append(rPad("MX", 2)); 							//	MX
@@ -207,6 +207,8 @@ public class Bradesco237 implements ICNABGenerator
 			cnab.append(lPad(bsi.getlbr_BPPostal(), 8));			//	CEP
 			cnab.append(rPad("", 60));								//	2A MENSAGEM
 			cnab.append(lPad(count.getAndIncrement(), 6));			//	NÚMERO SEQÜENCIAL
+			if (!MLBRBankSlip.LBR_RECIPIENTTYPE_FIDCOr3rdParty.equals(bs.getLBR_RecipientType()) && bsi.getlbr_NFeID() != null)
+				cnab.append(lPad(bsi.getlbr_NFeID(), 44));			//	FIDC
 			cnab.append(CR).append(LF);
 		});
 		

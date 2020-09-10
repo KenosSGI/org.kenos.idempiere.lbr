@@ -55,14 +55,14 @@ public class Itau341 implements ICNABGenerator
 		cnab.append("REMESSA"); 								//	LITERAL DE REMESSA
 		cnab.append("01"); 										//	CÓDIGO DE SERVIÇO
 		cnab.append(lPad("COBRANCA", 15)); 						//	LITERAL DE SERVIÇO
-		cnab.append(rPad(cnabFile.getlbr_AgencyNo(), 4)); 		//	AGÊNCIA
+		cnab.append(lPad(cnabFile.getlbr_AgencyNo(), 4)); 		//	AGÊNCIA
 		cnab.append("00"); 										//	ZEROS
-		cnab.append(rPad(cnabFile.getAccountNo(), 5)); 			//	CONTA
+		cnab.append(lPad(cnabFile.getAccountNo(), 5)); 			//	CONTA
 		cnab.append(rPad(cnabFile.getLBR_BankAccountVD(), 1)); 	//	DAC
 		cnab.append(lPad("", 8)); 								//	BRANCOS
 		cnab.append(lPad(cnabFile.getlbr_LegalEntity(), 30)); 	//	NOME DA EMPRESA
 		cnab.append(cnabFile.getRoutingNo()); 					//	CÓDIGO DO BANCO
-		cnab.append(lPad(BANK_NAME, 15)); 						//	NOME DO BANCO
+		cnab.append(rPad(BANK_NAME, 15)); 						//	NOME DO BANCO
 		cnab.append(timeToString(cnabFile.getDateDoc())); 		//	DATA DE GERAÇÃO
 		cnab.append(rPad("", 294)); 							//	BRANCOS
 		cnab.append(lPad("1", 6)); 								//	NÚMERO SEQUENCIAL
