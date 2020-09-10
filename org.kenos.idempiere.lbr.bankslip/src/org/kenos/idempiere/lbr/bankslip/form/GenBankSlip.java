@@ -76,18 +76,19 @@ public class GenBankSlip
 	 * 	Get Bank Accounts
 	 * 	@return
 	 */
-	public ArrayList<KeyNamePair> getBankAccountData()
+	public ArrayList<KeyNamePair> getBankContractData()
 	{
 		ArrayList<KeyNamePair> data = new ArrayList<KeyNamePair>();
 		//
 		m_AD_Client_ID = Env.getAD_Client_ID(Env.getCtx());
 		//  Bank Account Info
 		String sql = MRole.getDefault().addAccessSQL(
-			"SELECT ba.C_BankAccount_ID,"                       //  1
-			+ "b.Name || ' ' || ba.AccountNo || ' ' || (SELECT o.Name FROM AD_Org o WHERE o.AD_Org_ID=ba.AD_Org_ID) AS Name " 
-			+ "FROM C_Bank b, C_BankAccount ba, C_Currency c "
+			"SELECT bc.LBR_BankSlipContract_ID,"                //  1
+			+ "b.RoutingNo || ' ' || bc.Name || ' ' || (SELECT o.Name FROM AD_Org o WHERE o.AD_Org_ID=ba.AD_Org_ID) AS Name " 
+			+ "FROM C_Bank b, C_BankAccount ba, C_Currency c, LBR_BankSlipContract bc "
 			+ "WHERE b.C_Bank_ID=ba.C_Bank_ID"
 			+ " AND ba.C_Currency_ID=c.C_Currency_ID AND ba.IsActive='Y' "
+			+ " AND ba.C_BankAccount_ID=bc.C_BankAccount_ID AND bc.IsActive='Y' "
 			+ " AND ba.lbr_IsBillPrinted='Y' "
 			+ "ORDER BY 2",
 			"b", MRole.SQL_FULLYQUALIFIED, MRole.SQL_RW);

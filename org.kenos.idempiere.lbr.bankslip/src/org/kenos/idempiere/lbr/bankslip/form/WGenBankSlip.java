@@ -78,7 +78,7 @@ public class WGenBankSlip extends GenBankSlip
 	private Borderlayout mainLayout = new Borderlayout();
 	private Panel parameterPanel = new Panel();
 	private Label labelBankAccount = new Label();
-	private Listbox fieldBankAccount = ListboxFactory.newDropdownListbox();
+	private Listbox fieldBankContract = ListboxFactory.newDropdownListbox();
 	private Grid parameterLayout = GridFactory.newGridLayout();
 	private Checkbox isPrinted = new Checkbox();
 	private Label labelBPartner = new Label();
@@ -139,7 +139,7 @@ public class WGenBankSlip extends GenBankSlip
 		parameterPanel.appendChild(parameterLayout);
 		//
 		labelBankAccount.setText(Msg.translate(Env.getCtx(), "C_BankAccount_ID"));
-		fieldBankAccount.addActionListener(this);
+		fieldBankContract.addActionListener(this);
 		labelBPartner.setText(Msg.translate(Env.getCtx(), "C_BPartner_ID"));
 		fieldBPartner.addActionListener(this);
 		bRefresh.addActionListener(this);
@@ -167,7 +167,7 @@ public class WGenBankSlip extends GenBankSlip
 		Rows rows = parameterLayout.newRows();
 		Row row = rows.newRow();
 		row.appendChild(labelBankAccount.rightAlign());
-		row.appendChild(fieldBankAccount);
+		row.appendChild(fieldBankContract);
 		
 		row = rows.newRow();
 		row.appendChild(labelBPartner.rightAlign());
@@ -232,14 +232,14 @@ public class WGenBankSlip extends GenBankSlip
 	 */
 	private void dynInit()
 	{
-		ArrayList<KeyNamePair> bankAccountData = getBankAccountData();
-		for (KeyNamePair bi : bankAccountData)
-			fieldBankAccount.appendItem(bi.toString(), bi);
+		ArrayList<KeyNamePair> bankContractData = getBankContractData();
+		for (KeyNamePair bi : bankContractData)
+			fieldBankContract.appendItem(bi.toString(), bi);
 
-		if (fieldBankAccount.getItemCount() == 0)
+		if (fieldBankContract.getItemCount() == 0)
 			FDialog.error(m_WindowNo, form, "VPaySelectNoBank");
 		else
-			fieldBankAccount.setSelectedIndex(0);
+			fieldBankContract.setSelectedIndex(0);
 		
 		ArrayList<KeyNamePair> bpartnerData = getBPartnerData();
 		for(KeyNamePair pp : bpartnerData)
@@ -265,7 +265,7 @@ public class WGenBankSlip extends GenBankSlip
 	 */
 	private void loadBankInfo()
 	{		
-		KeyNamePair bi = (KeyNamePair)fieldBankAccount.getSelectedItem().getValue();
+		KeyNamePair bi = (KeyNamePair)fieldBankContract.getSelectedItem().getValue();
 		if (bi == null)
 			return;
 	}   //  loadBankInfo
@@ -281,7 +281,7 @@ public class WGenBankSlip extends GenBankSlip
 		miniTable.setColorCompare(dateFrom);
 		log.config("From " + dateFrom + " To " + dateTo);
 		
-		KeyNamePair bi = (KeyNamePair)fieldBankAccount.getSelectedItem().getValue();
+		KeyNamePair bi = (KeyNamePair)fieldBankContract.getSelectedItem().getValue();
 		
 		KeyNamePair bpartner = (KeyNamePair)fieldBPartner.getSelectedItem().getValue();
 		KeyNamePair docType = (KeyNamePair)fieldDtype.getSelectedItem().getValue();
@@ -317,7 +317,7 @@ public class WGenBankSlip extends GenBankSlip
 	public void onEvent (Event e)
 	{
 		//  Update Bank Info
-		if (e.getTarget() == fieldBankAccount)
+		if (e.getTarget() == fieldBankContract)
 			loadBankInfo();
 
 		//  Generate PaySelection
@@ -331,7 +331,7 @@ public class WGenBankSlip extends GenBankSlip
 			dispose();
 
 		//  Update Open Invoices
-		else if (e.getTarget() == fieldBankAccount || e.getTarget() == fieldBPartner || e.getTarget() == bRefresh || e.getTarget() == fieldDtype || e.getTarget() == isPrinted)
+		else if (e.getTarget() == fieldBankContract || e.getTarget() == fieldBPartner || e.getTarget() == bRefresh || e.getTarget() == fieldDtype || e.getTarget() == isPrinted)
 			loadTableInfo();
 
 	}   //  actionPerformed
@@ -373,7 +373,7 @@ public class WGenBankSlip extends GenBankSlip
 		{
 			Path path = Files.createTempDirectory("Boleto");
 			
-			exportBilling (miniTable, path.toString(), (KeyNamePair) fieldBankAccount.getSelectedItem().getValue());
+			exportBilling (miniTable, path.toString(), (KeyNamePair) fieldBankContract.getSelectedItem().getValue());
 			
 			File zipFile = File.createTempFile("Boletos", ".zip");
 			zipFile.delete();
