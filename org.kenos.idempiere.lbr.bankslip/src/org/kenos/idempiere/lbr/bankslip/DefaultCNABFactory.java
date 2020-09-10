@@ -1,5 +1,6 @@
 package org.kenos.idempiere.lbr.bankslip;
 
+import org.kenos.idempiere.lbr.bankslip.cnab.BancoDoBrasil001;
 import org.kenos.idempiere.lbr.bankslip.cnab.Bradesco237;
 import org.kenos.idempiere.lbr.bankslip.cnab.Itau341;
 import org.kenos.idempiere.lbr.bankslip.model.MLBRBankSlipLayout;
@@ -23,6 +24,9 @@ public class DefaultCNABFactory implements ICNABFactory
 			
 			if (Itau341.ROUNTING_NO == RoutingNo)
 				return new Itau341();
+			
+			if (BancoDoBrasil001.ROUNTING_NO == RoutingNo)
+				return new BancoDoBrasil001();
 		}
 		return null;
 	}	//	getCNABGenerator
