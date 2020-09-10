@@ -207,7 +207,7 @@ public class Bradesco237 implements ICNABGenerator
 			cnab.append(lPad(bsi.getlbr_BPPostal(), 8));			//	CEP
 			cnab.append(rPad("", 60));								//	2A MENSAGEM
 			cnab.append(lPad(count.getAndIncrement(), 6));			//	NÚMERO SEQÜENCIAL
-			if (!MLBRBankSlip.LBR_RECIPIENTTYPE_FIDCOr3rdParty.equals(bs.getLBR_RecipientType()) && bsi.getlbr_NFeID() != null)
+			if (MLBRBankSlip.LBR_RECIPIENTTYPE_FIDCOr3rdParty.equals(bs.getLBR_RecipientType()) && bsi.getlbr_NFeID() != null)
 				cnab.append(lPad(bsi.getlbr_NFeID(), 44));			//	FIDC
 			cnab.append(CR).append(LF);
 		});
