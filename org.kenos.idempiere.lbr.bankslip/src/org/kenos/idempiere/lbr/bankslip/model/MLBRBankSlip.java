@@ -117,7 +117,11 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 	public static final int ESPECIE_TRIPLICATA_MERCANTIL 				= 35;
 	public static final int ESPECIE_WARRANT			 					= 36;
 	public static final int ESPECIE_OUTROS 								= 999;
-		
+	
+	/**	Messages			*/
+	private String msg1 = null;
+	private String msg2 = null;
+	
 	/**************************************************************************
 	 *  Default Constructor
 	 *  @param Properties ctx
@@ -685,6 +689,13 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 				bsi.setlbr_Instruction2("Nota Fiscal: " + nf.getDocumentNo() + " / " + nf.getlbr_NFSerie());
 			
 			//	TODO: Instrução de Multa/etc
+			
+			
+			//	Custom Messages
+			if (getMsg1() != null)
+				bsi.setLBR_Instruction6(getMsg1());
+			if (getMsg2() != null)
+				bsi.setLBR_Instruction7(getMsg2());
 		}
 		
 		//	Something was changed
@@ -782,7 +793,7 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 			}
 		}
 		
-		//	Validates the Business Partner
+		//	Validates the Organization
 		if (bsi.getlbr_OrgAddress1() == null 		|| bsi.getlbr_OrgAddress1().isBlank() ||
 				bsi.getlbr_OrgAddress2() == null 	|| bsi.getlbr_OrgAddress2().isBlank() ||
 				bsi.getlbr_OrgAddress3() == null 	|| bsi.getlbr_OrgAddress3().isBlank() ||
@@ -797,7 +808,7 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 			return DocAction.STATUS_Invalid;
 		}
 		
-		//	Validates the Organization
+		//	Validates the Business Partner
 		if (bsi.getlbr_BPAddress1() == null 		|| bsi.getlbr_BPAddress1().isBlank() ||
 				bsi.getlbr_BPAddress2() == null 	|| bsi.getlbr_BPAddress2().isBlank() ||
 				bsi.getlbr_BPAddress3() == null 	|| bsi.getlbr_BPAddress3().isBlank() ||
@@ -1166,6 +1177,30 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 			//	Protest
 			setLBR_ProtestType (config.getLBR_ProtestType());
 			setLBR_ProtestDays (config.getLBR_ProtestDays());
+			
+			//	Messages
+			setMsg1(config.getLBR_Message1());
+			setMsg2(config.getLBR_Message2());
 		}
 	}	//	setBankSlipContract
+
+	public String getMsg1	()
+	{
+		return msg1;
+	}	//	getMsg1
+
+	public void setMsg1	(String msg1) 
+	{
+		this.msg1 = msg1;
+	}	//	setMsg1
+
+	public String getMsg2	() 
+	{
+		return msg2;
+	}	//	getMsg2
+
+	public void setMsg2	(String msg2) 
+	{
+		this.msg2 = msg2;
+	}	//	setMsg2
 }	//	MLBRBankSlip
