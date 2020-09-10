@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.util.Properties;
 
 import org.adempierelbr.model.X_LBR_Bank;
+import org.compiere.model.Query;
 
 /**
  * 	Brazilian Bank model
@@ -37,4 +38,18 @@ public class MLBRBank extends X_LBR_Bank
 	{
 		super (ctx, rs, trxName);
 	}	//	MLBRBank
+	
+	/**
+	 * 	Get the Bank
+	 * 	@param ctx
+	 * 	@param RoutingNo
+	 * 	@return
+	 */
+	public static MLBRBank get (Properties ctx, String RoutingNo)
+	{
+		return new Query (ctx, Table_Name, COLUMNNAME_RoutingNo + "=?", null)
+				.setParameters(RoutingNo)
+				.setOrderBy(COLUMNNAME_AD_Client_ID + " DESC")
+				.first();
+	}	//	get
 }	//	MLBRBank

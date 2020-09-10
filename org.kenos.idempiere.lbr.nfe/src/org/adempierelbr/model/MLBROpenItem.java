@@ -59,6 +59,7 @@ public class MLBROpenItem
 	private BigDecimal DiscountRate;
 	private BigDecimal InterestAmt;
 	private BigDecimal GrandTotal;
+	private int parcelNo;
 	
 	/**
 	 * 
@@ -81,6 +82,8 @@ public class MLBROpenItem
 		//
 		setDiscountRate(GrandTotal, DiscountAmt);
 		setInterestAmt(GrandTotal);
+		//
+		setParcelNo(rs.getInt("ParcelNo"));
 	}	//	MLBROpenItem
 
 	/**
@@ -114,9 +117,10 @@ public class MLBROpenItem
 	 */
 	public static MLBROpenItem[] getOpenItem (String where, String orderBy, Object[] params, String trxName)
 	{
-		String sql = "SELECT C_Invoice_ID, C_BPartner_ID, DateInvoiced, " + 	//	1..3
-				     "NetDays, DueDate, DiscountDate, DiscountAmt, OpenAmt, " +	//	4..8
-				     "C_InvoicePaySchedule_ID, C_PaymentTerm_ID, AD_Org_ID " + 	//	9..11
+		String sql = "SELECT C_Invoice_ID, C_BPartner_ID, DateInvoiced, " + 		//	1..3
+				     "NetDays, DueDate, DiscountDate, DiscountAmt, OpenAmt, " +		//	4..8
+				     "C_InvoicePaySchedule_ID, C_PaymentTerm_ID, AD_Org_ID, " + 	//	9..11
+				     "SUM (1) OVER (PARTITION BY C_Invoice_ID ORDER BY C_Invoice_ID, C_InvoicePaySchedule_ID) AS ParcelNo " + //  12
 					 "FROM " + MSysConfig.getValue (SysConfig.LBR_GENBILLING_TABLE, "RV_InvoicePaySchedule", Env.getAD_Client_ID(Env.getCtx()));
 		
 		if (where != null)
@@ -343,6 +347,14 @@ public class MLBROpenItem
 
 	public int getAD_Org_ID(){
 		return AD_Org_ID;
+	}
+
+	private void setParcelNo(int parcelNo){
+		this.parcelNo = parcelNo;
+	}
+
+	public int getParcelNo(){
+		return parcelNo;
 	}
 	
 	public void setDiscountRate(BigDecimal amt, BigDecimal discountamt){

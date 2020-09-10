@@ -668,6 +668,25 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 				&& nf != null)
 			bsi.setlbr_NFeID(nf.getlbr_NFeID ());
 		
+		//	Instructions
+		if (newRecord || changed)
+		{
+			MLBRBank bank = MLBRBank.get (getCtx(), getRoutingNo());
+			//
+			bsi.setlbr_PaymentLocation1(bank.getlbr_PaymentLocation1());
+			bsi.setLBR_InstructionBP(bank.getlbr_PaymentLocation2());
+			
+			//	Instruction 1 Fatura
+			if (getC_Invoice_ID() > 0)
+				bsi.setlbr_Instruction1("Fatura: " + getC_Invoice().getDocumentNo() + " / " + getlbr_PayScheduleNo());
+			
+			//	Instruction 2 Nota Fiscal
+			if (nf != null)
+				bsi.setlbr_Instruction2("Nota Fiscal: " + nf.getDocumentNo() + " / " + nf.getlbr_NFSerie());
+			
+			//	TODO: Instrução de Multa/etc
+		}
+		
 		//	Something was changed
 		if (changed)
 			bsi.saveEx();
@@ -1055,6 +1074,7 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 			bs.setDueDate(oi.getDueDate());
 			bs.setDateAcct(oi.getDateInvoiced());
 			bs.setGrandTotal(oi.getGrandTotal());
+			bs.setlbr_PayScheduleNo(oi.getParcelNo());
 			
 			MLBRNotaFiscal[] nfs = MLBRNotaFiscal.get(ctx, invoice.getC_Invoice_ID(), trxName);
 			if (MSysConfig.getBooleanValue(SysConfig.LBR_PRINTNFENOONBILLING, true) && nfs.length > 0)
