@@ -25,7 +25,7 @@ public class BancoDoBrasil001 implements ICNABGenerator
 	public static final int ROUNTING_NO = 001;
 	
 	/**	Bank Name			*/
-	private static final String BANK_NAME = "BRADESCO";
+	private static final String BANK_NAME = "BANCODOBRASIL";
 	
 //	/** Org BP Type				*/
 	private static final String BPTYPE_CPF_BENEFICIARIO 		= "01";
@@ -154,7 +154,7 @@ public class BancoDoBrasil001 implements ICNABGenerator
 			cnab.append(rPad("", 1));								//	BRANCO
 			cnab.append(rPad("", 1));								//	SACADOR
 			cnab.append(rPad("", 3));								//	Prefixo do Título
-			cnab.append(rPad(bs.getLBR_BankSlipContract().getLBR_Param1(), 3));	//	VARIAÇÃO DA CARTEIRA
+			cnab.append(lPad(bs.getLBR_BankSlipContract().getLBR_Param1(), 3));	//	VARIAÇÃO DA CARTEIRA
 			cnab.append(lPad(0, 1));								//	Conta Caução
 			cnab.append(lPad(0, 6));								//	Número do Borderô
 			cnab.append(rPad(bs.getLBR_BankSlipContract().getLBR_Param2(), 5));	//	Tipo de Cobrança
@@ -185,7 +185,7 @@ public class BancoDoBrasil001 implements ICNABGenerator
 			cnab.append(lPad(bsi.getlbr_BPPostal(), 8));			//	CEP
 			cnab.append(rPad(bsi.getlbr_BPCity(), 15));				//	CIDADE
 			cnab.append(rPad(bsi.getlbr_BPRegion(), 2));			//	ESTADO
-			cnab.append(rPad(bsi.getLBR_GuarantorBPName(), 30));	//	SACADOR/AVALISTA
+			cnab.append(rPad(bsi.getLBR_GuarantorBPName(), 40));	//	SACADOR/AVALISTA
 			cnab.append(rPad("", 2));								//	BRANCOS
 			cnab.append(rPad("", 1));								//	BRANCOS
 			cnab.append(lPad(count.getAndIncrement(), 6));			//	NÚMERO SEQÜENCIAL
