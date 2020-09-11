@@ -47,6 +47,7 @@ public class MLBRBankSlipMov extends X_LBR_BankSlipMov
 	public MLBRBankSlipMov (MLBRBankSlip bs)
 	{
 		this (bs.getCtx(), 0, bs.get_TrxName());
+		setAD_Org_ID(bs.getAD_Org_ID());
 		setLBR_BankSlip_ID(bs.getLBR_BankSlip_ID());
 	}	//	MLBRBankSlipMov
 	
