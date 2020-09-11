@@ -20,6 +20,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.logging.Level;
 
+import org.adempiere.exceptions.AdempiereException;
 import org.adempiere.pipo2.Zipper;
 import org.adempiere.webui.ClientInfo;
 import org.adempiere.webui.LayoutUtils;
@@ -51,6 +52,7 @@ import org.compiere.process.ProcessInfo;
 import org.compiere.util.Env;
 import org.compiere.util.KeyNamePair;
 import org.compiere.util.Msg;
+import org.kenos.idempiere.lbr.bankslip.model.MLBRBankSlipContract;
 import org.zkoss.util.media.AMedia;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.Event;
@@ -286,7 +288,12 @@ public class WGenBankSlip extends GenBankSlip
 		KeyNamePair bpartner = (KeyNamePair)fieldBPartner.getSelectedItem().getValue();
 		KeyNamePair docType = (KeyNamePair)fieldDtype.getSelectedItem().getValue();
 
-		MBankAccount bank = new MBankAccount(Env.getCtx(), bi.getKey(), null);
+		MLBRBankSlipContract bsc = new MLBRBankSlipContract(Env.getCtx(), bi.getKey(), null);
+		
+		if (bsc == null || bsc.getLBR_BankSlipContract_ID() == 0)
+			throw new AdempiereException("Contrato Bancário não encontrado");
+		
+		MBankAccount bank = new MBankAccount(Env.getCtx(), bsc.getC_BankAccount_ID(), null);
 		int org = bank.getAD_Org_ID();
 		
 		loadTableInfo (org, bi, bpartner, docType, dateFrom, dateTo, isPrinted.isSelected(), miniTable);

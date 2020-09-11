@@ -4,6 +4,8 @@ import java.sql.ResultSet;
 import java.util.Properties;
 
 import org.adempierelbr.model.X_LBR_BankSlipContract;
+import org.compiere.model.Query;
+import org.compiere.util.Env;
 
 /**
  * 	Bank Slip Contract (Boleto) model
@@ -37,4 +39,13 @@ public class MLBRBankSlipContract extends X_LBR_BankSlipContract
 	{
 		super (ctx, rs, trxName);
 	}	//	MLBRBankSlipContract
+	
+	public static MLBRBankSlipContract get (int C_BankAccount_ID)
+	{
+		MLBRBankSlipContract bsc = new Query(Env.getCtx(),MLBRBankSlipContract.Table_Name, "C_BankAccount_ID=?", null)
+									.setParameters(C_BankAccount_ID)
+									.first();
+		
+		return bsc;
+	}
 }	//	MLBRBankSlipContract
