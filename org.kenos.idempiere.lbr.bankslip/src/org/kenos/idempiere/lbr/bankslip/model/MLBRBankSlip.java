@@ -443,20 +443,8 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 			{
 				if (getLBR_BankSlipContract().getLBR_NumberInBankSeq_ID() > 0)
 				{
-					String DocumentNo = "";
-					
 					MSequence seq = new MSequence (getCtx(), getLBR_BankSlipContract().getLBR_NumberInBankSeq_ID(), get_TrxName());
-					
-					if (seq.getPrefix() != null)
-						DocumentNo += seq.getPrefix();
-					
-					DocumentNo += ((Integer)seq.getNextID()).toString();
-						
-					if (seq.getSuffix() != null)
-						DocumentNo += seq.getSuffix();
-					
-					setLBR_NumberInBank(String.valueOf(DocumentNo));
-					
+					setLBR_NumberInBank(String.valueOf(seq.getNextID()));
 					seq.save();
 				}
 			}

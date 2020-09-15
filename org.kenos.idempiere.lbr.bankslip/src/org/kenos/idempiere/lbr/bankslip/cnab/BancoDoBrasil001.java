@@ -147,7 +147,7 @@ public class BancoDoBrasil001 implements ICNABGenerator
 			cnab.append(rPad(bsi.getLBR_BankAccountVD(), 1));		//	DAC
 			cnab.append(rPad(bsi.getLBR_AccordNo(), 7));			//	BRANCOS
 			cnab.append(rPad(bs.getLBR_NumberInOrg(), 25));			//	USO DA EMPRESA
-			cnab.append(lPad(bs.getLBR_NumberInBank(), 17));		//	NOSSO NÚMERO
+			cnab.append(lPad(bsi.getLBR_AccordNo() + bs.getLBR_NumberInBank(), 17)); //	NOSSO NÚMERO
 			cnab.append(lPad(0, 2));								//	Número da Prestação
 			cnab.append(lPad(0, 2));								//	Grupo de Valor
 			cnab.append(rPad("01", 2));								//	Moeda
