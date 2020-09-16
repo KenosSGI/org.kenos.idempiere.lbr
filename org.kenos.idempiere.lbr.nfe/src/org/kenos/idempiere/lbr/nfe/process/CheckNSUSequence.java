@@ -92,6 +92,11 @@ public class CheckNSUSequence extends SvrProcess
 			for (MLBRAMissingNSU nsu : missing)
 			{
 				RetDistDFeIntDocument result = GetDFe.doIt (oi, nsu.getLBR_NSU(), true);
+				if (result == null)
+				{
+					addLog("Sem dados -> [" + nsu.getLBR_NSU() + "] Resultado da Consulta Vazio");
+					continue;
+				}
 				RetDistDFeInt retConsNFeDest = result.getRetDistDFeInt();
 				String cStat = retConsNFeDest.getCStat();
 				

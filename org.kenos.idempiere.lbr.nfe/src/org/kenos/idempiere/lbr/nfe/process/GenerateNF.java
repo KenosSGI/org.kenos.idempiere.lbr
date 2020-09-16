@@ -1,25 +1,37 @@
 package org.kenos.idempiere.lbr.nfe.process;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.adempiere.model.POWrapper;
 import org.adempierelbr.model.MLBRNotaFiscal;
 import org.adempierelbr.wrapper.I_W_C_DocType;
+import org.compiere.model.MAttributeSet;
+import org.compiere.model.MClient;
 import org.compiere.model.MDocType;
 import org.compiere.model.MInOut;
 import org.compiere.model.MInOutLine;
 import org.compiere.model.MInvoice;
 import org.compiere.model.MLocator;
+import org.compiere.model.MLocatorType;
 import org.compiere.model.MMovement;
 import org.compiere.model.MMovementLine;
 import org.compiere.model.MOrder;
 import org.compiere.model.MOrderLine;
+import org.compiere.model.MProduct;
+import org.compiere.model.MStorageOnHand;
+import org.compiere.model.MSysConfig;
 import org.compiere.model.MWarehouse;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
 import org.compiere.util.Env;
 import org.compiere.util.Trx;
+import org.kenos.idempiere.lbr.base.model.SysConfig;
 
 /**
  * 		Generate NF
@@ -182,19 +194,14 @@ public class GenerateNF extends SvrProcess
 								
 				// If it is other in, force because the material is being receipt
 				if (io == null && !otherInOut.isSOTrx())
-					io = generateReceipt(otherInOut);
+					io = generateInOut(otherInOut);
 				
 				// If is not receipt then force if Delivery Rule is force
 				else if (io == null && otherInOut.isSOTrx())
 				{
-					// Not Force
-					boolean force = false;					
-					if (MOrder.DELIVERYRULE_Force.equals(otherInOut.getDeliveryRule()))
-						force = true;
-					
 					//	If not, create ship/receipt
 					if (io == null)
-						io = MInOut.createFrom(otherInOut, Env.getContextAsDate(Env.getCtx(), "#DATE"), force, true, null, true, get_TrxName());
+						io = generateInOut(otherInOut);
 				}
 								
 				// Ship/Receipt without lines
@@ -279,8 +286,9 @@ public class GenerateNF extends SvrProcess
 	 * @return
 	 * @throws AdempiereException
 	 */
-	public static MInOut generateReceipt (MOrder order) throws AdempiereException
+	public static MInOut generateInOut (MOrder order) throws AdempiereException
 	{
+		//
 		MInOut io = new MInOut(order, order.getC_DocTypeTarget().getC_DocTypeShipment_ID(), null);
 		
 		//	Shipment / Recept
@@ -296,39 +304,69 @@ public class GenerateNF extends SvrProcess
 		//	Lines
 		for (MOrderLine oLine : order.getLines())
 		{
-			MInOutLine iLine = new MInOutLine(io);
+			//	Stored Product
+			MProduct p = (MProduct) oLine.getM_Product();
+			String MMPolicy = p.getMMPolicy();
+			BigDecimal onHand = BigDecimal.ZERO;
+			BigDecimal toDeliver = oLine.getQtyOrdered()
+					.subtract(oLine.getQtyDelivered());
+
+			MStorageOnHand[] storages = getStorages(oLine.getM_Warehouse_ID(),
+					oLine.getM_Product_ID(), oLine.getM_AttributeSetInstance_ID(),
+					order.getDateOrdered(), MClient.MMPOLICY_FiFo.equals(MMPolicy), oLine.get_TrxName());
 			
-			int m_locator_id = 0;
-			
-			//	Get Locator from Product
-			MLocator locator = (MLocator) oLine.getM_Product().getM_Locator();
-			
-			//	Get locator From Product if Org is the same
-			if (locator != null && locator.getM_Locator_ID() > 0 && locator.getAD_Org_ID() == order.getAD_Org_ID()
-					&& locator.getM_Warehouse_ID() == order.getM_Warehouse_ID())
-				m_locator_id = locator.getM_Locator_ID();
-			else	// Get Default Locator for Organization
+			for (int j = 0; j < storages.length; j++)
 			{
-				// Default Locator
-				MLocator defaultLocator = MLocator.getDefault((MWarehouse)io.getM_Warehouse());
-				
-				if (defaultLocator == null)
-					throw new IllegalArgumentException("Localizador Padrão do armazém " + order.getM_Warehouse().getName() + " não Identificado");
-				
-				m_locator_id = defaultLocator.getM_Locator_ID();
+				MStorageOnHand storage = storages[j];
+				onHand = onHand.add(storage.getQtyOnHand());
 			}
 			
-			if (m_locator_id == 0)
-				throw new IllegalArgumentException("Localizador não Identificado");
-			
-			iLine.setM_Product_ID(oLine.getM_Product_ID());
-			iLine.setQty(oLine.getQtyOrdered().subtract(oLine.getQtyDelivered()));
-			iLine.setM_AttributeSetInstance_ID(oLine.getM_AttributeSetInstance_ID());
-			iLine.setDescription(oLine.getDescription());
-			iLine.setC_UOM_ID(oLine.getC_UOM_ID());
-			iLine.setM_Locator_ID(m_locator_id);
-			iLine.setC_OrderLine_ID(oLine.getC_OrderLine_ID());
-			iLine.saveEx();
+			if (order.isSOTrx())
+				createLine (order, oLine, toDeliver, storages, (MOrder.DELIVERYRULE_Force.equals(order.getDeliveryRule())), io);
+			else
+			{
+				MInOutLine iLine = new MInOutLine(io);			
+				iLine.setM_Product_ID(oLine.getM_Product_ID());
+				iLine.setQty(toDeliver);
+				iLine.setM_AttributeSetInstance_ID(oLine.getM_AttributeSetInstance_ID());
+				iLine.setDescription(oLine.getDescription());
+				iLine.setC_UOM_ID(oLine.getC_UOM_ID());
+				
+				if (storages.length > 0)
+				{
+					iLine.setM_Locator_ID(storages[0].getM_Locator_ID());
+				}
+				else
+				{
+					int m_locator_id = 0;
+					
+					//	Get Locator from Product
+					MLocator locator = (MLocator) oLine.getM_Product().getM_Locator();
+					
+					//	Get locator From Product if Org is the same
+					if (locator != null && locator.getM_Locator_ID() > 0 && locator.getAD_Org_ID() == order.getAD_Org_ID()
+							&& locator.getM_Warehouse_ID() == order.getM_Warehouse_ID())
+						m_locator_id = locator.getM_Locator_ID();
+					else	// Get Default Locator for Organization
+					{
+						// Default Locator
+						MLocator defaultLocator = MLocator.getDefault((MWarehouse)io.getM_Warehouse());
+						
+						if (defaultLocator == null)
+							throw new IllegalArgumentException("Localizador Padrão do armazém " + order.getM_Warehouse().getName() + " não Identificado");
+						
+						m_locator_id = defaultLocator.getM_Locator_ID();
+					}
+					
+					if (m_locator_id == 0)
+						throw new IllegalArgumentException("Localizador não Identificado");
+					
+					iLine.setM_Locator_ID(m_locator_id);
+				}
+				
+				iLine.setC_OrderLine_ID(oLine.getC_OrderLine_ID());
+				iLine.saveEx();
+			}
 		}
 		
 		//	Complete it
@@ -340,4 +378,173 @@ public class GenerateNF extends SvrProcess
 		
 		return io;
 	}
+	
+	/**************************************************************************
+	 * 	Create Line
+	 *	@param order order
+	 *	@param orderLine line
+	 *	@param qty qty
+	 *	@param storages storage info
+	 *	@param force force delivery
+	 */
+	private static void createLine (MOrder order, MOrderLine orderLine, BigDecimal qty, 
+		MStorageOnHand[] storages, boolean force, MInOut m_shipment)
+	{
+		int	m_line = 10;
+		
+		//	Non Inventory Lines
+		if (storages == null)
+		{
+			MInOutLine line = new MInOutLine (m_shipment);
+			line.setOrderLine(orderLine, 0, Env.ZERO);
+			line.setQty(qty);	//	Correct UOM
+			if (orderLine.getQtyEntered().compareTo(orderLine.getQtyOrdered()) != 0)
+				line.setQtyEntered(qty
+					.multiply(orderLine.getQtyEntered())
+					.divide(orderLine.getQtyOrdered(), 12, RoundingMode.HALF_UP));
+			line.setLine(m_line + orderLine.getLine());
+			if (!line.save())
+				throw new IllegalStateException("Could not create Shipment Line");
+			return;
+		}
+		
+		//	Product
+		MProduct product = orderLine.getProduct();
+		boolean fillASI = false;
+		if (product.getM_AttributeSet_ID() > 0)
+		{
+			MAttributeSet mas = MAttributeSet.get(Env.getCtx(), product.getM_AttributeSet_ID());
+			//
+			if (mas.isInstanceAttribute())
+			{
+				//	Fill attribute only when the qty on hand is the same as qty delivered (last part in storage)
+				if (MSysConfig.getBooleanValue(SysConfig.LBR_FILL_ATTRIBUTE_INOUT_LAST_ITEM, false, m_shipment.getAD_Client_ID())
+						&& MStorageOnHand.getQtyOnHand(orderLine.getM_Product_ID(), orderLine.getM_Warehouse_ID(), 0, m_shipment.get_TrxName()).compareTo(qty) == 0)
+					fillASI = true;
+				
+				//	Fill attribute on inout line
+				else if (MSysConfig.getBooleanValue(SysConfig.LBR_FILL_ATTRIBUTE_INOUT, false, m_shipment.getAD_Client_ID()))
+					fillASI = true;
+			}
+		}
+	
+		//	Inventory Lines
+		ArrayList<MInOutLine> list = new ArrayList<MInOutLine>();
+		BigDecimal toDeliver = qty;
+		for (int i = 0; i < storages.length; i++)
+		{
+			MStorageOnHand storage = storages[i];
+			BigDecimal deliver = toDeliver;
+			//skip negative storage record
+			if (storage.getQtyOnHand().signum() < 0) 
+				continue;
+			
+			//	Not enough On Hand
+			if (deliver.compareTo(storage.getQtyOnHand()) > 0 
+				&& storage.getQtyOnHand().signum() >= 0)		//	positive storage
+			{
+				if (!force	//	Adjust to OnHand Qty  
+					|| (force && i+1 != storages.length))	//	if force not on last location
+					deliver = storage.getQtyOnHand();
+			}
+			if (deliver.signum() == 0)	//	zero deliver
+				continue;
+			int M_Locator_ID = storage.getM_Locator_ID();
+			//
+			MInOutLine line = null;
+			if (orderLine.getM_AttributeSetInstance_ID() == 0)      //      find line with Locator
+			{
+				for (int ll = 0; ll < list.size(); ll++)
+				{
+					MInOutLine test = (MInOutLine)list.get(ll);
+					if (test.getM_Locator_ID() == M_Locator_ID && test.getM_AttributeSetInstance_ID() == 0)
+					{
+						line = test;
+						break;
+					}
+				}
+			}
+			if (line == null)	//	new line
+			{
+				line = new MInOutLine (m_shipment);
+				line.setOrderLine(orderLine, M_Locator_ID, order.isSOTrx() ? deliver : Env.ZERO);
+				line.setQty(deliver);
+				list.add(line);
+			}
+			else				//	existing line
+				line.setQty(line.getMovementQty().add(deliver));
+			if (orderLine.getQtyEntered().compareTo(orderLine.getQtyOrdered()) != 0)
+				line.setQtyEntered(line.getMovementQty().multiply(orderLine.getQtyEntered())
+					.divide(orderLine.getQtyOrdered(), 12, RoundingMode.HALF_UP));
+			line.setLine(m_line + orderLine.getLine());
+			if (fillASI)
+				line.setM_AttributeSetInstance_ID(storage.getM_AttributeSetInstance_ID());
+			if (!line.save())
+				throw new IllegalStateException("Could not create Shipment Line");
+			toDeliver = toDeliver.subtract(deliver);
+			//      Temp adjustment, actual update happen in MInOut.completeIt - just in memory - not saved
+			storage.setQtyOnHand(storage.getQtyOnHand().subtract(deliver));
+			//
+			if (toDeliver.signum() == 0)
+				break;
+		}		
+		if (toDeliver.signum() != 0)
+		{	 
+			if (!force)
+			{
+				throw new IllegalStateException("Not All Delivered - Remainder=" + toDeliver);
+			}
+			else 
+			{
+				
+				 MInOutLine line = new MInOutLine (m_shipment);
+				 line.setOrderLine(orderLine, 0, order.isSOTrx() ? toDeliver : Env.ZERO);
+				 line.setQty(toDeliver);
+				 if (orderLine.getQtyEntered().compareTo(orderLine.getQtyOrdered()) != 0)
+					 line.setQtyEntered(line.getMovementQty().multiply(orderLine.getQtyEntered())
+						 .divide(orderLine.getQtyOrdered(), 12, RoundingMode.HALF_UP));
+				 line.setLine(m_line + orderLine.getLine());
+			     if (!line.save())
+					 throw new IllegalStateException("Could not create Shipment Line");
+					 
+
+			}
+		}	
+	}	//	createLine
+	
+	/**
+	 * 	Get Storages
+	 *	@param M_Warehouse_ID
+	 *	@param M_Product_ID
+	 *	@param M_AttributeSetInstance_ID
+	 *	@param minGuaranteeDate
+	 *	@param FiFo
+	 *	@return storages
+	 */
+	private static MStorageOnHand[] getStorages(int M_Warehouse_ID, 
+			 int M_Product_ID, int M_AttributeSetInstance_ID,
+			  Timestamp minGuaranteeDate, boolean FiFo, String trxname)
+	{
+		MStorageOnHand[] m_lastStorages = null;
+		
+		MStorageOnHand[] tmpStorages = MStorageOnHand.getWarehouse(Env.getCtx(), 
+				M_Warehouse_ID, M_Product_ID, M_AttributeSetInstance_ID,
+				minGuaranteeDate, FiFo,false, 0, trxname);
+
+		/* IDEMPIERE-2668 - filter just locators enabled for shipping */
+		List<MStorageOnHand> m_storagesForShipping = new ArrayList<MStorageOnHand>();
+		for (MStorageOnHand soh : tmpStorages) {
+			MLocator loc = MLocator.get(Env.getCtx(), soh.getM_Locator_ID());
+			MLocatorType lt = null;
+			if (loc.getM_LocatorType_ID() > 0)
+				lt = MLocatorType.get(Env.getCtx(), loc.getM_LocatorType_ID());
+			if (lt == null || lt.isAvailableForShipping())
+				m_storagesForShipping.add(soh);
+		}
+		
+		m_lastStorages = new MStorageOnHand[m_storagesForShipping.size()];
+		m_storagesForShipping.toArray(m_lastStorages);
+			
+		return m_lastStorages;
+	}	//	getStorages
 }	//	GenerateNF
