@@ -41,6 +41,7 @@ import org.compiere.process.DocumentEngine;
 import org.compiere.util.CCache;
 import org.compiere.util.DB;
 import org.compiere.util.Msg;
+import org.compiere.util.TimeUtil;
 import org.jrimum.bopepo.BancosSuportados;
 import org.jrimum.bopepo.Boleto;
 import org.jrimum.bopepo.view.BoletoViewer;
@@ -448,6 +449,15 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 					seq.save();
 				}
 			}
+		}
+		
+		/**
+		 * 	Do not allow the due date to be before the document date
+		 */
+		if (getDueDate().before(getDateDoc()) || getDueDate().equals(getDateDoc()))
+		{
+			log.warning("Data de Vencimento inválida, postergando o boleto para a data o mínimo de 1 dia após a data do documento");
+			setDueDate(TimeUtil.addDays(getDateDoc(), 1));
 		}
 		//
 		return true;
@@ -873,7 +883,17 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 			bsi.setLBR_NumberInBankVD("0");
 		else
 		{
-			bsi.setLBR_NumberInBankVD(TextUtil.lPad (Modulo.calculeMod11(numberInBank, 2, 7), 1));
+			int mod11 = Modulo.calculeMod11(numberInBank, 2, 7);
+			
+			String dv = null;
+			if (mod11 == 0)
+				dv = "0";
+			else if (mod11 == 1)
+				dv = "P";
+			else 
+				dv = String.valueOf (11-mod11);
+			
+			bsi.setLBR_NumberInBankVD(TextUtil.rPad (dv, 1));
 		}
 	}	//	setNumberInBankVD
 
