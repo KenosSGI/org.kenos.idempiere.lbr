@@ -657,6 +657,7 @@ public class ValidatorInvoice implements ModelValidator
 		MLBRTax tax = new MLBRTax(Env.getCtx(), wil.getLBR_Tax_ID(), iLine.get_TrxName());
 		
 		BigDecimal icmsAmt = BigDecimal.ZERO;
+		
 		//	Quantidade Faturada
 		BigDecimal qtyInvoiced = iLine.getQtyInvoiced().abs();
 		
@@ -722,9 +723,11 @@ public class ValidatorInvoice implements ModelValidator
 				if (MLBRTaxName.TAX_ICMSST == line.getLBR_TaxName_ID()
 						&& (NFeXMLGenerator.CST_ICMS_60.equals(taxStatus) || NFeXMLGenerator.CST_ICMS_70.equals(taxStatus)))
 				{
-					
-					//	ICMS Unitario
+					//	ICMS Unitário
 					BigDecimal icmsUnit = icmsAmt.divide(qtyInvoiced,RoundingMode.HALF_UP).abs();
+					
+					//	ICMSST Unitário
+					BigDecimal icmsstUnit = line.getlbr_TaxAmt().abs().divide(qtyInvoiced,RoundingMode.HALF_UP).abs();
 					
 					//	Controle de Imposto por Produto e por Organização
 					MLBRProductTaxControl tc = MLBRProductTaxControl.getProductTaxControl(iLine.getM_Product_ID(), iLine.getAD_Org_ID());
@@ -738,6 +741,7 @@ public class ValidatorInvoice implements ModelValidator
 						{
 							tc.setLBR_QtyICMSSubstitute(qtyInvoiced);
 							tc.setLBR_ICMSSubstituto(icmsUnit);
+							tc.setICMSST_TaxAmt(icmsstUnit);
 						}
 						else // Se não calcular a média ponderada
 						{							
@@ -746,8 +750,10 @@ public class ValidatorInvoice implements ModelValidator
 							
 							//	Media ponderada do ICMS Substituto
 							BigDecimal icmsTotalSub = tc.getLBR_ICMSSubstituto().abs();
+							BigDecimal icmsstTotal = tc.getICMSST_TaxAmt().abs();
 							BigDecimal qtyDiv = BigDecimal.ZERO;
-							BigDecimal mediaPonderadaCalc = BigDecimal.ZERO;
+							BigDecimal mediaPonderadaCalcIcms = BigDecimal.ZERO;
+							BigDecimal mediaPonderadaCalcIcmsst = BigDecimal.ZERO;
 							
 							//	Se não for um estorno
 							if (!isReverse)
@@ -760,9 +766,11 @@ public class ValidatorInvoice implements ModelValidator
 								//	((ICMS Unitário Atual x Quantidade Fatura Atual) 
 								//		+ (ICMS Unitário Controlde Imposto x Quantidade Controle Imposto)) / 
 								//	Quantidade Faturada Atual + Quantidada Total Faturada no Controle de Imposto
-								mediaPonderadaCalc = icmsUnit.multiply(qtyInvoiced).add(icmsTotalSub.multiply(qtyTotalICMSSub));
+								mediaPonderadaCalcIcms = icmsUnit.multiply(qtyInvoiced).add(icmsTotalSub.multiply(qtyTotalICMSSub));
+								mediaPonderadaCalcIcmsst = icmsstUnit.multiply(qtyInvoiced).add(icmsstTotal.multiply(qtyTotalICMSSub));
 								
-								mediaPonderadaCalc = mediaPonderadaCalc.divide(qtyDiv,RoundingMode.HALF_UP);
+								mediaPonderadaCalcIcms = mediaPonderadaCalcIcms.divide(qtyDiv,RoundingMode.HALF_UP);
+								mediaPonderadaCalcIcmsst = mediaPonderadaCalcIcmsst.divide(qtyDiv,RoundingMode.HALF_UP);
 							}
 							else
 							{
@@ -774,20 +782,26 @@ public class ValidatorInvoice implements ModelValidator
 								//	((ICMS Unitário Atual x Quantidade Fatura Atual) 
 								//		+ (ICMS Unitário Controlde Imposto x Quantidade Controle Imposto)) / 
 								//	Quantidade Faturada Atual + Quantidada Total Faturada no Controle de Imposto
-								mediaPonderadaCalc = icmsTotalSub.multiply(qtyTotalICMSSub).subtract(icmsUnit.multiply(qtyInvoiced));
+								mediaPonderadaCalcIcms = icmsTotalSub.multiply(qtyTotalICMSSub).subtract(icmsUnit.multiply(qtyInvoiced));
+								mediaPonderadaCalcIcmsst = icmsstTotal.multiply(qtyTotalICMSSub).subtract(icmsUnit.multiply(qtyInvoiced));
 								
-								mediaPonderadaCalc = mediaPonderadaCalc.divide(qtyDiv,RoundingMode.HALF_UP);
+								mediaPonderadaCalcIcms = mediaPonderadaCalcIcms.divide(qtyDiv,RoundingMode.HALF_UP);
+								mediaPonderadaCalcIcmsst = mediaPonderadaCalcIcmsst.divide(qtyDiv,RoundingMode.HALF_UP);
 							}
 							
 							if (qtyDiv.intValue() < 0)
 								qtyDiv = BigDecimal.ZERO;
 							
-							if (mediaPonderadaCalc.intValue() < 0)
-								mediaPonderadaCalc = BigDecimal.ZERO;
+							if (mediaPonderadaCalcIcms.intValue() < 0)
+								mediaPonderadaCalcIcms = BigDecimal.ZERO;
+							
+							if (mediaPonderadaCalcIcmsst.intValue() < 0)
+								mediaPonderadaCalcIcmsst = BigDecimal.ZERO;
 							
 							//	Salvar Valores Atualizados
 							tc.setLBR_QtyICMSSubstitute(qtyDiv);
-							tc.setLBR_ICMSSubstituto(mediaPonderadaCalc);
+							tc.setLBR_ICMSSubstituto(mediaPonderadaCalcIcms);
+							tc.setICMSST_TaxAmt(mediaPonderadaCalcIcmsst);
 							tc.saveEx();
 						}
 					}
@@ -799,6 +813,7 @@ public class ValidatorInvoice implements ModelValidator
 						tcnew.setM_Product_ID(iLine.getM_Product_ID());
 						tcnew.setLBR_QtyICMSSubstitute(qtyInvoiced);
 						tcnew.setLBR_ICMSSubstituto(icmsUnit);
+						tcnew.setICMSST_TaxAmt(icmsstUnit);
 						tcnew.saveEx();
 					}							
 				}

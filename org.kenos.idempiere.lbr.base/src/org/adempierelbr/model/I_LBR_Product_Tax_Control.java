@@ -93,6 +93,15 @@ public interface I_LBR_Product_Tax_Control
 	  */
 	public String getDescription();
 
+    /** Column name ICMSST_TaxAmt */
+    public static final String COLUMNNAME_ICMSST_TaxAmt = "ICMSST_TaxAmt";
+
+	/** Set ICMSST	  */
+	public void setICMSST_TaxAmt (BigDecimal ICMSST_TaxAmt);
+
+	/** Get ICMSST	  */
+	public BigDecimal getICMSST_TaxAmt();
+
     /** Column name IsActive */
     public static final String COLUMNNAME_IsActive = "IsActive";
 

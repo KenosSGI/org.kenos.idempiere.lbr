@@ -446,7 +446,16 @@ public class VLBRTax implements ModelValidator
 							if (tc != null)
 							{
 								BigDecimal icms = tc.getLBR_ICMSSubstituto().multiply(oLineW.getQtyOrdered());
+								BigDecimal icmsst = tc.getICMSST_TaxAmt().multiply(oLineW.getQtyOrdered());
 								tl.setLBR_ICMSSubstituto(icms);
+								
+								if (MSysConfig.getBooleanValue("LBR_GET_ICMSST_FROM_PURCHASEORDER",false, tc.getAD_Client_ID()))
+								{
+									tl.setlbr_TaxAmt(icmsst);
+									if (BigDecimal.ZERO.compareTo(tl.getlbr_TaxRate()) < 0)
+										tl.setlbr_TaxBaseAmt((new BigDecimal("100").multiply(icmsst)).divide(tl.getlbr_TaxRate(), 2, RoundingMode.HALF_UP));
+								}
+								
 								tl.saveEx();
 							}
 						}

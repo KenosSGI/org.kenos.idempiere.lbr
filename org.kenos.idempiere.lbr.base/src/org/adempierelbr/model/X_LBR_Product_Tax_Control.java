@@ -32,7 +32,7 @@ public class X_LBR_Product_Tax_Control extends PO implements I_LBR_Product_Tax_C
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20200811L;
+	private static final long serialVersionUID = 20200915L;
 
     /** Standard Constructor */
     public X_LBR_Product_Tax_Control (Properties ctx, int LBR_Product_Tax_Control_ID, String trxName)
@@ -40,6 +40,8 @@ public class X_LBR_Product_Tax_Control extends PO implements I_LBR_Product_Tax_C
       super (ctx, LBR_Product_Tax_Control_ID, trxName);
       /** if (LBR_Product_Tax_Control_ID == 0)
         {
+			setICMSST_TaxAmt (Env.ZERO);
+// 0
 			setLBR_ICMSSubstituto (Env.ZERO);
 // 0
 			setLBR_Product_Tax_Control_ID (0);
@@ -92,6 +94,23 @@ public class X_LBR_Product_Tax_Control extends PO implements I_LBR_Product_Tax_C
 	public String getDescription () 
 	{
 		return (String)get_Value(COLUMNNAME_Description);
+	}
+
+	/** Set ICMSST.
+		@param ICMSST_TaxAmt ICMSST	  */
+	public void setICMSST_TaxAmt (BigDecimal ICMSST_TaxAmt)
+	{
+		set_ValueNoCheck (COLUMNNAME_ICMSST_TaxAmt, ICMSST_TaxAmt);
+	}
+
+	/** Get ICMSST.
+		@return ICMSST	  */
+	public BigDecimal getICMSST_TaxAmt () 
+	{
+		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_ICMSST_TaxAmt);
+		if (bd == null)
+			 return Env.ZERO;
+		return bd;
 	}
 
 	/** Set ICMS Substituto.
