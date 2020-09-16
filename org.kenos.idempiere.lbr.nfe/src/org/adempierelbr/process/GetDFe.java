@@ -544,11 +544,13 @@ public class GetDFe extends SvrProcess
 					pDFe.setProcessed(true);
 					pDFe.save();
 				}
+				else
+					pDFe.setLBR_NSU(zip.getNSU());
 				
 				//	Tenta salvar
 				if (pDFe.getLBR_PartnerDFe_ID() > 0)
 				{
-					count.event++;
+					count.nfe++;
 					
 					//	Arquivo de resposta final
 					MAttachment attachEvent = pDFe.createAttachment ();
