@@ -109,7 +109,8 @@ public class WNotaFiscalForm extends ADForm implements EventListener<Event>, WTa
 	//	Additional buttons
 	private Button printEmitButton = new ConfirmPanel().createButton("Print");
 	private Button printRecButton = new ConfirmPanel().createButton("Print");
-	private Button downloadButton = new ConfirmPanel().createButton("Next");
+	private Button downloadButton = new ConfirmPanel().createButton("Reset");
+	private Button getDFeButton = new ConfirmPanel().createButton("MoveDown");
 
 	//	Panels
 	private Borderlayout nfeEmitPanel = new Borderlayout();
@@ -173,8 +174,12 @@ public class WNotaFiscalForm extends ADForm implements EventListener<Event>, WTa
 		printEmitButton.addActionListener(this);
 		//
 		confirmPanelRec.addComponentsLeft(printRecButton);
+		confirmPanelRec.addComponentsLeft(getDFeButton);
 		confirmPanelRec.addComponentsLeft(downloadButton);
 		printRecButton.addActionListener(this);
+		getDFeButton.addActionListener(this);
+		getDFeButton.setTooltiptext("Obter documentos fiscais na SeFaz");
+		
 		downloadButton.addActionListener(this);
 		downloadButton.setTooltiptext("Download");
 		//
@@ -393,12 +398,17 @@ public class WNotaFiscalForm extends ADForm implements EventListener<Event>, WTa
 			}
 		}
 		
-		else if (e.getTarget() == confirmPanelRec.getButton(ConfirmPanel.A_REFRESH))
+		else if (e.getTarget() == getDFeButton)
 		{
 			ProcessInfoParameter pip = new ProcessInfoParameter (MOrg.COLUMNNAME_AD_Org_ID, genForm.m_AD_Org_ID, null, null, null);
 			//	Get DFe
 			ProcessInfo pi = startProcess(GetDFe.AD_Process_ID, genForm.getTitle(), m_WindowNo, new ProcessInfoParameter[]{pip});
 			statusBar.setStatusLine(pi.getSummary(), pi.isError());
+			genForm.executeQuery();
+		}
+		
+		else if (e.getTarget() == confirmPanelRec.getButton(ConfirmPanel.A_REFRESH))
+		{
 			genForm.executeQuery();
 		}
 		

@@ -173,7 +173,7 @@ public class MLBRPartnerDFe extends X_LBR_PartnerDFe
 				log.saveError("Error", Msg.parseTranslation(getCtx(), "@Invalid@ = @DocumentType@"));
 				return false;
 			}
-					  
+			
 			int count = DB.getSQLValue (null, sql, params);
 			
 			//	Already imported
