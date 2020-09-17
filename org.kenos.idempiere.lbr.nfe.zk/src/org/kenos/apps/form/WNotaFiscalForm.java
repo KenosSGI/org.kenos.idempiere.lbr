@@ -109,7 +109,7 @@ public class WNotaFiscalForm extends ADForm implements EventListener<Event>, WTa
 	//	Additional buttons
 	private Button printEmitButton = new ConfirmPanel().createButton("Print");
 	private Button printRecButton = new ConfirmPanel().createButton("Print");
-	private Button downloadButton = new ConfirmPanel().createButton("MoveDown");
+	private Button downloadButton = new ConfirmPanel().createButton("Reset");
 	private Button getDFeButton = new ConfirmPanel().createButton("MoveDown");
 
 	//	Panels
