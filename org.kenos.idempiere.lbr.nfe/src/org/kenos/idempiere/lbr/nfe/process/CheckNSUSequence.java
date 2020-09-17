@@ -27,7 +27,7 @@ import br.inf.portalfiscal.nfe.dfe.RetDistDFeIntDocument.RetDistDFeInt;
 public class CheckNSUSequence extends SvrProcess
 {
 	/** Process ID 					*/
-	public static final int AD_Process_ID = -1;
+	public static final int AD_Process_ID = 1120251;
 	
 	/**	Organization				*/
 	private int p_AD_Org_ID = -1;
