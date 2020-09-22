@@ -603,7 +603,8 @@ public class NFeXMLGenerator
 		Emit emit = infNFe.addNewEmit();
 		emit.setCNPJ(chaveNFE.getCNPJ());
 		emit.setXNome(normalize (oi.getlbr_LegalEntity()));
-		emit.setXFant(normalize (nf.getlbr_Fantasia()));
+		if (nf.getlbr_Fantasia() != null && !nf.getlbr_Fantasia().isBlank())
+			emit.setXFant(normalize (nf.getlbr_Fantasia()));
 		
 		if (nf.getlbr_OrgCCM() != null && !nf.getlbr_OrgCCM().isBlank())
 		{

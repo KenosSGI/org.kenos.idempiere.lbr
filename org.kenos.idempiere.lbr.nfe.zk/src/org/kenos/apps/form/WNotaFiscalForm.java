@@ -57,6 +57,7 @@ import org.compiere.util.CLogger;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.compiere.util.Msg;
+import org.kenos.idempiere.lbr.nfe.process.CheckNSUSequence;
 import org.zkoss.zk.au.out.AuEcho;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
@@ -109,8 +110,8 @@ public class WNotaFiscalForm extends ADForm implements EventListener<Event>, WTa
 	//	Additional buttons
 	private Button printEmitButton = new ConfirmPanel().createButton("Print");
 	private Button printRecButton = new ConfirmPanel().createButton("Print");
-	private Button downloadButton = new ConfirmPanel().createButton("Reset");
-	private Button getDFeButton = new ConfirmPanel().createButton("MoveDown");
+	private Button downloadButton = new ConfirmPanel().createButton("MoveDown");
+	private Button getDFeButton = new ConfirmPanel().createButton("Reset");
 
 	//	Panels
 	private Borderlayout nfeEmitPanel = new Borderlayout();
@@ -174,8 +175,8 @@ public class WNotaFiscalForm extends ADForm implements EventListener<Event>, WTa
 		printEmitButton.addActionListener(this);
 		//
 		confirmPanelRec.addComponentsLeft(printRecButton);
-		confirmPanelRec.addComponentsLeft(getDFeButton);
 		confirmPanelRec.addComponentsLeft(downloadButton);
+		confirmPanelRec.addComponentsLeft(getDFeButton);
 		printRecButton.addActionListener(this);
 		getDFeButton.addActionListener(this);
 		getDFeButton.setTooltiptext("Obter documentos fiscais na SeFaz");
@@ -404,6 +405,22 @@ public class WNotaFiscalForm extends ADForm implements EventListener<Event>, WTa
 			//	Get DFe
 			ProcessInfo pi = startProcess(GetDFe.AD_Process_ID, genForm.getTitle(), m_WindowNo, new ProcessInfoParameter[]{pip});
 			statusBar.setStatusLine(pi.getSummary(), pi.isError());
+			
+			//	Proceed only when there is no error
+			if (!pi.isError())
+			{
+				String result = pi.getSummary();
+				
+				//	Get missing DFe (by NSU)
+				pi = startProcess(CheckNSUSequence.AD_Process_ID, genForm.getTitle(), m_WindowNo, new ProcessInfoParameter[]{
+						new ProcessInfoParameter (MOrg.COLUMNNAME_AD_Org_ID, genForm.m_AD_Org_ID, null, null, null),
+						new ProcessInfoParameter ("LBR_FixMissingNSU", true, null, null, null)
+				});
+				
+				
+				statusBar.setStatusLine(result + "\n" + pi.getSummary(), pi.isError());
+			}
+			
 			genForm.executeQuery();
 		}
 		
