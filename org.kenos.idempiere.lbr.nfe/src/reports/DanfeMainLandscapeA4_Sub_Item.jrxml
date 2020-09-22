@@ -479,7 +479,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="6"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{orig} + $F{cst}]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[java.util.stream.Stream.of ($F{orig},$F{cst}).filter(s -> s != null).collect(java.util.stream.Collectors.joining())]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement key="textField-5" mode="Transparent" x="373" y="2" width="19" height="7" isRemoveLineWhenBlank="true"/>
@@ -520,7 +520,7 @@
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{quantidadeComercial}.equals($F{quantidadeTributaria}) ? (new DecimalFormat("#,##0.00#").format($F{quantidadeComercial})) : (new DecimalFormat("#,##0.00#").format($F{quantidadeComercial})) + "\n" + (new DecimalFormat("#,##0.00#").format($F{quantidadeTributaria}))]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+			<textField isStretchWithOverflow="true" pattern="#,##0.00##" isBlankWhenNull="true">
 				<reportElement key="textField-8" mode="Transparent" x="455" y="2" width="38" height="7" isRemoveLineWhenBlank="true"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -531,7 +531,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Arial" size="6"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{valorUnitarioComercial}.equals($F{valorUnitarioTributario}) ? (new DecimalFormat("#,##0.00#").format($F{valorUnitarioComercial})) : (new DecimalFormat("#,##0.00#").format($F{valorUnitarioComercial})) + "\n" + (new DecimalFormat("#,##0.00#").format($F{valorUnitarioTributario}))]]></textFieldExpression>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{valorUnitarioComercial}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement key="textField-9" mode="Transparent" x="495" y="2" width="39" height="7" isRemoveLineWhenBlank="true"/>
