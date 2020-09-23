@@ -58,6 +58,7 @@ import org.compiere.util.CLogger;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.compiere.util.Msg;
+import org.kenos.idempiere.lbr.base.model.MLBRAMissingNSU;
 import org.kenos.idempiere.lbr.nfe.process.CheckNSUSequence;
 import org.zkoss.zk.au.out.AuEcho;
 import org.zkoss.zk.ui.event.Event;
@@ -423,22 +424,21 @@ public class WNotaFiscalForm extends ADForm implements EventListener<Event>, WTa
 					//	Get DFe
 					ProcessInfo pi = startProcess(CheckNSUSequence.AD_Process_ID, genForm.getTitle(), m_WindowNo, new ProcessInfoParameter[]{
 							new ProcessInfoParameter (MOrg.COLUMNNAME_AD_Org_ID, genForm.m_AD_Org_ID, null, null, null),
-							new ProcessInfoParameter ("LBR_FixMissingNSU", Boolean.TRUE.equals(result), null, null, null)
+							new ProcessInfoParameter (MLBRAMissingNSU.COLUMNNAME_LBR_FixMissingNSU, Boolean.TRUE.equals(result) ? "Y" : "N", null, null, null)
 					});
 					
 					String title = "Checagem do NSU";
-					String summary = pi.getSummary();
 					
 					//	Only show dialog when trying to fix NSU
 					if (result)
 					{
 						if (pi.isError())
-							FDialog.error(getWindowNo(), getStatusBar().getParent(), title, summary);
+							FDialog.error(getWindowNo(), getStatusBar().getParent(), title, "Falha ao tentar corrigir os NSUs faltantes");
 						else
-							FDialog.info(getWindowNo(), getStatusBar().getParent(), title, summary);
+							FDialog.info(getWindowNo(), getStatusBar().getParent(), title, "Processo concluído com sucesso");
 					}
 					//
-					statusBar.setStatusLine(summary, pi.isError());
+					statusBar.setStatusLine(pi.getSummary(), pi.isError());
 				}
 			});
 			
