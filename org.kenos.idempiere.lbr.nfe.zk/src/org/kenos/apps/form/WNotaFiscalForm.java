@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.logging.Level;
 
+import org.adempiere.util.Callback;
 import org.adempiere.webui.LayoutUtils;
 import org.adempiere.webui.apps.AEnv;
 import org.adempiere.webui.apps.BusyDialog;
@@ -112,6 +113,7 @@ public class WNotaFiscalForm extends ADForm implements EventListener<Event>, WTa
 	private Button printRecButton = new ConfirmPanel().createButton("Print");
 	private Button downloadButton = new ConfirmPanel().createButton("MoveDown");
 	private Button getDFeButton = new ConfirmPanel().createButton("Reset");
+	private Button checkNSUButton = new ConfirmPanel().createButton("Report");
 
 	//	Panels
 	private Borderlayout nfeEmitPanel = new Borderlayout();
@@ -121,7 +123,7 @@ public class WNotaFiscalForm extends ADForm implements EventListener<Event>, WTa
 	private Html info = new Html();
 	private BusyDialog progressWindow;
 	private Div messageDiv;
-	
+
 	public WNotaFiscalForm(NotaFiscal genForm)
 	{
 		log.info("");
@@ -177,6 +179,7 @@ public class WNotaFiscalForm extends ADForm implements EventListener<Event>, WTa
 		confirmPanelRec.addComponentsLeft(printRecButton);
 		confirmPanelRec.addComponentsLeft(downloadButton);
 		confirmPanelRec.addComponentsLeft(getDFeButton);
+		confirmPanelRec.addComponentsLeft(checkNSUButton);
 		printRecButton.addActionListener(this);
 		getDFeButton.addActionListener(this);
 		getDFeButton.setTooltiptext("Obter documentos fiscais na SeFaz");
@@ -406,20 +409,38 @@ public class WNotaFiscalForm extends ADForm implements EventListener<Event>, WTa
 			ProcessInfo pi = startProcess(GetDFe.AD_Process_ID, genForm.getTitle(), m_WindowNo, new ProcessInfoParameter[]{pip});
 			statusBar.setStatusLine(pi.getSummary(), pi.isError());
 			
-			//	Proceed only when there is no error
-			if (!pi.isError())
-			{
-				String result = pi.getSummary();
+			genForm.executeQuery();
+		}
+		
+		else if (e.getTarget() == checkNSUButton)
+		{
+			//	OK to print
+			FDialog.ask (getWindowNo(), this, "Tentar corrigir NSU faltantes?", new Callback<Boolean>() {
 				
-				//	Get missing DFe (by NSU)
-				pi = startProcess(CheckNSUSequence.AD_Process_ID, genForm.getTitle(), m_WindowNo, new ProcessInfoParameter[]{
-						new ProcessInfoParameter (MOrg.COLUMNNAME_AD_Org_ID, genForm.m_AD_Org_ID, null, null, null),
-						new ProcessInfoParameter ("LBR_FixMissingNSU", true, null, null, null)
-				});
-				
-				
-				statusBar.setStatusLine(result + "\n" + pi.getSummary(), pi.isError());
-			}
+				@Override
+				public void onCallback(Boolean result) 
+				{
+					//	Get DFe
+					ProcessInfo pi = startProcess(CheckNSUSequence.AD_Process_ID, genForm.getTitle(), m_WindowNo, new ProcessInfoParameter[]{
+							new ProcessInfoParameter (MOrg.COLUMNNAME_AD_Org_ID, genForm.m_AD_Org_ID, null, null, null),
+							new ProcessInfoParameter ("LBR_FixMissingNSU", Boolean.TRUE.equals(result), null, null, null)
+					});
+					
+					String title = "Checagem do NSU";
+					String summary = pi.getSummary();
+					
+					//	Only show dialog when trying to fix NSU
+					if (result)
+					{
+						if (pi.isError())
+							FDialog.error(getWindowNo(), getStatusBar().getParent(), title, summary);
+						else
+							FDialog.info(getWindowNo(), getStatusBar().getParent(), title, summary);
+					}
+					//
+					statusBar.setStatusLine(summary, pi.isError());
+				}
+			});
 			
 			genForm.executeQuery();
 		}
