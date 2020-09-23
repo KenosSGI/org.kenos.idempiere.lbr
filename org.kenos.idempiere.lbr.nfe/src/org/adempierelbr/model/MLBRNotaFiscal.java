@@ -1253,7 +1253,7 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		setlbr_IsOwnDocument(IsOwnDocument);
 		
 		//	Preenche a data de saida da NF
-		if (!MSysConfig.getBooleanValue(SysConfig.LBR_DATEINOUT_NF, true, getAD_Client_ID()))
+		if (getlbr_DateInOut() == null && !MSysConfig.getBooleanValue(SysConfig.LBR_DATEINOUT_NF, true, getAD_Client_ID()))
 			setlbr_DateInOut(invoice.getDateAcct());
 		
 		//	Dados da Organização
@@ -1845,7 +1845,7 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		setDateDoc(order.getDateAcct());
 		setIsSOTrx(isSOTrx);
 		setlbr_IsOwnDocument(IsOwnDocument);
-		if (!MSysConfig.getBooleanValue(SysConfig.LBR_DATEINOUT_NF, true, getAD_Client_ID()))
+		if (getlbr_DateInOut() == null && !MSysConfig.getBooleanValue(SysConfig.LBR_DATEINOUT_NF, true, getAD_Client_ID()))
 			setlbr_DateInOut(order.getDateAcct());
 		
 		//	Dados da Organização
@@ -1964,7 +1964,7 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		setDateDoc(inout.getDateAcct());
 		setIsSOTrx(isSOTrx);
 		setlbr_IsOwnDocument(IsOwnDocument);
-		if (!MSysConfig.getBooleanValue(SysConfig.LBR_DATEINOUT_NF, true, getAD_Client_ID()))
+		if (getlbr_DateInOut() == null && !MSysConfig.getBooleanValue(SysConfig.LBR_DATEINOUT_NF, true, getAD_Client_ID()))
 			setlbr_DateInOut(inout.getDateAcct());
 		
 		MOrder order = new MOrder(Env.getCtx(), inout.getC_Order_ID(), get_TrxName());
