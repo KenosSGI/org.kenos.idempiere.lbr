@@ -41,13 +41,11 @@ import org.adempierelbr.wrapper.I_W_C_City;
 import org.compiere.model.MAttachment;
 import org.compiere.model.MCity;
 import org.compiere.model.MOrgInfo;
-import org.compiere.model.MSysConfig;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
 import org.compiere.util.CLogger;
 import org.kenos.idempiere.lbr.base.event.IDocFiscalHandler;
 import org.kenos.idempiere.lbr.base.event.IDocFiscalHandlerFactory;
-import org.kenos.idempiere.lbr.base.model.SysConfig;
 import org.kenos.idempiere.lbr.mdfe.model.MLBRMDFe;
 import org.kenos.idempiere.lbr.mdfe.util.MDFeUtil;
 
@@ -147,9 +145,6 @@ public class MDFeRecepcao extends SvrProcess
 		//	XML
 		String wrapped = MDFeUtil.getWrapped (sb, "mdfeDadosMsg", "http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeRecepcaoSinc");
 		XMLStreamReader data = XMLInputFactory.newInstance().createXMLStreamReader(new StringReader(wrapped));
-
-		//	Prepara a Transmissão
-		MLBRDigitalCertificate.setCertificate (p_ctx, mdfe.getAD_Org_ID());
 		
 		I_W_C_City city = POWrapper.create (new MCity (p_ctx, MOrgInfo.get(p_ctx, mdfe.getAD_Org_ID(), null).getC_Location().getC_City_ID(), null), I_W_C_City.class);
 
@@ -158,27 +153,31 @@ public class MDFeRecepcao extends SvrProcess
 			throw new Exception ("URL for MDF-e not found");
 
 		String region = (city.getlbr_CityCode()+"").substring(0, 2);
-		String remoteURL = MSysConfig.getValue(SysConfig.LBR_REMOTE_PKCS11_URL, mdfe.getAD_Client_ID(), mdfe.getAD_Org_ID());
 		final StringBuilder result = new StringBuilder();
+		
+		//	Get the valid certificate
+		MLBRDigitalCertificate certificate = MLBRDigitalCertificate.getCertificate (p_ctx, mdfe.getAD_Org_ID());
+		if (certificate == null)
+			throw new Exception ("@Error@ Certificado Inválido");
 		
 		//	Try to find a service for PKCS#11 for transmit
 		IDocFiscalHandler handler = null;
 		List<IDocFiscalHandlerFactory> list = Service.locator ().list (IDocFiscalHandlerFactory.class).getServices();
 		for (IDocFiscalHandlerFactory docFiscal : list)
 		{
-			handler = docFiscal.getHandler (MDFeRecepcao.class.getName());
+			handler = docFiscal.getHandler (certificate.getlbr_CertType(), MDFeRecepcao.class.getName());
 			if (handler != null)
 				break;
 		}
 		
 		// 	We have both, the URL for the local app and the Plugin transmitter
-		if (remoteURL != null && handler != null)
+		if (handler != null)
 		{
 			synchronized (result)
 			{
 				String uuid = UUID.randomUUID().toString();
 				handler.transmitDocument(IDocFiscalHandler.DOC_MDFE, oi.get_ValueAsString(I_W_AD_OrgInfo.COLUMNNAME_lbr_CNPJ), 
-						uuid, remoteURL, url.getURL(), region, MDFeUtil.getWrapped (sb), result);	//	FIXME MDFe URL
+						uuid, certificate.getURL(), url.getURL(), region, MDFeUtil.getWrapped (sb), result);	//	FIXME MDFe URL
 				
 				//	Wait until process is completed
 				result.wait();
@@ -190,6 +189,8 @@ public class MDFeRecepcao extends SvrProcess
 		}
 		else
 		{
+			certificate.initialize();
+			
 			//	Conteúdo
 			MDFeRecepcaoSincStub.MdfeDadosMsg content = MDFeRecepcaoSincStub.MdfeDadosMsg.Factory.parse (data);
 			

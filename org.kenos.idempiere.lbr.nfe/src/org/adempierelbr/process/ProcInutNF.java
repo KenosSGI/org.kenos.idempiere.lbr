@@ -26,14 +26,12 @@ import org.apache.axiom.om.OMElement;
 import org.compiere.model.MLocation;
 import org.compiere.model.MOrgInfo;
 import org.compiere.model.MRefList;
-import org.compiere.model.MSysConfig;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
 import org.kenos.idempiere.lbr.base.event.IDocFiscalHandler;
 import org.kenos.idempiere.lbr.base.event.IDocFiscalHandlerFactory;
-import org.kenos.idempiere.lbr.base.model.SysConfig;
 
 import br.inf.portalfiscal.nfe.v400.InutNFeDocument;
 import br.inf.portalfiscal.nfe.v400.RetInutNFeDocument;
@@ -269,9 +267,6 @@ public class ProcInutNF extends SvrProcess
 		//	Validate XML
 		NFeUtil.validate (inutNFeDocument);
 		
-		//	Inicializa o Certificado
-		MLBRDigitalCertificate.setCertificate (ctx, p_AD_Org_ID);
-		
 		//	Recupera a URL de Transmissão
 		String serviceType = null;
 		if (MLBRNotaFiscal.LBR_NFMODEL_NotaFiscalEletrônica.equals(nfModel))
@@ -286,27 +281,31 @@ public class ProcInutNF extends SvrProcess
 		String xmlText = inutNFeDocument.xmlText(NFeUtil.getXmlOpt());
 		StringReader xml = new StringReader (NFeUtil.wrapMsg (xmlText));
 		
-		String remoteURL = MSysConfig.getValue(SysConfig.LBR_REMOTE_PKCS11_URL, oi.getAD_Client_ID(), oi.getAD_Org_ID());
 		final StringBuilder respStatus = new StringBuilder();
+		
+		//	Get the valid certificate
+		MLBRDigitalCertificate certificate = MLBRDigitalCertificate.getCertificate (ctx, p_AD_Org_ID);
+		if (certificate == null)
+			throw new Exception ("@Error@ Certificado Inválido");
 		
 		//	Try to find a service for PKCS#11 for transmit
 		IDocFiscalHandler handler = null;
 		List<IDocFiscalHandlerFactory> list = Service.locator ().list (IDocFiscalHandlerFactory.class).getServices();
 		for (IDocFiscalHandlerFactory docFiscal : list)
 		{
-			handler = docFiscal.getHandler (ProcInutNF.class.getName());
+			handler = docFiscal.getHandler (certificate.getlbr_CertType(), ProcInutNF.class.getName());
 			if (handler != null)
 				break;
 		}
 		
 		// 	We have both, the URL for the local app and the Plugin transmitter
-		if (remoteURL != null && handler != null)
+		if (handler != null)
 		{
 			synchronized (respStatus)
 			{
 				String uuid = UUID.randomUUID().toString();
 				handler.transmitDocument(IDocFiscalHandler.DOC_NFE_INUT, oiW.getlbr_CNPJ(), 
-						uuid, remoteURL, url, "" + NFeUtil.getRegionCode (oi), xmlText, respStatus);
+						uuid, certificate.getURL(), url, "" + NFeUtil.getRegionCode (oi), xmlText, respStatus);
 				
 				//	Wait until process is completed
 				respStatus.wait();
@@ -318,6 +317,9 @@ public class ProcInutNF extends SvrProcess
 		}
 		else
 		{
+			//	Set certificate
+			certificate.initialize();
+			
 			//	Mensagem
 			br.inf.portalfiscal.www.nfe.wsdl.nfeinutilizacao4.NfeDadosMsg dadosMsg = br.inf.portalfiscal.www.nfe.wsdl.nfeinutilizacao4.NfeDadosMsg.Factory.parse (XMLInputFactory.newInstance().createXMLStreamReader(xml));
 			

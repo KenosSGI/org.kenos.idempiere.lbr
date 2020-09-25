@@ -80,40 +80,57 @@ public class MLBRDigitalCertificate extends X_LBR_DigitalCertificate
 	}	//	MLBRDigitalCertificate
 
 	/**
-	 * setCertificate
+	 * getCertificate
 	 * Set all System.property for webservice connection
 	 */
-	public static void setCertificate (Properties ctx, int AD_Org_ID) throws Exception
+	public static MLBRDigitalCertificate getCertificate (Properties ctx, int AD_Org_ID) throws Exception
 	{
 		MOrgInfo oi = MOrgInfo.get (ctx, AD_Org_ID, null);
 		I_W_AD_OrgInfo oiW = POWrapper.create (oi, I_W_AD_OrgInfo.class);
 		
 		Integer certOrg = oiW.getLBR_DC_Org_ID();
-		Integer certWS = oiW.getLBR_DC_WS_ID();
 		
 		if (certOrg == null || certOrg.intValue() < 1)
 			certOrg = getValidCertificate (ctx, AD_Org_ID);
 		if (certOrg == null || certOrg.intValue() < 1)
 			throw new Exception ("Não foi encontrado um certificado para o CNPJ: " + oiW.getlbr_CNPJ() + ", válido na data/hora atual.");
-		
-		MLBRDigitalCertificate dcOrg = new MLBRDigitalCertificate(Env.getCtx(), certOrg, null);
-		MLBRDigitalCertificate dcWS = new MLBRDigitalCertificate(Env.getCtx(), certWS, null);
+		return new MLBRDigitalCertificate(Env.getCtx(), certOrg, null);
+	}	//	getCertificate
+
+	/**
+	 * 	Initialize
+	 * @param dcOrg
+	 * @param dcICP
+	 * @throws Exception
+	 */
+	public void initialize () throws Exception
+	{
 		MLBRDigitalCertificate dcICP = MLBRDigitalCertificate.getICPTrustStore();
+
+		if (!isValid())
+			throw new Exception ("Certificado da Organização inválido, acione o processo de validação do certificado no cadastro dele");
+		if (isExpired())
+			throw new Exception ("Certificado da Organização vencido, será necessário incluir um novo certificado válido");
+		if (dcICP == null)
+			throw new Exception ("TrustStore não encontrado");
+		
+		//	TrustStore dinamica, compatível com todos os endereços da NF-e
+		setTrustStoreDynamic (this, dcICP);
+	}	//	initialize
+	
+	/**
+	 * setCertificate
+	 * Set all System.property for webservice connection
+	 */
+	public static void setCertificate (Properties ctx, int AD_Org_ID) throws Exception
+	{
+		MLBRDigitalCertificate dcOrg = getCertificate(ctx, AD_Org_ID);
 		
 		//	Not set Certificate when A3/PKCS11 is Remote
-		if (MLBRDigitalCertificate.LBR_CERTTYPE_PKCS11_Remote.equals(dcOrg.getlbr_CertType()))
+		if (MLBRDigitalCertificate.LBR_CERTTYPE_PKCS11Remote.equals(dcOrg.getlbr_CertType()))
 			return;
 
-		if (!dcOrg.isValid())
-			throw new Exception ("Certificado da Organização inválido, acione o processo de validação do certificado no cadastro dele");
-		if (dcOrg.isExpired())
-			throw new Exception ("Certificado da Organização vencido, será necessário incluir um novo certificado válido");
-		if (dcICP != null)
-			//	TrustStore dinamica, compatível com todos os endereços da NF-e
-			setTrustStoreDynamic (dcOrg, dcICP);
-		else
-			//	Necessário um certificado para cada webservice
-			setTrustStore (dcOrg, dcWS);
+		dcOrg.initialize ();
 	}	//	setCertificate
 
 	/**
@@ -215,6 +232,8 @@ public class MLBRDigitalCertificate extends X_LBR_DigitalCertificate
 	 * 	@param dcWS
 	 * 	@throws Exception
 	 */
+	@SuppressWarnings("unused")
+	@Deprecated
 	private static void setTrustStore (MLBRDigitalCertificate dcOrg, MLBRDigitalCertificate dcWS) throws Exception
 	{
 		String certTypeOrg;

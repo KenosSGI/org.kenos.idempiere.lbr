@@ -23,7 +23,7 @@ import org.compiere.util.KeyNamePair;
 
 /** Generated Interface for LBR_DigitalCertificate
  *  @author iDempiere (generated) 
- *  @version Release 4.1
+ *  @version Release 6.2
  */
 @SuppressWarnings("all")
 public interface I_LBR_DigitalCertificate 
@@ -141,6 +141,15 @@ public interface I_LBR_DigitalCertificate
 	/** Get Digital Certificate	  */
 	public int getLBR_DigitalCertificate_ID();
 
+    /** Column name LBR_DigitalCertificate_UU */
+    public static final String COLUMNNAME_LBR_DigitalCertificate_UU = "LBR_DigitalCertificate_UU";
+
+	/** Set LBR_DigitalCertificate_UU	  */
+	public void setLBR_DigitalCertificate_UU (String LBR_DigitalCertificate_UU);
+
+	/** Get LBR_DigitalCertificate_UU	  */
+	public String getLBR_DigitalCertificate_UU();
+
     /** Column name Name */
     public static final String COLUMNNAME_Name = "Name";
 
@@ -175,6 +184,19 @@ public interface I_LBR_DigitalCertificate
 
 	/** Get Process Now	  */
 	public boolean isProcessing();
+
+    /** Column name URL */
+    public static final String COLUMNNAME_URL = "URL";
+
+	/** Set URL.
+	  * Full URL address - e.g. http://www.idempiere.org
+	  */
+	public void setURL (String URL);
+
+	/** Get URL.
+	  * Full URL address - e.g. http://www.idempiere.org
+	  */
+	public String getURL();
 
     /** Column name Updated */
     public static final String COLUMNNAME_Updated = "Updated";
