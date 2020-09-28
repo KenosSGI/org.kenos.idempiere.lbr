@@ -761,16 +761,25 @@ public class ValidatorInvoice implements ModelValidator
 								//	Quantidade Faturada Atual + Quantidada Total Faturada no Controle de Imposto
 								qtyDiv = qtyTotalICMSSub.add(qtyInvoiced);
 								
-								//	Determinando Média Unitária Ponderada 
-								//
-								//	((ICMS Unitário Atual x Quantidade Fatura Atual) 
-								//		+ (ICMS Unitário Controlde Imposto x Quantidade Controle Imposto)) / 
-								//	Quantidade Faturada Atual + Quantidada Total Faturada no Controle de Imposto
-								mediaPonderadaCalcIcms = icmsUnit.multiply(qtyInvoiced).add(icmsTotalSub.multiply(qtyTotalICMSSub));
-								mediaPonderadaCalcIcmsst = icmsstUnit.multiply(qtyInvoiced).add(icmsstTotal.multiply(qtyTotalICMSSub));
-								
-								mediaPonderadaCalcIcms = mediaPonderadaCalcIcms.divide(qtyDiv,RoundingMode.HALF_UP);
-								mediaPonderadaCalcIcmsst = mediaPonderadaCalcIcmsst.divide(qtyDiv,RoundingMode.HALF_UP);
+								if (qtyDiv.intValue() <= 0)
+								{
+									qtyDiv = BigDecimal.ZERO;
+									mediaPonderadaCalcIcms = BigDecimal.ZERO;
+									mediaPonderadaCalcIcmsst = BigDecimal.ZERO;
+								}
+								else
+								{
+									//	Determinando Média Unitária Ponderada 
+									//
+									//	((ICMS Unitário Atual x Quantidade Fatura Atual) 
+									//		+ (ICMS Unitário Controlde Imposto x Quantidade Controle Imposto)) / 
+									//	Quantidade Faturada Atual + Quantidada Total Faturada no Controle de Imposto
+									mediaPonderadaCalcIcms = icmsUnit.multiply(qtyInvoiced).add(icmsTotalSub.multiply(qtyTotalICMSSub));
+									mediaPonderadaCalcIcmsst = icmsstUnit.multiply(qtyInvoiced).add(icmsstTotal.multiply(qtyTotalICMSSub));
+									
+									mediaPonderadaCalcIcms = mediaPonderadaCalcIcms.divide(qtyDiv,RoundingMode.HALF_UP);
+									mediaPonderadaCalcIcmsst = mediaPonderadaCalcIcmsst.divide(qtyDiv,RoundingMode.HALF_UP);
+								}
 							}
 							else
 							{
@@ -782,20 +791,27 @@ public class ValidatorInvoice implements ModelValidator
 								//	((ICMS Unitário Atual x Quantidade Fatura Atual) 
 								//		+ (ICMS Unitário Controlde Imposto x Quantidade Controle Imposto)) / 
 								//	Quantidade Faturada Atual + Quantidada Total Faturada no Controle de Imposto
-								mediaPonderadaCalcIcms = icmsTotalSub.multiply(qtyTotalICMSSub).subtract(icmsUnit.multiply(qtyInvoiced));
-								mediaPonderadaCalcIcmsst = icmsstTotal.multiply(qtyTotalICMSSub).subtract(icmsUnit.multiply(qtyInvoiced));
 								
-								mediaPonderadaCalcIcms = mediaPonderadaCalcIcms.divide(qtyDiv,RoundingMode.HALF_UP);
-								mediaPonderadaCalcIcmsst = mediaPonderadaCalcIcmsst.divide(qtyDiv,RoundingMode.HALF_UP);
+								if (qtyDiv.intValue() <= 0)
+								{
+									qtyDiv = BigDecimal.ZERO;
+									mediaPonderadaCalcIcms = BigDecimal.ZERO;
+									mediaPonderadaCalcIcmsst = BigDecimal.ZERO;
+								}
+								else
+								{									
+									mediaPonderadaCalcIcms = icmsTotalSub.multiply(qtyTotalICMSSub).subtract(icmsUnit.multiply(qtyInvoiced));
+									mediaPonderadaCalcIcmsst = icmsstTotal.multiply(qtyTotalICMSSub).subtract(icmsUnit.multiply(qtyInvoiced));
+									
+									mediaPonderadaCalcIcms = mediaPonderadaCalcIcms.divide(qtyDiv,RoundingMode.HALF_UP);
+									mediaPonderadaCalcIcmsst = mediaPonderadaCalcIcmsst.divide(qtyDiv,RoundingMode.HALF_UP);
+								}
 							}
 							
-							if (qtyDiv.intValue() < 0)
-								qtyDiv = BigDecimal.ZERO;
-							
-							if (mediaPonderadaCalcIcms.intValue() < 0)
+							if (mediaPonderadaCalcIcms.intValue() <= 0)
 								mediaPonderadaCalcIcms = BigDecimal.ZERO;
 							
-							if (mediaPonderadaCalcIcmsst.intValue() < 0)
+							if (mediaPonderadaCalcIcmsst.intValue() <= 0)
 								mediaPonderadaCalcIcmsst = BigDecimal.ZERO;
 							
 							//	Salvar Valores Atualizados
