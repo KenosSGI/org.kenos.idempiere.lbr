@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import java.util.stream.Stream;
 
 import javax.swing.text.MaskFormatter;
 
@@ -179,7 +180,7 @@ public class MLBRPartnerDFe extends X_LBR_PartnerDFe
 			//	Already imported
 			if (count > 0)
 			{
-				log.saveError("Error", Msg.parseTranslation(getCtx(), "@Invalid@ = @Duplicated@"));
+				log.saveError("Error", Msg.parseTranslation(getCtx(), "@Invalid@ = @Duplicated@") + " - " + toString());
 				return false;
 			}
 		}
@@ -278,4 +279,21 @@ public class MLBRPartnerDFe extends X_LBR_PartnerDFe
 	{		
 		return get(key, null);
 	}	//	get
+	
+	@Override
+	public String toString()
+	{
+		StringBuffer sb = new StringBuffer ("MLBRPartnerDFe[").append(get_ID());
+		
+		Stream.of (COLUMNNAME_DocumentType, COLUMNNAME_lbr_NFeID, 
+				COLUMNNAME_lbr_NFeProt, COLUMNNAME_lbr_DigestValue, COLUMNNAME_SeqNo)
+		
+		.forEach(column -> {
+			sb.append(", ").append(column).append("='").append(get_DisplayValue(column, true)).append("'");
+		});
+		
+		sb.append("]");
+		
+		return sb.toString();
+	}	//	toString
 }	//	MLBRNFDest
