@@ -307,8 +307,9 @@ public class ProcInutNF extends SvrProcess
 				handler.transmitDocument(IDocFiscalHandler.DOC_NFE_INUT, oiW.getlbr_CNPJ(), 
 						uuid, certificate.getURL(), url, "" + NFeUtil.getRegionCode (oi), xmlText, respStatus);
 				
-				//	Wait until process is completed
-				respStatus.wait();
+				//	Wait until process is completed, when processing is async
+				if (MLBRDigitalCertificate.LBR_CERTTYPE_PKCS11Remote.equals(certificate.getlbr_CertType()))
+					respStatus.wait();
 				
 				//	Error message
 				if (respStatus.toString().startsWith("@Error="))

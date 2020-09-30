@@ -179,8 +179,8 @@ public class MLBRNFeLot extends X_LBR_NFeLot implements DocAction, DocOptions
 
 		//	Método síncrono somente para 1 NF
 		int count = count();
-		if (count == 1 && LBR_NFELOTMETHOD_Synchronous.equals(getLBR_NFeLotMethod()))
-			setLBR_NFeLotMethod(LBR_NFELOTMETHOD_Asynchronous);
+		if (count == 1 && LBR_NFELOTMETHOD_Asynchronous.equals(getLBR_NFeLotMethod()))
+			setLBR_NFeLotMethod(LBR_NFELOTMETHOD_Synchronous);
 
 		//	XML
 		String xml = geraLote (envType);
@@ -224,8 +224,9 @@ public class MLBRNFeLot extends X_LBR_NFeLot implements DocAction, DocOptions
 				handler.transmitDocument(type, oi.get_ValueAsString(I_W_AD_OrgInfo.COLUMNNAME_lbr_CNPJ), 
 						uuid, certificate.getURL(), url, region, xml, respStatus);
 				
-				//	Wait until process is completed
-				respStatus.wait();
+				//	Wait until process is completed, when processing is async
+				if (MLBRDigitalCertificate.LBR_CERTTYPE_PKCS11Remote.equals(certificate.getlbr_CertType()))
+					respStatus.wait();
 				
 				//	Error message
 				if (respStatus.toString().startsWith("@Error="))
@@ -421,8 +422,9 @@ public class MLBRNFeLot extends X_LBR_NFeLot implements DocAction, DocOptions
 					handler.transmitDocument(IDocFiscalHandler.DOC_NFE_RET, oi.get_ValueAsString(I_W_AD_OrgInfo.COLUMNNAME_lbr_CNPJ), 
 							uuid, certificate.getURL(), url, region, xmlText, respStatus);
 					
-					//	Wait until process is completed
-					respStatus.wait();
+					//	Wait until process is completed, when processing is async
+					if (MLBRDigitalCertificate.LBR_CERTTYPE_PKCS11Remote.equals(certificate.getlbr_CertType()))
+						respStatus.wait();
 					
 					//	Error message
 					if (respStatus.toString().startsWith("@Error="))

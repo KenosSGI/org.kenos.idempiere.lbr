@@ -260,8 +260,9 @@ public class SignatureUtil
 			{
 				handler.signDocument (certificate.getURL(), oi.get_ValueAsString("lbr_CNPJ"), respStatus);
 				
-				//	Wait until process is completed
-				respStatus.wait();
+				//	Wait until process is completed, when processing is async
+				if (MLBRDigitalCertificate.LBR_CERTTYPE_PKCS11Remote.equals(certificate.getlbr_CertType()))
+					respStatus.wait();
 				
 				//	Error message
 				if (respStatus.toString().startsWith("@Error="))
@@ -400,8 +401,9 @@ public class SignatureUtil
 			{
 				handler.signText (certificate.getURL(), oi.get_ValueAsString("lbr_CNPJ"), respStatus);
 				
-				//	Wait until process is completed
-				respStatus.wait();
+				//	Wait until process is completed, when processing is async
+				if (MLBRDigitalCertificate.LBR_CERTTYPE_PKCS11Remote.equals(certificate.getlbr_CertType()))
+					respStatus.wait();
 				
 				//	Error message
 				if (respStatus.toString().startsWith("@Error="))

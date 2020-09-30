@@ -179,8 +179,9 @@ public class MDFeRecepcao extends SvrProcess
 				handler.transmitDocument(IDocFiscalHandler.DOC_MDFE, oi.get_ValueAsString(I_W_AD_OrgInfo.COLUMNNAME_lbr_CNPJ), 
 						uuid, certificate.getURL(), url.getURL(), region, MDFeUtil.getWrapped (sb), result);	//	FIXME MDFe URL
 				
-				//	Wait until process is completed
-				result.wait();
+				//	Wait until process is completed, when processing is async
+				if (MLBRDigitalCertificate.LBR_CERTTYPE_PKCS11Remote.equals(certificate.getlbr_CertType()))
+					result.wait();
 				
 				//	Error message
 				if (result.toString().startsWith("@Error="))
