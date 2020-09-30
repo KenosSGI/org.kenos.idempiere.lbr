@@ -203,7 +203,11 @@ public class GetDFe extends SvrProcess
 							|| (count.nfe + count.event) > 500)		//	Maximum documents reached
 						break;
 					
-					RetDistDFeInt retLoop = GetDFe.doIt (oi, currentNSU, true).getRetDistDFeInt();
+					RetDistDFeIntDocument retDoc = GetDFe.doIt (oi, currentNSU, true);
+					if (retDoc == null)
+						continue;
+					
+					RetDistDFeInt retLoop = retDoc.getRetDistDFeInt();
 					
 					//	Document Found
 					if (MLBRNotaFiscal.LBR_NFESTATUS_138_DocumentoLocalizadoParaODestinatário
