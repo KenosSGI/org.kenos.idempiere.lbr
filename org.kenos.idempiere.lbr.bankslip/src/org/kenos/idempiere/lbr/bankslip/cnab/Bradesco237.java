@@ -56,7 +56,7 @@ public class Bradesco237 implements ICNABGenerator
 		cnab.append(rPad("COBRANCA", 15)); 						//	LITERAL DE SERVIÇO
 																//	CONVÊNIO
 		cnab.append(lPad(cnabFile.getLBR_BankSlipContract().getLBR_AccordNo(), 20));
-		cnab.append(lPad(cnabFile.getlbr_LegalEntity(), 30)); 	//	NOME DA EMPRESA
+		cnab.append(rPad(cnabFile.getlbr_LegalEntity(), 30)); 	//	NOME DA EMPRESA
 		cnab.append(cnabFile.getRoutingNo()); 					//	CÓDIGO DO BANCO
 		cnab.append(rPad(BANK_NAME, 15)); 						//	NOME DO BANCO
 		cnab.append(timeToString(cnabFile.getDateDoc())); 		//	DATA DE GERAÇÃO
@@ -145,12 +145,14 @@ public class Bradesco237 implements ICNABGenerator
 			if (MLBRBankSlipInfo.LBR_BPTYPEBR_PF_Individual.equals(bsi.getlbr_BPTypeBR()))
 				payerBPTypeBR = BPTYPE_CPF_PAGADOR;
 			
-			cnab.append(lPad(0, 5));								//	AGÊNCIA
-			cnab.append(rPad(null, 1));								//	DÍGITO
-			cnab.append(lPad(0, 5));								//	RAZÃO
-			cnab.append(lPad(0, 7));								//	CONTA
-			cnab.append(lPad(0, 1));								//	DÍGITO
-
+			/**
+			 * 	Optional field, fill with blank
+			 */
+			cnab.append(rPad(null, 5));								//	AGÊNCIA DÉBITO AUTOMÁTICO
+			cnab.append(rPad(null, 1));								//	DÍGITO DÉBITO AUTOMÁTICO
+			cnab.append(rPad(null, 5));								//	RAZÃO DÉBITO AUTOMÁTICO
+			cnab.append(rPad(null, 7));								//	CONTA DÉBITO AUTOMÁTICO
+			cnab.append(rPad(null, 1));								//	DÍGITO DÉBITO AUTOMÁTICO
 			
 			cnab.append(lPad(0, 1));								//	ZERO
 			cnab.append(lPad(bsi.getLBR_BankSlipFoldValue(), 3));	//	CARTEIRA
@@ -158,14 +160,12 @@ public class Bradesco237 implements ICNABGenerator
 			cnab.append(lPad(bsi.getAccountNo(), 7));				//	CONTA
 			cnab.append(lPad(bsi.getLBR_BankAccountVD(), 1));		//	DÍGITO
 			
-			
 			String controleParticipante = "B" + bs.getLBR_BankSlip_ID() + 
 					"F" + (bs.getC_Invoice_ID() > 0 ? bs.getC_Invoice().getDocumentNo() : "") + 
 					"P" + bs.getlbr_PayScheduleNo();
-
 			
 			cnab.append(rPad(controleParticipante, 25));			//	USO DA EMPRESA
-			cnab.append(lPad(ROUNTING_NO, 3));						//	COD BANCO
+			cnab.append(lPad(0, 3));								//	COD BANCO DÉBITO AUTOMÁTICO
 			
 			cnab.append(lPad(0, 1));								//	MULTA
 			cnab.append(lPad(0, 4));								//	PERCENTUAL
