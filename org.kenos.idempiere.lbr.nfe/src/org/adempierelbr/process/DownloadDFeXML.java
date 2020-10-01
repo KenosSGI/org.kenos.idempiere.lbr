@@ -27,7 +27,6 @@ import org.apache.axiom.om.OMElement;
 import org.apache.xmlbeans.XmlException;
 import org.compiere.model.MOrg;
 import org.compiere.model.MOrgInfo;
-import org.compiere.model.MSysConfig;
 import org.compiere.model.Query;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
@@ -37,7 +36,6 @@ import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.kenos.idempiere.lbr.base.event.IDocFiscalHandler;
 import org.kenos.idempiere.lbr.base.event.IDocFiscalHandlerFactory;
-import org.kenos.idempiere.lbr.base.model.SysConfig;
 
 import br.inf.portalfiscal.nfe.dfe.DistDFeIntDocument;
 import br.inf.portalfiscal.nfe.dfe.DistDFeIntDocument.DistDFeInt;
@@ -217,9 +215,6 @@ public class DownloadDFeXML extends SvrProcess
 		
 		try
 		{
-			//	Prepara a Transmissão
-			MLBRDigitalCertificate.setCertificate (Env.getCtx(), oi.getAD_Org_ID());
-			
 			//	XML
 			StringBuilder xml =  new StringBuilder (dwDoc.xmlText(NFeUtil.getXmlOpt()));
 			XMLStreamReader dadosXML = XMLInputFactory.newInstance().createXMLStreamReader(new StringReader(NFeUtil.wrapMsg(xml.toString())));
@@ -227,30 +222,35 @@ public class DownloadDFeXML extends SvrProcess
 			String url = "https://www1.nfe.fazenda.gov.br/NFeDistribuicaoDFe/NFeDistribuicaoDFe.asmx";
 //			String url = MLBRNFeWebService.getURL (MLBRNFeWebService.CONSULTANFEDEST, oiW.getlbr_NFeEnv(), NFeUtil.VERSAO_LAYOUT, oi.getC_Location().getC_Region_ID());
 			
-			String remoteURL = MSysConfig.getValue(SysConfig.LBR_REMOTE_PKCS11_URL, oi.getAD_Client_ID(), oi.getAD_Org_ID());
 			final StringBuilder respStatus = new StringBuilder();
+			
+			//	Get the valid certificate
+			MLBRDigitalCertificate certificate = MLBRDigitalCertificate.getCertificate (Env.getCtx(), oi.getAD_Org_ID());
+			if (certificate == null)
+				throw new Exception ("@Error@ Certificado Inválido");
 			
 			//	Try to find a service for PKCS#11 for transmit
 			IDocFiscalHandler handler = null;
 			List<IDocFiscalHandlerFactory> list = Service.locator ().list (IDocFiscalHandlerFactory.class).getServices();
 			for (IDocFiscalHandlerFactory docFiscal : list)
 			{
-				handler = docFiscal.getHandler (DownloadDFeXML.class.getName());
+				handler = docFiscal.getHandler (certificate.getlbr_CertType(), DownloadDFeXML.class.getName());
 				if (handler != null)
 					break;
 			}
 			
 			// 	We have both, the URL for the local app and the Plugin transmitter
-			if (remoteURL != null && handler != null)
+			if (handler != null)
 			{
 				synchronized (respStatus)
 				{
 					String uuid = UUID.randomUUID().toString();
 					handler.transmitDocument (IDocFiscalHandler.DOC_DFE_XML, oi.get_ValueAsString(I_W_AD_OrgInfo.COLUMNNAME_lbr_CNPJ), 
-							uuid, remoteURL, url, "35", xml.toString(), respStatus);
+							uuid, certificate.getURL(), url, "35", xml.toString(), respStatus);
 					
-					//	Wait until process is completed
-					respStatus.wait();
+					//	Wait until process is completed, when processing is async
+					if (MLBRDigitalCertificate.LBR_CERTTYPE_PKCS11Remote.equals(certificate.getlbr_CertType()))
+						respStatus.wait();
 					
 					//	Error message
 					if (respStatus.toString().startsWith("@Error="))
@@ -259,6 +259,9 @@ public class DownloadDFeXML extends SvrProcess
 			}
 			else
 			{
+				//	Prepara a Transmissão
+				certificate.initialize();
+				
 				//	Mensagem
 				NfeDadosMsg_type0 dadosMsg = NfeDadosMsg_type0.Factory.parse (dadosXML);
 				NFeDistribuicaoDFeStub stub = new NFeDistribuicaoDFeStub(url);

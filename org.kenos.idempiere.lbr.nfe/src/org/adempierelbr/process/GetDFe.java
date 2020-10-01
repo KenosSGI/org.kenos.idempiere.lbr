@@ -203,7 +203,11 @@ public class GetDFe extends SvrProcess
 							|| (count.nfe + count.event) > 500)		//	Maximum documents reached
 						break;
 					
-					RetDistDFeInt retLoop = GetDFe.doIt (oi, currentNSU, true).getRetDistDFeInt();
+					RetDistDFeIntDocument retDoc = GetDFe.doIt (oi, currentNSU, true);
+					if (retDoc == null)
+						continue;
+					
+					RetDistDFeInt retLoop = retDoc.getRetDistDFeInt();
 					
 					//	Document Found
 					if (MLBRNotaFiscal.LBR_NFESTATUS_138_DocumentoLocalizadoParaODestinatário
@@ -285,38 +289,41 @@ public class GetDFe extends SvrProcess
 		
 		try
 		{
-			//	Prepara a Transmissão
-			MLBRDigitalCertificate.setCertificate (Env.getCtx(), oi.getAD_Org_ID());
 			String url = MLBRNFeWebService.getURL (MLBRNFeWebService.DISTRIBUICAONFE, config.getlbr_NFeEnv(), NFeUtil.VERSAO_LAYOUT, -1);
 			
 			//	XML
 			StringBuilder xml =  new StringBuilder (consDFeDoc.xmlText(NFeUtil.getXmlOpt()));
 			XMLStreamReader dadosXML = XMLInputFactory.newInstance().createXMLStreamReader(new StringReader(NFeUtil.wrapMsg(xml.toString())));
 	
-			String remoteURL = MSysConfig.getValue(SysConfig.LBR_REMOTE_PKCS11_URL, oi.getAD_Client_ID(), oi.getAD_Org_ID());
 			final StringBuilder respStatus = new StringBuilder();
+			
+			//	Get the valid certificate
+			MLBRDigitalCertificate certificate = MLBRDigitalCertificate.getCertificate (Env.getCtx(), oi.getAD_Org_ID());
+			if (certificate == null)
+				throw new Exception ("@Error@ Certificado Inválido");
 			
 			//	Try to find a service for PKCS#11 for transmit
 			IDocFiscalHandler handler = null;
 			List<IDocFiscalHandlerFactory> list = Service.locator ().list (IDocFiscalHandlerFactory.class).getServices();
 			for (IDocFiscalHandlerFactory docFiscal : list)
 			{
-				handler = docFiscal.getHandler (GetDFe.class.getName());
+				handler = docFiscal.getHandler (certificate.getlbr_CertType(), GetDFe.class.getName());
 				if (handler != null)
 					break;
 			}
 			
 			// 	We have both, the URL for the local app and the Plugin transmitter
-			if (remoteURL != null && handler != null)
+			if (handler != null)
 			{
 				synchronized (respStatus)
 				{
 					String uuid = UUID.randomUUID().toString();
 					handler.transmitDocument (IDocFiscalHandler.DOC_DFE, oi.get_ValueAsString(I_W_AD_OrgInfo.COLUMNNAME_lbr_CNPJ), 
-							uuid, remoteURL, url, "35", xml.toString(), respStatus);
+							uuid, certificate.getURL(), url, "35", xml.toString(), respStatus);
 					
-					//	Wait until process is completed
-					respStatus.wait();
+					//	Wait until process is completed, when processing is async
+					if (MLBRDigitalCertificate.LBR_CERTTYPE_PKCS11Remote.equals(certificate.getlbr_CertType()))
+						respStatus.wait();
 					
 					//	Error message
 					if (respStatus.toString().startsWith("@Error="))
@@ -325,6 +332,9 @@ public class GetDFe extends SvrProcess
 			}
 			else
 			{
+				//	Initialize
+				certificate.initialize();
+				
 				//	Mensagem
 				NfeDadosMsg_type0 dadosMsg = NfeDadosMsg_type0.Factory.parse (dadosXML);
 				

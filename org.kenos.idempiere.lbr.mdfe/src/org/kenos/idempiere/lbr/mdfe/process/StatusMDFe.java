@@ -33,12 +33,10 @@ import org.adempierelbr.wrapper.I_W_C_City;
 import org.compiere.model.MCity;
 import org.compiere.model.MOrgInfo;
 import org.compiere.model.MRefList;
-import org.compiere.model.MSysConfig;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
 import org.kenos.idempiere.lbr.base.event.IDocFiscalHandler;
 import org.kenos.idempiere.lbr.base.event.IDocFiscalHandlerFactory;
-import org.kenos.idempiere.lbr.base.model.SysConfig;
 import org.kenos.idempiere.lbr.mdfe.model.MLBRMDFe;
 import org.kenos.idempiere.lbr.mdfe.util.MDFeUtil;
 
@@ -110,9 +108,6 @@ public class StatusMDFe extends SvrProcess
 			MOrgInfo oi = MOrgInfo.get(getCtx(), p_AD_Org_ID, null);
 			I_W_C_City city = POWrapper.create(new MCity (getCtx(), oi.getC_Location().getC_City_ID(), null), I_W_C_City.class);
 			
-			//	Certificado
-			MLBRDigitalCertificate.setCertificate (getCtx(), oi.getAD_Org_ID());
-			
 			//	XML
 			ConsStatServMDFeDocument statDoc = ConsStatServMDFeDocument.Factory.newInstance();
 			TConsStatServ status = statDoc.addNewConsStatServMDFe();
@@ -128,30 +123,35 @@ public class StatusMDFe extends SvrProcess
 			String regionCode = (city.getlbr_CityCode()+"").substring(0, 2);
 			MLBRNFeWebService ws = MLBRNFeWebService.get (MDFeUtil.TYPE_STATUS, p_LBR_NFeEnv, MDFeUtil.VERSION, MDFeUtil.MDFE_REGION);
 			
-			String remoteURL = MSysConfig.getValue(SysConfig.LBR_REMOTE_PKCS11_URL, oi.getAD_Client_ID(), oi.getAD_Org_ID());
 			final StringBuilder respStatus = new StringBuilder("");
+			
+			//	Get the valid certificate
+			MLBRDigitalCertificate certificate = MLBRDigitalCertificate.getCertificate (getCtx(), oi.getAD_Org_ID());
+			if (certificate == null)
+				throw new Exception ("@Error@ Certificado Inválido");
 			
 			//	Try to find a service for PKCS#11 for transmit
 			IDocFiscalHandler handler = null;
 			List<IDocFiscalHandlerFactory> list = Service.locator ().list (IDocFiscalHandlerFactory.class).getServices();
 			for (IDocFiscalHandlerFactory docFiscal : list)
 			{
-				handler = docFiscal.getHandler (StatusMDFe.class.getName());
+				handler = docFiscal.getHandler (certificate.getlbr_CertType(), StatusMDFe.class.getName());
 				if (handler != null)
 					break;
 			}
 			
 			// 	We have both, the URL for the local app and the Plugin transmitter
-			if (remoteURL != null && handler != null)
+			if (handler != null)
 			{
 				synchronized (respStatus)
 				{
 					String uuid = UUID.randomUUID().toString();
 					handler.transmitDocument(IDocFiscalHandler.DOC_NFE_STATUS, oi.get_ValueAsString(I_W_AD_OrgInfo.COLUMNNAME_lbr_CNPJ), 
-							uuid, remoteURL, ws.getURL(), regionCode, MDFeUtil.getWrapped (xml), respStatus);
+							uuid, certificate.getURL(), ws.getURL(), regionCode, MDFeUtil.getWrapped (xml), respStatus);
 					
-					//	Wait until process is completed
-					respStatus.wait();
+					//	Wait until process is completed, when processing is async
+					if (MLBRDigitalCertificate.LBR_CERTTYPE_PKCS11Remote.equals(certificate.getlbr_CertType()))
+						respStatus.wait();
 					
 					//	Error message
 					if (respStatus.toString().startsWith("@Error="))
@@ -160,6 +160,8 @@ public class StatusMDFe extends SvrProcess
 			}
 			else
 			{
+				certificate.initialize();
+				
 				//	Cabeçalho
 				MDFeStatusServicoStub.MdfeCabecMsg header = new MDFeStatusServicoStub.MdfeCabecMsg ();
 				header.setCUF(regionCode);

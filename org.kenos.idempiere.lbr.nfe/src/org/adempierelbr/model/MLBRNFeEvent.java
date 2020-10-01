@@ -47,7 +47,6 @@ import org.apache.xmlbeans.XmlObject;
 import org.compiere.model.MAttachment;
 import org.compiere.model.MDocType;
 import org.compiere.model.MOrgInfo;
-import org.compiere.model.MSysConfig;
 import org.compiere.model.ModelValidationEngine;
 import org.compiere.model.ModelValidator;
 import org.compiere.process.DocAction;
@@ -56,7 +55,6 @@ import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.kenos.idempiere.lbr.base.event.IDocFiscalHandler;
 import org.kenos.idempiere.lbr.base.event.IDocFiscalHandlerFactory;
-import org.kenos.idempiere.lbr.base.model.SysConfig;
 
 import br.inf.portalfiscal.nfe.evento.generico.EnvEventoDocument;
 import br.inf.portalfiscal.nfe.evento.generico.ProcEventoNFeDocument;
@@ -416,33 +414,35 @@ public class MLBRNFeEvent extends X_LBR_NFeEvent implements DocAction
 				//	URL
 				String url = ws.getURL();
 				
-				//	Prepara a Transmissão
-				MLBRDigitalCertificate.setCertificate (getCtx(), oi.getAD_Org_ID());
-				
-				String remoteURL = MSysConfig.getValue(SysConfig.LBR_REMOTE_PKCS11_URL, oi.getAD_Client_ID(), oi.getAD_Org_ID());
 				final StringBuilder respStatus = new StringBuilder();
+				
+				//	Get the valid certificate
+				MLBRDigitalCertificate certificate = MLBRDigitalCertificate.getCertificate (Env.getCtx(), oi.getAD_Org_ID());
+				if (certificate == null)
+					throw new Exception ("@Error@ Certificado Inválido");
 				
 				//	Try to find a service for PKCS#11 for transmit
 				IDocFiscalHandler handler = null;
 				List<IDocFiscalHandlerFactory> list = Service.locator ().list (IDocFiscalHandlerFactory.class).getServices();
 				for (IDocFiscalHandlerFactory docFiscal : list)
 				{
-					handler = docFiscal.getHandler (MLBRNFeEvent.class.getName());
+					handler = docFiscal.getHandler (certificate.getlbr_CertType(), MLBRNFeEvent.class.getName());
 					if (handler != null)
 						break;
 				}
 				
 				// 	We have both, the URL for the local app and the Plugin transmitter
-				if (remoteURL != null && handler != null)
+				if (handler != null)
 				{
 					synchronized (respStatus)
 					{
 						String uuid = UUID.randomUUID().toString();
 						handler.transmitDocument(IDocFiscalHandler.DOC_NFE_EVENT, oi.get_ValueAsString(I_W_AD_OrgInfo.COLUMNNAME_lbr_CNPJ), 
-								uuid, remoteURL, url, "" + NFeUtil.getRegionCode (oi), xml.toString (), respStatus);
-						
-						//	Wait until process is completed
-						respStatus.wait();
+								uuid, certificate.getURL(), url, "" + NFeUtil.getRegionCode (oi), xml.toString (), respStatus);
+
+						//	Wait until process is completed, when processing is async
+						if (MLBRDigitalCertificate.LBR_CERTTYPE_PKCS11Remote.equals(certificate.getlbr_CertType()))
+							respStatus.wait();
 						
 						//	Error message
 						if (respStatus.toString().startsWith("@Error="))
@@ -451,6 +451,9 @@ public class MLBRNFeEvent extends X_LBR_NFeEvent implements DocAction
 				}
 				else
 				{
+					//	Prepara a Transmissão
+					certificate.initialize();
+					
 					XMLStreamReader dadosXML = XMLInputFactory.newInstance().createXMLStreamReader (new StringReader (NFeUtil.XML_HEADER + NFeUtil.wrapMsg (xml.toString ())));
 	
 					br.inf.portalfiscal.www.nfe.wsdl.nferecepcaoevento4.NfeDadosMsg dadosMsg = br.inf.portalfiscal.www.nfe.wsdl.nferecepcaoevento4.NfeDadosMsg.Factory.parse(dadosXML);
