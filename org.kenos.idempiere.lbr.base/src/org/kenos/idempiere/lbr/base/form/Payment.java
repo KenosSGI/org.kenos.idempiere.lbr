@@ -188,7 +188,7 @@ public class Payment
 		m_sql_order = miniTable.prepareTable(new ColumnInfo[] {
 			//  0..4
 			new ColumnInfo(" ", "i.C_Order_ID", IDColumn.class, false, false, null),
-			new ColumnInfo(Msg.translate(ctx, "DateOrdered"), "i.DateOrdered AS DateOrdered", Timestamp.class, true, true, null),
+			new ColumnInfo(Msg.translate(ctx, "DueDate"), "i.DateOrdered AS DateOrdered", Timestamp.class, true, true, null),
 			new ColumnInfo(Msg.translate(ctx, "C_BPartner_ID"), "bp.Name", KeyNamePair.class, true, false, "i.C_BPartner_ID"),
 			new ColumnInfo(Msg.translate(ctx, "DocumentNo"), "i.DocumentNo", String.class),
 			new ColumnInfo(Msg.translate(ctx, "C_Currency_ID"), "c.ISO_Code", KeyNamePair.class, true, false, "i.C_Currency_ID"),
