@@ -3999,19 +3999,19 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 				else if (line.getlbr_CFOPName().startsWith("1")		//	Entrada Interna
 						|| line.getlbr_CFOPName().startsWith("5"))	//	Saida Interna
 				{
-					idDest = Ide.IdDest.X_1;
+					idDest = NFeXMLGenerator.ID_DEST_INTERNA;
 					break;
 				}
 				else if (line.getlbr_CFOPName().startsWith("2")		//	Entrada Outro Estado Brasileiro
 						|| line.getlbr_CFOPName().startsWith("6"))	//	Saída Outro Estado Brasileiro
 				{
-					idDest = Ide.IdDest.X_2;
+					idDest = NFeXMLGenerator.ID_DEST_INTERESTADUAL;
 					break;
 				}
 				else if (line.getlbr_CFOPName().startsWith("3")		//	Entrada Outro País
 						|| line.getlbr_CFOPName().startsWith("7"))	//	Saída Outro País
 				{
-					idDest = Ide.IdDest.X_3;
+					idDest = NFeXMLGenerator.ID_DEST_EXTERIOR;
 					break;
 				}
 			}
