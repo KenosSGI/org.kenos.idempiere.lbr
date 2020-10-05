@@ -485,8 +485,17 @@ public class WNotaFiscalAdditional extends NotaFiscalAdditional implements IForm
 			if (m_C_Order_ID == null)
 			{	
 				grpSelectionComp.setVisible(false);
+				lCFOP.setVisible(false);
+				bCFOP.setVisible(false);
+				tCFOP.setVisible(false);
+				bCleanAll.setVisible(false);
 				return;
 			}	
+			
+			lCFOP.setVisible(true);
+			bCFOP.setVisible(true);
+			tCFOP.setVisible(true);
+			bCleanAll.setVisible(true);
 			
 			//
 			createLinesGrid (typenf);
@@ -499,8 +508,17 @@ public class WNotaFiscalAdditional extends NotaFiscalAdditional implements IForm
 			if (m_M_InOut_ID == null)
 			{	
 				grpSelectionComp.setVisible(false);
+				lCFOP.setVisible(false);
+				bCFOP.setVisible(false);
+				tCFOP.setVisible(false);
+				bCleanAll.setVisible(false);
 				return;
 			}	
+			
+			lCFOP.setVisible(true);
+			bCFOP.setVisible(true);
+			tCFOP.setVisible(true);
+			bCleanAll.setVisible(true);
 			
 			//
 			createLinesGrid (typenf);
