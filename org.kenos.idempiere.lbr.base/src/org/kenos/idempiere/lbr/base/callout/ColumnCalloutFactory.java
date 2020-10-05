@@ -41,6 +41,8 @@ public class ColumnCalloutFactory implements IColumnCalloutFactory
 		{
 			if (TextUtil.match (columnName, MOrder.COLUMNNAME_C_BPartner_ID))
 				callouts.add (new SalesFields ());
+			if (TextUtil.match (columnName, MOrder.COLUMNNAME_C_BPartner_Location_ID))
+				callouts.add (new SalesRepByRegion ());
 			if (TextUtil.match (columnName, MOrder.COLUMNNAME_Bill_BPartner_ID))
 				callouts.add (new CreditCheck ());
 		}
