@@ -54,6 +54,7 @@ import org.compiere.model.MOrderLine;
 import org.compiere.model.MOrgInfo;
 import org.compiere.model.MProduct;
 import org.compiere.model.Query;
+import org.compiere.model.X_C_POSPayment;
 import org.compiere.util.AdempiereUserError;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
@@ -246,9 +247,9 @@ public class NFeXMLGenerator
 	private static final Det.Prod.IndTot.Enum IND_TOT_COMPOE 		= Det.Prod.IndTot.X_1;
 	
 	/**	Identificador de local de destino da operação	*/
-	private static final Ide.IdDest.Enum ID_DEST_INTERNA 			= Ide.IdDest.X_1;
-	private static final Ide.IdDest.Enum ID_DEST_INTERESTADUAL 		= Ide.IdDest.X_2;
-	private static final Ide.IdDest.Enum ID_DEST_EXTERIOR 			= Ide.IdDest.X_3;
+	public static final Ide.IdDest.Enum ID_DEST_INTERNA 			= Ide.IdDest.X_1;
+	public static final Ide.IdDest.Enum ID_DEST_INTERESTADUAL 		= Ide.IdDest.X_2;
+	public static final Ide.IdDest.Enum ID_DEST_EXTERIOR 			= Ide.IdDest.X_3;
 	
 	/** Impostos						*/
 	private static final String PIS				= "PIS";
@@ -2076,7 +2077,8 @@ public class NFeXMLGenerator
 					transporta.setUF(TUf.Enum.forString(shipperRegion));
 				
 				//	Placa do Veículo. Formato (XXX-0000/UF)
-				if (shipperPlate != null && !shipperPlate.isBlank() && 
+				if (nf.getIdDestinoOp().equals(ID_DEST_INTERNA) &&
+						shipperPlate != null && !shipperPlate.isBlank() && 
 						TextUtil.retiraEspecial(shipperPlate).length() > 0)
 				{
 					//	Encontrar posição da / na variável shipperPlate para Seperar a Placa da UF do Veículo
