@@ -4276,7 +4276,8 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 				setLBR_NFeLot_ID (0);
 				
 				//	Ajusta a data/hora de emissão da NFC-e
-				if (LBR_NFMODEL_NotaFiscalDeConsumidorEletrônica.equals(getlbr_NFModel()))
+				if (islbr_IsOwnDocument() && (getC_DocTypeTarget().isOverwriteDateOnComplete() 
+								|| LBR_NFMODEL_NotaFiscalDeConsumidorEletrônica.equals(getlbr_NFModel())))
 					setDateDoc(new Timestamp (System.currentTimeMillis()));
 				try
 				{
