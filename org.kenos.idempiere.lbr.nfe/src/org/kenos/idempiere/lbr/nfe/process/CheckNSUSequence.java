@@ -27,7 +27,7 @@ import br.inf.portalfiscal.nfe.dfe.RetDistDFeIntDocument.RetDistDFeInt;
 public class CheckNSUSequence extends SvrProcess
 {
 	/** Process ID 					*/
-	public static final int AD_Process_ID = -1;
+	public static final int AD_Process_ID = 1120251;
 	
 	/**	Organization				*/
 	private int p_AD_Org_ID = -1;
@@ -92,6 +92,11 @@ public class CheckNSUSequence extends SvrProcess
 			for (MLBRAMissingNSU nsu : missing)
 			{
 				RetDistDFeIntDocument result = GetDFe.doIt (oi, nsu.getLBR_NSU(), true);
+				if (result == null)
+				{
+					addLog("Sem dados -> [" + nsu.getLBR_NSU() + "] Resultado da Consulta Vazio");
+					continue;
+				}
 				RetDistDFeInt retConsNFeDest = result.getRetDistDFeInt();
 				String cStat = retConsNFeDest.getCStat();
 				

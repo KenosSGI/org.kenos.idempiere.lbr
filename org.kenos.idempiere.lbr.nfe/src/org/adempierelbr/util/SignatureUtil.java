@@ -68,12 +68,10 @@ import org.apache.xmlbeans.XmlCursor;
 import org.apache.xmlbeans.XmlException;
 import org.apache.xmlbeans.XmlObject;
 import org.compiere.model.MOrgInfo;
-import org.compiere.model.MSysConfig;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
 import org.kenos.idempiere.lbr.base.event.IDocFiscalHandler;
 import org.kenos.idempiere.lbr.base.event.IDocFiscalHandlerFactory;
-import org.kenos.idempiere.lbr.base.model.SysConfig;
 import org.w3.x2000.x09.xmldsig.SignatureDocument;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
@@ -236,30 +234,35 @@ public class SignatureUtil
 	{
 		log.fine ("Signing document: " + xml);
 
-		String remoteURL = MSysConfig.getValue(SysConfig.LBR_REMOTE_PKCS11_URL, oi.getAD_Client_ID(), oi.getAD_Org_ID());
 		final StringBuilder respStatus = new StringBuilder(xml.xmlText (NFeUtil.getXmlOpt ()));
+		
+		//	Get the valid certificate
+		MLBRDigitalCertificate certificate = MLBRDigitalCertificate.getCertificate (Env.getCtx(), oi.getAD_Org_ID());
+		if (certificate == null)
+			throw new Exception ("@Error@ Certificado Inválido");
 		
 		//	Try to find a service for PKCS#11 for transmit
 		IDocFiscalHandler handler = null;
 		List<IDocFiscalHandlerFactory> list = Service.locator ().list (IDocFiscalHandlerFactory.class).getServices();
 		for (IDocFiscalHandlerFactory docFiscal : list)
 		{
-			handler = docFiscal.getHandler (SignatureUtil.class.getName());
+			handler = docFiscal.getHandler (certificate.getlbr_CertType(), SignatureUtil.class.getName());
 			if (handler != null)
 				break;
 		}
 		
 		// 	We have both, the URL for the local app and the Plugin transmitter
-		if (remoteURL != null && handler != null)
+		if (handler != null)
 		{
-			log.fine ("Document will be signed remotely: " + remoteURL);
+			log.fine ("Document will be signed remotely: " + certificate.getURL());
 
 			synchronized (respStatus)
 			{
-				handler.signDocument (remoteURL, oi.get_ValueAsString("lbr_CNPJ"), respStatus);
+				handler.signDocument (certificate.getURL(), oi.get_ValueAsString("lbr_CNPJ"), respStatus);
 				
-				//	Wait until process is completed
-				respStatus.wait();
+				//	Wait until process is completed, when processing is async
+				if (MLBRDigitalCertificate.LBR_CERTTYPE_PKCS11Remote.equals(certificate.getlbr_CertType()))
+					respStatus.wait();
 				
 				//	Error message
 				if (respStatus.toString().startsWith("@Error="))
@@ -372,30 +375,35 @@ public class SignatureUtil
 	public String signASCII (String ascii) throws Exception 
 	{
 		log.fine("Signing: " + ascii);
-		String remoteURL = MSysConfig.getValue(SysConfig.LBR_REMOTE_PKCS11_URL, oi.getAD_Client_ID(), oi.getAD_Org_ID());
 		final StringBuilder respStatus = new StringBuilder(ascii);
+		
+		//	Get the valid certificate
+		MLBRDigitalCertificate certificate = MLBRDigitalCertificate.getCertificate (Env.getCtx(), oi.getAD_Org_ID());
+		if (certificate == null)
+			throw new Exception ("@Error@ Certificado Inválido");
 		
 		//	Try to find a service for PKCS#11 for transmit
 		IDocFiscalHandler handler = null;
 		List<IDocFiscalHandlerFactory> list = Service.locator ().list (IDocFiscalHandlerFactory.class).getServices();
 		for (IDocFiscalHandlerFactory docFiscal : list)
 		{
-			handler = docFiscal.getHandler (SignatureUtil.class.getName());
+			handler = docFiscal.getHandler (certificate.getlbr_CertType(), SignatureUtil.class.getName());
 			if (handler != null)
 				break;
 		}
 		
 		// 	We have both, the URL for the local app and the Plugin transmitter
-		if (remoteURL != null && handler != null)
+		if (handler != null)
 		{
-			log.fine ("Document will be signed remotely: " + remoteURL);
+			log.fine ("Document will be signed remotely: " + certificate.getURL());
 
 			synchronized (respStatus)
 			{
-				handler.signText (remoteURL, oi.get_ValueAsString("lbr_CNPJ"), respStatus);
+				handler.signText (certificate.getURL(), oi.get_ValueAsString("lbr_CNPJ"), respStatus);
 				
-				//	Wait until process is completed
-				respStatus.wait();
+				//	Wait until process is completed, when processing is async
+				if (MLBRDigitalCertificate.LBR_CERTTYPE_PKCS11Remote.equals(certificate.getlbr_CertType()))
+					respStatus.wait();
 				
 				//	Error message
 				if (respStatus.toString().startsWith("@Error="))

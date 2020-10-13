@@ -1905,7 +1905,9 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 				continue;
 			
 			MLBRNotaFiscalLine nfLine = new MLBRNotaFiscalLine (this);
+			nfLine.setAD_Org_ID(getAD_Org_ID());
 			nfLine.save();
+			//
 			nfLine.setLine(lineNo++);
 			nfLine.setOrderLine(oLine, false);
 			nfLine.save();
@@ -2038,7 +2040,9 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 				continue;
 			
 			MLBRNotaFiscalLine nfLine = new MLBRNotaFiscalLine (this);
+			nfLine.setAD_Org_ID(getAD_Org_ID());
 			nfLine.save();
+			//
 			nfLine.setLine(lineNo++);
 			nfLine.setInOutLine(iLine, false);
 			nfLine.save();
@@ -4007,19 +4011,19 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 				else if (line.getlbr_CFOPName().startsWith("1")		//	Entrada Interna
 						|| line.getlbr_CFOPName().startsWith("5"))	//	Saida Interna
 				{
-					idDest = Ide.IdDest.X_1;
+					idDest = NFeXMLGenerator.ID_DEST_INTERNA;
 					break;
 				}
 				else if (line.getlbr_CFOPName().startsWith("2")		//	Entrada Outro Estado Brasileiro
 						|| line.getlbr_CFOPName().startsWith("6"))	//	Saída Outro Estado Brasileiro
 				{
-					idDest = Ide.IdDest.X_2;
+					idDest = NFeXMLGenerator.ID_DEST_INTERESTADUAL;
 					break;
 				}
 				else if (line.getlbr_CFOPName().startsWith("3")		//	Entrada Outro País
 						|| line.getlbr_CFOPName().startsWith("7"))	//	Saída Outro País
 				{
-					idDest = Ide.IdDest.X_3;
+					idDest = NFeXMLGenerator.ID_DEST_EXTERIOR;
 					break;
 				}
 			}
@@ -4284,7 +4288,8 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 				setLBR_NFeLot_ID (0);
 				
 				//	Ajusta a data/hora de emissão da NFC-e
-				if (LBR_NFMODEL_NotaFiscalDeConsumidorEletrônica.equals(getlbr_NFModel()))
+				if (islbr_IsOwnDocument() && (getC_DocTypeTarget().isOverwriteDateOnComplete() 
+								|| LBR_NFMODEL_NotaFiscalDeConsumidorEletrônica.equals(getlbr_NFModel())))
 					setDateDoc(new Timestamp (System.currentTimeMillis()));
 				try
 				{

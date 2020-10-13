@@ -312,27 +312,19 @@ public class WNotaFiscalAdditional extends NotaFiscalAdditional implements IForm
 				if (NotaFiscal_ID > 0)
 				{
 					if (TYPE_NOTAFISCAL_ADDITIONAL_COMPLEMENTAR.equals(typenf))
-						NotaFiscal_ID = generateNFComplementar();					
-					else if (TYPE_NOTAFISCAL_ADDITIONAL_ANULACAOVALORES.equals(typenf))
 						NotaFiscal_ID = generateNFComplementar();
-					
-					openNFAdditional(NotaFiscal_ID);
-					
-					clear();
-					NotaFiscal_ID = 0;
-				}
-				else if ((Integer)m_C_Order_ID > 0 || (Integer)m_M_InOut_ID > 0)
-				{
-					if (TYPE_NOTAFISCAL_ADDITIONAL_ENTREGAFUTURA.equals(typenf))
+					else if (TYPE_NOTAFISCAL_ADDITIONAL_ENTREGAFUTURA.equals(typenf))
 						NotaFiscal_ID = generateNFEntregaFutura();
 					else if (TYPE_NOTAFISCAL_ADDITIONAL_TRIANGULAR.equals(typenf))
-						NotaFiscal_ID = generateNFTrinagular();				
+						NotaFiscal_ID = generateNFTrinagular();
+					else if (TYPE_NOTAFISCAL_ADDITIONAL_ANULACAOVALORES.equals(typenf))
+						NotaFiscal_ID = generateNFComplementar();				
 					
 					openNFAdditional(NotaFiscal_ID);
 					
 					clear();
-					
 					NotaFiscal_ID = 0;
+
 				}
 				else
 				{	
@@ -491,13 +483,12 @@ public class WNotaFiscalAdditional extends NotaFiscalAdditional implements IForm
 			fOrder.setValue(m_C_Order_ID);	//	display value
 			
 			if (m_C_Order_ID == null)
-			{
+			{	
 				grpSelectionComp.setVisible(false);
 				lCFOP.setVisible(false);
 				bCFOP.setVisible(false);
 				tCFOP.setVisible(false);
 				bCleanAll.setVisible(false);
-				grpSelectionComp.setVisible(false);
 				return;
 			}	
 			
@@ -505,6 +496,7 @@ public class WNotaFiscalAdditional extends NotaFiscalAdditional implements IForm
 			bCFOP.setVisible(true);
 			tCFOP.setVisible(true);
 			bCleanAll.setVisible(true);
+			
 			//
 			createLinesGrid (typenf);
 		}
@@ -514,13 +506,12 @@ public class WNotaFiscalAdditional extends NotaFiscalAdditional implements IForm
 			fInOut.setValue(m_M_InOut_ID);	//	display value
 			
 			if (m_M_InOut_ID == null)
-			{
+			{	
 				grpSelectionComp.setVisible(false);
 				lCFOP.setVisible(false);
 				bCFOP.setVisible(false);
 				tCFOP.setVisible(false);
 				bCleanAll.setVisible(false);
-				grpSelectionComp.setVisible(false);
 				return;
 			}	
 			

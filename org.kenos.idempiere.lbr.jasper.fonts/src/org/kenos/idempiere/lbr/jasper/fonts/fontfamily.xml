@@ -14,9 +14,11 @@
      <bolditalic>org/kenos/idempiere/lbr/jasper/fonts/Arial_Narrow_Bold_Italic.ttf</bolditalic>
      <pdfembedded>true</pdfembedded>
   </fontFamily>
-  <fontFamily name="Comic Sans Test">
-     <normal>org/kenos/idempiere/lbr/jasper/fonts/Comic_Sans_MS.ttf</normal>
-     <bold>org/kenos/idempiere/lbr/jasper/fonts/Comic_Sans_MS_Bold.ttf</bold>
+  <fontFamily name="Calibri">
+     <normal>org/kenos/idempiere/lbr/jasper/fonts/OpenSans_Regular.ttf</normal>
+     <bold>org/kenos/idempiere/lbr/jasper/fonts/OpenSans_Bold.ttf</bold>
+     <italic>org/kenos/idempiere/lbr/jasper/fonts/OpenSans_Italic.ttf</italic>
+     <bolditalic>org/kenos/idempiere/lbr/jasper/fonts/OpenSans_BoldItalic.ttf</bolditalic>
      <pdfembedded>true</pdfembedded>
   </fontFamily>
   <fontFamily name="Courier New">

@@ -86,113 +86,113 @@
 			<![CDATA[//pag]]>
 		</queryString>
 		<field name="tPag" class="java.lang.String">
-			<fieldDescription><![CDATA[tPag]]></fieldDescription>
+			<fieldDescription><![CDATA[detPag/tPag]]></fieldDescription>
 		</field>
 		<field name="vPag" class="java.lang.String">
-			<fieldDescription><![CDATA[vPag]]></fieldDescription>
+			<fieldDescription><![CDATA[detPag/vPag]]></fieldDescription>
 		</field>
 		<field name="cardCNPJ" class="java.lang.String">
-			<fieldDescription><![CDATA[card/CNPJ]]></fieldDescription>
+			<fieldDescription><![CDATA[detPag/card/CNPJ]]></fieldDescription>
 		</field>
 		<field name="cardtBand" class="java.lang.String">
-			<fieldDescription><![CDATA[card/tBand]]></fieldDescription>
+			<fieldDescription><![CDATA[detPag/card/tBand]]></fieldDescription>
 		</field>
 		<field name="cardcAut" class="java.lang.String">
-			<fieldDescription><![CDATA[card/cAut]]></fieldDescription>
+			<fieldDescription><![CDATA[detPag/card/cAut]]></fieldDescription>
 		</field>
 	</subDataset>
 	<parameter name="LOGO" class="java.io.InputStream"/>
 	<parameter name="QRCode" class="java.io.InputStream"/>
 	<parameter name="URLConsulta" class="java.lang.String" isForPrompting="false"/>
 	<queryString language="xPath">
-		<![CDATA[/]]>
+		<![CDATA[//NFe]]>
 	</queryString>
 	<field name="emitenteRazaoSocial" class="java.lang.String">
-		<fieldDescription><![CDATA[/nfeProc/NFe/infNFe/emit/xNome]]></fieldDescription>
+		<fieldDescription><![CDATA[infNFe/emit/xNome]]></fieldDescription>
 	</field>
 	<field name="emitenteCnpj" class="java.lang.String">
-		<fieldDescription><![CDATA[/nfeProc/NFe/infNFe/emit/CNPJ]]></fieldDescription>
+		<fieldDescription><![CDATA[infNFe/emit/CNPJ]]></fieldDescription>
 	</field>
 	<field name="emitenteInscricaoEstadual" class="java.lang.String">
-		<fieldDescription><![CDATA[/nfeProc/NFe/infNFe/emit/IE]]></fieldDescription>
+		<fieldDescription><![CDATA[infNFe/emit/IE]]></fieldDescription>
 	</field>
 	<field name="emitenteInscricaoEstadualSubtributario" class="java.lang.String">
-		<fieldDescription><![CDATA[/nfeProc/NFe/infNFe/emit/IEST]]></fieldDescription>
+		<fieldDescription><![CDATA[infNFe/emit/IEST]]></fieldDescription>
 	</field>
 	<field name="emitenteEndereco" class="java.lang.String">
-		<fieldDescription><![CDATA[/nfeProc/NFe/infNFe/emit/enderEmit/xLgr]]></fieldDescription>
+		<fieldDescription><![CDATA[infNFe/emit/enderEmit/xLgr]]></fieldDescription>
 	</field>
 	<field name="emitenteEnderecoNro" class="java.lang.String">
-		<fieldDescription><![CDATA[/nfeProc/NFe/infNFe/emit/enderEmit/nro]]></fieldDescription>
+		<fieldDescription><![CDATA[infNFe/emit/enderEmit/nro]]></fieldDescription>
 	</field>
 	<field name="emitenteBairro" class="java.lang.String">
-		<fieldDescription><![CDATA[/nfeProc/NFe/infNFe/emit/enderEmit/xBairro]]></fieldDescription>
+		<fieldDescription><![CDATA[infNFe/emit/enderEmit/xBairro]]></fieldDescription>
 	</field>
 	<field name="emitenteMunicipio" class="java.lang.String">
-		<fieldDescription><![CDATA[/nfeProc/NFe/infNFe/emit/enderEmit/xMun]]></fieldDescription>
+		<fieldDescription><![CDATA[infNFe/emit/enderEmit/xMun]]></fieldDescription>
 	</field>
 	<field name="emitenteUf" class="java.lang.String">
-		<fieldDescription><![CDATA[/nfeProc/NFe/infNFe/emit/enderEmit/UF]]></fieldDescription>
+		<fieldDescription><![CDATA[infNFe/emit/enderEmit/UF]]></fieldDescription>
 	</field>
 	<field name="emitenteInscricaoEstadual_1" class="java.lang.String">
-		<fieldDescription><![CDATA[/nfeProc/NFe/infNFe/emit/IE]]></fieldDescription>
+		<fieldDescription><![CDATA[infNFe/emit/IE]]></fieldDescription>
 	</field>
 	<field name="emitenteInscricaoEstadualSubtributario_1" class="java.lang.String">
-		<fieldDescription><![CDATA[/nfeProc/NFe/infNFe/emit/IEST]]></fieldDescription>
+		<fieldDescription><![CDATA[infNFe/emit/IEST]]></fieldDescription>
 	</field>
 	<field name="emitenteCnpj_1" class="java.lang.String">
-		<fieldDescription><![CDATA[/nfeProc/NFe/infNFe/emit/CNPJ]]></fieldDescription>
+		<fieldDescription><![CDATA[infNFe/emit/CNPJ]]></fieldDescription>
 	</field>
 	<field name="emitenteCep" class="java.lang.String">
-		<fieldDescription><![CDATA[/nfeProc/NFe/infNFe/emit/enderEmit/CEP]]></fieldDescription>
+		<fieldDescription><![CDATA[infNFe/emit/enderEmit/CEP]]></fieldDescription>
 	</field>
 	<field name="emitenteTelefone" class="java.lang.String">
-		<fieldDescription><![CDATA[/nfeProc/NFe/infNFe/emit/enderEmit/fone]]></fieldDescription>
+		<fieldDescription><![CDATA[infNFe/emit/enderEmit/fone]]></fieldDescription>
 	</field>
 	<field name="chaveAcesso" class="java.lang.String">
-		<fieldDescription><![CDATA[/nfeProc/NFe/infNFe/@Id]]></fieldDescription>
+		<fieldDescription><![CDATA[infNFe/@Id]]></fieldDescription>
 	</field>
 	<field name="nNF" class="java.lang.String">
-		<fieldDescription><![CDATA[/nfeProc/NFe/infNFe/ide/nNF]]></fieldDescription>
+		<fieldDescription><![CDATA[infNFe/ide/nNF]]></fieldDescription>
 	</field>
 	<field name="serie" class="java.lang.String">
-		<fieldDescription><![CDATA[/nfeProc/NFe/infNFe/ide/serie]]></fieldDescription>
+		<fieldDescription><![CDATA[infNFe/ide/serie]]></fieldDescription>
 	</field>
 	<field name="dataEmissao" class="java.lang.String">
-		<fieldDescription><![CDATA[/nfeProc/NFe/infNFe/ide/dhEmi]]></fieldDescription>
+		<fieldDescription><![CDATA[infNFe/ide/dhEmi]]></fieldDescription>
 	</field>
 	<field name="valorTotalNota" class="java.lang.String">
-		<fieldDescription><![CDATA[/nfeProc/NFe/infNFe/total/ICMSTot/vNF]]></fieldDescription>
+		<fieldDescription><![CDATA[infNFe/total/ICMSTot/vNF]]></fieldDescription>
 	</field>
 	<field name="nProt" class="java.lang.String">
-		<fieldDescription><![CDATA[/nfeProc/protNFe/infProt/nProt]]></fieldDescription>
+		<fieldDescription><![CDATA[../protNFe/infProt/nProt]]></fieldDescription>
 	</field>
 	<field name="dhRecbto" class="java.lang.String">
-		<fieldDescription><![CDATA[/nfeProc/protNFe/infProt/dhRecbto]]></fieldDescription>
+		<fieldDescription><![CDATA[../protNFe/infProt/dhRecbto]]></fieldDescription>
 	</field>
 	<field name="destinatarioRazaoSocial" class="java.lang.String">
-		<fieldDescription><![CDATA[/nfeProc/NFe/infNFe/dest/xNome]]></fieldDescription>
+		<fieldDescription><![CDATA[infNFe/dest/xNome]]></fieldDescription>
 	</field>
 	<field name="destinatarioCnpj" class="java.lang.String">
-		<fieldDescription><![CDATA[/nfeProc/NFe/infNFe/dest/CNPJ]]></fieldDescription>
+		<fieldDescription><![CDATA[infNFe/dest/CNPJ]]></fieldDescription>
 	</field>
 	<field name="destinatarioCpf" class="java.lang.String">
-		<fieldDescription><![CDATA[/nfeProc/NFe/infNFe/dest/CPF]]></fieldDescription>
+		<fieldDescription><![CDATA[infNFe/dest/CPF]]></fieldDescription>
 	</field>
 	<field name="destinatarioCnpjCpf" class="java.lang.String">
-		<fieldDescription><![CDATA[/nfeProc/NFe/infNFe/dest/CNPJ | /nfeProc/NFe/infNFe/dest/CPF]]></fieldDescription>
+		<fieldDescription><![CDATA[infNFe/dest/CNPJ | infNFe/dest/CPF]]></fieldDescription>
 	</field>
 	<field name="destinatarioEndereco" class="java.lang.String">
-		<fieldDescription><![CDATA[/nfeProc/NFe/infNFe/dest/enderDest/xLgr]]></fieldDescription>
+		<fieldDescription><![CDATA[infNFe/dest/enderDest/xLgr]]></fieldDescription>
 	</field>
 	<field name="destinatarioEnderecoNro" class="java.lang.String">
-		<fieldDescription><![CDATA[/nfeProc/NFe/infNFe/dest/enderDest/nro]]></fieldDescription>
+		<fieldDescription><![CDATA[infNFe/dest/enderDest/nro]]></fieldDescription>
 	</field>
 	<field name="valorTotalProduto" class="java.lang.String">
-		<fieldDescription><![CDATA[/nfeProc/NFe/infNFe/total/ICMSTot/vProd]]></fieldDescription>
+		<fieldDescription><![CDATA[infNFe/total/ICMSTot/vProd]]></fieldDescription>
 	</field>
 	<field name="informacoesComplementares2" class="java.lang.String">
-		<fieldDescription><![CDATA[/nfeProc/NFe/infNFe/infAdic/infCpl]]></fieldDescription>
+		<fieldDescription><![CDATA[infNFe/infAdic/infCpl]]></fieldDescription>
 	</field>
 	<field name="detCount" class="java.lang.String">
 		<fieldDescription><![CDATA[count(//det)]]></fieldDescription>

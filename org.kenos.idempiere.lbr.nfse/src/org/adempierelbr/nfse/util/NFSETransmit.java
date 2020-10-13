@@ -205,21 +205,25 @@ public class NFSETransmit extends SvrProcess
 		//	Valida o documento
 		NFeUtil.validate (envioLoteRPSDoc);
 
-		String remoteURL = MSysConfig.getValue(SysConfig.LBR_REMOTE_PKCS11_URL, oi.getAD_Client_ID(), oi.getAD_Org_ID());
 		final StringBuilder respStatus = new StringBuilder();
+		
+		//	Get the valid certificate
+		MLBRDigitalCertificate certificate = MLBRDigitalCertificate.getCertificate (getCtx(), p_AD_Org_ID);
+		if (certificate == null)
+			return "@Error@ Certificado Inválido";
 		
 		//	Try to find a service for PKCS#11 for transmit
 		IDocFiscalHandler handler = null;
 		List<IDocFiscalHandlerFactory> list = Service.locator ().list (IDocFiscalHandlerFactory.class).getServices();
 		for (IDocFiscalHandlerFactory docFiscal : list)
 		{
-			handler = docFiscal.getHandler (NFSETransmit.class.getName());
+			handler = docFiscal.getHandler (certificate.getlbr_CertType(), NFSETransmit.class.getName());
 			if (handler != null)
 				break;
 		}
 		
 		// 	We have both, the URL for the local app and the Plugin transmitter
-		if (remoteURL != null && handler != null)
+		if (handler != null)
 		{
 			synchronized (respStatus)
 			{
@@ -239,10 +243,11 @@ public class NFSETransmit extends SvrProcess
 				
 				String uuid = UUID.randomUUID().toString();
 				handler.transmitDocument(IDocFiscalHandler.DOC_NFSE, oi.get_ValueAsString(I_W_AD_OrgInfo.COLUMNNAME_lbr_CNPJ), 
-						uuid, remoteURL, "", flags, xml.toString(), respStatus);
+						uuid, certificate.getURL(), "", flags, xml.toString(), respStatus);
 				
-				//	Wait until process is completed
-				respStatus.wait();
+				//	Wait until process is completed, when processing is async
+				if (MLBRDigitalCertificate.LBR_CERTTYPE_PKCS11Remote.equals(certificate.getlbr_CertType()))
+					respStatus.wait();
 				
 				//	Error message
 				if (respStatus.toString().startsWith("@Error="))
