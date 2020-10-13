@@ -452,7 +452,8 @@ public class VLBRTax implements ModelValidator
 								tl.setlbr_TaxAmt(icmsst);
 								if (BigDecimal.ZERO.compareTo(tl.getlbr_TaxRate()) < 0)
 									tl.setlbr_TaxBaseAmt((new BigDecimal("100").multiply(icmsst)).divide(tl.getlbr_TaxRate(), 2, RoundingMode.HALF_UP));
-								
+								tl.setIsTaxIncluded(true);
+								tl.setlbr_PostTax(false);
 								tl.saveEx();
 							}
 						}
@@ -476,14 +477,15 @@ public class VLBRTax implements ModelValidator
 					//
 					processTax(taxes, tax, iLine.getC_Tax_ID());
 					
+					Boolean isSoTrx = iLineW.getC_Invoice().isSOTrx();
+					
 					for (MLBRTaxLine tl : tax.getLines())
 					{
-						String status = new MLBRTaxStatus (Env.getCtx(), tl.getLBR_TaxStatus_ID(), null).getTaxStatus(iLineW.getC_Invoice().isSOTrx());
-						
-						BigDecimal valor = new BigDecimal(tl.get_ValueAsString("LBR_ICMSSubstituto"));
+						String status = new MLBRTaxStatus (Env.getCtx(), tl.getLBR_TaxStatus_ID(), null).getTaxStatus(isSoTrx);
 						
 						if (MLBRTaxName.TAX_ICMSST == tl.getLBR_TaxName_ID()
-								&& ("60".equals(status) || "70".equals(status)) && valor.intValue() == 0)
+								&& ("60".equals(status) || "70".equals(status))
+								&& isSoTrx)
 						{
 							//	Controle de Imposto por Produto e por Organização
 							MLBRProductTaxControl tc = MLBRProductTaxControl.getProductTaxControl(iLineW.getM_Product_ID(), iLineW.getAD_Org_ID());
@@ -498,7 +500,8 @@ public class VLBRTax implements ModelValidator
 								tl.setlbr_TaxAmt(icmsst);
 								if (BigDecimal.ZERO.compareTo(tl.getlbr_TaxRate()) < 0)
 									tl.setlbr_TaxBaseAmt((new BigDecimal("100").multiply(icmsst)).divide(tl.getlbr_TaxRate(), 2, RoundingMode.HALF_UP));
-								
+								tl.setIsTaxIncluded(true);
+								tl.setlbr_PostTax(false);
 								tl.saveEx();
 							}
 						}
