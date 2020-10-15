@@ -546,4 +546,18 @@ public interface I_W_C_BPartner extends I_C_BPartner
 	  * Defines the Transaction Type of a Vendor on Business Partner
 	  */
 	public String getlbr_TransactionTypeVendor();
+
+
+    /** Column name lbr_CNAE */
+    public static final String COLUMNNAME_lbr_CNAE = "lbr_CNAE";
+    
+	/** Set CNAE.
+	  * Defines CNAE
+	  */
+	public void setlbr_CNAE (String lbr_CNAE);
+
+	/** Get CNAE.
+	  * Defines CNAE
+	  */
+	public String getlbr_CNAE();
 }
