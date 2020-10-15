@@ -132,6 +132,17 @@ public interface I_LBR_SIMPLine
 	  */
 	public String getLBR_FreightCostRule();
 
+    /** Column name LBR_FuelInstallation_ID */
+    public static final String COLUMNNAME_LBR_FuelInstallation_ID = "LBR_FuelInstallation_ID";
+
+	/** Set Fuel Installation	  */
+	public void setLBR_FuelInstallation_ID (int LBR_FuelInstallation_ID);
+
+	/** Get Fuel Installation	  */
+	public int getLBR_FuelInstallation_ID();
+
+	public org.adempierelbr.model.I_LBR_FuelInstallation getLBR_FuelInstallation() throws RuntimeException;
+
     /** Column name LBR_FuelOperation_ID */
     public static final String COLUMNNAME_LBR_FuelOperation_ID = "LBR_FuelOperation_ID";
 

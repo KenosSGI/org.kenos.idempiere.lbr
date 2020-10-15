@@ -73,6 +73,10 @@ public abstract class TextUtil
 
 	/** PIPE			*/
 	public static final String PIPE = "|";
+	
+	/** Carriage Return / Line Feed **/
+	public static final String CR = "\r";
+	public static final String LF = "\n";
 
 	/**	Round 			*/
 	public static final String ZERO_STRING = Env.ZERO.setScale(2, RoundingMode.HALF_UP).toPlainString();

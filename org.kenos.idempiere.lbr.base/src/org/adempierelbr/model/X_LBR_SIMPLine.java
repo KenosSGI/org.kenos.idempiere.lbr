@@ -140,6 +140,31 @@ public class X_LBR_SIMPLine extends PO implements I_LBR_SIMPLine, I_Persistent
 		return (String)get_Value(COLUMNNAME_LBR_FreightCostRule);
 	}
 
+	public org.adempierelbr.model.I_LBR_FuelInstallation getLBR_FuelInstallation() throws RuntimeException
+    {
+		return (org.adempierelbr.model.I_LBR_FuelInstallation)MTable.get(getCtx(), org.adempierelbr.model.I_LBR_FuelInstallation.Table_Name)
+			.getPO(getLBR_FuelInstallation_ID(), get_TrxName());	}
+
+	/** Set Fuel Installation.
+		@param LBR_FuelInstallation_ID Fuel Installation	  */
+	public void setLBR_FuelInstallation_ID (int LBR_FuelInstallation_ID)
+	{
+		if (LBR_FuelInstallation_ID < 1) 
+			set_ValueNoCheck (COLUMNNAME_LBR_FuelInstallation_ID, null);
+		else 
+			set_ValueNoCheck (COLUMNNAME_LBR_FuelInstallation_ID, Integer.valueOf(LBR_FuelInstallation_ID));
+	}
+
+	/** Get Fuel Installation.
+		@return Fuel Installation	  */
+	public int getLBR_FuelInstallation_ID () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_LBR_FuelInstallation_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
 	public org.adempierelbr.model.I_LBR_FuelOperation getLBR_FuelOperation() throws RuntimeException
     {
 		return (org.adempierelbr.model.I_LBR_FuelOperation)MTable.get(getCtx(), org.adempierelbr.model.I_LBR_FuelOperation.Table_Name)
