@@ -130,7 +130,11 @@ public class ConsultaCadastro extends SvrProcess
 			
 			else
 				log.log(Level.SEVERE, "Unknown Parameter: " + name);
-		}		
+		}
+		
+		//	Execution from table
+		if (getTable_ID() == MBPartner.Table_ID && getRecord_ID() > 0)
+			p_C_BPartner_ID = getRecord_ID();
 	}	//	prepare
 
 	/**
@@ -203,7 +207,7 @@ public class ConsultaCadastro extends SvrProcess
 				.append ("<br /><br /><b>Credeciamento NF-e: </b>").append (ConsultaCadastro.translateIndCredNFe (infCad.getIndCredNFe()))
 				.append ("<br /><b>Credenciamento CT-e: </b>").append (ConsultaCadastro.translateIndCredCTe (infCad.getIndCredCTe()))
 				.append ("<br /><br /><b>Regime de Apuração: </b>").append (xRegApur)
-				.append ("<br /><b>CNAE: </b>").append (infCad.getCNAE())
+				.append ("<br /><b>CNAE: </b>").append (xCNAE)
 				.append ("<br /><b>IE: </b>").append (infCad.getIE())
 				.append ("<br /><b>IE (Única): </b>").append (infCad.getIEUnica())
 				.append ("<br /><b>IE (Atual): </b>").append (infCad.getIEAtual())

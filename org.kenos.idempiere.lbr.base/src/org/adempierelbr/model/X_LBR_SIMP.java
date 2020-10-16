@@ -31,7 +31,7 @@ public class X_LBR_SIMP extends PO implements I_LBR_SIMP, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20201015L;
+	private static final long serialVersionUID = 20201016L;
 
     /** Standard Constructor */
     public X_LBR_SIMP (Properties ctx, int LBR_SIMP_ID, String trxName)
