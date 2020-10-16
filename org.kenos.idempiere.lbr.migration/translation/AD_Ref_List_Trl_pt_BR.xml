@@ -10580,4 +10580,1852 @@
   <value column="Name" original="Contractor">Contratante</value>
   <value column="Description" original="Responsible for hiring transportation service">Responsável pela contratação do serviço de transporte</value>
  </row>
+ <row trl="N" uuid="3efa2938-9491-490d-a9e8-a0e572a512c6">
+  <value column="Name" original="Perfil A">Perfil A</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="820201e0-bc15-4847-a579-04edb6e76515">
+  <value column="Name" original="Perfil B">Perfil B</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="08f4b220-a44b-4cd0-93fb-c1d1868aeeba">
+  <value column="Name" original="Perfil C">Perfil C</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="0a429412-c496-4aae-bf45-9083ae945722">
+  <value column="Name" original="Is Accepted">Com Aceite</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="9a51ad96-146a-4ba2-bc8c-fc1fcaf01889">
+  <value column="Name" original="Not Accepted">Sem Aceite</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="d9cf2d4e-376f-44a1-abd1-d787658c0bad">
+  <value column="Name" original="Write Off">Baixar</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="50ff96d0-4f3b-41ed-aafe-6bdbdbe8c7c8">
+  <value column="Name" original="Keep">Não Baixar</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="5c5f682e-5249-4b4b-a01d-118578142c04">
+  <value column="Name" original="Daily Value">Valor por Dia</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="e8e274a8-44f9-430d-9e42-e03c1773290d">
+  <value column="Name" original="Monthly Rate">Taxa por Mês</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="0a871d55-7585-4feb-bf04-a0dc0360432d">
+  <value column="Name" original="Do not charge">Sem Incidência</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="f59f699f-1904-41b1-8e56-c72c19e30722">
+  <value column="Name" original="Amount">Valor</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="866bd21d-2abe-4679-a635-590d44ad15cf">
+  <value column="Name" original="Rate">Percentual</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="a776db54-9c6a-459b-965c-8be42d627b3e">
+  <value column="Name" original="Protest Calendar Days">Protestar em Dias Corridos</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="04b3cc64-03c1-48e3-9e46-9a49a162cd09">
+  <value column="Name" original="Protest Business Days">Protestar em Dias Úteis</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="ccde44ff-4f5a-4f06-b0c7-e48fd9fd2f9c">
+  <value column="Name" original="Do not Protest">Não Protestar</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="cfd4f970-df9a-437e-88b7-f2ae7af0b695">
+  <value column="Name" original="Protest for Bankruptcy Calendar Days">Protestar para Fins Falimentares em Dias Corridos</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="eca70221-ff2b-4b90-8794-1f75428f7396">
+  <value column="Name" original="Protest for Bankruptcy Working Days">Protestar para Fins Falimentares em Dias Úteis</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="54ae130a-f895-459f-87bd-541b3e167d2e">
+  <value column="Name" original="Notify Credit Score">Negativação sem Protesto</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="87c632ad-845e-4725-8eff-229f9b409ab9">
+  <value column="Name" original="Printed with Fiscal Document">Impresso com a Nota Fiscal</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="ffcda5a2-12b3-41fb-9660-58fa370c7155">
+  <value column="Name" original="Printed and Mailed">Impresso e Enviado por Correio</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="0b184ecb-2c0b-40fe-a5fd-2d03369aa6a9">
+  <value column="Name" original="E-mailed">Enviar por E-mail Próprio</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="fe1f67f9-cb6c-4e39-9125-69eade4c52f1">
+  <value column="Name" original="E-mailed with Fiscal Document XML">Enviar no E-mail do XML da NF</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="66ef233e-fd78-44d9-8622-2e0009cc9df5">
+  <value column="Name" original="Printed with Fiscal Document &amp; E-mailed">Impresso com a Nota Fiscal e Enviar por E-mail</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="9e74b513-980f-40db-ab5a-1df1effabce6">
+  <value column="Name" original="Direta">Direta</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="cba7578b-b475-44e5-b15f-433abc8a6eb3">
+  <value column="Name" original="Escritural">Escritural</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="d890b448-2f49-4755-a577-3dacc4117b4b">
+  <value column="Name" original="CNAB 240">CNAB 240</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="dcf9e677-59eb-4b31-bd9d-62b1b168a5f0">
+  <value column="Name" original="CNAB 400">CNAB 400</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="74ef10bc-736d-4bd3-ae88-b6ccfbc9abfa">
+  <value column="Name" original="Register Request">Pedido de Registro</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="47816ef6-eddc-4001-9fc8-2658b9030f84">
+  <value column="Name" original="Register Confirmed">Registro Confirmado</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="b99713c5-6fd0-41a5-9feb-92705c24014f">
+  <value column="Name" original="Registered">Cobrança Registrada</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="aef60bcb-ce8f-42e1-8113-a3b4aa3e84e9">
+  <value column="Name" original="Not Registered">Sem Registro</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="9f9995bf-13e7-49d3-b47d-d43359b41474">
+  <value column="Name" original="Organization">Organização</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="3620cec4-e0ed-4cec-9a0a-d95205b770ba">
+  <value column="Name" original="FIDC or 3rd Party">FIDC ou Parceiro Especifico</value>
+  <value column="Description" original="Chooset the partner to be included as Recipient of Bank Slipe">Escolha qual Parceiro deve aparecer como Beneficiário</value>
+ </row>
+ <row trl="Y" uuid="c776a812-1910-41b1-af1e-a294292c8a3c">
+  <value column="Name" original="09 - Brazilian Real">09 - Real Brasileiro</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="91b02faf-d08c-4061-a687-b66b6ed666bb">
+  <value column="Name" original="Notice with Address in File">Aviso com o Endereço da Remessa</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="85f71d3b-ea9f-4321-87a1-9f9ffafed4c0">
+  <value column="Name" original="No Notice">Não emite aviso</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="46c89adf-4073-413e-9a1f-355beb8b5c53">
+  <value column="Name" original="Notice with Address in the Bank">Aviso com o Endereço no Banco</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="cde377dd-1103-4d63-a248-ecd9c88b05db">
+  <value column="Name" original="Bank">Banco</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="e340fb44-db7d-4e11-bf1a-b1507ae171fe">
+  <value column="Name" original="Organization">Organização</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="25656d6d-8e1b-4bdd-9fa1-2f2714a91ffb">
+  <value column="Name" original="Fixed Rate until Date Set">Percentual até a Data Informada</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="68977769-1eea-42f3-ab97-c1c6f21940ff">
+  <value column="Name" original="Fixed Amount until Date Set">Valor Fixo até a Data Informada</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="8844a13a-55af-495b-b969-c17364367325">
+  <value column="Name" original="Amount for Early Payment in Calendar Days">Valor por Antecipação em Dias Corridos</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="d8492d3d-6e7e-493c-abd4-71697b5f090a">
+  <value column="Name" original="Amount for Early Payment in Business Days">Valor por Antecipação em Dias Úteis</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="e2980d2f-c2ea-41bf-af7e-f58efeda35ba">
+  <value column="Name" original="Rate over Grand Total in Calendar Days">Percentual sobre o Valor Nominal em Dias Corridos</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="3fe7c306-33d7-4f64-ab26-df269ae370fe">
+  <value column="Name" original="Rate over Grand Total in Business Days">Percentual sobre o Valor Nominal em Dias Úteis</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="2d1678c3-5a4d-4f88-8f5c-73a5a086cbd6">
+  <value column="Name" original="PKCS#11 (Remote)">PKCS#11 (Remote)</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="8fcba2e3-26a9-47ca-b139-7de3e9588d4e">
+  <value column="Name" original="Bank Slip">Bank Slip</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="ed20af56-1a0b-4493-a1a7-b8dcb584b824">
+  <value column="Name" original="306-Rejeição: IE do destinatário não está ativa na UF">306-Rejeição: IE do destinatário não está ativa na UF</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="dfe506fc-8bd2-45b9-af4b-089678c7b34d">
+  <value column="Name" original="305-Rejeição: Destinatário bloqueado na UF">305-Rejeição: Destinatário bloqueado na UF</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="b13d4d11-d46f-4115-af26-7ceb7ddd3834">
+  <value column="Name" original="PKCS#11 (Network)">PKCS#11 (Network)</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="7a04514e-270d-4d53-b533-d10fbb37db04">
+  <value column="Name" original="Rodoviário">Rodoviário</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="0f3a01c6-a461-4307-8021-6c905a9420ab">
+  <value column="Name" original="Ferroviário">Ferroviário</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="e50ec832-8134-4a0b-a0c2-50aa17ce7858">
+  <value column="Name" original="Multimodal ou Rodo/Ferroviário">Multimodal ou Rodo/Ferroviário</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="fd333fa1-53ef-4136-8a54-68d32d1cc3cb">
+  <value column="Name" original="Aquaviário">Aquaviário</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="f6e466d3-ca0c-4198-af10-3aa653849fc3">
+  <value column="Name" original="Dutoviário">Dutoviário</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="3a7075ab-6c75-4308-8110-d03040ab949f">
+  <value column="Name" original="Aéreo">Aéreo</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="692b7803-0a47-40ba-a733-59aa28b1fed2">
+  <value column="Name" original="Navegação Interior">Navegação Interior</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="66217620-46e1-4f46-87e4-79f864743311">
+  <value column="Name" original="Cabotagem/Longo Curso">Cabotagem/Longo Curso</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="95bff5e2-ded6-4508-b249-4773de06db96">
+  <value column="Name" original="Sem Modal">Sem Modal</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="beba4722-d4d1-4456-97a4-bfd6f2e08a1b">
+  <value column="Name" original="Firme">Firme</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="f6242281-d3a4-4ba5-b36e-fbd96a0d56ff">
+  <value column="Name" original="Não Firme">Não Firme</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="e51fc0b6-6b41-4993-b55a-f5771cf4390d">
+  <value column="Name" original="Deslocamento">Deslocamento</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="7a81dd85-4d67-4cde-ad04-f2264b61d219">
+  <value column="Name" original="Acidez">Acidez</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="a0871055-57f0-47e4-878c-c5374018a310">
+  <value column="Name" original="Acidez total - mg KOH/g">Acidez total - mg KOH/g</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="3c6825de-a63f-4775-9573-4278b1e52589">
+  <value column="Name" original="Acidez total (como ácido acético) - mg/L">Acidez total (como ácido acético) - mg/L</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="5b495453-5269-4c47-8b94-04791761a8d6">
+  <value column="Name" original="Aditivos">Aditivos</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="315bd64f-87d4-4495-9b4a-d4d7d392c5ce">
+  <value column="Name" original="Água e Sedimentos - %volume">Água e Sedimentos - %volume</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="b0a7cc32-214c-409d-b2ab-851628267706">
+  <value column="Name" original="Água Livre">Água Livre</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="35e84393-8329-4f79-8741-1485cb7d75c7">
+  <value column="Name" original="Álcool Etílico Anidro Combustível - AEAC - %volume">Álcool Etílico Anidro Combustível - AEAC - %volume</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="137f80a8-d210-41c0-9266-0d23dfd2eb05">
+  <value column="Name" original="Antioxidante - mg/L">Antioxidante - mg/L</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="ed502ad9-8e7f-405f-9023-ea3983d13d06">
+  <value column="Name" original="Aromáticos - %volume">Aromáticos - %volume</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="54ff6aba-a989-4a21-ad4a-f30fd75f7401">
+  <value column="Name" original="Aromáticos totais - %volume">Aromáticos totais - %volume</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="28da4960-8486-4912-8bd8-f2b22af34395">
+  <value column="Name" original="Aspecto">Aspecto</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="189dce3c-ca29-49f4-afb5-b92794ee4072">
+  <value column="Name" original="Aumento do ponto de amolecimento - °C">Aumento do ponto de amolecimento - °C</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="0195046c-9300-4d5e-bab6-5bfb70fc058e">
+  <value column="Name" original="Benzeno - %volume">Benzeno - %volume</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="cb074a9a-09b8-432b-abe2-a758771576b2">
+  <value column="Name" original="Cálcio + Magnésio - mg/Kg">Cálcio + Magnésio - mg/Kg</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="5549142f-2d99-47ba-aaa4-8be9bed1041d">
+  <value column="Name" original="Carga de Partícula">Carga de Partícula</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="c3eb954d-be46-4b6c-8a9d-65afaa8711e7">
+  <value column="Name" original="Chumbo - g/L">Chumbo - g/L</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="33846e0a-cf83-4218-b308-c77745d356ec">
+  <value column="Name" original="Chumbo Tetraetila - CTE - mL/L">Chumbo Tetraetila - CTE - mL/L</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="2c464c7d-d638-4c95-8d7a-f9e0cbfc167f">
+  <value column="Name" original="Cinzas - %massa">Cinzas - %massa</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="2618a7a9-17aa-4a71-a245-ca8d3437ca85">
+  <value column="Name" original="Cinzas sulfatadas - %massa">Cinzas sulfatadas - %massa</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="7d04bb16-43bc-466d-b37b-5362b0609975">
+  <value column="Name" original="Cobre - mg/Kg">Cobre - mg/Kg</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="7fdb8833-c028-4de0-8163-5a2f28e49b96">
+  <value column="Name" original="Condutividade elétrica - mS/m">Condutividade elétrica - mS/m</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="f2337074-41b8-43e8-b838-c93779ea738e">
+  <value column="Name" original="Condutividade Elétrica - pS/m">Condutividade Elétrica - pS/m</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="10053095-683a-426c-b2bf-5dd67b5ea52b">
+  <value column="Name" original="Cor">Cor</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="2b5270ae-a090-43e2-b2f5-f2e20f8c855a">
+  <value column="Name" original="Cor ASTM">Cor ASTM</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="a58fe7ec-7fae-4f89-96fd-29bf4bc0cbc1">
+  <value column="Name" original="Cor Saybolt">Cor Saybolt</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="0e94c259-ce3d-4997-a297-33611e5176d6">
+  <value column="Name" original="Corante - mg/L">Corante - mg/L</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="6b37164a-a372-456d-8774-418b7b1eade3">
+  <value column="Name" original="Corrosividade à prata">Corrosividade à prata</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="b7964078-64b4-4f71-b03a-8ec6cbd34113">
+  <value column="Name" original="Corrosividade ao Cobre a 37,8°C 1 hora">Corrosividade ao Cobre a 37,8°C 1 hora</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="cc22b927-6af7-4bd4-9d75-ea67db12dea2">
+  <value column="Name" original="Corrosividade ao Cobre a 50°C, 3h">Corrosividade ao Cobre a 50°C, 3h</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="8a46d7f9-2cc9-4fd2-998d-3323e87e3e60">
+  <value column="Name" original="Corrosividade ao cobre (2h a 100°C)">Corrosividade ao cobre (2h a 100°C)</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="49c02ee1-4411-449f-bea2-e235fc9c4b3f">
+  <value column="Name" original="Densidade 20/4°C">Densidade 20/4°C</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="98279a2a-3c18-4d9b-b34e-b5d766477bcc">
+  <value column="Name" original="Desativador de metal - mg/L">Desativador de metal - mg/L</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="28283123-8d30-4536-aaf4-46f0dab3c12e">
+  <value column="Name" original="Destilação - PFE - °C">Destilação - PFE - °C</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="4c97369c-a20c-427a-af3f-ee16138a9471">
+  <value column="Name" original="Destilação - PIE - °C">Destilação - PIE - °C</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="6474e103-2a0a-443f-be08-5b5e07548616">
+  <value column="Name" original="Destilação - recuperado - %volume">Destilação - recuperado - %volume</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="1e8e660f-d5cc-4bc1-aec3-e8783c9ebfa5">
+  <value column="Name" original="Destilação - Resíduo. - %volume">Destilação - Resíduo. - %volume</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="e76afe08-e187-45bb-b649-e77bb797155f">
+  <value column="Name" original="Destilação - soma 10% evaporado + 50% evaporado - °C">Destilação - soma 10% evaporado + 50% evaporado - °C</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="c008916a-2520-4624-b95b-2926565f6c28">
+  <value column="Name" original="Destilação - 10% evaporado - °C">Destilação - 10% evaporado - °C</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="10f4dafd-82ec-4ceb-9887-c6f027da8aee">
+  <value column="Name" original="Destilação - 10% vol. Recuperado - °C">Destilação - 10% vol. Recuperado - °C</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="9179ad65-9e72-42ab-9d50-5051915f18bb">
+  <value column="Name" original="Destilação - 50% evaporado - °C">Destilação - 50% evaporado - °C</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="b8076042-ca61-4655-bb5d-62a98e663116">
+  <value column="Name" original="Destilação - 50% vol., recuperado - °C">Destilação - 50% vol., recuperado - °C</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="aec16da9-e98e-4673-83a2-5be4d6bd76bd">
+  <value column="Name" original="Destilação - 80% evaporado - °C">Destilação - 80% evaporado - °C</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="6d8574c4-f0de-488c-8865-ea177489e6f6">
+  <value column="Name" original="Destilação - 85 % vol., recuperado - °C">Destilação - 85 % vol., recuperado - °C</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="828aab99-502a-4c37-b3d2-99b6a50b8a72">
+  <value column="Name" original="Destilação - 90% evaporado - °C">Destilação - 90% evaporado - °C</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="d093f472-c1b5-4487-89f2-4c334fec89bb">
+  <value column="Name" original="Destilação - 90% vol. Recuperado - °C">Destilação - 90% vol. Recuperado - °C</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="d12cb945-1dba-4ca6-b238-a9c7f4e3f4ee">
+  <value column="Name" original="Destilação em 105°C - %volume">Destilação em 105°C - %volume</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="9b5ac2d4-03a1-4d52-a4fe-581df9ead9e7">
+  <value column="Name" original="Destilação em 135°C - %volume">Destilação em 135°C - %volume</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="beefd5bc-dd49-43a3-a464-be21d9da4701">
+  <value column="Name" original="Destilação em 190°C - %volume">Destilação em 190°C - %volume</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="d8c503f9-3e30-4825-a686-15494b880263">
+  <value column="Name" original="Destilação em 225°C - %volume">Destilação em 225°C - %volume</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="eff20398-b068-4141-8759-d1a3e3c62d16">
+  <value column="Name" original="Destilação em 260°C - %volume">Destilação em 260°C - %volume</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="f888353a-f6e7-4a89-b4df-13f98984422b">
+  <value column="Name" original="Destilação em 316°C - %volume">Destilação em 316°C - %volume</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="de7d5044-d9b4-49c9-ac8e-3258afb9325a">
+  <value column="Name" original="Destilação em 360°C, resíduo por diferença - %volume">Destilação em 360°C, resíduo por diferença - %volume</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="7f182ff7-4906-4211-bee6-cd0a656b857c">
+  <value column="Name" original="Destilação em 75°C - %volume">Destilação em 75°C - %volume</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="e1c47641-f284-4783-8ae4-8ce9f1a9b2cd">
+  <value column="Name" original="Destilação, resíduo - %massa">Destilação, resíduo - %massa</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="7a0e70d9-4f71-429b-8fcd-d5640a9beeea">
+  <value column="Name" original="Destilação, solvente destilado, %volume sobre o total da emulsão - %volume">Destilação, solvente destilado, %volume sobre o total da emulsão - %volume</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="9bd056a7-9e7a-4321-b95a-7b62f7164046">
+  <value column="Name" original="Detetor de vazamentos - mg/Kg">Detetor de vazamentos - mg/Kg</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="f2ac60d8-6cc7-4667-8e3e-12e9d190c915">
+  <value column="Name" original="Diglicerídeos - %massa">Diglicerídeos - %massa</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="06e50f9f-a044-4af8-84cd-6ee87c17f15a">
+  <value column="Name" original="Dissipador de cargas estáticas - mg/L">Dissipador de cargas estáticas - mg/L</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="91b47f46-2681-4156-b6c3-300242c77fe2">
+  <value column="Name" original="Ductilidade a 25°C - cm">Ductilidade a 25°C - cm</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="c7b54b92-e96b-4731-bc80-2138a3eb2471">
+  <value column="Name" original="Efeito do calor e do ar a 163°C (RTFOT ou TFOT) - Razão de Viscosidade">Efeito do calor e do ar a 163°C (RTFOT ou TFOT) - Razão de Viscosidade</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="99bdd8ef-96e2-4413-8350-48b9764e27ef">
+  <value column="Name" original="Efeito do calor e do ar a 163°C (RTFOT ou TFOT) - Variação de Massa - %massa">Efeito do calor e do ar a 163°C (RTFOT ou TFOT) - Variação de Massa - %massa</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="398c5fe4-56da-4150-a994-093854b8e680">
+  <value column="Name" original="Ensaio Doctor">Ensaio Doctor</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="d50d7f84-dd44-4f05-8987-09908af8d803">
+  <value column="Name" original="Enxofre - %massa">Enxofre - %massa</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="a62dd347-ac78-4d02-9807-0ea00ae3923d">
+  <value column="Name" original="Enxofre mercaptídico - %massa">Enxofre mercaptídico - %massa</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="94b90106-d85a-40cd-a7f9-d97fa7ba074b">
+  <value column="Name" original="Enxofre Total - %massa">Enxofre Total - %massa</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="8bec13b6-0892-4f6e-a919-9ffe0c0c1701">
+  <value column="Name" original="Enxofre Total para GLP - mg/Kg">Enxofre Total para GLP - mg/Kg</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="e49a8528-7842-4e23-8bce-16a36c579203">
+  <value column="Name" original="Enxofre Total para GN - mg/m³">Enxofre Total para GN - mg/m³</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="8eee79a0-d72f-47e8-98a4-749026e2cd0d">
+  <value column="Name" original="Estabilidade à oxidação a 110° C - h">Estabilidade à oxidação a 110° C - h</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="fb3402f5-f387-476a-a758-7eea1dacef54">
+  <value column="Name" original="Estabilidade à oxidação (16h), chumbo precipitado - mg/100mL">Estabilidade à oxidação (16h), chumbo precipitado - mg/100mL</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="0ac3c506-fb11-43a8-bbdf-dcbcd8abc954">
+  <value column="Name" original="Estabilidade à oxidação (16h), goma potencial - mg/100mL">Estabilidade à oxidação (16h), goma potencial - mg/100mL</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="2239919f-d7ae-4806-b234-cdadc5c346b5">
+  <value column="Name" original="Estabilidade térmica a 260°C">Estabilidade térmica a 260°C</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="e83de0ef-486b-4de7-b4b7-42eed465d653">
+  <value column="Name" original="Estabilidade térmica a 260°C - depósito no tubo (visual)">Estabilidade térmica a 260°C - depósito no tubo (visual)</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="8b4ac598-7e6f-4a73-97f1-7c72b87b3548">
+  <value column="Name" original="Estabilidade térmica a 260°C - queda de pressão no filtro - mmHg">Estabilidade térmica a 260°C - queda de pressão no filtro - mmHg</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="f5740431-4d7f-41be-993f-154885db8dc2">
+  <value column="Name" original="Ferro - mg/Kg">Ferro - mg/Kg</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="3aa73cdf-21c0-4979-8fdd-c96481eb1a89">
+  <value column="Name" original="Fósforo - mg/Kg">Fósforo - mg/Kg</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="5acd4f79-218a-4be1-b5fc-f3dffc2c2c79">
+  <value column="Name" original="Fração hidroprocessada">Fração hidroprocessada</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="2e383e8e-0198-46bf-ad03-f75abfc0065c">
+  <value column="Name" original="Fração severamente hidroprocessada - %volume">Fração severamente hidroprocessada - %volume</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="8da34288-ca23-401c-8153-b06223d42fb8">
+  <value column="Name" original="Glicerina livre - %massa">Glicerina livre - %massa</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="f6ddb9d9-9f96-400b-ba2e-9f7899bdc0a2">
+  <value column="Name" original="Glicerina total - %massa">Glicerina total - %massa</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="830904e4-5ced-4e81-9b7a-501e18d0a7d3">
+  <value column="Name" original="Goma atual - mg/100mL">Goma atual - mg/100mL</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="b413d3b3-af51-4d37-9d01-017332ac47b5">
+  <value column="Name" original="Goma Atual Lavada - mg/100mL">Goma Atual Lavada - mg/100mL</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="33fbd3c2-22e3-4221-8a53-afa0d8dff631">
+  <value column="Name" original="H2S">H2S</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="95db62c5-6617-4665-8d74-1857b9486f01">
+  <value column="Name" original="Índice Antidetonante - IAD">Índice Antidetonante - IAD</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="7539edea-fb25-430b-b3fb-6f21e91effb6">
+  <value column="Name" original="Índice de acidez - mg KOH/g">Índice de acidez - mg KOH/g</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="36e33eba-416d-43e2-a96b-76d87681b70d">
+  <value column="Name" original="Índice de Cetano">Índice de Cetano</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="c6d7d584-18be-4cac-b1ae-09354fe804df">
+  <value column="Name" original="Índice de iodo">Índice de iodo</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="20ec4567-2870-49c6-8e70-1045fe7fced3">
+  <value column="Name" original="Índice de separação de água - Com dissipador de cargas estáticas">Índice de separação de água - Com dissipador de cargas estáticas</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="992f04ba-8c80-4a49-88f0-71496cd5291c">
+  <value column="Name" original="Índice de separação de água - Sem dissipador de cargas estáticas">Índice de separação de água - Sem dissipador de cargas estáticas</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="5b5d9fa7-5bbe-4b35-b008-f90db760bdfd">
+  <value column="Name" original="Índice de susceptibilidade térmica">Índice de susceptibilidade térmica</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="8986a352-427e-4e26-883d-83cd18ab000e">
+  <value column="Name" original="Inibidor de formação de gelo - %volume">Inibidor de formação de gelo - %volume</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="79bb3a1d-5827-4eb0-baf2-c35b7b602d39">
+  <value column="Name" original="Íon Cloreto - mg/Kg">Íon Cloreto - mg/Kg</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="657a474f-c9d4-4dfa-8d44-e7687d0685d8">
+  <value column="Name" original="Íon Sulfato - mg/Kg">Íon Sulfato - mg/Kg</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="af936850-9458-4365-a7c9-79b3ae825ff7">
+  <value column="Name" original="Lubricidade, BOCLE - mm">Lubricidade, BOCLE - mm</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="302297a7-ab42-4c0a-ad52-cfb0eb9ac59f">
+  <value column="Name" original="Massa específica a 20°C - Kg/m³">Massa específica a 20°C - Kg/m³</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="b59715e2-883b-4c5d-a5ff-f17fb6731a48">
+  <value column="Name" original="Melhorador de Lubricidade">Melhorador de Lubricidade</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="0403d756-b9b3-4078-b5f8-b61a71b85768">
+  <value column="Name" original="Metanol ou Etanol - %massa">Metanol ou Etanol - %massa</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="1ece1c4e-8414-4fcd-bee0-b369fcee884f">
+  <value column="Name" original="Mistura com Cimento - %">Mistura com Cimento - %</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="42bc8368-5876-4d5a-95f4-ab3031bc87a3">
+  <value column="Name" original="Mistura com Filer Silícico">Mistura com Filer Silícico</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="2777e518-e786-44fc-8052-b03fcf96d806">
+  <value column="Name" original="Monoglicerídeos - %massa">Monoglicerídeos - %massa</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="3dd058e3-c346-4d04-94ad-70e149f2425e">
+  <value column="Name" original="N° de Octano Motor - MON.">N° de Octano Motor - MON.</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="6aee0ea2-505b-45c5-b095-43d395538481">
+  <value column="Name" original="Naftalenos - %volume">Naftalenos - %volume</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="7039cf88-b3be-49d3-a7fc-037678f0c61b">
+  <value column="Name" original="Número de Cetano">Número de Cetano</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="1c39ea45-74a7-4830-960f-fa8b0474fa93">
+  <value column="Name" original="Odorização">Odorização</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="310cae73-0b3b-4ea8-af2c-5a25506db706">
+  <value column="Name" original="Olefínicos - %volume">Olefínicos - %volume</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="ccb9e8b5-3122-41fe-b804-4cbc35b54b34">
+  <value column="Name" original="Partículas Contaminantes - mg/L">Partículas Contaminantes - mg/L</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="a584549a-5f5f-4af1-a0e5-35bcaaad76b1">
+  <value column="Name" original="Peneiração (retido na peneira n° 20 - 0,84 mm) - %">Peneiração (retido na peneira n° 20 - 0,84 mm) - %</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="ed782470-634d-4749-b9ad-ba5c6b30e996">
+  <value column="Name" original="Penetração retida - %">Penetração retida - %</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="ce18db41-f43b-40a8-8070-51dd7494f549">
+  <value column="Name" original="Penetração (100g, 5s e 25°C) - 0,1 mm">Penetração (100g, 5s e 25°C) - 0,1 mm</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="97f5a272-ece4-4c11-955e-9879e80ab3c2">
+  <value column="Name" original="Perda - %volume">Perda - %volume</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="dd8fff16-6150-4ee0-a9c8-a4b60b2fc156">
+  <value column="Name" original="Período de Indução a 100°C - min">Período de Indução a 100°C - min</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="3124b42c-4d3d-44e7-bae5-7965ee39554d">
+  <value column="Name" original="Poder antidetonante, mistura pobre, método aviação, índice de desempenho">Poder antidetonante, mistura pobre, método aviação, índice de desempenho</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="db869a54-349c-4826-9120-cf31f827b06b">
+  <value column="Name" original="Poder antidetonante, mistura pobre, método aviação, índice de octano">Poder antidetonante, mistura pobre, método aviação, índice de octano</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="c8a1ba2d-3367-4da5-8b5c-82e0d5ab9787">
+  <value column="Name" original="Poder antidetonante, mistura rica, método superalimentação, índice de desempenho">Poder antidetonante, mistura rica, método superalimentação, índice de desempenho</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="3660f63c-284f-439f-9379-19d111ba4bb7">
+  <value column="Name" original="Poder calorífico inferior - MJ/Kg">Poder calorífico inferior - MJ/Kg</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="3cf26222-853d-4f85-8fb7-377c42665386">
+  <value column="Name" original="Ponto de amolecimento°C - °C">Ponto de amolecimento°C - °C</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="55642160-803c-4212-b5e8-9380614095bf">
+  <value column="Name" original="Ponto de Congelamento - °C">Ponto de Congelamento - °C</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="37cd3678-522f-4184-8394-36fd4d02872f">
+  <value column="Name" original="Ponto de Entupimento de Filtro à Frio - °C">Ponto de Entupimento de Filtro à Frio - °C</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="c125b1b9-6d07-483b-a9ac-8e4177019975">
+  <value column="Name" original="Ponto de Fluidez Superior - °C">Ponto de Fluidez Superior - °C</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="5dd0fead-1652-4d7b-8edb-91dadc7b1f99">
+  <value column="Name" original="Ponto de Fulgor - °C">Ponto de Fulgor - °C</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="913028aa-7403-443c-9864-c57db2156f47">
+  <value column="Name" original="Ponto de fuligem - mm">Ponto de fuligem - mm</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="ee686674-449d-4c18-861c-2f11727b7240">
+  <value column="Name" original="Potencial hidrogeniônico (pH)">Potencial hidrogeniônico (pH)</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="d9637819-5b79-4891-b34c-835422106204">
+  <value column="Name" original="Pressão de Vapor a 37,8 °C - KPa">Pressão de Vapor a 37,8 °C - KPa</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="72c6c9f5-9801-49a7-b8cb-112eff82a2b8">
+  <value column="Name" original="Pressão de vapor Reid - KPa">Pressão de vapor Reid - KPa</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="d41edf6a-7072-4a31-b231-203323111d68">
+  <value column="Name" original="Produto do Ponto de anilina x densidade">Produto do Ponto de anilina x densidade</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="9915724d-4b04-471f-b0a4-69f425f2fa9a">
+  <value column="Name" original="Propano - %volume">Propano - %volume</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="c035c979-f63a-43e3-ae0e-c149e19b0237">
+  <value column="Name" original="Propeno - %volume">Propeno - %volume</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="96ce0c53-49f6-4419-bb41-72723ce1ae5d">
+  <value column="Name" original="Resíduo de carbono dos 100% destilados - %massa">Resíduo de carbono dos 100% destilados - %massa</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="e4a25eab-0f56-433a-bd73-63facf9ddb54">
+  <value column="Name" original="Resíduo de Carbono Ramsbottom no Resíduo dos 10% finais da Destilação - %massa">Resíduo de Carbono Ramsbottom no Resíduo dos 10% finais da Destilação - %massa</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="19c79c29-d26b-4f50-b0aa-257ad9dd302c">
+  <value column="Name" original="Resíduo por evaporação - mg/100mL">Resíduo por evaporação - mg/100mL</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="23f5df63-8086-43e0-a209-3b8712ddc181">
+  <value column="Name" original="Resíduo volátil - Butanos e mais pesados - %volume">Resíduo volátil - Butanos e mais pesados - %volume</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="abbc24da-b220-4ff1-beb2-f595de6e9d6a">
+  <value column="Name" original="Resíduo volátil - Pentanos e mais pesados - %volume">Resíduo volátil - Pentanos e mais pesados - %volume</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="69f238eb-7654-4486-82df-16e291bf7779">
+  <value column="Name" original="Resíduo volátil - Ponto de Ebulição 95% evaporados - °C">Resíduo volátil - Ponto de Ebulição 95% evaporados - °C</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="5d2414e9-5fe2-4ec2-99c0-64c0d549086d">
+  <value column="Name" original="Resíduo, 100 ml evaporados - mL">Resíduo, 100 ml evaporados - mL</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="b3b45313-021b-45d8-a392-020dc622d933">
+  <value column="Name" original="Sedimentação, 5 dias por diferença - %">Sedimentação, 5 dias por diferença - %</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="f5b5cd8d-9034-4e59-9c33-760b0646950e">
+  <value column="Name" original="Sódio - mg/Kg">Sódio - mg/Kg</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="e05df284-544a-43b9-b4b2-e9c81f5d543b">
+  <value column="Name" original="Sódio + Potássio. - mg/Kg">Sódio + Potássio. - mg/Kg</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="251eb78c-7da0-4fdc-a445-d73e99320e5b">
+  <value column="Name" original="Solubilidade em tricoroetileno - %massa">Solubilidade em tricoroetileno - %massa</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="addf73f9-ed86-48f6-a6df-8b98a3e2ad84">
+  <value column="Name" original="Teor alcoólico - °INPM">Teor alcoólico - °INPM</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="0b880740-731b-4468-8b58-af9c05298331">
+  <value column="Name" original="Teor de água - %volume">Teor de água - %volume</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="67dc6530-456b-409c-843d-f02fda0c5840">
+  <value column="Name" original="Teor de Betume - %massa">Teor de Betume - %massa</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="e06612b4-9203-4eaa-b0f9-58f1ea6edfef">
+  <value column="Name" original="Teor de éster - %massa">Teor de éster - %massa</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="cd828596-dc1c-4d61-b373-2cd648ea7ff8">
+  <value column="Name" original="Teor de etanol - %volume">Teor de etanol - %volume</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="3ec52e3d-91c5-4049-bbae-613d22423dbd">
+  <value column="Name" original="Teor de hidrocarbonetos - %volume">Teor de hidrocarbonetos - %volume</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="86fcaa01-7514-4bc6-86a5-af7f81780f72">
+  <value column="Name" original="Teor de Saturados - %massa">Teor de Saturados - %massa</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="e45f171b-354e-4168-8d46-6b6125b128cb">
+  <value column="Name" original="Teste da Mancha">Teste da Mancha</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="4cc1f02c-fc56-4021-95a6-cc08a9dabedb">
+  <value column="Name" original="Tolerância à água - condições de separação">Tolerância à água - condições de separação</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="40edcb35-9bea-49f1-8655-95c3fa64d961">
+  <value column="Name" original="Tolerância à água - condições interfaciais, máx.">Tolerância à água - condições interfaciais, máx.</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="3409d086-246f-4cdc-b1ca-dadc76fcc517">
+  <value column="Name" original="Tolerância à água - mudança de volume - mL">Tolerância à água - mudança de volume - mL</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="846148a6-88e5-4a7f-9677-d29d3f6540a7">
+  <value column="Name" original="Triglicerídeos - %massa">Triglicerídeos - %massa</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="d1edd0c7-c36d-4c78-a60f-e00275306bce">
+  <value column="Name" original="Umidade">Umidade</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="feec96d0-965e-4212-86bc-bfefb91ef35f">
+  <value column="Name" original="Vanádio - mg/Kg">Vanádio - mg/Kg</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="8ca3e85f-a950-46c3-8b25-a2986b6ba2de">
+  <value column="Name" original="Variação em massa - %massa">Variação em massa - %massa</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="638ba225-2c9c-4e57-a332-6bf137d36999">
+  <value column="Name" original="Viscosidade a -20°C - (mm2/s)cst">Viscosidade a -20°C - (mm2/s)cst</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="cab762cb-f9c6-46fc-a53d-2d0a7f266e33">
+  <value column="Name" original="Viscosidade a 20°C - (mm2/s)cst">Viscosidade a 20°C - (mm2/s)cst</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="15654831-f820-4d96-9ae6-8739534cc036">
+  <value column="Name" original="Viscosidade a 40°C - (mm2/s)cst">Viscosidade a 40°C - (mm2/s)cst</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="3fbf4107-1a57-4068-8d8b-371be59aaeb4">
+  <value column="Name" original="Viscosidade Brookfield a 135°C, SP 21 - cP">Viscosidade Brookfield a 135°C, SP 21 - cP</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="7b9ee090-fdc9-49ea-acd4-de12fd64599c">
+  <value column="Name" original="Viscosidade Brookfield a 150°C, SP 21 - cP">Viscosidade Brookfield a 150°C, SP 21 - cP</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="6f39427d-1db6-473f-97b0-4175784876aa">
+  <value column="Name" original="Viscosidade Brookfield a 177°C, SP 21 - cP">Viscosidade Brookfield a 177°C, SP 21 - cP</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="614ebbc2-0bf8-47fd-a5f1-47d82258b50a">
+  <value column="Name" original="Viscosidade Cinemática a 60°C - (mm2/s)cst">Viscosidade Cinemática a 60°C - (mm2/s)cst</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="57f7748d-f1bc-4eb0-bb9b-44a515b09ed2">
+  <value column="Name" original="Viscosidade Saybolt Furol a 135°C - SSF">Viscosidade Saybolt Furol a 135°C - SSF</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="ec911ee0-0177-4766-98e4-726a7f7d1a42">
+  <value column="Name" original="Viscosidade Saybolt Furol a 150°C - SSF">Viscosidade Saybolt Furol a 150°C - SSF</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="ab6845e4-73c8-4d92-b957-47fd92fd146c">
+  <value column="Name" original="Viscosidade Saybolt Furol a 177°C - SSF">Viscosidade Saybolt Furol a 177°C - SSF</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="62bd765b-0733-466b-92a6-b482661ca66c">
+  <value column="Name" original="Viscosidade Saybolt Furol a 25°C - SSF">Viscosidade Saybolt Furol a 25°C - SSF</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="d85cf87c-0661-485c-a47a-dc434542d38a">
+  <value column="Name" original="Viscosidade Saybolt Furol a 60°C - %volume">Viscosidade Saybolt Furol a 60°C - %volume</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="26748e5a-7eb8-4b01-b9ea-172f90aa3b6f">
+  <value column="Name" original="Viscosidade Saybolt Furola a 50°C - SSF">Viscosidade Saybolt Furola a 50°C - SSF</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="d242b195-07ed-4f42-8735-38b96969a6ac">
+  <value column="Name" original="ABNT/MB 104">ABNT/MB 104</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="09a47872-715f-4a40-aedd-ebaf470a69fa">
+  <value column="Name" original="ABNT/MB 162">ABNT/MB 162</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="ddb265fc-6388-4497-b00e-d76804318964">
+  <value column="Name" original="ABNT/MB 205">ABNT/MB 205</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="6c74eaa0-9efe-4860-bfd4-b1c8a1d1c4d0">
+  <value column="Name" original="ABNT/MB 237">ABNT/MB 237</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="49933fdf-76ea-4a5f-be1c-1c2929f99d0d">
+  <value column="Name" original="ABNT/MB 281">ABNT/MB 281</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="4f65e7fc-5dd9-4e93-a5e0-230e4c136bc8">
+  <value column="Name" original="ABNT/MB 282">ABNT/MB 282</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="4128ae06-2a58-4f80-be79-1db17770dcd0">
+  <value column="Name" original="ABNT/MB 285">ABNT/MB 285</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="7cb1e7a0-e6be-4f80-95c8-04a2cf02a370">
+  <value column="Name" original="ABNT/MB 287">ABNT/MB 287</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="7ecbf0ef-e021-43a7-a9ef-d4d87dceb0b7">
+  <value column="Name" original="ABNT/MB 289">ABNT/MB 289</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="9595316a-11be-41b8-8be8-064d9515bb87">
+  <value column="Name" original="ABNT/MB 293">ABNT/MB 293</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="b78434dd-7390-49c8-b043-53ace5c9f93f">
+  <value column="Name" original="ABNT/MB 294">ABNT/MB 294</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="f9aa9572-5b21-45c2-92dc-a328b0fd0412">
+  <value column="Name" original="ABNT/MB 295">ABNT/MB 295</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="ebaeaa66-155d-4cb6-85f3-7b1cf9ad7bd6">
+  <value column="Name" original="ABNT/MB 296">ABNT/MB 296</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="ae14b3dd-d7f6-4376-a8b2-023afedf9ae6">
+  <value column="Name" original="ABNT/MB 299">ABNT/MB 299</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="0613e14e-f36b-4ded-a1d0-05c6b256aecb">
+  <value column="Name" original="ABNT/MB 326">ABNT/MB 326</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="daac9c20-d69e-4a9e-9fd8-e2d669d3447a">
+  <value column="Name" original="ABNT/MB 327">ABNT/MB 327</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="25c99f3a-62e3-4643-b760-b872970fb088">
+  <value column="Name" original="ABNT/MB 37">ABNT/MB 37</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="99b85122-8fca-417c-81b1-e867487c535b">
+  <value column="Name" original="ABNT/MB 42">ABNT/MB 42</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="8a13c623-2bcf-4cf1-858e-f54d5ec5b3e8">
+  <value column="Name" original="ABNT/MB 424">ABNT/MB 424</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="4a651adf-4301-449e-aee6-e3d73f864ccf">
+  <value column="Name" original="ABNT/MB 425">ABNT/MB 425</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="56edd68a-d1e5-41f5-b453-4004bd70de02">
+  <value column="Name" original="ABNT/MB 43">ABNT/MB 43</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="ac1f2ca3-8b53-4c21-93d7-7a33ad0186be">
+  <value column="Name" original="ABNT/MB 45">ABNT/MB 45</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="d9052ca4-e0df-42f3-9296-b1152b2ab6f1">
+  <value column="Name" original="ABNT/MB 452">ABNT/MB 452</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="f57ad41c-58cb-44fc-a92a-3dff560cd6db">
+  <value column="Name" original="ABNT/MB 457">ABNT/MB 457</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="641bcf73-8304-4aa6-9caf-92628bbe3305">
+  <value column="Name" original="ABNT/MB 48">ABNT/MB 48</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="9b04b11f-059d-43d5-a696-9285c1eea3e5">
+  <value column="Name" original="ABNT/MB 826">ABNT/MB 826</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="a06c0c8a-f233-4a4a-8b40-146e18c0afeb">
+  <value column="Name" original="ABNT/MB 902">ABNT/MB 902</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="50fede50-5b21-4bee-a17f-7ab727bcb0a1">
+  <value column="Name" original="ABNT/MB 903">ABNT/MB 903</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="6e7d284d-65a8-48c9-aee1-582bc23a9c16">
+  <value column="Name" original="ABNT/NBR 10422">ABNT/NBR 10422</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="4ef0a244-d91f-4e5c-ab82-533fdf7322be">
+  <value column="Name" original="ABNT/NBR 10441">ABNT/NBR 10441</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="e11556da-83c5-46ff-8261-f7d15f176b66">
+  <value column="Name" original="ABNT/NBR 10547">ABNT/NBR 10547</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="fa08a11b-6516-4a88-9ddb-643a5f7c0fa0">
+  <value column="Name" original="ABNT/NBR 10891">ABNT/NBR 10891</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="9df14576-6ea4-4340-b350-3ed94797fe1e">
+  <value column="Name" original="ABNT/NBR 10893">ABNT/NBR 10893</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="ab792b4a-3c73-4f1b-86d1-0587ff1facc1">
+  <value column="Name" original="ABNT/NBR 10894">ABNT/NBR 10894</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="ccc1fd22-2d5e-4a13-ac91-5320de5887dc">
+  <value column="Name" original="ABNT/NBR 10895">ABNT/NBR 10895</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="5080ac5a-bc21-4153-951b-f4ae7458567c">
+  <value column="Name" original="ABNT/NBR 1109">ABNT/NBR 1109</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="c6ac9b31-7c32-4d3a-8781-e90f25ffb67b">
+  <value column="Name" original="ABNT/NBR 11331">ABNT/NBR 11331</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="45d591bc-a440-4324-ad4a-e819603b8ad5">
+  <value column="Name" original="ABNT/NBR 11341">ABNT/NBR 11341</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="db4d0664-bef8-435b-b93c-66cc1b7c69a2">
+  <value column="Name" original="ABNT/NBR 11349">ABNT/NBR 11349</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="4467de2b-cb1d-4794-9965-bb7b6b45d27f">
+  <value column="Name" original="ABNT/NBR 11909">ABNT/NBR 11909</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="067f6b79-c113-4ef6-8828-b0c4f3f72aa5">
+  <value column="Name" original="ABNT/NBR 12120">ABNT/NBR 12120</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="07f8df6c-e0ad-4d09-99ab-bda9ba7364a6">
+  <value column="Name" original="ABNT/NBR 13992">ABNT/NBR 13992</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="355532bc-22a5-4f62-9314-0a00b571b1ca">
+  <value column="Name" original="ABNT/NBR 13993">ABNT/NBR 13993</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="4d12d897-bf1a-4e68-ba87-846affbee870">
+  <value column="Name" original="ABNT/NBR 14065">ABNT/NBR 14065</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="7aed2c90-38f1-40b5-9d0e-be207c9cc233">
+  <value column="Name" original="ABNT/NBR 14156">ABNT/NBR 14156</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="9e599f04-ab02-4eb6-a19a-3d7415cfc8b4">
+  <value column="Name" original="ABNT/NBR 14359">ABNT/NBR 14359</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="297cf7a1-415a-4662-83cc-3ea63af5cbf5">
+  <value column="Name" original="ABNT/NBR 14448">ABNT/NBR 14448</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="4aa17cd7-3469-448d-9742-794d15d65d91">
+  <value column="Name" original="ABNT/NBR 14478">ABNT/NBR 14478</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="5136e991-4b8b-4d4e-b0d7-f88f57eed0a0">
+  <value column="Name" original="ABNT/NBR 14483">ABNT/NBR 14483</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="ee68fc18-fdf0-4d14-95cb-95a52c25bd73">
+  <value column="Name" original="ABNT/NBR 1452">ABNT/NBR 1452</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="048e80db-db43-40b7-a407-02651ae76165">
+  <value column="Name" original="ABNT/NBR 14525">ABNT/NBR 14525</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="55c23cb6-934c-469f-a94c-f5a56b445f5c">
+  <value column="Name" original="ABNT/NBR 14533">ABNT/NBR 14533</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="922a94df-17e3-4629-a774-fd78b233da0a">
+  <value column="Name" original="ABNT/NBR 14598">ABNT/NBR 14598</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="60e80567-ebb6-4082-9da4-371cd517b01e">
+  <value column="Name" original="ABNT/NBR 14642">ABNT/NBR 14642</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="f86f80cd-207f-447c-8db7-1e2b022ed96b">
+  <value column="Name" original="ABNT/NBR 14647">ABNT/NBR 14647</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="bae539c5-1fca-4cfe-acc4-d7b4d9cdef56">
+  <value column="Name" original="ABNT/NBR 14747">ABNT/NBR 14747</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="f481f528-b5d8-4706-bb61-bcf7019360d6">
+  <value column="Name" original="ABNT/NBR 14855">ABNT/NBR 14855</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="175f22da-8106-4a2b-b5aa-f18a2d8f30b0">
+  <value column="Name" original="ABNT/NBR 14875">ABNT/NBR 14875</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="960258d7-df23-4494-ac57-a78d0a770034">
+  <value column="Name" original="ABNT/NBR 14921">ABNT/NBR 14921</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="5ca39e82-c216-43c2-b78b-305759508bda">
+  <value column="Name" original="ABNT/NBR 14932">ABNT/NBR 14932</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="672bae1a-d838-4c8a-b97a-99a8487877c9">
+  <value column="Name" original="ABNT/NBR 14950">ABNT/NBR 14950</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="e0785b01-8b9f-45f9-9e5c-11b95d8faba2">
+  <value column="Name" original="ABNT/NBR 15184">ABNT/NBR 15184</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="863d60cc-4654-4d88-89cb-f9e0256342af">
+  <value column="Name" original="ABNT/NBR 4149">ABNT/NBR 4149</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="feef41b1-e477-4d7a-9b7f-d449b5e2fded">
+  <value column="Name" original="ABNT/NBR 5765">ABNT/NBR 5765</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="661d8ed1-f3f6-40a7-819b-ff450adfc404">
+  <value column="Name" original="ABNT/NBR 5847">ABNT/NBR 5847</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="71ee0a40-d4fb-4042-a554-acff03ca7080">
+  <value column="Name" original="ABNT/NBR 5847 (2)">ABNT/NBR 5847 (2)</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="e98d905e-98c0-4896-97cd-e07e85dbaec9">
+  <value column="Name" original="ABNT/NBR 5992">ABNT/NBR 5992</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="fb6a12a3-187c-4453-8648-f8fcdd7d74e8">
+  <value column="Name" original="ABNT/NBR 6293">ABNT/NBR 6293</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="e59e9929-3dd3-4e01-8c65-646ecaab95ba">
+  <value column="Name" original="ABNT/NBR 6296">ABNT/NBR 6296</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="cbc99b62-b3b4-4072-b6bc-f842a1d3eb21">
+  <value column="Name" original="ABNT/NBR 6298">ABNT/NBR 6298</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="99c1abed-6d89-4770-987e-a87f27c48778">
+  <value column="Name" original="ABNT/NBR 6560">ABNT/NBR 6560</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="5a25ae8c-aace-4348-9533-71057dc517d9">
+  <value column="Name" original="ABNT/NBR 6563">ABNT/NBR 6563</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="141a44fe-6068-404f-8fc3-3a0ccee9337d">
+  <value column="Name" original="ABNT/NBR 6576">ABNT/NBR 6576</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="48264f4c-c35a-4c43-bffc-7a94bf0e9bc9">
+  <value column="Name" original="ABNT/NBR 6577">ABNT/NBR 6577</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="0efae006-74f8-4f55-b917-088c7ad2f2fe">
+  <value column="Name" original="ABNT/NBR 7148">ABNT/NBR 7148</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="812762e0-9abd-4b4f-b6eb-9bd23e59389c">
+  <value column="Name" original="ABNT/NBR 7974">ABNT/NBR 7974</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="d802773a-344f-4127-8f3b-a1d601b0da70">
+  <value column="Name" original="ABNT/NBR 7975">ABNT/NBR 7975</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="891b2c8e-58af-4126-856b-88f8b473c3d3">
+  <value column="Name" original="ABNT/NBR 8644">ABNT/NBR 8644</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="0c359a41-3cb6-4671-90fa-09646132ce79">
+  <value column="Name" original="ABNT/NBR 9619">ABNT/NBR 9619</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="e8c557e7-333a-4432-a333-0f8cea2f11a8">
+  <value column="Name" original="ABNT/NBR 9842">ABNT/NBR 9842</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="97599ff8-2542-4f61-9e09-7797a16eb8be">
+  <value column="Name" original="ABNT/NBR 9866">ABNT/NBR 9866</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="7d07a6df-f280-4b95-b176-8e461484ff10">
+  <value column="Name" original="ABNT/NBR14318">ABNT/NBR14318</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="64b205b5-73f4-4df9-8aa6-8bd617da0a51">
+  <value column="Name" original="ABNT/NBR 14533 (2)">ABNT/NBR 14533 (2)</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="dc969e7e-7eba-43dc-871c-8e2673620e5a">
+  <value column="Name" original="ASTM/D 1094">ASTM/D 1094</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="2c37eeb1-c27c-4aea-a86a-95a06c1dc8ee">
+  <value column="Name" original="ASTM/D 1125">ASTM/D 1125</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="aab70d35-435a-49ff-bb54-3fb265538a81">
+  <value column="Name" original="ASTM/D 113">ASTM/D 113</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="20b4f86f-8a5c-4fa1-809a-dc047fccb28f">
+  <value column="Name" original="ASTM/D 1160">ASTM/D 1160</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="73434080-bbd9-4b46-99a4-29729f4ebe19">
+  <value column="Name" original="ASTM/D 1266">ASTM/D 1266</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="efaa9ed4-2e9f-4c94-8dd8-48132b94f0eb">
+  <value column="Name" original="ASTM/D 1267">ASTM/D 1267</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="13426b3f-e122-4afe-bc01-ce3c5d557f41">
+  <value column="Name" original="ASTM/D 1298">ASTM/D 1298</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="e4c937c4-1c6f-4681-9024-699febde107c">
+  <value column="Name" original="ASTM/D 130">ASTM/D 130</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="f3b9145a-aeb2-4fa0-a58a-c96cc56e1fce">
+  <value column="Name" original="ASTM/D 1319">ASTM/D 1319</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="5b1cf540-14b6-41bc-9273-7b6ab4fab869">
+  <value column="Name" original="ASTM/D 1319 (2)">ASTM/D 1319 (2)</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="0dc05537-2177-4dea-ba7c-625fdd9db969">
+  <value column="Name" original="ASTM/D 1322">ASTM/D 1322</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="7896105c-a7d9-499d-923c-b5473040902b">
+  <value column="Name" original="ASTM/D 1405">ASTM/D 1405</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="b568b2b3-fdfc-4d0b-ab8f-746ea519e8f3">
+  <value column="Name" original="ASTM/D 1500">ASTM/D 1500</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="76912fa9-47d8-44a7-adf1-f2f24900829b">
+  <value column="Name" original="ASTM/D 1552">ASTM/D 1552</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="63778ff7-46d6-4b20-adf9-283c14352967">
+  <value column="Name" original="ASTM/D 156">ASTM/D 156</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="a0a837a3-a1e3-4784-a5fd-5dd44550a1cf">
+  <value column="Name" original="ASTM/D 1613">ASTM/D 1613</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="37007463-894d-4376-847b-1d332b049554">
+  <value column="Name" original="ASTM/D 1657">ASTM/D 1657</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="3bd3cc99-cbf8-4439-91d6-85281716ea00">
+  <value column="Name" original="ASTM/D 1754">ASTM/D 1754</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="72bb9d3c-0d73-4dd0-af13-2d2f552cdb9d">
+  <value column="Name" original="ASTM/D 1796">ASTM/D 1796</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="d1197cbd-2838-4721-9c01-8aeea95204d7">
+  <value column="Name" original="ASTM/D 1837">ASTM/D 1837</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="d797dcab-1870-4f4c-83b3-bd4c7a0fe1a8">
+  <value column="Name" original="ASTM/D 1838">ASTM/D 1838</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="a8af72c9-1f2c-4378-8118-19ac8c6a8c48">
+  <value column="Name" original="ASTM/D 1840">ASTM/D 1840</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="34432290-ad25-439a-9620-265968d93ce9">
+  <value column="Name" original="ASTM/D 189">ASTM/D 189</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="882c5646-2581-45f4-a3ff-74581bdc0e81">
+  <value column="Name" original="ASTM/D 2007">ASTM/D 2007</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="7f510893-31e1-43c3-911a-1f522476f9a8">
+  <value column="Name" original="ASTM/D 2042">ASTM/D 2042</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="39340da1-e177-42aa-8d6a-26906a8c8a4e">
+  <value column="Name" original="ASTM/D 2158">ASTM/D 2158</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="352d58f0-182e-4745-b133-2fbc174beca1">
+  <value column="Name" original="ASTM/D 2163">ASTM/D 2163</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="dd1e9e38-20cf-4f6a-bd24-013901760490">
+  <value column="Name" original="ASTM/D 2170">ASTM/D 2170</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="515af4d3-73bb-448a-908c-01d87aa8bed2">
+  <value column="Name" original="ASTM/D 2171">ASTM/D 2171</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="fc5fa919-eadb-4d5e-b5d5-b9e40aa0b20b">
+  <value column="Name" original="ASTM/D 2382">ASTM/D 2382</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="c7b6055b-802c-4f94-81cd-c6a38d43031e">
+  <value column="Name" original="ASTM/D 2386">ASTM/D 2386</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="234bbc46-7b9c-46cb-9d6e-c46d15207df6">
+  <value column="Name" original="ASTM/D 2392">ASTM/D 2392</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="8f02db7d-914d-4aec-9061-272d13f26b60">
+  <value column="Name" original="ASTM/D 2420">ASTM/D 2420</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="167725ab-e1c5-431e-a5c6-01d12d7447c9">
+  <value column="Name" original="ASTM/D 2547">ASTM/D 2547</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="46d1b3b7-2b48-4f0a-986a-761f46c7aaad">
+  <value column="Name" original="ASTM/D 2551">ASTM/D 2551</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="d31d48db-1f22-4ecd-9be8-ec09e38de3b0">
+  <value column="Name" original="ASTM/D 2598">ASTM/D 2598</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="a7b778d0-eed1-41ae-bbcd-a1a0bf66de12">
+  <value column="Name" original="ASTM/D 2599">ASTM/D 2599</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="c73bd7a1-429a-4c86-a6a1-852e68d592a6">
+  <value column="Name" original="ASTM/D 2622">ASTM/D 2622</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="87e98208-bc80-430d-9446-efc3fc294c67">
+  <value column="Name" original="ASTM/D 2624">ASTM/D 2624</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="5dddcc34-fa76-4216-a968-d8607f549391">
+  <value column="Name" original="ASTM/D 2699">ASTM/D 2699</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="e053d8c8-a096-4cfd-b3c1-ccc325c29f13">
+  <value column="Name" original="ASTM/D 2700">ASTM/D 2700</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="6f96659a-5c56-4016-ba6c-1b1eabf6b9b6">
+  <value column="Name" original="ASTM/D 2709">ASTM/D 2709</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="a6a24310-24d8-444d-8c47-1c8fa6660303">
+  <value column="Name" original="ASTM/D 2713">ASTM/D 2713</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="13d0529f-1ace-4c9c-916b-bcd21ccf9e96">
+  <value column="Name" original="ASTM/D 2784">ASTM/D 2784</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="5d36320a-a84a-4de6-a0c4-46571bd792ff">
+  <value column="Name" original="ASTM/D 2872">ASTM/D 2872</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="cfd77861-67fd-4d82-8728-3f16feee814e">
+  <value column="Name" original="ASTM/D 3120">ASTM/D 3120</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="bcbb07f9-5ef7-4bbf-858d-544c4e37bc3c">
+  <value column="Name" original="ASTM/D 3143">ASTM/D 3143</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="b26670b0-586d-49e6-9ee4-4d3e0050e7fd">
+  <value column="Name" original="ASTM/D 3227">ASTM/D 3227</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="d6fbb137-2d95-4737-9e1f-78a546493eee">
+  <value column="Name" original="ASTM/D 323">ASTM/D 323</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="ad6f7bbe-fe72-42d0-8be6-d910c1254373">
+  <value column="Name" original="ASTM/D 3237">ASTM/D 3237</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="0d1c7f98-b8a5-4935-b743-404105b3802c">
+  <value column="Name" original="ASTM/D 3241">ASTM/D 3241</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="e4ae1000-bca0-47f3-8919-2c6c097bfb96">
+  <value column="Name" original="ASTM/D 3242">ASTM/D 3242</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="67c0f708-43a2-4e5b-b8c6-4e60c6b0f0b4">
+  <value column="Name" original="ASTM/D 3246">ASTM/D 3246</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="ee16445b-de81-49d3-964b-e5a11e1cd2fa">
+  <value column="Name" original="ASTM/D 3338">ASTM/D 3338</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="2ca85bd0-dedf-4885-9555-38682ce55e10">
+  <value column="Name" original="ASTM/D 3341">ASTM/D 3341</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="72ee70bd-c95b-493b-a474-50624c66d9f1">
+  <value column="Name" original="ASTM/D 36">ASTM/D 36</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="bcd2ae33-543d-4dd9-858e-bb6de3ac5017">
+  <value column="Name" original="ASTM/D 3606">ASTM/D 3606</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="3f77103b-ab71-4597-8f7f-9c4117c1782e">
+  <value column="Name" original="ASTM/D 381">ASTM/D 381</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="da086ac4-a456-48ae-a528-744ff90f67f1">
+  <value column="Name" original="ASTM/D 3828">ASTM/D 3828</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="aab57898-a34c-4f78-b0ec-9263ad3adf2f">
+  <value column="Name" original="ASTM/D 3948">ASTM/D 3948</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="54425af1-b9bb-4d3d-8a71-2e3e2a6c7ebd">
+  <value column="Name" original="ASTM/D 402">ASTM/D 402</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="e43fd04b-6313-450c-a335-350dfb50b9aa">
+  <value column="Name" original="ASTM/D 4052">ASTM/D 4052</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="09270f38-b16c-49b2-9039-589925aae363">
+  <value column="Name" original="ASTM/D 4176">ASTM/D 4176</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="56c409f1-a669-4ab2-b374-da5a1b6af7b4">
+  <value column="Name" original="ASTM/D 4249">ASTM/D 4249</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="3a7708f8-c90d-44cb-85a9-16516fa26fa3">
+  <value column="Name" original="ASTM/D 4294">ASTM/D 4294</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="75bdd70b-eb2c-4bef-ac42-01d17d2cc711">
+  <value column="Name" original="ASTM/D 445">ASTM/D 445</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="627729f4-5105-4f21-b40e-4eb2a6b55861">
+  <value column="Name" original="ASTM/D 4468">ASTM/D 4468</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="332a4308-2c98-42e6-9a53-06e1d8932829">
+  <value column="Name" original="ASTM/D 4530">ASTM/D 4530</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="3402b132-9dd8-4e43-ad47-b5c6895e5aff">
+  <value column="Name" original="ASTM/D 473">ASTM/D 473</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="6add78bd-6250-4430-b420-53fcde0d4293">
+  <value column="Name" original="ASTM/D 4737">ASTM/D 4737</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="3cb62842-e212-4c96-a996-86cdf2704e7b">
+  <value column="Name" original="ASTM/D 4809">ASTM/D 4809</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="b10b73b4-95eb-4ff5-b4b5-bddc8be1c304">
+  <value column="Name" original="ASTM/D 482">ASTM/D 482</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="027e2a30-be44-4932-bc5e-c3def00406da">
+  <value column="Name" original="ASTM/D 4951">ASTM/D 4951</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="b80d1bba-ce2f-428c-9dc1-d61e96efefca">
+  <value column="Name" original="ASTM/D 4952">ASTM/D 4952</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="db32f44f-126c-4972-854a-68377ee289cf">
+  <value column="Name" original="ASTM/D 4953">ASTM/D 4953</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="e7856640-a7e9-44ca-bb40-b34d07fc9e0f">
+  <value column="Name" original="ASTM/D 5">ASTM/D 5</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="4e9ce8b4-4ccd-4274-ad48-2370da724231">
+  <value column="Name" original="ASTM/D 5001">ASTM/D 5001</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="f9fc48a1-2c8c-456e-b07e-552587384e4e">
+  <value column="Name" original="ASTM/D 5042">ASTM/D 5042</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="ce4a4f5a-dc82-431e-b40a-23e21f958ba6">
+  <value column="Name" original="ASTM/D 512">ASTM/D 512</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="5830832d-ceb7-4e58-a46c-edd77c07a1ce">
+  <value column="Name" original="ASTM/D 5190">ASTM/D 5190</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="7c92ed51-acdd-4cae-866b-de2a45458d0f">
+  <value column="Name" original="ASTM/D 5191">ASTM/D 5191</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="87289428-5ad8-47f7-862d-e2d8b370a4d6">
+  <value column="Name" original="ASTM/D 524">ASTM/D 524</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="c47fca0f-a735-4911-84d4-d7405f51d866">
+  <value column="Name" original="ASTM/D 525">ASTM/D 525</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="f4184ccb-9485-4e74-bcd1-d5513cadf852">
+  <value column="Name" original="ASTM/D 5443">ASTM/D 5443</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="fdf67f50-c6da-4634-8bfb-cfa747b218bf">
+  <value column="Name" original="ASTM/D 5452">ASTM/D 5452</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="21e97748-a9aa-4f1d-874e-ac0c2068e053">
+  <value column="Name" original="ASTM/D 5453">ASTM/D 5453</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="c7551499-11d2-40df-ad81-d24a78bd711b">
+  <value column="Name" original="ASTM/D 5482">ASTM/D 5482</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="303dad9b-af33-4fbd-bf27-199ed21455d7">
+  <value column="Name" original="ASTM/D 5501">ASTM/D 5501</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="cb6c9672-66dc-4de0-8622-bf3c9e0139dd">
+  <value column="Name" original="ASTM/D 5504">ASTM/D 5504</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="3e49b4b8-3104-477b-be5f-8429d8501f64">
+  <value column="Name" original="ASTM/D 56">ASTM/D 56</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="2bae73f9-2b65-4885-9159-a6d939673222">
+  <value column="Name" original="ASTM/D 5623">ASTM/D 5623</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="77200643-9fca-4cab-8cae-ebdbf3cad0a9">
+  <value column="Name" original="ASTM/D 5708">ASTM/D 5708</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="9ac9f18f-79a4-4f37-b037-aa379721722c">
+  <value column="Name" original="ASTM/D 5863">ASTM/D 5863</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="2140795c-f3db-48e6-a962-32fe93afee73">
+  <value column="Name" original="ASTM/D 5972">ASTM/D 5972</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="0e784887-51e4-4aee-9bfc-2b4a40b7df34">
+  <value column="Name" original="ASTM/D 6045">ASTM/D 6045</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="1d436621-ce13-48a7-bda6-7324984883c8">
+  <value column="Name" original="ASTM/D 611">ASTM/D 611</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="16f2d7ed-d763-4a72-84e3-98427563f732">
+  <value column="Name" original="ASTM/D 613">ASTM/D 613</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="4b7ee471-9b42-4d6f-b319-5d3bed7cab45">
+  <value column="Name" original="ASTM/D 6277">ASTM/D 6277</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="55693d28-013e-4d33-a6b2-303d1e3d6564">
+  <value column="Name" original="ASTM/D 6371">ASTM/D 6371</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="8236295a-0884-42b1-a428-3ef206ac8712">
+  <value column="Name" original="ASTM/D 6379">ASTM/D 6379</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="e47602ac-e272-4623-bbc6-6ab3b065d0e8">
+  <value column="Name" original="ASTM/D 6584">ASTM/D 6584</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="6c8fcc9c-ac8b-48b2-8f0d-769490d5d809">
+  <value column="Name" original="ASTM/D 664">ASTM/D 664</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="d7771aa3-1c49-4c75-addd-c9c7ac374ec9">
+  <value column="Name" original="ASTM/D 6667">ASTM/D 6667</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="50b1b53b-e331-463e-a9af-90d1a9c49fb8">
+  <value column="Name" original="ASTM/D 70">ASTM/D 70</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="b86817c7-8ede-4349-b1a4-d54769a6e444">
+  <value column="Name" original="ASTM/D 7153">ASTM/D 7153</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="1855e615-4f48-43fe-8020-efe8d5ee9a6b">
+  <value column="Name" original="ASTM/D 7154">ASTM/D 7154</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="a989ece3-ad94-4d91-ad3a-c06fbd4909e2">
+  <value column="Name" original="ASTM/D 86">ASTM/D 86</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="3869dfa8-b996-44f5-9c7c-b9b13c0136bc">
+  <value column="Name" original="ASTM/D 873">ASTM/D 873</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="046b2b16-e2b7-4249-921b-219e158efdcc">
+  <value column="Name" original="ASTM/D 874">ASTM/D 874</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="9d2d1a61-ab8a-44de-b62f-d47be4fb96c9">
+  <value column="Name" original="ASTM/D 88">ASTM/D 88</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="2735fd46-894c-4df4-9ec0-8289524169c2">
+  <value column="Name" original="ASTM/D 910">ASTM/D 910</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="555a585e-289f-4c1c-bba9-4ae5eaffd557">
+  <value column="Name" original="ASTM/D 92">ASTM/D 92</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="062abd9f-340e-4cb1-982d-4cb47bdc2d41">
+  <value column="Name" original="ASTM/D 93">ASTM/D 93</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="f436e5b4-de0f-4784-a36b-ea0516a004df">
+  <value column="Name" original="ASTM/D 95">ASTM/D 95</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="b8045346-ffc9-43da-9675-8eff850d8249">
+  <value column="Name" original="ASTM/D 97">ASTM/D 97</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="c929b71f-e198-4bd3-b0db-a970a0c99910">
+  <value column="Name" original="ASTM/D4529">ASTM/D4529</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="07771d21-3eea-4bb1-90cd-52a122c9feb0">
+  <value column="Name" original="ASTM/E 102">ASTM/E 102</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="d079fa60-2e48-4a0f-8fad-835b12ec3ca3">
+  <value column="Name" original="ASTM/E 4402">ASTM/E 4402</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="ed77e6ac-37a0-4aae-9591-a7da9a9cb1f9">
+  <value column="Name" original="EN 14103">EN 14103</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="272dc6c7-dda0-4e4c-ab98-83459337a071">
+  <value column="Name" original="EN 14104">EN 14104</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="bdbb3906-a911-484d-8f54-d7f0387858b2">
+  <value column="Name" original="EN 14105">EN 14105</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="002bf279-f63d-4ea0-a0f2-e3ce94cf2b35">
+  <value column="Name" original="EN 14106">EN 14106</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="e944225f-3359-4767-8007-748d149c7ee4">
+  <value column="Name" original="EN 14107">EN 14107</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="271f2888-de63-4d9a-8bdf-b19d242266dc">
+  <value column="Name" original="EN 14108">EN 14108</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="f58576af-4829-40c4-a041-1abc85694cc3">
+  <value column="Name" original="EN 14109">EN 14109</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="7ab42d15-8d45-4e82-85e6-36b84374a0de">
+  <value column="Name" original="EN 14110">EN 14110</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="d65d5781-f676-40b8-a701-a5db89e850cd">
+  <value column="Name" original="EN 14111">EN 14111</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="0abf8de1-52f3-4c4b-a006-f307fbe800b6">
+  <value column="Name" original="EN 14112">EN 14112</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="52a7e3c3-92b0-4976-94ed-f59c247913ce">
+  <value column="Name" original="EN 14538">EN 14538</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="d46d1fd4-12f7-4df0-878e-26735cbfd866">
+  <value column="Name" original="EN/ISO 10370">EN/ISO 10370</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="2ef527e6-6d71-4f97-933f-d4f0af0a021f">
+  <value column="Name" original="EN/ISO 12662">EN/ISO 12662</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="c90ecc2b-da7c-4e09-b294-5fafd167d2f0">
+  <value column="Name" original="EN/ISO 12937">EN/ISO 12937</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="241ffb4e-0d59-4c4d-8f0e-c42eab58e995">
+  <value column="Name" original="EN/ISO 14569">EN/ISO 14569</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="ce638610-ce03-4dcc-9eb1-6d35565a2a07">
+  <value column="Name" original="EN/ISO 2160">EN/ISO 2160</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="0e11bea7-0e18-4541-93ed-81202d0a499b">
+  <value column="Name" original="EN/ISO 3104">EN/ISO 3104</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="6b0e22d4-d100-409a-9b49-c389d402bfe4">
+  <value column="Name" original="EN/ISO 3679">EN/ISO 3679</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="64ffa8da-55b6-418b-a4f6-99554c4d7ccd">
+  <value column="Name" original="EN/ISO 5165">EN/ISO 5165</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="6a8aca02-5d44-4d8e-b6c7-fbbcbe54559c">
+  <value column="Name" original="IP 227">IP 227</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="8427a861-cad5-4501-967f-93c88786397b">
+  <value column="Name" original="ISO 3987">ISO 3987</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="8074fe46-1966-4472-9776-e658abb4fcbd">
+  <value column="Name" original="Não Aplicável">Não Aplicável</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="f7897989-bf53-4c88-bd1b-e0a76d0f4516">
+  <value column="Name" original="NFPA58">NFPA58</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="76768fc8-f167-4086-97b6-a17011742415">
+  <value column="Name" original="P-MB-107">P-MB-107</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="d5a05449-4c87-4670-bfa8-1bc24709fd54">
+  <value column="Name" original="P-MB-166">P-MB-166</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="9935e366-9308-4a5e-a53b-0bd7105cfd56">
+  <value column="Name" original="P-MB-167">P-MB-167</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="82da9692-9f74-4c62-8f3d-3a073ca9747c">
+  <value column="Name" original="P-MB-496">P-MB-496</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="cbccd6e4-f03d-4469-8ee4-bf8cc62b12ea">
+  <value column="Name" original="P-MB-563">P-MB-563</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="0a38d2be-808a-43c8-a28d-46042c6fc315">
+  <value column="Name" original="P-MB-581">P-MB-581</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="701ebc53-84a7-4244-96cd-50ee2dce0a19">
+  <value column="Name" original="P-MB-586">P-MB-586</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="c7bf09a3-c0eb-483f-9dd1-17563737348f">
+  <value column="Name" original="P-MB-609">P-MB-609</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="b28c8e4d-4a39-4d6a-a8e9-2c77a60c0cdb">
+  <value column="Name" original="P-MB-722">P-MB-722</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="9f2b1d2d-2b3a-454a-9719-0dbdb74a1efa">
+  <value column="Name" original="P-MB-795">P-MB-795</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="3a5a759a-e461-4edf-9369-13c777b3ea93">
+  <value column="Name" original="VISUAL">VISUAL</value>
+  <value column="Description" original=""/>
+ </row>
 </idempiereTrl>

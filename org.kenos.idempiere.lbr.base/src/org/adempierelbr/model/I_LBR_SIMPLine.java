@@ -119,6 +119,15 @@ public interface I_LBR_SIMPLine
 	  */
 	public String getLBR_CNPJF();
 
+    /** Column name LBR_CityCodeANP */
+    public static final String COLUMNNAME_LBR_CityCodeANP = "LBR_CityCodeANP";
+
+	/** Set ANP City Code	  */
+	public void setLBR_CityCodeANP (int LBR_CityCodeANP);
+
+	/** Get ANP City Code	  */
+	public int getLBR_CityCodeANP();
+
     /** Column name LBR_FreightCostRule */
     public static final String COLUMNNAME_LBR_FreightCostRule = "LBR_FreightCostRule";
 
@@ -378,19 +387,6 @@ public interface I_LBR_SIMPLine
 	  * Classificação Nacional de Atividades Econômicas
 	  */
 	public String getlbr_CNAE();
-
-    /** Column name lbr_CityCode */
-    public static final String COLUMNNAME_lbr_CityCode = "lbr_CityCode";
-
-	/** Set Cod. Cidade (IBGE).
-	  * Código da Cidade do IBGE (Institudo Brasileiro de Geografia e Estatística)
-	  */
-	public void setlbr_CityCode (int lbr_CityCode);
-
-	/** Get Cod. Cidade (IBGE).
-	  * Código da Cidade do IBGE (Institudo Brasileiro de Geografia e Estatística)
-	  */
-	public int getlbr_CityCode();
 
     /** Column name lbr_CountryCode */
     public static final String COLUMNNAME_lbr_CountryCode = "lbr_CountryCode";

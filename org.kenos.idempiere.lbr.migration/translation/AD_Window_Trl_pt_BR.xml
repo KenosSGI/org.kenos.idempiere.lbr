@@ -2417,4 +2417,29 @@ MRP - 110	 No exists Dem</value>
   <value column="Description" original="Enter and change simple orders (other In)">Introduzir e Alterar Outras Entradas</value>
   <value column="Help" original="The Simple Order Window allows you to enter and modify Simple Orders. Only In Operation.">A Janela "Outras Entradas" define Outras Entradas para uma organização.  Quando Outras Entradas tiver sido digitado você pode gerar um Documento de Remessa ou Fatura.</value>
  </row>
+ <row trl="Y" uuid="f9c77f43-31d4-40b0-b3d8-0885940c262c">
+  <value column="Name" original="Bank Slip Config">Configuração do Boleto</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="bcc87441-6bd9-4b08-8308-5c95188376c7">
+  <value column="Name" original="CNAB">CNAB</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="cbb92d96-4c54-4eaf-912b-3ce7dd73bbda">
+  <value column="Name" original="i-SIMP">i-SIMP</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="217c83fb-b268-4ec0-ab20-8332d2c98e84">
+  <value column="Name" original="Fuel Operation">Operação ANP</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="0c082e7f-d59e-45bd-a6e2-1b0aa86f4521">
+  <value column="Name" original="Fuel Installation">Instalação ANP</value>
+  <value column="Description" original="Fuel Installation">Fuel Installation</value>
+  <value column="Help" original=""/>
+ </row>
 </idempiereTrl>

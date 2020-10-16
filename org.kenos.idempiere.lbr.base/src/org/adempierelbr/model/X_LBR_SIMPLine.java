@@ -33,7 +33,7 @@ public class X_LBR_SIMPLine extends PO implements I_LBR_SIMPLine, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20201015L;
+	private static final long serialVersionUID = 20201016L;
 
     /** Standard Constructor */
     public X_LBR_SIMPLine (Properties ctx, int LBR_SIMPLine_ID, String trxName)
@@ -108,6 +108,23 @@ public class X_LBR_SIMPLine extends PO implements I_LBR_SIMPLine, I_Persistent
 	public String getLBR_CNPJF () 
 	{
 		return (String)get_Value(COLUMNNAME_LBR_CNPJF);
+	}
+
+	/** Set ANP City Code.
+		@param LBR_CityCodeANP ANP City Code	  */
+	public void setLBR_CityCodeANP (int LBR_CityCodeANP)
+	{
+		set_Value (COLUMNNAME_LBR_CityCodeANP, Integer.valueOf(LBR_CityCodeANP));
+	}
+
+	/** Get ANP City Code.
+		@return ANP City Code	  */
+	public int getLBR_CityCodeANP () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_LBR_CityCodeANP);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
 	}
 
 	/** 0 - Contratação do Frete por conta do Remetente (CIF) = 0 */
@@ -1324,26 +1341,6 @@ public class X_LBR_SIMPLine extends PO implements I_LBR_SIMPLine, I_Persistent
 	public String getlbr_CNAE () 
 	{
 		return (String)get_Value(COLUMNNAME_lbr_CNAE);
-	}
-
-	/** Set Cod. Cidade (IBGE).
-		@param lbr_CityCode 
-		Código da Cidade do IBGE (Institudo Brasileiro de Geografia e Estatística)
-	  */
-	public void setlbr_CityCode (int lbr_CityCode)
-	{
-		set_Value (COLUMNNAME_lbr_CityCode, Integer.valueOf(lbr_CityCode));
-	}
-
-	/** Get Cod. Cidade (IBGE).
-		@return Código da Cidade do IBGE (Institudo Brasileiro de Geografia e Estatística)
-	  */
-	public int getlbr_CityCode () 
-	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_lbr_CityCode);
-		if (ii == null)
-			 return 0;
-		return ii.intValue();
 	}
 
 	/** Set Country Code.

@@ -31,7 +31,7 @@ public class X_LBR_FuelOperation extends PO implements I_LBR_FuelOperation, I_Pe
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20201015L;
+	private static final long serialVersionUID = 20201016L;
 
     /** Standard Constructor */
     public X_LBR_FuelOperation (Properties ctx, int LBR_FuelOperation_ID, String trxName)

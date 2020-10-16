@@ -64477,7 +64477,7 @@ Usar @AMT@ quando for identificar o valor do Produto/Serviço</value>
   <value column="PO_Help" original=""/>
   <value column="PO_Name" original=""/>
   <value column="PO_PrintName" original=""/>
-  <value column="Placeholder" original=""/>
+  <value column="Placeholder" original="XXX-9X99/UF"/>
  </row>
  <row trl="Y" uuid="ed757666-c5ca-448d-8158-9eab02e7dc20">
   <value column="Name" original="Packing Type">Espécie</value>
@@ -70774,21 +70774,1341 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PrintName" original="Sales/Purchase Operation">Operação de Compra e Venda</value>
   <value column="Description" original="Used to set Sales/Purchase Operation">Usado para identificar Operação de Compra e Venda</value>
   <value column="Help" original=""/>
-  <value column="Placeholder" original=""/>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
   <value column="PO_Name" original=""/>
   <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="88c83818-1163-41a8-b8eb-486c6a91396e">
+  <value column="Name" original="Perfil de Apresentação">Perfil de Apresentação</value>
+  <value column="PrintName" original="Perfil de Apresentação do arquivo fiscal">Perfil de Apresentação do arquivo fiscal</value>
+  <value column="Description" original="Perfil de Apresentação do arquivo fiscal">Perfil de Apresentação do arquivo fiscal</value>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
  </row>
  <row trl="Y" uuid="42c83859-c05e-46b8-b5ce-c72cc48fda51">
   <value column="Name" original="Other InOut">Outras Entradas/Saída</value>
   <value column="PrintName" original="Other InOut">Outras Entradas/Saída</value>
   <value column="Description" original="Other InOut Documento">Documento referente a Outras Entradas/Saída</value>
   <value column="Help" original="Use to delivery of receive product from others operations">Usado para Enviar o Receber Produtos por Outras Entradas /Saídas</value>
-  <value column="Placeholder" original=""/>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
   <value column="PO_Name" original=""/>
   <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="304d0044-0ddb-4816-92c9-498e6bc8dfee">
+  <value column="Name" original="Beginning Balance ST">Beginning Balance ST</value>
+  <value column="PrintName" original="Beginning Balance ST">Beginning Balance ST</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="0343aacf-d8df-4823-92ed-0f19bc5881b8">
+  <value column="Name" original="Bank Slip Config">Bank Slip Config</value>
+  <value column="PrintName" original="Bank Slip Config">Bank Slip Config</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="9a9a4215-76d3-4af9-9021-0ccc6de85e06">
+  <value column="Name" original="LBR_BankSlipConfig_UU">LBR_BankSlipConfig_UU</value>
+  <value column="PrintName" original="LBR_BankSlipConfig_UU">LBR_BankSlipConfig_UU</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="7a6eb2ed-424d-46c5-afa0-ad1245c627ec">
+  <value column="Name" original="Accepted">Accepted</value>
+  <value column="PrintName" original="Accepted">Accepted</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="411e4ee6-e6da-46b9-842e-01cef7924c93">
+  <value column="Name" original="Return Action">Return Action</value>
+  <value column="PrintName" original="Return Action">Return Action</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="4be94e14-500a-42ef-92c6-819cb7939a51">
+  <value column="Name" original="Return Days">Return Days</value>
+  <value column="PrintName" original="Return Days">Return Days</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="8fcd0122-e344-4d96-9e4f-bd48b45ed311">
+  <value column="Name" original="Interest Value">Interest Value</value>
+  <value column="PrintName" original="Interest Value">Interest Value</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="2adbe0d1-6200-414b-91c6-5d196c684b64">
+  <value column="Name" original="Interest Charge">Interest Charge</value>
+  <value column="PrintName" original="Interest Charge">Interest Charge</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="3cd0d6c1-a52e-462b-8db0-9d3ad719c69c">
+  <value column="Name" original="Interest Type">Interest Type</value>
+  <value column="PrintName" original="Interest Type">Interest Type</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="3c4ad34a-f840-48f1-bd54-db424d24ac9a">
+  <value column="Name" original="Interest Days">Interest Days</value>
+  <value column="PrintName" original="Interest Days">Interest Days</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="3a4ebbfd-cae0-4c0b-b69e-4ac750e5605b">
+  <value column="Name" original="Message 1">Message 1</value>
+  <value column="PrintName" original="Message 1">Message 1</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="d875a9a1-1d47-4909-9b00-e820eeb34523">
+  <value column="Name" original="Message 2">Message 2</value>
+  <value column="PrintName" original="Message 2">Message 2</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="4b6a7e03-ea60-456e-ae26-911b6e7263f4">
+  <value column="Name" original="Penalty Value">Penalty Value</value>
+  <value column="PrintName" original="Penalty Value">Penalty Value</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="a394b137-fcd0-4824-a515-4255a471b87e">
+  <value column="Name" original="Penalty Charge">Penalty Charge</value>
+  <value column="PrintName" original="Penalty Charge">Penalty Charge</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="c0c5c86e-f9ec-4cd2-9e2f-4c05bc2bb297">
+  <value column="Name" original="Penalty Days">Penalty Days</value>
+  <value column="PrintName" original="Penalty Days">Penalty Days</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="ebd53cfd-2023-4689-a3ab-00c0df2af08b">
+  <value column="Name" original="Penalty Type">Penalty Type</value>
+  <value column="PrintName" original="Penalty Type">Penalty Type</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="6b93199b-80fb-4795-9847-1c0685b098e0">
+  <value column="Name" original="Protest Type">Protest Type</value>
+  <value column="PrintName" original="Protest Type">Protest Type</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="c265a095-a1a5-4063-a684-89454c7f16bc">
+  <value column="Name" original="Protest Days">Protest Days</value>
+  <value column="PrintName" original="Protest Days">Protest Days</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="4e0bd3bd-f875-4069-b0c4-01bcd2004a43">
+  <value column="Name" original="Distributed Via">Distributed Via</value>
+  <value column="PrintName" original="Distributed Via">Distributed Via</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="e0c73acd-a62f-4e93-90a8-33fff2eb24de">
+  <value column="Name" original="Bank Slip Kind">Bank Slip Kind</value>
+  <value column="PrintName" original="Bank Slip Kind">Bank Slip Kind</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="3fac1906-01d8-4418-a565-979100a56ac9">
+  <value column="Name" original="LBR_BankSlipKind_UU">LBR_BankSlipKind_UU</value>
+  <value column="PrintName" original="LBR_BankSlipKind_UU">LBR_BankSlipKind_UU</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="e4575b30-4395-49c6-8b6a-915e60456361">
+  <value column="Name" original="Fold">Fold</value>
+  <value column="PrintName" original="Fold">Fold</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="308d2af4-3c6c-4698-8599-1580d99685ec">
+  <value column="Name" original="LBR_BankSlipFold_UU">LBR_BankSlipFold_UU</value>
+  <value column="PrintName" original="LBR_BankSlipFold_UU">LBR_BankSlipFold_UU</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="9d1a361f-4725-4abf-b5d6-76ed4ea671f6">
+  <value column="Name" original="Bank Slip Layout">Bank Slip Layout</value>
+  <value column="PrintName" original="Bank Slip Layout">Bank Slip Layout</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="8a363957-d225-46e7-844a-9944ba0c45ce">
+  <value column="Name" original="Issue Type">Issue Type</value>
+  <value column="PrintName" original="Issue Type">Issue Type</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="380cf13c-f94d-4739-9b42-0666df84e5b5">
+  <value column="Name" original="LBR_BankSlipLayout_UU">LBR_BankSlipLayout_UU</value>
+  <value column="PrintName" original="LBR_BankSlipLayout_UU">LBR_BankSlipLayout_UU</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="f2935ee7-3244-4b1a-9b6c-1214e94ff603">
+  <value column="Name" original="Bank Slip">Bank Slip</value>
+  <value column="PrintName" original="Bank Slip">Bank Slip</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="9ce2240d-2ed8-4373-9a0d-3fee9b3cdd45">
+  <value column="Name" original="LBR_BankSlipInfo_UU">LBR_BankSlipInfo_UU</value>
+  <value column="PrintName" original="LBR_BankSlipInfo_UU">LBR_BankSlipInfo_UU</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="08f89be0-5997-4798-840d-6a55e4365716">
+  <value column="Name" original="Account Digit">Account Digit</value>
+  <value column="PrintName" original="Account Digit">Account Digit</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="56309d8f-0a8f-4ff5-b094-74f9c3734235">
+  <value column="Name" original="Agency Digit">Agency Digit</value>
+  <value column="PrintName" original="Agency Digit">Agency Digit</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="7eedeea9-dbab-496b-9d7a-55954f5e025d">
+  <value column="Name" original="Bank Slip Value">Bank Slip Value</value>
+  <value column="PrintName" original="Bank Slip Value">Bank Slip Value</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="f6ab38e0-c694-44b7-adc7-d18556f17ee2">
+  <value column="Name" original="Bank Slip Code">Bank Slip Code</value>
+  <value column="PrintName" original="Bank Slip Code">Bank Slip Code</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="d97f3239-ff43-44ac-aa72-b227136441df">
+  <value column="Name" original="Bank Slip Kind Value">Bank Slip Kind Value</value>
+  <value column="PrintName" original="Bank Slip Kind Value">Bank Slip Kind Value</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="615aaa72-cd6c-412a-8441-e3cd3f6c63e6">
+  <value column="Name" original="Bank Slip Kind Code">Bank Slip Kind Code</value>
+  <value column="PrintName" original="Bank Slip Kind Code">Bank Slip Kind Code</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="e4a2348e-b833-40f8-b7f0-28e99aec267e">
+  <value column="Name" original="Manual Input">Manual Input</value>
+  <value column="PrintName" original="Manual Input">Manual Input</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="63c3211e-a40e-4fb8-8dfe-c4ba83a2dd4c">
+  <value column="Name" original="Barcode">Barcode</value>
+  <value column="PrintName" original="Barcode">Barcode</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="76744c9f-f8bf-48ce-a6b4-f32ef32139b6">
+  <value column="Name" original="Instruction to BP">Instruction to BP</value>
+  <value column="PrintName" original="Instruction to BP">Instruction to BP</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="ce7ad256-787b-4e88-8336-1d75d3087295">
+  <value column="Name" original="Instruction 4">Instruction 4</value>
+  <value column="PrintName" original="Instruction 4">Instruction 4</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="8ec2e8a0-3f24-4acf-a922-ab01d4a2ca85">
+  <value column="Name" original="Instruction 5">Instruction 5</value>
+  <value column="PrintName" original="Instruction 5">Instruction 5</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="e8caecac-b01f-443f-8a79-2bea119b0418">
+  <value column="Name" original="Instruction 6">Instruction 6</value>
+  <value column="PrintName" original="Instruction 6">Instruction 6</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="a8ef952f-da5c-4638-bb01-2a493072e656">
+  <value column="Name" original="Instruction 7">Instruction 7</value>
+  <value column="PrintName" original="Instruction 7">Instruction 7</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="7fc8fe47-1bcf-4580-9f6d-4d9372d57a55">
+  <value column="Name" original="Org Type">Org Type</value>
+  <value column="PrintName" original="Org Type">Org Type</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="1deb83b6-1cd2-4e98-936e-010cab1037a8">
+  <value column="Name" original="Guarantor Name">Guarantor Name</value>
+  <value column="PrintName" original="Guarantor Name">Guarantor Name</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="0002b3aa-1db7-43b8-be64-7cc4d4b12d71">
+  <value column="Name" original="Guarantor CNPJ">Guarantor CNPJ</value>
+  <value column="PrintName" original="Guarantor CNPJ">Guarantor CNPJ</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="18b8b0b3-038d-45be-a466-c6581d4d48cd">
+  <value column="Name" original="Address 1">Address 1</value>
+  <value column="PrintName" original="Address 1">Address 1</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="4ddc0c9d-e23c-4f10-8f3f-0c63ac7d7f57">
+  <value column="Name" original="Address 2">Address 2</value>
+  <value column="PrintName" original="Address 2">Address 2</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="099415e4-f205-4e2f-9c6e-34a3b9f13429">
+  <value column="Name" original="Address 3">Address 3</value>
+  <value column="PrintName" original="Address 3">Address 3</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="b4ef8682-d947-4359-a1c5-1767fb5ad6f9">
+  <value column="Name" original="Address 4">Address 4</value>
+  <value column="PrintName" original="Address 4">Address 4</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="2649e686-99b8-43c7-b9b6-ed232f4753ce">
+  <value column="Name" original="Guarantor City">Guarantor City</value>
+  <value column="PrintName" original="Guarantor City">Guarantor City</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="0f72e487-951e-4a67-a1c4-e8403ed76e37">
+  <value column="Name" original="Guarantor Region">Guarantor Region</value>
+  <value column="PrintName" original="Guarantor Region">Guarantor Region</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="b335d708-78ce-4b06-ac6c-f7a8e678031e">
+  <value column="Name" original="Guarantor Postal">Guarantor Postal</value>
+  <value column="PrintName" original="Guarantor Postal">Guarantor Postal</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="ec504c5e-8708-41c1-8893-79da4075f144">
+  <value column="Name" original="Accord">Accord</value>
+  <value column="PrintName" original="Accord">Accord</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="d3540783-ee98-4403-93cb-04092e4287eb">
+  <value column="Name" original="Guarantor Type">Guarantor Type</value>
+  <value column="PrintName" original="Guarantor Type">Guarantor Type</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="79169d5f-c83f-4cd1-bdbf-4d0efdfe47ef">
+  <value column="Name" original="Bank Slip Occurrence">Bank Slip Occurrence</value>
+  <value column="PrintName" original="Bank Slip Occurrence">Bank Slip Occurrence</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="aeb6b463-7638-4bd2-9150-3fb1cb8c6cce">
+  <value column="Name" original="LBR_BankSlipOccur_UU">LBR_BankSlipOccur_UU</value>
+  <value column="PrintName" original="LBR_BankSlipOccur_UU">LBR_BankSlipOccur_UU</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="0e71799b-7408-4d0f-8c6b-132c12b4bf27">
+  <value column="Name" original="Bank Slip Contract">Bank Slip Contract</value>
+  <value column="PrintName" original="Bank Slip Contract">Bank Slip Contract</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="b06cc289-b04f-4127-8f68-b01f1e9eee58">
+  <value column="Name" original="LBR_BankSlipContract_UU">LBR_BankSlipContract_UU</value>
+  <value column="PrintName" original="LBR_BankSlipContract_UU">LBR_BankSlipContract_UU</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="96421919-2ddd-447a-9b5b-0036bbaa234a">
+  <value column="Name" original="NIB Sequence">NIB Sequence</value>
+  <value column="PrintName" original="NIB Sequence">NIB Sequence</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="f5688dda-941c-4a27-a5b8-270a15cf028b">
+  <value column="Name" original="CNAB File Sequence">CNAB File Sequence</value>
+  <value column="PrintName" original="CNAB File Sequence">CNAB File Sequence</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="b0960cf7-af4b-448e-ab89-bd1c80a8112a">
+  <value column="Name" original="CNAB Lot Sequence">CNAB Lot Sequence</value>
+  <value column="PrintName" original="CNAB Lot Sequence">CNAB Lot Sequence</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="e2b8217f-fe37-4a51-adee-34ee823129d0">
+  <value column="Name" original="Register Type">Register Type</value>
+  <value column="PrintName" original="Register Type">Register Type</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="257885c0-7428-4348-95bc-843f2325a0ff">
+  <value column="Name" original="Parameter 1">Parameter 1</value>
+  <value column="PrintName" original="Param 1">Param 1</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="20e9202d-34be-4687-8f0d-19f1168fe4a4">
+  <value column="Name" original="Parameter 2">Parameter 2</value>
+  <value column="PrintName" original="Param 2">Param 2</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="cf1003f2-08a5-483c-8e1a-679132fe6e4b">
+  <value column="Name" original="Recipient Type">Recipient Type</value>
+  <value column="PrintName" original="Recipient Type">Recipient Type</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="4387204b-0847-4da7-81f5-a9c804ffe781">
+  <value column="Name" original="Recipient">Recipient</value>
+  <value column="PrintName" original="Recipient">Recipient</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="74fc2bc9-fdbf-4316-84f1-c81c001c6166">
+  <value column="Name" original="Recipient Location">Recipient Location</value>
+  <value column="PrintName" original="Recipient Location">Recipient Location</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="26ebd87f-ab57-4ec9-a40c-ee088d53f770">
+  <value column="Name" original="Bank Slip Mov">Movimentos do Boleto</value>
+  <value column="PrintName" original="Bank Slip Mov">Movimentos do Boleto</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="7eec39d3-3eb3-4111-997b-2f68e55e5aee">
+  <value column="Name" original="LBR_BankSlipMov_UU">LBR_BankSlipMov_UU</value>
+  <value column="PrintName" original="LBR_BankSlipMov_UU">LBR_BankSlipMov_UU</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="968e841a-a761-41e9-b1c9-12bf3057c618">
+  <value column="Name" original="LBR_BankSlip_UU">LBR_BankSlip_UU</value>
+  <value column="PrintName" original="LBR_BankSlip_UU">LBR_BankSlip_UU</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="8fd9510f-0fd6-4d29-88fe-837143f0252b">
+  <value column="Name" original="Guarantor">Avalista</value>
+  <value column="PrintName" original="Guarantor">Avalista</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="0c2ff1f1-2f6b-4af3-9dc7-4669568fc07f">
+  <value column="Name" original="Guarantor Location">Endereço do Avalista</value>
+  <value column="PrintName" original="Guarantor Location">Endereço do Avalista</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="35bda544-687b-473a-9c1e-eae78c72bdff">
+  <value column="Name" original="Bank Slip Currency">Moeda do Boleto</value>
+  <value column="PrintName" original="Bank Slip Currency">Moeda do Boleto</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="678541bb-5a97-424d-84ad-d9eaed9baf5f">
+  <value column="Name" original="Direct Debit Notice">Débito Automático</value>
+  <value column="PrintName" original="Direct Debit Notice">Débito Automático</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="a99f2303-de58-4dd0-9a84-2b41ce93de99">
+  <value column="Name" original="IOF Amount">Valor do IOF</value>
+  <value column="PrintName" original="IOF Amount">Valor do IOF</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="ec102320-f468-4fea-aaa2-e0260541e604">
+  <value column="Name" original="Halted">Suspenso</value>
+  <value column="PrintName" original="Halted">Suspenso</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="30e32b10-d934-44bd-8c3d-5701d4e72365">
+  <value column="Name" original="Partial Payment">Pagamento Parcial</value>
+  <value column="PrintName" original="Partial Payment">Pagamento Parcial</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="cb99dc98-6174-4291-8e42-65541b95ee1f">
+  <value column="Name" original="Protested">Protestado</value>
+  <value column="PrintName" original="Protested">Protestado</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="a76e9d70-850c-4468-ac8b-664a743650f3">
+  <value column="Name" original="Issued By">Emitido Por</value>
+  <value column="PrintName" original="Issued By">Emitido Por</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="38168cdf-6791-4211-a374-235d14eba67b">
+  <value column="Name" original="Written Off">Baixado</value>
+  <value column="PrintName" original="Written Off">Baixado</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="f9972a42-5743-4dcd-9994-5017bc2f183f">
+  <value column="Name" original="Loan Contract No">Número do Contrato</value>
+  <value column="PrintName" original="Loan Contract No">Número do Contrato</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="3f2f4d0b-26a4-4e7e-8c2d-aa70a0f435fb">
+  <value column="Name" original="Number In Bank">Nosso Número</value>
+  <value column="PrintName" original="Number In Bank">Nosso Número</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="2aad0728-5810-476c-803b-9f4702673c69">
+  <value column="Name" original="Number in the Org">Identificação na Org.</value>
+  <value column="PrintName" original="Number in the Org">Identificação na Org.</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="c8e8b404-9b65-47c3-8a85-46d38e8111a7">
+  <value column="Name" original="Discount 1 Date">Data do Desconto 1</value>
+  <value column="PrintName" original="Discount 1 Date">Data do Desconto 1</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="d1568515-6639-4d1d-a1ba-5a800ac8bb6e">
+  <value column="Name" original="Discount 1 Type">Tipo de Desconto 1</value>
+  <value column="PrintName" original="Discount 1 Type">Tipo de Desconto 1</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="e84553f1-025e-4f05-89fb-d1b278deaf4c">
+  <value column="Name" original="Discount 1 Value">Valor do Desconto 1</value>
+  <value column="PrintName" original="Discount 1 Value">Valor do Desconto 1</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="261ccc96-6472-4fe3-8b4e-56f9642e282c">
+  <value column="Name" original="Discount 2 Date">Data do Desconto 2</value>
+  <value column="PrintName" original="Discount 2 Date">Data do Desconto 2</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="3b724768-ea3c-4a53-a077-7e34c124e8ff">
+  <value column="Name" original="Discount 2 Type">Tipo de Desconto 2</value>
+  <value column="PrintName" original="Discount 2 Type">Tipo de Desconto 2</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="b9d6fba9-28fe-41c9-9a50-d2abe8a24049">
+  <value column="Name" original="Discount 2 Value">Valor do Desconto 2</value>
+  <value column="PrintName" original="Discount 2 Value">Valor do Desconto 2</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="42d6c5cb-49e7-4398-af3c-2033d3731a9b">
+  <value column="Name" original="Discount 3 Date">Data do Desconto 3</value>
+  <value column="PrintName" original="Discount 3 Date">Data do Desconto 3</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="c013d042-4599-4cd6-8f05-0b0da8053c0f">
+  <value column="Name" original="Discount 3 Type">Tipo de Desconto 3</value>
+  <value column="PrintName" original="Discount 3 Type">Tipo de Desconto 3</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="ad4958b5-67c1-4e6c-b995-7cf75fcb8de6">
+  <value column="Name" original="Discount 3 Value">Valor do Desconto 3</value>
+  <value column="PrintName" original="Discount 3 Value">Valor do Desconto 3</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="044a2b9d-7105-4532-ac00-2c5afac101a0">
+  <value column="Name" original="Interest Date">Data para Juros</value>
+  <value column="PrintName" original="Interest Date">Data para Juros</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="42088b8d-f2cc-4b92-bc5b-053641b2052f">
+  <value column="Name" original="Penalty Date">Data da Multa</value>
+  <value column="PrintName" original="Penalty Date">Data da Multa</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="4bcc692e-7d5f-4ac1-876e-4b3d943ca69a">
+  <value column="Name" original="Protest Date">Data para Protesto</value>
+  <value column="PrintName" original="Protest Date">Data para Protesto</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="f0d57f06-9480-4339-9155-570f4a96a9c5">
+  <value column="Name" original="Fix Missing NSU">Corrigir NSU Faltantes</value>
+  <value column="PrintName" original="Fix Missing NSU">Corrigir NSU Faltantes</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="1fc3005a-20a0-4a5b-9c4e-daf03393a172">
+  <value column="Name" original="CNAB File">Arquivo CNAB</value>
+  <value column="PrintName" original="CNAB File">Arquivo CNAB</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="c20a5ba9-9fa5-4595-86a8-f6ca61ca1edf">
+  <value column="Name" original="LBR_CNABFile_UU">LBR_CNABFile_UU</value>
+  <value column="PrintName" original="LBR_CNABFile_UU">LBR_CNABFile_UU</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="50a8c8a6-3e14-45b9-aa6a-f980f915ea62">
+  <value column="Name" original="CNAB File Line">Linha CNAB</value>
+  <value column="PrintName" original="CNAB File Line">Linha CNAB</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="c366a14a-379f-4a15-b321-fb13b17b7496">
+  <value column="Name" original="LBR_CNABFileLine_UU">LBR_CNABFileLine_UU</value>
+  <value column="PrintName" original="LBR_CNABFileLine_UU">LBR_CNABFileLine_UU</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="87e73c6b-f870-4e55-9a59-3ee87a9edd4c">
+  <value column="Name" original="Number In Bank Digit">Nosso Número DV</value>
+  <value column="PrintName" original="Number In Bank Digit">Nosso Número DV</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="1667655f-2753-4249-9046-1134a0525cba">
+  <value column="Name" original="SIMP">SIMP</value>
+  <value column="PrintName" original="SIMP">SIMP</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="424617dd-0de3-4dcb-aaf8-76397c432ae4">
+  <value column="Name" original="SIMP Line">SIMP Line</value>
+  <value column="PrintName" original="SIMP Line">SIMP Line</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="874a25e2-36ed-42bf-94fb-9a7b1b63786e">
+  <value column="Name" original="Chemical Agent">Agente Químico</value>
+  <value column="PrintName" original="Chemical Agent">Agente Químico</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="cf113f2c-02a3-4e6c-9857-1d07b2831533">
+  <value column="Name" original="Install Code 1">Instalação 1</value>
+  <value column="PrintName" original="Install Code 1">Instalação 1</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="edd94e2b-d35e-4483-a579-3b649e25e20a">
+  <value column="Name" original="Install Code 2">Instalação 2</value>
+  <value column="PrintName" original="Install Code 2">Instalação 2</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="1a0e50f4-a332-41ec-a5d5-f8d49677a9aa">
+  <value column="Name" original="Transport Modal">Modal de Transporte</value>
+  <value column="PrintName" original="Transport Modal">Modal de Transporte</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="ff553b7f-fd6d-42a0-9787-109e3b6a2bfa">
+  <value column="Name" original="Pipeline Code">Cód. Oleoduto</value>
+  <value column="PrintName" original="Pipeline Code">Cód. Oleoduto</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="bc836cd0-de19-4c80-980d-e6cb9d725194">
+  <value column="Name" original="LI">LI</value>
+  <value column="PrintName" original="LI">LI</value>
+  <value column="Description" original="Licença de Importação">Licença de Importação</value>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="e8bcd59f-d254-4134-ae7a-3e4fbd1248d0">
+  <value column="Name" original="Physical Char">Características</value>
+  <value column="PrintName" original="Physical Char">Características</value>
+  <value column="Description" original="Physical Characteristic">Características Físicas</value>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="f476bbdc-1172-42e2-9dbe-fb9d8a8b2c54">
+  <value column="Name" original="GLP Container">Recipiente GLP</value>
+  <value column="PrintName" original="GLP Container">Recipiente GLP</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="e584e517-9b29-4b9c-baa3-c20d2bad3a4a">
+  <value column="Name" original="LBR_SIMP_UU">LBR_SIMP_UU</value>
+  <value column="PrintName" original="LBR_SIMP_UU">LBR_SIMP_UU</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="8de64848-89f4-42a3-8521-bc3ad95ffb56">
+  <value column="Name" original="LBR_SIMPLine_UU">LBR_SIMPLine_UU</value>
+  <value column="PrintName" original="LBR_SIMPLine_UU">LBR_SIMPLine_UU</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="46f340f6-1f22-4bfd-9ff9-bbed15fdd9fd">
+  <value column="Name" original="LBR_FuelOperation_ID">LBR_FuelOperation_ID</value>
+  <value column="PrintName" original="LBR_FuelOperation_ID">LBR_FuelOperation_ID</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="6823ef07-7644-4ffb-b402-1a28540724c6">
+  <value column="Name" original="LBR_FuelOperation_UU">LBR_FuelOperation_UU</value>
+  <value column="PrintName" original="LBR_FuelOperation_UU">LBR_FuelOperation_UU</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="679c8754-d1b3-499f-8ffd-85975ba01a27">
+  <value column="Name" original="Finality">Finalidade</value>
+  <value column="PrintName" original="Finality">Finalidade</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="0973bf6d-9595-4e50-973f-29ea993cbcaf">
+  <value column="Name" original="Fuel Installation">ANP Instalações</value>
+  <value column="PrintName" original="Fuel Installation">ANP Instalações</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="2de04440-1090-43b6-885c-7063892457f4">
+  <value column="Name" original="LBR_FuelInstallation_UU">LBR_FuelInstallation_UU</value>
+  <value column="PrintName" original="LBR_FuelInstallation_UU">LBR_FuelInstallation_UU</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="f1025121-b12c-4518-83ef-0d2283abf68b">
+  <value column="Name" original="ANP City Code">Cód. da Cidade (ANP)</value>
+  <value column="PrintName" original="ANP City Code">Cód. da Cidade (ANP)</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="eb0a9a86-eabb-44ca-8073-7278a00442b9">
+  <value column="Name" original="Force Execution">Forçar Execução</value>
+  <value column="PrintName" original="Force Execution">Forçar Execução</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
  </row>
 </idempiereTrl>
