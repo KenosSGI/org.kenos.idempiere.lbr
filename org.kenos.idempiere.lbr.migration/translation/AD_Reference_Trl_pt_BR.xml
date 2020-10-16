@@ -3278,4 +3278,104 @@
   <value column="Description" original=""/>
   <value column="Help" original=""/>
  </row>
+ <row trl="N" uuid="c587f79e-652e-405b-a604-a248b60f78ee">
+  <value column="Name" original="LBR_IndPerfil - AD_Org">LBR_IndPerfil - AD_Org</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="1d5c1dfc-241d-4110-9cf6-266f115d50a0">
+  <value column="Name" original="LBR_OtherInOut">LBR_OtherInOut</value>
+  <value column="Description" original="Other In Out">Other In Out</value>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="9f24215d-cb54-407c-b308-27f2a571edb5">
+  <value column="Name" original="LBR_IsAccepted">LBR_IsAccepted</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="f688af42-6b88-4b2b-8425-c35345558e44">
+  <value column="Name" original="LBR_ReturnAction">LBR_ReturnAction</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="c76feda5-81b8-46b3-9828-ce37aac458e4">
+  <value column="Name" original="LBR_InterestType">LBR_InterestType</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="4d230266-b4d1-4e5c-97b9-8452f316b80a">
+  <value column="Name" original="LBR_PenaltyType">LBR_PenaltyType</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="b6f6a91b-f661-478f-aefe-0eb2eec7b6b9">
+  <value column="Name" original="LBR_ProtestType">LBR_ProtestType</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="acc826d3-b493-4b30-8f78-219bd760bb2a">
+  <value column="Name" original="LBR_DistributedVia">LBR_DistributedVia</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="d6b94aa5-edf6-4a4d-a957-100949a5e7e1">
+  <value column="Name" original="LBR_IssueType">LBR_IssueType</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="d4673695-5288-4e4a-b73b-07ecd226a859">
+  <value column="Name" original="LBR_BankSlipLayout - Type">LBR_BankSlipLayout - Type</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="732f051a-a440-42f7-95b3-17415fd02f08">
+  <value column="Name" original="LBR_RegisterType">LBR_RegisterType</value>
+  <value column="Description" original="Tipo de Registro do boleto junto ao banco">Tipo de Registro do boleto junto ao banco</value>
+  <value column="Help" original="Preparado para funcionar com o CNAB 400, modificar de acordo com a implementação do outros leiautes">Preparado para funcionar com o CNAB 400, modificar de acordo com a implementação do outros leiautes</value>
+ </row>
+ <row trl="N" uuid="f14a1f03-0f69-4dd0-aa29-92cd07d5ae0b">
+  <value column="Name" original="LBR_RecipientType">LBR_RecipientType</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="22f7810c-d012-44c8-9aa8-29aa8dae3bdd">
+  <value column="Name" original="LBR_BankSlip Currency">LBR_BankSlip Currency</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="1c230e1d-16d9-4ad5-81d0-1361c87aacb4">
+  <value column="Name" original="LBR_DirectDebitNotice">LBR_DirectDebitNotice</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="f3c4d0a9-f0a0-48ae-8516-c99e141cb945">
+  <value column="Name" original="LBR_IssuedBy">LBR_IssuedBy</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="dcd83ebd-c5fc-4649-b674-ed5fb3eda608">
+  <value column="Name" original="LBR_DiscountType">LBR_DiscountType</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="e768433f-f724-4978-97fc-b8bed751e886">
+  <value column="Name" original="LBR_SIMPLine - LBR_TranspModal">LBR_SIMPLine - LBR_TranspModal</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="156e2643-3363-4286-9672-d0c58bc6020c">
+  <value column="Name" original="LBR_SIMPLine - ServiceCode">LBR_SIMPLine - ServiceCode</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="189e7712-29c5-444d-a5c9-6cd9650b6909">
+  <value column="Name" original="LBR_SIMPLine - LBR_PhysicalChar">LBR_SIMPLine - LBR_PhysicalChar</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="7e6cec3c-5ca6-4fbf-93b2-341dcc3d2b33">
+  <value column="Name" original="LBR_SIMPLine - Method">LBR_SIMPLine - Method</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
 </idempiereTrl>

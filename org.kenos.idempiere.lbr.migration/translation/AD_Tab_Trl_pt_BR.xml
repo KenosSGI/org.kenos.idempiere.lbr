@@ -6803,7 +6803,7 @@ Impressão:
   <value column="Help" original=""/>
  </row>
  <row trl="Y" uuid="c627e385-0de1-48c6-aaee-c2f92791f218">
-  <value column="Name" original="Boleto">Boleto</value>
+  <value column="Name" original="Boleto (old)">Boleto</value>
   <value column="CommitWarning" original=""/>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
@@ -7415,10 +7415,100 @@ Impressão:
   <value column="Description" original=""/>
   <value column="Help" original=""/>
  </row>
- <row id="2000003" trl="N">
-  <value column="Name" original="Controle de Documentos">Controle de Documentos</value>
+ <row trl="Y" uuid="166cd5bb-9186-437e-9307-c101fc2f0571">
+  <value column="Name" original="Kind">Espécie</value>
   <value column="CommitWarning" original=""/>
-  <value column="Description" original="Controle de Documentos">Controle de Documentos</value>
-  <value column="Help" original="Controle de Documentos">Controle de Documentos</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="e524f857-10cb-4a02-894a-a64408a09e7b">
+  <value column="Name" original="CNAB Layout">Leiaute do CNAB</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="4188fac9-f259-4b72-b2d0-1a69fc534c86">
+  <value column="Name" original="CNAB Fold">Carteira</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="c46ccb7f-47a1-40bf-b01b-d64ddc8fe475">
+  <value column="Name" original="Occurrences">Ocorrências</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="ddb4deb3-32a8-4e90-8481-b6eb6167a131">
+  <value column="Name" original="Bank Contract">Contrato Bancário</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original="">Contrato bancário para emissão de cobrança via boleto</value>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="1bd26d45-9ada-4fa1-9f76-b3894a09f52e">
+  <value column="Name" original="Movement Out">Ocorrência de Remessa</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="9e9b0a29-fae0-4a51-a2e7-897c9008f7e1">
+  <value column="Name" original="Bank Slip Info">Detalhes</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="e0ed2b17-a2ab-4eb9-9539-c4cc11b98e86">
+  <value column="Name" original="Movement In">Ocorrência de Retorno</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="f81bbce1-9607-4279-9695-21d4bba501b1">
+  <value column="Name" original="Bank Slip Config">Configuração</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="828d4c13-bce4-4cd7-86b4-d78ba2aba5d8">
+  <value column="Name" original="Bank Slip">Boleto</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="242ef459-b343-4ac0-97f7-991ab73d5732">
+  <value column="Name" original="CNAB">CNAB</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="710cebe9-00b9-4791-9043-b0477a5bd1a7">
+  <value column="Name" original="CNAB Line">Linha CNAB</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="06bf7704-c578-4a70-bef5-711b0a837fe7">
+  <value column="Name" original="Header">Cabeçalho</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="3fe424fd-a250-4bb7-ae56-ef6603aefc55">
+  <value column="Name" original="Line">Linha</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="e389ec77-3a0b-4705-9e3e-46043034b002">
+  <value column="Name" original="Operation">Operação</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="d17b388c-fbba-40e6-abac-5c2c271fbd23">
+  <value column="Name" original="Fuel Installation">Instalação</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
  </row>
 </idempiereTrl>
