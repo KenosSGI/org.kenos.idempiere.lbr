@@ -492,6 +492,7 @@ public class NotaFiscalAdditional extends ADForm
 		if (nfTaxICMS == null)
 		{
 			nfTaxICMS = new MLBRNFTax(Env.getCtx(), 0, nfAdd.get_TrxName());
+			nfTaxICMS.setLBR_NotaFiscal_ID(nfAdd.getLBR_NotaFiscal_ID());
 			nfTaxICMS.setLBR_TaxGroup_ID(1120000); // Grupo ICMS
 		}
 		
