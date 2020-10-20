@@ -114,6 +114,8 @@ public class NotaFiscalAdditional extends ADForm
 			// Alterando Finalidade para NFe Complementar
 			nfCompl.setlbr_FinNFe(MLBRNotaFiscal.LBR_FINNFE_NFeComplementar);
 			
+			nfCompl.setlbr_CFOPNote("NOTA FISCAL COMPLEMENTAR");
+			
 			// Adicionando NF Referenciada
 			MLBRNotaFiscalDocRef nfDocRef = new MLBRNotaFiscalDocRef(Env.getCtx(), 0, nfCompl.get_TrxName());
 			nfDocRef.setAD_Org_ID(nfCompl.getAD_Org_ID());
@@ -487,12 +489,16 @@ public class NotaFiscalAdditional extends ADForm
 		}
 		
 		//	Tax ICMS
-		if (nfTaxICMS != null)
+		if (nfTaxICMS == null)
 		{
-			nfTaxICMS.setlbr_TaxBaseAmt(taxBaseAmtTotal);
-			nfTaxICMS.setlbr_TaxAmt(taxAmtTotal);
-			nfTaxICMS.saveEx();
+			nfTaxICMS = new MLBRNFTax(Env.getCtx(), 0, nfAdd.get_TrxName());
+			nfTaxICMS.setLBR_NotaFiscal_ID(nfAdd.getLBR_NotaFiscal_ID());
+			nfTaxICMS.setLBR_TaxGroup_ID(1120000); // Grupo ICMS
 		}
+		
+		nfTaxICMS.setlbr_TaxBaseAmt(taxBaseAmtTotal);
+		nfTaxICMS.setlbr_TaxAmt(taxAmtTotal);
+		nfTaxICMS.saveEx();
 		
 		nfAdd.setGrandTotal(grandTotal);
 		nfAdd.saveEx();
