@@ -1134,4 +1134,29 @@ Se você deixa a chave de pesquisa vazia, o sistema automaticamente cria um valo
   <value column="Help" original=""/>
   <value column="Placeholder" original=""/>
  </row>
+ <row trl="Y" uuid="f5b1e440-8bdf-4d08-b38b-9ecbd7ff9d66">
+  <value column="Name" original="Item da Adição">Item da Adição</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="c66caeaa-89b2-4906-912c-26449b1f1fcd">
+  <value column="Name" original="Purchase Order Line">Linha do Pedido de Compras</value>
+  <value column="Description" original="Purchase Order Line">Linha do Pedido de Compras</value>
+  <value column="Help" original="The Purchase Order Line is a unique identifier for a line in an order.">The Purchase Order Line is a unique identifier for a line in an order.</value>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="c5655fd7-af31-4888-bef1-135d2d74f694">
+  <value column="Name" original="Fold Code">Código da Carteira</value>
+  <value column="Description" original="Search key for the record in the format required - must be unique">Código da Carteira</value>
+  <value column="Help" original="A search key allows you a fast method of finding a particular record.&#10;If you leave the search key empty, the system automatically creates a numeric number.  The document sequence used for this fallback number is defined in the &quot;Maintain Sequence&quot; window with the name &quot;DocumentNo_&lt;TableName&gt;&quot;, where TableName is the actual name of the table (e.g. C_Order)." xml:space="preserve"><![CDATA[Uma chave de pesquisa permite a você um método rápido de encontrar um registro particular.
+Se você deixa a chave de pesquisa vazia, o sistema automaticamente cria um valor numérico. A sequência de documento usada para número reservado é definido na janela "Gerenciamento da Sequência" com o nome "DocumentNo_<TableName>", onde TableName é o nome atual da tabela( i.e. C_Order).]]></value>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="85935e4f-1b22-49f2-be48-bb456f2297f8">
+  <value column="Name" original="Numeric Code">Número da Carteira</value>
+  <value column="Description" original="Numeric Value">Número da Carteira</value>
+  <value column="Help" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
 </idempiereTrl>

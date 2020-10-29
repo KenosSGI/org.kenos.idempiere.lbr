@@ -312,4 +312,25 @@
  <row trl="N" uuid="4053b052-da19-4c2b-be3b-d0ffb926afca">
   <value column="Name" original="Technical Responsible">Responsável Técnico</value>
  </row>
+ <row trl="Y" uuid="80ea1c99-d6a2-4f04-907f-ea7f486803ac">
+  <value column="Name" original="Interest">Juros</value>
+ </row>
+ <row trl="Y" uuid="a086697a-a58f-473f-b9c2-e02c449399ad">
+  <value column="Name" original="Penalty">Multa</value>
+ </row>
+ <row trl="Y" uuid="7af0aa26-2f58-48dc-8dc7-11071945e006">
+  <value column="Name" original="Protest">Protesto</value>
+ </row>
+ <row trl="Y" uuid="670fdf79-060d-4456-9b17-e4448054971d">
+  <value column="Name" original="Payer">Pagador/Sacado</value>
+ </row>
+ <row trl="Y" uuid="2b8d4e49-0503-40cd-bc9c-cb2d252edfd2">
+  <value column="Name" original="Guarantor">Avalista</value>
+ </row>
+ <row trl="Y" uuid="f1a885d1-7ceb-4def-aee4-aaafbb091d46">
+  <value column="Name" original="Recipient">Beneficiário/Cedente</value>
+ </row>
+ <row trl="Y" uuid="a31cdee1-5f05-4db0-bfd2-cdb1e2e15880">
+  <value column="Name" original="Discount">Desconto</value>
+ </row>
 </idempiereTrl>

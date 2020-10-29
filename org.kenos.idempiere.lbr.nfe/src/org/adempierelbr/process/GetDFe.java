@@ -90,6 +90,8 @@ public class GetDFe extends SvrProcess
 	
 	private String p_LBR_NSU = "";
 	
+	private boolean p_ForceExec = false;
+	
 	/** Log							*/
 	private static CLogger log = CLogger.getCLogger (GetDFe.class);
 	
@@ -110,6 +112,9 @@ public class GetDFe extends SvrProcess
 			
 			else if (MLBRPartnerDFe.COLUMNNAME_LBR_NSU.equals (name))
 				p_LBR_NSU = para[i].getParameterAsString();
+			
+			else if ("LBR_ForceExec".equals(name))
+				p_ForceExec = para[i].getParameterAsBoolean();
 			
 			else
 				log.log(Level.SEVERE, "Unknown Parameter: " + name);
@@ -144,7 +149,7 @@ public class GetDFe extends SvrProcess
 		MOrgInfo oi = MOrgInfo.get (getCtx(), p_AD_Org_ID, null);
 		RetDistDFeIntDocument bpResponse;
 		
-		if (!p_LBR_NSU.isEmpty())
+		if (!p_LBR_NSU.isEmpty() || p_ForceExec)
 		{
 			consultOneNSU = true;
 			bpResponse = GetDFe.doIt (oi, p_LBR_NSU, consultOneNSU);

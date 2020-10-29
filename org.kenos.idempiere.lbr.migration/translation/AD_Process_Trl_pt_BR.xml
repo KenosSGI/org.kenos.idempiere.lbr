@@ -2712,10 +2712,55 @@ For example:<br />
   <value column="Description" original="Include Document NFe to an open MDFe">Incluir NF-e ao MDF-e em aberto</value>
   <value column="Help" original="">Incluir NF-e ao MDF-e em aberto caso o MDF-e tenha sido gerado com a informação que o carregamento será posterior a geração do MDF-e</value>
  </row>
+ <row trl="N" uuid="37dfb925-378f-4420-a857-e23e722cc4eb">
+  <value column="Name" original="Report Production">Report Production</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
  <row trl="Y" uuid="95fac253-9fed-49d1-a442-5b71f9ba016e">
   <value column="Name" original="Get Currency Convetion">Obter Conversões de Moeda</value>
   <value column="Description" original="Get Currency Convetion from Brazilian Central Bank">Obtém as conversões de moedas diretamente do Banco Central do Brasil</value>
   <value column="Help" original="">Você pode selecionar uma moeda específica ou pode digitar uma lista separada por vírgula no padrão ISO</value>
+ </row>
+ <row trl="Y" uuid="e8438030-41dc-4976-8760-b2fc91f10d22">
+  <value column="Name" original="Bank Statement Detail">Detalhes do Extrato Bancário</value>
+  <value column="Description" original="">Relatório exibe Detalhes do Extrato Bancário baseado nas linhas do Extrato</value>
+  <value column="Help" original="">Relatório exibe Detalhes do Extrato Bancário baseado nas linhas do Extrato</value>
+ </row>
+ <row trl="Y" uuid="8d41fbb9-854d-40be-9801-66331f6b2ac5">
+  <value column="Name" original="Generate NF Other In Out">Gerar NF-e a partir de Outras Entradas/Saídas</value>
+  <value column="Description" original="Generate NF from Other In Out">Gerar NF-e a partir de Outras Entradas/Saídas</value>
+  <value column="Help" original="">Este processo permite a geração de uma Nota Fiscal a partir de um documento do tipo  Outras Entradas/Saídas</value>
+ </row>
+ <row trl="N" uuid="d1387ba8-7737-4d2d-b828-e74c0113fb6f">
+  <value column="Name" original="GIA Generator">Gerar GIA</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="daee8086-73fb-423c-ae34-e6324ec61837">
+  <value column="Name" original="Process Bank Slip">Process Bank Slip</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="699cea90-3357-4493-8975-2ef515cacc6b">
+  <value column="Name" original="Print BankSlip">Imprimir Boletos</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="7021c1fd-db20-4ef6-8fe1-5ca6ae25f7a5">
+  <value column="Name" original="Missing NSU">NSU Faltantes</value>
+  <value column="Description" original="Check the missing NSU">Verifica se há algum NSU faltante na lista obtida da SeFaz</value>
+  <value column="Help" original="In case you want to try to get missing NSU from SeFaz, mark the parameter">Caso queira tentar consultar os NSUs na SeFaz, marque o parâmetro abaixo.</value>
+ </row>
+ <row trl="N" uuid="b4053e08-3d15-470b-a8b8-45b909783fc9">
+  <value column="Name" original="Process CNAB File">Process CNAB File</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="96b51dde-234e-4c60-a05d-c48168400804">
+  <value column="Name" original="Process LBR_SIMP">Process LBR_SIMP</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
  </row>
  <row trl="Y" uuid="5efaeb22-fe9f-47ae-a1ae-228b3395e68e">
   <value column="Name" original="Freight Calc">Cálculo de Frete (Correios)</value>

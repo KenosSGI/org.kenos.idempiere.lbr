@@ -130,7 +130,11 @@ public class ConsultaCadastro extends SvrProcess
 			
 			else
 				log.log(Level.SEVERE, "Unknown Parameter: " + name);
-		}		
+		}
+		
+		//	Execution from table
+		if (getTable_ID() == MBPartner.Table_ID && getRecord_ID() > 0)
+			p_C_BPartner_ID = getRecord_ID();
 	}	//	prepare
 
 	/**
@@ -194,6 +198,7 @@ public class ConsultaCadastro extends SvrProcess
 		InfCad infCad = infCons.getInfCadArray(0);
 		
 		String xRegApur = infCad.getXRegApur();
+		String xCNAE 	= infCad.getCNAE();
 		TEndereco ender = infCad.getEnder();
 		//
 		StringBuffer result = new StringBuffer ("<br /><br /><b>Razão Social: </b>").append (infCad.getXNome())
@@ -202,7 +207,7 @@ public class ConsultaCadastro extends SvrProcess
 				.append ("<br /><br /><b>Credeciamento NF-e: </b>").append (ConsultaCadastro.translateIndCredNFe (infCad.getIndCredNFe()))
 				.append ("<br /><b>Credenciamento CT-e: </b>").append (ConsultaCadastro.translateIndCredCTe (infCad.getIndCredCTe()))
 				.append ("<br /><br /><b>Regime de Apuração: </b>").append (xRegApur)
-				.append ("<br /><b>CNAE: </b>").append (infCad.getCNAE())
+				.append ("<br /><b>CNAE: </b>").append (xCNAE)
 				.append ("<br /><b>IE: </b>").append (infCad.getIE())
 				.append ("<br /><b>IE (Única): </b>").append (infCad.getIEUnica())
 				.append ("<br /><b>IE (Atual): </b>").append (infCad.getIEAtual())
@@ -316,6 +321,9 @@ public class ConsultaCadastro extends SvrProcess
 				bpartnerNew.setlbr_IE("");
 			}
 			
+			if (xCNAE != null)
+				bpartnerNew.setlbr_CNAE(xCNAE);
+			
 			//	Savar Novo Parceiro de Negócio
 			bpartner.saveEx();
 			
@@ -339,7 +347,7 @@ public class ConsultaCadastro extends SvrProcess
 					if (city != null)
 						cityName = city.getName();
 					break;
-				}	
+				}
 			}
 			
 			// Salvando Localização do Novo Parceiro de Negócio
@@ -356,25 +364,31 @@ public class ConsultaCadastro extends SvrProcess
 			bpartnerLocation.saveEx();
 		}
 		
-		else if (p_C_BPartner_ID > 0 && xRegApur != null)
+		else if (p_C_BPartner_ID > 0)
 		{
 			I_W_C_BPartner bp = POWrapper.create(new MBPartner (getCtx(), p_C_BPartner_ID, get_TrxName()), I_W_C_BPartner.class);
 		
-			//	Normal
-			if (xRegApur.toUpperCase().startsWith("NORMAL"))
-				bp.setLBR_TaxRegime(I_W_C_BPartner.LBR_TAXREGIME_Normal);
-			
-			//	Simples e MEI
-			else if (xRegApur.toUpperCase().startsWith("SIMPLES"))
+			if (xRegApur != null)
 			{
-				//	Simples Nacional - MEI
-				if (xRegApur.toUpperCase().endsWith("MEI"))
-					bp.setLBR_TaxRegime(I_W_C_BPartner.LBR_TAXREGIME_SimpleNational_MEI);
+				//	Normal
+				if (xRegApur.toUpperCase().startsWith("NORMAL"))
+					bp.setLBR_TaxRegime(I_W_C_BPartner.LBR_TAXREGIME_Normal);
 				
-				//	Simples Nacional
-				else
-					bp.setLBR_TaxRegime(I_W_C_BPartner.LBR_TAXREGIME_SimpleNational);
+				//	Simples e MEI
+				else if (xRegApur.toUpperCase().startsWith("SIMPLES"))
+				{
+					//	Simples Nacional - MEI
+					if (xRegApur.toUpperCase().endsWith("MEI"))
+						bp.setLBR_TaxRegime(I_W_C_BPartner.LBR_TAXREGIME_SimpleNational_MEI);
+					
+					//	Simples Nacional
+					else
+						bp.setLBR_TaxRegime(I_W_C_BPartner.LBR_TAXREGIME_SimpleNational);
+				}
 			}
+
+			if (xCNAE != null)
+				bp.setlbr_CNAE(xCNAE);
 			
 			//	Save
 			POWrapper.getPO (bp).save();

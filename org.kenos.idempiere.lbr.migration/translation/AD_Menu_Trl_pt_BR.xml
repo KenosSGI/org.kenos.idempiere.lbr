@@ -344,4 +344,8 @@
   <value column="Name" original="Others Operations">Outras Operações</value>
   <value column="Description" original=""/>
  </row>
+ <row trl="Y" uuid="4c6edbec-00c0-4396-a37e-128691075249">
+  <value column="Name" original="Fuel">Combustíveis (ANP)</value>
+  <value column="Description" original=""/>
+ </row>
 </idempiereTrl>
