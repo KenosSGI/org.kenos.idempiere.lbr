@@ -13,9 +13,11 @@
 package org.adempierelbr.validator;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -23,24 +25,35 @@ import java.util.logging.Level;
 import org.adempiere.model.POWrapper;
 import org.adempierelbr.util.TextUtil;
 import org.adempierelbr.wrapper.I_W_AD_OrgInfo;
+import org.adempierelbr.wrapper.I_W_C_DocType;
 import org.adempierelbr.wrapper.I_W_M_Warehouse;
 import org.compiere.model.MClient;
+import org.compiere.model.MDocType;
 import org.compiere.model.MInOut;
 import org.compiere.model.MInOutLine;
+import org.compiere.model.MInvoice;
+import org.compiere.model.MInvoiceLine;
 import org.compiere.model.MMovement;
 import org.compiere.model.MMovementLine;
+import org.compiere.model.MOrder;
 import org.compiere.model.MOrderLine;
 import org.compiere.model.MOrgInfo;
+import org.compiere.model.MPInstance;
 import org.compiere.model.MProduct;
 import org.compiere.model.MSysConfig;
 import org.compiere.model.MWarehouse;
 import org.compiere.model.ModelValidationEngine;
 import org.compiere.model.ModelValidator;
 import org.compiere.model.PO;
+import org.compiere.process.InOutCreateInvoice;
+import org.compiere.process.ProcessInfo;
+import org.compiere.process.ProcessInfoLog;
+import org.compiere.process.SvrProcess;
 import org.compiere.util.CLogger;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.compiere.util.Msg;
+import org.compiere.util.Trx;
 import org.kenos.idempiere.lbr.base.model.SysConfig;
 
 /**
@@ -373,7 +386,119 @@ public class ValidatorInOut implements ModelValidator
 				}
 			} // for;
 		}
+		else if (timing == TIMING_AFTER_COMPLETE)
+		{
+			//
+			MDocType dt = MDocType.get (ctx, inOut.getC_DocType_ID());
+			I_W_C_DocType dtW = POWrapper.create(dt, I_W_C_DocType.class); 
+			
+			String DocBaseType = dt.getDocBaseType();
+			
+			MOrder order   = (MOrder) inOut.getC_Order();
+			MDocType dtOrder = MDocType.get (ctx, order.getC_DocTypeTarget_ID());
+			I_W_C_DocType dtOrderW = POWrapper.create(dtOrder, I_W_C_DocType.class); 
+			
+			//	O Tipo de Documento do Pedido relacionado a Tipo de Documento do Recebimento ou Expedição não deve estar marcado para gerar fatura automática
+			
+			System.out.println(dtOrderW.islbr_IsAutomaticInvoice());
+			System.out.println(dtOrder.get_ValueAsBoolean("lbr_IsAutomaticInvoice"));
+			
+			//	Utilizado no Recebimento de Material ou Expedição
+			if (!dtOrderW.islbr_IsAutomaticInvoice() && DocBaseType != null && (DocBaseType.equals(MDocType.DOCBASETYPE_MaterialReceipt) || DocBaseType.equals(MDocType.DOCBASETYPE_MaterialDelivery)))
+			{
+				MInvoice invoice = null;
+
+				//	Invoice
+				if (dtW.islbr_IsAutomaticInvoice())
+					invoice = createInvoice(order, dt, inOut, inOut.getMovementDate());
+
+				//	Complete
+				if (invoice != null)
+				{
+					String status = invoice.completeIt();
+					invoice.setDocStatus(status);
+					invoice.save(trx);
+					if (!MOrder.DOCSTATUS_Completed.equals(status))
+						return invoice.getProcessMsg();
+				}
+			}
+		}	//	After Complete
 
 		return null;
 	}
+	
+	/**
+	 * 	Create Invoice
+	 *	@param dt order document type
+	 *	@param shipment optional shipment
+	 *	@param invoiceDate invoice date
+	 *	@return invoice or null
+	 */
+	private MInvoice createInvoice (MOrder order, MDocType dt, MInOut shipment, Timestamp invoiceDate)
+	{
+		String     trx = order.get_TrxName();
+
+		MInvoice invoice = new MInvoice (order, dt.getC_DocTypeInvoice_ID(), invoiceDate);
+		if (!invoice.save(trx))
+		{
+			log.log(Level.SEVERE, "Could not create Invoice");
+			return null;
+		}
+
+		//	If we have a Shipment - use that as a base
+		if (shipment != null)
+		{
+			invoice.set_ValueNoCheck("lbr_NFEntrada", shipment.get_ValueAsString("lbr_NFEntrada"));
+			invoice.save();
+			//
+			MInOutLine[] sLines = shipment.getLines(false);
+			for (int i = 0; i < sLines.length; i++)
+			{
+				MInOutLine sLine = sLines[i];
+				//
+				MInvoiceLine iLine = new MInvoiceLine(invoice);
+				iLine.setShipLine(sLine);
+				//	Qty = Delivered
+				iLine.setQtyEntered(sLine.getQtyEntered());
+				iLine.setQtyInvoiced(sLine.getMovementQty());
+				if (!iLine.save(trx))
+				{
+					log.log(Level.SEVERE, "Could not create Invoice Line from Shipment Line");
+					return null;
+				}
+				//
+				sLine.setIsInvoiced(true);
+				if (!sLine.save(trx))
+				{
+					log.warning("Could not update Shipment line: " + sLine);
+				}
+			}
+		}
+		else	//	Create Invoice from Order
+		{
+			//
+			MOrderLine[] oLines = order.getLines(true,null);
+			for (int i = 0; i < oLines.length; i++)
+			{
+				MOrderLine oLine = oLines[i];
+				//
+				MInvoiceLine iLine = new MInvoiceLine(invoice);
+				iLine.setOrderLine(oLine);
+				//	Qty = Ordered - Invoiced
+				iLine.setQtyInvoiced(oLine.getQtyOrdered().subtract(oLine.getQtyInvoiced()));
+				if (oLine.getQtyOrdered().compareTo(oLine.getQtyEntered()) == 0)
+					iLine.setQtyEntered(iLine.getQtyInvoiced());
+				else
+					iLine.setQtyEntered(iLine.getQtyInvoiced().multiply(oLine.getQtyEntered())
+						.divide(oLine.getQtyOrdered(), 12, RoundingMode.HALF_UP));
+				if (!iLine.save(trx))
+				{
+					log.log(Level.SEVERE, "Could not create Invoice Line from Order Line");
+					return null;
+				}
+			}
+		}
+
+		return invoice;
+	}	//	createInvoice
 } 	//	ValidatorInOut
