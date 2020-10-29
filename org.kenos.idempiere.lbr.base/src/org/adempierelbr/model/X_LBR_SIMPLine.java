@@ -33,7 +33,7 @@ public class X_LBR_SIMPLine extends PO implements I_LBR_SIMPLine, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20201016L;
+	private static final long serialVersionUID = 20201028L;
 
     /** Standard Constructor */
     public X_LBR_SIMPLine (Properties ctx, int LBR_SIMPLine_ID, String trxName)
