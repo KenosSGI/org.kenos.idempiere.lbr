@@ -181,6 +181,11 @@ public class MLBRNFeLot extends X_LBR_NFeLot implements DocAction, DocOptions
 		int count = count();
 		if (count == 1 && LBR_NFELOTMETHOD_Asynchronous.equals(getLBR_NFeLotMethod()))
 			setLBR_NFeLotMethod(LBR_NFELOTMETHOD_Synchronous);
+		
+		//	Se configurado direito na Configuração da NF, considerar a configuração
+		MLBRNFConfig nfConfig = MLBRNFConfig.get(getAD_Org_ID());					
+		if (nfConfig != null && nfConfig.getLBR_NFeLotMethod() != null)
+			setLBR_NFeLotMethod(nfConfig.getLBR_NFeLotMethod());
 
 		//	XML
 		String xml = geraLote (envType);
