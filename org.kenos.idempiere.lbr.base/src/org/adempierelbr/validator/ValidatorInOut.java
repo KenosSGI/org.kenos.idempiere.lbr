@@ -38,22 +38,17 @@ import org.compiere.model.MMovementLine;
 import org.compiere.model.MOrder;
 import org.compiere.model.MOrderLine;
 import org.compiere.model.MOrgInfo;
-import org.compiere.model.MPInstance;
 import org.compiere.model.MProduct;
+import org.compiere.model.MRMA;
 import org.compiere.model.MSysConfig;
 import org.compiere.model.MWarehouse;
 import org.compiere.model.ModelValidationEngine;
 import org.compiere.model.ModelValidator;
 import org.compiere.model.PO;
-import org.compiere.process.InOutCreateInvoice;
-import org.compiere.process.ProcessInfo;
-import org.compiere.process.ProcessInfoLog;
-import org.compiere.process.SvrProcess;
 import org.compiere.util.CLogger;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.compiere.util.Msg;
-import org.compiere.util.Trx;
 import org.kenos.idempiere.lbr.base.model.SysConfig;
 
 /**
@@ -388,23 +383,40 @@ public class ValidatorInOut implements ModelValidator
 		}
 		else if (timing == TIMING_AFTER_COMPLETE)
 		{
-			//
+			//InOut Document Type
 			MDocType dt = MDocType.get (ctx, inOut.getC_DocType_ID());
 			I_W_C_DocType dtW = POWrapper.create(dt, I_W_C_DocType.class); 
 			
+			// Base Type from InOut Document Type
 			String DocBaseType = dt.getDocBaseType();
 			
-			MOrder order   = (MOrder) inOut.getC_Order();
-			MDocType dtOrder = MDocType.get (ctx, order.getC_DocTypeTarget_ID());
-			I_W_C_DocType dtOrderW = POWrapper.create(dtOrder, I_W_C_DocType.class); 
+			//	Order
+			MOrder order = null;
 			
-			//	O Tipo de Documento do Pedido relacionado a Tipo de Documento do Recebimento ou Expedição não deve estar marcado para gerar fatura automática
+			// RMA
+			MRMA rma = null;
 			
-			System.out.println(dtOrderW.islbr_IsAutomaticInvoice());
-			System.out.println(dtOrder.get_ValueAsBoolean("lbr_IsAutomaticInvoice"));
+			// Document Type from Order or RMA
+			MDocType dtOrderRma = null;
+			I_W_C_DocType dtOrderRmaW = null;
 			
-			//	Utilizado no Recebimento de Material ou Expedição
-			if (!dtOrderW.islbr_IsAutomaticInvoice() && DocBaseType != null && (DocBaseType.equals(MDocType.DOCBASETYPE_MaterialReceipt) || DocBaseType.equals(MDocType.DOCBASETYPE_MaterialDelivery)))
+			// If order
+			if ( inOut.getC_Order_ID() > 0)
+			{
+				order   = (MOrder) inOut.getC_Order();
+				dtOrderRma = MDocType.get (ctx, order.getC_DocTypeTarget_ID());
+				dtOrderRmaW = POWrapper.create(dtOrderRma, I_W_C_DocType.class);
+			} // Else RMA
+			else if (inOut.getM_RMA_ID() > 0)
+			{
+				rma = (MRMA) inOut.getM_RMA();
+				dtOrderRma = MDocType.get (ctx, rma.getC_DocType_ID());
+				dtOrderRmaW = POWrapper.create(dtOrderRma, I_W_C_DocType.class);
+			}
+			
+			//	O Tipo de Documento do Pedido ou ARM relacionado a Tipo de Documento do Recebimento ou Expedição não deve estar marcado para gerar fatura automática
+			//	Utilizado no Recebimento de Material, Expedição ou Devoluções
+			if (dtOrderRma != null && !dtOrderRmaW.islbr_IsAutomaticInvoice() && DocBaseType != null && (DocBaseType.equals(MDocType.DOCBASETYPE_MaterialReceipt) || DocBaseType.equals(MDocType.DOCBASETYPE_MaterialDelivery)))
 			{
 				MInvoice invoice = null;
 
