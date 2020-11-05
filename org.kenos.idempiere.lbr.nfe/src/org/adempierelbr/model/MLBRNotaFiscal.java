@@ -4435,12 +4435,14 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 					MLBRNFeLot lot = new MLBRNFeLot (getCtx(), 0, get_TrxName());
 					lot.setName("[Auto] NF: " + getDocumentNo());
 					lot.setAD_Org_ID(getAD_Org_ID());
-					lot.setLBR_NFeLotMethod(MLBRNFeLot.LBR_NFELOTMETHOD_Synchronous);
-					
 					//
 					MLBRNFConfig nfConfig = MLBRNFConfig.get(getAD_Org_ID());					
 					if (nfConfig != null && nfConfig.getLBR_NFeLotMethod() != null)
 						lot.setLBR_NFeLotMethod(nfConfig.getLBR_NFeLotMethod());
+					
+					//	Synchronous as deafult
+					else
+						lot.setLBR_NFeLotMethod(MLBRNFeLot.LBR_NFELOTMETHOD_Synchronous);
 					
 					lot.setlbr_NFModel(getlbr_NFModel());
 					lot.save();
@@ -4459,9 +4461,9 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 					{
 						//	Wait 15 secs before check if NF is processed
 						//		15 secs is the SeFaz recommended time
-						log.finer ("pause");
-						Thread.sleep(15000);
-						log.finer ("resume");
+						//		only if lot was not received in synchronous operation
+						if (!lot.islbr_LotReceived())
+							Thread.sleep(MSysConfig.getIntValue(SysConfig.LBR_NFE_WAITING_TIME, 15000, getAD_Client_ID(), getAD_Org_ID()));
 					} 
 					catch (InterruptedException ex)
 					{

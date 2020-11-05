@@ -73,6 +73,7 @@ import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Ide.TpEmis;
 import br.inf.portalfiscal.nfe.v400.TProtNFe;
 import br.inf.portalfiscal.nfe.v400.TRetConsReciNFe;
 import br.inf.portalfiscal.nfe.v400.TRetEnviNFe;
+import br.inf.portalfiscal.nfe.v400.TRetEnviNFe.InfRec;
 import br.inf.portalfiscal.www.nfe.wsdl.nfeautorizacao4.NfeDadosMsg;
 
 /**
@@ -176,16 +177,11 @@ public class MLBRNFeLot extends X_LBR_NFeLot implements DocAction, DocOptions
 		String region = BPartnerUtil.getRegionCode(orgLoc);
 		if (region.isEmpty())
 			throw new Exception ("UF Inválida");
-
+		
 		//	Método síncrono somente para 1 NF
 		int count = count();
-		if (count == 1 && LBR_NFELOTMETHOD_Asynchronous.equals(getLBR_NFeLotMethod()))
-			setLBR_NFeLotMethod(LBR_NFELOTMETHOD_Synchronous);
-		
-		//	Se configurado direito na Configuração da NF, considerar a configuração
-		MLBRNFConfig nfConfig = MLBRNFConfig.get(getAD_Org_ID());					
-		if (nfConfig != null && nfConfig.getLBR_NFeLotMethod() != null)
-			setLBR_NFeLotMethod(nfConfig.getLBR_NFeLotMethod());
+		if (count > 1 && LBR_NFELOTMETHOD_Synchronous.equals(getLBR_NFeLotMethod()))
+			setLBR_NFeLotMethod(LBR_NFELOTMETHOD_Asynchronous);
 
 		//	XML
 		String xml = geraLote (envType);
@@ -281,9 +277,11 @@ public class MLBRNFeLot extends X_LBR_NFeLot implements DocAction, DocOptions
 				&& retEnviNFe.getProtNFe() == null)
 			setLBR_NFeLotMethod (LBR_NFELOTMETHOD_Asynchronous);		//	Método Síncrono não suportado
 		
+		InfRec infRec = retEnviNFe.getInfRec();
 		if (MLBRNFeLot.LBR_NFEANSWERSTATUS_103_LoteRecebidoComSucesso.equals(cStat))
 		{
-			setlbr_NFeRecID(retEnviNFe.getInfRec().getNRec());
+			if (infRec != null)
+				setlbr_NFeRecID(infRec.getNRec());
 			//
 			Timestamp timestamp = NFeUtil.stringToTime(retEnviNFe.getDhRecbto());
 			setDateTrx(timestamp);
@@ -293,7 +291,11 @@ public class MLBRNFeLot extends X_LBR_NFeLot implements DocAction, DocOptions
 		}
 		else if (MLBRNFeLot.LBR_NFEANSWERSTATUS_104_LoteProcessado.equals(cStat))
 		{
-			setlbr_NFeRecID(retEnviNFe.getInfRec().getNRec());
+			if (infRec != null)
+			{
+				setlbr_NFeRecID(infRec.getNRec());
+				setlbr_NFeRespID(infRec.getNRec());
+			}
 			//
 			Timestamp timestamp = NFeUtil.stringToTime(retEnviNFe.getDhRecbto());
 			setDateTrx(timestamp);
@@ -304,8 +306,6 @@ public class MLBRNFeLot extends X_LBR_NFeLot implements DocAction, DocOptions
 			setDocStatus(DOCSTATUS_Completed);
 			setDocAction(DOCACTION_None);
 			setProcessed(true);
-			
-			setlbr_NFeRespID(retEnviNFe.getInfRec().getNRec());
 			//
 			MLBRNotaFiscal.authorizeNFe (retEnviNFe.getProtNFe(), get_TrxName());
 		}
