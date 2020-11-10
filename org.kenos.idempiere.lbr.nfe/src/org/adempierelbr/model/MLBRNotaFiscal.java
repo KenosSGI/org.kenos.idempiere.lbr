@@ -4444,6 +4444,12 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 					lot.setName("[Auto] NF: " + getDocumentNo());
 					lot.setAD_Org_ID(getAD_Org_ID());
 					lot.setLBR_NFeLotMethod(MLBRNFeLot.LBR_NFELOTMETHOD_Synchronous);
+					
+					//
+					MLBRNFConfig nfConfig = MLBRNFConfig.get(getAD_Org_ID());					
+					if (nfConfig != null && nfConfig.getLBR_NFeLotMethod() != null)
+						lot.setLBR_NFeLotMethod(nfConfig.getLBR_NFeLotMethod());
+					
 					lot.setlbr_NFModel(getlbr_NFModel());
 					lot.save();
 					

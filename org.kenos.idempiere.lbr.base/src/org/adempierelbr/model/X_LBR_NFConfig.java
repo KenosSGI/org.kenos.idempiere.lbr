@@ -516,4 +516,26 @@ public class X_LBR_NFConfig extends PO implements I_LBR_NFConfig, I_Persistent
 	{
 		return (String)get_Value(COLUMNNAME_lbr_NFeEnv);
 	}
+	
+	/** Asynchronous = 0 */
+	public static final String LBR_NFELOTMETHOD_Asynchronous = "0";
+	/** Synchronous = 1 */
+	public static final String LBR_NFELOTMETHOD_Synchronous = "1";
+	/** Set Lot Method.
+		@param LBR_NFeLotMethod 
+		Method of transmission of NFe Lot
+	  */
+	public void setLBR_NFeLotMethod (String LBR_NFeLotMethod)
+	{
+
+		set_Value (COLUMNNAME_LBR_NFeLotMethod, LBR_NFeLotMethod);
+	}
+
+	/** Get Lot Method.
+		@return Method of transmission of NFe Lot
+	  */
+	public String getLBR_NFeLotMethod () 
+	{
+		return (String)get_Value(COLUMNNAME_LBR_NFeLotMethod);
+	}
 }
