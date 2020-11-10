@@ -367,6 +367,7 @@ public class Payment
 				Boolean isSOTrx = null;
 				int C_BPartner_ID = 0;
 				String documentNo = null;
+				int org_id = 0;
 				
 				//	Invoice Based document
 				if (!type.equals("O"))
@@ -375,6 +376,7 @@ public class Payment
 					isSOTrx 		= invoice.isSOTrx();
 					C_BPartner_ID 	= invoice.getC_BPartner_ID();
 					documentNo 		= invoice.getDocumentNo();
+					org_id			= invoice.getAD_Org_ID();
 					
 					//	Set Invoice
 					p.setC_Invoice_ID(Doc_ID);
@@ -387,11 +389,13 @@ public class Payment
 					isSOTrx	 		= order.isSOTrx();
 					C_BPartner_ID 	= order.getC_BPartner_ID();
 					documentNo 		= order.getDocumentNo();
+					org_id			= order.getAD_Org_ID();
 					
 					//	Set Order
 					p.setC_Order_ID(Doc_ID);
 				}
 				
+				p.setAD_Org_ID(org_id);
 				p.setC_BPartner_ID(C_BPartner_ID);
 				p.setTenderType(PaymentRule);
 				p.setDateAcct(payDate);
