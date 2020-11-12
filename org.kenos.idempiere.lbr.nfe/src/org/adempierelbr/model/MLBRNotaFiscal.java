@@ -4983,15 +4983,26 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 	public void calculateWeight ()
 	{
 		BigDecimal weight = Env.ZERO;
+		BigDecimal grossWeight = Env.ZERO;
+		BigDecimal volume = Env.ZERO;
+		
 		for (MLBRNotaFiscalLine nfl : getLines())
 		{
 			if (nfl.getM_Product_ID() > 0)
+			{
+				MProduct product = (MProduct) nfl.getM_Product ();
 				weight = weight.add(nfl.getQty ().multiply (nfl.getM_Product ().getWeight ()));
+				grossWeight = grossWeight.add(nfl.getQty ().multiply (nfl.getM_Product ().getWeight ().add((BigDecimal)product.get_Value("LBR_PackingWeight"))));
+				volume = volume.add(nfl.getQty ().multiply(nfl.getM_Product ().getVolume()));
+			}
 		}
 		
 		//	Set both gross and net weight
-		setlbr_GrossWeight(weight);
+		setlbr_GrossWeight(grossWeight);
 		setlbr_NetWeight(weight);
+		
+		if (volume.intValue() > 0 && getNoPackages() <= 1)
+			setNoPackages(volume.intValue());
 	}	//	calculateWeight
 
 	/**
