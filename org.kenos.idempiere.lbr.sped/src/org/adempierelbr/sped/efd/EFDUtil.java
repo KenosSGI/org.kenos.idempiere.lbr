@@ -1158,9 +1158,25 @@ public class EFDUtil {
 		
 		
 		// st
-		reg.setVL_BC_ICMS_ST(factFiscal.getICMSST_TaxBaseAmt());
-		reg.setALIQ_ST(factFiscal.getICMSST_TaxRate());
-		reg.setVL_ICMS_ST(factFiscal.getICMSST_TaxAmt());
+		//ICMS ST:
+			//	a) se os dois últimos caracteres deste campo forem 10, 30 ou 70, os valores dos campos VL_BC_ST, ALIQ_ST e
+			//	VL_ICMS_ST deverão ser maiores ou iguais a “0” (zero).
+			//	b) se os dois últimos caracteres deste campo forem diferentes de 10, 30 ou 70, os valores dos campos VL_BC_ST,
+			//	ALIQ_ST e VL_ICMS_ST deverão ser iguais a “0” (zero).
+		if ("10".equals(factFiscal.getICMSST_TaxStatus()) ||
+			"30".equals(factFiscal.getICMSST_TaxStatus()) ||
+			"70".equals(factFiscal.getICMSST_TaxStatus()))
+		{
+				reg.setVL_BC_ICMS_ST(factFiscal.getICMSST_TaxBaseAmt());
+				reg.setALIQ_ST(factFiscal.getICMSST_TaxRate());
+				reg.setVL_ICMS_ST(factFiscal.getICMSST_TaxAmt());
+		}
+		else
+		{
+			reg.setVL_BC_ICMS_ST(BigDecimal.ZERO);
+			reg.setALIQ_ST(BigDecimal.ZERO);
+			reg.setVL_ICMS_ST(BigDecimal.ZERO);
+		}					
 		
 		// ipi
 		reg.setIND_APUR(IND_APUR);
