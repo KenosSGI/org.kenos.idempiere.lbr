@@ -30,5 +30,5 @@ UPDATE AD_Field SET IsDisplayed='Y', SeqNo=60, AD_Reference_Value_ID=NULL, AD_Va
 UPDATE AD_Field SET IsDisplayed='Y', SeqNo=70, AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, XPosition=4, IsToolbarButton=NULL,Updated=TO_DATE('2020-09-15 19:07:56','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1129948
 ;
 
-SELECT Register_Migration_Script ('2020009241900_TaxControl_ICMSST.sql') FROM DUAL
+SELECT Register_Migration_Script ('202009241900_TaxControl_ICMSST.sql') FROM DUAL
 ;

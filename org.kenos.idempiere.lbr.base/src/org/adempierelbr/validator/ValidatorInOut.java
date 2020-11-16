@@ -381,7 +381,7 @@ public class ValidatorInOut implements ModelValidator
 				}
 			} // for;
 		}
-		else if (timing == TIMING_AFTER_COMPLETE)
+		else if (timing == TIMING_AFTER_COMPLETE && inOut.getReversal_ID() == 0)
 		{
 			//InOut Document Type
 			MDocType dt = MDocType.get (ctx, inOut.getC_DocType_ID());
