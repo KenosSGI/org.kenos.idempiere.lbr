@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 import java.util.logging.Level;
 
+import org.adempiere.exceptions.AdempiereException;
 import org.adempiere.model.POWrapper;
 import org.adempierelbr.util.TextUtil;
 import org.adempierelbr.wrapper.I_W_AD_OrgInfo;
@@ -387,51 +388,54 @@ public class ValidatorInOut implements ModelValidator
 			MDocType dt = MDocType.get (ctx, inOut.getC_DocType_ID());
 			I_W_C_DocType dtW = POWrapper.create(dt, I_W_C_DocType.class); 
 			
-			// Base Type from InOut Document Type
-			String DocBaseType = dt.getDocBaseType();
-			
-			//	Order
-			MOrder order = null;
-			
-			// RMA
-			MRMA rma = null;
-			
-			// Document Type from Order or RMA
-			MDocType dtOrderRma = null;
-			I_W_C_DocType dtOrderRmaW = null;
-			
-			// If order
-			if ( inOut.getC_Order_ID() > 0)
-			{
-				order   = (MOrder) inOut.getC_Order();
-				dtOrderRma = MDocType.get (ctx, order.getC_DocTypeTarget_ID());
-				dtOrderRmaW = POWrapper.create(dtOrderRma, I_W_C_DocType.class);
-			} // Else RMA
-			else if (inOut.getM_RMA_ID() > 0)
-			{
-				rma = (MRMA) inOut.getM_RMA();
-				dtOrderRma = MDocType.get (ctx, rma.getC_DocType_ID());
-				dtOrderRmaW = POWrapper.create(dtOrderRma, I_W_C_DocType.class);
-			}
-			
-			//	O Tipo de Documento do Pedido ou ARM relacionado a Tipo de Documento do Recebimento ou Expedição não deve estar marcado para gerar fatura automática
-			//	Utilizado no Recebimento de Material, Expedição ou Devoluções
-			if (dtOrderRma != null && !dtOrderRmaW.islbr_IsAutomaticInvoice() && DocBaseType != null && (DocBaseType.equals(MDocType.DOCBASETYPE_MaterialReceipt) || DocBaseType.equals(MDocType.DOCBASETYPE_MaterialDelivery)))
-			{
-				MInvoice invoice = null;
-
-				//	Invoice
-				if (dtW.islbr_IsAutomaticInvoice())
-					invoice = createInvoice(order, dt, inOut, inOut.getMovementDate());
-
-				//	Complete
-				if (invoice != null)
+			if (dtW.islbr_IsAutomaticInvoice())
+			{			
+				// Base Type from InOut Document Type
+				String DocBaseType = dt.getDocBaseType();
+				
+				//	Order
+				MOrder order = null;
+				
+				// RMA
+				MRMA rma = null;
+				
+				// Document Type from Order or RMA
+				MDocType dtOrderRma = null;
+				I_W_C_DocType dtOrderRmaW = null;
+				
+				// If order
+				if ( inOut.getC_Order_ID() > 0)
 				{
-					String status = invoice.completeIt();
-					invoice.setDocStatus(status);
-					invoice.save(trx);
-					if (!MOrder.DOCSTATUS_Completed.equals(status))
-						return invoice.getProcessMsg();
+					order   = (MOrder) inOut.getC_Order();
+					dtOrderRma = MDocType.get (ctx, order.getC_DocTypeTarget_ID());
+					dtOrderRmaW = POWrapper.create(dtOrderRma, I_W_C_DocType.class);
+				} // Else RMA
+				else if (inOut.getM_RMA_ID() > 0)
+				{
+					rma = (MRMA) inOut.getM_RMA();
+					dtOrderRma = MDocType.get (ctx, rma.getC_DocType_ID());
+					dtOrderRmaW = POWrapper.create(dtOrderRma, I_W_C_DocType.class);
+				}
+				
+				//	O Tipo de Documento do Pedido ou ARM relacionado a Tipo de Documento do Recebimento ou Expedição não deve estar marcado para gerar fatura automática
+				//	Utilizado no Recebimento de Material, Expedição ou Devoluções
+				if (dtOrderRma != null && !dtOrderRmaW.islbr_IsAutomaticInvoice() && DocBaseType != null && (DocBaseType.equals(MDocType.DOCBASETYPE_MaterialReceipt) || DocBaseType.equals(MDocType.DOCBASETYPE_MaterialDelivery)))
+				{
+					MInvoice invoice = null;
+	
+					//	Invoice
+					if (dtW.islbr_IsAutomaticInvoice())
+						invoice = createInvoice(order, dt, inOut, inOut.getMovementDate());
+	
+					//	Complete
+					if (invoice != null)
+					{
+						String status = invoice.completeIt();
+						invoice.setDocStatus(status);
+						invoice.save(trx);
+						if (!MOrder.DOCSTATUS_Completed.equals(status))
+							return invoice.getProcessMsg();
+					}
 				}
 			}
 		}	//	After Complete
@@ -450,65 +454,86 @@ public class ValidatorInOut implements ModelValidator
 	{
 		String     trx = order.get_TrxName();
 
-		MInvoice invoice = new MInvoice (order, dt.getC_DocTypeInvoice_ID(), invoiceDate);
-		if (!invoice.save(trx))
+		MInvoice invoice = null;
+		
+		try
 		{
-			log.log(Level.SEVERE, "Could not create Invoice");
-			return null;
-		}
-
-		//	If we have a Shipment - use that as a base
-		if (shipment != null)
-		{
-			invoice.set_ValueNoCheck("lbr_NFEntrada", shipment.get_ValueAsString("lbr_NFEntrada"));
-			invoice.save();
-			//
-			MInOutLine[] sLines = shipment.getLines(false);
-			for (int i = 0; i < sLines.length; i++)
+			MDocType docInvoice = (MDocType) order.getC_DocTypeTarget().getC_DocTypeInvoice();
+			I_W_C_DocType docInvoiceW = POWrapper.create(docInvoice, I_W_C_DocType.class);
+			
+			if (docInvoiceW.islbr_IsAutomaticInvoice())
+				throw new AdempiereException("Conflito com Tipo de Documento de Fatura que gera Recebimento/Remessa Automática");
+			
+			invoice = new MInvoice (order, docInvoice.getC_DocType_ID(), invoiceDate);
+			if (!invoice.save(trx))
 			{
-				MInOutLine sLine = sLines[i];
+				log.log(Level.SEVERE, "Could not create Invoice");
+				return null;
+			}
+	
+			//	If we have a Shipment - use that as a base
+			if (shipment != null)
+			{
+				invoice.set_ValueNoCheck("lbr_NFEntrada", shipment.get_ValueAsString("lbr_NFEntrada"));
+				invoice.save();
 				//
-				MInvoiceLine iLine = new MInvoiceLine(invoice);
-				iLine.setShipLine(sLine);
-				//	Qty = Delivered
-				iLine.setQtyEntered(sLine.getQtyEntered());
-				iLine.setQtyInvoiced(sLine.getMovementQty());
-				if (!iLine.save(trx))
+				MInOutLine[] sLines = shipment.getLines(false);
+				for (int i = 0; i < sLines.length; i++)
 				{
-					log.log(Level.SEVERE, "Could not create Invoice Line from Shipment Line");
-					return null;
-				}
-				//
-				sLine.setIsInvoiced(true);
-				if (!sLine.save(trx))
-				{
-					log.warning("Could not update Shipment line: " + sLine);
+					MInOutLine sLine = sLines[i];
+					//
+					MInvoiceLine iLine = new MInvoiceLine(invoice);
+					iLine.setShipLine(sLine);
+					//	Qty = Delivered
+					iLine.setQtyEntered(sLine.getQtyEntered());
+					iLine.setQtyInvoiced(sLine.getMovementQty());
+					if (!iLine.save(trx))
+					{
+						log.log(Level.SEVERE, "Could not create Invoice Line from Shipment Line");
+						return null;
+					}
+					//
+					sLine.setIsInvoiced(true);
+					if (!sLine.save(trx))
+					{
+						log.warning("Could not update Shipment line: " + sLine);
+					}
 				}
 			}
-		}
-		else	//	Create Invoice from Order
-		{
-			//
-			MOrderLine[] oLines = order.getLines(true,null);
-			for (int i = 0; i < oLines.length; i++)
+			else	//	Create Invoice from Order
 			{
-				MOrderLine oLine = oLines[i];
 				//
-				MInvoiceLine iLine = new MInvoiceLine(invoice);
-				iLine.setOrderLine(oLine);
-				//	Qty = Ordered - Invoiced
-				iLine.setQtyInvoiced(oLine.getQtyOrdered().subtract(oLine.getQtyInvoiced()));
-				if (oLine.getQtyOrdered().compareTo(oLine.getQtyEntered()) == 0)
-					iLine.setQtyEntered(iLine.getQtyInvoiced());
-				else
-					iLine.setQtyEntered(iLine.getQtyInvoiced().multiply(oLine.getQtyEntered())
-						.divide(oLine.getQtyOrdered(), 12, RoundingMode.HALF_UP));
-				if (!iLine.save(trx))
+				MOrderLine[] oLines = order.getLines(true,null);
+				for (int i = 0; i < oLines.length; i++)
 				{
-					log.log(Level.SEVERE, "Could not create Invoice Line from Order Line");
-					return null;
+					MOrderLine oLine = oLines[i];
+					//
+					MInvoiceLine iLine = new MInvoiceLine(invoice);
+					iLine.setOrderLine(oLine);
+					//	Qty = Ordered - Invoiced
+					iLine.setQtyInvoiced(oLine.getQtyOrdered().subtract(oLine.getQtyInvoiced()));
+					if (oLine.getQtyOrdered().compareTo(oLine.getQtyEntered()) == 0)
+						iLine.setQtyEntered(iLine.getQtyInvoiced());
+					else
+						iLine.setQtyEntered(iLine.getQtyInvoiced().multiply(oLine.getQtyEntered())
+							.divide(oLine.getQtyOrdered(), 12, RoundingMode.HALF_UP));
+					if (!iLine.save(trx))
+					{
+						log.log(Level.SEVERE, "Could not create Invoice Line from Order Line");
+						return null;
+					}
 				}
 			}
+			
+			if (invoice.getLines().length == 0)
+			{
+				invoice.delete(true);
+				return null;
+			}
+		}
+		catch (Exception e)
+		{
+			throw new AdempiereException(e.getMessage());
 		}
 
 		return invoice;

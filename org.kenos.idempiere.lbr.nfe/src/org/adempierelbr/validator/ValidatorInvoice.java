@@ -14,8 +14,11 @@ package org.adempierelbr.validator;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.sql.Timestamp;
 import java.util.Properties;
+import java.util.logging.Level;
 
+import org.adempiere.exceptions.AdempiereException;
 import org.adempiere.model.POWrapper;
 import org.adempierelbr.model.MLBRNotaFiscal;
 import org.adempierelbr.model.MLBRTax;
@@ -44,8 +47,10 @@ import org.compiere.model.MOrder;
 import org.compiere.model.MOrderLine;
 import org.compiere.model.MPInstance;
 import org.compiere.model.MRMA;
+import org.compiere.model.MStorageOnHand;
 import org.compiere.model.MSysConfig;
 import org.compiere.model.MTax;
+import org.compiere.model.MWarehouse;
 import org.compiere.model.ModelValidationEngine;
 import org.compiere.model.ModelValidator;
 import org.compiere.model.PO;
@@ -601,6 +606,75 @@ public class ValidatorInvoice implements ModelValidator
 						return "A quantidade da Linha "+iLine.getLine()+" deve ser igual a quantidade entregue.";
 				}
 			}
+			
+			/**
+			 * Generate Receipt automatically
+			 */
+			if (!invoice.isReversal())
+			{
+				String     trx = invoice.get_TrxName();
+				
+				//InOut Document Type
+				MDocType dt = MDocType.get (ctx, invoice.getC_DocType_ID());
+				I_W_C_DocType dtW = POWrapper.create(dt, I_W_C_DocType.class);
+				
+				if (dtW.islbr_IsAutomaticShipment())
+				{				
+					// Base Type from InOut Document Type
+					String DocBaseType = dt.getDocBaseType();
+					
+					//	Order
+					MOrder order = null;
+					
+					// RMA
+					MRMA rma = null;
+					
+					// Document Type from Order or RMA
+					MDocType dtOrderRma = null;
+					I_W_C_DocType dtOrderRmaW = null;
+					
+					// If order
+					if ( invoice.getC_Order_ID() > 0)
+					{
+						order   = (MOrder) invoice.getC_Order();
+						dtOrderRma = MDocType.get (ctx, order.getC_DocTypeTarget_ID());
+						dtOrderRmaW = POWrapper.create(dtOrderRma, I_W_C_DocType.class);
+					} // Else RMA
+					else if (invoice.getM_RMA_ID() > 0)
+					{
+						rma = (MRMA) invoice.getM_RMA();
+						dtOrderRma = MDocType.get (ctx, rma.getC_DocType_ID());
+						dtOrderRmaW = POWrapper.create(dtOrderRma, I_W_C_DocType.class);
+					}
+					
+					//	O Tipo de Documento do Pedido ou ARM relacionado a Tipo de Documento da Fatura não deve estar marcado para gerar Remessa automática
+					//	Utilizado nas Faturas
+					if (dtOrderRma != null && !dtOrderRmaW.islbr_IsAutomaticInvoice() && DocBaseType != null && (DocBaseType.equals(MDocType.DOCBASETYPE_APInvoice)))
+					{
+						MInOut shipment = null;
+	
+						//	Invoice
+						if (dtW.islbr_IsAutomaticShipment())
+							// Apenas Regra de Entrega Pedido Completo ou Forçar podem gerar Expedição Automatica
+							// Forçar Pedido Completo se a Regra for Invalida para Geração Automática
+							if (!MOrder.DELIVERYRULE_CompleteOrder.equals(order.getDeliveryRule())
+								&& !MOrder.DELIVERYRULE_Force.equals(order.getDeliveryRule()))
+								order.setDeliveryRule(MOrder.DELIVERYRULE_CompleteOrder);
+							
+							shipment = createShipment(invoice, order.getDateOrdered());
+	
+						//	Complete
+						if (shipment != null)
+						{
+							String status = shipment.completeIt();
+							shipment.setDocStatus(status);
+							shipment.save(trx);
+							if (!MOrder.DOCSTATUS_Completed.equals(status))
+								return shipment.getProcessMsg();
+						}
+					}
+				}
+			}	//	After Complete
 		}	//	TIMING_AFTER_COMPLETE
 
 		/**
@@ -836,4 +910,90 @@ public class ValidatorInvoice implements ModelValidator
 			}
 		}
 	}
+	
+	/**
+	 * 	Create Shipment
+	 *	@param dt order document type
+	 *	@param movementDate optional movement date (default today)
+	 *	@return shipment or null
+	 */
+	private MInOut createShipment (MInvoice invoice, Timestamp movementDate)
+	{
+		MInOut shipment = null;
+		
+		try
+		{
+			Properties ctx = invoice.getCtx();
+			String     trx = invoice.get_TrxName();
+			MOrder order = (MOrder)invoice.getC_Order();
+			
+			MDocType docTypeShip = (MDocType)order.getC_DocTypeTarget().getC_DocTypeShipment();
+			
+			if (docTypeShip == null)
+				 throw new AdempiereException("Tipo de Documento de Recebimento/Remessa não definido");
+			
+			I_W_C_DocType docTypeShipW = POWrapper.create(docTypeShip, I_W_C_DocType.class);
+			
+			if (docTypeShipW.islbr_IsAutomaticInvoice())
+				throw new AdempiereException("Conflito com Tipo de Documento de Recebimento/Remessa que gera Fatura Automática");
+			
+			shipment = new MInOut (order, order.getC_DocTypeTarget().getC_DocTypeShipment_ID(), movementDate);
+			shipment.set_ValueNoCheck("lbr_NFEntrada", invoice.get_ValueAsString("lbr_NFEntrada"));
+		//	shipment.setDateAcct(getDateAcct());
+			if (!shipment.save(trx))
+			{
+				log.log(Level.SEVERE, "Could not create Shipment");
+				return null;
+			}
+			//
+			MOrderLine[] oLines = order.getLines(true, null);
+			for (int i = 0; i < oLines.length; i++)
+			{
+				MOrderLine oLine = oLines[i];
+				//
+				MInOutLine ioLine = new MInOutLine(shipment);
+				//	Qty = Ordered - Delivered
+				BigDecimal MovementQty = oLine.getQtyOrdered().subtract(oLine.getQtyDelivered());
+				if (MovementQty.signum() == 0)
+					continue;
+	
+				//	Location
+				Integer M_Locator_ID = (Integer)oLine.get_Value("M_Locator_ID");
+				if (M_Locator_ID == null || M_Locator_ID.intValue() == 0){
+					M_Locator_ID = MStorageOnHand.getM_Locator_ID (oLine.getM_Warehouse_ID(),
+						oLine.getM_Product_ID(), oLine.getM_AttributeSetInstance_ID(),
+						MovementQty, trx);
+				}
+				if (M_Locator_ID == 0)		//	Get default Location
+				{
+					MWarehouse wh = MWarehouse.get(ctx, oLine.getM_Warehouse_ID());
+					M_Locator_ID = wh.getDefaultLocator().getM_Locator_ID();
+				}
+				//
+				ioLine.setOrderLine(oLine, M_Locator_ID, MovementQty);
+				ioLine.setQty(MovementQty);
+				if (oLine.getQtyEntered().compareTo(oLine.getQtyOrdered()) != 0)
+					ioLine.setQtyEntered(MovementQty
+						.multiply(oLine.getQtyEntered())
+						.divide(oLine.getQtyOrdered(), 6, RoundingMode.HALF_UP));
+				if (!ioLine.save(trx))
+				{
+					log.log(Level.SEVERE, "Could not create Shipment Line");
+					return null;
+				}
+			}
+			
+			if (shipment.getLines().length == 0)
+			{
+				shipment.delete(true);
+				return null;
+			}
+			
+		}
+		catch (Exception e)
+		{
+			throw new AdempiereException(e.getMessage());
+		}
+		return shipment;
+	}	//	createShipment
 }	//	ValidatorInvoice
