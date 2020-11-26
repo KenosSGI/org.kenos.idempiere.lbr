@@ -38,6 +38,12 @@ public class BlocoC extends BlocoSPED
 	@XMLFieldProperties (id = "RC100")
 	private Set<I_RC100> rC100;
 	
+	@XMLFieldProperties (id = "RC180")
+	private Set<RC180> rC180;
+	
+	@XMLFieldProperties (id = "RC190")
+	private Set<RC190> rC190;
+	
 	@XMLFieldProperties (id = "RC500")
 	private Set<I_RC500> rC500;
 	
@@ -72,6 +78,26 @@ public class BlocoC extends BlocoSPED
 	public void setRC100(Set<I_RC100> rC100)
 	{
 		this.rC100 = rC100;
+	}
+
+	public Set<RC180> getRC180()
+	{
+		return rC180;
+	}
+
+	public void setRC180(Set<RC180> rC180)
+	{
+		this.rC180 = rC180;
+	}
+
+	public Set<RC190> getRC190()
+	{
+		return rC190;
+	}
+
+	public void setRC190(Set<RC190> rC190)
+	{
+		this.rC190 = rC190;
 	}
 
 	public Set<I_RC500> getRC500()

@@ -257,8 +257,7 @@ public class GenerateSPEDContrib extends SvrProcess
 		//	Registro 0100
 		b0.setR0100 ((R0100) SPEDUtil.fillR0100 (new R0100 (), ctx, orgInfo, trxName));
 		//	Registro 0110
-		b0.setR0110 (SPEDUtil.getR0110 (SPEDUtil.COD_INC_TRIB_CUM, SPEDUtil.IND_APRO_CRED_DIRETA, 
-				SPEDUtil.COD_TIPO_CONT_ALIQ_BASICA, ""));	//	FIXME
+		b0.setR0110 (SPEDUtil.getR0110 (SPEDUtil.COD_INC_TRIB_NAO_CUM, SPEDUtil.IND_APRO_CRED_PROPORCIONAL, SPEDUtil.COD_TIPO_CONT_ALIQ_BASICA, ""));	//	FIXME
 		
 		b0.setR0111(SPEDUtil.getR0111());
 		
@@ -270,6 +269,9 @@ public class GenerateSPEDContrib extends SvrProcess
 		b0.setR0190 (SPEDUtil.getR0190 ());
 		//	Registro 0200
 		b0.setR0200 (SPEDUtil.getR0200 ());
+		//	Registro 0500
+		b0.setR0500 (SPEDUtil.getR0500 ());
+		
 		
 		//	Registro A010
 		bA.setRA010 (SPEDUtil.getRA010 ());
