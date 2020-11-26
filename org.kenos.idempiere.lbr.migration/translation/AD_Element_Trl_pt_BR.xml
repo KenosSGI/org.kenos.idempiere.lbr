@@ -72111,4 +72111,37 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
+ <row trl="Y" uuid="257dca22-bf84-4bfa-8aea-99f130048f5b">
+  <value column="Name" original="Packing Weight">Peso Embalagem</value>
+  <value column="PrintName" original="Packing Weight">Peso Embalagem</value>
+  <value column="Description" original="Weight of the product's Packing">Informar o Peso da Embalagem do Produto</value>
+  <value column="Help" original="The Packing Weight indicates the weight  of the product's Packing in the Weight UOM of the Client">O campo Peso Embalagem indica o peso individual da Embalagem de um Produto de acordo com a Unidade de Medida padrão. Os campos Peso + Peso Embalagem são utilizados para determinar o Peso Bruto do Produto</value>
+  <value column="Placeholder" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+ </row>
+ <row trl="Y" uuid="bfb00067-ad0c-42fd-8393-6ba8cbcb181b">
+  <value column="Name" original="Qty ICMS Substitute">Qde ICMS Substituto</value>
+  <value column="PrintName" original="Qty ICMS Substitute">Qde ICMS Substituto</value>
+  <value column="Description" original="Amount Quanty related to Own Substitute ICMS">Quantidade Total do ICMS próprio do Parceiro de Negócio Substituto</value>
+  <value column="Help" original="Amount Quanty related to Own Substitute ICMS">Quantidade Total do ICMS próprio do Parceiro de Negócio Substituto</value>
+  <value column="Placeholder" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+ </row>
+ <row trl="N" uuid="8c21953b-ea62-4a1b-b20b-1714e4cca0a0">
+  <value column="Name" original="SPED Contribution">SPED Contribuições</value>
+  <value column="PrintName" original="SPED Contribution">SPED Contribuições</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="Placeholder" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+ </row>
 </idempiereTrl>

@@ -2442,4 +2442,9 @@ MRP - 110	 No exists Dem</value>
   <value column="Description" original="Fuel Installation">Fuel Installation</value>
   <value column="Help" original=""/>
  </row>
+ <row trl="Y" uuid="0ab94f5e-6254-4ee4-b89b-b6eabfa3f960">
+  <value column="Name" original="Generate SPED Contribution">Gerar SPED Contribuições</value>
+  <value column="Description" original="">Gerar SPED Contribuições</value>
+  <value column="Help" original="">A Janela "Gerar SPED Contribuições" permite ao usuário gerar arquivo SPED Contribuições do período selecionado</value>
+ </row>
 </idempiereTrl>
