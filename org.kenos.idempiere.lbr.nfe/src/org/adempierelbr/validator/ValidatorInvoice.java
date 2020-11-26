@@ -524,11 +524,20 @@ public class ValidatorInvoice implements ModelValidator
 					//	Completa a NFe automaticamente
 					if (generateNFAut)
 					{
-						String status = nf.completeIt();
-						nf.saveEx();
+						String status = null;
+						
+						try
+						{
+							status = nf.completeIt();
+							nf.saveEx();
+						}
+						catch (Exception e)
+						{
+							log.warning("Falha na geração/validação da NF automaticamente");
+						}
 						
 						//	Se completado corretamente, iniciar impressão
-						if (!MLBRNotaFiscal.DOCSTATUS_Invalid.equals(status))
+						if (MLBRNotaFiscal.DOCSTATUS_Completed.equals(status))
 						{
 							MPInstance instance = new MPInstance (ctx, 1120040, nf.getLBR_NotaFiscal_ID());
 							instance.save();
