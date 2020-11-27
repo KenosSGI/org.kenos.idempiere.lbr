@@ -15,6 +15,7 @@ package org.adempierelbr.sped.efd.bean;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
+import org.adempierelbr.annotation.XMLFieldProperties;
 import org.adempierelbr.sped.RegSped;
 
 /**
@@ -25,8 +26,13 @@ import org.adempierelbr.sped.RegSped;
  */
 public class RC141 extends RegSped {
 
+	@XMLFieldProperties(maxSize = 2, id = "NUM_PARC")
 	private String NUM_PARC;
+	
+	@XMLFieldProperties(maxSize = 8, id = "DL_VCTO")
 	private Timestamp DL_VCTO;
+	
+	@XMLFieldProperties(maxSize = 15, id = "VL_PARC")
 	private BigDecimal VL_PARC;
 
 	public RC141() {

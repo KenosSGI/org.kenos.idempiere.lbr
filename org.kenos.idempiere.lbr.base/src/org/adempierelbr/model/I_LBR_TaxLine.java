@@ -23,7 +23,7 @@ import org.compiere.util.KeyNamePair;
 
 /** Generated Interface for LBR_TaxLine
  *  @author iDempiere (generated) 
- *  @version Release 4.1
+ *  @version Release 6.2
  */
 @SuppressWarnings("all")
 public interface I_LBR_TaxLine 
@@ -106,6 +106,19 @@ public interface I_LBR_TaxLine
 	  */
 	public boolean isTaxIncluded();
 
+    /** Column name LBR_ICMSSubstituto */
+    public static final String COLUMNNAME_LBR_ICMSSubstituto = "LBR_ICMSSubstituto";
+
+	/** Set ICMS Substituto.
+	  * Valor do ICMS próprio do Substituto
+	  */
+	public void setLBR_ICMSSubstituto (BigDecimal LBR_ICMSSubstituto);
+
+	/** Get ICMS Substituto.
+	  * Valor do ICMS próprio do Substituto
+	  */
+	public BigDecimal getLBR_ICMSSubstituto();
+
     /** Column name LBR_LegalMessage_ID */
     public static final String COLUMNNAME_LBR_LegalMessage_ID = "LBR_LegalMessage_ID";
 
@@ -144,6 +157,15 @@ public interface I_LBR_TaxLine
 	  * Primary key table LBR_TaxLine
 	  */
 	public int getLBR_TaxLine_ID();
+
+    /** Column name LBR_TaxLine_UU */
+    public static final String COLUMNNAME_LBR_TaxLine_UU = "LBR_TaxLine_UU";
+
+	/** Set LBR_TaxLine_UU	  */
+	public void setLBR_TaxLine_UU (String LBR_TaxLine_UU);
+
+	/** Get LBR_TaxLine_UU	  */
+	public String getLBR_TaxLine_UU();
 
     /** Column name LBR_TaxListAmt */
     public static final String COLUMNNAME_LBR_TaxListAmt = "LBR_TaxListAmt";
