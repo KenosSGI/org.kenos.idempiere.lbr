@@ -54,7 +54,6 @@ import org.compiere.model.MOrderLine;
 import org.compiere.model.MOrgInfo;
 import org.compiere.model.MProduct;
 import org.compiere.model.Query;
-import org.compiere.model.X_C_POSPayment;
 import org.compiere.util.AdempiereUserError;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
@@ -904,7 +903,11 @@ public class NFeXMLGenerator
 					
 					//	Estados Diferentes
 					&& nf.getlbr_OrgRegion() != null && nf.getlbr_BPRegion() != null 
-					&& !nf.getlbr_OrgRegion().equals(nf.getlbr_BPRegion()))
+					&& !nf.getlbr_OrgRegion().equals(nf.getlbr_BPRegion())
+					
+					//	Não pode ser Simples Nacional
+					&& !TextUtil.match(oi.getLBR_TaxRegime(), I_W_AD_OrgInfo.LBR_TAXREGIME_SimpleNational, 
+							I_W_AD_OrgInfo.LBR_TAXREGIME_SimpleNational_MEI))
 			
 			//	Grupo ICMS Dest
 			icmsDest = true;

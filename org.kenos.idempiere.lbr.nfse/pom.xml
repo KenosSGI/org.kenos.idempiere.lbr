@@ -70,6 +70,18 @@
                   <destFileName>nfse-mogi-v100.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
+                  <groupId>local.nfse-atibaia-v100-sources</groupId>
+                  <artifactId>nfse-atibaia-v100-sources</artifactId>
+                  <version>NOT_INFORMED</version>
+                  <destFileName>nfse-atibaia-v100-sources.jar</destFileName>
+                </artifactItem>
+                <artifactItem>
+                  <groupId>local.nfse-atibaia-v100</groupId>
+                  <artifactId>nfse-atibaia-v100</artifactId>
+                  <version>NOT_INFORMED</version>
+                  <destFileName>nfse-atibaia-v100.jar</destFileName>
+                </artifactItem>
+                <artifactItem>
                   <groupId>local.nfse-palhoca-v100-sources</groupId>
                   <artifactId>nfse-palhoca-v100-sources</artifactId>
                   <version>NOT_INFORMED</version>

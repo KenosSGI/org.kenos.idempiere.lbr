@@ -70,20 +70,20 @@ public class ProcCreatePO extends SvrProcess
 		if (p_M_Requisition_ID == 0)
 			throw new IllegalArgumentException("Requisição Inválida");
 		
-		Properties ctx = getCtx();
-		String     trx = get_TrxName();
+		Properties ctx 	= getCtx();
+		String trxName 	= get_TrxName();
 		
-		MRequisition requisition = new MRequisition (ctx, p_M_Requisition_ID, trx);
-		MOrder order = new MOrder (ctx, p_C_Order_ID, trx);
+		MRequisition requisition = new MRequisition (ctx, p_M_Requisition_ID, trxName);
+		MOrder order = new MOrder (ctx, p_C_Order_ID, trxName);
 		
-		for(MRequisitionLine line : requisition.getLines())
+		if (order.getAD_Org_ID() != requisition.getAD_Org_ID())
+			return "@Error@ Organização da Requisição é diferente da Organização do Pedido";
+		
+		for (MRequisitionLine line : requisition.getLines())
 		{	
-			MOrderLine oLine = new MOrderLine(ctx,0,trx);
-			MProduct product = new MProduct(ctx,line.getM_Product_ID(),trx);
+			MOrderLine oLine = new MOrderLine(order);
+			MProduct product = new MProduct(ctx, line.getM_Product_ID(), trxName);
 			//
-			oLine.setC_Order_ID(order.getC_Order_ID());
-			oLine.setC_BPartner_ID(order.getC_BPartner_ID());
-			oLine.setC_BPartner_Location_ID(order.getC_BPartner_Location_ID());
 			oLine.setM_Product_ID(product.getM_Product_ID());
 			oLine.setM_AttributeSetInstance_ID(line.getM_AttributeSetInstance_ID());
 			oLine.setC_Charge_ID(line.getC_Charge_ID());
@@ -91,8 +91,8 @@ public class ProcCreatePO extends SvrProcess
 			oLine.setPrice(line.getPriceActual());
 			oLine.setDescription(line.getDescription());
 			oLine.setC_UOM_ID(line.getC_UOM_ID());
-			oLine.save();
-			
+			oLine.saveEx();
+			//
 			line.setC_OrderLine_ID(oLine.getC_OrderLine_ID());
 			line.save();
 		}

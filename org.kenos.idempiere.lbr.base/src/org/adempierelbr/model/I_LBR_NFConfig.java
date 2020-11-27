@@ -310,4 +310,17 @@ public interface I_LBR_NFConfig
 
 	/** Get NFe Environment	  */
 	public String getlbr_NFeEnv();
+	
+	/** Column name LBR_NFeLotMethod */
+    public static final String COLUMNNAME_LBR_NFeLotMethod = "LBR_NFeLotMethod";
+
+	/** Set Lot Method.
+	  * Method of transmission of NFe Lot
+	  */
+	public void setLBR_NFeLotMethod (String LBR_NFeLotMethod);
+
+	/** Get Lot Method.
+	  * Method of transmission of NFe Lot
+	  */
+	public String getLBR_NFeLotMethod();
 }

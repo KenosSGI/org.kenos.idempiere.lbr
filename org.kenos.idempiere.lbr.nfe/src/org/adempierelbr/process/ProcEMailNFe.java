@@ -337,25 +337,48 @@ public class ProcEMailNFe extends SvrProcess
 		}
 		//
 		if (mail.send().equals(EMail.SENT_OK))
-		{
-			//	Mark as e-mail sent
-			int count = DB.executeUpdate ("UPDATE LBR_NotaFiscal SET LBR_EMailSent='Y' WHERE LBR_NotaFiscal_ID=?", nf.getLBR_NotaFiscal_ID(), null);
-			
-			//	Force save the log
-			if (count == 1)
-			{
-				int AD_Session_ID = Env.getContextAsInt(nf.getCtx(), "#AD_Session_ID");
-				MChangeLog c = new MChangeLog (nf.getCtx(), 0, null, AD_Session_ID, MLBRNotaFiscal.Table_ID, 
-						MColumn.getColumn_ID(MLBRNotaFiscal.Table_Name, MLBRNotaFiscal.COLUMNNAME_LBR_EMailSent), 
-						nf.getLBR_NotaFiscal_ID(), nf.getAD_Client_ID(), nf.getAD_Org_ID(), nf.isLBR_EMailSent(), true, MChangeLog.EVENTCHANGELOG_Update);
-				c.save();
-			}
-		}
+			updateNFASync (nf.getLBR_NotaFiscal_ID());
+
 		else
-		{
 			return "@Error@ " + mail.getSentMsg();
-		}
 		//
 		return "@Success@";
 	}	//	sendEmailNFe
+	
+	/**
+	 * 	Update NF email sent flag. This should be async process because it can hang on a loop otherwise. 
+	 * 	@param LBR_NotaFiscal_ID
+	 */
+	private final static void updateNFASync (int LBR_NotaFiscal_ID)
+	{
+		new Thread ("Timeout") 
+		{
+			public void run ()
+			{
+				try
+				{
+					Thread.sleep (10*1000);	//	10 secs waiting time
+					
+					//	Mark as e-mail sent
+					int count = DB.executeUpdate ("UPDATE LBR_NotaFiscal SET LBR_EMailSent='Y' WHERE LBR_NotaFiscal_ID=?", LBR_NotaFiscal_ID, null);
+					
+					//	Force save the log
+					if (count == 1)
+					{
+						MLBRNotaFiscal nf = new MLBRNotaFiscal (Env.getCtx(), LBR_NotaFiscal_ID, null);
+						//
+						int AD_Session_ID = Env.getContextAsInt(nf.getCtx(), "#AD_Session_ID");
+						MChangeLog c = new MChangeLog (nf.getCtx(), 0, null, AD_Session_ID, MLBRNotaFiscal.Table_ID, 
+								MColumn.getColumn_ID(MLBRNotaFiscal.Table_Name, MLBRNotaFiscal.COLUMNNAME_LBR_EMailSent), 
+								nf.getLBR_NotaFiscal_ID(), nf.getAD_Client_ID(), nf.getAD_Org_ID(), nf.isLBR_EMailSent(), true, MChangeLog.EVENTCHANGELOG_Update);
+						c.save();
+					}
+				}
+				catch (Exception e)
+				{
+					e.printStackTrace();
+				}
+			}
+		}.start();
+	}
 }	//	ProcEMailNFe
