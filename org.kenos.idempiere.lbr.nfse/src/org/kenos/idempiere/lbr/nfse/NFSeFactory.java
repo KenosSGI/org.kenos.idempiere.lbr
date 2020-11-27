@@ -6,6 +6,7 @@ import org.adempierelbr.nfse.NFSeImpl;
 import org.adempierelbr.nfse.NFSeMogiImpl;
 import org.adempierelbr.nfse.NFSePalhocaImpl;
 import org.adempierelbr.nfse.NFSeTubaraoImpl;
+import org.adempierelbr.nfse.atibaia.NFSeAtibaiaImpl;
 import org.compiere.util.CLogger;
 import org.kenos.idempiere.lbr.base.nfse.INFSeFactory;
 
@@ -51,6 +52,10 @@ public class NFSeFactory implements INFSeFactory
 		//	São Caetano do Sul/SP
 		else if (NFSeAbrasf100Impl.SAOCAETANODOSUL_ID == p_C_City_ID)
 			return NFSeAbrasf100Impl.class;
+		
+		//	Atibaia
+		else if (NFSeAtibaiaImpl.C_City_ID == p_C_City_ID)
+			return NFSeAtibaiaImpl.class;
 		
 		//	Not Found
 		return null;

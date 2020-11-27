@@ -45,11 +45,13 @@ public class SysConfig
 	public static final String LBR_ISS_MATRIX_ENABLED 							= "LBR_ISS_MATRIX_ENABLED";
 	public static final String LBR_MATCH_SHIPMENT_RECEIPT_AND_ORDER_QTY 		= "LBR_MATCH_SHIPMENT_RECEIPT_AND_ORDER_QTY";
 	public static final String LBR_NFESPECIE 									= "LBR_NFESPECIE";
+	public static final String LBR_NFE_WAITING_TIME								= "LBR_NFE_WAITING_TIME";
 	public static final String LBR_NFSE_MOGI_PASS 								= "LBR_NFSE_MOGI_PASS";
 	public static final String LBR_NFSE_MOGI_USER 								= "LBR_NFSE_MOGI_USER";
 	public static final String LBR_NFSE_PALHOCA_PASS 							= "LBR_NFSE_PALHOCA_PASS";
 	public static final String LBR_NFSE_PALHOCA_USER 							= "LBR_NFSE_PALHOCA_USER";
 	public static final String LBR_NFSE_SP_PRINT_URL 							= "LBR_NFSE_SP_PRINT_URL";
+	public static final String LBR_NFSE_TOKEN 									= "LBR_NFSE_TOKEN";
 	public static final String LBR_OVERWRITE_ORDER_PAY_SCHEDULE					= "LBR_OVERWRITE_ORDER_PAY_SCHEDULE";
 	public static final String LBR_POG_INVOICE_COMPLETE 						= "LBR_POG_INVOICE_COMPLETE";
 	public static final String LBR_PRINT_BP_PRODUCT_NO_NF 						= "LBR_PRINT_BP_PRODUCT_NO_NF";
@@ -76,6 +78,7 @@ public class SysConfig
 	public static final String LBR_VALIDATE_UOM_CONVERT_ON_ORDERLINE 			= "LBR_VALIDATE_UOM_CONVERT_ON_ORDERLINE";
 	public static final String LBR_VENDOR 										= "LBR_VENDOR";
 	public static final String LBR_VERSION_NO 									= "LBR_VERSION_NO";
+	public static final String LBR_PRINT_ICMS_SUBSTITUTE_NF 					= "LBR_PRINT_ICMS_SUBSTITUTE_NF";
 	@Deprecated
 	public static final String LBR_VOLUME 										= "LBR_VOLUME";
 	@Deprecated

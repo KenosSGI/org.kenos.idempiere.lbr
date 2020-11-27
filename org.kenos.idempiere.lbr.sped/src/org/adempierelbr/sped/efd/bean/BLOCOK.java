@@ -112,7 +112,8 @@ public class BLOCOK {
 		result.append(rK001);
 		
 		// K100
-		result.append(rK100);
+		if (rK100 != null)
+			result.append(rK100);
 		
 		// itens, qtdes e valores
 		if(getrK200() != null)

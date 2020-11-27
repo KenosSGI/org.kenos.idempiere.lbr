@@ -805,8 +805,31 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 			if (MLBRTax.TAX_MVA == tl.getLBR_TaxName_ID())
 				setLBR_VAM (tl.getlbr_TaxRate());
 			
-			if (!tl.islbr_PostTax() || Child_Tax_ID < 1)
+			if (Child_Tax_ID < 1)
 				continue;
+			
+			if (!tl.islbr_PostTax())
+			{
+				// Devido ao calculo do ICMS Substituto, ICMSST com a Tag Contabilidade Desmarcada, Tag Preço Inclui Imposto Marcada
+				// e o Status for 60 ou 70 e o ICMS Substituto for diferente de Zero, adicionar o ICMSST na Linha
+				String status = new MLBRTaxStatus (Env.getCtx(), tl.getLBR_TaxStatus_ID(), null).getTaxStatus(isSOTrx());
+				if (MLBRTaxName.TAX_ICMSST != tl.getLBR_TaxName_ID() && !isSOTrx()
+						&& !"60".equals(status) && !"70".equals(status) && !tl.isTaxIncluded()
+						&& BigDecimal.ZERO.compareTo(tl.getLBR_ICMSSubstituto()) == 0)
+					continue;
+				else
+				{
+					if (MLBRTaxName.TAX_ICMSST == tl.getLBR_TaxName_ID()
+							&& MSysConfig.getBooleanValue(SysConfig.LBR_PRINT_ICMS_SUBSTITUTE_NF, true, getAD_Client_ID()))
+					{
+						if (BigDecimal.ZERO.compareTo(tl.getlbr_TaxAmt()) != 0)
+							appendDescription("ICMSST: R$" + tl.getlbr_TaxAmt().setScale(2, RoundingMode.HALF_UP));
+						
+						if (BigDecimal.ZERO.compareTo(tl.getLBR_ICMSSubstituto()) != 0)
+							appendDescription("ICMS Substituto: R$" + tl.getLBR_ICMSSubstituto().setScale(2, RoundingMode.HALF_UP));
+					}
+				}
+			}
 			
 			I_W_C_Tax taxAD = POWrapper.create(new MTax (getCtx(), Child_Tax_ID, get_TrxName()), I_W_C_Tax.class);
 			

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Created with Liquid Technologies Online Tools 1.0 (https://www.liquid-technologies.com) -->
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="nfe">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" name="notaFiscal">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="dadosPrestador">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="dataEmissao" type="xs:string" />
+                    <xs:element name="im" type="xs:string" />
+                    <xs:element name="numeroRps" type="xs:unsignedShort" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="dadosServico">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="bairro" type="xs:string" />
+                    <xs:element name="cep" type="xs:string" />
+                    <xs:element name="cidade" type="xs:string" />
+                    <xs:element name="complemento" type="xs:string" />
+                    <xs:element name="logradouro" type="xs:string" />
+                    <xs:element name="numero" type="xs:string" />
+                    <xs:element name="pais" type="xs:string" />
+                    <xs:element name="uf" type="xs:string" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="dadosTomador">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="bairro" type="xs:string" />
+                    <xs:element name="cep" type="xs:string" />
+                    <xs:element name="cidade" type="xs:string" />
+                    <xs:element name="complemento" type="xs:string" />
+                    <xs:element name="documento" type="xs:string" />
+                    <xs:element name="email" type="xs:string" />
+                    <xs:element name="ie" type="xs:string" />
+                    <xs:element name="logradouro" type="xs:string" />
+                    <xs:element name="nomeTomador" type="xs:string" />
+                    <xs:element name="numero" type="xs:string" />
+                    <xs:element name="pais" type="xs:string" />
+                    <xs:element name="tipoDoc" type="xs:string" />
+                    <xs:element name="uf" type="xs:string" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="detalheServico">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="cofins" type="xs:decimal" />
+                    <xs:element name="csll" type="xs:decimal" />
+                    <xs:element name="deducaoMaterial" type="xs:decimal" />
+                    <xs:element name="descontoIncondicional" type="xs:decimal" />
+                    <xs:element name="inss" type="xs:decimal" />
+                    <xs:element name="ir" type="xs:decimal" />
+                    <xs:element name="issRetido" type="xs:decimal" />
+                    <xs:element name="item">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="aliquota" type="xs:decimal" />
+                          <xs:element name="codigo" type="xs:unsignedShort" />
+                          <xs:element name="descricao" type="xs:string" />
+                          <xs:element name="valor" type="xs:decimal" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="obs" type="xs:string" />
+                    <xs:element name="pisPasep" type="xs:decimal" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="detalheAutorizacao">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="numeroNota" type="xs:unsignedShort" />
+                    <xs:element name="numeroRps" type="xs:unsignedShort" />
+                    <xs:element name="statusEmissao" type="xs:unsignedShort" />
+                    <xs:element name="codigoVerificacao" type="xs:string" />
+                    <xs:element name="messages">
+                      <xs:complexType>
+                        <xs:attribute name="code" type="xs:unsignedShort" use="required" />
+                        <xs:attribute name="message" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

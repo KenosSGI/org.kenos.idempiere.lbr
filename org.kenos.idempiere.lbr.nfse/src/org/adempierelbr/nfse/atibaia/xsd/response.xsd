@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Created with Liquid Technologies Online Tools 1.0 (https://www.liquid-technologies.com) -->
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="nfeResposta">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" name="notaFiscal">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="numeroNota" type="xs:unsignedShort" />
+              <xs:element name="numeroRps" type="xs:unsignedShort" />
+              <xs:element name="statusEmissao" type="xs:unsignedShort" />
+              <xs:element name="codigoVerificacao" type="xs:string" />
+              <xs:element name="messages">
+                <xs:complexType>
+                  <xs:attribute name="code" type="xs:unsignedShort" use="required" />
+                  <xs:attribute name="message" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

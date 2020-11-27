@@ -18,6 +18,7 @@ import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Properties;
+import java.util.Set;
 
 import org.adempierelbr.sped.SPEDUtil;
 import org.adempierelbr.sped.bean.I_R0150;
@@ -42,12 +43,16 @@ import org.adempierelbr.sped.contrib.bean.RD101;
 import org.adempierelbr.sped.contrib.bean.RD105;
 import org.adempierelbr.sped.contrib.bean.RD501;
 import org.adempierelbr.sped.contrib.bean.RD505;
+import org.adempierelbr.sped.efd.bean.R0500;
 import org.adempierelbr.util.BPartnerUtil;
 import org.adempierelbr.util.TextUtil;
 import org.apache.commons.beanutils.PropertyUtils;
+import org.compiere.model.MClientInfo;
+import org.compiere.model.MElementValue;
 import org.compiere.model.MLocation;
 import org.compiere.model.MTable;
 import org.compiere.model.Query;
+import org.compiere.model.X_M_Product_Acct;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
 
@@ -331,6 +336,80 @@ public class MLBRFactFiscal extends X_LBR_FactFiscal
 	}	//	fillR0200
 	
 	/**
+	 * 		Preenche os campos comuns do Registro 0500
+	 * 
+	 * 	@param ctx Contexto
+	 * 	@param trxName Nome da Transação
+	 */
+	public R0500 fillR0500 (Properties ctx, Set<R0500> _R0500, String trxName)
+	{
+		//	Linha Inválida
+		if (getM_Product_ID() == 0)
+			return null;		
+		//
+		MClientInfo ci = MClientInfo.get(Env.getCtx(), getAD_Client_ID());
+		//
+		X_M_Product_Acct prodAcct = new Query(Env.getCtx(), X_M_Product_Acct.Table_Name,"C_AcctSchema_ID = ? AND M_Product_ID = ?", null)
+									.setParameters(ci.getC_AcctSchema1_ID(), getM_Product_ID())
+									.first();
+		//
+		if (prodAcct == null)
+			return null;
+		
+		MElementValue ev = new MElementValue(Env.getCtx(), prodAcct.getP_Asset_A().getAccount().getC_ElementValue_ID(), null);
+		
+		R0500 r0500 = new R0500();		
+		r0500.setCOD_CTA(TextUtil.toNumeric (ev.getValue()));
+		r0500.setNOME_CTA(ev.getName());
+		r0500.setDT_ALT(ev.getCreated());
+		/*
+		01 - Contas de ativo - A
+		02 - Contas de passivo - L
+		03 - Patrimônio líquido - O
+		04 - Contas de resultado;
+		05 - Contas de compensação;
+		09 - Outras.
+		*/
+		
+		String codNatCc = "09";
+		
+		switch (ev.getAccountType())
+		{
+		case "A":
+			codNatCc = "01";
+			break;
+		case "L":
+			codNatCc = "02";
+			break;
+		case "O":
+			codNatCc = "03";
+			break;
+			
+		default:
+			codNatCc = "09";
+			break;
+		}
+		
+		r0500.setCOD_NAT_CC(codNatCc);
+		/*
+			S - Sintética (grupo de contas);
+			A - Analítica (conta)
+		*/
+		r0500.setIND_CTA(ev.isSummary() ?"S":"A");
+		r0500.setNIVEL(ev.getValue().split(".").length);
+
+		//
+		for (R0500 r : _R0500)
+		{
+			if (r.getDT_ALT().compareTo(r0500.getDT_ALT()) == 0 &&
+					r.getCOD_CTA().compareTo(r0500.getCOD_CTA()) == 0)
+				return null;
+		}
+		
+		return r0500;
+	}	//	fillR0200
+	
+	/**
 	 * 		Este registro tem o objetivo de identificar o estabelecimento da pessoa jurídica 
 	 * 	a que se referem as operações e documentos fiscais informados neste bloco. Só devem 
 	 * 	ser escriturados no Registro A010 os estabelecimentos que efetivamente tenham realizado 
@@ -367,7 +446,7 @@ public class MLBRFactFiscal extends X_LBR_FactFiscal
 		RA100 rA100 = new RA100 ();
 		rA100.setCOD_SIT(isCancelled() ? SPEDUtil.COD_SIT_CANCELADO : SPEDUtil.COD_SIT_REGULAR);
 		rA100.setIND_OPER (isSOTrx() ? SPEDUtil.IND_OPER_PRESTADO : SPEDUtil.IND_OPER_CONTRATADO);
-		rA100.setIND_EMIT (isSOTrx() ? SPEDUtil.IND_EMIT_PROPRIA : SPEDUtil.IND_EMIT_TERCEIROS);
+		rA100.setIND_EMIT (islbr_IsOwnDocument() ? SPEDUtil.IND_EMIT_PROPRIA : SPEDUtil.IND_EMIT_TERCEIROS);
 		rA100.setSER(getlbr_NFSerie());
 		rA100.setCOD_PART (getBPValue());
 		rA100.setNUM_DOC(getDocumentNo());
@@ -583,6 +662,22 @@ public class MLBRFactFiscal extends X_LBR_FactFiscal
 		rC170.setVL_BC_IPI(getIPI_TaxBaseAmt());
 		rC170.setALIQ_IPI(getIPI_TaxRate());
 		rC170.setVL_IPI(getIPI_TaxAmt());
+		
+		if (getM_Product_ID() > 0)
+		{
+			//
+			MClientInfo ci = MClientInfo.get(Env.getCtx(), getAD_Client_ID());
+			//
+			X_M_Product_Acct prodAcct = new Query(Env.getCtx(), X_M_Product_Acct.Table_Name,"C_AcctSchema_ID = ? AND M_Product_ID = ?", null)
+										.setParameters(ci.getC_AcctSchema1_ID(), getM_Product_ID())
+										.first();
+			//
+			if (prodAcct != null)
+			{
+				MElementValue ev = new MElementValue(Env.getCtx(), prodAcct.getP_Asset_A().getAccount().getC_ElementValue_ID(), null);
+				rC170.setCOD_CTA(TextUtil.toNumeric (ev.getValue()));
+			}
+		}
 		//
 		return rC170;
 	}	//	getRC170

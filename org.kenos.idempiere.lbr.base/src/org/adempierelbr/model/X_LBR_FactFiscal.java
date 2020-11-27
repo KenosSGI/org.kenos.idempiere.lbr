@@ -1983,7 +1983,7 @@ public class X_LBR_FactFiscal extends PO implements I_LBR_FactFiscal, I_Persiste
 	  */
 	public int getLine () 
 	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_Line);
+		BigDecimal ii = (BigDecimal)get_Value(COLUMNNAME_Line);
 		if (ii == null)
 			 return 0;
 		return ii.intValue();

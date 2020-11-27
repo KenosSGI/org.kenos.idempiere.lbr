@@ -54,7 +54,6 @@ import org.compiere.model.MOrderLine;
 import org.compiere.model.MOrgInfo;
 import org.compiere.model.MProduct;
 import org.compiere.model.Query;
-import org.compiere.model.X_C_POSPayment;
 import org.compiere.util.AdempiereUserError;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
@@ -904,7 +903,11 @@ public class NFeXMLGenerator
 					
 					//	Estados Diferentes
 					&& nf.getlbr_OrgRegion() != null && nf.getlbr_BPRegion() != null 
-					&& !nf.getlbr_OrgRegion().equals(nf.getlbr_BPRegion()))
+					&& !nf.getlbr_OrgRegion().equals(nf.getlbr_BPRegion())
+					
+					//	Não pode ser Simples Nacional
+					&& !TextUtil.match(oi.getLBR_TaxRegime(), I_W_AD_OrgInfo.LBR_TAXREGIME_SimpleNational, 
+							I_W_AD_OrgInfo.LBR_TAXREGIME_SimpleNational_MEI))
 			
 			//	Grupo ICMS Dest
 			icmsDest = true;
@@ -1326,6 +1329,15 @@ public class NFeXMLGenerator
 				X_LBR_NFLineTax icmsSTTax = nfl.getICMSSTTax();
 				X_LBR_NFLineTax icmsSTDEST = nfl.getICMSSTDESTTax();
 				X_LBR_NFLineTax icmsSTREMET = nfl.getICMSSTREMETTax();
+				
+				//	IE Substituto não pode ser igual ao IE do Emitente
+				if (icmsSTTax != null && nf.get_ValueAsString("LBR_IEST") != null && 
+						!nf.get_ValueAsString("LBR_IEST").isEmpty() && 
+						!toNumericStr(nf.getlbr_IE()).equals(toNumericStr(nf.get_ValueAsString("LBR_IEST"))))
+				{
+					//	IE Substituto
+					emit.setIEST(toNumericStr (nf.get_ValueAsString("LBR_IEST")));
+				}
 
 				//	CST = Código de Situação Tributária
 				int LBR_TaxStatus_ID = icmsTax.getLBR_TaxStatus_ID();
