@@ -36,6 +36,15 @@ public class RM210 extends RegSped
 	@XMLFieldProperties(isMandatory=false, id = "VL_BC_CONT")
 	private BigDecimal VL_BC_CONT;
 	
+	@XMLFieldProperties(isMandatory=false, id = "VL_AJUS_ACRES_BC_PIS")
+	private BigDecimal VL_AJUS_ACRES_BC_PIS;
+	
+	@XMLFieldProperties(isMandatory=false, id = "VL_AJUS_REDUC_BC_PIS")
+	private BigDecimal VL_AJUS_REDUC_BC_PIS;
+	
+	@XMLFieldProperties(isMandatory=false, id = "VL_BC_CONT_AJUS")
+	private BigDecimal VL_BC_CONT_AJUS;
+	
 	@XMLFieldProperties(isMandatory=false, id = "ALIQ_PIS")
 	private BigDecimal ALIQ_PIS;
 
@@ -94,8 +103,32 @@ public class RM210 extends RegSped
 	public void setVL_BC_CONT(BigDecimal vL_BC_CONT)
 	{
 		VL_BC_CONT = vL_BC_CONT;
-	}
+	}	
 	
+	public BigDecimal getVL_AJUS_ACRES_BC_PIS() {
+		return VL_AJUS_ACRES_BC_PIS;
+	}
+
+	public void setVL_AJUS_ACRES_BC_PIS(BigDecimal vL_AJUS_ACRES_BC_PIS) {
+		VL_AJUS_ACRES_BC_PIS = vL_AJUS_ACRES_BC_PIS;
+	}
+
+	public BigDecimal getVL_AJUS_REDUC_BC_PIS() {
+		return VL_AJUS_REDUC_BC_PIS;
+	}
+
+	public void setVL_AJUS_REDUC_BC_PIS(BigDecimal vL_AJUS_REDUC_BC_PIS) {
+		VL_AJUS_REDUC_BC_PIS = vL_AJUS_REDUC_BC_PIS;
+	}
+
+	public BigDecimal getVL_BC_CONT_AJUS() {
+		return VL_BC_CONT_AJUS;
+	}
+
+	public void setVL_BC_CONT_AJUS(BigDecimal vL_BC_CONT_AJUS) {
+		VL_BC_CONT_AJUS = vL_BC_CONT_AJUS;
+	}
+
 	public BigDecimal getALIQ_PIS()
 	{
 		return ALIQ_PIS;

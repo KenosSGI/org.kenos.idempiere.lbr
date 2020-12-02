@@ -17,6 +17,7 @@ import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -43,11 +44,14 @@ import org.adempierelbr.sped.bean.I_RD100;
 import org.adempierelbr.sped.bean.I_RD500;
 import org.adempierelbr.sped.contrib.bean.R0000;
 import org.adempierelbr.sped.contrib.bean.R0110;
+import org.adempierelbr.sped.contrib.bean.R0111;
 import org.adempierelbr.sped.contrib.bean.R0140;
 import org.adempierelbr.sped.contrib.bean.RA010;
 import org.adempierelbr.sped.contrib.bean.RA100;
 import org.adempierelbr.sped.contrib.bean.RA170;
 import org.adempierelbr.sped.contrib.bean.RC010;
+import org.adempierelbr.sped.contrib.bean.RC180;
+import org.adempierelbr.sped.contrib.bean.RC190;
 import org.adempierelbr.sped.contrib.bean.RD010;
 import org.adempierelbr.sped.contrib.bean.RM100;
 import org.adempierelbr.sped.contrib.bean.RM200;
@@ -63,6 +67,7 @@ import org.adempierelbr.sped.contrib.bean.RM610;
 import org.adempierelbr.sped.contrib.bean.RM611;
 import org.adempierelbr.sped.contrib.bean.RM800;
 import org.adempierelbr.sped.contrib.bean.RM810;
+import org.adempierelbr.sped.efd.bean.R0500;
 import org.adempierelbr.util.BPartnerUtil;
 import org.adempierelbr.util.TextUtil;
 import org.adempierelbr.wrapper.I_W_AD_OrgInfo;
@@ -104,7 +109,7 @@ public class SPEDUtil
 	public static final String EFD_VERSION 			= "";
 	
 	/**	Versão da EFD Contribuições */
-	public static final String CONTRIB_VERSION 		= "003";
+	public static final String CONTRIB_VERSION 		= "006";
 	
 	public static final String IND_OPER_CONTRATADO 	= "0";
 	public static final String IND_OPER_PRESTADO 	= "1";
@@ -298,6 +303,11 @@ public class SPEDUtil
 	private static Set<I_R0200> _R0200;
 	
 	/**
+	 * 	Array com todos os Registros 0500 e seus filhos
+	 */
+	private static Set<R0500> _R0500;
+	
+	/**
 	 * 	Array com todos os Registros A010 e seus filhos
 	 */
 	private static Set<RA010> _RA010;
@@ -316,6 +326,16 @@ public class SPEDUtil
 	 * 	Array com todos os Registros C100 e seus filhos
 	 */
 	private static Set<I_RC100> _RC100;
+	
+	/**
+	 * 	Array com todos os Registros C180 e seus filhos
+	 */
+	private static Map<String, RC180> _RC180;
+	
+	/**
+	 * 	Array com todos os Registros C190 e seus filhos
+	 */
+	private static Map<String, RC190> _RC190;
 	
 	/**
 	 * 	Array com todos os Registros C500 e seus filhos
@@ -392,10 +412,13 @@ public class SPEDUtil
 		_R0150 = new SPEDSet<I_R0150>();
 		_R0190 = new SPEDSet<I_R0190>();
 		_R0200 = new SPEDSet<I_R0200>();
+		_R0500 = new SPEDSet<R0500>();
 		_RA010 = new SPEDSet<RA010>();
 		_RA100 = new SPEDSet<RA100>();
 		_RC010 = new SPEDSet<RC010>();
 		_RC100 = new SPEDSet<I_RC100>();
+		_RC180 = new HashMap<String, RC180>();
+		_RC190 = new HashMap<String, RC190>();
 		_RC500 = new SPEDSet<I_RC500>();
 		_RD010 = new SPEDSet<RD010>();
 		_RD100 = new SPEDSet<I_RD100>();
@@ -407,21 +430,23 @@ public class SPEDUtil
 		//
 		for (MLBRFactFiscal fact : facts)
 		{
+			
+			_R0150.add (fact.fillR0150 (ctx, (I_R0150) getReg ("R0150", type), trxName));
+			_R0190.add (fact.fillR0190 (ctx, (I_R0190) getReg ("R0190", type), trxName));
+			_R0200.add (fact.fillR0200 (ctx, (I_R0200) getReg ("R0200", type), trxName));
+			_R0500.add(fact.fillR0500(ctx,_R0500, trxName));
+			
 			//	TEMPORARIO VIDE unqNF
 			if (unqNF.contains(fact.getLBR_NotaFiscal_ID()))
 				continue;
 			else
-				unqNF.add(fact.getLBR_NotaFiscalLine_ID());
+				unqNF.add(fact.getLBR_NotaFiscal_ID());
 			
 			String COD_MOD = fact.getlbr_NFModel();
 			
 			/**	Disparar Erro	*/
 			if (COD_MOD == null)
 				COD_MOD = "ZZ";
-			
-			_R0150.add (fact.fillR0150 (ctx, (I_R0150) getReg ("R0150", type), trxName));
-			_R0190.add (fact.fillR0190 (ctx, (I_R0190) getReg ("R0190", type), trxName));
-			_R0200.add (fact.fillR0200 (ctx, (I_R0200) getReg ("R0200", type), trxName));
 			
 			//	Contratação de Serviço (Somente Contribuições)
 			if (TextUtil.match (COD_MOD, COD_MOD_RPS) && type == TYPE_CONTRIB)
@@ -440,38 +465,70 @@ public class SPEDUtil
 			else if (TextUtil.match (COD_MOD, COD_MOD_NF, COD_MOD_NF_AVULSA, 
 					COD_MOD_NF_DE_PRODUTOR, COD_MOD_NF_ELETRONICA))
 			{
-				//	C010
-				_RC010.add (fact.getRC010 ());
-				
-				//	C100, C120, C130, C140, C141, C170, C172, C190, C195
-				_RC100.add (fact.getRC100 (ctx, (I_RC100) getReg ("RC100", type), trxName));
-				
-				if (fact.islbr_IsOwnDocument() && !fact.isCancelled())
+				//	Consolidate
+//				if (!TextUtil.match (fact.getlbr_CFOPName(), "1933"))
+//				{
+//					String consIdentifier = getConsolidateIdentifier (fact);
+//					//
+//					if (fact.isSOTrx())
+//					{
+//						RC180 rc180 = _RC180.get(consIdentifier);
+//						if (rc180 == null)
+//						{
+//							rc180 = new RC180();
+//							rc180.setDT_DOC_INI(fact.getDateDoc());
+//							rc180.setDT_DOC_FIN(fact.getDateDoc());
+//							rc180.setCOD_MOD(fact.getlbr_NFModel());
+//							rc180.setCOD_ITEM(fact.getProductValue());
+//							rc180.setCOD_NCM(fact.getlbr_NCMName());
+//							rc180.setVL_TOT_ITEM(Env.ZERO);
+//							//
+//							_RC180.put(consIdentifier, rc180);
+//						}
+//						
+//						String regIdentifier = getPISIdentifier(fact);
+//						rc180.get_RC181(regIdentifier);
+//					}
+//					else
+//					{
+//						
+//					}
+//				}
+//				else
 				{
-					I_FiscalDocItem item = (I_FiscalDocItem) new RA170();
-					item.setCST_COFINS(fact.getCOFINS_TaxStatus());
-					item.setCST_PIS(fact.getPIS_TaxStatus());
-					item.setVL_ITEM(fact.getLineNetAmt());
-					item.setALIQ_COFINS(fact.getCOFINS_TaxRate());
-					item.setALIQ_PIS(fact.getPIS_TaxRate());
+					//	C010
+					_RC010.add (fact.getRC010 ());
 					
+					//	C100, C120, C130, C140, C141, C170, C172, C190, C195
+					_RC100.add (fact.getRC100 (ctx, (I_RC100) getReg ("RC100", type), trxName));
 					
-					if (fact.isSOTrx())
+					if (fact.islbr_IsOwnDocument() && !fact.isCancelled())
 					{
-						item.setVL_COFINS(fact.getCOFINS_TaxAmt());
-						item.setVL_PIS(fact.getPIS_TaxAmt());
-						item.setVL_BC_COFINS(fact.getCOFINS_TaxBaseAmt());
-						item.setVL_BC_PIS(fact.getPIS_TaxBaseAmt());
+						I_FiscalDocItem item = (I_FiscalDocItem) new RA170();
+						item.setCST_COFINS(fact.getCOFINS_TaxStatus());
+						item.setCST_PIS(fact.getPIS_TaxStatus());
+						item.setVL_ITEM(fact.getLineNetAmt());
+						item.setALIQ_COFINS(fact.getCOFINS_TaxRate());
+						item.setALIQ_PIS(fact.getPIS_TaxRate());
+						
+						
+						if (fact.isSOTrx())
+						{
+							item.setVL_COFINS(fact.getCOFINS_TaxAmt());
+							item.setVL_PIS(fact.getPIS_TaxAmt());
+							item.setVL_BC_COFINS(fact.getCOFINS_TaxBaseAmt());
+							item.setVL_BC_PIS(fact.getPIS_TaxBaseAmt());
+						}
+						else
+						{
+							item.setVL_COFINS(Env.ZERO);
+							item.setVL_PIS(Env.ZERO);
+							item.setVL_BC_COFINS(Env.ZERO);
+							item.setVL_BC_PIS(Env.ZERO);
+						}
+						
+						items.add(item);
 					}
-					else
-					{
-						item.setVL_COFINS(Env.ZERO);
-						item.setVL_PIS(Env.ZERO);
-						item.setVL_BC_COFINS(Env.ZERO);
-						item.setVL_BC_PIS(Env.ZERO);
-					}
-					
-					items.add(item);
 				}
 				
 			}
@@ -514,6 +571,18 @@ public class SPEDUtil
 		
 	}	//	processFacts
 	
+	private static String getConsolidateIdentifier(MLBRFactFiscal fact) {
+		return fact.getlbr_NFModel() + "|" + fact.getProductValue();
+	}
+	
+	private static String getPISIdentifier(MLBRFactFiscal fact) {
+		return fact.getPIS_TaxStatus()+ "|" + fact.getlbr_CFOPName() + "|" + fact.getPIS_TaxRate();
+	}
+	
+	private static String getCOFINSIdentifier(MLBRFactFiscal fact) {
+		return fact.getCOFINS_TaxStatus()+ "|" + fact.getlbr_CFOPName() + "|" + fact.getCOFINS_TaxRate();
+	}
+
 	/**
 	 * 		Contador de Registros
 	 * 
@@ -797,6 +866,37 @@ public class SPEDUtil
 	}	//	getR0110
 	
 	/**
+	 * Este registro é de preenchimento obrigatório, sempre que for informado no Registro “0110”, Campo 03
+	 * (IND_APRO_CRED), o indicador correspondente ao método do Rateio Proporcional com base na Receita Bruta
+	 * (indicador “2”), na apuração de créditos vinculados a mais de um tipo de receita.
+	 * 
+	 * @param REC_BRU_NCUM_TRIB_MI
+	 * @param REC_BRU_NCUM_NT_MI
+	 * @param REC_BRU_NCUM_EXP
+	 * @param REC_BRU_CUM
+	 * @param REC_BRU_TOTAL
+	 * @return
+	 * @throws Exception
+	 */
+	public static R0111 getR0111 () throws Exception
+	{
+		BigDecimal REC_BRU_NCUM_TRIB_MI = BigDecimal.ZERO;
+		BigDecimal REC_BRU_NCUM_NT_MI = BigDecimal.ZERO;
+		BigDecimal REC_BRU_NCUM_EXP = BigDecimal.ZERO;
+		BigDecimal REC_BRU_CUM = BigDecimal.ZERO;
+		BigDecimal REC_BRU_TOTAL = BigDecimal.ZERO;
+		
+		R0111 r0111 = new R0111 ();
+		r0111.setREC_BRU_NCUM_TRIB_MI(REC_BRU_NCUM_TRIB_MI);
+		r0111.setREC_BRU_NCUM_NT_MI(REC_BRU_NCUM_NT_MI);
+		r0111.setREC_BRU_NCUM_EXP(REC_BRU_NCUM_EXP);
+		r0111.setREC_BRU_CUM(REC_BRU_CUM);
+		r0111.setREC_BRU_TOTAL(REC_BRU_TOTAL);
+		//
+		return r0111;
+	}	//	getR0111
+	
+	/**
 	 * 		Este registro tem por objetivo relacionar e informar os estabelecimentos da pessoa jurídica, 
 	 * 	no Brasil ou no exterior, que auferiram receitas no período da escrituração, realizaram operações 
 	 * 	com direito a créditos ou que sofreram retenções na fonte, no período da escrituração.
@@ -855,6 +955,15 @@ public class SPEDUtil
 	public static Set<I_R0200> getR0200 ()
 	{
 		return _R0200;
+	}	//	getR0200
+	
+	/**
+	 * 		Produtos
+	 * 	@return Registros 0500
+	 */
+	public static Set<R0500> getR0500 ()
+	{
+		return _R0500;
 	}	//	getR0200
 
 	/**
@@ -1029,11 +1138,13 @@ public class SPEDUtil
 			
 			for (BigDecimal key : mapValorItem.keySet())
 			{	
-				
 				RM210 rM210 = new RM210 ();
 				rM210.setCOD_CONT("51");
 				rM210.setVL_REC_BRT(mapValorItem.get(key));
 				rM210.setVL_BC_CONT(mapBCTax.get(key));
+				rM210.setVL_AJUS_ACRES_BC_PIS(Env.ZERO);
+				rM210.setVL_AJUS_REDUC_BC_PIS(Env.ZERO);
+				rM210.setVL_BC_CONT_AJUS(Env.ZERO);
 				rM210.setALIQ_PIS(key);
 				rM210.setQUANT_BC_PIS(Env.ZERO);
 				rM210.setALIQ_PIS_QUANT(null);
@@ -1046,7 +1157,6 @@ public class SPEDUtil
 				rM210.setRM211(getRM211(rM210));
 				
 				_RM210.add(rM210);
-				
 			}
 			
 			return _RM210;
@@ -1303,6 +1413,9 @@ public class SPEDUtil
 				rM610.setCOD_CONT("51");
 				rM610.setVL_REC_BRT(mapValorItem.get(key));
 				rM610.setVL_BC_CONT(mapBCTax.get(key));
+				rM610.setVL_AJUS_ACRES_BC_COFINS(BigDecimal.ZERO);
+				rM610.setVL_AJUS_REDUC_BC_COFINS(BigDecimal.ZERO);
+				rM610.setVL_BC_CONT_AJUS(BigDecimal.ZERO);
 				rM610.setALIQ_COFINS(key);
 				rM610.setQUANT_BC_COFINS(Env.ZERO);
 				rM610.setALIQ_COFINS_QUANT(null);

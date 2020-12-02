@@ -36,6 +36,15 @@ public class RM610 extends RegSped
 	@XMLFieldProperties(isMandatory=false, id = "VL_BC_CONT")
 	private BigDecimal VL_BC_CONT;
 	
+	@XMLFieldProperties(isMandatory=false, id = "VL_AJUS_ACRES_BC_COFINS")
+	private BigDecimal VL_AJUS_ACRES_BC_COFINS;
+	
+	@XMLFieldProperties(isMandatory=false, id = "VL_AJUS_REDUC_BC_COFINS")
+	private BigDecimal VL_AJUS_REDUC_BC_COFINS;
+	
+	@XMLFieldProperties(isMandatory=false, id = "VL_BC_CONT_AJUS")
+	private BigDecimal VL_BC_CONT_AJUS;
+	
 	@XMLFieldProperties(isMandatory=false, id = "ALIQ_COFINS")
 	private BigDecimal ALIQ_COFINS;
 
@@ -94,8 +103,32 @@ public class RM610 extends RegSped
 	public void setVL_BC_CONT(BigDecimal vL_BC_CONT)
 	{
 		VL_BC_CONT = vL_BC_CONT;
-	}
+	}	
 	
+	public BigDecimal getVL_AJUS_ACRES_BC_COFINS() {
+		return VL_AJUS_ACRES_BC_COFINS;
+	}
+
+	public void setVL_AJUS_ACRES_BC_COFINS(BigDecimal vL_AJUS_ACRES_BC_COFINS) {
+		VL_AJUS_ACRES_BC_COFINS = vL_AJUS_ACRES_BC_COFINS;
+	}
+
+	public BigDecimal getVL_AJUS_REDUC_BC_COFINS() {
+		return VL_AJUS_REDUC_BC_COFINS;
+	}
+
+	public void setVL_AJUS_REDUC_BC_COFINS(BigDecimal vL_AJUS_REDUC_BC_COFINS) {
+		VL_AJUS_REDUC_BC_COFINS = vL_AJUS_REDUC_BC_COFINS;
+	}
+
+	public BigDecimal getVL_BC_CONT_AJUS() {
+		return VL_BC_CONT_AJUS;
+	}
+
+	public void setVL_BC_CONT_AJUS(BigDecimal vL_BC_CONT_AJUS) {
+		VL_BC_CONT_AJUS = vL_BC_CONT_AJUS;
+	}
+
 	public BigDecimal getALIQ_COFINS()
 	{
 		return ALIQ_COFINS;
