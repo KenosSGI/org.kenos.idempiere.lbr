@@ -18,6 +18,8 @@ public class ProcessFactory implements IProcessFactory
 			return new Print ();
 		if (CopyConfig.class.getName().equals (className))
 			return new CopyConfig ();
+		if ("org.adempierelbr.process.ProcReturnCNAB".equals (className) || ReturnCNAB.class.getName().equals(className))
+			return new ReturnCNAB ();
 		return null;
 	}	//	newProcessInstance
 }	//	ProcessFactory

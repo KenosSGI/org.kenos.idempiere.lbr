@@ -4,6 +4,7 @@ import java.awt.Image;
 import java.io.File;
 import java.math.BigDecimal;
 import java.sql.ResultSet;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -13,6 +14,7 @@ import org.adempiere.model.POWrapper;
 import org.adempierelbr.model.MLBRNotaFiscal;
 import org.adempierelbr.model.MLBROpenItem;
 import org.adempierelbr.model.X_LBR_BankSlip;
+import org.adempierelbr.util.LBRUtils;
 import org.adempierelbr.util.TextUtil;
 import org.adempierelbr.wrapper.I_W_AD_OrgInfo;
 import org.adempierelbr.wrapper.I_W_C_BPartner;
@@ -30,6 +32,7 @@ import org.compiere.model.MImage;
 import org.compiere.model.MInvoice;
 import org.compiere.model.MLocation;
 import org.compiere.model.MOrgInfo;
+import org.compiere.model.MPayment;
 import org.compiere.model.MSequence;
 import org.compiere.model.MSysConfig;
 import org.compiere.model.ModelValidationEngine;
@@ -40,6 +43,7 @@ import org.compiere.process.DocOptions;
 import org.compiere.process.DocumentEngine;
 import org.compiere.util.CCache;
 import org.compiere.util.DB;
+import org.compiere.util.Env;
 import org.compiere.util.Msg;
 import org.compiere.util.TimeUtil;
 import org.jrimum.bopepo.BancosSuportados;
@@ -950,11 +954,16 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 		return DocAction.STATUS_Completed;
 	}	//	completeIt
 
+	private MLBRBankSlipMov createRegisterRequestMov ()
+	{
+		return createMovement (MLBRBankSlipOccur.TYPE_RegisterRequest);
+	}	//	createRegisterRequestMov
+	
 	/**
 	 * 	Creates a initial movement to register bank slip in the bank
 	 * 	@return null or recently created movement
 	 */
-	private MLBRBankSlipMov createRegisterRequestMov ()
+	public MLBRBankSlipMov createMovement (String movementType)
 	{
 		MLBRBankSlipLayout layout = new MLBRBankSlipLayout (getCtx(), getLBR_BankSlipLayout_ID(), get_TrxName());
 		List<MLBRBankSlipOccur> occurrences = layout.getOccurrences(true);
@@ -962,7 +971,7 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 		for (MLBRBankSlipOccur occur : occurrences)
 		{
 			//	Register Request found in layout
-			if (MLBRBankSlipOccur.TYPE_RegisterRequest.equals(occur.getType()))
+			if (movementType.equals(occur.getType()))
 			{
 				MLBRBankSlipMov mov = new MLBRBankSlipMov (this);
 				mov.setOccurrence(occur);
@@ -971,7 +980,7 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 		}
 		//	Register Request not found, may bank configuration is invalid
 		return null;
-	}	//	getRegisterRequestMov
+	}	//	createRegisterRequestMov
 
 	@Override
 	public boolean voidIt()
@@ -1223,4 +1232,69 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 	{
 		this.msg2 = msg2;
 	}	//	setMsg2
+	
+	public static MLBRBankSlip get (Properties ctx, String identifier)
+	{
+		return new Query(ctx, Table_Name, "('B' || LBR_BankSlip_ID || 'F' || (CASE WHEN C_Invoice_ID>0 THEN (SELECT i.DocumentNo FROM C_Invoice i WHERE i.C_Invoice_ID=LBR_BankSlip.C_Invoice_ID) ELSE '' END) || 'P' || lbr_PayScheduleNo)=?", null)
+			.setClient_ID()
+			.setParameters(identifier)
+			.firstOnly();
+	}	//	get
+	
+	public MPayment pay (Timestamp dateTrx, String description) throws Exception
+	{
+		return pay (dateTrx, getGrandTotal(), Env.ZERO, Env.ZERO, Env.ZERO, description);
+	}	//	pay
+	
+	public MPayment pay (Timestamp dateTrx, BigDecimal amount, BigDecimal discountAmt, BigDecimal interestAmt, BigDecimal writeOffAmt, String description) throws Exception
+	{
+		//	Amount
+		if (amount == null)
+			amount 		= Env.ZERO;
+		
+		//	Discount (positive)
+		if (discountAmt == null)
+			discountAmt 	= Env.ZERO;
+		
+		//	Write Off Amount (positive)
+		if (writeOffAmt == null)
+			writeOffAmt 	= Env.ZERO;
+		
+		//	Interest Off Amount (positive)
+		if (interestAmt == null)
+			interestAmt 	= Env.ZERO;
+		
+		if (description == null || description.isBlank())
+			description = "Documento lançado automaticamente - CNAB";
+		
+//		if (amount.add(discountAmt).add(writeOffAmt).subtract(interestAmt).compareTo(getGrandTotal()) != 0)
+//			throw new Exception (Msg.getMsg(getCtx(), "BankSlipAmountInvalid"));
+
+		MPayment payment = new MPayment (getCtx(), 0, get_TrxName());
+		payment.setC_BankAccount_ID(getC_BankAccount_ID());
+		payment.setC_DocType_ID(LBRUtils.getARReceiptDocType());
+		payment.setC_Invoice_ID(getC_Invoice_ID());
+		payment.setC_BPartner_ID(getC_BPartner_ID());
+		payment.setC_Currency_ID(getC_Currency_ID());
+		payment.setTenderType(MPayment.TENDERTYPE_DirectDebit);
+		payment.setDescription(description);
+		payment.setDateAcct(dateTrx);
+		payment.setDateTrx(dateTrx);
+		payment.setPayAmt(amount.subtract(discountAmt));
+		payment.setDiscountAmt(discountAmt.signum() == 1 ? discountAmt : interestAmt.negate());
+		payment.setWriteOffAmt(writeOffAmt);
+		
+		//	Save and process
+		payment.saveEx();
+		
+		//	Complete the payment
+		payment.setDocAction(DocAction.ACTION_Complete);
+		if (payment.processIt(DocAction.ACTION_Complete))
+			payment.saveEx();
+
+		if (DocAction.STATUS_Completed.equals(payment.getDocStatus()))
+			return payment;
+		else 
+			throw new Exception (Msg.getMsg(getCtx(), "PaymentNotCompleted"));
+	}	//	pay
 }	//	MLBRBankSlip

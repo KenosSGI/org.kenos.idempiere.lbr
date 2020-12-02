@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE PZMAP SYSTEM	"flatpack.dtd" >
+<PZMAP>
+    <RECORD id="header" startPosition="1" endPosition="1" indicator="0">
+        <COLUMN name="type" length="1" />
+        <COLUMN name="returnType" length="1" />
+        <COLUMN name="xReturnType" length="7" />
+        <COLUMN name="returnService" length="2" />
+        <COLUMN name="xReturnService" length="15" />
+        <COLUMN name="dummy1" length="50" />
+		<COLUMN name="routingNo" length="3" />
+	    <COLUMN name="headerdata" length="300" />
+	    <COLUMN name="dateFile" length="6" />
+        <COLUMN name="dummy2" length="9" />
+        <COLUMN name="lineno" length="6" />
+    </RECORD>
+	<COLUMN name="type" length="1" />
+	<COLUMN name="dummy3" length="399" />
+    <RECORD id="trailer" startPosition="1" endPosition="1" indicator="9">
+        <COLUMN name="type" length="1" />
+	    <COLUMN name="dummy4" length="399" />
+    </RECORD>
+</PZMAP> 

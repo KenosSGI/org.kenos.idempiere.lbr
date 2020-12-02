@@ -24,12 +24,15 @@ Bundle-ClassPath: .,
  lib/jrimum-utilix.jar,
  lib/log4j-api.jar,
  lib/log4j-core.jar,
- lib/itext.jar
+ lib/itext.jar,
+ lib/flatpack.jar,
+ lib/lombok.jar
 Automatic-Module-Name: org.kenos.idempiere.lbr.bankslip
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Bundle-Vendor: Kenos www.kenos.com.br
 Import-Package: org.apache.commons.io;version="2.2.0",
  org.osgi.framework;version="1.9.0",
+ org.slf4j;version="1.7.2",
  org.zkoss.util.media
 Bundle-ActivationPolicy: lazy
 Export-Package: org.kenos.idempiere.lbr.bankslip

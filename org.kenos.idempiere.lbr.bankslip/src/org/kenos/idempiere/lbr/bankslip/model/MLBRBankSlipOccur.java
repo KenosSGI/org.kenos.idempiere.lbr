@@ -4,6 +4,8 @@ import java.sql.ResultSet;
 import java.util.Properties;
 
 import org.adempierelbr.model.X_LBR_BankSlipOccur;
+import org.compiere.model.Query;
+import org.compiere.util.Env;
 
 /**
  * 	Brazilian Bank model
@@ -37,4 +39,11 @@ public class MLBRBankSlipOccur extends X_LBR_BankSlipOccur
 	{
 		super (ctx, rs, trxName);
 	}	//	MLBRBankSlipOccur
+	
+	public static MLBRBankSlipOccur get (int LBR_BankSlipLayout_ID, String value)
+	{
+		return new Query (Env.getCtx(), Table_Name, COLUMNNAME_LBR_BankSlipLayout_ID + "=? AND " + COLUMNNAME_Value+"=?", null)
+				.setParameters(LBR_BankSlipLayout_ID, value)
+				.firstOnly();
+	}	//	get
 }	//	MLBRBankSlipOccur

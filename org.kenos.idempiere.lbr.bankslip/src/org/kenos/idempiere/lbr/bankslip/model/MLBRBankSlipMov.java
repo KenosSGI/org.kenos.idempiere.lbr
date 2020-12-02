@@ -67,9 +67,30 @@ public class MLBRBankSlipMov extends X_LBR_BankSlipMov
 	 */
 	public void setOccurrence (MLBRBankSlipOccur occur)
 	{
-		setLBR_BankSlipOccur_ID(occur.getLBR_BankSlipOccur_ID());
-		//
-		setType(occur.getType());
-		setValue(occur.getValue());
+		if (occur == null)
+			setLBR_BankSlipOccur_ID(0);
+		else
+		{
+			setLBR_BankSlipOccur_ID(occur.getLBR_BankSlipOccur_ID());
+			//
+			setType(occur.getType());
+			setValue(occur.getValue());
+		}
 	}	//	setOccurrence
+	
+	@Override
+	protected boolean beforeSave(boolean newRecord)
+	{
+		MLBRBankSlip bankSlip = (MLBRBankSlip) getLBR_BankSlip();
+		//
+		if (MLBRBankSlipOccur.TYPE_Liquidation.equals(getType()))
+			bankSlip.setIsPaid(true);
+//		else if (MLBRBankSlipOccur.TYPE_RegisterConfirmed.equals(getType()))
+//			bankSlip.setLBR_IsConfirmed(true);
+			
+		if (bankSlip.is_Changed())
+			bankSlip.save();
+		
+		return true;
+	}	//	beforeSave
 }	//	MLBRBankSlipMov
