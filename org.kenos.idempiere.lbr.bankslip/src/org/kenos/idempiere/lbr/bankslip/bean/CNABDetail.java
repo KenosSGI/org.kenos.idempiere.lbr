@@ -136,9 +136,14 @@ public class CNABDetail {
         StringBuilder xErrors = new StringBuilder ();
         if (ds.getErrors() != null && ds.getErrors().size() > 0) {
         	Iterator<DataError> errors = ds.getErrors().iterator();
-            while (ds.getErrors().iterator().hasNext()) {
-            	DataError dataError = (DataError) errors.next();
-                xErrors.append("Error: ").append(dataError.getErrorDesc()).append("Line: ").append(dataError.getLineNo());
+            while (errors.hasNext()) {
+            	try {
+            		DataError dataError = (DataError) errors.next();
+                	xErrors.append("\nError: ").append(dataError.getErrorDesc()).append("Line: ").append(dataError.getLineNo());
+            	}
+            	catch (Exception e) {
+                	xErrors.append("\nError parsing the file");
+            	}
             }
         }
         
@@ -157,9 +162,14 @@ public class CNABDetail {
         //	Check for errors
         if (ds.getErrors() != null && ds.getErrors().size() > 0) {
         	Iterator<DataError> errors = ds.getErrors().iterator();
-            while (ds.getErrors().iterator().hasNext()) {
-            	DataError dataError = (DataError) errors.next();
-                xErrors.append("Error: ").append(dataError.getErrorDesc()).append("Line: ").append(dataError.getLineNo());
+            while (errors.hasNext()) {
+            	try {
+            		DataError dataError = (DataError) errors.next();
+                	xErrors.append("\nError: ").append(dataError.getErrorDesc()).append("Line: ").append(dataError.getLineNo());
+            	}
+            	catch (Exception e) {
+                	xErrors.append("\nError parsing the file");
+            	}
             }
         }
         
