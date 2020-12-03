@@ -2398,7 +2398,12 @@ For example:<br />
   <value column="Help" original=""/>
  </row>
  <row trl="Y" uuid="54eb2b6f-19e5-45ae-b7a5-90672b217e5a">
-  <value column="Name" original="Processar SPED">Processar SPED</value>
+  <value column="Name" original="Processar SPED">Processar SPED Fiscal</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="d149a49d-8b9b-4db2-ac0a-773ce3ae2a6e">
+  <value column="Name" original="Process SPED Contribution">Processar SPED Contribuições</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
  </row>

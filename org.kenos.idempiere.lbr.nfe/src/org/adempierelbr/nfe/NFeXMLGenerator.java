@@ -1329,6 +1329,15 @@ public class NFeXMLGenerator
 				X_LBR_NFLineTax icmsSTTax = nfl.getICMSSTTax();
 				X_LBR_NFLineTax icmsSTDEST = nfl.getICMSSTDESTTax();
 				X_LBR_NFLineTax icmsSTREMET = nfl.getICMSSTREMETTax();
+				
+				//	IE Substituto não pode ser igual ao IE do Emitente
+				if (icmsSTTax != null && nf.get_ValueAsString("LBR_IEST") != null && 
+						!nf.get_ValueAsString("LBR_IEST").isEmpty() && 
+						!toNumericStr(nf.getlbr_IE()).equals(toNumericStr(nf.get_ValueAsString("LBR_IEST"))))
+				{
+					//	IE Substituto
+					emit.setIEST(toNumericStr (nf.get_ValueAsString("LBR_IEST")));
+				}
 
 				//	CST = Código de Situação Tributária
 				int LBR_TaxStatus_ID = icmsTax.getLBR_TaxStatus_ID();

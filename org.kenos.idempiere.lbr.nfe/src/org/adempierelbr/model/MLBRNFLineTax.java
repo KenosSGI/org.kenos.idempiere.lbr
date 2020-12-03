@@ -123,6 +123,7 @@ public class MLBRNFLineTax extends X_LBR_NFLineTax
 		setLBR_TaxBaseType_ID(tl.getLBR_TaxBaseType_ID());
 		setQty(tl.getQty());
 		setLBR_TaxListAmt(tl.getLBR_TaxListAmt());
+		setLBR_ICMSSubstituto(tl.getLBR_ICMSSubstituto());
 	}	//	setTaxes
 	
 	/**

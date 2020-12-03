@@ -1437,6 +1437,9 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		//		ou na fatura, portanto é necessário recalcular o peso
 		if (Env.ZERO.compareTo (getlbr_GrossWeight()) == 0)
 			calculateWeight();
+		
+		if (getNoPackages() == 0)
+			calculateVolume();
 				
 		return true;
 	}	//	generateNF
@@ -1584,6 +1587,9 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		//		ou na fatura, portanto é necessário recalcular o peso
 		if (Env.ZERO.compareTo (getlbr_GrossWeight()) == 0)
 			calculateWeight();
+		
+		if (getNoPackages() == 0)
+			calculateVolume();
 				
 		return true;
 	}	//	generateNF
@@ -1818,6 +1824,8 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		if (Env.ZERO.compareTo (getlbr_GrossWeight()) == 0)
 			calculateWeight();
 		
+		if (getNoPackages() == 0)
+			calculateVolume();		
 				
 		return true;
 	}	//	generateNF
@@ -1946,6 +1954,9 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		//		ou na fatura, portanto é necessário recalcular o peso
 		if (Env.ZERO.compareTo (getlbr_GrossWeight()) == 0)
 			calculateWeight();
+		
+		if (getNoPackages() == 0)
+			calculateVolume();
 		
 		return true;
 	}	//	generateNF
@@ -2078,6 +2089,9 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		//		ou na fatura, portanto é necessário recalcular o peso
 		if (Env.ZERO.compareTo (getlbr_GrossWeight()) == 0)
 			calculateWeight();
+		
+		if (getNoPackages() == 0)
+			calculateVolume();
 		
 		return true;
 	}	//	generateNF
@@ -2770,6 +2784,14 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		{
 			MRegion region = new MRegion(getCtx(), location.getC_Region_ID(), get_TrxName());
 			setlbr_BPRegion(region.getName());		//	Estado
+			
+			for (MLBROrgIEST iest : MLBROrgIEST.getAllIEST(getAD_Org_ID(), region.getC_Region_ID()))
+			{
+				if (iest != null && iest.isValidFromTo(Env.getContextAsDate(Env.getCtx(), "Date")))
+				{
+					set_ValueNoCheck("LBR_IEST", iest.getLBR_IEST());
+				}
+			}
 		}
 	}	//	setBPartner
 	
@@ -2858,12 +2880,27 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 				//	Número de volumes definido na expedição
 				int noPackages = io.getNoPackages();
 				if (noPackages <= 0)
-					noPackages = 1;
+				{
+					BigDecimal volume = Env.ZERO;
+					
+					for (MInOutLine iol : io.getLines())
+					{
+						if (iol.getM_Product_ID() > 0)
+						{
+							volume = volume.add(iol.getMovementQty().multiply(iol.getM_Product ().getVolume()));
+						}
+					}
+					
+					if (volume.intValue() > 0)
+						setNoPackages(volume.intValue());
+					else
+						noPackages = 1;
+				}					
 				
 				//	Dados exclusivos da Expedição/Recebimento
 				setM_InOut_ID(io.getM_InOut_ID());
 				setFreightCostRule (io.getFreightCostRule());
-				setlbr_GrossWeight(io.getWeight());
+				setlbr_GrossWeight((BigDecimal)io.get_Value("lbr_GrossWeight"));
 				setlbr_NetWeight(io.getWeight());
 				setNoPackages(noPackages);
 				setDeliveryViaRule(io.getDeliveryViaRule());
@@ -2899,7 +2936,22 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 					//	Número de volumes definido na expedição
 					int noPackages = io.getNoPackages();
 					if (noPackages <= 0)
-						noPackages = 1;
+					{
+						BigDecimal volume = Env.ZERO;
+						
+						for (MInOutLine iol : io.getLines())
+						{
+							if (iol.getM_Product_ID() > 0)
+							{
+								volume = volume.add(iol.getMovementQty().multiply(iol.getM_Product ().getVolume()));
+							}
+						}
+						
+						if (volume.intValue() > 0)
+							setNoPackages(volume.intValue());
+						else
+							noPackages = 1;
+					}
 					
 					//	Volume
 					if (getNoPackages() > 0)
@@ -2909,9 +2961,9 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 					
 					//	Peso
 					if (getlbr_GrossWeight().intValue() > 0)
-						setlbr_GrossWeight(getlbr_GrossWeight().add(io.getWeight()));
+						setlbr_GrossWeight(getlbr_GrossWeight().add((BigDecimal)io.get_Value("lbr_GrossWeight")));
 					else
-						setlbr_GrossWeight(io.getWeight());
+						setlbr_GrossWeight((BigDecimal)io.get_Value("lbr_GrossWeight"));
 					
 					if (getlbr_NetWeight().intValue() > 0)
 						setlbr_NetWeight(getlbr_NetWeight().add(io.getWeight()));
@@ -4986,16 +5038,41 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 	public void calculateWeight ()
 	{
 		BigDecimal weight = Env.ZERO;
+		BigDecimal grossWeight = Env.ZERO;
+		
 		for (MLBRNotaFiscalLine nfl : getLines())
 		{
 			if (nfl.getM_Product_ID() > 0)
+			{
+				MProduct product = (MProduct) nfl.getM_Product ();
 				weight = weight.add(nfl.getQty ().multiply (nfl.getM_Product ().getWeight ()));
+				grossWeight = grossWeight.add(nfl.getQty ().multiply (nfl.getM_Product ().getWeight ().add((BigDecimal)product.get_Value("LBR_PackingWeight"))));
+			}
 		}
 		
 		//	Set both gross and net weight
-		setlbr_GrossWeight(weight);
+		setlbr_GrossWeight(grossWeight);
 		setlbr_NetWeight(weight);
 	}	//	calculateWeight
+	
+	/**
+	 * 
+	 */
+	public void calculateVolume ()
+	{
+		BigDecimal volume = Env.ZERO;
+		
+		for (MLBRNotaFiscalLine nfl : getLines())
+		{
+			if (nfl.getM_Product_ID() > 0)
+			{
+				volume = volume.add(nfl.getQty ().multiply(nfl.getM_Product ().getVolume()));
+			}
+		}
+		
+		if (volume.intValue() > 0 && getNoPackages() <= 1)
+			setNoPackages(volume.intValue());
+	}	//	calculateVolume
 
 	/**
 	 * Parse expression, replaces global or PO properties @tag@ with actual value. Differente from Env.parseVariable

@@ -126,8 +126,13 @@ public class BLOCOC {
 	
 			// Dados da Fatura
 			if(aux_rc100.getrC140() != null)
+			{
 				result.append(aux_rc100.getrC140().toString());
-	
+			
+				for (RC141 aux_rc141 : aux_rc100.getrC140().getrC141())
+					result.append(aux_rc141.toString());
+			}
+			
 			// Itens da NF
 			for(RC170 aux_rc170 : aux_rc100.getrC170())
 				result.append(aux_rc170.toString());

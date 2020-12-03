@@ -167,7 +167,16 @@ public class NotaFiscalAdditional extends ADForm
 			MLBRNotaFiscal nfTri = new MLBRNotaFiscal(Env.getCtx(), 0, trxName);
 			
 			//	Remessa
-			MInOut io = new MInOut (Env.getCtx(), (Integer)m_M_InOut_ID, trxName);
+			MInOut io = null;
+			
+			if ((Integer)m_M_InOut_ID > 0)
+				io = new MInOut (Env.getCtx(), (Integer)m_M_InOut_ID, trxName);
+			else if ((Integer)m_C_Order_ID > 0)
+			{
+				io = new Query(Env.getCtx(), MInOut.Table_Name, "C_Order_ID = ? AND DocStatus IN ('CO','CL')", trxName)
+						.setParameters(m_C_Order_ID)
+						.first();				
+			}
 			
 			// Gerando NF Triangular a partir da Remessa
 			if (io != null && io.getM_InOut_ID() > 0)
@@ -177,6 +186,9 @@ public class NotaFiscalAdditional extends ADForm
 			
 			// Evitar Reprocessamento
 			nfTri.m_justCreated = true;
+			
+			// Marcar como manual para Evitar Reprocessamento
+			nfTri.setIsManual(true);
 			
 			// Adicionar Data Atual
 			nfTri.setDateDoc(Env.getContextAsDate(Env.getCtx(), "Date"));

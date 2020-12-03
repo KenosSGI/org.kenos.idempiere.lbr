@@ -78,6 +78,7 @@ public class SysConfig
 	public static final String LBR_VALIDATE_UOM_CONVERT_ON_ORDERLINE 			= "LBR_VALIDATE_UOM_CONVERT_ON_ORDERLINE";
 	public static final String LBR_VENDOR 										= "LBR_VENDOR";
 	public static final String LBR_VERSION_NO 									= "LBR_VERSION_NO";
+	public static final String LBR_PRINT_ICMS_SUBSTITUTE_NF 					= "LBR_PRINT_ICMS_SUBSTITUTE_NF";
 	@Deprecated
 	public static final String LBR_VOLUME 										= "LBR_VOLUME";
 	@Deprecated

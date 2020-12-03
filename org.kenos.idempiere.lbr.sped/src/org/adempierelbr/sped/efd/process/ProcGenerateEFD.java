@@ -283,6 +283,9 @@ public class ProcGenerateEFD extends SvrProcess
 			
 			// 0005 - dados adicionais da org
 			bloco0.setR0005(EFDUtil.createR0005(getCtx(), p_AD_Org_ID, null));
+			
+			// 0015 - dados adicionais da org
+			bloco0.setR0015(EFDUtil.createR0015(getCtx(), p_AD_Org_ID, null));
 					 		
 			// 0100 - contator
 			bloco0.setR0100(EFDUtil.createR0100(getCtx(), p_AD_Org_ID, null));
@@ -354,6 +357,10 @@ public class ProcGenerateEFD extends SvrProcess
 							// C120 - DI
 							if(factFiscal.getLBR_NFDI_ID() > 0)
 								rc100.setrC120(EFDUtil.createRC120(factFiscal));
+							
+							// C140 FIXME
+							//if (factFiscal.getC_Invoice_ID() > 0 && MLBROpenItem.getOpenItem(factFiscal.getC_Invoice_ID(), null).length > 0)
+								//rc100.setrC140(EFDUtil.createRC140(factFiscal));
 							
 							/*
 							 *  0460 - Obs do Lançamento Fiscal
@@ -721,11 +728,15 @@ public class ProcGenerateEFD extends SvrProcess
 				pstmt.setInt(2, p_AD_Org_ID);
 				pstmt.setInt(3, p_LBR_SPED_ID);
 				
-				// K100
-				blocoK.setrK100(EFDUtil.createRK100(dateFrom, dateTo));
-				
 				// rs
 				rs  = pstmt.executeQuery ();
+				
+				// Não estiver vazio
+				if(rs.isBeforeFirst())
+				{
+					// K100
+					blocoK.setrK100(EFDUtil.createRK100(dateFrom, dateTo));
+				}
 			
 				/*
 				 *  para cada registro do inventário, gera-se um RH010 e totaliza com o RH005

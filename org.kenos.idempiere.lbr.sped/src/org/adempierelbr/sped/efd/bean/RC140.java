@@ -13,7 +13,10 @@
 package org.adempierelbr.sped.efd.bean;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.adempierelbr.annotation.XMLFieldProperties;
 import org.adempierelbr.sped.RegSped;
 
 /**
@@ -24,12 +27,27 @@ import org.adempierelbr.sped.RegSped;
  */
 public class RC140 extends RegSped {
 
+	@XMLFieldProperties(maxSize = 1, id = "IND_EMIT")
 	private String IND_EMIT;
+	
+	@XMLFieldProperties(maxSize = 2, id = "IND_TIT")
 	private String IND_TIT;
+	
+	@XMLFieldProperties(maxSize = 255, id = "DESC_TIT")
 	private String DESC_TIT;
+	
+	@XMLFieldProperties(maxSize = 60, id = "NUM_TIT")
 	private String NUM_TIT;
+	
+	@XMLFieldProperties(maxSize = 2, id = "QTD_PARC")
 	private BigDecimal QTD_PARC;
+	
+	@XMLFieldProperties(maxSize = 15, id = "IND_EMIT")
 	private BigDecimal VL_TIT;
+	
+	@XMLFieldProperties(needsValidation = true, id = "RC141", isSPEDField = false)
+	private List<RC141> rC141 = new ArrayList<RC141>();
+
 
 	/**
 	 * Constructor
@@ -84,6 +102,18 @@ public class RC140 extends RegSped {
 
 	public void setVL_TIT(BigDecimal vL_TIT) {
 		VL_TIT = vL_TIT;
+	}	
+
+	public List<RC141> getrC141() {
+		return rC141;
+	}
+
+	public void setrC141(List<RC141> rC141) {
+		this.rC141 = rC141;
+	}
+	
+	public void addrC141(RC141 rC141) {
+		this.rC141.add(rC141);
 	}
 
 	@Override
