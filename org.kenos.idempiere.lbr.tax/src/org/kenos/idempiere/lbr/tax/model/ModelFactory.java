@@ -23,6 +23,8 @@ public class ModelFactory implements IModelFactory
 			return MTaxConfigAcct.class;
 		else if (MOrder.Table_Name.equals(tableName))
 			return MOrder.class;
+		else if (MInvoice.Table_Name.equals(tableName))
+			return MInvoice.class;
 		return null;
 	}	//	getClass
 
@@ -35,6 +37,8 @@ public class ModelFactory implements IModelFactory
 			return new MTaxConfigAcct (Env.getCtx(), Record_ID, trxName);
 		else if (MOrder.Table_Name.equals(tableName))
 			return new MOrder (Env.getCtx(), Record_ID, trxName);
+		else if (MInvoice.Table_Name.equals(tableName))
+			return new MInvoice (Env.getCtx(), Record_ID, trxName);
 		return null;
 	}	//	getPO
 
@@ -47,6 +51,8 @@ public class ModelFactory implements IModelFactory
 			return new MTaxConfigAcct (Env.getCtx(), rs, trxName);
 		else if (MOrder.Table_Name.equals(tableName))
 			return new MOrder (Env.getCtx(), rs, trxName);
+		else if (MInvoice.Table_Name.equals(tableName))
+			return new MInvoice (Env.getCtx(), rs, trxName);
 		return null;
 	}	//	getPO
 }	//	ModelFactory

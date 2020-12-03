@@ -396,7 +396,13 @@ public class Match
 				+ " FULL JOIN ")
 				.append(matchToType == MATCH_ORDER ? "M_MatchPO" : "M_MatchInv")
 				.append(" m ON (lin.M_InOutLine_ID=m.M_InOutLine_ID) "
-				+ "WHERE hdr.DocStatus IN ('CO','CL')");			
+				+ "WHERE hdr.DocStatus IN ('CO','CL')");
+			
+				//	When Doc Type Is Not Sales Purchase Operation, Invoice it Not Created
+				//	So, It could not be Matched
+				m_sql.append(" AND C_Order_ID NOT IN (SELECT C_Order_ID FROM C_Order WHERE C_DocTypeTarget_ID IN " +
+							"(SELECT C_DocType_ID FROM C_DocType WHERE LBR_IsSalesPurchaseOperation='Y'))");
+			
 			if ( matchToType == MATCH_INVOICE &&   lineMatched!= null && Line_ID > 0 )
 				m_sql.append(" AND m.C_InvoiceLine_ID  = ").append(Line_ID);
 			if ( matchToType == MATCH_ORDER &&   lineMatched!= null && Line_ID > 0 )

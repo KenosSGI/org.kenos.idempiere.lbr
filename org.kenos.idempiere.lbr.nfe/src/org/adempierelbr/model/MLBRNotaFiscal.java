@@ -25,10 +25,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 import java.util.logging.Level;
+import java.util.stream.Collectors;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.adempiere.exceptions.FillMandatoryException;
@@ -3316,20 +3319,30 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 	 */
 	public void setDescription ()
 	{
-		StringBuffer description = new StringBuffer();
+		Set<String> description = new HashSet<String>();
 		
 		//	Tipo de Documento
 		if (getC_DocTypeTarget_ID() > 0 && getC_DocTypeTarget().getDocumentNote() != null)
-			description.append(parse (getC_DocTypeTarget().getDocumentNote().trim()));
+			description.add (parse (getC_DocTypeTarget().getDocumentNote().trim()));
 		
+		//	Invoice
+		if (getC_Invoice_ID()>0)
+		{
+			MInvoice invoice = new MInvoice(getCtx(),getC_Order_ID(),get_TrxName());
+			if (invoice.get_ColumnIndex(I_W_C_Order.COLUMNNAME_lbr_NFDescription) > 0 
+					&& invoice.get_Value(I_W_C_Order.COLUMNNAME_lbr_NFDescription) != null)
+			{
+				description.add (parse(invoice.get_Value("lbr_NFDescription").toString().trim()));
+			}
+		}
+		
+		//	Order or RMA
 		if (getC_Order_ID()>0)
 		{
 			MOrder order = new MOrder(getCtx(),getC_Order_ID(),get_TrxName());
-			if (order.get_Value("lbr_NFDescription")!=null)
+			if (order.get_Value(I_W_C_Order.COLUMNNAME_lbr_NFDescription)!=null)
 			{
-				if (description.length() > 0)
-					description.append("\n");
-				description.append(parse(order.get_Value("lbr_NFDescription").toString().trim()));
+				description.add (parse(order.get_Value(I_W_C_Order.COLUMNNAME_lbr_NFDescription).toString().trim()));
 			}
 		}
 		else if (getM_RMA_ID() > 0)
@@ -3338,14 +3351,12 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 			MRMA rma = (MRMA) getM_RMA();
 			
 			// Nota Fiscal indicada na RMA
-			MLBRNotaFiscal nfrma = new MLBRNotaFiscal (Env.getCtx(), rma.get_ValueAsInt("LBR_NotaFiscal_ID"), null);
+			MLBRNotaFiscal nfrma = new MLBRNotaFiscal (Env.getCtx(), rma.get_ValueAsInt(MLBRNotaFiscal.COLUMNNAME_LBR_NotaFiscal_ID), null);
 			
 			// Verifica se a NF Indicada no RMA é uma NF-e
 			if (nfrma.getLBR_NotaFiscal_ID() > 0)
 			{
-				if (description.length() > 0)
-					description.append("\n");
-				description.append(parse("Devolução referente a NF " + nfrma.getDocumentNo() + " Emitida em " + TextUtil.timeToString(nfrma.getDateTrx(), "dd/MM/yyyy") + " no Valor de R$ " + TextUtil.toNumeric(nfrma.getGrandTotal()) + "".trim()));	
+				description.add (parse("Devolução referente a NF " + nfrma.getDocumentNo() + " Emitida em " + TextUtil.timeToString(nfrma.getDateTrx(), "dd/MM/yyyy") + " no Valor de R$ " + TextUtil.toNumeric(nfrma.getGrandTotal()) + "".trim()));	
 			}
 		}
 		else if (getM_Movement_ID() > 0)
@@ -3355,34 +3366,32 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 			if (mov.get_ValueAsInt("LBR_ProductionGroup_ID") > 0)
 			{
 				MLBRProductionGroup pg = new MLBRProductionGroup (Env.getCtx(), mov.get_ValueAsInt("LBR_ProductionGroup_ID"), get_TrxName());
-				if (description.length() > 0)
-					description.append("\n");
-				description.append("Pedido de Industrialização: " + pg.getDocumentNo());
+				description.add ("Pedido de Industrialização: " + pg.getDocumentNo());
 			}
 		}
 		
+		//	InOut
 		if (getM_InOut_ID() > 0)
 		{
 			MInOut io = new MInOut (getCtx(), getM_InOut_ID(), get_TrxName());
 			if (io.get_ValueAsInt("LBR_MDFeDriver_ID") > 0)
 			{
 				X_LBR_MDFeDriver driver = new X_LBR_MDFeDriver (getCtx(), io.get_ValueAsInt("LBR_MDFeDriver_ID"), null);
-				description.append("\nMotorista: ").append(driver.getName());
-				
+				description.add ("Motorista: " + driver.getName());
+				//
 				if (driver.getlbr_CPF() != null)
-					description.append("/CPF: ").append(driver.getlbr_CPF());
+					description.add ("CPF: " + driver.getlbr_CPF());
 			}
 		}
 		
-		// Descrição NF Referênciada
+		//	Descrição NF Referênciada
 		for (MLBRNotaFiscalDocRef nfref : MLBRNotaFiscalDocRef.get(getLBR_NotaFiscal_ID(), get_TrxName()))
 		{
-			if (description.length() > 0)
-				description.append("\n");			
-			description.append(parse("Chave de Acesso da NF-e Referenciada: " + nfref.getlbr_NFeID() + "".trim()));	
+			description.add (parse("Chave de Acesso da NF-e Referenciada: " + nfref.getlbr_NFeID() + "".trim()));	
 		}
 		
-		setDescription(parse (description.toString()).replace("\n\n\n", "\n\n"));
+		//	Set description
+		setDescription (description.stream().filter(s -> !s.isBlank()).collect(Collectors.joining("\n")));
 	}	//	setDescription
 	
 	/**************************************************************************

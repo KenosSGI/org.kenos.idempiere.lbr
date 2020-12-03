@@ -18,5 +18,5 @@ ALTER TABLE M_InOut ADD lbr_GrossWeight NUMBER DEFAULT 0
 INSERT INTO AD_Field (AD_Field_ID,Name,Description,Help,AD_Tab_ID,AD_Column_ID,IsDisplayed,DisplayLogic,DisplayLength,SeqNo,IsSameLine,IsHeading,IsFieldOnly,IsEncrypted,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,IsReadOnly,IsCentrallyMaintained,EntityType,AD_Field_UU,IsDisplayedGrid,SeqNoGrid,XPosition,ColumnSpan,NumLines,IsQuickEntry,IsDefaultFocus,IsAdvancedField) VALUES (1130097,'Gross Weight','Defines the Gross Weight','Defines the Gross Weight',257,1132769,'Y','@DeliveryViaRule@=S',22,258,'N','N','N','N',0,0,'Y',TO_DATE('2020-11-18 14:39:21','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2020-11-18 14:39:21','YYYY-MM-DD HH24:MI:SS'),100,'N','Y','LBRA','765e771e-7d03-48e5-9cd1-b7ad95d32a99','Y',120,1,2,1,'N','N','N')
 ;
 
-SELECT Register_Migration_Script ('20201118_GrossWeightOnShipment.sql') FROM DUAL
+SELECT Register_Migration_Script ('202011181700_GrossWeightOnShipment.sql') FROM DUAL
 ;
