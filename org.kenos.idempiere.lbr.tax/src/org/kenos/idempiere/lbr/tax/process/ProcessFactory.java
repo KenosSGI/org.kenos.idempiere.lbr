@@ -20,6 +20,8 @@ public class ProcessFactory implements IProcessFactory
 			return new ReProcessOrder ();
 		if (org.compiere.process.CopyFromOrder.class.getName().equals(className))
 			return new CopyFromOrder ();
+		if (CreateFromCashPlanLine.class.getName().equals (className))
+			return new CreateFromCashPlanLine ();
 		return null;
 	}
 }	//	CalloutFactory
