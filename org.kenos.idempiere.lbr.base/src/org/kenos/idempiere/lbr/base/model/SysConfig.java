@@ -79,6 +79,7 @@ public class SysConfig
 	public static final String LBR_VENDOR 										= "LBR_VENDOR";
 	public static final String LBR_VERSION_NO 									= "LBR_VERSION_NO";
 	public static final String LBR_PRINT_ICMS_SUBSTITUTE_NF 					= "LBR_PRINT_ICMS_SUBSTITUTE_NF";
+	public static final String LBR_CALC_VOLUME_QTYLINE_AUT 						= "LBR_CALC_VOLUME_QTYLINE_AUT";
 	@Deprecated
 	public static final String LBR_VOLUME 										= "LBR_VOLUME";
 	@Deprecated
