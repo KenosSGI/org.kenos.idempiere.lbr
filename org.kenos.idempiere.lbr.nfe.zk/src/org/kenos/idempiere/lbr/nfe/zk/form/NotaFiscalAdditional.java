@@ -35,6 +35,7 @@ import org.compiere.model.MInOut;
 import org.compiere.model.MInvoice;
 import org.compiere.model.MOrder;
 import org.compiere.model.MQuery;
+import org.compiere.model.MRefList;
 import org.compiere.model.MRole;
 import org.compiere.model.Query;
 import org.compiere.util.CLogger;
@@ -70,10 +71,10 @@ public class NotaFiscalAdditional extends ADForm
 	protected Object m_M_InOut_ID = -1;
 	
 	/** Nota Fiscal Addicional Type */
-	protected final String TYPE_NOTAFISCAL_ADDITIONAL_COMPLEMENTAR = "C";
-	protected final String TYPE_NOTAFISCAL_ADDITIONAL_ENTREGAFUTURA = "F";
-	protected final String TYPE_NOTAFISCAL_ADDITIONAL_TRIANGULAR = "T";
-	protected final String TYPE_NOTAFISCAL_ADDITIONAL_ANULACAOVALORES = "A";
+	protected final String TYPE_NOTAFISCAL_ADDITIONAL_COMPLEMENTAR 		= "C";
+	protected final String TYPE_NOTAFISCAL_ADDITIONAL_ENTREGAFUTURA 	= "F";
+	protected final String TYPE_NOTAFISCAL_ADDITIONAL_TRIANGULAR 		= "T";
+	protected final String TYPE_NOTAFISCAL_ADDITIONAL_ANULACAOVALORES 	= "A";
 	
 	/**	Result Table	*/
 	protected WListbox miniTableNF = new WListbox();
@@ -557,17 +558,19 @@ public class NotaFiscalAdditional extends ADForm
 				line.add(Boolean.valueOf(false));					//  0-Selection
 				KeyNamePair knp = new KeyNamePair(rs.getInt("LBR_NotaFiscalLine_ID"), rs.getString("Line"));
 				//
-				line.add(knp);									//  1-DocumentNo
-				line.add(rs.getString("ProductName"));	//  4-Production Qty
-				line.add(rs.getString("cfop"));	//  5-Production Qty
-				line.add(rs.getBigDecimal("Qty"));		//  6-Movement Qty
-				line.add(rs.getBigDecimal("Price"));		//  7-Price Entered
-				line.add(rs.getBigDecimal("GrandTotal"));		//  8-Grand Total
+				line.add(knp);										//  1-DocumentNo
+				line.add(rs.getString("ProductName"));				//  4-Production Qty
+				line.add(rs.getString("cfop"));						//  5-Production Qty
+				line.add(rs.getBigDecimal("Qty"));					//  6-Movement Qty
+				line.add(rs.getBigDecimal("Price"));				//  7-Price Entered
+				line.add(rs.getBigDecimal("GrandTotal"));			//  8-Grand Total
 				line.add(rs.getBigDecimal("lbr_TaxBaseAmt"));		//  9-Grand Total
-				line.add(rs.getBigDecimal("lbr_TaxRate"));		//  9-Grand Total
-				line.add(rs.getBigDecimal("lbr_TaxAmt"));		//  9-Grand Total
-				String status = rs.getString("DocStatus");		//  10-Document Status
-				line.add(status);
+				line.add(rs.getBigDecimal("lbr_TaxRate"));			//  9-Grand Total
+				line.add(rs.getBigDecimal("lbr_TaxAmt"));			//  9-Grand Total
+				String status = rs.getString("DocStatus");			//  10-Document Status
+				//
+				String statusTrl = MRefList.getListName (Env.getCtx(), 1120212, status);
+				line.add(statusTrl != null ? statusTrl : status);
 				data.add(line);		
 				
 			}

@@ -790,7 +790,7 @@ public class NFeXMLGenerator
 				{
 					//	CNPJ ou CPF
 					String cnpjf = toNumericStr (nf.getlbr_BPDeliveryCNPJ());
-
+					
 					if (cnpjf.length() == 11)
 						retOuEntreg.setCPF(toNumericStr (nf.getlbr_BPDeliveryCNPJ()));
 					
