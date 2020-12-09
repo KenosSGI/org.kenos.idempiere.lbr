@@ -955,14 +955,15 @@ public class ValidatorInvoice implements ModelValidator
 				return null;
 			}
 			//
-			MOrderLine[] oLines = order.getLines(true, null);
-			for (int i = 0; i < oLines.length; i++)
+			MInvoiceLine[] iLines = invoice.getLines();
+			for (int i = 0; i < iLines.length; i++)
 			{
-				MOrderLine oLine = oLines[i];
+				MInvoiceLine iLine = iLines[i];
+				MOrderLine oLine = (MOrderLine)iLine.getC_OrderLine();
 				//
 				MInOutLine ioLine = new MInOutLine(shipment);
 				//	Qty = Ordered - Delivered
-				BigDecimal MovementQty = oLine.getQtyOrdered().subtract(oLine.getQtyDelivered());
+				BigDecimal MovementQty = iLine.getQtyInvoiced();						
 				if (MovementQty.signum() == 0)
 					continue;
 	
@@ -990,6 +991,9 @@ public class ValidatorInvoice implements ModelValidator
 					log.log(Level.SEVERE, "Could not create Shipment Line");
 					return null;
 				}
+				
+				iLine.setM_InOutLine_ID(ioLine.getM_InOutLine_ID());
+				iLine.save();
 			}
 			
 			if (shipment.getLines().length == 0)
