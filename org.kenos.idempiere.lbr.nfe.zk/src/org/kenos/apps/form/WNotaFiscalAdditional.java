@@ -359,11 +359,11 @@ public class WNotaFiscalAdditional extends NotaFiscalAdditional implements IForm
 			{
 				for (int i = 0; i < miniTableNF.getItemCount(); i++)
     			{
-					miniTableNF.setValueAt("0", i, 5);
-					miniTableNF.setValueAt("0", i, 6);
-					miniTableNF.setValueAt("0", i, 7);
-					miniTableNF.setValueAt("0", i, 8);
-					miniTableNF.setValueAt("0", i, 9);
+					miniTableNF.setValueAt(Env.ZERO, i, 5);
+					miniTableNF.setValueAt(Env.ZERO, i, 6);
+					miniTableNF.setValueAt(Env.ZERO, i, 7);
+					miniTableNF.setValueAt(Env.ZERO, i, 8);
+					miniTableNF.setValueAt(Env.ZERO, i, 9);
     			}
 			}
 			else  if(eventName.equals(Events.ON_CLICK))
@@ -373,7 +373,7 @@ public class WNotaFiscalAdditional extends NotaFiscalAdditional implements IForm
 	    			selectAllProd = (selectAllProd ? false : true);
 	    			for (int i = 0; i < miniTableNF.getItemCount(); i++)
 	    			{
-	    				miniTableNF.setValueAt(new Boolean (selectAllProd), i, 0);
+	    				miniTableNF.setValueAt(Boolean.valueOf(selectAllProd), i, 0);
 	    			}
 	    		}   		
 	        }
