@@ -282,7 +282,7 @@ public class SPEDUtil
 	public static final String COD_MOD_CT_ELETRONICO 						= "57";
 	
 	/**	Recibo Provisório de Serviço */
-	public static final String COD_MOD_RPS = "RS";	//	FIXME: Criar script para adicionar RPS, sendo a chave RS (2 Dígitos)
+	public static final String COD_MOD_RPS = "RS";
 
 	/**	Outras Receitas				*/
 	public static final String NAT_REC_OUTRAS_DESP = "999";

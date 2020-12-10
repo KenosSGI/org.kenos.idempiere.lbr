@@ -16,9 +16,7 @@
  *****************************************************************************/
 package org.adempierelbr.wrapper;
 
-import java.math.BigDecimal;
-import org.compiere.model.*;
-import org.compiere.util.KeyNamePair;
+import org.compiere.model.I_M_Product;
 
 /** Generated Interface for M_Product
  *  @author iDempiere (generated) 
@@ -264,4 +262,57 @@ public interface I_W_M_Product extends I_M_Product
 	  * Service Code used for Nota Fiscal de Servicos Eletronica
 	  */
 	public String getlbr_ServiceCode();
+	
+	/** Column name lbr_ProductSource */
+    public static final String COLUMNNAME_LBR_NAT_BC_CRED = "LBR_NAT_BC_CRED";
+    
+    /** 01 Aquisição de bens para revenda */
+    public static final String LBR_NAT_BC_CRED_01_AquisicaodeBensparaRevenda = "01";
+    /** 02 Aquisição de bens utilizados como insumo */
+    public static final String LBR_NAT_BC_CRED_02_AquisicaodeBensUtilizadoscomoInsumo = "02";
+    /** 03 Aquisição de serviços utilizados como insumo */
+    public static final String LBR_NAT_BC_CRED_03_AquisicaodeServicosUtilizadoscomoInsumo = "03";
+    /** 04 Energia elétrica e térmica, inclusive sob a forma de vapor */
+    public static final String LBR_NAT_BC_CRED_04_EnergiaEletricaeTermicaInclusivesobaformadevapor = "04";
+    /** 05 Aluguéis de prédios */
+    public static final String LBR_NAT_BC_CRED_05_AlugueisdePredios = "05";
+    /** 06 Aluguéis de máquinas e equipamentos */
+    public static final String LBR_NAT_BC_CRED_06_AlugueisdeMaquinaseEquipamentos = "06";
+    /** 07 Armazenagem de mercadoria e frete na operação de venda */
+    public static final String LBR_NAT_BC_CRED_07_ArmazenagemdeMercadoriaeFretenaOperacaodevenda = "07";
+    /** 08 Contraprestações de arrendamento mercantil */
+    public static final String LBR_NAT_BC_CRED_08_ContraPrestacoesdeArrendamentoMercantil = "08";
+    /** 09 Máquinas, equipamentos e outros bens incorporados ao ativo imobilizado (crédito sobre encargos de
+    depreciação). */
+    public static final String LBR_NAT_BC_CRED_09_MaquinasEquipamentoseOutrosBensIncorporadosaoAtivoImobilizadoCreditoSobreencargosdeDepreciacao = "09";
+    /** 10 Máquinas, equipamentos e outros bens incorporados ao ativo imobilizado (crédito com base no valor de
+    aquisição). */
+    public static final String LBR_NAT_BC_CRED_10_MaquinasEquipamentoseOutrosBensIncorporadosaoAtivoImobilizadoCreditocombasenoValordeAquisicao = "10";
+    /** 11 Amortização e Depreciação de edificações e benfeitorias em imóveis */
+    public static final String LBR_NAT_BC_CRED_11_AmortizacaoeDepreciacaodeEdificacoeseBenfeitoriasemImoveis = "11";
+    /** 12 Devolução de Vendas Sujeitas à Incidência Não-Cumulativa */
+    public static final String LBR_NAT_BC_CRED_12_DevolucaodeVendasSujeitasaIncidenciaNaoCumulativa = "12";
+    /** 13 Outras Operações com Direito a Crédito */
+    public static final String LBR_NAT_BC_CRED_13_OutrasOperacoescomDireitoaCredito = "13";
+    /** 14 Atividade de Transporte de Cargas – Subcontratação */
+    public static final String LBR_NAT_BC_CRED_14_AtividadedeTransportedeCargasSubcontratacao = "14";
+    /** 15 Atividade Imobiliária – Custo Incorrido de Unidade Imobiliária */
+    public static final String LBR_NAT_BC_CRED_15_AtividadeImobiliariaCustoIncorridodeUnidadeImobiliaria = "15";
+    /** 16 Atividade Imobiliária – Custo Orçado de unidade não concluída */
+    public static final String LBR_NAT_BC_CRED_16_AtividadeImobiliariaCustoOrcadodeUnidadenaoConcluida = "16";
+    /** 17 Atividade de Prestação de Serviços de Limpeza, Conservação e Manutenção – vale-transporte, vale-
+    refeição ou vale-alimentação, fardamento ou uniforme. */
+    public static final String LBR_NAT_BC_CRED_17_AtividadedePrestacaodeServicosdeLimpezaConservacaoeManutencaoValeTransporteValeRefeicaoouValeAlimentacaoFardamentoouUniforme = "17";
+    /** 18 Estoque de abertura de bens */
+    public static final String LBR_NAT_BC_CRED_18_EstoquedeAberturadeBens = "18";
+	
+	/** Set Cód. BC de Crédito
+	  * Cód. BC de Crédito
+	  */
+	public void setLBR_NAT_BC_CRED (String LBR_NAT_BC_CRED);
+
+	/** Get Cód. BC de Crédito
+	  * Cód. BC de Crédito
+	  */
+	public String getLBR_NAT_BC_CRED();
 }
