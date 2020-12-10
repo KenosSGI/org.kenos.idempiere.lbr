@@ -1,6 +1,7 @@
 package org.kenos.idempiere.lbr.tax.process;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -152,6 +153,7 @@ public class CreateFromCashPlanLine extends SvrProcess
 		String     trx = trxName;
 		MDocType dt = MDocType.get(Env.getCtx(), p_C_DocType_ID);
 
+		//
 		int C_BPartner_ID = 0;
 		MCashPlan cp = null;
 		MPriceList pl = MPriceList.get(Env.getCtx(), p_M_PriceList_ID, trxName);
@@ -191,6 +193,7 @@ public class CreateFromCashPlanLine extends SvrProcess
 					m_invoice.setAD_Org_ID(c_org_id);
 					m_invoice.setC_DocTypeTarget_ID(dt.getC_DocType_ID());
 					m_invoice.setDateInvoiced(cpl.getDateTrx());
+					m_invoice.setIsSOTrx(cp.isSOTrx());
 					m_invoice.setM_PriceList_ID(p_M_PriceList_ID);
 					MBPartner partner = new MBPartner(Env.getCtx(), cpl.getC_BPartner_ID(), trxName);
 					I_W_C_BPartner wPartner = POWrapper.create(partner, I_W_C_BPartner.class);
@@ -233,39 +236,55 @@ public class CreateFromCashPlanLine extends SvrProcess
 				MInvoiceLine iLine = new MInvoiceLine(m_invoice);
 				MBPartner bp = new MBPartner(Env.getCtx(), C_BPartner_ID, trxName);
 				MProductPrice pp = null;
-				MProduct p = (MProduct)cpl.getM_Product();
-				//
-				iLine.setProduct(p);
-				//	Qty = Ordered - Invoiced
-				iLine.setQty(cpl.getQtyEntered());
 				
-				//
-				iLine.setLine(count);
-				
-				count = count + 1;
-			
-				//
-				iLine.setTax();
+				BigDecimal priceUnit = BigDecimal.ZERO;
 
-				if (pl == null && bp.getM_PriceList() != null)
-				{
-					pl = (MPriceList) bp.getM_PriceList();
-				}					
+				int scale = 2;
 				
-				MPriceListVersion version = pl.getPriceListVersion(cpl.getDateTrx());
-	
-				if (version != null)
+				if (cpl.getM_Product_ID() > 0)
+					scale = cpl.getM_Product().getC_UOM().getStdPrecision();
+				
+				// Price Unit
+				if (cpl.getLineTotalAmt().compareTo(BigDecimal.ZERO) > 0)
+					priceUnit = cpl.getLineTotalAmt().divide(cpl.getQtyEntered(), scale, RoundingMode.HALF_EVEN);
+				
+				// Product
+				if (cpl.getM_Product_ID() > 0)
 				{
-					pp = MProductPrice.get(Env.getCtx(), version.getM_PriceList_Version_ID(), cpl.getM_Product_ID(), trxName);
+					MProduct p = (MProduct)cpl.getM_Product();
+					//
+					iLine.setProduct(p);
+					//	Qty = Ordered - Invoiced
+					iLine.setQty(cpl.getQtyEntered());					
 					
-					if (pp != null)
-						iLine.setPrice(pp.getPriceStd());
-					else
-						iLine.setPrice(BigDecimal.ZERO);
+					// Price List not informed, get from Business Partner
+					if (pl == null && bp.getM_PriceList() != null)
+						pl = (MPriceList) bp.getM_PriceList();
+					
+					// Valid Version
+					MPriceListVersion version = pl.getPriceListVersion(cpl.getDateTrx());
+		
+					if (version != null)
+					{
+						pp = MProductPrice.get(Env.getCtx(), version.getM_PriceList_Version_ID(), cpl.getM_Product_ID(), trxName);					
+						
+						// PriceUnit is still zero, get from Price List
+						if (pp != null && BigDecimal.ZERO.compareTo(priceUnit) >= 0)
+							priceUnit = pp.getPriceStd();
+					}
 				}
-				else
-					iLine.setPrice(BigDecimal.ZERO);
-								
+				
+				// Charge
+				iLine.setC_Charge_ID(iLine.getC_Charge_ID());
+				
+				//
+				iLine.setLine(count);				
+				count = count + 1;
+				
+				//
+				iLine.setPrice(priceUnit);
+
+				//
 				if (!iLine.save())
 				{
 					log.log(Level.SEVERE, "Could not create Invoice Line from CashPlan Line " + cpl.getC_CashPlanLine_ID());
