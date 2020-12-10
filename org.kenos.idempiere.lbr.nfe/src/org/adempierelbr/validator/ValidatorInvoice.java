@@ -28,6 +28,7 @@ import org.adempierelbr.model.MLBRTaxStatus;
 import org.adempierelbr.model.MPaymentTerm;
 import org.adempierelbr.nfe.NFeXMLGenerator;
 import org.adempierelbr.process.PrintFromXML;
+import org.adempierelbr.wrapper.I_W_AD_ClientInfo;
 import org.adempierelbr.wrapper.I_W_C_DocType;
 import org.adempierelbr.wrapper.I_W_C_Invoice;
 import org.adempierelbr.wrapper.I_W_C_InvoiceLine;
@@ -37,6 +38,7 @@ import org.adempierelbr.wrapper.I_W_M_InOut;
 import org.compiere.model.MAllocationHdr;
 import org.compiere.model.MAllocationLine;
 import org.compiere.model.MClient;
+import org.compiere.model.MClientInfo;
 import org.compiere.model.MDocType;
 import org.compiere.model.MInOut;
 import org.compiere.model.MInOutLine;
@@ -954,11 +956,29 @@ public class ValidatorInvoice implements ModelValidator
 				log.log(Level.SEVERE, "Could not create Shipment");
 				return null;
 			}
+			
+			//	Despesas Adicionais
+			MClientInfo cInfo = MClientInfo.get (invoice.getCtx(), invoice.getAD_Client_ID());
+			I_W_AD_ClientInfo cInfoW = POWrapper.create(cInfo, I_W_AD_ClientInfo.class);
+			
 			//
 			MInvoiceLine[] iLines = invoice.getLines();
 			for (int i = 0; i < iLines.length; i++)
 			{
 				MInvoiceLine iLine = iLines[i];
+				
+				/**
+				 * 	Estes valores já foram ajustado no nível do cabeçalho,
+				 * 		portanto devem ser ignorados
+				 */
+				if (iLine.getM_Product_ID() > 0
+						&& (iLine.getM_Product_ID() == cInfoW.getM_ProductFreight_ID()
+						|| iLine.getM_Product_ID() == cInfoW.getLBR_ProductInsurance_ID()
+						|| iLine.getM_Product_ID() == cInfoW.getLBR_ProductOtherCharges_ID()
+						|| iLine.getM_Product_ID() == cInfoW.getLBR_ProductSISCOMEX_ID()
+						|| iLine.getM_Product_ID() == cInfoW.getLBR_ProductWithhold_ID()))
+					continue;
+				
 				MOrderLine oLine = (MOrderLine)iLine.getC_OrderLine();
 				//
 				MInOutLine ioLine = new MInOutLine(shipment);
@@ -971,13 +991,18 @@ public class ValidatorInvoice implements ModelValidator
 				Integer M_Locator_ID = (Integer)oLine.get_Value("M_Locator_ID");
 				if (M_Locator_ID == null || M_Locator_ID.intValue() == 0){
 					M_Locator_ID = MStorageOnHand.getM_Locator_ID (oLine.getM_Warehouse_ID(),
-						oLine.getM_Product_ID(), oLine.getM_AttributeSetInstance_ID(),
+						iLine.getM_Product_ID(), iLine.getM_AttributeSetInstance_ID(),
 						MovementQty, trx);
 				}
 				if (M_Locator_ID == 0)		//	Get default Location
 				{
-					MWarehouse wh = MWarehouse.get(ctx, oLine.getM_Warehouse_ID());
-					M_Locator_ID = wh.getDefaultLocator().getM_Locator_ID();
+					if (iLine.getM_Product() != null && iLine.getM_Product().getM_Locator_ID() > 0)
+						M_Locator_ID = iLine.getM_Product().getM_Locator_ID();
+					else
+					{
+						MWarehouse wh = MWarehouse.get(ctx, oLine.getM_Warehouse_ID());
+						M_Locator_ID = wh.getDefaultLocator().getM_Locator_ID();
+					}
 				}
 				//
 				ioLine.setOrderLine(oLine, M_Locator_ID, MovementQty);
