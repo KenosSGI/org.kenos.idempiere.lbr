@@ -59,6 +59,8 @@ public class CreateFromCashPlanLine extends SvrProcess
 	
 	private int 		p_M_PriceList_ID = 0;
 	
+	private int 		countInvoices = 0;
+	
 	/**
 	 *  Prepare - e.g., get Parameters.
 	 */
@@ -129,10 +131,11 @@ public class CreateFromCashPlanLine extends SvrProcess
 			//	Salvar	
 			Trx.get (trxName, false).commit();
 			
-			return "@Sucess@ - Ação efetuada";
+			return "@Sucess@ - " + countInvoices + " fatura(s) gerada(s)";
 		}
 		catch (Exception e)
 		{
+			Trx.get (trxName, false).rollback();
 			return e.getMessage();
 		}
 		finally
@@ -231,6 +234,8 @@ public class CreateFromCashPlanLine extends SvrProcess
 						log.log(Level.SEVERE, "Could not create Invoice " + cpl.getC_CashPlanLine_ID());
 						continue;
 					}
+					countInvoices = countInvoices + 1;
+					addLog(m_invoice.getC_Invoice_ID(), m_invoice.getDateInvoiced(), m_invoice.getGrandTotal(), m_invoice.getDocumentNo(), m_invoice.get_Table_ID(), m_invoice.getC_Invoice_ID());
 				}
 				
 				MInvoiceLine iLine = new MInvoiceLine(m_invoice);
@@ -332,6 +337,7 @@ public class CreateFromCashPlanLine extends SvrProcess
 			{
 				m_invoice.delete(true);
 				log.log(Level.SEVERE, "Could not create Invoice Line from CashPlan ");
+				countInvoices = countInvoices - 1;
 			}
 		}
 		catch (Exception e)
