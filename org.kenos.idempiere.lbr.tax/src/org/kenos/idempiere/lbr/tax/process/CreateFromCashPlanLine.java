@@ -95,6 +95,13 @@ public class CreateFromCashPlanLine extends SvrProcess
 	 */
 	protected String doIt () throws Exception
 	{
+		
+		if (p_M_PriceList_ID == 0)
+			throw new AdempiereException("Lista de Preço Obrigatório");
+			
+		if (p_C_DocType_ID == 0)
+			throw new AdempiereException("Tipo de Documento Obrigatório");
+			
 		if (p_Record_IDs.length <= 0)
 		{	
 			p_Record_IDs = new int[1];
@@ -131,7 +138,7 @@ public class CreateFromCashPlanLine extends SvrProcess
 			//	Salvar	
 			Trx.get (trxName, false).commit();
 			
-			return "@Sucess@ - " + countInvoices + " fatura(s) gerada(s)";
+			return countInvoices + " fatura(s) gerada(s)";
 		}
 		catch (Exception e)
 		{
@@ -197,10 +204,17 @@ public class CreateFromCashPlanLine extends SvrProcess
 					m_invoice.setC_DocTypeTarget_ID(dt.getC_DocType_ID());
 					m_invoice.setDateInvoiced(cpl.getDateTrx());
 					m_invoice.setIsSOTrx(cp.isSOTrx());
-					m_invoice.setM_PriceList_ID(p_M_PriceList_ID);
 					MBPartner partner = new MBPartner(Env.getCtx(), cpl.getC_BPartner_ID(), trxName);
 					I_W_C_BPartner wPartner = POWrapper.create(partner, I_W_C_BPartner.class);
 					m_invoice.setC_BPartner_ID(cpl.getC_BPartner_ID());
+					
+					if (cp.isSOTrx() && wPartner.getM_PriceList_ID() > 0)
+						p_M_PriceList_ID = wPartner.getM_PriceList_ID();
+					
+					else if (!cp.isSOTrx() && wPartner.getPO_PriceList_ID() > 0)
+						p_M_PriceList_ID = wPartner.getPO_PriceList_ID();
+					
+					m_invoice.setM_PriceList_ID(p_M_PriceList_ID);
 					m_invoice.setDescription("Criado a partir do Planejamento de Conta - " + cp.getDocumentNo());
 					
 					for (MBPartnerLocation loc : MBPartnerLocation.getForBPartner(Env.getCtx(), C_BPartner_ID, trxName))
@@ -280,7 +294,7 @@ public class CreateFromCashPlanLine extends SvrProcess
 				}
 				
 				// Charge
-				iLine.setC_Charge_ID(iLine.getC_Charge_ID());
+				iLine.setC_Charge_ID(cpl.getC_Charge_ID());
 				
 				//
 				iLine.setLine(count);				
