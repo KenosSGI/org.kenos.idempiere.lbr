@@ -267,14 +267,18 @@ public class CreateFromCashPlanLine extends SvrProcess
 				if (cpl.getLineTotalAmt().compareTo(BigDecimal.ZERO) > 0)
 					priceUnit = cpl.getLineTotalAmt().divide(cpl.getQtyEntered(), scale, RoundingMode.HALF_EVEN);
 				
+				//	Qty = Ordered - Invoiced
+				iLine.setQty(cpl.getQtyEntered());
+				
+				//
+				iLine.setPrice(priceUnit);
+				
 				// Product
 				if (cpl.getM_Product_ID() > 0)
 				{
 					MProduct p = (MProduct)cpl.getM_Product();
 					//
 					iLine.setProduct(p);
-					//	Qty = Ordered - Invoiced
-					iLine.setQty(cpl.getQtyEntered());					
 					
 					// Price List not informed, get from Business Partner
 					if (pl == null && bp.getM_PriceList() != null)
@@ -298,10 +302,7 @@ public class CreateFromCashPlanLine extends SvrProcess
 				
 				//
 				iLine.setLine(count);				
-				count = count + 1;
-				
-				//
-				iLine.setPrice(priceUnit);
+				count = count + 1;				
 
 				//
 				if (!iLine.save())
