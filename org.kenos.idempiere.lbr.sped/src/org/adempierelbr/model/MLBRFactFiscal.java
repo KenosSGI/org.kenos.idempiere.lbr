@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Properties;
 import java.util.Set;
 
+import org.adempiere.model.POWrapper;
 import org.adempierelbr.sped.SPEDUtil;
 import org.adempierelbr.sped.bean.I_R0150;
 import org.adempierelbr.sped.bean.I_R0190;
@@ -46,10 +47,12 @@ import org.adempierelbr.sped.contrib.bean.RD505;
 import org.adempierelbr.sped.efd.bean.R0500;
 import org.adempierelbr.util.BPartnerUtil;
 import org.adempierelbr.util.TextUtil;
+import org.adempierelbr.wrapper.I_W_M_Product;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.compiere.model.MClientInfo;
 import org.compiere.model.MElementValue;
 import org.compiere.model.MLocation;
+import org.compiere.model.MProduct;
 import org.compiere.model.MTable;
 import org.compiere.model.Query;
 import org.compiere.model.X_M_Product_Acct;
@@ -496,8 +499,33 @@ public class MLBRFactFiscal extends X_LBR_FactFiscal
 		rA170.setDESCR_COMPL (getProductName());
 		rA170.setVL_ITEM (getLineNetAmt());
 		rA170.setVL_DESC (getDiscountAmt());
-		rA170.setNAT_BC_CRED (null);	//	TODO: Não Obrigatório
-		rA170.setIND_ORIG_CRED (null);	//	TODO: Não Obrigatório
+		
+		/*Código da base de cálculo do crédito, conforme a
+		Tabela indicada no item 4.3.7, caso seja informado
+		código representativo de crédito no Campo 09
+		(CST_PIS) ou no Campo 13 (CST_COFINS).*/
+		String natBcCred = null;
+		String indOrigCred = null;
+		MProduct p = (MProduct) getM_Product();
+		
+		if (p != null &&
+				(TextUtil.match(getPIS_TaxStatus(),"50", "51", "52", "53", "54", "55", "56") || 
+						TextUtil.match(getCOFINS_TaxStatus(),"50", "51", "52", "53", "54", "55", "56")))
+		{
+			I_W_M_Product wp = POWrapper.create(p, I_W_M_Product.class);
+			natBcCred = wp.getLBR_NAT_BC_CRED();
+		}
+		
+		if (natBcCred != null)
+		{
+			if (MLBRNotaFiscal.LBR_TRANSACTIONTYPE_Import.equals(getLBR_NotaFiscal().getlbr_TransactionType()))
+				indOrigCred = "1";
+			else
+				indOrigCred = "0";
+		}
+		
+		rA170.setNAT_BC_CRED (natBcCred);
+		rA170.setIND_ORIG_CRED (indOrigCred);
 		rA170.setCST_PIS (getPIS_TaxStatus());
 		rA170.setVL_BC_PIS (getPIS_TaxBaseAmt());
 		rA170.setALIQ_PIS (getPIS_TaxRate());
