@@ -640,6 +640,11 @@ public class MLBRFactFiscal extends X_LBR_FactFiscal
 
 	private RC120 getRC120 () throws Exception
 	{
+		//Se a operação não for referente a importação
+		if (getLBR_NotaFiscal() != null && getLBR_NotaFiscal().getlbr_TransactionType() != null
+				&& !MLBRNotaFiscal.LBR_TRANSACTIONTYPE_Import.equals(getLBR_NotaFiscal().getlbr_TransactionType()))
+			return null;
+		
 		RC120 rC120 = new RC120();
 		
 		/**
