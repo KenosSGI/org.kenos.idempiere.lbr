@@ -424,7 +424,7 @@ public class ValidatorInOut implements ModelValidator
 					MInvoice invoice = null;
 	
 					//	Invoice
-					if (dtW.islbr_IsAutomaticInvoice())
+					if (dtW.islbr_IsAutomaticInvoice() && order != null)
 						invoice = createInvoice(order, dt, inOut, inOut.getMovementDate());
 	
 					//	Complete

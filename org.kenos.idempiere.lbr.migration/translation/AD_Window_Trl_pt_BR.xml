@@ -2313,7 +2313,7 @@ MRP - 110	 No exists Dem</value>
   <value column="Help" original="">Nesta janela é possível registrar eventos para uma NF-e emitida por você (Carta de Correção ou Cancelamento) ou por terceiros (Manifestação).</value>
  </row>
  <row trl="Y" uuid="e882718d-e8cb-4575-9272-2efa8031237d">
-  <value column="Name" original="Gerar SPED">Gerar SPED</value>
+  <value column="Name" original="Gerar SPED">Gerar SPED Fiscal</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
  </row>

@@ -28,6 +28,7 @@ import org.adempierelbr.model.MLBRTaxStatus;
 import org.adempierelbr.model.MPaymentTerm;
 import org.adempierelbr.nfe.NFeXMLGenerator;
 import org.adempierelbr.process.PrintFromXML;
+import org.adempierelbr.wrapper.I_W_AD_ClientInfo;
 import org.adempierelbr.wrapper.I_W_C_DocType;
 import org.adempierelbr.wrapper.I_W_C_Invoice;
 import org.adempierelbr.wrapper.I_W_C_InvoiceLine;
@@ -37,6 +38,7 @@ import org.adempierelbr.wrapper.I_W_M_InOut;
 import org.compiere.model.MAllocationHdr;
 import org.compiere.model.MAllocationLine;
 import org.compiere.model.MClient;
+import org.compiere.model.MClientInfo;
 import org.compiere.model.MDocType;
 import org.compiere.model.MInOut;
 import org.compiere.model.MInOutLine;
@@ -558,11 +560,20 @@ public class ValidatorInvoice implements ModelValidator
 					//	Completa a NFe automaticamente
 					if (generateNFAut)
 					{
-						String status = nf.completeIt();
-						nf.saveEx();
+						String status = null;
+						
+						try
+						{
+							status = nf.completeIt();
+							nf.saveEx();
+						}
+						catch (Exception e)
+						{
+							log.warning("Falha na geração/validação da NF automaticamente");
+						}
 						
 						//	Se completado corretamente, iniciar impressão
-						if (!MLBRNotaFiscal.DOCSTATUS_Invalid.equals(status))
+						if (MLBRNotaFiscal.DOCSTATUS_Completed.equals(status))
 						{
 							MPInstance instance = new MPInstance (ctx, 1120040, nf.getLBR_NotaFiscal_ID());
 							instance.save();
@@ -945,15 +956,34 @@ public class ValidatorInvoice implements ModelValidator
 				log.log(Level.SEVERE, "Could not create Shipment");
 				return null;
 			}
+			
+			//	Despesas Adicionais
+			MClientInfo cInfo = MClientInfo.get (invoice.getCtx(), invoice.getAD_Client_ID());
+			I_W_AD_ClientInfo cInfoW = POWrapper.create(cInfo, I_W_AD_ClientInfo.class);
+			
 			//
-			MOrderLine[] oLines = order.getLines(true, null);
-			for (int i = 0; i < oLines.length; i++)
+			MInvoiceLine[] iLines = invoice.getLines();
+			for (int i = 0; i < iLines.length; i++)
 			{
-				MOrderLine oLine = oLines[i];
+				MInvoiceLine iLine = iLines[i];
+				
+				/**
+				 * 	Estes valores já foram ajustado no nível do cabeçalho,
+				 * 		portanto devem ser ignorados
+				 */
+				if (iLine.getM_Product_ID() > 0
+						&& (iLine.getM_Product_ID() == cInfoW.getM_ProductFreight_ID()
+						|| iLine.getM_Product_ID() == cInfoW.getLBR_ProductInsurance_ID()
+						|| iLine.getM_Product_ID() == cInfoW.getLBR_ProductOtherCharges_ID()
+						|| iLine.getM_Product_ID() == cInfoW.getLBR_ProductSISCOMEX_ID()
+						|| iLine.getM_Product_ID() == cInfoW.getLBR_ProductWithhold_ID()))
+					continue;
+				
+				MOrderLine oLine = (MOrderLine)iLine.getC_OrderLine();
 				//
 				MInOutLine ioLine = new MInOutLine(shipment);
 				//	Qty = Ordered - Delivered
-				BigDecimal MovementQty = oLine.getQtyOrdered().subtract(oLine.getQtyDelivered());
+				BigDecimal MovementQty = iLine.getQtyInvoiced();						
 				if (MovementQty.signum() == 0)
 					continue;
 	
@@ -961,13 +991,18 @@ public class ValidatorInvoice implements ModelValidator
 				Integer M_Locator_ID = (Integer)oLine.get_Value("M_Locator_ID");
 				if (M_Locator_ID == null || M_Locator_ID.intValue() == 0){
 					M_Locator_ID = MStorageOnHand.getM_Locator_ID (oLine.getM_Warehouse_ID(),
-						oLine.getM_Product_ID(), oLine.getM_AttributeSetInstance_ID(),
+						iLine.getM_Product_ID(), iLine.getM_AttributeSetInstance_ID(),
 						MovementQty, trx);
 				}
 				if (M_Locator_ID == 0)		//	Get default Location
 				{
-					MWarehouse wh = MWarehouse.get(ctx, oLine.getM_Warehouse_ID());
-					M_Locator_ID = wh.getDefaultLocator().getM_Locator_ID();
+					if (iLine.getM_Product() != null && iLine.getM_Product().getM_Locator_ID() > 0)
+						M_Locator_ID = iLine.getM_Product().getM_Locator_ID();
+					else
+					{
+						MWarehouse wh = MWarehouse.get(ctx, oLine.getM_Warehouse_ID());
+						M_Locator_ID = wh.getDefaultLocator().getM_Locator_ID();
+					}
 				}
 				//
 				ioLine.setOrderLine(oLine, M_Locator_ID, MovementQty);
@@ -981,6 +1016,9 @@ public class ValidatorInvoice implements ModelValidator
 					log.log(Level.SEVERE, "Could not create Shipment Line");
 					return null;
 				}
+				
+				iLine.setM_InOutLine_ID(ioLine.getM_InOutLine_ID());
+				iLine.save();
 			}
 			
 			if (shipment.getLines().length == 0)

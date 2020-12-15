@@ -256,6 +256,7 @@ public class WPAttributeDialog extends Window implements EventListener<Event>
 		if (m_M_Product_ID == 0 && !m_productWindow)
 			return false;
 		
+		boolean windowAccess = Boolean.TRUE.equals(MRole.getDefault().getWindowAccess (MTable.get(Env.getCtx(), MAttributeSetInstance.Table_ID).getAD_Window_ID()));
 		MAttributeSet as = null;
 		
 		int M_AttributeSet_ID = Env.getContextAsInt(Env.getCtx(), m_WindowNoParent, "M_AttributeSet_ID");
@@ -352,9 +353,7 @@ public class WPAttributeDialog extends Window implements EventListener<Event>
 			{
 				cbNewEdit.setLabel(Msg.getMsg(Env.getCtx(), "EditRecord"));
 				//
-				MRole role = MRole.get (Env.getCtx(), Env.getAD_Role_ID(Env.getCtx()));
-				Boolean windowAccess = role.getWindowAccess (MTable.get(Env.getCtx(), MAttributeSetInstance.Table_ID).getAD_Window_ID());
-				if (windowAccess == null || !windowAccess)
+				if (!windowAccess)
 					cbNewEdit.setEnabled(false);
 			}
 			cbNewEdit.addEventListener(Events.ON_CHECK, this);
@@ -529,6 +528,9 @@ public class WPAttributeDialog extends Window implements EventListener<Event>
 		row.appendChild(label);
 		row.appendChild(fieldDescription);
 		ZKUpdateUtil.setHflex(fieldDescription, "1");
+		
+		if (!windowAccess)
+			cmd_select();
 		
 		return true;
 	}	//	initAttribute
