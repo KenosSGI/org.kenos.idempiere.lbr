@@ -5067,7 +5067,7 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 	 */
 	public void calculateVolume ()
 	{
-		BigDecimal volume = Env.ONE;
+		BigDecimal volume = Env.ZERO;
 		
 		// Calc Volume Automatic
 		if (MSysConfig.getBooleanValue(SysConfig.LBR_CALC_VOLUME_QTYLINE_AUT, false, Env.getAD_Client_ID(Env.getCtx())))
@@ -5081,7 +5081,10 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 			}
 		}
 		
-		if (volume.intValue() > 0 && getNoPackages() <= 1)
+		if (volume.intValue() == 0)
+			volume = Env.ONE;
+		
+			if (getNoPackages() <= 1)
 			setNoPackages(volume.intValue());
 	}	//	calculateVolume
 

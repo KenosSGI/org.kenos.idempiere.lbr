@@ -89,6 +89,7 @@ public class RA100 extends RegSped
 	@XMLFieldProperties(isMandatory=false, id = "VL_ISS")
 	private BigDecimal VL_ISS;
 	
+	@XMLFieldProperties (id = "RA170")
 	private Set<RA170> _RA170 = new SPEDSet<RA170>();
 
 	/**

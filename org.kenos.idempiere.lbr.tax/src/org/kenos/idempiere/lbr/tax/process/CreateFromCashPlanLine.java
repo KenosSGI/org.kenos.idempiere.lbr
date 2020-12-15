@@ -1,6 +1,7 @@
 package org.kenos.idempiere.lbr.tax.process;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -34,7 +35,6 @@ import org.compiere.util.Trx;
  *	Create Invoice From Cash Plan Line
  *	@version $Id: CreateFromCashPlanLine.java, v1.0 2020/12/04 12:05:44, kenos_rfeitosa Exp $
  *	@author Rogério Feitosa (Kenos, www.kenos.com.br)
- *
  */
 public class CreateFromCashPlanLine extends SvrProcess
 {
@@ -57,6 +57,8 @@ public class CreateFromCashPlanLine extends SvrProcess
 	private String		p_docAction = DocAction.ACTION_Complete;
 	
 	private int 		p_M_PriceList_ID = 0;
+	
+	private int 		countInvoices = 0;
 	
 	/**
 	 *  Prepare - e.g., get Parameters.
@@ -92,6 +94,13 @@ public class CreateFromCashPlanLine extends SvrProcess
 	 */
 	protected String doIt () throws Exception
 	{
+		
+		if (p_M_PriceList_ID == 0)
+			throw new AdempiereException("Lista de Preço Obrigatório");
+			
+		if (p_C_DocType_ID == 0)
+			throw new AdempiereException("Tipo de Documento Obrigatório");
+			
 		if (p_Record_IDs.length <= 0)
 		{	
 			p_Record_IDs = new int[1];
@@ -128,17 +137,18 @@ public class CreateFromCashPlanLine extends SvrProcess
 			//	Salvar	
 			Trx.get (trxName, false).commit();
 			
-			return "@Sucess@ - Ação efetuada";
+			return countInvoices + " fatura(s) gerada(s)";
 		}
 		catch (Exception e)
 		{
+			Trx.get (trxName, false).rollback();
 			return e.getMessage();
 		}
 		finally
 		{
 			Trx.get (trxName, false).close();			
 		}
-	}
+	}	//	doIt
 	
 	/**
 	 * 	Create Invoice
@@ -152,6 +162,7 @@ public class CreateFromCashPlanLine extends SvrProcess
 		String     trx = trxName;
 		MDocType dt = MDocType.get(Env.getCtx(), p_C_DocType_ID);
 
+		//
 		int C_BPartner_ID = 0;
 		MCashPlan cp = null;
 		MPriceList pl = MPriceList.get(Env.getCtx(), p_M_PriceList_ID, trxName);
@@ -191,10 +202,20 @@ public class CreateFromCashPlanLine extends SvrProcess
 					m_invoice.setAD_Org_ID(c_org_id);
 					m_invoice.setC_DocTypeTarget_ID(dt.getC_DocType_ID());
 					m_invoice.setDateInvoiced(cpl.getDateTrx());
-					m_invoice.setM_PriceList_ID(p_M_PriceList_ID);
+					m_invoice.setDateAcct(cpl.getDateTrx());
+					m_invoice.setIsSOTrx(cp.isSOTrx());
+					m_invoice.setC_CashPlanLine_ID(cpl.getC_CashPlanLine_ID());
 					MBPartner partner = new MBPartner(Env.getCtx(), cpl.getC_BPartner_ID(), trxName);
 					I_W_C_BPartner wPartner = POWrapper.create(partner, I_W_C_BPartner.class);
 					m_invoice.setC_BPartner_ID(cpl.getC_BPartner_ID());
+					
+					if (cp.isSOTrx() && wPartner.getM_PriceList_ID() > 0)
+						p_M_PriceList_ID = wPartner.getM_PriceList_ID();
+					
+					else if (!cp.isSOTrx() && wPartner.getPO_PriceList_ID() > 0)
+						p_M_PriceList_ID = wPartner.getPO_PriceList_ID();
+					
+					m_invoice.setM_PriceList_ID(p_M_PriceList_ID);
 					m_invoice.setDescription("Criado a partir do Planejamento de Conta - " + cp.getDocumentNo());
 					
 					for (MBPartnerLocation loc : MBPartnerLocation.getForBPartner(Env.getCtx(), C_BPartner_ID, trxName))
@@ -228,44 +249,63 @@ public class CreateFromCashPlanLine extends SvrProcess
 						log.log(Level.SEVERE, "Could not create Invoice " + cpl.getC_CashPlanLine_ID());
 						continue;
 					}
+					countInvoices = countInvoices + 1;
+					addLog(m_invoice.getC_Invoice_ID(), m_invoice.getDateInvoiced(), m_invoice.getGrandTotal(), m_invoice.getDocumentNo(), m_invoice.get_Table_ID(), m_invoice.getC_Invoice_ID());
 				}
 				
 				MInvoiceLine iLine = new MInvoiceLine(m_invoice);
 				MBPartner bp = new MBPartner(Env.getCtx(), C_BPartner_ID, trxName);
 				MProductPrice pp = null;
-				MProduct p = (MProduct)cpl.getM_Product();
-				//
-				iLine.setProduct(p);
+				
+				BigDecimal priceUnit = BigDecimal.ZERO;
+
+				int scale = 2;
+				
+				if (cpl.getM_Product_ID() > 0)
+					scale = cpl.getM_Product().getC_UOM().getStdPrecision();
+				
+				// Price Unit
+				if (cpl.getLineTotalAmt().compareTo(BigDecimal.ZERO) > 0)
+					priceUnit = cpl.getLineTotalAmt().divide(cpl.getQtyEntered(), scale, RoundingMode.HALF_EVEN);
+				
 				//	Qty = Ordered - Invoiced
 				iLine.setQty(cpl.getQtyEntered());
 				
 				//
-				iLine.setLine(count);
+				iLine.setPrice(priceUnit);
 				
-				count = count + 1;
-			
-				//
-				iLine.setTax();
-
-				if (pl == null && bp.getM_PriceList() != null)
+				// Product
+				if (cpl.getM_Product_ID() > 0)
 				{
-					pl = (MPriceList) bp.getM_PriceList();
-				}					
-				
-				MPriceListVersion version = pl.getPriceListVersion(cpl.getDateTrx());
-	
-				if (version != null)
-				{
-					pp = MProductPrice.get(Env.getCtx(), version.getM_PriceList_Version_ID(), cpl.getM_Product_ID(), trxName);
+					MProduct p = (MProduct)cpl.getM_Product();
+					//
+					iLine.setProduct(p);
 					
-					if (pp != null)
-						iLine.setPrice(pp.getPriceStd());
-					else
-						iLine.setPrice(BigDecimal.ZERO);
+					// Price List not informed, get from Business Partner
+					if (pl == null && bp.getM_PriceList() != null)
+						pl = (MPriceList) bp.getM_PriceList();
+					
+					// Valid Version
+					MPriceListVersion version = pl.getPriceListVersion(cpl.getDateTrx());
+		
+					if (version != null)
+					{
+						pp = MProductPrice.get(Env.getCtx(), version.getM_PriceList_Version_ID(), cpl.getM_Product_ID(), trxName);					
+						
+						// PriceUnit is still zero, get from Price List
+						if (pp != null && BigDecimal.ZERO.compareTo(priceUnit) >= 0)
+							priceUnit = pp.getPriceStd();
+					}
 				}
-				else
-					iLine.setPrice(BigDecimal.ZERO);
-								
+				
+				// Charge
+				iLine.setC_Charge_ID(cpl.getC_Charge_ID());
+				
+				//
+				iLine.setLine(count);				
+				count = count + 1;				
+
+				//
 				if (!iLine.save())
 				{
 					log.log(Level.SEVERE, "Could not create Invoice Line from CashPlan Line " + cpl.getC_CashPlanLine_ID());
@@ -281,7 +321,8 @@ public class CreateFromCashPlanLine extends SvrProcess
 	    			log.warning ("Imposto não encontrado");
 	    		else
 	    		{
-	    			Map<Integer, MLBRTaxLine> taxes = (Map<Integer, MLBRTaxLine>) taxation[0];
+	    			@SuppressWarnings("unchecked")
+					Map<Integer, MLBRTaxLine> taxes = (Map<Integer, MLBRTaxLine>) taxation[0];
 					
 					//	Ajusta os Impostos
 					if (ilW.getLBR_Tax_ID() == 0 && taxes != null && taxes.size() > 0)
@@ -313,6 +354,7 @@ public class CreateFromCashPlanLine extends SvrProcess
 			{
 				m_invoice.delete(true);
 				log.log(Level.SEVERE, "Could not create Invoice Line from CashPlan ");
+				countInvoices = countInvoices - 1;
 			}
 		}
 		catch (Exception e)
@@ -322,5 +364,4 @@ public class CreateFromCashPlanLine extends SvrProcess
 
 		return null;
 	}	//	createInvoice
-
-}
+}	//	CreateFromCashPlanLine
