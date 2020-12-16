@@ -35,7 +35,6 @@ import org.compiere.util.Trx;
  *	Create Invoice From Cash Plan Line
  *	@version $Id: CreateFromCashPlanLine.java, v1.0 2020/12/04 12:05:44, kenos_rfeitosa Exp $
  *	@author Rogério Feitosa (Kenos, www.kenos.com.br)
- *
  */
 public class CreateFromCashPlanLine extends SvrProcess
 {
@@ -149,7 +148,7 @@ public class CreateFromCashPlanLine extends SvrProcess
 		{
 			Trx.get (trxName, false).close();			
 		}
-	}
+	}	//	doIt
 	
 	/**
 	 * 	Create Invoice
@@ -203,7 +202,9 @@ public class CreateFromCashPlanLine extends SvrProcess
 					m_invoice.setAD_Org_ID(c_org_id);
 					m_invoice.setC_DocTypeTarget_ID(dt.getC_DocType_ID());
 					m_invoice.setDateInvoiced(cpl.getDateTrx());
+					m_invoice.setDateAcct(cpl.getDateTrx());
 					m_invoice.setIsSOTrx(cp.isSOTrx());
+					m_invoice.setC_CashPlanLine_ID(cpl.getC_CashPlanLine_ID());
 					MBPartner partner = new MBPartner(Env.getCtx(), cpl.getC_BPartner_ID(), trxName);
 					I_W_C_BPartner wPartner = POWrapper.create(partner, I_W_C_BPartner.class);
 					m_invoice.setC_BPartner_ID(cpl.getC_BPartner_ID());
@@ -320,7 +321,8 @@ public class CreateFromCashPlanLine extends SvrProcess
 	    			log.warning ("Imposto não encontrado");
 	    		else
 	    		{
-	    			Map<Integer, MLBRTaxLine> taxes = (Map<Integer, MLBRTaxLine>) taxation[0];
+	    			@SuppressWarnings("unchecked")
+					Map<Integer, MLBRTaxLine> taxes = (Map<Integer, MLBRTaxLine>) taxation[0];
 					
 					//	Ajusta os Impostos
 					if (ilW.getLBR_Tax_ID() == 0 && taxes != null && taxes.size() > 0)
@@ -362,5 +364,4 @@ public class CreateFromCashPlanLine extends SvrProcess
 
 		return null;
 	}	//	createInvoice
-
-}
+}	//	CreateFromCashPlanLine
