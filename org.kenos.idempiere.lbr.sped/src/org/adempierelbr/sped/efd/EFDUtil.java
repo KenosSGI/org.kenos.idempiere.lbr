@@ -1339,6 +1339,8 @@ public class EFDUtil {
 		// 
 		reg.setCOD_INF(null);
 		reg.setCOD_CTA(null);
+		reg.setCOD_MUN_ORIG(null);
+		reg.setCOD_MUN_DEST(null);
 		
 		//
 		return reg;
@@ -2506,6 +2508,7 @@ public class EFDUtil {
 	 * #3 - LBR_SPED_ID
 	 * 
 	 * @return Sql String
+	 * @deprecated
 	 */
 	public static String getSQLBookInv()  throws Exception
 	{
@@ -2517,6 +2520,35 @@ public class EFDUtil {
 				" WHERE AD_Client_ID = ? 														" + // # 1
 				" AND AD_Org_ID = ?																" + // # 2
 				" AND LBR_SPED_ID = ? "	  	 												  	  + // # 3
+				" GROUP BY AD_Client_ID, AD_Org_ID, M_Product_ID, C_BPartner_ID, " + 
+				" lbr_WarehouseType, movementdate, isRevalidate " + 
+				" ORDER BY M_Product_ID															";
+
+		//
+		return sql;
+	}
+	
+	/**
+	 * Retornar a query para buscar as informações do inventário para o Bloco K
+	 * 
+	 * Parametros do SQL
+	 * 
+	 * #1 - AD_Client_ID
+	 * #2 - AD_Org_ID
+	 * #3 - LBR_SPEDFiscal_ID
+	 * 
+	 * @return Sql String
+	 */
+	public static String getSQLBookInventory()  throws Exception
+	{
+		// sql
+		String sql = " SELECT AD_Client_ID, AD_Org_ID, C_BPartner_ID, SUM(QtyBook) AS QtyBook,	" + 
+				" lbr_WarehouseType, movementdate, M_Product_ID,			" +
+				" isRevalidate																	" +
+				" FROM LBR_BookInventory														" +
+				" WHERE AD_Client_ID = ? 														" + // # 1
+				" AND AD_Org_ID = ?																" + // # 2
+				" AND LBR_SPEDFiscal_ID = ? "	  	 												  	  + // # 3
 				" GROUP BY AD_Client_ID, AD_Org_ID, M_Product_ID, C_BPartner_ID, " + 
 				" lbr_WarehouseType, movementdate, isRevalidate " + 
 				" ORDER BY M_Product_ID															";

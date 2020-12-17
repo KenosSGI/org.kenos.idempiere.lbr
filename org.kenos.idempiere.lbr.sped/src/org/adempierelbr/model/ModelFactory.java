@@ -13,8 +13,8 @@ public class ModelFactory implements IModelFactory
 	{
 		if (MLBRFactFiscal.Table_Name.equals(tableName))
 			return MLBRFactFiscal.class;
-		else if (MLBRFactFiscal.Table_Name.equals(tableName))
-			return MLBRFactFiscal.class;
+		else if (MLBRSPEDFiscal.Table_Name.equals(tableName))
+			return MLBRSPEDFiscal.class;
 		return null;
 	}	//	getClass
 
@@ -23,8 +23,8 @@ public class ModelFactory implements IModelFactory
 	{
 		if (MLBRFactFiscal.Table_Name.equals(tableName))
 			return new MLBRFactFiscal (Env.getCtx(), Record_ID, trxName);
-		else if (MLBRFactFiscal.Table_Name.equals(tableName))
-			return new MLBRFactFiscal (Env.getCtx(), Record_ID, trxName);
+		else if (MLBRSPEDFiscal.Table_Name.equals(tableName))
+			return new MLBRSPEDFiscal (Env.getCtx(), Record_ID, trxName);
 		return null;
 	}	//	getPO
 
@@ -33,8 +33,8 @@ public class ModelFactory implements IModelFactory
 	{
 		if (MLBRFactFiscal.Table_Name.equals(tableName))
 			return new MLBRFactFiscal (Env.getCtx(), rs, trxName);
-		else if (MLBRFactFiscal.Table_Name.equals(tableName))
-			return new MLBRFactFiscal (Env.getCtx(), rs, trxName);
+		else if (MLBRSPEDFiscal.Table_Name.equals(tableName))
+			return new MLBRSPEDFiscal (Env.getCtx(), rs, trxName);
 		
 		return null;
 	}	//	getPO
