@@ -244,8 +244,6 @@ public class CreateFromCashPlanLine extends SvrProcess
 							wInvoice.setC_PaymentTerm_ID(wPartner.getPO_PaymentTerm_ID());
 					}
 					
-					m_invoice.setC_CashPlanLine_ID(cpl.getC_CashPlanLine_ID());
-					
 					if (!m_invoice.save(trx))
 					{
 						log.log(Level.SEVERE, "Could not create Invoice " + cpl.getC_CashPlanLine_ID());
