@@ -193,6 +193,9 @@ public class GetDFe extends SvrProcess
 			//	Save results
 			processResult (getCtx(), retConsNFeDest.getLoteDistDFeInt(), count, p_AD_Org_ID);
 			
+			//	Log results
+			log.info ("Current NSU -> " + currentNSU + " Max NSU -> " + maxNSU);
+
 			//	Try to adquire more documets
 			while (!consultOneNSU && true)
 			{
@@ -217,7 +220,7 @@ public class GetDFe extends SvrProcess
 					currentNSU = Long.valueOf(retLoop.getUltNSU())+1;
 				}
 				
-				System.out.println("Current -> " + currentNSU + ", Loop -> " + count.loop);
+				log.info ("Current NSU -> " + currentNSU + " on loop -> " + count.loop);
 
 				//	Loop
 				count.loop++;
