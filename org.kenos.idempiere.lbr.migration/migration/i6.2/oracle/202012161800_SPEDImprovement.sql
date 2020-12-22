@@ -787,6 +787,15 @@ INSERT INTO AD_WF_NodeNext (AD_WF_Node_ID,IsActive,Created,CreatedBy,Updated,Upd
 UPDATE AD_WF_Node SET DocAction='--',Updated=TO_DATE('2020-12-16 15:25:13','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_WF_Node_ID=1120141
 ;
 
+-- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
+-- 17 de dez de 2020 15:53:49 BRT
+UPDATE AD_Field SET AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, MandatoryLogic=NULL, IsToolbarButton=NULL,Updated=TO_DATE('2020-12-17 15:53:49','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1130146
+;
+
+-- 17 de dez de 2020 15:54:29 BRT
+UPDATE AD_Field SET DefaultValue='@#Date@', AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, IsToolbarButton=NULL,Updated=TO_DATE('2020-12-17 15:54:29','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1130146
+;
+
 -- 16 de dez de 2020 15:25:13 BRT
 SELECT Register_Migration_Script ('202012161800_SPEDImprovement.sql') FROM DUAL
 ;
