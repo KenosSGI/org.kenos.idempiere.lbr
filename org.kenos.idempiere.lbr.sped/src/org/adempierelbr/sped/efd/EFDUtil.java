@@ -1159,13 +1159,13 @@ public class EFDUtil {
 		
 		// st
 		//ICMS ST:
-			//	a) se os dois últimos caracteres deste campo forem 10, 30 ou 70, os valores dos campos VL_BC_ST, ALIQ_ST e
-			//	VL_ICMS_ST deverão ser maiores ou iguais a “0” (zero).
-			//	b) se os dois últimos caracteres deste campo forem diferentes de 10, 30 ou 70, os valores dos campos VL_BC_ST,
-			//	ALIQ_ST e VL_ICMS_ST deverão ser iguais a “0” (zero).
-		if ("10".equals(factFiscal.getICMSST_TaxStatus()) ||
+		//	a) se os dois últimos caracteres deste campo forem 10, 30 ou 70, os valores dos campos VL_BC_ST, ALIQ_ST e
+		//	VL_ICMS_ST deverão ser maiores ou iguais a “0” (zero).
+		//	b) se os dois últimos caracteres deste campo forem diferentes de 10, 30 ou 70, os valores dos campos VL_BC_ST,
+		//	ALIQ_ST e VL_ICMS_ST deverão ser iguais a “0” (zero).
+		if (factFiscal.isSOTrx() && ("10".equals(factFiscal.getICMSST_TaxStatus()) ||
 			"30".equals(factFiscal.getICMSST_TaxStatus()) ||
-			"70".equals(factFiscal.getICMSST_TaxStatus()))
+			"70".equals(factFiscal.getICMSST_TaxStatus())))
 		{
 				reg.setVL_BC_ICMS_ST(factFiscal.getICMSST_TaxBaseAmt());
 				reg.setALIQ_ST(factFiscal.getICMSST_TaxRate());
@@ -1339,6 +1339,8 @@ public class EFDUtil {
 		// 
 		reg.setCOD_INF(null);
 		reg.setCOD_CTA(null);
+		reg.setCOD_MUN_ORIG(null);
+		reg.setCOD_MUN_DEST(null);
 		
 		//
 		return reg;
