@@ -215,6 +215,7 @@ UPDATE AD_Field SET IsDisplayed='Y', SeqNo=50, AD_Reference_Value_ID=NULL, AD_Va
 
 -- 16 de ago de 2020 19:49:48 BRT
 UPDATE AD_Field SET IsDisplayed='Y', SeqNo=70, AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, XPosition=4, IsToolbarButton=NULL,Updated=TO_TIMESTAMP('2020-08-16 19:49:48','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1129915
+
 ;-- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
 -- 27 de ago de 2020 12:07:55 BRT
 INSERT INTO AD_Column (AD_Column_ID,Version,Name,Description,Help,AD_Table_ID,ColumnName,FieldLength,IsKey,IsParent,IsMandatory,IsTranslated,IsIdentifier,SeqNo,IsEncrypted,AD_Reference_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Element_ID,IsUpdateable,IsSelectionColumn,EntityType,IsSyncDatabase,IsAlwaysUpdateable,IsAutocomplete,IsAllowLogging,AD_Column_UU,IsAllowCopy,SeqNoSelection,IsToolbarButton,IsSecure,FKConstraintType,IsHtml) VALUES (1132534,0,'IE Substitute','To set IE by Region to Substitute IE from Organization','Configure IE by region to Substitute Organization on that region',1000027,'LBR_IEST',30,'N','N','N','N','N',0,'N',10,0,0,'Y',TO_TIMESTAMP('2020-08-27 12:07:54','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2020-08-27 12:07:54','YYYY-MM-DD HH24:MI:SS'),100,1123194,'Y','N','LBRA','N','N','N','Y','3ab266b1-be50-496b-8a8a-f036954ce583','Y',0,'N','N','N','N')
@@ -223,11 +224,6 @@ INSERT INTO AD_Column (AD_Column_ID,Version,Name,Description,Help,AD_Table_ID,Co
 -- 27 de ago de 2020 12:08:03 BRT
 ALTER TABLE LBR_NotaFiscal ADD COLUMN LBR_IEST VARCHAR(30) DEFAULT NULL 
 ;
-
--- 27 de ago de 2020 12:08:45 BRT
-INSERT INTO AD_Field (AD_Field_ID,Name,Description,Help,AD_Tab_ID,AD_Column_ID,IsDisplayed,DisplayLength,SeqNo,SortNo,IsSameLine,IsHeading,IsFieldOnly,IsEncrypted,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,IsReadOnly,IsCentrallyMaintained,EntityType,AD_Field_UU,IsDisplayedGrid,SeqNoGrid,XPosition,ColumnSpan,NumLines,IsQuickEntry,IsDefaultFocus,IsAdvancedField) VALUES (1129917,'IE Substitute','To set IE by Region to Substitute IE from Organization','Configure IE by region to Substitute Organization on that region',1000020,1132534,'Y',0,1167,0,'N','N','N','N',0,0,'Y',TO_TIMESTAMP('2020-08-27 12:08:45','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2020-08-27 12:08:45','YYYY-MM-DD HH24:MI:SS'),100,'N','Y','LBRA','f37399ed-15bf-4430-86b1-9679869d82b2','Y',1075,1,1,1,'N','N','N')
-;
-
 
 -- 16 de ago de 2020 19:49:48 BRT
 UPDATE AD_Field SET SeqNo=0, AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, IsToolbarButton=NULL,Updated=TO_TIMESTAMP('2020-08-16 19:49:48','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1129910
@@ -247,15 +243,6 @@ INSERT INTO t_alter_column values('lbr_orgiest','C_Region_ID','NUMERIC(10)',null
 
 -- 16 de ago de 2020 19:50:30 BRT
 INSERT INTO t_alter_column values('lbr_orgiest','C_Region_ID',null,'NOT NULL',null)
-;
-
--- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
--- 27 de ago de 2020 12:07:55 BRT
-INSERT INTO AD_Column (AD_Column_ID,Version,Name,Description,Help,AD_Table_ID,ColumnName,FieldLength,IsKey,IsParent,IsMandatory,IsTranslated,IsIdentifier,SeqNo,IsEncrypted,AD_Reference_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Element_ID,IsUpdateable,IsSelectionColumn,EntityType,IsSyncDatabase,IsAlwaysUpdateable,IsAutocomplete,IsAllowLogging,AD_Column_UU,IsAllowCopy,SeqNoSelection,IsToolbarButton,IsSecure,FKConstraintType,IsHtml) VALUES (1132534,0,'IE Substitute','To set IE by Region to Substitute IE from Organization','Configure IE by region to Substitute Organization on that region',1000027,'LBR_IEST',30,'N','N','N','N','N',0,'N',10,0,0,'Y',TO_TIMESTAMP('2020-08-27 12:07:54','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2020-08-27 12:07:54','YYYY-MM-DD HH24:MI:SS'),100,1123194,'Y','N','LBRA','N','N','N','Y','3ab266b1-be50-496b-8a8a-f036954ce583','Y',0,'N','N','N','N')
-;
-
--- 27 de ago de 2020 12:08:03 BRT
-ALTER TABLE LBR_NotaFiscal ADD COLUMN LBR_IEST VARCHAR(30) DEFAULT NULL 
 ;
 
 -- 27 de ago de 2020 12:08:45 BRT

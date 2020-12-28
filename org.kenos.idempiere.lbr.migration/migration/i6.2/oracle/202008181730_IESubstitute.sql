@@ -13,8 +13,7 @@ INSERT INTO AD_Sequence (Name,CurrentNext,IsAudited,StartNewYear,Description,IsA
 -- 16 de ago de 2020 19:39:07 BRT
 INSERT INTO AD_Column (AD_Column_ID,Version,Name,Description,Help,AD_Table_ID,AD_Val_Rule_ID,ColumnName,DefaultValue,FieldLength,IsKey,IsParent,IsMandatory,IsTranslated,IsIdentifier,IsEncrypted,AD_Reference_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Element_ID,IsUpdateable,IsSelectionColumn,EntityType,IsSyncDatabase,IsAlwaysUpdateable,IsAutocomplete,IsAllowLogging,AD_Column_UU,IsAllowCopy,IsToolbarButton,IsSecure,FKConstraintType,IsHtml) VALUES (1132515,1,'Client','Client/Tenant for this installation.','A Client is a company or a legal entity. You cannot share data between Clients. Tenant is a synonym for Client.',1120694,129,'AD_Client_ID','@#AD_Client_ID@',22,'N','N','Y','N','N','N',19,0,0,'Y',TO_DATE('2020-08-16 19:39:07','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2020-08-16 19:39:07','YYYY-MM-DD HH24:MI:SS'),100,102,'N','N','LBRA','N','N','N','Y','136bdf3b-c360-4648-badc-59af08734d35','N','N','N','N','N')
 ;
-SELECT Register_Migration_Script ('202008181700_TaxControl_ICMSSubstitute.sql') FROM DUAL
-;
+
 -- 16 de ago de 2020 19:39:08 BRT
 INSERT INTO AD_Column (AD_Column_ID,Version,Name,Description,Help,AD_Table_ID,AD_Val_Rule_ID,ColumnName,DefaultValue,FieldLength,IsKey,IsParent,IsMandatory,IsTranslated,IsIdentifier,IsEncrypted,AD_Reference_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Element_ID,IsUpdateable,IsSelectionColumn,EntityType,IsSyncDatabase,IsAlwaysUpdateable,IsAutocomplete,IsAllowLogging,AD_Column_UU,IsAllowCopy,IsToolbarButton,IsSecure,FKConstraintType,IsHtml) VALUES (1132516,1,'Organization','Organizational entity within client','An organization is a unit of your client or legal entity - examples are store, department. You can share data between organizations.',1120694,104,'AD_Org_ID','@#AD_Org_ID@',22,'N','N','Y','N','N','N',19,0,0,'Y',TO_DATE('2020-08-16 19:39:08','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2020-08-16 19:39:08','YYYY-MM-DD HH24:MI:SS'),100,113,'N','N','LBRA','N','N','N','Y','4397e901-03a6-4c63-964a-898d6da21d3c','N','N','N','N','N')
 ;
@@ -240,9 +239,6 @@ ALTER TABLE LBR_OrgIEST MODIFY C_Region_ID NUMBER(10)
 -- 16 de ago de 2020 19:50:30 BRT
 ALTER TABLE LBR_OrgIEST MODIFY C_Region_ID NOT NULL
 ;
-
-SET SQLBLANKLINES ON
-SET DEFINE OFF
 
 -- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
 -- 27 de ago de 2020 12:07:55 BRT

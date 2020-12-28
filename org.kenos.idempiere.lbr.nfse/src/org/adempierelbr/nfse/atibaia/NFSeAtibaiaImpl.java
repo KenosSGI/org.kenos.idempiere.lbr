@@ -59,6 +59,9 @@ public class NFSeAtibaiaImpl implements INFSe
 	/**	Atibaia City ID		*/
 	public static final Integer C_City_ID = 1004770;
 
+	/**	Atibaia only works with 1.1 HTTP version */
+	protected static final HttpClient.Version httpVersion = HttpClient.Version.HTTP_1_1;
+	
 	@Override
 	public String getType() {
 		/**
@@ -234,8 +237,6 @@ public class NFSeAtibaiaImpl implements INFSe
 		String xmlText = document.xmlText(NFeUtil.getXmlOpt());
 		String URL = "http://ws.prefeituradeatibaia.com.br/WSNfses/nfseresources/ws/v2/emissao";
 		
-		System.out.println(xmlText);
-		
 		if (token == null || token.isBlank())
 			throw new Exception ("Token de comunicação com a prefeitura inválido.");
 		
@@ -244,6 +245,7 @@ public class NFSeAtibaiaImpl implements INFSe
 			URL += "/simula";
 		
 		HttpRequest request = HttpRequest.newBuilder(URI.create(URL))
+				.version(httpVersion)
 				.header("Authorization", ccm[0] + "-" + token)
 				.header("Cache-Control", "no-cache")
 				.header("Content-Type", "application/xml")
@@ -255,7 +257,6 @@ public class NFSeAtibaiaImpl implements INFSe
 			throw new Exception ("Failed to connect to Web Services: " + send.statusCode() + " - " + send.body());
 		
 		String body = send.body();
-		System.out.println(body);
 		NfeResposta response = NfeRespostaDocument.Factory.parse(body).getNfeResposta();
 		
 		nfs.stream().forEach(nf -> {
@@ -410,4 +411,74 @@ public class NFSeAtibaiaImpl implements INFSe
 		
 		return PDF;
 	}	//	getPDF
+	
+	public static void main (String[] args) throws Exception
+	{
+		if (args == null)
+			System.out.println("Unkown parameter");
+		
+		else if ("hello".equals(args[0]))
+		{
+			//	Status
+			String URL = "http://ws.prefeituradeatibaia.com.br/WSNfses/nfseresources/ws/hello";
+			HttpRequest request = HttpRequest.newBuilder(URI.create(URL))
+					.version(httpVersion)
+					.GET()
+					.build();
+	
+			HttpResponse<String> send = HttpClient.newHttpClient().send(request, BodyHandlers.ofString());
+			if (send.statusCode() != 200)
+				throw new Exception ("Failed to connect to Web Services: " + send.statusCode() + " - " + send.body());
+			
+			String body = send.body();
+			System.out.println(body);
+		}
+
+		else if ("exemplo".equals(args[0]))
+		{
+			//	Example
+			String URL = "http://ws.prefeituradeatibaia.com.br/WSNfses/nfseresources/ws/v2/exemplo";
+			HttpRequest request = HttpRequest.newBuilder(URI.create(URL))
+					.version(httpVersion)
+					.GET()
+					.build();
+	
+			HttpResponse<String> send = HttpClient.newHttpClient().send(request, BodyHandlers.ofString());
+			if (send.statusCode() != 200)
+				throw new Exception ("Failed to connect to Web Services: " + send.statusCode() + " - " + send.body());
+			
+			String body = send.body();
+			System.out.println(body);
+		}
+		
+		else if ("simula".equals(args[0]))
+		{
+			String ccm 		= args[1];
+			String token	= args[2];
+			String xmlText	= args[3];
+
+			System.out.println("CCM: " 		+ ccm);
+			System.out.println("Token: " 	+ token);
+			System.out.println("XML: " 		+ xmlText);
+			
+			//	Issue
+			String URL = "http://ws.prefeituradeatibaia.com.br/WSNfses/nfseresources/ws/v2/emissao/simula";
+			HttpRequest request = HttpRequest.newBuilder(URI.create(URL))
+					.version(httpVersion)
+					.header("Authorization", "30181-QLAG2IXBOKUNVR6MVPRWN7QJXSTERAMH")
+					.header("Content-Type", "application/xml")
+					.POST(HttpRequest.BodyPublishers.ofString(xmlText))
+					.build();
+			
+			HttpResponse<String> send = HttpClient.newHttpClient().send(request, BodyHandlers.ofString());
+			if (send.statusCode() != 200)
+				throw new Exception ("Failed to connect to Web Services: " + send.statusCode() + " - " + send.body());
+			
+			String body = send.body();
+			System.out.println(body);
+		}
+		
+		else
+			System.out.println("Unkown parameter");
+	}	//	main
 }	//	NFSeAtibaiaImpl
