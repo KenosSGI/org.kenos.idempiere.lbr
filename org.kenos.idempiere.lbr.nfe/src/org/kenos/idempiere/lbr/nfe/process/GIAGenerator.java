@@ -130,7 +130,7 @@ public class GIAGenerator extends SvrProcess
 	{
 		Timestamp 	DATAHORAGERACAO;
 		String  	VERSAOFRONTEND	="0000";
-		String		VERSAOPREF		="0208";
+		String		VERSAOPREF		="0210";
 		
 		/**
 		 * 	Constructor
@@ -188,6 +188,7 @@ public class GIAGenerator extends SvrProcess
 		String		ORIGEMPREDIG;
 		BigDecimal	ICMSFIXPER;
 		String		CHAVEINTERNA;
+		Integer		Q7;
 		Integer		Q10;
 		Integer		Q20;
 		Integer		Q30;
@@ -202,7 +203,7 @@ public class GIAGenerator extends SvrProcess
 				Timestamp refInicial, String tipo, String movimento, String transmitida,
 				BigDecimal saldoCPerAnt, BigDecimal saldoCPerAntST, String origemSW,
 				String origemPreDig, BigDecimal icmsFixPer, String chaveInterna,
-				Integer q10, Integer q20, Integer q30, Integer q31) 
+				Integer q7, Integer q10, Integer q20, Integer q30, Integer q31) 
 		{
 			//
 			this.IE				=ie;
@@ -220,6 +221,7 @@ public class GIAGenerator extends SvrProcess
 			this.ORIGEMPREDIG	=origemPreDig;
 			this.ICMSFIXPER		=icmsFixPer;
 			this.CHAVEINTERNA	=chaveInterna;
+			this.Q7				=q7;
 			this.Q10			=q10;
 			this.Q20			=q20;
 			this.Q30			=q30;
@@ -256,10 +258,11 @@ public class GIAGenerator extends SvrProcess
 				.append(TextUtil.lPad(this.ORIGEMPREDIG		, 1))		//	14	1	N
 				.append(TextUtil.lPad(this.ICMSFIXPER		, 15))		//	15	15	N
 				.append(TextUtil.lPad(this.CHAVEINTERNA		, 32))		//	16	32	N
-				.append(TextUtil.lPad(""+this.Q10			, 4))		//	17	4	N
-				.append(TextUtil.lPad(""+this.Q20			, 4))		//	18	4	N
-				.append(TextUtil.lPad(""+this.Q30			, 4))		//	19	4	N
-				.append(TextUtil.lPad(""+this.Q31			, 4));		//	20	4	N
+				.append(TextUtil.lPad(""+this.Q7			, 4))		//	17	4	N
+				.append(TextUtil.lPad(""+this.Q10			, 4))		//	18	4	N
+				.append(TextUtil.lPad(""+this.Q20			, 4))		//	19	4	N
+				.append(TextUtil.lPad(""+this.Q30			, 4))		//	20	4	N
+				.append(TextUtil.lPad(""+this.Q31			, 4));		//	21	4	N
 			return result.toString();
 		}	//	format
 	}	//	Registro5
@@ -732,7 +735,8 @@ public class GIAGenerator extends SvrProcess
 	
 	/**
 	 * Retorna os registros da GIA
-	 * 
+	 * 				.append(TextUtil.lPad(""+this.Q7			, 4))		//	17	4	N
+
 	 * @param ctx
 	 * @param estado or null
 	 * @return	SINTEGRA
@@ -790,7 +794,7 @@ public class GIAGenerator extends SvrProcess
 				" AND nfltipi.TaxIndicator='IPI') \n" + 
 				" LEFT JOIN   LBR_NFLineTax_V nfltst ON (nfltst.LBR_NotaFiscalLine_ID=nfl.LBR_NotaFiscalLine_ID \n" + 
 				" AND nfltst.TaxIndicator='ICMSST') \n" + 
-				" WHERE nf.LBR_NotaFiscal_ID != ? \n" + 
+				" WHERE nf.LBR_NotaFiscal_ID = ? \n" + 
 				" AND nfl.lbr_CFOPName NOT LIKE '%1%933%' \n" + 
 				" AND nfl.lbr_CFOPName NOT LIKE '%2%933%' \n" + 
 				" AND nfl.lbr_CFOPName NOT LIKE '%Z%' \n" + 
@@ -893,7 +897,7 @@ public class GIAGenerator extends SvrProcess
 		registro1 = new Registro1 (p_DateFrom);
 		registro5 = new Registro5 (ie, cnpj, cnae, "01", p_DateFrom, p_DateFrom, 
 				"01", "1", "0", p_SaldoInicial, p_SaldoInicialST, cnpj, "0", Env.ZERO, "0", 
-				registro10.size(), 0, 0, 0);	//	FIXME:	Codigos HC
+				0, registro10.size(), 0, 0, 0);	//	FIXME:	Codigos HC
 	}
 	
 	/**

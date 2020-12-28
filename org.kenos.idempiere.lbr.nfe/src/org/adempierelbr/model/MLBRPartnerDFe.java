@@ -255,16 +255,40 @@ public class MLBRPartnerDFe extends X_LBR_PartnerDFe
 	 */
 	public static MLBRPartnerDFe get (String key, String documentType)
 	{
-		String where = "AD_Client_ID=? "
-				+ "AND LBR_NFeID=? ";
+		return get (key, documentType, null, 0);
+	}	//	get
+	
+	/**
+	 * 	Procura um DF-e por Tipo de Documento NF-e ou Evento
+	 * 	@param nf
+	 * 	@return
+	 */
+	public static MLBRPartnerDFe get (String key, String documentType, String protocol, int seqNo)
+	{
+		List<Object> params = new ArrayList<Object>();
+		params.add(Env.getAD_Client_ID(Env.getCtx()));
+		params.add(key);
+		//
+		String where = "AD_Client_ID=? AND LBR_NFeID=?";
 		
 		if (documentType != null && !documentType.isEmpty())
-			where = where + "AND DocumentType = '" + documentType + "'";
+		{
+			where += " AND DocumentType = '" + documentType + "'";
+			//
+			if (MLBRPartnerDFe.DOCUMENTTYPE_Evento.equals(documentType))
+			{
+				where += " AND " + MLBRPartnerDFe.COLUMNNAME_lbr_NFeProt + "=?";
+				where += " AND " + MLBRPartnerDFe.COLUMNNAME_SeqNo + "=?";
+				//
+				params.add(protocol);
+				params.add(seqNo);
+			}
+		}
 		else
-			where = where + "AND DocumentType='0'";
+			where += " AND DocumentType='" + MLBRPartnerDFe.DOCUMENTTYPE_NF_E + "'";
 		//
 		MLBRPartnerDFe dfe = new Query (Env.getCtx(), MLBRPartnerDFe.Table_Name, where, null)
-						.setParameters(Env.getAD_Client_ID(Env.getCtx()), key)
+						.setParameters(params)
 						.setOrderBy(COLUMNNAME_LBR_IsManifested + " DESC, " + COLUMNNAME_LBR_IsXMLValid + " DESC, " + COLUMNNAME_IsCancelled + " DESC")
 						.first();
 		return dfe;
