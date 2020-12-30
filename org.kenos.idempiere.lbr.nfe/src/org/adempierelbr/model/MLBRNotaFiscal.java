@@ -3545,6 +3545,12 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		// Mark as Cancelled when status is voided
 		if (MLBRNotaFiscal.DOCSTATUS_Voided.equals(getDocStatus()) && !isCancelled())
 			setIsCancelled(true);
+		
+		if (!islbr_IsOwnDocument() && getlbr_NFeID() != null && !getlbr_NFeID().isEmpty())
+		{
+			if (!NFeUtil.validateNFeID(getlbr_NFeID()))
+				throw new AdempiereException("Chave da NF-e Invalida");
+		}
 				
 		return true;
 	}	//	beforeSave

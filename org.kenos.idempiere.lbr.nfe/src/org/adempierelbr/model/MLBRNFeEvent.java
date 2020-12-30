@@ -715,6 +715,10 @@ public class MLBRNFeEvent extends X_LBR_NFeEvent implements DocAction
 	 */
 	protected boolean beforeSave (boolean newRecord)
 	{
+		if (getlbr_NFeID() != null && !getlbr_NFeID().isEmpty()
+				&& !NFeUtil.validateNFeID(getlbr_NFeID()))
+			throw new AdempiereException("Chave da NF-e Invalida");
+
 		if (newRecord)
 		{
 			int seqNo = DB.getSQLValue (get_TrxName(), "SELECT COALESCE(MAX(SeqNo), 0)+1 AS DefaultValue "

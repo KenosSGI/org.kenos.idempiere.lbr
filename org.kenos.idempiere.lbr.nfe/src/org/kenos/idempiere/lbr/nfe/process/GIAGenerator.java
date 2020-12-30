@@ -770,11 +770,20 @@ public class GIAGenerator extends SvrProcess
 		List<MLBRNotaFiscal> list = q.list();
 		//
 		sql.append("SELECT COALESCE(nfl.lbr_CFOPName,'0') AS CFOP, \n" + 
-				"		SUM(COALESCE(nfl.LineTotalAmt,0) + ((COALESCE(nfl.LineTotalAmt,0) * (COALESCE(nf.lbr_TotalSISCOMEX,0) + COALESCE(nf.lbr_InsuranceAmt,0) + COALESCE(nf.FreightAmt,0))) / COALESCE((CASE WHEN nf.TotalLines=0 THEN 1 ELSE nf.TotalLines END),1)) + \n" + 
-				"		       	COALESCE((CASE WHEN nf.lbr_TransactionType='END' THEN nfltipi.lbr_TaxAmt \n" + 
+				"	SUM(COALESCE(nfl.LineTotalAmt,0) + ((COALESCE(nfl.LineTotalAmt,0) * (COALESCE(nf.lbr_TotalSISCOMEX,0) + COALESCE(nf.lbr_InsuranceAmt,0) + COALESCE(nf.FreightAmt,0))) / COALESCE((CASE WHEN nf.TotalLines=0 THEN 1 ELSE nf.TotalLines END),1)) + \n" + 
+				"	COALESCE((CASE WHEN nf.lbr_TransactionType='END' THEN nfltipi.lbr_TaxAmt \n" + 
 				"		           	WHEN nf.lbr_TransactionType='IMP' THEN nflt.lbr_TaxBaseAmt - COALESCE(nfl.LineTotalAmt,0) ELSE 0 END),0)) AS TotLine, \n" + 
-				"        	SUM(COALESCE(nflt.lbr_TaxBaseAmt,0)) AS BaseICMS, \n" + 
-				" SUM(COALESCE(nflt.lbr_TaxAmt,0)), COALESCE(CASE WHEN nfl.lbr_CFOPName LIKE '%352' THEN 0 ELSE nflt.lbr_TaxRate END,0), \n" + 
+				"   SUM((CASE WHEN (nf.IsSOTrx = 'N' AND nflt.cst LIKE '_20') OR (nf.IsSOTrx = 'N' AND nflt.cst LIKE '_70') \n" + 
+				"				 THEN \n" + 
+				"					(CASE WHEN COALESCE(nflt.lbr_TaxBaseAmt,0) - COALESCE(nfltst.lbr_TaxBaseAmt,0) < 0 THEN 0 ELSE COALESCE(nflt.lbr_TaxBaseAmt,0) - COALESCE(nfltst.lbr_TaxBaseAmt,0) END)\n" + 
+				"				 ELSE \n" + 
+				"					COALESCE(nflt.lbr_TaxBaseAmt,0) END))AS BaseICMS, \n" + 
+				" 	SUM((CASE WHEN (nf.IsSOTrx = 'N' AND nflt.cst LIKE '_20') OR (nf.IsSOTrx = 'N' AND nflt.cst LIKE '_70') \n" + 
+				"			 THEN \n" + 
+				"		 		(CASE WHEN COALESCE(nflt.lbr_TaxAmt,0) - COALESCE(nfltst.lbr_TaxAmt,0) < 0 THEN 0 ELSE COALESCE(nflt.lbr_TaxAmt,0) - COALESCE(nfltst.lbr_TaxAmt,0) END)\n" + 
+				"		 	ELSE		 \n" + 
+				"				COALESCE(nflt.lbr_TaxAmt,0) END )), \n" + 
+				"	COALESCE(CASE WHEN nfl.lbr_CFOPName LIKE '%352' THEN 0 ELSE nflt.lbr_TaxRate END,0), \n" + 
 				"		SUM((CASE WHEN nfl.lbr_TaxStatus LIKE '_20' OR \n" + 
 				"				nfl.lbr_TaxStatus LIKE '_30' OR \n" + 
 				"				nfl.lbr_TaxStatus LIKE '_40' OR \n" + 

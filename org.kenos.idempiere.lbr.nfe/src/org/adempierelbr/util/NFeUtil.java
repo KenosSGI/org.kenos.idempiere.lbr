@@ -971,4 +971,51 @@ public abstract class NFeUtil
 
 		return list.toArray(new X_LBR_DI[list.size()]);
 	}	//	getDIs
+	
+	/**
+	 * Validar Digito Verificador da NF-e
+	 * O dígito verificador da chave de acesso da NF-e é baseado em um cálculo do módulo 11
+	 * Enviar a Chave de Acesso Completada da NF-e para validação
+	 * @param nfeid
+	 * @return
+	 */
+	public static boolean validateNFeID(String nfeid)
+	{
+		log.fine("Validating NF-e ID");
+		
+		if (nfeid == null || nfeid.isEmpty())
+			return false;
+		
+		if (nfeid.length() != 44)
+		{
+			log.fine("Chave da NF-e deve conter 44 Digitos");
+			return false;
+		}	
+		
+		int total = 0;    
+        int peso = 2; 
+        
+        // string.charAt(i) - '0'converts it to an integer
+        int dvnfe = nfeid.charAt((nfeid.length()-1)) - '0';
+        
+        // Da direita para a Esquerda
+        for (int i = 0; i < nfeid.length() - 1; i++)
+        {
+            total += (nfeid.charAt((nfeid.length()-2) - i) - '0') * peso;    
+            peso ++;
+            if (peso == 10)    
+                peso = 2;    
+        }  
+        
+        // Retorno o resto da divisão ponderada
+        int resto = total % 11;    
+        
+        // Resto da Divisão - 11 é o Digito Verificador
+        int dvcalc = (resto == 0 || resto == 1) ? 0 : (11 - resto);
+        //
+        if (dvnfe == dvcalc)
+        	return true;
+        
+		return false;
+	}
 }	//	NFeUtil
