@@ -205,7 +205,7 @@ public class GetDFe extends SvrProcess
 					break;
 				
 				//	In case of failure, cancel operation
-				RetDistDFeIntDocument retDoc = GetDFe.doIt (oi, currentNSU, true);
+				RetDistDFeIntDocument retDoc = GetDFe.doIt (oi, currentNSU, false);
 				if (retDoc == null)
 					break;
 				
@@ -217,7 +217,24 @@ public class GetDFe extends SvrProcess
 				{
 					//	Save Results
 					processResult (getCtx(), retLoop.getLoteDistDFeInt(), count, p_AD_Org_ID);
-					currentNSU = Long.valueOf(retLoop.getUltNSU())+1;
+					
+					//	Check if last NSU is greater than current, else increment current
+					Long lastNSU = Long.valueOf(retLoop.getUltNSU());
+					currentNSU = lastNSU > currentNSU ? lastNSU : currentNSU++;
+				}
+				
+				//	Increment NSU
+				else if (MLBRNotaFiscal.LBR_NFESTATUS_137_NenhumDocumentoLocalizadoParaODestinatário
+						.equals(retLoop.getCStat()))
+				{
+					log.warning("Loop [" + count.loop + "] failed with status [" + retLoop.getCStat() + "] - " + retLoop.getXMotivo());
+					currentNSU++;
+				}
+				
+				else
+				{
+					log.warning("ERROR - Loop [" + count.loop + "] failed with status [" + retLoop.getCStat() + "] - " + retLoop.getXMotivo());
+					break;
 				}
 				
 				log.info ("Current NSU -> " + currentNSU + " on loop -> " + count.loop);
@@ -233,7 +250,7 @@ public class GetDFe extends SvrProcess
 		}
 		
 		addLog(retConsNFeDest.getXMotivo());
-		return "@Error@";
+		return "@Error@ - " + retConsNFeDest.getXMotivo();
 	}	//	doIt
 	
 	/**
@@ -464,8 +481,15 @@ public class GetDFe extends SvrProcess
 			if (reEventoDoc != null)
 			{
 				ResEvento resEvento = reEventoDoc.getResEvento();
-				//
-				MLBRPartnerDFe pDFe = new MLBRPartnerDFe (ctx, 0, null);
+				
+				//	Try to find an existing event
+				MLBRPartnerDFe pDFe = null;
+				if (resEvento.getNProt() == null)
+					pDFe = MLBRPartnerDFe.get (resEvento.getChNFe(), MLBRPartnerDFe.DOCUMENTTYPE_Evento, "evento-sem-protocolo", 0);
+				
+				//	New event
+				if (pDFe == null)
+					pDFe = new MLBRPartnerDFe (ctx, 0, null);
 				pDFe.setAD_Org_ID(p_AD_Org_ID);
 				pDFe.setDocumentType(MLBRPartnerDFe.DOCUMENTTYPE_Evento);
 				pDFe.setlbr_NFeID(resEvento.getChNFe());

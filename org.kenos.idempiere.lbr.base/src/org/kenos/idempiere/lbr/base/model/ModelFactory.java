@@ -33,6 +33,8 @@ public class ModelFactory implements IModelFactory
 			return MLBRAverageCostLine.class;
 		else if (MLBRProductTaxControl.Table_Name.equals(tableName))
 			return MLBRProductTaxControl.class;
+		else if (MLBRAMissingNSU.Table_Name.equals(tableName))
+			return MLBRAMissingNSU.class;
 		return null;
 	}	//	getClass
 
@@ -55,6 +57,8 @@ public class ModelFactory implements IModelFactory
 			return new MLBRAverageCostLine (Env.getCtx(), Record_ID, trxName);
 		else if (MLBRProductTaxControl.Table_Name.equals(tableName))
 			return new MLBRProductTaxControl (Env.getCtx(), Record_ID, trxName);
+		else if (MLBRAMissingNSU.Table_Name.equals(tableName))
+			return new MLBRAMissingNSU (Env.getCtx(), Record_ID, trxName);
 		return null;
 	}	//	getPO
 
@@ -77,6 +81,8 @@ public class ModelFactory implements IModelFactory
 			return new MLBRAverageCostLine (Env.getCtx(), rs, trxName);
 		else if (MLBRProductTaxControl.Table_Name.equals(tableName))
 			return new MLBRProductTaxControl (Env.getCtx(), rs, trxName);
+		else if (MLBRAMissingNSU.Table_Name.equals(tableName))
+			return new MLBRAMissingNSU (Env.getCtx(), rs, trxName);
 		return null;
 	}	//	getPO
 }	//	ModelFactory

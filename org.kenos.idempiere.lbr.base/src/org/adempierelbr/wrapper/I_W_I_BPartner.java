@@ -155,4 +155,30 @@ public interface I_W_I_BPartner extends I_I_BPartner
 	  * Used to identify individuals in Brazil
 	  */
 	public String getlbr_RG();
+
+    /** Column name Address3 */
+    public static final String COLUMNNAME_Address3 = "Address3";
+
+	/** Set Address 3.
+	  * Address line 3 for this location
+	  */
+	public void setAddress3 (String Address3);
+
+	/** Get Address 3.
+	  * Address line 3 for this location
+	  */
+	public String getAddress3();
+
+    /** Column name Address4 */
+    public static final String COLUMNNAME_Address1 = "Address4";
+
+	/** Set Address 4.
+	  * Address line 4 for this location
+	  */
+	public void setAddress4 (String Address4);
+
+	/** Get Address 4.
+	  * Address line 4 for this location
+	  */
+	public String getAddress4();
 }
