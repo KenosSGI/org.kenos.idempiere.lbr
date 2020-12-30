@@ -7,6 +7,8 @@ import org.adempierelbr.validator.ValidatorBPartner;
 import org.adempierelbr.wrapper.I_W_C_BPartner;
 import org.adempierelbr.wrapper.I_W_I_BPartner;
 import org.compiere.model.MBPartner;
+import org.compiere.model.MBPartnerLocation;
+import org.compiere.model.MLocation;
 import org.compiere.model.X_I_BPartner;
 import org.compiere.util.DB;
 
@@ -25,13 +27,17 @@ public class ImportValidatorBPartner implements ImportValidator
 	 * Validar e Importar campos do Parceiro de Negócio
 	 */
 	public void validate(ImportProcess process, Object importModel, Object targetModel, int timing)
-	{		
+	{
+		if (importModel == null)
+			return;
+		
+		//	Instancia Importação de Parceiro de Negócio
+		X_I_BPartner impBP = (X_I_BPartner) importModel;
+		I_W_I_BPartner impBPw = POWrapper.create(impBP, I_W_I_BPartner.class);
+
 		//	Após o Parceiro de Negócio ser importado, Adicionar campos do IDempiereLBR
 		if (targetModel instanceof MBPartner && TIMING_AFTER_IMPORT == timing)
  		{
-			//	Instancia Importação de Parceiro de Negócio
-			X_I_BPartner impBP = (X_I_BPartner) importModel;
-			I_W_I_BPartner impBPw = POWrapper.create(impBP, I_W_I_BPartner.class);
 			StringBuffer sql = null;
 			
 			//	Parceiro de Negócio criado
@@ -83,9 +89,7 @@ public class ImportValidatorBPartner implements ImportValidator
  			
  			//	Se o Campo IE estiver Preenchido 
  			if (impBPw.getlbr_IE() != null && !"".equals(impBPw.getlbr_IE()))
-			{
  				bpw.setlbr_IE(impBPw.getlbr_IE());
-			}
  			
  			//	Se o Campo CCM estiver Preenchido 
  			if (impBPw.getlbr_CCM() != null && !"".equals(impBPw.getlbr_CCM()))
@@ -98,6 +102,20 @@ public class ImportValidatorBPartner implements ImportValidator
 			//	Se o Campo Representante de Venda estiver Preenchido 
 			if (!impBPw.isSalesRep())
 				bpw.setIsSalesRep(impBPw.isSalesRep());
+ 		}
+		
+		//	Location
+		else if (targetModel instanceof MBPartnerLocation && TIMING_AFTER_IMPORT == timing)
+ 		{
+			MBPartnerLocation bpl = (MBPartnerLocation) targetModel;
+			MLocation l = (MLocation) bpl.getC_Location();
+			//
+			if (impBPw.getAddress3() != null)
+				l.setAddress3(impBPw.getAddress3());
+			if (impBPw.getAddress4() != null)
+				l.setAddress4(impBPw.getAddress4());
+			if (l.is_Changed())
+				l.save();
  		}
 	}
 }
