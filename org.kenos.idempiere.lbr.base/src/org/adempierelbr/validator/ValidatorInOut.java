@@ -424,7 +424,7 @@ public class ValidatorInOut implements ModelValidator
 					MInvoice invoice = null;
 	
 					//	Invoice
-					if (dtW.islbr_IsAutomaticInvoice() && order != null)
+					if (dtW.islbr_IsAutomaticInvoice() && (order != null || inOut != null))
 						invoice = createInvoice(order, dt, inOut, inOut.getMovementDate());
 	
 					//	Complete
@@ -452,19 +452,43 @@ public class ValidatorInOut implements ModelValidator
 	 */
 	private MInvoice createInvoice (MOrder order, MDocType dt, MInOut shipment, Timestamp invoiceDate)
 	{
-		String     trx = order.get_TrxName();
+		String     trx;
+		
+		//
+		if (order != null)
+			trx = order.get_TrxName();
+		else if (shipment != null)
+			trx = shipment.get_TrxName();
+		else
+			return null;
 
+		//
 		MInvoice invoice = null;
 		
 		try
 		{
-			MDocType docInvoice = (MDocType) order.getC_DocTypeTarget().getC_DocTypeInvoice();
-			I_W_C_DocType docInvoiceW = POWrapper.create(docInvoice, I_W_C_DocType.class);
+			MDocType docInvoice = null;
+			I_W_C_DocType docInvoiceW = null;
 			
+			//
+			if (order != null)
+			{
+				docInvoice = (MDocType) order.getC_DocTypeTarget().getC_DocTypeInvoice();
+				docInvoiceW = POWrapper.create(docInvoice, I_W_C_DocType.class);
+				invoice = new MInvoice (order, docInvoice.getC_DocType_ID(), invoiceDate);
+			}
+			else if (shipment != null)
+			{
+				invoice = new MInvoice (shipment, invoiceDate);
+				docInvoice = (MDocType)invoice.getC_DocTypeTarget();
+				docInvoiceW = POWrapper.create(docInvoice, I_W_C_DocType.class);
+			}
+			
+			//	Validation
 			if (docInvoiceW.islbr_IsAutomaticInvoice())
 				throw new AdempiereException("Conflito com Tipo de Documento de Fatura que gera Recebimento/Remessa Automática");
 			
-			invoice = new MInvoice (order, docInvoice.getC_DocType_ID(), invoiceDate);
+			//	Save
 			if (!invoice.save(trx))
 			{
 				log.log(Level.SEVERE, "Could not create Invoice");
