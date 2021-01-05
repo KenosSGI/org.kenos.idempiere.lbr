@@ -771,7 +771,7 @@ public class GIAGenerator extends SvrProcess
 		//
 		sql.append("SELECT COALESCE(nfl.lbr_CFOPName,'0') AS CFOP, \n" + 
 				"	SUM(COALESCE(nfl.LineTotalAmt,0) + ((COALESCE(nfl.LineTotalAmt,0) * (COALESCE(nf.lbr_TotalSISCOMEX,0) + COALESCE(nf.lbr_InsuranceAmt,0) + COALESCE(nf.FreightAmt,0))) / COALESCE((CASE WHEN nf.TotalLines=0 THEN 1 ELSE nf.TotalLines END),1)) + \n" + 
-				"	COALESCE((CASE WHEN nf.lbr_TransactionType='END' THEN nfltipi.lbr_TaxAmt \n" + 
+				"	COALESCE((CASE WHEN nf.lbr_TransactionType='END' OR nf.lbr_TransactionType='RES' THEN COALESCE(nfltipi.lbr_TaxAmt,0) + COALESCE(nfltst.lbr_TaxAmt,0) \n" + 
 				"		           	WHEN nf.lbr_TransactionType='IMP' THEN nflt.lbr_TaxBaseAmt - COALESCE(nfl.LineTotalAmt,0) ELSE 0 END),0)) AS TotLine, \n" + 
 				"   SUM((CASE WHEN (nf.IsSOTrx = 'N' AND nflt.cst LIKE '_20') OR (nf.IsSOTrx = 'N' AND nflt.cst LIKE '_70') \n" + 
 				"				 THEN \n" + 
