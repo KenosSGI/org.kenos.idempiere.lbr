@@ -535,9 +535,24 @@ public class MLBRFactFiscal extends X_LBR_FactFiscal
 		rA170.setALIQ_COFINS (getCOFINS_TaxRate());
 		rA170.setVL_COFINS (getCOFINS_TaxAmt());
 		
-		//	Não Obrigatório, porém o Adempiere pode ter regras diferentes para esta informação
-		//		então não é possível preencher.
-		rA170.setCOD_CTA (null);
+		if (getM_Product_ID() > 0)
+		{
+			//
+			MClientInfo ci = MClientInfo.get(Env.getCtx(), getAD_Client_ID());
+			//
+			X_M_Product_Acct prodAcct = new Query(Env.getCtx(), X_M_Product_Acct.Table_Name,"C_AcctSchema_ID = ? AND M_Product_ID = ?", null)
+										.setParameters(ci.getC_AcctSchema1_ID(), getM_Product_ID())
+										.first();
+			//
+			if (prodAcct != null)
+			{
+				MElementValue ev = new MElementValue(Env.getCtx(), prodAcct.getP_Asset_A().getAccount().getC_ElementValue_ID(), null);
+				rA170.setCOD_CTA(TextUtil.toNumeric (ev.getValue()));
+			}
+		}
+		else
+			rA170.setCOD_CTA(null);
+		
 		rA170.setCOD_CCUS (null);		//	TODO: Não Obrigatório
 		//
 		return rA170;
@@ -711,6 +726,8 @@ public class MLBRFactFiscal extends X_LBR_FactFiscal
 				rC170.setCOD_CTA(TextUtil.toNumeric (ev.getValue()));
 			}
 		}
+		else
+			rC170.setCOD_CTA(null);
 		//
 		return rC170;
 	}	//	getRC170
