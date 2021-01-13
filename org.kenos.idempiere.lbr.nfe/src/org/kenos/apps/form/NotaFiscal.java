@@ -165,7 +165,7 @@ public class NotaFiscal extends GenForm
 		
 		//	Data Selecionada ou -2 Dias
 		if (m_DateDoc != null)
-			sql.append(" AND nf.DateDoc=").append(DB.TO_DATE((Timestamp)m_DateDoc));
+			sql.append(" AND TRUNC(nf.DateDoc)=").append(DB.TO_DATE((Timestamp)m_DateDoc));
 		else
 		{	
 			sql.append(" AND (nf.Updated>=").append(DB.TO_DATE(TimeUtil.addDays (new Timestamp (System.currentTimeMillis()), -2)));		
