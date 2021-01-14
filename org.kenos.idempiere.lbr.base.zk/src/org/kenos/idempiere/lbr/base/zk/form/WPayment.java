@@ -95,6 +95,8 @@ public class WPayment extends Payment
 	private Panel mainPanel = new Panel();
 	private Borderlayout mainLayout = new Borderlayout();
 	private Panel parameterPanel = new Panel();
+	private Label labelOrg = new Label();
+	private Listbox fieldOrg = ListboxFactory.newDropdownListbox();
 	private Label labelBankAccount = new Label();
 	private Listbox fieldBankAccount = ListboxFactory.newDropdownListbox();
 	private Grid parameterLayout = GridFactory.newGridLayout();
@@ -150,6 +152,7 @@ public class WPayment extends Payment
 		try
 		{
 			m_WindowNo = form.getWindowNo();
+			m_AD_Client_ID = Env.getAD_Client_ID(Env.getCtx());
 			
 			dynInit();
 			zkInit();
@@ -204,6 +207,8 @@ public class WPayment extends Payment
     	typeCombo.addActionListener(this);
     	
 		//
+		labelOrg.setText(Msg.translate(Env.getCtx(), "AD_Org_ID"));
+		fieldOrg.addActionListener(this);
 		labelBankAccount.setText(Msg.translate(Env.getCtx(), "C_BankAccount_ID"));
 		fieldBankAccount.addActionListener(this);
 		labelBPartner.setText(Msg.translate(Env.getCtx(), "C_BPartner_ID"));
@@ -243,12 +248,14 @@ public class WPayment extends Payment
 		row.appendCellChild(typeCombo);
 		
 		row = rows.newRow();
+		row.appendCellChild(labelOrg.rightAlign());
+		row.appendCellChild(fieldOrg);
 		row.appendCellChild(labelBankAccount.rightAlign());
 		row.appendCellChild(fieldBankAccount);
 		
 		row = rows.newRow();
 		row.appendCellChild(labelBPartner.rightAlign());
-		row.appendCellChild(fieldBPartner.getComponent());
+		row.appendCellChild(fieldBPartner.getComponent(), 2);
 		row.appendCellChild(onlyDue);
 		
 		row = rows.newRow();
@@ -311,14 +318,13 @@ public class WPayment extends Payment
 	 */
 	private void dynInit()
 	{
-		ArrayList<BankInfo> bankAccountData = getBankAccountData();
-		for(BankInfo bi : bankAccountData)
-			fieldBankAccount.appendItem(bi.toString(), bi);
-
-		if (fieldBankAccount.getItemCount() == 0)
+		ArrayList<KeyNamePair> orgData = getOrgData();
+		for(KeyNamePair np : orgData)
+			fieldOrg.appendItem(np.toString(), np);
+		if (fieldOrg.getItemCount() == 0)
 			FDialog.error(m_WindowNo, form, "VPaySelectNoBank");
 		else
-			fieldBankAccount.setSelectedIndex(0);
+			fieldOrg.setSelectedIndex(0);
 		
 		MLookup bpL = MLookupFactory.get (Env.getCtx(), form.getWindowNo(), 0, 2762, DisplayType.Search);
 		fieldBPartner = new WSearchEditor ("C_BPartner_ID", false, false, true, bpL);
@@ -341,6 +347,8 @@ public class WPayment extends Payment
 	 */
 	private void loadBankInfo()
 	{		
+		if (fieldBankAccount.getSelectedItem() == null)
+			return;
 		BankInfo bi = (BankInfo)fieldBankAccount.getSelectedItem().getValue();
 		if (bi == null)
 			return;
@@ -371,6 +379,12 @@ public class WPayment extends Payment
 		if (log.isLoggable(Level.CONFIG)) log.config("PayDate=" + payDate);
 		
 		BankInfo bi = (BankInfo)fieldBankAccount.getSelectedItem().getValue();
+		
+		if (fieldPaymentRule.getSelectedItem() == null)
+		{
+			FDialog.error(m_WindowNo, form, "Sem Regra de Pagamento");
+			return;
+		}
 		
 		ValueNamePair paymentRule = (ValueNamePair) fieldPaymentRule.getSelectedItem().getValue();
 		Integer bpartner = (Integer) fieldBPartner.getValue();
@@ -420,6 +434,23 @@ public class WPayment extends Payment
 				m_IsSOTrx = false;
 			else if (MDocType.DOCBASETYPE_ARReceipt.equals(dt.getDocBaseType()))
 				m_IsSOTrx = true;
+		}
+		
+		else if (e.getTarget() == fieldOrg)
+		{
+			KeyNamePair kn = (KeyNamePair) fieldOrg.getValue();
+			ArrayList<BankInfo> bankAccountData = getBankAccountData(kn != null ? kn.getKey() : 0);
+			fieldBankAccount.removeAllItems();
+			//
+			for(BankInfo bi : bankAccountData)
+				fieldBankAccount.appendItem(bi.toString(), bi);
+
+			if (fieldBankAccount.getItemCount() == 0)
+				FDialog.error(m_WindowNo, form, "VPaySelectNoBank");
+			else
+				fieldBankAccount.setSelectedIndex(0);
+			
+			loadBankInfo();
 		}
 		
 		//  Generate PaySelection

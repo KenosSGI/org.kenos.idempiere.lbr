@@ -53,30 +53,36 @@ import org.compiere.util.ValueNamePair;
 public class Payment
 {
 	/**	Window No			*/
-	public int         	m_WindowNo = 0;
+	public int         		m_WindowNo = 0;
 
 	/** Format                  */
-	public DecimalFormat   m_format = DisplayType.getNumberFormat(DisplayType.Amount);
+	public DecimalFormat   	m_format = DisplayType.getNumberFormat(DisplayType.Amount);
 	/** SQL for Query           */
 	private String          m_sql;
 	private String          m_sql_order;
 	/** Number of selected rows */
-	public int             m_noSelected = 0;
+	public int             	m_noSelected = 0;
 	/** Client ID               */
-	private int             m_AD_Client_ID = 0;
+	protected int          	m_AD_Client_ID = 0;
 	/**/
-	public boolean         m_isLocked = false;
+	public boolean         	m_isLocked = false;
 	
-	public boolean			m_IsSOTrx = false;
+	public boolean		 	m_IsSOTrx = false;
 
 	/**	Logger			*/
 	public static CLogger log = CLogger.getCLogger(Payment.class);
 
 	public ArrayList<BankInfo> getBankAccountData()
 	{
+		return getBankAccountData (-1);
+	}	//	getBankAccountData
+
+	public ArrayList<BankInfo> getBankAccountData(int AD_Org_ID)
+	{
 		ArrayList<BankInfo> data = new ArrayList<BankInfo>();
+		if (AD_Org_ID < 1)
+			return data;		//	Empty dataset
 		//
-		m_AD_Client_ID = Env.getAD_Client_ID(Env.getCtx());
 		//  Bank Account Info
 		String sql = MRole.getDefault().addAccessSQL(
 			"SELECT ba.C_BankAccount_ID,"                       //  1
@@ -86,7 +92,8 @@ public class Payment
 			+ "FROM C_Bank b, C_BankAccount ba, C_Currency c "
 			+ "WHERE b.C_Bank_ID=ba.C_Bank_ID"
 			+ " AND ba.C_Currency_ID=c.C_Currency_ID AND ba.IsActive='Y' "
-			+ "ORDER BY 2",
+			+ " AND ba.AD_Org_ID=" + AD_Org_ID
+			+ " ORDER BY 2",
 			"b", MRole.SQL_FULLYQUALIFIED, MRole.SQL_RW);
 		try
 		{
@@ -99,6 +106,38 @@ public class Payment
 					rs.getString(2), rs.getString(4),
 					rs.getBigDecimal(5), transfers);
 				data.add(bi);
+			}
+			rs.close();
+			pstmt.close();
+		}
+		catch (SQLException e)
+		{
+			log.log(Level.SEVERE, sql, e);
+		}
+		
+		return data;
+	}
+	
+	public ArrayList<KeyNamePair> getOrgData()
+	{
+		ArrayList<KeyNamePair> data = new ArrayList<KeyNamePair>();
+		String sql = null;
+		/**Document type**/
+		try
+		{
+			sql = MRole.getDefault().addAccessSQL(
+				"SELECT o.AD_Org_ID, o.Name "
+				+ "FROM AD_Org o "
+				+ "ORDER BY 2", "o",
+				MRole.SQL_FULLYQUALIFIED, MRole.SQL_RO);
+
+			PreparedStatement pstmt = DB.prepareStatement(sql, null);
+			ResultSet rs = pstmt.executeQuery();
+
+			while (rs.next())
+			{
+				KeyNamePair	o = new KeyNamePair(rs.getInt(1), rs.getString(2));
+				data.add(o);
 			}
 			rs.close();
 			pstmt.close();
