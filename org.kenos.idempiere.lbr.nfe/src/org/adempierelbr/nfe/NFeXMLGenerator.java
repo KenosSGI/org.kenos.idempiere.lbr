@@ -737,7 +737,9 @@ public class NFeXMLGenerator
 						//	9= Não Contribuinte, que pode ou não possuir Inscrição Estadual no Cadastro de Contribuintes do ICMS;
 						if (MLBRNotaFiscal.LBR_INDIEDEST_1_ContribuinteDeICMS.equals(nf.getLBR_IndIEDest()) || 								
 								(MLBRNotaFiscal.LBR_INDIEDEST_9_NãoContribuinteDeICMS.equals(nf.getLBR_IndIEDest()) 
-								&& nf.getlbr_BPIE() != null && !nf.getlbr_BPIE().isEmpty()))
+								&& nf.getlbr_BPIE() != null 		//	Not Null
+								&& !nf.getlbr_BPIE().isEmpty() 		//	Not Empty
+								&& !nf.getlbr_BPIE().trim().toUpperCase().startsWith("ISENT")))	//	Does not match ISENTO and ISENTA
 							dest.setIE (toNumericStr (nf.getlbr_BPIE()));
 					}
 					else
