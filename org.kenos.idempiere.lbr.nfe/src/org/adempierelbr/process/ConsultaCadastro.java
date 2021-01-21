@@ -222,6 +222,7 @@ public class ConsultaCadastro extends SvrProcess
 		//	Create business partner
 		if (p_C_BPartner_ID <= 0 
 				&& p_CreateNew 
+				&& infCad.getXNome() != null
 				&& InfCad.CSit.X_1.equals(infCad.getCSit()))
 		{			
 			//	Novo Parceiro de Negócio
