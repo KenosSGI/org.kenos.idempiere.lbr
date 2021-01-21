@@ -222,7 +222,6 @@ public class ConsultaCadastro extends SvrProcess
 		//	Create business partner
 		if (p_C_BPartner_ID <= 0 
 				&& p_CreateNew 
-				&& infCad.getXNome() != null
 				&& InfCad.CSit.X_1.equals(infCad.getCSit()))
 		{			
 			//	Novo Parceiro de Negócio
@@ -247,13 +246,8 @@ public class ConsultaCadastro extends SvrProcess
 			//	Limpar Chave de Busca
 			bpartner.setValue("");
 			
-			bpartner.save();
-			
 			// Class Wrapper Novo Parceiro de Negócio
-			I_W_C_BPartner bpartnerNew = POWrapper.create (bpartner, I_W_C_BPartner.class);			
-			
-			// Remover Perspectiva
-			bpartnerNew.setIsProspect(false);
+			I_W_C_BPartner bpartnerNew;
 	
 			//	Verificar se é uma Pessoa Jurídica
 			if (!p_CNPJ.isEmpty())
@@ -261,10 +255,14 @@ public class ConsultaCadastro extends SvrProcess
 				//	Se o Parceiro de Negócio já existir sair do processo
 				if (new Query(Env.getCtx(), MBPartner.Table_Name, "LBR_CNPJ = ?", null)
 						.setParameters(p_CNPJ)
+						.setClient_ID()
 						.first() != null)
 					return "@Success@" + result.toString() + "<br /><br /><b>Parceiro de Negócio já Cadastrado</b>";
 				else
 				{	
+					bpartner.save();	//	Save
+					bpartnerNew = POWrapper.create (bpartner, I_W_C_BPartner.class);
+					
 					// Adicionar CNPJ para Pessoa Juridica
 					bpartnerNew.setlbr_BPTypeBR(I_W_C_BPartner.LBR_BPTYPEBR_PJ_LegalEntity);
 					bpartnerNew.setlbr_CNPJ(p_CNPJ);
@@ -276,16 +274,25 @@ public class ConsultaCadastro extends SvrProcess
 				//	Se o Parceiro de Negócio já existir sair do processo
 				if (new Query(Env.getCtx(), MBPartner.Table_Name, "LBR_CPF = ?", null)
 						.setParameters(p_CPF)
+						.setClient_ID()
 						.first() != null)
 					return "@Success@" + result.toString() + "<br /><br /><b>Parceiro de Negócio já Cadastrado</b>";
 				else
 				{
+					bpartner.save();	//	Save
+					bpartnerNew = POWrapper.create (bpartner, I_W_C_BPartner.class);
+					
 					// Adicionar CPF para Pessoa Física
 					bpartnerNew.setlbr_BPTypeBR(I_W_C_BPartner.LBR_BPTYPEBR_PF_Individual);
 					bpartnerNew.setlbr_CPF(p_CPF);
 				}
 			}
-						
+			else
+				return "@Error@<br /><br /><b>Motivo: </b>Não foi possível determinar o Tipo de Parceiro (PF / PJ)";
+			
+			// Remover Perspectiva
+			bpartnerNew.setIsProspect(false);
+			
 			//	Dados do Novo Parceiro de Negócio
 			bpartnerNew.setName(infCad.getXNome());
 			bpartnerNew.setName2((infCad.getXFant() == null ? infCad.getXNome() : infCad.getXFant()));			
