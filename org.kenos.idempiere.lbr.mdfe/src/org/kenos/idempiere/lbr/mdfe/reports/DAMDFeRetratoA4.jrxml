@@ -104,124 +104,124 @@
 	<parameter name="XML_LOCALE" class="java.util.Locale" isForPrompting="false"/>
 	<parameter name="XML_TIME_ZONE" class="java.util.TimeZone" isForPrompting="false"/>
 	<queryString language="xPath">
-		<![CDATA[/enviMDFe/MDFe]]>
+		<![CDATA[//MDFe]]>
 	</queryString>
 	<field name="logradouroEmitente" class="java.lang.String">
-		<fieldDescription><![CDATA[/enviMDFe/MDFe/infMDFe/emit/enderEmit/xLgr]]></fieldDescription>
+		<fieldDescription><![CDATA[//MDFe/infMDFe/emit/enderEmit/xLgr]]></fieldDescription>
 	</field>
 	<field name="complementoEmitente" class="java.lang.String">
-		<fieldDescription><![CDATA[/enviMDFe/MDFe/infMDFe/emit/enderEmit/xCpl]]></fieldDescription>
+		<fieldDescription><![CDATA[//MDFe/infMDFe/emit/enderEmit/xCpl]]></fieldDescription>
 	</field>
 	<field name="bairroEmitente" class="java.lang.String">
-		<fieldDescription><![CDATA[/enviMDFe/MDFe/infMDFe/emit/enderEmit/xBairro]]></fieldDescription>
+		<fieldDescription><![CDATA[//MDFe/infMDFe/emit/enderEmit/xBairro]]></fieldDescription>
 	</field>
 	<field name="municipioEmitente" class="java.lang.String">
-		<fieldDescription><![CDATA[/enviMDFe/MDFe/infMDFe/emit/enderEmit/xMun]]></fieldDescription>
+		<fieldDescription><![CDATA[//MDFe/infMDFe/emit/enderEmit/xMun]]></fieldDescription>
 	</field>
 	<field name="ufEmitente" class="java.lang.String">
-		<fieldDescription><![CDATA[/enviMDFe/MDFe/infMDFe/emit/enderEmit/UF]]></fieldDescription>
+		<fieldDescription><![CDATA[//MDFe/infMDFe/emit/enderEmit/UF]]></fieldDescription>
 	</field>
 	<field name="cepEmitente" class="java.lang.String">
-		<fieldDescription><![CDATA[/enviMDFe/MDFe/infMDFe/emit/enderEmit/CEP]]></fieldDescription>
+		<fieldDescription><![CDATA[//MDFe/infMDFe/emit/enderEmit/CEP]]></fieldDescription>
 	</field>
 	<field name="cnpjEmitente" class="java.lang.String">
-		<fieldDescription><![CDATA[/enviMDFe/MDFe/infMDFe/emit/CNPJ]]></fieldDescription>
+		<fieldDescription><![CDATA[//MDFe/infMDFe/emit/CNPJ]]></fieldDescription>
 	</field>
 	<field name="inscricaoEstadualEmitente" class="java.lang.String">
-		<fieldDescription><![CDATA[/enviMDFe/MDFe/infMDFe/emit/IE]]></fieldDescription>
+		<fieldDescription><![CDATA[//MDFe/infMDFe/emit/IE]]></fieldDescription>
 	</field>
 	<field name="modal" class="java.lang.String">
-		<fieldDescription><![CDATA[/enviMDFe/MDFe/infMDFe/ide/modal]]></fieldDescription>
+		<fieldDescription><![CDATA[//MDFe/infMDFe/ide/modal]]></fieldDescription>
 	</field>
 	<field name="modelo" class="java.lang.String">
-		<fieldDescription><![CDATA[/enviMDFe/MDFe/infMDFe/ide/mod]]></fieldDescription>
+		<fieldDescription><![CDATA[//MDFe/infMDFe/ide/mod]]></fieldDescription>
 	</field>
 	<field name="serie" class="java.lang.String">
-		<fieldDescription><![CDATA[/enviMDFe/MDFe/infMDFe/ide/serie]]></fieldDescription>
+		<fieldDescription><![CDATA[//MDFe/infMDFe/ide/serie]]></fieldDescription>
 	</field>
 	<field name="numero" class="java.lang.String">
-		<fieldDescription><![CDATA[/enviMDFe/MDFe/infMDFe/ide/nMDF]]></fieldDescription>
+		<fieldDescription><![CDATA[//MDFe/infMDFe/ide/nMDF]]></fieldDescription>
 	</field>
 	<field name="fl" class="java.lang.String">
 		<fieldDescription><![CDATA[""]]></fieldDescription>
 	</field>
 	<field name="dataHoraEmissao" class="java.sql.Timestamp">
-		<fieldDescription><![CDATA[/enviMDFe/MDFe/infMDFe/ide/dhEmi]]></fieldDescription>
+		<fieldDescription><![CDATA[//MDFe/infMDFe/ide/dhEmi]]></fieldDescription>
 	</field>
 	<field name="numeroProtocolo" class="java.lang.String">
-		<fieldDescription><![CDATA[/enviMDFe/MDFe/infMDFe/ide/procEmi]]></fieldDescription>
+		<fieldDescription><![CDATA[//MDFe/infMDFe/ide/procEmi]]></fieldDescription>
 	</field>
 	<field name="UFIni" class="java.lang.String">
-		<fieldDescription><![CDATA[/enviMDFe/MDFe/infMDFe/ide/UFIni]]></fieldDescription>
+		<fieldDescription><![CDATA[//MDFe/infMDFe/ide/UFIni]]></fieldDescription>
 	</field>
 	<field name="UFFim" class="java.lang.String">
-		<fieldDescription><![CDATA[/enviMDFe/MDFe/infMDFe/ide/UFFim]]></fieldDescription>
+		<fieldDescription><![CDATA[//MDFe/infMDFe/ide/UFFim]]></fieldDescription>
 	</field>
 	<field name="codigoBarras" class="java.lang.String">
-		<fieldDescription><![CDATA[/enviMDFe/MDFe/infMDFe/@Id]]></fieldDescription>
+		<fieldDescription><![CDATA[//MDFe/infMDFe/@Id]]></fieldDescription>
 	</field>
 	<field name="chaveAcesso" class="java.lang.String">
-		<fieldDescription><![CDATA[/enviMDFe/MDFe/infMDFe/@Id]]></fieldDescription>
+		<fieldDescription><![CDATA[//MDFe/infMDFe/@Id]]></fieldDescription>
 	</field>
 	<field name="rntrc" class="java.lang.String">
-		<fieldDescription><![CDATA[/enviMDFe/MDFe/infMDFe/infModal/rodo/RNTRC]]></fieldDescription>
+		<fieldDescription><![CDATA[//MDFe/infMDFe/infModal/rodo/RNTRC]]></fieldDescription>
 	</field>
 	<field name="numeroLogradouroEmitente" class="java.lang.String">
-		<fieldDescription><![CDATA[/enviMDFe/MDFe/infMDFe/emit/enderEmit/nro]]></fieldDescription>
+		<fieldDescription><![CDATA[//MDFe/infMDFe/emit/enderEmit/nro]]></fieldDescription>
 	</field>
 	<field name="preImpresso" class="java.lang.String">
 		<fieldDescription><![CDATA[null]]></fieldDescription>
 	</field>
 	<field name="nomeEmpresa" class="java.lang.String">
-		<fieldDescription><![CDATA[/enviMDFe/MDFe/infMDFe/emit/xNome]]></fieldDescription>
+		<fieldDescription><![CDATA[//MDFe/infMDFe/emit/xNome]]></fieldDescription>
 	</field>
 	<field name="logoTipo" class="java.lang.Object">
 		<fieldDescription><![CDATA[null]]></fieldDescription>
 	</field>
 	<field name="homologacao" class="java.lang.String">
-		<fieldDescription><![CDATA[/enviMDFe/MDFe/infMDFe/ide/tpAmb]]></fieldDescription>
+		<fieldDescription><![CDATA[//MDFe/infMDFe/ide/tpAmb]]></fieldDescription>
 	</field>
 	<field name="listaCondutor" class="java.util.List">
 		<fieldDescription><![CDATA[null]]></fieldDescription>
 	</field>
 	<field name="ciot" class="java.lang.String">
-		<fieldDescription><![CDATA[/enviMDFe/MDFe/infMDFe/infModal/rodo/CIOT]]></fieldDescription>
+		<fieldDescription><![CDATA[//MDFe/infMDFe/infModal/rodo/CIOT]]></fieldDescription>
 	</field>
 	<field name="qtdCTe" class="java.math.BigDecimal">
-		<fieldDescription><![CDATA[/enviMDFe/MDFe/infMDFe/tot/qCTe]]></fieldDescription>
+		<fieldDescription><![CDATA[//MDFe/infMDFe/tot/qCTe]]></fieldDescription>
 	</field>
 	<field name="qtdCTRC" class="java.math.BigDecimal">
-		<fieldDescription><![CDATA[/enviMDFe/MDFe/infMDFe/tot/qCT]]></fieldDescription>
+		<fieldDescription><![CDATA[//MDFe/infMDFe/tot/qCT]]></fieldDescription>
 	</field>
 	<field name="qtdNFe" class="java.lang.String">
-		<fieldDescription><![CDATA[/enviMDFe/MDFe/infMDFe/tot/qNFe]]></fieldDescription>
+		<fieldDescription><![CDATA[//MDFe/infMDFe/tot/qNFe]]></fieldDescription>
 	</field>
 	<field name="qtdNF" class="java.math.BigDecimal">
-		<fieldDescription><![CDATA[/enviMDFe/MDFe/infMDFe/tot/qNF]]></fieldDescription>
+		<fieldDescription><![CDATA[//MDFe/infMDFe/tot/qNF]]></fieldDescription>
 	</field>
 	<field name="pesoTotal" class="java.lang.String">
-		<fieldDescription><![CDATA[/enviMDFe/MDFe/infMDFe/tot/qCarga]]></fieldDescription>
+		<fieldDescription><![CDATA[//MDFe/infMDFe/tot/qCarga]]></fieldDescription>
 	</field>
 	<field name="placaVeiculo" class="java.lang.String">
-		<fieldDescription><![CDATA[/enviMDFe/MDFe/infMDFe/infModal/rodo/veicTracao/placa]]></fieldDescription>
+		<fieldDescription><![CDATA[//MDFe/infMDFe/infModal/rodo/veicTracao/placa]]></fieldDescription>
 	</field>
 	<field name="rntrcVeiculo" class="java.lang.String">
-		<fieldDescription><![CDATA[/enviMDFe/MDFe/infMDFe/infModal/rodo/veicTracao/RNTRC]]></fieldDescription>
+		<fieldDescription><![CDATA[//MDFe/infMDFe/infModal/rodo/veicTracao/RNTRC]]></fieldDescription>
 	</field>
 	<field name="listaInfoValePedagio" class="java.util.List">
 		<fieldDescription><![CDATA[null]]></fieldDescription>
 	</field>
 	<field name="observacoes" class="java.lang.String">
-		<fieldDescription><![CDATA[/enviMDFe/MDFe/infMDFe/infAdic/infAdFisco]]></fieldDescription>
+		<fieldDescription><![CDATA[//MDFe/infMDFe/infAdic/infAdFisco]]></fieldDescription>
 	</field>
 	<field name="ufCarregamento" class="java.lang.String">
-		<fieldDescription><![CDATA[/enviMDFe/MDFe/infMDFe/ide/UFIni]]></fieldDescription>
+		<fieldDescription><![CDATA[//MDFe/infMDFe/ide/UFIni]]></fieldDescription>
 	</field>
 	<field name="qntValePedagio" class="java.lang.Integer">
-		<fieldDescription><![CDATA[count(/enviMDFe/MDFe/infMDFe/infModal/rodo/valePed/disp)]]></fieldDescription>
+		<fieldDescription><![CDATA[count(//MDFe/infMDFe/infModal/rodo/valePed/disp)]]></fieldDescription>
 	</field>
 	<field name="qrCodMDFe" class="java.lang.String">
-		<fieldDescription><![CDATA[/enviMDFe/MDFe/infMDFeSupl/qrCodMDFe]]></fieldDescription>
+		<fieldDescription><![CDATA[//MDFe/infMDFeSupl/qrCodMDFe]]></fieldDescription>
 	</field>
 	<group name="Cabecalho" isStartNewPage="true" isReprintHeaderOnEachPage="true">
 		<groupExpression><![CDATA[$F{chaveAcesso}]]></groupExpression>
