@@ -33,6 +33,7 @@ import org.adempierelbr.model.MLBRNotaFiscalDocRef;
 import org.adempierelbr.model.MLBRNotaFiscalLine;
 import org.compiere.model.MInOut;
 import org.compiere.model.MInvoice;
+import org.compiere.model.MMovement;
 import org.compiere.model.MOrder;
 import org.compiere.model.MQuery;
 import org.compiere.model.MRefList;
@@ -99,9 +100,16 @@ public class NotaFiscalAdditional extends ADForm
 			
 			//	Nota Fiscal Complementar
 			MLBRNotaFiscal nfCompl = new MLBRNotaFiscal(Env.getCtx(), 0, trxName);
-			
-			// Gerando NF Complementar a partir da Fatura
-			nfCompl.generateNF((MInvoice)nf.getC_Invoice(), nf.isSOTrx());
+
+			// Gerando NF Complementar
+			if (nf.getC_Invoice_ID() > 0)
+				nfCompl.generateNF((MInvoice)nf.getC_Invoice(), nf.isSOTrx());
+			else if (nf.getM_InOut_ID() > 0)
+				nfCompl.generateNF((MInOut)nf.getM_InOut(), nf.isSOTrx());
+			else if (nf.getC_Order_ID() > 0)
+				nfCompl.generateNF((MOrder)nf.getC_Order(), nf.isSOTrx());
+			else if (nf.getM_Movement_ID() > 0)
+				nfCompl.generateNF((MMovement)nf.getM_Movement(), nf.isSOTrx(), nf.getC_DocTypeTarget_ID());
 			
 			//	Recém Criada
 			nfCompl.m_justCreated = true;
@@ -315,7 +323,14 @@ public class NotaFiscalAdditional extends ADForm
 			MLBRNotaFiscal nfAnul = new MLBRNotaFiscal(Env.getCtx(), 0, trxName);
 			
 			// Gerando NF de Anulação de Valores a partir da Fatura
-			nfAnul.generateNF((MInvoice)nf.getC_Invoice(), nf.isSOTrx());
+			if (nf.getC_Invoice_ID() > 0)
+				nfAnul.generateNF((MInvoice)nf.getC_Invoice(), nf.isSOTrx());
+			else if (nf.getM_InOut_ID() > 0)
+				nfAnul.generateNF((MInOut)nf.getM_InOut(), nf.isSOTrx());
+			else if (nf.getC_Order_ID() > 0)
+				nfAnul.generateNF((MOrder)nf.getC_Order(), nf.isSOTrx());
+			else if (nf.getM_Movement_ID() > 0)
+				nfAnul.generateNF((MMovement)nf.getM_Movement(), nf.isSOTrx(), nf.getC_DocTypeTarget_ID());
 			
 			//	Recém Criada
 			nfAnul.m_justCreated = true;

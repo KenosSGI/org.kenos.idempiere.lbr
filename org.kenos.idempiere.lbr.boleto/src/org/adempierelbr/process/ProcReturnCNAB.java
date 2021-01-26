@@ -13,7 +13,6 @@
 package org.adempierelbr.process;
 
 import java.io.File;
-import java.lang.reflect.Constructor;
 import java.util.logging.Level;
 
 import org.adempiere.pipo2.Zipper;
@@ -102,11 +101,12 @@ public class ProcReturnCNAB extends SvrProcess
 		else
 			try
 			{
-				Zipper.zipFolder(new File (p_FilePath), new File(p_FilePath+FileName), p_FolderKey + File.separator + "**");
-				Class<?> clazz = Class.forName("org.adempierelbr.webui.adapter.XMLExportAdapter");
-				Constructor<?> constructor = clazz.getConstructor (String.class, File.class);
-				//
-				constructor.newInstance (FileName, new File(p_FilePath+FileName));
+				File zipFile = new File(p_FilePath+FileName);
+				Zipper.zipFolder(new File (p_FilePath), zipFile, p_FolderKey + File.separator + "**");
+
+				//	Make download available
+				if (!Ini.isClient() && processUI != null)
+					processUI.download(zipFile);
 			} 
 			catch (Exception e)
 			{
