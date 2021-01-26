@@ -784,25 +784,26 @@ public class GIAGenerator extends SvrProcess
 				"		 	ELSE		 \n" + 
 				"				COALESCE(nflt.lbr_TaxAmt,0) END )), \n" + 
 				"	COALESCE(CASE WHEN nfl.lbr_CFOPName LIKE '%352' THEN 0 ELSE nflt.lbr_TaxRate END,0), \n" + 
-				"		SUM((CASE WHEN nfl.lbr_TaxStatus LIKE '_20' OR \n" + 
-				"				nfl.lbr_TaxStatus LIKE '_30' OR \n" + 
-				"				nfl.lbr_TaxStatus LIKE '_40' OR \n" + 
-				"				nfl.lbr_TaxStatus LIKE '_41' OR \n" + 
-				"				nfl.lbr_TaxStatus LIKE '_60' OR \n" + 
-				"				nfl.lbr_TaxStatus LIKE '_70' \n" + 
+				"		SUM((CASE WHEN nflt.cst LIKE '_20' OR \n" + 
+				"				nflt.cst LIKE '_30' OR \n" + 
+				"				nflt.cst LIKE '_40' OR \n" + 
+				"				nflt.cst LIKE '_41' OR \n" + 
+				"				nflt.cst LIKE '_60' OR \n" + 
+				"				nflt.cst LIKE '_70' \n" + 
 				"			THEN (COALESCE(nfl.LineTotalAmt,0) + ((COALESCE(nfl.LineTotalAmt,0) * (COALESCE(nf.lbr_TotalSISCOMEX,0) + COALESCE(nf.lbr_InsuranceAmt,0) + COALESCE(nf.FreightAmt,0))) / COALESCE((CASE WHEN nf.TotalLines=0 THEN 1 ELSE nf.TotalLines END),1))) - (COALESCE(nflt.lbr_TaxBaseAmt,0)) ELSE 0 END)) AS Isento, \n" + 
-				"			SUM((CASE WHEN nfl.lbr_TaxStatus LIKE '_50' OR \n" + 
-				"				nfl.lbr_TaxStatus LIKE '_51' OR \n" + 
-				"				nfl.lbr_TaxStatus LIKE '_90' \n" + 
+				"			SUM((CASE WHEN nflt.cst LIKE '_50' OR \n" + 
+				"				nflt.cst LIKE '_51' OR \n" + 
+				"				nflt.cst LIKE '_90' \n" + 
 				"			THEN (COALESCE(nfl.LineTotalAmt,0) + (CASE WHEN nf.lbr_TransactionType='END' THEN COALESCE(nfltipi.lbr_TaxAmt,0) ELSE 0 END) + ((COALESCE(nfl.LineTotalAmt,0) * (COALESCE(nf.lbr_TotalSISCOMEX,0) + COALESCE(nf.lbr_InsuranceAmt,0) + COALESCE(nf.FreightAmt,0))) / COALESCE((CASE WHEN nf.TotalLines=0 THEN 1 ELSE nf.TotalLines END),1))) - (COALESCE(nflt.lbr_TaxBaseAmt,0)) ELSE 0 END)) AS Outras, \n" + 
-				"			SUM(COALESCE(nfltipi.lbr_TaxAmt,0)) AS ImpostoIPI, SUM(COALESCE(nfltst.lbr_TaxAmt,0)) AS ImpostoST FROM LBR_NotaFiscal nf \n" + 
+				"			SUM(COALESCE(nfltipi.lbr_TaxAmt,0)) AS ImpostoIPI, SUM(COALESCE(nfltst.lbr_TaxAmt,0)) AS ImpostoST \n" + 
+				" FROM LBR_NotaFiscal nf \n" + 
 				" INNER JOIN  LBR_NotaFiscalLine nfl ON nf.LBR_NotaFiscal_ID=nfl.LBR_NotaFiscal_ID \n" + 
 				" LEFT JOIN   LBR_NFLineTax_V nflt ON (nflt.LBR_NotaFiscalLine_ID=nfl.LBR_NotaFiscalLine_ID \n" + 
 				" AND nflt.TaxIndicator='ICMS') \n" + 
 				" LEFT JOIN   LBR_NFLineTax_V nfltipi ON (nfltipi.LBR_NotaFiscalLine_ID=nfl.LBR_NotaFiscalLine_ID \n" + 
 				" AND nfltipi.TaxIndicator='IPI') \n" + 
 				" LEFT JOIN   LBR_NFLineTax_V nfltst ON (nfltst.LBR_NotaFiscalLine_ID=nfl.LBR_NotaFiscalLine_ID \n" + 
-				" AND nfltst.TaxIndicator='ICMSST') \n" + 
+				" AND nfltst.TaxIndicator='ICMSST' AND (nfltst.cst LIKE '_10' OR  nfltst.cst LIKE '_70')) \n" + 
 				" WHERE nf.LBR_NotaFiscal_ID = ? \n" + 
 				" AND nfl.lbr_CFOPName NOT LIKE '%1%933%' \n" + 
 				" AND nfl.lbr_CFOPName NOT LIKE '%2%933%' \n" + 
