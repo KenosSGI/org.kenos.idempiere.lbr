@@ -135,7 +135,7 @@ public class ReturnCNABUtil
 							log.log(Level.SEVERE, "Bank Account not valid");
 
 						Payment.setC_BankAccount_ID(C_BankAccount_ID);
-
+						Payment.setAD_Org_ID(Invoice.getAD_Org_ID());
 						Payment.setC_DocType_ID(LBRUtils.getARReceiptDocType()); 	// Contas a Receber
 						Payment.setC_Invoice_ID(C_Invoice_ID);						// Fatura
 						Payment.setC_BPartner_ID(Invoice.getC_BPartner_ID());		// BP
