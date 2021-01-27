@@ -179,7 +179,9 @@ public class Doc_Invoice extends Doc
 						&& MTaxConfigAcct.LBR_RECOVERABLEICMS_No.equals (config.getLBR_RecoverableICMS()))
 						taxRecoverable = false;
 					
-					else if (MLBRTaxName.TAX_ICMSST == LBR_TaxName_ID 
+					else if ((MLBRTaxName.TAX_ICMSST == LBR_TaxName_ID || 
+							MLBRTaxName.TAX_ICMSSTDEST == LBR_TaxName_ID ||
+							MLBRTaxName.TAX_ICMSSTREMET == LBR_TaxName_ID)
 						&& MTaxConfigAcct.LBR_RECOVERABLEICMSST_No.equals (config.getLBR_RecoverableICMSST()))
 						taxRecoverable = false;
 					

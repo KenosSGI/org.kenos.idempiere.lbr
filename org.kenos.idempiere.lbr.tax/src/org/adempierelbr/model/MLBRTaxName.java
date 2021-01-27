@@ -31,6 +31,8 @@ public class MLBRTaxName extends X_LBR_TaxName
 	public static final int TAX_IPI 		= 1106003;
 	public static final int TAX_II 			= 1106004;
 	public static final int TAX_ICMSST 		= 1106012;
+	public static final int TAX_ICMSSTDEST 	= 1120004;
+	public static final int TAX_ICMSSTREMET	= 1120005;
 	public static final int TAX_DIFAL 		= 1120002;
 	public static final int TAX_DIFALORIGEM	= 1120001;
 	
