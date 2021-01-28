@@ -97,9 +97,9 @@ public class ReturnCNABUtil
 		int C_Invoice_ID = 0;
 		
 		if (DocumentNo.contains("B"))
-			C_Invoice_ID = LBRUtils.getInvoiceIDonFile (0, DocumentNo, trx);	// FIXME: Obter a Organização
+			C_Invoice_ID = LBRUtils.getInvoiceIDonFile (0, DocumentNo, trx);
 		else			
-			C_Invoice_ID = LBRUtils.getInvoiceByDocNo (0, DocumentNo, trx);	// FIXME: Obter a Organização
+			C_Invoice_ID = LBRUtils.getInvoiceByDocNo (0, DocumentNo, trx);
 		
 		// Boleto
 		String LBR_PayScheduleNo = MLBRBoleto.getLBR_PayScheduleNo(DocumentNo);	
@@ -129,13 +129,13 @@ public class ReturnCNABUtil
 
 						Integer C_BankAccount_ID = boleto.getC_BankAccount_ID();
 						//
-						if (C_BankAccount_ID == null)
+						if (C_BankAccount_ID == null || C_BankAccount_ID < 1)
 							C_BankAccount_ID = (Integer)Invoice.get_Value("C_BankAccount_ID");
 						if (C_BankAccount_ID == null)
 							log.log(Level.SEVERE, "Bank Account not valid");
 
 						Payment.setC_BankAccount_ID(C_BankAccount_ID);
-
+						Payment.setAD_Org_ID(Invoice.getAD_Org_ID());
 						Payment.setC_DocType_ID(LBRUtils.getARReceiptDocType()); 	// Contas a Receber
 						Payment.setC_Invoice_ID(C_Invoice_ID);						// Fatura
 						Payment.setC_BPartner_ID(Invoice.getC_BPartner_ID());		// BP
