@@ -22,38 +22,42 @@ import java.sql.Timestamp;
 import java.util.Properties;
 import org.compiere.model.*;
 
-/** Generated Model for LBR_SPEDFiscal
+/** Generated Model for LBR_EFDICMSIPI
  *  @author iDempiere (generated) 
  *  @version Release 6.2 - $Id$ */
-public class X_LBR_SPEDFiscal extends PO implements I_LBR_SPEDFiscal, I_Persistent 
+public class X_LBR_EFDICMSIPI extends PO implements I_LBR_EFDICMSIPI, I_Persistent 
 {
 
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20201215L;
+	private static final long serialVersionUID = 20210130L;
 
     /** Standard Constructor */
-    public X_LBR_SPEDFiscal (Properties ctx, int LBR_SPEDFiscal_ID, String trxName)
+    public X_LBR_EFDICMSIPI (Properties ctx, int LBR_EFDICMSIPI_ID, String trxName)
     {
-      super (ctx, LBR_SPEDFiscal_ID, trxName);
-      /** if (LBR_SPEDFiscal_ID == 0)
+      super (ctx, LBR_EFDICMSIPI_ID, trxName);
+      /** if (LBR_EFDICMSIPI_ID == 0)
         {
 			setC_Period_ID (0);
 			setC_Year_ID (0);
+			setIsFixedAsset (true);
+// Y
 			setLBR_COD_FIN (null);
 // 0
-			setLBR_ProcBookInventory (false);
+			setLBR_EFDICMSIPI_ID (0);
+			setLBR_IncludeE (true);
+// Y
+			setLBR_IncludeH (false);
 // N
-			setLBR_ProcTaxAssessment (true);
-// 'Y'
-			setLBR_SPEDFiscal_ID (0);
+			setLBR_IncludeK (true);
+// Y
 			setProcessed (false);
         } */
     }
 
     /** Load Constructor */
-    public X_LBR_SPEDFiscal (Properties ctx, ResultSet rs, String trxName)
+    public X_LBR_EFDICMSIPI (Properties ctx, ResultSet rs, String trxName)
     {
       super (ctx, rs, trxName);
     }
@@ -75,7 +79,7 @@ public class X_LBR_SPEDFiscal extends PO implements I_LBR_SPEDFiscal, I_Persiste
 
     public String toString()
     {
-      StringBuffer sb = new StringBuffer ("X_LBR_SPEDFiscal[")
+      StringBuffer sb = new StringBuffer ("X_LBR_EFDICMSIPI[")
         .append(get_ID()).append("]");
       return sb.toString();
     }
@@ -245,6 +249,27 @@ public class X_LBR_SPEDFiscal extends PO implements I_LBR_SPEDFiscal, I_Persiste
 		return (String)get_Value(COLUMNNAME_DocStatus);
 	}
 
+	/** Set IsFixedAsset.
+		@param IsFixedAsset IsFixedAsset	  */
+	public void setIsFixedAsset (boolean IsFixedAsset)
+	{
+		set_Value (COLUMNNAME_IsFixedAsset, Boolean.valueOf(IsFixedAsset));
+	}
+
+	/** Get IsFixedAsset.
+		@return IsFixedAsset	  */
+	public boolean isFixedAsset () 
+	{
+		Object oo = get_Value(COLUMNNAME_IsFixedAsset);
+		if (oo != null) 
+		{
+			 if (oo instanceof Boolean) 
+				 return ((Boolean)oo).booleanValue(); 
+			return "Y".equals(oo);
+		}
+		return false;
+	}
+
 	public org.compiere.model.I_C_BPartner getLBR_BP_Accountant() throws RuntimeException
     {
 		return (org.compiere.model.I_C_BPartner)MTable.get(getCtx(), org.compiere.model.I_C_BPartner.Table_Name)
@@ -255,9 +280,9 @@ public class X_LBR_SPEDFiscal extends PO implements I_LBR_SPEDFiscal, I_Persiste
 	public void setLBR_BP_Accountant_ID (int LBR_BP_Accountant_ID)
 	{
 		if (LBR_BP_Accountant_ID < 1) 
-			set_ValueNoCheck (COLUMNNAME_LBR_BP_Accountant_ID, null);
+			set_Value (COLUMNNAME_LBR_BP_Accountant_ID, null);
 		else 
-			set_ValueNoCheck (COLUMNNAME_LBR_BP_Accountant_ID, Integer.valueOf(LBR_BP_Accountant_ID));
+			set_Value (COLUMNNAME_LBR_BP_Accountant_ID, Integer.valueOf(LBR_BP_Accountant_ID));
 	}
 
 	/** Get Accountant.
@@ -309,26 +334,101 @@ public class X_LBR_SPEDFiscal extends PO implements I_LBR_SPEDFiscal, I_Persiste
 		return (String)get_Value(COLUMNNAME_LBR_COD_VER);
 	}
 
-	/** Industrial ou equiparado a industrial = 0 */
-	public static final String LBR_INDATIVIDADE_IndustrialOuEquiparadoAIndustrial = "0";
-	/** Outros = 1 */
-	public static final String LBR_INDATIVIDADE_Outros = "1";
-	/** Set Tipo de atividade.
-		@param lbr_IndAtividade 
-		Tipo de atividade
-	  */
-	public void setlbr_IndAtividade (String lbr_IndAtividade)
+	/** Set EFD ICMS/IPI.
+		@param LBR_EFDICMSIPI_ID EFD ICMS/IPI	  */
+	public void setLBR_EFDICMSIPI_ID (int LBR_EFDICMSIPI_ID)
 	{
-
-		set_ValueNoCheck (COLUMNNAME_lbr_IndAtividade, lbr_IndAtividade);
+		if (LBR_EFDICMSIPI_ID < 1) 
+			set_ValueNoCheck (COLUMNNAME_LBR_EFDICMSIPI_ID, null);
+		else 
+			set_ValueNoCheck (COLUMNNAME_LBR_EFDICMSIPI_ID, Integer.valueOf(LBR_EFDICMSIPI_ID));
 	}
 
-	/** Get Tipo de atividade.
-		@return Tipo de atividade
-	  */
-	public String getlbr_IndAtividade () 
+	/** Get EFD ICMS/IPI.
+		@return EFD ICMS/IPI	  */
+	public int getLBR_EFDICMSIPI_ID () 
 	{
-		return (String)get_Value(COLUMNNAME_lbr_IndAtividade);
+		Integer ii = (Integer)get_Value(COLUMNNAME_LBR_EFDICMSIPI_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
+	/** Set LBR_EFDICMSIPI_UU.
+		@param LBR_EFDICMSIPI_UU LBR_EFDICMSIPI_UU	  */
+	public void setLBR_EFDICMSIPI_UU (String LBR_EFDICMSIPI_UU)
+	{
+		set_Value (COLUMNNAME_LBR_EFDICMSIPI_UU, LBR_EFDICMSIPI_UU);
+	}
+
+	/** Get LBR_EFDICMSIPI_UU.
+		@return LBR_EFDICMSIPI_UU	  */
+	public String getLBR_EFDICMSIPI_UU () 
+	{
+		return (String)get_Value(COLUMNNAME_LBR_EFDICMSIPI_UU);
+	}
+
+	/** Set Block E.
+		@param LBR_IncludeE Block E	  */
+	public void setLBR_IncludeE (boolean LBR_IncludeE)
+	{
+		set_Value (COLUMNNAME_LBR_IncludeE, Boolean.valueOf(LBR_IncludeE));
+	}
+
+	/** Get Block E.
+		@return Block E	  */
+	public boolean isLBR_IncludeE () 
+	{
+		Object oo = get_Value(COLUMNNAME_LBR_IncludeE);
+		if (oo != null) 
+		{
+			 if (oo instanceof Boolean) 
+				 return ((Boolean)oo).booleanValue(); 
+			return "Y".equals(oo);
+		}
+		return false;
+	}
+
+	/** Set Block H.
+		@param LBR_IncludeH Block H	  */
+	public void setLBR_IncludeH (boolean LBR_IncludeH)
+	{
+		set_Value (COLUMNNAME_LBR_IncludeH, Boolean.valueOf(LBR_IncludeH));
+	}
+
+	/** Get Block H.
+		@return Block H	  */
+	public boolean isLBR_IncludeH () 
+	{
+		Object oo = get_Value(COLUMNNAME_LBR_IncludeH);
+		if (oo != null) 
+		{
+			 if (oo instanceof Boolean) 
+				 return ((Boolean)oo).booleanValue(); 
+			return "Y".equals(oo);
+		}
+		return false;
+	}
+
+	/** Set Block K.
+		@param LBR_IncludeK Block K	  */
+	public void setLBR_IncludeK (boolean LBR_IncludeK)
+	{
+		set_Value (COLUMNNAME_LBR_IncludeK, Boolean.valueOf(LBR_IncludeK));
+	}
+
+	/** Get Block K.
+		@return Block K	  */
+	public boolean isLBR_IncludeK () 
+	{
+		Object oo = get_Value(COLUMNNAME_LBR_IncludeK);
+		if (oo != null) 
+		{
+			 if (oo instanceof Boolean) 
+				 return ((Boolean)oo).booleanValue(); 
+			return "Y".equals(oo);
+		}
+		return false;
 	}
 
 	/** Perfil A = A */
@@ -353,85 +453,6 @@ public class X_LBR_SPEDFiscal extends PO implements I_LBR_SPEDFiscal, I_Persiste
 	public String getLBR_IndPerfil () 
 	{
 		return (String)get_Value(COLUMNNAME_LBR_IndPerfil);
-	}
-
-	/** Set Process Book Inventory.
-		@param LBR_ProcBookInventory 
-		Process Book Inventory (SPED Bloco K)
-	  */
-	public void setLBR_ProcBookInventory (boolean LBR_ProcBookInventory)
-	{
-		set_Value (COLUMNNAME_LBR_ProcBookInventory, Boolean.valueOf(LBR_ProcBookInventory));
-	}
-
-	/** Get Process Book Inventory.
-		@return Process Book Inventory (SPED Bloco K)
-	  */
-	public boolean isLBR_ProcBookInventory () 
-	{
-		Object oo = get_Value(COLUMNNAME_LBR_ProcBookInventory);
-		if (oo != null) 
-		{
-			 if (oo instanceof Boolean) 
-				 return ((Boolean)oo).booleanValue(); 
-			return "Y".equals(oo);
-		}
-		return false;
-	}
-
-	/** Set Process Tax Assessment.
-		@param LBR_ProcTaxAssessment Process Tax Assessment	  */
-	public void setLBR_ProcTaxAssessment (boolean LBR_ProcTaxAssessment)
-	{
-		set_Value (COLUMNNAME_LBR_ProcTaxAssessment, Boolean.valueOf(LBR_ProcTaxAssessment));
-	}
-
-	/** Get Process Tax Assessment.
-		@return Process Tax Assessment	  */
-	public boolean isLBR_ProcTaxAssessment () 
-	{
-		Object oo = get_Value(COLUMNNAME_LBR_ProcTaxAssessment);
-		if (oo != null) 
-		{
-			 if (oo instanceof Boolean) 
-				 return ((Boolean)oo).booleanValue(); 
-			return "Y".equals(oo);
-		}
-		return false;
-	}
-
-	/** Set SPED Fiscal.
-		@param LBR_SPEDFiscal_ID SPED Fiscal	  */
-	public void setLBR_SPEDFiscal_ID (int LBR_SPEDFiscal_ID)
-	{
-		if (LBR_SPEDFiscal_ID < 1) 
-			set_ValueNoCheck (COLUMNNAME_LBR_SPEDFiscal_ID, null);
-		else 
-			set_ValueNoCheck (COLUMNNAME_LBR_SPEDFiscal_ID, Integer.valueOf(LBR_SPEDFiscal_ID));
-	}
-
-	/** Get SPED Fiscal.
-		@return SPED Fiscal	  */
-	public int getLBR_SPEDFiscal_ID () 
-	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_LBR_SPEDFiscal_ID);
-		if (ii == null)
-			 return 0;
-		return ii.intValue();
-	}
-
-	/** Set LBR_SPEDFiscal_UU.
-		@param LBR_SPEDFiscal_UU LBR_SPEDFiscal_UU	  */
-	public void setLBR_SPEDFiscal_UU (String LBR_SPEDFiscal_UU)
-	{
-		set_Value (COLUMNNAME_LBR_SPEDFiscal_UU, LBR_SPEDFiscal_UU);
-	}
-
-	/** Get LBR_SPEDFiscal_UU.
-		@return LBR_SPEDFiscal_UU	  */
-	public String getLBR_SPEDFiscal_UU () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_SPEDFiscal_UU);
 	}
 
 	/** Set Processed.
@@ -477,5 +498,27 @@ public class X_LBR_SPEDFiscal extends PO implements I_LBR_SPEDFiscal, I_Persiste
 			return "Y".equals(oo);
 		}
 		return false;
+	}
+
+	/** Industrial ou equiparado a industrial = 0 */
+	public static final String LBR_INDATIVIDADE_IndustrialOuEquiparadoAIndustrial = "0";
+	/** Outros = 1 */
+	public static final String LBR_INDATIVIDADE_Outros = "1";
+	/** Set Tipo de atividade.
+		@param lbr_IndAtividade 
+		Tipo de atividade
+	  */
+	public void setlbr_IndAtividade (String lbr_IndAtividade)
+	{
+
+		set_Value (COLUMNNAME_lbr_IndAtividade, lbr_IndAtividade);
+	}
+
+	/** Get Tipo de atividade.
+		@return Tipo de atividade
+	  */
+	public String getlbr_IndAtividade () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_IndAtividade);
 	}
 }

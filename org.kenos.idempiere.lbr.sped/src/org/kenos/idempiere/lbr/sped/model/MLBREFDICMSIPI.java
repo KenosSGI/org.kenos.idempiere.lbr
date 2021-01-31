@@ -1,4 +1,4 @@
-package org.adempierelbr.model;
+package org.kenos.idempiere.lbr.sped.model;
 
 import java.io.File;
 import java.math.BigDecimal;
@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -15,6 +16,11 @@ import java.util.logging.Level;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.adempiere.model.POWrapper;
+import org.adempierelbr.model.MLBRFactFiscal;
+import org.adempierelbr.model.MLBRSalesCardTotal;
+import org.adempierelbr.model.MLBRTaxAssessment;
+import org.adempierelbr.model.X_LBR_EFDICMSIPI;
+import org.adempierelbr.model.X_LBR_TaxAssessmentLine;
 import org.adempierelbr.sped.CounterSped;
 import org.adempierelbr.sped.efd.EFDUtil;
 import org.adempierelbr.sped.efd.bean.BLOCO0;
@@ -38,18 +44,20 @@ import org.adempierelbr.sped.efd.bean.RC500;
 import org.adempierelbr.sped.efd.bean.RD100;
 import org.adempierelbr.sped.efd.bean.RD500;
 import org.adempierelbr.sped.efd.bean.RE200;
-import org.adempierelbr.util.LBRUtils;
 import org.adempierelbr.util.TextUtil;
 import org.adempierelbr.wrapper.I_W_AD_OrgInfo;
 import org.compiere.model.MAttachment;
 import org.compiere.model.MBPartner;
+import org.compiere.model.MColumn;
 import org.compiere.model.MElementValue;
 import org.compiere.model.MOrgInfo;
 import org.compiere.model.MPeriod;
 import org.compiere.model.MProduct;
 import org.compiere.model.MSysConfig;
+import org.compiere.model.MTable;
 import org.compiere.model.ModelValidationEngine;
 import org.compiere.model.ModelValidator;
+import org.compiere.model.Query;
 import org.compiere.process.DocAction;
 import org.compiere.process.DocOptions;
 import org.compiere.process.DocumentEngine;
@@ -58,28 +66,28 @@ import org.compiere.util.Env;
 import org.kenos.idempiere.lbr.base.model.SysConfig;
 
 /**
+ * 		Model for SPED EFD ICMS IPI
  * 
- * @author rfeitosa
- *
+ * 	@author Rogério Feitosa <rfeitosa@kenos.com.br>
+ * 	@author Ricardo Santana <rsantana@kenos.com.br>
  */
-public class MLBRSPEDFiscal extends X_LBR_SPEDFiscal implements DocAction, DocOptions
+public class MLBREFDICMSIPI extends X_LBR_EFDICMSIPI implements DocAction, DocOptions
 {
-
 	/**
-	 * 
+	 * 	Serial
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 8241175208892074881L;
 
 	/**
 	 * 
 	 * @param ctx
-	 * @param LBR_SPEDFiscal_ID
+	 * @param LBR_EFDICMSIPI_ID
 	 * @param trxName
 	 */
-	public MLBRSPEDFiscal(Properties ctx, int LBR_SPEDFiscal_ID, String trxName)
+	public MLBREFDICMSIPI (Properties ctx, int LBR_EFDICMSIPI_ID, String trxName)
 	{
-		super(ctx, LBR_SPEDFiscal_ID, trxName);
-	}
+		super (ctx, LBR_EFDICMSIPI_ID, trxName);
+	}	//	MLBREFDICMSIPI
 	
 	/**
 	 * 
@@ -87,17 +95,17 @@ public class MLBRSPEDFiscal extends X_LBR_SPEDFiscal implements DocAction, DocOp
 	 * @param rs
 	 * @param trxName
 	 */
-	public MLBRSPEDFiscal(Properties ctx, ResultSet rs, String trxName)
+	public MLBREFDICMSIPI(Properties ctx, ResultSet rs, String trxName)
 	{
-		super(ctx, rs, trxName);
-	}
+		super (ctx, rs, trxName);
+	}	//	MLBREFDICMSIPI
 
 	public boolean processIt(String processAction) throws Exception
 	{
 		m_processMsg = null;
 		DocumentEngine engine = new DocumentEngine (this, getDocStatus());
 		return engine.processIt (processAction, getDocAction());
-	}
+	}	//	processIt
 	
 	/**	Process Message 			*/
 	private String		m_processMsg = null;
@@ -107,15 +115,13 @@ public class MLBRSPEDFiscal extends X_LBR_SPEDFiscal implements DocAction, DocOp
 	public boolean unlockIt()
 	{
 		return false;
-	}
+	}	//	unlockIt
 
 	public boolean invalidateIt()
 	{
-
 		return false;
-	}
+	}	//	invalidateIt
 
-	
 	public String prepareIt()
 	{
 		log.info(toString());
@@ -134,30 +140,56 @@ public class MLBRSPEDFiscal extends X_LBR_SPEDFiscal implements DocAction, DocOp
 		
 		if (getAD_Org_ID() == 0)
 			return "@AD_Org_ID@ @Mandatory@";
+		
+		List<String> common = new ArrayList<String>();
+		List<Object> array = Arrays.asList(Arrays.asList(MTable.get(getCtx(), "LBR_FactFiscal")
+				.getColumns(false))
+				.stream()
+				.map(MColumn::getColumnName)
+				.filter(c -> !TextUtil.match(c, "LBR_SPEDContribution_ID", "LBR_EFDContrib_ID", "LBR_EFDICMSIPI_ID"))
+				.toArray());
+		
+		//	TODO: Compare againt LBR_FactFiscalBase when LBR_FactFiscalBase is created in framework
+		Arrays.asList(MTable.get(getCtx(), "LBR_FactFiscal")	//	Change to LBR_FactFiscalBase
+				.getColumns(false))
+				.stream()
+				.map(MColumn::getColumnName)
+				.filter(c -> array.contains(c) && !"LBR_EFDICMSIPI_ID".equals(c))
+				.forEach(c -> common.add(c));
 
-		/*
-		 * Carregar Período e datas
-		 */
-		MPeriod period = new MPeriod(getCtx(), getC_Period_ID(), get_TrxName());
-		Timestamp dateFrom = period.getStartDate();
-		Timestamp dateTo   = period.getEndDate();
+		//	Delete to re-create later
+		DB.executeUpdate("DELETE FROM LBR_FactFiscal"
+				+ " WHERE LBR_EFDICMSIPI_ID = " + getLBR_EFDICMSIPI_ID() 
+				+ " AND AD_Client_ID = " + getAD_Client_ID(), get_TrxName());
 		
-		DB.executeUpdate("DELETE FROM LBR_FactFiscal WHERE LBR_SPEDFiscal_ID = " + getLBR_SPEDFiscal_ID() + " AND AD_Client_ID = " + getAD_Client_ID(), null);
-		DB.executeUpdate("INSERT INTO LBR_FactFiscal SELECT *, " + getLBR_SPEDFiscal_ID() + " FROM LBR_FactFiscalBase WHERE DateDoc >= " + DB.TO_DATE(dateFrom) + " AND DateDoc<=" + DB.TO_DATE(dateTo) + " AND AD_Client_ID = " + getAD_Client_ID(), null);
+		//	Re-create from base
+		DB.executeUpdate("INSERT INTO LBR_FactFiscal (" + String.join(",", common) + ", LBR_EFDICMSIPI_ID) "
+				+ " SELECT " + String.join(",", common) + "," + getLBR_EFDICMSIPI_ID()
+				+ " FROM LBR_FactFiscalBase"
+				+ " WHERE (CASE WHEN IsSOTrx='Y' THEN DateDoc ELSE lbr_DateInOut END) BETWEEN " + DB.TO_DATE(getStartDate())
+				+ " AND " + DB.TO_DATE(getEndDate())
+				+ " AND ((IsSOTrx = 'Y' AND lbr_NFeProt IS NOT NULL) OR IsSOTrx ='N') "
+				+ " AND AD_Client_ID = " + getAD_Client_ID(), get_TrxName());
 		
-		if (isLBR_ProcTaxAssessment())
+		if (isLBR_IncludeE())
 		{
 			String result = processTaxAssessment();
 			if (result != null)
-				return result;
+			{
+				m_processMsg = result;
+				return DocAction.STATUS_Invalid;
+			}
 		}
 		
 		// Generate Book Inventory (Bloco K)
-		if (isLBR_ProcBookInventory())
+		if (isLBR_IncludeK())
 		{
 			String result = generateBookInventory();
 			if (result != null)
-				return result;
+			{
+				m_processMsg = result;
+				return DocAction.STATUS_Invalid;
+			}
 		}
 		
 		m_processMsg = ModelValidationEngine.get().fireDocValidate(this, ModelValidator.TIMING_AFTER_PREPARE);
@@ -167,16 +199,15 @@ public class MLBRSPEDFiscal extends X_LBR_SPEDFiscal implements DocAction, DocOp
 		m_justPrepared = true;
 		
 		return DocAction.STATUS_InProgress;
-	}
+	}	//	prepareIt
 	
 	/**
 	 * 
 	 */
 	protected String processTaxAssessment()
 	{
-		
 		return null;		
-	}
+	}	//	processTaxAssessment
 	
 	/**
 	 * 
@@ -189,10 +220,10 @@ public class MLBRSPEDFiscal extends X_LBR_SPEDFiscal implements DocAction, DocOp
 		
 		//	DELETAR Registros do período
 		DB.executeUpdate("DELETE FROM LBR_BookInventory WHERE AD_Client_ID = " + 
-						getAD_Client_ID() + " AND LBR_SPEDFiscal_ID = " + getLBR_SPEDFiscal_ID() + ";", null);
+						getAD_Client_ID() + " AND LBR_EFDICMSIPI_ID = " + getLBR_EFDICMSIPI_ID() + ";", get_TrxName());
 		
 		// Identificar ID da Sequencia da tabela LBR_BookInventory
-		int nextId = DB.getSQLValue(null, "SELECT AD_Sequence_ID FROM AD_Sequence WHERE Name='LBR_BookInventory' " + 
+		int nextId = DB.getSQLValue(get_TrxName(), "SELECT AD_Sequence_ID FROM AD_Sequence WHERE Name='LBR_BookInventory' " + 
 											" AND AD_Client_ID IN (" + getAD_Client_ID() + ",0)");
 		
 		//	Se não encontrar a Sequência
@@ -201,10 +232,10 @@ public class MLBRSPEDFiscal extends X_LBR_SPEDFiscal implements DocAction, DocOp
 		
 		// sql
 		String sql = " INSERT INTO LBR_BookInventory (ad_client_id, ad_org_id,  " 						+ 
-				"   c_bpartner_id, lbr_spedfiscal_id, created, createdby, isactive, isrevalidate,  " + 
+				"   c_bpartner_id, LBR_EFDICMSIPI_ID, created, createdby, isactive, isrevalidate,  " + 
 				"   lbr_bookinventory_id, lbr_bookinventory_uu,lbr_warehousetype, movementdate," + 
 				"   m_product_id, qtybook, updated, updatedby)									" +
-				"   SELECT mt.AD_Client_ID, mt.AD_Org_ID, l.C_BPartner_ID, " + getLBR_SPEDFiscal_ID() + "," 			+ 
+				"   SELECT mt.AD_Client_ID, mt.AD_Org_ID, l.C_BPartner_ID, " + getLBR_EFDICMSIPI_ID() + "," 			+ 
 				" 	current_timestamp, " + getUpdatedBy() + ", 'Y', 'N', nextid(" + nextId + ",'Y'), uuid_generate_v1(), " +
 				"   wh.lbr_WarehouseType,	" + DB.TO_DATE(period.getEndDate()) + ", mt.M_Product_ID,	" +
 				"	ROUND(SUM(MovementQty), 4), current_timestamp, " + getUpdatedBy() + 
@@ -223,38 +254,23 @@ public class MLBRSPEDFiscal extends X_LBR_SPEDFiscal implements DocAction, DocOp
 				" ORDER BY mt.M_Product_ID																";
 		
 		//	Gerar Inventário Bloco K
-		DB.executeUpdate(sql, null);
+		DB.executeUpdate(sql, get_TrxName());
 		
-		return "";
+		return null;
 	}	//	generateBookInventory
 	
 	public boolean approveIt()
 	{
-
 		return false;
-	}
-
+	}	//	approveIt
 	
 	public boolean rejectIt()
 	{
-
 		return false;
-	}
-
+	}	//	rejectIt
 	
 	public String completeIt()
-	{
-		/*
-		 * Carregar Período e datas
-		 */
-		MPeriod period = new MPeriod(getCtx(), getC_Period_ID(), get_TrxName());
-		Timestamp dateFrom = period.getStartDate();
-		Timestamp dateTo   = period.getEndDate();
-		/*
-		 * Tempo inicial
-		 */
-		long start = System.currentTimeMillis();
-		
+	{	
 		StringBuilder result = new StringBuilder();
 		
 		/*
@@ -266,7 +282,7 @@ public class MLBRSPEDFiscal extends X_LBR_SPEDFiscal implements DocAction, DocOp
 			/*
 			 * Rodar Processo
 			 */
-			result = generateEFD(dateFrom,dateTo);
+			result = generateEFD();
 		}
 		catch (Exception e)
 		{
@@ -279,7 +295,7 @@ public class MLBRSPEDFiscal extends X_LBR_SPEDFiscal implements DocAction, DocOp
 		 * EDF_CNPJ_DATA.txt
 		 */
 		I_W_AD_OrgInfo oi = POWrapper.create(MOrgInfo.get(getCtx(), getAD_Org_ID(), get_TrxName()), I_W_AD_OrgInfo.class);
-		fileName = "EFD_" + TextUtil.toNumeric(oi.getlbr_CNPJ()) + "_" + TextUtil.timeToString(dateFrom, "MMyyyy") + ".txt";
+		fileName = "EFD_" + TextUtil.toNumeric(oi.getlbr_CNPJ()) + "_" + TextUtil.timeToString(getStartDate(), "MMyyyy") + ".txt";
 		
 		String tmp = System.getProperty("java.io.tmpdir") +
 	             System.getProperty("file.separator");
@@ -302,32 +318,29 @@ public class MLBRSPEDFiscal extends X_LBR_SPEDFiscal implements DocAction, DocOp
 			return "Error saving SPED";
 		}
 
-		/*
-		 * Tempo Final
-		 */
-		long end = System.currentTimeMillis();		
-		String tempoDecorrido = LBRUtils.elapsedTime (start, end);
-		
-		log.fine("Arquivo(s) Gerado(s) com Sucesso: " + fileName + 
-		       " <br>** Tempo decorrido: <font color=\"008800\">" + tempoDecorrido + "</font>");
-
-		return null;
-	}
+		setDocAction(DOCACTION_None);
+		setProcessed(true);
+		//
+		return DocAction.STATUS_Completed;
+	}	//	completeIt
 	
 	/**
 	 * 
-	 * @param dateFrom
-	 * @param dateTo
+	 * @param getStartDate()
+	 * @param getEndDate()
 	 * @return
 	 * @throws Exception
 	 */
-	private StringBuilder generateEFD(Timestamp dateFrom, Timestamp dateTo) throws Exception
+	private StringBuilder generateEFD() throws Exception
 	{
 		// Zerar Contadores (estaticos)
 		CounterSped.clear();
 		
 		// Fatos Fiscais
-		MLBRFactFiscal[] factFiscals = MLBRFactFiscal.get(getCtx(), dateFrom, dateTo, getAD_Org_ID(), null, null); 
+		List<MLBRFactFiscal> factFiscals = new Query(getCtx(), MLBRFactFiscal.Table_Name, "LBR_EFDICMSIPI_ID=?", get_TrxName())
+				.setParameters(getLBR_EFDICMSIPI_ID())
+				.setOrderBy("(CASE WHEN IsSOTrx='Y' THEN DateDoc ELSE lbr_DateInOut END), LBR_NotaFiscal_ID, Line, DocumentNo")
+				.list();
 
 		// Vendas com cartão de crédito
 		MLBRSalesCardTotal[] cards = MLBRSalesCardTotal.get(getCtx(), getC_Period_ID(), null);
@@ -346,7 +359,7 @@ public class MLBRSPEDFiscal extends X_LBR_SPEDFiscal implements DocAction, DocOp
 		
 		
 		// 0000 - dados da empresa
-		bloco0.setR0000(EFDUtil.createR0000(getCtx(), dateFrom, dateTo, getAD_Org_ID(), null));
+		bloco0.setR0000(EFDUtil.createR0000(getCtx(), getStartDate(), getEndDate(), getAD_Org_ID(), null));
 		
 		/**
 		 * 	00 - Industrial - Transformação
@@ -586,7 +599,7 @@ public class MLBRSPEDFiscal extends X_LBR_SPEDFiscal implements DocAction, DocOp
 		if(m_taxAssessment != null && m_taxAssessment.get_ID() > 0)
 		{				
 			// E100 - ICMS
-			blocoE.setrE100(EFDUtil.createRE100(dateFrom, dateTo));
+			blocoE.setrE100(EFDUtil.createRE100(getStartDate(), getEndDate()));
 			
 			// E110 - gerar baseado nos blocos C e D
 			blocoE.getrE100().setrE110(EFDUtil.createRE110(m_taxAssessment));
@@ -614,7 +627,7 @@ public class MLBRSPEDFiscal extends X_LBR_SPEDFiscal implements DocAction, DocOp
 			{
 				
 				// RE200 - criar registro da UF no período
-				RE200 re200 = EFDUtil.createRE200(aux_rc100.getUF(), dateFrom, dateTo);
+				RE200 re200 = EFDUtil.createRE200(aux_rc100.getUF(), getStartDate(), getEndDate());
 				
 				
 				//
@@ -659,7 +672,7 @@ public class MLBRSPEDFiscal extends X_LBR_SPEDFiscal implements DocAction, DocOp
 					// adicionar o RE250 ao RE210
 					blocoE.getrE200().get(blocoE.getrE200().indexOf(re200)).getrE210().addrE250(
 							EFDUtil.createRE250(bloco0.getR0000().getUF().equals(aux_rc100.getUF()), 
-									aux_rc100.getDT_DOC(), VL_RETENÇAO_ST, dateTo, aux_rc100.getNUM_DOC()));
+									aux_rc100.getDT_DOC(), VL_RETENÇAO_ST, getEndDate(), aux_rc100.getNUM_DOC()));
 					
 				} // end if retencao > 0
 				
@@ -680,7 +693,7 @@ public class MLBRSPEDFiscal extends X_LBR_SPEDFiscal implements DocAction, DocOp
 		if(m_taxAssessment != null && m_taxAssessment.get_ID() > 0)
 		{
 			// E500
-			blocoE.setrE500(EFDUtil.createRE500(dateFrom, dateTo));
+			blocoE.setrE500(EFDUtil.createRE500(getStartDate(), getEndDate()));
 			
 			// E510 - Resumo baseado no RC170				
 			for (RC100 regRC100 : blocoC.getrC100())
@@ -704,7 +717,7 @@ public class MLBRSPEDFiscal extends X_LBR_SPEDFiscal implements DocAction, DocOp
 		 * valores devem ser referentes ao mês de dezembro
 		 */
 		GregorianCalendar calendar = new GregorianCalendar();
-		calendar.setTime(dateFrom);
+		calendar.setTime(getStartDate());
 		
 		if(calendar.get(Calendar.MONTH) == 1) // (indice do calendar: 0(mês 1), 1(mês 2), 2(mês 3)...)
 		{
@@ -721,75 +734,78 @@ public class MLBRSPEDFiscal extends X_LBR_SPEDFiscal implements DocAction, DocOp
 			 * Obs.: Valor total é atualizado ao adicionar um novo registro RH010
 			 * Data: 31/12/ANO_ANTERIOR_AO_QUE_ESTA_SENDO_GERADO_O_EFD
 			 */
-			blocoH.setrH005(EFDUtil.createRH005(new Timestamp(calendar.getTimeInMillis())));
-			
-			PreparedStatement pstmt = null;
-			ResultSet rs = null;
-			
-			try
+			if (isLBR_IncludeH())
 			{
-				// carregar informações do inventário
-				pstmt = DB.prepareStatement (EFDUtil.getSQLInv(), null);
-				// params
-				pstmt.setInt(1, getC_Period_ID());
-				pstmt.setString(2, "S");
-				pstmt.setInt(3, Env.getAD_Client_ID(getCtx()));
-				pstmt.setInt(4, getAD_Org_ID());
-				pstmt.setTimestamp(5, new Timestamp(calendar.getTimeInMillis())); // Data: 31/12/ANO_ANTERIOR_AO_QUE_ESTA_SENDO_GERADO_O_EFD
+				blocoH.setrH005(EFDUtil.createRH005(new Timestamp(calendar.getTimeInMillis())));
+			
+				PreparedStatement pstmt = null;
+				ResultSet rs = null;
 				
-				// rs
-				rs  = pstmt.executeQuery ();
-			
-				/*
-				 *  para cada registro do inventário, gera-se um RH010 e totaliza com o RH005
-				 */
-				while (rs.next())
+				try
 				{
-					// carregar produto
-					MProduct m_product = new MProduct(getCtx(), rs.getInt("M_Product_ID"), null);
-
-					// criar R0190
-					R0190 r0190 = EFDUtil.createR0190(m_product);
-					bloco0.addr0190(r0190);
+					// carregar informações do inventário
+					pstmt = DB.prepareStatement (EFDUtil.getSQLInv(isFixedAsset()), null);
+					// params
+					pstmt.setInt(1, getC_Period_ID());
+					pstmt.setString(2, "S");
+					pstmt.setInt(3, Env.getAD_Client_ID(getCtx()));
+					pstmt.setInt(4, getAD_Org_ID());
+					pstmt.setTimestamp(5, new Timestamp(calendar.getTimeInMillis())); // Data: 31/12/ANO_ANTERIOR_AO_QUE_ESTA_SENDO_GERADO_O_EFD
 					
-					// criar R0200
-					R0200 r0200 = EFDUtil.createR0200(m_product);
-					bloco0.addr0200(r0200);
-			
-					// conta contábil
-					String COD_CTA = "";
-					int C_ElementValue_ID = EFDUtil.getProductAsseAcct(m_product.getM_Product_ID(), null);
-					if(C_ElementValue_ID > 0)
+					// rs
+					rs  = pstmt.executeQuery ();
+				
+					/*
+					 *  para cada registro do inventário, gera-se um RH010 e totaliza com o RH005
+					 */
+					while (rs.next())
 					{
-						R0500 r0500 = EFDUtil.createR0500(new MElementValue(getCtx(), C_ElementValue_ID, null), dateTo);
-						bloco0.addr0500(r0500);
-						COD_CTA = r0500.getCOD_CTA();
+						// carregar produto
+						MProduct m_product = new MProduct(getCtx(), rs.getInt("M_Product_ID"), null);
+	
+						// criar R0190
+						R0190 r0190 = EFDUtil.createR0190(m_product);
+						bloco0.addr0190(r0190);
+						
+						// criar R0200
+						R0200 r0200 = EFDUtil.createR0200(m_product);
+						bloco0.addr0200(r0200);
+				
+						// conta contábil
+						String COD_CTA = "";
+						int C_ElementValue_ID = EFDUtil.getProductAsseAcct(m_product.getM_Product_ID(), null);
+						if(C_ElementValue_ID > 0)
+						{
+							R0500 r0500 = EFDUtil.createR0500(new MElementValue(getCtx(), C_ElementValue_ID, null), getEndDate());
+							bloco0.addr0500(r0500);
+							COD_CTA = r0500.getCOD_CTA();
+						}
+						
+						// indicador de quem está com o estoque
+						String IND_PROP = rs.getString("lbr_WarehouseType").equals("3RD") ? "2" :
+								rs.getString("lbr_WarehouseType").equals("3WN") ? "1" : "0"; 					
+						 
+								
+						// criar registro RH010 e adicionar ao RH005
+						blocoH.getrH005().addrH010(EFDUtil.createRH010(
+								r0200.getCOD_ITEM(), 
+								r0190.getUNID(), 
+								rs.getBigDecimal("QtyOnHand"),
+								rs.getBigDecimal("CurrentCostPrice"), 
+								rs.getBigDecimal("CurrentCostPrice").multiply(rs.getBigDecimal("QtyOnHand")), 
+								IND_PROP, 
+								COD_CTA));
+						
 					}
-					
-					// indicador de quem está com o estoque
-					String IND_PROP = rs.getString("lbr_WarehouseType").equals("3RD") ? "2" :
-							rs.getString("lbr_WarehouseType").equals("3WN") ? "1" : "0"; 					
-					 
-							
-					// criar registro RH010 e adicionar ao RH005
-					blocoH.getrH005().addrH010(EFDUtil.createRH010(
-							r0200.getCOD_ITEM(), 
-							r0190.getUNID(), 
-							rs.getBigDecimal("QtyOnHand"),
-							rs.getBigDecimal("CurrentCostPrice"), 
-							rs.getBigDecimal("CurrentCostPrice").multiply(rs.getBigDecimal("QtyOnHand")), 
-							IND_PROP, 
-							COD_CTA));
-					
+				} // fim Bloco H
+				catch (SQLException e)
+				{
+					log.log(Level.SEVERE, EFDUtil.getSQLInv(), e);
+					return null;
 				}
-			} // fim Bloco H
-			catch (SQLException e)
-			{
-				log.log(Level.SEVERE, EFDUtil.getSQLInv(), e);
-				return null;
-			}
-			finally{
-			       DB.close(rs, pstmt);
+				finally{
+				       DB.close(rs, pstmt);
+				}
 			}
 		}
 		
@@ -807,7 +823,7 @@ public class MLBRSPEDFiscal extends X_LBR_SPEDFiscal implements DocAction, DocOp
 			// params
 			pstmt.setInt(1, Env.getAD_Client_ID(getCtx()));
 			pstmt.setInt(2, getAD_Org_ID());
-			pstmt.setInt(3, getLBR_SPEDFiscal_ID());
+			pstmt.setInt(3, getLBR_EFDICMSIPI_ID());
 			
 			// rs
 			rs  = pstmt.executeQuery ();
@@ -816,7 +832,7 @@ public class MLBRSPEDFiscal extends X_LBR_SPEDFiscal implements DocAction, DocOp
 			if(rs.isBeforeFirst())
 			{
 				// K100
-				blocoK.setrK100(EFDUtil.createRK100(dateFrom, dateTo));
+				blocoK.setrK100(EFDUtil.createRK100(getStartDate(), getEndDate()));
 			}
 		
 			/*
@@ -857,7 +873,7 @@ public class MLBRSPEDFiscal extends X_LBR_SPEDFiscal implements DocAction, DocOp
 					blocoK.addrK200(EFDUtil.createRK200(
 							r0200.getCOD_ITEM(), 
 							bpValue, 
-							dateTo,
+							getEndDate(),
 							IND_PROP,
 							qtyBook));
 				else
@@ -952,119 +968,126 @@ public class MLBRSPEDFiscal extends X_LBR_SPEDFiscal implements DocAction, DocOp
 		result.append(blocoK.toString());
 		result.append(bloco1.toString());
 		result.append(bloco9.toString());
-		
-		
 		// 
 		return result;
-	}
-
+	}	//	generateEFD
 	
 	public boolean voidIt()
 	{
-
 		return false;
-	}
-
+	}	//	voidIt
 	
 	public boolean closeIt()
 	{
-
 		return false;
-	}
-
+	}	//	closeIt
 	
 	public boolean reverseCorrectIt()
 	{
-
 		return false;
-	}
-
+	}	//	reverseCorrectIt
 	
 	public boolean reverseAccrualIt()
 	{
-
 		return false;
-	}
-
+	}	//	reverseAccrualIt
 	
 	public boolean reActivateIt()
 	{
-
-		return false;
-	}
-
+		setProcessed(false);
+		setDocAction(ACTION_Prepare);
+		return true;
+	}	//	reActivateIt
 	
 	public String getSummary()
 	{
-
 		return null;
-	}
-
+	}	//	getSummary
 	
 	public String getDocumentNo()
 	{
-
 		return null;
-	}
-
+	}	//	getDocumentNo
 	
 	public String getDocumentInfo()
 	{
-
 		return null;
-	}
-
+	}	//	getDocumentInfo
 	
 	public File createPDF()
 	{
-
 		return null;
-	}
-
+	}	//	createPDF
 	
 	public String getProcessMsg()
 	{
-
 		return null;
-	}
-
+	}	//	getProcessMsg
 	
 	public int getDoc_User_ID()
 	{
-
 		return 0;
-	}
-
+	}	//	getDoc_User_ID
 	
 	public int getC_Currency_ID()
 	{
-
 		return 0;
-	}
-	
+	}	//	getC_Currency_ID
+
 	public BigDecimal getApprovalAmt()
 	{
 		return null;
-	}
+	}	//	getApprovalAmt
 	
-	public int customizeValidActions (String docStatus, Object processing,
-			String orderType, String isSOTrx, int AD_Table_ID, String[] docAction,
-			String[] options, int index)
-	{
-		List<String> list = Arrays.asList (options);
-		
-		//	Completed
-		if (docStatus.equals (DocumentEngine.STATUS_Drafted) || 
-				docStatus.equals (DocumentEngine.STATUS_InProgress))
+	public int customizeValidActions(String docStatus, Object processing, String orderType, String isSOTrx,
+			int AD_Table_ID, String[] docAction, String[] options, int index) {
+		if (DOCSTATUS_Drafted.equals(docStatus)
+				|| DOCSTATUS_Invalid.equals(docStatus))
 		{
-			if (!list.contains(DocumentEngine.ACTION_Void))
-				options[index++] = DocumentEngine.ACTION_Void;
-			if (!list.contains(DocumentEngine.ACTION_Prepare))
-				options[index++] = DocumentEngine.ACTION_Prepare;
-			if (!list.contains(DocumentEngine.STATUS_Completed))
-				options[index++] = DocumentEngine.STATUS_Completed;
+			options[0] = DOCACTION_Prepare;
+			options[1] = DOCACTION_Void;
+			options[2] = null;
+			options[3] = null;
+			options[4] = null;
+			index=2;
 		}
+		else if (DOCSTATUS_InProgress.equals(docStatus))
+		{
+			options[0] = DOCACTION_Complete;
+			options[1] = DOCACTION_Prepare;
+			options[2] = DOCACTION_Void;
+			options[3] = null;
+			options[4] = null;
+			index=3;
+		}
+		else if (DOCSTATUS_Completed.equals(docStatus))
+		{
+			options[0] = DOCACTION_Re_Activate;
+			options[1] = null;
+			options[2] = null;
+			options[3] = null;
+			options[4] = null;
+			index=1;
+		}
+		//
 		return index;
 	}	//	customizeValidActions
-
-}
+	
+	private Timestamp getStartDate()
+	{
+		return getC_Period().getStartDate();
+	}	//	getStartDate
+	
+	private Timestamp getEndDate()
+	{
+		return getC_Period().getEndDate();
+	}	//	getEndDate
+	
+	@Override
+	public String toString() 
+	{
+		StringBuilder sb = new StringBuilder("EFD [");
+		sb.append(TextUtil.timeToString(getC_Period().getStartDate(), "MM/yyyy")).append("-").append(get_ID()).append("]");
+		return sb.toString();	
+	}	//	toString
+}	//	MLBREFDICMSIPI

@@ -21,16 +21,16 @@ import java.sql.Timestamp;
 import org.compiere.model.*;
 import org.compiere.util.KeyNamePair;
 
-/** Generated Interface for LBR_SPEDFiscal
+/** Generated Interface for LBR_EFDICMSIPI
  *  @author iDempiere (generated) 
  *  @version Release 6.2
  */
 @SuppressWarnings("all")
-public interface I_LBR_SPEDFiscal 
+public interface I_LBR_EFDICMSIPI 
 {
 
-    /** TableName=LBR_SPEDFiscal */
-    public static final String Table_Name = "LBR_SPEDFiscal";
+    /** TableName=LBR_EFDICMSIPI */
+    public static final String Table_Name = "LBR_EFDICMSIPI";
 
     /** AD_Table_ID=1120707 */
     public static final int Table_ID = MTable.getTable_ID(Table_Name);
@@ -79,6 +79,21 @@ public interface I_LBR_SPEDFiscal
 
 	public org.compiere.model.I_C_Period getC_Period() throws RuntimeException;
 
+    /** Column name C_Year_ID */
+    public static final String COLUMNNAME_C_Year_ID = "C_Year_ID";
+
+	/** Set Year.
+	  * Calendar Year
+	  */
+	public void setC_Year_ID (int C_Year_ID);
+
+	/** Get Year.
+	  * Calendar Year
+	  */
+	public int getC_Year_ID();
+
+	public org.compiere.model.I_C_Year getC_Year() throws RuntimeException;
+
     /** Column name Created */
     public static final String COLUMNNAME_Created = "Created";
 
@@ -94,21 +109,6 @@ public interface I_LBR_SPEDFiscal
 	  * User who created this records
 	  */
 	public int getCreatedBy();
-
-    /** Column name C_Year_ID */
-    public static final String COLUMNNAME_C_Year_ID = "C_Year_ID";
-
-	/** Set Year.
-	  * Calendar Year
-	  */
-	public void setC_Year_ID (int C_Year_ID);
-
-	/** Get Year.
-	  * Calendar Year
-	  */
-	public int getC_Year_ID();
-
-	public org.compiere.model.I_C_Year getC_Year() throws RuntimeException;
 
     /** Column name DateDoc */
     public static final String COLUMNNAME_DateDoc = "DateDoc";
@@ -162,6 +162,15 @@ public interface I_LBR_SPEDFiscal
 	  */
 	public boolean isActive();
 
+    /** Column name IsFixedAsset */
+    public static final String COLUMNNAME_IsFixedAsset = "IsFixedAsset";
+
+	/** Set IsFixedAsset	  */
+	public void setIsFixedAsset (boolean IsFixedAsset);
+
+	/** Get IsFixedAsset	  */
+	public boolean isFixedAsset();
+
     /** Column name LBR_BP_Accountant_ID */
     public static final String COLUMNNAME_LBR_BP_Accountant_ID = "LBR_BP_Accountant_ID";
 
@@ -199,18 +208,50 @@ public interface I_LBR_SPEDFiscal
 	  */
 	public String getLBR_COD_VER();
 
-    /** Column name lbr_IndAtividade */
-    public static final String COLUMNNAME_lbr_IndAtividade = "lbr_IndAtividade";
+    /** Column name LBR_EFDICMSIPI_ID */
+    public static final String COLUMNNAME_LBR_EFDICMSIPI_ID = "LBR_EFDICMSIPI_ID";
 
-	/** Set Tipo de atividade.
-	  * Tipo de atividade
-	  */
-	public void setlbr_IndAtividade (String lbr_IndAtividade);
+	/** Set EFD ICMS/IPI	  */
+	public void setLBR_EFDICMSIPI_ID (int LBR_EFDICMSIPI_ID);
 
-	/** Get Tipo de atividade.
-	  * Tipo de atividade
-	  */
-	public String getlbr_IndAtividade();
+	/** Get EFD ICMS/IPI	  */
+	public int getLBR_EFDICMSIPI_ID();
+
+    /** Column name LBR_EFDICMSIPI_UU */
+    public static final String COLUMNNAME_LBR_EFDICMSIPI_UU = "LBR_EFDICMSIPI_UU";
+
+	/** Set LBR_EFDICMSIPI_UU	  */
+	public void setLBR_EFDICMSIPI_UU (String LBR_EFDICMSIPI_UU);
+
+	/** Get LBR_EFDICMSIPI_UU	  */
+	public String getLBR_EFDICMSIPI_UU();
+
+    /** Column name LBR_IncludeE */
+    public static final String COLUMNNAME_LBR_IncludeE = "LBR_IncludeE";
+
+	/** Set Block E	  */
+	public void setLBR_IncludeE (boolean LBR_IncludeE);
+
+	/** Get Block E	  */
+	public boolean isLBR_IncludeE();
+
+    /** Column name LBR_IncludeH */
+    public static final String COLUMNNAME_LBR_IncludeH = "LBR_IncludeH";
+
+	/** Set Block H	  */
+	public void setLBR_IncludeH (boolean LBR_IncludeH);
+
+	/** Get Block H	  */
+	public boolean isLBR_IncludeH();
+
+    /** Column name LBR_IncludeK */
+    public static final String COLUMNNAME_LBR_IncludeK = "LBR_IncludeK";
+
+	/** Set Block K	  */
+	public void setLBR_IncludeK (boolean LBR_IncludeK);
+
+	/** Get Block K	  */
+	public boolean isLBR_IncludeK();
 
     /** Column name LBR_IndPerfil */
     public static final String COLUMNNAME_LBR_IndPerfil = "LBR_IndPerfil";
@@ -224,46 +265,6 @@ public interface I_LBR_SPEDFiscal
 	  * Perfil de Apresentação do arquivo fiscal
 	  */
 	public String getLBR_IndPerfil();
-
-    /** Column name LBR_ProcBookInventory */
-    public static final String COLUMNNAME_LBR_ProcBookInventory = "LBR_ProcBookInventory";
-
-	/** Set Process Book Inventory.
-	  * Process Book Inventory (SPED Bloco K)
-	  */
-	public void setLBR_ProcBookInventory (boolean LBR_ProcBookInventory);
-
-	/** Get Process Book Inventory.
-	  * Process Book Inventory (SPED Bloco K)
-	  */
-	public boolean isLBR_ProcBookInventory();
-
-    /** Column name LBR_ProcTaxAssessment */
-    public static final String COLUMNNAME_LBR_ProcTaxAssessment = "LBR_ProcTaxAssessment";
-
-	/** Set Process Tax Assessment	  */
-	public void setLBR_ProcTaxAssessment (boolean LBR_ProcTaxAssessment);
-
-	/** Get Process Tax Assessment	  */
-	public boolean isLBR_ProcTaxAssessment();
-
-    /** Column name LBR_SPEDFiscal_ID */
-    public static final String COLUMNNAME_LBR_SPEDFiscal_ID = "LBR_SPEDFiscal_ID";
-
-	/** Set SPED Fiscal	  */
-	public void setLBR_SPEDFiscal_ID (int LBR_SPEDFiscal_ID);
-
-	/** Get SPED Fiscal	  */
-	public int getLBR_SPEDFiscal_ID();
-
-    /** Column name LBR_SPEDFiscal_UU */
-    public static final String COLUMNNAME_LBR_SPEDFiscal_UU = "LBR_SPEDFiscal_UU";
-
-	/** Set LBR_SPEDFiscal_UU	  */
-	public void setLBR_SPEDFiscal_UU (String LBR_SPEDFiscal_UU);
-
-	/** Get LBR_SPEDFiscal_UU	  */
-	public String getLBR_SPEDFiscal_UU();
 
     /** Column name Processed */
     public static final String COLUMNNAME_Processed = "Processed";
@@ -302,4 +303,17 @@ public interface I_LBR_SPEDFiscal
 	  * User who updated this records
 	  */
 	public int getUpdatedBy();
+
+    /** Column name lbr_IndAtividade */
+    public static final String COLUMNNAME_lbr_IndAtividade = "lbr_IndAtividade";
+
+	/** Set Tipo de atividade.
+	  * Tipo de atividade
+	  */
+	public void setlbr_IndAtividade (String lbr_IndAtividade);
+
+	/** Get Tipo de atividade.
+	  * Tipo de atividade
+	  */
+	public String getlbr_IndAtividade();
 }

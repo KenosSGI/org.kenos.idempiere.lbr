@@ -1,13 +1,12 @@
 SET SQLBLANKLINES ON
 SET DEFINE OFF
 
--- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
 -- 15 de dez de 2020 10:48:35 BRT
-INSERT INTO AD_Table (AD_Table_ID,Name,Description,Help,TableName,LoadSeq,AccessLevel,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,IsSecurityEnabled,IsDeleteable,IsHighVolume,IsView,EntityType,ImportTable,IsChangeLog,ReplicationType,CopyColumnsFromTable,IsCentrallyMaintained,AD_Table_UU,Processing,IsSystemLanguage) VALUES (1120707,'SPED Fiscal','Escrituração Fiscal Digital (EFD-ICMS/IPI) pelo contribuinte do ICMS e/ou IPI, pessoa física ou jurídica','Escrituração Fiscal Digital (EFD-ICMS/IPI) pelo contribuinte do ICMS e/ou IPI, pessoa física ou jurídica','LBR_SPEDFiscal',0,'3',0,0,'Y',TO_DATE('2020-12-15 10:48:34','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2020-12-15 10:48:34','YYYY-MM-DD HH24:MI:SS'),100,'N','Y','N','N','LBRA','N','Y','L','N','Y','a92652fc-d1b7-43e9-a78a-0f4e7c92dcd6','N','N')
+INSERT INTO AD_Table (AD_Table_ID,Name,Description,Help,TableName,LoadSeq,AccessLevel,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,IsSecurityEnabled,IsDeleteable,IsHighVolume,IsView,EntityType,ImportTable,IsChangeLog,ReplicationType,CopyColumnsFromTable,IsCentrallyMaintained,AD_Table_UU,Processing,IsSystemLanguage) VALUES (1120707,'EFD ICMS/IPI','Escrituração Fiscal Digital (EFD-ICMS/IPI) pelo contribuinte do ICMS e/ou IPI, pessoa física ou jurídica','Escrituração Fiscal Digital (EFD-ICMS/IPI) pelo contribuinte do ICMS e/ou IPI, pessoa física ou jurídica','LBR_EFDICMSIPI',0,'3',0,0,'Y',TO_DATE('2020-12-15 10:48:34','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2020-12-15 10:48:34','YYYY-MM-DD HH24:MI:SS'),100,'N','Y','N','N','LBRA','N','Y','L','N','Y','a92652fc-d1b7-43e9-a78a-0f4e7c92dcd6','N','N')
 ;
 
 -- 15 de dez de 2020 10:48:35 BRT
-INSERT INTO AD_Sequence (Name,CurrentNext,IsAudited,StartNewYear,Description,IsActive,IsTableID,AD_Client_ID,AD_Org_ID,Created,CreatedBy,Updated,UpdatedBy,AD_Sequence_ID,IsAutoSequence,StartNo,IncrementNo,CurrentNextSys,AD_Sequence_UU) VALUES ('LBR_SPEDFiscal',1000000,'N','N','Table LBR_SPEDFiscal','Y','Y',0,0,TO_DATE('2020-12-15 10:48:35','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2020-12-15 10:48:35','YYYY-MM-DD HH24:MI:SS'),100,1153953,'Y',1000000,1,200000,'125f0d9e-3f64-40ef-940e-06a9544939af')
+INSERT INTO AD_Sequence (Name,CurrentNext,IsAudited,StartNewYear,Description,IsActive,IsTableID,AD_Client_ID,AD_Org_ID,Created,CreatedBy,Updated,UpdatedBy,AD_Sequence_ID,IsAutoSequence,StartNo,IncrementNo,CurrentNextSys,AD_Sequence_UU) VALUES ('LBR_EFDICMSIPI',1000000,'N','N','Table LBR_EFDICMSIPI','Y','Y',0,0,TO_DATE('2020-12-15 10:48:35','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2020-12-15 10:48:35','YYYY-MM-DD HH24:MI:SS'),100,1153953,'Y',1000000,1,200000,'125f0d9e-3f64-40ef-940e-06a9544939af')
 ;
 
 -- 15 de dez de 2020 10:48:51 BRT
@@ -46,19 +45,19 @@ There are two reasons for de-activating and not deleting records:
 ;
 
 -- 15 de dez de 2020 10:48:53 BRT
-INSERT INTO AD_Element (AD_Element_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,ColumnName,Name,PrintName,EntityType,AD_Element_UU) VALUES (1123231,0,0,'Y',TO_DATE('2020-12-15 10:48:53','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2020-12-15 10:48:53','YYYY-MM-DD HH24:MI:SS'),100,'LBR_SPEDFiscal_ID','SPED Fiscal','SPED Fiscal','LBRA','7174d8ef-39a8-4d0d-b1a9-06642ee6d2ba')
+INSERT INTO AD_Element (AD_Element_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,ColumnName,Name,PrintName,EntityType,AD_Element_UU) VALUES (1123231,0,0,'Y',TO_DATE('2020-12-15 10:48:53','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2020-12-15 10:48:53','YYYY-MM-DD HH24:MI:SS'),100,'LBR_EFDICMSIPI_ID','EFD ICMS/IPI','EFD ICMS/IPI','LBRA','7174d8ef-39a8-4d0d-b1a9-06642ee6d2ba')
 ;
 
 -- 15 de dez de 2020 10:48:54 BRT
-INSERT INTO AD_Column (AD_Column_ID,Version,Name,AD_Table_ID,ColumnName,FieldLength,IsKey,IsParent,IsMandatory,IsTranslated,IsIdentifier,SeqNo,IsEncrypted,AD_Reference_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Element_ID,IsUpdateable,IsSelectionColumn,EntityType,IsSyncDatabase,IsAlwaysUpdateable,IsAutocomplete,IsAllowLogging,AD_Column_UU,IsAllowCopy,IsToolbarButton,IsSecure,IsHtml) VALUES (1132780,1.000000000000,'SPED Fiscal',1120707,'LBR_SPEDFiscal_ID',22,'Y','N','Y','N','N',0,'N',13,0,0,'Y',TO_DATE('2020-12-15 10:48:53','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2020-12-15 10:48:53','YYYY-MM-DD HH24:MI:SS'),100,1123231,'N','N','LBRA','N','N','N','N','2524af27-1171-41f4-ba63-cdc851f88caf','N','N','N','N')
+INSERT INTO AD_Column (AD_Column_ID,Version,Name,AD_Table_ID,ColumnName,FieldLength,IsKey,IsParent,IsMandatory,IsTranslated,IsIdentifier,SeqNo,IsEncrypted,AD_Reference_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Element_ID,IsUpdateable,IsSelectionColumn,EntityType,IsSyncDatabase,IsAlwaysUpdateable,IsAutocomplete,IsAllowLogging,AD_Column_UU,IsAllowCopy,IsToolbarButton,IsSecure,IsHtml) VALUES (1132780,1.000000000000,'EFD ICMS/IPI',1120707,'LBR_EFDICMSIPI_ID',22,'Y','N','Y','N','N',0,'N',13,0,0,'Y',TO_DATE('2020-12-15 10:48:53','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2020-12-15 10:48:53','YYYY-MM-DD HH24:MI:SS'),100,1123231,'N','N','LBRA','N','N','N','N','2524af27-1171-41f4-ba63-cdc851f88caf','N','N','N','N')
 ;
 
 -- 15 de dez de 2020 10:48:54 BRT
-INSERT INTO AD_Element (AD_Element_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,ColumnName,Name,PrintName,EntityType,AD_Element_UU) VALUES (1123232,0,0,'Y',TO_DATE('2020-12-15 10:48:54','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2020-12-15 10:48:54','YYYY-MM-DD HH24:MI:SS'),100,'LBR_SPEDFiscal_UU','LBR_SPEDFiscal_UU','LBR_SPEDFiscal_UU','LBRA','d10ba832-07c5-4ecc-bfd9-1becf73abf96')
+INSERT INTO AD_Element (AD_Element_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,ColumnName,Name,PrintName,EntityType,AD_Element_UU) VALUES (1123232,0,0,'Y',TO_DATE('2020-12-15 10:48:54','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2020-12-15 10:48:54','YYYY-MM-DD HH24:MI:SS'),100,'LBR_EFDICMSIPI_UU','LBR_EFDICMSIPI_UU','LBR_EFDICMSIPI_UU','LBRA','d10ba832-07c5-4ecc-bfd9-1becf73abf96')
 ;
 
 -- 15 de dez de 2020 10:48:55 BRT
-INSERT INTO AD_Column (AD_Column_ID,Version,Name,AD_Table_ID,ColumnName,FieldLength,IsKey,IsParent,IsMandatory,IsTranslated,IsIdentifier,IsEncrypted,AD_Reference_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Element_ID,IsUpdateable,IsSelectionColumn,EntityType,IsSyncDatabase,IsAlwaysUpdateable,IsAutocomplete,IsAllowLogging,AD_Column_UU,IsAllowCopy,IsToolbarButton,IsSecure,FKConstraintType,IsHtml) VALUES (1132781,1.0,'LBR_SPEDFiscal_UU',1120707,'LBR_SPEDFiscal_UU',36,'N','N','N','N','N','N',10,0,0,'Y',TO_DATE('2020-12-15 10:48:54','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2020-12-15 10:48:54','YYYY-MM-DD HH24:MI:SS'),100,1123232,'Y','N','LBRA','N','N','N','Y','4420d240-4f84-4a96-ac11-959314254279','N','N','N','N','N')
+INSERT INTO AD_Column (AD_Column_ID,Version,Name,AD_Table_ID,ColumnName,FieldLength,IsKey,IsParent,IsMandatory,IsTranslated,IsIdentifier,IsEncrypted,AD_Reference_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Element_ID,IsUpdateable,IsSelectionColumn,EntityType,IsSyncDatabase,IsAlwaysUpdateable,IsAutocomplete,IsAllowLogging,AD_Column_UU,IsAllowCopy,IsToolbarButton,IsSecure,FKConstraintType,IsHtml) VALUES (1132781,1.0,'LBR_EFDICMSIPI_UU',1120707,'LBR_EFDICMSIPI_UU',36,'N','N','N','N','N','N',10,0,0,'Y',TO_DATE('2020-12-15 10:48:54','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2020-12-15 10:48:54','YYYY-MM-DD HH24:MI:SS'),100,1123232,'Y','N','LBRA','N','N','N','Y','4420d240-4f84-4a96-ac11-959314254279','N','N','N','N','N')
 ;
 
 -- 15 de dez de 2020 10:48:55 BRT
@@ -158,54 +157,53 @@ INSERT INTO AD_Column (AD_Column_ID,Version,Name,Description,Help,AD_Table_ID,Co
 ;
 
 -- 15 de dez de 2020 11:17:41 BRT
-UPDATE AD_Column SET FKConstraintName='CPeriod_LBRSPEDFiscal', FKConstraintType='N',Updated=TO_DATE('2020-12-15 11:17:41','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1132774
+UPDATE AD_Column SET FKConstraintName='CPeriod_LBREFDICMSIPI', FKConstraintType='N',Updated=TO_DATE('2020-12-15 11:17:41','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1132774
 ;
 
 -- 15 de dez de 2020 11:17:41 BRT
-UPDATE AD_Column SET FKConstraintName='CYear_LBRSPEDFiscal', FKConstraintType='N',Updated=TO_DATE('2020-12-15 11:17:41','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1132777
+UPDATE AD_Column SET FKConstraintName='CYear_LBREFDICMSIPI', FKConstraintType='N',Updated=TO_DATE('2020-12-15 11:17:41','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1132777
 ;
 
 -- 15 de dez de 2020 11:17:41 BRT
-UPDATE AD_Column SET FKConstraintName='LBRBPAccountant_LBRSPEDFiscal', FKConstraintType='N',Updated=TO_DATE('2020-12-15 11:17:41','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1132789
+UPDATE AD_Column SET FKConstraintName='LBRBPAccountant_LBREFDICMSIPI', FKConstraintType='N',Updated=TO_DATE('2020-12-15 11:17:41','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1132789
 ;
 
 -- 15 de dez de 2020 11:19:25 BRT
-UPDATE AD_Column SET FKConstraintName='CPeriod_LBRSPEDFiscal', FKConstraintType='N',Updated=TO_DATE('2020-12-15 11:19:25','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1132774
+UPDATE AD_Column SET FKConstraintName='CPeriod_LBREFDICMSIPI', FKConstraintType='N',Updated=TO_DATE('2020-12-15 11:19:25','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1132774
 ;
 
 -- 15 de dez de 2020 11:19:25 BRT
-UPDATE AD_Column SET FKConstraintName='CYear_LBRSPEDFiscal', FKConstraintType='N',Updated=TO_DATE('2020-12-15 11:19:25','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1132777
+UPDATE AD_Column SET FKConstraintName='CYear_LBREFDICMSIPI', FKConstraintType='N',Updated=TO_DATE('2020-12-15 11:19:25','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1132777
 ;
 
 -- 15 de dez de 2020 11:19:25 BRT
-UPDATE AD_Column SET FKConstraintName='LBRBPAccountant_LBRSPEDFiscal', FKConstraintType='N',Updated=TO_DATE('2020-12-15 11:19:25','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1132789
+UPDATE AD_Column SET FKConstraintName='LBRBPAccountant_LBREFDICMSIPI', FKConstraintType='N',Updated=TO_DATE('2020-12-15 11:19:25','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1132789
 ;
 
 -- 15 de dez de 2020 11:20:19 BRT
-UPDATE AD_Column SET FKConstraintName='CPeriod_LBRSPEDFiscal', FKConstraintType='N',Updated=TO_DATE('2020-12-15 11:20:19','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1132774
+UPDATE AD_Column SET FKConstraintName='CPeriod_LBREFDICMSIPI', FKConstraintType='N',Updated=TO_DATE('2020-12-15 11:20:19','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1132774
 ;
 
 -- 15 de dez de 2020 11:20:19 BRT
-UPDATE AD_Column SET FKConstraintName='CYear_LBRSPEDFiscal', FKConstraintType='N',Updated=TO_DATE('2020-12-15 11:20:19','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1132777
+UPDATE AD_Column SET FKConstraintName='CYear_LBREFDICMSIPI', FKConstraintType='N',Updated=TO_DATE('2020-12-15 11:20:19','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1132777
 ;
 
 -- 15 de dez de 2020 11:20:19 BRT
-UPDATE AD_Column SET FKConstraintName='LBRBPAccountant_LBRSPEDFiscal', FKConstraintType='N',Updated=TO_DATE('2020-12-15 11:20:19','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1132789
+UPDATE AD_Column SET FKConstraintName='LBRBPAccountant_LBREFDICMSIPI', FKConstraintType='N',Updated=TO_DATE('2020-12-15 11:20:19','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1132789
 ;
 
 -- 15 de dez de 2020 11:20:59 BRT
-UPDATE AD_Column SET FKConstraintName='CPeriod_LBRSPEDFiscal', FKConstraintType='N',Updated=TO_DATE('2020-12-15 11:20:59','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1132774
+UPDATE AD_Column SET FKConstraintName='CPeriod_LBREFDICMSIPI', FKConstraintType='N',Updated=TO_DATE('2020-12-15 11:20:59','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1132774
 ;
 
 -- 15 de dez de 2020 11:20:59 BRT
-UPDATE AD_Column SET FKConstraintName='CYear_LBRSPEDFiscal', FKConstraintType='N',Updated=TO_DATE('2020-12-15 11:20:59','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1132777
+UPDATE AD_Column SET FKConstraintName='CYear_LBREFDICMSIPI', FKConstraintType='N',Updated=TO_DATE('2020-12-15 11:20:59','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1132777
 ;
 
 -- 15 de dez de 2020 11:20:59 BRT
-UPDATE AD_Column SET FKConstraintName='LBRBPAccountant_LBRSPEDFiscal', FKConstraintType='N',Updated=TO_DATE('2020-12-15 11:20:59','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1132789
+UPDATE AD_Column SET FKConstraintName='LBRBPAccountant_LBREFDICMSIPI', FKConstraintType='N',Updated=TO_DATE('2020-12-15 11:20:59','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1132789
 ;
 
--- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
 -- 15 de dez de 2020 11:43:10 BRT
 UPDATE AD_Column SET IsMandatory='Y',Updated=TO_DATE('2020-12-15 11:43:10','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1132794
 ;
@@ -215,89 +213,87 @@ UPDATE AD_Column SET IsMandatory='Y',Updated=TO_DATE('2020-12-15 11:44:01','YYYY
 ;
 
 -- 15 de dez de 2020 11:44:13 BRT
-UPDATE AD_Column SET FKConstraintName='CPeriod_LBRSPEDFiscal', FKConstraintType='N',Updated=TO_DATE('2020-12-15 11:44:13','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1132774
+UPDATE AD_Column SET FKConstraintName='CPeriod_LBREFDICMSIPI', FKConstraintType='N',Updated=TO_DATE('2020-12-15 11:44:13','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1132774
 ;
 
 -- 15 de dez de 2020 11:44:13 BRT
-UPDATE AD_Column SET FKConstraintName='CYear_LBRSPEDFiscal', FKConstraintType='N',Updated=TO_DATE('2020-12-15 11:44:13','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1132777
+UPDATE AD_Column SET FKConstraintName='CYear_LBREFDICMSIPI', FKConstraintType='N',Updated=TO_DATE('2020-12-15 11:44:13','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1132777
 ;
 
 -- 15 de dez de 2020 11:44:13 BRT
-UPDATE AD_Column SET FKConstraintName='LBRBPAccountant_LBRSPEDFiscal', FKConstraintType='N',Updated=TO_DATE('2020-12-15 11:44:13','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1132789
+UPDATE AD_Column SET FKConstraintName='LBRBPAccountant_LBREFDICMSIPI', FKConstraintType='N',Updated=TO_DATE('2020-12-15 11:44:13','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1132789
 ;
 
--- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
 -- 15 de dez de 2020 11:55:43 BRT
 UPDATE AD_Column SET DefaultValue='''Y''',Updated=TO_DATE('2020-12-15 11:55:43','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1132794
 ;
 
 -- 15 de dez de 2020 11:59:08 BRT
-UPDATE AD_Column SET FKConstraintName='CPeriod_LBRSPEDFiscal', FKConstraintType='N',Updated=TO_DATE('2020-12-15 11:59:08','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1132774
+UPDATE AD_Column SET FKConstraintName='CPeriod_LBREFDICMSIPI', FKConstraintType='N',Updated=TO_DATE('2020-12-15 11:59:08','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1132774
 ;
 
 -- 15 de dez de 2020 11:59:08 BRT
-UPDATE AD_Column SET FKConstraintName='CYear_LBRSPEDFiscal', FKConstraintType='N',Updated=TO_DATE('2020-12-15 11:59:08','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1132777
+UPDATE AD_Column SET FKConstraintName='CYear_LBREFDICMSIPI', FKConstraintType='N',Updated=TO_DATE('2020-12-15 11:59:08','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1132777
 ;
 
 -- 15 de dez de 2020 11:59:08 BRT
-UPDATE AD_Column SET FKConstraintName='LBRBPAccountant_LBRSPEDFiscal', FKConstraintType='N',Updated=TO_DATE('2020-12-15 11:59:08','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1132789
+UPDATE AD_Column SET FKConstraintName='LBRBPAccountant_LBREFDICMSIPI', FKConstraintType='N',Updated=TO_DATE('2020-12-15 11:59:08','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1132789
 ;
 
 -- 15 de dez de 2020 11:59:08 BRT
-CREATE TABLE LBR_SPEDFiscal (AD_Client_ID NUMBER(10) NOT NULL, AD_Org_ID NUMBER(10) NOT NULL, C_Period_ID NUMBER(10) NOT NULL, Created DATE DEFAULT SYSDATE NOT NULL, CreatedBy NUMBER(10) NOT NULL, C_Year_ID NUMBER(10) NOT NULL, DateDoc DATE DEFAULT NULL , DocAction CHAR(2) DEFAULT 'CO', DocStatus VARCHAR2(2) DEFAULT 'DR', IsActive CHAR(1) DEFAULT 'Y' CHECK (IsActive IN ('Y','N')) NOT NULL, LBR_BP_Accountant_ID NUMBER(10) DEFAULT NULL , LBR_COD_FIN CHAR(1) DEFAULT '0' NOT NULL, LBR_COD_VER VARCHAR2(3) DEFAULT NULL , lbr_IndAtividade CHAR(1) DEFAULT NULL , LBR_IndPerfil CHAR(1) DEFAULT NULL , LBR_ProcBookInventory CHAR(1) DEFAULT 'N' CHECK (LBR_ProcBookInventory IN ('Y','N')) NOT NULL, LBR_ProcTaxAssessment CHAR(1) DEFAULT 'Y' NOT NULL, LBR_SPEDFiscal_ID NUMBER(10) NOT NULL, LBR_SPEDFiscal_UU VARCHAR2(36) DEFAULT NULL , Processed CHAR(1) CHECK (Processed IN ('Y','N')) NOT NULL, Processing CHAR(1) DEFAULT NULL , Updated DATE DEFAULT SYSDATE NOT NULL, UpdatedBy NUMBER(10) NOT NULL, CONSTRAINT LBR_SPEDFiscal_Key PRIMARY KEY (LBR_SPEDFiscal_ID), CONSTRAINT LBR_SPEDFiscal_UU_idx UNIQUE (LBR_SPEDFiscal_UU))
+CREATE TABLE LBR_EFDICMSIPI (AD_Client_ID NUMBER(10) NOT NULL, AD_Org_ID NUMBER(10) NOT NULL, C_Period_ID NUMBER(10) NOT NULL, Created DATE DEFAULT SYSDATE NOT NULL, CreatedBy NUMBER(10) NOT NULL, C_Year_ID NUMBER(10) NOT NULL, DateDoc DATE DEFAULT NULL , DocAction CHAR(2) DEFAULT 'CO', DocStatus VARCHAR2(2) DEFAULT 'DR', IsActive CHAR(1) DEFAULT 'Y' CHECK (IsActive IN ('Y','N')) NOT NULL, LBR_BP_Accountant_ID NUMBER(10) DEFAULT NULL , LBR_COD_FIN CHAR(1) DEFAULT '0' NOT NULL, LBR_COD_VER VARCHAR2(3) DEFAULT NULL , lbr_IndAtividade CHAR(1) DEFAULT NULL , LBR_IndPerfil CHAR(1) DEFAULT NULL , LBR_ProcBookInventory CHAR(1) DEFAULT 'N' CHECK (LBR_ProcBookInventory IN ('Y','N')) NOT NULL, LBR_ProcTaxAssessment CHAR(1) DEFAULT 'Y' NOT NULL, LBR_EFDICMSIPI_ID NUMBER(10) NOT NULL, LBR_EFDICMSIPI_UU VARCHAR2(36) DEFAULT NULL , Processed CHAR(1) CHECK (Processed IN ('Y','N')) NOT NULL, Processing CHAR(1) DEFAULT NULL , Updated DATE DEFAULT SYSDATE NOT NULL, UpdatedBy NUMBER(10) NOT NULL, CONSTRAINT LBR_EFDICMSIPI_Key PRIMARY KEY (LBR_EFDICMSIPI_ID), CONSTRAINT LBR_EFDICMSIPI_UU_idx UNIQUE (LBR_EFDICMSIPI_UU))
 ;
 
 -- 15 de dez de 2020 11:59:09 BRT
-ALTER TABLE LBR_SPEDFiscal ADD CONSTRAINT CPeriod_LBRSPEDFiscal FOREIGN KEY (C_Period_ID) REFERENCES c_period(c_period_id) DEFERRABLE INITIALLY DEFERRED
+ALTER TABLE LBR_EFDICMSIPI ADD CONSTRAINT CPeriod_LBREFDICMSIPI FOREIGN KEY (C_Period_ID) REFERENCES c_period(c_period_id) DEFERRABLE INITIALLY DEFERRED
 ;
 
 -- 15 de dez de 2020 11:59:09 BRT
-ALTER TABLE LBR_SPEDFiscal ADD CONSTRAINT CYear_LBRSPEDFiscal FOREIGN KEY (C_Year_ID) REFERENCES c_year(c_year_id) DEFERRABLE INITIALLY DEFERRED
+ALTER TABLE LBR_EFDICMSIPI ADD CONSTRAINT CYear_LBREFDICMSIPI FOREIGN KEY (C_Year_ID) REFERENCES c_year(c_year_id) DEFERRABLE INITIALLY DEFERRED
 ;
 
 -- 15 de dez de 2020 11:59:09 BRT
-ALTER TABLE LBR_SPEDFiscal ADD CONSTRAINT LBRBPAccountant_LBRSPEDFiscal FOREIGN KEY (LBR_BP_Accountant_ID) REFERENCES c_bpartner(c_bpartner_id) DEFERRABLE INITIALLY DEFERRED
+ALTER TABLE LBR_EFDICMSIPI ADD CONSTRAINT LBRBPAccountant_LBREFDICMSIPI FOREIGN KEY (LBR_BP_Accountant_ID) REFERENCES c_bpartner(c_bpartner_id) DEFERRABLE INITIALLY DEFERRED
 ;
 
 -- 15 de dez de 2020 12:21:48 BRT
-INSERT INTO AD_Column (AD_Column_ID,Version,Name,AD_Table_ID,ColumnName,FieldLength,IsKey,IsParent,IsMandatory,IsTranslated,IsIdentifier,SeqNo,IsEncrypted,AD_Reference_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Element_ID,IsUpdateable,IsSelectionColumn,EntityType,IsSyncDatabase,IsAlwaysUpdateable,IsAutocomplete,IsAllowLogging,AD_Column_UU,IsAllowCopy,SeqNoSelection,IsToolbarButton,IsSecure,FKConstraintType,IsHtml) VALUES (1132796,0,'SPED Fiscal',1120466,'LBR_SPEDFiscal_ID',22,'N','N','N','N','N',0,'N',19,0,0,'Y',TO_DATE('2020-12-15 12:21:48','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2020-12-15 12:21:48','YYYY-MM-DD HH24:MI:SS'),100,1123231,'N','N','LBRA','N','N','N','Y','a8e808c7-9db8-4779-a820-143bf247af5f','Y',0,'N','N','N','N')
+INSERT INTO AD_Column (AD_Column_ID,Version,Name,AD_Table_ID,ColumnName,FieldLength,IsKey,IsParent,IsMandatory,IsTranslated,IsIdentifier,SeqNo,IsEncrypted,AD_Reference_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Element_ID,IsUpdateable,IsSelectionColumn,EntityType,IsSyncDatabase,IsAlwaysUpdateable,IsAutocomplete,IsAllowLogging,AD_Column_UU,IsAllowCopy,SeqNoSelection,IsToolbarButton,IsSecure,FKConstraintType,IsHtml) VALUES (1132796,0,'EFD ICMS/IPI',1120466,'LBR_EFDICMSIPI_ID',22,'N','N','N','N','N',0,'N',19,0,0,'Y',TO_DATE('2020-12-15 12:21:48','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2020-12-15 12:21:48','YYYY-MM-DD HH24:MI:SS'),100,1123231,'N','N','LBRA','N','N','N','Y','a8e808c7-9db8-4779-a820-143bf247af5f','Y',0,'N','N','N','N')
 ;
 
 -- 15 de dez de 2020 12:22:12 BRT
-INSERT INTO AD_Column (AD_Column_ID,Version,Name,AD_Table_ID,ColumnName,FieldLength,IsKey,IsParent,IsMandatory,IsTranslated,IsIdentifier,SeqNo,IsEncrypted,AD_Reference_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Element_ID,IsUpdateable,IsSelectionColumn,EntityType,IsSyncDatabase,IsAlwaysUpdateable,IsAutocomplete,IsAllowLogging,AD_Column_UU,IsAllowCopy,SeqNoSelection,IsToolbarButton,IsSecure,FKConstraintType,IsHtml) VALUES (1132797,0,'SPED Contribution',1120466,'LBR_SPEDContribution_ID',22,'N','N','N','N','N',0,'N',19,0,0,'Y',TO_DATE('2020-12-15 12:22:12','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2020-12-15 12:22:12','YYYY-MM-DD HH24:MI:SS'),100,1123190,'N','N','LBRA','N','N','N','Y','629f92f1-dce2-4e92-b9c2-3689aaad2404','Y',0,'N','N','N','N')
+INSERT INTO AD_Column (AD_Column_ID,Version,Name,AD_Table_ID,ColumnName,FieldLength,IsKey,IsParent,IsMandatory,IsTranslated,IsIdentifier,SeqNo,IsEncrypted,AD_Reference_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Element_ID,IsUpdateable,IsSelectionColumn,EntityType,IsSyncDatabase,IsAlwaysUpdateable,IsAutocomplete,IsAllowLogging,AD_Column_UU,IsAllowCopy,SeqNoSelection,IsToolbarButton,IsSecure,FKConstraintType,IsHtml) VALUES (1132797,0,'EFD Contrib.',1120466,'LBR_EFDContrib_ID',22,'N','N','N','N','N',0,'N',19,0,0,'Y',TO_DATE('2020-12-15 12:22:12','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2020-12-15 12:22:12','YYYY-MM-DD HH24:MI:SS'),100,1123190,'N','N','LBRA','N','N','N','Y','629f92f1-dce2-4e92-b9c2-3689aaad2404','Y',0,'N','N','N','N')
 ;
 
 -- 15 de dez de 2020 12:22:48 BRT
-UPDATE AD_Column SET FKConstraintName='LBRSPEDFiscal_LBRFactFiscal', FKConstraintType='N',Updated=TO_DATE('2020-12-15 12:22:48','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1132796
+UPDATE AD_Column SET FKConstraintName='LBREFDICMSIPI_LBRFactFiscal', FKConstraintType='N',Updated=TO_DATE('2020-12-15 12:22:48','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1132796
 ;
 
 -- 15 de dez de 2020 12:22:48 BRT
-ALTER TABLE LBR_FactFiscal ADD LBR_SPEDFiscal_ID NUMBER(10) DEFAULT NULL 
+ALTER TABLE LBR_FactFiscal ADD LBR_EFDICMSIPI_ID NUMBER(10) DEFAULT NULL 
 ;
 
 -- 15 de dez de 2020 12:22:48 BRT
-ALTER TABLE LBR_FactFiscal ADD CONSTRAINT LBRSPEDFiscal_LBRFactFiscal FOREIGN KEY (LBR_SPEDFiscal_ID) REFERENCES lbr_spedfiscal(lbr_spedfiscal_id) DEFERRABLE INITIALLY DEFERRED
+ALTER TABLE LBR_FactFiscal ADD CONSTRAINT LBREFDICMSIPI_LBRFactFiscal FOREIGN KEY (LBR_EFDICMSIPI_ID) REFERENCES lbr_efdicmsipi(lbr_efdicmsipi_id) DEFERRABLE INITIALLY DEFERRED
 ;
 
 -- 15 de dez de 2020 12:22:53 BRT
-UPDATE AD_Column SET FKConstraintName='LBRSPEDContribution_LBRFactFis', FKConstraintType='N',Updated=TO_DATE('2020-12-15 12:22:53','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1132797
+UPDATE AD_Column SET FKConstraintName='LBREFDContrib_LBRFactFiscal', FKConstraintType='N',Updated=TO_DATE('2020-12-15 12:22:53','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1132797
 ;
 
 -- 15 de dez de 2020 12:22:53 BRT
-ALTER TABLE LBR_FactFiscal ADD LBR_SPEDContribution_ID NUMBER(10) DEFAULT NULL 
+ALTER TABLE LBR_FactFiscal ADD LBR_EFDContrib_ID NUMBER(10) DEFAULT NULL 
 ;
 
 -- 15 de dez de 2020 12:22:53 BRT
-ALTER TABLE LBR_FactFiscal ADD CONSTRAINT LBRSPEDContribution_LBRFactFis FOREIGN KEY (LBR_SPEDContribution_ID) REFERENCES lbr_spedcontribution(lbr_spedcontribution_id) DEFERRABLE INITIALLY DEFERRED
-;
+--ALTER TABLE LBR_FactFiscal ADD CONSTRAINT LBREFDContrib_LBRFactFiscal FOREIGN KEY (LBR_EFDContrib_ID) REFERENCES lbr_efdcontrib(lbr_efdcontrib_id) DEFERRABLE INITIALLY DEFERRED
+--;
 
--- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
 -- 15 de dez de 2020 14:38:21 BRT
 INSERT INTO AD_Window (AD_Window_ID,Name,Description,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,WindowType,Processing,EntityType,IsSOTrx,IsDefault,WinHeight,WinWidth,IsBetaFunctionality,AD_Window_UU) VALUES (1120173,'Generate SPED Fiscal','Generate SPED Fiscal EFD ICMS/IPI',0,0,'Y',TO_DATE('2020-12-15 14:38:20','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2020-12-15 14:38:20','YYYY-MM-DD HH24:MI:SS'),100,'M','N','LBRA','N','N',0,0,'N','915ff8c3-0add-438f-a8da-7fc92199e221')
 ;
 
 -- 15 de dez de 2020 14:38:51 BRT
-INSERT INTO AD_Tab (AD_Tab_ID,Name,AD_Window_ID,SeqNo,IsSingleRow,AD_Table_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,HasTree,IsInfoTab,IsTranslationTab,IsReadOnly,Processing,ImportFields,TabLevel,IsSortTab,EntityType,IsInsertRecord,IsAdvancedTab,AD_Tab_UU,TreeDisplayedOn) VALUES (1120413,'SPED Fiscal',1120173,10,'Y',1120707,0,0,'Y',TO_DATE('2020-12-15 14:38:50','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2020-12-15 14:38:50','YYYY-MM-DD HH24:MI:SS'),100,'N','N','N','N','N','N',0,'N','LBRA','Y','N','95c19411-0715-4017-ab45-17e14bc72d4b','B')
+INSERT INTO AD_Tab (AD_Tab_ID,Name,AD_Window_ID,SeqNo,IsSingleRow,AD_Table_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,HasTree,IsInfoTab,IsTranslationTab,IsReadOnly,Processing,ImportFields,TabLevel,IsSortTab,EntityType,IsInsertRecord,IsAdvancedTab,AD_Tab_UU,TreeDisplayedOn) VALUES (1120413,'EFD ICMS/IPI',1120173,10,'Y',1120707,0,0,'Y',TO_DATE('2020-12-15 14:38:50','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2020-12-15 14:38:50','YYYY-MM-DD HH24:MI:SS'),100,'N','N','N','N','N','N',0,'N','LBRA','Y','N','95c19411-0715-4017-ab45-17e14bc72d4b','B')
 ;
 
 -- 15 de dez de 2020 14:38:57 BRT
@@ -317,11 +313,11 @@ INSERT INTO AD_Field (AD_Field_ID,Name,Description,Help,AD_Tab_ID,AD_Column_ID,I
 ;
 
 -- 15 de dez de 2020 14:38:58 BRT
-INSERT INTO AD_Field (AD_Field_ID,Name,AD_Tab_ID,AD_Column_ID,IsDisplayed,DisplayLength,IsSameLine,IsHeading,IsFieldOnly,IsEncrypted,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,IsReadOnly,IsCentrallyMaintained,EntityType,AD_Field_UU,IsDisplayedGrid,ColumnSpan) VALUES (1130140,'SPED Fiscal',1120413,1132780,'N',22,'N','N','N','N',0,0,'Y',TO_DATE('2020-12-15 14:38:58','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2020-12-15 14:38:58','YYYY-MM-DD HH24:MI:SS'),100,'N','Y','LBRA','bcc0f9df-d597-4d3b-818c-89e11e71e77b','N',2)
+INSERT INTO AD_Field (AD_Field_ID,Name,AD_Tab_ID,AD_Column_ID,IsDisplayed,DisplayLength,IsSameLine,IsHeading,IsFieldOnly,IsEncrypted,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,IsReadOnly,IsCentrallyMaintained,EntityType,AD_Field_UU,IsDisplayedGrid,ColumnSpan) VALUES (1130140,'EFD ICMS/IPI',1120413,1132780,'N',22,'N','N','N','N',0,0,'Y',TO_DATE('2020-12-15 14:38:58','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2020-12-15 14:38:58','YYYY-MM-DD HH24:MI:SS'),100,'N','Y','LBRA','bcc0f9df-d597-4d3b-818c-89e11e71e77b','N',2)
 ;
 
 -- 15 de dez de 2020 14:38:58 BRT
-INSERT INTO AD_Field (AD_Field_ID,Name,AD_Tab_ID,AD_Column_ID,IsDisplayed,DisplayLength,IsSameLine,IsHeading,IsFieldOnly,IsEncrypted,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,IsReadOnly,IsCentrallyMaintained,EntityType,AD_Field_UU,IsDisplayedGrid,ColumnSpan) VALUES (1130141,'LBR_SPEDFiscal_UU',1120413,1132781,'N',36,'N','N','N','N',0,0,'Y',TO_DATE('2020-12-15 14:38:58','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2020-12-15 14:38:58','YYYY-MM-DD HH24:MI:SS'),100,'N','Y','LBRA','91d7a7b4-22c5-4c49-9340-363fd4a91bfe','N',2)
+INSERT INTO AD_Field (AD_Field_ID,Name,AD_Tab_ID,AD_Column_ID,IsDisplayed,DisplayLength,IsSameLine,IsHeading,IsFieldOnly,IsEncrypted,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,IsReadOnly,IsCentrallyMaintained,EntityType,AD_Field_UU,IsDisplayedGrid,ColumnSpan) VALUES (1130141,'LBR_EFDICMSIPI_UU',1120413,1132781,'N',36,'N','N','N','N',0,0,'Y',TO_DATE('2020-12-15 14:38:58','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2020-12-15 14:38:58','YYYY-MM-DD HH24:MI:SS'),100,'N','Y','LBRA','91d7a7b4-22c5-4c49-9340-363fd4a91bfe','N',2)
 ;
 
 -- 15 de dez de 2020 14:38:59 BRT
@@ -450,11 +446,11 @@ UPDATE AD_Column SET AD_Reference_ID=20,Updated=TO_DATE('2020-12-15 14:47:05','Y
 ;
 
 -- 15 de dez de 2020 14:47:08 BRT
-ALTER TABLE LBR_SPEDFiscal MODIFY LBR_ProcTaxAssessment CHAR(1) DEFAULT 'Y'
+ALTER TABLE LBR_EFDICMSIPI MODIFY LBR_ProcTaxAssessment CHAR(1) DEFAULT 'Y'
 ;
 
 -- 15 de dez de 2020 14:47:09 BRT
-UPDATE LBR_SPEDFiscal SET LBR_ProcTaxAssessment='Y' WHERE LBR_ProcTaxAssessment IS NULL
+UPDATE LBR_EFDICMSIPI SET LBR_ProcTaxAssessment='Y' WHERE LBR_ProcTaxAssessment IS NULL
 ;
 
 -- 15 de dez de 2020 14:47:41 BRT
@@ -470,7 +466,7 @@ UPDATE AD_Field SET AD_FieldGroup_ID=1120091, AD_Reference_Value_ID=NULL, AD_Val
 ;
 
 -- 15 de dez de 2020 14:58:23 BRT
-INSERT INTO AD_Workflow (Name,Description,AD_Workflow_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AccessLevel,EntityType,Author,WorkingTime,Duration,Version,Cost,DurationUnit,WaitingTime,PublishStatus,IsDefault,AD_Table_ID,Value,WorkflowType,IsValid,DocumentNo,QtyBatchSize,IsBetaFunctionality,AD_Workflow_UU) VALUES ('Process_LBR_SPEDFiscal','(Standard Process Order)',1120036,0,0,'Y',TO_DATE('2020-12-15 14:58:23','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2020-12-15 14:58:23','YYYY-MM-DD HH24:MI:SS'),100,'1','LBRA','iDempiere, Inc.',0,1,0,0,'D',0,'R','N',1120707,'Process_LBR_SPEDFiscal','P','N','10000000',1,'N','410e614b-87ef-4e02-9d51-17cf6813e51d')
+INSERT INTO AD_Workflow (Name,Description,AD_Workflow_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AccessLevel,EntityType,Author,WorkingTime,Duration,Version,Cost,DurationUnit,WaitingTime,PublishStatus,IsDefault,AD_Table_ID,Value,WorkflowType,IsValid,DocumentNo,QtyBatchSize,IsBetaFunctionality,AD_Workflow_UU) VALUES ('Process_LBR_EFDICMSIPI','(Standard Process Order)',1120036,0,0,'Y',TO_DATE('2020-12-15 14:58:23','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2020-12-15 14:58:23','YYYY-MM-DD HH24:MI:SS'),100,'1','LBRA','iDempiere, Inc.',0,1,0,0,'D',0,'R','N',1120707,'Process_LBR_EFDICMSIPI','P','N','10000000',1,'N','410e614b-87ef-4e02-9d51-17cf6813e51d')
 ;
 
 -- 15 de dez de 2020 14:59:48 BRT
@@ -494,7 +490,7 @@ UPDATE AD_Workflow SET AD_WF_Node_ID=1120143, IsValid='Y',Updated=TO_DATE('2020-
 ;
 
 -- 15 de dez de 2020 15:02:36 BRT
-INSERT INTO AD_Menu (AD_Menu_ID,Name,Action,AD_Window_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,IsSummary,IsSOTrx,IsReadOnly,EntityType,IsCentrallyMaintained,AD_Menu_UU) VALUES (1120375,'SPED Fiscal','W',1120173,0,0,'Y',TO_DATE('2020-12-15 15:02:36','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2020-12-15 15:02:36','YYYY-MM-DD HH24:MI:SS'),100,'N','Y','N','LBRA','Y','938b4e25-b6fa-4799-b676-b566fa6eaa11')
+INSERT INTO AD_Menu (AD_Menu_ID,Name,Action,AD_Window_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,IsSummary,IsSOTrx,IsReadOnly,EntityType,IsCentrallyMaintained,AD_Menu_UU) VALUES (1120375,'EFD ICMS/IPI','W',1120173,0,0,'Y',TO_DATE('2020-12-15 15:02:36','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2020-12-15 15:02:36','YYYY-MM-DD HH24:MI:SS'),100,'N','Y','N','LBRA','Y','938b4e25-b6fa-4799-b676-b566fa6eaa11')
 ;
 
 -- 15 de dez de 2020 15:02:36 BRT
@@ -593,9 +589,8 @@ UPDATE AD_TreeNodeMM SET Parent_ID=1120179, SeqNo=3, Updated=SysDate WHERE AD_Tr
 UPDATE AD_Menu SET IsActive='N',Updated=TO_DATE('2020-12-15 15:03:34','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Menu_ID=1120180
 ;
 
--- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
 -- 15 de dez de 2020 17:12:59 BRT
-INSERT INTO AD_Process (AD_Process_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,Name,IsReport,Value,IsDirectPrint,AccessLevel,EntityType,Statistic_Count,Statistic_Seconds,AD_Workflow_ID,IsBetaFunctionality,IsServerProcess,ShowHelp,CopyFromProcess,AD_Process_UU,AllowMultipleExecution) VALUES (1120260,0,0,'Y',TO_DATE('2020-12-15 17:12:59','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2020-12-15 17:12:59','YYYY-MM-DD HH24:MI:SS'),100,'Process LBR_SPEDFiscal','N','LBR_SPEDFiscal Process','N','3','LBRA',0,0,1120036,'N','N','Y','N','c64387e1-51eb-4c21-81f9-e36951e705b5','P')
+INSERT INTO AD_Process (AD_Process_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,Name,IsReport,Value,IsDirectPrint,AccessLevel,EntityType,Statistic_Count,Statistic_Seconds,AD_Workflow_ID,IsBetaFunctionality,IsServerProcess,ShowHelp,CopyFromProcess,AD_Process_UU,AllowMultipleExecution) VALUES (1120260,0,0,'Y',TO_DATE('2020-12-15 17:12:59','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2020-12-15 17:12:59','YYYY-MM-DD HH24:MI:SS'),100,'Process LBR_EFDICMSIPI','N','LBR_EFDICMSIPI Process','N','3','LBRA',0,0,1120036,'N','N','Y','N','c64387e1-51eb-4c21-81f9-e36951e705b5','P')
 ;
 
 -- 15 de dez de 2020 17:13:27 BRT
@@ -630,21 +625,20 @@ UPDATE AD_Column SET IsUpdateable='Y',Updated=TO_DATE('2020-12-15 17:34:18','YYY
 UPDATE AD_Column SET IsUpdateable='Y',Updated=TO_DATE('2020-12-15 17:34:50','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1132789
 ;
 
--- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
 -- 16 de dez de 2020 12:14:08 BRT
-INSERT INTO AD_Column (AD_Column_ID,Version,Name,AD_Table_ID,ColumnName,FieldLength,IsKey,IsParent,IsMandatory,IsTranslated,IsIdentifier,SeqNo,IsEncrypted,AD_Reference_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Element_ID,IsUpdateable,IsSelectionColumn,EntityType,IsSyncDatabase,IsAlwaysUpdateable,IsAutocomplete,IsAllowLogging,AD_Column_UU,IsAllowCopy,SeqNoSelection,IsToolbarButton,IsSecure,FKConstraintType,IsHtml) VALUES (1132798,0,'SPED Fiscal',1120608,'LBR_SPEDFiscal_ID',22,'N','N','N','N','N',0,'N',19,0,0,'Y',TO_DATE('2020-12-16 12:14:07','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2020-12-16 12:14:07','YYYY-MM-DD HH24:MI:SS'),100,1123231,'N','N','LBRA','N','N','N','Y','a9dcf937-7483-4336-8bfd-b2c093a95255','Y',0,'N','N','N','N')
+INSERT INTO AD_Column (AD_Column_ID,Version,Name,AD_Table_ID,ColumnName,FieldLength,IsKey,IsParent,IsMandatory,IsTranslated,IsIdentifier,SeqNo,IsEncrypted,AD_Reference_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Element_ID,IsUpdateable,IsSelectionColumn,EntityType,IsSyncDatabase,IsAlwaysUpdateable,IsAutocomplete,IsAllowLogging,AD_Column_UU,IsAllowCopy,SeqNoSelection,IsToolbarButton,IsSecure,FKConstraintType,IsHtml) VALUES (1132798,0,'EFD ICMS/IPI',1120608,'LBR_EFDICMSIPI_ID',22,'N','N','N','N','N',0,'N',19,0,0,'Y',TO_DATE('2020-12-16 12:14:07','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2020-12-16 12:14:07','YYYY-MM-DD HH24:MI:SS'),100,1123231,'N','N','LBRA','N','N','N','Y','a9dcf937-7483-4336-8bfd-b2c093a95255','Y',0,'N','N','N','N')
 ;
 
 -- 16 de dez de 2020 12:14:21 BRT
-UPDATE AD_Column SET FKConstraintName='LBRSPEDFiscal_LBRBookInventory', FKConstraintType='N',Updated=TO_DATE('2020-12-16 12:14:21','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1132798
+UPDATE AD_Column SET FKConstraintName='LBREFDICMSIPI_LBRBookInventory', FKConstraintType='N',Updated=TO_DATE('2020-12-16 12:14:21','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1132798
 ;
 
 -- 16 de dez de 2020 12:14:21 BRT
-ALTER TABLE LBR_BookInventory ADD LBR_SPEDFiscal_ID NUMBER(10) DEFAULT NULL 
+ALTER TABLE LBR_BookInventory ADD LBR_EFDICMSIPI_ID NUMBER(10) DEFAULT NULL 
 ;
 
 -- 16 de dez de 2020 12:14:22 BRT
-ALTER TABLE LBR_BookInventory ADD CONSTRAINT LBRSPEDFiscal_LBRBookInventory FOREIGN KEY (LBR_SPEDFiscal_ID) REFERENCES lbr_spedfiscal(lbr_spedfiscal_id) DEFERRABLE INITIALLY DEFERRED
+ALTER TABLE LBR_BookInventory ADD CONSTRAINT LBREFDICMSIPI_LBRBookInventory FOREIGN KEY (LBR_EFDICMSIPI_ID) REFERENCES lbr_efdicmsipi(lbr_efdicmsipi_id) DEFERRABLE INITIALLY DEFERRED
 ;
 
 -- 16 de dez de 2020 12:18:01 BRT
@@ -765,7 +759,6 @@ ALTER TABLE LBR_BookInventory MODIFY MovementDate NULL
 UPDATE AD_Field SET IsMandatory='Y', AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, IsToolbarButton=NULL,Updated=TO_DATE('2020-12-16 12:24:12','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1130171
 ;
 
--- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
 -- 16 de dez de 2020 14:54:21 BRT
 INSERT INTO AD_WF_NodeNext (AD_WF_Node_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Client_ID,AD_Org_ID,AD_WF_Next_ID,EntityType,SeqNo,AD_WF_NodeNext_ID,IsStdUserWorkflow,AD_WF_NodeNext_UU) VALUES (1120143,'Y',TO_DATE('2020-12-16 14:54:21','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2020-12-16 14:54:21','YYYY-MM-DD HH24:MI:SS'),100,0,0,1120140,'LBRA',10,1120088,'N','f87fcf91-5953-46a9-8262-f61aa3a781ca')
 ;
@@ -782,18 +775,252 @@ UPDATE AD_WF_NodeNext SET EntityType='LBRA',Updated=TO_DATE('2020-12-16 14:54:35
 INSERT INTO AD_WF_NodeNext (AD_WF_Node_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Client_ID,AD_Org_ID,AD_WF_Next_ID,EntityType,SeqNo,AD_WF_NodeNext_ID,IsStdUserWorkflow,AD_WF_NodeNext_UU) VALUES (1120142,'Y',TO_DATE('2020-12-16 14:55:07','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2020-12-16 14:55:07','YYYY-MM-DD HH24:MI:SS'),100,0,0,1120141,'LBRA',10,1120090,'N','f4871550-b92b-4ba3-ad8d-8bb527cc74eb')
 ;
 
--- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
 -- 16 de dez de 2020 15:25:13 BRT
 UPDATE AD_WF_Node SET DocAction='--',Updated=TO_DATE('2020-12-16 15:25:13','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_WF_Node_ID=1120141
 ;
 
--- I forgot to set the DICTIONARY_ID_COMMENTS System Configurator
 -- 17 de dez de 2020 15:53:49 BRT
 UPDATE AD_Field SET AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, MandatoryLogic=NULL, IsToolbarButton=NULL,Updated=TO_DATE('2020-12-17 15:53:49','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1130146
 ;
 
 -- 17 de dez de 2020 15:54:29 BRT
 UPDATE AD_Field SET DefaultValue='@#Date@', AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, IsToolbarButton=NULL,Updated=TO_DATE('2020-12-17 15:54:29','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1130146
+;
+
+-- 30 de jan de 2021 19:43:37 AMT
+DELETE  FROM  AD_Column_Trl WHERE AD_Column_ID=1132797
+;
+
+-- 30 de jan de 2021 19:43:37 AMT
+DELETE FROM AD_Column WHERE AD_Column_ID=1132797
+;
+
+-- 30 de jan de 2021 19:44:54 AMT
+UPDATE AD_Column SET AD_Reference_ID=18, AD_Reference_Value_ID=275,Updated=TO_DATE('2021-01-30 19:44:54','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1132774
+;
+
+-- 30 de jan de 2021 19:48:50 AMT
+UPDATE AD_Table SET AD_Window_ID=1120173,Updated=TO_DATE('2021-01-30 19:48:50','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Table_ID=1120707
+;
+
+-- 30 de jan de 2021 19:49:08 AMT
+UPDATE AD_Window SET Name='EFD ICMS/IPI',Updated=TO_DATE('2021-01-30 19:49:08','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Window_ID=1120173
+;
+
+-- 30 de jan de 2021 19:49:08 AMT
+UPDATE AD_Menu SET Name='EFD ICMS/IPI', Description='Generate SPED Fiscal EFD ICMS/IPI', IsActive='Y',Updated=TO_DATE('2021-01-30 19:49:08','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Menu_ID=1120375
+;
+
+-- 30 de jan de 2021 19:49:16 AMT
+UPDATE AD_Window SET WindowType='T',Updated=TO_DATE('2021-01-30 19:49:16','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Window_ID=1120173
+;
+
+-- 30 de jan de 2021 19:49:20 AMT
+UPDATE AD_Window SET IsSOTrx='Y',Updated=TO_DATE('2021-01-30 19:49:20','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Window_ID=1120173
+;
+
+-- 30 de jan de 2021 19:52:03 AMT
+UPDATE AD_Column SET AD_Reference_ID=18, AD_Reference_Value_ID=322,Updated=TO_DATE('2021-01-30 19:52:03','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1132773
+;
+
+-- 30 de jan de 2021 19:52:11 AMT
+UPDATE AD_Column SET IsIdentifier='Y',Updated=TO_DATE('2021-01-30 19:52:11','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1132773
+;
+
+-- 30 de jan de 2021 19:52:17 AMT
+UPDATE AD_Column SET IsIdentifier='Y', SeqNo=2,Updated=TO_DATE('2021-01-30 19:52:17','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1132774
+;
+
+-- 30 de jan de 2021 19:52:20 AMT
+UPDATE AD_Column SET SeqNo=1,Updated=TO_DATE('2021-01-30 19:52:20','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1132773
+;
+
+-- 30 de jan de 2021 23:05:02 AMT
+DELETE  FROM  AD_Field_Trl WHERE AD_Field_ID=1130154
+;
+
+-- 30 de jan de 2021 23:05:03 AMT
+DELETE FROM AD_Field WHERE AD_Field_ID=1130154
+;
+
+-- 30 de jan de 2021 23:05:07 AMT
+DELETE  FROM  AD_Field_Trl WHERE AD_Field_ID=1130153
+;
+
+-- 30 de jan de 2021 23:05:07 AMT
+DELETE FROM AD_Field WHERE AD_Field_ID=1130153
+;
+
+-- 30 de jan de 2021 23:05:21 AMT
+DELETE  FROM  AD_Column_Trl WHERE AD_Column_ID=1132795
+;
+
+-- 30 de jan de 2021 23:05:21 AMT
+DELETE FROM AD_Column WHERE AD_Column_ID=1132795
+;
+
+-- 30 de jan de 2021 23:05:30 AMT
+DELETE  FROM  AD_Column_Trl WHERE AD_Column_ID=1132794
+;
+
+-- 30 de jan de 2021 23:05:30 AMT
+DELETE FROM AD_Column WHERE AD_Column_ID=1132794
+;
+
+-- 30 de jan de 2021 23:05:41 AMT
+DELETE  FROM  AD_Element_Trl WHERE AD_Element_ID=1123235
+;
+
+-- 30 de jan de 2021 23:05:41 AMT
+DELETE FROM AD_Element WHERE AD_Element_ID=1123235
+;
+
+-- 30 de jan de 2021 23:07:06 AMT
+INSERT INTO AD_Element (AD_Element_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,ColumnName,Name,Description,Help,PrintName,EntityType,AD_Element_UU) VALUES (1123275,0,0,'Y',TO_DATE('2021-01-30 23:06:09','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2021-01-30 23:06:09','YYYY-MM-DD HH24:MI:SS'),100,'LBR_IncludeE','Block E',NULL,NULL,'Block E','LBRA','9fc19470-4a17-409d-bee5-2c1a84e3a410')
+;
+
+-- 30 de jan de 2021 23:07:39 AMT
+INSERT INTO AD_Column (AD_Column_ID,Version,Name,AD_Table_ID,ColumnName,DefaultValue,FieldLength,IsKey,IsParent,IsMandatory,IsTranslated,IsIdentifier,SeqNo,IsEncrypted,AD_Reference_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Element_ID,IsUpdateable,IsSelectionColumn,EntityType,IsSyncDatabase,IsAlwaysUpdateable,IsAutocomplete,IsAllowLogging,AD_Column_UU,IsAllowCopy,SeqNoSelection,IsToolbarButton,IsSecure,FKConstraintType,IsHtml) VALUES (1132909,0,'Block E',1120707,'LBR_IncludeE','Y',1,'N','N','Y','N','N',0,'N',20,0,0,'Y',TO_DATE('2021-01-30 23:07:39','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2021-01-30 23:07:39','YYYY-MM-DD HH24:MI:SS'),100,1123275,'Y','N','LBRA','N','N','N','Y','738a2479-f7b2-43ae-be92-203b0e721be5','Y',0,'N','N','N','N')
+;
+
+-- 30 de jan de 2021 23:07:53 AMT
+INSERT INTO AD_Element (AD_Element_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,ColumnName,Name,PrintName,EntityType,AD_Element_UU) VALUES (1123276,0,0,'Y',TO_DATE('2021-01-30 23:07:52','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2021-01-30 23:07:52','YYYY-MM-DD HH24:MI:SS'),100,'LBR_IncludeH','Block H','Block H','LBRA','002ae78a-b36e-4181-95a5-65093a556213')
+;
+
+-- 30 de jan de 2021 23:08:04 AMT
+INSERT INTO AD_Element (AD_Element_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,ColumnName,Name,PrintName,EntityType,AD_Element_UU) VALUES (1123277,0,0,'Y',TO_DATE('2021-01-30 23:08:01','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2021-01-30 23:08:01','YYYY-MM-DD HH24:MI:SS'),100,'LBR_IncludeK','Block K','Block K','LBRA','c07cec24-b6fe-464e-9178-71a286f0a311')
+;
+
+-- 30 de jan de 2021 23:08:57 AMT
+INSERT INTO AD_Column (AD_Column_ID,Version,Name,AD_Table_ID,ColumnName,DefaultValue,FieldLength,IsKey,IsParent,IsMandatory,IsTranslated,IsIdentifier,SeqNo,IsEncrypted,AD_Reference_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Element_ID,IsUpdateable,IsSelectionColumn,EntityType,IsSyncDatabase,IsAlwaysUpdateable,IsAutocomplete,IsAllowLogging,AD_Column_UU,IsAllowCopy,SeqNoSelection,IsToolbarButton,IsSecure,FKConstraintType,IsHtml) VALUES (1132910,0,'Block H',1120707,'LBR_IncludeH','Y',1,'N','N','Y','N','N',0,'N',20,0,0,'Y',TO_DATE('2021-01-30 23:08:56','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2021-01-30 23:08:56','YYYY-MM-DD HH24:MI:SS'),100,1123276,'Y','N','LBRA','N','N','N','Y','6417215c-2e20-4bcb-aba8-ed916a593dd5','Y',0,'N','N','N','N')
+;
+
+-- 30 de jan de 2021 23:09:09 AMT
+INSERT INTO AD_Column (AD_Column_ID,Version,Name,AD_Table_ID,ColumnName,DefaultValue,FieldLength,IsKey,IsParent,IsMandatory,IsTranslated,IsIdentifier,SeqNo,IsEncrypted,AD_Reference_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Element_ID,IsUpdateable,IsSelectionColumn,EntityType,IsSyncDatabase,IsAlwaysUpdateable,IsAutocomplete,IsAllowLogging,AD_Column_UU,IsAllowCopy,SeqNoSelection,IsToolbarButton,IsSecure,FKConstraintType,IsHtml) VALUES (1132911,0,'Block K',1120707,'LBR_IncludeK','Y',1,'N','N','Y','N','N',0,'N',20,0,0,'Y',TO_DATE('2021-01-30 23:09:08','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2021-01-30 23:09:08','YYYY-MM-DD HH24:MI:SS'),100,1123277,'Y','N','LBRA','N','N','N','Y','62994fce-833d-4ddd-8bb0-ec8bbb577c86','Y',0,'N','N','N','N')
+;
+
+-- 30 de jan de 2021 23:09:15 AMT
+ALTER TABLE LBR_EFDICMSIPI ADD LBR_IncludeE CHAR(1) DEFAULT 'Y' CHECK (LBR_IncludeE IN ('Y','N')) NOT NULL
+;
+
+-- 30 de jan de 2021 23:09:27 AMT
+UPDATE AD_Column SET DefaultValue='N',Updated=TO_DATE('2021-01-30 23:09:27','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1132910
+;
+
+-- 30 de jan de 2021 23:09:28 AMT
+ALTER TABLE LBR_EFDICMSIPI ADD LBR_IncludeH CHAR(1) DEFAULT 'N' CHECK (LBR_IncludeH IN ('Y','N')) NOT NULL
+;
+
+-- 30 de jan de 2021 23:09:35 AMT
+ALTER TABLE LBR_EFDICMSIPI ADD LBR_IncludeK CHAR(1) DEFAULT 'Y' CHECK (LBR_IncludeK IN ('Y','N')) NOT NULL
+;
+
+-- 30 de jan de 2021 23:12:23 AMT
+INSERT INTO AD_Column (AD_Column_ID,Version,Name,AD_Table_ID,ColumnName,DefaultValue,FieldLength,IsKey,IsParent,IsMandatory,IsTranslated,IsIdentifier,SeqNo,IsEncrypted,AD_Reference_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Element_ID,IsUpdateable,IsSelectionColumn,EntityType,IsSyncDatabase,IsAlwaysUpdateable,IsAutocomplete,IsAllowLogging,AD_Column_UU,IsAllowCopy,SeqNoSelection,IsToolbarButton,IsSecure,IsHtml) VALUES (1132912,0,'IsFixedAsset',1120707,'IsFixedAsset','Y',1,'N','N','Y','N','N',0,'N',20,0,0,'Y',TO_DATE('2021-01-30 23:12:22','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2021-01-30 23:12:22','YYYY-MM-DD HH24:MI:SS'),100,200176,'Y','N','LBRA','N','N','N','Y','b7c8b842-d4c5-4eba-ac60-ddcfc05b0fc9','Y',0,'N','N','N')
+;
+
+-- 30 de jan de 2021 23:12:24 AMT
+ALTER TABLE LBR_EFDICMSIPI ADD IsFixedAsset CHAR(1) DEFAULT 'Y' CHECK (IsFixedAsset IN ('Y','N')) NOT NULL
+;
+
+-- 30 de jan de 2021 23:12:36 AMT
+INSERT INTO AD_Field (AD_Field_ID,Name,AD_Tab_ID,AD_Column_ID,IsDisplayed,DisplayLength,SeqNo,IsSameLine,IsHeading,IsFieldOnly,IsEncrypted,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,IsReadOnly,IsCentrallyMaintained,EntityType,AD_Field_UU,IsDisplayedGrid,SeqNoGrid,XPosition,ColumnSpan) VALUES (1130278,'Block E',1120413,1132909,'Y',1,150,'N','N','N','N',0,0,'Y',TO_DATE('2021-01-30 23:12:35','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2021-01-30 23:12:35','YYYY-MM-DD HH24:MI:SS'),100,'N','Y','LBRA','4d6b8481-2fef-4a7c-9969-23fa32951d9e','Y',150,2,2)
+;
+
+-- 30 de jan de 2021 23:12:36 AMT
+INSERT INTO AD_Field (AD_Field_ID,Name,AD_Tab_ID,AD_Column_ID,IsDisplayed,DisplayLength,SeqNo,IsSameLine,IsHeading,IsFieldOnly,IsEncrypted,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,IsReadOnly,IsCentrallyMaintained,EntityType,AD_Field_UU,IsDisplayedGrid,SeqNoGrid,XPosition,ColumnSpan) VALUES (1130279,'Block H',1120413,1132910,'Y',1,160,'N','N','N','N',0,0,'Y',TO_DATE('2021-01-30 23:12:36','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2021-01-30 23:12:36','YYYY-MM-DD HH24:MI:SS'),100,'N','Y','LBRA','3a31eda3-b4c9-4f8c-886d-7eb22be5a726','Y',160,2,2)
+;
+
+-- 30 de jan de 2021 23:12:37 AMT
+INSERT INTO AD_Field (AD_Field_ID,Name,AD_Tab_ID,AD_Column_ID,IsDisplayed,DisplayLength,SeqNo,IsSameLine,IsHeading,IsFieldOnly,IsEncrypted,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,IsReadOnly,IsCentrallyMaintained,EntityType,AD_Field_UU,IsDisplayedGrid,SeqNoGrid,XPosition,ColumnSpan) VALUES (1130280,'Block K',1120413,1132911,'Y',1,170,'N','N','N','N',0,0,'Y',TO_DATE('2021-01-30 23:12:36','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2021-01-30 23:12:36','YYYY-MM-DD HH24:MI:SS'),100,'N','Y','LBRA','10ec36b8-7cbe-4cd3-ba8d-494af5b6088f','Y',170,2,2)
+;
+
+-- 30 de jan de 2021 23:12:37 AMT
+INSERT INTO AD_Field (AD_Field_ID,Name,AD_Tab_ID,AD_Column_ID,IsDisplayed,DisplayLength,SeqNo,IsSameLine,IsHeading,IsFieldOnly,IsEncrypted,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,IsReadOnly,IsCentrallyMaintained,EntityType,AD_Field_UU,IsDisplayedGrid,SeqNoGrid,XPosition,ColumnSpan) VALUES (1130281,'IsFixedAsset',1120413,1132912,'Y',1,180,'N','N','N','N',0,0,'Y',TO_DATE('2021-01-30 23:12:37','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2021-01-30 23:12:37','YYYY-MM-DD HH24:MI:SS'),100,'N','Y','LBRA','b1553a2b-3e2f-46ea-8060-3776ed7aebcc','Y',180,2,2)
+;
+
+-- 30 de jan de 2021 23:13:53 AMT
+UPDATE AD_Field SET SeqNo=150, AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, ColumnSpan=1, IsToolbarButton=NULL,Updated=TO_DATE('2021-01-30 23:13:53','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1130278
+;
+
+-- 30 de jan de 2021 23:13:53 AMT
+UPDATE AD_Field SET SeqNo=160, AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, ColumnSpan=1, IsToolbarButton=NULL,Updated=TO_DATE('2021-01-30 23:13:53','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1130279
+;
+
+-- 30 de jan de 2021 23:13:53 AMT
+UPDATE AD_Field SET IsDisplayed='Y', SeqNo=170, AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, XPosition=3, ColumnSpan=1, IsToolbarButton=NULL,Updated=TO_DATE('2021-01-30 23:13:53','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1130281
+;
+
+-- 30 de jan de 2021 23:13:53 AMT
+UPDATE AD_Field SET SeqNo=180, AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, ColumnSpan=1, IsToolbarButton=NULL,Updated=TO_DATE('2021-01-30 23:13:53','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1130280
+;
+
+-- 30 de jan de 2021 23:22:01 AMT
+UPDATE AD_Field SET Name='Include Asset', Description='If checked Assets will be included in Inventory block H of file', AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, IsToolbarButton=NULL,Updated=TO_DATE('2021-01-30 23:22:01','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1130281
+;
+
+-- 31 de jan de 2021 09:02:31 AMT
+UPDATE AD_Tab SET DisplayLogic='@LBR_IncludeK@=Y',Updated=TO_DATE('2021-01-31 09:02:31','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Tab_ID=1120414
+;
+
+-- 31 de jan de 2021 09:02:39 AMT
+UPDATE AD_Tab SET DisplayLogic='@LBR_IncludeK@=Y',Updated=TO_DATE('2021-01-31 09:02:39','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Tab_ID=1120415
+;
+
+-- 31 de jan de 2021 09:03:00 AMT
+UPDATE AD_Field SET DisplayLogic='@LBR_IncludeH@=Y', AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, IsToolbarButton=NULL,Updated=TO_DATE('2021-01-31 09:03:00','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1130281
+;
+
+-- 31 de jan de 2021 09:05:21 AMT
+UPDATE AD_Column SET AD_Reference_ID=30,Updated=TO_DATE('2021-01-31 09:05:21','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1132789
+;
+
+-- 31 de jan de 2021 12:41:15 AMT
+INSERT INTO AD_Column (AD_Column_ID,Version,Name,Description,Help,AD_Table_ID,ColumnName,FieldLength,IsKey,IsParent,IsMandatory,IsTranslated,IsIdentifier,SeqNo,IsEncrypted,AD_Reference_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Element_ID,IsUpdateable,IsSelectionColumn,EntityType,IsSyncDatabase,IsAlwaysUpdateable,IsAutocomplete,IsAllowLogging,AD_Column_UU,IsAllowCopy,SeqNoSelection,IsToolbarButton,IsSecure,IsHtml) VALUES (1132913,0,'Description','Optional short description of the record','A description is limited to 255 characters.',1120707,'Description',255,'N','N','N','N','N',0,'N',10,0,0,'Y',TO_DATE('2021-01-31 12:41:15','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2021-01-31 12:41:15','YYYY-MM-DD HH24:MI:SS'),100,275,'Y','Y','LBRA','N','N','N','Y','b5c802ba-3157-4b0d-97f4-9b22eb596e6b','Y',10,'N','N','N')
+;
+
+-- 31 de jan de 2021 12:41:17 AMT
+ALTER TABLE LBR_EFDICMSIPI ADD Description VARCHAR2(255) DEFAULT NULL 
+;
+
+-- 31 de jan de 2021 12:42:37 AMT
+INSERT INTO AD_Reference (AD_Reference_ID,Name,ValidationType,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,EntityType,IsOrderByValue,AD_Reference_UU) VALUES (1120381,'C_Year - DESC','T',0,0,'Y',TO_DATE('2021-01-31 12:42:36','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2021-01-31 12:42:36','YYYY-MM-DD HH24:MI:SS'),100,'LBRA','N','a06497d4-7ba1-4f42-bebe-457709caa2d3')
+;
+
+-- 31 de jan de 2021 12:43:26 AMT
+INSERT INTO AD_Ref_Table (AD_Reference_ID,AD_Table_ID,AD_Key,AD_Display,OrderByClause,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,IsValueDisplayed,EntityType,AD_Ref_Table_UU) VALUES (1120381,177,1031,1038,'C_Year.FiscalYear DESC',0,0,'Y',TO_DATE('2021-01-31 12:43:26','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2021-01-31 12:43:26','YYYY-MM-DD HH24:MI:SS'),100,'N','LBRA','2f785f55-4e4e-464e-afe1-c34529de1e1a')
+;
+
+-- 31 de jan de 2021 12:43:46 AMT
+UPDATE AD_Column SET AD_Reference_ID=18, AD_Reference_Value_ID=1120381,Updated=TO_DATE('2021-01-31 12:43:46','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1132777
+;
+
+-- 31 de jan de 2021 12:44:04 AMT
+INSERT INTO AD_Field (AD_Field_ID,Name,Description,Help,AD_Tab_ID,AD_Column_ID,IsDisplayed,DisplayLength,SeqNo,IsSameLine,IsHeading,IsFieldOnly,IsEncrypted,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,IsReadOnly,IsCentrallyMaintained,EntityType,AD_Field_UU,IsDisplayedGrid,SeqNoGrid,ColumnSpan) VALUES (1130282,'Description','Optional short description of the record','A description is limited to 255 characters.',1120413,1132913,'Y',255,190,'N','N','N','N',0,0,'Y',TO_DATE('2021-01-31 12:44:04','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2021-01-31 12:44:04','YYYY-MM-DD HH24:MI:SS'),100,'N','Y','LBRA','01056010-1c39-4d41-af5b-ceb6e08f1e7a','Y',190,5)
+;
+
+-- 31 de jan de 2021 12:45:09 AMT
+UPDATE AD_Field SET IsDisplayed='Y', SeqNo=50, AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, XPosition=1, IsToolbarButton=NULL,Updated=TO_DATE('2021-01-31 12:45:09','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1130146
+;
+
+-- 31 de jan de 2021 12:45:09 AMT
+UPDATE AD_Field SET SeqNo=60, AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, IsToolbarButton=NULL,Updated=TO_DATE('2021-01-31 12:45:09','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1130145
+;
+
+-- 31 de jan de 2021 12:45:09 AMT
+UPDATE AD_Field SET IsDisplayed='Y', SeqNo=70, AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, XPosition=4, IsToolbarButton=NULL,Updated=TO_DATE('2021-01-31 12:45:09','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1130144
+;
+
+-- 31 de jan de 2021 12:45:09 AMT
+UPDATE AD_Field SET IsDisplayed='Y', SeqNo=80, AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, XPosition=5, IsToolbarButton=NULL,Updated=TO_DATE('2021-01-31 12:45:09','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1130147
+;
+
+-- 31 de jan de 2021 12:45:09 AMT
+UPDATE AD_Field SET IsDisplayed='Y', SeqNo=90, AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, XPosition=1, NumLines=3, IsToolbarButton=NULL,Updated=TO_DATE('2021-01-31 12:45:09','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1130282
+;
+
+-- 31 de jan de 2021 12:45:09 AMT
+UPDATE AD_Field SET IsDisplayed='N', SeqNo=0, AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, XPosition=1, IsToolbarButton=NULL,Updated=TO_DATE('2021-01-31 12:45:09','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1130143
 ;
 
 -- 16 de dez de 2020 15:25:13 BRT

@@ -2456,7 +2456,6 @@ public class EFDUtil {
 		return ret;
 	}
 	
-	
 	/**
 	 * Retornar a query para buscar as informações do inventário
 	 * 
@@ -2473,6 +2472,25 @@ public class EFDUtil {
 	 */
 	public static String getSQLInv()  throws Exception
 	{
+		return getSQLInv(false);
+	}	//	getSQLInv
+	
+	/**
+	 * Retornar a query para buscar as informações do inventário
+	 * 
+	 * Parametros do SQL
+	 * 
+	 * #1 - C_Period_ID
+	 * #2 - CostingMethod
+	 * #3 - AD_Client_ID
+	 * #4 - AD_Org_ID
+	 * #5 - MovementDate
+	 * 
+	 * 
+	 * @return Sql String
+	 */
+	public static String getSQLInv(boolean includeAsset)  throws Exception
+	{
 		// sql
 		String sql = " SELECT 																			" +
 				" 	mt.M_Product_ID,																	" +
@@ -2486,13 +2504,18 @@ public class EFDUtil {
 				" WHERE mt.AD_Client_ID = ? 															" + // # 3
 				"   AND mt.AD_Org_ID = ?																" + // # 4
 				"	AND mt.MovementDate <= ?															" +	// # 5
-				"	AND wh.AD_Org_ID = mt.AD_Org_ID 													" +
-				" GROUP BY																				" +
-				" 	mt.AD_Client_ID, 																	" +
-				"	mt.M_Product_ID,																	" +
-				"	wh.lbr_WarehouseType																" +
-				" HAVING SUM(MovementQty) > 0															" +
-				" ORDER BY mt.M_Product_ID																";
+				"	AND wh.AD_Org_ID = mt.AD_Org_ID 													";
+		
+		//	Should include assets in the inventory?
+		if (!includeAsset)
+			sql += "  AND (p.lbr_ItemTypeBR IS NULL OR p.lbr_ItemTypeBR<>'08') ";
+		
+		sql +=  " GROUP BY							" +
+				" 	mt.AD_Client_ID, 				" +
+				"	mt.M_Product_ID,				" +
+				"	wh.lbr_WarehouseType			" +
+				" HAVING SUM(MovementQty) > 0		" +
+				" ORDER BY mt.M_Product_ID			";
 
 		//
 		return sql;
@@ -2535,7 +2558,7 @@ public class EFDUtil {
 	 * 
 	 * #1 - AD_Client_ID
 	 * #2 - AD_Org_ID
-	 * #3 - LBR_SPEDFiscal_ID
+	 * #3 - LBR_EFDICMSIPI_ID
 	 * 
 	 * @return Sql String
 	 */
@@ -2548,7 +2571,7 @@ public class EFDUtil {
 				" FROM LBR_BookInventory														" +
 				" WHERE AD_Client_ID = ? 														" + // # 1
 				" AND AD_Org_ID = ?																" + // # 2
-				" AND LBR_SPEDFiscal_ID = ? "	  	 												  	  + // # 3
+				" AND LBR_EFDICMSIPI_ID = ? "	  	 											  + // # 3
 				" GROUP BY AD_Client_ID, AD_Org_ID, M_Product_ID, C_BPartner_ID, " + 
 				" lbr_WarehouseType, movementdate, isRevalidate " + 
 				" ORDER BY M_Product_ID															";
