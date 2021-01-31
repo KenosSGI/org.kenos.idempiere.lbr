@@ -333,4 +333,10 @@
  <row trl="Y" uuid="a31cdee1-5f05-4db0-bfd2-cdb1e2e15880">
   <value column="Name" original="Discount">Desconto</value>
  </row>
+ <row trl="Y" uuid="e93179be-c37d-4924-b75a-5f0a98ec7524">
+  <value column="Name" original="ICMS Substitute">ICMS Substituto</value>
+ </row>
+ <row trl="Y" uuid="e99d0fc1-eb96-4407-b722-08c8ade00bc8">
+  <value column="Name" original="Parameter">Parâmetros</value>
+ </row>
 </idempiereTrl>

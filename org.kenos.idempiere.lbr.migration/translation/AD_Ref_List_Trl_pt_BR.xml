@@ -12428,4 +12428,132 @@
   <value column="Name" original="VISUAL">VISUAL</value>
   <value column="Description" original=""/>
  </row>
+ <row trl="N" uuid="71b0ddff-3ea5-4e5d-9fc5-80d0f21b5165">
+  <value column="Name" original="Armazenador">Armazenador</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="a8026b78-b29d-452a-8dc7-803564121bcc">
+  <value column="Name" original="Consumidor Final">Consumidor Final</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="a225b9e1-aff4-4d63-95b7-ebaf857cec5a">
+  <value column="Name" original="Central Petroquímica">Central Petroquímica</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="c2784ab1-31c3-4dc4-a784-590cd64074a2">
+  <value column="Name" original="Distribuidor">Distribuidor</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="231cbaa5-3a4a-4ecc-8e37-6b8d58d82e75">
+  <value column="Name" original="Formulador">Formulador</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="2b8b2cf6-f54a-4d9e-9db5-64cfc429c7fb">
+  <value column="Name" original="Importador">Importador</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="f8c76015-b112-4bd7-8e7d-1bb03ca0884c">
+  <value column="Name" original="Posto Varejista">Posto Varejista</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="766440fc-f1eb-433a-81f5-6fd82f6d7ca5">
+  <value column="Name" original="Refinaria">Refinaria</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="9b45c208-feb8-40a7-af79-530d93f484ba">
+  <value column="Name" original="Transportador e Revendedor Retalhista">Transportador e Revendedor Retalhista</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="ed31f603-3450-438e-93b5-0265537d476c">
+  <value column="Name" original="Usina">Usina</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="c69ab172-283d-4dd7-8548-1bcc4bead4b8">
+  <value column="Name" original="Varejista de GLP">Varejista de GLP</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="9be81ec0-fe69-40af-a4be-725754c7f794">
+  <value column="Name" original="Aquisição de bens para revenda">Aquisição de bens para revenda</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="0469646c-3eed-46a9-8388-7c3e882af2f1">
+  <value column="Name" original="Aquisição de bens utilizados como insumo">Aquisição de bens utilizados como insumo</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="cb372dc1-e82e-40d4-b3a5-326997a7da11">
+  <value column="Name" original="Aquisição de serviços utilizados como insumo">Aquisição de serviços utilizados como insumo</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="d36efe1e-e390-4f52-81a6-f6325c067bd0">
+  <value column="Name" original="Energia elétrica e térmica, inclusive sob a forma de vapor">Energia elétrica e térmica, inclusive sob a forma de vapor</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="5bd72aac-d798-4478-9b46-b6dad990f759">
+  <value column="Name" original="Aluguéis de prédios">Aluguéis de prédios</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="2ecb81c9-b89d-49bb-9aa8-816da064450a">
+  <value column="Name" original="Aluguéis de máquinas e equipamentos">Aluguéis de máquinas e equipamentos</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="0fa25d01-977c-4aff-98db-546b5976744f">
+  <value column="Name" original="Armazenagem de mercadoria e frete na operação de venda">Armazenagem de mercadoria e frete na operação de venda</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="58cab0b4-3ff3-47e2-a7c6-c2cd8b32d3df">
+  <value column="Name" original="Contraprestações de arrendamento mercantil">Contraprestações de arrendamento mercantil</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="64b60f0f-cd1b-428b-819d-6c8ecb8b3b30">
+  <value column="Name" original="Máquinas, equipamentos e outros bens incorporados ao ativo imobilizado (crédito sobre encargos de depreciação).">Máquinas, equipamentos e outros bens incorporados ao ativo imobilizado (crédito sobre encargos de depreciação).</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="07c76d1b-4068-4ca3-9f94-673c457c6f47">
+  <value column="Name" original="Máquinas, equipamentos e outros bens incorporados ao ativo imobilizado (crédito com base no valor de aquisição).">Máquinas, equipamentos e outros bens incorporados ao ativo imobilizado (crédito com base no valor de aquisição).</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="f03738c2-6390-490b-b267-fe70a14b4af8">
+  <value column="Name" original="Amortização e Depreciação de edificações e benfeitorias em imóveis">Amortização e Depreciação de edificações e benfeitorias em imóveis</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="63c92f6e-3777-4518-8267-701a97e3f3ee">
+  <value column="Name" original="Devolução de Vendas Sujeitas à Incidência Não-Cumulativa">Devolução de Vendas Sujeitas à Incidência Não-Cumulativa</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="e2938198-8be2-4bd3-b929-58649992b0ae">
+  <value column="Name" original="Outras Operações com Direito a Crédito">Outras Operações com Direito a Crédito</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="12541c30-4140-4dbe-a26b-4a6d796b92aa">
+  <value column="Name" original="Atividade de Transporte de Cargas – Subcontratação">Atividade de Transporte de Cargas – Subcontratação</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="1009d0d5-5f70-4bbd-a517-db2aef0b9e37">
+  <value column="Name" original="Atividade Imobiliária – Custo Incorrido de Unidade Imobiliária">Atividade Imobiliária – Custo Incorrido de Unidade Imobiliária</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="36a7294c-d959-467e-a052-7aa40c4ad040">
+  <value column="Name" original="Atividade Imobiliária – Custo Orçado de unidade não concluída">Atividade Imobiliária – Custo Orçado de unidade não concluída</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="eadd67e9-562e-49ed-acf6-53952bf2a03b">
+  <value column="Name" original="Atividade de Prestação de Serviços de Limpeza, Conservação e Manutenção – vale-transporte, vale- refeição ou vale-alimentação, f">Atividade de Prestação de Serviços de Limpeza, Conservação e Manutenção – vale-transporte, vale- refeição ou vale-alimentação, f</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="b13fc144-b8a9-400c-9f80-24d5fa90758e">
+  <value column="Name" original="Estoque de abertura de bens">Estoque de abertura de bens</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="2e1c3449-6edc-4da2-963e-7edba292431d">
+  <value column="Name" original="Recibo Provisório de Serviço">Recibo Provisório de Serviço</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="a0982b7e-79cd-4146-bfbb-ccc850f61c34">
+  <value column="Name" original="Original">Original</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="b20f5c7f-ff9a-41ac-9d22-baff10bbef0f">
+  <value column="Name" original="Retificado">Retificado</value>
+  <value column="Description" original=""/>
+ </row>
 </idempiereTrl>

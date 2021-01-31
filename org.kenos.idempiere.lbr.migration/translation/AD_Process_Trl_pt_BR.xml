@@ -2767,6 +2767,31 @@ For example:<br />
   <value column="Description" original=""/>
   <value column="Help" original=""/>
  </row>
+ <row trl="Y" uuid="82cee6f6-e30a-42f0-8d0b-a38b90d858cf">
+  <value column="Name" original="SIMP Recalculate Totals">Recalcular Totais</value>
+  <value column="Description" original="This process will delete and recalculate the totals in case the generate data was manually modified">This process will delete and recalculate the totals in case the generate data was manually modified</value>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="62888c5d-488a-40c4-9334-5fa69cd05dde">
+  <value column="Name" original="Process LBR_SCANC">Process LBR_SCANC</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="5d96e47e-0d7b-4935-abcb-9eea9f3c3912">
+  <value column="Name" original="Create Invoice (CashPlan Line)">Create Invoice (CashPlan Line)</value>
+  <value column="Description" original="Create Invoice From Cash Plan Line">Create Invoice From Cash Plan Line</value>
+  <value column="Help" original="On grade view, select one or more lines do create invoice.">On grade view, select one or more lines do create invoice.</value>
+ </row>
+ <row trl="N" uuid="c64387e1-51eb-4c21-81f9-e36951e705b5">
+  <value column="Name" original="Process LBR_EFDICMSIPI">Process LBR_EFDICMSIPI</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="a8016f4e-ac97-469d-b96d-eb2c17c2e8b0">
+  <value column="Name" original="Product Kardex">Ficha de Estoque - Kardex</value>
+  <value column="Description" original="Product Kardex with average cost">Ficha de Estoque - Kardex</value>
+  <value column="Help" original="">Ficha de Estoque contendo o custo médio (calculado) de um produto específico em um determinado período</value>
+ </row>
  <row trl="Y" uuid="5efaeb22-fe9f-47ae-a1ae-228b3395e68e">
   <value column="Name" original="Freight Calc">Cálculo de Frete (Correios)</value>
   <value column="Description" original="Freight calculation for Brazilian Post Service (Correios)">Sistema de cálculo de frete para o serviço de postagem brasileiro (Correios)</value>

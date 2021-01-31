@@ -200,4 +200,9 @@
   <value column="PrintName" original="Master BOM" xml:space="preserve"><![CDATA[LDM & Fórmula]]></value>
   <value column="PrintNameSuffix" original=""/>
  </row>
+ <row trl="Y" uuid="7a380008-899c-4037-bcf3-a97caeb4f03d">
+  <value column="Name" original="Production Line">Linha de Produção</value>
+  <value column="PrintName" original=""/>
+  <value column="PrintNameSuffix" original=""/>
+ </row>
 </idempiereTrl>

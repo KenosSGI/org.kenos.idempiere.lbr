@@ -1023,6 +1023,10 @@ UPDATE AD_Field SET IsDisplayed='Y', SeqNo=90, AD_Reference_Value_ID=NULL, AD_Va
 UPDATE AD_Field SET IsDisplayed='N', SeqNo=0, AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, XPosition=1, IsToolbarButton=NULL,Updated=TO_DATE('2021-01-31 12:45:09','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1130143
 ;
 
+-- 31 de jan de 2021 18:24:55 AMT
+UPDATE AD_Field SET IsCentrallyMaintained='N', AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, IsToolbarButton=NULL,Updated=TO_DATE('2021-01-31 18:24:55','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1130281
+;
+
 -- 16 de dez de 2020 15:25:13 BRT
 SELECT Register_Migration_Script ('202012161800_SPEDImprovement.sql') FROM DUAL
 ;
