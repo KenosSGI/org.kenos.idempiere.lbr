@@ -1025,6 +1025,74 @@ UPDATE AD_Field SET IsDisplayed='N', SeqNo=0, AD_Reference_Value_ID=NULL, AD_Val
 UPDATE AD_Field SET IsCentrallyMaintained='N', AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, IsToolbarButton=NULL,Updated=TO_TIMESTAMP('2021-01-31 18:24:55','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1130281
 ;
 
+-- 1 de fev de 2021 10:49:24 AMT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N', Updated=statement_timestamp(), UpdatedBy=100 WHERE AD_Field_ID=1130147
+;
+
+-- 1 de fev de 2021 10:49:24 AMT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N', Updated=statement_timestamp(), UpdatedBy=100 WHERE AD_Field_ID=1130279
+;
+
+-- 1 de fev de 2021 10:49:24 AMT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N', Updated=statement_timestamp(), UpdatedBy=100 WHERE AD_Field_ID=1130280
+;
+
+-- 1 de fev de 2021 10:49:24 AMT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N', Updated=statement_timestamp(), UpdatedBy=100 WHERE AD_Field_ID=1130281
+;
+
+-- 1 de fev de 2021 10:49:24 AMT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N', Updated=statement_timestamp(), UpdatedBy=100 WHERE AD_Field_ID=1130278
+;
+
+-- 1 de fev de 2021 10:49:24 AMT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N', Updated=statement_timestamp(), UpdatedBy=100 WHERE AD_Field_ID=1130151
+;
+
+-- 1 de fev de 2021 10:49:24 AMT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N', Updated=statement_timestamp(), UpdatedBy=100 WHERE AD_Field_ID=1130150
+;
+
+-- 1 de fev de 2021 10:49:24 AMT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N', Updated=statement_timestamp(), UpdatedBy=100 WHERE AD_Field_ID=1130149
+;
+
+-- 1 de fev de 2021 10:49:24 AMT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N', Updated=statement_timestamp(), UpdatedBy=100 WHERE AD_Field_ID=1130148
+;
+
+-- 1 de fev de 2021 10:49:24 AMT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N', Updated=statement_timestamp(), UpdatedBy=100 WHERE AD_Field_ID=1130146
+;
+
+-- 1 de fev de 2021 10:49:24 AMT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N', Updated=statement_timestamp(), UpdatedBy=100 WHERE AD_Field_ID=1130145
+;
+
+-- 1 de fev de 2021 10:49:24 AMT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N', Updated=statement_timestamp(), UpdatedBy=100 WHERE AD_Field_ID=1130143
+;
+
+-- 1 de fev de 2021 10:49:24 AMT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N', Updated=statement_timestamp(), UpdatedBy=100 WHERE AD_Field_ID=1130142
+;
+
+-- 1 de fev de 2021 10:49:24 AMT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N', Updated=statement_timestamp(), UpdatedBy=100 WHERE AD_Field_ID=1130139
+;
+
+-- 1 de fev de 2021 10:49:24 AMT
+UPDATE AD_Field SET SeqNoGrid=30,IsDisplayedGrid='Y', Updated=statement_timestamp(), UpdatedBy=100 WHERE AD_Field_ID=1130152
+;
+
+-- 1 de fev de 2021 10:49:24 AMT
+UPDATE AD_Field SET SeqNoGrid=40,IsDisplayedGrid='Y', Updated=statement_timestamp(), UpdatedBy=100 WHERE AD_Field_ID=1130144
+;
+
+-- 1 de fev de 2021 10:49:24 AMT
+UPDATE AD_Field SET SeqNoGrid=50,IsDisplayedGrid='Y', Updated=statement_timestamp(), UpdatedBy=100 WHERE AD_Field_ID=1130282
+;
+
 -- 16 de dez de 2020 15:25:13 BRT
 SELECT Register_Migration_Script ('202012161800_SPEDImprovement.sql') FROM DUAL
 ;
