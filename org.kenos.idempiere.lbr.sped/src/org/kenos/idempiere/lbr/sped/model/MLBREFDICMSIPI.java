@@ -716,16 +716,15 @@ public class MLBREFDICMSIPI extends X_LBR_EFDICMSIPI implements DocAction, DocOp
 		 * Obs.: Só gerar o Bloco H no mês de fevereiro, sendo que os 
 		 * valores devem ser referentes ao mês de dezembro
 		 */
-		GregorianCalendar calendar = new GregorianCalendar();
-		calendar.setTime(getStartDate());
-		
-		if(calendar.get(Calendar.MONTH) == 1) // (indice do calendar: 0(mês 1), 1(mês 2), 2(mês 3)...)
+		if (isLBR_IncludeH())
 		{
 			
 			/*
 			 * Definir a data do ultimo dia do ano anterior ao que está sendo gerado o SPED
 			 */
-			calendar.set(Calendar.MONTH, 11); // (indice do calendar: 11(mês 12))
+			GregorianCalendar calendar = new GregorianCalendar();
+			calendar.setTime(getStartDate());
+			calendar.set(Calendar.MONTH, Calendar.DECEMBER);
 			calendar.set(Calendar.DAY_OF_MONTH, 31);
 			calendar.add(Calendar.YEAR, -1); 
 			

@@ -28,7 +28,7 @@ public class SPED implements IColumnCallout
 		//	Default value to include block H in february
 		Calendar cal = Calendar.getInstance();
 		cal.setTimeInMillis(actual.getStartDate().getTime());
-		if (cal.get(Calendar.MONTH) == Calendar.FEBRUARY)
+		if (cal.get(Calendar.MONTH) == Calendar.JANUARY)
 			mTab.setValue(MLBREFDICMSIPI.COLUMNNAME_LBR_IncludeH, true);
 		
 		MPeriod previous = new Query (ctx, MPeriod.Table_Name, MPeriod.COLUMNNAME_StartDate + "=" + DB.TO_DATE(TimeUtil.addMonths(actual.getStartDate(), -1)), null)
