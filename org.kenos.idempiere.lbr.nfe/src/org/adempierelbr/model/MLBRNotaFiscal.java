@@ -2642,6 +2642,9 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		else
 			setGrandTotal(wOrder.getGrandTotal());
 		
+		if (wInOut.getShipDate() != null)
+			setlbr_DateInOut(wInOut.getShipDate());
+		
 		//	Dados do Parceiro
 		setBPartner(new MBPartnerLocation (getCtx(), wInOut.getC_BPartner_Location_ID(), get_TrxName()));
 	}	//	setInOut
