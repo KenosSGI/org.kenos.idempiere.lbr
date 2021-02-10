@@ -25,6 +25,7 @@ import org.adempierelbr.sped.SPEDUtil;
 import org.adempierelbr.sped.bean.I_R0150;
 import org.adempierelbr.sped.bean.I_R0190;
 import org.adempierelbr.sped.bean.I_R0200;
+import org.adempierelbr.sped.bean.I_R0500;
 import org.adempierelbr.sped.bean.I_RC100;
 import org.adempierelbr.sped.bean.I_RC500;
 import org.adempierelbr.sped.bean.I_RD100;
@@ -85,7 +86,7 @@ public class MLBRFactFiscal extends X_LBR_FactFiscal
 	 */
 	public MLBRFactFiscal (Properties ctx, int ID, String trx)
 	{
-		super(ctx, ID, trx);	
+		super(ctx, ID, trx);
 	}	//	MLBRADI
 	
 	/**
@@ -344,7 +345,7 @@ public class MLBRFactFiscal extends X_LBR_FactFiscal
 	 * 	@param ctx Contexto
 	 * 	@param trxName Nome da Transação
 	 */
-	public R0500 fillR0500 (Properties ctx, Set<R0500> _R0500, String trxName)
+	public I_R0500 fillR0500 (Properties ctx, Set<I_R0500> _R0500, String trxName)
 	{
 		//	Linha Inválida
 		if (getM_Product_ID() == 0)
@@ -402,7 +403,7 @@ public class MLBRFactFiscal extends X_LBR_FactFiscal
 		r0500.setNIVEL(ev.getValue().split(".").length);
 
 		//
-		for (R0500 r : _R0500)
+		for (I_R0500 r : _R0500)
 		{
 			if (r.getDT_ALT().compareTo(r0500.getDT_ALT()) == 0 &&
 					r.getCOD_CTA().compareTo(r0500.getCOD_CTA()) == 0)

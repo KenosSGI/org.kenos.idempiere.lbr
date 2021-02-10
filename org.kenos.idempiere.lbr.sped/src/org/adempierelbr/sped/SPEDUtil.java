@@ -17,6 +17,7 @@ import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -36,6 +37,7 @@ import org.adempierelbr.sped.bean.I_R0100;
 import org.adempierelbr.sped.bean.I_R0150;
 import org.adempierelbr.sped.bean.I_R0190;
 import org.adempierelbr.sped.bean.I_R0200;
+import org.adempierelbr.sped.bean.I_R0500;
 import org.adempierelbr.sped.bean.I_R9900;
 import org.adempierelbr.sped.bean.I_R9999;
 import org.adempierelbr.sped.bean.I_RC100;
@@ -67,7 +69,6 @@ import org.adempierelbr.sped.contrib.bean.RM610;
 import org.adempierelbr.sped.contrib.bean.RM611;
 import org.adempierelbr.sped.contrib.bean.RM800;
 import org.adempierelbr.sped.contrib.bean.RM810;
-import org.adempierelbr.sped.efd.bean.R0500;
 import org.adempierelbr.util.BPartnerUtil;
 import org.adempierelbr.util.TextUtil;
 import org.adempierelbr.wrapper.I_W_AD_OrgInfo;
@@ -305,7 +306,7 @@ public class SPEDUtil
 	/**
 	 * 	Array com todos os Registros 0500 e seus filhos
 	 */
-	private static Set<R0500> _R0500;
+	private static Set<I_R0500> _R0500;
 	
 	/**
 	 * 	Array com todos os Registros A010 e seus filhos
@@ -393,7 +394,7 @@ public class SPEDUtil
 	static Map<BigDecimal, BigDecimal> mapValorTax= new TreeSumMap<BigDecimal, BigDecimal> ();
 	
 	static List<I_FiscalDocItem> items = new ArrayList<I_FiscalDocItem>();
-	
+
 	/**
 	 * 	Processa todos os Fatos Fiscais
 	 * 
@@ -404,6 +405,18 @@ public class SPEDUtil
 	 */
 	public static void processFacts (Properties ctx, MLBRFactFiscal[] facts, int type, String trxName) throws Exception
 	{
+		processFacts (ctx, Arrays.asList(facts), type, trxName);
+	}
+	/**
+	 * 	Processa todos os Fatos Fiscais
+	 * 
+	 * @param ctx Context
+	 * @param facts	Fatos Fiscais
+	 * @param trxName Nome da Transação
+	 * @throws Exception 
+	 */
+	public static void processFacts (Properties ctx, List<MLBRFactFiscal> facts, int type, String trxName) throws Exception
+	{
 		//	FIXME: Assim até a Fact Fiscal ter identificação do tipo de
 		//		registro, Cabeçalho, Linha, Org, etc.
 		List<Integer> unqNF = new ArrayList<Integer>();
@@ -412,7 +425,7 @@ public class SPEDUtil
 		_R0150 = new SPEDSet<I_R0150>();
 		_R0190 = new SPEDSet<I_R0190>();
 		_R0200 = new SPEDSet<I_R0200>();
-		_R0500 = new SPEDSet<R0500>();
+		_R0500 = new SPEDSet<I_R0500>();
 		_RA010 = new SPEDSet<RA010>();
 		_RA100 = new SPEDSet<RA100>();
 		_RC010 = new SPEDSet<RC010>();
@@ -434,7 +447,7 @@ public class SPEDUtil
 			_R0150.add (fact.fillR0150 (ctx, (I_R0150) getReg ("R0150", type), trxName));
 			_R0190.add (fact.fillR0190 (ctx, (I_R0190) getReg ("R0190", type), trxName));
 			_R0200.add (fact.fillR0200 (ctx, (I_R0200) getReg ("R0200", type), trxName));
-			_R0500.add(fact.fillR0500(ctx,_R0500, trxName));
+			_R0500.add (fact.fillR0500 (ctx, _R0500, trxName));
 			
 			//	TEMPORARIO VIDE unqNF
 			if (unqNF.contains(fact.getLBR_NotaFiscal_ID()))
@@ -720,6 +733,40 @@ public class SPEDUtil
 	}	//	getReg
 	
 	/**
+	 * 		Retorna a instância dos registros comuns ou similares entre os SPEDs.
+	 * 
+	 * 	@param regName Nome do Registro
+	 * 	@param type Tipo ECD, EFD ou Contribuições
+	 * 	@return Registro para ambos SPEDs
+	 */
+	public static Object getRegSet (String regName, int type)
+	{
+		Class<?> clazz = null;
+		
+		try
+		{
+			if (type == TYPE_EFD)
+				clazz = Class.forName("org.adempierelbr.sped.efd.bean." + regName);
+			
+			else if (type == TYPE_CONTRIB)
+				clazz = Class.forName("org.adempierelbr.sped.contrib.bean." + regName);
+			
+			else if (type == TYPE_ECD)
+				clazz = Class.forName("org.adempierelbr.sped.ecd." + regName);
+
+			else
+				throw new ClassNotFoundException (">>>>" + regName);
+			//
+			return clazz.newInstance();
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		return null;
+	}	//	getReg
+	
+	/**
 	 * 		Abertura do Arquivo
 	 * 
 	 *	@param reg Interface do Registro 0100
@@ -961,7 +1008,7 @@ public class SPEDUtil
 	 * 		Produtos
 	 * 	@return Registros 0500
 	 */
-	public static Set<R0500> getR0500 ()
+	public static Set<I_R0500> getR0500 ()
 	{
 		return _R0500;
 	}	//	getR0200
