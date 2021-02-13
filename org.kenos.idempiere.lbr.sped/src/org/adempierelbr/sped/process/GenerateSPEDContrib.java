@@ -55,6 +55,7 @@ import org.compiere.util.DB;
  *  @author Ricardo Santana (Kenos, www.kenos.com.br)
  *	@version $Id: GenerateSPEDContrib.java, v1.0 2013/MM/DD 2:51:51 PM, ralexsander Exp $
  */
+@Deprecated
 public class GenerateSPEDContrib extends SvrProcess
 {
 	/** Context	& Trx	*/

@@ -14,6 +14,8 @@ public class ModelFactory implements IModelFactory
 	{
 		if (MLBRFactFiscal.Table_Name.equals(tableName))
 			return MLBRFactFiscal.class;
+		else if (MLBREFDContrib.Table_Name.equals(tableName))
+			return MLBREFDContrib.class;
 		else if (MLBREFDICMSIPI.Table_Name.equals(tableName))
 			return MLBREFDICMSIPI.class;
 		return null;
@@ -24,6 +26,8 @@ public class ModelFactory implements IModelFactory
 	{
 		if (MLBRFactFiscal.Table_Name.equals(tableName))
 			return new MLBRFactFiscal (Env.getCtx(), Record_ID, trxName);
+		else if (MLBREFDContrib.Table_Name.equals(tableName))
+			return new MLBREFDContrib (Env.getCtx(), Record_ID, trxName);
 		else if (MLBREFDICMSIPI.Table_Name.equals(tableName))
 			return new MLBREFDICMSIPI (Env.getCtx(), Record_ID, trxName);
 		return null;
@@ -34,6 +38,8 @@ public class ModelFactory implements IModelFactory
 	{
 		if (MLBRFactFiscal.Table_Name.equals(tableName))
 			return new MLBRFactFiscal (Env.getCtx(), rs, trxName);
+		else if (MLBREFDContrib.Table_Name.equals(tableName))
+			return new MLBREFDContrib (Env.getCtx(), rs, trxName);
 		else if (MLBREFDICMSIPI.Table_Name.equals(tableName))
 			return new MLBREFDICMSIPI (Env.getCtx(), rs, trxName);
 		return null;
