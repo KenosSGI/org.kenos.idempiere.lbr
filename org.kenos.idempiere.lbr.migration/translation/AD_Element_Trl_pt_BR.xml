@@ -25927,8 +25927,8 @@ O ID é relacionado de 1 para 1 para o ID do contêiner</value>
   <value column="Help" original="The Material Shipment / Receipt ">Remessa/Recebimento de Material </value>
   <value column="PO_Description" original="Material Receipt Document">Documento de Recebimento de Material</value>
   <value column="PO_Help" original="The Material Shipment / Receipt ">Remessa/Recebimento de Material </value>
-  <value column="PO_Name" original="Receipt">Recibo</value>
-  <value column="PO_PrintName" original="Receipt">Recibo</value>
+  <value column="PO_Name" original="Receipt">Recebimento</value>
+  <value column="PO_PrintName" original="Receipt">Recebimento</value>
   <value column="Placeholder" original=""/>
  </row>
  <row id="52001" trl="Y">

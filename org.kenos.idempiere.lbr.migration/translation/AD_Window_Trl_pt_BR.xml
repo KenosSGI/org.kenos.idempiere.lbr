@@ -1791,7 +1791,7 @@ MRP - 110	 No exists Dem</value>
   <value column="Help" original="The Return to Vendor Window defines shipments made or to be made to a vendor as part of a return.">A janela "Devolução a Fornecedor" define remessas feitas ou a serem feitas para um fornecedor como parte de uma devolução.</value>
  </row>
  <row id="53099" trl="Y">
-  <value column="Name" original="Vendor RMA">ARM de Fornecedor</value>
+  <value column="Name" original="Vendor RMA">ARM para Fornecedor</value>
   <value column="Description" original="Manage Return Material Authorization">Gerenciar as Autorizações de Retorno de Material (ARM)</value>
   <value column="Help" original="A Return Material Authorization may be required to accept returns and to create Credit Memos">Uma Autorização de Retorno de Material pode ser exigida para aceitar devoluções e para criar Avisos de Crédito</value>
  </row>
