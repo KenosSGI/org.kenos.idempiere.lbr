@@ -146,7 +146,7 @@ public class MLBREFDICMSIPI extends X_LBR_EFDICMSIPI implements DocAction, DocOp
 				.getColumns(false))
 				.stream()
 				.map(MColumn::getColumnName)
-				.filter(c -> !TextUtil.match(c, "LBR_SPEDContribution_ID", "LBR_EFDContrib_ID", "LBR_EFDICMSIPI_ID"))
+				.filter(c -> !TextUtil.match(c, "LBR_SPEDContribution_ID", "LBR_EFDContrib_ID", "LBR_EFDICMSIPI_ID", "LBR_FactFiscal_UU"))
 				.toArray());
 		
 		//	TODO: Compare againt LBR_FactFiscalBase when LBR_FactFiscalBase is created in framework
