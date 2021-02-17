@@ -27,11 +27,13 @@ import org.adempierelbr.wrapper.I_W_C_Order;
 import org.adempierelbr.wrapper.I_W_C_OrderLine;
 import org.compiere.model.MAttributeSet;
 import org.compiere.model.MClient;
+import org.compiere.model.MCurrency;
 import org.compiere.model.MDocType;
 import org.compiere.model.MInOut;
 import org.compiere.model.MInOutLine;
 import org.compiere.model.MInvoice;
 import org.compiere.model.MInvoiceLine;
+import org.compiere.model.MInvoicePaySchedule;
 import org.compiere.model.MOrder;
 import org.compiere.model.MOrderLine;
 import org.compiere.model.MOrderPaySchedule;
@@ -446,10 +448,11 @@ public class ValidatorOrder implements ModelValidator
 	 */
 	private MInvoice createInvoice (MOrder order, MDocType dt, MInOut shipment, Timestamp invoiceDate)
 	{
-		String     trx = order.get_TrxName();
-
+		String trxName = order.get_TrxName();
+		Properties ctx = order.getCtx();
+		//
 		MInvoice invoice = new MInvoice (order, dt.getC_DocTypeInvoice_ID(), invoiceDate);
-		if (!invoice.save(trx))
+		if (!invoice.save(trxName))
 		{
 			log.log(Level.SEVERE, "Could not create Invoice");
 			return null;
@@ -469,14 +472,14 @@ public class ValidatorOrder implements ModelValidator
 				//	Qty = Delivered
 				iLine.setQtyEntered(sLine.getQtyEntered());
 				iLine.setQtyInvoiced(sLine.getMovementQty());
-				if (!iLine.save(trx))
+				if (!iLine.save(trxName))
 				{
 					log.log(Level.SEVERE, "Could not create Invoice Line from Shipment Line");
 					return null;
 				}
 				//
 				sLine.setIsInvoiced(true);
-				if (!sLine.save(trx))
+				if (!sLine.save(trxName))
 				{
 					log.warning("Could not update Shipment line: " + sLine);
 				}
@@ -499,11 +502,46 @@ public class ValidatorOrder implements ModelValidator
 				else
 					iLine.setQtyEntered(iLine.getQtyInvoiced().multiply(oLine.getQtyEntered())
 						.divide(oLine.getQtyOrdered(), 12, RoundingMode.HALF_UP));
-				if (!iLine.save(trx))
+				if (!iLine.save(trxName))
 				{
 					log.log(Level.SEVERE, "Could not create Invoice Line from Order Line");
 					return null;
 				}
+			}
+		}
+		
+
+		if (!MSysConfig.getBooleanValue(SysConfig.LBR_OVERWRITE_ORDER_PAY_SCHEDULE, true))
+		{
+			// copy payment schedule from order if invoice doesn't have a current payment schedule
+			MOrderPaySchedule[] opss = MOrderPaySchedule.getOrderPaySchedule(ctx, order.getC_Order_ID(), 0, trxName);
+			MInvoicePaySchedule[] ipss = MInvoicePaySchedule.getInvoicePaySchedule(ctx, invoice.getC_Invoice_ID(), 0, trxName);
+			if (ipss.length == 0 && opss.length > 0) {
+				BigDecimal ogt = order.getGrandTotal();
+				BigDecimal igt = invoice.getGrandTotal();
+				BigDecimal percent = Env.ONE;
+				if (ogt.compareTo(igt) != 0)
+					percent = igt.divide(ogt, 10, RoundingMode.HALF_UP);
+				MCurrency cur = MCurrency.get(order.getCtx(), order.getC_Currency_ID());
+				int scale = cur.getStdPrecision();
+			
+				for (MOrderPaySchedule ops : opss) {
+					MInvoicePaySchedule ips = new MInvoicePaySchedule(ctx, 0, trxName);
+					PO.copyValues(ops, ips);
+					if (percent != Env.ONE) {
+						BigDecimal propDueAmt = ops.getDueAmt().multiply(percent);
+						if (propDueAmt.scale() > scale)
+							propDueAmt = propDueAmt.setScale(scale, RoundingMode.HALF_UP);
+						ips.setDueAmt(propDueAmt);
+					}
+					ips.setC_Invoice_ID(invoice.getC_Invoice_ID());
+					ips.setAD_Org_ID(ops.getAD_Org_ID());
+					ips.setProcessing(ops.isProcessing());
+					ips.setIsActive(ops.isActive());
+					ips.saveEx();
+				}
+				invoice.validatePaySchedule();
+				invoice.saveEx(trxName);
 			}
 		}
 
