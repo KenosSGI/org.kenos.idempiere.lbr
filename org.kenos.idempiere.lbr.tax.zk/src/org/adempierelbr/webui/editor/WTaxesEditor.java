@@ -162,5 +162,10 @@ public class WTaxesEditor extends WEditor implements ContextMenuListener
 	public String getDisplay() {
 		return getComponent().getText();
 	}
+	
+	@Override
+	public boolean isSearchable() {
+		return false;
+	}
 
 }
