@@ -570,7 +570,7 @@ public class MLBRTax extends X_LBR_Tax
 
 		MTable table = MTable.get(getCtx(), X_LBR_TaxLine.Table_Name);
 		Query q =  new Query(getCtx(), table, whereClause, get_TrxName());
-		q.setParameters(new Object[]{getLBR_Tax_ID()});
+		q.setParameters(new Object[]{getLBR_Tax_ID()}).setOrderBy(MLBRTaxLine.COLUMNNAME_LBR_TaxName_ID);
 
 		List<MLBRTaxLine> list = q.list();
 		MLBRTaxLine[] lines = new MLBRTaxLine[list.size()];
@@ -839,7 +839,7 @@ public class MLBRTax extends X_LBR_Tax
 	 * 	@param taxes
 	 * 	@param tcpg
 	 */
-	private static void processTaxes (Map<Integer, MLBRTaxLine> taxes, int LBR_Tax_ID)
+	public static void processTaxes (Map<Integer, MLBRTaxLine> taxes, int LBR_Tax_ID)
 	{
 		if (LBR_Tax_ID < 1 || taxes == null)
 			return;
@@ -865,6 +865,37 @@ public class MLBRTax extends X_LBR_Tax
 	{
 		return "MLBRTax [ID=" + get_ID() + ", Taxes=" + (getDescription() == null ? "" : getDescription()) + "]";
 	}	//	toString
+	
+	@Override
+	public boolean equals (Object cmp)
+	{
+		if (cmp == null || !(cmp instanceof MLBRTax))
+			return false;
+		//
+		MLBRTaxLine[] lines1 = getLines();
+		MLBRTaxLine[] lines2 = ((MLBRTax)cmp).getLines();
+		//
+		if (lines1.length != lines2.length)
+			return false;
+		
+		for (int current = 0; current < lines1.length; current++)
+		{
+			if (lines1[current].getLBR_TaxName_ID() != lines2[current].getLBR_TaxName_ID())
+				return false;
+			if (lines1[current].getLBR_TaxStatus_ID() != lines2[current].getLBR_TaxStatus_ID())
+				return false;
+			if (lines1[current].getLBR_LegalMessage_ID() != lines2[current].getLBR_LegalMessage_ID())
+				return false;
+			if (!lines1[current].getlbr_TaxRate().stripTrailingZeros().equals(lines2[current].getlbr_TaxRate().stripTrailingZeros()))
+				return false;
+			if (!lines1[current].getlbr_TaxBase().stripTrailingZeros().equals(lines2[current].getlbr_TaxBase().stripTrailingZeros()))
+				return false;
+			if (!lines1[current].getlbr_TaxBaseAmt().stripTrailingZeros().equals(lines2[current].getlbr_TaxBaseAmt().stripTrailingZeros()))
+				return false;
+		}
+		
+		return true;
+	}	//	equals
 
 	/**
 	 * Get Validation
