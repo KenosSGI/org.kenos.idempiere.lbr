@@ -664,42 +664,37 @@ public class NFeXMLGenerator
 		if (!nfce || nf.getlbr_BPTypeBR() != null)
 		{
 			Dest dest = infNFe.addNewDest();
+		
+			if (MLBRNotaFiscal.LBR_BPTYPEBR_PF_Individual.equals(nf.getlbr_BPTypeBR()))
+				dest.setCPF(toNumericStr (nf.getlbr_BPCNPJ()));
+			
+			else if (MLBRNotaFiscal.LBR_BPTYPEBR_PJ_LegalEntity.equals(nf.getlbr_BPTypeBR()))
+				dest.setCNPJ(toNumericStr (nf.getlbr_BPCNPJ()));
+
+			//	Estrangeiro
+			else if (MLBRNotaFiscal.LBR_BPTYPEBR_XX_Foreigner.equals(nf.getlbr_BPTypeBR()))
+			{
+				String taxID = nf.getTaxID();
+				
+				//	ID do Estrangeiro OK
+				if (taxID != null && taxID.trim().length() >= 5)
+					dest.setIdEstrangeiro(taxID);
+			
+				//	ID do Estrangeiro não especificado
+				else
+					dest.setIdEstrangeiro("");
+			}
+			
+			//	Nome não obrigatório para NFC-e
+			if (nf.getBPName() != null)
+				dest.setXNome(normalize (nf.getBPName()));
 			
 			//	Homologação
 			if (!T_AMB_PRODUCAO.equals(ide.getTpAmb()))
 			{
-				dest.setCNPJ (HOMOLOG_BPCNPJ);
+				//	dest.setCNPJ (HOMOLOG_BPCNPJ);
 				dest.setXNome (HOMOLOG_BPNAME);
-			}
-			
-			//	Produção
-			else
-			{
-				if (MLBRNotaFiscal.LBR_BPTYPEBR_PF_Individual.equals(nf.getlbr_BPTypeBR()))
-					dest.setCPF(toNumericStr (nf.getlbr_BPCNPJ()));
-				
-				else if (MLBRNotaFiscal.LBR_BPTYPEBR_PJ_LegalEntity.equals(nf.getlbr_BPTypeBR()))
-					dest.setCNPJ(toNumericStr (nf.getlbr_BPCNPJ()));
-	
-				//	Estrangeiro
-				else if (MLBRNotaFiscal.LBR_BPTYPEBR_XX_Foreigner.equals(nf.getlbr_BPTypeBR()))
-				{
-					String taxID = nf.getTaxID();
-					
-					//	ID do Estrangeiro OK
-					if (taxID != null && taxID.trim().length() >= 5)
-						dest.setIdEstrangeiro(taxID);
-				
-					//	ID do Estrangeiro não especificado
-					else
-						dest.setIdEstrangeiro("");
-				}
-				
-				//	Nome não obrigatório para NFC-e
-				if (nf.getBPName() != null)
-					dest.setXNome(normalize (nf.getBPName()));
-			}
-			
+			}			
 			/**
 			 * 	Nota 1: No caso de NFC-e informar indIEDest=9 e não
 			 * 		informar a tag IE do destinatário;
@@ -729,21 +724,16 @@ public class NFeXMLGenerator
 						enderDest.setCEP(toNumericStr (nf.getlbr_BPPostal()));
 		
 					//	Contribuinte de ICMS, possuí IE
-					if (T_AMB_PRODUCAO.equals(ide.getTpAmb()))
-					{
-						dest.setIndIEDest (TNFe.InfNFe.Dest.IndIEDest.Enum.forString(nf.getLBR_IndIEDest()));
-						//
-						//	1=Contribuinte ICMS (informar a IE do destinatário);
-						//	9= Não Contribuinte, que pode ou não possuir Inscrição Estadual no Cadastro de Contribuintes do ICMS;
-						if (MLBRNotaFiscal.LBR_INDIEDEST_1_ContribuinteDeICMS.equals(nf.getLBR_IndIEDest()) || 								
-								(MLBRNotaFiscal.LBR_INDIEDEST_9_NãoContribuinteDeICMS.equals(nf.getLBR_IndIEDest()) 
-								&& nf.getlbr_BPIE() != null 		//	Not Null
-								&& !nf.getlbr_BPIE().isEmpty() 		//	Not Empty
-								&& !nf.getlbr_BPIE().trim().toUpperCase().startsWith("ISENT")))	//	Does not match ISENTO and ISENTA
+					dest.setIndIEDest (TNFe.InfNFe.Dest.IndIEDest.Enum.forString(nf.getLBR_IndIEDest()));
+					//
+					//	1=Contribuinte ICMS (informar a IE do destinatário);
+					//	9= Não Contribuinte, que pode ou não possuir Inscrição Estadual no Cadastro de Contribuintes do ICMS;
+					if (MLBRNotaFiscal.LBR_INDIEDEST_1_ContribuinteDeICMS.equals(nf.getLBR_IndIEDest()) || 								
+							(MLBRNotaFiscal.LBR_INDIEDEST_9_NãoContribuinteDeICMS.equals(nf.getLBR_IndIEDest()) 
+							&& nf.getlbr_BPIE() != null 		//	Not Null
+							&& !nf.getlbr_BPIE().isEmpty() 		//	Not Empty
+							&& !nf.getlbr_BPIE().trim().toUpperCase().startsWith("ISENT")))	//	Does not match ISENTO and ISENTA
 							dest.setIE (toNumericStr (nf.getlbr_BPIE()));
-					}
-					else
-						dest.setIndIEDest (IND_IE_NAO_CONTRIB);	//	Homologação
 					
 					//	SUFRAMA
 					if ("AM".equals (nf.getlbr_BPRegion()) && nf.getlbr_BPSuframa() != null && !nf.getlbr_BPSuframa().isBlank())
