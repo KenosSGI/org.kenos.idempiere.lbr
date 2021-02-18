@@ -31,8 +31,5 @@ WHERE AD_Field_ID IN (1129949) AND DisplayLogic='@lbr_CertType@=''R11'' | @ lbr_
 UPDATE AD_Field SET MandatoryLogic='@lbr_CertType@=''R11'' | @lbr_CertType@=''N11''' 
 WHERE AD_Field_ID IN (1129949) AND MandatoryLogic='@lbr_CertType@=''R11'' | @ lbr_CertType@=''N11'''
 ;
-UPDATE AD_Field SET ReadOnlyLogic='@C_DocTypeTarget_ID@=2000055' 
-WHERE AD_Field_ID IN (10827) AND ReadOnlyLogic='C_DocTypeTarget_ID=2000055'
-;
 SELECT Register_Migration_Script ('202102181917_FixLogics.sql') FROM DUAL
 ;
