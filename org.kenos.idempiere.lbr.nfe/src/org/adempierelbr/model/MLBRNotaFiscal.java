@@ -94,7 +94,6 @@ import org.compiere.model.MProduction;
 import org.compiere.model.MProductionLine;
 import org.compiere.model.MRMA;
 import org.compiere.model.MRefList;
-import org.compiere.model.MRegion;
 import org.compiere.model.MRole;
 import org.compiere.model.MShipper;
 import org.compiere.model.MSysConfig;
@@ -118,8 +117,10 @@ import org.compiere.util.TimeUtil;
 import org.compiere.util.Trx;
 import org.compiere.util.Util;
 import org.kenos.idempiere.lbr.base.Constants;
+import org.kenos.idempiere.lbr.base.model.MCity;
 import org.kenos.idempiere.lbr.base.model.MLBRAverageCostLine;
 import org.kenos.idempiere.lbr.base.model.MLBRProductionGroup;
+import org.kenos.idempiere.lbr.base.model.MRegion;
 import org.kenos.idempiere.lbr.base.model.SysConfig;
 
 import br.inf.portalfiscal.nfe.v400.NFeDocument;
@@ -3551,6 +3552,40 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 			if (!NFeUtil.validateNFeID(getlbr_NFeID()))
 				throw new AdempiereException("Chave da NF-e Invalida");
 		}
+		
+		/**
+		 * 	Try to match the city name with IBGE city database, ignoring case and accent diff
+		 */
+		if (newRecord || is_ValueChanged(COLUMNNAME_lbr_BPCity) || is_ValueChanged(COLUMNNAME_lbr_BPRegion))
+		{
+			MRegion bpRegion = MRegion.getBrazilRegion (getCtx(), getlbr_BPRegion());
+			if (bpRegion != null)
+			{
+				MCity city = MCity.getCity (getCtx(), bpRegion.getC_Region_ID(), getlbr_BPCity());
+				if (city != null)
+				{
+					setlbr_BPCity(city.getName());
+					setlbr_BPCityCode(city.getWrapper().getlbr_CityCode());
+				}
+			}
+		}
+		
+		/**
+		 * 	Try to match the city name with IBGE city database, ignoring case and accent diff
+		 */
+		if (newRecord || is_ValueChanged(COLUMNNAME_lbr_BPDeliveryCity) || is_ValueChanged(COLUMNNAME_lbr_BPDeliveryRegion))
+		{
+			MRegion bpRegion = MRegion.getBrazilRegion (getCtx(), getlbr_BPDeliveryRegion());
+			if (bpRegion != null)
+			{
+				MCity city = MCity.getCity (getCtx(), bpRegion.getC_Region_ID(), getlbr_BPDeliveryCity());
+				if (city != null)
+				{
+					setlbr_BPDeliveryCity(city.getName());
+					setlbr_BPDeliveryCityCode(city.getWrapper().getlbr_CityCode());
+				}
+			}
+		}
 				
 		return true;
 	}	//	beforeSave
@@ -4474,6 +4509,7 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 			{
 				setDocAction(DOCACTION_None);
 				setDocStatus(DOCSTATUS_Completed);
+				setProcessed(true);
 				//
 				return DOCSTATUS_Completed;
 			}

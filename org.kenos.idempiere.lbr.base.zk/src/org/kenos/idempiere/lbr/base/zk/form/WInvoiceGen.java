@@ -18,7 +18,6 @@ import java.util.logging.Level;
 
 import org.adempiere.webui.ClientInfo;
 import org.adempiere.webui.LayoutUtils;
-import org.adempiere.webui.apps.form.WGenForm;
 import org.adempiere.webui.component.Checkbox;
 import org.adempiere.webui.component.Column;
 import org.adempiere.webui.component.Columns;
