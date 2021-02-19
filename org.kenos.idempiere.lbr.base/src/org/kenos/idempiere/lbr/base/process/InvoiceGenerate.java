@@ -27,6 +27,7 @@ import java.text.DecimalFormat;
 import java.util.logging.Level;
 
 import org.adempiere.exceptions.AdempiereException;
+import org.adempierelbr.model.X_LBR_NotaFiscal;
 import org.compiere.model.MBPartner;
 import org.compiere.model.MClient;
 import org.compiere.model.MCurrency;
@@ -43,6 +44,7 @@ import org.compiere.model.MOrderLine;
 import org.compiere.model.MOrderPaySchedule;
 import org.compiere.model.MSysConfig;
 import org.compiere.model.PO;
+import org.compiere.model.Query;
 import org.compiere.process.DocAction;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
@@ -572,6 +574,13 @@ public class InvoiceGenerate extends SvrProcess
 
 				String message = Msg.parseTranslation(getCtx(), "@InvoiceProcessed@ " + m_invoice.getDocumentNo());
 				addBufferLog(m_invoice.getC_Invoice_ID(), m_invoice.getDateInvoiced(), null, message, m_invoice.get_Table_ID(), m_invoice.getC_Invoice_ID());
+				X_LBR_NotaFiscal nf = new Query (getCtx(), X_LBR_NotaFiscal.Table_Name, "IsCancelled='N' AND C_Invoice_ID=?", m_invoice.get_TrxName())
+						.setParameters(m_invoice.getC_Invoice_ID())
+						.setOrderBy("LBR_NotaFiscal_ID DESC")
+						.first();
+				if (nf != null)
+					addBufferLog(0, m_invoice.getDateInvoiced(), null, "Nota Fiscal: " + nf.getDocumentNo(), X_LBR_NotaFiscal.Table_ID, nf.getLBR_NotaFiscal_ID());
+
 				m_created++;
 			}
 		}
