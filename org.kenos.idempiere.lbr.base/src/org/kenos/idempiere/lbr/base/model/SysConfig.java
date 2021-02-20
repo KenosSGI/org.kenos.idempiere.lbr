@@ -24,6 +24,7 @@ public class SysConfig
 	public static final String LBR_ALLOW_VOID_ORDER_WITH_INVOICE_SHIPMENT 		= "LBR_ALLOW_VOID_ORDER_WITH_INVOICE_SHIPMENT";
 	public static final String LBR_AUTO_GENERATE_XML 							= "LBR_AUTO_GENERATE_XML";
 	public static final String LBR_AUTOMATIC_ADJUST_MVA 						= "LBR_AUTOMATIC_ADJUST_MVA";
+	public static final String LBR_CALC_VOLUME_QTYLINE_AUT 						= "LBR_CALC_VOLUME_QTYLINE_AUT";
 	public static final String LBR_CORREIOS_SHIPPER 							= "LBR_CORREIOS_SHIPPER";
 	public static final String LBR_CUSTOM_NFE_EMAIL_MESSAGE 					= "LBR_CUSTOM_NFE_EMAIL_MESSAGE";
 	public static final String LBR_CUSTOM_NFSE_EMAIL_MESSAGE 					= "LBR_CUSTOM_NFSE_EMAIL_MESSAGE";
@@ -44,8 +45,8 @@ public class SysConfig
 	public static final String LBR_INVOICEGEN_DOCACTION 						= "LBR_INVOICEGEN_DOCACTION";
 	public static final String LBR_ISS_MATRIX_ENABLED 							= "LBR_ISS_MATRIX_ENABLED";
 	public static final String LBR_MATCH_SHIPMENT_RECEIPT_AND_ORDER_QTY 		= "LBR_MATCH_SHIPMENT_RECEIPT_AND_ORDER_QTY";
-	public static final String LBR_NFESPECIE 									= "LBR_NFESPECIE";
 	public static final String LBR_NFE_WAITING_TIME								= "LBR_NFE_WAITING_TIME";
+	public static final String LBR_NFESPECIE 									= "LBR_NFESPECIE";
 	public static final String LBR_NFSE_MOGI_PASS 								= "LBR_NFSE_MOGI_PASS";
 	public static final String LBR_NFSE_MOGI_USER 								= "LBR_NFSE_MOGI_USER";
 	public static final String LBR_NFSE_PALHOCA_PASS 							= "LBR_NFSE_PALHOCA_PASS";
@@ -56,6 +57,7 @@ public class SysConfig
 	public static final String LBR_POG_INVOICE_COMPLETE 						= "LBR_POG_INVOICE_COMPLETE";
 	public static final String LBR_PRINT_BP_PRODUCT_NO_NF 						= "LBR_PRINT_BP_PRODUCT_NO_NF";
 	public static final String LBR_PRINT_EXPIRE_NF 								= "LBR_PRINT_EXPIRE_NF";
+	public static final String LBR_PRINT_ICMS_SUBSTITUTE_NF 					= "LBR_PRINT_ICMS_SUBSTITUTE_NF";
 	public static final String LBR_PRINT_LOT_NF 								= "LBR_PRINT_LOT_NF";
 	public static final String LBR_PRINT_SERIALNUMBER_NF						= "LBR_PRINT_SERIALNUMBER_NF";
 	public static final String LBR_PRINT_XPED_NF 								= "LBR_PRINT_XPED_NF";
@@ -64,12 +66,12 @@ public class SysConfig
 	public static final String LBR_RECALCULATE_TAXES_ON_COMPLETE 				= "LBR_RECALCULATE_TAXES_ON_COMPLETE";
 	public static final String LBR_REF_CFOP 									= "LBR_REF_CFOP";
 	public static final String LBR_REF_NCM 										= "LBR_REF_NCM";
-	public static final String LBR_REMOTE_PKCS11_URL 							= "LBR_REMOTE_PKCS11_URL";
 	public static final String LBR_REMOTE_PKCS11_TIMEOUT 						= "LBR_REMOTE_PKCS11_TIMEOUT";
+	public static final String LBR_REMOTE_PKCS11_URL 							= "LBR_REMOTE_PKCS11_URL";
 	public static final String LBR_SEND_NF_BY_EMAIL_TO 							= "LBR_SEND_NF_BY_EMAIL_TO";
 	public static final String LBR_SENDNFENOONCNAB 								= "LBR_SENDNFENOONCNAB";
-	public static final String LBR_SHOW_STOCK_MSG_ON_ORDER 						= "LBR_SHOW_STOCK_MSG_ON_ORDER";
 	public static final String LBR_SHOW_EMPLOYEE_BP_INFO 						= "LBR_SHOW_EMPLOYEE_BP_INFO#";
+	public static final String LBR_SHOW_STOCK_MSG_ON_ORDER 						= "LBR_SHOW_STOCK_MSG_ON_ORDER";
 	public static final String LBR_SISCOMEX_PRODUCT_REGEX						= "LBR_SISCOMEX_PRODUCT_REGEX";
 	public static final String LBR_TAXBASE_DISCOUNT_PRINT_NF 					= "LBR_TAXBASE_DISCOUNT_PRINT_NF";
 	public static final String LBR_USE_UNIFIED_BP 								= "LBR_USE_UNIFIED_BP";
@@ -78,8 +80,7 @@ public class SysConfig
 	public static final String LBR_VALIDATE_UOM_CONVERT_ON_ORDERLINE 			= "LBR_VALIDATE_UOM_CONVERT_ON_ORDERLINE";
 	public static final String LBR_VENDOR 										= "LBR_VENDOR";
 	public static final String LBR_VERSION_NO 									= "LBR_VERSION_NO";
-	public static final String LBR_PRINT_ICMS_SUBSTITUTE_NF 					= "LBR_PRINT_ICMS_SUBSTITUTE_NF";
-	public static final String LBR_CALC_VOLUME_QTYLINE_AUT 						= "LBR_CALC_VOLUME_QTYLINE_AUT";
+
 	@Deprecated
 	public static final String LBR_VOLUME 										= "LBR_VOLUME";
 	@Deprecated
