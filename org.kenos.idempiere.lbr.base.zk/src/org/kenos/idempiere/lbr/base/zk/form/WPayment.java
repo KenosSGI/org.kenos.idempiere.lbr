@@ -378,6 +378,12 @@ public class WPayment extends Payment
 		miniTable.setColorCompare(payDate);
 		if (log.isLoggable(Level.CONFIG)) log.config("PayDate=" + payDate);
 		
+		if (fieldBankAccount.getSelectedItem() == null)
+		{
+			FDialog.error(m_WindowNo, form, "Sem conta bancária para a Organização");
+			return;
+		}
+		
 		BankInfo bi = (BankInfo)fieldBankAccount.getSelectedItem().getValue();
 		
 		if (fieldPaymentRule.getSelectedItem() == null)
