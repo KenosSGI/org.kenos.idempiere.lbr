@@ -968,7 +968,9 @@ public class WLocationDialog extends Window implements EventListener<Event>
 					
 					//	Erro
 					else
-						log.fine("Erro ao pesquisar o CEP: " + txtPostal.getText() + ", código: " + candidate.getResulCode());
+						log.warning ("Erro ao pesquisar o CEP: " + txtPostal.getText() 
+										+ ", código: " + candidate.getResulCode()
+										+ ", provider: " + candidate.getClass().getName());
 				}
 				//
 				if (provider != null)

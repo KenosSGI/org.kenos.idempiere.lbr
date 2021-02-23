@@ -13,19 +13,17 @@
  *****************************************************************************/
 package org.kenos.idempiere.lbr.base.cep.provider;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.math.BigDecimal;
-import java.net.URL;
-import java.net.URLConnection;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.net.http.HttpResponse.BodyHandlers;
 import java.util.Map;
 
 import org.adempierelbr.util.TextUtil;
+import org.json.JSONObject;
 import org.kenos.idempiere.lbr.base.cep.IBuscaCEP;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * 		Implementação da pesquisa de CEP para o serviço Postmon
@@ -33,7 +31,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * 	@author Ricardo Santana (Kenos, www.kenos.com.br)
  *	@version $Id: Postmon.java, v1.0 2018/04/11 13:27:12 PM, ralexsander Exp $
  */
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class Postmon implements IBuscaCEP 
 {
 	/**	Result code	*/
@@ -55,11 +52,9 @@ public class Postmon implements IBuscaCEP
 	private String uf = null;
 
 	/**	Dados adicionais da Cidade */
-	@JsonProperty (value = "cidade_info")
 	private Map<String, String> cidadeInfo = null;
 	
 	/**	Dados adicionais da UF */
-	@JsonProperty (value = "estado_info")
 	private Map<String, String> estadoInfo = null;
 
 	/**
@@ -72,7 +67,7 @@ public class Postmon implements IBuscaCEP
 	}	//	setResultCode
 
 	/**	Postmon URL	*/
-	private static final String URL_STRING = "http://api.postmon.com.br/v1/cep/";
+	private static final String URL_STRING = "https://api.postmon.com.br/v1/cep/";
 	
 	/**
 	 * Faz uma busca a partir do cep enviado, no site 
@@ -107,21 +102,26 @@ public class Postmon implements IBuscaCEP
 		try
 		{
 			//	Create the complete URL
-			URLConnection conn = new URL (URL_STRING + cep).openConnection();
-			conn.setConnectTimeout(TIMEOUT);
-			conn.setReadTimeout(TIMEOUT);
+			HttpRequest request = HttpRequest.newBuilder(URI.create(URL_STRING + cep))
+					.header("Content-Type", "application/json")
+					.GET()
+					.build();
+
+			HttpResponse<String> send = HttpClient.newHttpClient().send(request, BodyHandlers.ofString());
+			if (send.statusCode() != 200)
+				throw new Exception ("Failed to connect to Web Services: " + send.statusCode() + " - " + send.body());
 			
-			//	Get result
-			InputStream is = conn.getInputStream();
-			
-			//	Map to this object
-			ObjectMapper mapper = new ObjectMapper();
-			mapper.readerForUpdating(this).readValue(is);
+			JSONObject result_cep = new JSONObject(send.body());
+			this.uf				= result_cep.getString("estado");
+			this.cep 			= result_cep.getString("cep").replaceAll("(\\d{5})(\\d{3})", "$1-$2");
+			this.bairro 		= result_cep.getString("bairro");
+			this.cidade 		= result_cep.getString("cidade");
+			this.logradouro 	= result_cep.getString("logradouro");
 			
 			//	Everything OK
 			setResultCode(RESULT_CEP_ENCONTRADO);
 		}
-		catch (IOException e)
+		catch (Exception e)
 		{
 			setResultCode(RESULT_ERRO_DESCONHECIDO);
 		}
@@ -184,7 +184,6 @@ public class Postmon implements IBuscaCEP
 	}	//	getCEP
 
 	@Override
-	@JsonProperty (value = "estado")
 	public String getUF()
 	{
 		return uf;
