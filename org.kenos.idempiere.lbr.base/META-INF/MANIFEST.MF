@@ -11,7 +11,8 @@ Require-Bundle: org.adempiere.base;bundle-version="6.2.0",
  com.fasterxml.jackson.core.jackson-core;bundle-version="2.5.0",
  com.fasterxml.jackson.core.jackson-annotations;bundle-version="2.5.0",
  com.fasterxml.jackson.core.jackson-databind,
- org.adempiere.base.callout;bundle-version="6.2.0"
+ org.adempiere.base.callout;bundle-version="6.2.0",
+ json;bundle-version="20171018.0.0"
 Service-Component: OSGI-INF/*.xml
 Eclipse-RegisterBuddy: org.adempiere.base
 Export-Package: org.adempierelbr.callout,
