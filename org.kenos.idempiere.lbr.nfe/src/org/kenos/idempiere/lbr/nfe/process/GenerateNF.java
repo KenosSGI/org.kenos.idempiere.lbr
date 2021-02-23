@@ -30,7 +30,6 @@ import org.compiere.model.MWarehouse;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
 import org.compiere.util.Env;
-import org.compiere.util.Trx;
 import org.kenos.idempiere.lbr.base.model.SysConfig;
 
 /**
@@ -152,7 +151,7 @@ public class GenerateNF extends SvrProcess
 				
 				if (!doctype.get_ValueAsBoolean("lbr_IsOwnDocument") &&
 						p_lbr_NFEntrada.isEmpty())
-					return "Obrigatório Preencher Número da NF para Tipo de Documento " + doctype.getName();
+					return "@Error@ Obrigatório preencher o Número da NF para este tipo de entrada -> " + doctype.getName();
 				
 				MLBRNotaFiscal nf = new MLBRNotaFiscal (getCtx(), 0, get_TrxName());
 				nf.setDocumentNo(p_lbr_NFEntrada);
@@ -165,15 +164,16 @@ public class GenerateNF extends SvrProcess
 			{
 				// Other In/Out
 				MOrder otherInOut = new MOrder(Env.getCtx(), p_OtherInOut_ID, get_TrxName());
-				
+				if (otherInOut.getC_DocType().getC_DocTypeInvoice_ID() < 1)
+					return "@Error@ Tipo de documento para a Fatura não configurado";
+
 				if (p_lbr_NFEntrada.isEmpty())
 				{
-					MDocType doc = (MDocType)otherInOut.getC_DocType();
-					I_W_C_DocType docInvoice = POWrapper.create((MDocType)doc.getC_DocTypeInvoice(), I_W_C_DocType.class);
+					I_W_C_DocType dtInvoice = POWrapper.create((MDocType)otherInOut.getC_DocType().getC_DocTypeInvoice(), I_W_C_DocType.class);
 					
 					// If not Own Document NF must be filled
-					if (docInvoice != null && !docInvoice.islbr_IsOwnDocument())
-						return "Obrigado Preencher o Número da NF";
+					if (dtInvoice == null || !dtInvoice.islbr_IsOwnDocument())
+						return "@Error@ Obrigatório preencher o Número da NF para este tipo de entrada -> " + dtInvoice.getName();
 				}
 				
 				// Shipment/Receipt
@@ -272,9 +272,7 @@ public class GenerateNF extends SvrProcess
 		}
 		catch(Exception e)
 		{
-			// Error
-			Trx.get(get_TrxName(), false).rollback();
-			return e.getMessage();
+			return "@Error@ " + e.getMessage();
 		}
 
 		return "@Success@" + sucess;
@@ -288,6 +286,8 @@ public class GenerateNF extends SvrProcess
 	 */
 	public static MInOut generateInOut (MOrder order) throws AdempiereException
 	{
+		if (order.getC_DocTypeTarget().getC_DocTypeShipment_ID() < 1)
+			throw new AdempiereException ("Tipo de documento para Recebimento/Expedição não configurado.");
 		//
 		MInOut io = new MInOut(order, order.getC_DocTypeTarget().getC_DocTypeShipment_ID(), null);
 		
