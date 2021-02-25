@@ -231,14 +231,14 @@ public class ValidatorInOut implements ModelValidator
 			}
 
 			if(line.getMovementQty().equals(Env.ZERO)){
-				msg = "Itens com qtd zero";
+				msg = "Itens com quantidade zero na linha #" + line.getLine();
 				break;
 			}
 
 			if(!MSysConfig.getBooleanValue(SysConfig.LBR_ALLOW_DUPLICATED_MOVEMENTLINE_ON_MOVEMENT, true, mov.getAD_Client_ID()))
 			{
 				if(prod.contains("" + line.getM_Product_ID() + "|" + line.getM_Locator_ID())){
-					msg = "Duas linhas usando o mesmo produto na mesma posição";
+					msg = "Duas linhas usando o mesmo produto na mesma posição, produto=" + line.getProduct().getValue() + ", localizador=" + line.getM_Locator().getValue();
 					break;
 				}
 				else{
@@ -249,7 +249,7 @@ public class ValidatorInOut implements ModelValidator
 			BigDecimal qtdOnHand = getQtyOnHand(line.getM_Product_ID(), line.getM_Locator_ID(), line.getM_AttributeSetInstance_ID());
 
 			if(qtdOnHand.compareTo(line.getMovementQty()) == -1){
-				msg = "Sem saldo na linha=" + line.getLine();
+				msg = "Sem saldo na linha #" + line.getLine() + ", produto=" + line.getProduct().getValue();
 				break;
 			}
 			
