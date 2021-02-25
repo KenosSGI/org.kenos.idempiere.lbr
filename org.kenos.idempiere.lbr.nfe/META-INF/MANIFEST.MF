@@ -46,7 +46,8 @@ Export-Package: br.inf.portalfiscal.nfe.dfe,
  org.apache.axis2.util,
  org.apache.axis2.wsdl,
  org.kenos.apps.form,
- org.kenos.idempiere.lbr.nfe.process
+ org.kenos.idempiere.lbr.nfe.process,
+ org.w3.x2000.x09.xmldsig
 Bundle-ClassPath: .,
  lib/axiom-api.jar,
  lib/axiom-impl.jar,

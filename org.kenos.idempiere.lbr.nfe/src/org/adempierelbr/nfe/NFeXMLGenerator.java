@@ -2146,7 +2146,7 @@ public class NFeXMLGenerator
 			
 			//	Dados da cobrança
 			// amc - Caso seja NFCE não haverá dados de fatura, duplicata
-			if (FIN_NFE_NORMAL.equals (ide.getFinNFe()) && nf.isSOTrx())
+			if (FIN_NFE_NORMAL.equals (ide.getFinNFe()) && nf.islbr_IsOwnDocument())
 			{
 				//	Y. Dados da Cobrança
 				Cobr cobr = infNFe.addNewCobr();
