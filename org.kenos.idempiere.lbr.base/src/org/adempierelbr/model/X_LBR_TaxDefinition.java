@@ -24,14 +24,14 @@ import org.compiere.model.*;
 
 /** Generated Model for LBR_TaxDefinition
  *  @author iDempiere (generated) 
- *  @version Release 4.1 - $Id$ */
+ *  @version Release 6.2 - $Id$ */
 public class X_LBR_TaxDefinition extends PO implements I_LBR_TaxDefinition, I_Persistent 
 {
 
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20170626L;
+	private static final long serialVersionUID = 20210228L;
 
     /** Standard Constructor */
     public X_LBR_TaxDefinition (Properties ctx, int LBR_TaxDefinition_ID, String trxName)
@@ -41,6 +41,8 @@ public class X_LBR_TaxDefinition extends PO implements I_LBR_TaxDefinition, I_Pe
         {
 			setIsManual (false);
 // N
+			setIsManufactured (null);
+// B
 			setIsSOTrx (null);
 // B
 			setLBR_TaxDefinition_ID (0);
@@ -205,6 +207,30 @@ public class X_LBR_TaxDefinition extends PO implements I_LBR_TaxDefinition, I_Pe
 	}
 
 	/** Yes = Y */
+	public static final String ISMANUFACTURED_Yes = "Y";
+	/** No = N */
+	public static final String ISMANUFACTURED_No = "N";
+	/** Both = B */
+	public static final String ISMANUFACTURED_Both = "B";
+	/** Set Manufactured.
+		@param IsManufactured 
+		This product is manufactured
+	  */
+	public void setIsManufactured (String IsManufactured)
+	{
+
+		set_Value (COLUMNNAME_IsManufactured, IsManufactured);
+	}
+
+	/** Get Manufactured.
+		@return This product is manufactured
+	  */
+	public String getIsManufactured () 
+	{
+		return (String)get_Value(COLUMNNAME_IsManufactured);
+	}
+
+	/** Yes = Y */
 	public static final String ISSOTRX_Yes = "Y";
 	/** No = N */
 	public static final String ISSOTRX_No = "N";
@@ -251,6 +277,34 @@ public class X_LBR_TaxDefinition extends PO implements I_LBR_TaxDefinition, I_Pe
 	public int getLBR_BPartnerCategory_ID () 
 	{
 		Integer ii = (Integer)get_Value(COLUMNNAME_LBR_BPartnerCategory_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
+	public org.adempierelbr.model.I_LBR_CEST getLBR_CEST() throws RuntimeException
+    {
+		return (org.adempierelbr.model.I_LBR_CEST)MTable.get(getCtx(), org.adempierelbr.model.I_LBR_CEST.Table_Name)
+			.getPO(getLBR_CEST_ID(), get_TrxName());	}
+
+	/** Set CEST.
+		@param LBR_CEST_ID 
+		Brazilian Specifier code Tax
+	  */
+	public void setLBR_CEST_ID (int LBR_CEST_ID)
+	{
+		if (LBR_CEST_ID < 1) 
+			set_Value (COLUMNNAME_LBR_CEST_ID, null);
+		else 
+			set_Value (COLUMNNAME_LBR_CEST_ID, Integer.valueOf(LBR_CEST_ID));
+	}
+
+	/** Get CEST.
+		@return Brazilian Specifier code Tax
+	  */
+	public int getLBR_CEST_ID () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_LBR_CEST_ID);
 		if (ii == null)
 			 return 0;
 		return ii.intValue();
@@ -504,6 +558,20 @@ public class X_LBR_TaxDefinition extends PO implements I_LBR_TaxDefinition, I_Pe
 		if (ii == null)
 			 return 0;
 		return ii.intValue();
+	}
+
+	/** Set LBR_TaxDefinition_UU.
+		@param LBR_TaxDefinition_UU LBR_TaxDefinition_UU	  */
+	public void setLBR_TaxDefinition_UU (String LBR_TaxDefinition_UU)
+	{
+		set_Value (COLUMNNAME_LBR_TaxDefinition_UU, LBR_TaxDefinition_UU);
+	}
+
+	/** Get LBR_TaxDefinition_UU.
+		@return LBR_TaxDefinition_UU	  */
+	public String getLBR_TaxDefinition_UU () 
+	{
+		return (String)get_Value(COLUMNNAME_LBR_TaxDefinition_UU);
 	}
 
 	/** Simple National = S */
@@ -777,6 +845,10 @@ public class X_LBR_TaxDefinition extends PO implements I_LBR_TaxDefinition, I_Pe
 	public static final String LBR_TRANSACTIONTYPE_Resale = "RES";
 	/** End User (Double Base) = EN2 */
 	public static final String LBR_TRANSACTIONTYPE_EndUserDoubleBase = "EN2";
+	/** End User (RE 574.706) = EN3 */
+	public static final String LBR_TRANSACTIONTYPE_EndUserRE574706 = "EN3";
+	/** Resale (RE 574.706) = RE3 */
+	public static final String LBR_TRANSACTIONTYPE_ResaleRE574706 = "RE3";
 	/** Set Transaction Type.
 		@param lbr_TransactionType 
 		Defines the Transaction Type

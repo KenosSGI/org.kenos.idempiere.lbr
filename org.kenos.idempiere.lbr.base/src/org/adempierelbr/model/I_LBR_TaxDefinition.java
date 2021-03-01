@@ -23,7 +23,7 @@ import org.compiere.util.KeyNamePair;
 
 /** Generated Interface for LBR_TaxDefinition
  *  @author iDempiere (generated) 
- *  @version Release 4.1
+ *  @version Release 6.2
  */
 @SuppressWarnings("all")
 public interface I_LBR_TaxDefinition 
@@ -164,6 +164,19 @@ public interface I_LBR_TaxDefinition
 	  */
 	public boolean isManual();
 
+    /** Column name IsManufactured */
+    public static final String COLUMNNAME_IsManufactured = "IsManufactured";
+
+	/** Set Manufactured.
+	  * This product is manufactured
+	  */
+	public void setIsManufactured (String IsManufactured);
+
+	/** Get Manufactured.
+	  * This product is manufactured
+	  */
+	public String getIsManufactured();
+
     /** Column name IsSOTrx */
     public static final String COLUMNNAME_IsSOTrx = "IsSOTrx";
 
@@ -191,6 +204,21 @@ public interface I_LBR_TaxDefinition
 	public int getLBR_BPartnerCategory_ID();
 
 	public org.adempierelbr.model.I_LBR_BPartnerCategory getLBR_BPartnerCategory() throws RuntimeException;
+
+    /** Column name LBR_CEST_ID */
+    public static final String COLUMNNAME_LBR_CEST_ID = "LBR_CEST_ID";
+
+	/** Set CEST.
+	  * Brazilian Specifier code Tax
+	  */
+	public void setLBR_CEST_ID (int LBR_CEST_ID);
+
+	/** Get CEST.
+	  * Brazilian Specifier code Tax
+	  */
+	public int getLBR_CEST_ID();
+
+	public org.adempierelbr.model.I_LBR_CEST getLBR_CEST() throws RuntimeException;
 
     /** Column name LBR_CFOP_ID */
     public static final String COLUMNNAME_LBR_CFOP_ID = "LBR_CFOP_ID";
@@ -306,6 +334,15 @@ public interface I_LBR_TaxDefinition
 
 	/** Get Tax Definition	  */
 	public int getLBR_TaxDefinition_ID();
+
+    /** Column name LBR_TaxDefinition_UU */
+    public static final String COLUMNNAME_LBR_TaxDefinition_UU = "LBR_TaxDefinition_UU";
+
+	/** Set LBR_TaxDefinition_UU	  */
+	public void setLBR_TaxDefinition_UU (String LBR_TaxDefinition_UU);
+
+	/** Get LBR_TaxDefinition_UU	  */
+	public String getLBR_TaxDefinition_UU();
 
     /** Column name LBR_TaxRegime */
     public static final String COLUMNNAME_LBR_TaxRegime = "LBR_TaxRegime";

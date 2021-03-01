@@ -35,6 +35,8 @@ public class ModelFactory implements IModelFactory
 			return MLBRProductTaxControl.class;
 		else if (MLBRAMissingNSU.Table_Name.equals(tableName))
 			return MLBRAMissingNSU.class;
+		else if (MLBRProductConfig.Table_Name.equals(tableName))
+			return MLBRProductConfig.class;
 		else if (MCity.Table_Name.equals(tableName))
 			return MCity.class;
 		else if (MRegion.Table_Name.equals(tableName))
@@ -63,6 +65,8 @@ public class ModelFactory implements IModelFactory
 			return new MLBRProductTaxControl (Env.getCtx(), Record_ID, trxName);
 		else if (MLBRAMissingNSU.Table_Name.equals(tableName))
 			return new MLBRAMissingNSU (Env.getCtx(), Record_ID, trxName);
+		else if (MLBRProductConfig.Table_Name.equals(tableName))
+			return new MLBRProductConfig (Env.getCtx(), Record_ID, trxName);
 		else if (MCity.Table_Name.equals(tableName))
 			return new MCity (Env.getCtx(), Record_ID, trxName);
 		else if (MRegion.Table_Name.equals(tableName))
@@ -91,6 +95,8 @@ public class ModelFactory implements IModelFactory
 			return new MLBRProductTaxControl (Env.getCtx(), rs, trxName);
 		else if (MLBRAMissingNSU.Table_Name.equals(tableName))
 			return new MLBRAMissingNSU (Env.getCtx(), rs, trxName);
+		else if (MLBRProductConfig.Table_Name.equals(tableName))
+			return new MLBRProductConfig (Env.getCtx(), rs, trxName);
 		else if (MCity.Table_Name.equals(tableName))
 			return new MCity (Env.getCtx(), rs, trxName);
 		else if (MRegion.Table_Name.equals(tableName))

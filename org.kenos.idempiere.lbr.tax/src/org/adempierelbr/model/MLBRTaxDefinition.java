@@ -16,8 +16,14 @@ package org.adempierelbr.model;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.adempierelbr.util.BPartnerUtil;
 import org.compiere.model.Query;
@@ -51,6 +57,7 @@ public class MLBRTaxDefinition extends X_LBR_TaxDefinition
 			 + "," + MLBRTaxDefinition.COLUMNNAME_LBR_IndIEDest
 			 + "," + MLBRTaxDefinition.COLUMNNAME_LBR_FiscalGroup_Product_ID
 			 + "," + MLBRTaxDefinition.COLUMNNAME_LBR_NCM_ID
+			 + "," + MLBRTaxDefinition.COLUMNNAME_LBR_CEST_ID
 			 + "," + MLBRTaxDefinition.COLUMNNAME_LBR_ProductCategory_ID
 			 + "," + MLBRTaxDefinition.COLUMNNAME_lbr_IsSubTributaria
 			 + "," + MLBRTaxDefinition.COLUMNNAME_IsSOTrx
@@ -58,7 +65,8 @@ public class MLBRTaxDefinition extends X_LBR_TaxDefinition
 			 + "," + MLBRTaxDefinition.COLUMNNAME_lbr_ProductSource
 			 + "," + MLBRTaxDefinition.COLUMNNAME_lbr_DestionationType
 			 + "," + MLBRTaxDefinition.COLUMNNAME_LBR_TaxRegime
-			 + "," + MLBRTaxDefinition.COLUMNNAME_M_Product_ID;
+			 + "," + MLBRTaxDefinition.COLUMNNAME_M_Product_ID
+			 + "," + MLBRTaxDefinition.COLUMNNAME_IsManufactured;
 	
 	/**************************************************************************
 	 *  Default Constructor
@@ -85,87 +93,141 @@ public class MLBRTaxDefinition extends X_LBR_TaxDefinition
 	/**
 	 * 		Retorna o grupo mais relevante de impost0
 	 */
+	@Deprecated
 	public static MLBRTaxDefinition[] get (int AD_Org_ID, int C_BPartner_ID, int C_DocType_ID, 
 			int C_Region_ID, int To_Region_ID, int LBR_BPartnerCategory_ID, int LBR_FiscalGroup_BPartner_ID, String LBR_IEDest,
 			int LBR_FiscalGroup_Product_ID, int LBR_NCM_ID, int LBR_ProductCategory_ID, boolean lbr_IsSubTributaria,
 			boolean isSOTrx, String lbr_TransactionType, Timestamp validFrom, String LBR_ProductSource, 
 			String lbr_DestionationType, String lbr_TaxRegime, int M_Product_ID)
 	{
-		String where = "IsActive='Y' AND AD_Client_ID IN (0, ?) AND AD_Org_ID IN (0, ?) ";
+		Map<String,Object> filter = new HashMap<String,Object>();
+		filter.put(COLUMNNAME_AD_Org_ID, AD_Org_ID);
+		filter.put(COLUMNNAME_C_BPartner_ID, C_BPartner_ID);
+		filter.put(COLUMNNAME_C_DocType_ID, C_DocType_ID);
+		filter.put(COLUMNNAME_C_Region_ID, C_Region_ID);
+		filter.put(COLUMNNAME_To_Region_ID, To_Region_ID);
+		filter.put(COLUMNNAME_LBR_BPartnerCategory_ID, LBR_BPartnerCategory_ID);
+		filter.put(COLUMNNAME_LBR_FiscalGroup_BPartner_ID, LBR_FiscalGroup_BPartner_ID);
+		filter.put(COLUMNNAME_LBR_IndIEDest, LBR_IEDest);
+		filter.put(COLUMNNAME_LBR_FiscalGroup_Product_ID, LBR_FiscalGroup_Product_ID);
+		filter.put(COLUMNNAME_LBR_NCM_ID, LBR_NCM_ID);
+		filter.put(COLUMNNAME_LBR_ProductCategory_ID, LBR_ProductCategory_ID);
+		filter.put(COLUMNNAME_lbr_IsSubTributaria, lbr_IsSubTributaria);
+		filter.put(COLUMNNAME_IsSOTrx, isSOTrx);
+		filter.put(COLUMNNAME_lbr_TransactionType, lbr_TransactionType);
+		filter.put(COLUMNNAME_ValidFrom, validFrom);
+		filter.put(COLUMNNAME_lbr_ProductSource, LBR_ProductSource);
+		filter.put(COLUMNNAME_lbr_DestionationType, lbr_DestionationType);
+		filter.put(COLUMNNAME_LBR_TaxRegime, lbr_TaxRegime);
+		filter.put(COLUMNNAME_M_Product_ID, M_Product_ID);
 		//
-		where += "AND (C_BPartner_ID IS NULL OR C_BPartner_ID=?) ";
-		where += "AND (C_DocType_ID IS NULL OR C_DocType_ID=?) ";
-		where += "AND (C_Region_ID IS NULL OR C_Region_ID=?) ";
-		where += "AND (To_Region_ID IS NULL OR To_Region_ID=?) ";
-		where += "AND (LBR_BPartnerCategory_ID IS NULL OR LBR_BPartnerCategory_ID=?) ";
-		where += "AND (LBR_FiscalGroup_BPartner_ID IS NULL OR LBR_FiscalGroup_BPartner_ID=?) ";
-		where += "AND (LBR_FiscalGroup_Product_ID IS NULL OR LBR_FiscalGroup_Product_ID=?) ";
-		where += "AND (LBR_NCM_ID IS NULL OR LBR_NCM_ID=?) ";
-		where += "AND (LBR_ProductCategory_ID IS NULL OR LBR_ProductCategory_ID=?) ";
-		where += "AND LBR_IsSubTributaria IN ('B', ?) ";
-		where += "AND IsSOTrx IN ('B', ?) ";
-		where += "AND (LBR_TransactionType IS NULL OR lbr_TransactionType=?) ";
-		where += "AND (LBR_IndIEDest IS NULL OR LBR_IndIEDest=?) ";
-		where += "AND (lbr_DestionationType IS NULL OR lbr_DestionationType=?) ";
-		where += "AND (LBR_TaxRegime IS NULL OR LBR_TaxRegime=?) ";
-		where += "AND (lbr_ProductSource IS NULL OR lbr_ProductSource=?) ";
-		where += "AND (M_Product_ID IS NULL OR M_Product_ID=?) ";
+		return get (filter);
+	}	//	get
+	
+	/**
+	 * 		Retorna o grupo mais relevante de impost0
+	 */
+	public static MLBRTaxDefinition[] get (final Map<String,Object> filterMap)
+	{
+		StringBuilder where = new StringBuilder ("IsActive='Y' AND AD_Client_ID IN (0, ?) ");
+		List<Object> params = new ArrayList<Object>();
+		Set<String> selected = filterMap.keySet();
+		
+		//	Mandatory
+		params.add(Env.getAD_Client_ID(Env.getCtx()));
+		
+		//	Specific filter
+		if (filterMap.containsKey(COLUMNNAME_AD_Org_ID))
+		{
+			where.append ("AND AD_Org_ID IN (0, ?) ");
+			params.add(filterMap.get(COLUMNNAME_AD_Org_ID));
+		}
+		
+		//	Yes-No-Both filter
+		Arrays.asList(new String[] 
+			{
+				COLUMNNAME_lbr_IsSubTributaria,
+				COLUMNNAME_IsSOTrx,
+				COLUMNNAME_IsManufactured
+			}).stream().forEach(colName -> 
+			{
+				where.append("AND (").append(colName).append("='B'");
+				if (selected.contains(colName))
+				{
+					where.append("OR ").append(colName).append("=?");
+					params.add(filterMap.get(colName));
+				}
+				where.append(") ");
+			});
+		
+		//	Generic filter
+		Arrays.asList(new String[] 
+			{
+				COLUMNNAME_C_BPartner_ID,
+				COLUMNNAME_C_DocType_ID,
+				COLUMNNAME_C_Region_ID,
+				COLUMNNAME_LBR_BPartnerCategory_ID,
+				COLUMNNAME_LBR_CEST_ID,
+				COLUMNNAME_lbr_DestionationType,
+				COLUMNNAME_LBR_FiscalGroup_BPartner_ID,
+				COLUMNNAME_LBR_FiscalGroup_Product_ID,
+				COLUMNNAME_LBR_IndIEDest,
+				COLUMNNAME_LBR_NCM_ID,
+				COLUMNNAME_LBR_ProductCategory_ID,
+				COLUMNNAME_lbr_ProductSource,
+				COLUMNNAME_LBR_TaxRegime,
+				COLUMNNAME_lbr_TransactionType,
+				COLUMNNAME_M_Product_ID,
+				COLUMNNAME_To_Region_ID
+			}).stream().forEach(colName -> 
+			{
+				where.append("AND (").append(colName).append(" IS NULL");
+				if (selected.contains(colName))
+				{
+					where.append(" OR ").append(colName).append("=?");
+					params.add(filterMap.get(colName));
+				}
+				where.append(") ");
+			});
 		
 		//
+		Timestamp validFrom = (Timestamp) filterMap.get (COLUMNNAME_ValidFrom);
 		if (validFrom != null)
-			where += "AND ValidFrom <= " + DB.TO_DATE(validFrom) + " AND (ValidTo IS NULL OR ValidTo >= " + DB.TO_DATE(validFrom) + ") ";
-		
-		where += regionFrom (C_Region_ID);
-		where += regionTo (To_Region_ID);
+			where.append("AND ValidFrom <= " + DB.TO_DATE(validFrom) + " AND (ValidTo IS NULL OR ValidTo >= " + DB.TO_DATE(validFrom) + ") ");
+		if (filterMap.containsKey(COLUMNNAME_C_Region_ID))
+			where.append (regionFrom ((Integer) filterMap.get(COLUMNNAME_C_Region_ID)));
+		if (filterMap.containsKey(COLUMNNAME_To_Region_ID))
+			where.append (regionTo ((Integer) filterMap.get(COLUMNNAME_To_Region_ID)));
 		
 		//
 		Properties ctx = Env.getCtx();
-		List<MLBRTaxDefinition> tempLst = new Query (ctx, MLBRTaxDefinition.Table_Name, where, null)
-			.setParameters(new Object[]{Env.getAD_Client_ID(ctx), AD_Org_ID, C_BPartner_ID, C_DocType_ID, C_Region_ID, To_Region_ID, 
-					LBR_BPartnerCategory_ID, LBR_FiscalGroup_BPartner_ID, LBR_FiscalGroup_Product_ID, LBR_NCM_ID, 
-					LBR_ProductCategory_ID, (lbr_IsSubTributaria ? "Y" : "N"), (isSOTrx ? "Y" : "N"), lbr_TransactionType, 
-					LBR_IEDest, lbr_DestionationType, lbr_TaxRegime, LBR_ProductSource, M_Product_ID})
+		List<MLBRTaxDefinition> tempLst = new Query (ctx, MLBRTaxDefinition.Table_Name, where.toString(), null)
+			.setParameters(params)
 			.setOrderBy("PriorityNo, ValidFrom").list();
 
 		List<MLBRTaxDefinition> resultLst = new ArrayList<MLBRTaxDefinition>();
+		final Pattern pattern = Pattern.compile("@#?([\\w<>_]+)@");
 		
 		//	Validate Script
 		for (MLBRTaxDefinition td : tempLst)
 		{
-			String script = td.getScript();
+			String[] script = new String[] { td.getScript() };
 
-			if (td.getScript() == null || td.getScript().isEmpty())
+			if (td.getScript() == null || td.getScript().isBlank())
 			{
 				resultLst.add (td);
 				continue;
 			}
 			
-			script = script.replace ("@AD_Org_ID@", String.valueOf (AD_Org_ID));
-			script = script.replace ("@C_BPartner_ID@", String.valueOf (C_BPartner_ID));
-			script = script.replace ("@C_DocType_ID@", String.valueOf (C_DocType_ID));
-			script = script.replace ("@C_Region_ID@", String.valueOf (C_Region_ID));
-			script = script.replace ("@To_Region_ID@", String.valueOf (To_Region_ID));
-			script = script.replace ("@LBR_BPartnerCategory_ID@", String.valueOf (LBR_BPartnerCategory_ID));
-			script = script.replace ("@LBR_FiscalGroup_BPartner_ID@", String.valueOf (LBR_FiscalGroup_BPartner_ID));
-			script = script.replace ("@LBR_IndIEDest@", "'" + LBR_IEDest + "'");
-			script = script.replace ("@LBR_FiscalGroup_Product_ID@", String.valueOf (LBR_FiscalGroup_Product_ID));
-			script = script.replace ("@LBR_NCM_ID@", String.valueOf (LBR_NCM_ID));
-			script = script.replace ("@LBR_ProductCategory_ID@", String.valueOf (LBR_ProductCategory_ID));
-			script = script.replace ("@lbr_IsSubTributaria@", String.valueOf (lbr_IsSubTributaria));
-			script = script.replace ("@IsSOTrx@", String.valueOf (isSOTrx));
-			script = script.replace ("@lbr_TransactionType@", "'" + lbr_TransactionType + "'");
-			if (validFrom != null)
-				script = script.replace ("@ValidFrom@", "'" + DB.TO_DATE(validFrom) + "'");
-			else
-				script = script.replace ("@ValidFrom@", "NULL");
-			script = script.replace ("@lbr_ProductSource@", "'" + LBR_ProductSource + "'");
-			script = script.replace ("@lbr_DestionationType@", "'" + lbr_DestionationType + "'");
-			script = script.replace ("@LBR_TaxRegime@", "'" + lbr_TaxRegime + "'");
-			script = script.replace ("@M_Product_ID@", String.valueOf (M_Product_ID));
+			List<Object> paramsScript = new ArrayList<Object>();
+			Matcher matcher = pattern.matcher(script[0]);
+			while (matcher.find())
+				paramsScript.add(filterMap.get(matcher.group(1)));
+			script[0] = script[0].replaceAll (pattern.pattern(), "?");
 			
 			try
 			{
-				int result = DB.getSQLValue (null, "SELECT COUNT('1') FROM DUAL WHERE " + script);
+				int result = DB.getSQLValue (null, "SELECT COUNT('1') FROM DUAL WHERE " + script[0], paramsScript);
 				
 				if (result > 0)
 					resultLst.add (td);
@@ -295,6 +357,8 @@ public class MLBRTaxDefinition extends X_LBR_TaxDefinition
 			priorityNo += 10;
 		if (getLBR_NCM_ID() > 0)
 			priorityNo += 10;
+		if (getLBR_CEST_ID() > 0)
+			priorityNo += 10;
 		if (getLBR_ProductCategory_ID() > 0)
 			priorityNo += 10;
 		if (LBR_ISSUBTRIBUTARIA_Both.equals(getlbr_IsSubTributaria()))
@@ -315,6 +379,8 @@ public class MLBRTaxDefinition extends X_LBR_TaxDefinition
 		if (getlbr_DestionationType() != null && !getlbr_DestionationType().isEmpty())
 			priorityNo += 10;
 		if (getLBR_TaxRegime() != null && !getLBR_TaxRegime().isEmpty())
+			priorityNo += 10;
+		if (getIsManufactured() != null && !getIsManufactured().isEmpty())
 			priorityNo += 10;
 		
 		//
