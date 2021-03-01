@@ -813,13 +813,52 @@ public class MLBRTax extends X_LBR_Tax
 			LBR_CFOP_ID = cFOPLine.getLBR_CFOP_ID();
 		}
 		
+		int RegionFrom_ID = (oi.getC_Location_ID() < 1 ? -1 : oi.getC_Location().getC_Region_ID());
+		int BPCategory_ID = (isSOTrx ? bp.getLBR_CustomerCategory_ID() : bp.getLBR_VendorCategory_ID());
+		int BPFiscalGroup_ID = (isSOTrx ? bp.getLBR_FiscalGroup_Customer_ID() : bp.getLBR_FiscalGroup_Vendor_ID());
+		//
+		Map<String,Object> params = new HashMap<String,Object>();
+		if (oi.getAD_Org_ID() > 0)
+			params.put(MLBRTaxDefinition.COLUMNNAME_AD_Org_ID, oi.getAD_Org_ID());
+		if (bp.getC_BPartner_ID() > 0)
+			params.put(MLBRTaxDefinition.COLUMNNAME_C_BPartner_ID, bp.getC_BPartner_ID());
+		if (C_DocTypeTarget_ID > 0)
+			params.put(MLBRTaxDefinition.COLUMNNAME_C_DocType_ID, C_DocTypeTarget_ID);
+		if (RegionFrom_ID > 0)
+			params.put(MLBRTaxDefinition.COLUMNNAME_C_Region_ID, RegionFrom_ID);
+		if (bpLoc != null)
+			params.put(MLBRTaxDefinition.COLUMNNAME_To_Region_ID, bp_C_Region_ID);
+		if (BPCategory_ID > 0)
+			params.put(MLBRTaxDefinition.COLUMNNAME_LBR_BPartnerCategory_ID, BPCategory_ID);
+		if (BPFiscalGroup_ID > 0)
+			params.put(MLBRTaxDefinition.COLUMNNAME_LBR_FiscalGroup_BPartner_ID, BPFiscalGroup_ID);
+		if (bp.getLBR_IndIEDest() != null)
+			params.put(MLBRTaxDefinition.COLUMNNAME_LBR_IndIEDest, bp.getLBR_IndIEDest());
+		if (p.getLBR_FiscalGroup_Product_ID() > 0)
+			params.put(MLBRTaxDefinition.COLUMNNAME_LBR_FiscalGroup_Product_ID, p.getLBR_FiscalGroup_Product_ID());
+		if (p.getLBR_NCM_ID() > 0)
+			params.put(MLBRTaxDefinition.COLUMNNAME_LBR_NCM_ID, p.getLBR_NCM_ID());
+		if (p.getLBR_ProductCategory_ID() > 0)
+			params.put(MLBRTaxDefinition.COLUMNNAME_LBR_ProductCategory_ID, p.getLBR_ProductCategory_ID());
+		if (lbr_TransactionType != null)
+			params.put(MLBRTaxDefinition.COLUMNNAME_lbr_TransactionType, lbr_TransactionType);
+		if (dateAcct != null)
+			params.put(MLBRTaxDefinition.COLUMNNAME_ValidFrom, dateAcct);
+		if (p.getlbr_ProductSource() != null)
+			params.put(MLBRTaxDefinition.COLUMNNAME_lbr_ProductSource, p.getlbr_ProductSource());
+		if (lbr_DestionationType != null)
+			params.put(MLBRTaxDefinition.COLUMNNAME_lbr_DestionationType, lbr_DestionationType);
+		if (lbr_TaxRegime != null)
+			params.put(MLBRTaxDefinition.COLUMNNAME_LBR_TaxRegime, lbr_TaxRegime);
+		if (p.getM_Product_ID() > 0)
+			params.put(MLBRTaxDefinition.COLUMNNAME_M_Product_ID, p.getM_Product_ID());
+		
+		params.put(MLBRTaxDefinition.COLUMNNAME_IsManufactured, p.isManufactured());		
+		params.put(MLBRTaxDefinition.COLUMNNAME_lbr_IsSubTributaria, hasSubstitution);
+		params.put(MLBRTaxDefinition.COLUMNNAME_IsSOTrx, isSOTrx);
+		
 		//	Tax Definition
-		MLBRTaxDefinition[] taxesDef = MLBRTaxDefinition.get (oi.getAD_Org_ID(), bp.getC_BPartner_ID(), C_DocTypeTarget_ID, 
-				(oi.getC_Location_ID() < 1 ? -1 : oi.getC_Location().getC_Region_ID()), (bpLoc != null ? bp_C_Region_ID : 0),
-				(isSOTrx ? bp.getLBR_CustomerCategory_ID() : bp.getLBR_VendorCategory_ID()), 
-				(isSOTrx ? bp.getLBR_FiscalGroup_Customer_ID() : bp.getLBR_FiscalGroup_Vendor_ID()), bp.getLBR_IndIEDest(), p.getLBR_FiscalGroup_Product_ID(), 
-				p.getLBR_NCM_ID(),  p.getLBR_ProductCategory_ID(), hasSubstitution, isSOTrx, lbr_TransactionType, dateAcct, p.getlbr_ProductSource(), 
-				lbr_DestionationType, lbr_TaxRegime, p.getM_Product_ID());
+		MLBRTaxDefinition[] taxesDef = MLBRTaxDefinition.get (params);
 		//
 		for (MLBRTaxDefinition td : taxesDef)
 		{
