@@ -822,6 +822,9 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 					if (MLBRTaxName.TAX_ICMSST == tl.getLBR_TaxName_ID()
 							&& MSysConfig.getBooleanValue(SysConfig.LBR_PRINT_ICMS_SUBSTITUTE_NF, true, getAD_Client_ID()))
 					{
+						if (BigDecimal.ZERO.compareTo(tl.getlbr_TaxBaseAmt()) != 0)
+							appendDescription("BC ST: R$" + tl.getlbr_TaxBaseAmt().setScale(2, RoundingMode.HALF_UP));
+						
 						if (BigDecimal.ZERO.compareTo(tl.getlbr_TaxAmt()) != 0)
 							appendDescription("ICMSST: R$" + tl.getlbr_TaxAmt().setScale(2, RoundingMode.HALF_UP));
 						

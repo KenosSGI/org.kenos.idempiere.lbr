@@ -2020,8 +2020,12 @@ public class NFeXMLGenerator
 			issqNtot.setVBC(normalize(nf.getTaxBaseAmt("ISS")));
 			issqNtot.setVISS(normalize(nf.getTaxAmt("ISS")));
 			issqNtot.setDCompet(TextUtil.timeToString (nf.getDateDoc(), "yyyy-MM-dd"));
-			issqNtot.setVPIS(normalize(nf.getTaxAmt("PISSERV")));
-			issqNtot.setVCOFINS(normalize(nf.getTaxAmt("COFINSSERV")));
+			BigDecimal pisTotal = nf.getTaxAmt("PISSERV");
+			if (pisTotal.signum() == 1)
+				issqNtot.setVPIS(normalize(pisTotal));
+			BigDecimal cofinsTotal = nf.getTaxAmt("COFINSSERV");
+			if (cofinsTotal.signum() == 1)
+				issqNtot.setVCOFINS(normalize(cofinsTotal));
 		}
 		
 		//	W02. Total da NF-e / Retenção de Tributos
