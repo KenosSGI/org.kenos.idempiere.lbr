@@ -46,6 +46,7 @@ import org.compiere.model.Query;
 import org.compiere.util.CLogger;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
+import org.kenos.idempiere.lbr.base.model.MLBRProductConfig;
 import org.kenos.idempiere.lbr.base.model.SysConfig;
 
 import bsh.EvalError;
@@ -795,9 +796,15 @@ public class MLBRTax extends X_LBR_Tax
 		else 
 			lbr_DestionationType = X_LBR_CFOPLine.LBR_DESTIONATIONTYPE_EstadosDiferentes;
 		
+		//	Check if it's manufactured
+		boolean isManufactured = p.isManufactured();
+		MLBRProductConfig config = MLBRProductConfig.getProductConfig(Env.getCtx(), oi.getAD_Org_ID(), p.getM_Product_ID());
+		if (config != null)
+			isManufactured = "Y".equals(config.getIsManufactured());
+		
 		MLBRCFOPLine cFOPLine = MLBRCFOP.chooseCFOP (oi.getAD_Org_ID(), C_DocTypeTarget_ID, p.getLBR_ProductCategory_ID(), 
 				(isSOTrx ? bp.getLBR_CustomerCategory_ID() : bp.getLBR_VendorCategory_ID()), 
-				lbr_TransactionType, lbr_DestionationType, hasSubstitution, POWrapper.getPO(p).get_ValueAsBoolean("lbr_IsManufactured"), lbr_TaxRegime, null);
+				lbr_TransactionType, lbr_DestionationType, hasSubstitution, isManufactured, lbr_TaxRegime, null);
 		//
 		if (cFOPLine != null)
 		{
@@ -852,8 +859,8 @@ public class MLBRTax extends X_LBR_Tax
 			params.put(MLBRTaxDefinition.COLUMNNAME_LBR_TaxRegime, lbr_TaxRegime);
 		if (p.getM_Product_ID() > 0)
 			params.put(MLBRTaxDefinition.COLUMNNAME_M_Product_ID, p.getM_Product_ID());
-		
-		params.put(MLBRTaxDefinition.COLUMNNAME_IsManufactured, p.isManufactured());		
+		//		
+		params.put(MLBRTaxDefinition.COLUMNNAME_IsManufactured, isManufactured);		
 		params.put(MLBRTaxDefinition.COLUMNNAME_lbr_IsSubTributaria, hasSubstitution);
 		params.put(MLBRTaxDefinition.COLUMNNAME_IsSOTrx, isSOTrx);
 		
