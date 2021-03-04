@@ -2876,8 +2876,8 @@ Há duas razões para desativar e não excluir registros:
   <value column="Placeholder" original=""/>
  </row>
  <row id="483" trl="Y">
-  <value column="Name" original="Process Date">Data de Processo</value>
-  <value column="PrintName" original="P Date">Data P</value>
+  <value column="Name" original="Process Date">Parâmetro Data</value>
+  <value column="PrintName" original="P Date">P Data</value>
   <value column="Description" original="Process Parameter">Parâmetro de Processo</value>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -2887,8 +2887,8 @@ Há duas razões para desativar e não excluir registros:
   <value column="Placeholder" original=""/>
  </row>
  <row id="484" trl="Y">
-  <value column="Name" original="Process Date To">Data de Processo Para</value>
-  <value column="PrintName" original="P Date To">Data P Para</value>
+  <value column="Name" original="Process Date To">Parâmetro Data Até</value>
+  <value column="PrintName" original="P Date To">P Data Até</value>
   <value column="Description" original="Process Parameter">Parâmetro de Processo</value>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -2898,7 +2898,7 @@ Há duas razões para desativar e não excluir registros:
   <value column="Placeholder" original=""/>
  </row>
  <row id="491" trl="Y">
-  <value column="Name" original="Process String">Processar Texto</value>
+  <value column="Name" original="Process String">Parâmetro Texto</value>
   <value column="PrintName" original="P String">P Texto</value>
   <value column="Description" original="Process Parameter">Parâmetro de Processo</value>
   <value column="Help" original=""/>
@@ -2909,8 +2909,8 @@ Há duas razões para desativar e não excluir registros:
   <value column="Placeholder" original=""/>
  </row>
  <row id="492" trl="Y">
-  <value column="Name" original="Process String To">Processar Texto Para</value>
-  <value column="PrintName" original="P String To">P Texto Para</value>
+  <value column="Name" original="Process String To">Parâmetro Texto Até</value>
+  <value column="PrintName" original="P String To">P Texto Até</value>
   <value column="Description" original="Process Parameter">Parâmetro de Processo</value>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -5925,8 +5925,8 @@ Sub Tipo PV de <b>PDV</b> (Ponto de Venda) irá gerar todos os documentos]]></va
   <value column="Placeholder" original=""/>
  </row>
  <row id="1121" trl="Y">
-  <value column="Name" original="Process Number">Número do Processo</value>
-  <value column="PrintName" original="P Number">Núm.Processo</value>
+  <value column="Name" original="Process Number">Parâmetro Numérico</value>
+  <value column="PrintName" original="P Number">P Numérico</value>
   <value column="Description" original="Process Parameter">Parâmetro de Processo</value>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -5936,8 +5936,8 @@ Sub Tipo PV de <b>PDV</b> (Ponto de Venda) irá gerar todos os documentos]]></va
   <value column="Placeholder" original=""/>
  </row>
  <row id="1122" trl="Y">
-  <value column="Name" original="Process Number To">Número do Processo Para</value>
-  <value column="PrintName" original="P Number To">Núm.Proc.Para</value>
+  <value column="Name" original="Process Number To">Parâmetro Numérico Até</value>
+  <value column="PrintName" original="P Number To">P Numérico Até</value>
   <value column="Description" original="Process Parameter">Parâmetro de Processo</value>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -9188,8 +9188,8 @@ Para sistemas Multi-Idiomas, o modelo é traduzido baseado no idioma selecionado
   <value column="Placeholder" original=""/>
  </row>
  <row id="1560" trl="Y">
-  <value column="Name" original="Info To">Informação Para</value>
-  <value column="PrintName" original="Info To">Informação Para</value>
+  <value column="Name" original="Info To">Informação Até</value>
+  <value column="PrintName" original="Info To">Informação Até</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
