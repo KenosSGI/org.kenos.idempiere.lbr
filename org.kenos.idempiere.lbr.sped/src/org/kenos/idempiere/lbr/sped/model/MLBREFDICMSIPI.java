@@ -166,7 +166,7 @@ public class MLBREFDICMSIPI extends X_LBR_EFDICMSIPI implements DocAction, DocOp
 		DB.executeUpdate("INSERT INTO LBR_FactFiscal (" + String.join(",", common) + ", LBR_EFDICMSIPI_ID) "
 				+ " SELECT " + String.join(",", common) + "," + getLBR_EFDICMSIPI_ID()
 				+ " FROM LBR_FactFiscalBase"
-				+ " WHERE (CASE WHEN IsSOTrx='Y' THEN DateDoc ELSE lbr_DateInOut END) BETWEEN " + DB.TO_DATE(getStartDate())
+				+ " WHERE (CASE WHEN IsSOTrx='Y' THEN TRUNC(DateDoc) ELSE TRUNC(lbr_DateInOut) END) BETWEEN " + DB.TO_DATE(getStartDate())
 				+ " AND " + DB.TO_DATE(getEndDate())
 				+ " AND ((IsSOTrx = 'Y' AND lbr_NFeProt IS NOT NULL) OR IsSOTrx ='N') "
 				+ " AND AD_Client_ID = " + getAD_Client_ID(), get_TrxName());
