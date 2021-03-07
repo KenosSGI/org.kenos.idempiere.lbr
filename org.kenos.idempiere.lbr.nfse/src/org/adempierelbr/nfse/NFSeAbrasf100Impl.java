@@ -685,10 +685,6 @@ public class NFSeAbrasf100Impl implements INFSe
 				
 				return true;
 			}
-			else
-			{
-				throw new AdempiereException("NFSe Transmit Failed");
-			}
 		}	
 				
 		return false;
