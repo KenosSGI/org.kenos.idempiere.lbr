@@ -972,21 +972,6 @@ public class X_LBR_NotaFiscal extends PO implements I_LBR_NotaFiscal, I_Persiste
 		return (String)get_Value(COLUMNNAME_LBR_IndPres);
 	}
 
-	/** Set Message from SEFAZ.
-		@param LBR_MsgIntSEFAZ Message from SEFAZ	  */
-	public void setLBR_MsgIntSEFAZ (String LBR_MsgIntSEFAZ)
-	{
-
-		set_Value (COLUMNNAME_LBR_MsgIntSEFAZ, LBR_MsgIntSEFAZ);
-	}
-
-	/** Get Message from SEFAZ.
-		@return Message from SEFAZ	  */
-	public String getLBR_MsgIntSEFAZ () 
-	{
-		return (String)get_Value(COLUMNNAME_LBR_MsgIntSEFAZ);
-	}
-
 	/** Set NFC-e QRCode URL.
 		@param LBR_NFCeQRCodeURL NFC-e QRCode URL	  */
 	public void setLBR_NFCeQRCodeURL (String LBR_NFCeQRCodeURL)
