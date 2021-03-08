@@ -589,15 +589,6 @@ public interface I_LBR_NotaFiscal
 	  */
 	public String getLBR_IndPres();
 
-    /** Column name LBR_MsgIntSEFAZ */
-    public static final String COLUMNNAME_LBR_MsgIntSEFAZ = "LBR_MsgIntSEFAZ";
-
-	/** Set Message from SEFAZ	  */
-	public void setLBR_MsgIntSEFAZ (String LBR_MsgIntSEFAZ);
-
-	/** Get Message from SEFAZ	  */
-	public String getLBR_MsgIntSEFAZ();
-
     /** Column name LBR_NFCeQRCodeURL */
     public static final String COLUMNNAME_LBR_NFCeQRCodeURL = "LBR_NFCeQRCodeURL";
 

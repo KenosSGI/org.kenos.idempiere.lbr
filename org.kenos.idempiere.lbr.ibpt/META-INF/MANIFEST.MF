@@ -9,7 +9,7 @@ Require-Bundle: org.kenos.idempiere.lbr.tax;bundle-version="1.0.0",
  com.sun.activation.jakarta.activation;bundle-version="1.2.1"
 Service-Component: OSGI-INF/IBPTFactory.xml
 Bundle-ActivationPolicy: lazy
-Bundle-ClassPath: lib/ibpt-1.0.jar,
+Bundle-ClassPath: lib/ibpt.jar,
  .
 Automatic-Module-Name: org.kenos.idempiere.lbr.ibpt
 Bundle-RequiredExecutionEnvironment: JavaSE-11

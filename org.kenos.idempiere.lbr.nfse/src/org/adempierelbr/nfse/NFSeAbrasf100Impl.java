@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.Timestamp;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -50,6 +51,7 @@ import br.com.ginfes.servicoEnviarLoteRpsEnvioV03.EnviarLoteRpsEnvioDocument;
 import br.com.ginfes.servicoEnviarLoteRpsEnvioV03.EnviarLoteRpsEnvioDocument.EnviarLoteRpsEnvio;
 import br.com.ginfes.servicoEnviarLoteRpsRespostaV03.EnviarLoteRpsRespostaDocument;
 import br.com.ginfes.servicoEnviarLoteRpsRespostaV03.EnviarLoteRpsRespostaDocument.EnviarLoteRpsResposta;
+import br.com.ginfes.tiposV03.ListaMensagemRetornoDocument.ListaMensagemRetorno;
 import br.com.ginfes.tiposV03.TcContato;
 import br.com.ginfes.tiposV03.TcCpfCnpj;
 import br.com.ginfes.tiposV03.TcDadosServico;
@@ -618,6 +620,7 @@ public class NFSeAbrasf100Impl implements INFSe
 			consult3.setArg1(consultDoc.xmlText(NFeUtil.getXmlOpt()));
 			
 			retornoConsultaNFe = rpsStubHom.consultarNfsePorRpsV3(consult3).get_return();
+			log.warning ("NFS-e response: " + retornoConsultaNFe);
 			
 			try
 			{
@@ -641,9 +644,31 @@ public class NFSeAbrasf100Impl implements INFSe
 		//	Resposta Consulta NFS-e
 		if (respConsultaRpsNFe != null)
 		{
-			TcInfNfse nfse = respConsultaRpsNFe.getCompNfse().getNfse().getInfNfse();
-			if (nfse != null)
+			//	Check error messages
+			ListaMensagemRetorno listaMensagemRetorno = respConsultaRpsNFe.getListaMensagemRetorno();
+			if (listaMensagemRetorno != null)
 			{
+				StringBuilder msgRetorno = new StringBuilder ();
+				Arrays.asList(listaMensagemRetorno.getMensagemRetornoArray())
+					.forEach(msg -> {
+						msgRetorno
+							.append("Cod=").append(msg.getCodigo())
+							.append(", Correção=").append(msg.getCorrecao())
+							.append(", Msg=").append(msg.getMensagem())
+							.append("\n");
+					});
+				//
+				log.warning("NFS-e " + nf.toString() + " - " + msgRetorno.toString());
+				nf.setErrorMsg(msgRetorno.toString());
+				nf.save();
+			}
+			
+			//	NPE Checker
+			if (respConsultaRpsNFe.getCompNfse() != null
+					&& respConsultaRpsNFe.getCompNfse().getNfse() != null
+					&& respConsultaRpsNFe.getCompNfse().getNfse().getInfNfse() != null)
+			{
+				TcInfNfse nfse = respConsultaRpsNFe.getCompNfse().getNfse().getInfNfse();
 				nf.setlbr_NFENo(String.valueOf(nfse.getNumero()));
 				nf.setlbr_DigestValue(String.valueOf(nfse.getCodigoVerificacao()));
 				nf.setDateTrx(new Timestamp(nfse.getDataEmissao().getTimeInMillis()));
@@ -659,10 +684,6 @@ public class NFSeAbrasf100Impl implements INFSe
 				attachNFe.save();
 				
 				return true;
-			}
-			else
-			{
-				throw new AdempiereException("NFSe Transmit Failed");
 			}
 		}	
 				
