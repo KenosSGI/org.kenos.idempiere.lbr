@@ -4,7 +4,6 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 
 import org.adempiere.base.IDisplayTypeFactory;
-import org.adempierelbr.model.MLBRTax;
 import org.compiere.util.Language;
 
 public class DisplayTypeFactory implements IDisplayTypeFactory {
@@ -66,14 +65,15 @@ public class DisplayTypeFactory implements IDisplayTypeFactory {
 	@Override
 	public Class<?> getClass(int displayType, boolean yesNoAsBoolean) {
 		if (displayType == BRAZILIAN_TAXES)
-			return MLBRTax.class;
-		
+			return Integer.class;
 		return null;
 	}
 
 	@Override
 	public String getSQLDataType(int displayType, String columnName,
 			int fieldLength) {
+		if (displayType == BRAZILIAN_TAXES)		
+			return "NUMBER(10)";
 		return null;
 	}
 
@@ -81,5 +81,4 @@ public class DisplayTypeFactory implements IDisplayTypeFactory {
 	public String getDescription(int displayType) {
 		return null;
 	}
-
 }
