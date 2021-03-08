@@ -19,6 +19,7 @@ import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
@@ -133,14 +134,21 @@ public class MLBRIBPTax extends X_LBR_IBPTax
 	 */
 	private static MLBRIBPTax getByNCM (Properties ctx, int LBR_NCM_ID, String version, String trxName)
 	{
-		String sql = "AD_Client_ID=?"
-					+ " AND LBR_NCM_ID=?"
-					+ " AND Version=?";
+		List<Object> params = new ArrayList<Object>();
+		params.add(Env.getAD_Client_ID(ctx));
+		params.add(LBR_NCM_ID);
+		//
+		String sql = "AD_Client_ID=? AND LBR_NCM_ID=?";
+		if (version != null)
+		{
+			sql += " AND Version=?";
+			params.add(version);
+		}
 		//
 		return new Query (ctx, Table_Name, sql, trxName)
-			.setParameters (new Object[]{Env.getAD_Client_ID(ctx), LBR_NCM_ID, version})
-			.setOrderBy("ValidFrom DESC")
-			.firstOnly();
+			.setParameters (params)
+			.setOrderBy ("ValidFrom DESC")
+			.first ();
 	}	//	get
 	
 	/**
@@ -390,8 +398,9 @@ public class MLBRIBPTax extends X_LBR_IBPTax
 		if (api == null)
 			return "@Error@ não foi encontrado o plugin do IBPT online.";
 		
-		int countNCM = 0;
-		int countNBS = 0;
+		int countNCM 		= 0;
+		int countNCMValid 	= 0;
+		int countNBS 		= 0;
 		
 		//	Fix problem with org.glassfish.jersey.internal.RuntimeDelegateImpl
 		//		solution found at https://goo.gl/S8nciX -> thank to user mkwyche
@@ -403,11 +412,19 @@ public class MLBRIBPTax extends X_LBR_IBPTax
 			try
 			{
 				//	pesquissar existente
-				MLBRIBPTax ibpt = null;
+				MLBRIBPTax ibpt = getByNCM (ctx, ncm.getLBR_NCM_ID(), null, trxName);
+				
+				//	Do not need to renew
+				if (ibpt != null && ibpt.getValidTo().after(new Timestamp(System.currentTimeMillis() + (10*24*60*60*1000))))	//	NOW + 10 days
+				{
+					countNCMValid++;
+					continue;
+				}
 				
 				IBPTResponse taxForNCM = api.getTaxForNCM (cnpj, TextUtil.retiraEspecial(ncm.getValue()), region.getName(), "0");
 				
-				ibpt = getByNCM (ctx, ncm.getLBR_NCM_ID(), taxForNCM.getVersao(), trxName);
+				if (taxForNCM == null || taxForNCM.getVersao() == null)
+					throw new Exception ("Não encontrado");
 				
 				//	inserir registro
 				if (ibpt == null)
@@ -459,7 +476,7 @@ public class MLBRIBPTax extends X_LBR_IBPTax
 		if (!errors.isEmpty())
 			errors = errors.replaceAll("\\|([^|]*), ", "<br/><br/>$1");
 		
-		return "@Success@ <br/> <b>" + countNCM + "</b> NCM(s) importado(s) <br/> <b>" + countNBS + "</b> NBS(s) importado(s) <font color=\"880000\">" + errors + "</font>";
+		return "@Success@ <br/><br/> <b>" + countNCMValid + "</b> NCM(s) dentro da validade <br/> <b>" + countNCM + "</b> NCM(s) importado(s) <br/> <b>" + countNBS + "</b> NBS(s) importado(s) <font color=\"880000\">" + errors + "</font>";
 	}	//	ImportFromCSV
 	
 	/**
