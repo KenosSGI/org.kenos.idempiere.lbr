@@ -263,4 +263,14 @@ public class MOrder extends org.compiere.model.MOrder
 			return false;
 		return true;
 	}	//	closeIt
+	
+	@Override
+	public boolean rejectIt()
+	{
+		//	Re-Activate
+		if (!isActive())
+			setIsActive(true);
+		//
+		return super.rejectIt();
+	}
 }	//	MOrder
