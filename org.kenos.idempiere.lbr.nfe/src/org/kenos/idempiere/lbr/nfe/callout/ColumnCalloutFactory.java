@@ -7,6 +7,7 @@ import org.adempiere.base.IColumnCallout;
 import org.adempiere.base.IColumnCalloutFactory;
 import org.adempierelbr.model.MLBRNFLineMA;
 import org.adempierelbr.model.MLBRNotaFiscalLine;
+import org.adempierelbr.util.TextUtil;
 import org.adempierelbr.wrapper.I_W_M_RMA;
 import org.compiere.model.MInOut;
 import org.compiere.model.MRMA;
@@ -33,7 +34,9 @@ public class ColumnCalloutFactory implements IColumnCalloutFactory
 		}
 		else if (MLBRNotaFiscalLine.Table_Name.equals(tableName))
 		{
-			if (MLBRNotaFiscalLine.COLUMNNAME_M_Product_ID.equals(columnName))
+			if (TextUtil.match(columnName, 
+					MLBRNotaFiscalLine.COLUMNNAME_M_Product_ID, 
+					MLBRNotaFiscalLine.COLUMNNAME_C_City_ID))
 				callouts.add (new NotaFiscalLine ());
 		}
 		else if (MInOut.Table_Name.equals(tableName))

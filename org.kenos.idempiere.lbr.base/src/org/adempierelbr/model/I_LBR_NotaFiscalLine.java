@@ -23,7 +23,7 @@ import org.compiere.util.KeyNamePair;
 
 /** Generated Interface for LBR_NotaFiscalLine
  *  @author iDempiere (generated) 
- *  @version Release 4.1
+ *  @version Release 6.2
  */
 @SuppressWarnings("all")
 public interface I_LBR_NotaFiscalLine 
@@ -64,6 +64,21 @@ public interface I_LBR_NotaFiscalLine
 	  */
 	public int getAD_Org_ID();
 
+    /** Column name C_City_ID */
+    public static final String COLUMNNAME_C_City_ID = "C_City_ID";
+
+	/** Set City.
+	  * City
+	  */
+	public void setC_City_ID (int C_City_ID);
+
+	/** Get City.
+	  * City
+	  */
+	public int getC_City_ID();
+
+	public org.compiere.model.I_C_City getC_City() throws RuntimeException;
+
     /** Column name C_InvoiceLine_ID */
     public static final String COLUMNNAME_C_InvoiceLine_ID = "C_InvoiceLine_ID";
 
@@ -78,6 +93,21 @@ public interface I_LBR_NotaFiscalLine
 	public int getC_InvoiceLine_ID();
 
 	public org.compiere.model.I_C_InvoiceLine getC_InvoiceLine() throws RuntimeException;
+
+    /** Column name C_Region_ID */
+    public static final String COLUMNNAME_C_Region_ID = "C_Region_ID";
+
+	/** Set Region.
+	  * Identifies a geographical Region
+	  */
+	public void setC_Region_ID (int C_Region_ID);
+
+	/** Get Region.
+	  * Identifies a geographical Region
+	  */
+	public int getC_Region_ID();
+
+	public org.compiere.model.I_C_Region getC_Region() throws RuntimeException;
 
     /** Column name C_UOM_ID */
     public static final String COLUMNNAME_C_UOM_ID = "C_UOM_ID";
@@ -376,6 +406,15 @@ public interface I_LBR_NotaFiscalLine
 	/** Get Scale Production	  */
 	public String getLBR_ScaleProduction();
 
+    /** Column name LBR_StimulusISS */
+    public static final String COLUMNNAME_LBR_StimulusISS = "LBR_StimulusISS";
+
+	/** Set Stimulus ISS	  */
+	public void setLBR_StimulusISS (String LBR_StimulusISS);
+
+	/** Get Stimulus ISS	  */
+	public String getLBR_StimulusISS();
+
     /** Column name LBR_TaxBenefitCode */
     public static final String COLUMNNAME_LBR_TaxBenefitCode = "LBR_TaxBenefitCode";
 
@@ -397,6 +436,33 @@ public interface I_LBR_NotaFiscalLine
 	  * VAM (value-added margin)
 	  */
 	public BigDecimal getLBR_VAM();
+
+    /** Column name LBR_qTrib */
+    public static final String COLUMNNAME_LBR_qTrib = "LBR_qTrib";
+
+	/** Set Tax Quantity.
+	  * Defines the Tax Quantity
+	  */
+	public void setLBR_qTrib (BigDecimal LBR_qTrib);
+
+	/** Get Tax Quantity.
+	  * Defines the Tax Quantity
+	  */
+	public BigDecimal getLBR_qTrib();
+
+    /** Column name LBR_vUnTrib */
+    public static final String COLUMNNAME_LBR_vUnTrib = "LBR_vUnTrib";
+
+	/** Set Unit Tax Price.
+	  * Defines the Unit Tax Price
+	  */
+	public void setLBR_vUnTrib (BigDecimal LBR_vUnTrib);
+
+	/** Get Unit Tax Price.
+	  * Defines the Unit Tax Price
+	  */
+	public BigDecimal getLBR_vUnTrib();
+
     /** Column name Line */
     public static final String COLUMNNAME_Line = "Line";
 
@@ -571,6 +637,19 @@ public interface I_LBR_NotaFiscalLine
 	  */
 	public String getVendorProductNo();
 
+    /** Column name X12DE355 */
+    public static final String COLUMNNAME_X12DE355 = "X12DE355";
+
+	/** Set UOM Code.
+	  * UOM EDI X12 Code
+	  */
+	public void setX12DE355 (String X12DE355);
+
+	/** Get UOM Code.
+	  * UOM EDI X12 Code
+	  */
+	public String getX12DE355();
+
     /** Column name lbr_CFOPName */
     public static final String COLUMNNAME_lbr_CFOPName = "lbr_CFOPName";
 
@@ -583,6 +662,19 @@ public interface I_LBR_NotaFiscalLine
 	  * Defines the CFOP Name
 	  */
 	public String getlbr_CFOPName();
+
+    /** Column name lbr_CityCode */
+    public static final String COLUMNNAME_lbr_CityCode = "lbr_CityCode";
+
+	/** Set Cod. Cidade (IBGE).
+	  * Código da Cidade do IBGE (Institudo Brasileiro de Geografia e Estatística)
+	  */
+	public void setlbr_CityCode (int lbr_CityCode);
+
+	/** Get Cod. Cidade (IBGE).
+	  * Código da Cidade do IBGE (Institudo Brasileiro de Geografia e Estatística)
+	  */
+	public int getlbr_CityCode();
 
     /** Column name lbr_InsuranceAmt */
     public static final String COLUMNNAME_lbr_InsuranceAmt = "lbr_InsuranceAmt";
@@ -680,6 +772,19 @@ public interface I_LBR_NotaFiscalLine
 	  */
 	public String getlbr_ProductSource();
 
+    /** Column name lbr_ServiceCode */
+    public static final String COLUMNNAME_lbr_ServiceCode = "lbr_ServiceCode";
+
+	/** Set Service Code.
+	  * Service Code used for Nota Fiscal de Servicos Eletronica
+	  */
+	public void setlbr_ServiceCode (String lbr_ServiceCode);
+
+	/** Get Service Code.
+	  * Service Code used for Nota Fiscal de Servicos Eletronica
+	  */
+	public String getlbr_ServiceCode();
+
     /** Column name lbr_ServiceTaxes */
     public static final String COLUMNNAME_lbr_ServiceTaxes = "lbr_ServiceTaxes";
 
@@ -732,47 +837,6 @@ public interface I_LBR_NotaFiscalLine
 	  */
 	public String getlbr_UOMName();
 
-    /** Column name lbr_UTribID */
-    public static final String COLUMNNAME_lbr_UTribID = "lbr_UTribID";
-
-	/** Set UTrib.
-	  * Unit of Tax
-	  */
-	public void setlbr_UTribID (int lbr_UTribID);
-
-	/** Get UTrib.
-	  * Unit of Tax
-	  */
-	public int getlbr_UTribID();
-
-	public org.compiere.model.I_C_UOM getlbr_UTri() throws RuntimeException;
-
-    /** Column name lbr_UTribName */
-    public static final String COLUMNNAME_lbr_UTribName = "lbr_UTribName";
-
-	/** Set UTrib Name.
-	  * Defines the UTrib Name
-	  */
-	public void setlbr_UTribName (String lbr_UTribName);
-
-	/** Get UTrib Name.
-	  * Defines the UTrib Name
-	  */
-	public String getlbr_UTribName();
-
-    /** Column name LBR_qTrib */
-    public static final String COLUMNNAME_LBR_qTrib = "LBR_qTrib";
-
-	/** Set Tax Quantity.
-	  * Defines the Tax Quantity
-	  */
-	public void setLBR_qTrib (BigDecimal LBR_qTrib);
-
-	/** Get Tax Quantity.
-	  * Defines the Tax Quantity
-	  */
-	public BigDecimal getLBR_qTrib();
-
     /** Column name lbr_vTotTrib */
     public static final String COLUMNNAME_lbr_vTotTrib = "lbr_vTotTrib";
 
@@ -785,30 +849,4 @@ public interface I_LBR_NotaFiscalLine
 	  * Valor aproximado total de tributos federais, estaduais e municipais.
 	  */
 	public BigDecimal getlbr_vTotTrib();
-
-    /** Column name LBR_vUnTrib */
-    public static final String COLUMNNAME_LBR_vUnTrib = "LBR_vUnTrib";
-
-	/** Set Unit Tax Price.
-	  * Defines the Unit Tax Price
-	  */
-	public void setLBR_vUnTrib (BigDecimal LBR_vUnTrib);
-
-	/** Get Unit Tax Price.
-	  * Defines the Unit Tax Price
-	  */
-	public BigDecimal getLBR_vUnTrib();
-	
-	/** Column name X12DE355 */
-    public static final String COLUMNNAME_X12DE355 = "X12DE355";
-
-	/** Set UOM Code.
-	  * UOM EDI X12 Code
-	  */
-	public void setX12DE355 (String X12DE355);
-
-	/** Get UOM Code.
-	  * UOM EDI X12 Code
-	  */
-	public String getX12DE355();
 }
