@@ -36,7 +36,11 @@ public class OrderLinePromissed implements IColumnCallout
 			MOrder order = new MOrder(ctx, order_id, null);		
 			
 			//	Fill the PromissedDate
-			MProductPO[] pos = MProductPO.getOfProduct (ctx, (Integer) mTab.getValue(MProduct.COLUMNNAME_M_Product_ID), null);
+			Object productID = mTab.getValue(MProduct.COLUMNNAME_M_Product_ID);
+			if (productID == null)
+				return "";
+			
+			MProductPO[] pos = MProductPO.getOfProduct (ctx, (Integer) productID, null);
 			for (MProductPO po : pos)
 			{
 				if (po.getC_BPartner_ID() == order.getC_BPartner_ID ()
