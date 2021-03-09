@@ -29,6 +29,7 @@ import java.util.Properties;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.adempiere.model.POWrapper;
+import org.adempierelbr.util.BPartnerUtil;
 import org.adempierelbr.util.LBRUtils;
 import org.adempierelbr.util.TextUtil;
 import org.adempierelbr.validator.ValidatorBPartner;
@@ -44,6 +45,7 @@ import org.compiere.model.MConversionRate;
 import org.compiere.model.MCost;
 import org.compiere.model.MInOutLine;
 import org.compiere.model.MInvoiceLine;
+import org.compiere.model.MLocation;
 import org.compiere.model.MMovement;
 import org.compiere.model.MMovementLine;
 import org.compiere.model.MOrderLine;
@@ -1402,6 +1404,7 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 			setProductName (product.getName());
 		
 		setProductValue (product.getValue());
+		setlbr_ServiceCode(productW.getlbr_ServiceCode());
 		String vendorProductNo = LBRUtils.getVendorProductNo (product, getParent().getC_BPartner_ID());
 		setVendorProductNo(vendorProductNo);
 		
@@ -1632,6 +1635,27 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 		{
 			log.saveError ("Error", Msg.parseTranslation (getCtx(), "@Invalid@ @LBR_TaxBenefitCode@, o código precisa ter 10 dígitos"));
 			return false;
+		}
+		
+		//	Service ISSQN
+		if (islbr_IsService())
+		{
+			if (getC_Region_ID() < 1)
+				setC_Region_ID(getParent().getOrg_Location().getC_Region_ID());
+			
+			if (getC_City_ID() < 1)
+				setC_City_ID(getParent().getOrg_Location().getC_City_ID());
+			
+			if (getlbr_CityCode() <= 0)
+			{
+				String cityCode = BPartnerUtil.getCityCode((MLocation) getParent().getOrg_Location());
+				if (cityCode != null && !cityCode.isBlank())
+				try 
+				{
+					setlbr_CityCode(Integer.parseInt(cityCode));
+				}
+				catch (Exception e) {}
+			}
 		}
 		
 		return true;

@@ -19,6 +19,10 @@ DELETE FROM AD_Column_Trl WHERE AD_Column_ID=1131517
 ;
 
 -- 7 de mar de 2021 13:09:46 BRT
+DELETE FROM AD_PrintFormatItem WHERE AD_Column_ID=1131517
+;
+
+-- 7 de mar de 2021 13:09:46 BRT
 DELETE FROM AD_Column WHERE AD_Column_ID=1131517
 ;
 

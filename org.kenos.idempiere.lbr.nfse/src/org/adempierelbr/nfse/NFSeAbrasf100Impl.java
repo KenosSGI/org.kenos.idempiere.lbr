@@ -115,6 +115,7 @@ public class NFSeAbrasf100Impl implements INFSe
 	public String namespace = "";
 	public String url = "";
 	public Integer C_City_ID = 0;
+	private String transmisstionType = TYPE_SYNCHRONOUS;
 	
 	/**
 	 * Cidades que utilizam NFS-e Abrasf
@@ -133,7 +134,7 @@ public class NFSeAbrasf100Impl implements INFSe
 	
 	public String getType()
 	{
-		return TYPE_SYNCHRONOUS;
+		return transmisstionType;
 	}	//	getType
 
 	/**
@@ -470,18 +471,37 @@ public class NFSeAbrasf100Impl implements INFSe
 			retornoEnvioXMLNFSe = rpsStubHom.recepcionarLoteRpsV3(rpsResponse).get_return();
 		}
 		
-		log.fine (retornoEnvioXMLNFSe);
+		log.warning ("Resp= " + retornoEnvioXMLNFSe);
 		
 		// Retorno do Envio do XML
 		EnviarLoteRpsResposta resposta = EnviarLoteRpsRespostaDocument.Factory.parse(retornoEnvioXMLNFSe).getEnviarLoteRpsResposta();
 		
 		try
-		{		
+		{
+			//	Check error messages
+			ListaMensagemRetorno listaMensagemRetorno = resposta.getListaMensagemRetorno();
+			if (listaMensagemRetorno != null)
+			{
+				StringBuilder msgRetorno = new StringBuilder ();
+				Arrays.asList(listaMensagemRetorno.getMensagemRetornoArray())
+					.forEach(msg -> {
+						msgRetorno
+							.append("Cod=").append(msg.getCodigo())
+							.append(", Correção=").append(msg.getCorrecao())
+							.append(", Msg=").append(msg.getMensagem())
+							.append("\n");
+					});
+				//
+				log.warning("NFS-e " + nf.toString() + " - " + msgRetorno.toString());
+				nf.setErrorMsg(msgRetorno.toString());
+				nf.save();
+			}
+			
 			//	Adicionar Protocolo do Lote
 			if (resposta != null && !resposta.getProtocolo().isEmpty())
 			{
 				nf.setlbr_NFeProt(resposta.getProtocolo());
-				nf.save();			
+				nf.save();
 			}
 			else
 				throw new AdempiereException("Erro ao Transmitir NFS-e");
@@ -685,7 +705,14 @@ public class NFSeAbrasf100Impl implements INFSe
 				
 				return true;
 			}
-		}	
+		}
+		
+		//	Protocol obtained, so wait for confirmation
+		if (nf.getlbr_NFeProt() != null)
+		{
+			transmisstionType = TYPE_ASYNCHRONOUS;
+			return true;
+		}
 				
 		return false;
 	}	// consult

@@ -210,7 +210,8 @@ public class VLBROrder implements ModelValidator
 
 			//	Faz a pesquisa dos impostos padrão
 			if (orderLine.get_ValueAsBoolean(I_W_C_OrderLine.COLUMNNAME_lbr_RecalculateTax) 
-					&& (olW.getLBR_Tax_ID() == 0 || olW.getLBR_CFOP_ID() == 0))
+					&& (olW.getLBR_Tax_ID() == 0 || olW.getLBR_CFOP_ID() == 0)
+					&& orderLine.getM_Product_ID() > 0)
 			{
 				Object[] taxation = MLBRTax.getTaxes (olW, orderLine.get_TrxName());
 				//

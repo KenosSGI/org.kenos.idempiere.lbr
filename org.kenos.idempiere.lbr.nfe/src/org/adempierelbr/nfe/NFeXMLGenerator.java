@@ -881,6 +881,7 @@ public class NFeXMLGenerator
 				break;
 		}
 		
+		BigDecimal taxBaseTotalISS = Env.ZERO;
 		boolean icmsDest = false;
 		
 		if ((MLBRNotaFiscal.LBR_TRANSACTIONTYPE_EndUser.equals (nf.getlbr_TransactionType())
@@ -1265,7 +1266,10 @@ public class NFeXMLGenerator
 				
 				MProduct product = (MProduct) nfl.getM_Product();
 				
-				issqn.setVBC(normalize(issTax.getlbr_TaxBaseAmt()));
+				BigDecimal taxBaseAmt = issTax.getlbr_TaxBaseAmt();
+				if (taxBaseAmt == null || taxBaseAmt.signum() == 0)
+					taxBaseAmt = nfl.getLineTotalAmt();
+				issqn.setVBC(normalize(taxBaseAmt));
 				issqn.setVAliq(normalize(issTax.getlbr_TaxRate()));
 				issqn.setVISSQN(normalize(issTax.getlbr_TaxAmt()));
 			
@@ -1280,13 +1284,18 @@ public class NFeXMLGenerator
 				// 1=Exigível, 2=Não incidência; 3=Isenção; 4=Exportação;
 				// 5=Imunidade; 6=Exigibilidade Suspensa por Decisão Judicial;
 				// 7=Exigibilidade Suspensa por Processo Administrativo;
-				issqn.setIndISS(IndISS.X_1); 
+				if (issTax.getLBR_TaxStatus() != null)
+					issqn.setIndISS(IndISS.Enum.forString(issTax.getLBR_TaxStatus().getName()));
+				else if (issTax.getlbr_TaxRate().signum() == 1)
+					issqn.setIndISS(IndISS.X_1);
+				else
+					issqn.setIndISS(IndISS.X_3);
 				
 				// O Código de serviço utilizado pelo sefaz é o mesmo Codigo de serviço da Abrasf
-				issqn.setCServico(product.get_ValueAsString ("lbr_ServiceCode"));
+				issqn.setCServico(nfl.getlbr_ServiceCode());
 				
 				// Código do Municipio. Se for em outro Pais informar "9999999"
-				issqn.setCMun(BPartnerUtil.getCityCode (nf.getlbr_OrgRegion(), nf.getlbr_OrgCity())); // Prestador
+				issqn.setCMun(String.valueOf(nfl.getlbr_CityCode())); // Prestador
 				
 				//	Informar apenas quando CMun for igual a 9999999
 				//issqn.setCPais();
@@ -1295,10 +1304,13 @@ public class NFeXMLGenerator
 				//issqn.setNProcesso(); 
 				
 				// Quando o IndISS for 3 - Isento (1 - SIM |  2 - NÃO)
-				issqn.setIndIncentivo(IndIncentivo.X_2); 
+				issqn.setIndIncentivo("Y".equals(nfl.getLBR_StimulusISS()) ? IndIncentivo.X_1 : IndIncentivo.X_2); 
 				
 				//	Adicionar Totalizador
 				addIssQnTot = true;
+				
+				//	Soma BC ISS
+				taxBaseTotalISS = taxBaseTotalISS.add(taxBaseAmt);
 			}			
 			//	N. ICMS Normal e ST
 			else if (nfl.getICMSTax() != null)
@@ -2017,12 +2029,19 @@ public class NFeXMLGenerator
 			//	W01. Total da NF-e / ISSQN
 			ISSQNtot issqNtot = total.addNewISSQNtot();
 			issqNtot.setVServ(normalize(nf.getlbr_ServiceTotalAmt()));
-			issqNtot.setVBC(normalize(nf.getTaxBaseAmt("ISS")));
-			issqNtot.setVISS(normalize(nf.getTaxAmt("ISS")));
-			issqNtot.setDCompet(TextUtil.timeToString (nf.getDateDoc(), "yyyy-MM-dd"));
+			
+			if (taxBaseTotalISS != null && taxBaseTotalISS.signum() == 1)
+				issqNtot.setVBC(normalize(taxBaseTotalISS));
+			
+			BigDecimal taxAmt = nf.getTaxAmt("ISS");
+			if (taxAmt != null && taxAmt.signum() == 1)
+				issqNtot.setVISS(normalize(taxAmt));
+			issqNtot.setDCompet(TextUtil.timeToString (nf.getDateTrx() != null ? nf.getDateTrx() : nf.getDateDoc(), "yyyy-MM-dd"));
+			
 			BigDecimal pisTotal = nf.getTaxAmt("PISSERV");
 			if (pisTotal.signum() == 1)
 				issqNtot.setVPIS(normalize(pisTotal));
+			
 			BigDecimal cofinsTotal = nf.getTaxAmt("COFINSSERV");
 			if (cofinsTotal.signum() == 1)
 				issqNtot.setVCOFINS(normalize(cofinsTotal));

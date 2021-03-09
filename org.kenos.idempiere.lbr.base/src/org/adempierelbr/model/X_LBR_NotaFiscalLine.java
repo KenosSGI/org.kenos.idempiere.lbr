@@ -25,14 +25,14 @@ import org.compiere.util.Env;
 
 /** Generated Model for LBR_NotaFiscalLine
  *  @author iDempiere (generated) 
- *  @version Release 4.1 - $Id$ */
+ *  @version Release 6.2 - $Id$ */
 public class X_LBR_NotaFiscalLine extends PO implements I_LBR_NotaFiscalLine, I_Persistent 
 {
 
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20180611L;
+	private static final long serialVersionUID = 20210309L;
 
     /** Standard Constructor */
     public X_LBR_NotaFiscalLine (Properties ctx, int LBR_NotaFiscalLine_ID, String trxName)
@@ -43,6 +43,8 @@ public class X_LBR_NotaFiscalLine extends PO implements I_LBR_NotaFiscalLine, I_
 			setLBR_AFRMMAmt (Env.ZERO);
 // 0
 			setLBR_NotaFiscalLine_ID (0);
+			setLBR_VAM (Env.ZERO);
+// 0
 			setlbr_IsService (false);
 // 'N'
         } */
@@ -76,6 +78,34 @@ public class X_LBR_NotaFiscalLine extends PO implements I_LBR_NotaFiscalLine, I_
       return sb.toString();
     }
 
+	public org.compiere.model.I_C_City getC_City() throws RuntimeException
+    {
+		return (org.compiere.model.I_C_City)MTable.get(getCtx(), org.compiere.model.I_C_City.Table_Name)
+			.getPO(getC_City_ID(), get_TrxName());	}
+
+	/** Set City.
+		@param C_City_ID 
+		City
+	  */
+	public void setC_City_ID (int C_City_ID)
+	{
+		if (C_City_ID < 1) 
+			set_Value (COLUMNNAME_C_City_ID, null);
+		else 
+			set_Value (COLUMNNAME_C_City_ID, Integer.valueOf(C_City_ID));
+	}
+
+	/** Get City.
+		@return City
+	  */
+	public int getC_City_ID () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_C_City_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
 	public org.compiere.model.I_C_InvoiceLine getC_InvoiceLine() throws RuntimeException
     {
 		return (org.compiere.model.I_C_InvoiceLine)MTable.get(getCtx(), org.compiere.model.I_C_InvoiceLine.Table_Name)
@@ -99,6 +129,34 @@ public class X_LBR_NotaFiscalLine extends PO implements I_LBR_NotaFiscalLine, I_
 	public int getC_InvoiceLine_ID () 
 	{
 		Integer ii = (Integer)get_Value(COLUMNNAME_C_InvoiceLine_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
+	public org.compiere.model.I_C_Region getC_Region() throws RuntimeException
+    {
+		return (org.compiere.model.I_C_Region)MTable.get(getCtx(), org.compiere.model.I_C_Region.Table_Name)
+			.getPO(getC_Region_ID(), get_TrxName());	}
+
+	/** Set Region.
+		@param C_Region_ID 
+		Identifies a geographical Region
+	  */
+	public void setC_Region_ID (int C_Region_ID)
+	{
+		if (C_Region_ID < 1) 
+			set_Value (COLUMNNAME_C_Region_ID, null);
+		else 
+			set_Value (COLUMNNAME_C_Region_ID, Integer.valueOf(C_Region_ID));
+	}
+
+	/** Get Region.
+		@return Identifies a geographical Region
+	  */
+	public int getC_Region_ID () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_C_Region_ID);
 		if (ii == null)
 			 return 0;
 		return ii.intValue();
@@ -587,6 +645,27 @@ public class X_LBR_NotaFiscalLine extends PO implements I_LBR_NotaFiscalLine, I_
 		return (String)get_Value(COLUMNNAME_LBR_ScaleProduction);
 	}
 
+	/** LBR_StimulusISS AD_Reference_ID=319 */
+	public static final int LBR_STIMULUSISS_AD_Reference_ID=319;
+	/** Yes = Y */
+	public static final String LBR_STIMULUSISS_Yes = "Y";
+	/** No = N */
+	public static final String LBR_STIMULUSISS_No = "N";
+	/** Set Stimulus ISS.
+		@param LBR_StimulusISS Stimulus ISS	  */
+	public void setLBR_StimulusISS (String LBR_StimulusISS)
+	{
+
+		set_Value (COLUMNNAME_LBR_StimulusISS, LBR_StimulusISS);
+	}
+
+	/** Get Stimulus ISS.
+		@return Stimulus ISS	  */
+	public String getLBR_StimulusISS () 
+	{
+		return (String)get_Value(COLUMNNAME_LBR_StimulusISS);
+	}
+
 	/** Set Tax Benefit Code.
 		@param LBR_TaxBenefitCode Tax Benefit Code	  */
 	public void setLBR_TaxBenefitCode (String LBR_TaxBenefitCode)
@@ -620,6 +699,47 @@ public class X_LBR_NotaFiscalLine extends PO implements I_LBR_NotaFiscalLine, I_
 			 return Env.ZERO;
 		return bd;
 	}
+
+	/** Set Tax Quantity.
+		@param LBR_qTrib 
+		Defines the Tax Quantity
+	  */
+	public void setLBR_qTrib (BigDecimal LBR_qTrib)
+	{
+		set_Value (COLUMNNAME_LBR_qTrib, LBR_qTrib);
+	}
+
+	/** Get Tax Quantity.
+		@return Defines the Tax Quantity
+	  */
+	public BigDecimal getLBR_qTrib () 
+	{
+		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_LBR_qTrib);
+		if (bd == null)
+			 return Env.ZERO;
+		return bd;
+	}
+
+	/** Set Unit Tax Price.
+		@param LBR_vUnTrib 
+		Defines the Unit Tax Price
+	  */
+	public void setLBR_vUnTrib (BigDecimal LBR_vUnTrib)
+	{
+		set_Value (COLUMNNAME_LBR_vUnTrib, LBR_vUnTrib);
+	}
+
+	/** Get Unit Tax Price.
+		@return Defines the Unit Tax Price
+	  */
+	public BigDecimal getLBR_vUnTrib () 
+	{
+		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_LBR_vUnTrib);
+		if (bd == null)
+			 return Env.ZERO;
+		return bd;
+	}
+
 	/** Set Line No.
 		@param Line 
 		Unique line for this document
@@ -850,6 +970,23 @@ public class X_LBR_NotaFiscalLine extends PO implements I_LBR_NotaFiscalLine, I_
 		return (String)get_Value(COLUMNNAME_VendorProductNo);
 	}
 
+	/** Set UOM Code.
+		@param X12DE355 
+		UOM EDI X12 Code
+	  */
+	public void setX12DE355 (String X12DE355)
+	{
+		set_Value (COLUMNNAME_X12DE355, X12DE355);
+	}
+
+	/** Get UOM Code.
+		@return UOM EDI X12 Code
+	  */
+	public String getX12DE355 () 
+	{
+		return (String)get_Value(COLUMNNAME_X12DE355);
+	}
+
 	/** Set CFOP Name.
 		@param lbr_CFOPName 
 		Defines the CFOP Name
@@ -865,6 +1002,26 @@ public class X_LBR_NotaFiscalLine extends PO implements I_LBR_NotaFiscalLine, I_
 	public String getlbr_CFOPName () 
 	{
 		return (String)get_Value(COLUMNNAME_lbr_CFOPName);
+	}
+
+	/** Set Cod. Cidade (IBGE).
+		@param lbr_CityCode 
+		Código da Cidade do IBGE (Institudo Brasileiro de Geografia e Estatística)
+	  */
+	public void setlbr_CityCode (int lbr_CityCode)
+	{
+		set_Value (COLUMNNAME_lbr_CityCode, Integer.valueOf(lbr_CityCode));
+	}
+
+	/** Get Cod. Cidade (IBGE).
+		@return Código da Cidade do IBGE (Institudo Brasileiro de Geografia e Estatística)
+	  */
+	public int getlbr_CityCode () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_lbr_CityCode);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
 	}
 
 	/** Set Insurance Amt.
@@ -1038,6 +1195,23 @@ public class X_LBR_NotaFiscalLine extends PO implements I_LBR_NotaFiscalLine, I_
 		return (String)get_Value(COLUMNNAME_lbr_ProductSource);
 	}
 
+	/** Set Service Code.
+		@param lbr_ServiceCode 
+		Service Code used for Nota Fiscal de Servicos Eletronica
+	  */
+	public void setlbr_ServiceCode (String lbr_ServiceCode)
+	{
+		set_Value (COLUMNNAME_lbr_ServiceCode, lbr_ServiceCode);
+	}
+
+	/** Get Service Code.
+		@return Service Code used for Nota Fiscal de Servicos Eletronica
+	  */
+	public String getlbr_ServiceCode () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_ServiceCode);
+	}
+
 	/** Set Service Taxes.
 		@param lbr_ServiceTaxes 
 		String with all Taxes Names and Taxes Rates
@@ -1135,68 +1309,6 @@ public class X_LBR_NotaFiscalLine extends PO implements I_LBR_NotaFiscalLine, I_
 		return (String)get_Value(COLUMNNAME_lbr_UOMName);
 	}
 
-	public org.compiere.model.I_C_UOM getlbr_UTri() throws RuntimeException
-    {
-		return (org.compiere.model.I_C_UOM)MTable.get(getCtx(), org.compiere.model.I_C_UOM.Table_Name)
-			.getPO(getlbr_UTribID(), get_TrxName());	}
-
-	/** Set UTrib.
-		@param lbr_UTribID 
-		Unit of Tax
-	  */
-	public void setlbr_UTribID (int lbr_UTribID)
-	{
-		set_Value (COLUMNNAME_lbr_UTribID, Integer.valueOf(lbr_UTribID));
-	}
-
-	/** Get UTrib.
-		@return Unit of Tax
-	  */
-	public int getlbr_UTribID () 
-	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_lbr_UTribID);
-		if (ii == null)
-			 return 0;
-		return ii.intValue();
-	}
-
-	/** Set UTrib Name.
-		@param lbr_UTribName 
-		Defines the UTrib Name
-	  */
-	public void setlbr_UTribName (String lbr_UTribName)
-	{
-		set_Value (COLUMNNAME_lbr_UTribName, lbr_UTribName);
-	}
-
-	/** Get UTrib Name.
-		@return Defines the UTrib Name
-	  */
-	public String getlbr_UTribName () 
-	{
-		return (String)get_Value(COLUMNNAME_lbr_UTribName);
-	}
-
-	/** Set Tax Quantity.
-		@param LBR_qTrib 
-		Defines the Tax Quantity
-	  */
-	public void setLBR_qTrib (BigDecimal LBR_qTrib)
-	{
-		set_Value (COLUMNNAME_LBR_qTrib, LBR_qTrib);
-	}
-
-	/** Get Tax Quantity.
-		@return Defines the Tax Quantity
-	  */
-	public BigDecimal getLBR_qTrib () 
-	{
-		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_LBR_qTrib);
-		if (bd == null)
-			 return Env.ZERO;
-		return bd;
-	}
-
 	/** Set Total de Tributo.
 		@param lbr_vTotTrib 
 		Valor aproximado total de tributos federais, estaduais e municipais.
@@ -1215,42 +1327,5 @@ public class X_LBR_NotaFiscalLine extends PO implements I_LBR_NotaFiscalLine, I_
 		if (bd == null)
 			 return Env.ZERO;
 		return bd;
-	}
-
-	/** Set Unit Tax Price.
-		@param LBR_vUnTrib 
-		Defines the Unit Tax Price
-	  */
-	public void setLBR_vUnTrib (BigDecimal LBR_vUnTrib)
-	{
-		set_Value (COLUMNNAME_LBR_vUnTrib, LBR_vUnTrib);
-	}
-
-	/** Get Unit Tax Price.
-		@return Defines the Unit Tax Price
-	  */
-	public BigDecimal getLBR_vUnTrib () 
-	{
-		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_LBR_vUnTrib);
-		if (bd == null)
-			 return Env.ZERO;
-		return bd;
-	}
-	
-	/** Set UOM Code.
-	@param X12DE355 
-	UOM EDI X12 Code
-	  */
-	public void setX12DE355 (String X12DE355)
-	{
-		set_Value (COLUMNNAME_X12DE355, X12DE355);
-	}
-	
-	/** Get UOM Code.
-		@return UOM EDI X12 Code
-	  */
-	public String getX12DE355 () 
-	{
-		return (String)get_Value(COLUMNNAME_X12DE355);
 	}
 }

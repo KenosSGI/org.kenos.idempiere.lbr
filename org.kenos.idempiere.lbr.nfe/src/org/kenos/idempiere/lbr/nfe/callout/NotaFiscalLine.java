@@ -7,13 +7,16 @@ import org.adempiere.model.POWrapper;
 import org.adempierelbr.model.MLBRNFLineMA;
 import org.adempierelbr.model.MLBRNotaFiscal;
 import org.adempierelbr.model.MLBRNotaFiscalLine;
+import org.adempierelbr.util.BPartnerUtil;
 import org.adempierelbr.util.LBRUtils;
 import org.adempierelbr.util.TextUtil;
+import org.adempierelbr.wrapper.I_W_C_City;
 import org.adempierelbr.wrapper.I_W_M_Product;
 import org.compiere.model.GridField;
 import org.compiere.model.GridTab;
 import org.compiere.model.MProduct;
 import org.compiere.model.MRegion;
+import org.kenos.idempiere.lbr.base.model.MCity;
 
 /**
  * 		Callout for Nota Fiscal Line
@@ -31,6 +34,8 @@ public class NotaFiscalLine implements IColumnCallout
 			return product (ctx, WindowNo, mTab, mField, value, oldValue);
 		else if (MLBRNFLineMA.COLUMNNAME_C_Region_ID.equals(columnName))
 			return region (ctx, WindowNo, mTab, mField, value, oldValue);
+		else if (MLBRNotaFiscalLine.COLUMNNAME_C_City_ID.equals(columnName))
+			return city (ctx, WindowNo, mTab, mField, value, oldValue);			
 		return "";
 	}	//	start
 	
@@ -71,6 +76,7 @@ public class NotaFiscalLine implements IColumnCallout
 		mTab.setValue (MLBRNotaFiscalLine.COLUMNNAME_UPC, upc);
 		mTab.setValue (MLBRNotaFiscalLine.COLUMNNAME_C_UOM_ID, product.getC_UOM_ID());
 		mTab.setValue (MLBRNotaFiscalLine.COLUMNNAME_lbr_ProductSource, product.getlbr_ProductSource());
+		mTab.setValue (MLBRNotaFiscalLine.COLUMNNAME_lbr_ServiceCode, product.getlbr_ServiceCode());
 		
 		//	Check if NCM is Valid
 		if (product.getLBR_NCM_ID() > 0)
@@ -136,4 +142,34 @@ public class NotaFiscalLine implements IColumnCallout
 		
 		return "";
 	}	//	region
+	
+	/**
+	 * 		Preenche a UF
+	 * 
+	 * @param ctx
+	 * @param WindowNo
+	 * @param mTab
+	 * @param mField
+	 * @param value
+	 * @param oldValue
+	 * @return "" or error
+	 */
+	private String city (Properties ctx, int WindowNo, GridTab mTab, GridField mField, Object value, Object oldValue)
+	{
+		if (value == null)
+		{
+			//	Not a Brazilian City
+			mTab.setValue(MLBRNotaFiscalLine.COLUMNNAME_lbr_CityCode, BPartnerUtil.EXTCOD);
+			return "";
+		}
+		
+		MCity city = new MCity (ctx, (Integer) mTab.getValue(MLBRNotaFiscalLine.COLUMNNAME_C_City_ID), null);
+		int cityCode = city.get_ValueAsInt(I_W_C_City.COLUMNNAME_lbr_CityCode);
+		
+		//	Set City Code
+		if (cityCode > 0)
+			mTab.setValue(MLBRNotaFiscalLine.COLUMNNAME_lbr_CityCode, cityCode);
+		
+		return "";
+	}	//	city
 }	//	NotaFiscalLine

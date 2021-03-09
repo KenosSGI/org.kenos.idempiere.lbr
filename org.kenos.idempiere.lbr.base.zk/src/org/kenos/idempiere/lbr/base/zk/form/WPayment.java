@@ -21,6 +21,7 @@ package org.kenos.idempiere.lbr.base.zk.form;
 import java.io.File;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.TimeZone;
 import java.util.logging.Level;
 
 import org.adempiere.util.Callback;
@@ -59,6 +60,7 @@ import org.compiere.model.MDocType;
 import org.compiere.model.MLookup;
 import org.compiere.model.MLookupFactory;
 import org.compiere.process.ProcessInfo;
+import org.compiere.util.DB;
 import org.compiere.util.DisplayType;
 import org.compiere.util.Env;
 import org.compiere.util.KeyNamePair;
@@ -72,6 +74,7 @@ import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Borderlayout;
+import org.zkoss.zul.Cell;
 import org.zkoss.zul.Center;
 import org.zkoss.zul.North;
 import org.zkoss.zul.Separator;
@@ -112,7 +115,11 @@ public class WPayment extends Payment
 	private Button bCancel = commandPanel.getButton(ConfirmPanel.A_CANCEL);
 	private Button bGenerate = commandPanel.createButton(ConfirmPanel.A_PROCESS);
 	private Button bRefresh = commandPanel.createButton(ConfirmPanel.A_REFRESH);
+	private Label labelDueDate1 = new Label();
+	private Label labelDueDate2 = new Label();
 	private Label labelPayDate = new Label();
+	private WDateEditor fieldDueDate1 = new WDateEditor();
+	private WDateEditor fieldDueDate2 = new WDateEditor();
 	private WDateEditor fieldPayDate = new WDateEditor();
 	private Label labelPaymentRule = new Label();
 	private Listbox fieldPaymentRule = ListboxFactory.newDropdownListbox();
@@ -214,6 +221,8 @@ public class WPayment extends Payment
 		labelBPartner.setText(Msg.translate(Env.getCtx(), "C_BPartner_ID"));
 		fieldBPartner.addValueChangeListener(this);
 		bRefresh.addActionListener(this);
+		labelDueDate1.setText(Msg.translate(Env.getCtx(), "DueDate"));
+		labelDueDate2.setText(Msg.translate(Env.getCtx(), "To"));
 		labelPayDate.setText(Msg.translate(Env.getCtx(), "PayDate"));
 		labelPaymentRule.setText(Msg.translate(Env.getCtx(), "PaymentRule"));
 		labelDtype.setText(Msg.translate(Env.getCtx(), "C_DocType_ID"));
@@ -226,7 +235,12 @@ public class WPayment extends Payment
 		dataStatus.setPre(true);
 		onlyDue.addActionListener(this);
 		fieldPayDate.addValueChangeListener(this);
-
+		
+		TimeZone tz = TimeZone.getTimeZone("GMT-3:00");
+		fieldPayDate.getComponent().setTimeZone(tz);
+		fieldDueDate1.getComponent().setTimeZone(tz);
+		fieldDueDate2.getComponent().setTimeZone(tz);
+		
 		//IDEMPIERE-2657, pritesh shah
 		bGenerate.setEnabled(false);
 		bGenerate.addActionListener(this);
@@ -263,9 +277,15 @@ public class WPayment extends Payment
 		row.appendCellChild(fieldDtype);
 		
 		row = rows.newRow();
+		row.appendCellChild(labelDueDate1.rightAlign());
+		row.appendCellChild(fieldDueDate1.getComponent());
+//		row.appendCellChild(labelDueDate2.rightAlign());
+		row.appendCellChild(fieldDueDate2.getComponent());
+		
+		row = rows.newRow();
 		row.appendCellChild(labelPayDate.rightAlign());
 		row.appendCellChild(fieldPayDate.getComponent());
-		row.appendCellChild(labelPaymentRule.rightAlign());
+		//row.appendCellChild(labelPaymentRule.rightAlign());
 		row.appendCellChild(fieldPaymentRule);
 		row.appendCellChild(bRefresh);
 
@@ -395,10 +415,20 @@ public class WPayment extends Payment
 		ValueNamePair paymentRule = (ValueNamePair) fieldPaymentRule.getSelectedItem().getValue();
 		Integer bpartner = (Integer) fieldBPartner.getValue();
 		KeyNamePair docType = (KeyNamePair) fieldDtype.getSelectedItem().getValue();
-		String historic = null;
+		String historic = "";
 		String type = typeCombo.getSelectedItem().getValue();
 		
-		if (historyCombo.getSelectedItem() != null)
+		if (fieldDueDate1.getValue() != null)
+			historic = "TRUNC (i.DueDate) >= " + DB.TO_DATE ((Timestamp) fieldDueDate1.getValue());
+		
+		if (fieldDueDate2.getValue() != null)
+		{
+			if (!historic.isBlank())
+				historic += " AND ";
+			historic += "TRUNC (i.DueDate) <= " + DB.TO_DATE ((Timestamp) fieldDueDate2.getValue());
+		}
+		
+		if (historic.isBlank() && historyCombo.getSelectedItem() != null)
 			historic = addHistoryRestriction(historyCombo.getSelectedItem());
 		
 		loadTableInfo(bi, payDate, paymentRule, onlyDue.isSelected(), bpartner, docType, historic, type, miniTable);
@@ -665,7 +695,7 @@ public class WPayment extends Payment
     	if (null!=listItem && listItem.toString().length() > 0 && getHistoryDays(selectedHistoryValue) > 0)
     	{
     		StringBuilder where = new StringBuilder();
-    		where.append("i.DueDate >= ");
+    		where.append("TRUNC (i.DueDate) >= ");
     		where.append("SysDate-").append(getHistoryDays(selectedHistoryValue));
     		return where.toString();
     	}

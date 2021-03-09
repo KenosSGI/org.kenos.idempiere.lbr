@@ -4613,6 +4613,7 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 								//	Set status
 								setDocStatus(DOCSTATUS_Completed);
 								setDocAction(DOCACTION_None);
+								setProcessed(true);
 							}
 							else
 							{
