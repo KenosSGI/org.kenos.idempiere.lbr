@@ -4945,6 +4945,12 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		{
 			options[0] = DOCACTION_VoidInvalidate;
 			index=1;
+			
+			if (!isSOTrx() && !islbr_IsOwnDocument())
+			{
+				options[1] = DocAction.ACTION_ReActivate;
+				index++;
+			}
 		}
 		//
 		return index;
