@@ -24,6 +24,8 @@ import java.util.Arrays;
 import java.util.Properties;
 import java.util.logging.Level;
 
+import org.adempiere.model.POWrapper;
+import org.adempierelbr.wrapper.I_W_AD_OrgInfo;
 import org.compiere.minigrid.ColumnInfo;
 import org.compiere.minigrid.IDColumn;
 import org.compiere.minigrid.IMiniTable;
@@ -32,6 +34,7 @@ import org.compiere.model.MBankAccount;
 import org.compiere.model.MDocType;
 import org.compiere.model.MInvoice;
 import org.compiere.model.MOrder;
+import org.compiere.model.MOrgInfo;
 import org.compiere.model.MPayment;
 import org.compiere.model.MRefList;
 import org.compiere.model.MRole;
@@ -193,7 +196,9 @@ public class Payment
 			new ColumnInfo(" ", "i.C_Invoice_ID", IDColumn.class, false, false, null),
 			new ColumnInfo(Msg.translate(ctx, "DueDate"), "i.DueDate AS DateDue", Timestamp.class, true, true, null),
 			new ColumnInfo(Msg.translate(ctx, "C_BPartner_ID"), "bp.Name", KeyNamePair.class, true, false, "i.C_BPartner_ID"),
+			new ColumnInfo("CNPJ/CPF/ID", "COALESCE (bp.LBR_CNPJ, bp.LBR_CPF, bp.TaxID)", String.class),
 			new ColumnInfo(Msg.translate(ctx, "DocumentNo"), "i.DocumentNo", String.class),
+			new ColumnInfo(Msg.translate(ctx, "LBR_NotaFiscal_ID"), "(SELECT MAX(nf.DocumentNo) FROM LBR_NotaFiscal nf WHERE nf.C_Invoice_ID=i.C_Invoice_ID AND nf.DocStatus IN ('CL', 'CO')) AS LBR_NFeNo", String.class),
 			new ColumnInfo(Msg.translate(ctx, "C_Currency_ID"), "c.ISO_Code", KeyNamePair.class, true, false, "i.C_Currency_ID"),
 			// 5..9
 			new ColumnInfo(Msg.translate(ctx, "GrandTotal"), "i.GrandTotal", BigDecimal.class),
@@ -229,7 +234,9 @@ public class Payment
 			new ColumnInfo(" ", "i.C_Order_ID", IDColumn.class, false, false, null),
 			new ColumnInfo(Msg.translate(ctx, "DueDate"), "i.DateOrdered AS DateOrdered", Timestamp.class, true, true, null),
 			new ColumnInfo(Msg.translate(ctx, "C_BPartner_ID"), "bp.Name", KeyNamePair.class, true, false, "i.C_BPartner_ID"),
+			new ColumnInfo("CNPJ/CPF/ID", "COALESCE (bp.LBR_CNPJ, bp.LBR_CPF, bp.TaxID)", String.class),
 			new ColumnInfo(Msg.translate(ctx, "DocumentNo"), "i.DocumentNo", String.class),
+			new ColumnInfo(Msg.translate(ctx, "LBR_NotaFiscal_ID"), "(SELECT MAX(nf.DocumentNo) FROM LBR_NotaFiscal nf WHERE nf.C_Order_ID=i.C_Order_ID AND nf.DocStatus IN ('CL', 'CO')) AS LBR_NFeNo", String.class),
 			new ColumnInfo(Msg.translate(ctx, "C_Currency_ID"), "c.ISO_Code", KeyNamePair.class, true, false, "i.C_Currency_ID"),
 			// 5..9
 			new ColumnInfo(Msg.translate(ctx, "GrandTotal"), "i.GrandTotal", BigDecimal.class),
@@ -272,13 +279,23 @@ public class Payment
 	/**
 	 *  Query and create TableInfo
 	 */
-	public void loadTableInfo(BankInfo bi, Timestamp payDate, ValueNamePair paymentRule, boolean onlyDue, 
+	public void loadTableInfo (BankInfo bi, Timestamp payDate, ValueNamePair paymentRule, boolean onlyDue, 
+			Integer C_BPartner_ID, KeyNamePair docType, String restriction, String type, IMiniTable miniTable)
+	{
+		loadTableInfo (bi, payDate, paymentRule, onlyDue, false, C_BPartner_ID, docType, restriction, type, miniTable);
+	}	//	loadTableInfo
+
+	/**
+	 *  Query and create TableInfo
+	 */
+	public void loadTableInfo (BankInfo bi, Timestamp payDate, ValueNamePair paymentRule, boolean onlyDue, boolean groupCia, 
 			Integer C_BPartner_ID, KeyNamePair docType, String restriction, String type, IMiniTable miniTable)
 	{
 		log.config("");
 		
 		int AD_Org_ID = new MBankAccount (Env.getCtx(), bi.C_BankAccount_ID, null).getAD_Org_ID();
-
+		I_W_AD_OrgInfo oi = POWrapper.create(MOrgInfo.get(Env.getCtx(), AD_Org_ID, null), I_W_AD_OrgInfo.class);
+		
 		String sql = m_sql;
 		if (type.equals("O"))
 		{
@@ -287,9 +304,19 @@ public class Payment
 			if (restriction != null)
 				restriction = restriction.replace("DueDate", "DateOrdered");
 		}
+		
 		//  not yet initialized
 		if (sql == null)
 			return;
+		
+		//	show intra-company invoices
+		String cnpj = oi.getlbr_CNPJ();
+		if (groupCia && cnpj != null && cnpj.length() == 18)
+		{
+			sql = sql.replace("i.AD_Org_ID=?", "i.AD_Org_ID IN (SELECT oo.AD_Org_ID FROM AD_OrgInfo oo WHERE oo.LBR_CNPJ LIKE ?)"); 
+		}
+		else
+			groupCia = false;
 		
 		//	Only due invoices
 		if (onlyDue)
@@ -326,13 +353,18 @@ public class Payment
 			PreparedStatement pstmt = DB.prepareStatement(sql, null);
 			if (!type.equals("O"))
 			{
-				pstmt.setInt(index++, bi.C_Currency_ID);			//	DueAmt
-				pstmt.setTimestamp(index++, payDate);
-				pstmt.setInt(index++, bi.C_Currency_ID);
-				pstmt.setTimestamp(index++, payDate);
+				pstmt.setInt(index++, bi.C_Currency_ID);				//	DueAmt
+				pstmt.setTimestamp(index++, payDate);					//	Payment Date
+				pstmt.setInt(index++, bi.C_Currency_ID);				//	Currency
+				pstmt.setTimestamp(index++, payDate);					//	Payment Date
 			}
-			pstmt.setString(index++, m_IsSOTrx ? "Y" : "N");	//	IsSOTrx
-			pstmt.setInt(index++, AD_Org_ID);					//	Org
+			pstmt.setString(index++, m_IsSOTrx ? "Y" : "N");			//	IsSOTrx
+			if (!groupCia)
+				pstmt.setInt(index++, AD_Org_ID);						//	Org
+			else
+				pstmt.setString(index++, cnpj.substring(0, 10) + "%");	//	CNPJ
+			
+			//	Only due
 			if (onlyDue)
 				pstmt.setTimestamp(index++, payDate);
 			if (C_BPartner_ID != null && C_BPartner_ID != 0)
@@ -401,7 +433,7 @@ public class Payment
 				MPayment p = new MPayment (Env.getCtx(), 0, trxName);
 				int Doc_ID = id.getRecord_ID().intValue();
 //				BigDecimal OpenAmt = (BigDecimal)miniTable.getValueAt(i, 6);
-				BigDecimal PayAmt = (BigDecimal)miniTable.getValueAt(i, 7);
+				BigDecimal PayAmt = (BigDecimal)miniTable.getValueAt(i, 9);
 				
 				Boolean isSOTrx = null;
 				int C_BPartner_ID = 0;

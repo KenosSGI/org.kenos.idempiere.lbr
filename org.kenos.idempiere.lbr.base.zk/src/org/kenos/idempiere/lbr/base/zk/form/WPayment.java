@@ -74,11 +74,11 @@ import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Borderlayout;
-import org.zkoss.zul.Cell;
 import org.zkoss.zul.Center;
 import org.zkoss.zul.North;
 import org.zkoss.zul.Separator;
 import org.zkoss.zul.South;
+import org.zkoss.zul.Space;
 
 /**
  *  Create Manual Payments From (AP) Invoices or (AR) Credit Memos.
@@ -107,6 +107,7 @@ public class WPayment extends Payment
 	private Label labelCurrency = new Label();
 	private Label labelBalance = new Label();
 	private Checkbox onlyDue = new Checkbox();
+	private Checkbox showGroupCia = new Checkbox();
 	private Label labelBPartner = new Label();
 	private WSearchEditor fieldBPartner = null;
 	private Label dataStatus = new Label();
@@ -235,6 +236,11 @@ public class WPayment extends Payment
 		dataStatus.setPre(true);
 		onlyDue.addActionListener(this);
 		fieldPayDate.addValueChangeListener(this);
+		fieldDueDate1.addValueChangeListener(this);
+		fieldDueDate2.addValueChangeListener(this);
+
+		showGroupCia.setText(Msg.translate(Env.getCtx(), "LBR_InterCompany"));
+		showGroupCia.addActionListener(this);
 		
 		TimeZone tz = TimeZone.getTimeZone("GMT-3:00");
 		fieldPayDate.getComponent().setTimeZone(tz);
@@ -275,6 +281,8 @@ public class WPayment extends Payment
 		row = rows.newRow();
 		row.appendCellChild(labelDtype.rightAlign());
 		row.appendCellChild(fieldDtype);
+		row.appendCellChild(new Space());
+		row.appendCellChild(showGroupCia);
 		
 		row = rows.newRow();
 		row.appendCellChild(labelDueDate1.rightAlign());
@@ -431,7 +439,7 @@ public class WPayment extends Payment
 		if (historic.isBlank() && historyCombo.getSelectedItem() != null)
 			historic = addHistoryRestriction(historyCombo.getSelectedItem());
 		
-		loadTableInfo(bi, payDate, paymentRule, onlyDue.isSelected(), bpartner, docType, historic, type, miniTable);
+		loadTableInfo(bi, payDate, paymentRule, onlyDue.isSelected(), showGroupCia.isSelected(), bpartner, docType, historic, type, miniTable);
 		
 		calculateSelection();
 		
@@ -501,8 +509,8 @@ public class WPayment extends Payment
 
 		//  Update Open Invoices
 		else if (e.getTarget() == bRefresh || e.getTarget() == fieldDtype
-				|| e.getTarget() == fieldPaymentRule || e.getTarget() == onlyDue || e.getTarget() == fieldBankAccount 
-				|| e.getTarget() == historyCombo || e.getTarget() == typeCombo)
+				|| e.getTarget() == fieldPaymentRule || e.getTarget() == onlyDue || e.getTarget() == showGroupCia 
+				|| e.getTarget() == fieldBankAccount || e.getTarget() == historyCombo || e.getTarget() == typeCombo)
 			loadTableInfo();
 
 		else if (DialogEvents.ON_WINDOW_CLOSE.equals(e.getName())) {
@@ -513,7 +521,7 @@ public class WPayment extends Payment
 
 	@Override
 	public void valueChange(ValueChangeEvent e) {
-		if (e.getSource() == fieldBPartner || e.getSource() == fieldPayDate)
+		if (e.getSource() == fieldBPartner || e.getSource() == fieldPayDate || e.getSource() == fieldDueDate2)
 			loadTableInfo();
 	}
 

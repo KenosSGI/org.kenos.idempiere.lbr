@@ -7140,6 +7140,14 @@ Telefone: {1}</value>
   <value column="MsgText" original="Gerenciar Movimentação de Material criada para Envio de Insumo para Industrialização. Apenas as Movimentação de Material destinadas à Industrialização e não Completadas serão exibidas no formulário. Escolha o Parceiro de Negócio e a Data da Movimentação desejada. Informe a quantidade real separada para envio. O Sistema irá distribuir a Diferença entre as Linhas de Movimentação.">Gerenciar Movimentação de Material criada para Envio de Insumo para Industrialização. Apenas as Movimentação de Material destinadas à Industrialização e não Completadas serão exibidas no formulário. Escolha o Parceiro de Negócio e a Data da Movimentação desejada. Informe a quantidade real separada para envio. O Sistema irá distribuir a Diferença entre as Linhas de Movimentação.</value>
   <value column="MsgTip" original=""/>
  </row>
+ <row trl="N" uuid="249f8ca3-e148-478d-a672-878f5239fd31">
+  <value column="MsgText" original="Not allowed to have more than one record per Organization">Não é permitido ter mais de um registro por Organização</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row trl="Y" uuid="1e07307b-5e97-436b-a1a3-70be515e3377">
+  <value column="MsgText" original="Show Inter-Company Invoices">Mostrar Faturas do Grupo Econômico</value>
+  <value column="MsgTip" original=""/>
+ </row>
  <row trl="Y" uuid="abfbe3f0-a251-4228-af61-490a035ebea1">
   <value column="MsgText" original="Informe os dados abaixo para fazer o cálculo do frete nos Correios. As medidas somente tem efeito para saber os tamanhos mínimos e máximos de cada pacote, não influenciando no preço (para preço do balcão). Além do preço do balcão o sistema mostra os preços de contrato, caso sua empresa tenha um contrato de prestação de serviços configurado.">Informe os dados abaixo para fazer o cálculo do frete nos Correios. As medidas somente tem efeito para saber os tamanhos mínimos e máximos de cada pacote, não influenciando no preço (para preço do balcão). Além do preço do balcão o sistema mostra os preços de contrato, caso sua empresa tenha um contrato de prestação de serviços configurado.</value>
   <value column="MsgTip" original=""/>
