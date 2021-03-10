@@ -17,6 +17,7 @@ Service-Component: OSGI-INF/*.xml
 Eclipse-RegisterBuddy: org.adempiere.base
 Export-Package: br.inf.portalfiscal.nfe.dfe,
  br.inf.portalfiscal.nfe.v400,
+ br.inf.portalfiscal.nfe.v6v,
  com.google.zxing,
  com.google.zxing.client.j2se,
  com.google.zxing.qrcode,
