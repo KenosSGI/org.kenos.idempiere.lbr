@@ -63,7 +63,7 @@ public class MatchDFe extends SvrProcess
 			//
 			if (dfe != null)
 			{
-				nf.set_CustomColumn (MLBRPartnerDFe.COLUMNNAME_LBR_PartnerDFe_ID, dfe.getLBR_PartnerDFe_ID());
+				nf.setLBR_PartnerDFe_ID (dfe.getLBR_PartnerDFe_ID());
 				nf.setlbr_NFeID(dfe.getlbr_NFeID());
 				nf.setlbr_DigestValue(dfe.getlbr_DigestValue());
 				if (nf.save())
