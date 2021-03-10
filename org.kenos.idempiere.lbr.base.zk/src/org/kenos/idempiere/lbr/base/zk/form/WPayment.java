@@ -28,6 +28,7 @@ import org.adempiere.util.Callback;
 import org.adempiere.util.IProcessUI;
 import org.adempiere.webui.ClientInfo;
 import org.adempiere.webui.LayoutUtils;
+import org.adempiere.webui.apps.AEnv;
 import org.adempiere.webui.component.Button;
 import org.adempiere.webui.component.Checkbox;
 import org.adempiere.webui.component.Column;
@@ -56,9 +57,13 @@ import org.adempiere.webui.panel.IFormController;
 import org.adempiere.webui.session.SessionManager;
 import org.adempiere.webui.util.ZKUpdateUtil;
 import org.adempiere.webui.window.FDialog;
+import org.compiere.minigrid.IDColumn;
 import org.compiere.model.MDocType;
+import org.compiere.model.MInvoice;
 import org.compiere.model.MLookup;
 import org.compiere.model.MLookupFactory;
+import org.compiere.model.MQuery;
+import org.compiere.model.MTable;
 import org.compiere.process.ProcessInfo;
 import org.compiere.util.DB;
 import org.compiere.util.DisplayType;
@@ -112,7 +117,8 @@ public class WPayment extends Payment
 	private WSearchEditor fieldBPartner = null;
 	private Label dataStatus = new Label();
 	private WListbox miniTable = ListboxFactory.newDataTable();
-	private ConfirmPanel commandPanel = new ConfirmPanel(true, false, false, false, false, false, false);
+	private ConfirmPanel commandPanel = new ConfirmPanel(true, false, false, false, false, true, false);
+	private Button bZoom = commandPanel.getButton(ConfirmPanel.A_ZOOM);
 	private Button bCancel = commandPanel.getButton(ConfirmPanel.A_CANCEL);
 	private Button bGenerate = commandPanel.createButton(ConfirmPanel.A_PROCESS);
 	private Button bRefresh = commandPanel.createButton(ConfirmPanel.A_REFRESH);
@@ -251,6 +257,7 @@ public class WPayment extends Payment
 		bGenerate.setEnabled(false);
 		bGenerate.addActionListener(this);
 		bCancel.addActionListener(this);
+		bZoom.addActionListener(this);
 		//
 		North north = new North();
 		north.setBorder ("none");
@@ -504,6 +511,55 @@ public class WPayment extends Payment
 			loadTableInfo();
 		}
 
+		else if (e.getTarget() == bZoom)
+		{
+			if (miniTable.getRowCount() == 0)
+				return;
+			miniTable.setSelectedIndices(new int[]{0});
+			calculateSelection();
+			if (m_noSelected == 0)
+				return;
+			
+			//	Generate where
+			String where = "C_Invoice_ID IN (";
+
+			int rows = miniTable.getRowCount();
+			for (int i = 0; i < rows; i++)
+			{
+				IDColumn id = (IDColumn)miniTable.getValueAt(i, 0);
+				if (id.isSelected())
+				{
+					where += id.getRecord_ID() + ",";
+				}
+			}
+			
+			where += "0)";
+			
+			int count = DB.getSQLValue(null, "SELECT COUNT('1') FROM C_Invoice WHERE IsSOTrx='Y' AND " + where);
+			
+			//	Open NF Out
+			if (count > 0)
+			{
+				//	Query
+				MQuery query = new MQuery(MInvoice.Table_Name);
+				query.addRestriction(where);
+				
+				AEnv.zoom (MTable.get(Env.getCtx(), MInvoice.Table_Name).getAD_Window_ID(), query);
+			}
+			
+			count = DB.getSQLValue(null, "SELECT COUNT('1') FROM C_Invoice WHERE IsSOTrx='N' AND " + where);
+			
+			//	Open NF Out
+			if (count > 0)
+			{
+				//	Query
+				MQuery query = new MQuery(MInvoice.Table_Name);
+				query.addRestriction(where);
+				
+				AEnv.zoom (MTable.get(Env.getCtx(), MInvoice.Table_Name).getPO_Window_ID(), query);
+			}
+		}
+		
 		else if (e.getTarget() == bCancel)
 			dispose();
 
