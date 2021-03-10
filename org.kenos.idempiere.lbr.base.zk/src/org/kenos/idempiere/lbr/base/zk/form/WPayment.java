@@ -28,6 +28,7 @@ import org.adempiere.util.Callback;
 import org.adempiere.util.IProcessUI;
 import org.adempiere.webui.ClientInfo;
 import org.adempiere.webui.LayoutUtils;
+import org.adempiere.webui.apps.AEnv;
 import org.adempiere.webui.component.Button;
 import org.adempiere.webui.component.Checkbox;
 import org.adempiere.webui.component.Column;
@@ -56,9 +57,13 @@ import org.adempiere.webui.panel.IFormController;
 import org.adempiere.webui.session.SessionManager;
 import org.adempiere.webui.util.ZKUpdateUtil;
 import org.adempiere.webui.window.FDialog;
+import org.compiere.minigrid.IDColumn;
 import org.compiere.model.MDocType;
+import org.compiere.model.MInvoice;
 import org.compiere.model.MLookup;
 import org.compiere.model.MLookupFactory;
+import org.compiere.model.MQuery;
+import org.compiere.model.MTable;
 import org.compiere.process.ProcessInfo;
 import org.compiere.util.DB;
 import org.compiere.util.DisplayType;
@@ -74,11 +79,11 @@ import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Borderlayout;
-import org.zkoss.zul.Cell;
 import org.zkoss.zul.Center;
 import org.zkoss.zul.North;
 import org.zkoss.zul.Separator;
 import org.zkoss.zul.South;
+import org.zkoss.zul.Space;
 
 /**
  *  Create Manual Payments From (AP) Invoices or (AR) Credit Memos.
@@ -107,11 +112,13 @@ public class WPayment extends Payment
 	private Label labelCurrency = new Label();
 	private Label labelBalance = new Label();
 	private Checkbox onlyDue = new Checkbox();
+	private Checkbox showGroupCia = new Checkbox();
 	private Label labelBPartner = new Label();
 	private WSearchEditor fieldBPartner = null;
 	private Label dataStatus = new Label();
 	private WListbox miniTable = ListboxFactory.newDataTable();
-	private ConfirmPanel commandPanel = new ConfirmPanel(true, false, false, false, false, false, false);
+	private ConfirmPanel commandPanel = new ConfirmPanel(true, false, false, false, false, true, false);
+	private Button bZoom = commandPanel.getButton(ConfirmPanel.A_ZOOM);
 	private Button bCancel = commandPanel.getButton(ConfirmPanel.A_CANCEL);
 	private Button bGenerate = commandPanel.createButton(ConfirmPanel.A_PROCESS);
 	private Button bRefresh = commandPanel.createButton(ConfirmPanel.A_REFRESH);
@@ -235,6 +242,11 @@ public class WPayment extends Payment
 		dataStatus.setPre(true);
 		onlyDue.addActionListener(this);
 		fieldPayDate.addValueChangeListener(this);
+		fieldDueDate1.addValueChangeListener(this);
+		fieldDueDate2.addValueChangeListener(this);
+
+		showGroupCia.setText(Msg.translate(Env.getCtx(), "LBR_InterCompany"));
+		showGroupCia.addActionListener(this);
 		
 		TimeZone tz = TimeZone.getTimeZone("GMT-3:00");
 		fieldPayDate.getComponent().setTimeZone(tz);
@@ -245,6 +257,7 @@ public class WPayment extends Payment
 		bGenerate.setEnabled(false);
 		bGenerate.addActionListener(this);
 		bCancel.addActionListener(this);
+		bZoom.addActionListener(this);
 		//
 		North north = new North();
 		north.setBorder ("none");
@@ -275,6 +288,8 @@ public class WPayment extends Payment
 		row = rows.newRow();
 		row.appendCellChild(labelDtype.rightAlign());
 		row.appendCellChild(fieldDtype);
+		row.appendCellChild(new Space());
+		row.appendCellChild(showGroupCia);
 		
 		row = rows.newRow();
 		row.appendCellChild(labelDueDate1.rightAlign());
@@ -431,7 +446,7 @@ public class WPayment extends Payment
 		if (historic.isBlank() && historyCombo.getSelectedItem() != null)
 			historic = addHistoryRestriction(historyCombo.getSelectedItem());
 		
-		loadTableInfo(bi, payDate, paymentRule, onlyDue.isSelected(), bpartner, docType, historic, type, miniTable);
+		loadTableInfo(bi, payDate, paymentRule, onlyDue.isSelected(), showGroupCia.isSelected(), bpartner, docType, historic, type, miniTable);
 		
 		calculateSelection();
 		
@@ -496,13 +511,62 @@ public class WPayment extends Payment
 			loadTableInfo();
 		}
 
+		else if (e.getTarget() == bZoom)
+		{
+			if (miniTable.getRowCount() == 0)
+				return;
+			miniTable.setSelectedIndices(new int[]{0});
+			calculateSelection();
+			if (m_noSelected == 0)
+				return;
+			
+			//	Generate where
+			String where = "C_Invoice_ID IN (";
+
+			int rows = miniTable.getRowCount();
+			for (int i = 0; i < rows; i++)
+			{
+				IDColumn id = (IDColumn)miniTable.getValueAt(i, 0);
+				if (id.isSelected())
+				{
+					where += id.getRecord_ID() + ",";
+				}
+			}
+			
+			where += "0)";
+			
+			int count = DB.getSQLValue(null, "SELECT COUNT('1') FROM C_Invoice WHERE IsSOTrx='Y' AND " + where);
+			
+			//	Open NF Out
+			if (count > 0)
+			{
+				//	Query
+				MQuery query = new MQuery(MInvoice.Table_Name);
+				query.addRestriction(where);
+				
+				AEnv.zoom (MTable.get(Env.getCtx(), MInvoice.Table_Name).getAD_Window_ID(), query);
+			}
+			
+			count = DB.getSQLValue(null, "SELECT COUNT('1') FROM C_Invoice WHERE IsSOTrx='N' AND " + where);
+			
+			//	Open NF Out
+			if (count > 0)
+			{
+				//	Query
+				MQuery query = new MQuery(MInvoice.Table_Name);
+				query.addRestriction(where);
+				
+				AEnv.zoom (MTable.get(Env.getCtx(), MInvoice.Table_Name).getPO_Window_ID(), query);
+			}
+		}
+		
 		else if (e.getTarget() == bCancel)
 			dispose();
 
 		//  Update Open Invoices
 		else if (e.getTarget() == bRefresh || e.getTarget() == fieldDtype
-				|| e.getTarget() == fieldPaymentRule || e.getTarget() == onlyDue || e.getTarget() == fieldBankAccount 
-				|| e.getTarget() == historyCombo || e.getTarget() == typeCombo)
+				|| e.getTarget() == fieldPaymentRule || e.getTarget() == onlyDue || e.getTarget() == showGroupCia 
+				|| e.getTarget() == fieldBankAccount || e.getTarget() == historyCombo || e.getTarget() == typeCombo)
 			loadTableInfo();
 
 		else if (DialogEvents.ON_WINDOW_CLOSE.equals(e.getName())) {
@@ -513,7 +577,7 @@ public class WPayment extends Payment
 
 	@Override
 	public void valueChange(ValueChangeEvent e) {
-		if (e.getSource() == fieldBPartner || e.getSource() == fieldPayDate)
+		if (e.getSource() == fieldBPartner || e.getSource() == fieldPayDate || e.getSource() == fieldDueDate2)
 			loadTableInfo();
 	}
 
