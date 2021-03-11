@@ -691,28 +691,7 @@ public class MLBRTax extends X_LBR_Tax
 		if (!MProduct.PRODUCTTYPE_Service.equals(p.getProductType()))
 		{
 			log.finer ("######## Processing Tax for Organization: " + oi + ", Taxes: " + new MLBRTax(ctx, oi.getLBR_Tax_ID(), null));
-			processTaxes(taxes, oi.getLBR_Tax_ID());
-		}
-		
-		/**
-		 * 	NCM
-		 */
-		if (p.getM_Product_ID() > 0 && p.getLBR_NCM_ID() > 0)
-		{
-			MLBRNCM ncm = new MLBRNCM (Env.getCtx(), p.getLBR_NCM_ID(), null);
-			
-			hasSubstitution = ncm.islbr_HasSubstitution();
-			log.finer ("######## Processing Tax for NCM: " + ncm + ", Taxes: " + new MLBRTax(ctx, ncm.getLBR_Tax_ID(), null));
-			processTaxes(taxes, ncm.getLBR_Tax_ID());
-			
-			MLBRNCMTax ncmTax = ncm.getLBR_Tax_ID(oi.getAD_Org_ID(), bp_C_Region_ID, dateAcct);
-			//
-			if (ncmTax != null)
-			{
-				hasSubstitution = ncmTax.islbr_HasSubstitution();
-				log.finer ("######## Processing Tax for NCM Line: " + ncmTax + ", Taxes: " + new MLBRTax(ctx, ncmTax.getLBR_Tax_ID(), null));
-				processTaxes(taxes, ncmTax.getLBR_Tax_ID());
-			}
+			processTaxes(taxes, (!isSOTrx && oi.getLBR_POTax_ID() > 0) ? oi.getLBR_POTax_ID() : oi.getLBR_Tax_ID());
 		}
 		
 		/**
@@ -765,6 +744,27 @@ public class MLBRTax extends X_LBR_Tax
 		{
 			log.finer ("######## Processing Tax for ISS Matrix: " + mISS + ", Taxes: " + new MLBRTax(ctx, mISS.getLBR_Tax_ID(), null));
 			processTaxes(taxes, mISS.getLBR_Tax_ID());
+		}
+		
+		/**
+		 * 	NCM
+		 */
+		if (p.getM_Product_ID() > 0 && p.getLBR_NCM_ID() > 0)
+		{
+			MLBRNCM ncm = new MLBRNCM (Env.getCtx(), p.getLBR_NCM_ID(), null);
+			
+			hasSubstitution = ncm.islbr_HasSubstitution();
+			log.finer ("######## Processing Tax for NCM: " + ncm + ", Taxes: " + new MLBRTax(ctx, ncm.getLBR_Tax_ID(), null));
+			processTaxes(taxes, ncm.getLBR_Tax_ID());
+			
+			List<MLBRNCMTax> ncmTaxes = ncm.getAll (oi.getAD_Org_ID(), bp_C_Region_ID, dateAcct);
+			//
+			for (MLBRNCMTax ncmTax : ncmTaxes)
+			{
+				hasSubstitution = ncmTax.islbr_HasSubstitution();
+				log.finer ("######## Processing Tax for NCM Line: " + ncmTax + ", Taxes: " + new MLBRTax(ctx, ncmTax.getLBR_Tax_ID(), null));
+				processTaxes(taxes, ncmTax.getLBR_Tax_ID());
+			}
 		}
 		
 		/**

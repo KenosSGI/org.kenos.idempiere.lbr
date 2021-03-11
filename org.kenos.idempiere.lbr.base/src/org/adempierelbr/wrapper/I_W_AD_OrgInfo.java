@@ -177,6 +177,19 @@ public interface I_W_AD_OrgInfo extends I_AD_OrgInfo
 	  */
 	public int getLBR_Tax_ID();
 
+    /** Column name LBR_POTax_ID */
+    public static final String COLUMNNAME_LBR_POTax_ID = "LBR_POTax_ID";
+
+	/** Set Brazilian Tax.
+	  * Primary key table LBR_Tax
+	  */
+	public void setLBR_POTax_ID (Object LBR_POTax_ID);
+
+	/** Get Brazilian Tax.
+	  * Primary key table LBR_Tax
+	  */
+	public int getLBR_POTax_ID();
+
     /** Column name lbr_CCM */
     public static final String COLUMNNAME_lbr_CCM = "lbr_CCM";
 
