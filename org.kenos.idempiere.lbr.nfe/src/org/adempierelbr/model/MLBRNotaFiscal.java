@@ -4507,6 +4507,24 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		{
 			if (!islbr_IsOwnDocument())
 			{
+				//	Check model NF-e to verify mandatory fields
+				if (LBR_NFMODEL_NotaFiscalEletrônica.equals(getlbr_NFModel()))
+				{
+					//	Try to find NF-e ID from DF-e
+					if (getlbr_NFeID() == null)
+					{
+						MLBRPartnerDFe dfe = MLBRPartnerDFe.get (this);
+						//
+						if (dfe != null)
+						{
+							setLBR_PartnerDFe_ID (dfe.getLBR_PartnerDFe_ID());
+							setlbr_NFeID(dfe.getlbr_NFeID());
+							setlbr_DigestValue(dfe.getlbr_DigestValue());
+						}
+						else
+							throw new Exception ("@FillMandatory@ @lbr_NFeID@");
+					}
+				}
 				setDocAction(DOCACTION_None);
 				setDocStatus(DOCSTATUS_Completed);
 				setProcessed(true);
