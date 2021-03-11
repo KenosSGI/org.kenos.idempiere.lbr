@@ -15,6 +15,7 @@ package org.adempierelbr.model;
 
 import java.sql.ResultSet;
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Properties;
 
 import org.adempierelbr.util.TextUtil;
@@ -92,6 +93,28 @@ public class MLBRNCM extends X_LBR_NCM
 		//
 		return tcpg;
 	}	//	getLBR_Tax_ID
+	
+	/**
+	 * 		Retorna o registro mais relevante do imposto do NCM
+	 * 
+	 * 	@param 	Organização
+	 * 	@param 	Valid From
+	 * 	@return NCM Tax
+	 */
+	public List<MLBRNCMTax> getAll (int AD_Org_ID, int C_Region_ID, Timestamp validFrom)
+	{
+		String where = "AD_Org_ID IN (0, ?) AND LBR_NCM_ID=? AND (C_Region_ID IS NULL OR C_Region_ID=?) ";
+		//
+		if (validFrom != null)
+			where += "AND (ValidFrom IS NULL OR ValidFrom<=" + DB.TO_DATE(validFrom) + ") ";
+		//
+		List<MLBRNCMTax> tcpg = new Query (Env.getCtx(), MLBRNCMTax.Table_Name, where, get_TrxName())
+			.setParameters(new Object[]{AD_Org_ID, getLBR_NCM_ID(), C_Region_ID})
+			.setOrderBy("AD_Org_ID DESC, C_Region_ID DESC, ValidFrom DESC")
+			.list();
+		//
+		return tcpg;
+	}	//	getAll
 	
 	/**
 	 * 		Get NCM
