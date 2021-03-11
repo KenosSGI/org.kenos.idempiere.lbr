@@ -936,8 +936,6 @@ public class MLBRTax extends X_LBR_Tax
 				return false;
 			if (!lines1[current].getlbr_TaxBase().stripTrailingZeros().equals(lines2[current].getlbr_TaxBase().stripTrailingZeros()))
 				return false;
-			if (!lines1[current].getlbr_TaxBaseAmt().stripTrailingZeros().equals(lines2[current].getlbr_TaxBaseAmt().stripTrailingZeros()))
-				return false;
 		}
 		
 		return true;
