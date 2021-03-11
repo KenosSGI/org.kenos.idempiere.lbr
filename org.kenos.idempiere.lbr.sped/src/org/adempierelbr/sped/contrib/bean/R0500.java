@@ -16,6 +16,7 @@ import java.sql.Timestamp;
 
 import org.adempierelbr.annotation.XMLFieldProperties;
 import org.adempierelbr.sped.RegSped;
+import org.adempierelbr.sped.bean.I_R0500;
 
 /**
  * REGISTRO 0500: PLANO DE CONTAS CONTÁBEIS
@@ -23,7 +24,7 @@ import org.adempierelbr.sped.RegSped;
  * @author Mario Grigioni, mgrigioni
  * @version $Id: R0500.java, 24/03/2011, 15:04:00, mgrigioni
  */
-public class R0500 extends RegSped {
+public class R0500 extends RegSped implements I_R0500 {
 		@XMLFieldProperties(maxSize = 8, minSize = 8, isNumber = true, id = "DT_ALT")
 	private Timestamp DT_ALT;
 

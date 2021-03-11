@@ -447,7 +447,7 @@ public class SPEDUtil
 			_R0150.add (fact.fillR0150 (ctx, (I_R0150) getReg ("R0150", type), trxName));
 			_R0190.add (fact.fillR0190 (ctx, (I_R0190) getReg ("R0190", type), trxName));
 			_R0200.add (fact.fillR0200 (ctx, (I_R0200) getReg ("R0200", type), trxName));
-			_R0500.add (fact.fillR0500 (ctx, _R0500, trxName));
+			_R0500.add (fact.fillR0500 (ctx, _R0500, type, trxName));
 			
 			//	TEMPORARIO VIDE unqNF
 			if (unqNF.contains(fact.getLBR_NotaFiscal_ID()))

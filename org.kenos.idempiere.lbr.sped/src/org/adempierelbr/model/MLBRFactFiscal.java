@@ -45,7 +45,6 @@ import org.adempierelbr.sped.contrib.bean.RD101;
 import org.adempierelbr.sped.contrib.bean.RD105;
 import org.adempierelbr.sped.contrib.bean.RD501;
 import org.adempierelbr.sped.contrib.bean.RD505;
-import org.adempierelbr.sped.efd.bean.R0500;
 import org.adempierelbr.util.BPartnerUtil;
 import org.adempierelbr.util.TextUtil;
 import org.adempierelbr.wrapper.I_W_M_Product;
@@ -345,7 +344,7 @@ public class MLBRFactFiscal extends X_LBR_FactFiscal
 	 * 	@param ctx Contexto
 	 * 	@param trxName Nome da Transação
 	 */
-	public I_R0500 fillR0500 (Properties ctx, Set<I_R0500> _R0500, String trxName)
+	public I_R0500 fillR0500 (Properties ctx, Set<I_R0500> _R0500, int type, String trxName)
 	{
 		//	Linha Inválida
 		if (getM_Product_ID() == 0)
@@ -362,7 +361,7 @@ public class MLBRFactFiscal extends X_LBR_FactFiscal
 		
 		MElementValue ev = new MElementValue(Env.getCtx(), prodAcct.getP_Asset_A().getAccount().getC_ElementValue_ID(), null);
 		
-		R0500 r0500 = new R0500();		
+		I_R0500 r0500 = (I_R0500) SPEDUtil.getReg("R0500", type);
 		r0500.setCOD_CTA(TextUtil.toNumeric (ev.getValue()));
 		r0500.setNOME_CTA(ev.getName());
 		r0500.setDT_ALT(ev.getCreated());
