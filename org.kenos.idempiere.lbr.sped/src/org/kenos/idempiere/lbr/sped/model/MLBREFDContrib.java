@@ -42,6 +42,7 @@ import org.compiere.process.DocAction;
 import org.compiere.process.DocOptions;
 import org.compiere.process.DocumentEngine;
 import org.compiere.util.DB;
+import org.compiere.util.Env;
 
 /**
  * 		Model for SPED EFD Contribuições
@@ -128,6 +129,11 @@ public class MLBREFDContrib extends X_LBR_EFDContrib implements DocAction, DocOp
 				.filter(c -> !TextUtil.match(c, "LBR_SPEDContribution_ID", "LBR_EFDContrib_ID", "LBR_EFDICMSIPI_ID", "LBR_FactFiscal_UU"))
 				.toArray());
 		
+		I_W_AD_OrgInfo oi = POWrapper.create(MOrgInfo.get(Env.getCtx(), getAD_Org_ID(), null), I_W_AD_OrgInfo.class);
+		String cnpj = oi.getlbr_CNPJ();
+		if (cnpj != null && cnpj.length() == 18)
+			cnpj = cnpj.substring(0, 10) + "%";
+		
 		//	TODO: Compare againt LBR_FactFiscalBase when LBR_FactFiscalBase is created in framework
 		Arrays.asList(MTable.get(getCtx(), "LBR_FactFiscal")	//	Change to LBR_FactFiscalBase
 				.getColumns(false))
@@ -148,7 +154,8 @@ public class MLBREFDContrib extends X_LBR_EFDContrib implements DocAction, DocOp
 				+ " WHERE (CASE WHEN IsSOTrx='Y' THEN DateDoc ELSE lbr_DateInOut END) BETWEEN " + DB.TO_DATE(getStartDate())
 				+ " AND " + DB.TO_DATE(getEndDate())
 				+ " AND ((IsSOTrx = 'Y' AND lbr_NFeProt IS NOT NULL) OR IsSOTrx ='N') "
-				+ " AND AD_Client_ID = " + getAD_Client_ID(), get_TrxName());
+				+ " AND AD_Client_ID = " + getAD_Client_ID()
+				+ " AND AD_Org_ID IN (SELECT oo.AD_Org_ID FROM AD_OrgInfo oo WHERE oo.LBR_CNPJ LIKE '" + cnpj + "')", get_TrxName());
 		
 		m_processMsg = ModelValidationEngine.get().fireDocValidate(this, ModelValidator.TIMING_AFTER_PREPARE);
 		if (m_processMsg != null)
