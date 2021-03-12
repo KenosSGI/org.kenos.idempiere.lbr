@@ -284,12 +284,9 @@ public class MLBRNFeEvent extends X_LBR_NFeEvent implements DocAction
 				evento.setVersao(NFeUtil.VERSAO_EVENTO);
 				TEvento.InfEvento infEv = evento.addNewInfEvento();
 				
-				//	Configurações da NF-e
-				MLBRNFConfig config = MLBRNFConfig.get(oiW.getAD_Org_ID(), getlbr_NFModel());
-				
 				//	Informações do Evento da Carta de Correção
 				infEv.setCOrgao(TCOrgaoIBGE.Enum.forString(Integer.toString (NFeUtil.getRegionCode (oi))));
-				infEv.setTpAmb(TAmb.Enum.forString(config.getlbr_NFeEnv()));
+				infEv.setTpAmb(TAmb.Enum.forString(getlbr_NFeEnv()));
 				
 				//	CPF ou CNPJ
 				String CNPJF = TextUtil.toNumeric (oiW.getlbr_CNPJ());
@@ -403,7 +400,7 @@ public class MLBRNFeEvent extends X_LBR_NFeEvent implements DocAction
 				log.fine (xml.toString());
 	
 				//	Procura os endereços para Transmissão
-				MLBRNFeWebService ws = MLBRNFeWebService.get (MLBRNFeWebService.RECEPCAOEVENTO, config.getlbr_NFeEnv(), NFeUtil.VERSAO_LAYOUT, p_Org_Region_ID, 0);
+				MLBRNFeWebService ws = MLBRNFeWebService.get (MLBRNFeWebService.RECEPCAOEVENTO, getlbr_NFeEnv(), NFeUtil.VERSAO_LAYOUT, p_Org_Region_ID, 0);
 				
 				if (ws == null)
 				{
@@ -729,6 +726,13 @@ public class MLBRNFeEvent extends X_LBR_NFeEvent implements DocAction
 			//
 			setSeqNo (seqNo);
 			setDateDoc(new Timestamp(System.currentTimeMillis()));
+			
+			if (getlbr_NFeEnv() == null)
+			{
+				MLBRNFConfig config = MLBRNFConfig.get(getAD_Org_ID(), getlbr_NFModel());
+				if (config != null)
+					setlbr_NFeEnv(config.getlbr_NFeEnv());
+			}
 		}
 		
 		//	Remover espaços do campo de Carta de Correção
@@ -773,6 +777,7 @@ public class MLBRNFeEvent extends X_LBR_NFeEvent implements DocAction
 		event.setLBR_NotaFiscal_ID(nf.getLBR_NotaFiscal_ID());
 		event.setlbr_NFeID(nf.getlbr_NFeID());
 		event.setLBR_EventType(eventType);
+		event.setlbr_NFeEnv(nf.getlbr_NFeEnv());
 		event.setDescription(desc);
 		event.setDateDoc(new Timestamp (System.currentTimeMillis()));
 		event.setSeqNo(seqNo);

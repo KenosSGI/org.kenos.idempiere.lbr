@@ -23,7 +23,7 @@ import org.compiere.util.KeyNamePair;
 
 /** Generated Interface for LBR_NFeLot
  *  @author iDempiere (generated) 
- *  @version Release 4.1
+ *  @version Release 6.2
  */
 @SuppressWarnings("all")
 public interface I_LBR_NFeLot 
@@ -206,6 +206,15 @@ public interface I_LBR_NFeLot
 	/** Get NFe Lot	  */
 	public int getLBR_NFeLot_ID();
 
+    /** Column name LBR_NFeLot_UU */
+    public static final String COLUMNNAME_LBR_NFeLot_UU = "LBR_NFeLot_UU";
+
+	/** Set LBR_NFeLot_UU	  */
+	public void setLBR_NFeLot_UU (String LBR_NFeLot_UU);
+
+	/** Get LBR_NFeLot_UU	  */
+	public String getLBR_NFeLot_UU();
+
     /** Column name LBR_Processing2 */
     public static final String COLUMNNAME_LBR_Processing2 = "LBR_Processing2";
 
@@ -309,6 +318,15 @@ public interface I_LBR_NFeLot
 	  * Status of Answer NFe
 	  */
 	public String getlbr_NFeAnswerStatus();
+
+    /** Column name lbr_NFeEnv */
+    public static final String COLUMNNAME_lbr_NFeEnv = "lbr_NFeEnv";
+
+	/** Set NFe Environment	  */
+	public void setlbr_NFeEnv (String lbr_NFeEnv);
+
+	/** Get NFe Environment	  */
+	public String getlbr_NFeEnv();
 
     /** Column name lbr_NFeRecID */
     public static final String COLUMNNAME_lbr_NFeRecID = "lbr_NFeRecID";

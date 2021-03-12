@@ -23,7 +23,7 @@ import org.compiere.util.KeyNamePair;
 
 /** Generated Interface for LBR_NFeEvent
  *  @author iDempiere (generated) 
- *  @version Release 4.1
+ *  @version Release 6.2
  */
 @SuppressWarnings("all")
 public interface I_LBR_NFeEvent 
@@ -345,6 +345,15 @@ public interface I_LBR_NFeEvent
 	  * Identifies the model of Nota Fiscal
 	  */
 	public String getlbr_NFModel();
+
+    /** Column name lbr_NFeEnv */
+    public static final String COLUMNNAME_lbr_NFeEnv = "lbr_NFeEnv";
+
+	/** Set NFe Environment	  */
+	public void setlbr_NFeEnv (String lbr_NFeEnv);
+
+	/** Get NFe Environment	  */
+	public String getlbr_NFeEnv();
 
     /** Column name lbr_NFeID */
     public static final String COLUMNNAME_lbr_NFeID = "lbr_NFeID";
