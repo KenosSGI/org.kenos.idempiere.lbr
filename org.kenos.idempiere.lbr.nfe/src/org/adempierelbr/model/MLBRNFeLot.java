@@ -162,12 +162,7 @@ public class MLBRNFeLot extends X_LBR_NFeLot implements DocAction, DocOptions
 		log.fine("Envia Lote: " + getDocumentNo());
 
 		MOrgInfo oi = MOrgInfo.get(ctx, getAD_Org_ID(), null);
-		MLBRNFConfig config = MLBRNFConfig.get(getAD_Org_ID(), getlbr_NFModel());
-		
-		String envType 	= null;
-		
-		if (config != null)
-			envType = config.getlbr_NFeEnv();			
+		String envType = getlbr_NFeEnv();			
 		//
 		if (envType == null || envType.equals(""))
 			throw new Exception ("Ambiente da NF-e deve ser preenchido.");
@@ -361,15 +356,7 @@ public class MLBRNFeLot extends X_LBR_NFeLot implements DocAction, DocOptions
 		}
 		//
 		MOrgInfo oi = MOrgInfo.get(ctx, getAD_Org_ID(), null);
-		MLBRNFConfig config = MLBRNFConfig.get(getAD_Org_ID(), getlbr_NFModel());
-		
-		String envType 	= null;
-		
-		if (config != null)
-			envType = config.getlbr_NFeEnv();		
-		//
-		if (envType == null || envType.equals(""))
-			throw new Exception ("Ambiente da NF-e deve ser preenchido.");
+		String envType = getlbr_NFeEnv();		
 		//
 		MLocation orgLoc = new MLocation(getCtx(),oi.getC_Location_ID(),null);
 

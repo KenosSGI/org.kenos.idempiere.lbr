@@ -71,6 +71,8 @@ public class Payment
 	public boolean         	m_isLocked = false;
 	
 	public boolean		 	m_IsSOTrx = false;
+	
+	private final int		PAYAMT_COL = 10;
 
 	/**	Logger			*/
 	public static CLogger log = CLogger.getCLogger(Payment.class);
@@ -194,6 +196,7 @@ public class Payment
 		m_sql = miniTable.prepareTable(new ColumnInfo[] {
 			//  0..4
 			new ColumnInfo(" ", "i.C_Invoice_ID", IDColumn.class, false, false, null),
+			new ColumnInfo(Msg.translate(ctx, "AD_Org_ID"), "o.Name", KeyNamePair.class, true, false, "i.AD_Org_ID"),
 			new ColumnInfo(Msg.translate(ctx, "DueDate"), "i.DueDate AS DateDue", Timestamp.class, true, true, null),
 			new ColumnInfo(Msg.translate(ctx, "C_BPartner_ID"), "bp.Name", KeyNamePair.class, true, false, "i.C_BPartner_ID"),
 			new ColumnInfo("CNPJ/CPF/ID", "COALESCE (bp.LBR_CNPJ, bp.LBR_CPF, bp.TaxID)", String.class),
@@ -211,7 +214,8 @@ public class Payment
 			"C_Invoice_v i"
 			+ " INNER JOIN C_BPartner bp ON (i.C_BPartner_ID=bp.C_BPartner_ID)"
 			+ " INNER JOIN C_Currency c ON (i.C_Currency_ID=c.C_Currency_ID)"
-			+ " INNER JOIN C_PaymentTerm p ON (i.C_PaymentTerm_ID=p.C_PaymentTerm_ID)",
+			+ " INNER JOIN C_PaymentTerm p ON (i.C_PaymentTerm_ID=p.C_PaymentTerm_ID)"
+			+ " INNER JOIN AD_Org o ON (i.AD_Org_ID=o.AD_Org_ID)",
 			//	WHERE
 			"i.IsSOTrx=? AND IsPaid='N'"
 			//	Different Payment Selection
@@ -232,6 +236,7 @@ public class Payment
 		m_sql_order = miniTable.prepareTable(new ColumnInfo[] {
 			//  0..4
 			new ColumnInfo(" ", "i.C_Order_ID", IDColumn.class, false, false, null),
+			new ColumnInfo(Msg.translate(ctx, "AD_Org_ID"), "o.Name", KeyNamePair.class, true, false, "i.AD_Org_ID"),
 			new ColumnInfo(Msg.translate(ctx, "DueDate"), "i.DateOrdered AS DateOrdered", Timestamp.class, true, true, null),
 			new ColumnInfo(Msg.translate(ctx, "C_BPartner_ID"), "bp.Name", KeyNamePair.class, true, false, "i.C_BPartner_ID"),
 			new ColumnInfo("CNPJ/CPF/ID", "COALESCE (bp.LBR_CNPJ, bp.LBR_CPF, bp.TaxID)", String.class),
@@ -247,7 +252,8 @@ public class Payment
 			"C_Order i"
 			+ " INNER JOIN C_BPartner bp ON (i.C_BPartner_ID=bp.C_BPartner_ID)"
 			+ " INNER JOIN C_Currency c ON (i.C_Currency_ID=c.C_Currency_ID)"
-			+ " INNER JOIN C_PaymentTerm p ON (i.C_PaymentTerm_ID=p.C_PaymentTerm_ID)",
+			+ " INNER JOIN C_PaymentTerm p ON (i.C_PaymentTerm_ID=p.C_PaymentTerm_ID)"
+			+ " INNER JOIN AD_Org o ON (i.AD_Org_ID=o.AD_Org_ID)",
 			//	WHERE
 			"i.IsSOTrx=? "
 			//	Different Payment Selection
@@ -396,7 +402,7 @@ public class Payment
 			IDColumn id = (IDColumn)miniTable.getValueAt(i, 0);
 			if (id.isSelected())
 			{
-				BigDecimal amt = (BigDecimal)miniTable.getValueAt(i, 7);
+				BigDecimal amt = (BigDecimal)miniTable.getValueAt(i, PAYAMT_COL);
 				if (amt != null)
 					invoiceAmt = invoiceAmt.add(amt);
 				m_noSelected++;
@@ -433,7 +439,7 @@ public class Payment
 				MPayment p = new MPayment (Env.getCtx(), 0, trxName);
 				int Doc_ID = id.getRecord_ID().intValue();
 //				BigDecimal OpenAmt = (BigDecimal)miniTable.getValueAt(i, 6);
-				BigDecimal PayAmt = (BigDecimal)miniTable.getValueAt(i, 9);
+				BigDecimal PayAmt = (BigDecimal)miniTable.getValueAt(i, PAYAMT_COL);
 				
 				Boolean isSOTrx = null;
 				int C_BPartner_ID = 0;
