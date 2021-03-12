@@ -18,6 +18,7 @@ import java.math.RoundingMode;
 
 import org.adempierelbr.annotation.XMLFieldProperties;
 import org.adempierelbr.sped.RegSped;
+import org.adempierelbr.sped.bean.I_RC170;
 import org.compiere.util.Env;
 
 /**
@@ -26,7 +27,7 @@ import org.compiere.util.Env;
  * @author Mario Grigioni, mgrigioni
  * @version $Id: RC170.java, 07/02/2011, 09:39:00, mgrigioni
  */
-public class RC170 extends RegSped {
+public class RC170 extends RegSped implements I_RC170 {
 	@XMLFieldProperties(maxSize = 3, id = "NUM_ITEM")
 	private Integer NUM_ITEM;
 

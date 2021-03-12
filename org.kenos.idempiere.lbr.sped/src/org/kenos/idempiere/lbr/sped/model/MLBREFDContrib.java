@@ -193,6 +193,7 @@ public class MLBREFDContrib extends X_LBR_EFDContrib implements DocAction, DocOp
 		}
 		catch (Exception e)
 		{
+			e.printStackTrace();
 			return "@Error@ ao Gerar o SPED Fiscal";
 		}		
 		

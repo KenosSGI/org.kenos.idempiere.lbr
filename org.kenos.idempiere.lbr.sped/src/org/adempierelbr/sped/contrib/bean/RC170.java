@@ -16,6 +16,7 @@ import java.math.BigDecimal;
 
 import org.adempierelbr.annotation.XMLFieldProperties;
 import org.adempierelbr.sped.RegSped;
+import org.adempierelbr.sped.bean.I_RC170;
 
 /**
  * 	REGISTRO C170:
@@ -24,10 +25,10 @@ import org.adempierelbr.sped.RegSped;
  * 	@author Rogério Feitosa (Kenos, www.kenos.com.br)
  *	@version $Id: RC170.java, v1.0 2013/02/02 11:39:22 AM, rfeitosa Exp $
  */
-public class RC170 extends RegSped
+public class RC170 extends RegSped implements I_RC170
 {
 	@XMLFieldProperties(minSize=1, maxSize = 3, id = "NUM_ITEM", isNumber=true)
-	private String NUM_ITEM;
+	private Integer NUM_ITEM;
 		
 	@XMLFieldProperties(minSize=1, maxSize = 60, id = "COD_ITEM")
 	private String COD_ITEM;
@@ -134,12 +135,12 @@ public class RC170 extends RegSped
 	@XMLFieldProperties(maxSize=60, id = "COD_CTA", isMandatory=false)
 	private String COD_CTA;
 
-	public String getNUM_ITEM()
+	public Integer getNUM_ITEM()
 	{
 		return NUM_ITEM;
 	}
 
-	public void setNUM_ITEM(String nUM_ITEM)
+	public void setNUM_ITEM(Integer nUM_ITEM)
 	{
 		NUM_ITEM = nUM_ITEM;
 	}

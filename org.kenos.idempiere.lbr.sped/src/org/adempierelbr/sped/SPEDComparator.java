@@ -15,6 +15,7 @@ package org.adempierelbr.sped;
 import java.util.Comparator;
 
 import org.adempierelbr.sped.bean.I_R0200;
+import org.adempierelbr.sped.bean.I_RC170;
 
 /**
  * 		Comparator
@@ -36,6 +37,11 @@ public class SPEDComparator implements Comparator<Object>
 				&& ((I_R0200) o1).getCOD_ITEM() != null)
 		{
 			return ((I_R0200) o1).getCOD_ITEM().compareTo(((I_R0200) o2).getCOD_ITEM());
+		}
+		if (o1 instanceof I_RC170 && o2 instanceof I_RC170
+				&& ((I_RC170) o1).getNUM_ITEM() != null)
+		{
+			return ((I_RC170) o1).getNUM_ITEM().compareTo(((I_RC170) o2).getNUM_ITEM());
 		}
 		//
 		return o1.toString().replace("|", "0").compareTo (o2.toString().replace("|", "0"));

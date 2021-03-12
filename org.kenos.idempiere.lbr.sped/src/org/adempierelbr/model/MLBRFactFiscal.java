@@ -494,7 +494,7 @@ public class MLBRFactFiscal extends X_LBR_FactFiscal
 	private RA170 getRA170 ()
 	{
 		RA170 rA170 = new RA170 ();
-		rA170.setNUM_ITEM (String.valueOf (getLine()));
+		rA170.setNUM_ITEM (getLine());
 		rA170.setCOD_ITEM (getProductValue());
 		rA170.setDESCR_COMPL (getProductName());
 		rA170.setVL_ITEM (getLineNetAmt());
@@ -827,7 +827,10 @@ public class MLBRFactFiscal extends X_LBR_FactFiscal
 	 */
 	public I_RD100 getRD100 (Properties ctx, I_RD100 rD100, String trxName) throws Exception
 	{
-		PropertyUtils.copyProperties (rD100, getRC100 (ctx, (I_RC100) new RC100 (), trxName));
+		I_RC100 rc100 = getRC100 (ctx, (I_RC100) new RC100 (), trxName);
+		PropertyUtils.copyProperties (rD100, rc100);
+		rD100.setCHV_CTE(rc100.getCHV_NFE());
+		//
 		if (!isCancelled())
 		{
 			rD100.setVL_SERV (getGrandTotal());

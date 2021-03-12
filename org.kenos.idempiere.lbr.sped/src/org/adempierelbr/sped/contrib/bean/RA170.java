@@ -28,7 +28,7 @@ import org.adempierelbr.sped.bean.I_FiscalDocItem;
 public class RA170 extends RegSped implements I_FiscalDocItem
 {
 	@XMLFieldProperties(maxSize=4, id = "NUM_ITEM", isNumber=true)
-	private String NUM_ITEM;
+	private Integer NUM_ITEM;
 	
 	@XMLFieldProperties(maxSize=60, id = "COD_ITEM")
 	private String COD_ITEM;
@@ -78,12 +78,12 @@ public class RA170 extends RegSped implements I_FiscalDocItem
 	@XMLFieldProperties(maxSize=60, isMandatory=false, id = "COD_CCUS")
 	private String COD_CCUS;
 
-	public String getNUM_ITEM()
+	public Integer getNUM_ITEM()
 	{
 		return NUM_ITEM;
 	}
 
-	public void setNUM_ITEM(String nUM_ITEM)
+	public void setNUM_ITEM(Integer nUM_ITEM)
 	{
 		NUM_ITEM = nUM_ITEM;
 	}

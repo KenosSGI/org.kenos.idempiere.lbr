@@ -78,6 +78,7 @@ import org.compiere.model.MCity;
 import org.compiere.model.MLocation;
 import org.compiere.model.MOrgInfo;
 import org.compiere.model.MUser;
+import org.compiere.util.CLogger;
 import org.compiere.util.Env;
 
 /**
@@ -86,6 +87,7 @@ import org.compiere.util.Env;
  * 	@author Ricardo Santana (Kenos, www.kenos.com.br)
  *	@version $Id: SPEDUtil.java, v1.0 2013/02/02 14:47:07 PM, ralexsander Exp $
  */
+@SuppressWarnings("unused")
 public class SPEDUtil
 {
 	/** String PIPE			*/
@@ -395,6 +397,9 @@ public class SPEDUtil
 	
 	static List<I_FiscalDocItem> items = new ArrayList<I_FiscalDocItem>();
 
+	/**	Logger							*/
+	protected transient CLogger	log = CLogger.getCLogger (getClass());
+	
 	/**
 	 * 	Processa todos os Fatos Fiscais
 	 * 
@@ -723,7 +728,7 @@ public class SPEDUtil
 			else
 				throw new ClassNotFoundException (">>>>" + regName);
 			//
-			return clazz.newInstance();
+			return clazz.getConstructor().newInstance();
 		}
 		catch (Exception e)
 		{
@@ -757,7 +762,7 @@ public class SPEDUtil
 			else
 				throw new ClassNotFoundException (">>>>" + regName);
 			//
-			return clazz.newInstance();
+			return clazz.getConstructor().newInstance();
 		}
 		catch (Exception e)
 		{

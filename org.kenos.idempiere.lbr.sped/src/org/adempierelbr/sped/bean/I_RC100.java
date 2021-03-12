@@ -28,6 +28,7 @@ import org.adempierelbr.sped.contrib.bean.RC170;
 public interface I_RC100
 {
 	public void setCHV_NFE (String str);
+	public String getCHV_NFE ();
 	public void setCOD_MOD (String str);
 	public void setCOD_PART (String str);
 	public void setCOD_SIT (String str);
