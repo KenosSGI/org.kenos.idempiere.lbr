@@ -44,5 +44,5 @@ UPDATE LBR_TaxLine SET LBR_TaxStatus_ID=1120094 WHERE LBR_TaxStatus_ID=1120010 A
 ;
 
 -- 11 de mar de 2021 14:26:35 BRT
-SELECT Register_Migration_Script ('202103101727_PaySelectMessage.sql') FROM DUAL
+SELECT Register_Migration_Script ('202103111426_FixCSTOnTaxLine.sql') FROM DUAL
 ;
