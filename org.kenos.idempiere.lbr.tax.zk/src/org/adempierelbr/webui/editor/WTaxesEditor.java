@@ -15,15 +15,20 @@ import org.adempierelbr.webui.component.Taxesbox;
 import org.adempierelbr.webui.window.WTaxesDialog;
 import org.compiere.model.GridField;
 import org.compiere.model.GridTab;
+import org.compiere.util.Env;
+import org.compiere.util.Msg;
+import org.compiere.util.Util;
 import org.zkoss.zk.au.out.AuScript;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.Events;
 import org.zkoss.zk.ui.util.Clients;
+import org.zkoss.zul.Menuitem;
 
 public class WTaxesEditor extends WEditor implements ContextMenuListener
 {
 	private Object m_value;
 	private MLBRTaxesLookup m_Taxes;
+	private Menuitem prefItem;
 	/**
      * 
      * @param gridField
@@ -40,9 +45,19 @@ public class WTaxesEditor extends WEditor implements ContextMenuListener
     	getComponent().getTextbox().setReadonly(true);
 		getComponent().addEventListener(Events.ON_CLICK, this);
     	
-    	popupMenu = new WEditorPopupMenu(false, false, isShowPreference());
+    	popupMenu = new WEditorPopupMenu(false, false, false);
     	popupMenu.addMenuListener(this);
     	addChangeLogMenu(popupMenu);
+    	
+    	prefItem = new Menuitem();
+        prefItem.setAttribute(WEditorPopupMenu.EVENT_ATTRIBUTE, WEditorPopupMenu.PREFERENCE_EVENT);
+        prefItem.setLabel(Util.cleanAmp(Msg.getMsg(Env.getCtx(), "Delete")).intern());
+        if (ThemeManager.isUseFontIconForImage())
+        	prefItem.setIconSclass("z-icon-Delete");
+        else
+        	prefItem.setImage(ThemeManager.getThemeResource("images/Delete16.png"));
+        prefItem.addEventListener(Events.ON_CLICK, this);
+        popupMenu.appendChild(prefItem);
     }
 	
 	@Override
@@ -68,7 +83,34 @@ public class WTaxesEditor extends WEditor implements ContextMenuListener
 		}
 		else if (Events.ON_CLICK.equals(event.getName()))
 		{
-			cmd_dialog();
+			if (event.getTarget() == prefItem)
+			{
+				if (m_value != null)
+				{
+					MLBRTax tax = (MLBRTax) m_value;
+					tax.deleteLines();
+					tax.setDescription();
+					tax.save();
+					
+					Integer LBR_Tax_ID = tax.getLBR_Tax_ID();
+
+					// set & redisplay
+					setValue(null);
+					
+					//	we need always fire an event, to UI be updated
+					ValueChangeEvent changeEvent = new ValueChangeEvent(WTaxesEditor.this, getColumnName(), LBR_Tax_ID, null);
+					fireValueChange(changeEvent);
+					
+					//	Mandatory can't be null
+					if (isMandatory())
+					{
+						changeEvent = new ValueChangeEvent(WTaxesEditor.this, getColumnName(), LBR_Tax_ID, LBR_Tax_ID);
+						fireValueChange(changeEvent);
+					}
+				}
+			}
+			else
+				cmd_dialog();
 		}
 	}
 	
@@ -155,7 +197,7 @@ public class WTaxesEditor extends WEditor implements ContextMenuListener
 		if (m_value == null)
             return null;
 		
-		return ((X_LBR_Tax) m_value).getLBR_Tax_ID();
+		return ((MLBRTax) m_value).getLBR_Tax_ID();
 	}
 
 	@Override
