@@ -30,6 +30,7 @@ public class SysConfig
 	public static final String LBR_CUSTOM_NFSE_EMAIL_MESSAGE 					= "LBR_CUSTOM_NFSE_EMAIL_MESSAGE";
 	public static final String LBR_DATEINOUT_NF 								= "LBR_DATEINOUT_NF";
 	public static final String LBR_DEBUG_RPS 									= "LBR_DEBUG_RPS";
+	public static final String LBR_DEFAULT_TIMEZONE 							= "LBR_DEFAULT_TIMEZONE";
 	public static final String LBR_DFE_LAST_NSU 								= "LBR_DFE_LAST_NSU";
 	public static final String LBR_DIVIDE_PRODUCT_RECEPT_WHEN_SERIALNUMBER 		= "LBR_DIVIDE_PRODUCT_RECEPT_WHEN_SERIALNUMBER";
 	public static final String LBR_ENABLED 										= "LBR_ENABLED";
