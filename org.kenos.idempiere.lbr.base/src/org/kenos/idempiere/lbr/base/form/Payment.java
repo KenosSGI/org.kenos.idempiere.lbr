@@ -349,7 +349,7 @@ public class Payment
 		if (restriction != null)
 			sql += " AND " + restriction;
 			
-		sql += " ORDER BY 2,3";
+		sql += " ORDER BY 2,4,5";	//	2=Org Name, 4=DueDate, 5=Partner Name
 
 		log.finest(sql + " - C_Currency_ID=" + bi.C_Currency_ID + ", C_BPartner_ID=" + C_BPartner_ID + ", C_doctype_id=" + C_DocType_ID  );
 		//  Get Open Invoices
