@@ -21,7 +21,6 @@ package org.kenos.idempiere.lbr.base.zk.form;
 import java.io.File;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.TimeZone;
 import java.util.logging.Level;
 
 import org.adempiere.util.Callback;
@@ -247,11 +246,6 @@ public class WPayment extends Payment
 
 		showGroupCia.setText(Msg.translate(Env.getCtx(), "LBR_InterCompany"));
 		showGroupCia.addActionListener(this);
-		
-		TimeZone tz = TimeZone.getTimeZone("GMT-3:00");
-		fieldPayDate.getComponent().setTimeZone(tz);
-		fieldDueDate1.getComponent().setTimeZone(tz);
-		fieldDueDate2.getComponent().setTimeZone(tz);
 		
 		//IDEMPIERE-2657, pritesh shah
 		bGenerate.setEnabled(false);
