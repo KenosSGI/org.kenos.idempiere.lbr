@@ -2659,6 +2659,8 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		MInvoicePaySchedule[] ipss = MInvoicePaySchedule.getInvoicePaySchedule(getCtx(), wInvoice.getC_Invoice_ID(), 0, get_TrxName());
 		for (MInvoicePaySchedule ips : ipss)
 		{
+			if (ips.getDueAmt().signum() == 0)
+				continue;
 			MLBRNFPaySchedule nfps = new MLBRNFPaySchedule(getCtx(), 0, get_TrxName());
 			PO.copyValues(nfps,ips);
 			nfps.setLBR_NotaFiscal_ID(getLBR_NotaFiscal_ID());
@@ -2684,6 +2686,8 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		MOrderPaySchedule[] opss = MOrderPaySchedule.getOrderPaySchedule(getCtx(), wOrder.getC_Order_ID(), 0, get_TrxName());
 		for (MOrderPaySchedule ops : opss)
 		{
+			if (ops.getDueAmt().signum() == 0)
+				continue;
 			MLBRNFPaySchedule nfps = new MLBRNFPaySchedule(getCtx(), 0, get_TrxName());
 			nfps.setLBR_NotaFiscal_ID(getLBR_NotaFiscal_ID());
 			nfps.setAD_Org_ID(ops.getAD_Org_ID());
