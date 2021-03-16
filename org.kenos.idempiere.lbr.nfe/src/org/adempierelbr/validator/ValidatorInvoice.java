@@ -22,12 +22,9 @@ import org.adempiere.exceptions.AdempiereException;
 import org.adempiere.model.POWrapper;
 import org.adempierelbr.model.MLBRNotaFiscal;
 import org.adempierelbr.model.MLBRTax;
-import org.adempierelbr.model.MLBRTaxLine;
-import org.adempierelbr.model.MLBRTaxName;
-import org.adempierelbr.model.MLBRTaxStatus;
 import org.adempierelbr.model.MPaymentTerm;
-import org.adempierelbr.nfe.NFeXMLGenerator;
 import org.adempierelbr.process.PrintFromXML;
+import org.adempierelbr.util.TextUtil;
 import org.adempierelbr.wrapper.I_W_AD_ClientInfo;
 import org.adempierelbr.wrapper.I_W_C_DocType;
 import org.adempierelbr.wrapper.I_W_C_Invoice;
@@ -63,7 +60,7 @@ import org.compiere.util.CLogger;
 import org.compiere.util.Env;
 import org.compiere.util.Msg;
 import org.compiere.util.Trx;
-import org.kenos.idempiere.lbr.base.model.MLBRProductTaxControl;
+import org.kenos.idempiere.lbr.base.model.MLBRTaxHold;
 import org.kenos.idempiere.lbr.base.model.SysConfig;
 
 /**
@@ -605,7 +602,7 @@ public class ValidatorInvoice implements ModelValidator
 					// Calcular ICMS Substituto. ICMS Substituto contém o ICMS do Parceiro de Negócio que emitiu uma Nota Fiscal com ICMSST, ou seja,
 					// cobrando antecipadamente o ICMS do consumidor final na revenda.
 					// Deve ser informado quando houver ICMSST, Situação Tributária 60
-					calculateICMSSubstitute(iLine, false);
+					holdTax (iLine);
 					
 					//	Somente para faturamento baseado nas entregas
 					if (iLine.getM_InOutLine_ID() <= 0)
@@ -707,21 +704,6 @@ public class ValidatorInvoice implements ModelValidator
 						return "Não é possível estornar uma Fatura, cancele as Notas Fiscais vinculadas primeiro.";
 			}
 		}
-		else if (timing == TIMING_AFTER_REVERSECORRECT || timing == TIMING_AFTER_REVERSEACCRUAL)
-		{
-			for (MInvoiceLine iLine : invoice.getLines())
-			{
-				// Para Estorno, considerar apenas a fatura do estorno
-				// ou seja, com sinal negativo
-				//if (iLine.getQtyInvoiced().signum() == -1)
-				//{
-					// Calcular ICMS Substituto. ICMS Substituto contém o ICMS do Parceiro de Negócio que emitiu uma Nota Fiscal com ICMSST, ou seja,
-					// cobrando antecipadamente o ICMS do consumidor final na revenda.
-					// Deve ser informado quando houver ICMSST, Situação Tributária 60
-					calculateICMSSubstitute(iLine, true);
-				//}
-			}
-		}
 
 		return null;
 	}	//	docValidate
@@ -734,193 +716,51 @@ public class ValidatorInvoice implements ModelValidator
 	 * Deve ser informado quando houver ICMSST, Situação Tributária 60
 	 * @param iLine
 	 */
-	public void calculateICMSSubstitute(MInvoiceLine iLine, Boolean isReverse)
+	public void holdTax (MInvoiceLine iLine)
 	{
 		MInvoice invoice = (MInvoice) iLine.getC_Invoice();
+		if (invoice.isReversal())
+			return;
 		
 		I_W_C_InvoiceLine wil = POWrapper.create(iLine, I_W_C_InvoiceLine.class);
 		MLBRTax tax = new MLBRTax(Env.getCtx(), wil.getLBR_Tax_ID(), iLine.get_TrxName());
 		
-		BigDecimal icmsAmt = BigDecimal.ZERO;
-		
+		//	Do not consider reversal values of ICMS
+		if (invoice.isReversal())
+			return;
+
 		//	Quantidade Faturada
-		BigDecimal qtyInvoiced = iLine.getQtyInvoiced().abs();
+		BigDecimal qtyInvoiced = iLine.getQtyInvoiced();
+		if (qtyInvoiced.signum() != 1)
+			return;
 		
-		MLBRTaxLine[] lines = tax.getLines();
-		
-		// Na Saída, verificar se o icms substitudo foi preenchido.
-		// Se sim, remover a quantidade total relacionada a icms substito guardada para calculo de média ponderada
-		if (invoice.isSOTrx())
+		//	NF In
+		if (!invoice.isSOTrx() && TextUtil.match(tax.getICMSSTTaxCST(), "10", "60", "70"))
 		{
-			for (int i = 0; i < lines.length; i++)
-			{
-				MLBRTaxLine line = lines[i];
-				
-				String taxStatus = new MLBRTaxStatus (Env.getCtx(), line.getLBR_TaxStatus_ID(), null).getTaxStatus(invoice.isSOTrx());
-				
-//				Controle de Imposto por Produto e por Organização
-				MLBRProductTaxControl tc = MLBRProductTaxControl.getProductTaxControl(iLine.getM_Product_ID(), iLine.getAD_Org_ID());
-				
-				// Se houver ICMSST com ST 60 e o ICMS Substituo foi informado
-				if (MLBRTaxName.TAX_ICMSST == line.getLBR_TaxName_ID()
-						&& (NFeXMLGenerator.CST_ICMS_60.equals(taxStatus) || NFeXMLGenerator.CST_ICMS_70.equals(taxStatus))
-						&& tc != null)
-				{					
-					BigDecimal qtyICMSSub = BigDecimal.ZERO;
-					//	Estorno, devolver quantidade
-					if (isReverse)
-					{
-						// Reduzir o total guardado para calculo da media ponderada
-						qtyICMSSub = tc.getLBR_QtyICMSSubstitute().add(qtyInvoiced);
-																															
-						tc.setLBR_QtyICMSSubstitute(qtyICMSSub);
-						tc.saveEx();
-					}
-					else if (line.getLBR_ICMSSubstituto().intValue() == 0)
-					{
-						// Reduzir o total guardado para calculo da media ponderada
-						qtyICMSSub = tc.getLBR_QtyICMSSubstitute().subtract(qtyInvoiced);
-						
-						tc.setLBR_QtyICMSSubstitute(qtyICMSSub);
-						tc.saveEx();
-					}
-				}
-			}
-		}		
-		// Na entrada, verificar se existe ICMSST, CST 60.
-		// Se sim, calcular a média ponderada do ICMS do Parceiro Substituto
-		else if (!invoice.isSOTrx())
-		{			
-			for (int i = 0; i < lines.length; i++)
-			{
-				MLBRTaxLine line = lines[i];
-				
-				String taxStatus = new MLBRTaxStatus (Env.getCtx(), line.getLBR_TaxStatus_ID(), null).getTaxStatus(invoice.isSOTrx());
-				
-				// Guardar Quantidade do ICMS do Parceiro Substituto
-				if (MLBRTaxName.TAX_ICMSPROD == line.getLBR_TaxName_ID())
-				{
-					//	ICMS do Substituto
-					icmsAmt = line.getlbr_TaxAmt().abs();
-				}
-				
-				// Se houver ICMSST com ST 60, calcular o icms do substituto
-				if (MLBRTaxName.TAX_ICMSST == line.getLBR_TaxName_ID()
-						&& (NFeXMLGenerator.CST_ICMS_60.equals(taxStatus) || NFeXMLGenerator.CST_ICMS_70.equals(taxStatus)))
-				{
-					//	ICMS Unitário
-					BigDecimal icmsUnit = icmsAmt.divide(qtyInvoiced,RoundingMode.HALF_UP).abs();
-					
-					//	ICMSST Unitário
-					BigDecimal icmsstUnit = line.getlbr_TaxAmt().abs().divide(qtyInvoiced,RoundingMode.HALF_UP).abs();
-					
-					//	Controle de Imposto por Produto e por Organização
-					MLBRProductTaxControl tc = MLBRProductTaxControl.getProductTaxControl(iLine.getM_Product_ID(), iLine.getAD_Org_ID());
-					
-					//
-					if (tc != null)
-					{
-						// Se Quantidade ou Valor estiverem menor que zero
-						if (BigDecimal.ZERO.compareTo(tc.getLBR_QtyICMSSubstitute()) > 0
-								|| BigDecimal.ZERO.compareTo(tc.getLBR_ICMSSubstituto()) > 0)
-						{
-							tc.setLBR_QtyICMSSubstitute(qtyInvoiced);
-							tc.setLBR_ICMSSubstituto(icmsUnit);
-							tc.setICMSST_TaxAmt(icmsstUnit);
-						}
-						else // Se não calcular a média ponderada
-						{							
-							// Quantidade Total ICMS Substitute
-							BigDecimal qtyTotalICMSSub = tc.getLBR_QtyICMSSubstitute().abs();
-							
-							//	Media ponderada do ICMS Substituto
-							BigDecimal icmsTotalSub = tc.getLBR_ICMSSubstituto().abs();
-							BigDecimal icmsstTotal = tc.getICMSST_TaxAmt().abs();
-							BigDecimal qtyDiv = BigDecimal.ZERO;
-							BigDecimal mediaPonderadaCalcIcms = BigDecimal.ZERO;
-							BigDecimal mediaPonderadaCalcIcmsst = BigDecimal.ZERO;
-							
-							//	Se não for um estorno
-							if (!isReverse)
-							{
-								//	Quantidade Faturada Atual + Quantidada Total Faturada no Controle de Imposto
-								qtyDiv = qtyTotalICMSSub.add(qtyInvoiced);
-								
-								if (qtyDiv.intValue() <= 0)
-								{
-									qtyDiv = BigDecimal.ZERO;
-									mediaPonderadaCalcIcms = BigDecimal.ZERO;
-									mediaPonderadaCalcIcmsst = BigDecimal.ZERO;
-								}
-								else
-								{
-									//	Determinando Média Unitária Ponderada 
-									//
-									//	((ICMS Unitário Atual x Quantidade Fatura Atual) 
-									//		+ (ICMS Unitário Controlde Imposto x Quantidade Controle Imposto)) / 
-									//	Quantidade Faturada Atual + Quantidada Total Faturada no Controle de Imposto
-									mediaPonderadaCalcIcms = icmsUnit.multiply(qtyInvoiced).add(icmsTotalSub.multiply(qtyTotalICMSSub));
-									mediaPonderadaCalcIcmsst = icmsstUnit.multiply(qtyInvoiced).add(icmsstTotal.multiply(qtyTotalICMSSub));
-									
-									mediaPonderadaCalcIcms = mediaPonderadaCalcIcms.divide(qtyDiv,RoundingMode.HALF_UP);
-									mediaPonderadaCalcIcmsst = mediaPonderadaCalcIcmsst.divide(qtyDiv,RoundingMode.HALF_UP);
-								}
-							}
-							else
-							{
-								//	Quantidade Faturada Atual + Quantidada Total Faturada no Controle de Imposto
-								qtyDiv = qtyTotalICMSSub.subtract(qtyInvoiced);
-								
-								//	Determinando Média Unitária Ponderada 
-								//
-								//	((ICMS Unitário Atual x Quantidade Fatura Atual) 
-								//		+ (ICMS Unitário Controlde Imposto x Quantidade Controle Imposto)) / 
-								//	Quantidade Faturada Atual + Quantidada Total Faturada no Controle de Imposto
-								
-								if (qtyDiv.intValue() <= 0)
-								{
-									qtyDiv = BigDecimal.ZERO;
-									mediaPonderadaCalcIcms = BigDecimal.ZERO;
-									mediaPonderadaCalcIcmsst = BigDecimal.ZERO;
-								}
-								else
-								{									
-									mediaPonderadaCalcIcms = icmsTotalSub.multiply(qtyTotalICMSSub).subtract(icmsUnit.multiply(qtyInvoiced));
-									mediaPonderadaCalcIcmsst = icmsstTotal.multiply(qtyTotalICMSSub).subtract(icmsUnit.multiply(qtyInvoiced));
-									
-									mediaPonderadaCalcIcms = mediaPonderadaCalcIcms.divide(qtyDiv,RoundingMode.HALF_UP);
-									mediaPonderadaCalcIcmsst = mediaPonderadaCalcIcmsst.divide(qtyDiv,RoundingMode.HALF_UP);
-								}
-							}
-							
-							if (mediaPonderadaCalcIcms.intValue() <= 0)
-								mediaPonderadaCalcIcms = BigDecimal.ZERO;
-							
-							if (mediaPonderadaCalcIcmsst.intValue() <= 0)
-								mediaPonderadaCalcIcmsst = BigDecimal.ZERO;
-							
-							//	Salvar Valores Atualizados
-							tc.setLBR_QtyICMSSubstitute(qtyDiv);
-							tc.setLBR_ICMSSubstituto(mediaPonderadaCalcIcms);
-							tc.setICMSST_TaxAmt(mediaPonderadaCalcIcmsst);
-							tc.saveEx();
-						}
-					}
-					else
-					{
-						//	 Se não existia Controle de Imposto, cadastrar por Produto + Organização
-						MLBRProductTaxControl tcnew = new MLBRProductTaxControl(Env.getCtx(), 0 , null);
-						tcnew.setAD_Org_ID(iLine.getAD_Org_ID());
-						tcnew.setM_Product_ID(iLine.getM_Product_ID());
-						tcnew.setLBR_QtyICMSSubstitute(qtyInvoiced);
-						tcnew.setLBR_ICMSSubstituto(icmsUnit);
-						tcnew.setICMSST_TaxAmt(icmsstUnit);
-						tcnew.saveEx();
-					}							
-				}
-			}
+			MLBRTaxHold hold = new MLBRTaxHold (Env.getCtx(), 0 , null);
+			hold.setAD_Org_ID(iLine.getAD_Org_ID());
+			hold.setM_Product_ID(iLine.getM_Product_ID());
+			hold.setValidFrom(invoice.getDateAcct());
+			hold.setQty(qtyInvoiced);
+			
+			//	ICMS ST
+			hold.setICMSST_TaxBaseAmt(tax.getICMSSTTaxBaseAmt().divide(qtyInvoiced, 17, RoundingMode.HALF_UP));
+			hold.setICMSST_TaxAmt(tax.getICMSSTTaxAmt().divide(qtyInvoiced, 17, RoundingMode.HALF_UP));
+			hold.setICMSST_TaxRate(tax.getICMSSTTaxRate());
+			
+			//	ICMS
+			hold.setICMS_TaxBaseAmt(tax.getICMSTaxBaseAmt().divide(qtyInvoiced, 17, RoundingMode.HALF_UP));
+			hold.setICMS_TaxAmt(tax.getICMSTaxAmt().divide(qtyInvoiced, 17, RoundingMode.HALF_UP));
+			hold.setICMS_TaxRate(tax.getICMSTaxRate());
+			
+			//	FCP
+			hold.setFCP_TaxBaseAmt(tax.getFCPTaxBaseAmt().divide(qtyInvoiced, 17, RoundingMode.HALF_UP));
+			hold.setFCP_TaxAmt(tax.getFCPTaxAmt().divide(qtyInvoiced, 17, RoundingMode.HALF_UP));
+			hold.setFCP_TaxRate(tax.getFCPTaxRate());
+			
+			hold.saveEx();
 		}
-	}
+	}	//	holdTax
 	
 	/**
 	 * 	Create Shipment

@@ -1320,7 +1320,6 @@ public class NFeXMLGenerator
 				// FCP (Fundo de Combate a Pobreza)
 				X_LBR_NFLineTax fcpTax = null;
 				X_LBR_NFLineTax fcpTaxST = null;
-				X_LBR_NFLineTax icmsEfetTax = nfl.getICMSEfetTax();
 				
 				//	Destacar como ICMS Dest
 				if (!icmsDest)
@@ -1331,8 +1330,6 @@ public class NFeXMLGenerator
 
 				//	ICMS ST
 				X_LBR_NFLineTax icmsSTTax = nfl.getICMSSTTax();
-				X_LBR_NFLineTax icmsSTDEST = nfl.getICMSSTDESTTax();
-				X_LBR_NFLineTax icmsSTREMET = nfl.getICMSSTREMETTax();
 				
 				//	IE Substituto não pode ser igual ao IE do Emitente
 				if (icmsSTTax != null && nf.get_ValueAsString("LBR_IEST") != null && 
@@ -1463,8 +1460,7 @@ public class NFeXMLGenerator
 						|| CST_ICMS_41.equals (taxStatus)
 						|| CST_ICMS_50.equals (taxStatus))
 				{
-					if (CST_ICMS_41.equals (taxStatus) && 
-							icmsSTREMET != null || icmsSTDEST != null)
+					if (CST_ICMS_41.equals (taxStatus))
 					{
 						//	Preencher os campos
 						ICMSST icmsst = imposto.addNewICMS().addNewICMSST();
@@ -1476,20 +1472,6 @@ public class NFeXMLGenerator
 						icmsst.setPST(normalize (normalize(BigDecimal.ZERO)));
 						icmsst.setVBCSTDest(normalize (BigDecimal.ZERO));
 						icmsst.setVICMSSTDest(normalize (BigDecimal.ZERO));
-						
-						//	Preencher com os valores do imposto calculado
-						if (icmsSTREMET != null)
-						{
-							icmsst.setVBCSTRet(normalize (icmsSTREMET.getlbr_TaxBaseAmt()));
-							icmsst.setVICMSSTRet(normalize(icmsSTREMET.getlbr_TaxAmt()));
-							icmsst.setPST(normalize (normalize(icmsSTREMET.getlbr_TaxRate())));
-							icmsst.setVICMSSubstituto(normalize (icmsSTREMET.getLBR_ICMSSubstituto()));	
-						}
-						if (icmsSTDEST != null)
-						{
-							icmsst.setVBCSTDest(normalize (icmsSTDEST.getlbr_TaxBaseAmt()));
-							icmsst.setVICMSSTDest(normalize (icmsSTDEST.getlbr_TaxAmt()));
-						}
 					}
 					else
 					{
@@ -1515,66 +1497,34 @@ public class NFeXMLGenerator
 				}
 				else if (CST_ICMS_60.equals (taxStatus))
 				{
-					// Existindo os impostos ICMSSTREMET  ou ICMSSTDEST
-					if (icmsSTREMET != null || icmsSTDEST != null)
+					ICMS60 icms60 = imposto.addNewICMS().addNewICMS60();
+					icms60.setOrig(Torig.Enum.forString(productSource));
+					icms60.setCST(Det.Imposto.ICMS.ICMS60.CST.X_60);
+					
+					if (icmsSTTax != null)
 					{
-						//	Preencher os campos
-						ICMSST icmsst = imposto.addNewICMS().addNewICMSST();
-						icmsst.setOrig(Torig.Enum.forString(productSource));
-						icmsst.setCST(Det.Imposto.ICMS.ICMSST.CST.X_60);
-						icmsst.setVICMSSubstituto(normalize (BigDecimal.ZERO));						
-						icmsst.setVBCSTRet(normalize (BigDecimal.ZERO));
-						icmsst.setVICMSSTRet(normalize(BigDecimal.ZERO));
-						icmsst.setPST(normalize (normalize(BigDecimal.ZERO)));
-						icmsst.setVBCSTDest(normalize (BigDecimal.ZERO));
-						icmsst.setVICMSSTDest(normalize (BigDecimal.ZERO));
+						icms60.setVBCSTRet(normalize (icmsSTTax.getlbr_TaxBaseAmt()));
+						icms60.setVICMSSTRet(normalize (icmsSTTax.getlbr_TaxAmt()));
+						icms60.setPST(normalize (icmsSTTax.getlbr_TaxRate()));
+						icms60.setVICMSSubstituto(normalize (icmsTax.getlbr_TaxAmt()));
 						
-						//	Preencher com os valores do imposto calculado
-						if (icmsSTREMET != null)
+						// v4.00
+						if (fcpTax != null)
 						{
-							icmsst.setVBCSTRet(normalize (icmsSTREMET.getlbr_TaxBaseAmt()));
-							icmsst.setVICMSSTRet(normalize(icmsSTREMET.getlbr_TaxAmt()));
-							icmsst.setPST(normalize (normalize(icmsSTREMET.getlbr_TaxRate())));
-							icmsst.setVICMSSubstituto(normalize (icmsSTREMET.getLBR_ICMSSubstituto()));	
-						}
-						if (icmsSTDEST != null)
-						{
-							icmsst.setVBCSTDest(normalize (icmsSTDEST.getlbr_TaxBaseAmt()));
-							icmsst.setVICMSSTDest(normalize (icmsSTDEST.getlbr_TaxAmt()));
+							icms60.setVBCFCPSTRet(normalize4(fcpTax.getlbr_TaxBaseAmt()));
+							icms60.setPFCPSTRet(normalize2to4(fcpTax.getlbr_TaxRate()));
+							icms60.setVFCPSTRet(normalize4(fcpTax.getlbr_TaxAmt()));
 						}
 					}
-					else
-					{
-						ICMS60 icms60 = imposto.addNewICMS().addNewICMS60();
-						icms60.setOrig(Torig.Enum.forString(productSource));
-						icms60.setCST(Det.Imposto.ICMS.ICMS60.CST.X_60);
-						
-						if (icmsSTTax != null)
-						{
-							icms60.setVBCSTRet(normalize (icmsSTTax.getlbr_TaxBaseAmt()));
-							icms60.setVICMSSTRet(normalize (icmsSTTax.getlbr_TaxAmt()));
-							icms60.setPST(normalize (icmsSTTax.getlbr_TaxRate()));
-							icms60.setVICMSSubstituto(normalize (icmsSTTax.getLBR_ICMSSubstituto()));
-							
-							// v4.00
-							if (fcpTax != null)
-							{
-								icms60.setVBCFCPSTRet(normalize4(fcpTax.getlbr_TaxBaseAmt()));
-								icms60.setPFCPSTRet(normalize2to4(fcpTax.getlbr_TaxRate()));
-								icms60.setVFCPSTRet(normalize4(fcpTax.getlbr_TaxAmt()));
-							}
-						}
-						
-						//	NT 2018.005 v1.20
-						if (icmsEfetTax != null)
-						{
-							icms60.setVBCEfet(normalize (icmsEfetTax.getlbr_TaxBaseAmt()));
-							icms60.setPRedBCEfet(normalize (icmsEfetTax.getlbr_TaxBase()));
-							icms60.setPICMSEfet(normalize (icmsEfetTax.getlbr_TaxRate()));
-							icms60.setVICMSEfet(normalize (icmsEfetTax.getlbr_TaxAmt()));
-								
-						}		
-					}
+					
+					//	NT 2018.005 v1.20
+//					if (icmsEfetTax != null)
+//					{
+//						icms60.setVBCEfet(normalize (icmsEfetTax.getlbr_TaxBaseAmt()));
+//						icms60.setPRedBCEfet(normalize (icmsEfetTax.getlbr_TaxBase()));
+//						icms60.setPICMSEfet(normalize (icmsEfetTax.getlbr_TaxRate()));
+//						icms60.setVICMSEfet(normalize (icmsEfetTax.getlbr_TaxAmt()));
+//					}	
 				}
 				else if (CST_ICMS_70.equals (taxStatus))
 				{
@@ -1726,7 +1676,7 @@ public class NFeXMLGenerator
 					icmssn500.setOrig(Torig.Enum.forString(productSource));
 					icmssn500.setCSOSN(Det.Imposto.ICMS.ICMSSN500.CSOSN.X_500);
 					icmssn500.setPST(normalize4 (icmsTax.getlbr_TaxRate()));
-					icmssn500.setVICMSSubstituto(normalize (icmsSTTax.getLBR_ICMSSubstituto()));
+					icmssn500.setVICMSSubstituto(normalize (icmsTax.getlbr_TaxRate()));
 					
 					// v4.00
 					if (fcpTaxST != null)

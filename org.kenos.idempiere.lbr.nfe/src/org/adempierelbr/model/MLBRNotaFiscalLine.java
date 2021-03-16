@@ -20,10 +20,13 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
 
@@ -322,26 +325,6 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 	{
 		return getTax("ICMSST");
 	}	//	getICMSTax
-	
-	/**
-	 *  Retorno a LBR_NFLineTax do ICMS ST DEST
-	 *
-	 *  @return	LBR_NFLineTax
-	 */
-	public X_LBR_NFLineTax getICMSSTDESTTax()
-	{
-		return getTax("ICMSSTDEST");
-	}	//	getICMSSTDESTTax
-	
-	/**
-	 *  Retorno a LBR_NFLineTax do ICMS ST REMET
-	 *
-	 *  @return	LBR_NFLineTax
-	 */
-	public X_LBR_NFLineTax getICMSSTREMETTax()
-	{
-		return getTax("ICMSSTREMET");
-	}	//	getICMSSTREMETTax
 
 	/**
 	 *  Retorno o valor do ICMS
@@ -382,56 +365,6 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 	{
 		return getTaxRate("ICMS");
 	}	//	getICMSRate
-	
-	/**
-	 *  Retorno o valor do ICMS EFETIVO
-	 *
-	 *  @return	BigDecimal	Valor ICMS EFETIVO
-	 */
-	public BigDecimal getICMSEfetAmt()
-	{
-		return getTaxAmt("ICMSEFET");
-	}	//	getICMSAmt
-
-	/**
-	 *  Retorno o valor da Base de ICMS EFETIVO
-	 *
-	 *  @return	BigDecimal	Base ICMS EFETIVO
-	 */
-	public BigDecimal getICMSEfetBase()
-	{
-		return getTaxBaseAmt("ICMSEFET");
-	}	//	getICMSBase
-
-	/**
-	 *  Retorno o valor da Redução da Base de ICMS EFETIVO
-	 *
-	 *  @return	BigDecimal	Redução da Base de ICMS EFETIVO
-	 */
-	public BigDecimal getICMSEfetBaseReduction()
-	{
-		return getTaxBaseReduction("ICMSEFET");
-	}	//	getICMSBaseReduction
-
-	/**
-	 *  Retorno a alíquota de ICMS EFETIVO
-	 *
-	 *  @return	BigDecimal	Alíquota ICMS EFETIVO
-	 */
-	public BigDecimal getICMSEfetRate()
-	{
-		return getTaxRate("ICMSEFET");
-	}	//	getICMSRate
-	
-	/**
-	 *  Retorno a LBR_NFLineTax do ICMS EFETIVO
-	 *
-	 *  @return	LBR_NFLineTax
-	 */
-	public X_LBR_NFLineTax getICMSEfetTax()
-	{
-		return getTax("ICMSEFET");
-	}	//	getICMSTax
 	
 	/**
 	 *  Retorno a LBR_NFLineTax do FCP
@@ -796,6 +729,18 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 			appendDescription(description);
 		}
 		
+		//	Valores
+		setQty(iLine.getQtyEntered());
+		
+		//	References
+		if (iLine.getC_OrderLine_ID() > 0)
+			setPOReference (POWrapper.create (new MOrderLine (iLine.getCtx(), iLine.getC_OrderLine_ID(), get_TrxName()), I_W_C_OrderLine.class));
+		
+		boolean includeDIFAL = MSysConfig.getBooleanValue(SysConfig.LBR_ADD_DIFAL_PROD, true, getAD_Client_ID(), getAD_Org_ID());
+		boolean isFOB = getParent().getC_Invoice_ID() > 0 ? !getParent().getC_Invoice().isTaxIncluded() : false;
+		setPrice(iLine.getParent().getC_Currency_ID(), iLine.getPriceEntered(), iLine.getPriceList(), includeDIFAL, isFOB);
+		save();
+		
 		//	Impostos
 		MLBRTax tax = new MLBRTax (getCtx(), iLineW.getLBR_Tax_ID(), get_TrxName());
 				
@@ -810,32 +755,6 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 			if (Child_Tax_ID < 1)
 				continue;
 			
-			if (!tl.islbr_PostTax())
-			{
-				// Devido ao calculo do ICMS Substituto, ICMSST com a Tag Contabilidade Desmarcada, Tag Preço Inclui Imposto Marcada
-				// e o Status for 60 ou 70 e o ICMS Substituto for diferente de Zero, adicionar o ICMSST na Linha
-				String status = new MLBRTaxStatus (Env.getCtx(), tl.getLBR_TaxStatus_ID(), null).getTaxStatus(isSOTrx());
-				if (MLBRTaxName.TAX_ICMSST != tl.getLBR_TaxName_ID() && !isSOTrx()
-						&& !"60".equals(status) && !"70".equals(status) && !tl.isTaxIncluded()
-						&& BigDecimal.ZERO.compareTo(tl.getLBR_ICMSSubstituto()) == 0)
-					continue;
-				else
-				{
-					if (MLBRTaxName.TAX_ICMSST == tl.getLBR_TaxName_ID()
-							&& MSysConfig.getBooleanValue(SysConfig.LBR_PRINT_ICMS_SUBSTITUTE_NF, true, getAD_Client_ID()))
-					{
-						if (BigDecimal.ZERO.compareTo(tl.getlbr_TaxBaseAmt()) != 0)
-							appendDescription("BC ST: R$" + tl.getlbr_TaxBaseAmt().setScale(2, RoundingMode.HALF_UP));
-						
-						if (BigDecimal.ZERO.compareTo(tl.getlbr_TaxAmt()) != 0)
-							appendDescription("ICMSST: R$" + tl.getlbr_TaxAmt().setScale(2, RoundingMode.HALF_UP));
-						
-						if (BigDecimal.ZERO.compareTo(tl.getLBR_ICMSSubstituto()) != 0)
-							appendDescription("ICMS Substituto: R$" + tl.getLBR_ICMSSubstituto().setScale(2, RoundingMode.HALF_UP));
-					}
-				}
-			}
-			
 			I_W_C_Tax taxAD = POWrapper.create(new MTax (getCtx(), Child_Tax_ID, get_TrxName()), I_W_C_Tax.class);
 			
 			if (taxAD.getLBR_TaxGroup_ID() < 1)
@@ -846,17 +765,25 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 			nfLineTax.setLBR_TaxGroup_ID(taxAD.getLBR_TaxGroup_ID());
 			nfLineTax.save();
 		}
-		
-		//	Valores
-		setQty(iLine.getQtyEntered());
-		
-		//	References
-		if (iLine.getC_OrderLine_ID() > 0)
-			setPOReference (POWrapper.create (new MOrderLine (iLine.getCtx(), iLine.getC_OrderLine_ID(), get_TrxName()), I_W_C_OrderLine.class));
-		
-		boolean includeDIFAL = MSysConfig.getBooleanValue(SysConfig.LBR_ADD_DIFAL_PROD, true, getAD_Client_ID(), getAD_Org_ID());
-		boolean isFOB = getParent().getC_Invoice_ID() > 0 ? !getParent().getC_Invoice().isTaxIncluded() : false;
-		setPrice(iLine.getParent().getC_Currency_ID(), iLine.getPriceEntered(), iLine.getPriceList(), includeDIFAL, isFOB);
+
+		X_LBR_NFLineTax icmsST = getICMSSTTax();
+		if (MSysConfig.getBooleanValue(SysConfig.LBR_PRINT_ICMS_SUBSTITUTE_NF, true, getAD_Client_ID())
+				&& icmsST != null
+				&& icmsST.getLBR_TaxStatus_ID() > 0
+				&& icmsST.getLBR_TaxStatus().getName().equals("60"))
+		{
+			DecimalFormat format = new DecimalFormat ("R$ #,##0.00", new DecimalFormatSymbols(new Locale ("pt", "BR")));
+			//
+			if (BigDecimal.ZERO.compareTo(icmsST.getlbr_TaxBaseAmt()) != 0)
+				appendDescription("BC ST: " + format.format(icmsST.getlbr_TaxBaseAmt().setScale(2, RoundingMode.HALF_UP)));
+			
+			if (BigDecimal.ZERO.compareTo(icmsST.getlbr_TaxAmt()) != 0)
+				appendDescription("ICMS ST: " + format.format(icmsST.getlbr_TaxAmt().setScale(2, RoundingMode.HALF_UP)));
+			
+			X_LBR_NFLineTax icms = getICMSTax();
+			if (icms != null && BigDecimal.ZERO.compareTo(icms.getlbr_TaxAmt()) != 0)
+				appendDescription("ICMS Substituto: " + format.format(icms.getlbr_TaxAmt().setScale(2, RoundingMode.HALF_UP)));
+		}
 	}	//	setInvoiceLine
 	
 	/**

@@ -3,14 +3,11 @@ package org.adempierelbr.validator;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.adempiere.model.POWrapper;
 import org.adempierelbr.model.MLBRTax;
 import org.adempierelbr.model.MLBRTaxLine;
-import org.adempierelbr.model.MLBRTaxName;
-import org.adempierelbr.model.MLBRTaxStatus;
 import org.adempierelbr.wrapper.I_W_C_Invoice;
 import org.adempierelbr.wrapper.I_W_C_InvoiceLine;
 import org.adempierelbr.wrapper.I_W_C_Order;
@@ -29,7 +26,6 @@ import org.compiere.model.PO;
 import org.compiere.util.CLogger;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
-import org.kenos.idempiere.lbr.base.model.MLBRProductTaxControl;
 import org.kenos.idempiere.lbr.base.model.SysConfig;
 
 /**
@@ -429,35 +425,6 @@ public class VLBRTax implements ModelValidator
 					MLBRTax tax = new MLBRTax (Env.getCtx(), oLineW.getLBR_Tax_ID(), oLine.get_TrxName());
 					//
 					processTax(taxes, tax, oLine.getC_Tax_ID());
-					
-					Boolean isSoTrx = oLineW.getC_Order().isSOTrx();
-					
-					for (MLBRTaxLine tl : tax.getLines())
-					{
-						String status = new MLBRTaxStatus (Env.getCtx(), tl.getLBR_TaxStatus_ID(), null).getTaxStatus(isSoTrx);
-						if (MLBRTaxName.TAX_ICMSST == tl.getLBR_TaxName_ID()
-								&& ("60".equals(status) || "70".equals(status))
-								&& isSoTrx)
-						{
-							//	Controle de Imposto por Produto e por Organização
-							MLBRProductTaxControl tc = MLBRProductTaxControl.getProductTaxControl(oLineW.getM_Product_ID(), oLineW.getAD_Org_ID());
-							
-							//
-							if (tc != null)
-							{
-								BigDecimal icms = tc.getLBR_ICMSSubstituto().multiply(oLineW.getQtyOrdered());
-								BigDecimal icmsst = tc.getICMSST_TaxAmt().multiply(oLineW.getQtyOrdered());
-								tl.setLBR_ICMSSubstituto(icms);
-								
-								tl.setlbr_TaxAmt(icmsst);
-								if (BigDecimal.ZERO.compareTo(tl.getlbr_TaxRate()) < 0)
-									tl.setlbr_TaxBaseAmt((new BigDecimal("100").multiply(icmsst)).divide(tl.getlbr_TaxRate(), 2, RoundingMode.HALF_UP));
-								tl.setIsTaxIncluded(true);
-								tl.setlbr_PostTax(false);
-								tl.saveEx();
-							}
-						}
-					}
 				}
 			}
 		
@@ -476,36 +443,6 @@ public class VLBRTax implements ModelValidator
 					MLBRTax tax = new MLBRTax (Env.getCtx(), iLineW.getLBR_Tax_ID(), iLine.get_TrxName());
 					//
 					processTax(taxes, tax, iLine.getC_Tax_ID());
-					
-					Boolean isSoTrx = iLineW.getC_Invoice().isSOTrx();
-					
-					for (MLBRTaxLine tl : tax.getLines())
-					{
-						String status = new MLBRTaxStatus (Env.getCtx(), tl.getLBR_TaxStatus_ID(), null).getTaxStatus(isSoTrx);
-						
-						if (MLBRTaxName.TAX_ICMSST == tl.getLBR_TaxName_ID()
-								&& ("60".equals(status) || "70".equals(status))
-								&& isSoTrx)
-						{
-							//	Controle de Imposto por Produto e por Organização
-							MLBRProductTaxControl tc = MLBRProductTaxControl.getProductTaxControl(iLineW.getM_Product_ID(), iLineW.getAD_Org_ID());
-							
-							//
-							if (tc != null)
-							{
-								BigDecimal icms = tc.getLBR_ICMSSubstituto().multiply(iLineW.getQtyInvoiced());
-								BigDecimal icmsst = tc.getICMSST_TaxAmt().multiply(iLineW.getQtyInvoiced());
-								tl.setLBR_ICMSSubstituto(icms);
-								
-								tl.setlbr_TaxAmt(icmsst);
-								if (BigDecimal.ZERO.compareTo(tl.getlbr_TaxRate()) < 0)
-									tl.setlbr_TaxBaseAmt((new BigDecimal("100").multiply(icmsst)).divide(tl.getlbr_TaxRate(), 2, RoundingMode.HALF_UP));
-								tl.setIsTaxIncluded(true);
-								tl.setlbr_PostTax(false);
-								tl.saveEx();
-							}
-						}
-					}
 				}
 			}
 		
