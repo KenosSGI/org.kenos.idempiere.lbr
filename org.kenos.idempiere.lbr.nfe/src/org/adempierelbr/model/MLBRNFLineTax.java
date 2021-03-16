@@ -13,10 +13,13 @@
 package org.adempierelbr.model;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.ResultSet;
+import java.sql.Timestamp;
 import java.util.Properties;
 
 import org.compiere.util.Env;
+import org.kenos.idempiere.lbr.base.model.MLBRTaxHold;
 
 /**
  *
@@ -123,7 +126,6 @@ public class MLBRNFLineTax extends X_LBR_NFLineTax
 		setLBR_TaxBaseType_ID(tl.getLBR_TaxBaseType_ID());
 		setQty(tl.getQty());
 		setLBR_TaxListAmt(tl.getLBR_TaxListAmt());
-		setLBR_ICMSSubstituto(tl.getLBR_ICMSSubstituto());
 	}	//	setTaxes
 	
 	/**
@@ -156,7 +158,56 @@ public class MLBRNFLineTax extends X_LBR_NFLineTax
 		{
 			if (Env.ZERO.compareTo(getlbr_TaxAmt()) == 0)
 				setlbr_TaxBaseAmt(Env.ZERO);
+			
+			if (getLBR_TaxStatus_ID() < 1)
+				return true;
+			
+			//	Tax hold, already paid
+			int LBR_TaxName_ID = getLBR_TaxStatus().getLBR_TaxName_ID();
+			
+			if (getLBR_NotaFiscalLine().getLBR_NotaFiscal().isSOTrx() 
+					&& getLBR_NotaFiscalLine().getM_Product_ID() > 0
+					&& (LBR_TaxName_ID == MLBRTax.TAX_ICMS || LBR_TaxName_ID == MLBRTax.TAX_ICMSST || LBR_TaxName_ID == MLBRTax.TAX_FCP)
+					&& getLBR_TaxStatus().getName().equals("60"))
+			{
+				int M_Product_ID = getLBR_NotaFiscalLine().getM_Product_ID();
+				int AD_Org_ID = getLBR_NotaFiscalLine().getLBR_NotaFiscal().getAD_Org_ID();
+				Timestamp dateDoc = getLBR_NotaFiscalLine().getLBR_NotaFiscal().getDateDoc();
+				//
+				MLBRTaxHold hold = MLBRTaxHold.getTaxHold (M_Product_ID, AD_Org_ID, dateDoc);
+				if (hold != null)
+				{
+					BigDecimal taxBaseAmt 	= Env.ZERO;
+					BigDecimal taxAmt 		= Env.ZERO;
+					BigDecimal taxRate 		= Env.ZERO;
+					//
+					if (LBR_TaxName_ID == MLBRTax.TAX_ICMS)
+					{
+						taxBaseAmt 	= hold.getICMS_TaxBaseAmt();
+						taxAmt 		= hold.getICMS_TaxAmt();
+						taxRate 	= hold.getICMS_TaxRate();
+					}
+					else if (LBR_TaxName_ID == MLBRTax.TAX_ICMSST)
+					{
+						taxBaseAmt 	= hold.getICMSST_TaxBaseAmt();
+						taxAmt 		= hold.getICMSST_TaxAmt();
+						taxRate 	= hold.getICMSST_TaxRate();
+					}
+					else if (LBR_TaxName_ID == MLBRTax.TAX_FCP)
+					{
+						taxBaseAmt 	= hold.getFCP_TaxBaseAmt();
+						taxAmt 		= hold.getFCP_TaxAmt();
+						taxRate 	= hold.getFCP_TaxRate();
+					}
+					
+					BigDecimal qty = getLBR_NotaFiscalLine().getQty();
+					//
+					setlbr_TaxAmt(taxAmt.multiply(qty).setScale(2, RoundingMode.HALF_UP));
+					setlbr_TaxBaseAmt(taxBaseAmt.multiply(qty).setScale(2, RoundingMode.HALF_UP));
+					setlbr_TaxRate(taxRate);
+				}
+			}
 		}
-		return super.beforeSave(newRecord);
-	}
+		return true;
+	}	//	beforeSave
 }	//	MLBRNotaFiscal
