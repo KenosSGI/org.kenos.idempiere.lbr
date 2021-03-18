@@ -100,7 +100,6 @@ import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Det.Imposto.ICMS.ICMSSN201;
 import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Det.Imposto.ICMS.ICMSSN202;
 import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Det.Imposto.ICMS.ICMSSN500;
 import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Det.Imposto.ICMS.ICMSSN900;
-import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Det.Imposto.ICMS.ICMSST;
 import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Det.Imposto.ICMSUFDest;
 import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Det.Imposto.ICMSUFDest.PICMSInter;
 import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Det.Imposto.II;
@@ -1456,29 +1455,11 @@ public class NFeXMLGenerator
 						}
 					}
 				}
-				else if (CST_ICMS_40.equals (taxStatus)
-						|| CST_ICMS_41.equals (taxStatus)
-						|| CST_ICMS_50.equals (taxStatus))
+				else if (TextUtil.match(taxStatus, CST_ICMS_40, CST_ICMS_41, CST_ICMS_50))
 				{
-					if (CST_ICMS_41.equals (taxStatus))
-					{
-						//	Preencher os campos
-						ICMSST icmsst = imposto.addNewICMS().addNewICMSST();
-						icmsst.setOrig(Torig.Enum.forString(productSource));
-						icmsst.setCST(Det.Imposto.ICMS.ICMSST.CST.X_60);
-						icmsst.setVICMSSubstituto(normalize (BigDecimal.ZERO));						
-						icmsst.setVBCSTRet(normalize (BigDecimal.ZERO));
-						icmsst.setVICMSSTRet(normalize(BigDecimal.ZERO));
-						icmsst.setPST(normalize (normalize(BigDecimal.ZERO)));
-						icmsst.setVBCSTDest(normalize (BigDecimal.ZERO));
-						icmsst.setVICMSSTDest(normalize (BigDecimal.ZERO));
-					}
-					else
-					{
-						ICMS40 icms40 = imposto.addNewICMS().addNewICMS40();
-						icms40.setOrig(Torig.Enum.forString(productSource));
-						icms40.setCST(Det.Imposto.ICMS.ICMS40.CST.Enum.forString (taxStatus));
-					}
+					ICMS40 icms40 = imposto.addNewICMS().addNewICMS40();
+					icms40.setOrig(Torig.Enum.forString(productSource));
+					icms40.setCST(Det.Imposto.ICMS.ICMS40.CST.Enum.forString (taxStatus));
 				}
 				else if (CST_ICMS_51.equals (taxStatus))
 				{
