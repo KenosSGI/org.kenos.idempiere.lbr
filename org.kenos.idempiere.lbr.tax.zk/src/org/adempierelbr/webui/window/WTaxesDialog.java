@@ -458,7 +458,7 @@ public final class WTaxesDialog extends Window
 		if (event.getTarget().getId().equals("Ok"))	{
 			if (m_changed)
 			{
-				FDialog.ask(0, this, "Save Changes?", new Callback<Boolean>() {
+				FDialog.ask(0, this, "SaveChanges?", new Callback<Boolean>() {
 					
 					@Override
 					public void onCallback(Boolean result) 
