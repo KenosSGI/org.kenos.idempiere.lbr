@@ -33,7 +33,7 @@ public class X_LBR_TaxHold extends PO implements I_LBR_TaxHold, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20210316L;
+	private static final long serialVersionUID = 20210319L;
 
     /** Standard Constructor */
     public X_LBR_TaxHold (Properties ctx, int LBR_TaxHold_ID, String trxName)
@@ -58,14 +58,6 @@ public class X_LBR_TaxHold extends PO implements I_LBR_TaxHold, I_Persistent
 			setICMS_TaxBaseAmt (Env.ZERO);
 // 0
 			setICMS_TaxRate (Env.ZERO);
-// 0
-			setLBR_ICMSActualAmt (Env.ZERO);
-// 0
-			setLBR_ICMSActualBaseAmt (Env.ZERO);
-// 0
-			setLBR_ICMSActualBaseRed (Env.ZERO);
-// 0
-			setLBR_ICMSActualRate (Env.ZERO);
 // 0
 			setLBR_TaxHold_ID (0);
 			setM_Product_ID (0);
@@ -101,6 +93,34 @@ public class X_LBR_TaxHold extends PO implements I_LBR_TaxHold, I_Persistent
         .append(get_ID()).append("]");
       return sb.toString();
     }
+
+	public org.compiere.model.I_C_InvoiceLine getC_InvoiceLine() throws RuntimeException
+    {
+		return (org.compiere.model.I_C_InvoiceLine)MTable.get(getCtx(), org.compiere.model.I_C_InvoiceLine.Table_Name)
+			.getPO(getC_InvoiceLine_ID(), get_TrxName());	}
+
+	/** Set Invoice Line.
+		@param C_InvoiceLine_ID 
+		Invoice Detail Line
+	  */
+	public void setC_InvoiceLine_ID (int C_InvoiceLine_ID)
+	{
+		if (C_InvoiceLine_ID < 1) 
+			set_ValueNoCheck (COLUMNNAME_C_InvoiceLine_ID, null);
+		else 
+			set_ValueNoCheck (COLUMNNAME_C_InvoiceLine_ID, Integer.valueOf(C_InvoiceLine_ID));
+	}
+
+	/** Get Invoice Line.
+		@return Invoice Detail Line
+	  */
+	public int getC_InvoiceLine_ID () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_C_InvoiceLine_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
 
 	/** Set Description.
 		@param Description 
@@ -272,72 +292,32 @@ public class X_LBR_TaxHold extends PO implements I_LBR_TaxHold, I_Persistent
 		return bd;
 	}
 
-	/** Set ICMS Actual Amt.
-		@param LBR_ICMSActualAmt ICMS Actual Amt	  */
-	public void setLBR_ICMSActualAmt (BigDecimal LBR_ICMSActualAmt)
+	public org.adempierelbr.model.I_LBR_NotaFiscalLine getLBR_NotaFiscalLine() throws RuntimeException
+    {
+		return (org.adempierelbr.model.I_LBR_NotaFiscalLine)MTable.get(getCtx(), org.adempierelbr.model.I_LBR_NotaFiscalLine.Table_Name)
+			.getPO(getLBR_NotaFiscalLine_ID(), get_TrxName());	}
+
+	/** Set Nota Fiscal Line.
+		@param LBR_NotaFiscalLine_ID 
+		Primary key table LBR_NotaFiscalLine
+	  */
+	public void setLBR_NotaFiscalLine_ID (int LBR_NotaFiscalLine_ID)
 	{
-		set_Value (COLUMNNAME_LBR_ICMSActualAmt, LBR_ICMSActualAmt);
+		if (LBR_NotaFiscalLine_ID < 1) 
+			set_ValueNoCheck (COLUMNNAME_LBR_NotaFiscalLine_ID, null);
+		else 
+			set_ValueNoCheck (COLUMNNAME_LBR_NotaFiscalLine_ID, Integer.valueOf(LBR_NotaFiscalLine_ID));
 	}
 
-	/** Get ICMS Actual Amt.
-		@return ICMS Actual Amt	  */
-	public BigDecimal getLBR_ICMSActualAmt () 
+	/** Get Nota Fiscal Line.
+		@return Primary key table LBR_NotaFiscalLine
+	  */
+	public int getLBR_NotaFiscalLine_ID () 
 	{
-		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_LBR_ICMSActualAmt);
-		if (bd == null)
-			 return Env.ZERO;
-		return bd;
-	}
-
-	/** Set ICMS Actual Base Amt.
-		@param LBR_ICMSActualBaseAmt ICMS Actual Base Amt	  */
-	public void setLBR_ICMSActualBaseAmt (BigDecimal LBR_ICMSActualBaseAmt)
-	{
-		set_Value (COLUMNNAME_LBR_ICMSActualBaseAmt, LBR_ICMSActualBaseAmt);
-	}
-
-	/** Get ICMS Actual Base Amt.
-		@return ICMS Actual Base Amt	  */
-	public BigDecimal getLBR_ICMSActualBaseAmt () 
-	{
-		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_LBR_ICMSActualBaseAmt);
-		if (bd == null)
-			 return Env.ZERO;
-		return bd;
-	}
-
-	/** Set ICMS Actual Base Red..
-		@param LBR_ICMSActualBaseRed ICMS Actual Base Red.	  */
-	public void setLBR_ICMSActualBaseRed (BigDecimal LBR_ICMSActualBaseRed)
-	{
-		set_Value (COLUMNNAME_LBR_ICMSActualBaseRed, LBR_ICMSActualBaseRed);
-	}
-
-	/** Get ICMS Actual Base Red..
-		@return ICMS Actual Base Red.	  */
-	public BigDecimal getLBR_ICMSActualBaseRed () 
-	{
-		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_LBR_ICMSActualBaseRed);
-		if (bd == null)
-			 return Env.ZERO;
-		return bd;
-	}
-
-	/** Set ICMS Actual Rate.
-		@param LBR_ICMSActualRate ICMS Actual Rate	  */
-	public void setLBR_ICMSActualRate (BigDecimal LBR_ICMSActualRate)
-	{
-		set_Value (COLUMNNAME_LBR_ICMSActualRate, LBR_ICMSActualRate);
-	}
-
-	/** Get ICMS Actual Rate.
-		@return ICMS Actual Rate	  */
-	public BigDecimal getLBR_ICMSActualRate () 
-	{
-		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_LBR_ICMSActualRate);
-		if (bd == null)
-			 return Env.ZERO;
-		return bd;
+		Integer ii = (Integer)get_Value(COLUMNNAME_LBR_NotaFiscalLine_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
 	}
 
 	/** Set Tax Control.
@@ -428,7 +408,7 @@ public class X_LBR_TaxHold extends PO implements I_LBR_TaxHold, I_Persistent
 	  */
 	public void setReferenceNo (String ReferenceNo)
 	{
-		set_ValueNoCheck (COLUMNNAME_ReferenceNo, ReferenceNo);
+		set_Value (COLUMNNAME_ReferenceNo, ReferenceNo);
 	}
 
 	/** Get Reference No.
@@ -462,7 +442,7 @@ public class X_LBR_TaxHold extends PO implements I_LBR_TaxHold, I_Persistent
 	  */
 	public void setlbr_NFeID (String lbr_NFeID)
 	{
-		set_ValueNoCheck (COLUMNNAME_lbr_NFeID, lbr_NFeID);
+		set_Value (COLUMNNAME_lbr_NFeID, lbr_NFeID);
 	}
 
 	/** Get NFe ID.

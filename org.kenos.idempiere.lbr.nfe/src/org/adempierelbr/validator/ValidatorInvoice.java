@@ -20,7 +20,9 @@ import java.util.logging.Level;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.adempiere.model.POWrapper;
+import org.adempierelbr.model.MLBRCFOP;
 import org.adempierelbr.model.MLBRNotaFiscal;
+import org.adempierelbr.model.MLBRNotaFiscalLine;
 import org.adempierelbr.model.MLBRTax;
 import org.adempierelbr.model.MPaymentTerm;
 import org.adempierelbr.process.PrintFromXML;
@@ -735,9 +737,14 @@ public class ValidatorInvoice implements ModelValidator
 			return;
 		
 		//	NF In
-		if (!invoice.isSOTrx() && TextUtil.match(tax.getICMSSTTaxCST(), "10", "60", "70"))
+		if (!invoice.isSOTrx() && wil.getLBR_CFOP_ID() > 0 && TextUtil.match(tax.getICMSSTTaxCST(), "10", "60", "70"))
 		{
-			MLBRTaxHold hold = new MLBRTaxHold (Env.getCtx(), 0 , null);
+			//	CFOPs de Substituição
+			MLBRCFOP cfop = new MLBRCFOP (Env.getCtx(), wil.getLBR_CFOP_ID(), null);
+			if (!cfop.getValue().trim().matches("[12]\\.4\\d{2}"))
+				return;
+			
+			MLBRTaxHold hold = new MLBRTaxHold (Env.getCtx(), 0, null);
 			hold.setAD_Org_ID(iLine.getAD_Org_ID());
 			hold.setM_Product_ID(iLine.getM_Product_ID());
 			hold.setValidFrom(invoice.getDateAcct());
@@ -757,6 +764,24 @@ public class ValidatorInvoice implements ModelValidator
 			hold.setFCP_TaxBaseAmt(tax.getFCPTaxBaseAmt().divide(qtyInvoiced, 17, RoundingMode.HALF_UP));
 			hold.setFCP_TaxAmt(tax.getFCPTaxAmt().divide(qtyInvoiced, 17, RoundingMode.HALF_UP));
 			hold.setFCP_TaxRate(tax.getFCPTaxRate());
+			
+			//	Reference
+			hold.setC_InvoiceLine_ID(iLine.getC_InvoiceLine_ID());
+			
+			MLBRNotaFiscalLine nfl = new Query (Env.getCtx(), MLBRNotaFiscalLine.Table_Name, MLBRNotaFiscalLine.COLUMNNAME_C_InvoiceLine_ID+"=?", iLine.get_TrxName())
+				.setParameters(iLine.getC_InvoiceLine_ID())
+				.list()
+				.stream()
+				.map(MLBRNotaFiscalLine.class::cast)
+				.filter(l -> TextUtil.match(l.getLBR_NotaFiscal().getDocStatus(), MLBRNotaFiscal.DOCSTATUS_Completed))
+				.findFirst()
+				.orElse(new MLBRNotaFiscalLine (Env.getCtx(), 0, null));	//	Not Null allowed
+			//
+			if (nfl.get_ID() > 0)
+			{
+				hold.setlbr_NFeID(nfl.getLBR_NotaFiscal().getlbr_NFeID());
+				hold.setReferenceNo(String.valueOf(nfl.getLine()));
+			}
 			
 			hold.saveEx();
 		}

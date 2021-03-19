@@ -64,6 +64,21 @@ public interface I_LBR_TaxHold
 	  */
 	public int getAD_Org_ID();
 
+    /** Column name C_InvoiceLine_ID */
+    public static final String COLUMNNAME_C_InvoiceLine_ID = "C_InvoiceLine_ID";
+
+	/** Set Invoice Line.
+	  * Invoice Detail Line
+	  */
+	public void setC_InvoiceLine_ID (int C_InvoiceLine_ID);
+
+	/** Get Invoice Line.
+	  * Invoice Detail Line
+	  */
+	public int getC_InvoiceLine_ID();
+
+	public org.compiere.model.I_C_InvoiceLine getC_InvoiceLine() throws RuntimeException;
+
     /** Column name Created */
     public static final String COLUMNNAME_Created = "Created";
 
@@ -187,41 +202,20 @@ public interface I_LBR_TaxHold
 	  */
 	public boolean isActive();
 
-    /** Column name LBR_ICMSActualAmt */
-    public static final String COLUMNNAME_LBR_ICMSActualAmt = "LBR_ICMSActualAmt";
+    /** Column name LBR_NotaFiscalLine_ID */
+    public static final String COLUMNNAME_LBR_NotaFiscalLine_ID = "LBR_NotaFiscalLine_ID";
 
-	/** Set ICMS Actual Amt	  */
-	public void setLBR_ICMSActualAmt (BigDecimal LBR_ICMSActualAmt);
+	/** Set Nota Fiscal Line.
+	  * Primary key table LBR_NotaFiscalLine
+	  */
+	public void setLBR_NotaFiscalLine_ID (int LBR_NotaFiscalLine_ID);
 
-	/** Get ICMS Actual Amt	  */
-	public BigDecimal getLBR_ICMSActualAmt();
+	/** Get Nota Fiscal Line.
+	  * Primary key table LBR_NotaFiscalLine
+	  */
+	public int getLBR_NotaFiscalLine_ID();
 
-    /** Column name LBR_ICMSActualBaseAmt */
-    public static final String COLUMNNAME_LBR_ICMSActualBaseAmt = "LBR_ICMSActualBaseAmt";
-
-	/** Set ICMS Actual Base Amt	  */
-	public void setLBR_ICMSActualBaseAmt (BigDecimal LBR_ICMSActualBaseAmt);
-
-	/** Get ICMS Actual Base Amt	  */
-	public BigDecimal getLBR_ICMSActualBaseAmt();
-
-    /** Column name LBR_ICMSActualBaseRed */
-    public static final String COLUMNNAME_LBR_ICMSActualBaseRed = "LBR_ICMSActualBaseRed";
-
-	/** Set ICMS Actual Base Red.	  */
-	public void setLBR_ICMSActualBaseRed (BigDecimal LBR_ICMSActualBaseRed);
-
-	/** Get ICMS Actual Base Red.	  */
-	public BigDecimal getLBR_ICMSActualBaseRed();
-
-    /** Column name LBR_ICMSActualRate */
-    public static final String COLUMNNAME_LBR_ICMSActualRate = "LBR_ICMSActualRate";
-
-	/** Set ICMS Actual Rate	  */
-	public void setLBR_ICMSActualRate (BigDecimal LBR_ICMSActualRate);
-
-	/** Get ICMS Actual Rate	  */
-	public BigDecimal getLBR_ICMSActualRate();
+	public org.adempierelbr.model.I_LBR_NotaFiscalLine getLBR_NotaFiscalLine() throws RuntimeException;
 
     /** Column name LBR_TaxHold_ID */
     public static final String COLUMNNAME_LBR_TaxHold_ID = "LBR_TaxHold_ID";

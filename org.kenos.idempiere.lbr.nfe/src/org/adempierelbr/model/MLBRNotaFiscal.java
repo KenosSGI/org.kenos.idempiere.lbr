@@ -120,6 +120,7 @@ import org.kenos.idempiere.lbr.base.Constants;
 import org.kenos.idempiere.lbr.base.model.MCity;
 import org.kenos.idempiere.lbr.base.model.MLBRAverageCostLine;
 import org.kenos.idempiere.lbr.base.model.MLBRProductionGroup;
+import org.kenos.idempiere.lbr.base.model.MLBRTaxHold;
 import org.kenos.idempiere.lbr.base.model.MRegion;
 import org.kenos.idempiere.lbr.base.model.SysConfig;
 
@@ -4534,6 +4535,26 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 						else
 							throw new Exception ("@FillMandatory@ @lbr_NFeID@");
 					}
+					
+					//	Fill NF-e on Tax hold
+					Arrays.asList(getLines()).stream()
+						.filter(l -> l.getC_InvoiceLine_ID() > 0)
+						.forEach(l -> 
+						{
+							String whereClause = MLBRTaxHold.COLUMNNAME_lbr_NFeID + " IS NULL AND ("+ 
+									MLBRTaxHold.COLUMNNAME_C_InvoiceLine_ID+"=? OR " + 
+									MLBRTaxHold.COLUMNNAME_LBR_NotaFiscalLine_ID+"=?)";
+							//
+							new Query (getCtx(), MLBRTaxHold.Table_Name, whereClause, get_TrxName())
+								.setParameters(l.getC_InvoiceLine_ID(), l.getLBR_NotaFiscalLine_ID())
+								.list().stream().map(MLBRTaxHold.class::cast).forEach(h -> 
+								{
+									h.setlbr_NFeID(getlbr_NFeID());
+									h.setReferenceNo(String.valueOf(l.getLine()));
+									h.setLBR_NotaFiscalLine_ID(l.getLBR_NotaFiscalLine_ID());
+									h.save();
+								});
+						});
 				}
 				setDocAction(DOCACTION_None);
 				setDocStatus(DOCSTATUS_Completed);
