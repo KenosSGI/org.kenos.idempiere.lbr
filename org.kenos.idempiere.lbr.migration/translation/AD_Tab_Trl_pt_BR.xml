@@ -6311,10 +6311,10 @@ Impressão:
   <value column="Help" original=""/>
  </row>
  <row trl="Y" uuid="4fa3bf31-dbca-425e-b914-9bb925ec9352">
-  <value column="Name" original="Tax Control">Controle de Imposto</value>
+  <value column="Name" original="Tax Control">Imposto Substituto</value>
   <value column="CommitWarning" original=""/>
-  <value column="Description" original="">Controle de Imposto</value>
-  <value column="Help" original="">Aba utilizada para armazenar informações de Controle de Impostos por produto</value>
+  <value column="Description" original="">Imposto Substituto</value>
+  <value column="Help" original="">Aba utilizada para armazenar informações de Controle de Imposto Substituto, ou seja, pago anteriormente por substituição tributária.</value>
  </row>
  <row trl="N" uuid="06593876-0385-4349-8e0b-c03520ec6f50">
   <value column="Name" original="SPED Contribution">SPED Contribuições</value>
