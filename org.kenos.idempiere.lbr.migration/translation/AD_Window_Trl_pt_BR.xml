@@ -2313,7 +2313,7 @@ MRP - 110	 No exists Dem</value>
   <value column="Help" original="">Nesta janela é possível registrar eventos para uma NF-e emitida por você (Carta de Correção ou Cancelamento) ou por terceiros (Manifestação).</value>
  </row>
  <row trl="Y" uuid="e882718d-e8cb-4575-9272-2efa8031237d">
-  <value column="Name" original="Gerar SPED">Gerar SPED Fiscal</value>
+  <value column="Name" original="Gerar SPED Fiscal">Gerar SPED Fiscal</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
  </row>
@@ -2417,6 +2417,11 @@ MRP - 110	 No exists Dem</value>
   <value column="Description" original="Enter and change simple orders (other In)">Introduzir e Alterar Outras Entradas</value>
   <value column="Help" original="The Simple Order Window allows you to enter and modify Simple Orders. Only In Operation.">A Janela "Outras Entradas" define Outras Entradas para uma organização.  Quando Outras Entradas tiver sido digitado você pode gerar um Documento de Remessa ou Fatura.</value>
  </row>
+ <row trl="Y" uuid="0ab94f5e-6254-4ee4-b89b-b6eabfa3f960">
+  <value column="Name" original="Generate SPED Contribution">Gerar SPED Contribuições</value>
+  <value column="Description" original="">Gerar SPED Contribuições</value>
+  <value column="Help" original="">A Janela "Gerar SPED Contribuições" permite ao usuário gerar arquivo SPED Contribuições do período selecionado</value>
+ </row>
  <row trl="Y" uuid="f9c77f43-31d4-40b0-b3d8-0885940c262c">
   <value column="Name" original="Bank Slip Config">Configuração do Boleto</value>
   <value column="Description" original=""/>
@@ -2442,9 +2447,9 @@ MRP - 110	 No exists Dem</value>
   <value column="Description" original="Fuel Installation">Fuel Installation</value>
   <value column="Help" original=""/>
  </row>
- <row trl="Y" uuid="0ab94f5e-6254-4ee4-b89b-b6eabfa3f960">
-  <value column="Name" original="Generate SPED Contribution">Gerar SPED Contribuições</value>
-  <value column="Description" original="">Gerar SPED Contribuições</value>
-  <value column="Help" original="">A Janela "Gerar SPED Contribuições" permite ao usuário gerar arquivo SPED Contribuições do período selecionado</value>
+ <row trl="N" uuid="c1228326-d687-43cb-9ec4-f74e605d6333">
+  <value column="Name" original="SCANC">SCANC</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
  </row>
 </idempiereTrl>

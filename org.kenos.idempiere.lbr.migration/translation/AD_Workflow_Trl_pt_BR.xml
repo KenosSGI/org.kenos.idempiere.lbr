@@ -363,4 +363,14 @@ Se você não pode cobrir o MPS como você planejou, este módulo dá a você a 
   <value column="Description" original="(Standard Process Production Group)">(Standard Process Production Group)</value>
   <value column="Help" original=""/>
  </row>
+ <row trl="N" uuid="3da4f85a-5a28-4793-bf6a-9d122805f0e6">
+  <value column="Name" original="Process_LBR_SIMP">Process_LBR_SIMP</value>
+  <value column="Description" original="(Standard Process SIMP)">(Standard Process SIMP)</value>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="85205d74-bcf0-4f5c-9189-8c07910b365a">
+  <value column="Name" original="Process_LBR_SCANC">Process_LBR_SCANC</value>
+  <value column="Description" original="(Standard Process SCANC)">(Standard Process SCANC)</value>
+  <value column="Help" original=""/>
+ </row>
 </idempiereTrl>

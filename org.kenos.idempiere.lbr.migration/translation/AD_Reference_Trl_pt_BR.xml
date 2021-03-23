@@ -3378,4 +3378,30 @@
   <value column="Description" original=""/>
   <value column="Help" original=""/>
  </row>
+ <row trl="N" uuid="846eb964-e0f6-461c-a798-2a858c9d402b">
+  <value column="Name" original="LBR_SCANC Category">LBR_SCANC Category</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="502e4c42-a5c4-490e-bb02-6836e8b62574">
+  <value column="Name" original="LBR_NAT_BC_CRED -Tabela Cód. BC de Crédito">LBR_NAT_BC_CRED -Tabela Cód. BC de Crédito</value>
+  <value column="Description" original="Tabela Código de Base de Cálculo do Crédito">Tabela Código de Base de Cálculo do Crédito</value>
+  <value column="Help" original="A ser utilizada na codificação da base de cálculo dos créditos apurado no período, no caso de ser preenchido registro de documentos e operações geradoras de crédito, nos Blocos&#10;A, C, D, F e 1 (Créditos extemporâneos)">A ser utilizada na codificação da base de cálculo dos créditos apurado no período, no caso de ser preenchido registro de documentos e operações geradoras de crédito, nos Blocos
+A, C, D, F e 1 (Créditos extemporâneos)</value>
+ </row>
+ <row trl="N" uuid="d8b9aa99-6b9a-4d8d-bdc1-060185d2fdcb">
+  <value column="Name" original="LBR_CEST">LBR_CEST</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="4321f17d-7b95-4f02-970d-4ba44e31179e">
+  <value column="Name" original="LBR_TaxStatus - Table">LBR_TaxStatus - Table</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="0833bbd9-cd23-4860-a2dd-586717fa4d2e">
+  <value column="Name" original="LBR_TaxStatus">LBR_TaxStatus</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
 </idempiereTrl>
