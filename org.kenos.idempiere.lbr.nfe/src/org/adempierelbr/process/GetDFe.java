@@ -23,6 +23,7 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
 import org.adempiere.base.Service;
+import org.adempiere.exceptions.AdempiereException;
 import org.adempiere.model.POWrapper;
 import org.adempierelbr.model.MLBRDigitalCertificate;
 import org.adempierelbr.model.MLBRNFConfig;
@@ -86,6 +87,9 @@ public class GetDFe extends SvrProcess
 	
 	private String p_LBR_NSU = "";
 	
+	/** Environment Type			*/
+	private String p_tpEnv = null;
+	
 	private boolean p_ForceExec = false;
 	
 	/** Log							*/
@@ -112,6 +116,9 @@ public class GetDFe extends SvrProcess
 			else if ("LBR_ForceExec".equals(name))
 				p_ForceExec = para[i].getParameterAsBoolean();
 			
+			else if (MLBRNotaFiscal.COLUMNNAME_lbr_NFeEnv.equals(name))
+				p_tpEnv = para[i].getParameterAsString();
+			
 			else
 				log.log(Level.SEVERE, "Unknown Parameter: " + name);
 		}		
@@ -129,7 +136,7 @@ public class GetDFe extends SvrProcess
 		if (p_AD_Org_ID <= 0)
 			throw new AdempiereUserError ("@FillMandatory@  @AD_Org_ID@");
 		
-		Boolean consultOneNSU = false;
+		Boolean consultSingleNSU = false;
 		
 		//	Limit execution for each 1h and 10min to avoid being locked out from SeFaz
 		Calendar cal = new GregorianCalendar();
@@ -147,8 +154,8 @@ public class GetDFe extends SvrProcess
 		
 		if (!p_LBR_NSU.isEmpty() || p_ForceExec)
 		{
-			consultOneNSU = true;
-			bpResponse = GetDFe.doIt (oi, p_LBR_NSU, consultOneNSU);
+			consultSingleNSU = true;
+			bpResponse = GetDFe.doIt (oi, p_LBR_NSU, consultSingleNSU);
 		}
 		else
 		{
@@ -165,7 +172,7 @@ public class GetDFe extends SvrProcess
 		
 			oi = MOrgInfo.get (getCtx(), p_AD_Org_ID, null);
 			Long lastNSU = getMaxNSU (oi.getAD_Org_ID());
-			bpResponse = GetDFe.doIt (oi, lastNSU, consultOneNSU);
+			bpResponse = GetDFe.doIt (oi, lastNSU, consultSingleNSU, p_tpEnv);
 		}
 
 		if (bpResponse == null)
@@ -197,7 +204,7 @@ public class GetDFe extends SvrProcess
 			log.info ("Current NSU -> " + currentNSU + " Max NSU -> " + maxNSU);
 
 			//	Try to adquire more documets
-			while (!consultOneNSU && true)
+			while (!consultSingleNSU && true)
 			{
 				if (maxNSU == null || currentNSU == null 						//	Invalid Max global or session NSU
 						|| currentNSU >= maxNSU 								//	All documents acquired
@@ -205,7 +212,7 @@ public class GetDFe extends SvrProcess
 					break;
 				
 				//	In case of failure, cancel operation
-				RetDistDFeIntDocument retDoc = GetDFe.doIt (oi, currentNSU, false);
+				RetDistDFeIntDocument retDoc = GetDFe.doIt (oi, currentNSU, false, p_tpEnv);
 				if (retDoc == null)
 					break;
 				
@@ -278,12 +285,30 @@ public class GetDFe extends SvrProcess
 	 * 	@param CPF
 	 * 	@param IE
 	 * 	@param UF
+	 * 	@param Envorionment Type
 	 * 	@return
 	 * 	@throws XmlException 
 	 */
-	public static RetDistDFeIntDocument doIt (MOrgInfo oi, String nsu, Boolean consultOneNSU) throws XmlException
+	public static RetDistDFeIntDocument doIt (MOrgInfo oi, String nsu, Boolean consultSingleNSU) throws XmlException, AdempiereException
 	{
-		return doIt (oi, Long.valueOf(nsu), consultOneNSU);
+		return doIt (oi, Long.valueOf(nsu), consultSingleNSU, null);
+	}	//	doIt
+
+	/**
+	 * 		Consulta o Parceiro de Negócios na SeFaz
+	 * 
+	 * 	@param oi Organization Info
+	 * 	@param CNPJ
+	 * 	@param CPF
+	 * 	@param IE
+	 * 	@param UF
+	 * 	@param Envorionment Type
+	 * 	@return
+	 * 	@throws XmlException 
+	 */
+	public static RetDistDFeIntDocument doIt (MOrgInfo oi, String nsu, Boolean consultSingleNSU, String tpEnv) throws XmlException, AdempiereException
+	{
+		return doIt (oi, Long.valueOf(nsu), consultSingleNSU, tpEnv);
 	}	//	doIt
 
 	/**
@@ -297,15 +322,36 @@ public class GetDFe extends SvrProcess
 	 * 	@return
 	 * 	@throws XmlException 
 	 */
-	public static RetDistDFeIntDocument doIt (MOrgInfo oi, Long nsu, Boolean consultOneNSU) throws XmlException
+	public static RetDistDFeIntDocument doIt (MOrgInfo oi, Long nsu, Boolean consultSingleNSU) throws XmlException, AdempiereException
+	{
+		return doIt (oi, Long.valueOf(nsu), consultSingleNSU, null);
+	}	//	doIt
+
+	/**
+	 * 		Consulta o Parceiro de Negócios na SeFaz
+	 * 
+	 * 	@param oi Organization Info
+	 * 	@param CNPJ
+	 * 	@param CPF
+	 * 	@param IE
+	 * 	@param UF
+	 * 	@param Envorionment Type
+	 * 	@return
+	 * 	@throws XmlException 
+	 */
+	public static RetDistDFeIntDocument doIt (MOrgInfo oi, Long nsu, Boolean consultSingleNSU, String tpEnv) throws XmlException, AdempiereException
 	{
 		I_W_AD_OrgInfo oiW = POWrapper.create(oi, I_W_AD_OrgInfo.class);
 		DistDFeIntDocument consDFeDoc = DistDFeIntDocument.Factory.newInstance();
 		DistDFeInt consDFe = consDFeDoc.addNewDistDFeInt();
 		
 		MLBRNFConfig config = MLBRNFConfig.get(oi.getAD_Org_ID());
+		if (tpEnv == null && config != null)
+			tpEnv = config.getlbr_NFeEnv();
+		if (tpEnv == null)
+			throw new AdempiereException ("Ambiente Inválido para consulta de DF-e");
 		
-		consDFe.setTpAmb(TAmb.Enum.forString(config.getlbr_NFeEnv()));
+		consDFe.setTpAmb(TAmb.Enum.forString(tpEnv));
 		consDFe.setVersao(TVerDistDFe.X_1_01);
 		consDFe.setCUFAutor(TCodUfIBGE.X_35);
 		
@@ -316,7 +362,7 @@ public class GetDFe extends SvrProcess
 		else
 			consDFe.setCNPJ(CNPJF);
 		
-		if (!consultOneNSU)
+		if (!consultSingleNSU)
 		{
 			DistNSU distNSU = consDFe.addNewDistNSU();
 			distNSU.setUltNSU(TextUtil.lPad(nsu.toString(), 15));
@@ -332,7 +378,7 @@ public class GetDFe extends SvrProcess
 		
 		try
 		{
-			String url = MLBRNFeWebService.getURL (MLBRNFeWebService.DISTRIBUICAONFE, config.getlbr_NFeEnv(), NFeUtil.VERSAO_LAYOUT, -1);
+			String url = MLBRNFeWebService.getURL (MLBRNFeWebService.DISTRIBUICAONFE, tpEnv, NFeUtil.VERSAO_LAYOUT, -1);
 			
 			//	XML
 			StringBuilder xml =  new StringBuilder (consDFeDoc.xmlText(NFeUtil.getXmlOpt()));
