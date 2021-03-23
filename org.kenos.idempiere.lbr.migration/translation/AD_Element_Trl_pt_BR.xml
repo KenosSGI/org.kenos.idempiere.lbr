@@ -67301,8 +67301,8 @@ Usar @AMT@ quando for identificar o valor do Produto/Serviço</value>
   <value column="Placeholder" original=""/>
  </row>
  <row trl="Y" uuid="001d8676-cbe1-4366-a0e4-beeace9c8fae">
-  <value column="Name" original="icms_taxrate">Alíquota ICMS</value>
-  <value column="PrintName" original="icms_taxrate">Alíquota ICMS</value>
+  <value column="Name" original="Tax Rate ICMS">Alíquota ICMS</value>
+  <value column="PrintName" original="Tax Rate ICMS">Alíquota ICMS</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -67356,8 +67356,8 @@ Usar @AMT@ quando for identificar o valor do Produto/Serviço</value>
   <value column="Placeholder" original=""/>
  </row>
  <row trl="Y" uuid="b9b5056f-d9ed-4237-9448-53bcef317f23">
-  <value column="Name" original="pis_taxrate">Alíquota PIS</value>
-  <value column="PrintName" original="pis_taxrate">Alíquota PIS</value>
+  <value column="Name" original="Tax Rate PIS">Alíquota PIS</value>
+  <value column="PrintName" original="Tax Rate PIS">Alíquota PIS</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -67411,8 +67411,8 @@ Usar @AMT@ quando for identificar o valor do Produto/Serviço</value>
   <value column="Placeholder" original=""/>
  </row>
  <row trl="Y" uuid="b31f03e4-a045-4da3-940b-61485c274124">
-  <value column="Name" original="cofins_taxrate">Alíquota COFINS</value>
-  <value column="PrintName" original="cofins_taxrate">Alíquota COFINS</value>
+  <value column="Name" original="Tax Rate COFINS">Alíquota COFINS</value>
+  <value column="PrintName" original="Tax Rate COFINS">Alíquota COFINS</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -67466,8 +67466,8 @@ Usar @AMT@ quando for identificar o valor do Produto/Serviço</value>
   <value column="Placeholder" original=""/>
  </row>
  <row trl="Y" uuid="fec9a0fe-720a-49b2-a13d-fc132f60a243">
-  <value column="Name" original="icmsst_taxrate">Alíquota ICMSST</value>
-  <value column="PrintName" original="icmsst_taxrate">Alíquota ICMSST</value>
+  <value column="Name" original="Tax Rate ICMSST">Alíquota ICMSST</value>
+  <value column="PrintName" original="Tax Rate ICMSST">Alíquota ICMSST</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -67510,8 +67510,8 @@ Usar @AMT@ quando for identificar o valor do Produto/Serviço</value>
   <value column="Placeholder" original=""/>
  </row>
  <row trl="Y" uuid="095437cb-730b-41e2-b9b0-0a4ac8c9898f">
-  <value column="Name" original="ipi_taxrate">Alíquota IPI</value>
-  <value column="PrintName" original="ipi_taxrate">Alíquota IPI</value>
+  <value column="Name" original="Tax Rate IPI">Alíquota IPI</value>
+  <value column="PrintName" original="Tax Rate IPI">Alíquota IPI</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -67554,8 +67554,8 @@ Usar @AMT@ quando for identificar o valor do Produto/Serviço</value>
   <value column="Placeholder" original=""/>
  </row>
  <row trl="N" uuid="a16d0e77-5e2e-4856-b9a9-530811adad6d">
-  <value column="Name" original="ii_taxrate">ii_taxrate</value>
-  <value column="PrintName" original="ii_taxrate">ii_taxrate</value>
+  <value column="Name" original="Tax Rate II">ii_taxrate</value>
+  <value column="PrintName" original="Tax Rate II">ii_taxrate</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -71847,9 +71847,9 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="0fc21cde-3c16-43f0-8ab6-2408b35f262a">
-  <value column="Name" original="Tax Control">Tax Control</value>
-  <value column="PrintName" original="Tax Control">Tax Control</value>
+ <row trl="Y" uuid="0fc21cde-3c16-43f0-8ab6-2408b35f262a">
+  <value column="Name" original="Tax Control">Imposto Substituído</value>
+  <value column="PrintName" original="Tax Control">Imposto Substituído</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -71859,8 +71859,8 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="Placeholder" original=""/>
  </row>
  <row trl="N" uuid="7bb6e0e0-4160-4513-a804-b4dcbfc2eb1f">
-  <value column="Name" original="LBR_Product_Tax_Control_UU">LBR_Product_Tax_Control_UU</value>
-  <value column="PrintName" original="LBR_Product_Tax_Control_UU">LBR_Product_Tax_Control_UU</value>
+  <value column="Name" original="LBR_TaxHold_UU">LBR_Product_Tax_Control_UU</value>
+  <value column="PrintName" original="LBR_TaxHold_UU">LBR_Product_Tax_Control_UU</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -71869,83 +71869,7 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="Y" uuid="bfb00067-ad0c-42fd-8393-6ba8cbcb181b">
-  <value column="Name" original="Qty ICMS Substitute">Qde ICMS Substituto</value>
-  <value column="PrintName" original="Qty ICMS Substitute">Qde ICMS Substituto</value>
-  <value column="Description" original="Amount Quanty related to Own Substitute ICMS">Quantidade Total do ICMS próprio do Parceiro de Negócio Substituto</value>
-  <value column="Help" original="Amount Quanty related to Own Substitute ICMS">Quantidade Total do ICMS próprio do Parceiro de Negócio Substituto</value>
-  <value column="PO_Description" original=""/>
-  <value column="PO_Help" original=""/>
-  <value column="PO_Name" original=""/>
-  <value column="PO_PrintName" original=""/>
-  <value column="Placeholder" original=""/>
- </row>
- <row trl="N" uuid="8c21953b-ea62-4a1b-b20b-1714e4cca0a0">
-  <value column="Name" original="SPED Contribution">SPED Contribuições</value>
-  <value column="PrintName" original="SPED Contribution">SPED Contribuições</value>
-  <value column="Description" original=""/>
-  <value column="Help" original=""/>
-  <value column="Placeholder" original=""/>
-  <value column="PO_Description" original=""/>
-  <value column="PO_Help" original=""/>
-  <value column="PO_Name" original=""/>
-  <value column="PO_PrintName" original=""/>
- </row>
- <row trl="Y" uuid="bfb00067-ad0c-42fd-8393-6ba8cbcb181b">
-  <value column="Name" original="Qty ICMS Substitute">Qde ICMS Substituto</value>
-  <value column="PrintName" original="Qty ICMS Substitute">Qde ICMS Substituto</value>
-  <value column="Description" original="Amount Quanty related to Own Substitute ICMS">Quantidade Total do ICMS próprio do Parceiro de Negócio Substituto</value>
-  <value column="Help" original="Amount Quanty related to Own Substitute ICMS">Quantidade Total do ICMS próprio do Parceiro de Negócio Substituto</value>
-  <value column="Placeholder" original=""/>
-  <value column="PO_Description" original=""/>
-  <value column="PO_Help" original=""/>
-  <value column="PO_Name" original=""/>
-  <value column="PO_PrintName" original=""/>
- </row>
- <row trl="N" uuid="da913e57-3b1c-40fc-9a00-84ad721c1fa9">
-  <value column="Name" original="LBR_SPEDContribution_UU">LBR_SPEDContribution_UU</value>
-  <value column="PrintName" original="LBR_SPEDContribution_UU">LBR_SPEDContribution_UU</value>
-  <value column="Description" original=""/>
-  <value column="Help" original=""/>
-  <value column="PO_Description" original=""/>
-  <value column="PO_Help" original=""/>
-  <value column="PO_Name" original=""/>
-  <value column="PO_PrintName" original=""/>
-  <value column="Placeholder" original=""/>
- </row>
- <row trl="N" uuid="a7e4bc2a-942d-4a41-a619-c3c235971c26">
-  <value column="Name" original="IE Substitute">IE Substitute</value>
-  <value column="PrintName" original="IE Substitute">IE Substitute</value>
-  <value column="Description" original=""/>
-  <value column="Help" original=""/>
-  <value column="PO_Description" original=""/>
-  <value column="PO_Help" original=""/>
-  <value column="PO_Name" original=""/>
-  <value column="PO_PrintName" original=""/>
-  <value column="Placeholder" original=""/>
- </row>
- <row trl="N" uuid="2b3bb0a0-671e-4c4a-92a8-d2b638a45853">
-  <value column="Name" original="LBR_OrgIEST_UU">LBR_OrgIEST_UU</value>
-  <value column="PrintName" original="LBR_OrgIEST_UU">LBR_OrgIEST_UU</value>
-  <value column="Description" original=""/>
-  <value column="Help" original=""/>
-  <value column="PO_Description" original=""/>
-  <value column="PO_Help" original=""/>
-  <value column="PO_Name" original=""/>
-  <value column="PO_PrintName" original=""/>
-  <value column="Placeholder" original=""/>
- </row>
- <row trl="N" uuid="18500675-24c3-476a-87a0-9726f904c870">
-  <value column="Name" original="IE Substitute">IE Substitute</value>
-  <value column="PrintName" original="IE Substitute">IE Substitute</value>
-  <value column="Description" original="To set IE by Region to Substitute IE from Organization">To set IE by Region to Substitute IE from Organization</value>
-  <value column="Help" original="Configure IE by region to Substitute Organization on that region">Configure IE by region to Substitute Organization on that region</value>
-  <value column="PO_Description" original=""/>
-  <value column="PO_Help" original=""/>
-  <value column="PO_Name" original=""/>
-  <value column="PO_PrintName" original=""/>
-  <value column="Placeholder" original=""/>
- </row>
+
  <row trl="Y" uuid="1fc3005a-20a0-4a5b-9c4e-daf03393a172">
   <value column="Name" original="CNAB File">Arquivo CNAB</value>
   <value column="PrintName" original="CNAB File">Arquivo CNAB</value>
@@ -71993,6 +71917,17 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
  <row trl="N" uuid="87e73c6b-f870-4e55-9a59-3ee87a9edd4c">
   <value column="Name" original="Number In Bank Digit">Nosso Número DV</value>
   <value column="PrintName" original="Number In Bank Digit">Nosso Número DV</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="2b3bb0a0-671e-4c4a-92a8-d2b638a45853">
+  <value column="Name" original="LBR_OrgIEST_UU">LBR_OrgIEST_UU</value>
+  <value column="PrintName" original="LBR_OrgIEST_UU">LBR_OrgIEST_UU</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -72210,6 +72145,17 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
+ <row trl="Y" uuid="257dca22-bf84-4bfa-8aea-99f130048f5b">
+  <value column="Name" original="Packing Weight">Peso Embalagem</value>
+  <value column="PrintName" original="Packing Weight">Peso Embalagem</value>
+  <value column="Description" original="Weight of the product's Packing">Informar o Peso da Embalagem do Produto</value>
+  <value column="Help" original="The Packing Weight indicates the weight  of the product's Packing in the Weight UOM of the Client">O campo Peso Embalagem indica o peso individual da Embalagem de um Produto de acordo com a Unidade de Medida padrão. Os campos Peso + Peso Embalagem são utilizados para determinar o Peso Bruto do Produto</value>
+  <value column="Placeholder" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+ </row>
  <row trl="N" uuid="a390fa26-2496-4f35-b64d-40b867859419">
   <value column="Name" original="SCANC">SCANC</value>
   <value column="PrintName" original="SCANC">SCANC</value>
@@ -72425,6 +72371,172 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
  <row trl="Y" uuid="c07cec24-b6fe-464e-9178-71a286f0a311">
   <value column="Name" original="Block K">Bloco K</value>
   <value column="PrintName" original="Block K">Bloco K</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>mn="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="615f2348-aa07-418b-b087-3d9c977548ae">
+  <value column="Name" original="Product Config">Product Config</value>
+  <value column="PrintName" original="Product Config">Product Config</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="067bea82-886d-492d-b0a9-34b257c6a707">
+  <value column="Name" original="LBR_ProductConfig_UU">LBR_ProductConfig_UU</value>
+  <value column="PrintName" original="LBR_ProductConfig_UU">LBR_ProductConfig_UU</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="0e95d6d8-2d57-49e3-907c-a74a636d5b48">
+  <value column="Name" original="Stimulus ISS">Stimulus ISS</value>
+  <value column="PrintName" original="Stimulus ISS">Stimulus ISS</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="e4cfcc2d-2c29-46f4-8d3b-856926c6eaa2">
+  <value column="Name" original="PO Tax">PO Tax</value>
+  <value column="PrintName" original="PO Tax">PO Tax</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="41af0908-6629-4cf3-9efc-47aa0655a139">
+  <value column="Name" original="KNS_KardexID">KNS_KardexID</value>
+  <value column="PrintName" original="KNS_KardexID">KNS_KardexID</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="d8a05248-8f39-4c28-921b-6bdc46c3dfa7">
+  <value column="Name" original="Tax Test Help">Ajuda de Teste de Imposto</value>
+  <value column="PrintName" original="Tax Test Help">Tax Test Help</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="0f59f8b3-d704-4ead-9f8c-5ead41fab925">
+  <value column="Name" original="Tax Test">Teste de Imposto</value>
+  <value column="PrintName" original="Tax Test">Teste de Imposto</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="d553e8c8-dd84-45ce-88fb-3bd437e1642c">
+  <value column="Name" original="LBR_TaxTest_UU">LBR_TaxTest_UU</value>
+  <value column="PrintName" original="LBR_TaxTest_UU">LBR_TaxTest_UU</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="089421ba-9ede-40b2-b033-6638abf33e71">
+  <value column="Name" original="Calculated Tax">Imposto Obtido</value>
+  <value column="PrintName" original="Calculated Tax">Imposto Obtido</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="16d601e8-7f97-4e73-8801-bc215c6437d3">
+  <value column="Name" original="Calculated CFOP">CFOP Obtido</value>
+  <value column="PrintName" original="Calculated CFOP">CFOP Obtido</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="1aa0810e-9e5a-482c-b898-9526f18fe123">
+  <value column="Name" original="Tax Rate Calculated">Alíquota Obtida</value>
+  <value column="PrintName" original="Tax Rate Calculated">Alíquota Obtida</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="706bf324-b09b-4fb0-a3c6-09ad6928c81d">
+  <value column="Name" original="Tax Status Calculated">Sit. Tributária Obtida</value>
+  <value column="PrintName" original="Tax Status Calculated">Sit. Tributária Obtida</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="7e6873a5-dcbc-44de-b157-3fa589911da8">
+  <value column="Name" original="Tax Base Red. Calc.">Red. Base Cálculo Obtida</value>
+  <value column="PrintName" original="Tax Base Red. Calc.">Red. Base Cálculo Obtida</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="b2dabc69-fad6-437f-a844-29faaeb76004">
+  <value column="Name" original="Legal Message Calculated">Men. Legal Obtida</value>
+  <value column="PrintName" original="Legal Message Calculated">Men. Legal Obtida</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="32de7fd0-52f5-46c9-b2e2-25a85bf31ac3">
+  <value column="Name" original="Delete Pay Schedule">Apagar Programação de Pagto</value>
+  <value column="PrintName" original="Delete Pay Schedule">Apagar Programação de Pagto</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>

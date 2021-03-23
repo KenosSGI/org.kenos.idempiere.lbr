@@ -1165,4 +1165,22 @@ Se você deixa a chave de pesquisa vazia, o sistema automaticamente cria um valo
   <value column="Help" original=""/>
   <value column="Placeholder" original=""/>
  </row>
+ <row trl="Y" uuid="7110e92c-8e16-4f4c-b2a9-6fc74f5d332c">
+  <value column="Name" original="SO Tax">Imposto Saídas</value>
+  <value column="Description" original="Primary key table LBR_Tax">Define o Imposto Brasileiro</value>
+  <value column="Help" original="Primary key table LBR_Tax">Chave primária tabela LBR_Tax</value>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="4a0fea10-9420-4988-b3b0-d5beb0b7bf41">
+  <value column="Name" original="Processed On">Testado Em</value>
+  <value column="Description" original="The date+time (expressed in decimal format) when the document has been processed">A data+tempo (expressada em formato decimal) quando o documento foi processado</value>
+  <value column="Help" original="The ProcessedOn Date+Time save the exact moment (nanoseconds precision if allowed by the DB) when a document has been processed.">O Transformados Em Data+Tempo salva o momento exato (precisão de nanosegundos se permitido no BD) quando um documento foi processado.</value>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="c8f2c49b-6520-4bb6-8b10-1a56e053e0b1">
+  <value column="Name" original="PO Tax">Imposto Entradas</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
 </idempiereTrl>
