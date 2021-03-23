@@ -57,3 +57,7 @@ UPDATE AD_Process_Para SET SeqNo=30,Updated=TO_DATE('2021-03-22 12:03:02','YYYY-
 INSERT INTO AD_Process_Para (AD_Process_Para_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,Name,AD_Process_ID,SeqNo,AD_Reference_ID,AD_Reference_Value_ID,IsRange,FieldLength,IsMandatory,DefaultValue,ColumnName,IsCentrallyMaintained,EntityType,AD_Element_ID,AD_Process_Para_UU,IsEncrypted) VALUES (1120547,0,0,'Y',TO_DATE('2021-03-22 12:04:15','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2021-03-22 12:04:15','YYYY-MM-DD HH24:MI:SS'),100,'NFe Environment',1120159,50,17,1100001,'N',0,'Y','1','lbr_NFeEnv','Y','LBRA',1100011,'8892e607-a3ae-4c8e-b6ec-392cb7cbc1fa','N')
 ;
 
+-- 22 de mar de 2021 12:04:15 BRT
+SELECT Register_Migration_Script ('202103221206_EnvTypeDFe.sql') FROM DUAL
+;
+
