@@ -4521,6 +4521,55 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 				//	Check model NF-e to verify mandatory fields
 				if (LBR_NFMODEL_NotaFiscalEletrônica.equals(getlbr_NFModel()))
 				{
+					//	Check if series is filled
+					if (getlbr_NFSerie() == null)
+						throw new Exception ("@FillMandatory@ @lbr_NFSerie@");
+					
+					//	Check if series is numeric
+					if (!getlbr_NFSerie().trim().matches("^\\d{1,3}$"))
+						throw new Exception ("@Invalid@ @lbr_NFSerie@");
+					
+					//	Trim the field if necessary
+					else if (!getlbr_NFSerie().equals(getlbr_NFSerie().trim()))
+						setlbr_NFSerie(getlbr_NFSerie().trim());
+					
+					//	Check if document no is numeric
+					if (!getDocumentNo().trim().matches("^\\d{1,9}$"))
+						throw new Exception ("@Invalid@ @DocumentNo@");
+					
+					//	Trim the field if necessary
+					else if (!getDocumentNo().equals(getDocumentNo().trim()))
+						setDocumentNo(getDocumentNo().trim());
+					
+					//	Validates NFe ID
+					if (getlbr_NFeID() != null && getlbr_NFeID().length() == 44)
+					{
+						Integer noNF  = Integer.valueOf (getlbr_NFeID().substring(25, 34));
+						Integer serNF = Integer.valueOf (getlbr_NFeID().substring(22, 25));
+						//
+						if (!noNF.equals(Integer.valueOf(getDocumentNo())))
+							throw new Exception ("@Invalid@ Número da NF-e não confere com o Chave da NF-e");
+						if (!serNF.equals(Integer.valueOf(getlbr_NFSerie())))
+							throw new Exception ("@Invalid@ Série da NF-e não confere com a Chave da NF-e");
+					}
+					
+					String where = COLUMNNAME_DocumentNo + "~ '^[0-9]+$' " + 
+							"AND " + COLUMNNAME_lbr_NFSerie + "~ '^[0-9]+$' " + 
+							"AND CAST (" + COLUMNNAME_DocumentNo + " AS NUMERIC)=? " + 
+							"AND CAST (" + COLUMNNAME_lbr_NFSerie + " AS NUMERIC)=? " + 
+							"AND " + COLUMNNAME_DocStatus + " IN ('CL','CO') " +
+							"AND " + COLUMNNAME_lbr_IsOwnDocument + "='N' " +
+							"AND " + COLUMNNAME_lbr_BPCNPJ + "=? " +
+							"AND " + COLUMNNAME_LBR_NotaFiscal_ID + "<>?";
+					
+					//	Check for duplicates
+					int count = new Query (getCtx(), Table_Name, where, get_TrxName())
+						.setClient_ID()
+						.setParameters(Integer.valueOf(getDocumentNo()), Integer.valueOf(getlbr_NFSerie()), getlbr_BPCNPJ(), getLBR_NotaFiscal_ID())
+						.count();
+					if (count > 0)
+						throw new Exception ("@Invalid@ Nota Fiscal já escriturada anteriormente");
+
 					//	Try to find NF-e ID from DF-e
 					if (getlbr_NFeID() == null)
 					{

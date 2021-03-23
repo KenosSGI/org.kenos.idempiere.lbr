@@ -14,8 +14,10 @@ import org.adempierelbr.wrapper.I_W_M_Product;
 import org.compiere.model.MBPartner;
 import org.compiere.model.MBPartnerLocation;
 import org.compiere.model.MOrderLine;
+import org.compiere.model.MOrderPaySchedule;
 import org.compiere.model.MOrgInfo;
 import org.compiere.model.MProduct;
+import org.compiere.model.Query;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
 import org.compiere.util.CLogger;
@@ -36,13 +38,14 @@ public class ReProcessOrder extends SvrProcess
 	/**	Order	*/
 	private int p_Record_ID;
 
-	private boolean p_ReCalculateTax	= false;
-	private boolean p_ReDefineTax 		= false;
-	private boolean p_ReDefineCFOP 		= false;
-	private boolean p_DistributeFreight	= false;
-	private boolean p_EnforcePrice 		= false;
-	private boolean p_UnReserveStock	= false;
-	private int p_M_PriceList_ID		= -1;
+	private boolean p_ReCalculateTax		= false;
+	private boolean p_ReDefineTax 			= false;
+	private boolean p_ReDefineCFOP 			= false;
+	private boolean p_DistributeFreight		= false;
+	private boolean p_EnforcePrice 			= false;
+	private boolean p_UnReserveStock		= false;
+	private boolean p_LBR_DeletePaySchedule = true;
+	private int p_M_PriceList_ID			= -1;
 	
 	/**
 	 *  Prepare - e.g., get Parameters.
@@ -75,6 +78,9 @@ public class ReProcessOrder extends SvrProcess
 			else if (name.equals("LBR_UnreserveStock"))
 				p_UnReserveStock = "Y".equals(para[i].getParameter());
 			
+			else if (name.equals("LBR_DeletePaySchedule"))
+				p_LBR_DeletePaySchedule = "Y".equals(para[i].getParameter());
+			
 			else if (name.equals(MOrder.COLUMNNAME_M_PriceList_ID))
 				p_M_PriceList_ID = para[i].getParameterAsInt();
 			
@@ -105,7 +111,7 @@ public class ReProcessOrder extends SvrProcess
 			return "@Error@ process not ready for [AD_Table_ID=" + getTable_ID() + "]";
 		
 		//	Do It
-		processOrder (order, orderLine, p_ReCalculateTax, p_ReDefineTax, p_ReDefineCFOP, p_DistributeFreight, p_EnforcePrice, p_M_PriceList_ID, p_UnReserveStock);
+		processOrder (order, orderLine, p_ReCalculateTax, p_ReDefineTax, p_ReDefineCFOP, p_DistributeFreight, p_EnforcePrice, p_LBR_DeletePaySchedule, p_M_PriceList_ID, p_UnReserveStock);
 		return "@Success@";
 	}	//	doIt
 	
@@ -122,7 +128,7 @@ public class ReProcessOrder extends SvrProcess
 	 * @param p_UnReserveStock - Unreserve Stock
 	 */
 	public static void processOrder (MOrder order, MOrderLine single, boolean p_ReCalculateTax, 
-			boolean p_ReDefineTax, boolean p_ReDefineCFOP, boolean p_DistributeFreight, boolean p_EnforcePrice, int p_M_PriceList_ID, boolean p_UnReserveStock)
+			boolean p_ReDefineTax, boolean p_ReDefineCFOP, boolean p_DistributeFreight, boolean p_EnforcePrice, boolean p_LBR_DeletePaySchedule, int p_M_PriceList_ID, boolean p_UnReserveStock)
 	{
 		I_W_AD_OrgInfo oi = POWrapper.create(MOrgInfo.get(Env.getCtx(), order.getAD_Org_ID(), null), I_W_AD_OrgInfo.class);
 		I_W_C_Order o = POWrapper.create(order, I_W_C_Order.class);
@@ -212,6 +218,16 @@ public class ReProcessOrder extends SvrProcess
 		{
 			if (!order.unReserveStock (null, lines))
 				log.severe("Could not unreserve stock");
+		}
+		
+		//	Delete Order Pay Schedule
+		if (p_LBR_DeletePaySchedule)
+		{
+			new Query (order.getCtx(), MOrderPaySchedule.Table_Name, MOrderPaySchedule.COLUMNNAME_C_Order_ID+"=?", order.get_TrxName())
+				.setParameters(order.getC_Order_ID())
+				.list().forEach(s -> {
+					s.delete(true);
+				});;
 		}
 	}	//	processOrder
 }	//	ReProcessOrder
