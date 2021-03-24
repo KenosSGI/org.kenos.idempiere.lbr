@@ -325,45 +325,6 @@ public class ValidatorOrder implements ModelValidator
 						order.setC_CashLine_ID(invoice.getC_CashLine_ID());
 						if (!MOrder.DOCSTATUS_Completed.equals(status))
 							return invoice.getProcessMsg();
-					
-						// Sobrepor a Programação de Pagamento do Pedido na Fatura
-						if (!MSysConfig.getBooleanValue(SysConfig.LBR_OVERWRITE_ORDER_PAY_SCHEDULE, true))
-						{
-							MOrderPaySchedule[] opss = MOrderPaySchedule.getOrderPaySchedule(ctx, order.getC_Order_ID(), 0, order.get_TrxName());
-							
-							if (opss.length > 0) {
-								MInvoicePaySchedule[] ipss = MInvoicePaySchedule.getInvoicePaySchedule(ctx, invoice.getC_Invoice_ID(), 0, invoice.get_TrxName());
-								for (MInvoicePaySchedule s : ipss)
-									s.deleteEx(true);
-								
-								BigDecimal ogt = order.getGrandTotal();
-								BigDecimal igt = invoice.getGrandTotal();
-								BigDecimal percent = Env.ONE;
-								if (ogt.compareTo(igt) != 0)
-									percent = igt.divide(ogt, 10, RoundingMode.HALF_UP);
-								MCurrency cur = MCurrency.get(order.getCtx(), order.getC_Currency_ID());
-								int scale = cur.getStdPrecision();
-							
-								for (MOrderPaySchedule ops : opss) {
-									MInvoicePaySchedule ips = new MInvoicePaySchedule(ctx, 0, invoice.get_TrxName());
-									PO.copyValues(ops, ips);
-									if (percent != Env.ONE) {
-										BigDecimal propDueAmt = ops.getDueAmt().multiply(percent);
-										if (propDueAmt.scale() > scale)
-											propDueAmt = propDueAmt.setScale(scale, RoundingMode.HALF_UP);
-										ips.setDueAmt(propDueAmt);
-									}
-									ips.setC_Invoice_ID(invoice.getC_Invoice_ID());
-									ips.setAD_Org_ID(ops.getAD_Org_ID());
-									ips.setProcessing(ops.isProcessing());
-									ips.setIsActive(ops.isActive());
-									ips.saveEx();
-								}
-								invoice.validatePaySchedule();
-								invoice.saveEx();
-							}
-						}
-						
 					}
 				}
 			}	//	After Complete
@@ -549,13 +510,19 @@ public class ValidatorOrder implements ModelValidator
 			}
 		}
 		
-
 		if (!MSysConfig.getBooleanValue(SysConfig.LBR_OVERWRITE_ORDER_PAY_SCHEDULE, true))
 		{
 			// copy payment schedule from order if invoice doesn't have a current payment schedule
 			MOrderPaySchedule[] opss = MOrderPaySchedule.getOrderPaySchedule(ctx, order.getC_Order_ID(), 0, trxName);
-			MInvoicePaySchedule[] ipss = MInvoicePaySchedule.getInvoicePaySchedule(ctx, invoice.getC_Invoice_ID(), 0, trxName);
-			if (ipss.length == 0 && opss.length > 0) {
+			//MInvoicePaySchedule[] ipss = MInvoicePaySchedule.getInvoicePaySchedule(ctx, invoice.getC_Invoice_ID(), 0, trxName);
+			//if (ipss.length == 0 && opss.length > 0) {
+			if (opss.length > 0) {
+				invoice.load(invoice.get_TrxName()); // refresh from DB
+
+				MInvoicePaySchedule[] ipss = MInvoicePaySchedule.getInvoicePaySchedule(ctx, invoice.getC_Invoice_ID(), 0, trxName);
+				for (MInvoicePaySchedule s : ipss)
+					s.deleteEx(true);
+			
 				BigDecimal ogt = order.getGrandTotal();
 				BigDecimal igt = invoice.getGrandTotal();
 				BigDecimal percent = Env.ONE;
