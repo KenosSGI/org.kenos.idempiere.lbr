@@ -62,7 +62,7 @@ BEGIN
          || r.tablename
          || ' where '
          || r.tablename
-         || '_id>=1000000';
+         || '_id>=2000000';
 
       EXECUTE cmdnosys INTO currentnext;
 
@@ -71,9 +71,9 @@ BEGIN
          currentnext := 0;
       END IF;
 
-      SELECT INTO currentnext CASE SIGN (currentnext - 1000000)
-                     WHEN -1 THEN 1000000
-                     ELSE coalesce (currentnext + 1, 1000000)
+      SELECT INTO currentnext CASE SIGN (currentnext - 2000000)
+                     WHEN -1 THEN 2000000
+                     ELSE coalesce (currentnext + 1, 2000000)
                      END ;
 
       IF isnativeseqon ='Y' THEN 
