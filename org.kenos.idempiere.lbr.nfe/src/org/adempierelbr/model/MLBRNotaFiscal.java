@@ -1253,7 +1253,8 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		}
 		
 		//	Dados mestre
-		setDateDoc(invoice.getDateAcct());
+		setDateDoc(invoice.getDateInvoiced());
+		setDateAcct(invoice.getDateAcct());
 		setIsSOTrx(isSOTrx);
 		setlbr_IsOwnDocument(IsOwnDocument);
 		
@@ -3413,6 +3414,10 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		
 		if (getC_DocType_ID() != getC_DocTypeTarget_ID())
 			setC_DocType_ID(getC_DocTypeTarget_ID()); 	//	Define que o C_DocType_ID = C_DocTypeTarget_ID
+		
+		//	Set Accounting Date
+		if (getDateAcct() == null && getDateDoc() != null)
+			setDateAcct(getDateDoc());
 		
 		//	Tenta sempre preencher a Organização com base nos documentos vinculados
 		if (getAD_Org_ID() < 1)

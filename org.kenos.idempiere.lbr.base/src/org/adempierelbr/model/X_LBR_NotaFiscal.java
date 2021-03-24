@@ -34,7 +34,7 @@ public class X_LBR_NotaFiscal extends PO implements I_LBR_NotaFiscal, I_Persiste
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20200629L;
+	private static final long serialVersionUID = 20210324L;
 
     /** Standard Constructor */
     public X_LBR_NotaFiscal (Properties ctx, int LBR_NotaFiscal_ID, String trxName)
@@ -42,6 +42,8 @@ public class X_LBR_NotaFiscal extends PO implements I_LBR_NotaFiscal, I_Persiste
       super (ctx, LBR_NotaFiscal_ID, trxName);
       /** if (LBR_NotaFiscal_ID == 0)
         {
+			setDateAcct (new Timestamp( System.currentTimeMillis() ));
+// @#Date@
 			setDocStatus (null);
 // DR
 			setDocumentNo (null);
@@ -335,6 +337,23 @@ public class X_LBR_NotaFiscal extends PO implements I_LBR_NotaFiscal, I_Persiste
 		if (ii == null)
 			 return 0;
 		return ii.intValue();
+	}
+
+	/** Set Account Date.
+		@param DateAcct 
+		Accounting Date
+	  */
+	public void setDateAcct (Timestamp DateAcct)
+	{
+		set_Value (COLUMNNAME_DateAcct, DateAcct);
+	}
+
+	/** Get Account Date.
+		@return Accounting Date
+	  */
+	public Timestamp getDateAcct () 
+	{
+		return (Timestamp)get_Value(COLUMNNAME_DateAcct);
 	}
 
 	/** Set Document Date.
@@ -914,6 +933,23 @@ public class X_LBR_NotaFiscal extends PO implements I_LBR_NotaFiscal, I_Persiste
 	public String getLBR_FreightCostRule () 
 	{
 		return (String)get_Value(COLUMNNAME_LBR_FreightCostRule);
+	}
+
+	/** Set IE Substitute.
+		@param LBR_IEST 
+		To set IE by Region to Substitute IE from Organization
+	  */
+	public void setLBR_IEST (String LBR_IEST)
+	{
+		set_Value (COLUMNNAME_LBR_IEST, LBR_IEST);
+	}
+
+	/** Get IE Substitute.
+		@return To set IE by Region to Substitute IE from Organization
+	  */
+	public String getLBR_IEST () 
+	{
+		return (String)get_Value(COLUMNNAME_LBR_IEST);
 	}
 
 	/** 1 - Contribuinte de ICMS = 1 */
@@ -2931,6 +2967,8 @@ public class X_LBR_NotaFiscal extends PO implements I_LBR_NotaFiscal, I_Persiste
 	public static final String LBR_NFMODEL_NotaFiscalDeServiçosEletrônicaRPS = "S1";
 	/** Nota Fiscal de Consumidor Eletrônica = 65 */
 	public static final String LBR_NFMODEL_NotaFiscalDeConsumidorEletrônica = "65";
+	/** Recibo Provisório de Serviço = RS */
+	public static final String LBR_NFMODEL_ReciboProvisórioDeServiço = "RS";
 	/** Set NF Model.
 		@param lbr_NFModel 
 		Identifies the model of Nota Fiscal
@@ -4320,6 +4358,10 @@ public class X_LBR_NotaFiscal extends PO implements I_LBR_NotaFiscal, I_Persiste
 	public static final String LBR_NFESTATUS_977_RejeiçãoIdentificadorDoCSRTRevogado = "977";
 	/** 978-Rejeição: Hash do CSRT diverge do calculado = 978 */
 	public static final String LBR_NFESTATUS_978_RejeiçãoHashDoCSRTDivergeDoCalculado = "978";
+	/** 306-Rejeição: IE do destinatário não está ativa na UF = 306 */
+	public static final String LBR_NFESTATUS_306_RejeiçãoIEDoDestinatárioNãoEstáAtivaNaUF = "306";
+	/** 305-Rejeição: Destinatário bloqueado na UF = 305 */
+	public static final String LBR_NFESTATUS_305_RejeiçãoDestinatárioBloqueadoNaUF = "305";
 	/** Set NFe Status.
 		@param lbr_NFeStatus 
 		Status of NFe

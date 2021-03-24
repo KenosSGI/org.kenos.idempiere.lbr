@@ -209,6 +209,19 @@ public interface I_LBR_NotaFiscal
 	  */
 	public int getCreatedBy();
 
+    /** Column name DateAcct */
+    public static final String COLUMNNAME_DateAcct = "DateAcct";
+
+	/** Set Account Date.
+	  * Accounting Date
+	  */
+	public void setDateAcct (Timestamp DateAcct);
+
+	/** Get Account Date.
+	  * Accounting Date
+	  */
+	public Timestamp getDateAcct();
+
     /** Column name DateDoc */
     public static final String COLUMNNAME_DateDoc = "DateDoc";
 
@@ -562,6 +575,19 @@ public interface I_LBR_NotaFiscal
 	  * Method for charging Freight
 	  */
 	public String getLBR_FreightCostRule();
+
+    /** Column name LBR_IEST */
+    public static final String COLUMNNAME_LBR_IEST = "LBR_IEST";
+
+	/** Set IE Substitute.
+	  * To set IE by Region to Substitute IE from Organization
+	  */
+	public void setLBR_IEST (String LBR_IEST);
+
+	/** Get IE Substitute.
+	  * To set IE by Region to Substitute IE from Organization
+	  */
+	public String getLBR_IEST();
 
     /** Column name LBR_IndIEDest */
     public static final String COLUMNNAME_LBR_IndIEDest = "LBR_IndIEDest";
