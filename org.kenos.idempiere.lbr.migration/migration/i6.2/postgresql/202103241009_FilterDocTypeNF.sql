@@ -20,5 +20,5 @@ AND LBR_NFModel IN ('55', '65', '56', 'S1')
 ;
 
 -- 24 de mar de 2021 10:08:38 BRT
-SELECT Register_Migration_Script ('202103231500_ReProcessPaySchedule.sql') FROM DUAL
+SELECT Register_Migration_Script ('202103241009_FilterDocTypeNF.sql') FROM DUAL
 ;
