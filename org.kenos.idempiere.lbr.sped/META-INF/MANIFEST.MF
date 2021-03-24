@@ -8,8 +8,7 @@ Require-Bundle: org.adempiere.base;bundle-version="6.2.0",
  org.kenos.idempiere.lbr.tax,
  org.kenos.idempiere.lbr.nfe;bundle-version="1.0.0",
  org.apache.commons.beanutils
-Service-Component: OSGI-INF/ProcessFactory.xml,
- OSGI-INF/ModelFactory.xml
+Service-Component: OSGI-INF/*.xml
 Bundle-ActivationPolicy: lazy
 Automatic-Module-Name: org.kenos.idempiere.lbr.sped
 Bundle-RequiredExecutionEnvironment: JavaSE-11

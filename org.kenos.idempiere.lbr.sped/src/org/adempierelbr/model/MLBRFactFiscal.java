@@ -25,6 +25,7 @@ import org.adempierelbr.sped.SPEDUtil;
 import org.adempierelbr.sped.bean.I_R0150;
 import org.adempierelbr.sped.bean.I_R0190;
 import org.adempierelbr.sped.bean.I_R0200;
+import org.adempierelbr.sped.bean.I_R0500;
 import org.adempierelbr.sped.bean.I_RC100;
 import org.adempierelbr.sped.bean.I_RC500;
 import org.adempierelbr.sped.bean.I_RD100;
@@ -44,7 +45,6 @@ import org.adempierelbr.sped.contrib.bean.RD101;
 import org.adempierelbr.sped.contrib.bean.RD105;
 import org.adempierelbr.sped.contrib.bean.RD501;
 import org.adempierelbr.sped.contrib.bean.RD505;
-import org.adempierelbr.sped.efd.bean.R0500;
 import org.adempierelbr.util.BPartnerUtil;
 import org.adempierelbr.util.TextUtil;
 import org.adempierelbr.wrapper.I_W_M_Product;
@@ -85,7 +85,7 @@ public class MLBRFactFiscal extends X_LBR_FactFiscal
 	 */
 	public MLBRFactFiscal (Properties ctx, int ID, String trx)
 	{
-		super(ctx, ID, trx);	
+		super(ctx, ID, trx);
 	}	//	MLBRADI
 	
 	/**
@@ -344,7 +344,7 @@ public class MLBRFactFiscal extends X_LBR_FactFiscal
 	 * 	@param ctx Contexto
 	 * 	@param trxName Nome da Transação
 	 */
-	public R0500 fillR0500 (Properties ctx, Set<R0500> _R0500, String trxName)
+	public I_R0500 fillR0500 (Properties ctx, Set<I_R0500> _R0500, int type, String trxName)
 	{
 		//	Linha Inválida
 		if (getM_Product_ID() == 0)
@@ -361,7 +361,7 @@ public class MLBRFactFiscal extends X_LBR_FactFiscal
 		
 		MElementValue ev = new MElementValue(Env.getCtx(), prodAcct.getP_Asset_A().getAccount().getC_ElementValue_ID(), null);
 		
-		R0500 r0500 = new R0500();		
+		I_R0500 r0500 = (I_R0500) SPEDUtil.getReg("R0500", type);
 		r0500.setCOD_CTA(TextUtil.toNumeric (ev.getValue()));
 		r0500.setNOME_CTA(ev.getName());
 		r0500.setDT_ALT(ev.getCreated());
@@ -402,7 +402,7 @@ public class MLBRFactFiscal extends X_LBR_FactFiscal
 		r0500.setNIVEL(ev.getValue().split(".").length);
 
 		//
-		for (R0500 r : _R0500)
+		for (I_R0500 r : _R0500)
 		{
 			if (r.getDT_ALT().compareTo(r0500.getDT_ALT()) == 0 &&
 					r.getCOD_CTA().compareTo(r0500.getCOD_CTA()) == 0)
@@ -494,7 +494,7 @@ public class MLBRFactFiscal extends X_LBR_FactFiscal
 	private RA170 getRA170 ()
 	{
 		RA170 rA170 = new RA170 ();
-		rA170.setNUM_ITEM (String.valueOf (getLine()));
+		rA170.setNUM_ITEM (getLine());
 		rA170.setCOD_ITEM (getProductValue());
 		rA170.setDESCR_COMPL (getProductName());
 		rA170.setVL_ITEM (getLineNetAmt());
@@ -827,7 +827,10 @@ public class MLBRFactFiscal extends X_LBR_FactFiscal
 	 */
 	public I_RD100 getRD100 (Properties ctx, I_RD100 rD100, String trxName) throws Exception
 	{
-		PropertyUtils.copyProperties (rD100, getRC100 (ctx, (I_RC100) new RC100 (), trxName));
+		I_RC100 rc100 = getRC100 (ctx, (I_RC100) new RC100 (), trxName);
+		PropertyUtils.copyProperties (rD100, rc100);
+		rD100.setCHV_CTE(rc100.getCHV_NFE());
+		//
 		if (!isCancelled())
 		{
 			rD100.setVL_SERV (getGrandTotal());

@@ -10,7 +10,7 @@
  * with this program; if not, write to the Free Software Foundation, Inc.,    *
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.                     *
  *****************************************************************************/
-package org.adempierelbr.sped.efd.bean;
+package org.adempierelbr.sped.contrib.bean;
 
 import java.sql.Timestamp;
 
@@ -42,6 +42,12 @@ public class R0500 extends RegSped implements I_R0500 {
 	
 	@XMLFieldProperties(maxSize = 60, id = "NOME_CTA")
 	private String NOME_CTA;
+	
+	@XMLFieldProperties(maxSize = 60, id = "COD_CTA_REF")
+	private String COD_CTA_REF;
+	
+	@XMLFieldProperties(maxSize = 14, id = "CNPJ_EST")
+	private String CNPJ_EST;
 
 	/**
 	 * Constructor
@@ -127,6 +133,22 @@ public class R0500 extends RegSped implements I_R0500 {
 	public int compareTo(Object arg0) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	public String getCOD_CTA_REF() {
+		return COD_CTA_REF;
+	}
+
+	public void setCOD_CTA_REF(String cOD_CTA_REF) {
+		COD_CTA_REF = cOD_CTA_REF;
+	}
+
+	public String getCNPJ_EST() {
+		return CNPJ_EST;
+	}
+
+	public void setCNPJ_EST(String cNPJ_EST) {
+		CNPJ_EST = cNPJ_EST;
 	}
 
 } // R0500
