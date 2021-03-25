@@ -186,6 +186,9 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 	private Enum idDest = null;
 	
 	public static final int CURRENCY_BRL = 297;
+	
+	/**	Populate Fields */
+	private boolean populateFields = false;
 
 	/**************************************************************************
 	 *  Default Constructor
@@ -3442,6 +3445,9 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		//	Opcionalmente pode gerar o RPS apenas na hora da transmissão
 		if (newRecord)
 		{
+			if (populateFields && getC_BPartner_Location_ID() > 0)
+				setBPartner((MBPartnerLocation) getC_BPartner_Location());
+			
 			if (getLBR_IndIEDest() == null)
 				setLBR_IndIEDest(LBR_INDIEDEST_9_NãoContribuinteDeICMS);
 			
@@ -5385,5 +5391,9 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 			return true;
 		
 		return false;		
+	}
+
+	public void setPopulateFields(boolean populateFields) {
+		this.populateFields = populateFields;
 	}
 }	//	MLBRNotaFiscal
