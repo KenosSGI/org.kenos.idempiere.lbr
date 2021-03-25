@@ -151,7 +151,7 @@ public class MLBREFDContrib extends X_LBR_EFDContrib implements DocAction, DocOp
 		DB.executeUpdate("INSERT INTO LBR_FactFiscal (" + String.join(",", common) + ", LBR_EFDContrib_ID) "
 				+ " SELECT " + String.join(",", common) + "," + getLBR_EFDContrib_ID()
 				+ " FROM LBR_FactFiscalBase"
-				+ " WHERE (CASE WHEN IsSOTrx='Y' THEN DateDoc ELSE lbr_DateInOut END) BETWEEN " + DB.TO_DATE(getStartDate())
+				+ " WHERE TRUNC(DateAcct) BETWEEN " + DB.TO_DATE(getStartDate())
 				+ " AND " + DB.TO_DATE(getEndDate())
 				+ " AND ((IsSOTrx = 'Y' AND lbr_NFeProt IS NOT NULL) OR IsSOTrx ='N') "
 				+ " AND AD_Client_ID = " + getAD_Client_ID()
