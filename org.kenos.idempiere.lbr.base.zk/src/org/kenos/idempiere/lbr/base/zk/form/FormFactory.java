@@ -45,6 +45,9 @@ public class FormFactory implements IFormFactory
 		else if (formName.equals ("org.compiere.apps.form.VMatch"))
 			controller = new WMatch();
 
+		else if (formName.equals ("org.compiere.apps.form.VMerge"))
+			controller = new WMerge();
+
 		if (controller != null)
 		{
 			ADForm form = controller.getForm();

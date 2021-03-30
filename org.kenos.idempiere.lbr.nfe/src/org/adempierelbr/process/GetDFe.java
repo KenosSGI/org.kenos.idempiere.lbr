@@ -70,6 +70,7 @@ import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe;
 import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Emit;
 import br.inf.portalfiscal.nfe.v400.TProtNFe.InfProt;
 import br.inf.portalfiscal.www.nfe.wsdl.nfedistribuicaodfe.NfeDadosMsg_type0;
+import br.inf.portalfiscal.www.nfe.wsdl.nfedistribuicaodfe.NfeDistDFeInteresseResult_type0;
 
 /**
  * 		Buscar Documento Fiscal emitido contra Organização
@@ -429,7 +430,11 @@ public class GetDFe extends SvrProcess
 				
 				NFeDistribuicaoDFeStub stub = new NFeDistribuicaoDFeStub(url);
 	
-				OMElement nfeConsulta = stub.nfeDistDFeInteresse (dadosMsg).getExtraElement();
+				NfeDistDFeInteresseResult_type0 nfeDistDFeInteresse = stub.nfeDistDFeInteresse (dadosMsg);
+				if (nfeDistDFeInteresse == null)
+					throw new Exception ("@Error@ Resposta da SeFaz inválida");
+
+				OMElement nfeConsulta = nfeDistDFeInteresse.getExtraElement();
 				respStatus.append(nfeConsulta.toString());
 			}
 			//	Resposta
