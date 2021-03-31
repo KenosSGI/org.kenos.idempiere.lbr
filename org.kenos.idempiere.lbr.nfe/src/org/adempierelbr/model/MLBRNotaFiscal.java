@@ -4564,20 +4564,7 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 							throw new Exception ("@Invalid@ Série da NF-e não confere com a Chave da NF-e");
 					}
 					
-					String where = COLUMNNAME_DocumentNo + "~ '^[0-9]+$' " + 
-							"AND " + COLUMNNAME_lbr_NFSerie + "~ '^[0-9]+$' " + 
-							"AND CAST (" + COLUMNNAME_DocumentNo + " AS NUMERIC)=? " + 
-							"AND CAST (" + COLUMNNAME_lbr_NFSerie + " AS NUMERIC)=? " + 
-							"AND " + COLUMNNAME_DocStatus + " IN ('CL','CO') " +
-							"AND " + COLUMNNAME_lbr_IsOwnDocument + "='N' " +
-							"AND " + COLUMNNAME_lbr_BPCNPJ + "=? " +
-							"AND " + COLUMNNAME_LBR_NotaFiscal_ID + "<>?";
-					
-					//	Check for duplicates
-					int count = new Query (getCtx(), Table_Name, where, get_TrxName())
-						.setClient_ID()
-						.setParameters(Integer.valueOf(getDocumentNo()), Integer.valueOf(getlbr_NFSerie()), getlbr_BPCNPJ(), getLBR_NotaFiscal_ID())
-						.count();
+					int count = getCount (getCtx(), getDocumentNo(), getlbr_NFSerie(), getlbr_BPCNPJ(), getLBR_NotaFiscal_ID(), true, get_TrxName());
 					if (count > 0)
 						throw new Exception ("@Invalid@ Nota Fiscal já escriturada anteriormente");
 
@@ -4788,6 +4775,43 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 
 		return getDocStatus();
 	}	//	completeIt
+
+	/**
+	 * 	Get count of NF based on number and series. Useful to check for duplicates
+	 * 
+	 * @param ctx
+	 * @param documentNo
+	 * @param serNo
+	 * @param pCNPJ
+	 * @param LBR_NotaFiscal_ID
+	 * @param trxName
+	 * @return
+	 */
+	public static int getCount (Properties ctx, String documentNo, String serNo, String pCNPJ, int LBR_NotaFiscal_ID, boolean onlyValid, String trxName)
+	{
+		String where = COLUMNNAME_DocumentNo + "~ '^[0-9]+$' " + 
+				"AND " + COLUMNNAME_lbr_NFSerie + "~ '^[0-9]+$' " + 
+				"AND CAST (" + COLUMNNAME_DocumentNo + " AS NUMERIC)=? " + 
+				"AND CAST (" + COLUMNNAME_lbr_NFSerie + " AS NUMERIC)=? " + 
+				"AND " + COLUMNNAME_lbr_IsOwnDocument + "='N' " +
+				"AND " + COLUMNNAME_lbr_BPCNPJ + "=? " +
+				"AND " + COLUMNNAME_LBR_NotaFiscal_ID + "<>? ";
+		
+		//	Only completed and closed
+		if (onlyValid)
+			where += "AND " + COLUMNNAME_DocStatus + " IN ('CL','CO') ";
+		
+		//	Not include voided/reversed, but includes completed, closed, in progress, drafted, etc
+		else
+			where += "AND " + COLUMNNAME_DocStatus + " NOT IN ('VO', 'RE') ";
+
+		//	Check for duplicates
+		int count = new Query (ctx, Table_Name, where, trxName)
+			.setClient_ID()
+			.setParameters(Integer.valueOf(documentNo), Integer.valueOf(serNo), pCNPJ, LBR_NotaFiscal_ID)
+			.count();
+		return count;
+	}	//	getCount
 
 	/**
 	 * 	Void Document.
@@ -5089,11 +5113,11 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 			String[] docSerie = docNo.split ("-");
 			
 			//	Número da NF
-			super.setDocumentNo(docSerie[0]);
+			super.setDocumentNo(docSerie[0].trim());
 			
 			//	Série
 			if (docSerie.length > 1)
-				setlbr_NFSerie(TextUtil.toNumeric (docSerie[1]));
+				setlbr_NFSerie(TextUtil.toNumeric (docSerie[1].trim()));
 		}
 		else
 			super.setDocumentNo(docNo);

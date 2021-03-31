@@ -460,9 +460,11 @@ public class ValidatorInvoice implements ModelValidator
 			 * 		o campo de NF de Entrada está vazio E
 			 * 		não é uma fatura de estorno
 			 */
+			String reference = wInvoice.getlbr_NFEntrada();
+			//
 			if (wDocType.islbr_HasFiscalDocument() 
 					&& !wDocType.islbr_IsOwnDocument()
-					&& (wInvoice.getlbr_NFEntrada() == null || wInvoice.getlbr_NFEntrada().trim().isEmpty())
+					&& (reference == null || reference.trim().isEmpty() || !reference.trim().matches("^\\d{1,9}-\\d{1,3}$"))
 					&& !invoice.isReversal())
 			{
 				return "@FillMandatory@ @lbr_NFEntrada@";
