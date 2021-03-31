@@ -58,6 +58,18 @@ UPDATE AD_Process_Para SET Name='Include Homolog', Description=NULL, Help=NULL, 
 UPDATE AD_Process_Para SET DefaultValue='N',Updated=TO_TIMESTAMP('2021-03-31 10:42:55','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Process_Para_ID=1120300
 ;
 
+-- 31 de mar de 2021 10:59:11 BRT
+UPDATE AD_Field SET IsCentrallyMaintained='N',Updated=TO_TIMESTAMP('2021-03-31 10:59:11','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1127211
+;
+
+-- 31 de mar de 2021 11:13:43 BRT
+UPDATE AD_Column SET IsSelectionColumn='Y', SeqNoSelection=10,Updated=TO_TIMESTAMP('2021-03-31 11:13:43','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1100064
+;
+
+-- 31 de mar de 2021 11:14:03 BRT
+UPDATE AD_Column SET IsSelectionColumn='Y', SeqNoSelection=10,Updated=TO_TIMESTAMP('2021-03-31 11:14:03','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1126791
+;
+
 -- 31 de mar de 2021 10:42:55 BRT
 SELECT Register_Migration_Script ('202103311046_ChangeHomologParam.sql') FROM DUAL
 ;
