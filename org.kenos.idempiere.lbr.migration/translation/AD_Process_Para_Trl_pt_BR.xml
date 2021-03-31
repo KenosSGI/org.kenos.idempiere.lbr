@@ -512,6 +512,48 @@ this field define where request, error,.. occupy.</value>
   <value column="Placeholder" original=""/>
   <value column="Placeholder2" original=""/>
  </row>
+ <row trl="Y" uuid="56c76d2a-5448-4929-8777-8e504675c38e">
+  <value column="Name" original="Issue Date">Data da Emissão</value>
+  <value column="Description" original="Date of the Document">Data da Emissão</value>
+  <value column="Help" original="The Document Date indicates the date the document was generated.  It may or may not be the same as the accounting date.">A "Data do Documento" indica a data em que o documento foi gerado.  Ela pode ser ou não a mesma da data contábil.</value>
+  <value column="Placeholder" original="">De</value>
+  <value column="Placeholder2" original="To">Até</value>
+ </row>
+ <row trl="Y" uuid="b75a7492-f750-4502-95b1-0d92a1790b09">
+  <value column="Name" original="Account Date">Data da Transação</value>
+  <value column="Description" original="Accounting Date">Data da Transação</value>
+  <value column="Help" original="The Accounting Date indicates the date to be used on the General Ledger account entries generated from this document. It is also used for any currency conversion.">A "Data da Transação" indica a data da transação comercial.</value>
+  <value column="Placeholder" original="">De</value>
+  <value column="Placeholder2" original="To">Até</value>
+ </row>
+ <row trl="Y" uuid="f13f58c5-4890-4df9-aae3-0addec36f951">
+  <value column="Name" original="Include Homolog">Incluir Homologação</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="Placeholder" original=""/>
+  <value column="Placeholder2" original=""/>
+ </row>
+ <row trl="Y" uuid="41c9ec3c-413d-401c-b980-0aee76c42438">
+  <value column="Name" original="Issue Date">Data da Emissão</value>
+  <value column="Description" original="Date of the Document">Data da Emissão</value>
+  <value column="Help" original="The Document Date indicates the date the document was generated.  It may or may not be the same as the accounting date.">A "Data do Documento" indica a data em que o documento foi gerado.  Ela pode ser ou não a mesma da data contábil.</value>
+  <value column="Placeholder" original="">De</value>
+  <value column="Placeholder2" original="To">Até</value>
+ </row>
+ <row trl="Y" uuid="12a35b74-c331-47f4-a5a5-aba4f70cb2f3">
+  <value column="Name" original="Account Date">Data da Transação</value>
+  <value column="Description" original="Accounting Date">Data da Transação</value>
+  <value column="Help" original="The Accounting Date indicates the date to be used on the General Ledger account entries generated from this document. It is also used for any currency conversion.">A "Data da Transação" indica a data da transação comercial.</value>
+  <value column="Placeholder" original="">De</value>
+  <value column="Placeholder2" original="To">Até</value>
+ </row>
+ <row trl="Y" uuid="989cc27a-c2f5-453f-b00f-ef76427ed2f5">
+  <value column="Name" original="Include Homolog">Incluir Homologação</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="Placeholder" original=""/>
+  <value column="Placeholder2" original=""/>
+ </row>
  <row trl="N" uuid="ee64a5cb-3e50-43ed-93f0-dc7947270017">
   <value column="Name" original="Incluir Documentos Cancelados">Incluir Documentos Cancelados</value>
   <value column="Description" original="Incluir Documentos Cancelados">Incluir Documentos Cancelados</value>

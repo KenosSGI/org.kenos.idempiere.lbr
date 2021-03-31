@@ -983,6 +983,12 @@ As datas Válido Desde e Válido Até indcam o período válido de tempo para us
   <value column="Help" original="A description is limited to 255 characters.">Uma descrição é limitada a 255 caracteres.</value>
   <value column="Placeholder" original=""/>
  </row>
+ <row trl="Y" uuid="7ca083bb-41a4-47c1-9afa-f779b299084d">
+  <value column="Name" original="Issue Date">Data da Emissão</value>
+  <value column="Description" original="Date of the Document">Data da Emissão</value>
+  <value column="Help" original="The Document Date indicates the date the document was generated.  It may or may not be the same as the accounting date.">A "Data do Documento" indica a data em que o documento foi gerado.  Ela pode ser ou não a mesma da data contábil.</value>
+  <value column="Placeholder" original=""/>
+ </row>
  <row trl="Y" uuid="bd86eb78-6579-47e7-97f2-cd39e07bea5a">
   <value column="Name" original="Discount %">Desconto %</value>
   <value column="Description" original="Discount in percent">Desconto em percentual</value>
@@ -1097,6 +1103,12 @@ As datas Válido Desde e Válido Até indcam o período válido de tempo para us
   <value column="Help" original="">Define qual texto será procurado no Extrato Bancário, é possível usar o caractere curinga % para ampliar a pesquisa (SQL LIKE)</value>
   <value column="Placeholder" original=""/>
  </row>
+ <row trl="Y" uuid="6272a62d-2559-4166-bab0-f19ba96b4379">
+  <value column="Name" original="Tax Status">CST/CSOSN</value>
+  <value column="Description" original="">Código de Situação Tributária ou Código de Situação da Operação do Simples Nacional</value>
+  <value column="Help" original="">Código de Situação Tributária (CST) ou Código de Situação da Operação do Simples Nacional (CSOSN)</value>
+  <value column="Placeholder" original=""/>
+ </row>
  <row trl="N" uuid="b370f4b2-ebca-46b1-84b6-79e9d8e6be99">
   <value column="Name" original="Complete Production">Complete Production</value>
   <value column="Description" original="Complete Production">Complete Production</value>
@@ -1156,6 +1168,12 @@ Se você deixa a chave de pesquisa vazia, o sistema automaticamente cria um valo
  <row trl="Y" uuid="85935e4f-1b22-49f2-be48-bb456f2297f8">
   <value column="Name" original="Numeric Code">Número da Carteira</value>
   <value column="Description" original="Numeric Value">Número da Carteira</value>
+  <value column="Help" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="b1553a2b-3e2f-46ea-8060-3776ed7aebcc">
+  <value column="Name" original="Include Asset">Incluir ativo fixo</value>
+  <value column="Description" original="If checked Assets will be included in Inventory block H of file">If checked Assets will be included in Inventory block H of file</value>
   <value column="Help" original=""/>
   <value column="Placeholder" original=""/>
  </row>
