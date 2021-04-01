@@ -158,6 +158,8 @@ public class GenerateNF extends SvrProcess
 				nf.generateNF(move, doctype.get_ValueAsBoolean("lbr_IsOwnDocument"), p_C_DocType_ID);
 				nf.m_justCreated = true;
 				nf.save();
+				
+				addBufferLog(nf.getLBR_NotaFiscal_ID(), null, null, "Nota Fiscal: " + nf.getDocumentNo(), MLBRNotaFiscal.Table_ID, nf.getLBR_NotaFiscal_ID());
 			}
 			//	Create from Other In/Out
 			else if (p_OtherInOut_ID > 0)
