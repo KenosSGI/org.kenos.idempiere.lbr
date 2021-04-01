@@ -8,9 +8,7 @@ import java.util.List;
 import java.util.logging.Level;
 
 import org.adempiere.exceptions.AdempiereException;
-import org.adempiere.model.POWrapper;
 import org.adempierelbr.model.MLBRNotaFiscal;
-import org.adempierelbr.wrapper.I_W_C_DocType;
 import org.compiere.model.MAttributeSet;
 import org.compiere.model.MClient;
 import org.compiere.model.MDocType;
@@ -49,6 +47,7 @@ public class GenerateNF extends SvrProcess
 	private int p_M_InOut_ID 		= 0;
 	private int p_M_Movement_ID 	= 0;
 	private int p_OtherInOut_ID		= 0;
+	private boolean p_IsOwnDocument = true;
 	private String p_lbr_NFEntrada	= "";
 	
 	/**
@@ -78,6 +77,8 @@ public class GenerateNF extends SvrProcess
 				p_OtherInOut_ID = para.getParameterAsInt();
 			else if (name.equals("lbr_NFEntrada"))
 				p_lbr_NFEntrada = para.getParameterAsString();
+			else if (name.equals(MLBRNotaFiscal.COLUMNNAME_lbr_IsOwnDocument))
+				p_IsOwnDocument = para.getParameterAsBoolean();
 			else
 				log.log (Level.SEVERE, "Unknown Parameter: " + name);
 		}
@@ -166,17 +167,11 @@ public class GenerateNF extends SvrProcess
 			{
 				// Other In/Out
 				MOrder otherInOut = new MOrder(Env.getCtx(), p_OtherInOut_ID, get_TrxName());
-				if (otherInOut.getC_DocType().getC_DocTypeInvoice_ID() < 1)
-					return "@Error@ Tipo de documento para a Fatura não configurado";
+				if (otherInOut.getC_DocType().getC_DocTypeShipment_ID() < 1)
+					return "@Error@ Tipo de documento para a Expedição/Recebimento não configurado";
 
-				if (p_lbr_NFEntrada.isEmpty())
-				{
-					I_W_C_DocType dtInvoice = POWrapper.create((MDocType)otherInOut.getC_DocType().getC_DocTypeInvoice(), I_W_C_DocType.class);
-					
-					// If not Own Document NF must be filled
-					if (dtInvoice == null || !dtInvoice.islbr_IsOwnDocument())
-						return "@Error@ Obrigatório preencher o Número da NF para este tipo de entrada -> " + dtInvoice.getName();
-				}
+				if (!otherInOut.isSOTrx() && p_IsOwnDocument)
+					return "@Error@ Obrigatório preencher o Número da NF para este tipo de entrada";
 				
 				// Shipment/Receipt
 				MInOut io = null;
@@ -220,10 +215,7 @@ public class GenerateNF extends SvrProcess
 					}
 					else
 						return "@Error@ Erro ao Completar Remessa/Recebimento";
-				}					
-				
-				//	If NF Number was filled, NF is not Own Document
-				boolean IsOwnDocument = p_lbr_NFEntrada.isEmpty();
+				}
 				
 				//	NF related to Ship/Receipt
 				MLBRNotaFiscal[] nfs = MLBRNotaFiscal.get(getCtx(), 0, io.getM_InOut_ID(), get_TrxName());
@@ -253,10 +245,10 @@ public class GenerateNF extends SvrProcess
 					// NF Created
 					nf = new MLBRNotaFiscal (getCtx(), 0, get_TrxName());
 					
-					if (!IsOwnDocument)
+					if (!p_IsOwnDocument)
 						nf.setDocumentNo(p_lbr_NFEntrada);
 					
-					nf.generateNF(io, IsOwnDocument);
+					nf.generateNF(io, p_IsOwnDocument);
 					nf.m_justCreated = true;
 					nf.save();
 					
