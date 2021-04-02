@@ -48,7 +48,6 @@ mvn verify -Didempiere.target=org.idempierelbr.p2.targetplatform
 		<module>org.kenos.idempiere.lbr.p2</module>
 	</modules>
 	<build>
-		<pluginManagement>
 			<plugins>
 				<plugin>
 					<groupId>org.eclipse.m2e</groupId>
@@ -127,9 +126,6 @@ mvn verify -Didempiere.target=org.idempierelbr.p2.targetplatform
 					<artifactId>maven-dependency-plugin</artifactId>
 					<version>${maven.dependency.version}</version>
 				</plugin>
-			</plugins>
-		</pluginManagement>
-		<plugins>
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>tycho-maven-plugin</artifactId>

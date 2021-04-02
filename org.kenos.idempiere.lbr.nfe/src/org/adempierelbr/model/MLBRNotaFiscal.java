@@ -803,8 +803,6 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		String dhRecbto = infProt.getDhRecbto().toString();
 		String cStat 	= infProt.getCStat();
 		String nProt 	= infProt.getNProt();
-		String cMsg		= infProt.getCMsg();
-		String xMsg		= infProt.getXMsg();
 		
 		if (infProt.getDigVal() != null)
 			digVal = infProt.xgetDigVal().getStringValue();
@@ -912,8 +910,6 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		}
 		
 		//	Save changes
-		if (cMsg != null)
-			nf.appendErrorMsg ("SEFAZ  [" + cMsg + "] " + xMsg);
 		nf.setProcessing(false);
 		nf.save();
 		
@@ -929,14 +925,6 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 			catch (Exception e) {}
 		}
 	}	//	authorizeNFe
-
-	private void appendErrorMsg(String msg)
-	{
-		if (getErrorMsg() != null)
-			setErrorMsg(getErrorMsg() + "\n" + msg);
-		else
-			setErrorMsg(msg);
-	}	//	appendErrorMsg
 
 	/**
 	 * 	Encontra a NF pelo número da NF, série e Organização
