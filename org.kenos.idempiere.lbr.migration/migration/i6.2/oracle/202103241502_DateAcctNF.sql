@@ -10,7 +10,7 @@ ALTER TABLE LBR_NotaFiscal ADD DateAcct DATE DEFAULT NULL
 ;
 
 -- 24 de mar de 2021 14:43:21 BRT
-UPDATE LBR_NotaFiscal SET DateAcct=NVL(DateDoc,Created) WHERE DateAcct IS NULL AND DateDoc IS NOT NULL
+UPDATE LBR_NotaFiscal SET DateAcct=NVL(DateDoc,Created) WHERE DateAcct IS NULL
 ;
 
 -- 24 de mar de 2021 14:43:30 BRT
