@@ -7,7 +7,7 @@ ALTER TABLE LBR_NotaFiscal ADD COLUMN DateAcct TIMESTAMP DEFAULT NULL
 ;
 
 -- 24 de mar de 2021 14:43:21 BRT
-UPDATE LBR_NotaFiscal SET DateAcct=COALESCE(DateDoc,Created) WHERE DateAcct IS NULL AND DateDoc IS NOT NULL
+UPDATE LBR_NotaFiscal SET DateAcct=COALESCE(DateDoc,Created) WHERE DateAcct IS NULL
 ;
 
 -- 24 de mar de 2021 14:43:30 BRT
