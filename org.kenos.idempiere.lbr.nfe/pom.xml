@@ -12,6 +12,16 @@
 	<packaging>eclipse-plugin</packaging>
 	<repositories>
 		<repository>
+			<id>github-maven-repo</id>
+			<url>https://raw.githubusercontent.com/KenosSGI/maven-repository/master/repository/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+		<repository>
 			<id>local-maven-repo</id>
 			<url>file://${project.basedir}/../local-maven-repo</url>
 			<releases>
@@ -23,7 +33,6 @@
 		</repository>
 	</repositories>
 	<build>
-		<pluginManagement>
 			<plugins>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
@@ -109,15 +118,9 @@
 										<destFileName>nfebeans-v6v.jar</destFileName>
 									</artifactItem>
 									<artifactItem>
-										<groupId>local.nfebeans-v9-sources</groupId>
-										<artifactId>nfebeans-v9-sources</artifactId>
-										<version>NOT_INFORMED</version>
-										<destFileName>nfebeans-v9-sources.jar</destFileName>
-									</artifactItem>
-									<artifactItem>
-										<groupId>local.nfebeans-v9</groupId>
-										<artifactId>nfebeans-v9</artifactId>
-										<version>NOT_INFORMED</version>
+										<groupId>org.kenos</groupId>
+										<artifactId>nfebeans</artifactId>
+										<version>4.00-009c</version>
 										<destFileName>nfebeans-v9.jar</destFileName>
 									</artifactItem>
 									<artifactItem>
@@ -226,6 +229,5 @@
 					</executions>
 				</plugin>
 			</plugins>
-		</pluginManagement>
 	</build>
 </project>

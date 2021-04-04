@@ -983,6 +983,12 @@ As datas Válido Desde e Válido Até indcam o período válido de tempo para us
   <value column="Help" original="A description is limited to 255 characters.">Uma descrição é limitada a 255 caracteres.</value>
   <value column="Placeholder" original=""/>
  </row>
+ <row trl="Y" uuid="7ca083bb-41a4-47c1-9afa-f779b299084d">
+  <value column="Name" original="Issue Date">Data da Emissão</value>
+  <value column="Description" original="Date of the Document">Data da Emissão</value>
+  <value column="Help" original="The Document Date indicates the date the document was generated.  It may or may not be the same as the accounting date.">A "Data do Documento" indica a data em que o documento foi gerado.  Ela pode ser ou não a mesma da data contábil.</value>
+  <value column="Placeholder" original=""/>
+ </row>
  <row trl="Y" uuid="bd86eb78-6579-47e7-97f2-cd39e07bea5a">
   <value column="Name" original="Discount %">Desconto %</value>
   <value column="Description" original="Discount in percent">Desconto em percentual</value>
@@ -1095,6 +1101,12 @@ As datas Válido Desde e Válido Até indcam o período válido de tempo para us
   <value column="Name" original="Text">Texto do Extrato</value>
   <value column="Description" original="">Texto a ser procurado no Extrato Bancário</value>
   <value column="Help" original="">Define qual texto será procurado no Extrato Bancário, é possível usar o caractere curinga % para ampliar a pesquisa (SQL LIKE)</value>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="6272a62d-2559-4166-bab0-f19ba96b4379">
+  <value column="Name" original="Tax Status">CST/CSOSN</value>
+  <value column="Description" original="">Código de Situação Tributária ou Código de Situação da Operação do Simples Nacional</value>
+  <value column="Help" original="">Código de Situação Tributária (CST) ou Código de Situação da Operação do Simples Nacional (CSOSN)</value>
   <value column="Placeholder" original=""/>
  </row>
  <row trl="N" uuid="b370f4b2-ebca-46b1-84b6-79e9d8e6be99">

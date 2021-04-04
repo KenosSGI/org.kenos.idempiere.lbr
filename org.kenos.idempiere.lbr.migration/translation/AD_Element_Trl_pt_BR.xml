@@ -72545,4 +72545,15 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
+ <row trl="Y" uuid="307e31f6-0f0d-4f62-8833-2317894c232f">
+  <value column="Name" original="Include Homolog">Incluir Homologação</value>
+  <value column="PrintName" original="Include Homolog">Incluir Homologação</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
 </idempiereTrl>

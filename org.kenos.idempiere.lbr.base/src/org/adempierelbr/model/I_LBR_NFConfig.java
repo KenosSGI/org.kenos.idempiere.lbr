@@ -176,6 +176,19 @@ public interface I_LBR_NFConfig
 	  */
 	public boolean isLBR_ISSQNAgreement();
 
+    /** Column name LBR_IndPres */
+    public static final String COLUMNNAME_LBR_IndPres = "LBR_IndPres";
+
+	/** Set Indicação de Atendimento Presencial.
+	  * Indicador de presença do comprador no estabelecimento comercial no momento da operação
+	  */
+	public void setLBR_IndPres (String LBR_IndPres);
+
+	/** Get Indicação de Atendimento Presencial.
+	  * Indicador de presença do comprador no estabelecimento comercial no momento da operação
+	  */
+	public String getLBR_IndPres();
+
     /** Column name LBR_NFConfig_ID */
     public static final String COLUMNNAME_LBR_NFConfig_ID = "LBR_NFConfig_ID";
 
@@ -193,6 +206,19 @@ public interface I_LBR_NFConfig
 
 	/** Get LBR_NFConfig_UU	  */
 	public String getLBR_NFConfig_UU();
+
+    /** Column name LBR_NFeLotMethod */
+    public static final String COLUMNNAME_LBR_NFeLotMethod = "LBR_NFeLotMethod";
+
+	/** Set Lot Method.
+	  * Method of transmission of NFe Lot
+	  */
+	public void setLBR_NFeLotMethod (String LBR_NFeLotMethod);
+
+	/** Get Lot Method.
+	  * Method of transmission of NFe Lot
+	  */
+	public String getLBR_NFeLotMethod();
 
     /** Column name LBR_ReverseInOut */
     public static final String COLUMNNAME_LBR_ReverseInOut = "LBR_ReverseInOut";
@@ -310,17 +336,17 @@ public interface I_LBR_NFConfig
 
 	/** Get NFe Environment	  */
 	public String getlbr_NFeEnv();
-	
-	/** Column name LBR_NFeLotMethod */
-    public static final String COLUMNNAME_LBR_NFeLotMethod = "LBR_NFeLotMethod";
 
-	/** Set Lot Method.
-	  * Method of transmission of NFe Lot
-	  */
-	public void setLBR_NFeLotMethod (String LBR_NFeLotMethod);
+    /** Column name lbr_PaymentRule */
+    public static final String COLUMNNAME_lbr_PaymentRule = "lbr_PaymentRule";
 
-	/** Get Lot Method.
-	  * Method of transmission of NFe Lot
+	/** Set Payment Rule.
+	  * How you pay the invoice
 	  */
-	public String getLBR_NFeLotMethod();
+	public void setlbr_PaymentRule (String lbr_PaymentRule);
+
+	/** Get Payment Rule.
+	  * How you pay the invoice
+	  */
+	public String getlbr_PaymentRule();
 }
