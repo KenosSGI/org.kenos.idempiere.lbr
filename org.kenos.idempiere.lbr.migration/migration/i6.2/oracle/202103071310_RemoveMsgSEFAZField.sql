@@ -18,6 +18,10 @@ DELETE FROM AD_Field WHERE AD_Field_ID=1128185
 ;
 
 -- 7 de mar de 2021 13:09:45 BRT
+DELETE FROM  AD_Field WHERE AD_Column_ID=1131517
+;
+
+-- 7 de mar de 2021 13:09:45 BRT
 DELETE  FROM  AD_Column_Trl WHERE AD_Column_ID=1131517
 ;
 
