@@ -104,6 +104,7 @@ import org.compiere.model.ModelValidationEngine;
 import org.compiere.model.ModelValidator;
 import org.compiere.model.PO;
 import org.compiere.model.Query;
+import org.compiere.model.X_C_OrderSource;
 import org.compiere.process.DocAction;
 import org.compiere.process.DocOptions;
 import org.compiere.process.DocumentEngine;
@@ -2587,6 +2588,10 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		
 		//	Dados do Parceiro
 		setBPartner(new MBPartnerLocation (getCtx(), wInvoice.getC_BPartner_Location_ID(), get_TrxName()));
+		
+		//	Intermediador/Marketplace
+		if (wInvoice.getC_Order_ID() > 0)
+			setOrderSource(wInvoice.getC_Order().getC_OrderSource_ID());
 	}	//	setInvoice
 	
 	/**
@@ -2623,7 +2628,31 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		
 		//	Dados do Parceiro
 		setBPartner(new MBPartnerLocation (getCtx(), wOrder.getC_BPartner_Location_ID(), get_TrxName()));
+		
+		//	Intermediador/Marketplace
+		setOrderSource(wOrder.getC_OrderSource_ID());
 	}	//	Invoice
+	
+	/**
+	 * 	Set Order/Source Marketiplace
+	 * 	@param C_OrderSource_ID
+	 */
+	private void setOrderSource (int C_OrderSource_ID)
+	{
+		if (C_OrderSource_ID < 1)
+			return;
+		
+		X_C_OrderSource os = new X_C_OrderSource (getCtx(), C_OrderSource_ID, get_TrxName());
+		Integer C_BPartner_ID = (Integer) os.get_Value(MBPartner.COLUMNNAME_C_BPartner_ID);
+		if (os.get_ValueAsBoolean(COLUMNNAME_LBR_IsMarketPlace) && C_BPartner_ID != null && C_BPartner_ID > 0)
+		{
+			I_W_C_BPartner bp = POWrapper.create(new MBPartner (getCtx(), C_BPartner_ID, get_TrxName()), I_W_C_BPartner.class);
+			setC_OrderSource_ID(C_OrderSource_ID);
+			setLBR_IsMarketPlace(true);
+			setLBR_MarketPlaceCNPJ(bp.getlbr_CNPJ());
+			setUserName(os.get_ValueAsString(COLUMNNAME_UserName));
+		}
+	}	//	setOrderSource
 	
 	/**
 	 * 		Shipment Info
@@ -3502,7 +3531,7 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 					setlbr_MotivoScan(svc.getlbr_MotivoScan());
 				}
 				
-				//	configuração padrão
+				//	Configuração padrão
 				else
 				{
 					//	Força o tipo de emissão para seguir a configuração 
@@ -3515,6 +3544,11 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 						setlbr_MotivoScan(config.getlbr_MotivoScan());
 					}
 				}
+				
+				if (getLBR_IndPres() == null)
+					setLBR_IndPres(config.getLBR_IndPres());
+				if (getlbr_PaymentRule() == null)
+					setlbr_PaymentRule(config.getlbr_PaymentRule());
 			}
 
 			//	Set Org details
