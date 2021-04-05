@@ -838,10 +838,6 @@ UPDATE AD_Field SET SeqNo=210, AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, 
 ;
 
 -- 3 de abr de 2021 23:18:17 BRT
-UPDATE AD_Column SET DefaultValue='@SQL=SELECT MAX (COALESCE (nf.LBR_IndPres, oi.LBR_IndPres, ''9'')) FROM AD_OrgInfo oi LEFT JOIN LBR_NFConfig nf ON (nf.AD_Org_ID=oi.AD_Org_ID AND nf.LBR_IndPres IS NOT NULL) WHERE oi.AD_Org_ID=@#AD_Org_ID@',Updated=TO_DATE('2021-04-03 23:18:17','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1000905
-;
-
--- 3 de abr de 2021 23:18:17 BRT
 SELECT Register_Migration_Script ('202104022105_NT2020_006.sql') FROM DUAL
 ;
 
