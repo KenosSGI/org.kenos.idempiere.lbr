@@ -191,6 +191,7 @@ public class Itau341 implements ICNABGenerator
 			cnab.append(lPad(0, 2));								//	PRAZO
 			cnab.append(rPad("", 1));								//	BRANCOS
 			cnab.append(lPad(count.getAndIncrement(), 6));			//	NÚMERO SEQÜENCIAL
+			cnab.append(CR).append(LF);
 		});
 		
 		//	Footer
