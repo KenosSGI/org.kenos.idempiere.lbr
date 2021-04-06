@@ -679,7 +679,7 @@ Continuar?</value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="270" trl="Y">
-  <value column="MsgText" original="&amp;Lookup Record" xml:space="preserve"><![CDATA[&Registro de Pesquisa]]></value>
+  <value column="MsgText" original="&amp;Lookup Record" xml:space="preserve"><![CDATA[&Pesquisa de Registro]]></value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="271" trl="Y">
