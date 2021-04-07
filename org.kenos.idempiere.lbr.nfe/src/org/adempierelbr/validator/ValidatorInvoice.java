@@ -467,7 +467,7 @@ public class ValidatorInvoice implements ModelValidator
 					&& (reference == null || reference.trim().isEmpty() || !reference.trim().matches("^\\d{1,9}-\\d{1,3}$"))
 					&& !invoice.isReversal())
 			{
-				return "@FillMandatory@ @lbr_NFEntrada@";
+				return "@FillMandatory@ @lbr_NFEntrada@. Deve seguir o formato Número-Série (123456789-123), ex: 1010-9 indica NF 1010 da série 9. Caso a NF não possua série, preencher com 0";
 			}
 		}	//	AFTER PREPARE
 

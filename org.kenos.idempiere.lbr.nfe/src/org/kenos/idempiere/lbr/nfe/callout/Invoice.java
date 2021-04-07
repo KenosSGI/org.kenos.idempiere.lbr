@@ -37,7 +37,7 @@ public class Invoice implements IColumnCallout
 		
 		//	Check if it's correct format
 		if (!reference.trim().matches("^\\d{1,9}-\\d{1,3}$"))
-			return "Número da NF inválido, deve seguir o formato Número-Série (123456789-123), ex: 1010-9 indica NF 1010 da série 9";
+			return "Número da NF inválido, deve seguir o formato Número-Série (123456789-123), ex: 1010-9 indica NF 1010 da série 9. Caso a NF não possua série, preencher com 0";
 		
 		//	Is BPartner and NF number filled correctly?
 		if (C_BPartner_ID == null || C_BPartner_ID <1)

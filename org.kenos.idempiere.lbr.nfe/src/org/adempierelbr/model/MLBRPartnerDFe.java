@@ -185,6 +185,9 @@ public class MLBRPartnerDFe extends X_LBR_PartnerDFe
 			}
 		}
 		
+		if (LBR_SITNF_3_Cancelled.equals(getLBR_SitNF()))
+			setIsCancelled(true);
+		
 		return true;
 	}	//	beforeSave
 	
