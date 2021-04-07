@@ -798,7 +798,7 @@ public class MLBRTax extends X_LBR_Tax
 			lbr_DestionationType = X_LBR_CFOPLine.LBR_DESTIONATIONTYPE_EstadosDiferentes;
 		
 		//	Check if it's manufactured
-		boolean isManufactured = p.isManufactured();
+		boolean isManufactured = p.getM_Product_ID() > 0 ? p.isManufactured() : false;
 		MLBRProductConfig config = MLBRProductConfig.getProductConfig(Env.getCtx(), oi.getAD_Org_ID(), p.getM_Product_ID());
 		if (config != null)
 			isManufactured = "Y".equals(config.getIsManufactured());
