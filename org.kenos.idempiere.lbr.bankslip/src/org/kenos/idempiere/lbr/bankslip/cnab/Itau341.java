@@ -4,6 +4,7 @@ import static org.adempierelbr.util.TextUtil.lPad;
 import static org.adempierelbr.util.TextUtil.rPad;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.Timestamp;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -54,13 +55,13 @@ public class Itau341 implements ICNABGenerator
 		cnab.append("1"); 										//	OPERAÇÃO
 		cnab.append("REMESSA"); 								//	LITERAL DE REMESSA
 		cnab.append("01"); 										//	CÓDIGO DE SERVIÇO
-		cnab.append(lPad("COBRANCA", 15)); 						//	LITERAL DE SERVIÇO
+		cnab.append(rPad("COBRANCA", 15)); 						//	LITERAL DE SERVIÇO
 		cnab.append(lPad(cnabFile.getlbr_AgencyNo(), 4)); 		//	AGÊNCIA
 		cnab.append("00"); 										//	ZEROS
 		cnab.append(lPad(cnabFile.getAccountNo(), 5)); 			//	CONTA
 		cnab.append(rPad(cnabFile.getLBR_BankAccountVD(), 1)); 	//	DAC
 		cnab.append(lPad("", 8)); 								//	BRANCOS
-		cnab.append(lPad(cnabFile.getlbr_LegalEntity(), 30)); 	//	NOME DA EMPRESA
+		cnab.append(rPad(cnabFile.getlbr_LegalEntity(), 30)); 	//	NOME DA EMPRESA
 		cnab.append(cnabFile.getRoutingNo()); 					//	CÓDIGO DO BANCO
 		cnab.append(rPad(BANK_NAME, 15)); 						//	NOME DO BANCO
 		cnab.append(timeToString(cnabFile.getDateDoc())); 		//	DATA DE GERAÇÃO
@@ -100,18 +101,16 @@ public class Itau341 implements ICNABGenerator
 			if (MLBRBankSlip.LBR_ISACCEPTED_IsAccepted.equals(bs.getLBR_IsAccepted()))
 				accepted = IS_ACCEPTED;
 			
-			//	Penalty
-			BigDecimal penaltyAmt = Env.ZERO;
+			//	Interest	
+			BigDecimal interestAmt = Env.ZERO;
 			
 			//	Mora por atraso
-			if (bs.getLBR_PenaltyDays() == 1)
-			{
-				if (MLBRBankSlip.LBR_PENALTYTYPE_Amount.equals(bs.getLBR_PenaltyType()))
-					penaltyAmt = bs.getLBR_PenaltyValue();
-				else if (MLBRBankSlip.LBR_PENALTYTYPE_Rate.equals(bs.getLBR_PenaltyType()))
-					penaltyAmt = bs.getGrandTotal().multiply(bs.getLBR_PenaltyValue());
-			}
-			
+			if (MLBRBankSlip.LBR_PENALTYTYPE_Amount.equals(bs.getLBR_InterestType()))
+				interestAmt = bs.getLBR_InterestValue();
+			else if (MLBRBankSlip.LBR_PENALTYTYPE_Rate.equals(bs.getLBR_InterestType()))
+				interestAmt = ((bs.getLBR_InterestValue().divide(new BigDecimal("30"), 12, RoundingMode.HALF_UP)).
+				        divide(Env.ONEHUNDRED, 12, RoundingMode.HALF_UP)).multiply(bs.getGrandTotal());
+				
 			BigDecimal discountAmt = Env.ZERO;
 			Timestamp discountDate = null;
 			
@@ -171,7 +170,7 @@ public class Itau341 implements ICNABGenerator
 			cnab.append(lPad(timeToString(bs.getDateDoc()), 6));	//	DATA DE EMISSÃO
 			cnab.append(lPad(0, 2));								//	INSTRUÇÃO 1
 			cnab.append(lPad(0, 2));								//	INSTRUÇÃO 2
-			cnab.append(lPad(penaltyAmt, 13));						//	JUROS DE 1 DIA
+			cnab.append(lPad(interestAmt, 13));						//	JUROS DE 1 DIA
 			cnab.append(lPad(timeToString(discountDate), 6));		//	DESCONTO ATÉ
 			cnab.append(lPad(discountAmt, 13));						//	VALOR DO DESCONTO
 			cnab.append(lPad(bs.getLBR_IOFAmt(), 13));				//	VALOR DO IOF
