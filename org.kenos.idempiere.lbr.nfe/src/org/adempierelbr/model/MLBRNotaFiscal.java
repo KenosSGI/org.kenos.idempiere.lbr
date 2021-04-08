@@ -3371,7 +3371,7 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		//	Invoice
 		if (getC_Invoice_ID()>0)
 		{
-			MInvoice invoice = new MInvoice(getCtx(),getC_Order_ID(),get_TrxName());
+			MInvoice invoice = new MInvoice(getCtx(),getC_Invoice_ID(),get_TrxName());
 			if (invoice.get_ColumnIndex(I_W_C_Order.COLUMNNAME_lbr_NFDescription) > 0 
 					&& invoice.get_Value(I_W_C_Order.COLUMNNAME_lbr_NFDescription) != null)
 			{

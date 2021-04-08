@@ -804,14 +804,11 @@ public class ValidatorInvoice implements ModelValidator
 			Properties ctx = invoice.getCtx();
 			String     trx = invoice.get_TrxName();
 			MOrder order = (MOrder)invoice.getC_Order();
-			
-			MDocType docTypeShip = (MDocType)order.getC_DocTypeTarget().getC_DocTypeShipment();
-			
-			if (docTypeShip == null)
+
+			if (order.getC_DocTypeTarget().getC_DocTypeShipment_ID() < 1)
 				 throw new AdempiereException("Tipo de Documento de Recebimento/Remessa não definido");
-			
-			I_W_C_DocType docTypeShipW = POWrapper.create(docTypeShip, I_W_C_DocType.class);
-			
+						
+			I_W_C_DocType docTypeShipW = POWrapper.create((MDocType)order.getC_DocTypeTarget().getC_DocTypeShipment(), I_W_C_DocType.class);
 			if (docTypeShipW.islbr_IsAutomaticInvoice())
 				throw new AdempiereException("Conflito com Tipo de Documento de Recebimento/Remessa que gera Fatura Automática");
 			
@@ -897,6 +894,7 @@ public class ValidatorInvoice implements ModelValidator
 		}
 		catch (Exception e)
 		{
+			e.printStackTrace();
 			throw new AdempiereException(e.getMessage());
 		}
 		return shipment;
