@@ -765,8 +765,38 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 			nfLineTax.setLBR_TaxGroup_ID(taxAD.getLBR_TaxGroup_ID());
 			nfLineTax.save();
 		}
-
+		
 		X_LBR_NFLineTax icmsST = getICMSSTTax();
+		X_LBR_NFLineTax icmsTax = getICMSTax();
+		
+		//	Creates a missing ICMS ST
+		if (icmsST == null 
+				&& icmsTax != null 
+				&& icmsTax.getLBR_TaxStatus_ID() > 0 
+				&& TextUtil.match(icmsTax.getLBR_TaxStatus().getName(), "60", "70"))
+		{
+			MLBRTaxLine tl = new MLBRTaxLine (Env.getCtx(),0,null);
+			tl.setLBR_TaxName_ID(MLBRTaxName.TAX_ICMSST);
+			
+			int Child_Tax_ID = tl.getChild_Tax_ID (iLineW.getC_Tax_ID());
+			if (Child_Tax_ID > 0)
+			{
+				I_W_C_Tax taxAD = POWrapper.create(new MTax (getCtx(), Child_Tax_ID, get_TrxName()), I_W_C_Tax.class);
+				if (taxAD.getLBR_TaxGroup_ID() > 0)
+				{
+					String where = MLBRTaxStatus.COLUMNNAME_LBR_TaxName_ID +"=? AND " + MLBRTaxStatus.COLUMNNAME_Name + "=?";
+					int LBR_TaxStatus_ID = new Query (getCtx(), MLBRTaxStatus.Table_Name, where, null)
+							.setParameters(tl.getLBR_TaxName_ID(), icmsTax.getLBR_TaxStatus().getName())
+							.firstId();
+					//
+					icmsST = new MLBRNFLineTax (this);
+					icmsST.setLBR_TaxStatus_ID(LBR_TaxStatus_ID);
+					icmsST.setLBR_TaxGroup_ID(taxAD.getLBR_TaxGroup_ID());
+					icmsST.save();
+				}
+			}
+		}
+
 		if (MSysConfig.getBooleanValue(SysConfig.LBR_PRINT_ICMS_SUBSTITUTE_NF, true, getAD_Client_ID())
 				&& icmsST != null
 				&& icmsST.getLBR_TaxStatus_ID() > 0
