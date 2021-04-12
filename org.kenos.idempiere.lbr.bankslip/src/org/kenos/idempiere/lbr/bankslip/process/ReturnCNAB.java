@@ -87,7 +87,12 @@ public class ReturnCNAB extends SvrProcess
 		}
 		
 		//	Find the Bank Slip of CNAB file
-		MLBRBankSlip bankSlip = MLBRBankSlip.get (getCtx(), detail.getNumberInOrg());
+				
+		String sqlWhere = "('B' || LBR_BankSlip_ID || 'F' || (CASE WHEN C_Invoice_ID>0 THEN (SELECT i.DocumentNo FROM C_Invoice i WHERE i.C_Invoice_ID=LBR_BankSlip.C_Invoice_ID) ELSE '' END) || 'P' || lbr_PayScheduleNo)=?";		
+		if (detail.getRoutingNo().equals("341"))
+			sqlWhere = "LBR_NumberInOrg=?";
+		
+		MLBRBankSlip bankSlip = MLBRBankSlip.get (getCtx(), sqlWhere, detail.getNumberInOrg());
 		
 		if (bankSlip == null)
 		{
