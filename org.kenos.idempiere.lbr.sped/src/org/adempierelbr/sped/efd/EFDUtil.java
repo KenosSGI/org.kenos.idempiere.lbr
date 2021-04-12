@@ -579,13 +579,12 @@ public class EFDUtil {
 	 * @return
 	 * @throws Exception
 	 */
-	public static R0001 createR0001(boolean hasInfo) throws Exception
+	public static R0001 createR0001() throws Exception
 	{
 		R0001 reg = new R0001();
-		reg.setIND_MOV(hasInfo ? "0" : "1");
-		
+		reg.setIND_MOV("0");
 		return reg;
-	}
+	}	//	createR0001
 	
 	/**
 	 * REGISTRO 0005: DADOS COMPLEMENTARES DA ENTIDADE
@@ -2248,13 +2247,12 @@ public class EFDUtil {
 	 * @return
 	 * @throws Exception
 	 */
-	public static R9001 createR9001(boolean hasInfo) throws Exception
+	public static R9001 createR9001() throws Exception
 	{
 		R9001 reg = new R9001();
-		reg.setIND_MOV(hasInfo ? "0" : "1");
-		
+		reg.setIND_MOV("0");
 		return reg;
-	}
+	}	//	createR9001
 	
 	
 	

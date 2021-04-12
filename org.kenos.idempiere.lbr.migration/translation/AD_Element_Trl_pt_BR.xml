@@ -62298,8 +62298,8 @@ Exemplo, caso o valor seja 60, o usuário não poderá re-utilizar uma senha que
   <value column="Placeholder" original=""/>
  </row>
  <row id="203337" trl="N">
-  <value column="Name" original="Report Output Type">Report Output Type</value>
-  <value column="PrintName" original="Report Output Type">Report Output Type</value>
+  <value column="Name" original="Report Output Type">Formato do Arquivo</value>
+  <value column="PrintName" original="Report Output Type">Formato do Arquivo</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
