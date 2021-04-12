@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
+import org.adempiere.exceptions.DBException;
 import org.adempiere.model.POWrapper;
 import org.adempierelbr.model.MLBRNotaFiscal;
 import org.adempierelbr.model.MLBROpenItem;
@@ -1232,9 +1233,25 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 	{
 		this.msg2 = msg2;
 	}	//	setMsg2
-	
+
 	public static MLBRBankSlip get (Properties ctx, String identifier)
 	{
+		return get (ctx, -1, identifier);
+	}
+	
+	public static MLBRBankSlip get (Properties ctx, int Contract_ID, String identifier)
+	{
+		if (Contract_ID > 0)
+		{
+			MLBRBankSlip bankSlip = new Query(ctx, Table_Name, COLUMNNAME_LBR_NumberInOrg + "=?", null)
+				.setClient_ID()
+				.setParameters(Contract_ID, identifier)
+				.firstOnly();
+			if (bankSlip != null)
+				return bankSlip;
+		}
+	
+		//	Legacy mode
 		return new Query(ctx, Table_Name, "('B' || LBR_BankSlip_ID || 'F' || (CASE WHEN C_Invoice_ID>0 THEN (SELECT i.DocumentNo FROM C_Invoice i WHERE i.C_Invoice_ID=LBR_BankSlip.C_Invoice_ID) ELSE '' END) || 'P' || lbr_PayScheduleNo)=?", null)
 			.setClient_ID()
 			.setParameters(identifier)

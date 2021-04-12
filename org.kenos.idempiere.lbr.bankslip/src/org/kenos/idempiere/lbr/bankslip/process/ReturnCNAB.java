@@ -28,6 +28,8 @@ public class ReturnCNAB extends SvrProcess
 	/**	CNAB File            */
 	private String p_FileName = null;
 	
+	private int p_Contract_ID = -1;
+	
 	/** Defines if the result should be presented to file only or screen **/
 	private boolean resultToFileOnly = false;
 
@@ -44,6 +46,8 @@ public class ReturnCNAB extends SvrProcess
 				;
 			else if (name.equals("FileName"))
 				p_FileName = (String)para[i].getParameter();
+			else if (name.equals(MLBRBankSlip.COLUMNNAME_LBR_BankSlipContract_ID))
+				p_Contract_ID = para[i].getParameterAsInt();
 			else
 				log.log(Level.SEVERE, "prepare - Unknown Parameter: " + name);
 		}
@@ -87,7 +91,7 @@ public class ReturnCNAB extends SvrProcess
 		}
 		
 		//	Find the Bank Slip of CNAB file
-		MLBRBankSlip bankSlip = MLBRBankSlip.get (getCtx(), detail.getNumberInOrg());
+		MLBRBankSlip bankSlip = MLBRBankSlip.get (getCtx(), p_Contract_ID, detail.getNumberInOrg());
 		
 		if (bankSlip == null)
 		{
