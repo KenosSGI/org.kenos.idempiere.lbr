@@ -1233,9 +1233,9 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 		this.msg2 = msg2;
 	}	//	setMsg2
 	
-	public static MLBRBankSlip get (Properties ctx, String sqlWhere, String identifier)
+	public static MLBRBankSlip get (Properties ctx, String identifier)
 	{
-		return new Query(ctx, Table_Name, sqlWhere, null)
+		return new Query(ctx, Table_Name, "('B' || LBR_BankSlip_ID || 'F' || (CASE WHEN C_Invoice_ID>0 THEN (SELECT i.DocumentNo FROM C_Invoice i WHERE i.C_Invoice_ID=LBR_BankSlip.C_Invoice_ID) ELSE '' END) || 'P' || lbr_PayScheduleNo)=?", null)
 			.setClient_ID()
 			.setParameters(identifier)
 			.firstOnly();
