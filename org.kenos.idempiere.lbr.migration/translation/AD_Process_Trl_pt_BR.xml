@@ -2792,6 +2792,21 @@ For example:<br />
   <value column="Description" original="Product Kardex with average cost">Ficha de Estoque - Kardex</value>
   <value column="Help" original="">Ficha de Estoque contendo o custo médio (calculado) de um produto específico em um determinado período</value>
  </row>
+ <row trl="Y" uuid="9d18fe45-8544-47c0-ba5b-a0ec7093c422">
+  <value column="Name" original="Tax Config Test">Teste da Configuração</value>
+  <value column="Description" original="Test the tax configurations">Efetua o teste da configuração de impostos</value>
+  <value column="Help" original="">Para verificar todos os registros de teste utilize a opção "Testar todas as configurações". Para testar somente o registro atual, deixa esta opção desmarcada. Quando o teste é feito somente para o registro atual, o sistema mostra no resultado todos os registros usados na composição tributária do teste, deixando assim mais fácil fazer eventuais correções.</value>
+ </row>
+ <row trl="Y" uuid="ecd4b55c-1bcc-4349-b1a7-6c83c83df5ed">
+  <value column="Name" original="Tax Validation Request">Solicitar Validação Tributária</value>
+  <value column="Description" original="This process will include the actual tax entered to Tax Test window">Este processo irá incluir esta linha do pedido na validação tributária</value>
+  <value column="Help" original="The goal of this process is to include warning to tax personal that this transaction is getting wrong tax configuration. So you should fix manually this tax and then request the fix in the configuration by submitting this process. Make sure to include a good description.">O objetivo deste processo é incluir esta linha de pedido para ser validada na janela de Teste de Configuração Tributária. Você deve ter certeza que a tributação que o sistema atribuiu automaticamente para esta linha estava errada, em seguida você deverá fazer a correção manualmente nesta linha de pedido e só então avançar com este processo. Obrigatoriamente deve-se incluir uma descrição para identificar esta configuração na janela de testes.</value>
+ </row>
+ <row trl="Y" uuid="18deeff9-4883-448e-a580-c3208b1a2dae">
+  <value column="Name" original="Partner Doc Report">Relatório de Documentos Fiscais Recebidos (DF-e)</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
  <row trl="Y" uuid="5efaeb22-fe9f-47ae-a1ae-228b3395e68e">
   <value column="Name" original="Freight Calc">Cálculo de Frete (Correios)</value>
   <value column="Description" original="Freight calculation for Brazilian Post Service (Correios)">Sistema de cálculo de frete para o serviço de postagem brasileiro (Correios)</value>

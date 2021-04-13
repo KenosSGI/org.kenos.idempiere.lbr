@@ -31,8 +31,8 @@ public class ModelFactory implements IModelFactory
 			return MLBRAverageCost.class;
 		else if (MLBRAverageCostLine.Table_Name.equals(tableName))
 			return MLBRAverageCostLine.class;
-		else if (MLBRProductTaxControl.Table_Name.equals(tableName))
-			return MLBRProductTaxControl.class;
+		else if (MLBRTaxHold.Table_Name.equals(tableName))
+			return MLBRTaxHold.class;
 		else if (MLBRAMissingNSU.Table_Name.equals(tableName))
 			return MLBRAMissingNSU.class;
 		else if (MLBRProductConfig.Table_Name.equals(tableName))
@@ -63,8 +63,8 @@ public class ModelFactory implements IModelFactory
 			return new MLBRAverageCost (Env.getCtx(), Record_ID, trxName);
 		else if (MLBRAverageCostLine.Table_Name.equals(tableName))
 			return new MLBRAverageCostLine (Env.getCtx(), Record_ID, trxName);
-		else if (MLBRProductTaxControl.Table_Name.equals(tableName))
-			return new MLBRProductTaxControl (Env.getCtx(), Record_ID, trxName);
+		else if (MLBRTaxHold.Table_Name.equals(tableName))
+			return new MLBRTaxHold (Env.getCtx(), Record_ID, trxName);
 		else if (MLBRAMissingNSU.Table_Name.equals(tableName))
 			return new MLBRAMissingNSU (Env.getCtx(), Record_ID, trxName);
 		else if (MLBRProductConfig.Table_Name.equals(tableName))
@@ -95,8 +95,8 @@ public class ModelFactory implements IModelFactory
 			return new MLBRAverageCost (Env.getCtx(), rs, trxName);
 		else if (MLBRAverageCostLine.Table_Name.equals(tableName))
 			return new MLBRAverageCostLine (Env.getCtx(), rs, trxName);
-		else if (MLBRProductTaxControl.Table_Name.equals(tableName))
-			return new MLBRProductTaxControl (Env.getCtx(), rs, trxName);
+		else if (MLBRTaxHold.Table_Name.equals(tableName))
+			return new MLBRTaxHold (Env.getCtx(), rs, trxName);
 		else if (MLBRAMissingNSU.Table_Name.equals(tableName))
 			return new MLBRAMissingNSU (Env.getCtx(), rs, trxName);
 		else if (MLBRProductConfig.Table_Name.equals(tableName))

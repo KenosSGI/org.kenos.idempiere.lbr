@@ -111,7 +111,7 @@ public class MTaxConfigAcct extends X_LBR_TaxConfigAcct
 			.setParameters(new Object[]{Env.getAD_Client_ID(ctx), AD_Org_ID, LBR_CFOP_ID, C_BPartner_ID, C_DocType_ID, 
 					LBR_BPartnerCategory_ID, LBR_FiscalGroup_BPartner_ID, LBR_FiscalGroup_Product_ID, LBR_NCM_ID, 
 					LBR_ProductCategory_ID, lbr_TransactionType, lbr_TaxRegime, M_Product_ID})
-			.setOrderBy("LBR_CFOP_ID DESC, C_BPartner_ID DESC, C_DocType_ID DESC, LBR_NCM_ID DESC, M_Product_ID DESC, ValidFrom DESC")
+			.setOrderBy("AD_Org_ID DESC, LBR_CFOP_ID DESC, C_BPartner_ID DESC, C_DocType_ID DESC, LBR_NCM_ID DESC, M_Product_ID DESC, ValidFrom DESC")
 			.first();
 		
 		return result;

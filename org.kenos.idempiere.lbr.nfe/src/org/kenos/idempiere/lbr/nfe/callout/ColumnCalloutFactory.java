@@ -8,8 +8,11 @@ import org.adempiere.base.IColumnCalloutFactory;
 import org.adempierelbr.model.MLBRNFLineMA;
 import org.adempierelbr.model.MLBRNotaFiscalLine;
 import org.adempierelbr.util.TextUtil;
+import org.adempierelbr.wrapper.I_W_C_Invoice;
 import org.adempierelbr.wrapper.I_W_M_RMA;
 import org.compiere.model.MInOut;
+import org.compiere.model.MInvoice;
+import org.compiere.model.MMovementLine;
 import org.compiere.model.MRMA;
 
 /**
@@ -48,6 +51,16 @@ public class ColumnCalloutFactory implements IColumnCalloutFactory
 		{
 			if (MLBRNFLineMA.COLUMNNAME_C_Region_ID.equals(columnName))
 				callouts.add (new NotaFiscalLine ());
+		}
+		else if (MInvoice.Table_Name.equals(tableName))
+		{
+			if (TextUtil.match (columnName, I_W_C_Invoice.COLUMNNAME_lbr_NFEntrada, I_W_C_Invoice.COLUMNNAME_C_BPartner_Location_ID))
+				callouts.add (new Invoice());
+		}
+		else if (MMovementLine.Table_Name.equals(tableName))
+		{
+			if (TextUtil.match (columnName, MMovementLine.COLUMNNAME_M_Product_ID))
+				callouts.add (new Movement());
 		}
 		IColumnCallout[] result = new IColumnCallout[callouts.size()];
 		return callouts.toArray (result);

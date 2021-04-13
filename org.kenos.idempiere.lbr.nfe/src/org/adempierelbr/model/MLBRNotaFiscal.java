@@ -104,6 +104,7 @@ import org.compiere.model.ModelValidationEngine;
 import org.compiere.model.ModelValidator;
 import org.compiere.model.PO;
 import org.compiere.model.Query;
+import org.compiere.model.X_C_OrderSource;
 import org.compiere.process.DocAction;
 import org.compiere.process.DocOptions;
 import org.compiere.process.DocumentEngine;
@@ -120,6 +121,7 @@ import org.kenos.idempiere.lbr.base.Constants;
 import org.kenos.idempiere.lbr.base.model.MCity;
 import org.kenos.idempiere.lbr.base.model.MLBRAverageCostLine;
 import org.kenos.idempiere.lbr.base.model.MLBRProductionGroup;
+import org.kenos.idempiere.lbr.base.model.MLBRTaxHold;
 import org.kenos.idempiere.lbr.base.model.MRegion;
 import org.kenos.idempiere.lbr.base.model.SysConfig;
 
@@ -185,6 +187,9 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 	private Enum idDest = null;
 	
 	public static final int CURRENCY_BRL = 297;
+	
+	/**	Populate Fields */
+	private boolean populateFields = false;
 
 	/**************************************************************************
 	 *  Default Constructor
@@ -799,8 +804,6 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		String dhRecbto = infProt.getDhRecbto().toString();
 		String cStat 	= infProt.getCStat();
 		String nProt 	= infProt.getNProt();
-		String cMsg		= infProt.getCMsg();
-		String xMsg		= infProt.getXMsg();
 		
 		if (infProt.getDigVal() != null)
 			digVal = infProt.xgetDigVal().getStringValue();
@@ -908,8 +911,6 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		}
 		
 		//	Save changes
-		if (cMsg != null)
-			nf.appendErrorMsg ("SEFAZ  [" + cMsg + "] " + xMsg);
 		nf.setProcessing(false);
 		nf.save();
 		
@@ -925,14 +926,6 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 			catch (Exception e) {}
 		}
 	}	//	authorizeNFe
-
-	private void appendErrorMsg(String msg)
-	{
-		if (getErrorMsg() != null)
-			setErrorMsg(getErrorMsg() + "\n" + msg);
-		else
-			setErrorMsg(msg);
-	}	//	appendErrorMsg
 
 	/**
 	 * 	Encontra a NF pelo número da NF, série e Organização
@@ -1252,7 +1245,8 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		}
 		
 		//	Dados mestre
-		setDateDoc(invoice.getDateAcct());
+		setDateDoc(invoice.getDateInvoiced());
+		setDateAcct(invoice.getDateAcct());
 		setIsSOTrx(isSOTrx);
 		setlbr_IsOwnDocument(IsOwnDocument);
 		
@@ -1556,8 +1550,24 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		for (MMovementLine line : move.getLines (true))
 		{
 			//	Se for NF de Entrada, buscar CFOP da Movimentação
-			if (!isSOTrx())
+			if (!isSOTrx() || p_LBR_CFOP_ID == 0)
+			{
+				//	Load CFOP from Line
 				p_LBR_CFOP_ID = line.get_ValueAsInt("LBR_CFOP_ID");
+				
+				//	Load Tax Configuration from CFOP config
+				if (p_LBR_CFOP_ID > 0 && p_LBR_Tax_ID == 0)
+				{
+					String sql = "SELECT LBR_Tax_ID "
+							+ "FROM LBR_CFOPLine l "
+							+ "WHERE C_DocType_ID=? "
+							+ "AND LBR_CFOP_ID=? "
+							+ "AND AD_Org_ID IN (0,?)"
+							+ "ORDER BY AD_Org_ID DESC";
+					//
+					p_LBR_Tax_ID  = DB.getSQLValue(null, sql, move.getC_DocType_ID(), p_LBR_CFOP_ID, move.getAD_Org_ID());
+				}
+			}
 			
 			MLBRNotaFiscalLine nfLine = new MLBRNotaFiscalLine (this);
 			nfLine.setAD_Org_ID(line.getAD_Org_ID());
@@ -2578,6 +2588,10 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		
 		//	Dados do Parceiro
 		setBPartner(new MBPartnerLocation (getCtx(), wInvoice.getC_BPartner_Location_ID(), get_TrxName()));
+		
+		//	Intermediador/Marketplace
+		if (wInvoice.getC_Order_ID() > 0)
+			setOrderSource(wInvoice.getC_Order().getC_OrderSource_ID());
 	}	//	setInvoice
 	
 	/**
@@ -2614,7 +2628,31 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		
 		//	Dados do Parceiro
 		setBPartner(new MBPartnerLocation (getCtx(), wOrder.getC_BPartner_Location_ID(), get_TrxName()));
+		
+		//	Intermediador/Marketplace
+		setOrderSource(wOrder.getC_OrderSource_ID());
 	}	//	Invoice
+	
+	/**
+	 * 	Set Order/Source Marketiplace
+	 * 	@param C_OrderSource_ID
+	 */
+	private void setOrderSource (int C_OrderSource_ID)
+	{
+		if (C_OrderSource_ID < 1)
+			return;
+		
+		X_C_OrderSource os = new X_C_OrderSource (getCtx(), C_OrderSource_ID, get_TrxName());
+		Integer C_BPartner_ID = (Integer) os.get_Value(MBPartner.COLUMNNAME_C_BPartner_ID);
+		if (os.get_ValueAsBoolean(COLUMNNAME_LBR_IsMarketPlace) && C_BPartner_ID != null && C_BPartner_ID > 0)
+		{
+			I_W_C_BPartner bp = POWrapper.create(new MBPartner (getCtx(), C_BPartner_ID, get_TrxName()), I_W_C_BPartner.class);
+			setC_OrderSource_ID(C_OrderSource_ID);
+			setLBR_IsMarketPlace(true);
+			setLBR_MarketPlaceCNPJ(bp.getlbr_CNPJ());
+			setUserName(os.get_ValueAsString(COLUMNNAME_UserName));
+		}
+	}	//	setOrderSource
 	
 	/**
 	 * 		Shipment Info
@@ -3333,7 +3371,7 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		//	Invoice
 		if (getC_Invoice_ID()>0)
 		{
-			MInvoice invoice = new MInvoice(getCtx(),getC_Order_ID(),get_TrxName());
+			MInvoice invoice = new MInvoice(getCtx(),getC_Invoice_ID(),get_TrxName());
 			if (invoice.get_ColumnIndex(I_W_C_Order.COLUMNNAME_lbr_NFDescription) > 0 
 					&& invoice.get_Value(I_W_C_Order.COLUMNNAME_lbr_NFDescription) != null)
 			{
@@ -3413,6 +3451,10 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		if (getC_DocType_ID() != getC_DocTypeTarget_ID())
 			setC_DocType_ID(getC_DocTypeTarget_ID()); 	//	Define que o C_DocType_ID = C_DocTypeTarget_ID
 		
+		//	Set Accounting Date
+		if (getDateAcct() == null && getDateDoc() != null)
+			setDateAcct(getDateDoc());
+		
 		//	Tenta sempre preencher a Organização com base nos documentos vinculados
 		if (getAD_Org_ID() < 1)
 		{
@@ -3436,6 +3478,9 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		//	Opcionalmente pode gerar o RPS apenas na hora da transmissão
 		if (newRecord)
 		{
+			if (populateFields && getC_BPartner_Location_ID() > 0)
+				setBPartner((MBPartnerLocation) getC_BPartner_Location());
+			
 			if (getLBR_IndIEDest() == null)
 				setLBR_IndIEDest(LBR_INDIEDEST_9_NãoContribuinteDeICMS);
 			
@@ -3486,7 +3531,7 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 					setlbr_MotivoScan(svc.getlbr_MotivoScan());
 				}
 				
-				//	configuração padrão
+				//	Configuração padrão
 				else
 				{
 					//	Força o tipo de emissão para seguir a configuração 
@@ -3499,6 +3544,11 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 						setlbr_MotivoScan(config.getlbr_MotivoScan());
 					}
 				}
+				
+				if (getLBR_IndPres() == null)
+					setLBR_IndPres(config.getLBR_IndPres());
+				if (getlbr_PaymentRule() == null)
+					setlbr_PaymentRule(config.getlbr_PaymentRule());
 			}
 
 			//	Set Org details
@@ -4392,10 +4442,16 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 				setlbr_NFeID (null);
 				setLBR_NFeLot_ID (0);
 				
-				//	Ajusta a data/hora de emissão da NFC-e
+				//	Ajusta a data/hora de emissão da NFC-e ou quando configurado no tipo de documento
 				if (islbr_IsOwnDocument() && (getC_DocTypeTarget().isOverwriteDateOnComplete() 
 								|| LBR_NFMODEL_NotaFiscalDeConsumidorEletrônica.equals(getlbr_NFModel())))
-					setDateDoc(new Timestamp (System.currentTimeMillis()));
+				{
+					Timestamp currentDate = new Timestamp (System.currentTimeMillis());
+					if (!TextUtil.timeToString(getDateDoc()).equals(TextUtil.timeToString(currentDate)) 
+							|| TextUtil.timeToString(getDateDoc(), "HHmm").equals("0000"))
+						setDateDoc(new Timestamp (System.currentTimeMillis()));
+				}
+				
 				try
 				{
 					//	Gera o XML da NF-e
@@ -4514,6 +4570,42 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 				//	Check model NF-e to verify mandatory fields
 				if (LBR_NFMODEL_NotaFiscalEletrônica.equals(getlbr_NFModel()))
 				{
+					//	Check if series is filled
+					if (getlbr_NFSerie() == null)
+						throw new Exception ("@FillMandatory@ @lbr_NFSerie@");
+					
+					//	Check if series is numeric
+					if (!getlbr_NFSerie().trim().matches("^\\d{1,3}$"))
+						throw new Exception ("@Invalid@ @lbr_NFSerie@");
+					
+					//	Trim the field if necessary
+					else if (!getlbr_NFSerie().equals(getlbr_NFSerie().trim()))
+						setlbr_NFSerie(getlbr_NFSerie().trim());
+					
+					//	Check if document no is numeric
+					if (!getDocumentNo().trim().matches("^\\d{1,9}$"))
+						throw new Exception ("@Invalid@ @DocumentNo@");
+					
+					//	Trim the field if necessary
+					else if (!getDocumentNo().equals(getDocumentNo().trim()))
+						setDocumentNo(getDocumentNo().trim());
+					
+					//	Validates NFe ID
+					if (getlbr_NFeID() != null && getlbr_NFeID().length() == 44)
+					{
+						Integer noNF  = Integer.valueOf (getlbr_NFeID().substring(25, 34));
+						Integer serNF = Integer.valueOf (getlbr_NFeID().substring(22, 25));
+						//
+						if (!noNF.equals(Integer.valueOf(getDocumentNo())))
+							throw new Exception ("@Invalid@ Número da NF-e não confere com o Chave da NF-e");
+						if (!serNF.equals(Integer.valueOf(getlbr_NFSerie())))
+							throw new Exception ("@Invalid@ Série da NF-e não confere com a Chave da NF-e");
+					}
+					
+					int count = getCount (getCtx(), getDocumentNo(), getlbr_NFSerie(), getlbr_BPCNPJ(), getLBR_NotaFiscal_ID(), true, get_TrxName());
+					if (count > 0)
+						throw new Exception ("@Invalid@ Nota Fiscal já escriturada anteriormente");
+
 					//	Try to find NF-e ID from DF-e
 					if (getlbr_NFeID() == null)
 					{
@@ -4528,6 +4620,26 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 						else
 							throw new Exception ("@FillMandatory@ @lbr_NFeID@");
 					}
+					
+					//	Fill NF-e on Tax hold
+					Arrays.asList(getLines()).stream()
+						.filter(l -> l.getC_InvoiceLine_ID() > 0)
+						.forEach(l -> 
+						{
+							String whereClause = MLBRTaxHold.COLUMNNAME_lbr_NFeID + " IS NULL AND ("+ 
+									MLBRTaxHold.COLUMNNAME_C_InvoiceLine_ID+"=? OR " + 
+									MLBRTaxHold.COLUMNNAME_LBR_NotaFiscalLine_ID+"=?)";
+							//
+							new Query (getCtx(), MLBRTaxHold.Table_Name, whereClause, get_TrxName())
+								.setParameters(l.getC_InvoiceLine_ID(), l.getLBR_NotaFiscalLine_ID())
+								.list().stream().map(MLBRTaxHold.class::cast).forEach(h -> 
+								{
+									h.setlbr_NFeID(getlbr_NFeID());
+									h.setReferenceNo(String.valueOf(l.getLine()));
+									h.setLBR_NotaFiscalLine_ID(l.getLBR_NotaFiscalLine_ID());
+									h.save();
+								});
+						});
 				}
 				setDocAction(DOCACTION_None);
 				setDocStatus(DOCSTATUS_Completed);
@@ -4701,6 +4813,43 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 
 		return getDocStatus();
 	}	//	completeIt
+
+	/**
+	 * 	Get count of NF based on number and series. Useful to check for duplicates
+	 * 
+	 * @param ctx
+	 * @param documentNo
+	 * @param serNo
+	 * @param pCNPJ
+	 * @param LBR_NotaFiscal_ID
+	 * @param trxName
+	 * @return
+	 */
+	public static int getCount (Properties ctx, String documentNo, String serNo, String pCNPJ, int LBR_NotaFiscal_ID, boolean onlyValid, String trxName)
+	{
+		String where = COLUMNNAME_DocumentNo + "~ '^[0-9]+$' " + 
+				"AND " + COLUMNNAME_lbr_NFSerie + "~ '^[0-9]+$' " + 
+				"AND CAST (" + COLUMNNAME_DocumentNo + " AS NUMERIC)=? " + 
+				"AND CAST (" + COLUMNNAME_lbr_NFSerie + " AS NUMERIC)=? " + 
+				"AND " + COLUMNNAME_lbr_IsOwnDocument + "='N' " +
+				"AND " + COLUMNNAME_lbr_BPCNPJ + "=? " +
+				"AND " + COLUMNNAME_LBR_NotaFiscal_ID + "<>? ";
+		
+		//	Only completed and closed
+		if (onlyValid)
+			where += "AND " + COLUMNNAME_DocStatus + " IN ('CL','CO') ";
+		
+		//	Not include voided/reversed, but includes completed, closed, in progress, drafted, etc
+		else
+			where += "AND " + COLUMNNAME_DocStatus + " NOT IN ('VO', 'RE') ";
+
+		//	Check for duplicates
+		int count = new Query (ctx, Table_Name, where, trxName)
+			.setClient_ID()
+			.setParameters(Integer.valueOf(documentNo), Integer.valueOf(serNo), pCNPJ, LBR_NotaFiscal_ID)
+			.count();
+		return count;
+	}	//	getCount
 
 	/**
 	 * 	Void Document.
@@ -5002,11 +5151,11 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 			String[] docSerie = docNo.split ("-");
 			
 			//	Número da NF
-			super.setDocumentNo(docSerie[0]);
+			super.setDocumentNo(docSerie[0].trim());
 			
 			//	Série
 			if (docSerie.length > 1)
-				setlbr_NFSerie(TextUtil.toNumeric (docSerie[1]));
+				setlbr_NFSerie(TextUtil.toNumeric (docSerie[1].trim()));
 		}
 		else
 			super.setDocumentNo(docNo);
@@ -5304,5 +5453,9 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 			return true;
 		
 		return false;		
+	}
+
+	public void setPopulateFields(boolean populateFields) {
+		this.populateFields = populateFields;
 	}
 }	//	MLBRNotaFiscal

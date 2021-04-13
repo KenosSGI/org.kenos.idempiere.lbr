@@ -166,7 +166,7 @@ public class MLBREFDICMSIPI extends X_LBR_EFDICMSIPI implements DocAction, DocOp
 		DB.executeUpdate("INSERT INTO LBR_FactFiscal (" + String.join(",", common) + ", LBR_EFDICMSIPI_ID) "
 				+ " SELECT " + String.join(",", common) + "," + getLBR_EFDICMSIPI_ID()
 				+ " FROM LBR_FactFiscalBase"
-				+ " WHERE (CASE WHEN IsSOTrx='Y' THEN TRUNC(DateDoc) ELSE TRUNC(lbr_DateInOut) END) BETWEEN " + DB.TO_DATE(getStartDate())
+				+ " WHERE TRUNC(DateAcct) BETWEEN " + DB.TO_DATE(getStartDate())
 				+ " AND " + DB.TO_DATE(getEndDate())
 				+ " AND ((IsSOTrx = 'Y' AND lbr_NFeProt IS NOT NULL) OR IsSOTrx ='N') "
 				+ " AND AD_Client_ID = " + getAD_Client_ID(), get_TrxName());
@@ -586,8 +586,6 @@ public class MLBREFDICMSIPI extends X_LBR_EFDICMSIPI implements DocAction, DocOp
 		blocoC.checkException();
 		blocoD.checkException();
 		
-		
-		
 		/**
 		 * APURAÇÃO DE ICMS, IPI e ST - BLOCO E
 		 */
@@ -595,120 +593,116 @@ public class MLBREFDICMSIPI extends X_LBR_EFDICMSIPI implements DocAction, DocOp
 		/**
 		 * ICMS
 		 */
-		MLBRTaxAssessment m_taxAssessment = MLBRTaxAssessment.get(getCtx(), getAD_Org_ID(), "ICMSPROD", getC_Period_ID(), null);
-		if(m_taxAssessment != null && m_taxAssessment.get_ID() > 0)
-		{				
-			// E100 - ICMS
-			blocoE.setrE100(EFDUtil.createRE100(getStartDate(), getEndDate()));
-			
-			// E110 - gerar baseado nos blocos C e D
-			blocoE.getrE100().setrE110(EFDUtil.createRE110(m_taxAssessment));
-			blocoE.getrE100().setrE116(EFDUtil.createRE116(m_taxAssessment));
-			
- 			// Adicionar detalhes dos ajustes do E110
-			if(blocoE.getrE100().getrE110() != null)
-			{
-				
-				// linhas de ajustes da apuração
-				for (X_LBR_TaxAssessmentLine line : m_taxAssessment.getLines())
-					blocoE.getrE100().addrE111(EFDUtil.createRE111(bloco0.getR0000().getUF(), true, line));
-			}
-			
-		}		
-		
-		/**
-		 * ICMS ST 
-		 */
-		for (RC100 aux_rc100 : blocoC.getrC100())
+		if (isLBR_IncludeE())
 		{
-
-			// somente gerar registros se a NF tiver ST
-			if(aux_rc100.getVL_ICMS_ST() != null  && aux_rc100.getVL_ICMS_ST().signum() == 1)
-			{
+			MLBRTaxAssessment m_taxAssessment = MLBRTaxAssessment.get(getCtx(), getAD_Org_ID(), "ICMSPROD", getC_Period_ID(), null);
+			if(m_taxAssessment != null && m_taxAssessment.get_ID() > 0)
+			{				
+				// E100 - ICMS
+				blocoE.setrE100(EFDUtil.createRE100(getStartDate(), getEndDate()));
 				
-				// RE200 - criar registro da UF no período
-				RE200 re200 = EFDUtil.createRE200(aux_rc100.getUF(), getStartDate(), getEndDate());
+				// E110 - gerar baseado nos blocos C e D
+				blocoE.getrE100().setrE110(EFDUtil.createRE110(m_taxAssessment));
+				blocoE.getrE100().setrE116(EFDUtil.createRE116(m_taxAssessment));
 				
-				
-				//
-				if(blocoE.getrE200().contains(re200))
-					re200.subtractCounter();
-				else 
-					blocoE.getrE200().add(re200);
-				
-				
-				// criar o registro necessário da apuração, se já não existir
-				if(blocoE.getrE200().get(blocoE.getrE200().indexOf(re200)).getrE210() == null)
-					blocoE.getrE200().get(blocoE.getrE200().indexOf(re200)).setrE210(EFDUtil.createRE210());
-
-				
-				// Vlr Débito, Vlr Devolução de ST
-				BigDecimal VL_DEVOL_ST = Env.ZERO; 
-				BigDecimal VL_RETENÇAO_ST = Env.ZERO;
-				
-				
-				// linhas para extrarir os valores de ST, tanto de devolução quanto débito
-				for(RC190 aux_rc190 : aux_rc100.getrC190())
+	 			// Adicionar detalhes dos ajustes do E110
+				if(blocoE.getrE100().getrE110() != null)
 				{
-					 // se for devolução de venda
-					if (EFDUtil.isCFOPDevolST(aux_rc190.getCFOP()) && aux_rc190.getVL_ICMS_ST().signum() == 1)
-						VL_DEVOL_ST = VL_DEVOL_ST.add(aux_rc190.getVL_ICMS_ST());
 					
-					// venda e tem débito, somar ao totalizador da UF
-					else if(aux_rc100.getIND_OPER().equals("1") && aux_rc190.getVL_ICMS_ST().signum() == 1)
-						VL_RETENÇAO_ST = VL_RETENÇAO_ST.add(aux_rc190.getVL_ICMS_ST());
-				
-					
-				} // for RC190s
-				
-				
-				// somar valores apurados no totalizador da NF
-				blocoE.getrE200().get(blocoE.getrE200().indexOf(re200)).addValuesE210(VL_DEVOL_ST, VL_RETENÇAO_ST);
-				
-				
-				// criar registro 250 e adicionar ao RE210, um por NF para discriminar o lançamento que gera o débido/ajuste
-				if(VL_RETENÇAO_ST.signum() == 1)
-				{
-					// adicionar o RE250 ao RE210
-					blocoE.getrE200().get(blocoE.getrE200().indexOf(re200)).getrE210().addrE250(
-							EFDUtil.createRE250(bloco0.getR0000().getUF().equals(aux_rc100.getUF()), 
-									aux_rc100.getDT_DOC(), VL_RETENÇAO_ST, getEndDate(), aux_rc100.getNUM_DOC()));
-					
-				} // end if retencao > 0
-				
-			} // end if st > 0
-		
-		} // for rc100s
-		
-		// validar valores da substitução tributária referentes as devoluções
-		blocoE.subtractReversalRE250();
-
-		
-			
-		
-		/** 
-		 * IPI
-		 */
-		m_taxAssessment = MLBRTaxAssessment.get(getCtx(), getAD_Org_ID(), "IPI", getC_Period_ID(), null);
-		if(m_taxAssessment != null && m_taxAssessment.get_ID() > 0)
-		{
-			// E500
-			blocoE.setrE500(EFDUtil.createRE500(getStartDate(), getEndDate()));
-			
-			// E510 - Resumo baseado no RC170				
-			for (RC100 regRC100 : blocoC.getrC100())
-			{
-				for ( RC190 rc190 : regRC100.getrC190())
-				{
-					// só gerar de registros que tenham IPI
-					if(rc190.getVL_IPI().signum() == 1)
-						blocoE.getrE500().addrE510(EFDUtil.createRE510(rc190));
+					// linhas de ajustes da apuração
+					for (X_LBR_TaxAssessmentLine line : m_taxAssessment.getLines())
+						blocoE.getrE100().addrE111(EFDUtil.createRE111(bloco0.getR0000().getUF(), true, line));
 				}
 			}
 			
-			blocoE.getrE500().setrE520(EFDUtil.createRE520(m_taxAssessment, blocoE.getrE500().getrE510()));
+			/**
+			 * ICMS ST 
+			 */
+			for (RC100 aux_rc100 : blocoC.getrC100())
+			{
+	
+				// somente gerar registros se a NF tiver ST
+				if(aux_rc100.getVL_ICMS_ST() != null  && aux_rc100.getVL_ICMS_ST().signum() == 1)
+				{
+					
+					// RE200 - criar registro da UF no período
+					RE200 re200 = EFDUtil.createRE200(aux_rc100.getUF(), getStartDate(), getEndDate());
+					//
+					if(blocoE.getrE200().contains(re200))
+						re200.subtractCounter();
+					else 
+						blocoE.getrE200().add(re200);
+					
+					
+					// criar o registro necessário da apuração, se já não existir
+					if(blocoE.getrE200().get(blocoE.getrE200().indexOf(re200)).getrE210() == null)
+						blocoE.getrE200().get(blocoE.getrE200().indexOf(re200)).setrE210(EFDUtil.createRE210());
+	
+					
+					// Vlr Débito, Vlr Devolução de ST
+					BigDecimal VL_DEVOL_ST = Env.ZERO; 
+					BigDecimal VL_RETENÇAO_ST = Env.ZERO;
+					
+					
+					// linhas para extrarir os valores de ST, tanto de devolução quanto débito
+					for(RC190 aux_rc190 : aux_rc100.getrC190())
+					{
+						 // se for devolução de venda
+						if (EFDUtil.isCFOPDevolST(aux_rc190.getCFOP()) && aux_rc190.getVL_ICMS_ST().signum() == 1)
+							VL_DEVOL_ST = VL_DEVOL_ST.add(aux_rc190.getVL_ICMS_ST());
+						
+						// venda e tem débito, somar ao totalizador da UF
+						else if(aux_rc100.getIND_OPER().equals("1") && aux_rc190.getVL_ICMS_ST().signum() == 1)
+							VL_RETENÇAO_ST = VL_RETENÇAO_ST.add(aux_rc190.getVL_ICMS_ST());
+					
+						
+					} // for RC190s
+					
+					
+					// somar valores apurados no totalizador da NF
+					blocoE.getrE200().get(blocoE.getrE200().indexOf(re200)).addValuesE210(VL_DEVOL_ST, VL_RETENÇAO_ST);
+					
+					
+					// criar registro 250 e adicionar ao RE210, um por NF para discriminar o lançamento que gera o débido/ajuste
+					if(VL_RETENÇAO_ST.signum() == 1)
+					{
+						// adicionar o RE250 ao RE210
+						blocoE.getrE200().get(blocoE.getrE200().indexOf(re200)).getrE210().addrE250(
+								EFDUtil.createRE250(bloco0.getR0000().getUF().equals(aux_rc100.getUF()), 
+										aux_rc100.getDT_DOC(), VL_RETENÇAO_ST, getEndDate(), aux_rc100.getNUM_DOC()));
+						
+					} // end if retencao > 0
+					
+				} // end if st > 0
+			
+			} // for rc100s
+			
+			// validar valores da substitução tributária referentes as devoluções
+			blocoE.subtractReversalRE250();
+			
+			/** 
+			 * IPI
+			 */
+			m_taxAssessment = MLBRTaxAssessment.get(getCtx(), getAD_Org_ID(), "IPI", getC_Period_ID(), null);
+			if(m_taxAssessment != null && m_taxAssessment.get_ID() > 0)
+			{
+				// E500
+				blocoE.setrE500(EFDUtil.createRE500(getStartDate(), getEndDate()));
+				
+				// E510 - Resumo baseado no RC170				
+				for (RC100 regRC100 : blocoC.getrC100())
+				{
+					for ( RC190 rc190 : regRC100.getrC190())
+					{
+						// só gerar de registros que tenham IPI
+						if(rc190.getVL_IPI().signum() == 1)
+							blocoE.getrE500().addrE510(EFDUtil.createRE510(rc190));
+					}
+				}
+				
+				blocoE.getrE500().setrE520(EFDUtil.createRE520(m_taxAssessment, blocoE.getrE500().getrE510()));
+			}
 		}
-		
 
 		/**
 		 * INVENTÁRIO - BLOCO H
@@ -718,7 +712,6 @@ public class MLBREFDICMSIPI extends X_LBR_EFDICMSIPI implements DocAction, DocOp
 		 */
 		if (isLBR_IncludeH())
 		{
-			
 			/*
 			 * Definir a data do ultimo dia do ano anterior ao que está sendo gerado o SPED
 			 */
@@ -910,23 +903,31 @@ public class MLBREFDICMSIPI extends X_LBR_EFDICMSIPI implements DocAction, DocOp
 		//	Verificar Estado/Região da Organização
 		if (oi.getC_Location() != null && oi.getC_Location().getC_Region() != null)
 			Region = oi.getC_Location().getC_Region().getName();
+
+		bloco1.setR1010(EFDUtil.createR1010(getC_Period_ID(), Region));
+		
+		boolean hasMovBlocoB = false;
+		boolean hasMovBlocoC = blocoC.getrC100().size() > 0;
+		boolean hasMovBlocoD = blocoD.getrD100().size() > 0 || blocoD.getrD500().size() > 0;
+		boolean hasMovBlocoE = isLBR_IncludeE();
+		boolean hasMovBlocoG = false;
+		boolean hasMovBlocoH = isLBR_IncludeH() && blocoH.getrH005() != null && blocoH.getrH005().getrH010().size() > 0;
+		boolean hasMovBlocoK = isLBR_IncludeK() && blocoK.getrK200().size() > 0;
+		boolean hasMovBloco1 = bloco1.getR1010() != null;
 		
 		/*
 		 * Inicialização dos Blocos 
 		 */
-		bloco0.setR0001(EFDUtil.createR0001(bloco0.getR0150().size() > 0)); 	// init bloco 0
-		blocoB.setRB001(EFDUtil.createRB001(false)); // init bloco B
-		blocoC.setrC001(EFDUtil.createRC001(blocoC.getrC100().size() > 0)); 	// init bloco C
-		blocoD.setrD001(EFDUtil.createRD001(blocoD.getrD100().size() > 0 
-				|| blocoD.getrD500().size() > 0)); // init bloco D
-		blocoH.setrH001(EFDUtil.createRH001(blocoH.getrH005() != null 			// init bloco H
-				&& blocoH.getrH005().getrH010().size() > 0));
-		blocoE.setrE001(EFDUtil.createRE001(true));						    	// init bloco E
-		blocoG.setrG001(EFDUtil.createRG001(false));							// init bloco G
-		blocoK.setrK001(EFDUtil.createRK001((blocoK.getrK200().size() > 0)));	// init bloco K
-		bloco1.setR1001(EFDUtil.createR1001(true));								// init bloco 1
-		bloco1.setR1010(EFDUtil.createR1010(getC_Period_ID(), Region));
-		bloco9.setR9001(EFDUtil.createR9001(true));								// init bloco 9 (sempre true)
+		bloco0.setR0001(EFDUtil.createR0001());
+		blocoB.setRB001(EFDUtil.createRB001(hasMovBlocoB));
+		blocoC.setrC001(EFDUtil.createRC001(hasMovBlocoC));
+		blocoD.setrD001(EFDUtil.createRD001(hasMovBlocoD));
+		blocoH.setrH001(EFDUtil.createRH001(hasMovBlocoH));
+		blocoE.setrE001(EFDUtil.createRE001(hasMovBlocoE));
+		blocoG.setrG001(EFDUtil.createRG001(hasMovBlocoG));
+		blocoK.setrK001(EFDUtil.createRK001(hasMovBlocoK));
+		bloco1.setR1001(EFDUtil.createR1001(hasMovBloco1));
+		bloco9.setR9001(EFDUtil.createR9001());
 
 		/*
 		 * Registros Totalizadores dos Blocos
@@ -953,7 +954,6 @@ public class MLBREFDICMSIPI extends X_LBR_EFDICMSIPI implements DocAction, DocOp
 		
 		// atualizar totalizador dos R9990
 		bloco9.getR9990().setQTD_LIN_9(String.valueOf(CounterSped.getBlockCounter(bloco9.getR9990().getReg())));
-		
 		
 		// Montar resultado			 
 		StringBuilder result = new StringBuilder();

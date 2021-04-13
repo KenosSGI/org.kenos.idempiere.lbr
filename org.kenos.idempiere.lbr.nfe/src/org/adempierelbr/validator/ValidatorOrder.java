@@ -510,13 +510,19 @@ public class ValidatorOrder implements ModelValidator
 			}
 		}
 		
-
 		if (!MSysConfig.getBooleanValue(SysConfig.LBR_OVERWRITE_ORDER_PAY_SCHEDULE, true))
 		{
 			// copy payment schedule from order if invoice doesn't have a current payment schedule
 			MOrderPaySchedule[] opss = MOrderPaySchedule.getOrderPaySchedule(ctx, order.getC_Order_ID(), 0, trxName);
-			MInvoicePaySchedule[] ipss = MInvoicePaySchedule.getInvoicePaySchedule(ctx, invoice.getC_Invoice_ID(), 0, trxName);
-			if (ipss.length == 0 && opss.length > 0) {
+			//MInvoicePaySchedule[] ipss = MInvoicePaySchedule.getInvoicePaySchedule(ctx, invoice.getC_Invoice_ID(), 0, trxName);
+			//if (ipss.length == 0 && opss.length > 0) {
+			if (opss.length > 0) {
+				invoice.load(invoice.get_TrxName()); // refresh from DB
+
+				MInvoicePaySchedule[] ipss = MInvoicePaySchedule.getInvoicePaySchedule(ctx, invoice.getC_Invoice_ID(), 0, trxName);
+				for (MInvoicePaySchedule s : ipss)
+					s.deleteEx(true);
+			
 				BigDecimal ogt = order.getGrandTotal();
 				BigDecimal igt = invoice.getGrandTotal();
 				BigDecimal percent = Env.ONE;

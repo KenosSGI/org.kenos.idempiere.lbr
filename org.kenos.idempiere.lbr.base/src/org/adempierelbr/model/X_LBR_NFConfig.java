@@ -31,7 +31,7 @@ public class X_LBR_NFConfig extends PO implements I_LBR_NFConfig, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20200120L;
+	private static final long serialVersionUID = 20210403L;
 
     /** Standard Constructor */
     public X_LBR_NFConfig (Properties ctx, int LBR_NFConfig_ID, String trxName)
@@ -224,6 +224,38 @@ public class X_LBR_NFConfig extends PO implements I_LBR_NFConfig, I_Persistent
 		return false;
 	}
 
+	/** Não se Aplica = 0 */
+	public static final String LBR_INDPRES_NãoSeAplica = "0";
+	/** Operação Presencial = 1 */
+	public static final String LBR_INDPRES_OperaçãoPresencial = "1";
+	/** Operação não Presencial, pela Internet = 2 */
+	public static final String LBR_INDPRES_OperaçãoNãoPresencialPelaInternet = "2";
+	/** Operação não Presencial, Teleatendimento = 3 */
+	public static final String LBR_INDPRES_OperaçãoNãoPresencialTeleatendimento = "3";
+	/** NFC-e em Operação com Entrega em Domicílio = 4 */
+	public static final String LBR_INDPRES_NFC_EEmOperaçãoComEntregaEmDomicílio = "4";
+	/** Operação não Presencial, Outros = 9 */
+	public static final String LBR_INDPRES_OperaçãoNãoPresencialOutros = "9";
+	/** Operação presencial, fora do estabelecimento = 5 */
+	public static final String LBR_INDPRES_OperaçãoPresencialForaDoEstabelecimento = "5";
+	/** Set Indicação de Atendimento Presencial.
+		@param LBR_IndPres 
+		Indicador de presença do comprador no estabelecimento comercial no momento da operação
+	  */
+	public void setLBR_IndPres (String LBR_IndPres)
+	{
+
+		set_Value (COLUMNNAME_LBR_IndPres, LBR_IndPres);
+	}
+
+	/** Get Indicação de Atendimento Presencial.
+		@return Indicador de presença do comprador no estabelecimento comercial no momento da operação
+	  */
+	public String getLBR_IndPres () 
+	{
+		return (String)get_Value(COLUMNNAME_LBR_IndPres);
+	}
+
 	/** Set NF Configuration.
 		@param LBR_NFConfig_ID NF Configuration	  */
 	public void setLBR_NFConfig_ID (int LBR_NFConfig_ID)
@@ -256,6 +288,28 @@ public class X_LBR_NFConfig extends PO implements I_LBR_NFConfig, I_Persistent
 	public String getLBR_NFConfig_UU () 
 	{
 		return (String)get_Value(COLUMNNAME_LBR_NFConfig_UU);
+	}
+
+	/** Asynchronous = 0 */
+	public static final String LBR_NFELOTMETHOD_Asynchronous = "0";
+	/** Synchronous = 1 */
+	public static final String LBR_NFELOTMETHOD_Synchronous = "1";
+	/** Set Lot Method.
+		@param LBR_NFeLotMethod 
+		Method of transmission of NFe Lot
+	  */
+	public void setLBR_NFeLotMethod (String LBR_NFeLotMethod)
+	{
+
+		set_Value (COLUMNNAME_LBR_NFeLotMethod, LBR_NFeLotMethod);
+	}
+
+	/** Get Lot Method.
+		@return Method of transmission of NFe Lot
+	  */
+	public String getLBR_NFeLotMethod () 
+	{
+		return (String)get_Value(COLUMNNAME_LBR_NFeLotMethod);
 	}
 
 	/** Set Reverse InOut.
@@ -480,6 +534,8 @@ public class X_LBR_NFConfig extends PO implements I_LBR_NFConfig, I_Persistent
 	public static final String LBR_NFMODEL_NotaFiscalDeServiçosEletrônicaRPS = "S1";
 	/** Nota Fiscal de Consumidor Eletrônica = 65 */
 	public static final String LBR_NFMODEL_NotaFiscalDeConsumidorEletrônica = "65";
+	/** Recibo Provisório de Serviço = RS */
+	public static final String LBR_NFMODEL_ReciboProvisórioDeServiço = "RS";
 	/** Set NF Model.
 		@param lbr_NFModel 
 		Identifies the model of Nota Fiscal
@@ -516,26 +572,64 @@ public class X_LBR_NFConfig extends PO implements I_LBR_NFConfig, I_Persistent
 	{
 		return (String)get_Value(COLUMNNAME_lbr_NFeEnv);
 	}
-	
-	/** Asynchronous = 0 */
-	public static final String LBR_NFELOTMETHOD_Asynchronous = "0";
-	/** Synchronous = 1 */
-	public static final String LBR_NFELOTMETHOD_Synchronous = "1";
-	/** Set Lot Method.
-		@param LBR_NFeLotMethod 
-		Method of transmission of NFe Lot
+
+	/** Cash (old) = X */
+	public static final String LBR_PAYMENTRULE_CashOld = "X";
+	/** Check (old) = C */
+	public static final String LBR_PAYMENTRULE_CheckOld = "C";
+	/** Bill (old) = B */
+	public static final String LBR_PAYMENTRULE_BillOld = "B";
+	/** Direct Deposit (old) = D */
+	public static final String LBR_PAYMENTRULE_DirectDepositOld = "D";
+	/** Cash = 01 */
+	public static final String LBR_PAYMENTRULE_Cash = "01";
+	/** Check = 02 */
+	public static final String LBR_PAYMENTRULE_Check = "02";
+	/** Credit Card = 03 */
+	public static final String LBR_PAYMENTRULE_CreditCard = "03";
+	/** Debit Card = 04 */
+	public static final String LBR_PAYMENTRULE_DebitCard = "04";
+	/** Store Credit = 05 */
+	public static final String LBR_PAYMENTRULE_StoreCredit = "05";
+	/** Food Voucher = 10 */
+	public static final String LBR_PAYMENTRULE_FoodVoucher = "10";
+	/** Meal Voucher = 11 */
+	public static final String LBR_PAYMENTRULE_MealVoucher = "11";
+	/** Gift Card = 12 */
+	public static final String LBR_PAYMENTRULE_GiftCard = "12";
+	/** Fuel Voucher = 13 */
+	public static final String LBR_PAYMENTRULE_FuelVoucher = "13";
+	/** Trade Bill (old) = 14 */
+	public static final String LBR_PAYMENTRULE_TradeBillOld = "14";
+	/** Bank Slip = 15 */
+	public static final String LBR_PAYMENTRULE_BankSlip = "15";
+	/** No Payment Required = 90 */
+	public static final String LBR_PAYMENTRULE_NoPaymentRequired = "90";
+	/** Other = 99 */
+	public static final String LBR_PAYMENTRULE_Other = "99";
+	/** Bank Deposit = 16 */
+	public static final String LBR_PAYMENTRULE_BankDeposit = "16";
+	/** Instant Payment (PIX) = 17 */
+	public static final String LBR_PAYMENTRULE_InstantPaymentPIX = "17";
+	/** Bank Transfer, Digital Wallet = 18 */
+	public static final String LBR_PAYMENTRULE_BankTransferDigitalWallet = "18";
+	/** Loyalty Program, Cashback, Virtual Credit = 19 */
+	public static final String LBR_PAYMENTRULE_LoyaltyProgramCashbackVirtualCredit = "19";
+	/** Set Payment Rule.
+		@param lbr_PaymentRule 
+		How you pay the invoice
 	  */
-	public void setLBR_NFeLotMethod (String LBR_NFeLotMethod)
+	public void setlbr_PaymentRule (String lbr_PaymentRule)
 	{
 
-		set_Value (COLUMNNAME_LBR_NFeLotMethod, LBR_NFeLotMethod);
+		set_Value (COLUMNNAME_lbr_PaymentRule, lbr_PaymentRule);
 	}
 
-	/** Get Lot Method.
-		@return Method of transmission of NFe Lot
+	/** Get Payment Rule.
+		@return How you pay the invoice
 	  */
-	public String getLBR_NFeLotMethod () 
+	public String getlbr_PaymentRule () 
 	{
-		return (String)get_Value(COLUMNNAME_LBR_NFeLotMethod);
+		return (String)get_Value(COLUMNNAME_lbr_PaymentRule);
 	}
 }

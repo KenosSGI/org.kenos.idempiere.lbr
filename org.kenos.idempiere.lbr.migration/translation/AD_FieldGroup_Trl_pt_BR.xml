@@ -334,9 +334,15 @@
   <value column="Name" original="Discount">Desconto</value>
  </row>
  <row trl="Y" uuid="e93179be-c37d-4924-b75a-5f0a98ec7524">
-  <value column="Name" original="ICMS Substitute">ICMS Substituto</value>
+  <value column="Name" original="ICMS Substitute">ICMS Substituído</value>
  </row>
  <row trl="Y" uuid="e99d0fc1-eb96-4407-b722-08c8ade00bc8">
   <value column="Name" original="Parameter">Parâmetros</value>
+ </row>
+ <row trl="Y" uuid="b0af205d-1b44-4835-9dbd-4ff24db628f7">
+  <value column="Name" original="ISSQN">ISSQN</value>
+ </row>
+ <row trl="Y" uuid="2af9f80e-885a-4e62-a39e-b2de59d32cfd">
+  <value column="Name" original="Notification">Notificação</value>
  </row>
 </idempiereTrl>

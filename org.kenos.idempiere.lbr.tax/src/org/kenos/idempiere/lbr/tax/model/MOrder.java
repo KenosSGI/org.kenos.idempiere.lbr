@@ -272,5 +272,35 @@ public class MOrder extends org.compiere.model.MOrder
 			setIsActive(true);
 		//
 		return super.rejectIt();
-	}
+	}	//	rejectIt
+	
+	@Override
+	public String completeIt()
+	{
+		//	Re-Activate
+		if (!isActive())
+			setIsActive(true);
+		//
+		return super.completeIt();
+	}	//	completeIt
+	
+	@Override
+	public String prepareIt()
+	{
+		//	Re-Activate
+		if (!isActive())
+			setIsActive(true);
+		//
+		return super.prepareIt();
+	}	//	prepareIt
+	
+	@Override
+	public boolean reActivateIt()
+	{
+		//	Re-Activate
+		if (!isActive())
+			setIsActive(true);
+		//
+		return super.reActivateIt();
+	}	//	reActivateIt
 }	//	MOrder

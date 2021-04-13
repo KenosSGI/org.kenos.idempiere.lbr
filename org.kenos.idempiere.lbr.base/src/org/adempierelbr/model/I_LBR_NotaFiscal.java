@@ -163,6 +163,17 @@ public interface I_LBR_NotaFiscal
 
 	public org.compiere.model.I_C_Invoice getC_Invoice() throws RuntimeException;
 
+    /** Column name C_OrderSource_ID */
+    public static final String COLUMNNAME_C_OrderSource_ID = "C_OrderSource_ID";
+
+	/** Set Order Source	  */
+	public void setC_OrderSource_ID (int C_OrderSource_ID);
+
+	/** Get Order Source	  */
+	public int getC_OrderSource_ID();
+
+	public org.compiere.model.I_C_OrderSource getC_OrderSource() throws RuntimeException;
+
     /** Column name C_Order_ID */
     public static final String COLUMNNAME_C_Order_ID = "C_Order_ID";
 
@@ -208,6 +219,19 @@ public interface I_LBR_NotaFiscal
 	  * User who created this records
 	  */
 	public int getCreatedBy();
+
+    /** Column name DateAcct */
+    public static final String COLUMNNAME_DateAcct = "DateAcct";
+
+	/** Set Account Date.
+	  * Accounting Date
+	  */
+	public void setDateAcct (Timestamp DateAcct);
+
+	/** Get Account Date.
+	  * Accounting Date
+	  */
+	public Timestamp getDateAcct();
 
     /** Column name DateDoc */
     public static final String COLUMNNAME_DateDoc = "DateDoc";
@@ -563,6 +587,19 @@ public interface I_LBR_NotaFiscal
 	  */
 	public String getLBR_FreightCostRule();
 
+    /** Column name LBR_IEST */
+    public static final String COLUMNNAME_LBR_IEST = "LBR_IEST";
+
+	/** Set IE Substitute.
+	  * To set IE by Region to Substitute IE from Organization
+	  */
+	public void setLBR_IEST (String LBR_IEST);
+
+	/** Get IE Substitute.
+	  * To set IE by Region to Substitute IE from Organization
+	  */
+	public String getLBR_IEST();
+
     /** Column name LBR_IndIEDest */
     public static final String COLUMNNAME_LBR_IndIEDest = "LBR_IndIEDest";
 
@@ -588,6 +625,24 @@ public interface I_LBR_NotaFiscal
 	  * Indicador de presença do comprador no estabelecimento comercial no momento da operação
 	  */
 	public String getLBR_IndPres();
+
+    /** Column name LBR_IsMarketPlace */
+    public static final String COLUMNNAME_LBR_IsMarketPlace = "LBR_IsMarketPlace";
+
+	/** Set Market Place	  */
+	public void setLBR_IsMarketPlace (boolean LBR_IsMarketPlace);
+
+	/** Get Market Place	  */
+	public boolean isLBR_IsMarketPlace();
+
+    /** Column name LBR_MarketPlaceCNPJ */
+    public static final String COLUMNNAME_LBR_MarketPlaceCNPJ = "LBR_MarketPlaceCNPJ";
+
+	/** Set CNPJ (MarketPlace)	  */
+	public void setLBR_MarketPlaceCNPJ (String LBR_MarketPlaceCNPJ);
+
+	/** Get CNPJ (MarketPlace)	  */
+	public String getLBR_MarketPlaceCNPJ();
 
     /** Column name LBR_NFCeQRCodeURL */
     public static final String COLUMNNAME_LBR_NFCeQRCodeURL = "LBR_NFCeQRCodeURL";
@@ -913,6 +968,28 @@ public interface I_LBR_NotaFiscal
 	  * User who updated this records
 	  */
 	public int getUpdatedBy();
+
+    /** Column name UserName */
+    public static final String COLUMNNAME_UserName = "UserName";
+
+	/** Set User Name	  */
+	public void setUserName (String UserName);
+
+	/** Get User Name	  */
+	public String getUserName();
+
+    /** Column name VersionNo */
+    public static final String COLUMNNAME_VersionNo = "VersionNo";
+
+	/** Set Version No.
+	  * Version Number
+	  */
+	public void setVersionNo (String VersionNo);
+
+	/** Get Version No.
+	  * Version Number
+	  */
+	public String getVersionNo();
 
     /** Column name lbr_BPAddress1 */
     public static final String COLUMNNAME_lbr_BPAddress1 = "lbr_BPAddress1";

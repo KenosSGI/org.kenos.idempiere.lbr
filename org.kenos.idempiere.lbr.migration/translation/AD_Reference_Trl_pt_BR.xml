@@ -3394,4 +3394,19 @@ A, C, D, F e 1 (Créditos extemporâneos)</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
  </row>
+ <row trl="N" uuid="d8b9aa99-6b9a-4d8d-bdc1-060185d2fdcb">
+  <value column="Name" original="LBR_CEST">LBR_CEST</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="4321f17d-7b95-4f02-970d-4ba44e31179e">
+  <value column="Name" original="LBR_TaxStatus - Table">LBR_TaxStatus - Table</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="0833bbd9-cd23-4860-a2dd-586717fa4d2e">
+  <value column="Name" original="LBR_TaxStatus">LBR_TaxStatus</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
 </idempiereTrl>

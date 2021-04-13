@@ -109,6 +109,7 @@ public class MLBRTax extends X_LBR_Tax
 	public static final int	TAX_ICMSST	= 1106012;
 	public static final int	TAX_IPI		= 1106003;
 	public static final int	TAX_MVA		= 1106013;
+	public static final int	TAX_FCP		= 1120000;
 	
 	/**	Included Taxes	*/
 	private List<Integer> includedTaxes = new ArrayList<Integer>();
@@ -797,7 +798,7 @@ public class MLBRTax extends X_LBR_Tax
 			lbr_DestionationType = X_LBR_CFOPLine.LBR_DESTIONATIONTYPE_EstadosDiferentes;
 		
 		//	Check if it's manufactured
-		boolean isManufactured = p.isManufactured();
+		boolean isManufactured = p.getM_Product_ID() > 0 ? p.isManufactured() : false;
 		MLBRProductConfig config = MLBRProductConfig.getProductConfig(Env.getCtx(), oi.getAD_Org_ID(), p.getM_Product_ID());
 		if (config != null)
 			isManufactured = "Y".equals(config.getIsManufactured());
@@ -1137,4 +1138,175 @@ public class MLBRTax extends X_LBR_Tax
 		
 		return result;
 	}	//	getValidation
+	
+	private BigDecimal getTaxBaseAmt (int LBR_TaxName_ID)
+	{
+		BigDecimal result = Arrays.asList(getLines()).stream()
+			.filter(l -> l.getLBR_TaxName_ID() == LBR_TaxName_ID)
+			.map(MLBRTaxLine::getlbr_TaxBaseAmt)
+			.findFirst().orElse(Env.ZERO);
+		return result;
+	}	//	getTaxBaseAmt
+	
+	private BigDecimal getTaxBase (int LBR_TaxName_ID)
+	{
+		BigDecimal result = Arrays.asList(getLines()).stream()
+			.filter(l -> l.getLBR_TaxName_ID() == LBR_TaxName_ID)
+			.map(MLBRTaxLine::getlbr_TaxBase)
+			.findFirst().orElse(Env.ZERO);
+		return result;
+	}	//	getTaxBase
+	
+	private BigDecimal getTaxAmt (int LBR_TaxName_ID)
+	{
+		BigDecimal result = Arrays.asList(getLines()).stream()
+			.filter(l -> l.getLBR_TaxName_ID() == LBR_TaxName_ID)
+			.map(MLBRTaxLine::getlbr_TaxAmt)
+			.findFirst().orElse(Env.ZERO);
+		return result;
+	}	//	getTaxAmt
+	
+	private BigDecimal getTaxRate (int LBR_TaxName_ID)
+	{
+		BigDecimal result = Arrays.asList(getLines()).stream()
+			.filter(l -> l.getLBR_TaxName_ID() == LBR_TaxName_ID)
+			.map(MLBRTaxLine::getlbr_TaxRate)
+			.findFirst().orElse(Env.ZERO);
+		return result;
+	}	//	getTaxRate
+	
+	private String getTaxCST (int LBR_TaxName_ID)
+	{
+		String result = Arrays.asList(getLines()).stream()
+			.filter(l -> l.getLBR_TaxName_ID() == LBR_TaxName_ID && l.getLBR_TaxStatus_ID() > 0)
+			.map(MLBRTaxLine::getLBR_TaxStatus)
+			.map(I_LBR_TaxStatus::getName)
+			.findFirst().orElse("");
+		return result;
+	}	//	getCST
+	
+	public BigDecimal getICMSTaxBaseAmt ()
+	{
+		return getTaxBaseAmt(TAX_ICMS);
+	}	//	getICMSTaxBaseAmt
+	
+	public BigDecimal getICMSTaxBase ()
+	{
+		return getTaxBase(TAX_ICMS);
+	}	//	getICMSTaxBase
+	
+	public BigDecimal getICMSTaxAmt ()
+	{
+		return getTaxAmt(TAX_ICMS);
+	}	//	getICMSTaxAmt
+	
+	public BigDecimal getICMSTaxRate ()
+	{
+		return getTaxRate(TAX_ICMS);
+	}	//	getICMSTaxRate
+	
+	public String getICMSTaxCST ()
+	{
+		return getTaxCST(TAX_ICMS);
+	}	//	getICMSCST
+	
+	public BigDecimal getICMSSTTaxBaseAmt ()
+	{
+		return getTaxBaseAmt(TAX_ICMSST);
+	}	//	getICMSSTTaxBaseAmt
+	
+	public BigDecimal getICMSSTTaxBase ()
+	{
+		return getTaxBase(TAX_ICMSST);
+	}	//	getICMSSTTaxBase
+	
+	public BigDecimal getICMSSTTaxAmt ()
+	{
+		return getTaxAmt(TAX_ICMSST);
+	}	//	getICMSSTTaxAmt
+	
+	public BigDecimal getICMSSTTaxRate ()
+	{
+		return getTaxRate(TAX_ICMSST);
+	}	//	getICMSSTTaxRate
+	
+	public String getICMSSTTaxCST ()
+	{
+		return getTaxCST(TAX_ICMSST);
+	}	//	getICMSCST
+	
+	public BigDecimal getFCPTaxBaseAmt ()
+	{
+		return getTaxBaseAmt(TAX_FCP);
+	}	//	getFCPTaxBaseAmt
+	
+	public BigDecimal getFCPTaxBase ()
+	{
+		return getTaxBase(TAX_FCP);
+	}	//	getFCPTaxBase
+	
+	public BigDecimal getFCPTaxAmt ()
+	{
+		return getTaxAmt(TAX_FCP);
+	}	//	getFCPTaxAmt
+	
+	public BigDecimal getFCPTaxRate ()
+	{
+		return getTaxRate(TAX_FCP);
+	}	//	getFCPTaxRate
+	
+	public String getFCPTaxCST ()
+	{
+		return getTaxCST(TAX_FCP);
+	}	//	getICMSCST
+	
+	public BigDecimal getPISProdTaxBaseAmt ()
+	{
+		return getTaxBaseAmt(TAX_PIS);
+	}	//	getPISProdTaxBaseAmt
+	
+	public BigDecimal getPISProdTaxBase ()
+	{
+		return getTaxBase(TAX_PIS);
+	}	//	getPISProdTaxBase
+	
+	public BigDecimal getPISProdTaxAmt ()
+	{
+		return getTaxAmt(TAX_PIS);
+	}	//	getPISProdTaxAmt
+	
+	public BigDecimal getPISProdTaxRate ()
+	{
+		return getTaxRate(TAX_PIS);
+	}	//	getPISProdTaxRate
+	
+	public String getPISProdaxCST ()
+	{
+		return getTaxCST(TAX_PIS);
+	}	//	getICMSCST
+	
+	public BigDecimal getCOFINSProdTaxBaseAmt ()
+	{
+		return getTaxBaseAmt(TAX_COFINS);
+	}	//	getCOFINSProdTaxBaseAmt
+	
+	public BigDecimal getCOFINSProdTaxBase ()
+	{
+		return getTaxBase(TAX_COFINS);
+	}	//	getCOFINSProdTaxBase
+	
+	public BigDecimal getCOFINSProdTaxAmt ()
+	{
+		return getTaxAmt(TAX_COFINS);
+	}	//	getCOFINSProdTaxAmt
+	
+	public BigDecimal getCOFINSProdTaxRate ()
+	{
+		return getTaxRate(TAX_COFINS);
+	}	//	getCOFINSProdTaxRate
+	
+	public String getCOFINSProdTaxCST ()
+	{
+		return getTaxCST(TAX_COFINS);
+	}	//	getICMSCST
 }	//	MLBRTax

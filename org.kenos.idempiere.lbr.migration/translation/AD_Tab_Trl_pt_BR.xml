@@ -6311,10 +6311,10 @@ Impressão:
   <value column="Help" original=""/>
  </row>
  <row trl="Y" uuid="4fa3bf31-dbca-425e-b914-9bb925ec9352">
-  <value column="Name" original="Tax Control">Controle de Imposto</value>
+  <value column="Name" original="Tax Control">Imposto Substituto</value>
   <value column="CommitWarning" original=""/>
-  <value column="Description" original="">Controle de Imposto</value>
-  <value column="Help" original="">Aba utilizada para armazenar informações de Controle de Impostos por produto</value>
+  <value column="Description" original="">Imposto Substituto</value>
+  <value column="Help" original="">Aba utilizada para armazenar informações de Controle de Imposto Substituto, ou seja, pago anteriormente por substituição tributária.</value>
  </row>
  <row trl="N" uuid="06593876-0385-4349-8e0b-c03520ec6f50">
   <value column="Name" original="SPED Contribution">SPED Contribuições</value>
@@ -6869,7 +6869,7 @@ Impressão:
   <value column="Help" original=""/>
  </row>
  <row trl="Y" uuid="5a78db49-0f07-42ed-9b5d-dea69f0a72dd">
-  <value column="Name" original="Tax Definition">Definição de Impostos</value>
+  <value column="Name" original="Exceptions">Exceções</value>
   <value column="CommitWarning" original=""/>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
@@ -7503,6 +7503,18 @@ Impressão:
   <value column="Name" original="CNAB Line">Linha CNAB</value>
   <value column="CommitWarning" original=""/>
   <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="4fa3bf31-dbca-425e-b914-9bb925ec9352">
+  <value column="Name" original="Tax Hold">Imposto Substituído</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original="">Imposto Substituto</value>
+  <value column="Help" original="">Aba utilizada para armazenar informações de Controle de Imposto Substituto, ou seja, pago anteriormente por substituição tributária.</value>
+ </row>
+ <row trl="N" uuid="5435eebc-8845-495a-bc97-9e44ac44bba7">
+  <value column="Name" original="IE Substitute">IE Substitute</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original="IE Substitute by Region to Substitute Organization on that Region">IE Substitute by Region to Substitute Organization on that Region</value>
   <value column="Help" original=""/>
  </row>
  <row trl="Y" uuid="06bf7704-c578-4a70-bef5-711b0a837fe7">

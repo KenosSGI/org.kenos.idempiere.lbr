@@ -44,6 +44,7 @@ import org.adempierelbr.util.LBRUtils;
 import org.adempierelbr.util.NFeUtil;
 import org.adempierelbr.util.SignatureUtil;
 import org.adempierelbr.util.TextUtil;
+import org.adempierelbr.validator.ValidatorBPartner;
 import org.adempierelbr.wrapper.I_W_AD_OrgInfo;
 import org.adempierelbr.wrapper.I_W_C_Country;
 import org.compiere.model.MAttachment;
@@ -53,6 +54,7 @@ import org.compiere.model.MLocation;
 import org.compiere.model.MOrderLine;
 import org.compiere.model.MOrgInfo;
 import org.compiere.model.MProduct;
+import org.compiere.model.MSysConfig;
 import org.compiere.model.Query;
 import org.compiere.util.AdempiereUserError;
 import org.compiere.util.CLogger;
@@ -100,7 +102,6 @@ import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Det.Imposto.ICMS.ICMSSN201;
 import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Det.Imposto.ICMS.ICMSSN202;
 import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Det.Imposto.ICMS.ICMSSN500;
 import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Det.Imposto.ICMS.ICMSSN900;
-import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Det.Imposto.ICMS.ICMSST;
 import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Det.Imposto.ICMSUFDest;
 import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Det.Imposto.ICMSUFDest.PICMSInter;
 import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Det.Imposto.II;
@@ -131,6 +132,7 @@ import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Det.Prod.VeicProd.VIN;
 import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Emit;
 import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Exporta;
 import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Ide;
+import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Ide.IndIntermed;
 import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Ide.IndPres;
 import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Ide.NFref;
 import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Ide.NFref.RefECF;
@@ -138,6 +140,7 @@ import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Ide.NFref.RefNF;
 import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Ide.NFref.RefNFP;
 import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.InfAdic;
 import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.InfAdic.ObsCont;
+import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.InfIntermed;
 import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Pag;
 import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Pag.DetPag;
 import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Pag.DetPag.TPag;
@@ -488,10 +491,10 @@ public class NFeXMLGenerator
 		ide.setMod(TMod.Enum.forString (chaveNFE.getMod()));
 		ide.setSerie(nf.getlbr_NFSerie());
 		ide.setNNF(nf.getDocumentNo());
-		ide.setDhEmi(verifyUTC((MLocation)oi.getC_Location(), normalizeTZ (nf.getDateDoc())));	// FIXME
+		ide.setDhEmi(verifyUTC((MLocation)oi.getC_Location(), normalizeTZ (nf.getDateDoc())));
 		
 		if (nf.getlbr_DateInOut() != null)
-			ide.setDhSaiEnt(verifyUTC((MLocation)oi.getC_Location(), normalizeTZ (nf.getlbr_DateInOut())));	// FIXME
+			ide.setDhSaiEnt(verifyUTC((MLocation)oi.getC_Location(), normalizeTZ (nf.getlbr_DateInOut())));
 		
 		ide.setTpNF (nf.isSOTrx() ? TP_NF_SAIDA : TP_NF_ENTRADA);
 		ide.setIdDest (nf.getIdDestinoOp ());
@@ -539,6 +542,32 @@ public class NFeXMLGenerator
 		ide.setProcEmi (TProcEmi.X_0);
 		ide.setVerProc (NFeUtil.VERSAO_APP);
 		
+		//	TODO: Remover quando entrar em produção
+		if ((MSysConfig.getBooleanValue("LBR_INDINTERMED", false, nf.getAD_Client_ID(), nf.getAD_Org_ID()) || MLBRNotaFiscal.LBR_NFEENV_Homologation.equals(nf.getlbr_NFeEnv()))
+				&& (ide.getIndPres().equals(IndPres.X_1)
+				|| ide.getIndPres().equals(IndPres.X_2)
+				|| ide.getIndPres().equals(IndPres.X_3)
+				|| ide.getIndPres().equals(IndPres.X_4)
+				|| ide.getIndPres().equals(IndPres.X_9)))
+		{
+			// 0 - Sem Intermediador
+			// 1 - Com Intermediador/Marketplace
+			boolean isMarketPlace = nf.isLBR_IsMarketPlace();
+			ide.setIndIntermed(isMarketPlace ? IndIntermed.X_1 : IndIntermed.X_0);
+			//
+			if (isMarketPlace)
+			{
+				if (nf.getLBR_MarketPlaceCNPJ() == null || nf.getLBR_MarketPlaceCNPJ().isBlank()
+						|| nf.getUserName() == null || nf.getUserName().isBlank())
+					throw new Exception ("Venda sem dados do Intermediador/Marketplace");
+				if (!ValidatorBPartner.validaCNPJ(nf.getLBR_MarketPlaceCNPJ()))
+					throw new Exception ("CNPJ do Intermediador/Marketplace inválido");
+				//
+				InfIntermed intermed = infNFe.addNewInfIntermed();
+				intermed.setCNPJ(toNumericStr(nf.getLBR_MarketPlaceCNPJ()));
+				intermed.setIdCadIntTran(nf.getUserName());
+			}
+		}
 		Timestamp dateDocRef = null;
 		
 		//	BA. Documento Fiscal Referenciado
@@ -1320,7 +1349,6 @@ public class NFeXMLGenerator
 				// FCP (Fundo de Combate a Pobreza)
 				X_LBR_NFLineTax fcpTax = null;
 				X_LBR_NFLineTax fcpTaxST = null;
-				X_LBR_NFLineTax icmsEfetTax = nfl.getICMSEfetTax();
 				
 				//	Destacar como ICMS Dest
 				if (!icmsDest)
@@ -1331,8 +1359,6 @@ public class NFeXMLGenerator
 
 				//	ICMS ST
 				X_LBR_NFLineTax icmsSTTax = nfl.getICMSSTTax();
-				X_LBR_NFLineTax icmsSTDEST = nfl.getICMSSTDESTTax();
-				X_LBR_NFLineTax icmsSTREMET = nfl.getICMSSTREMETTax();
 				
 				//	IE Substituto não pode ser igual ao IE do Emitente
 				if (icmsSTTax != null && nf.get_ValueAsString("LBR_IEST") != null && 
@@ -1459,44 +1485,11 @@ public class NFeXMLGenerator
 						}
 					}
 				}
-				else if (CST_ICMS_40.equals (taxStatus)
-						|| CST_ICMS_41.equals (taxStatus)
-						|| CST_ICMS_50.equals (taxStatus))
+				else if (TextUtil.match(taxStatus, CST_ICMS_40, CST_ICMS_41, CST_ICMS_50))
 				{
-					if (CST_ICMS_41.equals (taxStatus) && 
-							icmsSTREMET != null || icmsSTDEST != null)
-					{
-						//	Preencher os campos
-						ICMSST icmsst = imposto.addNewICMS().addNewICMSST();
-						icmsst.setOrig(Torig.Enum.forString(productSource));
-						icmsst.setCST(Det.Imposto.ICMS.ICMSST.CST.X_60);
-						icmsst.setVICMSSubstituto(normalize (BigDecimal.ZERO));						
-						icmsst.setVBCSTRet(normalize (BigDecimal.ZERO));
-						icmsst.setVICMSSTRet(normalize(BigDecimal.ZERO));
-						icmsst.setPST(normalize (normalize(BigDecimal.ZERO)));
-						icmsst.setVBCSTDest(normalize (BigDecimal.ZERO));
-						icmsst.setVICMSSTDest(normalize (BigDecimal.ZERO));
-						
-						//	Preencher com os valores do imposto calculado
-						if (icmsSTREMET != null)
-						{
-							icmsst.setVBCSTRet(normalize (icmsSTREMET.getlbr_TaxBaseAmt()));
-							icmsst.setVICMSSTRet(normalize(icmsSTREMET.getlbr_TaxAmt()));
-							icmsst.setPST(normalize (normalize(icmsSTREMET.getlbr_TaxRate())));
-							icmsst.setVICMSSubstituto(normalize (icmsSTREMET.getLBR_ICMSSubstituto()));	
-						}
-						if (icmsSTDEST != null)
-						{
-							icmsst.setVBCSTDest(normalize (icmsSTDEST.getlbr_TaxBaseAmt()));
-							icmsst.setVICMSSTDest(normalize (icmsSTDEST.getlbr_TaxAmt()));
-						}
-					}
-					else
-					{
-						ICMS40 icms40 = imposto.addNewICMS().addNewICMS40();
-						icms40.setOrig(Torig.Enum.forString(productSource));
-						icms40.setCST(Det.Imposto.ICMS.ICMS40.CST.Enum.forString (taxStatus));
-					}
+					ICMS40 icms40 = imposto.addNewICMS().addNewICMS40();
+					icms40.setOrig(Torig.Enum.forString(productSource));
+					icms40.setCST(Det.Imposto.ICMS.ICMS40.CST.Enum.forString (taxStatus));
 				}
 				else if (CST_ICMS_51.equals (taxStatus))
 				{
@@ -1515,66 +1508,34 @@ public class NFeXMLGenerator
 				}
 				else if (CST_ICMS_60.equals (taxStatus))
 				{
-					// Existindo os impostos ICMSSTREMET  ou ICMSSTDEST
-					if (icmsSTREMET != null || icmsSTDEST != null)
+					ICMS60 icms60 = imposto.addNewICMS().addNewICMS60();
+					icms60.setOrig(Torig.Enum.forString(productSource));
+					icms60.setCST(Det.Imposto.ICMS.ICMS60.CST.X_60);
+					
+					if (icmsSTTax != null)
 					{
-						//	Preencher os campos
-						ICMSST icmsst = imposto.addNewICMS().addNewICMSST();
-						icmsst.setOrig(Torig.Enum.forString(productSource));
-						icmsst.setCST(Det.Imposto.ICMS.ICMSST.CST.X_60);
-						icmsst.setVICMSSubstituto(normalize (BigDecimal.ZERO));						
-						icmsst.setVBCSTRet(normalize (BigDecimal.ZERO));
-						icmsst.setVICMSSTRet(normalize(BigDecimal.ZERO));
-						icmsst.setPST(normalize (normalize(BigDecimal.ZERO)));
-						icmsst.setVBCSTDest(normalize (BigDecimal.ZERO));
-						icmsst.setVICMSSTDest(normalize (BigDecimal.ZERO));
+						icms60.setVBCSTRet(normalize (icmsSTTax.getlbr_TaxBaseAmt()));
+						icms60.setVICMSSTRet(normalize (icmsSTTax.getlbr_TaxAmt()));
+						icms60.setPST(normalize (icmsSTTax.getlbr_TaxRate()));
+						icms60.setVICMSSubstituto(normalize (icmsTax.getlbr_TaxAmt()));
 						
-						//	Preencher com os valores do imposto calculado
-						if (icmsSTREMET != null)
+						// v4.00
+						if (fcpTax != null)
 						{
-							icmsst.setVBCSTRet(normalize (icmsSTREMET.getlbr_TaxBaseAmt()));
-							icmsst.setVICMSSTRet(normalize(icmsSTREMET.getlbr_TaxAmt()));
-							icmsst.setPST(normalize (normalize(icmsSTREMET.getlbr_TaxRate())));
-							icmsst.setVICMSSubstituto(normalize (icmsSTREMET.getLBR_ICMSSubstituto()));	
-						}
-						if (icmsSTDEST != null)
-						{
-							icmsst.setVBCSTDest(normalize (icmsSTDEST.getlbr_TaxBaseAmt()));
-							icmsst.setVICMSSTDest(normalize (icmsSTDEST.getlbr_TaxAmt()));
+							icms60.setVBCFCPSTRet(normalize4(fcpTax.getlbr_TaxBaseAmt()));
+							icms60.setPFCPSTRet(normalize2to4(fcpTax.getlbr_TaxRate()));
+							icms60.setVFCPSTRet(normalize4(fcpTax.getlbr_TaxAmt()));
 						}
 					}
-					else
-					{
-						ICMS60 icms60 = imposto.addNewICMS().addNewICMS60();
-						icms60.setOrig(Torig.Enum.forString(productSource));
-						icms60.setCST(Det.Imposto.ICMS.ICMS60.CST.X_60);
-						
-						if (icmsSTTax != null)
-						{
-							icms60.setVBCSTRet(normalize (icmsSTTax.getlbr_TaxBaseAmt()));
-							icms60.setVICMSSTRet(normalize (icmsSTTax.getlbr_TaxAmt()));
-							icms60.setPST(normalize (icmsSTTax.getlbr_TaxRate()));
-							icms60.setVICMSSubstituto(normalize (icmsSTTax.getLBR_ICMSSubstituto()));
-							
-							// v4.00
-							if (fcpTax != null)
-							{
-								icms60.setVBCFCPSTRet(normalize4(fcpTax.getlbr_TaxBaseAmt()));
-								icms60.setPFCPSTRet(normalize2to4(fcpTax.getlbr_TaxRate()));
-								icms60.setVFCPSTRet(normalize4(fcpTax.getlbr_TaxAmt()));
-							}
-						}
-						
-						//	NT 2018.005 v1.20
-						if (icmsEfetTax != null)
-						{
-							icms60.setVBCEfet(normalize (icmsEfetTax.getlbr_TaxBaseAmt()));
-							icms60.setPRedBCEfet(normalize (icmsEfetTax.getlbr_TaxBase()));
-							icms60.setPICMSEfet(normalize (icmsEfetTax.getlbr_TaxRate()));
-							icms60.setVICMSEfet(normalize (icmsEfetTax.getlbr_TaxAmt()));
-								
-						}		
-					}
+					
+					//	NT 2018.005 v1.20
+//					if (icmsEfetTax != null)
+//					{
+//						icms60.setVBCEfet(normalize (icmsEfetTax.getlbr_TaxBaseAmt()));
+//						icms60.setPRedBCEfet(normalize (icmsEfetTax.getlbr_TaxBase()));
+//						icms60.setPICMSEfet(normalize (icmsEfetTax.getlbr_TaxRate()));
+//						icms60.setVICMSEfet(normalize (icmsEfetTax.getlbr_TaxAmt()));
+//					}	
 				}
 				else if (CST_ICMS_70.equals (taxStatus))
 				{
@@ -1726,7 +1687,7 @@ public class NFeXMLGenerator
 					icmssn500.setOrig(Torig.Enum.forString(productSource));
 					icmssn500.setCSOSN(Det.Imposto.ICMS.ICMSSN500.CSOSN.X_500);
 					icmssn500.setPST(normalize4 (icmsTax.getlbr_TaxRate()));
-					icmssn500.setVICMSSubstituto(normalize (icmsSTTax.getLBR_ICMSSubstituto()));
+					icmssn500.setVICMSSubstituto(normalize (icmsTax.getlbr_TaxRate()));
 					
 					// v4.00
 					if (fcpTaxST != null)
@@ -2259,8 +2220,10 @@ public class NFeXMLGenerator
 						MLBRNotaFiscal.LBR_PAYMENTRULE_DebitCard, MLBRNotaFiscal.LBR_PAYMENTRULE_StoreCredit,
 						MLBRNotaFiscal.LBR_PAYMENTRULE_FoodVoucher, MLBRNotaFiscal.LBR_PAYMENTRULE_MealVoucher,
 						MLBRNotaFiscal.LBR_PAYMENTRULE_GiftCard, MLBRNotaFiscal.LBR_PAYMENTRULE_FuelVoucher,
-						MLBRNotaFiscal.LBR_PAYMENTRULE_TradeBillOld, MLBRNotaFiscal.LBR_PAYMENTRULE_Bill,
-						MLBRNotaFiscal.LBR_PAYMENTRULE_NoPaymentRequired, MLBRNotaFiscal.LBR_PAYMENTRULE_Other))
+						MLBRNotaFiscal.LBR_PAYMENTRULE_TradeBillOld, MLBRNotaFiscal.LBR_PAYMENTRULE_BankSlip,
+						MLBRNotaFiscal.LBR_PAYMENTRULE_NoPaymentRequired, MLBRNotaFiscal.LBR_PAYMENTRULE_Other,
+						MLBRNotaFiscal.LBR_PAYMENTRULE_BankDeposit, MLBRNotaFiscal.LBR_PAYMENTRULE_InstantPaymentPIX,
+						MLBRNotaFiscal.LBR_PAYMENTRULE_BankTransferDigitalWallet, MLBRNotaFiscal.LBR_PAYMENTRULE_LoyaltyProgramCashbackVirtualCredit))
 				{
 					dPag.setTPag(TPag.Enum.forString(paymentRule));
 				}

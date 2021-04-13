@@ -185,6 +185,9 @@ public class MLBRPartnerDFe extends X_LBR_PartnerDFe
 			}
 		}
 		
+		if (LBR_SITNF_3_Cancelled.equals(getLBR_SitNF()))
+			setIsCancelled(true);
+		
 		return true;
 	}	//	beforeSave
 	
@@ -194,11 +197,7 @@ public class MLBRPartnerDFe extends X_LBR_PartnerDFe
 	@Override
 	protected boolean afterSave (boolean newRecord, boolean success)
 	{
-		if (TextUtil.match(getLBR_EventType(), LBR_EVENTTYPE_Cancelamento, 
-				LBR_EVENTTYPE_CancelamentoDeMDF_EAutorizadoComCT_E,
-				LBR_EVENTTYPE_CT_ECancelado,
-				LBR_EVENTTYPE_MDF_ECancelado,
-				LBR_EVENTTYPE_MDF_ECanceladoVinculadoACT_E))
+		if (TextUtil.match(getLBR_EventType(), LBR_EVENTTYPE_Cancelamento))
 		{
 			DB.executeUpdate("UPDATE " + Table_Name + 
 					" SET " + COLUMNNAME_IsCancelled + "='Y', " + 
