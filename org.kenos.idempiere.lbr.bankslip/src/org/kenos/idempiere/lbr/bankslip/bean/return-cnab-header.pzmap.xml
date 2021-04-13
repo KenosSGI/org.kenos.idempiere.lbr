@@ -9,9 +9,9 @@
         <COLUMN name="xReturnService" length="15" />
         <COLUMN name="dummy1" length="50" />
 		<COLUMN name="routingNo" length="3" />
-	    <COLUMN name="headerdata" length="300" />
+        <COLUMN name="dummy2" length="15" />
 	    <COLUMN name="dateFile" length="6" />
-        <COLUMN name="dummy2" length="9" />
+	    <COLUMN name="headerdata" length="294" />
         <COLUMN name="lineno" length="6" />
     </RECORD>
 	<COLUMN name="type" length="1" />
