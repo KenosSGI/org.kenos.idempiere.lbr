@@ -10,7 +10,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
-import org.adempiere.exceptions.DBException;
 import org.adempiere.model.POWrapper;
 import org.adempierelbr.model.MLBRNotaFiscal;
 import org.adempierelbr.model.MLBROpenItem;
@@ -1243,7 +1242,7 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 	{
 		if (Contract_ID > 0)
 		{
-			MLBRBankSlip bankSlip = new Query(ctx, Table_Name, COLUMNNAME_LBR_NumberInOrg + "=?", null)
+			MLBRBankSlip bankSlip = new Query(ctx, Table_Name, COLUMNNAME_LBR_BankSlipContract_ID + "=? AND " + COLUMNNAME_LBR_NumberInOrg + "=?", null)
 				.setClient_ID()
 				.setParameters(Contract_ID, identifier)
 				.firstOnly();
