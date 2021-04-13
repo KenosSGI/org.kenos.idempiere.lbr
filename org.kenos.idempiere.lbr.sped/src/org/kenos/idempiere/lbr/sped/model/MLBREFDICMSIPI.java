@@ -169,7 +169,7 @@ public class MLBREFDICMSIPI extends X_LBR_EFDICMSIPI implements DocAction, DocOp
 				+ " WHERE TRUNC(DateAcct) BETWEEN " + DB.TO_DATE(getStartDate())
 				+ " AND " + DB.TO_DATE(getEndDate())
 				+ " AND ((IsSOTrx = 'Y' AND lbr_NFeProt IS NOT NULL) OR IsSOTrx ='N') "
-				+ " AND AD_Client_ID = " + getAD_Client_ID(), get_TrxName());
+				+ " AND AD_Org_ID = " + getAD_Org_ID(), get_TrxName());
 		
 		if (isLBR_IncludeE())
 		{
