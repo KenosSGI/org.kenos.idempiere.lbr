@@ -154,7 +154,7 @@ public class MLBREFDICMSIPI extends X_LBR_EFDICMSIPI implements DocAction, DocOp
 				.getColumns(false))
 				.stream()
 				.map(MColumn::getColumnName)
-				.filter(c -> array.contains(c) && !"LBR_EFDICMSIPI_ID".equals(c))
+				.filter(c -> array.contains(c) && !"LBR_EFDICMSIPI_ID".equals(c) && !"LBR_FactFiscal_ID".equals(c))
 				.forEach(c -> common.add(c));
 
 		//	Delete to re-create later
@@ -163,13 +163,44 @@ public class MLBREFDICMSIPI extends X_LBR_EFDICMSIPI implements DocAction, DocOp
 				+ " AND AD_Client_ID = " + getAD_Client_ID(), get_TrxName());
 		
 		//	Re-create from base
-		DB.executeUpdate("INSERT INTO LBR_FactFiscal (" + String.join(",", common) + ", LBR_EFDICMSIPI_ID) "
-				+ " SELECT " + String.join(",", common) + "," + getLBR_EFDICMSIPI_ID()
+		DB.executeUpdate("INSERT INTO LBR_FactFiscal (" + String.join(",", common) + ", LBR_EFDICMSIPI_ID, LBR_FactFiscal_ID) "
+				+ " SELECT " + String.join(",", common) + "," + getLBR_EFDICMSIPI_ID() + ", NEXTID (1153273, 'N') "
 				+ " FROM LBR_FactFiscalBase"
 				+ " WHERE TRUNC(DateAcct) BETWEEN " + DB.TO_DATE(getStartDate())
 				+ " AND " + DB.TO_DATE(getEndDate())
 				+ " AND ((IsSOTrx = 'Y' AND lbr_NFeProt IS NOT NULL) OR IsSOTrx ='N') "
 				+ " AND AD_Org_ID = " + getAD_Org_ID(), get_TrxName());
+		
+		//	Zerar ICMSST não recuperável
+		if (MSysConfig.getBooleanValue(SysConfig.LBR_EFD_NON_RECOVERABLE_ST, true, getAD_Client_ID(), getAD_Org_ID()))
+		{
+			//	Items
+			String updateItem = "UPDATE LBR_FactFiscal "
+					+ "SET ICMS_TaxAmt=0, ICMS_TaxBaseAmt=0, ICMS_TaxRate=0, ICMSST_TaxAmt=0, ICMSST_TaxBaseAmt=0, ICMSST_TaxRate=0 "
+					+ "WHERE LBR_EFDICMSIPI_ID=? "
+					+ "AND IsSOTrx='N' "
+					+ "AND (CASE WHEN ICMSST_TaxStatus!~'[0-9]?00' "
+					+ "THEN ICMSST_TaxStatus "
+					+ "ELSE ICMS_TaxStatus END)~'" +  MLBRFactFiscal.REGEX_NON_RECOVERABLE_ST_CST + "'";
+			DB.executeUpdate(updateItem, getLBR_EFDICMSIPI_ID(), get_TrxName());
+			
+			//	Totals
+			String updateTotal = "UPDATE LBR_FactFiscal SET "
+					+ "ICMS_NFTaxBaseAmt=(SELECT SUM (ff.ICMS_TaxBaseAmt) "
+						+ "FROM LBR_FactFiscal ff "
+						+ "WHERE ff.LBR_EFDICMSIPI_ID=LBR_FactFiscal.LBR_EFDICMSIPI_ID "
+						+ "AND ff.LBR_NFeID=LBR_FactFiscal.LBR_NFeID), "
+					+ "ICMS_NFTaxAmt=(SELECT SUM (ff.ICMS_TaxAmt) "
+						+ "FROM LBR_FactFiscal ff "
+						+ "WHERE ff.LBR_EFDICMSIPI_ID=LBR_FactFiscal.LBR_EFDICMSIPI_ID "
+						+ "AND ff.LBR_NFeID=LBR_FactFiscal.LBR_NFeID) "
+					+ "WHERE LBR_EFDICMSIPI_ID=? "
+					+ "AND IsSOTrx='N' "
+					+ "AND (CASE WHEN ICMSST_TaxStatus!~'[0-9]?00' "
+					+ "THEN ICMSST_TaxStatus "
+					+ "ELSE ICMS_TaxStatus END)~'" +  MLBRFactFiscal.REGEX_NON_RECOVERABLE_ST_CST + "'";
+			DB.executeUpdate(updateTotal, getLBR_EFDICMSIPI_ID(), get_TrxName());
+		}
 		
 		if (isLBR_IncludeE())
 		{
@@ -287,7 +318,7 @@ public class MLBREFDICMSIPI extends X_LBR_EFDICMSIPI implements DocAction, DocOp
 		catch (Exception e)
 		{
 			return "@Error@ ao Gerar o SPED Fiscal";
-		}		
+		}
 		
 		/*
 		 * Nome do arquivo
@@ -337,10 +368,7 @@ public class MLBREFDICMSIPI extends X_LBR_EFDICMSIPI implements DocAction, DocOp
 		CounterSped.clear();
 		
 		// Fatos Fiscais
-		List<MLBRFactFiscal> factFiscals = new Query(getCtx(), MLBRFactFiscal.Table_Name, "LBR_EFDICMSIPI_ID=?", get_TrxName())
-				.setParameters(getLBR_EFDICMSIPI_ID())
-				.setOrderBy("(CASE WHEN IsSOTrx='Y' THEN DateDoc ELSE lbr_DateInOut END), LBR_NotaFiscal_ID, Line, DocumentNo")
-				.list();
+		List<MLBRFactFiscal> factFiscals = getFacts();
 
 		// Vendas com cartão de crédito
 		MLBRSalesCardTotal[] cards = MLBRSalesCardTotal.get(getCtx(), getC_Period_ID(), null);
@@ -970,6 +998,13 @@ public class MLBREFDICMSIPI extends X_LBR_EFDICMSIPI implements DocAction, DocOp
 		// 
 		return result;
 	}	//	generateEFD
+
+	private List<MLBRFactFiscal> getFacts() {
+		return new Query(getCtx(), MLBRFactFiscal.Table_Name, "LBR_EFDICMSIPI_ID=?", get_TrxName())
+				.setParameters(getLBR_EFDICMSIPI_ID())
+				.setOrderBy("DateDoc, LBR_NotaFiscal_ID, Line, DocumentNo")
+				.list();
+	}
 	
 	public boolean voidIt()
 	{
