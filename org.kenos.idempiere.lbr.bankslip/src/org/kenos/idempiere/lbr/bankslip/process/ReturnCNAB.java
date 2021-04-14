@@ -116,7 +116,7 @@ public class ReturnCNAB extends SvrProcess
 		{
 			try
 			{
-				MPayment payment = bankSlip.pay (detail.getDateFile(), detail.getAmount(), detail.getDiscount(), detail.getInterest(), Env.ZERO, "Liquidação feita via CNAB");
+				MPayment payment = bankSlip.pay (detail.getDateTrx(), detail.getAmount(), detail.getDiscount(), detail.getInterest(), Env.ZERO, "Liquidação feita via CNAB");
 				mov.setC_Payment_ID(payment.getC_Payment_ID());
 				addLog (detail, "Liquidação feita via CNAB #" + payment.getDocumentNo());
 			}
