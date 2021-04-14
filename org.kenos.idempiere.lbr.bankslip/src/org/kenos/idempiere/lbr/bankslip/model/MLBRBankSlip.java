@@ -250,7 +250,11 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 		ContaBancaria contaBancaria = new ContaBancaria(banco);
 		contaBancaria.setNumeroDaConta(new NumeroDaConta(Integer.valueOf (bsi.getAccountNo()), bsi.getLBR_BankAccountVD()));
 		contaBancaria.setCarteira(new Carteira(Integer.valueOf(bsi.getLBR_BankSlipFoldCode())));
-		contaBancaria.setAgencia(new Agencia(bsi.getAgency(), bsi.getLBR_BankAgencyVD()));
+		
+		if (bsi.getRoutingNo().equals("341"))
+			contaBancaria.setAgencia(new Agencia(bsi.getAgency()));
+		else
+			contaBancaria.setAgencia(new Agencia(bsi.getAgency(), bsi.getLBR_BankAgencyVD()));
 		
 		Titulo titulo = new Titulo(contaBancaria, sacado, beneficiario);
 		titulo.setNumeroDoDocumento(getLBR_NumberInOrg());
