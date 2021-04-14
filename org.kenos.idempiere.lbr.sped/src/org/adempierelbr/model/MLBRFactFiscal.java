@@ -14,8 +14,10 @@
 package org.adempierelbr.model;
 
 import java.lang.reflect.InvocationTargetException;
+import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import java.util.Set;
@@ -58,6 +60,8 @@ import org.compiere.model.Query;
 import org.compiere.model.X_M_Product_Acct;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
+import org.kenos.idempiere.lbr.sped.model.MLBREFDContrib;
+import org.kenos.idempiere.lbr.sped.model.MLBREFDICMSIPI;
 
 /**
  * 		Model for LBR_FactFiscal
@@ -71,6 +75,7 @@ public class MLBRFactFiscal extends X_LBR_FactFiscal
 	 * Logger			
 	 */
 //	private static CLogger log = CLogger.getCLogger(MLBRFactFiscal.class);
+	public static final String REGEX_NON_RECOVERABLE_ST_CST = "[0-9]?[1367]0";
 	
 	/**
 	 * 	Serial
@@ -931,4 +936,82 @@ public class MLBRFactFiscal extends X_LBR_FactFiscal
 		//
 		return rD505;
 	}	//	getRD505
+	
+	private List<MLBRFactFiscal> getRelatedLines () {
+		String columnName = null;
+		int Record_ID = -1;
+		
+		if (get_ColumnIndex(MLBREFDICMSIPI.COLUMNNAME_LBR_EFDICMSIPI_ID) > 0 && get_ValueAsInt(MLBREFDICMSIPI.COLUMNNAME_LBR_EFDICMSIPI_ID) > 0)
+		{
+			columnName = MLBREFDICMSIPI.COLUMNNAME_LBR_EFDICMSIPI_ID;
+			Record_ID = get_ValueAsInt(MLBREFDICMSIPI.COLUMNNAME_LBR_EFDICMSIPI_ID);
+		}
+		else if (get_ColumnIndex(MLBREFDContrib.COLUMNNAME_LBR_EFDContrib_ID) > 0 && get_ValueAsInt(MLBREFDContrib.COLUMNNAME_LBR_EFDContrib_ID) > 0)
+		{
+			columnName = MLBREFDContrib.COLUMNNAME_LBR_EFDContrib_ID;
+			Record_ID = get_ValueAsInt(MLBREFDContrib.COLUMNNAME_LBR_EFDContrib_ID);
+		}
+		
+		if (columnName == null)
+			return new ArrayList<MLBRFactFiscal>();
+		
+		return new Query(getCtx(), Table_Name, columnName + "=? AND " + COLUMNNAME_lbr_NFeID + "=?", get_TrxName()).setParameters(Record_ID, getlbr_NFeID()).list();
+	}
+	
+	public BigDecimal calcICMS_NFTaxBaseAmt()
+	{
+		return getRelatedLines ().stream()
+				.map(MLBRFactFiscal::calcICMS_TaxBaseAmt)
+				.reduce(Env.ZERO, BigDecimal::add);
+	}	//	calcICMS_NFTaxBaseAmt
+	
+	public BigDecimal calcICMS_NFTaxAmt()
+	{
+		return getRelatedLines ().stream()
+				.map(MLBRFactFiscal::calcICMS_TaxAmt)
+				.reduce(Env.ZERO, BigDecimal::add);
+	}	//	calcICMS_NFTaxAmt
+	
+	public String getICMS_TaxStatus() {
+		String cst = super.getICMSST_TaxStatus();
+		if (cst.endsWith("00"))	//	Inválido para ICMSST
+			cst = super.getICMS_TaxStatus();
+		return cst;
+	}
+	
+	public BigDecimal calcICMSST_TaxBaseAmt() {
+		if (!isSOTrx() && getICMS_TaxStatus().matches(REGEX_NON_RECOVERABLE_ST_CST))
+			return Env.ZERO;
+		return super.getICMSST_TaxBaseAmt();
+	}
+	
+	public BigDecimal calcICMSST_TaxRate() {
+		if (!isSOTrx() && getICMS_TaxStatus().matches(REGEX_NON_RECOVERABLE_ST_CST))
+			return Env.ZERO;
+		return super.getICMSST_TaxRate();
+	}
+	
+	public BigDecimal calcICMSST_TaxAmt() {
+		if (!isSOTrx() && getICMS_TaxStatus().matches(REGEX_NON_RECOVERABLE_ST_CST))
+			return Env.ZERO;
+		return super.getICMSST_TaxAmt();
+	}
+	
+	public BigDecimal calcICMS_TaxBaseAmt() {
+		if (!isSOTrx() && getICMS_TaxStatus().matches(REGEX_NON_RECOVERABLE_ST_CST))
+			return Env.ZERO;
+		return super.getICMS_TaxBaseAmt();
+	}
+	
+	public BigDecimal calcICMS_TaxRate() {
+		if (!isSOTrx() && getICMS_TaxStatus().matches(REGEX_NON_RECOVERABLE_ST_CST))
+			return Env.ZERO;
+		return super.getICMS_TaxRate();
+	}
+	
+	public BigDecimal calcICMS_TaxAmt() {
+		if (!isSOTrx() && getICMS_TaxStatus().matches(REGEX_NON_RECOVERABLE_ST_CST))
+			return Env.ZERO;
+		return super.getICMS_TaxAmt();
+	}
 }	//	MLBRFactFiscal
