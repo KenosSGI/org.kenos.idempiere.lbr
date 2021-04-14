@@ -202,7 +202,7 @@ public class CNABDetail {
         	catch (Exception e) {}
                 	
         	CNABDetail detail = new CNABDetail ();
-        	detail.setAmount(normalize (ds.getBigDecimal(PAYAMT)));
+        	detail.setAmount(normalize (ds.getBigDecimal(AMOUNT)));
 			detail.setDateTrx(dateTrx);
 			detail.setDueDate(dueDate);
         	detail.setDiscount(normalize (ds.getBigDecimal(DISCOUNT)));
@@ -223,7 +223,7 @@ public class CNABDetail {
 	private static BigDecimal normalize (BigDecimal bd) {
 		if (bd == null)
 			return Env.ZERO;
-		return bd.divide(Env.ONEHUNDRED, RoundingMode.HALF_UP);
+		return bd.divide(Env.ONEHUNDRED, 2, RoundingMode.HALF_EVEN);
 	}	//	normalize
 	
 	@Override

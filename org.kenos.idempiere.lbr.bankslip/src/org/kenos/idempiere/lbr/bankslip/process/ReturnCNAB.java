@@ -109,6 +109,7 @@ public class ReturnCNAB extends SvrProcess
 		mov.setIsSOTrx(false);
 		mov.setDateTrx(detail.getDateFile());
 		mov.setMovementDate(detail.getDateFile());
+		mov.setGrandTotal(detail.getAmount());
 		mov.setDiscountAmt(detail.getDiscount());
 		mov.setLBR_InterestValue(detail.getInterest());
 		

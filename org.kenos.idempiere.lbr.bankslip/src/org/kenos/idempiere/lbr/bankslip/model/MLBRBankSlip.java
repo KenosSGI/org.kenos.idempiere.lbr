@@ -1296,8 +1296,9 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 		payment.setDescription(description);
 		payment.setDateAcct(dateTrx);
 		payment.setDateTrx(dateTrx);
-		payment.setPayAmt(amount.subtract(discountAmt));
-		payment.setDiscountAmt(discountAmt.signum() == 1 ? discountAmt : interestAmt.negate());
+		payment.setPayAmt(amount.subtract(discountAmt).add(interestAmt));
+		payment.setDiscountAmt(discountAmt);		
+		payment.set_ValueOfColumn("InterestAmt", interestAmt);		
 		payment.setWriteOffAmt(writeOffAmt);
 		
 		//	Save and process
