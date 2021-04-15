@@ -217,7 +217,7 @@ public class GenCNAB
 			+ " LEFT JOIN LBR_BankSlipOccur oc ON (oc.LBR_BankSlipOccur_ID=mov.LBR_BankSlipOccur_ID) ",
 			//	WHERE
 			"bs.IsCancelled='N' "
-			+ " AND bs.LBR_BankSlipContract_ID=? "
+			+ " AND bs.LBR_BankSlipContract_ID=? AND mov.Type = 'R'"
 			+ " AND NOT EXISTS (SELECT 1 FROM LBR_CNABFileLine l WHERE l.LBR_BankSlipMov_ID=mov.LBR_BankSlipMov_ID)",
 			true, "mov");
 	}   //  dynInit
