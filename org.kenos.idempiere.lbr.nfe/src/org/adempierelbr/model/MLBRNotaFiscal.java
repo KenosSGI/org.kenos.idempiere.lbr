@@ -4037,7 +4037,14 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 			{
 				String serviceDescription = "";
 				//
-				MLBROpenItem[] ois = MLBROpenItem.getOpenItem(getC_Invoice_ID(), get_TrxName());
+				MLBRNFPaySchedule[] nfps = MLBRNFPaySchedule.getNFPaySchedule(getCtx(), getLBR_NotaFiscal_ID(), 0, get_TrxName());
+				
+				MLBROpenItem[] ois = null;
+				if (nfps != null && nfps.length > 0)
+					ois = MLBROpenItem.cast (nfps);
+				else
+					ois = MLBROpenItem.getOpenItem (getC_Invoice_ID(), get_TrxName());
+				
 				if (ois == null)
 					;
 				else if (ois.length == 1)
