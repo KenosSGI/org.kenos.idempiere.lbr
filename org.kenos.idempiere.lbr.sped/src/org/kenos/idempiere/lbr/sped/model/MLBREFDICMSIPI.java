@@ -169,6 +169,7 @@ public class MLBREFDICMSIPI extends X_LBR_EFDICMSIPI implements DocAction, DocOp
 				+ " WHERE TRUNC(DateAcct) BETWEEN " + DB.TO_DATE(getStartDate())
 				+ " AND " + DB.TO_DATE(getEndDate())
 				+ " AND ((IsSOTrx = 'Y' AND lbr_NFeProt IS NOT NULL) OR IsSOTrx ='N') "
+				+ " AND EXISTS (SELECT 1 FROM LBR_NotaFiscal nf WHERE nf.DocStatus IN ('CL','CO','VO') AND nf.LBR_NotaFiscal_ID=LBR_FactFiscalBase.LBR_NotaFiscal_ID) "
 				+ " AND AD_Org_ID = " + getAD_Org_ID(), get_TrxName());
 		
 		//	Zerar ICMSST não recuperável
@@ -304,10 +305,6 @@ public class MLBREFDICMSIPI extends X_LBR_EFDICMSIPI implements DocAction, DocOp
 	{	
 		StringBuilder result = new StringBuilder();
 		
-		/*
-		 * Caminho do Arquivo
-		 */
-		String fileName = "";
 		try
 		{
 			/*
@@ -317,7 +314,8 @@ public class MLBREFDICMSIPI extends X_LBR_EFDICMSIPI implements DocAction, DocOp
 		}
 		catch (Exception e)
 		{
-			return "@Error@ ao Gerar o SPED Fiscal";
+			e.printStackTrace();
+			return DocAction.STATUS_Invalid;
 		}
 		
 		/*
@@ -326,7 +324,7 @@ public class MLBREFDICMSIPI extends X_LBR_EFDICMSIPI implements DocAction, DocOp
 		 * EDF_CNPJ_DATA.txt
 		 */
 		I_W_AD_OrgInfo oi = POWrapper.create(MOrgInfo.get(getCtx(), getAD_Org_ID(), get_TrxName()), I_W_AD_OrgInfo.class);
-		fileName = "EFD_" + TextUtil.toNumeric(oi.getlbr_CNPJ()) + "_" + TextUtil.timeToString(getStartDate(), "MMyyyy") + ".txt";
+		String fileName = "EFD_" + TextUtil.toNumeric(oi.getlbr_CNPJ()) + "_" + TextUtil.timeToString(getStartDate(), "MMyyyy") + ".txt";
 		
 		String tmp = System.getProperty("java.io.tmpdir") +
 	             System.getProperty("file.separator");
@@ -334,7 +332,6 @@ public class MLBREFDICMSIPI extends X_LBR_EFDICMSIPI implements DocAction, DocOp
 		/*
 		 * Gerar Arquivo no disco
 		 */
-		
 		File file = new File(TextUtil.generateFile(result.toString(), tmp + "/" +  fileName));
 		
 		try
@@ -346,7 +343,8 @@ public class MLBREFDICMSIPI extends X_LBR_EFDICMSIPI implements DocAction, DocOp
 		} 
 		catch (Exception e)
 		{
-			return "Error saving SPED";
+			e.printStackTrace();
+			return DocAction.STATUS_Invalid;
 		}
 
 		setDocAction(DOCACTION_None);
