@@ -773,7 +773,7 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 		if (icmsST == null 
 				&& icmsTax != null 
 				&& icmsTax.getLBR_TaxStatus_ID() > 0 
-				&& TextUtil.match(icmsTax.getLBR_TaxStatus().getName(), "60", "70"))
+				&& TextUtil.match(icmsTax.getLBR_TaxStatus().getName(), "60"))
 		{
 			MLBRTaxLine tl = new MLBRTaxLine (Env.getCtx(),0,null);
 			tl.setLBR_TaxName_ID(MLBRTaxName.TAX_ICMSST);

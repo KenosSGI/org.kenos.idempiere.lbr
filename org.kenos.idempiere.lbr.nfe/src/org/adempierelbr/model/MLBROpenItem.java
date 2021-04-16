@@ -61,6 +61,18 @@ public class MLBROpenItem
 	private BigDecimal GrandTotal;
 	private int parcelNo;
 	
+	private MLBROpenItem (MLBRNFPaySchedule nfp)
+	{
+		setAD_Org_ID(nfp.getAD_Org_ID());
+		setDueDate(nfp.getDueDate());
+		setDiscountDate(nfp.getDiscountDate());
+		setDiscountAmt(nfp.getDiscountAmt());
+		setGrandTotal(nfp.getDueAmt());
+		//
+		setDiscountRate(GrandTotal, DiscountAmt);
+		setInterestAmt(GrandTotal);
+	}	//	MLBROpenItem
+	
 	/**
 	 * 
 	 * @param rs
@@ -384,5 +396,20 @@ public class MLBROpenItem
 	public BigDecimal getInterestAmt(){
 		return InterestAmt;
 	}
+
+	public static MLBROpenItem[] cast(MLBRNFPaySchedule[] nfps)
+	{
+		List<MLBROpenItem> ois = new ArrayList<MLBROpenItem>();
+
+		for (MLBRNFPaySchedule nfp : nfps)
+		{
+			MLBROpenItem oi = new MLBROpenItem (nfp);
+			ois.add(oi);
+		}
+		
+		MLBROpenItem[] result = new MLBROpenItem[ois.size()];
+		ois.toArray(result);
+		return result;
+	}	//	
 
 } 	//	MLBROpenItem
