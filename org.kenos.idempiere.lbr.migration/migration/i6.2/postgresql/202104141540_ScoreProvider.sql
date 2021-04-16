@@ -630,6 +630,18 @@ UPDATE AD_Column SET DefaultValue='@#Date@', IsUpdateable='N',Updated=TO_TIMESTA
 INSERT INTO t_alter_column values('lbr_scorestatus','DateTrx','TIMESTAMP',null,null)
 ;
 
+-- 16 de abr de 2021 08:41:09 BRT
+UPDATE AD_Table SET AD_Window_ID=1120178,Updated=TO_TIMESTAMP('2021-04-16 08:41:09','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Table_ID=1120756
+;
+
+-- 16 de abr de 2021 08:41:28 BRT
+UPDATE AD_Window SET IsSOTrx='N',Updated=TO_TIMESTAMP('2021-04-16 08:41:28','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Window_ID=1120178
+;
+
+-- 16 de abr de 2021 08:41:33 BRT
+UPDATE AD_Menu SET IsSOTrx='N',Updated=TO_TIMESTAMP('2021-04-16 08:41:33','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Menu_ID=1120395
+;
+
 -- 14 de abr de 2021 15:38:15 BRT
 SELECT Register_Migration_Script ('202104141540_ScoreProvider.sql') FROM DUAL
 ;
