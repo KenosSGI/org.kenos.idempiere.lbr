@@ -935,9 +935,9 @@ public class MLBREFDICMSIPI extends X_LBR_EFDICMSIPI implements DocAction, DocOp
 		boolean hasMovBlocoB = false;
 		boolean hasMovBlocoC = blocoC.getrC100().size() > 0;
 		boolean hasMovBlocoD = blocoD.getrD100().size() > 0 || blocoD.getrD500().size() > 0;
-		boolean hasMovBlocoE = isLBR_IncludeE();
+		boolean hasMovBlocoE = isLBR_IncludeE() && blocoE.hasMov();
 		boolean hasMovBlocoG = false;
-		boolean hasMovBlocoH = isLBR_IncludeH() && blocoH.getrH005() != null && blocoH.getrH005().getrH010().size() > 0;
+		boolean hasMovBlocoH = isLBR_IncludeH() && blocoH.getrH005() != null;
 		boolean hasMovBlocoK = isLBR_IncludeK() && blocoK.getrK200().size() > 0;
 		boolean hasMovBloco1 = bloco1.getR1010() != null;
 		

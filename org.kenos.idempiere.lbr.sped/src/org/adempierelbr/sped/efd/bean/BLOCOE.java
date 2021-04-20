@@ -176,5 +176,15 @@ public class BLOCOE {
 		//
 		return result.toString();
 	}
-
+	
+	/**
+	 * 	Has Movement
+	 * 	@return
+	 */
+	public boolean hasMov ()
+	{
+		if (getrE100() != null || getrE200().size() > 0 || getrE500() != null)
+			return true;
+		return false;
+	}	//	hasMov
 } // R0000
