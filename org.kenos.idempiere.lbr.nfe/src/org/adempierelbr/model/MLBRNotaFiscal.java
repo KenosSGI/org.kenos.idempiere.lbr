@@ -4572,6 +4572,9 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		
 		try
 		{
+			if (!isCFOPOriginSame())
+				throw new Exception ("@Error@ CFOPs com mais de uma origem");
+
 			if (!islbr_IsOwnDocument())
 			{
 				//	Check model NF-e to verify mandatory fields
@@ -5465,4 +5468,15 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 	public void setPopulateFields(boolean populateFields) {
 		this.populateFields = populateFields;
 	}
+	
+	private boolean isCFOPOriginSame () {
+		String sql = "SELECT COUNT(DISTINCT SUBSTRING (LBR_CFOPName,1,1)) " + 
+				"FROM LBR_NotaFiscalLine " + 
+				"WHERE LBR_NotaFiscal_ID=? " + 
+				"AND LBR_CFOPName IS NOT NULL";
+		int count = DB.getSQLValue (get_TrxName(), sql, getLBR_NotaFiscal_ID());
+		if (count > 1)
+			return false;
+		return true;
+	}	//	isCFOPOriginSame
 }	//	MLBRNotaFiscal
