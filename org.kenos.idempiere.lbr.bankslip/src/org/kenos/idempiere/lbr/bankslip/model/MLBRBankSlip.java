@@ -549,8 +549,8 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 		//	Fold
 		if (newRecord || is_ValueChanged(COLUMNNAME_LBR_BankSlipFold_ID))
 		{
-			bsi.setLBR_BankSlipFoldCode (String.valueOf (getLBR_BankSlipFold().getValueNumber()));
-			bsi.setLBR_BankSlipFoldValue (getLBR_BankSlipFold().getValue());
+			bsi.setLBR_BankSlipFoldCode (getLBR_BankSlipFold().getValue());
+			bsi.setLBR_BankSlipFoldValue (String.valueOf (getLBR_BankSlipFold().getValueNumber()));
 			//
 			changed = true;
 		}
