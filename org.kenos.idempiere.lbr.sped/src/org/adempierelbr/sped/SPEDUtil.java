@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.adempiere.model.POWrapper;
@@ -289,6 +290,11 @@ public class SPEDUtil
 
 	/**	Outras Receitas				*/
 	public static final String NAT_REC_OUTRAS_DESP = "999";
+
+	/**
+	 * 	Array com todos os Registros 0140 e seus filhos
+	 */
+	private static Set<R0140> _R0140;
 	
 	/**
 	 * 	Array com todos os Registros 0150 e seus filhos
@@ -412,6 +418,12 @@ public class SPEDUtil
 	{
 		processFacts (ctx, Arrays.asList(facts), type, trxName);
 	}
+	
+	public static void processFacts (Properties ctx, List<MLBRFactFiscal> facts, int type, String trxName) throws Exception
+	{
+		processFacts (ctx, -1, facts, type, trxName);
+	}	//	processFacts
+	
 	/**
 	 * 	Processa todos os Fatos Fiscais
 	 * 
@@ -420,11 +432,12 @@ public class SPEDUtil
 	 * @param trxName Nome da Transação
 	 * @throws Exception 
 	 */
-	public static void processFacts (Properties ctx, List<MLBRFactFiscal> facts, int type, String trxName) throws Exception
+	public static void processFacts (Properties ctx, int AD_Org_ID, List<MLBRFactFiscal> facts, int type, String trxName) throws Exception
 	{
 		//	FIXME: Assim até a Fact Fiscal ter identificação do tipo de
 		//		registro, Cabeçalho, Linha, Org, etc.
 		List<Integer> unqNF = new ArrayList<Integer>();
+		Set<Integer> orgList = new HashSet<Integer>();
 		
 		//	Initialize
 		_R0150 = new SPEDSet<I_R0150>();
@@ -448,7 +461,8 @@ public class SPEDUtil
 		//
 		for (MLBRFactFiscal fact : facts)
 		{
-			
+			orgList.add(fact.getAD_Org_ID());
+			//
 			_R0150.add (fact.fillR0150 (ctx, (I_R0150) getReg ("R0150", type), trxName));
 			_R0190.add (fact.fillR0190 (ctx, (I_R0190) getReg ("R0190", type), trxName));
 			_R0200.add (fact.fillR0200 (ctx, (I_R0200) getReg ("R0200", type), trxName));
@@ -587,6 +601,7 @@ public class SPEDUtil
 			
 		}	//	for
 		
+		_R0140 = orgList.stream().map(SPEDUtil::getR0140).collect(Collectors.toCollection(SPEDSet<R0140>::new));
 	}	//	processFacts
 	
 	private static String getConsolidateIdentifier(MLBRFactFiscal fact) {
@@ -948,6 +963,24 @@ public class SPEDUtil
 		return r0111;
 	}	//	getR0111
 	
+	public static R0140 getR0140 (int AD_Org_ID)
+	{
+		MOrgInfo oi = MOrgInfo.get (Env.getCtx(), AD_Org_ID, null);
+		I_W_AD_OrgInfo oiW = POWrapper.create(oi, I_W_AD_OrgInfo.class);
+		MLocation location = new MLocation (Env.getCtx(), oi.getC_Location_ID(), null);
+		//
+		R0140 r0140 = new R0140();
+		r0140.setCNPJ(oiW.getlbr_CNPJ());
+		r0140.setCOD_EST(String.valueOf (oi.getAD_Org_ID()));
+		r0140.setCOD_MUN(BPartnerUtil.getCityCode (location));
+		r0140.setIE(oiW.getlbr_IE());
+		r0140.setIM(oiW.getlbr_CCM());
+		r0140.setNOME(oiW.getlbr_LegalEntity());
+		r0140.setSUFRAMA(oiW.getlbr_Suframa());
+		r0140.setUF(oi.getC_Location().getRegionName());
+		return r0140;
+	}	//	getR0140
+	
 	/**
 	 * 		Este registro tem por objetivo relacionar e informar os estabelecimentos da pessoa jurídica, 
 	 * 	no Brasil ou no exterior, que auferiram receitas no período da escrituração, realizaram operações 
@@ -964,22 +997,18 @@ public class SPEDUtil
 		//
 		for (MOrgInfo oi : ois)
 		{
-			I_W_AD_OrgInfo oiW = POWrapper.create(oi, I_W_AD_OrgInfo.class);
-			MLocation location = new MLocation (ctx, oi.getC_Location_ID(), trxName);
-			//
-			R0140 r0140 = new R0140();
-			r0140.setCNPJ(oiW.getlbr_CNPJ());
-			r0140.setCOD_EST(String.valueOf (oi.getAD_Org_ID()));
-			r0140.setCOD_MUN(BPartnerUtil.getCityCode (location));
-			r0140.setIE(oiW.getlbr_IE());
-			r0140.setIM(oiW.getlbr_CCM());
-			r0140.setNOME(oiW.getlbr_LegalEntity());
-			r0140.setSUFRAMA(oiW.getlbr_Suframa());
-			r0140.setUF(oi.getC_Location().getRegionName());
-			//
-			r0140L.add(r0140);
+			r0140L.add(getR0140(oi.getAD_Org_ID()));
 		}
 		return r0140L;
+	}	//	getR0140
+
+	/**
+	 * 		Parceiros
+	 * 	@return Registros 0140
+	 */
+	public static Set<R0140> getR0140 ()
+	{
+		return _R0140;
 	}	//	getR0140
 
 	/**
