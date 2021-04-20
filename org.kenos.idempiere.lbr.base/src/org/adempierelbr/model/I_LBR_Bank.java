@@ -106,6 +106,24 @@ public interface I_LBR_Bank
 	  */
 	public boolean isActive();
 
+    /** Column name LBR_BankAccountVD */
+    public static final String COLUMNNAME_LBR_BankAccountVD = "LBR_BankAccountVD";
+
+	/** Set Account Digit	  */
+	public void setLBR_BankAccountVD (boolean LBR_BankAccountVD);
+
+	/** Get Account Digit	  */
+	public boolean isLBR_BankAccountVD();
+
+    /** Column name LBR_BankAgencyVD */
+    public static final String COLUMNNAME_LBR_BankAgencyVD = "LBR_BankAgencyVD";
+
+	/** Set Agency Digit	  */
+	public void setLBR_BankAgencyVD (boolean LBR_BankAgencyVD);
+
+	/** Get Agency Digit	  */
+	public boolean isLBR_BankAgencyVD();
+
     /** Column name LBR_Bank_ID */
     public static final String COLUMNNAME_LBR_Bank_ID = "LBR_Bank_ID";
 

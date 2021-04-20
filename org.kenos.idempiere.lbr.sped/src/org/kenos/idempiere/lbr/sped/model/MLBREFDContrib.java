@@ -369,7 +369,7 @@ public class MLBREFDContrib extends X_LBR_EFDContrib implements DocAction, DocOp
 				.setOrderBy("(CASE WHEN IsSOTrx='Y' THEN DateDoc ELSE lbr_DateInOut END), LBR_NotaFiscal_ID, Line, DocumentNo")
 				.list();
 		
-		SPEDUtil.processFacts (getCtx(), factFiscals, SPEDUtil.TYPE_CONTRIB, get_TrxName());
+		SPEDUtil.processFacts (getCtx(), getAD_Org_ID(), factFiscals, SPEDUtil.TYPE_CONTRIB, get_TrxName());
 		
 		//	Inicio do Arquivo
 		Bloco0 b0 = new Bloco0();
@@ -391,7 +391,7 @@ public class MLBREFDContrib extends X_LBR_EFDContrib implements DocAction, DocOp
 		b0.setR0111(SPEDUtil.getR0111());
 		
 		//	Registro 0140
-		b0.setR0140 (SPEDUtil.getR0140 (getCtx(), new MOrgInfo[]{getOrgInfo()}, get_TrxName()));
+		b0.setR0140 (SPEDUtil.getR0140 ());
 		//	Registro 0150
 		b0.setR0150 (SPEDUtil.getR0150 ());
 		//	Registro 0190

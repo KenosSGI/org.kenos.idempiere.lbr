@@ -248,13 +248,26 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 		}
 		
 		ContaBancaria contaBancaria = new ContaBancaria(banco);
-		contaBancaria.setNumeroDaConta(new NumeroDaConta(Integer.valueOf (bsi.getAccountNo()), bsi.getLBR_BankAccountVD()));
-		contaBancaria.setCarteira(new Carteira(Integer.valueOf(bsi.getLBR_BankSlipFoldCode())));
+		Agencia agencia = null;
+		NumeroDaConta numeroDaConta = null;
 		
-		if (bsi.getRoutingNo().equals("341"))
-			contaBancaria.setAgencia(new Agencia(bsi.getAgency()));
+		//	Bank account
+		String bankAccountVD = bsi.getLBR_BankAccountVD();
+		if (bankAccountVD != null && !bankAccountVD.isBlank())
+			numeroDaConta= new NumeroDaConta(Integer.valueOf (bsi.getAccountNo()), bankAccountVD);
 		else
-			contaBancaria.setAgencia(new Agencia(bsi.getAgency(), bsi.getLBR_BankAgencyVD()));
+			numeroDaConta= new NumeroDaConta(Integer.valueOf (bsi.getAccountNo()));
+		
+		//	Bank Agency
+		String bankAgencyVD = bsi.getLBR_BankAgencyVD();
+		if (bankAgencyVD != null && !bankAgencyVD.isBlank())
+			agencia = new Agencia(bsi.getAgency(), bankAgencyVD);
+		else
+			agencia = new Agencia(bsi.getAgency());
+		
+		contaBancaria.setAgencia(agencia);
+		contaBancaria.setNumeroDaConta(numeroDaConta);
+		contaBancaria.setCarteira(new Carteira(Integer.valueOf(bsi.getLBR_BankSlipFoldCode())));
 		
 		Titulo titulo = new Titulo(contaBancaria, sacado, beneficiario);
 		titulo.setNumeroDoDocumento(getLBR_NumberInOrg());
@@ -516,43 +529,19 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 		
 		if (newRecord || is_ValueChanged(COLUMNNAME_C_BankAccount_ID))
 		{
-			I_W_C_BankAccount ba = POWrapper.create (new MBankAccount(getCtx(), getC_BankAccount_ID(), get_TrxName()), I_W_C_BankAccount.class);
-			String baNo = null;
-			String baVD = null;
-			String agencyNo = null;
-			String agencyVD = null;
-			
-			//	Split the account number and digit
-			if (ba.getAccountNo() != null)
-			{
-				if (ba.getAccountNo().indexOf("-") > 0)
-				{
-					String[] splitted = ba.getAccountNo().split("-");
-					baNo = TextUtil.toNumeric (splitted[0]);
-					baVD = TextUtil.toNumeric (splitted[1]);
-				}
-				else
-					baNo = TextUtil.toNumeric (ba.getAccountNo());
-			}
-			
-			//	Split the agency number and digit
-			if (ba.getlbr_AgencyNo() != null)
-			{
-				if (ba.getlbr_AgencyNo().indexOf("-") > 0)
-				{
-					String[] splitted = ba.getlbr_AgencyNo().split("-");
-					agencyNo = TextUtil.toNumeric (splitted[0]);
-					agencyVD = TextUtil.toNumeric (splitted[1]);
-				}
-				else
-					agencyNo = TextUtil.toNumeric (ba.getlbr_AgencyNo());
-			}
+			MLBRBankAccount ba = new MLBRBankAccount(getCtx(), getC_BankAccount_ID(), get_TrxName());
+			String baNo = ba.getAccountNoWOVD();
+			String baVD = ba.getAccountVD();
+			String agencyNo = ba.getAgencyNo();
+			String agencyVD = ba.getAgencyVD();
 			//
 			bsi.setRoutingNo(getC_BankAccount().getC_Bank().getRoutingNo());
 			bsi.setAccountNo(baNo);
-			bsi.setLBR_BankAccountVD(baVD);
+			if (baVD != null && !baVD.isBlank())
+				bsi.setLBR_BankAccountVD(baVD);
 			bsi.setlbr_AgencyNo(agencyNo);
-			bsi.setLBR_BankAgencyVD(agencyVD);
+			if (agencyVD != null && !agencyVD.isBlank())
+				bsi.setLBR_BankAgencyVD(agencyVD);
 			//
 			changed = true;
 		}
@@ -560,8 +549,8 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 		//	Fold
 		if (newRecord || is_ValueChanged(COLUMNNAME_LBR_BankSlipFold_ID))
 		{
-			bsi.setLBR_BankSlipFoldCode (String.valueOf (getLBR_BankSlipFold().getValueNumber()));
-			bsi.setLBR_BankSlipFoldValue (getLBR_BankSlipFold().getValue());
+			bsi.setLBR_BankSlipFoldCode (getLBR_BankSlipFold().getValue());
+			bsi.setLBR_BankSlipFoldValue (String.valueOf (getLBR_BankSlipFold().getValueNumber()));
 			//
 			changed = true;
 		}
