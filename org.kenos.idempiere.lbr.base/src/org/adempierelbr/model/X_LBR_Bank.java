@@ -31,7 +31,7 @@ public class X_LBR_Bank extends PO implements I_LBR_Bank, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20200331L;
+	private static final long serialVersionUID = 20210419L;
 
     /** Standard Constructor */
     public X_LBR_Bank (Properties ctx, int LBR_Bank_ID, String trxName)
@@ -39,6 +39,10 @@ public class X_LBR_Bank extends PO implements I_LBR_Bank, I_Persistent
       super (ctx, LBR_Bank_ID, trxName);
       /** if (LBR_Bank_ID == 0)
         {
+			setLBR_BankAccountVD (true);
+// Y
+			setLBR_BankAgencyVD (true);
+// Y
 			setLBR_Bank_ID (0);
 			setName (null);
 			setRoutingNo (null);
@@ -88,6 +92,48 @@ public class X_LBR_Bank extends PO implements I_LBR_Bank, I_Persistent
 	public String getDescription () 
 	{
 		return (String)get_Value(COLUMNNAME_Description);
+	}
+
+	/** Set Account Digit.
+		@param LBR_BankAccountVD Account Digit	  */
+	public void setLBR_BankAccountVD (boolean LBR_BankAccountVD)
+	{
+		set_Value (COLUMNNAME_LBR_BankAccountVD, Boolean.valueOf(LBR_BankAccountVD));
+	}
+
+	/** Get Account Digit.
+		@return Account Digit	  */
+	public boolean isLBR_BankAccountVD () 
+	{
+		Object oo = get_Value(COLUMNNAME_LBR_BankAccountVD);
+		if (oo != null) 
+		{
+			 if (oo instanceof Boolean) 
+				 return ((Boolean)oo).booleanValue(); 
+			return "Y".equals(oo);
+		}
+		return false;
+	}
+
+	/** Set Agency Digit.
+		@param LBR_BankAgencyVD Agency Digit	  */
+	public void setLBR_BankAgencyVD (boolean LBR_BankAgencyVD)
+	{
+		set_Value (COLUMNNAME_LBR_BankAgencyVD, Boolean.valueOf(LBR_BankAgencyVD));
+	}
+
+	/** Get Agency Digit.
+		@return Agency Digit	  */
+	public boolean isLBR_BankAgencyVD () 
+	{
+		Object oo = get_Value(COLUMNNAME_LBR_BankAgencyVD);
+		if (oo != null) 
+		{
+			 if (oo instanceof Boolean) 
+				 return ((Boolean)oo).booleanValue(); 
+			return "Y".equals(oo);
+		}
+		return false;
 	}
 
 	/** Set Bank.
