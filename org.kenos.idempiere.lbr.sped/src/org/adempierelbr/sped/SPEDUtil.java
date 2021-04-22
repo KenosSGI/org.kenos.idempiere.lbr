@@ -17,14 +17,12 @@ import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.adempiere.model.POWrapper;
@@ -46,6 +44,7 @@ import org.adempierelbr.sped.bean.I_RC500;
 import org.adempierelbr.sped.bean.I_RD100;
 import org.adempierelbr.sped.bean.I_RD500;
 import org.adempierelbr.sped.contrib.bean.R0000;
+import org.adempierelbr.sped.contrib.bean.R0001;
 import org.adempierelbr.sped.contrib.bean.R0110;
 import org.adempierelbr.sped.contrib.bean.R0111;
 import org.adempierelbr.sped.contrib.bean.R0140;
@@ -53,8 +52,6 @@ import org.adempierelbr.sped.contrib.bean.RA010;
 import org.adempierelbr.sped.contrib.bean.RA100;
 import org.adempierelbr.sped.contrib.bean.RA170;
 import org.adempierelbr.sped.contrib.bean.RC010;
-import org.adempierelbr.sped.contrib.bean.RC180;
-import org.adempierelbr.sped.contrib.bean.RC190;
 import org.adempierelbr.sped.contrib.bean.RD010;
 import org.adempierelbr.sped.contrib.bean.RM100;
 import org.adempierelbr.sped.contrib.bean.RM200;
@@ -291,25 +288,25 @@ public class SPEDUtil
 	/**	Outras Receitas				*/
 	public static final String NAT_REC_OUTRAS_DESP = "999";
 
-	/**
-	 * 	Array com todos os Registros 0140 e seus filhos
-	 */
-	private static Set<R0140> _R0140;
-	
-	/**
-	 * 	Array com todos os Registros 0150 e seus filhos
-	 */
-	private static Set<I_R0150> _R0150;
-	
-	/**
-	 * 	Array com todos os Registros 0190 e seus filhos
-	 */
-	private static Set<I_R0190> _R0190;
-	
-	/**
-	 * 	Array com todos os Registros 0200 e seus filhos
-	 */
-	private static Set<I_R0200> _R0200;
+//	/**
+//	 * 	Array com todos os Registros 0140 e seus filhos
+//	 */
+//	private static Set<R0140> _R0140;
+//	
+//	/**
+//	 * 	Array com todos os Registros 0150 e seus filhos
+//	 */
+//	private static Set<I_R0150> _R0150;
+//	
+//	/**
+//	 * 	Array com todos os Registros 0190 e seus filhos
+//	 */
+//	private static Set<I_R0190> _R0190;
+//	
+//	/**
+//	 * 	Array com todos os Registros 0200 e seus filhos
+//	 */
+//	private static Set<I_R0200> _R0200;
 	
 	/**
 	 * 	Array com todos os Registros 0500 e seus filhos
@@ -329,22 +326,7 @@ public class SPEDUtil
 	/**
 	 * 	Array com todos os Registros C010 e seus filhos
 	 */
-	private static Set<RC010> _RC010;
-	
-	/**
-	 * 	Array com todos os Registros C100 e seus filhos
-	 */
-	private static Set<I_RC100> _RC100;
-	
-	/**
-	 * 	Array com todos os Registros C180 e seus filhos
-	 */
-	private static Map<String, RC180> _RC180;
-	
-	/**
-	 * 	Array com todos os Registros C190 e seus filhos
-	 */
-	private static Map<String, RC190> _RC190;
+	private static Map<Integer, RC010> _RC010;
 	
 	/**
 	 * 	Array com todos os Registros C500 e seus filhos
@@ -414,42 +396,17 @@ public class SPEDUtil
 	 * @param trxName Nome da Transação
 	 * @throws Exception 
 	 */
-	public static void processFacts (Properties ctx, MLBRFactFiscal[] facts, int type, String trxName) throws Exception
-	{
-		processFacts (ctx, Arrays.asList(facts), type, trxName);
-	}
-	
-	public static void processFacts (Properties ctx, List<MLBRFactFiscal> facts, int type, String trxName) throws Exception
-	{
-		processFacts (ctx, -1, facts, type, trxName);
-	}	//	processFacts
-	
-	/**
-	 * 	Processa todos os Fatos Fiscais
-	 * 
-	 * @param ctx Context
-	 * @param facts	Fatos Fiscais
-	 * @param trxName Nome da Transação
-	 * @throws Exception 
-	 */
-	public static void processFacts (Properties ctx, int AD_Org_ID, List<MLBRFactFiscal> facts, int type, String trxName) throws Exception
+	public static void processFacts (Properties ctx, R0000 r0000, List<MLBRFactFiscal> facts, int type, String trxName) throws Exception
 	{
 		//	FIXME: Assim até a Fact Fiscal ter identificação do tipo de
 		//		registro, Cabeçalho, Linha, Org, etc.
 		List<Integer> unqNF = new ArrayList<Integer>();
-		Set<Integer> orgList = new HashSet<Integer>();
 		
 		//	Initialize
-		_R0150 = new SPEDSet<I_R0150>();
-		_R0190 = new SPEDSet<I_R0190>();
-		_R0200 = new SPEDSet<I_R0200>();
 		_R0500 = new SPEDSet<I_R0500>();
 		_RA010 = new SPEDSet<RA010>();
 		_RA100 = new SPEDSet<RA100>();
-		_RC010 = new SPEDSet<RC010>();
-		_RC100 = new SPEDSet<I_RC100>();
-		_RC180 = new HashMap<String, RC180>();
-		_RC190 = new HashMap<String, RC190>();
+		_RC010 = new HashMap<Integer, RC010>();
 		_RC500 = new SPEDSet<I_RC500>();
 		_RD010 = new SPEDSet<RD010>();
 		_RD100 = new SPEDSet<I_RD100>();
@@ -458,14 +415,22 @@ public class SPEDUtil
 		_RM400 = new SPEDSet<RM400>();
 		_RM800 = new SPEDSet<RM800>();
 		_RM600 = new RM600();
+		
+		R0001 r0001 = ((R0001)r0000.getR0001());
+		r0001.setR0500(_R0500);
 		//
 		for (MLBRFactFiscal fact : facts)
 		{
-			orgList.add(fact.getAD_Org_ID());
-			//
-			_R0150.add (fact.fillR0150 (ctx, (I_R0150) getReg ("R0150", type), trxName));
-			_R0190.add (fact.fillR0190 (ctx, (I_R0190) getReg ("R0190", type), trxName));
-			_R0200.add (fact.fillR0200 (ctx, (I_R0200) getReg ("R0200", type), trxName));
+			R0140 r0140 = r0001.getR0140(fact.getAD_Org_ID());
+			if (r0140 == null)
+			{
+				r0140 = getR0140(fact.getAD_Org_ID());
+				r0001.addR0140(fact.getAD_Org_ID(), r0140);
+			}
+			
+			r0140.getR0150().add (fact.fillR0150 (ctx, (I_R0150) getReg ("R0150", type), trxName));
+			r0140.getR0190().add (fact.fillR0190 (ctx, (I_R0190) getReg ("R0190", type), trxName));
+			r0140.getR0200().add (fact.fillR0200 (ctx, (I_R0200) getReg ("R0200", type), trxName));
 			_R0500.add (fact.fillR0500 (ctx, _R0500, type, trxName));
 			
 			//	TEMPORARIO VIDE unqNF
@@ -488,15 +453,20 @@ public class SPEDUtil
 				
 				//	A100, A170
 				_RA100.add (fact.getRA100 (ctx, trxName));
-
-				
-
 			}
 			
-			//	C100
+			//	C100 or C180/C190 (Consolidated)
 			else if (TextUtil.match (COD_MOD, COD_MOD_NF, COD_MOD_NF_AVULSA, 
 					COD_MOD_NF_DE_PRODUTOR, COD_MOD_NF_ELETRONICA))
 			{
+				//	C010
+				RC010 rc010 = _RC010.get(fact.getAD_Org_ID());
+				if (rc010 == null)
+				{
+					rc010 = fact.getRC010();
+					_RC010.put(fact.getAD_Org_ID(), rc010);
+				}
+				
 				//	Consolidate
 //				if (!TextUtil.match (fact.getlbr_CFOPName(), "1933"))
 //				{
@@ -504,7 +474,7 @@ public class SPEDUtil
 //					//
 //					if (fact.isSOTrx())
 //					{
-//						RC180 rc180 = _RC180.get(consIdentifier);
+//						RC180 rc180 = rc010.getRC180(consIdentifier);
 //						if (rc180 == null)
 //						{
 //							rc180 = new RC180();
@@ -515,11 +485,12 @@ public class SPEDUtil
 //							rc180.setCOD_NCM(fact.getlbr_NCMName());
 //							rc180.setVL_TOT_ITEM(Env.ZERO);
 //							//
-//							_RC180.put(consIdentifier, rc180);
+//							rc010.addRC180(consIdentifier, rc180);
 //						}
 //						
 //						String regIdentifier = getPISIdentifier(fact);
-//						rc180.get_RC181(regIdentifier);
+//						rc180.addRC181(regIdentifier, fact);
+//						rc180.addRC185(regIdentifier, fact);
 //					}
 //					else
 //					{
@@ -528,11 +499,9 @@ public class SPEDUtil
 //				}
 //				else
 				{
-					//	C010
-					_RC010.add (fact.getRC010 ());
 					
 					//	C100, C120, C130, C140, C141, C170, C172, C190, C195
-					_RC100.add (fact.getRC100 (ctx, (I_RC100) getReg ("RC100", type), trxName));
+					rc010.getRC100().add (fact.getRC100 (ctx, (I_RC100) getReg ("RC100", type), trxName));
 					
 					if (fact.islbr_IsOwnDocument() && !fact.isCancelled())
 					{
@@ -600,8 +569,6 @@ public class SPEDUtil
 			}
 			
 		}	//	for
-		
-		_R0140 = orgList.stream().map(SPEDUtil::getR0140).collect(Collectors.toCollection(SPEDSet<R0140>::new));
 	}	//	processFacts
 	
 	private static String getConsolidateIdentifier(MLBRFactFiscal fact) {
@@ -1001,42 +968,6 @@ public class SPEDUtil
 		}
 		return r0140L;
 	}	//	getR0140
-
-	/**
-	 * 		Parceiros
-	 * 	@return Registros 0140
-	 */
-	public static Set<R0140> getR0140 ()
-	{
-		return _R0140;
-	}	//	getR0140
-
-	/**
-	 * 		Parceiros
-	 * 	@return Registros 0150
-	 */
-	public static Set<I_R0150> getR0150 ()
-	{
-		return _R0150;
-	}	//	getR0150
-	
-	/**
-	 * 		UDMs
-	 * 	@return Registros 0190
-	 */
-	public static Set<I_R0190> getR0190 ()
-	{
-		return _R0190;
-	}	//	getR0190
-	
-	/**
-	 * 		Produtos
-	 * 	@return Registros 0200
-	 */
-	public static Set<I_R0200> getR0200 ()
-	{
-		return _R0200;
-	}	//	getR0200
 	
 	/**
 	 * 		Produtos
@@ -1071,17 +1002,8 @@ public class SPEDUtil
 	 */
 	public static Set<RC010> getRC010 ()
 	{
-		return _RC010;
+		return new SPEDSet<RC010>(_RC010.values());
 	}	//	getRC010
-	
-	/**
-	 * 		C100
-	 * 	@return Registros C100
-	 */
-	public static Set<I_RC100> getRC100 ()
-	{
-		return _RC100;
-	}	//	getRC100
 	
 	/**
 	 * 		C500

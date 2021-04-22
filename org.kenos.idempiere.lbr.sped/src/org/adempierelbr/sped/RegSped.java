@@ -16,6 +16,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -120,7 +121,6 @@ public abstract class RegSped implements Comparable<Object>
 	 * Constructor
 	 * 	Usar o novo contador dinâmico, conforme SPED Contribuições
 	 */
-	@Deprecated
 	public RegSped () 
 	{
 		addCounter ();
@@ -327,6 +327,20 @@ public abstract class RegSped implements Comparable<Object>
 					if (!result.toString().endsWith(SPEDUtil.EOL))
 						result.append (SPEDUtil.EOL);
 					result.append (content.toString());
+					//
+					continue;
+				}
+				
+				//	RegSped
+				else if (content instanceof Map)
+				{
+					Collection<?> values = ((Map<?,?>)content).values();
+					for (Object item : values)
+					{
+						if (!result.toString().endsWith(SPEDUtil.EOL))
+							result.append (SPEDUtil.EOL);
+						result.append (item.toString());
+					}
 					//
 					continue;
 				}

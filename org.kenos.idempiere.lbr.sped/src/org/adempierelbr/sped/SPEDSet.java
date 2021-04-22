@@ -13,6 +13,7 @@
 package org.adempierelbr.sped;
 
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.Map;
 import java.util.TreeSet;
 
@@ -65,6 +66,15 @@ public class SPEDSet<E> extends TreeSet<E>
 	{
 		super (SPEDComparator.get ());
 	}	//	SPEDSet
+	
+	/**
+	 * 	Constructor
+	 */
+	public SPEDSet (Collection<? extends E> c)
+	{
+        this();
+        addAll(c);
+    }	//	SPEDSet
 	
 	/**
 	 * 	Impede a adição de NULL

@@ -12,8 +12,14 @@
  *****************************************************************************/
 package org.adempierelbr.sped.contrib.bean;
 
+import java.util.Set;
+
 import org.adempierelbr.annotation.XMLFieldProperties;
 import org.adempierelbr.sped.RegSped;
+import org.adempierelbr.sped.bean.I_R0150;
+import org.adempierelbr.sped.bean.I_R0190;
+import org.adempierelbr.sped.bean.I_R0200;
+import org.adempierelbr.sped.bean.I_R0500;
 
 /**
  * 	REGISTRO 0110:
@@ -35,6 +41,9 @@ public class R0110 extends RegSped
 	
 	@XMLFieldProperties(maxSize=1, id="IND_REG_CUM", isNumber=true, isMandatory=false)
 	private String IND_REG_CUM;
+	
+	@XMLFieldProperties(id = "R0111")
+	private R0111 r0111;
 
 	public String getCOD_INC_TRIB()
 	{
@@ -74,5 +83,15 @@ public class R0110 extends RegSped
 	public void setIND_REG_CUM(String iND_REG_CUM)
 	{
 		IND_REG_CUM = iND_REG_CUM;
+	}
+	
+	public R0111 getR0111()
+	{
+		return r0111;
+	}
+	
+	public void setR0111(R0111 r0111)
+	{
+		this.r0111 = r0111;
 	}
 }	//	R0110
