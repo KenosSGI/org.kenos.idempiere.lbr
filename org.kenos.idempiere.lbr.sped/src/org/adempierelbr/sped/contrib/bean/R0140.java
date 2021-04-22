@@ -12,8 +12,14 @@
  *****************************************************************************/
 package org.adempierelbr.sped.contrib.bean;
 
+import java.util.Set;
+
 import org.adempierelbr.annotation.XMLFieldProperties;
 import org.adempierelbr.sped.RegSped;
+import org.adempierelbr.sped.SPEDSet;
+import org.adempierelbr.sped.bean.I_R0150;
+import org.adempierelbr.sped.bean.I_R0190;
+import org.adempierelbr.sped.bean.I_R0200;
 
 /**
  * 	REGISTRO 0140:
@@ -47,6 +53,15 @@ public class R0140 extends RegSped
 	
 	@XMLFieldProperties(minSize=9, maxSize=9, id="SUFRAMA", isMandatory=false)
 	private String SUFRAMA;
+	
+	@XMLFieldProperties(id = "R0150")
+	private Set<I_R0150> r0150 = new SPEDSet<I_R0150>();
+	
+	@XMLFieldProperties(id = "R0190")
+	private Set<I_R0190> r0190 = new SPEDSet<I_R0190>();
+	
+	@XMLFieldProperties(id = "R0200")
+	private Set<I_R0200> r0200 = new SPEDSet<I_R0200>();
 
 	public String getCOD_EST()
 	{
@@ -126,5 +141,35 @@ public class R0140 extends RegSped
 	public void setSUFRAMA(String sUFRAMA)
 	{
 		SUFRAMA = sUFRAMA;
+	}
+	
+	public Set<I_R0150> getR0150()
+	{
+		return r0150;
+	}
+	
+	public void setR0150(Set<I_R0150> r0150)
+	{
+		this.r0150 = r0150;
+	}
+	
+	public Set<I_R0190> getR0190()
+	{
+		return r0190;
+	}
+	
+	public void setR0190(Set<I_R0190> r0190)
+	{
+		this.r0190 = r0190;
+	}
+	
+	public Set<I_R0200> getR0200()
+	{
+		return r0200;
+	}
+	
+	public void setR0200(Set<I_R0200> r0200)
+	{
+		this.r0200 = r0200;
 	}
 }	//	R0140

@@ -15,7 +15,9 @@ package org.adempierelbr.sped.contrib.bean;
 import java.math.BigDecimal;
 
 import org.adempierelbr.annotation.XMLFieldProperties;
+import org.adempierelbr.model.MLBRFactFiscal;
 import org.adempierelbr.sped.RegSped;
+import org.compiere.util.Env;
 
 /**
  * 	REGISTRO C185:
@@ -51,6 +53,21 @@ public class RC185 extends RegSped
 	
 	@XMLFieldProperties(minSize=4, maxSize = 255, id = "COD_CTA", isNumber=true)
 	private String COD_CTA;
+
+	private String identifier = "";
+	
+	public RC185 (String identifier, MLBRFactFiscal fact) 
+	{
+		setIdentifier(identifier);
+		setCST_COFINS(fact.getCOFINS_TaxStatus());
+		setCFOP(fact.getlbr_CFOPName());
+		//
+		setVL_ITEM(Env.ZERO);
+		setVL_DESC(Env.ZERO);
+		setVL_BC_COFINS(Env.ZERO);
+		setALIQ_COFINS(fact.getCOFINS_TaxRate());
+		setVL_COFINS(Env.ZERO);
+	}	//	RC185
 
 	public String getCST_COFINS() {
 		return CST_COFINS;
@@ -131,4 +148,18 @@ public class RC185 extends RegSped
 	public void setCOD_CTA(String cOD_CTA) {
 		COD_CTA = cOD_CTA;
 	}
+
+	public String getIdentifier() {
+		return identifier;
+	}
+
+	public void setIdentifier(String identifier) {
+		this.identifier = identifier;
+	}
+
+	public void add(MLBRFactFiscal fact) {
+		setVL_ITEM(getVL_ITEM().add(fact.getCOFINS_TaxBase()));
+		setVL_BC_COFINS(getVL_BC_COFINS().add(fact.getCOFINS_TaxBase()));
+		setVL_COFINS(getVL_COFINS().add(fact.getCOFINS_TaxAmt()));
+	}	//	add
 }	//	RC170

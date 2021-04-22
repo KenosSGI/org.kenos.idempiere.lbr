@@ -45,15 +45,23 @@ public abstract class BlocoSPED
 		I_RX001 x001 = (I_RX001) SPEDUtil.getReg ("R" + blockCode + "001", type);
 		x001.setIND_MOV (counter <= 0 ? SPEDUtil.IND_MOV_SEM_DADOS : SPEDUtil.IND_MOV_COM_DADOS);
 		//
-		Method method = this.getClass().getDeclaredMethod ("setR" + blockCode + "001", I_RX001.class);
-		method.invoke (this, x001);
+		try
+		{
+			Method method = this.getClass().getDeclaredMethod ("setR" + blockCode + "001", I_RX001.class);
+			method.invoke (this, x001);
+		}
+		catch (NoSuchMethodException e) { counter--; }
 		
 		//	Monta o Encerramento
 		I_RX990 x990 = (I_RX990) SPEDUtil.getReg ("R" + blockCode + "990", type);
 		x990.setQTD_LIN (new BigDecimal (counter + 2));	//	+ 001 + 990
 		//
-		method = this.getClass().getDeclaredMethod ("setR" + blockCode + "990", I_RX990.class);
-		method.invoke (this, x990);
+		try
+		{
+			Method method = this.getClass().getDeclaredMethod ("setR" + blockCode + "990", I_RX990.class);
+			method.invoke (this, x990);
+		}
+		catch (NoSuchMethodException e) {}
 		//
 		return this;
 	}	//	get

@@ -15,7 +15,9 @@ package org.adempierelbr.sped.contrib.bean;
 import java.math.BigDecimal;
 
 import org.adempierelbr.annotation.XMLFieldProperties;
+import org.adempierelbr.model.MLBRFactFiscal;
 import org.adempierelbr.sped.RegSped;
+import org.compiere.util.Env;
 
 /**
  * 	REGISTRO C180:
@@ -51,6 +53,21 @@ public class RC181 extends RegSped
 	
 	@XMLFieldProperties(minSize=4, maxSize = 255, id = "COD_CTA", isNumber=true)
 	private String COD_CTA;
+
+	private String identifier = "";
+	
+	public RC181 (String identifier, MLBRFactFiscal fact) 
+	{
+		setIdentifier(identifier);
+		setCST_PIS(fact.getPIS_TaxStatus());
+		setCFOP(fact.getlbr_CFOPName());
+		//
+		setVL_ITEM(Env.ZERO);
+		setVL_DESC(Env.ZERO);
+		setVL_BC_PIS(Env.ZERO);
+		setALIQ_PIS(fact.getPIS_TaxRate());
+		setVL_PIS(Env.ZERO);
+	}	//	RC181
 
 	public String getCST_PIS() {
 		return CST_PIS;
@@ -130,5 +147,19 @@ public class RC181 extends RegSped
 
 	public void setCOD_CTA(String cOD_CTA) {
 		COD_CTA = cOD_CTA;
+	}
+
+	public String getIdentifier() {
+		return identifier;
+	}
+
+	public void setIdentifier(String identifier) {
+		this.identifier = identifier;
+	}
+
+	public void add(MLBRFactFiscal fact) {
+		setVL_ITEM(getVL_ITEM().add(fact.getPIS_TaxBase()));
+		setVL_BC_PIS(getVL_BC_PIS().add(fact.getPIS_TaxBase()));
+		setVL_PIS(getVL_PIS().add(fact.getPIS_TaxAmt()));
 	}
 }	//	RC170

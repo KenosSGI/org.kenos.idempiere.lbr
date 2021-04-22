@@ -17,6 +17,7 @@ import java.sql.Timestamp;
 import org.adempierelbr.annotation.XMLFieldProperties;
 import org.adempierelbr.sped.RegSped;
 import org.adempierelbr.sped.bean.I_R0000;
+import org.adempierelbr.sped.bean.I_RX001;
 
 /**
  * 	REGISTRO 0000: 
@@ -65,6 +66,9 @@ public class R0000 extends RegSped implements I_R0000
 	
 	@XMLFieldProperties(minSize=1, maxSize=1, id="IND_ATIV", isNumber=true)
 	private String IND_ATIV;
+	
+	@XMLFieldProperties(id = "R0001")
+	private I_RX001 r0001;
 
 	public String getCOD_VER()
 	{
@@ -194,5 +198,21 @@ public class R0000 extends RegSped implements I_R0000
 	public void setIND_ATIV(String iND_ATIV)
 	{
 		IND_ATIV = iND_ATIV;
+	}
+	
+	public I_RX001 getR0001()
+	{
+		return r0001;
+	}
+	
+	public void setR0001(I_RX001 r0001)
+	{
+		this.r0001 = r0001;
+	}
+
+	public R0001 addR0001 ()
+	{
+		this.r0001 = new R0001();
+		return (R0001) r0001;
 	}
 }	//	R0000
