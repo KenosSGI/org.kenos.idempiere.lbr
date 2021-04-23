@@ -17,6 +17,7 @@ import java.sql.Timestamp;
 import java.util.Set;
 
 import org.adempierelbr.annotation.XMLFieldProperties;
+import org.adempierelbr.model.MLBRFactFiscal;
 import org.adempierelbr.sped.RegSped;
 import org.adempierelbr.sped.SPEDSet;
 
@@ -124,9 +125,25 @@ public class RC180 extends RegSped
 		this._RC185 = _RC185;
 	}
 
-//	public RC181 get_RC181(String regIdentifier) {
-//		_RC181.stream().filter(r -> {
-////			r.get
-//		})
-//	}
+	public void addRC181(String identifier, MLBRFactFiscal fact)
+	{
+		RC181 rC181 = get_RC181().stream()
+			.filter(id -> id.getIdentifier().equals(identifier))
+			.findFirst().orElse(new RC181 (identifier, fact));
+		//
+		rC181.add (fact);
+		_RC181.add(rC181);
+		setVL_TOT_ITEM(getVL_TOT_ITEM().add(fact.getPIS_TaxAmt()));
+	}
+
+	public void addRC185(String identifier, MLBRFactFiscal fact)
+	{
+		RC185 rC185 = get_RC185().stream()
+			.filter(id -> id.getIdentifier().equals(identifier))
+			.findFirst().orElse(new RC185 (identifier, fact));
+		//
+		rC185.add (fact);
+		_RC185.add(rC185);
+		setVL_TOT_ITEM(getVL_TOT_ITEM().add(fact.getPIS_TaxAmt()));
+	}
 }	//	RC170

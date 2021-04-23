@@ -27,6 +27,7 @@ import org.adempierelbr.sped.contrib.bean.BlocoD;
 import org.adempierelbr.sped.contrib.bean.BlocoF;
 import org.adempierelbr.sped.contrib.bean.BlocoM;
 import org.adempierelbr.sped.contrib.bean.R0000;
+import org.adempierelbr.sped.contrib.bean.R0001;
 import org.adempierelbr.sped.contrib.bean.R0100;
 import org.adempierelbr.sped.contrib.bean.SPEDContrib;
 import org.adempierelbr.util.TextUtil;
@@ -369,8 +370,6 @@ public class MLBREFDContrib extends X_LBR_EFDContrib implements DocAction, DocOp
 				.setOrderBy("(CASE WHEN IsSOTrx='Y' THEN DateDoc ELSE lbr_DateInOut END), LBR_NotaFiscal_ID, Line, DocumentNo")
 				.list();
 		
-		SPEDUtil.processFacts (getCtx(), getAD_Org_ID(), factFiscals, SPEDUtil.TYPE_CONTRIB, get_TrxName());
-		
 		//	Inicio do Arquivo
 		Bloco0 b0 = new Bloco0();
 		BlocoA bA = new BlocoA();
@@ -381,27 +380,19 @@ public class MLBREFDContrib extends X_LBR_EFDContrib implements DocAction, DocOp
 		Bloco1 b1 = new Bloco1();
 		Bloco9 b9 = new Bloco9();
 		
+		R0000 r0000 = SPEDUtil.fillR0000 (new R0000(), getCtx(), getStartDate(), getEndDate(), getLBR_COD_FIN(), getOrgInfo(), "", "", get_TrxName());
+		R0001 r0001 = r0000.addR0001();
+		r0001.setIND_MOV(factFiscals.size() > 0 ? "0" : "1");
+		r0001.setR0100 ((R0100) SPEDUtil.fillR0100 (new R0100 (), getCtx(), getOrgInfo(), get_TrxName()));
+		r0001.setR0110 (SPEDUtil.getR0110 (SPEDUtil.COD_INC_TRIB_NAO_CUM, SPEDUtil.IND_APRO_CRED_PROPORCIONAL, SPEDUtil.COD_TIPO_CONT_ALIQ_BASICA, ""));
+		r0001.getR0110().setR0111(SPEDUtil.getR0111());
+		
+		//	Process
+		SPEDUtil.processFacts (getCtx(), r0000, factFiscals, SPEDUtil.TYPE_CONTRIB, get_TrxName());
+
 		//	Registro 0000
-		b0.setR0000 (SPEDUtil.fillR0000 (new R0000(), getCtx(), getStartDate(), getEndDate(), getLBR_COD_FIN(), getOrgInfo(), "", "", get_TrxName()));
-		//	Registro 0100
-		b0.setR0100 ((R0100) SPEDUtil.fillR0100 (new R0100 (), getCtx(), getOrgInfo(), get_TrxName()));
-		//	Registro 0110
-		b0.setR0110 (SPEDUtil.getR0110 (SPEDUtil.COD_INC_TRIB_NAO_CUM, SPEDUtil.IND_APRO_CRED_PROPORCIONAL, SPEDUtil.COD_TIPO_CONT_ALIQ_BASICA, ""));	//	FIXME
-		
-		b0.setR0111(SPEDUtil.getR0111());
-		
-		//	Registro 0140
-		b0.setR0140 (SPEDUtil.getR0140 ());
-		//	Registro 0150
-		b0.setR0150 (SPEDUtil.getR0150 ());
-		//	Registro 0190
-		b0.setR0190 (SPEDUtil.getR0190 ());
-		//	Registro 0200
-		b0.setR0200 (SPEDUtil.getR0200 ());
-		//	Registro 0500
-		b0.setR0500 (SPEDUtil.getR0500 ());
-		
-		
+		b0.setR0000 (r0000);
+
 		//	Registro A010
 		bA.setRA010 (SPEDUtil.getRA010 ());
 		//	Registro A100
@@ -409,10 +400,6 @@ public class MLBREFDContrib extends X_LBR_EFDContrib implements DocAction, DocOp
 		
 		//	Registro C010
 		bC.setRC010 (SPEDUtil.getRC010 ());
-		//	Registro C010
-		bC.setRC100 (SPEDUtil.getRC100 ());
-		//	Registro C010
-		bC.setRC500 (SPEDUtil.getRC500 ());
 		
 		//	Registro D010
 		bD.setRD010 (SPEDUtil.getRD010 ());

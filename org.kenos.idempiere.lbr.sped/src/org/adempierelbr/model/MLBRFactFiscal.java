@@ -440,11 +440,6 @@ public class MLBRFactFiscal extends X_LBR_FactFiscal
 		return rA010;
 	}	//	getRA010
 	
-	public RA100 getRA100 (Properties ctx, String trxName) throws Exception
-	{
-		return getRA100 (ctx, -1, trxName);
-	}	//	getRA100
-	
 	/**
 	 * 		Deve ser gerado um Registro A100 para cada documento fiscal a ser relacionado na escrituração, 
 	 * 	referente à prestação ou à contratação de serviços, que envolvam a emissão de documentos fiscais 
@@ -454,12 +449,12 @@ public class MLBRFactFiscal extends X_LBR_FactFiscal
 	 * 	@return Registro A100
 	 * 	@throws Exception 
 	 */
-	public RA100 getRA100 (Properties ctx, int AD_Org_ID, String trxName) throws Exception
+	public RA100 getRA100 (Properties ctx, String trxName) throws Exception
 	{
 		RA100 rA100 = new RA100 ();
 		rA100.setCOD_SIT(isCancelled() ? SPEDUtil.COD_SIT_CANCELADO : SPEDUtil.COD_SIT_REGULAR);
 		rA100.setIND_OPER (isSOTrx() ? SPEDUtil.IND_OPER_PRESTADO : SPEDUtil.IND_OPER_CONTRATADO);
-		rA100.setIND_EMIT (islbr_IsOwnDocument() && AD_Org_ID==getAD_Org_ID() ? SPEDUtil.IND_EMIT_PROPRIA : SPEDUtil.IND_EMIT_TERCEIROS);
+		rA100.setIND_EMIT (islbr_IsOwnDocument() ? SPEDUtil.IND_EMIT_PROPRIA : SPEDUtil.IND_EMIT_TERCEIROS);
 		rA100.setSER(getlbr_NFSerie());
 		rA100.setCOD_PART (getBPValue());
 		rA100.setNUM_DOC(getDocumentNo());
