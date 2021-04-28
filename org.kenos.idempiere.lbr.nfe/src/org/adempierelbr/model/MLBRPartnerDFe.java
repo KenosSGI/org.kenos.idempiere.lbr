@@ -319,4 +319,14 @@ public class MLBRPartnerDFe extends X_LBR_PartnerDFe
 		
 		return sb.toString();
 	}	//	toString
+
+	/**
+	 * 	Failed Count
+	 */
+	public void increaseTries ()
+	{
+		int tries = getLBR_ManifestTries();
+		//
+		setLBR_ManifestTries(tries++);
+	}
 }	//	MLBRNFDest
