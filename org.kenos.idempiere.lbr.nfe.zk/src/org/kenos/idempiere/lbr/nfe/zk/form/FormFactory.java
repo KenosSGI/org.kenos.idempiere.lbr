@@ -22,6 +22,9 @@ public class FormFactory implements IFormFactory
 		
 		else if ("org.kenos.apps.form.VNotaFiscalAdditional".equals(formName))
 			controller = new WNotaFiscalAdditional();
+		
+		else if ("org.compiere.apps.form.VAllocation".equals(formName) || "org.adempiere.webui.apps.form.WAllocation".equals(formName))
+			controller = new WAllocation();
 			
 		if (controller != null)
 		{
