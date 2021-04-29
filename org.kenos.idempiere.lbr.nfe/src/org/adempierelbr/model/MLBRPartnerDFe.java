@@ -327,6 +327,6 @@ public class MLBRPartnerDFe extends X_LBR_PartnerDFe
 	{
 		int tries = getLBR_ManifestTries();
 		//
-		setLBR_ManifestTries(tries++);
-	}
+		setLBR_ManifestTries(tries+1);
+	}	//	increaseTries
 }	//	MLBRNFDest

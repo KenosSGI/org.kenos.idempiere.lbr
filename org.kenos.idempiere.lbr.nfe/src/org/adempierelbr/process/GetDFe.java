@@ -177,7 +177,7 @@ public class GetDFe extends SvrProcess
 		}
 
 		if (bpResponse == null)
-			throw new AdempiereUserError ("Error consulting Business Partner data. Check log for more info.");
+			throw new AdempiereUserError ("Error getting DF-e, null response from SeFaz. Check log for more info.");
 
 		RetDistDFeInt retConsNFeDest = bpResponse.getRetDistDFeInt();
 		String cStat = retConsNFeDest.getCStat();

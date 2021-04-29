@@ -37,6 +37,7 @@ import java.security.cert.X509Certificate;
 import javax.net.SocketFactory;
 import javax.net.ssl.KeyManager;
 import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLException;
 import javax.net.ssl.SSLSocket;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.TrustManagerFactory;
@@ -86,9 +87,12 @@ public class SocketFactoryDinamico implements ProtocolSocketFactory {
 		return null;
 	}
 
-	private SSLContext getSSLContext() {
+	private SSLContext getSSLContext() throws SSLException {
 		if (ssl == null) {
 			ssl = createSSLContext();
+		}
+		if (ssl == null) {
+			throw new SSLException ("Could not create SSL context");
 		}
 		return ssl;
 	}
