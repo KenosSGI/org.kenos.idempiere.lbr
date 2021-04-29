@@ -270,12 +270,7 @@ public class ValidatorInvoice implements ModelValidator
 		 * 	Apaga os registros dos impostos quando a linha é apagada
 		 */
 		if (type == TYPE_BEFORE_DELETE)
-		{	
-			if (iLineW.getM_InOutLine_ID() > 0)
-			{
-				return "Não é possível apagar uma linha que já foi expedida.";
-			}
-			
+		{
 			if (iLineW.getLBR_Tax_ID() > 0)
 			{
 				MLBRTax lbrTax = new MLBRTax(iLine.getCtx(), iLineW.getLBR_Tax_ID() , iLine.get_TrxName());
