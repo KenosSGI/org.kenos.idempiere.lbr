@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -28,6 +29,7 @@ import org.compiere.model.MClientInfo;
 import org.compiere.model.MDocType;
 import org.compiere.model.MInvoice;
 import org.compiere.model.MInvoiceLine;
+import org.compiere.model.MInvoicePaySchedule;
 import org.compiere.model.MLocation;
 import org.compiere.model.MOrder;
 import org.compiere.model.MOrderLine;
@@ -314,7 +316,7 @@ public class VLBROrder implements ModelValidator
 	{
 		if (po.get_TableName().equals(MInvoice.Table_Name) 
 				&& timing == TIMING_BEFORE_PREPARE)
-		{			
+		{
 			String result = null;
 			//
 			MInvoice invoice = (MInvoice) po;
@@ -339,6 +341,16 @@ public class VLBROrder implements ModelValidator
 			//	Calcula a retenção dos impostos de serviço
 			if (wInvoice.isLBR_HasWithhold())
 				result = addCharge (invoice, WITHHOLD);
+			
+			String sql = "SELECT SUM(COALESCE (FreightAmt,0)+COALESCE (lbr_InsuranceAmt,0)+COALESCE (LBR_OtherChargesAmt,0)) "
+					+ "FROM C_InvoiceLine WHERE C_Invoice_ID=?";
+			BigDecimal chargesAmt = DB.getSQLValueBD(po.get_TrxName(), sql, po.get_ID());
+			BigDecimal withHoldAmt = withHoldAmount(invoice);
+			
+			//	Has additional charges, can't use the existing pay schedule
+			if ((chargesAmt != null && chargesAmt.signum() != 0) || (withHoldAmt != null && withHoldAmt.signum() != 0))
+				Arrays.asList(MInvoicePaySchedule.getInvoicePaySchedule(po.getCtx(), invoice.getC_Invoice_ID(), 0, po.get_TrxName()))
+					.forEach(ips -> ips.delete(true));
 			//
 			return result;
 		}
@@ -893,7 +905,7 @@ public class VLBROrder implements ModelValidator
 				chgLine.setQty(Env.ONE.negate());
 			else
 				chgLine.setQty(Env.ONE);
-		}		
+		}
 		//
 		chgLine.setPrice(amount);
 		chgLine.setPriceList(amount);

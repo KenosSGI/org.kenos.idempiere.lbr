@@ -27,6 +27,7 @@ import org.compiere.util.CLogger;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.kenos.idempiere.lbr.base.model.SysConfig;
+import org.kenos.idempiere.lbr.tax.provider.LBRTaxProvider;
 
 /**
  * 		Utilizado para efetuar os cálculos dos impostos brasileiros.
@@ -483,6 +484,11 @@ public class VLBRTax implements ModelValidator
 					return false;
 			}
 		}
+		
+		//	Update header tax
+		// 	TODO: Move everything to TaxProvider
+		LBRTaxProvider tp = new LBRTaxProvider ();
+		tp.updateHeaderTax (null, parentPO, parentPO.get_TrxName());
 		
 		return true;
 	}	//	updateTax

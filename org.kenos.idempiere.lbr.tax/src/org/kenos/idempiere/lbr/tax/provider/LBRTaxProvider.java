@@ -128,7 +128,7 @@ public class LBRTaxProvider implements ITaxProvider
 		String tableName = po.get_TableName();
 		//
 		BigDecimal totalLines = getTotalLines (provider, po, trxName);
-		BigDecimal grandTotal = getGrandTotal(provider, po, trxName);
+		BigDecimal grandTotal = getGrandTotal (provider, po, trxName);
 		//
 		String sql = "UPDATE " + tableName + " i "
 				+ " SET TotalLines=?, GrandTotal=? "
@@ -164,5 +164,5 @@ public class LBRTaxProvider implements ITaxProvider
 			totalLines = totalLines.add(charges);
 		
 		return totalLines;
-	}	//	getTotalLines\
+	}	//	getTotalLines
 }	//	LBRTaxProvider

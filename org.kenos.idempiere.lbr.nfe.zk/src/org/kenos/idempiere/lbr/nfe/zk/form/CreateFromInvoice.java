@@ -39,6 +39,7 @@ import org.compiere.model.MOrderPaySchedule;
 import org.compiere.model.MProduct;
 import org.compiere.model.MRMA;
 import org.compiere.model.MRMALine;
+import org.compiere.model.MSysConfig;
 import org.compiere.model.MUOMConversion;
 import org.compiere.model.PO;
 import org.compiere.util.DB;
@@ -46,6 +47,7 @@ import org.compiere.util.DisplayType;
 import org.compiere.util.Env;
 import org.compiere.util.KeyNamePair;
 import org.compiere.util.Msg;
+import org.kenos.idempiere.lbr.base.model.SysConfig;
 
 /**
  *  Create Invoice Transactions from PO Orders or Receipt
@@ -608,7 +610,7 @@ public abstract class CreateFromInvoice extends CreateFrom
 			// copy payment schedule from order if invoice doesn't have a current payment schedule
 			MOrderPaySchedule[] opss = MOrderPaySchedule.getOrderPaySchedule(invoice.getCtx(), p_order.getC_Order_ID(), 0, invoice.get_TrxName());
 			MInvoicePaySchedule[] ipss = MInvoicePaySchedule.getInvoicePaySchedule(invoice.getCtx(), invoice.getC_Invoice_ID(), 0, invoice.get_TrxName());
-			if (ipss.length == 0 && opss.length > 0) {
+			if (MSysConfig.getBooleanValue(SysConfig.LBR_OVERWRITE_ORDER_PAY_SCHEDULE, true) && ipss.length == 0 && opss.length > 0) {
 				BigDecimal ogt = p_order.getGrandTotal();
 				BigDecimal igt = invoice.getGrandTotal();
 				BigDecimal percent = Env.ONE;

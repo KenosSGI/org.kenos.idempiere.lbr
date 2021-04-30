@@ -23,7 +23,7 @@ import org.compiere.util.KeyNamePair;
 
 /** Generated Interface for LBR_PartnerDFe
  *  @author iDempiere (generated) 
- *  @version Release 4.1
+ *  @version Release 6.2
  */
 @SuppressWarnings("all")
 public interface I_LBR_PartnerDFe 
@@ -206,41 +206,6 @@ public interface I_LBR_PartnerDFe
 	  */
 	public boolean isSOTrx();
 
-    /** Column name lbr_CNPJ */
-    public static final String COLUMNNAME_lbr_CNPJ = "lbr_CNPJ";
-
-	/** Set CNPJ.
-	  * Used to identify Legal Entities in Brazil
-	  */
-	public void setlbr_CNPJ (String lbr_CNPJ);
-
-	/** Get CNPJ.
-	  * Used to identify Legal Entities in Brazil
-	  */
-	public String getlbr_CNPJ();
-
-    /** Column name lbr_CPF */
-    public static final String COLUMNNAME_lbr_CPF = "lbr_CPF";
-
-	/** Set CPF.
-	  * Used to identify individuals in Brazil
-	  */
-	public void setlbr_CPF (String lbr_CPF);
-
-	/** Get CPF.
-	  * Used to identify individuals in Brazil
-	  */
-	public String getlbr_CPF();
-
-    /** Column name lbr_DigestValue */
-    public static final String COLUMNNAME_lbr_DigestValue = "lbr_DigestValue";
-
-	/** Set Digest Value	  */
-	public void setlbr_DigestValue (String lbr_DigestValue);
-
-	/** Get Digest Value	  */
-	public String getlbr_DigestValue();
-
     /** Column name LBR_EventType */
     public static final String COLUMNNAME_LBR_EventType = "LBR_EventType";
 
@@ -249,19 +214,6 @@ public interface I_LBR_PartnerDFe
 
 	/** Get Event Type	  */
 	public String getLBR_EventType();
-
-    /** Column name lbr_IE */
-    public static final String COLUMNNAME_lbr_IE = "lbr_IE";
-
-	/** Set IE.
-	  * Used to Identify the IE (State Tax ID)
-	  */
-	public void setlbr_IE (String lbr_IE);
-
-	/** Get IE.
-	  * Used to Identify the IE (State Tax ID)
-	  */
-	public String getlbr_IE();
 
     /** Column name LBR_IsManifested */
     public static final String COLUMNNAME_LBR_IsManifested = "LBR_IsManifested";
@@ -281,40 +233,14 @@ public interface I_LBR_PartnerDFe
 	/** Get XML Valid	  */
 	public boolean isLBR_IsXMLValid();
 
-    /** Column name lbr_NFeID */
-    public static final String COLUMNNAME_lbr_NFeID = "lbr_NFeID";
+    /** Column name LBR_ManifestTries */
+    public static final String COLUMNNAME_LBR_ManifestTries = "LBR_ManifestTries";
 
-	/** Set NFe ID.
-	  * Identification of NFe
-	  */
-	public void setlbr_NFeID (String lbr_NFeID);
+	/** Set Manifest Tries	  */
+	public void setLBR_ManifestTries (int LBR_ManifestTries);
 
-	/** Get NFe ID.
-	  * Identification of NFe
-	  */
-	public String getlbr_NFeID();
-
-    /** Column name lbr_NFeProt */
-    public static final String COLUMNNAME_lbr_NFeProt = "lbr_NFeProt";
-
-	/** Set NFe Protocol	  */
-	public void setlbr_NFeProt (String lbr_NFeProt);
-
-	/** Get NFe Protocol	  */
-	public String getlbr_NFeProt();
-
-    /** Column name lbr_NFeStatus */
-    public static final String COLUMNNAME_lbr_NFeStatus = "lbr_NFeStatus";
-
-	/** Set NFe Status.
-	  * Status of NFe
-	  */
-	public void setlbr_NFeStatus (String lbr_NFeStatus);
-
-	/** Get NFe Status.
-	  * Status of NFe
-	  */
-	public String getlbr_NFeStatus();
+	/** Get Manifest Tries	  */
+	public int getLBR_ManifestTries();
 
     /** Column name LBR_NSU */
     public static final String COLUMNNAME_LBR_NSU = "LBR_NSU";
@@ -412,4 +338,96 @@ public interface I_LBR_PartnerDFe
 	  * User who updated this records
 	  */
 	public int getUpdatedBy();
+
+    /** Column name lbr_CNPJ */
+    public static final String COLUMNNAME_lbr_CNPJ = "lbr_CNPJ";
+
+	/** Set CNPJ.
+	  * Used to identify Legal Entities in Brazil
+	  */
+	public void setlbr_CNPJ (String lbr_CNPJ);
+
+	/** Get CNPJ.
+	  * Used to identify Legal Entities in Brazil
+	  */
+	public String getlbr_CNPJ();
+
+    /** Column name lbr_CPF */
+    public static final String COLUMNNAME_lbr_CPF = "lbr_CPF";
+
+	/** Set CPF.
+	  * Used to identify individuals in Brazil
+	  */
+	public void setlbr_CPF (String lbr_CPF);
+
+	/** Get CPF.
+	  * Used to identify individuals in Brazil
+	  */
+	public String getlbr_CPF();
+
+    /** Column name lbr_DigestValue */
+    public static final String COLUMNNAME_lbr_DigestValue = "lbr_DigestValue";
+
+	/** Set Digest Value	  */
+	public void setlbr_DigestValue (String lbr_DigestValue);
+
+	/** Get Digest Value	  */
+	public String getlbr_DigestValue();
+
+    /** Column name lbr_IE */
+    public static final String COLUMNNAME_lbr_IE = "lbr_IE";
+
+	/** Set IE.
+	  * Used to Identify the IE (State Tax ID)
+	  */
+	public void setlbr_IE (String lbr_IE);
+
+	/** Get IE.
+	  * Used to Identify the IE (State Tax ID)
+	  */
+	public String getlbr_IE();
+
+    /** Column name lbr_NFeEnv */
+    public static final String COLUMNNAME_lbr_NFeEnv = "lbr_NFeEnv";
+
+	/** Set NFe Environment	  */
+	public void setlbr_NFeEnv (String lbr_NFeEnv);
+
+	/** Get NFe Environment	  */
+	public String getlbr_NFeEnv();
+
+    /** Column name lbr_NFeID */
+    public static final String COLUMNNAME_lbr_NFeID = "lbr_NFeID";
+
+	/** Set NFe ID.
+	  * Identification of NFe
+	  */
+	public void setlbr_NFeID (String lbr_NFeID);
+
+	/** Get NFe ID.
+	  * Identification of NFe
+	  */
+	public String getlbr_NFeID();
+
+    /** Column name lbr_NFeProt */
+    public static final String COLUMNNAME_lbr_NFeProt = "lbr_NFeProt";
+
+	/** Set NFe Protocol	  */
+	public void setlbr_NFeProt (String lbr_NFeProt);
+
+	/** Get NFe Protocol	  */
+	public String getlbr_NFeProt();
+
+    /** Column name lbr_NFeStatus */
+    public static final String COLUMNNAME_lbr_NFeStatus = "lbr_NFeStatus";
+
+	/** Set NFe Status.
+	  * Status of NFe
+	  */
+	public void setlbr_NFeStatus (String lbr_NFeStatus);
+
+	/** Get NFe Status.
+	  * Status of NFe
+	  */
+	public String getlbr_NFeStatus();
 }
