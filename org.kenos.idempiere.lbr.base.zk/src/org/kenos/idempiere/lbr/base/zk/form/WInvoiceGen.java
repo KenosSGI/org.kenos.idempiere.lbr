@@ -120,7 +120,7 @@ public class WInvoiceGen extends InvoiceGen implements IFormController, EventLis
 		lBPartner.setText(Msg.translate(Env.getCtx(), "C_BPartner_ID"));
 		
 		cbConsolidateDoc.setText(Msg.translate(Env.getCtx(), "ConsolidateDocument"));
-		cbConsolidateDoc.setSelected(true);
+		cbConsolidateDoc.setSelected(MSysConfig.getBooleanValue(SysConfig.LBR_INVOICEGEN_CONSOLIDATE, true, Env.getAD_Client_ID(Env.getCtx())));
 		
 		Row row = form.getParameterPanel().newRows().newRow();
 		row.appendCellChild(lOrg.rightAlign());

@@ -43,7 +43,9 @@ public class SysConfig
 	public static final String LBR_IBPT_API_KEY 								= "LBR_IBPT_API_KEY";
 	public static final String LBR_ICMS_MATRIX_ENABLED 							= "LBR_ICMS_MATRIX_ENABLED";
 	public static final String LBR_INCLUDE_XMLNS_NFE 							= "LBR_INCLUDE_XMLNS_NFE";
+	public static final String LBR_INOUTGEN_CONSOLIDATE 						= "LBR_INOUTGEN_CONSOLIDATE";
 	public static final String LBR_INOUTGEN_DOCACTION 							= "LBR_INOUTGEN_DOCACTION";
+	public static final String LBR_INVOICEGEN_CONSOLIDATE 						= "LBR_INVOICEGEN_CONSOLIDATE";
 	public static final String LBR_INVOICEGEN_DOCACTION 						= "LBR_INVOICEGEN_DOCACTION";
 	public static final String LBR_ISS_MATRIX_ENABLED 							= "LBR_ISS_MATRIX_ENABLED";
 	public static final String LBR_MANIFEST_TRIES 								= "LBR_MANIFEST_TRIES";
