@@ -129,7 +129,7 @@ public class WInOutGen extends InOutGen implements IFormController, EventListene
 		lDateShipped.setText(Msg.translate(Env.getCtx(), "MovementDate"));		
 		
 		cbConsolidateDoc.setText(Msg.translate(Env.getCtx(), "ConsolidateDocument"));
-		cbConsolidateDoc.setSelected(true);
+		cbConsolidateDoc.setSelected(MSysConfig.getBooleanValue(SysConfig.LBR_INOUTGEN_CONSOLIDATE, true, Env.getAD_Client_ID(Env.getCtx())));
 		
 		cbUnconfirmedInOut.setText(Msg.translate(Env.getCtx(), "IsUnconfirmedInOut"));
 		cbUnconfirmedInOut.setSelected(false);
