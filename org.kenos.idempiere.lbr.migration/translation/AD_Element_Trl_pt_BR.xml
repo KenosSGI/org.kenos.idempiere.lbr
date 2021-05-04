@@ -64293,10 +64293,10 @@ Usar @AMT@ quando for identificar o valor do Produto/Serviço</value>
   <value column="Placeholder" original=""/>
  </row>
  <row trl="Y" uuid="2b86d0df-43cf-4a9c-acd8-2b8a8593812b">
-  <value column="Name" original="Is Own Document">Documento Próprio</value>
-  <value column="PrintName" original="Is Own Document">Documento Próprio</value>
-  <value column="Description" original="Identifies this is an own document">Identifica se este é um documento da empresa</value>
-  <value column="Help" original="Identifies this is an own document">Identifica se este é um documento da empresa</value>
+  <value column="Name" original="Doc Issued By">Emissão Fiscal</value>
+  <value column="PrintName" original="Doc Issued By">Emissão Fiscal</value>
+  <value column="Description" original="Identifies this is issued by the company or by 3rd party ">Identifica se o documento fiscal deve ser emitido pela própria empresa ou por terceiros</value>
+  <value column="Help" original="Identifies this is issued by the company or by 3rd party ">Identifica se o documento fiscal deve ser emitido pela própria empresa (ex. NF de venda, Cupom Fiscal, etc.) ou por terceiros (NF de entrada de mercadorias, etc.)</value>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
   <value column="PO_Name" original=""/>
@@ -70516,17 +70516,6 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="Y" uuid="204fff63-79d4-4296-be29-e33b9b5a7f13">
-  <value column="Name" original="Message from SEFAZ">Mensagem do SEFAZ</value>
-  <value column="PrintName" original="Message from SEFAZ">Mensagem do SEFAZ</value>
-  <value column="Description" original="">Mensagem de interesse do SEFAZ destinada ao emitente da NF</value>
-  <value column="Help" original="">Mensagem de interesse do SEFAZ destinada ao emitente da NF</value>
-  <value column="PO_Description" original=""/>
-  <value column="PO_Help" original=""/>
-  <value column="PO_Name" original=""/>
-  <value column="PO_PrintName" original=""/>
-  <value column="Placeholder" original=""/>
- </row>
  <row trl="N" uuid="ea6c1d6d-6edf-4fb3-9a38-a9501e27fe55">
   <value column="Name" original="BP Delivery Name">Razão Social (Entrega)</value>
   <value column="PrintName" original="BP Delivery Name">Razão Social (Entrega)</value>
@@ -70565,17 +70554,6 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PrintName" original="System Responsible">Responsável Técnico</value>
   <value column="Description" original="">Indique se o Responsável Técnico deve ser ou não informado no XML da NF-e</value>
   <value column="Help" original=""/>
-  <value column="PO_Description" original=""/>
-  <value column="PO_Help" original=""/>
-  <value column="PO_Name" original=""/>
-  <value column="PO_PrintName" original=""/>
-  <value column="Placeholder" original=""/>
- </row>
- <row trl="N" uuid="f953713c-002e-4892-88df-958e44391919">
-  <value column="Name" original="ICMS Substituto">ICMS Substituto</value>
-  <value column="PrintName" original="ICMS Substituto">ICMS Substituto</value>
-  <value column="Description" original="Valor do ICMS próprio do Substituto">Valor do ICMS próprio do Substituto</value>
-  <value column="Help" original="Valor do ICMS próprio do Substituto">Valor do ICMS próprio do Substituto</value>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
   <value column="PO_Name" original=""/>
@@ -72424,6 +72402,50 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
+ <row trl="Y" uuid="32de7fd0-52f5-46c9-b2e2-25a85bf31ac3">
+  <value column="Name" original="Delete Pay Schedule">Apagar Programação de Pagto</value>
+  <value column="PrintName" original="Delete Pay Schedule">Apagar Programação de Pagto</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="307e31f6-0f0d-4f62-8833-2317894c232f">
+  <value column="Name" original="Include Homolog">Incluir Homologação</value>
+  <value column="PrintName" original="Include Homolog">Incluir Homologação</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="8f62a1f0-243f-4112-a2b3-e4738a30e421">
+  <value column="Name" original="Market Place">Market Place</value>
+  <value column="PrintName" original="Market Place">Market Place</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="29ac397d-3f2c-48f3-a94f-939a9991a1ce">
+  <value column="Name" original="CNPJ (MarketPlace)">CNPJ (MarketPlace)</value>
+  <value column="PrintName" original="CNPJ (MarketPlace)">CNPJ (MarketPlace)</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
  <row trl="N" uuid="41af0908-6629-4cf3-9efc-47aa0655a139">
   <value column="Name" original="KNS_KardexID">KNS_KardexID</value>
   <value column="PrintName" original="KNS_KardexID">KNS_KardexID</value>
@@ -72534,9 +72556,9 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="Y" uuid="32de7fd0-52f5-46c9-b2e2-25a85bf31ac3">
-  <value column="Name" original="Delete Pay Schedule">Apagar Programação de Pagto</value>
-  <value column="PrintName" original="Delete Pay Schedule">Apagar Programação de Pagto</value>
+ <row trl="N" uuid="1e7121bb-b072-4f61-a565-e9e48a5464b0">
+  <value column="Name" original="Score Provider">Score Provider</value>
+  <value column="PrintName" original="Score Provider">Score Provider</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -72545,9 +72567,64 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="Y" uuid="307e31f6-0f0d-4f62-8833-2317894c232f">
-  <value column="Name" original="Include Homolog">Incluir Homologação</value>
-  <value column="PrintName" original="Include Homolog">Incluir Homologação</value>
+ <row trl="N" uuid="4bb8eeb2-7019-47dc-9557-9a144630c3a9">
+  <value column="Name" original="LBR_ScoreProvider_UU">LBR_ScoreProvider_UU</value>
+  <value column="PrintName" original="LBR_ScoreProvider_UU">LBR_ScoreProvider_UU</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="6843a229-83fb-490e-b981-b2d3e5474489">
+  <value column="Name" original="Score Status">Score Status</value>
+  <value column="PrintName" original="Score Status">Score Status</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="ce9b61ff-cc17-42ab-906a-d472b5c5ff52">
+  <value column="Name" original="LBR_ScoreStatus_UU">LBR_ScoreStatus_UU</value>
+  <value column="PrintName" original="LBR_ScoreStatus_UU">LBR_ScoreStatus_UU</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="9dd1ca1f-1198-4e8f-bd1e-bcbbcc647c82">
+  <value column="Name" original="Score">Pontos</value>
+  <value column="PrintName" original="Score">Pontos</value>
+  <value column="Description" original="Score in the scale of score provider">Pontos na escala definida pelo SPC (Sistema de Proteção de Crédito)</value>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="cc07f87b-633b-49c2-b078-1a871b60714f">
+  <value column="Name" original="Internal Score">Pontos (Interno)</value>
+  <value column="PrintName" original="Internal Score">Pontos</value>
+  <value column="Description" original="Score in the organization scale">Pontuação na escala definida pela Organização</value>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="412ab3ee-689b-42a8-9d02-340da5f8409f">
+  <value column="Name" original="Manifest Tries">Tentativas de Manifestar</value>
+  <value column="PrintName" original="Manifest Tries">Tentativas de Manifestar</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>

@@ -3263,11 +3263,6 @@
   <value column="Description" original=""/>
   <value column="Help" original=""/>
  </row>
- <row trl="N" uuid="e9df60a5-7422-4c96-845b-25da17a31b26">
-  <value column="Name" original="LBR_MsgIntSEFAZ">LBR_MsgIntSEFAZ</value>
-  <value column="Description" original=""/>
-  <value column="Help" original=""/>
- </row>
  <row trl="N" uuid="c81cca8f-c1f6-4fbb-a989-86eda417ee2f">
   <value column="Name" original="LBR_ConfigSystemResp">LBR_ConfigSystemResp</value>
   <value column="Description" original=""/>
@@ -3394,6 +3389,11 @@ A, C, D, F e 1 (Créditos extemporâneos)</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
  </row>
+ <row trl="N" uuid="a06497d4-7ba1-4f42-bebe-457709caa2d3">
+  <value column="Name" original="C_Year - DESC">C_Year - DESC</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
  <row trl="N" uuid="d8b9aa99-6b9a-4d8d-bdc1-060185d2fdcb">
   <value column="Name" original="LBR_CEST">LBR_CEST</value>
   <value column="Description" original=""/>
@@ -3404,8 +3404,28 @@ A, C, D, F e 1 (Créditos extemporâneos)</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
  </row>
+ <row trl="N" uuid="2239287f-fe0a-48fe-969f-09714f980894">
+  <value column="Name" original="RelType LBR_NotaFiscal &lt;&gt; LBR_DFe (LBR_NFeID)" xml:space="preserve"><![CDATA[RelType LBR_NotaFiscal <> LBR_DFe (LBR_NFeID)]]></value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="ca00ba7a-db7f-4874-a940-460ab4a50340">
+  <value column="Name" original="RelType LBR_PartnerDfe &lt;&gt; LBR_NotaFiscal (LBR_NFeID)" xml:space="preserve"><![CDATA[RelType LBR_PartnerDfe <> LBR_NotaFiscal (LBR_NFeID)]]></value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="be31727b-b995-42f1-8255-0ff71b34b487">
+  <value column="Name" original="LBR_CreditCardBrand">LBR_CreditCardBrand</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
  <row trl="N" uuid="0833bbd9-cd23-4860-a2dd-586717fa4d2e">
   <value column="Name" original="LBR_TaxStatus">LBR_TaxStatus</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="b5bd42c4-7930-4fbd-8b6d-42c989c02d91">
+  <value column="Name" original="LBR_IsOwnDocument - Doc Issued By">LBR_IsOwnDocument - Doc Issued By</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
  </row>
