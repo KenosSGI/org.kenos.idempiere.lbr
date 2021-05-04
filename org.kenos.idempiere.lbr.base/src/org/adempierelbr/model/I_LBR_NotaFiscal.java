@@ -1891,15 +1891,15 @@ public interface I_LBR_NotaFiscal
     /** Column name lbr_IsOwnDocument */
     public static final String COLUMNNAME_lbr_IsOwnDocument = "lbr_IsOwnDocument";
 
-	/** Set Is Own Document.
-	  * Identifies this is an own document
+	/** Set Doc Issued By.
+	  * Identifies this is issued by the company or by 3rd party 
 	  */
-	public void setlbr_IsOwnDocument (boolean lbr_IsOwnDocument);
+	public void setlbr_IsOwnDocument (String lbr_IsOwnDocument);
 
-	/** Get Is Own Document.
-	  * Identifies this is an own document
+	/** Get Doc Issued By.
+	  * Identifies this is issued by the company or by 3rd party 
 	  */
-	public boolean islbr_IsOwnDocument();
+	public String getlbr_IsOwnDocument();
 
     /** Column name lbr_MotivoCancel */
     public static final String COLUMNNAME_lbr_MotivoCancel = "lbr_MotivoCancel";

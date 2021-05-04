@@ -5479,4 +5479,24 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 			return false;
 		return true;
 	}	//	isCFOPOriginSame
+
+	/**
+	 * 	Legacy compatibility, set Own Document from boolean
+	 */
+	public void setlbr_IsOwnDocument (boolean issuedByUs)
+	{
+		if (issuedByUs)
+			setlbr_IsOwnDocument(LBR_ISOWNDOCUMENT_IssuedByUsOwnDocument);
+		else
+			setlbr_IsOwnDocument(LBR_ISOWNDOCUMENT_IssuedBy3rdParty);
+	}	//	setlbr_IsOwnDocument
+	
+	/**
+	 * 	Legacy compatibility, get/set Own Document as boolean
+	 * 	@return true if the fiscal document is issued by the company
+	 */
+	public boolean islbr_IsOwnDocument ()
+	{
+		return LBR_ISOWNDOCUMENT_IssuedByUsOwnDocument.equals(getlbr_IsOwnDocument());
+	} 	//	islbr_IsOwnDocument
 }	//	MLBRNotaFiscal
