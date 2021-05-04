@@ -108,7 +108,7 @@ public class ManifestDFe extends SvrProcess
 					+ " AND DocumentType='0' "		//	Only NF-e (Exclude Events)
 					+ " AND IsCancelled='N' "		//	Not Cancelled
 					+ " AND LBR_IsManifested='N' "	//	Only Manifested DF-e
-					+ " AND LBR_ManifestTries IS NULL OR LBR_ManifestTries<" + MSysConfig.getIntValue(SysConfig.LBR_MANIFEST_TRIES, 3)
+					+ " AND (LBR_ManifestTries IS NULL OR LBR_ManifestTries<" + MSysConfig.getIntValue(SysConfig.LBR_MANIFEST_TRIES, 3) + ") "
 					+ " AND DateDoc >= " + DB.TO_DATE (TimeUtil.addDays (today, -180));	//	180 days is the limit to manifest a document
 			// 
 			dfes = new Query(Env.getCtx(), MLBRPartnerDFe.Table_Name, whereClause, get_TrxName())
