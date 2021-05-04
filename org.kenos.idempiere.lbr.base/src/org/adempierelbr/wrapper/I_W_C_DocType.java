@@ -226,12 +226,12 @@ public interface I_W_C_DocType extends I_C_DocType
 	/** Set Is Own Document.
 	  * Identifies this is an own document
 	  */
-	public void setlbr_IsOwnDocument (boolean lbr_IsOwnDocument);
+	public void setlbr_IsOwnDocument (String lbr_IsOwnDocument);
 
 	/** Get Is Own Document.
 	  * Identifies this is an own document
 	  */
-	public boolean islbr_IsOwnDocument();
+	public String getlbr_IsOwnDocument();
 
     /** Column name lbr_IsReturn */
     public static final String COLUMNNAME_lbr_IsReturn = "lbr_IsReturn";

@@ -34,7 +34,7 @@ public class X_LBR_NotaFiscal extends PO implements I_LBR_NotaFiscal, I_Persiste
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20210402L;
+	private static final long serialVersionUID = 20210504L;
 
     /** Standard Constructor */
     public X_LBR_NotaFiscal (Properties ctx, int LBR_NotaFiscal_ID, String trxName)
@@ -68,7 +68,7 @@ public class X_LBR_NotaFiscal extends PO implements I_LBR_NotaFiscal, I_Persiste
 // 1
 			setlbr_HasOpenItems (true);
 // Y
-			setlbr_IsOwnDocument (false);
+			setlbr_IsOwnDocument (null);
 // N
         } */
     }
@@ -2904,28 +2904,26 @@ public class X_LBR_NotaFiscal extends PO implements I_LBR_NotaFiscal, I_Persiste
 		return bd;
 	}
 
-	/** Set Is Own Document.
+	/** Issued by us (own document) = Y */
+	public static final String LBR_ISOWNDOCUMENT_IssuedByUsOwnDocument = "Y";
+	/** Issued by 3rd party = N */
+	public static final String LBR_ISOWNDOCUMENT_IssuedBy3rdParty = "N";
+	/** Set Doc Issued By.
 		@param lbr_IsOwnDocument 
-		Identifies this is an own document
+		Identifies this is issued by the company or by 3rd party 
 	  */
-	public void setlbr_IsOwnDocument (boolean lbr_IsOwnDocument)
+	public void setlbr_IsOwnDocument (String lbr_IsOwnDocument)
 	{
-		set_Value (COLUMNNAME_lbr_IsOwnDocument, Boolean.valueOf(lbr_IsOwnDocument));
+
+		set_Value (COLUMNNAME_lbr_IsOwnDocument, lbr_IsOwnDocument);
 	}
 
-	/** Get Is Own Document.
-		@return Identifies this is an own document
+	/** Get Doc Issued By.
+		@return Identifies this is issued by the company or by 3rd party 
 	  */
-	public boolean islbr_IsOwnDocument () 
+	public String getlbr_IsOwnDocument () 
 	{
-		Object oo = get_Value(COLUMNNAME_lbr_IsOwnDocument);
-		if (oo != null) 
-		{
-			 if (oo instanceof Boolean) 
-				 return ((Boolean)oo).booleanValue(); 
-			return "Y".equals(oo);
-		}
-		return false;
+		return (String)get_Value(COLUMNNAME_lbr_IsOwnDocument);
 	}
 
 	/** Set Motivo do Cancelamento.

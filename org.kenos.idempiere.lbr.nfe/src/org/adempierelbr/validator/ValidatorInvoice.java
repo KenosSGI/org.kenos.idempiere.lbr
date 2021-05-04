@@ -458,7 +458,7 @@ public class ValidatorInvoice implements ModelValidator
 			String reference = wInvoice.getlbr_NFEntrada();
 			//
 			if (wDocType.islbr_HasFiscalDocument() 
-					&& !wDocType.islbr_IsOwnDocument()
+					&& MLBRNotaFiscal.LBR_ISOWNDOCUMENT_IssuedBy3rdParty.equals(wDocType.getlbr_IsOwnDocument())
 					&& (reference == null || reference.trim().isEmpty() || !reference.trim().matches("^\\d{1,9}-\\d{1,3}$"))
 					&& !invoice.isReversal())
 			{
@@ -524,7 +524,7 @@ public class ValidatorInvoice implements ModelValidator
 			{
 				//	Força o Documento Próprio para as Faturas de Saída ou para Memorando de Crédito de Entrada
 				boolean isOwnDocument = (wDocType.getDocBaseType().equals(MDocType.DOCBASETYPE_APCreditMemo) || wDocType.getDocBaseType().equals(MDocType.DOCBASETYPE_ARInvoice)) 
-						? Boolean.TRUE : wDocType.islbr_IsOwnDocument();
+						? Boolean.TRUE : MLBRNotaFiscal.LBR_ISOWNDOCUMENT_IssuedByUsOwnDocument.equals(wDocType.getlbr_IsOwnDocument());
 
 				//	Cria e processa as informações para a tabela de NF
 				MLBRNotaFiscal nf = new MLBRNotaFiscal (Env.getCtx(), 0, invoice.get_TrxName());
