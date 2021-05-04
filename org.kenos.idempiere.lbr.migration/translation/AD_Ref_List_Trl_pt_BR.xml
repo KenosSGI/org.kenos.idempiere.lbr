@@ -12548,4 +12548,148 @@
   <value column="Name" original="Recibo Provisório de Serviço">Recibo Provisório de Serviço</value>
   <value column="Description" original=""/>
  </row>
+ <row trl="N" uuid="a0982b7e-79cd-4146-bfbb-ccc850f61c34">
+  <value column="Name" original="Original">Original</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="b20f5c7f-ff9a-41ac-9d22-baff10bbef0f">
+  <value column="Name" original="Retificado">Retificado</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="282b27e0-00de-4300-a5a0-c49b1fb2c48a">
+  <value column="Name" original="Bank Deposit">Depósito Bancário</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="e02b2844-7177-4c87-8f91-623f0e4c0569">
+  <value column="Name" original="Instant Payment (PIX)">Pagamento Instantâneo via PIX</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="c20cf066-7baf-482e-ac0c-9849902f5d87">
+  <value column="Name" original="Bank Transfer, Digital Wallet">Transferência Bancária, Carteira Digital</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="0be158b9-c930-4bf0-8fcd-6a869da532aa">
+  <value column="Name" original="Loyalty Program, Cashback, Virtual Credit">Programa de Fidelidade, Cashback, Crédito Virtual</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="fad2d598-3a01-482f-a7b8-14f8460fc42e">
+  <value column="Name" original="Visa">Visa</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="676e1848-c42a-47ae-8013-bfde81d5c242">
+  <value column="Name" original="Mastercard">Mastercard</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="b217e6ad-2ddc-45c8-8750-e27331302634">
+  <value column="Name" original="American Express">American Express</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="597b9098-b28e-4195-947b-f1b24a1fc150">
+  <value column="Name" original="Sorocred">Sorocred</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="3c3274be-b8d0-4031-80d6-6c88fd587bdd">
+  <value column="Name" original="Diners Club">Diners Club</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="06b959b5-8c0e-44cf-ac54-47ea8f4e7153">
+  <value column="Name" original="Elo">Elo</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="b7e9dc9e-1dbb-4025-897e-9721fccd0cc4">
+  <value column="Name" original="Hipercard">Hipercard</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="25cfd1b6-8dd0-478d-96e5-b3bd5a712934">
+  <value column="Name" original="Aura">Aura</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="e0117dc8-61e3-4727-a719-9d86f18e6a1b">
+  <value column="Name" original="Cabal">Cabal</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="d03ffcc6-b17f-4f55-9142-12f2b4472c7e">
+  <value column="Name" original="Alelo">Alelo</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="63d66662-2327-4d6e-86a6-56091cd8542e">
+  <value column="Name" original="Banes Card">Banes Card</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="24499411-9f2f-4ae0-b496-6f033dea488a">
+  <value column="Name" original="CalCard ">CalCard </value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="5032c650-59fd-4d99-bafd-fe75a9019601">
+  <value column="Name" original="Credz">Credz</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="1af4ca35-dd28-4743-88d7-aaeedde34fd0">
+  <value column="Name" original="Discover">Discover</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="ef281982-9383-44d7-b23c-091eca779751">
+  <value column="Name" original="GoodCard">GoodCard</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="02a36949-ff19-4815-bf4d-2997f0120683">
+  <value column="Name" original="GreenCard">GreenCard</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="013cdd03-332e-4f35-b984-51a92a94f173">
+  <value column="Name" original="Hiper">Hiper</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="3aeb1868-2603-4557-914a-e6f88b711cf0">
+  <value column="Name" original="JcB">JcB</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="33aad1d2-b653-47e2-991a-56adda777f3b">
+  <value column="Name" original="Mais">Mais</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="c71ff69b-a9d6-4fc5-81b6-909c6c92dfeb">
+  <value column="Name" original="MaxVan">MaxVan</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="eb6882cf-9af7-4329-b5f9-80fdf10a8147">
+  <value column="Name" original="Policard">Policard</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="9c04e3f2-8a6f-49d3-bbb0-e9fb9dab45bd">
+  <value column="Name" original="RedeCompras">RedeCompras</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="36f550fb-78af-4164-9ec1-d95b5c78afdf">
+  <value column="Name" original="Sodexo">Sodexo</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="65df1920-b6b2-43c0-b526-32ec66edc162">
+  <value column="Name" original="ValeCard">ValeCard</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="8c703d2b-28a0-4761-b87f-b207473d552e">
+  <value column="Name" original="Verocheque">Verocheque</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="9a767d65-b388-421d-87ce-c624cf780595">
+  <value column="Name" original="VR">VR</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="8849ef38-56c3-4fca-90ca-34a0c8d267ff">
+  <value column="Name" original="Ticket">Ticket</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="005702a2-6d32-40bd-ad2f-7c0b872b3262">
+  <value column="Name" original="Outros">Outros</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="e469a4c2-e2ec-4b14-92f2-3cda30fc675d">
+  <value column="Name" original="Issued by us (own document)">Por Nós (Documento Próprio)</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="78aeb4fa-2c0d-4163-99d4-46d3cc486440">
+  <value column="Name" original="Issued by 3rd party">Pelo Cliente/Fornecedor</value>
+  <value column="Description" original=""/>
+ </row>
 </idempiereTrl>
