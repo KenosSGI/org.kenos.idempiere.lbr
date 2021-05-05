@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Properties;
@@ -24,7 +25,7 @@ import org.adempierelbr.util.TextUtil;
 import org.adempierelbr.wrapper.I_W_AD_OrgInfo;
 import org.adempierelbr.wrapper.I_W_C_Invoice;
 import org.apache.axis2.transport.http.HTTPConstants;
-import org.apache.xmlbeans.XmlCursor;
+import org.apache.xmlbeans.XmlCalendar;
 import org.compiere.model.MBPartner;
 import org.compiere.model.MInvoice;
 import org.compiere.model.MOrgInfo;
@@ -38,6 +39,9 @@ import br.gov.sp.indaiatuba.nfse.NfseWebServiceServiceStub;
 import br.org.abrasf.nfse.CabecalhoDocument.Cabecalho;
 import br.org.abrasf.nfse.CancelarNfseEnvioDocument.CancelarNfseEnvio;
 import br.org.abrasf.nfse.GerarNfseEnvioDocument;
+import br.org.abrasf.nfse.GerarNfseRespostaDocument;
+import br.org.abrasf.nfse.GerarNfseRespostaDocument.GerarNfseResposta;
+import br.org.abrasf.nfse.ListaMensagemRetornoDocument.ListaMensagemRetorno;
 import br.org.abrasf.nfse.TcContato;
 import br.org.abrasf.nfse.TcCpfCnpj;
 import br.org.abrasf.nfse.TcDadosServico;
@@ -55,6 +59,7 @@ import br.org.abrasf.nfse.TcPedidoCancelamento;
 import br.org.abrasf.nfse.TcValoresDeclaracaoServico;
 import br.org.abrasf.nfse.TsCodigoMunicipioIbge;
 import br.org.abrasf.nfse.TsItemListaServico;
+import br.org.abrasf.nfse.TsUf;
 
 /**
  * 		NFS-e de Cidades que Utilizam Abrasf Versão 2.03 - Ginfes
@@ -127,32 +132,39 @@ public class NFSeAbrasf203Impl implements INFSe
 		MInvoice invoice = (MInvoice)nf.getC_Invoice();
 		I_W_C_Invoice winvoice = POWrapper.create(invoice, I_W_C_Invoice.class);
 		
-		// Data da NF
-		Calendar dateDoc = Calendar.getInstance();
-		dateDoc.setTime(nf.getDateDoc());		
+		//	Date ZULU
+		Calendar cal = Calendar.getInstance();
+		cal.setTimeInMillis (nf.getDateDoc().getTime());
+		
+		//	Set date this way to avoid time zone incompatibilities
+		Calendar xmlCal = new XmlCalendar ();
+		xmlCal.set(Calendar.YEAR, 			cal.get (Calendar.YEAR));
+		xmlCal.set(Calendar.MONTH, 			cal.get (Calendar.MONTH));
+		xmlCal.set(Calendar.DAY_OF_MONTH, 	cal.get (Calendar.DAY_OF_MONTH));
 		
 		//	Criar RPS
 		TcDeclaracaoPrestacaoServico rps = TcDeclaracaoPrestacaoServico.Factory.newInstance();
-		
-		XmlCursor cursor= rps.newCursor();
-		cursor.toNextToken();
-		cursor.insertNamespace("A", namespace);
-		//For example
-		cursor.insertNamespace("xsi", "http://www.w3.org/2001/XMLSchema-instance");
-		cursor.dispose();
+//		XmlCursor cursor= rps.newCursor();
+//		cursor.toNextToken();
+//		cursor.insertNamespace("A", namespace);
+//		//For example
+//		cursor.insertNamespace("xsi", "http://www.w3.org/2001/XMLSchema-instance");
+//		cursor.dispose();
 		
 		//	Detalhes da Declaração de Prestação de Serviço
-		TcInfDeclaracaoPrestacaoServico infdps = rps.addNewInfDeclaracaoPrestacaoServico();						
+		TcInfDeclaracaoPrestacaoServico infdps = rps.addNewInfDeclaracaoPrestacaoServico();
+		infdps.setId("1");
+		
 		TcInfRps infRps = infdps.addNewRps();
 		//	Identificação do RPS
 		TcIdentificacaoRps indRps = infRps.addNewIdentificacaoRps();
 		indRps.setNumero(new BigDecimal(nf.getDocumentNo()).longValue());
 		indRps.setSerie(nf.getlbr_NFSerie());
 		indRps.setTipo((byte)1);
-		infRps.setDataEmissao(dateDoc);
+		infRps.setDataEmissao(xmlCal);
 		infRps.setStatus((byte)1);
 		//	Competencia
-		infdps.setCompetencia(dateDoc);
+		infdps.setCompetencia(xmlCal);
 		
 		//	Identificação do Prestador de Serviço
 		TcIdentificacaoPrestador prestador = infdps.addNewPrestador();
@@ -163,7 +175,7 @@ public class NFSeAbrasf203Impl implements INFSe
 
 		//	Inscrição Municipal Organização
 		if (nf.getlbr_OrgCCM() != null && !nf.getlbr_OrgCCM().isEmpty())
-			prestador.setInscricaoMunicipal(nf.getlbr_OrgCCM());
+			prestador.setInscricaoMunicipal(TextUtil.toNumeric(nf.getlbr_OrgCCM()));
 			
 		//	Identificação do Parceiro de Negócio Tomador do Serviço
 		TcDadosTomador dadosTomador = infdps.addNewTomador();
@@ -176,9 +188,10 @@ public class NFSeAbrasf203Impl implements INFSe
 		else
 			cpfcnpjTomador.setCpf(TextUtil.retiraEspecial(nf.getlbr_BPCNPJ()));
 		
-		//	Inscriçaõ Municipal do Parceiro de Negócio
-		if (partner.get_ValueAsString("LBR_CCM") != null && !partner.get_ValueAsString("LBR_CCM").isEmpty())
-			tomador.setInscricaoMunicipal(partner.get_ValueAsString("LBR_CCM"));
+		//	Inscrição Municipal do Parceiro de Negócio
+		if (nf.getlbr_BPCity() != null && nf.getlbr_BPCity().equals(nf.getlbr_OrgCity())
+				&& partner.get_ValueAsString("LBR_CCM") != null && !partner.get_ValueAsString("LBR_CCM").isEmpty())
+			tomador.setInscricaoMunicipal(TextUtil.toNumeric(partner.get_ValueAsString("LBR_CCM")));
 		
 		//	Dados do Tomador do Serviço / Parceiro de Negócio
 		dadosTomador.setRazaoSocial(TextUtil.retiraEspecial(nf.getBPName()));
@@ -188,6 +201,9 @@ public class NFSeAbrasf203Impl implements INFSe
 		endTomador.setBairro(TextUtil.retiraEspecial(nf.getlbr_BPAddress3()));
 		endTomador.setCodigoMunicipio(nf.getlbr_BPCityCode());
 		endTomador.setCep(TextUtil.toNumeric (nf.getlbr_BPPostal()));
+		endTomador.setUf(TsUf.Enum.forString(nf.getlbr_BPRegion()));
+		if (nf.getlbr_CountryCode() != null)
+			endTomador.setCodigoPais(nf.getlbr_CountryCode().substring(1));
 		
 		// Contato do Parceiro de Negócio
 		TcContato contatoTomador = dadosTomador.addNewContato();
@@ -251,7 +267,7 @@ public class NFSeAbrasf203Impl implements INFSe
 		// Discriminação do Serviço
 		dadosServico.setDiscriminacao(descricaoServico);
 		dadosServico.setItemListaServico(TsItemListaServico.Enum.forString(serviceCode));
-		dadosServico.setIssRetido((byte)(winvoice.isLBR_HasWithhold() ? 1 : 1));
+		dadosServico.setIssRetido((byte) 2);
 		dadosServico.setCodigoMunicipio(nf.getlbr_BPCityCode());
 		
 		//	FIXME: Criar campo ExigibilidadeISS
@@ -277,6 +293,7 @@ public class NFSeAbrasf203Impl implements INFSe
 		BigDecimal v_INSS 	= toBD (nf.getTaxAmt("INSS")).abs();
 		BigDecimal v_IR 	= toBD (nf.getTaxAmt("IR")).abs();
 		BigDecimal v_CSLL 	= toBD (nf.getTaxAmt("CSLL")).abs();
+		BigDecimal v_ISS 	= toBD (nf.getTaxAmt("ISS")).abs();
 		
 		// Valores da NFS-e
 		valores.setValorPis(v_PIS);
@@ -285,7 +302,8 @@ public class NFSeAbrasf203Impl implements INFSe
 		valores.setValorIr(v_IR);
 		valores.setValorCsll(v_CSLL);
 		valores.setOutrasRetencoes(BigDecimal.ZERO);
-		valores.setValTotTributos(nf.getlbr_vTotTrib());
+		valores.setValTotTributos(v_ISS);
+		valores.setAliquota(aliquota);
 		valores.setDescontoIncondicionado(BigDecimal.ZERO);
 		valores.setDescontoCondicionado(nf.getDiscountAmt());
 		
@@ -304,7 +322,7 @@ public class NFSeAbrasf203Impl implements INFSe
 			MLBRDigitalCertificate.setCertificate (nf.getCtx(), p_AD_Org_ID);
 			
 			//	Assina o XML
-			new SignatureUtil (orgInf, SignatureUtil.RPS, "nfd").sign (rps, rps.newCursor());
+			new SignatureUtil (orgInf, SignatureUtil.OUTROS, "InfDeclaracaoPrestacaoServico").sign (rps, rps.newCursor());
 					
 			return rps.xmlText(NFeUtil.getXmlOpt()).getBytes(NFeUtil.NFE_ENCODING);
 		
@@ -369,8 +387,65 @@ public class NFSeAbrasf203Impl implements INFSe
 		nfseStub._getServiceClient().getOptions().setProperty(HTTPConstants.CHUNKED, false);	
 		
 		String result = nfseStub.gerarNfse(header.xmlText(), document.xmlText(NFeUtil.getXmlOpt()));
-		System.out.println(result);
+		log.info(result);
 		
+		GerarNfseResposta resposta = GerarNfseRespostaDocument.Factory.parse(result).getGerarNfseResposta();
+		
+		try
+		{
+			//	Check error messages
+			ListaMensagemRetorno listaMensagemRetorno = resposta.getListaMensagemRetorno();
+			if (listaMensagemRetorno != null)
+			{
+				StringBuilder msgRetorno = new StringBuilder ();
+				Arrays.asList(listaMensagemRetorno.getMensagemRetornoArray())
+					.forEach(msg -> {
+						msgRetorno
+							.append("Cod=").append(msg.getCodigo())
+							.append(", Correção=").append(msg.getCorrecao())
+							.append(", Msg=").append(msg.getMensagem())
+							.append("\n");
+					});
+				//
+				log.warning("NFS-e " + nf.toString() + " - " + msgRetorno.toString());
+				nf.setErrorMsg(msgRetorno.toString());
+				nf.save();
+			}
+			
+			//	Adicionar Protocolo do Lote
+			if (resposta.getListaNfse() != null 
+					&& !resposta.getListaNfse().getCompNfse().getNfse().getInfNfse().getCodigoVerificacao().isEmpty())
+			{
+				nf.setlbr_NFeProt(resposta.getListaNfse().getCompNfse().getNfse().getInfNfse().getCodigoVerificacao());
+				nf.setlbr_NFENo(String.valueOf(resposta.getListaNfse().getCompNfse().getNfse().getInfNfse().getNumero()));
+				nf.save();
+			}
+			else
+				throw new AdempiereException("Erro ao Transmitir NFS-e");
+		}
+		catch (Exception e)
+		{
+			throw new AdempiereException(result);
+		}
+			
+		// Aguardar 15 Seg para fazer a consulta da NFS-e
+//		try 
+//		{
+//			//	Wait 15 secs before check if NF is processed
+//			//		15 secs is the SeFaz recommended time, so using as a default
+//			log.finer ("pause");
+//			
+//			Thread.sleep(15000);
+//			
+//			log.finer ("resume");
+//			
+//			//	Consultar NFS-e
+//			return consult(nf);
+//		} 
+//		catch (InterruptedException ex)
+//		{
+//		    Thread.currentThread().interrupt();
+//		}
 		return true;
 	}	//	transmit
 	
