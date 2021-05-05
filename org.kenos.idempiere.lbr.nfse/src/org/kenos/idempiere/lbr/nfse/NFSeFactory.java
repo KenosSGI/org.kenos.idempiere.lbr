@@ -47,7 +47,7 @@ public class NFSeFactory implements INFSeFactory
 		
 		//	Indaiatuba/SP
 		else if (NFSeAbrasf203Impl.INDAIATUBA_ID == p_C_City_ID)
-			return NFSeAbrasf100Impl.class;
+			return NFSeAbrasf203Impl.class;
 		
 		//	São Caetano do Sul/SP
 		else if (NFSeAbrasf100Impl.SAOCAETANODOSUL_ID == p_C_City_ID)

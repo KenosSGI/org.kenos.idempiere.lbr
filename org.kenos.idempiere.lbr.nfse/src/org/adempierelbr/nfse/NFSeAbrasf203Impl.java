@@ -32,8 +32,12 @@ import org.compiere.model.MProduct;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
 
+import br.gov.sp.indaiatuba.nfse.CancelarNfseRequest;
+import br.gov.sp.indaiatuba.nfse.Input;
+import br.gov.sp.indaiatuba.nfse.NfseWebServiceServiceStub;
 import br.org.abrasf.nfse.CabecalhoDocument.Cabecalho;
 import br.org.abrasf.nfse.CancelarNfseEnvioDocument.CancelarNfseEnvio;
+import br.org.abrasf.nfse.GerarNfseEnvioDocument;
 import br.org.abrasf.nfse.TcContato;
 import br.org.abrasf.nfse.TcCpfCnpj;
 import br.org.abrasf.nfse.TcDadosServico;
@@ -51,10 +55,6 @@ import br.org.abrasf.nfse.TcPedidoCancelamento;
 import br.org.abrasf.nfse.TcValoresDeclaracaoServico;
 import br.org.abrasf.nfse.TsCodigoMunicipioIbge;
 import br.org.abrasf.nfse.TsItemListaServico;
-import br.org.abrasf.nfse.webservice.NfseWSServiceStub;
-import br.org.abrasf.nfse.webservice.NfseWSServiceStub.CancelarNfseRequest;
-import br.org.abrasf.nfse.webservice.NfseWSServiceStub.GerarNfseRequest;
-import br.org.abrasf.nfse.webservice.NfseWSServiceStub.Input;
 
 /**
  * 		NFS-e de Cidades que Utilizam Abrasf Versão 2.03 - Ginfes
@@ -337,7 +337,10 @@ public class NFSeAbrasf203Impl implements INFSe
 			xmlData = getXML (nf);	//	Gera um novo XML
 			
 		String xml = new String (xmlData, NFeUtil.NFE_ENCODING);
-			
+		
+		GerarNfseEnvioDocument document = GerarNfseEnvioDocument.Factory.newInstance();
+		document.addNewGerarNfseEnvio().setRps(TcDeclaracaoPrestacaoServico.Factory.parse(xml));
+		
 		Cabecalho header = Cabecalho.Factory.newInstance();
 		header.setVersao("2.03");
 		header.setVersaoDados("");
@@ -346,21 +349,27 @@ public class NFSeAbrasf203Impl implements INFSe
 		 *	Enviar NF-e
 		 */
 		//
-		Input inputXmlNfse = new Input();
-		inputXmlNfse.setNfseCabecMsg(header.xmlText());
-		inputXmlNfse.setNfseDadosMsg(xml);
+//		Input inputXmlNfse = new Input();
+//		inputXmlNfse.setNfseCabecMsg(header.xmlText());
+//		inputXmlNfse.setNfseDadosMsg(xml);
 		
 		//	Set certificate
 		MLBRDigitalCertificate.setCertificate (Env.getCtx(), nf.getAD_Org_ID());
 		
-		GerarNfseRequest gerarNfseRequest = new GerarNfseRequest();
-		gerarNfseRequest.setGerarNfseRequest(inputXmlNfse);
+//		GerarNfseRequest gerarNfseRequest = new GerarNfseRequest();
+//		gerarNfseRequest.setGerarNfseRequest(inputXmlNfse);
+		String url = "https://deiss.indaiatuba.sp.gov.br/homologacao/nfse";
+		if (MLBRNotaFiscal.LBR_NFEENV_Production.equals(nf.getlbr_NFeEnv()))
+			url = "https://deiss.indaiatuba.sp.gov.br/producao/nfse";
 		
-		NfseWSServiceStub nfseStub = new NfseWSServiceStub();
+		NfseWebServiceServiceStub nfseStub = new NfseWebServiceServiceStub(url);
+//		NfseWebServiceServiceStub.setWSUrl("https://deiss.indaiatuba.sp.gov.br/homologacao/nfse");
+		/** https://deiss.indaiatuba.sp.gov.br/producao/nfse */
 		
 		nfseStub._getServiceClient().getOptions().setProperty(HTTPConstants.CHUNKED, false);	
-				
-		String result = nfseStub.gerarNfse(gerarNfseRequest).getGerarNfseResponse().getOutputXML();
+		
+		String result = nfseStub.gerarNfse(header.xmlText(), document.xmlText(NFeUtil.getXmlOpt()));
+		System.out.println(result);
 		
 		return true;
 	}	//	transmit
@@ -1431,11 +1440,12 @@ public class NFSeAbrasf203Impl implements INFSe
 			//	Set certificate
 			MLBRDigitalCertificate.setCertificate (Env.getCtx(), nf.getAD_Org_ID());
 			
-			NfseWSServiceStub nfseStub = new NfseWSServiceStub();
+			NfseWebServiceServiceStub nfseStub = new NfseWebServiceServiceStub();
 			
 			nfseStub._getServiceClient().getOptions().setProperty(HTTPConstants.CHUNKED, false);	
 			
-			String result = nfseStub.cancelarNfse(resquest).getCancelarNfseResponse().getOutputXML();
+			String result = nfseStub.cancelarNfse(header.xmlText(), cancelOrder.getInfPedidoCancelamento().xmlText());
+			System.out.println(result);
 		}
 		catch (Exception e)
 		{
