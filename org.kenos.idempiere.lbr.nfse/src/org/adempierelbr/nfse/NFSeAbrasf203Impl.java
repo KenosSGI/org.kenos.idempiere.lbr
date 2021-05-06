@@ -1,19 +1,21 @@
 package org.adempierelbr.nfse;
 
-import java.awt.Desktop;
-import java.io.ByteArrayOutputStream;
+import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
-import java.net.URL;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
+import org.adempiere.base.Service;
 import org.adempiere.exceptions.AdempiereException;
 import org.adempiere.model.POWrapper;
+import org.adempiere.report.jasper.JRViewerProvider;
 import org.adempierelbr.model.MLBRDigitalCertificate;
 import org.adempierelbr.model.MLBRNotaFiscal;
 import org.adempierelbr.model.MLBRNotaFiscalLine;
@@ -26,7 +28,10 @@ import org.adempierelbr.wrapper.I_W_AD_OrgInfo;
 import org.adempierelbr.wrapper.I_W_C_Invoice;
 import org.apache.axis2.transport.http.HTTPConstants;
 import org.apache.xmlbeans.XmlCalendar;
+import org.compiere.model.MAttachment;
+import org.compiere.model.MAttachmentEntry;
 import org.compiere.model.MBPartner;
+import org.compiere.model.MImage;
 import org.compiere.model.MInvoice;
 import org.compiere.model.MOrgInfo;
 import org.compiere.model.MProduct;
@@ -60,6 +65,12 @@ import br.org.abrasf.nfse.TcValoresDeclaracaoServico;
 import br.org.abrasf.nfse.TsCodigoMunicipioIbge;
 import br.org.abrasf.nfse.TsItemListaServico;
 import br.org.abrasf.nfse.TsUf;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRXmlDataSource;
+import net.sf.jasperreports.engine.util.JRLoader;
 
 /**
  * 		NFS-e de Cidades que Utilizam Abrasf Versão 2.03 - Ginfes
@@ -1398,13 +1409,13 @@ public class NFSeAbrasf203Impl implements INFSe
 	 */
 	public String printNFSe(MLBRNotaFiscal nf)
 	{
+		log.fine("start printNFSe");
+		
 		try
 		{			
-			if (!Desktop.isDesktopSupported()) 
-				return "@Error@" + "Impossível abrir o arquivo";
-			
-			//	Abrir DANFE
-			Desktop.getDesktop().open(getPDF(nf));
+			JasperPrint jasperPrint = getReport (nf);
+			JRViewerProvider viewerLauncher = Service.locator().locate(JRViewerProvider.class).getService();
+			viewerLauncher.openViewer (jasperPrint, "Impress\u00E3o de NFS-e para a Cidade de " + nf.getlbr_OrgCity());
 		}
 		catch (Exception e)
 		{
@@ -1418,47 +1429,19 @@ public class NFSeAbrasf203Impl implements INFSe
 	 * Pegar DANFE no formato de PDF
 	 */
 	public File getPDF(MLBRNotaFiscal nf)
-	{
+	{		
+		log.fine("start getPDF");
+		
 		File PDF = null;
-		InputStream is = null;
 		
 		try
 		{
-			//	XML com a URL da DANFE
-			String xml = getURLVisualizarNF(nf);
+			//	Get Report
+			JasperPrint jasperPrint = getReport (nf);
 			
-			//	URL de Impressão
-			String path = getTagValue(xml.replace("amp;", ""), "urlAutenticidade");
-			
-			//	URL
-			URL url = new URL (path);
-			
-			//	Abrir Stream
-			is = url.openStream();
-			
-			//	String Buffere com a estimativa de Quantidade de Bytes da String
-			byte[] buffer = new byte[is.available()];
-			
-			//	Receber dados
-		    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-
-		    //	Quantidade de Bytes Lidos
-		    int bytesRead;
-		    
-		    //	Leitura dos Bytes
-		    while ((bytesRead = is.read(buffer)) != -1)
-		    {
-		        baos.write(buffer, 0, bytesRead);
-		    }
-		    
-			//	Criar Arquivo no Temp
+			//	File in PDF
 			PDF = File.createTempFile("NFSe" + nf.getlbr_NFENo() + "-", ".pdf");
-			
-			//	Preencher o Arquivo.
-			FileOutputStream file = new FileOutputStream(PDF);
-			file.write(baos.toByteArray());
-			file.flush();
-			file.close();
+    		JasperExportManager.exportReportToPdfFile(jasperPrint, PDF.getAbsolutePath());
 		}
 		catch (Exception e)
 		{
@@ -1467,6 +1450,98 @@ public class NFSeAbrasf203Impl implements INFSe
 		
 		return PDF;
 	}	
+	
+	/**
+	 * 	Get JasperReport
+	 * @param nf
+	 * @return
+	 * @throws Exception
+	 */
+	private JasperPrint getReport (MLBRNotaFiscal nf) throws Exception
+	{
+		log.fine("start getReport");
+		
+		InputStream is = null;
+		MImage img = MImage.get(Env.getCtx(), MOrgInfo.get(Env.getCtx(), nf.getAD_Org_ID(), nf.get_TrxName()).getLogo_ID());
+		InputStream xml = null;
+		MAttachment att = null;	
+		
+		try
+		{
+			//	Map Parameters
+			Map<String, Object> map = new HashMap<String, Object>();
+			
+			//	Attachment
+			att = nf.getAttachment (true);
+			
+			if (att == null || att.getEntryCount() == 0)
+				throw new Exception ("Arquivo XML n\u00E3o encontrado para impress\u00E3o");
+			
+			MAttachmentEntry[] entries = att.getEntries();
+			
+			//	Get XML
+			for (MAttachmentEntry entry : entries)
+			{
+				//	Try to find the right file
+				if (entry.getName().endsWith("dst.xml"))
+				{
+					xml = entry.getInputStream();
+					break;
+				}
+			}
+			
+			//	Valid XML
+			if (xml == null)
+				throw new Exception ("Arquivo XML não foi encontrado");
+			
+			//	Get Logo
+			if (img.getBinaryData() != null)
+			{
+				is = new ByteArrayInputStream (img.getBinaryData());
+				map.put("logotipo", is);
+			}
+			
+			if (nf.getlbr_OrgCity() != null && !nf.getlbr_OrgCity().isEmpty())
+			{
+				map.put("municipioprestador", nf.getlbr_OrgCity());
+				map.put("orgaogerador", nf.getlbr_OrgCity());
+			}
+			
+			if (nf.getlbr_BPCity() != null && !nf.getlbr_BPCity().isEmpty())
+			{
+				map.put("municipiotomador", nf.getlbr_BPCity());
+			}
+				
+			//	Get Jasper
+			ClassLoader cl = getClass().getClassLoader();
+			InputStream report = cl.getResourceAsStream("org/kenos/idempiere/lbr/nfse/report/ImpressaoNFSEABRASF.jasper");
+			
+			log.fine("after find report");
+			
+			JasperReport jasperReport = (JasperReport) JRLoader.loadObject (report);
+			JRXmlDataSource dataSource = new JRXmlDataSource ( xml , jasperReport.getQuery().getText() );
+			
+			//	Fill
+			return JasperFillManager.fillReport (jasperReport, map, dataSource);			
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+			throw new Exception (e.getMessage());
+		}
+		finally
+		{
+			try
+			{
+				if (is != null)
+					is.close();
+			}
+			catch (IOException ioe)
+			{
+				throw new Exception ("Erro na Impressão da Nota Fiscal de Serviço. Imprima a partir do Site da Prefeitura");
+			}
+		}
+	}	//	getReport
 	
 	/**
 	 * Cancel NFS-e
