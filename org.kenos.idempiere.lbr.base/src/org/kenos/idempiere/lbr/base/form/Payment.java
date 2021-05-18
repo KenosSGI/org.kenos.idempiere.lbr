@@ -424,6 +424,7 @@ public class Payment
 	public String generatePayment (IMiniTable miniTable, ValueNamePair paymentRule, Timestamp payDate, String type, BankInfo bi)
 	{
 		log.info("init");
+		StringBuilder result = new StringBuilder ();
 		String trxName = null;
 		trx = null;
 
@@ -499,13 +500,15 @@ public class Payment
 					p.delete(true);
 					
 					//	Inform user something went wrong
-					return Msg.translate(Env.getCtx(), "C_Invoice_ID") + " [" + documentNo + "/" + Doc_ID + "] : " + Msg.translate(Env.getCtx(), e.getMessage());
+					result.append(Msg.translate(Env.getCtx(), "C_Invoice_ID") + " [" + documentNo + "/" + Doc_ID + "] : " + Msg.translate(Env.getCtx(), e.getMessage())).append("\n");
 				}
 
 				log.fine("C_Invoice_ID=" + Doc_ID + ", PayAmt=" + PayAmt);
 			}
 		}   //  for all rows in table
 		
+		if (result.length() > 1)
+			return result.toString();
 		return null;
 	}   //  generatePaySelect
 
