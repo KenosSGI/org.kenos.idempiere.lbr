@@ -20,14 +20,14 @@
 	</parameter>
 	<parameter name="msgPrevisualizacao" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="DanfeMainPortraitA4_Sub_Item" class="java.io.InputStream" isForPrompting="false">
-		<defaultValueExpression><![CDATA[new java.io.FileInputStream ("/Users/rsantana/workspace/iturri/org.kenos.idempiere.lbr/org.kenos.idempiere.lbr.nfe/src/reports/DanfeMainPortraitA4_Sub_Item.jasper")]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA[new java.io.FileInputStream ("/Users/rsantana/workspace/idempiere-6.2/org.kenos.idempiere.lbr/org.kenos.idempiere.lbr.nfe/src/reports/DanfeMainPortraitA4_Sub_Item.jasper")]]></defaultValueExpression>
 	</parameter>
 	<parameter name="LOGO" class="java.io.InputStream" isForPrompting="false"/>
 	<parameter name="DanfeMainPortraitA4_Sub_Invoice" class="java.io.InputStream" isForPrompting="false">
-		<defaultValueExpression><![CDATA[new java.io.FileInputStream ("/Users/rsantana/workspace/iturri/org.kenos.idempiere.lbr/org.kenos.idempiere.lbr.nfe/src/reports/DanfeMainPortraitA4_Sub_Invoice.jasper")]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA[new java.io.FileInputStream ("/Users/rsantana/workspace/idempiere-6.2/org.kenos.idempiere.lbr/org.kenos.idempiere.lbr.nfe/src/reports/DanfeMainPortraitA4_Sub_Invoice.jasper")]]></defaultValueExpression>
 	</parameter>
 	<parameter name="DanfeMainPortraitA4_Sub_InfCompl" class="java.io.InputStream" isForPrompting="false">
-		<defaultValueExpression><![CDATA[new java.io.FileInputStream ("/Users/rsantana/workspace/iturri/org.kenos.idempiere.lbr/org.kenos.idempiere.lbr.nfe/src/reports/DanfeMainPortraitA4_Sub_InfCompl.jasper")]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA[new java.io.FileInputStream ("/Users/rsantana/workspace/idempiere-6.2/org.kenos.idempiere.lbr/org.kenos.idempiere.lbr.nfe/src/reports/DanfeMainPortraitA4_Sub_InfCompl.jasper")]]></defaultValueExpression>
 	</parameter>
 	<queryString language="xPath">
 		<![CDATA[//NFe]]>
