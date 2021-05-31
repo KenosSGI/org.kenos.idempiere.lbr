@@ -20,14 +20,14 @@
 	</parameter>
 	<parameter name="msgPrevisualizacao" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="DanfeMainPortraitA4_Sub_Item" class="java.io.InputStream" isForPrompting="false">
-		<defaultValueExpression><![CDATA[new java.io.FileInputStream ("/Users/rsantana/workspace/adempiere/adempierelbr/nfe2/src/reports/DanfeMainPortraitA4_Sub_Item.jasper")]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA[new java.io.FileInputStream ("/Users/rsantana/workspace/iturri/org.kenos.idempiere.lbr/org.kenos.idempiere.lbr.nfe/src/reports/DanfeMainPortraitA4_Sub_Item.jasper")]]></defaultValueExpression>
 	</parameter>
 	<parameter name="LOGO" class="java.io.InputStream" isForPrompting="false"/>
 	<parameter name="DanfeMainPortraitA4_Sub_Invoice" class="java.io.InputStream" isForPrompting="false">
-		<defaultValueExpression><![CDATA[new java.io.FileInputStream ("/Users/rsantana/workspace/adempiere/adempierelbr/nfe2/src/reports/DanfeMainPortraitA4_Sub_Invoice.jasper")]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA[new java.io.FileInputStream ("/Users/rsantana/workspace/iturri/org.kenos.idempiere.lbr/org.kenos.idempiere.lbr.nfe/src/reports/DanfeMainPortraitA4_Sub_Invoice.jasper")]]></defaultValueExpression>
 	</parameter>
 	<parameter name="DanfeMainPortraitA4_Sub_InfCompl" class="java.io.InputStream" isForPrompting="false">
-		<defaultValueExpression><![CDATA[new java.io.FileInputStream ("/Users/rsantana/workspace/adempiere/adempierelbr/nfe2/src/reports/DanfeMainPortraitA4_Sub_InfCompl.jasper")]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA[new java.io.FileInputStream ("/Users/rsantana/workspace/iturri/org.kenos.idempiere.lbr/org.kenos.idempiere.lbr.nfe/src/reports/DanfeMainPortraitA4_Sub_InfCompl.jasper")]]></defaultValueExpression>
 	</parameter>
 	<queryString language="xPath">
 		<![CDATA[//NFe]]>
@@ -284,7 +284,7 @@
 	<field name="destinatarioEnderecoNro" class="java.lang.String">
 		<fieldDescription><![CDATA[infNFe/dest/enderDest/nro]]></fieldDescription>
 	</field>
-	<variable name="InfCompl" class="java.lang.String">
+	<variable name="InfCompl" class="java.lang.String" resetType="Group" resetGroup="Grupo08" incrementType="Group" incrementGroup="Grupo08">
 		<variableExpression><![CDATA[($F{informacoesComplementares} == null ? "" : $F{informacoesComplementares} + "\n") +
 ($F{informacoesComplementares2} == null ? "" : $F{informacoesComplementares2})]]></variableExpression>
 		<initialValueExpression><![CDATA[($F{informacoesComplementares} == null ? "" : $F{informacoesComplementares} + "\n") +
@@ -2919,7 +2919,7 @@ DPEC regularmente recebido pela Receita Federal do Brasil]]></text>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Left" lineSpacing="Single" markup="styled">
-					<font fontName="Monospaced" size="7"/>
+					<font fontName="Monospaced" size="7" pdfFontName="Courier"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$V{InfCompl} != null && $V{InfCompl}.length() > 410 ? $V{InfCompl}.substring(0, 410) : $V{InfCompl}]]></textFieldExpression>
 			</textField>
