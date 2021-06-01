@@ -1806,7 +1806,7 @@ public class NFSeAbrasf100Impl implements INFSe
 	 * @param nf
 	 * @return
 	 */
-	public String cancel(MLBRNotaFiscal nf)
+	public boolean cancel(MLBRNotaFiscal nf)
 	{
 //		MOrgInfo orgInf = MOrgInfo.get (nf.getCtx(), nf.getAD_Org_ID(), null);
 		
@@ -1857,7 +1857,7 @@ public class NFSeAbrasf100Impl implements INFSe
 			new AdempiereException(e.getMessage());
 		}	
 		
-		return null;
+		return true;
 	}
 	
 	/**

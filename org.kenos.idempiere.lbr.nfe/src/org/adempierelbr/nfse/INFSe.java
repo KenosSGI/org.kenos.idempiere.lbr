@@ -96,4 +96,26 @@ public interface INFSe
 	 * 	@return PDF
 	 */
 	public File getPDF (MLBRNotaFiscal nf);
+	
+	/**
+	 * 	Cancel NF
+	 * @param nf
+	 * @return
+	 * @throws Exception
+	 */
+	default public boolean cancel (MLBRNotaFiscal nf) throws Exception
+	{
+		return false;
+	}	//	cancel
+	
+	/**
+	 * 	Replace NF
+	 * @param nf
+	 * @return
+	 * @throws Exception
+	 */
+	default public boolean replace (MLBRNotaFiscal nf) throws Exception
+	{
+		return false;
+	}	//	replace
 }	//	INFSe

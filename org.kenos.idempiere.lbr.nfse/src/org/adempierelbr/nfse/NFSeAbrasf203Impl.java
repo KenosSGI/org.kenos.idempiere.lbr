@@ -20,7 +20,6 @@ import org.adempierelbr.model.MLBRDigitalCertificate;
 import org.adempierelbr.model.MLBRNotaFiscal;
 import org.adempierelbr.model.MLBRNotaFiscalLine;
 import org.adempierelbr.nfse.util.FixedTxt;
-import org.adempierelbr.util.BPartnerUtil;
 import org.adempierelbr.util.NFeUtil;
 import org.adempierelbr.util.SignatureUtil;
 import org.adempierelbr.util.TextUtil;
@@ -37,16 +36,18 @@ import org.compiere.model.MOrgInfo;
 import org.compiere.model.MProduct;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
+import org.compiere.util.Util;
 
-import br.gov.sp.indaiatuba.nfse.CancelarNfseRequest;
-import br.gov.sp.indaiatuba.nfse.Input;
 import br.gov.sp.indaiatuba.nfse.NfseWebServiceServiceStub;
 import br.org.abrasf.nfse.CabecalhoDocument.Cabecalho;
+import br.org.abrasf.nfse.CancelarNfseEnvioDocument;
 import br.org.abrasf.nfse.CancelarNfseEnvioDocument.CancelarNfseEnvio;
+import br.org.abrasf.nfse.CancelarNfseRespostaDocument;
 import br.org.abrasf.nfse.GerarNfseEnvioDocument;
 import br.org.abrasf.nfse.GerarNfseRespostaDocument;
 import br.org.abrasf.nfse.GerarNfseRespostaDocument.GerarNfseResposta;
 import br.org.abrasf.nfse.ListaMensagemRetornoDocument.ListaMensagemRetorno;
+import br.org.abrasf.nfse.TcCancelamentoNfse;
 import br.org.abrasf.nfse.TcContato;
 import br.org.abrasf.nfse.TcCpfCnpj;
 import br.org.abrasf.nfse.TcDadosServico;
@@ -62,7 +63,6 @@ import br.org.abrasf.nfse.TcInfPedidoCancelamento;
 import br.org.abrasf.nfse.TcInfRps;
 import br.org.abrasf.nfse.TcPedidoCancelamento;
 import br.org.abrasf.nfse.TcValoresDeclaracaoServico;
-import br.org.abrasf.nfse.TsCodigoMunicipioIbge;
 import br.org.abrasf.nfse.TsItemListaServico;
 import br.org.abrasf.nfse.TsUf;
 import net.sf.jasperreports.engine.JasperExportManager;
@@ -182,7 +182,7 @@ public class NFSeAbrasf203Impl implements INFSe
 		
 		//	CPF/CNPJ Organização
 		TcCpfCnpj cpfcnpjPrestador = prestador.addNewCpfCnpj();
-		cpfcnpjPrestador.setCnpj(TextUtil.retiraEspecial(nf.getlbr_CNPJ()));
+		cpfcnpjPrestador.setCnpj(TextUtil.toNumeric(nf.getlbr_CNPJ()));
 
 		//	Inscrição Municipal Organização
 		if (nf.getlbr_OrgCCM() != null && !nf.getlbr_OrgCCM().isEmpty())
@@ -195,9 +195,9 @@ public class NFSeAbrasf203Impl implements INFSe
 		
 		// CPF ou CNPJ do Parceiro de Negócio
 		if (MLBRNotaFiscal.LBR_BPTYPEBR_PJ_LegalEntity.equals(nf.getlbr_BPTypeBR()))
-			cpfcnpjTomador.setCnpj(TextUtil.retiraEspecial(nf.getlbr_BPCNPJ()));
+			cpfcnpjTomador.setCnpj(TextUtil.toNumeric(nf.getlbr_BPCNPJ()));
 		else
-			cpfcnpjTomador.setCpf(TextUtil.retiraEspecial(nf.getlbr_BPCNPJ()));
+			cpfcnpjTomador.setCpf(TextUtil.toNumeric(nf.getlbr_BPCNPJ()));
 		
 		//	Inscrição Municipal do Parceiro de Negócio
 		if (nf.getlbr_BPCity() != null && nf.getlbr_BPCity().equals(nf.getlbr_OrgCity())
@@ -205,11 +205,11 @@ public class NFSeAbrasf203Impl implements INFSe
 			tomador.setInscricaoMunicipal(TextUtil.toNumeric(partner.get_ValueAsString("LBR_CCM")));
 		
 		//	Dados do Tomador do Serviço / Parceiro de Negócio
-		dadosTomador.setRazaoSocial(TextUtil.retiraEspecial(nf.getBPName()));
+		dadosTomador.setRazaoSocial(TextUtil.toNumeric(nf.getBPName()));
 		TcEndereco endTomador = dadosTomador.addNewEndereco();
-		endTomador.setEndereco(TextUtil.retiraEspecial(nf.getlbr_BPAddress1()));
-		endTomador.setNumero(TextUtil.retiraEspecial(nf.getlbr_BPAddress2()));
-		endTomador.setBairro(TextUtil.retiraEspecial(nf.getlbr_BPAddress3()));
+		endTomador.setEndereco(TextUtil.toNumeric(nf.getlbr_BPAddress1()));
+		endTomador.setNumero(TextUtil.toNumeric(nf.getlbr_BPAddress2()));
+		endTomador.setBairro(Util.deleteAccents(nf.getlbr_BPAddress3()));
 		endTomador.setCodigoMunicipio(nf.getlbr_BPCityCode());
 		endTomador.setCep(TextUtil.toNumeric (nf.getlbr_BPPostal()));
 		endTomador.setUf(TsUf.Enum.forString(nf.getlbr_BPRegion()));
@@ -219,7 +219,7 @@ public class NFSeAbrasf203Impl implements INFSe
 		// Contato do Parceiro de Negócio
 		TcContato contatoTomador = dadosTomador.addNewContato();
 		if (nf.getlbr_BPPhone() != null && !nf.getlbr_BPPhone().isEmpty())
-			contatoTomador.setTelefone(TextUtil.retiraEspecial(nf.getlbr_BPPhone()));
+			contatoTomador.setTelefone(TextUtil.toNumeric(nf.getlbr_BPPhone()));
 		if (partner.get_ValueAsString("LBR_EMailNFe") != null && !partner.get_ValueAsString("LBR_EMailNFe").isEmpty())
 			contatoTomador.setEmail(partner.get_ValueAsString("LBR_EMailNFe"));
 		
@@ -1548,62 +1548,96 @@ public class NFSeAbrasf203Impl implements INFSe
 	 * @param nf
 	 * @return
 	 */
-	public String cancel(MLBRNotaFiscal nf)
+	public boolean cancel (MLBRNotaFiscal nf)
 	{
-		MOrgInfo orgInf = MOrgInfo.get (nf.getCtx(), nf.getAD_Org_ID(), null);
+		if (nf.getlbr_NFENo() == null)
+			return false;
 		
-		CancelarNfseEnvio cancelNf = CancelarNfseEnvio.Factory.newInstance();
+		CancelarNfseEnvioDocument cancelDoc = CancelarNfseEnvioDocument.Factory.newInstance();
+		CancelarNfseEnvio cancelNf = cancelDoc.addNewCancelarNfseEnvio();
 		
 		TcPedidoCancelamento cancelOrder = cancelNf.addNewPedido();
 		TcInfPedidoCancelamento infCancelOrder = cancelOrder.addNewInfPedidoCancelamento();
+		infCancelOrder.setCodigoCancelamento((byte) 2);
+		infCancelOrder.setId("1");
 		
 		TcIdentificacaoNfse identNfse = infCancelOrder.addNewIdentificacaoNfse();
-		
-		identNfse.setNumero(new BigDecimal(nf.getDocumentNo()).longValue());
-		
-		//	CPF/CNPJ Organização
-		/*TcCpfCnpj cpfcnpjPrestador = identNfse.addNewCpfCnpj();
-		cpfcnpjPrestador.setCnpj(TextUtil.retiraEspecial(nf.getlbr_CNPJ()));
-		identNfse.setInscricaoMunicipal(nf.getlbr_OrgCCM());*/
-		
-		TsCodigoMunicipioIbge ibge =  TsCodigoMunicipioIbge.Factory.newInstance();
-		ibge.set(BPartnerUtil.getCityCode (nf.getlbr_OrgRegion(), nf.getlbr_OrgCity()));
-		identNfse.xsetCodigoMunicipio(ibge);
-		
+		identNfse.setNumero(new BigDecimal(nf.getlbr_NFENo()).longValue());
+		identNfse.setCodigoMunicipio(nf.getlbr_BPCityCode());
+		identNfse.setInscricaoMunicipal(TextUtil.toNumeric(nf.getlbr_OrgCCM()));
+
+		TcCpfCnpj cpfcnpjPrestador = identNfse.addNewCpfCnpj();
+		cpfcnpjPrestador.setCnpj(TextUtil.toNumeric(nf.getlbr_CNPJ()));
+
 		Cabecalho header = Cabecalho.Factory.newInstance();
 		header.setVersao("2.03");
 		header.setVersaoDados("");
-		
-		/**
-		 *	Enviar NF-e
-		 */
-		//
-		Input inputXmlNfse = new Input();
-		inputXmlNfse.setNfseCabecMsg(header.xmlText());
-		inputXmlNfse.setNfseDadosMsg(cancelOrder.getInfPedidoCancelamento().xmlText());
-		
-		CancelarNfseRequest resquest = new CancelarNfseRequest();
-		resquest.setCancelarNfseRequest(inputXmlNfse);
-		
+				
 		try
 		{
+			MOrgInfo orgInf = MOrgInfo.get (nf.getCtx(), nf.getAD_Org_ID(), null);
+			new SignatureUtil (orgInf, SignatureUtil.OUTROS, "InfPedidoCancelamento").sign (cancelDoc, cancelNf.getPedido().newCursor());
+			
+			//	Valida o documento
+			NFeUtil.validate (cancelDoc);
+					
 			//	Set certificate
 			MLBRDigitalCertificate.setCertificate (Env.getCtx(), nf.getAD_Org_ID());
 			
-			NfseWebServiceServiceStub nfseStub = new NfseWebServiceServiceStub();
+			String url = "https://deiss.indaiatuba.sp.gov.br/homologacao/nfse";
+			if (MLBRNotaFiscal.LBR_NFEENV_Production.equals(nf.getlbr_NFeEnv()))
+				url = "https://deiss.indaiatuba.sp.gov.br/producao/nfse";
 			
+			NfseWebServiceServiceStub nfseStub = new NfseWebServiceServiceStub(url);
 			nfseStub._getServiceClient().getOptions().setProperty(HTTPConstants.CHUNKED, false);	
 			
-			String result = nfseStub.cancelarNfse(header.xmlText(), cancelOrder.getInfPedidoCancelamento().xmlText());
+			String result = nfseStub.cancelarNfse(header.xmlText(), cancelDoc.xmlText());
 			System.out.println(result);
+			
+			CancelarNfseRespostaDocument response = CancelarNfseRespostaDocument.Factory.parse(result);
+			
+			//	Check error messages
+			ListaMensagemRetorno listaMensagemRetorno = response.getCancelarNfseResposta().getListaMensagemRetorno();
+			if (listaMensagemRetorno != null)
+			{
+				StringBuilder msgRetorno = new StringBuilder ();
+				Arrays.asList(listaMensagemRetorno.getMensagemRetornoArray())
+					.forEach(msg -> {
+						msgRetorno
+							.append("Cod=").append(msg.getCodigo())
+							.append(", Correção=").append(msg.getCorrecao())
+							.append(", Msg=").append(msg.getMensagem())
+							.append("\n");
+					});
+				//
+				log.warning("NFS-e " + nf.toString() + " - " + msgRetorno.toString());
+				nf.setErrorMsg(msgRetorno.toString());
+				nf.save();
+			}
+			
+			//	Adicionar Protocolo do Lote
+			if (response.getCancelarNfseResposta().getRetCancelamento() != null 
+					&& response.getCancelarNfseResposta().getRetCancelamento().getNfseCancelamento() != null)
+			{
+				TcCancelamentoNfse confirm = response.getCancelarNfseResposta().getRetCancelamento().getNfseCancelamento();
+				//
+				nf.setlbr_MotivoCancel("" + confirm.getConfirmacao().getDataHora());
+				
+				nf.setDocStatus(MLBRNotaFiscal.DOCSTATUS_Voided);
+				nf.setDocAction(MLBRNotaFiscal.DOCACTION_None);
+				nf.setIsCancelled(Boolean.TRUE);
+				nf.save();
+			}
+			else
+				return false;
 		}
 		catch (Exception e)
 		{
-			new AdempiereException(e.getMessage());
+			throw new AdempiereException(e.getMessage());
 		}	
 		
-		return null;
-	}
+		return true;
+	}	//	cancel
 	
 	/**
 	 * Buscar informação da Tag do XML

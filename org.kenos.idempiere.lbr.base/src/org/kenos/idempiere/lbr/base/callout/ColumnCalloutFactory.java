@@ -14,6 +14,7 @@ import org.compiere.model.MInvoiceLine;
 import org.compiere.model.MMovementLine;
 import org.compiere.model.MOrder;
 import org.compiere.model.MOrderLine;
+import org.compiere.model.MPayment;
 
 /**
  * 		Callout Factory
@@ -71,6 +72,11 @@ public class ColumnCalloutFactory implements IColumnCalloutFactory
 		{
 			if (TextUtil.match (columnName, MMovementLine.COLUMNNAME_M_Product_ID))
 				callouts.add (new MovementLine());
+		}
+		else if (MPayment.Table_Name.equals(tableName))
+		{
+			if (TextUtil.match (columnName, MPayment.COLUMNNAME_C_Invoice_ID))
+				callouts.add (new Payment());
 		}
 		
 		IColumnCallout[] result = new IColumnCallout[callouts.size()];
