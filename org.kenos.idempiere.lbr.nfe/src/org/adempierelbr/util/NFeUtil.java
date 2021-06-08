@@ -755,17 +755,17 @@ public abstract class NFeUtil
 	 * @param parametros
 	 * @return
 	 */
-	public static String generateQRCodeParamsURL(Map<String, String> parametros) {
+	public static String generateQRCodeParamsURL(Map<String, String> param) {
 
 		String ret = "";
 		int nParameter = 0;
 
-		for (String key : parametros.keySet()) {
+		for (String key : param.keySet()) {
 
 			if (nParameter > 0)
 				ret += "|";
 
-			ret += parametros.get(key);
+			ret += param.get(key);
 
 			nParameter++;
 		}
@@ -818,8 +818,8 @@ public abstract class NFeUtil
 		String nVersao = NFeUtil.VERSAO_QR_CODE;
 		String vNF = TextUtil.bigdecimalToString(nf.getGrandTotal());
 		String digest = digestValue;
-		String tokenID = csc.getValue();//"000001";//
-		String token = csc.getName();//"C1774291-A86A-4ADA-B247-791207C6CF50";//
+		String tokenID = csc.getValue();
+		String token = csc.getName();
 
 		// generate
 		return generateQRCodeNFCeURL(chNFe, nVersao, tpAmb, cDest, dhEmi, vNF, vICMS, digest, tokenID, token, url);
@@ -861,17 +861,10 @@ public abstract class NFeUtil
 		parametros.put("chNFe", chNFe);
 		parametros.put("nVersao", nVersao);
 		parametros.put("tpAmb", tpAmb);
-//		if (!TextUtil.toNumeric(cDest).isEmpty()){
-//			parametros.put("cDest", TextUtil.toNumeric(cDest));
-//		}
-//		parametros.put("dhEmi", TextUtil.convertStringToHex(normalizeTZ (dhEmi)));
-//		parametros.put("vNF", vNF);
-//		parametros.put("vICMS", vICMS);
-//		parametros.put("digVal", TextUtil.convertStringToHex(digest));
-		parametros.put("cIdToken", TextUtil.toNumeric(tokenID));
+		parametros.put("cIdToken", String.valueOf(Integer.valueOf(tokenID)));
 		      
 		// Calcula o hash do QR Code:
-		String hashQRCodeStr = generateQRCodeParamsURL(parametros);
+		String hashQRCodeStr = generateQRCodeParamsURL(parametros) + token;
 		String hashQRCode = TextUtil.byteArrayToHexString(TextUtil.generateSHA1(hashQRCodeStr));
 
 		//	Somente usado para criar o Hash
