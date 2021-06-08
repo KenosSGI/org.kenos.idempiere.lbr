@@ -31,6 +31,7 @@ import org.adempierelbr.model.MLBRNFTax;
 import org.adempierelbr.model.MLBRNotaFiscal;
 import org.adempierelbr.model.MLBRNotaFiscalDocRef;
 import org.adempierelbr.model.MLBRNotaFiscalLine;
+import org.adempierelbr.model.MLBRTax;
 import org.compiere.model.MInOut;
 import org.compiere.model.MInvoice;
 import org.compiere.model.MMovement;
@@ -38,6 +39,7 @@ import org.compiere.model.MOrder;
 import org.compiere.model.MQuery;
 import org.compiere.model.MRefList;
 import org.compiere.model.MRole;
+import org.compiere.model.MTax;
 import org.compiere.model.Query;
 import org.compiere.util.CLogger;
 import org.compiere.util.DB;
@@ -88,223 +90,186 @@ public class NotaFiscalAdditional extends ADForm
 	/**
 	 * 
 	 * @return
+	 * @throws Exception 
 	 */
-	protected int generateNFComplementar()
+	protected int generateNFComplementar(String trxName) throws Exception
 	{
-		String trxName = Trx.createTrxName();
+		//	Nota Fiscal Atual
+		MLBRNotaFiscal nf = new MLBRNotaFiscal (Env.getCtx(), (Integer)m_LBR_NotaFiscal_ID, trxName);
 		
-		try
-		{	
-			//	Nota Fiscal Atual
-			MLBRNotaFiscal nf = new MLBRNotaFiscal (Env.getCtx(), (Integer)m_LBR_NotaFiscal_ID, trxName);
-			
-			//	Nota Fiscal Complementar
-			MLBRNotaFiscal nfCompl = new MLBRNotaFiscal(Env.getCtx(), 0, trxName);
+		//	Nota Fiscal Complementar
+		MLBRNotaFiscal nfCompl = new MLBRNotaFiscal(Env.getCtx(), 0, trxName);
 
-			// Gerando NF Complementar
-			if (nf.getC_Invoice_ID() > 0)
-				nfCompl.generateNF((MInvoice)nf.getC_Invoice(), nf.isSOTrx());
-			else if (nf.getM_InOut_ID() > 0)
-				nfCompl.generateNF((MInOut)nf.getM_InOut(), nf.isSOTrx());
-			else if (nf.getC_Order_ID() > 0)
-				nfCompl.generateNF((MOrder)nf.getC_Order(), nf.isSOTrx());
-			else if (nf.getM_Movement_ID() > 0)
-				nfCompl.generateNF((MMovement)nf.getM_Movement(), nf.isSOTrx(), nf.getC_DocTypeTarget_ID());
-			
-			//	Recém Criada
-			nfCompl.m_justCreated = true;
-			
-			// Marcar como manual para Evitar Reprocessamento
-			nfCompl.setIsManual(true);
-			
-			// Adicionar Data Atual
-			nfCompl.setDateDoc(Env.getContextAsDate(Env.getCtx(), "Date"));		
-			
-			// Alterando Finalidade para NFe Complementar
-			nfCompl.setlbr_FinNFe(MLBRNotaFiscal.LBR_FINNFE_NFeComplementar);
-			
-			nfCompl.setlbr_CFOPNote("NOTA FISCAL COMPLEMENTAR");
-			
-			// Adicionando NF Referenciada
-			MLBRNotaFiscalDocRef nfDocRef = new MLBRNotaFiscalDocRef(Env.getCtx(), 0, nfCompl.get_TrxName());
-			nfDocRef.setAD_Org_ID(nfCompl.getAD_Org_ID());
-			nfDocRef.setLBR_NotaFiscal_ID(nfCompl.getLBR_NotaFiscal_ID());
-			nfDocRef.setLBR_NFeReferenced_ID(nf.getLBR_NotaFiscal_ID());
-			nfDocRef.setlbr_NFeID(nf.getlbr_NFeID());
-			
-			//	Verificando Modelo da NF
-			if (MLBRNotaFiscal.LBR_NFMODEL_NotaFiscalEletrônica.equals(nfCompl.getlbr_NFModel()))
-				nfDocRef.setLBR_FiscalDocRefType(MLBRNotaFiscalDocRef.LBR_FISCALDOCREFTYPE_NF_E);
-			else if (MLBRNotaFiscal.LBR_NFMODEL_CupomFiscalEmitidoPorECF.equals(nfCompl.getlbr_NFModel()))
-				nfDocRef.setLBR_FiscalDocRefType(MLBRNotaFiscalDocRef.LBR_FISCALDOCREFTYPE_CT_E);	
-			
-			nfDocRef.save();
-			
-			//	Zerar Nota Fiscal
-			clearNF(nfCompl);
-			
-			//	Preencher Nota Fiscal com os dados do Formulário
-			miniTableDataToNF(nfCompl);
-			
-			//	Commit
-			Trx.get(trxName, false).commit();
-			
-			log.warning("Nota Fiscal Complementar: " + nfCompl.getDocumentNo() + " - Organização: " + nfCompl.getlbr_OrgName());
-			
-			return nfCompl.getLBR_NotaFiscal_ID();
-
-		}
-		catch (Exception e)
-		{
-			Trx.get(trxName, false).rollback();
-			throw new AdempiereException(e.getMessage());
-		}		
+		// Gerando NF Complementar
+		if (nf.getC_Invoice_ID() > 0)
+			nfCompl.generateNF((MInvoice)nf.getC_Invoice(), nf.isSOTrx());
+		else if (nf.getM_InOut_ID() > 0)
+			nfCompl.generateNF((MInOut)nf.getM_InOut(), nf.isSOTrx());
+		else if (nf.getC_Order_ID() > 0)
+			nfCompl.generateNF((MOrder)nf.getC_Order(), nf.isSOTrx());
+		else if (nf.getM_Movement_ID() > 0)
+			nfCompl.generateNF((MMovement)nf.getM_Movement(), nf.isSOTrx(), nf.getC_DocTypeTarget_ID());
+		
+		//	Recém Criada
+		nfCompl.m_justCreated = true;
+		
+		// Marcar como manual para Evitar Reprocessamento
+		nfCompl.setIsManual(true);
+		
+		// Adicionar Data Atual
+		nfCompl.setDateDoc(Env.getContextAsDate(Env.getCtx(), "Date"));		
+		
+		// Alterando Finalidade para NFe Complementar
+		nfCompl.setlbr_FinNFe(MLBRNotaFiscal.LBR_FINNFE_NFeComplementar);
+		
+		nfCompl.setlbr_CFOPNote("NOTA FISCAL COMPLEMENTAR");
+		
+		// Adicionando NF Referenciada
+		MLBRNotaFiscalDocRef nfDocRef = new MLBRNotaFiscalDocRef(Env.getCtx(), 0, nfCompl.get_TrxName());
+		nfDocRef.setAD_Org_ID(nfCompl.getAD_Org_ID());
+		nfDocRef.setLBR_NotaFiscal_ID(nfCompl.getLBR_NotaFiscal_ID());
+		nfDocRef.setLBR_NFeReferenced_ID(nf.getLBR_NotaFiscal_ID());
+		nfDocRef.setlbr_NFeID(nf.getlbr_NFeID());
+		
+		//	Verificando Modelo da NF
+		if (MLBRNotaFiscal.LBR_NFMODEL_NotaFiscalEletrônica.equals(nfCompl.getlbr_NFModel()))
+			nfDocRef.setLBR_FiscalDocRefType(MLBRNotaFiscalDocRef.LBR_FISCALDOCREFTYPE_NF_E);
+		else if (MLBRNotaFiscal.LBR_NFMODEL_CupomFiscalEmitidoPorECF.equals(nfCompl.getlbr_NFModel()))
+			nfDocRef.setLBR_FiscalDocRefType(MLBRNotaFiscalDocRef.LBR_FISCALDOCREFTYPE_CT_E);	
+		
+		nfDocRef.save();
+		
+		//	Zerar Nota Fiscal
+		clearNF(nfCompl);
+		
+		//	Preencher Nota Fiscal com os dados do Formulário
+		miniTableDataToNF(nfCompl);
+		
+		log.warning("Nota Fiscal Complementar: " + nfCompl.getDocumentNo() + " - Organização: " + nfCompl.getlbr_OrgName());
+		
+		return nfCompl.getLBR_NotaFiscal_ID();	
 	}
 	
 	/**
 	 * Gerar Nota Fiscal Trinagular
 	 * @param nf de Remessa
 	 * @return
+	 * @throws Exception 
 	 */
-	public int generateNFTrinagular()
+	public int generateNFTrinagular(String trxName) throws Exception
 	{
-		String trxName = Trx.createTrxName();
+		// Criando Nota Trinagular
+		MLBRNotaFiscal nfTri = new MLBRNotaFiscal(Env.getCtx(), 0, trxName);
 		
-		try
+		//	Remessa
+		MInOut io = null;
+		
+		if ((Integer)m_M_InOut_ID > 0)
+			io = new MInOut (Env.getCtx(), (Integer)m_M_InOut_ID, trxName);
+		else if ((Integer)m_C_Order_ID > 0)
 		{
-			// Criando Nota Trinagular
-			MLBRNotaFiscal nfTri = new MLBRNotaFiscal(Env.getCtx(), 0, trxName);
+			io = new Query(Env.getCtx(), MInOut.Table_Name, "C_Order_ID = ? AND DocStatus IN ('CO','CL')", trxName)
+					.setParameters(m_C_Order_ID)
+					.first();				
+		}
+		
+		// Gerando NF Triangular a partir da Remessa
+		if (io != null && io.getM_InOut_ID() > 0)
+			nfTri.generateNF(io, io.isSOTrx());
+		else
+			throw new AdempiereException("Erro ao Gerar NF-e Triangular de Remessa. Remessa invalido");	
+		
+		// Evitar Reprocessamento
+		nfTri.m_justCreated = true;
+		
+		// Marcar como manual para Evitar Reprocessamento
+		nfTri.setIsManual(true);
+		
+		// Adicionar Data Atual
+		nfTri.setDateDoc(Env.getContextAsDate(Env.getCtx(), "Date"));
+		
+		//	Zerar Nota Fiscal
+		clearNF(nfTri);
+		
+		//	Preencher Nota Fiscal com os dados do Formulário
+		miniTableDataToNF(nfTri);
+		
+		/*// Zerando os Impostos das Linhas
+		for (MLBRNotaFiscalLine nfLine : nfTri.getLines())
+		{				
+			//	CFOP da NF de Cobrança
+			MLBRCFOP cfop = new MLBRCFOP(Env.getCtx(), nfLine.getLBR_CFOP_ID(), null);
 			
-			//	Remessa
-			MInOut io = null;
+			// CFOP da NF de Remessa
+			MLBRCFOP cfopShipment = null;
 			
-			if ((Integer)m_M_InOut_ID > 0)
-				io = new MInOut (Env.getCtx(), (Integer)m_M_InOut_ID, trxName);
-			else if ((Integer)m_C_Order_ID > 0)
+			//	FIXME: Não Usar HardCode
+			// Dentro do Estado: Se CFOP for 5.118 (ID 2000256) alterar para 5.923 (ID 2000363)
+			if (cfop.getLBR_CFOP_ID() == 2000256)
 			{
-				io = new Query(Env.getCtx(), MInOut.Table_Name, "C_Order_ID = ? AND DocStatus IN ('CO','CL')", trxName)
-						.setParameters(m_C_Order_ID)
-						.first();				
+				nfLine.setLBR_CFOP_ID(2000363);
+				cfopShipment = new MLBRCFOP(Env.getCtx(), 2000363, null);
+			}	
+			// Fora do Estado: Se CFOP for 6.118 (ID 2000391) alterar para 6.923 (ID 2000363)
+			else if (cfop.getLBR_CFOP_ID() == 2000391)
+			{
+				nfLine.setLBR_CFOP_ID(2000495);
+				cfopShipment = new MLBRCFOP(Env.getCtx(), 2000363, null);
 			}
 			
-			// Gerando NF Triangular a partir da Remessa
-			if (io != null && io.getM_InOut_ID() > 0)
-				nfTri.generateNF(io, io.isSOTrx());
-			else
-				throw new AdempiereException("Erro ao Gerar NF-e Triangular de Remessa. Remessa invalido");	
+			nfLine.save();
 			
-			// Evitar Reprocessamento
-			nfTri.m_justCreated = true;
+			// Adicionado Natureza da Operação
+			if (cfopShipment != null)
+				nfTri.setlbr_CFOPNote(cfopShipment.getDescription());
 			
-			// Marcar como manual para Evitar Reprocessamento
-			nfTri.setIsManual(true);
-			
-			// Adicionar Data Atual
-			nfTri.setDateDoc(Env.getContextAsDate(Env.getCtx(), "Date"));
-			
-			//	Zerar Nota Fiscal
-			clearNF(nfTri);
-			
-			//	Preencher Nota Fiscal com os dados do Formulário
-			miniTableDataToNF(nfTri);
-			
-			/*// Zerando os Impostos das Linhas
-			for (MLBRNotaFiscalLine nfLine : nfTri.getLines())
-			{				
-				//	CFOP da NF de Cobrança
-				MLBRCFOP cfop = new MLBRCFOP(Env.getCtx(), nfLine.getLBR_CFOP_ID(), null);
-				
-				// CFOP da NF de Remessa
-				MLBRCFOP cfopShipment = null;
-				
-				//	FIXME: Não Usar HardCode
-				// Dentro do Estado: Se CFOP for 5.118 (ID 2000256) alterar para 5.923 (ID 2000363)
-				if (cfop.getLBR_CFOP_ID() == 2000256)
-				{
-					nfLine.setLBR_CFOP_ID(2000363);
-					cfopShipment = new MLBRCFOP(Env.getCtx(), 2000363, null);
-				}	
-				// Fora do Estado: Se CFOP for 6.118 (ID 2000391) alterar para 6.923 (ID 2000363)
-				else if (cfop.getLBR_CFOP_ID() == 2000391)
-				{
-					nfLine.setLBR_CFOP_ID(2000495);
-					cfopShipment = new MLBRCFOP(Env.getCtx(), 2000363, null);
-				}
-				
-				nfLine.save();
-				
-				// Adicionado Natureza da Operação
-				if (cfopShipment != null)
-					nfTri.setlbr_CFOPNote(cfopShipment.getDescription());
-				
-				// Salvar
-				nfTri.save();
-			}*/
-			
-			// Preparar a NF
-			nfTri.prepareIt();
-			
-			//	Commit
-			Trx.get(trxName, false).commit();
-			
-			log.warning("Nota Fiscal Triangular de Remessa - NF-e: " + nfTri.getDocumentNo() + " - ID: " + nfTri.getLBR_NotaFiscal_ID());
-			
-			return nfTri.getLBR_NotaFiscal_ID();
-		}
-		catch (Exception e)
-		{
-			Trx.get(trxName, false).rollback();
-			throw new AdempiereException(e.getMessage());
-		}		
+			// Salvar
+			nfTri.save();
+		}*/
+		
+		// Preparar a NF
+		nfTri.prepareIt();
+		
+		log.warning("Nota Fiscal Triangular de Remessa - NF-e: " + nfTri.getDocumentNo() + " - ID: " + nfTri.getLBR_NotaFiscal_ID());
+		
+		return nfTri.getLBR_NotaFiscal_ID();
 	}
 	
 	/**
 	 * Gerar Nota Fiscal de Entregas Futuras
 	 * @param nf
 	 * @return
+	 * @throws Exception 
 	 */
-	public int generateNFEntregaFutura()
+	public int generateNFEntregaFutura(String trxName) throws Exception
 	{
-		String trxName = Trx.createTrxName();
+		// Criando Nota de Entregas Futuras
+		MLBRNotaFiscal nfEntFut = new MLBRNotaFiscal(Env.getCtx(), 0, null);
 		
-		try
-		{
-			// Criando Nota de Entregas Futuras
-			MLBRNotaFiscal nfEntFut = new MLBRNotaFiscal(Env.getCtx(), 0, null);
-			
-			MInOut io = new MInOut (Env.getCtx(), (Integer)m_M_InOut_ID, trxName);
-			
-			// Gerando NF Entrega a partir da Remessa
-			if (io != null && io.getM_InOut_ID() > 0)
-				nfEntFut.generateNF(io, io.isSOTrx());		
-			else
-				throw new AdempiereException("Erro ao Gerar NF-e de Entregas Futuras. Remessa invalido");	
-			
-			// Marcar como manual para Evitar Reprocessamento
-			nfEntFut.setIsManual(true);
-			
-			// Adicionar Data Atual
-			nfEntFut.setDateDoc(Env.getContextAsDate(Env.getCtx(), "Date"));
-			
-			//	Zerar Nota Fiscal
-			clearNF(nfEntFut);
-			
-			//	Preencher Nota Fiscal com os dados do Formulário
-			miniTableDataToNF(nfEntFut);
-	
-			//	Commit
-			Trx.get(trxName, false).commit();
-			
-			log.warning("Nota Fiscal de Entrega Futura - NF-e: " + nfEntFut.getDocumentNo() + " - ID: " + nfEntFut.getLBR_NotaFiscal_ID());
-			
-			return nfEntFut.getLBR_NotaFiscal_ID();
-		}
-		catch (Exception e)
-		{
-			Trx.get(trxName, false).rollback();
-			throw new AdempiereException(e.getMessage());
-		}
-	}
+		MInOut io = new MInOut (Env.getCtx(), (Integer)m_M_InOut_ID, trxName);
+		
+		// Gerando NF Entrega a partir da Remessa
+		if (io != null && io.getM_InOut_ID() > 0)
+			nfEntFut.generateNF(io, io.isSOTrx());		
+		else
+			throw new AdempiereException("Erro ao Gerar NF-e de Entregas Futuras. Remessa invalido");	
+		
+		// Marcar como manual para Evitar Reprocessamento
+		nfEntFut.setIsManual(true);
+		
+		// Adicionar Data Atual
+		nfEntFut.setDateDoc(Env.getContextAsDate(Env.getCtx(), "Date"));
+		
+		//	Zerar Nota Fiscal
+		clearNF(nfEntFut);
+		
+		//	Preencher Nota Fiscal com os dados do Formulário
+		miniTableDataToNF(nfEntFut);
+		
+		log.warning("Nota Fiscal de Entrega Futura - NF-e: " + nfEntFut.getDocumentNo() + " - ID: " + nfEntFut.getLBR_NotaFiscal_ID());
+		
+		return nfEntFut.getLBR_NotaFiscal_ID();
+	}	//	generateNFEntregaFutura
 	
 	/**
 	 * 
@@ -439,8 +404,9 @@ public class NotaFiscalAdditional extends ADForm
 	/**
 	 * 
 	 * @param nfAdd
+	 * @throws Exception 
 	 */
-	protected void miniTableDataToNF(MLBRNotaFiscal nfAdd)
+	protected void miniTableDataToNF(MLBRNotaFiscal nfAdd) throws Exception
 	{
 		// Zerando os Impostos do Cabeçalho
 		List<MLBRNFTax> nfTaxes = new Query(Env.getCtx(), MLBRNFTax.Table_Name, "LBR_NotaFiscal_ID=?", nfAdd.get_TrxName())
@@ -449,14 +415,36 @@ public class NotaFiscalAdditional extends ADForm
 				
 		//	Total ICMS
 		MLBRNFTax nfTaxICMS = null;
-			
+		int taxGroup = 0;
+		
 		//	Zerando Impostos
 		for (MLBRNFTax nfTax : nfTaxes)
 		{
 			//	ICMS
-			if (nfTax.getLBR_TaxGroup_ID() == 1120000)
+			taxGroup = new Query (Env.getCtx(), MTax.Table_Name, "LBR_TaxName_ID=?", null)
+				.setClient_ID()
+				.setParameters(MLBRTax.TAX_ICMS).list().stream()
+				.filter(java.util.Objects::nonNull)
+				.map(t -> t.get_ValueAsInt("LBR_TaxGroup_ID"))
+				.filter(t -> t == nfTax.getLBR_TaxGroup_ID()).findFirst().orElse(0);
+			if (taxGroup > 0)
+			{
 				nfTaxICMS = nfTax;
+				break;
+			}
 		}
+		if (taxGroup == 0)
+		{
+			taxGroup = new Query (Env.getCtx(), MTax.Table_Name, "LBR_TaxName_ID=?", null)
+					.setClient_ID()
+					.setParameters(MLBRTax.TAX_ICMS).list().stream()
+					.filter(java.util.Objects::nonNull)
+					.map(t -> t.get_ValueAsInt("LBR_TaxGroup_ID"))
+					.filter(t -> t > 0)
+					.findFirst().orElse(0);
+		}
+		if (taxGroup == 0)
+			throw new Exception ("Unable to find ICMS Tax Group for NF");
 		
 		int i = 0;
 		
@@ -488,10 +476,12 @@ public class NotaFiscalAdditional extends ADForm
 					BigDecimal taxRate = (BigDecimal) miniTableNF.getValueAt(i, 8);
 					BigDecimal taxAmt = (BigDecimal) miniTableNF.getValueAt(i, 9);
 					
-					MLBRNFLineTax nflTax = new Query(Env.getCtx(), MLBRNFLineTax.Table_Name, "LBR_NotaFiscalLine_ID = ? AND LBR_TaxGroup_ID=1120000", nfAdd.get_TrxName())
-											.setParameters(nfl.getLBR_NotaFiscalLine_ID())
+					MLBRNFLineTax nflTax = new Query(Env.getCtx(), MLBRNFLineTax.Table_Name, "LBR_NotaFiscalLine_ID = ? AND LBR_TaxGroup_ID=?", nfAdd.get_TrxName())
+											.setParameters(nfl.getLBR_NotaFiscalLine_ID(), taxGroup)
 											.first();
 					
+					if (nflTax == null)
+						throw new AdempiereException ("Grupo de impostos não encontrado");
 					nflTax.setlbr_TaxBaseAmt(taxBaseAmt);
 					nflTax.setlbr_TaxRate(taxRate);
 					nflTax.setlbr_TaxAmt(taxAmt);
@@ -521,7 +511,7 @@ public class NotaFiscalAdditional extends ADForm
 		{
 			nfTaxICMS = new MLBRNFTax(Env.getCtx(), 0, nfAdd.get_TrxName());
 			nfTaxICMS.setLBR_NotaFiscal_ID(nfAdd.getLBR_NotaFiscal_ID());
-			nfTaxICMS.setLBR_TaxGroup_ID(1120000); // Grupo ICMS
+			nfTaxICMS.setLBR_TaxGroup_ID(taxGroup);
 		}
 		
 		nfTaxICMS.setlbr_TaxBaseAmt(taxBaseAmtTotal);

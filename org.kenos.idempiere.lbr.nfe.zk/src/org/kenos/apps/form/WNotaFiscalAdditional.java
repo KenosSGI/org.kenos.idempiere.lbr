@@ -32,6 +32,7 @@ import org.compiere.util.DisplayType;
 import org.compiere.util.Env;
 import org.compiere.util.KeyNamePair;
 import org.compiere.util.Msg;
+import org.compiere.util.Trx;
 import org.kenos.idempiere.lbr.nfe.zk.form.NotaFiscalAdditional;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.Event;
@@ -311,14 +312,27 @@ public class WNotaFiscalAdditional extends NotaFiscalAdditional implements IForm
 			{
 				if (NotaFiscal_ID > 0)
 				{
-					if (TYPE_NOTAFISCAL_ADDITIONAL_COMPLEMENTAR.equals(typenf))
-						NotaFiscal_ID = generateNFComplementar();
-					else if (TYPE_NOTAFISCAL_ADDITIONAL_ENTREGAFUTURA.equals(typenf))
-						NotaFiscal_ID = generateNFEntregaFutura();
-					else if (TYPE_NOTAFISCAL_ADDITIONAL_TRIANGULAR.equals(typenf))
-						NotaFiscal_ID = generateNFTrinagular();
-					else if (TYPE_NOTAFISCAL_ADDITIONAL_ANULACAOVALORES.equals(typenf))
-						NotaFiscal_ID = generateNFComplementar();				
+					String trxName = Trx.createTrxName();
+					Trx trx = Trx.get (trxName, false);
+					
+					try
+					{
+						if (TYPE_NOTAFISCAL_ADDITIONAL_COMPLEMENTAR.equals(typenf))
+							NotaFiscal_ID = generateNFComplementar(trxName);
+						else if (TYPE_NOTAFISCAL_ADDITIONAL_ENTREGAFUTURA.equals(typenf))
+							NotaFiscal_ID = generateNFEntregaFutura(trxName);
+						else if (TYPE_NOTAFISCAL_ADDITIONAL_TRIANGULAR.equals(typenf))
+							NotaFiscal_ID = generateNFTrinagular(trxName);
+						else if (TYPE_NOTAFISCAL_ADDITIONAL_ANULACAOVALORES.equals(typenf))
+							NotaFiscal_ID = generateNFComplementar(trxName);	
+						//
+						trx.commit();
+					}
+					catch (Exception ex)
+					{
+						ex.printStackTrace();
+						trx.rollback();
+					}
 					
 					openNFAdditional(NotaFiscal_ID);
 					
