@@ -4878,7 +4878,7 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		if (DOCSTATUS_Completed.equals(getDocStatus()))
 		{
 			if (LBR_NFESTATUS_100_AutorizadoOUsoDaNF_E.equals(getlbr_NFeStatus())
-					&& LBR_NFMODEL_NotaFiscalEletrônica.equals(getlbr_NFModel()))
+					&& TextUtil.match(getlbr_NFModel(), LBR_NFMODEL_NotaFiscalEletrônica, LBR_NFMODEL_NotaFiscalDeConsumidorEletrônica))
 			{
 				try
 				{
