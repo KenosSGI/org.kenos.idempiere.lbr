@@ -43,6 +43,8 @@ public class ModelFactory implements IModelFactory
 			return MRegion.class;
 		else if (MBPartnerLocation.Table_Name.equals(tableName))
 			return MBPartnerLocation.class;
+		else if (MInOut.Table_Name.equals(tableName))
+			return MInOut.class;
 		return null;
 	}	//	getClass
 
@@ -75,6 +77,8 @@ public class ModelFactory implements IModelFactory
 			return new MRegion (Env.getCtx(), Record_ID, trxName);
 		else if (MBPartnerLocation.Table_Name.equals(tableName))
 			return new MBPartnerLocation (Env.getCtx(), Record_ID, trxName);
+		else if (MInOut.Table_Name.equals(tableName))
+			return new MInOut (Env.getCtx(), Record_ID, trxName);
 		return null;
 	}	//	getPO
 
@@ -107,6 +111,8 @@ public class ModelFactory implements IModelFactory
 			return new MRegion (Env.getCtx(), rs, trxName);
 		else if (MBPartnerLocation.Table_Name.equals(tableName))
 			return new MBPartnerLocation (Env.getCtx(), rs, trxName);
+		else if (MInOut.Table_Name.equals(tableName))
+			return new MInOut (Env.getCtx(), rs, trxName);
 		return null;
 	}	//	getPO
 }	//	ModelFactory
