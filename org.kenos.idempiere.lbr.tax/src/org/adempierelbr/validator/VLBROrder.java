@@ -15,6 +15,7 @@ import org.adempiere.model.POWrapper;
 import org.adempierelbr.model.MLBRTax;
 import org.adempierelbr.model.MLBRTaxLine;
 import org.adempierelbr.model.X_LBR_CFOPLine;
+import org.adempierelbr.util.TextUtil;
 import org.adempierelbr.wrapper.I_W_AD_ClientInfo;
 import org.adempierelbr.wrapper.I_W_C_BPartner;
 import org.adempierelbr.wrapper.I_W_C_Invoice;
@@ -163,6 +164,31 @@ public class VLBROrder implements ModelValidator
 	 */
 	public String modelChange (MOrder order, int type) throws Exception
 	{
+		//	Validation CNPJ/CPF
+		if (type == TYPE_BEFORE_NEW || order.is_ValueChanged(I_W_C_Order.COLUMNNAME_LBR_CNPJF))
+		{
+			String cnpjf = (String) order.get_Value(I_W_C_Order.COLUMNNAME_LBR_CNPJF);
+			//
+			if (cnpjf == null || cnpjf.isBlank())
+				return null;
+			
+			int length = TextUtil.toNumeric(cnpjf).length();
+			
+			if (length == 11)
+			{
+				if (!ValidatorBPartner.validaCPF(cnpjf))
+					return "CPF Inválido";
+			}
+			else if (length == 14)
+			{
+				if (!ValidatorBPartner.validaCNPJ(cnpjf))
+					return "CNPJ Inválido";
+			}
+			else
+				return "Documento CNPJ/CPF Inválido";
+			
+		}
+		
 		/**
 		 * 	Faz as validações dos valores para evitar erros
 		 */

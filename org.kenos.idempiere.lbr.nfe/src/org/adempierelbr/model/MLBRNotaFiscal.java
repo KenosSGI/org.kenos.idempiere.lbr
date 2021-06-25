@@ -2585,9 +2585,31 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		{
 			setDocumentNo(wInvoice.getlbr_NFEntrada());
 		}
-		
+
 		//	Dados do Parceiro
-		setBPartner(new MBPartnerLocation (getCtx(), wInvoice.getC_BPartner_Location_ID(), get_TrxName()));
+		int POS_BPartner_ID = Env.getContextAsInt(p_ctx, "#POS_BPartner_ID");
+		if (POS_BPartner_ID == wInvoice.getC_BPartner_ID())
+		{
+			//	Somente quando o pedido estiver preenchido
+			if (wInvoice.getC_Order_ID() > 0)
+			{
+				I_W_C_Order wOrder = POWrapper.create(new MOrder (getCtx(), wInvoice.getC_Order_ID(), get_TrxName()), I_W_C_Order.class);
+				//
+				String cnpjf = wOrder.getLBR_CNPJF();
+				if (cnpjf != null)
+				{
+					setlbr_BPCNPJ(cnpjf);
+					int length = TextUtil.toNumeric(cnpjf).length();
+					//
+					if (length == 11)
+						setlbr_BPTypeBR(MLBRNotaFiscal.LBR_BPTYPEBR_PF_Individual);
+					else if (length == 14)
+						setlbr_BPTypeBR(MLBRNotaFiscal.LBR_BPTYPEBR_PJ_LegalEntity);
+				}
+			}
+		}
+		else
+			setBPartner(new MBPartnerLocation (getCtx(), wInvoice.getC_BPartner_Location_ID(), get_TrxName()));
 		
 		//	Intermediador/Marketplace
 		if (wInvoice.getC_Order_ID() > 0)
@@ -2627,8 +2649,24 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		setlbr_TotalSISCOMEX(VLBROrder.getChargeAmt(POWrapper.getPO(wOrder), VLBROrder.SISCOMEX));
 		
 		//	Dados do Parceiro
-		setBPartner(new MBPartnerLocation (getCtx(), wOrder.getC_BPartner_Location_ID(), get_TrxName()));
-		
+		int POS_BPartner_ID = Env.getContextAsInt(p_ctx, "#POS_BPartner_ID");
+		if (POS_BPartner_ID == wOrder.getC_BPartner_ID())
+		{
+			String cnpjf = wOrder.getLBR_CNPJF();
+			if (cnpjf != null)
+			{
+				setlbr_BPCNPJ(cnpjf);
+				int length = TextUtil.toNumeric(cnpjf).length();
+				//
+				if (length == 11)
+					setlbr_BPTypeBR(MLBRNotaFiscal.LBR_BPTYPEBR_PF_Individual);
+				else if (length == 14)
+					setlbr_BPTypeBR(MLBRNotaFiscal.LBR_BPTYPEBR_PJ_LegalEntity);
+			}
+		}
+		else
+			setBPartner(new MBPartnerLocation (getCtx(), wOrder.getC_BPartner_Location_ID(), get_TrxName()));
+				
 		//	Intermediador/Marketplace
 		setOrderSource(wOrder.getC_OrderSource_ID());
 	}	//	Invoice
