@@ -17,8 +17,8 @@
 package org.adempierelbr.wrapper;
 
 import java.math.BigDecimal;
-import org.compiere.model.*;
-import org.compiere.util.KeyNamePair;
+
+import org.compiere.model.I_C_Order;
 
 /** Generated Interface for C_Order
  *  @author iDempiere (generated) 
@@ -349,4 +349,17 @@ public interface I_W_C_Order extends I_C_Order
 	  * Defines the Transaction Type
 	  */
 	public String getlbr_TransactionType();
+	
+    /** Column name COLUMNNAME_LBR_CNPJF */
+    public static final String COLUMNNAME_LBR_CNPJF = "LBR_CNPJF";
+	
+	/** Set CNPJ/CPF.
+	  * Defines the CNPJ/CPF
+	  */
+	public void setLBR_CNPJF (String LBR_CNPJF);
+
+	/** Get CNPJ/CPF.
+	  * Defines CNPJ/CPF
+	  */
+	public String getLBR_CNPJF();
 }

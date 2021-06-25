@@ -2585,9 +2585,31 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		{
 			setDocumentNo(wInvoice.getlbr_NFEntrada());
 		}
-		
+
 		//	Dados do Parceiro
-		setBPartner(new MBPartnerLocation (getCtx(), wInvoice.getC_BPartner_Location_ID(), get_TrxName()));
+		int POS_BPartner_ID = Env.getContextAsInt(p_ctx, "#POS_BPartner_ID");
+		if (POS_BPartner_ID == wInvoice.getC_BPartner_ID())
+		{
+			//	Somente quando o pedido estiver preenchido
+			if (wInvoice.getC_Order_ID() > 0)
+			{
+				I_W_C_Order wOrder = POWrapper.create(new MOrder (getCtx(), wInvoice.getC_Order_ID(), get_TrxName()), I_W_C_Order.class);
+				//
+				String cnpjf = wOrder.getLBR_CNPJF();
+				if (cnpjf != null)
+				{
+					setlbr_BPCNPJ(cnpjf);
+					int length = TextUtil.toNumeric(cnpjf).length();
+					//
+					if (length == 11)
+						setlbr_BPTypeBR(MLBRNotaFiscal.LBR_BPTYPEBR_PF_Individual);
+					else if (length == 14)
+						setlbr_BPTypeBR(MLBRNotaFiscal.LBR_BPTYPEBR_PJ_LegalEntity);
+				}
+			}
+		}
+		else
+			setBPartner(new MBPartnerLocation (getCtx(), wInvoice.getC_BPartner_Location_ID(), get_TrxName()));
 		
 		//	Intermediador/Marketplace
 		if (wInvoice.getC_Order_ID() > 0)
@@ -2627,8 +2649,24 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		setlbr_TotalSISCOMEX(VLBROrder.getChargeAmt(POWrapper.getPO(wOrder), VLBROrder.SISCOMEX));
 		
 		//	Dados do Parceiro
-		setBPartner(new MBPartnerLocation (getCtx(), wOrder.getC_BPartner_Location_ID(), get_TrxName()));
-		
+		int POS_BPartner_ID = Env.getContextAsInt(p_ctx, "#POS_BPartner_ID");
+		if (POS_BPartner_ID == wOrder.getC_BPartner_ID())
+		{
+			String cnpjf = wOrder.getLBR_CNPJF();
+			if (cnpjf != null)
+			{
+				setlbr_BPCNPJ(cnpjf);
+				int length = TextUtil.toNumeric(cnpjf).length();
+				//
+				if (length == 11)
+					setlbr_BPTypeBR(MLBRNotaFiscal.LBR_BPTYPEBR_PF_Individual);
+				else if (length == 14)
+					setlbr_BPTypeBR(MLBRNotaFiscal.LBR_BPTYPEBR_PJ_LegalEntity);
+			}
+		}
+		else
+			setBPartner(new MBPartnerLocation (getCtx(), wOrder.getC_BPartner_Location_ID(), get_TrxName()));
+				
 		//	Intermediador/Marketplace
 		setOrderSource(wOrder.getC_OrderSource_ID());
 	}	//	Invoice
@@ -2785,7 +2823,7 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 			return;
 
 		I_W_C_BPartner bp = POWrapper.create(new MBPartner (bpLocation.getCtx(), bpLocation.getC_BPartner_ID(), bpLocation.get_TrxName()), I_W_C_BPartner.class);
-		
+
 		//	Check POS
 		int POS_BPartner_ID = Env.getContextAsInt(p_ctx, "#POS_BPartner_ID");
 		if (POS_BPartner_ID == bp.getC_BPartner_ID())
@@ -5322,29 +5360,32 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 	}	//	calculateWeight
 	
 	/**
-	 * 
+	 * 	Calculate the No. of Packages
 	 */
 	public void calculateVolume ()
 	{
-		BigDecimal volume = Env.ZERO;
+		BigDecimal volume = Env.ONE;
 		
 		// Calc Volume Automatic
 		if (MSysConfig.getBooleanValue(SysConfig.LBR_CALC_VOLUME_QTYLINE_AUT, false, Env.getAD_Client_ID(Env.getCtx())))
 		{
-			for (MLBRNotaFiscalLine nfl : getLines())
-			{
-				if (nfl.getM_Product_ID() > 0)
-				{
-					volume = volume.add(nfl.getQty ().multiply(nfl.getM_Product ().getVolume()));
-				}
-			}
-		}
-		
-		if (volume.intValue() == 0)
-			volume = Env.ONE;
-		
+			Arrays.asList(getLines()).stream()
+				.map(l -> {
+					int unitsPerPack = 1;
+					
+					if (l.getM_Product_ID() < 1)
+						return Env.ZERO;
+					if (l.getM_Product().getUnitsPerPack() > 0)
+						unitsPerPack = l.getM_Product().getUnitsPerPack();
+					
+					return l.getQty().divide(new BigDecimal (unitsPerPack), 17, RoundingMode.HALF_UP);
+				})
+				.reduce(BigDecimal::add)
+				.orElse(Env.ONE);
+			//
 			if (getNoPackages() <= 1)
-			setNoPackages(volume.intValue());
+				setNoPackages(volume.setScale(0, RoundingMode.UP).intValue());
+		}
 	}	//	calculateVolume
 
 	/**

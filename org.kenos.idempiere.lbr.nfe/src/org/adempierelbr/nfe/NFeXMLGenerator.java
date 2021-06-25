@@ -1313,7 +1313,7 @@ public class NFeXMLGenerator
 				// 1=Exigível, 2=Não incidência; 3=Isenção; 4=Exportação;
 				// 5=Imunidade; 6=Exigibilidade Suspensa por Decisão Judicial;
 				// 7=Exigibilidade Suspensa por Processo Administrativo;
-				if (issTax.getLBR_TaxStatus() != null)
+				if (issTax.getLBR_TaxStatus_ID() > 0)
 					issqn.setIndISS(IndISS.Enum.forString(issTax.getLBR_TaxStatus().getName()));
 				else if (issTax.getlbr_TaxRate().signum() == 1)
 					issqn.setIndISS(IndISS.X_1);

@@ -19,6 +19,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Properties;
 import java.util.logging.Level;
 
@@ -293,12 +294,34 @@ public class ValidatorInOut implements ModelValidator
 	{
 		Properties ctx = inOut.getCtx();
 		String     trx = inOut.get_TrxName();
+		MInOutLine[] lines = inOut.getLines();
 
 		boolean beforeComplete = (timing == TIMING_BEFORE_COMPLETE || timing == TIMING_BEFORE_REVERSECORRECT);
 
-		if (beforeComplete)
+		if (timing == TIMING_BEFORE_PREPARE)
 		{
-			MInOutLine[] lines = inOut.getLines();
+			// 	Calculate volume
+			if (inOut.getNoPackages() <= 0 && MSysConfig.getBooleanValue(SysConfig.LBR_CALC_VOLUME_QTYLINE_AUT, false, Env.getAD_Client_ID(Env.getCtx())))
+			{
+				BigDecimal volume = Arrays.asList(lines).stream()
+					.map(l -> {
+						int unitsPerPack = 1;
+						
+						if (l.getM_Product_ID() < 1)
+							return Env.ZERO;
+						if (l.getM_Product().getUnitsPerPack() > 0)
+							unitsPerPack = l.getM_Product().getUnitsPerPack();
+						
+						return l.getMovementQty().divide(new BigDecimal (unitsPerPack), 17, RoundingMode.HALF_UP);
+					})
+					.reduce(BigDecimal::add)
+					.orElse(Env.ONE);
+				//
+				inOut.setNoPackages(volume.setScale(0, RoundingMode.UP).intValue());
+			}
+		}
+		else if (beforeComplete)
+		{
 			ArrayList<String> olines = new ArrayList<String>();
 
 			if (lines.length == 0)

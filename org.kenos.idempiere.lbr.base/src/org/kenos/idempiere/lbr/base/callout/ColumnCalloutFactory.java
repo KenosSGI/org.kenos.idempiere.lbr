@@ -7,6 +7,7 @@ import org.adempiere.base.IColumnCallout;
 import org.adempiere.base.IColumnCalloutFactory;
 import org.adempierelbr.util.TextUtil;
 import org.adempierelbr.wrapper.I_W_C_BPartner;
+import org.adempierelbr.wrapper.I_W_C_Order;
 import org.adempierelbr.wrapper.I_W_C_OrderLine;
 import org.compiere.model.MBPartner;
 import org.compiere.model.MInvoice;
@@ -46,6 +47,8 @@ public class ColumnCalloutFactory implements IColumnCalloutFactory
 				callouts.add (new SalesRepByRegion ());
 			if (TextUtil.match (columnName, MOrder.COLUMNNAME_Bill_BPartner_ID))
 				callouts.add (new CreditCheck ());
+			if (TextUtil.match (columnName, I_W_C_Order.COLUMNNAME_LBR_CNPJF))
+				callouts.add (new CNPJCheck ());
 		}
 		else if (MOrderLine.Table_Name.equals(tableName))
 		{
