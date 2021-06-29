@@ -271,7 +271,7 @@ public class MLBRNFeEvent extends X_LBR_NFeEvent implements DocAction
 		try
 		{
 			//Nota Fiscal Eletrônica
-			if (MLBRNotaFiscal.LBR_NFMODEL_NotaFiscalEletrônica.equals(getlbr_NFModel())) 
+			if (TextUtil.match(getlbr_NFModel(), MLBRNotaFiscal.LBR_NFMODEL_NotaFiscalEletrônica, MLBRNotaFiscal.LBR_NFMODEL_NotaFiscalDeConsumidorEletrônica)) 
 			{	
 				//	Dados do Envio
 				EnvEventoDocument envDoc = EnvEventoDocument.Factory.newInstance();
@@ -400,7 +400,10 @@ public class MLBRNFeEvent extends X_LBR_NFeEvent implements DocAction
 				log.fine (xml.toString());
 	
 				//	Procura os endereços para Transmissão
-				MLBRNFeWebService ws = MLBRNFeWebService.get (MLBRNFeWebService.RECEPCAOEVENTO, getlbr_NFeEnv(), NFeUtil.VERSAO_LAYOUT, p_Org_Region_ID, 0);
+				String wsName = MLBRNFeWebService.RECEPCAOEVENTO;
+				if (LBR_NFMODEL_NotaFiscalDeConsumidorEletrônica.equals(getlbr_NFModel()))
+					wsName = "NFCe" + wsName;
+				MLBRNFeWebService ws = MLBRNFeWebService.get (wsName, getlbr_NFeEnv(), NFeUtil.VERSAO_LAYOUT, p_Org_Region_ID, 0);
 				
 				if (ws == null)
 				{
