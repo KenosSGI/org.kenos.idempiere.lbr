@@ -10513,15 +10513,15 @@
   <value column="Description" original=""/>
  </row>
  <row trl="N" uuid="87c02141-1f45-4223-a8d2-a2c0d0ccc735">
-  <value column="Name" original="Sales Order Future Deliveries">Sales Order Future Deliveries</value>
+  <value column="Name" original="Sales Order Future Deliveries">Ordem de Venda para Entrega Futura</value>
   <value column="Description" original=""/>
  </row>
  <row trl="N" uuid="df2f85fc-852d-48a8-8a56-9b7d419e3cfa">
-  <value column="Name" original="Sales Order Triangular Transaction">Sales Order Triangular Transaction</value>
+  <value column="Name" original="Sales Order Triangular Transaction">Ordem de Venda de Operação Triangular</value>
   <value column="Description" original=""/>
  </row>
  <row trl="N" uuid="ccfaa1b6-cb85-4c5a-bb82-c4f767165165">
-  <value column="Name" original="Simple Invoice due Future Deliveries">Simple Invoice due Future Deliveries</value>
+  <value column="Name" original="Simple Invoice due Future Deliveries">Fatura de Venda para Entrega Futura</value>
   <value column="Description" original=""/>
  </row>
  <row trl="N" uuid="83bb6cac-52f7-45d1-a250-0f3dc98e221e">
@@ -12690,6 +12690,22 @@
  </row>
  <row trl="Y" uuid="78aeb4fa-2c0d-4163-99d4-46d3cc486440">
   <value column="Name" original="Issued by 3rd party">Pelo Cliente/Fornecedor</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="26485604-0ed7-44f5-9013-0497e52ee35e">
+  <value column="Name" original="Movement Out Transfer">Movimentação Saída de Transferência</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="2192cd55-54cf-4536-99b0-d2264a742ba1">
+  <value column="Name" original="Movement In Transfer">Movimentação Entrada de Transferência</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="0d4621c5-d91b-4a70-95f1-b8b4cb8524e7">
+  <value column="Name" original="Movement Out Storage in 3rd Party">Movimentação Saída para Armazenagem em Terceiros</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="ed5853bf-244c-4229-b10a-a4006e604808">
+  <value column="Name" original="Movement In Storage in 3rd Party">Movimentação Entrada de Armazenagem em Terceiros</value>
   <value column="Description" original=""/>
  </row>
 </idempiereTrl>
