@@ -366,6 +366,21 @@ public interface I_LBR_TaxDefinition
 	  */
 	public int getLBR_Tax_ID();
 
+    /** Column name M_Product_Category_ID */
+    public static final String COLUMNNAME_M_Product_Category_ID = "M_Product_Category_ID";
+
+	/** Set Product Category.
+	  * Category of a Product
+	  */
+	public void setM_Product_Category_ID (int M_Product_Category_ID);
+
+	/** Get Product Category.
+	  * Category of a Product
+	  */
+	public int getM_Product_Category_ID();
+
+	public org.compiere.model.I_M_Product_Category getM_Product_Category() throws RuntimeException;
+
     /** Column name M_Product_ID */
     public static final String COLUMNNAME_M_Product_ID = "M_Product_ID";
 
@@ -476,6 +491,19 @@ public interface I_LBR_TaxDefinition
 	  * Defines the Destination Type
 	  */
 	public String getlbr_DestionationType();
+
+    /** Column name lbr_DocBaseType */
+    public static final String COLUMNNAME_lbr_DocBaseType = "lbr_DocBaseType";
+
+	/** Set LBR DocBaseType.
+	  * Localization Brasil Document Base Type
+	  */
+	public void setlbr_DocBaseType (String lbr_DocBaseType);
+
+	/** Get LBR DocBaseType.
+	  * Localization Brasil Document Base Type
+	  */
+	public String getlbr_DocBaseType();
 
     /** Column name lbr_IsSubTributaria */
     public static final String COLUMNNAME_lbr_IsSubTributaria = "lbr_IsSubTributaria";

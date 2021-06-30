@@ -31,7 +31,7 @@ public class X_LBR_TaxDefinition extends PO implements I_LBR_TaxDefinition, I_Pe
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20210228L;
+	private static final long serialVersionUID = 20210630L;
 
     /** Standard Constructor */
     public X_LBR_TaxDefinition (Properties ctx, int LBR_TaxDefinition_ID, String trxName)
@@ -620,6 +620,34 @@ public class X_LBR_TaxDefinition extends PO implements I_LBR_TaxDefinition, I_Pe
 		return ii.intValue();
 	}
 
+	public org.compiere.model.I_M_Product_Category getM_Product_Category() throws RuntimeException
+    {
+		return (org.compiere.model.I_M_Product_Category)MTable.get(getCtx(), org.compiere.model.I_M_Product_Category.Table_Name)
+			.getPO(getM_Product_Category_ID(), get_TrxName());	}
+
+	/** Set Product Category.
+		@param M_Product_Category_ID 
+		Category of a Product
+	  */
+	public void setM_Product_Category_ID (int M_Product_Category_ID)
+	{
+		if (M_Product_Category_ID < 1) 
+			set_Value (COLUMNNAME_M_Product_Category_ID, null);
+		else 
+			set_Value (COLUMNNAME_M_Product_Category_ID, Integer.valueOf(M_Product_Category_ID));
+	}
+
+	/** Get Product Category.
+		@return Category of a Product
+	  */
+	public int getM_Product_Category_ID () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_M_Product_Category_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
 	public org.compiere.model.I_M_Product getM_Product() throws RuntimeException
     {
 		return (org.compiere.model.I_M_Product)MTable.get(getCtx(), org.compiere.model.I_M_Product.Table_Name)
@@ -771,6 +799,94 @@ public class X_LBR_TaxDefinition extends PO implements I_LBR_TaxDefinition, I_Pe
 	public String getlbr_DestionationType () 
 	{
 		return (String)get_Value(COLUMNNAME_lbr_DestionationType);
+	}
+
+	/** Consignation Sales Order = OVEC- */
+	public static final String LBR_DOCBASETYPE_ConsignationSalesOrder = "OVEC-";
+	/** Consignation Shipment = EXEC- */
+	public static final String LBR_DOCBASETYPE_ConsignationShipment = "EXEC-";
+	/** Consignation Invoice = FAEC- */
+	public static final String LBR_DOCBASETYPE_ConsignationInvoice = "FAEC-";
+	/** Consignation Return Sales Order = OVRC+ */
+	public static final String LBR_DOCBASETYPE_ConsignationReturnSalesOrder = "OVRC+";
+	/** Consignation Return Shipment = EXRC+ */
+	public static final String LBR_DOCBASETYPE_ConsignationReturnShipment = "EXRC+";
+	/** Consignation Return Invoice = FARC+ */
+	public static final String LBR_DOCBASETYPE_ConsignationReturnInvoice = "FARC+";
+	/** Consignation Invoice Sales Order = OVFC- */
+	public static final String LBR_DOCBASETYPE_ConsignationInvoiceSalesOrder = "OVFC-";
+	/** Consignation Invoice Shipment = EXFC- */
+	public static final String LBR_DOCBASETYPE_ConsignationInvoiceShipment = "EXFC-";
+	/** Consignation Invoice Invoice = FAFC- */
+	public static final String LBR_DOCBASETYPE_ConsignationInvoiceInvoice = "FAFC-";
+	/** Default = DEFA+ */
+	public static final String LBR_DOCBASETYPE_Default = "DEFA+";
+	/** Sales Order Maintenance In = OVCO+ */
+	public static final String LBR_DOCBASETYPE_SalesOrderMaintenanceIn = "OVCO+";
+	/** Sales Order Maintenance Out = OVCO- */
+	public static final String LBR_DOCBASETYPE_SalesOrderMaintenanceOut = "OVCO-";
+	/** Sales Order Demonstration Out = OVDE- */
+	public static final String LBR_DOCBASETYPE_SalesOrderDemonstrationOut = "OVDE-";
+	/** Sales Order Demonstration In = OVDE+ */
+	public static final String LBR_DOCBASETYPE_SalesOrderDemonstrationIn = "OVDE+";
+	/** Sales Order Other In = OVOE+ */
+	public static final String LBR_DOCBASETYPE_SalesOrderOtherIn = "OVOE+";
+	/** Sales Order Other Out = OVOS- */
+	public static final String LBR_DOCBASETYPE_SalesOrderOtherOut = "OVOS-";
+	/** Industrialization Shipment = EXEI- */
+	public static final String LBR_DOCBASETYPE_IndustrializationShipment = "EXEI-";
+	/** Industrialization Sales Order = OVEI- */
+	public static final String LBR_DOCBASETYPE_IndustrializationSalesOrder = "OVEI-";
+	/** Industrialization Return Sales Order = OVRI+ */
+	public static final String LBR_DOCBASETYPE_IndustrializationReturnSalesOrder = "OVRI+";
+	/** Industrialization Invoice = FAEI- */
+	public static final String LBR_DOCBASETYPE_IndustrializationInvoice = "FAEI-";
+	/** Industrialization Return Shipment = EXRI+ */
+	public static final String LBR_DOCBASETYPE_IndustrializationReturnShipment = "EXRI+";
+	/** Industrialization Return Invoice = FARI+ */
+	public static final String LBR_DOCBASETYPE_IndustrializationReturnInvoice = "FARI+";
+	/** Transfer Out Invoice = FAET- */
+	public static final String LBR_DOCBASETYPE_TransferOutInvoice = "FAET-";
+	/** Transfer In Invoice = FART+ */
+	public static final String LBR_DOCBASETYPE_TransferInInvoice = "FART+";
+	/** Transfer Shipment = EXET- */
+	public static final String LBR_DOCBASETYPE_TransferShipment = "EXET-";
+	/** Transfer Receipt = EXRT+ */
+	public static final String LBR_DOCBASETYPE_TransferReceipt = "EXRT+";
+	/** Sales Order Future Deliveries = OVEF- */
+	public static final String LBR_DOCBASETYPE_SalesOrderFutureDeliveries = "OVEF-";
+	/** Sales Order Triangular Transaction = OVOT- */
+	public static final String LBR_DOCBASETYPE_SalesOrderTriangularTransaction = "OVOT-";
+	/** Simple Invoice due Future Deliveries = FASF- */
+	public static final String LBR_DOCBASETYPE_SimpleInvoiceDueFutureDeliveries = "FASF-";
+	/** Movement Out Transfer = MMST- */
+	public static final String LBR_DOCBASETYPE_MovementOutTransfer = "MMST-";
+	/** Movement In Transfer = MMET+ */
+	public static final String LBR_DOCBASETYPE_MovementInTransfer = "MMET+";
+	/** Movement Out Storage in 3rd Party = MMSA- */
+	public static final String LBR_DOCBASETYPE_MovementOutStorageIn3rdParty = "MMSA-";
+	/** Movement In Storage in 3rd Party = MMEA+ */
+	public static final String LBR_DOCBASETYPE_MovementInStorageIn3rdParty = "MMEA+";
+	/** Sales Order Standard = OVPD- */
+	public static final String LBR_DOCBASETYPE_SalesOrderStandard = "OVPD-";
+	/** Purchase Order Standard = OCPD- */
+	public static final String LBR_DOCBASETYPE_PurchaseOrderStandard = "OCPD-";
+	/** Set LBR DocBaseType.
+		@param lbr_DocBaseType 
+		Localization Brasil Document Base Type
+	  */
+	public void setlbr_DocBaseType (String lbr_DocBaseType)
+	{
+
+		set_Value (COLUMNNAME_lbr_DocBaseType, lbr_DocBaseType);
+	}
+
+	/** Get LBR DocBaseType.
+		@return Localization Brasil Document Base Type
+	  */
+	public String getlbr_DocBaseType () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_DocBaseType);
 	}
 
 	/** Yes = Y */
