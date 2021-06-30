@@ -12708,4 +12708,12 @@
   <value column="Name" original="Movement In Storage in 3rd Party">Movimentação Entrada de Armazenagem em Terceiros</value>
   <value column="Description" original=""/>
  </row>
+ <row trl="Y" uuid="9dc3b265-6b5f-4786-8032-2832bd7ed3b4">
+  <value column="Name" original="Sales Order Standard">Ordem de Venda Padrão</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="a648a9af-2aed-4183-ab51-a599711d1df0">
+  <value column="Name" original="Purchase Order Standard">Ordem de Compra Padrão</value>
+  <value column="Description" original=""/>
+ </row>
 </idempiereTrl>
