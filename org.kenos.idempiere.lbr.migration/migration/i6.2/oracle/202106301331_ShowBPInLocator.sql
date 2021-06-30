@@ -46,6 +46,6 @@ UPDATE AD_Field SET DisplayLogic='@lbr_WarehouseType@=''3RD'' | @lbr_WarehouseTy
 ;
 
 -- 30 de jun de 2021 13:28:12 BRT
-SELECT Register_Migration_Script ('202106021831_EventsTabNFe.sql') FROM DUAL
+SELECT Register_Migration_Script ('202106301331_ShowBPInLocator.sql') FROM DUAL
 ;
 
