@@ -3,6 +3,7 @@ package org.kenos.idempiere.lbr.tax.model;
 import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
+import java.util.Arrays;
 import java.util.Properties;
 import java.util.logging.Level;
 
@@ -13,10 +14,13 @@ import org.compiere.model.MDocType;
 import org.compiere.model.MOrderLine;
 import org.compiere.model.MOrg;
 import org.compiere.model.MProduct;
+import org.compiere.model.MProductPO;
 import org.compiere.model.ModelValidationEngine;
 import org.compiere.model.ModelValidator;
 import org.compiere.model.PO;
+import org.compiere.model.Query;
 import org.compiere.util.Env;
+import org.kenos.idempiere.lbr.tax.process.ReProcessOrder;
 
 /**
  * 		MRMA
@@ -218,6 +222,41 @@ public class MOrder extends org.compiere.model.MOrder
 		
 		return reserveStock;
 	}	//	unReserveStock
+	
+	public MOrder createCounterDoc (int C_BPartner_ID, boolean samePrice, boolean sameProduct)
+	{
+		org.compiere.model.MOrder tmp = super.createCounterDoc();
+		if (tmp != null)
+		{
+			MOrder counter = new MOrder (tmp.getCtx(), tmp.getC_Order_ID(), get_TrxName());
+			//
+			Arrays.asList(counter.getLines()).stream()
+				.filter(l -> samePrice || !sameProduct)
+				.forEach(l -> {
+					if (samePrice)
+					{
+						l.setPriceActual(l.getRef_OrderLine().getPriceActual());
+						l.setPriceEntered(l.getRef_OrderLine().getPriceEntered());
+					}
+					if (!sameProduct)
+					{
+						MProductPO po = new Query(Env.getCtx(), MProductPO.Table_Name, "C_BPartner_ID=? AND VendorProductNo=?", null)
+							.setParameters(new Object[]{C_BPartner_ID, l.getProduct().getValue()})
+							.setOnlyActiveRecords(true).first();
+						if (po != null)
+							l.setM_Product_ID(po.getM_Product_ID());
+					}
+					l.saveEx();
+				});
+			
+			//	Re-Calculate CFOP
+			ReProcessOrder.processOrder (this, null, false, false, true, false, false, false, -1, false);
+			
+			return counter;
+		}	//	createCounterDoc
+		
+		return null;
+	}	//	createCounterDoc
 	
 	/**
 	 * 	Close Document.

@@ -22,6 +22,8 @@ public class ProcessFactory implements IProcessFactory
 			return new CopyFromOrder ();
 		if (CreateFromCashPlanLine.class.getName().equals (className))
 			return new CreateFromCashPlanLine ();
+		if (CreateCounterDoc.class.getName().equals (className))
+			return new CreateCounterDoc ();
 		return null;
 	}
 }	//	CalloutFactory
