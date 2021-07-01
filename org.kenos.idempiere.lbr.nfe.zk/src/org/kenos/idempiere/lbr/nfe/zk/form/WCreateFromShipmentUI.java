@@ -541,13 +541,15 @@ public class WCreateFromShipmentUI extends CreateFromShipment implements EventLi
 	 */
 	private void initBPRMADetails(int C_BPartner_ID)
 	{
+		int AD_Org_ID = Env.getContextAsInt(Env.getCtx(), p_WindowNo, "AD_Org_ID");
+		//
 	    rmaField.removeActionListener(this);
 	    rmaField.removeAllItems();
 	    //  None
 	    KeyNamePair pp = new KeyNamePair(0,"");
 	    rmaField.addItem(pp);
 	    
-	    ArrayList<KeyNamePair> list = loadRMAData(C_BPartner_ID);
+	    ArrayList<KeyNamePair> list = loadRMAData(C_BPartner_ID, AD_Org_ID);
 		for(KeyNamePair knp : list)
 			rmaField.addItem(knp);
 		

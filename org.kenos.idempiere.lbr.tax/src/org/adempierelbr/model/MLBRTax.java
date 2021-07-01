@@ -36,6 +36,7 @@ import org.adempierelbr.wrapper.I_W_C_OrderLine;
 import org.adempierelbr.wrapper.I_W_M_Product;
 import org.compiere.model.MBPartner;
 import org.compiere.model.MBPartnerLocation;
+import org.compiere.model.MDocType;
 import org.compiere.model.MInvoice;
 import org.compiere.model.MOrder;
 import org.compiere.model.MOrgInfo;
@@ -831,7 +832,14 @@ public class MLBRTax extends X_LBR_Tax
 		if (bp.getC_BPartner_ID() > 0)
 			params.put(MLBRTaxDefinition.COLUMNNAME_C_BPartner_ID, bp.getC_BPartner_ID());
 		if (C_DocTypeTarget_ID > 0)
+		{
+			MDocType docType = new MDocType (Env.getCtx(), C_DocTypeTarget_ID, null);
+			String docBase = docType.get_ValueAsString(MLBRTaxDefinition.COLUMNNAME_lbr_DocBaseType);
+			if (docBase != null && !docBase.isBlank())
+				params.put(MLBRTaxDefinition.COLUMNNAME_lbr_DocBaseType, docBase);
+			//
 			params.put(MLBRTaxDefinition.COLUMNNAME_C_DocType_ID, C_DocTypeTarget_ID);
+		}
 		if (RegionFrom_ID > 0)
 			params.put(MLBRTaxDefinition.COLUMNNAME_C_Region_ID, RegionFrom_ID);
 		if (bpLoc != null)
@@ -860,6 +868,8 @@ public class MLBRTax extends X_LBR_Tax
 			params.put(MLBRTaxDefinition.COLUMNNAME_LBR_TaxRegime, lbr_TaxRegime);
 		if (p.getM_Product_ID() > 0)
 			params.put(MLBRTaxDefinition.COLUMNNAME_M_Product_ID, p.getM_Product_ID());
+		if (p.getM_Product_Category_ID() > 0)
+			params.put(MLBRTaxDefinition.COLUMNNAME_M_Product_Category_ID, p.getM_Product_Category_ID());			
 		//		
 		params.put(MLBRTaxDefinition.COLUMNNAME_IsManufactured, isManufactured);		
 		params.put(MLBRTaxDefinition.COLUMNNAME_lbr_IsSubTributaria, hasSubstitution);

@@ -13,6 +13,7 @@ import org.adempierelbr.wrapper.I_W_M_RMA;
 import org.compiere.model.MInOut;
 import org.compiere.model.MInvoice;
 import org.compiere.model.MMovementLine;
+import org.compiere.model.MOrderLine;
 import org.compiere.model.MRMA;
 
 /**
@@ -61,6 +62,11 @@ public class ColumnCalloutFactory implements IColumnCalloutFactory
 		{
 			if (TextUtil.match (columnName, MMovementLine.COLUMNNAME_M_Product_ID))
 				callouts.add (new Movement());
+		}
+		else if (MOrderLine.Table_Name.equals(tableName))
+		{
+			if (TextUtil.match (columnName, MLBRNotaFiscalLine.COLUMNNAME_POReference, MLBRNotaFiscalLine.COLUMNNAME_LBR_PORef_Item))
+				callouts.add (new XPed());
 		}
 		IColumnCallout[] result = new IColumnCallout[callouts.size()];
 		return callouts.toArray (result);

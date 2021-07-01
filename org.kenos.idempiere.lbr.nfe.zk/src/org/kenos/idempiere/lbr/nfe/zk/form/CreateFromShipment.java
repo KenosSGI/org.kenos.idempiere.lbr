@@ -92,6 +92,15 @@ public abstract class CreateFromShipment extends CreateFrom
 	 *  @param C_BPartner_ID BPartner
 	 */
 	protected ArrayList<KeyNamePair> loadRMAData(int C_BPartner_ID) {
+		return loadRMAData (C_BPartner_ID, 0);
+	}
+
+	
+	/**
+	 *  Load PBartner dependent Order/Invoice/Shipment Field.
+	 *  @param C_BPartner_ID BPartner
+	 */
+	protected ArrayList<KeyNamePair> loadRMAData(int C_BPartner_ID, int AD_Org_ID) {
 		ArrayList<KeyNamePair> list = new ArrayList<KeyNamePair>();
 
 		String sqlStmt = "SELECT r.M_RMA_ID, r.DocumentNo || '-' || r.Amt from M_RMA r "
@@ -101,11 +110,16 @@ public abstract class CreateFromShipment extends CreateFrom
 			+ "WHERE rl.M_RMA_ID=r.M_RMA_ID AND rl.QtyDelivered < rl.Qty " 
 			+ "AND rl.M_InOutLine_ID IS NOT NULL)";
 
+		if (AD_Org_ID > 0)
+			sqlStmt = sqlStmt + " AND r.AD_Org_ID=? ";
+
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
 			pstmt = DB.prepareStatement(sqlStmt, null);
 			pstmt.setInt(1, C_BPartner_ID);
+			if (AD_Org_ID > 0)
+				pstmt.setInt(2, AD_Org_ID);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				list.add(new KeyNamePair(rs.getInt(1), rs.getString(2)));

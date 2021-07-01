@@ -178,7 +178,9 @@ public class MLBRTaxDefinition extends X_LBR_TaxDefinition
 				COLUMNNAME_LBR_TaxRegime,
 				COLUMNNAME_lbr_TransactionType,
 				COLUMNNAME_M_Product_ID,
-				COLUMNNAME_To_Region_ID
+				COLUMNNAME_To_Region_ID,
+				COLUMNNAME_lbr_DocBaseType,
+				COLUMNNAME_M_Product_Category_ID
 			}).stream().forEach(colName -> 
 			{
 				where.append("AND (").append(colName).append(" IS NULL");
