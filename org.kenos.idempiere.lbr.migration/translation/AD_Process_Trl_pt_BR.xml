@@ -2817,4 +2817,29 @@ For example:<br />
   <value column="Description" original="">Relatório exibe Detalhes do Extrato Bancário baseado nas linhas do Extrato</value>
   <value column="Help" original="">Relatório exibe Detalhes do Extrato Bancário baseado nas linhas do Extrato</value>
  </row>
+ <row trl="Y" uuid="973537ea-01f5-471b-8631-0a79e7b91e7c">
+  <value column="Name" original="Obtain Certificate">Obter Certificado</value>
+  <value column="Description" original="Try to get the certificate from URL">Faz a pesquisa de uma URL e tenta obter o certificado digital</value>
+  <value column="Help" original="Execute the first time with zero index. Check the certificates and then execute again with desired index.">Use este processo para tentar obter um certificado digital e adicioná-lo a lista de Certificados Confiáveis. Execute com o parâmetro índice igual a zero para visualizar a lista de certificados fornecidos pela aquela URL. Na listagem confira se o certificado é confiável e execute o processo novamente com o índice desejado.</value>
+ </row>
+ <row trl="Y" uuid="5726083d-1386-4178-b673-867c8732ca6d">
+  <value column="Name" original="Create Counter Document">Criar Contra-Documento</value>
+  <value column="Description" original="Creates a counter document">Cria um Contra-Documento</value>
+  <value column="Help" original="If the Organization is linked to a Business Partner, this process will creates a counter-document">Se o Parceiro de Negócios estiver vinculado a uma Organização do grupo, o sistema pode criar um Contra-Documento</value>
+ </row>
+ <row trl="Y" uuid="a8016f4e-ac97-469d-b96d-eb2c17c2e8b0">
+  <value column="Name" original="Product Kardex">Ficha de Estoque - Kardex</value>
+  <value column="Description" original="Product Kardex with average cost">Ficha de Estoque - Kardex</value>
+  <value column="Help" original="">Ficha de Estoque contendo o custo médio (calculado) de um produto específico em um determinado período</value>
+ </row>
+ <row trl="Y" uuid="9d18fe45-8544-47c0-ba5b-a0ec7093c422">
+  <value column="Name" original="Tax Config Test">Teste da Configuração</value>
+  <value column="Description" original="Test the tax configurations">Efetua o teste da configuração de impostos</value>
+  <value column="Help" original="">Para verificar todos os registros de teste utilize a opção "Testar todas as configurações". Para testar somente o registro atual, deixa esta opção desmarcada. Quando o teste é feito somente para o registro atual, o sistema mostra no resultado todos os registros usados na composição tributária do teste, deixando assim mais fácil fazer eventuais correções.</value>
+ </row>
+ <row trl="Y" uuid="ecd4b55c-1bcc-4349-b1a7-6c83c83df5ed">
+  <value column="Name" original="Tax Validation Request">Solicitar Validação Tributária</value>
+  <value column="Description" original="This process will include the actual tax entered to Tax Test window">Este processo irá incluir esta linha do pedido na validação tributária</value>
+  <value column="Help" original="The goal of this process is to include warning to tax personal that this transaction is getting wrong tax configuration. So you should fix manually this tax and then request the fix in the configuration by submitting this process. Make sure to include a good description.">O objetivo deste processo é incluir esta linha de pedido para ser validada na janela de Teste de Configuração Tributária. Você deve ter certeza que a tributação que o sistema atribuiu automaticamente para esta linha estava errada, em seguida você deverá fazer a correção manualmente nesta linha de pedido e só então avançar com este processo. Obrigatoriamente deve-se incluir uma descrição para identificar esta configuração na janela de testes.</value>
+ </row>
 </idempiereTrl>
