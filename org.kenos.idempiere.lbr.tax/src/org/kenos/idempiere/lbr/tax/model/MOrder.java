@@ -7,12 +7,15 @@ import java.util.Arrays;
 import java.util.Properties;
 import java.util.logging.Level;
 
+import org.adempiere.exceptions.AdempiereException;
 import org.adempierelbr.model.MLBRTax;
 import org.adempierelbr.wrapper.I_W_C_OrderLine;
 import org.compiere.model.MBPartner;
 import org.compiere.model.MDocType;
+import org.compiere.model.MDocTypeCounter;
 import org.compiere.model.MOrderLine;
 import org.compiere.model.MOrg;
+import org.compiere.model.MOrgInfo;
 import org.compiere.model.MProduct;
 import org.compiere.model.MProductPO;
 import org.compiere.model.ModelValidationEngine;
@@ -20,6 +23,7 @@ import org.compiere.model.ModelValidator;
 import org.compiere.model.PO;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
+import org.compiere.util.Msg;
 import org.kenos.idempiere.lbr.tax.process.ReProcessOrder;
 
 /**
@@ -183,6 +187,7 @@ public class MOrder extends org.compiere.model.MOrder
 			if (counterC_BPartner_ID == 0)
 				return null;
 			to.setBPartner(MBPartner.get(from.getCtx(), counterC_BPartner_ID));
+			to.setM_PriceList_ID(from.getM_PriceList_ID());
 		} else
 			to.setRef_Order_ID(0);
 		//
@@ -223,9 +228,95 @@ public class MOrder extends org.compiere.model.MOrder
 		return reserveStock;
 	}	//	unReserveStock
 	
+	/**
+	 * 	Create Counter Document
+	 *  
+	 *  ** Method not changed, override just to use this copyFrom method instead of super class
+	 *  
+	 * 	@return counter order
+	 */
+	protected MOrder createCounterDoc()
+	{
+		//	Is this itself a counter doc ?
+		if (getRef_Order_ID() != 0)
+			return null;
+		
+		//	Org Must be linked to BPartner
+		MOrg org = MOrg.get(getCtx(), getAD_Org_ID());
+		int counterC_BPartner_ID = org.getLinkedC_BPartner_ID(get_TrxName()); 
+		if (counterC_BPartner_ID == 0)
+			return null;
+		//	Business Partner needs to be linked to Org
+		MBPartner bp = new MBPartner (getCtx(), getC_BPartner_ID(), get_TrxName());
+		int counterAD_Org_ID = bp.getAD_OrgBP_ID_Int(); 
+		if (counterAD_Org_ID == 0)
+			return null;
+		
+		MBPartner counterBP = new MBPartner (getCtx(), counterC_BPartner_ID, null);
+		MOrgInfo counterOrgInfo = MOrgInfo.get(getCtx(), counterAD_Org_ID, get_TrxName());
+		if (log.isLoggable(Level.INFO)) log.info("Counter BP=" + counterBP.getName());
+
+		//	Document Type
+		int C_DocTypeTarget_ID = 0;
+		MDocTypeCounter counterDT = MDocTypeCounter.getCounterDocType(getCtx(), getC_DocType_ID());
+		if (counterDT != null)
+		{
+			if (log.isLoggable(Level.FINE)) log.fine(counterDT.toString());
+			if (!counterDT.isCreateCounter() || !counterDT.isValid())
+				return null;
+			C_DocTypeTarget_ID = counterDT.getCounter_C_DocType_ID();
+		}
+		else	//	indirect
+		{
+			C_DocTypeTarget_ID = MDocTypeCounter.getCounterDocType_ID(getCtx(), getC_DocType_ID());
+			if (log.isLoggable(Level.FINE)) log.fine("Indirect C_DocTypeTarget_ID=" + C_DocTypeTarget_ID);
+			if (C_DocTypeTarget_ID <= 0)
+				return null;
+		}
+		//	Deep Copy
+		MOrder counter = copyFrom (this, getDateOrdered(), 
+			C_DocTypeTarget_ID, !isSOTrx(), true, false, get_TrxName());
+		//
+		counter.setAD_Org_ID(counterAD_Org_ID);
+		counter.setM_Warehouse_ID(counterOrgInfo.getM_Warehouse_ID());
+		//
+//		counter.setBPartner(counterBP); // was set on copyFrom
+		counter.setDatePromised(getDatePromised());		// default is date ordered 
+		//	References (Should not be required)
+		counter.setSalesRep_ID(getSalesRep_ID());
+		counter.saveEx(get_TrxName());
+		
+		//	Update copied lines
+		MOrderLine[] counterLines = counter.getLines(true, null);
+		for (int i = 0; i < counterLines.length; i++)
+		{
+			MOrderLine counterLine = counterLines[i];
+			counterLine.setOrder(counter);	//	copies header values (BP, etc.)
+			counterLine.setPrice();
+			counterLine.setTax();
+			counterLine.saveEx(get_TrxName());
+		}
+		if (log.isLoggable(Level.FINE)) log.fine(counter.toString());
+		
+		//	Document Action
+		if (counterDT != null)
+		{
+			if (counterDT.getDocAction() != null)
+			{
+				counter.setDocAction(counterDT.getDocAction());
+				// added AdempiereException by zuhri
+				if (!counter.processIt(counterDT.getDocAction()))
+					throw new AdempiereException(Msg.getMsg(getCtx(), "FailedProcessingDocument") + " - " + counter.getProcessMsg());
+				// end added
+				counter.saveEx(get_TrxName());
+			}
+		}
+		return counter;
+	}	//	createCounterDoc
+	
 	public MOrder createCounterDoc (int C_BPartner_ID, boolean samePrice, boolean sameProduct)
 	{
-		org.compiere.model.MOrder tmp = super.createCounterDoc();
+		org.compiere.model.MOrder tmp = createCounterDoc();
 		if (tmp != null)
 		{
 			MOrder counter = new MOrder (tmp.getCtx(), tmp.getC_Order_ID(), get_TrxName());
@@ -250,7 +341,7 @@ public class MOrder extends org.compiere.model.MOrder
 				});
 			
 			//	Re-Calculate CFOP
-			ReProcessOrder.processOrder (this, null, false, false, true, false, false, false, -1, false);
+			ReProcessOrder.processOrder (counter, null, false, false, true, false, false, false, -1, false);
 			
 			return counter;
 		}	//	createCounterDoc
