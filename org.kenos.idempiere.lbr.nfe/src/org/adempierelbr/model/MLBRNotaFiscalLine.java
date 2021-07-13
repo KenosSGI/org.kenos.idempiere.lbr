@@ -1237,7 +1237,7 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 		else
 			super.setPrice(amtDIFAL.add(price));
 		//
-		super.setLineTotalAmt(getPrice().multiply(getQty()));
+		super.setLineTotalAmt(getPrice().multiply(getQty()).setScale(2, RoundingMode.HALF_UP));
 	}	//	setPrice
 	
 	/**
