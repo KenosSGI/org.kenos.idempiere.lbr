@@ -356,7 +356,7 @@ public class VLBRCommons implements ModelValidator
 		/**
 		 * 	Código para Anular o Time Expense
 		 */
-		if (timing == TIMING_BEFORE_VOID || timing == TIMING_BEFORE_REVERSECORRECT)
+		if (timing == TIMING_BEFORE_VOID || timing == TIMING_BEFORE_REVERSECORRECT || timing == TIMING_BEFORE_REVERSEACCRUAL)
 		{
 			for (MTimeExpenseLine tel : te.getLines())
 			{
@@ -411,7 +411,7 @@ public class VLBRCommons implements ModelValidator
 		/**
 		 * 	Código para Anular a Requisição
 		 */
-		if (timing == TIMING_BEFORE_VOID || timing == TIMING_BEFORE_REVERSECORRECT)
+		if (timing == TIMING_BEFORE_VOID || timing == TIMING_BEFORE_REVERSECORRECT || timing == TIMING_BEFORE_REVERSEACCRUAL)
 		{
 			//Validar se alguma linha da Requisição está Relacionada a um Pedido de Compra
 			for (MRequisitionLine req : re.getLines())

@@ -296,7 +296,7 @@ public class ValidatorInOut implements ModelValidator
 		String     trx = inOut.get_TrxName();
 		MInOutLine[] lines = inOut.getLines();
 
-		boolean beforeComplete = (timing == TIMING_BEFORE_COMPLETE || timing == TIMING_BEFORE_REVERSECORRECT);
+		boolean beforeComplete = (timing == TIMING_BEFORE_COMPLETE || timing == TIMING_BEFORE_REVERSECORRECT || timing == TIMING_BEFORE_REVERSEACCRUAL);
 
 		if (timing == TIMING_BEFORE_PREPARE)
 		{

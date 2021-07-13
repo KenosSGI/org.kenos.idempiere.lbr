@@ -688,7 +688,7 @@ public class ValidatorInvoice implements ModelValidator
 		 * 	Antes de reativar, anular, fechar ou estornar executa:
 		 * 		Valida os vínculos de Retenção, antes de liberar a reativação
 		 */
-		else if ((timing == TIMING_BEFORE_REACTIVATE || timing == TIMING_BEFORE_VOID || timing == TIMING_BEFORE_CLOSE || timing == TIMING_BEFORE_REVERSECORRECT))
+		else if ((timing == TIMING_BEFORE_REACTIVATE || timing == TIMING_BEFORE_VOID || timing == TIMING_BEFORE_CLOSE || timing == TIMING_BEFORE_REVERSECORRECT || timing == TIMING_BEFORE_REVERSEACCRUAL))
 		{
 			int whInvoice = wInvoice.getLBR_Withhold_Invoice_ID();
 			//
