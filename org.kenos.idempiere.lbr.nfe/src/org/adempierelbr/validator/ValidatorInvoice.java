@@ -15,8 +15,10 @@ package org.adempierelbr.validator;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.Timestamp;
+import java.util.Arrays;
 import java.util.Properties;
 import java.util.logging.Level;
+import java.util.stream.Collectors;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.adempiere.model.POWrapper;
@@ -442,6 +444,26 @@ public class ValidatorInvoice implements ModelValidator
 							s.deleteEx(true);
 						}
 			}
+			
+			/**
+			 * 	Não permitir Fatura de Venda com regra de entrega diferente de 
+			 * 		Imediato ser completada antes da Expedição
+			 */
+			if (MSysConfig.getBooleanValue (SysConfig.LBR_MATCH_INVOICE_AND_DELIVERY_QTY, true, wInvoice.getAD_Client_ID())
+				&& !invoice.isReversal() && invoice.isSOTrx())
+			{
+				String orders = Arrays.asList(invoice.getLines()).stream()
+					.filter(l -> l.getC_OrderLine_ID() > 0)
+					.map(MInvoiceLine::getC_OrderLine)
+					.filter(l -> !MOrder.INVOICERULE_Immediate.equals(l.getC_Order().getInvoiceRule()))
+					.filter(l -> l.getQtyInvoiced().compareTo(l.getQtyDelivered()) >= 0)
+					.map(l -> l.getC_Order().getDocumentNo() + "/" + l.getLine())
+					.limit(10)
+					.collect(Collectors.joining(", "));
+				//
+				if (orders.length() > 0)
+					return "Regra de fatura não atendida ou já faturado. " + orders;
+			}
 		}
 			
 		/**
@@ -688,7 +710,7 @@ public class ValidatorInvoice implements ModelValidator
 		 * 	Antes de reativar, anular, fechar ou estornar executa:
 		 * 		Valida os vínculos de Retenção, antes de liberar a reativação
 		 */
-		else if ((timing == TIMING_BEFORE_REACTIVATE || timing == TIMING_BEFORE_VOID || timing == TIMING_BEFORE_CLOSE || timing == TIMING_BEFORE_REVERSECORRECT))
+		else if ((timing == TIMING_BEFORE_REACTIVATE || timing == TIMING_BEFORE_VOID || timing == TIMING_BEFORE_CLOSE || timing == TIMING_BEFORE_REVERSECORRECT || timing == TIMING_BEFORE_REVERSEACCRUAL))
 		{
 			int whInvoice = wInvoice.getLBR_Withhold_Invoice_ID();
 			//
