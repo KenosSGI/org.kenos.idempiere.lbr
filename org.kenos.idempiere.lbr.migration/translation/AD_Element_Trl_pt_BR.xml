@@ -13560,10 +13560,10 @@ Se todos os elementos na coluna de uma tabela são Nulo e se selecionados, a col
   <value column="Placeholder" original=""/>
  </row>
  <row id="1995" trl="Y">
-  <value column="Name" original="Invoice Payment Schedule">Programação de Pagamento de Fatura</value>
-  <value column="PrintName" original="Invoice Pay Schedule">Programação de Pagamento de Fatura</value>
-  <value column="Description" original="Invoice Payment Schedule">Programação de Pagamento de Fatura</value>
-  <value column="Help" original="The Invoice Payment Schedule determines when partial payments are due.">A "Programação de Pagamento de Fatura" determina quando se deve efetuar pagamentos parciais.</value>
+  <value column="Name" original="Invoice Payment Schedule">Parcelamento de Fatura</value>
+  <value column="PrintName" original="Invoice Pay Schedule">Parcelamento de Fatura</value>
+  <value column="Description" original="Invoice Payment Schedule">Parcelamento de Fatura</value>
+  <value column="Help" original="The Invoice Payment Schedule determines when partial payments are due.">O "Parcelamento de Fatura" determina quando se deve efetuar pagamentos parciais.</value>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
   <value column="PO_Name" original=""/>
@@ -13571,9 +13571,9 @@ Se todos os elementos na coluna de uma tabela são Nulo e se selecionados, a col
   <value column="Placeholder" original=""/>
  </row>
  <row id="1996" trl="Y">
-  <value column="Name" original="Payment Schedule">Programação de Pagamentos</value>
-  <value column="PrintName" original="Payment Schedule">Programação de Pagamentos</value>
-  <value column="Description" original="Payment Schedule Template">Modelo de Programação de Pagamentos</value>
+  <value column="Name" original="Payment Schedule">Parcelamentos</value>
+  <value column="PrintName" original="Payment Schedule">Parcelamentos</value>
+  <value column="Description" original="Payment Schedule Template">Modelo de Parcelamentos</value>
   <value column="Help" original="Information when parts of the payment are due">Informação sobre as datas previstas dos pagamentos parciais</value>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
@@ -16505,10 +16505,10 @@ Você habilita-a pela definição do parâmetro COMPIERE_SECURE do seu script de
   <value column="Placeholder" original=""/>
  </row>
  <row id="2281" trl="Y">
-  <value column="Name" original="Pay Schedule valid">Programa de Pagamentos Válido</value>
-  <value column="PrintName" original="Pay Schedule valid">Programa de Pagamentos Válido</value>
-  <value column="Description" original="Is the Payment Schedule is valid">A Programação de Pagamentos é válida</value>
-  <value column="Help" original="Payment Schedules allow to have multiple due dates.">A "Programação de Pagamentos" permite a você ter múltiplas datas de vencimento.</value>
+  <value column="Name" original="Pay Schedule valid">Parcelamento Válido</value>
+  <value column="PrintName" original="Pay Schedule valid">Parcelamento Válido</value>
+  <value column="Description" original="Is the Payment Schedule is valid">O Parcelamento é válido</value>
+  <value column="Help" original="Payment Schedules allow to have multiple due dates.">O "Parcelamento de Pagamentos" permite a você ter múltiplas datas de vencimento.</value>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
   <value column="PO_Name" original=""/>
@@ -33561,8 +33561,8 @@ Product: used to quickly add products to POS order</value>
   <value column="Placeholder" original=""/>
  </row>
  <row id="54391" trl="Y">
-  <value column="Name" original="Order Payment Schedule">Programação de Pagamentos</value>
-  <value column="PrintName" original="Order Payment Schedule">Programação de Pagamentos</value>
+  <value column="Name" original="Order Payment Schedule">Parcelamentos</value>
+  <value column="PrintName" original="Order Payment Schedule">Parcelamentos</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -72311,8 +72311,8 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="Placeholder" original=""/>
  </row>
  <row trl="Y" uuid="32de7fd0-52f5-46c9-b2e2-25a85bf31ac3">
-  <value column="Name" original="Delete Pay Schedule">Apagar Programação de Pagto</value>
-  <value column="PrintName" original="Delete Pay Schedule">Apagar Programação de Pagto</value>
+  <value column="Name" original="Delete Pay Schedule">Apagar Parcelamento</value>
+  <value column="PrintName" original="Delete Pay Schedule">Apagar Parcelamento</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>

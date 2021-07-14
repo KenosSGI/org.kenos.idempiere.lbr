@@ -5514,8 +5514,8 @@ Please contact administrator.</value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="53119" trl="Y">
-  <value column="MsgText" original="Error in payment schedule">Erro na programação de pagamento</value>
-  <value column="MsgTip" original="Check the payment schedule.  If the payment term has a schema then the document must have a schedule (is auto-generated if empty) and the schedule must sum the total of the document.  If the payment term doesn't have a schema, then the document must not have schedule.">Verifique a programação de pagamento. Se a condição de pagamento possui uma programação válida, o documento deve ter uma programação (gerada automaticamente se deixada em branco) e o total deve ser igual ao total geral do documento. Se a condição de pagamento não tiver uma programação, o documento também não deve ter.</value>
+  <value column="MsgText" original="Error in payment schedule">Erro no parcelamento do pagamento</value>
+  <value column="MsgTip" original="Check the payment schedule.  If the payment term has a schema then the document must have a schedule (is auto-generated if empty) and the schedule must sum the total of the document.  If the payment term doesn't have a schema, then the document must not have schedule.">Verifique o parcelamento do pagamento. Se a condição de pagamento possui uma programação válida, o documento deve ter uma programação (gerada automaticamente se deixada em branco) e o total deve ser igual ao total geral do documento. Se a condição de pagamento não tiver uma programação, o documento também não deve ter.</value>
  </row>
  <row id="53120" trl="Y">
   <value column="MsgText" original="c">l</value>

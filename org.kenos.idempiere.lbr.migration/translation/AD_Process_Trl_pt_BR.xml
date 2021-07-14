@@ -698,7 +698,7 @@ Exemplo: considere uma fatura (cliente) no valor de 100,00 com data contábil de
  </row>
  <row id="242" trl="Y">
   <value column="Name" original="Validate">Validar</value>
-  <value column="Description" original="Validate Payment Schedule">Validar Programação de Pagamentos</value>
+  <value column="Description" original="Validate Payment Schedule">Validar Parcelamento</value>
   <value column="Help" original=""/>
  </row>
  <row id="243" trl="Y">
