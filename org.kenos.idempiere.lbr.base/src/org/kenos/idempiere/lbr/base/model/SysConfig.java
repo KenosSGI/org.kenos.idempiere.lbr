@@ -49,7 +49,7 @@ public class SysConfig
 	public static final String LBR_INVOICEGEN_DOCACTION 						= "LBR_INVOICEGEN_DOCACTION";
 	public static final String LBR_ISS_MATRIX_ENABLED 							= "LBR_ISS_MATRIX_ENABLED";
 	public static final String LBR_MANIFEST_TRIES 								= "LBR_MANIFEST_TRIES";
-	public static final String LBR_MATCH_INVOICE_AND_ORDER_QTY 					= "LBR_MATCH_INVOICE_AND_ORDER_QTY";
+	public static final String LBR_MATCH_INVOICE_AND_DELIVERY_QTY 					= "LBR_MATCH_INVOICE_AND_ORDER_QTY";
 	public static final String LBR_MATCH_SHIPMENT_RECEIPT_AND_ORDER_QTY 		= "LBR_MATCH_SHIPMENT_RECEIPT_AND_ORDER_QTY";
 	public static final String LBR_NFE_WAITING_TIME								= "LBR_NFE_WAITING_TIME";
 	public static final String LBR_NFESPECIE 									= "LBR_NFESPECIE";

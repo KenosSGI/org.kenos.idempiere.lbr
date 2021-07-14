@@ -449,7 +449,7 @@ public class ValidatorInvoice implements ModelValidator
 			 * 	Não permitir Fatura de Venda com regra de entrega diferente de 
 			 * 		Imediato ser completada antes da Expedição
 			 */
-			if (MSysConfig.getBooleanValue (SysConfig.LBR_MATCH_INVOICE_AND_ORDER_QTY, true, wInvoice.getAD_Client_ID())
+			if (MSysConfig.getBooleanValue (SysConfig.LBR_MATCH_INVOICE_AND_DELIVERY_QTY, true, wInvoice.getAD_Client_ID())
 				&& !invoice.isReversal() && invoice.isSOTrx())
 			{
 				String orders = Arrays.asList(invoice.getLines()).stream()
