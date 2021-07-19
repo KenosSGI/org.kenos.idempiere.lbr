@@ -163,7 +163,7 @@ public class NFSeImpl implements INFSe
 		BigDecimal v_CSLL 	= toBD (nf.getTaxAmt("CSLL")).abs();
 		
 		//	Impostos com Retenção
-		MInvoice invoice = new MInvoice (Env.getCtx(), nf.getC_Invoice_ID(), null);
+		MInvoice invoice = new MInvoice (Env.getCtx(), nf.getC_Invoice_ID(), trxName);
 		
 		// Verificar quais impostos possui retenção
 		List<String> haswithhold = VLBROrder.hasWithHold ((MInvoice) nf.getC_Invoice());

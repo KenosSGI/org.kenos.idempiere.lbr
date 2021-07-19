@@ -3775,60 +3775,29 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 			if (getDocStatus().equals(DocAction.ACTION_Void))
 			{
 				//	Se a Fatura for Válida, Estiver Completada e o Estorno Estiver Marcado
-			   	if (invoice != null && invoice.getDocStatus().equals(DocAction.ACTION_Complete)
+			   	if (invoice != null && invoice.getDocStatus().equals(DocAction.STATUS_Completed)
 			   			&& isLBR_ReverseInvoice())
 				{
-			   		try
-			   		{
-				   		//	Estonar Fatura
-						if (invoice.reverseCorrectIt())
-						{
-							invoice.setDocStatus(MInvoice.DOCSTATUS_Reversed);
-							invoice.setDocAction(MInvoice.DOCACTION_None);
-							invoice.save();
-						}
-			   		}
-			   		catch (Exception e)
-			   		{
-			   			log.warning("Erro ao Estornar. Tentando Estornar Provisão");
-			   			//	Estonar Fatura
-						if (invoice.reverseAccrualIt())
-						{
-							invoice.setDocStatus(MInvoice.DOCSTATUS_Reversed);
-							invoice.setDocAction(MInvoice.DOCACTION_None);
-							invoice.save();
-						}
-			   		}
-					
+		   			//	Estonar Fatura
+					if (invoice.reverseAccrualIt())
+					{
+						invoice.setDocStatus(MInvoice.DOCSTATUS_Reversed);
+						invoice.setDocAction(MInvoice.DOCACTION_None);
+						invoice.save();
+					}
 				}
 			   	
 			   	// Se a Remessa for Válida, Estiver Completada e o Estorno Estiver Marcado
-			   	if (inout != null && inout.getDocStatus().equals(DocAction.ACTION_Complete)
+			   	if (inout != null && inout.getDocStatus().equals(DocAction.STATUS_Completed)
 			   			&& isLBR_ReverseInOut())
 				{
-			   		try
-			   		{
-				   		//	Estornar Remessa
-						if (inout.reverseCorrectIt())
-						{
-							inout.setDocStatus(MInvoice.DOCSTATUS_Reversed);
-							inout.setDocAction(MInvoice.DOCACTION_None);
-							inout.save();
-						}
-			   		}
-			   		catch (Exception e)
-			   		{
-			   			log.warning("Erro ao Estornar. Tentando Estornar Provisão");
-			   			
-			   			//	Estornar Remessa
-						if (inout.reverseAccrualIt())
-						{
-							inout.setDocStatus(MInvoice.DOCSTATUS_Reversed);
-							inout.setDocAction(MInvoice.DOCACTION_None);
-							inout.save();
-						}
-			   		}
-					
+		   			//	Estornar Remessa
+					if (inout.reverseAccrualIt())
+					{
+						inout.setDocStatus(MInvoice.DOCSTATUS_Reversed);
+						inout.setDocAction(MInvoice.DOCACTION_None);
+						inout.save();
+					}
 				}
 			}
 		}
@@ -4912,8 +4881,21 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		if (m_processMsg != null)
 			return false;
 		
+		if (isLBR_ReverseInvoice())
+		{
+			int count = new Query (getCtx(), Table_Name, COLUMNNAME_C_Invoice_ID + "=? AND " + COLUMNNAME_LBR_NotaFiscal_ID + "<>? AND " + COLUMNNAME_IsCancelled + "='N'", get_TrxName())
+				.setParameters(getC_Invoice_ID(), getLBR_NotaFiscal_ID())
+				.count();
+			//
+			if (count > 0)
+			{
+				m_processMsg = "Não é possível anular a Fatura automaticamnete, pois ela está vinculada a mais de uma NF. Desmarque o flag de cancelar Fatura.";
+				return false;
+			}
+		}
+		
 		//	Anular a NF
-		if (DOCSTATUS_Completed.equals(getDocStatus()))
+		if (DOCSTATUS_Completed.equals(getDocStatus()) && LBR_ISOWNDOCUMENT_IssuedByUsOwnDocument.equals(getlbr_IsOwnDocument()))
 		{
 			if (LBR_NFESTATUS_100_AutorizadoOUsoDaNF_E.equals(getlbr_NFeStatus())
 					&& TextUtil.match(getlbr_NFModel(), LBR_NFMODEL_NotaFiscalEletrônica, LBR_NFMODEL_NotaFiscalDeConsumidorEletrônica))
@@ -4958,7 +4940,7 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		}
 		
 		//	Inutilizar a numeração
-		else if (TextUtil.match(getDocStatus(), DOCSTATUS_Drafted, DOCSTATUS_InProgress, DOCSTATUS_Invalid))
+		else if (TextUtil.match(getDocStatus(), DOCSTATUS_Drafted, DOCSTATUS_InProgress, DOCSTATUS_Invalid) || !islbr_IsOwnDocument())
 		{
 			// Entra no IF se a Nota Fiscal não for um Documento Próprio
 			// ou for uma Nota Fiscal de Serviço e Anula a Nota Fiscal

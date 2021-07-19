@@ -18,6 +18,7 @@ import org.compiere.model.MOrg;
 import org.compiere.model.MOrgInfo;
 import org.compiere.model.MProduct;
 import org.compiere.model.MProductPO;
+import org.compiere.model.MSysConfig;
 import org.compiere.model.ModelValidationEngine;
 import org.compiere.model.ModelValidator;
 import org.compiere.model.PO;
@@ -237,6 +238,21 @@ public class MOrder extends org.compiere.model.MOrder
 	 */
 	protected MOrder createCounterDoc()
 	{
+		if (MSysConfig.getBooleanValue("LBR_MANUAL_COUNTER_DOCUMENT", true, getAD_Client_ID()))
+			return null;
+		//
+		return createManualCounterDoc();
+	}	//	createCounterDoc
+	
+	/**
+	 * 	Create Counter Document
+	 *  
+	 *  ** Method not changed, override just to use this copyFrom method instead of super class
+	 *  
+	 * 	@return counter order
+	 */
+	protected MOrder createManualCounterDoc()
+	{
 		//	Is this itself a counter doc ?
 		if (getRef_Order_ID() != 0)
 			return null;
@@ -316,7 +332,7 @@ public class MOrder extends org.compiere.model.MOrder
 	
 	public MOrder createCounterDoc (int C_BPartner_ID, boolean samePrice, boolean sameProduct)
 	{
-		org.compiere.model.MOrder tmp = createCounterDoc();
+		org.compiere.model.MOrder tmp = createManualCounterDoc();
 		if (tmp != null)
 		{
 			MOrder counter = new MOrder (tmp.getCtx(), tmp.getC_Order_ID(), get_TrxName());
