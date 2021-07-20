@@ -5165,14 +5165,19 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		}
 		else if (DOCSTATUS_Completed.equals(docStatus))
 		{
-			options[0] = DOCACTION_VoidInvalidate;
-			index=1;
+			index=0;
+			
+			/**
+			 * 	Cancel only when document is not issued by us or not an NF document or it is in 24h interval
+			 */
+			if (MSysConfig.getBooleanValue(SysConfig.LBR_ALLOW_CANCEL_NF_AFTER_24_HOURS, false, getAD_Client_ID())
+					|| !islbr_IsOwnDocument() 
+					|| !TextUtil.match(getlbr_NFModel(), LBR_NFMODEL_NotaFiscalEletrônica, LBR_NFMODEL_NotaFiscalDeConsumidorEletrônica) 
+					|| (getDateTrx() != null && getDateTrx().after(TimeUtil.addMinutess(Env.getContextAsDate(getCtx(), "#Date"), 60*24*-1))))
+			options[index++] = DOCACTION_VoidInvalidate;
 			
 			if (!isSOTrx() && !islbr_IsOwnDocument())
-			{
-				options[1] = DocAction.ACTION_ReActivate;
-				index++;
-			}
+				options[index++] = DocAction.ACTION_ReActivate;
 		}
 		//
 		return index;
