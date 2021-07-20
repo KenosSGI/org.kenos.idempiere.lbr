@@ -469,26 +469,29 @@ public class Doc_Invoice extends Doc
 				}
 			}
 
-			//  Receivables     DR
-			int receivables_ID = getValidCombination_ID(Doc.ACCTTYPE_C_Receivable, as);
-			int receivablesServices_ID = getValidCombination_ID (Doc.ACCTTYPE_C_Receivable_Services, as);
-			if (m_allLinesItem || !as.isPostServices()
-				|| receivables_ID == receivablesServices_ID)
+			if (!taxesOnly)
 			{
-				grossAmt = getAmount(Doc.AMTTYPE_Gross);
-				serviceAmt = Env.ZERO;
+				//  Receivables     DR
+				int receivables_ID = getValidCombination_ID(Doc.ACCTTYPE_C_Receivable, as);
+				int receivablesServices_ID = getValidCombination_ID (Doc.ACCTTYPE_C_Receivable_Services, as);
+				if (m_allLinesItem || !as.isPostServices()
+					|| receivables_ID == receivablesServices_ID)
+				{
+					grossAmt = getAmount(Doc.AMTTYPE_Gross);
+					serviceAmt = Env.ZERO;
+				}
+				else if (m_allLinesService)
+				{
+					serviceAmt = getAmount(Doc.AMTTYPE_Gross);
+					grossAmt = Env.ZERO;
+				}
+				if (grossAmt.signum() != 0)
+					fact.createLine(null, MAccount.get(getCtx(), receivables_ID),
+						getC_Currency_ID(), grossAmt, null);
+				if (serviceAmt.signum() != 0)
+					fact.createLine(null, MAccount.get(getCtx(), receivablesServices_ID),
+						getC_Currency_ID(), serviceAmt, null);
 			}
-			else if (m_allLinesService)
-			{
-				serviceAmt = getAmount(Doc.AMTTYPE_Gross);
-				grossAmt = Env.ZERO;
-			}
-			if (grossAmt.signum() != 0)
-				fact.createLine(null, MAccount.get(getCtx(), receivables_ID),
-					getC_Currency_ID(), grossAmt, null);
-			if (serviceAmt.signum() != 0)
-				fact.createLine(null, MAccount.get(getCtx(), receivablesServices_ID),
-					getC_Currency_ID(), serviceAmt, null);
 		}
 		//  ARC
 		else if (getDocumentType().equals(DOCTYPE_ARCredit))
