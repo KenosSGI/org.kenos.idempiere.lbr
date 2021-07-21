@@ -775,13 +775,15 @@ public class MLBRNFeEvent extends X_LBR_NFeEvent implements DocAction
 	 */
 	public static MLBRNFeEvent registerEvent (MLBRNotaFiscal nf, String eventType, String desc, int seqNo, boolean updateNFe, boolean transmit) throws AdempiereException
 	{
+		if (desc == null || desc.trim().length() < 15)
+			throw new AdempiereException("Tamanho do Texto/Justificativa do Evento inválido, mínimo de 15 caracteres");
 		MLBRNFeEvent event = new MLBRNFeEvent (nf.getCtx(), 0, nf.get_TrxName());
 		event.setAD_Org_ID(nf.getAD_Org_ID());
 		event.setLBR_NotaFiscal_ID(nf.getLBR_NotaFiscal_ID());
 		event.setlbr_NFeID(nf.getlbr_NFeID());
 		event.setLBR_EventType(eventType);
 		event.setlbr_NFeEnv(nf.getlbr_NFeEnv());
-		event.setDescription(desc);
+		event.setDescription(desc.trim());
 		event.setDateDoc(new Timestamp (System.currentTimeMillis()));
 		event.setSeqNo(seqNo);
 		event.setlbr_NFModel(nf.getlbr_NFModel());
