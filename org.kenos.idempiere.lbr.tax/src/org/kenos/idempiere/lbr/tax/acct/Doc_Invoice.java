@@ -532,7 +532,7 @@ public class Doc_Invoice extends Doc
 						}
 					}
 				}
-				amt = p_lines[i].getAmtSource();
+				amt = p_lines[i].getAmtSource().subtract(includedTax);
 				BigDecimal dAmt = null;
 				if (as.isTradeDiscountPosted())
 				{
