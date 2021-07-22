@@ -177,7 +177,7 @@ public class MLBRTax extends X_LBR_Tax
 		for (MLBRTaxLine taxLine : taxLines)
 		{
 			MLBRTaxName taxName = new MLBRTaxName (Env.getCtx(), taxLine.getLBR_TaxName_ID(), null);
-			MLBRTaxFormula taxFormula = taxName.getFormula (trxType, dateDoc);
+			MLBRTaxFormula taxFormula = taxName.getFormula (trxType, dateDoc, isSOTrx);
 			//
 			log.fine("[MLBRTaxName=" + taxName.getName() + ", MLBRTaxFormula=" + taxFormula + "]");
 			//
