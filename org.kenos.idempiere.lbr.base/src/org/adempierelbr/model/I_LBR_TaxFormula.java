@@ -23,7 +23,7 @@ import org.compiere.util.KeyNamePair;
 
 /** Generated Interface for LBR_TaxFormula
  *  @author iDempiere (generated) 
- *  @version Release 4.1
+ *  @version Release 6.2
  */
 @SuppressWarnings("all")
 public interface I_LBR_TaxFormula 
@@ -92,6 +92,19 @@ public interface I_LBR_TaxFormula
 	  * The record is active in the system
 	  */
 	public boolean isActive();
+
+    /** Column name IsSOTrx */
+    public static final String COLUMNNAME_IsSOTrx = "IsSOTrx";
+
+	/** Set Sales Transaction.
+	  * This is a Sales Transaction
+	  */
+	public void setIsSOTrx (String IsSOTrx);
+
+	/** Get Sales Transaction.
+	  * This is a Sales Transaction
+	  */
+	public String getIsSOTrx();
 
     /** Column name IsTaxIncluded */
     public static final String COLUMNNAME_IsTaxIncluded = "IsTaxIncluded";
@@ -162,6 +175,15 @@ public interface I_LBR_TaxFormula
 	  * Primary key table LBR_TaxFormula
 	  */
 	public int getLBR_TaxFormula_ID();
+
+    /** Column name LBR_TaxFormula_UU */
+    public static final String COLUMNNAME_LBR_TaxFormula_UU = "LBR_TaxFormula_UU";
+
+	/** Set LBR_TaxFormula_UU	  */
+	public void setLBR_TaxFormula_UU (String LBR_TaxFormula_UU);
+
+	/** Get LBR_TaxFormula_UU	  */
+	public String getLBR_TaxFormula_UU();
 
     /** Column name LBR_TaxName_ID */
     public static final String COLUMNNAME_LBR_TaxName_ID = "LBR_TaxName_ID";

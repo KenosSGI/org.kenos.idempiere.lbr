@@ -66,11 +66,24 @@ public class MLBRTaxName extends X_LBR_TaxName
 	 */
 	public MLBRTaxFormula getFormula (String trxType, Timestamp validFrom)
 	{
+		return getFormula (trxType, validFrom, null);
+	}	//	getFormula
+	
+	/**
+	 * 	Get the current formula for this tax
+	 * 	@param trxType transaction type
+	 * 	@param validFrom date
+	 * 	@return formula
+	 */
+	public MLBRTaxFormula getFormula (String trxType, Timestamp validFrom, Boolean isSOTrx)
+	{
 		MLBRTaxFormula tf = null;
 		//
 		StringBuffer sql = new StringBuffer("SELECT * FROM LBR_TaxFormula WHERE IsActive='Y' AND LBR_TaxName_ID=? AND lbr_TransactionType=?");
 		if (validFrom != null)
 			sql.append(" AND ValidFrom <= " + DB.TO_DATE(validFrom));
+		if (isSOTrx != null)
+			sql.append(" AND (IsSOTrx IS NULL OR IsSOTrx='").append(isSOTrx ? "Y" : "N").append("')");
 		//
 		sql.append(" ORDER BY ValidFrom DESC");
 		//

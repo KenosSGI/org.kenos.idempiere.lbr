@@ -145,6 +145,17 @@ public class MLBRTax extends X_LBR_Tax
 	 */
 	public void calculate (boolean isTaxIncludedPriceList, Timestamp dateDoc, Map<String, BigDecimal> params, String trxType)
 	{
+		calculate (isTaxIncludedPriceList, dateDoc, params, trxType, null);
+	}	//	calculate
+	
+	/**
+	 * 	Calculate taxes
+	 * @param amt
+	 * @param isTaxIncludedPriceList
+	 * @param trxType
+	 */
+	public void calculate (boolean isTaxIncludedPriceList, Timestamp dateDoc, Map<String, BigDecimal> params, String trxType, Boolean isSOTrx)
+	{
 		MLBRTaxLine[] taxLines = getLines();
 		
 		/**

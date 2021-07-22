@@ -250,7 +250,7 @@ public class VLBRTax implements ModelValidator
 				
 				//
 				MLBRTax tax = new MLBRTax (Env.getCtx(), oLineW.getLBR_Tax_ID(), oLine.get_TrxName());
-				tax.calculate (oW.isTaxIncluded(), oW.getDateOrdered(), params, oW.getlbr_TransactionType());
+				tax.calculate (oW.isTaxIncluded(), oW.getDateOrdered(), params, oW.getlbr_TransactionType(), oW.isSOTrx());
 			}
 			//
 			oLineW.setlbr_RecalculateTax(false);
@@ -281,7 +281,7 @@ public class VLBRTax implements ModelValidator
 				
 				//
 				MLBRTax tax = new MLBRTax (Env.getCtx(), iLineW.getLBR_Tax_ID(), iLine.get_TrxName());
-				tax.calculate (iW.isTaxIncluded(), iW.getDateOrdered(), params, iW.getlbr_TransactionType());
+				tax.calculate (iW.isTaxIncluded(), iW.getDateOrdered(), params, iW.getlbr_TransactionType(), oW.isSOTrx());
 			}
 			//
 			iLineW.setlbr_RecalculateTax(false);
