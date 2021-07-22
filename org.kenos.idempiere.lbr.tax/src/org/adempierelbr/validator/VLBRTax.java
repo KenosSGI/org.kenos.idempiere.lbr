@@ -281,7 +281,7 @@ public class VLBRTax implements ModelValidator
 				
 				//
 				MLBRTax tax = new MLBRTax (Env.getCtx(), iLineW.getLBR_Tax_ID(), iLine.get_TrxName());
-				tax.calculate (iW.isTaxIncluded(), iW.getDateOrdered(), params, iW.getlbr_TransactionType(), oW.isSOTrx());
+				tax.calculate (iW.isTaxIncluded(), iW.getDateOrdered(), params, iW.getlbr_TransactionType(), invoice.isSOTrx());
 			}
 			//
 			iLineW.setlbr_RecalculateTax(false);
