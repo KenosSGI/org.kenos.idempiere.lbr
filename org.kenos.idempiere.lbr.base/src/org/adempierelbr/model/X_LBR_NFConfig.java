@@ -31,7 +31,7 @@ public class X_LBR_NFConfig extends PO implements I_LBR_NFConfig, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20210403L;
+	private static final long serialVersionUID = 20210722L;
 
     /** Standard Constructor */
     public X_LBR_NFConfig (Properties ctx, int LBR_NFConfig_ID, String trxName)
@@ -50,6 +50,8 @@ public class X_LBR_NFConfig extends PO implements I_LBR_NFConfig, I_Persistent
 // N
 			setLBR_ReverseInvoice (false);
 // N
+			setLBR_ReverseMovement (true);
+// Y
 			setLBR_TPEmis (null);
 // 1
 			setlbr_DANFEFormat (null);
@@ -351,6 +353,30 @@ public class X_LBR_NFConfig extends PO implements I_LBR_NFConfig, I_Persistent
 	public boolean isLBR_ReverseInvoice () 
 	{
 		Object oo = get_Value(COLUMNNAME_LBR_ReverseInvoice);
+		if (oo != null) 
+		{
+			 if (oo instanceof Boolean) 
+				 return ((Boolean)oo).booleanValue(); 
+			return "Y".equals(oo);
+		}
+		return false;
+	}
+
+	/** Set Reverse Movement.
+		@param LBR_ReverseMovement 
+		Allow to Reverse Movement related with the NF
+	  */
+	public void setLBR_ReverseMovement (boolean LBR_ReverseMovement)
+	{
+		set_Value (COLUMNNAME_LBR_ReverseMovement, Boolean.valueOf(LBR_ReverseMovement));
+	}
+
+	/** Get Reverse Movement.
+		@return Allow to Reverse Movement related with the NF
+	  */
+	public boolean isLBR_ReverseMovement () 
+	{
+		Object oo = get_Value(COLUMNNAME_LBR_ReverseMovement);
 		if (oo != null) 
 		{
 			 if (oo instanceof Boolean) 

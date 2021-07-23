@@ -246,6 +246,19 @@ public interface I_LBR_NFConfig
 	  */
 	public boolean isLBR_ReverseInvoice();
 
+    /** Column name LBR_ReverseMovement */
+    public static final String COLUMNNAME_LBR_ReverseMovement = "LBR_ReverseMovement";
+
+	/** Set Reverse Movement.
+	  * Allow to Reverse Movement related with the NF
+	  */
+	public void setLBR_ReverseMovement (boolean LBR_ReverseMovement);
+
+	/** Get Reverse Movement.
+	  * Allow to Reverse Movement related with the NF
+	  */
+	public boolean isLBR_ReverseMovement();
+
     /** Column name LBR_TPEmis */
     public static final String COLUMNNAME_LBR_TPEmis = "LBR_TPEmis";
 

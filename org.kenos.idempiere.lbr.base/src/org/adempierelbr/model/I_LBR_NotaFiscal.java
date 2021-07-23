@@ -782,6 +782,19 @@ public interface I_LBR_NotaFiscal
 	  */
 	public boolean isLBR_ReverseInvoice();
 
+    /** Column name LBR_ReverseMovement */
+    public static final String COLUMNNAME_LBR_ReverseMovement = "LBR_ReverseMovement";
+
+	/** Set Reverse Movement.
+	  * Allow to Reverse Movement related with the NF
+	  */
+	public void setLBR_ReverseMovement (boolean LBR_ReverseMovement);
+
+	/** Get Reverse Movement.
+	  * Allow to Reverse Movement related with the NF
+	  */
+	public boolean isLBR_ReverseMovement();
+
     /** Column name LBR_SendEMail */
     public static final String COLUMNNAME_LBR_SendEMail = "LBR_SendEMail";
 
