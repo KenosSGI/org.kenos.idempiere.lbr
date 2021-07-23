@@ -145,6 +145,17 @@ public class MLBRTax extends X_LBR_Tax
 	 */
 	public void calculate (boolean isTaxIncludedPriceList, Timestamp dateDoc, Map<String, BigDecimal> params, String trxType)
 	{
+		calculate (isTaxIncludedPriceList, dateDoc, params, trxType, null);
+	}	//	calculate
+	
+	/**
+	 * 	Calculate taxes
+	 * @param amt
+	 * @param isTaxIncludedPriceList
+	 * @param trxType
+	 */
+	public void calculate (boolean isTaxIncludedPriceList, Timestamp dateDoc, Map<String, BigDecimal> params, String trxType, Boolean isSOTrx)
+	{
 		MLBRTaxLine[] taxLines = getLines();
 		
 		/**
@@ -166,7 +177,7 @@ public class MLBRTax extends X_LBR_Tax
 		for (MLBRTaxLine taxLine : taxLines)
 		{
 			MLBRTaxName taxName = new MLBRTaxName (Env.getCtx(), taxLine.getLBR_TaxName_ID(), null);
-			MLBRTaxFormula taxFormula = taxName.getFormula (trxType, dateDoc);
+			MLBRTaxFormula taxFormula = taxName.getFormula (trxType, dateDoc, isSOTrx);
 			//
 			log.fine("[MLBRTaxName=" + taxName.getName() + ", MLBRTaxFormula=" + taxFormula + "]");
 			//

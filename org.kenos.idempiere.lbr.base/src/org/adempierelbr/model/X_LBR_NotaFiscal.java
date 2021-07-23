@@ -34,7 +34,7 @@ public class X_LBR_NotaFiscal extends PO implements I_LBR_NotaFiscal, I_Persiste
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20210504L;
+	private static final long serialVersionUID = 20210722L;
 
     /** Standard Constructor */
     public X_LBR_NotaFiscal (Properties ctx, int LBR_NotaFiscal_ID, String trxName)
@@ -60,6 +60,8 @@ public class X_LBR_NotaFiscal extends PO implements I_LBR_NotaFiscal, I_Persiste
 			setLBR_IndIEDest (null);
 // 1
 			setLBR_NotaFiscal_ID (0);
+			setLBR_ReverseMovement (true);
+// Y
 			setNoPackages (0);
 // 1
 			setProcessed (false);
@@ -1301,6 +1303,30 @@ public class X_LBR_NotaFiscal extends PO implements I_LBR_NotaFiscal, I_Persiste
 	public boolean isLBR_ReverseInvoice () 
 	{
 		Object oo = get_Value(COLUMNNAME_LBR_ReverseInvoice);
+		if (oo != null) 
+		{
+			 if (oo instanceof Boolean) 
+				 return ((Boolean)oo).booleanValue(); 
+			return "Y".equals(oo);
+		}
+		return false;
+	}
+
+	/** Set Reverse Movement.
+		@param LBR_ReverseMovement 
+		Allow to Reverse Movement related with the NF
+	  */
+	public void setLBR_ReverseMovement (boolean LBR_ReverseMovement)
+	{
+		set_Value (COLUMNNAME_LBR_ReverseMovement, Boolean.valueOf(LBR_ReverseMovement));
+	}
+
+	/** Get Reverse Movement.
+		@return Allow to Reverse Movement related with the NF
+	  */
+	public boolean isLBR_ReverseMovement () 
+	{
+		Object oo = get_Value(COLUMNNAME_LBR_ReverseMovement);
 		if (oo != null) 
 		{
 			 if (oo instanceof Boolean) 

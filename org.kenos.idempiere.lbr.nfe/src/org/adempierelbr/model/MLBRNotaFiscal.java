@@ -3558,6 +3558,9 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 				//	Definir Valor Padrão do campo Estornar Remessa da NF.
 				setLBR_ReverseInOut(config.isLBR_ReverseInOut());
 				
+				//	Definir Valor Padrão do campo Estornar Movimentação
+				setLBR_ReverseMovement(config.isLBR_ReverseMovement());
+				
 				//	Verificar se existe alguma contingência agendada
 				MLBRNFConfigSVC svc = MLBRNFConfigSVC.get (getAD_Org_ID(), new Timestamp(System.currentTimeMillis()));
 				
@@ -3765,21 +3768,17 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 			if (!is_ValueChanged (I_LBR_NotaFiscal.COLUMNNAME_DocStatus))
 				return success;
 			
-			//	Fatura da NF
-			MInvoice invoice  = new MInvoice(Env.getCtx(), getC_Invoice_ID(), get_TrxName());
-			
-			//	Remessa / Recebimento da NF
-			MInOut inout = new MInOut (Env.getCtx(), getM_InOut_ID(), get_TrxName());
-			
 			//	Ao Anular uma NF Estornar a Fatura e Remessa / Recebimento
 			if (getDocStatus().equals(DocAction.ACTION_Void))
 			{
 				//	Se a Fatura for Válida, Estiver Completada e o Estorno Estiver Marcado
-			   	if (invoice != null && invoice.getDocStatus().equals(DocAction.STATUS_Completed)
-			   			&& isLBR_ReverseInvoice())
+			   	if (getC_Invoice_ID() > 0 && isLBR_ReverseInvoice())
 				{
+					//	Fatura da NF
+					MInvoice invoice  = new MInvoice(Env.getCtx(), getC_Invoice_ID(), get_TrxName());
+					
 		   			//	Estonar Fatura
-					if (invoice.reverseAccrualIt())
+					if (DocAction.STATUS_Completed.equals(invoice.getDocStatus()) && invoice.reverseAccrualIt())
 					{
 						invoice.setDocStatus(MInvoice.DOCSTATUS_Reversed);
 						invoice.setDocAction(MInvoice.DOCACTION_None);
@@ -3788,15 +3787,31 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 				}
 			   	
 			   	// Se a Remessa for Válida, Estiver Completada e o Estorno Estiver Marcado
-			   	if (inout != null && inout.getDocStatus().equals(DocAction.STATUS_Completed)
-			   			&& isLBR_ReverseInOut())
+			   	if (getM_InOut_ID() > 0 && isLBR_ReverseInOut())
 				{
+					//	Remessa / Recebimento da NF
+					MInOut inout = new MInOut (Env.getCtx(), getM_InOut_ID(), get_TrxName());
+					
 		   			//	Estornar Remessa
-					if (inout.reverseAccrualIt())
+					if (DocAction.STATUS_Completed.equals(inout.getDocStatus()) && inout.reverseAccrualIt())
 					{
 						inout.setDocStatus(MInvoice.DOCSTATUS_Reversed);
 						inout.setDocAction(MInvoice.DOCACTION_None);
 						inout.save();
+					}
+				}
+			   	
+			   	// Se a Movimentação for Válida, Estiver Completada e o Estorno Estiver Marcado
+			   	if (getM_Movement_ID() > 0 && isLBR_ReverseMovement())
+				{
+			   		MMovement movement = new MMovement (Env.getCtx(), getM_Movement_ID(), get_TrxName());
+			   		//
+		   			//	Estornar Remessa
+					if (MMovement.DOCSTATUS_Completed.equals(movement.getDocStatus()) && movement.reverseAccrualIt())
+					{
+						movement.setDocStatus(MInvoice.DOCSTATUS_Reversed);
+						movement.setDocAction(MInvoice.DOCACTION_None);
+						movement.save();
 					}
 				}
 			}

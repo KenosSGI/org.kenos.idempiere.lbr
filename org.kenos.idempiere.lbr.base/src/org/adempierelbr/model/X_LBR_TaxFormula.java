@@ -26,14 +26,14 @@ import org.compiere.util.Env;
 
 /** Generated Model for LBR_TaxFormula
  *  @author iDempiere (generated) 
- *  @version Release 4.1 - $Id$ */
+ *  @version Release 6.2 - $Id$ */
 public class X_LBR_TaxFormula extends PO implements I_LBR_TaxFormula, I_Persistent 
 {
 
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20170626L;
+	private static final long serialVersionUID = 20210722L;
 
     /** Standard Constructor */
     public X_LBR_TaxFormula (Properties ctx, int LBR_TaxFormula_ID, String trxName)
@@ -80,6 +80,30 @@ public class X_LBR_TaxFormula extends PO implements I_LBR_TaxFormula, I_Persiste
         .append(get_ID()).append("]");
       return sb.toString();
     }
+
+	/** IsSOTrx AD_Reference_ID=319 */
+	public static final int ISSOTRX_AD_Reference_ID=319;
+	/** Yes = Y */
+	public static final String ISSOTRX_Yes = "Y";
+	/** No = N */
+	public static final String ISSOTRX_No = "N";
+	/** Set Sales Transaction.
+		@param IsSOTrx 
+		This is a Sales Transaction
+	  */
+	public void setIsSOTrx (String IsSOTrx)
+	{
+
+		set_Value (COLUMNNAME_IsSOTrx, IsSOTrx);
+	}
+
+	/** Get Sales Transaction.
+		@return This is a Sales Transaction
+	  */
+	public String getIsSOTrx () 
+	{
+		return (String)get_Value(COLUMNNAME_IsSOTrx);
+	}
 
 	/** Set Price includes Tax.
 		@param IsTaxIncluded 
@@ -228,6 +252,20 @@ public class X_LBR_TaxFormula extends PO implements I_LBR_TaxFormula, I_Persiste
 		return ii.intValue();
 	}
 
+	/** Set LBR_TaxFormula_UU.
+		@param LBR_TaxFormula_UU LBR_TaxFormula_UU	  */
+	public void setLBR_TaxFormula_UU (String LBR_TaxFormula_UU)
+	{
+		set_Value (COLUMNNAME_LBR_TaxFormula_UU, LBR_TaxFormula_UU);
+	}
+
+	/** Get LBR_TaxFormula_UU.
+		@return LBR_TaxFormula_UU	  */
+	public String getLBR_TaxFormula_UU () 
+	{
+		return (String)get_Value(COLUMNNAME_LBR_TaxFormula_UU);
+	}
+
 	public org.adempierelbr.model.I_LBR_TaxName getLBR_TaxName() throws RuntimeException
     {
 		return (org.adempierelbr.model.I_LBR_TaxName)MTable.get(getCtx(), org.adempierelbr.model.I_LBR_TaxName.Table_Name)
@@ -356,6 +394,10 @@ public class X_LBR_TaxFormula extends PO implements I_LBR_TaxFormula, I_Persiste
 	public static final String LBR_TRANSACTIONTYPE_Resale = "RES";
 	/** End User (Double Base) = EN2 */
 	public static final String LBR_TRANSACTIONTYPE_EndUserDoubleBase = "EN2";
+	/** End User (RE 574.706) = EN3 */
+	public static final String LBR_TRANSACTIONTYPE_EndUserRE574706 = "EN3";
+	/** Resale (RE 574.706) = RE3 */
+	public static final String LBR_TRANSACTIONTYPE_ResaleRE574706 = "RE3";
 	/** Set Transaction Type.
 		@param lbr_TransactionType 
 		Defines the Transaction Type
