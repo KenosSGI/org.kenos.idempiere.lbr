@@ -28,11 +28,6 @@
 										<artifactId>dom4j</artifactId>
 										<version>${dom4j.version}</version>
 									</artifactItem>
-									<artifactItem>
-										<groupId>javax.xml.stream</groupId>
-										<artifactId>stax-api</artifactId>
-										<version>${stax.version}</version>
-									</artifactItem>
 								</artifactItems>
 								<outputDirectory>lib</outputDirectory>
 								<stripVersion>true</stripVersion>
