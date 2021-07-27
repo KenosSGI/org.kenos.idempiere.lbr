@@ -164,7 +164,8 @@ public abstract class LBRUtils
 	{
 		String sql = "SELECT C_DocType_ID "
 				+ "FROM C_DocType " 
-				+ "WHERE DocBaseType='ARR' "
+				+ "WHERE IsActive='Y' "
+				+ "AND DocBaseType='ARR' "
 				+ "AND AD_Client_ID=?";
 
 		int C_DocType_ID = DB.getSQLValue (null, sql, Env.getAD_Client_ID (Env.getCtx ()));
