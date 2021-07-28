@@ -25,7 +25,6 @@ import org.adempierelbr.util.NFeUtil;
 import org.adempierelbr.wrapper.I_W_C_DocType;
 import org.adempierelbr.wrapper.I_W_C_Order;
 import org.adempierelbr.wrapper.I_W_C_OrderLine;
-import org.compiere.model.MAttributeSet;
 import org.compiere.model.MClient;
 import org.compiere.model.MCurrency;
 import org.compiere.model.MDocType;
@@ -37,7 +36,6 @@ import org.compiere.model.MInvoicePaySchedule;
 import org.compiere.model.MOrder;
 import org.compiere.model.MOrderLine;
 import org.compiere.model.MOrderPaySchedule;
-import org.compiere.model.MProduct;
 import org.compiere.model.MStorageOnHand;
 import org.compiere.model.MSysConfig;
 import org.compiere.model.MWarehouse;
@@ -258,21 +256,6 @@ public class ValidatorOrder implements ModelValidator
 						
 						if (dis.getC_Region_ID() == 0)
 							return "Preencha a Região na DI: " + dis.getDocumentNo();
-					}
-				}
-				
-				if (order.isSOTrx())
-				{
-					//	Attribute Set Instance Always Mandatory Validation
-					for (MOrderLine ol : order.getLines())
-					{
-						MProduct p = (MProduct) ol.getM_Product();
-						
-						if (p.getM_Product_ID() > 0 &&
-								p.getM_AttributeSet_ID() > 0 &&
-								MAttributeSet.MANDATORYTYPE_AlwaysMandatory.equals(p.getM_AttributeSet().getMandatoryType()) &&
-								ol.getM_AttributeSetInstance_ID() == 0)
-							return "Instância de Atributo obrigatório para o produto " + ol.getM_Product().getValue();
 					}
 				}
 			}
