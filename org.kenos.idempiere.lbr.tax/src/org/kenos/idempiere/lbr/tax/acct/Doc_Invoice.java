@@ -36,6 +36,7 @@ import org.adempierelbr.model.MLBRTaxName;
 import org.adempierelbr.validator.VLBROrder;
 import org.adempierelbr.wrapper.I_W_AD_ClientInfo;
 import org.adempierelbr.wrapper.I_W_C_DocType;
+import org.adempierelbr.wrapper.I_W_C_InvoiceLine;
 import org.compiere.acct.Doc;
 import org.compiere.acct.DocLine;
 import org.compiere.acct.Fact;
@@ -227,6 +228,8 @@ public class Doc_Invoice extends Doc
 	private DocLine[] loadLines (MInvoice invoice)
 	{
 		ArrayList<DocLine> list = new ArrayList<DocLine>();
+		BigDecimal freightAmt = Env.ZERO;
+		DocLine freightDoc = null;
 		//
 		MInvoiceLine[] lines = invoice.getLines(false);
 		for (int i = 0; i < lines.length; i++)
@@ -241,8 +244,7 @@ public class Doc_Invoice extends Doc
 			if (M_Product_ID > 0 &&
 					  (clientInfoW.getLBR_ProductInsurance_ID() == M_Product_ID
 					|| clientInfoW.getLBR_ProductSISCOMEX_ID() == M_Product_ID
-					|| clientInfoW.getLBR_ProductOtherCharges_ID() == M_Product_ID
-					|| clientInfoW.getM_ProductFreight_ID() == M_Product_ID))
+					|| clientInfoW.getLBR_ProductOtherCharges_ID() == M_Product_ID))
 				continue;
 			
 			DocLine docLine = new DocLine(line, this);
@@ -265,7 +267,22 @@ public class Doc_Invoice extends Doc
 				m_allLinesItem = false;
 			//
 			if (log.isLoggable(Level.FINE)) log.fine(docLine.toString());
-			list.add(docLine);
+			
+			if (clientInfoW.getM_ProductFreight_ID() == M_Product_ID)
+				freightDoc = docLine;
+			else
+			{
+				BigDecimal lineFreight = (BigDecimal) line.get_Value(I_W_C_InvoiceLine.COLUMNNAME_FreightAmt);
+				if (lineFreight != null)
+					freightAmt = freightAmt.add(lineFreight);
+				list.add(docLine);
+			}
+		}
+		
+		if (freightDoc != null && freightDoc.getAmtSource().compareTo(freightAmt) != 0)
+		{
+			freightDoc.setAmount(freightDoc.getAmtSource().subtract(freightAmt));
+			list.add(freightDoc);
 		}
 
 		//	Convert to Array
