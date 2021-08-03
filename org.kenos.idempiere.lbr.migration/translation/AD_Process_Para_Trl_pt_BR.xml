@@ -169,21 +169,21 @@
   <value column="Placeholder2" original=""/>
  </row>
  <row id="53066" trl="Y">
-  <value column="Name" original="Is Print Pack &amp; Tools List" xml:space="preserve"><![CDATA[Is Print Pack & Tools List]]></value>
+  <value column="Name" original="Is Print Pack &amp; Tools List" xml:space="preserve"><![CDATA[Imprimir Lista de Ferramentas e Emabalagem]]></value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="Placeholder" original=""/>
   <value column="Placeholder2" original=""/>
  </row>
  <row id="53068" trl="Y">
-  <value column="Name" original="Is Print Pick List">Is Print Pick List</value>
+  <value column="Name" original="Is Print Pick List">Imprimir Lista de Separação</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="Placeholder" original=""/>
   <value column="Placeholder2" original=""/>
  </row>
  <row id="53069" trl="Y">
-  <value column="Name" original="Is Print Workflow">Is Print Workflow</value>
+  <value column="Name" original="Is Print Workflow">Imprimir Fluxo de Trabalho</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="Placeholder" original=""/>
@@ -281,7 +281,7 @@
   <value column="Placeholder2" original=""/>
  </row>
  <row id="53285" trl="Y">
-  <value column="Name" original="Normal User Name">Normal User Name</value>
+  <value column="Name" original="Normal User Name">Usuário Comum</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="Placeholder" original=""/>
@@ -393,7 +393,7 @@
   <value column="Placeholder2" original=""/>
  </row>
  <row id="200005" trl="N">
-  <value column="Name" original="New EMail Confirm">New EMail Confirm</value>
+  <value column="Name" original="New EMail Confirm">Confirmação do Novo EMail</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="Placeholder" original=""/>
@@ -414,16 +414,16 @@
   <value column="Placeholder2" original=""/>
  </row>
  <row id="200060" trl="N">
-  <value column="Name" original="Financial Year Month">Financial Year Month</value>
-  <value column="Description" original="The only valid date format is: YYYY-MM">The only valid date format is: YYYY-MM</value>
-  <value column="Help" original="The only valid date format is: YYYY-MM">The only valid date format is: YYYY-MM</value>
+  <value column="Name" original="Financial Year Month"><![CDATA[Ano/Mês Financeiro]]></value>
+  <value column="Description" original="The only valid date format is: YYYY-MM">O único formato válido é: AAAA-MM</value>
+  <value column="Help" original="The only valid date format is: YYYY-MM">O único formato válido é: AAAA-MM</value>
   <value column="Placeholder" original="From">De</value>
   <value column="Placeholder2" original="To">Para</value>
  </row>
  <row id="200062" trl="N">
-  <value column="Name" original="Financial Year Month">Financial Year Month</value>
-  <value column="Description" original="The only valid date format is: YYYY-MM">The only valid date format is: YYYY-MM</value>
-  <value column="Help" original="The only valid date format is: YYYY-MM">The only valid date format is: YYYY-MM</value>
+  <value column="Name" original="Financial Year Month"><![CDATA[Ano/Mês Financeiro]]></value>
+  <value column="Description" original="The only valid date format is: YYYY-MM">O único formato válido é: AAAA-MM</value>
+  <value column="Help" original="The only valid date format is: YYYY-MM">O único formato válido é: AAAA-MM</value>
   <value column="Placeholder" original="From">De</value>
   <value column="Placeholder2" original="To">Para</value>
  </row>
@@ -435,14 +435,14 @@
   <value column="Placeholder2" original=""/>
  </row>
  <row id="200074" trl="N">
-  <value column="Name" original="Administrative User Email">Administrative User Email</value>
+  <value column="Name" original="Administrative User Email">Email do Usuário Admin.</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="Placeholder" original=""/>
   <value column="Placeholder2" original=""/>
  </row>
  <row id="200075" trl="N">
-  <value column="Name" original="Normal User Email">Normal User Email</value>
+  <value column="Name" original="Normal User Email">Email do Usuário Comum</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="Placeholder" original=""/>
@@ -456,28 +456,28 @@
   <value column="Placeholder2" original=""/>
  </row>
  <row id="200084" trl="N">
-  <value column="Name" original="Use Default CoA">Use Default CoA</value>
-  <value column="Description" original="Use Default Chart of Accounts">Use Default Chart of Accounts</value>
+  <value column="Name" original="Use Default CoA">Usar Plano de Contas Padrão</value>
+  <value column="Description" original="Use Default Chart of Accounts">Usa o plano de contas padrão</value>
   <value column="Help" original=""/>
   <value column="Placeholder" original=""/>
   <value column="Placeholder2" original=""/>
  </row>
  <row id="200085" trl="N">
-  <value column="Name" original="Activity Accounting">Activity Accounting</value>
-  <value column="Description" original="Use Activity accounting dimension">Use Activity accounting dimension</value>
-  <value column="Help" original="Define if this client will use activity accounting dimension.  This can be changed later in Accounting Schema window of the client.">Define if this client will use activity accounting dimension.  This can be changed later in Accounting Schema window of the client.</value>
+  <value column="Name" original="Activity Accounting">Contabilidade de Atividades</value>
+  <value column="Description" original="Use Activity accounting dimension">Usar o cadastro de Atividades como uma dimensão contábil</value>
+  <value column="Help" original="Define if this client will use activity accounting dimension.  This can be changed later in Accounting Schema window of the client.">Define se esta empresa irá utilizar a Atividade como uma dimensão contábil. Isso poderá ser modificado posteriormente no Esquema Contábil.</value>
   <value column="Placeholder" original=""/>
   <value column="Placeholder2" original=""/>
  </row>
  <row id="200086" trl="N">
-  <value column="Name" original="Inactivate Defaults">Inactivate Defaults</value>
-  <value column="Description" original="Inactivate Defaults after Created">Inactivate Defaults after Created</value>
+  <value column="Name" original="Inactivate Defaults">Desativar Padrões</value>
+  <value column="Description" original="Inactivate Defaults after Created">Desativa os cadastros padrões após sua criação</value>
   <value column="Help" original=""/>
   <value column="Placeholder" original=""/>
   <value column="Placeholder2" original=""/>
  </row>
  <row id="200102" trl="N">
-  <value column="Name" original="Cost Adjustment Document Type">Cost Adjustment Document Type</value>
+  <value column="Name" original="Cost Adjustment Document Type">Tipo de Documento de Ajuste de Custo</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="Placeholder" original=""/>
@@ -492,8 +492,8 @@ this field define where request, error,.. occupy.</value>
   <value column="Placeholder2" original=""/>
  </row>
  <row id="200226" trl="N">
-  <value column="Name" original="Folder">Folder</value>
-  <value column="Description" original="Path on the server where the pack in files are located">Path on the server where the pack in files are located</value>
+  <value column="Name" original="Folder">Diretório</value>
+  <value column="Description" original="Path on the server where the pack in files are located">Diretório no servidor onde os arquivos estão localizados</value>
   <value column="Help" original=""/>
   <value column="Placeholder" original=""/>
   <value column="Placeholder2" original=""/>
