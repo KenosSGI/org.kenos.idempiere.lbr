@@ -724,6 +724,18 @@ public class ValidatorInvoice implements ModelValidator
 					if (!nf.allowReverseDocs())
 						return "Não é possível estornar uma Fatura, cancele as Notas Fiscais vinculadas primeiro.";
 			}
+			
+			//	Não Permite Estornar Fatura ligada a uma Alocação de Pagamento
+			if (!MSysConfig.getBooleanValue(SysConfig.LBR_ALLOW_REVERSE_INVOICE_WITH_PAY_ALLOC, false, wInvoice.getAD_Client_ID()))
+			{
+				long count = Arrays.asList (MAllocationHdr.getOfInvoice (invoice.getCtx(), invoice.getC_Invoice_ID(), invoice.get_TrxName()))
+					.stream()
+					.filter(a -> TextUtil.match(a.getDocStatus(), MAllocationHdr.DOCSTATUS_Completed, MAllocationHdr.DOCSTATUS_Completed))
+					.count();
+				
+				if (count > 0)
+					return "Não é possível estornar uma Fatura, pois a Fatura já está alocada a um Pagamento. Desfaça a Alocação primeiro.";
+			}
 		}
 
 		return null;
