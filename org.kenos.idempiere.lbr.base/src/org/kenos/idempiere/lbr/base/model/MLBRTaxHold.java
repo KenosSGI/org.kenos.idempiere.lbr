@@ -70,13 +70,13 @@ public class MLBRTaxHold extends X_LBR_TaxHold
 	public static MLBRTaxHold getTaxHold (int M_Product_ID, int AD_Org_ID, Timestamp docDate)
 	{
 		String where = COLUMNNAME_M_Product_ID + "=? "
-				+ "AND " + COLUMNNAME_AD_Org_ID + "=? "
+				+ "AND " + COLUMNNAME_AD_Org_ID + " IN (0, ?) "
 				+ "AND TRUNC(" + COLUMNNAME_ValidFrom + ") <= " + DB.TO_DATE(docDate);
 		
 		//	List
 		MLBRTaxHold tc = new Query (Env.getCtx(), MLBRTaxHold.Table_Name, where, null)
 			.setParameters(M_Product_ID, AD_Org_ID)
-			.setOrderBy(COLUMNNAME_ValidFrom + " DESC")
+			.setOrderBy(COLUMNNAME_AD_Org_ID + " DESC ," + COLUMNNAME_ValidFrom + " DESC")
 			.first();
 		
 		return tc;
