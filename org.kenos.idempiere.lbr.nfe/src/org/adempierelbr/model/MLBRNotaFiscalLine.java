@@ -792,6 +792,7 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 					icmsST = new MLBRNFLineTax (this);
 					icmsST.setLBR_TaxStatus_ID(LBR_TaxStatus_ID);
 					icmsST.setLBR_TaxGroup_ID(taxAD.getLBR_TaxGroup_ID());
+					icmsST.setlbr_TaxAmt(Env.ZERO);
 					icmsST.save();
 				}
 			}
@@ -1246,7 +1247,7 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 	private void setDiscount(BigDecimal price, BigDecimal priceList)
 	{	
 		if (getParent().isDiscountPrinted())
-			setDiscountAmt(priceList.subtract(price).multiply(getQty()));
+			setDiscountAmt(priceList.subtract(price).multiply(getQty()).setScale(2, RoundingMode.HALF_UP));
 		else
 			setDiscountAmt(Env.ZERO);
 	}	//	setDiscount

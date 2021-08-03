@@ -33,6 +33,7 @@ public class SysConfig
 	public static final String LBR_DEBUG_RPS 									= "LBR_DEBUG_RPS";
 	public static final String LBR_DEFAULT_TIMEZONE 							= "LBR_DEFAULT_TIMEZONE";
 	public static final String LBR_DFE_LAST_NSU 								= "LBR_DFE_LAST_NSU";
+	public static final String LBR_DISABLE_PRICE_LIST_CHECK 					= "LBR_DISABLE_PRICE_LIST_CHECK";
 	public static final String LBR_DIVIDE_PRODUCT_RECEPT_WHEN_SERIALNUMBER 		= "LBR_DIVIDE_PRODUCT_RECEPT_WHEN_SERIALNUMBER";
 	public static final String LBR_EFD_NON_RECOVERABLE_ST 						= "LBR_EFD_NON_RECOVERABLE_ST";
 	public static final String LBR_ENABLED 										= "LBR_ENABLED";
