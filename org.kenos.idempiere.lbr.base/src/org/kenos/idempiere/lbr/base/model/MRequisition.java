@@ -32,6 +32,20 @@ public class MRequisition extends org.compiere.model.MRequisition implements Doc
 	}	//	MRequisition
 	
 	/**
+	 * 	Void It
+	 */
+	@Override
+	public boolean voidIt() 
+	{
+		if (super.voidIt())
+		{
+			setProcessed(true);
+			return true;
+		}
+		return false;
+	}	//	voidIt
+	
+	/**
 	 * 	Reverse Correction
 	 * 	@return true if success 
 	 */

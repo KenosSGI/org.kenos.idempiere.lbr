@@ -662,8 +662,13 @@ public class NFeXMLGenerator
 		enderEmit.setCPais(TEnderEmi.CPais.X_1058);	//	Emitente, somente Brasil
 		enderEmit.setXPais(TEnderEmi.XPais.BRASIL);	//	Emitente, somente Brasil
 		
-		if (nf.getlbr_OrgPhone() != null)
-			enderEmit.setFone(toNumericStr (nf.getlbr_OrgPhone()));
+		if (nf.getlbr_OrgPhone() != null && !nf.getlbr_OrgPhone().isBlank())
+		{
+			String phone = toNumericStr (nf.getlbr_OrgPhone());
+			if (!phone.matches("\\d{6,14}"))
+				throw new AdempiereUserError ("Telefone da organização inválido. O telefone precisa ter entre 6 e 14 dígitos númericos.");
+			enderEmit.setFone(phone);
+		}
 		
 		//	IE
 		emit.setIE(toNumericStr (nf.getlbr_IE()));
@@ -758,9 +763,8 @@ public class NFeXMLGenerator
 					//	1=Contribuinte ICMS (informar a IE do destinatário);
 					//	9= Não Contribuinte, que pode ou não possuir Inscrição Estadual no Cadastro de Contribuintes do ICMS;
 					if (MLBRNotaFiscal.LBR_INDIEDEST_1_ContribuinteDeICMS.equals(nf.getLBR_IndIEDest()) || 								
-							(MLBRNotaFiscal.LBR_INDIEDEST_9_NãoContribuinteDeICMS.equals(nf.getLBR_IndIEDest()) 
-							&& nf.getlbr_BPIE() != null 		//	Not Null
-							&& !nf.getlbr_BPIE().isEmpty() 		//	Not Empty
+							(nf.getlbr_BPIE() != null 		//	Not Null
+							&& !nf.getlbr_BPIE().isBlank() 		//	Not Empty
 							&& !nf.getlbr_BPIE().trim().toUpperCase().startsWith("ISENT")))	//	Does not match ISENTO and ISENTA
 							dest.setIE (toNumericStr (nf.getlbr_BPIE()));
 					
@@ -788,9 +792,13 @@ public class NFeXMLGenerator
 				
 				enderDest.setXPais(((MCountry) POWrapper.getPO (country)).get_Translation (MCountry.COLUMNNAME_Name, LBRUtils.AD_LANGUAGE));
 				
-				if (nf.getlbr_BPPhone() != null)
-					enderDest.setFone(toNumericStr (nf.getlbr_BPPhone()));
-				
+				if (nf.getlbr_BPPhone() != null && !nf.getlbr_BPPhone().isBlank())
+				{
+					String phone = toNumericStr (nf.getlbr_BPPhone());
+					if (!phone.matches("\\d{6,14}"))
+						throw new AdempiereUserError ("Telefone do destinatário inválido. O telefone precisa ter entre 6 e 14 dígitos númericos.");
+					enderDest.setFone(phone);
+				}
 				//	F. Identificação do Local de Retirada
 				//	G. Identificação do Local de Entrega
 				TLocal retOuEntreg = null;
@@ -841,8 +849,13 @@ public class NFeXMLGenerator
 					if (nf.getlbr_CountryCode() != null)
 						retOuEntreg.setCPais(nf.getlbr_CountryCode().substring(1));
 					
-					if (nf.getLBR_BPDeliveryPhone() != null)
-						retOuEntreg.setFone(toNumericStr(nf.getLBR_BPDeliveryPhone()));
+					if (nf.getLBR_BPDeliveryPhone() != null && !nf.getLBR_BPDeliveryPhone().isBlank())
+					{
+						String phone = toNumericStr (nf.getLBR_BPDeliveryPhone());
+						if (!phone.matches("\\d{6,14}"))
+							throw new AdempiereUserError ("Telefone do local de entrega inválido. O telefone precisa ter entre 6 e 14 dígitos númericos.");
+						retOuEntreg.setFone(phone);
+					}
 					
 					if (nf.getLBR_BPDeliveryEmail() != null)
 						retOuEntreg.setEmail(nf.getLBR_BPDeliveryEmail());
@@ -2295,7 +2308,10 @@ public class NFeXMLGenerator
 				respTec.setCNPJ(TextUtil.toNumeric(sresp.getlbr_CNPJ()));
 				respTec.setXContato(sresp.getContactName().trim());
 				respTec.setEmail(sresp.getEMail().trim());
-				respTec.setFone(toNumericStr(sresp.getPhone()));
+				String phone = toNumericStr(sresp.getPhone());
+				if (!phone.matches("\\d{6,14}"))
+					throw new AdempiereUserError ("Telefone do local do responsável técnico inválido. O telefone precisa ter entre 6 e 14 dígitos númericos.");
+				respTec.setFone(phone);
 				
 				//
 				if (config != null && config.getLBR_CSRTCode() != null)
