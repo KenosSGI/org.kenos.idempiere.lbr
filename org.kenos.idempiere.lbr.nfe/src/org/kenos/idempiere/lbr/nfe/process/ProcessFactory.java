@@ -23,6 +23,8 @@ public class ProcessFactory implements IProcessFactory
 			return new ImportOrder ();
 		if (GIAGenerator.class.getName().equals (className))
 			return new GIAGenerator ();
+		if (CreateReturnMov.class.getName().equals (className))
+			return new CreateReturnMov ();
 		return null;
 	}	//	newProcessInstance
 }	//	CalloutFactory

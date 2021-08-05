@@ -225,6 +225,8 @@ public class ValidatorInOut implements ModelValidator
 		if(lines == null || lines.length <= 0)
 			return Msg.getMsg(ctx, "NoLines");
 		
+		I_W_C_DocType dt = POWrapper.create ((MDocType) mov.getC_DocType(), I_W_C_DocType.class);
+		
 		for(MMovementLine line : lines) {
 			if(line.getM_Product_ID() <=0 || line.getM_Locator_ID() <=0){
 				msg = "Produto ou Localizador inválido";
@@ -256,7 +258,8 @@ public class ValidatorInOut implements ModelValidator
 			
 			//	CNPJ of locator from and locator to should be the same
 			if (!MSysConfig.getBooleanValue (SysConfig.LBR_ALLOW_CROSS_ORG_MOVEMENT, false) 
-					&& line.getM_Locator().getM_Warehouse_ID() != line.getM_LocatorTo().getM_Warehouse_ID())
+					&& line.getM_Locator().getM_Warehouse_ID() != line.getM_LocatorTo().getM_Warehouse_ID()
+					&& (dt.getlbr_DocBaseType() == null || !dt.getlbr_DocBaseType().startsWith("MMST")))
 			{
 				I_W_M_Warehouse wFrom = POWrapper.create (MWarehouse.get(mov.getCtx(), line.getM_Locator().getM_Warehouse_ID(), null), I_W_M_Warehouse.class);
 				I_W_M_Warehouse wTo = POWrapper.create (MWarehouse.get(mov.getCtx(), line.getM_LocatorTo().getM_Warehouse_ID(), null), I_W_M_Warehouse.class);
