@@ -890,39 +890,45 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 		setQty (line.getMovementQty());
 		
 		//	Cost
-		MAcctSchema as = MClient.get (line.getCtx ()).getAcctSchema();
-		MCost mCost = null;
-		BigDecimal costPrice = Env.ZERO;
+		BigDecimal costPrice = (BigDecimal) line.get_Value(MCost.COLUMNNAME_CurrentCostPrice);
+		if (costPrice == null)
+			costPrice = Env.ZERO;
 		
-		String where = " M_Product_ID=? AND LBR_AverageCost_ID IN " + 
-				"(SELECT LBR_AverageCost_ID FROM LBR_AverageCost WHERE C_Period_ID=?)";
-		
-		//	Buscar Custo do Período
-		MLBRAverageCostLine acl = new Query (Env.getCtx(), MLBRAverageCostLine.Table_Name, where, get_TrxName())
-									.setParameters(product.getM_Product_ID(), MPeriod.get(Env.getCtx(), dateOrdered, getAD_Org_ID(), get_TrxName()).getC_Period_ID())
-									.first();
-		
-		if (acl != null && acl.getCurrentCostPrice().compareTo(BigDecimal.ZERO) > 0)
+		//	Cost not found
+		if (costPrice.signum() != 1)
 		{
-			costPrice = acl.getCurrentCostPrice();
-		}
-		else
-		{
-			// Se Custo do Período não identificado, buscar custo Atual.		
-			mCost = MCost.get (line.getProduct(), line.getM_AttributeSetInstance_ID(), as, line.getAD_Org_ID(), p_M_CostElement_ID, line.get_TrxName());
+			MAcctSchema as = MClient.get (line.getCtx ()).getAcctSchema();
+			MCost mCost = null;
 			
-			if (mCost != null && mCost.getCurrentCostPrice().compareTo(BigDecimal.ZERO) > 0)
-				costPrice = mCost.getCurrentCostPrice();
+			String where = " M_Product_ID=? AND LBR_AverageCost_ID IN " + 
+					"(SELECT LBR_AverageCost_ID FROM LBR_AverageCost WHERE C_Period_ID=?)";
+			
+			//	Buscar Custo do Período
+			MLBRAverageCostLine acl = new Query (Env.getCtx(), MLBRAverageCostLine.Table_Name, where, get_TrxName())
+										.setParameters(product.getM_Product_ID(), MPeriod.get(Env.getCtx(), dateOrdered, getAD_Org_ID(), get_TrxName()).getC_Period_ID())
+										.first();
+			
+			if (acl != null && acl.getCurrentCostPrice().compareTo(BigDecimal.ZERO) > 0)
+			{
+				costPrice = acl.getCurrentCostPrice();
+			}
 			else
 			{
-				//	Buscar da Organização * se não houver Custo na Organização
-				mCost = MCost.get (line.getProduct(), line.getM_AttributeSetInstance_ID(), as, 0, p_M_CostElement_ID, line.get_TrxName());
-				costPrice = mCost.getCurrentCostPrice();
+				// Se Custo do Período não identificado, buscar custo Atual.		
+				mCost = MCost.get (line.getProduct(), line.getM_AttributeSetInstance_ID(), as, line.getAD_Org_ID(), p_M_CostElement_ID, line.get_TrxName());
+				
+				if (mCost != null && mCost.getCurrentCostPrice().compareTo(BigDecimal.ZERO) > 0)
+					costPrice = mCost.getCurrentCostPrice();
+				else
+				{
+					//	Buscar da Organização * se não houver Custo na Organização
+					mCost = MCost.get (line.getProduct(), line.getM_AttributeSetInstance_ID(), as, 0, p_M_CostElement_ID, line.get_TrxName());
+					costPrice = mCost.getCurrentCostPrice();
+				}
 			}
-		}			
-		
+		}
 		//	Cost Price
-		setPrice(MLBRNotaFiscal.CURRENCY_BRL, costPrice, costPrice , false, false);
+		setPrice (MLBRNotaFiscal.CURRENCY_BRL, costPrice, costPrice , false, false);
 	}	//	setMovementLine
 	
 	/**

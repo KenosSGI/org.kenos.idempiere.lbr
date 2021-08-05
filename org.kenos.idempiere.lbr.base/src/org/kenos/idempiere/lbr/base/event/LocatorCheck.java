@@ -2,9 +2,11 @@ package org.kenos.idempiere.lbr.base.event;
 
 import org.adempiere.base.event.AbstractEventHandler;
 import org.adempiere.base.event.IEventTopics;
+import org.adempierelbr.wrapper.I_W_AD_OrgInfo;
 import org.compiere.model.MInOutLine;
 import org.compiere.model.MInventoryLine;
 import org.compiere.model.MMovementLine;
+import org.compiere.model.MOrgInfo;
 import org.compiere.model.MProductionLine;
 import org.compiere.model.MSysConfig;
 import org.compiere.model.PO;
@@ -121,9 +123,31 @@ public class LocatorCheck extends AbstractEventHandler
 				&& !ml.is_ValueChanged(MMovementLine.COLUMNNAME_M_LocatorTo_ID))
 			return;
 		
-		checkOrg (ml.getAD_Org_ID(), ml.getM_Locator().getM_Warehouse().getAD_Org_ID(), event);
-		checkOrg (ml.getAD_Org_ID(), ml.getM_LocatorTo().getM_Warehouse().getAD_Org_ID(), event);
+		MOrgInfo oiBase = MOrgInfo.get(ml.getCtx(), ml.getM_Movement().getAD_Org_ID(), null);
+		MOrgInfo oiFrom = MOrgInfo.get(ml.getCtx(), ml.getM_Locator().getM_Warehouse().getAD_Org_ID(), null);
+		MOrgInfo oiTo = MOrgInfo.get(ml.getCtx(), ml.getM_LocatorTo().getM_Warehouse().getAD_Org_ID(), null);
+		
+		String cnpjBase = oiBase.get_ValueAsString(I_W_AD_OrgInfo.COLUMNNAME_lbr_CNPJ);
+		String cnpjFrom = oiFrom.get_ValueAsString(I_W_AD_OrgInfo.COLUMNNAME_lbr_CNPJ);
+		String cnpjTo = oiTo.get_ValueAsString(I_W_AD_OrgInfo.COLUMNNAME_lbr_CNPJ);
+		
+		checkBaseCNPJ (cnpjBase, cnpjFrom, event);
+		checkBaseCNPJ (cnpjBase, cnpjTo, event);
 	}	//	doHandleTableEvent
+	
+	/**
+	 * 	Check if the Organization of Warehouse is the same as the Organization of Document
+	 * 	@param Doc_Locator_ID Organization of the document
+	 * 	@param Warehouse_Locator_ID Organization of the Warehouse
+	 * 	@param event Event
+	 */
+	private void checkBaseCNPJ (String cnpjBase, String cnpjTo, Event event)
+	{
+		if (cnpjBase == null || cnpjTo == null)
+			return;
+		if (!cnpjBase.substring(0, 10).equals(cnpjTo.substring(0, 10)))
+			addErrorMessage (event, "Os Localizadores selecionados não pertencem ao mesmo Grupo Econômico");
+	}	//	checkOrg
 	
 	/**
 	 * 	Check if the Organization of Warehouse is the same as the Organization of Document

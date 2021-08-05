@@ -45,4 +45,12 @@ public class MMovement extends org.compiere.model.MMovement
 		
 		return result;
 	}	//	getDestionationType
+	
+	public MMovement copyTo ()
+	{
+		MMovement to = new MMovement (getCtx(), 0, null);
+		to.set_TrxName(get_TrxName());
+		copyValues(this, to, getAD_Client_ID(), getAD_Org_ID());
+		return to;
+	}	//	copyTo
 }	//	MMovement
