@@ -7148,6 +7148,14 @@ Telefone: {1}</value>
   <value column="MsgText" original="Show Inter-Company Invoices">Mostrar Faturas do Grupo Econômico</value>
   <value column="MsgTip" original=""/>
  </row>
+ <row trl="Y" uuid="9a7412b9-819a-45ac-81a1-08833e1cff92">
+  <value column="MsgText" original="&lt;b&gt;CNPJ&lt;/b&gt;: {0} &lt;br /&gt;&lt;b&gt;IE&lt;/b&gt;: {1} &lt;br /&gt;&lt;b&gt;Last&lt;/b&gt;: {2} de {3} &lt;br /&gt; &lt;br /&gt;&lt;b&gt;Score Status&lt;/b&gt;&lt;br /&gt;{4}" xml:space="preserve"><![CDATA[<b>CNPJ</b>: {0} <br /><b>IE</b>: {1} <br /><b>Último</b>: {2} de {3} <br /> <br /><b>Consulta de Crédito</b><br />{4}]]></value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row trl="Y" uuid="98da4b68-fc4d-4ec9-b80d-109457b48a53">
+  <value column="MsgText" original="&lt;p&gt;&lt;b&gt;Source&lt;/b&gt;: {0} &lt;br /&gt;&lt;b&gt;NCM&lt;/b&gt;: {1} &lt;br /&gt;&lt;b&gt;CEST&lt;/b&gt;: {2}&lt;br /&gt;&lt;b&gt;Qty on Hand&lt;/b&gt;: {3}&lt;br /&gt;&lt;br /&gt;&lt;b&gt;History:&lt;/b&gt;&lt;/p&gt;{4}" xml:space="preserve"><![CDATA[<p><b>Origem</b>: {0} <br /><b>NCM</b>: {1} <br /><b>CEST</b>: {2}<br /><b>Qde em Mãos</b>: {3}<br /><br /><b>Histórico:</b></p>{4}]]></value>
+  <value column="MsgTip" original=""/>
+ </row>
  <row trl="Y" uuid="abfbe3f0-a251-4228-af61-490a035ebea1">
   <value column="MsgText" original="Informe os dados abaixo para fazer o cálculo do frete nos Correios. As medidas somente tem efeito para saber os tamanhos mínimos e máximos de cada pacote, não influenciando no preço (para preço do balcão). Além do preço do balcão o sistema mostra os preços de contrato, caso sua empresa tenha um contrato de prestação de serviços configurado.">Informe os dados abaixo para fazer o cálculo do frete nos Correios. As medidas somente tem efeito para saber os tamanhos mínimos e máximos de cada pacote, não influenciando no preço (para preço do balcão). Além do preço do balcão o sistema mostra os preços de contrato, caso sua empresa tenha um contrato de prestação de serviços configurado.</value>
   <value column="MsgTip" original=""/>

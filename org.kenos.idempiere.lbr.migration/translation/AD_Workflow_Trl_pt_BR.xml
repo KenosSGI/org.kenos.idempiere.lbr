@@ -388,4 +388,9 @@ Se você não pode cobrir o MPS como você planejou, este módulo dá a você a 
   <value column="Description" original="(Standard Process Order)">(Standard Process Order)</value>
   <value column="Help" original=""/>
  </row>
+ <row trl="N" uuid="04a937d7-b8cc-4b23-acc2-05f40956fee1">
+  <value column="Name" original="Process_LBR_EFDContrib">Process_LBR_EFDContrib</value>
+  <value column="Description" original="(Standard Process Order)">(Standard Process Order)</value>
+  <value column="Help" original=""/>
+ </row>
 </idempiereTrl>

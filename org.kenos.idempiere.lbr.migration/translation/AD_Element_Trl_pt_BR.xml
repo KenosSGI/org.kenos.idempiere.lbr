@@ -62297,7 +62297,7 @@ Exemplo, caso o valor seja 60, o usuário não poderá re-utilizar uma senha que
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row id="203337" trl="N">
+ <row id="203337" trl="Y">
   <value column="Name" original="Report Output Type">Formato do Arquivo</value>
   <value column="PrintName" original="Report Output Type">Formato do Arquivo</value>
   <value column="Description" original=""/>
@@ -62308,10 +62308,10 @@ Exemplo, caso o valor seja 60, o usuário não poderá re-utilizar uma senha que
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row id="203345" trl="N">
-  <value column="Name" original="View find result">View find result</value>
-  <value column="PrintName" original="View find result">View find result</value>
-  <value column="Description" original="Does the system must switch to grid mode after the Find panel closes">Does the system must switch to grid mode after the Find panel closes</value>
+ <row id="203345" trl="Y">
+  <value column="Name" original="View find result">Visualizar Resultado da Pesquisa</value>
+  <value column="PrintName" original="View find result">Visualizar Resultado da Pesquisa</value>
+  <value column="Description" original="Does the system must switch to grid mode after the Find panel closes">Configura se a visualização será modificada para o modo grade ao finalizar a pesquisa</value>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
@@ -62319,10 +62319,10 @@ Exemplo, caso o valor seja 60, o usuário não poderá re-utilizar uma senha que
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row id="203346" trl="N">
-  <value column="Name" original="Threshold">Threshold</value>
-  <value column="PrintName" original="Threshold">Threshold</value>
-  <value column="Description" original="Force grid view when Find panel closes if number of records exceed threshold">Force grid view when Find panel closes if number of records exceed threshold</value>
+ <row id="203346" trl="Y">
+  <value column="Name" original="Threshold">Limiar</value>
+  <value column="PrintName" original="Threshold">Limiar</value>
+  <value column="Description" original="Force grid view when Find panel closes if number of records exceed threshold">Força o modo grade ao finalizar a pesquisa se o limiar for atingido</value>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
@@ -62330,9 +62330,9 @@ Exemplo, caso o valor seja 60, o usuário não poderá re-utilizar uma senha que
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row id="203347" trl="N">
-  <value column="Name" original="Create Allocation">Create Allocation</value>
-  <value column="PrintName" original="Create Allocation">Create Allocation</value>
+ <row id="203347" trl="Y">
+  <value column="Name" original="Create Allocation">Criar Alocação</value>
+  <value column="PrintName" original="Create Allocation">Criar Alocação</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -62341,9 +62341,9 @@ Exemplo, caso o valor seja 60, o usuário não poderá re-utilizar uma senha que
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row id="203348" trl="N">
-  <value column="Name" original="Related Invoice">Related Invoice</value>
-  <value column="PrintName" original="Related Invoice">Related Invoice</value>
+ <row id="203348" trl="Y">
+  <value column="Name" original="Related Invoice">Faturas Relacionadas</value>
+  <value column="PrintName" original="Related Invoice">Faturas Relacionadas</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -62352,9 +62352,9 @@ Exemplo, caso o valor seja 60, o usuário não poderá re-utilizar uma senha que
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row id="203349" trl="N">
-  <value column="Name" original="Paging Size">Paging Size</value>
-  <value column="PrintName" original="Paging Size">Paging Size</value>
+ <row id="203349" trl="Y">
+  <value column="Name" original="Paging Size">Tamanho de Paginação</value>
+  <value column="PrintName" original="Paging Size">Tamanho de Paginação</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -62363,9 +62363,9 @@ Exemplo, caso o valor seja 60, o usuário não poderá re-utilizar uma senha que
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row id="203350" trl="N">
-  <value column="Name" original="Convert Amounts in Currency">Convert Amounts in Currency</value>
-  <value column="PrintName" original="Convert Amounts in Currency">Convert Amounts in Currency</value>
+ <row id="203350" trl="Y">
+  <value column="Name" original="Convert Amounts in Currency">Converter os Valores em Moeda</value>
+  <value column="PrintName" original="Convert Amounts in Currency">Converter os Valores em Moeda</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -62396,10 +62396,10 @@ Exemplo, caso o valor seja 60, o usuário não poderá re-utilizar uma senha que
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row id="203357" trl="N">
-  <value column="Name" original="Only positive balance">Only positive balance</value>
-  <value column="PrintName" original="Only positive balance">Only positive balance</value>
-  <value column="Description" original="Include only positive balance">Include only positive balance</value>
+ <row id="203357" trl="Y">
+  <value column="Name" original="Only positive balance">Somente saldo positivo</value>
+  <value column="PrintName" original="Only positive balance">Somente saldo positivo</value>
+  <value column="Description" original="Include only positive balance">Incluir somente saldos positivos</value>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
@@ -62407,9 +62407,9 @@ Exemplo, caso o valor seja 60, o usuário não poderá re-utilizar uma senha que
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row id="203363" trl="N">
-  <value column="Name" original="Referenced Match PO">Referenced Match PO</value>
-  <value column="PrintName" original="Referenced Match PO">Referenced Match PO</value>
+ <row id="203363" trl="Y">
+  <value column="Name" original="Referenced Match PO">PC Conciliados Relacionados</value>
+  <value column="PrintName" original="Referenced Match PO">PC Conciliados Relacionados</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -62418,9 +62418,9 @@ Exemplo, caso o valor seja 60, o usuário não poderá re-utilizar uma senha que
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row id="203364" trl="N">
-  <value column="Name" original="Referenced Match Invoice">Referenced Match Invoice</value>
-  <value column="PrintName" original="Referenced Match Invoice">Referenced Match Invoice</value>
+ <row id="203364" trl="Y">
+  <value column="Name" original="Referenced Match Invoice">Faturas Conciliadas Relacionadas</value>
+  <value column="PrintName" original="Referenced Match Invoice">Faturas Conciliadas Relacionadas</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -62429,10 +62429,10 @@ Exemplo, caso o valor seja 60, o usuário não poderá re-utilizar uma senha que
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row id="203368" trl="N">
-  <value column="Name" original="Scheduler State">Scheduler State</value>
-  <value column="PrintName" original="Scheduler State">Scheduler State</value>
-  <value column="Description" original="State of this scheduler record (not scheduled, started or stopped)">State of this scheduler record (not scheduled, started or stopped)</value>
+ <row id="203368" trl="Y">
+  <value column="Name" original="Scheduler State">Estado do Agendador</value>
+  <value column="PrintName" original="Scheduler State">Estado do Agendador</value>
+  <value column="Description" original="State of this scheduler record (not scheduled, started or stopped)">Estado do agendamento deste registro (não agendado, iniciado ou parado)</value>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
@@ -69049,9 +69049,9 @@ Usar @AMT@ quando for identificar o valor do Produto/Serviço</value>
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="1fbb224c-b9a0-46b5-b7f6-752608194c57">
-  <value column="Name" original="fcp_taxrate">fcp_taxrate</value>
-  <value column="PrintName" original="fcp_taxrate">fcp_taxrate</value>
+ <row trl="Y" uuid="1fbb224c-b9a0-46b5-b7f6-752608194c57">
+  <value column="Name" original="Tax Rate">Alíq. FCP</value>
+  <value column="PrintName" original="Tax Rate">Alíq. FCP</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -69060,7 +69060,7 @@ Usar @AMT@ quando for identificar o valor do Produto/Serviço</value>
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="6ae4cd59-7bc2-4611-bd24-0a2d49d92dd4">
+ <row trl="Y" uuid="6ae4cd59-7bc2-4611-bd24-0a2d49d92dd4">
   <value column="Name" original="FCP CST">FCP CST</value>
   <value column="PrintName" original="FCP CST">FCP CST</value>
   <value column="Description" original=""/>
@@ -69082,9 +69082,9 @@ Usar @AMT@ quando for identificar o valor do Produto/Serviço</value>
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="2271780d-b13d-4fc9-aa3e-65b8a5369b64">
-  <value column="Name" original="difal_taxrate">difal_taxrate</value>
-  <value column="PrintName" original="difal_taxrate">difal_taxrate</value>
+ <row trl="Y" uuid="2271780d-b13d-4fc9-aa3e-65b8a5369b64">
+  <value column="Name" original="Tax Rate DIFAL">Alíq. DIFAL</value>
+  <value column="PrintName" original="Tax Rate DIFAL">Alíq. DIFAL</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -69093,7 +69093,7 @@ Usar @AMT@ quando for identificar o valor do Produto/Serviço</value>
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="671bae5f-c6f3-474c-bf27-94d49545e63e">
+ <row trl="Y" uuid="671bae5f-c6f3-474c-bf27-94d49545e63e">
   <value column="Name" original="DIFAL CST">DIFAL CST</value>
   <value column="PrintName" original="DIFAL CST">DIFAL CST</value>
   <value column="Description" original=""/>
@@ -69104,7 +69104,7 @@ Usar @AMT@ quando for identificar o valor do Produto/Serviço</value>
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="9b6197ae-558b-462a-b0a5-a8b4b714f476">
+ <row trl="Y" uuid="9b6197ae-558b-462a-b0a5-a8b4b714f476">
   <value column="Name" original="DIFALO Red. na BC">DIFALO Red. na BC</value>
   <value column="PrintName" original="DIFALO Red. na BC">DIFALO Red. na BC</value>
   <value column="Description" original=""/>
@@ -69116,8 +69116,8 @@ Usar @AMT@ quando for identificar o valor do Produto/Serviço</value>
   <value column="Placeholder" original=""/>
  </row>
  <row trl="N" uuid="6dacc048-12ce-4720-bcee-a6538e9ddf60">
-  <value column="Name" original="difalo_taxrate">difalo_taxrate</value>
-  <value column="PrintName" original="difalo_taxrate">difalo_taxrate</value>
+  <value column="Name" original="Tax Rate DIFAL Origin">Alíq. DIFAL Origem</value>
+  <value column="PrintName" original="Tax Rate DIFAL Origin">Alíq. DIFAL Origem</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -71847,7 +71847,61 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
-
+ <row trl="Y" uuid="8c21953b-ea62-4a1b-b20b-1714e4cca0a0">
+  <value column="Name" original="SPED Contribution">EFD Contribuições</value>
+  <value column="PrintName" original="SPED Contribution">EFD Contribuições</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="da913e57-3b1c-40fc-9a00-84ad721c1fa9">
+  <value column="Name" original="LBR_SPEDContribution_UU">LBR_SPEDContribution_UU</value>
+  <value column="PrintName" original="LBR_SPEDContribution_UU">LBR_SPEDContribution_UU</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="a7e4bc2a-942d-4a41-a619-c3c235971c26">
+  <value column="Name" original="IE Substitute">IE Substituta</value>
+  <value column="PrintName" original="IE Substitute">IE Substituta</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="2b3bb0a0-671e-4c4a-92a8-d2b638a45853">
+  <value column="Name" original="LBR_OrgIEST_UU">LBR_OrgIEST_UU</value>
+  <value column="PrintName" original="LBR_OrgIEST_UU">LBR_OrgIEST_UU</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="18500675-24c3-476a-87a0-9726f904c870">
+  <value column="Name" original="IE Substitute">IE Substituta</value>
+  <value column="PrintName" original="IE Substitute">IE Substituta</value>
+  <value column="Description" original="To set IE by Region to Substitute IE from Organization">IE Substituta de uma Organização por região</value>
+  <value column="Help" original="Configure IE by region to Substitute Organization on that region">Configura a IE Substituta de uma Organização por região</value>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
  <row trl="Y" uuid="1fc3005a-20a0-4a5b-9c4e-daf03393a172">
   <value column="Name" original="CNAB File">Arquivo CNAB</value>
   <value column="PrintName" original="CNAB File">Arquivo CNAB</value>
@@ -72356,7 +72410,28 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_Name" original=""/>
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
- </row>mn="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="00d6aa2c-55f8-4615-a673-d3611ba440a3">
+  <value column="Name" original="EFD Contribution">EFD Contribuições</value>
+  <value column="PrintName" original="EFD Contribution">EFD Contribuições</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="901402c6-aa3c-4ffb-8a8a-07d8122f3949">
+  <value column="Name" original="LBR_EFDContrib_UU">LBR_EFDContrib_UU</value>
+  <value column="PrintName" original="LBR_EFDContrib_UU">LBR_EFDContrib_UU</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
  </row>
  <row trl="N" uuid="615f2348-aa07-418b-b087-3d9c977548ae">
   <value column="Name" original="Product Config">Product Config</value>
@@ -72438,6 +72513,105 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
  <row trl="Y" uuid="29ac397d-3f2c-48f3-a94f-939a9991a1ce">
   <value column="Name" original="CNPJ (MarketPlace)">CNPJ (MarketPlace)</value>
   <value column="PrintName" original="CNPJ (MarketPlace)">CNPJ (MarketPlace)</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="1e7121bb-b072-4f61-a565-e9e48a5464b0">
+  <value column="Name" original="Score Provider">Provedor de Crédito (Escore)</value>
+  <value column="PrintName" original="Score Provider">Provedor de Crédito (Escore)</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="4bb8eeb2-7019-47dc-9557-9a144630c3a9">
+  <value column="Name" original="LBR_ScoreProvider_UU">LBR_ScoreProvider_UU</value>
+  <value column="PrintName" original="LBR_ScoreProvider_UU">LBR_ScoreProvider_UU</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="6843a229-83fb-490e-b981-b2d3e5474489">
+  <value column="Name" original="Score Status">Estado do Escore</value>
+  <value column="PrintName" original="Score Status">Estado do Escore</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="ce9b61ff-cc17-42ab-906a-d472b5c5ff52">
+  <value column="Name" original="LBR_ScoreStatus_UU">LBR_ScoreStatus_UU</value>
+  <value column="PrintName" original="LBR_ScoreStatus_UU">LBR_ScoreStatus_UU</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="9dd1ca1f-1198-4e8f-bd1e-bcbbcc647c82">
+  <value column="Name" original="Score">Pontos</value>
+  <value column="PrintName" original="Score">Pontos</value>
+  <value column="Description" original="Score in the scale of score provider">Pontos na escala definida pelo SPC (Sistema de Proteção de Crédito)</value>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="cc07f87b-633b-49c2-b078-1a871b60714f">
+  <value column="Name" original="Internal Score">Pontos (Interno)</value>
+  <value column="PrintName" original="Internal Score">Pontos</value>
+  <value column="Description" original="Score in the organization scale">Pontuação na escala definida pela Organização</value>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="412ab3ee-689b-42a8-9d02-340da5f8409f">
+  <value column="Name" original="Manifest Tries">Tentativas de Manifestar</value>
+  <value column="PrintName" original="Manifest Tries">Tentativas de Manifestar</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="ff6f7db4-bb59-4107-8dc0-04cf688d20e0">
+  <value column="Name" original="Reverse Movement">Estornar Movimento de Estoque</value>
+  <value column="PrintName" original="Reverse Movement">Estornar Movimento de Estoque</value>
+  <value column="Description" original="Allow to Reverse Movement related with the NF">Permite que a movimentação de estoque associada seja anulada quando este documento for anulado</value>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="f4d26dde-6179-44cf-812a-85b53c2d2335">
+  <value column="Name" original="LBR_Ref_MovementLine_ID">LBR_Ref_MovementLine_ID</value>
+  <value column="PrintName" original="LBR_Ref_MovementLine_ID">LBR_Ref_MovementLine_ID</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -72548,83 +72722,6 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
  <row trl="Y" uuid="b2dabc69-fad6-437f-a844-29faaeb76004">
   <value column="Name" original="Legal Message Calculated">Men. Legal Obtida</value>
   <value column="PrintName" original="Legal Message Calculated">Men. Legal Obtida</value>
-  <value column="Description" original=""/>
-  <value column="Help" original=""/>
-  <value column="PO_Description" original=""/>
-  <value column="PO_Help" original=""/>
-  <value column="PO_Name" original=""/>
-  <value column="PO_PrintName" original=""/>
-  <value column="Placeholder" original=""/>
- </row>
- <row trl="N" uuid="1e7121bb-b072-4f61-a565-e9e48a5464b0">
-  <value column="Name" original="Score Provider">Score Provider</value>
-  <value column="PrintName" original="Score Provider">Score Provider</value>
-  <value column="Description" original=""/>
-  <value column="Help" original=""/>
-  <value column="PO_Description" original=""/>
-  <value column="PO_Help" original=""/>
-  <value column="PO_Name" original=""/>
-  <value column="PO_PrintName" original=""/>
-  <value column="Placeholder" original=""/>
- </row>
- <row trl="N" uuid="4bb8eeb2-7019-47dc-9557-9a144630c3a9">
-  <value column="Name" original="LBR_ScoreProvider_UU">LBR_ScoreProvider_UU</value>
-  <value column="PrintName" original="LBR_ScoreProvider_UU">LBR_ScoreProvider_UU</value>
-  <value column="Description" original=""/>
-  <value column="Help" original=""/>
-  <value column="PO_Description" original=""/>
-  <value column="PO_Help" original=""/>
-  <value column="PO_Name" original=""/>
-  <value column="PO_PrintName" original=""/>
-  <value column="Placeholder" original=""/>
- </row>
- <row trl="N" uuid="6843a229-83fb-490e-b981-b2d3e5474489">
-  <value column="Name" original="Score Status">Score Status</value>
-  <value column="PrintName" original="Score Status">Score Status</value>
-  <value column="Description" original=""/>
-  <value column="Help" original=""/>
-  <value column="PO_Description" original=""/>
-  <value column="PO_Help" original=""/>
-  <value column="PO_Name" original=""/>
-  <value column="PO_PrintName" original=""/>
-  <value column="Placeholder" original=""/>
- </row>
- <row trl="N" uuid="ce9b61ff-cc17-42ab-906a-d472b5c5ff52">
-  <value column="Name" original="LBR_ScoreStatus_UU">LBR_ScoreStatus_UU</value>
-  <value column="PrintName" original="LBR_ScoreStatus_UU">LBR_ScoreStatus_UU</value>
-  <value column="Description" original=""/>
-  <value column="Help" original=""/>
-  <value column="PO_Description" original=""/>
-  <value column="PO_Help" original=""/>
-  <value column="PO_Name" original=""/>
-  <value column="PO_PrintName" original=""/>
-  <value column="Placeholder" original=""/>
- </row>
- <row trl="Y" uuid="9dd1ca1f-1198-4e8f-bd1e-bcbbcc647c82">
-  <value column="Name" original="Score">Pontos</value>
-  <value column="PrintName" original="Score">Pontos</value>
-  <value column="Description" original="Score in the scale of score provider">Pontos na escala definida pelo SPC (Sistema de Proteção de Crédito)</value>
-  <value column="Help" original=""/>
-  <value column="PO_Description" original=""/>
-  <value column="PO_Help" original=""/>
-  <value column="PO_Name" original=""/>
-  <value column="PO_PrintName" original=""/>
-  <value column="Placeholder" original=""/>
- </row>
- <row trl="Y" uuid="cc07f87b-633b-49c2-b078-1a871b60714f">
-  <value column="Name" original="Internal Score">Pontos (Interno)</value>
-  <value column="PrintName" original="Internal Score">Pontos</value>
-  <value column="Description" original="Score in the organization scale">Pontuação na escala definida pela Organização</value>
-  <value column="Help" original=""/>
-  <value column="PO_Description" original=""/>
-  <value column="PO_Help" original=""/>
-  <value column="PO_Name" original=""/>
-  <value column="PO_PrintName" original=""/>
-  <value column="Placeholder" original=""/>
- </row>
- <row trl="N" uuid="412ab3ee-689b-42a8-9d02-340da5f8409f">
-  <value column="Name" original="Manifest Tries">Tentativas de Manifestar</value>
-  <value column="PrintName" original="Manifest Tries">Tentativas de Manifestar</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>

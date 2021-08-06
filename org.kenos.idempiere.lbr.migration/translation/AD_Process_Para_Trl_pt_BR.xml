@@ -589,4 +589,11 @@ this field define where request, error,.. occupy.</value>
   <value column="Placeholder" original=""/>
   <value column="Placeholder2" original=""/>
  </row>
+ <row trl="Y" uuid="49798061-0a6e-4228-a918-4065d861fa62">
+  <value column="Name" original="Index">Índice</value>
+  <value column="Description" original="Certificate index (default=0)">Índice do Certificado (padrão =0)</value>
+  <value column="Help" original="Certificate index">Índice do Certificado</value>
+  <value column="Placeholder" original=""/>
+  <value column="Placeholder2" original=""/>
+ </row>
 </idempiereTrl>

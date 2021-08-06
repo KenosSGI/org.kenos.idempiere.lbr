@@ -2415,15 +2415,15 @@ MRP - 110	 No exists Dem</value>
   <value column="Description" original="Enter and change simple orders (other In)">Introduzir e Alterar Outras Entradas</value>
   <value column="Help" original="The Simple Order Window allows you to enter and modify Simple Orders. Only In Operation.">A Janela "Outras Entradas" define Outras Entradas para uma organização.  Quando Outras Entradas tiver sido digitado você pode gerar um Documento de Remessa ou Fatura.</value>
  </row>
- <row trl="Y" uuid="0ab94f5e-6254-4ee4-b89b-b6eabfa3f960">
-  <value column="Name" original="Generate SPED Contribution">Gerar SPED Contribuições</value>
-  <value column="Description" original="">Gerar SPED Contribuições</value>
-  <value column="Help" original="">A Janela "Gerar SPED Contribuições" permite ao usuário gerar arquivo SPED Contribuições do período selecionado</value>
- </row>
  <row trl="Y" uuid="f9c77f43-31d4-40b0-b3d8-0885940c262c">
   <value column="Name" original="Bank Slip Config">Configuração do Boleto</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="0ab94f5e-6254-4ee4-b89b-b6eabfa3f960">
+  <value column="Name" original="Generate SPED Contribution">Gerar SPED Contribuições</value>
+  <value column="Description" original="">Gerar SPED Contribuições</value>
+  <value column="Help" original="">A Janela "Gerar SPED Contribuições" permite ao usuário gerar arquivo SPED Contribuições do período selecionado</value>
  </row>
  <row trl="N" uuid="bcc87441-6bd9-4b08-8308-5c95188376c7">
   <value column="Name" original="CNAB">CNAB</value>
@@ -2453,6 +2453,16 @@ MRP - 110	 No exists Dem</value>
  <row trl="Y" uuid="915ff8c3-0add-438f-a8da-7fc92199e221">
   <value column="Name" original="EFD ICMS/IPI">EFD ICMS/IPI</value>
   <value column="Description" original="Generate SPED Fiscal EFD ICMS/IPI">Generate SPED Fiscal EFD ICMS/IPI</value>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="d53ccea4-429d-414e-931f-c7aeb467b25f">
+  <value column="Name" original="EFD Contributions">EFD Contribuições</value>
+  <value column="Description" original="Generate SPED Fiscal EFD Contributions">Gera o SPED EFD Contribuições</value>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="3b909307-7114-492e-b76d-5b16a7484ecf">
+  <value column="Name" original="Score Provider">Provedor de Escore</value>
+  <value column="Description" original=""/>
   <value column="Help" original=""/>
  </row>
 </idempiereTrl>
