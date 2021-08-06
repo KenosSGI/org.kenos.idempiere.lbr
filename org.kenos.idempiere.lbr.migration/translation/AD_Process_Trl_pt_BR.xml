@@ -2757,6 +2757,11 @@ For example:<br />
   <value column="Description" original="Check the missing NSU">Verifica se há algum NSU faltante na lista obtida da SeFaz</value>
   <value column="Help" original="In case you want to try to get missing NSU from SeFaz, mark the parameter">Caso queira tentar consultar os NSUs na SeFaz, marque o parâmetro abaixo.</value>
  </row>
+ <row trl="N" uuid="d149a49d-8b9b-4db2-ac0a-773ce3ae2a6e">
+  <value column="Name" original="Process SPED Contribution">Processar SPED Contribuições</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
  <row trl="N" uuid="b4053e08-3d15-470b-a8b8-45b909783fc9">
   <value column="Name" original="Process CNAB File">Process CNAB File</value>
   <value column="Description" original=""/>
@@ -2797,11 +2802,6 @@ For example:<br />
   <value column="Description" original=""/>
   <value column="Help" original=""/>
  </row>
- <row trl="Y" uuid="5efaeb22-fe9f-47ae-a1ae-228b3395e68e">
-  <value column="Name" original="Freight Calc">Cálculo de Frete (Correios)</value>
-  <value column="Description" original="Freight calculation for Brazilian Post Service (Correios)">Sistema de cálculo de frete para o serviço de postagem brasileiro (Correios)</value>
-  <value column="Help" original=""/>
- </row>
  <row trl="Y" uuid="e8438030-41dc-4976-8760-b2fc91f10d22">
   <value column="Name" original="Bank Statement Detail">Detalhes do Extrato Bancário</value>
   <value column="Description" original="">Relatório exibe Detalhes do Extrato Bancário baseado nas linhas do Extrato</value>
@@ -2817,6 +2817,16 @@ For example:<br />
   <value column="Description" original="Creates a counter document">Cria um Contra-Documento</value>
   <value column="Help" original="If the Organization is linked to a Business Partner, this process will creates a counter-document">Se o Parceiro de Negócios estiver vinculado a uma Organização do grupo, o sistema pode criar um Contra-Documento</value>
  </row>
+ <row trl="Y" uuid="4d1494d5-af2f-45cc-bfd7-c8a767a9b23e">
+  <value column="Name" original="Create Return Material">Criar Retorno de Material</value>
+  <value column="Description" original="Creates a return document of a material stored in 3rd party warehouse">Cria o documento de retorno de material para materiais armazenados em terceiros</value>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="d07dd5b3-2c97-4ecd-aa74-9ea56a4eeed2">
+  <value column="Name" original="Create Transfer Material In">Criar Entrada de Transferência</value>
+  <value column="Description" original="Creates a transfer document to complete the transfer from transit warehouse">Cria um contra-documento para empresas do grupo, transferindo os materias de estoque em trânsito</value>
+  <value column="Help" original=""/>
+ </row>
  <row trl="Y" uuid="a8016f4e-ac97-469d-b96d-eb2c17c2e8b0">
   <value column="Name" original="Product Kardex">Ficha de Estoque - Kardex</value>
   <value column="Description" original="Product Kardex with average cost">Ficha de Estoque - Kardex</value>
@@ -2831,5 +2841,15 @@ For example:<br />
   <value column="Name" original="Tax Validation Request">Solicitar Validação Tributária</value>
   <value column="Description" original="This process will include the actual tax entered to Tax Test window">Este processo irá incluir esta linha do pedido na validação tributária</value>
   <value column="Help" original="The goal of this process is to include warning to tax personal that this transaction is getting wrong tax configuration. So you should fix manually this tax and then request the fix in the configuration by submitting this process. Make sure to include a good description.">O objetivo deste processo é incluir esta linha de pedido para ser validada na janela de Teste de Configuração Tributária. Você deve ter certeza que a tributação que o sistema atribuiu automaticamente para esta linha estava errada, em seguida você deverá fazer a correção manualmente nesta linha de pedido e só então avançar com este processo. Obrigatoriamente deve-se incluir uma descrição para identificar esta configuração na janela de testes.</value>
+ </row>
+ <row trl="Y" uuid="973537ea-01f5-471b-8631-0a79e7b91e7c">
+  <value column="Name" original="Obtain Certificate">Obter Certificado</value>
+  <value column="Description" original="Try to get the certificate from URL">Faz a pesquisa de uma URL e tenta obter o certificado digital</value>
+  <value column="Help" original="Execute the first time with zero index. Check the certificates and then execute again with desired index.">Use este processo para tentar obter um certificado digital e adicioná-lo a lista de Certificados Confiáveis. Execute com o parâmetro índice igual a zero para visualizar a lista de certificados fornecidos pela aquela URL. Na listagem confira se o certificado é confiável e execute o processo novamente com o índice desejado.</value>
+ </row>
+ <row trl="Y" uuid="5efaeb22-fe9f-47ae-a1ae-228b3395e68e">
+  <value column="Name" original="Freight Calc">Cálculo de Frete (Correios)</value>
+  <value column="Description" original="Freight calculation for Brazilian Post Service (Correios)">Sistema de cálculo de frete para o serviço de postagem brasileiro (Correios)</value>
+  <value column="Help" original=""/>
  </row>
 </idempiereTrl>

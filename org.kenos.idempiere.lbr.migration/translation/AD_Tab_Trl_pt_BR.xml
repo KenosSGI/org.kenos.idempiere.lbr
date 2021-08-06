@@ -7487,6 +7487,24 @@ Impressão:
   <value column="Description" original=""/>
   <value column="Help" original=""/>
  </row>
+ <row trl="Y" uuid="4fa3bf31-dbca-425e-b914-9bb925ec9352">
+  <value column="Name" original="Tax Hold">Imposto Substituído</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original="">Imposto Substituto</value>
+  <value column="Help" original="">Aba utilizada para armazenar informações de Controle de Imposto Substituto, ou seja, pago anteriormente por substituição tributária.</value>
+ </row>
+ <row trl="Y" uuid="06593876-0385-4349-8e0b-c03520ec6f50">
+  <value column="Name" original="SPED Contribution">SPED Contribuições</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="5435eebc-8845-495a-bc97-9e44ac44bba7">
+  <value column="Name" original="IE Substitute">IE Substituto</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original="IE Substitute by Region to Substitute Organization on that Region">IE Substitute by Region to Substitute Organization on that Region</value>
+  <value column="Help" original=""/>
+ </row>
  <row trl="Y" uuid="242ef459-b343-4ac0-97f7-991ab73d5732">
   <value column="Name" original="CNAB">CNAB</value>
   <value column="CommitWarning" original=""/>
@@ -7497,18 +7515,6 @@ Impressão:
   <value column="Name" original="CNAB Line">Linha CNAB</value>
   <value column="CommitWarning" original=""/>
   <value column="Description" original=""/>
-  <value column="Help" original=""/>
- </row>
- <row trl="Y" uuid="4fa3bf31-dbca-425e-b914-9bb925ec9352">
-  <value column="Name" original="Tax Hold">Imposto Substituído</value>
-  <value column="CommitWarning" original=""/>
-  <value column="Description" original="">Imposto Substituto</value>
-  <value column="Help" original="">Aba utilizada para armazenar informações de Controle de Imposto Substituto, ou seja, pago anteriormente por substituição tributária.</value>
- </row>
- <row trl="N" uuid="5435eebc-8845-495a-bc97-9e44ac44bba7">
-  <value column="Name" original="IE Substitute">IE Substitute</value>
-  <value column="CommitWarning" original=""/>
-  <value column="Description" original="IE Substitute by Region to Substitute Organization on that Region">IE Substitute by Region to Substitute Organization on that Region</value>
   <value column="Help" original=""/>
  </row>
  <row trl="Y" uuid="06bf7704-c578-4a70-bef5-711b0a837fe7">
@@ -7531,6 +7537,138 @@ Impressão:
  </row>
  <row trl="Y" uuid="d17b388c-fbba-40e6-abac-5c2c271fbd23">
   <value column="Name" original="Fuel Installation">Instalação</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="56eb218e-296e-47ef-82e9-447ad8d31d41">
+  <value column="Name" original="Header">Cabeçalho</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="19b1a002-5a14-4b77-93e6-fc6c6065f473">
+  <value column="Name" original="20 - BP">20 - PN</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="688a650a-e78f-4be0-b39b-f1aa4a360a0f">
+  <value column="Name" original="NF">NF</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="2f670ca6-b32d-4721-a816-9439ee473f46">
+  <value column="Name" original="70 - Variation">70 - Variação</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="95c19411-0715-4017-ab45-17e14bc72d4b">
+  <value column="Name" original="EFD ICMS/IPI">EFD ICMS/IPI</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="ad29da77-108f-4b4d-9316-da1427bd484c">
+  <value column="Name" original="K200 - Book Inventory">K200 - Estoque Escriturado</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="748af7b0-73db-4269-925e-6d7d1d157c58">
+  <value column="Name" original="K280 - ReValidate">K280 - Correções</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original="Re-validate Book Inventory for SPED for before period">Correções em lançamentos efetuados em períodos anteriores</value>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="3ade3e07-aa54-4c5e-bb55-34de7515fabb">
+  <value column="Name" original="EFD Contributions">EFD Contribuições</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="54ad01ff-624e-403f-b202-855b6d8f6719">
+  <value column="Name" original="Product Config">Config. Produto</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="e2859976-3aa4-43ef-afab-7f8caeb98713">
+  <value column="Name" original="Score Provider">Provedor de Escore</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="7e31438c-3116-4d9c-9f9c-ccaed92a3221">
+  <value column="Name" original="Score Status">Estado do Escore</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="1f0119fe-f3c1-404b-8f2c-e87688a447fa">
+  <value column="Name" original="Events">Eventos</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="682bcd6c-9c48-4a5d-8c85-65e303a610bc">
+  <value column="Name" original="Eventos">Eventos</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="813505b1-92ba-4d5f-8f61-d72b3112b67d">
+  <value column="Name" original="Tax Config">Configuração Tributária</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="ab9c51d7-6676-402f-8149-9a726c63b183">
+  <value column="Name" original="NCM (Legacy)">NCM (Legado)</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="36e4567d-77f2-47aa-aed0-1f1e284bdfd7">
+  <value column="Name" original="Org">Organização</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="31b4309f-f647-405d-a8e1-832dff8c706b">
+  <value column="Name" original="ICMS Matrix">Matriz ICMS</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="96cf9a62-d99b-4ac0-8fa5-41175c8d017a">
+  <value column="Name" original="ISS Matrix">Matriz de ISS</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="b8cfaf3b-0b39-4916-9605-59e41402120b">
+  <value column="Name" original="NCM by Region">NCM por Estado</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="be07e966-f64c-4be4-bedf-f2b285257805">
+  <value column="Name" original="CFOP">CFOP</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="3fc8df2e-75c8-4dee-9535-dc2386268aec">
+  <value column="Name" original="Test">Testes</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="b14bf382-3e3a-4715-903f-a579e24483ce">
+  <value column="Name" original="Result">Resultados</value>
   <value column="CommitWarning" original=""/>
   <value column="Description" original=""/>
   <value column="Help" original=""/>

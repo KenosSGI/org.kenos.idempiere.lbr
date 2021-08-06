@@ -3419,13 +3419,13 @@ A, C, D, F e 1 (Créditos extemporâneos)</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
  </row>
- <row trl="N" uuid="0833bbd9-cd23-4860-a2dd-586717fa4d2e">
-  <value column="Name" original="LBR_TaxStatus">LBR_TaxStatus</value>
+ <row trl="N" uuid="b5bd42c4-7930-4fbd-8b6d-42c989c02d91">
+  <value column="Name" original="LBR_IsOwnDocument - Doc Issued By">LBR_IsOwnDocument - Doc Issued By</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
  </row>
- <row trl="N" uuid="b5bd42c4-7930-4fbd-8b6d-42c989c02d91">
-  <value column="Name" original="LBR_IsOwnDocument - Doc Issued By">LBR_IsOwnDocument - Doc Issued By</value>
+ <row trl="N" uuid="0833bbd9-cd23-4860-a2dd-586717fa4d2e">
+  <value column="Name" original="LBR_TaxStatus">LBR_TaxStatus</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
  </row>
