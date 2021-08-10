@@ -728,12 +728,17 @@ public class ValidatorInvoice implements ModelValidator
 			//	Não Permite Estornar Fatura ligada a uma Alocação de Pagamento
 			if (!MSysConfig.getBooleanValue(SysConfig.LBR_ALLOW_REVERSE_INVOICE_WITH_PAY_ALLOC, false, wInvoice.getAD_Client_ID()))
 			{
-				long count = Arrays.asList (MAllocationHdr.getOfInvoice (invoice.getCtx(), invoice.getC_Invoice_ID(), invoice.get_TrxName()))
+				long[] count = { 0 };
+				Arrays.asList (MAllocationHdr.getOfInvoice (invoice.getCtx(), invoice.getC_Invoice_ID(), invoice.get_TrxName()))
 					.stream()
 					.filter(a -> TextUtil.match(a.getDocStatus(), MAllocationHdr.DOCSTATUS_Completed, MAllocationHdr.DOCSTATUS_Completed))
-					.count();
-				
-				if (count > 0)
+					.forEach(a -> {
+						count[0] += Arrays.asList (a.getLines(true))
+								.stream()
+								.filter(l -> l.getC_Payment_ID() > 0)
+								.count();
+					});
+				if (count[0] > 0)
 					return "Não é possível estornar uma Fatura, pois a Fatura já está alocada a um Pagamento. Desfaça a Alocação primeiro.";
 			}
 		}
