@@ -104,13 +104,13 @@ public class MLBRTax extends X_LBR_Tax
 	public static final int TYPE_LIST_NEGATIVE 	= 106;
 	
 	/**	Taxes				*/
-	public static final int	TAX_PIS		= 1106001;
-	public static final int	TAX_COFINS	= 1106002;
-	public static final int	TAX_ICMS	= 1106000;
-	public static final int	TAX_ICMSST	= 1106012;
-	public static final int	TAX_IPI		= 1106003;
-	public static final int	TAX_MVA		= 1106013;
-	public static final int	TAX_FCP		= 1120000;
+	public static final int	TAX_PIS			= 1106001;
+	public static final int	TAX_COFINS		= 1106002;
+	public static final int	TAX_ICMS		= 1106000;
+	public static final int	TAX_ICMSST		= 1106012;
+	public static final int	TAX_IPI			= 1106003;
+	public static final int	TAX_MVA			= 1106013;
+	public static final int	TAX_FCP			= 1120000;
 	
 	/**	Included Taxes	*/
 	private List<Integer> includedTaxes = new ArrayList<Integer>();
@@ -416,7 +416,7 @@ public class MLBRTax extends X_LBR_Tax
 				}
 			
 			//	Ajusta o MVA automaticamente	// FIXME: Remover a retro-compatibilidade futuramente
-			boolean adjustIVA = MSysConfig.getBooleanValue(SysConfig.LBR_AUTOMATIC_ADJUST_MVA, MSysConfig.getBooleanValue("LBR_AUTOMATOC_ADJUST_IVA", true));
+			boolean adjustIVA = MSysConfig.getBooleanValue(SysConfig.LBR_AUTOMATIC_ADJUST_MVA, MSysConfig.getBooleanValue(SysConfig.LBR_AUTOMATIC_ADJUST_IVA, true, getAD_Client_ID()), getAD_Client_ID());
 				
 			//	Ajusta as alíquotas
 			for (MLBRTaxLine tLine : getLines())
@@ -899,6 +899,14 @@ public class MLBRTax extends X_LBR_Tax
 				LBR_CFOP_ID = td.getLBR_CFOP_ID();
 		}
 		
+		if (MSysConfig.getBooleanValue(SysConfig.LBR_FIX_TAXES_INCONSISTENCIES, true))
+		{
+			MLBRTaxLine icms = taxes.get (MLBRTax.TAX_ICMS);
+			MLBRTaxLine icmsst = taxes.get (MLBRTax.TAX_ICMSST);
+			//
+			fixCST (icms, icmsst);
+		}
+		
 		return new Object[]{taxes, LBR_LegalMessage_ID, LBR_CFOP_ID, lbr_TaxStatus};
 	}	//	getTaxes
 
@@ -1159,6 +1167,44 @@ public class MLBRTax extends X_LBR_Tax
 		
 		return result;
 	}	//	getValidation
+	
+	/**
+	 * Check if ICMS/ST has Base Reduction with inconsistent CST and fix it.
+	 * 
+	 * @param icms
+	 * @param icmsst
+	 */
+	public static void fixCST (MLBRTaxLine icms, MLBRTaxLine icmsst)
+	{
+		if (icms == null)
+			return;
+		
+		if (icms.getlbr_TaxBase() != null 
+				&& icms.getlbr_TaxBase().signum() == 1 
+				&& (icms.getLBR_TaxStatus_ID() < 1 
+						|| icms.getLBR_TaxStatus().getName().length() == 2
+						&& !icms.getLBR_TaxStatus().getName().equals("20")
+						&& !icms.getLBR_TaxStatus().getName().equals("90")))
+		{
+			int LBR_TaxStatus_ID = MLBRTaxStatus.get (icms.getLBR_TaxName_ID(), "20");
+			if (LBR_TaxStatus_ID > 0)
+				icms.setLBR_TaxStatus_ID(LBR_TaxStatus_ID);
+		}
+		
+		if (icmsst != null
+				&& icms.getlbr_TaxBase() != null 
+				&& icms.getlbr_TaxBase().signum() == 1 
+				&& (icmsst.getLBR_TaxStatus_ID() < 1 
+						||  icms.getLBR_TaxStatus().getName().length() == 2
+						&& !icms.getLBR_TaxStatus().getName().equals("70")
+						&& !icms.getLBR_TaxStatus().getName().equals("90")))
+		{
+			int LBR_TaxStatus_ID = MLBRTaxStatus.get (icmsst.getLBR_TaxName_ID(), "70");
+			if (LBR_TaxStatus_ID > 0)
+				icmsst.setLBR_TaxStatus_ID(LBR_TaxStatus_ID);
+		
+		}
+	}	//	fixCST
 	
 	private BigDecimal getTaxBaseAmt (int LBR_TaxName_ID)
 	{
