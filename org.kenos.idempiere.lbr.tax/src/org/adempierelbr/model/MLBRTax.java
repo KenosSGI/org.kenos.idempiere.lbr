@@ -973,23 +973,34 @@ public class MLBRTax extends X_LBR_Tax
 
 	/**
 	 * Get Validation
-	 * @param productsource
-	 * @param DestinationType
+	 * @param productSource
+	 * @param destinationType
 	 * @return
 	 */
-	public String getValidation(String productsource, String DestinationType)
+	public String getValidation()
 	{
-		return getValidation(true, productsource, DestinationType);
+		return getValidation (true, true, null, null);
+	}	//	getValidation
+
+	/**
+	 * Get Validation
+	 * @param productSource
+	 * @param destinationType
+	 * @return
+	 */
+	public String getValidation(String productSource, String destinationType)
+	{
+		return getValidation(false, true, productSource, destinationType);
 	}	//	getValidation
 	
 	/**
 	 * Get Validation
 	 * @param isProduct
-	 * @param productsource
-	 * @param DestinationType
+	 * @param productSource
+	 * @param destinationType
 	 * @return
 	 */
-	public String getValidation(boolean isProduct, String productsource, String DestinationType)
+	public String getValidation(boolean simple, boolean isProduct, String productSource, String destinationType)
 	{
 		String result = "";
 		
@@ -997,25 +1008,25 @@ public class MLBRTax extends X_LBR_Tax
 		if (desc == null)
 			return "Sem Imposto";
 		
-		if (isProduct && desc.indexOf("ICMS") == -1)
+		if (!simple && isProduct && desc.indexOf("ICMS") == -1)
 			result += "Sem ICMS, ";
 		
-		if (isProduct && desc.indexOf("IPI") == -1)
+		if (!simple && isProduct && desc.indexOf("IPI") == -1)
 			result += "Sem IPI, ";
 		
-		if (desc.indexOf("PIS") == -1)
+		if (!simple && desc.indexOf("PIS") == -1)
 			result += "Sem PIS, ";
 		
-		if (desc.indexOf("COFINS") == -1)
+		if (!simple && desc.indexOf("COFINS") == -1)
 			result += "Sem COFINS, ";
 		
-		if (!isProduct && desc.indexOf("CSLL") == -1)
+		if (!simple && !isProduct && desc.indexOf("CSLL") == -1)
 			result += "Sem CSLL, ";
 		
-		if (!isProduct && desc.indexOf("IR") == -1)
+		if (!simple && !isProduct && desc.indexOf("IR") == -1)
 			result += "Sem IR, ";
 		
-		if (!isProduct && desc.indexOf("ISS") == -1)
+		if (!simple && !isProduct && desc.indexOf("ISS") == -1)
 			result += "Sem ISS, ";
 		
 		/**
@@ -1025,6 +1036,7 @@ public class MLBRTax extends X_LBR_Tax
 		if (result.equals("Sem PIS, Sem COFINS, Sem CSLL, Sem IR, "))
 			result = "";
 		
+		boolean hasReduction = false;
 		if (isProduct)
 			for (MLBRTaxLine tl : getLines())
 			{
@@ -1056,14 +1068,14 @@ public class MLBRTax extends X_LBR_Tax
 									&& rate != 0.65
 									&& rate != 1.65)
 							{
-								result += "Alíquota do PIS de " + rate + "% não é permitida para o CST 01, ";
+								result += "Alíquota do PIS de " + rate + "% não é uma alíquota padrão para o CST 01, ";
 							}
 							
 							if (tl.getLBR_TaxName_ID() == TAX_COFINS
 									&& rate != 3.0
 									&& rate != 7.6)
 							{
-								result += "Alíquota do COFINS de " + rate + "% não é permitida para o CST 01, ";
+								result += "Alíquota do COFINS de " + rate + "% não é uma alíquota padrão para o CST 01, ";
 							}
 						}
 						
@@ -1071,7 +1083,7 @@ public class MLBRTax extends X_LBR_Tax
 						if (TextUtil.match (cst, "06", "07", "08", "09", "71", "72", "73", "74")
 								&& rate != 0.0)
 						{
-							result += "Alíquota do PIS/COFINS de " + rate + "% não é permitida para o CST " + cst + ", ";
+							result += "Alíquota do PIS/COFINS de " + rate + "% não é uma alíquota padrão para o CST " + cst + ", ";
 						}
 					}
 					
@@ -1082,12 +1094,12 @@ public class MLBRTax extends X_LBR_Tax
 						{
 							if (rate == 0)
 							{
-								result += "Alíquota do ICMS de " + rate + "% não é permitida para o CST " + cst + ", ";
+								result += "Alíquota do ICMS de " + rate + "% não é uma alíquota padrão para o CST " + cst + ", ";
 							}
 							
 							if (reduction != 0)
 							{
-								result += "Redução na base de cáclulo do ICMS não é permitida para o CST " + cst + ", ";
+								result += "Redução na base de cáclulo do ICMS não é uma alíquota padrão para o CST " + cst + ", ";
 							}
 						}
 						
@@ -1096,40 +1108,42 @@ public class MLBRTax extends X_LBR_Tax
 						{
 							if (rate == 0)
 							{
-								result += "Alíquota do ICMS de " + rate + "% não é permitida para o CST " + cst + ", ";
+								result += "Alíquota do ICMS de " + rate + "% não é uma alíquota padrão para o CST " + cst + ", ";
 							}
 							
 							if (reduction <= 0)
 							{
 								result += "Redução na base de cáclulo do ICMS é obrigatória para o CST " + cst + ", ";
 							}
+							
+							hasReduction = true;
 						}
 						
 						//	Alíquotas zero
 						if (TextUtil.match (cst, "30", "40", "41", "50")
 								&& rate != 0.0)
 						{
-							result += "Alíquota do ICMS de " + rate + "% não é permitida para o CST " + cst + ", ";
+							result += "Alíquota do ICMS de " + rate + "% não é uma alíquota padrão para o CST " + cst + ", ";
 						}
 						
 						//	Validar Alíquota X Origem do Produto em Operação Interestadual
 						//	Exceção CST 40, 41, 103, 300, 400
-						if (X_LBR_CFOPLine.LBR_DESTIONATIONTYPE_EstadosDiferentes.equals(DestinationType)
+						if (X_LBR_CFOPLine.LBR_DESTIONATIONTYPE_EstadosDiferentes.equals(destinationType)
 								&& !TextUtil.match(cst, "40", "41", "103", "300", "400"))
 						{
 							//	Produtos com Origem 1, 2, 3 e 8 devem ter Alíquota de 4%
-							if (TextUtil.match (productsource, "1" ,"2","3","8") &&
+							if (TextUtil.match (productSource, "1" ,"2","3","8") &&
 									rate != 4.0)
 							{
 								result += "Alíquota do ICMS de " + rate + "% não é permitida para operação interestadual " +
-										"com origem do produto igual a " + productsource + ", ";
+										"com origem do produto igual a " + productSource + ", ";
 							}
 							//	Produtos com Origem 0, 4, 5, 6 e 7 devem ter Alíquota de 7% ou  12%
-							else if (TextUtil.match (productsource, "0","4","5","6","7") &&
+							else if (TextUtil.match (productSource, "0","4","5","6","7") &&
 									(rate != 7.0 && rate != 12.0))
 							{
 								result += "Alíquota do ICMS de " + rate + "% não é permitida para operação interestadual " +
-											"com origem do produto igual a " + productsource + ", ";
+											"com origem do produto igual a " + productSource + ", ";
 							}
 						}
 					}
@@ -1143,7 +1157,12 @@ public class MLBRTax extends X_LBR_Tax
 						
 						if (rate == 0)
 						{
-							result += "Alíquota do ICMSST de " + rate + "% não é permitida, ";
+							result += "Alíquota do ICMSST de " + rate + "% não é uma alíquota padrão, ";
+						}
+						
+						if (hasReduction && !TextUtil.match (cst, "70", "90"))
+						{
+							result += "CST do ICMSST=" + cst + " não deve ser usado quando há redução na BC do ICMS, use: 70 ou 90, ";
 						}
 					}
 					

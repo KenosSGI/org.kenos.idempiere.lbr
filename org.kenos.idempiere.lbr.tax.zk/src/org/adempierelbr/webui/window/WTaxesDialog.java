@@ -25,6 +25,7 @@ import java.util.logging.Level;
 import org.adempiere.util.Callback;
 import org.adempiere.webui.adwindow.ADTabpanel;
 import org.adempiere.webui.apps.AEnv;
+import org.adempiere.webui.component.Checkbox;
 import org.adempiere.webui.component.ConfirmPanel;
 import org.adempiere.webui.component.Grid;
 import org.adempiere.webui.component.Label;
@@ -155,6 +156,7 @@ public final class WTaxesDialog extends Window
 	private ToolBarButton bNew = new ToolBarButton();
 	private ToolBarButton bIgnore = new ToolBarButton();
 	private ToolBarButton bDelete = new ToolBarButton();
+	private Checkbox chkForce = new Checkbox();
 	private Row m_row;
 	private Rows m_rows;
 
@@ -201,6 +203,9 @@ public final class WTaxesDialog extends Window
 		toolBar.appendChild(bSaveNew);
 		toolBar.appendChild(bDelete);
 		toolBar.setOrient("vertical");
+		
+		confirmPanel.appendChild(chkForce);
+		chkForce.setLabel(Msg.getMsg(Env.getCtx(), "Force"));
 		
 		//bIgnore.setTop("");
 		bIgnore.setStyle("top: 10px; position: absolute;");
@@ -457,31 +462,17 @@ public final class WTaxesDialog extends Window
 	public void onEvent(Event event) throws Exception {
 		if (event.getTarget().getId().equals("Ok"))	{
 			if (m_changed)
+				action_Save();
+
+			String validation = m_MLBRTax_new.getValidation();
+			if (!chkForce.isChecked() && validation != null && !validation.isBlank())
 			{
-				FDialog.ask(0, this, "SaveChanges?", new Callback<Boolean>() {
-					
-					@Override
-					public void onCallback(Boolean result) 
-					{
-						if (result)
-						{
-							action_Save();
-							m_changed = true;
-							dispose();
-						}
-						else
-						{
-							m_changed = true;
-							dispose();
-						}
-					}
-				});
+				FDialog.error(m_WindowNo, null, null, validation, "Erro ao validar a tributação");
+				return;
 			}
-			else
-			{
-				m_changed = true;
-				dispose();
-			}
+			
+			m_changed = true;
+			dispose();
 		} else if (event.getTarget().getId().equals("Cancel")) {
 			m_changed = false;
 			dispose();
