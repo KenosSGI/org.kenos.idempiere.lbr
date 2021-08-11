@@ -107,5 +107,23 @@ public class MLBRTaxStatus extends X_LBR_TaxStatus
 	 	//
 	 	return query.firstId();
 	}
+	
+	/**
+	 * Get Tax Status List
+	 * @param LBR_TaxGroup_ID
+	 * @return
+	 */
+	public static int get (int LBR_TaxName_ID, String taxStatus)
+	{
+		String where =  COLUMNNAME_LBR_TaxName_ID + "=? AND " + COLUMNNAME_Name + "=? AND " + COLUMNNAME_AD_Client_ID + " IN (0,?)";
+		
+		MTable table = MTable.get (Env.getCtx(), MLBRTaxStatus.Table_Name);
+		Query query =  new Query(Env.getCtx(), table, where, null);
+	 		  query.setParameters(new Object[]{LBR_TaxName_ID,taxStatus,Env.getAD_Client_ID(Env.getCtx())})
+	 		  .setOnlyActiveRecords(true)
+	 		  .setOrderBy(COLUMNNAME_AD_Client_ID + " DESC");
+	 	//
+	 	return query.firstId();
+	}	//	get
 
 }	//	MLBRTaxStatus

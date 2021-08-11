@@ -25,6 +25,7 @@ public class SysConfig
 	public static final String LBR_ALLOW_VOID_NF_WITH_VALID_BILL 				= "LBR_ALLOW_VOID_NF_WITH_VALID_BILL";
 	public static final String LBR_ALLOW_VOID_ORDER_WITH_INVOICE_SHIPMENT 		= "LBR_ALLOW_VOID_ORDER_WITH_INVOICE_SHIPMENT";
 	public static final String LBR_AUTO_GENERATE_XML 							= "LBR_AUTO_GENERATE_XML";
+	public static final String LBR_AUTOMATIC_ADJUST_IVA 						= "LBR_AUTOMATIC_ADJUST_IVA";
 	public static final String LBR_AUTOMATIC_ADJUST_MVA 						= "LBR_AUTOMATIC_ADJUST_MVA";
 	public static final String LBR_CALC_VOLUME_QTYLINE_AUT 						= "LBR_CALC_VOLUME_QTYLINE_AUT";
 	public static final String LBR_CORREIOS_SHIPPER 							= "LBR_CORREIOS_SHIPPER";
@@ -41,6 +42,7 @@ public class SysConfig
 	public static final String LBR_FILL_ATTRIBUTE_COUNTER_DOC 					= "LBR_FILL_ATTRIBUTE_COUNTER_DOC";
 	public static final String LBR_FILL_ATTRIBUTE_INOUT 						= "LBR_FILL_ATTRIBUTE_INOUT";
 	public static final String LBR_FILL_ATTRIBUTE_INOUT_LAST_ITEM 				= "LBR_FILL_ATTRIBUTE_INOUT_LAST_ITEM";
+	public static final String LBR_FIX_TAXES_INCONSISTENCIES 					= "LBR_FIX_TAXES_INCONSISTENCIES";
 	public static final String LBR_FOLDERKEY 									= "LBR_FOLDERKEY";
 	public static final String LBR_GENBILLING_TABLE 							= "LBR_GENBILLING_TABLE";
 	public static final String LBR_IBPT_API_KEY 								= "LBR_IBPT_API_KEY";
