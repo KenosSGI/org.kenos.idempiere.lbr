@@ -59,30 +59,31 @@ import org.kenos.idempiere.lbr.base.model.SysConfig;
 public class ProcXMLExport extends SvrProcess
 {
 	/** Arquivo 		*/
-	private String p_FilePath = null;
-	private final String p_FolderKey = MSysConfig.getValue(SysConfig.LBR_FOLDERKEY, "ADempiereLBR", Env.getAD_Client_ID(Env.getCtx()));
+	protected String p_FilePath = null;
+	protected final String p_FolderKey = MSysConfig.getValue(SysConfig.LBR_FOLDERKEY, "ADempiereLBR", Env.getAD_Client_ID(Env.getCtx()));
 	
 	/**	Document Type	*/
-	private int p_C_DocTypeTarget_ID 	= 0;
-	private int p_AD_Org_ID 			= 0;
-	private int p_C_BPartner_ID 		= 0;
-	private int p_C_BP_Group_ID 		= 0;
-	private int p_M_Shipper_ID 			= 0;
-	private Boolean p_IsCancelled		= false;
-	private Boolean p_IsSOTrx			= null;
-	private Boolean p_LBR_IncludeDANFE	= false;
-	private Boolean p_LBR_IsOwnDocument	= null;
-	private Boolean p_LBR_EMailSent		= null;
+	protected int p_C_DocTypeTarget_ID 	= 0;
+	protected int p_AD_Org_ID 			= 0;
+	protected int p_CreatedBy 			= 0;
+	protected int p_C_BPartner_ID 		= 0;
+	protected int p_C_BP_Group_ID 		= 0;
+	protected int p_M_Shipper_ID 			= 0;
+	protected Boolean p_IsCancelled		= false;
+	protected Boolean p_IsSOTrx			= null;
+	protected Boolean p_LBR_IncludeDANFE	= false;
+	protected Boolean p_LBR_IsOwnDocument	= null;
+	protected Boolean p_LBR_EMailSent		= null;
 
 	/**	Period			*/
-	private Timestamp dateFrom;
-	private Timestamp dateTo;
+	protected Timestamp dateFrom;
+	protected Timestamp dateTo;
 	
 	/**	Temp Directory	*/
-	private final String p_Temp = System.getProperty("java.io.tmpdir") + File.separator + "LBR_XML_Package" + File.separator;
+	protected final String p_Temp = System.getProperty("java.io.tmpdir") + File.separator + "LBR_XML_Package" + File.separator;
 	
 	/**	Logger			*/
-	private static CLogger log = CLogger.getCLogger(ProcXMLExport.class);
+	protected static CLogger log = CLogger.getCLogger(ProcXMLExport.class);
 
 	/**
 	 *  Prepare - e.g., get Parameters.
@@ -106,6 +107,8 @@ public class ProcXMLExport extends SvrProcess
 				p_FilePath = para[i].getParameter().toString();
 			else if (name.equals (MLBRNotaFiscal.COLUMNNAME_AD_Org_ID))
 				p_AD_Org_ID = para[i].getParameterAsInt();
+			else if (name.equals (MLBRNotaFiscal.COLUMNNAME_CreatedBy))
+				p_CreatedBy = para[i].getParameterAsInt();
 			else if (name.equals (MLBRNotaFiscal.COLUMNNAME_C_BPartner_ID))
 				p_C_BPartner_ID = para[i].getParameterAsInt();
 			else if (name.equals (MBPartner.COLUMNNAME_C_BP_Group_ID))
@@ -159,6 +162,9 @@ public class ProcXMLExport extends SvrProcess
 
 		if (p_AD_Org_ID > 0)
 			whereClause.append(" AND AD_Org_ID="+p_AD_Org_ID);
+
+		if (p_CreatedBy > 0)
+			whereClause.append(" AND CreatedBy="+p_CreatedBy);
 
 		if (p_C_BPartner_ID > 0)
 			whereClause.append(" AND C_BPartner_ID="+p_C_BPartner_ID);
