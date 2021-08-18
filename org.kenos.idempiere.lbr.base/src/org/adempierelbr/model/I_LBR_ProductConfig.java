@@ -193,4 +193,17 @@ public interface I_LBR_ProductConfig
 	  * Defines the Product Source
 	  */
 	public String getlbr_ProductSource();
+
+    /** Column name lbr_ServiceCode */
+    public static final String COLUMNNAME_lbr_ServiceCode = "lbr_ServiceCode";
+
+	/** Set Service Code.
+	  * Service Code used for Nota Fiscal de Servicos Eletronica
+	  */
+	public void setlbr_ServiceCode (String lbr_ServiceCode);
+
+	/** Get Service Code.
+	  * Service Code used for Nota Fiscal de Servicos Eletronica
+	  */
+	public String getlbr_ServiceCode();
 }

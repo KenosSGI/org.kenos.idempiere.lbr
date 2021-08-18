@@ -63,6 +63,7 @@ import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.compiere.util.Msg;
 import org.kenos.idempiere.lbr.base.model.MLBRAverageCostLine;
+import org.kenos.idempiere.lbr.base.model.MLBRProductConfig;
 import org.kenos.idempiere.lbr.base.model.MLBRProductionGroup;
 import org.kenos.idempiere.lbr.base.model.SysConfig;
 
@@ -1418,8 +1419,21 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 		else
 			setProductName (product.getName());
 		
-		setProductValue (product.getValue());
-		setlbr_ServiceCode(productW.getlbr_ServiceCode());
+		String productValue = product.getValue();
+		String serviceCode = productW.getlbr_ServiceCode();
+		String upc = product.getUPC ();
+		
+		MLBRProductConfig productConfig = MLBRProductConfig.getProductConfig (product.getCtx(), getAD_Org_ID(), product.getM_Product_ID());
+		if (productConfig != null)
+		{
+			if (productConfig.getlbr_ServiceCode() != null)
+				serviceCode = productConfig.getlbr_ServiceCode();
+			if (productConfig.getUPC() != null)
+				upc = productConfig.getUPC();
+		}
+		
+		setProductValue (productValue);
+		setlbr_ServiceCode(serviceCode);
 		String vendorProductNo = LBRUtils.getVendorProductNo (product, getParent().getC_BPartner_ID());
 		setVendorProductNo(vendorProductNo);
 		
@@ -1441,7 +1455,7 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 		setLBR_AttributeType(productW.getLBR_AttributeType());
 		
 		//	NT2017.001 - v1.20
-		String upc = TextUtil.toNumeric (product.getUPC ());
+		upc = TextUtil.toNumeric (upc);
 		if (!upc.isEmpty ())
 			setUPC (upc);
 		else

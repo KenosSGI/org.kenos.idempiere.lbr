@@ -30,7 +30,7 @@ public class X_LBR_ProductConfig extends PO implements I_LBR_ProductConfig, I_Pe
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20210227L;
+	private static final long serialVersionUID = 20210817L;
 
     /** Standard Constructor */
     public X_LBR_ProductConfig (Properties ctx, int LBR_ProductConfig_ID, String trxName)
@@ -225,5 +225,22 @@ public class X_LBR_ProductConfig extends PO implements I_LBR_ProductConfig, I_Pe
 	public String getlbr_ProductSource () 
 	{
 		return (String)get_Value(COLUMNNAME_lbr_ProductSource);
+	}
+
+	/** Set Service Code.
+		@param lbr_ServiceCode 
+		Service Code used for Nota Fiscal de Servicos Eletronica
+	  */
+	public void setlbr_ServiceCode (String lbr_ServiceCode)
+	{
+		set_Value (COLUMNNAME_lbr_ServiceCode, lbr_ServiceCode);
+	}
+
+	/** Get Service Code.
+		@return Service Code used for Nota Fiscal de Servicos Eletronica
+	  */
+	public String getlbr_ServiceCode () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_ServiceCode);
 	}
 }
