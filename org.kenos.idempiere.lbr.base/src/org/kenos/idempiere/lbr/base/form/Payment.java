@@ -33,6 +33,7 @@ import org.compiere.model.MAllocationHdr;
 import org.compiere.model.MBankAccount;
 import org.compiere.model.MDocType;
 import org.compiere.model.MInvoice;
+import org.compiere.model.MInvoicePaySchedule;
 import org.compiere.model.MOrder;
 import org.compiere.model.MOrgInfo;
 import org.compiere.model.MPayment;
@@ -71,8 +72,9 @@ public class Payment
 	public boolean         	m_isLocked = false;
 	
 	public boolean		 	m_IsSOTrx = false;
-	
+
 	private final int		PAYAMT_COL = 10;
+	private final int		PAYSCHEDULE_COL = 11;
 
 	/**	Logger			*/
 	public static CLogger log = CLogger.getCLogger(Payment.class);
@@ -208,7 +210,8 @@ public class Payment
 //			new ColumnInfo(Msg.translate(ctx, "DiscountAmt"), "paymentTermDiscount(i.GrandTotal,i.C_Currency_ID,i.C_PaymentTerm_ID,i.DateInvoiced, ?)", BigDecimal.class),
 //			//TODO Criar baixa, desconto, pg maior menor igual alocação
 			new ColumnInfo(Msg.getMsg(ctx, "AmountDue"), "currencyConvert(invoiceOpen(i.C_Invoice_ID,i.C_InvoicePaySchedule_ID),i.C_Currency_ID, ?,?,i.C_ConversionType_ID, i.AD_Client_ID,i.AD_Org_ID)", BigDecimal.class),
-			new ColumnInfo(Msg.getMsg(ctx, "AmountPay"), "currencyConvert(invoiceOpen(i.C_Invoice_ID,i.C_InvoicePaySchedule_ID),i.C_Currency_ID, ?,?,i.C_ConversionType_ID, i.AD_Client_ID,i.AD_Org_ID)", BigDecimal.class)
+			new ColumnInfo(Msg.getMsg(ctx, "AmountPay"), "currencyConvert(invoiceOpen(i.C_Invoice_ID,i.C_InvoicePaySchedule_ID),i.C_Currency_ID, ?,?,i.C_ConversionType_ID, i.AD_Client_ID,i.AD_Org_ID)", BigDecimal.class),
+			new ColumnInfo(Msg.translate(ctx, "C_InvoicePaySchedule_ID"), "(CASE WHEN i.C_InvoicePaySchedule_ID>0 THEN 'Parcelado' ELSE 'Pagamento Único' END)", KeyNamePair.class, true, false, "i.C_InvoicePaySchedule_ID")
 			},
 			//	FROM
 			"C_Invoice_v i"
@@ -246,7 +249,8 @@ public class Payment
 			// 5..9
 			new ColumnInfo(Msg.translate(ctx, "GrandTotal"), "i.GrandTotal", BigDecimal.class),
 			new ColumnInfo(Msg.getMsg(ctx, "AmountDue"), "i.GrandTotal", BigDecimal.class),
-			new ColumnInfo(Msg.getMsg(ctx, "AmountPay"), "i.GrandTotal", BigDecimal.class)
+			new ColumnInfo(Msg.getMsg(ctx, "AmountPay"), "i.GrandTotal", BigDecimal.class),
+			new ColumnInfo(Msg.translate(ctx, "C_InvoicePaySchedule_ID"), "'Parcelado'", KeyNamePair.class, true, false, "0")
 			},
 			//	FROM
 			"C_Order i"
@@ -441,6 +445,7 @@ public class Payment
 				int Doc_ID = id.getRecord_ID().intValue();
 //				BigDecimal OpenAmt = (BigDecimal)miniTable.getValueAt(i, 6);
 				BigDecimal PayAmt = (BigDecimal)miniTable.getValueAt(i, PAYAMT_COL);
+				KeyNamePair ips = (KeyNamePair) miniTable.getValueAt(i, PAYSCHEDULE_COL);
 				
 				Boolean isSOTrx = null;
 				int C_BPartner_ID = 0;
@@ -472,6 +477,10 @@ public class Payment
 					//	Set Order
 					p.setC_Order_ID(Doc_ID);
 				}
+				
+				//	Check if this invoice has IPS
+				if (ips != null && ips.getKey() > 0)
+					p.set_ValueNoCheck(MInvoicePaySchedule.COLUMNNAME_C_InvoicePaySchedule_ID, ips.getKey());
 				
 				p.setAD_Org_ID(org_id);
 				p.setC_BPartner_ID(C_BPartner_ID);

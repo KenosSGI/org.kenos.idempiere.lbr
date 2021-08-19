@@ -14,9 +14,6 @@ package org.adempierelbr.validator;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -156,55 +153,6 @@ public class ValidatorInOut implements ModelValidator
 	}	//	docValidate
 
 	/**
-	 *	Quantity On Hand.
-	 *
-	 *	@param M_Product_ID
-	 *	@param M_Locator_ID
-     *	@return BigDecimal quantity of product
-	 */
-	private BigDecimal getQtyOnHand(int M_Product_ID, int M_Locator_ID, int M_AttributeSetInstance_ID)
-	{
-		BigDecimal QtyOnHand = Env.ZERO;
-		String sql = "SELECT SUM(QtyOnHand) FROM M_Storage "
-			+ "WHERE M_Product_ID=?";	//	1
-		if(M_Locator_ID > 0)
-			sql = sql + " AND M_Locator_ID=?";	//	2
-		if(M_AttributeSetInstance_ID >0)
-			sql = sql + " AND M_AttributeSetInstance_ID=?";	//	3
-
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		try
-		{
-			pstmt = DB.prepareStatement(sql, null);
-			pstmt.setInt(1, M_Product_ID);
-			if (M_Locator_ID > 0)
-				pstmt.setInt(2, M_Locator_ID);
-			if(M_AttributeSetInstance_ID > 0)
-				pstmt.setInt(3, M_AttributeSetInstance_ID);
-
-			rs = pstmt.executeQuery();
-			if (rs.next())
-			{
-				QtyOnHand = rs.getBigDecimal(1);
-			}
-		}
-		catch (SQLException e)
-		{
-			log.log(Level.SEVERE, sql, e);
-			return Env.ZERO;
-		}
-		finally{
-		       DB.close(rs, pstmt);
-		}
-
-		if(QtyOnHand != null)
-			return QtyOnHand;
-
-		return Env.ZERO;
-	}	//	QtyOnHand
-
-	/**
 	 *	Validate Movement.
 	 *
 	 *	@param MMovement movement
@@ -248,18 +196,11 @@ public class ValidatorInOut implements ModelValidator
 					prod.add("" + line.getM_Product_ID() + "|" + line.getM_Locator_ID());
 				}
 			}
-
-			BigDecimal qtdOnHand = getQtyOnHand(line.getM_Product_ID(), line.getM_Locator_ID(), line.getM_AttributeSetInstance_ID());
-
-			if(qtdOnHand.compareTo(line.getMovementQty()) == -1){
-				msg = "Sem saldo na linha #" + line.getLine() + ", produto=" + line.getProduct().getValue();
-				break;
-			}
 			
 			//	CNPJ of locator from and locator to should be the same
 			if (!MSysConfig.getBooleanValue (SysConfig.LBR_ALLOW_CROSS_ORG_MOVEMENT, false) 
 					&& line.getM_Locator().getM_Warehouse_ID() != line.getM_LocatorTo().getM_Warehouse_ID()
-					&& (dt.getlbr_DocBaseType() == null || !dt.getlbr_DocBaseType().startsWith("MMST")))
+					&& (dt.getlbr_DocBaseType() == null || !dt.getlbr_DocBaseType().startsWith("MMET")))
 			{
 				I_W_M_Warehouse wFrom = POWrapper.create (MWarehouse.get(mov.getCtx(), line.getM_Locator().getM_Warehouse_ID(), null), I_W_M_Warehouse.class);
 				I_W_M_Warehouse wTo = POWrapper.create (MWarehouse.get(mov.getCtx(), line.getM_LocatorTo().getM_Warehouse_ID(), null), I_W_M_Warehouse.class);
