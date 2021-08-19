@@ -9,6 +9,8 @@ import java.util.logging.Level;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.adempierelbr.model.MLBRNotaFiscal;
+import org.adempierelbr.util.TextUtil;
+import org.adempierelbr.wrapper.I_W_C_DocType;
 import org.compiere.model.MAttributeSet;
 import org.compiere.model.MClient;
 import org.compiere.model.MDocType;
@@ -25,6 +27,7 @@ import org.compiere.model.MProduct;
 import org.compiere.model.MStorageOnHand;
 import org.compiere.model.MSysConfig;
 import org.compiere.model.MWarehouse;
+import org.compiere.model.Query;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
 import org.compiere.util.Env;
@@ -47,6 +50,7 @@ public class GenerateNF extends SvrProcess
 	private int p_M_InOut_ID 		= 0;
 	private int p_M_Movement_ID 	= 0;
 	private int p_OtherInOut_ID		= 0;
+	private boolean p_Force			= false;
 	private boolean p_IsOwnDocument = true;
 	private String p_lbr_NFEntrada	= "";
 	
@@ -79,6 +83,8 @@ public class GenerateNF extends SvrProcess
 				p_lbr_NFEntrada = para.getParameterAsString();
 			else if (name.equals(MLBRNotaFiscal.COLUMNNAME_lbr_IsOwnDocument))
 				p_IsOwnDocument = para.getParameterAsBoolean();
+			else if ("LBR_ForceExec".equals(name))
+				p_Force = para.getParameterAsBoolean();
 			else
 				log.log (Level.SEVERE, "Unknown Parameter: " + name);
 		}
@@ -122,13 +128,14 @@ public class GenerateNF extends SvrProcess
 				if (p_C_DocType_ID < 1)
 					return "@Error@ Tipo de Documento é obrigatório";
 				
+				String whereClause = MLBRNotaFiscal.COLUMNNAME_M_Movement_ID + "=? AND " + MLBRNotaFiscal.COLUMNNAME_IsCancelled + "='N'";
+				int count = new Query (getCtx(), MLBRNotaFiscal.Table_Name, whereClause, get_TrxName()).setParameters(p_M_Movement_ID).count();
+				if (count > 0 && !p_Force)
+					return "@Error@ Já existe uma NF vinculada a esta movimentação de estoque";
+				
 				MMovement move = new MMovement(getCtx(), p_M_Movement_ID, get_TrxName());
 				if (!MMovement.DOCSTATUS_Completed.equals(move.getDocStatus()))
 					return "@Error@ movimentação não completada, impossível gerar a Nota Fiscal";
-				//
-				//	Pensar se esta validação é necessária
-//				if (move.get_ValueAsInt(MLBRProductionGroup.COLUMNNAME_LBR_ProductionGroup_ID) < 1)
-//					return "@Error@ a movimentação deve estar atrelada a um Pedido de Industrialização";
 				//
 				int M_Warehouse_ID = 0;
 				MMovementLine[] lines = move.getLines(true);
@@ -148,15 +155,24 @@ public class GenerateNF extends SvrProcess
 					}
 				}
 				
-				MDocType doctype = MDocType.get(getCtx(), p_C_DocType_ID);
+				MDocType docType = MDocType.get(getCtx(), p_C_DocType_ID);
+				MDocType docTypeMM = MDocType.get(getCtx(), move.getC_DocType_ID());
+
+				boolean issuedByUs = docType.get_ValueAsBoolean("lbr_IsOwnDocument");
+				boolean isSOTrx = docType.isSOTrx();
+				if (!issuedByUs && p_lbr_NFEntrada.isEmpty())
+					return "@Error@ Obrigatório preencher o Número da NF para este tipo de entrada -> " + docType.getName();
 				
-				if (!doctype.get_ValueAsBoolean("lbr_IsOwnDocument") &&
-						p_lbr_NFEntrada.isEmpty())
-					return "@Error@ Obrigatório preencher o Número da NF para este tipo de entrada -> " + doctype.getName();
+				String docBaseTypeMM = (String) docTypeMM.get_Value(I_W_C_DocType.COLUMNNAME_lbr_DocBaseType);
+				if (TextUtil.match (docBaseTypeMM, "MMST-") && (!issuedByUs || !isSOTrx))
+					return "@Error@ Tipo de Documento para NF inválido, selecionar um Tipo de Documento de saída com emissão própria";
+				if (TextUtil.match (docBaseTypeMM, "MMET+") && (issuedByUs || isSOTrx))
+					return "@Error@ Tipo de Documento para NF inválido, selecionar um Tipo de Documento de entrada com emissão pelo fornecedor";
 				
 				MLBRNotaFiscal nf = new MLBRNotaFiscal (getCtx(), 0, get_TrxName());
-				nf.setDocumentNo(p_lbr_NFEntrada);
-				nf.generateNF(move, doctype.get_ValueAsBoolean("lbr_IsOwnDocument"), p_C_DocType_ID);
+				if (!issuedByUs)
+					nf.setDocumentNo(p_lbr_NFEntrada);
+				nf.generateNF(move, docType.get_ValueAsBoolean("lbr_IsOwnDocument"), p_C_DocType_ID);
 				nf.m_justCreated = true;
 				nf.save();
 				
@@ -230,7 +246,7 @@ public class GenerateNF extends SvrProcess
 					for (int i = 0; i < nfs.length; i++)
 					{
 						MLBRNotaFiscal validNf = nfs[i];			
-						if (!MInOut.ACTION_Void.equals(validNf.getDocStatus()))
+						if (!MLBRNotaFiscal.STATUS_Voided.equals(validNf.getDocStatus()))
 						{
 							nf = validNf;
 							success = " - NF já existente.";
