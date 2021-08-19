@@ -2101,6 +2101,8 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		if (Env.ZERO.compareTo (getlbr_GrossWeight()) == 0)
 			calculateWeight();
 		
+		setNoPackages(inout.getNoPackages());
+		
 		if (getNoPackages() == 0)
 			calculateVolume();
 		
