@@ -3681,7 +3681,13 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 				}
 			}
 		}
-				
+		
+		if (!newRecord && isCancelled() && is_ValueChanged(COLUMNNAME_lbr_MotivoCancel))
+		{
+			log.saveError("Error", "Não é permitido alterar o motivo de cancelamento após a homologação do cancelamento");
+			return false;
+		}
+		
 		return true;
 	}	//	beforeSave
 
@@ -4444,6 +4450,10 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 				//	Gera a NF a partir da Fatura
 				if (getC_Invoice_ID() > 0)
 					generateNF (new MInvoice (getCtx(), getC_Invoice_ID(), get_TrxName()), islbr_IsOwnDocument());
+
+				//	Gera a NF a partir da Expedição
+				else if (getM_InOut_ID() > 0)
+					generateNF (new MInOut (getCtx(), getM_InOut_ID(), get_TrxName()), islbr_IsOwnDocument());
 				
 				//	Gera a NF a parir do Pedido
 				else if (getC_Order_ID() > 0)

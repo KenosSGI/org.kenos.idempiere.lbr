@@ -767,55 +767,7 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 			nfLineTax.save();
 		}
 		
-		X_LBR_NFLineTax icmsST = getICMSSTTax();
-		X_LBR_NFLineTax icmsTax = getICMSTax();
-		
-		//	Creates a missing ICMS ST
-		if (icmsST == null 
-				&& icmsTax != null 
-				&& icmsTax.getLBR_TaxStatus_ID() > 0 
-				&& TextUtil.match(icmsTax.getLBR_TaxStatus().getName(), "60"))
-		{
-			MLBRTaxLine tl = new MLBRTaxLine (Env.getCtx(),0,null);
-			tl.setLBR_TaxName_ID(MLBRTaxName.TAX_ICMSST);
-			
-			int Child_Tax_ID = tl.getChild_Tax_ID (iLineW.getC_Tax_ID());
-			if (Child_Tax_ID > 0)
-			{
-				I_W_C_Tax taxAD = POWrapper.create(new MTax (getCtx(), Child_Tax_ID, get_TrxName()), I_W_C_Tax.class);
-				if (taxAD.getLBR_TaxGroup_ID() > 0)
-				{
-					String where = MLBRTaxStatus.COLUMNNAME_LBR_TaxName_ID +"=? AND " + MLBRTaxStatus.COLUMNNAME_Name + "=?";
-					int LBR_TaxStatus_ID = new Query (getCtx(), MLBRTaxStatus.Table_Name, where, null)
-							.setParameters(tl.getLBR_TaxName_ID(), icmsTax.getLBR_TaxStatus().getName())
-							.firstId();
-					//
-					icmsST = new MLBRNFLineTax (this);
-					icmsST.setLBR_TaxStatus_ID(LBR_TaxStatus_ID);
-					icmsST.setLBR_TaxGroup_ID(taxAD.getLBR_TaxGroup_ID());
-					icmsST.setlbr_TaxAmt(Env.ZERO);
-					icmsST.save();
-				}
-			}
-		}
-
-		if (MSysConfig.getBooleanValue(SysConfig.LBR_PRINT_ICMS_SUBSTITUTE_NF, true, getAD_Client_ID())
-				&& icmsST != null
-				&& icmsST.getLBR_TaxStatus_ID() > 0
-				&& icmsST.getLBR_TaxStatus().getName().equals("60"))
-		{
-			DecimalFormat format = new DecimalFormat ("R$ #,##0.00", new DecimalFormatSymbols(new Locale ("pt", "BR")));
-			//
-			if (BigDecimal.ZERO.compareTo(icmsST.getlbr_TaxBaseAmt()) != 0)
-				appendDescription("BC ST: " + format.format(icmsST.getlbr_TaxBaseAmt().setScale(2, RoundingMode.HALF_UP)));
-			
-			if (BigDecimal.ZERO.compareTo(icmsST.getlbr_TaxAmt()) != 0)
-				appendDescription("ICMS ST: " + format.format(icmsST.getlbr_TaxAmt().setScale(2, RoundingMode.HALF_UP)));
-			
-			X_LBR_NFLineTax icms = getICMSTax();
-			if (icms != null && BigDecimal.ZERO.compareTo(icms.getlbr_TaxAmt()) != 0)
-				appendDescription("ICMS Substituto: " + format.format(icms.getlbr_TaxAmt().setScale(2, RoundingMode.HALF_UP)));
-		}
+		fixTaxHold(iLineW.getC_Tax_ID());
 	}	//	setInvoiceLine
 	
 	/**
@@ -1047,55 +999,7 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 				nfLineTax.save();
 			}
 			
-			X_LBR_NFLineTax icmsST = getICMSSTTax();
-			X_LBR_NFLineTax icmsTax = getICMSTax();
-			
-			//	Creates a missing ICMS ST
-			if (icmsST == null 
-					&& icmsTax != null 
-					&& icmsTax.getLBR_TaxStatus_ID() > 0 
-					&& TextUtil.match(icmsTax.getLBR_TaxStatus().getName(), "60"))
-			{
-				MLBRTaxLine tl = new MLBRTaxLine (Env.getCtx(),0,null);
-				tl.setLBR_TaxName_ID(MLBRTaxName.TAX_ICMSST);
-				
-				int Child_Tax_ID = tl.getChild_Tax_ID (oLineW.getC_Tax_ID());
-				if (Child_Tax_ID > 0)
-				{
-					I_W_C_Tax taxAD = POWrapper.create(new MTax (getCtx(), Child_Tax_ID, get_TrxName()), I_W_C_Tax.class);
-					if (taxAD.getLBR_TaxGroup_ID() > 0)
-					{
-						String where = MLBRTaxStatus.COLUMNNAME_LBR_TaxName_ID +"=? AND " + MLBRTaxStatus.COLUMNNAME_Name + "=?";
-						int LBR_TaxStatus_ID = new Query (getCtx(), MLBRTaxStatus.Table_Name, where, null)
-								.setParameters(tl.getLBR_TaxName_ID(), icmsTax.getLBR_TaxStatus().getName())
-								.firstId();
-						//
-						icmsST = new MLBRNFLineTax (this);
-						icmsST.setLBR_TaxStatus_ID(LBR_TaxStatus_ID);
-						icmsST.setLBR_TaxGroup_ID(taxAD.getLBR_TaxGroup_ID());
-						icmsST.setlbr_TaxAmt(Env.ZERO);
-						icmsST.save();
-					}
-				}
-			}
-
-			if (MSysConfig.getBooleanValue(SysConfig.LBR_PRINT_ICMS_SUBSTITUTE_NF, true, getAD_Client_ID())
-					&& icmsST != null
-					&& icmsST.getLBR_TaxStatus_ID() > 0
-					&& icmsST.getLBR_TaxStatus().getName().equals("60"))
-			{
-				DecimalFormat format = new DecimalFormat ("R$ #,##0.00", new DecimalFormatSymbols(new Locale ("pt", "BR")));
-				//
-				if (BigDecimal.ZERO.compareTo(icmsST.getlbr_TaxBaseAmt()) != 0)
-					appendDescription("BC ST: " + format.format(icmsST.getlbr_TaxBaseAmt().setScale(2, RoundingMode.HALF_UP)));
-				
-				if (BigDecimal.ZERO.compareTo(icmsST.getlbr_TaxAmt()) != 0)
-					appendDescription("ICMS ST: " + format.format(icmsST.getlbr_TaxAmt().setScale(2, RoundingMode.HALF_UP)));
-				
-				X_LBR_NFLineTax icms = getICMSTax();
-				if (icms != null && BigDecimal.ZERO.compareTo(icms.getlbr_TaxAmt()) != 0)
-					appendDescription("ICMS Substituto: " + format.format(icms.getlbr_TaxAmt().setScale(2, RoundingMode.HALF_UP)));
-			}
+			fixTaxHold(oLineW.getC_Tax_ID());
 		}
 	}	//	setOrderLine
 	
@@ -1196,8 +1100,64 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 			boolean includeDIFAL = MSysConfig.getBooleanValue(SysConfig.LBR_ADD_DIFAL_PROD, true, getAD_Client_ID(), getAD_Org_ID());
 			boolean isFOB = getParent().getC_Invoice_ID() > 0 ? !getParent().getC_Invoice().isTaxIncluded() : false;
 			setPrice(iLine.getParent().getC_Currency_ID(), oLineW.getPriceEntered(), oLineW.getPriceList(), includeDIFAL, isFOB);
+			save();
+			
+			fixTaxHold(oLineW.getC_Tax_ID());
 		}
 	}	//	setInOutLine
+	
+	private void fixTaxHold (int C_Tax_ID)
+	{
+		X_LBR_NFLineTax icmsST = getICMSSTTax();
+		X_LBR_NFLineTax icmsTax = getICMSTax();
+		
+		//	Creates a missing ICMS ST
+		if (icmsST == null 
+				&& icmsTax != null 
+				&& icmsTax.getLBR_TaxStatus_ID() > 0 
+				&& TextUtil.match(icmsTax.getLBR_TaxStatus().getName(), "60"))
+		{
+			MLBRTaxLine tl = new MLBRTaxLine (Env.getCtx(),0,null);
+			tl.setLBR_TaxName_ID(MLBRTaxName.TAX_ICMSST);
+			
+			int Child_Tax_ID = tl.getChild_Tax_ID (C_Tax_ID);
+			if (Child_Tax_ID > 0)
+			{
+				I_W_C_Tax taxAD = POWrapper.create(new MTax (getCtx(), Child_Tax_ID, get_TrxName()), I_W_C_Tax.class);
+				if (taxAD.getLBR_TaxGroup_ID() > 0)
+				{
+					String where = MLBRTaxStatus.COLUMNNAME_LBR_TaxName_ID +"=? AND " + MLBRTaxStatus.COLUMNNAME_Name + "=?";
+					int LBR_TaxStatus_ID = new Query (getCtx(), MLBRTaxStatus.Table_Name, where, null)
+							.setParameters(tl.getLBR_TaxName_ID(), icmsTax.getLBR_TaxStatus().getName())
+							.firstId();
+					//
+					icmsST = new MLBRNFLineTax (this);
+					icmsST.setLBR_TaxStatus_ID(LBR_TaxStatus_ID);
+					icmsST.setLBR_TaxGroup_ID(taxAD.getLBR_TaxGroup_ID());
+					icmsST.setlbr_TaxAmt(Env.ZERO);
+					icmsST.save();
+				}
+			}
+		}
+
+		if (MSysConfig.getBooleanValue(SysConfig.LBR_PRINT_ICMS_SUBSTITUTE_NF, true, getAD_Client_ID())
+				&& icmsST != null
+				&& icmsST.getLBR_TaxStatus_ID() > 0
+				&& icmsST.getLBR_TaxStatus().getName().equals("60"))
+		{
+			DecimalFormat format = new DecimalFormat ("R$ #,##0.00", new DecimalFormatSymbols(new Locale ("pt", "BR")));
+			//
+			if (BigDecimal.ZERO.compareTo(icmsST.getlbr_TaxBaseAmt()) != 0)
+				appendDescription("BC ST: " + format.format(icmsST.getlbr_TaxBaseAmt().setScale(2, RoundingMode.HALF_UP)));
+			
+			if (BigDecimal.ZERO.compareTo(icmsST.getlbr_TaxAmt()) != 0)
+				appendDescription("ICMS ST: " + format.format(icmsST.getlbr_TaxAmt().setScale(2, RoundingMode.HALF_UP)));
+			
+			X_LBR_NFLineTax icms = getICMSTax();
+			if (icms != null && BigDecimal.ZERO.compareTo(icms.getlbr_TaxAmt()) != 0)
+				appendDescription("ICMS Substituto: " + format.format(icms.getlbr_TaxAmt().setScale(2, RoundingMode.HALF_UP)));
+		}
+	}	//	fixTaxHold
 	
 	/**
 	 * 	Set PO References
