@@ -91,7 +91,7 @@ public class GenerateNF extends SvrProcess
 	protected String doIt() throws Exception
 	{
 		//	Msg de Retorno
-		String sucess = "";
+		String success = "";
 		try
 		{
 			//	Organization
@@ -233,7 +233,8 @@ public class GenerateNF extends SvrProcess
 						if (!MInOut.ACTION_Void.equals(validNf.getDocStatus()))
 						{
 							nf = validNf;
-							sucess = " - NF já existe. NF " + nf.getDocumentNo();
+							success = " - NF já existente.";
+							addBufferLog(nf.getLBR_NotaFiscal_ID(), null, null, "NF: " + nf.getDocumentNo(), MLBRNotaFiscal.Table_ID, nf.getLBR_NotaFiscal_ID());
 							break;
 						}
 					}
@@ -255,7 +256,7 @@ public class GenerateNF extends SvrProcess
 					nf.setDocStatus(nf.prepareIt());
 					nf.save();
 					
-					sucess = " - NF " + nf.getDocumentNo() + " Criada";
+					addBufferLog(nf.getLBR_NotaFiscal_ID(), null, null, "NF: " + nf.getDocumentNo(), MLBRNotaFiscal.Table_ID, nf.getLBR_NotaFiscal_ID());
 				}
 			}
 			
@@ -269,7 +270,7 @@ public class GenerateNF extends SvrProcess
 			return "@Error@ " + e.getMessage();
 		}
 
-		return "@Success@" + sucess;
+		return "@Success@" + success;
 	}	//	doIt
 	
 	/**
