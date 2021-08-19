@@ -816,29 +816,6 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 				&& (MSysConfig.getBooleanValue(SysConfig.LBR_PRINT_SERIALNUMBER_NF, true, getAD_Client_ID())))
 			appendDescription("Núm. de Série: " + line.getM_AttributeSetInstance().getSerNo());
 		
-		//	Impostos
-		if (p_LBR_Tax_ID > 0)
-		{
-			MLBRTax tax = new MLBRTax (getCtx(), p_LBR_Tax_ID, get_TrxName());
-			for (MLBRTaxLine tl : tax.getLines())
-			{
-				int Child_Tax_ID = tl.getChild_Tax_ID (0);
-				//
-				if (!tl.islbr_PostTax() || Child_Tax_ID < 1)
-					continue;
-				
-				I_W_C_Tax taxAD = POWrapper.create(new MTax (getCtx(), Child_Tax_ID, get_TrxName()), I_W_C_Tax.class);
-				
-				if (taxAD.getLBR_TaxGroup_ID() < 1)
-					continue;
-				
-				MLBRNFLineTax nfLineTax = new MLBRNFLineTax (this);
-				nfLineTax.setTaxes (tl);
-				nfLineTax.setLBR_TaxGroup_ID(taxAD.getLBR_TaxGroup_ID());
-				nfLineTax.save();
-			}
-		}
-		
 		//	Valores
 		setQty (line.getMovementQty());
 		
@@ -882,6 +859,36 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 		}
 		//	Cost Price
 		setPrice (MLBRNotaFiscal.CURRENCY_BRL, costPrice, costPrice , false, false);
+		
+		//	Impostos
+		if (p_LBR_Tax_ID > 0)
+		{
+			MLBRTax tax = new MLBRTax (getCtx(), p_LBR_Tax_ID, get_TrxName());
+			for (MLBRTaxLine tl : tax.getLines())
+			{
+				int Child_Tax_ID = tl.getChild_Tax_ID (0);
+				//
+				if (!tl.islbr_PostTax() || Child_Tax_ID < 1)
+					continue;
+				
+				I_W_C_Tax taxAD = POWrapper.create(new MTax (getCtx(), Child_Tax_ID, get_TrxName()), I_W_C_Tax.class);
+				
+				if (taxAD.getLBR_TaxGroup_ID() < 1)
+					continue;
+				
+				MLBRNFLineTax nfLineTax = new MLBRNFLineTax (this);
+				nfLineTax.setTaxes (tl);
+				nfLineTax.setLBR_TaxGroup_ID(taxAD.getLBR_TaxGroup_ID());
+				
+				if (nfLineTax.getlbr_TaxRate() != null && nfLineTax.getlbr_TaxRate().signum() == 1)
+				{
+					nfLineTax.setlbr_TaxBaseAmt(costPrice.multiply(line.getMovementQty()).setScale(2, RoundingMode.HALF_UP));
+					nfLineTax.setlbr_TaxAmt(nfLineTax.getlbr_TaxBaseAmt().multiply(nfLineTax.getlbr_TaxRate()).divide(Env.ONEHUNDRED, 2, RoundingMode.HALF_UP));
+				}
+				
+				nfLineTax.save();
+			}
+		}
 	}	//	setMovementLine
 	
 	/**

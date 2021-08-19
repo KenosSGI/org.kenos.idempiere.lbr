@@ -1601,6 +1601,9 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		
 		if (getNoPackages() == 0)
 			calculateVolume();
+		
+		//	Resumo de Impostos
+		createNFTaxes ();
 				
 		return true;
 	}	//	generateNF
@@ -4139,6 +4142,36 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 
 		return list.toArray(new MLBRNFTax[list.size()]);
 	}	//	getTaxes
+	
+	/**
+	 * 	Create NF taxes based on lines
+	 */
+	public void createNFTaxes ()
+	{
+		Map<Integer, MLBRNFTax> taxes = new HashMap<Integer, MLBRNFTax>();
+		//
+		Arrays.asList(getLines()).stream().forEach(l -> {
+			Arrays.asList(l.getTaxes()).stream()
+				.filter(t -> t.getlbr_TaxAmt() != null)
+				.filter(t -> t.getlbr_TaxAmt().signum() == 1)
+					.forEach(t -> {
+						MLBRNFTax tax = null;
+						if (taxes.containsKey(t.getLBR_TaxGroup_ID()))
+							tax = taxes.get(t.getLBR_TaxGroup_ID());
+						else
+						{
+							tax = new MLBRNFTax (l.getParent());
+							tax.setLBR_TaxGroup_ID(t.getLBR_TaxGroup_ID());
+							//
+							taxes.put (t.getLBR_TaxGroup_ID(), tax);
+						}
+						//
+						tax.setlbr_TaxAmt(tax.getlbr_TaxAmt().add(t.getlbr_TaxAmt()));
+						tax.setlbr_TaxBaseAmt(tax.getlbr_TaxBaseAmt().add(t.getlbr_TaxBaseAmt()));
+						tax.save ();
+			});
+		});
+	}	//	createNFTaxes
 	
 	/**
 	 * 	
