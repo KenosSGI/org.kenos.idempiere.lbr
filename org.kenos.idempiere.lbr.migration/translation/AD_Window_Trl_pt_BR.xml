@@ -2153,7 +2153,7 @@ MRP - 110	 No exists Dem</value>
   <value column="Help" original=""/>
  </row>
  <row id="200090" trl="Y">
-  <value column="Name" original="Document Status">Estados de Documentos</value>
+  <value column="Name" original="Document Status">Indicador de Atividades</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
  </row>
