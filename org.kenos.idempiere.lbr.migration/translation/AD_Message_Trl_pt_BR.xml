@@ -5930,11 +5930,11 @@ Please contact administrator.</value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="200092" trl="Y">
-  <value column="MsgText" original="Order Fields">Ordenação dos Campos</value>
+  <value column="MsgText" original="Order Fields">Sequência dos Campos</value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="200093" trl="Y">
-  <value column="MsgText" original="Sort Criteria">Critérios de Classificação</value>
+  <value column="MsgText" original="Sort Criteria">Critérios de Ordenação</value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="200094" trl="Y">
