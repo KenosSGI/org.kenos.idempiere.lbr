@@ -160,8 +160,14 @@ public class GenerateNF extends SvrProcess
 
 				boolean issuedByUs = docType.get_ValueAsBoolean("lbr_IsOwnDocument");
 				boolean isSOTrx = docType.isSOTrx();
-				if (!issuedByUs && p_lbr_NFEntrada.isEmpty())
-					return "@Error@ Obrigatório preencher o Número da NF para este tipo de entrada -> " + docType.getName();
+				if (!issuedByUs)
+				{
+					if (p_lbr_NFEntrada.trim().isEmpty())
+						return "@Error@ Obrigatório preencher o Número da NF para este tipo de entrada -> " + docType.getName();
+
+					if (!p_lbr_NFEntrada.trim().matches("^\\d{1,9}-\\d{1,3}$"))
+						return "@Error@ @FillMandatory@ @lbr_NFEntrada@. Deve seguir o formato Número-Série (123456789-123), ex: 1010-9 indica NF 1010 da série 9. Caso a NF não possua série, preencher com 0";
+				}
 				
 				String docBaseTypeMM = (String) docTypeMM.get_Value(I_W_C_DocType.COLUMNNAME_lbr_DocBaseType);
 				if (TextUtil.match (docBaseTypeMM, "MMST-") && (!issuedByUs || !isSOTrx))
@@ -186,8 +192,14 @@ public class GenerateNF extends SvrProcess
 				if (otherInOut.getC_DocType().getC_DocTypeShipment_ID() < 1)
 					return "@Error@ Tipo de documento para a Expedição/Recebimento não configurado";
 
-				if (!otherInOut.isSOTrx() && p_IsOwnDocument)
-					return "@Error@ Obrigatório preencher o Número da NF para este tipo de entrada";
+				if (!otherInOut.isSOTrx() && !p_IsOwnDocument)
+				{
+					if (p_lbr_NFEntrada.trim().isBlank())
+						return "@Error@ Obrigatório preencher o Número da NF para este tipo de entrada";
+
+					if (!p_lbr_NFEntrada.trim().matches("^\\d{1,9}-\\d{1,3}$"))
+						return "@Error@ @FillMandatory@ @lbr_NFEntrada@. Deve seguir o formato Número-Série (123456789-123), ex: 1010-9 indica NF 1010 da série 9. Caso a NF não possua série, preencher com 0";
+				}
 				
 				// Shipment/Receipt
 				MInOut io = null;
