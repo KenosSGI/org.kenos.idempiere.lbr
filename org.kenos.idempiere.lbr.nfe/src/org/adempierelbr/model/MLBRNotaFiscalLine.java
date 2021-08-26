@@ -862,6 +862,21 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 				}
 			}
 		}
+
+		//	Filters
+		Map<String,Object> filter = new HashMap<String,Object>();
+		filter.put(MLBRTaxDefinition.COLUMNNAME_LBR_NCM_ID, getLBR_NCM_ID());
+		filter.put(MLBRTaxDefinition.COLUMNNAME_C_DocType_ID, mov.getC_DocType_ID());
+		filter.put(MLBRTaxDefinition.COLUMNNAME_lbr_DocBaseType, ((MDocType) mov.getC_DocType()).get_Value(I_W_C_DocType.COLUMNNAME_lbr_DocBaseType));
+		filter.put(MLBRTaxDefinition.COLUMNNAME_M_Product_ID, getM_Product_ID());
+		
+		//	Definitions
+		List<MLBRTaxDefinition> taxDefinitions = Arrays.asList(MLBRTaxDefinition.get(filter));
+		
+		//	CFOP
+		Integer LBR_CFOP_ID = taxDefinitions.stream().filter(d -> d.getLBR_CFOP_ID() > 0).map(MLBRTaxDefinition::getLBR_CFOP_ID).findFirst().orElse(-1);
+		if (LBR_CFOP_ID > 0)
+			setLBR_CFOP_ID(LBR_CFOP_ID);
 		
 		//	Cost Price
 		setPrice (MLBRNotaFiscal.CURRENCY_BRL, costPrice, costPrice , false, false);
@@ -869,13 +884,7 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 		//	Impostos
 		if (p_LBR_Tax_ID > 0)
 		{
-			Map<String,Object> filter = new HashMap<String,Object>();
-			filter.put(MLBRTaxDefinition.COLUMNNAME_LBR_NCM_ID, getLBR_NCM_ID());
-			filter.put(MLBRTaxDefinition.COLUMNNAME_C_DocType_ID, mov.getC_DocType_ID());
-			filter.put(MLBRTaxDefinition.COLUMNNAME_lbr_DocBaseType, ((MDocType) mov.getC_DocType()).get_Value(I_W_C_DocType.COLUMNNAME_lbr_DocBaseType));
-			filter.put(MLBRTaxDefinition.COLUMNNAME_M_Product_ID, getM_Product_ID());
-			//
-			List<MLBRTaxDefinition> taxDefinitions = Arrays.asList(MLBRTaxDefinition.get(filter));
+
 			Supplier<Stream<MLBRTaxLine>> definedTaxes = () -> taxDefinitions.stream()
 				.flatMap(d -> Arrays.asList(new MLBRTax(getCtx(), d.getLBR_Tax_ID(), null).getLines()).stream());
 			
