@@ -538,6 +538,75 @@ public class ValidatorInvoice implements ModelValidator
 						alloc.save();
 				}
 			} 	//	create automatically allocation
+			
+			/**
+			 * Generate Receipt automatically
+			 */
+			if (!invoice.isReversal())
+			{
+				String     trx = invoice.get_TrxName();
+				
+				//InOut Document Type
+				MDocType dt = MDocType.get (ctx, invoice.getC_DocType_ID());
+				I_W_C_DocType dtW = POWrapper.create(dt, I_W_C_DocType.class);
+				
+				if (dtW.islbr_IsAutomaticShipment())
+				{				
+					// Base Type from InOut Document Type
+					String DocBaseType = dt.getDocBaseType();
+					
+					//	Order
+					MOrder order = null;
+					
+					// RMA
+					MRMA rma = null;
+					
+					// Document Type from Order or RMA
+					MDocType dtOrderRma = null;
+					I_W_C_DocType dtOrderRmaW = null;
+					
+					// If order
+					if ( invoice.getC_Order_ID() > 0)
+					{
+						order   = (MOrder) invoice.getC_Order();
+						dtOrderRma = MDocType.get (ctx, order.getC_DocTypeTarget_ID());
+						dtOrderRmaW = POWrapper.create(dtOrderRma, I_W_C_DocType.class);
+					} // Else RMA
+					else if (invoice.getM_RMA_ID() > 0)
+					{
+						rma = (MRMA) invoice.getM_RMA();
+						dtOrderRma = MDocType.get (ctx, rma.getC_DocType_ID());
+						dtOrderRmaW = POWrapper.create(dtOrderRma, I_W_C_DocType.class);
+					}
+					
+					//	O Tipo de Documento do Pedido ou ARM relacionado a Tipo de Documento da Fatura não deve estar marcado para gerar Remessa automática
+					//	Utilizado nas Faturas
+					if (dtOrderRma != null && !dtOrderRmaW.islbr_IsAutomaticInvoice() && DocBaseType != null && (DocBaseType.equals(MDocType.DOCBASETYPE_APInvoice)))
+					{
+						MInOut shipment = null;
+	
+						//	Invoice
+						if (dtW.islbr_IsAutomaticShipment())
+							// Apenas Regra de Entrega Pedido Completo ou Forçar podem gerar Expedição Automatica
+							// Forçar Pedido Completo se a Regra for Invalida para Geração Automática
+							if (!MOrder.DELIVERYRULE_CompleteOrder.equals(order.getDeliveryRule())
+								&& !MOrder.DELIVERYRULE_Force.equals(order.getDeliveryRule()))
+								order.setDeliveryRule(MOrder.DELIVERYRULE_CompleteOrder);
+							
+							shipment = createShipment(invoice, order.getDateOrdered());
+	
+						//	Complete
+						if (shipment != null)
+						{
+							String status = shipment.completeIt();
+							shipment.setDocStatus(status);
+							shipment.save(trx);
+							if (!MOrder.DOCSTATUS_Completed.equals(status))
+								return shipment.getProcessMsg();
+						}
+					}
+				}
+			}	//	After Complete
 
 			/**
 			 * 	3 - Gera o registro para a janela de NF
@@ -635,75 +704,6 @@ public class ValidatorInvoice implements ModelValidator
 						return "A quantidade da Linha "+iLine.getLine()+" deve ser igual a quantidade entregue.";
 				}
 			}
-			
-			/**
-			 * Generate Receipt automatically
-			 */
-			if (!invoice.isReversal())
-			{
-				String     trx = invoice.get_TrxName();
-				
-				//InOut Document Type
-				MDocType dt = MDocType.get (ctx, invoice.getC_DocType_ID());
-				I_W_C_DocType dtW = POWrapper.create(dt, I_W_C_DocType.class);
-				
-				if (dtW.islbr_IsAutomaticShipment())
-				{				
-					// Base Type from InOut Document Type
-					String DocBaseType = dt.getDocBaseType();
-					
-					//	Order
-					MOrder order = null;
-					
-					// RMA
-					MRMA rma = null;
-					
-					// Document Type from Order or RMA
-					MDocType dtOrderRma = null;
-					I_W_C_DocType dtOrderRmaW = null;
-					
-					// If order
-					if ( invoice.getC_Order_ID() > 0)
-					{
-						order   = (MOrder) invoice.getC_Order();
-						dtOrderRma = MDocType.get (ctx, order.getC_DocTypeTarget_ID());
-						dtOrderRmaW = POWrapper.create(dtOrderRma, I_W_C_DocType.class);
-					} // Else RMA
-					else if (invoice.getM_RMA_ID() > 0)
-					{
-						rma = (MRMA) invoice.getM_RMA();
-						dtOrderRma = MDocType.get (ctx, rma.getC_DocType_ID());
-						dtOrderRmaW = POWrapper.create(dtOrderRma, I_W_C_DocType.class);
-					}
-					
-					//	O Tipo de Documento do Pedido ou ARM relacionado a Tipo de Documento da Fatura não deve estar marcado para gerar Remessa automática
-					//	Utilizado nas Faturas
-					if (dtOrderRma != null && !dtOrderRmaW.islbr_IsAutomaticInvoice() && DocBaseType != null && (DocBaseType.equals(MDocType.DOCBASETYPE_APInvoice)))
-					{
-						MInOut shipment = null;
-	
-						//	Invoice
-						if (dtW.islbr_IsAutomaticShipment())
-							// Apenas Regra de Entrega Pedido Completo ou Forçar podem gerar Expedição Automatica
-							// Forçar Pedido Completo se a Regra for Invalida para Geração Automática
-							if (!MOrder.DELIVERYRULE_CompleteOrder.equals(order.getDeliveryRule())
-								&& !MOrder.DELIVERYRULE_Force.equals(order.getDeliveryRule()))
-								order.setDeliveryRule(MOrder.DELIVERYRULE_CompleteOrder);
-							
-							shipment = createShipment(invoice, order.getDateOrdered());
-	
-						//	Complete
-						if (shipment != null)
-						{
-							String status = shipment.completeIt();
-							shipment.setDocStatus(status);
-							shipment.save(trx);
-							if (!MOrder.DOCSTATUS_Completed.equals(status))
-								return shipment.getProcessMsg();
-						}
-					}
-				}
-			}	//	After Complete
 		}	//	TIMING_AFTER_COMPLETE
 
 		/**
