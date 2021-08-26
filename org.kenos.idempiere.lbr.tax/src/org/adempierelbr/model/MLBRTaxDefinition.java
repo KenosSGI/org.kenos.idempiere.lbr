@@ -66,7 +66,8 @@ public class MLBRTaxDefinition extends X_LBR_TaxDefinition
 			 + "," + MLBRTaxDefinition.COLUMNNAME_lbr_DestionationType
 			 + "," + MLBRTaxDefinition.COLUMNNAME_LBR_TaxRegime
 			 + "," + MLBRTaxDefinition.COLUMNNAME_M_Product_ID
-			 + "," + MLBRTaxDefinition.COLUMNNAME_IsManufactured;
+			 + "," + MLBRTaxDefinition.COLUMNNAME_IsManufactured
+			 + "," + MLBRTaxDefinition.COLUMNNAME_lbr_DocBaseType;
 	
 	/**************************************************************************
 	 *  Default Constructor
