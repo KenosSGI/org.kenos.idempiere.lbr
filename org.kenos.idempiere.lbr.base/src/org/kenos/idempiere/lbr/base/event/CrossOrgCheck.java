@@ -1,11 +1,11 @@
 package org.kenos.idempiere.lbr.base.event;
 
+import java.util.Arrays;
+
 import org.adempiere.base.event.AbstractEventHandler;
 import org.adempiere.base.event.IEventTopics;
 import org.compiere.model.MInOut;
-import org.compiere.model.MInOutLine;
 import org.compiere.model.MInvoice;
-import org.compiere.model.MInvoiceLine;
 import org.compiere.model.MSysConfig;
 import org.compiere.model.PO;
 import org.kenos.idempiere.lbr.base.model.SysConfig;
@@ -29,7 +29,7 @@ public class CrossOrgCheck extends AbstractEventHandler
 		String topic = event.getTopic();
 		
 		//	Model Events
-		if (topic.startsWith (IEventTopics.MODEL_EVENT_PREFIX))
+		if (topic.startsWith (IEventTopics.DOC_EVENT_PREFIX))
 		{
 			PO po = getPO (event);
 	
@@ -43,19 +43,11 @@ public class CrossOrgCheck extends AbstractEventHandler
 			if (allowCrossOrg)
 				return;
 			
-			//	Handle In/Out Line Events
-			if (MInvoiceLine.Table_Name.equals(po.get_TableName()))
-				doHandleEvent ((MInvoiceLine) po, event, topic);
-			
-			//	Handle In/Out Line Events
-			else if (MInvoice.Table_Name.equals(po.get_TableName()))
+			//	Handle Invoice Events
+			if (MInvoice.Table_Name.equals(po.get_TableName()))
 				doHandleEvent ((MInvoice) po, event, topic);
 			
-			//	Handle In/Out Line Events
-			else if (MInOutLine.Table_Name.equals(po.get_TableName()))
-				doHandleEvent ((MInOutLine) po, event, topic);
-			
-			//	Handle In/Out Line Events
+			//	Handle In/Out Events
 			else if (MInOut.Table_Name.equals(po.get_TableName()))
 				doHandleEvent ((MInOut) po, event, topic);
 		}
@@ -70,27 +62,17 @@ public class CrossOrgCheck extends AbstractEventHandler
 	private void doHandleEvent (MInvoice i, Event event, String topic)
 	{
 		//	Only validates if there is change on Locator		
-		if (!i.is_ValueChanged(MInvoice.COLUMNNAME_C_Order_ID) || i.getC_Order_ID() < 1)
+		if (i.isReversal() || i.getC_Order_ID() < 1)
 			return;
 		
 		//	Check Organization
 		checkOrg (i.getAD_Org_ID(), i.getC_Order().getAD_Org_ID(), event);
-	}	//	doHandleTableEvent
-	
-	/**
-	 * 	Handle In/Out Line Events
-	 * 	@param iol In/Out Line
-	 * 	@param event Event
-	 * 	@param topic Topic of Event
-	 */
-	private void doHandleEvent (MInvoiceLine il, Event event, String topic)
-	{
-		//	Only validates if there is change on Locator		
-		if (!il.is_ValueChanged(MInvoiceLine.COLUMNNAME_C_OrderLine_ID) || il.getC_OrderLine_ID() < 1)
-			return;
-		
-		//	Check Organization
-		checkOrg (il.getC_Invoice().getAD_Org_ID(), il.getC_OrderLine().getAD_Org_ID(), event);
+		//
+		Arrays.asList(i.getLines()).stream()
+			.filter(l -> l.getC_OrderLine_ID() > 0)
+			.forEach(l -> {
+				checkOrg(l.getAD_Org_ID(), l.getC_OrderLine().getAD_Org_ID(), event);
+		});
 	}	//	doHandleTableEvent
 	
 	/**
@@ -102,27 +84,17 @@ public class CrossOrgCheck extends AbstractEventHandler
 	private void doHandleEvent (MInOut i, Event event, String topic)
 	{
 		//	Only validates if there is change on Locator		
-		if (!i.is_ValueChanged(MInOut.COLUMNNAME_C_Order_ID) || i.getC_Order_ID() < 1)
+		if (i.isReversal() || i.getC_Order_ID() < 1)
 			return;
 		
 		//	Check Organization
 		checkOrg (i.getAD_Org_ID(), i.getC_Order().getAD_Org_ID(), event);
-	}	//	doHandleTableEvent
-	
-	/**
-	 * 	Handle In/Out Line Events
-	 * 	@param iol In/Out Line
-	 * 	@param event Event
-	 * 	@param topic Topic of Event
-	 */
-	private void doHandleEvent (MInOutLine iol, Event event, String topic)
-	{
-		//	Only validates if there is change on Locator		
-		if (!iol.is_ValueChanged(MInOutLine.COLUMNNAME_C_OrderLine_ID) || iol.getC_OrderLine_ID() < 1)
-			return;
-		
-		//	Check Organization
-		checkOrg (iol.getM_InOut().getAD_Org_ID(), iol.getC_OrderLine().getAD_Org_ID(), event);
+		//
+		Arrays.asList(i.getLines()).stream()
+			.filter(l -> l.getC_OrderLine_ID() > 0)
+			.forEach(l -> {
+				checkOrg(l.getAD_Org_ID(), l.getC_OrderLine().getAD_Org_ID(), event);
+		});
 	}	//	doHandleTableEvent
 	
 	/**
@@ -143,14 +115,7 @@ public class CrossOrgCheck extends AbstractEventHandler
 	@Override
 	protected void initialize()
 	{
-		registerTableEvent (IEventTopics.PO_BEFORE_NEW, 	MInvoice.Table_Name);
-		registerTableEvent (IEventTopics.PO_BEFORE_CHANGE, 	MInvoice.Table_Name);
-		registerTableEvent (IEventTopics.PO_BEFORE_NEW, 	MInvoiceLine.Table_Name);
-		registerTableEvent (IEventTopics.PO_BEFORE_CHANGE, 	MInvoiceLine.Table_Name);
-
-		registerTableEvent (IEventTopics.PO_BEFORE_NEW, 	MInOut.Table_Name);
-		registerTableEvent (IEventTopics.PO_BEFORE_CHANGE, 	MInOut.Table_Name);
-		registerTableEvent (IEventTopics.PO_BEFORE_NEW, 	MInOutLine.Table_Name);
-		registerTableEvent (IEventTopics.PO_BEFORE_CHANGE, 	MInOutLine.Table_Name);
+		registerTableEvent (IEventTopics.DOC_BEFORE_PREPARE, 	MInvoice.Table_Name);
+		registerTableEvent (IEventTopics.DOC_BEFORE_PREPARE, 	MInOut.Table_Name);
 	}	//	initialize
 }	//	LocatorCheck
