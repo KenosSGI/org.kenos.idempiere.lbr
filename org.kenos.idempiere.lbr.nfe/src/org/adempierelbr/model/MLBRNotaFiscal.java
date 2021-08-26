@@ -4462,7 +4462,7 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 	{
 		log.info(toString());
 		
-		if (m_justPrepared || !islbr_IsOwnDocument() || TextUtil.match (getDocAction(), DOCACTION_Unlock, DOCACTION_Unlock, DOCACTION_VoidInvalidate))
+		if (m_justPrepared || TextUtil.match (getDocAction(), DOCACTION_Unlock, DOCACTION_Unlock, DOCACTION_VoidInvalidate))
 			return DOCSTATUS_InProgress;
 		
 		m_processMsg = ModelValidationEngine.get().fireDocValidate(this, ModelValidator.TIMING_BEFORE_PREPARE);
@@ -4507,6 +4507,10 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 				//	Save to preserve before save options
 				save();
 			}
+			
+			//	Vendor NF
+			if (!islbr_IsOwnDocument())
+				return DOCSTATUS_InProgress;
 			
 			//	Nota Fiscal Eletrônica
 			if (TextUtil.match (getlbr_NFModel(), LBR_NFMODEL_NotaFiscalEletrônica, LBR_NFMODEL_NotaFiscalDeConsumidorEletrônica))

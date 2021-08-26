@@ -23,12 +23,15 @@ import java.sql.Timestamp;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
+import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.adempiere.model.POWrapper;
@@ -36,6 +39,7 @@ import org.adempierelbr.util.BPartnerUtil;
 import org.adempierelbr.util.LBRUtils;
 import org.adempierelbr.util.TextUtil;
 import org.adempierelbr.validator.ValidatorBPartner;
+import org.adempierelbr.wrapper.I_W_C_DocType;
 import org.adempierelbr.wrapper.I_W_C_InvoiceLine;
 import org.adempierelbr.wrapper.I_W_C_OrderLine;
 import org.adempierelbr.wrapper.I_W_C_Tax;
@@ -46,6 +50,7 @@ import org.compiere.model.MCharge;
 import org.compiere.model.MClient;
 import org.compiere.model.MConversionRate;
 import org.compiere.model.MCost;
+import org.compiere.model.MDocType;
 import org.compiere.model.MInOutLine;
 import org.compiere.model.MInvoiceLine;
 import org.compiere.model.MLocation;
@@ -857,12 +862,23 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 				}
 			}
 		}
+		
 		//	Cost Price
 		setPrice (MLBRNotaFiscal.CURRENCY_BRL, costPrice, costPrice , false, false);
 		
 		//	Impostos
 		if (p_LBR_Tax_ID > 0)
 		{
+			Map<String,Object> filter = new HashMap<String,Object>();
+			filter.put(MLBRTaxDefinition.COLUMNNAME_LBR_NCM_ID, getLBR_NCM_ID());
+			filter.put(MLBRTaxDefinition.COLUMNNAME_C_DocType_ID, mov.getC_DocType_ID());
+			filter.put(MLBRTaxDefinition.COLUMNNAME_lbr_DocBaseType, ((MDocType) mov.getC_DocType()).get_Value(I_W_C_DocType.COLUMNNAME_lbr_DocBaseType));
+			filter.put(MLBRTaxDefinition.COLUMNNAME_M_Product_ID, getM_Product_ID());
+			//
+			List<MLBRTaxDefinition> taxDefinitions = Arrays.asList(MLBRTaxDefinition.get(filter));
+			Supplier<Stream<MLBRTaxLine>> definedTaxes = () -> taxDefinitions.stream()
+				.flatMap(d -> Arrays.asList(new MLBRTax(getCtx(), d.getLBR_Tax_ID(), null).getLines()).stream());
+			
 			MLBRTax tax = new MLBRTax (getCtx(), p_LBR_Tax_ID, get_TrxName());
 			for (MLBRTaxLine tl : tax.getLines())
 			{
@@ -876,14 +892,20 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 				if (taxAD.getLBR_TaxGroup_ID() < 1)
 					continue;
 				
+				final int LBR_TaxName_ID = tl.getLBR_TaxName_ID();
+				tl = definedTaxes.get().filter(l -> l.getLBR_TaxName_ID() == LBR_TaxName_ID).findFirst().orElse(tl);
+				
 				MLBRNFLineTax nfLineTax = new MLBRNFLineTax (this);
 				nfLineTax.setTaxes (tl);
 				nfLineTax.setLBR_TaxGroup_ID(taxAD.getLBR_TaxGroup_ID());
 				
 				if (nfLineTax.getlbr_TaxRate() != null && nfLineTax.getlbr_TaxRate().signum() == 1)
 				{
-					nfLineTax.setlbr_TaxBaseAmt(costPrice.multiply(line.getMovementQty()).setScale(2, RoundingMode.HALF_UP));
-					nfLineTax.setlbr_TaxAmt(nfLineTax.getlbr_TaxBaseAmt().multiply(nfLineTax.getlbr_TaxRate()).divide(Env.ONEHUNDRED, 2, RoundingMode.HALF_UP));
+					BigDecimal taxBaseAmt = costPrice.multiply(line.getMovementQty()).setScale(2, RoundingMode.HALF_UP);
+					taxBaseAmt = taxBaseAmt.multiply(Env.ONE.subtract(nfLineTax.getlbr_TaxBase().setScale(17, RoundingMode.HALF_UP).divide(Env.ONEHUNDRED, 17, RoundingMode.HALF_UP))).setScale(2, RoundingMode.HALF_UP);
+					//
+					nfLineTax.setlbr_TaxBaseAmt(taxBaseAmt);
+					nfLineTax.setlbr_TaxAmt(taxBaseAmt.multiply(nfLineTax.getlbr_TaxRate()).divide(Env.ONEHUNDRED, 2, RoundingMode.HALF_UP));
 				}
 				
 				nfLineTax.save();
