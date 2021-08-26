@@ -24,7 +24,6 @@ import java.util.Vector;
 import java.util.logging.Level;
 
 import org.compiere.apps.IStatusBar;
-import org.compiere.grid.CreateFrom;
 import org.compiere.minigrid.IMiniTable;
 import org.compiere.model.GridTab;
 import org.compiere.model.MInOut;
@@ -45,6 +44,7 @@ import org.compiere.util.Env;
 import org.compiere.util.KeyNamePair;
 import org.compiere.util.Msg;
 import org.kenos.idempiere.lbr.base.model.SysConfig;
+import org.kenos.idempiere.lbr.nfe.apps.form.CreateFrom;
 
 /**
  *  Create Invoice Transactions from PO Orders or Receipt
@@ -141,6 +141,8 @@ public abstract class CreateFromShipment extends CreateFrom
 	 */
 	protected ArrayList<KeyNamePair> loadInvoiceData (int C_BPartner_ID)
 	{
+		boolean allowCrossOrg = MSysConfig.getBooleanValue (SysConfig.ALLOW_CROSS_ORG, false, Env.getAD_Client_ID(Env.getCtx()));
+		
 		ArrayList<KeyNamePair> list = new ArrayList<KeyNamePair>();
 		
 		StringBuffer display = new StringBuffer("i.DocumentNo||' - '||")
@@ -150,7 +152,12 @@ public abstract class CreateFromShipment extends CreateFrom
 		//
 		StringBuffer sql = new StringBuffer("SELECT i.C_Invoice_ID,").append(display)
 		.append(" FROM C_Invoice i "
-				+ "WHERE i.C_BPartner_ID=? AND i.IsSOTrx='N' AND i.DocStatus IN ('CL','CO')"
+				+ "WHERE i.C_BPartner_ID=? ");
+		
+		if (!allowCrossOrg)
+			sql.append("AND i.AD_Org_ID=? ");
+		
+		sql.append ("AND i.IsSOTrx='N' AND i.DocStatus IN ('CL','CO')"
 				+ " AND i.C_Invoice_ID IN "
 				+ "(SELECT il.C_Invoice_ID FROM C_InvoiceLine il"
 				+ " LEFT OUTER JOIN M_MatchInv mi ON (il.C_InvoiceLine_ID=mi.C_InvoiceLine_ID) "
@@ -165,9 +172,12 @@ public abstract class CreateFromShipment extends CreateFrom
 		ResultSet rs = null;
 		try
 		{
+			int index = 1;
 			pstmt = DB.prepareStatement(sql.toString(), null);
-			pstmt.setInt(1, C_BPartner_ID);
-			pstmt.setInt(2, C_BPartner_ID);
+			pstmt.setInt(index++, C_BPartner_ID);
+			if (!allowCrossOrg)
+				pstmt.setInt(index++, getAD_Org_ID());
+			pstmt.setInt(index++, C_BPartner_ID);
 			rs = pstmt.executeQuery();
 			while (rs.next())
 			{

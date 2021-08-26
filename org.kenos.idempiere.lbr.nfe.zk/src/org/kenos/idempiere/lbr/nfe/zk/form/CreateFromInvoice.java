@@ -23,7 +23,6 @@ import java.util.Vector;
 import java.util.logging.Level;
 
 import org.compiere.apps.IStatusBar;
-import org.compiere.grid.CreateFrom;
 import org.compiere.minigrid.IMiniTable;
 import org.compiere.model.GridTab;
 import org.compiere.model.MCurrency;
@@ -48,6 +47,7 @@ import org.compiere.util.Env;
 import org.compiere.util.KeyNamePair;
 import org.compiere.util.Msg;
 import org.kenos.idempiere.lbr.base.model.SysConfig;
+import org.kenos.idempiere.lbr.nfe.apps.form.CreateFrom;
 
 /**
  *  Create Invoice Transactions from PO Orders or Receipt
@@ -90,6 +90,7 @@ public abstract class CreateFromInvoice extends CreateFrom
 	protected ArrayList<KeyNamePair> loadShipmentData (int C_BPartner_ID, int C_Order_ID)
 	{
 		String isSOTrxParam = isSOTrx ? "Y":"N";
+		boolean allowCrossOrg = MSysConfig.getBooleanValue (SysConfig.ALLOW_CROSS_ORG, false, Env.getAD_Client_ID(Env.getCtx()));
 		ArrayList<KeyNamePair> list = new ArrayList<KeyNamePair>();
 
 		//	Display
@@ -98,7 +99,12 @@ public abstract class CreateFromInvoice extends CreateFrom
 		//
 		StringBuffer sql = new StringBuffer("SELECT s.M_InOut_ID,").append(display)
 			.append(" FROM M_InOut s "
-			+ "WHERE s.C_BPartner_ID=? AND s.IsSOTrx=? AND s.DocStatus IN ('CL','CO')"
+			+ "WHERE s.C_BPartner_ID=? ");
+		
+		if (!allowCrossOrg)
+			sql.append("AND s.AD_Org_ID=? ");
+		
+		sql.append("AND s.IsSOTrx=? AND s.DocStatus IN ('CL','CO')"
 			+ " AND s.M_InOut_ID IN "
 				+ "(SELECT sl.M_InOut_ID FROM M_InOutLine sl");
 			if(!isSOTrx)
@@ -126,11 +132,14 @@ public abstract class CreateFromInvoice extends CreateFrom
 		ResultSet rs = null;
 		try
 		{
+			int index = 1;
 			pstmt = DB.prepareStatement(sql.toString(), null);
-			pstmt.setInt(1, C_BPartner_ID);
-			pstmt.setString(2, isSOTrxParam);
-			pstmt.setInt(3, C_BPartner_ID);
-			pstmt.setString(4, isSOTrxParam);
+			pstmt.setInt(index++, C_BPartner_ID);
+			if (!allowCrossOrg)
+				pstmt.setInt(index++, getAD_Org_ID());
+			pstmt.setString(index++, isSOTrxParam);
+			pstmt.setInt(index++, C_BPartner_ID);
+			pstmt.setString(index++, isSOTrxParam);
 			rs = pstmt.executeQuery();
 			while (rs.next())
 			{

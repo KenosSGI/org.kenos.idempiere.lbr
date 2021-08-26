@@ -6,6 +6,7 @@ package org.kenos.idempiere.lbr.base.model;
  */
 public class SysConfig
 {
+	public static final String ALLOW_CROSS_ORG 									= "org.kenos.allowcrossorg";
 	public static final String ALLOW_CROSS_ORG_LOCATOR 							= "org.kenos.allowcrossorglocator";
 	public static final String ALLOW_CROSS_ORG_LOCATOR_INVENTORY_MOVE 			= "org.kenos.allowcrossorglocator.inventorymove";
 

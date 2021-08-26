@@ -4683,6 +4683,14 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 					if (count > 0)
 						throw new Exception ("@Invalid@ Nota Fiscal já escriturada anteriormente");
 
+					//	Fill NF-e ID automatically
+					if (getlbr_NFeID() == null && getM_Movement_ID()>0)
+					{
+						MLBRNotaFiscal nfe = MLBRNotaFiscal.getNFe (getCtx(), getlbr_CNPJ(), getlbr_NFModel(), getDocumentNo(), getlbr_NFSerie(), get_TrxName());
+						if (nfe != null)
+							setlbr_NFeID(nfe.getlbr_NFeID());
+					}
+					
 					//	Try to find NF-e ID from DF-e
 					if (getlbr_NFeID() == null)
 					{
