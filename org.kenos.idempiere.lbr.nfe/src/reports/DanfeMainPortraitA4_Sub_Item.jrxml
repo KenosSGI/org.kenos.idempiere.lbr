@@ -23,10 +23,10 @@
 		<fieldDescription><![CDATA[prod/xProd]]></fieldDescription>
 	</field>
 	<field name="baseIcms" class="java.math.BigDecimal">
-		<fieldDescription><![CDATA[imposto/ICMS/ICMS00/vBC | imposto/ICMS/ICMS10/vBC | imposto/ICMS/ICMS20/vBC | imposto/ICMS/ICMS51/vBC | imposto/ICMS/ICMS70/vBC | imposto/ICMS/ICMS90/vBC]]></fieldDescription>
+		<fieldDescription><![CDATA[imposto/ICMS/ICMS00/vBC | imposto/ICMS/ICMS10/vBC | imposto/ICMS/ICMS20/vBC | imposto/ICMS/ICMS51/vBC | imposto/ICMS/ICMS70/vBC | imposto/ICMS/ICMS90/vBC | imposto/ICMS/ICMSSN900/vBC]]></fieldDescription>
 	</field>
 	<field name="valorIcms" class="java.math.BigDecimal">
-		<fieldDescription><![CDATA[imposto/ICMS/ICMS00/vICMS | imposto/ICMS/ICMS10/vICMS | imposto/ICMS/ICMS20/vICMS | imposto/ICMS/ICMS51/vICMS | imposto/ICMS/ICMS70/vICMS | imposto/ICMS/ICMS90/vICMS]]></fieldDescription>
+		<fieldDescription><![CDATA[imposto/ICMS/ICMS00/vICMS | imposto/ICMS/ICMS10/vICMS | imposto/ICMS/ICMS20/vICMS | imposto/ICMS/ICMS51/vICMS | imposto/ICMS/ICMS70/vICMS | imposto/ICMS/ICMS90/vICMS | imposto/ICMS/ICMSSN900/vICMS]]></fieldDescription>
 	</field>
 	<field name="valorIpi" class="java.math.BigDecimal">
 		<fieldDescription><![CDATA[imposto/IPI/IPITrib/vIPI]]></fieldDescription>
