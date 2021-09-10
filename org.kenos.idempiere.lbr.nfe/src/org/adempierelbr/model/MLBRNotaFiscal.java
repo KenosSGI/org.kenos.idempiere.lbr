@@ -2108,6 +2108,11 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		
 		if (getNoPackages() == 0)
 			calculateVolume();
+
+		
+		//	Resumo de Impostos
+		if ("EXOT-".equals(POWrapper.create((MDocType)inout.getC_DocType(), I_W_C_DocType.class).getlbr_DocBaseType()))
+			createNFTaxes ();
 		
 		return true;
 	}	//	generateNF
@@ -4148,6 +4153,12 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 	 */
 	public void createNFTaxes ()
 	{
+		//	Delete old
+		for (MLBRNFTax nft : getTaxes())
+		{
+			nft.deleteEx(true);
+		}
+		
 		Map<Integer, MLBRNFTax> taxes = new HashMap<Integer, MLBRNFTax>();
 		//
 		Arrays.asList(getLines()).stream().forEach(l -> {

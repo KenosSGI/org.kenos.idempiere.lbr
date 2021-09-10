@@ -57,6 +57,7 @@ import org.compiere.model.MLocation;
 import org.compiere.model.MMovement;
 import org.compiere.model.MMovementLine;
 import org.compiere.model.MOrderLine;
+import org.compiere.model.MOrgInfo;
 import org.compiere.model.MPeriod;
 import org.compiere.model.MProduct;
 import org.compiere.model.MSysConfig;
@@ -1139,6 +1140,90 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 			boolean isFOB = getParent().getC_Invoice_ID() > 0 ? !getParent().getC_Invoice().isTaxIncluded() : false;
 			setPrice(iLine.getParent().getC_Currency_ID(), oLineW.getPriceEntered(), oLineW.getPriceList(), includeDIFAL, isFOB);
 			save();
+			
+			if ("EXOT-".equals(POWrapper.create((MDocType)iLine.getM_InOut().getC_DocType(), I_W_C_DocType.class).getlbr_DocBaseType()))
+			{
+				//	Filters
+				Map<String,Object> filter = new HashMap<String,Object>();
+				filter.put(MLBRTaxDefinition.COLUMNNAME_LBR_NCM_ID, getLBR_NCM_ID());
+				filter.put(MLBRTaxDefinition.COLUMNNAME_C_DocType_ID, iLine.getM_InOut().getC_DocType_ID());
+				filter.put(MLBRTaxDefinition.COLUMNNAME_lbr_DocBaseType, ((MDocType) iLine.getM_InOut().getC_DocType()).get_Value(I_W_C_DocType.COLUMNNAME_lbr_DocBaseType));
+				filter.put(MLBRTaxDefinition.COLUMNNAME_M_Product_ID, getM_Product_ID());
+				filter.put(MLBRTaxDefinition.COLUMNNAME_C_BPartner_ID, iLine.getM_InOut().getC_BPartner_ID());
+				filter.put(MLBRTaxDefinition.COLUMNNAME_AD_Org_ID, iLine.getAD_Org_ID());
+				filter.put(MLBRTaxDefinition.COLUMNNAME_lbr_DestionationType, iLine.getAD_Org_ID());
+				
+				MOrgInfo oi = MOrgInfo.get(getCtx(), iLine.getAD_Org_ID(), null);
+				int C_Region_ID = iLine.getM_InOut().getC_BPartner_Location().getC_Location().getC_Region_ID();
+				int To_Region_ID = oi.getC_Location().getC_Region_ID();
+
+				String lbr_DestionationType = null;
+				
+				if ((oi.getC_Location_ID() < 1 || iLine.getM_InOut().getC_BPartner_Location().getC_Location().getC_Country_ID() != oi.getC_Location().getC_Country_ID()))
+					lbr_DestionationType = X_LBR_CFOPLine.LBR_DESTIONATIONTYPE_Estrangeiro;
+				else if (C_Region_ID == oi.getC_Location().getC_Region_ID())
+					lbr_DestionationType = X_LBR_CFOPLine.LBR_DESTIONATIONTYPE_EstadosIdenticos;
+				else 
+					lbr_DestionationType = X_LBR_CFOPLine.LBR_DESTIONATIONTYPE_EstadosDiferentes;
+
+				filter.put(MLBRTaxDefinition.COLUMNNAME_AD_Org_ID, iLine.getAD_Org_ID());
+				filter.put(MLBRTaxDefinition.COLUMNNAME_C_BPartner_ID, iLine.getM_InOut().getC_BPartner_ID());
+				filter.put(MLBRTaxDefinition.COLUMNNAME_C_DocType_ID, iLine.getM_InOut().getC_DocType_ID());
+				filter.put(MLBRTaxDefinition.COLUMNNAME_C_Region_ID, C_Region_ID);
+				filter.put(MLBRTaxDefinition.COLUMNNAME_To_Region_ID, To_Region_ID);
+				filter.put(MLBRTaxDefinition.COLUMNNAME_LBR_NCM_ID, getLBR_NCM_ID());
+				filter.put(MLBRTaxDefinition.COLUMNNAME_ValidFrom, iLine.getM_InOut().getMovementDate());
+				filter.put(MLBRTaxDefinition.COLUMNNAME_lbr_DestionationType, lbr_DestionationType);
+				filter.put(MLBRTaxDefinition.COLUMNNAME_M_Product_ID, getM_Product_ID());
+				filter.put(MLBRTaxDefinition.COLUMNNAME_lbr_DocBaseType, ((MDocType) iLine.getM_InOut().getC_DocType()).get_Value(I_W_C_DocType.COLUMNNAME_lbr_DocBaseType));
+
+				//	Definitions
+				List<MLBRTaxDefinition> taxDefinitions = Arrays.asList(MLBRTaxDefinition.get(filter));
+				
+				//	CFOP
+				Integer LBR_CFOP_ID = taxDefinitions.stream().filter(d -> d.getLBR_CFOP_ID() > 0).map(MLBRTaxDefinition::getLBR_CFOP_ID).findFirst().orElse(-1);
+				if (LBR_CFOP_ID > 0)
+					setLBR_CFOP_ID(LBR_CFOP_ID);
+				
+				//	Impostos
+				Supplier<Stream<MLBRTaxLine>> definedTaxes = () -> taxDefinitions.stream()
+					.flatMap(d -> Arrays.asList(new MLBRTax(getCtx(), d.getLBR_Tax_ID(), null).getLines()).stream());
+				
+				for (MLBRTaxLine tl : tax.getLines())
+				{
+					int Child_Tax_ID = tl.getChild_Tax_ID (0);
+					//
+					if (!tl.islbr_PostTax() || Child_Tax_ID < 1)
+						continue;
+					
+					I_W_C_Tax taxAD = POWrapper.create(new MTax (getCtx(), Child_Tax_ID, get_TrxName()), I_W_C_Tax.class);
+					
+					if (taxAD.getLBR_TaxGroup_ID() < 1)
+						continue;
+					
+					final int LBR_TaxName_ID = tl.getLBR_TaxName_ID();
+					tl = definedTaxes.get().filter(l -> l.getLBR_TaxName_ID() == LBR_TaxName_ID).findFirst().orElse(tl);
+					
+					MLBRNFLineTax nfLineTax = MLBRNFLineTax.get (getLBR_NotaFiscalLine_ID(), taxAD.getLBR_TaxGroup_ID(), get_TrxName());
+					
+					//	Check if tax already exists
+					if (nfLineTax == null)
+						nfLineTax = new MLBRNFLineTax (this);
+					nfLineTax.setTaxes (tl);
+					nfLineTax.setLBR_TaxGroup_ID(taxAD.getLBR_TaxGroup_ID());
+					
+					if (nfLineTax.getlbr_TaxRate() != null && nfLineTax.getlbr_TaxRate().signum() == 1)
+					{
+						BigDecimal taxBaseAmt = getLineTotalAmt();
+						taxBaseAmt = taxBaseAmt.multiply(Env.ONE.subtract(nfLineTax.getlbr_TaxBase().setScale(17, RoundingMode.HALF_UP).divide(Env.ONEHUNDRED, 17, RoundingMode.HALF_UP))).setScale(2, RoundingMode.HALF_UP);
+						//
+						nfLineTax.setlbr_TaxBaseAmt(taxBaseAmt);
+						nfLineTax.setlbr_TaxAmt(taxBaseAmt.multiply(nfLineTax.getlbr_TaxRate()).divide(Env.ONEHUNDRED, 2, RoundingMode.HALF_UP));
+					}
+					
+					nfLineTax.save();
+				}
+			}
 			
 			fixTaxHold(oLineW.getC_Tax_ID());
 		}
