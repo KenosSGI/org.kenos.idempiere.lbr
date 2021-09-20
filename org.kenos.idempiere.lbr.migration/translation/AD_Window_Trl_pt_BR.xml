@@ -975,9 +975,9 @@ Antes(!) de entrar as transações, Inicie a Execução da Replicação para def
   <value column="Help" original="Alert Processor/Server Parameter">Parâmetros do Processador/Servidor de Alerta</value>
  </row>
  <row id="313" trl="Y">
-  <value column="Name" original="Partner Relation">Relação com Parceiros</value>
-  <value column="Description" original="Maintain Business Partner Relations">Gerenciamento das Relações com os Parceiros de Negócios</value>
-  <value column="Help" original="Business Partner Relation allow to maintain Third Party Relationship rules: who receives invoices for shipments or pays for invoices.">A "Relação com Parceiro de Negócios" permite gerenciar as regras de Relacionamento com Terceiros: quem recebe faturas por embarques ou paga por faturas.</value>
+  <value column="Name" original="Partner Relation">Parceiros Relacionados</value>
+  <value column="Description" original="Maintain Business Partner Relations">Gerenciamento do Relacionamento entre Parceiros de Negócios</value>
+  <value column="Help" original="Business Partner Relation allow to maintain Third Party Relationship rules: who receives invoices for shipments or pays for invoices.">A tela de "Parceiros de Negócios Relacionados" permite gerenciar as regras de Relacionamento com Terceiros: quem recebe as mercadorias e quem paga por elas.</value>
  </row>
  <row id="314" trl="Y">
   <value column="Name" original="RfQ Topic">Tópico de SdC</value>
