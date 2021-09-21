@@ -15,7 +15,9 @@ package org.adempierelbr.validator;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
@@ -616,69 +618,94 @@ public class ValidatorInvoice implements ModelValidator
 				//	Força o Documento Próprio para as Faturas de Saída ou para Memorando de Crédito de Entrada
 				boolean isOwnDocument = (wDocType.getDocBaseType().equals(MDocType.DOCBASETYPE_APCreditMemo) || wDocType.getDocBaseType().equals(MDocType.DOCBASETYPE_ARInvoice)) 
 						? Boolean.TRUE : MLBRNotaFiscal.LBR_ISOWNDOCUMENT_IssuedByUsOwnDocument.equals(wDocType.getlbr_IsOwnDocument());
-
-				//	Cria e processa as informações para a tabela de NF
-				MLBRNotaFiscal nf = new MLBRNotaFiscal (Env.getCtx(), 0, invoice.get_TrxName());
-				nf.generateNF(invoice, isOwnDocument);
-				nf.m_justCreated = true;
-				nf.save();
 				
-				//	Gera o XML da NF-e efetuando a ação Preparar na NF
-				try
+				List<PO> pos = new ArrayList<PO>();
+				pos.add(invoice);
+				//
+				if (invoice.getC_Order_ID() > 0)
 				{
-					nf.prepareIt();
-					nf.setDocStatus(MLBRNotaFiscal.DOCSTATUS_InProgress);
-					nf.setDocAction(MLBRNotaFiscal.DOCACTION_Complete);
-					nf.saveEx();
-					
-					//	Verificar se o campo Completar NF Automaticamente está marcado no Tipo de Documento da Fatura
-					//	Se marcado, Todas as Notas geradas através  da fatura serão completadas automaticamente
-					Boolean generateNFAut = wDocType.islbr_IsAutomaticNF();					
-					
-					if (!generateNFAut)
+					I_W_C_DocType dtOrder = POWrapper.create (new MDocType(ctx, invoice.getC_Order().getC_DocTypeTarget_ID(), trxName), I_W_C_DocType.class);
+					if ("OVOT-".equals(dtOrder.getlbr_DocBaseType()))
 					{
-						//	Se não estiver definido no Tipo de Documento da fatura, 
-						//	verificar se o campo está marcado no Tipo de Documento da Nota Fiscal
-						//	Se estiver, apenas as NFs da Organização do Tipo de Documento serão completadas automaticamente.
-						I_W_C_DocType wDocTypeNF = POWrapper.create (new MDocType(ctx, nf.getC_DocTypeTarget_ID(), trxName), I_W_C_DocType.class);
-						generateNFAut = wDocTypeNF.islbr_IsAutomaticNF();
-					}
-					
-					//	Completa a NFe automaticamente
-					if (generateNFAut)
-					{
-						String status = null;
-						
-						try
-						{
-							status = nf.completeIt();
-							nf.saveEx();
-						}
-						catch (Exception e)
-						{
-							log.warning("Falha na geração/validação da NF automaticamente");
-						}
-						
-						//	Se completado corretamente, iniciar impressão
-						if (MLBRNotaFiscal.DOCSTATUS_Completed.equals(status))
-						{
-							MPInstance instance = new MPInstance (ctx, 1120040, nf.getLBR_NotaFiscal_ID());
-							instance.save();
-							
-							ProcessInfo pInfo = new ProcessInfo("Impressão da NF-e e NFC-e", 1120040);
-							pInfo.setRecord_ID(nf.getLBR_NotaFiscal_ID());
-							pInfo.setTable_ID(MLBRNotaFiscal.Table_ID);
-							pInfo.setAD_Process_ID(1120040);
-							pInfo.setAD_PInstance_ID(instance.get_ID());
-							
-							Trx.get (nf.get_TrxName(), false).commit();
-							new PrintFromXML().startProcess(ctx, pInfo, null);
-						}
+						String where = "EXISTS (SELECT 1 FROM C_InvoiceLine il, M_InOutLine iol WHERE iol.M_InOut_ID=M_InOut.M_InOut_ID AND il.M_InOutLine_ID=iol.M_InOutLine_ID AND il.C_Invoice_ID=? AND iol.M_InOutLine_ID>0)";
+						new Query (Env.getCtx(), MInOut.Table_Name, where, trxName)
+							.setParameters(invoice.getC_Invoice_ID())
+							.list()
+							.stream()
+							.forEach(pos::add);
 					}
 				}
-				catch (Exception e) 
+				
+				for (PO po : pos)
 				{
-					log.warning ("Erro ao preparar a NF");
+					//	Cria e processa as informações para a tabela de NF
+					MLBRNotaFiscal nf = new MLBRNotaFiscal (Env.getCtx(), 0, po.get_TrxName());
+					if (MInvoice.Table_Name.equals(po.get_TableName()))
+						nf.generateNF((MInvoice) po, isOwnDocument);
+					else if (MInOut.Table_Name.equals(po.get_TableName()))
+						nf.generateNF((MInOut) po, isOwnDocument);
+					else
+						log.warning ("Documento não suportado");
+					nf.m_justCreated = true;
+					nf.save();
+					
+					//	Gera o XML da NF-e efetuando a ação Preparar na NF
+					try
+					{
+						nf.prepareIt();
+						nf.setDocStatus(MLBRNotaFiscal.DOCSTATUS_InProgress);
+						nf.setDocAction(MLBRNotaFiscal.DOCACTION_Complete);
+						nf.saveEx();
+						
+						//	Verificar se o campo Completar NF Automaticamente está marcado no Tipo de Documento da Fatura
+						//	Se marcado, Todas as Notas geradas através  da fatura serão completadas automaticamente
+						Boolean generateNFAut = wDocType.islbr_IsAutomaticNF();					
+						
+						if (!generateNFAut)
+						{
+							//	Se não estiver definido no Tipo de Documento da fatura, 
+							//	verificar se o campo está marcado no Tipo de Documento da Nota Fiscal
+							//	Se estiver, apenas as NFs da Organização do Tipo de Documento serão completadas automaticamente.
+							I_W_C_DocType wDocTypeNF = POWrapper.create (new MDocType(ctx, nf.getC_DocTypeTarget_ID(), trxName), I_W_C_DocType.class);
+							generateNFAut = wDocTypeNF.islbr_IsAutomaticNF();
+						}
+						
+						//	Completa a NFe automaticamente
+						if (generateNFAut)
+						{
+							String status = null;
+							
+							try
+							{
+								status = nf.completeIt();
+								nf.saveEx();
+							}
+							catch (Exception e)
+							{
+								log.warning("Falha na geração/validação da NF automaticamente");
+							}
+							
+							//	Se completado corretamente, iniciar impressão
+							if (MLBRNotaFiscal.DOCSTATUS_Completed.equals(status))
+							{
+								MPInstance instance = new MPInstance (ctx, 1120040, nf.getLBR_NotaFiscal_ID());
+								instance.save();
+								
+								ProcessInfo pInfo = new ProcessInfo("Impressão da NF-e e NFC-e", 1120040);
+								pInfo.setRecord_ID(nf.getLBR_NotaFiscal_ID());
+								pInfo.setTable_ID(MLBRNotaFiscal.Table_ID);
+								pInfo.setAD_Process_ID(1120040);
+								pInfo.setAD_PInstance_ID(instance.get_ID());
+								
+								Trx.get (nf.get_TrxName(), false).commit();
+								new PrintFromXML().startProcess(ctx, pInfo, null);
+							}
+						}
+					}
+					catch (Exception e) 
+					{
+						log.warning ("Erro ao preparar a NF");
+					}
 				}
 			}	//	geração de Documento Fiscal
 			

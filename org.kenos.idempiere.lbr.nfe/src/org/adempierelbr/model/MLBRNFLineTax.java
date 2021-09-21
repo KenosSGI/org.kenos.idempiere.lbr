@@ -18,6 +18,7 @@ import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.Properties;
 
+import org.compiere.model.Query;
 import org.compiere.util.Env;
 import org.kenos.idempiere.lbr.base.model.MLBRTaxHold;
 
@@ -150,6 +151,13 @@ public class MLBRNFLineTax extends X_LBR_NFLineTax
 		//
 		return taxesDiscount;
 	}	//	getTaxesDiscount
+	
+	public static MLBRNFLineTax get (int LBR_NotaFiscalLine_ID, int LBR_TaxGroup_ID, String trxName)
+	{
+		return new Query (Env.getCtx(), Table_Name, COLUMNNAME_LBR_NotaFiscalLine_ID+"=? AND "+COLUMNNAME_LBR_TaxGroup_ID+"=?", trxName)
+			.setParameters(LBR_NotaFiscalLine_ID, LBR_TaxGroup_ID)
+			.first();
+	}	//	get
 	
 	@Override
 	protected boolean beforeSave(boolean newRecord)

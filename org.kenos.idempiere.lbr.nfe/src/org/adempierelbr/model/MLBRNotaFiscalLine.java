@@ -39,6 +39,8 @@ import org.adempierelbr.util.BPartnerUtil;
 import org.adempierelbr.util.LBRUtils;
 import org.adempierelbr.util.TextUtil;
 import org.adempierelbr.validator.ValidatorBPartner;
+import org.adempierelbr.wrapper.I_W_AD_OrgInfo;
+import org.adempierelbr.wrapper.I_W_C_BPartner;
 import org.adempierelbr.wrapper.I_W_C_DocType;
 import org.adempierelbr.wrapper.I_W_C_InvoiceLine;
 import org.adempierelbr.wrapper.I_W_C_OrderLine;
@@ -46,6 +48,7 @@ import org.adempierelbr.wrapper.I_W_C_Tax;
 import org.adempierelbr.wrapper.I_W_M_Product;
 import org.compiere.model.MAcctSchema;
 import org.compiere.model.MAttributeSetInstance;
+import org.compiere.model.MBPartnerLocation;
 import org.compiere.model.MCharge;
 import org.compiere.model.MClient;
 import org.compiere.model.MConversionRate;
@@ -57,6 +60,7 @@ import org.compiere.model.MLocation;
 import org.compiere.model.MMovement;
 import org.compiere.model.MMovementLine;
 import org.compiere.model.MOrderLine;
+import org.compiere.model.MOrgInfo;
 import org.compiere.model.MPeriod;
 import org.compiere.model.MProduct;
 import org.compiere.model.MSysConfig;
@@ -1046,6 +1050,7 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 	 * 	
 	 * 	@param oLine
 	 */
+	@SuppressWarnings("unchecked")
 	public void setInOutLine (MInOutLine iLine, boolean isDescription)
 	{
 		I_W_C_OrderLine oLineW = POWrapper.create (new MOrderLine(Env.getCtx(), iLine.getC_OrderLine_ID(), get_TrxName()), I_W_C_OrderLine.class);
@@ -1112,26 +1117,31 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 				appendDescription(description);
 			}
 			
+			boolean otherOperation = false;
+			if ("EXOT-".equals(POWrapper.create((MDocType)iLine.getM_InOut().getC_DocType(), I_W_C_DocType.class).getlbr_DocBaseType()))
+				otherOperation = true;
+			
 			//		Impostos
 			MLBRTax tax = new MLBRTax (getCtx(), oLineW.getLBR_Tax_ID(), get_TrxName());
 					
-			for (MLBRTaxLine tl : tax.getLines())
-			{
-				int Child_Tax_ID = tl.getChild_Tax_ID (oLineW.getC_Tax_ID());
-				//
-				if (!tl.islbr_PostTax() || Child_Tax_ID < 1)
-					continue;
-				
-				I_W_C_Tax taxAD = POWrapper.create(new MTax (getCtx(), Child_Tax_ID, get_TrxName()), I_W_C_Tax.class);
-				
-				if (taxAD.getLBR_TaxGroup_ID() < 1)
-					continue;
-				
-				MLBRNFLineTax nfLineTax = new MLBRNFLineTax (this);
-				nfLineTax.setTaxes (tl);
-				nfLineTax.setLBR_TaxGroup_ID(taxAD.getLBR_TaxGroup_ID());
-				nfLineTax.save();
-			}
+			if (!otherOperation)
+				for (MLBRTaxLine tl : tax.getLines())
+				{
+					int Child_Tax_ID = tl.getChild_Tax_ID (oLineW.getC_Tax_ID());
+					//
+					if (!tl.islbr_PostTax() || Child_Tax_ID < 1)
+						continue;
+					
+					I_W_C_Tax taxAD = POWrapper.create(new MTax (getCtx(), Child_Tax_ID, get_TrxName()), I_W_C_Tax.class);
+					
+					if (taxAD.getLBR_TaxGroup_ID() < 1)
+						continue;
+					
+					MLBRNFLineTax nfLineTax = new MLBRNFLineTax (this);
+					nfLineTax.setTaxes (tl);
+					nfLineTax.setLBR_TaxGroup_ID(taxAD.getLBR_TaxGroup_ID());
+					nfLineTax.save();
+				}
 			
 			//	Valores
 			setQty(iLine.getQtyEntered());
@@ -1139,6 +1149,68 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 			boolean isFOB = getParent().getC_Invoice_ID() > 0 ? !getParent().getC_Invoice().isTaxIncluded() : false;
 			setPrice(iLine.getParent().getC_Currency_ID(), oLineW.getPriceEntered(), oLineW.getPriceList(), includeDIFAL, isFOB);
 			save();
+			
+			if (otherOperation)
+			{
+				I_W_AD_OrgInfo oi = POWrapper.create (MOrgInfo.get(getCtx(), iLine.getAD_Org_ID(), null), I_W_AD_OrgInfo.class);
+				I_W_M_Product p = POWrapper.create (iLine.getProduct(), I_W_M_Product.class);
+				I_W_C_BPartner bp = POWrapper.create(iLine.getM_InOut().getC_BPartner(), I_W_C_BPartner.class);
+				MBPartnerLocation bpl = new MBPartnerLocation (getCtx(), iLine.getM_InOut().getC_BPartner_Location_ID(), get_TrxName());
+				
+				//	Taxes
+				Object[] taxation = MLBRTax.getTaxes (iLine.getM_InOut().getC_DocType_ID(), getParent().isSOTrx(), getParent().getlbr_TransactionType(), p, oi, bp, bpl, getParent().getDateAcct());
+				
+				//	CFOP
+				Integer LBR_CFOP_ID = (Integer) taxation[2];
+				if (LBR_CFOP_ID > 0)
+					setLBR_CFOP_ID(LBR_CFOP_ID);
+				
+				Map<Integer, MLBRTaxLine> taxes = (Map<Integer, MLBRTaxLine>) taxation[0];
+				if (taxes.size() > 0)
+				{
+					tax = new MLBRTax (Env.getCtx(), 0, null);
+					tax.save();
+					//
+					for (Integer key : taxes.keySet())
+					{
+						MLBRTaxLine tl = taxes.get(key);
+						tl.setLBR_Tax_ID(tax.getLBR_Tax_ID());
+						tl.save();
+					}
+					//
+					tax.setDescription();
+					tax.save();
+					
+					//	Impostos
+					Map<String, BigDecimal> params = new HashMap<String, BigDecimal> ();
+					params.put(MLBRTax.SISCOMEX, BigDecimal.ZERO);
+					params.put(MLBRTax.INSURANCE, BigDecimal.ZERO);
+					params.put(MLBRTax.FREIGHT, BigDecimal.ZERO);
+					params.put(MLBRTax.OTHERCHARGES, BigDecimal.ZERO);
+					params.put(MLBRTax.QTY, getQty());
+					params.put(MLBRTax.AMT, getPrice().multiply(getQty()));
+					
+					tax.calculate (true, getParent().getDateAcct(), params, getParent().getlbr_TransactionType(), getParent().isSOTrx());
+				}
+				
+				for (MLBRTaxLine tl : tax.getLines())
+				{
+					int Child_Tax_ID = tl.getChild_Tax_ID (oLineW.getC_Tax_ID());
+					//
+					if (!tl.islbr_PostTax() || Child_Tax_ID < 1)
+						continue;
+					
+					I_W_C_Tax taxAD = POWrapper.create(new MTax (getCtx(), Child_Tax_ID, get_TrxName()), I_W_C_Tax.class);
+					
+					if (taxAD.getLBR_TaxGroup_ID() < 1)
+						continue;
+					
+					MLBRNFLineTax nfLineTax = new MLBRNFLineTax (this);
+					nfLineTax.setTaxes (tl);
+					nfLineTax.setLBR_TaxGroup_ID(taxAD.getLBR_TaxGroup_ID());
+					nfLineTax.save();
+				}
+			}
 			
 			fixTaxHold(oLineW.getC_Tax_ID());
 		}
