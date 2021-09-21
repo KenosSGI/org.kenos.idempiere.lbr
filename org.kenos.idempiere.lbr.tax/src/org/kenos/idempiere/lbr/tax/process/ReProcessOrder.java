@@ -132,7 +132,7 @@ public class ReProcessOrder extends SvrProcess
 	{
 		I_W_AD_OrgInfo oi = POWrapper.create(MOrgInfo.get(Env.getCtx(), order.getAD_Org_ID(), null), I_W_AD_OrgInfo.class);
 		I_W_C_Order o = POWrapper.create(order, I_W_C_Order.class);
-		I_W_C_BPartner bp = POWrapper.create(new MBPartner (Env.getCtx(), o.getC_BPartner_ID(), null), I_W_C_BPartner.class);
+		I_W_C_BPartner bp = POWrapper.create(new MBPartner (Env.getCtx(), o.getBill_BPartner_ID(), null), I_W_C_BPartner.class);
 		MBPartnerLocation bpLoc = (MBPartnerLocation) order.getBill_Location(); 
 		
 		//	Redefine data from configuration
