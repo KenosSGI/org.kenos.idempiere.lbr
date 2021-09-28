@@ -1891,8 +1891,8 @@ MRP - 110	 No exists Dem</value>
   <value column="Help" original="The Bill of Materials Window defines all product bills of materials used by an organization for light manufacturing.">A janela Componentes e LDMs define todos os produtos do tipo LDM usados pela organização para a produção.</value>
  </row>
  <row id="53134" trl="Y">
-  <value column="Name" original="Cash Plan">Planejamento de Caixa</value>
-  <value column="Description" original="">Gerenciar os Planejamentos de Caixa</value>
+  <value column="Name" original="Cash Plan">Projeção de Caixa</value>
+  <value column="Description" original="">Gerenciar as Projeção de Caixa</value>
   <value column="Help" original=""/>
  </row>
  <row id="53149" trl="Y">
@@ -2171,13 +2171,13 @@ MRP - 110	 No exists Dem</value>
   <value column="Help" original="The customization values defined here overwrite/replace the default system definition if defined.">Personalização de Processo</value>
  </row>
  <row id="200107" trl="Y">
-  <value column="Name" original="All User Roles">Todos Papéis do Usuário</value>
+  <value column="Name" original="All User Roles">Todos Perfis por Usuário</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
  </row>
  <row id="200108" trl="Y">
-  <value column="Name" original="All Roles">Todos Papéis/Funções</value>
-  <value column="Description" original="Roles from All Clients">Papel/Função de todas as Empresas</value>
+  <value column="Name" original="All Roles">Todos Perfis</value>
+  <value column="Description" original="Roles from All Clients">Perfis de todas as Empresas</value>
   <value column="Help" original=""/>
  </row>
  <row id="200109" trl="Y">

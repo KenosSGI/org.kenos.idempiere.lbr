@@ -5681,13 +5681,13 @@ Impressão:
   <value column="Help" original=""/>
  </row>
  <row id="53376" trl="Y">
-  <value column="Name" original="Cash Plan">Planejamento de Caixa</value>
+  <value column="Name" original="Cash Plan">Projeção de Caixa</value>
   <value column="CommitWarning" original=""/>
-  <value column="Description" original="">Gerenciar os Planejamentos de Caixa</value>
-  <value column="Help" original="">O planejamento de caixa é um demonstrativo dos fluxos das entradas e saídas projetadas de caixa da empresa, usado para estimar suas necessidades de caixa para curto prazo.</value>
+  <value column="Description" original="">Gerenciar as Projeção de Caixa</value>
+  <value column="Help" original="">A projeção de caixa é um demonstrativo dos fluxos das entradas e saídas projetadas de caixa da empresa, usado para estimar suas necessidades de caixa para curto prazo.</value>
  </row>
  <row id="53377" trl="Y">
-  <value column="Name" original="Cash Plan Line">Linha do Planejamento de Caixa</value>
+  <value column="Name" original="Cash Plan Line">Linha de Projeção de Caixa</value>
   <value column="CommitWarning" original=""/>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
