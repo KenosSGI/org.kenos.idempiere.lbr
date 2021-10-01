@@ -63,7 +63,6 @@ import org.compiere.model.Query;
 import org.compiere.process.DocAction;
 import org.compiere.process.ProcessInfo;
 import org.compiere.util.CLogger;
-import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.compiere.util.Msg;
 import org.compiere.util.Trx;
@@ -620,7 +619,6 @@ public class ValidatorInvoice implements ModelValidator
 				boolean isOwnDocument = (wDocType.getDocBaseType().equals(MDocType.DOCBASETYPE_APCreditMemo) || wDocType.getDocBaseType().equals(MDocType.DOCBASETYPE_ARInvoice)) 
 						? Boolean.TRUE : MLBRNotaFiscal.LBR_ISOWNDOCUMENT_IssuedByUsOwnDocument.equals(wDocType.getlbr_IsOwnDocument());
 				
-				
 				List<PO> pos = new ArrayList<PO>();
 				pos.add(invoice);
 				//
@@ -629,15 +627,14 @@ public class ValidatorInvoice implements ModelValidator
 					I_W_C_DocType dtOrder = POWrapper.create (new MDocType(ctx, invoice.getC_Order().getC_DocTypeTarget_ID(), trxName), I_W_C_DocType.class);
 					if ("OVOT-".equals(dtOrder.getlbr_DocBaseType()))
 					{
-						int count = DB.getSQLValue(trxName, "SELECT COUNT(DISTINCT iol.M_InOut_ID) FROM C_InvoiceLine il, M_InOutLine iol WHERE il.M_InOutLine_ID=iol.M_InOutLine_ID AND il.C_Invoice_ID=? AND iol.M_InOutLine_ID>0", invoice.getC_Invoice_ID());
-						if (count == 1)
-						{
-							int M_InOut_ID = DB.getSQLValue(trxName, "SELECT MAX(iol.M_InOut_ID) FROM C_InvoiceLine il, M_InOutLine iol WHERE il.M_InOutLine_ID=iol.M_InOutLine_ID AND il.C_Invoice_ID=? AND iol.M_InOutLine_ID>0", invoice.getC_Invoice_ID());
-							pos.add (new MInOut(Env.getCtx(), M_InOut_ID, trxName));
-						}
+						String where = "EXISTS (SELECT 1 FROM C_InvoiceLine il, M_InOutLine iol WHERE iol.M_InOut_ID=M_InOut.M_InOut_ID AND il.M_InOutLine_ID=iol.M_InOutLine_ID AND il.C_Invoice_ID=? AND iol.M_InOutLine_ID>0)";
+						new Query (Env.getCtx(), MInOut.Table_Name, where, trxName)
+							.setParameters(invoice.getC_Invoice_ID())
+							.list()
+							.stream()
+							.forEach(pos::add);
 					}
 				}
-				
 				
 				for (PO po : pos)
 				{

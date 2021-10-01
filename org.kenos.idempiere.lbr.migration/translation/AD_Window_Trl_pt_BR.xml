@@ -975,9 +975,9 @@ Antes(!) de entrar as transações, Inicie a Execução da Replicação para def
   <value column="Help" original="Alert Processor/Server Parameter">Parâmetros do Processador/Servidor de Alerta</value>
  </row>
  <row id="313" trl="Y">
-  <value column="Name" original="Partner Relation">Relação com Parceiros</value>
-  <value column="Description" original="Maintain Business Partner Relations">Gerenciamento das Relações com os Parceiros de Negócios</value>
-  <value column="Help" original="Business Partner Relation allow to maintain Third Party Relationship rules: who receives invoices for shipments or pays for invoices.">A "Relação com Parceiro de Negócios" permite gerenciar as regras de Relacionamento com Terceiros: quem recebe faturas por embarques ou paga por faturas.</value>
+  <value column="Name" original="Partner Relation">Parceiros Relacionados</value>
+  <value column="Description" original="Maintain Business Partner Relations">Gerenciamento do Relacionamento entre Parceiros de Negócios</value>
+  <value column="Help" original="Business Partner Relation allow to maintain Third Party Relationship rules: who receives invoices for shipments or pays for invoices.">A tela de "Parceiros de Negócios Relacionados" permite gerenciar as regras de Relacionamento com Terceiros: quem recebe as mercadorias e quem paga por elas.</value>
  </row>
  <row id="314" trl="Y">
   <value column="Name" original="RfQ Topic">Tópico de SdC</value>
@@ -1893,8 +1893,8 @@ MRP - 110	 No exists Dem</value>
   <value column="Help" original="The Bill of Materials Window defines all product bills of materials used by an organization for light manufacturing.">A janela Componentes e LDMs define todos os produtos do tipo LDM usados pela organização para a produção.</value>
  </row>
  <row id="53134" trl="Y">
-  <value column="Name" original="Cash Plan">Planejamento de Caixa</value>
-  <value column="Description" original="">Gerenciar os Planejamentos de Caixa</value>
+  <value column="Name" original="Cash Plan">Projeção de Caixa</value>
+  <value column="Description" original="">Gerenciar as Projeção de Caixa</value>
   <value column="Help" original=""/>
  </row>
  <row id="53149" trl="Y">
@@ -2173,13 +2173,13 @@ MRP - 110	 No exists Dem</value>
   <value column="Help" original="The customization values defined here overwrite/replace the default system definition if defined.">Personalização de Processo</value>
  </row>
  <row id="200107" trl="Y">
-  <value column="Name" original="All User Roles">Todos Papéis do Usuário</value>
+  <value column="Name" original="All User Roles">Todos Perfis por Usuário</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
  </row>
  <row id="200108" trl="Y">
-  <value column="Name" original="All Roles">Todos Papéis/Funções</value>
-  <value column="Description" original="Roles from All Clients">Papel/Função de todas as Empresas</value>
+  <value column="Name" original="All Roles">Todos Perfis</value>
+  <value column="Description" original="Roles from All Clients">Perfis de todas as Empresas</value>
   <value column="Help" original=""/>
  </row>
  <row id="200109" trl="Y">
