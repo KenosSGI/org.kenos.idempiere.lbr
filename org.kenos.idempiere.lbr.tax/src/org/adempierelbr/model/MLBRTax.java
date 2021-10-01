@@ -1056,6 +1056,7 @@ public class MLBRTax extends X_LBR_Tax
 					String cst = tl.getLBR_TaxStatus().getName();
 					double rate = tl.getlbr_TaxRate().doubleValue();
 					double reduction = tl.getlbr_TaxBase().doubleValue();
+					boolean postTax = tl.islbr_PostTax();
 					
 					if (TextUtil.match (tl.getLBR_TaxName_ID(), 
 							TAX_PIS, 
@@ -1126,6 +1127,12 @@ public class MLBRTax extends X_LBR_Tax
 							result += "Alíquota do ICMS de " + rate + "% não é uma alíquota padrão para o CST " + cst + ", ";
 						}
 						
+						// CSTs que não deveriam contabilizar
+						if (TextUtil.match (cst, "101")
+								&& postTax)
+						{
+							result += "Recomenda-se não contabilizar CST "+ cst + ", ";
+						}
 						//	Validar Alíquota X Origem do Produto em Operação Interestadual
 						//	Exceção CST 40, 41, 103, 300, 400
 						if (X_LBR_CFOPLine.LBR_DESTIONATIONTYPE_EstadosDiferentes.equals(destinationType)
