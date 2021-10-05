@@ -23,6 +23,7 @@ import org.adempiere.webui.panel.ADForm;
 import org.adempiere.webui.panel.IFormController;
 import org.adempiere.webui.session.SessionManager;
 import org.adempiere.webui.util.ZKUpdateUtil;
+import org.adempiere.webui.window.FDialog;
 import org.adempierelbr.model.MLBRNotaFiscal;
 import org.compiere.model.MLookup;
 import org.compiere.model.MLookupFactory;
@@ -310,41 +311,38 @@ public class WNotaFiscalAdditional extends NotaFiscalAdditional implements IForm
 		{
 			if (confirmPanel.getButton(ConfirmPanel.A_OK).equals(source))
 			{
-				if (NotaFiscal_ID > 0)
+				String trxName = Trx.createTrxName();
+				Trx trx = Trx.get (trxName, false);
+				
+				try
 				{
-					String trxName = Trx.createTrxName();
-					Trx trx = Trx.get (trxName, false);
-					
-					try
+					if (TYPE_NOTAFISCAL_ADDITIONAL_COMPLEMENTAR.equals(typenf) && NotaFiscal_ID > 0)
+						NotaFiscal_ID = generateNFComplementar(trxName);
+					else if (TYPE_NOTAFISCAL_ADDITIONAL_ENTREGAFUTURA.equals(typenf))
+						NotaFiscal_ID = generateNFEntregaFutura(trxName);
+					else if (TYPE_NOTAFISCAL_ADDITIONAL_TRIANGULAR.equals(typenf))
+						NotaFiscal_ID = generateNFTrinagular(trxName);
+					else if (TYPE_NOTAFISCAL_ADDITIONAL_ANULACAOVALORES.equals(typenf) && NotaFiscal_ID > 0)
+						NotaFiscal_ID = generateNFComplementar(trxName);
+					else
 					{
-						if (TYPE_NOTAFISCAL_ADDITIONAL_COMPLEMENTAR.equals(typenf))
-							NotaFiscal_ID = generateNFComplementar(trxName);
-						else if (TYPE_NOTAFISCAL_ADDITIONAL_ENTREGAFUTURA.equals(typenf))
-							NotaFiscal_ID = generateNFEntregaFutura(trxName);
-						else if (TYPE_NOTAFISCAL_ADDITIONAL_TRIANGULAR.equals(typenf))
-							NotaFiscal_ID = generateNFTrinagular(trxName);
-						else if (TYPE_NOTAFISCAL_ADDITIONAL_ANULACAOVALORES.equals(typenf))
-							NotaFiscal_ID = generateNFComplementar(trxName);	
-						//
-						trx.commit();
+						FDialog.error(m_WindowNo, this, "Erro", "Parâmetros inválidos, confira os dados digitados e tente novamente");
+						return;
 					}
-					catch (Exception ex)
-					{
-						ex.printStackTrace();
-						trx.rollback();
-					}
-					
-					openNFAdditional(NotaFiscal_ID);
-					
-					clear();
-					NotaFiscal_ID = 0;
-
+					//
+					trx.commit();
 				}
-				else
-				{	
-					clear();
-					return;
-				}	
+				catch (Exception ex)
+				{
+					ex.printStackTrace();
+					trx.rollback();
+				}
+				
+				if (NotaFiscal_ID > 0)
+					openNFAdditional(NotaFiscal_ID);
+				
+				clear();
+				NotaFiscal_ID = 0;
 				
 			}
 			else if (confirmPanel.getButton(ConfirmPanel.A_CANCEL).equals(source))
