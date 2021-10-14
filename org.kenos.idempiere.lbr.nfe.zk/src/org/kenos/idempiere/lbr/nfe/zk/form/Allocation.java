@@ -55,11 +55,11 @@ public class Allocation
 	private int         i_payment = 7;
 	//
 	private int         i_open = 6;
-	private int         i_openinv = 7;
-	private int         i_discount = 8;
-	private int         i_writeOff = 9; 
-	private int         i_applied = 10;
-	private int 		i_overUnder = 11;
+	private int         i_openinv = 8;
+	private int         i_discount = 9;
+	private int         i_writeOff = 10; 
+	private int         i_applied = 11;
+	private int 		i_overUnder = 12;
 //	private int			i_multiplier = 10;
 	
 	public int         	m_AD_Org_ID = 0;
@@ -252,9 +252,10 @@ public class Allocation
 			+ "currencyConvert(invoiceOpen(C_Invoice_ID,C_InvoicePaySchedule_ID),i.C_Currency_ID,?,?,i.C_ConversionType_ID,i.AD_Client_ID,i.AD_Org_ID)*i.MultiplierAP, "  //  7   #3, #4  Converted Open
 			+ "currencyConvert(invoiceDiscount"                               //  8       AllowedDiscount
 			+ "(i.C_Invoice_ID,?,C_InvoicePaySchedule_ID),i.C_Currency_ID,?,i.DateInvoiced,i.C_ConversionType_ID,i.AD_Client_ID,i.AD_Org_ID)*i.Multiplier*i.MultiplierAP,"               //  #5, #6
-			+ "i.MultiplierAP, i.DueDate "
+			+ "i.MultiplierAP, i.DueDate, i.C_InvoicePaySchedule_ID, dt.Name "
 			+ "FROM C_Invoice_v i"		//  corrected for CM/Split
 			+ " INNER JOIN C_Currency c ON (i.C_Currency_ID=c.C_Currency_ID) "
+			+ " LEFT  JOIN C_DocType dt ON (i.C_DocTypeTarget_ID=dt.C_DocType_ID) "
 			+ "WHERE i.IsPaid='N' AND i.Processed='Y'"
 			+ " AND i.C_BPartner_ID=?");                                            //  #7
 		if (!isMultiCurrency)
@@ -290,6 +291,8 @@ public class Allocation
 				line.add(rs.getTimestamp("DateInvoiced"));       //  DueDate
 				KeyNamePair pp = new KeyNamePair(rs.getInt(3), rs.getString(2));
 				line.add(pp);                       //  2-Value
+				pp = new KeyNamePair(rs.getInt("C_InvoicePaySchedule_ID"), rs.getString("Name"));
+				line.add(pp);      					//  Document Type
 				if (isMultiCurrency)
 				{
 					line.add(rs.getString(4));      //  3-Currency
@@ -334,6 +337,7 @@ public class Allocation
 		columnNames.add(Msg.translate(Env.getCtx(), "DueDate"));
 		columnNames.add(Msg.translate(Env.getCtx(), "DateInvoiced"));
 		columnNames.add(Util.cleanAmp(Msg.translate(Env.getCtx(), "DocumentNo")));
+		columnNames.add(Msg.translate(Env.getCtx(), "C_DocType_ID"));
 		if (isMultiCurrency)
 		{
 			columnNames.add(Msg.getMsg(Env.getCtx(), "TrxCurrency"));
@@ -357,6 +361,7 @@ public class Allocation
 		invoiceTable.setColumnClass(i++, Timestamp.class, true);        //  1-DueDate
 		invoiceTable.setColumnClass(i++, Timestamp.class, true);        //  1-TrxDate
 		invoiceTable.setColumnClass(i++, String.class, true);           //  2-Value
+		invoiceTable.setColumnClass(i++, String.class, true);           //  2-Document Type
 		if (isMultiCurrency)
 		{
 			invoiceTable.setColumnClass(i++, String.class, true);       //  3-Currency
@@ -376,11 +381,11 @@ public class Allocation
 	public void calculate(boolean isMultiCurrency)
 	{
 		i_open = isMultiCurrency ? 6 : 4;
-		i_openinv = isMultiCurrency ? 7 : 5;
-		i_discount = isMultiCurrency ? 8 : 6;
-		i_writeOff = isMultiCurrency ? 9 : 7;
-		i_applied = isMultiCurrency ? 10 : 8;
-		i_overUnder = isMultiCurrency ? 11 : 9;
+		i_openinv = isMultiCurrency ? 8 : 6;
+		i_discount = isMultiCurrency ? 9 : 7;
+		i_writeOff = isMultiCurrency ? 10 : 8;
+		i_applied = isMultiCurrency ? 11 : 9;
+		i_overUnder = isMultiCurrency ? 12 : 10;
 //		i_multiplier = isMultiCurrency ? 10 : 8;
 	}   //  loadBPartner
 	
@@ -667,6 +672,8 @@ public class Allocation
 				KeyNamePair pp = (KeyNamePair)invoice.getValueAt(i, 3);    //  Value
 				//  Invoice variables
 				int C_Invoice_ID = pp.getKey();
+				pp = (KeyNamePair)invoice.getValueAt(i, 4);
+				int C_InvoicePaySchedule_ID = pp.getKey();				
 				BigDecimal AppliedAmt = (BigDecimal)invoice.getValueAt(i, i_applied);
 				//  semi-fixed fields (reset after first invoice)
 				BigDecimal DiscountAmt = (BigDecimal)invoice.getValueAt(i, i_discount);
@@ -695,6 +702,7 @@ public class Allocation
 							DiscountAmt, WriteOffAmt, OverUnderAmt);
 						aLine.setDocInfo(C_BPartner_ID, C_Order_ID, C_Invoice_ID);
 						aLine.setPaymentInfo(C_Payment_ID, C_CashLine_ID);
+						aLine.set_ValueOfColumn("C_InvoicePaySchedule_ID",  C_InvoicePaySchedule_ID > 0 ? C_InvoicePaySchedule_ID : null);
 						aLine.saveEx();
 
 						//  Apply Discounts and WriteOff only first time
@@ -718,6 +726,7 @@ public class Allocation
 						DiscountAmt, WriteOffAmt, OverUnderAmt);
 					aLine.setDocInfo(C_BPartner_ID, C_Order_ID, C_Invoice_ID);
 					aLine.setPaymentInfo(C_Payment_ID, C_CashLine_ID);
+					aLine.set_ValueOfColumn("C_InvoicePaySchedule_ID",  C_InvoicePaySchedule_ID > 0 ? C_InvoicePaySchedule_ID : null);
 					aLine.saveEx();
 					if (log.isLoggable(Level.FINE)) log.fine("Allocation Amount=" + AppliedAmt);
 					unmatchedApplied = unmatchedApplied.add(AppliedAmt);
