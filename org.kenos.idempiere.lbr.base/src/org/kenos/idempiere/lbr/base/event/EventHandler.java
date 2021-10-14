@@ -5,11 +5,14 @@ import java.util.Properties;
 import org.adempiere.base.event.AbstractEventHandler;
 import org.adempiere.base.event.IEventTopics;
 import org.compiere.model.MAcctSchema;
+import org.compiere.model.MAllocationLine;
 import org.compiere.model.MClient;
 import org.compiere.model.MClientInfo;
 import org.compiere.model.MCost;
 import org.compiere.model.MInOutLine;
+import org.compiere.model.MInvoicePaySchedule;
 import org.compiere.model.MOrderLine;
+import org.compiere.model.MPayment;
 import org.compiere.model.MProduct;
 import org.compiere.model.MSysConfig;
 import org.compiere.model.PO;
@@ -58,6 +61,14 @@ public class EventHandler extends AbstractEventHandler
 			//	Handle InOutLine Events
 			else if (MOrderLine.Table_Name.equals(po.get_TableName()))
 				doHandleEvent ((MOrderLine) po, topic);
+			
+			//	Handle Payment Events
+			else if (MPayment.Table_Name.equals(po.get_TableName()))
+				doHandleEvent ((MPayment) po, topic);
+			
+			//	Handle AllocationLine Events
+			else if (MAllocationLine.Table_Name.equals(po.get_TableName()))
+				doHandleEvent ((MAllocationLine) po, topic);
 		}
 		
 	}	//	doHandleEvent
@@ -133,6 +144,37 @@ public class EventHandler extends AbstractEventHandler
 	}	//	doHandleTableEvent
 	
 	/**
+	 * 	Handle Allocation Line Events
+	 * 	@param event
+	 */
+	private void doHandleEvent (MAllocationLine al, String topic)
+	{
+		if (al.getC_Payment_ID() < 1)
+			return;
+		
+		MPayment payment = new MPayment (al.getCtx(), al.getC_Payment_ID(), al.get_TrxName());
+		String columnName = MInvoicePaySchedule.COLUMNNAME_C_InvoicePaySchedule_ID;
+		int C_InvoicePaySchedule_ID = payment.get_ValueAsInt(columnName);
+		if (C_InvoicePaySchedule_ID > 0
+				&& al.get_ValueAsInt(columnName) < 1)
+		{	
+			al.set_ValueOfColumn(columnName, C_InvoicePaySchedule_ID);
+		}
+	}	//	doHandleTableEvent
+	
+	/**
+	 * 	Handle Payment Events
+	 * 	@param event
+	 */
+	private void doHandleEvent (MPayment pay, String topic)
+	{
+		if (pay.getC_Invoice_ID() <= 0)
+		{	
+			pay.set_ValueOfColumn(MInvoicePaySchedule.COLUMNNAME_C_InvoicePaySchedule_ID, null);
+		}	
+	}	//	doHandleTableEvent
+	
+	/**
 	 *	Handle Login Events, enable LBR
 	 */
 	private void doHandleLoginEvent (Event event)
@@ -193,5 +235,8 @@ public class EventHandler extends AbstractEventHandler
 		registerTableEvent (IEventTopics.PO_BEFORE_NEW, MInOutLine.Table_Name);
 		registerTableEvent (IEventTopics.PO_BEFORE_NEW, MOrderLine.Table_Name);
 		registerTableEvent (IEventTopics.PO_BEFORE_CHANGE, MOrderLine.Table_Name);
+		registerTableEvent (IEventTopics.PO_BEFORE_NEW, MPayment.Table_Name);
+		registerTableEvent (IEventTopics.PO_BEFORE_CHANGE, MPayment.Table_Name);
+		registerTableEvent (IEventTopics.PO_BEFORE_NEW, MAllocationLine.Table_Name);
 	}	//	initialize
 }	//	EventHandler
