@@ -1131,8 +1131,9 @@ public class MLBRTax extends X_LBR_Tax
 						if (TextUtil.match (cst, "101")
 								&& postTax)
 						{
-							result += "Recomenda-se não contabilizar CST "+ cst + ", ";
+							result += "Para o CSOSN " + cst + " do ICMS recomenda-se deixar o flag contabilizar desmarcado, ";
 						}
+						
 						//	Validar Alíquota X Origem do Produto em Operação Interestadual
 						//	Exceção CST 40, 41, 103, 300, 400
 						if (X_LBR_CFOPLine.LBR_DESTIONATIONTYPE_EstadosDiferentes.equals(destinationType)
