@@ -4538,7 +4538,10 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 					Timestamp currentDate = new Timestamp (System.currentTimeMillis());
 					if (!TextUtil.timeToString(getDateDoc()).equals(TextUtil.timeToString(currentDate)) 
 							|| TextUtil.timeToString(getDateDoc(), "HHmm").equals("0000"))
-						setDateDoc(new Timestamp (System.currentTimeMillis()));
+					{
+						setDateDoc(currentDate);
+						setDateAcct(currentDate);
+					}
 				}
 				
 				try
