@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -24,16 +25,13 @@ import org.adempierelbr.util.NFeUtil;
 import org.adempierelbr.util.SignatureUtil;
 import org.adempierelbr.util.TextUtil;
 import org.adempierelbr.wrapper.I_W_AD_OrgInfo;
-import org.adempierelbr.wrapper.I_W_C_Invoice;
 import org.apache.axis2.transport.http.HTTPConstants;
 import org.apache.xmlbeans.XmlCalendar;
 import org.compiere.model.MAttachment;
 import org.compiere.model.MAttachmentEntry;
 import org.compiere.model.MBPartner;
 import org.compiere.model.MImage;
-import org.compiere.model.MInvoice;
 import org.compiere.model.MOrgInfo;
-import org.compiere.model.MProduct;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
 import org.compiere.util.Util;
@@ -108,13 +106,6 @@ public class NFSeAbrasf203Impl implements INFSe
 	 * Cidades que utilizam NFS-e Abrasf
 	 */
 	public static final Integer	 INDAIATUBA_ID = 1004960;
-	
-	/**
-	 * 
-	 */
-	private static final String FILE_XML_RECIBO_NFSE = "-recibo.xml";
-	
-	private static final String FILE_XML_NFSE_AUTORIZADO = "-nfseOK-dst.xml";
 
 	/**
 	 *  Tipo de integração, via Webservice ou via arquivo de RPS
@@ -139,9 +130,6 @@ public class NFSeAbrasf203Impl implements INFSe
 		
 		//	Parceiro de Negócio
 		MBPartner partner = new MBPartner(Env.getCtx(), nf.getC_BPartner_ID(), null);
-		
-		MInvoice invoice = (MInvoice)nf.getC_Invoice();
-		I_W_C_Invoice winvoice = POWrapper.create(invoice, I_W_C_Invoice.class);
 		
 		//	Date ZULU
 		Calendar cal = Calendar.getInstance();
@@ -205,9 +193,9 @@ public class NFSeAbrasf203Impl implements INFSe
 			tomador.setInscricaoMunicipal(TextUtil.toNumeric(partner.get_ValueAsString("LBR_CCM")));
 		
 		//	Dados do Tomador do Serviço / Parceiro de Negócio
-		dadosTomador.setRazaoSocial(TextUtil.toNumeric(nf.getBPName()));
+		dadosTomador.setRazaoSocial(Util.deleteAccents(nf.getBPName()));
 		TcEndereco endTomador = dadosTomador.addNewEndereco();
-		endTomador.setEndereco(TextUtil.toNumeric(nf.getlbr_BPAddress1()));
+		endTomador.setEndereco(Util.deleteAccents(nf.getlbr_BPAddress1()));
 		endTomador.setNumero(TextUtil.toNumeric(nf.getlbr_BPAddress2()));
 		endTomador.setBairro(Util.deleteAccents(nf.getlbr_BPAddress3()));
 		endTomador.setCodigoMunicipio(nf.getlbr_BPCityCode());
@@ -248,27 +236,23 @@ public class NFSeAbrasf203Impl implements INFSe
 						descricaoServico = descricaoServico + "\n" + nfl.getProductName();
 				}
 				
-				MProduct p = new MProduct (Env.getCtx(), nfl.getM_Product_ID(), null);
-				if (p.get_ValueAsString("lbr_ServiceCode") != null)
+				//	Mesmo código de serviço para todos os serviços prestados
+				if (serviceCode.equals(""))
+					serviceCode = nfl.getlbr_ServiceCode();
+				else if (!serviceCode.equals(nfl.getlbr_ServiceCode()))
 				{
-					//	Mesmo código de serviço para todos os serviços prestados
-					if (serviceCode.equals(""))
-						serviceCode = p.get_ValueAsString("lbr_ServiceCode");	//	FIXME : Copiar para LBR_NotaFiscalLine
-					else if (!serviceCode.equals(p.get_ValueAsString("lbr_ServiceCode")))
-					{
-						nf.setErrorMsg("Impossível gerar NFS-e. Todos os serviços da NFS-e devem conter o mesmo Código de Serviço");
-						return null;
-					}
-						
-					//	Mesma Alíquota de ISS para todos os serviços prestados
-					if (aliquota.equals(BigDecimal.ZERO))
-							aliquota = nfl.getTaxRate("ISS");
-					else if (!aliquota.equals(nfl.getTaxRate("ISS")))
-					{
-						nf.setErrorMsg("Impossível gerar XML NFS-e. Todos os serviços da NFS-e devem conter o mesmo Código de Serviço");
-						return null;
-					}
-				}								
+					nf.setErrorMsg("Impossível gerar NFS-e. Todos os serviços da NFS-e devem conter o mesmo Código de Serviço");
+					return null;
+				}
+					
+				//	Mesma Alíquota de ISS para todos os serviços prestados
+				if (aliquota.equals(BigDecimal.ZERO))
+						aliquota = nfl.getTaxRate("ISS");
+				else if (!aliquota.equals(nfl.getTaxRate("ISS")))
+				{
+					nf.setErrorMsg("Impossível gerar XML NFS-e. Todos os serviços da NFS-e devem conter o mesmo Código de Serviço");
+					return null;
+				}
 			}
 		}
 		
@@ -504,7 +488,7 @@ public class NFSeAbrasf203Impl implements INFSe
 	{
 		if (value == null)
 			return Env.ZERO;
-		return value.setScale(2, BigDecimal.ROUND_HALF_UP).stripTrailingZeros();
+		return value.setScale(2, RoundingMode.HALF_UP).stripTrailingZeros();
 	}	//	toBD
 	
 	/**
