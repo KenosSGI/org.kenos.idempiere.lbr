@@ -3692,7 +3692,7 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 			}
 		}
 		
-		if (!newRecord && isCancelled() && is_ValueChanged(COLUMNNAME_lbr_MotivoCancel))
+		if (!newRecord && isCancelled() && is_ValueChanged(COLUMNNAME_lbr_MotivoCancel) && !is_ValueChanged(COLUMNNAME_IsCancelled))
 		{
 			log.saveError("Error", "Não é permitido alterar o motivo de cancelamento após a homologação do cancelamento");
 			return false;
@@ -4597,7 +4597,9 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 						e.printStackTrace();
 						//
 						m_processMsg = e.getMessage();
-						return DOCSTATUS_Invalid;
+						//	Adicionar Erro na Janela NF
+						setErrorMsg(m_processMsg);
+						return STATUS_InProgress;
 					}
 				}
 			}
