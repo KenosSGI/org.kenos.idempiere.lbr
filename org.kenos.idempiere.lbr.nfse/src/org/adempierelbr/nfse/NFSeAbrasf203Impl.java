@@ -255,8 +255,8 @@ public class NFSeAbrasf203Impl implements INFSe
 				{
 					if (descricaoServico.isEmpty())
 						descricaoServico = nfl.getProductName();
-					else
-						descricaoServico = descricaoServico + "\n" + nfl.getProductName();
+					else if (descricaoServico.indexOf(nfl.getProductName()) == -1)
+						descricaoServico = descricaoServico + ". " + nfl.getProductName();
 				}
 				
 				//	Mesmo código de serviço para todos os serviços prestados
