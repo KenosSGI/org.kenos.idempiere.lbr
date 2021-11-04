@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.Timestamp;
@@ -42,6 +43,7 @@ import br.org.abrasf.nfse.CabecalhoDocument.Cabecalho;
 import br.org.abrasf.nfse.CancelarNfseEnvioDocument;
 import br.org.abrasf.nfse.CancelarNfseEnvioDocument.CancelarNfseEnvio;
 import br.org.abrasf.nfse.CancelarNfseRespostaDocument;
+import br.org.abrasf.nfse.CompNfseDocument;
 import br.org.abrasf.nfse.ConsultarNfseRpsEnvioDocument;
 import br.org.abrasf.nfse.ConsultarNfseRpsEnvioDocument.ConsultarNfseRpsEnvio;
 import br.org.abrasf.nfse.ConsultarNfseRpsRespostaDocument;
@@ -255,8 +257,8 @@ public class NFSeAbrasf203Impl implements INFSe
 				{
 					if (descricaoServico.isEmpty())
 						descricaoServico = nfl.getProductName();
-					else
-						descricaoServico = descricaoServico + "\n" + nfl.getProductName();
+					else if (descricaoServico.indexOf(nfl.getProductName()) == -1)
+						descricaoServico = descricaoServico + ". " + nfl.getProductName();
 				}
 				
 				//	Mesmo código de serviço para todos os serviços prestados
@@ -488,6 +490,25 @@ public class NFSeAbrasf203Impl implements INFSe
 			nf.setDocAction(MLBRNotaFiscal.ACTION_None);
 		}
 		nf.save();
+		
+		//	Apaga anexos existentes
+		if (nf.getAttachment (true) != null)
+			nf.getAttachment ().delete (true);
+		
+		nf.getAttachment(true);	//	FIX
+		MAttachment attachNFe = nf.createAttachment();
+		try 
+		{
+			CompNfseDocument document = CompNfseDocument.Factory.newInstance();
+			document.setCompNfse(infNfse);
+			//
+			attachNFe.addEntry("NFSe_" + nf.getlbr_NFENo() + "_RPS_" + nf.getDocumentNo() + ".xml", document.xmlText().getBytes(NFeUtil.NFE_ENCODING));
+			attachNFe.save();
+		}
+		catch (UnsupportedEncodingException e)
+		{
+			e.printStackTrace();
+		}
 	}	//	setProtocol
 	
 	/**
