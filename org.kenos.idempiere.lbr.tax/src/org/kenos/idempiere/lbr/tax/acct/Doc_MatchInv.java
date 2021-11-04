@@ -53,12 +53,14 @@ import org.compiere.model.MInvoiceLine;
 import org.compiere.model.MMatchInv;
 import org.compiere.model.MOrderLandedCostAllocation;
 import org.compiere.model.MOrderLine;
+import org.compiere.model.MSysConfig;
 import org.compiere.model.MTax;
 import org.compiere.model.ProductCost;
 import org.compiere.model.X_M_Cost;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.compiere.util.Trx;
+import org.kenos.idempiere.lbr.base.model.SysConfig;
 
 /**
  *  Post MatchInv Documents.
@@ -388,9 +390,27 @@ public class Doc_MatchInv extends Doc
 			BigDecimal ipv) {
 		if (ipv.signum() == 0) return;
 		
-		FactLine pv = fact.createLine(null,
-			m_pc.getAccount(ProductCost.ACCTTYPE_P_IPV, as),
-			as.getC_Currency_ID(), ipv);
+		FactLine pv = null;
+		
+		//	Service and Ignoring Price Variance for services or ignoring for all
+		if (m_pc.isService() 
+				&& (MSysConfig.getBooleanValue(SysConfig.LBR_IGNORE_PRICE_VARIANCE_ACCT_FOR_SERVICES, true, getAD_Client_ID())
+						|| MSysConfig.getBooleanValue(SysConfig.LBR_IGNORE_PRICE_VARIANCE_ACCT, false, getAD_Client_ID())))
+			pv = fact.createLine(null,
+				m_pc.getAccount(ProductCost.ACCTTYPE_P_Expense, as),
+				as.getC_Currency_ID(), ipv);
+
+		//	Product and Ignoring Price Variance all
+		else if (!m_pc.isService() && MSysConfig.getBooleanValue(SysConfig.LBR_IGNORE_PRICE_VARIANCE_ACCT, false, getAD_Client_ID()))
+			pv = fact.createLine(null,
+				m_pc.getAccount(ProductCost.ACCTTYPE_P_Asset, as),
+				as.getC_Currency_ID(), ipv);
+		
+		//	Default, using price variance account
+		else 
+			pv = fact.createLine(null,
+				m_pc.getAccount(ProductCost.ACCTTYPE_P_IPV, as),
+				as.getC_Currency_ID(), ipv);
 		updateFactLine(pv);
 		
 		MMatchInv matchInv = (MMatchInv)getPO();
