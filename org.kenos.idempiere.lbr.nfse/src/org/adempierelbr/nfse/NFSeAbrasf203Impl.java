@@ -1627,7 +1627,7 @@ public class NFSeAbrasf203Impl implements INFSe
 				
 			//	Get Jasper
 			ClassLoader cl = getClass().getClassLoader();
-			InputStream report = cl.getResourceAsStream("org/kenos/idempiere/lbr/nfse/report/ImpressaoNFSEABRASF.jasper");
+			InputStream report = cl.getResourceAsStream("org/kenos/idempiere/lbr/nfse/report/ImpressaoNFSEABRASF203.jasper");
 			
 			log.fine("after find report");
 			
