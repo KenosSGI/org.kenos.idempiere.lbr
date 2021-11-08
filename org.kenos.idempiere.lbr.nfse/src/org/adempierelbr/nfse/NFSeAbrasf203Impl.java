@@ -502,7 +502,7 @@ public class NFSeAbrasf203Impl implements INFSe
 			CompNfseDocument document = CompNfseDocument.Factory.newInstance();
 			document.setCompNfse(infNfse);
 			//
-			attachNFe.addEntry("NFSe_" + nf.getlbr_NFENo() + "_RPS_" + nf.getDocumentNo() + ".xml", document.xmlText().getBytes(NFeUtil.NFE_ENCODING));
+			attachNFe.addEntry("NFSe_" + nf.getlbr_NFENo() + "_RPS_" + nf.getDocumentNo() + "-dst.xml", document.xmlText().getBytes(NFeUtil.NFE_ENCODING));
 			attachNFe.save();
 		}
 		catch (UnsupportedEncodingException e)
