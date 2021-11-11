@@ -168,12 +168,6 @@ public class NFSeAbrasf203Impl implements INFSe
 		
 		//	Criar RPS
 		TcDeclaracaoPrestacaoServico rps = TcDeclaracaoPrestacaoServico.Factory.newInstance();
-//		XmlCursor cursor= rps.newCursor();
-//		cursor.toNextToken();
-//		cursor.insertNamespace("A", namespace);
-//		//For example
-//		cursor.insertNamespace("xsi", "http://www.w3.org/2001/XMLSchema-instance");
-//		cursor.dispose();
 		
 		//	Detalhes da Declaração de Prestação de Serviço
 		TcInfDeclaracaoPrestacaoServico infdps = rps.addNewInfDeclaracaoPrestacaoServico();
@@ -285,7 +279,11 @@ public class NFSeAbrasf203Impl implements INFSe
 		TcDadosServico dadosServico = infdps.addNewServico();		
 	
 		// Discriminação do Serviço
-		dadosServico.setDiscriminacao(descricaoServico);
+		String description = nf.getDescription();
+		if (description != null && !description.isBlank())
+			dadosServico.setDiscriminacao(description);
+		else
+			dadosServico.setDiscriminacao(descricaoServico);
 		dadosServico.setItemListaServico(TsItemListaServico.Enum.forString(serviceCode));
 		dadosServico.setIssRetido((byte) 2);
 		dadosServico.setCodigoMunicipio(nf.getlbr_BPCityCode());
@@ -416,7 +414,6 @@ public class NFSeAbrasf203Impl implements INFSe
 			NFeUtil.validate (document);
 			
 			String result = nfseStub.substituirNfse(header.xmlText(), document.xmlText(NFeUtil.getXmlOpt()));
-//			String result = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><SubstituirNfseResposta xmlns=\"http://www.abrasf.org.br/nfse.xsd\" xmlns:ns2=\"http://www.w3.org/2000/09/xmldsig#\"><ListaMensagemRetorno><MensagemRetorno><Codigo>E343</Codigo><Mensagem>Código de cancelamento incorreto</Mensagem><Correcao>Consulte o Manual da NFS-e para saber os códigos de cancelamento permitidos pelo sistema.</Correcao></MensagemRetorno><MensagemRetorno><Codigo>L21</Codigo><Mensagem>Número de NFSe inexistente para o prestador informado.</Mensagem><Correcao>Informe um número de NFSe válido.</Correcao></MensagemRetorno><MensagemRetorno><Codigo>E5</Codigo><Mensagem>O número da NFS-e a ser substituída não foi encontrada na base de dados.</Mensagem><Correcao>Confira e informe novamente os dados da NFS-e que deseja substituir.</Correcao></MensagemRetorno></ListaMensagemRetorno></SubstituirNfseResposta>";
 			log.info(result);
 			
 			SubstituirNfseResposta resposta = SubstituirNfseRespostaDocument.Factory.parse(result).getSubstituirNfseResposta();
@@ -502,7 +499,7 @@ public class NFSeAbrasf203Impl implements INFSe
 			CompNfseDocument document = CompNfseDocument.Factory.newInstance();
 			document.setCompNfse(infNfse);
 			//
-			attachNFe.addEntry("NFSe_" + nf.getlbr_NFENo() + "_RPS_" + nf.getDocumentNo() + ".xml", document.xmlText().getBytes(NFeUtil.NFE_ENCODING));
+			attachNFe.addEntry("NFSe_" + nf.getlbr_NFENo() + "_RPS_" + nf.getDocumentNo() + "-dst.xml", document.xmlText().getBytes(NFeUtil.NFE_ENCODING));
 			attachNFe.save();
 		}
 		catch (UnsupportedEncodingException e)
@@ -1627,7 +1624,7 @@ public class NFSeAbrasf203Impl implements INFSe
 				
 			//	Get Jasper
 			ClassLoader cl = getClass().getClassLoader();
-			InputStream report = cl.getResourceAsStream("org/kenos/idempiere/lbr/nfse/report/ImpressaoNFSEABRASF.jasper");
+			InputStream report = cl.getResourceAsStream("org/kenos/idempiere/lbr/nfse/report/ImpressaoNFSEABRASF203.jasper");
 			
 			log.fine("after find report");
 			
