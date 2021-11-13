@@ -288,7 +288,7 @@ public class NFSeAbrasf203Impl implements INFSe
 			nf.setErrorMsg("Impossível gerar XML NFS-e. Discriminação dos serviços muito curta ou em branco.");
 			return null;
 		}
-		dadosServico.setDiscriminacao(descricaoServico.replace("\n", ". ").replaceAll("\s+", " ").replaceAll("\\.+", ".").trim());
+		dadosServico.setDiscriminacao(descricaoServico.replace("\n", ". ").replaceAll("\\s+", " ").replaceAll("\\.+", ".").trim());
 		dadosServico.setItemListaServico(TsItemListaServico.Enum.forString(serviceCode));
 		dadosServico.setIssRetido((byte) 2);
 		dadosServico.setCodigoMunicipio(nf.getlbr_BPCityCode());
