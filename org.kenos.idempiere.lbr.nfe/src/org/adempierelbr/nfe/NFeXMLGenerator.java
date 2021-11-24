@@ -1441,9 +1441,12 @@ public class NFeXMLGenerator
 							icms10.setVBCFCP(normalize(fcpTax.getlbr_TaxBaseAmt()));
 							icms10.setPFCP(normalize2to4(fcpTax.getlbr_TaxRate()));
 							icms10.setVFCP(normalize(fcpTax.getlbr_TaxAmt()));
-							icms10.setVBCFCPST(normalize(fcpTax.getlbr_TaxBaseAmt()));
-							icms10.setPFCPST(normalize2to4(fcpTax.getlbr_TaxRate()));
-							icms10.setVFCPST(normalize(fcpTax.getlbr_TaxAmt()));
+						}
+						if (fcpTaxST != null)
+						{
+							icms10.setVBCFCPST(normalize(fcpTaxST.getlbr_TaxBaseAmt()));
+							icms10.setPFCPST(normalize2to4(fcpTaxST.getlbr_TaxRate()));
+							icms10.setVFCPST(normalize(fcpTaxST.getlbr_TaxAmt()));
 						}
 					}
 				}
@@ -1495,6 +1498,12 @@ public class NFeXMLGenerator
 							icms30.setVBCFCPST(normalize4(fcpTax.getlbr_TaxBaseAmt()));
 							icms30.setPFCPST(normalize2to4(fcpTax.getlbr_TaxRate()));
 							icms30.setVFCPST(normalize4(fcpTax.getlbr_TaxAmt()));
+						}
+						if (fcpTaxST != null)
+						{
+							icms30.setVBCFCPST(normalize4(fcpTaxST.getlbr_TaxBaseAmt()));
+							icms30.setPFCPST(normalize2to4(fcpTaxST.getlbr_TaxRate()));
+							icms30.setVFCPST(normalize4(fcpTaxST.getlbr_TaxAmt()));
 						}
 					}
 				}
