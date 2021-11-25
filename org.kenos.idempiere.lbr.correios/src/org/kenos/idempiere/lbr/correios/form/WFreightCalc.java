@@ -436,7 +436,7 @@ public class WFreightCalc extends ADForm implements IFormController, EventListen
 		m_shipper = new Query(Env.getCtx(), MShipper.Table_Name, MShipper.COLUMNNAME_M_Shipper_UU + "=?", null)
 			.setParameters(uu)
 			.first();
-		if (uu == null || uu.isEmpty())
+		if (m_shipper == null)
 			throw new AdempiereException ("Transportadora dos correios não encontrada [M_Shipper_UU=" + uu + "]");
 		
 		//	Check the available freight categories

@@ -653,6 +653,24 @@ public interface I_LBR_NotaFiscal
 	/** Get NFC-e QRCode URL	  */
 	public String getLBR_NFCeQRCodeURL();
 
+    /** Column name LBR_NFReplacedNo */
+    public static final String COLUMNNAME_LBR_NFReplacedNo = "LBR_NFReplacedNo";
+
+	/** Set NF Replaced	  */
+	public void setLBR_NFReplacedNo (String LBR_NFReplacedNo);
+
+	/** Get NF Replaced	  */
+	public String getLBR_NFReplacedNo();
+
+    /** Column name LBR_NFReplacedSeries */
+    public static final String COLUMNNAME_LBR_NFReplacedSeries = "LBR_NFReplacedSeries";
+
+	/** Set NF Replaced Series	  */
+	public void setLBR_NFReplacedSeries (String LBR_NFReplacedSeries);
+
+	/** Get NF Replaced Series	  */
+	public String getLBR_NFReplacedSeries();
+
     /** Column name LBR_NFeLot_ID */
     public static final String COLUMNNAME_LBR_NFeLot_ID = "LBR_NFeLot_ID";
 
@@ -918,6 +936,19 @@ public interface I_LBR_NotaFiscal
 
 	public I_C_Location getOrg_Location() throws RuntimeException;
 
+    /** Column name Posted */
+    public static final String COLUMNNAME_Posted = "Posted";
+
+	/** Set Posted.
+	  * Posting status
+	  */
+	public void setPosted (boolean Posted);
+
+	/** Get Posted.
+	  * Posting status
+	  */
+	public boolean isPosted();
+
     /** Column name Processed */
     public static final String COLUMNNAME_Processed = "Processed";
 
@@ -931,6 +962,19 @@ public interface I_LBR_NotaFiscal
 	  */
 	public boolean isProcessed();
 
+    /** Column name ProcessedOn */
+    public static final String COLUMNNAME_ProcessedOn = "ProcessedOn";
+
+	/** Set Processed On.
+	  * The date+time (expressed in decimal format) when the document has been processed
+	  */
+	public void setProcessedOn (BigDecimal ProcessedOn);
+
+	/** Get Processed On.
+	  * The date+time (expressed in decimal format) when the document has been processed
+	  */
+	public BigDecimal getProcessedOn();
+
     /** Column name Processing */
     public static final String COLUMNNAME_Processing = "Processing";
 
@@ -939,6 +983,17 @@ public interface I_LBR_NotaFiscal
 
 	/** Get Process Now	  */
 	public boolean isProcessing();
+
+    /** Column name Ref_NotaFiscal_ID */
+    public static final String COLUMNNAME_Ref_NotaFiscal_ID = "Ref_NotaFiscal_ID";
+
+	/** Set Nota Fiscal Ref.	  */
+	public void setRef_NotaFiscal_ID (int Ref_NotaFiscal_ID);
+
+	/** Get Nota Fiscal Ref.	  */
+	public int getRef_NotaFiscal_ID();
+
+	public org.adempierelbr.model.I_LBR_NotaFiscal getRef_NotaFiscal() throws RuntimeException;
 
     /** Column name TaxID */
     public static final String COLUMNNAME_TaxID = "TaxID";

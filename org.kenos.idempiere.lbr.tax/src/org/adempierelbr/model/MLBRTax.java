@@ -1131,8 +1131,9 @@ public class MLBRTax extends X_LBR_Tax
 						if (TextUtil.match (cst, "101")
 								&& postTax)
 						{
-							result += "Recomenda-se não contabilizar CST "+ cst + ", ";
+							result += "Para o CSOSN " + cst + " do ICMS recomenda-se deixar o flag contabilizar desmarcado, ";
 						}
+						
 						//	Validar Alíquota X Origem do Produto em Operação Interestadual
 						//	Exceção CST 40, 41, 103, 300, 400
 						if (X_LBR_CFOPLine.LBR_DESTIONATIONTYPE_EstadosDiferentes.equals(destinationType)
@@ -1207,6 +1208,7 @@ public class MLBRTax extends X_LBR_Tax
 		
 		if (icms.getlbr_TaxBase() != null 
 				&& icms.getlbr_TaxBase().signum() == 1 
+				&& icms.getlbr_TaxRate().signum() == 1 
 				&& (icms.getLBR_TaxStatus_ID() < 1 
 						|| icms.getLBR_TaxStatus().getName().length() == 2
 						&& !icms.getLBR_TaxStatus().getName().equals("20")
@@ -1220,10 +1222,11 @@ public class MLBRTax extends X_LBR_Tax
 		if (icmsst != null
 				&& icms.getlbr_TaxBase() != null 
 				&& icms.getlbr_TaxBase().signum() == 1 
+				&& icms.getlbr_TaxRate().signum() == 1 
 				&& (icmsst.getLBR_TaxStatus_ID() < 1 
-						||  icms.getLBR_TaxStatus().getName().length() == 2
-						&& !icms.getLBR_TaxStatus().getName().equals("70")
-						&& !icms.getLBR_TaxStatus().getName().equals("90")))
+						||  icmsst.getLBR_TaxStatus().getName().length() == 2
+						&& !icmsst.getLBR_TaxStatus().getName().equals("70")
+						&& !icmsst.getLBR_TaxStatus().getName().equals("90")))
 		{
 			int LBR_TaxStatus_ID = MLBRTaxStatus.get (icmsst.getLBR_TaxName_ID(), "70");
 			if (LBR_TaxStatus_ID > 0)

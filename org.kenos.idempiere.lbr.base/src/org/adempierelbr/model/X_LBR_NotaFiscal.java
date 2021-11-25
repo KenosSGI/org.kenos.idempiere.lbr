@@ -34,7 +34,7 @@ public class X_LBR_NotaFiscal extends PO implements I_LBR_NotaFiscal, I_Persiste
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20210722L;
+	private static final long serialVersionUID = 20211026L;
 
     /** Standard Constructor */
     public X_LBR_NotaFiscal (Properties ctx, int LBR_NotaFiscal_ID, String trxName)
@@ -64,6 +64,8 @@ public class X_LBR_NotaFiscal extends PO implements I_LBR_NotaFiscal, I_Persiste
 // Y
 			setNoPackages (0);
 // 1
+			setPosted (false);
+// N
 			setProcessed (false);
 // 'N'
 			setlbr_FinNFe (null);
@@ -1084,6 +1086,34 @@ public class X_LBR_NotaFiscal extends PO implements I_LBR_NotaFiscal, I_Persiste
 		return (String)get_Value(COLUMNNAME_LBR_NFCeQRCodeURL);
 	}
 
+	/** Set NF Replaced.
+		@param LBR_NFReplacedNo NF Replaced	  */
+	public void setLBR_NFReplacedNo (String LBR_NFReplacedNo)
+	{
+		set_Value (COLUMNNAME_LBR_NFReplacedNo, LBR_NFReplacedNo);
+	}
+
+	/** Get NF Replaced.
+		@return NF Replaced	  */
+	public String getLBR_NFReplacedNo () 
+	{
+		return (String)get_Value(COLUMNNAME_LBR_NFReplacedNo);
+	}
+
+	/** Set NF Replaced Series.
+		@param LBR_NFReplacedSeries NF Replaced Series	  */
+	public void setLBR_NFReplacedSeries (String LBR_NFReplacedSeries)
+	{
+		set_Value (COLUMNNAME_LBR_NFReplacedSeries, LBR_NFReplacedSeries);
+	}
+
+	/** Get NF Replaced Series.
+		@return NF Replaced Series	  */
+	public String getLBR_NFReplacedSeries () 
+	{
+		return (String)get_Value(COLUMNNAME_LBR_NFReplacedSeries);
+	}
+
 	public org.adempierelbr.model.I_LBR_NFeLot getLBR_NFeLot() throws RuntimeException
     {
 		return (org.adempierelbr.model.I_LBR_NFeLot)MTable.get(getCtx(), org.adempierelbr.model.I_LBR_NFeLot.Table_Name)
@@ -1570,6 +1600,30 @@ public class X_LBR_NotaFiscal extends PO implements I_LBR_NotaFiscal, I_Persiste
 		return ii.intValue();
 	}
 
+	/** Set Posted.
+		@param Posted 
+		Posting status
+	  */
+	public void setPosted (boolean Posted)
+	{
+		set_Value (COLUMNNAME_Posted, Boolean.valueOf(Posted));
+	}
+
+	/** Get Posted.
+		@return Posting status
+	  */
+	public boolean isPosted () 
+	{
+		Object oo = get_Value(COLUMNNAME_Posted);
+		if (oo != null) 
+		{
+			 if (oo instanceof Boolean) 
+				 return ((Boolean)oo).booleanValue(); 
+			return "Y".equals(oo);
+		}
+		return false;
+	}
+
 	/** Set Processed.
 		@param Processed 
 		The document has been processed
@@ -1594,6 +1648,26 @@ public class X_LBR_NotaFiscal extends PO implements I_LBR_NotaFiscal, I_Persiste
 		return false;
 	}
 
+	/** Set Processed On.
+		@param ProcessedOn 
+		The date+time (expressed in decimal format) when the document has been processed
+	  */
+	public void setProcessedOn (BigDecimal ProcessedOn)
+	{
+		set_Value (COLUMNNAME_ProcessedOn, ProcessedOn);
+	}
+
+	/** Get Processed On.
+		@return The date+time (expressed in decimal format) when the document has been processed
+	  */
+	public BigDecimal getProcessedOn () 
+	{
+		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_ProcessedOn);
+		if (bd == null)
+			 return Env.ZERO;
+		return bd;
+	}
+
 	/** Set Process Now.
 		@param Processing Process Now	  */
 	public void setProcessing (boolean Processing)
@@ -1613,6 +1687,31 @@ public class X_LBR_NotaFiscal extends PO implements I_LBR_NotaFiscal, I_Persiste
 			return "Y".equals(oo);
 		}
 		return false;
+	}
+
+	public org.adempierelbr.model.I_LBR_NotaFiscal getRef_NotaFiscal() throws RuntimeException
+    {
+		return (org.adempierelbr.model.I_LBR_NotaFiscal)MTable.get(getCtx(), org.adempierelbr.model.I_LBR_NotaFiscal.Table_Name)
+			.getPO(getRef_NotaFiscal_ID(), get_TrxName());	}
+
+	/** Set Nota Fiscal Ref..
+		@param Ref_NotaFiscal_ID Nota Fiscal Ref.	  */
+	public void setRef_NotaFiscal_ID (int Ref_NotaFiscal_ID)
+	{
+		if (Ref_NotaFiscal_ID < 1) 
+			set_Value (COLUMNNAME_Ref_NotaFiscal_ID, null);
+		else 
+			set_Value (COLUMNNAME_Ref_NotaFiscal_ID, Integer.valueOf(Ref_NotaFiscal_ID));
+	}
+
+	/** Get Nota Fiscal Ref..
+		@return Nota Fiscal Ref.	  */
+	public int getRef_NotaFiscal_ID () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_Ref_NotaFiscal_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
 	}
 
 	/** Set Tax ID.
@@ -4961,6 +5060,8 @@ public class X_LBR_NotaFiscal extends PO implements I_LBR_NotaFiscal, I_Persiste
 	public static final String LBR_TRANSACTIONTYPE_EndUserRE574706 = "EN3";
 	/** Resale (RE 574.706) = RE3 */
 	public static final String LBR_TRANSACTIONTYPE_ResaleRE574706 = "RE3";
+	/** End User (DIFAL out) = EN4 */
+	public static final String LBR_TRANSACTIONTYPE_EndUserDIFALOut = "EN4";
 	/** Set Transaction Type.
 		@param lbr_TransactionType 
 		Defines the Transaction Type

@@ -47,6 +47,8 @@ public class SysConfig
 	public static final String LBR_GENBILLING_TABLE 							= "LBR_GENBILLING_TABLE";
 	public static final String LBR_IBPT_API_KEY 								= "LBR_IBPT_API_KEY";
 	public static final String LBR_ICMS_MATRIX_ENABLED 							= "LBR_ICMS_MATRIX_ENABLED";
+	public static final String LBR_IGNORE_PRICE_VARIANCE_ACCT 					= "LBR_IGNORE_PRICE_VARIANCE_ACCT";
+	public static final String LBR_IGNORE_PRICE_VARIANCE_ACCT_FOR_SERVICES 		= "LBR_IGNORE_PRICE_VARIANCE_ACCT_FOR_SERVICES";
 	public static final String LBR_INCLUDE_XMLNS_NFE 							= "LBR_INCLUDE_XMLNS_NFE";
 	public static final String LBR_INOUTGEN_CONSOLIDATE 						= "LBR_INOUTGEN_CONSOLIDATE";
 	public static final String LBR_INOUTGEN_DOCACTION 							= "LBR_INOUTGEN_DOCACTION";

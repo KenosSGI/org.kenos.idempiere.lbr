@@ -1663,7 +1663,7 @@ $F{valorTotalServicos}.signum() == 1 ? Boolean.TRUE : Boolean.FALSE]]></printWhe
 					<subreportParameter name="PreImp">
 						<subreportParameterExpression><![CDATA[$P{PreImpresso}]]></subreportParameterExpression>
 					</subreportParameter>
-					<dataSourceExpression><![CDATA[((net.sf.jasperreports.engine.data.JRXmlDataSource)$P{REPORT_DATA_SOURCE}).subDataSource("/NFe/infNFe/cobr//dup")]]></dataSourceExpression>
+					<dataSourceExpression><![CDATA[((net.sf.jasperreports.engine.data.JRXmlDataSource)$P{REPORT_DATA_SOURCE}).subDataSource("/NFe/infNFe/cobr//dup[position()<=12]")]]></dataSourceExpression>
 					<subreportExpression class="java.io.InputStream"><![CDATA[$P{DanfeMainPortraitA4_Sub_Invoice}]]></subreportExpression>
 				</subreport>
 			</band>
