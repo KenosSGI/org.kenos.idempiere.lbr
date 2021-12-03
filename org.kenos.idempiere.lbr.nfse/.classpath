@@ -13,12 +13,13 @@
 			<accessrule kind="accessible" pattern="org/apache/commons/**"/>
 		</accessrules>
 	</classpathentry>
-	<classpathentry kind="src" path="src/"/>
+	<classpathentry kind="src" path="src"/>
 	<classpathentry exported="true" kind="lib" path="lib/nfsebeans-v01.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/nfse-abrasf-v100.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/nfse-abrasf-v203.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/nfse-atibaia-v100.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/nfse-mogi-v100.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/nfse-palhoca-v100.jar"/>
+	<classpathentry kind="lib" path="lib/nfse-dsf-v100.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
