@@ -1245,7 +1245,8 @@ public class X_LBR_NotaFiscalLine extends PO implements I_LBR_NotaFiscalLine, I_
 	{
 		return (String)get_Value(COLUMNNAME_lbr_TaxStatus);
 	}
-
+	
+	/** IPI - Tax Status*/
 	/** 00 - Entrada com recuperação de crédito = 00 */
 	public static final String LBR_TAXSTATUSIPI_00_EntradaComRecuperaçãoDeCrédito = "00";
 	/** 01 - Entrada tributada com alíquota zero = 01 */
@@ -1274,6 +1275,23 @@ public class X_LBR_NotaFiscalLine extends PO implements I_LBR_NotaFiscalLine, I_
 	public static final String LBR_TAXSTATUSIPI_55_SaídaComSuspensão = "55";
 	/** 99 - Outras saídas = 99 */
 	public static final String LBR_TAXSTATUSIPI_99_OutrasSaídas = "99";
+	
+	/** ISS - Tax Status*/
+	/** 1 - Exigivel*/
+	public static final String LBR_TAXSTATUSISS_1_Exigível = "1";
+	/** 2 - Não Incidência*/
+	public static final String LBR_TAXSTATUSISS_2_NãoIncidência = "2";
+	/** 3 - Isenção*/
+	public static final String LBR_TAXSTATUSISS_3_Isenção = "3";
+	/** 4 - Exportação*/
+	public static final String LBR_TAXSTATUSISS_4_Exportação = "4";
+	/** 5 - Imunidade*/
+	public static final String LBR_TAXSTATUSISS_5_Imunidade = "5";
+	/** 6 - Exigibilidade Suspensa por Decisão Judicial*/
+	public static final String LBR_TAXSTATUSISS_6_ExigibilidadeSuspensaPorDecisaoJudicial = "6";
+	/** 7 - Exigibilidade Suspensa por Processo Administrativo*/
+	public static final String LBR_TAXSTATUSISS_7_ExigibilidadeSuspensaPorProcessoAdministrativo = "7";
+	
 	/** Set Tax Status (IPI).
 		@param lbr_TaxStatusIPI 
 		Defines the Tax Status (IPI)
