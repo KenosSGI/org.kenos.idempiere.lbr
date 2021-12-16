@@ -4884,7 +4884,7 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 							else
 							{
 								m_processMsg = "Falha na transmissão da NFS-e";
-								return DOCSTATUS_Invalid;
+								return DOCSTATUS_InProgress;
 							}
 						}
 						else
