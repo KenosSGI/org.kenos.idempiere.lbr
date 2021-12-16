@@ -7,6 +7,7 @@ import org.adempierelbr.nfse.NFSeMogiImpl;
 import org.adempierelbr.nfse.NFSePalhocaImpl;
 import org.adempierelbr.nfse.NFSeTubaraoImpl;
 import org.adempierelbr.nfse.atibaia.NFSeAtibaiaImpl;
+import org.adempierelbr.nfse.NFSeSJPImpl;
 import org.compiere.util.CLogger;
 import org.kenos.idempiere.lbr.base.nfse.INFSeFactory;
 
@@ -56,6 +57,10 @@ public class NFSeFactory implements INFSeFactory
 		//	Atibaia
 		else if (NFSeAtibaiaImpl.C_City_ID == p_C_City_ID)
 			return NFSeAtibaiaImpl.class;
+		
+		//	São José dos Pinhais
+		else if (NFSeSJPImpl.SAOJOSEDOSPINHAIS_ID == p_C_City_ID)
+			return NFSeSJPImpl.class;
 		
 		//	Not Found
 		return null;
