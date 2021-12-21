@@ -61,6 +61,10 @@ public class SalesFields implements IColumnCallout
 			//	Description
 			if (bpW.getlbr_NFDescription() != null)
 				mTab.setValue(I_W_C_BPartner.COLUMNNAME_lbr_NFDescription, bpW.getlbr_NFDescription());
+			
+			//	Freight Cost Rule
+			if (bpW.getLBR_FreightCostRule() != null)
+				mTab.setValue(I_W_C_BPartner.COLUMNNAME_LBR_FreightCostRule, bpW.getLBR_FreightCostRule());
 		}
 		
 		//	Withhold
