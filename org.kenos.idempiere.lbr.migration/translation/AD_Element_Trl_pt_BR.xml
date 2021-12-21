@@ -32162,8 +32162,8 @@ Credita Conta Trabalho em Processamento ]]></value>
   <value column="Placeholder" original=""/>
  </row>
  <row id="54078" trl="Y">
-  <value column="Name" original="Is Manufacturer">É Produzido</value>
-  <value column="PrintName" original="Is Manufacturer">É Produzido</value>
+  <value column="Name" original="Is Manufacturer">É Fabricante</value>
+  <value column="PrintName" original="Is Manufacturer">É Fabricante</value>
   <value column="Description" original="Indicate role of this Business partner as Manufacturer">Indica papel deste Parceiro de Negócios como Fabricante</value>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
