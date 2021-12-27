@@ -88,6 +88,7 @@ public class MLBRNCM extends X_LBR_NCM
 		//
 		MLBRNCMTax tcpg = new Query (Env.getCtx(), MLBRNCMTax.Table_Name, where, get_TrxName())
 			.setParameters(new Object[]{AD_Org_ID, getLBR_NCM_ID(), C_Region_ID})
+			.setOnlyActiveRecords(true)
 			.setOrderBy("AD_Org_ID DESC, C_Region_ID, ValidFrom DESC")
 			.first();
 		//
@@ -110,6 +111,7 @@ public class MLBRNCM extends X_LBR_NCM
 		//
 		List<MLBRNCMTax> tcpg = new Query (Env.getCtx(), MLBRNCMTax.Table_Name, where, get_TrxName())
 			.setParameters(new Object[]{AD_Org_ID, getLBR_NCM_ID(), C_Region_ID})
+			.setOnlyActiveRecords(true)
 			.setOrderBy("AD_Org_ID DESC, C_Region_ID DESC, ValidFrom DESC")
 			.list();
 		//
@@ -131,6 +133,7 @@ public class MLBRNCM extends X_LBR_NCM
 		//
 		return new Query (ctx, Table_Name, sql, trxName)
 			.setParameters (new Object[]{Env.getAD_Client_ID(ctx), formatNCM (ncmName)})
+			.setOnlyActiveRecords(true)
 			.setOrderBy ("ORDER BY AD_Client_ID DESC")
 			.first();
 	}	//	get

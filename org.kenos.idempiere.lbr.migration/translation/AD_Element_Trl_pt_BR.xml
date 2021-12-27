@@ -2248,8 +2248,8 @@ Há duas razões para desativar e não excluir registros:
   <value column="Placeholder" original=""/>
  </row>
  <row id="387" trl="Y">
-  <value column="Name" original="Invoiced">Faturado (Nota Emitida)</value>
-  <value column="PrintName" original="Invoiced">Faturado (Nota Emitida)</value>
+  <value column="Name" original="Invoiced">Faturado</value>
+  <value column="PrintName" original="Invoiced">Faturado</value>
   <value column="Description" original="Is this invoiced?">Isto foi faturado?</value>
   <value column="Help" original="If selected, invoices are created">Se selecionado, as faturas serão criadas</value>
   <value column="PO_Description" original=""/>
@@ -32162,8 +32162,8 @@ Credita Conta Trabalho em Processamento ]]></value>
   <value column="Placeholder" original=""/>
  </row>
  <row id="54078" trl="Y">
-  <value column="Name" original="Is Manufacturer">É Produzido</value>
-  <value column="PrintName" original="Is Manufacturer">É Produzido</value>
+  <value column="Name" original="Is Manufacturer">É Fabricante</value>
+  <value column="PrintName" original="Is Manufacturer">É Fabricante</value>
   <value column="Description" original="Indicate role of this Business partner as Manufacturer">Indica papel deste Parceiro de Negócios como Fabricante</value>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>

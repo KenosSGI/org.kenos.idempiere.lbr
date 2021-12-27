@@ -573,15 +573,15 @@
   <value column="Description" original=""/>
  </row>
  <row id="258" trl="Y">
-  <value column="Name" original="Open Period">Período Aberto</value>
+  <value column="Name" original="Open Period">Abrir Período</value>
   <value column="Description" original=""/>
  </row>
  <row id="259" trl="Y">
-  <value column="Name" original="Close Period">Período Fechado</value>
+  <value column="Name" original="Close Period">Fechar Período</value>
   <value column="Description" original="Soft close - can be re-opened">Fechamento Soft - pode ser reaberto</value>
  </row>
  <row id="260" trl="Y">
-  <value column="Name" original="Permanently Close Period">Período Permanentemente Fechado</value>
+  <value column="Name" original="Permanently Close Period">Fechar Período Permanentemente</value>
   <value column="Description" original=""/>
  </row>
  <row id="261" trl="Y">
@@ -601,7 +601,7 @@
   <value column="Description" original=""/>
  </row>
  <row id="266" trl="Y">
-  <value column="Name" original="Draft">Esboço</value>
+  <value column="Name" original="Draft">Rascunho/Esboço</value>
   <value column="Description" original=""/>
  </row>
  <row id="267" trl="Y">

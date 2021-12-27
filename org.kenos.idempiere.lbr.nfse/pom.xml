@@ -12,6 +12,16 @@
 	<packaging>eclipse-plugin</packaging>
 	<repositories>
 		<repository>
+			<id>github-maven-repo</id>
+			<url>https://raw.githubusercontent.com/KenosSGI/maven-repository/master/repository/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+		<repository>
 			<id>local-maven-repo</id>
 			<url>file://${project.basedir}/../local-maven-repo</url>
 			<releases>
@@ -106,6 +116,12 @@
 										<artifactId>nfsebeans-v01</artifactId>
 										<version>NOT_INFORMED</version>
 										<destFileName>nfsebeans-v01.jar</destFileName>
+									</artifactItem>
+									<artifactItem>
+										<groupId>org.kenos</groupId>
+										<artifactId>nfse-dsf</artifactId>
+										<version>1.00</version>
+										<destFileName>nfse-dsf-v100.jar</destFileName>
 									</artifactItem>
 								</artifactItems>
 								<outputDirectory>lib</outputDirectory>
