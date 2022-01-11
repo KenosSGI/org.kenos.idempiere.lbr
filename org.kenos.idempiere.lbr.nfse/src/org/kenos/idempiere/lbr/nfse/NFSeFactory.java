@@ -1,6 +1,7 @@
 package org.kenos.idempiere.lbr.nfse;
 
 import org.adempierelbr.nfse.NFSeAbrasf100Impl;
+import org.adempierelbr.nfse.NFSeAbrasf201Impl;
 import org.adempierelbr.nfse.NFSeAbrasf203Impl;
 import org.adempierelbr.nfse.NFSeImpl;
 import org.adempierelbr.nfse.NFSeMogiImpl;
@@ -48,6 +49,10 @@ public class NFSeFactory implements INFSeFactory
 		//	Indaiatuba/SP
 		else if (NFSeAbrasf203Impl.INDAIATUBA_ID == p_C_City_ID)
 			return NFSeAbrasf203Impl.class;
+
+		//	Tapiraí
+		else if (NFSeAbrasf201Impl.TAPIRAI_ID == p_C_City_ID)
+			return NFSeAbrasf201Impl.class;
 		
 		//	São Caetano do Sul/SP
 		else if (NFSeAbrasf100Impl.SAOCAETANODOSUL_ID == p_C_City_ID)

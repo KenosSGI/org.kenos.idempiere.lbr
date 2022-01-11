@@ -46,6 +46,22 @@
 							<configuration>
 								<artifactItems>
 									<artifactItem>
+										<groupId>stax</groupId>
+										<artifactId>stax</artifactId>
+										<version>1.2.0</version>
+										<destFileName>stax.jar</destFileName>
+									</artifactItem>
+									<artifactItem>
+										<groupId>org.apache.ws.commons.axiom</groupId>
+										<artifactId>axiom-api</artifactId>
+										<version>${axiom.version}</version>
+									</artifactItem>
+									<artifactItem>
+										<groupId>org.apache.ws.commons.axiom</groupId>
+										<artifactId>axiom-impl</artifactId>
+										<version>${axiom.version}</version>
+									</artifactItem>
+									<artifactItem>
 										<groupId>local.nfse-abrasf-v100-sources</groupId>
 										<artifactId>nfse-abrasf-v100-sources</artifactId>
 										<version>NOT_INFORMED</version>
@@ -64,11 +80,17 @@
 										<destFileName>nfse-abrasf-v203-sources.jar</destFileName>
 									</artifactItem>
 									<artifactItem>
+										<groupId>org.kenos</groupId>
+										<artifactId>nfse-abrasf-v201</artifactId>
+										<version>2.01</version>
+										<destFileName>nfse-abrasf-v201.jar</destFileName>
+									</artifactItem>
+									<artifactItem>
 										<groupId>local.nfse-abrasf-v203</groupId>
 										<artifactId>nfse-abrasf-v203</artifactId>
 										<version>NOT_INFORMED</version>
 										<destFileName>nfse-abrasf-v203.jar</destFileName>
-									</artifactItem>
+									</artifactItem>                                                       
 									<artifactItem>
 										<groupId>local.nfse-mogi-v100-sources</groupId>
 										<artifactId>nfse-mogi-v100-sources</artifactId>
