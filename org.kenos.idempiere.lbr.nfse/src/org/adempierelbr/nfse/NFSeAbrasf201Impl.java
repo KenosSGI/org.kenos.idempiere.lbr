@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
 import java.io.StringReader;
-import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -18,20 +17,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-import javax.swing.text.Document;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.namespace.QName;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.stream.XMLStreamReader;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.TransformerFactoryConfigurationError;
-import javax.xml.transform.stax.StAXSource;
-import javax.xml.transform.stream.StreamResult;
-import org.xml.sax.InputSource;
 
 import org.adempiere.base.Service;
 import org.adempiere.exceptions.AdempiereException;
@@ -40,12 +28,14 @@ import org.adempiere.report.jasper.JRViewerProvider;
 import org.adempierelbr.model.MLBRDigitalCertificate;
 import org.adempierelbr.model.MLBRNotaFiscal;
 import org.adempierelbr.model.MLBRNotaFiscalLine;
-import org.adempierelbr.nfe.api.NFeStatusServico4Stub;
 import org.adempierelbr.nfse.util.FixedTxt;
 import org.adempierelbr.util.NFeUtil;
 import org.adempierelbr.util.SignatureUtil;
 import org.adempierelbr.util.TextUtil;
 import org.adempierelbr.wrapper.I_W_AD_OrgInfo;
+import org.apache.axiom.om.OMElement;
+import org.apache.axiom.om.OMAbstractFactory;
+import org.apache.axis2.databinding.ADBException;
 import org.apache.axis2.transport.http.HTTPConstants;
 import org.apache.xmlbeans.XmlCalendar;
 import org.compiere.model.MAttachment;
@@ -60,13 +50,11 @@ import org.compiere.util.Util;
 //import br.gov.sp.indaiatuba.nfse.NfseWebServiceServiceStub;
 import org.kenos.idempiere.lbr.nfse.abrasf.api.IssWebWSStub;
 
-import com.bea.xml.stream.reader.XmlReader;
-import com.google.zxing.Result;
-
 import br.com.fiorilli.issweb.ws.GerarNfse;
 import br.com.fiorilli.issweb.ws.SubstituirNfseE;
 import br.org.abrasf.www.nfse_xsd.GerarNfseResposta_type0;
 import br.org.abrasf.www.nfse_xsd.ListaMensagemRetorno_type0;
+import br.org.abrasf.www.nfse_xsd.CompNfse;
 import br.org.abrasf.www.nfse_xsd.GerarNfseEnvio_type0;
 import br.org.abrasf201.nfse.CabecalhoDocument.Cabecalho;
 import br.org.abrasf201.nfse.CancelarNfseEnvioDocument;
@@ -146,6 +134,8 @@ public class NFSeAbrasf201Impl implements INFSe
 	public static final Byte TIPO_NF_CONJUGADA 	= Byte.valueOf ("2");
 	public static final Byte TIPO_CUPOM 		= Byte.valueOf ("3");
 	
+	private static final RoundingMode MODO_ARREDONDAMENTO = RoundingMode.HALF_EVEN;
+	
 	/**
 	 * Namespace
 	 */
@@ -208,7 +198,7 @@ public class NFSeAbrasf201Impl implements INFSe
 	{
 		if (MLBRNotaFiscal.LBR_NFEENV_Homologation.equals(nf.getlbr_NFeEnv()))
 		{
-			return "1.000.10";
+			return "15000";
 		} 
 		else
 		{
@@ -265,7 +255,7 @@ public class NFSeAbrasf201Impl implements INFSe
 		xmlCal.set(Calendar.YEAR, 			cal.get (Calendar.YEAR));
 		xmlCal.set(Calendar.MONTH, 			cal.get (Calendar.MONTH));
 		xmlCal.set(Calendar.DAY_OF_MONTH, 	cal.get (Calendar.DAY_OF_MONTH));
-		
+
 		//	Criar RPS
 		TcDeclaracaoPrestacaoServico rps = TcDeclaracaoPrestacaoServico.Factory.newInstance();
 		
@@ -334,6 +324,13 @@ public class NFSeAbrasf201Impl implements INFSe
 		String descricaoServico = "";
 		String serviceCode = "";
 		BigDecimal aliquota = BigDecimal.ZERO;
+		String iss = "";
+		
+		//	Identificação dos Serviços prestados
+		TcDadosServico dadosServico = infdps.addNewServico();
+		
+		//	Valores dos Serviços
+		TcValoresDeclaracaoServico valores = dadosServico.addNewValores();
 		
 		//	Serviços Prestados
 		//	É possível descrever vários serviços numa mesma NFS-e, desde que relacionados a um
@@ -363,10 +360,77 @@ public class NFSeAbrasf201Impl implements INFSe
 					nf.setErrorMsg("Impossível gerar NFS-e. Todos os serviços da NFS-e devem conter o mesmo Código de Serviço");
 					return null;
 				}
-					
-				//	Mesma Alíquota de ISS para todos os serviços prestados
+				//	Mesma Alíquota de ISS para todos os serviços prestados				
+				
 				if (aliquota.equals(BigDecimal.ZERO))
-						aliquota = nfl.getTaxRate("ISS").setScale(2, RoundingMode.HALF_EVEN);
+				{
+					try
+					{
+					// ISS Retido ou ISS
+						if (nfl.getTaxRate("ISS").equals(Env.ZERO) && !nfl.getTaxRate("ISSRT").equals(Env.ZERO))
+						{
+							iss = "ISSRT";
+							//ISS Retido 1 = Sim
+							dadosServico.setIssRetido((byte) 1);
+							//
+							dadosServico.setResponsavelRetencao((byte) 1);
+						}	
+						else
+						{
+							iss = "ISS";
+							//ISS Retido 2 = Não
+							dadosServico.setIssRetido((byte) 2);
+							
+						}
+						aliquota = nfl.getTaxRate(iss);
+						BigDecimal v_ISS 	= toBD (nfl.getTaxAmt(iss)).abs().setScale(2, MODO_ARREDONDAMENTO);
+						valores.setValorIss(v_ISS);
+						
+						/* (Exigibilidade ISS)
+						/* Tributação no Município - Exigivel - 1 */
+						
+						if (nfl.getTax(iss).getLBR_TaxStatus().getName().equals(MLBRNotaFiscalLine.LBR_TAXSTATUSISS_1_Exigível))
+						{
+							dadosServico.setExigibilidadeISS((byte)1);
+						}
+						/* Tributação Fora do Município - Não Incidência - 2 */
+						else if (nfl.getTax(iss).getLBR_TaxStatus().getName().equals(MLBRNotaFiscalLine.LBR_TAXSTATUSISS_2_NãoIncidência)) 
+						{
+							dadosServico.setExigibilidadeISS((byte)2);
+						}
+						/* Isenção - 3 */
+						else if (nfl.getTax(iss).getLBR_TaxStatus().getName().equals(MLBRNotaFiscalLine.LBR_TAXSTATUSISS_3_Isenção))
+						{
+							dadosServico.setExigibilidadeISS((byte)3);
+						}
+						/* Exportação - 4 */
+						else if (nfl.getTax(iss).getLBR_TaxStatus().getName().equals(MLBRNotaFiscalLine.LBR_TAXSTATUSISS_4_Exportação))
+						{
+							dadosServico.setExigibilidadeISS((byte)4);
+						}
+						/* Imunidade - 5 */
+						else if (nfl.getTax(iss).getLBR_TaxStatus().getName().equals(MLBRNotaFiscalLine.LBR_TAXSTATUSISS_5_Imunidade))
+						{
+							dadosServico.setExigibilidadeISS((byte)5);
+						}
+						/* Exigibilidade Suspensa por Decisão Judicial - 6 */
+						else if (nfl.getTax(iss).getLBR_TaxStatus().getName().equals(MLBRNotaFiscalLine.LBR_TAXSTATUSISS_6_ExigibilidadeSuspensaPorDecisaoJudicial))
+						{
+							dadosServico.setExigibilidadeISS((byte)6);
+						}
+						/* Exigibilidade Suspensa por Procedimento Administrativo - 7 */
+						else if (nfl.getTax(iss).getLBR_TaxStatus().getName().equals(MLBRNotaFiscalLine.LBR_TAXSTATUSISS_7_ExigibilidadeSuspensaPorProcessoAdministrativo))
+						{
+							dadosServico.setExigibilidadeISS((byte)7);
+						}
+					}
+					catch (Exception e)
+					{
+						nf.setErrorMsg(e.toString());
+						nf.saveEx();
+						throw new AdempiereException("Preencha a Situação Tributária do ISS");
+					}
+				}
 				else if (!aliquota.equals(nfl.getTaxRate("ISS")))
 				{
 					nf.setErrorMsg("Impossível gerar XML NFS-e. Todos os serviços da NFS-e devem conter o mesmo Código de Serviço");
@@ -374,10 +438,6 @@ public class NFSeAbrasf201Impl implements INFSe
 				}
 			}
 		}
-		
-		//	Identificação dos Serviços prestados
-		TcDadosServico dadosServico = infdps.addNewServico();		
-	
 		// Discriminação do Serviço
 		String description = nf.getDescription();
 		if (description != null && !description.isBlank())
@@ -391,47 +451,31 @@ public class NFSeAbrasf201Impl implements INFSe
 		TextUtil.retiraEspecial(descricaoServico);
 		dadosServico.setDiscriminacao(TextUtil.retiraEspecial(descricaoServico).replace("\n", ". ").replaceAll("\\s+", " ").replaceAll("\\.+", ".").trim());
 		dadosServico.setItemListaServico(serviceCode);
-		dadosServico.setIssRetido((byte) 2);
 		dadosServico.setCodigoMunicipio(nf.getlbr_BPCityCode());
-		
-		//	FIXME: Criar campo ExigibilidadeISS
-		/*	1 - Exigível;
-			2 - Não incidência;
-			3 - Isenção;
-			4 - Exportação;
-			5 - Imunidade;
-			6 - Exigibilidade Suspensa por Decisão Judicial;
-			7 - Exigibilidade Suspensa por Processo Administrativo*/
-		
-		dadosServico.setExigibilidadeISS((byte)1);
 		dadosServico.setMunicipioIncidencia(nf.getlbr_BPCityCode());
 		
-		//	Valores dos Serviços
-		TcValoresDeclaracaoServico valores = dadosServico.addNewValores();
 		valores.setValorServicos(nf.getlbr_ServiceTotalAmt());
-		valores.setValorDeducoes(BigDecimal.ZERO.setScale(2, RoundingMode.HALF_EVEN));
+		valores.setValorDeducoes(BigDecimal.ZERO.setScale(2, MODO_ARREDONDAMENTO));
 		
 		//	Total de Imposto
-		BigDecimal v_PIS 	= toBD (nf.getTaxAmt("PIS")).abs().setScale(2, RoundingMode.HALF_EVEN);
-		BigDecimal v_COFINS = toBD (nf.getTaxAmt("COFINS")).abs().setScale(2, RoundingMode.HALF_EVEN);
-		BigDecimal v_INSS 	= toBD (nf.getTaxAmt("INSS")).abs().setScale(2, RoundingMode.HALF_EVEN);
-		BigDecimal v_IR 	= toBD (nf.getTaxAmt("IR")).abs().setScale(2, RoundingMode.HALF_EVEN);
-		BigDecimal v_CSLL 	= toBD (nf.getTaxAmt("CSLL")).abs().setScale(2, RoundingMode.HALF_EVEN);
-		BigDecimal v_ISS 	= toBD (nf.getTaxAmt("ISS")).abs().setScale(2, RoundingMode.HALF_EVEN);
-		BigDecimal v_TotTrib= toBD (nf.getlbr_vTotTrib()).abs().setScale(2, RoundingMode.HALF_EVEN);
+		BigDecimal v_PIS 	= toBD (nf.getTaxAmt("PIS")).abs().setScale(2, MODO_ARREDONDAMENTO);
+		BigDecimal v_COFINS = toBD (nf.getTaxAmt("COFINS")).abs().setScale(2, MODO_ARREDONDAMENTO);
+		BigDecimal v_INSS 	= toBD (nf.getTaxAmt("INSS")).abs().setScale(2, MODO_ARREDONDAMENTO);
+		BigDecimal v_IR 	= toBD (nf.getTaxAmt("IR")).abs().setScale(2, MODO_ARREDONDAMENTO);
+		BigDecimal v_CSLL 	= toBD (nf.getTaxAmt("CSLL")).abs().setScale(2, MODO_ARREDONDAMENTO);
+		BigDecimal v_TotTrib= toBD (nf.getlbr_vTotTrib()).abs().setScale(2, MODO_ARREDONDAMENTO);
 
-		//BigDecimal zero = BigDecimal.ZERO.setScale(p_AD_Org_ID, null)
 		// Valores da NFS-e
 		valores.setValorPis(v_PIS);
 		valores.setValorCofins(v_COFINS);
 		valores.setValorInss(v_INSS);
 		valores.setValorIr(v_IR);
 		valores.setValorCsll(v_CSLL);
-		valores.setOutrasRetencoes(BigDecimal.ZERO.setScale(2, RoundingMode.HALF_EVEN));
+		valores.setOutrasRetencoes(BigDecimal.ZERO.setScale(2, MODO_ARREDONDAMENTO));
 		//valores.setValTotTributos(v_TotTrib);
-		valores.setAliquota(aliquota);
-		valores.setDescontoIncondicionado(BigDecimal.ZERO.setScale(2, RoundingMode.HALF_EVEN));
-		valores.setDescontoCondicionado(nf.getDiscountAmt().setScale(2, RoundingMode.HALF_EVEN));
+		valores.setAliquota(aliquota.setScale(2,MODO_ARREDONDAMENTO));
+		valores.setDescontoIncondicionado(BigDecimal.ZERO.setScale(2, MODO_ARREDONDAMENTO));
+		valores.setDescontoCondicionado(nf.getDiscountAmt().setScale(2, MODO_ARREDONDAMENTO));
 		
 		//	Optando do Simples Nacionals
 		infdps.setOptanteSimplesNacional("S".equals(woi.getLBR_TaxRegime()) ? (byte)1 : (byte)2);
@@ -549,20 +593,11 @@ public class NFSeAbrasf201Impl implements INFSe
 			
 			GerarNfseEnvio_type0 gerarNfseDoc = GerarNfseEnvio_type0.Factory.parse(xmlReader);
 			
-			org.w3c.dom.Document doc = DocumentBuilderFactory.newInstance()
-                    .newDocumentBuilder()
-                    .parse(new InputSource(new StringReader(xml)));
-			
-			//GerarNfseResposta_type0 resultado = GerarNfseResposta_type0.Factory.parse(nfseStub.gerarNfse(gerarNfseDoc,getUser(nf),getPassword(nf).);
 			GerarNfseResposta_type0 resultado = nfseStub.gerarNfse(gerarNfseDoc,getUser(nf),getPassword(nf));
 			
-			//GerarNfseRespostaDocument resultDoc = GerarNfseRespostaDocument.Factory.parse()
-			
-			//GerarNfseRespostaDocument resultDoc = GerarNfseRespostaDocument.Factory.parse(nfseStub.gerarNfse(gerarNfseDoc,getUser(nf),getPassword(nf)).toString());
-			//GerarNfseResposta result = resultado.getGerarNfseResposta();
-			
-			System.out.println(resultado);
-			System.out.println(document);
+			//Monitorar envio do Stub
+			String request = nfseStub._getServiceClient().getLastOperationContext().getMessageContext("Out")
+					.getEnvelope().toString();
 			
 			ListaMensagemRetorno_type0 listaMensagemRetorno = resultado.getListaMensagemRetorno();
 			if (resultado.getListaNfse() != null)
@@ -588,59 +623,18 @@ public class NFSeAbrasf201Impl implements INFSe
 			if (compNfse != null 
 					&& !compNfse.getNfse().getInfNfse().getCodigoVerificacao().isEmpty())
 			{
-				//setProtocol (nf, compNfse);
+				setProtocol (nf, compNfse);
 			}
 			else
 				throw new Exception (msgRetorno.toString());
-			//document.getBytes();
-			//XMLStreamReader xmlReader = new XMLStreamReader(reader);
-			
-//			xmlReader.
-			
-			//GerarNfseEnvio
-			
-			//System.out.println(gerarNfseDoc.getPullParser(QName.valueOf("http://www.abrasf.org.br/nfse.xsd")));
-			
-//Transformer transformer = TransformerFactory.newInstance().newTransformer();
-//StringWriter stringWriter = new StringWriter();
-//javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName("http://www.abrasf.org.br/nfse.xsd", "Rps");
-//transformer.transform(new StAXSource(gerarNfseDoc.getPullParser(MY_QNAME)), new StreamResult(stringWriter));
-//System.out.println(stringWriter.toString());
-			
-			
-
-			//GerarNfseRespostaDocument.Factory.
-			//result.get
-			//log.info(result);
-			//System.out.println(GerarNfseEnvio_type0.Factory.parse(xmlReader).getRps().toString());
-
-			
-			/*try {
-				MAttachment attachNFe = nf.createAttachment();
-				attachNFe.addEntry("NFSe_" + nf.getlbr_NFENo() + "_RPS_" + nf.getDocumentNo() + "-dst.xml", GerarNfseEnvio_type0.Factory.parse(xmlReader).toString().getBytes(NFeUtil.NFE_ENCODING));
-				attachNFe.save();
-			}
-			catch (UnsupportedEncodingException e)
-			{
-				e.printStackTrace();
-			}*/
-			
-			
-			//resultado.getListaMensagemRetorno()
-			
-			//GerarNfseResposta resposta = GerarNfseRespostaDocument.Factory.parse(result).getGerarNfseResposta();
-
 		}
 
 		//	Check error messages
-
-		
-
-
+ 
 		return true;
 	}	//	transmit
 
-	private void setProtocol (MLBRNotaFiscal nf, TcCompNfse compNfse)
+	private void setProtocol (MLBRNotaFiscal nf, br.org.abrasf.www.nfse_xsd.TcCompNfse compNfse)
 	{
 		//	Protocol
 		nf.setlbr_NFeProt(compNfse.getNfse().getInfNfse().getCodigoVerificacao());
@@ -665,14 +659,19 @@ public class NFSeAbrasf201Impl implements INFSe
 		MAttachment attachNFe = nf.createAttachment();
 		try 
 		{
-			CompNfseDocument document = CompNfseDocument.Factory.newInstance();
-			//document.setCompNfse(compNfse);
-			//
-			attachNFe.addEntry("NFSe_" + nf.getlbr_NFENo() + "_RPS_" + nf.getDocumentNo() + "-dst.xml", document.xmlText().getBytes(NFeUtil.NFE_ENCODING));
+			QName qname = new javax.xml.namespace.QName("http://www.abrasf.org.br/nfse.xsd", "Nfse");
+			
+			OMElement omElement = compNfse
+			          .getOMElement(qname, OMAbstractFactory.getOMFactory());
+
+			attachNFe.addEntry("NFSe_" + nf.getlbr_NFENo() + "_RPS_" + nf.getDocumentNo() + "-dst.xml", omElement.toString().getBytes(NFeUtil.NFE_ENCODING));
 			attachNFe.save();
 		}
 		catch (UnsupportedEncodingException e)
 		{
+			e.printStackTrace();
+		}
+		catch (ADBException e) {
 			e.printStackTrace();
 		}
 	}	//	setProtocol
@@ -723,7 +722,6 @@ public class NFSeAbrasf201Impl implements INFSe
 		XMLStreamReader xmlReader = factory.createXMLStreamReader(reader);
 		
 		String result = nfseStub.consultarNfsePorRps(br.org.abrasf.www.nfse_xsd.ConsultarNfseRpsEnvio_type0.Factory.parse(xmlReader), getUser(nf), getPassword(nf)).toString();
-		System.out.println(result);
 		ConsultarNfseRpsResposta resposta = ConsultarNfseRpsRespostaDocument.Factory.parse(result).getConsultarNfseRpsResposta();
 		
 		ListaMensagemRetorno listaMensagemRetorno = resposta.getListaMensagemRetorno();
@@ -1874,7 +1872,6 @@ public class NFSeAbrasf201Impl implements INFSe
 			XMLStreamReader xmlReader = factory.createXMLStreamReader(reader);
 			
 			String result = nfseStub.cancelarNfse(br.org.abrasf.www.nfse_xsd.CancelarNfseEnvio_type0.Factory.parse(xmlReader), getUser(nf), getPassword(nf)).toString();
-			System.out.println(result);
 			
 			CancelarNfseRespostaDocument response = CancelarNfseRespostaDocument.Factory.parse(result);
 			

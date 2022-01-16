@@ -6,6 +6,7 @@
  */
 package br.org.abrasf.www.nfse_xsd;
 
+import java.text.SimpleDateFormat;
 
 /**
  *  TcInfRps bean class
@@ -254,8 +255,8 @@ public class TcInfRps implements org.apache.axis2.databinding.ADBBean {
                 throw new org.apache.axis2.databinding.ADBException(
                     "DataEmissao cannot be null!!");
             } else {
-                xmlWriter.writeCharacters(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
-                        localDataEmissao));
+            	SimpleDateFormat isoFormat = new SimpleDateFormat("yyyy-MM-dd");
+            	xmlWriter.writeCharacters(isoFormat.format(localDataEmissao));
             }
 
             xmlWriter.writeEndElement();

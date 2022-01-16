@@ -6,6 +6,9 @@
  */
 package br.org.abrasf.www.nfse_xsd;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.TimeZone;
 
 /**
  *  TcInfDeclaracaoPrestacaoServico bean class
@@ -173,10 +176,10 @@ public class TcInfDeclaracaoPrestacaoServico implements org.apache.axis2.databin
     /**
      * Auto generated setter method
      * @param param Competencia
+     * @throws ParseException 
      */
-    public void setCompetencia(java.util.Date param) {
+    public void setCompetencia(java.util.Date param) throws ParseException {
         localCompetenciaTracker = param != null;
-
         this.localCompetencia = param;
     }
 
@@ -455,8 +458,8 @@ public class TcInfDeclaracaoPrestacaoServico implements org.apache.axis2.databin
                 throw new org.apache.axis2.databinding.ADBException(
                     "Competencia cannot be null!!");
             } else {
-                xmlWriter.writeCharacters(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
-                        localCompetencia));
+            	SimpleDateFormat isoFormat = new SimpleDateFormat("yyyy-MM-dd");
+            	xmlWriter.writeCharacters((isoFormat.format(localCompetencia)));
             }
 
             xmlWriter.writeEndElement();
