@@ -10,6 +10,7 @@ import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -50,10 +51,10 @@ import org.compiere.util.Util;
 //import br.gov.sp.indaiatuba.nfse.NfseWebServiceServiceStub;
 import org.kenos.idempiere.lbr.nfse.abrasf.api.IssWebWSStub;
 
-import br.com.fiorilli.issweb.ws.GerarNfse;
-import br.com.fiorilli.issweb.ws.SubstituirNfseE;
 import br.org.abrasf.www.nfse_xsd.GerarNfseResposta_type0;
 import br.org.abrasf.www.nfse_xsd.ListaMensagemRetorno_type0;
+import br.org.abrasf.www.nfse_xsd.CancelarNfseEnvio_type0;
+import br.org.abrasf.www.nfse_xsd.CancelarNfseResposta_type0;
 import br.org.abrasf.www.nfse_xsd.CompNfse;
 import br.org.abrasf.www.nfse_xsd.GerarNfseEnvio_type0;
 import br.org.abrasf201.nfse.CabecalhoDocument.Cabecalho;
@@ -66,9 +67,7 @@ import br.org.abrasf201.nfse.ConsultarNfseRpsEnvioDocument.ConsultarNfseRpsEnvio
 import br.org.abrasf201.nfse.ConsultarNfseRpsRespostaDocument;
 import br.org.abrasf201.nfse.ConsultarNfseRpsRespostaDocument.ConsultarNfseRpsResposta;
 import br.org.abrasf201.nfse.GerarNfseEnvioDocument;
-//import br.org.abrasf.www.nfse_xsd.GerarNfseEnvioDocument;
 import br.org.abrasf201.nfse.GerarNfseEnvioDocument.GerarNfseEnvio;
-//import br.org.abrasf.www.nfse_xsd.GerarNfseEnvio;
 import br.org.abrasf201.nfse.GerarNfseRespostaDocument;
 import br.org.abrasf201.nfse.GerarNfseRespostaDocument.GerarNfseResposta;
 import br.org.abrasf201.nfse.ListaMensagemRetornoDocument.ListaMensagemRetorno;
@@ -79,7 +78,7 @@ import br.org.abrasf201.nfse.SubstituirNfseEnvioDocument.SubstituirNfseEnvio;
 import br.org.abrasf201.nfse.SubstituirNfseEnvioDocument.SubstituirNfseEnvio.SubstituicaoNfse;
 import br.org.abrasf201.nfse.SubstituirNfseRespostaDocument;
 import br.org.abrasf201.nfse.SubstituirNfseRespostaDocument.SubstituirNfseResposta;
-import br.org.abrasf201.nfse.TcCancelamentoNfse;
+//import br.org.abrasf201.nfse.TcCancelamentoNfse;
 import br.org.abrasf201.nfse.TcCompNfse;
 import br.org.abrasf201.nfse.TcContato;
 import br.org.abrasf201.nfse.TcCpfCnpj;
@@ -534,7 +533,6 @@ public class NFSeAbrasf201Impl implements INFSe
 		IssWebWSStub nfseStub = new IssWebWSStub(url);
 		nfseStub._getServiceClient().getOptions().setProperty(HTTPConstants.CHUNKED, false);
 		
-		//ListaMensagemRetorno_type0 listaMensagemRetorno = null;
 		br.org.abrasf.www.nfse_xsd.TcCompNfse compNfse = null;
 		
 		if (nf.getLBR_NFReplacedNo() != null)
@@ -661,8 +659,7 @@ public class NFSeAbrasf201Impl implements INFSe
 		{
 			QName qname = new javax.xml.namespace.QName("http://www.abrasf.org.br/nfse.xsd", "Nfse");
 			
-			OMElement omElement = compNfse
-			          .getOMElement(qname, OMAbstractFactory.getOMFactory());
+			OMElement omElement = compNfse.getOMElement(qname, OMAbstractFactory.getOMFactory());
 
 			attachNFe.addEntry("NFSe_" + nf.getlbr_NFENo() + "_RPS_" + nf.getDocumentNo() + "-dst.xml", omElement.toString().getBytes(NFeUtil.NFE_ENCODING));
 			attachNFe.save();
@@ -1844,10 +1841,10 @@ public class NFSeAbrasf201Impl implements INFSe
 		TcIdentificacaoNfse identNfse = infCancelOrder.addNewIdentificacaoNfse();
 		identNfse.setNumero(new BigDecimal(nf.getlbr_NFENo()).longValue());
 		identNfse.setCodigoMunicipio(nf.getlbr_BPCityCode());
-		identNfse.setInscricaoMunicipal(TextUtil.toNumeric(nf.getlbr_OrgCCM()));
+		identNfse.setInscricaoMunicipal(TextUtil.toNumeric(getInscricaoMunicipal(nf)));
 
 		TcCpfCnpj cpfcnpjPrestador = identNfse.addNewCpfCnpj();
-		cpfcnpjPrestador.setCnpj(TextUtil.toNumeric(nf.getlbr_CNPJ()));
+		cpfcnpjPrestador.setCnpj(TextUtil.toNumeric(getCNPJ(nf)));
 				
 		try
 		{
@@ -1860,27 +1857,32 @@ public class NFSeAbrasf201Impl implements INFSe
 			//	Set certificate
 			MLBRDigitalCertificate.setCertificate (Env.getCtx(), nf.getAD_Org_ID());
 			
-			String url = "https://deiss.indaiatuba.sp.gov.br/homologacao/nfse";
-			if (MLBRNotaFiscal.LBR_NFEENV_Production.equals(nf.getlbr_NFeEnv()))
-				url = "https://deiss.indaiatuba.sp.gov.br/producao/nfse";
+			String url = getURL(nf);
 			
-			IssWebWSStub nfseStub = new IssWebWSStub(getURL(nf));
+			IssWebWSStub nfseStub = new IssWebWSStub(url);
 			nfseStub._getServiceClient().getOptions().setProperty(HTTPConstants.CHUNKED, false);	
+			
+			CancelarNfseRespostaDocument document = CancelarNfseRespostaDocument.Factory.newInstance();
 			
 			Reader reader = new StringReader(cancelDoc.xmlText());
 			XMLInputFactory factory = XMLInputFactory.newInstance();
 			XMLStreamReader xmlReader = factory.createXMLStreamReader(reader);
 			
-			String result = nfseStub.cancelarNfse(br.org.abrasf.www.nfse_xsd.CancelarNfseEnvio_type0.Factory.parse(xmlReader), getUser(nf), getPassword(nf)).toString();
+			CancelarNfseEnvio_type0 cancelarEnvioDoc = CancelarNfseEnvio_type0.Factory.parse(xmlReader); 
 			
-			CancelarNfseRespostaDocument response = CancelarNfseRespostaDocument.Factory.parse(result);
+			CancelarNfseResposta_type0 result = nfseStub.cancelarNfse(cancelarEnvioDoc,getUser(nf),getPassword(nf));
+			
+			//Monitorar envio do Stub
+			String request = nfseStub._getServiceClient().getLastOperationContext().getMessageContext("Out")
+					.getEnvelope().toString();
+			System.out.println(request);
 			
 			//	Check error messages
-			ListaMensagemRetorno listaMensagemRetorno = response.getCancelarNfseResposta().getListaMensagemRetorno();
+			ListaMensagemRetorno_type0 listaMensagemRetorno = result.getListaMensagemRetorno();
 			if (listaMensagemRetorno != null)
 			{
 				StringBuilder msgRetorno = new StringBuilder ();
-				Arrays.asList(listaMensagemRetorno.getMensagemRetornoArray())
+				Arrays.asList(listaMensagemRetorno.getMensagemRetorno())
 					.forEach(msg -> {
 						msgRetorno
 							.append("Cod=").append(msg.getCodigo())
@@ -1895,10 +1897,10 @@ public class NFSeAbrasf201Impl implements INFSe
 			}
 			
 			//	Adicionar Protocolo do Lote
-			if (response.getCancelarNfseResposta().getRetCancelamento() != null 
-					&& response.getCancelarNfseResposta().getRetCancelamento().getNfseCancelamento() != null)
+			if (result.getRetCancelamento() != null 
+					&& result.getRetCancelamento().getNfseCancelamento() != null)
 			{
-				setCancel (nf, response.getCancelarNfseResposta().getRetCancelamento().getNfseCancelamento());
+				setCancel (nf, result.getRetCancelamento().getNfseCancelamento());
 			}
 			else
 				return false;
@@ -1911,18 +1913,28 @@ public class NFSeAbrasf201Impl implements INFSe
 		return true;
 	}	//	cancel
 
-	private void setCancel(MLBRNotaFiscal nf, TcCancelamentoNfse retCancelamento)
+	private void setCancel(MLBRNotaFiscal nf, br.org.abrasf.www.nfse_xsd.TcCancelamentoNfse tcCancelamentoNfse)
 	{
-		setCancel (nf, retCancelamento, null);
+		setCancel (nf, tcCancelamentoNfse, null);
 	}
 	
-	private void setCancel(MLBRNotaFiscal nf, TcCancelamentoNfse retCancelamento, String msg)
+	private void setCancel(MLBRNotaFiscal nf, br.org.abrasf.www.nfse_xsd.TcCancelamentoNfse tcCancelamentoNfse, String msg)
 	{
 		//	Can't change cancel reason after NF is cancelled
 		if (!nf.isCancelled())
 		{
-			if (retCancelamento != null)
-				nf.setlbr_MotivoCancel("" + retCancelamento.getConfirmacao().getDataHora());
+			if (tcCancelamentoNfse != null)
+			{			
+				QName qname = new javax.xml.namespace.QName("http://www.abrasf.org.br/nfse.xsd", "cancelarNfse");
+				try {
+					OMElement omElement = tcCancelamentoNfse.getOMElement(qname, OMAbstractFactory.getOMFactory());
+					SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm aa");
+					nf.setlbr_MotivoCancel("" + dateFormat.format(tcCancelamentoNfse.getConfirmacao().getDataHora().getTime()));
+				} 
+				catch (ADBException e) {
+					e.printStackTrace();
+				}
+			}
 			else if (msg != null)
 				nf.setlbr_MotivoCancel(msg);
 		}
