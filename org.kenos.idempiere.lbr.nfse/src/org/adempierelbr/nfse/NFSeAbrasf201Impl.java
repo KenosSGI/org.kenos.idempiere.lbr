@@ -53,9 +53,13 @@ import org.kenos.idempiere.lbr.nfse.abrasf.api.IssWebWSStub;
 
 import br.org.abrasf.www.nfse_xsd.GerarNfseResposta_type0;
 import br.org.abrasf.www.nfse_xsd.ListaMensagemRetorno_type0;
+import br.org.abrasf.www.nfse_xsd.SubstituirNfseEnvio_type0;
+import br.org.abrasf.www.nfse_xsd.SubstituirNfseResposta_type0;
 import br.org.abrasf.www.nfse_xsd.CancelarNfseEnvio_type0;
 import br.org.abrasf.www.nfse_xsd.CancelarNfseResposta_type0;
 import br.org.abrasf.www.nfse_xsd.CompNfse;
+import br.org.abrasf.www.nfse_xsd.ConsultarNfseRpsEnvio_type0;
+import br.org.abrasf.www.nfse_xsd.ConsultarNfseRpsResposta_type0;
 import br.org.abrasf.www.nfse_xsd.GerarNfseEnvio_type0;
 import br.org.abrasf201.nfse.CabecalhoDocument.Cabecalho;
 import br.org.abrasf201.nfse.CancelarNfseEnvioDocument;
@@ -535,25 +539,28 @@ public class NFSeAbrasf201Impl implements INFSe
 		
 		br.org.abrasf.www.nfse_xsd.TcCompNfse compNfse = null;
 		
+		ListaMensagemRetorno_type0 listaMensagemRetorno = null;
+		
 		if (nf.getLBR_NFReplacedNo() != null)
 		{
 			SubstituirNfseEnvioDocument document = SubstituirNfseEnvioDocument.Factory.newInstance();
 			SubstituirNfseEnvio substituirNfseEnvio = document.addNewSubstituirNfseEnvio();
 			SubstituicaoNfse substituicaoNfse = substituirNfseEnvio.addNewSubstituicaoNfse();
 			substituicaoNfse.setRps(TcDeclaracaoPrestacaoServico.Factory.parse(xml));
+			substituicaoNfse.setId("Substituicao_1");
 			
 			TcPedidoCancelamento pedido = substituicaoNfse.addNewPedido();
 			TcInfPedidoCancelamento infCancelOrder = pedido.addNewInfPedidoCancelamento();
 			infCancelOrder.setCodigoCancelamento((byte) 1);
-			infCancelOrder.setId("1");
+			infCancelOrder.setId("Cancelamento_1");
 			
 			TcIdentificacaoNfse identNfse = infCancelOrder.addNewIdentificacaoNfse();
 			identNfse.setNumero(new BigDecimal(nf.getLBR_NFReplacedNo()).longValue());
 			identNfse.setCodigoMunicipio(nf.getlbr_BPCityCode());
-			identNfse.setInscricaoMunicipal(TextUtil.toNumeric(nf.getlbr_OrgCCM()));
+			identNfse.setInscricaoMunicipal(TextUtil.toNumeric(getInscricaoMunicipal(nf)));
 			
 			TcCpfCnpj cpfcnpjPrestador = identNfse.addNewCpfCnpj();
-			cpfcnpjPrestador.setCnpj(TextUtil.toNumeric(nf.getlbr_CNPJ()));
+			cpfcnpjPrestador.setCnpj(TextUtil.toNumeric(getCNPJ(nf)));
 			
 			MOrgInfo orgInf = MOrgInfo.get (nf.getCtx(), nf.getAD_Org_ID(), null);
 			new SignatureUtil (orgInf, SignatureUtil.OUTROS, "InfPedidoCancelamento").sign (document, pedido.newCursor());
@@ -564,14 +571,21 @@ public class NFSeAbrasf201Impl implements INFSe
 			Reader reader = new StringReader(document.xmlText());
 			XMLInputFactory factory = XMLInputFactory.newInstance();
 			XMLStreamReader xmlReader = factory.createXMLStreamReader(reader);
-			//String result = nfseStub.substituirNfse(br.org.abrasf.www.nfse_xsd.SubstituirNfseEnvio_type0.Factory.parse(xmlReader),getUser(nf),getPassword(nf)).toString();
-			String result = "";
-			log.info(result);
 			
-			SubstituirNfseResposta resposta = SubstituirNfseRespostaDocument.Factory.parse(result).getSubstituirNfseResposta();
-			//listaMensagemRetorno = resposta.getListaMensagemRetorno();
-			if (resposta.getRetSubstituicao() != null)
-				//compNfse = resposta.getRetSubstituicao().getNfseSubstituidora().getCompNfse();
+			SubstituirNfseEnvio_type0 substituirNfseDoc = SubstituirNfseEnvio_type0.Factory.parse(xmlReader); 
+			SubstituirNfseResposta_type0 result = nfseStub.substituirNfse(substituirNfseDoc,getUser(nf),getPassword(nf));
+			
+			//Monitorar envio do Stub
+			String request = nfseStub._getServiceClient().getLastOperationContext().getMessageContext("Out")
+					.getEnvelope().toString();
+			
+			System.out.println(request);
+			
+			log.info(request);
+			
+			listaMensagemRetorno = result.getListaMensagemRetorno();
+			if (result.getRetSubstituicao() != null)
+				compNfse = result.getRetSubstituicao().getNfseSubstituidora().getCompNfse();
 			//
 			if (nf.getRef_NotaFiscal_ID() > 0 && compNfse != null)
 			{
@@ -584,10 +598,8 @@ public class NFSeAbrasf201Impl implements INFSe
 			GerarNfseEnvioDocument document = GerarNfseEnvioDocument.Factory.newInstance();
 			document.addNewGerarNfseEnvio().setRps(TcDeclaracaoPrestacaoServico.Factory.parse(xml));
 			
-			Reader reader = new StringReader(document.xmlText());
 			XMLInputFactory factory = XMLInputFactory.newInstance();
 			XMLStreamReader xmlReader = factory.createXMLStreamReader(new ByteArrayInputStream(document.xmlText().getBytes()));
-			xmlReader.close();
 			
 			GerarNfseEnvio_type0 gerarNfseDoc = GerarNfseEnvio_type0.Factory.parse(xmlReader);
 			
@@ -597,38 +609,39 @@ public class NFSeAbrasf201Impl implements INFSe
 			String request = nfseStub._getServiceClient().getLastOperationContext().getMessageContext("Out")
 					.getEnvelope().toString();
 			
-			ListaMensagemRetorno_type0 listaMensagemRetorno = resultado.getListaMensagemRetorno();
+			log.info(request);
+			
+			listaMensagemRetorno = resultado.getListaMensagemRetorno();
 			if (resultado.getListaNfse() != null)
 				compNfse = resultado.getListaNfse().getCompNfse();
 			
-			StringBuilder msgRetorno = new StringBuilder ();
-			if (listaMensagemRetorno != null)
-			{
-				Arrays.asList(listaMensagemRetorno.getMensagemRetorno())
-					.forEach(msg -> {
-						msgRetorno
-							.append("Cod=").append(msg.getCodigo())
-							.append(", Correção=").append(msg.getCorrecao())
-							.append(", Msg=").append(msg.getMensagem())
-							.append("\n");
-					});
-				//
-				log.warning("NFS-e " + nf.toString() + " - " + msgRetorno.toString());
-				nf.setErrorMsg(msgRetorno.toString());
-				nf.save();
-			}
-			//	Adicionar Protocolo do Lote
-			if (compNfse != null 
-					&& !compNfse.getNfse().getInfNfse().getCodigoVerificacao().isEmpty())
-			{
-				setProtocol (nf, compNfse);
-			}
-			else
-				throw new Exception (msgRetorno.toString());
 		}
-
+		
 		//	Check error messages
- 
+		StringBuilder msgRetorno = new StringBuilder ();
+		if (listaMensagemRetorno != null)
+		{
+			Arrays.asList(listaMensagemRetorno.getMensagemRetorno())
+				.forEach(msg -> {
+					msgRetorno
+						.append("Cod=").append(msg.getCodigo())
+						.append(", Correção=").append(msg.getCorrecao())
+						.append(", Msg=").append(msg.getMensagem())
+						.append("\n");
+				});
+			//
+			log.warning("NFS-e " + nf.toString() + " - " + msgRetorno.toString());
+			nf.setErrorMsg(msgRetorno.toString());
+			nf.save();
+		}
+		//	Adicionar Protocolo do Lote
+		if (compNfse != null 
+				&& !compNfse.getNfse().getInfNfse().getCodigoVerificacao().isEmpty())
+		{
+			setProtocol (nf, compNfse);
+		}
+		else
+			throw new Exception (msgRetorno.toString());
 		return true;
 	}	//	transmit
 
@@ -718,14 +731,25 @@ public class NFSeAbrasf201Impl implements INFSe
 		XMLInputFactory factory = XMLInputFactory.newInstance();
 		XMLStreamReader xmlReader = factory.createXMLStreamReader(reader);
 		
-		String result = nfseStub.consultarNfsePorRps(br.org.abrasf.www.nfse_xsd.ConsultarNfseRpsEnvio_type0.Factory.parse(xmlReader), getUser(nf), getPassword(nf)).toString();
-		ConsultarNfseRpsResposta resposta = ConsultarNfseRpsRespostaDocument.Factory.parse(result).getConsultarNfseRpsResposta();
+		ConsultarNfseRpsEnvio_type0 consultarNfse = ConsultarNfseRpsEnvio_type0.Factory.parse(xmlReader);
+
+		ConsultarNfseRpsResposta_type0 result = nfseStub.consultarNfsePorRps(consultarNfse, getUser(nf), getPassword(nf));
 		
-		ListaMensagemRetorno listaMensagemRetorno = resposta.getListaMensagemRetorno();
+		//Monitorar envio do Stub
+		String request = nfseStub._getServiceClient().getLastOperationContext().getMessageContext("Out")
+				.getEnvelope().toString();
+		
+		log.info(request);
+		
+		System.out.println(request);
+		
+		//ConsultarNfseRpsResposta resposta = ConsultarNfseRpsRespostaDocument.Factory.parse(result).getConsultarNfseRpsResposta();
+		
+		ListaMensagemRetorno_type0 listaMensagemRetorno = result.getListaMensagemRetorno();
 		if (listaMensagemRetorno != null)
 		{
 			StringBuilder msgRetorno = new StringBuilder ();
-			Arrays.asList(listaMensagemRetorno.getMensagemRetornoArray())
+			Arrays.asList(listaMensagemRetorno.getMensagemRetorno())
 				.forEach(msg -> {
 					msgRetorno
 						.append("Cod=").append(msg.getCodigo())
@@ -738,10 +762,16 @@ public class NFSeAbrasf201Impl implements INFSe
 			nf.setErrorMsg(msgRetorno.toString());
 			nf.save();
 		}
+		QName qname = new javax.xml.namespace.QName("http://www.abrasf.org.br/nfse.xsd", "Nfse");
 		
+		br.org.abrasf.www.nfse_xsd.TcCompNfse compNfse = result.getCompNfse();
+		
+		OMElement omElement = compNfse.getOMElement(qname, OMAbstractFactory.getOMFactory());
+		
+		System.out.println(omElement.toString());
 		//	Adicionar Protocolo do Lote
-		if (resposta.getCompNfse() != null 
-				&& !resposta.getCompNfse().getNfse().getInfNfse().getCodigoVerificacao().isEmpty())
+		if (result.getCompNfse() != null 
+				&& !result.getCompNfse().getNfse().getInfNfse().getCodigoVerificacao().isEmpty())
 		{
 		//	setProtocol (nf, resposta.getCompNfse());
 		}
