@@ -776,6 +776,18 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 			nfLineTax.save();
 		}
 		
+		BigDecimal vam = getLBR_VAM();
+		boolean adjustIVA = MSysConfig.getBooleanValue(SysConfig.LBR_AUTOMATIC_ADJUST_MVA, MSysConfig.getBooleanValue(SysConfig.LBR_AUTOMATIC_ADJUST_IVA, true, getAD_Client_ID()), getAD_Client_ID());
+		if (adjustIVA && vam != null && vam.signum() == 1)
+		{
+			BigDecimal icms = getTaxRate("ICMS");
+			BigDecimal icmsst = getTaxRate("ICMSST");
+			
+			if (icms != null && icms.signum() == 1 
+					&& icmsst != null && icmsst.signum() == 1)
+				setLBR_VAM(vam.multiply(Env.ONEHUNDRED.subtract(icms).divide(Env.ONEHUNDRED.subtract(icmsst), 17, RoundingMode.HALF_UP)).setScale(2, RoundingMode.HALF_UP));
+		}
+		
 		fixTaxHold(iLineW.getC_Tax_ID());
 	}	//	setInvoiceLine
 	
