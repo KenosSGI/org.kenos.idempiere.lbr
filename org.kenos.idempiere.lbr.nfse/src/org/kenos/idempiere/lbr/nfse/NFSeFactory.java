@@ -9,6 +9,7 @@ import org.adempierelbr.nfse.NFSeTubaraoImpl;
 import org.adempierelbr.nfse.atibaia.NFSeAtibaiaImpl;
 import org.compiere.util.CLogger;
 import org.kenos.idempiere.lbr.base.nfse.INFSeFactory;
+import org.kenos.idempiere.lbr.nfse.dsf.DSF100;
 
 /**
  * 
@@ -56,6 +57,10 @@ public class NFSeFactory implements INFSeFactory
 		//	Atibaia
 		else if (NFSeAtibaiaImpl.C_City_ID == p_C_City_ID)
 			return NFSeAtibaiaImpl.class;
+		
+		//	Atibaia
+		else if (DSF100.C_City_ID == p_C_City_ID)
+			return DSF100.class;
 		
 		//	Not Found
 		return null;

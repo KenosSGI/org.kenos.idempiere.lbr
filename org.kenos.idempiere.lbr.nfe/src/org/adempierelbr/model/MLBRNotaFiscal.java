@@ -95,6 +95,7 @@ import org.compiere.model.MProductionLine;
 import org.compiere.model.MRMA;
 import org.compiere.model.MRefList;
 import org.compiere.model.MRole;
+import org.compiere.model.MSequence;
 import org.compiere.model.MShipper;
 import org.compiere.model.MSysConfig;
 import org.compiere.model.MTable;
@@ -5030,9 +5031,24 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		//	Inutilizar a numeração
 		else if (TextUtil.match(getDocStatus(), DOCSTATUS_Drafted, DOCSTATUS_InProgress, DOCSTATUS_Invalid) || !islbr_IsOwnDocument())
 		{
+			boolean lastNF = false;
+			
+			try
+			{
+				Integer documentNo = Integer.valueOf(getDocumentNo()) + 1;
+				MSequence sequence = getNextSequence ();
+				if (sequence != null && documentNo.intValue() == sequence.getCurrentNext())
+				{
+					sequence.setCurrentNext(sequence.getCurrentNext()-1);
+					sequence.save();
+					//
+					lastNF = true;
+				}
+			}	catch (Exception e) {}
+			
 			// Entra no IF se a Nota Fiscal não for um Documento Próprio
 			// ou for uma Nota Fiscal de Serviço e Anula a Nota Fiscal
-			if (!islbr_IsOwnDocument() || (!LBR_NFMODEL_NotaFiscalEletrônica.equals(getlbr_NFModel()) &&
+			if (!islbr_IsOwnDocument() || lastNF || (!LBR_NFMODEL_NotaFiscalEletrônica.equals(getlbr_NFModel()) &&
 					!LBR_NFMODEL_NotaFiscalDeConsumidorEletrônica.equals(getlbr_NFModel())))
 			{
 				setProcessed (true);
@@ -5088,6 +5104,17 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		return false;
 	}	//	voidIt
 	
+	/**
+	 * 	Return the next sequence of this type of document
+	 * 	@return current next
+	 */
+	private MSequence getNextSequence()
+	{
+		if (getC_DocTypeTarget_ID() > 0 && getC_DocTypeTarget().getDocNoSequence_ID() > 0)
+			return (MSequence) getC_DocTypeTarget().getDocNoSequence();
+		return null;
+	}	//	getNextSequence
+
 	/**
 	 * 	Close Document.
 	 * 	Cancel not delivered Qunatities
@@ -5249,7 +5276,8 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		else if (DOCSTATUS_WaitingConfirmation.equals(docStatus))
 		{
 			options[0] = DOCACTION_Complete;
-			index=1;
+			options[1] = DOCACTION_Unlock;
+			index=2;
 		}
 		else if (DOCSTATUS_Completed.equals(docStatus))
 		{

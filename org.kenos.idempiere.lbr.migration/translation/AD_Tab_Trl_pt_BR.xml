@@ -1899,9 +1899,9 @@ iDempiere tenta mapear produtos já existentes, se a UPC, a Chave e o Nº do Pro
   <value column="Help" original=""/>
  </row>
  <row id="460" trl="Y">
-  <value column="Name" original="Payment Schedule">Parcelamento</value>
+  <value column="Name" original="Payment Schedule">Vencimento</value>
   <value column="CommitWarning" original=""/>
-  <value column="Description" original="Invoice Payment Schedule">Parcelamento de Pagamento de Fatura</value>
+  <value column="Description" original="Invoice Payment Schedule">Vencimentos da Fatura</value>
   <value column="Help" original=""/>
  </row>
  <row id="461" trl="Y">
@@ -2155,9 +2155,9 @@ Note que o acesso à informação é armazenado em cache e exige um novo login o
   <value column="Help" original="Select from invoices not fully paid.">Selecione a partir de faturas não totalmente pagas.</value>
  </row>
  <row id="502" trl="Y">
-  <value column="Name" original="Payment Schedule">Parcelamento</value>
+  <value column="Name" original="Payment Schedule">Vencimento</value>
   <value column="CommitWarning" original=""/>
-  <value column="Description" original="Mainain Payment Schedule">Regras de Parcelamento de Pagamentos</value>
+  <value column="Description" original="Mainain Payment Schedule">Regras de Vencimento de Pagamentos</value>
   <value column="Help" original=""/>
  </row>
  <row id="503" trl="Y">
@@ -5663,9 +5663,9 @@ Impressão:
   <value column="Help" original=""/>
  </row>
  <row id="53373" trl="Y">
-  <value column="Name" original="Payment Schedule">Programação de Pagamento</value>
+  <value column="Name" original="Payment Schedule">Vencimento</value>
   <value column="CommitWarning" original=""/>
-  <value column="Description" original="Invoice Payment Schedule">Programação de Pagamento da Fatura</value>
+  <value column="Description" original="Invoice Payment Schedule">Vencimentos da Fatura</value>
   <value column="Help" original=""/>
  </row>
  <row id="53374" trl="Y">

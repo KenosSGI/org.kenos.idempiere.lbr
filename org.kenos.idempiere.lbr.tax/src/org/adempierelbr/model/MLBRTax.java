@@ -1158,9 +1158,9 @@ public class MLBRTax extends X_LBR_Tax
 					
 					if (tl.getLBR_TaxName_ID() == TAX_ICMSST)
 					{
-						if (!TextUtil.match (cst, "10", "60", "70", "90"))
+						if (!TextUtil.match (cst, "10", "60", "70", "90", "201", "202", "203", "500", "900"))
 						{
-							result += "CST do ICMSST inválida " + cst + " - Corretos: 10, 60, 70 ou 90, ";
+							result += "CST do ICMSST inválida " + cst + " - Corretos: 10, 60, 70, 90, 201, 202, 203, 500 ou 900";
 						}
 						
 						if (rate == 0)

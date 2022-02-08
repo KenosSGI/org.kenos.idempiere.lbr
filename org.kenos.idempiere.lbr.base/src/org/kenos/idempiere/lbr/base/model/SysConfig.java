@@ -32,7 +32,6 @@ public class SysConfig
 	public static final String LBR_CUSTOM_NFE_EMAIL_MESSAGE 					= "LBR_CUSTOM_NFE_EMAIL_MESSAGE";
 	public static final String LBR_CUSTOM_NFSE_EMAIL_MESSAGE 					= "LBR_CUSTOM_NFSE_EMAIL_MESSAGE";
 	public static final String LBR_DATEINOUT_NF 								= "LBR_DATEINOUT_NF";
-	public static final String LBR_DEBUG_RPS 									= "LBR_DEBUG_RPS";
 	public static final String LBR_DEFAULT_TIMEZONE 							= "LBR_DEFAULT_TIMEZONE";
 	public static final String LBR_DFE_LAST_NSU 								= "LBR_DFE_LAST_NSU";
 	public static final String LBR_DISABLE_PRICE_LIST_CHECK 					= "LBR_DISABLE_PRICE_LIST_CHECK";
@@ -100,4 +99,6 @@ public class SysConfig
 	public static final String LBR_SPED_CLAS_ESTAB_IND							= "LBR_SPED_CLAS_ESTAB_IND";
 	@Deprecated
 	public static final String LBR_AUTOMATIC_ADJUST_IVA 						= "LBR_AUTOMATIC_ADJUST_IVA";
+	@Deprecated
+	public static final String LBR_DEBUG_RPS 									= "LBR_DEBUG_RPS";
 }	//	SysConfig
