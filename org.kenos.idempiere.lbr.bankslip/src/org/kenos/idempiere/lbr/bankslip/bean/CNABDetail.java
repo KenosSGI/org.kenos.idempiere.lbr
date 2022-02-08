@@ -254,6 +254,8 @@ public class CNABDetail {
 	public static final String DUMMY3 			= "dummy3";
 	public static final String DUMMY4 			= "dummy4";
 	public static final String DUMMY5 			= "dummy5";
+	public static final String DUMMY6 			= "dummy6";
+	public static final String DUMMY7 			= "dummy7";
 	public static final String IDENTIFIER 		= "identifier";
 	public static final String INTEREST 		= "interest";
 	public static final String IOF 				= "iof";

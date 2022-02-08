@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE PZMAP SYSTEM	"flatpack.dtd" >
+<PZMAP>
+    <RECORD id="header" startPosition="1" endPosition="1" indicator="0">
+        <COLUMN name="type" length="1" />
+        <COLUMN name="dummy1" length="75" />
+		<COLUMN name="routingNo" length="3" />
+	    <COLUMN name="headerdata" length="321" />
+    </RECORD>
+	<COLUMN name="type" length="1" />
+	<COLUMN name="identifier" length="37" />
+	<COLUMN name="numberInOrg" length="25" />
+	<COLUMN name="numberInBank" length="17" />
+	<COLUMN name="dummy1" length="27" />
+	<COLUMN name="occur" length="2" />
+	<COLUMN name="dateTrx" length="6" />
+	<COLUMN name="documentNo" length="10" />
+	<COLUMN name="dummy2" length="20" />
+	<COLUMN name="dueDate" length="6" />
+	<COLUMN name="amount" length="13" />
+	<COLUMN name="collectionBank" length="3" />
+	<COLUMN name="agency" length="5" />
+	<COLUMN name="currency" length="2" />
+    <COLUMN name="dummy3" length="6" />
+	<COLUMN name="bankFee" length="7" />
+    <COLUMN name="otherCharges" length="13" />
+	<COLUMN name="dummy4" length="13" />
+	<COLUMN name="iof" length="13" />
+	<COLUMN name="rebate" length="13" />
+	<COLUMN name="discount" length="13" />
+    <COLUMN name="dummy5" length="13" />
+	<COLUMN name="interest" length="13" />
+	<COLUMN name="otherRevenue" length="13" />
+    <COLUMN name="dummy6" length="13" />
+    <COLUMN name="payAmt" length="13" />
+	<COLUMN name="dummy7" length="77" />
+	<COLUMN name="lineno" length="6" />
+    <RECORD id="trailer" startPosition="1" endPosition="1" indicator="9">
+        <COLUMN name="type" length="1" />
+	    <COLUMN name="trailerdata" length="399" />
+    </RECORD>
+</PZMAP>
