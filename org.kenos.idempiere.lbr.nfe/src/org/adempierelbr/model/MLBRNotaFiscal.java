@@ -4577,9 +4577,10 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 				{
 					try
 					{
-						if (infSe.getXML (this) != null)
+						byte[] xmlb = infSe.getXML (this);
+						if (xmlb != null)
 						{
-							String xml = new String (infSe.getXML (this), NFeUtil.NFE_ENCODING);
+							String xml = new String (xmlb, NFeUtil.NFE_ENCODING);
 	
 							//	Anexa o XML na NF
 							if (getAttachment (true) != null)

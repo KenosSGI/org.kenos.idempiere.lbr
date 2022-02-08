@@ -321,11 +321,12 @@ public class DSF100 implements INFSe
 			tpRPS.setEmailTomador(nf.getLBR_EMailNFe().trim());
 		tpRPS.setTipoRecolhimento(withholdISS ? TpTipoRecolhimento.R : TpTipoRecolhimento.A);
 		
-		if (withholdISS && nf.getlbr_BPCity() != null && nf.getlbr_BPCity().equals(nf.getlbr_OrgCity()))
-		{
-			nf.setErrorMsg("Impossível gerar NFS-e. Imposto deve ser A Recolher para prestação dentro do município");
-			return null;
-		}
+//		if (withholdISS && nf.getlbr_BPCity() != null && nf.getlbr_BPCity().equals(nf.getlbr_OrgCity()))
+//		{
+//			nf.setErrorMsg("Impossível gerar NFS-e. Imposto deve ser A Recolher para prestação dentro do município");
+//			nf.save();
+//			return null;
+//		}
 		
 		String orgPhone = TextUtil.toNumeric(nf.getlbr_OrgPhone());
 		//
