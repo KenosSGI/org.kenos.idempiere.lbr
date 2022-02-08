@@ -55,4 +55,26 @@ public class MCity extends org.compiere.model.MCity
 		catch (Exception e) {}
 		return city;
 	}	//	getCity
+
+	public int getlbr_CityCode() {
+		Object cityCode = get_Value(I_W_C_City.COLUMNNAME_lbr_CityCode);
+		//
+		if (cityCode != null) {
+			try {
+				return Integer.parseInt (cityCode.toString());
+			} catch (Exception e) {}
+		}
+		return -1;
+	}	//	getlbr_CityCode
+
+	public int getlbr_CityCode2() {
+		Object cityCode2 = get_Value(I_W_C_City.COLUMNNAME_lbr_CityCode + "2");
+		//
+		if (cityCode2 != null) {
+			try {
+				return Integer.parseInt (cityCode2.toString());
+			} catch (Exception e) {}
+		}
+		return -1;
+	}	//	getlbr_CityCode2
 }	//	MCity

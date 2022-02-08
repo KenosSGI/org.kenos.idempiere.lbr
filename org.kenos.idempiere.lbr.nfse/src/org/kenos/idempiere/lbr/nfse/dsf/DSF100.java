@@ -54,6 +54,7 @@ import org.compiere.util.CLogger;
 import org.compiere.util.Env;
 import org.kenos.idempiere.lbr.base.event.IDocFiscalHandler;
 import org.kenos.idempiere.lbr.base.event.IDocFiscalHandlerFactory;
+import org.kenos.idempiere.lbr.base.model.MCity;
 import org.kenos.idempiere.lbr.base.model.SysConfig;
 
 import br.com.dsfnet.nfse.lote.ReqConsultaLoteDocument;
@@ -207,7 +208,8 @@ public class DSF100 implements INFSe
 		BigDecimal r_IR 	= Env.ZERO;
 		BigDecimal r_CSLL 	= Env.ZERO;
 		BigDecimal r_ISS 	= Env.ZERO;
-		
+		MCity city = null;
+				
 		//	Linhas
 		TpListaItens items = tpRPS.addNewItens();
 		for (MLBRNotaFiscalLine nfl : nf.getLines())
@@ -228,8 +230,8 @@ public class DSF100 implements INFSe
 				//
 				if (descricaoServico == null || descricaoServico.isEmpty())
 					descricaoServico = nfl.getProductName();
-				else if (descricaoServico.indexOf(nfl.getProductName()) == -1)
-					descricaoServico = descricaoServico + ". " + nfl.getProductName();
+//				else if (descricaoServico.indexOf(nfl.getProductName()) == -1)
+//					descricaoServico = descricaoServico + ". " + nfl.getProductName();
 			}
 			
 			//	Mesmo código de serviço para todos os serviços prestados
@@ -282,6 +284,14 @@ public class DSF100 implements INFSe
 			r_INSS 	= toBD (nfl.getTaxRate("INSS")).abs();
 			r_IR 	= toBD (nfl.getTaxRate("IR")).abs();
 			r_CSLL 	= toBD (nfl.getTaxRate("CSLL")).abs();
+			
+			if (city == null && nfl.getC_City_ID() > 0)
+				city = new MCity (Env.getCtx(), nfl.getC_City_ID(), null);
+		}
+		
+		if (city != null) {
+			tpRPS.setMunicipioPrestacao(city.getlbr_CityCode2());
+			tpRPS.setMunicipioPrestacaoDescricao(city.getName());
 		}
 		
 		BigDecimal v_PIS 	= toBD (nf.getTaxAmt("PIS")).abs();
@@ -686,7 +696,7 @@ public class DSF100 implements INFSe
 		{
 			proccessNFSe (nf.getCtx(), nf.get_TrxName(), "" + chaves.getNumeroRPS(), "" + chaves.getNumeroNFe(), chaves.getCodigoVerificacao(), nf.getAD_Org_ID());
 		}
-		return false;
+		return true;
 	}
 
 	public boolean consult(Properties ctx, int AD_Org_ID, String trxName,
