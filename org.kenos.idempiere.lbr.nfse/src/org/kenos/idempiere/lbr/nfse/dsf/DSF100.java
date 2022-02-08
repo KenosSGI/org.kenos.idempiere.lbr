@@ -519,7 +519,7 @@ public class DSF100 implements INFSe
 		
 		//	Gera o XML em arquivo para Assinatura	
 		new SignatureUtil (oi, SignatureUtil.OUTROS, "Lote").sign (envioLoteRPSDoc, envioLoteRPSDoc.getReqEnvioLoteRPS().newCursor());
-		StringBuilder xml = new StringBuilder (envioLoteRPSDoc.xmlText());
+		StringBuilder xml = new StringBuilder (new String (envioLoteRPSDoc.xmlText().getBytes(), NFeUtil.NFE_ENCODING));
 		
 		//	Log
 		log.fine ("Sending XML: " + xml.toString());
