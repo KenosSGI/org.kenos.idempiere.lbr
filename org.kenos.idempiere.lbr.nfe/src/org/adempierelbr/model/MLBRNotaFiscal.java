@@ -4524,6 +4524,19 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 			if (!islbr_IsOwnDocument())
 				return DOCSTATUS_InProgress;
 			
+			//	Ajusta a data/hora de emissão da NFC-e ou quando configurado no tipo de documento
+			if (islbr_IsOwnDocument() && (getC_DocTypeTarget().isOverwriteDateOnComplete() 
+							|| LBR_NFMODEL_NotaFiscalDeConsumidorEletrônica.equals(getlbr_NFModel())))
+			{
+				Timestamp currentDate = new Timestamp (System.currentTimeMillis());
+				if (!TextUtil.timeToString(getDateDoc()).equals(TextUtil.timeToString(currentDate)) 
+						|| TextUtil.timeToString(getDateDoc(), "HHmm").equals("0000"))
+				{
+					setDateDoc(currentDate);
+					setDateAcct(currentDate);
+				}
+			}
+			
 			//	Nota Fiscal Eletrônica
 			if (TextUtil.match (getlbr_NFModel(), LBR_NFMODEL_NotaFiscalEletrônica, LBR_NFMODEL_NotaFiscalDeConsumidorEletrônica))
 			{
@@ -4531,19 +4544,6 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 				setlbr_NFeStatus (null);
 				setlbr_NFeID (null);
 				setLBR_NFeLot_ID (0);
-				
-				//	Ajusta a data/hora de emissão da NFC-e ou quando configurado no tipo de documento
-				if (islbr_IsOwnDocument() && (getC_DocTypeTarget().isOverwriteDateOnComplete() 
-								|| LBR_NFMODEL_NotaFiscalDeConsumidorEletrônica.equals(getlbr_NFModel())))
-				{
-					Timestamp currentDate = new Timestamp (System.currentTimeMillis());
-					if (!TextUtil.timeToString(getDateDoc()).equals(TextUtil.timeToString(currentDate)) 
-							|| TextUtil.timeToString(getDateDoc(), "HHmm").equals("0000"))
-					{
-						setDateDoc(currentDate);
-						setDateAcct(currentDate);
-					}
-				}
 				
 				try
 				{
