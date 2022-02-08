@@ -228,8 +228,8 @@ public class DSF100 implements INFSe
 				//
 				if (descricaoServico == null || descricaoServico.isEmpty())
 					descricaoServico = nfl.getProductName();
-				else if (descricaoServico.indexOf(nfl.getProductName()) == -1)
-					descricaoServico = descricaoServico + ". " + nfl.getProductName();
+//				else if (descricaoServico.indexOf(nfl.getProductName()) == -1)
+//					descricaoServico = descricaoServico + ". " + nfl.getProductName();
 			}
 			
 			//	Mesmo código de serviço para todos os serviços prestados
@@ -686,7 +686,7 @@ public class DSF100 implements INFSe
 		{
 			proccessNFSe (nf.getCtx(), nf.get_TrxName(), "" + chaves.getNumeroRPS(), "" + chaves.getNumeroNFe(), chaves.getCodigoVerificacao(), nf.getAD_Org_ID());
 		}
-		return false;
+		return true;
 	}
 
 	public boolean consult(Properties ctx, int AD_Org_ID, String trxName,
