@@ -492,6 +492,8 @@ public class X_LBR_NotaFiscal extends PO implements I_LBR_NotaFiscal, I_Persiste
 	public static final String DOCACTION_Unlock = "XL";
 	/** Void/Invalidate = VO */
 	public static final String DOCACTION_VoidInvalidate = "VO";
+	/** ReActivate = RE */
+	public static final String DOCACTION_ReActivate = "RE";
 	/** Set Document Action.
 		@param DocAction 
 		The targeted status of the document

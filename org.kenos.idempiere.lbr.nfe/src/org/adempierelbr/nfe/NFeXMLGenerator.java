@@ -2152,7 +2152,7 @@ public class NFeXMLGenerator
 			
 			//	Dados da cobrança
 			// amc - Caso seja NFCE não haverá dados de fatura, duplicata
-			if (FIN_NFE_NORMAL.equals (ide.getFinNFe()) && nf.islbr_IsOwnDocument())
+			if (FIN_NFE_NORMAL.equals (ide.getFinNFe()) && nf.islbr_IsOwnDocument() && nf.getC_Invoice_ID() > 0 && nf.islbr_HasOpenItems())
 			{
 				//	Y. Dados da Cobrança
 				Cobr cobr = infNFe.addNewCobr();
@@ -2162,50 +2162,46 @@ public class NFeXMLGenerator
 				if (discountAmt == null || discountAmt.signum() == -1)
 					discountAmt = Env.ZERO;
 				
-				//	Fatura
-				if (nf.getC_Invoice_ID() > 0 && nf.islbr_HasOpenItems())
-				{
-					Fat fat = cobr.addNewFat();
-					String fatNo = nf.getC_Invoice().getDocumentNo();
-					
-					fat.setNFat (fatNo); 				// 	Codigo NFE
-					fat.setVOrig(normalize (discountAmt.add (nf.getGrandTotal()))); // 	Valor Bruto
-					
-					if (discountAmt.signum() == 1)
-						fat.setVDesc (normalize (discountAmt));
-					else
-						fat.setVDesc (normalize (BigDecimal.ZERO));
-					
-					fat.setVLiq (normalize (nf.getGrandTotal())); 					// 	Valor Liquido
-					
-					//	Contador de duplicata
-					int dupCounter = 1;
-					
-					
-					if (MLBRNFPaySchedule.getNFPaySchedule (nf.getCtx(), nf.getLBR_NotaFiscal_ID(), 0, trxName).length > 0)
-					{	
-					    //	Adiciona as duplicatas da fatura
-					    for (MLBRNFPaySchedule nfps : MLBRNFPaySchedule.getNFPaySchedule (nf.getCtx(), nf.getLBR_NotaFiscal_ID(), 0, trxName))
-					    {
-					    	Dup dup = cobr.addNewDup();
-					    	dup.setNDup(TextUtil.lPad(dupCounter++, 3));
-					    	dup.setDVenc(normalize (nfps.getDueDate()));
-					    	dup.setVDup(normalize (nfps.getDueAmt().abs()));
-					    	
-					    	// Total à pagar
-					    	pagAmt = pagAmt.add(nfps.getDueAmt().abs());
-						}
+				Fat fat = cobr.addNewFat();
+				String fatNo = nf.getC_Invoice().getDocumentNo();
+				
+				fat.setNFat (fatNo); 				// 	Codigo NFE
+				fat.setVOrig(normalize (discountAmt.add (nf.getGrandTotal()))); // 	Valor Bruto
+				
+				if (discountAmt.signum() == 1)
+					fat.setVDesc (normalize (discountAmt));
+				else
+					fat.setVDesc (normalize (BigDecimal.ZERO));
+				
+				fat.setVLiq (normalize (nf.getGrandTotal())); 					// 	Valor Liquido
+				
+				//	Contador de duplicata
+				int dupCounter = 1;
+				
+				
+				if (MLBRNFPaySchedule.getNFPaySchedule (nf.getCtx(), nf.getLBR_NotaFiscal_ID(), 0, trxName).length > 0)
+				{	
+				    //	Adiciona as duplicatas da fatura
+				    for (MLBRNFPaySchedule nfps : MLBRNFPaySchedule.getNFPaySchedule (nf.getCtx(), nf.getLBR_NotaFiscal_ID(), 0, trxName))
+				    {
+				    	Dup dup = cobr.addNewDup();
+				    	dup.setNDup(TextUtil.lPad(dupCounter++, 3));
+				    	dup.setDVenc(normalize (nfps.getDueDate()));
+				    	dup.setVDup(normalize (nfps.getDueAmt().abs()));
+				    	
+				    	// Total à pagar
+				    	pagAmt = pagAmt.add(nfps.getDueAmt().abs());
 					}
-					else
-					{				    
-					    //	Adiciona as duplicatas da fatura
-					    for (MLBROpenItem openItem : MLBROpenItem.getOpenItem (nf.getC_Invoice_ID(), trxName))
-					    {
-					    	Dup dup = cobr.addNewDup();
-					    	dup.setNDup(TextUtil.lPad(dupCounter++, 3));
-					    	dup.setDVenc(normalize (openItem.getDueDate()));
-					    	dup.setVDup(normalize (openItem.getGrandTotal().abs()));
-						}
+				}
+				else
+				{				    
+				    //	Adiciona as duplicatas da fatura
+				    for (MLBROpenItem openItem : MLBROpenItem.getOpenItem (nf.getC_Invoice_ID(), trxName))
+				    {
+				    	Dup dup = cobr.addNewDup();
+				    	dup.setNDup(TextUtil.lPad(dupCounter++, 3));
+				    	dup.setDVenc(normalize (openItem.getDueDate()));
+				    	dup.setVDup(normalize (openItem.getGrandTotal().abs()));
 					}
 				}
 			}
