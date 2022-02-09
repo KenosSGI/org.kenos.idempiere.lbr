@@ -464,7 +464,16 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 				if (getLBR_BankSlipContract().getLBR_NumberInBankSeq_ID() > 0)
 				{
 					MSequence seq = new MSequence (getCtx(), getLBR_BankSlipContract().getLBR_NumberInBankSeq_ID(), get_TrxName());
-					setLBR_NumberInBank(String.valueOf(seq.getNextID()));
+					String next = String.valueOf(seq.getNextID());
+					String prefix = seq.getPrefix();
+					String suffix = seq.getSuffix();
+					//
+					if (prefix != null && TextUtil.toNumeric(prefix).length() > 0)
+						next = prefix + next;
+					if (suffix != null && TextUtil.toNumeric(suffix).length() > 0)
+						next = next + suffix;
+					//
+					setLBR_NumberInBank(next);
 					seq.save();
 				}
 			}
@@ -691,9 +700,25 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 			
 			//	Instruction 2 Nota Fiscal
 			if (nf != null)
-				bsi.setlbr_Instruction2("Nota Fiscal: " + nf.getDocumentNo() + " / " + nf.getlbr_NFSerie());
+			{
+				String documentNo = nf.getDocumentNo();
+				String nfSerie = nf.getlbr_NFSerie();
+				String nfeNo = nf.getlbr_NFENo();
+				
+				//	Replace RPS no with NFSe no
+				if (nfeNo != null && nfeNo.length() > 0)
+					documentNo = nfeNo;
+				
+				if (nfSerie != null && nfSerie.length() > 0)
+					documentNo += "/" + nfSerie;
+				
+				bsi.setlbr_Instruction2("Nota Fiscal: " + documentNo);
+			}
 			
-			//	TODO: Instrução de Multa/etc
+//			String instruction3 = "";
+//			if (LBR_PENALTYTYPE_Amount.equals(getLBR_PenaltyType()))
+//				instruction3 = "APÓS O VENCIMENTO COBRAR MULTA DE "
+//			if (LBR_INTERESTTYPE_MonthlyRate.equals(getLBR_InterestType());
 			
 			
 			//	Custom Messages

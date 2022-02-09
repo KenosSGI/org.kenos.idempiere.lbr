@@ -4,6 +4,7 @@ import static org.adempierelbr.util.TextUtil.lPad;
 import static org.adempierelbr.util.TextUtil.rPad;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.Timestamp;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -36,9 +37,9 @@ public class Bradesco237 implements ICNABGenerator
 	private static final String BPTYPE_CPF_PAGADOR 		= "01";
 	private static final String BPTYPE_CNPJ_PAGADOR 	= "02";
 	
-	/** Aceite				*/
-	private static final String IS_ACCEPTED 	= "A";
-	private static final String NOT_ACCEPTED 	= "N";
+//	/** Aceite				*/
+//	private static final String IS_ACCEPTED 	= "A";
+//	private static final String NOT_ACCEPTED 	= "N";
 	
 	/**
 	 * 	Generate CNAB File
@@ -92,12 +93,12 @@ public class Bradesco237 implements ICNABGenerator
 //			}
 //			else if (MLBRBankSlipInfo.LBR_ORGBPTYPE_PF_Individual.equals(bsi.getLBR_OrgBPType()))
 //				orgBPTypeBR = BPTYPE_CPF_BENEFICIARIO;
-
-			//	Aceite
-			String accepted = NOT_ACCEPTED;
-			//
-			if (MLBRBankSlip.LBR_ISACCEPTED_IsAccepted.equals(bs.getLBR_IsAccepted()))
-				accepted = IS_ACCEPTED;
+//
+//			//	Aceite
+//			String accepted = NOT_ACCEPTED;
+//			//
+//			if (MLBRBankSlip.LBR_ISACCEPTED_IsAccepted.equals(bs.getLBR_IsAccepted()))
+//				accepted = IS_ACCEPTED;
 			
 			//	Penalty
 			BigDecimal penaltyAmt = Env.ZERO;
@@ -108,7 +109,7 @@ public class Bradesco237 implements ICNABGenerator
 				if (MLBRBankSlip.LBR_PENALTYTYPE_Amount.equals(bs.getLBR_PenaltyType()))
 					penaltyAmt = bs.getLBR_PenaltyValue();
 				else if (MLBRBankSlip.LBR_PENALTYTYPE_Rate.equals(bs.getLBR_PenaltyType()))
-					penaltyAmt = bs.getGrandTotal().multiply(bs.getLBR_PenaltyValue());
+					penaltyAmt = bs.getGrandTotal().multiply(bs.getLBR_PenaltyValue()).divide(new BigDecimal (30), 2, RoundingMode.HALF_UP);
 			}
 			
 			BigDecimal discountAmt = Env.ZERO;
@@ -171,14 +172,19 @@ public class Bradesco237 implements ICNABGenerator
 			cnab.append(lPad(0, 4));								//	PERCENTUAL
 			
 			cnab.append(lPad(bs.getLBR_NumberInBank(), 11));		//	NOSSO NÚMERO
-			cnab.append(lPad(bsi.getLBR_NumberInBankVD(), 1));
+			if (bsi.getLBR_NumberInBankVD() != null && bsi.getLBR_NumberInBankVD().length() == 1)
+				cnab.append(bsi.getLBR_NumberInBankVD());
+			else
+				cnab.append("0");
+			
+			String issuedBy = MLBRBankSlip.LBR_ISSUEDBY_Bank.equals(bs.getLBR_IssuedBy()) ? "1" : "2";
 			
 			cnab.append(lPad(0, 10));								//	DESCONTO
-			cnab.append("2");
-			cnab.append("N");
+			cnab.append(issuedBy);
+			cnab.append("S");
 			cnab.append(rPad(null, 10));							//	BRANCOS
 			cnab.append(rPad(null, 1));								//	BRANCOS
-			cnab.append(lPad("2", 1));								//	BRANCOS
+			cnab.append(lPad("0", 1));								//	BRANCOS
 			cnab.append(rPad(null, 2));								//	BRANCOS
 			cnab.append(lPad(line.getMovement().getValue(), 2));	//	IDENT. DA OCORRÊNCIA
 
@@ -189,7 +195,7 @@ public class Bradesco237 implements ICNABGenerator
 			cnab.append(lPad(0, 5));								//	ZERO
 
 			cnab.append(rPad(convertKind (bsi.getLBR_BankSlipKindCode()), 2));	//	ESPÉCIE
-			cnab.append(rPad(accepted, 1));							//	ACEITE
+			cnab.append(rPad("N", 1));								//	Sempre = N
 			cnab.append(lPad(timeToString(bs.getDateDoc()), 6));	//	DATA DE EMISSÃO
 			
 			cnab.append(lPad(0, 2));								//	INSTRUÇÃO 1
@@ -202,7 +208,7 @@ public class Bradesco237 implements ICNABGenerator
 			cnab.append(lPad(payerBPTypeBR, 2));					//	CÓDIGO DE INSCRIÇÃO
 			cnab.append(lPad(payerCNPJF, 14));						//	NÚMERO DE INSCRIÇÃO
 			cnab.append(rPad(bsi.getBPName(), 40));					//	NOME
-			cnab.append(rPad(bsi.getAddress(true), 40));			//	LOGRADOURO
+			cnab.append(rPad(bsi.getAddress(true, true), 40));		//	LOGRADOURO
 			cnab.append(rPad("", 12));								//	1A MENSAGEM
 			cnab.append(lPad(bsi.getlbr_BPPostal(), 8));			//	CEP
 			cnab.append(rPad("", 60));								//	2A MENSAGEM

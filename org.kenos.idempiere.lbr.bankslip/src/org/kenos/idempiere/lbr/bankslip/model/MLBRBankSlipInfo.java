@@ -61,6 +61,15 @@ public class MLBRBankSlipInfo extends X_LBR_BankSlipInfo
 	 */
 	public String getAddress (boolean includeCompl)
 	{
+		return getAddress(includeCompl, false);
+	}	//	getAddress
+	
+	/**
+	 * 	Get valid address (Street name and Street number)
+	 * 	@return address
+	 */
+	public String getAddress (boolean includeCompl, boolean includeCity)
+	{
 		StringBuilder address = new StringBuilder();
 		//
 		if (getlbr_BPAddress1() != null)
@@ -70,8 +79,14 @@ public class MLBRBankSlipInfo extends X_LBR_BankSlipInfo
 		if (includeCompl && getlbr_BPAddress4() != null)
 		{
 			if (!address.toString().isEmpty() && !address.toString().endsWith(", "))
-				address.append(" - ");
+				address.append(", ");
 			address.append(getlbr_BPAddress4());
+		}
+		if (includeCity && getlbr_BPCity() != null)
+		{
+			if (!address.toString().isEmpty() && !address.toString().endsWith(", "))
+				address.append(", ");
+			address.append(getlbr_BPCity());
 		}
 		//	Remove trailing
 		if (address.toString().endsWith(", "))
