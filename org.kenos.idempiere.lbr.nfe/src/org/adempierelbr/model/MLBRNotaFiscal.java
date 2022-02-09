@@ -5263,9 +5263,10 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		else if (DOCSTATUS_InProgress.equals(docStatus))
 		{
 			options[0] = DOCACTION_Complete;
-			options[1] = DOCACTION_Unlock;
-			options[2] = DOCACTION_VoidInvalidate;
-			index=3;
+			options[1] = DOCACTION_Prepare;
+			options[2] = DOCACTION_Unlock;
+			options[3] = DOCACTION_VoidInvalidate;
+			index=4;
 		}
 		else if (DOCSTATUS_Drafted.equals(docStatus))
 		{
@@ -5277,7 +5278,7 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		else if (DOCSTATUS_WaitingConfirmation.equals(docStatus))
 		{
 			options[0] = DOCACTION_Complete;
-			options[1] = DOCACTION_Unlock;
+			options[1] = DOCACTION_ReActivate;
 			index=2;
 		}
 		else if (DOCSTATUS_Completed.equals(docStatus))
@@ -5291,7 +5292,7 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 					|| !islbr_IsOwnDocument() 
 					|| !TextUtil.match(getlbr_NFModel(), LBR_NFMODEL_NotaFiscalEletrônica, LBR_NFMODEL_NotaFiscalDeConsumidorEletrônica) 
 					|| (getDateTrx() != null && getDateTrx().after(TimeUtil.addMinutess(Env.getContextAsDate(getCtx(), "#Date"), 60*24*-1))))
-			options[index++] = DOCACTION_VoidInvalidate;
+				options[index++] = DOCACTION_VoidInvalidate;
 			
 			if (!isSOTrx() && !islbr_IsOwnDocument())
 				options[index++] = DocAction.ACTION_ReActivate;
