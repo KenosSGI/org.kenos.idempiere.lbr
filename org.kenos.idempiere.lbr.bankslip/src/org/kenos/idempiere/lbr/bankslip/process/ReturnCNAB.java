@@ -21,6 +21,7 @@ import org.kenos.idempiere.lbr.bankslip.model.MLBRBankSlipContract;
 import org.kenos.idempiere.lbr.bankslip.model.MLBRBankSlipMov;
 import org.kenos.idempiere.lbr.bankslip.model.MLBRBankSlipOccur;
 import org.kenos.idempiere.lbr.bankslip.model.MLBRCNABFile;
+import org.kenos.idempiere.lbr.bankslip.model.MLBRCNABFileLine;
 
 /**
  * Process the return file
@@ -36,6 +37,8 @@ public class ReturnCNAB extends SvrProcess
 
 	/** Defines if the result should be presented to file only or screen **/
 	private boolean resultToFileOnly = false;
+	
+	private MLBRCNABFile cnab = null;
 
 	/**
 	 * Prepare - e.g., get Parameters.
@@ -79,7 +82,7 @@ public class ReturnCNAB extends SvrProcess
 		// Get the checksum
 		String checksum = getFileChecksum (md5Digest, returnFile);
 		
-		MLBRCNABFile cnab = MLBRCNABFile.get (p_Contract_ID, checksum);
+		cnab = MLBRCNABFile.get (p_Contract_ID, checksum);
 		if (cnab != null)
 		{
 			addLog (cnab.get_ID(), null, null, "CNAB: " + cnab.getDocumentNo(), MLBRCNABFile.Table_ID, cnab.get_ID());
@@ -172,6 +175,9 @@ public class ReturnCNAB extends SvrProcess
 		{
 			mov.saveEx();
 			addLog(detail, "Movimento salvo com sucesso ID#" + mov.getLBR_BankSlipMov_ID());
+			//
+			MLBRCNABFileLine line = new MLBRCNABFileLine (cnab, mov);
+			line.saveEx();
 		} 
 		catch (Exception e) 
 		{

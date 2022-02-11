@@ -13,6 +13,7 @@ import org.adempierelbr.model.X_LBR_CNABFile;
 import org.adempierelbr.util.TextUtil;
 import org.adempierelbr.wrapper.I_W_AD_OrgInfo;
 import org.compiere.model.MAttachment;
+import org.compiere.model.MAttachmentEntry;
 import org.compiere.model.MOrgInfo;
 import org.compiere.model.MSequence;
 import org.compiere.model.ModelValidationEngine;
@@ -97,7 +98,7 @@ public class MLBRCNABFile extends X_LBR_CNABFile implements DocAction, DocOption
 	protected boolean beforeSave (boolean newRecord)
 	{
 		//	Sequence
-		if (newRecord && getSeqNo() == 0)
+		if (newRecord && isSOTrx() && getSeqNo() == 0)
 		{
 			String nextSeq = "";
 			//
@@ -268,16 +269,24 @@ public class MLBRCNABFile extends X_LBR_CNABFile implements DocAction, DocOption
 	@Override
 	public String completeIt()
 	{
-		String cnabFileName = getRoutingNo() + "_" +  
-					getlbr_AgencyNo() + "_" + 
-					getAccountNo() + "_" + 
-					TextUtil.timeToString(getDateDoc(), "yyyyMMdd") + ".REM";
+		int count = new Query (Env.getCtx(), Table_Name, COLUMNNAME_IsSOTrx + "='Y' AND " + COLUMNNAME_LBR_CNABFile_ID + "!=? AND " + 
+					COLUMNNAME_LBR_BankSlipContract_ID + "=? AND TRUNC(" + COLUMNNAME_DateDoc + ")=" + DB.TO_DATE(getDateDoc()), get_TrxName())
+					.setParameters(getLBR_CNABFile_ID(), getLBR_BankSlipContract_ID()).count();
+		
+		String cnabFileName = "CB" + TextUtil.timeToString(getDateDoc(), "ddMM") + TextUtil.lPad (count+1, 2) + ".REM";
 		StringBuilder cnabFileContent = handler.generateCNABFile (this);
 		
 		try 
 		{
-			if (getAttachment (true) != null)
+			MAttachment attachment = getAttachment (true);
+			if (attachment != null) {
+				MAttachmentEntry entry = attachment.getEntry(0);
+				
+				//	Preserve file name
+				if (entry != null)
+					cnabFileName = entry.getName();
 				getAttachment ().delete (true);
+			}
 			
 			getAttachment(true);	//	FIX
 			MAttachment attachCNAB = createAttachment();

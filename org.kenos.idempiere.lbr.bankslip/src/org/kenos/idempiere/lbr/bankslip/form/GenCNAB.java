@@ -27,6 +27,8 @@ import java.util.stream.IntStream;
 
 import org.compiere.minigrid.ColumnInfo;
 import org.compiere.minigrid.IMiniTable;
+import org.compiere.model.MAttachment;
+import org.compiere.model.MAttachmentEntry;
 import org.compiere.model.MBank;
 import org.compiere.model.MRole;
 import org.compiere.util.CLogger;
@@ -37,10 +39,13 @@ import org.compiere.util.KeyNamePair;
 import org.compiere.util.Msg;
 import org.compiere.util.Trx;
 import org.kenos.idempiere.lbr.bankslip.model.MLBRBankAccount;
+import org.kenos.idempiere.lbr.bankslip.model.MLBRBankSlip;
 import org.kenos.idempiere.lbr.bankslip.model.MLBRBankSlipContract;
 import org.kenos.idempiere.lbr.bankslip.model.MLBRBankSlipMov;
 import org.kenos.idempiere.lbr.bankslip.model.MLBRCNABFile;
 import org.kenos.idempiere.lbr.bankslip.model.MLBRCNABFileLine;
+import org.zkoss.util.media.AMedia;
+import org.zkoss.zul.Filedownload;
 
 /**
  * 		Classe comum para geração de boletos
@@ -323,6 +328,25 @@ public class GenCNAB
 			
 			//	Everything OK
 			trx.commit();
+			
+			//	Process document
+			if (MLBRBankSlip.DOCSTATUS_InProgress.equals(cnab.prepareIt()))
+			{
+				cnab.setDocStatus(cnab.completeIt());
+				cnab.save();
+				
+				if (MLBRBankSlip.DOCSTATUS_Completed.equals(cnab.getDocStatus()))
+				{
+					MAttachment attachment = cnab.getAttachment();
+					if (attachment == null) return;
+					
+					MAttachmentEntry entry = attachment.getEntry(0);
+					if (entry == null) return;
+
+					AMedia media = new AMedia(entry.getName(), null, entry.getContentType(), cnab.getAttachmentData("REM"));
+					Filedownload.save(media);
+				}
+			}
 		}
 		catch (Exception e)
 		{
