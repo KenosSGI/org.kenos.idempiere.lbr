@@ -162,4 +162,34 @@ INSERT INTO AD_Field (AD_Field_ID,Name,AD_Tab_ID,AD_Column_ID,IsDisplayed,Displa
 UPDATE AD_Field SET IsDisplayed='N', AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, IsToolbarButton=NULL,Updated=TO_TIMESTAMP('2022-02-11 10:23:05','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1131696
 ;
 
-SELECT Register_Migration_Script ('202202111024_DigestCNAB.sql') FROM DUAL;
+-- 11 de fev de 2022 18:42:20 BRT
+INSERT INTO AD_Message (MsgType,MsgText,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Message_ID,Value,EntityType,AD_Message_UU) VALUES ('I','Invoices with blank Pay Rule',0,0,'Y',TO_TIMESTAMP('2022-02-11 18:42:20','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2022-02-11 18:42:20','YYYY-MM-DD HH24:MI:SS'),100,1120070,'LBR_IncludeBankPayRule','LBRA','22db82f1-b9bd-42fc-8390-d0426837584d')
+;
+
+-- 11 de fev de 2022 18:48:06 BRT
+INSERT INTO AD_Column (AD_Column_ID,Version,Name,Description,AD_Table_ID,ColumnName,DefaultValue,FieldLength,IsKey,IsParent,IsMandatory,IsTranslated,IsIdentifier,SeqNo,IsEncrypted,AD_Reference_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Element_ID,IsUpdateable,IsSelectionColumn,EntityType,IsSyncDatabase,IsAlwaysUpdateable,IsAutocomplete,IsAllowLogging,AD_Column_UU,IsAllowCopy,SeqNoSelection,IsToolbarButton,IsSecure,IsHtml) VALUES (1133760,0,'Registered','The application is registered.',1120689,'IsRegistered','N',1,'N','N','Y','N','N',0,'N',20,0,0,'Y',TO_TIMESTAMP('2022-02-11 18:48:06','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2022-02-11 18:48:06','YYYY-MM-DD HH24:MI:SS'),100,2211,'Y','N','U','N','N','N','Y','6b72e606-74a8-4ab6-9473-62083628af35','Y',0,'N','N','N')
+;
+
+-- 11 de fev de 2022 18:48:09 BRT
+ALTER TABLE LBR_BankSlip ADD COLUMN IsRegistered CHAR(1) DEFAULT 'N' CHECK (IsRegistered IN ('Y','N')) NOT NULL
+;
+
+-- 11 de fev de 2022 18:48:18 BRT
+UPDATE AD_Column SET EntityType='LBRA',Updated=TO_TIMESTAMP('2022-02-11 18:48:18','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1133760
+;
+
+-- 11 de fev de 2022 18:48:41 BRT
+INSERT INTO AD_Field (AD_Field_ID,Name,Description,AD_Tab_ID,AD_Column_ID,IsDisplayed,DisplayLength,SeqNo,IsSameLine,IsHeading,IsFieldOnly,IsEncrypted,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,IsReadOnly,IsCentrallyMaintained,EntityType,AD_Field_UU,IsDisplayedGrid,SeqNoGrid,XPosition,ColumnSpan) VALUES (1131698,'Registered','The application is registered.',1120398,1133760,'Y',1,750,'N','N','N','N',0,0,'Y',TO_TIMESTAMP('2022-02-11 18:48:40','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2022-02-11 18:48:40','YYYY-MM-DD HH24:MI:SS'),100,'N','Y','LBRA','2111245f-9031-4bfc-87d1-b82d81fb7375','Y',280,2,2)
+;
+
+-- 11 de fev de 2022 18:50:04 BRT
+UPDATE AD_Field SET IsDisplayed='Y', SeqNo=90, AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, XPosition=9, ColumnSpan=1, IsToolbarButton=NULL,Updated=TO_TIMESTAMP('2022-02-11 18:50:04','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1131698
+;
+
+-- 11 de fev de 2022 18:50:04 BRT
+UPDATE AD_Field SET IsDisplayed='N', SeqNo=0, AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, XPosition=1, IsToolbarButton=NULL,Updated=TO_TIMESTAMP('2022-02-11 18:50:04','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1129822
+;
+
+-- 11 de fev de 2022 18:50:04 BRT
+SELECT Register_Migration_Script ('202202111024_DigestCNAB.sql') FROM DUAL
+;

@@ -82,7 +82,7 @@ public class WGenBankSlip extends GenBankSlip
 	private Label labelBankAccount = new Label();
 	private Listbox fieldBankContract = ListboxFactory.newDropdownListbox();
 	private Grid parameterLayout = GridFactory.newGridLayout();
-	private Checkbox isPrinted = new Checkbox();
+	private Checkbox includeBlankPayRule = new Checkbox();
 	private Label labelBPartner = new Label();
 	private Listbox fieldBPartner = ListboxFactory.newDropdownListbox();
 	private Label dataStatus = new Label();
@@ -150,8 +150,8 @@ public class WGenBankSlip extends GenBankSlip
 		labelDtype.setText(Msg.translate(Env.getCtx(), "C_DocType_ID"));
 		fieldDtype.addActionListener(this);
 		//
-		isPrinted.setText(Msg.translate(Env.getCtx(), "IsPrinted"));
-		isPrinted.addActionListener(this);
+		includeBlankPayRule.setText(Msg.translate(Env.getCtx(), "LBR_IncludeBankPayRule"));
+		includeBlankPayRule.addActionListener(this);
 		dataStatus.setText(" ");
 		dataStatus.setPre(true);
 		//
@@ -182,7 +182,7 @@ public class WGenBankSlip extends GenBankSlip
 		row.appendChild(fieldDtype);
 		row.appendChild(labelDateTo.rightAlign());
 		row.appendChild(fieldDateTo.getComponent());
-		row.appendChild(isPrinted);
+		row.appendChild(includeBlankPayRule);
 		row.appendChild(bRefresh);
 
 		South south = new South();
@@ -296,7 +296,7 @@ public class WGenBankSlip extends GenBankSlip
 		MBankAccount bank = new MBankAccount(Env.getCtx(), bsc.getC_BankAccount_ID(), null);
 		int org = bank.getAD_Org_ID();
 		
-		loadTableInfo (org, bi, bpartner, docType, dateFrom, dateTo, isPrinted.isSelected(), miniTable);
+		loadTableInfo (org, bi, bpartner, docType, dateFrom, dateTo, includeBlankPayRule.isSelected(), miniTable);
 		
 		calculateSelection();
 		
@@ -338,7 +338,7 @@ public class WGenBankSlip extends GenBankSlip
 			dispose();
 
 		//  Update Open Invoices
-		else if (e.getTarget() == fieldBankContract || e.getTarget() == fieldBPartner || e.getTarget() == bRefresh || e.getTarget() == fieldDtype || e.getTarget() == isPrinted)
+		else if (e.getTarget() == fieldBankContract || e.getTarget() == fieldBPartner || e.getTarget() == bRefresh || e.getTarget() == fieldDtype || e.getTarget() == includeBlankPayRule)
 			loadTableInfo();
 
 	}   //  actionPerformed

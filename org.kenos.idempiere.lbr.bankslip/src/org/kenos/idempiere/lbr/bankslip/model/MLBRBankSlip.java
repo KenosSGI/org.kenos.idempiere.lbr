@@ -689,12 +689,12 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 				|| is_ValueChanged(COLUMNNAME_GrandTotal) || is_ValueChanged(COLUMNNAME_DiscountAmt))
 			changed = true;
 		
-		MLBRNotaFiscal nf = new Query (getCtx(), MLBRNotaFiscal.Table_Name, "C_Invoice_ID=? AND LBR_NFeStatus='100'", get_TrxName())
+		MLBRNotaFiscal nf = new Query (getCtx(), MLBRNotaFiscal.Table_Name, "C_Invoice_ID=? AND DocStatus='CO'", get_TrxName())
 			.setParameters(getC_Invoice_ID())
 			.first();
 		
 		if (MLBRBankSlip.LBR_RECIPIENTTYPE_FIDCOr3rdParty.equals(getLBR_RecipientType()) 
-				&& nf != null)
+				&& nf != null && nf.getlbr_NFeID() != null)
 			bsi.setlbr_NFeID(nf.getlbr_NFeID ());
 		
 		//	Instructions
@@ -721,7 +721,7 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 					documentNo = nfeNo;
 				
 				if (nfSerie != null && nfSerie.length() > 0)
-					documentNo += "/" + nfSerie;
+					documentNo += " / " + nfSerie;
 				
 				bsi.setlbr_Instruction2("Nota Fiscal: " + documentNo);
 			}

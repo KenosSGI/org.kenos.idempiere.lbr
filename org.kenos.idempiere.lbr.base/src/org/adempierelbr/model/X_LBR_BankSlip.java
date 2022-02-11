@@ -33,7 +33,7 @@ public class X_LBR_BankSlip extends PO implements I_LBR_BankSlip, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20200730L;
+	private static final long serialVersionUID = 20220211L;
 
     /** Standard Constructor */
     public X_LBR_BankSlip (Properties ctx, int LBR_BankSlip_ID, String trxName)
@@ -61,6 +61,8 @@ public class X_LBR_BankSlip extends PO implements I_LBR_BankSlip, I_Persistent
 // @#Date@
 			setGrandTotal (Env.ZERO);
 // 0
+			setIsRegistered (false);
+// N
 			setLBR_BankSlipContract_ID (0);
 			setLBR_BankSlipCurrency (null);
 // 09
@@ -643,6 +645,30 @@ public class X_LBR_BankSlip extends PO implements I_LBR_BankSlip, I_Persistent
 		return false;
 	}
 
+	/** Set Registered.
+		@param IsRegistered 
+		The application is registered.
+	  */
+	public void setIsRegistered (boolean IsRegistered)
+	{
+		set_Value (COLUMNNAME_IsRegistered, Boolean.valueOf(IsRegistered));
+	}
+
+	/** Get Registered.
+		@return The application is registered.
+	  */
+	public boolean isRegistered () 
+	{
+		Object oo = get_Value(COLUMNNAME_IsRegistered);
+		if (oo != null) 
+		{
+			 if (oo instanceof Boolean) 
+				 return ((Boolean)oo).booleanValue(); 
+			return "Y".equals(oo);
+		}
+		return false;
+	}
+
 	public org.adempierelbr.model.I_LBR_BankSlipContract getLBR_BankSlipContract() throws RuntimeException
     {
 		return (org.adempierelbr.model.I_LBR_BankSlipContract)MTable.get(getCtx(), org.adempierelbr.model.I_LBR_BankSlipContract.Table_Name)
@@ -829,10 +855,10 @@ public class X_LBR_BankSlip extends PO implements I_LBR_BankSlip, I_Persistent
 		return (Timestamp)get_Value(COLUMNNAME_LBR_Discount1Date);
 	}
 
-	/** Fixed Amount until Date Set = 1 */
-	public static final String LBR_DISCOUNT1TYPE_FixedAmountUntilDateSet = "1";
 	/** Fixed Rate until Date Set = 2 */
 	public static final String LBR_DISCOUNT1TYPE_FixedRateUntilDateSet = "2";
+	/** Fixed Amount until Date Set = 1 */
+	public static final String LBR_DISCOUNT1TYPE_FixedAmountUntilDateSet = "1";
 	/** Amount for Early Payment in Calendar Days = 3 */
 	public static final String LBR_DISCOUNT1TYPE_AmountForEarlyPaymentInCalendarDays = "3";
 	/** Amount for Early Payment in Business Days = 4 */
@@ -887,10 +913,10 @@ public class X_LBR_BankSlip extends PO implements I_LBR_BankSlip, I_Persistent
 		return (Timestamp)get_Value(COLUMNNAME_LBR_Discount2Date);
 	}
 
-	/** Fixed Amount until Date Set = 1 */
-	public static final String LBR_DISCOUNT2TYPE_FixedAmountUntilDateSet = "1";
 	/** Fixed Rate until Date Set = 2 */
 	public static final String LBR_DISCOUNT2TYPE_FixedRateUntilDateSet = "2";
+	/** Fixed Amount until Date Set = 1 */
+	public static final String LBR_DISCOUNT2TYPE_FixedAmountUntilDateSet = "1";
 	/** Amount for Early Payment in Calendar Days = 3 */
 	public static final String LBR_DISCOUNT2TYPE_AmountForEarlyPaymentInCalendarDays = "3";
 	/** Amount for Early Payment in Business Days = 4 */
@@ -945,10 +971,10 @@ public class X_LBR_BankSlip extends PO implements I_LBR_BankSlip, I_Persistent
 		return (Timestamp)get_Value(COLUMNNAME_LBR_Discount3Date);
 	}
 
-	/** Fixed Amount until Date Set = 1 */
-	public static final String LBR_DISCOUNT3TYPE_FixedAmountUntilDateSet = "1";
 	/** Fixed Rate until Date Set = 2 */
 	public static final String LBR_DISCOUNT3TYPE_FixedRateUntilDateSet = "2";
+	/** Fixed Amount until Date Set = 1 */
+	public static final String LBR_DISCOUNT3TYPE_FixedAmountUntilDateSet = "1";
 	/** Amount for Early Payment in Calendar Days = 3 */
 	public static final String LBR_DISCOUNT3TYPE_AmountForEarlyPaymentInCalendarDays = "3";
 	/** Amount for Early Payment in Business Days = 4 */
@@ -989,16 +1015,16 @@ public class X_LBR_BankSlip extends PO implements I_LBR_BankSlip, I_Persistent
 		return bd;
 	}
 
-	/** Printed and Mailed = 1 */
-	public static final String LBR_DISTRIBUTEDVIA_PrintedAndMailed = "1";
 	/** Printed with Fiscal Document = 2 */
 	public static final String LBR_DISTRIBUTEDVIA_PrintedWithFiscalDocument = "2";
-	/** Printed with Fiscal Document & E-mailed = 3r */
-	public static final String LBR_DISTRIBUTEDVIA_PrintedWithFiscalDocumentE_Mailed = "3r";
+	/** Printed and Mailed = 1 */
+	public static final String LBR_DISTRIBUTEDVIA_PrintedAndMailed = "1";
 	/** E-mailed = 4 */
 	public static final String LBR_DISTRIBUTEDVIA_E_Mailed = "4";
 	/** E-mailed with Fiscal Document XML = 5 */
 	public static final String LBR_DISTRIBUTEDVIA_E_MailedWithFiscalDocumentXML = "5";
+	/** Printed with Fiscal Document & E-mailed = 3 */
+	public static final String LBR_DISTRIBUTEDVIA_PrintedWithFiscalDocumentE_Mailed = "3";
 	/** Set Distributed Via.
 		@param LBR_DistributedVia Distributed Via	  */
 	public void setLBR_DistributedVia (String LBR_DistributedVia)
@@ -1124,10 +1150,10 @@ public class X_LBR_BankSlip extends PO implements I_LBR_BankSlip, I_Persistent
 		return bd;
 	}
 
-	/** Not Accepted = 0 */
-	public static final String LBR_ISACCEPTED_NotAccepted = "0";
 	/** Is Accepted = 1 */
 	public static final String LBR_ISACCEPTED_IsAccepted = "1";
+	/** Not Accepted = 0 */
+	public static final String LBR_ISACCEPTED_NotAccepted = "0";
 	/** Set Accepted.
 		@param LBR_IsAccepted Accepted	  */
 	public void setLBR_IsAccepted (String LBR_IsAccepted)
@@ -1691,6 +1717,20 @@ public class X_LBR_BankSlip extends PO implements I_LBR_BankSlip, I_Persistent
 		if (bd == null)
 			 return Env.ZERO;
 		return bd;
+	}
+
+	/** Set Digest Value.
+		@param lbr_DigestValue Digest Value	  */
+	public void setlbr_DigestValue (String lbr_DigestValue)
+	{
+		set_Value (COLUMNNAME_lbr_DigestValue, lbr_DigestValue);
+	}
+
+	/** Get Digest Value.
+		@return Digest Value	  */
+	public String getlbr_DigestValue () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_DigestValue);
 	}
 
 	/** Set PaySchedule Number.

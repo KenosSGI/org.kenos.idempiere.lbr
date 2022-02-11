@@ -174,7 +174,6 @@ public class ReturnCNAB extends SvrProcess
 		try 
 		{
 			mov.saveEx();
-			addLog(detail, "Movimento salvo com sucesso ID#" + mov.getLBR_BankSlipMov_ID());
 			//
 			MLBRCNABFileLine line = new MLBRCNABFileLine (cnab, mov);
 			line.saveEx();

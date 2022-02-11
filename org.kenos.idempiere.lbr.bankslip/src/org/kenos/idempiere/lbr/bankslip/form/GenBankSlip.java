@@ -233,7 +233,6 @@ public class GenBankSlip
 			+ "  LEFT JOIN LBR_NotaFiscal nf ON (nf.C_Invoice_ID=i.C_Invoice_ID AND nf.IsCancelled <> 'Y')",
 			//	WHERE
 			"i.IsSOTrx=? AND i.IsPaid='N'"
-			+ " AND (i.lbr_PaymentRule IS NULL OR i.lbr_PaymentRule='B' OR i.lbr_PaymentRule='15')"
 			+ " AND i.DocStatus IN ('CO','CL')"
 			+ " AND i.AD_Client_ID=?"
 			+ " AND NOT EXISTS (SELECT 1 FROM LBR_BankSlip bs WHERE bs.C_Invoice_ID=i.C_Invoice_ID AND bs.DocStatus IN ('DR', 'CL', 'CO'))",
@@ -244,7 +243,7 @@ public class GenBankSlip
 	 *  Query and create TableInfo
 	 */
 	public void loadTableInfo(int org, KeyNamePair bi, KeyNamePair bPartner, KeyNamePair docType, 
-			Timestamp dateFrom, Timestamp dateTo, boolean isPrinted, IMiniTable miniTable)
+			Timestamp dateFrom, Timestamp dateTo, boolean includeBlankPayRule, IMiniTable miniTable)
 	{
 		log.config("");
 		//  not yet initialized
@@ -270,6 +269,12 @@ public class GenBankSlip
 		int AD_Org_ID = org;
 		if (AD_Org_ID != 0)
 			sql += " AND i.AD_Org_ID=?";
+		
+		//	Include blank payment rule
+		sql += " AND (";
+		if (includeBlankPayRule)
+			sql += "i.lbr_PaymentRule IS NULL OR ";
+		sql += "i.lbr_PaymentRule='B' OR i.lbr_PaymentRule='15')";
 			
 		//	Date interval
 		if (dateFrom != null)
@@ -358,7 +363,6 @@ public class GenBankSlip
 				//
 				try
 				{
-//					MLBRBoleto.generateBoleto (Env.getCtx(), C_Invoice_ID, bi.getKey(), null, printerName, trxName);
 					MLBRBankSlip.generateFromInvoice(Env.getCtx(), C_Invoice_ID, 0, 0, null, trxName);
 					Trx.get (trxName, false).commit ();
 				}

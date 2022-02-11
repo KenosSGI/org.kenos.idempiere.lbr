@@ -32,7 +32,7 @@ public interface I_LBR_BankSlip
     /** TableName=LBR_BankSlip */
     public static final String Table_Name = "LBR_BankSlip";
 
-    /** AD_Table_ID=1120666 */
+    /** AD_Table_ID=1120689 */
     public static final int Table_ID = MTable.getTable_ID(Table_Name);
 
     KeyNamePair Model = new KeyNamePair(Table_ID, Table_Name);
@@ -362,6 +362,19 @@ public interface I_LBR_BankSlip
 	  * The document is paid
 	  */
 	public boolean isPaid();
+
+    /** Column name IsRegistered */
+    public static final String COLUMNNAME_IsRegistered = "IsRegistered";
+
+	/** Set Registered.
+	  * The application is registered.
+	  */
+	public void setIsRegistered (boolean IsRegistered);
+
+	/** Get Registered.
+	  * The application is registered.
+	  */
+	public boolean isRegistered();
 
     /** Column name LBR_BankSlipContract_ID */
     public static final String COLUMNNAME_LBR_BankSlipContract_ID = "LBR_BankSlipContract_ID";
@@ -893,6 +906,15 @@ public interface I_LBR_BankSlip
 	  * Amount to write-off
 	  */
 	public BigDecimal getWriteOffAmt();
+
+    /** Column name lbr_DigestValue */
+    public static final String COLUMNNAME_lbr_DigestValue = "lbr_DigestValue";
+
+	/** Set Digest Value	  */
+	public void setlbr_DigestValue (String lbr_DigestValue);
+
+	/** Get Digest Value	  */
+	public String getlbr_DigestValue();
 
     /** Column name lbr_PayScheduleNo */
     public static final String COLUMNNAME_lbr_PayScheduleNo = "lbr_PayScheduleNo";
