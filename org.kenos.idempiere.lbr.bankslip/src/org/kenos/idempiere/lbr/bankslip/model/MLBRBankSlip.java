@@ -1306,7 +1306,8 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 		payment.setC_BankAccount_ID(getC_BankAccount_ID());
 		payment.setC_DocType_ID(LBRUtils.getARReceiptDocType());
 		payment.setC_Invoice_ID(getC_Invoice_ID());
-		payment.set_ValueOfColumn("C_InvoicePaySchedule_ID", getC_InvoicePaySchedule_ID());
+		if (getC_InvoicePaySchedule_ID() > 0)
+			payment.set_ValueOfColumn("C_InvoicePaySchedule_ID", getC_InvoicePaySchedule_ID());
 		payment.setC_BPartner_ID(getC_BPartner_ID());
 		payment.setC_Currency_ID(getC_Currency_ID());
 		payment.setTenderType(MPayment.TENDERTYPE_DirectDebit);
