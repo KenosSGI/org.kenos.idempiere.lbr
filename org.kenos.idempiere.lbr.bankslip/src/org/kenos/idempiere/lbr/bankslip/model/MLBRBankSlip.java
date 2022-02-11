@@ -174,7 +174,18 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 		
 		try
 		{
-			tempFile = File.createTempFile("Boleto", ".pdf", new File (filePath));
+			String preffix = bsi.getLBR_BankSlip().getDocumentNo();
+			//
+			if (bsi.getLBR_BankSlip().getLBR_NotaFiscal_ID() > 0)
+			{
+				String nfeNo = bsi.getLBR_BankSlip().getLBR_NotaFiscal().getlbr_NFENo();
+				if (nfeNo != null)
+					preffix += "_" + nfeNo;
+				else
+					preffix += "_" + bsi.getLBR_BankSlip().getLBR_NotaFiscal().getDocumentNo();
+			}
+			
+			tempFile = File.createTempFile(preffix + "_", ".pdf", new File (filePath));
 			tempFile.delete();	//	Will be created later on
 			return boletoViewer.getPdfAsFile (tempFile);
 			
