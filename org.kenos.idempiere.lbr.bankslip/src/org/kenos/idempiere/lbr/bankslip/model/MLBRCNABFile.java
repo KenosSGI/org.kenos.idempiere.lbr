@@ -299,7 +299,8 @@ public class MLBRCNABFile extends X_LBR_CNABFile implements DocAction, DocOption
 	@Override
 	public boolean voidIt()
 	{
-		
+		if (!isSOTrx())
+			return true;
 		return false;
 	}	//	voidIt
 
