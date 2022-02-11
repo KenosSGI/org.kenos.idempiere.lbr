@@ -267,12 +267,9 @@ public class GenBankSlip
 			sql += " AND i.C_DocType_ID =?";
 		
 		//	AD_Org_ID
-			int AD_Org_ID = org;
-			if (AD_Org_ID != 0)
-				sql += " AND i.AD_org_ID=?";
-		
-		//	Is Printed
-		//sql += " AND i.lbr_IsBillPrinted=" + (isPrinted ? "'Y'" : "'N'");
+		int AD_Org_ID = org;
+		if (AD_Org_ID != 0)
+			sql += " AND i.AD_Org_ID=?";
 			
 		//	Date interval
 		if (dateFrom != null)
