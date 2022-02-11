@@ -31,7 +31,7 @@ public class X_LBR_CNABFile extends PO implements I_LBR_CNABFile, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20200908L;
+	private static final long serialVersionUID = 20220211L;
 
     /** Standard Constructor */
     public X_LBR_CNABFile (Properties ctx, int LBR_CNABFile_ID, String trxName)
@@ -471,5 +471,19 @@ public class X_LBR_CNABFile extends PO implements I_LBR_CNABFile, I_Persistent
 	public String getlbr_AgencyNo () 
 	{
 		return (String)get_Value(COLUMNNAME_lbr_AgencyNo);
+	}
+
+	/** Set Digest Value.
+		@param lbr_DigestValue Digest Value	  */
+	public void setlbr_DigestValue (String lbr_DigestValue)
+	{
+		set_Value (COLUMNNAME_lbr_DigestValue, lbr_DigestValue);
+	}
+
+	/** Get Digest Value.
+		@return Digest Value	  */
+	public String getlbr_DigestValue () 
+	{
+		return (String)get_Value(COLUMNNAME_lbr_DigestValue);
 	}
 }

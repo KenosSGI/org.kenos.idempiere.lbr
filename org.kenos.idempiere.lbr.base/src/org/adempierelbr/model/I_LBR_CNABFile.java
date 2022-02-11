@@ -317,4 +317,13 @@ public interface I_LBR_CNABFile
 	  * Agency Number
 	  */
 	public String getlbr_AgencyNo();
+
+    /** Column name lbr_DigestValue */
+    public static final String COLUMNNAME_lbr_DigestValue = "lbr_DigestValue";
+
+	/** Set Digest Value	  */
+	public void setlbr_DigestValue (String lbr_DigestValue);
+
+	/** Get Digest Value	  */
+	public String getlbr_DigestValue();
 }

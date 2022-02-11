@@ -148,6 +148,13 @@ public class MLBRCNABFile extends X_LBR_CNABFile implements DocAction, DocOption
 	{
 		return TextUtil.lPad(getRoutingNo(), 3) + "_" + TextUtil.timeToString(getDateDoc(), "YYYYMMDD") + "_" + getSeqNo();
 	}	//	getDocumentNo
+	
+	public static MLBRCNABFile get (int LBR_BankSlipContract_ID, String hash)
+	{
+		return new Query (Env.getCtx(), MLBRCNABFile.Table_Name, COLUMNNAME_DocStatus + " IN ('CL','CO') AND " +  COLUMNNAME_LBR_BankSlipContract_ID + "=? AND " + COLUMNNAME_lbr_DigestValue + "=?", null)
+			.setParameters(LBR_BankSlipContract_ID, hash)
+			.first();
+	}	//	get
 
 	@Override
 	public int customizeValidActions(String docStatus, Object processing, 
@@ -159,30 +166,28 @@ public class MLBRCNABFile extends X_LBR_CNABFile implements DocAction, DocOption
 		options[2] = null;
 		options[3] = null;
 		options[4] = null;
+		index = 0;
 		
 		if (DocAction.STATUS_Invalid.equals(docStatus))
 		{
-			options[0] = DocAction.ACTION_Prepare;
-			options[1] = DocAction.ACTION_Void;
-			index=2;
+			options[index++] = DocAction.ACTION_Prepare;
+			options[index++] = DocAction.ACTION_Void;
 		}
 		else if (DocAction.STATUS_InProgress.equals(docStatus))
 		{
-			options[0] = DocAction.ACTION_Complete;
-			options[1] = DocAction.ACTION_Void;
-			index=2;
+			options[index++] = DocAction.ACTION_Complete;
+			options[index++] = DocAction.ACTION_Void;
 		}
 		else if (DocAction.STATUS_Drafted.equals(docStatus))
 		{
-			options[0] = DocAction.ACTION_Prepare;
-			options[1] = DocAction.ACTION_Complete;
-			index=2;
+			options[index++] = DocAction.ACTION_Prepare;
+			options[index++] = DocAction.ACTION_Complete;
 		}
 		else if (DocAction.STATUS_Completed.equals(docStatus))
 		{
-			options[0] = DocAction.ACTION_Void;
-			options[1] = DocAction.ACTION_ReActivate;
-			index=2;
+			options[index++] = DocAction.ACTION_Void;
+			if (isSOTrx())
+				options[index++] = DocAction.ACTION_ReActivate;
 		}
 		//
 		return index;
