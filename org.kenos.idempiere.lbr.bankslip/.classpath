@@ -6,7 +6,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
-	<classpathentry kind="src" path="src/"/>
+	<classpathentry kind="src" path="src"/>
 	<classpathentry exported="true" kind="lib" path="lib/jrimum-bopepo.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/jrimum-domkee.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/jrimum-vallia.jar"/>
@@ -17,5 +17,14 @@
 	<classpathentry exported="true" kind="lib" path="lib/itext.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/flatpack.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/lombok.jar"/>
+	<classpathentry kind="lib" path="lib/commons-collections4.jar"/>
+	<classpathentry kind="lib" path="lib/commons-compress.jar"/>
+	<classpathentry kind="lib" path="lib/commons-io.jar"/>
+	<classpathentry kind="lib" path="lib/commons-math.jar"/>
+	<classpathentry kind="lib" path="lib/curvesapi.jar"/>
+	<classpathentry kind="lib" path="lib/poi.jar"/>
+	<classpathentry kind="lib" path="lib/poi-ooxml.jar"/>
+	<classpathentry kind="lib" path="lib/poi-ooxml-lite.jar"/>
+	<classpathentry kind="lib" path="lib/xmlbeans.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

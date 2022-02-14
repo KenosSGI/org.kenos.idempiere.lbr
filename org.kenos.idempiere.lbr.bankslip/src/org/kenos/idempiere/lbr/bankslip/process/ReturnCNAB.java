@@ -3,13 +3,23 @@ package org.kenos.idempiere.lbr.bankslip.process;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
+import java.nio.file.Paths;
 import java.security.MessageDigest;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.logging.Level;
 
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.CreationHelper;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.compiere.model.MPayment;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
@@ -33,12 +43,30 @@ public class ReturnCNAB extends SvrProcess
 	/** CNAB File */
 	private String p_FileName = null;
 
+	/** Contract **/
 	private int p_Contract_ID = -1;
 
 	/** Defines if the result should be presented to file only or screen **/
 	private boolean resultToFileOnly = false;
 	
+	/** CNAB File **/
 	private MLBRCNABFile cnab = null;
+	
+	/** Result **/
+	private Workbook workbook = null;
+	private CellStyle dateStyle = null;
+	
+	/** Result columns	**/
+	private static final int COL_RAW 			= 0;
+	private static final int COL_COD_OCORRENCIA = 1;
+	private static final int COL_OCORRENCIA 	= 2;
+	private static final int COL_TIPO 			= 3;
+	private static final int COL_DOCUMENTO 		= 4;
+	private static final int COL_DATA 			= 5;
+	private static final int COL_VALOR 			= 6;
+	private static final int COL_DESCONTO 		= 7;
+	private static final int COL_JUROS 			= 8;
+	private static final int COL_OBS 			= 9;
 
 	/**
 	 * Prepare - e.g., get Parameters.
@@ -86,7 +114,7 @@ public class ReturnCNAB extends SvrProcess
 		if (cnab != null)
 		{
 			addLog (cnab.get_ID(), null, null, "CNAB: " + cnab.getDocumentNo(), MLBRCNABFile.Table_ID, cnab.get_ID());
-			return "@Error@ Arquivo CNAB já lançado, para forçar o lançamento novamente anule o arquivo anterior";
+//			return "@Error@ Arquivo CNAB já lançado, para forçar o lançamento novamente anule o arquivo anterior";
 		}
 		
 		MLBRBankSlipContract contract = new MLBRBankSlipContract (Env.getCtx(), p_Contract_ID, null);
@@ -109,9 +137,40 @@ public class ReturnCNAB extends SvrProcess
 		cnab.setProcessed(true);
 		cnab.saveEx();
 		
+		//	Prepare result
+		workbook = new XSSFWorkbook();
+		Sheet output = workbook.createSheet(Paths.get(p_FileName).getFileName().toString());
+		Row row = output.createRow(0);
+		//
+		CreationHelper creationHelper = workbook.getCreationHelper();
+        short dateTimeFormat = creationHelper.createDataFormat().getFormat("dd/mm/yyyy");
+        dateStyle = workbook.createCellStyle();
+        dateStyle.setDataFormat(dateTimeFormat);
+        
+		row.createCell(COL_RAW).setCellValue("Linha");
+		row.createCell(COL_COD_OCORRENCIA).setCellValue("Cód.Ocorrência");
+		row.createCell(COL_OCORRENCIA).setCellValue("Ocorrência");
+		row.createCell(COL_TIPO).setCellValue("Tipo");
+		row.createCell(COL_DOCUMENTO).setCellValue("Documento");
+		row.createCell(COL_DATA).setCellValue("Data");
+		row.createCell(COL_VALOR).setCellValue("Valor");
+		row.createCell(COL_DESCONTO).setCellValue("Desconto");
+		row.createCell(COL_JUROS).setCellValue("Juros");
+		row.createCell(COL_OBS).setCellValue("Observação");
+		
 		List<CNABDetail> records = CNABDetail.processFile(returnFile);
 		records.stream().forEach(this::processCNAB);
 
+		if (output.getLastRowNum() > 0)
+		{
+			File resultFile = File.createTempFile("CNAB", ".xlsx");
+			FileOutputStream os = new FileOutputStream(resultFile);
+            workbook.write(os);
+            //
+           if (processUI != null)
+				processUI.download(resultFile);
+		}
+		
 		return "@Success@";
 	}	// doIt
 
@@ -122,6 +181,20 @@ public class ReturnCNAB extends SvrProcess
 	 */
 	private void processCNAB(CNABDetail detail) 
 	{
+		Sheet output = workbook.getSheetAt(0);
+		int lastRowNum = output.getLastRowNum();
+		Row row = output.createRow(lastRowNum+1);
+
+		row.createCell(COL_COD_OCORRENCIA).setCellValue(detail.getOccurCod());
+		row.createCell(COL_DOCUMENTO).setCellValue(detail.getDocumentNo());
+		row.createCell(COL_VALOR).setCellValue(toDouble (detail.getAmount()));
+		row.createCell(COL_DESCONTO).setCellValue(toDouble (detail.getDiscount()));
+		row.createCell(COL_JUROS).setCellValue(toDouble (detail.getInterest()));
+		//
+		Cell dateCell = row.createCell(COL_DATA);
+		dateCell.setCellValue(detail.getDateTrx());
+		dateCell.setCellStyle(dateStyle);
+		
 		/**
 		 * Invalid, unable to find the bankslip
 		 */
@@ -129,6 +202,7 @@ public class ReturnCNAB extends SvrProcess
 		{
 			if (!resultToFileOnly)
 				addLog(detail.toString() + " - Identificador do Boleto não encontrado");
+			row.createCell(COL_OBS).setCellValue("Identificador do Boleto não encontrado");
 			return;
 		}
 
@@ -138,12 +212,18 @@ public class ReturnCNAB extends SvrProcess
 		if (bankSlip == null) 
 		{
 			addLog(detail, " - Boleto não encontrado");
+			row.createCell(COL_OBS).setCellValue("Boleto não encontrado");
 			return;
 		}
 
 		// Tries to find a occurrence code
 		MLBRBankSlipOccur occur = MLBRBankSlipOccur.get(bankSlip.getLBR_BankSlipLayout_ID(), detail.getOccurCod());
-
+		if (occur != null) 
+		{
+			row.createCell(COL_OCORRENCIA).setCellValue(occur.getName());
+			row.createCell(COL_TIPO).setCellValue(occur.get_DisplayValue(MLBRBankSlipOccur.COLUMNNAME_Type, true));
+		}
+		
 		// Creates a new movement for this file
 		MLBRBankSlipMov mov = new MLBRBankSlipMov(getCtx(), 0, get_TrxName());
 		mov.setLBR_BankSlip_ID(bankSlip.getLBR_BankSlip_ID());
@@ -161,11 +241,13 @@ public class ReturnCNAB extends SvrProcess
 			{
 				MPayment payment = bankSlip.pay(detail.getDateTrx(), detail.getAmount(), detail.getDiscount(), detail.getInterest(), Env.ZERO, "Liquidação feita via CNAB");
 				mov.setC_Payment_ID(payment.getC_Payment_ID());
-				addLog(detail, "Liquidação feita via CNAB #" + payment.getDocumentNo());
+				addLog(detail, "Liquidação feita via CNAB Pagamento #" + payment.getDocumentNo());
+				row.createCell(COL_OBS).setCellValue("Liquidação feita via CNAB Pagamento #" + payment.getDocumentNo());
 			} 
 			catch (Exception e) 
 			{
 				addLog(detail, e.getMessage());
+				row.createCell(COL_OBS).setCellValue("Erro ao registrar pagamento: " + e.getMessage());
 				return;
 			}
 		}
@@ -181,14 +263,21 @@ public class ReturnCNAB extends SvrProcess
 		catch (Exception e) 
 		{
 			addLog(detail, "Não foi possível salvar o movimento - " + e.getMessage());
+			row.createCell(COL_OBS).setCellValue("Não foi possível salvar o movimento: " + e.getMessage());
 		}
 	} // processCNAB
+
+	private double toDouble (BigDecimal interest) {
+		if (interest == null)
+			return 0.0;
+		return interest.doubleValue();
+	}	//	toDouble
 
 	private void addLog(CNABDetail detail, String msg) 
 	{
 		if (!resultToFileOnly)
 			super.addLog(detail.toString() + " - " + msg);
-	} // addLog
+	} 	// 	addLog
 
 	/**
 	 * https://stackoverflow.com/questions/453018/number-of-lines-in-a-file-in-java

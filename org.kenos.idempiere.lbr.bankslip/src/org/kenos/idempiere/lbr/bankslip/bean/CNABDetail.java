@@ -68,6 +68,8 @@ public class CNABDetail {
 		this.numberInBank = numberInBank;
 	}
 	public String getNumberInOrg() {
+		if (numberInOrg == null || numberInOrg.isBlank())
+			return documentNo;
 		return numberInOrg;
 	}
 	public void setNumberInOrg(String numberInOrg) {
