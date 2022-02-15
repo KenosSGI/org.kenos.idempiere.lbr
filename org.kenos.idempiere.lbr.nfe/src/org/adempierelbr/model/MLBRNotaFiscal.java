@@ -4859,7 +4859,7 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 							}
 							else
 							{
-								m_processMsg = "Falha na transmissão do RPS";
+								m_processMsg = "Aguardando a SeFaz / Prefeitura autorizar a NF";
 								return DOCSTATUS_WaitingConfirmation;
 							}
 						}
@@ -5277,9 +5277,11 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		}
 		else if (DOCSTATUS_WaitingConfirmation.equals(docStatus))
 		{
-			options[0] = DOCACTION_Complete;
-			options[1] = DOCACTION_ReActivate;
-			index=2;
+			if (isProcessed())
+				options[0] = DOCACTION_Complete;
+			else
+				options[0] = DOCACTION_ReActivate;
+			index=1;
 		}
 		else if (DOCSTATUS_Completed.equals(docStatus))
 		{
