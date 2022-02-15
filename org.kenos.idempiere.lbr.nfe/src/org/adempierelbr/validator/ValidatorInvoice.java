@@ -500,14 +500,15 @@ public class ValidatorInvoice implements ModelValidator
 		 */
 		else if (timing == TIMING_AFTER_COMPLETE)
 		{
+			MPaymentTerm pt = new MPaymentTerm(invoice.getCtx(), invoice.getC_PaymentTerm_ID(), null);
+
 			/**
 			 * 	1 - Validação da Condição de Pagamento
 			 */
-			if (!invoice.validatePaySchedule() ||
+			if (!invoice.validatePaySchedule() || pt.isAfterDelivery() || 
 					(! (MInvoice.PAYMENTRULE_OnCredit.equals(invoice.getPaymentRule()) 
 							|| MInvoice.PAYMENTRULE_DirectDebit.equals(invoice.getPaymentRule()))))
 			{
-				MPaymentTerm pt = new MPaymentTerm(invoice.getCtx(), invoice.getC_PaymentTerm_ID(), null);
 				log.fine(pt.toString());
 				pt.apply(invoice);
 				
