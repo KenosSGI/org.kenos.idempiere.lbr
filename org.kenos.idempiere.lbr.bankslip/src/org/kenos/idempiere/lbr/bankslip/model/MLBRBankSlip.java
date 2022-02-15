@@ -1309,11 +1309,9 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 		
 		if (description == null || description.isBlank())
 			description = "Documento lançado automaticamente - CNAB";
-		
-//		if (amount.add(discountAmt).add(writeOffAmt).subtract(interestAmt).compareTo(getGrandTotal()) != 0)
-//			throw new Exception (Msg.getMsg(getCtx(), "BankSlipAmountInvalid"));
 
 		MPayment payment = new MPayment (getCtx(), 0, get_TrxName());
+		payment.setAD_Org_ID(getAD_Org_ID());
 		payment.setC_BankAccount_ID(getC_BankAccount_ID());
 		payment.setC_DocType_ID(LBRUtils.getARReceiptDocType());
 		payment.setC_Invoice_ID(getC_Invoice_ID());
