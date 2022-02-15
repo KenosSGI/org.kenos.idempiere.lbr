@@ -85,8 +85,8 @@ public class MLBRBankSlipMov extends X_LBR_BankSlipMov
 		//
 		if (MLBRBankSlipOccur.TYPE_Liquidation.equals(getType()))
 			bankSlip.setIsPaid(true);
-//		else if (MLBRBankSlipOccur.TYPE_RegisterConfirmed.equals(getType()))
-//			bankSlip.setLBR_IsConfirmed(true);
+		else if (MLBRBankSlipOccur.TYPE_RegisterConfirmed.equals(getType()))
+			bankSlip.setIsRegistered(true);
 			
 		if (bankSlip.is_Changed())
 			bankSlip.save();
