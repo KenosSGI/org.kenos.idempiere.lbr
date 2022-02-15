@@ -7,12 +7,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
-import java.nio.file.Paths;
 import java.security.MessageDigest;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.logging.Level;
 
+import org.adempierelbr.util.TextUtil;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.CreationHelper;
@@ -114,7 +114,7 @@ public class ReturnCNAB extends SvrProcess
 		if (cnab != null)
 		{
 			addLog (cnab.get_ID(), null, null, "CNAB: " + cnab.getDocumentNo(), MLBRCNABFile.Table_ID, cnab.get_ID());
-//			return "@Error@ Arquivo CNAB já lançado, para forçar o lançamento novamente anule o arquivo anterior";
+			return "@Error@ Arquivo CNAB já lançado, para forçar o lançamento novamente anule o arquivo anterior";
 		}
 		
 		MLBRBankSlipContract contract = new MLBRBankSlipContract (Env.getCtx(), p_Contract_ID, null);
@@ -139,7 +139,7 @@ public class ReturnCNAB extends SvrProcess
 		
 		//	Prepare result
 		workbook = new XSSFWorkbook();
-		Sheet output = workbook.createSheet(Paths.get(p_FileName).getFileName().toString());
+		Sheet output = workbook.createSheet("RETORNO");
 		Row row = output.createRow(0);
 		//
 		CreationHelper creationHelper = workbook.getCreationHelper();
@@ -163,7 +163,7 @@ public class ReturnCNAB extends SvrProcess
 
 		if (output.getLastRowNum() > 0)
 		{
-			File resultFile = File.createTempFile("CNAB", ".xlsx");
+			File resultFile = File.createTempFile("CNAB_" + TextUtil.timeToString(new Timestamp(System.currentTimeMillis()), "yyyyMMdd"), ".xlsx");
 			FileOutputStream os = new FileOutputStream(resultFile);
             workbook.write(os);
             //
