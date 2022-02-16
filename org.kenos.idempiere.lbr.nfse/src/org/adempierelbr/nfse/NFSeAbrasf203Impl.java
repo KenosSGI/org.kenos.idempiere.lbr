@@ -37,6 +37,7 @@ import org.compiere.model.MOrgInfo;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
 import org.compiere.util.Util;
+import org.kenos.idempiere.lbr.base.model.MCity;
 
 import br.gov.sp.indaiatuba.nfse.NfseWebServiceServiceStub;
 import br.org.abrasf.nfse.CabecalhoDocument.Cabecalho;
@@ -234,6 +235,7 @@ public class NFSeAbrasf203Impl implements INFSe
 		String descricaoServico = "";
 		String serviceCode = "";
 		BigDecimal aliquota = BigDecimal.ZERO;
+		MCity city = null;
 		
 		//	Serviços Prestados
 		//	É possível descrever vários serviços numa mesma NFS-e, desde que relacionados a um
@@ -273,6 +275,9 @@ public class NFSeAbrasf203Impl implements INFSe
 					return null;
 				}
 			}
+			
+			if (city == null && nfl.getC_City_ID() > 0)
+				city = new MCity (Env.getCtx(), nfl.getC_City_ID(), null);
 		}
 		
 		//	Identificação dos Serviços prestados
@@ -291,7 +296,11 @@ public class NFSeAbrasf203Impl implements INFSe
 		dadosServico.setDiscriminacao(descricaoServico.replace("\n", ". ").replaceAll("\\s+", " ").replaceAll("\\.+", ".").trim());
 		dadosServico.setItemListaServico(TsItemListaServico.Enum.forString(serviceCode));
 		dadosServico.setIssRetido((byte) 2);
-		dadosServico.setCodigoMunicipio(nf.getlbr_BPCityCode());
+		
+		if (city != null) {
+			dadosServico.setCodigoMunicipio(city.getlbr_CityCode());
+			dadosServico.setMunicipioIncidencia(city.getlbr_CityCode());
+		}
 		
 		//	FIXME: Criar campo ExigibilidadeISS
 		/*	1 - Exigível;
@@ -303,7 +312,7 @@ public class NFSeAbrasf203Impl implements INFSe
 			7 - Exigibilidade Suspensa por Processo Administrativo*/
 		
 		dadosServico.setExigibilidadeISS((byte)1);
-		dadosServico.setMunicipioIncidencia(nf.getlbr_BPCityCode());
+		
 		
 		//	Valores dos Serviços
 		TcValoresDeclaracaoServico valores = dadosServico.addNewValores();
