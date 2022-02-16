@@ -1,26 +1,17 @@
 package org.kenos.idempiere.lbr.nfse.dsf;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.sql.Timestamp;
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Properties;
 import java.util.UUID;
 import java.util.logging.Level;
 
-import javax.imageio.ImageIO;
 import javax.xml.namespace.QName;
 
 import org.adempiere.base.Service;
@@ -86,12 +77,8 @@ import br.com.dsfnet.nfse.tp.TpTipoRPS;
 import br.com.dsfnet.nfse.tp.TpTipoRecolhimento;
 import br.com.dsfnet.nfse.tp.TpTributacao;
 import br.com.dsfnet.nfse.tp.TpTributacao.Enum;
-import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JasperExportManager;
-import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.util.JRLoader;
 
 /**
  * 		NFS-e para a cidade de São Paulo
@@ -684,6 +671,8 @@ public class DSF100 implements INFSe
 		for (TpEvento alerta : alertas)
 		{
 			log.warning ("Alerta - NF=" + alerta.getChaveNFe() + ", Cod=" + alerta.getCodigo() + ", Desc=" + alerta.getDescricao());
+			if (alerta.getCodigo() == 203)	//	Lote em processamento
+				return false;
 		}
 		for (TpEvento erro : erros)
 		{
@@ -696,7 +685,7 @@ public class DSF100 implements INFSe
 		{
 			proccessNFSe (nf.getCtx(), nf.get_TrxName(), "" + chaves.getNumeroRPS(), "" + chaves.getNumeroNFe(), chaves.getCodigoVerificacao(), nf.getAD_Org_ID());
 		}
-		return true;
+		return erros.length == 0 ? Boolean.TRUE : Boolean.FALSE;
 	}
 
 	public boolean consult(Properties ctx, int AD_Org_ID, String trxName,
@@ -767,7 +756,7 @@ public class DSF100 implements INFSe
 	{
 		StringBuilder ascii = new StringBuilder ("");
 		//
-		BigDecimal total = getTotal (rps);
+		BigDecimal total = Env.ONE;//getTotal (rps);
 		BigDecimal deductions = getDeductions (rps);
 		//
 		ascii.append(TextUtil.lPad (rps.getInscricaoMunicipalPrestador()+"", 11));
@@ -886,69 +875,6 @@ public class DSF100 implements INFSe
 	 */
 	private JasperPrint getReport (MLBRNotaFiscal nf) throws Exception
 	{
-		InputStream is = null;
-		
-		try
-		{
-			//	Campos para Criar URL de Impressão da NFS-e
-			String ccm = TextUtil.toNumeric (nf.getlbr_OrgCCM());
-			String nfnum = TextUtil.toNumeric (nf.getlbr_NFENo());
-			String cod = nf.getlbr_NFeProt();
-			
-			if (cod == null || cod.trim().isEmpty())
-				throw new Exception ("NFS-e sem o c\u00F3digo de autoriza\u00E7\u00E3o necess\u00E1rio para a impress\u00E3o");
-			
-			//	URL de Impressão
-			String message = MSysConfig.getValue (SysConfig.LBR_NFSE_SP_PRINT_URL, "https://nfe.prefeitura.sp.gov.br/contribuinte/notaprintimg.aspx?ccm={0}&nf={1}&cod={2}&imprimir=1", nf.getAD_Client_ID(), nf.getAD_Org_ID());
-			
-			MessageFormat mf = null;
-			mf = new MessageFormat (message);
-			
-			URL url = new URL (mf.format (new Object[]{ccm, nfnum, cod}));
-			is = url.openStream();
-			
-			BufferedImage image = null;
-			image = ImageIO.read (is);
-			
-			if (image != null)
-			{
-				ClassLoader cl = getClass().getClassLoader();
-				InputStream report = cl.getResourceAsStream("reports/ImpressaoNFSESP.jasper");
-				
-				Map<String, Object> map = new HashMap<String, Object>();
-				map.put("DOCUMENT_IMAGE", image);
-
-				JasperReport jasperReport = (JasperReport) JRLoader.loadObject (report);
-				JREmptyDataSource dataSource = new JREmptyDataSource ();
-				//
-				return JasperFillManager.fillReport (jasperReport, map, dataSource);
-			}
-		}
-		catch (MalformedURLException mue)
-		{
-			mue.printStackTrace();
-		}
-		catch (IOException ioe)
-		{
-			ioe.printStackTrace();
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-		finally
-		{
-			try
-			{
-				if (is != null)
-					is.close();
-			}
-			catch (IOException ioe)
-			{
-				throw new Exception ("Erro na Emissão da Nota Fiscal de Serviço. Imprima a partir do Site da Prefeitura");
-			}
-		}
-		
 		throw new Exception ("Erro na Emissão da Nota Fiscal de Serviço. Imprima a partir do Site da Prefeitura");
 	}	//	getReport
 }	//	NFSeImpl
