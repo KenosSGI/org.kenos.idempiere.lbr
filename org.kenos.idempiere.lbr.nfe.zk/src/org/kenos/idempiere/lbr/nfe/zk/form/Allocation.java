@@ -118,10 +118,10 @@ public class Allocation
 			+ "c.ISO_Code,p.PayAmt,"                            //  4..5
 			+ "currencyConvert(p.PayAmt,p.C_Currency_ID,?,?,p.C_ConversionType_ID,p.AD_Client_ID,p.AD_Org_ID),"//  6   #1, #2
 			+ "currencyConvert(paymentAvailable(C_Payment_ID),p.C_Currency_ID,?,?,p.C_ConversionType_ID,p.AD_Client_ID,p.AD_Org_ID),"  //  7   #3, #4
-			+ "p.MultiplierAP, ao.name "
+			+ "p.MultiplierAP, o.name as OrgName "
 			+ "FROM C_Payment_v p"		//	Corrected for AP/AR
 			+ " INNER JOIN C_Currency c ON (p.C_Currency_ID=c.C_Currency_ID) "
-			+ " INNER JOIN ad_org ao ON (p.ad_org_id  = ao.ad_org_id) "
+			+ " INNER JOIN AD_Org o ON (p.AD_Org_Id  = o.AD_Org_Id) "
 			+ "WHERE p.IsAllocated='N' AND p.Processed='Y'"
 			+ " AND p.C_Charge_ID IS NULL"		//	Prepayments OK
 			+ " AND p.C_BPartner_ID=?");                   		//      #5
@@ -153,7 +153,7 @@ public class Allocation
 				Vector<Object> line = new Vector<Object>();
 				line.add(Boolean.FALSE);       //  0-Selection
 				line.add(rs.getTimestamp(1));       //  1-TrxDate
-				line.add(rs.getString("name")); // -Organization
+				line.add(rs.getString("OrgName")); // -Organization
 				KeyNamePair pp = new KeyNamePair(rs.getInt(3), rs.getString(2));
 				line.add(pp);                       //  4-DocumentNo
 				if (isMultiCurrency)
@@ -259,10 +259,10 @@ public class Allocation
 			+ "currencyConvert(invoiceOpen(C_Invoice_ID,C_InvoicePaySchedule_ID),i.C_Currency_ID,?,?,i.C_ConversionType_ID,i.AD_Client_ID,i.AD_Org_ID)*i.MultiplierAP, "  //  7   #3, #4  Converted Open
 			+ "currencyConvert(invoiceDiscount"                               //  8       AllowedDiscount
 			+ "(i.C_Invoice_ID,?,C_InvoicePaySchedule_ID),i.C_Currency_ID,?,i.DateInvoiced,i.C_ConversionType_ID,i.AD_Client_ID,i.AD_Org_ID)*i.Multiplier*i.MultiplierAP,"               //  #5, #6
-			+ "i.MultiplierAP, i.DueDate, i.C_InvoicePaySchedule_ID, dt.Name, ao.name as org "
+			+ "i.MultiplierAP, i.DueDate, i.C_InvoicePaySchedule_ID, dt.Name, o.name as OrgName "
 			+ "FROM C_Invoice_v i"		//  corrected for CM/Split
 			+ " INNER JOIN C_Currency c ON (i.C_Currency_ID=c.C_Currency_ID) "
-			+ " INNER JOIN ad_org ao ON (ao.ad_org_id = i.ad_org_id) "
+			+ " INNER JOIN AD_Org o ON (o.AD_Org_Id = i.AD_Org_Id) "
 			+ " LEFT  JOIN C_DocType dt ON (i.C_DocTypeTarget_ID=dt.C_DocType_ID) "
 			+ "WHERE i.IsPaid='N' AND i.Processed='Y'"
 			+ " AND i.C_BPartner_ID=?");                                            //  #7
@@ -297,7 +297,7 @@ public class Allocation
 				line.add(Boolean.FALSE);       //  0-Selection
 				line.add(rs.getTimestamp("DueDate"));       //  1-TrxDate
 				line.add(rs.getTimestamp("DateInvoiced"));       //2  DueDate
-				line.add(rs.getString("org"));  //3
+				line.add(rs.getString("OrgName"));  //3
 
 				KeyNamePair pp = new KeyNamePair(rs.getInt(3), rs.getString(2));
 				line.add(pp);                       //  4-Value
