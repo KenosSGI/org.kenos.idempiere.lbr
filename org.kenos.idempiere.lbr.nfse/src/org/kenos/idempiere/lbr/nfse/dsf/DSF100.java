@@ -18,6 +18,8 @@ import org.adempiere.base.Service;
 import org.adempiere.model.POWrapper;
 import org.adempiere.report.jasper.JRViewerProvider;
 import org.adempierelbr.model.MLBRDigitalCertificate;
+import org.adempierelbr.model.MLBRNFConfig;
+import org.adempierelbr.model.MLBRNFeLot;
 import org.adempierelbr.model.MLBRNotaFiscal;
 import org.adempierelbr.model.MLBRNotaFiscalLine;
 import org.adempierelbr.model.X_LBR_NFLineTax;
@@ -534,7 +536,7 @@ public class DSF100 implements INFSe
 				break;
 		}
 		
-		//MLBRNFConfig nfConfig = MLBRNFConfig.get(oi.getAD_Org_ID(), MLBRNFConfig.LBR_NFMODEL_NotaFiscalDeServiçosEletrônicaRPS);
+		MLBRNFConfig nfConfig = MLBRNFConfig.get(oi.getAD_Org_ID(), MLBRNFConfig.LBR_NFMODEL_NotaFiscalDeServiçosEletrônicaRPS);
 		
 		// 	We have both, the URL for the local app and the Plugin transmitter
 		if (handler != null)
@@ -575,11 +577,13 @@ public class DSF100 implements INFSe
 			LoteRpsServiceStub stub = new LoteRpsServiceStub(url);
 			
 			//	Envio síncrono
-//			if (rps.size() == 1)
-//				retornoXML = stub.enviarSincrono(xml.toString());
-//			
-//			//	Envio o Lote
-//			else 
+			if (rps.size() == 1 
+					&& nfConfig != null 
+					&& MLBRNFeLot.LBR_NFELOTMETHOD_Synchronous.equals(nfConfig.getLBR_NFeLotMethod()))
+				retornoXML = stub.enviarSincrono(xml.toString());
+			
+			//	Envio o Lote
+			else 
 				retornoXML = stub.enviar(xml.toString());
 			
 			System.out.println (xml.toString());
