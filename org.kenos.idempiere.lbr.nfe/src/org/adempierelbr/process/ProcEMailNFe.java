@@ -32,8 +32,8 @@ import org.compiere.util.EMail;
 import org.compiere.util.Env;
 import org.compiere.util.Msg;
 import org.compiere.util.Trx;
-import org.kenos.idempiere.lbr.base.event.INFAttachMail;
-import org.kenos.idempiere.lbr.base.event.INFAttachMailFactory;
+import org.kenos.idempiere.lbr.base.event.INFMailAttach;
+import org.kenos.idempiere.lbr.base.event.INFMailAttachFactory;
 import org.kenos.idempiere.lbr.base.model.SysConfig;
 
 /**
@@ -345,11 +345,11 @@ public class ProcEMailNFe extends SvrProcess
 		}
 		
 		//	Additional attachments
-		INFAttachMail printDocument = null;
-	    List<INFAttachMailFactory> factoryList = Service.locator().list(INFAttachMailFactory.class).getServices();
+		INFMailAttach printDocument = null;
+	    List<INFMailAttachFactory> factoryList = Service.locator().list(INFMailAttachFactory.class).getServices();
 		List<File> attachements = new ArrayList<File>();
 		
-		for (INFAttachMailFactory factory : factoryList)
+		for (INFMailAttachFactory factory : factoryList)
 		{
 			printDocument = factory.get (Env.getCtx(), 0, nf.getLBR_NotaFiscal_ID(), nf.get_TrxName());
 			if (printDocument == null)
@@ -361,6 +361,11 @@ public class ProcEMailNFe extends SvrProcess
 			
 			attachements.addAll(additionalAttch);
 		}
+		
+		//	Include additional attachments
+		attachements.stream().forEach(f -> { 
+			mail.addAttachment(f);
+		});
 		
 		//
 		StringTokenizer st = new StringTokenizer(toEMails, ";");

@@ -9,7 +9,7 @@ import java.util.List;
  * 	@author Ricardo Santana (Kenos, www.kenos.com.br)
  *	@version $Id: INFAttachMail.java, v1.0 2022/02/17 11:39:53 PM, ralexsander Exp $
  */
-public interface INFAttachMail
+public interface INFMailAttach
 {	
 	public List<File> getAttachment();
 	public String getMessage();
