@@ -45,6 +45,7 @@ import org.compiere.model.MSysConfig;
 import org.compiere.model.X_C_City;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
+import org.compiere.util.Util;
 import org.kenos.idempiere.lbr.base.event.IDocFiscalHandler;
 import org.kenos.idempiere.lbr.base.event.IDocFiscalHandlerFactory;
 import org.kenos.idempiere.lbr.base.model.MCity;
@@ -215,7 +216,7 @@ public class DSF100 implements INFSe
 			// Descrição dos Serviços
 			if (nfl.getProductName()!= null && !nfl.getProductName().isEmpty())
 			{
-				item.setDiscriminacaoServico(nfl.getProductName());
+				item.setDiscriminacaoServico(Util.deleteAccents(nfl.getProductName()));
 				//
 				if (descricaoServico == null || descricaoServico.isEmpty())
 					descricaoServico = nfl.getProductName();
@@ -314,7 +315,7 @@ public class DSF100 implements INFSe
 			descricaoServico = "Prestação de Serviços";
 		else
 			descricaoServico = descricaoServico.replace("\n", "|").replace("  ", "").trim();
-		tpRPS.setDescricaoRPS(descricaoServico);
+		tpRPS.setDescricaoRPS(Util.deleteAccents(descricaoServico));
 		//
 		if (nf.getLBR_EMailNFe() != null && nf.getLBR_EMailNFe().indexOf("@") > 1)
 			tpRPS.setEmailTomador(nf.getLBR_EMailNFe().trim());
