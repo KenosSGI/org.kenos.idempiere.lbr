@@ -1,9 +1,12 @@
 package org.adempierelbr.process;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 
+import org.adempiere.base.Service;
 import org.adempiere.model.POWrapper;
 import org.adempierelbr.model.MLBRNFConfig;
 import org.adempierelbr.model.MLBRNotaFiscal;
@@ -29,6 +32,8 @@ import org.compiere.util.EMail;
 import org.compiere.util.Env;
 import org.compiere.util.Msg;
 import org.compiere.util.Trx;
+import org.kenos.idempiere.lbr.base.event.INFAttachMail;
+import org.kenos.idempiere.lbr.base.event.INFAttachMailFactory;
 import org.kenos.idempiere.lbr.base.model.SysConfig;
 
 /**
@@ -338,6 +343,25 @@ public class ProcEMailNFe extends SvrProcess
 			INFSe iNFSe = NFSeUtil.get (nf);
 			mail.addAttachment (iNFSe.getPDF (nf));
 		}
+		
+		//	Additional attachments
+		INFAttachMail printDocument = null;
+	    List<INFAttachMailFactory> factoryList = Service.locator().list(INFAttachMailFactory.class).getServices();
+		List<File> attachements = new ArrayList<File>();
+		
+		for (INFAttachMailFactory factory : factoryList)
+		{
+			printDocument = factory.get (Env.getCtx(), 0, nf.getLBR_NotaFiscal_ID(), nf.get_TrxName());
+			if (printDocument == null)
+				continue;
+			
+			List<File> additionalAttch = printDocument.getAttachment();
+			if (additionalAttch == null || additionalAttch.isEmpty())
+				continue;
+			
+			attachements.addAll(additionalAttch);
+		}
+		
 		//
 		StringTokenizer st = new StringTokenizer(toEMails, ";");
 		while (st.hasMoreTokens())
