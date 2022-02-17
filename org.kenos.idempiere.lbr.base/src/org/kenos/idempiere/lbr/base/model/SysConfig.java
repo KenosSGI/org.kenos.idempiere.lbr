@@ -29,8 +29,6 @@ public class SysConfig
 	public static final String LBR_AUTOMATIC_ADJUST_MVA 						= "LBR_AUTOMATIC_ADJUST_MVA";
 	public static final String LBR_CALC_VOLUME_QTYLINE_AUT 						= "LBR_CALC_VOLUME_QTYLINE_AUT";
 	public static final String LBR_CORREIOS_SHIPPER 							= "LBR_CORREIOS_SHIPPER";
-	public static final String LBR_CUSTOM_NFE_EMAIL_MESSAGE 					= "LBR_CUSTOM_NFE_EMAIL_MESSAGE";
-	public static final String LBR_CUSTOM_NFSE_EMAIL_MESSAGE 					= "LBR_CUSTOM_NFSE_EMAIL_MESSAGE";
 	public static final String LBR_DATEINOUT_NF 								= "LBR_DATEINOUT_NF";
 	public static final String LBR_DEFAULT_TIMEZONE 							= "LBR_DEFAULT_TIMEZONE";
 	public static final String LBR_DFE_LAST_NSU 								= "LBR_DFE_LAST_NSU";
@@ -80,7 +78,6 @@ public class SysConfig
 	public static final String LBR_REF_NCM 										= "LBR_REF_NCM";
 	public static final String LBR_REMOTE_PKCS11_TIMEOUT 						= "LBR_REMOTE_PKCS11_TIMEOUT";
 	public static final String LBR_REMOTE_PKCS11_URL 							= "LBR_REMOTE_PKCS11_URL";
-	public static final String LBR_SEND_NF_BY_EMAIL_TO 							= "LBR_SEND_NF_BY_EMAIL_TO";
 	public static final String LBR_SENDNFENOONCNAB 								= "LBR_SENDNFENOONCNAB";
 	public static final String LBR_SHOW_EMPLOYEE_BP_INFO 						= "LBR_SHOW_EMPLOYEE_BP_INFO#";
 	public static final String LBR_SHOW_STOCK_MSG_ON_ORDER 						= "LBR_SHOW_STOCK_MSG_ON_ORDER";
@@ -101,4 +98,10 @@ public class SysConfig
 	public static final String LBR_AUTOMATIC_ADJUST_IVA 						= "LBR_AUTOMATIC_ADJUST_IVA";
 	@Deprecated
 	public static final String LBR_DEBUG_RPS 									= "LBR_DEBUG_RPS";
+	@Deprecated
+	public static final String LBR_SEND_NF_BY_EMAIL_TO 							= "LBR_SEND_NF_BY_EMAIL_TO";
+	@Deprecated
+	public static final String LBR_CUSTOM_NFE_EMAIL_MESSAGE 					= "LBR_CUSTOM_NFE_EMAIL_MESSAGE";
+	@Deprecated
+	public static final String LBR_CUSTOM_NFSE_EMAIL_MESSAGE 					= "LBR_CUSTOM_NFSE_EMAIL_MESSAGE";
 }	//	SysConfig

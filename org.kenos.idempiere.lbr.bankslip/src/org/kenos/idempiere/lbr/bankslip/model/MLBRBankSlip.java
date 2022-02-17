@@ -188,7 +188,7 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 					preffix += "_" + bsi.getLBR_BankSlip().getLBR_NotaFiscal().getDocumentNo();
 			}
 			
-			tempFile = File.createTempFile(preffix + "_", ".pdf", new File (filePath));
+			tempFile = File.createTempFile(preffix + "_", ".pdf", filePath == null ? null : new File (filePath));
 			tempFile.delete();	//	Will be created later on
 			return boletoViewer.getPdfAsFile (tempFile);
 			
@@ -1369,4 +1369,19 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 		else 
 			throw new Exception (Msg.getMsg(getCtx(), "PaymentNotCompleted"));
 	}	//	pay
+	
+	public static List<MLBRBankSlip> getFromInvoice (Properties ctx, int C_Invoice_ID, String trxName) {
+		return get (COLUMNNAME_C_Invoice_ID, ctx, C_Invoice_ID, trxName);
+	}	//	getFromInvoice
+	
+	public static List<MLBRBankSlip> getFromNF (Properties ctx, int LBR_NotaFiscal_ID, String trxName) {
+		return get (COLUMNNAME_LBR_NotaFiscal_ID, ctx, LBR_NotaFiscal_ID, trxName);
+	}	//	getFromNF
+	
+	public static List<MLBRBankSlip> get (String columnName, Properties ctx, int ID, String trxName) {
+		return new Query (ctx, Table_Name, columnName + "=? AND " + COLUMNNAME_DocStatus + " IN ('CL', 'CO')", trxName)
+			.setParameters(ID)
+			.setOrderBy(COLUMNNAME_DueDate)
+			.list();
+	}	//	getFromNF
 }	//	MLBRBankSlip
