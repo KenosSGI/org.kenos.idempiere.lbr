@@ -756,7 +756,7 @@ public class DSF100 implements INFSe
 	{
 		StringBuilder ascii = new StringBuilder ("");
 		//
-		BigDecimal total = Env.ONE;//getTotal (rps);
+		BigDecimal total = getTotal (rps);
 		BigDecimal deductions = getDeductions (rps);
 		//
 		ascii.append(TextUtil.lPad (rps.getInscricaoMunicipalPrestador()+"", 11));
