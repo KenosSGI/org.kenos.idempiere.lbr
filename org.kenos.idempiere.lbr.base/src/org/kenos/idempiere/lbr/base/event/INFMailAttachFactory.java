@@ -8,7 +8,7 @@ import java.util.Properties;
  * 	@author Ricardo Santana (Kenos, www.kenos.com.br)
  *	@version $Id: INFAttachMailFactory.java, v1.0 2017/09/20 18:50:53 PM, ralexsander Exp $
  */
-public interface INFAttachMailFactory
+public interface INFMailAttachFactory
 {
-	public INFAttachMail get (Properties ctx, int C_Invoice_ID, int LBR_NotaFiscal_ID, String trxName);
+	public INFMailAttach get (Properties ctx, int C_Invoice_ID, int LBR_NotaFiscal_ID, String trxName);
 }	//	INFAttachMailFactory
