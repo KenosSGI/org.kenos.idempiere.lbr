@@ -34,7 +34,7 @@ public class X_LBR_NotaFiscal extends PO implements I_LBR_NotaFiscal, I_Persiste
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20211026L;
+	private static final long serialVersionUID = 20220216L;
 
     /** Standard Constructor */
     public X_LBR_NotaFiscal (Properties ctx, int LBR_NotaFiscal_ID, String trxName)
@@ -55,7 +55,7 @@ public class X_LBR_NotaFiscal extends PO implements I_LBR_NotaFiscal, I_Persiste
 // 'N'
 			setIsSOTrx (false);
 // @IsSOTrx@
-			setLBR_EMailSent (false);
+			setLBR_EMailSent (null);
 // N
 			setLBR_IndIEDest (null);
 // 1
@@ -895,28 +895,34 @@ public class X_LBR_NotaFiscal extends PO implements I_LBR_NotaFiscal, I_Persiste
 		return (String)get_Value(COLUMNNAME_LBR_DispatchPlace);
 	}
 
+	/** Mail sent = Y */
+	public static final String LBR_EMAILSENT_MailSent = "Y";
+	/** Not ready to send = N */
+	public static final String LBR_EMAILSENT_NotReadyToSend = "N";
+	/** Scheduled = S */
+	public static final String LBR_EMAILSENT_Scheduled = "S";
+	/** Temporary fail = T */
+	public static final String LBR_EMAILSENT_TemporaryFail = "T";
+	/** Permanently fail  = P */
+	public static final String LBR_EMAILSENT_PermanentlyFail = "P";
+	/** Disabled = X */
+	public static final String LBR_EMAILSENT_Disabled = "X";
 	/** Set EMail Sent.
 		@param LBR_EMailSent 
 		Indicates if the email was sent
 	  */
-	public void setLBR_EMailSent (boolean LBR_EMailSent)
+	public void setLBR_EMailSent (String LBR_EMailSent)
 	{
-		set_Value (COLUMNNAME_LBR_EMailSent, Boolean.valueOf(LBR_EMailSent));
+
+		set_Value (COLUMNNAME_LBR_EMailSent, LBR_EMailSent);
 	}
 
 	/** Get EMail Sent.
 		@return Indicates if the email was sent
 	  */
-	public boolean isLBR_EMailSent () 
+	public String getLBR_EMailSent () 
 	{
-		Object oo = get_Value(COLUMNNAME_LBR_EMailSent);
-		if (oo != null) 
-		{
-			 if (oo instanceof Boolean) 
-				 return ((Boolean)oo).booleanValue(); 
-			return "Y".equals(oo);
-		}
-		return false;
+		return (String)get_Value(COLUMNNAME_LBR_EMailSent);
 	}
 
 	/** Set Export Place.

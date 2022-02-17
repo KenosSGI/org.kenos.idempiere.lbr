@@ -191,7 +191,7 @@ public class ProcXMLExport extends SvrProcess
 			if (p_LBR_EMailSent)
 				whereClause.append(" AND " + MLBRNotaFiscal.COLUMNNAME_LBR_EMailSent + "='Y'");
 			else
-				whereClause.append(" AND " + MLBRNotaFiscal.COLUMNNAME_LBR_EMailSent + "='N'");
+				whereClause.append(" AND " + MLBRNotaFiscal.COLUMNNAME_LBR_EMailSent + "!='Y'");
 		
 		List<ExportRow> rows = new ArrayList<ExportRow>();
 		int[] ids = new Query(Env.getCtx(), MLBRNotaFiscal.Table_Name, whereClause.toString(), null)

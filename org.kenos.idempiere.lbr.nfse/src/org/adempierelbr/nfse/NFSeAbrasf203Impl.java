@@ -236,6 +236,7 @@ public class NFSeAbrasf203Impl implements INFSe
 		String serviceCode = "";
 		BigDecimal aliquota = BigDecimal.ZERO;
 		MCity city = null;
+		Boolean issRetido = false;
 		
 		//	Serviços Prestados
 		//	É possível descrever vários serviços numa mesma NFS-e, desde que relacionados a um
@@ -336,12 +337,13 @@ public class NFSeAbrasf203Impl implements INFSe
 		valores.setValorCsll(v_CSLL);
 		valores.setOutrasRetencoes(BigDecimal.ZERO);
 		valores.setValTotTributos(v_TotTrib);
-		valores.setAliquota(aliquota);
 		valores.setDescontoIncondicionado(BigDecimal.ZERO);
 		valores.setDescontoCondicionado(nf.getDiscountAmt());
 		
 		//	Optando do Simples Nacionals
 		infdps.setOptanteSimplesNacional("S".equals(woi.getLBR_TaxRegime()) ? (byte)1 : (byte)2);
+		if ((city.get_ID() != INDAIATUBA_ID ) || ("S".equals(woi.getLBR_TaxRegime()) && issRetido))
+				valores.setAliquota(aliquota);
 		
 		// Possui Incentivo Fiscal
 		infdps.setIncentivoFiscal((byte)2);		

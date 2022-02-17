@@ -5667,4 +5667,13 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 	{
 		return LBR_ISOWNDOCUMENT_IssuedByUsOwnDocument.equals(getlbr_IsOwnDocument());
 	} 	//	islbr_IsOwnDocument
+
+	/**
+	 * 	Legacy compatibility with boolean method
+	 * 	@return
+	 */
+	public boolean isLBR_EMailSent()
+	{
+		return LBR_EMAILSENT_MailSent.equals(getLBR_EMailSent());
+	}	//	isLBR_EMailSent
 }	//	MLBRNotaFiscal
