@@ -93,6 +93,45 @@ public interface I_LBR_NFConfig
 	  */
 	public int getCreatedBy();
 
+    /** Column name DeliveryConfirmation */
+    public static final String COLUMNNAME_DeliveryConfirmation = "DeliveryConfirmation";
+
+	/** Set Delivery Confirmation.
+	  * EMail Delivery confirmation
+	  */
+	public void setDeliveryConfirmation (boolean DeliveryConfirmation);
+
+	/** Get Delivery Confirmation.
+	  * EMail Delivery confirmation
+	  */
+	public boolean isDeliveryConfirmation();
+
+    /** Column name EMail_From */
+    public static final String COLUMNNAME_EMail_From = "EMail_From";
+
+	/** Set From EMail.
+	  * Full EMail address used to send requests - e.g. edi@organization.com
+	  */
+	public void setEMail_From (String EMail_From);
+
+	/** Get From EMail.
+	  * Full EMail address used to send requests - e.g. edi@organization.com
+	  */
+	public String getEMail_From();
+
+    /** Column name EMail_To */
+    public static final String COLUMNNAME_EMail_To = "EMail_To";
+
+	/** Set To EMail.
+	  * EMail address to send requests to - e.g. edi@manufacturer.com 
+	  */
+	public void setEMail_To (String EMail_To);
+
+	/** Get To EMail.
+	  * EMail address to send requests to - e.g. edi@manufacturer.com 
+	  */
+	public String getEMail_To();
+
     /** Column name IsActive */
     public static final String COLUMNNAME_IsActive = "IsActive";
 
@@ -271,6 +310,34 @@ public interface I_LBR_NFConfig
 	  * Indicar o Tipo de Emissão da NF-e.
 	  */
 	public String getLBR_TPEmis();
+
+    /** Column name R_MailText_ID */
+    public static final String COLUMNNAME_R_MailText_ID = "R_MailText_ID";
+
+	/** Set Mail Template.
+	  * Text templates for mailings
+	  */
+	public void setR_MailText_ID (int R_MailText_ID);
+
+	/** Get Mail Template.
+	  * Text templates for mailings
+	  */
+	public int getR_MailText_ID();
+
+	public org.compiere.model.I_R_MailText getR_MailText() throws RuntimeException;
+
+    /** Column name SendEMail */
+    public static final String COLUMNNAME_SendEMail = "SendEMail";
+
+	/** Set Send EMail.
+	  * Enable sending Document EMail
+	  */
+	public void setSendEMail (String SendEMail);
+
+	/** Get Send EMail.
+	  * Enable sending Document EMail
+	  */
+	public String getSendEMail();
 
     /** Column name Updated */
     public static final String COLUMNNAME_Updated = "Updated";

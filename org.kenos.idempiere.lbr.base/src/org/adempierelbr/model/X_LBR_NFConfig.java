@@ -31,7 +31,7 @@ public class X_LBR_NFConfig extends PO implements I_LBR_NFConfig, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20210722L;
+	private static final long serialVersionUID = 20220216L;
 
     /** Standard Constructor */
     public X_LBR_NFConfig (Properties ctx, int LBR_NFConfig_ID, String trxName)
@@ -39,6 +39,8 @@ public class X_LBR_NFConfig extends PO implements I_LBR_NFConfig, I_Persistent
       super (ctx, LBR_NFConfig_ID, trxName);
       /** if (LBR_NFConfig_ID == 0)
         {
+			setDeliveryConfirmation (false);
+// N
 			setLBR_ConfigSystemResp (null);
 // N
 			setLBR_IBPTConfiguration (null);
@@ -106,6 +108,64 @@ public class X_LBR_NFConfig extends PO implements I_LBR_NFConfig, I_Persistent
 	public String getClassname () 
 	{
 		return (String)get_Value(COLUMNNAME_Classname);
+	}
+
+	/** Set Delivery Confirmation.
+		@param DeliveryConfirmation 
+		EMail Delivery confirmation
+	  */
+	public void setDeliveryConfirmation (boolean DeliveryConfirmation)
+	{
+		set_Value (COLUMNNAME_DeliveryConfirmation, Boolean.valueOf(DeliveryConfirmation));
+	}
+
+	/** Get Delivery Confirmation.
+		@return EMail Delivery confirmation
+	  */
+	public boolean isDeliveryConfirmation () 
+	{
+		Object oo = get_Value(COLUMNNAME_DeliveryConfirmation);
+		if (oo != null) 
+		{
+			 if (oo instanceof Boolean) 
+				 return ((Boolean)oo).booleanValue(); 
+			return "Y".equals(oo);
+		}
+		return false;
+	}
+
+	/** Set From EMail.
+		@param EMail_From 
+		Full EMail address used to send requests - e.g. edi@organization.com
+	  */
+	public void setEMail_From (String EMail_From)
+	{
+		set_Value (COLUMNNAME_EMail_From, EMail_From);
+	}
+
+	/** Get From EMail.
+		@return Full EMail address used to send requests - e.g. edi@organization.com
+	  */
+	public String getEMail_From () 
+	{
+		return (String)get_Value(COLUMNNAME_EMail_From);
+	}
+
+	/** Set To EMail.
+		@param EMail_To 
+		EMail address to send requests to - e.g. edi@manufacturer.com 
+	  */
+	public void setEMail_To (String EMail_To)
+	{
+		set_Value (COLUMNNAME_EMail_To, EMail_To);
+	}
+
+	/** Get To EMail.
+		@return EMail address to send requests to - e.g. edi@manufacturer.com 
+	  */
+	public String getEMail_To () 
+	{
+		return (String)get_Value(COLUMNNAME_EMail_To);
 	}
 
 	/** Set CSRT Code.
@@ -420,13 +480,65 @@ public class X_LBR_NFConfig extends PO implements I_LBR_NFConfig, I_Persistent
 		return (String)get_Value(COLUMNNAME_LBR_TPEmis);
 	}
 
+	public org.compiere.model.I_R_MailText getR_MailText() throws RuntimeException
+    {
+		return (org.compiere.model.I_R_MailText)MTable.get(getCtx(), org.compiere.model.I_R_MailText.Table_Name)
+			.getPO(getR_MailText_ID(), get_TrxName());	}
+
+	/** Set Mail Template.
+		@param R_MailText_ID 
+		Text templates for mailings
+	  */
+	public void setR_MailText_ID (int R_MailText_ID)
+	{
+		if (R_MailText_ID < 1) 
+			set_Value (COLUMNNAME_R_MailText_ID, null);
+		else 
+			set_Value (COLUMNNAME_R_MailText_ID, Integer.valueOf(R_MailText_ID));
+	}
+
+	/** Get Mail Template.
+		@return Text templates for mailings
+	  */
+	public int getR_MailText_ID () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_R_MailText_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
+	/** Do not send e-mail = N */
+	public static final String SENDEMAIL_DoNotSendE_Mail = "N";
+	/** Send immediately = Y */
+	public static final String SENDEMAIL_SendImmediately = "Y";
+	/** Automatic (agent) = A */
+	public static final String SENDEMAIL_AutomaticAgent = "A";
+	/** Set Send EMail.
+		@param SendEMail 
+		Enable sending Document EMail
+	  */
+	public void setSendEMail (String SendEMail)
+	{
+
+		set_Value (COLUMNNAME_SendEMail, SendEMail);
+	}
+
+	/** Get Send EMail.
+		@return Enable sending Document EMail
+	  */
+	public String getSendEMail () 
+	{
+		return (String)get_Value(COLUMNNAME_SendEMail);
+	}
+
 	/** Set Version No.
 		@param VersionNo 
 		Version Number
 	  */
 	public void setVersionNo (String VersionNo)
 	{
-		set_ValueNoCheck (COLUMNNAME_VersionNo, VersionNo);
+		set_Value (COLUMNNAME_VersionNo, VersionNo);
 	}
 
 	/** Get Version No.

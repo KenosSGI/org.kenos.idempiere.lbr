@@ -554,12 +554,12 @@ public interface I_LBR_NotaFiscal
 	/** Set EMail Sent.
 	  * Indicates if the email was sent
 	  */
-	public void setLBR_EMailSent (boolean LBR_EMailSent);
+	public void setLBR_EMailSent (String LBR_EMailSent);
 
 	/** Get EMail Sent.
 	  * Indicates if the email was sent
 	  */
-	public boolean isLBR_EMailSent();
+	public String getLBR_EMailSent();
 
     /** Column name LBR_ExportPlace */
     public static final String COLUMNNAME_LBR_ExportPlace = "LBR_ExportPlace";
