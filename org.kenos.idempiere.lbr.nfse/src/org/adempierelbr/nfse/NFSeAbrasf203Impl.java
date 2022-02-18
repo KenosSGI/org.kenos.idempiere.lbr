@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.UUID;
 
 import org.adempiere.base.Service;
 import org.adempiere.exceptions.AdempiereException;
@@ -1686,7 +1687,7 @@ public class NFSeAbrasf203Impl implements INFSe
 		TcPedidoCancelamento cancelOrder = cancelNf.addNewPedido();
 		TcInfPedidoCancelamento infCancelOrder = cancelOrder.addNewInfPedidoCancelamento();
 		infCancelOrder.setCodigoCancelamento((byte) 2);
-		infCancelOrder.setId("1");
+		infCancelOrder.setId(UUID.randomUUID().toString());
 		
 		TcIdentificacaoNfse identNfse = infCancelOrder.addNewIdentificacaoNfse();
 		identNfse.setNumero(new BigDecimal(nf.getlbr_NFENo()).longValue());
@@ -1700,13 +1701,11 @@ public class NFSeAbrasf203Impl implements INFSe
 		{
 			MOrgInfo orgInf = MOrgInfo.get (nf.getCtx(), nf.getAD_Org_ID(), null);
 			new SignatureUtil (orgInf, SignatureUtil.OUTROS, "InfPedidoCancelamento").sign (cancelDoc, cancelNf.getPedido().newCursor());
-			
 			//	Valida o documento
 			NFeUtil.validate (cancelDoc);
 					
 			//	Set certificate
 			MLBRDigitalCertificate.setCertificate (Env.getCtx(), nf.getAD_Org_ID());
-			
 			String url = "https://deiss.indaiatuba.sp.gov.br/homologacao/nfse";
 			if (MLBRNotaFiscal.LBR_NFEENV_Production.equals(nf.getlbr_NFeEnv()))
 				url = "https://deiss.indaiatuba.sp.gov.br/producao/nfse";
