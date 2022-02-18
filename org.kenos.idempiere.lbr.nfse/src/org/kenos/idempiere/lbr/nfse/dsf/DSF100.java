@@ -671,10 +671,13 @@ public class DSF100 implements INFSe
 		header.setNumeroLote(Integer.parseInt(nf.getlbr_DigestValue()));
 		header.setVersao(1);
 		
-		String resultXML = stub.consultarLote(consultDoc.xmlText());
-		System.out.println(consultDoc.xmlText());
-		System.out.println(resultXML);
-		
+		String xml = consultDoc.xmlText();
+		String uuid = UUID.randomUUID().toString();
+		NFeUtil.saveXML (String.valueOf(oi.getAD_Org_ID()), NFeUtil.KIND_NFSE, NFeUtil.MESSAGE_REQ_CONSULT, uuid, xml);
+
+		String resultXML = stub.consultarLote(xml);
+		NFeUtil.saveXML (String.valueOf(oi.getAD_Org_ID()), NFeUtil.KIND_NFSE, NFeUtil.MESSAGE_RET_CONSULT, uuid, resultXML);
+
 		RetornoConsultaLote result = RetornoConsultaLoteDocument.Factory.parse(resultXML).getRetornoConsultaLote();
 
 		//	Read from XML
