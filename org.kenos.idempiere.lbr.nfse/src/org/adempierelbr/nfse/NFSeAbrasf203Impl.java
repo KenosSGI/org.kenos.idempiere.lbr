@@ -39,6 +39,7 @@ import org.compiere.util.CLogger;
 import org.compiere.util.Env;
 import org.compiere.util.Util;
 import org.kenos.idempiere.lbr.base.model.MCity;
+import org.kenos.idempiere.lbr.base.model.MRegion;
 
 import br.gov.sp.indaiatuba.nfse.NfseWebServiceServiceStub;
 import br.org.abrasf.nfse.CabecalhoDocument.Cabecalho;
@@ -1691,7 +1692,11 @@ public class NFSeAbrasf203Impl implements INFSe
 		
 		TcIdentificacaoNfse identNfse = infCancelOrder.addNewIdentificacaoNfse();
 		identNfse.setNumero(new BigDecimal(nf.getlbr_NFENo()).longValue());
-		identNfse.setCodigoMunicipio(nf.getlbr_BPCityCode());
+		
+		MRegion cityRegion = MRegion.getBrazilRegion(nf.getCtx(),nf.getlbr_OrgRegion());
+		MCity city = MCity.getCity (nf.getCtx(), cityRegion.getC_Region_ID(), nf.getlbr_OrgCity());
+
+		identNfse.setCodigoMunicipio(city.getlbr_CityCode());
 		identNfse.setInscricaoMunicipal(TextUtil.toNumeric(nf.getlbr_OrgCCM()));
 
 		TcCpfCnpj cpfcnpjPrestador = identNfse.addNewCpfCnpj();
