@@ -159,8 +159,8 @@ public class DSF100 implements INFSe
 		String ccm = bp.getlbr_CCM();
 		if (bp != null && ccm != null && !ccm.trim().isEmpty())
 			tpRPS.setInscricaoMunicipalTomador (toLong (ccm));
-		else if (location.getC_City_ID() == nf.getOrg_Location().getC_City_ID())
-			throw new Exception ("Obrigatório o preenchimento da IM / CCM para contribuintes da cidade");
+//		else if (location.getC_City_ID() == nf.getOrg_Location().getC_City_ID())
+//			throw new Exception ("Obrigatório o preenchimento da IM / CCM para contribuintes da cidade, RPS: " + nf.getDocumentNo());
 		else
 		{
 			TpInscricaoMunicipalNulo nulo = TpInscricaoMunicipalNulo.Factory.newInstance();
@@ -178,7 +178,7 @@ public class DSF100 implements INFSe
 			if (nf.getlbr_BPAddress3() != null)
 				tpRPS.setBairroTomador(nf.getlbr_BPAddress3());
 			else
-				throw new Exception ("Obrigatório o preenchimento do campo Bairro");
+				throw new Exception ("Obrigatório o preenchimento do campo Bairro, RPS: " + nf.getDocumentNo());
 			if (nf.getlbr_BPAddress4() != null)
 				tpRPS.setComplementoEnderecoTomador(nf.getlbr_BPAddress4());
 			tpRPS.setCEPTomador(toInt (TextUtil.toNumeric (nf.getlbr_BPPostal())));
@@ -235,7 +235,7 @@ public class DSF100 implements INFSe
 				serviceCode = nfl.getlbr_ServiceCode();
 			else if (!serviceCode.equals(nfl.getlbr_ServiceCode()))
 			{
-				nf.setErrorMsg("Impossível gerar NFS-e. Todos os serviços da NFS-e devem conter o mesmo Código de Serviço");
+				nf.setErrorMsg("Impossível gerar NFS-e. Todos os serviços da NFS-e devem conter o mesmo Código de Serviço, RPS: " + nf.getDocumentNo());
 				return null;
 			}
 			
@@ -254,7 +254,7 @@ public class DSF100 implements INFSe
 				}
 				else if (!r_ISS.equals(taxRateISS))
 				{
-					nf.setErrorMsg("Impossível gerar XML NFS-e. Todos os serviços da NFS-e devem conter o mesmo Código de Serviço");
+					nf.setErrorMsg("Impossível gerar XML NFS-e. Todos os serviços da NFS-e devem conter o mesmo Código de Serviço, RPS: " + nf.getDocumentNo());
 					return null;
 				}
 			}
@@ -270,7 +270,7 @@ public class DSF100 implements INFSe
 				}
 				else if (!r_ISS.equals(taxRateISSRT))
 				{
-					nf.setErrorMsg("Impossível gerar XML NFS-e. Todos os serviços da NFS-e devem conter o mesmo Código de Serviço");
+					nf.setErrorMsg("Impossível gerar XML NFS-e. Todos os serviços da NFS-e devem conter o mesmo Código de Serviço, RPS: " + nf.getDocumentNo());
 					return null;
 				}
 			}
