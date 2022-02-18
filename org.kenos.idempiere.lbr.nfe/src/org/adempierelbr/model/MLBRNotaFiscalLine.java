@@ -46,6 +46,7 @@ import org.adempierelbr.wrapper.I_W_C_InvoiceLine;
 import org.adempierelbr.wrapper.I_W_C_OrderLine;
 import org.adempierelbr.wrapper.I_W_C_Tax;
 import org.adempierelbr.wrapper.I_W_M_Product;
+import org.compiere.model.I_C_Location;
 import org.compiere.model.MAcctSchema;
 import org.compiere.model.MAttributeSetInstance;
 import org.compiere.model.MBPartnerLocation;
@@ -1751,15 +1752,19 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 		//	Service ISSQN
 		if (islbr_IsService())
 		{
+			I_C_Location location = getParent().getOrg_Location();
+			if (Env.ZERO.compareTo(getTaxRate("ISSRT")) == -1 && getParent().getC_BPartner_Location_ID() > 0) // has ISSRT
+				location = getParent().getC_BPartner_Location().getC_Location();
+			
 			if (getC_Region_ID() < 1)
-				setC_Region_ID(getParent().getOrg_Location().getC_Region_ID());
+				setC_Region_ID(location.getC_Region_ID());
 			
 			if (getC_City_ID() < 1)
-				setC_City_ID(getParent().getOrg_Location().getC_City_ID());
+				setC_City_ID(location.getC_City_ID());
 			
 			if (getlbr_CityCode() <= 0)
 			{
-				String cityCode = BPartnerUtil.getCityCode((MLocation) getParent().getOrg_Location());
+				String cityCode = BPartnerUtil.getCityCode((MLocation) location);
 				if (cityCode != null && !cityCode.isBlank())
 				try 
 				{

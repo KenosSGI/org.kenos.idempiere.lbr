@@ -51,11 +51,15 @@ import org.kenos.idempiere.lbr.base.event.IDocFiscalHandlerFactory;
 import org.kenos.idempiere.lbr.base.model.MCity;
 import org.kenos.idempiere.lbr.base.model.SysConfig;
 
+import br.com.dsfnet.nfse.lote.ReqCancelamentoNFSeDocument;
+import br.com.dsfnet.nfse.lote.ReqCancelamentoNFSeDocument.ReqCancelamentoNFSe;
 import br.com.dsfnet.nfse.lote.ReqConsultaLoteDocument;
 import br.com.dsfnet.nfse.lote.ReqConsultaLoteDocument.ReqConsultaLote;
 import br.com.dsfnet.nfse.lote.ReqEnvioLoteRPSDocument;
 import br.com.dsfnet.nfse.lote.ReqEnvioLoteRPSDocument.ReqEnvioLoteRPS;
 import br.com.dsfnet.nfse.lote.ReqEnvioLoteRPSDocument.ReqEnvioLoteRPS.Cabecalho;
+import br.com.dsfnet.nfse.lote.RetornoCancelamentoNFSeDocument;
+import br.com.dsfnet.nfse.lote.RetornoCancelamentoNFSeDocument.RetornoCancelamentoNFSe;
 import br.com.dsfnet.nfse.lote.RetornoConsultaLoteDocument;
 import br.com.dsfnet.nfse.lote.RetornoConsultaLoteDocument.RetornoConsultaLote;
 import br.com.dsfnet.nfse.lote.RetornoEnvioLoteRPSDocument;
@@ -70,7 +74,9 @@ import br.com.dsfnet.nfse.tp.TpInscricaoMunicipalNulo;
 import br.com.dsfnet.nfse.tp.TpItens;
 import br.com.dsfnet.nfse.tp.TpListaItens;
 import br.com.dsfnet.nfse.tp.TpLote;
+import br.com.dsfnet.nfse.tp.TpLoteCancelamentoNFSe;
 import br.com.dsfnet.nfse.tp.TpMetodoEnvio;
+import br.com.dsfnet.nfse.tp.TpNotaCancelamentoNFSe;
 import br.com.dsfnet.nfse.tp.TpOperacao;
 import br.com.dsfnet.nfse.tp.TpRPS;
 import br.com.dsfnet.nfse.tp.TpSeriePrestacao;
@@ -480,7 +486,8 @@ public class DSF100 implements INFSe
 		//	Lote
 		TpLote lote = envioLoteRPS.addNewLote();
 		lote.setRPSArray(tpRPSArray);
-		lote.setId(UUID.randomUUID().toString());
+		String uuid = UUID.randomUUID().toString();
+		lote.setId(uuid);
 		
 		//	Cabeçalho para o Lote
 		X_C_City c = BPartnerUtil.getX_C_City(ctx, orgLoc, null);
@@ -512,7 +519,7 @@ public class DSF100 implements INFSe
 		StringBuilder xml = new StringBuilder (new String (envioLoteRPSDoc.xmlText().getBytes(), NFeUtil.NFE_ENCODING));
 		
 		//	Log
-		log.fine ("Sending XML: " + xml.toString());
+		NFeUtil.saveXML (String.valueOf(p_AD_Org_ID), NFeUtil.KIND_NFSE, NFeUtil.MESSAGE_REQ_AUTORIZE, uuid, xml.toString());
 		
 		//	Retorno da Prefeitura
 		String retornoXML = "";
@@ -554,7 +561,7 @@ public class DSF100 implements INFSe
 				else
 					flags += "single";
 				
-				String uuid = UUID.randomUUID().toString();
+				uuid = UUID.randomUUID().toString();
 				handler.transmitDocument(IDocFiscalHandler.DOC_NFSE, oi.get_ValueAsString(I_W_AD_OrgInfo.COLUMNNAME_lbr_CNPJ), 
 						uuid, certificate.getURL(), url, flags, xml.toString(), respStatus);
 				
@@ -593,6 +600,8 @@ public class DSF100 implements INFSe
 			log.fine (retornoXML);
 		}
 		
+		NFeUtil.saveXML (String.valueOf(p_AD_Org_ID), NFeUtil.KIND_NFSE, NFeUtil.MESSAGE_RET_AUTORIZE, uuid, retornoXML.toString());
+
 		//	Processa o Retorno
 		RetornoEnvioLoteRPS result = RetornoEnvioLoteRPSDocument.Factory.parse(retornoXML).getRetornoEnvioLoteRPS();
 		
@@ -882,4 +891,64 @@ public class DSF100 implements INFSe
 	{
 		throw new Exception ("Erro na Emissão da Nota Fiscal de Serviço. Imprima a partir do Site da Prefeitura");
 	}	//	getReport
+	
+	@Override
+	public boolean cancel(MLBRNotaFiscal nf) throws Exception 
+	{
+		ReqCancelamentoNFSeDocument doc = ReqCancelamentoNFSeDocument.Factory.newInstance();
+		ReqCancelamentoNFSe cancelamentoNFSe = doc.addNewReqCancelamentoNFSe();
+		br.com.dsfnet.nfse.lote.ReqCancelamentoNFSeDocument.ReqCancelamentoNFSe.Cabecalho cabecalho = cancelamentoNFSe.addNewCabecalho();
+		//
+		XmlCursor cursor = doc.newCursor();
+		if (cursor.toFirstChild())
+			cursor.setAttributeText(new QName("http://www.w3.org/2001/XMLSchema-instance","schemaLocation"), "http://localhost:8080/WsNFe2/lote http://localhost:8080/WsNFe2/xsd/ReqCancelamentoNFSe.xsd");
+
+		cursor = doc.newCursor();
+		cursor.toNextToken();
+		cursor.insertNamespace("ns1", "http://localhost:8080/WsNFe2/lote");
+		cursor.insertNamespace("tipos", "http://localhost:8080/WsNFe2/tp");
+		cursor.insertNamespace("xsi", "http://www.w3.org/2001/XMLSchema-instance");
+		
+		//	Cabeçalho para o Lote
+		X_C_City c = BPartnerUtil.getX_C_City(nf.getCtx(), (MLocation) nf.getOrg_Location(), null);
+		String cityCode = c.get_ValueAsString("lbr_CityCode2");
+		//
+		cabecalho.setCodCidade(Long.valueOf(cityCode));
+		cabecalho.setCPFCNPJRemetente(TextUtil.toNumeric(nf.getlbr_CNPJ()));
+		cabecalho.setTransacao(false);
+		cabecalho.setVersao(1);
+		
+		TpLoteCancelamentoNFSe lote = cancelamentoNFSe.addNewLote();
+		lote.setId(UUID.randomUUID().toString());
+		
+		TpNotaCancelamentoNFSe nota = lote.addNewNota();
+		nota.setId(UUID.randomUUID().toString());
+		nota.setInscricaoMunicipalPrestador(toLong (nf.getlbr_OrgCCM()));
+		nota.setNumeroNota(Integer.parseInt(nf.getlbr_NFENo()));
+		nota.setCodigoVerificacao(nf.getlbr_NFeProt());
+		
+		MOrgInfo oi = MOrgInfo.get (nf.getCtx(), nf.getAD_Org_ID(), null);
+		new SignatureUtil (oi, SignatureUtil.OUTROS, "Lote").sign (doc, lote.newCursor());
+
+		LoteRpsServiceStub stub = new LoteRpsServiceStub(url);
+		String response = stub.cancelar(doc.xmlText());
+		
+		RetornoCancelamentoNFSeDocument responseDoc = RetornoCancelamentoNFSeDocument.Factory.parse(response);
+		RetornoCancelamentoNFSe result = responseDoc.getRetornoCancelamentoNFSe();
+		
+		//	Read from XML
+		TpEvento[] alertas 			= result.getAlertas().getAlertaArray();
+		TpEvento[] erros 			= result.getErros().getErroArray();
+		
+		for (TpEvento alerta : alertas)
+		{
+			log.warning ("Alerta - NF=" + alerta.getChaveNFe() + ", Cod=" + alerta.getCodigo() + ", Desc=" + alerta.getDescricao());
+		}
+		for (TpEvento erro : erros)
+		{
+			log.log (Level.SEVERE, "Erro - NF=" + erro.getChaveNFe() + ", Cod=" + erro.getCodigo() + ", Desc=" + erro.getDescricao());
+		}
+		
+		return result.getCabecalho().getSucesso();
+	}
 }	//	NFSeImpl
