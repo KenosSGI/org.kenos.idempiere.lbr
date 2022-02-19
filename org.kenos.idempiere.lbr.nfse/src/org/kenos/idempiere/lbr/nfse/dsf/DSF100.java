@@ -43,6 +43,7 @@ import org.compiere.model.MOrgInfo;
 import org.compiere.model.MSequence;
 import org.compiere.model.MSysConfig;
 import org.compiere.model.X_C_City;
+import org.compiere.process.ProcessInfo;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
 import org.compiere.util.Util;
@@ -105,7 +106,19 @@ public class DSF100 implements INFSe
 	private static CLogger log = CLogger.getCLogger(DSF100.class);
 	
 	private String type = TYPE_SYNCHRONOUS;
+	
+	private ProcessInfo pi;
 
+	public DSF100 ()
+	{
+		
+	}
+	
+	public DSF100 (ProcessInfo pi)
+	{
+		this.pi = pi;
+	}
+	
 	/**
 	 *  Tipo de integração, via Webservice ou via arquivo de RPS
 	 */
@@ -870,6 +883,9 @@ public class DSF100 implements INFSe
 			nf.setErrorMsg(p_ErrorMsg);
 			nf.save();
 		}
+
+		if (pi != null)
+			pi.addLog (LBR_NotaFiscal_ID, null, null, "RPS:" + p_RPS + "-"+ p_ErrorMsg, MLBRNotaFiscal.Table_ID, LBR_NotaFiscal_ID);
 	}	//	proccessNFSe
 	
 	/**
