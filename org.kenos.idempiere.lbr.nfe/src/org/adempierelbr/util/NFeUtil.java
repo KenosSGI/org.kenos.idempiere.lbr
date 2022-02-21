@@ -1013,15 +1013,19 @@ public abstract class NFeUtil
 		return false;
 	}
 
-	public static final String KIND_NFE = "nfe";
-	public static final String KIND_NFSE = "nfse";
+	public static final String KIND_CTE 	= "cte";
+	public static final String KIND_MDFE 	= "mdfe";
+	public static final String KIND_NFE 	= "nfe";
+	public static final String KIND_NFSE 	= "nfse";
 
-	public static final String MESSAGE_REQ_AUTORIZE = "req-authorize";
-	public static final String MESSAGE_RET_AUTORIZE = "ret-authorize";
-	public static final String MESSAGE_REQ_CONSULT = "req-consult";
-	public static final String MESSAGE_RET_CONSULT = "ret-consult";
-	public static final String MESSAGE_REQ_CANCEL = "req-cancel";
-	public static final String MESSAGE_RET_CANCEL = "ret-cancel";
+	public static final String MESSAGE_REQ_AUTORIZE 	= "req-authorize";
+	public static final String MESSAGE_RET_AUTORIZE 	= "ret-authorize";
+	public static final String MESSAGE_REQ_CANCEL 		= "req-cancel";
+	public static final String MESSAGE_RET_CANCEL 		= "ret-cancel";
+	public static final String MESSAGE_REQ_CONSULT 		= "req-consult";
+	public static final String MESSAGE_RET_CONSULT 		= "ret-consult";
+	public static final String MESSAGE_REQ_STATUS 		= "req-status";
+	public static final String MESSAGE_RET_STATUS 		= "ret-status";
 	
 	public static void saveXML (String company, String kind, String message, String name, String xml) {
 		File file = new File (Ini.findAdempiereHome() + 
