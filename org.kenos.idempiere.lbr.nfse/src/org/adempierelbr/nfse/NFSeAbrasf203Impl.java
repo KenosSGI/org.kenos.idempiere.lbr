@@ -411,20 +411,25 @@ public class NFSeAbrasf203Impl implements INFSe
 			SubstituirNfseEnvioDocument document = SubstituirNfseEnvioDocument.Factory.newInstance();
 			SubstituirNfseEnvio substituirNfseEnvio = document.addNewSubstituirNfseEnvio();
 			SubstituicaoNfse substituicaoNfse = substituirNfseEnvio.addNewSubstituicaoNfse();
-			substituicaoNfse.setRps(TcDeclaracaoPrestacaoServico.Factory.parse(xml));
 			
 			TcPedidoCancelamento pedido = substituicaoNfse.addNewPedido();
 			TcInfPedidoCancelamento infCancelOrder = pedido.addNewInfPedidoCancelamento();
 			infCancelOrder.setCodigoCancelamento((byte) 1);
-			infCancelOrder.setId("1");
+			infCancelOrder.setId(UUID.randomUUID().toString());
 			
 			TcIdentificacaoNfse identNfse = infCancelOrder.addNewIdentificacaoNfse();
 			identNfse.setNumero(new BigDecimal(nf.getLBR_NFReplacedNo()).longValue());
-			identNfse.setCodigoMunicipio(nf.getlbr_BPCityCode());
+			
+			MRegion cityRegion = MRegion.getBrazilRegion(nf.getCtx(),nf.getlbr_OrgRegion());
+			MCity city = MCity.getCity (nf.getCtx(), cityRegion.getC_Region_ID(), nf.getlbr_OrgCity());
+			
+			identNfse.setCodigoMunicipio(city.getlbr_CityCode());
 			identNfse.setInscricaoMunicipal(TextUtil.toNumeric(nf.getlbr_OrgCCM()));
 			
 			TcCpfCnpj cpfcnpjPrestador = identNfse.addNewCpfCnpj();
 			cpfcnpjPrestador.setCnpj(TextUtil.toNumeric(nf.getlbr_CNPJ()));
+			
+			substituicaoNfse.setRps(TcDeclaracaoPrestacaoServico.Factory.parse(xml));
 			
 			MOrgInfo orgInf = MOrgInfo.get (nf.getCtx(), nf.getAD_Org_ID(), null);
 			new SignatureUtil (orgInf, SignatureUtil.OUTROS, "InfPedidoCancelamento").sign (document, pedido.newCursor());
