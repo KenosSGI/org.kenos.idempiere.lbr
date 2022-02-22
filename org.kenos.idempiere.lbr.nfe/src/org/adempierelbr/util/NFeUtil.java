@@ -1026,6 +1026,7 @@ public abstract class NFeUtil
 	public static final String MESSAGE_RET_CONSULT 		= "ret-consult";
 	public static final String MESSAGE_REQ_STATUS 		= "req-status";
 	public static final String MESSAGE_RET_STATUS 		= "ret-status";
+	public static final String MESSAGE_XML 				= "xml";
 	
 	public static void saveXML (String company, String kind, String message, String name, String xml) {
 		File file = new File (Ini.findAdempiereHome() + 
@@ -1033,7 +1034,7 @@ public abstract class NFeUtil
 				File.separator + company + 
 				File.separator + kind + 
 				File.separator + message + 
-				File.separator + name + ".xml");
+				File.separator + TextUtil.timeToString(new Timestamp(System.currentTimeMillis()), "yyyyMMddhhmm") + "_" + name + ".xml");
 		//
 		file.getParentFile().mkdirs();
         TextUtil.generateFile(xml, file.getAbsolutePath()); 

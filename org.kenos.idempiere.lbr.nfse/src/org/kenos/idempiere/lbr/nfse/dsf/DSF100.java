@@ -421,7 +421,12 @@ public class DSF100 implements INFSe
 			log.log (Level.SEVERE, tpRPS.xmlText(), e);
 		}
 		//
-		return tpRPS.xmlText(NFeUtil.getXmlOpt()).getBytes(NFeUtil.NFE_ENCODING);
+		String xmlText = tpRPS.xmlText(NFeUtil.getXmlOpt());
+		
+		//	Log
+		NFeUtil.saveXML (String.valueOf(nf.getAD_Org_ID()), NFeUtil.KIND_NFSE, NFeUtil.MESSAGE_XML, nf.getDocumentNo(), xmlText.toString());
+
+		return xmlText.getBytes(NFeUtil.NFE_ENCODING);
 	}	//	getXML
 
 	private Enum getTributacao (String taxRegime, String cstISS)
@@ -639,11 +644,6 @@ public class DSF100 implements INFSe
 			//	Envio o Lote
 			else 
 				retornoXML = stub.enviar(xml.toString());
-			
-			System.out.println (xml.toString());
-			System.out.println (retornoXML);
-			
-			log.fine (retornoXML);
 		}
 		
 		NFeUtil.saveXML (String.valueOf(p_AD_Org_ID), NFeUtil.KIND_NFSE, NFeUtil.MESSAGE_RET_AUTORIZE, uuid, retornoXML.toString());
