@@ -26,7 +26,7 @@ INSERT INTO AD_Process_Para (AD_Process_Para_ID,AD_Client_ID,AD_Org_ID,IsActive,
 ;
 
 -- 21 de fev de 2022 11:43:05 BRT
-UPDATE AD_Process SET Name='Send email NF',Updated=TO_DATE('2022-02-21 11:43:05','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Process_ID=1120305
+UPDATE AD_Process SET Classname='org.adempierelbr.process.ProcEMailNFe',Name='Send email NF',Updated=TO_DATE('2022-02-21 11:43:05','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Process_ID=1120305
 ;
 
 -- 21 de fev de 2022 11:43:33 BRT
