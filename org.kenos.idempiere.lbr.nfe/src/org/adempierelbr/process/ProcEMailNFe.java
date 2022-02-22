@@ -117,12 +117,12 @@ public class ProcEMailNFe extends SvrProcess
 		if (p_C_DocType_ID > 0)
 			whereClause += " AND " + MLBRNotaFiscal.COLUMNNAME_C_DocTypeTarget_ID + "=" + p_C_DocType_ID;
 		//
-		List<MLBRNotaFiscal> nfs = new Query (Env.getCtx(), MLBRNotaFiscal.Table_Name, whereClause, get_TrxName())
+		List<MLBRNotaFiscal> nfs = new Query (Env.getCtx(), MLBRNotaFiscal.Table_Name, whereClause, null)
 				.setParameters(p_AD_Org_ID)
 				.setClient_ID().list();
 		sendEmailNFeThread (nfs, false);
 		
-		return "@Success@ nfs agendadas para envio";
+		return "@Success@ as NFs estão na fila envio";
 	}	//	doIt
 	
 	/**
@@ -155,16 +155,20 @@ public class ProcEMailNFe extends SvrProcess
 			{
 				for (MLBRNotaFiscal nf : nfs)
 				{
+					String trxName = nf.get_TrxName();
+
 					try
 					{
 						int counterLimit = 0;
-						Thread.sleep (10*1000);	//	10 secs waiting time
+						
+						if (trxName != null)
+							Thread.sleep (10*1000);	//	10 secs waiting time
 						
 						//	Wait until the transaction is closed by other processes
 						//	max of 60 interactions, resulting in a 10 minutes total
-						while (counterLimit < 60)
+						while (trxName != null && counterLimit < 60)
 						{
-							Trx trx = Trx.get (nf.get_TrxName(), false);
+							Trx trx = Trx.get (trxName, false);
 							
 							//	Transaction closed or inactive, abort
 							if (trx == null || !trx.isActive())
