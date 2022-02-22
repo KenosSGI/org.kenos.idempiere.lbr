@@ -175,7 +175,7 @@ public class VLBRCommons implements ModelValidator
 			return modelChange ((MMovementLine) po, type);
 
 		//	Validar Produção
-		else if (MProduction.Table_Name.equals(po.get_TableName()))
+		else if (MProduction.Table_Name.equals(po.get_TableName()) && po instanceof MProduction)
 			return modelChange ((MProduction) po, type);
 		
 		return null;
