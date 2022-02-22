@@ -59,6 +59,7 @@ import org.compiere.model.Query;
 import org.compiere.util.CLogger;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
+import org.compiere.util.Ini;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -1011,4 +1012,31 @@ public abstract class NFeUtil
         
 		return false;
 	}
+
+	public static final String KIND_CTE 	= "cte";
+	public static final String KIND_MDFE 	= "mdfe";
+	public static final String KIND_NFE 	= "nfe";
+	public static final String KIND_NFSE 	= "nfse";
+
+	public static final String MESSAGE_REQ_AUTORIZE 	= "req-authorize";
+	public static final String MESSAGE_RET_AUTORIZE 	= "ret-authorize";
+	public static final String MESSAGE_REQ_CANCEL 		= "req-cancel";
+	public static final String MESSAGE_RET_CANCEL 		= "ret-cancel";
+	public static final String MESSAGE_REQ_CONSULT 		= "req-consult";
+	public static final String MESSAGE_RET_CONSULT 		= "ret-consult";
+	public static final String MESSAGE_REQ_STATUS 		= "req-status";
+	public static final String MESSAGE_RET_STATUS 		= "ret-status";
+	public static final String MESSAGE_XML 				= "xml";
+	
+	public static void saveXML (String company, String kind, String message, String name, String xml) {
+		File file = new File (Ini.findAdempiereHome() + 
+				File.separator + "xml" + 
+				File.separator + company + 
+				File.separator + kind + 
+				File.separator + message + 
+				File.separator + TextUtil.timeToString(new Timestamp(System.currentTimeMillis()), "yyyyMMddhhmm") + "_" + name + ".xml");
+		//
+		file.getParentFile().mkdirs();
+        TextUtil.generateFile(xml, file.getAbsolutePath()); 
+	}	//	saveXML
 }	//	NFeUtil

@@ -33,7 +33,8 @@ Bundle-ClassPath: .,
  lib/nfse-dsf-v100.jar
 Export-Package: br.gov.sp.prefeitura.nfe,
  br.gov.sp.prefeitura.nfe.tipos,
- org.kenos.idempiere.lbr.nfse
+ org.kenos.idempiere.lbr.nfse,
+ org.kenos.idempiere.lbr.nfse.dsf
 Bundle-ActivationPolicy: lazy
 Automatic-Module-Name: org.kenos.idempiere.lbr.nfse
 Bundle-RequiredExecutionEnvironment: JavaSE-11

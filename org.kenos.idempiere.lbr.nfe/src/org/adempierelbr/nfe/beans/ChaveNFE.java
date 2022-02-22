@@ -100,7 +100,7 @@ public class ChaveNFE
 		}
 		catch (Exception e)
 		{
-			System.out.println("Chave Inválida!");
+			e.printStackTrace();
 		}
 
 		return dv;

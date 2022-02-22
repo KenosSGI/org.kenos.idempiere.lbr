@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Properties;
 import java.util.UUID;
 import java.util.logging.Level;
+import java.util.stream.Collectors;
 
 import javax.xml.namespace.QName;
 
@@ -32,6 +33,7 @@ import org.adempierelbr.util.BPartnerUtil;
 import org.adempierelbr.util.NFeUtil;
 import org.adempierelbr.util.SignatureUtil;
 import org.adempierelbr.util.TextUtil;
+import org.adempierelbr.validator.ValidatorBPartner;
 import org.adempierelbr.wrapper.I_W_AD_OrgInfo;
 import org.adempierelbr.wrapper.I_W_C_BPartner;
 import org.apache.xmlbeans.XmlCalendar;
@@ -43,6 +45,7 @@ import org.compiere.model.MOrgInfo;
 import org.compiere.model.MSequence;
 import org.compiere.model.MSysConfig;
 import org.compiere.model.X_C_City;
+import org.compiere.process.ProcessInfo;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
 import org.compiere.util.Util;
@@ -51,11 +54,15 @@ import org.kenos.idempiere.lbr.base.event.IDocFiscalHandlerFactory;
 import org.kenos.idempiere.lbr.base.model.MCity;
 import org.kenos.idempiere.lbr.base.model.SysConfig;
 
+import br.com.dsfnet.nfse.lote.ReqCancelamentoNFSeDocument;
+import br.com.dsfnet.nfse.lote.ReqCancelamentoNFSeDocument.ReqCancelamentoNFSe;
 import br.com.dsfnet.nfse.lote.ReqConsultaLoteDocument;
 import br.com.dsfnet.nfse.lote.ReqConsultaLoteDocument.ReqConsultaLote;
 import br.com.dsfnet.nfse.lote.ReqEnvioLoteRPSDocument;
 import br.com.dsfnet.nfse.lote.ReqEnvioLoteRPSDocument.ReqEnvioLoteRPS;
 import br.com.dsfnet.nfse.lote.ReqEnvioLoteRPSDocument.ReqEnvioLoteRPS.Cabecalho;
+import br.com.dsfnet.nfse.lote.RetornoCancelamentoNFSeDocument;
+import br.com.dsfnet.nfse.lote.RetornoCancelamentoNFSeDocument.RetornoCancelamentoNFSe;
 import br.com.dsfnet.nfse.lote.RetornoConsultaLoteDocument;
 import br.com.dsfnet.nfse.lote.RetornoConsultaLoteDocument.RetornoConsultaLote;
 import br.com.dsfnet.nfse.lote.RetornoEnvioLoteRPSDocument;
@@ -70,7 +77,9 @@ import br.com.dsfnet.nfse.tp.TpInscricaoMunicipalNulo;
 import br.com.dsfnet.nfse.tp.TpItens;
 import br.com.dsfnet.nfse.tp.TpListaItens;
 import br.com.dsfnet.nfse.tp.TpLote;
+import br.com.dsfnet.nfse.tp.TpLoteCancelamentoNFSe;
 import br.com.dsfnet.nfse.tp.TpMetodoEnvio;
+import br.com.dsfnet.nfse.tp.TpNotaCancelamentoNFSe;
 import br.com.dsfnet.nfse.tp.TpOperacao;
 import br.com.dsfnet.nfse.tp.TpRPS;
 import br.com.dsfnet.nfse.tp.TpSeriePrestacao;
@@ -99,7 +108,19 @@ public class DSF100 implements INFSe
 	private static CLogger log = CLogger.getCLogger(DSF100.class);
 	
 	private String type = TYPE_SYNCHRONOUS;
+	
+	private ProcessInfo pi;
 
+	public DSF100 ()
+	{
+		
+	}
+	
+	public DSF100 (ProcessInfo pi)
+	{
+		this.pi = pi;
+	}
+	
 	/**
 	 *  Tipo de integração, via Webservice ou via arquivo de RPS
 	 */
@@ -153,8 +174,8 @@ public class DSF100 implements INFSe
 		String ccm = bp.getlbr_CCM();
 		if (bp != null && ccm != null && !ccm.trim().isEmpty())
 			tpRPS.setInscricaoMunicipalTomador (toLong (ccm));
-		else if (location.getC_City_ID() == nf.getOrg_Location().getC_City_ID())
-			throw new Exception ("Obrigatório o preenchimento da IM / CCM para contribuintes da cidade");
+//		else if (location.getC_City_ID() == nf.getOrg_Location().getC_City_ID())
+//			throw new Exception ("Obrigatório o preenchimento da IM / CCM para contribuintes da cidade, RPS: " + nf.getDocumentNo());
 		else
 		{
 			TpInscricaoMunicipalNulo nulo = TpInscricaoMunicipalNulo.Factory.newInstance();
@@ -172,9 +193,15 @@ public class DSF100 implements INFSe
 			if (nf.getlbr_BPAddress3() != null)
 				tpRPS.setBairroTomador(nf.getlbr_BPAddress3());
 			else
-				throw new Exception ("Obrigatório o preenchimento do campo Bairro");
-			if (nf.getlbr_BPAddress4() != null)
-				tpRPS.setComplementoEnderecoTomador(nf.getlbr_BPAddress4());
+				throw new Exception ("Obrigatório o preenchimento do campo Bairro, RPS: " + nf.getDocumentNo());
+			
+			String compl = nf.getlbr_BPAddress4();
+			if (compl != null)
+			{
+				if (compl.length() > 30)
+					compl = compl.substring(0,30);
+				tpRPS.setComplementoEnderecoTomador(compl);
+			}
 			tpRPS.setCEPTomador(toInt (TextUtil.toNumeric (nf.getlbr_BPPostal())));
 			tpRPS.setCidadeTomador(toInt (cityCode));
 			tpRPS.setCidadeTomadorDescricao(nf.getlbr_BPCity());
@@ -182,8 +209,33 @@ public class DSF100 implements INFSe
 			tpRPS.setMunicipioPrestacaoDescricao(nf.getlbr_BPCity());
 			tpRPS.setTipoBairroTomador("BAIRRO");
 		}
-		if (nf.getLBR_EMailNFe() != null && !nf.getLBR_EMailNFe().isBlank())
-			tpRPS.setEmailTomador(nf.getLBR_EMailNFe());
+		String eMailNFe = nf.getLBR_EMailNFe();
+		if (eMailNFe != null && !eMailNFe.isBlank())
+		{
+			//	Use ; as separator
+			eMailNFe = eMailNFe.trim().replace(" ", "").replace(",", ";");
+			
+			//	Check individual emails
+			eMailNFe = Arrays.asList(eMailNFe.split(";")).stream()
+				.filter(s -> s.matches(ValidatorBPartner.REGEX_EMAIL))
+				.collect(Collectors.joining(";"));
+			//
+			if (eMailNFe.length() > 60)
+			{
+				int count=0;
+				while (eMailNFe.length() > 60 && eMailNFe.indexOf(";") > 0)
+				{
+					if (count++ > 10)
+						break;
+					eMailNFe = eMailNFe.substring(0, eMailNFe.lastIndexOf(";"));
+				}
+			}
+			
+			if (eMailNFe.length() <= 60)
+				tpRPS.setEmailTomador(eMailNFe);
+			else
+				tpRPS.setEmailTomador("-");
+		}
 		else
 			tpRPS.setEmailTomador("-");
 		//
@@ -229,7 +281,7 @@ public class DSF100 implements INFSe
 				serviceCode = nfl.getlbr_ServiceCode();
 			else if (!serviceCode.equals(nfl.getlbr_ServiceCode()))
 			{
-				nf.setErrorMsg("Impossível gerar NFS-e. Todos os serviços da NFS-e devem conter o mesmo Código de Serviço");
+				nf.setErrorMsg("Impossível gerar NFS-e. Todos os serviços da NFS-e devem conter o mesmo Código de Serviço, RPS: " + nf.getDocumentNo());
 				return null;
 			}
 			
@@ -248,7 +300,7 @@ public class DSF100 implements INFSe
 				}
 				else if (!r_ISS.equals(taxRateISS))
 				{
-					nf.setErrorMsg("Impossível gerar XML NFS-e. Todos os serviços da NFS-e devem conter o mesmo Código de Serviço");
+					nf.setErrorMsg("Impossível gerar XML NFS-e. Todos os serviços da NFS-e devem conter o mesmo Código de Serviço, RPS: " + nf.getDocumentNo());
 					return null;
 				}
 			}
@@ -264,7 +316,7 @@ public class DSF100 implements INFSe
 				}
 				else if (!r_ISS.equals(taxRateISSRT))
 				{
-					nf.setErrorMsg("Impossível gerar XML NFS-e. Todos os serviços da NFS-e devem conter o mesmo Código de Serviço");
+					nf.setErrorMsg("Impossível gerar XML NFS-e. Todos os serviços da NFS-e devem conter o mesmo Código de Serviço, RPS: " + nf.getDocumentNo());
 					return null;
 				}
 			}
@@ -317,8 +369,8 @@ public class DSF100 implements INFSe
 			descricaoServico = descricaoServico.replace("\n", "|").replace("  ", "").trim();
 		tpRPS.setDescricaoRPS(Util.deleteAccents(descricaoServico));
 		//
-		if (nf.getLBR_EMailNFe() != null && nf.getLBR_EMailNFe().indexOf("@") > 1)
-			tpRPS.setEmailTomador(nf.getLBR_EMailNFe().trim());
+		if (eMailNFe != null && eMailNFe.indexOf("@") > 1)
+			tpRPS.setEmailTomador(eMailNFe.trim());
 		tpRPS.setTipoRecolhimento(withholdISS ? TpTipoRecolhimento.R : TpTipoRecolhimento.A);
 		
 //		if (withholdISS && nf.getlbr_BPCity() != null && nf.getlbr_BPCity().equals(nf.getlbr_OrgCity()))
@@ -369,7 +421,12 @@ public class DSF100 implements INFSe
 			log.log (Level.SEVERE, tpRPS.xmlText(), e);
 		}
 		//
-		return tpRPS.xmlText(NFeUtil.getXmlOpt()).getBytes(NFeUtil.NFE_ENCODING);
+		String xmlText = tpRPS.xmlText(NFeUtil.getXmlOpt());
+		
+		//	Log
+		NFeUtil.saveXML (String.valueOf(nf.getAD_Org_ID()), NFeUtil.KIND_NFSE, NFeUtil.MESSAGE_XML, nf.getDocumentNo(), xmlText.toString());
+
+		return xmlText.getBytes(NFeUtil.NFE_ENCODING);
 	}	//	getXML
 
 	private Enum getTributacao (String taxRegime, String cstISS)
@@ -480,7 +537,8 @@ public class DSF100 implements INFSe
 		//	Lote
 		TpLote lote = envioLoteRPS.addNewLote();
 		lote.setRPSArray(tpRPSArray);
-		lote.setId(UUID.randomUUID().toString());
+		String uuid = UUID.randomUUID().toString();
+		lote.setId(uuid);
 		
 		//	Cabeçalho para o Lote
 		X_C_City c = BPartnerUtil.getX_C_City(ctx, orgLoc, null);
@@ -512,7 +570,7 @@ public class DSF100 implements INFSe
 		StringBuilder xml = new StringBuilder (new String (envioLoteRPSDoc.xmlText().getBytes(), NFeUtil.NFE_ENCODING));
 		
 		//	Log
-		log.fine ("Sending XML: " + xml.toString());
+		NFeUtil.saveXML (String.valueOf(p_AD_Org_ID), NFeUtil.KIND_NFSE, NFeUtil.MESSAGE_REQ_AUTORIZE, uuid, xml.toString());
 		
 		//	Retorno da Prefeitura
 		String retornoXML = "";
@@ -554,7 +612,7 @@ public class DSF100 implements INFSe
 				else
 					flags += "single";
 				
-				String uuid = UUID.randomUUID().toString();
+				uuid = UUID.randomUUID().toString();
 				handler.transmitDocument(IDocFiscalHandler.DOC_NFSE, oi.get_ValueAsString(I_W_AD_OrgInfo.COLUMNNAME_lbr_CNPJ), 
 						uuid, certificate.getURL(), url, flags, xml.toString(), respStatus);
 				
@@ -586,13 +644,10 @@ public class DSF100 implements INFSe
 			//	Envio o Lote
 			else 
 				retornoXML = stub.enviar(xml.toString());
-			
-			System.out.println (xml.toString());
-			System.out.println (retornoXML);
-			
-			log.fine (retornoXML);
 		}
 		
+		NFeUtil.saveXML (String.valueOf(p_AD_Org_ID), NFeUtil.KIND_NFSE, NFeUtil.MESSAGE_RET_AUTORIZE, uuid, retornoXML.toString());
+
 		//	Processa o Retorno
 		RetornoEnvioLoteRPS result = RetornoEnvioLoteRPSDocument.Factory.parse(retornoXML).getRetornoEnvioLoteRPS();
 		
@@ -630,12 +685,18 @@ public class DSF100 implements INFSe
 		
 		return header.getSucesso();
 	}	//	transmit
+
 	
 	public boolean consult(MLBRNotaFiscal nf) throws Exception
 	{
+		return consult (nf.getCtx(), nf.getAD_Org_ID(), nf.getlbr_DigestValue(), nf.get_TrxName());
+	}
+	
+	protected boolean consult(Properties ctx, int AD_Org_ID, String lotNo, String trxName) throws Exception
+	{
 		LoteRpsServiceStub stub = new LoteRpsServiceStub(url);
 		
-		MOrgInfo oi = MOrgInfo.get (nf.getCtx(), nf.getAD_Org_ID(), null);
+		MOrgInfo oi = MOrgInfo.get (ctx, AD_Org_ID, null);
 		I_W_AD_OrgInfo oiW = POWrapper.create(oi, I_W_AD_OrgInfo.class);
 		MLocation orgLoc = (MLocation) oi.getC_Location();
 		
@@ -654,18 +715,21 @@ public class DSF100 implements INFSe
 		cursor.insertNamespace("xsi", "http://www.w3.org/2001/XMLSchema-instance");
 		
 		//	Cabeçalho para o Lote
-		X_C_City c = BPartnerUtil.getX_C_City(nf.getCtx(), orgLoc, null);
+		X_C_City c = BPartnerUtil.getX_C_City(ctx, orgLoc, null);
 		String cityCode = c.get_ValueAsString("lbr_CityCode2");
 		//
 		header.setCodCidade(Long.valueOf(cityCode));
 		header.setCPFCNPJRemetente(TextUtil.toNumeric(oiW.getlbr_CNPJ()));
-		header.setNumeroLote(Integer.parseInt(nf.getlbr_DigestValue()));
+		header.setNumeroLote(Integer.parseInt(lotNo));
 		header.setVersao(1);
 		
-		String resultXML = stub.consultarLote(consultDoc.xmlText());
-		System.out.println(consultDoc.xmlText());
-		System.out.println(resultXML);
-		
+		String xml = consultDoc.xmlText();
+		String uuid = UUID.randomUUID().toString();
+		NFeUtil.saveXML (String.valueOf(oi.getAD_Org_ID()), NFeUtil.KIND_NFSE, NFeUtil.MESSAGE_REQ_CONSULT, uuid, xml);
+
+		String resultXML = stub.consultarLote(xml);
+		NFeUtil.saveXML (String.valueOf(oi.getAD_Org_ID()), NFeUtil.KIND_NFSE, NFeUtil.MESSAGE_RET_CONSULT, uuid, resultXML);
+
 		RetornoConsultaLote result = RetornoConsultaLoteDocument.Factory.parse(resultXML).getRetornoConsultaLote();
 
 		//	Read from XML
@@ -681,14 +745,11 @@ public class DSF100 implements INFSe
 		}
 		for (TpEvento erro : erros)
 		{
-			log.warning ("Erro - NF=" + erro.getChaveNFe() + ", Cod=" + erro.getCodigo() + ", Desc=" + erro.getDescricao());
-			nf.setDocStatus(MLBRNotaFiscal.DOCSTATUS_Invalid);
-			nf.setErrorMsg(erro.getCodigo() + "-" + erro.getDescricao());
-			nf.save();
+			proccessErrors (ctx, trxName, "" + erro.getChaveRPS().getNumeroRPS(), erro.getCodigo() + "-" + erro.getDescricao(), AD_Org_ID);
 		}
 		for (TpConsultaNFSe chaves : chaveNFeRPS)
 		{
-			proccessNFSe (nf.getCtx(), nf.get_TrxName(), "" + chaves.getNumeroRPS(), "" + chaves.getNumeroNFe(), chaves.getCodigoVerificacao(), nf.getAD_Org_ID());
+			proccessNFSe (ctx, trxName, "" + chaves.getNumeroRPS(), "" + chaves.getNumeroNFe(), chaves.getCodigoVerificacao(), AD_Org_ID);
 		}
 		return erros.length == 0 ? Boolean.TRUE : Boolean.FALSE;
 	}
@@ -830,6 +891,31 @@ public class DSF100 implements INFSe
 	}	//	proccessNFSe
 	
 	/**
+	 * 		Processar NF-e
+	 * 	@param p_RPS
+	 * 	@param p_NFe
+	 * 	@param p_VerifCode
+	 * 	@param p_AD_Org_ID - Organization
+	 */
+	private void proccessErrors (Properties ctx, String trxName, String p_RPS, String p_ErrorMsg, int p_AD_Org_ID)
+	{
+		int LBR_NotaFiscal_ID = MLBRNotaFiscal.getLBR_NotaFiscal_ID (p_AD_Org_ID, p_RPS, true, MLBRNotaFiscal.LBR_NFMODEL_NotaFiscalDeServiçosEletrônicaRPS, trxName);
+		if (LBR_NotaFiscal_ID > 0)
+		{
+			MLBRNotaFiscal nf = new MLBRNotaFiscal (ctx, LBR_NotaFiscal_ID, trxName);
+			nf.setDocStatus(MLBRNotaFiscal.DOCSTATUS_Invalid);
+			
+			if (nf.getErrorMsg() != null)
+				p_ErrorMsg = nf.getErrorMsg() + "." + p_ErrorMsg;
+			nf.setErrorMsg(p_ErrorMsg);
+			nf.save();
+		}
+
+		if (pi != null)
+			pi.addLog (LBR_NotaFiscal_ID, null, null, "RPS:" + p_RPS + "-"+ p_ErrorMsg, MLBRNotaFiscal.Table_ID, LBR_NotaFiscal_ID);
+	}	//	proccessNFSe
+	
+	/**
 	 *	Imprimir a NFS-e
 	 * 	@return
 	 */
@@ -882,4 +968,64 @@ public class DSF100 implements INFSe
 	{
 		throw new Exception ("Erro na Emissão da Nota Fiscal de Serviço. Imprima a partir do Site da Prefeitura");
 	}	//	getReport
+	
+	@Override
+	public boolean cancel(MLBRNotaFiscal nf) throws Exception 
+	{
+		ReqCancelamentoNFSeDocument doc = ReqCancelamentoNFSeDocument.Factory.newInstance();
+		ReqCancelamentoNFSe cancelamentoNFSe = doc.addNewReqCancelamentoNFSe();
+		br.com.dsfnet.nfse.lote.ReqCancelamentoNFSeDocument.ReqCancelamentoNFSe.Cabecalho cabecalho = cancelamentoNFSe.addNewCabecalho();
+		//
+		XmlCursor cursor = doc.newCursor();
+		if (cursor.toFirstChild())
+			cursor.setAttributeText(new QName("http://www.w3.org/2001/XMLSchema-instance","schemaLocation"), "http://localhost:8080/WsNFe2/lote http://localhost:8080/WsNFe2/xsd/ReqCancelamentoNFSe.xsd");
+
+		cursor = doc.newCursor();
+		cursor.toNextToken();
+		cursor.insertNamespace("ns1", "http://localhost:8080/WsNFe2/lote");
+		cursor.insertNamespace("tipos", "http://localhost:8080/WsNFe2/tp");
+		cursor.insertNamespace("xsi", "http://www.w3.org/2001/XMLSchema-instance");
+		
+		//	Cabeçalho para o Lote
+		X_C_City c = BPartnerUtil.getX_C_City(nf.getCtx(), (MLocation) nf.getOrg_Location(), null);
+		String cityCode = c.get_ValueAsString("lbr_CityCode2");
+		//
+		cabecalho.setCodCidade(Long.valueOf(cityCode));
+		cabecalho.setCPFCNPJRemetente(TextUtil.toNumeric(nf.getlbr_CNPJ()));
+		cabecalho.setTransacao(false);
+		cabecalho.setVersao(1);
+		
+		TpLoteCancelamentoNFSe lote = cancelamentoNFSe.addNewLote();
+		lote.setId(UUID.randomUUID().toString());
+		
+		TpNotaCancelamentoNFSe nota = lote.addNewNota();
+		nota.setId(UUID.randomUUID().toString());
+		nota.setInscricaoMunicipalPrestador(toLong (nf.getlbr_OrgCCM()));
+		nota.setNumeroNota(Integer.parseInt(nf.getlbr_NFENo()));
+		nota.setCodigoVerificacao(nf.getlbr_NFeProt());
+		
+		MOrgInfo oi = MOrgInfo.get (nf.getCtx(), nf.getAD_Org_ID(), null);
+		new SignatureUtil (oi, SignatureUtil.OUTROS, "Lote").sign (doc, lote.newCursor());
+
+		LoteRpsServiceStub stub = new LoteRpsServiceStub(url);
+		String response = stub.cancelar(doc.xmlText());
+		
+		RetornoCancelamentoNFSeDocument responseDoc = RetornoCancelamentoNFSeDocument.Factory.parse(response);
+		RetornoCancelamentoNFSe result = responseDoc.getRetornoCancelamentoNFSe();
+		
+		//	Read from XML
+		TpEvento[] alertas 			= result.getAlertas().getAlertaArray();
+		TpEvento[] erros 			= result.getErros().getErroArray();
+		
+		for (TpEvento alerta : alertas)
+		{
+			log.warning ("Alerta - NF=" + alerta.getChaveNFe() + ", Cod=" + alerta.getCodigo() + ", Desc=" + alerta.getDescricao());
+		}
+		for (TpEvento erro : erros)
+		{
+			log.log (Level.SEVERE, "Erro - NF=" + erro.getChaveNFe() + ", Cod=" + erro.getCodigo() + ", Desc=" + erro.getDescricao());
+		}
+		
+		return result.getCabecalho().getSucesso();
+	}
 }	//	NFSeImpl

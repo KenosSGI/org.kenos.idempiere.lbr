@@ -1,6 +1,7 @@
 package org.adempierelbr.process;
 
 import java.io.File;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
@@ -24,6 +25,7 @@ import org.compiere.model.MOrgInfo;
 import org.compiere.model.MShipper;
 import org.compiere.model.MSysConfig;
 import org.compiere.model.MUser;
+import org.compiere.model.Query;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
 import org.compiere.util.CLogger;
@@ -31,6 +33,7 @@ import org.compiere.util.DB;
 import org.compiere.util.EMail;
 import org.compiere.util.Env;
 import org.compiere.util.Msg;
+import org.compiere.util.TimeUtil;
 import org.compiere.util.Trx;
 import org.kenos.idempiere.lbr.base.event.INFMailAttach;
 import org.kenos.idempiere.lbr.base.event.INFMailAttachFactory;
@@ -50,8 +53,18 @@ public class ProcEMailNFe extends SvrProcess
 	/**	EMail				*/
 	private String p_EMail = null;
 	
+	/** Organization		*/
+	private int p_AD_Org_ID 		= 0;
+	
+	/** Document Type		*/
+	private int p_C_DocType_ID 		= 0;
+	
+	/** Dates filter		*/
+	private Timestamp p_DateFrom 	= null;
+	private Timestamp p_DateTo 		= null;
+	
 	/**	Logger				*/
-	private static CLogger log = CLogger.getCLogger(ProcEMailNFe.class);
+	private static CLogger log = CLogger.getCLogger (ProcEMailNFe.class);
 
 	/**
 	 *  Prepare - e.g., get Parameters.
@@ -66,6 +79,15 @@ public class ProcEMailNFe extends SvrProcess
 				;
 			else if (name.equals(MUser.COLUMNNAME_EMail))
 				p_EMail = (String) para[i].getParameter();
+			else if (name.equals(MLBRNotaFiscal.COLUMNNAME_AD_Org_ID))
+				p_AD_Org_ID = para[i].getParameterAsInt();
+			else if (name.equals(MLBRNotaFiscal.COLUMNNAME_C_DocType_ID))
+				p_C_DocType_ID = para[i].getParameterAsInt();
+			else if (name.equals(MLBRNotaFiscal.COLUMNNAME_DateDoc))
+			{
+				p_DateFrom = para[i].getParameterAsTimestamp();
+				p_DateTo = para[i].getParameter_ToAsTimestamp();
+			}
 			else
 				log.log(Level.SEVERE, "prepare - Unknown Parameter: " + name);
 		}
@@ -78,12 +100,29 @@ public class ProcEMailNFe extends SvrProcess
 	 */
 	protected String doIt() throws Exception 
 	{
-		if (p_LBR_NotaFiscal_ID <= 0)
-			return "NF-e não encontrada.";
+		if (p_LBR_NotaFiscal_ID > 0)
+		{
+			MLBRNotaFiscal nf = new MLBRNotaFiscal (Env.getCtx(), p_LBR_NotaFiscal_ID, get_TrxName());
+			return sendEmailNFe (nf, p_EMail, false, true);
+		}
+		
+		if (p_DateFrom == null || p_DateTo == null || p_DateFrom.after(p_DateTo))
+			return "@Error@ datas inválidas";
+		
+		if (TimeUtil.getDaysBetween(p_DateFrom, p_DateFrom) > 31)
+			return "@Error@ o intervalo de datas deve ser no máximo 31 dias";
+		
+		String whereClause = "AD_Org_ID=? AND DateDoc BETWEEN " + DB.TO_DATE(p_DateFrom) + " AND " + 
+				DB.TO_DATE(p_DateTo) + " AND " + MLBRNotaFiscal.COLUMNNAME_LBR_EMailSent + "='N'";
+		if (p_C_DocType_ID > 0)
+			whereClause += " AND " + MLBRNotaFiscal.COLUMNNAME_C_DocTypeTarget_ID + "=" + p_C_DocType_ID;
 		//
-		MLBRNotaFiscal nf = new MLBRNotaFiscal (Env.getCtx(), p_LBR_NotaFiscal_ID, get_TrxName());
-		//
-		return sendEmailNFe (nf, p_EMail, false, true);
+		List<MLBRNotaFiscal> nfs = new Query (Env.getCtx(), MLBRNotaFiscal.Table_Name, whereClause, null)
+				.setParameters(p_AD_Org_ID)
+				.setClient_ID().list();
+		sendEmailNFeThread (nfs, false);
+		
+		return "@Success@ as NFs estão na fila envio";
 	}	//	doIt
 	
 	/**
@@ -95,54 +134,76 @@ public class ProcEMailNFe extends SvrProcess
 	 */
 	public static void sendEmailNFeThread (final MLBRNotaFiscal nf, final boolean force)
 	{
+		List<MLBRNotaFiscal> nfs = new ArrayList<MLBRNotaFiscal>();
+		nfs.add(nf);
+		//
+		sendEmailNFeThread(nfs, force);
+	}	//	sendEmailNFeThread
+	
+	/**
+	 * 		Método para enviar e-mail da NF-e numa nova thread
+	 * 
+	 * @param nf
+	 * @param force
+	 * @return
+	 */
+	public static void sendEmailNFeThread (final List<MLBRNotaFiscal> nfs, final boolean force)
+	{
 		Thread thread = new Thread ("Timeout") 
 		{
 			public void run ()
 			{
-				try
+				for (MLBRNotaFiscal nf : nfs)
 				{
-					int counterLimit = 0;
-					Thread.sleep (10*1000);	//	10 secs waiting time
-					
-					//	Wait until the transaction is closed by other processes
-					//	max of 60 interactions, resulting in a 10 minutes total
-					while (counterLimit < 60)
+					String trxName = nf.get_TrxName();
+
+					try
 					{
-						Trx trx = Trx.get (nf.get_TrxName(), false);
+						int counterLimit = 0;
 						
-						//	Transaction closed or inactive, abort
-						if (trx == null || !trx.isActive())
-							counterLimit = 999;
-						
-						else
-						{
-							if (counterLimit == 0)
-								log.warning("Aguardando a liberação da NF para envio de e-mail, tentando novamente a cada 10 segs num limite de 10 min");
-							//
-							counterLimit++;
+						if (trxName != null)
 							Thread.sleep (10*1000);	//	10 secs waiting time
-						}
-					} 
+						
+						//	Wait until the transaction is closed by other processes
+						//	max of 60 interactions, resulting in a 10 minutes total
+						while (trxName != null && counterLimit < 60)
+						{
+							Trx trx = Trx.get (trxName, false);
+							
+							//	Transaction closed or inactive, abort
+							if (trx == null || !trx.isActive())
+								counterLimit = 999;
+							
+							else
+							{
+								if (counterLimit == 0)
+									log.warning("Aguardando a liberação da NF para envio de e-mail, tentando novamente a cada 10 segs num limite de 10 min");
+								//
+								counterLimit++;
+								Thread.sleep (10*1000);	//	10 secs waiting time
+							}
+						} 
+						
+						//	Log that waiting time is reached
+						if (counterLimit == 60)
+							log.warning("Tempo limite atingido. Tentando forçar o envio de e-mail mesmo sem a liberação da transação da NF");
+					}
+					catch (InterruptedException e)
+					{
+						e.printStackTrace();
+					}
 					
-					//	Log that waiting time is reached
-					if (counterLimit == 60)
-						log.warning("Tempo limite atingido. Tentando forçar o envio de e-mail mesmo sem a liberação da transação da NF");
+					//	Make sure the transaction is new
+					String result = ProcEMailNFe.sendEmailNFe (new MLBRNotaFiscal (nf.getCtx(), nf.getLBR_NotaFiscal_ID(), null), force);
+					
+					if (result.indexOf ("@Success@") == -1)
+						log.fine ("Erro ao enviar e-mail da NF #" + nf.getlbr_NFeID() + ", Resultado: " + result);
 				}
-				catch (InterruptedException e)
-				{
-					e.printStackTrace();
-				}
-				
-				//	Make sure the transaction is new
-				String result = ProcEMailNFe.sendEmailNFe (new MLBRNotaFiscal (nf.getCtx(), nf.getLBR_NotaFiscal_ID(), null), force);
-				
-				if (result.indexOf ("@Success@") == -1)
-					log.fine ("Erro ao enviar e-mail da NF #" + nf.getlbr_NFeID() + ", Resultado: " + result);
 			}
 		};
 		
 		//	Timeout check
-		thread.start();
+		thread.start(); 
 	}	//	sendEmailNFeThread
 	
 	/**

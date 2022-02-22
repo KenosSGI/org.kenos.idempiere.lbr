@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.UUID;
 
 import org.adempiere.base.Service;
 import org.adempiere.exceptions.AdempiereException;
@@ -38,6 +39,7 @@ import org.compiere.util.CLogger;
 import org.compiere.util.Env;
 import org.compiere.util.Util;
 import org.kenos.idempiere.lbr.base.model.MCity;
+import org.kenos.idempiere.lbr.base.model.MRegion;
 
 import br.gov.sp.indaiatuba.nfse.NfseWebServiceServiceStub;
 import br.org.abrasf.nfse.CabecalhoDocument.Cabecalho;
@@ -409,20 +411,25 @@ public class NFSeAbrasf203Impl implements INFSe
 			SubstituirNfseEnvioDocument document = SubstituirNfseEnvioDocument.Factory.newInstance();
 			SubstituirNfseEnvio substituirNfseEnvio = document.addNewSubstituirNfseEnvio();
 			SubstituicaoNfse substituicaoNfse = substituirNfseEnvio.addNewSubstituicaoNfse();
-			substituicaoNfse.setRps(TcDeclaracaoPrestacaoServico.Factory.parse(xml));
 			
 			TcPedidoCancelamento pedido = substituicaoNfse.addNewPedido();
 			TcInfPedidoCancelamento infCancelOrder = pedido.addNewInfPedidoCancelamento();
 			infCancelOrder.setCodigoCancelamento((byte) 1);
-			infCancelOrder.setId("1");
+			infCancelOrder.setId(UUID.randomUUID().toString());
 			
 			TcIdentificacaoNfse identNfse = infCancelOrder.addNewIdentificacaoNfse();
 			identNfse.setNumero(new BigDecimal(nf.getLBR_NFReplacedNo()).longValue());
-			identNfse.setCodigoMunicipio(nf.getlbr_BPCityCode());
+			
+			MRegion cityRegion = MRegion.getBrazilRegion(nf.getCtx(),nf.getlbr_OrgRegion());
+			MCity city = MCity.getCity (nf.getCtx(), cityRegion.getC_Region_ID(), nf.getlbr_OrgCity());
+			
+			identNfse.setCodigoMunicipio(city.getlbr_CityCode());
 			identNfse.setInscricaoMunicipal(TextUtil.toNumeric(nf.getlbr_OrgCCM()));
 			
 			TcCpfCnpj cpfcnpjPrestador = identNfse.addNewCpfCnpj();
 			cpfcnpjPrestador.setCnpj(TextUtil.toNumeric(nf.getlbr_CNPJ()));
+			
+			substituicaoNfse.setRps(TcDeclaracaoPrestacaoServico.Factory.parse(xml));
 			
 			MOrgInfo orgInf = MOrgInfo.get (nf.getCtx(), nf.getAD_Org_ID(), null);
 			new SignatureUtil (orgInf, SignatureUtil.OUTROS, "InfPedidoCancelamento").sign (document, pedido.newCursor());
@@ -567,7 +574,7 @@ public class NFSeAbrasf203Impl implements INFSe
 		nfseStub._getServiceClient().getOptions().setProperty(HTTPConstants.CHUNKED, false);	
 		
 		MLBRDigitalCertificate.setCertificate (Env.getCtx(), nf.getAD_Org_ID());
-		String result = nfseStub.consultarNfsePorRps(header.xmlText(), document.xmlText());
+		String result = nfseStub.consultarNfsePorRps(header.xmlText(), document.xmlText(NFeUtil.getXmlOpt()));
 		System.out.println(result);
 		ConsultarNfseRpsResposta resposta = ConsultarNfseRpsRespostaDocument.Factory.parse(result).getConsultarNfseRpsResposta();
 		
@@ -1686,11 +1693,15 @@ public class NFSeAbrasf203Impl implements INFSe
 		TcPedidoCancelamento cancelOrder = cancelNf.addNewPedido();
 		TcInfPedidoCancelamento infCancelOrder = cancelOrder.addNewInfPedidoCancelamento();
 		infCancelOrder.setCodigoCancelamento((byte) 2);
-		infCancelOrder.setId("1");
+		infCancelOrder.setId(UUID.randomUUID().toString());
 		
 		TcIdentificacaoNfse identNfse = infCancelOrder.addNewIdentificacaoNfse();
 		identNfse.setNumero(new BigDecimal(nf.getlbr_NFENo()).longValue());
-		identNfse.setCodigoMunicipio(nf.getlbr_BPCityCode());
+		
+		MRegion cityRegion = MRegion.getBrazilRegion(nf.getCtx(),nf.getlbr_OrgRegion());
+		MCity city = MCity.getCity (nf.getCtx(), cityRegion.getC_Region_ID(), nf.getlbr_OrgCity());
+
+		identNfse.setCodigoMunicipio(city.getlbr_CityCode());
 		identNfse.setInscricaoMunicipal(TextUtil.toNumeric(nf.getlbr_OrgCCM()));
 
 		TcCpfCnpj cpfcnpjPrestador = identNfse.addNewCpfCnpj();
@@ -1700,13 +1711,11 @@ public class NFSeAbrasf203Impl implements INFSe
 		{
 			MOrgInfo orgInf = MOrgInfo.get (nf.getCtx(), nf.getAD_Org_ID(), null);
 			new SignatureUtil (orgInf, SignatureUtil.OUTROS, "InfPedidoCancelamento").sign (cancelDoc, cancelNf.getPedido().newCursor());
-			
 			//	Valida o documento
 			NFeUtil.validate (cancelDoc);
 					
 			//	Set certificate
 			MLBRDigitalCertificate.setCertificate (Env.getCtx(), nf.getAD_Org_ID());
-			
 			String url = "https://deiss.indaiatuba.sp.gov.br/homologacao/nfse";
 			if (MLBRNotaFiscal.LBR_NFEENV_Production.equals(nf.getlbr_NFeEnv()))
 				url = "https://deiss.indaiatuba.sp.gov.br/producao/nfse";
@@ -1714,7 +1723,8 @@ public class NFSeAbrasf203Impl implements INFSe
 			NfseWebServiceServiceStub nfseStub = new NfseWebServiceServiceStub(url);
 			nfseStub._getServiceClient().getOptions().setProperty(HTTPConstants.CHUNKED, false);	
 			
-			String result = nfseStub.cancelarNfse(header.xmlText(), cancelDoc.xmlText());
+			
+			String result = nfseStub.cancelarNfse(header.xmlText(), cancelDoc.xmlText(NFeUtil.getXmlOpt()));
 			System.out.println(result);
 			
 			CancelarNfseRespostaDocument response = CancelarNfseRespostaDocument.Factory.parse(result);
