@@ -67,7 +67,8 @@ public class MPaymentTerm extends org.compiere.model.MPaymentTerm
 			setGraceDays (0);
 			setIsDueFixed (false);
 			setIsValid (false);
-		}	}	//	MPaymentTerm
+		}	
+	}//	MPaymentTerm
 
 	/**
 	 * 	Load Constructor
