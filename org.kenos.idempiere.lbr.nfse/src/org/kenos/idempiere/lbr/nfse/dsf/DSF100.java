@@ -36,14 +36,18 @@ import org.adempierelbr.util.TextUtil;
 import org.adempierelbr.validator.ValidatorBPartner;
 import org.adempierelbr.wrapper.I_W_AD_OrgInfo;
 import org.adempierelbr.wrapper.I_W_C_BPartner;
+import org.apache.axis2.AxisFault;
 import org.apache.xmlbeans.XmlCalendar;
 import org.apache.xmlbeans.XmlCursor;
+import org.compiere.model.MAttachment;
+import org.compiere.model.MAttachmentEntry;
 import org.compiere.model.MBPartner;
 import org.compiere.model.MBPartnerLocation;
 import org.compiere.model.MLocation;
 import org.compiere.model.MOrgInfo;
 import org.compiere.model.MSequence;
 import org.compiere.model.MSysConfig;
+import org.compiere.model.Query;
 import org.compiere.model.X_C_City;
 import org.compiere.process.ProcessInfo;
 import org.compiere.util.CLogger;
@@ -58,6 +62,8 @@ import br.com.dsfnet.nfse.lote.ReqCancelamentoNFSeDocument;
 import br.com.dsfnet.nfse.lote.ReqCancelamentoNFSeDocument.ReqCancelamentoNFSe;
 import br.com.dsfnet.nfse.lote.ReqConsultaLoteDocument;
 import br.com.dsfnet.nfse.lote.ReqConsultaLoteDocument.ReqConsultaLote;
+import br.com.dsfnet.nfse.lote.ReqConsultaNotasDocument;
+import br.com.dsfnet.nfse.lote.ReqConsultaNotasDocument.ReqConsultaNotas;
 import br.com.dsfnet.nfse.lote.ReqEnvioLoteRPSDocument;
 import br.com.dsfnet.nfse.lote.ReqEnvioLoteRPSDocument.ReqEnvioLoteRPS;
 import br.com.dsfnet.nfse.lote.ReqEnvioLoteRPSDocument.ReqEnvioLoteRPS.Cabecalho;
@@ -65,6 +71,8 @@ import br.com.dsfnet.nfse.lote.RetornoCancelamentoNFSeDocument;
 import br.com.dsfnet.nfse.lote.RetornoCancelamentoNFSeDocument.RetornoCancelamentoNFSe;
 import br.com.dsfnet.nfse.lote.RetornoConsultaLoteDocument;
 import br.com.dsfnet.nfse.lote.RetornoConsultaLoteDocument.RetornoConsultaLote;
+import br.com.dsfnet.nfse.lote.RetornoConsultaNotasDocument;
+import br.com.dsfnet.nfse.lote.RetornoConsultaNotasDocument.RetornoConsultaNotas;
 import br.com.dsfnet.nfse.lote.RetornoEnvioLoteRPSDocument;
 import br.com.dsfnet.nfse.lote.RetornoEnvioLoteRPSDocument.RetornoEnvioLoteRPS;
 import br.com.dsfnet.nfse.tp.TpAssinatura;
@@ -79,6 +87,7 @@ import br.com.dsfnet.nfse.tp.TpListaItens;
 import br.com.dsfnet.nfse.tp.TpLote;
 import br.com.dsfnet.nfse.tp.TpLoteCancelamentoNFSe;
 import br.com.dsfnet.nfse.tp.TpMetodoEnvio;
+import br.com.dsfnet.nfse.tp.TpNFSe;
 import br.com.dsfnet.nfse.tp.TpNotaCancelamentoNFSe;
 import br.com.dsfnet.nfse.tp.TpOperacao;
 import br.com.dsfnet.nfse.tp.TpRPS;
@@ -921,6 +930,88 @@ public class DSF100 implements INFSe
 	 */
 	public String printNFSe (MLBRNotaFiscal nf)
 	{
+		//	Check for null
+		if (nf == null || nf.getlbr_NFENo() == null)
+			return null;
+		
+		byte[] data = nf.getAttachmentData("xml");
+		RetornoConsultaNotasDocument xml = null;
+		
+		try {
+			xml = RetornoConsultaNotasDocument.Factory.parse(new String (data, NFeUtil.NFE_ENCODING));
+		}
+		catch (Exception e) {}
+		
+		// Try to get XML from prefeitura
+		if (xml == null) {
+			
+			try 
+			{
+				ReqConsultaNotasDocument doc = ReqConsultaNotasDocument.Factory.newInstance();
+				ReqConsultaNotas consult = doc.addNewReqConsultaNotas();
+				br.com.dsfnet.nfse.lote.ReqConsultaNotasDocument.ReqConsultaNotas.Cabecalho cabecalho = consult.addNewCabecalho();
+				//
+				XmlCursor cursor = doc.newCursor();
+				if (cursor.toFirstChild())
+					cursor.setAttributeText(new QName("http://www.w3.org/2001/XMLSchema-instance","schemaLocation"), "http://localhost:8080/WsNFe2/lote http://localhost:8080/WsNFe2/xsd/ReqConsultaNotas.xsd");
+
+				cursor = consult.newCursor();
+				cursor.toNextToken();
+				cursor.insertNamespace("ns1", "http://localhost:8080/WsNFe2/lote");
+				cursor.insertNamespace("tipos", "http://localhost:8080/WsNFe2/tp");
+				cursor.insertNamespace("xsi", "http://www.w3.org/2001/XMLSchema-instance");
+				
+				//	Cabeçalho para o Lote
+				X_C_City c = BPartnerUtil.getX_C_City(nf.getCtx(), (MLocation) nf.getOrg_Location(), null);
+				String cityCode = c.get_ValueAsString("lbr_CityCode2");
+				//
+				cabecalho.setId(UUID.randomUUID().toString());
+				cabecalho.setCodCidade(Long.valueOf(cityCode));
+				cabecalho.setInscricaoMunicipalPrestador(toLong(nf.getlbr_OrgCCM()));
+				cabecalho.setCPFCNPJRemetente(TextUtil.toNumeric(nf.getlbr_CNPJ()));
+				cabecalho.setNotaInicial(toInt(nf.getlbr_NFENo()));
+				cabecalho.setDtInicio(fixDate(nf.getDateDoc()));
+				cabecalho.setDtFim(fixDate(nf.getDateDoc()));
+				cabecalho.setVersao(1);
+				
+				MOrgInfo oi = MOrgInfo.get (nf.getCtx(), nf.getAD_Org_ID(), null);
+				new SignatureUtil (oi, SignatureUtil.OUTROS, "Cabecalho").sign (doc, consult.newCursor());
+				
+				//	Check if XML is OK
+				NFeUtil.validate (doc);
+				NFeUtil.saveXML (String.valueOf(oi.getAD_Org_ID()), NFeUtil.KIND_NFSE, NFeUtil.MESSAGE_REQ_CONSULT, nf.getDocumentNo(), doc.xmlText());
+				
+				LoteRpsServiceStub stub = new LoteRpsServiceStub(url);
+				String result = stub.consultarNota(doc.xmlText());
+				
+				NFeUtil.saveXML (String.valueOf(oi.getAD_Org_ID()), NFeUtil.KIND_NFSE, NFeUtil.MESSAGE_REQ_CONSULT, nf.getDocumentNo(), result);
+				
+				RetornoConsultaNotasDocument consultaNotasDocument = RetornoConsultaNotasDocument.Factory.parse(result);
+				RetornoConsultaNotas retornoConsultaNotas = consultaNotasDocument.getRetornoConsultaNotas();
+				TpNFSe[] notaArray = retornoConsultaNotas.getNotas().getNotaArray();
+				
+				//	Store XML of this and other NFs
+				Arrays.asList (notaArray).forEach (x -> storeXML(nf.getCtx(), nf.getlbr_CNPJ(), x));
+				
+				TpNFSe match = Arrays.asList (notaArray).stream().filter(x -> x.getNumeroNota() == Integer.parseInt(nf.getlbr_NFENo())).findFirst().orElse(null);
+				
+				if (match == null)
+					throw new Exception ("Arquivo XML não encontrado");
+				
+				//	This NFSe
+				xml = RetornoConsultaNotasDocument.Factory.newInstance();
+				xml.addNewRetornoConsultaNotas().addNewNotas().setNotaArray(new TpNFSe[] {match});
+			}
+			catch (AxisFault e)
+			{
+				e.printStackTrace();
+			} 
+			catch (Exception e) 
+			{
+				e.printStackTrace();
+			}
+		}
+		
 		try
 		{
 			JasperPrint jasperPrint = getReport (nf);
@@ -1040,4 +1131,60 @@ public class DSF100 implements INFSe
 		}
 		return success;
 	}	//	cancel
+	
+	/**
+	 * 	Store the XML of NFSe
+	 * 
+	 * 	@param ctx
+	 * 	@param cnpj
+	 * 	@param nfse
+	 */
+	private void storeXML (Properties ctx, String cnpj, TpNFSe nfse)
+	{
+		String where = MLBRNotaFiscal.COLUMNNAME_lbr_NFModel + "=? AND " + 
+				MLBRNotaFiscal.COLUMNNAME_lbr_CNPJ + "=? AND " + 
+				MLBRNotaFiscal.COLUMNNAME_lbr_NFENo + "=? AND " + 
+				MLBRNotaFiscal.COLUMNNAME_lbr_NFSerie + "=?";
+		
+		try {
+			MLBRNotaFiscal nf = new Query (ctx, MLBRNotaFiscal.Table_Name, where, null)
+				.setParameters(MLBRNotaFiscal.LBR_NFMODEL_NotaFiscalDeServiçosEletrônicaRPS, cnpj, String.valueOf(nfse.getNumeroNota()), nfse.xgetSeriePrestacao().getBigIntegerValue().toString())
+				.firstOnly();
+			MAttachment attachment = nf.getAttachment(true);
+			if (attachment != null) 
+			{
+				for (int i=0; i<attachment.getEntryCount(); i++) 
+				{
+					MAttachmentEntry entry = attachment.getEntry(i);
+					if (entry != null 
+							&& entry.getName() != null 
+							&& entry.getName().endsWith("xml")) 
+					{ 
+						try 
+						{
+							RetornoConsultaNotasDocument.Factory.parse(new String (entry.getData(), NFeUtil.NFE_ENCODING));
+							
+							// parse OK
+							return;
+						}
+						catch (Exception e) {}
+						
+						//	Delete incomplete XML
+						attachment.deleteEntry(i);
+					}
+				}
+			}
+			else
+				attachment = nf.createAttachment();
+			
+			RetornoConsultaNotasDocument document = RetornoConsultaNotasDocument.Factory.newInstance();
+			document.addNewRetornoConsultaNotas().addNewNotas().setNotaArray(new TpNFSe[] {nfse});
+			//
+			attachment.addEntry("NFSe-" + nfse.getNumeroNota() + ".xml", document.xmlText().getBytes(NFeUtil.NFE_ENCODING));
+			attachment.save();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+	}	//	storeXML
 }	//	NFSeImpl
