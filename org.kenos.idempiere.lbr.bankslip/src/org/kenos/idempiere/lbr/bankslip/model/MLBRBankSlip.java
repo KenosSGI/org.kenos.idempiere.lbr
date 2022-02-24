@@ -5,6 +5,7 @@ import java.io.File;
 import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -60,6 +61,7 @@ import org.jrimum.domkee.financeiro.banco.febraban.Sacado;
 import org.jrimum.domkee.financeiro.banco.febraban.TipoDeTitulo;
 import org.jrimum.domkee.financeiro.banco.febraban.Titulo;
 import org.jrimum.vallia.digitoverificador.Modulo;
+import org.kenos.idempiere.lbr.bankslip.cnab.BancoDoBrasil001;
 import org.kenos.idempiere.lbr.bankslip.cnab.Bradesco237;
 import org.kenos.idempiere.lbr.base.model.SysConfig;
 
@@ -299,6 +301,16 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 		boleto.setInstrucao5(bsi.getLBR_Instruction5());
 		boleto.setInstrucao6(bsi.getLBR_Instruction6());
 		boleto.setInstrucao7(bsi.getLBR_Instruction7());
+
+		if (Integer.parseInt(bsi.getRoutingNo()) == BancoDoBrasil001.ROUNTING_NO)
+		{	
+			boleto.addTextosExtras("txtFcAgenciaCodigoCedente", 
+					bsi.getAgency() + "-" + bsi.getLBR_BankAgencyVD() + " / " + 
+					bsi.getAccountNo() + "-" + bsi.getLBR_BankAccountVD());
+			boleto.addTextosExtras("txtRsAgenciaCodigoCedente", 
+					bsi.getAgency() + "-" + bsi.getLBR_BankAgencyVD() + " / " + 
+					bsi.getAccountNo() + "-" + bsi.getLBR_BankAccountVD());
+		}	
 		
 		return boleto;
 	}	//	getBankSlip
@@ -468,7 +480,7 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 			//	Local numbering
 			if (getLBR_NumberInOrg() == null)
 				setLBR_NumberInOrg(getDocumentNo());
-		
+			
 			//	Number in the bank
 			if (getLBR_NumberInBank() == null)
 			{
@@ -478,7 +490,11 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 					String next = String.valueOf(seq.getNextID());
 					String prefix = seq.getPrefix();
 					String suffix = seq.getSuffix();
-					//
+					String decimalPattern = seq.getDecimalPattern();
+					Integer nextInt = seq.getNextID();;
+					
+					if (decimalPattern != null && decimalPattern.length() > 0)
+						next = new DecimalFormat(decimalPattern).format(nextInt);
 					if (prefix != null && TextUtil.toNumeric(prefix).length() > 0)
 						next = prefix + next;
 					if (suffix != null && TextUtil.toNumeric(suffix).length() > 0)
@@ -517,10 +533,21 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 	public String getLBR_NumberInBank()
 	{
 		String numberInBank = super.getLBR_NumberInBank();
+		String routingNo = getC_BankAccount().getC_Bank().getRoutingNo();
 		
-		if ("237".equals(getRoutingNo()))
-			return TextUtil.lPad(numberInBank, 11);
-		return numberInBank;
+		if (numberInBank == null)
+			return null;
+		else 
+		{
+			if (Integer.parseInt(routingNo) == Bradesco237.ROUNTING_NO)
+				return TextUtil.lPad(numberInBank, 11);
+			else if (Integer.parseInt(routingNo) == BancoDoBrasil001.ROUNTING_NO)
+			{
+				return TextUtil.lPad(numberInBank,17);
+			}
+			else
+				return numberInBank;
+		}
 	}	//	getLBR_NumberInBank
 	
 	/**
@@ -561,6 +588,8 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 			if (agencyVD != null && !agencyVD.isBlank())
 				bsi.setLBR_BankAgencyVD(agencyVD);
 			//
+			bsi.setLBR_AccordNo(getLBR_BankSlipContract().getLBR_AccordNo());
+			
 			changed = true;
 		}
 		
@@ -904,10 +933,14 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 		String numberInBank = getLBR_NumberInBank();
 		
 		//	Bradesco
-		if (getRoutingNo().equals(String.valueOf(Bradesco237.ROUNTING_NO)))
+		if (Integer.parseInt(getRoutingNo()) == Bradesco237.ROUNTING_NO)
 		{
 			numberInBank = TextUtil.lPad(bsi.getLBR_BankSlipFoldCode(), 2) + 
 					TextUtil.lPad(getLBR_NumberInBank(), 11);
+		}
+		else if (Integer.parseInt(getRoutingNo()) == BancoDoBrasil001.ROUNTING_NO)
+		{
+			return;
 		}
 		
 		if (numberInBank == null)
@@ -1179,7 +1212,7 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 		if (C_DocType_ID > 0)
 			setC_DocType_ID(C_DocType_ID);
 	}	//	setDocType
-
+	
 	/**
 	 * 	Set contract information
 	 * 	@param LBR_BankSlipContract_ID

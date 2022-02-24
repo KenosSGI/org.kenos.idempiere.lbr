@@ -25,7 +25,7 @@ public class BancoDoBrasil001 implements ICNABGenerator
 	public static final int ROUNTING_NO = 001;
 	
 	/**	Bank Name			*/
-	private static final String BANK_NAME = "BANCODOBRASIL";
+	private static final String BANK_NAME = "BANCO DO BRASIL";
 	
 //	/** Org BP Type				*/
 	private static final String BPTYPE_CPF_BENEFICIARIO 		= "01";
@@ -59,7 +59,7 @@ public class BancoDoBrasil001 implements ICNABGenerator
 		cnab.append(lPad(cnabFile.getAccountNo(), 8)); 			//	CONTA
 		cnab.append(rPad(cnabFile.getLBR_BankAccountVD(), 1)); 	//	DAC
 		cnab.append(lPad(0, 6)); 								//	COMPLEMENTO
-		cnab.append(lPad(cnabFile.getlbr_LegalEntity(), 30)); 	//	NOME DA EMPRESA
+		cnab.append(rPad(cnabFile.getlbr_LegalEntity(), 30)); 	//	NOME DA EMPRESA
 		cnab.append(cnabFile.getRoutingNo()); 					//	CÓDIGO DO BANCO
 		cnab.append(rPad(BANK_NAME, 15)); 						//	NOME DO BANCO
 		cnab.append(timeToString(cnabFile.getDateDoc())); 		//	DATA DE GERAÇÃO
@@ -145,15 +145,19 @@ public class BancoDoBrasil001 implements ICNABGenerator
 			cnab.append(rPad(bsi.getLBR_BankAgencyVD(), 1));		//	DV AGÊNCIA
 			cnab.append(lPad(bsi.getAccountNo(), 8));				//	CONTA
 			cnab.append(rPad(bsi.getLBR_BankAccountVD(), 1));		//	DAC
-			cnab.append(rPad(bsi.getLBR_AccordNo(), 7));			//	BRANCOS
+			cnab.append(rPad(bsi.getLBR_AccordNo(), 7));			//	NÚMERO DO CONVÊNIO
 			cnab.append(rPad(bs.getLBR_NumberInOrg(), 25));			//	USO DA EMPRESA
-			cnab.append(lPad(bsi.getLBR_AccordNo() + bs.getLBR_NumberInBank(), 17)); //	NOSSO NÚMERO
+			cnab.append(lPad(bs.getLBR_NumberInBank(), 17)); 		//	NOSSO NÚMERO
 			cnab.append(lPad(0, 2));								//	Número da Prestação
 			cnab.append(lPad(0, 2));								//	Grupo de Valor
-			cnab.append(rPad("01", 2));								//	Moeda
+			cnab.append(rPad("", 2));								//	Moeda
 			cnab.append(rPad("", 1));								//	BRANCO
-			cnab.append(rPad("", 1));								//	SACADOR
-			cnab.append(rPad("", 3));								//	Prefixo do Título
+			
+			if (bsi.getLBR_GuarantorBPName() == null )				//	Indicativo de Mensagem ou Sacador/Avalista
+				cnab.append(rPad("", 1));							//	BRANCO - Mensagem Livre 352 a 391
+			else cnab.append("A");									//	A - CPF/CNPJ 352 a 391
+			
+			cnab.append(rPad("", 3));								//	Prefixo do Título - BRANCOS
 			cnab.append(lPad(bs.getLBR_BankSlipContract().getLBR_Param1(), 3));	//	VARIAÇÃO DA CARTEIRA
 			cnab.append(lPad(0, 1));								//	Conta Caução
 			cnab.append(lPad(0, 6));								//	Número do Borderô
