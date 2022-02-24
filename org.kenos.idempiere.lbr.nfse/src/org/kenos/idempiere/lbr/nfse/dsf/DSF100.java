@@ -980,7 +980,7 @@ public class DSF100 implements INFSe
 		if (cursor.toFirstChild())
 			cursor.setAttributeText(new QName("http://www.w3.org/2001/XMLSchema-instance","schemaLocation"), "http://localhost:8080/WsNFe2/lote http://localhost:8080/WsNFe2/xsd/ReqCancelamentoNFSe.xsd");
 
-		cursor = doc.newCursor();
+		cursor = cancelamentoNFSe.newCursor();
 		cursor.toNextToken();
 		cursor.insertNamespace("ns1", "http://localhost:8080/WsNFe2/lote");
 		cursor.insertNamespace("tipos", "http://localhost:8080/WsNFe2/tp");
@@ -994,7 +994,7 @@ public class DSF100 implements INFSe
 		cabecalho.setCPFCNPJRemetente(TextUtil.toNumeric(nf.getlbr_CNPJ()));
 		cabecalho.setTransacao(false);
 		cabecalho.setVersao(1);
-		
+
 		TpLoteCancelamentoNFSe lote = cancelamentoNFSe.addNewLote();
 		lote.setId(UUID.randomUUID().toString());
 		
@@ -1003,13 +1003,20 @@ public class DSF100 implements INFSe
 		nota.setInscricaoMunicipalPrestador(toLong (nf.getlbr_OrgCCM()));
 		nota.setNumeroNota(Integer.parseInt(nf.getlbr_NFENo()));
 		nota.setCodigoVerificacao(nf.getlbr_NFeProt());
+		nota.setMotivoCancelamento(nf.getlbr_MotivoCancel());
 		
 		MOrgInfo oi = MOrgInfo.get (nf.getCtx(), nf.getAD_Org_ID(), null);
-		new SignatureUtil (oi, SignatureUtil.OUTROS, "Lote").sign (doc, lote.newCursor());
+		new SignatureUtil (oi, SignatureUtil.OUTROS, "Lote").sign (doc, cancelamentoNFSe.newCursor());
 
+		//	Validate the XML
+		NFeUtil.saveXML (String.valueOf(oi.getAD_Org_ID()), NFeUtil.KIND_NFSE, NFeUtil.MESSAGE_REQ_CANCEL, nf.getDocumentNo(), doc.xmlText());
+		NFeUtil.validate(doc);
+		
 		LoteRpsServiceStub stub = new LoteRpsServiceStub(url);
 		String response = stub.cancelar(doc.xmlText());
 		
+		NFeUtil.saveXML (String.valueOf(oi.getAD_Org_ID()), NFeUtil.KIND_NFSE, NFeUtil.MESSAGE_RET_CANCEL, nf.getDocumentNo(), response);
+
 		RetornoCancelamentoNFSeDocument responseDoc = RetornoCancelamentoNFSeDocument.Factory.parse(response);
 		RetornoCancelamentoNFSe result = responseDoc.getRetornoCancelamentoNFSe();
 		
@@ -1026,6 +1033,11 @@ public class DSF100 implements INFSe
 			log.log (Level.SEVERE, "Erro - NF=" + erro.getChaveNFe() + ", Cod=" + erro.getCodigo() + ", Desc=" + erro.getDescricao());
 		}
 		
-		return result.getCabecalho().getSucesso();
-	}
+		boolean success = result.getCabecalho().getSucesso();
+		if (success)
+		{
+			//nf.getAttachment();
+		}
+		return success;
+	}	//	cancel
 }	//	NFSeImpl
