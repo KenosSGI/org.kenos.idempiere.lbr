@@ -1,13 +1,18 @@
 package org.kenos.idempiere.lbr.nfse.dsf;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 import java.util.UUID;
 import java.util.logging.Level;
@@ -43,6 +48,7 @@ import org.compiere.model.MAttachment;
 import org.compiere.model.MAttachmentEntry;
 import org.compiere.model.MBPartner;
 import org.compiere.model.MBPartnerLocation;
+import org.compiere.model.MImage;
 import org.compiere.model.MLocation;
 import org.compiere.model.MOrgInfo;
 import org.compiere.model.MSequence;
@@ -99,7 +105,11 @@ import br.com.dsfnet.nfse.tp.TpTipoRecolhimento;
 import br.com.dsfnet.nfse.tp.TpTributacao;
 import br.com.dsfnet.nfse.tp.TpTributacao.Enum;
 import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRXmlDataSource;
+import net.sf.jasperreports.engine.util.JRLoader;
 
 /**
  * 		NFS-e para a cidade de São Paulo
@@ -1014,9 +1024,9 @@ public class DSF100 implements INFSe
 		
 		try
 		{
-			JasperPrint jasperPrint = getReport (nf);
+			JasperPrint jasperPrint = getReport (nf, new ByteArrayInputStream(xml.toString().getBytes()));
 			JRViewerProvider viewerLauncher = Service.locator().locate(JRViewerProvider.class).getService();
-			viewerLauncher.openViewer (jasperPrint, "Impress\u00E3o de NFS-e para a Cidade de S\u00E3o Paulo");
+			viewerLauncher.openViewer (jasperPrint, "Impress\u00E3o de NFS-e para a Cidade de Campo Grande");
 		}
 		catch (Exception e)
 		{
@@ -1036,7 +1046,7 @@ public class DSF100 implements INFSe
 		
 		try
 		{
-			JasperPrint jasperPrint = getReport (nf);
+			JasperPrint jasperPrint = getReport (nf, null);
 			
 			PDF = File.createTempFile("NFSe" + nf.getlbr_NFENo() + "-", ".pdf");
     		JasperExportManager.exportReportToPdfFile(jasperPrint, PDF.getAbsolutePath());
@@ -1055,11 +1065,121 @@ public class DSF100 implements INFSe
 	 * @return
 	 * @throws Exception
 	 */
-	private JasperPrint getReport (MLBRNotaFiscal nf) throws Exception
+	private JasperPrint getReport (MLBRNotaFiscal nf, InputStream xmldoc) throws Exception
 	{
-		throw new Exception ("Erro na Emissão da Nota Fiscal de Serviço. Imprima a partir do Site da Prefeitura");
-	}	//	getReport
-	
+		log.fine("start getReport");
+		
+		InputStream is = null;
+		MImage img = MImage.get(Env.getCtx(), MOrgInfo.get(Env.getCtx(), nf.getAD_Org_ID(), nf.get_TrxName()).getLogo_ID());
+		MAttachment att = null;	
+
+		try
+		{
+			//	Map Parameters
+			Map<String, Object> map = new HashMap<String, Object>();
+			
+			// Get Xml Attachment
+			if (xmldoc == null) {
+				
+				//				Attachment
+				att = nf.getAttachment (true);
+				
+				if (att == null || att.getEntryCount() == 0)
+					throw new Exception ("Arquivo XML n\u00E3o encontrado para impress\u00E3o");
+				
+				MAttachmentEntry[] entries = att.getEntries();
+				
+				//	Get XML
+				for (MAttachmentEntry entry : entries)
+				{
+					//	Try to find the right file
+					if (entry.getName().endsWith(".xml"))
+					{
+						xmldoc = entry.getInputStream();
+						break;
+					}
+				}
+				
+				//	Valid XML
+				if (xmldoc == null)
+					throw new Exception ("Arquivo XML não foi encontrado");
+			}
+			
+			//	Get Logo
+			if (img.getBinaryData() != null)
+			{
+				is = new ByteArrayInputStream (img.getBinaryData());
+				map.put("logotipo", is);
+			}
+			
+			if (nf.getlbr_CNPJ() != null && !nf.getlbr_OrgCity().isEmpty() 
+					&& !nf.getlbr_OrgRegion().isEmpty())
+			{
+				map.put("CNPJPrestador", nf.getlbr_CNPJ());
+				map.put("MunicipioPrestador", nf.getlbr_OrgCity());
+				map.put("UFPrestador", nf.getlbr_OrgRegion());
+			}
+			
+			if (nf.getlbr_OrgAddress1() != null && !nf.getlbr_OrgAddress1().isEmpty())
+			{
+				map.put("LogradouroPrestador", nf.getlbr_OrgAddress1());
+			}
+			
+			if (nf.getlbr_OrgAddress2() != null && !nf.getlbr_OrgAddress2().isEmpty())
+			{
+				map.put("NumeroLogradouroPrestador", nf.getlbr_OrgAddress2());
+			}
+			
+			if (nf.getlbr_OrgAddress3() != null && !nf.getlbr_OrgAddress3().isEmpty())
+			{
+				map.put("BairroPrestador", nf.getlbr_OrgAddress3());
+			}
+			
+			if (nf.getlbr_OrgAddress4() != null && !nf.getlbr_OrgAddress4().isEmpty())
+			{
+				map.put("ComplementoPrestador", nf.getlbr_OrgAddress4());
+			}
+			
+			if (nf.getlbr_OrgPostal() != null && !nf.getlbr_OrgPostal().isEmpty())
+			{
+				map.put("CEPPrestador", nf.getlbr_OrgPostal());
+			}
+			
+			if (nf.getlbr_BPRegion() != null && !nf.getlbr_BPRegion().isEmpty())
+			{
+				map.put("UFTomador", nf.getlbr_BPRegion());
+			}
+				
+			//	Get Jasper
+			ClassLoader cl = getClass().getClassLoader();
+			InputStream report = cl.getResourceAsStream("org/kenos/idempiere/lbr/nfse/report/dsf100.jasper");
+			
+			log.fine("after find report");
+			
+			JasperReport jasperReport = (JasperReport) JRLoader.loadObject (report);
+			JRXmlDataSource dataSource = new JRXmlDataSource ( xmldoc , jasperReport.getQuery().getText() );
+			
+			//	Fill
+			return JasperFillManager.fillReport (jasperReport, map, dataSource);			
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+			throw new Exception (e.getMessage());
+		}
+		finally
+		{
+			try
+			{
+				if (is != null)
+					is.close();
+			}
+			catch (IOException ioe)
+			{
+				throw new Exception ("Erro na Impressão da Nota Fiscal de Serviço. Imprima a partir do Site da Prefeitura");
+			}
+		}
+	}
 	@Override
 	public boolean cancel(MLBRNotaFiscal nf) throws Exception 
 	{

@@ -7,7 +7,7 @@
 	<property name="net.sf.jasperreports.awt.ignore.missing.font" value="true"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DataAdapterDSF100.xml"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="XML NFSE 92781"/>
 	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
@@ -32,11 +32,11 @@
 			<property name="net.sf.jasperreports.xpath.field.expression" value="Quantidade"/>
 			<fieldDescription><![CDATA[Quantidade]]></fieldDescription>
 		</field>
-		<field name="ValorUnitario" class="java.lang.String">
+		<field name="ValorUnitario" class="java.lang.Float">
 			<property name="net.sf.jasperreports.xpath.field.expression" value="ValorUnitario"/>
 			<fieldDescription><![CDATA[ValorUnitario]]></fieldDescription>
 		</field>
-		<field name="ValorTotal" class="java.lang.String">
+		<field name="ValorTotal" class="java.lang.Float">
 			<property name="net.sf.jasperreports.xpath.field.expression" value="ValorTotal"/>
 			<fieldDescription><![CDATA[ValorTotal]]></fieldDescription>
 		</field>
@@ -46,6 +46,15 @@
 		</field>
 	</subDataset>
 	<parameter name="logotipo" class="java.io.InputStream" isForPrompting="false"/>
+	<parameter name="CNPJPrestador" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="MunicipioPrestador" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="UFPrestador" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="LogradouroPrestador" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="NumeroLogradouroPrestador" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="BairroPrestador" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="ComplementoPrestador" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="CEPPrestador" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="UFTomador" class="java.lang.String" isForPrompting="false"/>
 	<queryString language="XPath">
 		<![CDATA[//Nota[1]]]>
 	</queryString>
@@ -382,21 +391,21 @@
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[""]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{CNPJPrestador}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="66" y="104" width="489" height="10" uuid="eecdba0d-f80c-4eb2-aa75-d51de11d41f2"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[""]]></textFieldExpression>
+				<textFieldExpression><![CDATA[($P{LogradouroPrestador}.equals(null)?"":$P{LogradouroPrestador})+", "+($P{NumeroLogradouroPrestador}.equals(null)?"":$P{NumeroLogradouroPrestador})+" - "+($P{ComplementoPrestador}.equals(null)?"":$P{ComplementoPrestador})+" - "+($P{BairroPrestador}.equals(null)?"":$P{BairroPrestador})+ " - CEP: " + ($P{CEPPrestador}.equals(null)?"":$P{CEPPrestador})]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="296" y="114" width="32" height="10" uuid="7901b123-87b2-4089-bcea-19629f02e67e"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[""]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{UFPrestador}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="70" width="555" height="14" uuid="4e5fac51-79b2-4f77-8b5a-a10d4832bbfc"/>
@@ -417,7 +426,7 @@
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[""]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{MunicipioPrestador}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="84" width="66" height="10" uuid="fb45dc0a-e318-4f2f-9fb6-1665963aa94f"/>
@@ -534,12 +543,12 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{CPFCNPJTomador}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="66" y="158" width="489" height="10" uuid="b84000a5-3a90-4d06-a310-f09a79919dcb"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{LogradouroTomador}+", "+$F{NumeroEnderecoTomador}+" - "+$F{ComplementoEnderecoTomador}+" - "+$F{BairroTomador}+ " - CEP: " + $F{CEPTomador}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[($F{LogradouroTomador}.equals(null)?"":$F{LogradouroTomador})+", "+($F{NumeroEnderecoTomador}.equals(null)?"":$F{NumeroEnderecoTomador})+" - "+($F{ComplementoEnderecoTomador}.equals(null)?"":$F{ComplementoEnderecoTomador})+" - "+($F{BairroTomador}.equals(null)?"":$F{BairroTomador})+ " - CEP: " + ($F{CEPTomador}.equals(null)?"":$F{CEPTomador})]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="280" y="168" width="16" height="10" uuid="4b66a821-5153-403a-b058-bdb38f834c40"/>
@@ -560,7 +569,7 @@
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[""]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{UFTomador}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="328" y="168" width="22" height="10" uuid="b7a6ae50-941a-4d62-9790-c34991842692"/>
@@ -590,8 +599,8 @@
 				<reportElement x="0" y="251" width="555" height="1" uuid="aedfa41f-c669-47d3-8cc0-f783b890d825"/>
 			</line>
 			<image scaleImage="RetainShape" hAlign="Center" vAlign="Middle" isUsingCache="true" onErrorType="Icon" evaluationTime="Page">
-				<reportElement key="image-1" mode="Opaque" x="3" y="3" width="74" height="64" uuid="e191ea3b-6e0b-49a6-9d9f-93d793d07f2e"/>
-				<imageExpression><![CDATA[""]]></imageExpression>
+				<reportElement key="image-1" mode="Opaque" x="2" y="3" width="77" height="64" uuid="e191ea3b-6e0b-49a6-9d9f-93d793d07f2e"/>
+				<imageExpression><![CDATA[$P{logotipo}]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement x="514" y="252" width="40" height="10" uuid="42a58eaf-e2ce-4f44-93c7-8f2914bd6323"/>
@@ -690,20 +699,20 @@
 							<textFieldExpression><![CDATA[$F{Tributavel}.equals("S") ? "SIM" : "NÃO"]]></textFieldExpression>
 						</textField>
 						<textField>
-							<reportElement x="42" y="0" width="389" height="10" uuid="6336ec54-e549-48ca-82db-ed923d572b9c"/>
+							<reportElement x="42" y="0" width="388" height="10" uuid="6336ec54-e549-48ca-82db-ed923d572b9c"/>
 							<textElement verticalAlignment="Middle">
 								<font fontName="Arial" size="6" isBold="true" isItalic="false"/>
 							</textElement>
 							<textFieldExpression><![CDATA[$F{DiscriminacaoServico}]]></textFieldExpression>
 						</textField>
-						<textField pattern="#,##0.00#;(#,##0.00)">
+						<textField pattern="#,##0.00;(#,##0.00)">
 							<reportElement x="432" y="0" width="40" height="10" uuid="399251e4-0be3-41bd-9c6c-ea5f0a5d08e3"/>
 							<textElement textAlignment="Right" verticalAlignment="Middle">
 								<font fontName="Arial" size="6" isBold="true" isItalic="false"/>
 							</textElement>
 							<textFieldExpression><![CDATA[$F{Quantidade}]]></textFieldExpression>
 						</textField>
-						<textField pattern="#,##0.00#;(#,##0.00#-)">
+						<textField pattern="#,##0.00#;(#,##0.00#)">
 							<reportElement x="473" y="0" width="40" height="10" uuid="b42a869f-29e1-4e49-af33-c7a771c22f88"/>
 							<textElement textAlignment="Right" verticalAlignment="Middle">
 								<font fontName="Arial" size="6" isBold="true" isItalic="false"/>
@@ -717,6 +726,48 @@
 							</textElement>
 							<textFieldExpression><![CDATA[$F{ValorTotal}]]></textFieldExpression>
 						</textField>
+						<line>
+							<reportElement x="40" y="0" width="1" height="10" uuid="3f9887d1-5cc8-4b50-b718-8614e467a66b"/>
+							<graphicElement>
+								<pen lineWidth="1.0"/>
+							</graphicElement>
+						</line>
+						<line>
+							<reportElement x="431" y="0" width="1" height="10" uuid="76263337-d016-4fd3-9bd3-38c87a0a7ea5"/>
+							<graphicElement>
+								<pen lineWidth="1.0"/>
+							</graphicElement>
+						</line>
+						<line>
+							<reportElement x="472" y="0" width="1" height="10" uuid="67f8a349-ffe2-4967-bd66-e75df2962377"/>
+							<graphicElement>
+								<pen lineWidth="1.0"/>
+							</graphicElement>
+						</line>
+						<line>
+							<reportElement x="513" y="0" width="1" height="11" uuid="391d6fcb-465a-4f07-a04b-01805492ed12"/>
+							<graphicElement>
+								<pen lineWidth="1.0"/>
+							</graphicElement>
+						</line>
+						<line>
+							<reportElement x="0" y="0" width="1" height="10" uuid="35870149-2f70-4424-b1b4-dd91d1c3a664"/>
+							<graphicElement>
+								<pen lineWidth="1.0"/>
+							</graphicElement>
+						</line>
+						<line>
+							<reportElement x="554" y="0" width="1" height="11" uuid="e4bb4e69-0f9f-4047-9fba-5908bf8af75d"/>
+							<graphicElement>
+								<pen lineWidth="1.0"/>
+							</graphicElement>
+						</line>
+						<line>
+							<reportElement x="0" y="10" width="554" height="1" uuid="8e346bb6-555d-4c93-92fe-42f55db9b200"/>
+							<graphicElement>
+								<pen lineWidth="0.5"/>
+							</graphicElement>
+						</line>
 					</jr:listContents>
 				</jr:list>
 			</componentElement>
@@ -764,7 +815,7 @@
 				<text><![CDATA[CSLL]]></text>
 			</staticText>
 			<textField pattern="¤ #,##0.00;¤ -#,##0.00">
-				<reportElement x="0" y="11" width="108" height="10" uuid="aa3461c6-0df0-450a-97ec-459900c613af"/>
+				<reportElement x="0" y="11" width="112" height="10" uuid="aa3461c6-0df0-450a-97ec-459900c613af"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="8" isBold="true" isItalic="false"/>
 				</textElement>
@@ -774,7 +825,7 @@
 				<reportElement x="0" y="21" width="555" height="1" uuid="fa6c4ade-c161-4b42-8d84-a44af604eb72"/>
 			</line>
 			<textField pattern="¤ #,##0.00;¤ -#,##0.00">
-				<reportElement x="111" y="11" width="108" height="10" uuid="a9c12b6e-3312-431f-b5e1-4c8718e0c34c"/>
+				<reportElement x="113" y="11" width="109" height="10" uuid="a9c12b6e-3312-431f-b5e1-4c8718e0c34c"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="8" isBold="true" isItalic="false"/>
 				</textElement>
@@ -799,21 +850,21 @@
 				<reportElement x="554" y="1" width="1" height="20" uuid="4d6d90cb-f497-40d6-b042-dd8c2dae8974"/>
 			</line>
 			<textField pattern="¤ #,##0.00;¤ -#,##0.00">
-				<reportElement x="222" y="11" width="108" height="10" uuid="19eaaaeb-44d9-417c-b71b-2e73bccb4dec"/>
+				<reportElement x="223" y="11" width="110" height="10" uuid="19eaaaeb-44d9-417c-b71b-2e73bccb4dec"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="8" isBold="true" isItalic="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{ValorINSS}]]></textFieldExpression>
 			</textField>
 			<textField pattern="¤ #,##0.00;¤ -#,##0.00">
-				<reportElement x="333" y="11" width="108" height="10" uuid="c21a7fad-6792-4841-bbfc-2ff05bb30c41"/>
+				<reportElement x="333" y="11" width="110" height="10" uuid="c21a7fad-6792-4841-bbfc-2ff05bb30c41"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="8" isBold="true" isItalic="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{ValorIR}]]></textFieldExpression>
 			</textField>
 			<textField pattern="¤ #,##0.00;¤ -#,##0.00">
-				<reportElement x="446" y="11" width="108" height="10" uuid="207841ac-ed3b-4eb3-9b1f-8e51180dce73"/>
+				<reportElement x="443" y="11" width="111" height="10" uuid="207841ac-ed3b-4eb3-9b1f-8e51180dce73"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="8" isBold="true" isItalic="false"/>
 				</textElement>
@@ -909,7 +960,7 @@
 				<textElement textAlignment="Right">
 					<font fontName="Arial" size="9" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[0]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{ValorTotalNF}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.## %">
 				<reportElement x="280" y="51" width="136" height="11" uuid="38b9041d-739b-45e9-9e49-341e5608e067"/>
@@ -937,7 +988,7 @@
 				<textElement textAlignment="Right">
 					<font fontName="Arial" size="9" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[0]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{ValorTotalNF}*($F{AliquotaAtividade}.divide (new java.math.BigDecimal(100), 2, java.math.RoundingMode.HALF_UP))]]></textFieldExpression>
 			</textField>
 			<textField pattern="¤ #,##0.00;¤ -#,##0.00">
 				<reportElement x="105" y="25" width="180" height="15" uuid="cd28499a-587c-434c-9080-a9f81cffd2bd"/>
