@@ -7,7 +7,7 @@
 	<property name="net.sf.jasperreports.awt.ignore.missing.font" value="true"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Supply/EcoSupply.xml"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="XML NFSE 92781"/>
 	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
@@ -19,279 +19,254 @@
 	<import value="net.sf.jasperreports.engine.*"/>
 	<import value="java.util.*"/>
 	<import value="net.sf.jasperreports.engine.data.*"/>
-	<parameter name="Lbr_Notafiscal_Id" class="java.lang.Integer"/>
+	<subDataset name="DatasetItens" uuid="bcfe18a3-6fe5-4737-b4dd-e90e26a96337">
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DataAdapterDSF100.xml"/>
+		<queryString language="XPath">
+			<![CDATA[//Nota[1]/Itens/Item]]>
+		</queryString>
+		<field name="DiscriminacaoServico" class="java.lang.String">
+			<property name="net.sf.jasperreports.xpath.field.expression" value="DiscriminacaoServico"/>
+			<fieldDescription><![CDATA[DiscriminacaoServico]]></fieldDescription>
+		</field>
+		<field name="Quantidade" class="java.lang.String">
+			<property name="net.sf.jasperreports.xpath.field.expression" value="Quantidade"/>
+			<fieldDescription><![CDATA[Quantidade]]></fieldDescription>
+		</field>
+		<field name="ValorUnitario" class="java.lang.Float">
+			<property name="net.sf.jasperreports.xpath.field.expression" value="ValorUnitario"/>
+			<fieldDescription><![CDATA[ValorUnitario]]></fieldDescription>
+		</field>
+		<field name="ValorTotal" class="java.lang.Float">
+			<property name="net.sf.jasperreports.xpath.field.expression" value="ValorTotal"/>
+			<fieldDescription><![CDATA[ValorTotal]]></fieldDescription>
+		</field>
+		<field name="Tributavel" class="java.lang.String">
+			<property name="net.sf.jasperreports.xpath.field.expression" value="Tributavel"/>
+			<fieldDescription><![CDATA[Tributavel]]></fieldDescription>
+		</field>
+	</subDataset>
 	<parameter name="logotipo" class="java.io.InputStream" isForPrompting="false"/>
-	<parameter name="urlconsulta" class="java.lang.String"/>
-	<parameter name="itemlistaservico" class="java.lang.String"/>
-	<parameter name="codigotributacaomunicipio" class="java.lang.String"/>
-	<parameter name="municipioservico" class="java.lang.String"/>
-	<parameter name="municipioprestador" class="java.lang.String"/>
-	<parameter name="municipiotomador" class="java.lang.String"/>
-	<parameter name="orgaogerador" class="java.lang.String"/>
-	<parameter name="rodape1" class="java.lang.String"/>
-	<queryString>
-		<![CDATA[select
-n.lbr_nfeno,
-n.lbr_nfserie, 
-n.datetrx,
-n.lbr_nfeprot,
-n.documentno,
-n.datedoc,
-n.dateacct,
-upper(n.lbr_orgname) as orgname,
-n.lbr_cnpj,
-n.lbr_orgccm,
-upper(n.lbr_fantasia) as fantasia,
-upper(n.lbr_orgaddress1) as orgaddress1,
-upper(n.lbr_orgaddress2) as orgaddress2,
-upper(n.lbr_orgaddress3) as orgaddress3,
-upper(n.lbr_orgaddress4) as orgaddress4,
-upper(n.lbr_orgpostal) as orgpostal,
-ntl.lbr_citycode,
-cc.name as servicecity,
-cr.name as serviceregion,
-n.lbr_orgcity,
-n.lbr_orgregion,
-n.lbr_orgphone,
-upper(n.bpname) as bpname,
-upper(n.lbr_bpcnpj) as bpcnpj,
-upper(n.lbr_bpaddress1) as bpaddress1,
-upper(n.lbr_bpaddress2) as bpaddress2,
-upper(n.lbr_bpaddress3) as bpaddress3,
-upper(n.lbr_bpaddress4) as bpaddress4,
-n.lbr_bpcitycode,
-n.lbr_bpcity,
-n.lbr_bpregion,
-upper(n.lbr_bppostal) as bppostal,
-cb.LBR_EMailNFSe,
-n.lbr_bpphone,
-n.description,
-ntl.lbr_servicecode,
-n.lbr_servicetotalamt,
-ntl.price,
-n.discountamt,
-n.lbr_otherchargesamt as othercharge,
-n.lbr_vtottrib,
-ntl.discountamt as de,
-ntl.lbr_otherchargesamt,
-ntl.qty,
-ntl.productname,
-ntl.lbr_stimulusiss,
-pis.lbr_taxamt as pisamt,
-cofins.lbr_taxamt as cofinsamt,
-csll.lbr_taxamt as csllamt,
-ir.lbr_taxamt as iramt,
-inss.lbr_taxamt as inssamt,
-ABS(iss.lbr_taxamt) as issamt,
-iss.lbr_taxbaseamt as issbaseamt,
-ABS(issrt.lbr_taxamt) as issrtamt,
-issrt.lbr_taxbaseamt as issrtbaseamt,
-case
-	WHEN ABS(iss.lbr_taxamt) > 0::numeric or ABS(issrt.lbr_taxamt) > 0::numeric THEN 'SIM'
-    ELSE 'NÃO'
-end as tributavel,
-case
-	WHEN ABS(iss.lbr_taxamt) > 0::numeric THEN 'ISS'
-    ELSE case when ABS(issrt.lbr_taxamt) > 0::numeric then 'ISSRT'
-    else '' end
-end as recolhimento,
-oi.lbr_cnae,
-(select binarydata from ad_image ai where ad_image_id = oi.logo_id) as logo
-from lbr_notafiscal n
-left join lbr_notafiscalline ntl on ntl.lbr_notafiscal_id = n.lbr_notafiscal_id
-left join lbr_nftax_v pis on pis.lbr_notafiscal_id = n.lbr_notafiscal_id and pis.taxindicator ='PIS'
-left join lbr_nftax_v cofins on cofins.lbr_notafiscal_id = n.lbr_notafiscal_id and cofins.taxindicator ='COFINS'
-left join lbr_nftax_v csll on csll.lbr_notafiscal_id = n.lbr_notafiscal_id and csll.taxindicator ='CSLL'
-left join lbr_nftax_v ir on ir.lbr_notafiscal_id = n.lbr_notafiscal_id and ir.taxindicator ='IR'
-left join lbr_nftax_v inss on inss.lbr_notafiscal_id = n.lbr_notafiscal_id and inss.taxindicator ='INSS'
-left join lbr_nftax_v iss on iss.lbr_notafiscal_id = n.lbr_notafiscal_id and iss.taxindicator ='ISS'
-left join lbr_nftax_v issrt on issrt.lbr_notafiscal_id = n.lbr_notafiscal_id and issrt.taxindicator ='ISSRT'
-left join ad_orginfo oi on n.ad_org_id = oi.ad_org_id
-left join c_bpartner cb on n.c_bpartner_id = cb.c_bpartner_id
-left join c_city cc on ntl.c_city_id = cc.c_city_id 
-left join c_region cr on cc.c_region_id = cr.c_region_id
-where
-	n.lbr_notafiscal_id = $P{Lbr_Notafiscal_Id}]]>
+	<parameter name="CNPJPrestador" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="MunicipioPrestador" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="UFPrestador" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="LogradouroPrestador" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="NumeroLogradouroPrestador" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="BairroPrestador" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="ComplementoPrestador" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="CEPPrestador" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="UFTomador" class="java.lang.String" isForPrompting="false"/>
+	<queryString language="XPath">
+		<![CDATA[//Nota[1]]]>
 	</queryString>
-	<field name="lbr_nfeno" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="lbr_nfeno"/>
+	<field name="NumeroNota" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="NumeroNota"/>
+		<fieldDescription><![CDATA[NumeroNota]]></fieldDescription>
 	</field>
-	<field name="datetrx" class="java.sql.Timestamp">
-		<property name="com.jaspersoft.studio.field.label" value="datetrx"/>
+	<field name="DataProcessamento" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="DataProcessamento"/>
+		<fieldDescription><![CDATA[DataProcessamento]]></fieldDescription>
 	</field>
-	<field name="lbr_nfeprot" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="lbr_nfeprot"/>
+	<field name="NumeroLote" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="NumeroLote"/>
+		<fieldDescription><![CDATA[NumeroLote]]></fieldDescription>
 	</field>
-	<field name="documentno" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="documentno"/>
+	<field name="CodigoVerificacao" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="CodigoVerificacao"/>
+		<fieldDescription><![CDATA[CodigoVerificacao]]></fieldDescription>
 	</field>
-	<field name="datedoc" class="java.sql.Timestamp">
-		<property name="com.jaspersoft.studio.field.label" value="datedoc"/>
+	<field name="Assinatura" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Assinatura"/>
+		<fieldDescription><![CDATA[Assinatura]]></fieldDescription>
 	</field>
-	<field name="dateacct" class="java.sql.Timestamp">
-		<property name="com.jaspersoft.studio.field.label" value="dateacct"/>
+	<field name="InscricaoMunicipalPrestador" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="InscricaoMunicipalPrestador"/>
+		<fieldDescription><![CDATA[InscricaoMunicipalPrestador]]></fieldDescription>
 	</field>
-	<field name="orgname" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="orgname"/>
+	<field name="RazaoSocialPrestador" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="RazaoSocialPrestador"/>
+		<fieldDescription><![CDATA[RazaoSocialPrestador]]></fieldDescription>
 	</field>
-	<field name="lbr_cnpj" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="lbr_cnpj"/>
+	<field name="TipoRPS" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="TipoRPS"/>
+		<fieldDescription><![CDATA[TipoRPS]]></fieldDescription>
 	</field>
-	<field name="lbr_orgccm" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="lbr_orgccm"/>
+	<field name="SerieRPS" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="SerieRPS"/>
+		<fieldDescription><![CDATA[SerieRPS]]></fieldDescription>
 	</field>
-	<field name="lbr_nfserie" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="lbr_nfeserie"/>
+	<field name="NumeroRPS" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="NumeroRPS"/>
+		<fieldDescription><![CDATA[NumeroRPS]]></fieldDescription>
 	</field>
-	<field name="recolhimento" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="recolhimento"/>
+	<field name="DataEmissaoRPS" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="DataEmissaoRPS"/>
+		<fieldDescription><![CDATA[DataEmissaoRPS]]></fieldDescription>
 	</field>
-	<field name="lbr_cnae" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="lbr_cnae"/>
+	<field name="SituacaoRPS" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="SituacaoRPS"/>
+		<fieldDescription><![CDATA[SituacaoRPS]]></fieldDescription>
 	</field>
-	<field name="tributavel" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="tributavel"/>
+	<field name="NumeroRPSSubstituido" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="NumeroRPSSubstituido"/>
+		<fieldDescription><![CDATA[NumeroRPSSubstituido]]></fieldDescription>
 	</field>
-	<field name="fantasia" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="fantasia"/>
+	<field name="NumeroNFSeSubstituida" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="NumeroNFSeSubstituida"/>
+		<fieldDescription><![CDATA[NumeroNFSeSubstituida]]></fieldDescription>
 	</field>
-	<field name="orgaddress1" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="orgaddress1"/>
+	<field name="DataEmissaoNFSeSubstituida" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="DataEmissaoNFSeSubstituida"/>
+		<fieldDescription><![CDATA[DataEmissaoNFSeSubstituida]]></fieldDescription>
 	</field>
-	<field name="orgaddress2" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="orgaddress2"/>
+	<field name="SeriePrestacao" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="SeriePrestacao"/>
+		<fieldDescription><![CDATA[SeriePrestacao]]></fieldDescription>
 	</field>
-	<field name="orgaddress3" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="orgaddress3"/>
+	<field name="CPFCNPJTomador" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="CPFCNPJTomador"/>
+		<fieldDescription><![CDATA[CPFCNPJTomador]]></fieldDescription>
 	</field>
-	<field name="orgaddress4" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="orgaddress4"/>
+	<field name="RazaoSocialTomador" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="RazaoSocialTomador"/>
+		<fieldDescription><![CDATA[RazaoSocialTomador]]></fieldDescription>
 	</field>
-	<field name="orgpostal" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="orgpostal"/>
+	<field name="TipoLogradouroTomador" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="TipoLogradouroTomador"/>
+		<fieldDescription><![CDATA[TipoLogradouroTomador]]></fieldDescription>
 	</field>
-	<field name="lbr_citycode" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="lbr_citycode"/>
+	<field name="LogradouroTomador" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="LogradouroTomador"/>
+		<fieldDescription><![CDATA[LogradouroTomador]]></fieldDescription>
 	</field>
-	<field name="lbr_orgcity" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="lbr_orgcity"/>
+	<field name="NumeroEnderecoTomador" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="NumeroEnderecoTomador"/>
+		<fieldDescription><![CDATA[NumeroEnderecoTomador]]></fieldDescription>
 	</field>
-	<field name="lbr_orgregion" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="lbr_orgregion"/>
+	<field name="ComplementoEnderecoTomador" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="ComplementoEnderecoTomador"/>
+		<fieldDescription><![CDATA[ComplementoEnderecoTomador]]></fieldDescription>
 	</field>
-	<field name="lbr_orgphone" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="lbr_orgphone"/>
+	<field name="TipoBairroTomador" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="TipoBairroTomador"/>
+		<fieldDescription><![CDATA[TipoBairroTomador]]></fieldDescription>
 	</field>
-	<field name="bpname" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="bpname"/>
+	<field name="BairroTomador" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="BairroTomador"/>
+		<fieldDescription><![CDATA[BairroTomador]]></fieldDescription>
 	</field>
-	<field name="bpcnpj" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="bpcnpj"/>
+	<field name="CidadeTomador" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="CidadeTomador"/>
+		<fieldDescription><![CDATA[CidadeTomador]]></fieldDescription>
 	</field>
-	<field name="bpaddress1" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="bpaddress1"/>
+	<field name="CidadeTomadorDescricao" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="CidadeTomadorDescricao"/>
+		<fieldDescription><![CDATA[CidadeTomadorDescricao]]></fieldDescription>
 	</field>
-	<field name="bpaddress2" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="bpaddress2"/>
+	<field name="CEPTomador" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="CEPTomador"/>
+		<fieldDescription><![CDATA[CEPTomador]]></fieldDescription>
 	</field>
-	<field name="bpaddress3" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="bpaddress3"/>
+	<field name="EmailTomador" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="EmailTomador"/>
+		<fieldDescription><![CDATA[EmailTomador]]></fieldDescription>
 	</field>
-	<field name="bpaddress4" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="bpaddress4"/>
+	<field name="CodigoAtividade" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="CodigoAtividade"/>
+		<fieldDescription><![CDATA[CodigoAtividade]]></fieldDescription>
 	</field>
-	<field name="lbr_bpcitycode" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="lbr_bpcitycode"/>
+	<field name="AliquotaAtividade" class="java.math.BigDecimal">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="AliquotaAtividade"/>
+		<fieldDescription><![CDATA[AliquotaAtividade]]></fieldDescription>
 	</field>
-	<field name="lbr_bpcity" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="lbr_bpcity"/>
+	<field name="TipoRecolhimento" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="TipoRecolhimento"/>
+		<fieldDescription><![CDATA[TipoRecolhimento]]></fieldDescription>
 	</field>
-	<field name="lbr_bpregion" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="lbr_bpregion"/>
+	<field name="MunicipioPrestacao" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="MunicipioPrestacao"/>
+		<fieldDescription><![CDATA[MunicipioPrestacao]]></fieldDescription>
 	</field>
-	<field name="bppostal" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="bppostal"/>
+	<field name="MunicipioPrestacaoDescricao" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="MunicipioPrestacaoDescricao"/>
+		<fieldDescription><![CDATA[MunicipioPrestacaoDescricao]]></fieldDescription>
 	</field>
-	<field name="LBR_EMailNFSe" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="LBR_EMailNFSe"/>
+	<field name="Operacao" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Operacao"/>
+		<fieldDescription><![CDATA[Operacao]]></fieldDescription>
 	</field>
-	<field name="lbr_bpphone" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="lbr_bpphone"/>
+	<field name="Tributacao" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="Tributacao"/>
+		<fieldDescription><![CDATA[Tributacao]]></fieldDescription>
 	</field>
-	<field name="description" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="description"/>
+	<field name="ValorPIS" class="java.math.BigDecimal">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="ValorPIS"/>
+		<fieldDescription><![CDATA[ValorPIS]]></fieldDescription>
 	</field>
-	<field name="lbr_servicecode" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="lbr_servicecode"/>
+	<field name="ValorCOFINS" class="java.math.BigDecimal">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="ValorCOFINS"/>
+		<fieldDescription><![CDATA[ValorCOFINS]]></fieldDescription>
 	</field>
-	<field name="lbr_servicetotalamt" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="lbr_servicetotalamt"/>
+	<field name="ValorINSS" class="java.math.BigDecimal">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="ValorINSS"/>
+		<fieldDescription><![CDATA[ValorINSS]]></fieldDescription>
 	</field>
-	<field name="price" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="price"/>
+	<field name="ValorIR" class="java.math.BigDecimal">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="ValorIR"/>
+		<fieldDescription><![CDATA[ValorIR]]></fieldDescription>
 	</field>
-	<field name="discountamt" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="discountamt"/>
+	<field name="ValorCSLL" class="java.math.BigDecimal">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="ValorCSLL"/>
+		<fieldDescription><![CDATA[ValorCSLL]]></fieldDescription>
 	</field>
-	<field name="othercharge" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="othercharge"/>
+	<field name="AliquotaPIS" class="java.math.BigDecimal">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="AliquotaPIS"/>
+		<fieldDescription><![CDATA[AliquotaPIS]]></fieldDescription>
 	</field>
-	<field name="lbr_vtottrib" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="lbr_vtottrib"/>
+	<field name="AliquotaCOFINS" class="java.math.BigDecimal">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="AliquotaCOFINS"/>
+		<fieldDescription><![CDATA[AliquotaCOFINS]]></fieldDescription>
 	</field>
-	<field name="de" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="de"/>
+	<field name="AliquotaINSS" class="java.math.BigDecimal">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="AliquotaINSS"/>
+		<fieldDescription><![CDATA[AliquotaINSS]]></fieldDescription>
 	</field>
-	<field name="lbr_otherchargesamt" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="lbr_otherchargesamt"/>
+	<field name="AliquotaIR" class="java.math.BigDecimal">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="AliquotaIR"/>
+		<fieldDescription><![CDATA[AliquotaIR]]></fieldDescription>
 	</field>
-	<field name="serviceregion" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="serviceregion"/>
+	<field name="AliquotaCSLL" class="java.math.BigDecimal">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="AliquotaCSLL"/>
+		<fieldDescription><![CDATA[AliquotaCSLL]]></fieldDescription>
 	</field>
-	<field name="servicecity" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="servicecity"/>
+	<field name="DescricaoRPS" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="DescricaoRPS"/>
+		<fieldDescription><![CDATA[DescricaoRPS]]></fieldDescription>
 	</field>
-	<field name="qty" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="qty"/>
+	<field name="DDDPrestador" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="DDDPrestador"/>
+		<fieldDescription><![CDATA[DDDPrestador]]></fieldDescription>
 	</field>
-	<field name="lbr_stimulusiss" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="lbr_stimulusiss"/>
+	<field name="TelefonePrestador" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="TelefonePrestador"/>
+		<fieldDescription><![CDATA[TelefonePrestador]]></fieldDescription>
 	</field>
-	<field name="pisamt" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="pisamt"/>
+	<field name="DDDTomador" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="DDDTomador"/>
+		<fieldDescription><![CDATA[DDDTomador]]></fieldDescription>
 	</field>
-	<field name="cofinsamt" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="cofinsamt"/>
+	<field name="TelefoneTomador" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="TelefoneTomador"/>
+		<fieldDescription><![CDATA[TelefoneTomador]]></fieldDescription>
 	</field>
-	<field name="inssamt" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="inssamt"/>
+	<field name="MotCancelamento" class="java.lang.String">
+		<property name="net.sf.jasperreports.xpath.field.expression" value="MotCancelamento"/>
+		<fieldDescription><![CDATA[MotCancelamento]]></fieldDescription>
 	</field>
-	<field name="iramt" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="iramt"/>
-	</field>
-	<field name="issamt" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="issamt"/>
-	</field>
-	<field name="issbaseamt" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="issbaseamt"/>
-	</field>
-	<field name="issrtamt" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="issrtamt"/>
-	</field>
-	<field name="issrtbaseamt" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="issrtbaseamt"/>
-	</field>
-	<field name="csllamt" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="csllamt"/>
-	</field>
-	<field name="productname" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="productname"/>
-	</field>
-	<field name="logo" class="java.lang.Object">
-		<property name="com.jaspersoft.studio.field.label" value="logo"/>
+	<field name="ValorTotalNF" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[sum(Itens/Item/ValorTotal)]]></fieldDescription>
 	</field>
 	<background>
-		<band splitType="Stretch"/>
+		<band height="21" splitType="Stretch"/>
 	</background>
 	<title>
 		<band splitType="Stretch"/>
@@ -301,7 +276,7 @@ where
 	</pageHeader>
 	<columnHeader>
 		<band height="262">
-			<textField isBlankWhenNull="true">
+			<textField pattern="dd/MM/yyyy HH:mm" isBlankWhenNull="true">
 				<reportElement x="379" y="32" width="176" height="14" uuid="f620efb7-bff5-4175-8faf-5f2b7a838a4c"/>
 				<box>
 					<pen lineWidth="0.25" lineStyle="Solid"/>
@@ -313,7 +288,7 @@ where
 				<textElement textAlignment="Center">
 					<font fontName="Arial" size="9" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{dateacct}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{DataProcessamento}]]></textFieldExpression>
 			</textField>
 			<line>
 				<reportElement x="379" y="1" width="1" height="68" uuid="7eddd5d8-7bfb-4264-8e86-7a278c106f18"/>
@@ -330,7 +305,7 @@ where
 				<textElement textAlignment="Center">
 					<font fontName="Arial" size="9" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{lbr_nfeprot}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{CodigoVerificacao}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="379" y="9" width="176" height="14" uuid="14bfc668-14a2-4ef6-aeb1-2ce8b409413d"/>
@@ -344,7 +319,7 @@ where
 				<textElement textAlignment="Center">
 					<font fontName="Arial" size="9" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{lbr_nfeno}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{NumeroNota}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="80" y="9" width="299" height="14" uuid="ade4b9c4-6f99-46f6-9a21-77868e0e07b8"/>
@@ -416,21 +391,21 @@ where
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{lbr_cnpj}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{CNPJPrestador}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="66" y="104" width="489" height="10" uuid="eecdba0d-f80c-4eb2-aa75-d51de11d41f2"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{orgaddress1}+", "+$F{orgaddress2}+" - "+$F{orgaddress3} + " - CEP: " + $F{orgpostal}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[($P{LogradouroPrestador}.equals(null)?"":$P{LogradouroPrestador})+", "+($P{NumeroLogradouroPrestador}.equals(null)?"":$P{NumeroLogradouroPrestador})+" - "+($P{ComplementoPrestador}.equals(null)?"":$P{ComplementoPrestador})+" - "+($P{BairroPrestador}.equals(null)?"":$P{BairroPrestador})+ " - CEP: " + ($P{CEPPrestador}.equals(null)?"":$P{CEPPrestador})]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="296" y="114" width="32" height="10" uuid="7901b123-87b2-4089-bcea-19629f02e67e"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{lbr_orgregion}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{UFPrestador}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="70" width="555" height="14" uuid="4e5fac51-79b2-4f77-8b5a-a10d4832bbfc"/>
@@ -444,14 +419,14 @@ where
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="true" isItalic="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{orgname}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{RazaoSocialPrestador}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="66" y="114" width="210" height="10" uuid="4fdc54c9-6840-4875-92a0-4fa61eb0a780"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{lbr_orgcity}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{MunicipioPrestador}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="84" width="66" height="10" uuid="fb45dc0a-e318-4f2f-9fb6-1665963aa94f"/>
@@ -493,7 +468,7 @@ where
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{lbr_orgccm}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{InscricaoMunicipalPrestador}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="280" y="114" width="16" height="10" uuid="e24ff1a6-4866-4b50-a4c4-e4a12b37237d"/>
@@ -552,28 +527,28 @@ where
 				<textElement>
 					<font fontName="Arial" size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Descrição:" + $F{description}.replaceAll( ";", "\n")]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Descrição:" + $F{DescricaoRPS}.replaceAll( ";", "\n")]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="66" y="138" width="489" height="10" uuid="5cc56d52-0d40-40c2-89a8-3cde1263c4b2"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="true" isItalic="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{bpname}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{RazaoSocialTomador}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="66" y="148" width="210" height="10" uuid="a8961240-9062-4dd8-aa61-d71836ea67d4"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{bpcnpj}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{CPFCNPJTomador}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="66" y="158" width="489" height="10" uuid="b84000a5-3a90-4d06-a310-f09a79919dcb"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{bpaddress1}+", "+$F{bpaddress2}+" - "+$F{bpaddress3} + " - CEP: " + $F{bppostal}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[($F{LogradouroTomador}.equals(null)?"":$F{LogradouroTomador})+", "+($F{NumeroEnderecoTomador}.equals(null)?"":$F{NumeroEnderecoTomador})+" - "+($F{ComplementoEnderecoTomador}.equals(null)?"":$F{ComplementoEnderecoTomador})+" - "+($F{BairroTomador}.equals(null)?"":$F{BairroTomador})+ " - CEP: " + ($F{CEPTomador}.equals(null)?"":$F{CEPTomador})]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="280" y="168" width="16" height="10" uuid="4b66a821-5153-403a-b058-bdb38f834c40"/>
@@ -587,14 +562,14 @@ where
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{lbr_bpcity}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{CidadeTomadorDescricao}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="296" y="168" width="32" height="10" uuid="af9bd7e8-4256-409d-809e-f8c110492e3a"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{lbr_bpregion}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{UFTomador}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="328" y="168" width="22" height="10" uuid="b7a6ae50-941a-4d62-9790-c34991842692"/>
@@ -608,7 +583,7 @@ where
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{LBR_EMailNFSe}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{EmailTomador}]]></textFieldExpression>
 			</textField>
 			<line>
 				<reportElement x="0" y="178" width="555" height="1" uuid="4b9b1f9f-a288-49ee-8c4e-8610db7eda22"/>
@@ -624,8 +599,8 @@ where
 				<reportElement x="0" y="251" width="555" height="1" uuid="aedfa41f-c669-47d3-8cc0-f783b890d825"/>
 			</line>
 			<image scaleImage="RetainShape" hAlign="Center" vAlign="Middle" isUsingCache="true" onErrorType="Icon" evaluationTime="Page">
-				<reportElement key="image-1" mode="Opaque" x="3" y="3" width="74" height="64" uuid="e191ea3b-6e0b-49a6-9d9f-93d793d07f2e"/>
-				<imageExpression><![CDATA[$F{logo}]]></imageExpression>
+				<reportElement key="image-1" mode="Opaque" x="2" y="3" width="77" height="64" uuid="e191ea3b-6e0b-49a6-9d9f-93d793d07f2e"/>
+				<imageExpression><![CDATA[$P{logotipo}]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement x="514" y="252" width="40" height="10" uuid="42a58eaf-e2ce-4f44-93c7-8f2914bd6323"/>
@@ -683,61 +658,119 @@ where
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="10" splitType="Prevent">
+		<band height="50" splitType="Prevent">
 			<elementGroup/>
-			<textField pattern="#,##0.00#;(#,##0.00)">
-				<reportElement x="432" y="0" width="40" height="10" uuid="b1e8041a-84d1-47fb-aa84-ec27ea4d4628"/>
-				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Arial" size="6" isBold="true" isItalic="false"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{qty}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="42" y="0" width="389" height="10" uuid="8e79f42e-abec-4a6c-ad87-e9e1daee838c"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="6" isBold="true" isItalic="false"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{productname}]]></textFieldExpression>
-			</textField>
-			<textField pattern="#,##0.00#;(#,##0.00#-)">
-				<reportElement x="473" y="0" width="40" height="10" uuid="32b29e5a-65b4-4b99-a5e5-12b65b739901"/>
-				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Arial" size="6" isBold="true" isItalic="false"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{price}]]></textFieldExpression>
-			</textField>
-			<textField pattern="#,##0.00;(#,##0.00)">
-				<reportElement x="514" y="0" width="40" height="10" uuid="dec17d25-336f-45f1-b8e5-6498d00206ef"/>
-				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Arial" size="6" isBold="true" isItalic="false"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{price}*$F{qty}]]></textFieldExpression>
-			</textField>
-			<line>
-				<reportElement x="40" y="0" width="1" height="10" uuid="ee4848cc-69b9-4366-b018-5d814be8eb88"/>
-			</line>
-			<line>
-				<reportElement x="431" y="0" width="1" height="10" uuid="4f1cbe6c-4102-4784-a49f-b18f273a6b3c"/>
-			</line>
-			<line>
-				<reportElement x="472" y="0" width="1" height="10" uuid="9a8e418c-0a2c-4f90-b456-324fa16127f3"/>
-			</line>
-			<line>
-				<reportElement x="513" y="0" width="1" height="10" uuid="5f451c64-e38c-4d2a-a49f-5cae33b692e8"/>
-			</line>
-			<line direction="BottomUp">
-				<reportElement x="0" y="0" width="1" height="10" uuid="448fb859-8edc-4d5f-bcc2-d1f0e24e4b82"/>
-			</line>
-			<line>
-				<reportElement x="554" y="0" width="1" height="10" uuid="1ed5ba30-abf9-4664-a5b7-fc38c5099d0d"/>
-			</line>
-			<textField>
-				<reportElement x="1" y="0" width="39" height="10" uuid="33bbed5f-ced9-4e8e-ad6e-4a7911a4c9ca"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="6" isBold="true" isItalic="false"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{tributavel}]]></textFieldExpression>
-			</textField>
+			<componentElement>
+				<reportElement x="0" y="0" width="555" height="11" uuid="c0c9a126-fe14-46b8-85c3-43f7c42a45e6"/>
+				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
+					<datasetRun subDataset="DatasetItens" uuid="c33f049b-a816-4bda-bf18-5b93ce0cfc62">
+						<datasetParameter name="XML_DATA_DOCUMENT">
+							<datasetParameterExpression><![CDATA[$P{XML_DATA_DOCUMENT}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="XML_INPUT_STREAM">
+							<datasetParameterExpression><![CDATA[$P{XML_INPUT_STREAM}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="XML_FILE">
+							<datasetParameterExpression><![CDATA[$P{XML_FILE}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="net.sf.jasperreports.xml.source">
+							<datasetParameterExpression><![CDATA[$P{net.sf.jasperreports.xml.source}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="XML_DATE_PATTERN">
+							<datasetParameterExpression><![CDATA[$P{XML_DATE_PATTERN}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="XML_NUMBER_PATTERN">
+							<datasetParameterExpression><![CDATA[$P{XML_NUMBER_PATTERN}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="XML_LOCALE">
+							<datasetParameterExpression><![CDATA[$P{XML_LOCALE}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="XML_TIME_ZONE">
+							<datasetParameterExpression><![CDATA[$P{XML_TIME_ZONE}]]></datasetParameterExpression>
+						</datasetParameter>
+						<dataSourceExpression><![CDATA[((net.sf.jasperreports.engine.data.JRXmlDataSource)$P{REPORT_DATA_SOURCE}).subDataSource("//Nota[1]/Itens/Item")]]></dataSourceExpression>
+					</datasetRun>
+					<jr:listContents height="11" width="555">
+						<textField>
+							<reportElement x="1" y="0" width="39" height="10" uuid="e2ef7795-9561-4ab4-8975-1ac34cc40804"/>
+							<textElement verticalAlignment="Middle">
+								<font fontName="Arial" size="6" isBold="true" isItalic="false"/>
+							</textElement>
+							<textFieldExpression><![CDATA[$F{Tributavel}.equals("S") ? "SIM" : "NÃO"]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement x="42" y="0" width="388" height="10" uuid="6336ec54-e549-48ca-82db-ed923d572b9c"/>
+							<textElement verticalAlignment="Middle">
+								<font fontName="Arial" size="6" isBold="true" isItalic="false"/>
+							</textElement>
+							<textFieldExpression><![CDATA[$F{DiscriminacaoServico}]]></textFieldExpression>
+						</textField>
+						<textField pattern="#,##0.00;(#,##0.00)">
+							<reportElement x="432" y="0" width="40" height="10" uuid="399251e4-0be3-41bd-9c6c-ea5f0a5d08e3"/>
+							<textElement textAlignment="Right" verticalAlignment="Middle">
+								<font fontName="Arial" size="6" isBold="true" isItalic="false"/>
+							</textElement>
+							<textFieldExpression><![CDATA[$F{Quantidade}]]></textFieldExpression>
+						</textField>
+						<textField pattern="#,##0.00#;(#,##0.00#)">
+							<reportElement x="473" y="0" width="40" height="10" uuid="b42a869f-29e1-4e49-af33-c7a771c22f88"/>
+							<textElement textAlignment="Right" verticalAlignment="Middle">
+								<font fontName="Arial" size="6" isBold="true" isItalic="false"/>
+							</textElement>
+							<textFieldExpression><![CDATA[$F{ValorUnitario}]]></textFieldExpression>
+						</textField>
+						<textField pattern="#,##0.00;(#,##0.00)">
+							<reportElement x="514" y="0" width="40" height="10" uuid="93049741-b6d5-44dc-ae28-0b1d9e23dcbf"/>
+							<textElement textAlignment="Right" verticalAlignment="Middle">
+								<font fontName="Arial" size="6" isBold="true" isItalic="false"/>
+							</textElement>
+							<textFieldExpression><![CDATA[$F{ValorTotal}]]></textFieldExpression>
+						</textField>
+						<line>
+							<reportElement x="40" y="0" width="1" height="10" uuid="3f9887d1-5cc8-4b50-b718-8614e467a66b"/>
+							<graphicElement>
+								<pen lineWidth="1.0"/>
+							</graphicElement>
+						</line>
+						<line>
+							<reportElement x="431" y="0" width="1" height="10" uuid="76263337-d016-4fd3-9bd3-38c87a0a7ea5"/>
+							<graphicElement>
+								<pen lineWidth="1.0"/>
+							</graphicElement>
+						</line>
+						<line>
+							<reportElement x="472" y="0" width="1" height="10" uuid="67f8a349-ffe2-4967-bd66-e75df2962377"/>
+							<graphicElement>
+								<pen lineWidth="1.0"/>
+							</graphicElement>
+						</line>
+						<line>
+							<reportElement x="513" y="0" width="1" height="11" uuid="391d6fcb-465a-4f07-a04b-01805492ed12"/>
+							<graphicElement>
+								<pen lineWidth="1.0"/>
+							</graphicElement>
+						</line>
+						<line>
+							<reportElement x="0" y="0" width="1" height="10" uuid="35870149-2f70-4424-b1b4-dd91d1c3a664"/>
+							<graphicElement>
+								<pen lineWidth="1.0"/>
+							</graphicElement>
+						</line>
+						<line>
+							<reportElement x="554" y="0" width="1" height="11" uuid="e4bb4e69-0f9f-4047-9fba-5908bf8af75d"/>
+							<graphicElement>
+								<pen lineWidth="1.0"/>
+							</graphicElement>
+						</line>
+						<line>
+							<reportElement x="0" y="10" width="554" height="1" uuid="8e346bb6-555d-4c93-92fe-42f55db9b200"/>
+							<graphicElement>
+								<pen lineWidth="0.5"/>
+							</graphicElement>
+						</line>
+					</jr:listContents>
+				</jr:list>
+			</componentElement>
 		</band>
 	</detail>
 	<columnFooter>
@@ -781,22 +814,22 @@ where
 				</textElement>
 				<text><![CDATA[CSLL]]></text>
 			</staticText>
-			<textField pattern="¤#,##0.00;¤-#,##0.00">
+			<textField pattern="¤ #,##0.00;¤ -#,##0.00">
 				<reportElement x="0" y="11" width="112" height="10" uuid="aa3461c6-0df0-450a-97ec-459900c613af"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="8" isBold="true" isItalic="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[($F{pisamt} != null) ? $F{pisamt} : 0]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{ValorPIS}]]></textFieldExpression>
 			</textField>
 			<line>
 				<reportElement x="0" y="21" width="555" height="1" uuid="fa6c4ade-c161-4b42-8d84-a44af604eb72"/>
 			</line>
-			<textField pattern="¤#,##0.00;¤-#,##0.00">
-				<reportElement x="112" y="11" width="110" height="10" uuid="a9c12b6e-3312-431f-b5e1-4c8718e0c34c"/>
+			<textField pattern="¤ #,##0.00;¤ -#,##0.00">
+				<reportElement x="113" y="11" width="109" height="10" uuid="a9c12b6e-3312-431f-b5e1-4c8718e0c34c"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="8" isBold="true" isItalic="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[($F{cofinsamt} != null) ? $F{cofinsamt} : 0]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{ValorCOFINS}]]></textFieldExpression>
 			</textField>
 			<line>
 				<reportElement x="112" y="1" width="1" height="20" uuid="6d0c1fcb-142c-4f58-8656-8fb1d7854334"/>
@@ -816,48 +849,41 @@ where
 			<line>
 				<reportElement x="554" y="1" width="1" height="20" uuid="4d6d90cb-f497-40d6-b042-dd8c2dae8974"/>
 			</line>
-			<textField pattern="¤#,##0.00;¤-#,##0.00">
-				<reportElement x="223" y="11" width="109" height="10" uuid="19eaaaeb-44d9-417c-b71b-2e73bccb4dec"/>
+			<textField pattern="¤ #,##0.00;¤ -#,##0.00">
+				<reportElement x="223" y="11" width="110" height="10" uuid="19eaaaeb-44d9-417c-b71b-2e73bccb4dec"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="8" isBold="true" isItalic="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[($F{inssamt} != null) ? $F{inssamt} : 0]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{ValorINSS}]]></textFieldExpression>
 			</textField>
-			<textField pattern="¤#,##0.00;¤-#,##0.00">
-				<reportElement x="333" y="11" width="109" height="10" uuid="c21a7fad-6792-4841-bbfc-2ff05bb30c41"/>
+			<textField pattern="¤ #,##0.00;¤ -#,##0.00">
+				<reportElement x="333" y="11" width="110" height="10" uuid="c21a7fad-6792-4841-bbfc-2ff05bb30c41"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="8" isBold="true" isItalic="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[($F{iramt} != null) ? $F{iramt} : 0]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{ValorIR}]]></textFieldExpression>
 			</textField>
-			<textField pattern="¤#,##0.00;¤-#,##0.00">
+			<textField pattern="¤ #,##0.00;¤ -#,##0.00">
 				<reportElement x="443" y="11" width="111" height="10" uuid="207841ac-ed3b-4eb3-9b1f-8e51180dce73"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="8" isBold="true" isItalic="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[($F{csllamt} != null) ? $F{csllamt} : 0]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="0" y="22" width="555" height="10" uuid="5a850921-cc3a-42f5-b441-1e1eac071668"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="8" isBold="true" isItalic="false"/>
-				</textElement>
-				<textFieldExpression><![CDATA["VALOR TOTAL DA NOTA = R\$" + $F{lbr_servicetotalamt}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{ValorCSLL}]]></textFieldExpression>
 			</textField>
 			<rectangle>
-				<reportElement x="0" y="33" width="140" height="20" uuid="e6eb5cdb-1b1b-4303-9310-423c3a0ca813"/>
+				<reportElement x="0" y="43" width="140" height="20" uuid="e6eb5cdb-1b1b-4303-9310-423c3a0ca813"/>
 			</rectangle>
 			<rectangle>
-				<reportElement x="139" y="33" width="140" height="20" uuid="e324e4ea-ee16-460d-99f6-02dbc9c56548"/>
+				<reportElement x="139" y="43" width="140" height="20" uuid="e324e4ea-ee16-460d-99f6-02dbc9c56548"/>
 			</rectangle>
 			<rectangle>
-				<reportElement x="279" y="33" width="140" height="20" uuid="2311beec-d33e-4192-9c59-7442683f39eb"/>
+				<reportElement x="279" y="43" width="140" height="20" uuid="2311beec-d33e-4192-9c59-7442683f39eb"/>
 			</rectangle>
 			<rectangle>
-				<reportElement x="419" y="33" width="136" height="20" uuid="b84144d0-4b79-438f-8ae0-ea7e4f7fa160"/>
+				<reportElement x="419" y="43" width="136" height="20" uuid="b84144d0-4b79-438f-8ae0-ea7e4f7fa160"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="0" y="33" width="90" height="8" uuid="1d29c7ac-b48f-4935-bc16-a1646d80b8c1"/>
+				<reportElement x="0" y="43" width="90" height="8" uuid="1d29c7ac-b48f-4935-bc16-a1646d80b8c1"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -870,7 +896,7 @@ where
 				<text><![CDATA[ Valor Total das Deduções]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="139" y="33" width="90" height="8" uuid="826c17e9-331a-4fab-86e2-1f4bf967726d"/>
+				<reportElement x="139" y="43" width="90" height="8" uuid="826c17e9-331a-4fab-86e2-1f4bf967726d"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -883,7 +909,7 @@ where
 				<text><![CDATA[ Base de Cálculo]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="279" y="33" width="90" height="8" uuid="4067bd9e-a692-4c78-87c2-43a93d80760e"/>
+				<reportElement x="279" y="43" width="90" height="8" uuid="4067bd9e-a692-4c78-87c2-43a93d80760e"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -896,7 +922,7 @@ where
 				<text><![CDATA[ Alíquota]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="419" y="33" width="90" height="8" uuid="bddaf319-aa41-42ed-8790-fd4591d70dc1"/>
+				<reportElement x="419" y="43" width="90" height="8" uuid="bddaf319-aa41-42ed-8790-fd4591d70dc1"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -909,7 +935,7 @@ where
 				<text><![CDATA[ Valor do ISS]]></text>
 			</staticText>
 			<textField pattern="¤#,##0.00;¤-#,##0.00">
-				<reportElement x="0" y="41" width="136" height="11" uuid="df73e476-05f4-4f48-9ab9-c574c1695c6c"/>
+				<reportElement x="0" y="51" width="136" height="11" uuid="df73e476-05f4-4f48-9ab9-c574c1695c6c"/>
 				<box>
 					<pen lineWidth="0.0" lineStyle="Dotted"/>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -923,7 +949,7 @@ where
 				<textFieldExpression><![CDATA[0]]></textFieldExpression>
 			</textField>
 			<textField pattern="¤#,##0.00;¤-#,##0.00">
-				<reportElement x="140" y="41" width="136" height="11" uuid="5732b32c-97eb-4a5e-b44c-b20464e8365e"/>
+				<reportElement x="140" y="51" width="136" height="11" uuid="5732b32c-97eb-4a5e-b44c-b20464e8365e"/>
 				<box>
 					<pen lineWidth="0.0" lineStyle="Dotted"/>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -934,10 +960,10 @@ where
 				<textElement textAlignment="Right">
 					<font fontName="Arial" size="9" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[($F{recolhimento} == "ISSRT") ?  $F{issrtbaseamt} : $F{issbaseamt}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{ValorTotalNF}]]></textFieldExpression>
 			</textField>
-			<textField pattern="#,##0.##%">
-				<reportElement x="280" y="41" width="136" height="11" uuid="38b9041d-739b-45e9-9e49-341e5608e067"/>
+			<textField pattern="#,##0.## %">
+				<reportElement x="280" y="51" width="136" height="11" uuid="38b9041d-739b-45e9-9e49-341e5608e067"/>
 				<box>
 					<pen lineWidth="0.0" lineStyle="Dotted"/>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -948,10 +974,10 @@ where
 				<textElement textAlignment="Right">
 					<font fontName="Arial" size="9" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[(($F{recolhimento} == "ISSRT") ?  $F{issrtamt} : $F{issamt})/(($F{recolhimento} == "ISSRT") ?  $F{issrtbaseamt} : $F{issbaseamt})]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{AliquotaAtividade}.divide (new java.math.BigDecimal(100), 2, java.math.RoundingMode.HALF_UP)]]></textFieldExpression>
 			</textField>
 			<textField pattern="¤#,##0.00;¤-#,##0.00">
-				<reportElement x="419" y="41" width="134" height="11" uuid="bf3aba83-bedf-4943-8582-0b12815ac950"/>
+				<reportElement x="419" y="51" width="134" height="11" uuid="bf3aba83-bedf-4943-8582-0b12815ac950"/>
 				<box>
 					<pen lineWidth="0.0" lineStyle="Dotted"/>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -962,12 +988,33 @@ where
 				<textElement textAlignment="Right">
 					<font fontName="Arial" size="9" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[($F{recolhimento} == "ISSRT") ?  $F{issrtamt} : $F{issamt}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{ValorTotalNF}*($F{AliquotaAtividade}.divide (new java.math.BigDecimal(100), 2, java.math.RoundingMode.HALF_UP))]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00;¤ -#,##0.00">
+				<reportElement x="105" y="25" width="180" height="15" uuid="cd28499a-587c-434c-9080-a9f81cffd2bd"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["VALOR TOTAL DA NOTA ="]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00;¤ -#,##0.00">
+				<reportElement x="285" y="25" width="180" height="15" uuid="a9130a18-e45c-425b-a050-f894e147d8af"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true" isItalic="false"/>
+					<paragraph leftIndent="4"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ValorTotalNF}]]></textFieldExpression>
 			</textField>
 		</band>
 	</columnFooter>
 	<pageFooter>
 		<band height="109" splitType="Stretch">
+			<rectangle>
+				<reportElement stretchType="ContainerHeight" mode="Transparent" x="0" y="54" width="555" height="55" uuid="203d09f0-3d8c-405f-8f7e-f6ef8e399e22"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</rectangle>
 			<staticText>
 				<reportElement x="1" y="85" width="90" height="8" uuid="f4ffdcf4-82c3-4c3d-ba04-4cf9979117b4"/>
 				<box>
@@ -999,7 +1046,15 @@ where
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="false" isItalic="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[($F{tributavel} == "SIM") ?  "TRIBUTÁVEL" : "NÃO TRIBUTÁVEL"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[($F{Tributacao}.equals ("C") ? "ISENTA DE ISS" :
+($F{Tributacao}.equals ("E") ? "NÃO INCIDÊNCIA NO MUNICÍPIO" :
+($F{Tributacao}.equals ("F") ? "IMUNE" :
+($F{Tributacao}.equals ("K") ? "EXIGIBILIDD SUSP.DEC.J/PROC.A" :
+($F{Tributacao}.equals ("N") ? "NÃO TRIBUTÁVEL" :
+($F{Tributacao}.equals ("T") ? "TRIBUTÁVEL" :
+($F{Tributacao}.equals ("G") ? "TRIBUTÁVEL FIXO" :
+($F{Tributacao}.equals ("H") ? "TRIBUTÁVEL S.N." :
+($F{Tributacao}.equals ("M") ? "MICRO EMPREENDEDOR INDIVIDUAL (MEI)" : "--")))))))))]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="1" y="93" width="90" height="8" uuid="de0de1e4-845f-49ed-a611-31abbc68dc15"/>
@@ -1026,14 +1081,14 @@ where
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="false" isItalic="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{lbr_cnae}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{CodigoAtividade}]]></textFieldExpression>
 			</textField>
 			<textField pattern="MM/YYYY">
 				<reportElement x="91" y="77" width="189" height="8" uuid="97aae83c-e637-494c-bf2d-1fc719de7a21"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="false" isItalic="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[($F{recolhimento} == "ISSRT") ?  "ISS RETIDO NA FONTE PELO TOMADOR" : "ISS A RECOLHER PELO PRESTADOR"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[($F{TipoRecolhimento}.equals ("R")) ?  "ISS RETIDO NA FONTE PELO TOMADOR" : "ISS A RECOLHER PELO PRESTADOR"]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="281" y="69" width="99" height="8" uuid="afaef7d6-7f0e-43a1-bb61-69eb09992b53"/>
@@ -1053,14 +1108,14 @@ where
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="false" isItalic="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{dateacct}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{DataProcessamento}]]></textFieldExpression>
 			</textField>
 			<textField pattern="MM/YYYY">
 				<reportElement x="381" y="69" width="172" height="8" uuid="7fc55bf5-8cbb-4fd3-8ff6-8b1680c097c2"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="false" isItalic="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{servicecity} + "/" + $F{serviceregion}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{MunicipioPrestacaoDescricao}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="281" y="77" width="39" height="8" uuid="20d63bc1-8860-4b9e-9945-d39d751a1883"/>
@@ -1075,12 +1130,6 @@ where
 				</textElement>
 				<text><![CDATA[Tributação:]]></text>
 			</staticText>
-			<rectangle>
-				<reportElement stretchType="ContainerHeight" mode="Transparent" x="0" y="54" width="555" height="55" uuid="203d09f0-3d8c-405f-8f7e-f6ef8e399e22"/>
-				<graphicElement>
-					<pen lineWidth="0.75"/>
-				</graphicElement>
-			</rectangle>
 			<staticText>
 				<reportElement x="1" y="69" width="90" height="8" uuid="321b8052-471c-43e6-a0d4-70d559322dca"/>
 				<box>
@@ -1099,7 +1148,7 @@ where
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="false" isItalic="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{documentno} + "/" + $F{lbr_nfserie} + "(" + $F{dateacct} + ")"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{NumeroRPS} + "/" + $F{SerieRPS} + " (" + $F{TipoRPS} + ")"]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>
