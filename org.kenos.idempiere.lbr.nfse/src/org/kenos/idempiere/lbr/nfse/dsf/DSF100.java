@@ -12,6 +12,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
 import java.util.UUID;
@@ -104,6 +105,7 @@ import br.com.dsfnet.nfse.tp.TpTipoRPS;
 import br.com.dsfnet.nfse.tp.TpTipoRecolhimento;
 import br.com.dsfnet.nfse.tp.TpTributacao;
 import br.com.dsfnet.nfse.tp.TpTributacao.Enum;
+import net.sf.jasperreports.engine.JRParameter;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -1079,7 +1081,8 @@ public class DSF100 implements INFSe
 		
 		InputStream is = null;
 		MImage img = MImage.get(Env.getCtx(), MOrgInfo.get(Env.getCtx(), nf.getAD_Org_ID(), nf.get_TrxName()).getLogo_ID());
-		MAttachment att = null;	
+		MAttachment att = null;
+		Locale locale = new Locale( "pt", "BR" );
 
 		try
 		{
@@ -1160,6 +1163,8 @@ public class DSF100 implements INFSe
 			
 			map.put("Prefeitura", "PREFEITURA MUNICIPAL DE CAMPO GRANDE");
 			map.put("Secretaria", "SECRETARIA MUNICIPAL DE FINANÇAS - SEFIN");
+			
+			map.put( JRParameter.REPORT_LOCALE, locale );
 				
 			//	Get Jasper
 			ClassLoader cl = getClass().getClassLoader();
