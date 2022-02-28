@@ -55,6 +55,8 @@
 	<parameter name="ComplementoPrestador" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="CEPPrestador" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="UFTomador" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="Prefeitura" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="Secretaria" class="java.lang.String" isForPrompting="false"/>
 	<queryString language="XPath">
 		<![CDATA[//Nota[1]]]>
 	</queryString>
@@ -62,7 +64,7 @@
 		<property name="net.sf.jasperreports.xpath.field.expression" value="NumeroNota"/>
 		<fieldDescription><![CDATA[NumeroNota]]></fieldDescription>
 	</field>
-	<field name="DataProcessamento" class="java.lang.String">
+	<field name="DataProcessamento" class="java.util.Date">
 		<property name="net.sf.jasperreports.xpath.field.expression" value="DataProcessamento"/>
 		<fieldDescription><![CDATA[DataProcessamento]]></fieldDescription>
 	</field>
@@ -322,7 +324,7 @@
 				<textFieldExpression><![CDATA[$F{NumeroNota}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="80" y="9" width="299" height="14" uuid="ade4b9c4-6f99-46f6-9a21-77868e0e07b8"/>
+				<reportElement x="80" y="55" width="299" height="14" uuid="ade4b9c4-6f99-46f6-9a21-77868e0e07b8"/>
 				<box>
 					<pen lineStyle="Dotted"/>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -655,6 +657,20 @@
 			<line>
 				<reportElement x="554" y="252" width="1" height="10" uuid="ae9e132b-b381-4695-9177-1af5694f05e7"/>
 			</line>
+			<textField>
+				<reportElement x="81" y="9" width="298" height="14" uuid="c1f525d4-daa6-4a9d-bb66-3a24bc188380"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{Prefeitura}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="81" y="32" width="298" height="14" uuid="aec7495f-dfd8-4789-baa6-2e34219e6055"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{Secretaria}]]></textFieldExpression>
+			</textField>
 		</band>
 	</columnHeader>
 	<detail>
@@ -1103,7 +1119,7 @@
 				</textElement>
 				<text><![CDATA[Local da Prestação do Serviço:]]></text>
 			</staticText>
-			<textField pattern="MM/YYYY">
+			<textField pattern="MM/yyyy">
 				<reportElement x="91" y="69" width="189" height="8" uuid="a4077262-a2cd-4b34-9422-e90df7b75e4d"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="false" isItalic="false"/>

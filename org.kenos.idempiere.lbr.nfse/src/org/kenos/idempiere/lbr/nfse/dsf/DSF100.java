@@ -1026,7 +1026,15 @@ public class DSF100 implements INFSe
 		{
 			JasperPrint jasperPrint = getReport (nf, new ByteArrayInputStream(xml.toString().getBytes()));
 			JRViewerProvider viewerLauncher = Service.locator().locate(JRViewerProvider.class).getService();
-			viewerLauncher.openViewer (jasperPrint, "Impress\u00E3o de NFS-e para a Cidade de Campo Grande");
+			String title = null;
+			if (nf.getlbr_NFENo() != null) {
+				title = nf.getlbr_NFENo(); 
+			}
+			else {
+				title = nf.getDocNo();
+			}
+			
+			viewerLauncher.openViewer (jasperPrint, title);
 		}
 		catch (Exception e)
 		{
@@ -1149,6 +1157,9 @@ public class DSF100 implements INFSe
 			{
 				map.put("UFTomador", nf.getlbr_BPRegion());
 			}
+			
+			map.put("Prefeitura", "PREFEITURA MUNICIPAL DE CAMPO GRANDE");
+			map.put("Secretaria", "SECRETARIA MUNICIPAL DE FINANÇAS - SEFIN");
 				
 			//	Get Jasper
 			ClassLoader cl = getClass().getClassLoader();
@@ -1158,6 +1169,7 @@ public class DSF100 implements INFSe
 			
 			JasperReport jasperReport = (JasperReport) JRLoader.loadObject (report);
 			JRXmlDataSource dataSource = new JRXmlDataSource ( xmldoc , jasperReport.getQuery().getText() );
+			dataSource.setDatePattern("yyyy-MM-dd'T'HH:mm:ss");
 			
 			//	Fill
 			return JasperFillManager.fillReport (jasperReport, map, dataSource);			
