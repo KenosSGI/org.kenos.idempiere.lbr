@@ -89,6 +89,7 @@ import br.com.dsfnet.nfse.tp.TpConsultaNFSe;
 import br.com.dsfnet.nfse.tp.TpDeducoes;
 import br.com.dsfnet.nfse.tp.TpEvento;
 import br.com.dsfnet.nfse.tp.TpInscricaoMunicipalNulo;
+import br.com.dsfnet.nfse.tp.TpItemTributavel;
 import br.com.dsfnet.nfse.tp.TpItens;
 import br.com.dsfnet.nfse.tp.TpListaItens;
 import br.com.dsfnet.nfse.tp.TpLote;
@@ -690,7 +691,7 @@ public class DSF100 implements INFSe
 			if (chaves.getChaveRPS() == null || chaves.getChaveNFe() == null)
 				continue;
 			
-			proccessNFSe (ctx, trxName, "" + chaves.getChaveRPS().getNumeroRPS(), "" + chaves.getChaveNFe().getNumeroNFe(), chaves.getChaveNFe().getCodigoVerificacao(), p_AD_Org_ID);
+			proccessNFSe (ctx, trxName, "" + chaves.getChaveRPS().getNumeroRPS(), "" + chaves.getChaveNFe().getNumeroNFe(), chaves.getChaveNFe().getCodigoVerificacao(), p_AD_Org_ID, chaves.getChaveRPS().getDataEmissaoRPS());
 		}
 		
 		br.com.dsfnet.nfse.lote.RetornoEnvioLoteRPSDocument.RetornoEnvioLoteRPS.Cabecalho header = result.getCabecalho();
@@ -770,7 +771,7 @@ public class DSF100 implements INFSe
 		}
 		for (TpConsultaNFSe chaves : chaveNFeRPS)
 		{
-			proccessNFSe (ctx, trxName, "" + chaves.getNumeroRPS(), "" + chaves.getNumeroNFe(), chaves.getCodigoVerificacao(), AD_Org_ID);
+			proccessNFSe (ctx, trxName, "" + chaves.getNumeroRPS(), "" + chaves.getNumeroNFe(), chaves.getCodigoVerificacao(), AD_Org_ID, chaves.getDataEmissaoRPS());
 		}
 		return erros.length == 0 ? Boolean.TRUE : Boolean.FALSE;
 	}
@@ -900,14 +901,43 @@ public class DSF100 implements INFSe
 	 * 	@param p_VerifCode
 	 * 	@param p_AD_Org_ID - Organization
 	 */
-	private void proccessNFSe (Properties ctx, String trxName, String p_RPS, String p_NFe, String p_VerifCode, int p_AD_Org_ID)
+	private void proccessNFSe (Properties ctx, String trxName, String p_RPS, String p_NFe, String p_VerifCode, int p_AD_Org_ID, Calendar dateTrx)
 	{
 		int LBR_NotaFiscal_ID = MLBRNotaFiscal.getLBR_NotaFiscal_ID (p_AD_Org_ID, p_RPS, true, MLBRNotaFiscal.LBR_NFMODEL_NotaFiscalDeServiçosEletrônicaRPS, trxName);
 		if (LBR_NotaFiscal_ID > 0)
 		{
 			MLBRNotaFiscal nf = new MLBRNotaFiscal (ctx, LBR_NotaFiscal_ID, trxName);
+			if (dateTrx != null)
+				nf.setDateTrx(new Timestamp (dateTrx.getTimeInMillis()));
+			
 			ProcReturnRPS.proccessNFSe (nf, p_NFe, p_VerifCode);
-			//ProcEMailNFe.sendEmailNFeThread (nf, false);
+			//
+			byte[] data = nf.getAttachmentData("xml");
+			
+			try {
+				RetornoConsultaNotasDocument xml = RetornoConsultaNotasDocument.Factory.parse(new String (data, NFeUtil.NFE_ENCODING));
+				
+				// XML OK
+				if (xml != null)
+					return;
+			}
+			catch (Exception e) {}
+			
+			try {
+				//	Parse TpRPS as TPNFSe and fill missing fields
+				TpNFSe nfse = TpNFSe.Factory.parse (new String (data, NFeUtil.NFE_ENCODING));
+				nfse.setNumeroNota(Integer.parseInt(p_NFe));
+				nfse.setCodigoVerificacao(p_VerifCode);
+				nfse.setNumeroLote(Integer.parseInt(nf.getlbr_DigestValue()));
+				if (dateTrx != null)
+					nfse.setDataProcessamento(dateTrx);
+				Arrays.asList (nfse.getItens().getItemArray()).stream()
+					.filter(i -> i.getTributavel() == null)
+					.forEach(i -> i.setTributavel(TpItemTributavel.S));
+				//
+				storeXML(ctx, nf.getlbr_CNPJ(), nfse);
+			}
+			catch (Exception e) {}
 		}
 	}	//	proccessNFSe
 	
