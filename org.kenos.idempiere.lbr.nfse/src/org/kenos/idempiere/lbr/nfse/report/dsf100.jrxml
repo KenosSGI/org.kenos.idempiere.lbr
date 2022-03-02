@@ -19,6 +19,7 @@
 	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
 	<import value="net.sf.jasperreports.engine.*"/>
 	<import value="java.util.*"/>
+	<import value="org.adempierelbr.util.JasperUtil"/>
 	<import value="net.sf.jasperreports.engine.data.*"/>
 	<subDataset name="DatasetItens" uuid="bcfe18a3-6fe5-4737-b4dd-e90e26a96337">
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DataAdapterDSF100.xml"/>
@@ -401,7 +402,7 @@
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{CNPJPrestador}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[JasperUtil.maskCNPJF($P{CNPJPrestador})]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="66" y="104" width="489" height="10" uuid="eecdba0d-f80c-4eb2-aa75-d51de11d41f2"/>
@@ -551,14 +552,14 @@
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{CPFCNPJTomador}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[JasperUtil.maskCNPJF($F{CPFCNPJTomador})]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="66" y="158" width="489" height="10" uuid="b84000a5-3a90-4d06-a310-f09a79919dcb"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[($F{LogradouroTomador}.equals(null)?"":$F{LogradouroTomador})+", "+($F{NumeroEnderecoTomador}.equals(null)?"":$F{NumeroEnderecoTomador})+" - "+($F{ComplementoEnderecoTomador}.equals(null)?"":$F{ComplementoEnderecoTomador})+" - "+($F{BairroTomador}.equals(null)?"":$F{BairroTomador})+ " - CEP: " + ($F{CEPTomador}.equals(null)?"":$F{CEPTomador})]]></textFieldExpression>
+				<textFieldExpression><![CDATA[($F{LogradouroTomador}.equals(null)?"":$F{LogradouroTomador})+", "+($F{NumeroEnderecoTomador}.equals(null)?"":$F{NumeroEnderecoTomador})+" - "+($F{ComplementoEnderecoTomador}.equals(null)?"":$F{ComplementoEnderecoTomador})+" - "+($F{BairroTomador}.equals(null)?"":$F{BairroTomador})+ " - CEP: " + ($F{CEPTomador}.equals(null)?"":JasperUtil.maskCEP($F{CEPTomador}))]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="280" y="168" width="16" height="10" uuid="4b66a821-5153-403a-b058-bdb38f834c40"/>
@@ -616,6 +617,7 @@
 				<reportElement x="514" y="252" width="40" height="10" uuid="42a58eaf-e2ce-4f44-93c7-8f2914bd6323"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="true"/>
+					<paragraph rightIndent="2"/>
 				</textElement>
 				<text><![CDATA[Total R$]]></text>
 			</staticText>
@@ -630,6 +632,7 @@
 				<reportElement x="432" y="252" width="40" height="10" uuid="6154aa94-eb73-48f8-800b-7f2c9e3f3b1a"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="true"/>
+					<paragraph rightIndent="2"/>
 				</textElement>
 				<text><![CDATA[Qtde]]></text>
 			</staticText>
@@ -644,6 +647,7 @@
 				<reportElement x="473" y="252" width="40" height="10" uuid="96321f47-bd8d-482f-9486-13f68401edd3"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="true"/>
+					<paragraph rightIndent="2"/>
 				</textElement>
 				<text><![CDATA[Unitário R$]]></text>
 			</staticText>
@@ -728,8 +732,8 @@
 					</datasetRun>
 					<jr:listContents height="11" width="555">
 						<textField>
-							<reportElement x="2" y="0" width="38" height="10" uuid="e2ef7795-9561-4ab4-8975-1ac34cc40804"/>
-							<textElement verticalAlignment="Middle">
+							<reportElement x="1" y="0" width="39" height="10" uuid="e2ef7795-9561-4ab4-8975-1ac34cc40804"/>
+							<textElement textAlignment="Center" verticalAlignment="Middle">
 								<font fontName="Arial" size="6" isBold="true" isItalic="false"/>
 							</textElement>
 							<textFieldExpression><![CDATA[$F{Tributavel}.equals("S") ? "SIM" : "NÃO"]]></textFieldExpression>
@@ -745,6 +749,7 @@
 							<reportElement x="432" y="0" width="40" height="10" uuid="399251e4-0be3-41bd-9c6c-ea5f0a5d08e3"/>
 							<textElement textAlignment="Right" verticalAlignment="Middle">
 								<font fontName="Arial" size="6" isBold="true" isItalic="false"/>
+								<paragraph rightIndent="2"/>
 							</textElement>
 							<textFieldExpression><![CDATA[$F{Quantidade}]]></textFieldExpression>
 						</textField>
@@ -752,6 +757,7 @@
 							<reportElement x="473" y="0" width="40" height="10" uuid="b42a869f-29e1-4e49-af33-c7a771c22f88"/>
 							<textElement textAlignment="Right" verticalAlignment="Middle">
 								<font fontName="Arial" size="6" isBold="true" isItalic="false"/>
+								<paragraph rightIndent="2"/>
 							</textElement>
 							<textFieldExpression><![CDATA[$F{ValorUnitario}]]></textFieldExpression>
 						</textField>
@@ -759,6 +765,7 @@
 							<reportElement x="514" y="0" width="40" height="10" uuid="93049741-b6d5-44dc-ae28-0b1d9e23dcbf"/>
 							<textElement textAlignment="Right" verticalAlignment="Middle">
 								<font fontName="Arial" size="6" isBold="true" isItalic="false"/>
+								<paragraph rightIndent="2"/>
 							</textElement>
 							<textFieldExpression><![CDATA[$F{ValorTotal}]]></textFieldExpression>
 						</textField>
@@ -1014,16 +1021,9 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{ValorTotalNF}*($F{AliquotaAtividade}.divide (new java.math.BigDecimal(100), 2, java.math.RoundingMode.HALF_UP))]]></textFieldExpression>
 			</textField>
-			<textField pattern="¤ #,##0.00;¤ -#,##0.00">
-				<reportElement x="105" y="25" width="180" height="15" uuid="cd28499a-587c-434c-9080-a9f81cffd2bd"/>
-				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Arial" size="12" isBold="true" isItalic="false"/>
-				</textElement>
-				<textFieldExpression><![CDATA["VALOR TOTAL DA NOTA ="]]></textFieldExpression>
-			</textField>
-			<textField pattern="¤ #,##0.00;¤ -#,##0.00">
-				<reportElement x="285" y="25" width="180" height="15" uuid="a9130a18-e45c-425b-a050-f894e147d8af"/>
-				<textElement textAlignment="Left" verticalAlignment="Middle">
+			<textField pattern="Valor Total da Nota ¤#,##0.00;Valor Total da Nota ¤-#,##0.00">
+				<reportElement x="2" y="25" width="551" height="15" uuid="a9130a18-e45c-425b-a050-f894e147d8af"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true" isItalic="false"/>
 					<paragraph leftIndent="4"/>
 				</textElement>
@@ -1055,33 +1055,33 @@
 	<pageFooter>
 		<band height="59" splitType="Stretch">
 			<staticText>
-				<reportElement x="3" y="30" width="49" height="8" uuid="f4ffdcf4-82c3-4c3d-ba04-4cf9979117b4"/>
+				<reportElement x="3" y="30" width="38" height="8" uuid="f4ffdcf4-82c3-4c3d-ba04-4cf9979117b4"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textElement textAlignment="Left">
+				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="false"/>
 				</textElement>
 				<text><![CDATA[RPS/SÉRIE:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="3" y="22" width="49" height="8" uuid="e1101703-b52b-4386-8a3f-a23847a5666a"/>
+				<reportElement x="3" y="22" width="42" height="8" uuid="e1101703-b52b-4386-8a3f-a23847a5666a"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textElement textAlignment="Left">
+				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Recolhimento:]]></text>
 			</staticText>
 			<textField pattern="MM/YYYY">
-				<reportElement x="320" y="22" width="233" height="8" uuid="8166400b-2a01-4d94-adb8-e31e188d767b"/>
+				<reportElement x="315" y="22" width="238" height="8" uuid="8166400b-2a01-4d94-adb8-e31e188d767b"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="false" isItalic="false"/>
 				</textElement>
@@ -1096,14 +1096,14 @@
 ($F{Tributacao}.equals ("M") ? "MICRO EMPREENDEDOR INDIVIDUAL (MEI)" : "--")))))))))]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="3" y="38" width="27" height="8" uuid="de0de1e4-845f-49ed-a611-31abbc68dc15"/>
+				<reportElement x="3" y="38" width="24" height="8" uuid="de0de1e4-845f-49ed-a611-31abbc68dc15"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textElement textAlignment="Left">
+				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="false"/>
 				</textElement>
 				<text><![CDATA[CNAE:]]></text>
@@ -1116,28 +1116,28 @@
 				<text><![CDATA[OUTRAS INFORMAÇÕES]]></text>
 			</staticText>
 			<textField pattern="MM/YYYY">
-				<reportElement x="30" y="38" width="250" height="8" uuid="f5794032-04dc-486d-90a9-7ac96468991c"/>
+				<reportElement x="27" y="38" width="253" height="8" uuid="f5794032-04dc-486d-90a9-7ac96468991c"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="false" isItalic="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{CodigoAtividade}]]></textFieldExpression>
 			</textField>
 			<textField pattern="MM/YYYY">
-				<reportElement x="52" y="22" width="228" height="8" uuid="97aae83c-e637-494c-bf2d-1fc719de7a21"/>
+				<reportElement x="45" y="22" width="235" height="8" uuid="97aae83c-e637-494c-bf2d-1fc719de7a21"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="false" isItalic="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[($F{TipoRecolhimento}.equals ("R")) ?  "ISS RETIDO NA FONTE PELO TOMADOR" : "ISS A RECOLHER PELO PRESTADOR"]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="281" y="14" width="99" height="8" uuid="afaef7d6-7f0e-43a1-bb61-69eb09992b53"/>
+				<reportElement x="281" y="14" width="89" height="8" uuid="afaef7d6-7f0e-43a1-bb61-69eb09992b53"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textElement textAlignment="Left">
+				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Local da Prestação do Serviço:]]></text>
@@ -1150,21 +1150,21 @@
 				<textFieldExpression><![CDATA[$F{DataProcessamento}]]></textFieldExpression>
 			</textField>
 			<textField pattern="MM/YYYY">
-				<reportElement x="381" y="14" width="172" height="8" uuid="7fc55bf5-8cbb-4fd3-8ff6-8b1680c097c2"/>
+				<reportElement x="370" y="14" width="183" height="8" uuid="7fc55bf5-8cbb-4fd3-8ff6-8b1680c097c2"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="false" isItalic="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{MunicipioPrestacaoDescricao}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="281" y="22" width="39" height="8" uuid="20d63bc1-8860-4b9e-9945-d39d751a1883"/>
+				<reportElement x="281" y="22" width="34" height="8" uuid="20d63bc1-8860-4b9e-9945-d39d751a1883"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textElement textAlignment="Left">
+				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Tributação:]]></text>
@@ -1177,13 +1177,13 @@
 					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textElement textAlignment="Left">
+				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Mês de Competência da Nota Fiscal:]]></text>
 			</staticText>
 			<textField pattern="MM/YYYY">
-				<reportElement x="52" y="30" width="228" height="8" uuid="0620c446-acc2-4c80-8b88-91ae1dc61a33"/>
+				<reportElement x="41" y="30" width="239" height="8" uuid="0620c446-acc2-4c80-8b88-91ae1dc61a33"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="false" isItalic="false"/>
 				</textElement>
