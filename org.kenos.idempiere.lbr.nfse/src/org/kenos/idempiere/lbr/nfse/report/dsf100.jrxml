@@ -20,6 +20,7 @@
 	<import value="net.sf.jasperreports.engine.*"/>
 	<import value="java.util.*"/>
 	<import value="org.adempierelbr.util.JasperUtil"/>
+	<import value="org.adempierelbr.util.TextUtil"/>
 	<import value="net.sf.jasperreports.engine.data.*"/>
 	<subDataset name="DatasetItens" uuid="bcfe18a3-6fe5-4737-b4dd-e90e26a96337">
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DataAdapterDSF100.xml"/>
@@ -437,7 +438,7 @@
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{MunicipioPrestador}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[TextUtil.retiraEspecial($P{MunicipioPrestador})]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="2" y="84" width="64" height="10" uuid="fb45dc0a-e318-4f2f-9fb6-1665963aa94f"/>
@@ -538,14 +539,14 @@
 				<textElement>
 					<font fontName="Arial" size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Descrição:" + $F{DescricaoRPS}.replaceAll( ";", "\n")]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Descrição:" + TextUtil.retiraEspecial($F{DescricaoRPS}.replaceAll( ";", "\n"))]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="66" y="138" width="489" height="10" uuid="5cc56d52-0d40-40c2-89a8-3cde1263c4b2"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="true" isItalic="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{RazaoSocialTomador}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[TextUtil.retiraEspecial($F{RazaoSocialTomador})]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="66" y="148" width="210" height="10" uuid="a8961240-9062-4dd8-aa61-d71836ea67d4"/>
@@ -559,7 +560,7 @@
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[($F{LogradouroTomador}.equals(null)?"":$F{LogradouroTomador})+", "+($F{NumeroEnderecoTomador}.equals(null)?"":$F{NumeroEnderecoTomador})+" - "+($F{ComplementoEnderecoTomador}.equals(null)?"":$F{ComplementoEnderecoTomador})+" - "+($F{BairroTomador}.equals(null)?"":$F{BairroTomador})+ " - CEP: " + ($F{CEPTomador}.equals(null)?"":JasperUtil.maskCEP($F{CEPTomador}))]]></textFieldExpression>
+				<textFieldExpression><![CDATA[($F{LogradouroTomador}.equals(null)?"":TextUtil.retiraEspecial($F{LogradouroTomador}))+", "+($F{NumeroEnderecoTomador}.equals(null)?"":$F{NumeroEnderecoTomador})+" - "+($F{ComplementoEnderecoTomador}.equals(null)?"":TextUtil.retiraEspecial($F{ComplementoEnderecoTomador}))+" - "+($F{BairroTomador}.equals(null)?"":TextUtil.retiraEspecial($F{BairroTomador}))+ " - CEP: " + ($F{CEPTomador}.equals(null)?"":JasperUtil.maskCEP($F{CEPTomador}))]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="280" y="168" width="16" height="10" uuid="4b66a821-5153-403a-b058-bdb38f834c40"/>
@@ -573,7 +574,7 @@
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{CidadeTomadorDescricao}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[TextUtil.retiraEspecial($F{CidadeTomadorDescricao})]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="296" y="168" width="32" height="10" uuid="af9bd7e8-4256-409d-809e-f8c110492e3a"/>
@@ -1021,7 +1022,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{ValorTotalNF}*($F{AliquotaAtividade}.divide (new java.math.BigDecimal(100), 2, java.math.RoundingMode.HALF_UP))]]></textFieldExpression>
 			</textField>
-			<textField pattern="Valor Total da Nota ¤#,##0.00;Valor Total da Nota ¤-#,##0.00">
+			<textField pattern="VALOR TOTAL DA NOTA = ¤#,##0.00;VALOR TOTAL DA NOTA = ¤-#,##0.00">
 				<reportElement x="2" y="25" width="551" height="15" uuid="a9130a18-e45c-425b-a050-f894e147d8af"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true" isItalic="false"/>
@@ -1154,7 +1155,7 @@
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="false" isItalic="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{MunicipioPrestacaoDescricao}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[TextUtil.retiraEspecial($F{MunicipioPrestacaoDescricao})]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="281" y="22" width="34" height="8" uuid="20d63bc1-8860-4b9e-9945-d39d751a1883"/>
