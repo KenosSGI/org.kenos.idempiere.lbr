@@ -327,6 +327,10 @@ public class GenerateNF extends SvrProcess
 		//	Lines
 		for (MOrderLine oLine : order.getLines())
 		{
+			//	Skip blank lines
+			if (oLine.getQtyOrdered().signum() != 1)
+				continue;
+			
 			//	Stored Product
 			MProduct p = (MProduct) oLine.getM_Product();
 			String MMPolicy = p.getMMPolicy();
