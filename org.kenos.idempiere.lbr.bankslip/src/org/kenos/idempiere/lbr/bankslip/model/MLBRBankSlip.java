@@ -1,12 +1,11 @@
 package org.kenos.idempiere.lbr.bankslip.model;
 
-import static org.adempierelbr.util.TextUtil.lPad;
-
 import java.awt.Image;
 import java.io.File;
 import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -269,8 +268,7 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 			numeroDaConta= new NumeroDaConta(Integer.valueOf (bsi.getAccountNo()), bankAccountVD);
 		else
 			numeroDaConta= new NumeroDaConta(Integer.valueOf (bsi.getAccountNo()));
-		if (Integer.parseInt(bsi.getRoutingNo()) == BancoDoBrasil001.ROUNTING_NO)
-			numeroDaConta = new NumeroDaConta(Integer.valueOf (bsi.getLBR_AccordNo()));
+		
 		//	Bank Agency
 		String bankAgencyVD = bsi.getLBR_BankAgencyVD();
 		if (bankAgencyVD != null && !bankAgencyVD.isBlank())
@@ -284,13 +282,8 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 		
 		Titulo titulo = new Titulo(contaBancaria, sacado, beneficiario);
 		titulo.setNumeroDoDocumento(getLBR_NumberInOrg());
-		if (Integer.parseInt(bsi.getRoutingNo()) == BancoDoBrasil001.ROUNTING_NO)
-			titulo.setNossoNumero(lPad(bsi.getLBR_AccordNo() + getLBR_NumberInBank(), 17));
-		else
-		{    
-            titulo.setNossoNumero(getLBR_NumberInBank());
-			titulo.setDigitoDoNossoNumero(bsi.getLBR_NumberInBankVD());
-		}
+		titulo.setNossoNumero(getLBR_NumberInBank());
+		titulo.setDigitoDoNossoNumero(bsi.getLBR_NumberInBankVD());
 		titulo.setValor(getGrandTotal());
 		titulo.setDataDoDocumento(getDateDoc());
 		titulo.setDataDoVencimento(getDueDate());
@@ -308,16 +301,16 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 		boleto.setInstrucao5(bsi.getLBR_Instruction5());
 		boleto.setInstrucao6(bsi.getLBR_Instruction6());
 		boleto.setInstrucao7(bsi.getLBR_Instruction7());
+
 		if (Integer.parseInt(bsi.getRoutingNo()) == BancoDoBrasil001.ROUNTING_NO)
-		{
+		{	
 			boleto.addTextosExtras("txtFcAgenciaCodigoCedente", 
 					bsi.getAgency() + "-" + bsi.getLBR_BankAgencyVD() + " / " + 
 					bsi.getAccountNo() + "-" + bsi.getLBR_BankAccountVD());
-			
 			boleto.addTextosExtras("txtRsAgenciaCodigoCedente", 
 					bsi.getAgency() + "-" + bsi.getLBR_BankAgencyVD() + " / " + 
 					bsi.getAccountNo() + "-" + bsi.getLBR_BankAccountVD());
-		}
+		}	
 		
 		return boleto;
 	}	//	getBankSlip
@@ -487,12 +480,9 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 			//	Local numbering
 			if (getLBR_NumberInOrg() == null)
 				setLBR_NumberInOrg(getDocumentNo());
-		
+			
 			//	Number in the bank
-			
-			String numberInBank = getLBR_NumberInBank();
-			
-			if (numberInBank == null || numberInBank.replace("0", "").isEmpty())
+			if (getLBR_NumberInBank() == null)
 			{
 				if (getLBR_BankSlipContract().getLBR_NumberInBankSeq_ID() > 0)
 				{
@@ -500,7 +490,11 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 					String next = String.valueOf(seq.getNextID());
 					String prefix = seq.getPrefix();
 					String suffix = seq.getSuffix();
-					//
+					String decimalPattern = seq.getDecimalPattern();
+					Integer nextInt = seq.getNextID();;
+					
+					if (decimalPattern != null && decimalPattern.length() > 0)
+						next = new DecimalFormat(decimalPattern).format(nextInt);
 					if (prefix != null && TextUtil.toNumeric(prefix).length() > 0)
 						next = prefix + next;
 					if (suffix != null && TextUtil.toNumeric(suffix).length() > 0)
@@ -541,11 +535,19 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 		String numberInBank = super.getLBR_NumberInBank();
 		String routingNo = getC_BankAccount().getC_Bank().getRoutingNo();
 		
-		if (Integer.parseInt(routingNo) == Bradesco237.ROUNTING_NO)
-			return TextUtil.lPad(numberInBank, 11);
-		if (Integer.parseInt(routingNo) == BancoDoBrasil001.ROUNTING_NO)
-			return TextUtil.lPad(numberInBank, 10);
-		return numberInBank;
+		if (numberInBank == null)
+			return null;
+		else 
+		{
+			if (Integer.parseInt(routingNo) == Bradesco237.ROUNTING_NO)
+				return TextUtil.lPad(numberInBank, 11);
+			else if (Integer.parseInt(routingNo) == BancoDoBrasil001.ROUNTING_NO)
+			{
+				return TextUtil.lPad(numberInBank,17);
+			}
+			else
+				return numberInBank;
+		}
 	}	//	getLBR_NumberInBank
 	
 	/**
@@ -928,14 +930,17 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 
 	private void setNumberInBankVD() 
 	{
-		String routingNo = getC_BankAccount().getC_Bank().getRoutingNo();
 		String numberInBank = getLBR_NumberInBank();
 		
 		//	Bradesco
-		if (Integer.parseInt(routingNo) == Bradesco237.ROUNTING_NO)
+		if (Integer.parseInt(getRoutingNo()) == Bradesco237.ROUNTING_NO)
 		{
 			numberInBank = TextUtil.lPad(bsi.getLBR_BankSlipFoldCode(), 2) + 
 					TextUtil.lPad(getLBR_NumberInBank(), 11);
+		}
+		else if (Integer.parseInt(getRoutingNo()) == BancoDoBrasil001.ROUNTING_NO)
+		{
+			return;
 		}
 		
 		if (numberInBank == null)
@@ -1207,7 +1212,7 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 		if (C_DocType_ID > 0)
 			setC_DocType_ID(C_DocType_ID);
 	}	//	setDocType
-
+	
 	/**
 	 * 	Set contract information
 	 * 	@param LBR_BankSlipContract_ID
