@@ -268,6 +268,10 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 			numeroDaConta= new NumeroDaConta(Integer.valueOf (bsi.getAccountNo()), bankAccountVD);
 		else
 			numeroDaConta= new NumeroDaConta(Integer.valueOf (bsi.getAccountNo()));
+
+		// Composição do Boleto - Banco do Brasil - Convênio 7 Posições
+		if (Integer.parseInt(bsi.getRoutingNo()) == BancoDoBrasil001.ROUNTING_NO)
+			numeroDaConta= new NumeroDaConta(Integer.valueOf (bsi.getLBR_AccordNo()));
 		
 		//	Bank Agency
 		String bankAgencyVD = bsi.getLBR_BankAgencyVD();
@@ -302,6 +306,7 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 		boleto.setInstrucao6(bsi.getLBR_Instruction6());
 		boleto.setInstrucao7(bsi.getLBR_Instruction7());
 
+		// Composição do Boleto - Banco do Brasil - Convênio 7 Posições
 		if (Integer.parseInt(bsi.getRoutingNo()) == BancoDoBrasil001.ROUNTING_NO)
 		{	
 			boleto.addTextosExtras("txtFcAgenciaCodigoCedente", 

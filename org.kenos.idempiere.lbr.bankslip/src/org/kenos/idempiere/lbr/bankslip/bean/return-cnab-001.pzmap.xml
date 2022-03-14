@@ -11,7 +11,7 @@
 	<COLUMN name="identifier" length="37" />
 	<COLUMN name="numberInOrg" length="25" />
 	<COLUMN name="numberInBank" length="17" />
-	<COLUMN name="dummy1" length="27" />
+	<COLUMN name="dummy1" length="28" />
 	<COLUMN name="occur" length="2" />
 	<COLUMN name="dateTrx" length="6" />
 	<COLUMN name="documentNo" length="10" />
@@ -33,7 +33,7 @@
 	<COLUMN name="otherRevenue" length="13" />
     <COLUMN name="dummy6" length="13" />
     <COLUMN name="payAmt" length="13" />
-	<COLUMN name="dummy7" length="77" />
+	<COLUMN name="dummy7" length="76" />
 	<COLUMN name="lineno" length="6" />
     <RECORD id="trailer" startPosition="1" endPosition="1" indicator="9">
         <COLUMN name="type" length="1" />
