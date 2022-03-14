@@ -123,6 +123,12 @@
 										<version>1.00</version>
 										<destFileName>nfse-dsf-v100.jar</destFileName>
 									</artifactItem>
+									<artifactItem>
+										<groupId>org.kenos</groupId>
+										<artifactId>nfse-sjp</artifactId>
+										<version>3.00</version>
+										<destFileName>nfse-sjp-v300.jar</destFileName>
+									</artifactItem>
 								</artifactItems>
 								<outputDirectory>lib</outputDirectory>
 								<stripVersion>true</stripVersion>
