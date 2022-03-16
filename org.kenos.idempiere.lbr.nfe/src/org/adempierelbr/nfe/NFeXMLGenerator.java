@@ -673,7 +673,7 @@ public class NFeXMLGenerator
 		//	IE
 		emit.setIE(toNumericStr (nf.getlbr_IE()));
 		
-		String regime = (String) MOrgInfo.get (nf.getCtx(), nf.getAD_Org_ID(), null).get_Value("LBR_TaxRegime");
+		String regime = nf.getLBR_TaxRegime();
 		
 		//	Regime Normal
 		String crt = "3";
