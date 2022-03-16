@@ -37,7 +37,6 @@ import org.compiere.model.MOrgInfo;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
 import org.compiere.util.Util;
-
 import org.kenos.idempiere.lbr.nfse.sjp.NfseStub;
 
 import br.gov.pr.sjp.nfe.cabecalhoV03.CabecalhoDocument.Cabecalho;
@@ -53,9 +52,8 @@ import br.gov.pr.sjp.nfe.servicoEnviarLoteRpsEnvioV03.EnviarLoteRpsEnvioDocument
 import br.gov.pr.sjp.nfe.servicoEnviarLoteRpsEnvioV03.EnviarLoteRpsEnvioDocument.EnviarLoteRpsEnvio;
 import br.gov.pr.sjp.nfe.servicoEnviarLoteRpsRespostaV03.EnviarLoteRpsRespostaDocument;
 import br.gov.pr.sjp.nfe.servicoEnviarLoteRpsRespostaV03.EnviarLoteRpsRespostaDocument.EnviarLoteRpsResposta;
-
-import br.gov.pr.sjp.nfe.tiposV03.TcCancelamentoNfse;
 import br.gov.pr.sjp.nfe.tiposV03.ListaMensagemRetornoDocument.ListaMensagemRetorno;
+import br.gov.pr.sjp.nfe.tiposV03.TcCancelamentoNfse;
 import br.gov.pr.sjp.nfe.tiposV03.TcCompNfse;
 import br.gov.pr.sjp.nfe.tiposV03.TcContato;
 import br.gov.pr.sjp.nfe.tiposV03.TcCpfCnpj;
@@ -71,7 +69,6 @@ import br.gov.pr.sjp.nfe.tiposV03.TcLoteRps;
 import br.gov.pr.sjp.nfe.tiposV03.TcLoteRps.ListaRps;
 import br.gov.pr.sjp.nfe.tiposV03.TcRps;
 import br.gov.pr.sjp.nfe.tiposV03.TcValores;
-
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -416,7 +413,11 @@ public class NFSeSJPImpl implements INFSe
 			//	Assina o XML
 			new SignatureUtil (orgInf, SignatureUtil.OUTROS, "LoteRps").sign (enviarLotDoc, enviarLotDoc.getEnviarLoteRpsEnvio().newCursor());
 			
-			return enviarLotDoc.xmlText(NFeUtil.getXmlOpt()).getBytes(NFeUtil.NFE_ENCODING);
+			String xmlText = enviarLotDoc.xmlText(NFeUtil.getXmlOpt());
+			
+			NFeUtil.saveXML (String.valueOf(nf.getAD_Org_ID()), NFeUtil.KIND_NFSE, NFeUtil.MESSAGE_XML, nf.getDocumentNo(), xmlText.toString());
+
+			return xmlText.getBytes(NFeUtil.NFE_ENCODING);
 		}
 		catch (Exception e)
 		{
@@ -459,10 +460,15 @@ public class NFSeSJPImpl implements INFSe
 		if (MLBRNotaFiscal.LBR_NFEENV_Production.equals(nf.getlbr_NFeEnv()))
 			url = "https://nfe.sjp.pr.gov.br/servicos/issOnline2/homologacao/ws/index.php?wsdl";
 		
+		NFeUtil.saveXML (String.valueOf(nf.getAD_Org_ID()), NFeUtil.KIND_NFSE, NFeUtil.MESSAGE_REQ_AUTORIZE, nf.getDocumentNo(), xml.toString());
+
 		NfseStub nfseStub = new NfseStub(url);
 		nfseStub._getServiceClient().getOptions().setProperty(HTTPConstants.CHUNKED, false);
 		
 		retornoEnvioXMLNFSe = nfseStub.recepcionarLoteRpsV3(header.xmlText(),xml);
+		
+		NFeUtil.saveXML (String.valueOf(nf.getAD_Org_ID()), NFeUtil.KIND_NFSE, NFeUtil.MESSAGE_RET_AUTORIZE, nf.getDocumentNo(), retornoEnvioXMLNFSe);
+
 		EnviarLoteRpsResposta resposta = EnviarLoteRpsRespostaDocument.Factory.parse(retornoEnvioXMLNFSe).getEnviarLoteRpsResposta();
 		
 		if (resposta.getListaMensagemRetorno() != null)
@@ -496,7 +502,7 @@ public class NFSeSJPImpl implements INFSe
 			//	Adicionar Protocolo do Lote
 			if (resposta != null && resposta.getProtocolo() != null)
 			{
-				nf.setlbr_NFeProt(resposta.getProtocolo());
+				nf.setlbr_DigestValue(resposta.getProtocolo());
 				nf.setDateTrx(new Timestamp (resposta.getDataRecebimento().getTimeInMillis()));
 				nf.save();
 			}
@@ -575,7 +581,7 @@ public class NFSeSJPImpl implements INFSe
 		
 		// Protocolo NFS-e
 		if (nf.getlbr_NFeProt() != null)
-			rpsEnvio.setProtocolo(nf.getlbr_NFeProt());
+			rpsEnvio.setProtocolo(nf.getlbr_DigestValue());
 		
 		//	URL Homologação
 		String url = "https://nfe.sjp.pr.gov.br/servicos/issOnline2/homologacao/ws/index.php?wsdl";
@@ -584,12 +590,16 @@ public class NFSeSJPImpl implements INFSe
 		if (MLBRNotaFiscal.LBR_NFEENV_Production.equals(nf.getlbr_NFeEnv()))
 			url = "https://nfe.sjp.pr.gov.br/servicos/issOnline2/homologacao/ws/index.php?wsdl";
 		
+		NFeUtil.saveXML (String.valueOf(nf.getAD_Org_ID()), NFeUtil.KIND_NFSE, NFeUtil.MESSAGE_REQ_CONSULT, "Lote-" + nf.getDocumentNo(), document.xmlText());
+
 		NfseStub nfseStub = new NfseStub(url);
 		nfseStub._getServiceClient().getOptions().setProperty(HTTPConstants.CHUNKED, false);	
 		
 		MLBRDigitalCertificate.setCertificate (Env.getCtx(), nf.getAD_Org_ID());
 		String result = nfseStub.consultarSituacaoLoteRpsV3(header.xmlText(), document.xmlText());
-		
+
+		NFeUtil.saveXML (String.valueOf(nf.getAD_Org_ID()), NFeUtil.KIND_NFSE, NFeUtil.MESSAGE_RET_CONSULT, "Lote-" + nf.getDocumentNo(), result);
+
 		ConsultarSituacaoLoteRpsResposta resposta = ConsultarSituacaoLoteRpsRespostaDocument.Factory.parse(result).getConsultarSituacaoLoteRpsResposta();
 		
 		ListaMensagemRetorno listaMensagemRetorno = resposta.getListaMensagemRetorno();
@@ -625,9 +635,13 @@ public class NFSeSJPImpl implements INFSe
 			ConsultarLoteRpsEnvio consultarpsEnvio = consultadocument.addNewConsultarLoteRpsEnvio();
 			consultarpsEnvio.setPrestador(prestador);
 			
-			consultarpsEnvio.setProtocolo(nf.getlbr_NFeProt());
+			consultarpsEnvio.setProtocolo(nf.getlbr_DigestValue());
+			
+			NFeUtil.saveXML (String.valueOf(nf.getAD_Org_ID()), NFeUtil.KIND_NFSE, NFeUtil.MESSAGE_RET_CONSULT, "RPS-" + nf.getDocumentNo(), consultadocument.xmlText());
 			
 			String resultconsulta = nfseStub.consultarLoteRpsV3(header.xmlText(), consultadocument.xmlText());
+			
+			NFeUtil.saveXML (String.valueOf(nf.getAD_Org_ID()), NFeUtil.KIND_NFSE, NFeUtil.MESSAGE_RET_CONSULT, "RPS-" + nf.getDocumentNo(), resultconsulta);
 			
 			ConsultarLoteRpsResposta consultaresposta = ConsultarLoteRpsRespostaDocument.Factory.parse(resultconsulta).getConsultarLoteRpsResposta();
 			String xmlAut = consultaresposta.xmlText();
@@ -635,7 +649,7 @@ public class NFSeSJPImpl implements INFSe
 			TcInfNfse nfse = consultaresposta.getListaNfse().getCompNfseArray(0).getNfse().getInfNfse();
 
 			nf.setlbr_NFENo(String.valueOf(nfse.getNumero()));
-			nf.setlbr_DigestValue(String.valueOf(nfse.getCodigoVerificacao()));
+			nf.setlbr_NFeProt(String.valueOf(nfse.getCodigoVerificacao()));
 			nf.setDateTrx(new Timestamp(nfse.getDataEmissao().getTimeInMillis()));
 			//nf.setlbr_NFeStatus(MLBRNotaFiscal.LBR_NFESTATUS_100_AutorizadoOUsoDaNF_E);
 			nf.setDocStatus(MLBRNotaFiscal.DOCSTATUS_Completed);
