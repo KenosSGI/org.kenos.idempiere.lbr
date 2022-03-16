@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.stream.Collectors;
 
 import org.adempiere.base.Service;
 import org.adempiere.exceptions.AdempiereException;
@@ -26,6 +27,7 @@ import org.adempierelbr.nfse.util.FixedTxt;
 import org.adempierelbr.util.NFeUtil;
 import org.adempierelbr.util.SignatureUtil;
 import org.adempierelbr.util.TextUtil;
+import org.adempierelbr.validator.ValidatorBPartner;
 import org.adempierelbr.wrapper.I_W_AD_OrgInfo;
 import org.apache.axis2.transport.http.HTTPConstants;
 import org.apache.xmlbeans.XmlCalendar;
@@ -232,15 +234,39 @@ public class NFSeSJPImpl implements INFSe
 		endTomador.setNumero(Util.deleteAccents(nf.getlbr_BPAddress2()));
 		endTomador.setBairro(Util.deleteAccents(nf.getlbr_BPAddress3()));
 		endTomador.setCodigoMunicipio(nf.getlbr_BPCityCode());
-		endTomador.setCep(Integer.valueOf(Util.replace(nf.getlbr_BPPostal(),"-","")));
+		endTomador.setCep(Integer.valueOf(TextUtil.toNumeric(nf.getlbr_BPPostal())));
 		endTomador.setUf((nf.getlbr_BPRegion()));
 		
 		// Contato do Parceiro de Negócio
 		TcContato contatoTomador = dadosTomador.addNewContato();
 		if (nf.getlbr_BPPhone() != null && !nf.getlbr_BPPhone().isEmpty())
 			contatoTomador.setTelefone(Long.valueOf((Util.replace(nf.getlbr_BPPhone(),"-",""))));
-		if (partner.get_ValueAsString("LBR_EMailNFSe") != null && !partner.get_ValueAsString("LBR_EMailNFSe").isEmpty())
-			contatoTomador.setEmail(partner.get_ValueAsString("LBR_EMailNFSe"));
+		
+		String eMailNFe = nf.getLBR_EMailNFe();
+		if (eMailNFe != null && !eMailNFe.isBlank())
+		{
+			//	Use ; as separator
+			eMailNFe = eMailNFe.trim().replace(" ", "").replace(",", ";");
+			
+			//	Check individual emails
+			eMailNFe = Arrays.asList(eMailNFe.split(";")).stream()
+				.filter(s -> s.matches(ValidatorBPartner.REGEX_EMAIL))
+				.collect(Collectors.joining(";"));
+			//
+			if (eMailNFe.length() > 80)
+			{
+				int count=0;
+				while (eMailNFe.length() > 60 && eMailNFe.indexOf(";") > 0)
+				{
+					if (count++ > 10)
+						break;
+					eMailNFe = eMailNFe.substring(0, eMailNFe.lastIndexOf(";"));
+				}
+			}
+			
+			if (eMailNFe.length() <= 80)
+				contatoTomador.setEmail(eMailNFe);
+		}
 		
 		//	Descrição do Serviço
 		String descricaoServico = "";
@@ -580,7 +606,7 @@ public class NFSeSJPImpl implements INFSe
 			prestador.setInscricaoMunicipal(Long.valueOf((nf.getlbr_OrgCCM())));
 		
 		// Protocolo NFS-e
-		if (nf.getlbr_NFeProt() != null)
+		if (nf.getlbr_DigestValue() != null)
 			rpsEnvio.setProtocolo(nf.getlbr_DigestValue());
 		
 		//	URL Homologação
