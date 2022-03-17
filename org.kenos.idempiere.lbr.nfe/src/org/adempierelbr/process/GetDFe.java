@@ -144,16 +144,19 @@ public class GetDFe extends SvrProcess
 		cal.setTime(new Date());
 		cal.add(Calendar.HOUR, -1);
 		
-		String sql = "SELECT MAX(Created) "
-				+ " FROM AD_PInstance "
-				+ " WHERE AD_Process_ID=1120159 "	//	AD_Process_ID=UpdateDFe Process
-				+ " AND Result=1 "
-				+ " AND Created >= " + DB.TO_DATE (new Timestamp (cal.getTimeInMillis()), false);
+		String sql = "SELECT MAX(i.Created) "
+				+ " FROM AD_PInstance i, AD_PInstance_Para p "
+				+ " WHERE i.AD_Process_ID=1120159 "	//	AD_Process_ID=UpdateDFe Process
+				+ " AND i.AD_PInstance_ID=p.AD_PInstance_ID "
+				+ " AND p.ParameterName='AD_Org_ID' "
+				+ " AND p.P_Number=" + p_AD_Org_ID
+				+ " AND i.Result=1 "
+				+ " AND i.Created >= " + DB.TO_DATE (new Timestamp (cal.getTimeInMillis()), false);
 		
 		MOrgInfo oi = MOrgInfo.get (getCtx(), p_AD_Org_ID, null);
 		RetDistDFeIntDocument bpResponse;
 		
-		if (!p_LBR_NSU.isEmpty() || p_ForceExec)
+		if (!p_LBR_NSU.isEmpty())
 		{
 			consultSingleNSU = true;
 			bpResponse = GetDFe.doIt (oi, p_LBR_NSU, consultSingleNSU);
@@ -161,14 +164,14 @@ public class GetDFe extends SvrProcess
 		else
 		{
 			Timestamp lastCreated = DB.getSQLValueTS (null, sql);
-			if (lastCreated != null)
+			if (!p_ForceExec && lastCreated != null)
 			{
 				cal.setTime(lastCreated);
 				cal.add(Calendar.HOUR, 1);
 				//
 				addLog ("Somente permitido uma consulta por hora. ");
 				addLog ("A próxima consulta poderá ser feita em " + TextUtil.timeToString(cal.getTime(), "dd/MM/yyyy' às 'HH'h 'mm'm e 'ss's'") );
-				//return "@Error@ Somente permitido uma consulta por hora. A próxima consulta poderá ser feita em " + TextUtil.timeToString(cal.getTime(), "dd/MM/yyyy' às 'HH'h 'mm'm e 'ss's'");
+				return "@Error@ Somente permitido uma consulta por hora. A próxima consulta poderá ser feita em " + TextUtil.timeToString(cal.getTime(), "dd/MM/yyyy' às 'HH'h 'mm'm e 'ss's'");
 			}
 		
 			oi = MOrgInfo.get (getCtx(), p_AD_Org_ID, null);
