@@ -199,7 +199,7 @@ public class GetDFe extends SvrProcess
 			Long maxNSU 		= Long.valueOf(retConsNFeDest.getMaxNSU());
 			
 			//	Max NSU at this result
-			Long currentNSU 	= Long.valueOf(retConsNFeDest.getUltNSU())+1;
+			Long currentNSU 	= Long.valueOf(retConsNFeDest.getUltNSU());
 
 			//	Save results
 			processResult (getCtx(), retConsNFeDest.getLoteDistDFeInt(), count, p_AD_Org_ID);
