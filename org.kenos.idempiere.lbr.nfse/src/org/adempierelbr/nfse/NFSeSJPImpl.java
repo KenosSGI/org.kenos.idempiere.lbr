@@ -240,7 +240,7 @@ public class NFSeSJPImpl implements INFSe
 		// Contato do Parceiro de Negócio
 		TcContato contatoTomador = dadosTomador.addNewContato();
 		if (nf.getlbr_BPPhone() != null && !nf.getlbr_BPPhone().isEmpty())
-			contatoTomador.setTelefone(Long.valueOf((Util.replace(nf.getlbr_BPPhone(),"-",""))));
+			contatoTomador.setTelefone(Long.valueOf(TextUtil.retiraEspecial((nf.getlbr_BPPhone()))));
 		
 		String eMailNFe = nf.getLBR_EMailNFe();
 		if (eMailNFe != null && !eMailNFe.isBlank())
@@ -401,7 +401,7 @@ public class NFSeSJPImpl implements INFSe
 		//	The service code should be splitted in 2 codes
 		if (serviceCode == null || serviceCode.indexOf("|") == -1)
 		{
-			nf.setErrorMsg("Código de Serviço, o formato do código de serviço deverá ser Código Serviço / Código de Tributação no Município");
+			nf.setErrorMsg("Código de Serviço, o formato do código de serviço deverá ser Código Serviço | Código de Tributação no Município");
 			return null;
 		}
 		
