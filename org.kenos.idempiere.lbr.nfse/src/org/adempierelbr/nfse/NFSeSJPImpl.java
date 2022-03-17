@@ -287,10 +287,7 @@ public class NFSeSJPImpl implements INFSe
 			nf.setErrorMsg("Impossível gerar XML NFS-e. Discriminação dos serviços muito curta ou em branco.");
 			return null;
 		}
-		
-		//	FIXME: Criar campo Codigo Tributacao Municipio
-		dadosServico.setCodigoTributacaoMunicipio(381220001);
-		
+				
 		dadosServico.setDiscriminacao(descricaoServico.replace("\n", ". ").replaceAll("\\s+", " ").replaceAll("\\.+", ".").trim());
 		dadosServico.setCodigoMunicipio(nf.getlbr_BPCityCode());
 		
@@ -400,7 +397,19 @@ public class NFSeSJPImpl implements INFSe
 				}
 			}
 		}
-		dadosServico.setItemListaServico(serviceCode);
+		
+		//	The service code should be splitted in 2 codes
+		if (serviceCode == null || serviceCode.indexOf("|") == -1)
+		{
+			nf.setErrorMsg("Código de Serviço, o formato do código de serviço deverá ser Código Serviço / Código de Tributação no Município");
+			return null;
+		}
+		
+		String[] splitted = serviceCode.split("|");
+		
+		dadosServico.setItemListaServico(splitted[0].trim());
+		dadosServico.setCodigoTributacaoMunicipio(Integer.parseInt(TextUtil.toNumeric(splitted[1])));
+
 		valores.setValorServicos(nf.getlbr_ServiceTotalAmt());
 		valores.setValorDeducoes(BigDecimal.ZERO);
 		
