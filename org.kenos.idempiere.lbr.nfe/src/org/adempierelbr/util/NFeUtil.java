@@ -1026,6 +1026,8 @@ public abstract class NFeUtil
 	public static final String MESSAGE_RET_CONSULT 		= "ret-consult";
 	public static final String MESSAGE_REQ_STATUS 		= "req-status";
 	public static final String MESSAGE_RET_STATUS 		= "ret-status";
+	public static final String MESSAGE_REQ_DFE 			= "req-dfe";
+	public static final String MESSAGE_RET_DFE 			= "ret-dfe";
 	public static final String MESSAGE_XML 				= "xml";
 	
 	public static void saveXML (String company, String kind, String message, String name, String xml) {
