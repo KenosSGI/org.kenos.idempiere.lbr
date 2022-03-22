@@ -387,7 +387,10 @@ public class GetDFe extends SvrProcess
 			//	XML
 			StringBuilder xml =  new StringBuilder (consDFeDoc.xmlText(NFeUtil.getXmlOpt()));
 			XMLStreamReader dadosXML = XMLInputFactory.newInstance().createXMLStreamReader(new StringReader(NFeUtil.wrapMsg(xml.toString())));
-	
+
+			//	Save DF-e request XML
+			NFeUtil.saveXML(String.valueOf(oiW.getAD_Org_ID()), NFeUtil.KIND_NFE, NFeUtil.MESSAGE_REQ_DFE, String.valueOf (nsu), xml.toString());
+			
 			final StringBuilder respStatus = new StringBuilder();
 			
 			//	Get the valid certificate
@@ -440,6 +443,10 @@ public class GetDFe extends SvrProcess
 				OMElement nfeConsulta = nfeDistDFeInteresse.getExtraElement();
 				respStatus.append(nfeConsulta.toString());
 			}
+
+			//	Save DF-e response XML
+			NFeUtil.saveXML (String.valueOf(oiW.getAD_Org_ID()), NFeUtil.KIND_NFE, NFeUtil.MESSAGE_RET_DFE, String.valueOf (nsu), respStatus.toString());
+			
 			//	Resposta
 			return RetDistDFeIntDocument.Factory.parse (respStatus.toString());
 		}
