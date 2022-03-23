@@ -164,6 +164,10 @@ public class ProcStatusServico extends SvrProcess
 			String url = MLBRNFeWebService.getURL (serviceType, p_LBR_EnvType, NFeUtil.VERSAO_LAYOUT, p_LBR_TPEmis, orgLoc.getC_Region_ID());
 			
 			String xmlText = statServDoc.xmlText(NFeUtil.getXmlOpt());
+
+			//	Save XML consult status
+			NFeUtil.saveXML (String.valueOf(orgInfo.getAD_Org_ID()), NFeUtil.KIND_NFE, NFeUtil.MESSAGE_REQ_STATUS, String.valueOf(getAD_PInstance_ID()), xmlText);
+
 			final StringBuilder respStatus = new StringBuilder();
 			
 			//	Get the valid certificate
@@ -217,7 +221,10 @@ public class ProcStatusServico extends SvrProcess
 				OMElement nfeStatusServicoNF2 = stub.nfeStatusServicoNF (dadosMsg.getExtraElement());
 				respStatus.append(nfeStatusServicoNF2.toString());
 			}
-			
+
+			//	Save XML consult status
+			NFeUtil.saveXML (String.valueOf(orgInfo.getAD_Org_ID()), NFeUtil.KIND_NFE, NFeUtil.MESSAGE_RET_STATUS, String.valueOf(getAD_PInstance_ID()), respStatus.toString());
+
 			//	Resposta
 			RetConsStatServDocument retConsStatServDoc = RetConsStatServDocument.Factory.parse (respStatus.toString());
 			TRetConsStatServ ret = retConsStatServDoc.getRetConsStatServ();

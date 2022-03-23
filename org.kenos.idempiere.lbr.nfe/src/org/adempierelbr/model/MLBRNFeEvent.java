@@ -397,7 +397,9 @@ public class MLBRNFeEvent extends X_LBR_NFeEvent implements DocAction
 				
 				//	XML
 				StringBuilder xml = new StringBuilder (envDoc.xmlText (NFeUtil.getXmlOpt()));
-				log.fine (xml.toString());
+
+				//	Save XML consult event
+				NFeUtil.saveXML (String.valueOf(oiW.getAD_Org_ID()), NFeUtil.KIND_NFE, NFeUtil.MESSAGE_REQ_EVENT, key, xml.toString());
 	
 				//	Procura os endereços para Transmissão
 				String wsName = MLBRNFeWebService.RECEPCAOEVENTO;
@@ -466,6 +468,9 @@ public class MLBRNFeEvent extends X_LBR_NFeEvent implements DocAction
 					
 					respStatus.append(respLote);
 				}
+
+				//	Save XML consult event
+				NFeUtil.saveXML (String.valueOf(oiW.getAD_Org_ID()), NFeUtil.KIND_NFE, NFeUtil.MESSAGE_RET_EVENT, key, respStatus.toString());
 				
 				//	SchemaTypeLoader necessário, pois o RetEnvEventoDocument existe com a mesma namespace para outros docs
 				//		ref. http://ateneatech.com/blog/desenredando-xmlbeans
