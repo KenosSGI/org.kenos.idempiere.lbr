@@ -1020,10 +1020,18 @@ public abstract class NFeUtil
 
 	public static final String MESSAGE_REQ_AUTORIZE 	= "req-authorize";
 	public static final String MESSAGE_RET_AUTORIZE 	= "ret-authorize";
+	public static final String MESSAGE_REQ_BP_DATA 		= "req-bp-data";
+	public static final String MESSAGE_RET_BP_DATA 		= "ret-bp-data";
 	public static final String MESSAGE_REQ_CANCEL 		= "req-cancel";
 	public static final String MESSAGE_RET_CANCEL 		= "ret-cancel";
 	public static final String MESSAGE_REQ_CONSULT 		= "req-consult";
 	public static final String MESSAGE_RET_CONSULT 		= "ret-consult";
+	public static final String MESSAGE_REQ_CONSULT_LOT 	= "req-consult-lot";
+	public static final String MESSAGE_RET_CONSULT_LOT 	= "ret-consult-lot";
+	public static final String MESSAGE_REQ_EVENT 		= "req-event";
+	public static final String MESSAGE_RET_EVENT 		= "ret-event";
+	public static final String MESSAGE_REQ_INUT 		= "req-inut";
+	public static final String MESSAGE_RET_INUT 		= "ret-inut";
 	public static final String MESSAGE_REQ_STATUS 		= "req-status";
 	public static final String MESSAGE_RET_STATUS 		= "ret-status";
 	public static final String MESSAGE_REQ_DFE 			= "req-dfe";
@@ -1036,7 +1044,7 @@ public abstract class NFeUtil
 				File.separator + company + 
 				File.separator + kind + 
 				File.separator + message + 
-				File.separator + TextUtil.timeToString(new Timestamp(System.currentTimeMillis()), "yyyyMMddhhmm") + "_" + name + ".xml");
+				File.separator + TextUtil.timeToString(new Timestamp(System.currentTimeMillis()), "yyyyMMddHHmmss") + "_" + name + ".xml");
 		//
 		file.getParentFile().mkdirs();
         TextUtil.generateFile(xml, file.getAbsolutePath()); 
