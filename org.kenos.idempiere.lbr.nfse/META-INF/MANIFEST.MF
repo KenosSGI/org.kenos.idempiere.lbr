@@ -34,6 +34,7 @@ Bundle-ClassPath: .,
  lib/nfse-sjp-v300.jar
 Export-Package: br.gov.sp.prefeitura.nfe,
  br.gov.sp.prefeitura.nfe.tipos,
+ org.adempierelbr.nfse,
  org.kenos.idempiere.lbr.nfse,
  org.kenos.idempiere.lbr.nfse.dsf
 Bundle-ActivationPolicy: lazy
