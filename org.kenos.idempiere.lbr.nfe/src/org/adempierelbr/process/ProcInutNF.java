@@ -266,7 +266,10 @@ public class ProcInutNF extends SvrProcess
 		
 		//	Validate XML
 		NFeUtil.validate (inutNFeDocument);
-		
+
+		//	Save XML inutilization of document sequence
+		NFeUtil.saveXML (String.valueOf(oiW.getAD_Org_ID()), NFeUtil.KIND_NFE, NFeUtil.MESSAGE_REQ_INUT, p_DocumentNo + "_" + p_DocumentNo_To + "_" + nfSerie, inutNFeDocument.toString());
+
 		//	Recupera a URL de Transmissão
 		String serviceType = null;
 		if (MLBRNotaFiscal.LBR_NFMODEL_NotaFiscalEletrônica.equals(nfModel))
@@ -330,7 +333,10 @@ public class ProcInutNF extends SvrProcess
 			OMElement nfeStatusServicoNF2 = stub.nfeInutilizacaoNF (dadosMsg.getExtraElement());
 			respStatus.append(nfeStatusServicoNF2.toString());
 		}
-		
+
+		//	Save XML inutilization of document sequence
+		NFeUtil.saveXML (String.valueOf(oiW.getAD_Org_ID()), NFeUtil.KIND_NFE, NFeUtil.MESSAGE_RET_INUT, p_DocumentNo + "_" + p_DocumentNo_To + "_" + nfSerie, respStatus.toString());
+
 		//	Processa o retorno
 		TRetInutNFe.InfInut retInutNFe = RetInutNFeDocument.Factory.parse (respStatus.toString()).getRetInutNFe().getInfInut();
 		

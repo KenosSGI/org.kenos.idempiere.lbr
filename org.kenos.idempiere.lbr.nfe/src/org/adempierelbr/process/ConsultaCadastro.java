@@ -1,7 +1,9 @@
 package org.adempierelbr.process;
 
 import java.io.StringReader;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.logging.Level;
 
@@ -467,6 +469,9 @@ public class ConsultaCadastro extends SvrProcess
 		{
 			//	XML
 			StringBuilder xml =  new StringBuilder (consCadDoc.xmlText(NFeUtil.getXmlOpt()));
+
+			//	Save XML consult status
+			NFeUtil.saveXML (String.valueOf(oiW.getAD_Org_ID()), NFeUtil.KIND_NFE, NFeUtil.MESSAGE_REQ_BP_DATA, Arrays.asList(new String[] {p_CNPJ, p_CPF, p_IE}).stream().filter(Objects::nonNull).findFirst().orElse("") + "_" + p_UF, xml.toString());
 			
 			MLBRNFConfig config = MLBRNFConfig.get(oi.getAD_Org_ID());
 			String url = MLBRNFeWebService.getURL (MLBRNFeWebService.CADCONSULTACADASTRO, config.getlbr_NFeEnv(), NFeUtil.VERSAO_LAYOUT, DB.getSQLValue(null, "SELECT C_Region_ID FROM C_Region WHERE Name='"+p_UF+"' AND C_Country_ID=?", 139));
@@ -521,6 +526,9 @@ public class ConsultaCadastro extends SvrProcess
 				OMElement nfeConsulta = stub.consultaCadastro (dadosMsg.getExtraElement());
 				respStatus.append(nfeConsulta.toString());
 			}
+
+			//	Save XML consult status
+			NFeUtil.saveXML (String.valueOf(oiW.getAD_Org_ID()), NFeUtil.KIND_NFE, NFeUtil.MESSAGE_RET_BP_DATA, Arrays.asList(new String[] {p_CNPJ, p_CPF, p_IE}).stream().filter(Objects::nonNull).findFirst().orElse("") + "_" + p_UF, respStatus.toString());
 
 			//	Resposta
 			return RetConsCadDocument.Factory.parse (respStatus.toString());

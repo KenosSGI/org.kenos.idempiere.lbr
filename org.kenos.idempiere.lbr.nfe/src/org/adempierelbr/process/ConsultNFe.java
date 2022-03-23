@@ -201,7 +201,10 @@ public class ConsultNFe extends SvrProcess
 			
 			//	XML
 			String xml = consNFeDoc.xmlText(NFeUtil.getXmlOpt());
-			
+
+			//	Save XML consult nfe
+			NFeUtil.saveXML (String.valueOf(oiW.getAD_Org_ID()), NFeUtil.KIND_NFE, NFeUtil.MESSAGE_REQ_CONSULT, p_LBR_NFeID, xml.toString());
+
 			String serviceType = null;
 			if (MLBRNotaFiscal.LBR_NFMODEL_NotaFiscalEletrônica.equals(p_LBR_NFModel))
 				serviceType = MLBRNFeWebService.CONSULTA;
@@ -265,7 +268,10 @@ public class ConsultNFe extends SvrProcess
 				OMElement nfeConsNF2 = stub.nfeConsultaNF(dadosMsg.getExtraElement());
 				respStatus.append(nfeConsNF2.toString());
 			}
-			
+
+			//	Save XML consult nfe
+			NFeUtil.saveXML (String.valueOf(oiW.getAD_Org_ID()), NFeUtil.KIND_NFE, NFeUtil.MESSAGE_RET_CONSULT, p_LBR_NFeID, respStatus.toString());
+
 			//	Resposta
 			RetConsSitNFeDocument retConsNFeDoc = RetConsSitNFeDocument.Factory.parse (respStatus.toString());
 			TRetConsSitNFe ret = retConsNFeDoc.getRetConsSitNFe();

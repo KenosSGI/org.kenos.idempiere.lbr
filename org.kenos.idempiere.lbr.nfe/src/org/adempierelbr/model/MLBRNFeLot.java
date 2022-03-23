@@ -200,7 +200,10 @@ public class MLBRNFeLot extends X_LBR_NFeLot implements DocAction, DocOptions
 		MLBRDigitalCertificate certificate = MLBRDigitalCertificate.getCertificate (Env.getCtx(), oi.getAD_Org_ID());
 		if (certificate == null)
 			throw new Exception ("@Error@ Certificado Inválido");
-		
+
+		//	Save XML
+		NFeUtil.saveXML (String.valueOf(oi.getAD_Org_ID()), NFeUtil.KIND_NFE, NFeUtil.MESSAGE_REQ_AUTORIZE, getDocumentNo(), xml.toString());
+
 		//	Try to find a service for PKCS#11 for transmit
 		IDocFiscalHandler handler = null;
 		List<IDocFiscalHandlerFactory> list = Service.locator ().list (IDocFiscalHandlerFactory.class).getServices();
@@ -250,6 +253,10 @@ public class MLBRNFeLot extends X_LBR_NFeLot implements DocAction, DocOptions
 			OMElement nfeAutorizacao = stub.nfeAutorizacaoLote (dadosMsg.getExtraElement());
 			respStatus.append(nfeAutorizacao.toString());
 		}
+		
+		//	Save XML response
+		NFeUtil.saveXML (String.valueOf(oi.getAD_Org_ID()), NFeUtil.KIND_NFE, NFeUtil.MESSAGE_RET_AUTORIZE, getDocumentNo(), respStatus.toString());
+
 		//	
 		MAttachment attachLotNFe = createAttachment();
 		attachLotNFe.addEntry(getDocumentNo()+"-rec.xml", respStatus.toString().getBytes("UTF-8"));
@@ -379,6 +386,9 @@ public class MLBRNFeLot extends X_LBR_NFeLot implements DocAction, DocOptions
 			//	XML
 			String xmlText = consReciNFeDoc.xmlText(NFeUtil.getXmlOpt());
 
+			//	Save XML consult lot
+			NFeUtil.saveXML (String.valueOf(oi.getAD_Org_ID()), NFeUtil.KIND_NFE, NFeUtil.MESSAGE_REQ_CONSULT_LOT, getDocumentNo(), xmlText);
+
 			String serviceType = null;
 			if (MLBRNotaFiscal.LBR_NFMODEL_NotaFiscalEletrônica.equals(getlbr_NFModel()))
 				serviceType = MLBRNFeWebService.RETAUTORIZACAO;
@@ -438,7 +448,10 @@ public class MLBRNFeLot extends X_LBR_NFeLot implements DocAction, DocOptions
 				OMElement nfeRetAutorizacao = stub.nfeRetAutorizacaoLote (dadosMsg.getExtraElement());
 				respStatus.append(nfeRetAutorizacao.toString());
 			}
-			
+
+			//	Save XML consult lot
+			NFeUtil.saveXML (String.valueOf(oi.getAD_Org_ID()), NFeUtil.KIND_NFE, NFeUtil.MESSAGE_RET_CONSULT_LOT, getDocumentNo(), respStatus.toString());
+
 			MAttachment attachLotNFe = createAttachment();
 			attachLotNFe.addEntry(getDocumentNo()+"-pro-rec.xml", respStatus.toString().getBytes("UTF-8"));
 			attachLotNFe.save();
