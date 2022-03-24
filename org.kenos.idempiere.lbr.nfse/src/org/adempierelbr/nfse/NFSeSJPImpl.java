@@ -8,6 +8,7 @@ import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -24,6 +25,8 @@ import org.adempierelbr.model.MLBRDigitalCertificate;
 import org.adempierelbr.model.MLBRNotaFiscal;
 import org.adempierelbr.model.MLBRNotaFiscalLine;
 import org.adempierelbr.nfse.util.FixedTxt;
+import org.adempierelbr.process.ProcEMailNFe;
+import org.adempierelbr.process.ProcReturnRPS;
 import org.adempierelbr.util.NFeUtil;
 import org.adempierelbr.util.SignatureUtil;
 import org.adempierelbr.util.TextUtil;
@@ -36,6 +39,7 @@ import org.compiere.model.MAttachmentEntry;
 import org.compiere.model.MBPartner;
 import org.compiere.model.MImage;
 import org.compiere.model.MOrgInfo;
+import org.compiere.process.ProcessInfo;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
 import org.compiere.util.Util;
@@ -69,6 +73,7 @@ import br.gov.pr.sjp.nfe.tiposV03.TcInfNfse;
 import br.gov.pr.sjp.nfe.tiposV03.TcInfRps;
 import br.gov.pr.sjp.nfe.tiposV03.TcLoteRps;
 import br.gov.pr.sjp.nfe.tiposV03.TcLoteRps.ListaRps;
+import br.gov.pr.sjp.nfe.tiposV03.TcMensagemRetorno;
 import br.gov.pr.sjp.nfe.tiposV03.TcRps;
 import br.gov.pr.sjp.nfe.tiposV03.TcValores;
 import net.sf.jasperreports.engine.JasperExportManager;
@@ -92,6 +97,16 @@ public class NFSeSJPImpl implements INFSe
 	public static final Byte TIPO_RPS 			= Byte.valueOf ("1");
 	public static final Byte TIPO_NF_CONJUGADA 	= Byte.valueOf ("2");
 	public static final Byte TIPO_CUPOM 		= Byte.valueOf ("3");
+	
+	private ProcessInfo pi;
+	
+	public NFSeSJPImpl (ProcessInfo pi)
+	{
+		this.pi = pi;
+		header = Cabecalho.Factory.newInstance();
+		header.setVersao("3");
+		header.setVersaoDados("3");
+	}
 	
 	/**
 	 * Namespace
@@ -149,7 +164,7 @@ public class NFSeSJPImpl implements INFSe
 		//SJP Não permite operação de substituição nem cancelamento
 		if (nf.getLBR_NFReplacedNo() != null)
 		{
-			nf.setErrorMsg("Apague o camnpo Número Nota Fiscal Substituída. Substituição de Nota Fiscal não permitida."
+			nf.setErrorMsg("Apague o campo Número Nota Fiscal Substituída. Substituição de Nota Fiscal não permitida."
 					+ " Acesse o Sistema de Escrituração Fiscal (https://nfe.sjp.pr.gov.br/servicos/issOnline2/)"
 					+ " -> Menu \"Nota Fiscal-> Substituição NFS");
 			return null;
@@ -387,7 +402,7 @@ public class NFSeSJPImpl implements INFSe
 					{
 						nf.setErrorMsg(e.toString());
 						nf.saveEx();
-						throw new AdempiereException("Preencha a Situação Tributária do ISS");
+						throw new AdempiereException("Número do Documento:" + nf.getDocumentNo() + "Preencha a Situação Tributária do ISS");
 					}
 				}
 				else if (!(aliquota.equals(nfl.getTaxRate("ISS"))) || !(aliquota.equals(nfl.getTaxRate("ISSRT"))))
@@ -398,18 +413,25 @@ public class NFSeSJPImpl implements INFSe
 			}
 		}
 		
-		//	The service code should be splitted in 2 codes
-		if (serviceCode == null || serviceCode.indexOf("|") == -1)
+		try
 		{
-			nf.setErrorMsg("Código de Serviço, o formato do código de serviço deverá ser Código Serviço | Código de Tributação no Município");
-			return null;
+			//	The service code should be splitted in 2 codes
+			if (serviceCode == null || serviceCode.indexOf("|") == -1)
+			{
+				nf.setErrorMsg("Código de Serviço, o formato do código de serviço deverá ser Código Serviço | Código de Tributação no Município");
+			}
+
+			String[] splitted = serviceCode.split("\\|");
+
+			dadosServico.setItemListaServico(splitted[0].trim());
+			dadosServico.setCodigoTributacaoMunicipio(Integer.parseInt(TextUtil.toNumeric(splitted[1])));
+		}
+		catch (Exception e)
+		{
+			throw new AdempiereException("Número do Documento:" + nf.getDocumentNo() + "Erro no Código de Serviço: o formato do código de serviço deverá ser Código Serviço | Código de Tributação no Município. Exemplo: 7.09 | 3812-2/00-01");
 		}
 		
-		String[] splitted = serviceCode.split("|");
-		
-		dadosServico.setItemListaServico(splitted[0].trim());
-		dadosServico.setCodigoTributacaoMunicipio(Integer.parseInt(TextUtil.toNumeric(splitted[1])));
-
+			
 		valores.setValorServicos(nf.getlbr_ServiceTotalAmt());
 		valores.setValorDeducoes(BigDecimal.ZERO);
 		
@@ -458,7 +480,7 @@ public class NFSeSJPImpl implements INFSe
 		{
 			nf.setErrorMsg(e.toString());
 			nf.saveEx();
-			throw new AdempiereException(e.getMessage());
+			throw new AdempiereException("Número do Documento:" + nf.getDocumentNo() + e.getMessage());
 		}
 	}	//	getXML
 	
@@ -493,7 +515,7 @@ public class NFSeSJPImpl implements INFSe
 
 		//	URL Produção
 		if (MLBRNotaFiscal.LBR_NFEENV_Production.equals(nf.getlbr_NFeEnv()))
-			url = "https://nfe.sjp.pr.gov.br/servicos/issOnline2/homologacao/ws/index.php?wsdl";
+			url = "https://nfe.sjp.pr.gov.br/servicos/issOnline2/ws/index.php?wsdl";
 		
 		NFeUtil.saveXML (String.valueOf(nf.getAD_Org_ID()), NFeUtil.KIND_NFSE, NFeUtil.MESSAGE_REQ_AUTORIZE, nf.getDocumentNo(), xml.toString());
 
@@ -527,7 +549,7 @@ public class NFSeSJPImpl implements INFSe
 				log.warning("NFS-e " + nf.toString() + " - " + msgRetorno.toString());
 				nf.setErrorMsg(msgRetorno.toString());
 				nf.save();
-				new AdempiereException(msgRetorno.toString());
+				new AdempiereException("Número do Documento:" + nf.getDocumentNo() + msgRetorno.toString());
 				return false;
 			}
 		}
@@ -547,7 +569,7 @@ public class NFSeSJPImpl implements INFSe
 		{
 			nf.setErrorMsg(e.toString());
 			nf.saveEx();
-			new AdempiereException(e.getMessage());
+			new AdempiereException("Número do Documento:" + nf.getDocumentNo() + e.getMessage());
 		}
 		return true;
 	}	//	transmit
@@ -593,8 +615,204 @@ public class NFSeSJPImpl implements INFSe
 	{
 		log.info ("NFSETransmit Process");
 		
+		MOrgInfo orgInf = MOrgInfo.get (ctx, AD_Org_ID, null);
+		
+		String retornoEnvioXMLNFSe = "";
+		
+		//	Set certificate
+		MLBRDigitalCertificate.setCertificate (Env.getCtx(), AD_Org_ID);
+		
+		//	URL Homologação
+		String url = "https://nfe.sjp.pr.gov.br/servicos/issOnline2/homologacao/ws/index.php?wsdl";
+		
+		for (MLBRNotaFiscal nf : nfs)
+		{
+			//	Todas URLs em Produção
+			if (MLBRNotaFiscal.LBR_NFEENV_Production.equals(nf.getlbr_NFeEnv()))
+				url = "https://nfe.sjp.pr.gov.br/servicos/issOnline2/ws/index.php?wsdl";
+			else break;
+		}
+		
+		NfseStub nfseStub = new NfseStub(url);
+		nfseStub._getServiceClient().getOptions().setProperty(HTTPConstants.CHUNKED, false);
+		
+		EnviarLoteRpsEnvioDocument enviarLotDoc = EnviarLoteRpsEnvioDocument.Factory.newInstance();
+		EnviarLoteRpsEnvio enviarLot = enviarLotDoc.addNewEnviarLoteRpsEnvio();
+		
+		//	Lote RPS
+		TcLoteRps loteRps = enviarLot.addNewLoteRps();
+		
+		//	Lista de RPS
+		ListaRps listaRps = loteRps.addNewListaRps();
+		List<TcRps> listRps = new ArrayList<TcRps>();
+		
+		for (MLBRNotaFiscal nf : nfs)
+		{
+			//			Procura o XML nos anexos
+			byte[] xmlData = nf.getAttachmentData("xml");
+			if (xmlData == null || xmlData.length == 0)
+				xmlData = getXML (nf);	//	Gera um novo XML
+			
+			EnviarLoteRpsEnvioDocument enviarLotDoc_nf = EnviarLoteRpsEnvioDocument.Factory.parse(new String (xmlData, NFeUtil.NFE_ENCODING));
+			TcRps rps = enviarLotDoc_nf.getEnviarLoteRpsEnvio().getLoteRps().getListaRps().getRpsArray(0);
+			listRps.add(rps);
+		}
+		
+		TcRps[] TcRpsArray = new TcRps[listRps.size()];
+		listRps.toArray(TcRpsArray);
+		
+		//	Identificação do Lote do RPS
+		loteRps.setId("1");
+		loteRps.setNumeroLote(new BigDecimal(nfs.get(0).getDocumentNo()).intValue());
+		loteRps.setCnpj(TextUtil.retiraEspecial(nfs.get(0).getlbr_CNPJ()));
+		loteRps.setInscricaoMunicipal(Long.valueOf((nfs.get(0).getlbr_OrgCCM())));
+		loteRps.setQuantidadeRps(listRps.size());
+		
+		listaRps.setRpsArray(TcRpsArray);
+		
+		//	Valida o documento
+		NFeUtil.validate (enviarLotDoc);
+		
+		//	Adiciona o Certificado
+		MLBRDigitalCertificate.setCertificate (ctx, AD_Org_ID);
+		
+		//	Assina o XML
+		new SignatureUtil (orgInf, SignatureUtil.OUTROS, "LoteRps").sign (enviarLotDoc, enviarLotDoc.getEnviarLoteRpsEnvio().newCursor());
+		
+		String xmlText = enviarLotDoc.xmlText(NFeUtil.getXmlOpt());
+		
+		retornoEnvioXMLNFSe = nfseStub.recepcionarLoteRpsV3(header.xmlText(),xmlText);
+		NFeUtil.saveXML (String.valueOf(AD_Org_ID), NFeUtil.KIND_NFSE, NFeUtil.MESSAGE_RET_AUTORIZE, "Protocolo_Lote-" + nfs.get(0).getDocumentNo(), retornoEnvioXMLNFSe);
+		EnviarLoteRpsResposta resposta = EnviarLoteRpsRespostaDocument.Factory.parse(retornoEnvioXMLNFSe).getEnviarLoteRpsResposta();
+		
+		if (resposta.getListaMensagemRetorno() != null)
+		{
+			ListaMensagemRetorno listaMensagemRetorno = null;
+			
+			listaMensagemRetorno = resposta.getListaMensagemRetorno();
+			//	Check error messages
+			StringBuilder msgRetorno = new StringBuilder ();
+			if (listaMensagemRetorno != null)
+			{
+				Arrays.asList(listaMensagemRetorno.getMensagemRetornoArray())
+					.forEach(msg -> {
+						msgRetorno
+							.append("Cod=").append(msg.getCodigo())
+							.append(", Correção=").append(msg.getCorrecao())
+							.append(", Msg=").append(msg.getMensagem())
+							.append("\n");
+					});
+				new AdempiereException(msgRetorno.toString());
+				return false;
+			}
+		}
+		
+		Thread.sleep(90*1000);
+		
+		ConsultarSituacaoLoteRpsEnvioDocument document = ConsultarSituacaoLoteRpsEnvioDocument.Factory.newInstance();
+		ConsultarSituacaoLoteRpsEnvio rpsEnvio = document.addNewConsultarSituacaoLoteRpsEnvio();
+		TcIdentificacaoPrestador prestador = rpsEnvio.addNewPrestador();
+		
+		//CNPJ Organização
+		prestador.setCnpj(TextUtil.toNumeric(nfs.get(0).getlbr_CNPJ()));
+		
+		//	Inscrição Municipal Organização
+		if (nfs.get(0).getlbr_OrgCCM() != null && !nfs.get(0).getlbr_OrgCCM().isEmpty())
+			prestador.setInscricaoMunicipal(Long.valueOf((nfs.get(0).getlbr_OrgCCM())));
+		
+		// Protocolo NFS-e
+		if (resposta.getProtocolo() != null)
+			rpsEnvio.setProtocolo(resposta.getProtocolo());
+		
+		String result = nfseStub.consultarSituacaoLoteRpsV3(header.xmlText(), document.xmlText());
+		NFeUtil.saveXML (String.valueOf(AD_Org_ID), NFeUtil.KIND_NFSE, NFeUtil.MESSAGE_RET_CONSULT, "Situacao_Lote-" + nfs.get(0).getDocumentNo(), result);
+		
+		ConsultarSituacaoLoteRpsResposta respostaSituacao = ConsultarSituacaoLoteRpsRespostaDocument.Factory.parse(result).getConsultarSituacaoLoteRpsResposta();
+
+		ListaMensagemRetorno listaMensagemRetornoSituacao = respostaSituacao.getListaMensagemRetorno();
+
+		if (listaMensagemRetornoSituacao != null)
+		{
+			StringBuilder msgRetorno = new StringBuilder ();
+			Arrays.asList(listaMensagemRetornoSituacao.getMensagemRetornoArray())
+				.forEach(msg -> {
+					msgRetorno
+						.append("Cod=").append(msg.getCodigo())
+						.append(", Correção=").append(msg.getCorrecao())
+						.append(", Msg=").append(msg.getMensagem())
+						.append("\n");
+				});
+			//
+			log.warning("NFS-e " + " - " + msgRetorno.toString());
+			new AdempiereException(msgRetorno.toString());
+			return false;
+		}
+		
+		/* Checa Situação da Resposta
+		2 - Lote em Processamento
+		3 - Lote Processado com Erros
+		4 - Lote Processado com Sucesso
+		*/
+		if(respostaSituacao.getSituacao() == SITUAÇÃO_LOTE_PROCESSADO_COM_SUCESSO)
+		{
+			ConsultarLoteRpsEnvioDocument consultadocument = ConsultarLoteRpsEnvioDocument.Factory.newInstance();
+			ConsultarLoteRpsEnvio consultarpsEnvio = consultadocument.addNewConsultarLoteRpsEnvio();
+			consultarpsEnvio.setPrestador(prestador);
+			
+			consultarpsEnvio.setProtocolo(resposta.getProtocolo());
+			
+			NFeUtil.saveXML (String.valueOf(AD_Org_ID), NFeUtil.KIND_NFSE, NFeUtil.MESSAGE_RET_CONSULT, "RPS-" + nfs.get(0).getDocumentNo(), consultadocument.xmlText());
+			
+			String resultconsulta = nfseStub.consultarLoteRpsV3(header.xmlText(), consultadocument.xmlText());
+			
+			NFeUtil.saveXML (String.valueOf(AD_Org_ID), NFeUtil.KIND_NFSE, NFeUtil.MESSAGE_RET_CONSULT, "RPS-" + nfs.get(0).getDocumentNo(), resultconsulta);
+			
+			ConsultarLoteRpsResposta consultaresposta = ConsultarLoteRpsRespostaDocument.Factory.parse(resultconsulta).getConsultarLoteRpsResposta();
+			
+			if (consultaresposta.getListaMensagemRetorno() != null)
+			{
+				TcMensagemRetorno[] alertas = consultaresposta.getListaMensagemRetorno().getMensagemRetornoArray();
+				for (TcMensagemRetorno alerta : alertas)
+					log.warning("Código:" + alerta.getCodigo() + ", Mensagem:" + alerta.getMensagem() + 
+							", Correção:" + alerta.getCorrecao());
+			}
+				
+			TcCompNfse[] notas = consultaresposta.getListaNfse().getCompNfseArray();
+			for (TcCompNfse nota : notas)
+			{
+				processNFSe(ctx, trxName, String.valueOf(nota.getNfse().getInfNfse().getIdentificacaoRps().getNumero()), 
+						String.valueOf(nota.getNfse().getInfNfse().getNumero()), 
+						String.valueOf(nota.getNfse().getInfNfse().getCodigoVerificacao()), AD_Org_ID, nota.getNfse().getInfNfse().getDataEmissao(), nota.xmlText());
+			}
+			return true;
+		}
 		return false;
 	}	//	transmit
+	
+	/**
+	 * 		Processar NF-e
+	 * 	@param p_RPS
+	 * 	@param p_NFe
+	 * 	@param p_VerifCode
+	 * 	@param p_AD_Org_ID - Organization
+	 */
+	private void processNFSe (Properties ctx, String trxName, String p_RPS, String p_NFe, String p_VerifCode, int p_AD_Org_ID, Calendar dateTrx, String xmldata) throws Exception
+	{
+		int LBR_NotaFiscal_ID = MLBRNotaFiscal.getLBR_NotaFiscal_ID (p_AD_Org_ID, p_RPS, true, MLBRNotaFiscal.LBR_NFMODEL_NotaFiscalDeServiçosEletrônicaRPS, trxName);
+		if (LBR_NotaFiscal_ID > 0)
+		{
+			MLBRNotaFiscal nf = new MLBRNotaFiscal (ctx, LBR_NotaFiscal_ID, trxName);
+			if (dateTrx != null)
+				nf.setDateTrx(new Timestamp (dateTrx.getTimeInMillis()));
+			
+			ProcReturnRPS.proccessNFSe (nf, p_NFe, p_VerifCode);
+			
+			MAttachment attachNFe = nf.createAttachment();
+			attachNFe.addEntry("NFSE-" + nf.getlbr_NFENo() + FILE_XML_NFSE_AUTORIZADO, xmldata.replaceAll("\\&\\#[0-9A-Za-z]*;|\\n", "").getBytes(NFeUtil.NFE_ENCODING));
+			attachNFe.save();
+			ProcEMailNFe.sendEmailNFeThread (nf, false);
+		}
+	}
 	
 	/**
 	 * Consultar Estado da NF-e de Serviço após a Transmissão
@@ -623,7 +841,7 @@ public class NFSeSJPImpl implements INFSe
 		
 		//	URL Produção
 		if (MLBRNotaFiscal.LBR_NFEENV_Production.equals(nf.getlbr_NFeEnv()))
-			url = "https://nfe.sjp.pr.gov.br/servicos/issOnline2/homologacao/ws/index.php?wsdl";
+			url = "https://nfe.sjp.pr.gov.br/servicos/issOnline2/ws/index.php?wsdl";
 		
 		NFeUtil.saveXML (String.valueOf(nf.getAD_Org_ID()), NFeUtil.KIND_NFSE, NFeUtil.MESSAGE_REQ_CONSULT, "Lote-" + nf.getDocumentNo(), document.xmlText());
 
