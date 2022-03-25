@@ -159,7 +159,7 @@ public class GetDFe extends SvrProcess
 		if (!p_LBR_NSU.isEmpty())
 		{
 			consultSingleNSU = true;
-			bpResponse = GetDFe.doIt (oi, p_LBR_NSU, consultSingleNSU);
+			bpResponse = GetDFe.doIt (oi, p_LBR_NSU, consultSingleNSU, p_tpEnv);
 		}
 		else
 		{
