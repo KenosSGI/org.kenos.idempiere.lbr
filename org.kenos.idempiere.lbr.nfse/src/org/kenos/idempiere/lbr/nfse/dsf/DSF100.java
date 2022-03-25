@@ -935,7 +935,7 @@ public class DSF100 implements INFSe
 					.filter(i -> i.getTributavel() == null)
 					.forEach(i -> i.setTributavel(TpItemTributavel.S));
 				//
-				storeXML(ctx, nf.getlbr_CNPJ(), nfse);
+				storeXML(ctx, nf.getlbr_CNPJ(), nfse, nf.get_TrxName());
 			}
 			catch (Exception e) {}
 		}
@@ -1306,7 +1306,7 @@ public class DSF100 implements INFSe
 	 * 	@param cnpj
 	 * 	@param nfse
 	 */
-	private void storeXML (Properties ctx, String cnpj, TpNFSe nfse)
+	private void storeXML (Properties ctx, String cnpj, TpNFSe nfse, String trxName)
 	{
 		String where = MLBRNotaFiscal.COLUMNNAME_lbr_NFModel + "=? AND " + 
 				MLBRNotaFiscal.COLUMNNAME_lbr_CNPJ + "=? AND " + 
@@ -1314,7 +1314,7 @@ public class DSF100 implements INFSe
 				MLBRNotaFiscal.COLUMNNAME_lbr_NFSerie + "=?";
 		
 		try {
-			MLBRNotaFiscal nf = new Query (ctx, MLBRNotaFiscal.Table_Name, where, null)
+			MLBRNotaFiscal nf = new Query (ctx, MLBRNotaFiscal.Table_Name, where, trxName)
 				.setParameters(MLBRNotaFiscal.LBR_NFMODEL_NotaFiscalDeServiçosEletrônicaRPS, cnpj, String.valueOf(nfse.getNumeroNota()), nfse.xgetSeriePrestacao().getBigIntegerValue().toString())
 				.firstOnly();
 			MAttachment attachment = nf.getAttachment(true);
