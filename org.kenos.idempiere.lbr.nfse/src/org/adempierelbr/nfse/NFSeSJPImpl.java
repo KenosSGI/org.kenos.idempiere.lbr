@@ -702,8 +702,7 @@ public class NFSeSJPImpl implements INFSe
 							.append(", Msg=").append(msg.getMensagem())
 							.append("\n");
 					});
-				new AdempiereException(msgRetorno.toString());
-				return false;
+				throw new AdempiereException(msgRetorno.toString());
 			}
 		}
 		
@@ -744,8 +743,7 @@ public class NFSeSJPImpl implements INFSe
 				});
 			//
 			log.warning("NFS-e " + " - " + msgRetorno.toString());
-			new AdempiereException(msgRetorno.toString());
-			return false;
+			throw new AdempiereException(msgRetorno.toString());
 		}
 		
 		/* Checa Situação da Resposta
