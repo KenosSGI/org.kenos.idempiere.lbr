@@ -1033,7 +1033,7 @@ public class DSF100 implements INFSe
 				TpNFSe[] notaArray = retornoConsultaNotas.getNotas().getNotaArray();
 				
 				//	Store XML of this and other NFs
-				Arrays.asList (notaArray).forEach (x -> storeXML(nf.getCtx(), nf.getlbr_CNPJ(), x));
+				Arrays.asList (notaArray).forEach (x -> storeXML(nf.getCtx(), nf.getlbr_CNPJ(), x, nf.get_TrxName()));
 				
 				TpNFSe match = Arrays.asList (notaArray).stream().filter(x -> x.getNumeroNota() == Integer.parseInt(nf.getlbr_NFENo())).findFirst().orElse(null);
 				
