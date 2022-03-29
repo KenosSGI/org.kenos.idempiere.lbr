@@ -778,7 +778,15 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 		}
 		
 		BigDecimal vam = getLBR_VAM();
-		boolean adjustIVA = MSysConfig.getBooleanValue(SysConfig.LBR_AUTOMATIC_ADJUST_MVA, MSysConfig.getBooleanValue(SysConfig.LBR_AUTOMATIC_ADJUST_IVA, true, getAD_Client_ID()), getAD_Client_ID());
+
+		/**
+		 * 	Ajusta o MVA diretamente na NF
+		 *  
+		 *                   100-ICMS
+		 *  [ (100 + MVA) x ---------- ] - 100
+		 *                    100-ST
+		 */
+		boolean adjustIVA = MSysConfig.getBooleanValue(SysConfig.LBR_AUTOMATIC_ADJUST_MVA, true, getAD_Client_ID());
 		if (adjustIVA && vam != null && vam.signum() == 1)
 		{
 			BigDecimal icms = getTaxRate("ICMS");
@@ -786,7 +794,7 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 			
 			if (icms != null && icms.signum() == 1 
 					&& icmsst != null && icmsst.signum() == 1)
-				setLBR_VAM(vam.multiply(Env.ONEHUNDRED.subtract(icms).divide(Env.ONEHUNDRED.subtract(icmsst), 17, RoundingMode.HALF_UP)).setScale(2, RoundingMode.HALF_UP));
+				setLBR_VAM(Env.ONEHUNDRED.add(vam).multiply(Env.ONEHUNDRED.subtract(icms).divide(Env.ONEHUNDRED.subtract(icmsst), 17, RoundingMode.HALF_UP)).setScale(2, RoundingMode.HALF_UP).subtract(Env.ONEHUNDRED));
 		}
 		
 		fixTaxHold(iLineW.getC_Tax_ID());
