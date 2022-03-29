@@ -786,7 +786,7 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 		 *  [ (100 + MVA) x ---------- ] - 100
 		 *                    100-ST
 		 */
-		boolean adjustIVA = MSysConfig.getBooleanValue(SysConfig.LBR_AUTOMATIC_ADJUST_MVA, MSysConfig.getBooleanValue(SysConfig.LBR_AUTOMATIC_ADJUST_IVA, true, getAD_Client_ID()), getAD_Client_ID());
+		boolean adjustIVA = MSysConfig.getBooleanValue(SysConfig.LBR_AUTOMATIC_ADJUST_MVA, true, getAD_Client_ID());
 		if (adjustIVA && vam != null && vam.signum() == 1)
 		{
 			BigDecimal icms = getTaxRate("ICMS");
