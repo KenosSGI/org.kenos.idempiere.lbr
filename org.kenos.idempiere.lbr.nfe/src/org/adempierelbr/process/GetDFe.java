@@ -622,6 +622,7 @@ public class GetDFe extends SvrProcess
 					
 					//	Marca como anexo válido
 					pDFe.setLBR_IsXMLValid(true);
+					pDFe.setLBR_IsManifested(true);
 					pDFe.save();
 				}
 				
