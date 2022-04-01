@@ -42295,8 +42295,8 @@ Product: used to quickly add products to POS order</value>
   <value column="Placeholder" original=""/>
  </row>
  <row id="200024" trl="N">
-  <value column="Name" original="Password Policies">Password Policies</value>
-  <value column="PrintName" original="Password Policies">Password Policies</value>
+  <value column="Name" original="Password Policies">Regras de Senha</value>
+  <value column="PrintName" original="Password Policies">Regras de Senha</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
