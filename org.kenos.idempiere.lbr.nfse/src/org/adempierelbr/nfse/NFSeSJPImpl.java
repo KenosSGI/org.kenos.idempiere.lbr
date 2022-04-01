@@ -255,7 +255,7 @@ public class NFSeSJPImpl implements INFSe
 		// Contato do Parceiro de Negócio
 		TcContato contatoTomador = dadosTomador.addNewContato();
 		if (nf.getlbr_BPPhone() != null && !nf.getlbr_BPPhone().isEmpty())
-			contatoTomador.setTelefone(Long.valueOf((Util.replace(nf.getlbr_BPPhone(),"-",""))));
+			contatoTomador.setTelefone(Long.valueOf(TextUtil.toNumeric((nf.getlbr_BPPhone()))));
 		
 		String eMailNFe = nf.getLBR_EMailNFe();
 		if (eMailNFe != null && !eMailNFe.isBlank())
@@ -300,7 +300,8 @@ public class NFSeSJPImpl implements INFSe
 		if (descricaoServico == null || descricaoServico.length() < 5)
 		{
 			nf.setErrorMsg("Impossível gerar XML NFS-e. Discriminação dos serviços muito curta ou em branco.");
-			return null;
+			nf.saveEx();
+			throw new AdempiereException("Impossível gerar XML NFS-e. Discriminação dos serviços muito curta ou em branco.");
 		}
 				
 		dadosServico.setDiscriminacao(descricaoServico.replace("\n", ". ").replaceAll("\\s+", " ").replaceAll("\\.+", ".").trim());
