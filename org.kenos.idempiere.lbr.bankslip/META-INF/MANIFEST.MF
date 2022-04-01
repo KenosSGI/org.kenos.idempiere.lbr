@@ -44,4 +44,13 @@ Import-Package: org.osgi.framework;version="1.9.0",
  org.slf4j;version="1.7.2",
  org.zkoss.util.media
 Bundle-ActivationPolicy: lazy
-Export-Package: org.kenos.idempiere.lbr.bankslip
+Export-Package: org.kenos.idempiere.lbr.bankslip,
+ org.kenos.idempiere.lbr.bankslip.acct,
+ org.kenos.idempiere.lbr.bankslip.bean,
+ org.kenos.idempiere.lbr.bankslip.callout,
+ org.kenos.idempiere.lbr.bankslip.cnab,
+ org.kenos.idempiere.lbr.bankslip.editor,
+ org.kenos.idempiere.lbr.bankslip.form,
+ org.kenos.idempiere.lbr.bankslip.model,
+ org.kenos.idempiere.lbr.bankslip.process,
+ org.kenos.idempiere.lbr.bankslip.service

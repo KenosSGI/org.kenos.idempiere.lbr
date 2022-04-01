@@ -265,13 +265,16 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 		//	Bank account
 		String bankAccountVD = bsi.getLBR_BankAccountVD();
 		if (bankAccountVD != null && !bankAccountVD.isBlank())
-			numeroDaConta= new NumeroDaConta(Integer.valueOf (bsi.getAccountNo()), bankAccountVD);
+			numeroDaConta= new NumeroDaConta(Integer.valueOf ("130027"), bankAccountVD);
 		else
-			numeroDaConta= new NumeroDaConta(Integer.valueOf (bsi.getAccountNo()));
+			numeroDaConta= new NumeroDaConta(Integer.valueOf ("130027"));
 
 		// Composição do Boleto - Banco do Brasil - Convênio 7 Posições
+		String accordNo = bsi.getLBR_AccordNo();
 		if (Integer.parseInt(bsi.getRoutingNo()) == BancoDoBrasil001.ROUNTING_NO)
-			numeroDaConta= new NumeroDaConta(Integer.valueOf (bsi.getLBR_AccordNo()));
+			numeroDaConta= new NumeroDaConta(Integer.valueOf (accordNo));
+		else if (Integer.parseInt(bsi.getRoutingNo()) == 33)
+			numeroDaConta= new NumeroDaConta(Integer.valueOf (accordNo.substring(0, accordNo.length()-1)), accordNo.substring(accordNo.length()-1));
 		
 		//	Bank Agency
 		String bankAgencyVD = bsi.getLBR_BankAgencyVD();
@@ -315,7 +318,16 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 			boleto.addTextosExtras("txtRsAgenciaCodigoCedente", 
 					bsi.getAgency() + "-" + bsi.getLBR_BankAgencyVD() + " / " + 
 					bsi.getAccountNo() + "-" + bsi.getLBR_BankAccountVD());
-		}	
+		}
+		else if (Integer.parseInt(bsi.getRoutingNo()) == 33)
+		{	
+			boleto.addTextosExtras("txtFcAgenciaCodigoCedente", 
+					bsi.getAgency() + " / " + 
+					bsi.getAccountNo() + "-" + bsi.getLBR_BankAccountVD());
+			boleto.addTextosExtras("txtRsAgenciaCodigoCedente", 
+					bsi.getAgency() + " / " + 
+					bsi.getAccountNo() + "-" + bsi.getLBR_BankAccountVD());
+		}
 		
 		return boleto;
 	}	//	getBankSlip
@@ -958,7 +970,12 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 			if (mod11 == 0)
 				dv = "0";
 			else if (mod11 == 1)
-				dv = "P";
+			{
+				if (Integer.parseInt(getRoutingNo()) == 33)
+					dv = "0";
+				else
+					dv = "P";
+			}
 			else 
 				dv = String.valueOf (11-mod11);
 			

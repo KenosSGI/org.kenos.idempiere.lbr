@@ -37,6 +37,7 @@ public interface ICNABGenerator
      * 	Date Format
      */
 	public static final String DATE_FORMAT = "ddMMyy";
+	public static final String DATE_FORMAT8 = "ddMMyyyy";
 	
 	public StringBuilder generateCNABFile (MLBRCNABFile cnabFile);
 	
@@ -48,5 +49,15 @@ public interface ICNABGenerator
 	public default String timeToString (Timestamp ts)
 	{
 		return TextUtil.timeToString (ts, DATE_FORMAT);
+	}	//	timeToString
+	
+	/**
+	 * 	Default method to convert dates to CNAB formatted standard
+	 * 	@param ts Timestamp with the date
+	 * 	@return string representation of date in format ddMMyy
+	 */
+	public default String timeToString8 (Timestamp ts)
+	{
+		return TextUtil.timeToString (ts, DATE_FORMAT8);
 	}	//	timeToString
 }	//	ICNAB
