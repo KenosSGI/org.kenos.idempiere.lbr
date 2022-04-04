@@ -24,6 +24,7 @@ import org.adempierelbr.model.MLBRDigitalCertificate;
 import org.adempierelbr.model.MLBRNotaFiscal;
 import org.adempierelbr.model.MLBRNotaFiscalLine;
 import org.adempierelbr.nfse.util.FixedTxt;
+import org.adempierelbr.process.ProcEMailNFe;
 import org.adempierelbr.util.NFeUtil;
 import org.adempierelbr.util.SignatureUtil;
 import org.adempierelbr.util.TextUtil;
@@ -483,11 +484,12 @@ public class NFSeAbrasf203Impl implements INFSe
 			nf.save();
 		}
 		
-		//	Adicionar Protocolo do Lote
+		//	Adicionar Protocolo do Lote e Envio de Email
 		if (compNfse != null 
 				&& !compNfse.getNfse().getInfNfse().getCodigoVerificacao().isEmpty())
 		{
 			setProtocol (nf, compNfse);
+			ProcEMailNFe.sendEmailNFeThread (nf, false);
 		}
 		else
 			throw new Exception (msgRetorno.toString());
