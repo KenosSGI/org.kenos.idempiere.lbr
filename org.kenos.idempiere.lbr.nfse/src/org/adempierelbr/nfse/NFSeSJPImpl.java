@@ -900,7 +900,11 @@ public class NFSeSJPImpl implements INFSe
 			
 			TcInfNfse nfse = consultaresposta.getListaNfse().getCompNfseArray(0).getNfse().getInfNfse();
 
-			nf.setlbr_NFENo(String.valueOf(nfse.getNumero()));
+			String nfeNo = String.valueOf(nfse.getNumero());
+			if (nfeNo.length() > 11)
+				nfeNo = nfeNo.substring(4);
+			
+			nf.setlbr_NFENo(nfeNo);
 			nf.setlbr_NFeProt(String.valueOf(nfse.getCodigoVerificacao()));
 			nf.setDateTrx(new Timestamp(nfse.getDataEmissao().getTimeInMillis()));
 			//nf.setlbr_NFeStatus(MLBRNotaFiscal.LBR_NFESTATUS_100_AutorizadoOUsoDaNF_E);
