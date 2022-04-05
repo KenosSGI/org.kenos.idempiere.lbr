@@ -54,7 +54,6 @@ import org.compiere.model.MLocation;
 import org.compiere.model.MOrderLine;
 import org.compiere.model.MOrgInfo;
 import org.compiere.model.MProduct;
-import org.compiere.model.MSysConfig;
 import org.compiere.model.Query;
 import org.compiere.util.AdempiereUserError;
 import org.compiere.util.CLogger;
@@ -542,13 +541,12 @@ public class NFeXMLGenerator
 		ide.setProcEmi (TProcEmi.X_0);
 		ide.setVerProc (NFeUtil.VERSAO_APP);
 		
-		//	TODO: Remover quando entrar em produção
-		if ((MSysConfig.getBooleanValue("LBR_INDINTERMED", false, nf.getAD_Client_ID(), nf.getAD_Org_ID()) || MLBRNotaFiscal.LBR_NFEENV_Homologation.equals(nf.getlbr_NFeEnv()))
-				&& (ide.getIndPres().equals(IndPres.X_1)
+		//	Indicador de compra via market place
+		if (ide.getIndPres().equals(IndPres.X_1)
 				|| ide.getIndPres().equals(IndPres.X_2)
 				|| ide.getIndPres().equals(IndPres.X_3)
 				|| ide.getIndPres().equals(IndPres.X_4)
-				|| ide.getIndPres().equals(IndPres.X_9)))
+				|| ide.getIndPres().equals(IndPres.X_9))
 		{
 			// 0 - Sem Intermediador
 			// 1 - Com Intermediador/Marketplace
