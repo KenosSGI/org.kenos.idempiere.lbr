@@ -815,9 +815,19 @@ public class MLBRTax extends X_LBR_Tax
 		if (config != null)
 			isManufactured = "Y".equals(config.getIsManufactured());
 		
-		MLBRCFOPLine cFOPLine = MLBRCFOP.chooseCFOP (oi.getAD_Org_ID(), C_DocTypeTarget_ID, p.getLBR_ProductCategory_ID(), 
-				(isSOTrx ? bp.getLBR_CustomerCategory_ID() : bp.getLBR_VendorCategory_ID()), 
-				lbr_TransactionType, lbr_DestionationType, hasSubstitution, isManufactured, lbr_TaxRegime, null);
+		Map<String,Object> filterMap = new HashMap<String,Object> ();
+		filterMap.put(MLBRCFOPLine.COLUMNNAME_AD_Org_ID, oi.getAD_Org_ID());
+		filterMap.put(MLBRCFOPLine.COLUMNNAME_C_DocType_ID, C_DocTypeTarget_ID);
+		filterMap.put(MLBRCFOPLine.COLUMNNAME_LBR_ProductCategory_ID, p.getLBR_ProductCategory_ID());
+		filterMap.put(MLBRCFOPLine.COLUMNNAME_LBR_BPartnerCategory_ID, (isSOTrx ? bp.getLBR_CustomerCategory_ID() : bp.getLBR_VendorCategory_ID()));
+		filterMap.put(MLBRCFOPLine.COLUMNNAME_lbr_TransactionType, lbr_TransactionType);
+		filterMap.put(MLBRCFOPLine.COLUMNNAME_lbr_DestionationType, lbr_DestionationType);
+		filterMap.put(MLBRCFOPLine.COLUMNNAME_lbr_IsSubTributaria, hasSubstitution);
+		filterMap.put(MLBRCFOPLine.COLUMNNAME_lbr_IsManufactured, POWrapper.getPO(p).get_ValueAsBoolean("lbr_IsManufactured"));
+		filterMap.put(MLBRCFOPLine.COLUMNNAME_LBR_TaxRegime, lbr_TaxRegime);
+		filterMap.put(MLBRCFOPLine.COLUMNNAME_LBR_IndIEDest, bp.getLBR_IndIEDest());
+		
+		MLBRCFOPLine cFOPLine = MLBRCFOP.chooseCFOP (filterMap, null);
 		//
 		if (cFOPLine != null)
 		{

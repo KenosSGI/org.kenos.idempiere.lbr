@@ -23,14 +23,14 @@ import org.compiere.model.*;
 
 /** Generated Model for LBR_CFOPLine
  *  @author iDempiere (generated) 
- *  @version Release 4.1 - $Id$ */
+ *  @version Release 6.2 - $Id$ */
 public class X_LBR_CFOPLine extends PO implements I_LBR_CFOPLine, I_Persistent 
 {
 
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20170626L;
+	private static final long serialVersionUID = 20220405L;
 
     /** Standard Constructor */
     public X_LBR_CFOPLine (Properties ctx, int LBR_CFOPLine_ID, String trxName)
@@ -156,6 +156,20 @@ public class X_LBR_CFOPLine extends PO implements I_LBR_CFOPLine, I_Persistent
 		return ii.intValue();
 	}
 
+	/** Set LBR_CFOPLine_UU.
+		@param LBR_CFOPLine_UU LBR_CFOPLine_UU	  */
+	public void setLBR_CFOPLine_UU (String LBR_CFOPLine_UU)
+	{
+		set_Value (COLUMNNAME_LBR_CFOPLine_UU, LBR_CFOPLine_UU);
+	}
+
+	/** Get LBR_CFOPLine_UU.
+		@return LBR_CFOPLine_UU	  */
+	public String getLBR_CFOPLine_UU () 
+	{
+		return (String)get_Value(COLUMNNAME_LBR_CFOPLine_UU);
+	}
+
 	public org.adempierelbr.model.I_LBR_CFOP getLBR_CFOP() throws RuntimeException
     {
 		return (org.adempierelbr.model.I_LBR_CFOP)MTable.get(getCtx(), org.adempierelbr.model.I_LBR_CFOP.Table_Name)
@@ -182,6 +196,30 @@ public class X_LBR_CFOPLine extends PO implements I_LBR_CFOPLine, I_Persistent
 		if (ii == null)
 			 return 0;
 		return ii.intValue();
+	}
+
+	/** 1 - Contribuinte de ICMS = 1 */
+	public static final String LBR_INDIEDEST_1_ContribuinteDeICMS = "1";
+	/** 2 - Contribuinte de ICMS - Isento = 2 */
+	public static final String LBR_INDIEDEST_2_ContribuinteDeICMS_Isento = "2";
+	/** 9 - Não Contribuinte de ICMS = 9 */
+	public static final String LBR_INDIEDEST_9_NãoContribuinteDeICMS = "9";
+	/** Set Indicador da IE.
+		@param LBR_IndIEDest 
+		Indicador da IE do Destinatário
+	  */
+	public void setLBR_IndIEDest (String LBR_IndIEDest)
+	{
+
+		set_Value (COLUMNNAME_LBR_IndIEDest, LBR_IndIEDest);
+	}
+
+	/** Get Indicador da IE.
+		@return Indicador da IE do Destinatário
+	  */
+	public String getLBR_IndIEDest () 
+	{
+		return (String)get_Value(COLUMNNAME_LBR_IndIEDest);
 	}
 
 	public org.adempierelbr.model.I_LBR_LegalMessage getLBR_LegalMessage() throws RuntimeException
@@ -412,6 +450,12 @@ public class X_LBR_CFOPLine extends PO implements I_LBR_CFOPLine, I_Persistent
 	public static final String LBR_TRANSACTIONTYPE_Resale = "RES";
 	/** End User (Double Base) = EN2 */
 	public static final String LBR_TRANSACTIONTYPE_EndUserDoubleBase = "EN2";
+	/** End User (RE 574.706) = EN3 */
+	public static final String LBR_TRANSACTIONTYPE_EndUserRE574706 = "EN3";
+	/** Resale (RE 574.706) = RE3 */
+	public static final String LBR_TRANSACTIONTYPE_ResaleRE574706 = "RE3";
+	/** End User (DIFAL out) = EN4 */
+	public static final String LBR_TRANSACTIONTYPE_EndUserDIFALOut = "EN4";
 	/** Set Transaction Type.
 		@param lbr_TransactionType 
 		Defines the Transaction Type

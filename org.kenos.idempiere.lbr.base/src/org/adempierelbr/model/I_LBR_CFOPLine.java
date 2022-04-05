@@ -23,7 +23,7 @@ import org.compiere.util.KeyNamePair;
 
 /** Generated Interface for LBR_CFOPLine
  *  @author iDempiere (generated) 
- *  @version Release 4.1
+ *  @version Release 6.2
  */
 @SuppressWarnings("all")
 public interface I_LBR_CFOPLine 
@@ -136,6 +136,15 @@ public interface I_LBR_CFOPLine
 	  */
 	public int getLBR_CFOPLine_ID();
 
+    /** Column name LBR_CFOPLine_UU */
+    public static final String COLUMNNAME_LBR_CFOPLine_UU = "LBR_CFOPLine_UU";
+
+	/** Set LBR_CFOPLine_UU	  */
+	public void setLBR_CFOPLine_UU (String LBR_CFOPLine_UU);
+
+	/** Get LBR_CFOPLine_UU	  */
+	public String getLBR_CFOPLine_UU();
+
     /** Column name LBR_CFOP_ID */
     public static final String COLUMNNAME_LBR_CFOP_ID = "LBR_CFOP_ID";
 
@@ -150,6 +159,19 @@ public interface I_LBR_CFOPLine
 	public int getLBR_CFOP_ID();
 
 	public org.adempierelbr.model.I_LBR_CFOP getLBR_CFOP() throws RuntimeException;
+
+    /** Column name LBR_IndIEDest */
+    public static final String COLUMNNAME_LBR_IndIEDest = "LBR_IndIEDest";
+
+	/** Set Indicador da IE.
+	  * Indicador da IE do Destinatário
+	  */
+	public void setLBR_IndIEDest (String LBR_IndIEDest);
+
+	/** Get Indicador da IE.
+	  * Indicador da IE do Destinatário
+	  */
+	public String getLBR_IndIEDest();
 
     /** Column name LBR_LegalMessage_ID */
     public static final String COLUMNNAME_LBR_LegalMessage_ID = "LBR_LegalMessage_ID";

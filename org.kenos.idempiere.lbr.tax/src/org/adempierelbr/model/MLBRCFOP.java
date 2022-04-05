@@ -13,8 +13,13 @@
 package org.adempierelbr.model;
 
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 
 import org.compiere.model.MLocation;
 import org.compiere.model.Query;
@@ -170,21 +175,89 @@ public class MLBRCFOP extends X_LBR_CFOP
 			String lbr_TransactionType, String lbr_DestionationType, boolean lbr_IsSubTributaria, boolean lbr_IsManufactured, String lbr_TaxRegime,
 			String trxName)
 	{
-		String whereClause = "IsActive='Y' AND AD_Org_ID IN (0, ?) AND C_DocType_ID=? "
-				+ "AND (LBR_ProductCategory_ID=?  OR LBR_ProductCategory_ID IS NULL) "
-				+ "AND (LBR_BPartnerCategory_ID=? OR LBR_BPartnerCategory_ID IS NULL) "
-				+ "AND (lbr_TransactionType=? OR lbr_TransactionType IS NULL) "
-				+ "AND lbr_DestionationType=? "
-				+ "AND lbr_IsSubTributaria IN ('B', ?) "
-				+ "AND lbr_IsManufactured IN ('B', ?) "
-				+ "AND (lbr_TaxRegime = ? OR lbr_TaxRegime IS NULL)";
+		Map<String,Object> filterMap = new HashMap<String,Object> ();
+		filterMap.put(MLBRCFOPLine.COLUMNNAME_AD_Org_ID, AD_Org_ID);
+		filterMap.put(MLBRCFOPLine.COLUMNNAME_C_DocType_ID, C_DocType_ID);
+		filterMap.put(MLBRCFOPLine.COLUMNNAME_LBR_ProductCategory_ID, LBR_ProductCategory_ID);
+		filterMap.put(MLBRCFOPLine.COLUMNNAME_LBR_BPartnerCategory_ID, LBR_BPartnerCategory_ID);
+		filterMap.put(MLBRCFOPLine.COLUMNNAME_lbr_TransactionType, lbr_TransactionType);
+		filterMap.put(MLBRCFOPLine.COLUMNNAME_lbr_DestionationType, lbr_DestionationType);
+		filterMap.put(MLBRCFOPLine.COLUMNNAME_lbr_IsSubTributaria, lbr_IsSubTributaria);
+		filterMap.put(MLBRCFOPLine.COLUMNNAME_lbr_IsManufactured, lbr_IsManufactured);
+		filterMap.put("LBR_TaxRegime", lbr_TaxRegime);
 		//
-		Object[] parameters = new Object[]{AD_Org_ID, C_DocType_ID, LBR_ProductCategory_ID, LBR_BPartnerCategory_ID, 
- 				lbr_TransactionType, lbr_DestionationType, (lbr_IsSubTributaria ? "Y" : "N"), (lbr_IsManufactured ? "Y" : "N"), 
- 				lbr_TaxRegime};
+		return chooseCFOP (filterMap, trxName);
+	}	//	chooseCFOP
+	
+	/**
+	 * 		Retorna qual é o CFOP
+	 * 
+	 * 	@param 	C_DocType_ID
+	 * 	@param 	LBR_ProductCategory_ID
+	 * 	@param 	LBR_BPartnerCategory_ID
+	 * 	@param 	lbr_TransactionType
+	 * 	@param 	lbr_DestionationType
+	 * 	@param 	lbr_IsSubTributaria
+	 * 	@param 	lbr_IsManufactured
+	 *  @param	lbr_TaxRegime
+	 * 	@return	MLBRCFOPLine
+	 */
+	public static MLBRCFOPLine chooseCFOP (final Map<String,Object> filterMap, String trxName)
+	{
+		StringBuilder where = new StringBuilder ("IsActive='Y' AND AD_Client_ID IN (0, ?) ");
+		List<Object> params = new ArrayList<Object>();
+		Set<String> selected = filterMap.keySet();
+		
+		//	Mandatory
+		params.add(Env.getAD_Client_ID(Env.getCtx()));
+		
+		//	Specific filter
+		if (filterMap.containsKey(COLUMNNAME_AD_Org_ID))
+		{
+			where.append ("AND AD_Org_ID IN (0, ?) ");
+			params.add(filterMap.get(COLUMNNAME_AD_Org_ID));
+		}
+		
+		//	Yes-No-Both filter
+		Arrays.asList(new String[] 
+			{
+				MLBRCFOPLine.COLUMNNAME_lbr_IsSubTributaria,
+				MLBRCFOPLine.COLUMNNAME_lbr_IsManufactured
+			}).stream().forEach(colName -> 
+			{
+				where.append("AND (").append(colName).append("='B'");
+				if (selected.contains(colName))
+				{
+					where.append("OR ").append(colName).append("=?");
+					params.add(filterMap.get(colName));
+				}
+				where.append(") ");
+			});
+		
+		//	Generic filter
+		Arrays.asList(new String[] 
+			{
+				MLBRCFOPLine.COLUMNNAME_C_DocType_ID,
+				MLBRCFOPLine.COLUMNNAME_LBR_BPartnerCategory_ID,
+				MLBRCFOPLine.COLUMNNAME_lbr_DestionationType,
+				MLBRCFOPLine.COLUMNNAME_LBR_IndIEDest,
+				MLBRCFOPLine.COLUMNNAME_LBR_ProductCategory_ID,
+				MLBRCFOPLine.COLUMNNAME_LBR_TaxRegime,
+				MLBRCFOPLine.COLUMNNAME_lbr_TransactionType
+			}).stream().forEach(colName -> 
+			{
+				where.append("AND (").append(colName).append(" IS NULL");
+				Object param = filterMap.get(colName);
+				if (selected.contains(colName) && param != null)
+				{
+					where.append(" OR ").append(colName).append("=?");
+					params.add(filterMap.get(colName));
+				}
+				where.append(") ");
+			});
 		//
-	 	List<MLBRCFOPLine> list = new Query(Env.getCtx(), MLBRCFOPLine.Table_Name, whereClause, trxName)
-	 		.setParameters(parameters)
+	 	List<MLBRCFOPLine> list = new Query(Env.getCtx(), MLBRCFOPLine.Table_Name, where.toString(), trxName)
+	 		.setParameters(params)
 	 		.list();
 	 	//
 	 	if (list != null && list.size() == 1)
@@ -205,6 +278,8 @@ public class MLBRCFOP extends X_LBR_CFOP
 				points += 10;
 			if (cfopLineChooser.getLBR_ProductCategory_ID() > 0)
 				points += 10;
+			if (cfopLineChooser.get_Value("LBR_IndIEDest") != null)
+				points += 40;
 			//
 			if (points > maxPoints)
 			{
