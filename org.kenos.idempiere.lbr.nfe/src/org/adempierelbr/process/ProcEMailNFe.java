@@ -112,14 +112,16 @@ public class ProcEMailNFe extends SvrProcess
 		if (TimeUtil.getDaysBetween(p_DateFrom, p_DateFrom) > 31)
 			return "@Error@ o intervalo de datas deve ser no máximo 31 dias";
 		
-		String whereClause = "AD_Org_ID=? AND DateDoc BETWEEN " + DB.TO_DATE(p_DateFrom) + " AND " + 
+		String whereClause = "AD_Org_ID=? AND TRUNC(DateDoc) BETWEEN " + DB.TO_DATE(p_DateFrom) + " AND " + 
 				DB.TO_DATE(p_DateTo) + " AND " + MLBRNotaFiscal.COLUMNNAME_LBR_EMailSent + "='N'";
 		if (p_C_DocType_ID > 0)
 			whereClause += " AND " + MLBRNotaFiscal.COLUMNNAME_C_DocTypeTarget_ID + "=" + p_C_DocType_ID;
 		//
 		List<MLBRNotaFiscal> nfs = new Query (Env.getCtx(), MLBRNotaFiscal.Table_Name, whereClause, null)
 				.setParameters(p_AD_Org_ID)
-				.setClient_ID().list();
+				.setClient_ID()
+				.list();
+
 		sendEmailNFeThread (nfs, false);
 		
 		return "@Success@ as NFs estão na fila envio";
