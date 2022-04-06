@@ -245,9 +245,9 @@ public class NFSeSJPImpl implements INFSe
 		dadosTomador.setRazaoSocial(Util.deleteAccents(nf.getBPName()));
 		TcEndereco endTomador = dadosTomador.addNewEndereco();
 		
-		endTomador.setEndereco(Util.deleteAccents(nf.getlbr_BPAddress1()));
-		endTomador.setNumero(Util.deleteAccents(nf.getlbr_BPAddress2()));
-		endTomador.setBairro(Util.deleteAccents(nf.getlbr_BPAddress3()));
+		endTomador.setEndereco(TextUtil.retiraEspecial(nf.getlbr_BPAddress1()));
+		endTomador.setNumero(TextUtil.retiraEspecial(nf.getlbr_BPAddress2()));
+		endTomador.setBairro(TextUtil.retiraEspecial(nf.getlbr_BPAddress3()));
 		endTomador.setCodigoMunicipio(nf.getlbr_BPCityCode());
 		endTomador.setCep(Integer.valueOf(TextUtil.toNumeric(nf.getlbr_BPPostal())));
 		endTomador.setUf((nf.getlbr_BPRegion()));
@@ -304,7 +304,7 @@ public class NFSeSJPImpl implements INFSe
 			throw new AdempiereException("Impossível gerar XML NFS-e. Discriminação dos serviços muito curta ou em branco.");
 		}
 				
-		dadosServico.setDiscriminacao(descricaoServico.replace("\n", ". ").replaceAll("\\s+", " ").replaceAll("\\.+", ".").trim());
+		dadosServico.setDiscriminacao(TextUtil.retiraEspecial(descricaoServico.replace("\n", ". ").replaceAll("\\s+", " ").replaceAll("\\.+", ".").trim()));
 		dadosServico.setCodigoMunicipio(nf.getlbr_BPCityCode());
 		
 		//	Valores dos Serviços
