@@ -682,8 +682,10 @@ public class NFSeSJPImpl implements INFSe
 		
 		String xmlText = enviarLotDoc.xmlText(NFeUtil.getXmlOpt());
 		
+		NFeUtil.saveXML (String.valueOf(AD_Org_ID), NFeUtil.KIND_NFSE, NFeUtil.MESSAGE_REQ_AUTORIZE, "Envio_Lote-" + nfs.get(0).getDocumentNo(), xmlText);
+		
 		retornoEnvioXMLNFSe = nfseStub.recepcionarLoteRpsV3(header.xmlText(),xmlText);
-		NFeUtil.saveXML (String.valueOf(AD_Org_ID), NFeUtil.KIND_NFSE, NFeUtil.MESSAGE_RET_AUTORIZE, "Protocolo_Lote-" + nfs.get(0).getDocumentNo(), retornoEnvioXMLNFSe);
+		NFeUtil.saveXML (String.valueOf(AD_Org_ID), NFeUtil.KIND_NFSE, NFeUtil.MESSAGE_RET_AUTORIZE, "Retorno_Envio_Lote-" + nfs.get(0).getDocumentNo(), retornoEnvioXMLNFSe);
 		EnviarLoteRpsResposta resposta = EnviarLoteRpsRespostaDocument.Factory.parse(retornoEnvioXMLNFSe).getEnviarLoteRpsResposta();
 		
 		if (resposta.getListaMensagemRetorno() != null)
@@ -724,8 +726,10 @@ public class NFSeSJPImpl implements INFSe
 		if (resposta.getProtocolo() != null)
 			rpsEnvio.setProtocolo(resposta.getProtocolo());
 		
+		NFeUtil.saveXML (String.valueOf(AD_Org_ID), NFeUtil.KIND_NFSE, NFeUtil.MESSAGE_REQ_CONSULT, "Envio_Situacao_Lote-" + nfs.get(0).getDocumentNo(), document.xmlText());
+		
 		String result = nfseStub.consultarSituacaoLoteRpsV3(header.xmlText(), document.xmlText());
-		NFeUtil.saveXML (String.valueOf(AD_Org_ID), NFeUtil.KIND_NFSE, NFeUtil.MESSAGE_RET_CONSULT, "Situacao_Lote-" + nfs.get(0).getDocumentNo(), result);
+		NFeUtil.saveXML (String.valueOf(AD_Org_ID), NFeUtil.KIND_NFSE, NFeUtil.MESSAGE_RET_CONSULT, "Retorno_Situacao_Lote-" + nfs.get(0).getDocumentNo(), result);
 		
 		ConsultarSituacaoLoteRpsResposta respostaSituacao = ConsultarSituacaoLoteRpsRespostaDocument.Factory.parse(result).getConsultarSituacaoLoteRpsResposta();
 
@@ -760,7 +764,7 @@ public class NFSeSJPImpl implements INFSe
 			
 			consultarpsEnvio.setProtocolo(resposta.getProtocolo());
 			
-			NFeUtil.saveXML (String.valueOf(AD_Org_ID), NFeUtil.KIND_NFSE, NFeUtil.MESSAGE_RET_CONSULT, "RPS-" + nfs.get(0).getDocumentNo(), consultadocument.xmlText());
+			NFeUtil.saveXML (String.valueOf(AD_Org_ID), NFeUtil.KIND_NFSE, NFeUtil.MESSAGE_REQ_CONSULT, "RPS-" + nfs.get(0).getDocumentNo(), consultadocument.xmlText());
 			
 			String resultconsulta = nfseStub.consultarLoteRpsV3(header.xmlText(), consultadocument.xmlText());
 			
