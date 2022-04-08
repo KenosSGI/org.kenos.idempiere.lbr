@@ -1902,7 +1902,7 @@ public class NFSeSJPImpl implements INFSe
 		
 		File PDF = null;
 		
-		try
+		/*try
 		{
 			//	Get Report
 			JasperPrint jasperPrint = getReport (nf);
@@ -1914,7 +1914,7 @@ public class NFSeSJPImpl implements INFSe
 		catch (Exception e)
 		{
 			e.printStackTrace();
-		}
+		}*/
 		
 		return PDF;
 	}	
