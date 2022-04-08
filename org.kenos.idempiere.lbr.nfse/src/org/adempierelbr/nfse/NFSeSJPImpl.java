@@ -808,7 +808,11 @@ public class NFSeSJPImpl implements INFSe
 			if (dateTrx != null)
 				nf.setDateTrx(new Timestamp (dateTrx.getTimeInMillis()));
 			
-			ProcReturnRPS.proccessNFSe (nf, p_NFe, p_VerifCode);
+			String nfeNo = p_NFe;
+			if (nfeNo.length() > 11)
+				nfeNo = nfeNo.substring(4);
+			
+			ProcReturnRPS.proccessNFSe (nf, nfeNo, p_VerifCode);
 			
 			MAttachment attachNFe = nf.createAttachment();
 			attachNFe.addEntry("NFSE-" + nf.getlbr_NFENo() + FILE_XML_NFSE_AUTORIZADO, xmldata.replaceAll("\\&\\#[0-9A-Za-z]*;|\\n", "").getBytes(NFeUtil.NFE_ENCODING));
