@@ -38,6 +38,7 @@ import org.compiere.util.Msg;
 import org.compiere.util.Trx;
 import org.compiere.util.ValueNamePair;
 import org.kenos.idempiere.lbr.bankslip.model.MLBRBankSlip;
+import org.kenos.idempiere.lbr.bankslip.model.MLBRBankSlipContract;
 
 /**
  * 		Classe comum para geração de boletos
@@ -265,6 +266,14 @@ public class GenBankSlip
 		if (C_DocType_ID   != 0)
 			sql += " AND i.C_DocType_ID =?";
 		
+		// Bank Account
+		int C_BankAccount_ID = new MLBRBankSlipContract(Env.getCtx(), bi.getKey(), null).getC_BankAccount_ID();
+
+		sql += " AND (";
+		if (C_BankAccount_ID != 0)
+			sql += "i.C_BankAccount_ID IS NULL OR ";
+		sql += "i.C_BankAccount_ID=?)";
+		
 		//	AD_Org_ID
 		int AD_Org_ID = org;
 		if (AD_Org_ID != 0)
@@ -289,7 +298,8 @@ public class GenBankSlip
 		
 		sql += " ORDER BY 2, 3";
 
-		log.finest(sql + " - C_BPartner_ID=" + C_BPartner_ID + ", C_DocType_ID=" + C_DocType_ID + ", AD_Org_ID=" + AD_Org_ID);
+		log.finest(sql + " - C_BPartner_ID=" + C_BPartner_ID + ", C_DocType_ID=" + C_DocType_ID + 
+				", C_BankAccount_ID=" + C_BankAccount_ID + ", AD_Org_ID=" + AD_Org_ID);
 		//  Get Open Invoices
 		try
 		{
@@ -299,9 +309,11 @@ public class GenBankSlip
 			pstmt.setInt(index++, m_AD_Client_ID);		//	Client
 			if (C_BPartner_ID != 0)
 				pstmt.setInt(index++, C_BPartner_ID);
-			if (C_DocType_ID  != 0)                    //	Document type
+			if (C_DocType_ID  != 0)						//	Document type
 				pstmt.setInt(index++, C_DocType_ID);
-			if (AD_Org_ID  != 0)                    //	Organization
+			if (C_BankAccount_ID  != 0)					//	Bank Account
+				pstmt.setInt(index++, C_BankAccount_ID);
+			if (AD_Org_ID  != 0)						//	Organization
 				pstmt.setInt(index++, AD_Org_ID);
 			//
 			ResultSet rs = pstmt.executeQuery();
