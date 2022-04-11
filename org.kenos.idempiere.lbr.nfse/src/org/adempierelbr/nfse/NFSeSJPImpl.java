@@ -304,7 +304,7 @@ public class NFSeSJPImpl implements INFSe
 			throw new AdempiereException("Impossível gerar XML NFS-e. Discriminação dos serviços muito curta ou em branco.");
 		}
 				
-		dadosServico.setDiscriminacao(TextUtil.retiraEspecial(descricaoServico.replace("\n", ". ").replaceAll("\\s+", " ").replaceAll("\\.+", ".").trim()));
+		dadosServico.setDiscriminacao(descricaoServico.replace("\n", ". ").replaceAll("\\s+", " ").replaceAll("\\.+", ".").trim());
 		dadosServico.setCodigoMunicipio(nf.getlbr_BPCityCode());
 		
 		//	Valores dos Serviços
