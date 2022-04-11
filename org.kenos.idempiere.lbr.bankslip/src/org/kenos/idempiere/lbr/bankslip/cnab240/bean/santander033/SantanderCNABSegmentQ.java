@@ -16,13 +16,11 @@ public class SantanderCNABSegmentQ extends CNABSegmentQRecord {
 		
 	@Override
 	public int getBancoCorrespondente() {
-		// TODO Auto-generated method stub
 		return super.getBancoCorrespondente();
 	}
 
 	@Override
 	public String getNossoNumeroCorrespondente() {
-		// TODO Auto-generated method stub
 		return super.getNossoNumeroCorrespondente();
 	}
 

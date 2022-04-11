@@ -9,7 +9,6 @@ public class SantanderCNABCobrancaTrailerArquivo extends CNABTrailerArquivoRecor
 
 	@Override
 	public int getQuantidadeContasConciliacao() {
-		// TODO Auto-generated method stub
 		return super.getQuantidadeContasConciliacao();
 	}
 

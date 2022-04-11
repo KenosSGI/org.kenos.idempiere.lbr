@@ -23,37 +23,31 @@ public class SantanderCNABCobrancaRetornoHeaderLote extends CNABCobrancaHeaderLo
 
 	@Override
 	public int getAgencia() {
-		// TODO Auto-generated method stub
 		return super.getAgencia();
 	}
 
 	@Override
 	public String getDvAgencia() {
-		// TODO Auto-generated method stub
 		return super.getDvAgencia();
 	}
 
 	@Override
 	public long getConta() {
-		// TODO Auto-generated method stub
 		return super.getConta();
 	}
 
 	@Override
 	public String getDvConta() {
-		// TODO Auto-generated method stub
 		return super.getDvConta();
 	}
 
 	@Override
 	public String getDvAgenciaConta() {
-		// TODO Auto-generated method stub
 		return super.getDvAgenciaConta();
 	}
 
 	@Override
 	public Date getDataCredito() {
-		// TODO Auto-generated method stub
 		return super.getDataCredito();
 	}
 	

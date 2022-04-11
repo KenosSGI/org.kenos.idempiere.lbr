@@ -17,34 +17,29 @@ public class SantanderCNABSegmentT extends CNABSegmentTRecord {
 	@Override
 	@Field( offset=18 , length=4, paddingChar='0' , align = Align.RIGHT)
 	public int getAgenciaCedente() {
-		// TODO Auto-generated method stub
 		return super.getAgenciaCedente();
 	}
 
 	@Override
 	@Field( offset=22 , length=1, paddingChar='0' , align = Align.RIGHT)
 	public String getDvAgenciaCedente() {
-		// TODO Auto-generated method stub
 		return super.getDvAgenciaCedente();
 	}
 
 	@Override
 	@Field( offset=23 , length=9, paddingChar='0' , align = Align.RIGHT)
 	public long getContaCedente() {
-		// TODO Auto-generated method stub
 		return super.getContaCedente();
 	}
 
 	@Override
 	@Field( offset=32 , length=1, paddingChar='0' , align = Align.RIGHT)
 	public String getDvContaCedente() {
-		// TODO Auto-generated method stub
 		return super.getDvContaCedente();
 	}
 
 	@Override
 	public String getDvAgenciaContaCedente() {
-		// TODO Auto-generated method stub
 		return super.getDvAgenciaContaCedente();
 	}
 
@@ -77,14 +72,12 @@ public class SantanderCNABSegmentT extends CNABSegmentTRecord {
 	@Field( offset=78 , length=15, paddingChar='0' , align = Align.RIGHT)
 	@FixedFormatDecimal( decimals = 2 , useDecimalDelimiter = false )
 	public Double getValorTitulo() {
-		// TODO Auto-generated method stub
 		return super.getValorTitulo();
 	}
 
 	@Override
 	@Field( offset=93 , length=3, paddingChar='0' , align = Align.RIGHT)
 	public int getBancoCobrador() {
-		// TODO Auto-generated method stub
 		return super.getBancoCobrador();
 	}
 
@@ -97,7 +90,6 @@ public class SantanderCNABSegmentT extends CNABSegmentTRecord {
 	@Override
 	@Field( offset=100 , length=1, paddingChar='0' , align = Align.RIGHT)
 	public String getDvAgenciaCobradora() {
-		// TODO Auto-generated method stub
 		return super.getDvAgenciaCobradora();
 	}
 
@@ -110,7 +102,6 @@ public class SantanderCNABSegmentT extends CNABSegmentTRecord {
 	@Override
 	@Field( offset=126 , length=2, paddingChar='0' , align = Align.RIGHT)
 	public int getCodigoMoeda() {
-		// TODO Auto-generated method stub
 		return super.getCodigoMoeda();
 	}
 
@@ -129,7 +120,6 @@ public class SantanderCNABSegmentT extends CNABSegmentTRecord {
 	@Override
 	@Field( offset=144 , length=40, paddingChar=' ' , align = Align.LEFT)
 	public String getNomeSacado() {
-		// TODO Auto-generated method stub
 		return super.getNomeSacado();
 	}
 
@@ -142,7 +132,6 @@ public class SantanderCNABSegmentT extends CNABSegmentTRecord {
 
 	@Override
 	public long getNumeroContrato() {
-		// TODO Auto-generated method stub
 		return super.getNumeroContrato();
 	}
 

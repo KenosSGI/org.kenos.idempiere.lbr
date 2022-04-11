@@ -22,28 +22,24 @@ public class SantanderCNABSegmentP extends CNABSegmentPRecord {
 	@Override
 	@Field( offset=18 , length=4, paddingChar = '0' , align = Align.RIGHT)
 	public int getAgenciaCedente() {
-		// TODO Auto-generated method stub
 		return super.getAgenciaCedente();
 	}
 
 	@Override
 	@Field( offset=22 , length=1, paddingChar = '0' , align = Align.RIGHT)
 	public String getDvAgenciaCedente() {
-		// TODO Auto-generated method stub
 		return super.getDvAgenciaCedente();
 	}
 
 	@Override
 	@Field( offset=23 , length=9, paddingChar = '0' , align = Align.RIGHT)
 	public long getContaCedente() {
-		// TODO Auto-generated method stub
 		return super.getContaCedente();
 	}
 
 	@Override
 	@Field( offset=32 , length=1, paddingChar = '0' , align = Align.RIGHT)
 	public String getDvContaCedente() {
-		// TODO Auto-generated method stub
 		return super.getDvContaCedente();
 	}
 
@@ -62,7 +58,6 @@ public class SantanderCNABSegmentP extends CNABSegmentPRecord {
 
 	@Override
 	public String getDvAgenciaContaCedente() {
-		// TODO Auto-generated method stub
 		return super.getDvAgenciaContaCedente();
 	}
 
@@ -88,39 +83,33 @@ public class SantanderCNABSegmentP extends CNABSegmentPRecord {
 	@Override
 	@Field( offset=45 , length=13, paddingChar = '0' , align = Align.RIGHT)
 	public String getNossoNumero() {
-		// TODO Auto-generated method stub
 		return super.getNossoNumero();
 	}
 
 	@Override
 	public int getEmissaoBloqueto() {
-		// TODO Auto-generated method stub
 		return super.getEmissaoBloqueto();
 	}
 
 	@Override
 	public String getDistribuicaoBloqueto() {
-		// TODO Auto-generated method stub
 		return super.getDistribuicaoBloqueto();
 	}
 
 	@Override
 	@Field( offset=101 , length=4, paddingChar = '0' , align = Align.RIGHT)
 	public int getAgenciaCobradora() {
-		// TODO Auto-generated method stub
 		return super.getAgenciaCobradora();
 	}
 
 	@Override
 	@Field( offset=105 , length=1, paddingChar = '0' , align = Align.RIGHT)
 	public String getDvAgenciaCobradora() {
-		// TODO Auto-generated method stub
 		return super.getDvAgenciaCobradora();
 	}
 
 	@Override
 	public long getNumeroContrato() {
-		// TODO Auto-generated method stub
 		return super.getNumeroContrato();
 	}
 
