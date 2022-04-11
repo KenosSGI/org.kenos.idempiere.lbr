@@ -1,8 +1,11 @@
 package org.kenos.idempiere.lbr.bankslip;
 
-import org.kenos.idempiere.lbr.bankslip.cnab.BancoDoBrasil001;
-import org.kenos.idempiere.lbr.bankslip.cnab.Bradesco237;
-import org.kenos.idempiere.lbr.bankslip.cnab.Itau341;
+import org.kenos.idempiere.lbr.bankslip.cnab.ICNABProcessor;
+import org.kenos.idempiere.lbr.bankslip.cnab240.bean.CNABRecords;
+import org.kenos.idempiere.lbr.bankslip.cnab240.bean.santander033.SantanderCNABRecords;
+import org.kenos.idempiere.lbr.bankslip.cnab400.BancoDoBrasil001;
+import org.kenos.idempiere.lbr.bankslip.cnab400.Bradesco237;
+import org.kenos.idempiere.lbr.bankslip.cnab400.Itau341;
 import org.kenos.idempiere.lbr.bankslip.model.MLBRBankSlipLayout;
 
 /**
@@ -30,4 +33,23 @@ public class DefaultCNABFactory implements ICNABFactory
 		}
 		return null;
 	}	//	getCNABGenerator
+
+	@Override
+	public ICNABProcessor getCNABProcessor (int RoutingNo, String CNABType)
+	{
+		if (MLBRBankSlipLayout.TYPE_CNAB240.equals(CNABType))
+		{
+			CNABRecords returnRecords = null;
+			if (33 == RoutingNo)
+				returnRecords = new SantanderCNABRecords();
+			else
+				returnRecords = new CNABRecords();
+			//
+			return new org.kenos.idempiere.lbr.bankslip.cnab240.bean.CNABProcessor(returnRecords);
+		}
+		else if (MLBRBankSlipLayout.TYPE_CNAB400.equals(CNABType))
+			return new org.kenos.idempiere.lbr.bankslip.cnab400.bean.CNABProcessor();
+		
+		return null;
+	}	//	getCNABProcessor
 }	//	FormFactory

@@ -26,5 +26,6 @@
 	<classpathentry kind="lib" path="lib/poi-ooxml.jar"/>
 	<classpathentry kind="lib" path="lib/poi-ooxml-lite.jar"/>
 	<classpathentry kind="lib" path="lib/xmlbeans.jar"/>
+	<classpathentry kind="lib" path="lib/fixedformat4j.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

@@ -1,4 +1,4 @@
-package org.kenos.idempiere.lbr.bankslip.cnab;
+package org.kenos.idempiere.lbr.bankslip.cnab400;
 
 import static org.adempierelbr.util.TextUtil.lPad;
 import static org.adempierelbr.util.TextUtil.rPad;

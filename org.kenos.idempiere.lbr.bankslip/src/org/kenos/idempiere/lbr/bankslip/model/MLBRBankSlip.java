@@ -61,8 +61,8 @@ import org.jrimum.domkee.financeiro.banco.febraban.Sacado;
 import org.jrimum.domkee.financeiro.banco.febraban.TipoDeTitulo;
 import org.jrimum.domkee.financeiro.banco.febraban.Titulo;
 import org.jrimum.vallia.digitoverificador.Modulo;
-import org.kenos.idempiere.lbr.bankslip.cnab.BancoDoBrasil001;
-import org.kenos.idempiere.lbr.bankslip.cnab.Bradesco237;
+import org.kenos.idempiere.lbr.bankslip.cnab400.BancoDoBrasil001;
+import org.kenos.idempiere.lbr.bankslip.cnab400.Bradesco237;
 import org.kenos.idempiere.lbr.base.model.SysConfig;
 
 /**
@@ -1324,12 +1324,29 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 	{
 		if (Contract_ID > 0)
 		{
+			/**
+			 * 	Finds bank slip by exactly match
+			 */
 			MLBRBankSlip bankSlip = new Query(ctx, Table_Name, COLUMNNAME_LBR_BankSlipContract_ID + "=? AND " + COLUMNNAME_LBR_NumberInOrg + "=?", null)
 				.setClient_ID()
 				.setParameters(Contract_ID, identifier)
 				.firstOnly();
 			if (bankSlip != null)
 				return bankSlip;
+			
+			/**
+			 *  Legacy compatibility.
+			 * 	Finds bank slip by document number and first parcel. E.g. 123456/01
+			 */
+			if (identifier != null && identifier.indexOf("/") == -1)
+			{
+				bankSlip = new Query(ctx, Table_Name, COLUMNNAME_LBR_BankSlipContract_ID + "=? AND " + COLUMNNAME_LBR_NumberInOrg + "=?", null)
+					.setClient_ID()
+					.setParameters(Contract_ID, identifier + "/01")
+					.firstOnly();
+				if (bankSlip != null)
+					return bankSlip;
+			}
 		}
 	
 		//	Legacy mode

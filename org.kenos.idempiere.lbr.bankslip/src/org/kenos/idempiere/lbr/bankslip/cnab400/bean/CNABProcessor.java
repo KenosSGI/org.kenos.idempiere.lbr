@@ -1,4 +1,4 @@
-package org.kenos.idempiere.lbr.bankslip.bean;
+package org.kenos.idempiere.lbr.bankslip.cnab400.bean;
 
 import java.io.File;
 import java.io.FileReader;
@@ -14,6 +14,8 @@ import java.util.List;
 import org.adempierelbr.util.TextUtil;
 import org.compiere.util.Env;
 import org.kenos.idempiere.lbr.bankslip.ICNABGenerator;
+import org.kenos.idempiere.lbr.bankslip.cnab.ICNABDetail;
+import org.kenos.idempiere.lbr.bankslip.cnab.ICNABProcessor;
 
 import net.sf.flatpack.DataError;
 import net.sf.flatpack.DataSet;
@@ -24,95 +26,9 @@ import net.sf.flatpack.Parser;
  * 		CNAB Detail
  * 	@author Ricardo Santana <rsantana@kenos.com.br>
  */
-public class CNABDetail {
-	String routingNo;
-	Timestamp dateFile;
-	String occurCod;
-	String documentNo;
-	String numberInBank;
-	String numberInOrg;
-	Timestamp  dateTrx;
-	Timestamp  dueDate;
-	BigDecimal amount;
-	BigDecimal discount;
-	BigDecimal interest;
-	Integer lineNo;
-	public String getRoutingNo() {
-		return routingNo;
-	}
-	public void setRoutingNo(String routingNo) {
-		this.routingNo = routingNo;
-	}
-	public Timestamp getDateFile() {
-		return dateFile;
-	}
-	public void setDateFile(Timestamp dateFile) {
-		this.dateFile = dateFile;
-	}
-	public String getOccurCod() {
-		return occurCod;
-	}
-	public void setOccurCod(String occurCod) {
-		this.occurCod = occurCod;
-	}
-	public String getDocumentNo() {
-		return documentNo;
-	}
-	public void setDocumentNo(String documentNo) {
-		this.documentNo = documentNo;
-	}
-	public String getNumberInBank() {
-		return numberInBank;
-	}
-	public void setNumberInBank(String numberInBank) {
-		this.numberInBank = numberInBank;
-	}
-	public String getNumberInOrg() {
-		if (numberInOrg == null || numberInOrg.isBlank())
-			return documentNo;
-		return numberInOrg;
-	}
-	public void setNumberInOrg(String numberInOrg) {
-		this.numberInOrg = numberInOrg;
-	}
-	public Timestamp getDateTrx() {
-		return dateTrx;
-	}
-	public void setDateTrx(Timestamp dateTrx) {
-		this.dateTrx = dateTrx;
-	}
-	public Timestamp getDueDate() {
-		return dueDate;
-	}
-	public void setDueDate(Timestamp dueDate) {
-		this.dueDate = dueDate;
-	}
-	public BigDecimal getAmount() {
-		return amount;
-	}
-	public void setAmount(BigDecimal amount) {
-		this.amount = amount;
-	}
-	public BigDecimal getDiscount() {
-		return discount;
-	}
-	public void setDiscount(BigDecimal discount) {
-		this.discount = discount;
-	}
-	public BigDecimal getInterest() {
-		return interest;
-	}
-	public void setInterest(BigDecimal interest) {
-		this.interest = interest;
-	}
-	public Integer getLineNo() {
-		return lineNo;
-	}
-	public void setLineNo(Integer lineNo) {
-		this.lineNo = lineNo;
-	}
-	public static List<CNABDetail> processFile (File returnFile) throws Exception {
-		InputStream in = CNABDetail.class.getResourceAsStream("/org/kenos/idempiere/lbr/bankslip/bean/return-cnab-header.pzmap.xml");
+public class CNABProcessor implements ICNABProcessor {
+	public List<ICNABDetail> processFile (File returnFile) throws Exception {
+		InputStream in = CNABProcessor.class.getResourceAsStream("/org/kenos/idempiere/lbr/bankslip/cnab400/bean/return-cnab-header.pzmap.xml");
 		Parser pzparser = DefaultParserFactory.getInstance().newFixedLengthParser(new InputStreamReader(in, "UTF-8"), new FileReader(returnFile));
         DataSet ds = pzparser.parse();
         String routingNo = null;
@@ -157,7 +73,7 @@ public class CNABDetail {
         if (routingNo == null)
         	throw new Exception ("Unsupported return type");
         
-        in = CNABDetail.class.getResourceAsStream("/org/kenos/idempiere/lbr/bankslip/bean/return-cnab-" + routingNo + ".pzmap.xml");
+        in = CNABProcessor.class.getResourceAsStream("/org/kenos/idempiere/lbr/bankslip/cnab400/bean/return-cnab-" + routingNo + ".pzmap.xml");
 		pzparser = DefaultParserFactory.getInstance().newFixedLengthParser(new InputStreamReader(in, "UTF-8"), new FileReader(returnFile));
         ds = pzparser.parse();
         
@@ -179,7 +95,7 @@ public class CNABDetail {
         if (xErrors.length() > 0)
         	throw new Exception ("Parse errors: " + xErrors);
         
-        List<CNABDetail> result = new ArrayList<CNABDetail>();
+        List<ICNABDetail> result = new ArrayList<ICNABDetail>();
         while (ds.next()) {
         	if (ds.isRecordID(HEADER))	//	Already processed
         		continue;
@@ -203,7 +119,7 @@ public class CNABDetail {
         	}
         	catch (Exception e) {}
                 	
-        	CNABDetail detail = new CNABDetail ();
+        	ICNABDetail detail = new CNABDetail ();
         	detail.setAmount(normalize (ds.getBigDecimal(AMOUNT)));
 			detail.setDateTrx(dateTrx);
 			detail.setDueDate(dueDate);
@@ -227,54 +143,4 @@ public class CNABDetail {
 			return Env.ZERO;
 		return bd.divide(Env.ONEHUNDRED, 2, RoundingMode.HALF_EVEN);
 	}	//	normalize
-	
-	@Override
-	public String toString() {
-		return "CNABDetail [RoutingNo=" + getRoutingNo() +
-				", DocumentNo=" + getDocumentNo() + 
-				", Ocurrence=" + getOccurCod() + 
-				", DateTrx=" + getDateTrx() + 
-				", NumberInOrg=" + getNumberInOrg() + 
-				", Amount=" + getAmount() + "]";
-	}	//	toString
-	
-	public static final String HEADER 			= "header";
-	public static final String TRAILER 			= "trailer";
-
-	public static final String AGENCY 			= "agency";
-	public static final String AMOUNT 			= "amount";
-	public static final String BANKFEE 			= "bankFee";
-	public static final String COLLECTIONBANK 	= "collectionBank";
-	public static final String CURRENCY 		= "currency";
-	public static final String DATEFILE 		= "dateFile";
-	public static final String DATETRX 			= "dateTrx";
-	public static final String DISCOUNT 		= "discount";
-	public static final String DOCUMENTNO 		= "documentNo";
-	public static final String DUEDATE 			= "dueDate";
-	public static final String DUMMY1 			= "dummy1";
-	public static final String DUMMY2 			= "dummy2";
-	public static final String DUMMY3 			= "dummy3";
-	public static final String DUMMY4 			= "dummy4";
-	public static final String DUMMY5 			= "dummy5";
-	public static final String DUMMY6 			= "dummy6";
-	public static final String DUMMY7 			= "dummy7";
-	public static final String IDENTIFIER 		= "identifier";
-	public static final String INTEREST 		= "interest";
-	public static final String IOF 				= "iof";
-	public static final String LINENO 			= "lineno";
-	public static final String NUMBERINBANK 	= "numberInBank";
-	public static final String NUMBERINBANK2 	= "numberInBank2";
-	public static final String NUMBERINORG 		= "numberInOrg";
-	public static final String OCCUR 			= "occur";
-	public static final String OTHERCHARGES 	= "otherCharges";
-	public static final String OTHERREVENUE 	= "otherRevenue";
-	public static final String PAYAMT 			= "payAmt";
-	public static final String PENAULTY 		= "penaulty";
-	public static final String REBATE 			= "rebate";
-	public static final String RETURNSERVICE 	= "returnService";
-	public static final String RETURNTYPE 		= "returnType";
-	public static final String ROUTINGNO 		= "routingNo";
-	public static final String TYPE 			= "type";
-	public static final String XRETURNSERVICE 	= "xReturnService";
-	public static final String XRETURNTYPE 		= "xReturnType";
 }	//	CNABDetail

@@ -1,5 +1,7 @@
 package org.kenos.idempiere.lbr.bankslip;
 
+import org.kenos.idempiere.lbr.bankslip.cnab.ICNABProcessor;
+
 /**
  * Factory for CNAB File Generator
  * @author Ricardo Santana
@@ -13,4 +15,5 @@ public interface ICNABFactory
 	 * @return CNAB File Generator
 	 */
 	public ICNABGenerator getCNABGenerator (int RoutingNo, String CNABType);
+	public ICNABProcessor getCNABProcessor (int RoutingNo, String CNABType);
 }	//	ICNABFactory

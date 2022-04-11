@@ -24,7 +24,8 @@ import org.compiere.model.MPayment;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
 import org.compiere.util.Env;
-import org.kenos.idempiere.lbr.bankslip.bean.CNABDetail;
+import org.kenos.idempiere.lbr.bankslip.cnab.ICNABDetail;
+import org.kenos.idempiere.lbr.bankslip.cnab.ICNABProcessor;
 import org.kenos.idempiere.lbr.bankslip.model.MLBRBankAccount;
 import org.kenos.idempiere.lbr.bankslip.model.MLBRBankSlip;
 import org.kenos.idempiere.lbr.bankslip.model.MLBRBankSlipContract;
@@ -120,6 +121,10 @@ public class ReturnCNAB extends SvrProcess
 		MLBRBankSlipContract contract = new MLBRBankSlipContract (Env.getCtx(), p_Contract_ID, null);
 		MLBRBankAccount bankAcc = new MLBRBankAccount (Env.getCtx(), contract.getC_BankAccount_ID(), null);
 
+		ICNABProcessor processor = contract.getProcessor();
+		if (processor == null)
+			return "@Error@ Não foi possível encontrar um processador adequado para o layout do arquivo"; 
+		
 		cnab = new MLBRCNABFile (Env.getCtx(), 0, get_TrxName());
 		cnab.setDateDoc(new Timestamp (System.currentTimeMillis()));
 		cnab.setRoutingNo(bankAcc.getC_Bank().getRoutingNo());
@@ -158,7 +163,7 @@ public class ReturnCNAB extends SvrProcess
 		row.createCell(COL_JUROS).setCellValue("Juros");
 		row.createCell(COL_OBS).setCellValue("Observação");
 		
-		List<CNABDetail> records = CNABDetail.processFile(returnFile);
+		List<ICNABDetail> records = processor.processFile (returnFile);
 		records.stream().forEach(this::processCNAB);
 
 		if (output.getLastRowNum() > 0)
@@ -179,7 +184,7 @@ public class ReturnCNAB extends SvrProcess
 	 * 
 	 * @param detail
 	 */
-	private void processCNAB(CNABDetail detail) 
+	private void processCNAB(ICNABDetail detail) 
 	{
 		Sheet output = workbook.getSheetAt(0);
 		int lastRowNum = output.getLastRowNum();
@@ -273,7 +278,7 @@ public class ReturnCNAB extends SvrProcess
 		return interest.doubleValue();
 	}	//	toDouble
 
-	private void addLog(CNABDetail detail, String msg) 
+	private void addLog(ICNABDetail detail, String msg) 
 	{
 		if (!resultToFileOnly)
 			super.addLog(detail.toString() + " - " + msg);
