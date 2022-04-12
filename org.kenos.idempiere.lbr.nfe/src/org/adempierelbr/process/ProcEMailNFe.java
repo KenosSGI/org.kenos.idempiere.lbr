@@ -325,9 +325,6 @@ public class ProcEMailNFe extends SvrProcess
 		if (emailMsgTag != null)
 			message = Msg.getMsg(Env.getCtx(), emailMsgTag);
 		
-		//	Parse variables
-		message = Env.parseVariable (message, nf, nf.get_TrxName(), false);
-		
 		if (nfConfig != null && nfConfig.getR_MailText_ID() > 0)
 			subject = nfConfig.getR_MailText().getMailHeader();
 		else if (isProductNFe)
@@ -340,6 +337,10 @@ public class ProcEMailNFe extends SvrProcess
 			log.severe("Mensagem do corpo do e-mail não encontrada");
 			return "Mensagem do corpo do e-mail não encontrada";
 		}
+		
+		//	Parse variables
+		message = Env.parseVariable (message, nf, nf.get_TrxName(), false);
+		subject = Env.parseVariable (subject, nf, nf.get_TrxName(), false);
 		
 		//	Empresa
 		MClient client = MClient.get (nf.getCtx());
