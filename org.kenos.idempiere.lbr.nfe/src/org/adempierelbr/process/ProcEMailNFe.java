@@ -63,6 +63,9 @@ public class ProcEMailNFe extends SvrProcess
 	private Timestamp p_DateFrom 	= null;
 	private Timestamp p_DateTo 		= null;
 	
+	/** Force				*/
+	private boolean p_Force = false;
+	
 	/**	Logger				*/
 	private static CLogger log = CLogger.getCLogger (ProcEMailNFe.class);
 
@@ -83,6 +86,8 @@ public class ProcEMailNFe extends SvrProcess
 				p_AD_Org_ID = para[i].getParameterAsInt();
 			else if (name.equals(MLBRNotaFiscal.COLUMNNAME_C_DocType_ID))
 				p_C_DocType_ID = para[i].getParameterAsInt();
+			else if (name.equals("LBR_ForceExec"))
+				p_Force = para[i].getParameterAsBoolean();
 			else if (name.equals(MLBRNotaFiscal.COLUMNNAME_DateDoc))
 			{
 				p_DateFrom = para[i].getParameterAsTimestamp();
@@ -112,8 +117,12 @@ public class ProcEMailNFe extends SvrProcess
 		if (TimeUtil.getDaysBetween(p_DateFrom, p_DateFrom) > 31)
 			return "@Error@ o intervalo de datas deve ser no máximo 31 dias";
 		
-		String whereClause = "AD_Org_ID=? AND TRUNC(DateDoc) BETWEEN " + DB.TO_DATE(p_DateFrom) + " AND " + 
-				DB.TO_DATE(p_DateTo) + " AND " + MLBRNotaFiscal.COLUMNNAME_LBR_EMailSent + "='N'";
+		String whereClause = MLBRNotaFiscal.COLUMNNAME_lbr_IsOwnDocument + "='Y' "
+				+ "AND " + MLBRNotaFiscal.COLUMNNAME_DocStatus + "='CO' "
+				+ "AND " + MLBRNotaFiscal.COLUMNNAME_AD_Org_ID + "=? "
+				+ "AND TRUNC(" + MLBRNotaFiscal.COLUMNNAME_DateDoc + ") BETWEEN " + DB.TO_DATE(p_DateFrom) + " AND " + DB.TO_DATE(p_DateTo);
+		if (!p_Force)
+			whereClause += " AND " + MLBRNotaFiscal.COLUMNNAME_LBR_EMailSent + "='N'";
 		if (p_C_DocType_ID > 0)
 			whereClause += " AND " + MLBRNotaFiscal.COLUMNNAME_C_DocTypeTarget_ID + "=" + p_C_DocType_ID;
 		//

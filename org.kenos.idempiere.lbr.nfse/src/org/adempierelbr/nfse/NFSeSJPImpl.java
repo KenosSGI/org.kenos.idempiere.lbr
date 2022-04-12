@@ -22,6 +22,7 @@ import org.adempiere.exceptions.AdempiereException;
 import org.adempiere.model.POWrapper;
 import org.adempiere.report.jasper.JRViewerProvider;
 import org.adempierelbr.model.MLBRDigitalCertificate;
+import org.adempierelbr.model.MLBRNFConfig;
 import org.adempierelbr.model.MLBRNotaFiscal;
 import org.adempierelbr.model.MLBRNotaFiscalLine;
 import org.adempierelbr.nfse.util.FixedTxt;
@@ -76,7 +77,6 @@ import br.gov.pr.sjp.nfe.tiposV03.TcLoteRps.ListaRps;
 import br.gov.pr.sjp.nfe.tiposV03.TcMensagemRetorno;
 import br.gov.pr.sjp.nfe.tiposV03.TcRps;
 import br.gov.pr.sjp.nfe.tiposV03.TcValores;
-import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
@@ -98,6 +98,7 @@ public class NFSeSJPImpl implements INFSe
 	public static final Byte TIPO_NF_CONJUGADA 	= Byte.valueOf ("2");
 	public static final Byte TIPO_CUPOM 		= Byte.valueOf ("3");
 	
+	@SuppressWarnings("unused")
 	private ProcessInfo pi;
 	
 	public NFSeSJPImpl (ProcessInfo pi)
@@ -575,6 +576,7 @@ public class NFSeSJPImpl implements INFSe
 		return true;
 	}	//	transmit
 
+	@SuppressWarnings("unused")
 	private void setProtocol (MLBRNotaFiscal nf, EnviarLoteRpsResposta resposta, TcCompNfse infNfse)
 	{
 		//	Protocol
@@ -817,8 +819,11 @@ public class NFSeSJPImpl implements INFSe
 			MAttachment attachNFe = nf.createAttachment();
 			attachNFe.addEntry("NFSE-" + nf.getlbr_NFENo() + FILE_XML_NFSE_AUTORIZADO, xmldata.replaceAll("\\&\\#[0-9A-Za-z]*;|\\n", "").getBytes(NFeUtil.NFE_ENCODING));
 			attachNFe.save();
-			ProcEMailNFe.sendEmailNFeThread (nf, false);
-		}
+			
+			//	Check if email should be sent immediately
+			MLBRNFConfig nfConfig = MLBRNFConfig.get(p_AD_Org_ID);
+			if (nfConfig != null && MLBRNFConfig.SENDEMAIL_SendImmediately.equals(nfConfig.getSendEMail()))
+				ProcEMailNFe.sendEmailNFeThread (nf, false);		}
 	}
 	
 	/**
@@ -2100,6 +2105,7 @@ public class NFSeSJPImpl implements INFSe
 		return false;
 	}	//	cancel
 
+	@SuppressWarnings("unused")
 	private void setCancel(MLBRNotaFiscal nf, TcCancelamentoNfse retCancelamento)
 	{
 		setCancel (nf, retCancelamento, null);
