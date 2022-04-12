@@ -129,11 +129,53 @@ public class ProcEMailNFe extends SvrProcess
 		List<MLBRNotaFiscal> nfs = new Query (Env.getCtx(), MLBRNotaFiscal.Table_Name, whereClause, null)
 				.setParameters(p_AD_Org_ID)
 				.setClient_ID()
+				.setOrderBy(MLBRNotaFiscal.COLUMNNAME_lbr_NFENo + "," + MLBRNotaFiscal.COLUMNNAME_DocumentNo)
 				.list();
-
-		sendEmailNFeThread (nfs, false);
 		
-		return "@Success@ as NFs estão na fila envio";
+		StringBuilder result = new StringBuilder ();
+		int totalNFs = nfs.size();
+		//
+		if (nfs != null && totalNFs > 0)
+		{
+			if (totalNFs == 1)
+			{
+				MLBRNotaFiscal nf = nfs.get(0);
+				String documentNo = nf.getDocumentNo();
+				String nfeNo = nf.getlbr_NFENo();
+				//
+				result.append("a Nota Fiscal ");
+				
+				if (nfeNo != null && !nfeNo.isBlank())
+					result.append(nfeNo).append(" / RPS-");
+				result.append(documentNo).append(" foi colocada na fila para envio.");
+			}
+			else
+			{
+				MLBRNotaFiscal firstNF = nfs.get(0);
+				MLBRNotaFiscal lastNF = nfs.get(totalNFs-1);
+				//
+				String documentNo = firstNF.getDocumentNo();
+				String nfeNo = firstNF.getlbr_NFENo();
+				String lastDocumentNo = lastNF.getDocumentNo();
+				String lastNFeNo = lastNF.getlbr_NFENo();
+				//
+				result.append(totalNFs).append(" Notas Fiscais foram colocadas na fila para envio. Da NF ");
+
+				if (nfeNo != null && !nfeNo.isBlank())
+					result.append(nfeNo).append(" / RPS-");
+				result.append(documentNo).append(" até a NF ");
+				
+				if (lastNFeNo != null && !lastNFeNo.isBlank())
+					result.append(lastNFeNo).append(" / RPS-");
+				result.append(lastDocumentNo);
+			}
+		}
+		else
+			result.append("nenhuma Nota Fiscal atende o critério de pesquisa");
+
+		sendEmailNFeThread (nfs, p_Force);
+		
+		return "@Success@ " + result.toString();
 	}	//	doIt
 	
 	/**
