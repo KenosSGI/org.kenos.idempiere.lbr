@@ -1412,7 +1412,12 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		}
 		
 		//	Valores
-		setTotalLines(totalItem);
+		if (totalService.signum() == 1 && totalItem.signum() == 0)
+			setTotalLines(invoice.getTotalLines());
+		else
+			setTotalLines(totalItem);
+		
+		//  Total Geral
 		setlbr_ServiceTotalAmt(totalService);
 		setDiscountAmt(getDiscount());
 		
