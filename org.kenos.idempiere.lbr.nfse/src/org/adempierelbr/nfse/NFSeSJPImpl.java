@@ -44,6 +44,7 @@ import org.compiere.process.ProcessInfo;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
 import org.compiere.util.Util;
+import org.kenos.idempiere.lbr.base.model.MCity;
 import org.kenos.idempiere.lbr.nfse.sjp.NfseStub;
 
 import br.gov.pr.sjp.nfe.cabecalhoV03.CabecalhoDocument.Cabecalho;
@@ -306,10 +307,10 @@ public class NFSeSJPImpl implements INFSe
 		}
 				
 		dadosServico.setDiscriminacao(descricaoServico.replace("\n", ". ").replaceAll("\\s+", " ").replaceAll("\\.+", ".").trim());
-		dadosServico.setCodigoMunicipio(nf.getlbr_BPCityCode());
 		
 		//	Valores dos Serviços
 		TcValores valores = dadosServico.addNewValores();
+		MCity city = null;
 		
 		//	Serviços Prestados
 		//	É possível descrever vários serviços numa mesma NFS-e, desde que relacionados a um
@@ -413,6 +414,9 @@ public class NFSeSJPImpl implements INFSe
 					return null;
 				}
 			}
+			
+			if (city == null && nfl.getC_City_ID() > 0)
+				city = new MCity (Env.getCtx(), nfl.getC_City_ID(), null);
 		}
 		
 		try
@@ -422,9 +426,9 @@ public class NFSeSJPImpl implements INFSe
 			{
 				nf.setErrorMsg("Código de Serviço, o formato do código de serviço deverá ser Código Serviço | Código de Tributação no Município");
 			}
-			
+
 			String[] splitted = serviceCode.split("\\|");
-			
+
 			dadosServico.setItemListaServico(splitted[0].trim());
 			dadosServico.setCodigoTributacaoMunicipio(Integer.parseInt(TextUtil.toNumeric(splitted[1])));
 		}
@@ -432,7 +436,8 @@ public class NFSeSJPImpl implements INFSe
 		{
 			throw new AdempiereException("Número do Documento:" + nf.getDocumentNo() + "Erro no Código de Serviço: o formato do código de serviço deverá ser Código Serviço | Código de Tributação no Município. Exemplo: 7.09 | 3812-2/00-01");
 		}
-		
+
+		dadosServico.setCodigoMunicipio(city.getlbr_CityCode());
 			
 		valores.setValorServicos(nf.getlbr_ServiceTotalAmt());
 		valores.setValorDeducoes(BigDecimal.ZERO);
