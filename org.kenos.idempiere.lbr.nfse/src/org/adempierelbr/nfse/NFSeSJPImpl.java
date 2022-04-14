@@ -436,6 +436,10 @@ public class NFSeSJPImpl implements INFSe
 		{
 			throw new AdempiereException("Número do Documento:" + nf.getDocumentNo() + "Erro no Código de Serviço: o formato do código de serviço deverá ser Código Serviço | Código de Tributação no Município. Exemplo: 7.09 | 3812-2/00-01");
 		}
+		
+		//	Blank city, default org city
+		if (city == null)
+			city = new MCity (Env.getCtx(), nf.getOrg_Location().getC_City_ID(), null);
 
 		dadosServico.setCodigoMunicipio(city.getlbr_CityCode());
 			

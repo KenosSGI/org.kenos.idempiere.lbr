@@ -301,6 +301,10 @@ public class NFSeAbrasf203Impl implements INFSe
 		dadosServico.setItemListaServico(TsItemListaServico.Enum.forString(serviceCode));
 		dadosServico.setIssRetido((byte) 2);
 		
+		//	Blank city, default org city
+		if (city == null)
+			city = new MCity (Env.getCtx(), nf.getOrg_Location().getC_City_ID(), null);
+		
 		if (city != null) {
 			dadosServico.setCodigoMunicipio(city.getlbr_CityCode());
 			dadosServico.setMunicipioIncidencia(city.getlbr_CityCode());
@@ -329,7 +333,6 @@ public class NFSeAbrasf203Impl implements INFSe
 		BigDecimal v_INSS 	= toBD (nf.getTaxAmt("INSS")).abs();
 		BigDecimal v_IR 	= toBD (nf.getTaxAmt("IR")).abs();
 		BigDecimal v_CSLL 	= toBD (nf.getTaxAmt("CSLL")).abs();
-		BigDecimal v_ISS 	= toBD (nf.getTaxAmt("ISS")).abs();
 		BigDecimal v_TotTrib= toBD (nf.getlbr_vTotTrib()).abs();
 
 		// Valores da NFS-e

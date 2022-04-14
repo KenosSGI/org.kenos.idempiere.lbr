@@ -1760,18 +1760,13 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 		//	Service ISSQN
 		if (islbr_IsService())
 		{
-			I_C_Location location = getParent().getOrg_Location();
 			if (Env.ZERO.compareTo(getTaxRate("ISSRT")) == -1 && getParent().getC_BPartner_Location_ID() > 0) // has ISSRT
-				location = getParent().getC_BPartner_Location().getC_Location();
-			
-			if (getC_Region_ID() < 1)
-				setC_Region_ID(location.getC_Region_ID());
-			
-			if (getC_City_ID() < 1)
-				setC_City_ID(location.getC_City_ID());
-			
-			if (getlbr_CityCode() <= 0)
 			{
+				I_C_Location location = getParent().getC_BPartner_Location().getC_Location();
+				//
+				setC_Region_ID(location.getC_Region_ID());
+				setC_City_ID(location.getC_City_ID());
+				//
 				String cityCode = BPartnerUtil.getCityCode((MLocation) location);
 				if (cityCode != null && !cityCode.isBlank())
 				try 
