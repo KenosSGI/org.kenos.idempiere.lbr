@@ -352,6 +352,10 @@ public class DSF100 implements INFSe
 			if (city == null && nfl.getC_City_ID() > 0)
 				city = new MCity (Env.getCtx(), nfl.getC_City_ID(), null);
 		}
+
+		//	Blank city, default org city
+		if (city == null)
+			city = new MCity (Env.getCtx(), nf.getOrg_Location().getC_City_ID(), null);
 		
 		if (city != null) {
 			tpRPS.setMunicipioPrestacao(city.getlbr_CityCode2());
