@@ -325,8 +325,10 @@ public class WGenBankSlip extends GenBankSlip
 	{
 		//  Update Bank Info
 		if (e.getTarget() == fieldBankContract)
+		{
 			loadBankInfo();
-
+			loadTableInfo();
+		}
 		//  Generate PaySelection
 		else if (e.getTarget() == bGenerate)
 		{
