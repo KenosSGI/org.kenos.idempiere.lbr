@@ -3,12 +3,15 @@ package org.kenos.idempiere.lbr.bankslip.model;
 import java.awt.Image;
 import java.io.File;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.Properties;
 
 import org.adempiere.model.POWrapper;
@@ -772,11 +775,15 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 				bsi.setlbr_Instruction2("Nota Fiscal: " + documentNo);
 			}
 			
-//			String instruction3 = "";
-//			if (LBR_PENALTYTYPE_Amount.equals(getLBR_PenaltyType()))
-//				instruction3 = "APÓS O VENCIMENTO COBRAR MULTA DE "
-//			if (LBR_INTERESTTYPE_MonthlyRate.equals(getLBR_InterestType());
+			Locale locale = new Locale("pt","BR");
+			NumberFormat currency = NumberFormat.getCurrencyInstance(locale);
 			
+			//	Instruction 3
+			String instruction3 = "";
+			BigDecimal dailyLateInterestAmt = getDailyLateInterest();
+			if (dailyLateInterestAmt.signum() == 1)
+				instruction3 = "Cobrar mora diária de " + currency.format(dailyLateInterestAmt);
+			bsi.setlbr_Instruction3(instruction3);
 			
 			//	Custom Messages
 			if (getMsg1() != null)
@@ -1428,4 +1435,17 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 			.setOrderBy(COLUMNNAME_DueDate)
 			.list();
 	}	//	getFromNF
+
+	public BigDecimal getDailyLateInterest()
+	{
+		BigDecimal interestAmt = Env.ZERO;
+		
+		//	Mora por atraso
+		if (MLBRBankSlip.LBR_PENALTYTYPE_Amount.equals(getLBR_InterestType()))
+			interestAmt = getLBR_InterestValue();
+		else if (MLBRBankSlip.LBR_PENALTYTYPE_Rate.equals(getLBR_InterestType()))
+			interestAmt = ((getLBR_InterestValue().divide(new BigDecimal("30"), 12, RoundingMode.HALF_UP)).
+			        divide(Env.ONEHUNDRED, 12, RoundingMode.HALF_UP)).multiply(getGrandTotal());
+		return interestAmt;
+	}	//	getInterest
 }	//	MLBRBankSlip
