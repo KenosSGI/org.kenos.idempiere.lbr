@@ -4,7 +4,6 @@ import static org.adempierelbr.util.TextUtil.lPad;
 import static org.adempierelbr.util.TextUtil.rPad;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.sql.Timestamp;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -35,6 +34,9 @@ public class BancoDoBrasil001 implements ICNABGenerator
 	/** Payer BP Type				*/
 	private static final String BPTYPE_CPF_PAGADOR 		= "01";
 	private static final String BPTYPE_CNPJ_PAGADOR 	= "02";
+	
+	private static final String SEM_INTRUCAO	= "00";
+	private static final String COBRAR_JUROS	= "01";
 	
 	/** Aceite				*/
 	private static final String IS_ACCEPTED 	= "A";
@@ -135,18 +137,13 @@ public class BancoDoBrasil001 implements ICNABGenerator
 			}
 			
 			//	Interest	
-			BigDecimal interestAmt = Env.ZERO;
+			BigDecimal interestAmt = bs.getDailyLateInterest();
 			
-			//	Mora por atraso
-			if (MLBRBankSlip.LBR_PENALTYTYPE_Amount.equals(bs.getLBR_InterestType()))
-				interestAmt = bs.getLBR_InterestValue();
-			else if (MLBRBankSlip.LBR_PENALTYTYPE_Rate.equals(bs.getLBR_InterestType()))
-				interestAmt = ((bs.getLBR_InterestValue().divide(new BigDecimal("30"), 12, RoundingMode.HALF_UP)).
-				        divide(Env.ONEHUNDRED, 12, RoundingMode.HALF_UP)).multiply(bs.getGrandTotal());
+			String intruction1 = SEM_INTRUCAO;
+			String intruction2 = SEM_INTRUCAO;
 			
-			String interestType = "00";
 			if (interestAmt.signum() == 1)
-				interestType = "01";
+				intruction2 = COBRAR_JUROS;
 			
 			//	CNPJ/CPF payer
 			String payerBPTypeBR = BPTYPE_CNPJ_PAGADOR;
@@ -189,8 +186,8 @@ public class BancoDoBrasil001 implements ICNABGenerator
 			cnab.append(rPad(convertKind (bsi.getLBR_BankSlipKindCode()), 2));	//	ESPÉCIE
 			cnab.append(rPad(accepted, 1));							//	ACEITE
 			cnab.append(lPad(timeToString(bs.getDateDoc()), 6));	//	DATA DE EMISSÃO
-			cnab.append(lPad(0, 2));								//	INSTRUÇÃO 1
-			cnab.append(lPad(interestType, 2));						//	INSTRUÇÃO 2
+			cnab.append(lPad(intruction1, 2));						//	INSTRUÇÃO 1
+			cnab.append(lPad(intruction2, 2));						//	INSTRUÇÃO 2
 			cnab.append(lPad(interestAmt, 13));						//	JUROS DE 1 DIA
 			cnab.append(lPad(timeToString(discountDate), 6));		//	DESCONTO ATÉ
 			cnab.append(lPad(discountAmt, 13));						//	VALOR DO DESCONTO
