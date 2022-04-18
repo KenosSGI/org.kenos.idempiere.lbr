@@ -72,7 +72,9 @@ public class CreditCheck extends SvrProcess
 		String where = "SOCreditStatus!='S' AND EXISTS (SELECT 1 FROM RV_OpenItem oi "
 				+ "WHERE oi.C_BPartner_ID=C_BPartner.C_BPartner_ID "
 				+ "AND oi.IsSOTrx='Y' "
-				+ "AND oi.DueDate<TRUNC(SYSDATE - " + p_GraceDays + ")) ";
+				+ "AND oi.DueDate<TRUNC(SYSDATE - " + p_GraceDays + ") "
+				+ "AND EXISTS (SELECT 1 FROM C_DocType dt "
+				+ "WHERE dt.C_DocType_ID=oi.C_DocTypeTarget_ID AND dt.DocBaseType='ARI')) ";
 		
 		if (p_CutOffDate != null)
 			where += "AND oi.DateInvoiced>=" + DB.TO_DATE(p_CutOffDate);
