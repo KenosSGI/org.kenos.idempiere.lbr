@@ -1758,7 +1758,7 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 		}
 		
 		//	Service ISSQN
-		if (islbr_IsService())
+		if (islbr_IsService() && (getC_Region_ID() < 1 || getC_City_ID() < 1))
 		{
 			if (Env.ZERO.compareTo(getTaxRate("ISSRT")) == -1 && getParent().getC_BPartner_Location_ID() > 0) // has ISSRT
 			{
