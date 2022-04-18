@@ -79,7 +79,7 @@ public class CreditCheck extends SvrProcess
 		if (p_CutOffDate != null)
 			where += "AND oi.DateInvoiced>=" + DB.TO_DATE(p_CutOffDate);
 
-		int[] ids = new Query (getCtx(), MBPartner.Table_Name, where, get_TrxName()).getIDs();
+		int[] ids = new Query (getCtx(), MBPartner.Table_Name, where, get_TrxName()).setClient_ID().getIDs();
 		for (int id : ids)
 		{
 			MBPartner bp = new MBPartner (getCtx(), id, get_TrxName());
