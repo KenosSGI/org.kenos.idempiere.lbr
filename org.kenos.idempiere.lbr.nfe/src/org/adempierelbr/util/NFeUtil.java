@@ -740,15 +740,13 @@ public abstract class NFeUtil
 		if (!isValid)
 		{
 			String result = NFeUtil.formatErrorMsg (validationErrors);
-			log.warning (xmlNFe.toString());
+			
+			NFeUtil.saveXML(KIND_VALIDATION_FAILED, ".", ".", "NotValid", xmlNFe.xmlText());
 			
 			//	Errors
 			throw new AdempiereException (result.toString());
 		}
 	}	//	validate
-	
-
-	
 	
 	/**
 	 * Monta parâmetros a serem colocados em uma URL
@@ -1013,10 +1011,11 @@ public abstract class NFeUtil
 		return false;
 	}
 
-	public static final String KIND_CTE 	= "cte";
-	public static final String KIND_MDFE 	= "mdfe";
-	public static final String KIND_NFE 	= "nfe";
-	public static final String KIND_NFSE 	= "nfse";
+	public static final String KIND_CTE 				= "cte";
+	public static final String KIND_MDFE 				= "mdfe";
+	public static final String KIND_NFE 				= "nfe";
+	public static final String KIND_NFSE 				= "nfse";
+	public static final String KIND_VALIDATION_FAILED 	= "validation";
 
 	public static final String MESSAGE_REQ_AUTORIZE 	= "req-authorize";
 	public static final String MESSAGE_RET_AUTORIZE 	= "ret-authorize";
