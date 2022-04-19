@@ -304,22 +304,15 @@ public class WGenCNAB extends GenCNAB
 
 		else if (e.getTarget() == fieldOrg)
 		{
-			KeyNamePair np = fieldOrg.getSelectedItem().getValue();
-			fieldBankAccount.removeAllItems();
-			//
-			ArrayList<KeyNamePair> bankAccountData = getBankAccountData(np.getKey());
-			for (KeyNamePair bi : bankAccountData)
-				fieldBankAccount.appendItem(bi.toString(), bi);
+			updateBankAccount();
+			updateContract();
+			loadTableInfo();
 		}
 
 		else if (e.getTarget() == fieldBankAccount)
 		{
-			KeyNamePair np = fieldBankAccount.getSelectedItem().getValue();
-			fieldBankContract.removeAllItems();
-			//
-			ArrayList<KeyNamePair> bankContractData = getBankContractData(np.getKey());
-			for (KeyNamePair bc : bankContractData)
-				fieldBankContract.appendItem(bc.toString(), bc);
+			updateContract();
+			loadTableInfo();
 		}
 		
 		//  Update Open Invoices
@@ -327,6 +320,24 @@ public class WGenCNAB extends GenCNAB
 			loadTableInfo();
 
 	}   //  actionPerformed
+
+	private void updateBankAccount() {
+		KeyNamePair np = fieldOrg.getSelectedItem().getValue();
+		fieldBankAccount.removeAllItems();
+		//
+		ArrayList<KeyNamePair> bankAccountData = getBankAccountData(np.getKey());
+		for (KeyNamePair bi : bankAccountData)
+			fieldBankAccount.appendItem(bi.toString(), bi);
+	}
+
+	private void updateContract() {
+		KeyNamePair np = fieldBankAccount.getSelectedItem().getValue();
+		fieldBankContract.removeAllItems();
+		//
+		ArrayList<KeyNamePair> bankContractData = getBankContractData(np.getKey());
+		for (KeyNamePair bc : bankContractData)
+			fieldBankContract.appendItem(bc.toString(), bc);
+	}
 
 	/**
 	 *  Table Model Listener
