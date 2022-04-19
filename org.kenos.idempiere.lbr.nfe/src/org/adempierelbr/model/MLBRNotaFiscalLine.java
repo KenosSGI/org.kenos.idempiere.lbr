@@ -798,6 +798,15 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 		}
 		
 		fixTaxHold(iLineW.getC_Tax_ID());
+		
+		/**
+		 * 	Local de prestação de serviços
+		 */
+		if (iLineW.getC_BPartner_Location_ID() > 0)
+		{
+			setC_Region_ID(iLineW.getC_BPartner_Location().getC_Location().getC_Region_ID());
+			setC_City_ID(iLineW.getC_BPartner_Location().getC_Location().getC_City_ID());
+		}
 	}	//	setInvoiceLine
 	
 	/**

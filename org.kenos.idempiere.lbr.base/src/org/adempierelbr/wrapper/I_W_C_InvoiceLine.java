@@ -1,6 +1,7 @@
 /******************************************************************************
- * Product: iDempiere ERP & CRM Smart Business Solution                       *
- * Copyright (C) 1999-2012 ComPiere, Inc. All Rights Reserved.                *
+ * Product: Kenos iDempiere ERP & CRM Smart Business Solution                 *
+ * Copyright (C) 1999-2022 Kenos, Ltda. All Rights Reserved.                  *
+ * Copyright (C) 1999-2022 Ricardo Santana. All Rights Reserved.              *
  * This program is free software, you can redistribute it and/or modify it    *
  * under the terms version 2 of the GNU General Public License as published   *
  * by the Free Software Foundation. This program is distributed in the hope   *
@@ -18,22 +19,29 @@ package org.adempierelbr.wrapper;
 
 import java.math.BigDecimal;
 import org.compiere.model.*;
-import org.compiere.util.KeyNamePair;
 
 /** Generated Interface for C_InvoiceLine
- *  @author iDempiere (generated) 
- *  @version Release 4.1
+ *  @author Ricardo Santana
+ *  @version Release 6.2
  */
-@SuppressWarnings("all")
 public interface I_W_C_InvoiceLine extends I_C_InvoiceLine 
 {
 
-    /** TableName=C_InvoiceLine */
-    public static final String Table_Name = "C_InvoiceLine";
 
-    /** AD_Table_ID=333 */
-    public static final int Table_ID = 333;
+    /** Column name C_BPartner_Location_ID */
+    public static final String COLUMNNAME_C_BPartner_Location_ID = "C_BPartner_Location_ID";
 
+	/** Set Partner Location.
+	  * Identifies the (ship to) address for this Business Partner
+	  */
+	public void setC_BPartner_Location_ID (int C_BPartner_Location_ID);
+
+	/** Get Partner Location.
+	  * Identifies the (ship to) address for this Business Partner
+	  */
+	public int getC_BPartner_Location_ID();
+
+	public I_C_BPartner_Location getC_BPartner_Location() throws RuntimeException;
 
     /** Column name FreightAmt */
     public static final String COLUMNNAME_FreightAmt = "FreightAmt";
@@ -107,7 +115,7 @@ public interface I_W_C_InvoiceLine extends I_C_InvoiceLine
 	/** Set Brazilian Tax.
 	  * Primary key table LBR_Tax
 	  */
-	public void setLBR_Tax_ID (Object LBR_Tax_ID);
+	public void setLBR_Tax_ID (int LBR_Tax_ID);
 
 	/** Get Brazilian Tax.
 	  * Primary key table LBR_Tax
