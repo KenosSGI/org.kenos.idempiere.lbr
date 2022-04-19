@@ -36,6 +36,9 @@ public class CreditCheck extends SvrProcess
 	/** Grace Days */
 	private int p_GraceDays 		= 5;
 	
+	/** Unlock */
+	private boolean p_Unlock 		= false;
+	
 	/** Cut-off date Days */
 	private Timestamp p_CutOffDate 	= null;
 	
@@ -54,6 +57,8 @@ public class CreditCheck extends SvrProcess
 				p_GraceDays = para[i].getParameterAsInt();
 			else if (name.equals("Cut_Date"))
 				p_CutOffDate = para[i].getParameterAsTimestamp();
+			else if (name.equals("LBR_IsUnlockCredit"))
+				p_Unlock = para[i].getParameterAsBoolean();
 			else
 				log.log(Level.SEVERE, "Unknown Parameter: " + name);
 		}
@@ -74,17 +79,35 @@ public class CreditCheck extends SvrProcess
 				+ "AND oi.IsSOTrx='Y' "
 				+ "AND oi.DueDate<TRUNC(SYSDATE - " + p_GraceDays + ") "
 				+ "AND EXISTS (SELECT 1 FROM C_DocType dt "
-				+ "WHERE dt.C_DocType_ID=oi.C_DocTypeTarget_ID AND dt.DocBaseType='ARI')) ";
+				+ "WHERE dt.C_DocType_ID=oi.C_DocTypeTarget_ID AND dt.DocBaseType='ARI') ";
 		
 		if (p_CutOffDate != null)
 			where += "AND oi.DateInvoiced>=" + DB.TO_DATE(p_CutOffDate);
-
+		
+		//	Close group
+		where += ")";
+		
 		int[] ids = new Query (getCtx(), MBPartner.Table_Name, where, get_TrxName()).setClient_ID().getIDs();
 		for (int id : ids)
 		{
 			MBPartner bp = new MBPartner (getCtx(), id, get_TrxName());
 			bp.setSOCreditStatus(MBPartner.SOCREDITSTATUS_CreditStop);
 			bp.save();
+		}
+
+		//	Unlock BPs with stopped credit
+		if (p_Unlock)
+		{
+			//	Credit OK		
+			int[] idsUnlock = new Query (getCtx(), MBPartner.Table_Name, "SOCreditStatus='S' AND NOT " + where, get_TrxName()).setClient_ID().getIDs();
+			for (int id : idsUnlock)
+			{
+				MBPartner bp = new MBPartner (getCtx(), id, get_TrxName());
+				bp.setSOCreditStatus(MBPartner.SOCREDITSTATUS_CreditOK);
+				bp.save();
+			}
+
+			return "@Success@\n" + ids.length + " parceiros tiveram o crédito cancelado. " + idsUnlock.length + " foram desbloqueados.";
 		}
 
 		return "@Success@\n" + ids.length + " parceiros tiveram o crédito cancelado.";
