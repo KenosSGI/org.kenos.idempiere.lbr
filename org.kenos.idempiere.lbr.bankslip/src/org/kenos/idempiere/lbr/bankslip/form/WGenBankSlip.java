@@ -48,10 +48,12 @@ import org.adempiere.webui.session.SessionManager;
 import org.adempiere.webui.window.FDialog;
 import org.apache.commons.io.FileUtils;
 import org.compiere.model.MBankAccount;
+import org.compiere.model.MDocType;
 import org.compiere.process.ProcessInfo;
 import org.compiere.util.Env;
 import org.compiere.util.KeyNamePair;
 import org.compiere.util.Msg;
+import org.kenos.idempiere.lbr.bankslip.model.MLBRBankSlip;
 import org.kenos.idempiere.lbr.bankslip.model.MLBRBankSlipContract;
 import org.zkoss.util.media.AMedia;
 import org.zkoss.zk.ui.Component;
@@ -102,6 +104,7 @@ public class WGenBankSlip extends GenBankSlip
 	private ProcessInfo m_pi;
 	private boolean m_isLock;
 	private int noOfColumn;
+	private boolean valid = true;
 	
 	/**
 	 *	Initialize Panel
@@ -239,7 +242,10 @@ public class WGenBankSlip extends GenBankSlip
 			fieldBankContract.appendItem(bi.toString(), bi);
 
 		if (fieldBankContract.getItemCount() == 0)
-			FDialog.error(m_WindowNo, form, "VPaySelectNoBank");
+		{
+			FDialog.error(m_WindowNo, form, "LBR_NoBankSlipContract");
+			valid = false;
+		}
 		else
 			fieldBankContract.setSelectedIndex(0);
 		
@@ -252,6 +258,12 @@ public class WGenBankSlip extends GenBankSlip
 		for(KeyNamePair pp : docTypeData)
 			fieldDtype.appendItem(pp.getName(), pp);
 		
+		int C_DocType_ID = MDocType.getDocType(MLBRBankSlip.DOCBASETYPE_BANKSLIP);
+		if (C_DocType_ID < 1)
+		{
+			FDialog.error(m_WindowNo, form, "LBR_NoBankSlipDocType");
+			valid = false;
+		}
 		prepareTable(miniTable);
 		
 		miniTable.getModel().addTableModelListener(this);
@@ -363,7 +375,7 @@ public class WGenBankSlip extends GenBankSlip
 	{
 		dataStatus.setText(calculateSelection(miniTable));
 		//
-		bGenerate.setEnabled(m_noSelected != 0);
+		bGenerate.setEnabled(valid && m_noSelected != 0);
 	}   //  calculateSelection
 	
 	/**

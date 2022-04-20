@@ -90,7 +90,6 @@ public class GenBankSlip
 			+ "WHERE b.C_Bank_ID=ba.C_Bank_ID"
 			+ " AND ba.C_Currency_ID=c.C_Currency_ID AND ba.IsActive='Y' "
 			+ " AND ba.C_BankAccount_ID=bc.C_BankAccount_ID AND bc.IsActive='Y' "
-			+ " AND ba.lbr_IsBillPrinted='Y' "
 			+ "ORDER BY 2",
 			"b", MRole.SQL_FULLYQUALIFIED, MRole.SQL_RW);
 		try
