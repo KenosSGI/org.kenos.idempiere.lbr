@@ -743,8 +743,7 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 			.setParameters(getC_Invoice_ID())
 			.first();
 		
-		if (MLBRBankSlip.LBR_RECIPIENTTYPE_FIDCOr3rdParty.equals(getLBR_RecipientType()) 
-				&& nf != null && nf.getlbr_NFeID() != null)
+		if (nf != null && nf.getlbr_NFeID() != null)
 			bsi.setlbr_NFeID(nf.getlbr_NFeID ());
 		
 		//	Instructions

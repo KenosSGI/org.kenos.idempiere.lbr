@@ -9,6 +9,7 @@ public interface ICNABGenerator
 {
 	public static final String CNAB_REG_TYPE_HEADER = "0";
 	public static final String CNAB_REG_TYPE_DETAIL = "1";
+	public static final String CNAB_REG_TYPE_DETAIL_4 = "4";
 	public static final String CNAB_REG_TYPE_DETAIL_5 = "5";
 	public static final String CNAB_REG_TYPE_DETAIL_7 = "7";
 	public static final String CNAB_REG_TYPE_FOOTER = "9";
