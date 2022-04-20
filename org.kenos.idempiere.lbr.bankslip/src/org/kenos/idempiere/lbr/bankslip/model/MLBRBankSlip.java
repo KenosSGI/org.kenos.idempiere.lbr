@@ -64,6 +64,7 @@ import org.jrimum.domkee.financeiro.banco.febraban.Sacado;
 import org.jrimum.domkee.financeiro.banco.febraban.TipoDeTitulo;
 import org.jrimum.domkee.financeiro.banco.febraban.Titulo;
 import org.jrimum.vallia.digitoverificador.Modulo;
+import org.jrimum.vallia.digitoverificador.TipoDeModulo;
 import org.kenos.idempiere.lbr.bankslip.cnab400.BancoDoBrasil001;
 import org.kenos.idempiere.lbr.bankslip.cnab400.Bradesco237;
 import org.kenos.idempiere.lbr.base.model.SysConfig;
@@ -78,7 +79,7 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 	static private CCache<Integer,Image> s_BankCache = new CCache<Integer,Image>(MLBRBank.Table_Name, 10, 120);
 	
 	/**	Document Type of Bank Slip	*/
-	static private final String DOCBASETYPE_BANKSLIP = "BSB";
+	public static final String DOCBASETYPE_BANKSLIP = "BSB";
 	
 	/**
 	 * 	Serial
@@ -954,6 +955,8 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 
 	private void setNumberInBankVD() 
 	{
+		//	Default
+		Modulo modulo = new Modulo (TipoDeModulo.MODULO11, 7, 2);
 		String numberInBank = getLBR_NumberInBank();
 		
 		//	Bradesco
@@ -962,6 +965,19 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 			numberInBank = TextUtil.lPad(bsi.getLBR_BankSlipFoldCode(), 2) + 
 					TextUtil.lPad(getLBR_NumberInBank(), 11);
 		}
+
+		//	FIBRA
+		else if (Integer.parseInt(getRoutingNo()) == 224)
+		{
+			numberInBank = TextUtil.lPad(bsi.getAgency(), 4) + 
+					TextUtil.lPad(bsi.getLBR_BankSlipFoldValue(), 3) + 
+					TextUtil.lPad(getLBR_NumberInBank(), 10);
+			
+			//	Modulo 10
+			modulo = new Modulo (TipoDeModulo.MODULO10);
+		}
+		
+		//	BB
 		else if (Integer.parseInt(getRoutingNo()) == BancoDoBrasil001.ROUNTING_NO)
 		{
 			return;
@@ -971,12 +987,12 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 			bsi.setLBR_NumberInBankVD("0");
 		else
 		{
-			int mod11 = Modulo.calculeMod11(numberInBank, 2, 7);
+			int mod = modulo.calcule(numberInBank);
 			
 			String dv = null;
-			if (mod11 == 0)
+			if (mod == 0)
 				dv = "0";
-			else if (mod11 == 1)
+			else if (mod == 1)
 			{
 				if (Integer.parseInt(getRoutingNo()) == 33)
 					dv = "0";
@@ -984,7 +1000,7 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 					dv = "P";
 			}
 			else 
-				dv = String.valueOf (11-mod11);
+				dv = String.valueOf (modulo.getMod().valor()-mod);
 			
 			bsi.setLBR_NumberInBankVD(TextUtil.rPad (dv, 1));
 		}

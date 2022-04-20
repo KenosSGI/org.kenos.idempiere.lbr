@@ -51,27 +51,27 @@
 								<artifactItem>
 									<groupId>org.jrimum</groupId>
 									<artifactId>jrimum-bopepo</artifactId>
-									<version>0.4.2</version>
+									<version>0.4.3</version>
 								</artifactItem>
 								<artifactItem>
 									<groupId>org.jrimum</groupId>
 									<artifactId>jrimum-domkee</artifactId>
-									<version>0.4.2</version>
+									<version>0.4.3</version>
 								</artifactItem>
 								<artifactItem>
 									<groupId>org.jrimum</groupId>
 									<artifactId>jrimum-texgit</artifactId>
-									<version>0.4.2</version>
+									<version>0.4.3</version>
 								</artifactItem>
 								<artifactItem>
 									<groupId>org.jrimum</groupId>
 									<artifactId>jrimum-utilix</artifactId>
-									<version>0.4.2</version>
+									<version>0.4.3</version>
 								</artifactItem>
 								<artifactItem>
 									<groupId>org.jrimum</groupId>
 									<artifactId>jrimum-vallia</artifactId>
-									<version>0.4.2</version>
+									<version>0.4.3</version>
 								</artifactItem>
 								<artifactItem>
 									<groupId>net.sf.flatpack</groupId>
