@@ -345,4 +345,7 @@
  <row trl="Y" uuid="2af9f80e-885a-4e62-a39e-b2de59d32cfd">
   <value column="Name" original="Notification">Notificação</value>
  </row>
+ <row trl="Y" uuid="3414c102-7ec1-46aa-8455-665d806d0160">
+  <value column="Name" original="Email">Email</value>
+ </row>
 </idempiereTrl>

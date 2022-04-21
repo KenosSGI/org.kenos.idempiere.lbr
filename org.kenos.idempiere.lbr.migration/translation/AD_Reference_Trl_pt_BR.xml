@@ -3424,6 +3424,21 @@ A, C, D, F e 1 (Créditos extemporâneos)</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
  </row>
+ <row trl="N" uuid="ddbf7879-4487-4079-a9fe-550e2fc3c6f5">
+  <value column="Name" original="LBR_NFConfig - SendEMail">LBR_NFConfig - SendEMail</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="0fb49a40-ccc9-43ea-9516-25abb0f34c24">
+  <value column="Name" original="LBR_NotaFiscal - LBR_EMailSent">LBR_NotaFiscal - LBR_EMailSent</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="4c9b3e1a-0441-4ab4-9a02-d4edfa36eb26">
+  <value column="Name" original="LBR_CFOPType">LBR_CFOPType</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
  <row trl="N" uuid="0833bbd9-cd23-4860-a2dd-586717fa4d2e">
   <value column="Name" original="LBR_TaxStatus">LBR_TaxStatus</value>
   <value column="Description" original=""/>

@@ -2837,6 +2837,36 @@ For example:<br />
   <value column="Description" original="Creates a transfer document to complete the transfer from transit warehouse">Cria um contra-documento para empresas do grupo, transferindo os materias de estoque em trânsito</value>
   <value column="Help" original=""/>
  </row>
+ <row trl="Y" uuid="f5405959-813a-4633-be3e-30511fbd159b">
+  <value column="Name" original="Send email NF">Enviar e-mail de NF-e em lote</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="5efaeb22-fe9f-47ae-a1ae-228b3395e68e">
+  <value column="Name" original="Freight Calc">Cálculo de Frete (Correios)</value>
+  <value column="Description" original="Freight calculation for Brazilian Post Service (Correios)">Sistema de cálculo de frete para o serviço de postagem brasileiro (Correios)</value>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="a594ec38-3183-44df-a61a-5d0bd4f18070">
+  <value column="Name" original="Credit Check">Atualizar Estado do Crédito</value>
+  <value column="Description" original="Mark unpaid customers with Credit Stopped">Interrompe o crédito dos parceiros que estão inadimplentes</value>
+  <value column="Help" original="">Você pode definir quantos dias em atraso serão usados para considerar como inadimplente, também é possível definir uma data de corte.</value>
+ </row>
+ <row trl="Y" uuid="e1826d9e-f334-4af6-a249-0edf60acba7c">
+  <value column="Name" original="CashFlow Details">Fluxo de Caixa Detalhado</value>
+  <value column="Description" original="Cash flow report with detailed information of each transaction">Fluxo de Caixa detalhado por transação</value>
+  <value column="Help" original="">Este relatório mostrará o detalhamento do fluxo de caixa, com a origem de cada valor. Os dados incluem os valores efetivados (vindos de uma fatura) e também os valores projetados (vindos da projeção de fluxo de caixa).</value>
+ </row>
+ <row trl="Y" uuid="7314fc21-afb4-44cc-99df-19c52e254101">
+  <value column="Name" original="CashFlow Summary">Fluxo de Caixa Resumo</value>
+  <value column="Description" original="Cash flow report with summary information of each day">Fluxo de Caixa com os dados resumidos por dia</value>
+  <value column="Help" original="">Este relatório mostra o fluxo de caixa diário. Selecione o período desejado e qual é o saldo inicial.</value>
+ </row>
+ <row trl="Y" uuid="1cc62e59-a6f5-4a23-8806-c18a1dcfb9a9">
+  <value column="Name" original="Replace Sales Rep">Substituir Rep. de Vendas</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
  <row trl="Y" uuid="a8016f4e-ac97-469d-b96d-eb2c17c2e8b0">
   <value column="Name" original="Product Kardex">Ficha de Estoque - Kardex</value>
   <value column="Description" original="Product Kardex with average cost">Ficha de Estoque - Kardex</value>

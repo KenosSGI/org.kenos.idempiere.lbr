@@ -12716,4 +12716,88 @@
   <value column="Name" original="Purchase Order Standard">Ordem de Compra Padrão</value>
   <value column="Description" original=""/>
  </row>
+ <row trl="Y" uuid="85079210-28ab-4681-80ae-99277172a955">
+  <value column="Name" original="Nota Fiscal Shipment">Nota Fiscal de Envio</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="abbb7793-e8b0-4a6f-90b8-d090dbedef73">
+  <value column="Name" original="Nota Fiscal Receipt">Nota Fiscal de Recebimento</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="bcd4ae20-d182-41bf-8d80-b5af5bbcd88e">
+  <value column="Name" original="End User (DIFAL out)">Consumidor Final (Sem DIFAL)</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="f31a8928-1a7a-4c87-9699-a36625121363">
+  <value column="Name" original="Do not send e-mail">Não enviar e-mail</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="b2b5f05d-b1b9-4626-8277-17a873db0dfb">
+  <value column="Name" original="Send immediately">Envio imediato (legado)</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="69ca1337-be95-4154-9ce7-6e3eaf0f79c9">
+  <value column="Name" original="Automatic (agent)">Automático (agente)</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="a97fb27d-3dd3-45b9-a45e-7dd18882bcbd">
+  <value column="Name" original="Mail sent">Email enviado</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="6115e8e5-7f05-40d2-9786-2470d07ce42b">
+  <value column="Name" original="Not ready to send">Não enviado ainda</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="c404edb5-5ace-44fc-a409-38068067191f">
+  <value column="Name" original="Scheduled">Agendado para envio</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="5a523e48-6aa8-44d0-992a-f3a9acef9d0a">
+  <value column="Name" original="Temporary fail">Falha temporária</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="dff38beb-b877-41fe-947f-f169773340d3">
+  <value column="Name" original="Permanently fail ">Falha permanente</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="9485b11f-eb2f-4913-97dd-d8db6cdb2bae">
+  <value column="Name" original="Disabled">Desativado</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="b5c1e03c-687f-48ae-a0c5-12ab367a08f7">
+  <value column="Name" original="ReActivate">Reativar</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="01ad10dc-48d5-4a20-953e-cd5dc35e8cd8">
+  <value column="Name" original="Sale/Purchase">Venda</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="1a5f1e02-e8d3-4108-90c6-7450216b31eb">
+  <value column="Name" original="Sale/Purchase Return">Retorno/Devolução</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="c0262362-4faf-4161-95ae-9bacc0fc2607">
+  <value column="Name" original="Remittance">Remessa</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="0d017bf8-d2cd-4b0d-a7c7-7a6b3e534503">
+  <value column="Name" original="Remittance Return">Retorno de Remessa</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="ab0c2389-d611-4497-95a2-9a6b698b4e96">
+  <value column="Name" original="Transfer Out">Saída por Transferência</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="ad3fd644-29e8-4e50-97f4-6cb9d6864629">
+  <value column="Name" original="Transfer In">Entrada por Transferência</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="fcd84fe6-8aee-4555-afb4-0ac3dd9e3f87">
+  <value column="Name" original="Other Out">Outras Saídas</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="fd59c826-4c5c-404c-8b81-223a23258c16">
+  <value column="Name" original="Other In">Outras Entradas</value>
+  <value column="Description" original=""/>
+ </row>
 </idempiereTrl>

@@ -70670,10 +70670,10 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="7753d23a-ad31-453a-9f05-e083231a01c3">
-  <value column="Name" original="ISSQN Agreement">ISSQN Agreement</value>
-  <value column="PrintName" original="ISSQN Agreement">ISSQN Agreement</value>
-  <value column="Description" original="Indicates if the city has ISSQN agreement to issue NF-e combined">Indicates if the city has ISSQN agreement to issue NF-e combined</value>
+ <row trl="Y" uuid="7753d23a-ad31-453a-9f05-e083231a01c3">
+  <value column="Name" original="ISSQN Agreement">Convênio ISSQN</value>
+  <value column="PrintName" original="ISSQN Agreement">Convênio ISSQN</value>
+  <value column="Description" original="Indicates if the city has ISSQN agreement to issue NF-e combined">Indica se a UF possuí convênio de recolhimento de ISSQN</value>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
@@ -70758,7 +70758,7 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="88c83818-1163-41a8-b8eb-486c6a91396e">
+ <row trl="Y" uuid="88c83818-1163-41a8-b8eb-486c6a91396e">
   <value column="Name" original="Perfil de Apresentação">Perfil de Apresentação</value>
   <value column="PrintName" original="Perfil de Apresentação do arquivo fiscal">Perfil de Apresentação do arquivo fiscal</value>
   <value column="Description" original="Perfil de Apresentação do arquivo fiscal">Perfil de Apresentação do arquivo fiscal</value>
@@ -70780,9 +70780,9 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="304d0044-0ddb-4816-92c9-498e6bc8dfee">
-  <value column="Name" original="Beginning Balance ST">Beginning Balance ST</value>
-  <value column="PrintName" original="Beginning Balance ST">Beginning Balance ST</value>
+ <row trl="Y" uuid="304d0044-0ddb-4816-92c9-498e6bc8dfee">
+  <value column="Name" original="Beginning Balance ST">Saldo Inicial ST</value>
+  <value column="PrintName" original="Beginning Balance ST">Saldo Inicial ST</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -70791,9 +70791,9 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="0343aacf-d8df-4823-92ed-0f19bc5881b8">
-  <value column="Name" original="Bank Slip Config">Bank Slip Config</value>
-  <value column="PrintName" original="Bank Slip Config">Bank Slip Config</value>
+ <row trl="Y" uuid="0343aacf-d8df-4823-92ed-0f19bc5881b8">
+  <value column="Name" original="Bank Slip Config">Configuração de Boleto</value>
+  <value column="PrintName" original="Bank Slip Config">Configuração de Boleto</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -70813,9 +70813,9 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="7a6eb2ed-424d-46c5-afa0-ad1245c627ec">
-  <value column="Name" original="Accepted">Accepted</value>
-  <value column="PrintName" original="Accepted">Accepted</value>
+ <row trl="Y" uuid="7a6eb2ed-424d-46c5-afa0-ad1245c627ec">
+  <value column="Name" original="Accepted">Aceite</value>
+  <value column="PrintName" original="Accepted">Aceite</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -70824,9 +70824,9 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="411e4ee6-e6da-46b9-842e-01cef7924c93">
-  <value column="Name" original="Return Action">Return Action</value>
-  <value column="PrintName" original="Return Action">Return Action</value>
+ <row trl="Y" uuid="411e4ee6-e6da-46b9-842e-01cef7924c93">
+  <value column="Name" original="Return Action">Ação de Retorno</value>
+  <value column="PrintName" original="Return Action">Ação de Retorno</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -70835,9 +70835,9 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="4be94e14-500a-42ef-92c6-819cb7939a51">
-  <value column="Name" original="Return Days">Return Days</value>
-  <value column="PrintName" original="Return Days">Return Days</value>
+ <row trl="Y" uuid="4be94e14-500a-42ef-92c6-819cb7939a51">
+  <value column="Name" original="Return Days">Dias de Retorno</value>
+  <value column="PrintName" original="Return Days">Dias de Retorno</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -70846,9 +70846,9 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="8fcd0122-e344-4d96-9e4f-bd48b45ed311">
-  <value column="Name" original="Interest Value">Interest Value</value>
-  <value column="PrintName" original="Interest Value">Interest Value</value>
+ <row trl="Y" uuid="8fcd0122-e344-4d96-9e4f-bd48b45ed311">
+  <value column="Name" original="Interest Value">Valor do Juros</value>
+  <value column="PrintName" original="Interest Value">Valor do Juros</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -70857,9 +70857,9 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="2adbe0d1-6200-414b-91c6-5d196c684b64">
-  <value column="Name" original="Interest Charge">Interest Charge</value>
-  <value column="PrintName" original="Interest Charge">Interest Charge</value>
+ <row trl="Y" uuid="2adbe0d1-6200-414b-91c6-5d196c684b64">
+  <value column="Name" original="Interest Charge">Fin. Contábil p/ Juros</value>
+  <value column="PrintName" original="Interest Charge">Fin. Contábil p/ Juros</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -70868,9 +70868,9 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="3cd0d6c1-a52e-462b-8db0-9d3ad719c69c">
-  <value column="Name" original="Interest Type">Interest Type</value>
-  <value column="PrintName" original="Interest Type">Interest Type</value>
+ <row trl="Y" uuid="3cd0d6c1-a52e-462b-8db0-9d3ad719c69c">
+  <value column="Name" original="Interest Type">Tipo de Juros</value>
+  <value column="PrintName" original="Interest Type">Tipo de Juros</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -70879,9 +70879,9 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="3c4ad34a-f840-48f1-bd54-db424d24ac9a">
-  <value column="Name" original="Interest Days">Interest Days</value>
-  <value column="PrintName" original="Interest Days">Interest Days</value>
+ <row trl="Y" uuid="3c4ad34a-f840-48f1-bd54-db424d24ac9a">
+  <value column="Name" original="Interest Days">Dias para Juros</value>
+  <value column="PrintName" original="Interest Days">Dias para Juros</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -70890,9 +70890,9 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="3a4ebbfd-cae0-4c0b-b69e-4ac750e5605b">
-  <value column="Name" original="Message 1">Message 1</value>
-  <value column="PrintName" original="Message 1">Message 1</value>
+ <row trl="Y" uuid="3a4ebbfd-cae0-4c0b-b69e-4ac750e5605b">
+  <value column="Name" original="Message 1">Mensagem 1</value>
+  <value column="PrintName" original="Message 1">Mensagem 1</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -70901,9 +70901,9 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="d875a9a1-1d47-4909-9b00-e820eeb34523">
-  <value column="Name" original="Message 2">Message 2</value>
-  <value column="PrintName" original="Message 2">Message 2</value>
+ <row trl="Y" uuid="d875a9a1-1d47-4909-9b00-e820eeb34523">
+  <value column="Name" original="Message 2">Mensagem 2</value>
+  <value column="PrintName" original="Message 2">Mensagem 2</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -70912,9 +70912,9 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="4b6a7e03-ea60-456e-ae26-911b6e7263f4">
-  <value column="Name" original="Penalty Value">Penalty Value</value>
-  <value column="PrintName" original="Penalty Value">Penalty Value</value>
+ <row trl="Y" uuid="4b6a7e03-ea60-456e-ae26-911b6e7263f4">
+  <value column="Name" original="Penalty Value">Valor da Multa</value>
+  <value column="PrintName" original="Penalty Value">Valor da Multa</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -70923,9 +70923,9 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="a394b137-fcd0-4824-a515-4255a471b87e">
-  <value column="Name" original="Penalty Charge">Penalty Charge</value>
-  <value column="PrintName" original="Penalty Charge">Penalty Charge</value>
+ <row trl="Y" uuid="a394b137-fcd0-4824-a515-4255a471b87e">
+  <value column="Name" original="Penalty Charge">Fin. Contábil para Multa</value>
+  <value column="PrintName" original="Penalty Charge">Fin. Contábil para Multa</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -70934,9 +70934,9 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="c0c5c86e-f9ec-4cd2-9e2f-4c05bc2bb297">
-  <value column="Name" original="Penalty Days">Penalty Days</value>
-  <value column="PrintName" original="Penalty Days">Penalty Days</value>
+ <row trl="Y" uuid="c0c5c86e-f9ec-4cd2-9e2f-4c05bc2bb297">
+  <value column="Name" original="Penalty Days">Dias para Multa</value>
+  <value column="PrintName" original="Penalty Days">Dias para Multa</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -70945,9 +70945,9 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="ebd53cfd-2023-4689-a3ab-00c0df2af08b">
-  <value column="Name" original="Penalty Type">Penalty Type</value>
-  <value column="PrintName" original="Penalty Type">Penalty Type</value>
+ <row trl="Y" uuid="ebd53cfd-2023-4689-a3ab-00c0df2af08b">
+  <value column="Name" original="Penalty Type">Tipo de Multa</value>
+  <value column="PrintName" original="Penalty Type">Tipo de Multa</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -70956,9 +70956,9 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="6b93199b-80fb-4795-9847-1c0685b098e0">
-  <value column="Name" original="Protest Type">Protest Type</value>
-  <value column="PrintName" original="Protest Type">Protest Type</value>
+ <row trl="Y" uuid="6b93199b-80fb-4795-9847-1c0685b098e0">
+  <value column="Name" original="Protest Type">Tipo de Protesto</value>
+  <value column="PrintName" original="Protest Type">Tipo de Protesto</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -70967,9 +70967,9 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="c265a095-a1a5-4063-a684-89454c7f16bc">
-  <value column="Name" original="Protest Days">Protest Days</value>
-  <value column="PrintName" original="Protest Days">Protest Days</value>
+ <row trl="Y" uuid="c265a095-a1a5-4063-a684-89454c7f16bc">
+  <value column="Name" original="Protest Days">Dias para Protesto</value>
+  <value column="PrintName" original="Protest Days">Dias para Protesto</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -70978,9 +70978,9 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="4e0bd3bd-f875-4069-b0c4-01bcd2004a43">
-  <value column="Name" original="Distributed Via">Distributed Via</value>
-  <value column="PrintName" original="Distributed Via">Distributed Via</value>
+ <row trl="Y" uuid="4e0bd3bd-f875-4069-b0c4-01bcd2004a43">
+  <value column="Name" original="Distributed Via">Distribuido Via</value>
+  <value column="PrintName" original="Distributed Via">Distribuido Via</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -70989,9 +70989,9 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="e0c73acd-a62f-4e93-90a8-33fff2eb24de">
-  <value column="Name" original="Bank Slip Kind">Bank Slip Kind</value>
-  <value column="PrintName" original="Bank Slip Kind">Bank Slip Kind</value>
+ <row trl="Y" uuid="e0c73acd-a62f-4e93-90a8-33fff2eb24de">
+  <value column="Name" original="Bank Slip Kind">Espécie</value>
+  <value column="PrintName" original="Bank Slip Kind">Espécie</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -71011,9 +71011,9 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="e4575b30-4395-49c6-8b6a-915e60456361">
-  <value column="Name" original="Fold">Fold</value>
-  <value column="PrintName" original="Fold">Fold</value>
+ <row trl="Y" uuid="e4575b30-4395-49c6-8b6a-915e60456361">
+  <value column="Name" original="Fold">Carteira</value>
+  <value column="PrintName" original="Fold">Carteira</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -71033,9 +71033,9 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="9d1a361f-4725-4abf-b5d6-76ed4ea671f6">
-  <value column="Name" original="Bank Slip Layout">Bank Slip Layout</value>
-  <value column="PrintName" original="Bank Slip Layout">Bank Slip Layout</value>
+ <row trl="Y" uuid="9d1a361f-4725-4abf-b5d6-76ed4ea671f6">
+  <value column="Name" original="Bank Slip Layout">Leiaute do Boleto</value>
+  <value column="PrintName" original="Bank Slip Layout">Leiaute do Boleto</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -71044,9 +71044,9 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="8a363957-d225-46e7-844a-9944ba0c45ce">
-  <value column="Name" original="Issue Type">Issue Type</value>
-  <value column="PrintName" original="Issue Type">Issue Type</value>
+ <row trl="Y" uuid="8a363957-d225-46e7-844a-9944ba0c45ce">
+  <value column="Name" original="Issue Type">Tipo de Emissão</value>
+  <value column="PrintName" original="Issue Type">Tipo de Emissão</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -71066,9 +71066,9 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="f2935ee7-3244-4b1a-9b6c-1214e94ff603">
-  <value column="Name" original="Bank Slip">Bank Slip</value>
-  <value column="PrintName" original="Bank Slip">Bank Slip</value>
+ <row trl="Y" uuid="f2935ee7-3244-4b1a-9b6c-1214e94ff603">
+  <value column="Name" original="Bank Slip">Boleto</value>
+  <value column="PrintName" original="Bank Slip">Boleto</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -71088,9 +71088,9 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="08f89be0-5997-4798-840d-6a55e4365716">
-  <value column="Name" original="Account Digit">Account Digit</value>
-  <value column="PrintName" original="Account Digit">Account Digit</value>
+ <row trl="Y" uuid="08f89be0-5997-4798-840d-6a55e4365716">
+  <value column="Name" original="Account Digit">Dígito da Conta</value>
+  <value column="PrintName" original="Account Digit">Dígito da Conta</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -71099,9 +71099,9 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="56309d8f-0a8f-4ff5-b094-74f9c3734235">
-  <value column="Name" original="Agency Digit">Agency Digit</value>
-  <value column="PrintName" original="Agency Digit">Agency Digit</value>
+ <row trl="Y" uuid="56309d8f-0a8f-4ff5-b094-74f9c3734235">
+  <value column="Name" original="Agency Digit">Dígito da Agência</value>
+  <value column="PrintName" original="Agency Digit">Dígito da Agência</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -71110,9 +71110,9 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="7eedeea9-dbab-496b-9d7a-55954f5e025d">
-  <value column="Name" original="Bank Slip Value">Bank Slip Value</value>
-  <value column="PrintName" original="Bank Slip Value">Bank Slip Value</value>
+ <row trl="Y" uuid="7eedeea9-dbab-496b-9d7a-55954f5e025d">
+  <value column="Name" original="Bank Slip Value">Valor da Carteira</value>
+  <value column="PrintName" original="Bank Slip Value">Valor da Carteira</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -71121,9 +71121,9 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="f6ab38e0-c694-44b7-adc7-d18556f17ee2">
-  <value column="Name" original="Bank Slip Code">Bank Slip Code</value>
-  <value column="PrintName" original="Bank Slip Code">Bank Slip Code</value>
+ <row trl="Y" uuid="f6ab38e0-c694-44b7-adc7-d18556f17ee2">
+  <value column="Name" original="Bank Slip Code">Cód. da Carteira</value>
+  <value column="PrintName" original="Bank Slip Code">Cód. da Carteira</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -71132,9 +71132,9 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="d97f3239-ff43-44ac-aa72-b227136441df">
-  <value column="Name" original="Bank Slip Kind Value">Bank Slip Kind Value</value>
-  <value column="PrintName" original="Bank Slip Kind Value">Bank Slip Kind Value</value>
+ <row trl="Y" uuid="d97f3239-ff43-44ac-aa72-b227136441df">
+  <value column="Name" original="Bank Slip Kind Value">Valor da Espécie</value>
+  <value column="PrintName" original="Bank Slip Kind Value">Valor da Espécie</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -71143,9 +71143,9 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="615aaa72-cd6c-412a-8441-e3cd3f6c63e6">
-  <value column="Name" original="Bank Slip Kind Code">Bank Slip Kind Code</value>
-  <value column="PrintName" original="Bank Slip Kind Code">Bank Slip Kind Code</value>
+ <row trl="Y" uuid="615aaa72-cd6c-412a-8441-e3cd3f6c63e6">
+  <value column="Name" original="Bank Slip Kind Code">Código da Espécie</value>
+  <value column="PrintName" original="Bank Slip Kind Code">Código da Espécie</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -71154,9 +71154,9 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="e4a2348e-b833-40f8-b7f0-28e99aec267e">
-  <value column="Name" original="Manual Input">Manual Input</value>
-  <value column="PrintName" original="Manual Input">Manual Input</value>
+ <row trl="Y" uuid="e4a2348e-b833-40f8-b7f0-28e99aec267e">
+  <value column="Name" original="Manual Input">Linha Digitável</value>
+  <value column="PrintName" original="Manual Input">Linha Digitável</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -71165,9 +71165,9 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="63c3211e-a40e-4fb8-8dfe-c4ba83a2dd4c">
-  <value column="Name" original="Barcode">Barcode</value>
-  <value column="PrintName" original="Barcode">Barcode</value>
+ <row trl="Y" uuid="63c3211e-a40e-4fb8-8dfe-c4ba83a2dd4c">
+  <value column="Name" original="Barcode">Cód, de Barros</value>
+  <value column="PrintName" original="Barcode">Cód, de Barros</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -71176,9 +71176,9 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="76744c9f-f8bf-48ce-a6b4-f32ef32139b6">
-  <value column="Name" original="Instruction to BP">Instruction to BP</value>
-  <value column="PrintName" original="Instruction to BP">Instruction to BP</value>
+ <row trl="Y" uuid="76744c9f-f8bf-48ce-a6b4-f32ef32139b6">
+  <value column="Name" original="Instruction to BP">Instrução ao Pagador</value>
+  <value column="PrintName" original="Instruction to BP">Instrução ao Pagador</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -71187,9 +71187,9 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="ce7ad256-787b-4e88-8336-1d75d3087295">
-  <value column="Name" original="Instruction 4">Instruction 4</value>
-  <value column="PrintName" original="Instruction 4">Instruction 4</value>
+ <row trl="Y" uuid="ce7ad256-787b-4e88-8336-1d75d3087295">
+  <value column="Name" original="Instruction 4">Instrução 4</value>
+  <value column="PrintName" original="Instruction 4">Instrução 4</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -71198,9 +71198,9 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="8ec2e8a0-3f24-4acf-a922-ab01d4a2ca85">
-  <value column="Name" original="Instruction 5">Instruction 5</value>
-  <value column="PrintName" original="Instruction 5">Instruction 5</value>
+ <row trl="Y" uuid="8ec2e8a0-3f24-4acf-a922-ab01d4a2ca85">
+  <value column="Name" original="Instruction 5">Instrução 5</value>
+  <value column="PrintName" original="Instruction 5">Instrução 5</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -71209,9 +71209,9 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="e8caecac-b01f-443f-8a79-2bea119b0418">
-  <value column="Name" original="Instruction 6">Instruction 6</value>
-  <value column="PrintName" original="Instruction 6">Instruction 6</value>
+ <row trl="Y" uuid="e8caecac-b01f-443f-8a79-2bea119b0418">
+  <value column="Name" original="Instruction 6">Instrução 6</value>
+  <value column="PrintName" original="Instruction 6">Instrução 6</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -71220,9 +71220,9 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="a8ef952f-da5c-4638-bb01-2a493072e656">
-  <value column="Name" original="Instruction 7">Instruction 7</value>
-  <value column="PrintName" original="Instruction 7">Instruction 7</value>
+ <row trl="Y" uuid="a8ef952f-da5c-4638-bb01-2a493072e656">
+  <value column="Name" original="Instruction 7">Instrução 7</value>
+  <value column="PrintName" original="Instruction 7">Instrução 7</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -71231,9 +71231,9 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="7fc8fe47-1bcf-4580-9f6d-4d9372d57a55">
-  <value column="Name" original="Org Type">Org Type</value>
-  <value column="PrintName" original="Org Type">Org Type</value>
+ <row trl="Y" uuid="7fc8fe47-1bcf-4580-9f6d-4d9372d57a55">
+  <value column="Name" original="Org Type">Tipo de Organização</value>
+  <value column="PrintName" original="Org Type">Tipo de Organização</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -71242,9 +71242,9 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="1deb83b6-1cd2-4e98-936e-010cab1037a8">
-  <value column="Name" original="Guarantor Name">Guarantor Name</value>
-  <value column="PrintName" original="Guarantor Name">Guarantor Name</value>
+ <row trl="Y" uuid="1deb83b6-1cd2-4e98-936e-010cab1037a8">
+  <value column="Name" original="Guarantor Name">Nome do Avalista</value>
+  <value column="PrintName" original="Guarantor Name">Nome do Avalista</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -71253,9 +71253,9 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="0002b3aa-1db7-43b8-be64-7cc4d4b12d71">
-  <value column="Name" original="Guarantor CNPJ">Guarantor CNPJ</value>
-  <value column="PrintName" original="Guarantor CNPJ">Guarantor CNPJ</value>
+ <row trl="Y" uuid="0002b3aa-1db7-43b8-be64-7cc4d4b12d71">
+  <value column="Name" original="Guarantor CNPJ">CNPJ do Avalista</value>
+  <value column="PrintName" original="Guarantor CNPJ">CNPJ do Avalista</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -71264,9 +71264,9 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="18b8b0b3-038d-45be-a466-c6581d4d48cd">
-  <value column="Name" original="Address 1">Address 1</value>
-  <value column="PrintName" original="Address 1">Address 1</value>
+ <row trl="Y" uuid="18b8b0b3-038d-45be-a466-c6581d4d48cd">
+  <value column="Name" original="Address 1">Logradouro</value>
+  <value column="PrintName" original="Address 1">Logradouro</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -71275,9 +71275,9 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="4ddc0c9d-e23c-4f10-8f3f-0c63ac7d7f57">
-  <value column="Name" original="Address 2">Address 2</value>
-  <value column="PrintName" original="Address 2">Address 2</value>
+ <row trl="Y" uuid="4ddc0c9d-e23c-4f10-8f3f-0c63ac7d7f57">
+  <value column="Name" original="Address 2">Número</value>
+  <value column="PrintName" original="Address 2">Número</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -71286,9 +71286,9 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="099415e4-f205-4e2f-9c6e-34a3b9f13429">
-  <value column="Name" original="Address 3">Address 3</value>
-  <value column="PrintName" original="Address 3">Address 3</value>
+ <row trl="Y" uuid="099415e4-f205-4e2f-9c6e-34a3b9f13429">
+  <value column="Name" original="Address 3">Bairro</value>
+  <value column="PrintName" original="Address 3">Bairro</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -71297,9 +71297,9 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="b4ef8682-d947-4359-a1c5-1767fb5ad6f9">
-  <value column="Name" original="Address 4">Address 4</value>
-  <value column="PrintName" original="Address 4">Address 4</value>
+ <row trl="Y" uuid="b4ef8682-d947-4359-a1c5-1767fb5ad6f9">
+  <value column="Name" original="Address 4">Complemento</value>
+  <value column="PrintName" original="Address 4">Complemento</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -71308,9 +71308,9 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="2649e686-99b8-43c7-b9b6-ed232f4753ce">
-  <value column="Name" original="Guarantor City">Guarantor City</value>
-  <value column="PrintName" original="Guarantor City">Guarantor City</value>
+ <row trl="Y" uuid="2649e686-99b8-43c7-b9b6-ed232f4753ce">
+  <value column="Name" original="Guarantor City">Cidade do Avalista</value>
+  <value column="PrintName" original="Guarantor City">Cidade do Avalista</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -71319,9 +71319,9 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="0f72e487-951e-4a67-a1c4-e8403ed76e37">
-  <value column="Name" original="Guarantor Region">Guarantor Region</value>
-  <value column="PrintName" original="Guarantor Region">Guarantor Region</value>
+ <row trl="Y" uuid="0f72e487-951e-4a67-a1c4-e8403ed76e37">
+  <value column="Name" original="Guarantor Region">UF do Avalista</value>
+  <value column="PrintName" original="Guarantor Region">UF do Avalista</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -71330,9 +71330,9 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="b335d708-78ce-4b06-ac6c-f7a8e678031e">
-  <value column="Name" original="Guarantor Postal">Guarantor Postal</value>
-  <value column="PrintName" original="Guarantor Postal">Guarantor Postal</value>
+ <row trl="Y" uuid="b335d708-78ce-4b06-ac6c-f7a8e678031e">
+  <value column="Name" original="Guarantor Postal">CEP do Avalista</value>
+  <value column="PrintName" original="Guarantor Postal">CEP do Avalista</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -71341,9 +71341,9 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="ec504c5e-8708-41c1-8893-79da4075f144">
-  <value column="Name" original="Accord">Accord</value>
-  <value column="PrintName" original="Accord">Accord</value>
+ <row trl="Y" uuid="ec504c5e-8708-41c1-8893-79da4075f144">
+  <value column="Name" original="Accord">Convênio</value>
+  <value column="PrintName" original="Accord">Convênio</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -71352,9 +71352,9 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="d3540783-ee98-4403-93cb-04092e4287eb">
-  <value column="Name" original="Guarantor Type">Guarantor Type</value>
-  <value column="PrintName" original="Guarantor Type">Guarantor Type</value>
+ <row trl="Y" uuid="d3540783-ee98-4403-93cb-04092e4287eb">
+  <value column="Name" original="Guarantor Type">Tipo de Avalista</value>
+  <value column="PrintName" original="Guarantor Type">Tipo de Avalista</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -71363,9 +71363,9 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="79169d5f-c83f-4cd1-bdbf-4d0efdfe47ef">
-  <value column="Name" original="Bank Slip Occurrence">Bank Slip Occurrence</value>
-  <value column="PrintName" original="Bank Slip Occurrence">Bank Slip Occurrence</value>
+ <row trl="Y" uuid="79169d5f-c83f-4cd1-bdbf-4d0efdfe47ef">
+  <value column="Name" original="Bank Slip Occurrence">Ocorrência</value>
+  <value column="PrintName" original="Bank Slip Occurrence">Ocorrência</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -71385,9 +71385,9 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="0e71799b-7408-4d0f-8c6b-132c12b4bf27">
-  <value column="Name" original="Bank Slip Contract">Bank Slip Contract</value>
-  <value column="PrintName" original="Bank Slip Contract">Bank Slip Contract</value>
+ <row trl="Y" uuid="0e71799b-7408-4d0f-8c6b-132c12b4bf27">
+  <value column="Name" original="Bank Slip Contract">Contrato do Boleto</value>
+  <value column="PrintName" original="Bank Slip Contract">Contrato do Boleto</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -71407,9 +71407,20 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="96421919-2ddd-447a-9b5b-0036bbaa234a">
-  <value column="Name" original="NIB Sequence">NIB Sequence</value>
-  <value column="PrintName" original="NIB Sequence">NIB Sequence</value>
+ <row trl="Y" uuid="96421919-2ddd-447a-9b5b-0036bbaa234a">
+  <value column="Name" original="NIB Sequence">Seq. Nosso Número (Banco)</value>
+  <value column="PrintName" original="NIB Sequence">Seq. Nosso Número </value>
+  <value column="Description" original="">Sequência do Nosso Número (Banco)</value>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="f5688dda-941c-4a27-a5b8-270a15cf028b">
+  <value column="Name" original="CNAB File Sequence">Seq. do Arquivo CNAB</value>
+  <value column="PrintName" original="CNAB File Sequence">Seq. do Arquivo CNAB</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -71418,9 +71429,9 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="f5688dda-941c-4a27-a5b8-270a15cf028b">
-  <value column="Name" original="CNAB File Sequence">CNAB File Sequence</value>
-  <value column="PrintName" original="CNAB File Sequence">CNAB File Sequence</value>
+ <row trl="Y" uuid="b0960cf7-af4b-448e-ab89-bd1c80a8112a">
+  <value column="Name" original="CNAB Lot Sequence">Seq. do Lote CNAB</value>
+  <value column="PrintName" original="CNAB Lot Sequence">Seq. do Lote CNAB</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -71429,9 +71440,9 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="b0960cf7-af4b-448e-ab89-bd1c80a8112a">
-  <value column="Name" original="CNAB Lot Sequence">CNAB Lot Sequence</value>
-  <value column="PrintName" original="CNAB Lot Sequence">CNAB Lot Sequence</value>
+ <row trl="Y" uuid="e2b8217f-fe37-4a51-adee-34ee823129d0">
+  <value column="Name" original="Register Type">Tipo de Registro</value>
+  <value column="PrintName" original="Register Type">Tipo de Registro</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -71440,9 +71451,9 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="e2b8217f-fe37-4a51-adee-34ee823129d0">
-  <value column="Name" original="Register Type">Register Type</value>
-  <value column="PrintName" original="Register Type">Register Type</value>
+ <row trl="Y" uuid="257885c0-7428-4348-95bc-843f2325a0ff">
+  <value column="Name" original="Parameter 1">Parâmetro 1</value>
+  <value column="PrintName" original="Param 1">Parâmetro 1</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -71451,9 +71462,9 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="257885c0-7428-4348-95bc-843f2325a0ff">
-  <value column="Name" original="Parameter 1">Parameter 1</value>
-  <value column="PrintName" original="Param 1">Param 1</value>
+ <row trl="Y" uuid="20e9202d-34be-4687-8f0d-19f1168fe4a4">
+  <value column="Name" original="Parameter 2">Parâmetro 2</value>
+  <value column="PrintName" original="Param 2">Parâmetro 2</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -71462,9 +71473,9 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="20e9202d-34be-4687-8f0d-19f1168fe4a4">
-  <value column="Name" original="Parameter 2">Parameter 2</value>
-  <value column="PrintName" original="Param 2">Param 2</value>
+ <row trl="Y" uuid="cf1003f2-08a5-483c-8e1a-679132fe6e4b">
+  <value column="Name" original="Recipient Type">Tipo de Beneficiário</value>
+  <value column="PrintName" original="Recipient Type">Tipo de Beneficiário</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -71473,9 +71484,9 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="cf1003f2-08a5-483c-8e1a-679132fe6e4b">
-  <value column="Name" original="Recipient Type">Recipient Type</value>
-  <value column="PrintName" original="Recipient Type">Recipient Type</value>
+ <row trl="Y" uuid="4387204b-0847-4da7-81f5-a9c804ffe781">
+  <value column="Name" original="Recipient">Beneficiário</value>
+  <value column="PrintName" original="Recipient">Beneficiário</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -71484,20 +71495,9 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="4387204b-0847-4da7-81f5-a9c804ffe781">
-  <value column="Name" original="Recipient">Recipient</value>
-  <value column="PrintName" original="Recipient">Recipient</value>
-  <value column="Description" original=""/>
-  <value column="Help" original=""/>
-  <value column="PO_Description" original=""/>
-  <value column="PO_Help" original=""/>
-  <value column="PO_Name" original=""/>
-  <value column="PO_PrintName" original=""/>
-  <value column="Placeholder" original=""/>
- </row>
- <row trl="N" uuid="74fc2bc9-fdbf-4316-84f1-c81c001c6166">
-  <value column="Name" original="Recipient Location">Recipient Location</value>
-  <value column="PrintName" original="Recipient Location">Recipient Location</value>
+ <row trl="Y" uuid="74fc2bc9-fdbf-4316-84f1-c81c001c6166">
+  <value column="Name" original="Recipient Location">Localização do Beneficiário</value>
+  <value column="PrintName" original="Recipient Location">Localização do Beneficiário</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -71946,7 +71946,7 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="87e73c6b-f870-4e55-9a59-3ee87a9edd4c">
+ <row trl="Y" uuid="87e73c6b-f870-4e55-9a59-3ee87a9edd4c">
   <value column="Name" original="Number In Bank Digit">Nosso Número DV</value>
   <value column="PrintName" original="Number In Bank Digit">Nosso Número DV</value>
   <value column="Description" original=""/>
@@ -71957,18 +71957,7 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="2b3bb0a0-671e-4c4a-92a8-d2b638a45853">
-  <value column="Name" original="LBR_OrgIEST_UU">LBR_OrgIEST_UU</value>
-  <value column="PrintName" original="LBR_OrgIEST_UU">LBR_OrgIEST_UU</value>
-  <value column="Description" original=""/>
-  <value column="Help" original=""/>
-  <value column="PO_Description" original=""/>
-  <value column="PO_Help" original=""/>
-  <value column="PO_Name" original=""/>
-  <value column="PO_PrintName" original=""/>
-  <value column="Placeholder" original=""/>
- </row>
- <row trl="N" uuid="1667655f-2753-4249-9046-1134a0525cba">
+ <row trl="Y" uuid="1667655f-2753-4249-9046-1134a0525cba">
   <value column="Name" original="SIMP">SIMP</value>
   <value column="PrintName" original="SIMP">SIMP</value>
   <value column="Description" original=""/>
@@ -71979,9 +71968,9 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="424617dd-0de3-4dcb-aaf8-76397c432ae4">
-  <value column="Name" original="SIMP Line">SIMP Line</value>
-  <value column="PrintName" original="SIMP Line">SIMP Line</value>
+ <row trl="Y" uuid="424617dd-0de3-4dcb-aaf8-76397c432ae4">
+  <value column="Name" original="SIMP Line">Linha SIMP</value>
+  <value column="PrintName" original="SIMP Line">Linha SIMP</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -72045,7 +72034,7 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="bc836cd0-de19-4c80-980d-e6cb9d725194">
+ <row trl="Y" uuid="bc836cd0-de19-4c80-980d-e6cb9d725194">
   <value column="Name" original="LI">LI</value>
   <value column="PrintName" original="LI">LI</value>
   <value column="Description" original="Licença de Importação">Licença de Importação</value>
@@ -72100,9 +72089,9 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="46f340f6-1f22-4bfd-9ff9-bbed15fdd9fd">
-  <value column="Name" original="LBR_FuelOperation_ID">LBR_FuelOperation_ID</value>
-  <value column="PrintName" original="LBR_FuelOperation_ID">LBR_FuelOperation_ID</value>
+ <row trl="Y" uuid="46f340f6-1f22-4bfd-9ff9-bbed15fdd9fd">
+  <value column="Name" original="LBR_FuelOperation_ID">Operação de Combustíveis</value>
+  <value column="PrintName" original="LBR_FuelOperation_ID">Operação de Combustíveis</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -72177,18 +72166,7 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="Y" uuid="257dca22-bf84-4bfa-8aea-99f130048f5b">
-  <value column="Name" original="Packing Weight">Peso Embalagem</value>
-  <value column="PrintName" original="Packing Weight">Peso Embalagem</value>
-  <value column="Description" original="Weight of the product's Packing">Informar o Peso da Embalagem do Produto</value>
-  <value column="Help" original="The Packing Weight indicates the weight  of the product's Packing in the Weight UOM of the Client">O campo Peso Embalagem indica o peso individual da Embalagem de um Produto de acordo com a Unidade de Medida padrão. Os campos Peso + Peso Embalagem são utilizados para determinar o Peso Bruto do Produto</value>
-  <value column="Placeholder" original=""/>
-  <value column="PO_Description" original=""/>
-  <value column="PO_Help" original=""/>
-  <value column="PO_Name" original=""/>
-  <value column="PO_PrintName" original=""/>
- </row>
- <row trl="N" uuid="a390fa26-2496-4f35-b64d-40b867859419">
+ <row trl="Y" uuid="a390fa26-2496-4f35-b64d-40b867859419">
   <value column="Name" original="SCANC">SCANC</value>
   <value column="PrintName" original="SCANC">SCANC</value>
   <value column="Description" original=""/>
@@ -72210,9 +72188,9 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="36017ce8-92c8-4534-8bae-a1fc80aedaab">
-  <value column="Name" original="SCANC BP">SCANC BP</value>
-  <value column="PrintName" original="SCANC BP">SCANC BP</value>
+ <row trl="Y" uuid="36017ce8-92c8-4534-8bae-a1fc80aedaab">
+  <value column="Name" original="SCANC BP">PN SCANC</value>
+  <value column="PrintName" original="SCANC BP">PN SCANC</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -72232,7 +72210,7 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="91185218-4db1-4242-a43d-6f96a2f3a77f">
+ <row trl="Y" uuid="91185218-4db1-4242-a43d-6f96a2f3a77f">
   <value column="Name" original="SCANC NF">SCANC NF</value>
   <value column="PrintName" original="SCANC NF">SCANC NF</value>
   <value column="Description" original=""/>
@@ -72254,9 +72232,9 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="023a2b40-8573-4525-833e-0b1001e00c7e">
-  <value column="Name" original="Code SCANC 40">Code SCANC 40</value>
-  <value column="PrintName" original="Code SCANC 40">Code SCANC 40</value>
+ <row trl="Y" uuid="023a2b40-8573-4525-833e-0b1001e00c7e">
+  <value column="Name" original="Code SCANC 40">Cód. SCANC 40</value>
+  <value column="PrintName" original="Code SCANC 40">Cód. SCANC 40</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -72265,9 +72243,9 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="b7948d70-bb91-4203-90b3-f2d921f1575d">
-  <value column="Name" original="Code SCANC 60">Code SCANC 60</value>
-  <value column="PrintName" original="Code SCANC 60">Code SCANC 60</value>
+ <row trl="Y" uuid="b7948d70-bb91-4203-90b3-f2d921f1575d">
+  <value column="Name" original="Code SCANC 60">Cód. SCANC 60</value>
+  <value column="PrintName" original="Code SCANC 60">Cód. SCANC 60</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -72276,7 +72254,7 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="85a9e244-219b-4997-abc0-a8096ef29665">
+ <row trl="Y" uuid="85a9e244-219b-4997-abc0-a8096ef29665">
   <value column="Name" original="SCANC Var">SCANC Var</value>
   <value column="PrintName" original="SCANC Var">SCANC Var</value>
   <value column="Description" original=""/>
@@ -72309,7 +72287,7 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="fd1e71f6-478d-4151-8070-8ed3b26b1ea8">
+ <row trl="Y" uuid="fd1e71f6-478d-4151-8070-8ed3b26b1ea8">
   <value column="Name" original="Cód. BC de Crédito">Cód. BC de Crédito</value>
   <value column="PrintName" original="Código da base de cálculo do crédito">Código da base de cálculo do crédito</value>
   <value column="Description" original="Cód. BC de Crédito">Cód. BC de Crédito</value>
@@ -72321,7 +72299,7 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="7174d8ef-39a8-4d0d-b1a9-06642ee6d2ba">
+ <row trl="Y" uuid="7174d8ef-39a8-4d0d-b1a9-06642ee6d2ba">
   <value column="Name" original="EFD ICMS/IPI">EFD ICMS/IPI</value>
   <value column="PrintName" original="EFD ICMS/IPI">EFD ICMS/IPI</value>
   <value column="Description" original=""/>
@@ -72343,7 +72321,7 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="5a67c4cf-10dd-4af6-8b34-a2782685ec6d">
+ <row trl="Y" uuid="5a67c4cf-10dd-4af6-8b34-a2782685ec6d">
   <value column="Name" original="Versão do arquivo">Versão do arquivo</value>
   <value column="PrintName" original="Versão do arquivo">Versão do arquivo</value>
   <value column="Description" original="Código da versão do leiaute do Arquivo SPED">Código da versão do leiaute do Arquivo SPED</value>
@@ -72354,24 +72332,13 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="a80096cb-d477-4253-b32f-9fd45e6ada41">
+ <row trl="Y" uuid="a80096cb-d477-4253-b32f-9fd45e6ada41">
   <value column="Name" original="Finalidade do Arquivo">Finalidade do Arquivo</value>
   <value column="PrintName" original="Finalidade do Arquivo">Finalidade do Arquivo</value>
   <value column="Description" original="Finalidade do Arquivo SPED">Finalidade do Arquivo SPED</value>
   <value column="Help" original="Finalidade do Arquivo SPED&#10;0 = Original&#10;1 = Retificado">Finalidade do Arquivo SPED
 0 = Original
 1 = Retificado</value>
-  <value column="PO_Description" original=""/>
-  <value column="PO_Help" original=""/>
-  <value column="PO_Name" original=""/>
-  <value column="PO_PrintName" original=""/>
-  <value column="Placeholder" original=""/>
- </row>
- <row trl="N" uuid="41af0908-6629-4cf3-9efc-47aa0655a139">
-  <value column="Name" original="KNS_KardexID">KNS_KardexID</value>
-  <value column="PrintName" original="KNS_KardexID">KNS_KardexID</value>
-  <value column="Description" original=""/>
-  <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
   <value column="PO_Name" original=""/>
@@ -72411,7 +72378,7 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="00d6aa2c-55f8-4615-a673-d3611ba440a3">
+ <row trl="Y" uuid="00d6aa2c-55f8-4615-a673-d3611ba440a3">
   <value column="Name" original="EFD Contribution">EFD Contribuições</value>
   <value column="PrintName" original="EFD Contribution">EFD Contribuições</value>
   <value column="Description" original=""/>
@@ -72433,9 +72400,9 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="615f2348-aa07-418b-b087-3d9c977548ae">
-  <value column="Name" original="Product Config">Product Config</value>
-  <value column="PrintName" original="Product Config">Product Config</value>
+ <row trl="Y" uuid="615f2348-aa07-418b-b087-3d9c977548ae">
+  <value column="Name" original="Product Config">Config. do Produto</value>
+  <value column="PrintName" original="Product Config">Config. do Produto</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -72455,9 +72422,9 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="0e95d6d8-2d57-49e3-907c-a74a636d5b48">
-  <value column="Name" original="Stimulus ISS">Stimulus ISS</value>
-  <value column="PrintName" original="Stimulus ISS">Stimulus ISS</value>
+ <row trl="Y" uuid="0e95d6d8-2d57-49e3-907c-a74a636d5b48">
+  <value column="Name" original="Stimulus ISS">ISS Incentivado</value>
+  <value column="PrintName" original="Stimulus ISS">ISS Incentivado</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -72466,9 +72433,9 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="e4cfcc2d-2c29-46f4-8d3b-856926c6eaa2">
-  <value column="Name" original="PO Tax">PO Tax</value>
-  <value column="PrintName" original="PO Tax">PO Tax</value>
+ <row trl="Y" uuid="e4cfcc2d-2c29-46f4-8d3b-856926c6eaa2">
+  <value column="Name" original="PO Tax">Imposto (Compras)</value>
+  <value column="PrintName" original="PO Tax">Imposto (Compras)</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -72598,7 +72565,7 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="ff6f7db4-bb59-4107-8dc0-04cf688d20e0">
+ <row trl="Y" uuid="ff6f7db4-bb59-4107-8dc0-04cf688d20e0">
   <value column="Name" original="Reverse Movement">Estornar Movimento de Estoque</value>
   <value column="PrintName" original="Reverse Movement">Estornar Movimento de Estoque</value>
   <value column="Description" original="Allow to Reverse Movement related with the NF">Permite que a movimentação de estoque associada seja anulada quando este documento for anulado</value>
@@ -72612,6 +72579,61 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
  <row trl="N" uuid="f4d26dde-6179-44cf-812a-85b53c2d2335">
   <value column="Name" original="LBR_Ref_MovementLine_ID">LBR_Ref_MovementLine_ID</value>
   <value column="PrintName" original="LBR_Ref_MovementLine_ID">LBR_Ref_MovementLine_ID</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="2880b1e7-edea-41ec-bee6-d0eed6137e8c">
+  <value column="Name" original="Nota Fiscal Ref.">Nota Fiscal Ref.</value>
+  <value column="PrintName" original="Nota Fiscal Ref.">Nota Fiscal Ref.</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="20f7afbe-946e-47f6-a3f3-3f7c152b24cd">
+  <value column="Name" original="NF Replaced">NF Substituída</value>
+  <value column="PrintName" original="NF Replaced">NF Substituída</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="5a282074-d6eb-4a30-b0c4-7a02cc6b8f90">
+  <value column="Name" original="NF Replaced Series">Série da NF Substituída</value>
+  <value column="PrintName" original="NF Replaced Series">Série da NF Substituída</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="e48b9ea0-4842-46c5-aeb6-132632e1b32e">
+  <value column="Name" original="CFOP Type">Tipo de CFOP</value>
+  <value column="PrintName" original="CFOP Type">Tipo de CFOP</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="b5b2171b-0df4-45f6-b694-47dea7827588">
+  <value column="Name" original="Unlock Credit">Desbloquear Crédito</value>
+  <value column="PrintName" original="Unlock Credit">Desbloquear Crédito</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
