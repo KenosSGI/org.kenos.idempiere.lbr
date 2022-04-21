@@ -7148,6 +7148,22 @@ Telefone: {1}</value>
   <value column="MsgText" original="Show Inter-Company Invoices">Mostrar Faturas do Grupo Econômico</value>
   <value column="MsgTip" original=""/>
  </row>
+ <row trl="Y" uuid="22db82f1-b9bd-42fc-8390-d0426837584d">
+  <value column="MsgText" original="Invoices with blank Pay Rule">Faturas sem forma de pagto.</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row trl="Y" uuid="abfbe3f0-a251-4228-af61-490a035ebea1">
+  <value column="MsgText" original="Informe os dados abaixo para fazer o cálculo do frete nos Correios. As medidas somente tem efeito para saber os tamanhos mínimos e máximos de cada pacote, não influenciando no preço (para preço do balcão). Além do preço do balcão o sistema mostra os preços de contrato, caso sua empresa tenha um contrato de prestação de serviços configurado.">Informe os dados abaixo para fazer o cálculo do frete nos Correios. As medidas somente tem efeito para saber os tamanhos mínimos e máximos de cada pacote, não influenciando no preço (para preço do balcão). Além do preço do balcão o sistema mostra os preços de contrato, caso sua empresa tenha um contrato de prestação de serviços configurado.</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row trl="Y" uuid="dcd87f6b-dae4-44ca-885c-5106d1259989">
+  <value column="MsgText" original="Could not find any Bank Slip Contract">Não foi possível encontrar nenhum contrato de boleto bancário</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row trl="Y" uuid="fe45841a-a640-44cb-8c96-32acb41d3272">
+  <value column="MsgText" original="Could not find bank slip document type">Não foi possível encontrar o Tipo de Documento para Boleto Bancário.</value>
+  <value column="MsgTip" original=""/>
+ </row>
  <row trl="Y" uuid="9a7412b9-819a-45ac-81a1-08833e1cff92">
   <value column="MsgText" original="&lt;b&gt;CNPJ&lt;/b&gt;: {0} &lt;br /&gt;&lt;b&gt;IE&lt;/b&gt;: {1} &lt;br /&gt;&lt;b&gt;Last&lt;/b&gt;: {2} de {3} &lt;br /&gt; &lt;br /&gt;&lt;b&gt;Score Status&lt;/b&gt;&lt;br /&gt;{4}" xml:space="preserve"><![CDATA[<b>CNPJ</b>: {0} <br /><b>IE</b>: {1} <br /><b>Último</b>: {2} de {3} <br /> <br /><b>Consulta de Crédito</b><br />{4}]]></value>
   <value column="MsgTip" original=""/>

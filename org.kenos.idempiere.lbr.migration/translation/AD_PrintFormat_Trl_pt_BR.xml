@@ -380,4 +380,12 @@
   <value column="Name" original="RequisitionLine">RequisitionLine</value>
   <value column="Description" original="Requisition Line Print">Requisition Line Print</value>
  </row>
+ <row trl="Y" uuid="d26b0752-dd3b-4c22-bd23-4e4873d8c072">
+  <value column="Name" original="Production Report">Relatório de Produção</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="e54e9736-27c8-429c-9768-a7eb78ba1665">
+  <value column="Name" original="Production Line Report">Relatório da Linha de Produção</value>
+  <value column="Description" original=""/>
+ </row>
 </idempiereTrl>

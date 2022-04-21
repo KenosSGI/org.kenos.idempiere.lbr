@@ -363,6 +363,16 @@ Se você não pode cobrir o MPS como você planejou, este módulo dá a você a 
   <value column="Description" original="(Standard Process Production Group)">(Standard Process Production Group)</value>
   <value column="Help" original=""/>
  </row>
+ <row trl="N" uuid="ca6dabd3-d7ea-42eb-a3c6-d6f664f5d4e0">
+  <value column="Name" original="Process_LBR_BankSlip">Process_LBR_BankSlip</value>
+  <value column="Description" original="(Standard Process Bank Slip)">(Standard Process Bank Slip)</value>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="91d9776b-22d7-422a-862f-60b5c6acbebe">
+  <value column="Name" original="Process_LBR_CNABFile">Process_LBR_CNABFile</value>
+  <value column="Description" original="(Standard Process CNAB File)">(Standard Process CNAB File)</value>
+  <value column="Help" original=""/>
+ </row>
  <row trl="N" uuid="3da4f85a-5a28-4793-bf6a-9d122805f0e6">
   <value column="Name" original="Process_LBR_SIMP">Process_LBR_SIMP</value>
   <value column="Description" original="(Standard Process SIMP)">(Standard Process SIMP)</value>

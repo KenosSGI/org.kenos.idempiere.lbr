@@ -1171,9 +1171,21 @@ Se você deixa a chave de pesquisa vazia, o sistema automaticamente cria um valo
   <value column="Help" original=""/>
   <value column="Placeholder" original=""/>
  </row>
- <row trl="N" uuid="b1553a2b-3e2f-46ea-8060-3776ed7aebcc">
-  <value column="Name" original="Include Asset">Incluir ativo fixo</value>
-  <value column="Description" original="If checked Assets will be included in Inventory block H of file">If checked Assets will be included in Inventory block H of file</value>
+ <row trl="Y" uuid="b1553a2b-3e2f-46ea-8060-3776ed7aebcc">
+  <value column="Name" original="Include Asset">Incluir Ativo Imobilizado</value>
+  <value column="Description" original="If checked Assets will be included in Inventory block H of file">Se marcado incluí itens do Ativo Imobilizado no bloco H de inventário</value>
+  <value column="Help" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="b86be35f-8e7e-4a83-99ad-914c57b80c00">
+  <value column="Name" original="Nota Fiscal Replaced">NF Substituída</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="bb8860f0-1539-4acc-91e2-2f3cf430f35c">
+  <value column="Name" original="Nota Fiscal Replaced">NF Substituída</value>
+  <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="Placeholder" original=""/>
  </row>
