@@ -34,6 +34,8 @@ public class ProcessFactory implements IProcessFactory
 			return new ReportStarter () {};
 		if (CreditCheck.class.getName().equals (className))
 			return new CreditCheck ();
+		if (ReplaceSalesRep.class.getName().equals (className))
+			return new ReplaceSalesRep ();
 		return null;
 	}	//	newProcessInstance
 }	//	ProcessFactory
