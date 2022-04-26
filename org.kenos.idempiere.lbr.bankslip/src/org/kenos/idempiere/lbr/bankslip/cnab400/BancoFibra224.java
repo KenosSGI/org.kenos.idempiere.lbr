@@ -87,17 +87,19 @@ public class BancoFibra224 implements ICNABGenerator
 			if (MLBRBankSlip.LBR_ISACCEPTED_IsAccepted.equals(bs.getLBR_IsAccepted())) {
 				accepted = IS_ACCEPTED;
 			}
-			//	Penalty
-			BigDecimal penaltyAmt = Env.ZERO;
 			
-			//	Mora por atraso
-			if (bs.getLBR_PenaltyDays() == 1)
-			{
-				if (MLBRBankSlip.LBR_PENALTYTYPE_Amount.equals(bs.getLBR_PenaltyType()))
-					penaltyAmt = bs.getLBR_PenaltyValue();
-				else if (MLBRBankSlip.LBR_PENALTYTYPE_Rate.equals(bs.getLBR_PenaltyType()))
-					penaltyAmt = bs.getGrandTotal().multiply(bs.getLBR_PenaltyValue());
-			}
+			//	Interest - Mora de 1 dia
+			BigDecimal interestAmt = bs.getDailyLateInterest();
+			
+//			String intruction1 = SEM_INTRUCAO;
+//			String intruction2 = SEM_INTRUCAO;
+//			
+//			if (interestAmt.signum() == 1)
+//				intruction2 = COBRAR_JUROS;
+			
+			//	Penalty - Multa
+			@SuppressWarnings("unused")
+			BigDecimal penaltyAmt = bs.getCalculatedPenaltyAmt();
 			
 			BigDecimal discountAmt = Env.ZERO;
 			Timestamp discountDate = null;
@@ -158,7 +160,7 @@ public class BancoFibra224 implements ICNABGenerator
 			cnab.append(lPad(timeToString(bs.getDateDoc()), 6));	//	DATA DE EMISSÃO
 			cnab.append(lPad(0, 2));								//	INSTRUÇÃO 1
 			cnab.append(lPad(0, 2));								//	INSTRUÇÃO 2
-			cnab.append(lPad(penaltyAmt, 13));						//	JUROS DE 1 DIA
+			cnab.append(lPad(interestAmt, 13));						//	JUROS DE 1 DIA
 			cnab.append(lPad(timeToString(discountDate), 6));		//	DESCONTO ATÉ
 			cnab.append(lPad(discountAmt, 13));						//	VALOR DO DESCONTO
 			cnab.append(lPad(bs.getLBR_IOFAmt(), 13));				//	VALOR DO IOF

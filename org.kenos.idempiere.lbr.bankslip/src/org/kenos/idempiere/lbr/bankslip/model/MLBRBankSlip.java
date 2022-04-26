@@ -736,7 +736,9 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 		if (is_ValueChanged(COLUMNNAME_DateDoc) || is_ValueChanged(COLUMNNAME_DueDate) 
 				|| is_ValueChanged(COLUMNNAME_LBR_NumberInBank) || is_ValueChanged(COLUMNNAME_LBR_NumberInOrg) 
 				|| is_ValueChanged(COLUMNNAME_LBR_IsAccepted) || is_ValueChanged(COLUMNNAME_LBR_IssueType) 
-				|| is_ValueChanged(COLUMNNAME_GrandTotal) || is_ValueChanged(COLUMNNAME_DiscountAmt))
+				|| is_ValueChanged(COLUMNNAME_GrandTotal) || is_ValueChanged(COLUMNNAME_DiscountAmt)
+				|| is_ValueChanged(COLUMNNAME_LBR_InterestValue) || is_ValueChanged(COLUMNNAME_LBR_InterestType)
+				|| is_ValueChanged(COLUMNNAME_LBR_PenaltyType) || is_ValueChanged(COLUMNNAME_LBR_PenaltyValue))
 			changed = true;
 		
 		MLBRNotaFiscal nf = new Query (getCtx(), MLBRNotaFiscal.Table_Name, "C_Invoice_ID=? AND DocStatus='CO'", get_TrxName())
@@ -778,11 +780,20 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 			Locale locale = new Locale("pt","BR");
 			NumberFormat currency = NumberFormat.getCurrencyInstance(locale);
 			
+
+			//	Instruction 2
+			String instruction2 = "";
+			BigDecimal penaltyAmt = getCalculatedPenaltyAmt();
+			if (penaltyAmt.signum() == 1)
+				instruction2 = "Após o vencto. cobrar multa de " + currency.format(penaltyAmt);
+			
 			//	Instruction 3
 			String instruction3 = "";
 			BigDecimal dailyLateInterestAmt = getDailyLateInterest();
 			if (dailyLateInterestAmt.signum() == 1)
-				instruction3 = "Cobrar mora diária de " + currency.format(dailyLateInterestAmt);
+				instruction3 = "Após o vencto. cobrar mora diária de " + currency.format(dailyLateInterestAmt);
+			
+			bsi.setlbr_Instruction2(instruction2);
 			bsi.setlbr_Instruction3(instruction3);
 			
 			//	Custom Messages
@@ -1459,8 +1470,21 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 		if (MLBRBankSlip.LBR_PENALTYTYPE_Amount.equals(getLBR_InterestType()))
 			interestAmt = getLBR_InterestValue();
 		else if (MLBRBankSlip.LBR_PENALTYTYPE_Rate.equals(getLBR_InterestType()))
-			interestAmt = ((getLBR_InterestValue().divide(new BigDecimal("30"), 12, RoundingMode.HALF_UP)).
-			        divide(Env.ONEHUNDRED, 12, RoundingMode.HALF_UP)).multiply(getGrandTotal());
+			interestAmt = (getLBR_InterestValue().divide(new BigDecimal("30"), 12, RoundingMode.HALF_UP))
+					.multiply(getGrandTotal());
 		return interestAmt;
 	}	//	getInterest
+
+	public BigDecimal getCalculatedPenaltyAmt() 
+	{
+		BigDecimal penaltyAmt = Env.ZERO;
+		
+		//	Mora por atraso
+		if (MLBRBankSlip.LBR_PENALTYTYPE_Amount.equals(getLBR_PenaltyType()))
+			penaltyAmt = getLBR_PenaltyValue();
+		else if (MLBRBankSlip.LBR_PENALTYTYPE_Rate.equals(getLBR_PenaltyType()))
+			penaltyAmt = getGrandTotal().multiply(getLBR_PenaltyValue());
+		
+		return penaltyAmt;
+	}	//	getCalculatedPenaltyAmt
 }	//	MLBRBankSlip
