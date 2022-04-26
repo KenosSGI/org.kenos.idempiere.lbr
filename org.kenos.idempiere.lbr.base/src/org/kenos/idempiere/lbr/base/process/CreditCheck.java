@@ -74,7 +74,7 @@ public class CreditCheck extends SvrProcess
 		if (log.isLoggable(Level.INFO)) log.info("GraceDay=" + p_GraceDays
 			+ ", Cut_Date=" + p_CutOffDate);
 		
-		String where = "SOCreditStatus!='S' AND EXISTS (SELECT 1 FROM RV_OpenItem oi "
+		String where = "EXISTS (SELECT 1 FROM RV_OpenItem oi "
 				+ "WHERE oi.C_BPartner_ID=C_BPartner.C_BPartner_ID "
 				+ "AND oi.IsSOTrx='Y' "
 				+ "AND oi.DueDate<TRUNC(SYSDATE - " + p_GraceDays + ") "
@@ -87,7 +87,7 @@ public class CreditCheck extends SvrProcess
 		//	Close group
 		where += ")";
 		
-		int[] ids = new Query (getCtx(), MBPartner.Table_Name, where, get_TrxName()).setClient_ID().getIDs();
+		int[] ids = new Query (getCtx(), MBPartner.Table_Name, "SOCreditStatus!='S' AND " + where, get_TrxName()).setClient_ID().getIDs();
 		for (int id : ids)
 		{
 			MBPartner bp = new MBPartner (getCtx(), id, get_TrxName());
@@ -107,7 +107,7 @@ public class CreditCheck extends SvrProcess
 				bp.save();
 			}
 
-			return "@Success@\n" + ids.length + " parceiros tiveram o crédito cancelado. " + idsUnlock.length + " foram desbloqueados.";
+			return "@Success@\n" + ids.length + " parceiros tiveram o crédito cancelado. " + idsUnlock.length + " parceiros desbloqueados.";
 		}
 
 		return "@Success@\n" + ids.length + " parceiros tiveram o crédito cancelado.";
