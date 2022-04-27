@@ -756,11 +756,13 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 			bsi.setlbr_PaymentLocation1(bank.getlbr_PaymentLocation1());
 			bsi.setLBR_InstructionBP(bank.getlbr_PaymentLocation2());
 			
-			//	Instruction 1 Fatura
-			if (getC_Invoice_ID() > 0)
-				bsi.setlbr_Instruction1("Fatura: " + getC_Invoice().getDocumentNo() + " / " + getlbr_PayScheduleNo());
+			List<String> instructions = new ArrayList<String>();
 			
-			//	Instruction 2 Nota Fiscal
+			//	Instruction Fatura
+			if (getC_Invoice_ID() > 0)
+				instructions.add ("Fatura: " + getC_Invoice().getDocumentNo() + " / " + getlbr_PayScheduleNo());
+			
+			//	Instruction Nota Fiscal
 			if (nf != null)
 			{
 				String documentNo = nf.getDocumentNo();
@@ -774,33 +776,40 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 				if (nfSerie != null && nfSerie.length() > 0)
 					documentNo += " / " + nfSerie;
 				
-				bsi.setlbr_Instruction2("Nota Fiscal: " + documentNo);
+				instructions.add ("Nota Fiscal: " + documentNo);
 			}
 			
 			Locale locale = new Locale("pt","BR");
 			NumberFormat currency = NumberFormat.getCurrencyInstance(locale);
-			
 
-			//	Instruction 2
-			String instruction2 = "";
+			//	Instruction Penalty
 			BigDecimal penaltyAmt = getCalculatedPenaltyAmt();
 			if (penaltyAmt.signum() == 1)
-				instruction2 = "Após o vencto. cobrar multa de " + currency.format(penaltyAmt);
+				instructions.add ("Após o vencto. cobrar multa de " + currency.format(penaltyAmt));
 			
-			//	Instruction 3
-			String instruction3 = "";
+			//	Instruction Interest
 			BigDecimal dailyLateInterestAmt = getDailyLateInterest();
 			if (dailyLateInterestAmt.signum() == 1)
-				instruction3 = "Após o vencto. cobrar mora diária de " + currency.format(dailyLateInterestAmt);
-			
-			bsi.setlbr_Instruction2(instruction2);
-			bsi.setlbr_Instruction3(instruction3);
-			
+				instructions.add ("Após o vencto. cobrar mora diária de " + currency.format(dailyLateInterestAmt));
+
 			//	Custom Messages
-			if (getMsg1() != null)
-				bsi.setLBR_Instruction6(getMsg1());
-			if (getMsg2() != null)
-				bsi.setLBR_Instruction7(getMsg2());
+			String msg1 = getMsg1();
+			String msg2 = getMsg2();
+			
+			if (msg1 != null && !msg1.isEmpty())
+				instructions.add(msg1);
+			
+			if (msg2 != null && !msg2.isEmpty())
+				instructions.add(msg2);
+			
+			int instructionNo=1;
+			for (String instruction : instructions) {
+				bsi.set_ValueOfColumn("LBR_Instruction" + instructionNo++, instruction);
+				
+				//	Security check, mas 8 instrucions to payer
+				if (instructionNo == 8)
+					break;
+			}
 		}
 		
 		//	Something was changed
