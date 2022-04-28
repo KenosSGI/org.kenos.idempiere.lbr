@@ -1113,6 +1113,8 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 		if (!reActivateIt())
 			return false;
 		
+		//	Set C_InvoicePaySchedule to Null to Allow changes in InvoicePaySchedule
+		this.setC_InvoicePaySchedule_ID(0);
 		setProcessed(true);
 		setDocAction(DOCACTION_None);
 		
