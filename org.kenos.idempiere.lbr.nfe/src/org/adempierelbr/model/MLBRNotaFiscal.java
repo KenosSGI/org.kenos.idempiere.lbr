@@ -1795,12 +1795,12 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 				BigDecimal priceEntered = (BigDecimal)production.get_Value("PriceEntered");
 				
 				//	Price
-				nfLine.setPrice(MLBRNotaFiscal.CURRENCY_BRL, priceEntered, priceEntered , false, false);				
+				nfLine.setPrice(MLBRNotaFiscal.CURRENCY_BRL, p.getM_Product_ID(), priceEntered, priceEntered , false, false);				
 			}
 			else
 			{
 				//	Cost Price
-				nfLine.setPrice(MLBRNotaFiscal.CURRENCY_BRL, costPrice, costPrice , false, false);
+				nfLine.setPrice(MLBRNotaFiscal.CURRENCY_BRL, p.getM_Product_ID(), costPrice, costPrice , false, false);
 			}
 			
 			nfLine.saveEx();

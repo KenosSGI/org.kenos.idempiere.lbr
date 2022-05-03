@@ -68,6 +68,7 @@ import org.compiere.model.MSysConfig;
 import org.compiere.model.MTable;
 import org.compiere.model.MTax;
 import org.compiere.model.MUOM;
+import org.compiere.model.MUOMConversion;
 import org.compiere.model.Query;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
@@ -749,7 +750,7 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 		
 		boolean includeDIFAL = MSysConfig.getBooleanValue(SysConfig.LBR_ADD_DIFAL_PROD, true, getAD_Client_ID(), getAD_Org_ID());
 		boolean isFOB = getParent().getC_Invoice_ID() > 0 ? !getParent().getC_Invoice().isTaxIncluded() : false;
-		setPrice(iLine.getParent().getC_Currency_ID(), iLine.getPriceEntered(), iLine.getPriceList(), includeDIFAL, isFOB);
+		setPrice(iLine.getParent().getC_Currency_ID(), iLine.getM_Product_ID(), iLine.getPriceEntered(), iLine.getPriceList(), includeDIFAL, isFOB);
 		save();
 		
 		//	Impostos
@@ -913,7 +914,7 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 			setLBR_CFOP_ID(LBR_CFOP_ID);
 		
 		//	Cost Price
-		setPrice (MLBRNotaFiscal.CURRENCY_BRL, costPrice, costPrice , false, false);
+		setPrice (MLBRNotaFiscal.CURRENCY_BRL, line.getM_Product_ID(), costPrice, costPrice , false, false);
 		
 		//	Impostos
 		if (p_LBR_Tax_ID > 0)
@@ -1047,7 +1048,7 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 			setQty(oLine.getQtyEntered());
 			boolean includeDIFAL = MSysConfig.getBooleanValue(SysConfig.LBR_ADD_DIFAL_PROD, true, getAD_Client_ID(), getAD_Org_ID());
 			boolean isFOB = getParent().getC_Invoice_ID() > 0 ? !getParent().getC_Invoice().isTaxIncluded() : false;
-			setPrice(oLine.getParent().getC_Currency_ID(), oLine.getPriceEntered(), oLine.getPriceList(), includeDIFAL, isFOB);
+			setPrice(oLine.getParent().getC_Currency_ID(), oLine.getM_Product_ID(), oLine.getPriceEntered(), oLine.getPriceList(), includeDIFAL, isFOB);
 			save();
 			
 			//		Impostos
@@ -1177,7 +1178,7 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 			setQty(iLine.getQtyEntered());
 			boolean includeDIFAL = MSysConfig.getBooleanValue(SysConfig.LBR_ADD_DIFAL_PROD, true, getAD_Client_ID(), getAD_Org_ID());
 			boolean isFOB = getParent().getC_Invoice_ID() > 0 ? !getParent().getC_Invoice().isTaxIncluded() : false;
-			setPrice(iLine.getParent().getC_Currency_ID(), oLineW.getPriceEntered(), oLineW.getPriceList(), includeDIFAL, isFOB);
+			setPrice(iLine.getParent().getC_Currency_ID(), iLine.getM_Product_ID(), oLineW.getPriceEntered(), oLineW.getPriceList(), includeDIFAL, isFOB);
 			save();
 			
 			if (otherOperation)
@@ -1329,7 +1330,19 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 	 */
 	public void setPrice (int C_Currency_ID, BigDecimal price, BigDecimal priceList)
 	{
-		setPrice (C_Currency_ID, price, priceList, false, false);
+		setPrice (C_Currency_ID, 0, price, priceList, false, false, false);
+	}	//	setPrice
+
+	/**
+	 * 		Define os preços
+	 * 		Define o valor do Desconto
+	 * 
+	 * 	@param 	Price
+	 * 	@param	Price List
+	 */
+	public void setPrice (int C_Currency_ID, int M_Product_ID, BigDecimal price, BigDecimal priceList, boolean includeDIFAL, boolean isFOB)
+	{
+		setPrice (C_Currency_ID, M_Product_ID, price, priceList, includeDIFAL, isFOB, MLBRNotaFiscal.LBR_TRANSACTIONTYPE_Export.equals(getParent().getlbr_TransactionType()));
 	}	//	setPrice
 	
 	/**
@@ -1340,7 +1353,7 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 	 * 	@param	Price List
 	 * 	@param  Include DIFAL
 	 */
-	public void setPrice (int C_Currency_ID, BigDecimal price, BigDecimal priceList, boolean includeDIFAL, boolean isFOB)
+	public void setPrice (int C_Currency_ID, int M_Product_ID, BigDecimal price, BigDecimal priceList, boolean includeDIFAL, boolean isFOB, boolean isExport)
 	{
 		//	Conversão
 		if (C_Currency_ID != MLBRNotaFiscal.CURRENCY_BRL)
@@ -1397,6 +1410,29 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 			super.setPrice(amtDIFAL.add(price));
 		//
 		super.setLineTotalAmt(getPrice().multiply(getQty()).setScale(2, RoundingMode.HALF_UP));
+		
+		//	Should fill uTrib and qTrib fields for Export NF
+		if (isExport && M_Product_ID > 0)
+		{
+			MProduct p = new MProduct (getCtx(), M_Product_ID, null);
+			int LBR_NCM_ID = p.get_ValueAsInt(I_W_M_Product.COLUMNNAME_LBR_NCM_ID);
+			if (LBR_NCM_ID > 0)
+			{
+				MLBRNCM ncm = new MLBRNCM (getCtx(), LBR_NCM_ID, null);
+				int export_UOM_ID = ncm.getC_UOM_ID();
+				if (export_UOM_ID < 1)
+					export_UOM_ID = p.getC_UOM_ID();
+				
+				BigDecimal convertedPrice = MUOMConversion.convertProductTo (getCtx(), M_Product_ID, export_UOM_ID, super.getPrice());
+				BigDecimal convertedQty = MUOMConversion.convertProductFrom (getCtx(), M_Product_ID, export_UOM_ID, super.getQty());
+				//
+				setLBR_vUnTrib(convertedPrice);
+				setLBR_qTrib(convertedQty);
+				//
+				MUOM uom = new MUOM (getCtx(), export_UOM_ID, null);
+				setX12DE355(uom.getX12DE355());
+			}
+		}
 	}	//	setPrice
 	
 	/**

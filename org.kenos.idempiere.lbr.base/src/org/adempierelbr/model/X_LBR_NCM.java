@@ -24,14 +24,14 @@ import org.compiere.util.KeyNamePair;
 
 /** Generated Model for LBR_NCM
  *  @author iDempiere (generated) 
- *  @version Release 4.1 - $Id$ */
+ *  @version Release 6.2 - $Id$ */
 public class X_LBR_NCM extends PO implements I_LBR_NCM, I_Persistent 
 {
 
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20170626L;
+	private static final long serialVersionUID = 20220503L;
 
     /** Standard Constructor */
     public X_LBR_NCM (Properties ctx, int LBR_NCM_ID, String trxName)
@@ -74,6 +74,34 @@ public class X_LBR_NCM extends PO implements I_LBR_NCM, I_Persistent
       return sb.toString();
     }
 
+	public org.compiere.model.I_C_UOM getC_UOM() throws RuntimeException
+    {
+		return (org.compiere.model.I_C_UOM)MTable.get(getCtx(), org.compiere.model.I_C_UOM.Table_Name)
+			.getPO(getC_UOM_ID(), get_TrxName());	}
+
+	/** Set UOM.
+		@param C_UOM_ID 
+		Unit of Measure
+	  */
+	public void setC_UOM_ID (int C_UOM_ID)
+	{
+		if (C_UOM_ID < 1) 
+			set_ValueNoCheck (COLUMNNAME_C_UOM_ID, null);
+		else 
+			set_ValueNoCheck (COLUMNNAME_C_UOM_ID, Integer.valueOf(C_UOM_ID));
+	}
+
+	/** Get UOM.
+		@return Unit of Measure
+	  */
+	public int getC_UOM_ID () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_C_UOM_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
 	/** Set Description.
 		@param Description 
 		Optional short description of the record
@@ -114,27 +142,35 @@ public class X_LBR_NCM extends PO implements I_LBR_NCM, I_Persistent
 		return ii.intValue();
 	}
 
+	/** Set LBR_NCM_UU.
+		@param LBR_NCM_UU LBR_NCM_UU	  */
+	public void setLBR_NCM_UU (String LBR_NCM_UU)
+	{
+		set_Value (COLUMNNAME_LBR_NCM_UU, LBR_NCM_UU);
+	}
+
+	/** Get LBR_NCM_UU.
+		@return LBR_NCM_UU	  */
+	public String getLBR_NCM_UU () 
+	{
+		return (String)get_Value(COLUMNNAME_LBR_NCM_UU);
+	}
+
 	/** Set Brazilian Tax.
 		@param LBR_Tax_ID 
 		Primary key table LBR_Tax
 	  */
-	public void setLBR_Tax_ID (int LBR_Tax_ID)
+	public void setLBR_Tax_ID (Object LBR_Tax_ID)
 	{
-		if (LBR_Tax_ID < 1) 
-			set_Value (COLUMNNAME_LBR_Tax_ID, null);
-		else 
-			set_Value (COLUMNNAME_LBR_Tax_ID, Integer.valueOf(LBR_Tax_ID));
+		set_Value (COLUMNNAME_LBR_Tax_ID, LBR_Tax_ID);
 	}
 
 	/** Get Brazilian Tax.
 		@return Primary key table LBR_Tax
 	  */
-	public int getLBR_Tax_ID () 
+	public Object getLBR_Tax_ID () 
 	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_LBR_Tax_ID);
-		if (ii == null)
-			 return 0;
-		return ii.intValue();
+				return get_Value(COLUMNNAME_LBR_Tax_ID);
 	}
 
 	/** Set Search Key.
