@@ -102,13 +102,13 @@ public class NotaFiscalAdditional extends ADForm
 
 		// Gerando NF Complementar
 		if (nf.getC_Invoice_ID() > 0)
-			nfCompl.generateNF((MInvoice)nf.getC_Invoice(), nf.isSOTrx());
+			nfCompl.generateNF((MInvoice)nf.getC_Invoice(), nf.islbr_IsOwnDocument());
 		else if (nf.getM_InOut_ID() > 0)
-			nfCompl.generateNF((MInOut)nf.getM_InOut(), nf.isSOTrx());
+			nfCompl.generateNF((MInOut)nf.getM_InOut(), nf.islbr_IsOwnDocument());
 		else if (nf.getC_Order_ID() > 0)
-			nfCompl.generateNF((MOrder)nf.getC_Order(), nf.isSOTrx());
+			nfCompl.generateNF((MOrder)nf.getC_Order(), nf.islbr_IsOwnDocument());
 		else if (nf.getM_Movement_ID() > 0)
-			nfCompl.generateNF((MMovement)nf.getM_Movement(), nf.isSOTrx(), nf.getC_DocTypeTarget_ID());
+			nfCompl.generateNF((MMovement)nf.getM_Movement(), nf.islbr_IsOwnDocument(), nf.getC_DocTypeTarget_ID());
 		
 		//	Recém Criada
 		nfCompl.m_justCreated = true;

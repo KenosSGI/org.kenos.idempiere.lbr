@@ -23,7 +23,7 @@ import org.compiere.util.KeyNamePair;
 
 /** Generated Interface for LBR_NCM
  *  @author iDempiere (generated) 
- *  @version Release 4.1
+ *  @version Release 6.2
  */
 @SuppressWarnings("all")
 public interface I_LBR_NCM 
@@ -63,6 +63,21 @@ public interface I_LBR_NCM
 	  * Organizational entity within client
 	  */
 	public int getAD_Org_ID();
+
+    /** Column name C_UOM_ID */
+    public static final String COLUMNNAME_C_UOM_ID = "C_UOM_ID";
+
+	/** Set UOM.
+	  * Unit of Measure
+	  */
+	public void setC_UOM_ID (int C_UOM_ID);
+
+	/** Get UOM.
+	  * Unit of Measure
+	  */
+	public int getC_UOM_ID();
+
+	public org.compiere.model.I_C_UOM getC_UOM() throws RuntimeException;
 
     /** Column name Created */
     public static final String COLUMNNAME_Created = "Created";
@@ -119,18 +134,27 @@ public interface I_LBR_NCM
 	  */
 	public int getLBR_NCM_ID();
 
+    /** Column name LBR_NCM_UU */
+    public static final String COLUMNNAME_LBR_NCM_UU = "LBR_NCM_UU";
+
+	/** Set LBR_NCM_UU	  */
+	public void setLBR_NCM_UU (String LBR_NCM_UU);
+
+	/** Get LBR_NCM_UU	  */
+	public String getLBR_NCM_UU();
+
     /** Column name LBR_Tax_ID */
     public static final String COLUMNNAME_LBR_Tax_ID = "LBR_Tax_ID";
 
 	/** Set Brazilian Tax.
 	  * Primary key table LBR_Tax
 	  */
-	public void setLBR_Tax_ID (int LBR_Tax_ID);
+	public void setLBR_Tax_ID (Object LBR_Tax_ID);
 
 	/** Get Brazilian Tax.
 	  * Primary key table LBR_Tax
 	  */
-	public int getLBR_Tax_ID();
+	public Object getLBR_Tax_ID();
 
     /** Column name Updated */
     public static final String COLUMNNAME_Updated = "Updated";
