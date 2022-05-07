@@ -1109,10 +1109,12 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 	@Override
 	public boolean voidIt()
 	{
-		//	Same validations as re-activate
-		if (!reActivateIt())
+		//	Check if Bankslip is already paid or partially paid
+		if (isPaid() || isLBR_IsPartialPayment())
+		{
+			m_processMsg = "Não é possível anular um boleto pago ou parcialmente pago";
 			return false;
-		
+		}
 		//	Set C_InvoicePaySchedule to Null to Allow changes in InvoicePaySchedule
 		this.setC_InvoicePaySchedule_ID(0);
 		setProcessed(true);
