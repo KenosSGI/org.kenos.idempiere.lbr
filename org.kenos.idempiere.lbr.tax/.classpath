@@ -11,5 +11,15 @@
 		</accessrules>
 	</classpathentry>
 	<classpathentry kind="src" path="src/"/>
+	<classpathentry exported="true" kind="lib" path="lib/commons-collections4.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/commons-compress.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/commons-io.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/commons-math.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/curvesapi.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/log4j-api.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/poi.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/poi-ooxml.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/poi-ooxml-lite.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/xmlbeans.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
