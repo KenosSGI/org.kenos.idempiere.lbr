@@ -67,6 +67,7 @@ import org.jrimum.vallia.digitoverificador.Modulo;
 import org.jrimum.vallia.digitoverificador.TipoDeModulo;
 import org.kenos.idempiere.lbr.bankslip.cnab400.BancoDoBrasil001;
 import org.kenos.idempiere.lbr.bankslip.cnab400.Bradesco237;
+import org.kenos.idempiere.lbr.bankslip.cnab400.CaixaEconomica104;
 import org.kenos.idempiere.lbr.base.model.SysConfig;
 
 /**
@@ -562,7 +563,10 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 		{
 			if (Integer.parseInt(routingNo) == Bradesco237.ROUNTING_NO)
 				return TextUtil.lPad(numberInBank, 11);
-			else if (Integer.parseInt(routingNo) == BancoDoBrasil001.ROUNTING_NO)
+			else if (Integer.parseInt(routingNo) == BancoDoBrasil001.ROUNTING_NO)		
+			{
+				return TextUtil.lPad(numberInBank,17);
+			}else if(Integer.parseInt(routingNo) == CaixaEconomica104.ROUNTING_NO)
 			{
 				return TextUtil.lPad(numberInBank,17);
 			}

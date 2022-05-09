@@ -6,6 +6,7 @@ import org.kenos.idempiere.lbr.bankslip.cnab240.bean.santander033.SantanderCNABR
 import org.kenos.idempiere.lbr.bankslip.cnab400.BancoDoBrasil001;
 import org.kenos.idempiere.lbr.bankslip.cnab400.BancoFibra224;
 import org.kenos.idempiere.lbr.bankslip.cnab400.Bradesco237;
+import org.kenos.idempiere.lbr.bankslip.cnab400.CaixaEconomica104;
 import org.kenos.idempiere.lbr.bankslip.cnab400.Itau341;
 import org.kenos.idempiere.lbr.bankslip.model.MLBRBankSlipLayout;
 
@@ -34,6 +35,9 @@ public class DefaultCNABFactory implements ICNABFactory
 			
 			if (BancoFibra224.ROUNTING_NO == RoutingNo)
 				return new BancoFibra224();
+			
+			if(CaixaEconomica104.ROUNTING_NO == RoutingNo)
+				return new CaixaEconomica104();
 		}
 		return null;
 	}	//	getCNABGenerator

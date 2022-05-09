@@ -16,7 +16,7 @@ import org.kenos.idempiere.lbr.bankslip.model.MLBRBankSlipMov;
 import org.kenos.idempiere.lbr.bankslip.model.MLBRCNABFile;
 
 /**
- * 	Generate CNAB for Banco Fibra Bank
+ * 	Generate CNAB for CAIXA ECONOMICA Bank
  * 	@author Ricardo Santana
  */
 public class CaixaEconomica104 implements ICNABGenerator
@@ -25,19 +25,24 @@ public class CaixaEconomica104 implements ICNABGenerator
 	public static final int ROUNTING_NO = 104;
 	
 	/**	Bank Name			*/
-	private static final String BANK_NAME = "BANCO FIBRA";
+	private static final String BANK_NAME = "CAIXA ECONOMICA FEDERAL";
 	
 //	/** Org BP Type				*/
 	private static final String BPTYPE_CPF_BENEFICIARIO 		= "01";
 	private static final String BPTYPE_CNPJ_BENEFICIARIO 		= "02";
 	
 	/** Payer BP Type				*/
-	private static final String BPTYPE_CPF_PAGADOR 		= "03";
-	private static final String BPTYPE_CNPJ_PAGADOR 	= "04";
+	private static final String BPTYPE_CPF_PAGADOR 		= "01";
+	private static final String BPTYPE_CNPJ_PAGADOR 	= "02";
 	
+	private static final String SEM_INTRUCAO	= "00";
+
 	/** Aceite				*/
 	private static final String IS_ACCEPTED 	= "A";
 	private static final String NOT_ACCEPTED 	= "N";
+	
+	/**Versão do Layout */
+	private static final int LAYOUT_VERSION     = 007;
 	
 	/**
 	 * 	Generate CNAB File
@@ -47,26 +52,28 @@ public class CaixaEconomica104 implements ICNABGenerator
 	{
 		final StringBuilder cnab = new StringBuilder ();
 		
-		//	Header
+		//	Header		
+
 		cnab.append(CNAB_REG_TYPE_HEADER); 						//	TIPO DE REGISTRO
-		cnab.append("1"); 										//	OPERAÇÃO
-		cnab.append(rPad("TESTE",7)); 						    //	LITERAL DE REMESSA
-		cnab.append("01"); 										//	CÓDIGO DE SERVIÇO
+		cnab.append(1); 										//	OPERAÇÃO
+		cnab.append(rPad("",7)); 						        //	LITERAL DE REMESSA
+		cnab.append(lPad(01,2)); 								//	CÓDIGO DE SERVIÇO
 		cnab.append(rPad("COBRANCA", 15)); 						//	LITERAL DE SERVIÇO	
-		cnab.append(lPad(cnabFile.getLBR_BankAgencyVD(), 4));	//	AGÊNCIA
-		//  CÓDIGO BENEFICIÁRIO
-		cnab.append(rPad("", 9)); 							    //	USO EXCLUSIVO
+		cnab.append(cnabFile.get_Value(20));	                //	AGÊNCIA
+		cnab.append(lPad(cnabFile.getLBR_BankSlipContract().getLBR_AccordNo(),7)); //  CÓDIGO BENEFICIÁRIO
+		cnab.append(rPad(" ", 9)); 							    //	USO EXCLUSIVO
 		cnab.append(rPad(cnabFile.getlbr_LegalEntity(), 30)); 	//	NOME DA EMPRESA
 		cnab.append(cnabFile.getRoutingNo()); 					//	CÓDIGO DO BANCO
 		cnab.append(rPad(BANK_NAME, 15)); 						//	NOME DO BANCO
 		cnab.append(timeToString(cnabFile.getDateDoc())); 		//	DATA DE GERAÇÃO
-		
-																//  VERSÃO DO LAYOUT
-		cnab.append(rPad("", 294)); 							//	BRANCOS
-		cnab.append(lPad("1", 6)); 								//	NÚMERO SEQUENCIAL
+		cnab.append(lPad(LAYOUT_VERSION,3));	                //  VERSÃO DE LAYOUT
+		cnab.append(rPad("", 286)); 							//	BRANCOS
+		cnab.append(lPad("1", 5)); 								//	NÚMERO SEQUENCIAL
+		cnab.append(lPad("1", 6)); 								//	NÚMERO SEQUENCIAL		
 		cnab.append(CR).append(LF);		
-		AtomicInteger count = new AtomicInteger (2);
 		
+		AtomicInteger count = new AtomicInteger (2);
+				
 		//	Movements
 		cnabFile.getLines().stream().forEach(line ->
 		{
@@ -74,7 +81,7 @@ public class CaixaEconomica104 implements ICNABGenerator
 			MLBRBankSlip bs 		= line.getBankSlip();
 			MLBRBankSlipInfo bsi 	= line.getBankSlipInfo();
 			//
-			cnab.append(rPad(CNAB_REG_TYPE_DETAIL_7, 1));			//	TIPO DE REGISTRO
+			//cnab.append(rPad(CNAB_REG_TYPE_DETAIL_7, 1));			//	TIPO DE REGISTRO
 			
 			String orgBPTypeBR = BPTYPE_CNPJ_BENEFICIARIO;
 			String orgCNPJF = bsi.getlbr_CNPJ();
@@ -127,6 +134,10 @@ public class CaixaEconomica104 implements ICNABGenerator
 				}
 			}
 			
+			String intruction1 = SEM_INTRUCAO;
+			String intruction2 = SEM_INTRUCAO;
+			String intruction3 = SEM_INTRUCAO;
+			
 			//	CNPJ/CPF payer
 			String payerBPTypeBR = BPTYPE_CNPJ_PAGADOR;
 			String payerCNPJF = bsi.getlbr_BPCNPJ();
@@ -134,48 +145,55 @@ public class CaixaEconomica104 implements ICNABGenerator
 			if (MLBRBankSlipInfo.LBR_BPTYPEBR_PF_Individual.equals(bsi.getlbr_BPTypeBR()))
 				payerBPTypeBR = BPTYPE_CPF_PAGADOR;
 
-			cnab.append(CNAB_REG_TYPE_HEADER); 						//	TIPO DE REGISTRO
-			cnab.append(rPad(orgBPTypeBR, 2));						//	CÓDIGO DE INSCRIÇÃO
-			cnab.append(lPad(orgCNPJF, 14));						//	NÚMERO DE INSCRIÇÃO		
-			cnab.append(lPad(cnabFile.getLBR_BankSlipContract().getLBR_Param1(), 20)); //  CÓDIGO DA EMPRESA
+			
+			cnab.append(1); 						                //	TIPO DE REGISTRO
+			cnab.append(rPad(payerBPTypeBR, 2));					//	CÓDIGO DE INSCRIÇÃO
+			cnab.append(lPad(payerCNPJF, 14));						//	NÚMERO DE INSCRIÇÃO		
+		    cnab.append(lPad(0,3));                                 //  USO EXCLUSIVO DA CAIXA
+			cnab.append(lPad(cnabFile.getLBR_BankSlipContract().getLBR_AccordNo(),7)); //  CÓDIGO BENEFICIÁRIO
+			cnab.append(lPad(1,1));                              	//  ID EMISSÃO
+			cnab.append(lPad(0,1));                              	//  ID POSTAGEM
+			cnab.append(lPad(0,2));                                 //  TAXA DE PERMANÊNCIA
 			cnab.append(rPad(bs.getLBR_NumberInOrg(), 25));			//	USO DA EMPRESA
-			cnab.append(lPad(bs.getLBR_NumberInBank(), 13)); 		//	NOSSO NÚMERO
-			cnab.append(lPad(bsi.getRoutingNo(), 3));				//	CÓDIGO DO BANCO
-			cnab.append(rPad("", 3));								//  CARTEIRA NO CORRESPONDETE
-			cnab.append(rPad("", 2));								//  CÓDIGO MULTA
-			cnab.append(rPad("", 2));								//  VALOR/TAXA MULTA
-			cnab.append(rPad("", 2));								//  NÚMERO DE DIAS
-			cnab.append(rPad("", 2));								//	USO DO BANCO			
-			cnab.append(rPad(bsi.getLBR_BankSlipFoldCode(), 2));	//	CÓDIGO DA CARTEIRA	
-			cnab.append(lPad(mov.getValue(), 2));					//	CÓDIGO DA OCORRÊNCIA
-			cnab.append(rPad(bs.getDocumentNo(), 10));				//	NÚMERO DO DOCUMENTO
-			cnab.append(lPad(timeToString(bs.getDueDate()), 6));	//	DATA DE VENCIMENTO	
+			cnab.append(lPad(14, 2)); 		                        //	MODALIDADE DE INDETIFICAÇ
+			cnab.append(lPad(bs.getLBR_NumberInBank(), 15)); 		//	NOSSO NÚMERO
+			cnab.append(rPad("",2));                                //  BRANCOS
+			cnab.append(lPad(1,1));                                 //  USO LIVRE
+			cnab.append(rPad("", 1));                               //  CÓDIGO DE JUROS
+			cnab.append(lPad(timeToString(bs.getDueDate()), 6));	//	DATA DE JUROS
+			cnab.append(lPad(0,1));                              	//  CÓDIGO DE DESCONTO
+			cnab.append(rPad("",22));                               //  BRANCOS
+			cnab.append(lPad("1", 2));								//  CARTEIRA
+			cnab.append(lPad(mov.getValue(),2));                    //  CÓDIGO DE OCORRÊNCIA
+			cnab.append(rPad(bs.getLBR_NumberInOrg(), 10));			//	USO DA EMPRESA
+			cnab.append(lPad(timeToString(bs.getDueDate()), 6));	//	DATA DE VENCIMENTO
 			cnab.append(lPad(bs.getGrandTotal(), 13));				//	VALOR DO TÍTULO
-			cnab.append(lPad(bsi.getRoutingNo(), 3));				//	CÓDIGO DO BANCO ---
-			cnab.append(lPad(0, 4));								//	AGÊNCIA COBRADORA
-			cnab.append(rPad("", 1));								//	DV AGÊNCIA COBRADORA
-			cnab.append(rPad(convertKind (bsi.getLBR_BankSlipKindValue()), 2));	//	ESPÉCIE
+			cnab.append(bsi.getRoutingNo());				        //	CÓDIGO DO BANCO
+			cnab.append(lPad(0, 5));								//	AGÊNCIA COBRADORA
+			cnab.append(rPad(convertKind(bsi.getLBR_BankSlipKindCode()), 2));	//	ESPÉCIE
 			cnab.append(rPad(accepted, 1));							//	ACEITE
 			cnab.append(lPad(timeToString(bs.getDateDoc()), 6));	//	DATA DE EMISSÃO
-			cnab.append(lPad(0, 2));								//	INSTRUÇÃO 1
-			cnab.append(lPad(0, 2));								//	INSTRUÇÃO 2
+			cnab.append(lPad(intruction1, 2));						//	INSTRUÇÃO 1
+			cnab.append(lPad(intruction2, 2));						//	INSTRUÇÃO 2
 			cnab.append(lPad(penaltyAmt, 13));						//	JUROS DE 1 DIA
 			cnab.append(lPad(timeToString(discountDate), 6));		//	DESCONTO ATÉ
 			cnab.append(lPad(discountAmt, 13));						//	VALOR DO DESCONTO
 			cnab.append(lPad(bs.getLBR_IOFAmt(), 13));				//	VALOR DO IOF
 			cnab.append(lPad(bs.getDiscountAmt(), 13));				//	VALOR DO ABATIMENTO
-			cnab.append(lPad(payerBPTypeBR, 2));					//	CÓDIGO DE INSCRIÇÃO
-			cnab.append(lPad(payerCNPJF, 14));						//	NÚMERO DE INSCRIÇÃO
-			cnab.append(rPad(bsi.getBPName(), 30));					//	NOME
-			cnab.append(rPad("", 10));								//	BRANCOS
-			cnab.append(rPad(bsi.getAddress(true), 40));			//	LOGRADOURO
-			cnab.append(rPad(bsi.getlbr_BPAddress3(), 12));			//	BAIRRO
+			cnab.append(rPad(orgBPTypeBR, 2));					    //	TIPO DE INSCRIÇÃO
+			cnab.append(lPad(orgCNPJF, 14));						//	NÚMERO DE INSCRIÇÃO
+			cnab.append(rPad(bsi.getBPName().toUpperCase(), 40));	//	NOME
+			cnab.append(rPad(bsi.getAddress(true).toUpperCase(), 40));// LOGRADOURO
+			cnab.append(rPad(bsi.getlbr_BPAddress3().toUpperCase(), 12));//	BAIRRO
 			cnab.append(lPad(bsi.getlbr_BPPostal(), 8));			//	CEP
-			cnab.append(rPad(bsi.getlbr_BPCity(), 15));				//	CIDADE
-			cnab.append(rPad(bsi.getlbr_BPRegion(), 2));			//	ESTADO
-			cnab.append(rPad(bsi.getLBR_GuarantorBPName(), 30));	//	SACADOR/AVALISTA
-			cnab.append(rPad("",4));								//	BRANCOS
-			cnab.append(rPad("",6));								//	BRANCOS
+			cnab.append(rPad(bsi.getlbr_BPCity().toUpperCase(), 15));//	CIDADE
+			cnab.append(rPad(bsi.getlbr_BPRegion(), 2));            //	ESTADO
+			cnab.append(lPad(0, 6));	                            //	DATA DA MULTA
+			cnab.append(lPad(0, 10));								//  VALOR DA MULTA
+			cnab.append(rPad(bsi.getLBR_GuarantorBPName(), 22));	//	SACADOR/AVALISTA
+			cnab.append(lPad(intruction3, 2));						//	INSTRUÇÃO 3
+			cnab.append(lPad(0, 2));								//	PRAZO
+			cnab.append(lPad(1, 1));								//	MOEDA
 			cnab.append(lPad(count.getAndIncrement(), 6));			//	NÚMERO SEQÜENCIAL
 			cnab.append(CR).append(LF);
 		});
@@ -186,12 +204,14 @@ public class CaixaEconomica104 implements ICNABGenerator
 		cnab.append(lPad(count.get(), 6)); 	//	NÚMERO SEQUENCIAL
 		cnab.append(CR).append(LF);
 		
+		
 		return cnab;
 	}	//	StringBuilder
 
 	/**
 	 * 	BankSlip Kind
 	 * 	@param KindValue
+	 * 
 	 * 	@return
 	 */
 	private String convertKind (String kindValue)
