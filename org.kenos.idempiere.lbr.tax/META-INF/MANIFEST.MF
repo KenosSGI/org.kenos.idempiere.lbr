@@ -14,7 +14,17 @@ Export-Package: org.adempierelbr.model,
  org.kenos.idempiere.lbr.tax.ibpt,
  org.kenos.idempiere.lbr.tax.lookup,
  org.kenos.idempiere.lbr.tax.model
-Bundle-ClassPath: .
+Bundle-ClassPath: .,
+ lib/commons-collections4.jar,
+ lib/commons-compress.jar,
+ lib/commons-io.jar,
+ lib/commons-math.jar,
+ lib/curvesapi.jar,
+ lib/log4j-api.jar,
+ lib/poi.jar,
+ lib/poi-ooxml.jar,
+ lib/poi-ooxml-lite.jar,
+ lib/xmlbeans.jar
 Bundle-ActivationPolicy: lazy
 Automatic-Module-Name: org.kenos.idempiere.lbr.tax
 Bundle-RequiredExecutionEnvironment: JavaSE-11
