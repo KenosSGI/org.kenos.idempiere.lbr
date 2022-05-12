@@ -270,9 +270,9 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 		//	Bank account
 		String bankAccountVD = bsi.getLBR_BankAccountVD();
 		if (bankAccountVD != null && !bankAccountVD.isBlank())
-			numeroDaConta= new NumeroDaConta(Integer.valueOf ("130027"), bankAccountVD);
+			numeroDaConta= new NumeroDaConta(Integer.valueOf (bsi.getAccountNo()), bankAccountVD);
 		else
-			numeroDaConta= new NumeroDaConta(Integer.valueOf ("130027"));
+			numeroDaConta= new NumeroDaConta(Integer.valueOf (bsi.getAccountNo()));
 
 		// Composição do Boleto - Banco do Brasil - Convênio 7 Posições
 		String accordNo = bsi.getLBR_AccordNo();
