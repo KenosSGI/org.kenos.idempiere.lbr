@@ -20,6 +20,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.compiere.model.MAttachment;
 import org.compiere.model.MPayment;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
@@ -141,6 +142,11 @@ public class ReturnCNAB extends SvrProcess
 		cnab.setDocStatus(MLBRCNABFile.DOCSTATUS_Completed);
 		cnab.setProcessed(true);
 		cnab.saveEx();
+		
+		//	Save attachment
+		MAttachment attachment = cnab.createAttachment();
+		attachment.addEntry(returnFile);
+		attachment.save();
 		
 		//	Prepare result
 		workbook = new XSSFWorkbook();
