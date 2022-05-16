@@ -107,6 +107,7 @@ public class ImportNCM extends SvrProcess
 				ncm.setValue(x1.getStringCellValue());				
 				if (x2 != null)
 					ncm.setDescription(x2.getStringCellValue());
+				ncm.setAD_Org_ID(0);
 				ncm.save();
 			}
 			
@@ -152,6 +153,7 @@ public class ImportNCM extends SvrProcess
 			ipiTax.setLBR_Tax_ID(tax.getLBR_Tax_ID());
 			ipiTax.setLBR_TaxName_ID(MLBRTax.TAX_IPI);
 			ipiTax.setlbr_TaxRate(new BigDecimal(ipi));
+			ipiTax.setAD_Org_ID(0);
 			int LBR_TaxStatus_ID = MLBRTaxStatus.get (MLBRTax.TAX_IPI, "50");
 			if (LBR_TaxStatus_ID > 0)
 				ipiTax.setLBR_TaxStatus_ID(LBR_TaxStatus_ID);
@@ -159,7 +161,11 @@ public class ImportNCM extends SvrProcess
 				row.createCell(COL_RESULT).setCellValue("Imposto cadastrado");
 			//	Fix description
 			tax.setDescription();
+			tax.setAD_Org_ID(0);
 			tax.save();
+			
+			ncm.setLBR_Tax_ID(tax.getLBR_Tax_ID());
+			ncm.save();
 		}
 		
 		//	Show result
