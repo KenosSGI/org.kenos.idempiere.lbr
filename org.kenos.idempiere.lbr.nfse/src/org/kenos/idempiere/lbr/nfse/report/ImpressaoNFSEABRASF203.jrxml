@@ -615,10 +615,10 @@ $F{DataEmissao}.substring(0,4)+" "+$F{DataEmissao}.substring(11,19)]]></textFiel
 					<bottomPen lineWidth="0.75" lineStyle="Dotted"/>
 					<rightPen lineWidth="0.75" lineStyle="Dotted"/>
 				</box>
-				<textElement>
+				<textElement markup="html">
 					<font fontName="Arial" size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{Discriminacao}.replaceAll( ";", "\n")]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{Discriminacao}.replace( ". ", "<br>" )]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="143" y="93" width="66" height="14" uuid="21534610-8492-4166-953e-b7a5fd68cdea"/>
