@@ -223,6 +223,7 @@ public class GenCNAB
 			//	WHERE
 			"bs.IsCancelled='N' "
 			+ " AND bs.LBR_BankSlipContract_ID=? AND mov.IsSOTrx = 'Y'"
+			+ " AND bs.DocStatus = 'CO'"
 			+ " AND NOT EXISTS (SELECT 1 FROM LBR_CNABFileLine l WHERE l.LBR_BankSlipMov_ID=mov.LBR_BankSlipMov_ID)",
 			true, "mov");
 	}   //  dynInit
