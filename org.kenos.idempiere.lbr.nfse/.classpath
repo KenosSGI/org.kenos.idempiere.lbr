@@ -16,6 +16,7 @@
 	<classpathentry kind="src" path="src/"/>
 	<classpathentry exported="true" kind="lib" path="lib/nfsebeans-v01.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/nfse-abrasf-v100.jar"/>
+        <classpathentry exported="true" kind="lib" path="lib/nfse-abrasf-v201.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/nfse-abrasf-v203.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/nfse-atibaia-v100.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/nfse-mogi-v100.jar"/>
