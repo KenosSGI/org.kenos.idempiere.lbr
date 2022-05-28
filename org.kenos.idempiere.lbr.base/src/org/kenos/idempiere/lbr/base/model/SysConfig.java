@@ -64,6 +64,8 @@ public class SysConfig
 	public static final String LBR_NFSE_MOGI_USER 								= "LBR_NFSE_MOGI_USER";
 	public static final String LBR_NFSE_PALHOCA_PASS 							= "LBR_NFSE_PALHOCA_PASS";
 	public static final String LBR_NFSE_PALHOCA_USER 							= "LBR_NFSE_PALHOCA_USER";
+	public static final String LBR_NFSE_TAPIRAI_PASS 							= "LBR_NFSE_TAPIRAI_PASS";
+	public static final String LBR_NFSE_TAPIRAI_USER 							= "LBR_NFSE_TAPIRAI_USER";
 	public static final String LBR_NFSE_SP_PRINT_URL 							= "LBR_NFSE_SP_PRINT_URL";
 	public static final String LBR_NFSE_TOKEN 									= "LBR_NFSE_TOKEN";
 	public static final String LBR_OVERWRITE_ORDER_PAY_SCHEDULE					= "LBR_OVERWRITE_ORDER_PAY_SCHEDULE";
