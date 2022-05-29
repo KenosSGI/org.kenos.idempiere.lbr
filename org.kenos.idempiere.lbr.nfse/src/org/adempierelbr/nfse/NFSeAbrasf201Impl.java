@@ -56,8 +56,8 @@ import br.org.abrasf.www.nfse_xsd.CancelarNfseEnvio_type0;
 import br.org.abrasf.www.nfse_xsd.CancelarNfseResposta_type0;
 import br.org.abrasf.www.nfse_xsd.ConsultarNfseRpsEnvio_type0;
 import br.org.abrasf.www.nfse_xsd.ConsultarNfseRpsResposta_type0;
-import br.org.abrasf.www.nfse_xsd.EnviarLoteRpsEnvio_type0;
-import br.org.abrasf.www.nfse_xsd.EnviarLoteRpsResposta_type0;
+import br.org.abrasf.www.nfse_xsd.EnviarLoteRpsSincronoEnvio_type0;
+import br.org.abrasf.www.nfse_xsd.EnviarLoteRpsSincronoResposta_type0;
 import br.org.abrasf.www.nfse_xsd.GerarNfseEnvio_type0;
 import br.org.abrasf.www.nfse_xsd.GerarNfseResposta_type0;
 import br.org.abrasf.www.nfse_xsd.ListaMensagemRetorno_type0;
@@ -69,10 +69,8 @@ import br.org.abrasf201.nfse.CancelarNfseEnvioDocument.CancelarNfseEnvio;
 import br.org.abrasf201.nfse.CancelarNfseRespostaDocument;
 import br.org.abrasf201.nfse.ConsultarNfseRpsEnvioDocument;
 import br.org.abrasf201.nfse.ConsultarNfseRpsEnvioDocument.ConsultarNfseRpsEnvio;
-import br.org.abrasf201.nfse.EnviarLoteRpsEnvioDocument;
-import br.org.abrasf201.nfse.EnviarLoteRpsRespostaDocument;
-import br.org.abrasf201.nfse.EnviarLoteRpsRespostaDocument.EnviarLoteRpsResposta;
-import br.org.abrasf201.nfse.EnviarLoteRpsEnvioDocument.EnviarLoteRpsEnvio;
+import br.org.abrasf201.nfse.EnviarLoteRpsSincronoEnvioDocument;
+import br.org.abrasf201.nfse.EnviarLoteRpsSincronoEnvioDocument.EnviarLoteRpsSincronoEnvio;
 import br.org.abrasf201.nfse.GerarNfseEnvioDocument;
 import br.org.abrasf201.nfse.SubstituirNfseEnvioDocument;
 import br.org.abrasf201.nfse.SubstituirNfseEnvioDocument.SubstituirNfseEnvio;
@@ -259,7 +257,7 @@ public class NFSeAbrasf201Impl implements INFSe
 		
 		//	Detalhes da Declaração de Prestação de Serviço
 		TcInfDeclaracaoPrestacaoServico infdps = rps.addNewInfDeclaracaoPrestacaoServico();
-		infdps.setId("1");
+		infdps.setId(nf.getDocNo());
 		
 		TcInfRps infRps = infdps.addNewRps();
 		//	Identificação do RPS
@@ -389,7 +387,7 @@ public class NFSeAbrasf201Impl implements INFSe
 					{
 						nf.setErrorMsg("Preencha a Situação Tributária do ISS");
 						nf.setDocAction(MLBRNotaFiscal.DOCACTION_Prepare);
-						throw new AdempiereException("Preencha a Situação Tributária do ISS");
+						throw new AdempiereException(nf.getDocNo() + ": Preencha a Situação Tributária do ISS");
 					}
 					/* (Exigibilidade ISS)
 					/* Tributação no Município - Exigivel - 1 */
@@ -596,9 +594,22 @@ public class NFSeAbrasf201Impl implements INFSe
 			XMLInputFactory factory = XMLInputFactory.newInstance();
 			XMLStreamReader xmlReader = factory.createXMLStreamReader(new ByteArrayInputStream(document.xmlText().getBytes()));
 			
+			NFeUtil.saveXML (String.valueOf(nf.getAD_Org_ID()), NFeUtil.KIND_NFSE, NFeUtil.MESSAGE_REQ_AUTORIZE, "RPS-" + nf.getDocumentNo(), document.xmlText());
+			
 			GerarNfseEnvio_type0 gerarNfseDoc = GerarNfseEnvio_type0.Factory.parse(xmlReader);
 			
 			GerarNfseResposta_type0 resultado = nfseStub.gerarNfse(gerarNfseDoc,getUser(nf),getPassword(nf));
+			try 
+			{
+				QName qname = new javax.xml.namespace.QName("http://www.abrasf.org.br/nfse.xsd", "EnviarLoteRpsResposta");
+				OMElement omElement = resultado.getOMElement(qname, OMAbstractFactory.getOMFactory());
+				NFeUtil.saveXML (String.valueOf(nf.getAD_Org_ID()), NFeUtil.KIND_NFSE, NFeUtil.MESSAGE_RET_AUTORIZE, "Retorno_RPS-" + nf.getDocumentNo(), omElement.toString());
+				System.out.println(omElement.toString());
+			}
+			catch (ADBException e) {
+				e.printStackTrace();
+			}
+			
 			
 			//Monitorar envio do Stub
 			String request = nfseStub._getServiceClient().getLastOperationContext().getMessageContext("Out")
@@ -690,8 +701,6 @@ public class NFSeAbrasf201Impl implements INFSe
 		
 		MOrgInfo orgInf = MOrgInfo.get (ctx, AD_Org_ID, null);
 		
-		String retornoEnvioXMLNFSe = "";
-		
 		// Set certificate
 		MLBRDigitalCertificate.setCertificate (Env.getCtx(), AD_Org_ID);
 		
@@ -707,9 +716,11 @@ public class NFSeAbrasf201Impl implements INFSe
 		
 		IssWebWSStub nfseStub = new IssWebWSStub(url);
 		nfseStub._getServiceClient().getOptions().setProperty(HTTPConstants.CHUNKED, false);
-		
-		EnviarLoteRpsEnvioDocument enviarLotDoc = EnviarLoteRpsEnvioDocument.Factory.newInstance();
-		EnviarLoteRpsEnvio enviarLot = enviarLotDoc.addNewEnviarLoteRpsEnvio();
+
+		EnviarLoteRpsSincronoEnvioDocument enviarLotDoc = EnviarLoteRpsSincronoEnvioDocument.Factory.newInstance();
+		EnviarLoteRpsSincronoEnvio enviarLot = enviarLotDoc.addNewEnviarLoteRpsSincronoEnvio();
+		//EnviarLoteRpsEnvioDocument enviarLotDoc = EnviarLoteRpsEnvioDocument.Factory.newInstance();
+		//EnviarLoteRpsEnvio enviarLot = enviarLotDoc.addNewEnviarLoteRpsEnvio();
 		
 		//	Lote RPS
 		TcLoteRps loteRps = enviarLot.addNewLoteRps();
@@ -725,16 +736,18 @@ public class NFSeAbrasf201Impl implements INFSe
 			if (xmlData == null || xmlData.length == 0)
 				xmlData = getXML (nf);	//	Gera um novo XML
 			
-			EnviarLoteRpsEnvioDocument enviarLotDoc_nf = EnviarLoteRpsEnvioDocument.Factory.parse(new String (xmlData, NFeUtil.NFE_ENCODING));
-			TcDeclaracaoPrestacaoServico rps = enviarLotDoc_nf.getEnviarLoteRpsEnvio().getLoteRps().getListaRps().getRpsArray(0);
+			String xml = new String (xmlData, NFeUtil.NFE_ENCODING);
+			
+			TcDeclaracaoPrestacaoServico rps = TcDeclaracaoPrestacaoServico.Factory.parse(xml);
 			listRps.add(rps);
 		}
 		
 		TcDeclaracaoPrestacaoServico[] TcRpsArray = new TcDeclaracaoPrestacaoServico[listRps.size()];
 		listRps.toArray(TcRpsArray);
 		
-		//		Identificação do Lote do RPS
-		loteRps.setId("1");
+		//	Identificação do Lote do RPS
+		loteRps.setId("lote1");
+		loteRps.setVersao("2.01");
 		loteRps.setNumeroLote(new BigDecimal(nfs.get(0).getDocumentNo()).intValue());
 		
 		TcCpfCnpj cpfcnpjPrestador = loteRps.addNewCpfCnpj();
@@ -752,26 +765,36 @@ public class NFSeAbrasf201Impl implements INFSe
 		MLBRDigitalCertificate.setCertificate (ctx, AD_Org_ID);
 		
 		//	Assina o XML
-		new SignatureUtil (orgInf, SignatureUtil.OUTROS, "LoteRps").sign (enviarLotDoc, enviarLotDoc.newCursor());
+		//new SignatureUtil (orgInf, SignatureUtil.OUTROS, "LoteRps").sign (enviarLotDoc,enviarLotDoc.getEnviarLoteRpsEnvio().newCursor());
+		new SignatureUtil (orgInf, SignatureUtil.OUTROS, "LoteRps").sign (enviarLotDoc,enviarLotDoc.getEnviarLoteRpsSincronoEnvio().newCursor());
 		
-		String xmlText = enviarLotDoc.xmlText(NFeUtil.getXmlOpt());
+		System.out.println(enviarLotDoc.toString());
 		
-		//NFeUtil.saveXML (String.valueOf(AD_Org_ID), NFeUtil.KIND_NFSE, NFeUtil.MESSAGE_REQ_AUTORIZE, "Envio_Lote-" + nfs.get(0).getDocumentNo(), xmlText);
+		String xmlText = new String (enviarLotDoc.xmlText().getBytes(), NFeUtil.NFE_ENCODING);
+		
+		NFeUtil.saveXML (String.valueOf(AD_Org_ID), NFeUtil.KIND_NFSE, NFeUtil.MESSAGE_REQ_AUTORIZE, "Envio_Lote-" + nfs.get(0).getDocumentNo(), xmlText);
 		
 		XMLInputFactory factory = XMLInputFactory.newInstance();
 		XMLStreamReader xmlReader = factory.createXMLStreamReader(new ByteArrayInputStream(enviarLotDoc.xmlText().getBytes()));
-		
-		EnviarLoteRpsEnvio_type0 EnviarLoteRpsEnvio = EnviarLoteRpsEnvio_type0.Factory.parse(xmlReader);
-		
-		EnviarLoteRpsResposta_type0 resposta = nfseStub.recepcionarLoteRps(EnviarLoteRpsEnvio, getUser(nfs.get(0)), getPassword(nfs.get(0)));
+
+		EnviarLoteRpsSincronoEnvio_type0 EnviarLoteRpsEnvio = EnviarLoteRpsSincronoEnvio_type0.Factory.parse(xmlReader);
+		EnviarLoteRpsSincronoResposta_type0 resposta = nfseStub.recepcionarLoteRpsSincrono(EnviarLoteRpsEnvio, getUser(nfs.get(0)), getPassword(nfs.get(0)));
+		//EnviarLoteRpsEnvio_type0 EnviarLoteRpsEnvio = EnviarLoteRpsEnvio_type0.Factory.parse(xmlReader);
+		//EnviarLoteRpsResposta_type0 resposta = nfseStub.recepcionarLoteRps(EnviarLoteRpsEnvio, getUser(nfs.get(0)), getPassword(nfs.get(0)));
 		
 		//Monitorar envio do Stub
 		String request = nfseStub._getServiceClient().getLastOperationContext().getMessageContext("Out")
 				.getEnvelope().toString();
-		
-		//NFeUtil.saveXML (String.valueOf(AD_Org_ID), NFeUtil.KIND_NFSE, NFeUtil.MESSAGE_RET_AUTORIZE, "Retorno_Envio_Lote-" + nfs.get(0).getDocumentNo(), retornoEnvioXMLNFSe);
-		
-		EnviarLoteRpsResposta respostaLote = EnviarLoteRpsRespostaDocument.Factory.parse(retornoEnvioXMLNFSe).getEnviarLoteRpsResposta();
+
+		try 
+		{
+			QName qname = new javax.xml.namespace.QName("http://www.abrasf.org.br/nfse.xsd", "EnviarLoteRpsSincronoResposta");
+			OMElement omElement = resposta.getOMElement(qname, OMAbstractFactory.getOMFactory());
+			NFeUtil.saveXML (String.valueOf(AD_Org_ID), NFeUtil.KIND_NFSE, NFeUtil.MESSAGE_RET_AUTORIZE, "Retorno_Envio_Lote-" + nfs.get(0), omElement.toString());
+		}
+		catch (ADBException e) {
+			e.printStackTrace();
+		}
 		
 		if (resposta.getListaMensagemRetorno() != null)
 		{
@@ -783,6 +806,28 @@ public class NFSeAbrasf201Impl implements INFSe
 			if (listaMensagemRetorno != null)
 			{
 				Arrays.asList(listaMensagemRetorno.getMensagemRetorno())
+					.forEach(msg -> {
+						msgRetorno
+							.append("Cod=").append(msg.getCodigo())
+							.append(", Correção=").append(msg.getCorrecao())
+							.append(", Msg=").append(msg.getMensagem())
+							.append("\n");
+					});
+				throw new AdempiereException(msgRetorno.toString());
+			}
+		}
+		
+		if (resposta.getListaMensagemRetornoLote() != null)
+		{
+			
+			ListaMensagemRetorno_type0 listaMensagemRetornoLote = null;
+			
+			listaMensagemRetornoLote = resposta.getListaMensagemRetorno();
+			//	Check error messages
+			StringBuilder msgRetorno = new StringBuilder ();
+			if (listaMensagemRetornoLote != null)
+			{
+				Arrays.asList(listaMensagemRetornoLote.getMensagemRetorno())
 					.forEach(msg -> {
 						msgRetorno
 							.append("Cod=").append(msg.getCodigo())

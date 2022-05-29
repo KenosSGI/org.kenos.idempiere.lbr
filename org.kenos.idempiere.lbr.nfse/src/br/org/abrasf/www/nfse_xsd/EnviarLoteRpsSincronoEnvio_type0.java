@@ -155,7 +155,7 @@ public class EnviarLoteRpsSincronoEnvio_type0 implements org.apache.axis2.databi
             }
 
             localSignature.serialize(new javax.xml.namespace.QName(
-                    "http://www.abrasf.org.br/nfse.xsd", "Signature"), xmlWriter);
+                    "http://www.w3.org/2000/09/xmldsig#", "Signature"), xmlWriter);
         }
 
         xmlWriter.writeEndElement();
@@ -383,7 +383,7 @@ public class EnviarLoteRpsSincronoEnvio_type0 implements org.apache.axis2.databi
 
         if (localSignatureTracker) {
             elementList.add(new javax.xml.namespace.QName(
-                    "http://www.abrasf.org.br/nfse.xsd", "Signature"));
+                    "http://www.w3.org/2000/09/xmldsig#", "Signature"));
 
             if (localSignature == null) {
                 throw new org.apache.axis2.databinding.ADBException(
@@ -477,7 +477,7 @@ public class EnviarLoteRpsSincronoEnvio_type0 implements org.apache.axis2.databi
 
                 if (reader.isStartElement() &&
                         new javax.xml.namespace.QName(
-                            "http://www.abrasf.org.br/nfse.xsd", "Signature").equals(
+                            "http://www.w3.org/2000/09/xmldsig#", "Signature").equals(
                             reader.getName())) {
                     object.setSignature(org.w3.www._2000._09.xmldsig.SignatureType.Factory.parse(
                             reader));
