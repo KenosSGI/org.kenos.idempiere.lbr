@@ -867,7 +867,7 @@ public class NFSeAbrasf201Impl implements INFSe
 			}
 		}
 		
-		return false;
+		return true;
 	}	//	transmit
 	
 	/**
