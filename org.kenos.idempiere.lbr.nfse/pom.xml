@@ -46,22 +46,6 @@
 							<configuration>
 								<artifactItems>
 									<artifactItem>
-										<groupId>stax</groupId>
-										<artifactId>stax</artifactId>
-										<version>1.2.0</version>
-										<destFileName>stax.jar</destFileName>
-									</artifactItem>
-									<artifactItem>
-										<groupId>org.apache.ws.commons.axiom</groupId>
-										<artifactId>axiom-api</artifactId>
-										<version>${axiom.version}</version>
-									</artifactItem>
-									<artifactItem>
-										<groupId>org.apache.ws.commons.axiom</groupId>
-										<artifactId>axiom-impl</artifactId>
-										<version>${axiom.version}</version>
-									</artifactItem>
-									<artifactItem>
 										<groupId>local.nfse-abrasf-v100-sources</groupId>
 										<artifactId>nfse-abrasf-v100-sources</artifactId>
 										<version>NOT_INFORMED</version>
