@@ -218,9 +218,9 @@ public class NFSeAbrasf201Impl implements INFSe
 		if(nf.getOrg_Location().getC_City_ID() == TAPIRAI_ID)
 		{
 			if (MLBRNotaFiscal.LBR_NFEENV_Production.equals(nf.getlbr_NFeEnv()))
-					return "http://189.108.127.34:5661/IssWeb-ejb/IssWebWS/IssWebWS";
+				return MSysConfig.getValue (SysConfig.LBR_NFSE_URL, "http://siatapirai.dcfiorilli.com.br:8080/IssWeb-ejb/IssWebWS/IssWebWS", nf.getAD_Client_ID(), nf.getAD_Org_ID());
 			else
-					return  "http://fi1.fiorilli.com.br:5663/IssWeb-ejb/IssWebWS/IssWebWS?wsdl";
+				return  "http://fi1.fiorilli.com.br:5663/IssWeb-ejb/IssWebWS/IssWebWS?wsdl";
 		} 
 		else
 		{
@@ -308,7 +308,7 @@ public class NFSeAbrasf201Impl implements INFSe
 		endTomador.setCodigoMunicipio(nf.getlbr_BPCityCode());
 		endTomador.setCep(TextUtil.toNumeric (nf.getlbr_BPPostal()));
 		endTomador.setUf(nf.getlbr_BPRegion());
-		if (nf.getlbr_CountryCode() != null)
+		if (nf.getlbr_CountryCode() != null && "9999999".equals(nf.getlbr_BPCity()))
 			endTomador.setCodigoPais(nf.getlbr_CountryCode().substring(1));
 		
 		// Contato do Parceiro de Negócio
@@ -316,8 +316,8 @@ public class NFSeAbrasf201Impl implements INFSe
 		String bpemail = partner.get_ValueAsString("LBR_EMailNFSe");
 		if (nf.getlbr_BPPhone() != null && !nf.getlbr_BPPhone().isEmpty())
 			contatoTomador.setTelefone(TextUtil.toNumeric(nf.getlbr_BPPhone()));
-		if (bpemail != null && !bpemail.isEmpty())
-			contatoTomador.setEmail(bpemail.trim().substring(0,Math.min(bpemail.length(),80)));
+		if (bpemail != null && !bpemail.isBlank())
+			contatoTomador.setEmail(bpemail.trim().substring(0,Math.min(bpemail.trim().length(),80)));
 		
 		//	Descrição do Serviço
 		String descricaoServico = "";
