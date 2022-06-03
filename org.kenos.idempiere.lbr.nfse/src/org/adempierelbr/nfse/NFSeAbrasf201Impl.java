@@ -49,6 +49,7 @@ import org.compiere.model.MSysConfig;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
 import org.compiere.util.Util;
+import org.kenos.idempiere.lbr.base.model.MCity;
 import org.kenos.idempiere.lbr.base.model.SysConfig;
 import org.kenos.idempiere.lbr.nfse.abrasf.api.IssWebWSStub;
 
@@ -380,8 +381,6 @@ public class NFSeAbrasf201Impl implements INFSe
 						
 					}
 					aliquota = nfl.getTaxRate(iss);
-					BigDecimal v_ISS 	= toBD (nfl.getTaxAmt(iss)).abs().setScale(2, MODO_ARREDONDAMENTO);
-					valores.setValorIss(v_ISS);
 					
 					//if (v_ISS.subtract(aliquota.multiply(nf.getlbr_ServiceTotalAmt())) != BigDecimal.ZERO)
 					//	throw new AdempiereException("Verifique o Valor do ISS e o Total de Serviço da Nota. Alíquota");
@@ -447,10 +446,14 @@ public class NFSeAbrasf201Impl implements INFSe
 			nf.setErrorMsg("Impossível gerar XML NFS-e. Discriminação dos serviços muito curta ou em branco.");
 			return null;
 		}
+		MCity city = new MCity (Env.getCtx(), nf.getOrg_Location().getC_City_ID(), null);
+		
 		TextUtil.retiraEspecial(descricaoServico);
 		dadosServico.setDiscriminacao(TextUtil.retiraEspecial(descricaoServico).replace("\n", ". ").replaceAll("\\s+", " ").replaceAll("\\.+", ".").trim());
 		dadosServico.setItemListaServico(serviceCode);
-		dadosServico.setCodigoMunicipio(nf.getlbr_BPCityCode());
+		dadosServico.setCodigoMunicipio(city.getlbr_CityCode());
+		if (dadosServico.getMunicipioIncidencia() < 1)
+			dadosServico.setMunicipioIncidencia(city.getlbr_CityCode());
 		
 		valores.setValorServicos(nf.getlbr_ServiceTotalAmt());
 		valores.setValorDeducoes(BigDecimal.ZERO.setScale(2, MODO_ARREDONDAMENTO));
@@ -461,6 +464,7 @@ public class NFSeAbrasf201Impl implements INFSe
 		BigDecimal v_INSS 	= toBD (nf.getTaxAmt("INSS")).abs().setScale(2, MODO_ARREDONDAMENTO);
 		BigDecimal v_IR 	= toBD (nf.getTaxAmt("IR")).abs().setScale(2, MODO_ARREDONDAMENTO);
 		BigDecimal v_CSLL 	= toBD (nf.getTaxAmt("CSLL")).abs().setScale(2, MODO_ARREDONDAMENTO);
+		BigDecimal v_ISS 	= toBD (nf.getTaxAmt("ISS").add(nf.getTaxAmt("ISSRT"))).abs().setScale(2, MODO_ARREDONDAMENTO);
 		BigDecimal v_TotTrib= toBD (nf.getlbr_vTotTrib()).abs().setScale(2, MODO_ARREDONDAMENTO);
 
 		// Valores da NFS-e
@@ -469,6 +473,7 @@ public class NFSeAbrasf201Impl implements INFSe
 		valores.setValorInss(v_INSS);
 		valores.setValorIr(v_IR);
 		valores.setValorCsll(v_CSLL);
+		valores.setValorIss(v_ISS);
 		valores.setOutrasRetencoes(BigDecimal.ZERO.setScale(2, MODO_ARREDONDAMENTO));
 		//valores.setValTotTributos(v_TotTrib);
 		valores.setAliquota(aliquota.setScale(2,MODO_ARREDONDAMENTO));
