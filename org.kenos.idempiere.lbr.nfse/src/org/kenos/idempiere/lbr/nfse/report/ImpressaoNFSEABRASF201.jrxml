@@ -592,14 +592,7 @@ $F{datahoraemissao}.substring(0,4)+" às " + $F{datahoraemissao}.substring(12,16
 				<text><![CDATA[Inscrição Municipal]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="staticText-40" x="330" y="17" width="51" height="12" uuid="179c32a3-2f10-49f2-808d-32d2875817e1"/>
-				<textElement>
-					<font fontName="Arial" size="8"/>
-				</textElement>
-				<text><![CDATA[Cadastro]]></text>
-			</staticText>
-			<staticText>
-				<reportElement key="staticText-41" mode="Transparent" x="381" y="17" width="153" height="12" uuid="2727bc48-0589-43e7-b107-6b95278d4efc"/>
+				<reportElement key="staticText-41" mode="Transparent" x="330" y="17" width="204" height="12" uuid="2727bc48-0589-43e7-b107-6b95278d4efc"/>
 				<textElement>
 					<font fontName="Arial" size="8"/>
 				</textElement>
@@ -816,7 +809,7 @@ $F{datahoraemissao}.substring(0,4)+" às " + $F{datahoraemissao}.substring(12,16
 				<textFieldExpression><![CDATA[$F{InscricaoMunicipal}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="false">
-				<reportElement key="textField-7" mode="Transparent" x="381" y="29" width="153" height="17" uuid="fb1e1127-07fc-4845-9e36-8a12deee539b"/>
+				<reportElement key="textField-7" mode="Transparent" x="330" y="29" width="204" height="17" uuid="fb1e1127-07fc-4845-9e36-8a12deee539b"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="8" isBold="true"/>
 				</textElement>
@@ -828,13 +821,6 @@ $F{datahoraemissao}.substring(0,4)+" às " + $F{datahoraemissao}.substring(12,16
 					<font fontName="Arial" size="8" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Endereco}+", "+$F{Numero_1}]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement key="textField-7" x="330" y="29" width="51" height="17" uuid="888a2a0d-c2a9-4b9d-89a3-e1acace6c983"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="8" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{cadastro}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement key="textField-7" x="330" y="58" width="84" height="17" uuid="a4eb34ef-0cd6-475b-b84b-8f07c65f8183"/>
@@ -1046,7 +1032,7 @@ $F{datahoraemissao}.substring(0,4)+" às " + $F{datahoraemissao}.substring(12,16
 			</staticText>
 			<staticText>
 				<reportElement key="staticText-75" x="2" y="46" width="79" height="11" uuid="2295c4e7-071a-4962-9737-81168e1730dc"/>
-				<textElement textAlignment="Center">
+				<textElement textAlignment="Left">
 					<font fontName="Arial" size="7"/>
 				</textElement>
 				<text><![CDATA[Valor Total dos Serviços]]></text>
@@ -1117,42 +1103,42 @@ $F{datahoraemissao}.substring(0,4)+" às " + $F{datahoraemissao}.substring(12,16
 			<staticText>
 				<reportElement key="staticText-84" x="2" y="93" width="88" height="10" uuid="289ff038-85d6-4eea-bf7d-05b0ac888d81"/>
 				<textElement textAlignment="Left">
-					<font fontName="Arial" size="7"/>
+					<font fontName="Arial" size="8"/>
 				</textElement>
 				<text><![CDATA[PIS]]></text>
 			</staticText>
 			<staticText>
 				<reportElement key="staticText-85" x="90" y="93" width="88" height="10" uuid="661c27cf-cb42-4f3a-a9fa-1da3765fcf89"/>
 				<textElement textAlignment="Left">
-					<font fontName="Arial" size="7"/>
+					<font fontName="Arial" size="8"/>
 				</textElement>
 				<text><![CDATA[COFINS]]></text>
 			</staticText>
 			<staticText>
 				<reportElement key="staticText-86" x="178" y="93" width="88" height="10" uuid="6c8ea357-5a74-4606-b002-c1ddfc488076"/>
 				<textElement textAlignment="Left">
-					<font fontName="Arial" size="7"/>
+					<font fontName="Arial" size="8"/>
 				</textElement>
 				<text><![CDATA[INSS]]></text>
 			</staticText>
 			<staticText>
 				<reportElement key="staticText-87" x="266" y="93" width="88" height="10" uuid="4ff7127f-4b56-4870-a6ee-9462699f0542"/>
 				<textElement textAlignment="Left">
-					<font fontName="Arial" size="7"/>
+					<font fontName="Arial" size="8"/>
 				</textElement>
 				<text><![CDATA[IRRF]]></text>
 			</staticText>
 			<staticText>
 				<reportElement key="staticText-88" x="354" y="93" width="88" height="10" uuid="61d23b03-5fe9-48cd-a385-0fa4b4456c0b"/>
 				<textElement textAlignment="Left">
-					<font fontName="Arial" size="7"/>
+					<font fontName="Arial" size="8"/>
 				</textElement>
 				<text><![CDATA[CSLL]]></text>
 			</staticText>
 			<staticText>
 				<reportElement key="staticText-90" x="442" y="93" width="88" height="10" uuid="4e5870ff-de0b-4eb6-88de-5b7c33820b86"/>
 				<textElement textAlignment="Left">
-					<font fontName="Arial" size="7"/>
+					<font fontName="Arial" size="8"/>
 				</textElement>
 				<text><![CDATA[Outras Retenções]]></text>
 			</staticText>
