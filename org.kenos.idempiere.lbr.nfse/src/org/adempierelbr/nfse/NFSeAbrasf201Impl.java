@@ -332,6 +332,8 @@ public class NFSeAbrasf201Impl implements INFSe
 		//	Valores dos Serviços
 		TcValoresDeclaracaoServico valores = dadosServico.addNewValores();
 		
+		boolean issRetido = false;
+		
 		//	Serviços Prestados
 		//	É possível descrever vários serviços numa mesma NFS-e, desde que relacionados a um
 		//	único item da Lista, de mesma alíquota e para o mesmo tomador de serviço 
@@ -367,6 +369,8 @@ public class NFSeAbrasf201Impl implements INFSe
 					// ISS Retido ou ISS
 					if (nfl.getTaxRate("ISS").equals(Env.ZERO) && !nfl.getTaxRate("ISSRT").equals(Env.ZERO))
 					{
+						issRetido = true;
+						
 						iss = "ISSRT";
 						//ISS Retido 1 = Sim
 						dadosServico.setIssRetido((byte) 1);
@@ -427,7 +431,19 @@ public class NFSeAbrasf201Impl implements INFSe
 					{
 						dadosServico.setExigibilidadeISS((byte)7);
 					}
-					dadosServico.setMunicipioIncidencia(nfl.getlbr_CityCode());
+					
+					/**
+					 * Em caso de ISS não retido, não preencher para que seja preenchido com o default
+					 * 
+					 */
+
+					int cityCode = nfl.getlbr_CityCode();
+					
+					if (issRetido && cityCode > 0)
+					{
+						dadosServico.setCodigoMunicipio(cityCode);
+						dadosServico.setMunicipioIncidencia(cityCode);
+					}
 				}
 				else if (!aliquota.equals(nfl.getTaxRate("ISS")))
 				{
@@ -451,7 +467,8 @@ public class NFSeAbrasf201Impl implements INFSe
 		TextUtil.retiraEspecial(descricaoServico);
 		dadosServico.setDiscriminacao(TextUtil.retiraEspecial(descricaoServico).replace("\n", ". ").replaceAll("\\s+", " ").replaceAll("\\.+", ".").trim());
 		dadosServico.setItemListaServico(serviceCode);
-		dadosServico.setCodigoMunicipio(city.getlbr_CityCode());
+		if (dadosServico.getCodigoMunicipio() < 1)
+			dadosServico.setCodigoMunicipio(city.getlbr_CityCode());
 		if (dadosServico.getMunicipioIncidencia() < 1)
 			dadosServico.setMunicipioIncidencia(city.getlbr_CityCode());
 		
