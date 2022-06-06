@@ -9,6 +9,7 @@ import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.nio.file.Files;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -95,7 +96,6 @@ import br.org.abrasf201.nfse.TcLoteRps;
 import br.org.abrasf201.nfse.TcLoteRps.ListaRps;
 import br.org.abrasf201.nfse.TcPedidoCancelamento;
 import br.org.abrasf201.nfse.TcValoresDeclaracaoServico;
-import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
@@ -512,6 +512,7 @@ public class NFSeAbrasf201Impl implements INFSe
 			MLBRDigitalCertificate.setCertificate (nf.getCtx(), p_AD_Org_ID);
 			
 			//	Assina o XML
+			if (MLBRNotaFiscal.LBR_NFEENV_Production.equals(nf.getlbr_NFeEnv()))
 			new SignatureUtil (orgInf, SignatureUtil.OUTROS, "InfDeclaracaoPrestacaoServico").sign (rps, rps.newCursor());
 					
 			return rps.xmlText(NFeUtil.getXmlOpt()).getBytes(NFeUtil.NFE_ENCODING);
@@ -614,8 +615,6 @@ public class NFSeAbrasf201Impl implements INFSe
 			String request = nfseStub._getServiceClient().getLastOperationContext().getMessageContext("Out")
 					.getEnvelope().toString();
 			
-			System.out.println(request);
-			
 			log.info(request);
 			
 			listaMensagemRetorno = result.getListaMensagemRetorno();
@@ -716,7 +715,7 @@ public class NFSeAbrasf201Impl implements INFSe
 		nf.getAttachment(true);	//	FIX
 		MAttachment attachNFe = nf.createAttachment();
 		try 
-		{
+		{	
 			QName qname = new javax.xml.namespace.QName("http://www.abrasf.org.br/nfse.xsd", "Nfse");
 			
 			OMElement omElement = compNfse.getOMElement(qname, OMAbstractFactory.getOMFactory());
@@ -1932,7 +1931,7 @@ public class NFSeAbrasf201Impl implements INFSe
 		
 		File PDF = null;
 		
-		try
+		/*try
 		{
 			//	Get Report
 			JasperPrint jasperPrint = getReport (nf);
@@ -1944,7 +1943,7 @@ public class NFSeAbrasf201Impl implements INFSe
 		catch (Exception e)
 		{
 			e.printStackTrace();
-		}
+		}*/
 		
 		return PDF;
 	}	
@@ -1965,11 +1964,11 @@ public class NFSeAbrasf201Impl implements INFSe
 		MAttachment att = null;	
 		
 		try
-		{
+		{	
 			//	Map Parameters
 			Map<String, Object> map = new HashMap<String, Object>();
 			
-			//	Attachment
+			//			Attachment
 			att = nf.getAttachment (true);
 			
 			if (att == null || att.getEntryCount() == 0)
@@ -2002,17 +2001,64 @@ public class NFSeAbrasf201Impl implements INFSe
 			if (nf.getlbr_OrgCity() != null && !nf.getlbr_OrgCity().isEmpty())
 			{
 				map.put("municipioprestador", nf.getlbr_OrgCity());
-				map.put("orgaogerador", nf.getlbr_OrgCity());
+			}
+			
+			if (nf.getlbr_OrgPostal() != null && !nf.getlbr_OrgPostal().isEmpty())
+			{
+				map.put("CEPPrestador", nf.getlbr_OrgPostal());
+			}
+			
+			if (nf.getlbr_BPCNPJ() != null && !nf.getlbr_BPCNPJ().isEmpty())
+			{
+				map.put("cnpjtomador", nf.getlbr_BPCNPJ());
+			}
+			
+			if (nf.getlbr_BPPostal() != null && !nf.getlbr_BPPostal().isEmpty())
+			{
+				map.put("CEPTomador", nf.getlbr_BPPostal());
 			}
 			
 			if (nf.getlbr_BPCity() != null && !nf.getlbr_BPCity().isEmpty())
 			{
-				map.put("municipiotomador", nf.getlbr_BPCity());
+				map.put("cidadetomador", nf.getlbr_BPCity());
 			}
-				
+			
+			if (MSysConfig.getValue(SysConfig.LBR_NFSE_ABRASF201_JASPER_CITY_LOGO, null, nf.getAD_Client_ID(), nf.getAD_Org_ID()) != null) {
+				File logoprefeitura = new File(MSysConfig.getValue(SysConfig.LBR_NFSE_ABRASF201_JASPER_CITY_LOGO, "", nf.getAD_Client_ID(), nf.getAD_Org_ID()));
+				byte[] logoprefeituraimg = Files.readAllBytes(logoprefeitura.toPath());
+				map.put("logotipoprefeitura", new ByteArrayInputStream(logoprefeituraimg));
+			}
+
+			MLBRNotaFiscalLine nfl = nf.getLines()[0];
+			Integer c_city_id = nfl.getC_City_ID();
+			if (c_city_id > 0) {
+				org.compiere.model.MCity city = MCity.get(Env.getCtx(), c_city_id);
+				map.put("cidadeincidencia", city.getName());
+			}
+			
+			if(nf.getOrg_Location().getC_City_ID() == TAPIRAI_ID) {
+				map.put("prefeitura", "MUNICÍPIO DE TAPIRAÍ");
+				map.put("secretaria", "Departamento de Finanças e Administração");
+			}
+			
+			String Authenticity = MSysConfig.getValue (SysConfig.LBR_NFSE_ABRASF201_JASPER_AUTHENTICITY_TEXT, "", nf.getAD_Client_ID(), nf.getAD_Org_ID());
+			map.put("autenticidade", Authenticity);
+
+			if (nf.getlbr_CNPJ() != null && !nf.getlbr_OrgCity().isEmpty() 
+					&& !nf.getlbr_OrgRegion().isEmpty())
+			{
+				map.put("cnpjprestador", nf.getlbr_CNPJ());
+				map.put("cidadeprestador", nf.getlbr_OrgCity());
+				map.put("UFprestador", nf.getlbr_OrgRegion());
+			}
+			
+			MOrgInfo orgInf = MOrgInfo.get (nf.getCtx(), nf.getAD_Org_ID(), null);
+			map.put("emailprestador", orgInf.getEMail());
+			map.put("telefoneprestador", orgInf.getPhone());
+			
 			//	Get Jasper
 			ClassLoader cl = getClass().getClassLoader();
-			InputStream report = cl.getResourceAsStream("org/kenos/idempiere/lbr/nfse/report/ImpressaoNFSEABRASF203.jasper");
+			InputStream report = cl.getResourceAsStream("org/kenos/idempiere/lbr/nfse/report/ImpressaoNFSEABRASF201.jasper");
 			
 			log.fine("after find report");
 			

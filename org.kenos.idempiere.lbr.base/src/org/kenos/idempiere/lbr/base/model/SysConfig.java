@@ -57,6 +57,8 @@ public class SysConfig
 	public static final String LBR_MATCH_SHIPMENT_RECEIPT_AND_ORDER_QTY 		= "LBR_MATCH_SHIPMENT_RECEIPT_AND_ORDER_QTY";
 	public static final String LBR_NFE_WAITING_TIME								= "LBR_NFE_WAITING_TIME";
 	public static final String LBR_NFESPECIE 									= "LBR_NFESPECIE";
+	public static final String LBR_NFSE_ABRASF201_JASPER_AUTHENTICITY_TEXT		= "LBR_NFSE_ABRASF201_JASPER_AUTHENTICITY_TEXT";
+	public static final String LBR_NFSE_ABRASF201_JASPER_CITY_LOGO				= "LBR_NFSE_ABRASF201_JASPER_CITY_LOGO";
 	public static final String LBR_NFSE_MOGI_PASS 								= "LBR_NFSE_MOGI_PASS";
 	public static final String LBR_NFSE_MOGI_USER 								= "LBR_NFSE_MOGI_USER";
 	public static final String LBR_NFSE_PALHOCA_PASS 							= "LBR_NFSE_PALHOCA_PASS";
