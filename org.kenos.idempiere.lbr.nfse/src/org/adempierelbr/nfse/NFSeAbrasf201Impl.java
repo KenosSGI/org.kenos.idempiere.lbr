@@ -763,7 +763,7 @@ public class NFSeAbrasf201Impl implements INFSe
 		{
 			//	Todas URLs em Produção
 			if (MLBRNotaFiscal.LBR_NFEENV_Production.equals(nf.getlbr_NFeEnv()))
-				url = "http://189.108.127.34:5661/IssWeb-ejb/IssWebWS/IssWebWS";
+				url = MSysConfig.getValue (SysConfig.LBR_NFSE_URL, "http://siatapirai.dcfiorilli.com.br:8080/IssWeb-ejb/IssWebWS/IssWebWS", nf.getAD_Client_ID(), nf.getAD_Org_ID());
 			else break;
 		}
 		
