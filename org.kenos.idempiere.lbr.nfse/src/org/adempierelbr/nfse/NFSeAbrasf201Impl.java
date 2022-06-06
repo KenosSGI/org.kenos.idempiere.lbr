@@ -303,8 +303,18 @@ public class NFSeAbrasf201Impl implements INFSe
 		//	Dados do Tomador do Serviço / Parceiro de Negócio
 		dadosTomador.setRazaoSocial(Util.deleteAccents(nf.getBPName()));
 		TcEndereco endTomador = dadosTomador.addNewEndereco();
-		endTomador.setEndereco(Util.deleteAccents(nf.getlbr_BPAddress1()));
-		endTomador.setNumero(TextUtil.toNumeric(nf.getlbr_BPAddress2()));
+		if (nf.getlbr_BPAddress1() == null || nf.getlbr_BPAddress1().isBlank())
+		{
+			nf.setErrorMsg("Impossível gerar NFS-e. Endereço inválido");
+			return null;
+		}
+		endTomador.setEndereco(Util.deleteAccents(nf.getlbr_BPAddress1().trim()));
+		if (nf.getlbr_BPAddress2() == null || nf.getlbr_BPAddress2().isBlank())
+		{
+			nf.setErrorMsg("Impossível gerar NFS-e. Número do endereço inválido");
+			return null;
+		}
+		endTomador.setNumero(nf.getlbr_BPAddress2().trim());
 		endTomador.setBairro(Util.deleteAccents(nf.getlbr_BPAddress3()));
 		endTomador.setCodigoMunicipio(nf.getlbr_BPCityCode());
 		endTomador.setCep(TextUtil.toNumeric (nf.getlbr_BPPostal()));
@@ -315,8 +325,11 @@ public class NFSeAbrasf201Impl implements INFSe
 		// Contato do Parceiro de Negócio
 		TcContato contatoTomador = dadosTomador.addNewContato();
 		String bpemail = partner.get_ValueAsString("LBR_EMailNFSe");
-		if (nf.getlbr_BPPhone() != null && !nf.getlbr_BPPhone().isEmpty())
-			contatoTomador.setTelefone(TextUtil.toNumeric(nf.getlbr_BPPhone()));
+		String bpPhone = nf.getlbr_BPPhone();
+		if (bpPhone == null || bpPhone.isBlank())
+			bpPhone = "0";	//	Obrigatório
+		contatoTomador.setTelefone(bpPhone.trim().substring(0,Math.min(bpPhone.trim().length(),20)));
+		
 		if (bpemail != null && !bpemail.isBlank())
 			contatoTomador.setEmail(bpemail.trim().substring(0,Math.min(bpemail.trim().length(),80)));
 		
