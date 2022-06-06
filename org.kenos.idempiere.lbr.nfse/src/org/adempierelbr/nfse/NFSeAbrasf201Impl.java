@@ -303,8 +303,18 @@ public class NFSeAbrasf201Impl implements INFSe
 		//	Dados do Tomador do Serviço / Parceiro de Negócio
 		dadosTomador.setRazaoSocial(Util.deleteAccents(nf.getBPName()));
 		TcEndereco endTomador = dadosTomador.addNewEndereco();
-		endTomador.setEndereco(Util.deleteAccents(nf.getlbr_BPAddress1()));
-		endTomador.setNumero(TextUtil.toNumeric(nf.getlbr_BPAddress2()));
+		if (nf.getlbr_BPAddress1() == null || nf.getlbr_BPAddress1().isBlank())
+		{
+			nf.setErrorMsg("Impossível gerar NFS-e. Endereço inválido");
+			return null;
+		}
+		endTomador.setEndereco(Util.deleteAccents(nf.getlbr_BPAddress1().trim()));
+		if (nf.getlbr_BPAddress2() == null || nf.getlbr_BPAddress2().isBlank())
+		{
+			nf.setErrorMsg("Impossível gerar NFS-e. Número do endereço inválido");
+			return null;
+		}
+		endTomador.setNumero(nf.getlbr_BPAddress2().trim());
 		endTomador.setBairro(Util.deleteAccents(nf.getlbr_BPAddress3()));
 		endTomador.setCodigoMunicipio(nf.getlbr_BPCityCode());
 		endTomador.setCep(TextUtil.toNumeric (nf.getlbr_BPPostal()));
