@@ -26,7 +26,7 @@ import org.kenos.idempiere.lbr.bankslip.model.MLBRCNABFile;
 public class Santander033 implements ICNABGenerator
 {
 	/**	Bank Routing Number	*/
-	public static final int ROUNTING_NO = 033;
+	public static final int ROUNTING_NO = 33;
 	
 	/**	Bank Name			*/
 	private static final String BANK_NAME = "SANTANDER";
@@ -55,8 +55,9 @@ public class Santander033 implements ICNABGenerator
 		cnab.append(cnabFile.getRoutingNo()); 					//	CÓDIGO DO BANCO
 		cnab.append(rPad(BANK_NAME, 15)); 						//	NOME DO BANCO
 		cnab.append(timeToString(cnabFile.getDateDoc())); 		//	DATA DE GERAÇÃO
-		cnab.append(rPad("0", 16)); 								//	BRANCOS
+		cnab.append(rPad("0", 16)); 							//	BRANCOS
 		cnab.append(rPad("", 275)); 							//	BRANCOS
+		cnab.append(lPad("0", 3)); 								//	ZEROS
 		cnab.append(lPad("1", 6)); 								//	NÚMERO SEQUENCIAL
 		cnab.append(CR).append(LF);
 		
@@ -149,7 +150,7 @@ public class Santander033 implements ICNABGenerator
 //			String cnpjf = TextUtil.retiraEspecial (I_W_C_BPartner.LBR_BPTYPEBR_PF_Individual.equals(bpW.getlbr_BPTypeBR()) ? bpW.getlbr_CPF() : bpW.getlbr_CNPJ());
 			
 			//	Nosso Número
-			String documentNo = TextUtil.lPad (TextUtil.retiraEspecial (bs.getDocumentNo()), 7);
+			String documentNo = TextUtil.lPad (TextUtil.retiraEspecial (bs.getLBR_NumberInBank()), 7);
 			
 			//	DV do Nosso Número
 			documentNo += String.valueOf (bsi.getLBR_NumberInBankVD());
@@ -178,14 +179,11 @@ public class Santander033 implements ICNABGenerator
 //				seuNumero = documentNo;
 			
 			//
-			cnab.append("1");									//	Código do registro = 1
 			cnab.append("02");									//	Tipo de inscrição do cedente
 			cnab.append(TextUtil.lPad (ocnpj, 14));				//	CNPJ ou CPF do cedente
-			cnab.append(TextUtil.lPad (bsi.getAgency(), 4));	//	Código da agência cedente (nota 2)
-			cnab.append(TextUtil.lPad (bsi.getAccountNo(), 8));	//	Conta movimento cedente (nota 2)
-			cnab.append(TextUtil.lPad (bsi.getAccountNo(), 8));	//	Conta cobrança cedente (nota 2)
-			cnab.append(TextUtil.rPad (bs.getLBR_NumberInOrg(), 25));		//	Número de controle do participante, para controle por parte do cedente
-			cnab.append(TextUtil.lPad ("", 8));					//	Nosso número (nota 3)
+			cnab.append(TextUtil.lPad (contract.getLBR_Param1(), 20));		//	Código fornecido (nota 1)
+			cnab.append(TextUtil.rPad (bs.getIdentifier(), 25));		//	Número de controle do participante, para controle por parte do cedente
+			cnab.append(TextUtil.lPad (documentNo, 8));			//	Nosso número (nota 3)
 			cnab.append(TextUtil.lPad ("0", 6));				//	Data do segundo desconto
 			cnab.append(TextUtil.rPad ("", 1));					//	Branco
 			cnab.append(TextUtil.lPad ("", 1));					//	Informação de multa = 4, senão houver informar zero Verificar página 16
@@ -194,9 +192,9 @@ public class Santander033 implements ICNABGenerator
 			cnab.append(TextUtil.lPad ("", 13));				//	Valor do título em outra unidade (consultar banco)
 			cnab.append(TextUtil.rPad ("", 4));					//	Brancos
 			cnab.append(TextUtil.lPad ("", 6));					//	Data para cobrança de multa. (Nota 4)
-			cnab.append(TextUtil.lPad ("1", 1));				//	Código da carteira
+			cnab.append(TextUtil.lPad ("5", 1));				//	Código da carteira
 			cnab.append(TextUtil.lPad ("01", 2));							//	Código da ocorrência
-			cnab.append(TextUtil.rPad (bs.getDocumentNo(), 10));			//	Seu número
+			cnab.append(TextUtil.rPad (bs.getLBR_NumberInOrg(), 10));			//	Seu número
 			cnab.append(TextUtil.lPad (timeToString(bs.getDueDate()), 6));	//	Data de vencimento do título
 			cnab.append(TextUtil.lPad (bs.getGrandTotal(), 13));			//	Valor do título - moeda corrente
 			cnab.append(TextUtil.lPad (ROUNTING_NO, 3));					//	Número do Banco cobrador = 353 / 033

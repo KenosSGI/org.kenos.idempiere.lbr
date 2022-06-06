@@ -501,7 +501,12 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 			
 			//	Local numbering
 			if (getLBR_NumberInOrg() == null)
-				setLBR_NumberInOrg(getDocumentNo());
+			{
+				if (MSysConfig.getBooleanValue("TMP_USE_INVOICE_AS_NUMBER_IN_BANKSLIP", false, getAD_Client_ID()) && getC_Invoice_ID() > 0)
+					setLBR_NumberInOrg(getC_Invoice().getDocumentNo());
+				else
+					setLBR_NumberInOrg(getDocumentNo());
+			}
 			
 			//	Number in the bank
 			if (getLBR_NumberInBank() == null)
@@ -1504,4 +1509,17 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 		
 		return penaltyAmt;
 	}	//	getCalculatedPenaltyAmt
+	
+	public String getIdentifier ()
+	{
+		StringBuilder result = new StringBuilder ();
+		//
+		result.append("B").append(getLBR_BankSlip_ID());
+		result.append("F");
+		if (getC_Invoice_ID() > 0)
+			result.append(getC_Invoice().getDocumentNo());
+		result.append("P").append(getlbr_PayScheduleNo());
+		//
+		return result.toString();
+	}	//	getIdentifier
 }	//	MLBRBankSlip
