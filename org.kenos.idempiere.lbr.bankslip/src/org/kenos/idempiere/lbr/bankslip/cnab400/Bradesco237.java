@@ -101,17 +101,19 @@ public class Bradesco237 implements ICNABGenerator
 //				accepted = IS_ACCEPTED;
 			
 			//	Penalty
-			BigDecimal penaltyAmt = Env.ZERO;
-			
-			//	Mora por atraso
-			if (bs.getLBR_PenaltyDays() == 1)
-			{
-				if (MLBRBankSlip.LBR_PENALTYTYPE_Amount.equals(bs.getLBR_PenaltyType()))
-					penaltyAmt = bs.getLBR_PenaltyValue();
-				else if (MLBRBankSlip.LBR_PENALTYTYPE_Rate.equals(bs.getLBR_PenaltyType()))
-					penaltyAmt = bs.getGrandTotal().multiply(bs.getLBR_PenaltyValue()).divide(new BigDecimal (30), 2, RoundingMode.HALF_UP);
-			}
-			
+//			BigDecimal penaltyAmt = Env.ZERO;
+//			
+//			//	Mora por atraso
+//			if (bs.getLBR_PenaltyDays() == 1)
+//			{
+//				if (MLBRBankSlip.LBR_PENALTYTYPE_Amount.equals(bs.getLBR_PenaltyType()))
+//					penaltyAmt = bs.getLBR_PenaltyValue();
+//				else if (MLBRBankSlip.LBR_PENALTYTYPE_Rate.equals(bs.getLBR_PenaltyType()))
+//					penaltyAmt = bs.getGrandTotal().multiply(bs.getLBR_PenaltyValue()).divide(new BigDecimal (30), 2, RoundingMode.HALF_UP);
+//			}
+
+			//	Interest	
+			BigDecimal interestAmt = bs.getDailyLateInterest();
 			BigDecimal discountAmt = Env.ZERO;
 			Timestamp discountDate = null;
 			
@@ -200,7 +202,7 @@ public class Bradesco237 implements ICNABGenerator
 			
 			cnab.append(lPad(0, 2));								//	INSTRUÇÃO 1
 			cnab.append(lPad(0, 2));								//	INSTRUÇÃO 2
-			cnab.append(lPad(penaltyAmt, 13));						//	JUROS DE 1 DIA
+			cnab.append(lPad(interestAmt, 13));						//	JUROS DE 1 DIA
 			cnab.append(lPad(timeToString(discountDate), 6));		//	DESCONTO ATÉ
 			cnab.append(lPad(discountAmt, 13));						//	VALOR DO DESCONTO
 			cnab.append(lPad(bs.getLBR_IOFAmt(), 13));				//	VALOR DO IOF

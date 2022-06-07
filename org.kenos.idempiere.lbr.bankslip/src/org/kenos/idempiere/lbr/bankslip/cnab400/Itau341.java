@@ -102,15 +102,7 @@ public class Itau341 implements ICNABGenerator
 				accepted = IS_ACCEPTED;
 			
 			//	Interest	
-			BigDecimal interestAmt = Env.ZERO;
-			
-			//	Mora por atraso
-			if (MLBRBankSlip.LBR_PENALTYTYPE_Amount.equals(bs.getLBR_InterestType()))
-				interestAmt = bs.getLBR_InterestValue();
-			else if (MLBRBankSlip.LBR_PENALTYTYPE_Rate.equals(bs.getLBR_InterestType()))
-				interestAmt = ((bs.getLBR_InterestValue().divide(new BigDecimal("30"), 12, RoundingMode.HALF_UP)).
-				        divide(Env.ONEHUNDRED, 12, RoundingMode.HALF_UP)).multiply(bs.getGrandTotal());
-				
+			BigDecimal interestAmt = bs.getDailyLateInterest();
 			BigDecimal discountAmt = Env.ZERO;
 			Timestamp discountDate = null;
 			
@@ -165,7 +157,7 @@ public class Itau341 implements ICNABGenerator
 			cnab.append(lPad(bs.getGrandTotal(), 13));				//	VALOR DO TÍTULO
 			cnab.append(lPad(bsi.getRoutingNo(), 3));				//	CÓDIGO DO BANCO
 			cnab.append(lPad(0, 5));								//	AGÊNCIA COBRADORA
-			cnab.append(rPad(convertKind (bsi.getLBR_BankSlipKindValue()), 2));	//	ESPÉCIE
+			cnab.append(rPad(convertKind (bsi.getLBR_BankSlipKindCode()), 2));	//	ESPÉCIE
 			cnab.append(rPad(accepted, 1));							//	ACEITE
 			cnab.append(lPad(timeToString(bs.getDateDoc()), 6));	//	DATA DE EMISSÃO
 			cnab.append(lPad(0, 2));								//	INSTRUÇÃO 1
