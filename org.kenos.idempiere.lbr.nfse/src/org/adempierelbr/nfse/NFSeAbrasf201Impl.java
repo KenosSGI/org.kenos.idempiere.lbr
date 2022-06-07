@@ -330,10 +330,10 @@ public class NFSeAbrasf201Impl implements INFSe
 		// Contato do Parceiro de Negócio
 		TcContato contatoTomador = dadosTomador.addNewContato();
 		String bpemail = partner.get_ValueAsString("LBR_EMailNFSe");
-		String bpPhone = nf.getlbr_BPPhone();
-		if (bpPhone == null || bpPhone.isBlank())
+		String bpPhone = TextUtil.toNumeric(nf.getlbr_BPPhone());
+		if (bpPhone.isBlank())
 			bpPhone = "0";	//	Obrigatório
-		contatoTomador.setTelefone(bpPhone.trim().substring(0,Math.min(bpPhone.trim().length(),20)));
+		contatoTomador.setTelefone(bpPhone.trim().substring(0,Math.min(bpPhone.trim().length(),15)));
 		
 		if (bpemail != null && !bpemail.isBlank())
 			contatoTomador.setEmail(bpemail.trim().substring(0,Math.min(bpemail.trim().length(),80)));
