@@ -47,6 +47,7 @@ import org.adempiere.webui.panel.IFormController;
 import org.adempiere.webui.session.SessionManager;
 import org.adempiere.webui.window.FDialog;
 import org.apache.commons.io.FileUtils;
+import org.compiere.minigrid.IDColumn;
 import org.compiere.model.MBankAccount;
 import org.compiere.model.MDocType;
 import org.compiere.process.ProcessInfo;
@@ -91,7 +92,9 @@ public class WGenBankSlip extends GenBankSlip
 	private WListbox miniTable = ListboxFactory.newDataTable();
 	private ConfirmPanel commandPanel = new ConfirmPanel(true, false, false, false, false, false, false);
 	private Button bCancel = commandPanel.getButton(ConfirmPanel.A_CANCEL);
-	private Button bGenerate = commandPanel.createButton(ConfirmPanel.A_EXPORT);
+	private Button bSelectAll = commandPanel.createButton("SelectAll");
+	private Button bGenerate = commandPanel.createButton(ConfirmPanel.A_PROCESS);
+	private Button bExport = commandPanel.createButton(ConfirmPanel.A_EXPORT);
 	private Button bRefresh = commandPanel.createButton(ConfirmPanel.A_REFRESH);
 	private Label labelDate = new Label();
 	private WDateEditor fieldDate = new WDateEditor();
@@ -158,7 +161,9 @@ public class WGenBankSlip extends GenBankSlip
 		dataStatus.setText(" ");
 		dataStatus.setPre(true);
 		//
+		bSelectAll.addActionListener(this);
 		bGenerate.addActionListener(this);
+		bExport.addActionListener(this);
 		bCancel.addActionListener(this);
 		//
 		North north = new North();
@@ -198,7 +203,9 @@ public class WGenBankSlip extends GenBankSlip
 		mainLayout.appendChild(center);
 		center.appendChild(miniTable);
 		//
+		commandPanel.addButton(bSelectAll);
 		commandPanel.addButton(bGenerate);
+		commandPanel.addButton(bExport);
 		commandPanel.getButton(ConfirmPanel.A_OK).setVisible(false);
 		
 		if (noOfColumn < 6)
@@ -342,10 +349,29 @@ public class WGenBankSlip extends GenBankSlip
 			loadTableInfo();
 		}
 		//  Generate PaySelection
-		else if (e.getTarget() == bGenerate)
+		else if (e.getTarget() == bExport)
 		{
 			exportBilling();
 			loadTableInfo();
+		}
+		//  Generate PaySelection
+		else if (e.getTarget() == bGenerate)
+		{
+			exportBilling(false);
+			loadTableInfo();
+		}
+		//  Generate PaySelection
+		else if (e.getTarget() == bSelectAll)
+		{
+			miniTable.selectAll();
+			int rows = miniTable.getRowCount();
+			for (int i = 0; i < rows; i++)
+			{
+				IDColumn id = (IDColumn)miniTable.getValueAt(i, 0);
+				id.setSelected(!id.isSelected());
+			}			
+			
+			calculateSelection();
 		}
 
 		else if (e.getTarget() == bCancel)
@@ -375,13 +401,21 @@ public class WGenBankSlip extends GenBankSlip
 	{
 		dataStatus.setText(calculateSelection(miniTable));
 		//
-		bGenerate.setEnabled(valid && m_noSelected != 0);
+		bExport.setEnabled(valid && m_noSelected != 0);
 	}   //  calculateSelection
 	
 	/**
 	 *  Print Billing
 	 */
 	private void exportBilling ()
+	{
+		exportBilling(true);
+	}	//	exportBilling
+	
+	/**
+	 *  Print Billing
+	 */
+	private void exportBilling (boolean download)
 	{
 		if (miniTable.getRowCount() == 0)
 			return;
@@ -396,12 +430,14 @@ public class WGenBankSlip extends GenBankSlip
 			
 			exportBilling (miniTable, path.toString(), (KeyNamePair) fieldBankContract.getSelectedItem().getValue());
 			
-			File zipFile = File.createTempFile("Boletos", ".zip");
-			zipFile.delete();
-			//
-			Zipper.zipFolder (path.toFile(), zipFile, "**");
-			AMedia media = new AMedia(zipFile.getName(), null, null, FileUtils.readFileToByteArray(zipFile));
-			Filedownload.save(media);
+			if (download) {
+				File zipFile = File.createTempFile("Boletos", ".zip");
+				zipFile.delete();
+				//
+				Zipper.zipFolder (path.toFile(), zipFile, "**");
+				AMedia media = new AMedia(zipFile.getName(), null, null, FileUtils.readFileToByteArray(zipFile));
+				Filedownload.save(media);
+			}
 		}
 		catch (Exception e)
 		{
