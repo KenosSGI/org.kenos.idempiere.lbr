@@ -315,6 +315,11 @@ public class NFSeAbrasf201Impl implements INFSe
 			return null;
 		}
 		endTomador.setNumero(nf.getlbr_BPAddress2().trim());
+		if (nf.getlbr_BPAddress3() == null || nf.getlbr_BPAddress3().isBlank())
+		{
+			nf.setErrorMsg("Impossível gerar NFS-e. Bairro do endereço inválido");
+			return null;
+		}
 		endTomador.setBairro(Util.deleteAccents(nf.getlbr_BPAddress3()));
 		endTomador.setCodigoMunicipio(nf.getlbr_BPCityCode());
 		endTomador.setCep(TextUtil.toNumeric (nf.getlbr_BPPostal()));
@@ -767,9 +772,12 @@ public class NFSeAbrasf201Impl implements INFSe
 			else break;
 		}
 		
+		long soTimeout = MSysConfig.getIntValue (trxName,  5 * 60 * 1000, Env.getAD_Client_ID(ctx), AD_Org_ID); // Five minutes
+		
 		IssWebWSStub nfseStub = new IssWebWSStub(url);
 		nfseStub._getServiceClient().getOptions().setProperty(HTTPConstants.CHUNKED, false);
-
+		nfseStub._getServiceClient().getOptions().setTimeOutInMilliSeconds(soTimeout);
+		
 		EnviarLoteRpsSincronoEnvioDocument enviarLotDoc = EnviarLoteRpsSincronoEnvioDocument.Factory.newInstance();
 		EnviarLoteRpsSincronoEnvio enviarLot = enviarLotDoc.addNewEnviarLoteRpsSincronoEnvio();
 
