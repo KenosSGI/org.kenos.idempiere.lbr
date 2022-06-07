@@ -301,7 +301,7 @@ public class NFSeAbrasf201Impl implements INFSe
 			tomador.setInscricaoMunicipal(TextUtil.toNumeric(partner.get_ValueAsString("LBR_CCM")));
 		
 		//	Dados do Tomador do Serviço / Parceiro de Negócio
-		dadosTomador.setRazaoSocial(Util.deleteAccents(nf.getBPName()));
+		dadosTomador.setRazaoSocial(Util.deleteAccents(nf.getBPName().trim()));
 		TcEndereco endTomador = dadosTomador.addNewEndereco();
 		if (nf.getlbr_BPAddress1() == null || nf.getlbr_BPAddress1().isBlank())
 		{
@@ -772,7 +772,7 @@ public class NFSeAbrasf201Impl implements INFSe
 			else break;
 		}
 		
-		long soTimeout = MSysConfig.getIntValue (trxName,  5 * 60 * 1000, Env.getAD_Client_ID(ctx), AD_Org_ID); // Five minutes
+		long soTimeout = MSysConfig.getIntValue ("LBR_NFSE_TIMEOUT",  5 * 60 * 1000, Env.getAD_Client_ID(ctx), AD_Org_ID); // Five minutes
 		
 		IssWebWSStub nfseStub = new IssWebWSStub(url);
 		nfseStub._getServiceClient().getOptions().setProperty(HTTPConstants.CHUNKED, false);
