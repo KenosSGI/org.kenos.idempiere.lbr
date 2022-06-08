@@ -96,6 +96,7 @@ import br.org.abrasf201.nfse.TcLoteRps;
 import br.org.abrasf201.nfse.TcLoteRps.ListaRps;
 import br.org.abrasf201.nfse.TcPedidoCancelamento;
 import br.org.abrasf201.nfse.TcValoresDeclaracaoServico;
+import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
@@ -1952,7 +1953,7 @@ public class NFSeAbrasf201Impl implements INFSe
 		
 		File PDF = null;
 		
-		/*try
+		try
 		{
 			//	Get Report
 			JasperPrint jasperPrint = getReport (nf);
@@ -1964,7 +1965,7 @@ public class NFSeAbrasf201Impl implements INFSe
 		catch (Exception e)
 		{
 			e.printStackTrace();
-		}*/
+		}
 		
 		return PDF;
 	}	
