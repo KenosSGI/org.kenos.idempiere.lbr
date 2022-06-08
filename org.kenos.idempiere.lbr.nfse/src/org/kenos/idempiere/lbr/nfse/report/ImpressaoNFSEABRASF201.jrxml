@@ -19,6 +19,7 @@
 	<parameter name="CEPPrestador" class="java.lang.String"/>
 	<parameter name="CEPTomador" class="java.lang.String"/>
 	<parameter name="cnpjtomador" class="java.lang.String"/>
+	<parameter name="telefoneprestador" class="java.lang.String"/>
 	<parameter name="cnpjprestador" class="java.lang.String"/>
 	<parameter name="cidadeprestador" class="java.lang.String"/>
 	<parameter name="cidadetomador" class="java.lang.String"/>
@@ -764,7 +765,7 @@ $F{datahoraemissao}.substring(0,4)+" às " + $F{datahoraemissao}.substring(12,16
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="8" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{CEPTomador}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[LEFT($P{CEPTomador},5) +"-"+ RIGHT($P{CEPTomador},3)]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="false">
 				<reportElement key="textField-16" x="50" y="191" width="185" height="17" uuid="c9f7c2b1-3a3d-4064-bc5b-5b82948a4d24"/>
@@ -778,7 +779,7 @@ $F{datahoraemissao}.substring(0,4)+" às " + $F{datahoraemissao}.substring(12,16
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="8" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{telefone}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{telefoneprestador}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="false">
 				<reportElement key="textField-18" x="353" y="191" width="182" height="17" uuid="bf30248f-c7c9-4655-b704-9a6542586925"/>
@@ -841,7 +842,7 @@ $F{datahoraemissao}.substring(0,4)+" às " + $F{datahoraemissao}.substring(12,16
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="8" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{CEPPrestador}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[LEFT($P{CEPPrestador},5) +"-"+  RIGHT($P{CEPPrestador},3)]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="false">
 				<reportElement key="textField-17" x="381" y="87" width="154" height="16" uuid="7128d1cf-f6a3-40a2-b7ba-34bd7e3e499e"/>
@@ -1098,7 +1099,7 @@ $F{datahoraemissao}.substring(0,4)+" às " + $F{datahoraemissao}.substring(12,16
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="8" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[IF($F{OptanteSimplesNacional}.equals("1"),"1-Sim","2-Não")]]></textFieldExpression>
+				<textFieldExpression><![CDATA[IF($F{issretido}.equals("1"),"1-Sim","2-Não")]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement key="staticText-84" x="2" y="93" width="88" height="10" uuid="289ff038-85d6-4eea-bf7d-05b0ac888d81"/>
