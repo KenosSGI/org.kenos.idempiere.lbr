@@ -82,6 +82,9 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 	/**	Document Type of Bank Slip	*/
 	public static final String DOCBASETYPE_BANKSLIP = "BSB";
 	
+	/**	Bank Slip Identifier */
+	public static final String IDENTIFIER_REGEX = "B(\\d+)F\\d*P\\d*";
+
 	/**
 	 * 	Serial
 	 */
@@ -1377,8 +1380,19 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 	
 	public static MLBRBankSlip get (Properties ctx, int Contract_ID, String identifier)
 	{
+		if (identifier == null)
+			return null;
+		
 		if (Contract_ID > 0)
 		{
+			/**
+			 * 	Exactly match by identifier
+			 */
+			if (identifier.matches (IDENTIFIER_REGEX)) {
+				Integer id = Integer.parseInt(identifier.replaceAll(IDENTIFIER_REGEX, "$1"));
+				return new MLBRBankSlip (ctx, id, null);
+			}
+			
 			/**
 			 * 	Finds bank slip by exactly match
 			 */
