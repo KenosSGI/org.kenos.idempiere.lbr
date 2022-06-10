@@ -266,8 +266,14 @@ public class NFSeAbrasf201Impl implements INFSe
 		TcInfRps infRps = infdps.addNewRps();
 		//	Identificação do RPS
 		TcIdentificacaoRps indRps = infRps.addNewIdentificacaoRps();
-		indRps.setNumero(new BigDecimal(nf.getDocumentNo()).longValue());
-		indRps.setSerie(nf.getlbr_NFSerie());
+		if (nf.getLBR_NFReplacedNo() != null) {
+			indRps.setNumero(new BigDecimal(nf.getLBR_NFReplacedNo()).longValue());
+			indRps.setSerie(nf.getLBR_NFReplacedSeries());
+		}
+		else {
+			indRps.setNumero(new BigDecimal(nf.getDocumentNo()).longValue());
+			indRps.setSerie(nf.getlbr_NFSerie());
+		}
 		indRps.setTipo((byte)1);
 		infRps.setDataEmissao(xmlCal);
 		infRps.setStatus((byte)1);
@@ -597,7 +603,7 @@ public class NFSeAbrasf201Impl implements INFSe
 			infCancelOrder.setId("Cancelamento_1");
 			
 			TcIdentificacaoNfse identNfse = infCancelOrder.addNewIdentificacaoNfse();
-			identNfse.setNumero(new BigDecimal(nf.getLBR_NFReplacedNo()).longValue());
+			identNfse.setNumero(new BigDecimal(nf.getDocumentNo()).longValue());
 			identNfse.setCodigoMunicipio(nf.getlbr_BPCityCode());
 			identNfse.setInscricaoMunicipal(TextUtil.toNumeric(getInscricaoMunicipal(nf)));
 			
