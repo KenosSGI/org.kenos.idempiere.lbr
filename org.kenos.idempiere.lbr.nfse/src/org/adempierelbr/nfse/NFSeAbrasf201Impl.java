@@ -2059,10 +2059,11 @@ public class NFSeAbrasf201Impl implements INFSe
 
 			MLBRNotaFiscalLine nfl = nf.getLines()[0];
 			Integer c_city_id = nfl.getC_City_ID();
+			MCity city = new MCity (Env.getCtx(), nf.getOrg_Location().getC_City_ID(), null);
 			if (c_city_id > 0) {
-				org.compiere.model.MCity city = MCity.get(Env.getCtx(), c_city_id);
-				map.put("cidadeincidencia", city.getName());
+				city = new MCity( Env.getCtx(), c_city_id, null);
 			}
+			map.put("cidadeincidencia", city.getName());
 			
 			if(nf.getOrg_Location().getC_City_ID() == TAPIRAI_ID) {
 				map.put("prefeitura", "MUNICÍPIO DE TAPIRAÍ");
