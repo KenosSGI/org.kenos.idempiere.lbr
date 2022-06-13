@@ -2125,6 +2125,9 @@ public class NFSeAbrasf201Impl implements INFSe
 		if (nf.getlbr_NFENo() == null)
 			return false;
 		
+		if (nf.getOrg_Location().getC_City_ID() == TAPIRAI_ID)
+			return true;
+		
 		CancelarNfseEnvioDocument cancelDoc = CancelarNfseEnvioDocument.Factory.newInstance();
 		CancelarNfseEnvio cancelNf = cancelDoc.addNewCancelarNfseEnvio();
 		
