@@ -489,8 +489,7 @@ public class NFSeAbrasf201Impl implements INFSe
 		}
 		MCity city = new MCity (Env.getCtx(), nf.getOrg_Location().getC_City_ID(), null);
 		
-		TextUtil.retiraEspecial(descricaoServico);
-		dadosServico.setDiscriminacao(TextUtil.retiraEspecial(descricaoServico).replace("\n", ". ").replaceAll("\\s+", " ").replaceAll("\\.+", ".").trim());
+		dadosServico.setDiscriminacao(TextUtil.retiraEspecial(descricaoServico.replace("\n", ". ").replaceAll("\\s+", " ").replaceAll("\\.+", ".")).trim());
 		dadosServico.setItemListaServico(serviceCode);
 		if (dadosServico.getCodigoMunicipio() < 1)
 			dadosServico.setCodigoMunicipio(city.getlbr_CityCode());
