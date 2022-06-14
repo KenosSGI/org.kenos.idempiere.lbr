@@ -195,7 +195,7 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 					preffix += "_" + bsi.getLBR_BankSlip().getLBR_NotaFiscal().getDocumentNo();
 			}
 			
-			tempFile = File.createTempFile(preffix + "_", ".pdf", filePath == null ? null : new File (filePath));
+			tempFile = File.createTempFile("B" + preffix + "_", ".pdf", filePath == null ? null : new File (filePath));
 			tempFile.delete();	//	Will be created later on
 			return boletoViewer.getPdfAsFile (tempFile);
 			
@@ -1082,6 +1082,15 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 		setDocAction(DOCACTION_None);
 		setProcessed(true);
 		
+		//	Update invoice
+		if (getC_Invoice_ID() > 0) {
+			MInvoice invoice = (MInvoice) getC_Invoice();
+			invoice.set_ValueNoCheck(I_W_C_Invoice.COLUMNNAME_LBR_BankSlipContract_ID, getLBR_BankSlipContract_ID());
+			invoice.set_ValueNoCheck(I_W_C_Invoice.COLUMNNAME_lbr_PaymentRule, I_W_C_Invoice.LBR_PAYMENTRULE_BankSlip);
+			invoice.set_ValueNoCheck(I_W_C_Invoice.COLUMNNAME_lbr_IsBillPrinted, true);
+			invoice.save();
+		}
+		
 		//	Model Validator
 		m_processMsg = ModelValidationEngine.get().fireDocValidate(this, ModelValidator.TIMING_AFTER_COMPLETE);
 		if (m_processMsg != null)
@@ -1233,6 +1242,23 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 	 * @return
 	 * @throws Exception 
 	 */
+	public static void generateFromInvoice (Properties ctx, MInvoice invoice, String trxName) throws Exception
+	{
+		int LBR_BankSlipContract_ID = invoice.get_ValueAsInt(I_W_C_Invoice.COLUMNNAME_LBR_BankSlipContract_ID);
+		if (LBR_BankSlipContract_ID < 1)
+			throw new Exception ("No bank slip contract set in invoice");
+		generateFromInvoice (ctx, invoice.getC_Invoice_ID(), 0, LBR_BankSlipContract_ID, null, trxName);
+	}	//	generateFromInvoice
+	
+	/**
+	 * 	Generate Bank Slips for an invoice
+	 * @param ctx
+	 * @param C_Invoice_ID
+	 * @param LBR_BankSlipContract_ID
+	 * @param trx
+	 * @return
+	 * @throws Exception 
+	 */
 	public static List<File> generateFromInvoice (Properties ctx, int C_Invoice_ID, int C_InvoicePaySchedule_ID, Integer LBR_BankSlipContract_ID, String filePath, String trxName) throws Exception
 	{
 		List<File> files = new ArrayList<File> ();
@@ -1269,7 +1295,7 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 				bs.setDocStatus(bs.completeIt());
 				bs.save();
 				
-				if (MLBRBankSlip.DOCSTATUS_Completed.equals(bs.getDocStatus()))
+				if (MLBRBankSlip.DOCSTATUS_Completed.equals(bs.getDocStatus()) && filePath != null)
 					//	Add to PDF
 					files.add(bs.createPDF(filePath));
 			}

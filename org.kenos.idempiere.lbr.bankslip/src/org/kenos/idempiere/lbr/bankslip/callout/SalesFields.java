@@ -1,16 +1,16 @@
-package org.kenos.idempiere.lbr.base.callout;
+package org.kenos.idempiere.lbr.bankslip.callout;
 
 import java.util.Properties;
 
 import org.adempiere.base.IColumnCallout;
 import org.adempiere.model.POWrapper;
 import org.adempierelbr.wrapper.I_W_C_BPartner;
-import org.adempierelbr.wrapper.I_W_C_Invoice;
+import org.adempierelbr.wrapper.I_W_C_Order;
 import org.compiere.model.GridField;
 import org.compiere.model.GridTab;
 import org.compiere.model.MBPartner;
 import org.compiere.model.MInvoice;
-import org.compiere.model.MOrder;
+import org.kenos.idempiere.lbr.bankslip.model.MLBRBankSlipContract;
 
 /**
  * 		Callout for RMA
@@ -33,32 +33,17 @@ public class SalesFields implements IColumnCallout
 			return "";
 
 		I_W_C_BPartner bpW = POWrapper.create(new MBPartner (ctx, C_BPartner_ID, null), I_W_C_BPartner.class);
-
-		//	Payment Rule
-		if (bpW.getlbr_PaymentRule() != null)
-			mTab.setValue(I_W_C_BPartner.COLUMNNAME_lbr_PaymentRule, bpW.getlbr_PaymentRule());
 		
-		//	Orders only
-		if (MOrder.Table_Name.equals (mTab.getTableName()))
+		//	Bank Account
+		int LBR_BankSlipContract_ID = bpW.getLBR_BankSlipContract_ID();
+		if (LBR_BankSlipContract_ID > 0)
 		{
-			//	Shipper
-			if (bpW.getM_Shipper_ID() > 0)
-				mTab.setValue(I_W_C_BPartner.COLUMNNAME_M_Shipper_ID, bpW.getM_Shipper_ID());
-			
-			//	Description
-			if (bpW.getlbr_NFDescription() != null)
-				mTab.setValue(I_W_C_BPartner.COLUMNNAME_lbr_NFDescription, bpW.getlbr_NFDescription());
-			
-			//	Freight Cost Rule
-			if (bpW.getLBR_FreightCostRule() != null)
-				mTab.setValue(I_W_C_BPartner.COLUMNNAME_LBR_FreightCostRule, bpW.getLBR_FreightCostRule());
+			Object org = mTab.getValue(I_W_C_Order.COLUMNNAME_AD_Org_ID);
+			//
+			MLBRBankSlipContract bc = new MLBRBankSlipContract (ctx, LBR_BankSlipContract_ID, null);
+			if (org != null && ((Integer)org).intValue() == bc.getC_BankAccount().getAD_Org_ID())
+				mTab.setValue(I_W_C_BPartner.COLUMNNAME_LBR_BankSlipContract_ID, LBR_BankSlipContract_ID);
 		}
-		
-		//	Withhold
-		mTab.setValue(I_W_C_Invoice.COLUMNNAME_LBR_HasWithhold, bpW.isLBR_HasWithhold());
-		
-		//	On Credit: FIXME
-		mTab.setValue(MBPartner.COLUMNNAME_PaymentRule, MBPartner.PAYMENTRULE_OnCredit);
 		
 		return "";
 	}	//	start

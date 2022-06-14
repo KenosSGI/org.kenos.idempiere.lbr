@@ -7,6 +7,7 @@ import org.adempiere.base.IColumnCallout;
 import org.adempiere.base.IColumnCalloutFactory;
 import org.adempierelbr.util.TextUtil;
 import org.compiere.model.MBank;
+import org.compiere.model.MOrder;
 import org.kenos.idempiere.lbr.bankslip.model.MLBRBank;
 import org.kenos.idempiere.lbr.bankslip.model.MLBRBankSlip;
 
@@ -15,7 +16,7 @@ import org.kenos.idempiere.lbr.bankslip.model.MLBRBankSlip;
  * 
  * 	@author Ricardo Santana (Kenos, www.kenos.com.br)
  */
-public class CalloutFactory implements IColumnCalloutFactory
+public class ColumnCalloutFactory implements IColumnCalloutFactory
 {
 	/**
 	 * 	Register LBR callouts for columns
@@ -51,6 +52,11 @@ public class CalloutFactory implements IColumnCalloutFactory
 		{
 			if (TextUtil.match(columnName, MLBRBank.COLUMNNAME_LBR_Bank_ID))
 				callouts.add (new Bank());
+		}
+		else if (MOrder.Table_Name.equals(tableName))
+		{
+			if (TextUtil.match (columnName, MOrder.COLUMNNAME_C_BPartner_ID))
+				callouts.add (new SalesFields ());
 		}
 		
 		IColumnCallout[] result = new IColumnCallout[callouts.size()];
