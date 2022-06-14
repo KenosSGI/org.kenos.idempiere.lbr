@@ -26,6 +26,7 @@ import org.adempiere.base.Service;
 import org.adempiere.model.POWrapper;
 import org.adempiere.report.jasper.JRViewerProvider;
 import org.adempierelbr.model.MLBRDigitalCertificate;
+import org.adempierelbr.model.MLBRNFConfig;
 import org.adempierelbr.model.MLBRNotaFiscal;
 import org.adempierelbr.model.MLBRNotaFiscalLine;
 import org.adempierelbr.model.X_LBR_NFTax;
@@ -805,7 +806,11 @@ public class NFSeImpl implements INFSe
 		{
 			MLBRNotaFiscal nf = new MLBRNotaFiscal (ctx, LBR_NotaFiscal_ID, trxName);
 			ProcReturnRPS.proccessNFSe (nf, p_NFe, p_VerifCode);
-			ProcEMailNFe.sendEmailNFeThread (nf, false);
+			
+			//	Send mail accordingly with configuration
+			MLBRNFConfig config = MLBRNFConfig.get(nf.getAD_Org_ID(), nf.getlbr_NFModel());
+			if (config == null || MLBRNFConfig.SENDEMAIL_SendImmediately.equals(config.getSendEMail()))
+				ProcEMailNFe.sendEmailNFeThread (nf, false);
 		}
 	}	//	proccessNFSe
 	
