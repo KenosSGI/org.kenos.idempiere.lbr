@@ -491,7 +491,9 @@ public class NFSeSJPImpl implements INFSe
 		{
 			nf.setErrorMsg(e.toString());
 			nf.saveEx();
-			throw new AdempiereException("Número do Documento:" + nf.getDocumentNo() + e.getMessage());
+			if (nf.getC_Invoice() == null)
+				throw new AdempiereException("Número do Documento da Nota: " + nf.getDocumentNo() + "- Erro: " + e.getMessage());
+			throw new AdempiereException("Fatura: " + nf.getC_Invoice().getDocumentNo() + " - Número do Documento da Nota: " + nf.getDocumentNo() + "- Erro: " + e.getMessage()); 
 		}
 	}	//	getXML
 	
@@ -647,6 +649,7 @@ public class NFSeSJPImpl implements INFSe
 		
 		NfseStub nfseStub = new NfseStub(url);
 		nfseStub._getServiceClient().getOptions().setProperty(HTTPConstants.CHUNKED, false);
+		nfseStub._getServiceClient().getOptions().setTimeOutInMilliSeconds(300000);
 		
 		EnviarLoteRpsEnvioDocument enviarLotDoc = EnviarLoteRpsEnvioDocument.Factory.newInstance();
 		EnviarLoteRpsEnvio enviarLot = enviarLotDoc.addNewEnviarLoteRpsEnvio();
@@ -867,7 +870,8 @@ public class NFSeSJPImpl implements INFSe
 		NFeUtil.saveXML (String.valueOf(nf.getAD_Org_ID()), NFeUtil.KIND_NFSE, NFeUtil.MESSAGE_REQ_CONSULT, "Lote-" + nf.getDocumentNo(), document.xmlText());
 
 		NfseStub nfseStub = new NfseStub(url);
-		nfseStub._getServiceClient().getOptions().setProperty(HTTPConstants.CHUNKED, false);	
+		nfseStub._getServiceClient().getOptions().setProperty(HTTPConstants.CHUNKED, false);
+		nfseStub._getServiceClient().getOptions().setTimeOutInMilliSeconds(300000);
 		
 		MLBRDigitalCertificate.setCertificate (Env.getCtx(), nf.getAD_Org_ID());
 		String result = nfseStub.consultarSituacaoLoteRpsV3(header.xmlText(), document.xmlText());
@@ -920,23 +924,47 @@ public class NFSeSJPImpl implements INFSe
 			ConsultarLoteRpsResposta consultaresposta = ConsultarLoteRpsRespostaDocument.Factory.parse(resultconsulta).getConsultarLoteRpsResposta();
 			String xmlAut = consultaresposta.xmlText();
 			
-			TcInfNfse nfse = consultaresposta.getListaNfse().getCompNfseArray(0).getNfse().getInfNfse();
+			if (consultaresposta.getListaNfse().getCompNfseArray().length > 1)
+			{
+				for (TcCompNfse compnfse : consultaresposta.getListaNfse().getCompNfseArray()) {
+					if (nf.getDocumentNo().equals(String.valueOf(compnfse.getNfse().getInfNfse().getIdentificacaoRps().getNumero()))) {
+						TcInfNfse nfse = compnfse.getNfse().getInfNfse();
+						String nfeNo = String.valueOf(nfse.getNumero());
+						if (nfeNo.length() > 11)
+							nfeNo = nfeNo.substring(4);
+						
+						nf.setlbr_NFENo(nfeNo);
+						nf.setlbr_NFeProt(String.valueOf(nfse.getCodigoVerificacao()));
+						nf.setDateTrx(new Timestamp(nfse.getDataEmissao().getTimeInMillis()));
+						//nf.setlbr_NFeStatus(MLBRNotaFiscal.LBR_NFESTATUS_100_AutorizadoOUsoDaNF_E);
+						nf.setDocStatus(MLBRNotaFiscal.DOCSTATUS_Completed);
+						nf.save();
+						
+						MAttachment attachNFe = nf.createAttachment();
+						attachNFe.addEntry("NFSE-" + nf.getlbr_NFENo() + FILE_XML_NFSE_AUTORIZADO, xmlAut.replaceAll("\\&\\#[0-9A-Za-z]*;|\\n", "").getBytes(NFeUtil.NFE_ENCODING));
+						attachNFe.save();
+						break;
+					}
+				}
+			}
+			else {
+				TcInfNfse nfse = consultaresposta.getListaNfse().getCompNfseArray(0).getNfse().getInfNfse();
 
-			String nfeNo = String.valueOf(nfse.getNumero());
-			if (nfeNo.length() > 11)
-				nfeNo = nfeNo.substring(4);
-			
-			nf.setlbr_NFENo(nfeNo);
-			nf.setlbr_NFeProt(String.valueOf(nfse.getCodigoVerificacao()));
-			nf.setDateTrx(new Timestamp(nfse.getDataEmissao().getTimeInMillis()));
-			//nf.setlbr_NFeStatus(MLBRNotaFiscal.LBR_NFESTATUS_100_AutorizadoOUsoDaNF_E);
-			nf.setDocStatus(MLBRNotaFiscal.DOCSTATUS_Completed);
-			nf.save();
-			
-			MAttachment attachNFe = nf.createAttachment();
-			attachNFe.addEntry("NFSE-" + nf.getlbr_NFENo() + FILE_XML_NFSE_AUTORIZADO, xmlAut.replaceAll("\\&\\#[0-9A-Za-z]*;|\\n", "").getBytes(NFeUtil.NFE_ENCODING));
-			attachNFe.save();
-			
+				String nfeNo = String.valueOf(nfse.getNumero());
+				if (nfeNo.length() > 11)
+					nfeNo = nfeNo.substring(4);
+				
+				nf.setlbr_NFENo(nfeNo);
+				nf.setlbr_NFeProt(String.valueOf(nfse.getCodigoVerificacao()));
+				nf.setDateTrx(new Timestamp(nfse.getDataEmissao().getTimeInMillis()));
+				//nf.setlbr_NFeStatus(MLBRNotaFiscal.LBR_NFESTATUS_100_AutorizadoOUsoDaNF_E);
+				nf.setDocStatus(MLBRNotaFiscal.DOCSTATUS_Completed);
+				nf.save();
+				
+				MAttachment attachNFe = nf.createAttachment();
+				attachNFe.addEntry("NFSE-" + nf.getlbr_NFENo() + FILE_XML_NFSE_AUTORIZADO, xmlAut.replaceAll("\\&\\#[0-9A-Za-z]*;|\\n", "").getBytes(NFeUtil.NFE_ENCODING));
+				attachNFe.save();
+			}
 		}
 		else if (resposta.getSituacao() == SITUAÇÃO_LOTE_PROCESSADO_COM_ERROS)
 		{
