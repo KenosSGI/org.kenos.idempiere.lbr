@@ -11,6 +11,9 @@ Eclipse-RegisterBuddy: org.adempiere.base
 Service-Component: OSGI-INF/*.xml
 Export-Package: org.adempierelbr.model,
  org.adempierelbr.validator,
+ org.apache.poi.ooxml,
+ org.apache.poi.ss.usermodel,
+ org.apache.poi.xssf.usermodel,
  org.kenos.idempiere.lbr.tax.ibpt,
  org.kenos.idempiere.lbr.tax.lookup,
  org.kenos.idempiere.lbr.tax.model
