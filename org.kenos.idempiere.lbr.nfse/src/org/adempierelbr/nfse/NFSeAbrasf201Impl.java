@@ -266,8 +266,14 @@ public class NFSeAbrasf201Impl implements INFSe
 		TcInfRps infRps = infdps.addNewRps();
 		//	Identificação do RPS
 		TcIdentificacaoRps indRps = infRps.addNewIdentificacaoRps();
-		indRps.setNumero(new BigDecimal(nf.getDocumentNo()).longValue());
-		indRps.setSerie(nf.getlbr_NFSerie());
+		if (nf.getLBR_NFReplacedNo() != null) {
+			indRps.setNumero(new BigDecimal(nf.getLBR_NFReplacedNo()).longValue());
+			indRps.setSerie(nf.getLBR_NFReplacedSeries());
+		}
+		else {
+			indRps.setNumero(new BigDecimal(nf.getDocumentNo()).longValue());
+			indRps.setSerie(nf.getlbr_NFSerie());
+		}
 		indRps.setTipo((byte)1);
 		infRps.setDataEmissao(xmlCal);
 		infRps.setStatus((byte)1);
@@ -483,8 +489,7 @@ public class NFSeAbrasf201Impl implements INFSe
 		}
 		MCity city = new MCity (Env.getCtx(), nf.getOrg_Location().getC_City_ID(), null);
 		
-		TextUtil.retiraEspecial(descricaoServico);
-		dadosServico.setDiscriminacao(TextUtil.retiraEspecial(descricaoServico).replace("\n", ". ").replaceAll("\\s+", " ").replaceAll("\\.+", ".").trim());
+		dadosServico.setDiscriminacao(TextUtil.retiraEspecial(descricaoServico.replace("\n", ". ").replaceAll("\\s+", " ").replaceAll("\\.+", ".")).trim());
 		dadosServico.setItemListaServico(serviceCode);
 		if (dadosServico.getCodigoMunicipio() < 1)
 			dadosServico.setCodigoMunicipio(city.getlbr_CityCode());
@@ -597,7 +602,7 @@ public class NFSeAbrasf201Impl implements INFSe
 			infCancelOrder.setId("Cancelamento_1");
 			
 			TcIdentificacaoNfse identNfse = infCancelOrder.addNewIdentificacaoNfse();
-			identNfse.setNumero(new BigDecimal(nf.getLBR_NFReplacedNo()).longValue());
+			identNfse.setNumero(new BigDecimal(nf.getDocumentNo()).longValue());
 			identNfse.setCodigoMunicipio(nf.getlbr_BPCityCode());
 			identNfse.setInscricaoMunicipal(TextUtil.toNumeric(getInscricaoMunicipal(nf)));
 			
@@ -2053,10 +2058,11 @@ public class NFSeAbrasf201Impl implements INFSe
 
 			MLBRNotaFiscalLine nfl = nf.getLines()[0];
 			Integer c_city_id = nfl.getC_City_ID();
+			MCity city = new MCity (Env.getCtx(), nf.getOrg_Location().getC_City_ID(), null);
 			if (c_city_id > 0) {
-				org.compiere.model.MCity city = MCity.get(Env.getCtx(), c_city_id);
-				map.put("cidadeincidencia", city.getName());
+				city = new MCity( Env.getCtx(), c_city_id, null);
 			}
+			map.put("cidadeincidencia", city.getName());
 			
 			if(nf.getOrg_Location().getC_City_ID() == TAPIRAI_ID) {
 				map.put("prefeitura", "MUNICÍPIO DE TAPIRAÍ");
@@ -2118,6 +2124,9 @@ public class NFSeAbrasf201Impl implements INFSe
 	{
 		if (nf.getlbr_NFENo() == null)
 			return false;
+		
+		if (nf.getOrg_Location().getC_City_ID() == TAPIRAI_ID)
+			return true;
 		
 		CancelarNfseEnvioDocument cancelDoc = CancelarNfseEnvioDocument.Factory.newInstance();
 		CancelarNfseEnvio cancelNf = cancelDoc.addNewCancelarNfseEnvio();
