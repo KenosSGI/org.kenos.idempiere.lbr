@@ -470,7 +470,7 @@ public class NFSeAbrasf201Impl implements INFSe
 						dadosServico.setMunicipioIncidencia(cityCode);
 					}
 				}
-				else if (!aliquota.equals(nfl.getTaxRate("ISS")))
+				else if (!aliquota.equals(nfl.getTaxRate(iss)))
 				{
 					nf.setErrorMsg("Impossível gerar XML NFS-e. Todos os serviços da NFS-e devem conter o mesmo Código de Serviço");
 					return null;
