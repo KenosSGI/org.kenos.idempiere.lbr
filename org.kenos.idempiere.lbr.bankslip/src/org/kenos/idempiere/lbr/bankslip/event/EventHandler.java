@@ -7,6 +7,7 @@ import org.adempierelbr.model.MLBRNotaFiscal;
 import org.adempierelbr.wrapper.I_W_C_Invoice;
 import org.compiere.model.MInvoice;
 import org.compiere.model.PO;
+import org.compiere.util.Trx;
 import org.kenos.idempiere.lbr.bankslip.model.MLBRBankSlip;
 import org.kenos.idempiere.lbr.bankslip.model.MLBRBankSlipContract;
 import org.osgi.service.event.Event;
@@ -95,14 +96,25 @@ public class EventHandler extends AbstractEventHandler
 			if (count > 0)
 				return;	//	Already generated, do nothing
 			
+			String trxName = Trx.createTrxName("AutoGenBankSlip");
+			Trx trx = Trx.get(trxName, false);
+			
 			try 
 			{
 				//	In case of a problem, do not stop NF processing
-				MLBRBankSlip.generateFromInvoice(nf.getCtx(), invoice, null);
+				MLBRBankSlip.generateFromInvoice(nf.getCtx(), invoice, trxName);
+				
+				//	Everything is good
+				trx.commit();
 			}
 			catch (Exception e)
 			{
+				trx.rollback();
 				e.printStackTrace();
+			}
+			finally 
+			{
+				trx.close();
 			}
 		}
 		
