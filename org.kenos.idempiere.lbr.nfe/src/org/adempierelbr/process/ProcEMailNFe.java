@@ -478,9 +478,7 @@ public class ProcEMailNFe extends SvrProcess
 		}
 		
 		//	Include additional attachments
-		attachements.stream().forEach(f -> { 
-			mail.addAttachment(f);
-		});
+		attachements.stream().forEach(mail::addAttachment);
 		
 		//
 		StringTokenizer st = new StringTokenizer(toEMails, ";");

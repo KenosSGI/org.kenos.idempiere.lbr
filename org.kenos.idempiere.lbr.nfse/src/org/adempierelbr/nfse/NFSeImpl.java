@@ -270,8 +270,12 @@ public class NFSeImpl implements INFSe
 		{
 			log.log (Level.SEVERE, tpRPS.xmlText(), e);
 		}
+		
+		String xmlText = tpRPS.xmlText(NFeUtil.getXmlOpt());
+		NFeUtil.saveXML (String.valueOf(nf.getAD_Org_ID()), NFeUtil.KIND_NFSE, NFeUtil.MESSAGE_XML, nf.getDocumentNo(), xmlText.toString());
+
 		//
-		return tpRPS.xmlText(NFeUtil.getXmlOpt()).getBytes(NFeUtil.NFE_ENCODING);
+		return xmlText.getBytes(NFeUtil.NFE_ENCODING);
 	}	//	getXML
 
 	@Override
@@ -521,7 +525,7 @@ public class NFSeImpl implements INFSe
 		StringBuilder xml = new StringBuilder (envioLoteRPSDoc.xmlText(NFeUtil.getXmlOpt()));
 		
 		//	Log
-		log.fine ("Sending XML: " + xml.toString());
+		NFeUtil.saveXML (String.valueOf(p_AD_Org_ID), NFeUtil.KIND_NFSE, NFeUtil.MESSAGE_REQ_AUTORIZE, nfs.get(0).getDocumentNo(), xml.toString());
 		
 		//	Retorno da Prefeitura
 		String retornoXML = "";
@@ -546,6 +550,11 @@ public class NFSeImpl implements INFSe
 				break;
 		}
 		
+		boolean homolog = false;
+		MLBRNFConfig config = MLBRNFConfig.get(p_AD_Org_ID, nfs.get(0).getlbr_NFModel());
+		if (config != null && MLBRNFConfig.LBR_NFEENV_Homologation.equals(config.getlbr_NFeEnv()))
+			homolog = true;
+		
 		// 	We have both, the URL for the local app and the Plugin transmitter
 		if (handler != null)
 		{
@@ -554,7 +563,7 @@ public class NFSeImpl implements INFSe
 				String flags = "";
 				
 				//	Flags
-				if (MSysConfig.getBooleanValue (SysConfig.LBR_DEBUG_RPS, false, Env.getAD_Client_ID(Env.getCtx())))
+				if (homolog)
 					flags += "debug";
 				
 				//	Envio o Lote
@@ -589,16 +598,16 @@ public class NFSeImpl implements INFSe
 			LoteNFeStub stub = new LoteNFeStub();
 			
 			//	Monta o Lote para Teste
-			if (MSysConfig.getBooleanValue (SysConfig.LBR_DEBUG_RPS, false, oi.getAD_Client_ID()))
+			if (homolog)
 				retornoXML = stub.testeEnvioLoteRPS(1, xml.toString());
 			
 			//	Envio o Lote
 			else 
 				retornoXML = stub.envioLoteRPS(1, xml.toString());
-			
-			log.fine (retornoXML);
 		}
-		
+
+		NFeUtil.saveXML (String.valueOf(p_AD_Org_ID), NFeUtil.KIND_NFSE, NFeUtil.MESSAGE_REQ_AUTORIZE, nfs.get(0).getDocumentNo(), xml.toString());
+
 		//	Processa o Retorno
 		RetornoEnvioLoteRPS result = RetornoEnvioLoteRPSDocument.Factory.parse(retornoXML).getRetornoEnvioLoteRPS();
 		

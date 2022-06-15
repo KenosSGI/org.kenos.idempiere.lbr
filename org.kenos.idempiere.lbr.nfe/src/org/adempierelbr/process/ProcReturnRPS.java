@@ -14,6 +14,7 @@ package org.adempierelbr.process;
 
 import java.util.logging.Level;
 
+import org.adempierelbr.model.MLBRNFConfig;
 import org.adempierelbr.model.MLBRNotaFiscal;
 import org.adempierelbr.util.TextUtil;
 import org.compiere.model.MOrg;
@@ -125,8 +126,10 @@ public class ProcReturnRPS extends SvrProcess
 				//	Gravar resposta
 				proccessNFSe (nf, noNFe, protNFe);
 				
-				//	Enviar e-mail
-				ProcEMailNFe.sendEmailNFeThread (nf, false);
+				//	Send mail accordingly with configuration
+				MLBRNFConfig config = MLBRNFConfig.get(nf.getAD_Org_ID(), nf.getlbr_NFModel());
+				if (config == null || MLBRNFConfig.SENDEMAIL_SendImmediately.equals(config.getSendEMail()))				
+					ProcEMailNFe.sendEmailNFeThread (nf, false);
 				
 				countOK++;
 			}
