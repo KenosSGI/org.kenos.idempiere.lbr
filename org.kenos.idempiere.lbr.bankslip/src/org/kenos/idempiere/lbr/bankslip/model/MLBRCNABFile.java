@@ -233,7 +233,7 @@ public class MLBRCNABFile extends X_LBR_CNABFile implements DocAction, DocOption
 			List<ICNABFactory> list = Service.locator ().list (ICNABFactory.class).getServices();
 			for (ICNABFactory cnabFactory : list)
 			{
-				handler = cnabFactory.getCNABGenerator(Integer.valueOf(getRoutingNo()), layout.getType());
+				handler = cnabFactory.getCNABGenerator(Integer.valueOf(getRoutingNo()), layout.getType(), layout.getVersion());
 				if (handler != null)
 					break;
 			}
@@ -373,4 +373,24 @@ public class MLBRCNABFile extends X_LBR_CNABFile implements DocAction, DocOption
 	{
 		return Env.ZERO;
 	}	//	getApprovalAmt
+	
+	public int getAgencyNoAsInt() {
+		String agencyNo = TextUtil.toNumeric(super.getlbr_AgencyNo());
+		return agencyNo.isBlank() ? 0 : Integer.valueOf(agencyNo).intValue();
+	}	//	getAgencyNoAsInt
+	
+	public int getAccountNoAsInt() {
+		String accountNo = TextUtil.toNumeric(super.getAccountNo());
+		return accountNo.isBlank() ? 0 : Integer.valueOf(accountNo).intValue();
+	}	//	getAccountNoAsInt
+	
+	public int getAccountVDAsInt() {
+		String accountVD = TextUtil.toNumeric(super.getLBR_BankAccountVD());
+		return accountVD.isBlank() ? 0 : Integer.valueOf(accountVD).intValue();
+	}	//	getAccountNoAsInt
+	
+	public int getRoutingNoAsInt() {
+		String routingNo = TextUtil.toNumeric(super.getRoutingNo());
+		return routingNo.isBlank() ? 0 : Integer.valueOf(routingNo).intValue();
+	}	//	getRoutingNoAsInt
 }	//	MLBRCNABFile

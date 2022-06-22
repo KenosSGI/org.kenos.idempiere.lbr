@@ -14,6 +14,20 @@ public interface ICNABFactory
 	 * @param CNABType - e.g. [1] CNAB 240; or [2] CNAB 400
 	 * @return CNAB File Generator
 	 */
-	public ICNABGenerator getCNABGenerator (int RoutingNo, String CNABType);
-	public ICNABProcessor getCNABProcessor (int RoutingNo, String CNABType);
+	public default ICNABGenerator getCNABGenerator (int routingNo, String CNABType, String version)
+	{
+		return null;
+	}
+	public default ICNABProcessor getCNABProcessor (int routingNo, String CNABType, String version)
+	{
+		return null;
+	}
+	public default ICNABGenerator getCNABGenerator (int routingNo, String CNABType)
+	{
+		return getCNABGenerator (routingNo, CNABType, null);
+	}
+	public default ICNABProcessor getCNABProcessor (int routingNo, String CNABType)
+	{
+		return getCNABProcessor (routingNo, CNABType, null);
+	}
 }	//	ICNABFactory

@@ -1,6 +1,8 @@
 package org.kenos.idempiere.lbr.bankslip;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.adempierelbr.util.TextUtil;
 import org.kenos.idempiere.lbr.bankslip.model.MLBRCNABFile;
@@ -61,4 +63,13 @@ public interface ICNABGenerator
 	{
 		return TextUtil.timeToString (ts, DATE_FORMAT8);
 	}	//	timeToString
+	
+	/**
+	 * 	Default method with available occurrences
+	 * 	@return ocurrences
+	 */
+	public default List<String> getAvailableOccurs ()
+	{
+		 return new ArrayList<String> ();	//	Empty
+	}	//	getAvailableOccurs
 }	//	ICNAB

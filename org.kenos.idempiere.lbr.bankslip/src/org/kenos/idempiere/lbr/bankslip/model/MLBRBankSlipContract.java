@@ -65,7 +65,7 @@ public class MLBRBankSlipContract extends X_LBR_BankSlipContract
 		List<ICNABFactory> list = Service.locator ().list (ICNABFactory.class).getServices();
 		for (ICNABFactory cnabFactory : list)
 		{
-			handler = cnabFactory.getCNABProcessor (Integer.valueOf(getC_BankAccount().getC_Bank().getRoutingNo()), getLBR_BankSlipLayout().getType());
+			handler = cnabFactory.getCNABProcessor (Integer.valueOf(getC_BankAccount().getC_Bank().getRoutingNo()), getLBR_BankSlipLayout().getType(), getLBR_BankSlipLayout().getVersion());
 			if (handler != null)
 				break;
 		}

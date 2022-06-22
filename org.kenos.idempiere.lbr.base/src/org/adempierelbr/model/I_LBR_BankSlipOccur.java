@@ -32,7 +32,7 @@ public interface I_LBR_BankSlipOccur
     /** TableName=LBR_BankSlipOccur */
     public static final String Table_Name = "LBR_BankSlipOccur";
 
-    /** AD_Table_ID=1120663 */
+    /** AD_Table_ID=1120686 */
     public static final int Table_ID = MTable.getTable_ID(Table_Name);
 
     KeyNamePair Model = new KeyNamePair(Table_ID, Table_Name);

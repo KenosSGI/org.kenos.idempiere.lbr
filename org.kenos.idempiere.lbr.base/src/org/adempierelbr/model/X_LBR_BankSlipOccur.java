@@ -30,7 +30,7 @@ public class X_LBR_BankSlipOccur extends PO implements I_LBR_BankSlipOccur, I_Pe
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20200401L;
+	private static final long serialVersionUID = 20220620L;
 
     /** Standard Constructor */
     public X_LBR_BankSlipOccur (Properties ctx, int LBR_BankSlipOccur_ID, String trxName)
@@ -202,6 +202,24 @@ public class X_LBR_BankSlipOccur extends PO implements I_LBR_BankSlipOccur, I_Pe
 	public static final String TYPE_RegisterRequest = "R";
 	/** Register Confirmed = C */
 	public static final String TYPE_RegisterConfirmed = "C";
+	/** Change Due Date = D */
+	public static final String TYPE_ChangeDueDate = "D";
+	/** Give Rebate = B */
+	public static final String TYPE_GiveRebate = "B";
+	/** Ask to Write Off = W */
+	public static final String TYPE_AskToWriteOff = "W";
+	/** Change Due Date Confirmation = 0 */
+	public static final String TYPE_ChangeDueDateConfirmation = "0";
+	/** Rebate Confirmation = 1 */
+	public static final String TYPE_RebateConfirmation = "1";
+	/** Write Off Confirmation = 3 */
+	public static final String TYPE_WriteOffConfirmation = "3";
+	/** Protest Confirmation = 4 */
+	public static final String TYPE_ProtestConfirmation = "4";
+	/** Bank Slip Rejected = X */
+	public static final String TYPE_BankSlipRejected = "X";
+	/** Ask to Protest = P */
+	public static final String TYPE_AskToProtest = "P";
 	/** Set Type.
 		@param Type 
 		Type of Validation (SQL, Java Script, Java Language)

@@ -552,7 +552,7 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 	 * 	Routing No
 	 * 	@return
 	 */
-	private String getRoutingNo ()
+	public String getRoutingNo ()
 	{
 		if (bsi != null)
 			return bsi.getRoutingNo();

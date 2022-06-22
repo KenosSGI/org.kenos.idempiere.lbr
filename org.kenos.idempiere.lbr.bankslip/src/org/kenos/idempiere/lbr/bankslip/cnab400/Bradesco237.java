@@ -4,7 +4,6 @@ import static org.adempierelbr.util.TextUtil.lPad;
 import static org.adempierelbr.util.TextUtil.rPad;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.sql.Timestamp;
 import java.util.concurrent.atomic.AtomicInteger;
 

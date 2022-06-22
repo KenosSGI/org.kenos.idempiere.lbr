@@ -38,6 +38,7 @@ public class Santander033 implements ICNABGenerator
 	/**
 	 * 	Generate CNAB File
 	 */
+	@SuppressWarnings("unused")
 	@Override
 	public StringBuilder generateCNABFile (final MLBRCNABFile cnabFile)
 	{
@@ -243,6 +244,7 @@ public class Santander033 implements ICNABGenerator
 	 * 	@param KindValue
 	 * 	@return
 	 */
+	@SuppressWarnings("unused")
 	private String convertKind (String kindValue)
 	{
 		switch (Integer.valueOf (kindValue))
