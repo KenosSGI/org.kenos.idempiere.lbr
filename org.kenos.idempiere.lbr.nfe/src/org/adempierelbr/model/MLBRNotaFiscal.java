@@ -5050,7 +5050,13 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 					//
 					lastNF = true;
 				}
-			}	catch (Exception e) {}
+				else {
+					if (MSysConfig.getBooleanValue(SysConfig.LBR_FIX_DOCUMENTNO_NOT_SENT_NFSE, false, Env.getAD_Client_ID(Env.getCtx())))
+					{
+						fixDocSequence();
+					}
+				}
+			}	catch (Exception e) {e.printStackTrace();}
 			
 			// Entra no IF se a Nota Fiscal não for um Documento Próprio
 			// ou for uma Nota Fiscal de Serviço e Anula a Nota Fiscal
@@ -5120,6 +5126,39 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 			return (MSequence) getC_DocTypeTarget().getDocNoSequence();
 		return null;
 	}	//	getNextSequence
+	
+	private void fixDocSequence()
+	{
+		Integer DocumentNo = Integer.parseInt(getDocumentNo());
+		
+		Properties ctx = Env.getCtx();
+		String trxName = get_TrxName();
+		
+		String where = MLBRNotaFiscal.COLUMNNAME_C_DocType_ID + "=? AND " + 
+				MLBRNotaFiscal.COLUMNNAME_lbr_NFModel + "=? AND " + 
+				MLBRNotaFiscal.COLUMNNAME_AD_Org_ID + "=? AND " +
+				MLBRNotaFiscal.COLUMNNAME_DocStatus + " IN ('DR', 'IP', 'IN') AND " +
+				MLBRNotaFiscal.COLUMNNAME_DocumentNo + " ~ '^[0-9]*$' AND " +
+				MLBRNotaFiscal.COLUMNNAME_DocumentNo + "::integer >? " ;
+		
+		int[] ids = new Query (ctx, MLBRNotaFiscal.Table_Name, where, trxName)
+			.setParameters(getC_DocType_ID(), MLBRNotaFiscal.LBR_NFMODEL_NotaFiscalDeServiçosEletrônicaRPS, getAD_Org_ID(), DocumentNo)
+			.setOrderBy(MLBRNotaFiscal.COLUMNNAME_DocumentNo)
+			.getIDs();
+		
+		if (ids.length == 0)
+			return;
+		
+		for (int LBR_NotaFiscal_ID : ids) {
+			MLBRNotaFiscal currentNF = new MLBRNotaFiscal (ctx, LBR_NotaFiscal_ID, trxName);
+			String newDocNo = new BigDecimal(currentNF.getDocumentNo()).subtract(BigDecimal.ONE).toString();
+			currentNF.setDocumentNo(newDocNo);
+			currentNF.save();
+		}
+		MSequence sequence = getNextSequence ();
+		sequence.setCurrentNext(sequence.getCurrentNext()-1);
+		sequence.save();
+	}	//fixDocSequence
 
 	/**
 	 * 	Close Document.
