@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.adempiere.exceptions.AdempiereException;
+import org.kenos.idempiere.lbr.bankslip.cnab.CNABDetail;
 import org.kenos.idempiere.lbr.bankslip.cnab.ICNABDetail;
 import org.kenos.idempiere.lbr.bankslip.cnab.ICNABProcessor;
 import org.kenos.idempiere.lbr.bankslip.cnab400.bean.in.Record1Detail;
@@ -57,6 +58,7 @@ public class CNABProcessorV2 implements ICNABProcessor
 		        	detail.setNumberInBank(returnRecord.getNossoNumero());
 		        	detail.setNumberInOrg(returnRecord.getCodIdentificacao());
 		        	detail.setOccurCod(returnRecord.getCodOcorrencia());
+		        	detail.setWriteOffAmt(returnRecord.getAbatimento());
 		        	detail.setLineNo(lineCount);
 //		        	detail.setRoutingNo(routingNo);	//	From header
 //		        	detail.setDateFile(fileDate);	//	From header

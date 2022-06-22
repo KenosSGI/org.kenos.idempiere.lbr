@@ -750,7 +750,8 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 				|| is_ValueChanged(COLUMNNAME_LBR_IsAccepted) || is_ValueChanged(COLUMNNAME_LBR_IssueType) 
 				|| is_ValueChanged(COLUMNNAME_GrandTotal) || is_ValueChanged(COLUMNNAME_DiscountAmt)
 				|| is_ValueChanged(COLUMNNAME_LBR_InterestValue) || is_ValueChanged(COLUMNNAME_LBR_InterestType)
-				|| is_ValueChanged(COLUMNNAME_LBR_PenaltyType) || is_ValueChanged(COLUMNNAME_LBR_PenaltyValue))
+				|| is_ValueChanged(COLUMNNAME_LBR_PenaltyType) || is_ValueChanged(COLUMNNAME_LBR_PenaltyValue)
+				|| is_ValueChanged(COLUMNNAME_WriteOffAmt))
 			changed = true;
 		
 		MLBRNotaFiscal nf = new Query (getCtx(), MLBRNotaFiscal.Table_Name, "C_Invoice_ID=? AND DocStatus='CO'", get_TrxName())
@@ -803,6 +804,9 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 			BigDecimal dailyLateInterestAmt = getDailyLateInterest();
 			if (dailyLateInterestAmt.signum() == 1)
 				instructions.add ("Após o vencto. cobrar mora diária de " + currency.format(dailyLateInterestAmt));
+			
+			if (getWriteOffAmt() != null && getWriteOffAmt().signum() == 1)
+				instructions.add ("Conceder Abatimento de " + currency.format(getWriteOffAmt()));
 
 			//	Custom Messages
 			String msg1 = getMsg1();
@@ -1533,7 +1537,7 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 			interestAmt = getLBR_InterestValue();
 		else if (MLBRBankSlip.LBR_PENALTYTYPE_Rate.equals(getLBR_InterestType()))
 			interestAmt = (getLBR_InterestValue().divide(new BigDecimal("30"), 12, RoundingMode.HALF_UP))
-					.multiply(getGrandTotal());
+					.multiply(getGrandTotal().subtract(getWriteOffAmt()));
 		return interestAmt;
 	}	//	getInterest
 
@@ -1545,7 +1549,7 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 		if (MLBRBankSlip.LBR_PENALTYTYPE_Amount.equals(getLBR_PenaltyType()))
 			penaltyAmt = getLBR_PenaltyValue();
 		else if (MLBRBankSlip.LBR_PENALTYTYPE_Rate.equals(getLBR_PenaltyType()))
-			penaltyAmt = getGrandTotal().multiply(getLBR_PenaltyValue());
+			penaltyAmt = getGrandTotal().subtract(getWriteOffAmt()).multiply(getLBR_PenaltyValue());
 		
 		return penaltyAmt;
 	}	//	getCalculatedPenaltyAmt

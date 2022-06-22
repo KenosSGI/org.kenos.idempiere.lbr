@@ -32,7 +32,7 @@ public interface I_LBR_BankSlipMov
     /** TableName=LBR_BankSlipMov */
     public static final String Table_Name = "LBR_BankSlipMov";
 
-    /** AD_Table_ID=1120668 */
+    /** AD_Table_ID=1120688 */
     public static final int Table_ID = MTable.getTable_ID(Table_Name);
 
     KeyNamePair Model = new KeyNamePair(Table_ID, Table_Name);
@@ -302,4 +302,17 @@ public interface I_LBR_BankSlipMov
 	  * Search key for the record in the format required - must be unique
 	  */
 	public String getValue();
+
+    /** Column name WriteOffAmt */
+    public static final String COLUMNNAME_WriteOffAmt = "WriteOffAmt";
+
+	/** Set Write-off Amount.
+	  * Amount to write-off
+	  */
+	public void setWriteOffAmt (BigDecimal WriteOffAmt);
+
+	/** Get Write-off Amount.
+	  * Amount to write-off
+	  */
+	public BigDecimal getWriteOffAmt();
 }

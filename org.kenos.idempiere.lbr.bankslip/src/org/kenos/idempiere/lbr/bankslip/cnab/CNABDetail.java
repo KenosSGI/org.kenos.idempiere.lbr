@@ -1,9 +1,7 @@
-package org.kenos.idempiere.lbr.bankslip.cnab240.bean;
+package org.kenos.idempiere.lbr.bankslip.cnab;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-
-import org.kenos.idempiere.lbr.bankslip.cnab.ICNABDetail;
 
 /**
  * 		CNAB Detail
@@ -21,6 +19,7 @@ public class CNABDetail implements ICNABDetail {
 	BigDecimal amount;
 	BigDecimal discount;
 	BigDecimal interest;
+	BigDecimal writeOffAmt;
 	Integer lineNo;
 	public String getRoutingNo() {
 		return routingNo;
@@ -95,6 +94,12 @@ public class CNABDetail implements ICNABDetail {
 	}
 	public void setLineNo(Integer lineNo) {
 		this.lineNo = lineNo;
+	}
+	public BigDecimal getWriteOffAmt() {
+		return writeOffAmt;
+	}
+	public void setWriteOffAmt(BigDecimal writeOffAmt) {
+		this.writeOffAmt = writeOffAmt;
 	}
 	@Override
 	public String toString() {

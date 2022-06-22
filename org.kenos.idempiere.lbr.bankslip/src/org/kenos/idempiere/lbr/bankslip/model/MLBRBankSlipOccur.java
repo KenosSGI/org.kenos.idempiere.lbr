@@ -42,8 +42,13 @@ public class MLBRBankSlipOccur extends X_LBR_BankSlipOccur
 	
 	public static MLBRBankSlipOccur get (int LBR_BankSlipLayout_ID, String value)
 	{
-		return new Query (Env.getCtx(), Table_Name, COLUMNNAME_LBR_BankSlipLayout_ID + "=? AND " + COLUMNNAME_Value+"=?", null)
-				.setParameters(LBR_BankSlipLayout_ID, value)
+		return get (LBR_BankSlipLayout_ID, value, false);
+	}	//	get
+	
+	public static MLBRBankSlipOccur get (int LBR_BankSlipLayout_ID, String value, boolean isSOTrx)
+	{
+		return new Query (Env.getCtx(), Table_Name, COLUMNNAME_LBR_BankSlipLayout_ID + "=? AND " + COLUMNNAME_Value+"=? AND " + COLUMNNAME_IsSOTrx + "=?", null)
+				.setParameters(LBR_BankSlipLayout_ID, value, isSOTrx)
 				.firstOnly();
 	}	//	get
 	

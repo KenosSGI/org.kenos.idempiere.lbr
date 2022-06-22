@@ -86,6 +86,38 @@ UPDATE AD_Process_Para SET DisplayLogic='@lbr_OccurType@=B', MandatoryLogic='@lb
 UPDATE AD_Process_Para SET DisplayLogic='@lbr_OccurType@=D', MandatoryLogic='@lbr_OccurType@=D',Updated=TO_TIMESTAMP('2022-06-21 12:20:32','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Process_Para_ID=1120614
 ;
 
+-- 22 de jun de 2022 17:18:13 BRT
+INSERT INTO AD_Column (AD_Column_ID,Version,Name,Description,Help,AD_Table_ID,ColumnName,DefaultValue,FieldLength,IsKey,IsParent,IsMandatory,IsTranslated,IsIdentifier,SeqNo,IsEncrypted,AD_Reference_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Element_ID,IsUpdateable,IsSelectionColumn,EntityType,IsSyncDatabase,IsAlwaysUpdateable,IsAutocomplete,IsAllowLogging,AD_Column_UU,IsAllowCopy,SeqNoSelection,IsToolbarButton,IsSecure,IsHtml) VALUES (1133776,0,'Write-off Amount','Amount to write-off','The Write Off Amount indicates the amount to be written off as uncollectible.',1120688,'WriteOffAmt','0',22,'N','N','Y','N','N',0,'N',12,0,0,'Y',TO_TIMESTAMP('2022-06-22 17:18:12','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2022-06-22 17:18:12','YYYY-MM-DD HH24:MI:SS'),100,1450,'N','N','LBRA','N','N','N','Y','41c0cba8-da04-44bd-b479-67e3c57bbc4d','Y',0,'N','N','N')
+;
+
+-- 22 de jun de 2022 17:18:17 BRT
+ALTER TABLE LBR_BankSlipMov ADD COLUMN WriteOffAmt NUMERIC DEFAULT '0' NOT NULL
+;
+
+-- 22 de jun de 2022 17:18:42 BRT
+INSERT INTO AD_Field (AD_Field_ID,Name,Description,Help,AD_Tab_ID,AD_Column_ID,IsDisplayed,DisplayLength,SeqNo,IsSameLine,IsHeading,IsFieldOnly,IsEncrypted,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,IsReadOnly,IsCentrallyMaintained,EntityType,AD_Field_UU,IsDisplayedGrid,SeqNoGrid,ColumnSpan) VALUES (1131725,'Write-off Amount','Amount to write-off','The Write Off Amount indicates the amount to be written off as uncollectible.',1120396,1133776,'Y',22,180,'N','N','N','N',0,0,'Y',TO_TIMESTAMP('2022-06-22 17:18:41','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2022-06-22 17:18:41','YYYY-MM-DD HH24:MI:SS'),100,'N','Y','LBRA','14621055-3fb4-471d-a6e4-cfb800c53427','Y',70,2)
+;
+
+-- 22 de jun de 2022 17:19:16 BRT
+UPDATE AD_Field SET SeqNo=170, AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, IsToolbarButton=NULL,Updated=TO_TIMESTAMP('2022-06-22 17:19:16','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1131725
+;
+
+-- 22 de jun de 2022 17:19:30 BRT
+INSERT INTO AD_Field (AD_Field_ID,Name,Description,Help,AD_Tab_ID,AD_Column_ID,IsDisplayed,DisplayLength,SeqNo,IsSameLine,IsHeading,IsFieldOnly,IsEncrypted,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,IsReadOnly,IsCentrallyMaintained,EntityType,AD_Field_UU,IsDisplayedGrid,SeqNoGrid,ColumnSpan) VALUES (1131726,'Write-off Amount','Amount to write-off','The Write Off Amount indicates the amount to be written off as uncollectible.',1120394,1133776,'Y',22,170,'N','N','N','N',0,0,'Y',TO_TIMESTAMP('2022-06-22 17:19:30','YYYY-MM-DD HH24:MI:SS'),100,TO_TIMESTAMP('2022-06-22 17:19:30','YYYY-MM-DD HH24:MI:SS'),100,'N','Y','LBRA','a2df1a07-c199-47b5-8d0a-7c3d4073871d','Y',60,2)
+;
+
+-- 22 de jun de 2022 17:38:13 BRT
+UPDATE AD_Field SET IsCentrallyMaintained='N', AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, IsToolbarButton=NULL,Updated=TO_TIMESTAMP('2022-06-22 17:38:13','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1129841
+;
+
+-- 22 de jun de 2022 17:40:07 BRT
+UPDATE AD_Field SET IsCentrallyMaintained='N', AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, IsToolbarButton=NULL,Updated=TO_TIMESTAMP('2022-06-22 17:40:06','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1131726
+;
+
+-- 22 de jun de 2022 17:40:16 BRT
+UPDATE AD_Field SET IsCentrallyMaintained='N', AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, IsToolbarButton=NULL,Updated=TO_TIMESTAMP('2022-06-22 17:40:16','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1131725
+;
+
 -- 20 de jun de 2022 17:51:11 BRT
 SELECT Register_Migration_Script ('202206201754_BankSlipActions.sql') FROM DUAL
 ;

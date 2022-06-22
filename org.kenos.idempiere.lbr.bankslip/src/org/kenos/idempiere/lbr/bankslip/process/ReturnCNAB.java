@@ -228,7 +228,7 @@ public class ReturnCNAB extends SvrProcess
 		}
 
 		// Tries to find a occurrence code
-		MLBRBankSlipOccur occur = MLBRBankSlipOccur.get(bankSlip.getLBR_BankSlipLayout_ID(), detail.getOccurCod());
+		MLBRBankSlipOccur occur = MLBRBankSlipOccur.get (bankSlip.getLBR_BankSlipLayout_ID(), detail.getOccurCod(), false);
 		if (occur != null) 
 		{
 			row.createCell(COL_OCORRENCIA).setCellValue(occur.getName());
@@ -244,6 +244,7 @@ public class ReturnCNAB extends SvrProcess
 		mov.setMovementDate(detail.getDateFile());
 		mov.setGrandTotal(detail.getAmount());
 		mov.setDiscountAmt(detail.getDiscount());
+		mov.setWriteOffAmt(detail.getWriteOffAmt());
 		mov.setLBR_InterestValue(detail.getInterest());
 
 		if (MLBRBankSlipOccur.TYPE_Liquidation.equals(mov.getType())) 

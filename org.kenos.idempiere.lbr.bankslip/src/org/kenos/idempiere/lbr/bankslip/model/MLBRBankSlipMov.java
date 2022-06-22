@@ -87,7 +87,6 @@ public class MLBRBankSlipMov extends X_LBR_BankSlipMov
 			bankSlip.setIsPaid(true);
 		else if (MLBRBankSlipOccur.TYPE_RegisterConfirmed.equals(getType()))
 			bankSlip.setIsRegistered(true);
-
 		
 		else if (MLBRBankSlipOccur.TYPE_BankSlipRejected.equals(getType()))
 		{
@@ -102,7 +101,7 @@ public class MLBRBankSlipMov extends X_LBR_BankSlipMov
 			bankSlip.setLBR_IsProtested(true);
 		
 		else if (MLBRBankSlipOccur.TYPE_RebateConfirmation.equals(getType()))
-			bankSlip.setGrandTotal(bankSlip.getGrandTotal());
+			bankSlip.setWriteOffAmt(getWriteOffAmt());
 		
 		else if (MLBRBankSlipOccur.TYPE_WriteOffConfirmation.equals(getType()))
 		{

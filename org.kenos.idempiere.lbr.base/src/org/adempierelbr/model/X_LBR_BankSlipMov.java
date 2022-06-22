@@ -33,7 +33,7 @@ public class X_LBR_BankSlipMov extends PO implements I_LBR_BankSlipMov, I_Persis
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20200401L;
+	private static final long serialVersionUID = 20220622L;
 
     /** Standard Constructor */
     public X_LBR_BankSlipMov (Properties ctx, int LBR_BankSlipMov_ID, String trxName)
@@ -47,6 +47,8 @@ public class X_LBR_BankSlipMov extends PO implements I_LBR_BankSlipMov, I_Persis
 // 0
 			setGrandTotal (Env.ZERO);
 // 0
+			setIsConfirmed (false);
+// N
 			setIsSOTrx (true);
 // Y
 			setLBR_BankSlipMov_ID (0);
@@ -54,6 +56,8 @@ public class X_LBR_BankSlipMov extends PO implements I_LBR_BankSlipMov, I_Persis
 			setLBR_InterestValue (Env.ZERO);
 // 0
 			setValue (null);
+			setWriteOffAmt (Env.ZERO);
+// 0
         } */
     }
 
@@ -374,6 +378,24 @@ public class X_LBR_BankSlipMov extends PO implements I_LBR_BankSlipMov, I_Persis
 	public static final String TYPE_RegisterRequest = "R";
 	/** Register Confirmed = C */
 	public static final String TYPE_RegisterConfirmed = "C";
+	/** Change Due Date = D */
+	public static final String TYPE_ChangeDueDate = "D";
+	/** Give Rebate = B */
+	public static final String TYPE_GiveRebate = "B";
+	/** Ask to Write Off = W */
+	public static final String TYPE_AskToWriteOff = "W";
+	/** Change Due Date Confirmation = 0 */
+	public static final String TYPE_ChangeDueDateConfirmation = "0";
+	/** Rebate Confirmation = 1 */
+	public static final String TYPE_RebateConfirmation = "1";
+	/** Write Off Confirmation = 3 */
+	public static final String TYPE_WriteOffConfirmation = "3";
+	/** Protest Confirmation = 4 */
+	public static final String TYPE_ProtestConfirmation = "4";
+	/** Bank Slip Rejected = X */
+	public static final String TYPE_BankSlipRejected = "X";
+	/** Ask to Protest = P */
+	public static final String TYPE_AskToProtest = "P";
 	/** Set Type.
 		@param Type 
 		Type of Validation (SQL, Java Script, Java Language)
@@ -407,5 +429,25 @@ public class X_LBR_BankSlipMov extends PO implements I_LBR_BankSlipMov, I_Persis
 	public String getValue () 
 	{
 		return (String)get_Value(COLUMNNAME_Value);
+	}
+
+	/** Set Write-off Amount.
+		@param WriteOffAmt 
+		Amount to write-off
+	  */
+	public void setWriteOffAmt (BigDecimal WriteOffAmt)
+	{
+		set_ValueNoCheck (COLUMNNAME_WriteOffAmt, WriteOffAmt);
+	}
+
+	/** Get Write-off Amount.
+		@return Amount to write-off
+	  */
+	public BigDecimal getWriteOffAmt () 
+	{
+		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_WriteOffAmt);
+		if (bd == null)
+			 return Env.ZERO;
+		return bd;
 	}
 }

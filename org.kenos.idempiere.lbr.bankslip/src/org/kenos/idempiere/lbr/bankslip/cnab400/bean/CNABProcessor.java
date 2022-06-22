@@ -14,6 +14,7 @@ import java.util.List;
 import org.adempierelbr.util.TextUtil;
 import org.compiere.util.Env;
 import org.kenos.idempiere.lbr.bankslip.ICNABGenerator;
+import org.kenos.idempiere.lbr.bankslip.cnab.CNABDetail;
 import org.kenos.idempiere.lbr.bankslip.cnab.ICNABDetail;
 import org.kenos.idempiere.lbr.bankslip.cnab.ICNABProcessor;
 

@@ -7,6 +7,7 @@ public interface ICNABDetail {
 	public BigDecimal getAmount();
 	public BigDecimal getDiscount();
 	public BigDecimal getInterest();
+	public BigDecimal getWriteOffAmt();
 	public Integer getLineNo();	
 	public String getDocumentNo();
 	public String getNumberInBank();
@@ -28,5 +29,6 @@ public interface ICNABDetail {
 	public void setNumberInBank(String numberInBank);
 	public void setNumberInOrg(String numberInOrg);
 	public void setOccurCod(String occurCod);
+	public void setWriteOffAmt(BigDecimal writeOffAmt);
 	public void setRoutingNo(String routingNo);
 }

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.compiere.util.Env;
+import org.kenos.idempiere.lbr.bankslip.cnab.CNABDetail;
 import org.kenos.idempiere.lbr.bankslip.cnab.ICNABDetail;
 import org.kenos.idempiere.lbr.bankslip.cnab.ICNABProcessor;
 
