@@ -582,6 +582,13 @@ this field define where request, error,.. occupy.</value>
   <value column="Placeholder" original="Old Representative">Representante Antigo</value>
   <value column="Placeholder2" original="New Representative">Novo Representante</value>
  </row>
+ <row trl="Y" uuid="c0936815-ca11-4171-9dcb-682a07ef4fc2">
+  <value column="Name" original="Create New">Criar NCMs</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="Placeholder" original=""/>
+  <value column="Placeholder2" original=""/>
+ </row>
  <row trl="Y" uuid="2a7a9316-678e-4383-b7d6-f3e1b94202d5">
   <value column="Name" original="Currency Code">Código da Moeda</value>
   <value column="Description" original="Currency Code (Comma-separated for multiple currencies query)">Separe com ponto-e-vírgula para pesquisar múltiplas moedas</value>

@@ -12768,6 +12768,42 @@
   <value column="Name" original="ReActivate">Reativar</value>
   <value column="Description" original=""/>
  </row>
+ <row trl="N" uuid="8ec569c2-fdbf-4dca-99d5-5640656bc255">
+  <value column="Name" original="Change Due Date">Alterar Data de Vencto</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="48bb01eb-69ab-4c6c-addc-b037205c6722">
+  <value column="Name" original="Give Rebate">Conceder Abatimento</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="d210babb-80ea-4bba-82c8-1a08d7f15fc1">
+  <value column="Name" original="Ask to Write Off">Pedido de Baixa</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="a108dd6a-ce8f-4ac6-ae2a-c0823deac73f">
+  <value column="Name" original="Change Due Date Confirmation">Alteração de Vencto Confirmada</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="84fd074b-0745-436b-a4b8-a03a27d98155">
+  <value column="Name" original="Rebate Confirmation">Abatimento Confirmado</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="a3c42fde-5a00-4df6-b4c5-43254c1cd4c4">
+  <value column="Name" original="Write Off Confirmation">Baixa Confirmada</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="12ca71e8-6613-4c18-989c-68005e2be31f">
+  <value column="Name" original="Protest Confirmation">Protesto Confirmado</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="8e052baa-2a90-4249-b8f2-a619d6bd21ab">
+  <value column="Name" original="Bank Slip Rejected">Boleto Rejeitado</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="89f0cf94-0696-4235-a87c-1e935ec2e4d0">
+  <value column="Name" original="Ask to Protest">Solicitar Protesto do Título</value>
+  <value column="Description" original=""/>
+ </row>
  <row trl="Y" uuid="01ad10dc-48d5-4a20-953e-cd5dc35e8cd8">
   <value column="Name" original="Sale/Purchase">Venda</value>
   <value column="Description" original=""/>

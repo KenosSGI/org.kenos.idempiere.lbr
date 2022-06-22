@@ -2186,8 +2186,8 @@ MRP - 110	 No exists Dem</value>
   <value column="Help" original=""/>
  </row>
  <row trl="Y" uuid="dca00534-43ae-483f-a52a-28a056dde095">
-  <value column="Name" original="Brazilian Banks">Bancos Brasileiros</value>
-  <value column="Description" original="Brazilian Banks">Bancos Brasileiros</value>
+  <value column="Name" original="Bank, Bank Slip and CNAB">Bancos Brasileiros</value>
+  <value column="Description" original="Bank, Bank Slip and CNAB Configuration">Bancos Brasileiros</value>
   <value column="Help" original=""/>
  </row>
  <row trl="Y" uuid="c4834431-07af-4d42-b29b-e7e6cfc6e9c2">

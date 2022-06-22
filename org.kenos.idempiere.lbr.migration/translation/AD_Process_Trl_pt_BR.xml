@@ -2842,15 +2842,20 @@ For example:<br />
   <value column="Description" original=""/>
   <value column="Help" original=""/>
  </row>
- <row trl="Y" uuid="5efaeb22-fe9f-47ae-a1ae-228b3395e68e">
-  <value column="Name" original="Freight Calc">Cálculo de Frete (Correios)</value>
-  <value column="Description" original="Freight calculation for Brazilian Post Service (Correios)">Sistema de cálculo de frete para o serviço de postagem brasileiro (Correios)</value>
-  <value column="Help" original=""/>
- </row>
  <row trl="Y" uuid="a594ec38-3183-44df-a61a-5d0bd4f18070">
   <value column="Name" original="Credit Check">Atualizar Estado do Crédito</value>
   <value column="Description" original="Mark unpaid customers with Credit Stopped">Interrompe o crédito dos parceiros que estão inadimplentes</value>
   <value column="Help" original="">Você pode definir quantos dias em atraso serão usados para considerar como inadimplente, também é possível definir uma data de corte.</value>
+ </row>
+ <row trl="Y" uuid="1cc62e59-a6f5-4a23-8806-c18a1dcfb9a9">
+  <value column="Name" original="Replace Sales Rep">Substituir Rep. de Vendas</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="5efaeb22-fe9f-47ae-a1ae-228b3395e68e">
+  <value column="Name" original="Freight Calc">Cálculo de Frete (Correios)</value>
+  <value column="Description" original="Freight calculation for Brazilian Post Service (Correios)">Sistema de cálculo de frete para o serviço de postagem brasileiro (Correios)</value>
+  <value column="Help" original=""/>
  </row>
  <row trl="Y" uuid="e1826d9e-f334-4af6-a249-0edf60acba7c">
   <value column="Name" original="CashFlow Details">Fluxo de Caixa Detalhado</value>
@@ -2862,9 +2867,9 @@ For example:<br />
   <value column="Description" original="Cash flow report with summary information of each day">Fluxo de Caixa com os dados resumidos por dia</value>
   <value column="Help" original="">Este relatório mostra o fluxo de caixa diário. Selecione o período desejado e qual é o saldo inicial.</value>
  </row>
- <row trl="Y" uuid="1cc62e59-a6f5-4a23-8806-c18a1dcfb9a9">
-  <value column="Name" original="Replace Sales Rep">Substituir Rep. de Vendas</value>
-  <value column="Description" original=""/>
+ <row trl="Y" uuid="afcfeb07-3bb9-4d1b-9a07-ba465307ec4d">
+  <value column="Name" original="Bank Slip Actions">Registrar Ocorrência</value>
+  <value column="Description" original="Perform some actions to an existing bank slip, such as change due date, discount, protest and so on">Envia uma ocorrência para alteração do um boleto já registrado.</value>
   <value column="Help" original=""/>
  </row>
  <row trl="Y" uuid="a8016f4e-ac97-469d-b96d-eb2c17c2e8b0">
