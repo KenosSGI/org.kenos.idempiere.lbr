@@ -2676,7 +2676,7 @@
   <value column="Help" original=""/>
  </row>
  <row trl="Y" uuid="baac2ff9-700f-4ae5-9e48-ea64f09fe469">
-  <value column="Name" original="lbr_OccurType">LBR_OccurType</value>
+  <value column="Name" original="LBR_OccurType">LBR_OccurType</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
  </row>
