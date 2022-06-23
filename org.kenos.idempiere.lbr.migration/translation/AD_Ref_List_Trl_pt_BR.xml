@@ -12804,6 +12804,34 @@
   <value column="Name" original="Ask to Protest">Solicitar Protesto do Título</value>
   <value column="Description" original=""/>
  </row>
+ <row trl="Y" uuid="f66cc3d5-4c5b-4319-bf06-e7ddf1b0daf8">
+  <value column="Name" original="Nota Fiscal, Invoice or Bank Slip">Nota Fiscal, Fatura ou Boleto</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="ac48a65b-a043-438a-9ab2-1f36cb1bed07">
+  <value column="Name" original="Invoice or Bank Slip">Fatura ou Boleto</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="4ec41b01-59fc-4c41-8ab0-38bedd5567ae">
+  <value column="Name" original="Bank Slip only">Somente Boleto</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="f3d902ae-01d6-4ef4-abfd-09ef4113c60a">
+  <value column="Name" original="Do Not Protest">Não Protestar</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="68e5b82d-4842-4571-b9e1-31a32c0f01cf">
+  <value column="Name" original="Cancel Protest">Sustar Protesto</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="5110945c-44f1-46e0-b07c-966fe332903d">
+  <value column="Name" original="Do Not Protest Confirmation">Confirmação para Não Protestar</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="3ed3ed22-58a4-490d-bc6d-e5d707928b43">
+  <value column="Name" original="Cancel Protest Confirmation">Confirmação de Cancelamento de Protesto</value>
+  <value column="Description" original=""/>
+ </row>
  <row trl="Y" uuid="01ad10dc-48d5-4a20-953e-cd5dc35e8cd8">
   <value column="Name" original="Sale/Purchase">Venda</value>
   <value column="Description" original=""/>
