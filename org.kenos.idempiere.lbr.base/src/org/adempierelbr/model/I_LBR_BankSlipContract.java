@@ -32,7 +32,7 @@ public interface I_LBR_BankSlipContract
     /** TableName=LBR_BankSlipContract */
     public static final String Table_Name = "LBR_BankSlipContract";
 
-    /** AD_Table_ID=1120660 */
+    /** AD_Table_ID=1120687 */
     public static final int Table_ID = MTable.getTable_ID(Table_Name);
 
     KeyNamePair Model = new KeyNamePair(Table_ID, Table_Name);
@@ -213,6 +213,19 @@ public interface I_LBR_BankSlipContract
 	public int getLBR_CNABLotSeq_ID();
 
 	public org.compiere.model.I_AD_Sequence getLBR_CNABLotSeq() throws RuntimeException;
+
+    /** Column name LBR_DocNoStrategy */
+    public static final String COLUMNNAME_LBR_DocNoStrategy = "LBR_DocNoStrategy";
+
+	/** Set Numbering Strategy.
+	  * This field defines the strategy to fill document number in Bank Slip and CNAB
+	  */
+	public void setLBR_DocNoStrategy (String LBR_DocNoStrategy);
+
+	/** Get Numbering Strategy.
+	  * This field defines the strategy to fill document number in Bank Slip and CNAB
+	  */
+	public String getLBR_DocNoStrategy();
 
     /** Column name LBR_NumberInBankSeq_ID */
     public static final String COLUMNNAME_LBR_NumberInBankSeq_ID = "LBR_NumberInBankSeq_ID";

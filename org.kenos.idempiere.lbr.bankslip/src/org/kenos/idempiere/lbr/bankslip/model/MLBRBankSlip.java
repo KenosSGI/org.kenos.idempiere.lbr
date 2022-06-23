@@ -1,5 +1,8 @@
 package org.kenos.idempiere.lbr.bankslip.model;
 
+import static org.adempierelbr.model.X_LBR_BankSlipContract.LBR_DOCNOSTRATEGY_InvoiceOrBankSlip;
+import static org.adempierelbr.model.X_LBR_BankSlipContract.LBR_DOCNOSTRATEGY_NotaFiscalInvoiceOrBankSlip;
+
 import java.awt.Image;
 import java.io.File;
 import java.math.BigDecimal;
@@ -505,10 +508,21 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 			//	Local numbering
 			if (getLBR_NumberInOrg() == null)
 			{
-				if (MSysConfig.getBooleanValue("TMP_USE_INVOICE_AS_NUMBER_IN_BANKSLIP", false, getAD_Client_ID()) && getC_Invoice_ID() > 0)
-					setLBR_NumberInOrg(getC_Invoice().getDocumentNo());
+				String numberInOrg = null;
+				String docNoStrategy = getLBR_BankSlipContract().getLBR_DocNoStrategy();
+				
+				if (TextUtil.match (docNoStrategy, LBR_DOCNOSTRATEGY_NotaFiscalInvoiceOrBankSlip)
+						&& getLBR_NotaFiscal_ID() > 0)
+					numberInOrg = getLBR_NotaFiscal().getDocumentNo();
+				
+				else if (TextUtil.match (docNoStrategy, LBR_DOCNOSTRATEGY_NotaFiscalInvoiceOrBankSlip, LBR_DOCNOSTRATEGY_InvoiceOrBankSlip)
+						&& getC_Invoice_ID() > 0)
+					numberInOrg = getC_Invoice().getDocumentNo();
+				
 				else
-					setLBR_NumberInOrg(getDocumentNo());
+					numberInOrg = getDocumentNo();
+				
+				setLBR_NumberInOrg (numberInOrg);
 			}
 			
 			//	Number in the bank
@@ -1561,7 +1575,7 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 		result.append("B").append(getLBR_BankSlip_ID());
 		result.append("F");
 		if (getC_Invoice_ID() > 0)
-			result.append(getC_Invoice().getDocumentNo());
+			result.append(TextUtil.toNumeric (getC_Invoice().getDocumentNo()));
 		result.append("P").append(getlbr_PayScheduleNo());
 		//
 		return result.toString();

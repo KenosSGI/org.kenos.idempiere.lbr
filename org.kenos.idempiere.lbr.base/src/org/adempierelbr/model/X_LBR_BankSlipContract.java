@@ -30,7 +30,7 @@ public class X_LBR_BankSlipContract extends PO implements I_LBR_BankSlipContract
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20200727L;
+	private static final long serialVersionUID = 20220623L;
 
     /** Standard Constructor */
     public X_LBR_BankSlipContract (Properties ctx, int LBR_BankSlipContract_ID, String trxName)
@@ -43,9 +43,12 @@ public class X_LBR_BankSlipContract extends PO implements I_LBR_BankSlipContract
 			setLBR_BankSlipFold_ID (0);
 			setLBR_BankSlipKind_ID (0);
 			setLBR_BankSlipLayout_ID (0);
+			setLBR_DocNoStrategy (null);
+// I
 			setLBR_RecipientType (null);
 // 1
 			setLBR_RegisterType (null);
+// 1
 			setName (null);
         } */
     }
@@ -319,6 +322,30 @@ public class X_LBR_BankSlipContract extends PO implements I_LBR_BankSlipContract
 		if (ii == null)
 			 return 0;
 		return ii.intValue();
+	}
+
+	/** Nota Fiscal, Invoice or Bank Slip = N */
+	public static final String LBR_DOCNOSTRATEGY_NotaFiscalInvoiceOrBankSlip = "N";
+	/** Invoice or Bank Slip = I */
+	public static final String LBR_DOCNOSTRATEGY_InvoiceOrBankSlip = "I";
+	/** Bank Slip only = B */
+	public static final String LBR_DOCNOSTRATEGY_BankSlipOnly = "B";
+	/** Set Numbering Strategy.
+		@param LBR_DocNoStrategy 
+		This field defines the strategy to fill document number in Bank Slip and CNAB
+	  */
+	public void setLBR_DocNoStrategy (String LBR_DocNoStrategy)
+	{
+
+		set_Value (COLUMNNAME_LBR_DocNoStrategy, LBR_DocNoStrategy);
+	}
+
+	/** Get Numbering Strategy.
+		@return This field defines the strategy to fill document number in Bank Slip and CNAB
+	  */
+	public String getLBR_DocNoStrategy () 
+	{
+		return (String)get_Value(COLUMNNAME_LBR_DocNoStrategy);
 	}
 
 	public org.compiere.model.I_AD_Sequence getLBR_NumberInBankSeq() throws RuntimeException
