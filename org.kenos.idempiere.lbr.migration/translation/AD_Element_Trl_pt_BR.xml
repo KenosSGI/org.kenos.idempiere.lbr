@@ -72642,6 +72642,17 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
+  <row trl="Y" uuid="99ed9615-7b01-4c95-8e70-2cdd609a3b4a">
+  <value column="Name" original="Numbering Strategy">Definição do No. Documento</value>
+  <value column="PrintName" original="Numbering Strategy">Definição do No. Doc.</value>
+  <value column="Description" original="This field defines the strategy to fill document number in Bank Slip and CNAB">Defina qual estratégia será seguida para compor o número do documento no Boleto e CNAB.</value>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
  <row trl="N" uuid="41af0908-6629-4cf3-9efc-47aa0655a139">
   <value column="Name" original="KNS_KardexID">KNS_KardexID</value>
   <value column="PrintName" original="KNS_KardexID">KNS_KardexID</value>
