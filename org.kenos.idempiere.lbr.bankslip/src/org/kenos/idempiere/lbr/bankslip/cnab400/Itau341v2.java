@@ -130,16 +130,37 @@ public class Itau341v2 implements ICNABGenerator
 			detail.setCodCarteira(bsi.getLBR_BankSlipFoldCode());
 			detail.setValorDoTitulo(bs.getGrandTotal());
 			detail.setCodOcorrencia(mov.getValue());
+			detail.setCodIdentificacao(bs.getIdentifier());
 
+			String movType = mov.getType();
+			
 			//	Modificar vencimento
-			if (MLBRBankSlipOccur.TYPE_ChangeDueDate.equals(mov.getType()))
+			if (MLBRBankSlipOccur.TYPE_ChangeDueDate.equals(movType))
 			{
 				detail.setVencimento(mov.getDueDate());
 			}
+
+			//	Conceder abatimento
+			else if (MLBRBankSlipOccur.TYPE_GiveRebate.equals(movType))
+			{
+				detail.setAbatimento(mov.getWriteOffAmt());
+			}
+
+			//	Protestar
+			else if (MLBRBankSlipOccur.TYPE_AskToProtest.equals(movType))
+			{
+				detail.setPrazo(mov.getLBR_ProtestDays());
+			}
+
+			//	Those occurrencies does not need to fill any other field.
+			else if (TextUtil.match (movType, 
+					MLBRBankSlipOccur.TYPE_AskToWriteOff, 
+					MLBRBankSlipOccur.TYPE_CancelProtest, 
+					MLBRBankSlipOccur.TYPE_DoNotProtest)) {}
+			
 			else
 			{
-				detail.setCodIdentificacao(bs.getLBR_NumberInOrg());
-				detail.setNoDocumento(bs.getDocumentNo());
+				detail.setNoDocumento(bs.getLBR_NumberInOrg());
 				detail.setVencimento(bs.getDueDate());
 				detail.setCodigoDoBanco(cnabFile.getRoutingNoAsInt());
 				detail.setEspecie(convertKind (bsi.getLBR_BankSlipKindCode()));
@@ -222,6 +243,11 @@ public class Itau341v2 implements ICNABGenerator
 	{
 		List<String> occurs = new ArrayList<String> ();
 		occurs.add(MLBRBankSlipOccur.TYPE_ChangeDueDate);
+		occurs.add(MLBRBankSlipOccur.TYPE_GiveRebate);
+		occurs.add(MLBRBankSlipOccur.TYPE_AskToWriteOff);
+		occurs.add(MLBRBankSlipOccur.TYPE_AskToProtest);
+		occurs.add(MLBRBankSlipOccur.TYPE_DoNotProtest);
+		occurs.add(MLBRBankSlipOccur.TYPE_CancelProtest);
 		return occurs;
 	}	//	getAvailableOccurs
 }	//	generateCNABFile

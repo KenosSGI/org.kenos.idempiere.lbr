@@ -33,7 +33,7 @@ public class X_LBR_BankSlipMov extends PO implements I_LBR_BankSlipMov, I_Persis
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20220622L;
+	private static final long serialVersionUID = 20220623L;
 
     /** Standard Constructor */
     public X_LBR_BankSlipMov (Properties ctx, int LBR_BankSlipMov_ID, String trxName)
@@ -228,6 +228,30 @@ public class X_LBR_BankSlipMov extends PO implements I_LBR_BankSlipMov, I_Persis
 		return bd;
 	}
 
+	/** Set Confirmed.
+		@param IsConfirmed 
+		Assignment is confirmed
+	  */
+	public void setIsConfirmed (boolean IsConfirmed)
+	{
+		set_Value (COLUMNNAME_IsConfirmed, Boolean.valueOf(IsConfirmed));
+	}
+
+	/** Get Confirmed.
+		@return Assignment is confirmed
+	  */
+	public boolean isConfirmed () 
+	{
+		Object oo = get_Value(COLUMNNAME_IsConfirmed);
+		if (oo != null) 
+		{
+			 if (oo instanceof Boolean) 
+				 return ((Boolean)oo).booleanValue(); 
+			return "Y".equals(oo);
+		}
+		return false;
+	}
+
 	/** Set Sales Transaction.
 		@param IsSOTrx 
 		This is a Sales Transaction
@@ -353,6 +377,23 @@ public class X_LBR_BankSlipMov extends PO implements I_LBR_BankSlipMov, I_Persis
 		return bd;
 	}
 
+	/** Set Protest Days.
+		@param LBR_ProtestDays Protest Days	  */
+	public void setLBR_ProtestDays (int LBR_ProtestDays)
+	{
+		set_Value (COLUMNNAME_LBR_ProtestDays, Integer.valueOf(LBR_ProtestDays));
+	}
+
+	/** Get Protest Days.
+		@return Protest Days	  */
+	public int getLBR_ProtestDays () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_LBR_ProtestDays);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
 	/** Set Movement Date.
 		@param MovementDate 
 		Date a product was moved in or out of inventory
@@ -396,6 +437,14 @@ public class X_LBR_BankSlipMov extends PO implements I_LBR_BankSlipMov, I_Persis
 	public static final String TYPE_BankSlipRejected = "X";
 	/** Ask to Protest = P */
 	public static final String TYPE_AskToProtest = "P";
+	/** Do Not Protest = N */
+	public static final String TYPE_DoNotProtest = "N";
+	/** Cancel Protest = Z */
+	public static final String TYPE_CancelProtest = "Z";
+	/** Do Not Protest Confirmation = 5 */
+	public static final String TYPE_DoNotProtestConfirmation = "5";
+	/** Cancel Protest Confirmation = 6 */
+	public static final String TYPE_CancelProtestConfirmation = "6";
 	/** Set Type.
 		@param Type 
 		Type of Validation (SQL, Java Script, Java Language)

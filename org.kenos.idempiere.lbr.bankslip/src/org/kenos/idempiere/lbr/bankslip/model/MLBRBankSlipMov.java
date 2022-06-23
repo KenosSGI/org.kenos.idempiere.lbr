@@ -83,31 +83,40 @@ public class MLBRBankSlipMov extends X_LBR_BankSlipMov
 	{
 		MLBRBankSlip bankSlip = (MLBRBankSlip) getLBR_BankSlip();
 		//
-		if (MLBRBankSlipOccur.TYPE_Liquidation.equals(getType()))
+		String movementType = getType();
+		
+		if (MLBRBankSlipOccur.TYPE_Liquidation.equals(movementType))
 			bankSlip.setIsPaid(true);
-		else if (MLBRBankSlipOccur.TYPE_RegisterConfirmed.equals(getType()))
+		
+		else if (MLBRBankSlipOccur.TYPE_RegisterConfirmed.equals(movementType))
 			bankSlip.setIsRegistered(true);
 		
-		else if (MLBRBankSlipOccur.TYPE_BankSlipRejected.equals(getType()))
+		else if (MLBRBankSlipOccur.TYPE_BankSlipRejected.equals(movementType))
 		{
 			bankSlip.setDocStatus(MLBRBankSlip.DOCSTATUS_Invalid);
 			bankSlip.setProcessed(false);
 		}
 		
-		else if (MLBRBankSlipOccur.TYPE_ChangeDueDateConfirmation.equals(getType()) && getDueDate() != null)
+		else if (MLBRBankSlipOccur.TYPE_ChangeDueDateConfirmation.equals(movementType) && getDueDate() != null)
 			bankSlip.setDueDate(getDueDate());
 		
-		else if (MLBRBankSlipOccur.TYPE_ProtestConfirmation.equals(getType()))
+		else if (MLBRBankSlipOccur.TYPE_ProtestConfirmation.equals(movementType))
 			bankSlip.setLBR_IsProtested(true);
 		
-		else if (MLBRBankSlipOccur.TYPE_RebateConfirmation.equals(getType()))
+		else if (MLBRBankSlipOccur.TYPE_RebateConfirmation.equals(movementType))
 			bankSlip.setWriteOffAmt(getWriteOffAmt());
 		
-		else if (MLBRBankSlipOccur.TYPE_WriteOffConfirmation.equals(getType()))
+		else if (MLBRBankSlipOccur.TYPE_WriteOffConfirmation.equals(movementType))
 		{
 			bankSlip.setDocStatus(MLBRBankSlip.DOCSTATUS_Closed);
 			bankSlip.setLBR_IsWrittenOff(true);
 		}
+		
+		else if (MLBRBankSlipOccur.TYPE_CancelProtestConfirmation.equals(movementType))
+			bankSlip.setLBR_IsHalted(true);
+		
+		else if (MLBRBankSlipOccur.TYPE_DoNotProtestConfirmation.equals(movementType))
+			bankSlip.setLBR_ProtestType(MLBRBankSlip.LBR_PROTESTTYPE_DoNotProtest);
 		
 		if (bankSlip.is_Changed())
 			bankSlip.save();

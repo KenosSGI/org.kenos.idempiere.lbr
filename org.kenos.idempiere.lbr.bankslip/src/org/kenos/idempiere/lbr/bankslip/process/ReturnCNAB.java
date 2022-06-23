@@ -240,7 +240,7 @@ public class ReturnCNAB extends SvrProcess
 		mov.setLBR_BankSlip_ID(bankSlip.getLBR_BankSlip_ID());
 		mov.setOccurrence(occur);
 		mov.setIsSOTrx(false);
-		mov.setDateTrx(detail.getDateFile());
+		mov.setDateTrx(detail.getDateTrx());
 		mov.setMovementDate(detail.getDateFile());
 		mov.setGrandTotal(detail.getAmount());
 		mov.setDiscountAmt(detail.getDiscount());

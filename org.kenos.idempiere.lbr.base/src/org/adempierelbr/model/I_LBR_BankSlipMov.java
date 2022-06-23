@@ -186,6 +186,19 @@ public interface I_LBR_BankSlipMov
 	  */
 	public boolean isActive();
 
+    /** Column name IsConfirmed */
+    public static final String COLUMNNAME_IsConfirmed = "IsConfirmed";
+
+	/** Set Confirmed.
+	  * Assignment is confirmed
+	  */
+	public void setIsConfirmed (boolean IsConfirmed);
+
+	/** Get Confirmed.
+	  * Assignment is confirmed
+	  */
+	public boolean isConfirmed();
+
     /** Column name IsSOTrx */
     public static final String COLUMNNAME_IsSOTrx = "IsSOTrx";
 
@@ -247,6 +260,15 @@ public interface I_LBR_BankSlipMov
 
 	/** Get Interest Value	  */
 	public BigDecimal getLBR_InterestValue();
+
+    /** Column name LBR_ProtestDays */
+    public static final String COLUMNNAME_LBR_ProtestDays = "LBR_ProtestDays";
+
+	/** Set Protest Days	  */
+	public void setLBR_ProtestDays (int LBR_ProtestDays);
+
+	/** Get Protest Days	  */
+	public int getLBR_ProtestDays();
 
     /** Column name MovementDate */
     public static final String COLUMNNAME_MovementDate = "MovementDate";
