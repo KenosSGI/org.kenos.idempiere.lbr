@@ -28,14 +28,13 @@ import org.adempierelbr.model.MLBRNotaFiscal;
 import org.adempierelbr.model.MLBRPartnerDFe;
 import org.adempierelbr.util.TextUtil;
 import org.adempierelbr.wrapper.I_W_AD_OrgInfo;
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFDataFormat;
+import org.apache.poi.hssf.usermodel.HSSFFont;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.Font;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
 import org.compiere.model.MAttachment;
 import org.compiere.model.MAttachmentEntry;
 import org.compiere.model.MBPartner;
@@ -429,16 +428,16 @@ public class ProcXMLExport extends SvrProcess
 	private void processResult (String file, List<ExportRow> rows) throws IOException
 	{
 		FileOutputStream out = new FileOutputStream(file);
-		Workbook wb = new HSSFWorkbook();
-		Sheet sheet = wb.createSheet();
-		Row row = null;
-		Cell cell = null;
-		CellStyle csTitle = wb.createCellStyle();
-		CellStyle csRows = wb.createCellStyle();
-		CellStyle csTS = wb.createCellStyle();
+		HSSFWorkbook wb = new HSSFWorkbook();
+		HSSFSheet sheet = wb.createSheet();
+		HSSFRow row = null;
+		HSSFCell cell = null;
+		HSSFCellStyle csTitle = wb.createCellStyle();
+		HSSFCellStyle csRows = wb.createCellStyle();
+		HSSFCellStyle csTS = wb.createCellStyle();
 
-		Font fTitle = wb.createFont();
-		Font fRows = wb.createFont();
+		HSSFFont fTitle = wb.createFont();
+		HSSFFont fRows = wb.createFont();
 
 		fTitle.setFontHeightInPoints((short) 13);
 		fTitle.setBold(true);
