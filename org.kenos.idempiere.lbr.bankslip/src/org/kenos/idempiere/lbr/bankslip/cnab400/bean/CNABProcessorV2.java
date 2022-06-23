@@ -13,11 +13,6 @@ import org.kenos.idempiere.lbr.bankslip.cnab.ICNABDetail;
 import org.kenos.idempiere.lbr.bankslip.cnab.ICNABProcessor;
 import org.kenos.idempiere.lbr.bankslip.cnab400.bean.in.Record1Detail;
 
-//import net.sf.flatpack.DataError;
-//import net.sf.flatpack.DataSet;
-//import net.sf.flatpack.DefaultParserFactory;
-//import net.sf.flatpack.Parser;
-
 /**
  * 		CNAB Detail
  * 	@author Ricardo Santana <rsantana@kenos.com.br>
@@ -36,6 +31,9 @@ public class CNABProcessorV2 implements ICNABProcessor
 		int lineCount = 0;
 		try 
 		{
+			int routingNo = 0;
+			Timestamp fileDate = null;
+			
 			while ( (line = buffer.readLine() ) != null && !line.trim().equals("") )
 			{
 				lineCount++;
@@ -44,6 +42,16 @@ public class CNABProcessorV2 implements ICNABProcessor
 				if (base == null)
 					continue;
 
+				//	Header
+				if (base.getTipo().intValue() == 0)
+				{
+					Record0Header returnHeader = manager.load (Record0Header.class, line);
+					//
+					routingNo = returnHeader.getCodDoBanco();
+					fileDate = new Timestamp (returnHeader.getDataDeGeracao().getTime());
+				}
+				
+				//	Detail
 				if (base.getTipo().intValue() == 1)
 				{
 					Record1Detail returnRecord = manager.load (Record1Detail.class, line);
@@ -60,8 +68,8 @@ public class CNABProcessorV2 implements ICNABProcessor
 		        	detail.setOccurCod(returnRecord.getCodOcorrencia());
 		        	detail.setWriteOffAmt(returnRecord.getAbatimento());
 		        	detail.setLineNo(lineCount);
-//		        	detail.setRoutingNo(routingNo);	//	From header
-//		        	detail.setDateFile(fileDate);	//	From header
+		        	detail.setRoutingNo(String.valueOf(routingNo));	//	From header
+		        	detail.setDateFile(fileDate);					//	From header
 		        	//
 		        	result.add(detail);
 				}
