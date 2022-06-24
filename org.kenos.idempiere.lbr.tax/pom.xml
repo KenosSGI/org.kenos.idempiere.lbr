@@ -21,75 +21,12 @@
 						</goals>
 						<configuration>
 							<artifactItems>
-								<!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
-								<artifactItem>
-									<groupId>org.apache.poi</groupId>
-									<artifactId>poi</artifactId>
-									<version>5.1.0</version>
-									<destFileName>poi.jar</destFileName>
-								</artifactItem>
-								<!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml -->
-								<artifactItem>
-									<groupId>org.apache.poi</groupId>
-									<artifactId>poi-ooxml</artifactId>
-									<version>5.1.0</version>
-									<destFileName>poi-ooxml.jar</destFileName>
-								</artifactItem>
-								<!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml-lite -->
-								<artifactItem>
-									<groupId>org.apache.poi</groupId>
-									<artifactId>poi-ooxml-lite</artifactId>
-									<version>5.1.0</version>
-									<destFileName>poi-ooxml-lite.jar</destFileName>
-								</artifactItem>
-								<!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
-								<artifactItem>
-									<groupId>commons-io</groupId>
-									<artifactId>commons-io</artifactId>
-									<version>2.11.0</version>
-									<destFileName>commons-io.jar</destFileName>
-								</artifactItem>
-								<!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api -->
-								<artifactItem>
-									<groupId>org.apache.logging.log4j</groupId>
-									<artifactId>log4j-api</artifactId>
-									<version>2.17.1</version>
-									<destFileName>log4j-api.jar</destFileName>
-								</artifactItem>
-								<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-math3 -->
-								<artifactItem>
-									<groupId>org.apache.commons</groupId>
-									<artifactId>commons-math3</artifactId>
-									<version>3.6.1</version>
-									<destFileName>commons-math.jar</destFileName>
-								</artifactItem>
-								<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-compress -->
-								<artifactItem>
-									<groupId>org.apache.commons</groupId>
-									<artifactId>commons-compress</artifactId>
-									<version>1.21</version>
-									<destFileName>commons-compress.jar</destFileName>
-								</artifactItem>
 								<!-- https://mvnrepository.com/artifact/org.apache.xmlbeans/xmlbeans -->
 								<artifactItem>
 									<groupId>org.apache.xmlbeans</groupId>
 									<artifactId>xmlbeans</artifactId>
 									<version>5.0.2</version>
 									<destFileName>xmlbeans.jar</destFileName>
-								</artifactItem>
-								<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-collections4 -->
-								<artifactItem>
-									<groupId>org.apache.commons</groupId>
-									<artifactId>commons-collections4</artifactId>
-									<version>4.4</version>
-									<destFileName>commons-collections4.jar</destFileName>
-								</artifactItem>
-								<!-- https://mvnrepository.com/artifact/com.github.virtuald/curvesapi -->
-								<artifactItem>
-									<groupId>com.github.virtuald</groupId>
-									<artifactId>curvesapi</artifactId>
-									<version>1.06</version>
-									<destFileName>curvesapi.jar</destFileName>
 								</artifactItem>
 							</artifactItems>
 							<outputDirectory>lib</outputDirectory>
