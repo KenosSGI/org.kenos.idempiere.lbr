@@ -1,0 +1,22 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: LBR Apache POI
+Bundle-SymbolicName: org.apache.poi.library;singleton:=true
+Bundle-Version: 6.2.0.qualifier
+Export-Package: org.apache.poi.ss.usermodel,
+ org.apache.poi.xssf.usermodel
+Bundle-ClassPath: .,
+ lib/commons-collections4.jar,
+ lib/commons-compress.jar,
+ lib/commons-io.jar,
+ lib/commons-math.jar,
+ lib/curvesapi.jar,
+ lib/log4j-api.jar,
+ lib/poi.jar,
+ lib/poi-ooxml.jar,
+ lib/poi-ooxml-lite.jar,
+ lib/xmlbeans.jar
+Bundle-ActivationPolicy: lazy
+Automatic-Module-Name: org.apache.poi.library
+Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-Vendor: Kenos www.kenos.com.br
