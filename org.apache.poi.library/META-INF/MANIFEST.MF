@@ -3,7 +3,8 @@ Bundle-ManifestVersion: 2
 Bundle-Name: LBR Apache POI
 Bundle-SymbolicName: org.apache.poi.library;singleton:=true
 Bundle-Version: 6.2.0.qualifier
-Export-Package: org.apache.poi.ss.usermodel,
+Export-Package: org.apache.poi.ooxml,
+ org.apache.poi.ss.usermodel,
  org.apache.poi.xssf.usermodel
 Bundle-ClassPath: .,
  lib/commons-collections4.jar,
