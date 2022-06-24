@@ -70,13 +70,6 @@
 									<version>1.21</version>
 									<destFileName>commons-compress.jar</destFileName>
 								</artifactItem>
-								<!-- https://mvnrepository.com/artifact/org.apache.xmlbeans/xmlbeans -->
-								<artifactItem>
-									<groupId>org.apache.xmlbeans</groupId>
-									<artifactId>xmlbeans</artifactId>
-									<version>5.0.2</version>
-									<destFileName>xmlbeans.jar</destFileName>
-								</artifactItem>
 								<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-collections4 -->
 								<artifactItem>
 									<groupId>org.apache.commons</groupId>

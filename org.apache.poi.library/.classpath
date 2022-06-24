@@ -19,6 +19,5 @@
 	<classpathentry exported="true" kind="lib" path="lib/poi.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/poi-ooxml.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/poi-ooxml-lite.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/xmlbeans.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
