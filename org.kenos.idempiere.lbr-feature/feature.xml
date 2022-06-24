@@ -19,6 +19,13 @@ Core functions for Localization Brazil, including web interface plugins (ZK)
    </license>
 
    <plugin
+         id="org.apache.poi.library"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
          id="org.kenos.idempiere.lbr.base"
          download-size="0"
          install-size="0"
