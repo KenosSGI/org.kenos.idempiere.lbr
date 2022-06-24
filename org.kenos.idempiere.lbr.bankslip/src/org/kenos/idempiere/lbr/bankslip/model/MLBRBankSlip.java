@@ -842,6 +842,14 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 			}
 		}
 		
+		//	Fix barcode
+		if (isProcessed() && is_ValueChanged (COLUMNNAME_DueDate))
+		{
+			Boleto boleto = getBankSlip();
+			bsi.setLBR_ManualInput(boleto.getLinhaDigitavel().write());
+			bsi.setLBR_Barcode(boleto.getCodigoDeBarras().write());
+		}
+		
 		//	Something was changed
 		if (changed)
 			bsi.saveEx();

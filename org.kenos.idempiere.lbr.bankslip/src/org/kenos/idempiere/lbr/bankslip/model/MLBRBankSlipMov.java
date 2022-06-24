@@ -1,6 +1,8 @@
 package org.kenos.idempiere.lbr.bankslip.model;
 
+import java.math.BigDecimal;
 import java.sql.ResultSet;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Properties;
 
@@ -97,14 +99,26 @@ public class MLBRBankSlipMov extends X_LBR_BankSlipMov
 			bankSlip.setProcessed(false);
 		}
 		
-		else if (MLBRBankSlipOccur.TYPE_ChangeDueDateConfirmation.equals(movementType) && getDueDate() != null)
-			bankSlip.setDueDate(getDueDate());
+		else if (MLBRBankSlipOccur.TYPE_ChangeDueDateConfirmation.equals(movementType))
+		{
+			Timestamp dueDate = getDueDate();
+			if (dueDate != null && dueDate.after(getLBR_BankSlip().getDateDoc()))
+				bankSlip.setDueDate(dueDate);
+			else
+				setDescription("Data do Vencimento Inválida: " + dueDate);
+		}
 		
 		else if (MLBRBankSlipOccur.TYPE_ProtestConfirmation.equals(movementType))
 			bankSlip.setLBR_IsProtested(true);
 		
 		else if (MLBRBankSlipOccur.TYPE_RebateConfirmation.equals(movementType))
-			bankSlip.setWriteOffAmt(getWriteOffAmt());
+		{
+			BigDecimal writeOffAmt = getWriteOffAmt();
+			if (writeOffAmt != null && writeOffAmt.signum() == 1)
+				bankSlip.setWriteOffAmt(writeOffAmt);
+			else
+				setDescription("Valor do Abatimento Inválido: " + writeOffAmt);
+		}
 		
 		else if (MLBRBankSlipOccur.TYPE_WriteOffConfirmation.equals(movementType))
 		{

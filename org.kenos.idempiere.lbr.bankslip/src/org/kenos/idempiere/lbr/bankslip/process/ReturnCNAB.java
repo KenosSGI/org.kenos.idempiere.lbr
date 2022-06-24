@@ -246,6 +246,7 @@ public class ReturnCNAB extends SvrProcess
 		mov.setDiscountAmt(detail.getDiscount());
 		mov.setWriteOffAmt(detail.getWriteOffAmt());
 		mov.setLBR_InterestValue(detail.getInterest());
+		mov.setDueDate(detail.getDueDate());
 
 		if (MLBRBankSlipOccur.TYPE_Liquidation.equals(mov.getType())) 
 		{
