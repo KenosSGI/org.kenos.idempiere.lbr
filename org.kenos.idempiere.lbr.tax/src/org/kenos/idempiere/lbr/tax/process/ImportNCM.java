@@ -16,24 +16,8 @@
  *****************************************************************************/
 package org.kenos.idempiere.lbr.tax.process;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.math.BigDecimal;
-import java.sql.Timestamp;
-import java.util.Arrays;
-import java.util.Iterator;
 import java.util.logging.Level;
 
-import org.adempierelbr.model.MLBRNCM;
-import org.adempierelbr.model.MLBRTax;
-import org.adempierelbr.model.MLBRTaxLine;
-import org.adempierelbr.model.MLBRTaxStatus;
-import org.adempierelbr.util.TextUtil;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
 
@@ -81,101 +65,101 @@ public class ImportNCM extends SvrProcess
 	 */
 	protected String doIt() throws Exception
 	{
-		Workbook workbook = WorkbookFactory.create(new File(p_FileName));
-		Sheet sheet = workbook.getSheetAt(0);
-		Iterator<Row> rowIterator = sheet.rowIterator();
-		
-		//	Skip header
-		if (rowIterator.hasNext()) rowIterator.next();
-		
-		while (rowIterator.hasNext()) {
-			Row row = rowIterator.next();
-
-			Cell x1 = row.getCell(COL_NCM_VALUE);
-			Cell x2 = row.getCell(COL_NCM_NAME);
-			Cell x3 = row.getCell(COL_IPI);
-			
-			if (x1 == null)
-				continue;
-			
-			MLBRNCM ncm = MLBRNCM.get (getCtx(), x1.getStringCellValue().trim(), get_TrxName());
-			
-			//	Create if not exists
-			if (p_CreateNew && ncm == null) {
-				ncm = new MLBRNCM (getCtx(), 0, get_TrxName());
-				//
-				ncm.setValue(x1.getStringCellValue());				
-				if (x2 != null)
-					ncm.setDescription(x2.getStringCellValue());
-				ncm.setAD_Org_ID(0);
-				ncm.save();
-			}
-			
-			//	No tax rate to fill
-			if (ncm == null)
-			{
-				row.createCell(COL_RESULT).setCellValue("NCM não encontrado");
-				continue;
-			}
-			//	Invalid tax rate
-			double ipi = x3.getNumericCellValue();
-			if (x3 == null || ipi <= 0)
-			{
-				int LBR_Tax_ID = ncm.getLBR_Tax_ID();
-				//				
-				if (LBR_Tax_ID > 0) {
-					ncm.setLBR_Tax_ID(0);
-					ncm.save();
-					//
-					MLBRTax tax = new MLBRTax (getCtx(), 0, get_TrxName());
-					tax.delete(true);
-				}
-
-				row.createCell(COL_RESULT).setCellValue("Imposto zerado");
-				continue;
-			}
-			
-			MLBRTax tax = null;
-					
-			//	Create Tax record
-			if (ncm.getLBR_Tax_ID() < 1) {
-				tax = new MLBRTax (getCtx(), 0, get_TrxName());
-				tax.save();
-			}
-			else
-				tax = new MLBRTax (getCtx(), ncm.getLBR_Tax_ID(), get_TrxName());
-			
-			//	Find IPI Line
-			MLBRTaxLine ipiTax = Arrays.asList(tax.getLines()).stream()
-				.filter(l -> l.getLBR_TaxName_ID() == MLBRTax.TAX_IPI)
-				.findFirst().orElse(new MLBRTaxLine (getCtx(), 0, get_TrxName()));
-			
-			ipiTax.setLBR_Tax_ID(tax.getLBR_Tax_ID());
-			ipiTax.setLBR_TaxName_ID(MLBRTax.TAX_IPI);
-			ipiTax.setlbr_TaxRate(new BigDecimal(ipi));
-			ipiTax.setAD_Org_ID(0);
-			int LBR_TaxStatus_ID = MLBRTaxStatus.get (MLBRTax.TAX_IPI, "50");
-			if (LBR_TaxStatus_ID > 0)
-				ipiTax.setLBR_TaxStatus_ID(LBR_TaxStatus_ID);
-			if (ipiTax.save())
-				row.createCell(COL_RESULT).setCellValue("Imposto cadastrado");
-			//	Fix description
-			tax.setDescription();
-			tax.setAD_Org_ID(0);
-			tax.save();
-			
-			ncm.setLBR_Tax_ID(tax.getLBR_Tax_ID());
-			ncm.save();
-		}
-		
-		//	Show result
-		File resultFile = File.createTempFile("ImportNCM_" + TextUtil.timeToString(new Timestamp(System.currentTimeMillis()), "yyyyMMdd"), ".xlsx");
-		FileOutputStream os = new FileOutputStream(resultFile);
-		workbook.write(os);
-		//
-		if (processUI != null)
-			processUI.download(resultFile);
-       
-		return "@Success@";
+//		Workbook workbook = WorkbookFactory.create(new File(p_FileName));
+//		Sheet sheet = workbook.getSheetAt(0);
+//		Iterator<Row> rowIterator = sheet.rowIterator();
+//		
+//		//	Skip header
+//		if (rowIterator.hasNext()) rowIterator.next();
+//		
+//		while (rowIterator.hasNext()) {
+//			Row row = rowIterator.next();
+//
+//			Cell x1 = row.getCell(COL_NCM_VALUE);
+//			Cell x2 = row.getCell(COL_NCM_NAME);
+//			Cell x3 = row.getCell(COL_IPI);
+//			
+//			if (x1 == null)
+//				continue;
+//			
+//			MLBRNCM ncm = MLBRNCM.get (getCtx(), x1.getStringCellValue().trim(), get_TrxName());
+//			
+//			//	Create if not exists
+//			if (p_CreateNew && ncm == null) {
+//				ncm = new MLBRNCM (getCtx(), 0, get_TrxName());
+//				//
+//				ncm.setValue(x1.getStringCellValue());				
+//				if (x2 != null)
+//					ncm.setDescription(x2.getStringCellValue());
+//				ncm.setAD_Org_ID(0);
+//				ncm.save();
+//			}
+//			
+//			//	No tax rate to fill
+//			if (ncm == null)
+//			{
+//				row.createCell(COL_RESULT).setCellValue("NCM não encontrado");
+//				continue;
+//			}
+//			//	Invalid tax rate
+//			double ipi = x3.getNumericCellValue();
+//			if (x3 == null || ipi <= 0)
+//			{
+//				int LBR_Tax_ID = ncm.getLBR_Tax_ID();
+//				//				
+//				if (LBR_Tax_ID > 0) {
+//					ncm.setLBR_Tax_ID(0);
+//					ncm.save();
+//					//
+//					MLBRTax tax = new MLBRTax (getCtx(), 0, get_TrxName());
+//					tax.delete(true);
+//				}
+//
+//				row.createCell(COL_RESULT).setCellValue("Imposto zerado");
+//				continue;
+//			}
+//			
+//			MLBRTax tax = null;
+//					
+//			//	Create Tax record
+//			if (ncm.getLBR_Tax_ID() < 1) {
+//				tax = new MLBRTax (getCtx(), 0, get_TrxName());
+//				tax.save();
+//			}
+//			else
+//				tax = new MLBRTax (getCtx(), ncm.getLBR_Tax_ID(), get_TrxName());
+//			
+//			//	Find IPI Line
+//			MLBRTaxLine ipiTax = Arrays.asList(tax.getLines()).stream()
+//				.filter(l -> l.getLBR_TaxName_ID() == MLBRTax.TAX_IPI)
+//				.findFirst().orElse(new MLBRTaxLine (getCtx(), 0, get_TrxName()));
+//			
+//			ipiTax.setLBR_Tax_ID(tax.getLBR_Tax_ID());
+//			ipiTax.setLBR_TaxName_ID(MLBRTax.TAX_IPI);
+//			ipiTax.setlbr_TaxRate(new BigDecimal(ipi));
+//			ipiTax.setAD_Org_ID(0);
+//			int LBR_TaxStatus_ID = MLBRTaxStatus.get (MLBRTax.TAX_IPI, "50");
+//			if (LBR_TaxStatus_ID > 0)
+//				ipiTax.setLBR_TaxStatus_ID(LBR_TaxStatus_ID);
+//			if (ipiTax.save())
+//				row.createCell(COL_RESULT).setCellValue("Imposto cadastrado");
+//			//	Fix description
+//			tax.setDescription();
+//			tax.setAD_Org_ID(0);
+//			tax.save();
+//			
+//			ncm.setLBR_Tax_ID(tax.getLBR_Tax_ID());
+//			ncm.save();
+//		}
+//		
+//		//	Show result
+//		File resultFile = File.createTempFile("ImportNCM_" + TextUtil.timeToString(new Timestamp(System.currentTimeMillis()), "yyyyMMdd"), ".xlsx");
+//		FileOutputStream os = new FileOutputStream(resultFile);
+//		workbook.write(os);
+//		//
+//		if (processUI != null)
+//			processUI.download(resultFile);
+//       
+		return "@Error@ - Processo temporariamente desativado";
 	}	//	doIt
 }	//	ImportNCM
