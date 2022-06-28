@@ -1482,11 +1482,11 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 		return pay (dateTrx, getGrandTotal(), Env.ZERO, Env.ZERO, Env.ZERO, description);
 	}	//	pay
 	
-	public MPayment pay (Timestamp dateTrx, BigDecimal amount, BigDecimal discountAmt, BigDecimal interestAmt, BigDecimal writeOffAmt, String description) throws Exception
+	public MPayment pay (Timestamp dateTrx, BigDecimal paidAmt, BigDecimal discountAmt, BigDecimal interestAmt, BigDecimal writeOffAmt, String description) throws Exception
 	{
 		//	Amount
-		if (amount == null)
-			amount 		= Env.ZERO;
+		if (paidAmt == null)
+			paidAmt 		= Env.ZERO;
 		
 		//	Discount (positive)
 		if (discountAmt == null)
@@ -1516,10 +1516,10 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 		payment.setDescription(description);
 		payment.setDateAcct(dateTrx);
 		payment.setDateTrx(dateTrx);
-		payment.setPayAmt(amount.subtract(discountAmt).add(interestAmt));
-		payment.setDiscountAmt(discountAmt);		
-		payment.set_ValueOfColumn("InterestAmt", interestAmt);		
-		payment.setWriteOffAmt(writeOffAmt);
+		payment.setPayAmt(paidAmt);
+		payment.setDiscountAmt(discountAmt);
+		payment.set_ValueOfColumn("InterestAmt", interestAmt);
+		payment.setWriteOffAmt(writeOffAmt.add(interestAmt.negate()));
 		
 		//	Save and process
 		payment.saveEx();

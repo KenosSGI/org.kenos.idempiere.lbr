@@ -121,12 +121,12 @@ public class CNABProcessor implements ICNABProcessor {
         	catch (Exception e) {}
                 	
         	ICNABDetail detail = new CNABDetail ();
-        	detail.setAmount(normalize (ds.getBigDecimal(AMOUNT)));
+        	detail.setAmount(normalize (ds.getBigDecimal(PAYAMT)));
 			detail.setDateTrx(dateTrx);
 			detail.setDueDate(dueDate);
         	detail.setDiscount(normalize (ds.getBigDecimal(DISCOUNT)));
         	detail.setDocumentNo(ds.getString(DOCUMENTNO));
-        	detail.setInterest(normalize (ds.getBigDecimal(INTEREST)));
+        	detail.setInterest(normalize (ds.getBigDecimal(INTEREST)).add(normalize (ds.getBigDecimal(PENAULTY))));
         	detail.setNumberInBank(ds.getString(NUMBERINBANK));
         	detail.setNumberInOrg(ds.getString(NUMBERINORG));
         	detail.setOccurCod(ds.getString(OCCUR));
