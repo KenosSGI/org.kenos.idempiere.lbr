@@ -1316,6 +1316,9 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		else
 			setlbr_NFModel(model);
 		
+		//	Hide Fatura group in DANFE when does not have open items
+		setlbr_HasOpenItems(dtInvoice.get_ValueAsBoolean(I_W_C_DocType.COLUMNNAME_lbr_HasOpenItems));
+		
 		//	Fatura gerada a partir do RMA a Finalidade da NF deve ser Devolução/Retorno de Mercadoria
 		//	Adicionar NF Referenciada
 		if (invoice.getM_RMA_ID() != 0)
