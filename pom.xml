@@ -30,7 +30,6 @@ mvn verify -Didempiere.target=org.idempierelbr.p2.targetplatform
 	<artifactId>org.kenos.idempiere.lbr</artifactId>
 	<packaging>pom</packaging>
 	<modules>
-		<module>org.apache.poi.library</module>
 		<module>org.kenos.idempiere.lbr.base</module>
 		<module>org.kenos.idempiere.lbr.base.zk</module>
 		<module>org.kenos.idempiere.lbr.tax</module>
