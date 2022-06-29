@@ -3,6 +3,7 @@ package org.kenos.idempiere.lbr.bankslip.cnab400.bean.in;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import org.kenos.idempiere.lbr.bankslip.cnab400.bean.IRecordDetail;
 import org.kenos.idempiere.lbr.bankslip.cnab400.bean.RecordBase;
 
 import com.ancientprogramming.fixedformat4j.annotation.Align;
@@ -10,7 +11,7 @@ import com.ancientprogramming.fixedformat4j.annotation.Field;
 import com.ancientprogramming.fixedformat4j.annotation.Record;
 
 @Record  
-public class Record1Detail extends RecordBase {
+public class Record1Detail extends RecordBase implements IRecordDetail {
 
 	public Record1Detail() {}
 	public Record1Detail(Integer tipo) {

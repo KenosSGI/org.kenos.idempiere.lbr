@@ -12,6 +12,7 @@ import org.kenos.idempiere.lbr.bankslip.cnab.CNABDetail;
 import org.kenos.idempiere.lbr.bankslip.cnab.ICNABDetail;
 import org.kenos.idempiere.lbr.bankslip.cnab.ICNABProcessor;
 import org.kenos.idempiere.lbr.bankslip.cnab400.bean.in.Record1Detail;
+import org.kenos.idempiere.lbr.bankslip.cnab400.bean.in.bb.Record7Detail;
 
 /**
  * 		CNAB Detail
@@ -42,8 +43,10 @@ public class CNABProcessorV2 implements ICNABProcessor
 				if (base == null)
 					continue;
 
+				int tipo = base.getTipo().intValue();
+				
 				//	Header
-				if (base.getTipo().intValue() == 0)
+				if (tipo == 0)
 				{
 					Record0Header returnHeader = manager.load (Record0Header.class, line);
 					//
@@ -52,9 +55,13 @@ public class CNABProcessorV2 implements ICNABProcessor
 				}
 				
 				//	Detail
-				if (base.getTipo().intValue() == 1)
+				else if (tipo == 1 || tipo == 7)
 				{
-					Record1Detail returnRecord = manager.load (Record1Detail.class, line);
+					Class<? extends IRecordDetail> recordDetail = Record1Detail.class;
+					if (tipo == 7)
+						recordDetail = Record7Detail.class;
+					
+					IRecordDetail returnRecord = manager.load (recordDetail, line);
                 	
 		        	ICNABDetail detail = new CNABDetail ();
 		        	detail.setAmount(returnRecord.getValorDoTitulo());
