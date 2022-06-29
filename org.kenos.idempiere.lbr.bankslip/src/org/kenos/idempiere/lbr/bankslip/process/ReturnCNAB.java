@@ -12,6 +12,7 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.logging.Level;
 
+import org.adempiere.exceptions.AdempiereException;
 import org.adempierelbr.util.TextUtil;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -252,6 +253,10 @@ public class ReturnCNAB extends SvrProcess
 		{
 			try 
 			{
+				//	Check if invoice is already paid
+				if (bankSlip.getC_Invoice_ID() > 0 && bankSlip.getC_Invoice().isPaid())
+					throw new AdempiereException ("Fatura já paga");
+				//
 				MPayment payment = bankSlip.pay(detail.getDateTrx(), detail.getAmount(), detail.getDiscount(), detail.getInterest(), Env.ZERO, "Liquidação feita via CNAB");
 				mov.setC_Payment_ID(payment.getC_Payment_ID());
 				addLog(detail, "Liquidação feita via CNAB Pagamento #" + payment.getDocumentNo());

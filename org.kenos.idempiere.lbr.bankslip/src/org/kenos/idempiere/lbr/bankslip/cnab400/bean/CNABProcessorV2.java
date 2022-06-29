@@ -64,7 +64,7 @@ public class CNABProcessorV2 implements ICNABProcessor
 					IRecordDetail returnRecord = manager.load (recordDetail, line);
                 	
 		        	ICNABDetail detail = new CNABDetail ();
-		        	detail.setAmount(returnRecord.getValorDoTitulo());
+		        	detail.setAmount(returnRecord.getValorDoPagto());
 					detail.setDateTrx(new Timestamp (returnRecord.getDataOcorrencia().getTime()));
 					detail.setDueDate(new Timestamp (returnRecord.getVencimento().getTime()));
 		        	detail.setDiscount(returnRecord.getValorDoDesconto());

@@ -14,6 +14,7 @@ public interface IRecordDetail {
 	BigDecimal getValorDoTitulo();
 	BigDecimal getValorDoDesconto();
 	BigDecimal getValorDosJuros();
+	BigDecimal getValorDoPagto();
 	BigDecimal getAbatimento();
 
 }
