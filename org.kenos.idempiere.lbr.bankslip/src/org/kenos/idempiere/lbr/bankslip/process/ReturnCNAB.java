@@ -112,7 +112,7 @@ public class ReturnCNAB extends SvrProcess
 		// Get the checksum
 		String checksum = getFileChecksum (md5Digest, returnFile);
 		
-//		cnab = MLBRCNABFile.get (p_Contract_ID, checksum);
+		cnab = MLBRCNABFile.get (p_Contract_ID, checksum);
 		if (cnab != null)
 		{
 			addLog (cnab.get_ID(), null, null, "CNAB: " + cnab.getDocumentNo(), MLBRCNABFile.Table_ID, cnab.get_ID());
