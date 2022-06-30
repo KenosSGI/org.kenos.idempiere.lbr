@@ -30,7 +30,7 @@
 	<COLUMN name="discount" length="13" />
 	<COLUMN name="payAmt" length="13" />
 	<COLUMN name="interest" length="13" />
-	<COLUMN name="otherRevenue" length="13" />
+	<COLUMN name="penaulty" length="13" />
 	<COLUMN name="dummy5" length="102" />
 	<COLUMN name="lineno" length="6" />
     <RECORD id="trailer" startPosition="1" endPosition="1" indicator="9">
