@@ -48,7 +48,6 @@ import org.compiere.model.MBPartnerLocation;
 import org.compiere.model.MInvoice;
 import org.compiere.model.MLocation;
 import org.compiere.model.MOrgInfo;
-import org.compiere.model.MProduct;
 import org.compiere.model.MSequence;
 import org.compiere.model.MSysConfig;
 import org.compiere.model.X_C_City;
@@ -224,24 +223,19 @@ public class NFSeImpl implements INFSe
 		BigDecimal aliquota = Env.ZERO;
 		String serviceCode = "";
 		String discriminacao = nf.getDescription();
-		
+		BigDecimal issRT = nf.getTaxAmt("ISSRT");
+				
 		//	Linhas
 		for (MLBRNotaFiscalLine nfLine : nfLines)
 		{
 			if (!nfLine.islbr_IsService())
 				continue;
 			//
-			if (nfLine.getM_Product_ID() > 0)
-			{
-				MProduct p = new MProduct (Env.getCtx(), nfLine.getM_Product_ID(), null);
-				if (serviceCode.equals("") 
-						&& p.get_ValueAsString("lbr_ServiceCode") != null)
-				{
-					serviceCode = p.get_ValueAsString("lbr_ServiceCode");	//	FIXME : Copiar para LBR_NotaFiscalLine
-					aliquota = toBD (nfLine.getTaxRate("ISS"));
-					break;
-				}
-			}
+			serviceCode = nfLine.getlbr_ServiceCode();
+			aliquota = toBD (nfLine.getTaxRate(issRT.signum() == -1 ? "ISSRT" : "ISS")).divide(Env.ONEHUNDRED, 17, RoundingMode.HALF_UP);
+			
+			//	Use first line
+			break;
 		}
 		//
 		if (serviceCode == null || serviceCode.equals(""))
@@ -258,7 +252,11 @@ public class NFSeImpl implements INFSe
 		//
 		if (nf.getLBR_EMailNFe() != null && nf.getLBR_EMailNFe().indexOf("@") > 1)
 			tpRPS.setEmailTomador(nf.getLBR_EMailNFe());
-		tpRPS.setISSRetido(false);
+		
+		if (issRT.signum() == -1)
+			tpRPS.setISSRetido(true);
+		else
+			tpRPS.setISSRetido(false);
 		
 		try
 		{
@@ -606,7 +604,7 @@ public class NFSeImpl implements INFSe
 				retornoXML = stub.envioLoteRPS(1, xml.toString());
 		}
 
-		NFeUtil.saveXML (String.valueOf(p_AD_Org_ID), NFeUtil.KIND_NFSE, NFeUtil.MESSAGE_REQ_AUTORIZE, nfs.get(0).getDocumentNo(), xml.toString());
+		NFeUtil.saveXML (String.valueOf(p_AD_Org_ID), NFeUtil.KIND_NFSE, NFeUtil.MESSAGE_RET_AUTORIZE, nfs.get(0).getDocumentNo(), retornoXML);
 
 		//	Processa o Retorno
 		RetornoEnvioLoteRPS result = RetornoEnvioLoteRPSDocument.Factory.parse(retornoXML).getRetornoEnvioLoteRPS();
@@ -717,7 +715,7 @@ public class NFSeImpl implements INFSe
 		ascii.append(TextUtil.lPad ((rps.getDataEmissao()+"").substring(0, 10), 8));
 		ascii.append(rps.getTributacaoRPS());
 		ascii.append(rps.getStatusRPS());
-		ascii.append("true".equals (rps.getISSRetido()) ? "S" : "N");
+		ascii.append(rps.getISSRetido() ? "S" : "N");
 		ascii.append(TextUtil.lPad (rps.getValorServicos(), 15));
 		ascii.append(TextUtil.lPad (rps.getValorDeducoes(), 15));
 		ascii.append(TextUtil.lPad (rps.getCodigoServico(), 5));

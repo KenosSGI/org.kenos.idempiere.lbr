@@ -1650,7 +1650,9 @@ public class NFSeAbrasf203Impl implements INFSe
 			{
 				map.put("municipiotomador", nf.getlbr_BPCity());
 			}
-				
+			
+			map.put("docstatus", nf.getDocStatus());
+
 			//	Get Jasper
 			ClassLoader cl = getClass().getClassLoader();
 			InputStream report = cl.getResourceAsStream("org/kenos/idempiere/lbr/nfse/report/ImpressaoNFSEABRASF203.jasper");

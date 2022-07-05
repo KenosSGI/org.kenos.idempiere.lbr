@@ -5,7 +5,7 @@
 	<property name="ireport.x" value="3"/>
 	<property name="ireport.y" value="716"/>
 	<property name="net.sf.jasperreports.awt.ignore.missing.font" value="true"/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="XML"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Abrasf203.xml"/>
 	<import value="net.sf.jasperreports.engine.*"/>
 	<import value="java.util.*"/>
 	<import value="net.sf.jasperreports.engine.data.*"/>
@@ -17,6 +17,7 @@
 	<parameter name="municipioprestador" class="java.lang.String"/>
 	<parameter name="municipiotomador" class="java.lang.String"/>
 	<parameter name="orgaogerador" class="java.lang.String"/>
+	<parameter name="docstatus" class="java.lang.String"/>
 	<parameter name="rodape1" class="java.lang.String"/>
 	<queryString language="xPath">
 		<![CDATA[//CompNfse/Nfse]]>
@@ -231,7 +232,14 @@
 	<field name="RetencoesFederais" class="java.lang.Double"/>
 	<field name="DescontoeDeducao" class="java.math.BigDecimal"/>
 	<background>
-		<band splitType="Stretch"/>
+		<band height="800" splitType="Stretch">
+			<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle">
+				<reportElement stretchType="ContainerHeight" mode="Opaque" x="6" y="0" width="542" height="590" uuid="d5d7a19d-060a-4875-954b-e176ab96898a">
+					<printWhenExpression><![CDATA[$P{docstatus}.equals("VO")]]></printWhenExpression>
+				</reportElement>
+				<imageExpression><![CDATA[net.sf.jasperreports.renderers.BatikRenderer.getInstanceFromText("<svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\" width=\"765\" height=\"990\"><text x=\"60\" y=\"40\" transform=\"rotate(-55) translate(-850,600)\" style=\"font-size:120px;font-weight:bold;fill:#d8d8d8\">NOTA CANCELADA</text></svg>")]]></imageExpression>
+			</image>
+		</band>
 	</background>
 	<title>
 		<band splitType="Stretch"/>
@@ -241,6 +249,10 @@
 	</pageHeader>
 	<detail>
 		<band height="826" splitType="Stretch">
+			<image scaleImage="RetainShape" hAlign="Center" vAlign="Middle" isUsingCache="true" onErrorType="Icon" evaluationTime="Page">
+				<reportElement key="image-1" mode="Transparent" x="0" y="51" width="143" height="110" uuid="e191ea3b-6e0b-49a6-9d9f-93d793d07f2e"/>
+				<imageExpression><![CDATA[$P{logotipo}]]></imageExpression>
+			</image>
 			<staticText>
 				<reportElement x="376" y="17" width="90" height="14" uuid="eb4b0985-0bbb-40a7-a92f-59d5749e9743"/>
 				<box>
@@ -411,10 +423,6 @@ $F{DataEmissao}.substring(0,4)+" "+$F{DataEmissao}.substring(11,19)]]></textFiel
 				</textElement>
 				<textFieldExpression><![CDATA[$F{CodigoVerificacao}]]></textFieldExpression>
 			</textField>
-			<image scaleImage="RetainShape" hAlign="Center" vAlign="Middle" isUsingCache="true" onErrorType="Icon" evaluationTime="Page">
-				<reportElement key="image-1" mode="Opaque" x="0" y="51" width="143" height="110" uuid="e191ea3b-6e0b-49a6-9d9f-93d793d07f2e"/>
-				<imageExpression><![CDATA[$P{logotipo}]]></imageExpression>
-			</image>
 			<staticText>
 				<reportElement x="143" y="51" width="66" height="14" uuid="4e5fac51-79b2-4f77-8b5a-a10d4832bbfc"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
