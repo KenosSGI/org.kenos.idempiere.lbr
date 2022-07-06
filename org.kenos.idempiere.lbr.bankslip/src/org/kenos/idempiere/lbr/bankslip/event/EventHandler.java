@@ -1,5 +1,7 @@
 package org.kenos.idempiere.lbr.bankslip.event;
 
+import java.util.Properties;
+
 import org.adempiere.base.event.AbstractEventHandler;
 import org.adempiere.base.event.IEventTopics;
 import org.adempiere.model.POWrapper;
@@ -10,6 +12,7 @@ import org.compiere.model.PO;
 import org.compiere.util.Trx;
 import org.kenos.idempiere.lbr.bankslip.model.MLBRBankSlip;
 import org.kenos.idempiere.lbr.bankslip.model.MLBRBankSlipContract;
+import org.kenos.idempiere.lbr.base.TrxMonitorThread;
 import org.osgi.service.event.Event;
 
 /**
@@ -91,31 +94,38 @@ public class EventHandler extends AbstractEventHandler
 			if (!I_W_C_Invoice.LBR_PAYMENTRULE_BankSlip.equals(paymentRule) || LBR_BankSlipContract_ID < 1)
 				return;
 			
-			//	Generate bank slip
-			int count = MLBRBankSlip.getFromInvoice(nf.getCtx(), invoice.getC_Invoice_ID(), null).size();
-			if (count > 0)
-				return;	//	Already generated, do nothing
+			final Properties ctx = nf.getCtx();
+			final String trxName = nf.get_TrxName();
 			
-			String trxName = Trx.createTrxName("AutoGenBankSlip");
-			Trx trx = Trx.get(trxName, false);
+			TrxMonitorThread thread = new TrxMonitorThread ("GenBankSlip", trxName, 60, 10*1000) //	60x, 10secs each
+			{
+				@Override
+				public void callback() {
+					String trxName = Trx.createTrxName("AutoGenBankSlip");
+					Trx trx = Trx.get(trxName, false);
+					
+					try 
+					{
+						//	In case of a problem, do not stop NF processing
+						MLBRBankSlip.generateFromInvoice(ctx, invoice, trxName);
+						
+						//	Everything is good
+						trx.commit();
+					}
+					catch (Exception e)
+					{
+						trx.rollback();
+						e.printStackTrace();
+					}
+					finally 
+					{
+						trx.close();
+					}
+				}
+			};
 			
-			try 
-			{
-				//	In case of a problem, do not stop NF processing
-				MLBRBankSlip.generateFromInvoice(nf.getCtx(), invoice, trxName);
-				
-				//	Everything is good
-				trx.commit();
-			}
-			catch (Exception e)
-			{
-				trx.rollback();
-				e.printStackTrace();
-			}
-			finally 
-			{
-				trx.close();
-			}
+			//	Trx check
+			thread.start(); 
 		}
 		
 		//	Void Bank Slip, when possible
