@@ -12,6 +12,7 @@ import java.net.URL;
 import java.sql.Timestamp;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -19,6 +20,7 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.UUID;
 import java.util.logging.Level;
+import java.util.stream.Collectors;
 
 import javax.imageio.ImageIO;
 
@@ -40,6 +42,7 @@ import org.adempierelbr.util.NFeUtil;
 import org.adempierelbr.util.SignatureUtil;
 import org.adempierelbr.util.TextUtil;
 import org.adempierelbr.validator.VLBROrder;
+import org.adempierelbr.validator.ValidatorBPartner;
 import org.adempierelbr.wrapper.I_W_AD_OrgInfo;
 import org.adempierelbr.wrapper.I_W_C_BPartner;
 import org.apache.xmlbeans.XmlCalendar;
@@ -250,8 +253,32 @@ public class NFSeImpl implements INFSe
 			discriminacao = discriminacao.replace("\n", "|").replace("  ", "").trim();
 		tpRPS.setDiscriminacao(discriminacao);
 		//
-		if (nf.getLBR_EMailNFe() != null && nf.getLBR_EMailNFe().indexOf("@") > 1)
-			tpRPS.setEmailTomador(nf.getLBR_EMailNFe());
+		String eMailNFe = nf.getLBR_EMailNFe();
+		if (eMailNFe != null && !eMailNFe.isBlank())
+		{
+			//	Use ; as separator
+			eMailNFe = eMailNFe.trim().replace(" ", "").replace(",", ";");
+			
+			//	Check individual emails
+			eMailNFe = Arrays.asList(eMailNFe.split(";")).stream()
+				.filter(s -> s.matches(ValidatorBPartner.REGEX_EMAIL))
+				.collect(Collectors.joining(";"));
+			//
+			int mailLenght = 75;
+			if (eMailNFe.length() > mailLenght)
+			{
+				int count=0;
+				while (eMailNFe.length() > mailLenght && eMailNFe.indexOf(";") > 0)
+				{
+					if (count++ > 10)
+						break;
+					eMailNFe = eMailNFe.substring(0, eMailNFe.lastIndexOf(";"));
+				}
+			}
+			
+			if (eMailNFe.length() <= mailLenght)
+				tpRPS.setEmailTomador(eMailNFe);
+		}
 		
 		if (issRT.signum() == -1)
 			tpRPS.setISSRetido(true);
