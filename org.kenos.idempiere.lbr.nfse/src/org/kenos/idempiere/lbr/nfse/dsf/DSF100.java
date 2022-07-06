@@ -771,7 +771,14 @@ public class DSF100 implements INFSe
 		}
 		for (TpEvento erro : erros)
 		{
-			proccessErrors (ctx, trxName, "" + erro.getChaveRPS().getNumeroRPS(), erro.getCodigo() + "-" + erro.getDescricao(), AD_Org_ID);
+			//	Check for null
+			if (erro == null) continue;
+			//
+			int numeroRPS = 0;
+			if (erro.getChaveRPS() != null)
+				numeroRPS = erro.getChaveRPS().getNumeroRPS();
+			//
+			proccessErrors (ctx, trxName, "" + numeroRPS, erro.getCodigo() + "-" + erro.getDescricao(), AD_Org_ID);
 		}
 		for (TpConsultaNFSe chaves : chaveNFeRPS)
 		{
