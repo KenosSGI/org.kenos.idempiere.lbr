@@ -97,6 +97,11 @@ public class EventHandler extends AbstractEventHandler
 			final Properties ctx = nf.getCtx();
 			final String trxName = nf.get_TrxName();
 			
+			//	Generate bank slip
+			int count = MLBRBankSlip.getFromInvoice (ctx, invoice.getC_Invoice_ID(), null).size();
+			if (count > 0)
+				return;	//	Already generated, do nothing
+			
 			TrxMonitorThread thread = new TrxMonitorThread ("GenBankSlip", trxName, 60, 10*1000) //	60x, 10secs each
 			{
 				@Override
