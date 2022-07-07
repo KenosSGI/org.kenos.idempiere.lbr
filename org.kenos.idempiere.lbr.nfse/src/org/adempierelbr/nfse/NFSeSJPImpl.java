@@ -270,10 +270,11 @@ public class NFSeSJPImpl implements INFSe
 				.filter(s -> s.matches(ValidatorBPartner.REGEX_EMAIL))
 				.collect(Collectors.joining(";"));
 			//
+			
 			if (eMailNFe.length() > 80)
 			{
 				int count=0;
-				while (eMailNFe.length() > 60 && eMailNFe.indexOf(";") > 0)
+				while (eMailNFe.indexOf(";") > 0)
 				{
 					if (count++ > 10)
 						break;
