@@ -282,7 +282,11 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 
 		// Composição do Boleto - Banco do Brasil - Convênio 7 Posições
 		String accordNo = bsi.getLBR_AccordNo();
+		
+	
 		if (Integer.parseInt(bsi.getRoutingNo()) == BancoDoBrasil001.ROUNTING_NO)
+			numeroDaConta= new NumeroDaConta(Integer.valueOf (accordNo));
+		if(Integer.parseInt(bsi.getRoutingNo()) == CaixaEconomica104.ROUNTING_NO)
 			numeroDaConta= new NumeroDaConta(Integer.valueOf (accordNo));
 		else if (Integer.parseInt(bsi.getRoutingNo()) == 33)
 			numeroDaConta= new NumeroDaConta(Integer.valueOf (accordNo.substring(0, accordNo.length()-1)), accordNo.substring(accordNo.length()-1));
@@ -293,6 +297,8 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 			agencia = new Agencia(bsi.getAgency(), bankAgencyVD);
 		else
 			agencia = new Agencia(bsi.getAgency());
+		
+	
 		
 		contaBancaria.setAgencia(agencia);
 		contaBancaria.setNumeroDaConta(numeroDaConta);
@@ -339,7 +345,15 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 					bsi.getAgency() + " / " + 
 					bsi.getAccountNo() + "-" + bsi.getLBR_BankAccountVD());
 		}
-		
+		else if (Integer.parseInt(bsi.getRoutingNo()) == CaixaEconomica104.ROUNTING_NO)
+		{	
+			boleto.addTextosExtras("txtFcAgenciaCodigoCedente", 
+					bsi.getAgency() + " / " + 
+					bsi.getLBR_AccordNo() );
+			boleto.addTextosExtras("txtRsAgenciaCodigoCedente", 
+					bsi.getAgency() + " / " + 
+					bsi.getLBR_AccordNo());
+		}
 		return boleto;
 	}	//	getBankSlip
 	
