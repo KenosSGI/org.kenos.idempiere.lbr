@@ -271,7 +271,7 @@ public class NFSeSJPImpl implements INFSe
 				.collect(Collectors.joining(";"));
 			//
 			
-			if (eMailNFe.length() > 80)
+			if (eMailNFe.indexOf(";") > 0)
 			{
 				int count=0;
 				while (eMailNFe.indexOf(";") > 0)
