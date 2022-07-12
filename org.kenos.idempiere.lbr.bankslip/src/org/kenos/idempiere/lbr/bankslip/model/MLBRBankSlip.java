@@ -284,11 +284,12 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 		String accordNo = bsi.getLBR_AccordNo();
 		
 	
-		if (Integer.parseInt(bsi.getRoutingNo()) == BancoDoBrasil001.ROUNTING_NO)
+		int routingNo = Integer.parseInt(bsi.getRoutingNo());
+		if (routingNo == BancoDoBrasil001.ROUNTING_NO
+				|| routingNo == CaixaEconomica104.ROUNTING_NO)
 			numeroDaConta= new NumeroDaConta(Integer.valueOf (accordNo));
-		if(Integer.parseInt(bsi.getRoutingNo()) == CaixaEconomica104.ROUNTING_NO)
-			numeroDaConta= new NumeroDaConta(Integer.valueOf (accordNo));
-		else if (Integer.parseInt(bsi.getRoutingNo()) == 33)
+		
+		else if (routingNo == 33)
 			numeroDaConta= new NumeroDaConta(Integer.valueOf (accordNo.substring(0, accordNo.length()-1)), accordNo.substring(accordNo.length()-1));
 		
 		//	Bank Agency
@@ -327,7 +328,7 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 		boleto.setInstrucao7(bsi.getLBR_Instruction7());
 
 		// Composição do Boleto - Banco do Brasil - Convênio 7 Posições
-		if (Integer.parseInt(bsi.getRoutingNo()) == BancoDoBrasil001.ROUNTING_NO)
+		if (routingNo == BancoDoBrasil001.ROUNTING_NO)
 		{	
 			boleto.addTextosExtras("txtFcAgenciaCodigoCedente", 
 					bsi.getAgency() + "-" + bsi.getLBR_BankAgencyVD() + " / " + 
@@ -336,7 +337,7 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 					bsi.getAgency() + "-" + bsi.getLBR_BankAgencyVD() + " / " + 
 					bsi.getAccountNo() + "-" + bsi.getLBR_BankAccountVD());
 		}
-		else if (Integer.parseInt(bsi.getRoutingNo()) == 33)
+		else if (routingNo == 33)
 		{	
 			boleto.addTextosExtras("txtFcAgenciaCodigoCedente", 
 					bsi.getAgency() + " / " + 
@@ -345,7 +346,7 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 					bsi.getAgency() + " / " + 
 					bsi.getAccountNo() + "-" + bsi.getLBR_BankAccountVD());
 		}
-		else if (Integer.parseInt(bsi.getRoutingNo()) == CaixaEconomica104.ROUNTING_NO)
+		else if (routingNo == CaixaEconomica104.ROUNTING_NO)
 		{	
 			boleto.addTextosExtras("txtFcAgenciaCodigoCedente", 
 					bsi.getAgency() + " / " + 
@@ -599,13 +600,13 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 		{
 			if (Integer.parseInt(routingNo) == Bradesco237.ROUNTING_NO)
 				return TextUtil.lPad(numberInBank, 11);
+			
 			else if (Integer.parseInt(routingNo) == BancoDoBrasil001.ROUNTING_NO)		
-			{
-				return TextUtil.lPad(numberInBank,17);
-			}else if(Integer.parseInt(routingNo) == CaixaEconomica104.ROUNTING_NO)
-			{
-				return TextUtil.lPad(numberInBank,17);
-			}
+				return TextUtil.lPad(numberInBank, 17);
+
+			else if (Integer.parseInt(routingNo) == CaixaEconomica104.ROUNTING_NO)
+				return TextUtil.lPad(numberInBank, 15);
+
 			else
 				return numberInBank;
 		}
