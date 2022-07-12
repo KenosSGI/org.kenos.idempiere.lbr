@@ -58,6 +58,12 @@ public class CNABProcessorV2 implements ICNABProcessor
 				else if (tipo == 1 || tipo == 7)
 				{
 					Class<? extends IRecordDetail> recordDetail = Record1Detail.class;
+					if (tipo == 1) {
+						if (routingNo == 1)	//	BB
+							recordDetail = org.kenos.idempiere.lbr.bankslip.cnab400.bean.in.bb.Record1Detail.class;
+						else if (routingNo == 341)	//	Itau
+							recordDetail = org.kenos.idempiere.lbr.bankslip.cnab400.bean.in.itau.Record1Detail.class;
+					}
 					if (tipo == 7)
 						recordDetail = Record7Detail.class;
 					
@@ -74,6 +80,7 @@ public class CNABProcessorV2 implements ICNABProcessor
 		        	detail.setNumberInOrg(returnRecord.getCodIdentificacao());
 		        	detail.setOccurCod(returnRecord.getCodOcorrencia());
 		        	detail.setWriteOffAmt(returnRecord.getAbatimento());
+		        	detail.setBankChargeAmt(returnRecord.getValorDaTarifa());
 		        	detail.setLineNo(lineCount);
 		        	detail.setRoutingNo(String.valueOf(routingNo));	//	From header
 		        	detail.setDateFile(fileDate);					//	From header
@@ -82,7 +89,7 @@ public class CNABProcessorV2 implements ICNABProcessor
 				}
 			}
 		} 
-		catch ( Exception e ) 
+		catch ( Exception e )
 		{
 			throw new AdempiereException("Erro processando linha " + lineCount + ": " + e.getMessage(), e);
 		} 

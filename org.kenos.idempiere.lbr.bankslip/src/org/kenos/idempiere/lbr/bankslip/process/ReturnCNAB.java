@@ -236,6 +236,11 @@ public class ReturnCNAB extends SvrProcess
 			row.createCell(COL_TIPO).setCellValue(occur.get_DisplayValue(MLBRBankSlipOccur.COLUMNNAME_Type, true));
 		}
 		
+		//	Bank charge
+		BigDecimal bankChargeAmt = detail.getBankChargeAmt();
+		if (bankChargeAmt == null)
+			bankChargeAmt = Env.ZERO;
+		
 		// Creates a new movement for this file
 		MLBRBankSlipMov mov = new MLBRBankSlipMov(getCtx(), 0, get_TrxName());
 		mov.setLBR_BankSlip_ID(bankSlip.getLBR_BankSlip_ID());
@@ -248,6 +253,7 @@ public class ReturnCNAB extends SvrProcess
 		mov.setWriteOffAmt(detail.getWriteOffAmt());
 		mov.setLBR_InterestValue(detail.getInterest());
 		mov.setDueDate(detail.getDueDate());
+		mov.setChargeAmt(bankChargeAmt);
 
 		if (MLBRBankSlipOccur.TYPE_Liquidation.equals(mov.getType())) 
 		{

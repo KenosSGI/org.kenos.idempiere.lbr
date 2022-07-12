@@ -20,6 +20,7 @@ public class CNABDetail implements ICNABDetail {
 	BigDecimal discount;
 	BigDecimal interest;
 	BigDecimal writeOffAmt;
+	BigDecimal bankChargeAmt;
 	Integer lineNo;
 	public String getRoutingNo() {
 		return routingNo;
@@ -100,6 +101,12 @@ public class CNABDetail implements ICNABDetail {
 	}
 	public void setWriteOffAmt(BigDecimal writeOffAmt) {
 		this.writeOffAmt = writeOffAmt;
+	}
+	public BigDecimal getBankChargeAmt() {
+		return bankChargeAmt;
+	}
+	public void setBankChargeAmt(BigDecimal bankChargeAmt) {
+		this.bankChargeAmt = bankChargeAmt;
 	}
 	@Override
 	public String toString() {

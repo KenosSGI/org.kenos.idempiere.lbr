@@ -24,6 +24,7 @@ public class Record1Detail extends RecordBase implements IRecordDetail {
 	protected Date dataOcorrencia;
 	protected Date vencimento;
 	protected String noDocumento;
+	protected BigDecimal valorDaTarifa;
 	protected BigDecimal valorDoTitulo;
 	protected BigDecimal valorDoDesconto;
 	protected BigDecimal valorDoPagto;
@@ -106,5 +107,12 @@ public class Record1Detail extends RecordBase implements IRecordDetail {
 	}
 	public void setValorDoPagto(BigDecimal valorDoPagto) {
 		this.valorDoPagto = valorDoPagto;
+	}
+	@Field( offset = 176, length = 13 )
+	public BigDecimal getValorDaTarifa() {
+		return valorDaTarifa;
+	}
+	public void setValorDaTarifa(BigDecimal valorDaTarifa) {
+		this.valorDaTarifa = valorDaTarifa;
 	}
 }

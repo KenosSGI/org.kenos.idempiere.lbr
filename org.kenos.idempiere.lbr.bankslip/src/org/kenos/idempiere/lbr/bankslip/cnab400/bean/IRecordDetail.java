@@ -11,6 +11,7 @@ public interface IRecordDetail {
 	String getCodOcorrencia();
 	Date getDataOcorrencia();
 	Date getVencimento();
+	BigDecimal getValorDaTarifa();
 	BigDecimal getValorDoTitulo();
 	BigDecimal getValorDoDesconto();
 	BigDecimal getValorDosJuros();

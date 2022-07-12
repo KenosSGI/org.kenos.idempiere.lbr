@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 
 public interface ICNABDetail {
 	public BigDecimal getAmount();
+	public BigDecimal getBankChargeAmt();
 	public BigDecimal getDiscount();
 	public BigDecimal getInterest();
 	public BigDecimal getWriteOffAmt();
@@ -31,4 +32,5 @@ public interface ICNABDetail {
 	public void setOccurCod(String occurCod);
 	public void setWriteOffAmt(BigDecimal writeOffAmt);
 	public void setRoutingNo(String routingNo);
+	public void setBankChargeAmt(BigDecimal bankChargeAmt);
 }
