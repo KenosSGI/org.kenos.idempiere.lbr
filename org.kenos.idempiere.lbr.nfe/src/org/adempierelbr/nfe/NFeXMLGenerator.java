@@ -54,10 +54,12 @@ import org.compiere.model.MLocation;
 import org.compiere.model.MOrderLine;
 import org.compiere.model.MOrgInfo;
 import org.compiere.model.MProduct;
+import org.compiere.model.MSysConfig;
 import org.compiere.model.Query;
 import org.compiere.util.AdempiereUserError;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
+import org.kenos.idempiere.lbr.base.model.SysConfig;
 
 import br.inf.portalfiscal.nfe.v400.NFeDocument;
 import br.inf.portalfiscal.nfe.v400.TAmb;
@@ -678,7 +680,7 @@ public class NFeXMLGenerator
 		
 		//	Simples Nacional
 		if (regime != null && regime.equals("S"))
-			crt = "1";
+			crt = MSysConfig.getValue (SysConfig.LBR_SIMPLES_NACIONAL_CRT, "1", nf.getAD_Client_ID(), nf.getAD_Org_ID());
 		
 		emit.setCRT(InfNFe.Emit.CRT.Enum.forString (crt));
 		
