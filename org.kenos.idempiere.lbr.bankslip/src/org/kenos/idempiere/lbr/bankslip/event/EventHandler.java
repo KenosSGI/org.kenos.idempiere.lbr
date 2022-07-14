@@ -111,8 +111,10 @@ public class EventHandler extends AbstractEventHandler
 					
 					try 
 					{
-						//	In case of a problem, do not stop NF processing
-						MLBRBankSlip.generateFromInvoice(ctx, invoice, trxName);
+						//	Generate bank slip
+						int count = MLBRBankSlip.getFromInvoice (ctx, invoice.getC_Invoice_ID(), null).size();
+						if (count == 0)
+							MLBRBankSlip.generateFromInvoice(ctx, invoice, trxName);
 						
 						//	Everything is good
 						trx.commit();
