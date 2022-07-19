@@ -161,8 +161,8 @@ public class SignatureUtil
 	 */
 	private void loadKeys (MOrgInfo oi) throws Exception
 	{
-		Integer cert_ID = (Integer) oi.get_Value("LBR_DC_Org_ID");
-		MLBRDigitalCertificate dc = new MLBRDigitalCertificate(Env.getCtx(), cert_ID, null);
+		MLBRDigitalCertificate dc = MLBRDigitalCertificate.getCertificate (Env.getCtx(), oi.getAD_Org_ID());
+		
 		alias = dc.getAlias();
 		senha = dc.getPassword().toCharArray();			
 		//
