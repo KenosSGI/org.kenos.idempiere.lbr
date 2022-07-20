@@ -5050,7 +5050,7 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 			{
 				Integer documentNo = Integer.valueOf(getDocumentNo()) + 1;
 				MSequence sequence = getNextSequence ();
-				if (sequence != null && documentNo.intValue() == sequence.getCurrentNext())
+				if (sequence != null && documentNo.intValue() == sequence.getCurrentNext() && islbr_IsOwnDocument())
 				{
 					sequence.setCurrentNext(sequence.getCurrentNext()-1);
 					sequence.save();
