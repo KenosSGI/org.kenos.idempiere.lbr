@@ -10,8 +10,8 @@ import org.compiere.util.Env;
 import org.kenos.idempiere.lbr.bankslip.ICNABGenerator;
 import org.kenos.idempiere.lbr.bankslip.cnab400.bean.CNAB400;
 import org.kenos.idempiere.lbr.bankslip.cnab400.bean.Record9Trailer;
-import org.kenos.idempiere.lbr.bankslip.cnab400.bean.Itau.Record0Header;
-import org.kenos.idempiere.lbr.bankslip.cnab400.bean.out.Itau.Record1Detail;
+import org.kenos.idempiere.lbr.bankslip.cnab400.bean.BancoFibra.Record0Header;
+import org.kenos.idempiere.lbr.bankslip.cnab400.bean.out.BancoFibra.Record1Detail;
 import org.kenos.idempiere.lbr.bankslip.model.MLBRBankSlip;
 import org.kenos.idempiere.lbr.bankslip.model.MLBRBankSlipInfo;
 import org.kenos.idempiere.lbr.bankslip.model.MLBRBankSlipMov;
@@ -22,12 +22,12 @@ import org.kenos.idempiere.lbr.bankslip.model.MLBRCNABFile;
  * 	Generate CNAB for Itau Bank
  * 	@author Ricardo Santana
  */
-public class Itau341v2 implements ICNABGenerator
+public class BancoFibra224v2 implements ICNABGenerator
 {
 	public static final String VERSION = "2.00";
 	
 	/**	Bank Routing Number	*/
-	public static final int ROUNTING_NO = 341;
+	public static final int ROUNTING_NO = 224;
 	
 	/** Org BP Type				*/
 	private static final Integer BPTYPE_CPF_BENEFICIARIO 		= 1;
@@ -42,7 +42,7 @@ public class Itau341v2 implements ICNABGenerator
 	/** Aceite				*/
 	private static final String IS_ACCEPTED 	= "A";
 	private static final String NOT_ACCEPTED 	= "N";
-	
+
 	/**
 	 * 	Generate CNAB File
 	 */
@@ -61,7 +61,9 @@ public class Itau341v2 implements ICNABGenerator
 			MLBRBankSlip bs 		= line.getBankSlip();
 			MLBRBankSlipInfo bsi 	= line.getBankSlipInfo();
 			//
-			Record1Detail detail = new Record1Detail();
+			Record1Detail detail =  new Record1Detail();
+			
+			
 			
 			Integer orgBPTypeBR = BPTYPE_CNPJ_BENEFICIARIO;
 			String orgCNPJF = bsi.getlbr_CNPJ();
@@ -122,16 +124,15 @@ public class Itau341v2 implements ICNABGenerator
 
 			detail.setCodInscricaoEmpresa(orgBPTypeBR);
 			detail.setNumInscricaoEmpresa(orgCNPJF);
-			detail.setAgencia(cnabFile.getAgencyNoAsInt());
-			detail.setConta(cnabFile.getAccountNoAsInt());
-			detail.setDac(cnabFile.getAccountVDAsInt());
-			detail.setNossoNumero(bs.getLBR_NumberInBank());
-			detail.setNumCarteira(bsi.getLBR_BankSlipFoldValue());
+			detail.setCodEmpresa(cnabFile.getLBR_BankSlipContract().getLBR_AccordNo());
+			detail.setUsoDaEmpresa(bs.getLBR_NumberInOrg());
 			detail.setCodCarteira(bsi.getLBR_BankSlipFoldCode());
-			detail.setValorDoTitulo(bs.getGrandTotal());
+			detail.setCodMulta(0);
+			detail.setValMulta("0");
+			detail.setNumDias(0);
+			detail.setNossoNumero(bs.getLBR_NumberInBank());
 			detail.setCodOcorrencia(mov.getValue());
-			detail.setCodIdentificacao(bs.getIdentifier());
-
+			
 			String movType = mov.getType();
 			
 			//	Modificar vencimento
@@ -162,6 +163,7 @@ public class Itau341v2 implements ICNABGenerator
 			{
 				detail.setNoDocumento(bs.getLBR_NumberInOrg());
 				detail.setVencimento(bs.getDueDate());
+				detail.setValorDoTitulo(bs.getGrandTotal());
 				detail.setCodigoDoBanco(cnabFile.getRoutingNoAsInt());
 				detail.setEspecie(convertKind (bsi.getLBR_BankSlipKindCode()));
 				detail.setAceite(accepted);
@@ -180,6 +182,8 @@ public class Itau341v2 implements ICNABGenerator
 				detail.setCidade(bsi.getlbr_BPCity());
 				detail.setEstado(bsi.getlbr_BPRegion());
 				detail.setSacadorAvalista(bsi.getLBR_GuarantorBPName());
+				detail.setPrazo(0);
+				detail.setCodMoeda(0);
 			}
 			//
 			cnab400.addRegistro(detail);
