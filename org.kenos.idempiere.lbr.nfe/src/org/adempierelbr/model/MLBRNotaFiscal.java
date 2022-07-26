@@ -5058,7 +5058,7 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 					lastNF = true;
 				}
 				else {
-					if (MSysConfig.getBooleanValue(SysConfig.LBR_FIX_DOCUMENTNO_NOT_SENT_NFSE, false, Env.getAD_Client_ID(Env.getCtx())))
+					if (MSysConfig.getBooleanValue(SysConfig.LBR_FIX_DOCUMENTNO_NOT_SENT_NFSE, false, Env.getAD_Client_ID(Env.getCtx())) && islbr_IsOwnDocument())
 					{
 						fixDocSequence();
 					}
