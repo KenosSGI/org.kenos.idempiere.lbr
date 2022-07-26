@@ -1,4 +1,4 @@
-package org.kenos.idempiere.lbr.bankslip.cnab400.bean.CaixaEconomica;
+package org.kenos.idempiere.lbr.bankslip.cnab400.bean.caixa;
 
 import org.adempiere.model.POWrapper;
 import org.adempierelbr.wrapper.I_W_AD_OrgInfo;

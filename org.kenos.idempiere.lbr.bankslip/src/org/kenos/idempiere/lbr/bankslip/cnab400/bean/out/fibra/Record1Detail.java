@@ -1,4 +1,4 @@
-package org.kenos.idempiere.lbr.bankslip.cnab400.bean.out.BancoFibra;
+package org.kenos.idempiere.lbr.bankslip.cnab400.bean.out.fibra;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;

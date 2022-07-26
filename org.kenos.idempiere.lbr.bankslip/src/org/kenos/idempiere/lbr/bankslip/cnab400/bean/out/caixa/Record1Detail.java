@@ -1,4 +1,4 @@
-package org.kenos.idempiere.lbr.bankslip.cnab400.bean.out.CaixaEconomica;
+package org.kenos.idempiere.lbr.bankslip.cnab400.bean.out.caixa;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
