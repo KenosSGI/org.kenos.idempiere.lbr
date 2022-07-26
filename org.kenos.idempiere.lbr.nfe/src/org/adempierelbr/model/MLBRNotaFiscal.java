@@ -5146,6 +5146,7 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 				MLBRNotaFiscal.COLUMNNAME_AD_Org_ID + "=? AND " +
 				MLBRNotaFiscal.COLUMNNAME_DocStatus + " IN ('DR', 'IP', 'IN') AND " +
 				MLBRNotaFiscal.COLUMNNAME_DocumentNo + " ~ '^[0-9]*$' AND " +
+				MLBRNotaFiscal.COLUMNNAME_lbr_IsOwnDocument + "='Y' AND" + 
 				MLBRNotaFiscal.COLUMNNAME_DocumentNo + "::integer >? " ;
 		
 		int[] ids = new Query (ctx, MLBRNotaFiscal.Table_Name, where, trxName)
