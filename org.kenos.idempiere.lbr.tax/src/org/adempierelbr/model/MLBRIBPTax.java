@@ -90,10 +90,26 @@ public class MLBRIBPTax extends X_LBR_IBPTax
 	 */
 	public static MLBRIBPTax getByNCM (Properties ctx, int C_Region_ID, int LBR_NCM_ID, Timestamp dateTrx, String trxName)
 	{
+		return getByNCM (ctx, 0, C_Region_ID, LBR_NCM_ID, dateTrx, trxName);
+	}	//	get
+	
+	/**
+	 * 		Get IBPT (Global Search)
+	 * @author Ricardo Santana (Kenos, www.kenos.com.br)
+	 * @param ctx
+	 * @param LBR_NCM_ID
+	 * @param dateTrx
+	 * @param trxName
+	 * @return
+	 */
+	public static MLBRIBPTax getByNCM (Properties ctx, int AD_Org_ID, int C_Region_ID, int LBR_NCM_ID, Timestamp dateTrx, String trxName)
+	{
 		String sql = "AD_Client_ID IN (0, ?)"
 				+ " AND LBR_NCM_ID=?"
 				+ " AND ValidFrom<=" + DB.TO_DATE (dateTrx) 
 				+ " AND (ValidTo IS NULL OR ValidTo>= " + DB.TO_DATE (dateTrx) + ")";
+		if (AD_Org_ID > 0)
+			sql += " AND AD_Org_ID=" + AD_Org_ID;
 		//
 		return new Query (ctx, Table_Name, sql, trxName)
 			.setParameters (new Object[]{Env.getAD_Client_ID(ctx), LBR_NCM_ID})
