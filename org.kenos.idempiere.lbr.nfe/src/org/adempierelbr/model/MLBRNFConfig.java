@@ -11,6 +11,11 @@ import org.compiere.util.Msg;
 
 public class MLBRNFConfig extends X_LBR_NFConfig
 {
+	/**
+	 * 	Serial
+	 */
+	private static final long serialVersionUID = 4939937317639019135L;
+
 	/**************************************************************************
 	 *  Default Constructor
 	 *  @param Properties ctx

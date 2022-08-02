@@ -102,20 +102,20 @@ public class MLBRADI extends X_LBR_ADI
 		if (getlbr_SISCOMEXAmt() == null
 				|| Env.ZERO.compareTo(getlbr_SISCOMEXAmt()) == 0)
 		{
-			BigDecimal siscomex = new BigDecimal (2.95);
+			BigDecimal siscomex = new BigDecimal (3.86);
 			//
 			int seq = getSeqNo();
 			//
 			if (seq <= 2)
-				siscomex = new BigDecimal (29.5);
+				siscomex = new BigDecimal (38.56);
 			else if (seq <= 5)
-				siscomex = new BigDecimal (23.6);
+				siscomex = new BigDecimal (30.85);
 			else if (seq <= 10)
-				siscomex = new BigDecimal (17.7);
+				siscomex = new BigDecimal (23.14);
 			else if (seq <= 20)
-				siscomex = new BigDecimal (11.8);
+				siscomex = new BigDecimal (15.42);
 			else if (seq <= 50)
-				siscomex = new BigDecimal (5.9);
+				siscomex = new BigDecimal (7.71);
 			//
 			setlbr_SISCOMEXAmt(siscomex);
 		}

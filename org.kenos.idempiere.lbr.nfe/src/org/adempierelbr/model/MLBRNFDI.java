@@ -14,6 +14,11 @@ import org.compiere.util.Msg;
  */
 public class MLBRNFDI extends X_LBR_NFDI
 {
+	/**
+	 * 	Serial
+	 */
+	private static final long serialVersionUID = -4687968262981743986L;
+
 	/**************************************************************************
 	 *  Default Constructor
 	 *  @param Properties ctx

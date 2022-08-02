@@ -907,7 +907,7 @@ public class ImportOrder extends SvrProcess
 			di.setBPartnerValue(ol.getC_BPartner().getValue());
 			di.setDateDoc(ol.getDateOrdered());
 			di.setDateTrx(ol.getDateOrdered());
-			di.setlbr_SISCOMEXAmt(new BigDecimal (185));	//	FIXME
+			di.setlbr_SISCOMEXAmt(new BigDecimal (115.67));	//	FIXME
 			di.save();
 		}
 		
