@@ -10,7 +10,11 @@ import org.compiere.util.Env;
 
 public class MLBRNFConfigSVC extends X_LBR_NFConfig_SVC
 {
-	
+	/**
+	 * 	Serial
+	 */
+	private static final long serialVersionUID = -5819220864612788066L;
+
 	/**************************************************************************
 	 *  Default Constructor
 	 *  @param Properties ctx
