@@ -47,7 +47,18 @@ public class SalesFields implements IColumnCallout
 			
 			//	Description
 			if (bpW.getlbr_NFDescription() != null)
-				mTab.setValue(I_W_C_BPartner.COLUMNNAME_lbr_NFDescription, bpW.getlbr_NFDescription());
+			{
+				String nfDescription = (String) mTab.getValue(I_W_C_BPartner.COLUMNNAME_lbr_NFDescription);
+				if (nfDescription == null || nfDescription.isBlank())
+					nfDescription = "";
+				else
+					nfDescription += ". ";
+				
+				//	Do not duplicate
+				if (nfDescription.indexOf(bpW.getlbr_NFDescription()) == -1)
+					nfDescription += bpW.getlbr_NFDescription();
+				mTab.setValue(I_W_C_BPartner.COLUMNNAME_lbr_NFDescription, nfDescription);
+			}
 			
 			//	Freight Cost Rule
 			if (bpW.getLBR_FreightCostRule() != null)
