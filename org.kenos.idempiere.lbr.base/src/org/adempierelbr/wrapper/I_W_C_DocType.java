@@ -1,6 +1,7 @@
 /******************************************************************************
- * Product: iDempiere ERP & CRM Smart Business Solution                       *
- * Copyright (C) 1999-2012 ComPiere, Inc. All Rights Reserved.                *
+ * Product: Kenos iDempiere ERP & CRM Smart Business Solution                 *
+ * Copyright (C) 1999-2022 Kenos, Ltda. All Rights Reserved.                  *
+ * Copyright (C) 1999-2022 Ricardo Santana. All Rights Reserved.              *
  * This program is free software, you can redistribute it and/or modify it    *
  * under the terms version 2 of the GNU General Public License as published   *
  * by the Free Software Foundation. This program is distributed in the hope   *
@@ -16,23 +17,14 @@
  *****************************************************************************/
 package org.adempierelbr.wrapper;
 
-import java.math.BigDecimal;
 import org.compiere.model.*;
-import org.compiere.util.KeyNamePair;
 
 /** Generated Interface for C_DocType
- *  @author iDempiere (generated) 
- *  @version Release 4.1
+ *  @author Ricardo Santana
+ *  @version Release 6.2
  */
-@SuppressWarnings("all")
 public interface I_W_C_DocType extends I_C_DocType 
 {
-
-    /** TableName=C_DocType */
-    public static final String Table_Name = "C_DocType";
-
-    /** AD_Table_ID=217 */
-    public static final int Table_ID = 217;
 
 
     /** Column name LBR_DocTypeMovement_ID */
@@ -48,7 +40,7 @@ public interface I_W_C_DocType extends I_C_DocType
 	  */
 	public int getLBR_DocTypeMovement_ID();
 
-	public org.compiere.model.I_C_DocType getLBR_DocTypeMovement() throws RuntimeException;
+	public I_C_DocType getLBR_DocTypeMovement() throws RuntimeException;
 
     /** Column name LBR_DocTypeNF_ID */
     public static final String COLUMNNAME_LBR_DocTypeNF_ID = "LBR_DocTypeNF_ID";
@@ -63,7 +55,20 @@ public interface I_W_C_DocType extends I_C_DocType
 	  */
 	public int getLBR_DocTypeNF_ID();
 
-	public org.compiere.model.I_C_DocType getLBR_DocTypeNF() throws RuntimeException;
+	public I_C_DocType getLBR_DocTypeNF() throws RuntimeException;
+
+    /** Column name LBR_IsSalesPurchaseOperation */
+    public static final String COLUMNNAME_LBR_IsSalesPurchaseOperation = "LBR_IsSalesPurchaseOperation";
+
+	/** Set Sales/Purchase Operation.
+	  * Used to set Sales/Purchase Operation
+	  */
+	public void setLBR_IsSalesPurchaseOperation (boolean LBR_IsSalesPurchaseOperation);
+
+	/** Get Sales/Purchase Operation.
+	  * Used to set Sales/Purchase Operation
+	  */
+	public boolean isLBR_IsSalesPurchaseOperation();
 
     /** Column name M_Warehouse_ID */
     public static final String COLUMNNAME_M_Warehouse_ID = "M_Warehouse_ID";
@@ -78,10 +83,26 @@ public interface I_W_C_DocType extends I_C_DocType
 	  */
 	public int getM_Warehouse_ID();
 
-	public org.compiere.model.I_M_Warehouse getM_Warehouse() throws RuntimeException;
+	public I_M_Warehouse getM_Warehouse() throws RuntimeException;
+
+    /** Column name lbr_CFOPNote */
+    public static final String COLUMNNAME_lbr_CFOPNote = "lbr_CFOPNote";
+
+	/** Set CFOP Note.
+	  * Defines the CFOP Note
+	  */
+	public void setlbr_CFOPNote (String lbr_CFOPNote);
+
+	/** Get CFOP Note.
+	  * Defines the CFOP Note
+	  */
+	public String getlbr_CFOPNote();
 
     /** Column name lbr_DocBaseType */
     public static final String COLUMNNAME_lbr_DocBaseType = "lbr_DocBaseType";
+
+	/** lbr_DocBaseType AD_Reference_ID=1000043 */
+	public static final int LBR_DOCBASETYPE_AD_Reference_ID=1000043;
 
 	/** Consignation Sales Order = OVEC- */
 	public static final String LBR_DOCBASETYPE_ConsignationSalesOrder = "OVEC-";
@@ -92,7 +113,7 @@ public interface I_W_C_DocType extends I_C_DocType
 	/** Consignation Invoice = FAEC- */
 	public static final String LBR_DOCBASETYPE_ConsignationInvoice = "FAEC-";
 
-	/** Consignation return sales order = OVRC+ */
+	/** Consignation Return Sales Order = OVRC+ */
 	public static final String LBR_DOCBASETYPE_ConsignationReturnSalesOrder = "OVRC+";
 
 	/** Consignation Return Shipment = EXRC+ */
@@ -130,6 +151,69 @@ public interface I_W_C_DocType extends I_C_DocType
 
 	/** Sales Order Other Out = OVOS- */
 	public static final String LBR_DOCBASETYPE_SalesOrderOtherOut = "OVOS-";
+
+	/** Industrialization Shipment = EXEI- */
+	public static final String LBR_DOCBASETYPE_IndustrializationShipment = "EXEI-";
+
+	/** Industrialization Sales Order = OVEI- */
+	public static final String LBR_DOCBASETYPE_IndustrializationSalesOrder = "OVEI-";
+
+	/** Industrialization Return Sales Order = OVRI+ */
+	public static final String LBR_DOCBASETYPE_IndustrializationReturnSalesOrder = "OVRI+";
+
+	/** Industrialization Invoice = FAEI- */
+	public static final String LBR_DOCBASETYPE_IndustrializationInvoice = "FAEI-";
+
+	/** Industrialization Return Shipment = EXRI+ */
+	public static final String LBR_DOCBASETYPE_IndustrializationReturnShipment = "EXRI+";
+
+	/** Industrialization Return Invoice = FARI+ */
+	public static final String LBR_DOCBASETYPE_IndustrializationReturnInvoice = "FARI+";
+
+	/** Transfer Out Invoice = FAET- */
+	public static final String LBR_DOCBASETYPE_TransferOutInvoice = "FAET-";
+
+	/** Transfer In Invoice = FART+ */
+	public static final String LBR_DOCBASETYPE_TransferInInvoice = "FART+";
+
+	/** Transfer Shipment = EXET- */
+	public static final String LBR_DOCBASETYPE_TransferShipment = "EXET-";
+
+	/** Transfer Receipt = EXRT+ */
+	public static final String LBR_DOCBASETYPE_TransferReceipt = "EXRT+";
+
+	/** Sales Order Future Deliveries = OVEF- */
+	public static final String LBR_DOCBASETYPE_SalesOrderFutureDeliveries = "OVEF-";
+
+	/** Sales Order Triangular Transaction = OVOT- */
+	public static final String LBR_DOCBASETYPE_SalesOrderTriangularTransaction = "OVOT-";
+
+	/** Simple Invoice due Future Deliveries = FASF- */
+	public static final String LBR_DOCBASETYPE_SimpleInvoiceDueFutureDeliveries = "FASF-";
+
+	/** Movement Out Transfer = MMST- */
+	public static final String LBR_DOCBASETYPE_MovementOutTransfer = "MMST-";
+
+	/** Movement In Transfer = MMET+ */
+	public static final String LBR_DOCBASETYPE_MovementInTransfer = "MMET+";
+
+	/** Movement Out Storage in 3rd Party = MMSA- */
+	public static final String LBR_DOCBASETYPE_MovementOutStorageIn3rdParty = "MMSA-";
+
+	/** Movement In Storage in 3rd Party = MMEA+ */
+	public static final String LBR_DOCBASETYPE_MovementInStorageIn3rdParty = "MMEA+";
+
+	/** Sales Order Standard = OVPD- */
+	public static final String LBR_DOCBASETYPE_SalesOrderStandard = "OVPD-";
+
+	/** Purchase Order Standard = OCPD- */
+	public static final String LBR_DOCBASETYPE_PurchaseOrderStandard = "OCPD-";
+
+	/** Nota Fiscal Shipment = NFSR- */
+	public static final String LBR_DOCBASETYPE_NotaFiscalShipment = "NFSR-";
+
+	/** Nota Fiscal Receipt = NFSR+ */
+	public static final String LBR_DOCBASETYPE_NotaFiscalReceipt = "NFSR+";
 
 
 	/** Set LBR DocBaseType.
@@ -194,6 +278,19 @@ public interface I_W_C_DocType extends I_C_DocType
 	  */
 	public boolean islbr_IsAutomaticInvoice();
 
+    /** Column name lbr_IsAutomaticNF */
+    public static final String COLUMNNAME_lbr_IsAutomaticNF = "lbr_IsAutomaticNF";
+
+	/** Set Automatic NF.
+	  * Identifies if this Document generates Eletronic NF automatically
+	  */
+	public void setlbr_IsAutomaticNF (boolean lbr_IsAutomaticNF);
+
+	/** Get Automatic NF.
+	  * Identifies if this Document generates Eletronic NF automatically
+	  */
+	public boolean islbr_IsAutomaticNF();
+
     /** Column name lbr_IsAutomaticShipment */
     public static final String COLUMNNAME_lbr_IsAutomaticShipment = "lbr_IsAutomaticShipment";
 
@@ -223,13 +320,23 @@ public interface I_W_C_DocType extends I_C_DocType
     /** Column name lbr_IsOwnDocument */
     public static final String COLUMNNAME_lbr_IsOwnDocument = "lbr_IsOwnDocument";
 
-	/** Set Is Own Document.
-	  * Identifies this is an own document
+	/** lbr_IsOwnDocument AD_Reference_ID=1120397 */
+	public static final int LBR_ISOWNDOCUMENT_AD_Reference_ID=1120397;
+
+	/** Issued by us (own document) = Y */
+	public static final String LBR_ISOWNDOCUMENT_IssuedByUsOwnDocument = "Y";
+
+	/** Issued by 3rd party = N */
+	public static final String LBR_ISOWNDOCUMENT_IssuedBy3rdParty = "N";
+
+
+	/** Set Doc Issued By.
+	  * Identifies this is issued by the company or by 3rd party 
 	  */
 	public void setlbr_IsOwnDocument (String lbr_IsOwnDocument);
 
-	/** Get Is Own Document.
-	  * Identifies this is an own document
+	/** Get Doc Issued By.
+	  * Identifies this is issued by the company or by 3rd party 
 	  */
 	public String getlbr_IsOwnDocument();
 
@@ -246,8 +353,24 @@ public interface I_W_C_DocType extends I_C_DocType
 	  */
 	public boolean islbr_IsReturn();
 
+    /** Column name lbr_NFDescription */
+    public static final String COLUMNNAME_lbr_NFDescription = "lbr_NFDescription";
+
+	/** Set Nota Fiscal Description.
+	  * Description Printed on Nota Fiscal
+	  */
+	public void setlbr_NFDescription (String lbr_NFDescription);
+
+	/** Get Nota Fiscal Description.
+	  * Description Printed on Nota Fiscal
+	  */
+	public String getlbr_NFDescription();
+
     /** Column name lbr_NFModel */
     public static final String COLUMNNAME_lbr_NFModel = "lbr_NFModel";
+
+	/** lbr_NFModel AD_Reference_ID=1120009 */
+	public static final int LBR_NFMODEL_AD_Reference_ID=1120009;
 
 	/** Nota Fiscal = 01 */
 	public static final String LBR_NFMODEL_NotaFiscal = "01";
@@ -348,8 +471,11 @@ public interface I_W_C_DocType extends I_C_DocType
 	/** Nota Fiscal de Serviços Eletrônica (RPS) = S1 */
 	public static final String LBR_NFMODEL_NotaFiscalDeServiçosEletrônicaRPS = "S1";
 
-	/** Nota Fiscal de Consumidor Eletrônica = 56 */
-	public static final String LBR_NFMODEL_NotaFiscalDeConsumidorEletrônica = "56";
+	/** Nota Fiscal de Consumidor Eletrônica = 65 */
+	public static final String LBR_NFMODEL_NotaFiscalDeConsumidorEletrônica = "65";
+
+	/** Recibo Provisório de Serviço = RS */
+	public static final String LBR_NFMODEL_ReciboProvisórioDeServiço = "RS";
 
 
 	/** Set NF Model.
@@ -374,6 +500,9 @@ public interface I_W_C_DocType extends I_C_DocType
     /** Column name lbr_NFeTpEmi */
     public static final String COLUMNNAME_lbr_NFeTpEmi = "lbr_NFeTpEmi";
 
+	/** lbr_NFeTpEmi AD_Reference_ID=1120035 */
+	public static final int LBR_NFETPEMI_AD_Reference_ID=1120035;
+
 	/** Normal = 1 */
 	public static final String LBR_NFETPEMI_Normal = "1";
 
@@ -395,17 +524,4 @@ public interface I_W_C_DocType extends I_C_DocType
 
 	/** Get Tipo de Emissão NFe	  */
 	public String getlbr_NFeTpEmi();
-	
-	/** Column name lbr_IsAutomaticNF */
-    public static final String COLUMNNAME_lbr_IsAutomaticNF = "lbr_IsAutomaticNF";
-
-	/** Set Automatic NF.
-	  * Identifies if this Document generates Eletronic NF automatically
-	  */
-	public void setlbr_IsAutomaticNF (boolean lbr_IsAutomaticNF);
-
-	/** Get Automatic NF.
-	  * Identifies if this Document generates Eletronic NF automatically
-	  */
-	public boolean islbr_IsAutomaticNF();
 }
