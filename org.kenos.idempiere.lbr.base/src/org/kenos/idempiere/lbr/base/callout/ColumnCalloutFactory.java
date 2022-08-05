@@ -41,6 +41,8 @@ public class ColumnCalloutFactory implements IColumnCalloutFactory
 		}
 		else if (MOrder.Table_Name.equals(tableName))
 		{
+			if (TextUtil.match (columnName, MOrder.COLUMNNAME_C_DocTypeTarget_ID))
+				callouts.add (new DocType ());
 			if (TextUtil.match (columnName, MOrder.COLUMNNAME_C_BPartner_ID))
 				callouts.add (new SalesFields ());
 			if (TextUtil.match (columnName, MOrder.COLUMNNAME_C_BPartner_Location_ID))
