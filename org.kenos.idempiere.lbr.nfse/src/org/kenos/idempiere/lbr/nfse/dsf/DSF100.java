@@ -393,7 +393,7 @@ public class DSF100 implements INFSe
 			descricaoServico = "Prestação de Serviços";
 		else
 			descricaoServico = descricaoServico.replace("\n", "|").replace("  ", "").trim();
-		tpRPS.setDescricaoRPS(Util.deleteAccents(descricaoServico));
+		tpRPS.setDescricaoRPS(Util.deleteAccents(descricaoServico.replace("–","-")));
 		//
 		if (eMailNFe != null && eMailNFe.indexOf("@") > 1)
 			tpRPS.setEmailTomador(eMailNFe.trim());
