@@ -209,6 +209,7 @@ public class ConsultaCadastro extends SvrProcess
 				.append ("<br /><br /><b>Credeciamento NF-e: </b>").append (ConsultaCadastro.translateIndCredNFe (infCad.getIndCredNFe()))
 				.append ("<br /><b>Credenciamento CT-e: </b>").append (ConsultaCadastro.translateIndCredCTe (infCad.getIndCredCTe()))
 				.append ("<br /><br /><b>Regime de Apuração: </b>").append (xRegApur)
+				.append ("<br /><br /><b>Data Início Atividade: </b>").append (infCad.getDIniAtiv())
 				.append ("<br /><b>CNAE: </b>").append (xCNAE)
 				.append ("<br /><b>IE: </b>").append (infCad.getIE())
 				.append ("<br /><b>IE (Única): </b>").append (infCad.getIEUnica())
