@@ -2061,8 +2061,8 @@ public class NFSeSJPImpl implements INFSe
 	 */
 	public boolean cancel (MLBRNotaFiscal nf)
 	{
-		if (nf.getlbr_NFENo() == null)
-			return false;
+		//if (nf.getlbr_NFENo() == null)
+		//	return false;
 		
 		/*A operação de cancelamento existe e está implantanda porém o decreto municipal número 1852
 		 *impede o cancelamento da nota via webservices, apenas no site, mediante aprovação do fisco.
@@ -2140,7 +2140,7 @@ public class NFSeSJPImpl implements INFSe
 			throw new AdempiereException(e.getMessage());
 		}	
 		*/
-		return false;
+		return true;
 	}	//	cancel
 
 	@SuppressWarnings("unused")
