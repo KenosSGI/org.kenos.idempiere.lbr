@@ -539,7 +539,7 @@
 				<textElement>
 					<font fontName="Arial" size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Descrição:" + TextUtil.retiraEspecial($F{DescricaoRPS}.replaceAll( ";", "\n"))]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Descrição:" + ($F{DescricaoRPS}.replaceAll( ";", "\n"))]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="66" y="138" width="489" height="10" uuid="5cc56d52-0d40-40c2-89a8-3cde1263c4b2"/>
