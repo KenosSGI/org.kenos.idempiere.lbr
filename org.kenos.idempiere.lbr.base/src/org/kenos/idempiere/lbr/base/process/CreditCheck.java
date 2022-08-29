@@ -87,7 +87,7 @@ public class CreditCheck extends SvrProcess
 		//	Close group
 		where += ")";
 		
-		int[] ids = new Query (getCtx(), MBPartner.Table_Name, "SOCreditStatus!='S' AND " + where, get_TrxName()).setClient_ID().getIDs();
+		int[] ids = new Query (getCtx(), MBPartner.Table_Name, "SOCreditStatus NOT IN ('X','S') AND " + where, get_TrxName()).setClient_ID().getIDs();
 		for (int id : ids)
 		{
 			MBPartner bp = new MBPartner (getCtx(), id, get_TrxName());

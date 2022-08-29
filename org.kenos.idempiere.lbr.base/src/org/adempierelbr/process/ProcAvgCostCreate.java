@@ -44,7 +44,7 @@ public class ProcAvgCostCreate extends SvrProcess
 
 	private int	   p_LBR_AverageCost_ID = 0;
 	private String costType = "";
-	private boolean prodBased = true;
+	private boolean productionBased = true;
 	private final String  MANUFACTURED = X_LBR_AverageCostLine.LBR_AVGCOSTTYPE_Manufactured;
 	private final String  PUCHASED     = X_LBR_AverageCostLine.LBR_AVGCOSTTYPE_Purchased;
 	
@@ -64,7 +64,7 @@ public class ProcAvgCostCreate extends SvrProcess
 			else if (name.equals("lbr_AvgCostType"))
 				costType = (String) para[i].getParameter();
 			else if (name.equals("LBR_ProductionBased"))
-				prodBased = para[i].getParameterAsBoolean();
+				productionBased = para[i].getParameterAsBoolean();
 			else
 				log.log(Level.SEVERE, "Unknown Parameter: " + name);
 		}
@@ -201,7 +201,7 @@ public class ProcAvgCostCreate extends SvrProcess
 				BigDecimal oldCost = Env.ZERO;
 				Boolean allLevelsOK = false;
 				
-				String sqlBOM = "UPDATE LBR_AverageCostLine SET CumulatedAmt = " +
+				String sqlBOM = "UPDATE LBR_AverageCostLine SET CumulatedAmt = CumulatedQty*" +
 								" (SELECT SUM(QtyBOM * COALESCE(ccust.FutureCostPrice, ocust.CurrentCostPrice, 0)) " +
 									"FROM LBR_AverageCostLine cl " +
 									"INNER JOIN RV_BOMLine bom ON (bom.M_Product_ID=cl.M_Product_ID) " +
@@ -211,8 +211,8 @@ public class ProcAvgCostCreate extends SvrProcess
 									"AND NOT EXISTS (SELECT '1' FROM M_Product p WHERE p.M_Product_ID = bom.TM_Product_ID AND p.isBOM = 'Y'::BPCHAR) " +
 								") WHERE LBR_AverageCost_ID=? AND LBR_AvgCostType='M'";
 				
-				String sqlProd = "UPDATE LBR_AverageCostLine SET CumulatedAmt =" +
-									" (SELECT AvgCost " +
+				String sqlProd = "UPDATE LBR_AverageCostLine SET (CumulatedAmt,CumulatedQty) =" +
+									" (SELECT AvgCost,ProductionQty " +
 										"FROM RV_ProductionCost pc " +
 										"WHERE MovementDate=TRUNC((SELECT p.StartDate " +
 					 							"FROM C_Period p, LBR_AverageCost c " +
@@ -223,15 +223,18 @@ public class ProcAvgCostCreate extends SvrProcess
 					 				"WHERE LBR_AverageCost_ID=? " +
 					 				"AND LBR_AvgCostType='M'";
 				
-				String sqlCalc = "UPDATE LBR_AverageCostLine SET FutureCostPrice = ((CurrentCostPrice * CurrentQty) + (CumulatedAmt * CumulatedQty)) / (CurrentQty + CumulatedQty) " +
+				String sqlCalc = "UPDATE LBR_AverageCostLine SET FutureCostPrice = ((CurrentCostPrice * CurrentQty) + (CumulatedAmt)) / NULLIF((CurrentQty + CumulatedQty),0) " +
 								"WHERE LBR_AverageCost_ID=? AND LBR_AvgCostType='M'";
 				
 				Object[] params = new Object[]{avgCost.getM_CostElement_ID(), avgCost.getLBR_AverageCost_ID()};
 				
 				while (!allLevelsOK)
 				{
+					DB.executeUpdateEx (sqlProd, params, trxName);
+					
 					//	Caclula o custo baseado na BOM
-					DB.executeUpdateEx (prodBased ? sqlProd : sqlBOM, params, trxName);
+					if (!productionBased)
+						DB.executeUpdateEx (sqlBOM, params, trxName);
 					
 					//	Faz a conta do custo médio ponderado
 					DB.executeUpdateEx (sqlCalc, new Object[]{avgCost.getLBR_AverageCost_ID()}, trxName);
