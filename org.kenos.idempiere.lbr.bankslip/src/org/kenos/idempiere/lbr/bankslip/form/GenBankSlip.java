@@ -266,12 +266,12 @@ public class GenBankSlip
 			sql += " AND i.C_DocType_ID =?";
 		
 		// Bank Account
-		int C_BankAccount_ID = new MLBRBankSlipContract(Env.getCtx(), bi.getKey(), null).getC_BankAccount_ID();
+		int LBR_BankSlipContract_ID = bi.getKey();
 
 		sql += " AND (";
-		if (C_BankAccount_ID != 0)
-			sql += "i.C_BankAccount_ID IS NULL OR ";
-		sql += "i.C_BankAccount_ID=?)";
+		if (LBR_BankSlipContract_ID != 0)
+			sql += "i.LBR_BankSlipContract_ID IS NULL OR ";
+		sql += "i.LBR_BankSlipContract_ID=?)";
 		
 		//	AD_Org_ID
 		int AD_Org_ID = org;
@@ -298,7 +298,7 @@ public class GenBankSlip
 		sql += " ORDER BY 2, 3";
 
 		log.finest(sql + " - C_BPartner_ID=" + C_BPartner_ID + ", C_DocType_ID=" + C_DocType_ID + 
-				", C_BankAccount_ID=" + C_BankAccount_ID + ", AD_Org_ID=" + AD_Org_ID);
+				", LBR_BankSlipContract_ID=" + LBR_BankSlipContract_ID + ", AD_Org_ID=" + AD_Org_ID);
 		//  Get Open Invoices
 		try
 		{
@@ -310,8 +310,8 @@ public class GenBankSlip
 				pstmt.setInt(index++, C_BPartner_ID);
 			if (C_DocType_ID  != 0)						//	Document type
 				pstmt.setInt(index++, C_DocType_ID);
-			if (C_BankAccount_ID  != 0)					//	Bank Account
-				pstmt.setInt(index++, C_BankAccount_ID);
+			if (LBR_BankSlipContract_ID  != 0)			//	Bank Slip Contract
+				pstmt.setInt(index++, LBR_BankSlipContract_ID);
 			if (AD_Org_ID  != 0)						//	Organization
 				pstmt.setInt(index++, AD_Org_ID);
 			//
