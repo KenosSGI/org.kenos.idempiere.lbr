@@ -536,8 +536,8 @@ public class NFSeAbrasf201Impl implements INFSe
 			MLBRDigitalCertificate.setCertificate (nf.getCtx(), p_AD_Org_ID);
 			
 			//	Assina o XML
-			if (MLBRNotaFiscal.LBR_NFEENV_Production.equals(nf.getlbr_NFeEnv()))
-			new SignatureUtil (orgInf, SignatureUtil.OUTROS, "InfDeclaracaoPrestacaoServico").sign (rps, rps.newCursor());
+			//if (MLBRNotaFiscal.LBR_NFEENV_Production.equals(nf.getlbr_NFeEnv()))
+				new SignatureUtil (orgInf, SignatureUtil.OUTROS, "InfDeclaracaoPrestacaoServico").sign (rps, rps.newCursor());
 					
 			return rps.xmlText(NFeUtil.getXmlOpt()).getBytes(NFeUtil.NFE_ENCODING);
 		
@@ -629,7 +629,7 @@ public class NFSeAbrasf201Impl implements INFSe
 				QName qname = new javax.xml.namespace.QName("http://www.abrasf.org.br/nfse.xsd", "SubstituirNfseResposta");
 				OMElement omElement = result.getOMElement(qname, OMAbstractFactory.getOMFactory());
 				NFeUtil.saveXML (String.valueOf(nf.getAD_Org_ID()), NFeUtil.KIND_NFSE, NFeUtil.MESSAGE_RET_AUTORIZE, "Retorno-Substituicao-RPS-" + nf.getDocumentNo(), omElement.toString());
-				System.out.println(omElement.toString());
+				
 			}
 			catch (ADBException e) {
 				e.printStackTrace();
@@ -673,7 +673,6 @@ public class NFSeAbrasf201Impl implements INFSe
 			catch (ADBException e) {
 				e.printStackTrace();
 			}
-			
 			
 			//Monitorar envio do Stub
 			String request = nfseStub._getServiceClient().getLastOperationContext().getMessageContext("Out")
@@ -952,6 +951,7 @@ public class NFSeAbrasf201Impl implements INFSe
 		Reader reader = new StringReader(document.xmlText());
 		XMLInputFactory factory = XMLInputFactory.newInstance();
 		XMLStreamReader xmlReader = factory.createXMLStreamReader(reader);
+		NFeUtil.saveXML (String.valueOf(nf.getAD_Org_ID()), NFeUtil.KIND_NFSE, NFeUtil.MESSAGE_REQ_CONSULT, "RPS-" + nf.getDocumentNo(), document.xmlText());
 		
 		ConsultarNfseRpsEnvio_type0 consultarNfse = ConsultarNfseRpsEnvio_type0.Factory.parse(xmlReader);
 
@@ -980,17 +980,21 @@ public class NFSeAbrasf201Impl implements INFSe
 			nf.setErrorMsg(msgRetorno.toString());
 			nf.save();
 		}
-		QName qname = new javax.xml.namespace.QName("http://www.abrasf.org.br/nfse.xsd", "Nfse");
+		try {
+			QName qname = new javax.xml.namespace.QName("http://www.abrasf.org.br/nfse.xsd", "ConsultarNfseRpsEnvio");
+			br.org.abrasf.www.nfse_xsd.TcCompNfse compNfse = result.getCompNfse();
+			OMElement omElement = compNfse.getOMElement(qname, OMAbstractFactory.getOMFactory());
+			NFeUtil.saveXML (String.valueOf(nf.getAD_Org_ID()), NFeUtil.KIND_NFSE, NFeUtil.MESSAGE_RET_CONSULT, "Consulta_RPS-" + nf.getDocumentNo(), omElement.toString());
+		}
+		catch (ADBException e) {
+			e.printStackTrace();
+		}
 		
-		br.org.abrasf.www.nfse_xsd.TcCompNfse compNfse = result.getCompNfse();
-		
-		//OMElement omElement = compNfse.getOMElement(qname, OMAbstractFactory.getOMFactory());
-	
 		//	Adicionar Protocolo do Lote
 		if (result.getCompNfse() != null 
 				&& !result.getCompNfse().getNfse().getInfNfse().getCodigoVerificacao().isEmpty())
 		{
-		//	setProtocol (nf, resposta.getCompNfse());
+			setProtocol (nf, result.getCompNfse());
 		}
 		else
 			throw new AdempiereException("Erro ao Transmitir NFS-e");
