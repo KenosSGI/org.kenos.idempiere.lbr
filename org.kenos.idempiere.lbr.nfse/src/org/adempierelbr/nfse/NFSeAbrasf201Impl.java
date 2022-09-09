@@ -15,6 +15,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -67,6 +68,7 @@ import br.org.abrasf.www.nfse_xsd.ListaMensagemRetorno_type0;
 import br.org.abrasf.www.nfse_xsd.SubstituirNfseEnvio_type0;
 import br.org.abrasf.www.nfse_xsd.SubstituirNfseResposta_type0;
 import br.org.abrasf.www.nfse_xsd.TcCompNfse;
+import br.org.abrasf.www.nfse_xsd.TcMensagemRetorno;
 import br.org.abrasf201.nfse.CabecalhoDocument.Cabecalho;
 import br.org.abrasf201.nfse.CancelarNfseEnvioDocument;
 import br.org.abrasf201.nfse.CancelarNfseEnvioDocument.CancelarNfseEnvio;
@@ -690,6 +692,26 @@ public class NFSeAbrasf201Impl implements INFSe
 		StringBuilder msgRetorno = new StringBuilder ();
 		if (listaMensagemRetorno != null)
 		{
+			for (TcMensagemRetorno msg : listaMensagemRetorno.getMensagemRetorno()){
+				//Código de Duplicidade de RPS, Possível Falso Positivo
+				if (msg.getCodigo().equals("E10")) {
+					br.org.abrasf.www.nfse_xsd.TcCompNfse compNfseConsult = consultCompNfseFromRPS (nf);
+					br.org.abrasf.www.nfse_xsd.TcInfDeclaracaoPrestacaoServico rps = compNfseConsult.getNfse().getInfNfse().getDeclaracaoPrestacaoServico().getInfDeclaracaoPrestacaoServico();
+					
+					Date date = new Date(nf.getDateDoc().getTime());
+					String cnpjConsult = rps.getTomador().getIdentificacaoTomador().getCpfCnpj().getCnpj();
+					BigDecimal ValorServicos = rps.getServico().getValores().getValorServicos();
+
+					// Se Data, Parceiro e Valor dos Serviços batem, trata-se de um falso positivo. A nota foi transmitida mas a prefeitura retornou o erro de duplicidade.
+					if (date.toString().equals(rps.getRps().getDataEmissao().toString()) & 
+							cnpjConsult.toString().equals(TextUtil.toNumeric(nf.getlbr_BPCNPJ())) &
+							ValorServicos.toString().equals(nf.getlbr_ServiceTotalAmt().toString())) {
+						setProtocol (nf, compNfseConsult);
+						return true;
+					}
+				}
+			}
+			
 			Arrays.asList(listaMensagemRetorno.getMensagemRetorno())
 				.forEach(msg -> {
 					msgRetorno
@@ -1000,6 +1022,82 @@ public class NFSeAbrasf201Impl implements INFSe
 			throw new AdempiereException("Erro ao Transmitir NFS-e");
 		
 		return true;
+	}	// consult
+	
+	/**
+	 * Consultar NFS-e de Serviço após a Transmissão através do RPS
+	 */
+	public br.org.abrasf.www.nfse_xsd.TcCompNfse consultCompNfseFromRPS (MLBRNotaFiscal nf) throws Exception
+	{
+		log.info ("NFSE Consult Process");
+		
+		br.org.abrasf.www.nfse_xsd.TcCompNfse compNfse = null;
+		
+		ConsultarNfseRpsEnvioDocument document = ConsultarNfseRpsEnvioDocument.Factory.newInstance();
+		ConsultarNfseRpsEnvio rpsEnvio = document.addNewConsultarNfseRpsEnvio();
+		TcIdentificacaoRps identificacaoRps = rpsEnvio.addNewIdentificacaoRps();
+		
+		identificacaoRps.setNumero(Long.valueOf(nf.getDocumentNo()));
+		identificacaoRps.setSerie(nf.getlbr_NFSerie());
+		identificacaoRps.setTipo(TIPO_RPS);
+		
+		TcIdentificacaoPrestador prestador = rpsEnvio.addNewPrestador();
+		
+		//	CPF/CNPJ Organização
+		TcCpfCnpj cpfcnpjPrestador = prestador.addNewCpfCnpj();
+		cpfcnpjPrestador.setCnpj(TextUtil.toNumeric(getCNPJ(nf)));
+		
+		
+		//	Inscrição Municipal Organização
+		if (nf.getlbr_OrgCCM() != null && !nf.getlbr_OrgCCM().isEmpty())
+			prestador.setInscricaoMunicipal(TextUtil.toNumeric(getInscricaoMunicipal(nf)));
+		
+		IssWebWSStub nfseStub = new IssWebWSStub(getURL(nf));
+		nfseStub._getServiceClient().getOptions().setProperty(HTTPConstants.CHUNKED, false);	
+		
+		MLBRDigitalCertificate.setCertificate (Env.getCtx(), nf.getAD_Org_ID());
+		
+		Reader reader = new StringReader(document.xmlText());
+		XMLInputFactory factory = XMLInputFactory.newInstance();
+		XMLStreamReader xmlReader = factory.createXMLStreamReader(reader);
+		NFeUtil.saveXML (String.valueOf(nf.getAD_Org_ID()), NFeUtil.KIND_NFSE, NFeUtil.MESSAGE_REQ_CONSULT, "RPS-" + nf.getDocumentNo(), document.xmlText());
+		
+		ConsultarNfseRpsEnvio_type0 consultarNfse = ConsultarNfseRpsEnvio_type0.Factory.parse(xmlReader);
+
+		ConsultarNfseRpsResposta_type0 result = nfseStub.consultarNfsePorRps(consultarNfse, getUser(nf), getPassword(nf));
+		
+		//Monitorar envio do Stub
+		String request = nfseStub._getServiceClient().getLastOperationContext().getMessageContext("Out")
+				.getEnvelope().toString();
+		
+		log.info(request);
+		
+		ListaMensagemRetorno_type0 listaMensagemRetorno = result.getListaMensagemRetorno();
+		if (listaMensagemRetorno != null)
+		{
+			StringBuilder msgRetorno = new StringBuilder ();
+			Arrays.asList(listaMensagemRetorno.getMensagemRetorno())
+				.forEach(msg -> {
+					msgRetorno
+						.append("Cod=").append(msg.getCodigo())
+						.append(", Correção=").append(msg.getCorrecao())
+						.append(", Msg=").append(msg.getMensagem())
+						.append("\n");
+				});
+			//
+			log.warning("Erro ao Consultar NFS-e " + nf.toString() + " - " + msgRetorno.toString());
+		}
+		try {
+			QName qname = new javax.xml.namespace.QName("http://www.abrasf.org.br/nfse.xsd", "ConsultarNfseRpsEnvio");
+			compNfse = result.getCompNfse();
+			OMElement omElement = compNfse.getOMElement(qname, OMAbstractFactory.getOMFactory());
+			NFeUtil.saveXML (String.valueOf(nf.getAD_Org_ID()), NFeUtil.KIND_NFSE, NFeUtil.MESSAGE_RET_CONSULT, "Consulta_Duplicidade_RPS-" + nf.getDocumentNo(), omElement.toString());
+		}
+		catch (ADBException e) {
+			e.printStackTrace();
+		}
+		
+		return compNfse;
 	}	// consult
 	
 	/**
