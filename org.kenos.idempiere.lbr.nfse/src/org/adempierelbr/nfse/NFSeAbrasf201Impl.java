@@ -1060,7 +1060,7 @@ public class NFSeAbrasf201Impl implements INFSe
 		Reader reader = new StringReader(document.xmlText());
 		XMLInputFactory factory = XMLInputFactory.newInstance();
 		XMLStreamReader xmlReader = factory.createXMLStreamReader(reader);
-		NFeUtil.saveXML (String.valueOf(nf.getAD_Org_ID()), NFeUtil.KIND_NFSE, NFeUtil.MESSAGE_REQ_CONSULT, "RPS-" + nf.getDocumentNo(), document.xmlText());
+		NFeUtil.saveXML (String.valueOf(nf.getAD_Org_ID()), NFeUtil.KIND_NFSE, NFeUtil.MESSAGE_REQ_CONSULT, "Consulta_Duplicidade_RPS-" + nf.getDocumentNo(), document.xmlText());
 		
 		ConsultarNfseRpsEnvio_type0 consultarNfse = ConsultarNfseRpsEnvio_type0.Factory.parse(xmlReader);
 
