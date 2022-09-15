@@ -25,6 +25,7 @@ import org.adempiere.webui.session.SessionManager;
 import org.adempiere.webui.util.ZKUpdateUtil;
 import org.adempiere.webui.window.FDialog;
 import org.adempierelbr.model.MLBRNotaFiscal;
+import org.adempierelbr.util.TextUtil;
 import org.compiere.model.MLookup;
 import org.compiere.model.MLookupFactory;
 import org.compiere.process.ProcessInfo;
@@ -113,6 +114,7 @@ public class WNotaFiscalAdditional extends NotaFiscalAdditional implements IForm
 			type.appendItem("NF-e para Entregas Futuras", TYPE_NOTAFISCAL_ADDITIONAL_ENTREGAFUTURA);
 			type.appendItem("NF-e Triangular", TYPE_NOTAFISCAL_ADDITIONAL_TRIANGULAR);
 			type.appendItem("NF-e Anulação de Valores", TYPE_NOTAFISCAL_ADDITIONAL_ANULACAOVALORES);
+			type.appendItem("NF-e Adicional", TYPE_NOTAFISCAL_ADDITIONAL);
 			type.addEventListener(Events.ON_SELECT, this);
 			
 			lCFOP.setText(Msg.translate(Env.getCtx(), "LBR_CFOP_ID"));
@@ -230,9 +232,10 @@ public class WNotaFiscalAdditional extends NotaFiscalAdditional implements IForm
 		//  Set Model
 		ListModelTable modelI;
 		
-		if (typeSelected == null ||
-				TYPE_NOTAFISCAL_ADDITIONAL_COMPLEMENTAR.equals(typeSelected) ||
-					TYPE_NOTAFISCAL_ADDITIONAL_ANULACAOVALORES.equals(typeSelected))
+		if (typeSelected == null || 
+				TextUtil.match(typeSelected, TYPE_NOTAFISCAL_ADDITIONAL_COMPLEMENTAR, 
+						TYPE_NOTAFISCAL_ADDITIONAL_ANULACAOVALORES, 
+						TYPE_NOTAFISCAL_ADDITIONAL))
 		{	
 			modelI = new ListModelTable(getNFLineData());
 			modelI.addTableModelListener(this);
@@ -316,14 +319,14 @@ public class WNotaFiscalAdditional extends NotaFiscalAdditional implements IForm
 				
 				try
 				{
-					if (TYPE_NOTAFISCAL_ADDITIONAL_COMPLEMENTAR.equals(typenf) && NotaFiscal_ID > 0)
-						NotaFiscal_ID = generateNFComplementar(trxName);
+					if (TextUtil.match(typenf, TYPE_NOTAFISCAL_ADDITIONAL_COMPLEMENTAR, 
+							TYPE_NOTAFISCAL_ADDITIONAL_ANULACAOVALORES, 
+							TYPE_NOTAFISCAL_ADDITIONAL) && NotaFiscal_ID > 0)
+						NotaFiscal_ID = generateNFComplementar(trxName, typenf);
 					else if (TYPE_NOTAFISCAL_ADDITIONAL_ENTREGAFUTURA.equals(typenf))
 						NotaFiscal_ID = generateNFEntregaFutura(trxName);
 					else if (TYPE_NOTAFISCAL_ADDITIONAL_TRIANGULAR.equals(typenf))
 						NotaFiscal_ID = generateNFTrinagular(trxName);
-					else if (TYPE_NOTAFISCAL_ADDITIONAL_ANULACAOVALORES.equals(typenf) && NotaFiscal_ID > 0)
-						NotaFiscal_ID = generateNFComplementar(trxName);
 					else
 					{
 						FDialog.error(m_WindowNo, this, "Erro", "Parâmetros inválidos, confira os dados digitados e tente novamente");
@@ -392,8 +395,9 @@ public class WNotaFiscalAdditional extends NotaFiscalAdditional implements IForm
 		}
 		else if (eventName.equals(Events.ON_SELECT))
 		{
-			if (TYPE_NOTAFISCAL_ADDITIONAL_COMPLEMENTAR.equals(typenf)
-					|| TYPE_NOTAFISCAL_ADDITIONAL_ANULACAOVALORES.equals(typenf))
+			if (TextUtil.match(typenf, TYPE_NOTAFISCAL_ADDITIONAL_COMPLEMENTAR, 
+					TYPE_NOTAFISCAL_ADDITIONAL_ANULACAOVALORES, 
+					TYPE_NOTAFISCAL_ADDITIONAL))
 			{	
 				lNotaFiscal.setVisible(true);
 				fNotaFiscal.setVisible(true);

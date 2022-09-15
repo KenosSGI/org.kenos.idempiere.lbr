@@ -77,7 +77,8 @@ public class NotaFiscalAdditional extends ADForm
 	protected final String TYPE_NOTAFISCAL_ADDITIONAL_COMPLEMENTAR 		= "C";
 	protected final String TYPE_NOTAFISCAL_ADDITIONAL_ENTREGAFUTURA 	= "F";
 	protected final String TYPE_NOTAFISCAL_ADDITIONAL_TRIANGULAR 		= "T";
-	protected final String TYPE_NOTAFISCAL_ADDITIONAL_ANULACAOVALORES 	= "A";
+	protected final String TYPE_NOTAFISCAL_ADDITIONAL_ANULACAOVALORES 	= "V";
+	protected final String TYPE_NOTAFISCAL_ADDITIONAL 					= "A";
 	
 	/**	Result Table	*/
 	protected WListbox miniTableNF = new WListbox();
@@ -92,7 +93,7 @@ public class NotaFiscalAdditional extends ADForm
 	 * @return
 	 * @throws Exception 
 	 */
-	protected int generateNFComplementar(String trxName) throws Exception
+	protected int generateNFComplementar(String trxName, String type) throws Exception
 	{
 		//	Nota Fiscal Atual
 		MLBRNotaFiscal nf = new MLBRNotaFiscal (Env.getCtx(), (Integer)m_LBR_NotaFiscal_ID, trxName);
@@ -140,7 +141,8 @@ public class NotaFiscalAdditional extends ADForm
 		nfDocRef.save();
 		
 		//	Zerar Nota Fiscal
-		clearNF(nfCompl);
+		if (!TYPE_NOTAFISCAL_ADDITIONAL.equals(type))
+			clearNF(nfCompl);
 		
 		//	Preencher Nota Fiscal com os dados do Formulário
 		miniTableDataToNF(nfCompl);
