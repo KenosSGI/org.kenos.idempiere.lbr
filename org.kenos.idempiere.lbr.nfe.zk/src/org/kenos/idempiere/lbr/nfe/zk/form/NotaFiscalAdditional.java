@@ -32,13 +32,16 @@ import org.adempierelbr.model.MLBRNotaFiscal;
 import org.adempierelbr.model.MLBRNotaFiscalDocRef;
 import org.adempierelbr.model.MLBRNotaFiscalLine;
 import org.adempierelbr.model.MLBRTax;
+import org.adempierelbr.model.MLBRTaxStatus;
+import org.adempierelbr.util.TextUtil;
+import org.compiere.model.MBPartnerLocation;
 import org.compiere.model.MInOut;
 import org.compiere.model.MInvoice;
 import org.compiere.model.MMovement;
 import org.compiere.model.MOrder;
 import org.compiere.model.MQuery;
-import org.compiere.model.MRefList;
 import org.compiere.model.MRole;
+import org.compiere.model.MSysConfig;
 import org.compiere.model.MTax;
 import org.compiere.model.Query;
 import org.compiere.util.CLogger;
@@ -88,12 +91,19 @@ public class NotaFiscalAdditional extends ADForm
 
 	}
 	
+
+	protected int generateNFComplementar (String trxName, String type) throws Exception
+	{
+		return generateNFComplementar (trxName, type, -1, -1, -1, -1);
+	}	//	generateNFComplementar
+	
 	/**
 	 * 
 	 * @return
 	 * @throws Exception 
 	 */
-	protected int generateNFComplementar(String trxName, String type) throws Exception
+	protected int generateNFComplementar(String trxName, String type, int LBR_CFOP_ID, 
+			int C_BPartner_ID, int C_BPartner_Location_ID, int LBR_Tax_ID) throws Exception
 	{
 		//	Nota Fiscal Atual
 		MLBRNotaFiscal nf = new MLBRNotaFiscal (Env.getCtx(), (Integer)m_LBR_NotaFiscal_ID, trxName);
@@ -116,14 +126,13 @@ public class NotaFiscalAdditional extends ADForm
 		
 		// Marcar como manual para Evitar Reprocessamento
 		nfCompl.setIsManual(true);
+		if (C_BPartner_Location_ID > 0)
+		{
+			MBPartnerLocation bpl = new MBPartnerLocation(Env.getCtx(), C_BPartner_Location_ID, null);
+			nfCompl.setBPartner(bpl);
+		}
 		
-		// Adicionar Data Atual
-		nfCompl.setDateDoc(Env.getContextAsDate(Env.getCtx(), "Date"));		
-		
-		// Alterando Finalidade para NFe Complementar
-		nfCompl.setlbr_FinNFe(MLBRNotaFiscal.LBR_FINNFE_NFeComplementar);
-		
-		nfCompl.setlbr_CFOPNote("NOTA FISCAL COMPLEMENTAR");
+		nfCompl.setDateDoc(Env.getContextAsDate(Env.getCtx(), "Date"));
 		
 		// Adicionando NF Referenciada
 		MLBRNotaFiscalDocRef nfDocRef = new MLBRNotaFiscalDocRef(Env.getCtx(), 0, nfCompl.get_TrxName());
@@ -138,16 +147,33 @@ public class NotaFiscalAdditional extends ADForm
 		else if (MLBRNotaFiscal.LBR_NFMODEL_CupomFiscalEmitidoPorECF.equals(nfCompl.getlbr_NFModel()))
 			nfDocRef.setLBR_FiscalDocRefType(MLBRNotaFiscalDocRef.LBR_FISCALDOCREFTYPE_CT_E);	
 		
-		nfDocRef.save();
-		
-		//	Zerar Nota Fiscal
-		if (!TYPE_NOTAFISCAL_ADDITIONAL.equals(type))
-			clearNF(nfCompl);
-		
 		//	Preencher Nota Fiscal com os dados do Formulário
 		miniTableDataToNF(nfCompl);
 		
-		log.warning("Nota Fiscal Complementar: " + nfCompl.getDocumentNo() + " - Organização: " + nfCompl.getlbr_OrgName());
+		//	Zerar Nota Fiscal
+		if (!TYPE_NOTAFISCAL_ADDITIONAL.equals(type))
+		{
+			clearNF(nfCompl);
+			nfCompl.setlbr_FinNFe(MLBRNotaFiscal.LBR_FINNFE_NFeComplementar);
+			nfCompl.setlbr_CFOPNote("NOTA FISCAL COMPLEMENTAR");
+		}
+		else
+			clearNF(nfCompl, true, false, false);
+		
+		nfDocRef.save();
+		
+		if (LBR_CFOP_ID > 0)
+		{
+			MLBRCFOP cfop = new MLBRCFOP(Env.getCtx(), LBR_CFOP_ID, null);
+			nfCompl.setlbr_CFOPNote(cfop.getDescription());
+			nfCompl.save();
+			
+			for (MLBRNotaFiscalLine nfl : nfCompl.getLines())
+			{
+				nfl.setLBR_CFOP_ID(LBR_CFOP_ID);
+				nfl.saveEx();
+			}
+		}
 		
 		return nfCompl.getLBR_NotaFiscal_ID();	
 	}
@@ -347,11 +373,16 @@ public class NotaFiscalAdditional extends ADForm
 		}		
 	}
 	
+	protected void clearNF(MLBRNotaFiscal nfAdd)
+	{
+		clearNF (nfAdd, true, true, true);
+	}	//	clearNF
+	
 	/**
 	 * 
 	 * @param nfAdd
 	 */
-	protected void clearNF(MLBRNotaFiscal nfAdd)
+	protected void clearNF(MLBRNotaFiscal nfAdd, boolean clearTaxes, boolean clearQtys, boolean clearPrices)
 	{
 		// Zerando os Impostos do Cabeçalho
 		List<MLBRNFTax> nfTaxes = new Query(Env.getCtx(), MLBRNFTax.Table_Name, "LBR_NotaFiscal_ID=?", nfAdd.get_TrxName())
@@ -359,48 +390,72 @@ public class NotaFiscalAdditional extends ADForm
 				.list();
 		
 		//	Zerando Impostos
-		for (MLBRNFTax nfTax : nfTaxes)
-		{
-			nfTax.setlbr_TaxAmt(BigDecimal.ZERO);
-			nfTax.setlbr_TaxBaseAmt(BigDecimal.ZERO);
-			nfTax.save();
-		}
+		if (clearTaxes)
+			nfTaxes.forEach(t -> t.delete(true));
 		
 		// Zerando Quantidade, Valor e Impostos das Linhas
 		for (MLBRNotaFiscalLine nfLine : nfAdd.getLines())
 		{
 			// Zerando Valores Linhas
-			nfLine.setQty(BigDecimal.ZERO);
-			nfLine.setPrice(BigDecimal.ZERO);
-			nfLine.setLineTotalAmt(BigDecimal.ZERO);
-			nfLine.setDiscountAmt(BigDecimal.ZERO);;
-			nfLine.setLBR_OtherChargesAmt(BigDecimal.ZERO);
-			nfLine.setFreightAmt(BigDecimal.ZERO);
-			nfLine.setlbr_InsuranceAmt(BigDecimal.ZERO);
+			if (clearQtys)
+			{
+				nfLine.setQty(BigDecimal.ZERO);
+				nfLine.setLineTotalAmt(BigDecimal.ZERO);
+			}
+			if (clearPrices)
+			{
+				nfLine.setPrice(BigDecimal.ZERO);
+				nfLine.setLineTotalAmt(BigDecimal.ZERO);
+				nfLine.setDiscountAmt(BigDecimal.ZERO);;
+				nfLine.setLBR_OtherChargesAmt(BigDecimal.ZERO);
+				nfLine.setFreightAmt(BigDecimal.ZERO);
+				nfLine.setlbr_InsuranceAmt(BigDecimal.ZERO);
+			}
 			nfLine.save();
 			
 			//	Zerando Impostos Linhas
-			for (MLBRNFLineTax nflTax : nfLine.getTaxes())
-			{
-				nflTax.setlbr_TaxAmt(BigDecimal.ZERO);
-				nflTax.setlbr_TaxBaseAmt(BigDecimal.ZERO);
-				nflTax.setlbr_TaxRate(BigDecimal.ZERO);
-				nflTax.save();
-			}			
+			if (clearTaxes)
+				for (MLBRNFLineTax nflTax : nfLine.getTaxes())
+				{
+					String defaulStatus = "";
+
+					int AD_Client_ID = nfAdd.getAD_Client_ID();
+					
+					if (nflTax.getLBR_TaxGroup().getName().equals("ICMS"))
+						defaulStatus = MSysConfig.getValue("TMP_DEFAULT_CST_ICMS", "90",AD_Client_ID);
+					
+					else if (nflTax.getLBR_TaxGroup().getName().equals("IPI"))
+						defaulStatus = MSysConfig.getValue("TMP_DEFAULT_CST_IPI", "51", AD_Client_ID);
+					
+					else if (TextUtil.match(nflTax.getLBR_TaxGroup().getName(), "PIS", "COFINS"))
+						defaulStatus = MSysConfig.getValue("TMP_DEFAULT_CST_PIS_COFINS", "07", AD_Client_ID);
+					
+					int LBR_TaxStatus_ID = MLBRTaxStatus.getTaxStatus(nflTax.getLBR_TaxGroup_ID(), defaulStatus);
+					if (LBR_TaxStatus_ID > 0)
+						nflTax.setLBR_TaxStatus_ID(LBR_TaxStatus_ID);
+					nflTax.setlbr_TaxAmt(BigDecimal.ZERO);
+					nflTax.setlbr_TaxBaseAmt(BigDecimal.ZERO);
+					nflTax.setlbr_TaxRate(BigDecimal.ZERO);
+					nflTax.save();
+				}			
 		}
 		
 		//	Totais
-		nfAdd.setGrandTotal(BigDecimal.ZERO);
-		nfAdd.setTotalLines(BigDecimal.ZERO);
-		nfAdd.setFreightAmt(BigDecimal.ZERO);
-		nfAdd.setLBR_OtherChargesAmt(BigDecimal.ZERO);
-		nfAdd.setlbr_InsuranceAmt(BigDecimal.ZERO);
-		nfAdd.setDiscountAmt(BigDecimal.ZERO);
-		nfAdd.setlbr_ServiceTotalAmt(BigDecimal.ZERO);
-		nfAdd.setlbr_vTotTrib(BigDecimal.ZERO);
+		if (clearPrices || clearQtys)
+		{
+			nfAdd.setGrandTotal(BigDecimal.ZERO);
+			nfAdd.setTotalLines(BigDecimal.ZERO);
+			nfAdd.setFreightAmt(BigDecimal.ZERO);
+			nfAdd.setLBR_OtherChargesAmt(BigDecimal.ZERO);
+			nfAdd.setlbr_InsuranceAmt(BigDecimal.ZERO);
+			nfAdd.setDiscountAmt(BigDecimal.ZERO);
+			nfAdd.setlbr_ServiceTotalAmt(BigDecimal.ZERO);
+			nfAdd.setlbr_vTotTrib(BigDecimal.ZERO);
+		}
 		
 		// Salvar
-		nfAdd.save();
+		if (nfAdd.is_Changed())
+			nfAdd.save();
 	}
 	
 	/**
@@ -464,16 +519,6 @@ public class NotaFiscalAdditional extends ADForm
 				if (knp.getName().equals(nfl.getLine() + "") && miniTableNF.getValueAt(i, 2).equals(nfl.getM_Product().getName()))
 				{
 					
-					String CFOPValue = (String)miniTableNF.getValueAt(i, 3);
-					
-					MLBRCFOP cfop = MLBRCFOP.getCFOP(Env.getCtx(), CFOPValue, nfAdd.get_TrxName());
-					
-					if (cfop != null && cfop.getLBR_CFOP_ID() != nfl.getLBR_CFOP_ID())
-					{	
-						nfl.setLBR_CFOP_ID(cfop.getLBR_CFOP_ID());
-						nfl.saveEx();
-					}	
-					
 					BigDecimal taxBaseAmt = (BigDecimal) miniTableNF.getValueAt(i, 7);
 					BigDecimal taxRate = (BigDecimal) miniTableNF.getValueAt(i, 8);
 					BigDecimal taxAmt = (BigDecimal) miniTableNF.getValueAt(i, 9);
@@ -492,7 +537,7 @@ public class NotaFiscalAdditional extends ADForm
 					taxAmtTotal = taxAmtTotal.add(taxAmt);
 					
 					nflTax.save();
-				}	
+				}
 			}
 			else
 			{
@@ -570,14 +615,14 @@ public class NotaFiscalAdditional extends ADForm
 				line.add(rs.getString("cfop"));						//  5-Production Qty
 				line.add(rs.getBigDecimal("Qty"));					//  6-Movement Qty
 				line.add(rs.getBigDecimal("Price"));				//  7-Price Entered
-				line.add(rs.getBigDecimal("GrandTotal"));			//  8-Grand Total
+				line.add(rs.getBigDecimal("LineTotalAmt"));			//  8-Grand Total
 				line.add(rs.getBigDecimal("lbr_TaxBaseAmt"));		//  9-Grand Total
 				line.add(rs.getBigDecimal("lbr_TaxRate"));			//  9-Grand Total
 				line.add(rs.getBigDecimal("lbr_TaxAmt"));			//  9-Grand Total
-				String status = rs.getString("DocStatus");			//  10-Document Status
-				//
-				String statusTrl = MRefList.getListName (Env.getCtx(), 1120212, status);
-				line.add(statusTrl != null ? statusTrl : status);
+//				String status = rs.getString("DocStatus");			//  10-Document Status
+//				//
+//				String statusTrl = MRefList.getListName (Env.getCtx(), 1120212, status);
+//				line.add(statusTrl != null ? statusTrl : status);
 				data.add(line);		
 				
 			}
@@ -640,13 +685,13 @@ public class NotaFiscalAdditional extends ADForm
 				line.add(rs.getString("cfop"));	//  5-Production Qty
 				line.add(rs.getBigDecimal("QtyEntered"));		//  6-Movement Qty
 				line.add(rs.getBigDecimal("PriceEntered"));		//  7-Price Entered
-				line.add(rs.getBigDecimal("GrandTotal"));		//  8-Grand Total
+				line.add(rs.getBigDecimal("TotalLines"));		//  8-Grand Total
 				line.add(rs.getBigDecimal("lbr_TaxBaseAmt"));	//  9-Grand Total
 				line.add(rs.getBigDecimal("lbr_TaxRate"));		//  9-Grand Total
 				line.add(rs.getBigDecimal("lbr_TaxAmt"));		//  9-Grand Total
-				String status = rs.getString("DocStatus");		//  10-Document Status
-				line.add(status);
-				data.add(line);		
+//				String status = rs.getString("DocStatus");		//  10-Document Status
+//				line.add(status);
+				data.add(line);
 				
 			}
 		}
@@ -711,13 +756,13 @@ public class NotaFiscalAdditional extends ADForm
 				line.add(rs.getString("cfop"));	//  5-Production Qty
 				line.add(rs.getBigDecimal("MovementQty"));		//  6-Movement Qty
 				line.add(rs.getBigDecimal("PriceEntered"));		//  7-Price Entered
-				line.add(rs.getBigDecimal("GrandTotal"));		//  8-Grand Total
+				line.add(rs.getBigDecimal("TotalLines"));		//  8-Grand Total
 				line.add(rs.getBigDecimal("lbr_TaxBaseAmt"));	//  9-Grand Total
 				line.add(rs.getBigDecimal("lbr_TaxRate"));		//  9-Grand Total
 				line.add(rs.getBigDecimal("lbr_TaxAmt"));		//  9-Grand Total
-				String status = rs.getString("DocStatus");		//  10-Document Status
-				line.add(status);
-				data.add(line);		
+//				String status = rs.getString("DocStatus");		//  10-Document Status
+//				line.add(status);
+				data.add(line);
 				
 			}
 		}
