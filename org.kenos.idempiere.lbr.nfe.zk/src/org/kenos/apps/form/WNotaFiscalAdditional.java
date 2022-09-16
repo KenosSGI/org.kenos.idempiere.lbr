@@ -5,15 +5,16 @@ import java.util.Properties;
 import java.util.Vector;
 import java.util.logging.Level;
 
-import org.adempiere.exceptions.AdempiereException;
+import org.adempiere.webui.apps.AEnv;
 import org.adempiere.webui.component.Button;
 import org.adempiere.webui.component.ConfirmPanel;
 import org.adempiere.webui.component.Label;
 import org.adempiere.webui.component.ListModelTable;
 import org.adempiere.webui.component.Listbox;
 import org.adempiere.webui.component.ListboxFactory;
-import org.adempiere.webui.component.Textbox;
+import org.adempiere.webui.editor.WEditor;
 import org.adempiere.webui.editor.WSearchEditor;
+import org.adempiere.webui.editor.WebEditorFactory;
 import org.adempiere.webui.event.ValueChangeEvent;
 import org.adempiere.webui.event.ValueChangeListener;
 import org.adempiere.webui.event.WTableModelEvent;
@@ -26,6 +27,10 @@ import org.adempiere.webui.util.ZKUpdateUtil;
 import org.adempiere.webui.window.FDialog;
 import org.adempierelbr.model.MLBRNotaFiscal;
 import org.adempierelbr.util.TextUtil;
+import org.compiere.model.GridField;
+import org.compiere.model.GridTab;
+import org.compiere.model.GridWindow;
+import org.compiere.model.GridWindowVO;
 import org.compiere.model.MLookup;
 import org.compiere.model.MLookupFactory;
 import org.compiere.process.ProcessInfo;
@@ -37,6 +42,7 @@ import org.compiere.util.Msg;
 import org.compiere.util.Trx;
 import org.kenos.idempiere.lbr.nfe.zk.form.NotaFiscalAdditional;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.HtmlBasedComponent;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.event.Events;
@@ -70,8 +76,11 @@ public class WNotaFiscalAdditional extends NotaFiscalAdditional implements IForm
 	private Button bSelectAllProd = ButtonFactory.createNamedButton("SelectAll", false, true);  
 	private Boolean selectAllProd = false;
 	private Label lCFOP = new Label();
-	private Textbox tCFOP = new Textbox();
-	private Button bCFOP = ButtonFactory.createNamedButton("Alterar CFOP", true, false);
+	private WSearchEditor fCFOP;
+	private Label lBP = new Label();
+	private WEditor fBP;
+	private Label lBPLocation = new Label();
+	private WEditor fBPLocation;
 	private Button bCleanAll = ButtonFactory.createNamedButton("Zerar Valores", true, false);
 		
 	@Override
@@ -88,6 +97,26 @@ public class WNotaFiscalAdditional extends NotaFiscalAdditional implements IForm
 		
 		try
 		{
+			// Model
+			int AD_Window_ID = 1000015;
+			GridWindowVO wVO = AEnv.getMWindowVO (m_WindowNo, AD_Window_ID, 0);
+			
+			if (wVO == null)
+				return;
+			
+			// Force window/tab to be read-only
+			wVO.WindowType = GridWindowVO.WINDOWTYPE_QUERY;
+			wVO.Tabs.get(1).IsReadOnly = true;
+			GridWindow m_mWindow = new GridWindow (wVO);
+			GridTab m_mTab = m_mWindow.getTab(0);
+			
+			// Make sure is the tab is loaded - teo_sarca [ 1659124 ]
+			if (!m_mTab.isLoadComplete())
+				m_mWindow.initTab(0);
+			
+			// Grid restrictions
+			m_mTab.getField("AD_Client_ID").setDisplayed(false);
+			
 			lNotaFiscal.setText(Msg.translate(Env.getCtx(), "LBR_NotaFiscal_ID"));
 			MLookup nfL = MLookupFactory.get (Env.getCtx(), this.getWindowNo(), 0, 1000557, DisplayType.Search);
 			fNotaFiscal = new WSearchEditor ("LBR_NotaFiscal_ID", false, false, true, nfL);
@@ -104,9 +133,35 @@ public class WNotaFiscalAdditional extends NotaFiscalAdditional implements IForm
 			lInOut.setVisible(false);
 			fInOut.setVisible(false);
 			
+			lCFOP.setText(Msg.translate(Env.getCtx(), "LBR_CFOP_ID"));
+			MLookup cfopL = MLookupFactory.get (Env.getCtx(), this.getWindowNo(), 0, 1000561, DisplayType.Search);
+			fCFOP = new WSearchEditor ("LBR_CFOP_ID", false, false, true, cfopL);
+			fCFOP.setVisible(false);
+			fCFOP.setVisible(false);
+			
+			lBP.setText(Msg.translate(Env.getCtx(), "C_BPartner_ID"));
+			GridField field = m_mTab.getField("C_BPartner_ID");
+			fBP = WebEditorFactory.getEditor(field, false);
+			fBP.setVisible(false);
+			fBP.setVisible(false);
+			
+			lBPLocation.setText(Msg.translate(Env.getCtx(), "C_BPartner_Location_ID"));
+			field = m_mTab.getField("C_BPartner_Location_ID");
+			fBPLocation = WebEditorFactory.getEditor(field, false);
+			fBPLocation.setVisible(false);
+			fBPLocation.setVisible(false);
+			
+			
+			// MField => VEditor
+			field.addPropertyChangeListener(fBPLocation);
+			
+			
 			fNotaFiscal.addValueChangeListener(this);
 			fOrder.addValueChangeListener(this);
 			fInOut.addValueChangeListener(this);
+			fCFOP.addValueChangeListener(this);
+			fBP.addValueChangeListener(this);
+			fBPLocation.addValueChangeListener(this);
 			
 			lType.setText(Msg.translate(Env.getCtx(), "LBR_AdditionalNFeType"));
 			
@@ -117,12 +172,7 @@ public class WNotaFiscalAdditional extends NotaFiscalAdditional implements IForm
 			type.appendItem("NF-e Adicional", TYPE_NOTAFISCAL_ADDITIONAL);
 			type.addEventListener(Events.ON_SELECT, this);
 			
-			lCFOP.setText(Msg.translate(Env.getCtx(), "LBR_CFOP_ID"));
-			bCFOP.addEventListener(Events.ON_CLICK, this);
 			bCleanAll.addEventListener(Events.ON_CLICK, this);
-			lCFOP.setVisible(false);
-			bCFOP.setVisible(false);
-			tCFOP.setVisible(false);
 			bCleanAll.setVisible(false);
 			
 			confirmPanel = new ConfirmPanel (true, true, false, false, false, false);
@@ -155,19 +205,38 @@ public class WNotaFiscalAdditional extends NotaFiscalAdditional implements IForm
 			fInOut.getComponent().setWidth("10px");
 			grpSelectionProd.appendChild(fInOut.getComponent());
 			grpSelectionProd.appendChild(new Space());
-			
+
+			// CFOP
+			grpSelectionProd.appendChild(new Separator());
 			grpSelectionProd.appendChild(lCFOP);
 			grpSelectionProd.appendChild(new Space());
-			grpSelectionProd.appendChild(tCFOP);
+			ZKUpdateUtil.setHflex(fCFOP.getComponent(), "min");
+			fOrder.getComponent().setWidth("10px");
+			grpSelectionProd.appendChild(fCFOP.getComponent());
 			grpSelectionProd.appendChild(new Space());
-			grpSelectionProd.appendChild(bCFOP);
+
+			// BP
+			grpSelectionProd.appendChild(lBP);
+			grpSelectionProd.appendChild(new Space());
+			grpSelectionProd.appendChild(fBP.getComponent());
+			if (fBP.getComponent() instanceof HtmlBasedComponent)
+				ZKUpdateUtil.setHflex((HtmlBasedComponent) fBP.getComponent(), "min");
+			grpSelectionProd.appendChild(new Space());
+
+			// Location
+			grpSelectionProd.appendChild(lBPLocation);
+			grpSelectionProd.appendChild(new Space());
+			grpSelectionProd.appendChild(fBPLocation.getComponent());
+			if (fBP.getComponent() instanceof HtmlBasedComponent)
+				ZKUpdateUtil.setHflex((HtmlBasedComponent) fBPLocation.getComponent(), "min");
+			grpSelectionProd.appendChild(new Space());
+			
 			//
 			grpSelectionProd.appendChild(new Separator());
 			grpSelectionProd.appendChild(miniTableNF);
 			
 			//	Center
 			createMainPanel ();
-//			updatePackageWeight ();
 
 			confirmPanel.addActionListener(Events.ON_CLICK, this);
 			bSelectAllProd.addEventListener(Events.ON_CLICK, this);
@@ -211,17 +280,16 @@ public class WNotaFiscalAdditional extends NotaFiscalAdditional implements IForm
 		Properties ctx = Env.getCtx ();
 		//
 		Vector<String> columnNames = new Vector<String>();
-		columnNames.add (Msg.translate(ctx, "Select"));
-		columnNames.add (Msg.translate(ctx, "Line"));
+		columnNames.add (" ");
+		columnNames.add ("Linha");
 		columnNames.add (Msg.translate(ctx, "ProductName"));
-		columnNames.add (Msg.translate(ctx, "CFOP Linha"));
+		columnNames.add ("CFOP_");
 		columnNames.add (Msg.translate(ctx, "Qty"));
-		columnNames.add (Msg.translate(ctx, "Price"));
-		columnNames.add (Msg.translate(ctx, "GrandTotal"));
+		columnNames.add (Msg.translate(ctx, "PriceActual"));
+		columnNames.add (Msg.translate(ctx, "LineTotalAmt"));
 		columnNames.add (Msg.translate(ctx, "lbr_TaxBaseAmt") + " - ICMS");
 		columnNames.add (Msg.translate(ctx, "lbr_TaxRate") + " - ICMS");
 		columnNames.add (Msg.translate(ctx, "lbr_TaxAmt") + " - ICMS");
-		columnNames.add (Msg.translate(ctx, "DocStatus"));
 
 		//	Clear
 		miniTableNF.clear();
@@ -258,14 +326,13 @@ public class WNotaFiscalAdditional extends NotaFiscalAdditional implements IForm
 		miniTableNF.setColumnClass (index++, Boolean.class, false);		//  0-Selection
 		miniTableNF.setColumnClass (index++, KeyNamePair.class, true); 	//  1-Line
 		miniTableNF.setColumnClass (index++, String.class, true);		//  2-Product
-		miniTableNF.setColumnClass (index++, String.class, false);		//  3-CFOP
+		miniTableNF.setColumnClass (index++, String.class, true);		//  3-CFOP
 		miniTableNF.setColumnClass (index++, BigDecimal.class, true);	//  4-Qty
 		miniTableNF.setColumnClass (index++, BigDecimal.class, true);	//  5-Price
 		miniTableNF.setColumnClass (index++, BigDecimal.class, true);	//  6-GrandTotal
 		miniTableNF.setColumnClass (index++, BigDecimal.class, false);	//  7-Tax Base Amt
 		miniTableNF.setColumnClass (index++, BigDecimal.class, false);	//  8-Tax Rate Amt
 		miniTableNF.setColumnClass (index++, BigDecimal.class, false);	//  9-Tax Amt
-		miniTableNF.setColumnClass (index++, String.class, true);		//  10-DocStatus
 		
 		selectAllProd = false;
 	}	//	createProductionGrid
@@ -280,13 +347,12 @@ public class WNotaFiscalAdditional extends NotaFiscalAdditional implements IForm
 		fInOut.setValue("");
 		miniTableNF.clear();
 		grpSelectionComp.setVisible(false);
-		lCFOP.setVisible(false);
-		bCFOP.setVisible(false);
-		tCFOP.setVisible(false);
 		bCleanAll.setVisible(false);		
 		m_LBR_NotaFiscal_ID = -1;
 		m_C_Order_ID = -1;
 		m_M_InOut_ID = -1;
+		//
+		setParamsVisible(false);
 	}
 
 	/**
@@ -322,7 +388,20 @@ public class WNotaFiscalAdditional extends NotaFiscalAdditional implements IForm
 					if (TextUtil.match(typenf, TYPE_NOTAFISCAL_ADDITIONAL_COMPLEMENTAR, 
 							TYPE_NOTAFISCAL_ADDITIONAL_ANULACAOVALORES, 
 							TYPE_NOTAFISCAL_ADDITIONAL) && NotaFiscal_ID > 0)
-						NotaFiscal_ID = generateNFComplementar(trxName, typenf);
+					{
+						Integer cfop = (Integer) fCFOP.getValue();
+						Integer bp = (Integer) fBP.getValue();
+						Integer bpl = (Integer) fBPLocation.getValue();
+
+						if (cfop == null)
+							cfop = -1;
+						if (bp == null)
+							bp = -1;
+						if (bpl == null)
+							bpl = -1;
+						
+						NotaFiscal_ID = generateNFComplementar(trxName, typenf, cfop, bp, bpl, -1);
+					}
 					else if (TYPE_NOTAFISCAL_ADDITIONAL_ENTREGAFUTURA.equals(typenf))
 						NotaFiscal_ID = generateNFEntregaFutura(trxName);
 					else if (TYPE_NOTAFISCAL_ADDITIONAL_TRIANGULAR.equals(typenf))
@@ -357,19 +436,19 @@ public class WNotaFiscalAdditional extends NotaFiscalAdditional implements IForm
 				//	Refresh
 				createLinesGrid (typenf);
 			}
-			else if (bCFOP.equals(source))
-			{
-				//	Validar CFOP no formato 5.555
-				if (!tCFOP.getText().isEmpty() && tCFOP.getText().matches("^[0-9]{1}.[0-9]{3}"))
-				{	
-					for (int i = 0; i < miniTableNF.getItemCount(); i++)
-	    			{
-						miniTableNF.setValueAt(tCFOP.getText(), i, 3);
-	    			}
-				}
-				else
-					throw new AdempiereException("CFOP Inválido");
-			}			
+//			else if (bCFOP.equals(source))
+//			{
+//				//	Validar CFOP no formato 5.555
+//				if (!fCFOP.getText().isEmpty() && tCFOP.getText().matches("^[0-9]{1}.[0-9]{3}"))
+//				{	
+//					for (int i = 0; i < miniTableNF.getItemCount(); i++)
+//	    			{
+//						miniTableNF.setValueAt(tCFOP.getText(), i, 3);
+//	    			}
+//				}
+//				else
+//					throw new AdempiereException("CFOP Inválido");
+//			}
 			else if (bCleanAll.equals(source))
 			{
 				for (int i = 0; i < miniTableNF.getItemCount(); i++)
@@ -478,16 +557,12 @@ public class WNotaFiscalAdditional extends NotaFiscalAdditional implements IForm
 			if (m_LBR_NotaFiscal_ID == null)
 			{
 				grpSelectionComp.setVisible(false);
-				lCFOP.setVisible(false);
-				bCFOP.setVisible(false);
-				tCFOP.setVisible(false);
+				setParamsVisible(false);
 				bCleanAll.setVisible(false);
 				return;
 			}	
 			
-			lCFOP.setVisible(true);
-			bCFOP.setVisible(true);
-			tCFOP.setVisible(true);
+			setParamsVisible(true);
 			bCleanAll.setVisible(true);
 			
 			//
@@ -501,16 +576,12 @@ public class WNotaFiscalAdditional extends NotaFiscalAdditional implements IForm
 			if (m_C_Order_ID == null)
 			{	
 				grpSelectionComp.setVisible(false);
-				lCFOP.setVisible(false);
-				bCFOP.setVisible(false);
-				tCFOP.setVisible(false);
+				setParamsVisible(false);
 				bCleanAll.setVisible(false);
 				return;
 			}	
 			
-			lCFOP.setVisible(true);
-			bCFOP.setVisible(true);
-			tCFOP.setVisible(true);
+			setParamsVisible(true);
 			bCleanAll.setVisible(true);
 			
 			//
@@ -524,29 +595,40 @@ public class WNotaFiscalAdditional extends NotaFiscalAdditional implements IForm
 			if (m_M_InOut_ID == null)
 			{	
 				grpSelectionComp.setVisible(false);
-				lCFOP.setVisible(false);
-				bCFOP.setVisible(false);
-				tCFOP.setVisible(false);
+				setParamsVisible(false);
 				bCleanAll.setVisible(false);
 				return;
 			}	
 			
-			lCFOP.setVisible(true);
-			bCFOP.setVisible(true);
-			tCFOP.setVisible(true);
+			setParamsVisible(true);
 			bCleanAll.setVisible(true);
 			
 			//
 			createLinesGrid (typenf);
 		}
+		
+		Object newValue = e.getNewValue();
+		
+		if (newValue instanceof Integer)
+		{
+			Env.setContext(Env.getCtx(), m_WindowNo, e.getPropertyName(), ((Integer)newValue).intValue());
+			Env.setContext(Env.getCtx(), m_WindowNo, 0, e.getPropertyName(), ((Integer)newValue).intValue());
+		}
 	}	//	vetoableChange
+
+	private void setParamsVisible(boolean visible) {
+		lCFOP.setVisible(visible);
+		fCFOP.setVisible(visible);
+		
+		lBP.setVisible(visible);
+		fBP.setVisible(visible);
+		
+		lBPLocation.setVisible(visible);
+		fBPLocation.setVisible(visible);
+	}
 
 	/**
 	 * 
 	 */
-	public void tableChanged(WTableModelEvent event)
-	{
-		
-			
-	}	
-}
+	public void tableChanged (WTableModelEvent event) {}	
+}	//	WNotaFiscalAdditional

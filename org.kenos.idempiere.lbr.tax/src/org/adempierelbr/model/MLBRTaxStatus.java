@@ -99,7 +99,7 @@ public class MLBRTaxStatus extends X_LBR_TaxStatus
 	public static int getTaxStatus(int LBR_TaxGroup_ID, String taxStatus)
 	{
 		String where =  "LBR_TaxStatus_ID IN (SELECT LBR_TaxStatus_ID FROM LBR_TaxStatus " + 
-						"WHERE LBR_TaxName_ID IN (SELECT LBR_TaxName_ID FROM C_Tax WHERE  LBR_TaxGroup_ID = ? AND Name = ?) AND IsActive = 'Y')";
+						"WHERE LBR_TaxName_ID IN (SELECT LBR_TaxName_ID FROM C_Tax WHERE  LBR_TaxGroup_ID = ?) AND Name = ? AND IsActive = 'Y')";
 		
 		MTable table = MTable.get (Env.getCtx(), MLBRTaxStatus.Table_Name);
 		Query query =  new Query(Env.getCtx(), table, where, null);
