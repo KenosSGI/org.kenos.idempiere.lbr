@@ -16,6 +16,7 @@ import java.util.Vector;
 import java.util.logging.Level;
 
 import org.adempiere.exceptions.AdempiereException;
+import org.adempiere.webui.apps.AEnv;
 import org.adempiere.webui.component.Button;
 import org.adempiere.webui.component.Combobox;
 import org.adempiere.webui.component.ConfirmPanel;
@@ -34,6 +35,7 @@ import org.adempiere.webui.panel.ADForm;
 import org.adempiere.webui.panel.IFormController;
 import org.adempiere.webui.session.SessionManager;
 import org.adempiere.webui.util.ZKUpdateUtil;
+import org.adempiere.webui.window.FDialog;
 import org.compiere.model.MLocator;
 import org.compiere.model.MLookup;
 import org.compiere.model.MLookupFactory;
@@ -76,7 +78,8 @@ public class WPOGManage extends ADForm implements IFormController, WTableModelLi
 	private static CLogger log = CLogger.getCLogger (WPOGManage.class);
 	
 	/** Production Group	*/
-	private int m_LBR_ProductionGroup_ID = -1;
+	private String m_IDColumn = "";
+	private int m_Record_ID = -1;
 
 	/**	Panels			*/
 	private ConfirmPanel confirmPanel = new ConfirmPanel(true);
@@ -132,12 +135,14 @@ public class WPOGManage extends ADForm implements IFormController, WTableModelLi
 			m_mode.setMold("select");
 			m_mode.addItem(new KeyNamePair (1, "Dividir"));
 //			m_mode.addItem(new KeyNamePair (2, "Dividir e Completar"));
-			m_mode.addItem(new KeyNamePair (3, "Distribuir"));
-//			m_mode.addItem(new KeyNamePair (4, "Distribuir e Completar"));
-			m_mode.addItem(new KeyNamePair (5, "Adicionar Insumo"));
-			m_mode.addItem(new KeyNamePair (6, "Adicionar Insumo (Avançado)"));
-			m_mode.addItem(new KeyNamePair (7, "Excluir Insumo"));
-			m_mode.addItem(new KeyNamePair (8, "Alterar Insumo"));
+			if (m_IDColumn.equals(MLBRProductionGroup.COLUMNNAME_LBR_ProductionGroup_ID)) {
+				m_mode.addItem(new KeyNamePair (3, "Distribuir"));
+//				m_mode.addItem(new KeyNamePair (4, "Distribuir e Completar"));
+				m_mode.addItem(new KeyNamePair (5, "Adicionar Insumo"));
+				m_mode.addItem(new KeyNamePair (6, "Adicionar Insumo (Avançado)"));
+				m_mode.addItem(new KeyNamePair (7, "Excluir Insumo"));
+				m_mode.addItem(new KeyNamePair (8, "Alterar Insumo"));
+			}
 			m_mode.addEventListener(Events.ON_SELECT, this);
 			
 			lProduct.setText(Msg.translate(Env.getCtx(), "M_Product_ID"));
@@ -304,7 +309,7 @@ public class WPOGManage extends ADForm implements IFormController, WTableModelLi
 	{
 		//	Clear
 		int mode = m_mode.getSelectedItem().toKeyNamePair().getKey();
-		if (mode != MODE_SPLIT || mode != MODE_SPLIT)
+		if (mode != MODE_SPLIT || mode != MODE_SPLIT_COMP)
 			try
 			{
 				createComponentGrid ();
@@ -392,7 +397,9 @@ public class WPOGManage extends ADForm implements IFormController, WTableModelLi
 					if (ps.size() == 0)
 						throw new AdempiereException ("Nenhum item selecionado");
 					
-					split (ps);
+					List<Integer> ids = split (ps, mode == MODE_SPLIT_COMP);
+					if (m_IDColumn.equals(MProduction.COLUMNNAME_M_Production_ID) && ids.size() == 1)
+						AEnv.zoom(MProduction.Table_ID, ids.get(0));
 					
 					//	Refresh
 					createProductionGrid ();
@@ -761,10 +768,12 @@ public class WPOGManage extends ADForm implements IFormController, WTableModelLi
 	 * @param productions
 	 * @return New ProductionID
 	 */
-	private int split (List<ProductionSplitter> productions)
+	private List<Integer> split (List<ProductionSplitter> productions, boolean complete)
 	{
+		List<Integer> ids = new ArrayList<Integer>();
+		
 		if (productions == null || productions.size() == 0)
-			return 0;
+			return ids;
 		
 		for (ProductionSplitter psplit : productions)
 		{
@@ -818,9 +827,24 @@ public class WPOGManage extends ADForm implements IFormController, WTableModelLi
 					line.setMovementQty(line.getPlannedQty());
 				line.save();
 			}
+			
+			//	Include to result
+			ids.add(prod_new.getM_Production_ID());
+			
+			if (complete) {
+				String result = prod_new.completeIt();
+				if (MProduction.DOCSTATUS_Completed.equals(result)) {
+					prod_new.setDocStatus(MProduction.DOCSTATUS_Completed);
+					prod_new.save();
+				}
+				else {
+					FDialog.error(m_WindowNo, "Error", prod_new.getProcessMsg());
+				}
+					
+			}
 		}
 		//
-		return 0;
+		return ids;
 	}	//	split
 	
 	/**
@@ -875,8 +899,8 @@ public class WPOGManage extends ADForm implements IFormController, WTableModelLi
 			int index = 1;
 			pstmt = DB.prepareStatement(sql.toString(), null);
 			
-			pstmt.setInt(index++, m_LBR_ProductionGroup_ID);
-			pstmt.setInt(index++, m_LBR_ProductionGroup_ID);
+			pstmt.setInt(index++, m_Record_ID);
+			pstmt.setInt(index++, m_Record_ID);
 			for (Integer s : selected)
 				pstmt.setInt(index++, s);
 			//
@@ -988,7 +1012,7 @@ public class WPOGManage extends ADForm implements IFormController, WTableModelLi
 		sql.append("p.ProductionQty, p.ProductionQty AS MovementQty FROM ");
 		sql.append("M_Production p ");
 		sql.append("INNER JOIN M_Product pr ON (pr.M_Product_ID=p.M_Product_ID) ");
-		sql.append("WHERE p.LBR_ProductionGroup_ID=? ");
+		sql.append("WHERE p.").append(m_IDColumn).append("=? ");
 		sql.append("AND p.Processed='N' AND p.IsActive='Y' AND p.IsCreated='Y' ");
 		
 		//	Do not allow double splitting
@@ -1007,7 +1031,7 @@ public class WPOGManage extends ADForm implements IFormController, WTableModelLi
 		try
 		{
 			pstmt = DB.prepareStatement(sql.toString(), null);
-			pstmt.setInt(1, m_LBR_ProductionGroup_ID);
+			pstmt.setInt(1, m_Record_ID);
 			
 			rs = pstmt.executeQuery();
 			while (rs.next())
@@ -1045,9 +1069,14 @@ public class WPOGManage extends ADForm implements IFormController, WTableModelLi
 		super.setProcessInfo(pi);
 		//
 		if (pi != null && pi.getRecord_ID() > 0 
-				&& pi.getTable_ID() == MLBRProductionGroup.Table_ID)
+				&& (pi.getTable_ID() == MLBRProductionGroup.Table_ID || pi.getTable_ID() == MProduction.Table_ID))
 		{
-			m_LBR_ProductionGroup_ID = pi.getRecord_ID();
+			m_Record_ID = pi.getRecord_ID();
+			
+			if (pi.getTable_ID() == MLBRProductionGroup.Table_ID)
+				m_IDColumn = "LBR_ProductionGroup_ID";
+			else if (pi.getTable_ID() == MProduction.Table_ID)
+				m_IDColumn = "M_Production_ID";
 			//
 			createProductionGrid ();
 		}
