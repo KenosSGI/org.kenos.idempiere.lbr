@@ -61,13 +61,20 @@ import org.kenos.idempiere.lbr.base.event.IDocFiscalHandler;
 import org.kenos.idempiere.lbr.base.event.IDocFiscalHandlerFactory;
 import org.kenos.idempiere.lbr.base.model.SysConfig;
 
+import br.gov.sp.prefeitura.nfe.PedidoCancelamentoNFeDocument;
+import br.gov.sp.prefeitura.nfe.PedidoCancelamentoNFeDocument.PedidoCancelamentoNFe;
+import br.gov.sp.prefeitura.nfe.PedidoCancelamentoNFeDocument.PedidoCancelamentoNFe.Detalhe;
 import br.gov.sp.prefeitura.nfe.PedidoEnvioLoteRPSDocument;
 import br.gov.sp.prefeitura.nfe.PedidoEnvioLoteRPSDocument.PedidoEnvioLoteRPS;
 import br.gov.sp.prefeitura.nfe.PedidoEnvioLoteRPSDocument.PedidoEnvioLoteRPS.Cabecalho;
+import br.gov.sp.prefeitura.nfe.RetornoCancelamentoNFeDocument;
+import br.gov.sp.prefeitura.nfe.RetornoCancelamentoNFeDocument.RetornoCancelamentoNFe;
 import br.gov.sp.prefeitura.nfe.RetornoEnvioLoteRPSDocument;
 import br.gov.sp.prefeitura.nfe.RetornoEnvioLoteRPSDocument.RetornoEnvioLoteRPS;
 import br.gov.sp.prefeitura.nfe.tipos.TpAssinatura;
+import br.gov.sp.prefeitura.nfe.tipos.TpAssinaturaCancelamento;
 import br.gov.sp.prefeitura.nfe.tipos.TpCPFCNPJ;
+import br.gov.sp.prefeitura.nfe.tipos.TpChaveNFe;
 import br.gov.sp.prefeitura.nfe.tipos.TpChaveNFeRPS;
 import br.gov.sp.prefeitura.nfe.tipos.TpChaveRPS;
 import br.gov.sp.prefeitura.nfe.tipos.TpEndereco;
@@ -890,6 +897,92 @@ public class NFSeImpl implements INFSe
 		
 		return PDF;
 	}	//	getPDF
+	
+	@Override
+	public boolean cancel (MLBRNotaFiscal nf) throws Exception
+	{
+		//	Set certificate
+		MLBRDigitalCertificate certificate = MLBRDigitalCertificate.getCertificate (nf.getCtx(), nf.getAD_Org_ID());
+		if (certificate == null)
+			throw new Exception ( "@Error@ Certificado Inválido" );
+		
+		//	Try to find a service for PKCS#11 for transmit
+		IDocFiscalHandler handler = null;
+		List<IDocFiscalHandlerFactory> list = Service.locator ().list (IDocFiscalHandlerFactory.class).getServices();
+		for (IDocFiscalHandlerFactory docFiscal : list)
+		{
+			handler = docFiscal.getHandler (certificate.getlbr_CertType(), NFSETransmit.class.getName());
+			if (handler != null)
+				break;
+		}
+		
+		boolean homolog = false;
+		MLBRNFConfig config = MLBRNFConfig.get(nf.getAD_Org_ID(), nf.getlbr_NFModel());
+		if (config != null && MLBRNFConfig.LBR_NFEENV_Homologation.equals(config.getlbr_NFeEnv()))
+			homolog = true;
+		
+		PedidoCancelamentoNFeDocument document = PedidoCancelamentoNFeDocument.Factory.newInstance();
+		PedidoCancelamentoNFe cancelamentoNFe = document.addNewPedidoCancelamentoNFe();
+		br.gov.sp.prefeitura.nfe.PedidoCancelamentoNFeDocument.PedidoCancelamentoNFe.Cabecalho cabecalho = cancelamentoNFe.addNewCabecalho();
+		cabecalho.setVersao(1);
+		TpCPFCNPJ tpCPFCNPJ = cabecalho.addNewCPFCNPJRemetente();
+		tpCPFCNPJ.setCNPJ(TextUtil.toNumeric(nf.getlbr_CNPJ()));
+		
+		Detalhe detalhe = cancelamentoNFe.addNewDetalhe();
+		TpChaveNFe chaveNFe = detalhe.addNewChaveNFe();
+		chaveNFe.setCodigoVerificacao(nf.getlbr_NFeProt());
+		chaveNFe.setInscricaoPrestador(toLong (nf.getlbr_OrgCCM()));
+		chaveNFe.setNumeroNFe(toLong (nf.getlbr_NFENo()));
+		
+		
+		StringBuilder ascii = new StringBuilder ("");
+		//
+		ascii.append(TextUtil.lPad (chaveNFe.getInscricaoPrestador()+"", 8));
+		ascii.append(TextUtil.lPad (chaveNFe.getNumeroNFe()+"", 12));
+		//
+		TpAssinaturaCancelamento tpAssinatura = TpAssinaturaCancelamento.Factory.newInstance(NFeUtil.getXmlOpt());
+		
+		MOrgInfo oi = MOrgInfo.get (Env.getCtx(), nf.getAD_Org_ID(), null);
+		tpAssinatura.setStringValue(new SignatureUtil (oi, SignatureUtil.RPS).signASCII (ascii.toString()));
+		detalhe.xsetAssinaturaCancelamento (tpAssinatura);
+
+		new SignatureUtil (oi, SignatureUtil.RPS).sign (document, cancelamentoNFe.newCursor());
+		StringBuilder xml = new StringBuilder (document.xmlText(NFeUtil.getXmlOpt()));
+
+		//	Set certificate
+		certificate.initialize();
+		
+		//	Stub
+		LoteNFeStub stub = new LoteNFeStub();
+		String retornoXML;
+		
+		//	Monta o Lote para Teste
+		if (homolog)
+			retornoXML = stub.cancelamentoNFe(1, xml.toString());
+		
+		//	Envio o Lote
+		else 
+			retornoXML = stub.cancelamentoNFe(1, xml.toString());
+
+		NFeUtil.saveXML (String.valueOf(nf.getAD_Org_ID()), NFeUtil.KIND_NFSE, NFeUtil.MESSAGE_RET_AUTORIZE, nf.getDocumentNo(), retornoXML);
+
+		//	Processa o Retorno
+		RetornoCancelamentoNFe result = RetornoCancelamentoNFeDocument.Factory.parse(retornoXML).getRetornoCancelamentoNFe();
+
+		TpEvento[] alertas 			= result.getAlertaArray();
+		TpEvento[] erros 			= result.getErroArray();
+		
+		for (TpEvento alerta : alertas)
+		{
+			log.warning ("Alerta - NF=" + alerta.getChaveNFe() + ", Cod=" + alerta.getCodigo() + ", Desc=" + alerta.getDescricao());
+		}
+		for (TpEvento erro : erros)
+		{
+			log.warning ("Erro - NF=" + erro.getChaveNFe() + ", Cod=" + erro.getCodigo() + ", Desc=" + erro.getDescricao());
+		}
+		
+		return result.getCabecalho().getSucesso();
+	}	//	cancel
 
 	/**
 	 * 	Get JasperReport
