@@ -133,6 +133,12 @@ public class NotaFiscalAdditional extends ADForm
 		}
 		
 		nfCompl.setDateDoc(Env.getContextAsDate(Env.getCtx(), "Date"));
+		nfCompl.setC_Invoice_ID(0);
+		nfCompl.setM_InOut_ID(0);
+		nfCompl.setM_Movement_ID(0);
+		nfCompl.setLBR_ReverseInvoice(false);
+		nfCompl.setLBR_ReverseInOut(false);
+		nfCompl.setLBR_ReverseMovement(false);
 		
 		// Adicionando NF Referenciada
 		MLBRNotaFiscalDocRef nfDocRef = new MLBRNotaFiscalDocRef(Env.getCtx(), 0, nfCompl.get_TrxName());
