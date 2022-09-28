@@ -3,8 +3,8 @@ package org.kenos.idempiere.lbr.base.callout;
 import java.util.Properties;
 
 import org.adempiere.base.IColumnCallout;
+import org.adempierelbr.wrapper.I_W_C_BPartner;
 import org.adempierelbr.wrapper.I_W_C_DocType;
-import org.adempierelbr.wrapper.I_W_C_Order;
 import org.compiere.model.GridField;
 import org.compiere.model.GridTab;
 import org.compiere.model.MDocType;
@@ -26,10 +26,22 @@ public class DocType implements IColumnCallout
 			return null;
 		
 		MDocType dt = new MDocType (ctx, C_DocTypeTarget_ID, null);
-		String nfDescription = dt.get_ValueAsString(I_W_C_DocType.COLUMNNAME_lbr_NFDescription);
+		String dtDescription = dt.get_ValueAsString(I_W_C_DocType.COLUMNNAME_lbr_NFDescription);
 		
-		if (nfDescription != null)
-			mTab.setValue (I_W_C_Order.COLUMNNAME_lbr_NFDescription, nfDescription);
+		//	Description
+		if (dtDescription != null && !dtDescription.isBlank())
+		{
+			String nfDescription = (String) mTab.getValue(I_W_C_BPartner.COLUMNNAME_lbr_NFDescription);
+			if (nfDescription == null || nfDescription.isBlank())
+				nfDescription = "";
+			else
+				nfDescription += ". ";
+			
+			//	Do not duplicate
+			if (nfDescription.indexOf(dtDescription) == -1)
+				nfDescription += dtDescription;
+			mTab.setValue(I_W_C_BPartner.COLUMNNAME_lbr_NFDescription, nfDescription);
+		}
 		
 		return null;
 	}	//	start
