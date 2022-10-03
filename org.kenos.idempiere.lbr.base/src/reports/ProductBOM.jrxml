@@ -37,15 +37,14 @@ FROM 	M_Product WHERE M_Product_ID = $P{RECORD_ID}]]>
 		<defaultValueExpression><![CDATA[2000000]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[SELECT p.Value, p.Name, bl.QtyBOM, bl.Depth, bl.Tree, p.IsBOM, p.IsStocked, uom.UOMSymbol AS UOM, bl.Line,
+		<![CDATA[SELECT REPEAT(' ', (Depth-1)*2) || p.Value AS Value,  REPEAT(' ', (Depth-1)*2) || p.Name || (CASE WHEN p.IsStocked='N' THEN ' - Fantasma' ELSE '' END) AS Name, bl.QtyBOM, bl.Depth, bl.Tree, p.IsBOM, p.IsStocked, uom.UOMSymbol AS UOM, bl.Line, bl.LineTree,
 	REVERSE (SPLIT_PART (REVERSE (bl.Tree), '|', 2)) As Parent, 
 	(CASE WHEN p.IsBOM='Y' THEN 0 ELSE c.CurrentCostPrice END) AS CurrentCostPrice
 FROM RV_BOMLine bl
 INNER JOIN M_Product p ON bl.M_ProductBOM_ID = p.M_Product_ID
 INNER JOIN C_UOM uom ON uom.C_UOM_ID = p.C_UOM_ID
 LEFT JOIN M_Cost c ON p.M_Product_ID = c.M_Product_ID and c.M_CostElement_ID =$P{M_CostElement_ID}
-WHERE bl.M_Product_ID=$P{RECORD_ID}
-ORDER BY Depth, Line]]>
+WHERE bl.M_Product_ID=$P{RECORD_ID}]]>
 	</queryString>
 	<field name="value" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="value"/>
@@ -77,11 +76,13 @@ ORDER BY Depth, Line]]>
 	<field name="line" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.label" value="line"/>
 	</field>
+	<field name="linetree" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="linetree"/>
+	</field>
 	<field name="parent" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="parent"/>
 	</field>
-	<sortField name="depth"/>
-	<sortField name="line"/>
+	<sortField name="linetree"/>
 	<variable name="COUNT_PER_GROUP" class="java.lang.Integer" resetType="Group" resetGroup="Group1" calculation="Sum">
 		<variableExpression><![CDATA[new java.lang.Integer (1)]]></variableExpression>
 		<initialValueExpression><![CDATA[new java.lang.Integer (0)]]></initialValueExpression>
@@ -118,8 +119,8 @@ ORDER BY Depth, Line]]>
 		<groupHeader>
 			<band height="24">
 				<printWhenExpression><![CDATA["Y".equals($F{isbom}) ? Boolean.TRUE : Boolean.FALSE]]></printWhenExpression>
-				<textField>
-					<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="0" y="7" width="60" height="16" forecolor="#000000" backcolor="#F5F5F5" uuid="1cfdec48-647b-4918-bcf5-f2e08838e349">
+				<textField isStretchWithOverflow="true">
+					<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="0" y="7" width="80" height="16" forecolor="#000000" backcolor="#F5F5F5" uuid="1cfdec48-647b-4918-bcf5-f2e08838e349">
 						<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 					</reportElement>
 					<textElement verticalAlignment="Middle">
@@ -129,7 +130,7 @@ ORDER BY Depth, Line]]>
 					<textFieldExpression><![CDATA[$F{value}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement mode="Opaque" x="60" y="7" width="264" height="16" forecolor="#000000" backcolor="#F5F5F5" uuid="ca89255b-c4f6-4eef-88e8-57aa74a2ccf6">
+					<reportElement mode="Opaque" x="80" y="7" width="280" height="16" forecolor="#000000" backcolor="#F5F5F5" uuid="ca89255b-c4f6-4eef-88e8-57aa74a2ccf6">
 						<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 					</reportElement>
 					<textElement verticalAlignment="Middle">
@@ -137,13 +138,6 @@ ORDER BY Depth, Line]]>
 						<paragraph leftIndent="2"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement mode="Opaque" x="324" y="7" width="36" height="16" forecolor="#000000" backcolor="#F5F5F5" uuid="a4d2f80e-ff43-4345-98a9-15da3feddbe3"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="Arial" size="8" isBold="true" isStrikeThrough="false"/>
-					</textElement>
-					<textFieldExpression><![CDATA["Y".equals ($F{isstocked}) ? "E" : "F"]]></textFieldExpression>
 				</textField>
 				<textField pattern="#,##0.00;(#,##0.00-)">
 					<reportElement mode="Opaque" x="360" y="7" width="55" height="16" forecolor="#000000" backcolor="#F5F5F5" uuid="578bfe43-6c72-4d4c-832d-1b3215c4d709"/>
@@ -217,7 +211,7 @@ new java.text.DecimalFormat("###0").format($F{qtybom})]]></textFieldExpression>
 					<textFieldExpression><![CDATA[$F{depth}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement mode="Transparent" x="60" y="0" width="264" height="12" forecolor="#000000" backcolor="#FFFFFF" uuid="84050285-2fa5-4c03-a7c3-3ebb536d8c78">
+					<reportElement mode="Transparent" x="80" y="0" width="280" height="12" forecolor="#000000" backcolor="#FFFFFF" uuid="84050285-2fa5-4c03-a7c3-3ebb536d8c78">
 						<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 					</reportElement>
 					<textElement verticalAlignment="Middle">
@@ -226,8 +220,8 @@ new java.text.DecimalFormat("###0").format($F{qtybom})]]></textFieldExpression>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
 				</textField>
-				<textField>
-					<reportElement mode="Transparent" x="0" y="0" width="60" height="12" forecolor="#000000" backcolor="#FFFFFF" uuid="db02a3cf-4f82-4a50-b482-54110ec00fbb">
+				<textField isStretchWithOverflow="true">
+					<reportElement mode="Transparent" x="0" y="0" width="80" height="12" forecolor="#000000" backcolor="#FFFFFF" uuid="db02a3cf-4f82-4a50-b482-54110ec00fbb">
 						<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 					</reportElement>
 					<textElement verticalAlignment="Middle">
@@ -253,13 +247,6 @@ new java.text.DecimalFormat("###0").format($F{qtybom})]]></textFieldExpression>
 						<font fontName="Arial" size="8" isBold="false"/>
 					</textElement>
 					<textFieldExpression><![CDATA[" " + $F{uom}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement mode="Transparent" x="324" y="0" width="36" height="12" forecolor="#000000" backcolor="#F5F5F5" uuid="70d735c2-8dd6-46b0-97ef-79d5f3d7c21a"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="Arial" size="8" isBold="true" isStrikeThrough="false"/>
-					</textElement>
-					<textFieldExpression><![CDATA["Y".equals ($F{isstocked}) ? "E" : "F"]]></textFieldExpression>
 				</textField>
 				<textField pattern="#,##0.00;(#,##0.00-)">
 					<reportElement mode="Transparent" x="360" y="0" width="55" height="12" forecolor="#000000" backcolor="#F5F5F5" uuid="11c8d416-8274-4b8c-a76b-533364bcfc92"/>
@@ -365,7 +352,7 @@ new java.text.DecimalFormat("###0").format($F{qtybom})]]></textFieldExpression>
 				<text><![CDATA[Nível ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="0" y="43" width="60" height="25" forecolor="#000000" backcolor="#E6E6E6" uuid="12c49aa2-ef2d-43c4-b668-9cbd00bc0ea0">
+				<reportElement mode="Opaque" x="0" y="43" width="80" height="25" forecolor="#000000" backcolor="#E6E6E6" uuid="12c49aa2-ef2d-43c4-b668-9cbd00bc0ea0">
 					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
@@ -375,7 +362,7 @@ new java.text.DecimalFormat("###0").format($F{qtybom})]]></textFieldExpression>
 				<text><![CDATA[Código]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="60" y="43" width="264" height="25" forecolor="#000000" backcolor="#E6E6E6" uuid="f404b0d3-3e1d-4efe-8982-0cfbd7204440">
+				<reportElement mode="Opaque" x="80" y="43" width="280" height="25" forecolor="#000000" backcolor="#E6E6E6" uuid="f404b0d3-3e1d-4efe-8982-0cfbd7204440">
 					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
@@ -393,13 +380,6 @@ new java.text.DecimalFormat("###0").format($F{qtybom})]]></textFieldExpression>
 					<paragraph leftIndent="2"/>
 				</textElement>
 				<text><![CDATA[Qde.]]></text>
-			</staticText>
-			<staticText>
-				<reportElement mode="Opaque" x="324" y="42" width="36" height="25" forecolor="#000000" backcolor="#E6E6E6" uuid="45e1685e-8864-4d18-9a3e-bdd4ab00b25c"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="8" isBold="true"/>
-				</textElement>
-				<text><![CDATA[E / F]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Opaque" x="360" y="42" width="55" height="25" forecolor="#000000" backcolor="#E6E6E6" uuid="d9c017c5-54e4-48a2-9658-76a6a5f8d9b6"/>
@@ -450,7 +430,7 @@ new java.text.DecimalFormat("###0").format($F{qtybom})]]></textFieldExpression>
 					<font fontName="Arial" size="10" isBold="false"/>
 					<paragraph leftIndent="4" rightIndent="4"/>
 				</textElement>
-				<text><![CDATA[E = Estocado / F = Fanstasma]]></text>
+				<text><![CDATA[E = Estocado / F = Fantasma]]></text>
 			</staticText>
 			<line>
 				<reportElement x="-20" y="42" width="595" height="1" forecolor="#666666" uuid="33528d88-8c17-4648-b6a0-792bd627a0d2"/>
