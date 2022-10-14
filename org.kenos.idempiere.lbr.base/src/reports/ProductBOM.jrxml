@@ -16,6 +16,8 @@
 	<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.rows" value="true"/>
 	<property name="net.sf.jasperreports.export.xls.white.page.background" value="true"/>
 	<property name="net.sf.jasperreports.export.xls.ignore.graphics" value="true"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="148"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="845"/>
 	<subDataset name="productHeaderDS" uuid="10ea8f0a-345c-46d2-8ed1-9ee11ca05085">
 		<parameter name="RECORD_ID" class="java.lang.Integer">
 			<defaultValueExpression><![CDATA[2000671]]></defaultValueExpression>
@@ -37,14 +39,23 @@ FROM 	M_Product WHERE M_Product_ID = $P{RECORD_ID}]]>
 		<defaultValueExpression><![CDATA[2000000]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[SELECT REPEAT(' ', (Depth-1)*2) || p.Value AS Value,  REPEAT(' ', (Depth-1)*2) || p.Name || (CASE WHEN p.IsStocked='N' THEN ' - Fantasma' ELSE '' END) AS Name, bl.QtyBOM, bl.Depth, bl.Tree, p.IsBOM, p.IsStocked, uom.UOMSymbol AS UOM, bl.Line, bl.LineTree,
+		<![CDATA[WITH BOMLines AS (
+SELECT REPEAT(' ', (Depth-1)*2) || p.Value AS Value,  REPEAT(' ', (Depth-1)*2) || p.Name || (CASE WHEN p.IsStocked='N' THEN ' - Fantasma' ELSE '' END) AS Name, bl.QtyBOM, bl.Depth, bl.Tree, p.IsBOM, p.IsStocked, COALESCE(uomt.UOMSymbol,uom.UOMSymbol) AS UOM, bl.Line, bl.LineTree,
 	REVERSE (SPLIT_PART (REVERSE (bl.Tree), '|', 2)) As Parent, 
-	(CASE WHEN p.IsBOM='Y' THEN 0 ELSE c.CurrentCostPrice END) AS CurrentCostPrice
+	(CASE WHEN p.IsBOM='Y' THEN 0 ELSE c.CurrentCostPrice END) AS CurrentCostPrice,
+	(CASE WHEN p.IsBOM='Y' THEN 0 ELSE c.CurrentCostPrice END)*bl.QtyBOM AS TotalCostPrice
 FROM RV_BOMLine bl
 INNER JOIN M_Product p ON bl.M_ProductBOM_ID = p.M_Product_ID
 INNER JOIN C_UOM uom ON uom.C_UOM_ID = p.C_UOM_ID
+LEFT JOIN C_UOM_Trl uomt ON uom.C_UOM_ID = uomt.C_UOM_ID AND uomt.AD_Language='pt_BR'
 LEFT JOIN M_Cost c ON p.M_Product_ID = c.M_Product_ID and c.M_CostElement_ID =$P{M_CostElement_ID}
-WHERE bl.M_Product_ID=$P{RECORD_ID}]]>
+WHERE bl.M_Product_ID=$P{RECORD_ID} )
+SELECT Value, Name, QtyBOM, Depth, Tree, IsBOM, IsStocked, UOM, Line, LineTree, Parent, CurrentCostPrice, 
+(CASE WHEN IsBOM='Y' THEN (SELECT SUM(x.TotalCostPrice) FROM BOMLines x WHERE x.LineTree LIKE BOMLines.LineTree || '|%') ELSE BOMLines.TotalCostPrice END) AS TotalCostPrice,
+SUM (TotalCostPrice) OVER () AS GrandTotal 
+FROM BOMLines
+ORDER BY LineTree
+;]]>
 	</queryString>
 	<field name="value" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="value"/>
@@ -82,6 +93,12 @@ WHERE bl.M_Product_ID=$P{RECORD_ID}]]>
 	<field name="parent" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="parent"/>
 	</field>
+	<field name="totalcostprice" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="totalcostprice"/>
+	</field>
+	<field name="grandtotal" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="grandtotal"/>
+	</field>
 	<sortField name="linetree"/>
 	<variable name="COUNT_PER_GROUP" class="java.lang.Integer" resetType="Group" resetGroup="Group1" calculation="Sum">
 		<variableExpression><![CDATA[new java.lang.Integer (1)]]></variableExpression>
@@ -96,9 +113,6 @@ WHERE bl.M_Product_ID=$P{RECORD_ID}]]>
 	</variable>
 	<variable name="DEPTH_DELTA" class="java.lang.Integer">
 		<variableExpression><![CDATA[$V{DEPTH}.intValue() - $V{DEPTH_INITIAL}.intValue()]]></variableExpression>
-	</variable>
-	<variable name="TotalWeightedCost" class="java.lang.Float" calculation="Sum">
-		<variableExpression><![CDATA[$F{currentcostprice}*$F{qtybom}]]></variableExpression>
 	</variable>
 	<group name="Group4">
 		<groupExpression><![CDATA[$F{parent}]]></groupExpression>
@@ -139,12 +153,12 @@ WHERE bl.M_Product_ID=$P{RECORD_ID}]]>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
 				</textField>
-				<textField pattern="#,##0.00;(#,##0.00-)">
+				<textField pattern="#,##0.0000">
 					<reportElement mode="Opaque" x="360" y="7" width="55" height="16" forecolor="#000000" backcolor="#F5F5F5" uuid="578bfe43-6c72-4d4c-832d-1b3215c4d709"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font fontName="Arial" size="8" isBold="true"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{currentcostprice}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{totalcostprice}.divide ( $F{qtybom}, 6, java.math.RoundingMode.HALF_UP )]]></textFieldExpression>
 				</textField>
 				<textField pattern="">
 					<reportElement mode="Opaque" x="470" y="7" width="40" height="16" forecolor="#000000" backcolor="#F5F5F5" uuid="903d2e85-fca8-401c-824f-b25d5fd5e979"/>
@@ -171,12 +185,12 @@ new java.text.DecimalFormat("###0").format($F{qtybom})]]></textFieldExpression>
 					</textElement>
 					<textFieldExpression><![CDATA[" " + $F{uom}]]></textFieldExpression>
 				</textField>
-				<textField pattern="#,##0.00;(#,##0.00-)">
+				<textField pattern="#,##0.0000">
 					<reportElement mode="Opaque" x="415" y="7" width="55" height="16" forecolor="#000000" backcolor="#F5F5F5" uuid="5423ab2e-ae8d-42a1-89be-da357703e84d"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font fontName="Arial" size="8" isBold="true"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{currentcostprice}*$F{qtybom}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{totalcostprice}]]></textFieldExpression>
 				</textField>
 				<line>
 					<reportElement x="0" y="22" width="555" height="1" forecolor="#666666" uuid="67ee4415-9fe5-44fc-9b53-0069281c7fd6"/>
@@ -248,19 +262,19 @@ new java.text.DecimalFormat("###0").format($F{qtybom})]]></textFieldExpression>
 					</textElement>
 					<textFieldExpression><![CDATA[" " + $F{uom}]]></textFieldExpression>
 				</textField>
-				<textField pattern="#,##0.00;(#,##0.00-)">
+				<textField pattern="#,##0.0000">
 					<reportElement mode="Transparent" x="360" y="0" width="55" height="12" forecolor="#000000" backcolor="#F5F5F5" uuid="11c8d416-8274-4b8c-a76b-533364bcfc92"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font fontName="Arial" size="8" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{currentcostprice}]]></textFieldExpression>
 				</textField>
-				<textField pattern="#,##0.00;(#,##0.00-)">
+				<textField pattern="#,##0.0000">
 					<reportElement mode="Transparent" x="415" y="0" width="55" height="12" forecolor="#000000" backcolor="#F5F5F5" uuid="fee9e08a-b0d3-480d-960d-4facf1e5d364"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font fontName="Arial" size="8" isBold="true"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{currentcostprice}*$F{qtybom}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{totalcostprice}]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupHeader>
@@ -405,12 +419,12 @@ new java.text.DecimalFormat("###0").format($F{qtybom})]]></textFieldExpression>
 	</columnHeader>
 	<columnFooter>
 		<band height="83">
-			<textField evaluationTime="Group" evaluationGroup="Group4" pattern="#,##0.00">
+			<textField evaluationTime="Group" evaluationGroup="Group4" pattern="#,##0.0000">
 				<reportElement mode="Opaque" x="470" y="42" width="85" height="25" backcolor="#E6E6E6" uuid="ac613672-afec-40c2-8af2-03942db1925e"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{TotalWeightedCost}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{grandtotal}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement mode="Opaque" x="324" y="42" width="146" height="25" forecolor="#000000" backcolor="#E6E6E6" uuid="e6a88ca6-69a9-4336-89f5-37f8789948c1">
@@ -460,6 +474,7 @@ new java.text.DecimalFormat("###0").format($F{qtybom})]]></textFieldExpression>
 				<reportElement x="0" y="4" width="120" height="13" uuid="ab743417-85fa-4dd4-b898-6e97e9df0790"/>
 				<textElement>
 					<font fontName="Arial" size="8"/>
+					<paragraph leftIndent="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
