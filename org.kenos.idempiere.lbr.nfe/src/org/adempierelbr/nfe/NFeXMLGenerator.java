@@ -1628,6 +1628,13 @@ public class NFeXMLGenerator
 						icms90.setPFCPST(normalize2to4(fcpTaxST.getlbr_TaxRate()));
 						icms90.setVFCPST(normalize4(fcpTaxST.getlbr_TaxAmt()));
 					}
+					
+					BigDecimal deson = (BigDecimal) icmsTax.get_Value("LBR_TaxExemptAmt");
+					if (deson != null && deson.signum() == 1)
+					{
+						icms90.setMotDesICMS(ICMS90.MotDesICMS.X_9);
+						icms90.setVICMSDeson(TextUtil.toNumeric(deson).replace(",", "."));
+					}
 				}
 				else if (CSOSN_101.equals (taxStatus))
 				{
@@ -1980,7 +1987,7 @@ public class NFeXMLGenerator
 		ICMSTot icmsTot = total.addNewICMSTot();
 		icmsTot.setVBC(normalize (nf.getICMSBase()));
 		icmsTot.setVICMS(normalize (nf.getICMSAmt()));
-		icmsTot.setVICMSDeson(TextUtil.ZERO_STRING);
+		icmsTot.setVICMSDeson(normalize (nf.getTaxAmt("ICMSDeson")));
 		//	Fundo de Combate a Pobreza - NT2015.003
 		icmsTot.setVFCPUFDest(icmsDest ? normalize (nf.getTaxAmt ("FCP")) : TextUtil.ZERO_STRING);
 		icmsTot.setVICMSUFDest(icmsDest ? normalize (nf.getTaxAmt ("ICMSDIFAL")) : TextUtil.ZERO_STRING);
@@ -2037,7 +2044,7 @@ public class NFeXMLGenerator
 		Transp transp = infNFe.addNewTransp();
 
 		//	NFC-e force 9-No Freight when customer is present during sale
-		if (MLBRNotaFiscal.LBR_INDPRES_OperaçãoPresencial.equals(nf.getLBR_IndPres()))
+		if (nf.isSOTrx() && MLBRNotaFiscal.LBR_INDPRES_OperaçãoPresencial.equals(nf.getLBR_IndPres()))
 			transp.setModFrete(Transp.ModFrete.X_9);
 		else if (nf.getLBR_FreightCostRule() != null)
 			transp.setModFrete (Transp.ModFrete.Enum.forString (nf.getLBR_FreightCostRule()));

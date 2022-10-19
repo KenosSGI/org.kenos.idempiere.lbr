@@ -111,7 +111,7 @@ public class MLBRNFTax extends X_LBR_NFTax
 		if (tax.getLBR_TaxName_ID() > 0)
 		{
 			MLBRTaxName tn = new MLBRTaxName (getCtx(), tax.getLBR_TaxName_ID(), null);
-			hasWithhold = tn.isLBR_HasWithhold();
+			hasWithhold = tn.isLBR_HasWithhold() || MLBRTaxName.LBR_TAXTYPE_Substitution.equals(tn.getlbr_TaxType());
 		}
 		
 		//	Caso não seja de retenção e tenha valor negativo, não deve-se destacar na NF
@@ -123,7 +123,7 @@ public class MLBRNFTax extends X_LBR_NFTax
 		}
 		else
 		{
-			setlbr_TaxAmt(it.getTaxAmt());
+			setlbr_TaxAmt(it.getTaxAmt().abs());
 			setlbr_TaxBaseAmt(it.getTaxBaseAmt());
 		}
 	}	//	setTaxes
