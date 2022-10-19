@@ -317,7 +317,7 @@ public class WNotaFiscalAdditional extends NotaFiscalAdditional implements IForm
 		}
 		else if (TYPE_NOTAFISCAL_ADDITIONAL_ENTREGAFUTURA.equals(typeSelected))
 		{	
-			modelI = new ListModelTable(getInOutLineData());
+			modelI = new ListModelTable(getInOutLineData(true));
 			modelI.addTableModelListener(this);
 			miniTableNF.setData(modelI, columnNames);
 		}
@@ -385,25 +385,23 @@ public class WNotaFiscalAdditional extends NotaFiscalAdditional implements IForm
 				
 				try
 				{
+					Integer cfop = (Integer) fCFOP.getValue();
+					Integer bp = (Integer) fBP.getValue();
+					Integer bpl = (Integer) fBPLocation.getValue();
+
+					if (cfop == null)
+						cfop = -1;
+					if (bp == null)
+						bp = -1;
+					if (bpl == null)
+						bpl = -1;
+					
 					if (TextUtil.match(typenf, TYPE_NOTAFISCAL_ADDITIONAL_COMPLEMENTAR, 
 							TYPE_NOTAFISCAL_ADDITIONAL_ANULACAOVALORES, 
 							TYPE_NOTAFISCAL_ADDITIONAL) && NotaFiscal_ID > 0)
-					{
-						Integer cfop = (Integer) fCFOP.getValue();
-						Integer bp = (Integer) fBP.getValue();
-						Integer bpl = (Integer) fBPLocation.getValue();
-
-						if (cfop == null)
-							cfop = -1;
-						if (bp == null)
-							bp = -1;
-						if (bpl == null)
-							bpl = -1;
-						
 						NotaFiscal_ID = generateNFComplementar(trxName, typenf, cfop, bp, bpl, -1);
-					}
 					else if (TYPE_NOTAFISCAL_ADDITIONAL_ENTREGAFUTURA.equals(typenf))
-						NotaFiscal_ID = generateNFEntregaFutura(trxName);
+						NotaFiscal_ID = generateNFEntregaFutura(trxName, cfop);
 					else if (TYPE_NOTAFISCAL_ADDITIONAL_TRIANGULAR.equals(typenf))
 						NotaFiscal_ID = generateNFTrinagular(trxName);
 					else

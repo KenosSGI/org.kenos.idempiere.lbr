@@ -14,6 +14,7 @@
 package org.kenos.idempiere.lbr.nfe.zk.form;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -275,7 +276,7 @@ public class NotaFiscalAdditional extends ADForm
 	 * @return
 	 * @throws Exception 
 	 */
-	public int generateNFEntregaFutura(String trxName) throws Exception
+	public int generateNFEntregaFutura(String trxName, int LBR_CFOP_ID) throws Exception
 	{
 		// Criando Nota de Entregas Futuras
 		MLBRNotaFiscal nfEntFut = new MLBRNotaFiscal(Env.getCtx(), 0, null);
@@ -295,10 +296,23 @@ public class NotaFiscalAdditional extends ADForm
 		nfEntFut.setDateDoc(Env.getContextAsDate(Env.getCtx(), "Date"));
 		
 		//	Zerar Nota Fiscal
-		clearNF(nfEntFut);
+		clearNF(nfEntFut, true, false, false);
 		
 		//	Preencher Nota Fiscal com os dados do Formulário
 		miniTableDataToNF(nfEntFut);
+		
+		if (LBR_CFOP_ID > 0)
+		{
+			MLBRCFOP cfop = new MLBRCFOP(Env.getCtx(), LBR_CFOP_ID, null);
+			nfEntFut.setlbr_CFOPNote(cfop.getDescription());
+			nfEntFut.save();
+			
+			for (MLBRNotaFiscalLine nfl : nfEntFut.getLines())
+			{
+				nfl.setLBR_CFOP_ID(LBR_CFOP_ID);
+				nfl.saveEx();
+			}
+		}
 		
 		log.warning("Nota Fiscal de Entrega Futura - NF-e: " + nfEntFut.getDocumentNo() + " - ID: " + nfEntFut.getLBR_NotaFiscal_ID());
 		
@@ -508,55 +522,56 @@ public class NotaFiscalAdditional extends ADForm
 		}
 		if (taxGroup == 0)
 			throw new Exception ("Unable to find ICMS Tax Group for NF");
-		
-		int i = 0;
+
 		
 		BigDecimal taxBaseAmtTotal = BigDecimal.ZERO;
 		BigDecimal taxAmtTotal = BigDecimal.ZERO;
 		BigDecimal grandTotal = BigDecimal.ZERO;
 		
-		//	Incluíndo dados do Formulário na Nota Fiscal
-		for (MLBRNotaFiscalLine nfl : nfAdd.getLines())
+		MLBRNotaFiscalLine[] lines = nfAdd.getLines();
+		int selectedRow = 0;
+		int rows = miniTableNF.getRowCount();
+		for (int rowNo = 0; rowNo < rows; rowNo++)
 		{
-			if (((Boolean)miniTableNF.getValueAt(i, 0)).booleanValue())
-			{	
-				KeyNamePair knp = (KeyNamePair) miniTableNF.getValueAt(i, 1);
-				
-				if (knp.getName().equals(nfl.getLine() + "") && miniTableNF.getValueAt(i, 2).equals(nfl.getM_Product().getName()))
-				{
-					
-					BigDecimal taxBaseAmt = (BigDecimal) miniTableNF.getValueAt(i, 7);
-					BigDecimal taxRate = (BigDecimal) miniTableNF.getValueAt(i, 8);
-					BigDecimal taxAmt = (BigDecimal) miniTableNF.getValueAt(i, 9);
-					
-					MLBRNFLineTax nflTax = new Query(Env.getCtx(), MLBRNFLineTax.Table_Name, "LBR_NotaFiscalLine_ID = ? AND LBR_TaxGroup_ID=?", nfAdd.get_TrxName())
-											.setParameters(nfl.getLBR_NotaFiscalLine_ID(), taxGroup)
-											.first();
-					
-					if (nflTax == null)
-						throw new AdempiereException ("Grupo de impostos não encontrado");
-					nflTax.setlbr_TaxBaseAmt(taxBaseAmt);
-					nflTax.setlbr_TaxRate(taxRate);
-					nflTax.setlbr_TaxAmt(taxAmt);
-					
-					taxBaseAmtTotal = taxBaseAmtTotal.add(taxBaseAmt);
-					taxAmtTotal = taxAmtTotal.add(taxAmt);
-					
-					nflTax.save();
-				}
-			}
-			else
+			if (((Boolean)miniTableNF.getValueAt(rowNo, 0)).booleanValue())
 			{
-				KeyNamePair knp = (KeyNamePair) miniTableNF.getValueAt(i, 1);
+//				KeyNamePair knp = (KeyNamePair) miniTableNF.getValueAt(rowNo, 1);
+
+				BigDecimal taxBaseAmt = (BigDecimal) miniTableNF.getValueAt(rowNo, 7);
+				BigDecimal taxRate = (BigDecimal) miniTableNF.getValueAt(rowNo, 8);
+				BigDecimal taxAmt = (BigDecimal) miniTableNF.getValueAt(rowNo, 9);
 				
-				if (knp.getName().equals(nfl.getLine() + "") && miniTableNF.getValueAt(i, 2).equals(nfl.getM_Product().getName()))
-					nfl.delete(false);
+				MLBRNFLineTax nflTax = new Query(Env.getCtx(), MLBRNFLineTax.Table_Name, "LBR_NotaFiscalLine_ID = ? AND LBR_TaxGroup_ID=?", nfAdd.get_TrxName())
+										.setParameters(lines[selectedRow].getLBR_NotaFiscalLine_ID(), taxGroup)
+										.first();
+				
+				if (nflTax == null)
+					throw new AdempiereException ("Grupo de impostos não encontrado");
+				nflTax.setlbr_TaxBaseAmt(taxBaseAmt);
+				nflTax.setlbr_TaxRate(taxRate);
+				nflTax.setlbr_TaxAmt(taxAmt);
+				
+				int LBR_TaxStatus_ID = MLBRTaxStatus.getTaxStatus(nflTax.getLBR_TaxGroup_ID(), "00");
+				if (LBR_TaxStatus_ID > 0)
+					nflTax.setLBR_TaxStatus_ID(LBR_TaxStatus_ID);
+				
+				taxBaseAmtTotal = taxBaseAmtTotal.add(taxBaseAmt);
+				taxAmtTotal = taxAmtTotal.add(taxAmt);
+				
+				nflTax.save();
+				
+//				// Total Geral
+				grandTotal = grandTotal.add(lines[selectedRow].getLineTotalAmt());
+				
+				selectedRow++;
 			}
-			
-			// Total Geral
-			grandTotal = grandTotal.add(nfl.getLineTotalAmt());
-			
-			i++;
+//			else
+//			{
+//				KeyNamePair knp = (KeyNamePair) miniTableNF.getValueAt(rowNo, 1);
+//				
+//				if (knp.getName().equals(nfl.getLine() + "") && miniTableNF.getValueAt(i, 2).equals(nfl.getM_Product().getName()))
+//					nfl.delete(false);
+//			}
 		}
 		
 		//	Tax ICMS
@@ -717,7 +732,7 @@ public class NotaFiscalAdditional extends ADForm
 	 * 	Retrieve the data
 	 * 	@return
 	 */
-	protected Vector<Vector<Object>> getInOutLineData ()
+	protected Vector<Vector<Object>> getInOutLineData (boolean fillTax)
 	{
 		
 		if (m_M_InOut_ID == null || (Integer)m_M_InOut_ID <= 0)
@@ -762,10 +777,25 @@ public class NotaFiscalAdditional extends ADForm
 				line.add(rs.getString("cfop"));	//  5-Production Qty
 				line.add(rs.getBigDecimal("MovementQty"));		//  6-Movement Qty
 				line.add(rs.getBigDecimal("PriceEntered"));		//  7-Price Entered
-				line.add(rs.getBigDecimal("TotalLines"));		//  8-Grand Total
-				line.add(rs.getBigDecimal("lbr_TaxBaseAmt"));	//  9-Grand Total
-				line.add(rs.getBigDecimal("lbr_TaxRate"));		//  9-Grand Total
-				line.add(rs.getBigDecimal("lbr_TaxAmt"));		//  9-Grand Total
+				
+				BigDecimal totalLines = rs.getBigDecimal("TotalLines");
+				BigDecimal taxBaseAmt = rs.getBigDecimal("lbr_TaxBaseAmt");
+				BigDecimal taxRate = rs.getBigDecimal("lbr_TaxRate");
+				BigDecimal taxAmt = rs.getBigDecimal("lbr_TaxAmt");
+				
+				if (fillTax) {
+					if (taxBaseAmt.signum() < 1)
+						taxBaseAmt = totalLines;
+					if (taxRate.signum() < 1)
+						taxRate = new BigDecimal (MSysConfig.getValue("LBR_DEFAULT_ICMS_RATE_FUTURE_DELIVERY", "18", Env.getAD_Client_ID(Env.getCtx())));
+					if (taxAmt.signum() < 1)
+						taxAmt = taxBaseAmt.multiply(taxRate).divide(Env.ONEHUNDRED, 17, RoundingMode.HALF_UP);
+				}
+
+				line.add(totalLines);	//  8-Grand Total
+				line.add(taxBaseAmt);	//  9-Grand Total
+				line.add(taxRate);		//  9-Grand Total
+				line.add(taxAmt);		//  9-Grand Total
 //				String status = rs.getString("DocStatus");		//  10-Document Status
 //				line.add(status);
 				data.add(line);
