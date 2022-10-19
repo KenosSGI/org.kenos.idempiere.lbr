@@ -133,16 +133,8 @@ public class WPOGManage extends ADForm implements IFormController, WTableModelLi
 			
 			//	Mode
 			m_mode.setMold("select");
-			m_mode.addItem(new KeyNamePair (1, "Dividir"));
-//			m_mode.addItem(new KeyNamePair (2, "Dividir e Completar"));
-			if (m_IDColumn.equals(MLBRProductionGroup.COLUMNNAME_LBR_ProductionGroup_ID)) {
-				m_mode.addItem(new KeyNamePair (3, "Distribuir"));
-//				m_mode.addItem(new KeyNamePair (4, "Distribuir e Completar"));
-				m_mode.addItem(new KeyNamePair (5, "Adicionar Insumo"));
-				m_mode.addItem(new KeyNamePair (6, "Adicionar Insumo (Avançado)"));
-				m_mode.addItem(new KeyNamePair (7, "Excluir Insumo"));
-				m_mode.addItem(new KeyNamePair (8, "Alterar Insumo"));
-			}
+			m_mode.addItem(new KeyNamePair (MODE_SPLIT, "Dividir"));
+//			m_mode.addItem(new KeyNamePair (MODE_SPLIT_COMP, "Dividir e Completar"));
 			m_mode.addEventListener(Events.ON_SELECT, this);
 			
 			lProduct.setText(Msg.translate(Env.getCtx(), "M_Product_ID"));
@@ -1073,8 +1065,17 @@ public class WPOGManage extends ADForm implements IFormController, WTableModelLi
 		{
 			m_Record_ID = pi.getRecord_ID();
 			
-			if (pi.getTable_ID() == MLBRProductionGroup.Table_ID)
+			if (pi.getTable_ID() == MLBRProductionGroup.Table_ID) {
 				m_IDColumn = "LBR_ProductionGroup_ID";
+				
+				//	Include options only to Production Group
+				m_mode.addItem(new KeyNamePair (MODE_DIST, "Distribuir"));
+//				m_mode.addItem(new KeyNamePair (MODE_DIST_COMP, "Distribuir e Completar"));
+				m_mode.addItem(new KeyNamePair (MODE_ADD, "Adicionar Insumo"));
+				m_mode.addItem(new KeyNamePair (MODE_ADD_COPY, "Adicionar Insumo (Avançado)"));
+				m_mode.addItem(new KeyNamePair (MODE_DELETE, "Excluir Insumo"));
+				m_mode.addItem(new KeyNamePair (MODE_CHANGE, "Alterar Insumo"));
+			}
 			else if (pi.getTable_ID() == MProduction.Table_ID)
 				m_IDColumn = "M_Production_ID";
 			//
