@@ -316,7 +316,6 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 	{
 		return getTaxBaseAmt("ICMSST");
 	}	//	getICMSSTBase
-	
 
 	/**
 	 *  Retorno a LBR_NFLineTax do ICMS
@@ -326,6 +325,16 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 	public X_LBR_NFLineTax getICMSTax()
 	{
 		return getTax("ICMS");
+	}	//	getICMSTax
+
+	/**
+	 *  Retorno a LBR_NFLineTax do ICMS
+	 *
+	 *  @return	LBR_NFLineTax
+	 */
+	public X_LBR_NFLineTax getICMSDesonTax()
+	{
+		return getTax("ICMSDeson");
 	}	//	getICMSTax
 	
 	/**
@@ -1251,6 +1260,7 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 	{
 		X_LBR_NFLineTax icmsST = getICMSSTTax();
 		X_LBR_NFLineTax icmsTax = getICMSTax();
+		X_LBR_NFLineTax icmsDesonTax = getICMSDesonTax();
 		
 		//	Creates a missing ICMS ST
 		if (icmsST == null 
@@ -1279,6 +1289,13 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 					icmsST.save();
 				}
 			}
+		}
+		
+		if (icmsTax != null && icmsDesonTax != null)
+		{
+			icmsTax.setlbr_TaxAmt(icmsTax.getlbr_TaxAmt().subtract(icmsDesonTax.getlbr_TaxAmt().abs()));
+			icmsTax.set_ValueNoCheck("LBR_TaxExemptAmt", icmsDesonTax.getlbr_TaxAmt().abs());
+			icmsTax.save();
 		}
 
 		if (MSysConfig.getBooleanValue(SysConfig.LBR_PRINT_ICMS_SUBSTITUTE_NF, true, getAD_Client_ID())

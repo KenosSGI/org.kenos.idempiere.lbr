@@ -2487,6 +2487,9 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 			nfTax.setLBR_TaxGroup_ID(taxAD.getLBR_TaxGroup_ID());
 			nfTax.save();
 		}
+		
+		//	Fix exempt and hold taxes
+		fixTaxHold ();
 	}	//	setTaxes
 	
 	/**
@@ -2509,7 +2512,29 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 			nfTax.setLBR_TaxGroup_ID(taxAD.getLBR_TaxGroup_ID());
 			nfTax.save();
 		}
+		
+		//	Fix exempt and hold taxes
+		fixTaxHold ();
 	}	//	setTaxes
+	
+	private void fixTaxHold ()
+	{
+		MLBRNFTax icmsTax = null;
+		MLBRNFTax icmsDesonTax = null;
+				
+		MLBRNFTax[] taxes = getTaxes();
+		for (MLBRNFTax tax : taxes) {
+			if (tax.getLBR_TaxGroup().getName().equals("ICMS"))
+				icmsTax = tax;
+			else if (tax.getLBR_TaxGroup().getName().equals("ICMSDeson"))
+				icmsDesonTax = tax;
+		}
+		
+		if (icmsTax != null && icmsDesonTax != null) {
+			icmsTax.setlbr_TaxAmt(icmsTax.getlbr_TaxAmt().subtract(icmsDesonTax.getlbr_TaxAmt()));
+			icmsTax.save();
+		}
+	}	//	fixTaxHold
 	
 	/**
 	 * 	Ajusta o Tipo de Documento correto para a NF
