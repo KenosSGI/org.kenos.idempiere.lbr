@@ -103,22 +103,22 @@ public class MovementToProduction extends SvrProcess
 				"GROUP BY pl.M_Product_ID, pl.M_Locator_ID;";
 		
 		PreparedStatement pstmt = null;
-	    	ResultSet rs = null;
-	    	try
-	    	{
-	    		pstmt = DB.prepareStatement (sql, get_TrxName());
-	    		pstmt.setInt (1, p_Record_ID);
-	    		rs = pstmt.executeQuery();
-	    		while (rs.next())
-	    		{
-	    			int M_Product_ID = rs.getInt (MStorageOnHand.COLUMNNAME_M_Product_ID);
-	    			int M_Locator_ID = rs.getInt (MStorageOnHand.COLUMNNAME_M_Locator_ID);
-	    			BigDecimal MovementQty = rs.getBigDecimal (MMovementLine.COLUMNNAME_MovementQty);
-	    			BigDecimal QtyOnHand = rs.getBigDecimal (MStorageOnHand.COLUMNNAME_QtyOnHand);
-	    			
-	    			//	Already movemented
-	    			if (QtyOnHand.subtract(MovementQty).signum() != -1)
-					continue;
+    	ResultSet rs = null;
+    	try
+    	{
+    		pstmt = DB.prepareStatement (sql, get_TrxName());
+    		pstmt.setInt (1, p_Record_ID);
+    		rs = pstmt.executeQuery();
+    		while (rs.next())
+    		{
+    			int M_Product_ID = rs.getInt (MStorageOnHand.COLUMNNAME_M_Product_ID);
+    			int M_Locator_ID = rs.getInt (MStorageOnHand.COLUMNNAME_M_Locator_ID);
+    			BigDecimal MovementQty = rs.getBigDecimal (MMovementLine.COLUMNNAME_MovementQty);
+    			BigDecimal QtyOnHand = rs.getBigDecimal (MStorageOnHand.COLUMNNAME_QtyOnHand);
+    			
+    			//	Already movemented
+    			if (QtyOnHand.subtract(MovementQty).signum() != -1)
+    				continue;
 	    			
 				//	Put in cache
 				if (!cache.containsKey (M_Product_ID))
@@ -160,23 +160,26 @@ public class MovementToProduction extends SvrProcess
 					//	Subtract qty movemented
 					MovementQty = MovementQty.subtract(targetQty);
 				}
-	    		}
-	    	}
-	    	catch (SQLException e)
-	    	{
-	    		throw new DBException (e, sql);
-	    	}
-	    	finally
-	    	{
-	    		DB.close (rs, pstmt);
-	    		rs = null; pstmt = null;
-	    	}
+    		}
+    	}
+    	catch (SQLException e)
+    	{
+    		throw new DBException (e, sql);
+    	}
+    	finally
+    	{
+    		DB.close (rs, pstmt);
+    		rs = null; pstmt = null;
+    	}
 		
 		//	Check if there is lines, if not throw error
 		if (movement.getLines(false).length == 0)
 			throw new AdempiereException ("@Error@ não há linhas para movimentar");
 		
-		return "@Success@ Documento criado: " + movement.getDocumentNo();
+		//	Creates a link to go to document
+		addLog(movement.get_ID(), null, null, movement.getDocumentNo(), MMovement.Table_ID, movement.getM_Movement_ID());
+		
+		return "@Success@";
 	}	//	doIt
 	
 	private List<Storage> getStorage (int M_Product_ID, int M_Warehouse_ID)
@@ -207,29 +210,29 @@ public class MovementToProduction extends SvrProcess
 				"ORDER BY 3";
 		
 		PreparedStatement pstmt = null;
-	    	ResultSet rs = null;
-	    	try
-	    	{
-	    		pstmt = DB.prepareStatement (sql, get_TrxName());
-	    		pstmt.setInt (1, M_Product_ID);
-	    		pstmt.setInt (2, M_Warehouse_ID);
-	    		rs = pstmt.executeQuery();
-	    		while (rs.next())
-	    		{
-	    			//	Positive only
-	    			if (rs.getBigDecimal(4).signum() == 1)
-	    				result.add(new Storage (rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getBigDecimal(4)));
-	    		}
-	    	}
-	    	catch (SQLException e)
-	    	{
-	    		throw new DBException (e, sql);
-	    	}
-	    	finally
-	    	{
-	    		DB.close (rs, pstmt);
-	    		rs = null; pstmt = null;
-	    	}
+    	ResultSet rs = null;
+    	try
+    	{
+    		pstmt = DB.prepareStatement (sql, get_TrxName());
+    		pstmt.setInt (1, M_Product_ID);
+    		pstmt.setInt (2, M_Warehouse_ID);
+    		rs = pstmt.executeQuery();
+    		while (rs.next())
+    		{
+    			//	Positive only
+    			if (rs.getBigDecimal(4).signum() == 1)
+    				result.add(new Storage (rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getBigDecimal(4)));
+    		}
+    	}
+    	catch (SQLException e)
+    	{
+    		throw new DBException (e, sql);
+    	}
+    	finally
+    	{
+    		DB.close (rs, pstmt);
+    		rs = null; pstmt = null;
+    	}
 		
 		return result;
 	}
