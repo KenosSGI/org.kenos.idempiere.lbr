@@ -1,4 +1,4 @@
-package org.kenos.idempiere.lbr.bankslip.cnab400.bean.out.Itau;
+package org.kenos.idempiere.lbr.bankslip.cnab400.bean.out.itau;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;

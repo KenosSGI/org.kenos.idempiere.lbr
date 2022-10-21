@@ -1,4 +1,4 @@
-package org.kenos.idempiere.lbr.bankslip.cnab400.bean.Itau;
+package org.kenos.idempiere.lbr.bankslip.cnab400.bean.itau;
 
 import org.adempiere.model.POWrapper;
 import org.adempierelbr.wrapper.I_W_AD_OrgInfo;
