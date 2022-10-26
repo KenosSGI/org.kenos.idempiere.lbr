@@ -134,10 +134,8 @@ public class CaixaEconomica104v2 implements ICNABGenerator
 			detail.setIdPostagem(0);
 			detail.setUsoDaEmpresa(bs.getLBR_NumberInOrg());
 			detail.setCodIdentificacao(IDENTIFICACAO);
-//			detail.setAgencia(cnabFile.getAgencyNoAsInt());
-//			detail.setConta(cnabFile.getAccountNoAsInt());
-//			detail.setDac(cnabFile.getAccountVDAsInt());
 			detail.setNossoNumero(bs.getLBR_NumberInBank());
+			detail.setNossoNumeroDV(bsi.getLBR_NumberInBankVD());
 			detail.setDataDeJuros(bs.getDueDate());
 //			detail.setNumCarteira(bsi.getLBR_BankSlipFoldValue());
 			detail.setCodCarteira(bsi.getLBR_BankSlipFoldCode());
