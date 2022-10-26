@@ -24,7 +24,6 @@ public class Record1Detail extends org.kenos.idempiere.lbr.bankslip.cnab400.bean
 	protected String usoDaEmpresa;
 	protected Integer codIdentificacao;
 	protected String nossoNumero;
-	protected String nossoNumeroDV;
 	protected Timestamp dataDeJuros;
 	protected Integer codJuros;
 	protected Integer codDesconto;
@@ -91,15 +90,6 @@ public class Record1Detail extends org.kenos.idempiere.lbr.bankslip.cnab400.bean
 
 	public void setNossoNumero(String nossoNumero) {
 		this.nossoNumero = nossoNumero;
-	}
-
-	@Field ( offset = 60, length = 1, paddingChar = '0' , align = Align.RIGHT )
-	public String getNossoNumeroDV() {
-		return nossoNumeroDV;
-	}
-
-	public void setNossoNumeroDV(String nossoNumeroDV) {
-		this.nossoNumeroDV = nossoNumeroDV;
 	}
 	
 	@Field ( offset = 78, length = 6, paddingChar = '0' , align = Align.RIGHT, formatter = DateFormatter.class)

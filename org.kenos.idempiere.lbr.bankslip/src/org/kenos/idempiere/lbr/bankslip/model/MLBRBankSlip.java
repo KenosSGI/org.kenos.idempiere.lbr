@@ -1055,6 +1055,13 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 			return;
 		}
 		
+		//	Caixa
+		else if (Integer.parseInt(getRoutingNo()) == CaixaEconomica104.ROUNTING_NO)
+		{
+			modulo = new Modulo (TipoDeModulo.MODULO11, 9, 2);
+			numberInBank = "14" + TextUtil.lPad(getLBR_NumberInBank(), 15);
+		}
+		
 		if (numberInBank == null)
 			bsi.setLBR_NumberInBankVD("0");
 		else
