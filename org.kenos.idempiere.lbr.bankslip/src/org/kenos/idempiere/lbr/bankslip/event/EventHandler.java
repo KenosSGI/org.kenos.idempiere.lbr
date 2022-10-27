@@ -1,7 +1,5 @@
 package org.kenos.idempiere.lbr.bankslip.event;
 
-import java.util.Properties;
-
 import org.adempiere.base.event.AbstractEventHandler;
 import org.adempiere.base.event.IEventTopics;
 import org.adempiere.model.POWrapper;
@@ -9,10 +7,9 @@ import org.adempierelbr.model.MLBRNotaFiscal;
 import org.adempierelbr.wrapper.I_W_C_Invoice;
 import org.compiere.model.MInvoice;
 import org.compiere.model.PO;
-import org.compiere.util.Trx;
-import org.kenos.idempiere.lbr.bankslip.model.MLBRBankSlip;
 import org.kenos.idempiere.lbr.bankslip.model.MLBRBankSlipContract;
-import org.kenos.idempiere.lbr.base.TrxMonitorThread;
+import org.kenos.idempiere.lbr.bankslip.server.BankSlipProcessor;
+import org.kenos.idempiere.lbr.bankslip.server.BankSlipProcessorFactory;
 import org.osgi.service.event.Event;
 
 /**
@@ -86,73 +83,12 @@ public class EventHandler extends AbstractEventHandler
 					|| nf.getC_Invoice_ID() < 0)
 				return;	//	No Ivnoice
 			
-			MInvoice invoice = (MInvoice) nf.getC_Invoice();
-			String paymentRule = invoice.get_ValueAsString(I_W_C_Invoice.COLUMNNAME_lbr_PaymentRule);
-			int LBR_BankSlipContract_ID = invoice.get_ValueAsInt(I_W_C_Invoice.COLUMNNAME_LBR_BankSlipContract_ID);
-			
-			//	Not bankslip, or contract not set
-			if (!I_W_C_Invoice.LBR_PAYMENTRULE_BankSlip.equals(paymentRule) || LBR_BankSlipContract_ID < 1)
+			BankSlipProcessor processor = BankSlipProcessorFactory.getProcessor(nf.getAD_Client_ID());
+			if (processor == null)
 				return;
-			
-			final Properties ctx = nf.getCtx();
-			final String trxName = nf.get_TrxName();
-			
-			//	Generate bank slip
-			int count = MLBRBankSlip.getFromInvoice (ctx, invoice.getC_Invoice_ID(), null).size();
-			if (count > 0)
-				return;	//	Already generated, do nothing
-			
-			TrxMonitorThread thread = new TrxMonitorThread ("GenBankSlip", trxName, 60, 10*1000) //	60x, 10secs each
-			{
-				@Override
-				public void callback() {
-					String trxName = Trx.createTrxName("AutoGenBankSlip");
-					Trx trx = Trx.get(trxName, false);
-					
-					try 
-					{
-						//	Generate bank slip
-						int count = MLBRBankSlip.getFromInvoice (ctx, invoice.getC_Invoice_ID(), null).size();
-						if (count == 0)
-							MLBRBankSlip.generateFromInvoice(ctx, invoice, trxName);
-						
-						//	Everything is good
-						trx.commit();
-					}
-					catch (Exception e)
-					{
-						trx.rollback();
-						e.printStackTrace();
-					}
-					finally 
-					{
-						trx.close();
-					}
-				}
-			};
-			
-			//	Trx check
-			thread.start(); 
+
+			processor.put(nf.getC_Invoice_ID());
 		}
-		
-		//	Void Bank Slip, when possible
-//		else if (MLBRNotaFiscal.DOCSTATUS_Voided.equals(nf.getDocStatus()))
-//		{
-//			List<MLBRBankSlip> bankslips = MLBRBankSlip.getFromInvoice(nf.getCtx(), nf.getC_Invoice_ID(), null);
-//			//
-//			bankslips.stream().forEach(bs -> {
-//				boolean ok = false;
-//				try {
-//					ok = bs.processIt(MLBRBankSlip.ACTION_Void);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//				if (ok) {
-//					bs.setDocStatus(MLBRBankSlip.DOCSTATUS_Voided);
-//					bs.save();
-//				}
-//			});
-//		}
 	}	//	doHandleTableEvent
 
 	/**

@@ -1294,7 +1294,7 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 	{
 		int LBR_BankSlipContract_ID = invoice.get_ValueAsInt(I_W_C_Invoice.COLUMNNAME_LBR_BankSlipContract_ID);
 		if (LBR_BankSlipContract_ID < 1)
-			throw new Exception ("No bank slip contract set in invoice");
+			return;	//	Nothing to do
 		generateFromInvoice (ctx, invoice.getC_Invoice_ID(), 0, LBR_BankSlipContract_ID, null, trxName);
 	}	//	generateFromInvoice
 	
