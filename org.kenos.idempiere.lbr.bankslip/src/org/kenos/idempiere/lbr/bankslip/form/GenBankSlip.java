@@ -38,7 +38,6 @@ import org.compiere.util.Msg;
 import org.compiere.util.Trx;
 import org.compiere.util.ValueNamePair;
 import org.kenos.idempiere.lbr.bankslip.model.MLBRBankSlip;
-import org.kenos.idempiere.lbr.bankslip.model.MLBRBankSlipContract;
 
 /**
  * 		Classe comum para geração de boletos
