@@ -3,12 +3,12 @@ package org.kenos.idempiere.lbr.bankslip.cnab400.bean.out.inter;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
+import org.kenos.idempiere.lbr.bankslip.cnab400.bean.formatter.CNABStringFormatter;
 import org.kenos.idempiere.lbr.bankslip.cnab400.bean.formatter.NumericStringFormatter;
 
 import com.ancientprogramming.fixedformat4j.annotation.Align;
 import com.ancientprogramming.fixedformat4j.annotation.Field;
 import com.ancientprogramming.fixedformat4j.annotation.Fields;
-import com.ancientprogramming.fixedformat4j.annotation.FixedFormatDecimal;
 import com.ancientprogramming.fixedformat4j.annotation.Record;
 import com.ancientprogramming.fixedformat4j.format.impl.DateFormatter;
 
@@ -36,15 +36,38 @@ public class Record1Detail extends org.kenos.idempiere.lbr.bankslip.cnab400.bean
 	protected Integer codigoDoBanco;
 	protected Integer agenciaCobradora;
 	protected String especie;
+	protected Integer multa;
+	protected BigDecimal valorMulta;
+	protected BigDecimal perMulta;
+	protected Timestamp dataMulta;
+	protected Integer mora;
+	protected BigDecimal perMora;
+	protected Timestamp dataMora;
+	protected Integer desconto;
+	protected BigDecimal perDesconto;
+	protected String mensagemLivre;
+	protected Integer dataLimite;
+
+	@Override
+	@Field ( offset = 2, length = 2 )
+	public Integer getCodInscricaoEmpresa() {
+		return codInscricaoEmpresa;
+	}
+	
+	public void setCodInscricaoEmpresa(Integer codInscricaoEmpresa) {
+		this.codInscricaoEmpresa = codInscricaoEmpresa;
+	}
 	
 	@Override
-	public Integer getCodInscricaoEmpresa() {
-		return super.getCodInscricaoEmpresa();
+	@Field ( offset = 4, length = 14 )
+	public String getNumInscricaoEmpresa() {
+		return numInscricaoEmpresa;
 	}
-	@Override
-	public void setCodInscricaoEmpresa(Integer codInscricaoEmpresa) {
-		super.setCodInscricaoEmpresa(codInscricaoEmpresa);
+	
+	public void setNumInscricaoEmpresa(String numInscricaoEmpresa) {
+		this.numInscricaoEmpresa = numInscricaoEmpresa;
 	}
+	
 	
 	@Field ( offset = 21, length = 3, paddingChar = '0' , align = Align.RIGHT, formatter = NumericStringFormatter.class )
 	public String getNumCarteira() {
@@ -72,27 +95,7 @@ public class Record1Detail extends org.kenos.idempiere.lbr.bankslip.cnab400.bean
 	public void setConta(Integer conta) {
 		this.conta = conta;
 	}
-	
-	
-	
-	
-	@Field ( offset = 29, length = 1, paddingChar = '0' , align = Align.RIGHT )
-	public Integer getDac() {
-		return dac;
-	}
-	
-	public void setDac(Integer dac) {
-		this.dac = dac;
-	}
-	
-	@Field ( offset = 34, length = 4, paddingChar = '0' , align = Align.RIGHT )
-	public Integer getInstrucao() {
-		return instrucao;
-	}
-	
-	public void setInstrucao(Integer instrucao) {
-		this.instrucao = instrucao;
-	}
+
 	
 	@Field ( offset = 38, length = 25 )
 	public String getCodIdentificacao() {
@@ -103,42 +106,42 @@ public class Record1Detail extends org.kenos.idempiere.lbr.bankslip.cnab400.bean
 		this.codIdentificacao = codIdentificacao;
 	}
 	
-	@Field ( offset = 63, length = 8, paddingChar = '0', align = Align.RIGHT, formatter = NumericStringFormatter.class )
-	public String getNossoNumero() {
-		return nossoNumero;
+	@Field ( offset = 66, length = 1, paddingChar = '0' , align = Align.RIGHT )
+	public Integer getMulta() {
+		return multa;
+	}
+
+	public void setMulta(Integer multa) {
+		this.multa = multa;
 	}
 	
-	public void setNossoNumero(String nossoNumero) {
-		this.nossoNumero = nossoNumero;
+	@Field ( offset = 67, length = 13, paddingChar = '0' , align = Align.RIGHT )
+	public BigDecimal getValorMulta() {
+		return valorMulta;
 	}
 	
-	@FixedFormatDecimal ( decimals = 5 )
-	@Field ( offset = 71, length = 13, paddingChar = '0' , align = Align.RIGHT )
-	public BigDecimal getQteDeMoeda() {
-		return qteDeMoeda;
+	public void setValorMulta(BigDecimal valorMulta) {
+		this.valorMulta = valorMulta;
 	}
 	
-	public void setQteDeMoeda(BigDecimal qteDeMoeda) {
-		this.qteDeMoeda = qteDeMoeda;
+	@Field ( offset = 80, length = 4, paddingChar = '0' , align = Align.RIGHT )
+	public BigDecimal getPerMulta() {
+		return perMulta;
 	}
 	
-	@Field ( offset = 87, length = 21 )
-	public String getUsoDoBanco() {
-		return usoDoBanco;
+	public void setPerMulta(BigDecimal perMulta) {
+		this.perMulta = perMulta;
 	}
 	
-	public void setUsoDoBanco(String usoDoBanco) {
-		this.usoDoBanco = usoDoBanco;
+	@Field ( offset = 84, length = 6, paddingChar = '0', align = Align.RIGHT, formatter = DateFormatter.class )
+	public Timestamp getDataMulta() {
+		return dataMulta;
 	}
 	
-	@Field ( offset = 108, length = 1 )
-	public String getCodCarteira() {
-		return codCarteira;
+	public void setDataMulta(Timestamp dataMulta) {
+		this.dataMulta = dataMulta;
 	}
 	
-	public void setCodCarteira(String codCarteira) {
-		this.codCarteira = codCarteira;
-	}
 	
 	@Field ( offset = 109, length = 2, paddingChar = '0' , align = Align.RIGHT, formatter = NumericStringFormatter.class )
 	public String getCodOcorrencia() {
@@ -176,41 +179,166 @@ public class Record1Detail extends org.kenos.idempiere.lbr.bankslip.cnab400.bean
 		this.valorDoTitulo = valorDoTitulo;
 	}
 	
-	@Field ( offset = 140, length = 3, paddingChar = '0' , align = Align.RIGHT )
-	public Integer getCodigoDoBanco() {
-		return codigoDoBanco;
+	@Field ( offset = 140, length = 2 )
+	public Integer getDataLimite() {
+		return dataLimite;
 	}
-	
-	public void setCodigoDoBanco(Integer codigoDoBanco) {
-		this.codigoDoBanco = codigoDoBanco;
-	}
-	
-	@Field ( offset = 143, length = 5, paddingChar = '0' , align = Align.RIGHT )
-	public Integer getAgenciaCobradora() {
-		return agenciaCobradora;
-	}
-	
-	public void setAgenciaCobradora(Integer agenciaCobradora) {
-		this.agenciaCobradora = agenciaCobradora;
+
+	public void setDataLimite(Integer dataLimite) {
+		this.dataLimite = dataLimite;
 	}
 	
 	@Field ( offset = 148, length = 2 )
 	public String getEspecie() {
 		return especie;
 	}
-	
+
+
 	public void setEspecie(String especie) {
 		this.especie = especie;
+	}
+	
+	@Field ( offset = 160, length = 1 )
+	public Integer getMora() {
+		return mora;
+	}
+	
+	public void setMora(Integer mora) {
+		this.mora = mora;
+	}
+	
+	@Field ( offset = 174, length = 4, paddingChar = '0' , align = Align.RIGHT)
+	public BigDecimal getPerMora() {
+		return perMora;
+	}
+	
+	public void setPerMora(BigDecimal perMora) {
+		this.perMora = perMora;
+	}
+	
+	@Field ( offset = 178, length = 6, paddingChar = '0', align = Align.RIGHT, formatter = DateFormatter.class )
+	public Timestamp getDataMora() {
+		return dataMora;
+	}
+	
+	public void setDataMora(Timestamp dataMora) {
+		this.dataMora = dataMora;
+	}
+
+	@Field ( offset = 184, length = 1, paddingChar = '0', align = Align.RIGHT )
+	public Integer getDesconto() {
+		return desconto;
+	}
+	
+	public void setDesconto(Integer desconto) {
+		this.desconto = desconto;
+	}
+	
+	
+	@Field ( offset = 185, length = 13, paddingChar = '0' , align = Align.RIGHT )
+	@Override
+	public BigDecimal getValorDoDesconto() {
+		return valorDoDesconto;
+	}
+	
+	@Override
+	public void setValorDoDesconto(BigDecimal valorDoDesconto) {
+		this.valorDoDesconto = valorDoDesconto;
+	}
+	
+	@Field ( offset = 198, length = 4, paddingChar = '0' , align = Align.RIGHT )
+	public BigDecimal getPerDesconto() {
+		return perDesconto;
+	}
+	
+	public void setPerDesconto(BigDecimal perDesconto) {
+		this.perDesconto = perDesconto;
+	}
+	
+	
+	@Field ( offset = 202, length = 6, paddingChar = '0' , align = Align.RIGHT, formatter = DateFormatter.class )
+	@Override
+	public Timestamp getDescontoAte() {
+		return descontoAte;
+	}
+	@Override
+	public void setDescontoAte(Timestamp descontoAte) {
+		this.descontoAte = descontoAte;
+	}
+	
+	@Override
+	@Field ( offset = 221, length = 2, paddingChar = '0' , align = Align.RIGHT )
+	public Integer getCodInscricaoPagador() {
+		return codInscricaoPagador;
+	}
+	
+	public void setCodInscricaoPagador(Integer codInscricaoPagador) {
+		this.codInscricaoPagador = codInscricaoPagador;
+	}
+	
+	
+	@Field ( offset = 223, length = 14, paddingChar = '0' , align = Align.RIGHT, formatter = NumericStringFormatter.class )
+	@Override
+	public String getNumInscricaoPagador() {
+		return numeroDeInscricaoPagador;
+	}
+	
+	@Override
+	public void setNumInscricaoPagador(String numeroDeInscricaoPagador) {
+		this.numeroDeInscricaoPagador = numeroDeInscricaoPagador;
+	}
+		
+	@Override
+	@Field ( offset = 237, length = 40, formatter = CNABStringFormatter.class )
+	public String getNome() {
+		return nome;
+	}
+	
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	@Override
+	@Field ( offset = 277, length = 40, formatter = CNABStringFormatter.class )
+	public String getLogradouro() {
+		return logradouro;
+	}
+	
+	public void setLogradouro(String logradouro) {
+		this.logradouro = logradouro;
+	}
+	
+	@Override
+	@Field ( offset = 317, length = 8, paddingChar = '0' , align = Align.RIGHT, formatter = NumericStringFormatter.class )
+	public String getCep() {
+		return cep;
+	}
+	
+	public void setCep(String cep) {
+		this.cep = cep;
+	}
+	
+	@Field ( offset = 325, length = 70 )
+	public String getMensagemLivre() {
+		return mensagemLivre;
+	}
+
+	public void setMensagemLivre(String mensagemLivre) {
+		this.mensagemLivre = mensagemLivre;
 	}
 	
 
 	@Fields( value = { 
 			@Field ( offset =  2, length =  19 ) ,
 			@Field ( offset =  63, length = 3 ) ,
-			
-			@Field ( offset = 265, length = 10 ) ,
-			@Field ( offset = 382, length =  4 ) ,
+			@Field ( offset =  90, length = 11, paddingChar = '0'),
+			@Field ( offset = 101, length =  8 ) ,
+			@Field ( offset = 142, length =  6 ) ,
+			@Field ( offset = 157, length =  3 ) ,
+			@Field ( offset = 208, length =  13, paddingChar = '0' ) ,
 			@Field ( offset = 394, length =  1 ) 
 			} )
 	public String getEmpty() { return ""; }
+
+
 }	//	CNABRecord1Detail
