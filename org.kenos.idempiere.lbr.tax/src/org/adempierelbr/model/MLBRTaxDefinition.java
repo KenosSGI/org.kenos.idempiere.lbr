@@ -300,6 +300,12 @@ public class MLBRTaxDefinition extends X_LBR_TaxDefinition
 			return false;
 		}
 		
+		// Validate product category
+		if (getM_Product_ID() > 0 
+				&& getM_Product_Category_ID() > 0 
+				&& getM_Product().getM_Product_Category_ID() != getM_Product_Category_ID())
+			setM_Product_Category_ID(0);
+		
 		/**
 		 * 	Validate Script
 		 */
