@@ -72,4 +72,14 @@ public interface ICNABGenerator
 	{
 		 return new ArrayList<String> ();	//	Empty
 	}	//	getAvailableOccurs
-}	//	ICNAB
+	
+	/**
+	 * 	Default method to convert dates to CNAB formatted standard
+	 * 	@param ts Timestamp with the date
+	 * 	@return string representation of date in format ddMMyy
+	 */
+	public default String getFileName (MLBRCNABFile file)
+	{
+		return null;
+	}	//	getFileName
+}	//	ICNABGenerator

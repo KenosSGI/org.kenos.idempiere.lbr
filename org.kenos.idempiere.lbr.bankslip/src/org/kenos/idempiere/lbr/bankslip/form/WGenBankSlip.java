@@ -435,8 +435,10 @@ public class WGenBankSlip extends GenBankSlip
 				zipFile.delete();
 				//
 				Zipper.zipFolder (path.toFile(), zipFile, "**");
-				AMedia media = new AMedia(zipFile.getName(), null, null, FileUtils.readFileToByteArray(zipFile));
-				Filedownload.save(media);
+				if (zipFile.exists()) {
+					AMedia media = new AMedia(zipFile.getName(), null, null, FileUtils.readFileToByteArray(zipFile));
+					Filedownload.save(media);
+				}
 			}
 		}
 		catch (Exception e)

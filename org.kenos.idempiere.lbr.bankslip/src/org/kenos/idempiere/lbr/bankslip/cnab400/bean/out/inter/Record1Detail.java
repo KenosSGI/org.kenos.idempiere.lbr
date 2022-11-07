@@ -193,6 +193,13 @@ public class Record1Detail extends org.kenos.idempiere.lbr.bankslip.cnab400.bean
 		return especie;
 	}
 
+	/**	
+	 * Custom padding char
+	 */
+	@Field ( offset = 151, length = 6, paddingChar = ' ' , align = Align.RIGHT, formatter = DateFormatter.class )
+	public Timestamp getDataDeEmissao() {
+		return super.getDataDeEmissao();
+	}
 
 	public void setEspecie(String especie) {
 		this.especie = especie;

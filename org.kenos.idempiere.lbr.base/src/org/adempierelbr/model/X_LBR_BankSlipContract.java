@@ -30,7 +30,7 @@ public class X_LBR_BankSlipContract extends PO implements I_LBR_BankSlipContract
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20220623L;
+	private static final long serialVersionUID = 20221107L;
 
     /** Standard Constructor */
     public X_LBR_BankSlipContract (Properties ctx, int LBR_BankSlipContract_ID, String trxName)
@@ -45,6 +45,8 @@ public class X_LBR_BankSlipContract extends PO implements I_LBR_BankSlipContract
 			setLBR_BankSlipLayout_ID (0);
 			setLBR_DocNoStrategy (null);
 // I
+			setLBR_IssuedBy (null);
+// 2
 			setLBR_RecipientType (null);
 // 1
 			setLBR_RegisterType (null);
@@ -346,6 +348,25 @@ public class X_LBR_BankSlipContract extends PO implements I_LBR_BankSlipContract
 	public String getLBR_DocNoStrategy () 
 	{
 		return (String)get_Value(COLUMNNAME_LBR_DocNoStrategy);
+	}
+
+	/** Bank = 1 */
+	public static final String LBR_ISSUEDBY_Bank = "1";
+	/** Organization = 2 */
+	public static final String LBR_ISSUEDBY_Organization = "2";
+	/** Set Issued By.
+		@param LBR_IssuedBy Issued By	  */
+	public void setLBR_IssuedBy (String LBR_IssuedBy)
+	{
+
+		set_Value (COLUMNNAME_LBR_IssuedBy, LBR_IssuedBy);
+	}
+
+	/** Get Issued By.
+		@return Issued By	  */
+	public String getLBR_IssuedBy () 
+	{
+		return (String)get_Value(COLUMNNAME_LBR_IssuedBy);
 	}
 
 	public org.compiere.model.I_AD_Sequence getLBR_NumberInBankSeq() throws RuntimeException

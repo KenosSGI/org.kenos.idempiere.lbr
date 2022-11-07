@@ -29,12 +29,6 @@ public class Inter077 implements ICNABGenerator
 	/**	Bank Routing Number	*/
 	public static final int ROUNTING_NO = 77;
 	
-	/** Org BP Type				*/
-	private static final Integer BPTYPE_CPF_BENEFICIARIO 		= 1;
-	private static final Integer BPTYPE_CNPJ_BENEFICIARIO 		= 2;
-	private static final Integer BPTYPE_CPF_SACADOR_AVALISTA 	= 3;
-	private static final Integer BPTYPE_CNPJ_SACADOR_AVALISTA 	= 4;
-	
 	/** Payer BP Type				*/
 	private static final Integer BPTYPE_CPF_PAGADOR 		= 1;
 	private static final Integer BPTYPE_CNPJ_PAGADOR 	= 2;
@@ -53,6 +47,7 @@ public class Inter077 implements ICNABGenerator
 		CNAB400 cnab400 = new CNAB400();
 		
 		Record0Header header = new Record0Header(cnabFile);
+		header.setSequenciaRemessa(cnabFile.getSeqNo());
 		cnab400.addRegistro(header);
 		
 		//	Movements
@@ -63,22 +58,6 @@ public class Inter077 implements ICNABGenerator
 			MLBRBankSlipInfo bsi 	= line.getBankSlipInfo();
 			//
 			Record1Detail detail = new Record1Detail();
-			
-			Integer orgBPTypeBR = BPTYPE_CNPJ_BENEFICIARIO;
-			String orgCNPJF = bsi.getlbr_CNPJ();
-			//
-			if (bs.getGuarantorBP_ID() > 0)
-			{
-				if (MLBRBankSlipInfo.LBR_GUARANTORBPTYPE_PJ_LegalEntity.equals(bsi.getLBR_GuarantorBPType()))
-					orgBPTypeBR = BPTYPE_CNPJ_SACADOR_AVALISTA;
-				else if (MLBRBankSlipInfo.LBR_GUARANTORBPTYPE_PF_Individual.equals(bsi.getLBR_GuarantorBPType()))
-					orgBPTypeBR = BPTYPE_CPF_SACADOR_AVALISTA;
-				//
-				orgCNPJF = bsi.getLBR_GuarantorCNPJ();	//	CPF and CNPJ
-			}
-			else if (MLBRBankSlipInfo.LBR_ORGBPTYPE_PF_Individual.equals(bsi.getLBR_OrgBPType()))
-				orgBPTypeBR = BPTYPE_CPF_BENEFICIARIO;
-
 			//	Aceite
 			String accepted = NOT_ACCEPTED;
 			//
@@ -93,13 +72,12 @@ public class Inter077 implements ICNABGenerator
 			String discountType = "0";
 			
 			
-			if(bs.getLBR_Discount1Type() != null) {
+			if (bs.getLBR_Discount1Type() != null) {
 				discountType = bs.getLBR_Discount1Type();
 			}
 			
-			
 			//	Has Discount
-			if (bs.getLBR_Discount1Value().signum() == 1)
+			if (bs.getLBR_Discount1Value() != null && bs.getLBR_Discount1Value().signum() == 1)
 			{
 				discountDate = bs.getLBR_Discount1Date();
 				
@@ -134,13 +112,13 @@ public class Inter077 implements ICNABGenerator
 			detail.setConta(cnabFile.getAccountNoAsInt());
 			detail.setCodIdentificacao(bs.getIdentifier());
 						
-			//multa
-			if(bs.getLBR_PenaltyType().equals(MLBRBankSlip.LBR_PENALTYTYPE_Amount)) {
+			// Multa
+			if (MLBRBankSlip.LBR_PENALTYTYPE_Amount.equals(bs.getLBR_PenaltyType())) {
 				detail.setMulta(Integer.parseInt(bs.getLBR_PenaltyType()));
 				detail.setValorMulta(penalityAmt);
 				detail.setDataMulta(bs.getDueDate());
 
-			}else if (bs.getLBR_PenaltyType().equals(MLBRBankSlip.LBR_PENALTYTYPE_Rate)) {
+			} else if (MLBRBankSlip.LBR_PENALTYTYPE_Rate.equals(bs.getLBR_PenaltyType())) {
 				detail.setMulta(Integer.parseInt(bs.getLBR_PenaltyType()));
 				detail.setPerMulta(penalityAmt);
 				detail.setDataMulta(bs.getDueDate());
@@ -175,7 +153,6 @@ public class Inter077 implements ICNABGenerator
 			
 			else
 			{
-				
 				detail.setCodOcorrencia(mov.getValue());
 				detail.setNoDocumento(bs.getLBR_NumberInOrg());
 				detail.setVencimento(bs.getDueDate());
@@ -183,28 +160,28 @@ public class Inter077 implements ICNABGenerator
 				detail.setDataLimite(30);
 				detail.setEspecie(convertKind (bsi.getLBR_BankSlipKindCode()));
 				detail.setAceite(accepted);
-				detail.setDataDeEmissao(bs.getDateDoc());
+				detail.setDataDeEmissao(null);	//	Branco no arquivo de remessa
 				
 				// Mora
-				if(bs.getLBR_InterestType().equals(MLBRBankSlip.LBR_PENALTYTYPE_Amount)) {
+				if(MLBRBankSlip.LBR_PENALTYTYPE_Amount.equals(bs.getLBR_InterestType())) {
 					detail.setMora(Integer.parseInt(bs.getLBR_InterestType()));
 					detail.setJurosDe1Dia(interestAmt);
 					detail.setDataMora(bs.getDueDate());
 
-				}else if (bs.getLBR_InterestType().equals(MLBRBankSlip.LBR_PENALTYTYPE_Rate)) {
+				} else if (MLBRBankSlip.LBR_PENALTYTYPE_Rate.equals(bs.getLBR_InterestType())) {
 					detail.setMora(Integer.parseInt(bs.getLBR_InterestType()));
 					detail.setPerMora(interestAmt);
 					detail.setDataMora(bs.getDueDate());
 					
 				}
 				
-				//Desconto
-				if(discountType.equals(MLBRBankSlip.LBR_DISCOUNT1TYPE_FixedAmountUntilDateSet)) {
+				// Desconto
+				if(MLBRBankSlip.LBR_DISCOUNT1TYPE_FixedAmountUntilDateSet.equals(discountType)) {
 					detail.setDesconto(Integer.parseInt(discountType));
 					detail.setValorDoDesconto(discountAmt);
 					detail.setDescontoAte(discountDate);
 
-				}else if (discountType.equals(MLBRBankSlip.LBR_DISCOUNT1TYPE_FixedRateUntilDateSet)) {
+				} else if (MLBRBankSlip.LBR_DISCOUNT1TYPE_FixedRateUntilDateSet.equals(discountType)) {
 					detail.setDesconto(Integer.parseInt(discountType));
 					detail.setPerDesconto(discountAmt);
 					detail.setDescontoAte(discountDate);
@@ -216,7 +193,6 @@ public class Inter077 implements ICNABGenerator
 				detail.setNome(bsi.getBPName());
 				detail.setLogradouro(bsi.getAddress(true));
 				detail.setCep(bsi.getlbr_BPPostal());
-				
 			}
 			//
 			cnab400.addRegistro(detail);
@@ -287,4 +263,12 @@ public class Inter077 implements ICNABGenerator
 		occurs.add(MLBRBankSlipOccur.TYPE_CancelProtest);
 		return occurs;
 	}	//	getAvailableOccurs
+	
+	@Override
+	public String getFileName (MLBRCNABFile file) {
+		if (file == null)
+			return null;
+		//
+		return "CI400_001_" + TextUtil.lPad(1, 6) + ".REM";
+	}	//	getFileName
 }	//	generateCNABFile

@@ -276,6 +276,10 @@ public class MLBRCNABFile extends X_LBR_CNABFile implements DocAction, DocOption
 		String cnabFileName = "CB" + TextUtil.timeToString(getDateDoc(), "ddMM") + TextUtil.lPad (count+1, 2) + ".REM";
 		StringBuilder cnabFileContent = handler.generateCNABFile (this);
 		
+		//	Check for a custom file name
+		if (handler.getFileName(this) != null)
+			cnabFileName = handler.getFileName(this);
+		
 		try 
 		{
 			MAttachment attachment = getAttachment (true);
@@ -393,4 +397,14 @@ public class MLBRCNABFile extends X_LBR_CNABFile implements DocAction, DocOption
 		String routingNo = TextUtil.toNumeric(super.getRoutingNo());
 		return routingNo.isBlank() ? 0 : Integer.valueOf(routingNo).intValue();
 	}	//	getRoutingNoAsInt
+	
+	@Override
+	public String toString() {
+		StringBuffer sb = new StringBuffer ("MLBRCNABFile[")
+			.append(get_ID()).append("-").append(getDocumentNo())
+			.append(",IsSOTrx=").append(isSOTrx())
+			.append(",RoutingNo=").append(getRoutingNo())
+			.append(", AccountNo=").append(getAccountNoAsInt())
+			.append ("]");
+		return sb.toString ();	}	//	toString
 }	//	MLBRCNABFile

@@ -182,6 +182,9 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 		if (!BancosSuportados.isSuportado(bsi.getRoutingNo()))
 			return null;
 		//
+		if (LBR_ISSUEDBY_Bank.equals(getLBR_IssuedBy()) && !isRegistered())
+			return null;
+		//
 		BoletoViewer boletoViewer = new BoletoViewer (getBankSlip ());
 		File tempFile;
 		
@@ -1389,6 +1392,7 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 			setC_Bank_ID(contract.getC_BankAccount().getC_Bank_ID());
 			setLBR_BankSlipFold_ID(contract.getLBR_BankSlipFold_ID());
 			setLBR_IssueType(contract.getLBR_BankSlipFold().getLBR_IssueType());
+			setLBR_IssuedBy(contract.getLBR_IssuedBy());
 			
 			if (MLBRBankSlipContract.LBR_RECIPIENTTYPE_FIDCOr3rdParty.equals(contract.getLBR_RecipientType()))
 			{

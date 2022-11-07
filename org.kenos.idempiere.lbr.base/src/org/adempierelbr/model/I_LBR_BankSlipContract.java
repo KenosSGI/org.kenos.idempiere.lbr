@@ -227,6 +227,15 @@ public interface I_LBR_BankSlipContract
 	  */
 	public String getLBR_DocNoStrategy();
 
+    /** Column name LBR_IssuedBy */
+    public static final String COLUMNNAME_LBR_IssuedBy = "LBR_IssuedBy";
+
+	/** Set Issued By	  */
+	public void setLBR_IssuedBy (String LBR_IssuedBy);
+
+	/** Get Issued By	  */
+	public String getLBR_IssuedBy();
+
     /** Column name LBR_NumberInBankSeq_ID */
     public static final String COLUMNNAME_LBR_NumberInBankSeq_ID = "LBR_NumberInBankSeq_ID";
 
