@@ -174,6 +174,8 @@ public class X_LBR_BankSlipLayout extends PO implements I_LBR_BankSlipLayout, I_
 	public static final String TYPE_CNAB240 = "1";
 	/** CNAB 400 = 2 */
 	public static final String TYPE_CNAB400 = "2";
+	/** API = A */
+	public static final String TYPE_API= "A";
 	/** Set Type.
 		@param Type 
 		Type of Validation (SQL, Java Script, Java Language)

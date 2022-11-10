@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
+	<classpathentry exported="true" kind="lib" path="lib/okio-jvm.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/kotlin-stdlib.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/logging-interceptor.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/converter-jackson.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/retrofit.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/okhttp3.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-11">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
-	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="src/"/>
 	<classpathentry exported="true" kind="lib" path="lib/jrimum-bopepo.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/jrimum-domkee.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/jrimum-vallia.jar"/>
@@ -17,15 +23,15 @@
 	<classpathentry exported="true" kind="lib" path="lib/itext.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/flatpack.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/lombok.jar"/>
-	<classpathentry kind="lib" path="lib/commons-collections4.jar"/>
-	<classpathentry kind="lib" path="lib/commons-compress.jar"/>
-	<classpathentry kind="lib" path="lib/commons-io.jar"/>
-	<classpathentry kind="lib" path="lib/commons-math.jar"/>
-	<classpathentry kind="lib" path="lib/curvesapi.jar"/>
-	<classpathentry kind="lib" path="lib/poi.jar"/>
-	<classpathentry kind="lib" path="lib/poi-ooxml.jar"/>
-	<classpathentry kind="lib" path="lib/poi-ooxml-lite.jar"/>
-	<classpathentry kind="lib" path="lib/xmlbeans.jar"/>
-	<classpathentry kind="lib" path="lib/fixedformat4j.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/commons-collections4.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/commons-compress.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/commons-io.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/commons-math.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/curvesapi.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/poi.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/poi-ooxml.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/poi-ooxml-lite.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/xmlbeans.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/fixedformat4j.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

@@ -1,6 +1,7 @@
 package org.kenos.idempiere.lbr.bankslip;
 
 import org.kenos.idempiere.lbr.bankslip.cnab.ICNABProcessor;
+import org.kenos.idempiere.lbr.bankslip.model.MLBRBankSlipContract;
 
 /**
  * Factory for CNAB File Generator
@@ -23,5 +24,9 @@ public interface ICNABFactory
 	public default ICNABProcessor getCNABProcessor (int routingNo, String CNABType)
 	{
 		return getCNABProcessor (routingNo, CNABType, null);
+	}
+	public default IBankSlipAPI getAPI (MLBRBankSlipContract contract) throws Exception
+	{
+		return null;
 	}
 }	//	ICNABFactory

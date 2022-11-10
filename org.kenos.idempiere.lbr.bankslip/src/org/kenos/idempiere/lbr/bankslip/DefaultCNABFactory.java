@@ -1,5 +1,6 @@
 package org.kenos.idempiere.lbr.bankslip;
 
+import org.kenos.idempiere.lbr.bankslip.api.BancoInter;
 import org.kenos.idempiere.lbr.bankslip.cnab.ICNABProcessor;
 import org.kenos.idempiere.lbr.bankslip.cnab240.bean.CNABRecords;
 import org.kenos.idempiere.lbr.bankslip.cnab240.bean.santander033.SantanderCNABRecords;
@@ -13,6 +14,7 @@ import org.kenos.idempiere.lbr.bankslip.cnab400.Inter077;
 import org.kenos.idempiere.lbr.bankslip.cnab400.Itau341;
 import org.kenos.idempiere.lbr.bankslip.cnab400.Itau341v2;
 import org.kenos.idempiere.lbr.bankslip.cnab400.Santander033;
+import org.kenos.idempiere.lbr.bankslip.model.MLBRBankSlipContract;
 import org.kenos.idempiere.lbr.bankslip.model.MLBRBankSlipLayout;
 
 /**
@@ -23,6 +25,13 @@ import org.kenos.idempiere.lbr.bankslip.model.MLBRBankSlipLayout;
  */
 public class DefaultCNABFactory implements ICNABFactory
 {
+	@Override
+	public IBankSlipAPI getAPI (MLBRBankSlipContract contract) throws Exception {
+		if ("077".equals(contract.getC_BankAccount().getC_Bank().getRoutingNo()))
+			return new BancoInter(contract);
+		return null;
+	}
+	
 	@Override
 	public ICNABGenerator getCNABGenerator (int RoutingNo, String CNABType, String version)
 	{
@@ -55,7 +64,7 @@ public class DefaultCNABFactory implements ICNABFactory
 			if (Santander033.ROUNTING_NO == RoutingNo)
 				return new Santander033();
 			
-			if(Inter077.ROUNTING_NO == RoutingNo)
+			if (Inter077.ROUNTING_NO == RoutingNo)
 				return new Inter077();
 		}
 		return null;

@@ -1,19 +1,22 @@
 package org.kenos.idempiere.lbr.bankslip.process;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.logging.Level;
 
-import org.adempiere.base.Service;
-import org.adempiere.report.jasper.JRViewerProvider;
+import org.adempiere.webui.apps.AEnv;
+import org.adempiere.webui.component.Window;
+import org.adempiere.webui.desktop.IDesktop;
+import org.adempiere.webui.session.SessionManager;
+import org.adempiere.webui.window.SimplePDFViewer;
 import org.compiere.model.Query;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
-import org.jrimum.bopepo.Boleto;
-import org.jrimum.bopepo.view.JasperViewer;
 import org.kenos.idempiere.lbr.bankslip.model.MLBRBankSlip;
-
-import net.sf.jasperreports.engine.JasperPrint;
 
 /**
  * 	Impressão de Boletos via Jasper
@@ -52,7 +55,7 @@ public class Print extends SvrProcess
 		if (getRecord_ID() < 1)
 			return "@Error@ Document not Found";
 		
-		List<Boleto> bopepos = new ArrayList<Boleto>();
+		List<File> pdfs = new ArrayList<File>();
 		
 		//	Find candidates to be printed
 		String where = MLBRBankSlip.COLUMNNAME_DocStatus + "=? AND " + (MLBRBankSlip.Table_ID == getTable_ID() ? MLBRBankSlip.COLUMNNAME_LBR_BankSlip_ID : MLBRBankSlip.COLUMNNAME_C_Invoice_ID) + "=? ";
@@ -61,19 +64,34 @@ public class Print extends SvrProcess
 		
 		//	Generate bopepos to be printed
 		List<MLBRBankSlip> bss = new Query (getCtx(), MLBRBankSlip.Table_Name, where, get_TrxName()).setParameters(MLBRBankSlip.DOCSTATUS_Completed, getRecord_ID()).list();
-		bss.stream().map(MLBRBankSlip::getBankSlip).forEach(bopepos::add);
+		bss.stream().map(MLBRBankSlip::createPDF).filter(Objects::nonNull).forEach(pdfs::add);
 		
 		//	Check if there are any completed bank slips
-		if (bopepos.isEmpty())
+		if (pdfs.isEmpty())
 			return "@Error@ nenhum boleto encontrado";
+//		
+//		//	Create a viewer
+//		JasperViewer jasperViewer = new JasperViewer();
+//		JasperPrint jasperPrint = jasperViewer.getJasperPrint(bopepos);
+//		
+//		//	Print in iDempiere JR Viewer Provider
+//		JRViewerProvider viewerLauncher = Service.locator().locate(JRViewerProvider.class).getService();
+//		viewerLauncher.openViewer (jasperPrint, "Impress\u00E3o de Boletos");
+
+		AEnv.executeAsyncDesktopTask(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					Window win = new SimplePDFViewer("Boleto", new FileInputStream (pdfs.get (0)));
+					IDesktop appDesktop = SessionManager.getAppDesktop();
+					appDesktop.showWindow(win, "center");
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
 		
-		//	Create a viewer
-		JasperViewer jasperViewer = new JasperViewer();
-		JasperPrint jasperPrint = jasperViewer.getJasperPrint(bopepos);
-		
-		//	Print in iDempiere JR Viewer Provider
-		JRViewerProvider viewerLauncher = Service.locator().locate(JRViewerProvider.class).getService();
-		viewerLauncher.openViewer (jasperPrint, "Impress\u00E3o de Boletos");
 		
 //		BoletoViewer boletoViewer = new BoletoViewer (bopepos.get(0));
 //		boletoViewer.getPdfAsFile("/private/var/folders/7n/ggwktfc139z0sx5yz7t9vb0w0000gn/T/bb.pdf");

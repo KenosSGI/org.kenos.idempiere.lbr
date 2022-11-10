@@ -7,6 +7,7 @@ import java.awt.Image;
 import java.io.File;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.nio.file.Files;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.text.DecimalFormat;
@@ -17,6 +18,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
 
+import org.adempiere.base.Service;
 import org.adempiere.model.POWrapper;
 import org.adempierelbr.model.MLBRNotaFiscal;
 import org.adempierelbr.model.MLBROpenItem;
@@ -68,6 +70,9 @@ import org.jrimum.domkee.financeiro.banco.febraban.TipoDeTitulo;
 import org.jrimum.domkee.financeiro.banco.febraban.Titulo;
 import org.jrimum.vallia.digitoverificador.Modulo;
 import org.jrimum.vallia.digitoverificador.TipoDeModulo;
+import org.kenos.idempiere.lbr.bankslip.IBankSlipAPI;
+import org.kenos.idempiere.lbr.bankslip.ICNABFactory;
+import org.kenos.idempiere.lbr.bankslip.api.IResponseAPI;
 import org.kenos.idempiere.lbr.bankslip.cnab400.BancoDoBrasil001;
 import org.kenos.idempiere.lbr.bankslip.cnab400.Bradesco237;
 import org.kenos.idempiere.lbr.bankslip.cnab400.CaixaEconomica104;
@@ -184,31 +189,27 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 		//
 		if (LBR_ISSUEDBY_Bank.equals(getLBR_IssuedBy()) && !isRegistered())
 			return null;
-		//
-		BoletoViewer boletoViewer = new BoletoViewer (getBankSlip ());
-		File tempFile;
 		
+		String fileName = getFileName();
+		File tempFile;
+
 		try
 		{
-			String preffix = bsi.getLBR_BankSlip().getDocumentNo();
-			//
-			if (bsi.getLBR_BankSlip().getLBR_NotaFiscal_ID() > 0)
-			{
-				String nfeNo = bsi.getLBR_BankSlip().getLBR_NotaFiscal().getlbr_NFENo();
-				if (nfeNo != null)
-					preffix += "_" + nfeNo;
-				else
-					preffix += "_" + bsi.getLBR_BankSlip().getLBR_NotaFiscal().getDocumentNo();
+			tempFile = File.createTempFile(fileName, ".pdf", filePath == null ? null : new File (filePath));
+			tempFile.delete();	//	Will be created later on
+		
+			if (MLBRBankSlipLayout.TYPE_API.equals(getLBR_BankSlipContract().getLBR_BankSlipLayout().getType()) && isRegistered()) {
+				IBankSlipAPI api = locateAPI ();
+				if (api == null) {
+					return null;
+				}
+			
+				Files.write (tempFile.toPath(), api.getPDF(this));
+				return tempFile;
 			}
 			
-			tempFile = File.createTempFile("B" + preffix + "_", ".pdf", filePath == null ? null : new File (filePath));
-			tempFile.delete();	//	Will be created later on
+			BoletoViewer boletoViewer = new BoletoViewer (getBankSlip ());
 			return boletoViewer.getPdfAsFile (tempFile);
-			
-//			JasperViewer viewer = new JasperViewer();
-//			JasperPrint jasperPrint = viewer.getJasperPrint(List.of(getBankSlip ()));
-//			JasperExportManager.exportReportToPdfFile(jasperPrint, tempFile.toString());
-//			return tempFile;
 		} 
 		catch (Exception e)
 		{
@@ -216,6 +217,20 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 			return null;
 		}
 	}	//	createPDF
+
+	private String getFileName() {
+		String preffix = bsi.getLBR_BankSlip().getDocumentNo();
+		//
+		if (bsi.getLBR_BankSlip().getLBR_NotaFiscal_ID() > 0)
+		{
+			String nfeNo = bsi.getLBR_BankSlip().getLBR_NotaFiscal().getlbr_NFENo();
+			if (nfeNo != null)
+				preffix += "_" + nfeNo;
+			else
+				preffix += "_" + bsi.getLBR_BankSlip().getLBR_NotaFiscal().getDocumentNo();
+		}
+		return "B" + preffix + "_";
+	}
 
 	/**
 	 * 	Generate the bank slip
@@ -301,8 +316,6 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 			agencia = new Agencia(bsi.getAgency(), bankAgencyVD);
 		else
 			agencia = new Agencia(bsi.getAgency());
-		
-	
 		
 		contaBancaria.setAgencia(agencia);
 		contaBancaria.setNumeroDaConta(numeroDaConta);
@@ -1116,14 +1129,40 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 			bsi.saveEx();
 		}
 		
+		if (MLBRBankSlipLayout.TYPE_API.equals(getLBR_BankSlipContract().getLBR_BankSlipLayout().getType())) {
+			IBankSlipAPI api = locateAPI ();
+			
+			if (api == null) {
+				m_processMsg = "API não disponível para este contrato bancário";
+				return DocAction.STATUS_Invalid;
+			}
+			
+			try {
+				IResponseAPI result = api.processBankSlip(this);
+				//
+				String numberInBank = result.getNumberInBank();
+				setLBR_NumberInBank(numberInBank.substring(0, numberInBank.length()-1));
+				setIsRegistered(true);
+				
+				bsi.setLBR_Barcode(result.geBarcode());
+				bsi.setLBR_ManualInput(result.getManualInput());
+				bsi.setLBR_NumberInBankVD(numberInBank.substring(numberInBank.length()-1));
+				bsi.save();
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+				//
+				m_processMsg = "Erro ao processar boleto via API";
+				return DocAction.STATUS_Invalid;
+			}
+		}
+		
 		//	Creates the registration movement
-		if (LBR_REGISTERTYPE_Registered.equals(getLBR_RegisterType()))
+		else if (LBR_REGISTERTYPE_Registered.equals(getLBR_RegisterType()))
 		{
 			MLBRBankSlipMov mov = createRegisterRequestMov ();
-//			mov.setMovementDate(new Timestamp(System.currentTimeMillis()));
 			
-			if (mov == null || !mov.save())
-			{
+			if (mov == null || !mov.save()) {
 				m_processMsg = "Impossível criar a movimentação inicial do título para registro junto ao banco";
 				return DocAction.STATUS_Invalid;
 			}
@@ -1149,6 +1188,22 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 		
 		return DocAction.STATUS_Completed;
 	}	//	completeIt
+
+	private IBankSlipAPI locateAPI () {
+		IBankSlipAPI api = null;
+		List<ICNABFactory> list = Service.locator ().list (ICNABFactory.class).getServices();
+		for (ICNABFactory cnabFactory : list)
+		{
+			try {
+				api = cnabFactory.getAPI ((MLBRBankSlipContract) getLBR_BankSlipContract());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			if (api != null)
+				break;
+		}
+		return api;
+	}	//	locateAPI
 
 	private MLBRBankSlipMov createRegisterRequestMov ()
 	{
@@ -1187,6 +1242,26 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 			m_processMsg = "Não é possível anular um boleto pago ou parcialmente pago";
 			return false;
 		}
+		
+		if (isRegistered() && MLBRBankSlipLayout.TYPE_API.equals(getLBR_BankSlipContract().getLBR_BankSlipLayout().getType())) {
+			IBankSlipAPI api = locateAPI ();
+			
+			if (api == null) {
+				m_processMsg = "API não disponível para este contrato bancário";
+				return false;
+			}
+			
+			try {
+				if (!api.cancelBankSlip(this))
+					throw new Exception ();
+			} catch (Exception e) {
+				e.printStackTrace();
+				//
+				m_processMsg = "Erro ao cancelar o boleto via API";
+				return false;
+			}
+		}
+		
 		//	Set C_InvoicePaySchedule to Null to Allow changes in InvoicePaySchedule
 		this.setC_InvoicePaySchedule_ID(0);
 		setProcessed(true);
@@ -1614,4 +1689,19 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 		//
 		return result.toString();
 	}	//	getIdentifier
+	
+	public String getTaxIdentifier ()
+	{
+		I_W_C_BPartner bp = getBP();
+		if (I_W_C_BPartner.LBR_BPTYPEBR_PF_Individual.equals(bp.getlbr_BPTypeBR()))
+			return bp.getlbr_CPF();
+		if (I_W_C_BPartner.LBR_BPTYPEBR_PJ_LegalEntity.equals(bp.getlbr_BPTypeBR()))
+			return bp.getlbr_CNPJ();
+		return null;
+	}
+
+	public I_W_C_BPartner getBP() {
+		I_W_C_BPartner bp = POWrapper.create(new MBPartner (getCtx(), getC_BPartner_ID(), null), I_W_C_BPartner.class);
+		return bp;
+	}
 }	//	MLBRBankSlip
