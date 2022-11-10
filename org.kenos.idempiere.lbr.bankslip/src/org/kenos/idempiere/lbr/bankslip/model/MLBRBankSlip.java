@@ -607,6 +607,11 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 	@Override
 	public String getLBR_NumberInBank()
 	{
+		return getLBR_NumberInBank(false);
+	}
+	
+	public String getLBR_NumberInBank(boolean complete)
+	{
 		String numberInBank = super.getLBR_NumberInBank();
 		String routingNo = getC_BankAccount().getC_Bank().getRoutingNo();
 		
@@ -622,6 +627,10 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 
 			else if (Integer.parseInt(routingNo) == CaixaEconomica104.ROUNTING_NO)
 				return TextUtil.lPad(numberInBank, 15);
+
+			else if ("077".equals(routingNo)) {
+				return TextUtil.lPad(numberInBank, 10) + (complete ? bsi.getLBR_NumberInBankVD() : "");
+			}
 
 			else
 				return numberInBank;
@@ -1047,6 +1056,10 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 		Modulo modulo = new Modulo (TipoDeModulo.MODULO11, 7, 2);
 		String numberInBank = getLBR_NumberInBank();
 		
+		//	Issued by the bank, NIB is not managed by us
+		if (LBR_ISSUEDBY_Bank.equals(getLBR_IssuedBy()))
+			return;
+		
 		//	Bradesco
 		if (Integer.parseInt(getRoutingNo()) == Bradesco237.ROUNTING_NO)
 		{
@@ -1265,6 +1278,7 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 		//	Set C_InvoicePaySchedule to Null to Allow changes in InvoicePaySchedule
 		this.setC_InvoicePaySchedule_ID(0);
 		setProcessed(true);
+		setIsCancelled(true);
 		setDocAction(DOCACTION_None);
 		
 		return true;

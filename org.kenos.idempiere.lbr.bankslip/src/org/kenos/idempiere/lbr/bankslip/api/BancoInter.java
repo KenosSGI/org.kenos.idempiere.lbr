@@ -9,6 +9,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
+import java.util.List;
 
 import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
@@ -28,11 +29,15 @@ import org.kenos.idempiere.lbr.bankslip.api.inter.Mora;
 import org.kenos.idempiere.lbr.bankslip.api.inter.Multa;
 import org.kenos.idempiere.lbr.bankslip.api.inter.PagadorBeneficiario;
 import org.kenos.idempiere.lbr.bankslip.api.inter.ResponseBoleto;
+import org.kenos.idempiere.lbr.bankslip.api.inter.ResponseBoletoError;
 import org.kenos.idempiere.lbr.bankslip.api.inter.ResponseGetPDF;
 import org.kenos.idempiere.lbr.bankslip.api.inter.ResponseLogin;
+import org.kenos.idempiere.lbr.bankslip.api.inter.Violacao;
 import org.kenos.idempiere.lbr.bankslip.model.MLBRBankSlip;
 import org.kenos.idempiere.lbr.bankslip.model.MLBRBankSlipContract;
 import org.kenos.idempiere.lbr.bankslip.model.MLBRBankSlipInfo;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -58,14 +63,14 @@ public class BancoInter implements IBankSlipAPI {
 	}	//	Inter
 	
 	public boolean cancelBankSlip (MLBRBankSlip bankSlip) throws Exception {
-		Call<Void> call = api.cancelBankSlip("00896588771", new Cancelar (Cancelar.MOTIVO_ACERTOS));
+		Call<Void> call = api.cancelBankSlip(bankSlip.getLBR_NumberInBank(true), new Cancelar (Cancelar.MOTIVO_ACERTOS));
 		Response<Void> response = call.execute();
 		
 		return response.code() == 204;
 	}	//	processBankSlip
 	
 	public byte[] getPDF (MLBRBankSlip bankSlip) throws Exception {
-		Call<ResponseGetPDF> call = api.getPDF("00896588771");
+		Call<ResponseGetPDF> call = api.getPDF(bankSlip.getLBR_NumberInBank(true));
 		Response<ResponseGetPDF> response = call.execute();
 		
 		if (response.code() != 200)
@@ -79,17 +84,31 @@ public class BancoInter implements IBankSlipAPI {
 		Call<ResponseBoleto> call = api.includeBankSlip(boleto);
 		Response<ResponseBoleto> response = call.execute();
 		
-		if (response.code() != 200)
+
+		if (response.code() == 200) {
+			ResponseBoleto boletoResponse = response.body();
+			IResponseAPI detail = new ResponseAPI();
+			detail.setNumberInBank(boletoResponse.getNossoNumero());
+			detail.setNumberInOrg(boletoResponse.getSeuNumero());
+			detail.setBarcode(boletoResponse.getCodigoBarras());
+			detail.setManualInput(boletoResponse.getLinhaDigitavel());
+			return detail;
+		}
+		else if (response.code() == 400) {
+			StringBuilder errors = new StringBuilder ("");
+			ResponseBoletoError errorResponse = new ObjectMapper ()
+					.readValue(response.errorBody().string(), ResponseBoletoError.class);
+			
+			List<Violacao> violacoes = errorResponse.getViolacoes();
+			if (violacoes != null && violacoes.size() > 0)
+				violacoes.stream().forEach(v -> errors.append("Razao = ").append(v.getRazao())
+						.append(", Propriedade = ").append(v.getPropriedade())
+						.append(", Valor = ").append(v.getValor()).append(" / "));
+			//
+			throw new Exception ("Error code [" + response.code() +"] - " + errors.toString());
+		}
+		else
 			throw new Exception ("Error code [" + response.code() +"] - " + response.message());
-		
-		ResponseBoleto boletoResponse = response.body();
-		IResponseAPI detail = new ResponseAPI();
-		detail.setNumberInBank(boletoResponse.getNossoNumero());
-		detail.setNumberInOrg(boletoResponse.getSeuNumero());
-		detail.setBarcode(boletoResponse.getCodigoBarras());
-		detail.setManualInput(boletoResponse.getLinhaDigitavel());
-		
-		return detail;
 	}	//	processBankSlip
 
 	private String getToken () throws Exception {
@@ -159,8 +178,13 @@ public class BancoInter implements IBankSlipAPI {
 			Mora mora = new Mora ();
 			boleto.setMora(mora);
 
+			int interestDays = bankSlip.getLBR_InterestDays();
+			if (interestDays < 1)
+				interestDays = 1;
+			
 			mora.setCodigoMora(Mora.CODIGO_MORA_VALORDIA);
-			mora.setData(TimeUtil.addDays (bankSlip.getDueDate(), bankSlip.getLBR_PenaltyDays()));
+			mora.setData(TimeUtil.addDays (bankSlip.getDueDate(), interestDays));
+			mora.setTaxa(Env.ZERO);
 			mora.setValor(bankSlip.getDailyLateInterest().setScale(2, RoundingMode.HALF_UP));
 		}
 		
