@@ -12,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @JsonInclude(Include.NON_NULL)
 public class Mora {
 
-	@JsonAlias ( { "codigoMora", "mora" } )
+	@JsonAlias ( { "codigoMora", "codigo" } )
     private String codigoMora;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Timestamp data;

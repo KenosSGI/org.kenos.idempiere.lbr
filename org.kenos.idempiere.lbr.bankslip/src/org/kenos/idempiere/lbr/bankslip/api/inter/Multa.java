@@ -4,13 +4,15 @@ package org.kenos.idempiere.lbr.bankslip.api.inter;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 @JsonInclude(Include.NON_NULL)
 public class Multa {
 
-    private String codigoMulta;
+	@JsonAlias ( { "codigoMulta", "codigo" } )
+	private String codigoMulta;
     private BigDecimal taxa;
     private BigDecimal valor;
     private Timestamp data;

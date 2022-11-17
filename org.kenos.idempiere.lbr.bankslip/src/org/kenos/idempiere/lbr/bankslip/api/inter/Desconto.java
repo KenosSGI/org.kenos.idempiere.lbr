@@ -3,6 +3,7 @@ package org.kenos.idempiere.lbr.bankslip.api.inter;
 
 import java.math.BigDecimal;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -18,7 +19,8 @@ public class Desconto {
         this.valor = valor;
     }
 
-    private String codigoDesconto;
+	@JsonAlias ( { "codigoDesconto", "codigo" } )
+	private String codigoDesconto;
     private BigDecimal taxa;
     private BigDecimal valor;
 
