@@ -9,6 +9,8 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
+import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.net.ssl.KeyManagerFactory;
@@ -30,9 +32,11 @@ import org.kenos.idempiere.lbr.bankslip.api.inter.Multa;
 import org.kenos.idempiere.lbr.bankslip.api.inter.PagadorBeneficiario;
 import org.kenos.idempiere.lbr.bankslip.api.inter.ResponseBoleto;
 import org.kenos.idempiere.lbr.bankslip.api.inter.ResponseBoletoError;
+import org.kenos.idempiere.lbr.bankslip.api.inter.ResponseGetBoleto;
 import org.kenos.idempiere.lbr.bankslip.api.inter.ResponseGetPDF;
 import org.kenos.idempiere.lbr.bankslip.api.inter.ResponseLogin;
 import org.kenos.idempiere.lbr.bankslip.api.inter.Violacao;
+import org.kenos.idempiere.lbr.bankslip.cnab.ICNABDetail;
 import org.kenos.idempiere.lbr.bankslip.model.MLBRBankSlip;
 import org.kenos.idempiere.lbr.bankslip.model.MLBRBankSlipContract;
 import org.kenos.idempiere.lbr.bankslip.model.MLBRBankSlipInfo;
@@ -77,6 +81,24 @@ public class BancoInter implements IBankSlipAPI {
 			throw new Exception ("Error code [" + response.code() +"] - " + response.message());
 		
 		return response.body().getPdfFile();
+	}	//	processBankSlip
+	
+	public List<ICNABDetail> getBankSlips (Timestamp dateFrom, Timestamp dateTo, Integer page) throws Exception {
+		Call<ResponseGetBoleto> call = api.getBankSlips(dateFrom, dateTo, 
+				InterfaceBancoInter.FILTRAR_POR_DATA_DA_SITUACAO, null, null, null, null, null, page, null, null);
+		Response<ResponseGetBoleto> response = call.execute();
+		
+		if (response.code() != 200)
+			throw new Exception ("Error code [" + response.code() +"] - " + response.message());
+		
+		List<ICNABDetail> list = new ArrayList<ICNABDetail>();
+		ResponseGetBoleto body = response.body();
+		body.getContent().stream().forEach(b -> {
+//			CNABDetail detail = new CNABDetail();
+//			TODO
+		});
+		
+		return list;
 	}	//	processBankSlip
 	
 	public IResponseAPI processBankSlip (MLBRBankSlip bankSlip) throws Exception {
@@ -195,7 +217,16 @@ public class BancoInter implements IBankSlipAPI {
 	private InterfaceBancoInter api = null;
 	
 	private void initialize () throws Exception {
+		String keyType = "pkcs12";
 		byte[] certificate = contract.getAttachmentData("p12");
+		
+		if (certificate == null) {
+			certificate = contract.getAttachmentData("jks");
+			keyType = "jks";
+		}
+		
+		if (certificate == null)
+			throw new Exception ("Certificate not found or incompatible (should be .p12 or .jks)");
 		
 		TrustManager trusted = new X509TrustManager() {
 			@Override
@@ -210,7 +241,7 @@ public class BancoInter implements IBankSlipAPI {
 			}	
 		};
 		
-		SSLContext context = setupSslContext (certificate, "changeit", trusted);
+		SSLContext context = setupSslContext (certificate, "changeit", trusted, keyType);
 		OkHttpClient client = new OkHttpClient.Builder()
 				.addInterceptor(new TokenInterceptor())
 				.sslSocketFactory(context.getSocketFactory(), (X509TrustManager) trusted)
@@ -248,7 +279,7 @@ public class BancoInter implements IBankSlipAPI {
 		s_cache.put(contract.getLBR_BankSlipContract_ID(), this.token);
 	}	//	renewToken
 	
-	private static SSLContext setupSslContext (final byte[] keyStoreByteArray, final String pwKeyStore, TrustManager trusted) throws Exception {
+	private static SSLContext setupSslContext (final byte[] keyStoreByteArray, final String pwKeyStore, TrustManager trusted, String keyType) throws Exception {
 		String keymanageralgorithm = "SunX509";
 
 		char[] keyStorePw = pwKeyStore.toCharArray();
@@ -256,7 +287,7 @@ public class BancoInter implements IBankSlipAPI {
 		secureRandom.nextInt();
 		KeyStore ks = null;
 		try {
-			ks = KeyStore.getInstance("JKS");
+			ks = KeyStore.getInstance(keyType);
 		} catch (KeyStoreException exp) {
 			throw new Exception("KeyStoreException exception occurred while reading the config file : " + exp.getMessage());
 		}
