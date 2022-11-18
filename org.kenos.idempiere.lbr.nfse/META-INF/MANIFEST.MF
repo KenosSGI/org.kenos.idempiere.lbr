@@ -38,10 +38,16 @@ Bundle-ClassPath: .,
  lib/stax.jar
 Export-Package: br.gov.sp.prefeitura.nfe,
  br.gov.sp.prefeitura.nfe.tipos,
+ com.sil.webservices,
  org.adempierelbr.nfse,
  org.adempierelbr.nfse.atibaia,
+ org.adempierelbr.nfse.sp.api,
+ org.adempierelbr.nfse.util,
+ org.adempierelbr.process,
  org.kenos.idempiere.lbr.nfse,
- org.kenos.idempiere.lbr.nfse.dsf
+ org.kenos.idempiere.lbr.nfse.abrasf.api,
+ org.kenos.idempiere.lbr.nfse.dsf,
+ org.kenos.idempiere.lbr.nfse.sjp
 Bundle-ActivationPolicy: lazy
 Automatic-Module-Name: org.kenos.idempiere.lbr.nfse
 Bundle-RequiredExecutionEnvironment: JavaSE-11
