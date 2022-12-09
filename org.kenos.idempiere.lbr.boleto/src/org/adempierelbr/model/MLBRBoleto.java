@@ -696,10 +696,10 @@ public class MLBRBoleto extends X_LBR_Boleto
 							toEMails = toEMails.replace(",", ";");
 						
 						//	Send Email
-						EMail email = client.createEMail (from, from.getEMailUser(), subject, message, true);
+						StringTokenizer st = new StringTokenizer(toEMails, ";");
+						EMail email = client.createEMail (from, st.nextToken(), subject, message, true);
 						
 						// Se houver mais de um email cadastrado, adicionar como cópia
-						StringTokenizer st = new StringTokenizer(toEMails, ";");
 						while (st.hasMoreTokens())
 						{
 							String toEMail = st.nextToken();
