@@ -757,11 +757,6 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 		if (iLine.getC_OrderLine_ID() > 0)
 			setPOReference (POWrapper.create (new MOrderLine (iLine.getCtx(), iLine.getC_OrderLine_ID(), get_TrxName()), I_W_C_OrderLine.class));
 		
-		boolean includeDIFAL = MSysConfig.getBooleanValue(SysConfig.LBR_ADD_DIFAL_PROD, true, getAD_Client_ID(), getAD_Org_ID());
-		boolean isFOB = getParent().getC_Invoice_ID() > 0 ? !getParent().getC_Invoice().isTaxIncluded() : false;
-		setPrice(iLine.getParent().getC_Currency_ID(), iLine.getM_Product_ID(), iLine.getPriceEntered(), iLine.getPriceList(), includeDIFAL, isFOB);
-		save();
-		
 		//	Impostos
 		MLBRTax tax = new MLBRTax (getCtx(), iLineW.getLBR_Tax_ID(), get_TrxName());
 				
@@ -786,6 +781,11 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 			nfLineTax.setLBR_TaxGroup_ID(taxAD.getLBR_TaxGroup_ID());
 			nfLineTax.save();
 		}
+		
+		boolean includeDIFAL = MSysConfig.getBooleanValue(SysConfig.LBR_ADD_DIFAL_PROD, true, getAD_Client_ID(), getAD_Org_ID());
+		boolean isFOB = getParent().getC_Invoice_ID() > 0 ? !getParent().getC_Invoice().isTaxIncluded() : false;
+		setPrice(iLine.getParent().getC_Currency_ID(), iLine.getM_Product_ID(), iLine.getPriceEntered(), iLine.getPriceList(), includeDIFAL, isFOB);
+		save();
 		
 		BigDecimal vam = getLBR_VAM();
 
