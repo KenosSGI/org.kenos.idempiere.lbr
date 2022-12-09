@@ -86,7 +86,6 @@ public class Print extends SvrProcess
 					IDesktop appDesktop = SessionManager.getAppDesktop();
 					appDesktop.showWindow(win, "center");
 				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
