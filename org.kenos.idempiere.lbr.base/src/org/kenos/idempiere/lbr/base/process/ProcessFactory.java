@@ -36,7 +36,8 @@ public class ProcessFactory implements IProcessFactory
 			return new CreditCheck ();
 		if (ReplaceSalesRep.class.getName().equals (className))
 			return new ReplaceSalesRep ();
-		if (ProductionCreate.PROCESS_NAME.equals (className))
+		if ("org.compiere.process.ProductionCreate".equals(className) 
+				|| ProductionCreate.PROCESS_NAME.equals (className))
 			return new ProductionCreate();
 		return null;
 	}	//	newProcessInstance
