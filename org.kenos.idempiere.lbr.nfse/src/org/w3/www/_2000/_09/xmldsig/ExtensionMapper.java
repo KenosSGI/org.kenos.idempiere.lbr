@@ -10,8 +10,7 @@ package org.w3.www._2000._09.xmldsig;
 /**
  *  ExtensionMapper class
  */
-@SuppressWarnings({"unchecked",
-    "unused"
+@SuppressWarnings({"unchecked"
 })
 public class ExtensionMapper {
     public static java.lang.Object getTypeObject(

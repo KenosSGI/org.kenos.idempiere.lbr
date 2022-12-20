@@ -9,6 +9,8 @@ import org.adempierelbr.wrapper.I_W_I_BPartner;
 import org.compiere.model.MBPartner;
 import org.compiere.model.MBPartnerLocation;
 import org.compiere.model.MLocation;
+import org.compiere.model.MPriceList;
+import org.compiere.model.Query;
 import org.compiere.model.X_I_BPartner;
 import org.compiere.util.DB;
 
@@ -88,20 +90,27 @@ public class ImportValidatorBPartner implements ImportValidator
 			}
  			
  			//	Se o Campo IE estiver Preenchido 
- 			if (impBPw.getlbr_IE() != null && !"".equals(impBPw.getlbr_IE()))
+ 			if (impBPw.getlbr_IE() != null && !impBPw.getlbr_IE().isBlank())
  				bpw.setlbr_IE(impBPw.getlbr_IE());
  			
  			//	Se o Campo CCM estiver Preenchido 
- 			if (impBPw.getlbr_CCM() != null && !"".equals(impBPw.getlbr_CCM()))
+ 			if (impBPw.getlbr_CCM() != null && !impBPw.getlbr_CCM().isBlank())
  				bpw.setlbr_CCM(impBPw.getlbr_CCM());
  			
  			//	Se o Campo RG estiver Preenchido 
-			if (impBPw.getlbr_RG() != null && !"".equals(impBPw.getlbr_RG()))
+			if (impBPw.getlbr_RG() != null && !impBPw.getlbr_RG().isBlank())
 				bpw.setlbr_RG(impBPw.getlbr_RG());
 			
 			//	Se o Campo Representante de Venda estiver Preenchido 
-			if (!impBPw.isSalesRep())
-				bpw.setIsSalesRep(impBPw.isSalesRep());
+			bpw.setIsSalesRep(impBPw.isSalesRep());
+			
+			bpw.setlbr_TransactionType((String) impBP.get_Value("lbr_TransactionType"));
+			
+			if (impBP.get_Value("PriceList") != null) {
+				MPriceList list = new Query (bp.getCtx(), MPriceList.Table_Name, "Name=?", null).setParameters(impBP.get_Value("PriceList")).setClient_ID().first();
+				if (list != null)
+					bpw.setM_PriceList_ID(list.getM_PriceList_ID());
+			}
  		}
 		
 		//	Location

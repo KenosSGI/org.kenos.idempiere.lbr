@@ -48,6 +48,7 @@ import org.compiere.util.Env;
 import org.kenos.idempiere.lbr.base.model.SysConfig;
 import org.kenos.idempiere.lbr.nfe.importvalidator.ImportValidatorBPartner;
 import org.kenos.idempiere.lbr.nfe.importvalidator.ImportValidatorOrder;
+import org.kenos.idempiere.lbr.nfe.importvalidator.ImportValidatorProduct;
 
 /**
  *	ValidatorOrder
@@ -80,6 +81,7 @@ public class ValidatorOrder implements ModelValidator
 		// Register Import Validators
 		engine.addImportValidate(ImportValidatorBPartner.ImportTableName, new ImportValidatorBPartner());		
 		engine.addImportValidate(ImportValidatorOrder.ImportTableName, new ImportValidatorOrder());
+		engine.addImportValidate(ImportValidatorProduct.ImportTableName, new ImportValidatorProduct());
 				
 		if (client != null) 
 		{
