@@ -17,16 +17,16 @@
   <value column="Description" original=""/>
  </row>
  <row id="91" trl="Y">
-  <value column="Name" original="List Validation">Lista de Validação</value>
-  <value column="Description" original="List Validation">Lista de Validação</value>
+  <value column="Name" original="List Validation">Validação de Lista</value>
+  <value column="Description" original="List Validation">Esta é uma Referência que faz Validação de uma Lista</value>
  </row>
  <row id="92" trl="Y">
-  <value column="Name" original="DataType">Tipo de Dados</value>
+  <value column="Name" original="DataType">Dados (DataType)</value>
   <value column="Description" original="DataType">Tipo de Dados</value>
  </row>
  <row id="93" trl="Y">
-  <value column="Name" original="Table Validation">Tabela de Validação</value>
-  <value column="Description" original="Table Validation">Tabela de Validação</value>
+  <value column="Name" original="Table Validation">Validação de Tabela</value>
+  <value column="Description" original="Table Validation">Esta é uma Referência que faz Validação de uma Tabela</value>
  </row>
  <row id="100" trl="Y">
   <value column="Name" original="SQL">SQL</value>
