@@ -3,12 +3,13 @@ package org.kenos.idempiere.lbr.nfse;
 import org.adempierelbr.nfse.NFSeAbrasf100Impl;
 import org.adempierelbr.nfse.NFSeAbrasf201Impl;
 import org.adempierelbr.nfse.NFSeAbrasf203Impl;
+import org.adempierelbr.nfse.NFSeAbrasf204Impl;
 import org.adempierelbr.nfse.NFSeImpl;
 import org.adempierelbr.nfse.NFSeMogiImpl;
 import org.adempierelbr.nfse.NFSePalhocaImpl;
+import org.adempierelbr.nfse.NFSeSJPImpl;
 import org.adempierelbr.nfse.NFSeTubaraoImpl;
 import org.adempierelbr.nfse.atibaia.NFSeAtibaiaImpl;
-import org.adempierelbr.nfse.NFSeSJPImpl;
 import org.compiere.util.CLogger;
 import org.kenos.idempiere.lbr.base.nfse.INFSeFactory;
 import org.kenos.idempiere.lbr.nfse.dsf.DSF100;
@@ -51,6 +52,10 @@ public class NFSeFactory implements INFSeFactory
 		//	Indaiatuba/SP
 		else if (NFSeAbrasf203Impl.INDAIATUBA_ID == p_C_City_ID)
 			return NFSeAbrasf203Impl.class;
+		
+		//	Brasília/DF
+		else if (NFSeAbrasf204Impl.BRASILIA_ID == p_C_City_ID)
+			return NFSeAbrasf204Impl.class;
 
 		//	Tapiraí
 		else if (NFSeAbrasf201Impl.TAPIRAI_ID == p_C_City_ID)

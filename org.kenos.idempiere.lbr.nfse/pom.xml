@@ -70,6 +70,12 @@
 										<destFileName>nfse-abrasf-v201.jar</destFileName>
 									</artifactItem>
 									<artifactItem>
+										<groupId>org.kenos</groupId>
+										<artifactId>nfse-abrasf-v204</artifactId>
+										<version>2.04</version>
+										<destFileName>nfse-abrasf-v204.jar</destFileName>
+									</artifactItem>
+									<artifactItem>
 										<groupId>local.nfse-abrasf-v203</groupId>
 										<artifactId>nfse-abrasf-v203</artifactId>
 										<version>NOT_INFORMED</version>
