@@ -126,7 +126,7 @@ public class NFSeAbrasf204Impl implements INFSe
 	/**
 	 * Cidades que utilizam NFS-e Abrasf
 	 */
-	public static final Integer	 BRASILIA_ID = 1004960;
+	public static final Integer	 BRASILIA_ID = 1000800;
 
 	private final Cabecalho header;
 
