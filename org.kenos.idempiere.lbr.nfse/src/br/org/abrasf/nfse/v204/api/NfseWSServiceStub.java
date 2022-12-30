@@ -6,6 +6,14 @@
  */
 package br.org.abrasf.nfse.v204.api;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLStreamException;
+
+import br.org.abrasf.nfse.v204.GerarNfseResponse;
+import br.org.abrasf.nfse.v204.Output;
 
 /*
  *  NfseWSServiceStub java implementation
@@ -56,14 +64,14 @@ public class NfseWSServiceStub extends org.apache.axis2.client.Stub
     public NfseWSServiceStub(
         org.apache.axis2.context.ConfigurationContext configurationContext)
         throws org.apache.axis2.AxisFault {
-        this(configurationContext, "http://ws.pbh.gov.br");
+        this(configurationContext, "nfse.asmx");
     }
 
     /**
      * Default Constructor
      */
     public NfseWSServiceStub() throws org.apache.axis2.AxisFault {
-        this("http://ws.pbh.gov.br");
+        this("nfse.asmx");
     }
 
     /**
@@ -186,7 +194,7 @@ public class NfseWSServiceStub extends org.apache.axis2.client.Stub
      * Auto generated method signature
      *
      * @see br.org.abrasf.nfse.v204.v204.api.NfseWSService#consultarNfseServicoTomado
-     * @param consultarNfseServicoTomadoRequest27
+     * @param consultarNfseServicoTomado27
      */
     public java.lang.String consultarNfseServicoTomado(
         java.lang.String nfseCabecMsg28, java.lang.String nfseDadosMsg29)
@@ -208,8 +216,7 @@ public class NfseWSServiceStub extends org.apache.axis2.client.Stub
 
             // create SOAP envelope with that payload
             org.apache.axiom.soap.SOAPEnvelope env = null;
-            br.org.abrasf.nfse.v204.ConsultarNfseServicoTomadoRequest dummyWrappedType =
-                null;
+            br.org.abrasf.nfse.v204.ConsultarNfseServicoTomado dummyWrappedType = null;
             env = toEnvelope(getFactory(_operationClient.getOptions()
                                                         .getSoapVersionURI()),
                     nfseCabecMsg28, nfseDadosMsg29, dummyWrappedType,
@@ -304,7 +311,7 @@ public class NfseWSServiceStub extends org.apache.axis2.client.Stub
      * Auto generated method signature
      *
      * @see br.org.abrasf.nfse.v204.v204.api.NfseWSService#consultarNfsePorRps
-     * @param consultarNfsePorRpsRequest32
+     * @param consultarNfsePorRps32
      */
     public java.lang.String consultarNfsePorRps(
         java.lang.String nfseCabecMsg33, java.lang.String nfseDadosMsg34)
@@ -326,7 +333,7 @@ public class NfseWSServiceStub extends org.apache.axis2.client.Stub
 
             // create SOAP envelope with that payload
             org.apache.axiom.soap.SOAPEnvelope env = null;
-            br.org.abrasf.nfse.v204.ConsultarNfsePorRpsRequest dummyWrappedType = null;
+            br.org.abrasf.nfse.v204.ConsultarNfsePorRps dummyWrappedType = null;
             env = toEnvelope(getFactory(_operationClient.getOptions()
                                                         .getSoapVersionURI()),
                     nfseCabecMsg33, nfseDadosMsg34, dummyWrappedType,
@@ -417,7 +424,7 @@ public class NfseWSServiceStub extends org.apache.axis2.client.Stub
      * Auto generated method signature
      *
      * @see br.org.abrasf.nfse.v204.v204.api.NfseWSService#recepcionarLoteRps
-     * @param recepcionarLoteRpsRequest37
+     * @param recepcionarLoteRps37
      */
     public java.lang.String recepcionarLoteRps(
         java.lang.String nfseCabecMsg38, java.lang.String nfseDadosMsg39)
@@ -439,7 +446,7 @@ public class NfseWSServiceStub extends org.apache.axis2.client.Stub
 
             // create SOAP envelope with that payload
             org.apache.axiom.soap.SOAPEnvelope env = null;
-            br.org.abrasf.nfse.v204.RecepcionarLoteRpsRequest dummyWrappedType = null;
+            br.org.abrasf.nfse.v204.RecepcionarLoteRps dummyWrappedType = null;
             env = toEnvelope(getFactory(_operationClient.getOptions()
                                                         .getSoapVersionURI()),
                     nfseCabecMsg38, nfseDadosMsg39, dummyWrappedType,
@@ -530,7 +537,7 @@ public class NfseWSServiceStub extends org.apache.axis2.client.Stub
      * Auto generated method signature
      *
      * @see br.org.abrasf.nfse.v204.v204.api.NfseWSService#recepcionarLoteRpsSincrono
-     * @param recepcionarLoteRpsSincronoRequest42
+     * @param recepcionarLoteRpsSincrono42
      */
     public java.lang.String recepcionarLoteRpsSincrono(
         java.lang.String nfseCabecMsg43, java.lang.String nfseDadosMsg44)
@@ -552,8 +559,7 @@ public class NfseWSServiceStub extends org.apache.axis2.client.Stub
 
             // create SOAP envelope with that payload
             org.apache.axiom.soap.SOAPEnvelope env = null;
-            br.org.abrasf.nfse.v204.RecepcionarLoteRpsSincronoRequest dummyWrappedType =
-                null;
+            br.org.abrasf.nfse.v204.RecepcionarLoteRpsSincrono dummyWrappedType = null;
             env = toEnvelope(getFactory(_operationClient.getOptions()
                                                         .getSoapVersionURI()),
                     nfseCabecMsg43, nfseDadosMsg44, dummyWrappedType,
@@ -648,7 +654,7 @@ public class NfseWSServiceStub extends org.apache.axis2.client.Stub
      * Auto generated method signature
      *
      * @see br.org.abrasf.nfse.v204.v204.api.NfseWSService#consultarNfseServicoPrestado
-     * @param consultarNfseServicoPrestadoRequest47
+     * @param consultarNfseServicoPrestado47
      */
     public java.lang.String consultarNfseServicoPrestado(
         java.lang.String nfseCabecMsg48, java.lang.String nfseDadosMsg49)
@@ -670,8 +676,7 @@ public class NfseWSServiceStub extends org.apache.axis2.client.Stub
 
             // create SOAP envelope with that payload
             org.apache.axiom.soap.SOAPEnvelope env = null;
-            br.org.abrasf.nfse.v204.ConsultarNfseServicoPrestadoRequest dummyWrappedType =
-                null;
+            br.org.abrasf.nfse.v204.ConsultarNfseServicoPrestado dummyWrappedType = null;
             env = toEnvelope(getFactory(_operationClient.getOptions()
                                                         .getSoapVersionURI()),
                     nfseCabecMsg48, nfseDadosMsg49, dummyWrappedType,
@@ -766,7 +771,7 @@ public class NfseWSServiceStub extends org.apache.axis2.client.Stub
      * Auto generated method signature
      *
      * @see br.org.abrasf.nfse.v204.v204.api.NfseWSService#cancelarNfse
-     * @param cancelarNfseRequest52
+     * @param cancelarNfse52
      */
     public java.lang.String cancelarNfse(java.lang.String nfseCabecMsg53,
         java.lang.String nfseDadosMsg54) throws java.rmi.RemoteException {
@@ -787,7 +792,7 @@ public class NfseWSServiceStub extends org.apache.axis2.client.Stub
 
             // create SOAP envelope with that payload
             org.apache.axiom.soap.SOAPEnvelope env = null;
-            br.org.abrasf.nfse.v204.CancelarNfseRequest dummyWrappedType = null;
+            br.org.abrasf.nfse.v204.CancelarNfse dummyWrappedType = null;
             env = toEnvelope(getFactory(_operationClient.getOptions()
                                                         .getSoapVersionURI()),
                     nfseCabecMsg53, nfseDadosMsg54, dummyWrappedType,
@@ -878,7 +883,7 @@ public class NfseWSServiceStub extends org.apache.axis2.client.Stub
      * Auto generated method signature
      *
      * @see br.org.abrasf.nfse.v204.v204.api.NfseWSService#consultarLoteRps
-     * @param consultarLoteRpsRequest57
+     * @param consultarLoteRps57
      */
     public java.lang.String consultarLoteRps(java.lang.String nfseCabecMsg58,
         java.lang.String nfseDadosMsg59) throws java.rmi.RemoteException {
@@ -899,7 +904,7 @@ public class NfseWSServiceStub extends org.apache.axis2.client.Stub
 
             // create SOAP envelope with that payload
             org.apache.axiom.soap.SOAPEnvelope env = null;
-            br.org.abrasf.nfse.v204.ConsultarLoteRpsRequest dummyWrappedType = null;
+            br.org.abrasf.nfse.v204.ConsultarLoteRps dummyWrappedType = null;
             env = toEnvelope(getFactory(_operationClient.getOptions()
                                                         .getSoapVersionURI()),
                     nfseCabecMsg58, nfseDadosMsg59, dummyWrappedType,
@@ -990,7 +995,7 @@ public class NfseWSServiceStub extends org.apache.axis2.client.Stub
      * Auto generated method signature
      *
      * @see br.org.abrasf.nfse.v204.v204.api.NfseWSService#gerarNfse
-     * @param gerarNfseRequest62
+     * @param gerarNfse62
      */
     public java.lang.String gerarNfse(java.lang.String nfseCabecMsg63,
         java.lang.String nfseDadosMsg64) throws java.rmi.RemoteException {
@@ -1011,7 +1016,7 @@ public class NfseWSServiceStub extends org.apache.axis2.client.Stub
 
             // create SOAP envelope with that payload
             org.apache.axiom.soap.SOAPEnvelope env = null;
-            br.org.abrasf.nfse.v204.GerarNfseRequest dummyWrappedType = null;
+            br.org.abrasf.nfse.v204.GerarNfse dummyWrappedType = null;
             env = toEnvelope(getFactory(_operationClient.getOptions()
                                                         .getSoapVersionURI()),
                     nfseCabecMsg63, nfseDadosMsg64, dummyWrappedType,
@@ -1102,7 +1107,7 @@ public class NfseWSServiceStub extends org.apache.axis2.client.Stub
      * Auto generated method signature
      *
      * @see br.org.abrasf.nfse.v204.v204.api.NfseWSService#substituirNfse
-     * @param substituirNfseRequest67
+     * @param substituirNfse67
      */
     public java.lang.String substituirNfse(java.lang.String nfseCabecMsg68,
         java.lang.String nfseDadosMsg69) throws java.rmi.RemoteException {
@@ -1123,7 +1128,7 @@ public class NfseWSServiceStub extends org.apache.axis2.client.Stub
 
             // create SOAP envelope with that payload
             org.apache.axiom.soap.SOAPEnvelope env = null;
-            br.org.abrasf.nfse.v204.SubstituirNfseRequest dummyWrappedType = null;
+            br.org.abrasf.nfse.v204.SubstituirNfse dummyWrappedType = null;
             env = toEnvelope(getFactory(_operationClient.getOptions()
                                                         .getSoapVersionURI()),
                     nfseCabecMsg68, nfseDadosMsg69, dummyWrappedType,
@@ -1214,7 +1219,7 @@ public class NfseWSServiceStub extends org.apache.axis2.client.Stub
      * Auto generated method signature
      *
      * @see br.org.abrasf.nfse.v204.v204.api.NfseWSService#consultarNfsePorFaixa
-     * @param consultarNfsePorFaixaRequest72
+     * @param consultarNfsePorFaixa72
      */
     public java.lang.String consultarNfsePorFaixa(
         java.lang.String nfseCabecMsg73, java.lang.String nfseDadosMsg74)
@@ -1236,7 +1241,7 @@ public class NfseWSServiceStub extends org.apache.axis2.client.Stub
 
             // create SOAP envelope with that payload
             org.apache.axiom.soap.SOAPEnvelope env = null;
-            br.org.abrasf.nfse.v204.ConsultarNfsePorFaixaRequest dummyWrappedType = null;
+            br.org.abrasf.nfse.v204.ConsultarNfsePorFaixa dummyWrappedType = null;
             env = toEnvelope(getFactory(_operationClient.getOptions()
                                                         .getSoapVersionURI()),
                     nfseCabecMsg73, nfseDadosMsg74, dummyWrappedType,
@@ -1353,12 +1358,12 @@ public class NfseWSServiceStub extends org.apache.axis2.client.Stub
         return false;
     }
 
-    //http://ws.pbh.gov.br
+    //nfse.asmx
     private org.apache.axiom.om.OMElement toOM(
-        br.org.abrasf.nfse.v204.ConsultarNfseServicoTomadoRequest param,
+        br.org.abrasf.nfse.v204.ConsultarNfseServicoTomado param,
         boolean optimizeContent) throws org.apache.axis2.AxisFault {
         try {
-            return param.getOMElement(br.org.abrasf.nfse.v204.ConsultarNfseServicoTomadoRequest.MY_QNAME,
+            return param.getOMElement(br.org.abrasf.nfse.v204.ConsultarNfseServicoTomado.MY_QNAME,
                 org.apache.axiom.om.OMAbstractFactory.getOMFactory());
         } catch (org.apache.axis2.databinding.ADBException e) {
             throw org.apache.axis2.AxisFault.makeFault(e);
@@ -1377,10 +1382,10 @@ public class NfseWSServiceStub extends org.apache.axis2.client.Stub
     }
 
     private org.apache.axiom.om.OMElement toOM(
-        br.org.abrasf.nfse.v204.ConsultarNfsePorRpsRequest param,
-        boolean optimizeContent) throws org.apache.axis2.AxisFault {
+        br.org.abrasf.nfse.v204.ConsultarNfsePorRps param, boolean optimizeContent)
+        throws org.apache.axis2.AxisFault {
         try {
-            return param.getOMElement(br.org.abrasf.nfse.v204.ConsultarNfsePorRpsRequest.MY_QNAME,
+            return param.getOMElement(br.org.abrasf.nfse.v204.ConsultarNfsePorRps.MY_QNAME,
                 org.apache.axiom.om.OMAbstractFactory.getOMFactory());
         } catch (org.apache.axis2.databinding.ADBException e) {
             throw org.apache.axis2.AxisFault.makeFault(e);
@@ -1399,10 +1404,10 @@ public class NfseWSServiceStub extends org.apache.axis2.client.Stub
     }
 
     private org.apache.axiom.om.OMElement toOM(
-        br.org.abrasf.nfse.v204.RecepcionarLoteRpsRequest param,
-        boolean optimizeContent) throws org.apache.axis2.AxisFault {
+        br.org.abrasf.nfse.v204.RecepcionarLoteRps param, boolean optimizeContent)
+        throws org.apache.axis2.AxisFault {
         try {
-            return param.getOMElement(br.org.abrasf.nfse.v204.RecepcionarLoteRpsRequest.MY_QNAME,
+            return param.getOMElement(br.org.abrasf.nfse.v204.RecepcionarLoteRps.MY_QNAME,
                 org.apache.axiom.om.OMAbstractFactory.getOMFactory());
         } catch (org.apache.axis2.databinding.ADBException e) {
             throw org.apache.axis2.AxisFault.makeFault(e);
@@ -1421,10 +1426,10 @@ public class NfseWSServiceStub extends org.apache.axis2.client.Stub
     }
 
     private org.apache.axiom.om.OMElement toOM(
-        br.org.abrasf.nfse.v204.RecepcionarLoteRpsSincronoRequest param,
+        br.org.abrasf.nfse.v204.RecepcionarLoteRpsSincrono param,
         boolean optimizeContent) throws org.apache.axis2.AxisFault {
         try {
-            return param.getOMElement(br.org.abrasf.nfse.v204.RecepcionarLoteRpsSincronoRequest.MY_QNAME,
+            return param.getOMElement(br.org.abrasf.nfse.v204.RecepcionarLoteRpsSincrono.MY_QNAME,
                 org.apache.axiom.om.OMAbstractFactory.getOMFactory());
         } catch (org.apache.axis2.databinding.ADBException e) {
             throw org.apache.axis2.AxisFault.makeFault(e);
@@ -1443,10 +1448,10 @@ public class NfseWSServiceStub extends org.apache.axis2.client.Stub
     }
 
     private org.apache.axiom.om.OMElement toOM(
-        br.org.abrasf.nfse.v204.ConsultarNfseServicoPrestadoRequest param,
+        br.org.abrasf.nfse.v204.ConsultarNfseServicoPrestado param,
         boolean optimizeContent) throws org.apache.axis2.AxisFault {
         try {
-            return param.getOMElement(br.org.abrasf.nfse.v204.ConsultarNfseServicoPrestadoRequest.MY_QNAME,
+            return param.getOMElement(br.org.abrasf.nfse.v204.ConsultarNfseServicoPrestado.MY_QNAME,
                 org.apache.axiom.om.OMAbstractFactory.getOMFactory());
         } catch (org.apache.axis2.databinding.ADBException e) {
             throw org.apache.axis2.AxisFault.makeFault(e);
@@ -1465,10 +1470,10 @@ public class NfseWSServiceStub extends org.apache.axis2.client.Stub
     }
 
     private org.apache.axiom.om.OMElement toOM(
-        br.org.abrasf.nfse.v204.CancelarNfseRequest param, boolean optimizeContent)
+        br.org.abrasf.nfse.v204.CancelarNfse param, boolean optimizeContent)
         throws org.apache.axis2.AxisFault {
         try {
-            return param.getOMElement(br.org.abrasf.nfse.v204.CancelarNfseRequest.MY_QNAME,
+            return param.getOMElement(br.org.abrasf.nfse.v204.CancelarNfse.MY_QNAME,
                 org.apache.axiom.om.OMAbstractFactory.getOMFactory());
         } catch (org.apache.axis2.databinding.ADBException e) {
             throw org.apache.axis2.AxisFault.makeFault(e);
@@ -1487,10 +1492,10 @@ public class NfseWSServiceStub extends org.apache.axis2.client.Stub
     }
 
     private org.apache.axiom.om.OMElement toOM(
-        br.org.abrasf.nfse.v204.ConsultarLoteRpsRequest param,
-        boolean optimizeContent) throws org.apache.axis2.AxisFault {
+        br.org.abrasf.nfse.v204.ConsultarLoteRps param, boolean optimizeContent)
+        throws org.apache.axis2.AxisFault {
         try {
-            return param.getOMElement(br.org.abrasf.nfse.v204.ConsultarLoteRpsRequest.MY_QNAME,
+            return param.getOMElement(br.org.abrasf.nfse.v204.ConsultarLoteRps.MY_QNAME,
                 org.apache.axiom.om.OMAbstractFactory.getOMFactory());
         } catch (org.apache.axis2.databinding.ADBException e) {
             throw org.apache.axis2.AxisFault.makeFault(e);
@@ -1509,10 +1514,10 @@ public class NfseWSServiceStub extends org.apache.axis2.client.Stub
     }
 
     private org.apache.axiom.om.OMElement toOM(
-        br.org.abrasf.nfse.v204.GerarNfseRequest param, boolean optimizeContent)
+        br.org.abrasf.nfse.v204.GerarNfse param, boolean optimizeContent)
         throws org.apache.axis2.AxisFault {
         try {
-            return param.getOMElement(br.org.abrasf.nfse.v204.GerarNfseRequest.MY_QNAME,
+            return param.getOMElement(br.org.abrasf.nfse.v204.GerarNfse.MY_QNAME,
                 org.apache.axiom.om.OMAbstractFactory.getOMFactory());
         } catch (org.apache.axis2.databinding.ADBException e) {
             throw org.apache.axis2.AxisFault.makeFault(e);
@@ -1531,10 +1536,10 @@ public class NfseWSServiceStub extends org.apache.axis2.client.Stub
     }
 
     private org.apache.axiom.om.OMElement toOM(
-        br.org.abrasf.nfse.v204.SubstituirNfseRequest param, boolean optimizeContent)
+        br.org.abrasf.nfse.v204.SubstituirNfse param, boolean optimizeContent)
         throws org.apache.axis2.AxisFault {
         try {
-            return param.getOMElement(br.org.abrasf.nfse.v204.SubstituirNfseRequest.MY_QNAME,
+            return param.getOMElement(br.org.abrasf.nfse.v204.SubstituirNfse.MY_QNAME,
                 org.apache.axiom.om.OMAbstractFactory.getOMFactory());
         } catch (org.apache.axis2.databinding.ADBException e) {
             throw org.apache.axis2.AxisFault.makeFault(e);
@@ -1553,10 +1558,10 @@ public class NfseWSServiceStub extends org.apache.axis2.client.Stub
     }
 
     private org.apache.axiom.om.OMElement toOM(
-        br.org.abrasf.nfse.v204.ConsultarNfsePorFaixaRequest param,
-        boolean optimizeContent) throws org.apache.axis2.AxisFault {
+        br.org.abrasf.nfse.v204.ConsultarNfsePorFaixa param, boolean optimizeContent)
+        throws org.apache.axis2.AxisFault {
         try {
-            return param.getOMElement(br.org.abrasf.nfse.v204.ConsultarNfsePorFaixaRequest.MY_QNAME,
+            return param.getOMElement(br.org.abrasf.nfse.v204.ConsultarNfsePorFaixa.MY_QNAME,
                 org.apache.axiom.om.OMAbstractFactory.getOMFactory());
         } catch (org.apache.axis2.databinding.ADBException e) {
             throw org.apache.axis2.AxisFault.makeFault(e);
@@ -1577,10 +1582,10 @@ public class NfseWSServiceStub extends org.apache.axis2.client.Stub
     private org.apache.axiom.soap.SOAPEnvelope toEnvelope(
         org.apache.axiom.soap.SOAPFactory factory, java.lang.String param1,
         java.lang.String param2,
-        br.org.abrasf.nfse.v204.ConsultarNfseServicoTomadoRequest dummyWrappedType,
+        br.org.abrasf.nfse.v204.ConsultarNfseServicoTomado dummyWrappedType,
         boolean optimizeContent) throws org.apache.axis2.AxisFault {
         try {
-            br.org.abrasf.nfse.v204.ConsultarNfseServicoTomadoRequest wrappedType = new br.org.abrasf.nfse.v204.ConsultarNfseServicoTomadoRequest();
+            br.org.abrasf.nfse.v204.ConsultarNfseServicoTomado wrappedType = new br.org.abrasf.nfse.v204.ConsultarNfseServicoTomado();
 
             br.org.abrasf.nfse.v204.Input wrappedComplexType = new br.org.abrasf.nfse.v204.Input();
 
@@ -1588,13 +1593,13 @@ public class NfseWSServiceStub extends org.apache.axis2.client.Stub
 
             wrappedComplexType.setNfseDadosMsg(param2);
 
-            wrappedType.setConsultarNfseServicoTomadoRequest(wrappedComplexType);
+            wrappedType.setConsultarNfseServicoTomado(wrappedComplexType);
 
             org.apache.axiom.soap.SOAPEnvelope emptyEnvelope = factory.getDefaultEnvelope();
 
             emptyEnvelope.getBody()
                          .addChild(wrappedType.getOMElement(
-                    br.org.abrasf.nfse.v204.ConsultarNfseServicoTomadoRequest.MY_QNAME,
+                    br.org.abrasf.nfse.v204.ConsultarNfseServicoTomado.MY_QNAME,
                     factory));
 
             return emptyEnvelope;
@@ -1605,14 +1610,14 @@ public class NfseWSServiceStub extends org.apache.axis2.client.Stub
 
     /* methods to provide back word compatibility */
     private br.org.abrasf.nfse.v204.Input getConsultarNfseServicoTomado(
-        br.org.abrasf.nfse.v204.ConsultarNfseServicoTomadoRequest wrappedType) {
-        return wrappedType.getConsultarNfseServicoTomadoRequest();
+        br.org.abrasf.nfse.v204.ConsultarNfseServicoTomado wrappedType) {
+        return wrappedType.getConsultarNfseServicoTomado();
     }
 
-    private br.org.abrasf.nfse.v204.ConsultarNfseServicoTomadoRequest wrapConsultarNfseServicoTomado(
+    private br.org.abrasf.nfse.v204.ConsultarNfseServicoTomado wrapConsultarNfseServicoTomado(
         br.org.abrasf.nfse.v204.Input innerType) {
-        br.org.abrasf.nfse.v204.ConsultarNfseServicoTomadoRequest wrappedElement = new br.org.abrasf.nfse.v204.ConsultarNfseServicoTomadoRequest();
-        wrappedElement.setConsultarNfseServicoTomadoRequest(innerType);
+        br.org.abrasf.nfse.v204.ConsultarNfseServicoTomado wrappedElement = new br.org.abrasf.nfse.v204.ConsultarNfseServicoTomado();
+        wrappedElement.setConsultarNfseServicoTomado(innerType);
 
         return wrappedElement;
     }
@@ -1630,10 +1635,10 @@ public class NfseWSServiceStub extends org.apache.axis2.client.Stub
     private org.apache.axiom.soap.SOAPEnvelope toEnvelope(
         org.apache.axiom.soap.SOAPFactory factory, java.lang.String param1,
         java.lang.String param2,
-        br.org.abrasf.nfse.v204.ConsultarNfsePorRpsRequest dummyWrappedType,
+        br.org.abrasf.nfse.v204.ConsultarNfsePorRps dummyWrappedType,
         boolean optimizeContent) throws org.apache.axis2.AxisFault {
         try {
-            br.org.abrasf.nfse.v204.ConsultarNfsePorRpsRequest wrappedType = new br.org.abrasf.nfse.v204.ConsultarNfsePorRpsRequest();
+            br.org.abrasf.nfse.v204.ConsultarNfsePorRps wrappedType = new br.org.abrasf.nfse.v204.ConsultarNfsePorRps();
 
             br.org.abrasf.nfse.v204.Input wrappedComplexType = new br.org.abrasf.nfse.v204.Input();
 
@@ -1641,14 +1646,13 @@ public class NfseWSServiceStub extends org.apache.axis2.client.Stub
 
             wrappedComplexType.setNfseDadosMsg(param2);
 
-            wrappedType.setConsultarNfsePorRpsRequest(wrappedComplexType);
+            wrappedType.setConsultarNfsePorRps(wrappedComplexType);
 
             org.apache.axiom.soap.SOAPEnvelope emptyEnvelope = factory.getDefaultEnvelope();
 
             emptyEnvelope.getBody()
                          .addChild(wrappedType.getOMElement(
-                    br.org.abrasf.nfse.v204.ConsultarNfsePorRpsRequest.MY_QNAME,
-                    factory));
+                    br.org.abrasf.nfse.v204.ConsultarNfsePorRps.MY_QNAME, factory));
 
             return emptyEnvelope;
         } catch (org.apache.axis2.databinding.ADBException e) {
@@ -1658,14 +1662,14 @@ public class NfseWSServiceStub extends org.apache.axis2.client.Stub
 
     /* methods to provide back word compatibility */
     private br.org.abrasf.nfse.v204.Input getConsultarNfsePorRps(
-        br.org.abrasf.nfse.v204.ConsultarNfsePorRpsRequest wrappedType) {
-        return wrappedType.getConsultarNfsePorRpsRequest();
+        br.org.abrasf.nfse.v204.ConsultarNfsePorRps wrappedType) {
+        return wrappedType.getConsultarNfsePorRps();
     }
 
-    private br.org.abrasf.nfse.v204.ConsultarNfsePorRpsRequest wrapConsultarNfsePorRps(
+    private br.org.abrasf.nfse.v204.ConsultarNfsePorRps wrapConsultarNfsePorRps(
         br.org.abrasf.nfse.v204.Input innerType) {
-        br.org.abrasf.nfse.v204.ConsultarNfsePorRpsRequest wrappedElement = new br.org.abrasf.nfse.v204.ConsultarNfsePorRpsRequest();
-        wrappedElement.setConsultarNfsePorRpsRequest(innerType);
+        br.org.abrasf.nfse.v204.ConsultarNfsePorRps wrappedElement = new br.org.abrasf.nfse.v204.ConsultarNfsePorRps();
+        wrappedElement.setConsultarNfsePorRps(innerType);
 
         return wrappedElement;
     }
@@ -1683,10 +1687,10 @@ public class NfseWSServiceStub extends org.apache.axis2.client.Stub
     private org.apache.axiom.soap.SOAPEnvelope toEnvelope(
         org.apache.axiom.soap.SOAPFactory factory, java.lang.String param1,
         java.lang.String param2,
-        br.org.abrasf.nfse.v204.RecepcionarLoteRpsRequest dummyWrappedType,
+        br.org.abrasf.nfse.v204.RecepcionarLoteRps dummyWrappedType,
         boolean optimizeContent) throws org.apache.axis2.AxisFault {
         try {
-            br.org.abrasf.nfse.v204.RecepcionarLoteRpsRequest wrappedType = new br.org.abrasf.nfse.v204.RecepcionarLoteRpsRequest();
+            br.org.abrasf.nfse.v204.RecepcionarLoteRps wrappedType = new br.org.abrasf.nfse.v204.RecepcionarLoteRps();
 
             br.org.abrasf.nfse.v204.Input wrappedComplexType = new br.org.abrasf.nfse.v204.Input();
 
@@ -1694,14 +1698,13 @@ public class NfseWSServiceStub extends org.apache.axis2.client.Stub
 
             wrappedComplexType.setNfseDadosMsg(param2);
 
-            wrappedType.setRecepcionarLoteRpsRequest(wrappedComplexType);
+            wrappedType.setRecepcionarLoteRps(wrappedComplexType);
 
             org.apache.axiom.soap.SOAPEnvelope emptyEnvelope = factory.getDefaultEnvelope();
 
             emptyEnvelope.getBody()
                          .addChild(wrappedType.getOMElement(
-                    br.org.abrasf.nfse.v204.RecepcionarLoteRpsRequest.MY_QNAME,
-                    factory));
+                    br.org.abrasf.nfse.v204.RecepcionarLoteRps.MY_QNAME, factory));
 
             return emptyEnvelope;
         } catch (org.apache.axis2.databinding.ADBException e) {
@@ -1711,14 +1714,14 @@ public class NfseWSServiceStub extends org.apache.axis2.client.Stub
 
     /* methods to provide back word compatibility */
     private br.org.abrasf.nfse.v204.Input getRecepcionarLoteRps(
-        br.org.abrasf.nfse.v204.RecepcionarLoteRpsRequest wrappedType) {
-        return wrappedType.getRecepcionarLoteRpsRequest();
+        br.org.abrasf.nfse.v204.RecepcionarLoteRps wrappedType) {
+        return wrappedType.getRecepcionarLoteRps();
     }
 
-    private br.org.abrasf.nfse.v204.RecepcionarLoteRpsRequest wrapRecepcionarLoteRps(
+    private br.org.abrasf.nfse.v204.RecepcionarLoteRps wrapRecepcionarLoteRps(
         br.org.abrasf.nfse.v204.Input innerType) {
-        br.org.abrasf.nfse.v204.RecepcionarLoteRpsRequest wrappedElement = new br.org.abrasf.nfse.v204.RecepcionarLoteRpsRequest();
-        wrappedElement.setRecepcionarLoteRpsRequest(innerType);
+        br.org.abrasf.nfse.v204.RecepcionarLoteRps wrappedElement = new br.org.abrasf.nfse.v204.RecepcionarLoteRps();
+        wrappedElement.setRecepcionarLoteRps(innerType);
 
         return wrappedElement;
     }
@@ -1736,10 +1739,10 @@ public class NfseWSServiceStub extends org.apache.axis2.client.Stub
     private org.apache.axiom.soap.SOAPEnvelope toEnvelope(
         org.apache.axiom.soap.SOAPFactory factory, java.lang.String param1,
         java.lang.String param2,
-        br.org.abrasf.nfse.v204.RecepcionarLoteRpsSincronoRequest dummyWrappedType,
+        br.org.abrasf.nfse.v204.RecepcionarLoteRpsSincrono dummyWrappedType,
         boolean optimizeContent) throws org.apache.axis2.AxisFault {
         try {
-            br.org.abrasf.nfse.v204.RecepcionarLoteRpsSincronoRequest wrappedType = new br.org.abrasf.nfse.v204.RecepcionarLoteRpsSincronoRequest();
+            br.org.abrasf.nfse.v204.RecepcionarLoteRpsSincrono wrappedType = new br.org.abrasf.nfse.v204.RecepcionarLoteRpsSincrono();
 
             br.org.abrasf.nfse.v204.Input wrappedComplexType = new br.org.abrasf.nfse.v204.Input();
 
@@ -1747,13 +1750,13 @@ public class NfseWSServiceStub extends org.apache.axis2.client.Stub
 
             wrappedComplexType.setNfseDadosMsg(param2);
 
-            wrappedType.setRecepcionarLoteRpsSincronoRequest(wrappedComplexType);
+            wrappedType.setRecepcionarLoteRpsSincrono(wrappedComplexType);
 
             org.apache.axiom.soap.SOAPEnvelope emptyEnvelope = factory.getDefaultEnvelope();
 
             emptyEnvelope.getBody()
                          .addChild(wrappedType.getOMElement(
-                    br.org.abrasf.nfse.v204.RecepcionarLoteRpsSincronoRequest.MY_QNAME,
+                    br.org.abrasf.nfse.v204.RecepcionarLoteRpsSincrono.MY_QNAME,
                     factory));
 
             return emptyEnvelope;
@@ -1764,14 +1767,14 @@ public class NfseWSServiceStub extends org.apache.axis2.client.Stub
 
     /* methods to provide back word compatibility */
     private br.org.abrasf.nfse.v204.Input getRecepcionarLoteRpsSincrono(
-        br.org.abrasf.nfse.v204.RecepcionarLoteRpsSincronoRequest wrappedType) {
-        return wrappedType.getRecepcionarLoteRpsSincronoRequest();
+        br.org.abrasf.nfse.v204.RecepcionarLoteRpsSincrono wrappedType) {
+        return wrappedType.getRecepcionarLoteRpsSincrono();
     }
 
-    private br.org.abrasf.nfse.v204.RecepcionarLoteRpsSincronoRequest wrapRecepcionarLoteRpsSincrono(
+    private br.org.abrasf.nfse.v204.RecepcionarLoteRpsSincrono wrapRecepcionarLoteRpsSincrono(
         br.org.abrasf.nfse.v204.Input innerType) {
-        br.org.abrasf.nfse.v204.RecepcionarLoteRpsSincronoRequest wrappedElement = new br.org.abrasf.nfse.v204.RecepcionarLoteRpsSincronoRequest();
-        wrappedElement.setRecepcionarLoteRpsSincronoRequest(innerType);
+        br.org.abrasf.nfse.v204.RecepcionarLoteRpsSincrono wrappedElement = new br.org.abrasf.nfse.v204.RecepcionarLoteRpsSincrono();
+        wrappedElement.setRecepcionarLoteRpsSincrono(innerType);
 
         return wrappedElement;
     }
@@ -1789,10 +1792,10 @@ public class NfseWSServiceStub extends org.apache.axis2.client.Stub
     private org.apache.axiom.soap.SOAPEnvelope toEnvelope(
         org.apache.axiom.soap.SOAPFactory factory, java.lang.String param1,
         java.lang.String param2,
-        br.org.abrasf.nfse.v204.ConsultarNfseServicoPrestadoRequest dummyWrappedType,
+        br.org.abrasf.nfse.v204.ConsultarNfseServicoPrestado dummyWrappedType,
         boolean optimizeContent) throws org.apache.axis2.AxisFault {
         try {
-            br.org.abrasf.nfse.v204.ConsultarNfseServicoPrestadoRequest wrappedType = new br.org.abrasf.nfse.v204.ConsultarNfseServicoPrestadoRequest();
+            br.org.abrasf.nfse.v204.ConsultarNfseServicoPrestado wrappedType = new br.org.abrasf.nfse.v204.ConsultarNfseServicoPrestado();
 
             br.org.abrasf.nfse.v204.Input wrappedComplexType = new br.org.abrasf.nfse.v204.Input();
 
@@ -1800,13 +1803,13 @@ public class NfseWSServiceStub extends org.apache.axis2.client.Stub
 
             wrappedComplexType.setNfseDadosMsg(param2);
 
-            wrappedType.setConsultarNfseServicoPrestadoRequest(wrappedComplexType);
+            wrappedType.setConsultarNfseServicoPrestado(wrappedComplexType);
 
             org.apache.axiom.soap.SOAPEnvelope emptyEnvelope = factory.getDefaultEnvelope();
 
             emptyEnvelope.getBody()
                          .addChild(wrappedType.getOMElement(
-                    br.org.abrasf.nfse.v204.ConsultarNfseServicoPrestadoRequest.MY_QNAME,
+                    br.org.abrasf.nfse.v204.ConsultarNfseServicoPrestado.MY_QNAME,
                     factory));
 
             return emptyEnvelope;
@@ -1817,14 +1820,14 @@ public class NfseWSServiceStub extends org.apache.axis2.client.Stub
 
     /* methods to provide back word compatibility */
     private br.org.abrasf.nfse.v204.Input getConsultarNfseServicoPrestado(
-        br.org.abrasf.nfse.v204.ConsultarNfseServicoPrestadoRequest wrappedType) {
-        return wrappedType.getConsultarNfseServicoPrestadoRequest();
+        br.org.abrasf.nfse.v204.ConsultarNfseServicoPrestado wrappedType) {
+        return wrappedType.getConsultarNfseServicoPrestado();
     }
 
-    private br.org.abrasf.nfse.v204.ConsultarNfseServicoPrestadoRequest wrapConsultarNfseServicoPrestado(
+    private br.org.abrasf.nfse.v204.ConsultarNfseServicoPrestado wrapConsultarNfseServicoPrestado(
         br.org.abrasf.nfse.v204.Input innerType) {
-        br.org.abrasf.nfse.v204.ConsultarNfseServicoPrestadoRequest wrappedElement = new br.org.abrasf.nfse.v204.ConsultarNfseServicoPrestadoRequest();
-        wrappedElement.setConsultarNfseServicoPrestadoRequest(innerType);
+        br.org.abrasf.nfse.v204.ConsultarNfseServicoPrestado wrappedElement = new br.org.abrasf.nfse.v204.ConsultarNfseServicoPrestado();
+        wrappedElement.setConsultarNfseServicoPrestado(innerType);
 
         return wrappedElement;
     }
@@ -1843,10 +1846,10 @@ public class NfseWSServiceStub extends org.apache.axis2.client.Stub
     private org.apache.axiom.soap.SOAPEnvelope toEnvelope(
         org.apache.axiom.soap.SOAPFactory factory, java.lang.String param1,
         java.lang.String param2,
-        br.org.abrasf.nfse.v204.CancelarNfseRequest dummyWrappedType,
+        br.org.abrasf.nfse.v204.CancelarNfse dummyWrappedType,
         boolean optimizeContent) throws org.apache.axis2.AxisFault {
         try {
-            br.org.abrasf.nfse.v204.CancelarNfseRequest wrappedType = new br.org.abrasf.nfse.v204.CancelarNfseRequest();
+            br.org.abrasf.nfse.v204.CancelarNfse wrappedType = new br.org.abrasf.nfse.v204.CancelarNfse();
 
             br.org.abrasf.nfse.v204.Input wrappedComplexType = new br.org.abrasf.nfse.v204.Input();
 
@@ -1854,13 +1857,13 @@ public class NfseWSServiceStub extends org.apache.axis2.client.Stub
 
             wrappedComplexType.setNfseDadosMsg(param2);
 
-            wrappedType.setCancelarNfseRequest(wrappedComplexType);
+            wrappedType.setCancelarNfse(wrappedComplexType);
 
             org.apache.axiom.soap.SOAPEnvelope emptyEnvelope = factory.getDefaultEnvelope();
 
             emptyEnvelope.getBody()
                          .addChild(wrappedType.getOMElement(
-                    br.org.abrasf.nfse.v204.CancelarNfseRequest.MY_QNAME, factory));
+                    br.org.abrasf.nfse.v204.CancelarNfse.MY_QNAME, factory));
 
             return emptyEnvelope;
         } catch (org.apache.axis2.databinding.ADBException e) {
@@ -1870,14 +1873,14 @@ public class NfseWSServiceStub extends org.apache.axis2.client.Stub
 
     /* methods to provide back word compatibility */
     private br.org.abrasf.nfse.v204.Input getCancelarNfse(
-        br.org.abrasf.nfse.v204.CancelarNfseRequest wrappedType) {
-        return wrappedType.getCancelarNfseRequest();
+        br.org.abrasf.nfse.v204.CancelarNfse wrappedType) {
+        return wrappedType.getCancelarNfse();
     }
 
-    private br.org.abrasf.nfse.v204.CancelarNfseRequest wrapCancelarNfse(
+    private br.org.abrasf.nfse.v204.CancelarNfse wrapCancelarNfse(
         br.org.abrasf.nfse.v204.Input innerType) {
-        br.org.abrasf.nfse.v204.CancelarNfseRequest wrappedElement = new br.org.abrasf.nfse.v204.CancelarNfseRequest();
-        wrappedElement.setCancelarNfseRequest(innerType);
+        br.org.abrasf.nfse.v204.CancelarNfse wrappedElement = new br.org.abrasf.nfse.v204.CancelarNfse();
+        wrappedElement.setCancelarNfse(innerType);
 
         return wrappedElement;
     }
@@ -1895,10 +1898,10 @@ public class NfseWSServiceStub extends org.apache.axis2.client.Stub
     private org.apache.axiom.soap.SOAPEnvelope toEnvelope(
         org.apache.axiom.soap.SOAPFactory factory, java.lang.String param1,
         java.lang.String param2,
-        br.org.abrasf.nfse.v204.ConsultarLoteRpsRequest dummyWrappedType,
+        br.org.abrasf.nfse.v204.ConsultarLoteRps dummyWrappedType,
         boolean optimizeContent) throws org.apache.axis2.AxisFault {
         try {
-            br.org.abrasf.nfse.v204.ConsultarLoteRpsRequest wrappedType = new br.org.abrasf.nfse.v204.ConsultarLoteRpsRequest();
+            br.org.abrasf.nfse.v204.ConsultarLoteRps wrappedType = new br.org.abrasf.nfse.v204.ConsultarLoteRps();
 
             br.org.abrasf.nfse.v204.Input wrappedComplexType = new br.org.abrasf.nfse.v204.Input();
 
@@ -1906,13 +1909,13 @@ public class NfseWSServiceStub extends org.apache.axis2.client.Stub
 
             wrappedComplexType.setNfseDadosMsg(param2);
 
-            wrappedType.setConsultarLoteRpsRequest(wrappedComplexType);
+            wrappedType.setConsultarLoteRps(wrappedComplexType);
 
             org.apache.axiom.soap.SOAPEnvelope emptyEnvelope = factory.getDefaultEnvelope();
 
             emptyEnvelope.getBody()
                          .addChild(wrappedType.getOMElement(
-                    br.org.abrasf.nfse.v204.ConsultarLoteRpsRequest.MY_QNAME, factory));
+                    br.org.abrasf.nfse.v204.ConsultarLoteRps.MY_QNAME, factory));
 
             return emptyEnvelope;
         } catch (org.apache.axis2.databinding.ADBException e) {
@@ -1922,14 +1925,14 @@ public class NfseWSServiceStub extends org.apache.axis2.client.Stub
 
     /* methods to provide back word compatibility */
     private br.org.abrasf.nfse.v204.Input getConsultarLoteRps(
-        br.org.abrasf.nfse.v204.ConsultarLoteRpsRequest wrappedType) {
-        return wrappedType.getConsultarLoteRpsRequest();
+        br.org.abrasf.nfse.v204.ConsultarLoteRps wrappedType) {
+        return wrappedType.getConsultarLoteRps();
     }
 
-    private br.org.abrasf.nfse.v204.ConsultarLoteRpsRequest wrapConsultarLoteRps(
+    private br.org.abrasf.nfse.v204.ConsultarLoteRps wrapConsultarLoteRps(
         br.org.abrasf.nfse.v204.Input innerType) {
-        br.org.abrasf.nfse.v204.ConsultarLoteRpsRequest wrappedElement = new br.org.abrasf.nfse.v204.ConsultarLoteRpsRequest();
-        wrappedElement.setConsultarLoteRpsRequest(innerType);
+        br.org.abrasf.nfse.v204.ConsultarLoteRps wrappedElement = new br.org.abrasf.nfse.v204.ConsultarLoteRps();
+        wrappedElement.setConsultarLoteRps(innerType);
 
         return wrappedElement;
     }
@@ -1946,11 +1949,10 @@ public class NfseWSServiceStub extends org.apache.axis2.client.Stub
 
     private org.apache.axiom.soap.SOAPEnvelope toEnvelope(
         org.apache.axiom.soap.SOAPFactory factory, java.lang.String param1,
-        java.lang.String param2,
-        br.org.abrasf.nfse.v204.GerarNfseRequest dummyWrappedType,
+        java.lang.String param2, br.org.abrasf.nfse.v204.GerarNfse dummyWrappedType,
         boolean optimizeContent) throws org.apache.axis2.AxisFault {
         try {
-            br.org.abrasf.nfse.v204.GerarNfseRequest wrappedType = new br.org.abrasf.nfse.v204.GerarNfseRequest();
+            br.org.abrasf.nfse.v204.GerarNfse wrappedType = new br.org.abrasf.nfse.v204.GerarNfse();
 
             br.org.abrasf.nfse.v204.Input wrappedComplexType = new br.org.abrasf.nfse.v204.Input();
 
@@ -1958,13 +1960,13 @@ public class NfseWSServiceStub extends org.apache.axis2.client.Stub
 
             wrappedComplexType.setNfseDadosMsg(param2);
 
-            wrappedType.setGerarNfseRequest(wrappedComplexType);
+            wrappedType.setGerarNfse(wrappedComplexType);
 
             org.apache.axiom.soap.SOAPEnvelope emptyEnvelope = factory.getDefaultEnvelope();
 
             emptyEnvelope.getBody()
                          .addChild(wrappedType.getOMElement(
-                    br.org.abrasf.nfse.v204.GerarNfseRequest.MY_QNAME, factory));
+                    br.org.abrasf.nfse.v204.GerarNfse.MY_QNAME, factory));
 
             return emptyEnvelope;
         } catch (org.apache.axis2.databinding.ADBException e) {
@@ -1974,14 +1976,14 @@ public class NfseWSServiceStub extends org.apache.axis2.client.Stub
 
     /* methods to provide back word compatibility */
     private br.org.abrasf.nfse.v204.Input getGerarNfse(
-        br.org.abrasf.nfse.v204.GerarNfseRequest wrappedType) {
-        return wrappedType.getGerarNfseRequest();
+        br.org.abrasf.nfse.v204.GerarNfse wrappedType) {
+        return wrappedType.getGerarNfse();
     }
 
-    private br.org.abrasf.nfse.v204.GerarNfseRequest wrapGerarNfse(
+    private br.org.abrasf.nfse.v204.GerarNfse wrapGerarNfse(
         br.org.abrasf.nfse.v204.Input innerType) {
-        br.org.abrasf.nfse.v204.GerarNfseRequest wrappedElement = new br.org.abrasf.nfse.v204.GerarNfseRequest();
-        wrappedElement.setGerarNfseRequest(innerType);
+        br.org.abrasf.nfse.v204.GerarNfse wrappedElement = new br.org.abrasf.nfse.v204.GerarNfse();
+        wrappedElement.setGerarNfse(innerType);
 
         return wrappedElement;
     }
@@ -1999,10 +2001,10 @@ public class NfseWSServiceStub extends org.apache.axis2.client.Stub
     private org.apache.axiom.soap.SOAPEnvelope toEnvelope(
         org.apache.axiom.soap.SOAPFactory factory, java.lang.String param1,
         java.lang.String param2,
-        br.org.abrasf.nfse.v204.SubstituirNfseRequest dummyWrappedType,
+        br.org.abrasf.nfse.v204.SubstituirNfse dummyWrappedType,
         boolean optimizeContent) throws org.apache.axis2.AxisFault {
         try {
-            br.org.abrasf.nfse.v204.SubstituirNfseRequest wrappedType = new br.org.abrasf.nfse.v204.SubstituirNfseRequest();
+            br.org.abrasf.nfse.v204.SubstituirNfse wrappedType = new br.org.abrasf.nfse.v204.SubstituirNfse();
 
             br.org.abrasf.nfse.v204.Input wrappedComplexType = new br.org.abrasf.nfse.v204.Input();
 
@@ -2010,13 +2012,13 @@ public class NfseWSServiceStub extends org.apache.axis2.client.Stub
 
             wrappedComplexType.setNfseDadosMsg(param2);
 
-            wrappedType.setSubstituirNfseRequest(wrappedComplexType);
+            wrappedType.setSubstituirNfse(wrappedComplexType);
 
             org.apache.axiom.soap.SOAPEnvelope emptyEnvelope = factory.getDefaultEnvelope();
 
             emptyEnvelope.getBody()
                          .addChild(wrappedType.getOMElement(
-                    br.org.abrasf.nfse.v204.SubstituirNfseRequest.MY_QNAME, factory));
+                    br.org.abrasf.nfse.v204.SubstituirNfse.MY_QNAME, factory));
 
             return emptyEnvelope;
         } catch (org.apache.axis2.databinding.ADBException e) {
@@ -2026,14 +2028,14 @@ public class NfseWSServiceStub extends org.apache.axis2.client.Stub
 
     /* methods to provide back word compatibility */
     private br.org.abrasf.nfse.v204.Input getSubstituirNfse(
-        br.org.abrasf.nfse.v204.SubstituirNfseRequest wrappedType) {
-        return wrappedType.getSubstituirNfseRequest();
+        br.org.abrasf.nfse.v204.SubstituirNfse wrappedType) {
+        return wrappedType.getSubstituirNfse();
     }
 
-    private br.org.abrasf.nfse.v204.SubstituirNfseRequest wrapSubstituirNfse(
+    private br.org.abrasf.nfse.v204.SubstituirNfse wrapSubstituirNfse(
         br.org.abrasf.nfse.v204.Input innerType) {
-        br.org.abrasf.nfse.v204.SubstituirNfseRequest wrappedElement = new br.org.abrasf.nfse.v204.SubstituirNfseRequest();
-        wrappedElement.setSubstituirNfseRequest(innerType);
+        br.org.abrasf.nfse.v204.SubstituirNfse wrappedElement = new br.org.abrasf.nfse.v204.SubstituirNfse();
+        wrappedElement.setSubstituirNfse(innerType);
 
         return wrappedElement;
     }
@@ -2051,10 +2053,10 @@ public class NfseWSServiceStub extends org.apache.axis2.client.Stub
     private org.apache.axiom.soap.SOAPEnvelope toEnvelope(
         org.apache.axiom.soap.SOAPFactory factory, java.lang.String param1,
         java.lang.String param2,
-        br.org.abrasf.nfse.v204.ConsultarNfsePorFaixaRequest dummyWrappedType,
+        br.org.abrasf.nfse.v204.ConsultarNfsePorFaixa dummyWrappedType,
         boolean optimizeContent) throws org.apache.axis2.AxisFault {
         try {
-            br.org.abrasf.nfse.v204.ConsultarNfsePorFaixaRequest wrappedType = new br.org.abrasf.nfse.v204.ConsultarNfsePorFaixaRequest();
+            br.org.abrasf.nfse.v204.ConsultarNfsePorFaixa wrappedType = new br.org.abrasf.nfse.v204.ConsultarNfsePorFaixa();
 
             br.org.abrasf.nfse.v204.Input wrappedComplexType = new br.org.abrasf.nfse.v204.Input();
 
@@ -2062,14 +2064,13 @@ public class NfseWSServiceStub extends org.apache.axis2.client.Stub
 
             wrappedComplexType.setNfseDadosMsg(param2);
 
-            wrappedType.setConsultarNfsePorFaixaRequest(wrappedComplexType);
+            wrappedType.setConsultarNfsePorFaixa(wrappedComplexType);
 
             org.apache.axiom.soap.SOAPEnvelope emptyEnvelope = factory.getDefaultEnvelope();
 
             emptyEnvelope.getBody()
                          .addChild(wrappedType.getOMElement(
-                    br.org.abrasf.nfse.v204.ConsultarNfsePorFaixaRequest.MY_QNAME,
-                    factory));
+                    br.org.abrasf.nfse.v204.ConsultarNfsePorFaixa.MY_QNAME, factory));
 
             return emptyEnvelope;
         } catch (org.apache.axis2.databinding.ADBException e) {
@@ -2079,14 +2080,14 @@ public class NfseWSServiceStub extends org.apache.axis2.client.Stub
 
     /* methods to provide back word compatibility */
     private br.org.abrasf.nfse.v204.Input getConsultarNfsePorFaixa(
-        br.org.abrasf.nfse.v204.ConsultarNfsePorFaixaRequest wrappedType) {
-        return wrappedType.getConsultarNfsePorFaixaRequest();
+        br.org.abrasf.nfse.v204.ConsultarNfsePorFaixa wrappedType) {
+        return wrappedType.getConsultarNfsePorFaixa();
     }
 
-    private br.org.abrasf.nfse.v204.ConsultarNfsePorFaixaRequest wrapConsultarNfsePorFaixa(
+    private br.org.abrasf.nfse.v204.ConsultarNfsePorFaixa wrapConsultarNfsePorFaixa(
         br.org.abrasf.nfse.v204.Input innerType) {
-        br.org.abrasf.nfse.v204.ConsultarNfsePorFaixaRequest wrappedElement = new br.org.abrasf.nfse.v204.ConsultarNfsePorFaixaRequest();
-        wrappedElement.setConsultarNfsePorFaixaRequest(innerType);
+        br.org.abrasf.nfse.v204.ConsultarNfsePorFaixa wrappedElement = new br.org.abrasf.nfse.v204.ConsultarNfsePorFaixa();
+        wrappedElement.setConsultarNfsePorFaixa(innerType);
 
         return wrappedElement;
     }
@@ -2112,26 +2113,28 @@ public class NfseWSServiceStub extends org.apache.axis2.client.Stub
     private java.lang.Object fromOM(org.apache.axiom.om.OMElement param,
         java.lang.Class type, java.util.Map extraNamespaces)
         throws org.apache.axis2.AxisFault {
+    	
+    	System.out.println(param);
+    	
         try {
-            if (br.org.abrasf.nfse.v204.CancelarNfseRequest.class.equals(type)) {
-                return br.org.abrasf.nfse.v204.CancelarNfseRequest.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+            if (br.org.abrasf.nfse.v204.CancelarNfse.class.equals(type)) {
+                return br.org.abrasf.nfse.v204.CancelarNfse.Factory.parse(param.getXMLStreamReaderWithoutCaching());
             }
 
             if (br.org.abrasf.nfse.v204.CancelarNfseResponse.class.equals(type)) {
                 return br.org.abrasf.nfse.v204.CancelarNfseResponse.Factory.parse(param.getXMLStreamReaderWithoutCaching());
             }
 
-            if (br.org.abrasf.nfse.v204.ConsultarLoteRpsRequest.class.equals(type)) {
-                return br.org.abrasf.nfse.v204.ConsultarLoteRpsRequest.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+            if (br.org.abrasf.nfse.v204.ConsultarLoteRps.class.equals(type)) {
+                return br.org.abrasf.nfse.v204.ConsultarLoteRps.Factory.parse(param.getXMLStreamReaderWithoutCaching());
             }
 
             if (br.org.abrasf.nfse.v204.ConsultarLoteRpsResponse.class.equals(type)) {
                 return br.org.abrasf.nfse.v204.ConsultarLoteRpsResponse.Factory.parse(param.getXMLStreamReaderWithoutCaching());
             }
 
-            if (br.org.abrasf.nfse.v204.ConsultarNfsePorFaixaRequest.class.equals(
-                        type)) {
-                return br.org.abrasf.nfse.v204.ConsultarNfsePorFaixaRequest.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+            if (br.org.abrasf.nfse.v204.ConsultarNfsePorFaixa.class.equals(type)) {
+                return br.org.abrasf.nfse.v204.ConsultarNfsePorFaixa.Factory.parse(param.getXMLStreamReaderWithoutCaching());
             }
 
             if (br.org.abrasf.nfse.v204.ConsultarNfsePorFaixaResponse.class.equals(
@@ -2139,8 +2142,8 @@ public class NfseWSServiceStub extends org.apache.axis2.client.Stub
                 return br.org.abrasf.nfse.v204.ConsultarNfsePorFaixaResponse.Factory.parse(param.getXMLStreamReaderWithoutCaching());
             }
 
-            if (br.org.abrasf.nfse.v204.ConsultarNfsePorRpsRequest.class.equals(type)) {
-                return br.org.abrasf.nfse.v204.ConsultarNfsePorRpsRequest.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+            if (br.org.abrasf.nfse.v204.ConsultarNfsePorRps.class.equals(type)) {
+                return br.org.abrasf.nfse.v204.ConsultarNfsePorRps.Factory.parse(param.getXMLStreamReaderWithoutCaching());
             }
 
             if (br.org.abrasf.nfse.v204.ConsultarNfsePorRpsResponse.class.equals(
@@ -2148,9 +2151,9 @@ public class NfseWSServiceStub extends org.apache.axis2.client.Stub
                 return br.org.abrasf.nfse.v204.ConsultarNfsePorRpsResponse.Factory.parse(param.getXMLStreamReaderWithoutCaching());
             }
 
-            if (br.org.abrasf.nfse.v204.ConsultarNfseServicoPrestadoRequest.class.equals(
+            if (br.org.abrasf.nfse.v204.ConsultarNfseServicoPrestado.class.equals(
                         type)) {
-                return br.org.abrasf.nfse.v204.ConsultarNfseServicoPrestadoRequest.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+                return br.org.abrasf.nfse.v204.ConsultarNfseServicoPrestado.Factory.parse(param.getXMLStreamReaderWithoutCaching());
             }
 
             if (br.org.abrasf.nfse.v204.ConsultarNfseServicoPrestadoResponse.class.equals(
@@ -2158,9 +2161,8 @@ public class NfseWSServiceStub extends org.apache.axis2.client.Stub
                 return br.org.abrasf.nfse.v204.ConsultarNfseServicoPrestadoResponse.Factory.parse(param.getXMLStreamReaderWithoutCaching());
             }
 
-            if (br.org.abrasf.nfse.v204.ConsultarNfseServicoTomadoRequest.class.equals(
-                        type)) {
-                return br.org.abrasf.nfse.v204.ConsultarNfseServicoTomadoRequest.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+            if (br.org.abrasf.nfse.v204.ConsultarNfseServicoTomado.class.equals(type)) {
+                return br.org.abrasf.nfse.v204.ConsultarNfseServicoTomado.Factory.parse(param.getXMLStreamReaderWithoutCaching());
             }
 
             if (br.org.abrasf.nfse.v204.ConsultarNfseServicoTomadoResponse.class.equals(
@@ -2168,25 +2170,24 @@ public class NfseWSServiceStub extends org.apache.axis2.client.Stub
                 return br.org.abrasf.nfse.v204.ConsultarNfseServicoTomadoResponse.Factory.parse(param.getXMLStreamReaderWithoutCaching());
             }
 
-            if (br.org.abrasf.nfse.v204.GerarNfseRequest.class.equals(type)) {
-                return br.org.abrasf.nfse.v204.GerarNfseRequest.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+            if (br.org.abrasf.nfse.v204.GerarNfse.class.equals(type)) {
+                return br.org.abrasf.nfse.v204.GerarNfse.Factory.parse(param.getXMLStreamReaderWithoutCaching());
             }
 
             if (br.org.abrasf.nfse.v204.GerarNfseResponse.class.equals(type)) {
                 return br.org.abrasf.nfse.v204.GerarNfseResponse.Factory.parse(param.getXMLStreamReaderWithoutCaching());
             }
 
-            if (br.org.abrasf.nfse.v204.RecepcionarLoteRpsRequest.class.equals(type)) {
-                return br.org.abrasf.nfse.v204.RecepcionarLoteRpsRequest.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+            if (br.org.abrasf.nfse.v204.RecepcionarLoteRps.class.equals(type)) {
+                return br.org.abrasf.nfse.v204.RecepcionarLoteRps.Factory.parse(param.getXMLStreamReaderWithoutCaching());
             }
 
             if (br.org.abrasf.nfse.v204.RecepcionarLoteRpsResponse.class.equals(type)) {
                 return br.org.abrasf.nfse.v204.RecepcionarLoteRpsResponse.Factory.parse(param.getXMLStreamReaderWithoutCaching());
             }
 
-            if (br.org.abrasf.nfse.v204.RecepcionarLoteRpsSincronoRequest.class.equals(
-                        type)) {
-                return br.org.abrasf.nfse.v204.RecepcionarLoteRpsSincronoRequest.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+            if (br.org.abrasf.nfse.v204.RecepcionarLoteRpsSincrono.class.equals(type)) {
+                return br.org.abrasf.nfse.v204.RecepcionarLoteRpsSincrono.Factory.parse(param.getXMLStreamReaderWithoutCaching());
             }
 
             if (br.org.abrasf.nfse.v204.RecepcionarLoteRpsSincronoResponse.class.equals(
@@ -2194,8 +2195,8 @@ public class NfseWSServiceStub extends org.apache.axis2.client.Stub
                 return br.org.abrasf.nfse.v204.RecepcionarLoteRpsSincronoResponse.Factory.parse(param.getXMLStreamReaderWithoutCaching());
             }
 
-            if (br.org.abrasf.nfse.v204.SubstituirNfseRequest.class.equals(type)) {
-                return br.org.abrasf.nfse.v204.SubstituirNfseRequest.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+            if (br.org.abrasf.nfse.v204.SubstituirNfse.class.equals(type)) {
+                return br.org.abrasf.nfse.v204.SubstituirNfse.Factory.parse(param.getXMLStreamReaderWithoutCaching());
             }
 
             if (br.org.abrasf.nfse.v204.SubstituirNfseResponse.class.equals(type)) {
@@ -2206,5 +2207,35 @@ public class NfseWSServiceStub extends org.apache.axis2.client.Stub
         }
 
         return null;
+    }
+    
+    public static void main (String[] aa) throws XMLStreamException, Exception
+    {
+    	String xmlString = "<GerarNfseResponse xmlns=\"http://nfse.abrasf.org.br\"><GerarNfseResposta></GerarNfseResposta></GerarNfseResponse>";
+//    	String xmlString = "<GerarNfseResponse xmlns=\"http://nfse.abrasf.org.br\"><GerarNfseResposta xmlns=\"http://www.abrasf.org.br/nfse.xsd\"><ListaMensagemRetorno><MensagemRetorno><Codigo>E043</Codigo><Mensagem>Inscrição Municipal do prestador do serviço não encontrada na base de dados do município.(Numero RPS: 1)</Mensagem><Correcao>Não existe registro de inscrição municipal que corresponda ao número informado.</Correcao></MensagemRetorno><MensagemRetorno><Codigo>E053</Codigo><Mensagem>O campo Inscrição Municipal do tomador do serviço só deverá ser preenchido para tomadores estabelecidos neste município.(Numero RPS: 1)</Mensagem><Correcao>Para tomador de serviço estabelecido fora deste município não deve ser preenchido o campo Inscrição municipal.</Correcao></MensagemRetorno><MensagemRetorno><Codigo>E090</Codigo><Mensagem>Número do RPS inválido.(Numero RPS: 1)</Mensagem><Correcao>Informe um número de RPS que corresponda à seqüência utilizada pelo prestador do serviço.</Correcao></MensagemRetorno><MensagemRetorno><Codigo>E093</Codigo><Mensagem>Série do RPS inválida.(Numero RPS: 1)</Mensagem><Correcao>Identifique o RPS utilizando no máximo 5 dígitos.</Correcao></MensagemRetorno><MensagemRetorno><Codigo>E181</Codigo><Mensagem>Telefone do tomador do serviço incorreto(Numero RPS: 1)</Mensagem><Correcao>Utilize um telefone no formato válido.</Correcao></MensagemRetorno><MensagemRetorno><Codigo>E228</Codigo><Mensagem>Para esta prestação de serviços a alíquota do ISSQN é obrigatória.(Numero RPS: 1)</Mensagem><Correcao>Informe um valor percentual da alíquota de ISSQN, que deve ser maior ou igual a 2% e menor ou igual a 5%.</Correcao></MensagemRetorno><MensagemRetorno><Codigo>E340</Codigo><Mensagem>Valor do ISSQN não informado.(Numero RPS: 1)</Mensagem><Correcao>Quando o ISSQN é devido a outro município, o valor do tributo deve ser calculado e informado pelo prestador do serviço.</Correcao></MensagemRetorno><MensagemRetorno><Codigo>E341</Codigo><Mensagem>Alíquota do ISSQN não informado.(Numero RPS: 1)</Mensagem><Correcao>Quando o ISSQN é devido a outro município, alíquota deve ser informada pelo prestador do serviço.</Correcao></MensagemRetorno><MensagemRetorno><Codigo>L001</Codigo><Mensagem>Código CNAE não Informado.(Numero RPS: 1)</Mensagem><Correcao>Informe o código CNAE.</Correcao></MensagemRetorno><MensagemRetorno><Codigo>L003</Codigo><Mensagem>O Código de tributação informado não pertence a este contribuinte.(Numero RPS: 1)</Mensagem><Correcao>Consulte junto a prefeitura de seu município o código vigente.</Correcao></MensagemRetorno></ListaMensagemRetorno></GerarNfseResposta></GerarNfseResponse>";
+//    	String xmlString = "<GerarNfseResposta xmlns=\"http://www.abrasf.org.br/nfse.xsd\"><ListaMensagemRetorno><MensagemRetorno><Codigo>E043</Codigo><Mensagem>Inscrição Municipal do prestador do serviço não encontrada na base de dados do município.(Numero RPS: 1)</Mensagem><Correcao>Não existe registro de inscrição municipal que corresponda ao número informado.</Correcao></MensagemRetorno><MensagemRetorno><Codigo>E053</Codigo><Mensagem>O campo Inscrição Municipal do tomador do serviço só deverá ser preenchido para tomadores estabelecidos neste município.(Numero RPS: 1)</Mensagem><Correcao>Para tomador de serviço estabelecido fora deste município não deve ser preenchido o campo Inscrição municipal.</Correcao></MensagemRetorno><MensagemRetorno><Codigo>E090</Codigo><Mensagem>Número do RPS inválido.(Numero RPS: 1)</Mensagem><Correcao>Informe um número de RPS que corresponda à seqüência utilizada pelo prestador do serviço.</Correcao></MensagemRetorno><MensagemRetorno><Codigo>E093</Codigo><Mensagem>Série do RPS inválida.(Numero RPS: 1)</Mensagem><Correcao>Identifique o RPS utilizando no máximo 5 dígitos.</Correcao></MensagemRetorno><MensagemRetorno><Codigo>E181</Codigo><Mensagem>Telefone do tomador do serviço incorreto(Numero RPS: 1)</Mensagem><Correcao>Utilize um telefone no formato válido.</Correcao></MensagemRetorno><MensagemRetorno><Codigo>E228</Codigo><Mensagem>Para esta prestação de serviços a alíquota do ISSQN é obrigatória.(Numero RPS: 1)</Mensagem><Correcao>Informe um valor percentual da alíquota de ISSQN, que deve ser maior ou igual a 2% e menor ou igual a 5%.</Correcao></MensagemRetorno><MensagemRetorno><Codigo>E340</Codigo><Mensagem>Valor do ISSQN não informado.(Numero RPS: 1)</Mensagem><Correcao>Quando o ISSQN é devido a outro município, o valor do tributo deve ser calculado e informado pelo prestador do serviço.</Correcao></MensagemRetorno><MensagemRetorno><Codigo>E341</Codigo><Mensagem>Alíquota do ISSQN não informado.(Numero RPS: 1)</Mensagem><Correcao>Quando o ISSQN é devido a outro município, alíquota deve ser informada pelo prestador do serviço.</Correcao></MensagemRetorno><MensagemRetorno><Codigo>L001</Codigo><Mensagem>Código CNAE não Informado.(Numero RPS: 1)</Mensagem><Correcao>Informe o código CNAE.</Correcao></MensagemRetorno><MensagemRetorno><Codigo>L003</Codigo><Mensagem>O Código de tributação informado não pertence a este contribuinte.(Numero RPS: 1)</Mensagem><Correcao>Consulte junto a prefeitura de seu município o código vigente.</Correcao></MensagemRetorno></ListaMensagemRetorno></GerarNfseResposta>";
+    	
+    	XMLInputFactory inputFactory = XMLInputFactory.newInstance();
+
+        // Crie a string que deseja converter em um XMLStreamReader
+//        String xmlString = "<root><element>Conteúdo</element></root>";
+
+        // Crie um stream de entrada a partir da string
+        InputStream inputStream = new ByteArrayInputStream(xmlString.getBytes());
+    	
+//    	GerarNfseResponse parse = br.org.abrasf.nfse.v204.GerarNfseResponse.Factory.parse( inputFactory.createXMLStreamReader(inputStream) );
+//        GerarNfseRespostaDocument parse = GerarNfseRespostaDocument.Factory.parse(xmlString);
+    	
+//        System.out.println(parse);
+        
+        GerarNfseResponse eee = new br.org.abrasf.nfse.v204.GerarNfseResponse();
+        Output output = new br.org.abrasf.nfse.v204.Output();
+//        output.se
+        
+        eee.setGerarNfseResponse(output);
+        System.out.println(eee.getGerarNfseResponse().getOutputXML());
+        
+        
+        
     }
 }

@@ -1,5 +1,5 @@
 /**
- * CancelarNfseRequest.java
+ * CancelarNfse.java
  *
  * This file was auto-generated from WSDL
  * by the Apache Axis2 version: 1.6.4  Built on : Dec 28, 2015 (10:04:10 GMT)
@@ -8,34 +8,34 @@ package br.org.abrasf.nfse.v204;
 
 
 /**
- *  CancelarNfseRequest bean class
+ *  CancelarNfse bean class
  */
 @SuppressWarnings({"unchecked",
     "unused"
 })
-public class CancelarNfseRequest implements org.apache.axis2.databinding.ADBBean {
+public class CancelarNfse implements org.apache.axis2.databinding.ADBBean {
     public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName("http://nfse.abrasf.org.br",
-            "CancelarNfseRequest", "");
+            "CancelarNfse", "");
 
     /**
-     * field for CancelarNfseRequest
+     * field for CancelarNfse
      */
-    protected br.org.abrasf.nfse.v204.Input localCancelarNfseRequest;
+    protected br.org.abrasf.nfse.v204.Input localCancelarNfse;
 
     /**
      * Auto generated getter method
      * @return br.org.abrasf.nfse.v204.Input
      */
-    public br.org.abrasf.nfse.v204.Input getCancelarNfseRequest() {
-        return localCancelarNfseRequest;
+    public br.org.abrasf.nfse.v204.Input getCancelarNfse() {
+        return localCancelarNfse;
     }
 
     /**
      * Auto generated setter method
-     * @param param CancelarNfseRequest
+     * @param param CancelarNfse
      */
-    public void setCancelarNfseRequest(br.org.abrasf.nfse.v204.Input param) {
-        this.localCancelarNfseRequest = param;
+    public void setCancelarNfse(br.org.abrasf.nfse.v204.Input param) {
+        this.localCancelarNfse = param;
     }
 
     /**
@@ -66,12 +66,12 @@ public class CancelarNfseRequest implements org.apache.axis2.databinding.ADBBean
         throws javax.xml.stream.XMLStreamException,
             org.apache.axis2.databinding.ADBException {
         //We can safely assume an element has only one type associated with it
-        if (localCancelarNfseRequest == null) {
+        if (localCancelarNfse == null) {
             throw new org.apache.axis2.databinding.ADBException(
-                "CancelarNfseRequest cannot be null!");
+                "CancelarNfse cannot be null!");
         }
 
-        localCancelarNfseRequest.serialize(MY_QNAME, xmlWriter);
+        localCancelarNfse.serialize(MY_QNAME, xmlWriter);
     }
 
     private static java.lang.String generatePrefix(java.lang.String namespace) {
@@ -280,7 +280,7 @@ public class CancelarNfseRequest implements org.apache.axis2.databinding.ADBBean
         javax.xml.namespace.QName qName)
         throws org.apache.axis2.databinding.ADBException {
         //We can safely assume an element has only one type associated with it
-        return localCancelarNfseRequest.getPullParser(MY_QNAME);
+        return localCancelarNfse.getPullParser(MY_QNAME);
     }
 
     /**
@@ -294,9 +294,9 @@ public class CancelarNfseRequest implements org.apache.axis2.databinding.ADBBean
          * Postcondition: If this object is an element, the reader is positioned at its end element
          *                If this object is a complex type, the reader is positioned at the end element of its outer element
          */
-        public static CancelarNfseRequest parse(
+        public static CancelarNfse parse(
             javax.xml.stream.XMLStreamReader reader) throws java.lang.Exception {
-            CancelarNfseRequest object = new CancelarNfseRequest();
+            CancelarNfse object = new CancelarNfse();
 
             int event;
             java.lang.String nillableValue = null;
@@ -315,10 +315,9 @@ public class CancelarNfseRequest implements org.apache.axis2.databinding.ADBBean
                     if (reader.isStartElement()) {
                         if (reader.isStartElement() &&
                                 new javax.xml.namespace.QName(
-                                    "http://nfse.abrasf.org.br",
-                                    "CancelarNfseRequest").equals(
+                                    "http://nfse.abrasf.org.br", "CancelarNfse").equals(
                                     reader.getName())) {
-                            object.setCancelarNfseRequest(br.org.abrasf.nfse.v204.Input.Factory.parse(
+                            object.setCancelarNfse(br.org.abrasf.nfse.v204.Input.Factory.parse(
                                     reader));
                         } // End of if for expected property start element
 

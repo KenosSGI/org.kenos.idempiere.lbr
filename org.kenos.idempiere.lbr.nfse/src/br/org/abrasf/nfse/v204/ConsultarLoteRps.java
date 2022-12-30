@@ -1,5 +1,5 @@
 /**
- * RecepcionarLoteRpsRequest.java
+ * ConsultarLoteRps.java
  *
  * This file was auto-generated from WSDL
  * by the Apache Axis2 version: 1.6.4  Built on : Dec 28, 2015 (10:04:10 GMT)
@@ -8,34 +8,34 @@ package br.org.abrasf.nfse.v204;
 
 
 /**
- *  RecepcionarLoteRpsRequest bean class
+ *  ConsultarLoteRps bean class
  */
 @SuppressWarnings({"unchecked",
     "unused"
 })
-public class RecepcionarLoteRpsRequest implements org.apache.axis2.databinding.ADBBean {
+public class ConsultarLoteRps implements org.apache.axis2.databinding.ADBBean {
     public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName("http://nfse.abrasf.org.br",
-            "RecepcionarLoteRpsRequest", "");
+            "ConsultarLoteRps", "");
 
     /**
-     * field for RecepcionarLoteRpsRequest
+     * field for ConsultarLoteRps
      */
-    protected br.org.abrasf.nfse.v204.Input localRecepcionarLoteRpsRequest;
+    protected br.org.abrasf.nfse.v204.Input localConsultarLoteRps;
 
     /**
      * Auto generated getter method
      * @return br.org.abrasf.nfse.v204.Input
      */
-    public br.org.abrasf.nfse.v204.Input getRecepcionarLoteRpsRequest() {
-        return localRecepcionarLoteRpsRequest;
+    public br.org.abrasf.nfse.v204.Input getConsultarLoteRps() {
+        return localConsultarLoteRps;
     }
 
     /**
      * Auto generated setter method
-     * @param param RecepcionarLoteRpsRequest
+     * @param param ConsultarLoteRps
      */
-    public void setRecepcionarLoteRpsRequest(br.org.abrasf.nfse.v204.Input param) {
-        this.localRecepcionarLoteRpsRequest = param;
+    public void setConsultarLoteRps(br.org.abrasf.nfse.v204.Input param) {
+        this.localConsultarLoteRps = param;
     }
 
     /**
@@ -66,12 +66,12 @@ public class RecepcionarLoteRpsRequest implements org.apache.axis2.databinding.A
         throws javax.xml.stream.XMLStreamException,
             org.apache.axis2.databinding.ADBException {
         //We can safely assume an element has only one type associated with it
-        if (localRecepcionarLoteRpsRequest == null) {
+        if (localConsultarLoteRps == null) {
             throw new org.apache.axis2.databinding.ADBException(
-                "RecepcionarLoteRpsRequest cannot be null!");
+                "ConsultarLoteRps cannot be null!");
         }
 
-        localRecepcionarLoteRpsRequest.serialize(MY_QNAME, xmlWriter);
+        localConsultarLoteRps.serialize(MY_QNAME, xmlWriter);
     }
 
     private static java.lang.String generatePrefix(java.lang.String namespace) {
@@ -280,7 +280,7 @@ public class RecepcionarLoteRpsRequest implements org.apache.axis2.databinding.A
         javax.xml.namespace.QName qName)
         throws org.apache.axis2.databinding.ADBException {
         //We can safely assume an element has only one type associated with it
-        return localRecepcionarLoteRpsRequest.getPullParser(MY_QNAME);
+        return localConsultarLoteRps.getPullParser(MY_QNAME);
     }
 
     /**
@@ -294,9 +294,9 @@ public class RecepcionarLoteRpsRequest implements org.apache.axis2.databinding.A
          * Postcondition: If this object is an element, the reader is positioned at its end element
          *                If this object is a complex type, the reader is positioned at the end element of its outer element
          */
-        public static RecepcionarLoteRpsRequest parse(
+        public static ConsultarLoteRps parse(
             javax.xml.stream.XMLStreamReader reader) throws java.lang.Exception {
-            RecepcionarLoteRpsRequest object = new RecepcionarLoteRpsRequest();
+            ConsultarLoteRps object = new ConsultarLoteRps();
 
             int event;
             java.lang.String nillableValue = null;
@@ -316,9 +316,8 @@ public class RecepcionarLoteRpsRequest implements org.apache.axis2.databinding.A
                         if (reader.isStartElement() &&
                                 new javax.xml.namespace.QName(
                                     "http://nfse.abrasf.org.br",
-                                    "RecepcionarLoteRpsRequest").equals(
-                                    reader.getName())) {
-                            object.setRecepcionarLoteRpsRequest(br.org.abrasf.nfse.v204.Input.Factory.parse(
+                                    "ConsultarLoteRps").equals(reader.getName())) {
+                            object.setConsultarLoteRps(br.org.abrasf.nfse.v204.Input.Factory.parse(
                                     reader));
                         } // End of if for expected property start element
 
