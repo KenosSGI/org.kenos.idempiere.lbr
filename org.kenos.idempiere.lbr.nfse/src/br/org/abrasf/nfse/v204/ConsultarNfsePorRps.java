@@ -1,5 +1,5 @@
 /**
- * SubstituirNfseRequest.java
+ * ConsultarNfsePorRps.java
  *
  * This file was auto-generated from WSDL
  * by the Apache Axis2 version: 1.6.4  Built on : Dec 28, 2015 (10:04:10 GMT)
@@ -8,34 +8,34 @@ package br.org.abrasf.nfse.v204;
 
 
 /**
- *  SubstituirNfseRequest bean class
+ *  ConsultarNfsePorRps bean class
  */
 @SuppressWarnings({"unchecked",
     "unused"
 })
-public class SubstituirNfseRequest implements org.apache.axis2.databinding.ADBBean {
+public class ConsultarNfsePorRps implements org.apache.axis2.databinding.ADBBean {
     public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName("http://nfse.abrasf.org.br",
-            "SubstituirNfseRequest", "");
+            "ConsultarNfsePorRps", "");
 
     /**
-     * field for SubstituirNfseRequest
+     * field for ConsultarNfsePorRps
      */
-    protected br.org.abrasf.nfse.v204.Input localSubstituirNfseRequest;
+    protected br.org.abrasf.nfse.v204.Input localConsultarNfsePorRps;
 
     /**
      * Auto generated getter method
      * @return br.org.abrasf.nfse.v204.Input
      */
-    public br.org.abrasf.nfse.v204.Input getSubstituirNfseRequest() {
-        return localSubstituirNfseRequest;
+    public br.org.abrasf.nfse.v204.Input getConsultarNfsePorRps() {
+        return localConsultarNfsePorRps;
     }
 
     /**
      * Auto generated setter method
-     * @param param SubstituirNfseRequest
+     * @param param ConsultarNfsePorRps
      */
-    public void setSubstituirNfseRequest(br.org.abrasf.nfse.v204.Input param) {
-        this.localSubstituirNfseRequest = param;
+    public void setConsultarNfsePorRps(br.org.abrasf.nfse.v204.Input param) {
+        this.localConsultarNfsePorRps = param;
     }
 
     /**
@@ -66,12 +66,12 @@ public class SubstituirNfseRequest implements org.apache.axis2.databinding.ADBBe
         throws javax.xml.stream.XMLStreamException,
             org.apache.axis2.databinding.ADBException {
         //We can safely assume an element has only one type associated with it
-        if (localSubstituirNfseRequest == null) {
+        if (localConsultarNfsePorRps == null) {
             throw new org.apache.axis2.databinding.ADBException(
-                "SubstituirNfseRequest cannot be null!");
+                "ConsultarNfsePorRps cannot be null!");
         }
 
-        localSubstituirNfseRequest.serialize(MY_QNAME, xmlWriter);
+        localConsultarNfsePorRps.serialize(MY_QNAME, xmlWriter);
     }
 
     private static java.lang.String generatePrefix(java.lang.String namespace) {
@@ -280,7 +280,7 @@ public class SubstituirNfseRequest implements org.apache.axis2.databinding.ADBBe
         javax.xml.namespace.QName qName)
         throws org.apache.axis2.databinding.ADBException {
         //We can safely assume an element has only one type associated with it
-        return localSubstituirNfseRequest.getPullParser(MY_QNAME);
+        return localConsultarNfsePorRps.getPullParser(MY_QNAME);
     }
 
     /**
@@ -294,9 +294,9 @@ public class SubstituirNfseRequest implements org.apache.axis2.databinding.ADBBe
          * Postcondition: If this object is an element, the reader is positioned at its end element
          *                If this object is a complex type, the reader is positioned at the end element of its outer element
          */
-        public static SubstituirNfseRequest parse(
+        public static ConsultarNfsePorRps parse(
             javax.xml.stream.XMLStreamReader reader) throws java.lang.Exception {
-            SubstituirNfseRequest object = new SubstituirNfseRequest();
+            ConsultarNfsePorRps object = new ConsultarNfsePorRps();
 
             int event;
             java.lang.String nillableValue = null;
@@ -316,9 +316,9 @@ public class SubstituirNfseRequest implements org.apache.axis2.databinding.ADBBe
                         if (reader.isStartElement() &&
                                 new javax.xml.namespace.QName(
                                     "http://nfse.abrasf.org.br",
-                                    "SubstituirNfseRequest").equals(
+                                    "ConsultarNfsePorRps").equals(
                                     reader.getName())) {
-                            object.setSubstituirNfseRequest(br.org.abrasf.nfse.v204.Input.Factory.parse(
+                            object.setConsultarNfsePorRps(br.org.abrasf.nfse.v204.Input.Factory.parse(
                                     reader));
                         } // End of if for expected property start element
 

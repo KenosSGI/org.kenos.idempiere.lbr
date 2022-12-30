@@ -14,7 +14,7 @@ public interface NfseWSService {
     /**
      * Auto generated method signature
      *
-     * @param consultarNfseServicoTomadoRequest
+     * @param consultarNfseServicoTomado
      */
     public java.lang.String consultarNfseServicoTomado(
         java.lang.String nfseCabecMsg, java.lang.String nfseDadosMsg)
@@ -23,7 +23,7 @@ public interface NfseWSService {
     /**
      * Auto generated method signature
      *
-     * @param consultarNfsePorRpsRequest
+     * @param consultarNfsePorRps
      */
     public java.lang.String consultarNfsePorRps(
         java.lang.String nfseCabecMsg0, java.lang.String nfseDadosMsg1)
@@ -32,7 +32,7 @@ public interface NfseWSService {
     /**
      * Auto generated method signature
      *
-     * @param recepcionarLoteRpsRequest
+     * @param recepcionarLoteRps
      */
     public java.lang.String recepcionarLoteRps(java.lang.String nfseCabecMsg3,
         java.lang.String nfseDadosMsg4) throws java.rmi.RemoteException;
@@ -40,7 +40,7 @@ public interface NfseWSService {
     /**
      * Auto generated method signature
      *
-     * @param recepcionarLoteRpsSincronoRequest
+     * @param recepcionarLoteRpsSincrono
      */
     public java.lang.String recepcionarLoteRpsSincrono(
         java.lang.String nfseCabecMsg6, java.lang.String nfseDadosMsg7)
@@ -49,7 +49,7 @@ public interface NfseWSService {
     /**
      * Auto generated method signature
      *
-     * @param consultarNfseServicoPrestadoRequest
+     * @param consultarNfseServicoPrestado
      */
     public java.lang.String consultarNfseServicoPrestado(
         java.lang.String nfseCabecMsg9, java.lang.String nfseDadosMsg10)
@@ -58,7 +58,7 @@ public interface NfseWSService {
     /**
      * Auto generated method signature
      *
-     * @param cancelarNfseRequest
+     * @param cancelarNfse
      */
     public java.lang.String cancelarNfse(java.lang.String nfseCabecMsg12,
         java.lang.String nfseDadosMsg13) throws java.rmi.RemoteException;
@@ -66,7 +66,7 @@ public interface NfseWSService {
     /**
      * Auto generated method signature
      *
-     * @param consultarLoteRpsRequest
+     * @param consultarLoteRps
      */
     public java.lang.String consultarLoteRps(java.lang.String nfseCabecMsg15,
         java.lang.String nfseDadosMsg16) throws java.rmi.RemoteException;
@@ -74,7 +74,7 @@ public interface NfseWSService {
     /**
      * Auto generated method signature
      *
-     * @param gerarNfseRequest
+     * @param gerarNfse
      */
     public java.lang.String gerarNfse(java.lang.String nfseCabecMsg18,
         java.lang.String nfseDadosMsg19) throws java.rmi.RemoteException;
@@ -82,7 +82,7 @@ public interface NfseWSService {
     /**
      * Auto generated method signature
      *
-     * @param substituirNfseRequest
+     * @param substituirNfse
      */
     public java.lang.String substituirNfse(java.lang.String nfseCabecMsg21,
         java.lang.String nfseDadosMsg22) throws java.rmi.RemoteException;
@@ -90,7 +90,7 @@ public interface NfseWSService {
     /**
      * Auto generated method signature
      *
-     * @param consultarNfsePorFaixaRequest
+     * @param consultarNfsePorFaixa
      */
     public java.lang.String consultarNfsePorFaixa(
         java.lang.String nfseCabecMsg24, java.lang.String nfseDadosMsg25)

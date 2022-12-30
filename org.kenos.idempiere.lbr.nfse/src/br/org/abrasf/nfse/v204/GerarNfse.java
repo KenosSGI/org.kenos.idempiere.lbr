@@ -1,5 +1,5 @@
 /**
- * ConsultarNfsePorFaixaRequest.java
+ * GerarNfse.java
  *
  * This file was auto-generated from WSDL
  * by the Apache Axis2 version: 1.6.4  Built on : Dec 28, 2015 (10:04:10 GMT)
@@ -8,34 +8,34 @@ package br.org.abrasf.nfse.v204;
 
 
 /**
- *  ConsultarNfsePorFaixaRequest bean class
+ *  GerarNfse bean class
  */
 @SuppressWarnings({"unchecked",
     "unused"
 })
-public class ConsultarNfsePorFaixaRequest implements org.apache.axis2.databinding.ADBBean {
+public class GerarNfse implements org.apache.axis2.databinding.ADBBean {
     public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName("http://nfse.abrasf.org.br",
-            "ConsultarNfsePorFaixaRequest", "");
+            "GerarNfse", "");
 
     /**
-     * field for ConsultarNfsePorFaixaRequest
+     * field for GerarNfse
      */
-    protected br.org.abrasf.nfse.v204.Input localConsultarNfsePorFaixaRequest;
+    protected br.org.abrasf.nfse.v204.Input localGerarNfse;
 
     /**
      * Auto generated getter method
      * @return br.org.abrasf.nfse.v204.Input
      */
-    public br.org.abrasf.nfse.v204.Input getConsultarNfsePorFaixaRequest() {
-        return localConsultarNfsePorFaixaRequest;
+    public br.org.abrasf.nfse.v204.Input getGerarNfse() {
+        return localGerarNfse;
     }
 
     /**
      * Auto generated setter method
-     * @param param ConsultarNfsePorFaixaRequest
+     * @param param GerarNfse
      */
-    public void setConsultarNfsePorFaixaRequest(br.org.abrasf.nfse.v204.Input param) {
-        this.localConsultarNfsePorFaixaRequest = param;
+    public void setGerarNfse(br.org.abrasf.nfse.v204.Input param) {
+        this.localGerarNfse = param;
     }
 
     /**
@@ -66,12 +66,12 @@ public class ConsultarNfsePorFaixaRequest implements org.apache.axis2.databindin
         throws javax.xml.stream.XMLStreamException,
             org.apache.axis2.databinding.ADBException {
         //We can safely assume an element has only one type associated with it
-        if (localConsultarNfsePorFaixaRequest == null) {
+        if (localGerarNfse == null) {
             throw new org.apache.axis2.databinding.ADBException(
-                "ConsultarNfsePorFaixaRequest cannot be null!");
+                "GerarNfse cannot be null!");
         }
 
-        localConsultarNfsePorFaixaRequest.serialize(MY_QNAME, xmlWriter);
+        localGerarNfse.serialize(MY_QNAME, xmlWriter);
     }
 
     private static java.lang.String generatePrefix(java.lang.String namespace) {
@@ -280,7 +280,7 @@ public class ConsultarNfsePorFaixaRequest implements org.apache.axis2.databindin
         javax.xml.namespace.QName qName)
         throws org.apache.axis2.databinding.ADBException {
         //We can safely assume an element has only one type associated with it
-        return localConsultarNfsePorFaixaRequest.getPullParser(MY_QNAME);
+        return localGerarNfse.getPullParser(MY_QNAME);
     }
 
     /**
@@ -294,9 +294,9 @@ public class ConsultarNfsePorFaixaRequest implements org.apache.axis2.databindin
          * Postcondition: If this object is an element, the reader is positioned at its end element
          *                If this object is a complex type, the reader is positioned at the end element of its outer element
          */
-        public static ConsultarNfsePorFaixaRequest parse(
-            javax.xml.stream.XMLStreamReader reader) throws java.lang.Exception {
-            ConsultarNfsePorFaixaRequest object = new ConsultarNfsePorFaixaRequest();
+        public static GerarNfse parse(javax.xml.stream.XMLStreamReader reader)
+            throws java.lang.Exception {
+            GerarNfse object = new GerarNfse();
 
             int event;
             java.lang.String nillableValue = null;
@@ -315,10 +315,9 @@ public class ConsultarNfsePorFaixaRequest implements org.apache.axis2.databindin
                     if (reader.isStartElement()) {
                         if (reader.isStartElement() &&
                                 new javax.xml.namespace.QName(
-                                    "http://nfse.abrasf.org.br",
-                                    "ConsultarNfsePorFaixaRequest").equals(
+                                    "http://nfse.abrasf.org.br", "GerarNfse").equals(
                                     reader.getName())) {
-                            object.setConsultarNfsePorFaixaRequest(br.org.abrasf.nfse.v204.Input.Factory.parse(
+                            object.setGerarNfse(br.org.abrasf.nfse.v204.Input.Factory.parse(
                                     reader));
                         } // End of if for expected property start element
 

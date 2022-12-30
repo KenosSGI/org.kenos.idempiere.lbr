@@ -1,5 +1,5 @@
 /**
- * ConsultarNfsePorRpsRequest.java
+ * ConsultarNfsePorFaixa.java
  *
  * This file was auto-generated from WSDL
  * by the Apache Axis2 version: 1.6.4  Built on : Dec 28, 2015 (10:04:10 GMT)
@@ -8,34 +8,34 @@ package br.org.abrasf.nfse.v204;
 
 
 /**
- *  ConsultarNfsePorRpsRequest bean class
+ *  ConsultarNfsePorFaixa bean class
  */
 @SuppressWarnings({"unchecked",
     "unused"
 })
-public class ConsultarNfsePorRpsRequest implements org.apache.axis2.databinding.ADBBean {
+public class ConsultarNfsePorFaixa implements org.apache.axis2.databinding.ADBBean {
     public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName("http://nfse.abrasf.org.br",
-            "ConsultarNfsePorRpsRequest", "");
+            "ConsultarNfsePorFaixa", "");
 
     /**
-     * field for ConsultarNfsePorRpsRequest
+     * field for ConsultarNfsePorFaixa
      */
-    protected br.org.abrasf.nfse.v204.Input localConsultarNfsePorRpsRequest;
+    protected br.org.abrasf.nfse.v204.Input localConsultarNfsePorFaixa;
 
     /**
      * Auto generated getter method
      * @return br.org.abrasf.nfse.v204.Input
      */
-    public br.org.abrasf.nfse.v204.Input getConsultarNfsePorRpsRequest() {
-        return localConsultarNfsePorRpsRequest;
+    public br.org.abrasf.nfse.v204.Input getConsultarNfsePorFaixa() {
+        return localConsultarNfsePorFaixa;
     }
 
     /**
      * Auto generated setter method
-     * @param param ConsultarNfsePorRpsRequest
+     * @param param ConsultarNfsePorFaixa
      */
-    public void setConsultarNfsePorRpsRequest(br.org.abrasf.nfse.v204.Input param) {
-        this.localConsultarNfsePorRpsRequest = param;
+    public void setConsultarNfsePorFaixa(br.org.abrasf.nfse.v204.Input param) {
+        this.localConsultarNfsePorFaixa = param;
     }
 
     /**
@@ -66,12 +66,12 @@ public class ConsultarNfsePorRpsRequest implements org.apache.axis2.databinding.
         throws javax.xml.stream.XMLStreamException,
             org.apache.axis2.databinding.ADBException {
         //We can safely assume an element has only one type associated with it
-        if (localConsultarNfsePorRpsRequest == null) {
+        if (localConsultarNfsePorFaixa == null) {
             throw new org.apache.axis2.databinding.ADBException(
-                "ConsultarNfsePorRpsRequest cannot be null!");
+                "ConsultarNfsePorFaixa cannot be null!");
         }
 
-        localConsultarNfsePorRpsRequest.serialize(MY_QNAME, xmlWriter);
+        localConsultarNfsePorFaixa.serialize(MY_QNAME, xmlWriter);
     }
 
     private static java.lang.String generatePrefix(java.lang.String namespace) {
@@ -280,7 +280,7 @@ public class ConsultarNfsePorRpsRequest implements org.apache.axis2.databinding.
         javax.xml.namespace.QName qName)
         throws org.apache.axis2.databinding.ADBException {
         //We can safely assume an element has only one type associated with it
-        return localConsultarNfsePorRpsRequest.getPullParser(MY_QNAME);
+        return localConsultarNfsePorFaixa.getPullParser(MY_QNAME);
     }
 
     /**
@@ -294,9 +294,9 @@ public class ConsultarNfsePorRpsRequest implements org.apache.axis2.databinding.
          * Postcondition: If this object is an element, the reader is positioned at its end element
          *                If this object is a complex type, the reader is positioned at the end element of its outer element
          */
-        public static ConsultarNfsePorRpsRequest parse(
+        public static ConsultarNfsePorFaixa parse(
             javax.xml.stream.XMLStreamReader reader) throws java.lang.Exception {
-            ConsultarNfsePorRpsRequest object = new ConsultarNfsePorRpsRequest();
+            ConsultarNfsePorFaixa object = new ConsultarNfsePorFaixa();
 
             int event;
             java.lang.String nillableValue = null;
@@ -316,9 +316,9 @@ public class ConsultarNfsePorRpsRequest implements org.apache.axis2.databinding.
                         if (reader.isStartElement() &&
                                 new javax.xml.namespace.QName(
                                     "http://nfse.abrasf.org.br",
-                                    "ConsultarNfsePorRpsRequest").equals(
+                                    "ConsultarNfsePorFaixa").equals(
                                     reader.getName())) {
-                            object.setConsultarNfsePorRpsRequest(br.org.abrasf.nfse.v204.Input.Factory.parse(
+                            object.setConsultarNfsePorFaixa(br.org.abrasf.nfse.v204.Input.Factory.parse(
                                     reader));
                         } // End of if for expected property start element
 

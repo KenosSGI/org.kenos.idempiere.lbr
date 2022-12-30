@@ -1,5 +1,5 @@
 /**
- * ConsultarNfseServicoPrestadoRequest.java
+ * RecepcionarLoteRpsSincrono.java
  *
  * This file was auto-generated from WSDL
  * by the Apache Axis2 version: 1.6.4  Built on : Dec 28, 2015 (10:04:10 GMT)
@@ -8,35 +8,34 @@ package br.org.abrasf.nfse.v204;
 
 
 /**
- *  ConsultarNfseServicoPrestadoRequest bean class
+ *  RecepcionarLoteRpsSincrono bean class
  */
 @SuppressWarnings({"unchecked",
     "unused"
 })
-public class ConsultarNfseServicoPrestadoRequest implements org.apache.axis2.databinding.ADBBean {
+public class RecepcionarLoteRpsSincrono implements org.apache.axis2.databinding.ADBBean {
     public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName("http://nfse.abrasf.org.br",
-            "ConsultarNfseServicoPrestadoRequest", "");
+            "RecepcionarLoteRpsSincrono", "");
 
     /**
-     * field for ConsultarNfseServicoPrestadoRequest
+     * field for RecepcionarLoteRpsSincrono
      */
-    protected br.org.abrasf.nfse.v204.Input localConsultarNfseServicoPrestadoRequest;
+    protected br.org.abrasf.nfse.v204.Input localRecepcionarLoteRpsSincrono;
 
     /**
      * Auto generated getter method
      * @return br.org.abrasf.nfse.v204.Input
      */
-    public br.org.abrasf.nfse.v204.Input getConsultarNfseServicoPrestadoRequest() {
-        return localConsultarNfseServicoPrestadoRequest;
+    public br.org.abrasf.nfse.v204.Input getRecepcionarLoteRpsSincrono() {
+        return localRecepcionarLoteRpsSincrono;
     }
 
     /**
      * Auto generated setter method
-     * @param param ConsultarNfseServicoPrestadoRequest
+     * @param param RecepcionarLoteRpsSincrono
      */
-    public void setConsultarNfseServicoPrestadoRequest(
-        br.org.abrasf.nfse.v204.Input param) {
-        this.localConsultarNfseServicoPrestadoRequest = param;
+    public void setRecepcionarLoteRpsSincrono(br.org.abrasf.nfse.v204.Input param) {
+        this.localRecepcionarLoteRpsSincrono = param;
     }
 
     /**
@@ -67,12 +66,12 @@ public class ConsultarNfseServicoPrestadoRequest implements org.apache.axis2.dat
         throws javax.xml.stream.XMLStreamException,
             org.apache.axis2.databinding.ADBException {
         //We can safely assume an element has only one type associated with it
-        if (localConsultarNfseServicoPrestadoRequest == null) {
+        if (localRecepcionarLoteRpsSincrono == null) {
             throw new org.apache.axis2.databinding.ADBException(
-                "ConsultarNfseServicoPrestadoRequest cannot be null!");
+                "RecepcionarLoteRpsSincrono cannot be null!");
         }
 
-        localConsultarNfseServicoPrestadoRequest.serialize(MY_QNAME, xmlWriter);
+        localRecepcionarLoteRpsSincrono.serialize(MY_QNAME, xmlWriter);
     }
 
     private static java.lang.String generatePrefix(java.lang.String namespace) {
@@ -281,7 +280,7 @@ public class ConsultarNfseServicoPrestadoRequest implements org.apache.axis2.dat
         javax.xml.namespace.QName qName)
         throws org.apache.axis2.databinding.ADBException {
         //We can safely assume an element has only one type associated with it
-        return localConsultarNfseServicoPrestadoRequest.getPullParser(MY_QNAME);
+        return localRecepcionarLoteRpsSincrono.getPullParser(MY_QNAME);
     }
 
     /**
@@ -295,9 +294,9 @@ public class ConsultarNfseServicoPrestadoRequest implements org.apache.axis2.dat
          * Postcondition: If this object is an element, the reader is positioned at its end element
          *                If this object is a complex type, the reader is positioned at the end element of its outer element
          */
-        public static ConsultarNfseServicoPrestadoRequest parse(
+        public static RecepcionarLoteRpsSincrono parse(
             javax.xml.stream.XMLStreamReader reader) throws java.lang.Exception {
-            ConsultarNfseServicoPrestadoRequest object = new ConsultarNfseServicoPrestadoRequest();
+            RecepcionarLoteRpsSincrono object = new RecepcionarLoteRpsSincrono();
 
             int event;
             java.lang.String nillableValue = null;
@@ -317,9 +316,9 @@ public class ConsultarNfseServicoPrestadoRequest implements org.apache.axis2.dat
                         if (reader.isStartElement() &&
                                 new javax.xml.namespace.QName(
                                     "http://nfse.abrasf.org.br",
-                                    "ConsultarNfseServicoPrestadoRequest").equals(
+                                    "RecepcionarLoteRpsSincrono").equals(
                                     reader.getName())) {
-                            object.setConsultarNfseServicoPrestadoRequest(br.org.abrasf.nfse.v204.Input.Factory.parse(
+                            object.setRecepcionarLoteRpsSincrono(br.org.abrasf.nfse.v204.Input.Factory.parse(
                                     reader));
                         } // End of if for expected property start element
 

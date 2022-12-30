@@ -1,5 +1,5 @@
 /**
- * ConsultarNfseServicoTomadoRequest.java
+ * ConsultarNfseServicoTomado.java
  *
  * This file was auto-generated from WSDL
  * by the Apache Axis2 version: 1.6.4  Built on : Dec 28, 2015 (10:04:10 GMT)
@@ -8,35 +8,34 @@ package br.org.abrasf.nfse.v204;
 
 
 /**
- *  ConsultarNfseServicoTomadoRequest bean class
+ *  ConsultarNfseServicoTomado bean class
  */
 @SuppressWarnings({"unchecked",
     "unused"
 })
-public class ConsultarNfseServicoTomadoRequest implements org.apache.axis2.databinding.ADBBean {
+public class ConsultarNfseServicoTomado implements org.apache.axis2.databinding.ADBBean {
     public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName("http://nfse.abrasf.org.br",
-            "ConsultarNfseServicoTomadoRequest", "");
+            "ConsultarNfseServicoTomado", "");
 
     /**
-     * field for ConsultarNfseServicoTomadoRequest
+     * field for ConsultarNfseServicoTomado
      */
-    protected br.org.abrasf.nfse.v204.Input localConsultarNfseServicoTomadoRequest;
+    protected br.org.abrasf.nfse.v204.Input localConsultarNfseServicoTomado;
 
     /**
      * Auto generated getter method
      * @return br.org.abrasf.nfse.v204.Input
      */
-    public br.org.abrasf.nfse.v204.Input getConsultarNfseServicoTomadoRequest() {
-        return localConsultarNfseServicoTomadoRequest;
+    public br.org.abrasf.nfse.v204.Input getConsultarNfseServicoTomado() {
+        return localConsultarNfseServicoTomado;
     }
 
     /**
      * Auto generated setter method
-     * @param param ConsultarNfseServicoTomadoRequest
+     * @param param ConsultarNfseServicoTomado
      */
-    public void setConsultarNfseServicoTomadoRequest(
-        br.org.abrasf.nfse.v204.Input param) {
-        this.localConsultarNfseServicoTomadoRequest = param;
+    public void setConsultarNfseServicoTomado(br.org.abrasf.nfse.v204.Input param) {
+        this.localConsultarNfseServicoTomado = param;
     }
 
     /**
@@ -67,12 +66,12 @@ public class ConsultarNfseServicoTomadoRequest implements org.apache.axis2.datab
         throws javax.xml.stream.XMLStreamException,
             org.apache.axis2.databinding.ADBException {
         //We can safely assume an element has only one type associated with it
-        if (localConsultarNfseServicoTomadoRequest == null) {
+        if (localConsultarNfseServicoTomado == null) {
             throw new org.apache.axis2.databinding.ADBException(
-                "ConsultarNfseServicoTomadoRequest cannot be null!");
+                "ConsultarNfseServicoTomado cannot be null!");
         }
 
-        localConsultarNfseServicoTomadoRequest.serialize(MY_QNAME, xmlWriter);
+        localConsultarNfseServicoTomado.serialize(MY_QNAME, xmlWriter);
     }
 
     private static java.lang.String generatePrefix(java.lang.String namespace) {
@@ -281,7 +280,7 @@ public class ConsultarNfseServicoTomadoRequest implements org.apache.axis2.datab
         javax.xml.namespace.QName qName)
         throws org.apache.axis2.databinding.ADBException {
         //We can safely assume an element has only one type associated with it
-        return localConsultarNfseServicoTomadoRequest.getPullParser(MY_QNAME);
+        return localConsultarNfseServicoTomado.getPullParser(MY_QNAME);
     }
 
     /**
@@ -295,9 +294,9 @@ public class ConsultarNfseServicoTomadoRequest implements org.apache.axis2.datab
          * Postcondition: If this object is an element, the reader is positioned at its end element
          *                If this object is a complex type, the reader is positioned at the end element of its outer element
          */
-        public static ConsultarNfseServicoTomadoRequest parse(
+        public static ConsultarNfseServicoTomado parse(
             javax.xml.stream.XMLStreamReader reader) throws java.lang.Exception {
-            ConsultarNfseServicoTomadoRequest object = new ConsultarNfseServicoTomadoRequest();
+            ConsultarNfseServicoTomado object = new ConsultarNfseServicoTomado();
 
             int event;
             java.lang.String nillableValue = null;
@@ -317,9 +316,9 @@ public class ConsultarNfseServicoTomadoRequest implements org.apache.axis2.datab
                         if (reader.isStartElement() &&
                                 new javax.xml.namespace.QName(
                                     "http://nfse.abrasf.org.br",
-                                    "ConsultarNfseServicoTomadoRequest").equals(
+                                    "ConsultarNfseServicoTomado").equals(
                                     reader.getName())) {
-                            object.setConsultarNfseServicoTomadoRequest(br.org.abrasf.nfse.v204.Input.Factory.parse(
+                            object.setConsultarNfseServicoTomado(br.org.abrasf.nfse.v204.Input.Factory.parse(
                                     reader));
                         } // End of if for expected property start element
 

@@ -1,5 +1,5 @@
 /**
- * RecepcionarLoteRpsSincronoRequest.java
+ * SubstituirNfse.java
  *
  * This file was auto-generated from WSDL
  * by the Apache Axis2 version: 1.6.4  Built on : Dec 28, 2015 (10:04:10 GMT)
@@ -8,35 +8,34 @@ package br.org.abrasf.nfse.v204;
 
 
 /**
- *  RecepcionarLoteRpsSincronoRequest bean class
+ *  SubstituirNfse bean class
  */
 @SuppressWarnings({"unchecked",
     "unused"
 })
-public class RecepcionarLoteRpsSincronoRequest implements org.apache.axis2.databinding.ADBBean {
+public class SubstituirNfse implements org.apache.axis2.databinding.ADBBean {
     public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName("http://nfse.abrasf.org.br",
-            "RecepcionarLoteRpsSincronoRequest", "");
+            "SubstituirNfse", "");
 
     /**
-     * field for RecepcionarLoteRpsSincronoRequest
+     * field for SubstituirNfse
      */
-    protected br.org.abrasf.nfse.v204.Input localRecepcionarLoteRpsSincronoRequest;
+    protected br.org.abrasf.nfse.v204.Input localSubstituirNfse;
 
     /**
      * Auto generated getter method
      * @return br.org.abrasf.nfse.v204.Input
      */
-    public br.org.abrasf.nfse.v204.Input getRecepcionarLoteRpsSincronoRequest() {
-        return localRecepcionarLoteRpsSincronoRequest;
+    public br.org.abrasf.nfse.v204.Input getSubstituirNfse() {
+        return localSubstituirNfse;
     }
 
     /**
      * Auto generated setter method
-     * @param param RecepcionarLoteRpsSincronoRequest
+     * @param param SubstituirNfse
      */
-    public void setRecepcionarLoteRpsSincronoRequest(
-        br.org.abrasf.nfse.v204.Input param) {
-        this.localRecepcionarLoteRpsSincronoRequest = param;
+    public void setSubstituirNfse(br.org.abrasf.nfse.v204.Input param) {
+        this.localSubstituirNfse = param;
     }
 
     /**
@@ -67,12 +66,12 @@ public class RecepcionarLoteRpsSincronoRequest implements org.apache.axis2.datab
         throws javax.xml.stream.XMLStreamException,
             org.apache.axis2.databinding.ADBException {
         //We can safely assume an element has only one type associated with it
-        if (localRecepcionarLoteRpsSincronoRequest == null) {
+        if (localSubstituirNfse == null) {
             throw new org.apache.axis2.databinding.ADBException(
-                "RecepcionarLoteRpsSincronoRequest cannot be null!");
+                "SubstituirNfse cannot be null!");
         }
 
-        localRecepcionarLoteRpsSincronoRequest.serialize(MY_QNAME, xmlWriter);
+        localSubstituirNfse.serialize(MY_QNAME, xmlWriter);
     }
 
     private static java.lang.String generatePrefix(java.lang.String namespace) {
@@ -281,7 +280,7 @@ public class RecepcionarLoteRpsSincronoRequest implements org.apache.axis2.datab
         javax.xml.namespace.QName qName)
         throws org.apache.axis2.databinding.ADBException {
         //We can safely assume an element has only one type associated with it
-        return localRecepcionarLoteRpsSincronoRequest.getPullParser(MY_QNAME);
+        return localSubstituirNfse.getPullParser(MY_QNAME);
     }
 
     /**
@@ -295,9 +294,9 @@ public class RecepcionarLoteRpsSincronoRequest implements org.apache.axis2.datab
          * Postcondition: If this object is an element, the reader is positioned at its end element
          *                If this object is a complex type, the reader is positioned at the end element of its outer element
          */
-        public static RecepcionarLoteRpsSincronoRequest parse(
+        public static SubstituirNfse parse(
             javax.xml.stream.XMLStreamReader reader) throws java.lang.Exception {
-            RecepcionarLoteRpsSincronoRequest object = new RecepcionarLoteRpsSincronoRequest();
+            SubstituirNfse object = new SubstituirNfse();
 
             int event;
             java.lang.String nillableValue = null;
@@ -317,9 +316,8 @@ public class RecepcionarLoteRpsSincronoRequest implements org.apache.axis2.datab
                         if (reader.isStartElement() &&
                                 new javax.xml.namespace.QName(
                                     "http://nfse.abrasf.org.br",
-                                    "RecepcionarLoteRpsSincronoRequest").equals(
-                                    reader.getName())) {
-                            object.setRecepcionarLoteRpsSincronoRequest(br.org.abrasf.nfse.v204.Input.Factory.parse(
+                                    "SubstituirNfse").equals(reader.getName())) {
+                            object.setSubstituirNfse(br.org.abrasf.nfse.v204.Input.Factory.parse(
                                     reader));
                         } // End of if for expected property start element
 
