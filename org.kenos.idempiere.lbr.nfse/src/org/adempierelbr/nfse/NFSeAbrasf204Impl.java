@@ -305,6 +305,7 @@ public class NFSeAbrasf204Impl implements INFSe
 		dadosServico.setDiscriminacao(descricaoServico.replace("\n", ". ").replaceAll("\\s+", " ").replaceAll("\\.+", ".").trim());
 		dadosServico.setItemListaServico(TsItemListaServico.Enum.forString(serviceCode));
 		dadosServico.setIssRetido((byte) 2);
+		dadosServico.setCodigoTributacaoMunicipio(TextUtil.toNumeric(serviceCode));
 		
 		if (TextUtil.toNumeric(nf.getlbr_CNAE()).length() > 5)
 			dadosServico.setCodigoCnae(Integer.parseInt(TextUtil.toNumeric(nf.getlbr_CNAE())));
@@ -334,7 +335,6 @@ public class NFSeAbrasf204Impl implements INFSe
 		TcValoresDeclaracaoServico valores = dadosServico.addNewValores();
 		valores.setValorServicos(nf.getlbr_ServiceTotalAmt());
 		valores.setValorDeducoes(BigDecimal.ZERO);
-		valores.setAliquota(aliquota);
 		
 		//	Total de Imposto
 		BigDecimal v_PIS 	= toBD (nf.getTaxAmt("PIS")).abs();
@@ -342,7 +342,6 @@ public class NFSeAbrasf204Impl implements INFSe
 		BigDecimal v_INSS 	= toBD (nf.getTaxAmt("INSS")).abs();
 		BigDecimal v_IR 	= toBD (nf.getTaxAmt("IR")).abs();
 		BigDecimal v_CSLL 	= toBD (nf.getTaxAmt("CSLL")).abs();
-		BigDecimal v_ISS 	= toBD (nf.getTaxAmt("ISS")).abs();
 		BigDecimal v_TotTrib= toBD (nf.getlbr_vTotTrib()).abs();
 
 		// Valores da NFS-e
@@ -355,7 +354,6 @@ public class NFSeAbrasf204Impl implements INFSe
 		valores.setValTotTributos(v_TotTrib);
 		valores.setDescontoIncondicionado(BigDecimal.ZERO);
 		valores.setDescontoCondicionado(nf.getDiscountAmt());
-		valores.setValorIss(v_ISS.setScale(2, RoundingMode.HALF_UP));
 
 		//	Optando do Simples Nacionals
 		infdps.setOptanteSimplesNacional("S".equals(woi.getLBR_TaxRegime()) ? (byte)1 : (byte)2);
@@ -409,9 +407,9 @@ public class NFSeAbrasf204Impl implements INFSe
 		//	Set certificate
 		MLBRDigitalCertificate.setCertificate (Env.getCtx(), nf.getAD_Org_ID());
 		
-		String url = "https://www.issnetonline.com.br/homologaabrasf/webservicenfse204/nfse.asmx";
+		String url = "https://www.issnetonline.com.br/apresentacao/df/webservicenfse204/nfse.asmx";
 		if (MLBRNotaFiscal.LBR_NFEENV_Production.equals(nf.getlbr_NFeEnv()))
-			url = "https://www.issnetonline.com.br/prodabrasf/webservicenfse204/nfse.asmx";
+			url = "https://df.issnetonline.com.br/webservicenfse204/nfse.asmx";
 		
 		NfseWSServiceStub nfseStub = new NfseWSServiceStub(url);
 		nfseStub._getServiceClient().getOptions().setProperty(HTTPConstants.CHUNKED, false);
@@ -470,48 +468,16 @@ public class NFSeAbrasf204Impl implements INFSe
 			document.addNewGerarNfseEnvio().setRps(TcDeclaracaoPrestacaoServico.Factory.parse(xml));
 			
 			NFeUtil.validate(document);
-			
+			NFeUtil.saveXML (String.valueOf(nf.getAD_Org_ID()), NFeUtil.KIND_NFSE, NFeUtil.MESSAGE_REQ_AUTORIZE, nf.getDocumentNo(), document.xmlText(NFeUtil.getXmlOpt()));
+
 			String result = nfseStub.gerarNfse(header.xmlText(), document.xmlText(NFeUtil.getXmlOpt()));
-			log.info(result);
+			NFeUtil.saveXML (String.valueOf(nf.getAD_Org_ID()), NFeUtil.KIND_NFSE, NFeUtil.MESSAGE_RET_AUTORIZE, nf.getDocumentNo(), result);
 
 			GerarNfseResposta resposta = GerarNfseRespostaDocument.Factory.parse(result).getGerarNfseResposta();
 			listaMensagemRetorno = resposta.getListaMensagemRetorno();
 			listaMensagemRetorno = resposta.getListaMensagemRetorno();
 			if (resposta.getListaNfse() != null)
 				compNfse = resposta.getListaNfse().getCompNfse();
-			
-//			EnviarLoteRpsSincronoEnvioDocument doc = EnviarLoteRpsSincronoEnvioDocument.Factory.newInstance();
-//			EnviarLoteRpsSincronoEnvio envio = doc.addNewEnviarLoteRpsSincronoEnvio();
-//			TcLoteRps loteRps = envio.addNewLoteRps();
-//			ListaRps listaRps = loteRps.addNewListaRps();
-//			TcDeclaracaoPrestacaoServico rps = TcDeclaracaoPrestacaoServico.Factory.parse(xml);
-//			listaRps.addNewRps().set(rps);
-//			
-//			TcIdentificacaoPessoaEmpresa prestador = loteRps.addNewPrestador();
-//			TcCpfCnpj cpfCnpj = prestador.addNewCpfCnpj();
-//			cpfCnpj.setCnpj(TextUtil.toNumeric(nf.getlbr_CNPJ()));
-//			prestador.setInscricaoMunicipal(TextUtil.toNumeric(nf.getlbr_OrgCCM()));
-//			loteRps.setNumeroLote(Long.parseLong(nf.getDocumentNo()));
-//			loteRps.setId(UUID.randomUUID().toString());
-//			loteRps.setVersao("2.04");
-//			loteRps.setQuantidadeRps(1);
-//			
-//			MOrgInfo orgInf = MOrgInfo.get (nf.getCtx(), nf.getAD_Org_ID(), null);
-//			new SignatureUtil (orgInf, SignatureUtil.OUTROS, "LoteRps").sign (doc, envio.newCursor());
-//
-//			
-//			NFeUtil.validate(doc);
-//			
-//			System.out.println(doc.xmlText());
-//						
-//			String result = nfseStub.recepcionarLoteRpsSincrono(header.xmlText(), doc.xmlText(NFeUtil.getXmlOpt()));
-//			log.info(result);
-			
-//			XMLStreamReader streamReader = XMLInputFactory.newInstance().createXMLStreamReader(new ByteArrayInputStream(result.getBytes()));
-//			RecepcionarLoteRpsSincronoResponse resposta = RecepcionarLoteRpsSincronoResponse.Factory.parse(streamReader);
-//			listaMensagemRetorno = resposta.getListaMensagemRetorno();
-//			if (resposta.getListaNfse() != null)
-//				compNfse = resposta.getListaNfse().getCompNfse();
 		}
 
 		//	Check error messages
@@ -616,9 +582,9 @@ public class NFSeAbrasf204Impl implements INFSe
 		if (nf.getlbr_OrgCCM() != null && !nf.getlbr_OrgCCM().isEmpty())
 			prestador.setInscricaoMunicipal(TextUtil.toNumeric(nf.getlbr_OrgCCM()));
 		
-		String url = "https://www.issnetonline.com.br/homologaabrasf/webservicenfse204/nfse.asmx";
+		String url = "https://www.issnetonline.com.br/apresentacao/df/webservicenfse204/nfse.asmx";
 		if (MLBRNotaFiscal.LBR_NFEENV_Production.equals(nf.getlbr_NFeEnv()))
-			url = "https://www.issnetonline.com.br/prodabrasf/webservicenfse204/nfse.asmx";
+			url = "https://df.issnetonline.com.br/webservicenfse204/nfse.asmx";
 		
 		NfseWSServiceStub nfseStub = new NfseWSServiceStub(url);
 		nfseStub._getServiceClient().getOptions().setProperty(HTTPConstants.CHUNKED, false);	
@@ -1768,9 +1734,9 @@ public class NFSeAbrasf204Impl implements INFSe
 					
 			//	Set certificate
 			MLBRDigitalCertificate.setCertificate (Env.getCtx(), nf.getAD_Org_ID());
-			String url = "https://deiss.indaiatuba.sp.gov.br/homologacao/nfse";
+			String url = "https://www.issnetonline.com.br/apresentacao/df/webservicenfse204/nfse.asmx";
 			if (MLBRNotaFiscal.LBR_NFEENV_Production.equals(nf.getlbr_NFeEnv()))
-				url = "https://deiss.indaiatuba.sp.gov.br/producao/nfse";
+				url = "https://df.issnetonline.com.br/webservicenfse204/nfse.asmx";
 			
 			NfseWebServiceServiceStub nfseStub = new NfseWebServiceServiceStub(url);
 			nfseStub._getServiceClient().getOptions().setProperty(HTTPConstants.CHUNKED, false);	
