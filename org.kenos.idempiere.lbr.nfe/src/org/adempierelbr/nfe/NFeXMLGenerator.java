@@ -1468,6 +1468,13 @@ public class NFeXMLGenerator
 						icms20.setPFCP(normalize2to4(fcpTax.getlbr_TaxRate()));
 						icms20.setVFCP(normalize4(fcpTax.getlbr_TaxAmt()));
 					}
+					
+					BigDecimal deson = (BigDecimal) icmsTax.get_Value("LBR_TaxExemptAmt");
+					if (deson != null && deson.signum() == 1)
+					{
+						icms20.setMotDesICMS(ICMS20.MotDesICMS.X_9);
+						icms20.setVICMSDeson(TextUtil.toNumeric(deson).replace(",", "."));
+					}
 				}
 				else if (CST_ICMS_30.equals (taxStatus))
 				{
