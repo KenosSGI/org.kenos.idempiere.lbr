@@ -1519,6 +1519,13 @@ public class NFeXMLGenerator
 					ICMS40 icms40 = imposto.addNewICMS().addNewICMS40();
 					icms40.setOrig(Torig.Enum.forString(productSource));
 					icms40.setCST(Det.Imposto.ICMS.ICMS40.CST.Enum.forString (taxStatus));
+					
+					BigDecimal deson = (BigDecimal) icmsTax.get_Value("LBR_TaxExemptAmt");
+					if (deson != null && deson.signum() == 1)
+					{
+						icms40.setMotDesICMS(ICMS40.MotDesICMS.X_9);
+						icms40.setVICMSDeson(TextUtil.toNumeric(deson).replace(",", "."));
+					}
 				}
 				else if (CST_ICMS_51.equals (taxStatus))
 				{
