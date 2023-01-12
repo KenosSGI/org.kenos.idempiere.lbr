@@ -811,12 +811,15 @@ public class NfseWSServiceStub extends org.apache.axis2.client.Stub {
             org.apache.axis2.context.MessageContext _returnMessageContext = _operationClient.getMessageContext(org.apache.axis2.wsdl.WSDLConstants.MESSAGE_LABEL_IN_VALUE);
             org.apache.axiom.soap.SOAPEnvelope _returnEnv = _returnMessageContext.getEnvelope();
 
-            java.lang.Object object = fromOM(_returnEnv.getBody()
-                                                       .getFirstElement(),
-                    br.org.abrasf.nfse.v204.api.NfseWSServiceStub.CancelarNfseResponse.class,
-                    getEnvelopeNamespaces(_returnEnv));
-
-            return getCancelarNfseResponseOutputXML((br.org.abrasf.nfse.v204.api.NfseWSServiceStub.CancelarNfseResponse) object);
+            return _returnEnv.getBody()
+            	.getFirstElement().getFirstElement().toString();
+            
+//            java.lang.Object object = fromOM(_returnEnv.getBody()
+//                                                       .getFirstElement(),
+//                    br.org.abrasf.nfse.v204.api.NfseWSServiceStub.CancelarNfseResponse.class,
+//                    getEnvelopeNamespaces(_returnEnv));
+//
+//            return getCancelarNfseResponseOutputXML((br.org.abrasf.nfse.v204.api.NfseWSServiceStub.CancelarNfseResponse) object);
         } catch (org.apache.axis2.AxisFault f) {
             org.apache.axiom.om.OMElement faultElt = f.getDetail();
 

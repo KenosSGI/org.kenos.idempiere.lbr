@@ -42,7 +42,6 @@ import org.compiere.util.Util;
 import org.kenos.idempiere.lbr.base.model.MCity;
 import org.kenos.idempiere.lbr.base.model.MRegion;
 
-import br.gov.sp.indaiatuba.nfse.NfseWebServiceServiceStub;
 import br.org.abrasf.nfse.v204.CabecalhoDocument.Cabecalho;
 import br.org.abrasf.nfse.v204.CancelarNfseEnvioDocument;
 import br.org.abrasf.nfse.v204.CancelarNfseEnvioDocument.CancelarNfseEnvio;
@@ -243,7 +242,6 @@ public class NFSeAbrasf204Impl implements INFSe
 		String serviceCode = "";
 		BigDecimal aliquota = BigDecimal.ZERO;
 		MCity city = null;
-		@SuppressWarnings("unused")
 		Boolean issRetido = false;
 		
 		//	Serviços Prestados
@@ -253,6 +251,18 @@ public class NFSeAbrasf204Impl implements INFSe
 		{
 			if (!nfl.islbr_IsService())
 				continue;
+			
+			BigDecimal taxRateISS = nfl.getTaxRate("ISS");
+			BigDecimal taxRateISSRT = nfl.getTaxRate("ISSRT");
+
+			if (aliquota.compareTo(Env.ZERO) == 0) {
+				if (taxRateISS.signum() != 0)
+					aliquota = taxRateISS;
+				else if (taxRateISSRT.signum() != 0) {
+					aliquota = taxRateISSRT;
+					issRetido = true;
+				}
+			}
 			
 			//
 			if (nfl.getM_Product_ID() > 0)
@@ -276,9 +286,7 @@ public class NFSeAbrasf204Impl implements INFSe
 				}
 					
 				//	Mesma Alíquota de ISS para todos os serviços prestados
-				if (aliquota.equals(BigDecimal.ZERO))
-						aliquota = nfl.getTaxRate("ISS");
-				else if (!aliquota.equals(nfl.getTaxRate("ISS")))
+				if (!aliquota.equals(taxRateISS.add(taxRateISSRT)))
 				{
 					nf.setErrorMsg("Impossível gerar XML NFS-e. Todos os serviços da NFS-e devem conter o mesmo Código de Serviço");
 					return null;
@@ -304,8 +312,11 @@ public class NFSeAbrasf204Impl implements INFSe
 		}
 		dadosServico.setDiscriminacao(descricaoServico.replace("\n", ". ").replaceAll("\\s+", " ").replaceAll("\\.+", ".").trim());
 		dadosServico.setItemListaServico(TsItemListaServico.Enum.forString(serviceCode));
-		dadosServico.setIssRetido((byte) 2);
+		dadosServico.setIssRetido((byte) (issRetido ? 1 : 2));
 		dadosServico.setCodigoTributacaoMunicipio(TextUtil.toNumeric(serviceCode));
+		
+		if (issRetido)
+			dadosServico.setResponsavelRetencao((byte) 1);
 		
 		if (TextUtil.toNumeric(nf.getlbr_CNAE()).length() > 5)
 			dadosServico.setCodigoCnae(Integer.parseInt(TextUtil.toNumeric(nf.getlbr_CNAE())));
@@ -1738,12 +1749,13 @@ public class NFSeAbrasf204Impl implements INFSe
 			if (MLBRNotaFiscal.LBR_NFEENV_Production.equals(nf.getlbr_NFeEnv()))
 				url = "https://df.issnetonline.com.br/webservicenfse204/nfse.asmx";
 			
-			NfseWebServiceServiceStub nfseStub = new NfseWebServiceServiceStub(url);
-			nfseStub._getServiceClient().getOptions().setProperty(HTTPConstants.CHUNKED, false);	
+			NfseWSServiceStub nfseStub = new NfseWSServiceStub(url);
+			nfseStub._getServiceClient().getOptions().setProperty(HTTPConstants.CHUNKED, false);
 			
+			NFeUtil.saveXML (String.valueOf(nf.getAD_Org_ID()), NFeUtil.KIND_NFSE, NFeUtil.MESSAGE_REQ_CANCEL, nf.getDocumentNo(), cancelDoc.xmlText(NFeUtil.getXmlOpt()));
 			
 			String result = nfseStub.cancelarNfse(header.xmlText(), cancelDoc.xmlText(NFeUtil.getXmlOpt()));
-			System.out.println(result);
+			NFeUtil.saveXML (String.valueOf(nf.getAD_Org_ID()), NFeUtil.KIND_NFSE, NFeUtil.MESSAGE_RET_CANCEL, nf.getDocumentNo(), result);
 			
 			CancelarNfseRespostaDocument response = CancelarNfseRespostaDocument.Factory.parse(result);
 			
