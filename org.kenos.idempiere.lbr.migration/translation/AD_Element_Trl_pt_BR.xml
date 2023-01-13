@@ -10072,9 +10072,9 @@ Você pode também carregar a imagem (no banco de dados) ou apontar para uma fig
   <value column="Placeholder" original=""/>
  </row>
  <row id="1656" trl="Y">
-  <value column="Name" original="Selection Column">Coluna de Seleção</value>
-  <value column="PrintName" original="Selection">Seleção</value>
-  <value column="Description" original="Is this column used for finding rows in windows">Esta coluna é usada para encontrar linhas na janela</value>
+  <value column="Name" original="Selection Column">Mostrar na Pesquisa Simples</value>
+  <value column="PrintName" original="Selection">Pesquisa Simples</value>
+  <value column="Description" original="Is this column used for finding rows in windows">Esta coluna é usada na janela de Pesquisa Simples</value>
   <value column="Help" original="If selected, the column is listed in the first find window tab and in the selection part of the window">Se selecionada, a coluna é listada na primeira aba da janela de busca e na parte de seleção da janela</value>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
@@ -42790,10 +42790,10 @@ Product: used to quickly add products to POS order</value>
   <value column="Placeholder" original=""/>
  </row>
  <row id="200096" trl="Y">
-  <value column="Name" original="Selection Column Sequence">Sequência da Coluna de Seleção</value>
-  <value column="PrintName" original="Selection Column Sequence">Sequência da Coluna de Seleção</value>
-  <value column="Description" original="Selection Column Sequence">Sequência da Coluna de Seleção</value>
-  <value column="Help" original="For ordering sequence of selection column">Utilizado para ordenar colunas de seleção.</value>
+  <value column="Name" original="Selection Column Sequence">Sequência na Pesquisa Simples</value>
+  <value column="PrintName" original="Selection Column Sequence">Sequência na Pesquisa Simples</value>
+  <value column="Description" original="Selection Column Sequence">Sequência na Pesquisa Simples</value>
+  <value column="Help" original="For ordering sequence of selection column">Utilizado para ordenar colunas de Pesquisa Simples.</value>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
   <value column="PO_Name" original=""/>
