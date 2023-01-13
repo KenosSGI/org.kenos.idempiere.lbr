@@ -383,7 +383,6 @@ public class ConsultNFe extends SvrProcess
 							//	Limpa os campos no caso de reenviar uma NF que foi previament rejeitada
 							nfe.setlbr_NFeStatus (null);
 							nfe.setlbr_NFeID (null);
-							nfe.setLBR_NFeLot_ID (0);
 							//							
 							try
 							{
