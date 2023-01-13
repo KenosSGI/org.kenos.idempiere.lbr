@@ -19,6 +19,7 @@ import java.sql.Timestamp;
 import java.util.Vector;
 import java.util.logging.Level;
 
+import org.adempierelbr.model.MLBRNFeLotLine;
 import org.adempierelbr.model.MLBRNotaFiscal;
 import org.adempierelbr.util.NFeUtil;
 import org.compiere.apps.IStatusBar;
@@ -85,7 +86,7 @@ public abstract class CreateFromNFeLot extends CreateFrom
 			+ "FROM LBR_NotaFiscal nf " +
 					"INNER JOIN AD_Attachment att ON (nf.LBR_NotaFiscal_ID = att.Record_ID " +
 					"AND att.AD_Table_ID = ?) "
-			+ "WHERE nf.LBR_NFeID IS NOT NULL AND nf.LBR_NFeLot_ID IS NULL "
+			+ "WHERE nf.LBR_NFeID IS NOT NULL "
 			+ "AND nf.IsCancelled = 'N' "
 			+ "AND nf.AD_Org_ID IN (?, 0) "
 			+ "AND nf.LBR_IsOwnDocument='Y' "
@@ -165,8 +166,9 @@ public abstract class CreateFromNFeLot extends CreateFrom
 			return false;
 
 		//  fixed values
+		int AD_Org_ID = Env.getContextAsInt(Env.getCtx(), getGridTab().getWindowNo(), "AD_Org_ID");
 		int LBR_NFeLot_ID = Env.getContextAsInt(Env.getCtx(), getGridTab().getWindowNo(), "LBR_NFeLot_ID");
-
+		
 		//  Lines
 		for (int i = 0; i < rows; i++)
 		{
@@ -187,12 +189,17 @@ public abstract class CreateFromNFeLot extends CreateFrom
 				
 				//	Atualiza o campo lbr_NFeID, caso ele esteja diferente do anexo
 				if (!nfeID.equals(nf.getlbr_NFeID()))
-					nf.setlbr_NFeID(nfeID); 
+					nf.setlbr_NFeID(nfeID);
 				
-				nf.setLBR_NFeLot_ID(LBR_NFeLot_ID);
+				MLBRNFeLotLine line = new MLBRNFeLotLine (nf.getCtx(), 0, nf.get_TrxName());
+				line.setAD_Org_ID(AD_Org_ID);
+				line.setLBR_NFeLot_ID(LBR_NFeLot_ID);
+				line.setLBR_NotaFiscal_ID(LBR_NotaFiscal_ID);
+				line.save();
+				
 				log.fine("LBR_NotaFiscal_ID="+LBR_NotaFiscal_ID);
 				//
-				if (!nf.save())
+				if (nf.is_Changed() && !nf.save())
 				{
 					result += "Problemas na inclusão da NF ao lote (Verifique LOG). Nota Fiscal: " + nf.getDocumentNo() + "\n";
 					log.log(Level.SEVERE, "Problemas na inclusão da NF ao lote (save). Nota Fiscal: " + nf.getDocumentNo());

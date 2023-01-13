@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Properties;
 import java.util.UUID;
 import java.util.logging.Level;
+import java.util.stream.Collectors;
 
 import javax.xml.stream.XMLInputFactory;
 
@@ -86,9 +87,9 @@ import br.inf.portalfiscal.www.nfe.wsdl.nfeautorizacao4.NfeDadosMsg;
 public class MLBRNFeLot extends X_LBR_NFeLot implements DocAction, DocOptions
 {
 	/**
-	 *
+	 * 	Serial ID
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -8666958026953106570L;
 
 	private static final String lote = "NFe Lote ";
 
@@ -531,7 +532,6 @@ public class MLBRNFeLot extends X_LBR_NFeLot implements DocAction, DocOptions
 				//
 				for (MLBRNotaFiscal nf : nfs)
 				{
-					nf.setLBR_NFeLot_ID(0);
 					nf.setDocStatus(MLBRNotaFiscal.DOCSTATUS_Invalid);
 					nf.setDocAction(MLBRNotaFiscal.DOCACTION_Complete);
 					nf.setProcessed(false);
@@ -585,13 +585,30 @@ public class MLBRNFeLot extends X_LBR_NFeLot implements DocAction, DocOptions
 	public boolean isEmpty ()
 	{
 		int count = DB.getSQLValue(null,
-				"SELECT COUNT(*) FROM LBR_NotaFiscal WHERE LBR_NFeLot_ID=?", getLBR_NFeLot_ID());
+				"SELECT COUNT(*) FROM LBR_NFeLotLine WHERE LBR_NFeLot_ID=?", getLBR_NFeLot_ID());
 		//
 		if (count > 0)
 			return false;
 		else
 			return true;
 	}	//	isEmpty
+
+	/**
+	 * 	Get NFe Document from Attachment
+	 * 
+	 * @return TNFe[] List os NF-e documents
+	 * @throws IOException 
+	 * @throws XmlException 
+	 */
+	private List<MLBRNotaFiscal> getNFLines () throws XmlException, IOException
+	{
+		List<MLBRNotaFiscal> nfs = new Query(Env.getCtx(), MLBRNFeLotLine.Table_Name, MLBRNFeLotLine.COLUMNNAME_LBR_NFeLot_ID+"=?", get_TrxName())
+			.setParameters(getLBR_NFeLot_ID())
+			.list().stream()
+			.map(MLBRNFeLotLine.class::cast)
+			.map(MLBRNFeLotLine::getNotaFiscal).collect(Collectors.toList());
+		return nfs;
+	}	//	getNFLines
 
 	/**
 	 * 	Get NFe Document from Attachment
@@ -610,7 +627,15 @@ public class MLBRNFeLot extends X_LBR_NFeLot implements DocAction, DocOptions
 	 		  query.setParameters(new Object[]{getLBR_NFeLot_ID()});
 	 		  query.setOrderBy("DocumentNo, LBR_NotaFiscal_ID");
 		//
-	 	List<MLBRNotaFiscal> list = query.list();
+	 	List<MLBRNotaFiscal> list = getNFLines();
+	 	
+	 	//	Fail safe
+	 	if (list == null || list.size() == 0)
+	 		list = query.list();
+	 	
+	 	//	Limit
+	 	if (list.size() > 50)
+	 		throw new AdempiereException ("Lote excede o limite permitido de 50 NFs");
 	 	//
 	 	for (MLBRNotaFiscal NF : list)
 	 	{
@@ -656,8 +681,6 @@ public class MLBRNFeLot extends X_LBR_NFeLot implements DocAction, DocOptions
 		return nfes;
 	}	//	getXMLs
 
-/**			DocAction		*/
-	
 	/**
 	 * 	Get Document Info
 	 *	@return document info (untranslated)

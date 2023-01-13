@@ -4580,7 +4580,6 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 				//	Limpa os campos no caso de reenviar uma NF que foi previament rejeitada
 				setlbr_NFeStatus (null);
 				setlbr_NFeID (null);
-				setLBR_NFeLot_ID (0);
 				
 				try
 				{
@@ -4836,9 +4835,11 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 					lot.setlbr_NFeEnv(getlbr_NFeEnv());
 					lot.save();
 					
-					//	Vincula o lote criado a NF-e
-					setLBR_NFeLot_ID (lot.getLBR_NFeLot_ID());
-					save();
+					MLBRNFeLotLine line = new MLBRNFeLotLine (getCtx(), 0, get_TrxName());
+					line.setAD_Org_ID(getAD_Org_ID());
+					line.setLBR_NFeLot_ID(lot.getLBR_NFeLot_ID());
+					line.setLBR_NotaFiscal_ID(getLBR_NotaFiscal_ID());
+					line.save();
 					
 					if (!lot.enviaLoteNFe())
 						throw new Exception ("Falha na transmissão da NF-e");
@@ -5254,9 +5255,6 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 					m_processMsg = "Lote da NF não processado, impossível reativar";
 					return false;
 				}
-				
-				//	Apaga o Lote da NF em questão
-				setLBR_NFeLot_ID(0);
 			}
 		}
 		
