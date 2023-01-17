@@ -1037,7 +1037,7 @@ public class DSF100 implements INFSe
 				LoteRpsServiceStub stub = new LoteRpsServiceStub(url);
 				String result = stub.consultarNota(doc.xmlText());
 				
-				NFeUtil.saveXML (String.valueOf(oi.getAD_Org_ID()), NFeUtil.KIND_NFSE, NFeUtil.MESSAGE_REQ_CONSULT, nf.getDocumentNo(), result);
+				NFeUtil.saveXML (String.valueOf(oi.getAD_Org_ID()), NFeUtil.KIND_NFSE, NFeUtil.MESSAGE_RET_CONSULT, nf.getDocumentNo(), result);
 				
 				RetornoConsultaNotasDocument consultaNotasDocument = RetornoConsultaNotasDocument.Factory.parse(result);
 				RetornoConsultaNotas retornoConsultaNotas = consultaNotasDocument.getRetornoConsultaNotas();
