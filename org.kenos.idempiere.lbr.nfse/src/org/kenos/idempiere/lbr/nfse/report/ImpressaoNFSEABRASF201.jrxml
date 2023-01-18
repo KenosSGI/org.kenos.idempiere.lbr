@@ -180,7 +180,7 @@
 		<fieldDescription><![CDATA[InfNfse/DeclaracaoPrestacaoServico/InfDeclaracaoPrestacaoServico/Prestador/CpfCnpj/Cnpj]]></fieldDescription>
 	</field>
 	<field name="inscricaomunicipal" class="java.lang.String">
-		<fieldDescription><![CDATA[InfNfse/DeclaracaoPrestacaoServico/InfDeclaracaoPrestacaoServico/Prestador/InscricaoMunicipal]]></fieldDescription>
+		<fieldDescription><![CDATA[InfNfse/DeclaracaoPrestacaoServico/InfDeclaracaoPrestacaoServico/Tomador/InscricaoMunicipal]]></fieldDescription>
 	</field>
 	<field name="cnpj" class="java.lang.String">
 		<fieldDescription><![CDATA[InfNfse/DeclaracaoPrestacaoServico/InfDeclaracaoPrestacaoServico/Tomador/IdentificacaoTomador/CpfCnpj/Cnpj]]></fieldDescription>
@@ -802,7 +802,7 @@ $F{datahoraemissao}.substring(0,4)+" às " + $F{datahoraemissao}.substring(12,16
 				</textElement>
 				<textFieldExpression><![CDATA[$P{cnpjprestador}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="false">
+			<textField isBlankWhenNull="true">
 				<reportElement key="textField-7" x="259" y="29" width="71" height="17" uuid="72805cf5-96e5-4645-81a6-4ae092f10c12"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="8" isBold="true"/>
