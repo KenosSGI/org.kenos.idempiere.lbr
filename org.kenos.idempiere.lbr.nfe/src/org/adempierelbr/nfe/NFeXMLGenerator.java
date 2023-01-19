@@ -769,7 +769,7 @@ public class NFeXMLGenerator
 							dest.setIE (toNumericStr (nf.getlbr_BPIE()));
 					
 					//	SUFRAMA
-					if ("AM".equals (nf.getlbr_BPRegion()) && nf.getlbr_BPSuframa() != null && !nf.getlbr_BPSuframa().isBlank())
+					if (nf.getlbr_BPSuframa() != null && !nf.getlbr_BPSuframa().isBlank())
 						dest.setISUF (toNumericStr (nf.getlbr_BPSuframa()));
 				}
 				
@@ -1523,7 +1523,11 @@ public class NFeXMLGenerator
 					BigDecimal deson = (BigDecimal) icmsTax.get_Value("LBR_TaxExemptAmt");
 					if (deson != null && deson.signum() == 1)
 					{
-						icms40.setMotDesICMS(ICMS40.MotDesICMS.X_9);
+						if (nf.getlbr_BPSuframa() != null && !nf.getlbr_BPSuframa().isBlank())
+							icms40.setMotDesICMS(ICMS40.MotDesICMS.X_7);
+						else
+							icms40.setMotDesICMS(ICMS40.MotDesICMS.X_9);
+						
 						icms40.setVICMSDeson(TextUtil.toNumeric(deson).replace(",", "."));
 					}
 				}
