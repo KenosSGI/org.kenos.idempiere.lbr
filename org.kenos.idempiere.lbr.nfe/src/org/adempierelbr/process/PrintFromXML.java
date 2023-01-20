@@ -19,6 +19,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.List;
@@ -38,6 +40,7 @@ import org.adempierelbr.nfse.INFSe;
 import org.adempierelbr.nfse.NFSeUtil;
 import org.adempierelbr.util.NFeUtil;
 import org.adempierelbr.util.TextUtil;
+import org.apache.xmlbeans.XmlException;
 import org.compiere.model.MAttachment;
 import org.compiere.model.MAttachmentEntry;
 import org.compiere.model.MImage;
@@ -292,10 +295,12 @@ public class PrintFromXML extends SvrProcess
 				// Organização
 				oi = MOrgInfo.get(Env.getCtx(), doc.getAD_Org_ID(), null);
 				
-					nfs = new Query (Env.getCtx(), MLBRNotaFiscal.Table_Name, "LBR_NFeStatus = '100' AND LBR_NFeLot_ID = ?", get_TrxName())
-											.setParameters(doc.getLBR_NFeLot_ID())
-											.setOrderBy("DocumentNo")
-											.list();
+				try {
+					nfs = doc.getNFLines();
+					Collections.sort (nfs, new SortByNFeNo());
+				} catch (XmlException | IOException e) {
+					e.printStackTrace();
+				}
 			}
 			else if (tableID == X_T_Report.Table_ID)
 				nfs = new Query (Env.getCtx(), MLBRNotaFiscal.Table_Name, "LBR_NFeStatus = '100' AND EXISTS (SELECT 1 FROM T_Selection s WHERE s.T_Selection_ID=LBR_NotaFiscal.LBR_NotaFiscal_ID AND s.ViewID=?)", get_TrxName())
@@ -581,3 +586,20 @@ public class PrintFromXML extends SvrProcess
 		throw new UnsupportedOperationException("Cannot list files for URL "+dirURL);
 	}	//	getResourceListing
 }	//	PrintFromXML
+
+class SortByNFeNo implements Comparator<MLBRNotaFiscal> {
+	public int compare (MLBRNotaFiscal a, MLBRNotaFiscal b) {
+		StringBuilder sorterA = new StringBuilder();
+		sorterA.append(a.getAD_Org_ID());
+		sorterA.append(TextUtil.lPad (a.getlbr_NFSerie(), 5));
+		sorterA.append(TextUtil.lPad (a.getDocumentNo(), 15));
+
+		StringBuilder sorterB = new StringBuilder();
+		sorterB.append(b.getAD_Org_ID());
+		sorterB.append(b.getAD_Org_ID());
+		sorterB.append(TextUtil.lPad (b.getlbr_NFSerie(), 5));
+		sorterB.append(TextUtil.lPad (b.getDocumentNo(), 15));
+		
+		return sorterA.compareTo(sorterB);
+	}	//	compare
+}	//	SortByNFeNo

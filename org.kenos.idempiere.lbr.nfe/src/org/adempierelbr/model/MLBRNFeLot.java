@@ -600,7 +600,7 @@ public class MLBRNFeLot extends X_LBR_NFeLot implements DocAction, DocOptions
 	 * @throws IOException 
 	 * @throws XmlException 
 	 */
-	private List<MLBRNotaFiscal> getNFLines () throws XmlException, IOException
+	public List<MLBRNotaFiscal> getNFLines () throws XmlException, IOException
 	{
 		List<MLBRNotaFiscal> nfs = new Query(Env.getCtx(), MLBRNFeLotLine.Table_Name, MLBRNFeLotLine.COLUMNNAME_LBR_NFeLot_ID+"=?", get_TrxName())
 			.setParameters(getLBR_NFeLot_ID())
