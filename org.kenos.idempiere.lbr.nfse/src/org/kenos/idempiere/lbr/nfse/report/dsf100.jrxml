@@ -1020,7 +1020,7 @@
 				<textElement textAlignment="Right">
 					<font fontName="Arial" size="9" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{ValorTotalNF}*($F{AliquotaAtividade}.divide (new java.math.BigDecimal(100), 2, java.math.RoundingMode.HALF_UP))]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{ValorTotalNF}*($F{AliquotaAtividade}.divide (new java.math.BigDecimal(100), 2, java.math.RoundingMode.FLOOR))]]></textFieldExpression>
 			</textField>
 			<textField pattern="VALOR TOTAL DA NOTA = ¤#,##0.00;VALOR TOTAL DA NOTA = ¤-#,##0.00">
 				<reportElement x="2" y="25" width="551" height="15" uuid="a9130a18-e45c-425b-a050-f894e147d8af"/>
