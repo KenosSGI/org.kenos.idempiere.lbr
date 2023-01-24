@@ -527,7 +527,7 @@ public class MLBRNFeLot extends X_LBR_NFeLot implements DocAction, DocOptions
 			//	Libera as NFs para envio em outro lote
 			else
 			{
-				List<MLBRNotaFiscal> nfs = new Query (Env.getCtx(),MLBRNotaFiscal.Table_Name, COLUMNNAME_LBR_NFeLot_ID + "=?", get_TrxName())
+				List<MLBRNotaFiscal> nfs = new Query (Env.getCtx(),MLBRNotaFiscal.Table_Name, COLUMNNAME_LBR_NFeLot_ID + "=?", trxName)
 					.setParameters(getLBR_NFeLot_ID()).list();
 				//
 				for (MLBRNotaFiscal nf : nfs)

@@ -4797,9 +4797,10 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 				if (DOCSTATUS_WaitingConfirmation.equals (getDocStatus()))
 				{
 					//	Verifica se a NF já pertence a um lote
-					if (getLBR_NFeLot_ID() > 0)
+					int lot_ID = getLast_NFeLot_ID();
+					if (lot_ID > 0)
 					{
-						MLBRNFeLot lot = new MLBRNFeLot (getCtx(), getLBR_NFeLot_ID(), get_TrxName());
+						MLBRNFeLot lot = new MLBRNFeLot (getCtx(), lot_ID, get_TrxName());
 						
 						//	Lote já processado
 						if (MLBRNFeLot.DOCSTATUS_Completed.equals(lot.getDocStatus()))
@@ -5245,7 +5246,7 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		if (TextUtil.match (getlbr_NFModel(), LBR_NFMODEL_NotaFiscalEletrônica))
 		{
 			//	Valida o Lote da NF-e
-			int LBR_NFeLot_ID = getLBR_NFeLot_ID();
+			int LBR_NFeLot_ID = getLast_NFeLot_ID();
 			if (LBR_NFeLot_ID > 0)
 			{
 				MLBRNFeLot lot = new MLBRNFeLot (getCtx(), LBR_NFeLot_ID, get_TrxName());
@@ -5346,9 +5347,8 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		else if (DOCSTATUS_Drafted.equals(docStatus))
 		{
 			options[0] = DOCACTION_Prepare;
-			options[1] = DOCACTION_Complete;
-			options[2] = DOCACTION_VoidInvalidate;
-			index=3;
+			options[1] = DOCACTION_VoidInvalidate;
+			index=2;
 		}
 		else if (DOCSTATUS_WaitingConfirmation.equals(docStatus))
 		{
@@ -5751,4 +5751,14 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 	{
 		return LBR_EMAILSENT_MailSent.equals(getLBR_EMailSent());
 	}	//	isLBR_EMailSent
+	
+	public int getLast_NFeLot_ID() {
+		MLBRNFeLotLine line = new Query (getCtx(), MLBRNFeLotLine.Table_Name, MLBRNFeLotLine.COLUMNNAME_LBR_NotaFiscal_ID + "=?", get_TrxName())
+			.setParameters(getLBR_NotaFiscal_ID())
+			.setOrderBy(MLBRNFeLotLine.COLUMNNAME_CreatedBy + " DESC")
+			.first();
+		if (line != null)
+			return line.getLBR_NFeLot_ID();
+		return super.getLBR_NFeLot_ID();
+	}	//	getLast_NFeLot_ID
 }	//	MLBRNotaFiscal

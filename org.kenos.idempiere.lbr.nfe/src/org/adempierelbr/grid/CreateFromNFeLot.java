@@ -91,6 +91,9 @@ public abstract class CreateFromNFeLot extends CreateFrom
 			+ "AND nf.AD_Org_ID IN (?, 0) "
 			+ "AND nf.LBR_IsOwnDocument='Y' "
 			+ "AND nf.DocStatus='IP' "
+			+ "AND NOT EXISTS (SELECT 1 FROM LBR_NFeLot l, LBR_NFeLotLine ll "
+			+ "WHERE l.LBR_NFeLot_ID=ll.LBR_NFeLot_ID AND ll.LBR_NotaFiscal_ID=nf.LBR_NotaFiscal_ID "
+			+ "AND l.DocStatus NOT IN ('VO', 'CO'))"
 			+ "ORDER BY 1";
 		
 		PreparedStatement pstmt = null;
