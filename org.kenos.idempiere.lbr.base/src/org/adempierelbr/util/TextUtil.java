@@ -39,10 +39,7 @@ import java.util.Base64;
 import java.util.Date;
 import java.util.Locale;
 import java.util.StringJoiner;
-import java.util.logging.Level;
 
-import org.compiere.util.CLogger;
-import org.compiere.util.Env;
 
 /**
  * TextUtil
@@ -55,7 +52,7 @@ import org.compiere.util.Env;
 public abstract class TextUtil
 {
 	/**	Logger			*/
-	private static CLogger log = CLogger.getCLogger(TextUtil.class);
+//	private static CLogger log = Logger.getCLogger(TextUtil.class);
 
 	/** EOL             */
 	public static final String EOL_WIN32 = "\r\n";
@@ -79,7 +76,7 @@ public abstract class TextUtil
 	public static final String LF = "\n";
 
 	/**	Round 			*/
-	public static final String ZERO_STRING = Env.ZERO.setScale(2, RoundingMode.HALF_UP).toPlainString();
+	public static final String ZERO_STRING = BigDecimal.ZERO.setScale(2, RoundingMode.HALF_UP).toPlainString();
 
 	/** Alfabeto        */
 	public static final String[] ALFAB = {"A","B","C","D","E",
@@ -192,11 +189,11 @@ public abstract class TextUtil
 		}
 		catch (UnsupportedEncodingException e)
 		{
-			log.log(Level.SEVERE, "Formato não suportado="+encoding+", arquivo: " + filePath, e);
+			System.err.println ("Formato não suportado="+encoding+", arquivo: " + filePath);
 		}
 		catch (IOException e)
 		{
-			log.log(Level.SEVERE, "Erro ao gerar Arquivo: " + filePath, e);
+			System.err.println ("Erro ao gerar Arquivo: " + filePath);
 		}
 		
 		return filePath;
@@ -498,7 +495,7 @@ public abstract class TextUtil
 	public static String lPad(BigDecimal valueBD, int length, int scale)
 	{
 		if (valueBD == null)
-			valueBD = Env.ZERO;
+			valueBD = BigDecimal.ZERO;
 
 		String value = toNumeric(valueBD.setScale(scale, RoundingMode.HALF_UP).toString());
 		return pad(value, '0', length, true, false, false);
@@ -1066,11 +1063,11 @@ public abstract class TextUtil
     public static String join(CharSequence delimiter,
             Iterable<? extends CharSequence> elements) {
     	if (delimiter == null){
-    		log.warning("The delimiter must not be null");
+    		System.out.println ("The delimiter must not be null");
     		return "";
     	}
     	if (elements == null){
-    		log.warning("The elements must not be null");
+    		System.out.println ("The elements must not be null");
     		return "";
     	}
         StringJoiner joiner = new StringJoiner(delimiter);
@@ -1270,7 +1267,7 @@ public abstract class TextUtil
 		}
 		catch (Exception e)
 		{
-			log.saveError(e.getMessage(), e);
+			System.err.println (e.getMessage());
 		}		
 		
 		return null;
