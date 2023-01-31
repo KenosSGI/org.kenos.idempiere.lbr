@@ -1,6 +1,7 @@
 /******************************************************************************
- * Product: iDempiere ERP & CRM Smart Business Solution                       *
- * Copyright (C) 1999-2012 ComPiere, Inc. All Rights Reserved.                *
+ * Product: Kenos iDempiere ERP & CRM Smart Business Solution                 *
+ * Copyright (C) 1999-2022 Kenos, Ltda. All Rights Reserved.                  *
+ * Copyright (C) 1999-2022 Ricardo Santana. All Rights Reserved.              *
  * This program is free software, you can redistribute it and/or modify it    *
  * under the terms version 2 of the GNU General Public License as published   *
  * by the Free Software Foundation. This program is distributed in the hope   *
@@ -16,39 +17,74 @@
  *****************************************************************************/
 package org.adempierelbr.wrapper;
 
-import java.math.BigDecimal;
 import org.compiere.model.*;
-import org.compiere.util.KeyNamePair;
 
 /** Generated Interface for C_BPartner
- *  @author iDempiere (generated) 
- *  @version Release 4.1
+ *  @author Ricardo Santana
+ *  @version Release 6.2
  */
-@SuppressWarnings("all")
 public interface I_W_C_BPartner extends I_C_BPartner 
 {
 
-    /** TableName=C_BPartner */
-    public static final String Table_Name = "C_BPartner";
 
-    /** AD_Table_ID=291 */
-    public static final int Table_ID = 291;
+    /** Column name CategoryType */
+    public static final String COLUMNNAME_CategoryType = "CategoryType";
+
+	/** CategoryType AD_Reference_ID=1120372 */
+	public static final int CATEGORYTYPE_AD_Reference_ID=1120372;
+
+	/** Armazenador = ARM */
+	public static final String CATEGORYTYPE_Armazenador = "ARM";
+
+	/** Consumidor Final = CNF */
+	public static final String CATEGORYTYPE_ConsumidorFinal = "CNF";
+
+	/** Central Petroquímica = CPQ */
+	public static final String CATEGORYTYPE_CentralPetroquímica = "CPQ";
+
+	/** Distribuidor = DIS */
+	public static final String CATEGORYTYPE_Distribuidor = "DIS";
+
+	/** Formulador = FOR */
+	public static final String CATEGORYTYPE_Formulador = "FOR";
+
+	/** Importador = IMP */
+	public static final String CATEGORYTYPE_Importador = "IMP";
+
+	/** Posto Varejista = PRV */
+	public static final String CATEGORYTYPE_PostoVarejista = "PRV";
+
+	/** Refinaria = REF */
+	public static final String CATEGORYTYPE_Refinaria = "REF";
+
+	/** Transportador e Revendedor Retalhista = TRR */
+	public static final String CATEGORYTYPE_TransportadorERevendedorRetalhista = "TRR";
+
+	/** Usina = USI */
+	public static final String CATEGORYTYPE_Usina = "USI";
+
+	/** Varejista de GLP = VGL */
+	public static final String CATEGORYTYPE_VarejistaDeGLP = "VGL";
 
 
-    /** Column name C_BankAccount_ID */
-    public static final String COLUMNNAME_C_BankAccount_ID = "C_BankAccount_ID";
-
-	/** Set Bank Account.
-	  * Account at the Bank
+	/** Set Category Type.
+	  * Source of the Journal with this category
 	  */
-	public void setC_BankAccount_ID (int C_BankAccount_ID);
+	public void setCategoryType (String CategoryType);
 
-	/** Get Bank Account.
-	  * Account at the Bank
+	/** Get Category Type.
+	  * Source of the Journal with this category
 	  */
-	public int getC_BankAccount_ID();
+	public String getCategoryType();
 
-	public org.compiere.model.I_C_BankAccount getC_BankAccount() throws RuntimeException;
+    /** Column name LBR_BankSlipContract_ID */
+    public static final String COLUMNNAME_LBR_BankSlipContract_ID = "LBR_BankSlipContract_ID";
+
+	/** Set Bank Slip Contract	  */
+	public void setLBR_BankSlipContract_ID (int LBR_BankSlipContract_ID);
+
+	/** Get Bank Slip Contract	  */
+	public int getLBR_BankSlipContract_ID();
 
     /** Column name LBR_CustomerCategory_ID */
     public static final String COLUMNNAME_LBR_CustomerCategory_ID = "LBR_CustomerCategory_ID";
@@ -63,6 +99,32 @@ public interface I_W_C_BPartner extends I_C_BPartner
 	  */
 	public int getLBR_CustomerCategory_ID();
 
+    /** Column name LBR_EMailBilling */
+    public static final String COLUMNNAME_LBR_EMailBilling = "LBR_EMailBilling";
+
+	/** Set Billing EMail.
+	  * Billing EMail separated by semicolon
+	  */
+	public void setLBR_EMailBilling (String LBR_EMailBilling);
+
+	/** Get Billing EMail.
+	  * Billing EMail separated by semicolon
+	  */
+	public String getLBR_EMailBilling();
+
+    /** Column name LBR_EMailNFSe */
+    public static final String COLUMNNAME_LBR_EMailNFSe = "LBR_EMailNFSe";
+
+	/** Set NFSe EMail.
+	  * NFSe EMail separated by semicolon
+	  */
+	public void setLBR_EMailNFSe (String LBR_EMailNFSe);
+
+	/** Get NFSe EMail.
+	  * NFSe EMail separated by semicolon
+	  */
+	public String getLBR_EMailNFSe();
+
     /** Column name LBR_EMailNFe */
     public static final String COLUMNNAME_LBR_EMailNFe = "LBR_EMailNFe";
 
@@ -75,19 +137,6 @@ public interface I_W_C_BPartner extends I_C_BPartner
 	  * NFe EMail separated by semicolon
 	  */
 	public String getLBR_EMailNFe();
-
-    /** Column name LBR_EMailNFe */
-    public static final String COLUMNNAME_LBR_EMailNFSe = "LBR_EMailNFSe";
-
-	/** Set NFe EMail.
-	  * NFe EMail separated by semicolon
-	  */
-	public void setLBR_EMailNFSe (String LBR_EMailNFSe);
-
-	/** Get NFe EMail.
-	  * NFe EMail separated by semicolon
-	  */
-	public String getLBR_EMailNFSe();
 
     /** Column name LBR_FiscalGroup_Customer_ID */
     public static final String COLUMNNAME_LBR_FiscalGroup_Customer_ID = "LBR_FiscalGroup_Customer_ID";
@@ -115,6 +164,41 @@ public interface I_W_C_BPartner extends I_C_BPartner
 	  */
 	public int getLBR_FiscalGroup_Vendor_ID();
 
+    /** Column name LBR_FreightCostRule */
+    public static final String COLUMNNAME_LBR_FreightCostRule = "LBR_FreightCostRule";
+
+	/** LBR_FreightCostRule AD_Reference_ID=1120147 */
+	public static final int LBR_FREIGHTCOSTRULE_AD_Reference_ID=1120147;
+
+	/** 0 - Contratação do Frete por conta do Remetente (CIF) = 0 */
+	public static final String LBR_FREIGHTCOSTRULE_0_ContrataçãoDoFretePorContaDoRemetenteCIF = "0";
+
+	/** 1 - Contratação do Frete por conta do Destinatário (FOB) = 1 */
+	public static final String LBR_FREIGHTCOSTRULE_1_ContrataçãoDoFretePorContaDoDestinatárioFOB = "1";
+
+	/** 3 - Transporte Próprio por conta do Remetente = 3 */
+	public static final String LBR_FREIGHTCOSTRULE_3_TransportePróprioPorContaDoRemetente = "3";
+
+	/** 4 - Transporte Próprio por conta do Destinatário = 4 */
+	public static final String LBR_FREIGHTCOSTRULE_4_TransportePróprioPorContaDoDestinatário = "4";
+
+	/** 2 - Contratação do Frete por conta de Terceiros = 2 */
+	public static final String LBR_FREIGHTCOSTRULE_2_ContrataçãoDoFretePorContaDeTerceiros = "2";
+
+	/** 9 - Sem Ocorrência de Transporte = 9 */
+	public static final String LBR_FREIGHTCOSTRULE_9_SemOcorrênciaDeTransporte = "9";
+
+
+	/** Set Freight Cost Rule.
+	  * Method for charging Freight
+	  */
+	public void setLBR_FreightCostRule (String LBR_FreightCostRule);
+
+	/** Get Freight Cost Rule.
+	  * Method for charging Freight
+	  */
+	public String getLBR_FreightCostRule();
+
     /** Column name LBR_HasWithhold */
     public static final String COLUMNNAME_LBR_HasWithhold = "LBR_HasWithhold";
 
@@ -130,6 +214,9 @@ public interface I_W_C_BPartner extends I_C_BPartner
 
     /** Column name LBR_IndIEDest */
     public static final String COLUMNNAME_LBR_IndIEDest = "LBR_IndIEDest";
+
+	/** LBR_IndIEDest AD_Reference_ID=1120235 */
+	public static final int LBR_INDIEDEST_AD_Reference_ID=1120235;
 
 	/** 1 - Contribuinte de ICMS = 1 */
 	public static final String LBR_INDIEDEST_1_ContribuinteDeICMS = "1";
@@ -153,6 +240,9 @@ public interface I_W_C_BPartner extends I_C_BPartner
 
     /** Column name LBR_TaxRegime */
     public static final String COLUMNNAME_LBR_TaxRegime = "LBR_TaxRegime";
+
+	/** LBR_TaxRegime AD_Reference_ID=1120245 */
+	public static final int LBR_TAXREGIME_AD_Reference_ID=1120245;
 
 	/** Normal = N */
 	public static final String LBR_TAXREGIME_Normal = "N";
@@ -196,10 +286,28 @@ public interface I_W_C_BPartner extends I_C_BPartner
 	  */
 	public int getM_Shipper_ID();
 
-	public org.compiere.model.I_M_Shipper getM_Shipper() throws RuntimeException;
+	public I_M_Shipper getM_Shipper() throws RuntimeException;
+
+    /** Column name Supervisor_ID */
+    public static final String COLUMNNAME_Supervisor_ID = "Supervisor_ID";
+
+	/** Set Supervisor.
+	  * Supervisor for this user/organization - used for escalation and approval
+	  */
+	public void setSupervisor_ID (int Supervisor_ID);
+
+	/** Get Supervisor.
+	  * Supervisor for this user/organization - used for escalation and approval
+	  */
+	public int getSupervisor_ID();
+
+	public I_AD_User getSupervisor() throws RuntimeException;
 
     /** Column name lbr_BPTypeBR */
     public static final String COLUMNNAME_lbr_BPTypeBR = "lbr_BPTypeBR";
+
+	/** lbr_BPTypeBR AD_Reference_ID=1000000 */
+	public static final int LBR_BPTYPEBR_AD_Reference_ID=1000000;
 
 	/** PJ - Legal Entity = PJ */
 	public static final String LBR_BPTYPEBR_PJ_LegalEntity = "PJ";
@@ -249,6 +357,19 @@ public interface I_W_C_BPartner extends I_C_BPartner
 	  * City Identification Code used in Brazil (City Tax ID)
 	  */
 	public String getlbr_CCM();
+
+    /** Column name lbr_CNAE */
+    public static final String COLUMNNAME_lbr_CNAE = "lbr_CNAE";
+
+	/** Set CNAE.
+	  * Classificação Nacional de Atividades Econômicas
+	  */
+	public void setlbr_CNAE (String lbr_CNAE);
+
+	/** Get CNAE.
+	  * Classificação Nacional de Atividades Econômicas
+	  */
+	public String getlbr_CNAE();
 
     /** Column name lbr_CNPJ */
     public static final String COLUMNNAME_lbr_CNPJ = "lbr_CNPJ";
@@ -317,6 +438,9 @@ public interface I_W_C_BPartner extends I_C_BPartner
 
     /** Column name lbr_NFModel */
     public static final String COLUMNNAME_lbr_NFModel = "lbr_NFModel";
+
+	/** lbr_NFModel AD_Reference_ID=1120009 */
+	public static final int LBR_NFMODEL_AD_Reference_ID=1120009;
 
 	/** Nota Fiscal = 01 */
 	public static final String LBR_NFMODEL_NotaFiscal = "01";
@@ -417,8 +541,11 @@ public interface I_W_C_BPartner extends I_C_BPartner
 	/** Nota Fiscal de Serviços Eletrônica (RPS) = S1 */
 	public static final String LBR_NFMODEL_NotaFiscalDeServiçosEletrônicaRPS = "S1";
 
-	/** Nota Fiscal de Consumidor Eletrônica = 56 */
-	public static final String LBR_NFMODEL_NotaFiscalDeConsumidorEletrônica = "56";
+	/** Nota Fiscal de Consumidor Eletrônica = 65 */
+	public static final String LBR_NFMODEL_NotaFiscalDeConsumidorEletrônica = "65";
+
+	/** Recibo Provisório de Serviço = RS */
+	public static final String LBR_NFMODEL_ReciboProvisórioDeServiço = "RS";
 
 
 	/** Set NF Model.
@@ -434,17 +561,71 @@ public interface I_W_C_BPartner extends I_C_BPartner
     /** Column name lbr_PaymentRule */
     public static final String COLUMNNAME_lbr_PaymentRule = "lbr_PaymentRule";
 
-	/** Cash = X */
-	public static final String LBR_PAYMENTRULE_Cash = "X";
+	/** lbr_PaymentRule AD_Reference_ID=1000035 */
+	public static final int LBR_PAYMENTRULE_AD_Reference_ID=1000035;
 
-	/** Check = C */
-	public static final String LBR_PAYMENTRULE_Check = "C";
+	/** Cash (old) = X */
+	public static final String LBR_PAYMENTRULE_CashOld = "X";
 
-	/** Bill = B */
-	public static final String LBR_PAYMENTRULE_Bill = "B";
+	/** Check (old) = C */
+	public static final String LBR_PAYMENTRULE_CheckOld = "C";
 
-	/** Direct Deposit = D */
-	public static final String LBR_PAYMENTRULE_DirectDeposit = "D";
+	/** Bill (old) = B */
+	public static final String LBR_PAYMENTRULE_BillOld = "B";
+
+	/** Direct Deposit (old) = D */
+	public static final String LBR_PAYMENTRULE_DirectDepositOld = "D";
+
+	/** Cash = 01 */
+	public static final String LBR_PAYMENTRULE_Cash = "01";
+
+	/** Check = 02 */
+	public static final String LBR_PAYMENTRULE_Check = "02";
+
+	/** Credit Card = 03 */
+	public static final String LBR_PAYMENTRULE_CreditCard = "03";
+
+	/** Debit Card = 04 */
+	public static final String LBR_PAYMENTRULE_DebitCard = "04";
+
+	/** Store Credit = 05 */
+	public static final String LBR_PAYMENTRULE_StoreCredit = "05";
+
+	/** Food Voucher = 10 */
+	public static final String LBR_PAYMENTRULE_FoodVoucher = "10";
+
+	/** Meal Voucher = 11 */
+	public static final String LBR_PAYMENTRULE_MealVoucher = "11";
+
+	/** Gift Card = 12 */
+	public static final String LBR_PAYMENTRULE_GiftCard = "12";
+
+	/** Fuel Voucher = 13 */
+	public static final String LBR_PAYMENTRULE_FuelVoucher = "13";
+
+	/** Trade Bill (old) = 14 */
+	public static final String LBR_PAYMENTRULE_TradeBillOld = "14";
+
+	/** Bank Slip = 15 */
+	public static final String LBR_PAYMENTRULE_BankSlip = "15";
+
+	/** No Payment Required = 90 */
+	public static final String LBR_PAYMENTRULE_NoPaymentRequired = "90";
+
+	/** Other = 99 */
+	public static final String LBR_PAYMENTRULE_Other = "99";
+
+	/** Bank Deposit = 16 */
+	public static final String LBR_PAYMENTRULE_BankDeposit = "16";
+
+	/** Instant Payment (PIX) = 17 */
+	public static final String LBR_PAYMENTRULE_InstantPaymentPIX = "17";
+
+	/** Bank Transfer, Digital Wallet = 18 */
+	public static final String LBR_PAYMENTRULE_BankTransferDigitalWallet = "18";
+
+	/** Loyalty Program, Cashback, Virtual Credit = 19 */
+	public static final String LBR_PAYMENTRULE_LoyaltyProgramCashbackVirtualCredit = "19";
 
 
 	/** Set Payment Rule.
@@ -486,6 +667,9 @@ public interface I_W_C_BPartner extends I_C_BPartner
     /** Column name lbr_TransactionType */
     public static final String COLUMNNAME_lbr_TransactionType = "lbr_TransactionType";
 
+	/** lbr_TransactionType AD_Reference_ID=1000024 */
+	public static final int LBR_TRANSACTIONTYPE_AD_Reference_ID=1000024;
+
 	/** End User = END */
 	public static final String LBR_TRANSACTIONTYPE_EndUser = "END";
 
@@ -504,6 +688,15 @@ public interface I_W_C_BPartner extends I_C_BPartner
 	/** End User (Double Base) = EN2 */
 	public static final String LBR_TRANSACTIONTYPE_EndUserDoubleBase = "EN2";
 
+	/** End User (RE 574.706) = EN3 */
+	public static final String LBR_TRANSACTIONTYPE_EndUserRE574706 = "EN3";
+
+	/** Resale (RE 574.706) = RE3 */
+	public static final String LBR_TRANSACTIONTYPE_ResaleRE574706 = "RE3";
+
+	/** End User (DIFAL out) = EN4 */
+	public static final String LBR_TRANSACTIONTYPE_EndUserDIFALOut = "EN4";
+
 
 	/** Set Transaction Type.
 	  * Defines the Transaction Type
@@ -517,6 +710,9 @@ public interface I_W_C_BPartner extends I_C_BPartner
 
     /** Column name lbr_TransactionTypeVendor */
     public static final String COLUMNNAME_lbr_TransactionTypeVendor = "lbr_TransactionTypeVendor";
+
+	/** lbr_TransactionTypeVendor AD_Reference_ID=1000024 */
+	public static final int LBR_TRANSACTIONTYPEVENDOR_AD_Reference_ID=1000024;
 
 	/** End User = END */
 	public static final String LBR_TRANSACTIONTYPEVENDOR_EndUser = "END";
@@ -536,6 +732,15 @@ public interface I_W_C_BPartner extends I_C_BPartner
 	/** End User (Double Base) = EN2 */
 	public static final String LBR_TRANSACTIONTYPEVENDOR_EndUserDoubleBase = "EN2";
 
+	/** End User (RE 574.706) = EN3 */
+	public static final String LBR_TRANSACTIONTYPEVENDOR_EndUserRE574706 = "EN3";
+
+	/** Resale (RE 574.706) = RE3 */
+	public static final String LBR_TRANSACTIONTYPEVENDOR_ResaleRE574706 = "RE3";
+
+	/** End User (DIFAL out) = EN4 */
+	public static final String LBR_TRANSACTIONTYPEVENDOR_EndUserDIFALOut = "EN4";
+
 
 	/** Set Transaction Type Vendor.
 	  * Defines the Transaction Type of a Vendor on Business Partner
@@ -546,31 +751,4 @@ public interface I_W_C_BPartner extends I_C_BPartner
 	  * Defines the Transaction Type of a Vendor on Business Partner
 	  */
 	public String getlbr_TransactionTypeVendor();
-
-
-    /** Column name lbr_CNAE */
-    public static final String COLUMNNAME_lbr_CNAE = "lbr_CNAE";
-    
-	/** Set CNAE.
-	  * Defines CNAE
-	  */
-	public void setlbr_CNAE (String lbr_CNAE);
-
-	/** Get CNAE.
-	  * Defines CNAE
-	  */
-	public String getlbr_CNAE();
-
-    /** Column name LBR_FreightCostRule */
-    public static final String COLUMNNAME_LBR_FreightCostRule = "LBR_FreightCostRule";
-
-	/** Set Freight Cost Rule.
-	  * Method for charging Freight
-	  */
-	public void setLBR_FreightCostRule (String LBR_FreightCostRule);
-
-	/** Get Freight Cost Rule.
-	  * Method for charging Freight
-	  */
-	public String getLBR_FreightCostRule();
 }
