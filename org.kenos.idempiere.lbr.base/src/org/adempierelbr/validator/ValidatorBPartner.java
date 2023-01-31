@@ -216,9 +216,17 @@ public class ValidatorBPartner implements ModelValidator
 
 		I_W_C_BPartner bp = POWrapper.create(bp_po, I_W_C_BPartner.class);
 		
-		//	Validação do E-mail
+		//	Validação do E-mail NFe
 		if (bp_po.is_ValueChanged(I_W_C_BPartner.COLUMNNAME_LBR_EMailNFe) && !isEmailNFeValid (bp))
 			return "E-mail de envio de NFe inválido";
+		
+		//	Validação do E-mail NFSe
+		if (bp_po.is_ValueChanged(I_W_C_BPartner.COLUMNNAME_LBR_EMailNFSe) && !isEmailNFSeValid (bp))
+			return "E-mail de envio de NFSe inválido";
+		
+		//	Validação do E-mail Billing
+		if (bp_po.is_ValueChanged(I_W_C_BPartner.COLUMNNAME_LBR_EMailBilling) && !isEmailBillingValid (bp))
+			return "E-mail de envio de cobrança inválido";
 		
 		if (bp_po.is_ValueChanged(I_W_C_BPartner.COLUMNNAME_lbr_BPTypeBR))
 			bp.setlbr_BPTypeBRIsValid(false);
@@ -352,11 +360,45 @@ public class ValidatorBPartner implements ModelValidator
 		//	Avoid validation
 		if (bp == null 
 				|| bp.getLBR_EMailNFe() == null
-				|| bp.getLBR_EMailNFe().trim().isEmpty())
+				|| bp.getLBR_EMailNFe().isBlank())
 			return true;
 		//
 		bp.setLBR_EMailNFe (bp.getLBR_EMailNFe().trim().replace(" ", ""));
 		return bp.getLBR_EMailNFe().matches (REGEX_EMAIL);
+	}	//	isEmailNFeValid
+
+	/**
+	 * 	Validação de E-mail do contato da NFe
+	 * 	@param bp
+	 * 	@return
+	 */
+	private boolean isEmailNFSeValid (I_W_C_BPartner bp)
+	{
+		//	Avoid validation
+		if (bp == null 
+				|| bp.getLBR_EMailNFSe() == null
+				|| bp.getLBR_EMailNFSe().isBlank())
+			return true;
+		//
+		bp.setLBR_EMailNFSe (bp.getLBR_EMailNFSe().trim().replace(" ", ""));
+		return bp.getLBR_EMailNFSe().matches (REGEX_EMAIL);
+	}	//	isEmailValid
+
+	/**
+	 * 	Validação de E-mail do contato da NFe
+	 * 	@param bp
+	 * 	@return
+	 */
+	private boolean isEmailBillingValid (I_W_C_BPartner bp)
+	{
+		//	Avoid validation
+		if (bp == null 
+				|| bp.getLBR_EMailBilling() == null
+				|| bp.getLBR_EMailBilling().isBlank())
+			return true;
+		//
+		bp.setLBR_EMailBilling (bp.getLBR_EMailBilling().trim().replace(" ", ""));
+		return bp.getLBR_EMailBilling().matches (REGEX_EMAIL);
 	}	//	isEmailValid
 
 	/**

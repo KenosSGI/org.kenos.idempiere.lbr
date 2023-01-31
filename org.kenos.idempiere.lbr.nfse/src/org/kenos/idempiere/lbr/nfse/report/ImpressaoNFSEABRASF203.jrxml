@@ -364,7 +364,7 @@ $F{Competencia}.substring(0,4)]]></textFieldExpression>
 $F{DataEmissaoRps}.substring(0,4)]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="8" y="501" width="141" height="15" uuid="18c1777a-16f6-41d4-a43b-b2bf390e0b70"/>
+				<reportElement x="8" y="506" width="141" height="15" uuid="18c1777a-16f6-41d4-a43b-b2bf390e0b70"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Arial" size="9" isBold="true"/>
 				</textElement>
@@ -585,7 +585,7 @@ $F{DataEmissao}.substring(0,4)+" "+$F{DataEmissao}.substring(11,19)]]></textFiel
 				<textFieldExpression><![CDATA[$F{Telefone}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="152" y="501" width="396" height="15" uuid="339521be-5db0-49f2-981a-4575f440b0bc"/>
+				<reportElement x="152" y="506" width="396" height="15" uuid="339521be-5db0-49f2-981a-4575f440b0bc"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="9"/>
 				</textElement>
@@ -608,14 +608,14 @@ $F{DataEmissao}.substring(0,4)+" "+$F{DataEmissao}.substring(11,19)]]></textFiel
 				<text><![CDATA[Regime Especial Tributação:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="8" y="315" width="182" height="17" uuid="642f9ec1-8a91-47ac-a0c5-b75e98bbe9ad"/>
+				<reportElement x="8" y="309" width="182" height="16" uuid="642f9ec1-8a91-47ac-a0c5-b75e98bbe9ad"/>
 				<textElement>
 					<font fontName="Arial" size="11" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Discriminação do(s) Serviço(s)]]></text>
 			</staticText>
 			<textField>
-				<reportElement stretchType="RelativeToTallestObject" x="8" y="332" width="541" height="118" isPrintInFirstWholeBand="true" uuid="514a5022-943b-4075-8d1f-cdcec50978d4"/>
+				<reportElement stretchType="RelativeToTallestObject" x="8" y="325" width="541" height="136" isPrintInFirstWholeBand="true" uuid="514a5022-943b-4075-8d1f-cdcec50978d4"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<pen lineWidth="0.75" lineStyle="Dotted"/>
 					<topPen lineWidth="0.75" lineStyle="Dotted"/>
@@ -832,7 +832,7 @@ $F{DataEmissao}.substring(0,4)+" "+$F{DataEmissao}.substring(11,19)]]></textFiel
 				</reportElement>
 			</rectangle>
 			<rectangle radius="2">
-				<reportElement key="rectangle-4" mode="Transparent" x="7" y="313" width="547" height="1" uuid="ea7556b7-ffe8-4b72-b9b1-4cc6d884196e">
+				<reportElement key="rectangle-4" mode="Transparent" x="5" y="309" width="547" height="1" uuid="ea7556b7-ffe8-4b72-b9b1-4cc6d884196e">
 					<printWhenExpression><![CDATA[true]]></printWhenExpression>
 				</reportElement>
 			</rectangle>
@@ -892,7 +892,7 @@ $F{DataEmissao}.substring(0,4)+" "+$F{DataEmissao}.substring(11,19)]]></textFiel
 				<textFieldExpression><![CDATA[$F{InscricaoMunicipal3}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="202" y="516" width="74" height="15" uuid="793b6d7e-d644-4fac-94b7-e640cf17216b">
+				<reportElement x="202" y="521" width="74" height="15" uuid="793b6d7e-d644-4fac-94b7-e640cf17216b">
 					<printWhenExpression><![CDATA[$F{CodigoObra}!=null]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
@@ -901,14 +901,14 @@ $F{DataEmissao}.substring(0,4)+" "+$F{DataEmissao}.substring(11,19)]]></textFiel
 				<text><![CDATA[No.Obra:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="282" y="516" width="81" height="15" uuid="b6425b5c-ef65-4bd4-87ea-714c6e7e293a"/>
+				<reportElement x="282" y="521" width="81" height="15" uuid="b6425b5c-ef65-4bd4-87ea-714c6e7e293a"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{CodigoObra}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="380" y="516" width="24" height="15" uuid="38ee75c8-9cd7-4484-8f78-b6b73f5eba5c">
+				<reportElement x="380" y="521" width="24" height="15" uuid="38ee75c8-9cd7-4484-8f78-b6b73f5eba5c">
 					<printWhenExpression><![CDATA[$F{Art}!=null]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
@@ -917,7 +917,7 @@ $F{DataEmissao}.substring(0,4)+" "+$F{DataEmissao}.substring(11,19)]]></textFiel
 				<text><![CDATA[Art:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="409" y="516" width="139" height="15" uuid="1c372b24-14b3-4477-91a3-ee2fe14ea5e5"/>
+				<reportElement x="409" y="521" width="139" height="15" uuid="1c372b24-14b3-4477-91a3-ee2fe14ea5e5"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="9"/>
 				</textElement>
@@ -938,42 +938,42 @@ $F{DataEmissao}.substring(0,4)+" "+$F{DataEmissao}.substring(11,19)]]></textFiel
 				<textFieldExpression><![CDATA[$F{CodigoMunicipio4}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement positionType="Float" x="8" y="471" width="141" height="15" uuid="82cbd626-5187-45a8-9e65-21ceceab339c"/>
+				<reportElement positionType="Float" x="8" y="476" width="141" height="15" uuid="82cbd626-5187-45a8-9e65-21ceceab339c"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Arial" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Subitem Lista de Serviço:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="Float" x="152" y="471" width="47" height="15" uuid="c9dcdb91-1ea3-4918-b815-3bb8fdc55561"/>
+				<reportElement positionType="Float" x="152" y="476" width="47" height="15" uuid="c9dcdb91-1ea3-4918-b815-3bb8fdc55561"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{ItemListaServico}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="8" y="486" width="141" height="15" uuid="45bcfbdd-fe02-44f5-811d-b2463d44d2ed"/>
+				<reportElement x="8" y="491" width="141" height="15" uuid="45bcfbdd-fe02-44f5-811d-b2463d44d2ed"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Arial" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Município do Serviço:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="152" y="486" width="47" height="15" uuid="67ef59ff-4313-43d2-9183-62d8e0b70111"/>
+				<reportElement x="152" y="491" width="47" height="15" uuid="67ef59ff-4313-43d2-9183-62d8e0b70111"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{CodigoMunicipio}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement positionType="Float" x="8" y="456" width="141" height="15" uuid="b850b20c-bd72-4014-b90d-3123fd817789"/>
+				<reportElement positionType="Float" x="8" y="461" width="141" height="15" uuid="b850b20c-bd72-4014-b90d-3123fd817789"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Arial" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Codigo Tributação Município:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="Float" x="152" y="456" width="47" height="15" uuid="6b160102-b620-4227-9a6b-0f4ac560b417"/>
+				<reportElement positionType="Float" x="152" y="461" width="47" height="15" uuid="6b160102-b620-4227-9a6b-0f4ac560b417"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="9"/>
 				</textElement>
@@ -1134,14 +1134,14 @@ $F{DataEmissao}.substring(0,4)+" "+$F{DataEmissao}.substring(11,19)]]></textFiel
 				<textFieldExpression><![CDATA[new Double($F{ValorCsll})]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="8" y="516" width="141" height="15" uuid="b24f400b-c995-4965-b9d5-f729f5a1705d"/>
+				<reportElement x="8" y="521" width="141" height="15" uuid="b24f400b-c995-4965-b9d5-f729f5a1705d"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Arial" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[ISS Retido:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="152" y="516" width="47" height="15" uuid="0393464d-fdd1-4a87-9c91-f30106a7c2d4"/>
+				<reportElement x="152" y="521" width="47" height="15" uuid="0393464d-fdd1-4a87-9c91-f30106a7c2d4"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="9"/>
 				</textElement>
@@ -1373,14 +1373,14 @@ $F{DataEmissao}.substring(0,4)+" "+$F{DataEmissao}.substring(11,19)]]></textFiel
 				<textFieldExpression><![CDATA[new BigDecimal($F{DescontoCondicionado}!=null?$F{DescontoCondicionado}:0.00).add(new BigDecimal($F{ValorDeducoes}!=null?$F{ValorDeducoes}:0.00))]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement stretchType="RelativeToTallestObject" x="202" y="471" width="346" height="15" isPrintInFirstWholeBand="true" uuid="d75a4d22-a849-4647-b488-de3b2f4756ea"/>
+				<reportElement stretchType="RelativeToTallestObject" x="202" y="476" width="346" height="15" isPrintInFirstWholeBand="true" uuid="d75a4d22-a849-4647-b488-de3b2f4756ea"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[($P{itemlistaservico} == null ? "" : $P{itemlistaservico})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="202" y="486" width="346" height="15" uuid="445ab708-e088-4074-8487-094955014950"/>
+				<reportElement x="202" y="491" width="346" height="15" uuid="445ab708-e088-4074-8487-094955014950"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="9"/>
 				</textElement>
@@ -1401,7 +1401,7 @@ $F{DataEmissao}.substring(0,4)+" "+$F{DataEmissao}.substring(11,19)]]></textFiel
 				<textFieldExpression><![CDATA[$P{municipiotomador}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement positionType="Float" stretchType="RelativeToTallestObject" isPrintRepeatedValues="false" x="202" y="456" width="346" height="15" isPrintInFirstWholeBand="true" uuid="9da2f9ba-3c88-4529-a517-6f7b74c699b9"/>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" isPrintRepeatedValues="false" x="202" y="461" width="346" height="15" isPrintInFirstWholeBand="true" uuid="9da2f9ba-3c88-4529-a517-6f7b74c699b9"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="9"/>
 				</textElement>
