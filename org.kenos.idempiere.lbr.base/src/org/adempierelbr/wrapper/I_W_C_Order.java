@@ -26,7 +26,18 @@ import org.compiere.model.*;
  */
 public interface I_W_C_Order extends I_C_Order 
 {
+    /** Column name C_BankAccount_ID */
+    public static final String COLUMNNAME_C_BankAccount_ID = "C_BankAccount_ID";
 
+	/** Set Bank Account.
+	  * Account at the Bank
+	  */
+	public void setC_BankAccount_ID (int C_BankAccount_ID);
+
+	/** Get Bank Account.
+	  * Account at the Bank
+	  */
+	public int getC_BankAccount_ID();
 
     /** Column name FOB */
     public static final String COLUMNNAME_FOB = "FOB";

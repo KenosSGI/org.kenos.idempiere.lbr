@@ -26,7 +26,20 @@ import org.compiere.model.*;
  */
 public interface I_W_C_Invoice extends I_C_Invoice 
 {
+	/** Column name C_BankAccount_ID */
+    public static final String COLUMNNAME_C_BankAccount_ID = "C_BankAccount_ID";
 
+	/** Set Bank Account.
+	  * Account at the Bank
+	  */
+	public void setC_BankAccount_ID (int C_BankAccount_ID);
+
+	/** Get Bank Account.
+	  * Account at the Bank
+	  */
+	public int getC_BankAccount_ID();
+
+	public org.compiere.model.I_C_BankAccount getC_BankAccount() throws RuntimeException;
 
     /** Column name LBR_BankSlipContract_ID */
     public static final String COLUMNNAME_LBR_BankSlipContract_ID = "LBR_BankSlipContract_ID";
