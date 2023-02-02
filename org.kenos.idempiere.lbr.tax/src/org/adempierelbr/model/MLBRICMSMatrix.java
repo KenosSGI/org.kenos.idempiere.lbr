@@ -74,11 +74,11 @@ public class MLBRICMSMatrix extends X_LBR_ICMSMatrix
 				"AND C_Region_ID=? AND To_Region_ID=? ";
 		//
 		if (validFrom != null)
-			where += "AND (ValidFrom IS NULL OR ValidFrom>=" + DB.TO_DATE(validFrom) + ") ";
+			where += "AND (ValidFrom IS NULL OR ValidFrom<=" + DB.TO_DATE(validFrom) + ") ";
 		//
 		MLBRICMSMatrix icmsMatrix = new Query (Env.getCtx(), Table_Name, where, trxName)
 			.setParameters(new Object[]{AD_Org_ID, Env.getAD_Client_ID(ctx), C_Region_ID, To_Region_ID})
-			.setOrderBy("AD_Org_ID DESC, ValidFrom DESC")
+			.setOrderBy("AD_Org_ID DESC, ValidFrom DESC NULLS LAST")
 			.first();
 		//
 		return icmsMatrix;
