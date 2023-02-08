@@ -926,7 +926,11 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 			//	em caso de erro o try/catch evita que o processamento não seja commitado
 			try
 			{
-				ProcEMailNFe.sendEmailNFeThread (nf, false);
+				MLBRNFConfig nfConfig = MLBRNFConfig.get(nf.getAD_Org_ID());
+				
+				if (nfConfig == null || nfConfig.getSendEMail() == null								//	Compatibility with past 
+						|| nfConfig.getSendEMail().equals(MLBRNFConfig.SENDEMAIL_SendImmediately))
+					ProcEMailNFe.sendEmailNFeThread (nf, false);
 			}
 			catch (Exception e) {}
 		}
