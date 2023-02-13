@@ -24,6 +24,5 @@
 	<classpathentry exported="true" kind="lib" path="lib/nfse-palhoca-v100.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/nfse-dsf-v100.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/nfse-sjp-v300.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/log4j-api.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
