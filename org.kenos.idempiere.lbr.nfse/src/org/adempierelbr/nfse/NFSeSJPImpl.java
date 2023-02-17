@@ -724,7 +724,7 @@ public class NFSeSJPImpl implements INFSe
 			}
 		}
 		
-		Thread.sleep(90*1000);
+		Thread.sleep(30*1000);
 		
 		ConsultarSituacaoLoteRpsEnvioDocument document = ConsultarSituacaoLoteRpsEnvioDocument.Factory.newInstance();
 		ConsultarSituacaoLoteRpsEnvio rpsEnvio = document.addNewConsultarSituacaoLoteRpsEnvio();
@@ -938,7 +938,7 @@ public class NFSeSJPImpl implements INFSe
 						nf.setlbr_NFeProt(String.valueOf(nfse.getCodigoVerificacao()));
 						nf.setDateTrx(new Timestamp(nfse.getDataEmissao().getTimeInMillis()));
 						//nf.setlbr_NFeStatus(MLBRNotaFiscal.LBR_NFESTATUS_100_AutorizadoOUsoDaNF_E);
-						nf.setDocStatus(MLBRNotaFiscal.DOCSTATUS_Completed);
+						//nf.setDocStatus(MLBRNotaFiscal.DOCSTATUS_Completed);
 						nf.save();
 						
 						MAttachment attachNFe = nf.createAttachment();
@@ -959,7 +959,7 @@ public class NFSeSJPImpl implements INFSe
 				nf.setlbr_NFeProt(String.valueOf(nfse.getCodigoVerificacao()));
 				nf.setDateTrx(new Timestamp(nfse.getDataEmissao().getTimeInMillis()));
 				//nf.setlbr_NFeStatus(MLBRNotaFiscal.LBR_NFESTATUS_100_AutorizadoOUsoDaNF_E);
-				nf.setDocStatus(MLBRNotaFiscal.DOCSTATUS_Completed);
+				//nf.setDocStatus(MLBRNotaFiscal.DOCSTATUS_Completed);
 				nf.save();
 				
 				MAttachment attachNFe = nf.createAttachment();
