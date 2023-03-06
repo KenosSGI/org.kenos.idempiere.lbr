@@ -833,10 +833,11 @@ public class NFSeSJPImpl implements INFSe
 			attachNFe.addEntry("NFSE-" + nf.getlbr_NFENo() + FILE_XML_NFSE_AUTORIZADO, xmldata.replaceAll("\\&\\#[0-9A-Za-z]*;|\\n", "").getBytes(NFeUtil.NFE_ENCODING));
 			attachNFe.save();
 			
-			//	Check if email should be sent immediately
-			MLBRNFConfig nfConfig = MLBRNFConfig.get(p_AD_Org_ID);
-			if (nfConfig != null && MLBRNFConfig.SENDEMAIL_SendImmediately.equals(nfConfig.getSendEMail()))
-				ProcEMailNFe.sendEmailNFeThread (nf, false);		}
+			//	Deprecated - Email is already being Handled - Check if email should be sent immediately 
+			//MLBRNFConfig nfConfig = MLBRNFConfig.get(p_AD_Org_ID);
+			//if (nfConfig != null && MLBRNFConfig.SENDEMAIL_SendImmediately.equals(nfConfig.getSendEMail()))
+			//	ProcEMailNFe.sendEmailNFeThread (nf, false);		
+			}
 	}
 	
 	/**
