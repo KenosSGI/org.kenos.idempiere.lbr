@@ -19,6 +19,7 @@ import org.compiere.model.X_M_Production;
 import org.compiere.process.DocAction;
 import org.compiere.process.DocOptions;
 import org.compiere.process.DocumentEngine;
+import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.compiere.util.Trx;
 import org.kenos.idempiere.lbr.base.process.IPOGBOMDrop;
@@ -385,4 +386,20 @@ public class MLBRProductionGroup extends X_LBR_ProductionGroup implements DocAct
 	{
 		return Env.ZERO;
 	}	//	getApprovalAmt
+	
+	@Override
+	protected boolean beforeSave (boolean newRecord) {
+		if (newRecord)
+			return true;
+		
+		if (is_ValueChanged(COLUMNNAME_C_BPartner_ID) || is_ValueChanged(COLUMNNAME_C_BPartner_Location_ID)) {
+			int count = DB.getSQLValue(get_TrxName(), "SELECT COUNT(*) FROM M_Production p WHERE p.DocStatus<>'DR' AND LBR_ProductionGroup_ID=?", getLBR_ProductionGroup_ID());
+			if (count > 0) {
+				log.saveError("Error", "Não é possível alterar o parceiro de um pedido já movimentado.");
+				return false;
+			}
+		}
+		
+		return true;
+	}	//	beforeSave
 }	//	MLBRProductionGroup
