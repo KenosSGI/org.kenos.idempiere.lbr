@@ -5188,6 +5188,14 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		if (ids.length == 0)
 			return;
 		
+		/**
+		 * Check if the first NF is the next NF of desired sequence.
+		 * If it's not, then skip this process.
+		 */
+		MLBRNotaFiscal nextNF = new MLBRNotaFiscal (ctx, ids[0], null);
+		if (Integer.parseInt (nextNF.getDocumentNo()) != DocumentNo+1)
+			return;
+		
 		for (int LBR_NotaFiscal_ID : ids) {
 			MLBRNotaFiscal currentNF = new MLBRNotaFiscal (ctx, LBR_NotaFiscal_ID, trxName);
 			String newDocNo = new BigDecimal(currentNF.getDocumentNo()).subtract(BigDecimal.ONE).toString();
