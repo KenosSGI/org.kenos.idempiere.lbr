@@ -871,8 +871,8 @@ public class WPOGManage extends ADForm implements IFormController, WTableModelLi
 		sql.append("INNER JOIN M_Product pr ON (pr.M_Product_ID=pl.M_Product_ID) ");
 		sql.append("INNER JOIN M_Production p ON (p.M_Production_ID = pl.M_Production_ID) ");
 		sql.append("LEFT JOIN (SELECT sum (MovementQty) AS MovementQty, M_Product_ID, LBR_ProductionGroup_ID, DocStatus, M_Locator_ID, M_LocatorTo_ID FROM M_MovementLine ml ");
-		sql.append("INNER JOIN M_Movement m ON m.M_Movement_ID = ml.M_Movement_ID GROUP BY M_Product_ID, LBR_ProductionGroup_ID, DocStatus, M_Locator_ID, M_LocatorTo_ID) mov ");
-		sql.append("ON mov.M_Product_ID = pr.M_Product_ID AND mov.LBR_ProductionGroup_ID = ? AND mov.DocStatus IN ('CO', 'CL') ");
+		sql.append("INNER JOIN M_Movement m ON (m.M_Movement_ID = ml.M_Movement_ID) GROUP BY M_Product_ID, LBR_ProductionGroup_ID, DocStatus, M_Locator_ID, M_LocatorTo_ID) mov ");
+		sql.append("ON (mov.M_Product_ID = pr.M_Product_ID AND mov.LBR_ProductionGroup_ID = ? AND mov.DocStatus IN ('CO', 'CL')) ");
 		sql.append("WHERE pl.IsEndProduct='N' AND pr.ProductType='I' AND pl.M_Production_ID IN (");//.append(" AND LBR_Ref_Production_ID IS NULL ");
 		sql.append(String.join (",", Collections.nCopies (selected.size(), "?")));
 		sql.append(") AND pl.IsActive='Y' ");
