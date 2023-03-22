@@ -209,7 +209,7 @@ public class MLBRPartnerDFe extends X_LBR_PartnerDFe
 
 		//	Include NSU in Control List
 		if (newRecord || is_ValueChanged(COLUMNNAME_LBR_NSU))
-			DB.executeUpdate("INSERT INTO LBR_NSUControl (LBR_PartnerDFe_ID, LBR_NSU) VALUES (?, ?)", 
+			DB.executeUpdate("INSERT INTO LBR_NSUControl (LBR_PartnerDFe_ID, LBR_NSU) VALUES (?, ?) ON CONFLICT ON CONSTRAINT LBR_NSUControl_UNQ DO NOTHING", 
 					new Object[] {getLBR_PartnerDFe_ID(), getLBR_NSU()}, false, get_TrxName());
 		
 		return true;
