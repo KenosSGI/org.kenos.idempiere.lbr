@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.nio.file.Files;
 import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -36,11 +37,13 @@ import org.compiere.model.MAttachmentEntry;
 import org.compiere.model.MBPartner;
 import org.compiere.model.MImage;
 import org.compiere.model.MOrgInfo;
+import org.compiere.model.MSysConfig;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
 import org.compiere.util.Util;
 import org.kenos.idempiere.lbr.base.model.MCity;
 import org.kenos.idempiere.lbr.base.model.MRegion;
+import org.kenos.idempiere.lbr.base.model.SysConfig;
 
 import br.org.abrasf.nfse.v204.CabecalhoDocument.Cabecalho;
 import br.org.abrasf.nfse.v204.CancelarNfseEnvioDocument;
@@ -1662,11 +1665,30 @@ public class NFSeAbrasf204Impl implements INFSe
 				map.put("logotipo", is);
 			}
 			
+			if (MSysConfig.getValue(SysConfig.LBR_NFSE_ABRASF201_JASPER_CITY_LOGO, null, nf.getAD_Client_ID(), nf.getAD_Org_ID()) != null) {
+				File logoprefeitura = new File(MSysConfig.getValue(SysConfig.LBR_NFSE_ABRASF201_JASPER_CITY_LOGO, "", nf.getAD_Client_ID(), nf.getAD_Org_ID()));
+				byte[] logoprefeituraimg = Files.readAllBytes(logoprefeitura.toPath());
+				map.put("logotipoprefeitura", new ByteArrayInputStream(logoprefeituraimg));
+			}			
+			
+			if(nf.getOrg_Location().getC_City_ID() == BRASILIA_ID) {
+				map.put("prefeitura", "Governo do Distrito Federal");
+				map.put("secretaria", "Secretaria de Estado de Fazenda do Distrito Federal");
+			}
+			
 			if (nf.getlbr_OrgCity() != null && !nf.getlbr_OrgCity().isEmpty())
 			{
-				map.put("municipioprestador", nf.getlbr_OrgCity());
+				map.put("cidadeprestador", nf.getlbr_OrgCity());
 				map.put("orgaogerador", nf.getlbr_OrgCity());
 			}
+			
+			MLBRNotaFiscalLine nfl = nf.getLines()[0];
+			Integer c_city_id = nfl.getC_City_ID();
+			MCity city = new MCity (Env.getCtx(), nf.getOrg_Location().getC_City_ID(), null);
+			if (c_city_id > 0) {
+				city = new MCity( Env.getCtx(), c_city_id, null);
+			}
+			map.put("cidadeincidencia", city.getName());
 			
 			if (nf.getlbr_BPCity() != null && !nf.getlbr_BPCity().isEmpty())
 			{
@@ -1677,7 +1699,7 @@ public class NFSeAbrasf204Impl implements INFSe
 
 			//	Get Jasper
 			ClassLoader cl = getClass().getClassLoader();
-			InputStream report = cl.getResourceAsStream("org/kenos/idempiere/lbr/nfse/report/ImpressaoNFSEABRASF203.jasper");
+			InputStream report = cl.getResourceAsStream("org/kenos/idempiere/lbr/nfse/report/ImpressaoNFSEBrasilia.jasper");
 			
 			log.fine("after find report");
 			
