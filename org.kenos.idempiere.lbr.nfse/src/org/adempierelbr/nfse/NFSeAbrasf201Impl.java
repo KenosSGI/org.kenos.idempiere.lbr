@@ -18,6 +18,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
 
@@ -98,6 +99,7 @@ import br.org.abrasf201.nfse.TcLoteRps;
 import br.org.abrasf201.nfse.TcLoteRps.ListaRps;
 import br.org.abrasf201.nfse.TcPedidoCancelamento;
 import br.org.abrasf201.nfse.TcValoresDeclaracaoServico;
+import net.sf.jasperreports.engine.JRParameter;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -966,7 +968,7 @@ public class NFSeAbrasf201Impl implements INFSe
 			prestador.setInscricaoMunicipal(TextUtil.toNumeric(getInscricaoMunicipal(nf)));
 		
 		IssWebWSStub nfseStub = new IssWebWSStub(getURL(nf));
-		nfseStub._getServiceClient().getOptions().setProperty(HTTPConstants.CHUNKED, false);	
+		nfseStub._getServiceClient().getOptions().setProperty(HTTPConstants.CHUNKED, false);
 		
 		MLBRDigitalCertificate.setCertificate (Env.getCtx(), nf.getAD_Org_ID());
 		
@@ -2192,6 +2194,8 @@ public class NFSeAbrasf201Impl implements INFSe
 			
 			log.fine("after find report");
 			
+			Locale locale = new Locale( "pt", "BR" );
+			map.put( JRParameter.REPORT_LOCALE, locale );
 			JasperReport jasperReport = (JasperReport) JRLoader.loadObject (report);
 			JRXmlDataSource dataSource = new JRXmlDataSource ( xml , jasperReport.getQuery().getText() );
 			
