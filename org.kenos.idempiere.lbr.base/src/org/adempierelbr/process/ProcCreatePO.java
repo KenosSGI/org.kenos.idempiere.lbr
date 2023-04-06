@@ -15,6 +15,7 @@ package org.adempierelbr.process;
 import java.util.Properties;
 import java.util.logging.Level;
 
+import org.adempierelbr.wrapper.I_W_C_OrderLine;
 import org.compiere.model.MOrder;
 import org.compiere.model.MOrderLine;
 import org.compiere.model.MProduct;
@@ -91,6 +92,7 @@ public class ProcCreatePO extends SvrProcess
 			oLine.setPrice(line.getPriceActual());
 			oLine.setDescription(line.getDescription());
 			oLine.setC_UOM_ID(line.getC_UOM_ID());
+			oLine.set_ValueNoCheck(I_W_C_OrderLine.COLUMNNAME_lbr_RecalculateTax, true);
 			oLine.saveEx();
 			//
 			line.setC_OrderLine_ID(oLine.getC_OrderLine_ID());
