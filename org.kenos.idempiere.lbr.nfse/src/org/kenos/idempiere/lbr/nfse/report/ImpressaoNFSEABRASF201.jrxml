@@ -1003,12 +1003,12 @@ $F{datahoraemissao}.substring(0,4)+" às " + $F{datahoraemissao}.substring(12,16
 					<pen lineWidth="0.5"/>
 				</graphicElement>
 			</rectangle>
-			<textField pattern="#,##.##%" isBlankWhenNull="false">
+			<textField pattern="#,##0.00%" isBlankWhenNull="false">
 				<reportElement key="textField-19" x="251" y="28" width="50" height="17" uuid="4205481f-8772-41e1-8dfb-dea8db206a51"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="8" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[new BigDecimal($F{aliquota})]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new BigDecimal($F{aliquota}).divide( new BigDecimal(100))]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement key="staticText-72" x="2" y="2" width="247" height="15" uuid="806a958c-3234-4a76-ad8a-dd16a59c0c9d"/>
