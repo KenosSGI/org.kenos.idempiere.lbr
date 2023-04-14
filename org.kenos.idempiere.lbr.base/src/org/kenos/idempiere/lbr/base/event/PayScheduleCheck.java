@@ -1,15 +1,20 @@
 package org.kenos.idempiere.lbr.base.event;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.text.DecimalFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Locale;
 
 import org.adempiere.base.event.AbstractEventHandler;
 import org.adempiere.base.event.IEventTopics;
 import org.adempierelbr.model.MPaymentTerm;
+import org.adempierelbr.wrapper.I_W_C_PaymentTerm;
 import org.compiere.model.I_C_NonBusinessDay;
 import org.compiere.model.MCalendar;
 import org.compiere.model.MInvoicePaySchedule;
+import org.compiere.model.MOrder;
 import org.compiere.model.PO;
 import org.compiere.util.DB;
 import org.compiere.util.TimeUtil;
@@ -36,12 +41,42 @@ public class PayScheduleCheck extends AbstractEventHandler
 		if (topic.startsWith (IEventTopics.MODEL_EVENT_PREFIX))
 		{
 			PO po = getPO (event);
-			
+	
+			//	Do nothing
+			if (po == null)
+				return;
 			//	Handle In/Out Line Events
-			if (MInvoicePaySchedule.Table_Name.equals(po.get_TableName()))
-				check ((MInvoicePaySchedule) po, event, topic);
+			if (MInvoicePaySchedule.Table_Name.equals(po.get_TableName())) {
+				MInvoicePaySchedule paySchedule = (MInvoicePaySchedule) po;
+				//
+				fillParcelNo (paySchedule, event, topic);
+				checkBusinessDay (paySchedule, event, topic);
+			}
+		}
+		else if (topic.startsWith(IEventTopics.DOC_EVENT_PREFIX))
+		{
+			PO po = getPO (event);
+	
+			//	Do nothing
+			if (po == null)
+				;
+			else if (MOrder.Table_Name.equals(po.get_TableName()))
+				checkMinAmt ((MOrder) po, topic, event);
 		}
 	}	//	doHandleEvent
+	
+	/**
+	 * 	Handle In/Out Line Events
+	 * 	@param iol In/Out Line
+	 * 	@param event Event
+	 * 	@param topic Topic of Event
+	 */
+	private void fillParcelNo (MInvoicePaySchedule ips, Event event, String topic)
+	{
+		String sql = "SELECT COALESCE(MAX(LBR_PayScheduleNo),0)+1 FROM C_InvoicePaySchedule WHERE C_Invoice_ID=?";
+		int ii = DB.getSQLValue (ips.get_TrxName(), sql, ips.getC_Invoice_ID());
+		ips.set_ValueNoCheck ("LBR_PayScheduleNo", ii);
+	}	//	fillParcelNo
 	
 	/**
 	 * 	Handle IPS Events
@@ -49,7 +84,7 @@ public class PayScheduleCheck extends AbstractEventHandler
 	 * 	@param event Event
 	 * 	@param topic Topic of Event
 	 */
-	private void check (MInvoicePaySchedule ips, Event event, String topic)
+	private void checkBusinessDay (MInvoicePaySchedule ips, Event event, String topic)
 	{
 		if (ips.getC_PaySchedule_ID() <= 0)
 			return;
@@ -83,7 +118,24 @@ public class PayScheduleCheck extends AbstractEventHandler
 		while (paymentTerm.isNextBusinessDay() 
 				&& !isBusinessDay(ips.getDueDate(), AD_Org_ID, C_Country_ID, C_Calendar_ID))
 			ips.setDueDate(TimeUtil.getNextDay(ips.getDueDate()));
-	}	//	check
+	}	//	checkBusinessDay
+	
+	/**
+	 * 	Handle Payment Events
+	 * 	@param event
+	 */
+	private void checkMinAmt (MOrder o, String topic, Event event)
+	{
+		MPaymentTerm paymentTerm = new MPaymentTerm (o.getCtx(), o.getC_PaymentTerm_ID(), null);
+		BigDecimal minAmt = (BigDecimal) paymentTerm.get_Value(I_W_C_PaymentTerm.COLUMNNAME_MinAmt);
+		//
+		if (minAmt != null && minAmt.compareTo(o.getGrandTotal()) == 1) {
+			DecimalFormat df = (DecimalFormat) DecimalFormat.getInstance(new Locale("pt", "BR"));
+			df.applyPattern("R$ #,###.00");
+			//
+			addErrorMessage(event, "Erro: O faturamento mínimo para esta condição de pagamento é de " + df.format(minAmt));
+		}
+	}	//	checkMinAmt
 	
 	/**
 	 * 	Check if a day is a business day
@@ -122,5 +174,7 @@ public class PayScheduleCheck extends AbstractEventHandler
 	protected void initialize()
 	{
 		registerTableEvent (IEventTopics.PO_BEFORE_NEW, MInvoicePaySchedule.Table_Name);
+		//
+		registerTableEvent (IEventTopics.DOC_BEFORE_PREPARE, MOrder.Table_Name);
 	}	//	initialize
 }	//	PayScheduleCheck

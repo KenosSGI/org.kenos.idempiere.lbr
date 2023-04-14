@@ -1,6 +1,7 @@
 /******************************************************************************
- * Product: iDempiere ERP & CRM Smart Business Solution                       *
- * Copyright (C) 1999-2012 ComPiere, Inc. All Rights Reserved.                *
+ * Product: Kenos iDempiere ERP & CRM Smart Business Solution                 *
+ * Copyright (C) 1999-2022 Kenos, Ltda. All Rights Reserved.                  *
+ * Copyright (C) 1999-2022 Ricardo Santana. All Rights Reserved.              *
  * This program is free software, you can redistribute it and/or modify it    *
  * under the terms version 2 of the GNU General Public License as published   *
  * by the Free Software Foundation. This program is distributed in the hope   *
@@ -18,22 +19,40 @@ package org.adempierelbr.wrapper;
 
 import java.math.BigDecimal;
 import org.compiere.model.*;
-import org.compiere.util.KeyNamePair;
 
 /** Generated Interface for C_PaymentTerm
- *  @author iDempiere (generated) 
- *  @version Release 4.1
+ *  @author Ricardo Santana
+ *  @version Release 6.2
  */
-@SuppressWarnings("all")
 public interface I_W_C_PaymentTerm extends I_C_PaymentTerm 
 {
 
-    /** TableName=C_PaymentTerm */
-    public static final String Table_Name = "C_PaymentTerm";
 
-    /** AD_Table_ID=113 */
-    public static final int Table_ID = 113;
+    /** Column name LBR_TaxesFirstParcel */
+    public static final String COLUMNNAME_LBR_TaxesFirstParcel = "LBR_TaxesFirstParcel";
 
+	/** Set Taxes on First Parcel.
+	  * Include taxes on first parcel
+	  */
+	public void setLBR_TaxesFirstParcel (boolean LBR_TaxesFirstParcel);
+
+	/** Get Taxes on First Parcel.
+	  * Include taxes on first parcel
+	  */
+	public boolean isLBR_TaxesFirstParcel();
+
+    /** Column name MinAmt */
+    public static final String COLUMNNAME_MinAmt = "MinAmt";
+
+	/** Set Min Amount.
+	  * Minimum Amount in invoice currency
+	  */
+	public void setMinAmt (BigDecimal MinAmt);
+
+	/** Get Min Amount.
+	  * Minimum Amount in invoice currency
+	  */
+	public BigDecimal getMinAmt();
 
     /** Column name lbr_HasInterest */
     public static final String COLUMNNAME_lbr_HasInterest = "lbr_HasInterest";
