@@ -17,17 +17,21 @@
 package org.adempierelbr.model;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.compiere.model.I_C_InvoicePaySchedule;
+import org.compiere.model.MCurrency;
 import org.compiere.model.MInvoice;
 import org.compiere.model.MInvoicePaySchedule;
+import org.compiere.model.MInvoiceTax;
 import org.compiere.model.MPaySchedule;
 import org.compiere.model.Query;
 import org.compiere.util.DB;
@@ -195,9 +199,26 @@ public class MPaymentTerm extends org.compiere.model.MPaymentTerm
 		//	Create Schedule
 		MInvoicePaySchedule ips = null;
 		BigDecimal remainder = invoice.getGrandTotal();
+		
+		//	Include Taxes in first parcel
+		BigDecimal taxesNotIncluded = BigDecimal.ZERO;
+		org.compiere.model.MPaymentTerm paymentTerm = (org.compiere.model.MPaymentTerm) invoice.getC_PaymentTerm();
+		if (!invoice.isReversal() && paymentTerm.get_ValueAsBoolean("LBR_TaxesFirstParcel") && m_schedule.length > 1) {
+			taxesNotIncluded = Arrays.asList(invoice.getTaxes(true)).stream()
+					.filter(it -> !it.isTaxIncluded() && it.getTaxAmt().signum() == 1)
+					.map(MInvoiceTax::getTaxAmt)
+					.reduce(BigDecimal.ZERO, BigDecimal::add);
+		}
+		int scale = MCurrency.getStdPrecision(getCtx(), invoice.getC_Currency_ID());
+		BigDecimal parcel = taxesNotIncluded.divide((m_schedule.length < 2 ? BigDecimal.ONE : new BigDecimal (m_schedule.length-1)), scale, RoundingMode.HALF_UP);
 		for (int i = 0; i < m_schedule.length; i++)
 		{
 			ips = new MInvoicePaySchedule (invoice, m_schedule[i]);
+			//	First Parcel
+			if (i == 0)	
+				ips.setDueAmt(ips.getDueAmt().add(taxesNotIncluded));
+			else 
+				ips.setDueAmt(ips.getDueAmt().subtract(parcel));
 			ips.saveEx(invoice.get_TrxName());
 			if (log.isLoggable(Level.FINE)) log.fine(ips.toString());
 			remainder = remainder.subtract(ips.getDueAmt());

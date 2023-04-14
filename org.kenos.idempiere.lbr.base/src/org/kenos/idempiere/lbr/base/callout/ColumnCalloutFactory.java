@@ -51,6 +51,8 @@ public class ColumnCalloutFactory implements IColumnCalloutFactory
 				callouts.add (new CreditCheck ());
 			if (TextUtil.match (columnName, I_W_C_Order.COLUMNNAME_LBR_CNPJF))
 				callouts.add (new CNPJCheck ());
+			if (TextUtil.match (columnName, MOrder.COLUMNNAME_C_PaymentTerm_ID) ||  TextUtil.match (columnName, MOrder.COLUMNNAME_DateOrdered))
+				callouts.add (new PaymentTerm ());
 		}
 		else if (MOrderLine.Table_Name.equals(tableName))
 		{
