@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
 
+import org.adempierelbr.wrapper.I_W_M_RMA;
 import org.compiere.model.ModelValidationEngine;
 import org.compiere.model.ModelValidator;
 import org.compiere.process.DocOptions;
@@ -89,4 +90,14 @@ public class MRMA extends org.compiere.model.MRMA implements DocOptions
 		}
 		return index;
 	}	//	customizeValidActions
+
+	public void setLBR_NotaFiscal_ID(int LBR_NotaFiscal_ID)
+	{
+		set_Value(I_W_M_RMA.COLUMNNAME_LBR_NotaFiscal_ID, LBR_NotaFiscal_ID);
+	}	//	setLBR_NotaFiscal_ID
+
+	public int getLBR_NotaFiscal_ID()
+	{
+		return get_ValueAsInt(I_W_M_RMA.COLUMNNAME_LBR_NotaFiscal_ID);
+	}	//	getLBR_NotaFiscal_ID
 }	//	MRMA
