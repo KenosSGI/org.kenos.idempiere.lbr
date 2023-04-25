@@ -650,6 +650,13 @@ public class VLBROrder implements ModelValidator
 		//	Rateia o Frete
 		for (MOrderLine ol : order.getLines())
 		{
+			//	Skip price validation, just add freight
+			ol = new MOrderLine (ol.getCtx(), ol.getC_OrderLine_ID(), ol.get_TrxName()) {
+				private static final long serialVersionUID = 318172464340213574L;
+				@Override
+				protected boolean beforeSave(boolean newRecord) { return true; }
+			};
+			
 			//	Não ratear a linha do frete e para serviços
 			if (ol.getM_Product_ID() == 0 
 					|| ol.getM_Product_ID() == M_ProductFreight_ID
