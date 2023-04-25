@@ -1002,7 +1002,7 @@ $F{DataEmissao_1}.substring(0,4)]]></textFieldExpression>
 				<textElement textAlignment="Justified">
 					<font fontName="DejaVu Sans" size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{Discriminacao}.length() - $F{Discriminacao}.replace("|","").length() == 1 ? $F{Discriminacao}.split("\\|")[1] : $F{Discriminacao}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{Discriminacao}.length() - $F{Discriminacao}.replace("Informações Adicionais:","").length() == "Informações Adicionais:".length() ? $F{Discriminacao}.split("Informações Adicionais:")[0] : $F{Discriminacao}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="125" width="141" height="11" uuid="cf9f6912-8278-4398-9f0d-2e0b53f1758a"/>
@@ -1334,7 +1334,7 @@ $F{DataEmissao_1}.substring(0,4)]]></textFieldExpression>
 				<textElement textAlignment="Justified">
 					<font fontName="DejaVu Sans" size="6"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{Discriminacao}.length() - $F{Discriminacao}.replace("|","").length() == 1 ? $F{Discriminacao}.split("\\|")[0] : ""]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{Discriminacao}.length() - $F{Discriminacao}.replace("Informações Adicionais:","").length() == "Informações Adicionais:".length() ? $F{Discriminacao}.split("Informações Adicionais:")[1] : ""]]></textFieldExpression>
 			</textField>
 		</band>
 	</columnFooter>
