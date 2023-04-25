@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
+<!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.5.1  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Nota_Fiscal_Servicos_Abrasf201" pageWidth="595" pageHeight="842" whenNoDataType="BlankPage" columnWidth="535" leftMargin="30" rightMargin="30" topMargin="20" bottomMargin="20" uuid="977fe381-bcc6-4484-bc93-93533a996372">
 	<property name="ireport.encoding" value="UTF-8"/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
@@ -1002,7 +1002,7 @@ $F{DataEmissao_1}.substring(0,4)]]></textFieldExpression>
 				<textElement textAlignment="Justified">
 					<font fontName="DejaVu Sans" size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{Discriminacao}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{Discriminacao}.length() - $F{Discriminacao}.replace("|","").length() == 1 ? $F{Discriminacao}.split("\\|")[1] : $F{Discriminacao}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="125" width="141" height="11" uuid="cf9f6912-8278-4398-9f0d-2e0b53f1758a"/>
@@ -1172,33 +1172,45 @@ $F{DataEmissao_1}.substring(0,4)]]></textFieldExpression>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{CodigoCnae}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="0" y="160" width="100" height="13" uuid="e5f61588-ce9e-46bc-84b3-a44189d51bad"/>
+			<textField pattern="¤&apos; &apos;#,##0.##;¤-#,##0.##" isBlankWhenNull="true">
+				<reportElement x="0" y="160" width="100" height="13" uuid="e5f61588-ce9e-46bc-84b3-a44189d51bad">
+					<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+				</reportElement>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="8" isBold="true"/>
+					<paragraph rightIndent="2"/>
 				</textElement>
-				<textFieldExpression><![CDATA["R$ "+new BigDecimal($F{ValorServicos})]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new BigDecimal($F{ValorServicos})]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="100" y="160" width="100" height="13" uuid="abce3126-3520-4a53-a465-31ae421175d0"/>
+			<textField pattern="¤&apos; &apos;#,##0.##;¤-#,##0.##" isBlankWhenNull="true">
+				<reportElement x="100" y="160" width="100" height="13" uuid="abce3126-3520-4a53-a465-31ae421175d0">
+					<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+				</reportElement>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="8" isBold="false"/>
+					<paragraph rightIndent="2"/>
 				</textElement>
-				<textFieldExpression><![CDATA["R$ "+new BigDecimal($F{DescontoIncondicionado})]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new BigDecimal($F{DescontoIncondicionado})]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="201" y="160" width="81" height="13" uuid="a548801c-be42-4e9d-83f5-08eefd013c89"/>
+			<textField pattern="¤&apos; &apos;#,##0.##;¤-#,##0.##" isBlankWhenNull="true">
+				<reportElement x="201" y="160" width="81" height="13" uuid="a548801c-be42-4e9d-83f5-08eefd013c89">
+					<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+				</reportElement>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="8" isBold="false"/>
+					<paragraph rightIndent="2"/>
 				</textElement>
-				<textFieldExpression><![CDATA["R$ "+new BigDecimal($F{BaseCalculo})]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new BigDecimal($F{BaseCalculo})]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="282" y="160" width="78" height="13" uuid="7c9af7e0-ba95-411b-8417-da1b1a07af7a"/>
+			<textField pattern="¤&apos; &apos;#,##0.##;¤-#,##0.##" isBlankWhenNull="true">
+				<reportElement x="282" y="160" width="78" height="13" uuid="7c9af7e0-ba95-411b-8417-da1b1a07af7a">
+					<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+				</reportElement>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="8" isBold="false"/>
+					<paragraph rightIndent="2"/>
 				</textElement>
-				<textFieldExpression><![CDATA["R$ "+new BigDecimal($F{ValTotTributos})]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new BigDecimal($F{ValTotTributos})]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="360" y="160" width="59" height="13" uuid="978802ce-119b-4795-bd6a-5d4e1d7449d0"/>
@@ -1207,33 +1219,45 @@ $F{DataEmissao_1}.substring(0,4)]]></textFieldExpression>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{IssRetido} == "1"  ? "Sim" : "Não"]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="419" y="160" width="116" height="13" uuid="fc212def-2a27-4e03-a767-4fc169fa469b"/>
+			<textField pattern="¤&apos; &apos;#,##0.##;¤-#,##0.##" isBlankWhenNull="true">
+				<reportElement x="419" y="160" width="116" height="13" uuid="fc212def-2a27-4e03-a767-4fc169fa469b">
+					<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+				</reportElement>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="8" isBold="false"/>
+					<paragraph rightIndent="2"/>
 				</textElement>
-				<textFieldExpression><![CDATA["R$ "+new BigDecimal($F{DescontoCondicionado})]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new BigDecimal($F{DescontoCondicionado})]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="0" y="184" width="60" height="13" uuid="bdf3ad16-c34a-4998-93b8-8454cf0e5b15"/>
+			<textField pattern="¤&apos; &apos;#,##0.##;¤-#,##0.##" isBlankWhenNull="true">
+				<reportElement x="0" y="184" width="60" height="13" uuid="bdf3ad16-c34a-4998-93b8-8454cf0e5b15">
+					<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+				</reportElement>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="8" isBold="false"/>
+					<paragraph rightIndent="2"/>
 				</textElement>
-				<textFieldExpression><![CDATA["R$ "+new BigDecimal($F{ValorPis})]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new BigDecimal($F{ValorPis})]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="60" y="184" width="63" height="13" uuid="210c35ad-c078-45c3-9576-75cec941442d"/>
+			<textField pattern="¤&apos; &apos;#,##0.##;¤-#,##0.##" isBlankWhenNull="true">
+				<reportElement x="60" y="184" width="63" height="13" uuid="210c35ad-c078-45c3-9576-75cec941442d">
+					<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+				</reportElement>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="8" isBold="false"/>
+					<paragraph rightIndent="2"/>
 				</textElement>
-				<textFieldExpression><![CDATA["R$ "+new BigDecimal($F{ValorCofins})]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new BigDecimal($F{ValorCofins})]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="123" y="184" width="60" height="13" uuid="e1a00a5c-92f6-4a1c-a080-785775796455"/>
+			<textField pattern="¤&apos; &apos;#,##0.##;¤-#,##0.##" isBlankWhenNull="true">
+				<reportElement x="123" y="184" width="60" height="13" uuid="e1a00a5c-92f6-4a1c-a080-785775796455">
+					<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+				</reportElement>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="8" isBold="false"/>
+					<paragraph rightIndent="2"/>
 				</textElement>
-				<textFieldExpression><![CDATA["R$ "+new BigDecimal($F{ValorInss})]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new BigDecimal($F{ValorInss})]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="238" y="173" width="45" height="11" uuid="23226761-4f3c-4209-8787-fbe47961ab20"/>
@@ -1242,12 +1266,15 @@ $F{DataEmissao_1}.substring(0,4)]]></textFieldExpression>
 				</textElement>
 				<text><![CDATA[CSLL]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
-				<reportElement x="238" y="184" width="47" height="13" uuid="16b04cac-94c4-4db1-959a-c9304f2b89e0"/>
+			<textField pattern="¤&apos; &apos;#,##0.##;¤-#,##0.##" isBlankWhenNull="true">
+				<reportElement x="238" y="184" width="47" height="13" uuid="16b04cac-94c4-4db1-959a-c9304f2b89e0">
+					<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+				</reportElement>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="8" isBold="false"/>
+					<paragraph rightIndent="2"/>
 				</textElement>
-				<textFieldExpression><![CDATA["R$ "+new BigDecimal($F{ValorCsll})]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new BigDecimal($F{ValorCsll})]]></textFieldExpression>
 			</textField>
 			<rectangle>
 				<reportElement key="rectangle-1" x="183" y="173" width="55" height="24" uuid="cf63894d-bc15-4471-b49a-80bff06295e0"/>
@@ -1262,33 +1289,52 @@ $F{DataEmissao_1}.substring(0,4)]]></textFieldExpression>
 				</textElement>
 				<text><![CDATA[IRRF]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
-				<reportElement x="183" y="184" width="55" height="13" uuid="1e01acf2-7cd3-4e1d-881a-9cdfaeff7ab9"/>
+			<textField pattern="¤&apos; &apos;#,##0.##;¤-#,##0.##" isBlankWhenNull="true">
+				<reportElement x="183" y="184" width="55" height="13" uuid="1e01acf2-7cd3-4e1d-881a-9cdfaeff7ab9">
+					<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+				</reportElement>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="8" isBold="false"/>
+					<paragraph rightIndent="2"/>
 				</textElement>
-				<textFieldExpression><![CDATA["R$ "+new BigDecimal($F{ValorIr})]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new BigDecimal($F{ValorIr})]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="285" y="184" width="68" height="13" uuid="72e7d6cd-cff9-48ec-8efd-fa62aefcd917"/>
+			<textField pattern="¤&apos; &apos;#,##0.##;¤-#,##0.##" isBlankWhenNull="true">
+				<reportElement x="285" y="184" width="68" height="13" uuid="72e7d6cd-cff9-48ec-8efd-fa62aefcd917">
+					<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+				</reportElement>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="8" isBold="false"/>
+					<paragraph rightIndent="2"/>
 				</textElement>
-				<textFieldExpression><![CDATA["R$ "+new BigDecimal($F{OutrasRetencoes})]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new BigDecimal($F{OutrasRetencoes})]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="353" y="184" width="70" height="13" uuid="c250a9cf-9e5e-4040-892c-ba9f9d161c27"/>
+			<textField pattern="¤&apos; &apos;#,##0.##;¤-#,##0.##" isBlankWhenNull="true">
+				<reportElement x="353" y="184" width="70" height="13" uuid="c250a9cf-9e5e-4040-892c-ba9f9d161c27">
+					<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+				</reportElement>
 				<textElement textAlignment="Right">
 					<font fontName="DejaVu Sans" size="8" isBold="false"/>
+					<paragraph rightIndent="2"/>
 				</textElement>
-				<textFieldExpression><![CDATA["R$ "+new BigDecimal($F{ValorIss})]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new BigDecimal($F{ValorIss})]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="423" y="184" width="112" height="13" uuid="64189d96-94e5-4a9e-9daf-937954bc3b6e"/>
+			<textField pattern="¤&apos; &apos;#,##0.##;¤-#,##0.##" isBlankWhenNull="true">
+				<reportElement x="423" y="184" width="112" height="13" uuid="64189d96-94e5-4a9e-9daf-937954bc3b6e">
+					<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+				</reportElement>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="8" isBold="true"/>
+					<paragraph rightIndent="2"/>
 				</textElement>
-				<textFieldExpression><![CDATA["R$ "+new BigDecimal($F{ValorLiquidoNfse})]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new BigDecimal($F{ValorLiquidoNfse})]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="3" y="250" width="528" height="24" uuid="158f7949-92f4-4023-82b5-fa9299d213b3"/>
+				<textElement textAlignment="Justified">
+					<font fontName="DejaVu Sans" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Discriminacao}.length() - $F{Discriminacao}.replace("|","").length() == 1 ? $F{Discriminacao}.split("\\|")[0] : ""]]></textFieldExpression>
 			</textField>
 		</band>
 	</columnFooter>
