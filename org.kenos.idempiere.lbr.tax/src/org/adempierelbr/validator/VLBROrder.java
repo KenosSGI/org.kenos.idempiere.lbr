@@ -673,7 +673,7 @@ public class VLBROrder implements ModelValidator
 			else if (MOrder.FREIGHTCOSTRULE_FreightIncluded.equals(order.getFreightCostRule()))
 				ol.setFreightAmt(Env.ZERO);
 			//
-			ol.save();
+			ol.saveEx();
 		}
 		
 		/**
