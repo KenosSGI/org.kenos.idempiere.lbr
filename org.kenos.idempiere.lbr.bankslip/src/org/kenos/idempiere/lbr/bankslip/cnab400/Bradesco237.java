@@ -162,12 +162,10 @@ public class Bradesco237 implements ICNABGenerator
 			cnab.append(lPad(bsi.getAccountNo(), 7));				//	CONTA
 			cnab.append(lPad(bsi.getLBR_BankAccountVD(), 1));		//	DÍGITO
 			
-			String controleParticipante = "B" + bs.getLBR_BankSlip_ID() + 
-					"F" + (bs.getC_Invoice_ID() > 0 ? bs.getC_Invoice().getDocumentNo() : "") + 
-					"P" + bs.getlbr_PayScheduleNo();
+			String controleParticipante = bs.getIdentifier();
 			
 			cnab.append(rPad(controleParticipante, 25));			//	USO DA EMPRESA
-			cnab.append(lPad(0, 3));								//	COD BANCO DÉBITO AUTOMÁTICO
+			cnab.append(lPad(ROUNTING_NO, 3));						//	COD BANCO DÉBITO AUTOMÁTICO
 			
 			cnab.append(lPad(0, 1));								//	MULTA
 			cnab.append(lPad(0, 4));								//	PERCENTUAL
@@ -182,10 +180,10 @@ public class Bradesco237 implements ICNABGenerator
 			
 			cnab.append(lPad(0, 10));								//	DESCONTO
 			cnab.append(issuedBy);
-			cnab.append("S");
+			cnab.append("N");
 			cnab.append(rPad(null, 10));							//	BRANCOS
 			cnab.append(rPad(null, 1));								//	BRANCOS
-			cnab.append(lPad("0", 1));								//	BRANCOS
+			cnab.append(lPad("2", 1));								//	BRANCOS
 			cnab.append(rPad(null, 2));								//	BRANCOS
 			cnab.append(lPad(line.getMovement().getValue(), 2));	//	IDENT. DA OCORRÊNCIA
 
@@ -199,8 +197,19 @@ public class Bradesco237 implements ICNABGenerator
 			cnab.append(rPad("N", 1));								//	Sempre = N
 			cnab.append(lPad(timeToString(bs.getDateDoc()), 6));	//	DATA DE EMISSÃO
 			
-			cnab.append(lPad(0, 2));								//	INSTRUÇÃO 1
-			cnab.append(lPad(0, 2));								//	INSTRUÇÃO 2
+			int protestCode = 0;
+			int protestDays = bs.getLBR_ProtestDays();
+			if (TextUtil.match(bs.getLBR_ProtestType(),MLBRBankSlip.LBR_PROTESTTYPE_ProtestBusinessDays,MLBRBankSlip.LBR_PROTESTTYPE_ProtestCalendarDays)) {
+				protestCode = 6;
+			}
+			else if (TextUtil.match(bs.getLBR_ProtestType(),MLBRBankSlip.LBR_PROTESTTYPE_ProtestForBankruptcyCalendarDays,MLBRBankSlip.LBR_PROTESTTYPE_ProtestForBankruptcyWorkingDays)) {
+				protestCode = 5;
+			}
+			if (protestCode > 0 && protestDays < 5)
+				protestDays = 5;
+			
+			cnab.append(lPad(protestCode, 2));						//	INSTRUÇÃO 1
+			cnab.append(lPad(protestDays, 2));						//	INSTRUÇÃO 2
 			cnab.append(lPad(interestAmt, 13));						//	JUROS DE 1 DIA
 			cnab.append(lPad(timeToString(discountDate), 6));		//	DESCONTO ATÉ
 			cnab.append(lPad(discountAmt, 13));						//	VALOR DO DESCONTO
