@@ -1016,11 +1016,11 @@ public class NFeXMLGenerator
 				//	CNPJ do Fabricante de Escala NÃO Relevante
 				if (nfl.getLBR_CNPJManufacturer() != null)
 					prod.setCNPJFab(TextUtil.toNumeric (nfl.getLBR_CNPJManufacturer ()));
-				
-				//	Código do Benefício na UF
-				if (nfl.getLBR_TaxBenefitCode() != null && !nfl.getLBR_TaxBenefitCode().isBlank())
-					prod.setCBenef(nfl.getLBR_TaxBenefitCode().trim());
 			}
+			
+			//	Código do Benefício na UF
+			if (nfl.getLBR_TaxBenefitCode() != null && !nfl.getLBR_TaxBenefitCode().isBlank())
+				prod.setCBenef(nfl.getLBR_TaxBenefitCode().trim());
 			
 			// 	Unidade Tributária pode ser Diferente apenas para Exportação
 			if (MLBRNotaFiscal.LBR_TRANSACTIONTYPE_Export.equals (nf.getlbr_TransactionType ()))
