@@ -218,19 +218,30 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 		}
 	}	//	createPDF
 
-	private String getFileName() {
-		String preffix = bsi.getLBR_BankSlip().getDocumentNo();
-		//
+	private String getFileName()
+	{
+		StringBuilder preffix = new StringBuilder ("B").append(bsi.getLBR_BankSlip().getDocumentNo());
+		
+		//	Include Invoice Number
+		if (bsi.getLBR_BankSlip().getC_Invoice_ID() > 0)
+		{
+			preffix.append("_F").append(bsi.getLBR_BankSlip().getC_Invoice().getDocumentNo());
+		}
+		
+		//	Include NF Number
 		if (bsi.getLBR_BankSlip().getLBR_NotaFiscal_ID() > 0)
 		{
+			preffix.append("_NF");
+			//
 			String nfeNo = bsi.getLBR_BankSlip().getLBR_NotaFiscal().getlbr_NFENo();
 			if (nfeNo != null)
-				preffix += "_" + nfeNo;
+				preffix.append(nfeNo);
 			else
-				preffix += "_" + bsi.getLBR_BankSlip().getLBR_NotaFiscal().getDocumentNo();
+				preffix.append(bsi.getLBR_BankSlip().getLBR_NotaFiscal().getDocumentNo());
 		}
-		return "B" + preffix + "_";
-	}
+		
+		return preffix.append("_").toString();
+	}	//	getFileName
 
 	/**
 	 * 	Generate the bank slip
