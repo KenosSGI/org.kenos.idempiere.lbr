@@ -29,6 +29,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Properties;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
@@ -77,6 +78,7 @@ import org.kenos.idempiere.lbr.base.model.MLBRAverageCostLine;
 import org.kenos.idempiere.lbr.base.model.MLBRProductConfig;
 import org.kenos.idempiere.lbr.base.model.MLBRProductionGroup;
 import org.kenos.idempiere.lbr.base.model.SysConfig;
+import org.kenos.idempiere.lbr.tax.validation.TaxBenefCode;
 
 /**
  *	MNotaFiscalLine
@@ -1615,6 +1617,27 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 			setUPC (upc);
 		else
 			setUPC ("SEM GTIN");
+		
+		//	From product
+		String cBenf = productW.getLBR_TaxBenefitCode();
+
+		if (Objects.isNull(cBenf) && getLBR_NCM_ID() > 0) {
+			//	From NCM
+			MLBRNCM ncm = new MLBRNCM (getCtx(), getLBR_NCM_ID(), null);
+			cBenf = ncm.getLBR_TaxBenefitCode();
+			
+			//	FROM NCM Tax
+			if (Objects.isNull(cBenf) && getParent().getC_BPartner_Location_ID() > 0) {
+				int C_Region_ID = getParent().getC_BPartner_Location().getC_Location().getC_Region_ID();
+				//
+				MLBRNCMTax tax = ncm.getLBR_Tax_ID(getParent().getAD_Org_ID(), C_Region_ID, getParent().getDateDoc());
+				if (tax != null)
+					cBenf = tax.getLBR_TaxBenefitCode();
+			}
+		}
+		
+		//	Set cBenef
+		setLBR_TaxBenefitCode(cBenf);
 	}	//	setProduct
 
 	public void appendDescription (String text)
@@ -1813,11 +1836,11 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 		
 		//	Valida o código de benefício fiscal
 		String benefitCode = getLBR_TaxBenefitCode();
-		if (benefitCode != null
-				&& !benefitCode.isEmpty()
-				&& benefitCode.trim().length() != 10)
+		String validation = TaxBenefCode.validate(benefitCode);
+		
+		if (validation != null)
 		{
-			log.saveError ("Error", Msg.parseTranslation (getCtx(), "@Invalid@ @LBR_TaxBenefitCode@, o código precisa ter 10 dígitos"));
+			log.saveError ("Error", validation);
 			return false;
 		}
 		

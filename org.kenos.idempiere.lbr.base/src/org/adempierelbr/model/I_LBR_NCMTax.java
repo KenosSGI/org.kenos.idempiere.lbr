@@ -23,7 +23,7 @@ import org.compiere.util.KeyNamePair;
 
 /** Generated Interface for LBR_NCMTax
  *  @author iDempiere (generated) 
- *  @version Release 4.1
+ *  @version Release 6.2
  */
 @SuppressWarnings("all")
 public interface I_LBR_NCMTax 
@@ -130,6 +130,15 @@ public interface I_LBR_NCMTax
 	/** Get NCM Tax	  */
 	public int getLBR_NCMTax_ID();
 
+    /** Column name LBR_NCMTax_UU */
+    public static final String COLUMNNAME_LBR_NCMTax_UU = "LBR_NCMTax_UU";
+
+	/** Set LBR_NCMTax_UU	  */
+	public void setLBR_NCMTax_UU (String LBR_NCMTax_UU);
+
+	/** Get LBR_NCMTax_UU	  */
+	public String getLBR_NCMTax_UU();
+
     /** Column name LBR_NCM_ID */
     public static final String COLUMNNAME_LBR_NCM_ID = "LBR_NCM_ID";
 
@@ -144,6 +153,15 @@ public interface I_LBR_NCMTax
 	public int getLBR_NCM_ID();
 
 	public org.adempierelbr.model.I_LBR_NCM getLBR_NCM() throws RuntimeException;
+
+    /** Column name LBR_TaxBenefitCode */
+    public static final String COLUMNNAME_LBR_TaxBenefitCode = "LBR_TaxBenefitCode";
+
+	/** Set Tax Benefit Code	  */
+	public void setLBR_TaxBenefitCode (String LBR_TaxBenefitCode);
+
+	/** Get Tax Benefit Code	  */
+	public String getLBR_TaxBenefitCode();
 
     /** Column name LBR_Tax_ID */
     public static final String COLUMNNAME_LBR_Tax_ID = "LBR_Tax_ID";

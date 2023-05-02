@@ -16,6 +16,8 @@ package org.adempierelbr.model;
 import java.sql.ResultSet;
 import java.util.Properties;
 
+import org.kenos.idempiere.lbr.tax.validation.TaxBenefCode;
+
 /**
  * 		Model NCM Tax
  * 
@@ -51,4 +53,18 @@ public class MLBRNCMTax extends X_LBR_NCMTax
 		super (ctx, rs, trxName);
 	}	//	MLBRNCMTax
 
+	@Override
+	protected boolean beforeSave (boolean newRecord) {
+		if (newRecord || is_ValueChanged(COLUMNNAME_LBR_TaxBenefitCode)) {
+			String code = getLBR_TaxBenefitCode();
+			String validation = TaxBenefCode.validate(code);
+
+			//	Check if Benef code is valid
+			if (validation != null) {
+				log.saveError("Error", validation);
+				return false;
+			}
+		}
+		return true;
+	}	//	beforeSave
 }	//	MLBRNCMTax

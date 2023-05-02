@@ -1,6 +1,7 @@
 /******************************************************************************
- * Product: iDempiere ERP & CRM Smart Business Solution                       *
- * Copyright (C) 1999-2012 ComPiere, Inc. All Rights Reserved.                *
+ * Product: Kenos iDempiere ERP & CRM Smart Business Solution                 *
+ * Copyright (C) 1999-2022 Kenos, Ltda. All Rights Reserved.                  *
+ * Copyright (C) 1999-2022 Ricardo Santana. All Rights Reserved.              *
  * This program is free software, you can redistribute it and/or modify it    *
  * under the terms version 2 of the GNU General Public License as published   *
  * by the Free Software Foundation. This program is distributed in the hope   *
@@ -16,25 +17,35 @@
  *****************************************************************************/
 package org.adempierelbr.wrapper;
 
-import org.compiere.model.I_M_Product;
+import java.math.BigDecimal;
+import org.compiere.model.*;
 
 /** Generated Interface for M_Product
- *  @author iDempiere (generated) 
- *  @version Release 4.1
+ *  @author Ricardo Santana
+ *  @version Release 6.2
  */
-@SuppressWarnings("all")
-public interface I_W_M_Product extends I_M_Product
+public interface I_W_M_Product extends I_M_Product 
 {
 
-    /** TableName=M_Product */
-    public static final String Table_Name = "M_Product";
 
-    /** AD_Table_ID=208 */
-    public static final int Table_ID = 208;
+    /** Column name AD_Image_ID */
+    public static final String COLUMNNAME_AD_Image_ID = "AD_Image_ID";
 
+	/** Set Image.
+	  * Image or Icon
+	  */
+	public void setAD_Image_ID (int AD_Image_ID);
+
+	/** Get Image.
+	  * Image or Icon
+	  */
+	public int getAD_Image_ID();
 
     /** Column name LBR_AttributeType */
     public static final String COLUMNNAME_LBR_AttributeType = "LBR_AttributeType";
+
+	/** LBR_AttributeType AD_Reference_ID=1120278 */
+	public static final int LBR_ATTRIBUTETYPE_AD_Reference_ID=1120278;
 
 	/** Tracking = R00 */
 	public static final String LBR_ATTRIBUTETYPE_Tracking = "R00";
@@ -89,6 +100,24 @@ public interface I_W_M_Product extends I_M_Product
 	  */
 	public int getLBR_CEST_ID();
 
+    /** Column name LBR_CodeSCANC40 */
+    public static final String COLUMNNAME_LBR_CodeSCANC40 = "LBR_CodeSCANC40";
+
+	/** Set Code SCANC 40	  */
+	public void setLBR_CodeSCANC40 (String LBR_CodeSCANC40);
+
+	/** Get Code SCANC 40	  */
+	public String getLBR_CodeSCANC40();
+
+    /** Column name LBR_CodeSCANC60 */
+    public static final String COLUMNNAME_LBR_CodeSCANC60 = "LBR_CodeSCANC60";
+
+	/** Set Code SCANC 60	  */
+	public void setLBR_CodeSCANC60 (String LBR_CodeSCANC60);
+
+	/** Get Code SCANC 60	  */
+	public String getLBR_CodeSCANC60();
+
     /** Column name LBR_FiscalGroup_Product_ID */
     public static final String COLUMNNAME_LBR_FiscalGroup_Product_ID = "LBR_FiscalGroup_Product_ID";
 
@@ -110,6 +139,77 @@ public interface I_W_M_Product extends I_M_Product
 
 	/** Get Legal Product Description	  */
 	public String getLBR_LegalProductDescription();
+
+    /** Column name LBR_NAT_BC_CRED */
+    public static final String COLUMNNAME_LBR_NAT_BC_CRED = "LBR_NAT_BC_CRED";
+
+	/** LBR_NAT_BC_CRED AD_Reference_ID=1120373 */
+	public static final int LBR_NAT_BC_CRED_AD_Reference_ID=1120373;
+
+	/** Aquisição de bens para revenda = 01 */
+	public static final String LBR_NAT_BC_CRED_AquisiçãoDeBensParaRevenda = "01";
+
+	/** Aquisição de bens utilizados como insumo = 02 */
+	public static final String LBR_NAT_BC_CRED_AquisiçãoDeBensUtilizadosComoInsumo = "02";
+
+	/** Aquisição de serviços utilizados como insumo = 03 */
+	public static final String LBR_NAT_BC_CRED_AquisiçãoDeServiçosUtilizadosComoInsumo = "03";
+
+	/** Energia elétrica e térmica, inclusive sob a forma de vapor = 04 */
+	public static final String LBR_NAT_BC_CRED_EnergiaElétricaETérmicaInclusiveSobAFormaDeVapor = "04";
+
+	/** Aluguéis de prédios = 05 */
+	public static final String LBR_NAT_BC_CRED_AluguéisDePrédios = "05";
+
+	/** Aluguéis de máquinas e equipamentos = 06 */
+	public static final String LBR_NAT_BC_CRED_AluguéisDeMáquinasEEquipamentos = "06";
+
+	/** Armazenagem de mercadoria e frete na operação de venda = 07 */
+	public static final String LBR_NAT_BC_CRED_ArmazenagemDeMercadoriaEFreteNaOperaçãoDeVenda = "07";
+
+	/** Contraprestações de arrendamento mercantil = 08 */
+	public static final String LBR_NAT_BC_CRED_ContraprestaçõesDeArrendamentoMercantil = "08";
+
+	/** Máquinas, equipamentos e outros bens incorporados ao ativo imobilizado (crédito sobre encargos de depreciação). = 09 */
+	public static final String LBR_NAT_BC_CRED_MáquinasEquipamentosEOutrosBensIncorporadosAoAtivoImobilizadoCréditoSobreEncargosDeDepreciação = "09";
+
+	/** Máquinas, equipamentos e outros bens incorporados ao ativo imobilizado (crédito com base no valor de aquisição). = 10 */
+	public static final String LBR_NAT_BC_CRED_MáquinasEquipamentosEOutrosBensIncorporadosAoAtivoImobilizadoCréditoComBaseNoValorDeAquisição = "10";
+
+	/** Amortização e Depreciação de edificações e benfeitorias em imóveis = 11 */
+	public static final String LBR_NAT_BC_CRED_AmortizaçãoEDepreciaçãoDeEdificaçõesEBenfeitoriasEmImóveis = "11";
+
+	/** Devolução de Vendas Sujeitas à Incidência Não-Cumulativa = 12 */
+	public static final String LBR_NAT_BC_CRED_DevoluçãoDeVendasSujeitasÀIncidênciaNão_Cumulativa = "12";
+
+	/** Outras Operações com Direito a Crédito = 13 */
+	public static final String LBR_NAT_BC_CRED_OutrasOperaçõesComDireitoACrédito = "13";
+
+	/** Atividade de Transporte de Cargas – Subcontratação = 14 */
+	public static final String LBR_NAT_BC_CRED_AtividadeDeTransporteDeCargasSubcontratação = "14";
+
+	/** Atividade Imobiliária – Custo Incorrido de Unidade Imobiliária = 15 */
+	public static final String LBR_NAT_BC_CRED_AtividadeImobiliáriaCustoIncorridoDeUnidadeImobiliária = "15";
+
+	/** Atividade Imobiliária – Custo Orçado de unidade não concluída = 16 */
+	public static final String LBR_NAT_BC_CRED_AtividadeImobiliáriaCustoOrçadoDeUnidadeNãoConcluída = "16";
+
+	/** Atividade de Prestação de Serviços de Limpeza, Conservação e Manutenção – vale-transporte, vale- refeição ou vale-alimentação, f = 17 */
+	public static final String LBR_NAT_BC_CRED_AtividadeDePrestaçãoDeServiçosDeLimpezaConservaçãoEManutençãoVale_TransporteVale_RefeiçãoOuVale_AlimentaçãoF = "17";
+
+	/** Estoque de abertura de bens = 18 */
+	public static final String LBR_NAT_BC_CRED_EstoqueDeAberturaDeBens = "18";
+
+
+	/** Set Cód. BC de Crédito.
+	  * Cód. BC de Crédito
+	  */
+	public void setLBR_NAT_BC_CRED (String LBR_NAT_BC_CRED);
+
+	/** Get Cód. BC de Crédito.
+	  * Cód. BC de Crédito
+	  */
+	public String getLBR_NAT_BC_CRED();
 
     /** Column name LBR_NBS_ID */
     public static final String COLUMNNAME_LBR_NBS_ID = "LBR_NBS_ID";
@@ -137,6 +237,19 @@ public interface I_W_M_Product extends I_M_Product
 	  */
 	public int getLBR_NCM_ID();
 
+    /** Column name LBR_PackingWeight */
+    public static final String COLUMNNAME_LBR_PackingWeight = "LBR_PackingWeight";
+
+	/** Set Packing Weight.
+	  * Weight of the product's Packing
+	  */
+	public void setLBR_PackingWeight (BigDecimal LBR_PackingWeight);
+
+	/** Get Packing Weight.
+	  * Weight of the product's Packing
+	  */
+	public BigDecimal getLBR_PackingWeight();
+
     /** Column name LBR_ProductCategory_ID */
     public static final String COLUMNNAME_LBR_ProductCategory_ID = "LBR_ProductCategory_ID";
 
@@ -149,6 +262,15 @@ public interface I_W_M_Product extends I_M_Product
 	  * Primary key table LBR_ProductCategory
 	  */
 	public int getLBR_ProductCategory_ID();
+
+    /** Column name LBR_TaxBenefitCode */
+    public static final String COLUMNNAME_LBR_TaxBenefitCode = "LBR_TaxBenefitCode";
+
+	/** Set Tax Benefit Code	  */
+	public void setLBR_TaxBenefitCode (String LBR_TaxBenefitCode);
+
+	/** Get Tax Benefit Code	  */
+	public String getLBR_TaxBenefitCode();
 
     /** Column name lbr_IsManufactured */
     public static final String COLUMNNAME_lbr_IsManufactured = "lbr_IsManufactured";
@@ -165,6 +287,9 @@ public interface I_W_M_Product extends I_M_Product
 
     /** Column name lbr_ItemTypeBR */
     public static final String COLUMNNAME_lbr_ItemTypeBR = "lbr_ItemTypeBR";
+
+	/** lbr_ItemTypeBR AD_Reference_ID=1120224 */
+	public static final int LBR_ITEMTYPEBR_AD_Reference_ID=1120224;
 
 	/** Mercadoria para Revenda = 00 */
 	public static final String LBR_ITEMTYPEBR_MercadoriaParaRevenda = "00";
@@ -211,6 +336,9 @@ public interface I_W_M_Product extends I_M_Product
 
     /** Column name lbr_ProductSource */
     public static final String COLUMNNAME_lbr_ProductSource = "lbr_ProductSource";
+
+	/** lbr_ProductSource AD_Reference_ID=1000031 */
+	public static final int LBR_PRODUCTSOURCE_AD_Reference_ID=1000031;
 
 	/** 0 - Domestic = 0 */
 	public static final String LBR_PRODUCTSOURCE_0_Domestic = "0";
@@ -262,57 +390,4 @@ public interface I_W_M_Product extends I_M_Product
 	  * Service Code used for Nota Fiscal de Servicos Eletronica
 	  */
 	public String getlbr_ServiceCode();
-	
-	/** Column name lbr_ProductSource */
-    public static final String COLUMNNAME_LBR_NAT_BC_CRED = "LBR_NAT_BC_CRED";
-    
-    /** 01 Aquisição de bens para revenda */
-    public static final String LBR_NAT_BC_CRED_01_AquisicaodeBensparaRevenda = "01";
-    /** 02 Aquisição de bens utilizados como insumo */
-    public static final String LBR_NAT_BC_CRED_02_AquisicaodeBensUtilizadoscomoInsumo = "02";
-    /** 03 Aquisição de serviços utilizados como insumo */
-    public static final String LBR_NAT_BC_CRED_03_AquisicaodeServicosUtilizadoscomoInsumo = "03";
-    /** 04 Energia elétrica e térmica, inclusive sob a forma de vapor */
-    public static final String LBR_NAT_BC_CRED_04_EnergiaEletricaeTermicaInclusivesobaformadevapor = "04";
-    /** 05 Aluguéis de prédios */
-    public static final String LBR_NAT_BC_CRED_05_AlugueisdePredios = "05";
-    /** 06 Aluguéis de máquinas e equipamentos */
-    public static final String LBR_NAT_BC_CRED_06_AlugueisdeMaquinaseEquipamentos = "06";
-    /** 07 Armazenagem de mercadoria e frete na operação de venda */
-    public static final String LBR_NAT_BC_CRED_07_ArmazenagemdeMercadoriaeFretenaOperacaodevenda = "07";
-    /** 08 Contraprestações de arrendamento mercantil */
-    public static final String LBR_NAT_BC_CRED_08_ContraPrestacoesdeArrendamentoMercantil = "08";
-    /** 09 Máquinas, equipamentos e outros bens incorporados ao ativo imobilizado (crédito sobre encargos de
-    depreciação). */
-    public static final String LBR_NAT_BC_CRED_09_MaquinasEquipamentoseOutrosBensIncorporadosaoAtivoImobilizadoCreditoSobreencargosdeDepreciacao = "09";
-    /** 10 Máquinas, equipamentos e outros bens incorporados ao ativo imobilizado (crédito com base no valor de
-    aquisição). */
-    public static final String LBR_NAT_BC_CRED_10_MaquinasEquipamentoseOutrosBensIncorporadosaoAtivoImobilizadoCreditocombasenoValordeAquisicao = "10";
-    /** 11 Amortização e Depreciação de edificações e benfeitorias em imóveis */
-    public static final String LBR_NAT_BC_CRED_11_AmortizacaoeDepreciacaodeEdificacoeseBenfeitoriasemImoveis = "11";
-    /** 12 Devolução de Vendas Sujeitas à Incidência Não-Cumulativa */
-    public static final String LBR_NAT_BC_CRED_12_DevolucaodeVendasSujeitasaIncidenciaNaoCumulativa = "12";
-    /** 13 Outras Operações com Direito a Crédito */
-    public static final String LBR_NAT_BC_CRED_13_OutrasOperacoescomDireitoaCredito = "13";
-    /** 14 Atividade de Transporte de Cargas – Subcontratação */
-    public static final String LBR_NAT_BC_CRED_14_AtividadedeTransportedeCargasSubcontratacao = "14";
-    /** 15 Atividade Imobiliária – Custo Incorrido de Unidade Imobiliária */
-    public static final String LBR_NAT_BC_CRED_15_AtividadeImobiliariaCustoIncorridodeUnidadeImobiliaria = "15";
-    /** 16 Atividade Imobiliária – Custo Orçado de unidade não concluída */
-    public static final String LBR_NAT_BC_CRED_16_AtividadeImobiliariaCustoOrcadodeUnidadenaoConcluida = "16";
-    /** 17 Atividade de Prestação de Serviços de Limpeza, Conservação e Manutenção – vale-transporte, vale-
-    refeição ou vale-alimentação, fardamento ou uniforme. */
-    public static final String LBR_NAT_BC_CRED_17_AtividadedePrestacaodeServicosdeLimpezaConservacaoeManutencaoValeTransporteValeRefeicaoouValeAlimentacaoFardamentoouUniforme = "17";
-    /** 18 Estoque de abertura de bens */
-    public static final String LBR_NAT_BC_CRED_18_EstoquedeAberturadeBens = "18";
-	
-	/** Set Cód. BC de Crédito
-	  * Cód. BC de Crédito
-	  */
-	public void setLBR_NAT_BC_CRED (String LBR_NAT_BC_CRED);
-
-	/** Get Cód. BC de Crédito
-	  * Cód. BC de Crédito
-	  */
-	public String getLBR_NAT_BC_CRED();
 }
