@@ -296,7 +296,7 @@ public class ValidatorInOut implements ModelValidator
 
 				if (!MSysConfig.getBooleanValue(SysConfig.LBR_ALLOW_MM_SHIP_RECEIPT_WITHOUT_ORDER, true, inOut.getAD_Client_ID())
 						&& line.getC_OrderLine_ID() == 0 && line.getM_RMALine_ID() == 0)
-					return "Ordem de Compra não disponível.";
+					return "Não permitido sem Pedido de Compras/Vendas/ARM. Correção: Vincular Linha do Pedido/ARM na linha da Expedição/Recebimento.";
 
 				MOrderLine oline = new MOrderLine(ctx, line.getC_OrderLine_ID(), trx);
 
