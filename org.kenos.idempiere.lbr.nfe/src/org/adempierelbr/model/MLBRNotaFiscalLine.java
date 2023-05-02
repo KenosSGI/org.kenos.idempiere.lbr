@@ -1815,6 +1815,7 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 		String benefitCode = getLBR_TaxBenefitCode();
 		if (benefitCode != null
 				&& !benefitCode.isEmpty()
+				&& benefitCode.trim().length() != 8
 				&& benefitCode.trim().length() != 10)
 		{
 			log.saveError ("Error", Msg.parseTranslation (getCtx(), "@Invalid@ @LBR_TaxBenefitCode@, o código precisa ter 10 dígitos"));
