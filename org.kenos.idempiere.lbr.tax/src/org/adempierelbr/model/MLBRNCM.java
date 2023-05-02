@@ -22,6 +22,7 @@ import org.adempierelbr.util.TextUtil;
 import org.compiere.model.Query;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
+import org.kenos.idempiere.lbr.tax.validation.TaxBenefCode;
 
 /**
  *		NCM Model
@@ -164,4 +165,19 @@ public class MLBRNCM extends X_LBR_NCM
 		//	Otherwise return the numeric 1-4 digits
 		return ncm;
 	}	//	formatNCM
+	
+	@Override
+	protected boolean beforeSave(boolean newRecord) {
+		if (newRecord || is_ValueChanged(COLUMNNAME_LBR_TaxBenefitCode)) {
+			String code = getLBR_TaxBenefitCode();
+			String validation = TaxBenefCode.validate(code);
+
+			//	Check if Benef code is valid
+			if (validation != null) {
+				log.saveError("Error", validation);
+				return false;
+			}
+		}
+		return true;
+	}	//	beforeSave
 } 	//	MLBRNCM

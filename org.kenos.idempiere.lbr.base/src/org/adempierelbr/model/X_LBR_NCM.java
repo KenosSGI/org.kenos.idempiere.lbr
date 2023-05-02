@@ -31,7 +31,7 @@ public class X_LBR_NCM extends PO implements I_LBR_NCM, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20220503L;
+	private static final long serialVersionUID = 20230502L;
 
     /** Standard Constructor */
     public X_LBR_NCM (Properties ctx, int LBR_NCM_ID, String trxName)
@@ -154,6 +154,20 @@ public class X_LBR_NCM extends PO implements I_LBR_NCM, I_Persistent
 	public String getLBR_NCM_UU () 
 	{
 		return (String)get_Value(COLUMNNAME_LBR_NCM_UU);
+	}
+
+	/** Set Tax Benefit Code.
+		@param LBR_TaxBenefitCode Tax Benefit Code	  */
+	public void setLBR_TaxBenefitCode (String LBR_TaxBenefitCode)
+	{
+		set_Value (COLUMNNAME_LBR_TaxBenefitCode, LBR_TaxBenefitCode);
+	}
+
+	/** Get Tax Benefit Code.
+		@return Tax Benefit Code	  */
+	public String getLBR_TaxBenefitCode () 
+	{
+		return (String)get_Value(COLUMNNAME_LBR_TaxBenefitCode);
 	}
 
 	/** Set Brazilian Tax.

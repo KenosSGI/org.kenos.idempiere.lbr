@@ -143,6 +143,15 @@ public interface I_LBR_NCM
 	/** Get LBR_NCM_UU	  */
 	public String getLBR_NCM_UU();
 
+    /** Column name LBR_TaxBenefitCode */
+    public static final String COLUMNNAME_LBR_TaxBenefitCode = "LBR_TaxBenefitCode";
+
+	/** Set Tax Benefit Code	  */
+	public void setLBR_TaxBenefitCode (String LBR_TaxBenefitCode);
+
+	/** Get Tax Benefit Code	  */
+	public String getLBR_TaxBenefitCode();
+
     /** Column name LBR_Tax_ID */
     public static final String COLUMNNAME_LBR_Tax_ID = "LBR_Tax_ID";
 

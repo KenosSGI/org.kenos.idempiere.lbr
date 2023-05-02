@@ -25,14 +25,14 @@ import org.compiere.util.KeyNamePair;
 
 /** Generated Model for LBR_NCMTax
  *  @author iDempiere (generated) 
- *  @version Release 4.1 - $Id$ */
+ *  @version Release 6.2 - $Id$ */
 public class X_LBR_NCMTax extends PO implements I_LBR_NCMTax, I_Persistent 
 {
 
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20170626L;
+	private static final long serialVersionUID = 20230502L;
 
     /** Standard Constructor */
     public X_LBR_NCMTax (Properties ctx, int LBR_NCMTax_ID, String trxName)
@@ -141,6 +141,20 @@ public class X_LBR_NCMTax extends PO implements I_LBR_NCMTax, I_Persistent
 		return ii.intValue();
 	}
 
+	/** Set LBR_NCMTax_UU.
+		@param LBR_NCMTax_UU LBR_NCMTax_UU	  */
+	public void setLBR_NCMTax_UU (String LBR_NCMTax_UU)
+	{
+		set_Value (COLUMNNAME_LBR_NCMTax_UU, LBR_NCMTax_UU);
+	}
+
+	/** Get LBR_NCMTax_UU.
+		@return LBR_NCMTax_UU	  */
+	public String getLBR_NCMTax_UU () 
+	{
+		return (String)get_Value(COLUMNNAME_LBR_NCMTax_UU);
+	}
+
 	public org.adempierelbr.model.I_LBR_NCM getLBR_NCM() throws RuntimeException
     {
 		return (org.adempierelbr.model.I_LBR_NCM)MTable.get(getCtx(), org.adempierelbr.model.I_LBR_NCM.Table_Name)
@@ -167,6 +181,20 @@ public class X_LBR_NCMTax extends PO implements I_LBR_NCMTax, I_Persistent
 		if (ii == null)
 			 return 0;
 		return ii.intValue();
+	}
+
+	/** Set Tax Benefit Code.
+		@param LBR_TaxBenefitCode Tax Benefit Code	  */
+	public void setLBR_TaxBenefitCode (String LBR_TaxBenefitCode)
+	{
+		set_Value (COLUMNNAME_LBR_TaxBenefitCode, LBR_TaxBenefitCode);
+	}
+
+	/** Get Tax Benefit Code.
+		@return Tax Benefit Code	  */
+	public String getLBR_TaxBenefitCode () 
+	{
+		return (String)get_Value(COLUMNNAME_LBR_TaxBenefitCode);
 	}
 
 	/** Set Brazilian Tax.

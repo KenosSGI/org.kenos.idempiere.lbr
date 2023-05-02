@@ -1,7 +1,5 @@
 package org.kenos.idempiere.lbr.tax.ibpt;
 
-import org.kenos.idempiere.lbr.tax.ibpt.IBPT;
-
 /**
  * 		IBPT Factory
  * 
