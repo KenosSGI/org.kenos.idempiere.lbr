@@ -210,15 +210,16 @@ public class MPaymentTerm extends org.compiere.model.MPaymentTerm
 					.reduce(BigDecimal.ZERO, BigDecimal::add);
 		}
 		int scale = MCurrency.getStdPrecision(getCtx(), invoice.getC_Currency_ID());
-		BigDecimal parcel = taxesNotIncluded.divide((m_schedule.length < 2 ? BigDecimal.ONE : new BigDecimal (m_schedule.length-1)), scale, RoundingMode.HALF_UP);
 		for (int i = 0; i < m_schedule.length; i++)
 		{
 			ips = new MInvoicePaySchedule (invoice, m_schedule[i]);
+			BigDecimal due = invoice.getGrandTotal().subtract(taxesNotIncluded).multiply(m_schedule[i].getPercentage())
+					.divide(Env.ONEHUNDRED, scale, RoundingMode.HALF_UP);
 			//	First Parcel
 			if (i == 0)	
-				ips.setDueAmt(ips.getDueAmt().add(taxesNotIncluded));
-			else 
-				ips.setDueAmt(ips.getDueAmt().subtract(parcel));
+				due = due.add(taxesNotIncluded);
+			
+			ips.setDueAmt(due);
 			ips.saveEx(invoice.get_TrxName());
 			if (log.isLoggable(Level.FINE)) log.fine(ips.toString());
 			remainder = remainder.subtract(ips.getDueAmt());
