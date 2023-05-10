@@ -1286,6 +1286,13 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 			}
 		}
 		
+		//	Let user select a new contract
+		if (getC_Invoice_ID() > 0) {
+			MInvoice invoice = (MInvoice) getC_Invoice();
+			invoice.set_ValueOfColumn(I_W_C_Invoice.COLUMNNAME_LBR_BankSlipContract_ID, null);
+			invoice.save();
+		}
+		
 		//	Set C_InvoicePaySchedule to Null to Allow changes in InvoicePaySchedule
 		this.setC_InvoicePaySchedule_ID(0);
 		setProcessed(true);
