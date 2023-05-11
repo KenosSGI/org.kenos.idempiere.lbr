@@ -9,6 +9,7 @@ import java.util.logging.Level;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.adempierelbr.model.MLBRTax;
+import org.adempierelbr.model.MPaymentTerm;
 import org.adempierelbr.wrapper.I_W_C_OrderLine;
 import org.compiere.model.MBPartner;
 import org.compiere.model.MDocType;
@@ -449,4 +450,26 @@ public class MOrder extends org.compiere.model.MOrder
 		//
 		return super.reActivateIt();
 	}	//	reActivateIt
+	
+	private volatile static boolean recursiveCall = false;
+	
+	@Override
+	protected boolean beforeSave(boolean newRecord) {
+		boolean beforeSave = super.beforeSave(newRecord);
+		
+		if (!recursiveCall && beforeSave && (!newRecord && is_ValueChanged(COLUMNNAME_C_PaymentTerm_ID))) {
+			recursiveCall = true;
+			try {
+				MPaymentTerm pt = new MPaymentTerm (getCtx(), getC_PaymentTerm_ID(), get_TrxName());
+				boolean valid = pt.applyOrder(this);
+				setIsPayScheduleValid(valid);
+			} catch (Exception e) {
+				throw e;
+			} finally {
+				recursiveCall = false;
+			}
+		}
+		
+		return beforeSave;
+	}	//	beforeSave
 }	//	MOrder
