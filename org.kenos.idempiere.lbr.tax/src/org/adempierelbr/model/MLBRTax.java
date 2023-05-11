@@ -1138,7 +1138,7 @@ public class MLBRTax extends X_LBR_Tax
 						}
 						
 						// CSTs que não deveriam contabilizar
-						if (TextUtil.match (cst, "101")
+						if (TextUtil.match (cst, "101", "201")
 								&& postTax)
 						{
 							result += "Para o CSOSN " + cst + " do ICMS recomenda-se deixar o flag contabilizar desmarcado, ";
