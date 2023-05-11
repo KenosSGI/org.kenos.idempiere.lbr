@@ -28,10 +28,14 @@ import java.util.logging.Level;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.compiere.model.I_C_InvoicePaySchedule;
+import org.compiere.model.I_C_OrderPaySchedule;
 import org.compiere.model.MCurrency;
 import org.compiere.model.MInvoice;
 import org.compiere.model.MInvoicePaySchedule;
 import org.compiere.model.MInvoiceTax;
+import org.compiere.model.MOrder;
+import org.compiere.model.MOrderPaySchedule;
+import org.compiere.model.MOrderTax;
 import org.compiere.model.MPaySchedule;
 import org.compiere.model.Query;
 import org.compiere.util.DB;
@@ -300,5 +304,116 @@ public class MPaymentTerm extends org.compiere.model.MPaymentTerm
 			validate();
 		return true;
 	}	//	beforeSave
+	
+	/**
+	 * 	Apply Payment Term to Order
+	 *	@param order order
+	 *	@return true if payment schedule is valid
+	 */
+	public boolean applyOrder (MOrder order)
+	{
+		if (order == null || order.get_ID() == 0)
+		{
+			log.log(Level.SEVERE, "No valid order - " + order);
+			return false;
+		}
+		
+		// do not apply payment term if the order is not on credit or if total is zero
+		if ( (! (MOrder.PAYMENTRULE_OnCredit.equals(order.getPaymentRule()) || MOrder.PAYMENTRULE_DirectDebit.equals(order.getPaymentRule())) )
+			|| order.getGrandTotal().signum() == 0)
+			return false;
+			
+		if (!isValid())
+			return applyOrderNoSchedule (order);
+		//
+		getSchedule(true);
+		if (m_schedule.length <= 0) // Allow schedules with just one record
+			return applyOrderNoSchedule (order);
+		else	//	only if valid
+			return applyOrderSchedule(order);
+	}	//	applyOrder
+
+	/**
+	 * 	Apply Payment Term without schedule to Order
+	 *	@param order order
+	 *	@return false as no payment schedule
+	 */
+	private boolean applyOrderNoSchedule (MOrder order)
+	{
+		deleteOrderPaySchedule (order.getC_Order_ID(), order.get_TrxName());
+		//	updateOrder
+		if (order.getC_PaymentTerm_ID() != getC_PaymentTerm_ID())
+			order.setC_PaymentTerm_ID(getC_PaymentTerm_ID());
+		if (order.isPayScheduleValid())
+			order.setIsPayScheduleValid(false);
+		return false;
+	}	//	applyOrderNoSchedule
+
+	/**
+	 * 	Apply Payment Term with schedule to Order
+	 *	@param order order
+	 *	@return true if payment schedule is valid
+	 */
+	private boolean applyOrderSchedule (MOrder order)
+	{
+		deleteOrderPaySchedule (order.getC_Order_ID(), order.get_TrxName());
+		//	Create Schedule
+		MOrderPaySchedule ops = null;
+		BigDecimal remainder = order.getGrandTotal();
+		
+		//	Include Taxes in first parcel
+		BigDecimal taxesNotIncluded = BigDecimal.ZERO;
+		org.compiere.model.MPaymentTerm paymentTerm = (org.compiere.model.MPaymentTerm) order.getC_PaymentTerm();
+		if (paymentTerm.get_ValueAsBoolean("LBR_TaxesFirstParcel") && m_schedule.length > 1) {
+			taxesNotIncluded = Arrays.asList(order.getTaxes(true)).stream()
+					.filter(it -> !it.isTaxIncluded() && it.getTaxAmt().signum() == 1)
+					.map(MOrderTax::getTaxAmt)
+					.reduce(BigDecimal.ZERO, BigDecimal::add);
+		}
+
+		int scale = MCurrency.getStdPrecision(getCtx(), order.getC_Currency_ID());
+		for (int i = 0; i < m_schedule.length; i++)
+		{
+			ops = new MOrderPaySchedule (order, m_schedule[i]);
+			BigDecimal due = order.getGrandTotal().subtract(taxesNotIncluded).multiply(m_schedule[i].getPercentage())
+					.divide(Env.ONEHUNDRED, scale, RoundingMode.HALF_UP);
+			//	First Parcel
+			if (i == 0)	
+				due = due.add(taxesNotIncluded);
+			
+			ops.setDueAmt(due);
+			ops.saveEx(order.get_TrxName());
+			if (log.isLoggable(Level.FINE)) log.fine(ops.toString());
+			remainder = remainder.subtract(ops.getDueAmt());
+		}	//	for all schedules
+		//	Remainder - update last
+		if (remainder.compareTo(Env.ZERO) != 0 && ops != null)
+		{
+			ops.setDueAmt(ops.getDueAmt().add(remainder));
+			ops.saveEx(order.get_TrxName());
+			if (log.isLoggable(Level.FINE)) log.fine("Remainder=" + remainder + " - " + ops);
+		}
+		
+		//	updateOrder
+		if (order.getC_PaymentTerm_ID() != getC_PaymentTerm_ID())
+			order.setC_PaymentTerm_ID(getC_PaymentTerm_ID());
+		return order.validatePaySchedule();
+	}	//	applyOrderSchedule
+
+	/**
+	 * 	Delete existing Order Payment Schedule
+	 *	@param C_Order_ID id
+	 *	@param trxName transaction
+	 */
+	private void deleteOrderPaySchedule (int C_Order_ID, String trxName)
+	{
+		Query query = new Query(Env.getCtx(), I_C_OrderPaySchedule.Table_Name, "C_Order_ID=?", trxName);
+		List<MOrderPaySchedule> opsList = query.setParameters(C_Order_ID).list();
+		for (MOrderPaySchedule ops : opsList)
+		{
+			ops.deleteEx(true);
+		}
+		if (log.isLoggable(Level.FINE)) log.fine("C_Order_ID=" + C_Order_ID + " - #" + opsList.size());
+	}	//	deleteOrderPaySchedule
 	
 }	//	MPaymentTerm
