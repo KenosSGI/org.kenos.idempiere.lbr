@@ -248,7 +248,7 @@ public class MLBRTax extends X_LBR_Tax
 				if (taxFormula != null)
 				{
 					//	Fator do imposto
-					factor 		= evalFormula (taxFormula.getFormula(isTaxIncludedPriceList), params);
+					factor 		= evalFormula (taxFormula.getFormula(isTaxIncludedPriceList), params, taxLine.getLBR_TaxName_ID());
 					
 					//	Valores adicionais para a BC
 					if (taxFormula.getLBR_FormulaAdd_ID() > 0)
@@ -380,13 +380,19 @@ public class MLBRTax extends X_LBR_Tax
 		return evalFormula (formula, null);
 	}	//	evalFormula
 	
+
+	public BigDecimal evalFormula (String formula, Map<String, BigDecimal> params)
+	{
+		return evalFormula (formula, params, -1);
+	}
+	
 	/**
 	 * 	Get tax factor
 	 * @param formula
 	 * @param params
 	 * @return factor
 	 */
-	public BigDecimal evalFormula (String formula, Map<String, BigDecimal> params)
+	public BigDecimal evalFormula (String formula, Map<String, BigDecimal> params, int LBR_TaxName_ID)
 	{
 		if (formula == null || formula.length() == 0)
 			return Env.ONE;
@@ -421,15 +427,32 @@ public class MLBRTax extends X_LBR_Tax
 			//	Ajusta as alíquotas
 			for (MLBRTaxLine tLine : getLines())
 			{
-				Double amt = tLine.getlbr_TaxRate().setScale(17, RoundingMode.HALF_UP)
+				Double rate = tLine.getlbr_TaxRate().setScale(17, RoundingMode.HALF_UP)
 						.divide(Env.ONEHUNDRED, RoundingMode.HALF_UP).doubleValue();
-				//
-				log.finer ("Set Tax Rate, TaxName=" + tLine.getLBR_TaxName().getName().trim() + "=" + amt);
-				bsh.set(tLine.getLBR_TaxName().getName().trim(), amt);
 				
 				//	Caso ICMS seja zero, não ajustar o MVA
-				if (MLBRTax.TAX_ICMS == tLine.getLBR_TaxName_ID() && amt == 0.0)
+				if (MLBRTax.TAX_ICMS == tLine.getLBR_TaxName_ID() && rate == 0.0)
 					adjustIVA = false;
+				
+				/*
+				 * 	Only apply this rule to other taxes, because tax base is
+				 * already reduced for origin tax name
+				 */
+				BigDecimal taxBase = tLine.getlbr_TaxBase();
+				
+				if (LBR_TaxName_ID > 0 
+						&& LBR_TaxName_ID != tLine.getLBR_TaxName_ID()
+						&& taxBase != null 
+						&& taxBase.compareTo(BigDecimal.ZERO) == 1 
+						&& taxBase.compareTo(Env.ONEHUNDRED) == -1) 
+				{
+					double reduction = BigDecimal.ONE.subtract(taxBase.divide(Env.ONEHUNDRED, 4, RoundingMode.HALF_UP)).doubleValue();
+					rate = rate * reduction;
+				}
+				
+				//
+				log.finer ("Set Tax Rate, TaxName=" + tLine.getLBR_TaxName().getName().trim() + "=" + rate);
+				bsh.set(tLine.getLBR_TaxName().getName().trim(), rate);
 			}
 			//	Ajusta os parâmetros opcionais (ex. Frete, SISCOMEX)
 			if (params != null) for (String key : params.keySet())
