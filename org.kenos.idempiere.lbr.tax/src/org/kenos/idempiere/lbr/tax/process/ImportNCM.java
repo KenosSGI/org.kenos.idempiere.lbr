@@ -172,6 +172,8 @@ public class ImportNCM extends SvrProcess
 		}
 		
 		ncm.setDescription(parentDesc + nomenclatura.getDescricao());
+		ncm.setValidFrom(nomenclatura.getData_Inicio());
+		ncm.setValidTo(nomenclatura.getData_Fim());
 		ncm.save();
 	}	//	processNCM
 }	//	ImportNCM
