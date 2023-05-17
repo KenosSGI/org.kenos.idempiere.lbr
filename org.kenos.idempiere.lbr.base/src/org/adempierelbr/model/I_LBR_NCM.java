@@ -181,6 +181,32 @@ public interface I_LBR_NCM
 	  */
 	public int getUpdatedBy();
 
+    /** Column name ValidFrom */
+    public static final String COLUMNNAME_ValidFrom = "ValidFrom";
+
+	/** Set Valid from.
+	  * Valid from including this date (first day)
+	  */
+	public void setValidFrom (Timestamp ValidFrom);
+
+	/** Get Valid from.
+	  * Valid from including this date (first day)
+	  */
+	public Timestamp getValidFrom();
+
+    /** Column name ValidTo */
+    public static final String COLUMNNAME_ValidTo = "ValidTo";
+
+	/** Set Valid to.
+	  * Valid to including this date (last day)
+	  */
+	public void setValidTo (Timestamp ValidTo);
+
+	/** Get Valid to.
+	  * Valid to including this date (last day)
+	  */
+	public Timestamp getValidTo();
+
     /** Column name Value */
     public static final String COLUMNNAME_Value = "Value";
 

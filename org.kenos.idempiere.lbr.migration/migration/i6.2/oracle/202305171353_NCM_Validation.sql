@@ -69,6 +69,14 @@ UPDATE AD_Process_Para SET IsActive='N',Updated=TO_DATE('2023-05-17 15:00:42','Y
 INSERT INTO AD_Process_Para (AD_Process_Para_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,Name,Description,AD_Process_ID,SeqNo,AD_Reference_ID,IsRange,FieldLength,IsMandatory,DefaultValue,ColumnName,IsCentrallyMaintained,EntityType,AD_Element_ID,AD_Process_Para_UU,IsEncrypted) VALUES (1120626,0,0,'Y',TO_DATE('2023-05-17 15:02:02','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2023-05-17 15:02:02','YYYY-MM-DD HH24:MI:SS'),100,'Delete old/existing records','Otherwise records will be added',1120314,30,20,'N',1,'Y','Y','DeleteOld','Y','U',1669,'eb6faa58-d2dd-49ab-b40b-e0b977d9c515','N')
 ;
 
+-- 17 de mai de 2023 16:14:03 BRT
+UPDATE AD_Column SET FieldLength=2048, SeqNoSelection=10,Updated=TO_TIMESTAMP('2023-05-17 16:14:03','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1000248
+;
+
+-- 17 de mai de 2023 16:14:04 BRT
+INSERT INTO t_alter_column values('lbr_ncm','Description','VARCHAR(2048)',null,'NULL')
+;
+
 -- 17 de mai de 2023 14:52:21 BRT
 SELECT Register_Migration_Script ('202305171353_NCM_Validation.sql') FROM DUAL
 ;

@@ -18,6 +18,7 @@
 package org.adempierelbr.model;
 
 import java.sql.ResultSet;
+import java.sql.Timestamp;
 import java.util.Properties;
 import org.compiere.model.*;
 import org.compiere.util.KeyNamePair;
@@ -31,7 +32,7 @@ public class X_LBR_NCM extends PO implements I_LBR_NCM, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20230502L;
+	private static final long serialVersionUID = 20230517L;
 
     /** Standard Constructor */
     public X_LBR_NCM (Properties ctx, int LBR_NCM_ID, String trxName)
@@ -191,6 +192,40 @@ public class X_LBR_NCM extends PO implements I_LBR_NCM, I_Persistent
 		if (ii == null)
 			return 0;
 		return ii.intValue();
+	}
+
+	/** Set Valid from.
+		@param ValidFrom 
+		Valid from including this date (first day)
+	  */
+	public void setValidFrom (Timestamp ValidFrom)
+	{
+		set_Value (COLUMNNAME_ValidFrom, ValidFrom);
+	}
+
+	/** Get Valid from.
+		@return Valid from including this date (first day)
+	  */
+	public Timestamp getValidFrom () 
+	{
+		return (Timestamp)get_Value(COLUMNNAME_ValidFrom);
+	}
+
+	/** Set Valid to.
+		@param ValidTo 
+		Valid to including this date (last day)
+	  */
+	public void setValidTo (Timestamp ValidTo)
+	{
+		set_Value (COLUMNNAME_ValidTo, ValidTo);
+	}
+
+	/** Get Valid to.
+		@return Valid to including this date (last day)
+	  */
+	public Timestamp getValidTo () 
+	{
+		return (Timestamp)get_Value(COLUMNNAME_ValidTo);
 	}
 
 	/** Set Search Key.
