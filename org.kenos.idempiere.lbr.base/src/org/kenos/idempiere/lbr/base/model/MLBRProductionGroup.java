@@ -204,7 +204,9 @@ public class MLBRProductionGroup extends X_LBR_ProductionGroup implements DocAct
 			for (MProduction p : productions)
 			{
 				//	Only when the order was not dropped previously
-				if (!MProduction.ISCREATED_Yes.equals(p.getIsCreated()))	
+				if (!MProduction.ISCREATED_Yes.equals(p.getIsCreated()) 
+						&& !MProduction.STATUS_Voided.equals(p.getDocStatus())
+						&& !MProduction.STATUS_Reversed.equals(p.getDocStatus()))	
 				{
 					List<IPOGBOMDrop> list = Service.locator().list(IPOGBOMDrop.class).getServices();
 					
