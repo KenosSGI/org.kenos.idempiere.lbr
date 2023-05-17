@@ -162,6 +162,10 @@ public class MLBRNCM extends X_LBR_NCM
 		if (ncm.length() >= 5)
 			return ncm.replaceAll ("^([\\d]{4})([\\d]{1,2})[\\w\\W]*", "$1.$2");
 
+		//	Format mid-sized NCM
+		if (ncm.length() == 4)
+			return ncm.replaceAll ("^([\\d]{2})([\\d]{2})[\\w\\W]*", "$1.$2");
+
 		//	Otherwise return the numeric 1-4 digits
 		return ncm;
 	}	//	formatNCM
@@ -177,6 +181,9 @@ public class MLBRNCM extends X_LBR_NCM
 				log.saveError("Error", validation);
 				return false;
 			}
+		}
+		if (newRecord || is_ValueChanged(COLUMNNAME_Value)) {
+			setValue (formatNCM (getValue ()));
 		}
 		return true;
 	}	//	beforeSave

@@ -28,6 +28,44 @@
 									<version>5.0.2</version>
 									<destFileName>xmlbeans.jar</destFileName>
 								</artifactItem>
+								<artifactItem>
+									<groupId>com.squareup.okhttp3</groupId>
+									<artifactId>okhttp</artifactId>
+									<version>${okhttp-version}</version>
+									<destFileName>okhttp3.jar</destFileName>
+								</artifactItem>
+								<artifactItem>
+									<groupId>com.squareup.okhttp3</groupId>
+									<artifactId>logging-interceptor</artifactId>
+									<version>${okhttp-version}</version>
+									<destFileName>logging-interceptor.jar</destFileName>
+								</artifactItem>
+								<artifactItem>
+									<groupId>com.squareup.retrofit2</groupId>
+									<artifactId>retrofit</artifactId>
+									<version>${retrofit-version}</version>
+									<destFileName>retrofit.jar</destFileName>
+								</artifactItem>
+								<artifactItem>
+									<groupId>com.squareup.retrofit2</groupId>
+									<artifactId>converter-jackson</artifactId>
+									<version>${retrofit-version}</version>
+									<destFileName>converter-jackson.jar</destFileName>
+								</artifactItem>
+								<!-- https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-stdlib -->
+								<artifactItem>
+								    <groupId>org.jetbrains.kotlin</groupId>
+								    <artifactId>kotlin-stdlib</artifactId>
+								    <version>${stdlib-version}</version>
+									<destFileName>kotlin-stdlib.jar</destFileName>
+								</artifactItem>
+								<!-- https://mvnrepository.com/artifact/com.squareup.okio/okio-jvm -->
+								<artifactItem>
+								    <groupId>com.squareup.okio</groupId>
+								    <artifactId>okio-jvm</artifactId>
+								    <version>${okio-jvm-version}</version>
+									<destFileName>okio-jvm.jar</destFileName>
+								</artifactItem>
 							</artifactItems>
 							<outputDirectory>lib</outputDirectory>
 							<stripVersion>true</stripVersion>
