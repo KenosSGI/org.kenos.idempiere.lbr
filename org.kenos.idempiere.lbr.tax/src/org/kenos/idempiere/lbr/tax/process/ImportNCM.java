@@ -16,10 +16,31 @@
  *****************************************************************************/
 package org.kenos.idempiere.lbr.tax.process;
 
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Level;
+import java.util.stream.Collectors;
 
+import org.adempierelbr.model.MLBRNCM;
+import org.adempierelbr.util.TextUtil;
+import org.compiere.model.MPostIt;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import okhttp3.OkHttpClient;
+import retrofit2.Call;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.jackson.JacksonConverterFactory;
+import retrofit2.http.GET;
+import retrofit2.http.Query;
 
 /**
  *	Import NCM
@@ -28,15 +49,10 @@ import org.compiere.process.SvrProcess;
  */
 public class ImportNCM extends SvrProcess
 {
-	/** File		*/
-	private String 	p_FileName = null;
-	
 	private boolean p_CreateNew = false;
+	private boolean p_DeleteOld = true;
 
-	private static final int COL_NCM_VALUE 	= 0;
-	private static final int COL_NCM_NAME 	= 1;
-	private static final int COL_IPI 		= 2;
-	private static final int COL_RESULT		= 3;
+	private static final String PROFILE = "PUBLICO";
 
 	/**
 	 *  Prepare - e.g., get Parameters.
@@ -49,10 +65,10 @@ public class ImportNCM extends SvrProcess
 			String name = para[i].getParameterName();
 			if (para[i].getParameter() == null)
 				;
-			else if (name.equals("FileName"))
-				p_FileName = para[i].getParameter().toString();
 			else if (name.equals("CreateNew"))
 				p_CreateNew = para[i].getParameterAsBoolean();
+			else if (name.equals("DeleteOld"))
+				p_DeleteOld = para[i].getParameterAsBoolean();
 			else
 				log.log(Level.SEVERE, "Unknown Parameter: " + name);
 		}
@@ -65,101 +81,189 @@ public class ImportNCM extends SvrProcess
 	 */
 	protected String doIt() throws Exception
 	{
-//		Workbook workbook = WorkbookFactory.create(new File(p_FileName));
-//		Sheet sheet = workbook.getSheetAt(0);
-//		Iterator<Row> rowIterator = sheet.rowIterator();
-//		
-//		//	Skip header
-//		if (rowIterator.hasNext()) rowIterator.next();
-//		
-//		while (rowIterator.hasNext()) {
-//			Row row = rowIterator.next();
-//
-//			Cell x1 = row.getCell(COL_NCM_VALUE);
-//			Cell x2 = row.getCell(COL_NCM_NAME);
-//			Cell x3 = row.getCell(COL_IPI);
-//			
-//			if (x1 == null)
-//				continue;
-//			
-//			MLBRNCM ncm = MLBRNCM.get (getCtx(), x1.getStringCellValue().trim(), get_TrxName());
-//			
-//			//	Create if not exists
-//			if (p_CreateNew && ncm == null) {
-//				ncm = new MLBRNCM (getCtx(), 0, get_TrxName());
-//				//
-//				ncm.setValue(x1.getStringCellValue());				
-//				if (x2 != null)
-//					ncm.setDescription(x2.getStringCellValue());
-//				ncm.setAD_Org_ID(0);
-//				ncm.save();
-//			}
-//			
-//			//	No tax rate to fill
-//			if (ncm == null)
-//			{
-//				row.createCell(COL_RESULT).setCellValue("NCM não encontrado");
-//				continue;
-//			}
-//			//	Invalid tax rate
-//			double ipi = x3.getNumericCellValue();
-//			if (x3 == null || ipi <= 0)
-//			{
-//				int LBR_Tax_ID = ncm.getLBR_Tax_ID();
-//				//				
-//				if (LBR_Tax_ID > 0) {
-//					ncm.setLBR_Tax_ID(0);
-//					ncm.save();
-//					//
-//					MLBRTax tax = new MLBRTax (getCtx(), 0, get_TrxName());
-//					tax.delete(true);
-//				}
-//
-//				row.createCell(COL_RESULT).setCellValue("Imposto zerado");
-//				continue;
-//			}
-//			
-//			MLBRTax tax = null;
-//					
-//			//	Create Tax record
-//			if (ncm.getLBR_Tax_ID() < 1) {
-//				tax = new MLBRTax (getCtx(), 0, get_TrxName());
-//				tax.save();
-//			}
-//			else
-//				tax = new MLBRTax (getCtx(), ncm.getLBR_Tax_ID(), get_TrxName());
-//			
-//			//	Find IPI Line
-//			MLBRTaxLine ipiTax = Arrays.asList(tax.getLines()).stream()
-//				.filter(l -> l.getLBR_TaxName_ID() == MLBRTax.TAX_IPI)
-//				.findFirst().orElse(new MLBRTaxLine (getCtx(), 0, get_TrxName()));
-//			
-//			ipiTax.setLBR_Tax_ID(tax.getLBR_Tax_ID());
-//			ipiTax.setLBR_TaxName_ID(MLBRTax.TAX_IPI);
-//			ipiTax.setlbr_TaxRate(new BigDecimal(ipi));
-//			ipiTax.setAD_Org_ID(0);
-//			int LBR_TaxStatus_ID = MLBRTaxStatus.get (MLBRTax.TAX_IPI, "50");
-//			if (LBR_TaxStatus_ID > 0)
-//				ipiTax.setLBR_TaxStatus_ID(LBR_TaxStatus_ID);
-//			if (ipiTax.save())
-//				row.createCell(COL_RESULT).setCellValue("Imposto cadastrado");
-//			//	Fix description
-//			tax.setDescription();
-//			tax.setAD_Org_ID(0);
-//			tax.save();
-//			
-//			ncm.setLBR_Tax_ID(tax.getLBR_Tax_ID());
-//			ncm.save();
-//		}
-//		
-//		//	Show result
-//		File resultFile = File.createTempFile("ImportNCM_" + TextUtil.timeToString(new Timestamp(System.currentTimeMillis()), "yyyyMMdd"), ".xlsx");
-//		FileOutputStream os = new FileOutputStream(resultFile);
-//		workbook.write(os);
-//		//
-//		if (processUI != null)
-//			processUI.download(resultFile);
-//       
-		return "@Error@ - Processo temporariamente desativado";
+		OkHttpClient client = new OkHttpClient.Builder().build();
+		ClassifAPI api = new Retrofit.Builder()
+				.baseUrl("https://portalunico.siscomex.gov.br/classif/api/")
+				.addConverterFactory(JacksonConverterFactory.create())
+				.client(client)
+				.build().create(ClassifAPI.class);
+		
+		statusUpdate ("Conectando a API para obter os dados...");
+		
+		Call<Root> call = api.download(PROFILE);
+		Response<Root> response = call.execute();
+		
+		if (response.code() != 200)
+			return "@Error@ " + response.code() + " - " + response.message();
+		
+		statusUpdate ("Download concluído... Processando...");
+		
+		Root downloaded = response.body();
+		//
+		String ato = downloaded.getAto();
+		
+		Map<Integer, Nomenclatura> parent = new HashMap<Integer, Nomenclatura>();
+		List<Nomenclatura> nomenclaturas = downloaded.getNomenclaturas();
+		int total = nomenclaturas.size();
+		AtomicInteger processed = new AtomicInteger();
+		//
+		nomenclaturas.forEach(nomenclatura -> {
+			final StringBuilder parentDesc = new StringBuilder();
+			final StringBuilder codigo = new StringBuilder(nomenclatura.getCodigo());
+			//
+			parent.keySet().stream().filter(key -> key < codigo.length()).forEach(key -> {
+				Nomenclatura parentNCM = parent.get(key);
+				if (TextUtil.toNumeric(nomenclatura.getCodigo())
+						.startsWith(TextUtil.toNumeric(parentNCM.getCodigo())))
+					parentDesc.append(parentNCM.getCodigo() + ": " + parentNCM.getDescricao()).append("\n");
+			});
+			
+			parent.put(codigo.length(), nomenclatura);
+			processNCM(nomenclatura, parentDesc.toString());
+			
+			int progress = processed.incrementAndGet()*100/total;
+			if (progress % 5 == 0)
+				statusUpdate("Processando... " + progress + "% ");
+		});
+
+		statusUpdate("Verificando os NCMs ativos");
+
+		final Timestamp now = new Timestamp (System.currentTimeMillis());
+		List<String> active = nomenclaturas.stream()
+				.filter(ncm -> {
+					return ncm.getData_Inicio().before(now) && ncm.getData_Fim().after(now);
+				})
+				.map(Nomenclatura::getCodigo)
+				.collect(Collectors.toList());
+		int[] ids = new org.compiere.model.Query (getCtx(), MLBRNCM.Table_Name, "", null)
+				.setOnlyActiveRecords(true)
+				.setClient_ID()
+				.getIDs();
+
+		if (p_DeleteOld) {
+			statusUpdate("Desabilitando NCMs descontinuados");
+			Arrays.stream(ids).forEach(id -> {
+				MLBRNCM ncm = new MLBRNCM (getCtx(), id, null);
+				if (active.contains(ncm.getValue()))
+					return;
+				//
+				ncm.setIsActive(false);
+				ncm.save();
+				
+				MPostIt postIt = new MPostIt (getCtx(), MLBRNCM.Table_ID, ncm.getLBR_NCM_ID(), null);
+				postIt.setText("** Desativado via processo de Importação de NCM **");
+				postIt.save();
+			});
+		}
+			
+		return "@Success@\n" + ato;
 	}	//	doIt
+
+	private void processNCM (Nomenclatura nomenclatura, String parentDesc) {
+		String codigo = nomenclatura.getCodigo();
+		MLBRNCM ncm = MLBRNCM.get (getCtx(), codigo, null);
+		
+		//	Create if not exists
+		if (p_CreateNew && ncm == null) {
+			ncm = new MLBRNCM (getCtx(), 0, get_TrxName());
+			//
+			ncm.setValue(codigo);
+			ncm.setAD_Org_ID(0);
+		}
+		
+		ncm.setDescription(parentDesc + nomenclatura.getDescricao());
+		ncm.save();
+	}	//	processNCM
 }	//	ImportNCM
+
+interface ClassifAPI {
+	@GET("publico/nomenclatura/download/json")
+	Call<Root> download(@Query("perfil") String perfil);
+}
+
+class Nomenclatura {
+	@JsonProperty("Codigo")
+	public String codigo;
+	@JsonProperty("Descricao")
+	public String descricao;
+	@JsonProperty("Data_Inicio")
+	public String data_Inicio;
+	@JsonProperty("Data_Fim")
+	public String data_Fim;
+	@JsonProperty("Tipo_Ato")
+	public String tipo_Ato;
+	@JsonProperty("Numero_Ato")
+	public String numero_Ato;
+	@JsonProperty("Ano_Ato")
+	public String ano_Ato;
+	public String getCodigo() {
+		return codigo;
+	}
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
+	}
+	public String getDescricao() {
+		return descricao;
+	}
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+	public Timestamp getData_Inicio() {
+		return TextUtil.stringToTime(data_Inicio, "dd/MM/yyyy");
+	}
+	public void setData_Inicio(String data_Inicio) {
+		this.data_Inicio = data_Inicio;
+	}
+	public Timestamp getData_Fim() {
+		return TextUtil.stringToTime(data_Fim, "dd/MM/yyyy");
+	}
+	public void setData_Fim(String data_Fim) {
+		this.data_Fim = data_Fim;
+	}
+	public String getTipo_Ato() {
+		return tipo_Ato;
+	}
+	public void setTipo_Ato(String tipo_Ato) {
+		this.tipo_Ato = tipo_Ato;
+	}
+	public String getNumero_Ato() {
+		return numero_Ato;
+	}
+	public void setNumero_Ato(String numero_Ato) {
+		this.numero_Ato = numero_Ato;
+	}
+	public String getAno_Ato() {
+		return ano_Ato;
+	}
+	public void setAno_Ato(String ano_Ato) {
+		this.ano_Ato = ano_Ato;
+	}
+}	//	Nomenclatura
+
+class Root {
+	@JsonProperty("Data_Ultima_Atualizacao_NCM")
+	public String data_Ultima_Atualizacao_NCM;
+	@JsonProperty("Ato")
+	public String ato;
+	@JsonProperty("Nomenclaturas")
+	public ArrayList<Nomenclatura> nomenclaturas;
+	public Timestamp getData_Ultima_Atualizacao_NCM() {
+		return TextUtil.stringToTime(data_Ultima_Atualizacao_NCM, "dd/MM/yyyy");
+	}
+	public void setData_Ultima_Atualizacao_NCM(String data_Ultima_Atualizacao_NCM) {
+		this.data_Ultima_Atualizacao_NCM = data_Ultima_Atualizacao_NCM;
+	}
+	public String getAto() {
+		return ato;
+	}
+	public void setAto(String ato) {
+		this.ato = ato;
+	}
+	public ArrayList<Nomenclatura> getNomenclaturas() {
+		return nomenclaturas;
+	}
+	public void setNomenclaturas(ArrayList<Nomenclatura> nomenclaturas) {
+		this.nomenclaturas = nomenclaturas;
+	}
+}	//	Root
+
