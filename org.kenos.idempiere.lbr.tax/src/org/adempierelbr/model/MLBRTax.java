@@ -440,8 +440,7 @@ public class MLBRTax extends X_LBR_Tax
 				 */
 				BigDecimal taxBase = tLine.getlbr_TaxBase();
 				
-				if (LBR_TaxName_ID > 0 
-						&& LBR_TaxName_ID != tLine.getLBR_TaxName_ID()
+				if ((LBR_TaxName_ID == TAX_PIS || LBR_TaxName_ID == TAX_COFINS)
 						&& taxBase != null 
 						&& taxBase.compareTo(BigDecimal.ZERO) == 1 
 						&& taxBase.compareTo(Env.ONEHUNDRED) == -1) 
