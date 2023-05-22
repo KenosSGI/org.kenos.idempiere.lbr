@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.logging.Level;
 
 import org.adempiere.exceptions.AdempiereException;
+import org.adempiere.exceptions.DBException;
 import org.adempierelbr.util.TextUtil;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -219,7 +220,21 @@ public class ReturnCNAB extends SvrProcess
 		}
 
 		// Find the Bank Slip of CNAB file
-		MLBRBankSlip bankSlip = MLBRBankSlip.get(getCtx(), p_Contract_ID, detail.getNumberInOrg());
+		MLBRBankSlip bankSlip = null;
+		try
+		{
+			bankSlip = MLBRBankSlip.get(getCtx(), p_Contract_ID, detail.getNumberInOrg(), detail.getDueDate());
+		}
+		catch (DBException e)
+		{
+			String msg = "Erro na pesquisa do boleto";
+			if (e.getMessage() != null && e.getMessage().indexOf("QueryMoreThanOneRecordsFound") != -1)
+				msg += ", mais de um boleto encontrado com o mesmo Identificador.";
+			//
+			addLog(detail, " - " + msg);
+			row.createCell(COL_OBS).setCellValue(msg);
+			return;
+		}
 
 		if (bankSlip == null) 
 		{

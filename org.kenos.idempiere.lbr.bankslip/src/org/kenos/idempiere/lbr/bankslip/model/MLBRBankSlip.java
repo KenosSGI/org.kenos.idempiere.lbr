@@ -1565,6 +1565,11 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 	
 	public static MLBRBankSlip get (Properties ctx, int Contract_ID, String identifier)
 	{
+		return get (ctx, Contract_ID, identifier, null);
+	}
+	
+	public static MLBRBankSlip get (Properties ctx, int Contract_ID, String identifier, Timestamp dueDate)
+	{
 		if (identifier == null)
 			return null;
 		
@@ -1578,10 +1583,13 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 				return new MLBRBankSlip (ctx, id, null);
 			}
 			
+			String where = COLUMNNAME_LBR_BankSlipContract_ID + "=? AND " + COLUMNNAME_LBR_NumberInOrg + "=? ";
+			if (dueDate != null)
+				where += " AND " + COLUMNNAME_DueDate + "=" + DB.TO_DATE(dueDate);
 			/**
 			 * 	Finds bank slip by exactly match
 			 */
-			MLBRBankSlip bankSlip = new Query(ctx, Table_Name, COLUMNNAME_LBR_BankSlipContract_ID + "=? AND " + COLUMNNAME_LBR_NumberInOrg + "=?", null)
+			MLBRBankSlip bankSlip = new Query(ctx, Table_Name, where, null)
 				.setClient_ID()
 				.setParameters(Contract_ID, identifier)
 				.firstOnly();
