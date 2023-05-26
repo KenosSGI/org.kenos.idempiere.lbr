@@ -3185,8 +3185,8 @@ Há duas razões para desativar e não excluir registros:
  </row>
  <row id="526" trl="Y">
   <value column="Name" original="Quantity">Quantidade</value>
-  <value column="PrintName" original="Qty">Qde</value>
-  <value column="Description" original="Quantity">Quantidade</value>
+  <value column="PrintName" original="Qty">Qtd.</value>
+  <value column="Description" original="Quantity">Qtd.</value>
   <value column="Help" original="The Quantity indicates the number of a specific product or item for this document.">A "Quantidade" indica o número de um item ou produto específico para este documento.</value>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
@@ -3195,9 +3195,9 @@ Há duas razões para desativar e não excluir registros:
   <value column="Placeholder" original=""/>
  </row>
  <row id="528" trl="Y">
-  <value column="Name" original="Delivered Quantity">Quantidade Entregue</value>
-  <value column="PrintName" original="Delivered Qty">Qde Entregue</value>
-  <value column="Description" original="Delivered Quantity">Quantidade Entregue</value>
+  <value column="Name" original="Delivered Quantity">Qtd. Entregue</value>
+  <value column="PrintName" original="Delivered Qty">Qtd. Entregue</value>
+  <value column="Description" original="Delivered Quantity">Qtd. Entregue</value>
   <value column="Help" original="The Delivered Quantity indicates the quantity of a product that has been delivered.">A "Quantidade Entregue" indica a quantidade de um produto que foi entregue.</value>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
@@ -3206,9 +3206,9 @@ Há duas razões para desativar e não excluir registros:
   <value column="Placeholder" original=""/>
  </row>
  <row id="529" trl="Y">
-  <value column="Name" original="Quantity Invoiced">Quantidade Faturada</value>
+  <value column="Name" original="Quantity Invoiced">Qtd. Faturada</value>
   <value column="PrintName" original="Invoiced">Faturado (Nota Emitida)</value>
-  <value column="Description" original="Invoiced Quantity">Quantidade Faturada</value>
+  <value column="Description" original="Invoiced Quantity">Qtd. Faturada</value>
   <value column="Help" original="The Invoiced Quantity indicates the quantity of a product that have been invoiced.">A "Quantidade Faturada" indica a quantidade de um produto que foi faturada.</value>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
@@ -3217,9 +3217,9 @@ Há duas razões para desativar e não excluir registros:
   <value column="Placeholder" original=""/>
  </row>
  <row id="530" trl="Y">
-  <value column="Name" original="On Hand Quantity">Quantidade Em Mãos</value>
-  <value column="PrintName" original="On Hand Qty">Qde Em Mãos</value>
-  <value column="Description" original="On Hand Quantity">Quantidade Em Mãos</value>
+  <value column="Name" original="On Hand Quantity">Qtd. Em Mãos</value>
+  <value column="PrintName" original="On Hand Qty">Qtd. Em Mãos</value>
+  <value column="Description" original="On Hand Quantity">Qtd. Em Mãos</value>
   <value column="Help" original="The On Hand Quantity indicates the quantity of a product that is on hand in a warehouse.">A "Quantidade Disponível" indica a quantidade de um produto que está disponível (em mãos) em um armazém.</value>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
@@ -3228,25 +3228,25 @@ Há duas razões para desativar e não excluir registros:
   <value column="Placeholder" original=""/>
  </row>
  <row id="531" trl="Y">
-  <value column="Name" original="Ordered Quantity">Quantidade Requisitada</value>
-  <value column="PrintName" original="Ordered Qty">Qde Requisitada</value>
-  <value column="Description" original="Ordered Quantity">Quantidade Requisitada</value>
+  <value column="Name" original="Ordered Quantity">Qtd. Requisitada</value>
+  <value column="PrintName" original="Ordered Qty">Qtd. Requisitada</value>
+  <value column="Description" original="Ordered Quantity">Qtd. Requisitada</value>
   <value column="Help" original="The Ordered Quantity indicates the quantity of a product that was ordered.">A "Quantidade Requisitada" indica a quantidade de um produto que foi requisitada.</value>
-  <value column="PO_Description" original="Ordered Quantity">Quantidade Requisitada</value>
+  <value column="PO_Description" original="Ordered Quantity">Qtd. Requisitada</value>
   <value column="PO_Help" original="The Ordered Quantity indicates the quantity of a product that was ordered.">A "Quantidade Requisitada" indica a quantidade de um produto que foi requisitada.</value>
-  <value column="PO_Name" original="PO Quantity">Quantidade PC</value>
-  <value column="PO_PrintName" original="PO Quantity">Quantidade PC</value>
+  <value column="PO_Name" original="PO Quantity">Qtd. PC</value>
+  <value column="PO_PrintName" original="PO Quantity">Qtd. PC</value>
   <value column="Placeholder" original=""/>
  </row>
  <row id="532" trl="Y">
-  <value column="Name" original="Reserved Quantity">Quantidade Reservada</value>
-  <value column="PrintName" original="Reserved Qty">Qde Reservada</value>
-  <value column="Description" original="Reserved Quantity">Quantidade Reservada</value>
+  <value column="Name" original="Reserved Quantity">Qtd. Reservada</value>
+  <value column="PrintName" original="Reserved Qty">Qtd. Reservada</value>
+  <value column="Description" original="Reserved Quantity">Qtd. Reservada</value>
   <value column="Help" original="The Reserved Quantity indicates the quantity of a product that is currently reserved.">A "Quantidade Reservada" indica a quantidade de um produto que está reservada atualmente.</value>
-  <value column="PO_Description" original="Quantity Ordered on Purchase Orders">Quantidade Requisitada nos Pedidos de Compras</value>
+  <value column="PO_Description" original="Quantity Ordered on Purchase Orders">Qtd. Requisitada nos Pedidos de Compras</value>
   <value column="PO_Help" original="The Ordered Quantity indicates the quantity of a product that is currently ordered.">A "Quantidade Requisitada" indica a quantidade de um produto que está pedida atualmente.</value>
-  <value column="PO_Name" original="On Order Quantity">Quantidade No Pedido</value>
-  <value column="PO_PrintName" original="On Order Quantity">Quantidade No Pedido</value>
+  <value column="PO_Name" original="On Order Quantity">Qtd. No Pedido</value>
+  <value column="PO_PrintName" original="On Order Quantity">Qtd. No Pedido</value>
   <value column="Placeholder" original=""/>
  </row>
  <row id="534" trl="Y">
@@ -4742,9 +4742,9 @@ Devido a arredondamentos, o valor da taxa pode diferir.</value>
   <value column="Placeholder" original=""/>
  </row>
  <row id="942" trl="Y">
-  <value column="Name" original="Minimum Order Qty">Qde Mínima de Pedido</value>
-  <value column="PrintName" original="Minimum Order Qty">Qde Mínima de Pedido</value>
-  <value column="Description" original="Minimum order quantity in UOM">Quantidade Mínima de Pedido em UDM</value>
+  <value column="Name" original="Minimum Order Qty">Qtd. Mínima de Pedido</value>
+  <value column="PrintName" original="Minimum Order Qty">Qtd. Mínima de Pedido</value>
+  <value column="Description" original="Minimum order quantity in UOM">Qtd. Mínima de Pedido em UDM</value>
   <value column="Help" original="The Minimum Order Quantity indicates the smallest quantity of this product which can be ordered.">A "Quantidade Mínima de Pedido" indica a menor quantidade deste produto que pode ser pedida.</value>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
@@ -4753,10 +4753,10 @@ Devido a arredondamentos, o valor da taxa pode diferir.</value>
   <value column="Placeholder" original=""/>
  </row>
  <row id="943" trl="Y">
-  <value column="Name" original="Order Pack Qty">Qde por Pacote do Pedido</value>
-  <value column="PrintName" original="Order Pack Qty">Qde por Pacote do Pedido</value>
+  <value column="Name" original="Order Pack Qty">Qtd. por Pacote do Pedido</value>
+  <value column="PrintName" original="Order Pack Qty">Qtd. por Pacote do Pedido</value>
   <value column="Description" original="Package order size in UOM (e.g. order set of 5 units)">O tamanho do pacote em cada pedido em UDM (ex. conjunto de 5 unidades por pacote)</value>
-  <value column="Help" original="The Order Pack Quantity indicates the number of units in each pack of this product.">A "Qde por Pacote do Pedido" indica o número de unidades em cada pacote deste produto.</value>
+  <value column="Help" original="The Order Pack Quantity indicates the number of units in each pack of this product.">A "Qtd. por Pacote do Pedido" indica o número de unidades em cada pacote deste produto.</value>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
   <value column="PO_Name" original=""/>
@@ -5210,9 +5210,9 @@ Sub Tipo PV de <b>PDV</b> (Ponto de Venda) irá gerar todos os documentos]]></va
   <value column="Placeholder" original=""/>
  </row>
  <row id="1038" trl="Y">
-  <value column="Name" original="Movement Quantity">Quantidade Movimentada</value>
-  <value column="PrintName" original="Qty">Qde</value>
-  <value column="Description" original="Quantity of a product moved.">Quantidade de um produto que foi movimentada.</value>
+  <value column="Name" original="Movement Quantity">Qtd. Movimentada</value>
+  <value column="PrintName" original="Qty">Qtd.</value>
+  <value column="Description" original="Quantity of a product moved.">Qtd. de um produto que foi movimentada.</value>
   <value column="Help" original="The Movement Quantity indicates the quantity of a product that has been moved.">A "Quantidade Movimentada" indica a quantidade de um produto que foi movida.</value>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
@@ -5298,9 +5298,9 @@ Sub Tipo PV de <b>PDV</b> (Ponto de Venda) irá gerar todos os documentos]]></va
   <value column="Placeholder" original=""/>
  </row>
  <row id="1048" trl="Y">
-  <value column="Name" original="Quantity book">Quantidade Contábil</value>
-  <value column="PrintName" original="Qty book">Quantidade Contábil</value>
-  <value column="Description" original="Book Quantity">Quantidade Contábil (Book Quantity)</value>
+  <value column="Name" original="Quantity book">Qtd. Contábil</value>
+  <value column="PrintName" original="Qty book">Qtd. Contábil</value>
+  <value column="Description" original="Book Quantity">Qtd. Contábil (Book Quantity)</value>
   <value column="Help" original="The Quantity Book indicates the line count stored in the system for a product in inventory">A "Quantidade Contábil" indica a linha de contagem armazenada no sistema para um produto no estoque (quantidade de produtos que o sistema acredita haver em estoque)</value>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
@@ -5309,9 +5309,9 @@ Sub Tipo PV de <b>PDV</b> (Ponto de Venda) irá gerar todos os documentos]]></va
   <value column="Placeholder" original=""/>
  </row>
  <row id="1049" trl="Y">
-  <value column="Name" original="Quantity count">Quantidade Contada</value>
-  <value column="PrintName" original="Qty count">Qde contada</value>
-  <value column="Description" original="Counted Quantity">Quantidade contada fisicamente</value>
+  <value column="Name" original="Quantity count">Qtd. Contada</value>
+  <value column="PrintName" original="Qty count">Qtd. contada</value>
+  <value column="Description" original="Counted Quantity">Qtd. contada fisicamente</value>
   <value column="Help" original="The Quantity Count indicates the actual inventory count taken for a product in inventory">A "Quantidade Contada" indica a contagem real de estoque feita para um produto no estoque</value>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
@@ -6002,9 +6002,9 @@ Sub Tipo PV de <b>PDV</b> (Ponto de Venda) irá gerar todos os documentos]]></va
   <value column="Placeholder" original=""/>
  </row>
  <row id="1130" trl="Y">
-  <value column="Name" original="Quantity Invoiced">Quantidade Faturada</value>
-  <value column="PrintName" original="Qty Invoiced">Qde Faturada</value>
-  <value column="Description" original="Quantity of product or service invoiced">Quantidade faturada de um produto ou serviço</value>
+  <value column="Name" original="Quantity Invoiced">Qtd. Faturada</value>
+  <value column="PrintName" original="Qty Invoiced">Qtd. Faturada</value>
+  <value column="Description" original="Quantity of product or service invoiced">Qtd. faturada de um produto ou serviço</value>
   <value column="Help" original="The Quantity Invoiced indicates the total quantity of a product or service that has been invoiced.">O campo "Quantidade Faturada" indica a quantidade total de um produto ou serviço que tenha sido faturado.</value>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
@@ -6013,9 +6013,9 @@ Sub Tipo PV de <b>PDV</b> (Ponto de Venda) irá gerar todos os documentos]]></va
   <value column="Placeholder" original=""/>
  </row>
  <row id="1131" trl="Y">
-  <value column="Name" original="Quantity Provided">Quantidade Fornecida</value>
-  <value column="PrintName" original="Qty Provided">Qde Fornecida</value>
-  <value column="Description" original="Quantity of service or product provided">Quantidade fornecida de um produto ou serviço</value>
+  <value column="Name" original="Quantity Provided">Qtd. Fornecida</value>
+  <value column="PrintName" original="Qty Provided">Qtd. Fornecida</value>
+  <value column="Description" original="Quantity of service or product provided">Qtd. fornecida de um produto ou serviço</value>
   <value column="Help" original="The Quantity Provided indicates the total quantity of a product or service that has been received by the customer.">O campo "Quantidade Fornecida" indica a quantidade total de um produto ou serviço que tenha sido recebido pelo cliente.</value>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
@@ -6024,8 +6024,8 @@ Sub Tipo PV de <b>PDV</b> (Ponto de Venda) irá gerar todos os documentos]]></va
   <value column="Placeholder" original=""/>
  </row>
  <row id="1132" trl="Y">
-  <value column="Name" original="Qty">Qde</value>
-  <value column="PrintName" original="Qty">Qde</value>
+  <value column="Name" original="Qty">Qtd.</value>
+  <value column="PrintName" original="Qty">Qtd.</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -6512,8 +6512,8 @@ Recebimento de entrada são armazenados na localização com a mais alta priorid
   <value column="Placeholder" original=""/>
  </row>
  <row id="1250" trl="Y">
-  <value column="Name" original="Qty to deliver">Qde a entregar</value>
-  <value column="PrintName" original="Qty to deliver">Qde a entregar</value>
+  <value column="Name" original="Qty to deliver">Qtd. a Entregar</value>
+  <value column="PrintName" original="Qty to deliver">Qtd. a Entregar</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -6523,8 +6523,8 @@ Recebimento de entrada são armazenados na localização com a mais alta priorid
   <value column="Placeholder" original=""/>
  </row>
  <row id="1251" trl="Y">
-  <value column="Name" original="Qty to invoice">Qde a faturar</value>
-  <value column="PrintName" original="Qty to invoice">Qde a faturar</value>
+  <value column="Name" original="Qty to invoice">Qtd. a Faturar</value>
+  <value column="PrintName" original="Qty to invoice">Qtd. a Faturar</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -6580,7 +6580,7 @@ Recebimento de entrada são armazenados na localização com a mais alta priorid
  <row id="1256" trl="Y">
   <value column="Name" original="Promised Delivery Time">Prazo de Entrega Prometido</value>
   <value column="PrintName" original="Promised Delivery Time">Prazo de Entrega Prometido</value>
-  <value column="Description" original="Promised days between order and delivery">Quantidade de dias prometido entre o pedido e a entrega</value>
+  <value column="Description" original="Promised days between order and delivery">Qtd. de dias prometido entre o pedido e a entrega</value>
   <value column="Help" original="The Promised Delivery Time indicates the number of days between the order date and the date that delivery was promised.">O "Prazo de Entrega Prometido" indica o número de dias entre a data do pedido e a data prometida para a entrega.</value>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
@@ -6589,8 +6589,8 @@ Recebimento de entrada são armazenados na localização com a mais alta priorid
   <value column="Placeholder" original=""/>
  </row>
  <row id="1257" trl="Y">
-  <value column="Name" original="Quantity to Order">Quantidade a Pedir</value>
-  <value column="PrintName" original="Qty to Order">Qde a Pedir</value>
+  <value column="Name" original="Quantity to Order">Qtd. a Pedir</value>
+  <value column="PrintName" original="Qty to Order">Qtd. a Pedir</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -6875,8 +6875,8 @@ Recebimento de entrada são armazenados na localização com a mais alta priorid
   <value column="Placeholder" original=""/>
  </row>
  <row id="1283" trl="Y">
-  <value column="Name" original="Reply Qty Available">Responder Qde Disponível</value>
-  <value column="PrintName" original="Qty Available">Qde Disponível</value>
+  <value column="Name" original="Reply Qty Available">Responder Qtd. Disponível</value>
+  <value column="PrintName" original="Qty Available">Qtd. Disponível</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -6886,8 +6886,8 @@ Recebimento de entrada são armazenados na localização com a mais alta priorid
   <value column="Placeholder" original=""/>
  </row>
  <row id="1284" trl="Y">
-  <value column="Name" original="Reply Qty Confirmed">Responder Qde Confirmada</value>
-  <value column="PrintName" original="Qty Confirmed">Qde Confirmada</value>
+  <value column="Name" original="Reply Qty Confirmed">Responder Qtd. Confirmada</value>
+  <value column="PrintName" original="Qty Confirmed">Qtd. Confirmada</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -6941,8 +6941,8 @@ Recebimento de entrada são armazenados na localização com a mais alta priorid
   <value column="Placeholder" original=""/>
  </row>
  <row id="1289" trl="Y">
-  <value column="Name" original="Request Qty">Qde da Solicitação</value>
-  <value column="PrintName" original="Request Qty">Qde da Solicitação</value>
+  <value column="Name" original="Request Qty">Qtd. da Solicitação</value>
+  <value column="PrintName" original="Request Qty">Qtd. da Solicitação</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -7205,9 +7205,9 @@ Recebimento de entrada são armazenados na localização com a mais alta priorid
   <value column="Placeholder" original=""/>
  </row>
  <row id="1323" trl="Y">
-  <value column="Name" original="BOM Quantity">Quantidade LDM</value>
-  <value column="PrintName" original="Qty">Qde</value>
-  <value column="Description" original="Bill of Materials Quantity">Quantidade da Lista de Materiais</value>
+  <value column="Name" original="BOM Quantity">Qtd. LDM</value>
+  <value column="PrintName" original="Qty">Qtd.</value>
+  <value column="Description" original="Bill of Materials Quantity">Qtd. da Lista de Materiais</value>
   <value column="Help" original="The BOM Quantity indicates the quantity of the product in its Unit of Measure (multiplication)">A "Quantidade da LDM" indica a quantidade do produto em sua Unidade de Medida (multiplicação)</value>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
@@ -7271,9 +7271,9 @@ Recebimento de entrada são armazenados na localização com a mais alta priorid
   <value column="Placeholder" original=""/>
  </row>
  <row id="1343" trl="Y">
-  <value column="Name" original="Production Quantity">Quantidade de Produção</value>
-  <value column="PrintName" original="Production Qty">Qde de Produção</value>
-  <value column="Description" original="Quantity of products to produce">Quantidade de produtos a produzir</value>
+  <value column="Name" original="Production Quantity">Qtd. de Produção</value>
+  <value column="PrintName" original="Production Qty">Qtd. de Produção</value>
+  <value column="Description" original="Quantity of products to produce">Qtd. de produtos a produzir</value>
   <value column="Help" original="The Production Quantity identifies the number of products to produce">A "Quantidade de Produção" identifica o número de produtos a serem produzidos</value>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
@@ -9034,8 +9034,8 @@ Para sistemas Multi-Idiomas, o modelo é traduzido baseado no idioma selecionado
   <value column="Placeholder" original=""/>
  </row>
  <row id="1544" trl="Y">
-  <value column="Name" original="Actual Quantity">Quantidade Real</value>
-  <value column="PrintName" original="Actual Qty">Qde Real</value>
+  <value column="Name" original="Actual Quantity">Qtd. Real</value>
+  <value column="PrintName" original="Actual Qty">Qtd. Real</value>
   <value column="Description" original="The actual quantity">É a quantidade real</value>
   <value column="Help" original="The Actual Quantity indicates the quantity as referenced on a document.">A "Quantidade Real" indica a quantidade referenciada em um documento.</value>
   <value column="PO_Description" original=""/>
@@ -9254,9 +9254,9 @@ Para sistemas Multi-Idiomas, o modelo é traduzido baseado no idioma selecionado
   <value column="Placeholder" original=""/>
  </row>
  <row id="1568" trl="Y">
-  <value column="Name" original="Planned Quantity">Quantidade Planejada</value>
-  <value column="PrintName" original="Planned Qty">Qde Planejada</value>
-  <value column="Description" original="Planned quantity for this project">Quantidade planejada para este projeto</value>
+  <value column="Name" original="Planned Quantity">Qtd. Planejada</value>
+  <value column="PrintName" original="Planned Qty">Qtd. Planejada</value>
+  <value column="Description" original="Planned quantity for this project">Qtd. planejada para este projeto</value>
   <value column="Help" original="The Planned Quantity indicates the anticipated quantity for this project or project line">O "Quantidade Planejada" indica a quantidade antecipada para este projeto ou linha de projeto</value>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
@@ -9266,7 +9266,7 @@ Para sistemas Multi-Idiomas, o modelo é traduzido baseado no idioma selecionado
  </row>
  <row id="1569" trl="Y">
   <value column="Name" original="Multiplier Quantity">Multiplicador de Quantidade</value>
-  <value column="PrintName" original="Multiplier Qty">Multiplicador de Qde</value>
+  <value column="PrintName" original="Multiplier Qty">Multiplicador de Qtd.</value>
   <value column="Description" original="Value to multiply quantities by for generating commissions.">Valor utilizado para multiplicar as quantidades para gerar comissões.</value>
   <value column="Help" original="The Multiplier Quantity field indicates the amount to multiply the quantities accumulated for this commission run.">O campo "Multiplicador de Quantidade" indica o valor para multiplicar as quantidades acumuladas para este Cálculo de Comissão.</value>
   <value column="PO_Description" original=""/>
@@ -9276,9 +9276,9 @@ Para sistemas Multi-Idiomas, o modelo é traduzido baseado no idioma selecionado
   <value column="Placeholder" original=""/>
  </row>
  <row id="1570" trl="Y">
-  <value column="Name" original="Subtract Quantity">Quantidade a Deduzir</value>
-  <value column="PrintName" original="Subtract Qty">Qde a Deduzir</value>
-  <value column="Description" original="Quantity to subtract when generating commissions">Quantidade a ser subtraída ao gerar comissões</value>
+  <value column="Name" original="Subtract Quantity">Qtd. a Deduzir</value>
+  <value column="PrintName" original="Subtract Qty">Qtd. a Deduzir</value>
+  <value column="Description" original="Quantity to subtract when generating commissions">Qtd. a ser subtraída ao gerar comissões</value>
   <value column="Help" original="The Quantity Subtract identifies the quantity to be subtracted before multiplication">A "Quantidade a Deduzir" identifica a quantidade a ser subtraída antes da multiplicação</value>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
@@ -10281,8 +10281,8 @@ Strings podem estar entre aspas simples (opcional)]]></value>
   <value column="Placeholder" original=""/>
  </row>
  <row id="1676" trl="Y">
-  <value column="Name" original="Inventory Quantity">Quantidade em Estoque</value>
-  <value column="PrintName" original="Inventory Quantity">Quantidade em Estoque</value>
+  <value column="Name" original="Inventory Quantity">Qtd. em Estoque</value>
+  <value column="PrintName" original="Inventory Quantity">Qtd. em Estoque</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -10593,7 +10593,7 @@ Para personalizações, copie a entidade e selecione "Usuário"!</value>
   <value column="Name" original="Break Value">Ponto de Inflexão</value>
   <value column="PrintName" original="Break Value">Ponto de Inflexão</value>
   <value column="Description" original="Low Value of trade discount break level">Valor Mínimo do ponto de inflexão para desconto comercial</value>
-  <value column="Help" original="Starting Quantity or Amount Value for break level">Quantidade ou Montante Inicial para atingir o ponto de inflexão (Break Level)</value>
+  <value column="Help" original="Starting Quantity or Amount Value for break level">Qtd. ou Montante Inicial para atingir o ponto de inflexão (Break Level)</value>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
   <value column="PO_Name" original=""/>
@@ -10856,8 +10856,8 @@ Para personalizações, copie a entidade e selecione "Usuário"!</value>
  <row id="1733" trl="Y">
   <value column="Name" original="Average Cost Quantity Sum">Somatória de Quantidades de Custo Médio</value>
   <value column="PrintName" original="Average Cost Quantity Sum">Somatória de Quantidades de Custo Médio</value>
-  <value column="Description" original="Cumulative average cost quantities (internal)">Quantidades (internas) de custo médio cumulativas</value>
-  <value column="Help" original="Current cumulative quantity for calculating the average costs">Quantidade cumulativa atual para calcular os custos médios</value>
+  <value column="Description" original="Cumulative average cost quantities (internal)">Qtd.s (internas) de custo médio cumulativas</value>
+  <value column="Help" original="Current cumulative quantity for calculating the average costs">Qtd. cumulativa atual para calcular os custos médios</value>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
   <value column="PO_Name" original=""/>
@@ -10879,7 +10879,7 @@ Para personalizações, copie a entidade e selecione "Usuário"!</value>
   <value column="Name" original="Std Cost Quantity Sum">Somatória de Quantidade de Custo Padrão</value>
   <value column="PrintName" original="Std Cost Quantity Sum">Somatória de Quantidade de Custo Padrão</value>
   <value column="Description" original="Standard Cost Invoice Quantity Sum (internal)">Somatória (interna) de Quantidades de Faturas de Custo Padrão</value>
-  <value column="Help" original="Current cumulative quantity for calculating the standard cost difference based on (actual) invoice price">Quantidade cumulativa atual para calcular a diferença de custo padrão baseada no preço faturado (real)</value>
+  <value column="Help" original="Current cumulative quantity for calculating the standard cost difference based on (actual) invoice price">Qtd. cumulativa atual para calcular a diferença de custo padrão baseada no preço faturado (real)</value>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
   <value column="PO_Name" original=""/>
@@ -10901,7 +10901,7 @@ Para personalizações, copie a entidade e selecione "Usuário"!</value>
   <value column="Name" original="Std PO Cost Quantity Sum">Somatória de Quantidade de Custo Padrão de PC</value>
   <value column="PrintName" original="Std PO Cost Quantity Sum">Somatória de Quantidade de Custo Padrão de PC</value>
   <value column="Description" original="Standard Cost Purchase Order Quantity Sum (internal)">Somatória (interna) de Quantidades de Pedidos de Compras de Custo Padrão</value>
-  <value column="Help" original="Current cumulative quantity for calculating the standard cost difference based on (planned) purchase order price">Quantidade cumulativa atual para calcular a diferença de custo padrão baseada no preço (planejado) de pedidos de compra</value>
+  <value column="Help" original="Current cumulative quantity for calculating the standard cost difference based on (planned) purchase order price">Qtd. cumulativa atual para calcular a diferença de custo padrão baseada no preço (planejado) de pedidos de compra</value>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
   <value column="PO_Name" original=""/>
@@ -10953,9 +10953,9 @@ Para personalizações, copie a entidade e selecione "Usuário"!</value>
   <value column="Placeholder" original=""/>
  </row>
  <row id="1742" trl="Y">
-  <value column="Name" original="Total Invoice Quantity">Quantidade Total Faturada</value>
-  <value column="PrintName" original="Total Invoice Quantity">Quantidade Total Faturada</value>
-  <value column="Description" original="Cumulative total lifetime invoice quantity">Quantidade total cumulativo das faturas</value>
+  <value column="Name" original="Total Invoice Quantity">Qtd. Total Faturada</value>
+  <value column="PrintName" original="Total Invoice Quantity">Qtd. Total Faturada</value>
+  <value column="Description" original="Cumulative total lifetime invoice quantity">Qtd. total cumulativo das faturas</value>
   <value column="Help" original="The cumulative total lifetime invoice quantity is used to calculate the total average price">A "Quantidade total cumulativo das faturas" é usada para calcular o preço médio total</value>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
@@ -13967,8 +13967,8 @@ Se todos os elementos na coluna de uma tabela são Nulo e se selecionados, a col
   <value column="Placeholder" original=""/>
  </row>
  <row id="2036" trl="Y">
-  <value column="Name" original="Committed Quantity">Quantidade Comprometida</value>
-  <value column="PrintName" original="Committed Qty">Qde Comprometida</value>
+  <value column="Name" original="Committed Quantity">Qtd. Comprometida</value>
+  <value column="PrintName" original="Committed Qty">Qtd. Comprometida</value>
   <value column="Description" original="The (legal) commitment Quantity">A quantidade (legal) do comprometimento</value>
   <value column="Help" original="The commitment amount is independent from the planned amount. You would use the planned amount for your realistic estimation, which might be higher or lower than the commitment amount.">O "Valor do Comprometimento" é independente do valor planejado. Você pode usar o valor planejado para suas estimativas realísticas, os quais podem ser maiores ou menores que o montante do comprometimento.</value>
   <value column="PO_Description" original=""/>
@@ -14066,8 +14066,8 @@ Se todos os elementos na coluna de uma tabela são Nulo e se selecionados, a col
   <value column="Placeholder" original=""/>
  </row>
  <row id="2045" trl="Y">
-  <value column="Name" original="Quantity Invoiced ">Quantidade Faturada </value>
-  <value column="PrintName" original="Quantity Invoiced">Quantidade Faturada</value>
+  <value column="Name" original="Quantity Invoiced ">Qtd. Faturada </value>
+  <value column="PrintName" original="Quantity Invoiced">Qtd. Faturada</value>
   <value column="Description" original="The quantity invoiced">A quantidade faturada</value>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -14210,9 +14210,9 @@ Se nenhuma é entrada, a impressora padrão é usada. Você especifica sua impre
   <value column="Placeholder" original=""/>
  </row>
  <row id="2058" trl="Y">
-  <value column="Name" original="Standard Quantity">Quantidade Padrão</value>
-  <value column="PrintName" original="Standard Quantity">Quantidade Padrão</value>
-  <value column="Description" original="Standard Quantity">Quantidade Padrão</value>
+  <value column="Name" original="Standard Quantity">Qtd. Padrão</value>
+  <value column="PrintName" original="Standard Quantity">Qtd. Padrão</value>
+  <value column="Description" original="Standard Quantity">Qtd. Padrão</value>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
@@ -14397,8 +14397,8 @@ Se nenhuma é entrada, a impressora padrão é usada. Você especifica sua impre
   <value column="Placeholder" original=""/>
  </row>
  <row id="2076" trl="Y">
-  <value column="Name" original="Chargeable Quantity">Quantidade Debitável</value>
-  <value column="PrintName" original="Chargeable Qty">Qde Debitável</value>
+  <value column="Name" original="Chargeable Quantity">Qtd. Debitável</value>
+  <value column="PrintName" original="Chargeable Qty">Qtd. Debitável</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -16054,10 +16054,10 @@ Você habilita-a pela definição do parâmetro COMPIERE_SECURE do seu script de
   <value column="Placeholder" original=""/>
  </row>
  <row id="2238" trl="Y">
-  <value column="Name" original="Available Quantity">Quantidade Disponível</value>
-  <value column="PrintName" original="Qty Available">Qde Disponível</value>
-  <value column="Description" original="Available Quantity (On Hand - Reserved)">Quantidade Disponível (Em Mãos - Reservado)</value>
-  <value column="Help" original="Quantity available to promise = On Hand minus Reserved Quantity">Quantidade disponível para prometer = "Quantidade Disponível Em Mãos" menos a "Quantidade Reservada"</value>
+  <value column="Name" original="Available Quantity">Qtd. Disponível</value>
+  <value column="PrintName" original="Qty Available">Qtd. Disponível</value>
+  <value column="Description" original="Available Quantity (On Hand - Reserved)">Qtd. Disponível (Em Mãos - Reservado)</value>
+  <value column="Help" original="Quantity available to promise = On Hand minus Reserved Quantity">Qtd. disponível para prometer = "Quantidade Disponível Em Mãos" menos a "Quantidade Reservada"</value>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
   <value column="PO_Name" original=""/>
@@ -16375,7 +16375,7 @@ Você habilita-a pela definição do parâmetro COMPIERE_SECURE do seu script de
  <row id="2267" trl="Y">
   <value column="Name" original="Backordered">Pedido Pendente</value>
   <value column="PrintName" original="Backordered">Pedido Pendente</value>
-  <value column="Description" original="Backordered Quantity">Quantidade Pendente</value>
+  <value column="Description" original="Backordered Quantity">Qtd. Pendente</value>
   <value column="Help" original="Calculated: ordered - delivered quantity">Calculado: quantidade pedida - quantidade entregue</value>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
@@ -16970,7 +16970,7 @@ Você habilita-a pela definição do parâmetro COMPIERE_SECURE do seu script de
   <value column="Name" original="Waiting Time">Tempo de Espera</value>
   <value column="PrintName" original="Waiting Time">Tempo de Espera</value>
   <value column="Description" original="Workflow Simulation Waiting time">Tempo de Espera da Simulação do Fluxo de Trabalho</value>
-  <value column="Help" original="Amount of time needed to prepare the performance of the task on Duration Units">Quantidade de tempo necessário para preparar o executor da tarefa em "Unidades de Duração"</value>
+  <value column="Help" original="Amount of time needed to prepare the performance of the task on Duration Units">Qtd. de tempo necessário para preparar o executor da tarefa em "Unidades de Duração"</value>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
   <value column="PO_Name" original=""/>
@@ -16992,7 +16992,7 @@ Você habilita-a pela definição do parâmetro COMPIERE_SECURE do seu script de
   <value column="Name" original="Working Time">Tempo de Trabalho</value>
   <value column="PrintName" original="Working Time">Tempo de Trabalho</value>
   <value column="Description" original="Workflow Simulation Execution Time">Tempo de Execução da Simulação do Fluxo de Trabalho</value>
-  <value column="Help" original="Amount of time the performer of the activity needs to perform the task in Duration Unit">Quantidade de tempo que o executor da atividade necessita para executar a tarefa em "Unidades de Duração"</value>
+  <value column="Help" original="Amount of time the performer of the activity needs to perform the task in Duration Unit">Qtd. de tempo que o executor da atividade necessita para executar a tarefa em "Unidades de Duração"</value>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
   <value column="PO_Name" original=""/>
@@ -17484,9 +17484,9 @@ Você habilita-a pela definição do parâmetro COMPIERE_SECURE do seu script de
   <value column="Placeholder" original=""/>
  </row>
  <row id="2379" trl="Y">
-  <value column="Name" original="RfQ Line Quantity">Quantidade de Linha de SdC</value>
-  <value column="PrintName" original="RfQ Line Qty">Qde da Linha de SdC</value>
-  <value column="Description" original="Request for Quotation Line Quantity">Quantidade de Linhas de Solicitação de Cotação</value>
+  <value column="Name" original="RfQ Line Quantity">Qtd. de Linha de SdC</value>
+  <value column="PrintName" original="RfQ Line Qty">Qtd. da Linha de SdC</value>
+  <value column="Description" original="Request for Quotation Line Quantity">Qtd. de Linhas de Solicitação de Cotação</value>
   <value column="Help" original="You may request a quotation for different quantities">Você pode solicitar cotações para diferentes quantidades</value>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
@@ -17506,10 +17506,10 @@ Você habilita-a pela definição do parâmetro COMPIERE_SECURE do seu script de
   <value column="Placeholder" original=""/>
  </row>
  <row id="2382" trl="Y">
-  <value column="Name" original="RfQ Response Line Qty">Qde da Linha de Resposta da SdC</value>
-  <value column="PrintName" original="RfQ Response Line Qty">Qde da Linha de Resposta da SdC</value>
-  <value column="Description" original="Request for Quotation Response Line Quantity">Quantidade de Linhas de Resposta de Solicitação de Cotação</value>
-  <value column="Help" original="Request for Quotation Response Line Quantity from a potential Vendor">Quantidade de Linha de Resposta de Solicitação de Cotação proveniente de um fornecedor em potencial</value>
+  <value column="Name" original="RfQ Response Line Qty">Qtd. da Linha de Resposta da SdC</value>
+  <value column="PrintName" original="RfQ Response Line Qty">Qtd. da Linha de Resposta da SdC</value>
+  <value column="Description" original="Request for Quotation Response Line Quantity">Qtd. de Linhas de Resposta de Solicitação de Cotação</value>
+  <value column="Help" original="Request for Quotation Response Line Quantity from a potential Vendor">Qtd. de Linha de Resposta de Solicitação de Cotação proveniente de um fornecedor em potencial</value>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
   <value column="PO_Name" original=""/>
@@ -17550,8 +17550,8 @@ Você habilita-a pela definição do parâmetro COMPIERE_SECURE do seu script de
   <value column="Placeholder" original=""/>
  </row>
  <row id="2386" trl="Y">
-  <value column="Name" original="Confirmed Quantity">Quantidade Confirmada</value>
-  <value column="PrintName" original="Confirmed Qty">Qde Confirmada</value>
+  <value column="Name" original="Confirmed Quantity">Qtd. Confirmada</value>
+  <value column="PrintName" original="Confirmed Qty">Qtd. Confirmada</value>
   <value column="Description" original="Confirmation of a received quantity">Confirmação de uma quantidade recebida</value>
   <value column="Help" original="Confirmation of a received quantity">Confirmação de uma quantidade recebida</value>
   <value column="PO_Description" original=""/>
@@ -17683,8 +17683,8 @@ A transação está completada se confirmada.</value>
   <value column="Placeholder" original=""/>
  </row>
  <row id="2399" trl="Y">
-  <value column="Name" original="Offer Quantity">Quantidade Ofertada</value>
-  <value column="PrintName" original="Offer Qty">Qde Ofertada</value>
+  <value column="Name" original="Offer Quantity">Qtd. Ofertada</value>
+  <value column="PrintName" original="Offer Qty">Qtd. Ofertada</value>
   <value column="Description" original="This quantity is used in the Offer to the Customer">Esta quantidade é utilizada na oferta ao cliente</value>
   <value column="Help" original="When multiple quantities are used in an Request for Quotation, the selected Quantity is used for generating the offer.  If none selected the lowest number is used.">Quando múltiplas quantidades são utilizadas em uma Solicitação de Cotação, a quantidade selecionada é utilizada para gerar a oferta.  Se nenhuma for selecionada, o menor número será utilizado.</value>
   <value column="PO_Description" original=""/>
@@ -17705,8 +17705,8 @@ A transação está completada se confirmada.</value>
   <value column="Placeholder" original=""/>
  </row>
  <row id="2401" trl="Y">
-  <value column="Name" original="Purchase Quantity">Quantidade de Compra</value>
-  <value column="PrintName" original="Purchase Qty">Qde Compra</value>
+  <value column="Name" original="Purchase Quantity">Qtd. de Compra</value>
+  <value column="PrintName" original="Purchase Qty">Qtd. Compra</value>
   <value column="Description" original="This quantity is used in the Purchase Order to the Supplier">Esta quantidade é utilizada no Pedido de Compras ao Fornecedor</value>
   <value column="Help" original="When multiple quantities are used in an Request for Quotation, the selected Quantity is used for generating the purchase order.  If none selected the lowest number is used.">Quando múltiplas quantidades são utilizadas em uma Solicitação de Cotação, a quantidade selecionada é utilizada para gerar o pedido de compras.  Se nenhuma for selecionada, o menor número será utilizado.</value>
   <value column="PO_Description" original=""/>
@@ -17717,7 +17717,7 @@ A transação está completada se confirmada.</value>
  </row>
  <row id="2402" trl="Y">
   <value column="Name" original="Quote All Quantities">Cotar Todas as Quantidades</value>
-  <value column="PrintName" original="Quote All Qty">Cotar Todas Qdes</value>
+  <value column="PrintName" original="Quote All Qty">Cotar Todas Qtds</value>
   <value column="Description" original="Suppliers are requested to provide responses for all quantities">Os fornecedores são solicitados a prover respostas para todas as quantidades</value>
   <value column="Help" original="If selected, the response to the Request for Quotation needs to have a price for all Quantities">Se selecionado, a resposta à Solicitação de Cotação precisa ter preços para todas as quantidades</value>
   <value column="PO_Description" original=""/>
@@ -17849,9 +17849,9 @@ Se a razão e quantidade não é 0, a quantidade é calculada baseada na razão,
   <value column="Placeholder" original=""/>
  </row>
  <row id="2414" trl="Y">
-  <value column="Name" original="Minimum Quantity">Quantidade Mínima</value>
-  <value column="PrintName" original="Min Qty">Qde Mín.</value>
-  <value column="Description" original="Minimum quantity for the business partner">Quantidade mínima para o parceiro de negócios</value>
+  <value column="Name" original="Minimum Quantity">Qtd. Mínima</value>
+  <value column="PrintName" original="Min Qty">Qtd. Mín.</value>
+  <value column="Description" original="Minimum quantity for the business partner">Qtd. mínima para o parceiro de negócios</value>
   <value column="Help" original="If a minimum quantity is defined, and the quantity is based on the percentage is lower, the minimum quantity is used.">Se uma quantidade mínima for definida, e a quantidade baseada em percentagem for menor, a quantidade mínima será utilizada.</value>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
@@ -17937,8 +17937,8 @@ Se a razão e quantidade não é 0, a quantidade é calculada baseada na razão,
   <value column="Placeholder" original=""/>
  </row>
  <row id="2422" trl="Y">
-  <value column="Name" original="Picked Quantity">Quantidade Coletada</value>
-  <value column="PrintName" original="Picked Quantity">Quantidade Coletada</value>
+  <value column="Name" original="Picked Quantity">Qtd. Coletada</value>
+  <value column="PrintName" original="Picked Quantity">Qtd. Coletada</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -18080,8 +18080,8 @@ Se a razão e quantidade não é 0, a quantidade é calculada baseada na razão,
   <value column="Placeholder" original=""/>
  </row>
  <row id="2435" trl="Y">
-  <value column="Name" original="Scrapped Quantity">Quantidade Sucateada</value>
-  <value column="PrintName" original="Scrapped Qty">Qde sucateada</value>
+  <value column="Name" original="Scrapped Quantity">Qtd. Sucateada</value>
+  <value column="PrintName" original="Scrapped Qty">Qtd. sucateada</value>
   <value column="Description" original="The Quantity scrapped due to QA issues">É a quantidade sucateada devido a problemas de controle de qualidade</value>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -18091,9 +18091,9 @@ Se a razão e quantidade não é 0, a quantidade é calculada baseada na razão,
   <value column="Placeholder" original=""/>
  </row>
  <row id="2436" trl="Y">
-  <value column="Name" original="Target Quantity">Quantidade Alvo</value>
-  <value column="PrintName" original="Target Qty">Qde Alvo</value>
-  <value column="Description" original="Target Movement Quantity">Quantidade de Movimentação Alvo</value>
+  <value column="Name" original="Target Quantity">Qtd. Alvo</value>
+  <value column="PrintName" original="Target Qty">Qtd. Alvo</value>
+  <value column="Description" original="Target Movement Quantity">Qtd. de Movimentação Alvo</value>
   <value column="Help" original="The Quantity which should have been received">É a quantidade que deveria ter sido recebida</value>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
@@ -18564,8 +18564,8 @@ Se a razão e quantidade não é 0, a quantidade é calculada baseada na razão,
   <value column="Placeholder" original=""/>
  </row>
  <row id="2481" trl="Y">
-  <value column="Name" original="Quantity Price">Preço de Quantidade</value>
-  <value column="PrintName" original="Qty Price">Preço de Qde</value>
+  <value column="Name" original="Quantity Price">Preço de Qtd.</value>
+  <value column="PrintName" original="Qty Price">Preço de Qtd.</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -18575,8 +18575,8 @@ Se a razão e quantidade não é 0, a quantidade é calculada baseada na razão,
   <value column="Placeholder" original=""/>
  </row>
  <row id="2482" trl="Y">
-  <value column="Name" original="Quantity Ranking">Classificação de Quantidade</value>
-  <value column="PrintName" original="Qty Ranking">Classificação Qde</value>
+  <value column="Name" original="Quantity Ranking">Classificação de Qtd.</value>
+  <value column="PrintName" original="Qty Ranking">Classificação Qtd.</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -18630,9 +18630,9 @@ Se a razão e quantidade não é 0, a quantidade é calculada baseada na razão,
   <value column="Placeholder" original=""/>
  </row>
  <row id="2487" trl="Y">
-  <value column="Name" original="Total Quantity">Quantidade Total</value>
-  <value column="PrintName" original="Total Qty">Qde Total</value>
-  <value column="Description" original="Total Quantity">Quantidade Total</value>
+  <value column="Name" original="Total Quantity">Qtd. Total</value>
+  <value column="PrintName" original="Total Qty">Qtd. Total</value>
+  <value column="Description" original="Total Quantity">Qtd. Total</value>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
@@ -18763,9 +18763,9 @@ Se você define uma relação aqui, você sobrescreve o contador padrão do tipo
   <value column="Placeholder" original=""/>
  </row>
  <row id="2500" trl="Y">
-  <value column="Name" original="Calculated Quantity">Quantidade Calculada</value>
-  <value column="PrintName" original="Calculated Qty">Qde Calculada</value>
-  <value column="Description" original="Calculated Quantity">Quantidade Calculada</value>
+  <value column="Name" original="Calculated Quantity">Qtd. Calculada</value>
+  <value column="PrintName" original="Calculated Qty">Qtd. Calculada</value>
+  <value column="Description" original="Calculated Quantity">Qtd. Calculada</value>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
@@ -19171,8 +19171,8 @@ Este padrão pode ser sobrescrito pela definição explícita de relações do c
   <value column="Placeholder" original=""/>
  </row>
  <row id="2541" trl="Y">
-  <value column="Name" original="Quantity Reimbursed">Quantidade Reembolsada</value>
-  <value column="PrintName" original="Qty Reimbursed">Qde Reembolsada</value>
+  <value column="Name" original="Quantity Reimbursed">Qtd. Reembolsada</value>
+  <value column="PrintName" original="Qty Reimbursed">Qtd. Reembolsada</value>
   <value column="Description" original="The reimbursed quantity">É a quantidade reembolsada</value>
   <value column="Help" original="The reimbursed quantity is derived from the entered quantity and can be overwritten when approving the expense report.">A quantidade reembolsada é derivada a partir da quantidade digitada e pode ser sobrescrita ao aprovar o relatório de despesas.</value>
   <value column="PO_Description" original=""/>
@@ -19524,8 +19524,8 @@ Faturas e Alocações de Pagamento determina o Saldo em Aberto (i.e. sem Pedidos
   <value column="Placeholder" original=""/>
  </row>
  <row id="2575" trl="Y">
-  <value column="Name" original="RfQ Quantity">Quantidade SdC</value>
-  <value column="PrintName" original="RfQ Quantity">Quantidade SdC</value>
+  <value column="Name" original="RfQ Quantity">Qtd. SdC</value>
+  <value column="PrintName" original="RfQ Quantity">Qtd. SdC</value>
   <value column="Description" original="The quantity is used when generating RfQ Responses">A quantidade é usada ao gerar Respostas de SdC</value>
   <value column="Help" original="When generating the RfQ Responses, this quantity is included">Esta quantidade é incluída ao gerar as Respostas de SdC</value>
   <value column="PO_Description" original=""/>
@@ -19667,8 +19667,8 @@ Faturas e Alocações de Pagamento determina o Saldo em Aberto (i.e. sem Pedidos
   <value column="Placeholder" original=""/>
  </row>
  <row id="2589" trl="Y">
-  <value column="Name" original="Quantity">Quantidade</value>
-  <value column="PrintName" original="Quantity">Quantidade</value>
+  <value column="Name" original="Quantity">Qtd.</value>
+  <value column="PrintName" original="Quantity">Qtd.</value>
   <value column="Description" original="The Quantity Entered is based on the selected UoM">A Quantidade Introduzida é baseada na UDM selecionada</value>
   <value column="Help" original="The Quantity Entered is converted to base product UoM quantity">A Quantidade Introduzida é convertida com base na quantidade de UDM do produto</value>
   <value column="PO_Description" original=""/>
@@ -20378,10 +20378,10 @@ Os Dias de Lembra são os dias quando o próximo lembrete de e-mail é enviado.<
   <value column="Placeholder" original=""/>
  </row>
  <row id="2654" trl="Y">
-  <value column="Name" original="Internal Use Qty">Qde de Uso Interno</value>
+  <value column="Name" original="Internal Use Qty">Qtd. de Uso Interno</value>
   <value column="PrintName" original="Internal Use">Uso Interno</value>
-  <value column="Description" original="Internal Use Quantity removed from Inventory">Quantidade de Uso Interno removida do Estoque</value>
-  <value column="Help" original="Quantity of product inventory used internally (positive if taken out - negative if returned)">Quantidade de produto estocado usado internamente (positivo se retirado do estoque - negativo se retornado)</value>
+  <value column="Description" original="Internal Use Quantity removed from Inventory">Qtd. de Uso Interno removida do Estoque</value>
+  <value column="Help" original="Quantity of product inventory used internally (positive if taken out - negative if returned)">Qtd. de produto estocado usado internamente (positivo se retirado do estoque - negativo se retornado)</value>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
   <value column="PO_Name" original=""/>
@@ -20691,9 +20691,9 @@ Se o padrão para o seu idioma não está correto, favor criar um pedido de apoi
   <value column="Placeholder" original=""/>
  </row>
  <row id="2682" trl="Y">
-  <value column="Name" original="Commission Qty">Qde. de comissão</value>
-  <value column="PrintName" original="Comm Qty">Qde Comis.</value>
-  <value column="Description" original="Commission calculation basis Quantity">Quantidade base para cálculo de comissão</value>
+  <value column="Name" original="Commission Qty">Qtd. de comissão</value>
+  <value column="PrintName" original="Comm Qty">Qtd. Comis.</value>
+  <value column="Description" original="Commission calculation basis Quantity">Qtd. base para cálculo de comissão</value>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
@@ -21022,9 +21022,9 @@ Exemplo: "Alterada-Criada" poderia listar a idade das entradas em dias]]></value
   <value column="Placeholder" original=""/>
  </row>
  <row id="2715" trl="Y">
-  <value column="Name" original="Quantity Used">Quantidade Utilizada</value>
-  <value column="PrintName" original="Qty Used">Qde Usada</value>
-  <value column="Description" original="Quantity used for this event">Quantidade utilizada para este evento</value>
+  <value column="Name" original="Quantity Used">Qtd. Utilizada</value>
+  <value column="PrintName" original="Qty Used">Qtd. Usada</value>
+  <value column="Description" original="Quantity used for this event">Qtd. utilizada para este evento</value>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
@@ -22156,9 +22156,9 @@ O contexto web geralmente inicia com / e precisa ser um nome de contexto válido
   <value column="Placeholder" original=""/>
  </row>
  <row id="2823" trl="Y">
-  <value column="Name" original="Accumulated Qty">Qde Acumulada</value>
-  <value column="PrintName" original="Accumulated Qty">Qde Acumulada</value>
-  <value column="Description" original="Total Quantity">Quantidade Total</value>
+  <value column="Name" original="Accumulated Qty">Qtd. Acumulada</value>
+  <value column="PrintName" original="Accumulated Qty">Qtd. Acumulada</value>
+  <value column="Description" original="Total Quantity">Qtd. Total</value>
   <value column="Help" original="Sum of the quantities">Soma de todas as quantidades</value>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
@@ -22189,9 +22189,9 @@ O contexto web geralmente inicia com / e precisa ser um nome de contexto válido
   <value column="Placeholder" original=""/>
  </row>
  <row id="2826" trl="Y">
-  <value column="Name" original="Lost Sales Qty">Qde Vendas Perdidas</value>
-  <value column="PrintName" original="Lost Sales Qty">Qde Vendas Perdidas</value>
-  <value column="Description" original="Quantity of potential sales">Quantidade de vendas em potencial</value>
+  <value column="Name" original="Lost Sales Qty">Qtd. Vendas Perdidas</value>
+  <value column="PrintName" original="Lost Sales Qty">Qtd. Vendas Perdidas</value>
+  <value column="Description" original="Quantity of potential sales">Qtd. de vendas em potencial</value>
   <value column="Help" original="When an order is closed and there is a difference between the ordered quantity and the delivered (invoiced) quantity is the Lost Sales Quantity.  Note that the Lost Sales Quantity is 0 if you void an order, so close the order if you want to track lost opportunities.  [Void = data entry error - Close = the order is finished]">A Quantidade de Vendas Perdida é dada quando um pedido é fechado e existe uma diferença entre a quantidade requisitada e a quantidade entregue (faturada).  Note que a Quantidade de Vendas Perdidas é 0 se você cancelar um pedido, assim, feche o pedido se você deseja rastrear as oportunidades perdidas.  [Cancelar = erro de digitação - Fechar = o pedido está encerrado]</value>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
@@ -22344,8 +22344,8 @@ Note que você pode sobre- ou sub-atribuir o pagamento. Quando do processamento 
   <value column="Placeholder" original=""/>
  </row>
  <row id="2841" trl="Y">
-  <value column="Name" original="Delta Quantity">Delta de Quantidade</value>
-  <value column="PrintName" original="Delta Qty">Delta Qde</value>
+  <value column="Name" original="Delta Quantity">Delta de Qtd.</value>
+  <value column="PrintName" original="Delta Qty">Delta Qtd.</value>
   <value column="Description" original="Quantity Difference">Diferença de Quantidade</value>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -22355,9 +22355,9 @@ Note que você pode sobre- ou sub-atribuir o pagamento. Quando do processamento 
   <value column="Placeholder" original=""/>
  </row>
  <row id="2842" trl="Y">
-  <value column="Name" original="Current Quantity">Quantidade Atual</value>
-  <value column="PrintName" original="Current Qty">Qde Atual</value>
-  <value column="Description" original="Current Quantity">Quantidade Atual</value>
+  <value column="Name" original="Current Quantity">Qtd. Atual</value>
+  <value column="PrintName" original="Current Qty">Qtd. Atual</value>
+  <value column="Description" original="Current Quantity">Qtd. Atual</value>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
@@ -22978,8 +22978,8 @@ Exemplo: se o preço de compra é de R $ 100 e a tolerância é de 1 (por cento)
  <row id="2900" trl="Y">
   <value column="Name" original="Quantity Plan">Plano de Qualidade</value>
   <value column="PrintName" original="Quantity Plan">Plano de Qualidade</value>
-  <value column="Description" original="Planned Quantity">Quantidade Planejada</value>
-  <value column="Help" original="Planned Quantity">Quantidade Planejada</value>
+  <value column="Description" original="Planned Quantity">Qtd. Planejada</value>
+  <value column="Help" original="Planned Quantity">Qtd. Planejada</value>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
   <value column="PO_Name" original=""/>
@@ -26815,8 +26815,8 @@ O - parâmetro configurável da organização</value>
   <value column="Placeholder" original=""/>
  </row>
  <row id="53247" trl="Y">
-  <value column="Name" original="Quantity Assay">Quantidade de Ensaio</value>
-  <value column="PrintName" original="Quantity Assay">Quantidade de Ensaio</value>
+  <value column="Name" original="Quantity Assay">Qtd. de Ensaio</value>
+  <value column="PrintName" original="Quantity Assay">Qtd. de Ensaio</value>
   <value column="Description" original="Indicated the Quantity Assay to use into Quality Order">Indica a Quantidade de Teste a usar na Ordem de Qualidade</value>
   <value column="Help" original="Indicated the Quantity Assay to use into Quality Order">Indica a Quantidade de Teste a usar na Ordem de Qualidade</value>
   <value column="PO_Description" original=""/>
@@ -26926,8 +26926,8 @@ Use o campo Pós-Dedução de Estoque para agrupar os componentes no Método Pó
   <value column="Placeholder" original=""/>
  </row>
  <row id="53255" trl="Y">
-  <value column="Name" original="Quantity">Quantidade</value>
-  <value column="PrintName" original="Quantity">Quantidade</value>
+  <value column="Name" original="Quantity">Qtd.</value>
+  <value column="PrintName" original="Quantity">Qtd.</value>
   <value column="Description" original="Indicate the Quantity  use in this BOM">Indica a Quantidade usada nesta LDM</value>
   <value column="Help" original="Exist two way the add a compenent to a BOM or Formula:&#10;&#10;1.- Adding a Component based in quantity to use in this BOM&#10;2.- Adding a Component based in % to use the Order Quantity of Manufacturing Order in this Formula.&#10;">Existe duas formas de adicionar um componente para uma LDM ou Fórmula:
 
@@ -26941,8 +26941,8 @@ Use o campo Pós-Dedução de Estoque para agrupar os componentes no Método Pó
   <value column="Placeholder" original=""/>
  </row>
  <row id="53256" trl="Y">
-  <value column="Name" original="Quantity in %">Quantidade em %</value>
-  <value column="PrintName" original="Quantity in %">Quantidade em %</value>
+  <value column="Name" original="Quantity in %">Qtd. em %</value>
+  <value column="PrintName" original="Quantity in %">Qtd. em %</value>
   <value column="Description" original="Indicate the Quantity % use in this Formula">Indica a Quantidade % usada nesta Fórmula</value>
   <value column="Help" original="Exist two way the add a compenent to a BOM or Formula:&#10;&#10;1.- Adding a Component based in quantity to use in this BOM&#10;2.- Adding a Component based in % to use the Order Quantity of Manufacturing Order in this Formula.&#10;">Existe duas formas de adicionar um componente para uma LDM ou Fórmula:
 
@@ -27002,7 +27002,7 @@ Use o campo Pós-Dedução de Estoque para agrupar os componentes no Método Pó
  <row id="53264" trl="Y">
   <value column="Name" original="Maximum Order Qty">Qtd. Maxima do Pedido</value>
   <value column="PrintName" original="Maximum Order Qty">Qtd. Maxima do Pedido</value>
-  <value column="Description" original="Maximum order quantity in UOM">Quantidade máxima do pedido em UDM</value>
+  <value column="Description" original="Maximum order quantity in UOM">Qtd. máxima do pedido em UDM</value>
   <value column="Help" original="The Maximum Order Quantity indicates the biggest quantity of this product which can be ordered.">A Quantidade Máxima do Pedido indica a mmaor quantidade deste produto que pode ser pedida.</value>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
@@ -27278,8 +27278,8 @@ Tome cuidado ao definir o rendimento de qualquer coisa, mas 100% particularmente
  <row id="53289" trl="Y">
   <value column="Name" original="Scrap %">Sucata %</value>
   <value column="PrintName" original="Scrap %">Sucata %</value>
-  <value column="Description" original="Scrap % Quantity for this componet">Quantidade Perdida em % para este componente</value>
-  <value column="Help" original="Scrap % Quantity for this componet">Quantidade Perdida em % para este componente</value>
+  <value column="Description" original="Scrap % Quantity for this componet">Qtd. Perdida em % para este componente</value>
+  <value column="Help" original="Scrap % Quantity for this componet">Qtd. Perdida em % para este componente</value>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
   <value column="PO_Name" original=""/>
@@ -28969,8 +28969,8 @@ http://en.wikipedia.org/wiki/Safety_stock</value>
   <value column="Placeholder" original=""/>
  </row>
  <row id="53494" trl="Y">
-  <value column="Name" original="Current Qty">Quantidade</value>
-  <value column="PrintName" original="Current Qty">Quantidade</value>
+  <value column="Name" original="Current Qty">Qtd.</value>
+  <value column="PrintName" original="Current Qty">Qtd.</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -31271,7 +31271,7 @@ Credita Conta Trabalho em Processamento ]]></value>
   <value column="Placeholder" original=""/>
  </row>
  <row id="53760" trl="Y">
-  <value column="Name" original="Gross Requirements Quantity">Quantidade de Necessidades Brutas</value>
+  <value column="Name" original="Gross Requirements Quantity">Qtd. de Necessidades Brutas</value>
   <value column="PrintName" original="Gross Req. Qty">Quant. Necessidades Brutas</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
@@ -31282,7 +31282,7 @@ Credita Conta Trabalho em Processamento ]]></value>
   <value column="Placeholder" original=""/>
  </row>
  <row id="53761" trl="Y">
-  <value column="Name" original="Scheduled Receipts Quantity">Quantidade de Recebimentos Agendados</value>
+  <value column="Name" original="Scheduled Receipts Quantity">Qtd. de Recebimentos Agendados</value>
   <value column="PrintName" original="Scheduled Receipts Qty">Quant. de Recebimentos Agendados</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
@@ -31293,9 +31293,9 @@ Credita Conta Trabalho em Processamento ]]></value>
   <value column="Placeholder" original=""/>
  </row>
  <row id="53762" trl="Y">
-  <value column="Name" original="On Hand Projected Quantity">Quantidade Projetada em Mãos</value>
+  <value column="Name" original="On Hand Projected Quantity">Qtd. Projetada em Mãos</value>
   <value column="PrintName" original="On Hand Projected Qty">Quant. Projetada em Mãos</value>
-  <value column="Description" original="On Hand Projected Quantity">Quantidade Projetada em Mãos</value>
+  <value column="Description" original="On Hand Projected Quantity">Qtd. Projetada em Mãos</value>
   <value column="Help" original="The On Hand Projected Quantity indicates the quantity of a product that is on hand in time line.">A Quantidade Projetada em Mãos indica a quantidade de um produto que está em mãos no cronograma.</value>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
@@ -31603,7 +31603,7 @@ Credita Conta Trabalho em Processamento ]]></value>
  <row id="53811" trl="Y">
   <value column="Name" original="Distribution Sorting">Classificação de Distribuição</value>
   <value column="PrintName" original="Distribution Sorting">Classificação de Distribuição</value>
-  <value column="Description" original="Quantity distribution sorting by unit price">Quantidade de distribuição classificada por preço unitário</value>
+  <value column="Description" original="Quantity distribution sorting by unit price">Qtd. de distribuição classificada por preço unitário</value>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
@@ -32195,8 +32195,8 @@ Credita Conta Trabalho em Processamento ]]></value>
   <value column="Placeholder" original=""/>
  </row>
  <row id="54087" trl="Y">
-  <value column="Name" original="Sum Qty on Hand">Qde em Mãos (Soma)</value>
-  <value column="PrintName" original="Sum Qty on Hand">Qde em Mãos (Soma)</value>
+  <value column="Name" original="Sum Qty on Hand">Qtd. em Mãos (Soma)</value>
+  <value column="PrintName" original="Sum Qty on Hand">Qtd. em Mãos (Soma)</value>
   <value column="Description" original="Summary of product on hand in all locators">Resumo de produtos em mãos em todas as localizações</value>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
@@ -42341,7 +42341,7 @@ Product: used to quickly add products to POS order</value>
  <row id="200028" trl="Y">
   <value column="Name" original="Numerical Sequence">Qtd. Máxima de Números Sequenciais</value>
   <value column="PrintName" original="Numerical Sequence">Qtd. Máxima de Números Sequenciais</value>
-  <value column="Description" original="Length of numerical sequence to validate">Quantidade máxima de números sequenciais (ex:12345)</value>
+  <value column="Description" original="Length of numerical sequence to validate">Qtd. máxima de números sequenciais (ex:12345)</value>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
@@ -42352,7 +42352,7 @@ Product: used to quickly add products to POS order</value>
  <row id="200029" trl="Y">
   <value column="Name" original="QWERTY Sequence">Qtd. Máxima de QWERTY Sequenciais</value>
   <value column="PrintName" original="QWERTY Sequence">Qtd. Máxima de QWERTY Sequenciais</value>
-  <value column="Description" original="Lenght of QWERTY sequences to validate">Quantidade máxima de QWERTY sequenciais (ex:yuiop)</value>
+  <value column="Description" original="Lenght of QWERTY sequences to validate">Qtd. máxima de QWERTY sequenciais (ex:yuiop)</value>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
@@ -42561,7 +42561,7 @@ Product: used to quickly add products to POS order</value>
  <row id="200068" trl="Y">
   <value column="Name" original="Alphabetical Sequence">Qtd. Máxima de Letras Sequenciais</value>
   <value column="PrintName" original="Alphabetical Sequence">Qtd. Máxima de Letras Sequenciais</value>
-  <value column="Description" original="Lenght of alphabetical sequence to validate">Quantidade máxima de letras sequenciais no alfabeto (ex:abcde)</value>
+  <value column="Description" original="Lenght of alphabetical sequence to validate">Qtd. máxima de letras sequenciais no alfabeto (ex:abcde)</value>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
@@ -42572,7 +42572,7 @@ Product: used to quickly add products to POS order</value>
  <row id="200069" trl="Y">
   <value column="Name" original="Repeat Character Regex">Qtd. Máxima de Caracteres Repetidos</value>
   <value column="PrintName" original="Repeat Character Regex">Qtd. Máxima de Caracteres Repetidos</value>
-  <value column="Description" original="Length of repeated characters to validate">Quantidade máxima de caracteres repetidos (ex:aaaaa)</value>
+  <value column="Description" original="Length of repeated characters to validate">Qtd. máxima de caracteres repetidos (ex:aaaaa)</value>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
@@ -60480,7 +60480,7 @@ Product: used to quickly add products to POS order</value>
  <row id="202627" trl="Y">
   <value column="Name" original="Over Receipt">Recebido à Maior</value>
   <value column="PrintName" original="Over Receipt">Recebido à Maior</value>
-  <value column="Description" original="Over Receipt Quantity">Quantidade Recebido à Maior</value>
+  <value column="Description" original="Over Receipt Quantity">Qtd. Recebido à Maior</value>
   <value column="Help" original="Calculated: Receipt - ordered quantity">Calculado: Recebido - Quantidade Requisitada</value>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
@@ -68742,8 +68742,8 @@ Usar @AMT@ quando for identificar o valor do Produto/Serviço</value>
   <value column="Placeholder" original=""/>
  </row>
  <row trl="Y" uuid="3c5618bb-7bf9-48ca-9cfb-26317a980064">
-  <value column="Name" original="Tax Quantity">Quantidade Tributável</value>
-  <value column="PrintName" original="Tax Quantity">Quantidade Tributável</value>
+  <value column="Name" original="Tax Quantity">Qtd. Tributável</value>
+  <value column="PrintName" original="Tax Quantity">Qtd. Tributável</value>
   <value column="Description" original="Defines the Tax Quantity">Define a Quantidade Tributável</value>
   <value column="Help" original="Defines the Tax Quantity">Define a Quantidade Tributável</value>
   <value column="PO_Description" original=""/>
@@ -68962,8 +68962,8 @@ Usar @AMT@ quando for identificar o valor do Produto/Serviço</value>
   <value column="Placeholder" original=""/>
  </row>
  <row trl="Y" uuid="aa365149-fa51-4f85-ab0d-9fb201b62c20">
-  <value column="Name" original="Landed Cost Qty">Qde de Custo Final</value>
-  <value column="PrintName" original="Landed Cost Qty">Qde do Ajuste de Custo Final</value>
+  <value column="Name" original="Landed Cost Qty">Qtd. de Custo Final</value>
+  <value column="PrintName" original="Landed Cost Qty">Qtd. do Ajuste de Custo Final</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
