@@ -298,8 +298,6 @@ public class BancoSafra422 implements ICNABGenerator {
 		trailer.setQuantidadeLotes(1);
 		trailer.setQuantidadeContasConciliacao(rows + 4);
 		
-		System.out.println("news2");
-
 		cnab240.addRegistro(trailer);
 
 		return cnab240.exportTxt();
