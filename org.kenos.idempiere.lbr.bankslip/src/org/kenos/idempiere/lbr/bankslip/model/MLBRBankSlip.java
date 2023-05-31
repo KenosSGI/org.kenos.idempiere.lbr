@@ -66,6 +66,7 @@ import org.jrimum.domkee.financeiro.banco.febraban.Cedente;
 import org.jrimum.domkee.financeiro.banco.febraban.ContaBancaria;
 import org.jrimum.domkee.financeiro.banco.febraban.NumeroDaConta;
 import org.jrimum.domkee.financeiro.banco.febraban.Sacado;
+import org.jrimum.domkee.financeiro.banco.febraban.TipoDeCobranca;
 import org.jrimum.domkee.financeiro.banco.febraban.TipoDeTitulo;
 import org.jrimum.domkee.financeiro.banco.febraban.Titulo;
 import org.jrimum.vallia.digitoverificador.Modulo;
@@ -73,6 +74,7 @@ import org.jrimum.vallia.digitoverificador.TipoDeModulo;
 import org.kenos.idempiere.lbr.bankslip.IBankSlipAPI;
 import org.kenos.idempiere.lbr.bankslip.ICNABFactory;
 import org.kenos.idempiere.lbr.bankslip.api.IResponseAPI;
+import org.kenos.idempiere.lbr.bankslip.cnab240.BancoSafra422;
 import org.kenos.idempiere.lbr.bankslip.cnab400.BancoDoBrasil001;
 import org.kenos.idempiere.lbr.bankslip.cnab400.Bradesco237;
 import org.kenos.idempiere.lbr.bankslip.cnab400.CaixaEconomica104;
@@ -341,6 +343,10 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 		titulo.setDataDoVencimento(getDueDate());
 		titulo.setTipoDeDocumento(parseBankSlipKind());
 		titulo.setAceite(MLBRBankSlip.LBR_ISACCEPTED_IsAccepted.equals(getLBR_IsAccepted()) ? Titulo.Aceite.A : Titulo.Aceite.N);
+		
+		if(routingNo == BancoSafra422.ROUNTING_NO) {
+			titulo.getContaBancaria().getCarteira().setTipoCobranca(TipoDeCobranca.COM_REGISTRO);
+		}
 	
 		Boleto boleto = new Boleto(titulo);
 		

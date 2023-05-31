@@ -391,7 +391,7 @@ public class CNABSegmentPRecord extends CNABCobrancaSegmentBaseRecord {
 	public long getNumeroContrato() {
 		return numeroContrato;
 	}
-
+	
 	public void setNumeroContrato(long numeroContrato) {
 		this.numeroContrato = numeroContrato;
 	}
@@ -411,5 +411,6 @@ public class CNABSegmentPRecord extends CNABCobrancaSegmentBaseRecord {
 	public int getDecimaisPercentualDesconto() {
 		return decimaisPercentualDesconto;
 	}
+	
 	
 }

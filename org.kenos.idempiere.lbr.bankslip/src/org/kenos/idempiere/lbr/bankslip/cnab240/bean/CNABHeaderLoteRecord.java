@@ -1,5 +1,8 @@
 package org.kenos.idempiere.lbr.bankslip.cnab240.bean;
 
+import org.kenos.idempiere.lbr.bankslip.cnab400.bean.formatter.CNABStringFormatter;
+import org.kenos.idempiere.lbr.bankslip.cnab400.bean.formatter.NumericStringFormatter;
+
 import com.ancientprogramming.fixedformat4j.annotation.Align;
 import com.ancientprogramming.fixedformat4j.annotation.Field;
 import com.ancientprogramming.fixedformat4j.annotation.Record;
@@ -45,7 +48,7 @@ public class CNABHeaderLoteRecord extends CNABHeaderLoteBaseRecord {
 
 
 
-	@Field( offset = 19, length = 15 , paddingChar = '0' , align = Align.RIGHT )
+	@Field( offset = 19, length = 15 , paddingChar = '0' , align = Align.RIGHT , formatter = NumericStringFormatter.class)
 	public String getInscricaoEmpresa() {
 		return inscricaoEmpresa;
 	}
@@ -122,7 +125,7 @@ public class CNABHeaderLoteRecord extends CNABHeaderLoteBaseRecord {
 	}
 
 
-	@Field ( offset = 74 , length = 30 , paddingChar = ' ' , align = Align.LEFT )
+	@Field ( offset = 74 , length = 30 , paddingChar = ' ' , align = Align.LEFT, formatter = CNABStringFormatter.class )
 	public String getNomeEmpresa() {
 		return nomeEmpresa;
 	}

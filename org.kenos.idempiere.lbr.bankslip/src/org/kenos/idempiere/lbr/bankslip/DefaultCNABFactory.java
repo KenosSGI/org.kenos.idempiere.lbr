@@ -2,7 +2,9 @@ package org.kenos.idempiere.lbr.bankslip;
 
 import org.kenos.idempiere.lbr.bankslip.api.BancoInter;
 import org.kenos.idempiere.lbr.bankslip.cnab.ICNABProcessor;
+import org.kenos.idempiere.lbr.bankslip.cnab240.BancoSafra422;
 import org.kenos.idempiere.lbr.bankslip.cnab240.bean.CNABRecords;
+import org.kenos.idempiere.lbr.bankslip.cnab240.bean.safra422.SafraCNABRecords;
 import org.kenos.idempiere.lbr.bankslip.cnab240.bean.santander033.SantanderCNABRecords;
 import org.kenos.idempiere.lbr.bankslip.cnab400.BancoDoBrasil001;
 import org.kenos.idempiere.lbr.bankslip.cnab400.BancoFibra224;
@@ -66,6 +68,9 @@ public class DefaultCNABFactory implements ICNABFactory
 			
 			if (Inter077.ROUNTING_NO == RoutingNo)
 				return new Inter077();
+		}else { // CNAB type 240
+			if(BancoSafra422.ROUNTING_NO == RoutingNo)
+				return new BancoSafra422();
 		}
 		return null;
 	}	//	getCNABGenerator
@@ -78,6 +83,8 @@ public class DefaultCNABFactory implements ICNABFactory
 			CNABRecords returnRecords = null;
 			if (33 == RoutingNo)
 				returnRecords = new SantanderCNABRecords();
+			if(422 == RoutingNo)
+				returnRecords = new SafraCNABRecords();
 			else
 				returnRecords = new CNABRecords();
 			//

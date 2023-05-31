@@ -2,6 +2,9 @@ package org.kenos.idempiere.lbr.bankslip.cnab240.bean;
 
 import java.util.Date;
 
+import org.kenos.idempiere.lbr.bankslip.cnab400.bean.formatter.CNABStringFormatter;
+import org.kenos.idempiere.lbr.bankslip.cnab400.bean.formatter.NumericStringFormatter;
+
 import com.ancientprogramming.fixedformat4j.annotation.Align;
 import com.ancientprogramming.fixedformat4j.annotation.Field;
 import com.ancientprogramming.fixedformat4j.annotation.FixedFormatPattern;
@@ -40,7 +43,7 @@ public class CNABHeaderArquivoRecord extends CNABBaseRecord {
 		this.tipoInscricaoEmpresa = tipoInscricaoEmpresa;
 	}
 
-	@Field( offset = 19, length = 14 , paddingChar = '0' , align = Align.RIGHT )
+	@Field( offset = 19, length = 14 , paddingChar = '0' , align = Align.RIGHT, formatter = NumericStringFormatter.class )
 	public String getInscricaoEmpresa() {
 		return inscricaoEmpresa;
 	}
@@ -115,7 +118,7 @@ public class CNABHeaderArquivoRecord extends CNABBaseRecord {
 	}
 
 
-	@Field( offset = 73, length = 30 , paddingChar = ' ' , align = Align.LEFT )
+	@Field( offset = 73, length = 30 , paddingChar = ' ' , align = Align.LEFT, formatter = CNABStringFormatter.class )
 	public String getNomeEmpresa() {
 		return nomeEmpresa;
 	}
@@ -124,7 +127,7 @@ public class CNABHeaderArquivoRecord extends CNABBaseRecord {
 		this.nomeEmpresa = nomeEmpresa;
 	}
 
-	@Field( offset = 103, length = 30 , paddingChar = ' ' , align = Align.LEFT )
+	@Field( offset = 103, length = 30 , paddingChar = ' ' , align = Align.LEFT, formatter = CNABStringFormatter.class)
 	public String getNomeBanco() {
 		return nomeBanco;
 	}

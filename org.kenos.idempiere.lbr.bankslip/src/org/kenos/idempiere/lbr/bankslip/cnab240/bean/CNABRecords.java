@@ -179,7 +179,6 @@ public class CNABRecords {
 			lerArq.close();
 			arq.close();
 		}
-
 	}
 
 	CNABBaseRecord loadRecord( String linha ) {
