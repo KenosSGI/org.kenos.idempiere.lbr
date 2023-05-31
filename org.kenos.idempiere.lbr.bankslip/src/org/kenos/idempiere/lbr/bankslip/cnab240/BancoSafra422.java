@@ -279,7 +279,7 @@ public class BancoSafra422 implements ICNABGenerator {
 
 			cnab240.addRegistro(segmentR);
 
-			rows += 3;;
+			rows += 3;
 		});
 
 		CNABTrailerLoteRecord trailerLote = new CNABTrailerLoteRecord();
