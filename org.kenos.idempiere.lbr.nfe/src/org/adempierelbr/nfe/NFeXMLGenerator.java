@@ -1754,6 +1754,8 @@ public class NFeXMLGenerator
 					icmssn900.setVBC(normalize (icmsTax.getlbr_TaxBaseAmt()));
 					icmssn900.setPICMS(normalize2to4  (icmsTax.getlbr_TaxRate()));
 					icmssn900.setVICMS(normalize  (icmsTax.getlbr_TaxAmt()));
+					icmssn900.setPCredSN(normalize2to4  (icmsTax.getlbr_TaxRate()));
+					icmssn900.setVCredICMSSN(normalize  (icmsTax.getlbr_TaxAmt()));
 					
 					// v4.00
 					if (fcpTaxST != null)
