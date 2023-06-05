@@ -588,8 +588,11 @@ public class ValidatorInvoice implements ModelValidator
 					{
 						MInOut shipment = null;
 	
+						//	Only create shipment for pending orders.
+						long count = Arrays.asList(order.getLines()).stream().filter(ol -> ol.getQtyReserved().signum() == 1).count();
+						
 						//	Invoice
-						if (dtW.islbr_IsAutomaticShipment())
+						if (dtW.islbr_IsAutomaticShipment() && count > 0) {
 							// Apenas Regra de Entrega Pedido Completo ou Forçar podem gerar Expedição Automatica
 							// Forçar Pedido Completo se a Regra for Invalida para Geração Automática
 							if (!MOrder.DELIVERYRULE_CompleteOrder.equals(order.getDeliveryRule())
@@ -597,7 +600,8 @@ public class ValidatorInvoice implements ModelValidator
 								order.setDeliveryRule(MOrder.DELIVERYRULE_CompleteOrder);
 							
 							shipment = createShipment(invoice, order.getDateOrdered());
-	
+						}
+						
 						//	Complete
 						if (shipment != null)
 						{
