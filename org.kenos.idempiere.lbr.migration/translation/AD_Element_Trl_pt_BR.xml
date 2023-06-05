@@ -8261,10 +8261,10 @@ Recebimento de entrada são armazenados na localização com a mais alta priorid
   <value column="Placeholder" original=""/>
  </row>
  <row id="1450" trl="Y">
-  <value column="Name" original="Write-off Amount">Valor da Baixa</value>
-  <value column="PrintName" original="Write-off">Baixa total</value>
-  <value column="Description" original="Amount to write-off">Valor a ser dado baixa total</value>
-  <value column="Help" original="The Write Off Amount indicates the amount to be written off as uncollectible.">O "Valor da Baixa" indica o valor a ser dado baixa como incobrável.</value>
+  <value column="Name" original="Write-off Amount">Valor da Perda Contábil</value>
+  <value column="PrintName" original="Write-off">Perda Contábil</value>
+  <value column="Description" original="Amount to write-off">Valor a ser dado baixa por perda contábil</value>
+  <value column="Help" original="The Write Off Amount indicates the amount to be written off as uncollectible.">O "Valor da Perda Contábil" indica o valor a ser dado baixa como incobrável.</value>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
   <value column="PO_Name" original=""/>

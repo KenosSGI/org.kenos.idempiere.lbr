@@ -729,7 +729,7 @@ public abstract class NFeUtil
 
 		// 	Set up the validation error listener.
 		List<XmlValidationError> validationErrors = new ArrayList<XmlValidationError>();
-		XmlOptions xmlOptions = new XmlOptions();
+		XmlOptions xmlOptions = getXmlOpt();
 		xmlOptions.setErrorListener(validationErrors);
 		
 		// 	During validation, errors are added to the ArrayList for
