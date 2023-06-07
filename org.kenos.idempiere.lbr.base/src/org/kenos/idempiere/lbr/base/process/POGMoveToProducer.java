@@ -59,8 +59,18 @@ public class POGMoveToProducer extends SvrProcess
 						|| !MProduct.PRODUCTTYPE_Item.equals (pl.getM_Product().getProductType()))	//	Not physical
 					continue;
 				
+				int M_Warehouse_ID = -1;
+
+				//	Check warehouse of product
+				if (p.getM_Product().getM_Locator_ID() > 0)
+					M_Warehouse_ID = p.getM_Product().getM_Locator().getM_Warehouse_ID();
+				
+				//	Backward compatibility
+				else
+					M_Warehouse_ID = p.getM_Locator().getM_Warehouse_ID();
+				
 				//	Get Locator
-				int M_Locator_ID = MStorageOnHand.getM_Locator_ID (p.getM_Locator().getM_Warehouse_ID(),
+				int M_Locator_ID = MStorageOnHand.getM_Locator_ID (M_Warehouse_ID,
 						pl.getM_Product_ID(), pl.getM_AttributeSetInstance_ID(),
 						pl.getPlannedQty(), get_TrxName());
 				
