@@ -105,7 +105,7 @@ public class Record0Header extends RecordBase {
 		this.nomeDoBanco = TextUtil.retiraEspecial (nomeDoBanco).toUpperCase();
 	}
 
-	@Field( offset = 95, length = 6, paddingChar = '0' , align = Align.RIGHT )
+	@Field( offset = 95, length = 6 )
 	public Date getDataDeGeracao() {
 		return dataDeGeracao;
 	}
