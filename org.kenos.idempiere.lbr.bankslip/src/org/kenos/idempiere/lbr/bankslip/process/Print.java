@@ -69,14 +69,6 @@ public class Print extends SvrProcess
 		//	Check if there are any completed bank slips
 		if (pdfs.isEmpty())
 			return "@Error@ nenhum boleto encontrado";
-//		
-//		//	Create a viewer
-//		JasperViewer jasperViewer = new JasperViewer();
-//		JasperPrint jasperPrint = jasperViewer.getJasperPrint(bopepos);
-//		
-//		//	Print in iDempiere JR Viewer Provider
-//		JRViewerProvider viewerLauncher = Service.locator().locate(JRViewerProvider.class).getService();
-//		viewerLauncher.openViewer (jasperPrint, "Impress\u00E3o de Boletos");
 
 		AEnv.executeAsyncDesktopTask(new Runnable() {
 			@Override
@@ -90,15 +82,6 @@ public class Print extends SvrProcess
 				}
 			}
 		});
-		
-		
-//		BoletoViewer boletoViewer = new BoletoViewer (bopepos.get(0));
-//		boletoViewer.getPdfAsFile("/private/var/folders/7n/ggwktfc139z0sx5yz7t9vb0w0000gn/T/bb.pdf");
-//		
-//		AMedia media = new AMedia("Boleto.pdf", "pdf", "application/pdf", boletoViewer.getPdfAsByteArray());
-//		Filedownload.save(media);
-		
-//		Filedownload.save(boletoViewer.getPdfAsByteArray(), "application/pdf", "Boleto.pdf");
 		
 		return "@Success@";
 	}	//	doIt
