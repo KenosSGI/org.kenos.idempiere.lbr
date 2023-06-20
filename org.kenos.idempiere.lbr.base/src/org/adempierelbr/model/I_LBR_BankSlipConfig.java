@@ -32,7 +32,7 @@ public interface I_LBR_BankSlipConfig
     /** TableName=LBR_BankSlipConfig */
     public static final String Table_Name = "LBR_BankSlipConfig";
 
-    /** AD_Table_ID=1120665 */
+    /** AD_Table_ID=1120690 */
     public static final int Table_ID = MTable.getTable_ID(Table_Name);
 
     KeyNamePair Model = new KeyNamePair(Table_ID, Table_Name);
@@ -284,6 +284,21 @@ public interface I_LBR_BankSlipConfig
 	  * Alphanumeric identifier of the entity
 	  */
 	public String getName();
+
+    /** Column name R_MailText_ID */
+    public static final String COLUMNNAME_R_MailText_ID = "R_MailText_ID";
+
+	/** Set Mail Template.
+	  * Text templates for mailings
+	  */
+	public void setR_MailText_ID (int R_MailText_ID);
+
+	/** Get Mail Template.
+	  * Text templates for mailings
+	  */
+	public int getR_MailText_ID();
+
+	public org.compiere.model.I_R_MailText getR_MailText() throws RuntimeException;
 
     /** Column name Updated */
     public static final String COLUMNNAME_Updated = "Updated";

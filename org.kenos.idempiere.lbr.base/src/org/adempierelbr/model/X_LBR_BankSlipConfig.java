@@ -32,7 +32,7 @@ public class X_LBR_BankSlipConfig extends PO implements I_LBR_BankSlipConfig, I_
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20200401L;
+	private static final long serialVersionUID = 20230619L;
 
     /** Standard Constructor */
     public X_LBR_BankSlipConfig (Properties ctx, int LBR_BankSlipConfig_ID, String trxName)
@@ -134,16 +134,16 @@ public class X_LBR_BankSlipConfig extends PO implements I_LBR_BankSlipConfig, I_
 		return (String)get_Value(COLUMNNAME_LBR_BankSlipConfig_UU);
 	}
 
-	/** Printed and Mailed = 1 */
-	public static final String LBR_DISTRIBUTEDVIA_PrintedAndMailed = "1";
 	/** Printed with Fiscal Document = 2 */
 	public static final String LBR_DISTRIBUTEDVIA_PrintedWithFiscalDocument = "2";
-	/** Printed with Fiscal Document & E-mailed = 3r */
-	public static final String LBR_DISTRIBUTEDVIA_PrintedWithFiscalDocumentE_Mailed = "3r";
+	/** Printed and Mailed = 1 */
+	public static final String LBR_DISTRIBUTEDVIA_PrintedAndMailed = "1";
 	/** E-mailed = 4 */
 	public static final String LBR_DISTRIBUTEDVIA_E_Mailed = "4";
 	/** E-mailed with Fiscal Document XML = 5 */
 	public static final String LBR_DISTRIBUTEDVIA_E_MailedWithFiscalDocumentXML = "5";
+	/** Printed with Fiscal Document & E-mailed = 3 */
+	public static final String LBR_DISTRIBUTEDVIA_PrintedWithFiscalDocumentE_Mailed = "3";
 	/** Set Distributed Via.
 		@param LBR_DistributedVia Distributed Via	  */
 	public void setLBR_DistributedVia (String LBR_DistributedVia)
@@ -239,10 +239,10 @@ public class X_LBR_BankSlipConfig extends PO implements I_LBR_BankSlipConfig, I_
 		return bd;
 	}
 
-	/** Not Accepted = 0 */
-	public static final String LBR_ISACCEPTED_NotAccepted = "0";
 	/** Is Accepted = 1 */
 	public static final String LBR_ISACCEPTED_IsAccepted = "1";
+	/** Not Accepted = 0 */
+	public static final String LBR_ISACCEPTED_NotAccepted = "0";
 	/** Set Accepted.
 		@param LBR_IsAccepted Accepted	  */
 	public void setLBR_IsAccepted (String LBR_IsAccepted)
@@ -459,5 +459,33 @@ public class X_LBR_BankSlipConfig extends PO implements I_LBR_BankSlipConfig, I_
 	public String getName () 
 	{
 		return (String)get_Value(COLUMNNAME_Name);
+	}
+
+	public org.compiere.model.I_R_MailText getR_MailText() throws RuntimeException
+    {
+		return (org.compiere.model.I_R_MailText)MTable.get(getCtx(), org.compiere.model.I_R_MailText.Table_Name)
+			.getPO(getR_MailText_ID(), get_TrxName());	}
+
+	/** Set Mail Template.
+		@param R_MailText_ID 
+		Text templates for mailings
+	  */
+	public void setR_MailText_ID (int R_MailText_ID)
+	{
+		if (R_MailText_ID < 1) 
+			set_ValueNoCheck (COLUMNNAME_R_MailText_ID, null);
+		else 
+			set_ValueNoCheck (COLUMNNAME_R_MailText_ID, Integer.valueOf(R_MailText_ID));
+	}
+
+	/** Get Mail Template.
+		@return Text templates for mailings
+	  */
+	public int getR_MailText_ID () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_R_MailText_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
 	}
 }

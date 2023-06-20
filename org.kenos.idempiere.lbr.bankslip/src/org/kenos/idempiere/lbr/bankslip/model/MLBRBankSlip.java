@@ -1746,8 +1746,11 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 		return null;
 	}
 
+	protected I_W_C_BPartner bp = null;
+	
 	public I_W_C_BPartner getBP() {
-		I_W_C_BPartner bp = POWrapper.create(new MBPartner (getCtx(), getC_BPartner_ID(), null), I_W_C_BPartner.class);
+		if (bp == null)
+			bp = POWrapper.create(new MBPartner (getCtx(), getC_BPartner_ID(), null), I_W_C_BPartner.class);
 		return bp;
-	}
+	}	//	getBP
 }	//	MLBRBankSlip
