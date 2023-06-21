@@ -56,6 +56,7 @@ public class PayScheduleCheck extends AbstractEventHandler
 				MInvoicePaySchedule paySchedule = (MInvoicePaySchedule) po;
 				//
 				fillParcelNo (paySchedule, event, topic);
+				checkFixedDueDate (paySchedule, event, topic);
 				checkFixedDayBP (paySchedule, event, topic);
 				checkBusinessDay (paySchedule, event, topic);
 			}
@@ -160,6 +161,32 @@ public class PayScheduleCheck extends AbstractEventHandler
 			return;
 		
 		MPaymentTerm paymentTerm = new MPaymentTerm(ips.getCtx(), ips.getC_PaySchedule().getC_PaymentTerm_ID(), null);
+		int C_Country_ID = ips.getC_Invoice().getC_BPartner_Location().getC_Location().getC_Country_ID();
+		int AD_Org_ID = ips.getC_Invoice().getAD_Org_ID();
+		int C_Calendar_ID = 0;
+		
+		MCalendar calendar = MCalendar.getDefault(ips.getCtx());
+		if (calendar != null)
+			C_Calendar_ID = calendar.getC_Calendar_ID();
+		
+		//	Set due date to next business day
+		while (paymentTerm.isNextBusinessDay() 
+				&& !isBusinessDay(ips.getDueDate(), AD_Org_ID, C_Country_ID, C_Calendar_ID))
+			ips.setDueDate(TimeUtil.getNextDay(ips.getDueDate()));
+	}	//	checkBusinessDay
+	
+	/**
+	 * 	Handle IPS Events
+	 * 	@param iol In/Out Line
+	 * 	@param event Event
+	 * 	@param topic Topic of Event
+	 */
+	private void checkFixedDueDate (MInvoicePaySchedule ips, Event event, String topic)
+	{
+		if (ips.getC_PaySchedule_ID() <= 0)
+			return;
+		
+		MPaymentTerm paymentTerm = new MPaymentTerm(ips.getCtx(), ips.getC_PaySchedule().getC_PaymentTerm_ID(), null);
 		if (paymentTerm.isDueFixed())
 		{
 			int monthOffset = paymentTerm.getFixMonthOffset();
@@ -175,20 +202,7 @@ public class PayScheduleCheck extends AbstractEventHandler
 			
 			ips.setDueDate(new Timestamp (dueDate.getTimeInMillis()));
 		}
-
-		int C_Country_ID = ips.getC_Invoice().getC_BPartner_Location().getC_Location().getC_Country_ID();
-		int AD_Org_ID = ips.getC_Invoice().getAD_Org_ID();
-		int C_Calendar_ID = 0;
-		
-		MCalendar calendar = MCalendar.getDefault(ips.getCtx());
-		if (calendar != null)
-			C_Calendar_ID = calendar.getC_Calendar_ID();
-		
-		//	Set due date to next business day
-		while (paymentTerm.isNextBusinessDay() 
-				&& !isBusinessDay(ips.getDueDate(), AD_Org_ID, C_Country_ID, C_Calendar_ID))
-			ips.setDueDate(TimeUtil.getNextDay(ips.getDueDate()));
-	}	//	checkBusinessDay
+	}	//	checkDueFixed
 	
 	/**
 	 * 	Handle Payment Events
