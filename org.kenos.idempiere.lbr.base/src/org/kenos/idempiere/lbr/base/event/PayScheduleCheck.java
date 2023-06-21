@@ -3,15 +3,21 @@ package org.kenos.idempiere.lbr.base.event;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.text.DecimalFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
 
 import org.adempiere.base.event.AbstractEventHandler;
 import org.adempiere.base.event.IEventTopics;
 import org.adempierelbr.model.MPaymentTerm;
+import org.adempierelbr.util.TextUtil;
+import org.adempierelbr.wrapper.I_W_C_BPartner;
 import org.adempierelbr.wrapper.I_W_C_PaymentTerm;
 import org.compiere.model.I_C_NonBusinessDay;
+import org.compiere.model.MBPartner;
 import org.compiere.model.MCalendar;
 import org.compiere.model.MInvoicePaySchedule;
 import org.compiere.model.MOrder;
@@ -50,7 +56,12 @@ public class PayScheduleCheck extends AbstractEventHandler
 				MInvoicePaySchedule paySchedule = (MInvoicePaySchedule) po;
 				//
 				fillParcelNo (paySchedule, event, topic);
+				checkFixedDayBP (paySchedule, event, topic);
 				checkBusinessDay (paySchedule, event, topic);
+			}
+			else if (MBPartner.Table_Name.equals(po.get_TableName())) {
+				MBPartner bp = (MBPartner) po;
+				checkFixMonthDay (bp, event, topic);
 			}
 		}
 		else if (topic.startsWith(IEventTopics.DOC_EVENT_PREFIX))
@@ -65,6 +76,65 @@ public class PayScheduleCheck extends AbstractEventHandler
 		}
 	}	//	doHandleEvent
 	
+	/**
+	 *  Check if FixDueDate in BPartner is filled correctly
+	 * 	@param bp Business Partner
+	 * 	@param event Event
+	 * 	@param topic Topic of Event
+	 */
+	private void checkFixMonthDay (MBPartner bp, Event event, String topic)
+	{
+		//	Only proceed if Fix Month Day is changed
+		if (!bp.is_ValueChanged(I_W_C_BPartner.COLUMNNAME_FixMonthDay))
+			return;
+		
+		String fixDueDay = bp.get_ValueAsString(I_W_C_BPartner.COLUMNNAME_FixMonthDay);
+		if (fixDueDay == null || fixDueDay.isBlank())
+			return;	//	Nothing to do
+		
+		String days = Arrays.asList(fixDueDay.replace(",", ";").split(";")).stream()
+			.map(TextUtil::toNumeric)
+			.filter(d -> !d.isBlank())
+			.map(Integer::parseInt)
+			.filter(d -> d > 0 && d <= 31)
+			.sorted()
+			.distinct()
+			.map(String::valueOf)
+			.collect(Collectors.joining(";"));
+		bp.set_ValueOfColumn(I_W_C_BPartner.COLUMNNAME_FixMonthDay, days);
+	}	//	checkFixMonthDay
+	
+	/**
+	 * 	Handle In/Out Line Events
+	 * 	@param iol In/Out Line
+	 * 	@param event Event
+	 * 	@param topic Topic of Event
+	 */
+	private void checkFixedDayBP (MInvoicePaySchedule ips, Event event, String topic)
+	{
+		MBPartner bp = (MBPartner) ips.getC_Invoice().getC_BPartner();
+		//
+		String fixDueDay = bp.get_ValueAsString(I_W_C_BPartner.COLUMNNAME_FixMonthDay);
+		if (fixDueDay == null || fixDueDay.isBlank())
+			return;	//	Nothing to do
+		
+		List<String> validDays = Arrays.asList(fixDueDay.split(";"));
+		
+		//	Set due date to next fixed day
+		while (!isValidFixedDay(ips.getDueDate(), validDays))
+			ips.setDueDate(TimeUtil.getNextDay(ips.getDueDate()));
+	}	//	checkFixedDayBP
+	
+	private boolean isValidFixedDay(Timestamp dueDate, List<String> validDays)
+	{
+		Calendar cal = GregorianCalendar.getInstance();
+		cal.setTimeInMillis(dueDate.getTime());
+		String dom = String.valueOf(cal.get(Calendar.DAY_OF_MONTH));
+		if (validDays.contains(dom))
+			return true;
+		return false;
+	}	//	isValidFixedDay
+
 	/**
 	 * 	Handle In/Out Line Events
 	 * 	@param iol In/Out Line
@@ -174,6 +244,7 @@ public class PayScheduleCheck extends AbstractEventHandler
 	protected void initialize()
 	{
 		registerTableEvent (IEventTopics.PO_BEFORE_NEW, MInvoicePaySchedule.Table_Name);
+		registerTableEvent (IEventTopics.PO_BEFORE_CHANGE, MBPartner.Table_Name);
 		//
 		registerTableEvent (IEventTopics.DOC_BEFORE_PREPARE, MOrder.Table_Name);
 	}	//	initialize
