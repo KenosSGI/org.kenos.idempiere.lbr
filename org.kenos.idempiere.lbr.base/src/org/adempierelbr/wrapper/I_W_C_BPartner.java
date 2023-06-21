@@ -27,19 +27,6 @@ public interface I_W_C_BPartner extends I_C_BPartner
 {
 
 
-    /** Column name C_BankAccount_ID */
-    public static final String COLUMNNAME_C_BankAccount_ID = "C_BankAccount_ID";
-
-	/** Set Bank Account.
-	  * Account at the Bank
-	  */
-	public void setC_BankAccount_ID (int C_BankAccount_ID);
-
-	/** Get Bank Account.
-	  * Account at the Bank
-	  */
-	public int getC_BankAccount_ID();
-
     /** Column name CategoryType */
     public static final String COLUMNNAME_CategoryType = "CategoryType";
 
@@ -89,6 +76,19 @@ public interface I_W_C_BPartner extends I_C_BPartner
 	  * Source of the Journal with this category
 	  */
 	public String getCategoryType();
+
+    /** Column name FixMonthDay */
+    public static final String COLUMNNAME_FixMonthDay = "FixMonthDay";
+
+	/** Set Fix month day.
+	  * Day of the month of the due date
+	  */
+	public void setFixMonthDay (String FixMonthDay);
+
+	/** Get Fix month day.
+	  * Day of the month of the due date
+	  */
+	public String getFixMonthDay();
 
     /** Column name LBR_BankSlipContract_ID */
     public static final String COLUMNNAME_LBR_BankSlipContract_ID = "LBR_BankSlipContract_ID";
