@@ -83,7 +83,7 @@ public class DefaultCNABFactory implements ICNABFactory
 			CNABRecords returnRecords = null;
 			if (33 == RoutingNo)
 				returnRecords = new SantanderCNABRecords();
-			if(422 == RoutingNo)
+			else if (422 == RoutingNo)
 				returnRecords = new SafraCNABRecords();
 			else
 				returnRecords = new CNABRecords();
