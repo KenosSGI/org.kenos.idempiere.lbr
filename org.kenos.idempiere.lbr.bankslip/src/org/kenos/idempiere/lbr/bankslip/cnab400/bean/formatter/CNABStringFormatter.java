@@ -13,11 +13,13 @@ import com.ancientprogramming.fixedformat4j.format.FormatInstructions;
  */
 public class CNABStringFormatter extends AbstractFixedFormatter<String>
 {
-	public String asObject(String string, FormatInstructions instructions) 
+	@Override
+	public String asObject (String string, FormatInstructions instructions) 
 	{
-		return asObject (string, instructions);
+		return asString (string, instructions);
 	}
-	public String asString(String string, FormatInstructions instructions)
+	@Override
+	public String asString (String string, FormatInstructions instructions)
 	{
 		String result = null;
 		if (string != null) {
