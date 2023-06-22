@@ -2,34 +2,34 @@ package org.adempierelbr.nfse;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.Reader;
 import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.nio.file.Files;
+import java.net.URL;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
-import java.util.Map;
 import java.util.Properties;
 
 import javax.xml.namespace.QName;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamReader;
 
-import org.adempiere.base.Service;
 import org.adempiere.exceptions.AdempiereException;
 import org.adempiere.model.POWrapper;
-import org.adempiere.report.jasper.JRViewerProvider;
+import org.adempiere.webui.apps.AEnv;
+import org.adempiere.webui.component.Window;
+import org.adempiere.webui.desktop.IDesktop;
+import org.adempiere.webui.session.SessionManager;
+import org.adempiere.webui.window.SimplePDFViewer;
 import org.adempierelbr.model.MLBRDigitalCertificate;
 import org.adempierelbr.model.MLBRNotaFiscal;
 import org.adempierelbr.model.MLBRNotaFiscalLine;
@@ -42,11 +42,10 @@ import org.apache.axiom.om.OMAbstractFactory;
 import org.apache.axiom.om.OMElement;
 import org.apache.axis2.databinding.ADBException;
 import org.apache.axis2.transport.http.HTTPConstants;
+import org.apache.commons.io.FileUtils;
 import org.apache.xmlbeans.XmlCalendar;
 import org.compiere.model.MAttachment;
-import org.compiere.model.MAttachmentEntry;
 import org.compiere.model.MBPartner;
-import org.compiere.model.MImage;
 import org.compiere.model.MOrgInfo;
 import org.compiere.model.MSysConfig;
 import org.compiere.util.CLogger;
@@ -74,6 +73,7 @@ import br.org.abrasf201.nfse.CabecalhoDocument.Cabecalho;
 import br.org.abrasf201.nfse.CancelarNfseEnvioDocument;
 import br.org.abrasf201.nfse.CancelarNfseEnvioDocument.CancelarNfseEnvio;
 import br.org.abrasf201.nfse.CancelarNfseRespostaDocument;
+import br.org.abrasf201.nfse.CompNfseDocument;
 import br.org.abrasf201.nfse.ConsultarNfseRpsEnvioDocument;
 import br.org.abrasf201.nfse.ConsultarNfseRpsEnvioDocument.ConsultarNfseRpsEnvio;
 import br.org.abrasf201.nfse.EnviarLoteRpsSincronoEnvioDocument;
@@ -93,19 +93,13 @@ import br.org.abrasf201.nfse.TcIdentificacaoPrestador;
 import br.org.abrasf201.nfse.TcIdentificacaoRps;
 import br.org.abrasf201.nfse.TcIdentificacaoTomador;
 import br.org.abrasf201.nfse.TcInfDeclaracaoPrestacaoServico;
+import br.org.abrasf201.nfse.TcInfNfse;
 import br.org.abrasf201.nfse.TcInfPedidoCancelamento;
 import br.org.abrasf201.nfse.TcInfRps;
 import br.org.abrasf201.nfse.TcLoteRps;
 import br.org.abrasf201.nfse.TcLoteRps.ListaRps;
 import br.org.abrasf201.nfse.TcPedidoCancelamento;
 import br.org.abrasf201.nfse.TcValoresDeclaracaoServico;
-import net.sf.jasperreports.engine.JRParameter;
-import net.sf.jasperreports.engine.JasperExportManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.data.JRXmlDataSource;
-import net.sf.jasperreports.engine.util.JRLoader;
 
 /**
  * 		NFS-e de Cidades que Utilizam Abrasf Versão 2.01
@@ -238,6 +232,7 @@ public class NFSeAbrasf201Impl implements INFSe
 	/**
 	 * Gera e Retorna XML da NFS-e
 	 */
+	@SuppressWarnings("unused")
 	public byte[] getXML(MLBRNotaFiscal nf)
 	{
 		//	ID da Organização
@@ -2040,10 +2035,21 @@ public class NFSeAbrasf201Impl implements INFSe
 		log.fine("start printNFSe");
 		
 		try
-		{			
-			JasperPrint jasperPrint = getReport (nf);
-			JRViewerProvider viewerLauncher = Service.locator().locate(JRViewerProvider.class).getService();
-			viewerLauncher.openViewer (jasperPrint, "Impress\u00E3o de NFS-e para a Cidade de " + nf.getlbr_OrgCity());
+		{
+			File PDF = getPDF(nf);
+
+			AEnv.executeAsyncDesktopTask(new Runnable() {
+				@Override
+				public void run() {
+					try {
+						Window win = new SimplePDFViewer("NFSe", new FileInputStream (PDF));
+						IDesktop appDesktop = SessionManager.getAppDesktop();
+						appDesktop.showWindow(win, "center");
+					} catch (FileNotFoundException e) {
+						e.printStackTrace();
+					}
+				}
+			});
 		}
 		catch (Exception e)
 		{
@@ -2064,12 +2070,25 @@ public class NFSeAbrasf201Impl implements INFSe
 		
 		try
 		{
-			//	Get Report
-			JasperPrint jasperPrint = getReport (nf);
+			byte[] attachmentData = nf.getAttachmentData("dst.xml");
 			
-			//	File in PDF
-			PDF = File.createTempFile("NFSe" + nf.getlbr_NFENo() + "-", ".pdf");
-    		JasperExportManager.exportReportToPdfFile(jasperPrint, PDF.getAbsolutePath());
+			StringBuilder xml = new StringBuilder();
+			xml.append(new String (attachmentData, "UTF-8"));
+			xml.insert(xml.length()-5, "Comp");
+			xml.insert(1, "Comp");
+			
+			CompNfseDocument document = CompNfseDocument.Factory.parse(xml.toString());
+			
+			TcInfNfse infNfse = document.getCompNfse().getNfse().getInfNfse();
+			long documentNo = infNfse.getNumero();
+			
+			String url = "http://siatapirai.dcfiorilli.com.br:8080/issweb/formGerarNF.jsf?nroNota=" + documentNo
+					+ "&codVerificacao=" + infNfse.getCodigoVerificacao()
+					+ "&cnpj=" + infNfse.getPrestadorServico().getIdentificacaoPrestador().getCpfCnpj().getCnpj()
+					+ "&hash=" + infNfse.getId();
+			
+			PDF = File.createTempFile("NFSe_" + documentNo, ".pdf");
+			FileUtils.copyURLToFile(new URL(url), PDF);
 		}
 		catch (Exception e)
 		{
@@ -2077,155 +2096,14 @@ public class NFSeAbrasf201Impl implements INFSe
 		}
 		
 		return PDF;
-	}	
-	
-	/**
-	 * 	Get JasperReport
-	 * @param nf
-	 * @return
-	 * @throws Exception
-	 */
-	private JasperPrint getReport (MLBRNotaFiscal nf) throws Exception
-	{
-		log.fine("start getReport");
-		
-		InputStream is = null;
-		MImage img = MImage.get(Env.getCtx(), MOrgInfo.get(Env.getCtx(), nf.getAD_Org_ID(), nf.get_TrxName()).getLogo_ID());
-		InputStream xml = null;
-		MAttachment att = null;	
-		
-		try
-		{	
-			//	Map Parameters
-			Map<String, Object> map = new HashMap<String, Object>();
-			
-			//			Attachment
-			att = nf.getAttachment (true);
-			
-			if (att == null || att.getEntryCount() == 0)
-				throw new Exception ("Arquivo XML n\u00E3o encontrado para impress\u00E3o");
-			
-			MAttachmentEntry[] entries = att.getEntries();
-			
-			//	Get XML
-			for (MAttachmentEntry entry : entries)
-			{
-				//	Try to find the right file
-				if (entry.getName().endsWith("dst.xml"))
-				{
-					xml = entry.getInputStream();
-					break;
-				}
-			}
-			
-			//	Valid XML
-			if (xml == null)
-				throw new Exception ("Arquivo XML não foi encontrado");
-			
-			//	Get Logo
-			if (img.getBinaryData() != null)
-			{
-				is = new ByteArrayInputStream (img.getBinaryData());
-				map.put("logotipo", is);
-			}
-			
-			if (nf.getlbr_OrgCity() != null && !nf.getlbr_OrgCity().isEmpty())
-			{
-				map.put("municipioprestador", nf.getlbr_OrgCity());
-			}
-			
-			if (nf.getlbr_OrgPostal() != null && !nf.getlbr_OrgPostal().isEmpty())
-			{
-				map.put("CEPPrestador", nf.getlbr_OrgPostal());
-			}
-			
-			if (nf.getlbr_BPCNPJ() != null && !nf.getlbr_BPCNPJ().isEmpty())
-			{
-				map.put("cnpjtomador", nf.getlbr_BPCNPJ());
-			}
-			
-			if (nf.getlbr_BPPostal() != null && !nf.getlbr_BPPostal().isEmpty())
-			{
-				map.put("CEPTomador", nf.getlbr_BPPostal());
-			}
-			
-			if (nf.getlbr_BPCity() != null && !nf.getlbr_BPCity().isEmpty())
-			{
-				map.put("cidadetomador", nf.getlbr_BPCity());
-			}
-			
-			if (MSysConfig.getValue(SysConfig.LBR_NFSE_ABRASF201_JASPER_CITY_LOGO, null, nf.getAD_Client_ID(), nf.getAD_Org_ID()) != null) {
-				File logoprefeitura = new File(MSysConfig.getValue(SysConfig.LBR_NFSE_ABRASF201_JASPER_CITY_LOGO, "", nf.getAD_Client_ID(), nf.getAD_Org_ID()));
-				byte[] logoprefeituraimg = Files.readAllBytes(logoprefeitura.toPath());
-				map.put("logotipoprefeitura", new ByteArrayInputStream(logoprefeituraimg));
-			}
-
-			MLBRNotaFiscalLine nfl = nf.getLines()[0];
-			Integer c_city_id = nfl.getC_City_ID();
-			MCity city = new MCity (Env.getCtx(), nf.getOrg_Location().getC_City_ID(), null);
-			if (c_city_id > 0) {
-				city = new MCity( Env.getCtx(), c_city_id, null);
-			}
-			map.put("cidadeincidencia", city.getName());
-			
-			if(nf.getOrg_Location().getC_City_ID() == TAPIRAI_ID) {
-				map.put("prefeitura", "MUNICÍPIO DE TAPIRAÍ");
-				map.put("secretaria", "Departamento de Finanças e Administração");
-			}
-			
-			String Authenticity = MSysConfig.getValue (SysConfig.LBR_NFSE_ABRASF201_JASPER_AUTHENTICITY_TEXT, "", nf.getAD_Client_ID(), nf.getAD_Org_ID());
-			map.put("autenticidade", Authenticity);
-
-			if (nf.getlbr_CNPJ() != null && !nf.getlbr_OrgCity().isEmpty() 
-					&& !nf.getlbr_OrgRegion().isEmpty())
-			{
-				map.put("cnpjprestador", nf.getlbr_CNPJ());
-				map.put("cidadeprestador", nf.getlbr_OrgCity());
-				map.put("UFprestador", nf.getlbr_OrgRegion());
-			}
-			
-			MOrgInfo orgInf = MOrgInfo.get (nf.getCtx(), nf.getAD_Org_ID(), null);
-			map.put("emailprestador", orgInf.getEMail());
-			map.put("telefoneprestador", orgInf.getPhone());
-			
-			//	Get Jasper
-			ClassLoader cl = getClass().getClassLoader();
-			InputStream report = cl.getResourceAsStream("org/kenos/idempiere/lbr/nfse/report/ImpressaoNFSEABRASF201.jasper");
-			
-			log.fine("after find report");
-			
-			Locale locale = new Locale( "pt", "BR" );
-			map.put( JRParameter.REPORT_LOCALE, locale );
-			JasperReport jasperReport = (JasperReport) JRLoader.loadObject (report);
-			JRXmlDataSource dataSource = new JRXmlDataSource ( xml , jasperReport.getQuery().getText() );
-			
-			//	Fill
-			return JasperFillManager.fillReport (jasperReport, map, dataSource);			
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-			throw new Exception (e.getMessage());
-		}
-		finally
-		{
-			try
-			{
-				if (is != null)
-					is.close();
-			}
-			catch (IOException ioe)
-			{
-				throw new Exception ("Erro na Impressão da Nota Fiscal de Serviço. Imprima a partir do Site da Prefeitura");
-			}
-		}
-	}	//	getReport
+	}	//	getPDF
 	
 	/**
 	 * Cancel NFS-e
 	 * @param nf
 	 * @return
 	 */
+	@SuppressWarnings("unused")
 	public boolean cancel (MLBRNotaFiscal nf)
 	{
 		if (nf.getlbr_NFENo() == null)
@@ -2322,6 +2200,7 @@ public class NFSeAbrasf201Impl implements INFSe
 		setCancel (nf, tcCancelamentoNfse, null);
 	}
 	
+	@SuppressWarnings("unused")
 	private void setCancel(MLBRNotaFiscal nf, br.org.abrasf.www.nfse_xsd.TcCancelamentoNfse tcCancelamentoNfse, String msg)
 	{
 		//	Can't change cancel reason after NF is cancelled
