@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -878,7 +879,22 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 			
 			if (getWriteOffAmt() != null && getWriteOffAmt().signum() == 1)
 				instructions.add ("Conceder Abatimento de " + currency.format(getWriteOffAmt()));
-
+			
+			// Instruction Protest
+			if (getLBR_ProtestDays() > 0) {
+				if (Integer.parseInt(getLBR_ProtestType()) == 1) //Dias Corridos
+					instructions.add ("Protestar após " + getLBR_ProtestDays() + " dias corridos do vencimento");
+				else if (Integer.parseInt(getLBR_ProtestType()) == 2) //Dias Úteis
+					instructions.add ("Protestar após " + getLBR_ProtestDays() + " dias úteis do vencimento");
+			}
+			
+			// Discount
+			BigDecimal discountAmt = getCalculatedDiscount1Amt();
+			if (getLBR_Discount1Type() != null && (discountAmt.compareTo(BigDecimal.ZERO) == 1)) 
+			{
+				instructions.add ("Desconto de " + currency.format(discountAmt) + " até a data " + new SimpleDateFormat("dd/MM/YYYY").format(getLBR_Discount1Date()));
+			}
+			
 			//	Custom Messages
 			String msg1 = getMsg1();
 			String msg2 = getMsg2();
@@ -1096,7 +1112,8 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 		}
 		
 		//	BB
-		else if (Integer.parseInt(getRoutingNo()) == BancoDoBrasil001.ROUNTING_NO)
+		else if (Integer.parseInt(getRoutingNo()) == BancoDoBrasil001.ROUNTING_NO ||
+			(Integer.parseInt(getRoutingNo()) == BancoSafra422.ROUNTING_NO))
 		{
 			return;
 		}
@@ -1722,6 +1739,30 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 		
 		return penaltyAmt;
 	}	//	getCalculatedPenaltyAmt
+	
+	private BigDecimal getCalculatedDiscount1Amt()
+	{
+		BigDecimal discountAmt = BigDecimal.ZERO;
+//		Discount Type = Amount
+		if (TextUtil.match(getLBR_Discount1Type(), 
+			MLBRBankSlip.LBR_DISCOUNT1TYPE_AmountForEarlyPaymentInBusinessDays, 
+			MLBRBankSlip.LBR_DISCOUNT1TYPE_AmountForEarlyPaymentInCalendarDays, 
+			MLBRBankSlip.LBR_DISCOUNT1TYPE_FixedAmountUntilDateSet))
+		{
+			discountAmt = getLBR_Discount1Value();
+		}
+		
+		//	Discount Type = Rate
+		else if (TextUtil.match(getLBR_Discount1Type(), 
+			MLBRBankSlip.LBR_DISCOUNT1TYPE_RateOverGrandTotalInBusinessDays, 
+			MLBRBankSlip.LBR_DISCOUNT1TYPE_RateOverGrandTotalInCalendarDays, 
+			MLBRBankSlip.LBR_DISCOUNT1TYPE_FixedRateUntilDateSet))
+		{
+			discountAmt = getGrandTotal().multiply(getLBR_Discount1Value());
+		}
+		
+		return discountAmt;
+	}
 	
 	public String getIdentifier ()
 	{
