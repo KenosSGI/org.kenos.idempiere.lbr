@@ -151,7 +151,7 @@ public class WGenBankSlip extends GenBankSlip
 		labelBPartner.setText(Msg.translate(Env.getCtx(), "C_BPartner_ID"));
 		fieldBPartner.addActionListener(this);
 		bRefresh.addActionListener(this);
-		labelDate.setText(Msg.translate(Env.getCtx(), "PayDate"));
+		labelDate.setText(Msg.translate(Env.getCtx(), "DateInvoiced"));
 		labelDateTo.setText(Msg.translate(Env.getCtx(), "To"));
 		labelDtype.setText(Msg.translate(Env.getCtx(), "C_DocType_ID"));
 		fieldDtype.addActionListener(this);
