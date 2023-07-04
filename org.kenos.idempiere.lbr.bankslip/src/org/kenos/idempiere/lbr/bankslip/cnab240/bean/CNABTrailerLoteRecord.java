@@ -15,6 +15,7 @@ public class CNABTrailerLoteRecord extends CNABBaseRecord {
 	private int quantidadeTitulosCobrancaCaucionada;
 	private int quantidadeTitulosCarteiraCaucionada;
 	private int quantidadeTitulosCobrancaDescontada;
+	private Double valorTotalTitulosEmCarteira;
 	
 	public CNABTrailerLoteRecord() {
 		super();
@@ -83,6 +84,14 @@ public class CNABTrailerLoteRecord extends CNABBaseRecord {
 	}
 	public void setQuantidadeTitulosCobrancaDescontada(int quantidadeTitulosCobrancaDescontada) {
 		this.quantidadeTitulosCobrancaDescontada = quantidadeTitulosCobrancaDescontada;
+	}
+	
+	@Field(offset = 99, length = 17, paddingChar = '0' , align = Align.RIGHT )
+	public Double getValorTotalTitulosEmCarteira() {
+		return valorTotalTitulosEmCarteira;
+	}
+	public void setValorTotalTitulosEmCarteira(Double valorTotalTitulosEmCarteira) {
+		this.valorTotalTitulosEmCarteira = valorTotalTitulosEmCarteira;
 	}
 	
 }

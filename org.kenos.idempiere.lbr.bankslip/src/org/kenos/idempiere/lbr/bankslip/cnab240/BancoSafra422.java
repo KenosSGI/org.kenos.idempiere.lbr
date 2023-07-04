@@ -123,7 +123,7 @@ public class BancoSafra422 implements ICNABGenerator {
 		SafraCNABCobrancaRemessaHeaderLote headerLote = new SafraCNABCobrancaRemessaHeaderLote();
 
 		headerLote.setBanco(ROUNTING_NO);
-		headerLote.setLote(lotSequence.getCurrentNext());
+		headerLote.setLote(REGISTER_TYPE_HEADER_LOTE);
 		headerLote.setTipoRegistro(REGISTER_TYPE_HEADER_LOTE);
 		headerLote.setTipoOperacao(OPERATION_TYPE);
 		headerLote.setTipoServico(01);
@@ -135,7 +135,7 @@ public class BancoSafra422 implements ICNABGenerator {
 		headerLote.setConta(cnabFile.getAccountNoAsInt());
 		headerLote.setDvConta(cnabFile.getLBR_BankAccountVD());
 		headerLote.setNomeEmpresa(cnabFile.getlbr_LegalEntity());
-		headerLote.setSequenciaLote(lotSequence.getCurrentNext());
+		headerLote.setSequenciaLote(cnabFile.getSeqNo());
 		headerLote.setDataGravacaoLote(cnabFile.getDateDoc());
 
 		cnab240.addRegistro(headerLote);
@@ -148,15 +148,18 @@ public class BancoSafra422 implements ICNABGenerator {
 
 			SafraCNABSegmentP segmentP = new SafraCNABSegmentP();
 			
-			// Safra aceita apenas percentual = 2
-			Integer penaltyType = Integer.parseInt(MLBRBankSlip.LBR_PENALTYTYPE_Rate);
+			Integer penaltyType = 0; // Default para sem multa
+			if (bs.getLBR_PenaltyType() != null)
+				penaltyType = Integer.parseInt(bs.getLBR_PenaltyType());
 			
 			Integer interestType = Integer.parseInt(bs.getLBR_InterestType());
 			// Safra aceita apenas 3 Isento ou 1 Valor por dia 
-			if (interestType != 3) interestType = 1;
+			if (interestType == 9) interestType = 3;
+			else interestType = 1;
 			
-			// Safra aceita apenas 1 - Valor Fixo até a data informada 
-			Integer discountType = 1;
+			Integer discountType = 0;
+			if (bs.getLBR_Discount1Type() != null)
+				discountType = Integer.parseInt(bs.getLBR_Discount1Type());
 			
 			// Aceite
 			String accepted = NOT_ACCEPTED;
@@ -204,15 +207,15 @@ public class BancoSafra422 implements ICNABGenerator {
 				payerBPTypeBR = BPTYPE_CPF_PAGADOR;
 
 			segmentP.setBanco(ROUNTING_NO);
-			segmentP.setLote(lotSequence.getCurrentNext());
+			segmentP.setLote(REGISTER_TYPE_HEADER_LOTE);
 			segmentP.setTipoRegistro(REGISTER_TYPE_DETAIL);
 			segmentP.setSequencia(seq.getAndIncrement());
 			segmentP.setTipoSegmento(SEGMENTP);
 			segmentP.setCodigoMovimento(mov.getValue());
 			segmentP.setAgenciaCedente(bsi.getAgency());
 			segmentP.setDvAgenciaCedente(" ");
-			segmentP.setContaCedente(Integer.parseInt(bsi.getAccountNo()));
-			segmentP.setDvContaCedente(bankAccountVD);
+			segmentP.setContaCedente(cnabFile.getAccountNoAsInt());
+			segmentP.setDvContaCedente(cnabFile.getLBR_BankAccountVD());
 			segmentP.setNossoNumero(bs.getLBR_NumberInBank());
 			segmentP.setCodigoCarteira(bsi.getLBR_BankSlipFoldCode());
 			segmentP.setFormaCadastramento(1);
@@ -235,10 +238,11 @@ public class BancoSafra422 implements ICNABGenerator {
 			segmentP.setDataDesconto(discountDate);
 			segmentP.setDesconto(discountAmt.doubleValue());
 			segmentP.setValorIOF(bs.getLBR_IOFAmt().doubleValue());
-			segmentP.setValorAbatimento(bs.getDiscountAmt().doubleValue());
+			segmentP.setValorAbatimento(BigDecimal.ZERO.doubleValue());
 			segmentP.setCodigoProtesto(Integer.parseInt(bs.getLBR_ProtestType()));
 			segmentP.setPrazoProtesto(bs.getLBR_ProtestDays());
 			segmentP.setCodigoBaixaDevolucao(Integer.parseInt(bs.getLBR_ReturnAction()));
+			segmentP.setPrazoBaixaDevolucao(cnabFile.getLBR_BankSlipContract().getLBR_BankSlipConfig().getLBR_ReturnDays());
 			segmentP.setCodigoMoeda(CODIGO_MOEDA);
 			segmentP.setNumeroContrato(0);
 			segmentP.setUsoLivre(1);
@@ -247,7 +251,7 @@ public class BancoSafra422 implements ICNABGenerator {
 			// Segment Q
 			CNABSegmentQRecord segmentQ = new CNABSegmentQRecord();
 			segmentQ.setBanco(ROUNTING_NO);
-			segmentQ.setLote(lotSequence.getCurrentNext());
+			segmentQ.setLote(REGISTER_TYPE_HEADER_LOTE);
 			segmentQ.setTipoRegistro(REGISTER_TYPE_DETAIL);
 			segmentQ.setSequencia(seq.getAndIncrement());
 			segmentQ.setTipoSegmento(SEGMENTQ);
@@ -265,7 +269,7 @@ public class BancoSafra422 implements ICNABGenerator {
 			// Segment R
 			CNABSegmentRRecord segmentR = new CNABSegmentRRecord();
 			segmentR.setBanco(ROUNTING_NO);
-			segmentR.setLote(lotSequence.getCurrentNext());
+			segmentR.setLote(REGISTER_TYPE_HEADER_LOTE);
 			segmentR.setTipoRegistro(REGISTER_TYPE_DETAIL);
 			segmentR.setSequencia(seq.getAndIncrement());
 			segmentR.setTipoSegmento(SEGMENTR);
@@ -284,11 +288,12 @@ public class BancoSafra422 implements ICNABGenerator {
 
 		CNABTrailerLoteRecord trailerLote = new CNABTrailerLoteRecord();
 		trailerLote.setBanco(ROUNTING_NO);
-		trailerLote.setLote(lotSequence.getCurrentNext());
+		trailerLote.setLote(REGISTER_TYPE_HEADER_LOTE);
 		trailerLote.setTipoRegistro(REGISTER_TYPE_TRAILER_LOTE);
-		trailerLote.setQuantidadeRegistros(rows);
+		trailerLote.setQuantidadeRegistros(rows+2);
 		trailerLote.setQuantidadeTitulosSimples(cnabFile.getLines().size());
 		trailerLote.setValorTitulosSimples(totalTitulosSimples.doubleValue());
+		trailerLote.setValorTotalTitulosEmCarteira(BigDecimal.ZERO.doubleValue());
 		
 		cnab240.addRegistro(trailerLote);
 
