@@ -74,7 +74,7 @@ UPDATE AD_Column SET FieldLength=2048, SeqNoSelection=10,Updated=TO_TIMESTAMP('2
 ;
 
 -- 17 de mai de 2023 16:14:04 BRT
-INSERT INTO t_alter_column values('lbr_ncm','Description','VARCHAR(2048)',null,'NULL')
+ALTER TABLE LBR_NCM MODIFY Description VARCHAR2(2048) DEFAULT NULL
 ;
 
 -- 17 de mai de 2023 14:52:21 BRT
