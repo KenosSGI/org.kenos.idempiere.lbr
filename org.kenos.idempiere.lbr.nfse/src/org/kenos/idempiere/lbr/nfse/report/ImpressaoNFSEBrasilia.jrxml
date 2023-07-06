@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.5.1  -->
+<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Nota_Fiscal_Servicos_Abrasf201" pageWidth="595" pageHeight="842" whenNoDataType="BlankPage" columnWidth="535" leftMargin="30" rightMargin="30" topMargin="20" bottomMargin="20" uuid="977fe381-bcc6-4484-bc93-93533a996372">
 	<property name="ireport.encoding" value="UTF-8"/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<import value="net.sf.jasperreports.engine.*"/>
 	<import value="java.util.*"/>
 	<import value="net.sf.jasperreports.engine.data.*"/>
@@ -117,7 +116,7 @@
 	<field name="Valores" class="java.lang.String">
 		<fieldDescription><![CDATA[/CompNfse/Nfse/InfNfse/DeclaracaoPrestacaoServico/InfDeclaracaoPrestacaoServico/Servico/Valores]]></fieldDescription>
 	</field>
-	<field name="IssRetido" class="java.lang.String">
+	<field name="IssRetido" class="java.lang.Integer">
 		<fieldDescription><![CDATA[/CompNfse/Nfse/InfNfse/DeclaracaoPrestacaoServico/InfDeclaracaoPrestacaoServico/Servico/IssRetido]]></fieldDescription>
 	</field>
 	<field name="ResponsavelRetencao" class="java.lang.String">
@@ -553,7 +552,7 @@ $F{DataEmissao_1}.substring(0,4)]]></textFieldExpression>
 				</textElement>
 				<text><![CDATA[Municipio Incidência]]></text>
 			</staticText>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="420" y="89" width="108" height="17" uuid="12c3aa30-5f2e-44c2-b228-bf4c62ad22b6"/>
 				<textElement textAlignment="Left">
 					<font fontName="DejaVu Sans" isBold="false"/>
@@ -561,35 +560,35 @@ $F{DataEmissao_1}.substring(0,4)]]></textFieldExpression>
 				<textFieldExpression><![CDATA[$F{DataEmissao_1}.substring(8,10)+"/"+$F{DataEmissao_1}.substring(5,7)+"/"+
 $F{DataEmissao_1}.substring(0,4)]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="2" y="118" width="260" height="17" uuid="168f00e1-06fc-4dd2-bf02-9d28b4d5734e"/>
 				<textElement textAlignment="Left">
 					<font fontName="DejaVu Sans" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{cidadeincidencia}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="151" y="89" width="78" height="17" uuid="c2b63b57-872d-48a6-a124-ba5a3b028362"/>
 				<textElement textAlignment="Left">
 					<font fontName="DejaVu Sans" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Numero_1}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="2" y="89" width="139" height="17" uuid="4bc36403-b322-4bc1-b7eb-7d6505399a62"/>
 				<textElement textAlignment="Left">
 					<font fontName="DejaVu Sans" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{ExigibilidadeISS}.equals("1")?"Exigível":$F{ExigibilidadeISS}.equals("2")?"Não Incidência":$F{ExigibilidadeISS}.equals("3")?"Isenção":$F{ExigibilidadeISS}.equals("4")?"Exportação":$F{ExigibilidadeISS}.equals("5")?"Exigibilidade suspensa por Decisão Judicial":$F{ExigibilidadeISS}.equals("6")?"Exigibilidade suspensa por Processo Administrativo":""]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="232" y="89" width="186" height="17" uuid="b8b46da8-2c5d-4b7f-9bbc-e25a0fc7cf57"/>
 				<textElement textAlignment="Left">
 					<font fontName="DejaVu Sans" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Serie}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="268" y="118" width="260" height="17" uuid="deb7d5bb-50c4-4df8-b0d8-b43c69241491"/>
 				<textElement textAlignment="Left">
 					<font fontName="DejaVu Sans" isBold="false"/>
@@ -620,7 +619,7 @@ $F{DataEmissao_1}.substring(0,4)]]></textFieldExpression>
 			<textField isBlankWhenNull="true">
 				<reportElement x="83" y="38" width="287" height="14" uuid="801a66ae-b912-4e65-8176-cb092b6abf17"/>
 				<textElement textAlignment="Left">
-					<font fontName="DejaVu Sans" isBold="false"/>
+					<font fontName="DejaVu Sans" size="8" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{RazaoSocial_1}]]></textFieldExpression>
 			</textField>
@@ -742,63 +741,63 @@ $F{DataEmissao_1}.substring(0,4)]]></textFieldExpression>
 			<textField isBlankWhenNull="true">
 				<reportElement x="83" y="24" width="287" height="14" uuid="099ec075-8178-4e87-878c-45b7ef5d5a20"/>
 				<textElement textAlignment="Left">
-					<font fontName="DejaVu Sans" isBold="false"/>
+					<font fontName="DejaVu Sans" size="8" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Cnpj_1}.substring(0,2)+"."+ $F{Cnpj_1}.substring(2,5)+"."+$F{Cnpj_1}.substring(5,8)+"/"+ $F{Cnpj_1}.substring(8,12)+"-"+$F{Cnpj_1}.substring(12,14)]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="83" y="52" width="287" height="14" uuid="193a459c-70b8-477c-b93c-82294842fc33"/>
 				<textElement textAlignment="Left">
-					<font fontName="DejaVu Sans" isBold="false"/>
+					<font fontName="DejaVu Sans" size="8" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Endereco_1}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="83" y="80" width="286" height="14" uuid="e5a350ca-fdd0-40b7-a28e-7083ecba2970"/>
 				<textElement textAlignment="Left">
-					<font fontName="DejaVu Sans" isBold="false"/>
+					<font fontName="DejaVu Sans" size="8" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Cep_1}.substring(0,5)+"-"+$F{Cep_1}.substring(5,8)]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="83" y="94" width="286" height="14" uuid="a8b1e841-90f8-4efb-a4ca-dea08899751d"/>
 				<textElement textAlignment="Left">
-					<font fontName="DejaVu Sans" isBold="false"/>
+					<font fontName="DejaVu Sans" size="8" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA["(" + $F{Telefone_1}.substring(0,2) + ")" + $F{Telefone_1}.substring(2,6)+ "-" + $F{Telefone_1}.substring(6,10)]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="430" y="24" width="103" height="14" uuid="5507119c-0255-4aa4-9f29-316cc974e6a9"/>
 				<textElement textAlignment="Left">
-					<font fontName="DejaVu Sans" isBold="false"/>
+					<font fontName="DejaVu Sans" size="8" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{InscricaoMunicipal_1}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="430" y="52" width="103" height="14" uuid="301b2a14-e7e4-4b41-af34-6e4a7d162db6"/>
 				<textElement textAlignment="Left">
-					<font fontName="DejaVu Sans" isBold="false"/>
+					<font fontName="DejaVu Sans" size="8" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Numero_2}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="430" y="66" width="103" height="14" uuid="a62811bc-0339-40e6-9211-bc82c7a6c076"/>
 				<textElement textAlignment="Left">
-					<font fontName="DejaVu Sans" isBold="false"/>
+					<font fontName="DejaVu Sans" size="8" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Bairro_1}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="430" y="80" width="103" height="14" uuid="dc79d56d-063d-4193-8390-1c185c3749e1"/>
 				<textElement textAlignment="Left">
-					<font fontName="DejaVu Sans" isBold="false"/>
+					<font fontName="DejaVu Sans" size="8" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{cidadetomador}+"/ "+$F{Uf_1}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="83" y="66" width="287" height="14" uuid="f3ad7fed-6d3f-4f00-bda5-c87a35f84f18"/>
 				<textElement textAlignment="Left">
-					<font fontName="DejaVu Sans" isBold="false"/>
+					<font fontName="DejaVu Sans" size="8" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Complemento_1}]]></textFieldExpression>
 			</textField>
@@ -998,7 +997,7 @@ $F{DataEmissao_1}.substring(0,4)]]></textFieldExpression>
 				<text><![CDATA[Informações Adicionais]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="3" y="20" width="528" height="64" uuid="74c10fbe-e482-4d4f-9499-222c186ed98a"/>
+				<reportElement x="3" y="21" width="528" height="64" uuid="74c10fbe-e482-4d4f-9499-222c186ed98a"/>
 				<textElement textAlignment="Justified">
 					<font fontName="DejaVu Sans" size="8"/>
 				</textElement>
@@ -1180,7 +1179,7 @@ $F{DataEmissao_1}.substring(0,4)]]></textFieldExpression>
 					<font fontName="DejaVu Sans" size="8" isBold="true"/>
 					<paragraph rightIndent="2"/>
 				</textElement>
-				<textFieldExpression><![CDATA[new BigDecimal($F{ValorServicos})]]></textFieldExpression>
+				<textFieldExpression><![CDATA["R$ "+ new BigDecimal($F{ValorServicos})]]></textFieldExpression>
 			</textField>
 			<textField pattern="¤&apos; &apos;#,##0.##;¤-#,##0.##" isBlankWhenNull="true">
 				<reportElement x="100" y="160" width="100" height="13" uuid="abce3126-3520-4a53-a465-31ae421175d0">
@@ -1190,7 +1189,7 @@ $F{DataEmissao_1}.substring(0,4)]]></textFieldExpression>
 					<font fontName="DejaVu Sans" size="8" isBold="false"/>
 					<paragraph rightIndent="2"/>
 				</textElement>
-				<textFieldExpression><![CDATA[new BigDecimal($F{DescontoIncondicionado})]]></textFieldExpression>
+				<textFieldExpression><![CDATA["R$ " + new BigDecimal($F{DescontoIncondicionado})]]></textFieldExpression>
 			</textField>
 			<textField pattern="¤&apos; &apos;#,##0.##;¤-#,##0.##" isBlankWhenNull="true">
 				<reportElement x="201" y="160" width="81" height="13" uuid="a548801c-be42-4e9d-83f5-08eefd013c89">
@@ -1200,7 +1199,7 @@ $F{DataEmissao_1}.substring(0,4)]]></textFieldExpression>
 					<font fontName="DejaVu Sans" size="8" isBold="false"/>
 					<paragraph rightIndent="2"/>
 				</textElement>
-				<textFieldExpression><![CDATA[new BigDecimal($F{BaseCalculo})]]></textFieldExpression>
+				<textFieldExpression><![CDATA["R$ "+ new BigDecimal($F{BaseCalculo})]]></textFieldExpression>
 			</textField>
 			<textField pattern="¤&apos; &apos;#,##0.##;¤-#,##0.##" isBlankWhenNull="true">
 				<reportElement x="282" y="160" width="78" height="13" uuid="7c9af7e0-ba95-411b-8417-da1b1a07af7a">
@@ -1210,14 +1209,14 @@ $F{DataEmissao_1}.substring(0,4)]]></textFieldExpression>
 					<font fontName="DejaVu Sans" size="8" isBold="false"/>
 					<paragraph rightIndent="2"/>
 				</textElement>
-				<textFieldExpression><![CDATA[new BigDecimal($F{ValTotTributos})]]></textFieldExpression>
+				<textFieldExpression><![CDATA["R$ "+ new BigDecimal($F{ValTotTributos})]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="360" y="160" width="59" height="13" uuid="978802ce-119b-4795-bd6a-5d4e1d7449d0"/>
 				<textElement textAlignment="Right">
 					<font fontName="DejaVu Sans" size="8" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{IssRetido} == "1"  ? "Sim" : "Não"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{IssRetido} > 0  ? "Sim" : "Não"]]></textFieldExpression>
 			</textField>
 			<textField pattern="¤&apos; &apos;#,##0.##;¤-#,##0.##" isBlankWhenNull="true">
 				<reportElement x="419" y="160" width="116" height="13" uuid="fc212def-2a27-4e03-a767-4fc169fa469b">
@@ -1227,7 +1226,7 @@ $F{DataEmissao_1}.substring(0,4)]]></textFieldExpression>
 					<font fontName="DejaVu Sans" size="8" isBold="false"/>
 					<paragraph rightIndent="2"/>
 				</textElement>
-				<textFieldExpression><![CDATA[new BigDecimal($F{DescontoCondicionado})]]></textFieldExpression>
+				<textFieldExpression><![CDATA["R$ "+ new BigDecimal($F{DescontoCondicionado})]]></textFieldExpression>
 			</textField>
 			<textField pattern="¤&apos; &apos;#,##0.##;¤-#,##0.##" isBlankWhenNull="true">
 				<reportElement x="0" y="184" width="60" height="13" uuid="bdf3ad16-c34a-4998-93b8-8454cf0e5b15">
@@ -1237,7 +1236,7 @@ $F{DataEmissao_1}.substring(0,4)]]></textFieldExpression>
 					<font fontName="DejaVu Sans" size="8" isBold="false"/>
 					<paragraph rightIndent="2"/>
 				</textElement>
-				<textFieldExpression><![CDATA[new BigDecimal($F{ValorPis})]]></textFieldExpression>
+				<textFieldExpression><![CDATA["R$ "+ new BigDecimal($F{ValorPis})]]></textFieldExpression>
 			</textField>
 			<textField pattern="¤&apos; &apos;#,##0.##;¤-#,##0.##" isBlankWhenNull="true">
 				<reportElement x="60" y="184" width="63" height="13" uuid="210c35ad-c078-45c3-9576-75cec941442d">
@@ -1247,7 +1246,7 @@ $F{DataEmissao_1}.substring(0,4)]]></textFieldExpression>
 					<font fontName="DejaVu Sans" size="8" isBold="false"/>
 					<paragraph rightIndent="2"/>
 				</textElement>
-				<textFieldExpression><![CDATA[new BigDecimal($F{ValorCofins})]]></textFieldExpression>
+				<textFieldExpression><![CDATA["R$ "+ new BigDecimal($F{ValorCofins})]]></textFieldExpression>
 			</textField>
 			<textField pattern="¤&apos; &apos;#,##0.##;¤-#,##0.##" isBlankWhenNull="true">
 				<reportElement x="123" y="184" width="60" height="13" uuid="e1a00a5c-92f6-4a1c-a080-785775796455">
@@ -1257,7 +1256,7 @@ $F{DataEmissao_1}.substring(0,4)]]></textFieldExpression>
 					<font fontName="DejaVu Sans" size="8" isBold="false"/>
 					<paragraph rightIndent="2"/>
 				</textElement>
-				<textFieldExpression><![CDATA[new BigDecimal($F{ValorInss})]]></textFieldExpression>
+				<textFieldExpression><![CDATA["R$ "+ new BigDecimal($F{ValorInss})]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="238" y="173" width="45" height="11" uuid="23226761-4f3c-4209-8787-fbe47961ab20"/>
@@ -1274,7 +1273,7 @@ $F{DataEmissao_1}.substring(0,4)]]></textFieldExpression>
 					<font fontName="DejaVu Sans" size="8" isBold="false"/>
 					<paragraph rightIndent="2"/>
 				</textElement>
-				<textFieldExpression><![CDATA[new BigDecimal($F{ValorCsll})]]></textFieldExpression>
+				<textFieldExpression><![CDATA["R$ "+ new BigDecimal($F{ValorCsll})]]></textFieldExpression>
 			</textField>
 			<rectangle>
 				<reportElement key="rectangle-1" x="183" y="173" width="55" height="24" uuid="cf63894d-bc15-4471-b49a-80bff06295e0"/>
@@ -1297,7 +1296,7 @@ $F{DataEmissao_1}.substring(0,4)]]></textFieldExpression>
 					<font fontName="DejaVu Sans" size="8" isBold="false"/>
 					<paragraph rightIndent="2"/>
 				</textElement>
-				<textFieldExpression><![CDATA[new BigDecimal($F{ValorIr})]]></textFieldExpression>
+				<textFieldExpression><![CDATA["R$ "+ new BigDecimal($F{ValorIr})]]></textFieldExpression>
 			</textField>
 			<textField pattern="¤&apos; &apos;#,##0.##;¤-#,##0.##" isBlankWhenNull="true">
 				<reportElement x="285" y="184" width="68" height="13" uuid="72e7d6cd-cff9-48ec-8efd-fa62aefcd917">
@@ -1307,7 +1306,7 @@ $F{DataEmissao_1}.substring(0,4)]]></textFieldExpression>
 					<font fontName="DejaVu Sans" size="8" isBold="false"/>
 					<paragraph rightIndent="2"/>
 				</textElement>
-				<textFieldExpression><![CDATA[new BigDecimal($F{OutrasRetencoes})]]></textFieldExpression>
+				<textFieldExpression><![CDATA["R$ "+ new BigDecimal($F{OutrasRetencoes})]]></textFieldExpression>
 			</textField>
 			<textField pattern="¤&apos; &apos;#,##0.##;¤-#,##0.##" isBlankWhenNull="true">
 				<reportElement x="353" y="184" width="70" height="13" uuid="c250a9cf-9e5e-4040-892c-ba9f9d161c27">
@@ -1317,7 +1316,7 @@ $F{DataEmissao_1}.substring(0,4)]]></textFieldExpression>
 					<font fontName="DejaVu Sans" size="8" isBold="false"/>
 					<paragraph rightIndent="2"/>
 				</textElement>
-				<textFieldExpression><![CDATA[new BigDecimal($F{ValorIss})]]></textFieldExpression>
+				<textFieldExpression><![CDATA["R$ "+ new BigDecimal($F{ValorIss})]]></textFieldExpression>
 			</textField>
 			<textField pattern="¤&apos; &apos;#,##0.##;¤-#,##0.##" isBlankWhenNull="true">
 				<reportElement x="423" y="184" width="112" height="13" uuid="64189d96-94e5-4a9e-9daf-937954bc3b6e">
@@ -1327,7 +1326,7 @@ $F{DataEmissao_1}.substring(0,4)]]></textFieldExpression>
 					<font fontName="DejaVu Sans" size="8" isBold="true"/>
 					<paragraph rightIndent="2"/>
 				</textElement>
-				<textFieldExpression><![CDATA[new BigDecimal($F{ValorLiquidoNfse})]]></textFieldExpression>
+				<textFieldExpression><![CDATA["R$ "+ new BigDecimal($F{ValorLiquidoNfse})]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="3" y="250" width="528" height="24" uuid="158f7949-92f4-4023-82b5-fa9299d213b3"/>
