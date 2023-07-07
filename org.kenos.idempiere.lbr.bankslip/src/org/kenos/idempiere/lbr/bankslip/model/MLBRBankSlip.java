@@ -206,6 +206,11 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 				if (api == null) {
 					return null;
 				}
+				
+				if(Integer.parseInt(bsi.getRoutingNo())== BancoDoBrasil001.ROUNTING_NO){
+					BoletoViewer boletoViewer = new BoletoViewer (getBankSlip ());
+					return boletoViewer.getPdfAsFile (tempFile);
+				}
 			
 				Files.write (tempFile.toPath(), api.getPDF(this));
 				return tempFile;
@@ -1188,13 +1193,24 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 				IResponseAPI result = api.processBankSlip(this);
 				//
 				String numberInBank = result.getNumberInBank();
-				setLBR_NumberInBank(numberInBank.substring(0, numberInBank.length()-1));
-				setIsRegistered(true);
 				
-				bsi.setLBR_Barcode(result.geBarcode());
-				bsi.setLBR_ManualInput(result.getManualInput());
-				bsi.setLBR_NumberInBankVD(numberInBank.substring(numberInBank.length()-1));
-				bsi.save();
+				if(Integer.parseInt(bsi.getRoutingNo()) == BancoDoBrasil001.ROUNTING_NO){
+					setLBR_NumberInBank(numberInBank.substring(0, numberInBank.length()));
+					setIsRegistered(true);
+					
+					bsi.setLBR_Barcode(result.geBarcode());
+					bsi.setLBR_ManualInput(result.getManualInput());
+					bsi.setLBR_NumberInBankVD(numberInBank.substring(numberInBank.length()));
+					bsi.save();
+				}else {
+					setLBR_NumberInBank(numberInBank.substring(0, numberInBank.length()-1));
+					setIsRegistered(true);
+					
+					bsi.setLBR_Barcode(result.geBarcode());
+					bsi.setLBR_ManualInput(result.getManualInput());
+					bsi.setLBR_NumberInBankVD(numberInBank.substring(numberInBank.length()-1));
+					bsi.save();
+				}
 				
 			} catch (Exception e) {
 				e.printStackTrace();

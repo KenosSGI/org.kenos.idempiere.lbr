@@ -1,5 +1,6 @@
 package org.kenos.idempiere.lbr.bankslip;
 
+import org.kenos.idempiere.lbr.bankslip.api.BancoDoBrasil;
 import org.kenos.idempiere.lbr.bankslip.api.BancoInter;
 import org.kenos.idempiere.lbr.bankslip.cnab.ICNABProcessor;
 import org.kenos.idempiere.lbr.bankslip.cnab240.BancoSafra422;
@@ -31,6 +32,8 @@ public class DefaultCNABFactory implements ICNABFactory
 	public IBankSlipAPI getAPI (MLBRBankSlipContract contract) throws Exception {
 		if ("077".equals(contract.getC_BankAccount().getC_Bank().getRoutingNo()))
 			return new BancoInter(contract);
+		if ("001".equals(contract.getC_BankAccount().getC_Bank().getRoutingNo()))
+			return new BancoDoBrasil(contract);
 		return null;
 	}
 	
