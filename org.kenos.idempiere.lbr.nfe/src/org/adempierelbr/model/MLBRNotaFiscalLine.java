@@ -796,15 +796,15 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 		/**
 		 * 	Ajusta o MVA diretamente na NF
 		 *  
-		 *                   100-ICMS
-		 *  [ (100 + MVA) x ---------- ] - 100
-		 *                    100-ST
+		 *                     100-ICMS
+		 *  [ (100 + MVA) x -------------- ] - 100
+		 *                  100-(ST+FCPST)
 		 */
 		boolean adjustIVA = MSysConfig.getBooleanValue(SysConfig.LBR_AUTOMATIC_ADJUST_MVA, true, getAD_Client_ID());
 		if (adjustIVA && vam != null && vam.signum() == 1)
 		{
 			BigDecimal icms = getTaxRate("ICMS");
-			BigDecimal icmsst = getTaxRate("ICMSST");
+			BigDecimal icmsst = getTaxRate("ICMSST").add(getTaxRate("FCPST"));
 			
 			if (icms != null && icms.signum() == 1 
 					&& icmsst != null && icmsst.signum() == 1)
