@@ -3415,10 +3415,10 @@ Há duas razões para desativar e não excluir registros:
   <value column="Placeholder" original=""/>
  </row>
  <row id="555" trl="Y">
-  <value column="Name" original="Delivery Rule">Regra de Entrega</value>
-  <value column="PrintName" original="Delivery Rule">Regra de Entrega</value>
+  <value column="Name" original="Delivery Rule">Regra de Expedição</value>
+  <value column="PrintName" original="Delivery Rule">Regra de Expedição</value>
   <value column="Description" original="Defines the timing of Delivery">Define o momento da Entrega</value>
-  <value column="Help" original="The Delivery Rule indicates when an order should be delivered. For example should the order be delivered when the entire order is complete, when a line is complete or as the products become available.">A "Regra de Entrega" indica quando um pedido deve ser entregue. Por exemplo: define se o pedido deve ser entregue quando o pedido inteiro estiver completo, quando uma linha estiver completa ou assim que os produtos estiverem disponíveis.</value>
+  <value column="Help" original="The Delivery Rule indicates when an order should be delivered. For example should the order be delivered when the entire order is complete, when a line is complete or as the products become available.">A "Regra de Expedição" indica quando um pedido deve ser entregue. Por exemplo: define se o pedido deve ser entregue quando o pedido inteiro estiver completo, quando uma linha estiver completa ou assim que os produtos estiverem disponíveis.</value>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
   <value column="PO_Name" original=""/>
