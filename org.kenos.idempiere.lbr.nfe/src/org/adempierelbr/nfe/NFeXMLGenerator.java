@@ -2114,9 +2114,10 @@ public class NFeXMLGenerator
 					transporta.setUF(TUf.Enum.forString(shipperRegion));
 				
 				//	Placa do Veículo. Formato (XXX-0000/UF)
-				if (nf.getIdDestinoOp().equals(ID_DEST_INTERNA) &&
-						shipperPlate != null && !shipperPlate.isBlank() && 
-						TextUtil.retiraEspecial(shipperPlate).length() > 0)
+				if ((MSysConfig.getBooleanValue(SysConfig.LBR_INCLUDE_LICENSE_PLATE_XML_INTERSTATE, false, nf.getAD_Client_ID(), nf.getAD_Org_ID()) 
+						|| nf.getIdDestinoOp().equals(ID_DEST_INTERNA)) &&
+							shipperPlate != null && !shipperPlate.isBlank() && 
+							TextUtil.retiraEspecial(shipperPlate).length() > 0)
 				{
 					//	Encontrar posição da / na variável shipperPlate para Seperar a Placa da UF do Veículo
 					int pos = 0;
