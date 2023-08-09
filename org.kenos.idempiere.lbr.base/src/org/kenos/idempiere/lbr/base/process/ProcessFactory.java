@@ -39,6 +39,9 @@ public class ProcessFactory implements IProcessFactory
 		if ("org.compiere.process.ProductionCreate".equals(className) 
 				|| ProductionCreate.PROCESS_NAME.equals (className))
 			return new ProductionCreate();
+		if ("org.idempiere.process.ImportCSVProcess".equals(className)
+				|| ImportCSVProcess.class.getName().equals(className))
+			return new ImportCSVProcess();
 		return null;
 	}	//	newProcessInstance
 }	//	ProcessFactory

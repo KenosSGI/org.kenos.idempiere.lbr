@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         id="org.kenos.idempiere.lbr.base.impexp.GridTabCSVImporter"
+         name="Grid data CSV/SSV importer"
+         point="org.adempiere.base.IGridTabImporter">
+      <importer
+            class="org.kenos.idempiere.lbr.base.impexp.GridTabCSVImporter"
+            priority="0">
+      </importer>
+   </extension>
+</plugin>
