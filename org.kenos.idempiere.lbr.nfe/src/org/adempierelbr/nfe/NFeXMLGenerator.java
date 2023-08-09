@@ -885,7 +885,7 @@ public class NFeXMLGenerator
 		for (MLBRAuthorizedAccessXML autAccessXML : autXMLs)
 		{
 			// Não Adicionar CNPJ do Emissor
-			if (toNumericStr(autAccessXML.getlbr_CNPJ()).equals(toNumericStr(nf.getlbr_CNPJ())))
+			if (TextUtil.match(toNumericStr(autAccessXML.getlbr_CNPJ()), toNumericStr(nf.getlbr_CNPJ()), toNumericStr(nf.getlbr_BPCNPJ())))
 				continue;
 			
 			if (MLBRAuthorizedAccessXML.LBR_BPTYPEBR_PJ_LegalEntity.equals(autAccessXML.getlbr_BPTypeBR()))

@@ -5543,6 +5543,9 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 				if (prodWeight == null)
 					return;
 				
+				if (packWeight == null)
+					packWeight = Env.ZERO;
+				
 				netWeight = netWeight.add(qty.multiply (prodWeight));
 				grossWeight = grossWeight.add(qty.multiply (prodWeight.add(packWeight)));
 			}
