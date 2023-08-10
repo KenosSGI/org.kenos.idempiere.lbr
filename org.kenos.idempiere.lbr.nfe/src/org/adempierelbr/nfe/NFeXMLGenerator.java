@@ -2085,7 +2085,6 @@ public class NFeXMLGenerator
 				String shipperAddress 	= normalize (nf.getlbr_BPShipperAddress());
 				String shipperCity 		= normalize (nf.getlbr_BPShipperCity());
 				String shipperRegion 	= normalize (nf.getlbr_BPShipperRegion());
-				String shipperPlate		= normalize (nf.getlbr_BPShipperLicensePlate());
 				
 				if (shipperCNPJF != null && !shipperCNPJF.isBlank())
 				{
@@ -2112,31 +2111,33 @@ public class NFeXMLGenerator
 				
 				if (shipperRegion != null && !shipperRegion.isBlank())
 					transporta.setUF(TUf.Enum.forString(shipperRegion));
+			}
+
+			String shipperPlate		= normalize (nf.getlbr_BPShipperLicensePlate());
+			
+			//	Placa do Veículo. Formato (XXX-0000/UF)
+			if ((MSysConfig.getBooleanValue(SysConfig.LBR_INCLUDE_LICENSE_PLATE_XML_INTERSTATE, false, nf.getAD_Client_ID(), nf.getAD_Org_ID()) 
+					|| nf.getIdDestinoOp().equals(ID_DEST_INTERNA)) &&
+						shipperPlate != null && !shipperPlate.isBlank() && 
+						TextUtil.retiraEspecial(shipperPlate).length() > 0)
+			{
+				//	Encontrar posição da / na variável shipperPlate para Seperar a Placa da UF do Veículo
+				int pos = 0;
+				pos = shipperPlate.indexOf("/");
 				
-				//	Placa do Veículo. Formato (XXX-0000/UF)
-				if ((MSysConfig.getBooleanValue(SysConfig.LBR_INCLUDE_LICENSE_PLATE_XML_INTERSTATE, false, nf.getAD_Client_ID(), nf.getAD_Org_ID()) 
-						|| nf.getIdDestinoOp().equals(ID_DEST_INTERNA)) &&
-							shipperPlate != null && !shipperPlate.isBlank() && 
-							TextUtil.retiraEspecial(shipperPlate).length() > 0)
-				{
-					//	Encontrar posição da / na variável shipperPlate para Seperar a Placa da UF do Veículo
-					int pos = 0;
-					pos = shipperPlate.indexOf("/");
-					
-					//	Adicionar Veículo
-					TVeiculo veiculo = transp.addNewVeicTransp();
-					
-					//	Adicionar Placa do Veículo
-					veiculo.setPlaca(TextUtil.retiraEspecial(shipperPlate.substring(0, pos)));
-					
-					//	Adicionar UF do Veículo
-					veiculo.setUF(TUf.Enum.forString(shipperPlate.substring(pos+1, shipperPlate.length())));
-					
-					//	RNTRC
-					String RNTRC = nf.getLBR_RNTRC();
-					if (RNTRC != null && !RNTRC.isBlank())
-						veiculo.setRNTC(RNTRC);
-				}
+				//	Adicionar Veículo
+				TVeiculo veiculo = transp.addNewVeicTransp();
+				
+				//	Adicionar Placa do Veículo
+				veiculo.setPlaca(TextUtil.retiraEspecial(shipperPlate.substring(0, pos)));
+				
+				//	Adicionar UF do Veículo
+				veiculo.setUF(TUf.Enum.forString(shipperPlate.substring(pos+1, shipperPlate.length())));
+				
+				//	RNTRC
+				String RNTRC = nf.getLBR_RNTRC();
+				if (RNTRC != null && !RNTRC.isBlank())
+					veiculo.setRNTC(RNTRC);
 			}
 			
 			// Adicionar Volume no XMl da NF-e
