@@ -181,7 +181,7 @@ public class ValidatorOrder implements ModelValidator
 			Boolean salesPurchaseOp = dt.get_ValueAsBoolean("LBR_IsSalesPurchaseOperation");
 			
 			//	Se não for Operação de Compra e Venda, Quantidade Faturada acompanha a Quantidade Expedida/Recebida
-			if (!salesPurchaseOp)
+			if (!salesPurchaseOp && dt.get_ID() > 0)
 				oLine.setQtyInvoiced(oLine.getQtyDelivered());
 				
 			//	Não permitir Alteração na Quantidade do Pedido se a mesma for Menor que a 
