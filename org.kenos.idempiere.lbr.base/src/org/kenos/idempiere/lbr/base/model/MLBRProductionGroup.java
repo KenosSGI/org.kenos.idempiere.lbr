@@ -50,7 +50,7 @@ public class MLBRProductionGroup extends X_LBR_ProductionGroup implements DocAct
 	{
 		List<MProduction> productions = new ArrayList<MProduction>();
 		
-		List<X_M_Production> list = new Query (getCtx(), MProduction.Table_Name, COLUMNNAME_LBR_ProductionGroup_ID + "=?", get_TrxName())
+		List<X_M_Production> list = new Query (getCtx(), MProduction.Table_Name, COLUMNNAME_LBR_ProductionGroup_ID + "=? AND DocStatus NOT IN ('RE', 'VO')", get_TrxName())
 			.setParameters(getLBR_ProductionGroup_ID())
 			.list();
 		
