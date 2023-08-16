@@ -94,13 +94,13 @@ public abstract class CreateFrom extends org.compiere.grid.CreateFrom
 			pstmt = DB.prepareStatement(sql.toString(), null);
 			pstmt.setInt(index++, C_BPartner_ID);
 			pstmt.setString(index++, isSOTrxParam);
-			if (!allowCrossOrg)
-				pstmt.setInt(index++, getAD_Org_ID());
 			if(sameWarehouseOnly)
 			{
 				//only active for material receipts
 				pstmt.setInt(index++, getM_Warehouse_ID());
 			}
+			if (!allowCrossOrg)
+				pstmt.setInt(index++, getAD_Org_ID());
 			rs = pstmt.executeQuery();
 			while (rs.next())
 			{
