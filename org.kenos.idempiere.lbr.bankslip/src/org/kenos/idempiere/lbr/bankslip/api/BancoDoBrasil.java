@@ -53,7 +53,7 @@ public class BancoDoBrasil implements IBankSlipAPI {
 	private static final String PREFIXBANK = "000";
 
 	/** Cache */
-	private static CCache<Integer, String> s_cache = new CCache<Integer, String>(null, "NEKOT_UUID", 100, 59, true);
+	private static CCache<Integer, String> s_cache = new CCache<Integer, String>(null, "NEKOT_UUID", 100, 9, true);
 	private MLBRBankSlipContract contract = null;
 	private InterfaceBB api = null;
 	private String token = null;
