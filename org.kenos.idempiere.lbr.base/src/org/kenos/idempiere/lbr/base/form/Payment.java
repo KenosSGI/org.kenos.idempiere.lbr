@@ -203,7 +203,7 @@ public class Payment
 			new ColumnInfo(Msg.translate(ctx, "C_BPartner_ID"), "bp.Name", KeyNamePair.class, true, false, "i.C_BPartner_ID"),
 			new ColumnInfo("CNPJ/CPF/ID", "COALESCE (bp.LBR_CNPJ, bp.LBR_CPF, bp.TaxID)", String.class),
 			new ColumnInfo(Msg.translate(ctx, "DocumentNo"), "i.DocumentNo", String.class),
-			new ColumnInfo(Msg.translate(ctx, "LBR_NotaFiscal_ID"), "(SELECT MAX(nf.DocumentNo) FROM LBR_NotaFiscal nf WHERE nf.C_Invoice_ID=i.C_Invoice_ID AND nf.DocStatus IN ('CL', 'CO')) AS LBR_NFeNo", String.class),
+			new ColumnInfo(Msg.translate(ctx, "LBR_NotaFiscal_ID"), "lnf.LBR_NFeNo", String.class),
 			new ColumnInfo(Msg.translate(ctx, "C_Currency_ID"), "c.ISO_Code", KeyNamePair.class, true, false, "i.C_Currency_ID"),
 			// 5..9
 			new ColumnInfo(Msg.translate(ctx, "GrandTotal"), "i.GrandTotal", BigDecimal.class),
@@ -218,7 +218,8 @@ public class Payment
 			+ " INNER JOIN C_BPartner bp ON (i.C_BPartner_ID=bp.C_BPartner_ID)"
 			+ " INNER JOIN C_Currency c ON (i.C_Currency_ID=c.C_Currency_ID)"
 			+ " INNER JOIN C_PaymentTerm p ON (i.C_PaymentTerm_ID=p.C_PaymentTerm_ID)"
-			+ " INNER JOIN AD_Org o ON (i.AD_Org_ID=o.AD_Org_ID)",
+			+ " INNER JOIN AD_Org o ON (i.AD_Org_ID=o.AD_Org_ID)"
+			+ " LEFT JOIN LBR_InvoiceLastNF lnf ON (i.C_Invoice_ID=lnf.C_Invoice_ID)",
 			//	WHERE
 			"i.IsSOTrx=? AND IsPaid='N'"
 			//	Different Payment Selection
@@ -244,7 +245,7 @@ public class Payment
 			new ColumnInfo(Msg.translate(ctx, "C_BPartner_ID"), "bp.Name", KeyNamePair.class, true, false, "i.C_BPartner_ID"),
 			new ColumnInfo("CNPJ/CPF/ID", "COALESCE (bp.LBR_CNPJ, bp.LBR_CPF, bp.TaxID)", String.class),
 			new ColumnInfo(Msg.translate(ctx, "DocumentNo"), "i.DocumentNo", String.class),
-			new ColumnInfo(Msg.translate(ctx, "LBR_NotaFiscal_ID"), "(SELECT MAX(nf.DocumentNo) FROM LBR_NotaFiscal nf WHERE nf.C_Order_ID=i.C_Order_ID AND nf.DocStatus IN ('CL', 'CO')) AS LBR_NFeNo", String.class),
+			new ColumnInfo(Msg.translate(ctx, "LBR_NotaFiscal_ID"), "lnf.LBR_NFeNo", String.class),
 			new ColumnInfo(Msg.translate(ctx, "C_Currency_ID"), "c.ISO_Code", KeyNamePair.class, true, false, "i.C_Currency_ID"),
 			// 5..9
 			new ColumnInfo(Msg.translate(ctx, "GrandTotal"), "i.GrandTotal", BigDecimal.class),
@@ -257,7 +258,8 @@ public class Payment
 			+ " INNER JOIN C_BPartner bp ON (i.C_BPartner_ID=bp.C_BPartner_ID)"
 			+ " INNER JOIN C_Currency c ON (i.C_Currency_ID=c.C_Currency_ID)"
 			+ " INNER JOIN C_PaymentTerm p ON (i.C_PaymentTerm_ID=p.C_PaymentTerm_ID)"
-			+ " INNER JOIN AD_Org o ON (i.AD_Org_ID=o.AD_Org_ID)",
+			+ " INNER JOIN AD_Org o ON (i.AD_Org_ID=o.AD_Org_ID)"
+			+ " LEFT JOIN LBR_OrderLastNF lnf ON (i.C_Order_ID=lnf.C_Order_ID)",
 			//	WHERE
 			"i.IsSOTrx=? "
 			//	Different Payment Selection
