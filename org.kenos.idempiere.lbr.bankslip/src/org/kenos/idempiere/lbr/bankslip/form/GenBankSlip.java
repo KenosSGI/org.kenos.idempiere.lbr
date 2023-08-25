@@ -294,7 +294,7 @@ public class GenBankSlip
 				sql += DB.TO_DATE(dateFrom);
 		}
 		
-		sql += " ORDER BY 2, 3";
+		sql += " ORDER BY i.DateInvoiced, i.DocumentNo";
 
 		log.finest(sql + " - C_BPartner_ID=" + C_BPartner_ID + ", C_DocType_ID=" + C_DocType_ID + 
 				", LBR_BankSlipContract_ID=" + LBR_BankSlipContract_ID + ", AD_Org_ID=" + AD_Org_ID);

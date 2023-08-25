@@ -18,6 +18,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Level;
 
 import org.adempiere.exceptions.AdempiereException;
@@ -46,16 +47,20 @@ import org.adempiere.webui.panel.CustomForm;
 import org.adempiere.webui.panel.IFormController;
 import org.adempiere.webui.session.SessionManager;
 import org.adempiere.webui.window.FDialog;
+import org.adempierelbr.wrapper.I_W_C_Invoice;
 import org.apache.commons.io.FileUtils;
 import org.compiere.minigrid.IDColumn;
 import org.compiere.model.MBankAccount;
 import org.compiere.model.MDocType;
+import org.compiere.model.MInvoice;
 import org.compiere.process.ProcessInfo;
 import org.compiere.util.Env;
 import org.compiere.util.KeyNamePair;
 import org.compiere.util.Msg;
 import org.kenos.idempiere.lbr.bankslip.model.MLBRBankSlip;
 import org.kenos.idempiere.lbr.bankslip.model.MLBRBankSlipContract;
+import org.kenos.idempiere.lbr.bankslip.server.BankSlipProcessor;
+import org.kenos.idempiere.lbr.bankslip.server.BankSlipProcessorFactory;
 import org.zkoss.util.media.AMedia;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.Event;
@@ -102,6 +107,7 @@ public class WGenBankSlip extends GenBankSlip
 	private WDateEditor fieldDateTo = new WDateEditor();
 	private Label labelDtype = new Label();
 	private Listbox fieldDtype = ListboxFactory.newDropdownListbox();
+	private Checkbox chkForce = new Checkbox();
 	private Panel southPanel;
 	@SuppressWarnings("unused")
 	private ProcessInfo m_pi;
@@ -184,6 +190,7 @@ public class WGenBankSlip extends GenBankSlip
 		row.appendChild(fieldBPartner);
 		row.appendChild(labelDate.rightAlign());
 		row.appendChild(fieldDate.getComponent());
+		row.appendChild(chkForce);
 		
 		row = rows.newRow();
 		row.appendChild(labelDtype.rightAlign());
@@ -207,6 +214,8 @@ public class WGenBankSlip extends GenBankSlip
 		commandPanel.addButton(bGenerate);
 		commandPanel.addButton(bExport);
 		commandPanel.getButton(ConfirmPanel.A_OK).setVisible(false);
+		
+		chkForce.setLabel(Msg.getMsg(Env.getCtx(), "Force"));
 		
 		if (noOfColumn < 6)
 			LayoutUtils.compactTo(parameterLayout, noOfColumn);
@@ -358,7 +367,14 @@ public class WGenBankSlip extends GenBankSlip
 		else if (e.getTarget() == bGenerate)
 		{
 			exportBilling(false);
-			loadTableInfo();
+			
+			//	Close window
+			if (!chkForce.isSelected())
+				dispose();
+			
+			//	Reload
+			else
+				loadTableInfo();
 		}
 		//  Generate PaySelection
 		else if (e.getTarget() == bSelectAll)
@@ -426,9 +442,39 @@ public class WGenBankSlip extends GenBankSlip
 		
 		try
 		{
+			KeyNamePair selectedContract = (KeyNamePair) fieldBankContract.getSelectedItem().getValue();
+			if (selectedContract == null) {
+				FDialog.error(m_WindowNo, form, "LBR_NoBankSlipContract");
+			}
+				
+			//	Put in queue
+			if (!download && !chkForce.isSelected()) {
+				BankSlipProcessor processor = BankSlipProcessorFactory.getProcessor(Env.getAD_Client_ID(Env.getCtx()));
+				if (processor != null) {
+					AtomicInteger counter = new AtomicInteger ();
+					int rows = miniTable.getRowCount();
+					for (int i = 0; i < rows; i++)
+					{
+						IDColumn id = (IDColumn)miniTable.getValueAt(i, 0);
+						if (id.isSelected())
+						{
+							int C_Invoice_ID = id.getRecord_ID().intValue();
+							MInvoice invoice = new MInvoice (Env.getCtx(), C_Invoice_ID, null);
+							invoice.set_ValueNoCheck(I_W_C_Invoice.COLUMNNAME_LBR_BankSlipContract_ID, selectedContract.getKey());
+							if (invoice.save()) {
+								processor.put(C_Invoice_ID);
+								counter.incrementAndGet();
+							}
+						}
+					}
+					
+					FDialog.info(m_WindowNo, form, "Info", counter.get() + " boleto(s) foram adicionado(s) na fila para geração automática.");
+				}
+			}
+			
 			Path path = Files.createTempDirectory("Boleto");
 			
-			exportBilling (miniTable, path.toString(), (KeyNamePair) fieldBankContract.getSelectedItem().getValue());
+			exportBilling (miniTable, path.toString(), selectedContract);
 			
 			if (download) {
 				File zipFile = File.createTempFile("Boletos", ".zip");

@@ -21,7 +21,7 @@ public class BankSlipServer extends AdempiereServer
 	 */
 	public BankSlipServer (Properties ctx, AdempiereProcessor model)
 	{
-		super (model, 60);	//	30 seconds delay 
+		super (model, 60);	//	60 seconds delay 
 		m_ctx = ctx;
 		m_processor = (BankSlipProcessor) model;
 		m_client = MClient.get (ctx, model.getAD_Client_ID());

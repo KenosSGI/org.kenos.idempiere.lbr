@@ -1724,7 +1724,7 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 	}	//	getFromNF
 	
 	public static List<MLBRBankSlip> get (String columnName, Properties ctx, int ID, String trxName) {
-		return new Query (ctx, Table_Name, columnName + "=? AND " + COLUMNNAME_DocStatus + " IN ('CL', 'CO')", trxName)
+		return new Query (ctx, Table_Name, columnName + "=? AND " + COLUMNNAME_DocStatus + " NOT IN ('VO', 'RE')", trxName)
 			.setParameters(ID)
 			.setOrderBy(COLUMNNAME_DueDate)
 			.list();
