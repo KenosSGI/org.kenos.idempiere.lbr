@@ -10,7 +10,6 @@ import org.adempiere.webui.theme.ThemeManager;
 import org.adempiere.webui.window.WFieldRecordInfo;
 import org.adempierelbr.model.MLBRTax;
 import org.adempierelbr.model.MLBRTaxesLookup;
-import org.adempierelbr.model.X_LBR_Tax;
 import org.adempierelbr.webui.component.Taxesbox;
 import org.adempierelbr.webui.window.WTaxesDialog;
 import org.compiere.model.GridField;
