@@ -1737,6 +1737,13 @@ public class NFeXMLGenerator
 					icmssn500.setVICMSSubstituto(normalize (icmsTax.getlbr_TaxRate()));
 					
 					// v4.00
+					if (icmsSTTax != null)
+					{
+						icmssn500.setVBCSTRet(normalize (icmsSTTax.getlbr_TaxBaseAmt()));
+						icmssn500.setVICMSSTRet(normalize (icmsSTTax.getlbr_TaxAmt()));
+					}		
+					
+					// v4.00
 					if (fcpTaxST != null)
 					{
 						icmssn500.setVBCFCPSTRet(normalize (fcpTaxST.getlbr_TaxBaseAmt()));
