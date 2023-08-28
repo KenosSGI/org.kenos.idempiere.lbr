@@ -18,6 +18,7 @@ import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.Properties;
 
+import org.adempierelbr.util.TextUtil;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
 import org.kenos.idempiere.lbr.base.model.MLBRTaxHold;
@@ -176,7 +177,7 @@ public class MLBRNFLineTax extends X_LBR_NFLineTax
 			if (getLBR_NotaFiscalLine().getLBR_NotaFiscal().isSOTrx() 
 					&& getLBR_NotaFiscalLine().getM_Product_ID() > 0
 					&& (LBR_TaxName_ID == MLBRTax.TAX_ICMS || LBR_TaxName_ID == MLBRTax.TAX_ICMSST || LBR_TaxName_ID == MLBRTax.TAX_FCP)
-					&& getLBR_TaxStatus().getName().equals("60"))
+					&& TextUtil.match(getLBR_TaxStatus().getName(), "60", "500"))
 			{
 				int M_Product_ID = getLBR_NotaFiscalLine().getM_Product_ID();
 				int AD_Org_ID = getLBR_NotaFiscalLine().getLBR_NotaFiscal().getAD_Org_ID();

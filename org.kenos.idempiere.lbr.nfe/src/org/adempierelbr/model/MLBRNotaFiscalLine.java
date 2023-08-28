@@ -1305,7 +1305,7 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 		if (MSysConfig.getBooleanValue(SysConfig.LBR_PRINT_ICMS_SUBSTITUTE_NF, true, getAD_Client_ID())
 				&& icmsST != null
 				&& icmsST.getLBR_TaxStatus_ID() > 0
-				&& icmsST.getLBR_TaxStatus().getName().equals("60"))
+				&& TextUtil.match(icmsTax.getLBR_TaxStatus().getName(), "60", "500"))
 		{
 			DecimalFormat format = new DecimalFormat ("R$ #,##0.00", new DecimalFormatSymbols(new Locale ("pt", "BR")));
 			//
