@@ -28,8 +28,7 @@ public class SalesFields implements IColumnCallout
 		Integer C_BPartner_ID = (Integer) mTab.getValue (MInvoice.COLUMNNAME_C_BPartner_ID);
 
 		if (C_BPartner_ID == null 
-				|| C_BPartner_ID.intValue() <= 0
-				|| !mTab.getValueAsBoolean(MInvoice.COLUMNNAME_IsSOTrx))
+				|| C_BPartner_ID.intValue() <= 0)
 			return "";
 
 		I_W_C_BPartner bpW = POWrapper.create(new MBPartner (ctx, C_BPartner_ID, null), I_W_C_BPartner.class);
@@ -38,27 +37,27 @@ public class SalesFields implements IColumnCallout
 		if (bpW.getlbr_PaymentRule() != null)
 			mTab.setValue(I_W_C_BPartner.COLUMNNAME_lbr_PaymentRule, bpW.getlbr_PaymentRule());
 		
+		//	Description
+		if (bpW.getlbr_NFDescription() != null)
+		{
+			String nfDescription = (String) mTab.getValue(I_W_C_BPartner.COLUMNNAME_lbr_NFDescription);
+			if (nfDescription == null || nfDescription.isBlank())
+				nfDescription = "";
+			else
+				nfDescription += ". ";
+			
+			//	Do not duplicate
+			if (nfDescription.indexOf(bpW.getlbr_NFDescription()) == -1)
+				nfDescription += bpW.getlbr_NFDescription();
+			mTab.setValue(I_W_C_BPartner.COLUMNNAME_lbr_NFDescription, nfDescription);
+		}
+		
 		//	Orders only
 		if (MOrder.Table_Name.equals (mTab.getTableName()))
 		{
 			//	Shipper
 			if (bpW.getM_Shipper_ID() > 0)
 				mTab.setValue(I_W_C_BPartner.COLUMNNAME_M_Shipper_ID, bpW.getM_Shipper_ID());
-			
-			//	Description
-			if (bpW.getlbr_NFDescription() != null)
-			{
-				String nfDescription = (String) mTab.getValue(I_W_C_BPartner.COLUMNNAME_lbr_NFDescription);
-				if (nfDescription == null || nfDescription.isBlank())
-					nfDescription = "";
-				else
-					nfDescription += ". ";
-				
-				//	Do not duplicate
-				if (nfDescription.indexOf(bpW.getlbr_NFDescription()) == -1)
-					nfDescription += bpW.getlbr_NFDescription();
-				mTab.setValue(I_W_C_BPartner.COLUMNNAME_lbr_NFDescription, nfDescription);
-			}
 			
 			//	Freight Cost Rule
 			if (bpW.getLBR_FreightCostRule() != null)
