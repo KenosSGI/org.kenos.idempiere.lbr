@@ -51,6 +51,7 @@ public class BancoSafra422 implements ICNABGenerator {
 	private static final Integer BPTYPE_CNPJ_PAGADOR = 2;
 
 	/** Aceite */
+	@SuppressWarnings("unused")
 	private static final String IS_ACCEPTED = "A";
 	private static final String NOT_ACCEPTED = "N";
 
@@ -72,6 +73,7 @@ public class BancoSafra422 implements ICNABGenerator {
 	private static final Integer LAYOUT_VERSION = 103;
 	private static final Integer LAYOUT_LOTE_VERSION = 60;
 	
+	@SuppressWarnings("unused")
 	private static final String MOVE_CODE = "01";
 
 //	private BigDecimal valorDeTitulos = BigDecimal.ZERO;
