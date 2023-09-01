@@ -32,6 +32,7 @@ public class SysConfig
 	public static final String LBR_DATEINOUT_NF 								= "LBR_DATEINOUT_NF";
 	public static final String LBR_DEFAULT_TIMEZONE 							= "LBR_DEFAULT_TIMEZONE";
 	public static final String LBR_DFE_LAST_NSU 								= "LBR_DFE_LAST_NSU";
+	public static final String LBR_DIRECTLY_GENBILLING 							= "LBR_DIRECTLY_GENBILLING";
 	public static final String LBR_DISABLE_PRICE_LIST_CHECK 					= "LBR_DISABLE_PRICE_LIST_CHECK";
 	public static final String LBR_DIVIDE_PRODUCT_RECEPT_WHEN_SERIALNUMBER 		= "LBR_DIVIDE_PRODUCT_RECEPT_WHEN_SERIALNUMBER";
 	public static final String LBR_EFD_NON_RECOVERABLE_ST 						= "LBR_EFD_NON_RECOVERABLE_ST";

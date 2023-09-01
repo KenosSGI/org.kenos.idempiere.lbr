@@ -53,6 +53,7 @@ import org.compiere.minigrid.IDColumn;
 import org.compiere.model.MBankAccount;
 import org.compiere.model.MDocType;
 import org.compiere.model.MInvoice;
+import org.compiere.model.MSysConfig;
 import org.compiere.process.ProcessInfo;
 import org.compiere.util.Env;
 import org.compiere.util.KeyNamePair;
@@ -61,6 +62,7 @@ import org.kenos.idempiere.lbr.bankslip.model.MLBRBankSlip;
 import org.kenos.idempiere.lbr.bankslip.model.MLBRBankSlipContract;
 import org.kenos.idempiere.lbr.bankslip.server.BankSlipProcessor;
 import org.kenos.idempiere.lbr.bankslip.server.BankSlipProcessorFactory;
+import org.kenos.idempiere.lbr.base.model.SysConfig;
 import org.zkoss.util.media.AMedia;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.Event;
@@ -114,6 +116,8 @@ public class WGenBankSlip extends GenBankSlip
 	private boolean m_isLock;
 	private int noOfColumn;
 	private boolean valid = true;
+
+	private boolean directlyGen;
 	
 	/**
 	 *	Initialize Panel
@@ -221,6 +225,11 @@ public class WGenBankSlip extends GenBankSlip
 			LayoutUtils.compactTo(parameterLayout, noOfColumn);
 		else
 			LayoutUtils.expandTo(parameterLayout, noOfColumn, true);
+		
+		directlyGen = MSysConfig.getBooleanValue(SysConfig.LBR_DIRECTLY_GENBILLING, false, Env.getAD_Client_ID(Env.getCtx()));
+		//
+		chkForce.setEnabled(directlyGen);
+		bExport.setEnabled(directlyGen);
 	}   //  jbInit
 
 	protected void setupColumns() {
@@ -417,7 +426,7 @@ public class WGenBankSlip extends GenBankSlip
 	{
 		dataStatus.setText(calculateSelection(miniTable));
 		//
-		bExport.setEnabled(valid && m_noSelected != 0);
+		bExport.setEnabled(directlyGen && valid && m_noSelected != 0);
 	}   //  calculateSelection
 	
 	/**
@@ -448,7 +457,7 @@ public class WGenBankSlip extends GenBankSlip
 			}
 				
 			//	Put in queue
-			if (!download && !chkForce.isSelected()) {
+			if (!directlyGen || (!download && !chkForce.isSelected()) ){
 				BankSlipProcessor processor = BankSlipProcessorFactory.getProcessor(Env.getAD_Client_ID(Env.getCtx()));
 				if (processor != null) {
 					AtomicInteger counter = new AtomicInteger ();
@@ -469,6 +478,7 @@ public class WGenBankSlip extends GenBankSlip
 					}
 					
 					FDialog.info(m_WindowNo, form, "Info", counter.get() + " boleto(s) foram adicionado(s) na fila para geração automática.");
+					return;
 				}
 			}
 			
