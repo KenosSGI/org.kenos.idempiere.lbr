@@ -457,7 +457,7 @@ public class WGenBankSlip extends GenBankSlip
 			}
 				
 			//	Put in queue
-			if (!directlyGen || (!download && !chkForce.isSelected()) ){
+			if (!directlyGen && (!download && !chkForce.isSelected()) ){
 				BankSlipProcessor processor = BankSlipProcessorFactory.getProcessor(Env.getAD_Client_ID(Env.getCtx()));
 				if (processor != null) {
 					AtomicInteger counter = new AtomicInteger ();
