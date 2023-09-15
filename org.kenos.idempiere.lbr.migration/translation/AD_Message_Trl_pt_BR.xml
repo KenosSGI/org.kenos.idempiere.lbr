@@ -407,7 +407,7 @@ Continuar?</value>
   <value column="MsgTip" original="You find the four digit validation number printed on AMEX right above the credit card number. On other cards it is a three digit number printed on the signature field after the credit card number.">Você encontra o número de validação de quatro dígitos impresso bem acima do número do cartão de crédito AMEX. Em outros cartões ele é um número de três dígitos impresso no campo da assinatura após o número do cartão de crédito.</value>
  </row>
  <row id="202" trl="Y">
-  <value column="MsgText" original="Note: Over Credit Limit ">Nota: Limite do cartão de crédito excedido </value>
+  <value column="MsgText" original="Note: Over Credit Limit ">Nota: Limite de crédito excedido </value>
   <value column="MsgTip" original=""/>
  </row>
  <row id="203" trl="Y">
