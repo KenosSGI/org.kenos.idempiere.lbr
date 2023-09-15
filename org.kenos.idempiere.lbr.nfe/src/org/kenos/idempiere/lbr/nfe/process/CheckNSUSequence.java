@@ -2,6 +2,7 @@ package org.kenos.idempiere.lbr.nfe.process;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Level;
 
 import org.adempierelbr.model.MLBRNotaFiscal;
@@ -89,8 +90,13 @@ public class CheckNSUSequence extends SvrProcess
 			MOrgInfo oi = MOrgInfo.get(getCtx(), p_AD_Org_ID, get_TrxName());
 			List<MLBRAMissingNSU> missing = new Query (getCtx(), MLBRAMissingNSU.Table_Name, null, get_TrxName()).list();
 			//
+			AtomicInteger counter = new AtomicInteger();
+			
 			for (MLBRAMissingNSU nsu : missing)
 			{
+				if (counter.getAndIncrement() == 20)
+					return "@Success@ Máximo de 20 consultas atingido, aguarde 1h e tente novamente";
+				//
 				RetDistDFeIntDocument result = GetDFe.doIt (oi, nsu.getLBR_NSU(), true);
 				if (result == null)
 				{
@@ -112,6 +118,9 @@ public class CheckNSUSequence extends SvrProcess
 					
 					addLog("OK -> [" + nsu.getLBR_NSU() + "]");
 				}
+				
+				else if (MLBRNotaFiscal.LBR_NFESTATUS_656_RejeiçãoConsumoIndevido.equals(cStat))
+					return "@Success@ Consumo indevido, aguarde 1h e tente novamente";
 			}
 		}
 		
