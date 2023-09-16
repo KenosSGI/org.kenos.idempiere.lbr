@@ -85,7 +85,7 @@ public class DFeProcessor implements AdempiereProcessor, AdempiereProcessor2 {
 
 	@Override
 	public String getServerID() {
-		return "BS[" + getAD_Client_ID() + "]";
+		return "DFe[" + getAD_Client_ID() + "]";
 	}
 
 	@Override
