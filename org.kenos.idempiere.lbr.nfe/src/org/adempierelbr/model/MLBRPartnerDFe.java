@@ -166,7 +166,7 @@ public class MLBRPartnerDFe extends X_LBR_PartnerDFe
 			else if (DOCUMENTTYPE_Evento.equals(getDocumentType()))
 			{
 				sql += " AND " + COLUMNNAME_SeqNo + "=?";
-				params = new Object[]{getDocumentType(), getlbr_NFeID(), getlbr_NFeProt(), getSeqNo()};
+				params = new Object[]{getAD_Org_ID(), getDocumentType(), getlbr_NFeID(), getlbr_NFeProt(), getSeqNo()};
 			}
 			
 			//	Invalid document type

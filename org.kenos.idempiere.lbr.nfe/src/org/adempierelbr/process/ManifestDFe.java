@@ -27,6 +27,9 @@ import org.kenos.idempiere.lbr.base.model.SysConfig;
  */
 public class ManifestDFe extends SvrProcess
 {
+	/** Process ID 					*/
+	public static final int AD_Process_ID = 1120161;
+	
 	/**	Record ID				*/
 	protected int p_Record_ID = -1;
 	
@@ -109,7 +112,7 @@ public class ManifestDFe extends SvrProcess
 					+ " AND IsCancelled='N' "		//	Not Cancelled
 					+ " AND LBR_IsManifested='N' "	//	Only Manifested DF-e
 					+ " AND (LBR_ManifestTries IS NULL OR LBR_ManifestTries<" + MSysConfig.getIntValue(SysConfig.LBR_MANIFEST_TRIES, 3) + ") "
-					+ " AND DateDoc >= " + DB.TO_DATE (TimeUtil.addDays (today, -180));	//	180 days is the limit to manifest a document
+					+ " AND DateDoc >= " + DB.TO_DATE (TimeUtil.addDays (today, -25));	//	180 days is the limit to manifest a document
 			// 
 			dfes = new Query(Env.getCtx(), MLBRPartnerDFe.Table_Name, whereClause, get_TrxName())
 									.setParameters(p_AD_Org_ID)
@@ -164,9 +167,13 @@ public class ManifestDFe extends SvrProcess
 		else
 		{
 			//	Do not try again, already manifested
-			if (event.getProcessMsg() != null && event.getProcessMsg().matches(".*(594|573) - Rejeicao.*"))
-				dfe.setLBR_IsManifested(true);
-			dfe.increaseTries();
+			if (event.getProcessMsg() != null)
+				if (event.getProcessMsg().matches(".*(594|573).*Rejei.*"))
+					dfe.setLBR_IsManifested(true);
+				else if (event.getProcessMsg().matches(".*(596).*Rejei.*"))
+					dfe.setLBR_ManifestTries(999);	//	Do not try again
+			else
+				dfe.increaseTries();
 			dfe.save();
 			
 			log.info("Deleting failed event.");

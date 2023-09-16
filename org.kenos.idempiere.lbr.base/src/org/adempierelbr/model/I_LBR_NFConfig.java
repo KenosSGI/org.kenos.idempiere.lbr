@@ -180,6 +180,24 @@ public interface I_LBR_NFConfig
 	/** Get System Responsible	  */
 	public String getLBR_ConfigSystemResp();
 
+    /** Column name LBR_DFeAutoRetrieve */
+    public static final String COLUMNNAME_LBR_DFeAutoRetrieve = "LBR_DFeAutoRetrieve";
+
+	/** Set DF-e Auto Retrieve	  */
+	public void setLBR_DFeAutoRetrieve (boolean LBR_DFeAutoRetrieve);
+
+	/** Get DF-e Auto Retrieve	  */
+	public boolean isLBR_DFeAutoRetrieve();
+
+    /** Column name LBR_EventType */
+    public static final String COLUMNNAME_LBR_EventType = "LBR_EventType";
+
+	/** Set Event Type	  */
+	public void setLBR_EventType (String LBR_EventType);
+
+	/** Get Event Type	  */
+	public String getLBR_EventType();
+
     /** Column name LBR_IBPTConfiguration */
     public static final String COLUMNNAME_LBR_IBPTConfiguration = "LBR_IBPTConfiguration";
 

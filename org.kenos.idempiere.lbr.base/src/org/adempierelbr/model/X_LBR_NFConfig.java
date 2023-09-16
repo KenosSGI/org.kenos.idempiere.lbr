@@ -31,7 +31,7 @@ public class X_LBR_NFConfig extends PO implements I_LBR_NFConfig, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20220216L;
+	private static final long serialVersionUID = 20230916L;
 
     /** Standard Constructor */
     public X_LBR_NFConfig (Properties ctx, int LBR_NFConfig_ID, String trxName)
@@ -42,6 +42,8 @@ public class X_LBR_NFConfig extends PO implements I_LBR_NFConfig, I_Persistent
 			setDeliveryConfirmation (false);
 // N
 			setLBR_ConfigSystemResp (null);
+// N
+			setLBR_DFeAutoRetrieve (false);
 // N
 			setLBR_IBPTConfiguration (null);
 // C
@@ -222,6 +224,50 @@ public class X_LBR_NFConfig extends PO implements I_LBR_NFConfig, I_Persistent
 	public String getLBR_ConfigSystemResp () 
 	{
 		return (String)get_Value(COLUMNNAME_LBR_ConfigSystemResp);
+	}
+
+	/** Set DF-e Auto Retrieve.
+		@param LBR_DFeAutoRetrieve DF-e Auto Retrieve	  */
+	public void setLBR_DFeAutoRetrieve (boolean LBR_DFeAutoRetrieve)
+	{
+		set_Value (COLUMNNAME_LBR_DFeAutoRetrieve, Boolean.valueOf(LBR_DFeAutoRetrieve));
+	}
+
+	/** Get DF-e Auto Retrieve.
+		@return DF-e Auto Retrieve	  */
+	public boolean isLBR_DFeAutoRetrieve () 
+	{
+		Object oo = get_Value(COLUMNNAME_LBR_DFeAutoRetrieve);
+		if (oo != null) 
+		{
+			 if (oo instanceof Boolean) 
+				 return ((Boolean)oo).booleanValue(); 
+			return "Y".equals(oo);
+		}
+		return false;
+	}
+
+	/** Confirmacao da Operacao = 210200 */
+	public static final String LBR_EVENTTYPE_ConfirmacaoDaOperacao = "210200";
+	/** Ciencia da Operacao = 210210 */
+	public static final String LBR_EVENTTYPE_CienciaDaOperacao = "210210";
+	/** Desconhecimento da Operacao = 210220 */
+	public static final String LBR_EVENTTYPE_DesconhecimentoDaOperacao = "210220";
+	/** Operacao nao Realizada = 210240 */
+	public static final String LBR_EVENTTYPE_OperacaoNaoRealizada = "210240";
+	/** Set Event Type.
+		@param LBR_EventType Event Type	  */
+	public void setLBR_EventType (String LBR_EventType)
+	{
+
+		set_Value (COLUMNNAME_LBR_EventType, LBR_EventType);
+	}
+
+	/** Get Event Type.
+		@return Event Type	  */
+	public String getLBR_EventType () 
+	{
+		return (String)get_Value(COLUMNNAME_LBR_EventType);
 	}
 
 	/** API (Online) = A */

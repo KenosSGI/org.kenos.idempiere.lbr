@@ -4,7 +4,10 @@ import java.sql.ResultSet;
 import java.util.Properties;
 
 import org.adempierelbr.util.TextUtil;
+import org.compiere.model.MProcess;
+import org.compiere.model.MScheduler;
 import org.compiere.model.Query;
+import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.compiere.util.Msg;
 
@@ -80,6 +83,24 @@ public class MLBRNFConfig extends X_LBR_NFConfig
 														LBR_DANFEFORMAT_5_DANFENFC_EInEletronicMessage))
 			{
 				log.saveError("FillMandatory", "Formato da DANFE não compatível com NFC-e");
+				return false;
+			}
+		}
+		
+		/**
+		 * 	Check scheduler before enable this feature
+		 */
+		if (isLBR_DFeAutoRetrieve() && (newRecord || is_ValueChanged(COLUMNNAME_LBR_DFeAutoRetrieve))) {
+			int count = DB.getSQLValue(null, "SELECT COUNT(*) FROM " + 
+					MScheduler.Table_Name + " WHERE " + MScheduler.COLUMNNAME_AD_Client_ID + "=" + getAD_Client_ID() + " AND " +
+					MScheduler.COLUMNNAME_IsActive + "='Y' AND " +
+					MScheduler.COLUMNNAME_AD_Process_ID + " IN (SELECT x." + 
+						MProcess.COLUMNNAME_AD_Process_ID + " FROM " + 
+						MProcess.Table_Name + " x WHERE x." + 
+						MProcess.COLUMNNAME_AD_Process_UU + "='7b0b45f7-a642-4fc2-b666-db4839b15185')");
+			//
+			if (count > 0) {
+				log.saveError("Error", "Não é possível habilitar a obtenção de DF-e, pois existe agendador configurado para este fim");
 				return false;
 			}
 		}
