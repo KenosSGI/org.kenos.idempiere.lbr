@@ -6,6 +6,7 @@ import java.util.Properties;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.adempierelbr.model.MLBRNFConfig;
+import org.adempierelbr.process.GetDFe;
 import org.adempierelbr.process.ManifestDFe;
 import org.compiere.model.AdempiereProcessor;
 import org.compiere.model.MClient;
@@ -52,8 +53,8 @@ public class DFeServer extends AdempiereServer
 			.list();
 		
 		//	Get documents
-		configs.stream().forEach(config -> {	//	GetDFe.AD_Process_ID , 
-			Arrays.stream(new int[] { ManifestDFe.AD_Process_ID }).forEach(processID -> {
+		configs.stream().forEach(config -> {
+			Arrays.stream(new int[] { GetDFe.AD_Process_ID, ManifestDFe.AD_Process_ID }).forEach(processID -> {
 				MProcess process = new MProcess(Env.getCtx(), processID, null);
 				MPInstance pInstance = new MPInstance(process, 0);
 				//
