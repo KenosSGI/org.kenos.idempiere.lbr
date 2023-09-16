@@ -150,7 +150,8 @@ public class MLBRPartnerDFe extends X_LBR_PartnerDFe
 		{
 			Object[] params;
 			String sql = "SELECT COUNT(*) FROM " + Table_Name + 
-					" WHERE " + COLUMNNAME_DocumentType 	+ "=?" +
+					" WHERE " + COLUMNNAME_AD_Org_ID 		+ "=?" +
+					  " AND " + COLUMNNAME_DocumentType 	+ "=?" +
 					  " AND " + COLUMNNAME_lbr_NFeID 		+ "=?" +
 					  " AND " + COLUMNNAME_lbr_NFeProt 		+ "=?";
 			
@@ -158,7 +159,7 @@ public class MLBRPartnerDFe extends X_LBR_PartnerDFe
 			if (DOCUMENTTYPE_NF_E.equals(getDocumentType()))
 			{
 				sql += " AND " + COLUMNNAME_lbr_DigestValue + "=?";
-				params = new Object[]{getDocumentType(), getlbr_NFeID(), getlbr_NFeProt(), getlbr_DigestValue()};
+				params = new Object[]{getAD_Org_ID(), getDocumentType(), getlbr_NFeID(), getlbr_NFeProt(), getlbr_DigestValue()};
 			}
 			
 			//	Event
@@ -252,9 +253,9 @@ public class MLBRPartnerDFe extends X_LBR_PartnerDFe
 	 * 	@param nf
 	 * 	@return
 	 */
-	public static MLBRPartnerDFe get (String key, String documentType)
+	public static MLBRPartnerDFe get (String key, String documentType, int AD_Org_ID)
 	{
-		return get (key, documentType, null, 0);
+		return get (key, documentType, null, 0, AD_Org_ID);
 	}	//	get
 	
 	/**
@@ -262,13 +263,13 @@ public class MLBRPartnerDFe extends X_LBR_PartnerDFe
 	 * 	@param nf
 	 * 	@return
 	 */
-	public static MLBRPartnerDFe get (String key, String documentType, String protocol, int seqNo)
+	public static MLBRPartnerDFe get (String key, String documentType, String protocol, int seqNo, int AD_Org_ID)
 	{
 		List<Object> params = new ArrayList<Object>();
-		params.add(Env.getAD_Client_ID(Env.getCtx()));
+		params.add(AD_Org_ID);
 		params.add(key);
 		//
-		String where = "AD_Client_ID=? AND LBR_NFeID=?";
+		String where = "AD_Org_ID=? AND LBR_NFeID=?";
 		
 		if (documentType != null && !documentType.isEmpty())
 		{
@@ -298,9 +299,9 @@ public class MLBRPartnerDFe extends X_LBR_PartnerDFe
 	 * 	@param nf
 	 * 	@return
 	 */
-	public static MLBRPartnerDFe get (String key)
+	public static MLBRPartnerDFe get (String key, int AD_Org_ID)
 	{		
-		return get(key, null);
+		return get (key, null, null, 0, AD_Org_ID);
 	}	//	get
 	
 	@Override

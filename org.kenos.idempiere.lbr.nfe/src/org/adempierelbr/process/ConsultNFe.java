@@ -301,7 +301,7 @@ public class ConsultNFe extends SvrProcess
 			
 			//	Nota Fiscal Eletrônica
 			MLBRNotaFiscal nfe  = null;
-			MLBRPartnerDFe dfe = MLBRPartnerDFe.get(ret.getChNFe());
+			MLBRPartnerDFe dfe = MLBRPartnerDFe.get(ret.getChNFe(), p_AD_Org_ID);
 			
 			//	Dados do Protocolo
 			if (ret.getProtNFe() != null)
