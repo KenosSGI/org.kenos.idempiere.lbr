@@ -503,7 +503,7 @@ public class GetDFe extends SvrProcess
 			{
 				ResNFe resNFe = resNFeDoc.getResNFe();
 				
-				MLBRPartnerDFe pDFe = MLBRPartnerDFe.get (resNFe.getChNFe());
+				MLBRPartnerDFe pDFe = MLBRPartnerDFe.get (resNFe.getChNFe(), p_AD_Org_ID);
 				
 				//	New document
 				if (pDFe == null)
@@ -546,7 +546,7 @@ public class GetDFe extends SvrProcess
 				//	Try to find an existing event
 				MLBRPartnerDFe pDFe = null;
 				if (resEvento.getNProt() == null)
-					pDFe = MLBRPartnerDFe.get (resEvento.getChNFe(), MLBRPartnerDFe.DOCUMENTTYPE_Evento, "evento-sem-protocolo", 0);
+					pDFe = MLBRPartnerDFe.get (resEvento.getChNFe(), MLBRPartnerDFe.DOCUMENTTYPE_Evento, "evento-sem-protocolo", 0, p_AD_Org_ID);
 				
 				//	New event
 				if (pDFe == null)
@@ -640,7 +640,7 @@ public class GetDFe extends SvrProcess
 			if (resNFeProc != null)
 			{
 				InfProt resNFe = resNFeProc.getNfeProc().getProtNFe().getInfProt();
-				MLBRPartnerDFe pDFe = MLBRPartnerDFe.get (resNFe.getChNFe());
+				MLBRPartnerDFe pDFe = MLBRPartnerDFe.get (resNFe.getChNFe(), p_AD_Org_ID);
 
 				if (pDFe == null)
 				{
