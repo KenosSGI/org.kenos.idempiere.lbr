@@ -289,9 +289,9 @@ Selecionando "Onde Usado" irá mostrar em qual(is) LDM(s) este componente é usa
   <value column="Help" original="Visualizar Notas Fiscais">Visualizar Notas Fiscais</value>
  </row>
  <row trl="Y" uuid="e982d5d1-bed8-4676-a9c2-16879be7aacb">
-  <value column="Name" original="Confrontar XML do DF-e">Confrontar XML do DF-e</value>
-  <value column="Description" original="Confrontar XML do Documento Fiscal Eletrônico">Confrontar XML do Documento Fiscal Eletrônico</value>
-  <value column="Help" original="Confrontar XML do Documento Fiscal Eletrônico">Confrontar XML do Documento Fiscal Eletrônico</value>
+  <value column="Name" original="Create NF via XML">Conciliar XML do DF-e</value>
+  <value column="Description" original="Create NF via NF-e XML">Conciliar XML do Documento Fiscal Eletrônico</value>
+  <value column="Help" original="This form will help to create a new NF using the NFe XML">Confrontar XML do Documento Fiscal Eletrônico</value>
  </row>
  <row trl="Y" uuid="f860b626-22fc-470f-9441-7d87e60a2ae0">
   <value column="Name" original="Payment / Receipt (Manual)">Pagamento e Recebimento (Manual)</value>

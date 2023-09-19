@@ -348,4 +348,12 @@
   <value column="Name" original="Fuel">Combustíveis (ANP)</value>
   <value column="Description" original=""/>
  </row>
+ <row trl="Y" uuid="b4b1b338-0dd3-4686-a6a8-f92ca826dec7">
+  <value column="Name" original="DF-e">DF-e</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="ebfc7c8f-a335-4e77-910b-ec040c0e0411">
+  <value column="Name" original="Utils">Utilitários</value>
+  <value column="Description" original=""/>
+ </row>
 </idempiereTrl>

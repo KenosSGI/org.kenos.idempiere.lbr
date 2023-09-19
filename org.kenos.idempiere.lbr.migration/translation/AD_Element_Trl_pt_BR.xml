@@ -72620,6 +72620,28 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
+ <row trl="Y" uuid="b5b2171b-0df4-45f6-b694-47dea7827588">
+  <value column="Name" original="Unlock Credit">Desbloquear Crédito</value>
+  <value column="PrintName" original="Unlock Credit">Desbloquear Crédito</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="e0db3726-7090-41b1-ae09-97d2c2ff147c">
+  <value column="Name" original="Tax Exempt Amt">Valor da Isenção de Imposto</value>
+  <value column="PrintName" original="Tax Exempt Amt">Valor da Isenção de Imposto</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
  <row trl="Y" uuid="e48b9ea0-4842-46c5-aeb6-132632e1b32e">
   <value column="Name" original="CFOP Type">Tipo de CFOP</value>
   <value column="PrintName" original="CFOP Type">Tipo de CFOP</value>
@@ -72642,10 +72664,54 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
-  <row trl="Y" uuid="99ed9615-7b01-4c95-8e70-2cdd609a3b4a">
+ <row trl="Y" uuid="99ed9615-7b01-4c95-8e70-2cdd609a3b4a">
   <value column="Name" original="Numbering Strategy">Definição do No. Documento</value>
   <value column="PrintName" original="Numbering Strategy">Definição do No. Doc.</value>
   <value column="Description" original="This field defines the strategy to fill document number in Bank Slip and CNAB">Defina qual estratégia será seguida para compor o número do documento no Boleto e CNAB.</value>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="b4d82b5c-779b-4374-bd37-526c5456adb3">
+  <value column="Name" original="NFe Lot Line">Linha do Lote da NF-e</value>
+  <value column="PrintName" original="NFe Lot Line">Linha do Lote da NF-e</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="8c98141f-b5c5-4eea-a5a7-04cb8e81992f">
+  <value column="Name" original="LBR_NFeLotLine_UU">LBR_NFeLotLine_UU</value>
+  <value column="PrintName" original="LBR_NFeLotLine_UU">LBR_NFeLotLine_UU</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="bd89ab9b-e2f1-4b13-a289-d444b8896774">
+  <value column="Name" original="Taxes on First Parcel">Impostos na 1a Parcela</value>
+  <value column="PrintName" original="Taxes on First Parcel">Impostos na 1a Parcela</value>
+  <value column="Description" original="Include taxes on first parcel">Inclui os impostos da primeira parcela</value>
+  <value column="Help" original="If checked, then taxes that are included in price should be included in the first parcel (e.g. IPI, ICMS ST, DIFAL, etc.)">Se marcado, então os impostos que não fazem parte do preço serão incluídos na primeira parcela (ex. IPI, ICMS ST, DIFAL, etc.)</value>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="f4f57145-87c4-45bb-9a96-b7f556e12437">
+  <value column="Name" original="DF-e Auto Retrieve">Obter DF-e Automaticamente</value>
+  <value column="PrintName" original="DF-e Auto Retrieve">Obter DF-e Automaticamente</value>
+  <value column="Description" original="">Indica se os Documentos Fiscais devem ser consultados automaticamente na SeFaz</value>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>

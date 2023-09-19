@@ -3434,6 +3434,16 @@ A, C, D, F e 1 (Créditos extemporâneos)</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
  </row>
+ <row trl="Y" uuid="646fe26d-ae9b-4c5c-b92b-343f9f6459ea">
+  <value column="Name" original="LBR_DocNoStrategy">LBR_DocNoStrategy</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="17305b93-e414-4ea9-9b87-5fb4cbdb94c6">
+  <value column="Name" original="Export Extension">Extensão do Arquivo</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
  <row trl="N" uuid="4c9b3e1a-0441-4ab4-9a02-d4edfa36eb26">
   <value column="Name" original="LBR_CFOPType">LBR_CFOPType</value>
   <value column="Description" original=""/>
