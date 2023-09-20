@@ -1,20 +1,19 @@
 package org.kenos.idempiere.lbr.nfe.process;
 
-import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Level;
 
 import org.adempierelbr.model.MLBRNotaFiscal;
-import org.adempierelbr.model.MLBRPartnerDFe;
 import org.adempierelbr.process.GetDFe;
 import org.compiere.model.MOrg;
 import org.compiere.model.MOrgInfo;
-import org.compiere.model.Query;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
 import org.compiere.util.AdempiereUserError;
 import org.compiere.util.CLogger;
+import org.compiere.util.DB;
 import org.kenos.idempiere.lbr.base.model.MLBRAMissingNSU;
 
 import br.inf.portalfiscal.nfe.dfe.RetDistDFeIntDocument;
@@ -33,14 +32,8 @@ public class CheckNSUSequence extends SvrProcess
 	/**	Organization				*/
 	private int p_AD_Org_ID = -1;
 	
-	/** Dates						*/
-	@SuppressWarnings("unused")
-	private Timestamp p_DateFrom = null;
-	@SuppressWarnings("unused")
-	private Timestamp p_DateTo = null;
-	
-	/** Fix Missing NSU				*/
-	private boolean p_FixMissingNSU = false;
+	/** NSU							*/
+	private String p_LBR_NSU = null;
 	
 	/** Log							*/
 	private static CLogger log = CLogger.getCLogger (CheckNSUSequence.class);
@@ -59,15 +52,9 @@ public class CheckNSUSequence extends SvrProcess
 
 			else if (MOrg.COLUMNNAME_AD_Org_ID.equals (name))
 				p_AD_Org_ID = para[i].getParameterAsInt();
-			
-			else if (MLBRPartnerDFe.COLUMNNAME_DateDoc.equals(name))
-			{
-				p_DateFrom = para[i].getParameterAsTimestamp();
-				p_DateTo = para[i].getParameter_ToAsTimestamp();
-			}
-			
-			else if (MLBRAMissingNSU.COLUMNNAME_LBR_FixMissingNSU.equals(name))
-				p_FixMissingNSU = "Y".equals(para[i].getParameter());
+
+			else if (MLBRAMissingNSU.COLUMNNAME_LBR_NSU.equals (name))
+				p_LBR_NSU = para[i].getParameterAsString();
 			
 			else
 				log.log(Level.SEVERE, "Unknown Parameter: " + name);
@@ -84,44 +71,69 @@ public class CheckNSUSequence extends SvrProcess
 		//	Organization
 		if (p_AD_Org_ID <= 0)
 			throw new AdempiereUserError ("@FillMandatory@  @AD_Org_ID@");
-		
-		if (p_FixMissingNSU)
-		{
-			MOrgInfo oi = MOrgInfo.get(getCtx(), p_AD_Org_ID, get_TrxName());
-			List<MLBRAMissingNSU> missing = new Query (getCtx(), MLBRAMissingNSU.Table_Name, null, get_TrxName()).list();
-			//
-			AtomicInteger counter = new AtomicInteger();
 			
-			for (MLBRAMissingNSU nsu : missing)
+		String trxName = get_TrxName();
+		
+		//	Check selected only
+		String sql = "SELECT DISTINCT Value_String "
+				+ "FROM T_Selection_InfoWindow "
+				+ "WHERE ColumnName IN ('LBR_NSU') "
+				+ "AND AD_PInstance_ID=? "
+				+ "ORDER BY Value_String";
+		
+		//	Single NSU consult
+		List<List<Object>> nsus = null;
+		if (p_LBR_NSU !=null && !p_LBR_NSU.isBlank()) {
+			List<Object> nsu = new ArrayList<Object>();
+			nsu.add(p_LBR_NSU);
+			
+			nsus = new ArrayList<List<Object>>();
+			nsus.add(nsu);
+		}
+			
+		//	Selection
+		else
+			nsus = DB.getSQLArrayObjectsEx(trxName, sql, getAD_PInstance_ID());
+				
+		//	Organization
+		if (nsus == null || nsus.size() < 1)
+			return "@Error@ não foi selecionado nenhum NSU para pesquisa";
+		//
+		AtomicInteger counter = new AtomicInteger();
+		MOrgInfo oi = MOrgInfo.get(getCtx(), p_AD_Org_ID, get_TrxName());
+		
+		for (List<Object> current : nsus)
+		{
+			//	Current NSU number
+			String nsu = (String) current.get(0);
+			
+			if (counter.getAndIncrement() == 20)
+				return "@Success@ Máximo de 20 consultas atingido, aguarde 1h e tente novamente";
+			//
+			RetDistDFeIntDocument result = GetDFe.doIt (oi, nsu, true);
+			if (result == null)
 			{
-				if (counter.getAndIncrement() == 20)
-					return "@Success@ Máximo de 20 consultas atingido, aguarde 1h e tente novamente";
-				//
-				RetDistDFeIntDocument result = GetDFe.doIt (oi, nsu.getLBR_NSU(), true);
-				if (result == null)
-				{
-					addLog("Sem dados -> [" + nsu.getLBR_NSU() + "] Resultado da Consulta Vazio");
-					continue;
-				}
-				RetDistDFeInt retConsNFeDest = result.getRetDistDFeInt();
-				String cStat = retConsNFeDest.getCStat();
-				
-				//	Consulta OK, porém sem novos documentos emitidos
-				if (MLBRNotaFiscal.LBR_NFESTATUS_137_NenhumDocumentoLocalizadoParaODestinatário.equals(cStat))
-					addLog("Sem dados -> [" + nsu.getLBR_NSU() + "] " + retConsNFeDest.getXMotivo());
-				
-				//	Consulta OK, documentos localizados
-				else if (MLBRNotaFiscal.LBR_NFESTATUS_138_DocumentoLocalizadoParaODestinatário.equals(cStat))
-				{
-					//	Save results
-					GetDFe.processResult (getCtx(), retConsNFeDest.getLoteDistDFeInt(), null, p_AD_Org_ID);
-					
-					addLog("OK -> [" + nsu.getLBR_NSU() + "]");
-				}
-				
-				else if (MLBRNotaFiscal.LBR_NFESTATUS_656_RejeiçãoConsumoIndevido.equals(cStat))
-					return "@Success@ Consumo indevido, aguarde 1h e tente novamente";
+				addLog("Sem dados -> [" + nsu + "] Resultado da Consulta Vazio");
+				continue;
 			}
+			RetDistDFeInt retConsNFeDest = result.getRetDistDFeInt();
+			String cStat = retConsNFeDest.getCStat();
+			
+			//	Consulta OK, porém sem novos documentos emitidos
+			if (MLBRNotaFiscal.LBR_NFESTATUS_137_NenhumDocumentoLocalizadoParaODestinatário.equals(cStat))
+				addLog("Sem dados -> [" + nsu + "] " + retConsNFeDest.getXMotivo());
+			
+			//	Consulta OK, documentos localizados
+			else if (MLBRNotaFiscal.LBR_NFESTATUS_138_DocumentoLocalizadoParaODestinatário.equals(cStat))
+			{
+				//	Save results
+				GetDFe.processResult (getCtx(), retConsNFeDest.getLoteDistDFeInt(), null, p_AD_Org_ID);
+				
+				addLog("OK -> [" + nsu + "]");
+			}
+			
+			else if (MLBRNotaFiscal.LBR_NFESTATUS_656_RejeiçãoConsumoIndevido.equals(cStat))
+				return "@Success@ Consumo indevido, aguarde 1h e tente novamente";
 		}
 		
 		return "@Success@";
