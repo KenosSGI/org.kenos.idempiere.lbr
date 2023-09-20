@@ -925,6 +925,7 @@ public class NFSeImpl implements INFSe
 		PedidoCancelamentoNFe cancelamentoNFe = document.addNewPedidoCancelamentoNFe();
 		br.gov.sp.prefeitura.nfe.PedidoCancelamentoNFeDocument.PedidoCancelamentoNFe.Cabecalho cabecalho = cancelamentoNFe.addNewCabecalho();
 		cabecalho.setVersao(1);
+		cabecalho.setTransacao(true);
 		TpCPFCNPJ tpCPFCNPJ = cabecalho.addNewCPFCNPJRemetente();
 		tpCPFCNPJ.setCNPJ(TextUtil.toNumeric(nf.getlbr_CNPJ()));
 		
@@ -933,7 +934,6 @@ public class NFSeImpl implements INFSe
 		chaveNFe.setCodigoVerificacao(nf.getlbr_NFeProt());
 		chaveNFe.setInscricaoPrestador(toLong (nf.getlbr_OrgCCM()));
 		chaveNFe.setNumeroNFe(toLong (nf.getlbr_NFENo()));
-		
 		
 		StringBuilder ascii = new StringBuilder ("");
 		//
@@ -948,6 +948,8 @@ public class NFSeImpl implements INFSe
 
 		new SignatureUtil (oi, SignatureUtil.RPS).sign (document, cancelamentoNFe.newCursor());
 		StringBuilder xml = new StringBuilder (document.xmlText(NFeUtil.getXmlOpt()));
+
+		NFeUtil.saveXML (String.valueOf(nf.getAD_Org_ID()), NFeUtil.KIND_NFSE, NFeUtil.MESSAGE_REQ_CANCEL, nf.getDocumentNo(), xml.toString());
 
 		//	Set certificate
 		certificate.initialize();
@@ -964,7 +966,7 @@ public class NFSeImpl implements INFSe
 		else 
 			retornoXML = stub.cancelamentoNFe(1, xml.toString());
 
-		NFeUtil.saveXML (String.valueOf(nf.getAD_Org_ID()), NFeUtil.KIND_NFSE, NFeUtil.MESSAGE_RET_AUTORIZE, nf.getDocumentNo(), retornoXML);
+		NFeUtil.saveXML (String.valueOf(nf.getAD_Org_ID()), NFeUtil.KIND_NFSE, NFeUtil.MESSAGE_RET_CANCEL, nf.getDocumentNo(), retornoXML);
 
 		//	Processa o Retorno
 		RetornoCancelamentoNFe result = RetornoCancelamentoNFeDocument.Factory.parse(retornoXML).getRetornoCancelamentoNFe();
