@@ -348,4 +348,10 @@
  <row trl="Y" uuid="3414c102-7ec1-46aa-8455-665d806d0160">
   <value column="Name" original="Email">Email</value>
  </row>
+ <row trl="Y" uuid="f9880179-06c3-470d-ba29-365941061192">
+  <value column="Name" original="IBPT">IBPT</value>
+ </row>
+ <row trl="Y" uuid="98885846-03a0-4780-8245-2ba7de7b22e8">
+  <value column="Name" original="Retrieve DF-e">Obter DF-e</value>
+ </row>
 </idempiereTrl>

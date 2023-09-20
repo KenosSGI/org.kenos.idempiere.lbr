@@ -7619,6 +7619,12 @@ Impressão:
   <value column="Description" original=""/>
   <value column="Help" original=""/>
  </row>
+ <row trl="Y" uuid="d4ac527a-d115-4bed-9fef-5ebde0b890b9">
+  <value column="Name" original="Lines">Linhas</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
  <row trl="Y" uuid="813505b1-92ba-4d5f-8f61-d72b3112b67d">
   <value column="Name" original="Tax Config">Configuração Tributária</value>
   <value column="CommitWarning" original=""/>

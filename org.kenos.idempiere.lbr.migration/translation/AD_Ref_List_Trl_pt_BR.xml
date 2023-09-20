@@ -9629,7 +9629,7 @@
   <value column="Description" original="De-activate on revision 1.51 of Nota Técnica 2016.002"/>
  </row>
  <row trl="Y" uuid="5242c49f-1d6f-43eb-9d86-b72787b8c774">
-  <value column="Name" original="Bill">Boleto Bancário</value>
+  <value column="Name" original="Bank Slip">Boleto Bancário</value>
   <value column="Description" original=""/>
  </row>
  <row trl="Y" uuid="c22e2a83-b06d-4218-96c3-a59243f04a16">
@@ -12830,6 +12830,22 @@
  </row>
  <row trl="Y" uuid="3ed3ed22-58a4-490d-bc6d-e5d707928b43">
   <value column="Name" original="Cancel Protest Confirmation">Confirmação de Cancelamento de Protesto</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="adc5e777-037a-41fe-902d-da11cb8f6141">
+  <value column="Name" original="API">API</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="434034ee-d2fd-4bcc-aa95-9ff4f05d4f8f">
+  <value column="Name" original="Common-Law Marriage">União Estável</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="5901e14f-a1dc-4578-8363-dd845f7b5d1c">
+  <value column="Name" original="CSV">CSV</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="d4f04b1a-335b-477a-94ae-c39874f7b1db">
+  <value column="Name" original="SSV">SSV</value>
   <value column="Description" original=""/>
  </row>
  <row trl="Y" uuid="01ad10dc-48d5-4a20-953e-cd5dc35e8cd8">

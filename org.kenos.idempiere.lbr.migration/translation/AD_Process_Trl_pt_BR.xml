@@ -2852,6 +2852,16 @@ For example:<br />
   <value column="Description" original=""/>
   <value column="Help" original=""/>
  </row>
+ <row trl="Y" uuid="493d65ec-c997-4cf4-ac97-a3a56250524d">
+  <value column="Name" original="Import NCM">Importar NCM</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="afcfeb07-3bb9-4d1b-9a07-ba465307ec4d">
+  <value column="Name" original="Bank Slip Actions">Registrar Ocorrência</value>
+  <value column="Description" original="Perform some actions to an existing bank slip, such as change due date, discount, protest and so on">Envia uma ocorrência para alteração do um boleto já registrado.</value>
+  <value column="Help" original=""/>
+ </row>
  <row trl="Y" uuid="5efaeb22-fe9f-47ae-a1ae-228b3395e68e">
   <value column="Name" original="Freight Calc">Cálculo de Frete (Correios)</value>
   <value column="Description" original="Freight calculation for Brazilian Post Service (Correios)">Sistema de cálculo de frete para o serviço de postagem brasileiro (Correios)</value>
@@ -2866,6 +2876,16 @@ For example:<br />
   <value column="Name" original="CashFlow Summary">Fluxo de Caixa Resumo</value>
   <value column="Description" original="Cash flow report with summary information of each day">Fluxo de Caixa com os dados resumidos por dia</value>
   <value column="Help" original="">Este relatório mostra o fluxo de caixa diário. Selecione o período desejado e qual é o saldo inicial.</value>
+ </row>
+ <row trl="Y" uuid="da63d19f-8036-4823-8a29-593c1247c888">
+  <value column="Name" original="Email Bank Slip">Envio Boleto por E-mail</value>
+  <value column="Description" original="This process will send by e-mail the selected bank slip">Este processo irá enviar os boletos gerados por e-mail</value>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="f4b20cb6-8aa0-4461-a3db-dac2d37d2eaa">
+  <value column="Name" original="BankSlip Report">Detalhes de Boleto</value>
+  <value column="Description" original="BankSlip Report">Detalhes de Boleto</value>
+  <value column="Help" original="BankSlip Report Detail">Relatório de Detalhes de Boleto</value>
  </row>
  <row trl="Y" uuid="afcfeb07-3bb9-4d1b-9a07-ba465307ec4d">
   <value column="Name" original="Bank Slip Actions">Registrar Ocorrência</value>

@@ -7161,7 +7161,15 @@ Telefone: {1}</value>
   <value column="MsgTip" original=""/>
  </row>
  <row trl="Y" uuid="fe45841a-a640-44cb-8c96-32acb41d3272">
-  <value column="MsgText" original="Could not find bank slip document type">Não foi possível encontrar o Tipo de Documento para Boleto Bancário.</value>
+  <value column="MsgText" original="Could not find Bank Slip Document Type">Não foi possível encontrar o Tipo de Documento para Boleto Bancário.</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row trl="N" uuid="9fbb487e-d749-4e8a-a495-0e3668443a6e">
+  <value column="MsgText" original="The Nota Fiscal is repeated in the same lot">A Nota Fiscal está duplicada no mesmo lote</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row trl="Y" uuid="22506c6d-7934-489f-ba6c-5f1def684b09">
+  <value column="MsgText" original="Tax for this region already exists">Imposto para esta região já existe</value>
   <value column="MsgTip" original=""/>
  </row>
  <row trl="Y" uuid="9a7412b9-819a-45ac-81a1-08833e1cff92">
