@@ -13,6 +13,7 @@
 package org.adempierelbr.nfe;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -1076,7 +1077,8 @@ public class NFeXMLGenerator
 					di.setUFDesemb(TUfEmi.Enum.forString (nfdi.getlbr_BPRegion()));
 					di.setDDesemb(TextUtil.timeToString (nfdi.getlbr_DataDesemb(), "yyyy-MM-dd"));
 					di.setTpViaTransp(TpViaTransp.X_4);		//FIXME
-//					di.setVAFRMM(arg0);						//FIXME
+					if (nfl.getLBR_AFRMMAmt() != null)
+						di.setVAFRMM(nfl.getLBR_AFRMMAmt().setScale(2, RoundingMode.HALF_UP).toEngineeringString());
 					di.setTpIntermedio(TpIntermedio.X_1);	//FIXME
 					di.setCExportador (normalize (nfdi.getlbr_CodExportador()));
 
