@@ -3966,6 +3966,9 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 	 */
 	private String parse (String text, PO doc)
 	{
+		if (text == null)
+			return null;
+		
 		if (text.indexOf('@') == -1)
 			return text;
 		
