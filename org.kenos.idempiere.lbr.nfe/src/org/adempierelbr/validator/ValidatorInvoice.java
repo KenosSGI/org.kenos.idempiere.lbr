@@ -63,6 +63,7 @@ import org.compiere.model.Query;
 import org.compiere.process.DocAction;
 import org.compiere.process.ProcessInfo;
 import org.compiere.util.CLogger;
+import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.compiere.util.Msg;
 import org.compiere.util.Trx;
@@ -615,10 +616,13 @@ public class ValidatorInvoice implements ModelValidator
 				}
 			}	//	After Complete
 
+			//	Make sure NF still not linked to any invoice
+			int LBR_NotaFiscal_ID = DB.getSQLValue (invoice.get_TrxName(), "SELECT COUNT(*) FROM LBR_NotaFiscal WHERE C_Invoice_ID=?", invoice.getC_Invoice_ID());
+
 			/**
 			 * 	3 - Gera o registro para a janela de NF
 			 */
-			if (wDocType.islbr_HasFiscalDocument() && !invoice.isReversal()) 
+			if (wDocType.islbr_HasFiscalDocument() && !invoice.isReversal() && LBR_NotaFiscal_ID < 1) 
 			{
 				//	Força o Documento Próprio para as Faturas de Saída ou para Memorando de Crédito de Entrada
 				boolean isOwnDocument = (wDocType.getDocBaseType().equals(MDocType.DOCBASETYPE_APCreditMemo) || wDocType.getDocBaseType().equals(MDocType.DOCBASETYPE_ARInvoice)) 
