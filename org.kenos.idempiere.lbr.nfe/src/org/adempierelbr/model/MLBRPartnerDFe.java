@@ -303,6 +303,38 @@ public class MLBRPartnerDFe extends X_LBR_PartnerDFe
 	{		
 		return get (key, null, null, 0, AD_Org_ID);
 	}	//	get
+
+	/**
+	 * Retrieves the document number from the NFe Key.
+	 *
+	 * The NFe ID is expected to have a structure wherein the document number is
+	 * located starting from the 26th to the 34th character (both inclusive).
+	 *
+	 * Example:
+	 * If LBR_NFeID = "ABCDEFGHIJKLMOPQRSTUVWXYZ012345678ZZZZZZZZZZ", then
+	 * the document number would be "012345678".
+	 *
+	 * @return the document number extracted from the LBR_NFeID.
+	 */
+	public String getDocumentNo() {
+		return getlbr_NFeID().substring(25, 34);
+	}	//	getDocumentNo
+	
+	/**
+	 * Retrieves the document series from the NFe Key.
+	 *
+	 * The NFe Key is expected to have a structure wherein the document series is
+	 * located starting from the 23rd to the 25th character (both inclusive).
+	 *
+	 * Example:
+	 * If LBR_NFeID = "ABCDEFGHIJKLMOPQRSTUVWXYZ012345678ZZZZZZZZZZ", then
+	 * the document series would be "XYZ".
+	 *
+	 * @return the document series extracted from the LBR_NFeID.
+	 */
+	public String getDocumentSeries() {
+		return getlbr_NFeID().substring(22, 25);
+	}	//	getDocumentSeries
 	
 	@Override
 	public String toString()

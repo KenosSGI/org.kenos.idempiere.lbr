@@ -32,14 +32,40 @@ public class MInvoice extends org.compiere.model.MInvoice implements DocOptions
 	private static final long serialVersionUID = 8052957837388478900L;
 	private boolean recursiveCall;
 
+	/**
+	 * Constructor using a Properties object, order ID, and transaction name.
+	 *
+	 * @param ctx        Properties context
+	 * @param M_Order_ID Order ID
+	 * @param trxName    Transaction name
+	 */
 	public MInvoice (Properties ctx, int M_Order_ID, String trxName)
 	{
 		super (ctx, M_Order_ID, trxName);
 	}	//	MInvoice
 	
+	/**
+	 * Constructor using a Properties object, ResultSet, and transaction name.
+	 *
+	 * @param ctx     Properties context
+	 * @param rs      ResultSet
+	 * @param trxName Transaction name
+	 */
 	public MInvoice (Properties ctx, ResultSet rs, String trxName)
 	{
 		super (ctx, rs, trxName);
+	}	//	MInvoice
+	
+	/**
+	 * Create Invoice from Order.
+	 *
+	 * @param order              The order object
+	 * @param C_DocTypeTarget_ID Target document type
+	 * @param invoiceDate        Date for the invoice (can be null)
+	 */
+	public MInvoice (MOrder order, int C_DocTypeTarget_ID, Timestamp invoiceDate)
+	{
+		super (order, C_DocTypeTarget_ID, invoiceDate);
 	}	//	MInvoice
 	
 	public int customizeValidActions (String docStatus, Object processing,
