@@ -108,6 +108,7 @@ public class MLBRTax extends X_LBR_Tax
 	public static final int	TAX_COFINS		= 1106002;
 	public static final int	TAX_ICMS		= 1106000;
 	public static final int	TAX_ICMSST		= 1106012;
+	public static final int	TAX_II			= 1106004;
 	public static final int	TAX_IPI			= 1106003;
 	public static final int	TAX_MVA			= 1106013;
 	public static final int	TAX_FCP			= 1120000;
