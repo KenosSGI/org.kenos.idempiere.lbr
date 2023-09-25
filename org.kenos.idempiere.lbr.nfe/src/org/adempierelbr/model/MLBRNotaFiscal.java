@@ -965,23 +965,41 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 	 * 	Encontra a NF pelo ID de NF-e
 	 *
 	 * @param NFeID
+	 * @param trxName
 	 * @return
 	 */
 	public static MLBRNotaFiscal getNFe (String NFeID, String trxName)
 	{
+		return getNFe (NFeID, trxName, 0);
+	}	//	getNFe
+
+	/**
+	 * 	Encontra a NF pelo ID de NF-e
+	 *
+	 * @param NFeID
+	 * @param trxName
+	 * @param AD_Org_ID
+	 * @return
+	 */
+	public static MLBRNotaFiscal getNFe (String NFeID, String trxName, int AD_Org_ID)
+	{
 		String sql =  "SELECT LBR_NotaFiscal_ID FROM LBR_NotaFiscal " +
 					   "WHERE lbr_NFeID=? AND AD_Client_ID=?";
 
+		//	Organization validation, some companies run instances for both
+		//   companies, so the same NFe will be present in different
+		//   orgs on the same database
+		if (AD_Org_ID > 0)
+			sql += " AND AD_Org_ID=" + AD_Org_ID;
+		
 		int LBR_NotaFiscal_ID = DB.getSQLValue(trxName, sql,
 				new Object[]{NFeID, Env.getAD_Client_ID(Env.getCtx())});
 
 		if (LBR_NotaFiscal_ID > 0)
 			return new MLBRNotaFiscal (Env.getCtx(), LBR_NotaFiscal_ID, trxName);
-		else
-		{
-//			log.warning("NFe " + NFeID);
-			return null;
-		}
+		
+		//	Not found
+		return null;
 	}	//	get
 
 	/**
