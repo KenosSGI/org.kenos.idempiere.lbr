@@ -258,11 +258,6 @@ public class MLBRNFeLot extends X_LBR_NFeLot implements DocAction, DocOptions
 		//	Save XML response
 		NFeUtil.saveXML (String.valueOf(oi.getAD_Org_ID()), NFeUtil.KIND_NFE, NFeUtil.MESSAGE_RET_AUTORIZE, getDocumentNo(), respStatus.toString());
 
-		//	
-		MAttachment attachLotNFe = createAttachment();
-		attachLotNFe.addEntry(getDocumentNo()+"-rec.xml", respStatus.toString().getBytes("UTF-8"));
-		attachLotNFe.save();
-		//
 		TRetEnviNFe retEnviNFe = RetEnviNFeDocument.Factory.parse(respStatus.toString()).getRetEnviNFe();
 		//
 		String cStat = retEnviNFe.getCStat();
@@ -453,10 +448,6 @@ public class MLBRNFeLot extends X_LBR_NFeLot implements DocAction, DocOptions
 			//	Save XML consult lot
 			NFeUtil.saveXML (String.valueOf(oi.getAD_Org_ID()), NFeUtil.KIND_NFE, NFeUtil.MESSAGE_RET_CONSULT_LOT, getDocumentNo(), respStatus.toString());
 
-			MAttachment attachLotNFe = createAttachment();
-			attachLotNFe.addEntry(getDocumentNo()+"-pro-rec.xml", respStatus.toString().getBytes("UTF-8"));
-			attachLotNFe.save();
-			
 			processResponse (respStatus.toString(), trxName);
 			//
 			save();
