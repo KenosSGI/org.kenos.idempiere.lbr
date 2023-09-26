@@ -1,0 +1,88 @@
+package org.kenos.idempiere.lbr.bankslip.process;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.logging.Level;
+
+import org.adempiere.webui.apps.AEnv;
+import org.adempiere.webui.component.Window;
+import org.adempiere.webui.desktop.IDesktop;
+import org.adempiere.webui.session.SessionManager;
+import org.adempiere.webui.window.SimplePDFViewer;
+import org.compiere.model.Query;
+import org.compiere.process.ProcessInfoParameter;
+import org.compiere.process.SvrProcess;
+import org.kenos.idempiere.lbr.bankslip.model.MLBRBankSlip;
+
+/**
+ * 	Impressão de Boletos via Jasper
+ * 	@author Ricardo Santana <rsantana@kenos.com.br>
+ */
+public class Print extends SvrProcess
+{
+	/**	Only open bank slip **/
+	private boolean p_OnlyOpen = false;
+	
+	/**
+	 *  Prepare - e.g., get Parameters.
+	 */
+	protected void prepare()
+	{
+		for (ProcessInfoParameter para : getParameter())
+		{
+			String name = para.getParameterName();
+			if (para.getParameter() == null)
+				;
+			else if (name.equals("TO_DO"))
+				p_OnlyOpen = para.getParameterAsBoolean();
+			else
+				log.log(Level.SEVERE, "Unknown Parameter: " + name);
+		}
+	}	//	prepare
+
+	/**
+	 * 	Cleanup Attribute Set Instance
+	 * 
+	 *	@return info
+	 *	@throws Exception
+	 */
+	protected String doIt () throws Exception
+	{
+		if (getRecord_ID() < 1)
+			return "@Error@ Document not Found";
+		
+		List<File> pdfs = new ArrayList<File>();
+		
+		//	Find candidates to be printed
+		String where = MLBRBankSlip.COLUMNNAME_DocStatus + "=? AND " + (MLBRBankSlip.Table_ID == getTable_ID() ? MLBRBankSlip.COLUMNNAME_LBR_BankSlip_ID : MLBRBankSlip.COLUMNNAME_C_Invoice_ID) + "=? ";
+		if (p_OnlyOpen)
+			where += MLBRBankSlip.COLUMNNAME_IsPaid + "='N' AND " + MLBRBankSlip.COLUMNNAME_LBR_IsWrittenOff + "='N' AND " + MLBRBankSlip.COLUMNNAME_LBR_IsHalted + "='N'";
+		
+		//	Generate bopepos to be printed
+		List<MLBRBankSlip> bss = new Query (getCtx(), MLBRBankSlip.Table_Name, where, get_TrxName()).setParameters(MLBRBankSlip.DOCSTATUS_Completed, getRecord_ID()).list();
+		bss.stream().map(MLBRBankSlip::createPDF).filter(Objects::nonNull).forEach(pdfs::add);
+		
+		//	Check if there are any completed bank slips
+		if (pdfs.isEmpty())
+			return "@Error@ nenhum boleto encontrado";
+
+		AEnv.executeAsyncDesktopTask(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					Window win = new SimplePDFViewer("Boleto", new FileInputStream (pdfs.get (0)));
+					IDesktop appDesktop = SessionManager.getAppDesktop();
+					appDesktop.showWindow(win, "center");
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		
+		return "@Success@";
+	}	//	doIt
+}	//	Print

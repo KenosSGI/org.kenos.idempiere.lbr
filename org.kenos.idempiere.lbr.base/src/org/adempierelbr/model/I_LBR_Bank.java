@@ -23,7 +23,7 @@ import org.compiere.util.KeyNamePair;
 
 /** Generated Interface for LBR_Bank
  *  @author iDempiere (generated) 
- *  @version Release 4.1
+ *  @version Release 6.2
  */
 @SuppressWarnings("all")
 public interface I_LBR_Bank 
@@ -106,6 +106,24 @@ public interface I_LBR_Bank
 	  */
 	public boolean isActive();
 
+    /** Column name LBR_BankAccountVD */
+    public static final String COLUMNNAME_LBR_BankAccountVD = "LBR_BankAccountVD";
+
+	/** Set Account Digit	  */
+	public void setLBR_BankAccountVD (boolean LBR_BankAccountVD);
+
+	/** Get Account Digit	  */
+	public boolean isLBR_BankAccountVD();
+
+    /** Column name LBR_BankAgencyVD */
+    public static final String COLUMNNAME_LBR_BankAgencyVD = "LBR_BankAgencyVD";
+
+	/** Set Agency Digit	  */
+	public void setLBR_BankAgencyVD (boolean LBR_BankAgencyVD);
+
+	/** Get Agency Digit	  */
+	public boolean isLBR_BankAgencyVD();
+
     /** Column name LBR_Bank_ID */
     public static final String COLUMNNAME_LBR_Bank_ID = "LBR_Bank_ID";
 
@@ -118,6 +136,24 @@ public interface I_LBR_Bank
 	  * Primary Key table LBR_Bank
 	  */
 	public int getLBR_Bank_ID();
+
+    /** Column name LBR_Bank_UU */
+    public static final String COLUMNNAME_LBR_Bank_UU = "LBR_Bank_UU";
+
+	/** Set LBR_Bank_UU	  */
+	public void setLBR_Bank_UU (String LBR_Bank_UU);
+
+	/** Get LBR_Bank_UU	  */
+	public String getLBR_Bank_UU();
+
+    /** Column name Logo_ID */
+    public static final String COLUMNNAME_Logo_ID = "Logo_ID";
+
+	/** Set Logo	  */
+	public void setLogo_ID (int Logo_ID);
+
+	/** Get Logo	  */
+	public int getLogo_ID();
 
     /** Column name Name */
     public static final String COLUMNNAME_Name = "Name";

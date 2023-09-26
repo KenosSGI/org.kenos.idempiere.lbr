@@ -23,14 +23,14 @@ import org.compiere.model.*;
 
 /** Generated Model for LBR_BankInfo
  *  @author iDempiere (generated) 
- *  @version Release 4.1 - $Id$ */
+ *  @version Release 6.2 - $Id$ */
 public class X_LBR_BankInfo extends PO implements I_LBR_BankInfo, I_Persistent 
 {
 
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20170626L;
+	private static final long serialVersionUID = 20200331L;
 
     /** Standard Constructor */
     public X_LBR_BankInfo (Properties ctx, int LBR_BankInfo_ID, String trxName)
@@ -113,6 +113,20 @@ public class X_LBR_BankInfo extends PO implements I_LBR_BankInfo, I_Persistent
 		return ii.intValue();
 	}
 
+	/** Set LBR_BankInfo_UU.
+		@param LBR_BankInfo_UU LBR_BankInfo_UU	  */
+	public void setLBR_BankInfo_UU (String LBR_BankInfo_UU)
+	{
+		set_Value (COLUMNNAME_LBR_BankInfo_UU, LBR_BankInfo_UU);
+	}
+
+	/** Get LBR_BankInfo_UU.
+		@return LBR_BankInfo_UU	  */
+	public String getLBR_BankInfo_UU () 
+	{
+		return (String)get_Value(COLUMNNAME_LBR_BankInfo_UU);
+	}
+
 	public org.adempierelbr.model.I_LBR_Bank getLBR_Bank() throws RuntimeException
     {
 		return (org.adempierelbr.model.I_LBR_Bank)MTable.get(getCtx(), org.adempierelbr.model.I_LBR_Bank.Table_Name)
@@ -162,6 +176,10 @@ public class X_LBR_BankInfo extends PO implements I_LBR_BankInfo, I_Persistent
 	public static final String LBR_OCCURTYPE_Liquidation = "L";
 	/** Occurrence = O */
 	public static final String LBR_OCCURTYPE_Occurrence = "O";
+	/** Register Request = R */
+	public static final String LBR_OCCURTYPE_RegisterRequest = "R";
+	/** Register Confirmed = C */
+	public static final String LBR_OCCURTYPE_RegisterConfirmed = "C";
 	/** Set Occurrence Type.
 		@param lbr_OccurType 
 		Defines the Occurrence Type

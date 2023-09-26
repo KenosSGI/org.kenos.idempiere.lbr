@@ -8,6 +8,7 @@ mvn verify -Didempiere.target=org.idempierelbr.p2.targetplatform
 		<axiom.version>1.2.13</axiom.version>
 		<axis2.version>1.6.4</axis2.version>
 		<bouncycastle.version>138</bouncycastle.version>
+		<bopepo.version>0.4.5</bopepo.version>
 		<commons.codec.version>1.3</commons.codec.version>
 		<commons.httpclient.version>3.1</commons.httpclient.version>
 		<dom4j.version>1.6.1</dom4j.version>
@@ -38,8 +39,7 @@ mvn verify -Didempiere.target=org.idempierelbr.p2.targetplatform
 		<module>org.kenos.idempiere.lbr.base.zk</module>
 		<module>org.kenos.idempiere.lbr.tax</module>
 		<module>org.kenos.idempiere.lbr.tax.zk</module>
-		<module>org.kenos.idempiere.lbr.boleto</module>
-		<module>org.kenos.idempiere.lbr.boleto.zk</module>
+		<module>org.kenos.idempiere.lbr.bankslip</module>
 		<module>org.kenos.idempiere.lbr.correios</module>
 		<module>org.kenos.idempiere.lbr.ibpt</module>
 		<module>org.kenos.idempiere.lbr.nfe</module>

@@ -23,7 +23,7 @@ import org.compiere.util.KeyNamePair;
 
 /** Generated Interface for LBR_BankInfo
  *  @author iDempiere (generated) 
- *  @version Release 4.1
+ *  @version Release 6.2
  */
 @SuppressWarnings("all")
 public interface I_LBR_BankInfo 
@@ -118,6 +118,15 @@ public interface I_LBR_BankInfo
 	  * Primary key table LBR_BankInfo
 	  */
 	public int getLBR_BankInfo_ID();
+
+    /** Column name LBR_BankInfo_UU */
+    public static final String COLUMNNAME_LBR_BankInfo_UU = "LBR_BankInfo_UU";
+
+	/** Set LBR_BankInfo_UU	  */
+	public void setLBR_BankInfo_UU (String LBR_BankInfo_UU);
+
+	/** Get LBR_BankInfo_UU	  */
+	public String getLBR_BankInfo_UU();
 
     /** Column name LBR_Bank_ID */
     public static final String COLUMNNAME_LBR_Bank_ID = "LBR_Bank_ID";
