@@ -265,4 +265,35 @@ public abstract class LBRUtils
 		
 		return M_InOut_IDs.toArray(new Integer[M_InOut_IDs.size()]);
 	}	//	getInOutsFromInvoice
+	
+	/**
+	 * Retrieves the city name from the database based on the given region and city names.
+	 * It uses regular expressions to match city names after removing any characters 
+	 * that aren't alphanumeric. If no matching city name is found in the database, it 
+	 * returns the provided cityName.
+	 *
+	 * @param regionName The name of the region to be used as a filter in the SQL query.
+	 * @param cityName The name of the city to be matched (after removing non-alphanumeric characters).
+	 * @return The correct city name retrieved from the database or the provided cityName if no match is found.
+	 */
+	public static String getCityName (String regionName, String cityName) {
+		//	Invalid request
+		if (regionName == null || cityName == null)
+			return cityName;
+		//
+		String sql = "SELECT c.Name "
+				+ "FROM C_City c, C_Region r "
+				+ "WHERE c.C_Region_ID=r.C_Region_ID "
+				+ "AND r.Name=? "
+				+ "AND r.C_Country_ID=139 "
+				+ "AND REGEXP_REPLACE(UPPER(c.Name), '[^A-Z0-9]', '', 'g')=REGEXP_REPLACE(UPPER(?), '[^A-Z0-9]', '', 'g')";
+		String correctCityName = DB.getSQLValueString (null, sql, regionName, cityName);
+		
+		//	Found a city name from database
+		if (correctCityName != null)
+			return correctCityName;
+		
+		//	Return default value
+		return cityName;
+	}	//	getCityName
 }	//	LBRUtils

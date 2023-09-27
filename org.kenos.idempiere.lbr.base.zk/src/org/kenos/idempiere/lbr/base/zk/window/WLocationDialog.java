@@ -50,6 +50,7 @@ import org.adempiere.webui.theme.ThemeManager;
 import org.adempiere.webui.util.ZKUpdateUtil;
 import org.adempiere.webui.window.FDialog;
 import org.adempiere.webui.window.WAutoCompleterCity;
+import org.adempierelbr.util.LBRUtils;
 import org.compiere.model.GridField;
 import org.compiere.model.MAddressValidation;
 import org.compiere.model.MBPartnerLocation;
@@ -994,8 +995,9 @@ public class WLocationDialog extends Window implements EventListener<Event>
 							if (found)
 								break;
 						}
-					txtCity.refreshData(provider.getCidade());
-					txtCity.setRawValue(provider.getCidade());
+					String cityName = LBRUtils.getCityName(provider.getUF(), provider.getCidade());
+					txtCity.refreshData(cityName);
+					txtCity.setRawValue(cityName);
 					if (provider.getLogradouroType() != null && !provider.getLogradouroType().isEmpty())
 						txtAddress1.setText(provider.getLogradouroType() + " " + provider.getLogradouro());
 					else
