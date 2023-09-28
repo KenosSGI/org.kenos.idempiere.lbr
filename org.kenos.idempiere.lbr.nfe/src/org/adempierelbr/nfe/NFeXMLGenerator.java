@@ -1024,18 +1024,9 @@ public class NFeXMLGenerator
 				prod.setCBenef(nfl.getLBR_TaxBenefitCode().trim());
 			
 			// 	Unidade Tributária pode ser Diferente apenas para Exportação
-			if (MLBRNotaFiscal.LBR_TRANSACTIONTYPE_Export.equals (nf.getlbr_TransactionType ()))
-			{
-				prod.setUTrib(normalize (nfl.getX12DE355()));
-				prod.setQTrib(normalize4  ((nfl.getLBR_qTrib())));
-				prod.setVUnTrib(normalize10  (nfl.getLBR_vUnTrib()));
-			}
-			else
-			{	
-				prod.setUTrib(normalize (nfl.getlbr_UOMName()));
-				prod.setQTrib(normalize4 (nfl.getQty()));
-				prod.setVUnTrib(normalize10 (nfl.getPrice()));
-			}	
+			prod.setUTrib(normalize ( (String) LBRUtils.firstNonNull(nfl.getX12DE355(), nfl.getlbr_UOMName())));
+			prod.setQTrib(normalize4 ( (BigDecimal) LBRUtils.firstNonNull(nfl.getLBR_qTrib(), nfl.getQty())));
+			prod.setVUnTrib(normalize10 ( (BigDecimal) LBRUtils.firstNonNull(nfl.getLBR_vUnTrib(), nfl.getPrice())));
 			
 			//	Valores adicionais
 			BigDecimal freightAmt 		= nfl.getFreightAmt();

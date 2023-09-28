@@ -1,7 +1,9 @@
 package org.adempierelbr.util;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.Properties;
 
 import org.compiere.model.MBPartner;
@@ -296,4 +298,20 @@ public abstract class LBRUtils
 		//	Return default value
 		return cityName;
 	}	//	getCityName
+	
+	/**
+	 * Returns the first non-null object from the provided list of objects.
+	 * 
+	 * <p>
+	 * If all objects are null or if the input list itself is null or empty, this method returns null.
+	 * </p>
+	 * 
+	 * @param object parameter containing a list of objects to check.
+	 * @return The first non-null object found, or null if all objects are null or the input list is empty.
+	 */
+	public static Object firstNonNull (Object... object) {
+		if (object == null || object.length == 0)
+			return null;
+		return Arrays.asList(object).stream().filter(Objects::nonNull).findFirst().orElse(null);
+	}	//	firstNonNull
 }	//	LBRUtils
