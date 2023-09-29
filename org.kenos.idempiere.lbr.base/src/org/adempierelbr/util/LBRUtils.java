@@ -317,18 +317,18 @@ public abstract class LBRUtils
 	}	//	firstNonNull
 	
 	/**
-	 * Returns the first non-null object from the provided list of objects.
+	 * Returns the first positive BigDecimal from the provided list of BigDecimals.
 	 * 
 	 * <p>
-	 * If all objects are null or if the input list itself is null or empty, this method returns null.
+	 * If all BigDecimals are null or if the input list itself is null or empty, this method returns ZERO.
 	 * </p>
 	 * 
-	 * @param object parameter containing a list of objects to check.
-	 * @return The first non-null object found, or null if all objects are null or the input list is empty.
+	 * @param BigDecimal parameter containing a list of BigDecimals to check.
+	 * @return The first positive BigDecimal found, or ZERO if all BigDecimals are null, non-positive or the input list is empty.
 	 */
 	public static BigDecimal firstPositive (BigDecimal... object) {
 		if (object == null || object.length == 0)
 			return null;
 		return Arrays.asList(object).stream().filter(Objects::nonNull).filter(b -> b.signum() == 1).findFirst().orElse(Env.ZERO);
-	}	//	firstNonNull
+	}	//	firstPositive
 }	//	LBRUtils
