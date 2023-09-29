@@ -1025,8 +1025,8 @@ public class NFeXMLGenerator
 			
 			// 	Unidade Tributária pode ser Diferente apenas para Exportação
 			prod.setUTrib(normalize ( (String) LBRUtils.firstNonNull(nfl.getX12DE355(), nfl.getlbr_UOMName())));
-			prod.setQTrib(normalize4 ( (BigDecimal) LBRUtils.firstNonNull(nfl.getLBR_qTrib(), nfl.getQty())));
-			prod.setVUnTrib(normalize10 ( (BigDecimal) LBRUtils.firstNonNull(nfl.getLBR_vUnTrib(), nfl.getPrice())));
+			prod.setQTrib(normalize4 ( LBRUtils.firstPositive(nfl.getLBR_qTrib(), nfl.getQty())));
+			prod.setVUnTrib(normalize10 ( LBRUtils.firstPositive(nfl.getLBR_vUnTrib(), nfl.getPrice())));
 			
 			//	Valores adicionais
 			BigDecimal freightAmt 		= nfl.getFreightAmt();

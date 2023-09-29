@@ -1,5 +1,6 @@
 package org.adempierelbr.util;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -313,5 +314,21 @@ public abstract class LBRUtils
 		if (object == null || object.length == 0)
 			return null;
 		return Arrays.asList(object).stream().filter(Objects::nonNull).findFirst().orElse(null);
+	}	//	firstNonNull
+	
+	/**
+	 * Returns the first non-null object from the provided list of objects.
+	 * 
+	 * <p>
+	 * If all objects are null or if the input list itself is null or empty, this method returns null.
+	 * </p>
+	 * 
+	 * @param object parameter containing a list of objects to check.
+	 * @return The first non-null object found, or null if all objects are null or the input list is empty.
+	 */
+	public static BigDecimal firstPositive (BigDecimal... object) {
+		if (object == null || object.length == 0)
+			return null;
+		return Arrays.asList(object).stream().filter(Objects::nonNull).filter(b -> b.signum() == 1).findFirst().orElse(Env.ZERO);
 	}	//	firstNonNull
 }	//	LBRUtils
