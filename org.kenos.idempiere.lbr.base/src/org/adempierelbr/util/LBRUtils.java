@@ -328,7 +328,7 @@ public abstract class LBRUtils
 	 */
 	public static BigDecimal firstPositive (BigDecimal... object) {
 		if (object == null || object.length == 0)
-			return null;
+			return Env.ZERO;
 		return Arrays.asList(object).stream().filter(Objects::nonNull).filter(b -> b.signum() == 1).findFirst().orElse(Env.ZERO);
 	}	//	firstPositive
 }	//	LBRUtils
