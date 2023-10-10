@@ -9,6 +9,7 @@ import org.compiere.model.MSysConfig;
 import org.compiere.util.Env;
 import org.kenos.idempiere.lbr.base.model.SysConfig;
 import org.osgi.service.event.Event;
+import org.zkoss.zk.ui.Session;
 import org.zkoss.zk.ui.Sessions;
 
 /**
@@ -29,7 +30,10 @@ public class EventHandler extends AbstractEventHandler
 		if (IEventTopics.AFTER_LOGIN.equals(topic))
 		{
 			String timeZone = MSysConfig.getValue (SysConfig.LBR_DEFAULT_TIMEZONE, "GMT-3", MClient.get (Env.getCtx()).getAD_Client_ID());
-			Sessions.getCurrent().setAttribute(org.zkoss.web.Attributes.PREFERRED_TIME_ZONE, TimeZone.getTimeZone(timeZone));
+			TimeZone time_Zone = TimeZone.getTimeZone(timeZone);
+			Session session = Sessions.getCurrent();
+			if (session != null)
+				session.setAttribute(org.zkoss.web.Attributes.PREFERRED_TIME_ZONE, time_Zone);
 			return;
 		}
 	}	//	doHandleEvent
