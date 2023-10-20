@@ -47,6 +47,7 @@ import org.compiere.model.MImage;
 import org.compiere.model.MOrgInfo;
 import org.compiere.model.MPInstance;
 import org.compiere.model.MProcess;
+import org.compiere.model.MSysConfig;
 import org.compiere.model.Query;
 import org.compiere.model.X_T_Report;
 import org.compiere.process.ProcessInfoParameter;
@@ -54,6 +55,7 @@ import org.compiere.process.SvrProcess;
 import org.compiere.util.Env;
 import org.kenos.idempiere.lbr.base.event.IDocFiscalPrint;
 import org.kenos.idempiere.lbr.base.event.IDocFiscalPrintFactory;
+import org.kenos.idempiere.lbr.base.model.SysConfig;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
@@ -245,20 +247,26 @@ public class PrintFromXML extends SvrProcess
 			
 			if (!doc.islbr_IsOwnDocument())
 				printLogo = false;
-			
-			//	Verifica o nome do arquivo principal
-			if (MLBRNotaFiscal.LBR_DANFEFORMAT_1_NormalDANFE_Portrait.equals(doc.getlbr_DANFEFormat()))
-				reportName = "DanfeMainPortraitA4.jasper";
-			else if (MLBRNotaFiscal.LBR_DANFEFORMAT_2_NormalDANFE_Landscape.equals(doc.getlbr_DANFEFormat()))
-				reportName = "DanfeMainLandscapeA4.jasper";
-			else if (MLBRNotaFiscal.LBR_DANFEFORMAT_4_DANFENFC_E.equals(doc.getlbr_DANFEFormat()))
-				reportName = "DanfeNFCe.jasper";
-			
-			if (MLBRNotaFiscal.LBR_NFESTATUS_101_CancelamentoDeNF_EHomologado.equals(doc.getlbr_NFeStatus()))
-				message = "CANCELADO    CANCELADO\nC\u00D3PIA DE SEGURAN\u00C7A";
-			
-			else if (!MLBRNotaFiscal.LBR_NFESTATUS_100_AutorizadoOUsoDaNF_E.equals(doc.getlbr_NFeStatus()))
-				message = "C\u00D3PIA DE SEGURAN\u00C7A     Sem autorizac\u00E3o";
+
+			// Possibilitar anexar um Jasper Modificado no processo PrintFromXML
+			if (MSysConfig.getValue (SysConfig.LBR_CUSTOM_DANFE_JASPER_ATTACHMENT, null, Env.getAD_Client_ID(Env.getCtx()), Env.getAD_Org_ID(Env.getCtx())) != null) {
+				reportName = MSysConfig.getValue (SysConfig.LBR_CUSTOM_DANFE_JASPER_ATTACHMENT, null, Env.getAD_Client_ID(Env.getCtx()), Env.getAD_Org_ID(Env.getCtx()));
+			}
+			else {
+				//	Verifica o nome do arquivo principal
+				if (MLBRNotaFiscal.LBR_DANFEFORMAT_1_NormalDANFE_Portrait.equals(doc.getlbr_DANFEFormat()))
+					reportName = "DanfeMainPortraitA4.jasper";
+				else if (MLBRNotaFiscal.LBR_DANFEFORMAT_2_NormalDANFE_Landscape.equals(doc.getlbr_DANFEFormat()))
+					reportName = "DanfeMainLandscapeA4.jasper";
+				else if (MLBRNotaFiscal.LBR_DANFEFORMAT_4_DANFENFC_E.equals(doc.getlbr_DANFEFormat()))
+					reportName = "DanfeNFCe.jasper";
+				
+				if (MLBRNotaFiscal.LBR_NFESTATUS_101_CancelamentoDeNF_EHomologado.equals(doc.getlbr_NFeStatus()))
+					message = "CANCELADO    CANCELADO\nC\u00D3PIA DE SEGURAN\u00C7A";
+				
+				else if (!MLBRNotaFiscal.LBR_NFESTATUS_100_AutorizadoOUsoDaNF_E.equals(doc.getlbr_NFeStatus()))
+					message = "C\u00D3PIA DE SEGURAN\u00C7A     Sem autorizac\u00E3o";
+			}
 		}
 
 		//	Documento Fiscal Eletrônico
@@ -344,13 +352,19 @@ public class PrintFromXML extends SvrProcess
 			
 			//	Fechar Tag Principal
 			lotXML.append("</NFeLot>");
-
-			//	Verifica o nome do arquivo principal da Primeira Nota do Lote.
-			if (MLBRNotaFiscal.LBR_DANFEFORMAT_1_NormalDANFE_Portrait.equals(nfs.get(0).getlbr_DANFEFormat()))
-				reportName = "DanfeMainPortraitA4.jasper";
-			else if (MLBRNotaFiscal.LBR_DANFEFORMAT_2_NormalDANFE_Landscape.equals(nfs.get(0).getlbr_DANFEFormat()))
-				reportName = "DanfeMainLandscapeA4.jasper";					
+			
+			if (MSysConfig.getValue (SysConfig.LBR_CUSTOM_DANFE_JASPER_ATTACHMENT, null, Env.getAD_Client_ID(Env.getCtx()), Env.getAD_Org_ID(Env.getCtx())) != null) {
+				reportName = MSysConfig.getValue (SysConfig.LBR_CUSTOM_DANFE_JASPER_ATTACHMENT, null, Env.getAD_Client_ID(Env.getCtx()), Env.getAD_Org_ID(Env.getCtx()));
+			}
+			else {			
+				//	Verifica o nome do arquivo principal da Primeira Nota do Lote.
+				if (MLBRNotaFiscal.LBR_DANFEFORMAT_1_NormalDANFE_Portrait.equals(nfs.get(0).getlbr_DANFEFormat()))
+					reportName = "DanfeMainPortraitA4.jasper";
+				else if (MLBRNotaFiscal.LBR_DANFEFORMAT_2_NormalDANFE_Landscape.equals(nfs.get(0).getlbr_DANFEFormat()))
+					reportName = "DanfeMainLandscapeA4.jasper";
+			}
 		}
+		
 		
 		else
 			return "@Error@ Not implemented yet";
@@ -474,7 +488,7 @@ public class PrintFromXML extends SvrProcess
 		//	Procura o relatório anexado no processo
 		MAttachment att = process.getAttachment (true);
 		Map<String, Object> map = new HashMap<String, Object>();
-
+		
 		if (att != null)
 		{
 			MAttachmentEntry[] entries = att.getEntries();

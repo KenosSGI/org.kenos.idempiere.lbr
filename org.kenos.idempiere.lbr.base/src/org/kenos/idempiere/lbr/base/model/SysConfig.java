@@ -28,6 +28,7 @@ public class SysConfig
 	public static final String LBR_AUTO_GENERATE_XML 							= "LBR_AUTO_GENERATE_XML";
 	public static final String LBR_AUTOMATIC_ADJUST_MVA 						= "LBR_AUTOMATIC_ADJUST_MVA";
 	public static final String LBR_CALC_VOLUME_QTYLINE_AUT 						= "LBR_CALC_VOLUME_QTYLINE_AUT";
+	public static final String LBR_CUSTOM_DANFE_JASPER_ATTACHMENT				= "LBR_CUSTOM_DANFE_JASPER_ATTACHMENT";
 	public static final String LBR_CORREIOS_SHIPPER 							= "LBR_CORREIOS_SHIPPER";
 	public static final String LBR_DATEINOUT_NF 								= "LBR_DATEINOUT_NF";
 	public static final String LBR_DEFAULT_TIMEZONE 							= "LBR_DEFAULT_TIMEZONE";
