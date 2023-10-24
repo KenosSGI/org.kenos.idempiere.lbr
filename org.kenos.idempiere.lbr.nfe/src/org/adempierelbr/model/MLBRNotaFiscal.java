@@ -947,7 +947,21 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 	 */
 	public static MLBRNotaFiscal getNFe (Properties ctx, String LBR_CNPJ, String LBR_NFModel, String documentNo, String serie, String trxName)
 	{
-		String sql = "LBR_CNPJ=? AND LBR_NFModel=? AND DocumentNo=? AND LBR_NFSerie=?";
+		return getNFe (ctx, LBR_CNPJ, LBR_NFModel, documentNo, serie, false, trxName);
+	}	//	getNFe
+	
+	/**
+	 * 	Encontra a NF pelo número da NF, série e Organização
+	 *
+	 * @param AD_Org_ID
+	 * @param DocumentNo 	Número da NF
+	 * @param serie 		Série da NF
+	 * @param trxName 		Transação
+	 * @return
+	 */
+	public static MLBRNotaFiscal getNFe (Properties ctx, String LBR_CNPJ, String LBR_NFModel, String documentNo, String serie, boolean isOwnDocument, String trxName)
+	{
+		String sql = "LBR_CNPJ=? AND LBR_NFModel=? AND DocumentNo=? AND LBR_NFSerie=? AND LBR_IsOwnDocument=?";
 		
 		try
 		{
@@ -957,7 +971,7 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		}
 		catch (Exception e){}
 		//
-		MLBRNotaFiscal nf = new Query (ctx, Table_Name, sql, trxName).setParameters(LBR_CNPJ, LBR_NFModel, documentNo, serie).firstOnly();
+		MLBRNotaFiscal nf = new Query (ctx, Table_Name, sql, trxName).setParameters(LBR_CNPJ, LBR_NFModel, documentNo, serie, isOwnDocument).firstOnly();
 		return nf;
 	}	//	getNFe
 

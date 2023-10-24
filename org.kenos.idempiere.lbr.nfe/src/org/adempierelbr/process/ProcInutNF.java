@@ -180,7 +180,7 @@ public class ProcInutNF extends SvrProcess
 						MLBRNotaFiscal.LBR_NFESTATUS_206_RejeiçãoNF_EJáEstáInutilizadaNaBaseDeDadosDaSEFAZ))
 		{
 			MLBRNotaFiscal nfe = MLBRNotaFiscal.getNFe(getCtx(), oi.get_ValueAsString(MLBRNotaFiscal.COLUMNNAME_lbr_CNPJ), 
-					MLBRNotaFiscal.LBR_NFMODEL_NotaFiscalEletrônica, String.valueOf (p_DocumentNo), String.valueOf (p_NFSerie), get_TrxName());
+					MLBRNotaFiscal.LBR_NFMODEL_NotaFiscalEletrônica, String.valueOf (p_DocumentNo), String.valueOf (p_NFSerie), true, get_TrxName());
 			//
 			if (nfe != null && nfe.getAD_Org_ID() == p_AD_Org_ID 
 					//	Documento Próprio
