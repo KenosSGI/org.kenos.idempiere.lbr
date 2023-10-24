@@ -10,10 +10,20 @@ Require-Bundle: org.adempiere.base;bundle-version="6.2.0",
  zk;bundle-version="8.0.1",
  zul;bundle-version="8.0.1",
  org.kenos.idempiere.lbr.base;bundle-version="6.2.0",
- org.kenos.idempiere.lbr.nfe;bundle-version="1.0.0"
+ org.kenos.idempiere.lbr.nfe;bundle-version="1.0.0",
+ com.fasterxml.jackson.core.jackson-annotations;bundle-version="2.9.8",
+ com.fasterxml.jackson.core.jackson-databind;bundle-version="2.9.8",
+ com.fasterxml.jackson.core.jackson-core;bundle-version="2.9.8"
 Service-Component: OSGI-INF/FormFactory.xml
 Bundle-ActivationPolicy: lazy
-Bundle-ClassPath: .
+Bundle-ClassPath: .,
+ lib/converter-jackson.jar,
+ lib/fixedformat4j.jar,
+ lib/kotlin-stdlib.jar,
+ lib/logging-interceptor.jar,
+ lib/okhttp3.jar,
+ lib/okio-jvm.jar,
+ lib/retrofit.jar
 Bundle-Activator: org.adempiere.plugin.utils.Incremental2PackActivator
 Bundle-Vendor: Kenos www.kenos.com.br
 Import-Package: javax.activation
