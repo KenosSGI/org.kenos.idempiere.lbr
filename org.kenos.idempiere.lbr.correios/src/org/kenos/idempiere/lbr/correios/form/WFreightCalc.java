@@ -402,13 +402,9 @@ public class WFreightCalc extends ADForm implements IFormController, EventListen
 		if (uu == null || uu.isEmpty())
 			throw new AdempiereException("Não foi possível determinar a transportadora dos correios");
 
-		System.out.println(uu);
-
 		// Try to locate the shipper
 		m_shipper = new Query(Env.getCtx(), MShipper.Table_Name, MShipper.COLUMNNAME_M_Shipper_UU + "=?", null)
 				.setParameters(uu).first();
-
-		System.out.println(m_shipper);
 
 		if (m_shipper == null)
 			throw new AdempiereException("Transportadora dos correios não encontrada [M_Shipper_UU=" + uu + "]");
@@ -698,7 +694,7 @@ public class WFreightCalc extends ADForm implements IFormController, EventListen
 			sDsSenha73 = m_shipper.getM_ShippingProcessor().getConnectionPassword();
 
 		String cartaoPostagem = "";
-		
+
 		if (m_shipper.getM_ShippingProcessor_ID() > 0)
 			cartaoPostagem = m_shipper.getM_ShippingProcessor().getConnectionKey();
 		/**
@@ -776,19 +772,9 @@ public class WFreightCalc extends ADForm implements IFormController, EventListen
 
 		miniTable.removeAllItems();
 		l_warning.setText("");
-//		List<String> obs = new ArrayList<String>();
-//		List<String> errors = new ArrayList<String>();
-//
-//		LotePrazoNacional lotePrazoNacional = new LotePrazoNacional();
-//
-//		LotePrecoNacionalParam lotePrecoNacionalParam = new LotePrecoNacionalParam();
-//
-//		lotePrecoNacionalParam.setIdLote("1");
-//
-//		lotePrazoNacional.setIdLote("1");
-		
-		if(nCdEmpresa72 == null || sDsSenha73 == null || cartaoPostagem == null || m_shipper.get_ID() < 0)
-			 throw new Exception("Para utilização deste recurso é necessário ter um contrato com os Correios!");
+
+		if (nCdEmpresa72 == null || sDsSenha73 == null || cartaoPostagem == null || m_shipper.get_ID() < 0)
+			throw new Exception("Para utilização deste recurso é necessário ter um contrato com os Correios!");
 
 		correios = new Correios(nCdEmpresa72, sDsSenha73, cartaoPostagem, m_shipper.get_ID());
 
@@ -856,119 +842,8 @@ public class WFreightCalc extends ADForm implements IFormController, EventListen
 			item.appendChild(new ListCell(precoPrazo.getMessage()));
 			item.addEventListener(Events.ON_DOUBLE_CLICK, this);
 		}
-//			List<PrazoNacional> listPrazoNacional = correios.postPrazo(lotePrazoNacional);
-//			List<PrecoProdutoResponse> listPreco = correios.postPreco(lotePrecoNacionalParam);
-//
-//			for (int i = 0; i < listPrazoNacional.size(); i++) {
-//
-//				PrazoNacional prazoNacional1 = listPrazoNacional.get(i);
-//				PrecoProdutoResponse precoProdutoResponse1 = listPreco.get(i);
-//
-//				List<PrecoServicoAdicional> servicoAdicional = precoProdutoResponse.getServicoAdicional();
-//
-//
-//
-//				for (PrecoServicoAdicional servico : servicoAdicional) {
-//
-//					if (AVISO_RECEBIMENTO.equals(servico.getCoServAdicional())) {
-//						valorRecebimento = servico.getPcServicoAdicional();
-//					}
-//
-//					if (MAO_PROPRIA.equals(servico.getCoServAdicional())) {
-//						valorMaoPropria = servico.getPcServicoAdicional();
-//					}
-//				}
-//
-//			}
-	}
 
-//		for (ValueNamePair vp : m_freights) {
-//			String nCdServico74 = vp.getValue();
-//
-//			if (a == 1) {
-//				continue;
-//			}
-//
-//			/**
-//			 * Cálculo do Frete
-//			 */
-//
-//			CalcPrecoPrazoWSStub stub = new CalcPrecoPrazoWSStub();
-//
-//			CResultado result = stub.calcPrecoPrazoData(nCdEmpresa72, sDsSenha73, nCdServico74, sCepOrigem75,
-//					sCepDestino76, nVlPeso77, nCdFormato78, nVlComprimento79, nVlAltura80, nVlLargura81, nVlDiametro82,
-//					sCdMaoPropria83, nVlValorDeclarado84, sCdAvisoRecebimento85, sDtCalculo86);
-//
-//			for (CServico serv : result.getServicos().getCServico()) {
-//				ListItem item = new ListItem();
-//				miniTable.appendChild(item);
-//
-//				if ("0".equals(serv.getValor())) {
-//					errors.add(parseCode(serv.getCodigo()) + " - " + serv.getMsgErro());
-//					continue;
-//				}
-//
-//				// Put the code on tooltip
-//				ListCell cell = new ListCell(parseCode(serv.getCodigo()));
-//				cell.setTooltip(String.valueOf(serv.getCodigo()));
-//				//
-//				item.appendChild(cell);
-//				item.appendChild(new ListCell(String.valueOf(serv.getValor())));
-//				item.appendChild(new ListCell(String.valueOf(serv.getValorMaoPropria())));
-//				item.appendChild(new ListCell(String.valueOf(serv.getValorAvisoRecebimento())));
-//				item.appendChild(new ListCell(String.valueOf(serv.getValorValorDeclarado())));
-//				item.appendChild(new ListCell(String.valueOf(serv.getValorSemAdicionais())));
-//				item.appendChild(new ListCell(String.valueOf(serv.getPrazoEntrega() + " dias")));
-//				item.addEventListener(Events.ON_DOUBLE_CLICK, this);
-//
-//				// Concatenate Error and Warning
-//				String obsFim = serv.getObsFim();
-//				String err = serv.getMsgErro();
-//
-//				if (err != null && !err.equals(obsFim))
-//					if (obsFim.isEmpty())
-//						obsFim = err;
-//					else
-//						obsFim += " " + err;
-//
-//				// Only put in index if its not empty
-//				if (obsFim != null && !obsFim.isEmpty()) {
-//					int index = obs.indexOf(obsFim);
-//					if (index == -1) {
-//						obs.add(obsFim);
-//						index = obs.size();
-//					} else
-//						index = index + 1;
-//
-//					cell = new ListCell("Obs. " + index);
-//					item.appendChild(cell);
-//				} else
-//					item.appendChild(new ListCell(""));
-//			}
-//		}
-//
-//		// Display warning messages
-//		String warningMsg = "";
-//		int counter = 1;
-//		for (String msg : obs) {
-//			if (!warningMsg.isEmpty())
-//				warningMsg += "\n";
-//			warningMsg += "Obs. " + counter++ + " - " + msg;
-//		}
-//
-//		// Spacing messages
-//		if (!warningMsg.isEmpty())
-//			warningMsg += "\n";
-//
-//		// Display errors
-//		Collections.sort(errors);
-//		for (String msg : errors) {
-//			if (!warningMsg.isEmpty())
-//				warningMsg += "\n";
-//			warningMsg += msg;
-//		}
-//
-//		l_warning.setText(warningMsg);
+	}
 
 	/**
 	 * Parse the result code to human readable service name

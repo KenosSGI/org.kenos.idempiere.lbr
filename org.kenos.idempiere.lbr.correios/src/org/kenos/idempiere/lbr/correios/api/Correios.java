@@ -43,7 +43,6 @@ public class Correios implements InterfaceCorreios {
 	private String cartaoPostagem;
 	private Integer idProcess;
 	private static final String BASE_URL = "https://api.correios.com.br";
-//	private int test = 1;
 
 	private static final String AVISO_RECEBIMENTO = "001";
 	private static final String MAO_PROPRIA = "002";
@@ -106,33 +105,6 @@ public class Correios implements InterfaceCorreios {
 		contratoRequest.setNumero(cartaoPostagem);
 
 		String authorization = getBasic(user, password);
-
-//		if (test == 1) {
-//			Token tokenTeste = new Token();
-//
-//			tokenTeste.setAmbiente("PRODUCAO");
-//			tokenTeste.setId("186.233.221.97, 192.168.1.130");
-//			tokenTeste.setPerfil("PJ");
-//			tokenTeste.setCnpj("09281923000214");
-//
-//			Contrato contratoTeste = new Contrato();
-//			contratoTeste.setNumero("9912538899");
-//			contratoTeste.setDr(72L);
-//			contratoTeste.setApi(new ArrayList<Integer>());
-//
-//			tokenTeste.setContrato(contratoTeste);
-//			tokenTeste.setEmissao(new Timestamp(System.currentTimeMillis()));
-//			tokenTeste.setExpiraEm(new Timestamp(System.currentTimeMillis()));
-//			tokenTeste.setZoneOffset("-03:00");
-//			tokenTeste.setToken(
-//					"eyJhbGciOiJSUzUxMiJ9.eyJhbWJpZW50ZSI6IlBST0RVQ0FPIiwiaWQiOiJtYWdlc3RldGljYSIsInBmbCI6IlBKIiwiY25waiI6IjA5MjgxOTIzMDAwMjE0IiwiY2FydGFvLXBvc3RhZ2VtIjp7Im51bWVybyI6IjAwNzY0OTQ3MTMiLCJjb250cmF0byI6Ijk5MTI1Mzg4OTkiLCJkciI6NzIsImFwaSI6WzI3LDM0LDM1LDM2LDM3LDQxLDc2LDc4LDgwLDgzLDg3LDkzLDU2Niw1ODddfSwiaXAiOiIxODkuMTExLjQ0LjI1MSwgMTkyLjE2OC4xLjEzMCIsImlhdCI6MTY5ODA4MDc1NCwiaXNzIjoidG9rZW4tc2VydmljZSIsImV4cCI6MTY5ODE2NzE1NCwianRpIjoiNDBlYmRkYTEtZGVkMS00ZDE4LWIxZTQtOTZkYTg5OTM0ZjRhIn0.uL3P2IteYmJRHyYeydmlKJPLgiZ36vFC36Rzy_O8ps0FTSjKhFTCYQLPycoQSVk2-GbVgAF6zZxw3uNgHaD6cVz0HsPY4Y71fo99eobTRAoaj7_cR9dVIdMNcwH_XPoTH4KrJRuwmTdBZsTvMW4xv2zZ1M9bQ_2BrTNSqCECt3ywr4-tm_wbIF8p1OyK-v4A9r9hCmUAIjjWMPDxvS5lYzpmUbX1UlDYdegk8svx0K00PgCyi6q6nnUPv5ic_IUsJUhlZuWtgVVbFFN9VFyif8fRbIPirL_4L9g6kuCAMyx16XQx9tfu562aO74TZ_mlON59JpITFtcA8jgKiNO0rw");
-//
-//			this.token = tokenTeste.getToken();
-//			this.token = this.token + ":" + tokenTeste.getContrato().getDr().toString();
-//
-//			s_cache.put(CONTRACT_TO_CACHE, this.token);
-//
-//		} else {
 
 		Call<Token> call = api.authenticate(authorization, contratoRequest);
 		Response<Token> response = call.execute();
