@@ -36,7 +36,7 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 
 public class Correios implements InterfaceCorreios {
 
-	private static CCache<Integer, String> s_cache = new CCache<Integer, String>(null, "NEKOT_UUID", 100, 9, true);
+	private static CCache<Integer, String> s_cache = new CCache<Integer, String>(null, "NEKOT_UUID", 1400, 9, true);
 
 	private String user;
 	private String password;

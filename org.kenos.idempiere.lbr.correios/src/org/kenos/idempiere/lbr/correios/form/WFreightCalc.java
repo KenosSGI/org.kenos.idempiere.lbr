@@ -153,6 +153,10 @@ public class WFreightCalc extends ADForm implements IFormController, EventListen
 		if (eventName.equals(Events.ON_CHANGE)) {
 			// Validate the length
 			if (f_length.equals(source)) {
+				
+				if(f_length.getValue() == null)
+					f_length.setValue(Env.ZERO);
+				
 				if (LENGHT_MIN.compareTo(f_length.getValue()) == 1) {
 					Messagebox.show("Valor não permitido. Comprimento mínimo é: "
 							+ LENGHT_MIN.stripTrailingZeros().toPlainString());
@@ -162,6 +166,10 @@ public class WFreightCalc extends ADForm implements IFormController, EventListen
 
 			// Validate the Height
 			else if (f_height.equals(source)) {
+				
+				if(f_height.getValue() == null)
+					f_height.setValue(Env.ZERO);
+				
 				if (HEIGTH_MIN.compareTo(f_height.getValue()) == 1) {
 					Messagebox.show(
 							"Valor não permitido. Altura mínima é: " + HEIGTH_MIN.stripTrailingZeros().toPlainString());
@@ -171,6 +179,10 @@ public class WFreightCalc extends ADForm implements IFormController, EventListen
 
 			// Validate the Width
 			else if (f_width.equals(source)) {
+				
+				if(f_width.getValue() == null)
+					f_width.setValue(Env.ZERO);
+				
 				if (WIDTH_MIN.compareTo(f_width.getValue()) == 1) {
 					Messagebox.show(
 							"Valor não permitido. Largura mínima é: " + WIDTH_MIN.stripTrailingZeros().toPlainString());
@@ -180,6 +192,10 @@ public class WFreightCalc extends ADForm implements IFormController, EventListen
 
 			// Validate the Weight
 			else if (f_weight.equals(source)) {
+				
+				if(f_weight.getValue() == null)
+					f_weight.setValue(Env.ZERO);
+				
 				if ("1".equals(f_format.getSelectedItem().toString())
 						&& WEIGHT_MIN.compareTo(f_weight.getValue().add(f_weightPackage.getValue())) == 1) {
 					Messagebox.show(
@@ -196,6 +212,10 @@ public class WFreightCalc extends ADForm implements IFormController, EventListen
 
 			// Validate the Package Weight
 			else if (f_weightPackage.equals(source)) {
+				
+				if(f_weightPackage.getValue() == null)
+					f_weightPackage.setValue(Env.ZERO);
+				
 				if (Env.ZERO.compareTo(f_weightPackage.getValue()) == 1) {
 					Messagebox.show(
 							"Valor não permitido. Peso mínimo é: " + Env.ZERO.stripTrailingZeros().toPlainString());
@@ -207,7 +227,12 @@ public class WFreightCalc extends ADForm implements IFormController, EventListen
 
 			// Validate the Amount
 			else if (f_amount.equals(source)) {
-				if (f_amount.getValue().signum() != 0 && AMOUNT_MIN.compareTo(f_amount.getValue()) == 1) {
+				
+				if(f_amount.getValue() == null) {
+					f_amount.setValue(Env.ZERO);
+					Messagebox.show("Valor não permitido. Caso não tenha 'Valor Declarado', preencha com zero.");
+
+				}else if(AMOUNT_MIN.compareTo(f_amount.getValue()) == 1) {
 					Messagebox.show("Valor não permitido. Caso não tenha 'Valor Declarado', preencha com zero.");
 					f_amount.setValue(Env.ZERO);
 				}
@@ -773,9 +798,10 @@ public class WFreightCalc extends ADForm implements IFormController, EventListen
 		miniTable.removeAllItems();
 		l_warning.setText("");
 
-		if (nCdEmpresa72 == null || sDsSenha73 == null || cartaoPostagem == null || m_shipper.get_ID() < 0)
-			throw new Exception("Para utilização deste recurso é necessário ter um contrato com os Correios!");
-
+		if (nCdEmpresa72.equals("") || sDsSenha73.equals("") || cartaoPostagem.equals("")) {
+			Messagebox.show("Para utilização deste recurso é necessário ter um contrato com os Correios!");
+			return;
+		}
 		correios = new Correios(nCdEmpresa72, sDsSenha73, cartaoPostagem, m_shipper.get_ID());
 
 		for (ValueNamePair vp : m_freights) {
