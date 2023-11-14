@@ -28,6 +28,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Properties;
 import java.util.Set;
 import java.util.logging.Level;
@@ -809,7 +810,7 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		if (infProt.getDigVal() != null)
 			digVal = infProt.xgetDigVal().getStringValue();
 		//
-		MLBRNotaFiscal nf = getNFe (chNFe, trxName);
+		MLBRNotaFiscal nf = getNFe (chNFe, trxName, 0, true);
 		if (nf == null)
 			throw new NotaFiscalNotFoundException ("NF não encontrada: " + chNFe);
 
@@ -997,6 +998,19 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 	 */
 	public static MLBRNotaFiscal getNFe (String NFeID, String trxName, int AD_Org_ID)
 	{
+		return getNFe (NFeID, trxName, 0, null);
+	}	//	getNFe
+
+	/**
+	 * 	Encontra a NF pelo ID de NF-e
+	 *
+	 * @param NFeID
+	 * @param trxName
+	 * @param AD_Org_ID
+	 * @return
+	 */
+	public static MLBRNotaFiscal getNFe (String NFeID, String trxName, int AD_Org_ID, Boolean isOwnDocument)
+	{
 		String sql =  "SELECT LBR_NotaFiscal_ID FROM LBR_NotaFiscal " +
 					   "WHERE lbr_NFeID=? AND AD_Client_ID=?";
 
@@ -1005,6 +1019,9 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		//   orgs on the same database
 		if (AD_Org_ID > 0)
 			sql += " AND AD_Org_ID=" + AD_Org_ID;
+		
+		if (!Objects.isNull (isOwnDocument))
+			sql += " AND " + MLBRNotaFiscal.COLUMNNAME_lbr_IsOwnDocument + "=" + (isOwnDocument ? "'Y'" : "'N'");
 		
 		int LBR_NotaFiscal_ID = DB.getSQLValue(trxName, sql,
 				new Object[]{NFeID, Env.getAD_Client_ID(Env.getCtx())});
@@ -1025,7 +1042,6 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 	 */
 	public static boolean ifExists (String documentno, int C_BPartner_ID, boolean isSOTrx)
 	{
-
 		String sql =  "SELECT LBR_NotaFiscal_ID FROM LBR_NotaFiscal " +
 					  "WHERE DocumentNo = ? AND C_BPartner_ID = ? " +
 					  "AND AD_Client_ID = ? AND IsSOTrx = ?";

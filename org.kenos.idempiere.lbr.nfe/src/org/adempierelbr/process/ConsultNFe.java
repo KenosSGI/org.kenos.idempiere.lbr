@@ -321,7 +321,7 @@ public class ConsultNFe extends SvrProcess
 				//	Atualiza os dados da NF-e
 				if (p_LBR_UpdateNFe)
 				{
-					nfe = MLBRNotaFiscal.getNFe(ret.getChNFe(), get_TrxName(), p_AD_Org_ID);
+					nfe = MLBRNotaFiscal.getNFe(ret.getChNFe(), get_TrxName(), p_AD_Org_ID, true);
 					if (nfe != null && nfe.getAD_Org_ID() == p_AD_Org_ID && nfe.islbr_IsOwnDocument())
 					{
 						//	NF sem protocolo
