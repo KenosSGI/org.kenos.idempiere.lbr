@@ -47,6 +47,7 @@ import org.adempierelbr.wrapper.I_W_C_InvoiceLine;
 import org.adempierelbr.wrapper.I_W_C_OrderLine;
 import org.adempierelbr.wrapper.I_W_C_Tax;
 import org.adempierelbr.wrapper.I_W_M_Product;
+import org.compiere.model.I_C_InvoiceLine;
 import org.compiere.model.I_C_Location;
 import org.compiere.model.MAcctSchema;
 import org.compiere.model.MAttributeSetInstance;
@@ -1791,6 +1792,24 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 			}
 			else
 				setlbr_UOMName(null);
+		}
+		
+		if (getC_InvoiceLine_ID() > 0)
+		{
+			//	Check invoice
+			I_C_InvoiceLine line = getC_InvoiceLine();
+			if (getAD_Org_ID() != line.getAD_Org_ID())
+			{
+				log.saveError ("Error", "Organização da NF não confere com a Organização da Fatura");
+				return false;
+			}
+			
+			//	Check order
+			if (line.getC_OrderLine_ID() > 0 && getAD_Org_ID() != line.getC_OrderLine().getAD_Org_ID())
+			{
+				log.saveError ("Error", "Organização da NF não confere com a Organização do Pedido");
+				return false;
+			}
 		}
 
 		//	Valida o Tipo de Atributo
