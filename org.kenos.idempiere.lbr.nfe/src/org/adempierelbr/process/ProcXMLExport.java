@@ -208,7 +208,11 @@ public class ProcXMLExport extends SvrProcess
 			//	Adicionar NFs Cancelada no Arquivo de Resumo
 			if (nf.isCancelled())
 			{
-				rows.add(new ExportRow (TextUtil.toNumeric(nf.getlbr_CNPJ()), "Cancelada/Inutilizada", nf.getlbr_NFeStatus(), nf.getDateDoc(), null, nf.isSOTrx(), 
+				//	Pular NFs inutilizadas
+				if (MLBRNotaFiscal.LBR_NFESTATUS_102_InutilizaçãoDeNúmeroHomologado.equals(nf.getlbr_NFeStatus()))
+					continue;
+				
+				rows.add(new ExportRow (TextUtil.toNumeric(nf.getlbr_CNPJ()), "Cancelada", nf.getlbr_NFeStatus(), nf.getDateDoc(), null, nf.isSOTrx(), 
 						nf.getBPName(), nf.getDocumentNo(), nf.getlbr_NFSerie(), nf.getlbr_NFeID(), null));
 				
 				//	Se o campo Incluir Documentos Cancelados estiver desmarcado não adicionar o XML da NF ao arquivo
