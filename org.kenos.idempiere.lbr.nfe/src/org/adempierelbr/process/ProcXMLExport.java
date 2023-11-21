@@ -204,12 +204,16 @@ public class ProcXMLExport extends SvrProcess
 		for (int id : ids)
 		{
 			MLBRNotaFiscal nf = new MLBRNotaFiscal (Env.getCtx(), id, null);
+			boolean ownDocument =  nf.islbr_IsOwnDocument();
+			String ownDocFolder = ownDocument ? "Emitidas" : "Recebidas";
 			
 			//	Adicionar NFs Cancelada no Arquivo de Resumo
 			if (nf.isCancelled())
 			{
 				//	Pular NFs inutilizadas
-				if (MLBRNotaFiscal.LBR_NFESTATUS_102_InutilizaçãoDeNúmeroHomologado.equals(nf.getlbr_NFeStatus()))
+				if (nf.getlbr_NFeStatus() == null
+						|| nf.getlbr_NFeStatus().isBlank()
+						|| MLBRNotaFiscal.LBR_NFESTATUS_102_InutilizaçãoDeNúmeroHomologado.equals(nf.getlbr_NFeStatus()))
 					continue;
 				
 				rows.add(new ExportRow (TextUtil.toNumeric(nf.getlbr_CNPJ()), "Cancelada", nf.getlbr_NFeStatus(), nf.getDateDoc(), null, nf.isSOTrx(), 
@@ -249,7 +253,7 @@ public class ProcXMLExport extends SvrProcess
 			{
 				//	Pasta para adicionar o XML das NFs de Entrada e Saída
 				String folder = p_Temp + p_FolderKey + File.separator + TextUtil.toNumeric(nf.getlbr_CNPJ()) 
-				+ File.separator + "Emitidas" + File.separator + (nf.isSOTrx() ? "Saida" : "Entrada");
+				+ File.separator + ownDocFolder + File.separator + (nf.isSOTrx() ? "Saida" : "Entrada");
 				
 				//	Arquivo XML
 				String fileName = folder + File.separator + nf.getDocumentNo() + "_" + xml.getName();
@@ -264,7 +268,7 @@ public class ProcXMLExport extends SvrProcess
 				//	Adicionar no Relatório como Emitidas Apenas que as NFs Válidas
 				if (!nf.isCancelled())
 				{
-					rows.add(new ExportRow (TextUtil.toNumeric(nf.getlbr_CNPJ()), "Emitidas", nf.getlbr_NFeStatus(), nf.getDateDoc(), null, nf.isSOTrx(), 
+					rows.add(new ExportRow (TextUtil.toNumeric(nf.getlbr_CNPJ()), ownDocFolder, nf.getlbr_NFeStatus(), nf.getDateDoc(), null, nf.isSOTrx(), 
 							nf.getBPName(), nf.getDocumentNo(), nf.getlbr_NFSerie(), nf.getlbr_NFeID(), null));
 					countNFeXML++;
 				}
@@ -286,7 +290,7 @@ public class ProcXMLExport extends SvrProcess
 						
 						//	Pasta dos Eventos
 						folder = p_Temp + p_FolderKey + File.separator + TextUtil.toNumeric(nf.getlbr_CNPJ()) 
-						+ File.separator + "Emitidas" + File.separator + 
+						+ File.separator + ownDocFolder + File.separator + 
 						(nf.isSOTrx() ? "Saida" + File.separator + "Eventos" : 
 							"Entrada" + File.separator + "Eventos");
 						
