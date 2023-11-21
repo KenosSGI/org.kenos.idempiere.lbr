@@ -1810,4 +1810,26 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 			bp = POWrapper.create(new MBPartner (getCtx(), getC_BPartner_ID(), null), I_W_C_BPartner.class);
 		return bp;
 	}	//	getBP
+
+	public int getR_MailText_ID() {
+		if (getLBR_BankSlipContract().getLBR_BankSlipConfig_ID() > 0)
+			return getLBR_BankSlipContract().getLBR_BankSlipConfig().getR_MailText_ID();
+		return -1;
+	}	//	getR_MailText_ID
+
+	public String getEmail(boolean useInvContactEmail) {
+		I_W_C_BPartner bpartner = getBP();
+		String billingEmail = bpartner.getLBR_EMailBilling();
+		
+		//	Prefer billing email
+		if (billingEmail != null && !billingEmail.isBlank())
+			return billingEmail;
+		
+		//	Invoice user e-mail
+		if (useInvContactEmail && getC_Invoice_ID() > 0 
+				&& getC_Invoice().getAD_User_ID() > 0)
+			return getC_Invoice().getAD_User().getEMail();
+		
+		return null;
+	}	//	getEmail
 }	//	MLBRBankSlip

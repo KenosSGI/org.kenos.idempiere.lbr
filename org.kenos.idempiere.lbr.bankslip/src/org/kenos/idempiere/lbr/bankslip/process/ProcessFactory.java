@@ -22,6 +22,8 @@ public class ProcessFactory implements IProcessFactory
 			return new RegisterOccurence ();
 		if ("org.adempierelbr.process.ProcReturnCNAB".equals (className) || ReturnCNAB.class.getName().equals(className))
 			return new ReturnCNAB ();
+		if (ReminderEmail.class.getName().equals (className))
+			return new ReminderEmail ();
 		return null;
 	}	//	newProcessInstance
 }	//	ProcessFactory

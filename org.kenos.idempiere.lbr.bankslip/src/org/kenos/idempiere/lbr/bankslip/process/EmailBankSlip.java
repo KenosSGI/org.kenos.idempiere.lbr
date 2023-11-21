@@ -1,22 +1,16 @@
 package org.kenos.idempiere.lbr.bankslip.process;
 
-import java.io.File;
-import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Level;
-import java.util.stream.Collectors;
 
-import org.adempierelbr.validator.ValidatorBPartner;
-import org.compiere.model.I_R_MailText;
-import org.compiere.model.MClient;
 import org.compiere.model.MUser;
 import org.compiere.model.Query;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
-import org.compiere.util.EMail;
-import org.compiere.util.Env;
+import org.kenos.idempiere.lbr.bankslip.exception.BankSlipEMailException;
 import org.kenos.idempiere.lbr.bankslip.model.MLBRBankSlip;
+import org.kenos.idempiere.lbr.bankslip.util.BankSlipEMailUtil;
 
 /**
  * 	Envio de Boletos por Email
@@ -60,8 +54,10 @@ public class EmailBankSlip extends SvrProcess
 	 */
 	protected String doIt () throws Exception
 	{
-		if (p_Record_ID < 1)
+		//	No document
+		if (p_Record_ID < 1) {
 			return "@Error@ Document not Found";
+		}
 		if (p_EMail == null)
 			return "@Error@ E-mail para envio do Boleto não encontrado";
 		
@@ -70,58 +66,28 @@ public class EmailBankSlip extends SvrProcess
 		if (p_OnlyOpen)
 			where += MLBRBankSlip.COLUMNNAME_IsPaid + "='N' AND " + MLBRBankSlip.COLUMNNAME_LBR_IsWrittenOff + "='N' AND " + MLBRBankSlip.COLUMNNAME_LBR_IsHalted + "='N'";
 		
+		AtomicInteger countSuccess = new AtomicInteger ();
+		AtomicInteger countError = new AtomicInteger ();
+		
 		//	Generate bopepos to be printed
 		List<MLBRBankSlip> bss = new Query (getCtx(), MLBRBankSlip.Table_Name, where, get_TrxName()).setParameters(MLBRBankSlip.DOCSTATUS_Completed, p_Record_ID).list();
-		bss.stream().forEach(this::sendMail);
+		bss.stream().forEach(bs -> {
+			try {
+				//	Success
+				if (BankSlipEMailUtil.sendMail(bs, p_EMail))
+					countSuccess.incrementAndGet();
+				else {
+					//	Error, show error for first 10
+					if (countError.incrementAndGet() < 10)
+						addLog("Falha no envio de e-mail");
+				}
+			} catch (BankSlipEMailException e) {
+				//	Error before sending, show error for first 10
+				if (countError.incrementAndGet() < 10)
+					addLog(e.getMessage());
+			}
+		});
 		
-		return "@Success@";
+		return "@Success@ \n" + countSuccess.get() + " enviado(s) com sucesso / " + countError.get() + " não enviado(s).";
 	}	//	doIt
-	
-	protected void sendMail (MLBRBankSlip bs)
-	{
-		if (bs.getLBR_BankSlipContract().getLBR_BankSlipConfig_ID() < 1
-				|| bs.getLBR_BankSlipContract().getLBR_BankSlipConfig().getR_MailText_ID() < 1) {
-			addLog("Sem modelo de e-mail para o boleto: " + bs.getDocumentNo());
-			return;
-		}
-			
-		I_R_MailText mailText = bs.getLBR_BankSlipContract().getLBR_BankSlipConfig().getR_MailText();
-
-		String subject = mailText.getMailHeader();
-		String message = mailText.getMailText();
-		
-		//	Parse variables
-		message = Env.parseVariable (message, bs, bs.get_TrxName(), false);
-		subject = Env.parseVariable (subject, bs, bs.get_TrxName(), false);
-		
-		//	Empresa
-		MClient client = MClient.get (bs.getCtx());
-		String toEMails = p_EMail.replace(",", ";");
-	
-		//	Check if e-mail is valid, then remove duplicates
-		Iterator<String> st = Arrays.asList(toEMails.split(";")).stream()
-			.filter(e -> e.trim().matches(ValidatorBPartner.REGEX_EMAIL))
-			.collect(Collectors.toSet()).iterator();
-		
-		if (!st.hasNext()) {
-			addLog ("Email para envio de boleto não encontrado");
-			return;
-		}
-		
-		EMail mail = client.createEMail (null, st.next(), subject, message, true);
-		while (st.hasNext()) {
-			mail.addCc(st.next());
-		}
-		
-		File pdf = bs.createPDF();
-		if (pdf == null) {
-			addLog ("Erro ao gerar o PDF do boleto: " + bs.getDocumentNo());
-			return;
-		}
-	
-		//	Include mail PDF
-		mail.addAttachment(pdf);
-		if (mail.send().equals(EMail.SENT_OK))
-			addLog ("Envio OK: " + bs.getDocumentNo());
-	}	//	sendMail
 }	//	EmailBankSlip
