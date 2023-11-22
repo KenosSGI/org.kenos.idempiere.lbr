@@ -37,6 +37,15 @@ public class MLBRTaxStatus extends X_LBR_TaxStatus
 	 */
 	private static final long serialVersionUID = -6517627867259820593L;
 
+	/**	Tax Status **/
+	public static final String ISS_EXIGIVEL 			= "1";
+	public static final String ISS_NAO_INCIDENCIA 		= "2";
+	public static final String ISS_ISENCAO 				= "3";
+	public static final String ISS_EXPORTACAO 			= "4";
+	public static final String ISS_IMUNIDADE 			= "5";
+	public static final String ISS_SUSPENSA_JUDICIAL	= "6";
+	public static final String ISS_SUSPENSA_ADM 		= "7";
+	
 	/**
 	 * Default Constructor
 	 * @param ctx

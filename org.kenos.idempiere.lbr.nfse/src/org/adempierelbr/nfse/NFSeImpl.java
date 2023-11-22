@@ -31,6 +31,8 @@ import org.adempierelbr.model.MLBRDigitalCertificate;
 import org.adempierelbr.model.MLBRNFConfig;
 import org.adempierelbr.model.MLBRNotaFiscal;
 import org.adempierelbr.model.MLBRNotaFiscalLine;
+import org.adempierelbr.model.MLBRTaxStatus;
+import org.adempierelbr.model.X_LBR_NFLineTax;
 import org.adempierelbr.model.X_LBR_NFTax;
 import org.adempierelbr.model.X_LBR_TaxGroup;
 import org.adempierelbr.nfse.sp.api.LoteNFeStub;
@@ -162,7 +164,6 @@ public class NFSeImpl implements INFSe
 		tpRPS.setTipoRPS(TpTipoRPS.RPS);
 		tpRPS.setDataEmissao(xmlCal);
 		tpRPS.setStatusRPS(TpStatusNFe.N);				//	FIXME
-		tpRPS.setTributacaoRPS("T");					//	FIXME
 		tpRPS.setValorServicos(toBD (nf.getlbr_ServiceTotalAmt()));
 		tpRPS.setValorDeducoes(Env.ZERO.stripTrailingZeros());
 		
@@ -232,6 +233,7 @@ public class NFSeImpl implements INFSe
 		//
 		BigDecimal aliquota = Env.ZERO;
 		String serviceCode = "";
+		String cstISS = null;
 		String discriminacao = nf.getDescription();
 		BigDecimal issRT = nf.getTaxAmt("ISSRT");
 				
@@ -244,7 +246,9 @@ public class NFSeImpl implements INFSe
 			serviceCode = nfLine.getlbr_ServiceCode();
 			aliquota = toBD (nfLine.getTaxRate(issRT.signum() == -1 ? "ISSRT" : "ISS")).divide(Env.ONEHUNDRED, 17, RoundingMode.HALF_UP);
 			
-			//	Use first line
+			X_LBR_NFLineTax tax = nfLine.getTax(issRT.signum() == -1 ? "ISSRT" : "ISS");
+			if (tax != null && tax.getLBR_TaxStatus_ID() > 0)
+				cstISS = tax.getLBR_TaxStatus().getName();
 			break;
 		}
 		//
@@ -253,7 +257,8 @@ public class NFSeImpl implements INFSe
 		//
 		tpRPS.setAliquotaServicos(aliquota);
 		tpRPS.setCodigoServico(TextUtil.toNumeric (serviceCode));
-		
+		tpRPS.setTributacaoRPS(getTributacao(cstISS, true));
+
 		if (discriminacao == null)
 			discriminacao = "Prestação de Serviços";
 		else
@@ -436,6 +441,62 @@ public class NFSeImpl implements INFSe
 		
 		return header.append(rps).append(footer);
 	}	//	getRPS
+
+	
+	// Tributado em São Paulo
+    public static final String TRIB_SP = "T";
+
+    // Tributado Fora de São Paulo
+    public static final String TRIB_FORA_SP = "F";
+
+    // Tributado em São Paulo, porém Isento
+    public static final String TRIB_SP_ISENTO = "A";
+
+    // Tributado Fora de São Paulo, porém Isento
+    public static final String TRIB_FORA_SP_ISENTO = "B";
+
+    // Tributado em São Paulo com isenção parcial
+    public static final String TRIB_SP_ISENCAO_PARCIAL = "D";
+
+    // Tributado em São Paulo, porém com indicação de imunidade subjetiva
+    public static final String TRIB_SP_IMUNIDADE_SUBJ = "M";
+
+    // Tributado Fora de São Paulo, porém com indicação de imunidade subjetiva
+    public static final String TRIB_FORA_SP_IMUNIDADE_SUBJ = "N";
+
+    // Tributado em São Paulo, porém com indicação de imunidade objetiva
+    public static final String TRIB_SP_IMUNIDADE_OBJ = "R";
+
+    // Tributado fora de São Paulo, porém com indicação de imunidade objetiva
+    public static final String TRIB_FORA_SP_IMUNIDADE_OBJ = "S";
+
+    // Tributado em São Paulo, porém Exigibilidade Suspensa
+    public static final String TRIB_SP_EXIG_SUSPENSA = "X";
+
+    // Tributado Fora de São Paulo, porém Exigibilidade Suspensa
+    public static final String TRIB_FORA_SP_EXIG_SUSPENSA = "V";
+
+    // Exportação de Serviços
+    public static final String EXPORTACAO_SERVICOS = "P";
+    
+	private String getTributacao (String cstISS, boolean localTrib)
+	{
+		if (cstISS == null || MLBRTaxStatus.ISS_EXIGIVEL.equals(cstISS))
+			return localTrib ? TRIB_SP : TRIB_FORA_SP;
+//		else if (MLBRTaxStatus.ISS_NAO_INCIDENCIA.equals(cstISS))
+//			return TpTributacao.E;
+		else if (MLBRTaxStatus.ISS_ISENCAO.equals(cstISS))
+			return localTrib ? TRIB_SP_ISENTO : TRIB_FORA_SP_ISENTO;
+		else if (MLBRTaxStatus.ISS_EXPORTACAO.equals(cstISS))
+			return EXPORTACAO_SERVICOS;
+		else if (MLBRTaxStatus.ISS_IMUNIDADE.equals(cstISS))
+			return localTrib ? TRIB_SP_IMUNIDADE_SUBJ : TRIB_FORA_SP_IMUNIDADE_SUBJ;
+		else if (MLBRTaxStatus.ISS_SUSPENSA_JUDICIAL.equals(cstISS))
+			return localTrib ? TRIB_SP_EXIG_SUSPENSA : TRIB_FORA_SP_EXIG_SUSPENSA;
+//		else if (MLBRTaxStatus.ISS_SUSPENSA_ADM.equals(cstISS))
+//			return TRIB_SP_EXIG_SUSPENSA;
+		return localTrib ? TRIB_SP : TRIB_FORA_SP;
+	}	//	getTributacao
 
 	/**
 	 * 	Apesar da prefeitura de SP permitir o envio de um único RPS sem a criação de um lote
