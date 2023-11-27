@@ -146,6 +146,24 @@ UPDATE AD_Field SET SeqNo=270, AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, 
 UPDATE AD_Field SET SeqNo=0,IsDisplayed='N', Updated=statement_timestamp(), UpdatedBy=100 WHERE AD_Field_ID=1131814
 ;
 
+-- Update events (unless, operation not done)
+UPDATE LBR_PartnerDFe 
+SET IsReconciled='Y'
+WHERE DocumentType='1'
+AND LBR_EventType<>'210240'
+;
+
+-- Update nf
+UPDATE LBR_PartnerDFe 
+SET IsReconciled='Y'
+WHERE DocumentType='0'
+AND EXISTS (SELECT 1 FROM LBR_NotaFiscal nf 
+WHERE nf.AD_Org_ID=LBR_PartnerDFe.AD_Org_ID 
+AND nf.IsSOTrx='N'
+AND nf.LBR_NFeID=LBR_PartnerDFe.LBR_NFeID
+AND nf.DocStatus IN ('CL','CO'))
+;
+
 -- 27 de nov de 2023 14:17:28 BRT
 SELECT Register_Migration_Script ('202311271432_DFeReconFlag.sql') FROM DUAL
 ;
