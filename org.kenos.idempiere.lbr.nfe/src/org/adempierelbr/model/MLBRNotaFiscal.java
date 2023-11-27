@@ -4805,19 +4805,17 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 					}
 					
 					//	Try to find NF-e ID from DF-e
-					if (getlbr_NFeID() == null)
-					{
-						MLBRPartnerDFe dfe = MLBRPartnerDFe.get (this);
-						//
-						if (dfe != null)
-						{
-							setLBR_PartnerDFe_ID (dfe.getLBR_PartnerDFe_ID());
-							setlbr_NFeID(dfe.getlbr_NFeID());
-							setlbr_DigestValue(dfe.getlbr_DigestValue());
-						}
-						else
-							throw new Exception ("@FillMandatory@ @lbr_NFeID@");
-					}
+					MLBRPartnerDFe dfe = MLBRPartnerDFe.get (this, MLBRPartnerDFe.DOCUMENTTYPE_NF_E);
+
+					if (getlbr_NFeID() == null && dfe == null)
+						throw new Exception ("@FillMandatory@ @lbr_NFeID@");
+
+					setLBR_PartnerDFe_ID (dfe.getLBR_PartnerDFe_ID());
+					setlbr_NFeID(dfe.getlbr_NFeID());
+					setlbr_DigestValue(dfe.getlbr_DigestValue());
+					
+					//	Mark as reconciled
+					dfe.setIsReconciled(true);
 					
 					//	Fill NF-e on Tax hold
 					Arrays.asList(getLines()).stream()

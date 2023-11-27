@@ -223,6 +223,16 @@ public class MLBRPartnerDFe extends X_LBR_PartnerDFe
 	 */
 	public static MLBRPartnerDFe get (MLBRNotaFiscal nf)
 	{
+		return get (nf, null);
+	}	//	get
+	
+	/**
+	 * 	Procura um DF-e para a NF
+	 * 	@param nf
+	 * 	@return
+	 */
+	public static MLBRPartnerDFe get (MLBRNotaFiscal nf, String documentType)
+	{
 		String where = "AD_Org_ID=? "
 				+ "AND LBR_CNPJ=? "
 				+ "AND SUBSTRING (LBR_NFeID, 26, 9)=? ";
@@ -240,6 +250,13 @@ public class MLBRPartnerDFe extends X_LBR_PartnerDFe
 			where += "AND SUBSTRING (LBR_NFeID, 23, 3)=? ";
 			//
 			params.add(ser);
+		}
+		
+		//	Filter by document type
+		if (documentType != null)
+		{
+			where += "AND DocumentType=? ";
+			params.add(documentType);
 		}
 		
 		MLBRPartnerDFe dfe = new Query (nf.getCtx(), MLBRPartnerDFe.Table_Name, where, nf.get_TrxName())
