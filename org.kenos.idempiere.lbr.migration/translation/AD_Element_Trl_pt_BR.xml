@@ -3207,7 +3207,7 @@ Há duas razões para desativar e não excluir registros:
  </row>
  <row id="529" trl="Y">
   <value column="Name" original="Quantity Invoiced">Qtd. Faturada</value>
-  <value column="PrintName" original="Invoiced">Faturado (Nota Emitida)</value>
+  <value column="PrintName" original="Invoiced">Qtd. Faturada</value>
   <value column="Description" original="Invoiced Quantity">Qtd. Faturada</value>
   <value column="Help" original="The Invoiced Quantity indicates the quantity of a product that have been invoiced.">A "Quantidade Faturada" indica a quantidade de um produto que foi faturada.</value>
   <value column="PO_Description" original=""/>
