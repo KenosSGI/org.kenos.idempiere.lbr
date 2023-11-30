@@ -462,8 +462,19 @@ public class MLBRTax extends X_LBR_Tax
 			}
 			//	Ajusta do MVA
 			bsh.set ("FIXMVA", adjustIVA ? 1.0 : 0.0);
-			//
-			result = new BigDecimal ((Double) bsh.eval(formula));
+			
+			/**	
+			 * 	Instantiate the BD with a string, double can cause float 
+			 * point problems, as seen below:
+			 *		
+			 *	jshell> new java.math.BigDecimal(1.65); 	//	wrong
+			 *	$1 ==> 1.649999999999999911182158029987476766109466552734375
+			 *
+			 *	jshell> new java.math.BigDecimal("1.65"); 	//	right
+			 *	$2 ==> 1.65
+			 *
+			 **/	
+			result = new BigDecimal (bsh.eval(formula).toString());
 		}
 		catch (EvalError e)
 		{
