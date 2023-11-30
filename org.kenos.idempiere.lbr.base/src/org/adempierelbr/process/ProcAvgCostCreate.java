@@ -97,8 +97,8 @@ public class ProcAvgCostCreate extends SvrProcess
 		{
 			sql = "SELECT DISTINCT p.M_Product_ID, QtyOnDate(p.M_Product_ID, "+DB.TO_DATE(period.getStartDate())+") AS QtyOnDate, " +
 						 "c.CurrentCostPrice, " +
-						 "SUM(CASE WHEN f.AmtAcctDR-f.AmtAcctCR<>0 THEN f.AmtAcctDR-f.AmtAcctCR ELSE il.PriceEntered*il.QtyEntered END) AS CumulatedAmt, " +
-						 "SUM(il.QtyEntered) AS CumulatedQty, " +
+						 "SUM(CASE WHEN f.AmtAcctDR-f.AmtAcctCR<>0 THEN f.AmtAcctDR-f.AmtAcctCR ELSE il.PriceActual*il.QtyInvoiced END) AS CumulatedAmt, " +
+						 "SUM(il.QtyInvoiced) AS CumulatedQty, " +
 						 "COALESCE ((SELECT SUM(lc.Amt) " +
 					        "FROM C_LandedCostAllocation lc, C_InvoiceLine zil, C_Invoice zi " +
 					        "WHERE zi.C_Invoice_ID=zil.C_Invoice_ID " +
