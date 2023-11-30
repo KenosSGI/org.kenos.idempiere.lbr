@@ -33,7 +33,7 @@ public interface I_LBR_PartnerDFe
     public static final String Table_Name = "LBR_PartnerDFe";
 
     /** AD_Table_ID=1120461 */
-    public static final int Table_ID = MTable.getTable_ID(Table_Name);
+    public static final int Table_ID = 1120461;
 
     KeyNamePair Model = new KeyNamePair(Table_ID, Table_Name);
 
@@ -193,6 +193,19 @@ public interface I_LBR_PartnerDFe
 	  */
 	public boolean isCancelled();
 
+    /** Column name IsReconciled */
+    public static final String COLUMNNAME_IsReconciled = "IsReconciled";
+
+	/** Set Reconciled.
+	  * Payment is reconciled with bank statement
+	  */
+	public void setIsReconciled (boolean IsReconciled);
+
+	/** Get Reconciled.
+	  * Payment is reconciled with bank statement
+	  */
+	public boolean isReconciled();
+
     /** Column name IsSOTrx */
     public static final String COLUMNNAME_IsSOTrx = "IsSOTrx";
 
@@ -205,6 +218,19 @@ public interface I_LBR_PartnerDFe
 	  * This is a Sales Transaction
 	  */
 	public boolean isSOTrx();
+
+    /** Column name IsValid */
+    public static final String COLUMNNAME_IsValid = "IsValid";
+
+	/** Set Valid.
+	  * Element is valid
+	  */
+	public void setIsValid (boolean IsValid);
+
+	/** Get Valid.
+	  * Element is valid
+	  */
+	public boolean isValid();
 
     /** Column name LBR_EventType */
     public static final String COLUMNNAME_LBR_EventType = "LBR_EventType";

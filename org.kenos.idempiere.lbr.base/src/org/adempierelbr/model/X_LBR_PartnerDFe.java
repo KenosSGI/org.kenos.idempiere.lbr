@@ -34,7 +34,7 @@ public class X_LBR_PartnerDFe extends PO implements I_LBR_PartnerDFe, I_Persiste
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20210428L;
+	private static final long serialVersionUID = 20231127L;
 
     /** Standard Constructor */
     public X_LBR_PartnerDFe (Properties ctx, int LBR_PartnerDFe_ID, String trxName)
@@ -46,7 +46,11 @@ public class X_LBR_PartnerDFe extends PO implements I_LBR_PartnerDFe, I_Persiste
 			setDocumentType (null);
 			setIsCancelled (false);
 // N
+			setIsReconciled (false);
+// N
 			setIsSOTrx (false);
+// N
+			setIsValid (false);
 // N
 			setLBR_IsManifested (false);
 // N
@@ -168,6 +172,8 @@ public class X_LBR_PartnerDFe extends PO implements I_LBR_PartnerDFe, I_Persiste
 		return (String)get_Value(COLUMNNAME_DocumentNote);
 	}
 
+	/** DocumentType AD_Reference_ID=1120219 */
+	public static final int DOCUMENTTYPE_AD_Reference_ID=1120219;
 	/** NF-e = 0 */
 	public static final String DOCUMENTTYPE_NF_E = "0";
 	/** Evento = 1 */
@@ -225,6 +231,30 @@ public class X_LBR_PartnerDFe extends PO implements I_LBR_PartnerDFe, I_Persiste
 	public boolean isCancelled () 
 	{
 		Object oo = get_Value(COLUMNNAME_IsCancelled);
+		if (oo != null) 
+		{
+			 if (oo instanceof Boolean) 
+				 return ((Boolean)oo).booleanValue(); 
+			return "Y".equals(oo);
+		}
+		return false;
+	}
+
+	/** Set Reconciled.
+		@param IsReconciled 
+		Payment is reconciled with bank statement
+	  */
+	public void setIsReconciled (boolean IsReconciled)
+	{
+		set_ValueNoCheck (COLUMNNAME_IsReconciled, Boolean.valueOf(IsReconciled));
+	}
+
+	/** Get Reconciled.
+		@return Payment is reconciled with bank statement
+	  */
+	public boolean isReconciled () 
+	{
+		Object oo = get_Value(COLUMNNAME_IsReconciled);
 		if (oo != null) 
 		{
 			 if (oo instanceof Boolean) 
@@ -318,6 +348,31 @@ public class X_LBR_PartnerDFe extends PO implements I_LBR_PartnerDFe, I_Persiste
 	public static final String LBR_EVENTTYPE_RegistroDePassagemDeNFePropagadoPeloMDFe = "610510";
 	/** Registro de Passagem de NFe propagado pelo MDFe/CTe = 610514 */
 	public static final String LBR_EVENTTYPE_RegistroDePassagemDeNFePropagadoPeloMDFeCTe = "610514";
+
+	/** Set Valid.
+		@param IsValid 
+		Element is valid
+	  */
+	public void setIsValid (boolean IsValid)
+	{
+		set_Value (COLUMNNAME_IsValid, Boolean.valueOf(IsValid));
+	}
+
+	/** Get Valid.
+		@return Element is valid
+	  */
+	public boolean isValid () 
+	{
+		Object oo = get_Value(COLUMNNAME_IsValid);
+		if (oo != null) 
+		{
+			 if (oo instanceof Boolean) 
+				 return ((Boolean)oo).booleanValue(); 
+			return "Y".equals(oo);
+		}
+		return false;
+	}
+
 	/** Set Event Type.
 		@param LBR_EventType Event Type	  */
 	public void setLBR_EventType (String LBR_EventType)
@@ -442,6 +497,8 @@ public class X_LBR_PartnerDFe extends PO implements I_LBR_PartnerDFe, I_Persiste
 		return (String)get_Value(COLUMNNAME_LBR_PartnerDFe_UU);
 	}
 
+	/** LBR_SitNF AD_Reference_ID=1120218 */
+	public static final int LBR_SITNF_AD_Reference_ID=1120218;
 	/** 1 - Authorized = 1 */
 	public static final String LBR_SITNF_1_Authorized = "1";
 	/** 2 - Use denied = 2 */
@@ -596,6 +653,8 @@ public class X_LBR_PartnerDFe extends PO implements I_LBR_PartnerDFe, I_Persiste
 		return (String)get_Value(COLUMNNAME_lbr_IE);
 	}
 
+	/** lbr_NFeEnv AD_Reference_ID=1100001 */
+	public static final int LBR_NFEENV_AD_Reference_ID=1100001;
 	/** Production = 1 */
 	public static final String LBR_NFEENV_Production = "1";
 	/** Homologation = 2 */
