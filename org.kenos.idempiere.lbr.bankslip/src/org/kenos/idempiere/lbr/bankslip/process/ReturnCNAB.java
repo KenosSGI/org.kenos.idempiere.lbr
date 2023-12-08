@@ -148,7 +148,7 @@ public class ReturnCNAB extends SvrProcess
 		//	Save attachment
 		MAttachment attachment = cnab.createAttachment();
 		attachment.addEntry(returnFile);
-		attachment.save();
+		attachment.save(get_TrxName());
 		
 		//	Prepare result
 		workbook = new XSSFWorkbook();
