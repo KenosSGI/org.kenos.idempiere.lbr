@@ -1582,6 +1582,10 @@ public class NFeXMLGenerator
 						icms70.setPICMS(normalize2to4  (icmsTax.getlbr_TaxRate()));
 						icms70.setVICMS(normalize  (icmsTax.getlbr_TaxAmt()));
 						icms70.setModBC(InfNFe.Det.Imposto.ICMS.ICMS70.ModBC.X_0);
+
+						//	MVA - VAM
+						if (nfl.getLBR_VAM() != null && nfl.getLBR_VAM().signum() == 1)
+							icms70.setPMVAST(normalize2to4  (nfl.getLBR_VAM()));
 						
 						//	Redução na BC
 						if (icmsSTTax.getlbr_TaxBase() != null 
@@ -1646,6 +1650,10 @@ public class NFeXMLGenerator
 						icms90.setMotDesICMS(ICMS90.MotDesICMS.X_9);
 						icms90.setVICMSDeson(TextUtil.toNumeric(deson).replace(",", "."));
 					}
+
+					//	MVA - VAM
+					if (nfl.getLBR_VAM() != null && nfl.getLBR_VAM().signum() == 1)
+						icms90.setPMVAST(normalize2to4  (nfl.getLBR_VAM()));
 				}
 				else if (CSOSN_101.equals (taxStatus))
 				{
@@ -1675,6 +1683,10 @@ public class NFeXMLGenerator
 								&& icmsSTTax.getlbr_TaxBase().signum() == 1
 								&& icmsSTTax.getlbr_TaxBase().compareTo(Env.ONEHUNDRED) != 0)
 							icmssn201.setPRedBCST(normalize2to4  (icmsSTTax.getlbr_TaxBase()));
+
+						//	MVA - VAM
+						if (nfl.getLBR_VAM() != null && nfl.getLBR_VAM().signum() == 1)
+							icmssn201.setPMVAST(normalize2to4  (nfl.getLBR_VAM()));
 						
 						icmssn201.setVBCST(normalize (icmsSTTax.getlbr_TaxBaseAmt()));
 						icmssn201.setPICMSST(normalize2to4  (icmsSTTax.getlbr_TaxRate()));
@@ -1713,6 +1725,10 @@ public class NFeXMLGenerator
 					icmssn202.setPICMSST(normalize2to4  (icmsSTTax.getlbr_TaxRate()));
 					icmssn202.setVICMSST(normalize  (icmsSTTax.getlbr_TaxAmt()));
 
+					//	MVA - VAM
+					if (nfl.getLBR_VAM() != null && nfl.getLBR_VAM().signum() == 1)
+						icmssn202.setPMVAST(normalize2to4  (nfl.getLBR_VAM()));
+
 					// v4.00
 					if (fcpTaxST != null)
 					{
@@ -1743,7 +1759,7 @@ public class NFeXMLGenerator
 						icmssn500.setPFCPSTRet(normalize2to4 (fcpTaxST.getlbr_TaxRate()));
 						icmssn500.setVFCPSTRet(normalize (fcpTaxST.getlbr_TaxAmt()));
 						icmssn500.setPST(normalize4 (icmsTax.getlbr_TaxRate().add(fcpTaxST.getlbr_TaxRate())));
-					}					
+					}
 				}
 				else if (CSOSN_900.equals (taxStatus))
 				{
@@ -1764,6 +1780,10 @@ public class NFeXMLGenerator
 						icmssn900.setPFCPST(normalize2to4 (fcpTax.getlbr_TaxRate()));
 						icmssn900.setVFCPST(normalize (fcpTax.getlbr_TaxAmt()));
 					}
+
+					//	MVA - VAM
+					if (nfl.getLBR_VAM() != null && nfl.getLBR_VAM().signum() == 1)
+						icmssn900.setPMVAST(normalize2to4  (nfl.getLBR_VAM()));
 				}
 			}
 			
