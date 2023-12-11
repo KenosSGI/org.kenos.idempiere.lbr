@@ -64,6 +64,12 @@
 										<destFileName>nfse-abrasf-v203-sources.jar</destFileName>
 									</artifactItem>
 									<artifactItem>
+                                                                                <groupId>org.kenos</groupId>
+                                                                                <artifactId>nfse-abrasf-v200</artifactId>
+                                                                                <version>2.00</version>
+                                                                                <destFileName>nfse-abrasf-v200.jar</destFileName>
+                                                                        </artifactItem>
+									<artifactItem>
 										<groupId>org.kenos</groupId>
 										<artifactId>nfse-abrasf-v201</artifactId>
 										<version>2.01</version>
