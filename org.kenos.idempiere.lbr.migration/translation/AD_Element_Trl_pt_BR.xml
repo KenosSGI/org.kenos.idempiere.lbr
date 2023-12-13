@@ -11008,8 +11008,8 @@ Para personalizações, copie a entidade e selecione "Usuário"!</value>
   <value column="Placeholder" original=""/>
  </row>
  <row id="1747" trl="Y">
-  <value column="Name" original="Set Future Costs to">Ajustar Custos Futuros a</value>
-  <value column="PrintName" original="Set Future Costs to">Ajustar Custos Futuros a</value>
+  <value column="Name" original="Set Future Costs to">Definir Custos Futuros para</value>
+  <value column="PrintName" original="Set Future Costs to">Definir Custos Futuros para</value>
   <value column="Description" original="Set the Future costs to the selection">Ajusta os Custos Futuros à seleção</value>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>

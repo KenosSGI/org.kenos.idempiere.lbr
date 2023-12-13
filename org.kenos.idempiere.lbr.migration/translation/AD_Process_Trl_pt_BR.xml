@@ -362,8 +362,8 @@ Os movimentos são criados somente, se um abastecimento de armazém está defini
 Note-se que a adição de registros Tradução Ausente cria-los, copiando o Idioma do Sistema (em Inglês). Você poderia aplicar o Pacote Idioma, após esse processo. Executar Sincronizar Terminologia depois de importar a tradução.</value>
  </row>
  <row id="180" trl="Y">
-  <value column="Name" original="Inventory Valuation Report">Relatório de Avaliação de Estoques</value>
-  <value column="Description" original="Inventory Valuation Report">Relatório de Avaliação de Estoques</value>
+  <value column="Name" original="Inventory Valuation Report">Relatório de Valoração de Estoques</value>
+  <value column="Description" original="Inventory Valuation Report">Relatório de Valoração de Estoques</value>
   <value column="Help" original="Report lists products with their on-hand quantity and values at the valuation date. In addition to several prices, standard costs and an optional other cost element is used to calculate the inventory of the particular warehouse.">Relatório lista de produtos com a sua quantidade em mãos e valores na data de avaliação. Além de vários preços, custos padrão e um outro elemento de custo opcional é usado para calcular o inventário do armazém particular.</value>
  </row>
  <row id="181" trl="Y">
