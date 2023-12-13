@@ -184,6 +184,18 @@ public class MLBRPartnerDFe extends X_LBR_PartnerDFe
 				log.saveError("Error", Msg.parseTranslation(getCtx(), "@Invalid@ = @Duplicated@") + " - " + toString());
 				return false;
 			}
+			
+			//	Check if NF is already reconciled
+			sql = "SELECT COUNT(*) FROM " + MLBRNotaFiscal.Table_Name + 
+					" WHERE " + MLBRNotaFiscal.COLUMNNAME_AD_Org_ID 		+ "=?" +
+					  " AND " + MLBRNotaFiscal.COLUMNNAME_lbr_NFeID 		+ "=?" +
+					  " AND " + MLBRNotaFiscal.COLUMNNAME_lbr_IsOwnDocument + "='N'" +
+					  " AND " + MLBRNotaFiscal.COLUMNNAME_DocStatus 		+ " IN ('CL','CO')";
+			count = DB.getSQLValue (null, sql, new Object[]{ getAD_Org_ID(), getlbr_NFeID() });
+			
+			//	Already imported
+			if (count > 0)
+				setIsReconciled(true);
 		}
 		
 		if (LBR_SITNF_3_Cancelled.equals(getLBR_SitNF()))
