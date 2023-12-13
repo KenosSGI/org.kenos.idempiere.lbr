@@ -226,7 +226,7 @@ public class WGenBankSlip extends GenBankSlip
 		else
 			LayoutUtils.expandTo(parameterLayout, noOfColumn, true);
 		
-		directlyGen = MSysConfig.getBooleanValue(SysConfig.LBR_DIRECTLY_GENBILLING, false, Env.getAD_Client_ID(Env.getCtx()));
+		directlyGen = MSysConfig.getBooleanValue(SysConfig.LBR_DIRECTLY_GENBILLING, true, Env.getAD_Client_ID(Env.getCtx()));
 		//
 		chkForce.setEnabled(directlyGen);
 		bExport.setEnabled(directlyGen);
