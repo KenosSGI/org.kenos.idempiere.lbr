@@ -5,15 +5,16 @@ import java.sql.Timestamp;
 import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Comparator;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.adempiere.base.event.AbstractEventHandler;
 import org.adempiere.base.event.IEventTopics;
 import org.adempierelbr.model.MPaymentTerm;
-import org.adempierelbr.util.TextUtil;
 import org.adempierelbr.wrapper.I_W_C_BPartner;
 import org.adempierelbr.wrapper.I_W_C_PaymentTerm;
 import org.compiere.model.I_C_NonBusinessDay;
@@ -93,12 +94,29 @@ public class PayScheduleCheck extends AbstractEventHandler
 		if (fixDueDay == null || fixDueDay.isBlank())
 			return;	//	Nothing to do
 		
+		Comparator<String> customComparator = new Comparator<String>() {
+			@Override
+			public int compare(String o1, String o2) {
+				boolean isNumeric1 = o1.matches("\\d+");
+				boolean isNumeric2 = o2.matches("\\d+");
+
+				if (isNumeric1 && isNumeric2) {
+					return Integer.compare(Integer.parseInt(o1), Integer.parseInt(o2));
+				} else if (isNumeric1) {
+					return -1;
+				} else if (isNumeric2) {
+					return 1;
+				} else {
+					return o1.compareTo(o2);
+				}
+			}
+		};
+
 		String days = Arrays.asList(fixDueDay.replace(",", ";").split(";")).stream()
-			.map(TextUtil::toNumeric)
+			.map(s -> s.trim().toLowerCase())
 			.filter(d -> !d.isBlank())
-			.map(Integer::parseInt)
-			.filter(d -> d > 0 && d <= 31)
-			.sorted()
+			.filter(s -> s.matches("^(?:[1-9]|[12]\\d|3[01])$") || s.matches("[2-6]a"))
+			.sorted(customComparator)
 			.distinct()
 			.map(String::valueOf)
 			.collect(Collectors.joining(";"));
@@ -118,16 +136,27 @@ public class PayScheduleCheck extends AbstractEventHandler
 		String fixDueDay = bp.get_ValueAsString(I_W_C_BPartner.COLUMNNAME_FixMonthDay);
 		if (fixDueDay == null || fixDueDay.isBlank())
 			return;	//	Nothing to do
-		
-		List<String> validDays = Arrays.asList(fixDueDay.split(";"));
+
+		List<String> validDays = Arrays.asList(fixDueDay.split(";")).stream()
+				.filter(s -> s.matches("^(?:[1-9]|[12]\\d|3[01])$")).collect(Collectors.toList());
+		List<String> validWeekDays = Arrays.asList(fixDueDay.split(";")).stream()
+				.filter(s -> s.matches("[2-6]a")).collect(Collectors.toList());
 		
 		//	Set due date to next fixed day
 		while (!isValidFixedDay(ips.getDueDate(), validDays))
+			ips.setDueDate(TimeUtil.getNextDay(ips.getDueDate()));
+
+		//	Set due date to next fixed week day
+		while (!isValidFixedWeekDay(ips.getDueDate(), validWeekDays))
 			ips.setDueDate(TimeUtil.getNextDay(ips.getDueDate()));
 	}	//	checkFixedDayBP
 	
 	private boolean isValidFixedDay(Timestamp dueDate, List<String> validDays)
 	{
+		//	Not specified, ignore
+		if (validDays.isEmpty())
+			return true;
+		//
 		Calendar cal = GregorianCalendar.getInstance();
 		cal.setTimeInMillis(dueDate.getTime());
 		String dom = String.valueOf(cal.get(Calendar.DAY_OF_MONTH));
@@ -135,6 +164,39 @@ public class PayScheduleCheck extends AbstractEventHandler
 			return true;
 		return false;
 	}	//	isValidFixedDay
+
+	/**
+	 * 	The week days are stored with suffix "a"
+	 * 	2a = Monday
+	 * 	3a = Tuesday
+	 * 	4a = Wednesday
+	 * 	5a = Thursday
+	 * 	6a = Friday
+	 */
+	private final String WEEK_DAY_MONDAY 	= Calendar.MONDAY 		+ "a";
+	private final String WEEK_DAY_TUESDAY 	= Calendar.TUESDAY 		+ "a";
+	private final String WEEK_DAY_WEDNESDAY = Calendar.WEDNESDAY 	+ "a";
+	private final String WEEK_DAY_THURSDAY 	= Calendar.THURSDAY 	+ "a";
+	private final String WEEK_DAY_FRIDAY 	= Calendar.FRIDAY 		+ "a";
+	
+	private boolean isValidFixedWeekDay(Timestamp dueDate, List<String> validDays)
+	{
+		//	Not specified, ignore
+		if (validDays.isEmpty() || !containsAny (validDays, WEEK_DAY_MONDAY, WEEK_DAY_TUESDAY, WEEK_DAY_WEDNESDAY, WEEK_DAY_THURSDAY, WEEK_DAY_FRIDAY))
+			return true;
+		//
+		Calendar cal = GregorianCalendar.getInstance();
+		cal.setTimeInMillis(dueDate.getTime());
+		int dow = cal.get(Calendar.DAY_OF_WEEK);
+		if (validDays.contains(dow + "a"))
+			return true;
+		return false;
+	}	//	isValidFixedWeekDay
+	
+	private static boolean containsAny(List<String> list, String... elements) {
+		Set<String> elementsSet = Arrays.stream(elements).collect(Collectors.toSet());
+		return list.stream().anyMatch(elementsSet::contains);
+	}	// 	containsAny
 
 	/**
 	 * 	Handle In/Out Line Events
