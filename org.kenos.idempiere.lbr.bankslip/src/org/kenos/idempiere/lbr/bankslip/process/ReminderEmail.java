@@ -6,6 +6,7 @@ import java.util.logging.Level;
 
 import org.compiere.model.MInvoice;
 import org.compiere.model.MMailText;
+import org.compiere.model.MUser;
 import org.compiere.model.Query;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
@@ -23,8 +24,14 @@ public class ReminderEmail extends SvrProcess
 	private int p_R_MailText_ID = -1;
 	/** Organization		**/
 	private int p_AD_Org_ID = -1;
+	/** Record ID			**/
+	private int p_LBR_BankSlip_ID = -1;
 	/** Days Due			**/
-	private int p_DaysBefore = 0;
+	private int p_DaysDue = 0;
+	/**	EMail				**/
+	private String p_EMail = null;
+	/**	Include Attachment	**/
+	private boolean p_IncludeAttachment = true;
 	
 	/**
 	 *  Prepare - e.g., get Parameters.
@@ -41,10 +48,16 @@ public class ReminderEmail extends SvrProcess
 			else if (name.equals(MMailText.COLUMNNAME_R_MailText_ID))
 				p_R_MailText_ID = para.getParameterAsInt();
 			else if (name.equals("DaysDue"))
-				p_DaysBefore = para.getParameterAsInt();
+				p_DaysDue = para.getParameterAsInt();
+			else if (name.equals(MUser.COLUMNNAME_EMail))
+				p_EMail = (String) para.getParameter();
+			else if (name.equals("LBR_IncludeAttachment"))
+				p_IncludeAttachment = para.getParameterAsBoolean();
 			else
 				log.log(Level.SEVERE, "Unknown Parameter: " + name);
 		}
+		//	Single record
+		p_LBR_BankSlip_ID = getRecord_ID();
 	}	//	prepare
 
 	/**
@@ -59,23 +72,28 @@ public class ReminderEmail extends SvrProcess
 		if (p_R_MailText_ID < 1)
 			return "Modelo de e-mail não encontrado";
 		
-		if (p_DaysBefore < 0)
-			return "Dias do Vencimento inválido";
+		if (p_DaysDue > 30 || p_DaysDue < -30)
+			return "Dias do Vencimento inválido, intervalo máximo de 30 dias";
 			
 		//	Find candidates to be printed
 		StringBuilder where = new StringBuilder(MLBRBankSlip.COLUMNNAME_DocStatus + "=? AND ");
 		
-		//	Only open
-		where.append(MLBRBankSlip.COLUMNNAME_IsPaid + "='N' AND " + MLBRBankSlip.COLUMNNAME_LBR_IsWrittenOff + "='N' AND " + MLBRBankSlip.COLUMNNAME_LBR_IsHalted + "='N'");
-		
-		//	Date restriction
-		where.append(" AND DATE_PART ('DAY',   AGE (DueDate, TRUNC (NOW ()))) = ?") ;
-		where.append(" AND DATE_PART ('MONTH', AGE (DueDate, TRUNC (NOW ()))) = 0");
-		where.append(" AND DATE_PART ('YEAR',  AGE (DueDate, TRUNC (NOW ()))) = 0");
-		
-		//	Org restriction
-		if (p_AD_Org_ID > 0)
-			where.append(" AND AD_Org_ID=").append(p_AD_Org_ID);
+		if (p_LBR_BankSlip_ID > 0) {
+			where.append(MLBRBankSlip.COLUMNNAME_LBR_BankSlip_ID).append("=").append(p_LBR_BankSlip_ID) ;
+		}
+		else {
+			//	Only open
+			where.append(MLBRBankSlip.COLUMNNAME_IsPaid + "='N' AND " + MLBRBankSlip.COLUMNNAME_LBR_IsWrittenOff + "='N' AND " + MLBRBankSlip.COLUMNNAME_LBR_IsHalted + "='N'");
+			
+			//	Date restriction
+			where.append(" AND DATE_PART ('DAY',   AGE (DueDate, TRUNC (NOW ()))) = ").append(p_DaysDue);
+			where.append(" AND DATE_PART ('MONTH', AGE (DueDate, TRUNC (NOW ()))) = 0");
+			where.append(" AND DATE_PART ('YEAR',  AGE (DueDate, TRUNC (NOW ()))) = 0");
+			
+			//	Org restriction
+			if (p_AD_Org_ID > 0)
+				where.append(" AND AD_Org_ID=").append(p_AD_Org_ID);
+		}
 			
 		AtomicInteger countSuccess = new AtomicInteger ();
 		AtomicInteger countError = new AtomicInteger ();
@@ -83,11 +101,14 @@ public class ReminderEmail extends SvrProcess
 		//	Generate bopepos to be printed
 		List<MLBRBankSlip> bss = new Query (getCtx(), MLBRBankSlip.Table_Name, where.toString(), get_TrxName())
 				.setClient_ID()
-				.setParameters(MLBRBankSlip.DOCSTATUS_Completed, p_DaysBefore).list();
+				.setParameters(MLBRBankSlip.DOCSTATUS_Completed).list();
 		bss.stream().forEach(bs -> {
 			try {
+				//	Email To
+				String emailTo = (p_EMail != null && !p_EMail.isBlank()) ? p_EMail : bs.getEmail(true);
+				
 				//	Success
-				if (BankSlipEMailUtil.sendMail(bs, bs.getEmail(true), p_R_MailText_ID))
+				if (BankSlipEMailUtil.sendMail(bs, emailTo, p_R_MailText_ID, p_IncludeAttachment))
 					countSuccess.incrementAndGet();
 				else {
 					//	Error, show error for first 10

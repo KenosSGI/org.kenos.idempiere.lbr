@@ -21,10 +21,10 @@ public class BankSlipEMailUtil
 {
 	public static boolean sendMail (MLBRBankSlip bs, String p_EMail) throws BankSlipEMailException
 	{
-		return sendMail (bs, p_EMail, bs.getR_MailText_ID());
+		return sendMail (bs, p_EMail, bs.getR_MailText_ID(), true);
 	}
 	
-	public static boolean sendMail (MLBRBankSlip bs, String p_EMail, int p_R_MailText_ID) throws BankSlipEMailException
+	public static boolean sendMail (MLBRBankSlip bs, String p_EMail, int p_R_MailText_ID, boolean includeAttachment) throws BankSlipEMailException
 	{
 		if (p_R_MailText_ID < 1) {
 			throw new BankSlipEMailException ("Sem modelo de e-mail para o boleto: " + bs.getDocumentNo());
@@ -57,13 +57,15 @@ public class BankSlipEMailUtil
 			mail.addCc(st.next());
 		}
 		
-		File pdf = bs.createPDF();
-		if (pdf == null) {
-			throw new BankSlipEMailException ("Erro ao gerar o PDF do boleto: " + bs.getDocumentNo());
+		if (includeAttachment) {
+			File pdf = bs.createPDF();
+			if (pdf == null) {
+				throw new BankSlipEMailException ("Erro ao gerar o PDF do boleto: " + bs.getDocumentNo());
+			}
+		
+			//	Include mail PDF
+			mail.addAttachment(pdf);
 		}
-	
-		//	Include mail PDF
-		mail.addAttachment(pdf);
 		if (mail.send().equals(EMail.SENT_OK))
 			return true;
 		return false;
