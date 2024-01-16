@@ -682,6 +682,10 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 			changed = true;
 		}
 		
+		//	Compatibility mode, old records
+		if (bsi == null)
+			return true;
+		
 		if (newRecord || is_ValueChanged(COLUMNNAME_C_BankAccount_ID))
 		{
 			MLBRBankAccount ba = new MLBRBankAccount(getCtx(), getC_BankAccount_ID(), get_TrxName());
