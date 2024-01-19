@@ -83,6 +83,7 @@ public class SysConfig
 	public static final String LBR_PRINT_XPED_NF 								= "LBR_PRINT_XPED_NF";
 	public static final String LBR_PRINTNFENOONBILLING 							= "LBR_PRINTNFENOONBILLING";
 	public static final String LBR_REALTIME_RPS_NUMBER 							= "LBR_REALTIME_RPS_NUMBER";
+	public static final String LBR_RECALCULATE_PO_PRICE_BASED_ON_INCOTERMS		= "LBR_RECALCULATE_PO_PRICE_BASED_ON_INCOTERMS";
 	public static final String LBR_RECALCULATE_TAXES_ON_COMPLETE 				= "LBR_RECALCULATE_TAXES_ON_COMPLETE";
 	public static final String LBR_REF_CFOP 									= "LBR_REF_CFOP";
 	public static final String LBR_REF_NCM 										= "LBR_REF_NCM";

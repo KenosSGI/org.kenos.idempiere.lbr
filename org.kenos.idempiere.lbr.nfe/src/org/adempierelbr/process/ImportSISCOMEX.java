@@ -260,13 +260,22 @@ public class ImportSISCOMEX extends SvrProcess
 						insuranceAdi = insuranceAdi.add(imp.getAmtInsurance());
 						freightAdi = freightAdi.add(imp.getAmtFreight());
 					}
-					
+
 					//	Ajusta o preço unitário, descontando o frete e seguro
 					//		somente para INCOTERM que o frete/seguro constam no preço
-					if (!adicao.getCondicaoVendaIncoterm().startsWith("E") 
-							&& !adicao.getCondicaoVendaIncoterm().startsWith("F"))
+					if (MSysConfig.getBooleanValue(SysConfig.LBR_RECALCULATE_PO_PRICE_BASED_ON_INCOTERMS, false, getAD_Client_ID())
+							&& !adicao.getCondicaoVendaIncoterm().startsWith("E") 
+							&& !adicao.getCondicaoVendaIncoterm().startsWith("F")) 
 						imp.setPrice(imp.getPrice().subtract(imp.getAmtInsurance().add(imp.getAmtFreight()).divide(imp.getQty(), 17, RoundingMode.HALF_UP)).setScale(7, RoundingMode.HALF_UP));
 					
+					else
+					{
+						imp.setPrice(imp.getPrice().multiply(Env.ONE.add(imp.getRateII().divide(Env.ONEHUNDRED, 8, RoundingMode.HALF_UP))));
+						//	Price include all charges
+						imp.setAmtFreight(Env.ZERO);
+						imp.setAmtInsurance(Env.ZERO);
+					}
+				
 					//	Ajusta o total da linha	
 					imp.setTotalLine(imp.getAmtInsurance().add(imp.getAmtFreight()).add(imp.getQty().multiply(imp.getPrice())));
 
