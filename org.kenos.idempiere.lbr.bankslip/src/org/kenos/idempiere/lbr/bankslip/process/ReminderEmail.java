@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Level;
 
+import org.adempierelbr.validator.ValidatorBPartner;
 import org.compiere.model.MInvoice;
 import org.compiere.model.MMailText;
 import org.compiere.model.MUser;
@@ -108,7 +109,12 @@ public class ReminderEmail extends SvrProcess
 				String emailTo = (p_EMail != null && !p_EMail.isBlank()) ? p_EMail : bs.getEmail(true);
 				
 				//	Success
-				if (BankSlipEMailUtil.sendMail(bs, emailTo, p_R_MailText_ID, p_IncludeAttachment))
+				if (emailTo == null || !emailTo.matches(ValidatorBPartner.REGEX_EMAIL)){
+					//	Error, show error for first 10
+					if (countError.incrementAndGet() < 10)
+						addLog("Endereço de e-mail inválido: " + emailTo + " [ " + bs.getDocumentNo() + "/" + bs.getIdentifier() + " ] ");
+				}
+				else if (BankSlipEMailUtil.sendMail(bs, emailTo, p_R_MailText_ID, p_IncludeAttachment))
 					countSuccess.incrementAndGet();
 				else {
 					//	Error, show error for first 10
