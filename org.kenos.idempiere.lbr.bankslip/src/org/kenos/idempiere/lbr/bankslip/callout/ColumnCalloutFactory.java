@@ -7,6 +7,7 @@ import org.adempiere.base.IColumnCallout;
 import org.adempiere.base.IColumnCalloutFactory;
 import org.adempierelbr.util.TextUtil;
 import org.compiere.model.MBank;
+import org.compiere.model.MInvoice;
 import org.compiere.model.MOrder;
 import org.kenos.idempiere.lbr.bankslip.model.MLBRBank;
 import org.kenos.idempiere.lbr.bankslip.model.MLBRBankSlip;
@@ -53,7 +54,7 @@ public class ColumnCalloutFactory implements IColumnCalloutFactory
 			if (TextUtil.match(columnName, MLBRBank.COLUMNNAME_LBR_Bank_ID))
 				callouts.add (new Bank());
 		}
-		else if (MOrder.Table_Name.equals(tableName))
+		else if (MOrder.Table_Name.equals(tableName) || MInvoice.Table_Name.equals(tableName))
 		{
 			if (TextUtil.match (columnName, MOrder.COLUMNNAME_C_BPartner_ID))
 				callouts.add (new SalesFields ());
