@@ -41,6 +41,7 @@ public class SysConfig
 	public static final String LBR_FILL_ATTRIBUTE_COUNTER_DOC 					= "LBR_FILL_ATTRIBUTE_COUNTER_DOC";
 	public static final String LBR_FILL_ATTRIBUTE_INOUT 						= "LBR_FILL_ATTRIBUTE_INOUT";
 	public static final String LBR_FILL_ATTRIBUTE_INOUT_LAST_ITEM 				= "LBR_FILL_ATTRIBUTE_INOUT_LAST_ITEM";
+	public static final String LBR_FILL_IPIDEVOL_TAG_NF 						= "LBR_FILL_IPIDEVOL_TAG_NF";
 	public static final String LBR_FIX_TAXES_INCONSISTENCIES 					= "LBR_FIX_TAXES_INCONSISTENCIES";
 	public static final String LBR_FOLDERKEY 									= "LBR_FOLDERKEY";
 	public static final String LBR_GENBILLING_TABLE 							= "LBR_GENBILLING_TABLE";

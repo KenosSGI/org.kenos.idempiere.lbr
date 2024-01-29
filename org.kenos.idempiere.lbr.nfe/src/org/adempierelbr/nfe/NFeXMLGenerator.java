@@ -115,6 +115,7 @@ import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Det.Imposto.PIS.PISNT;
 import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Det.Imposto.PIS.PISOutr;
 import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Det.Imposto.PIS.PISQtde;
 import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Det.Imposto.PISST;
+import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Det.ImpostoDevol;
 import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Det.Prod;
 import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Det.Prod.Arma;
 import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Det.Prod.Arma.TpArma;
@@ -1795,34 +1796,44 @@ public class NFeXMLGenerator
 				//	CST = Código de Situação Tributária
 				String taxStatus = new MLBRTaxStatus (nf.getCtx(), ipiTax.getLBR_TaxStatus_ID(), null).getTaxStatus(nf.isSOTrx());
 
-				//	IPI
-				TIpi ipi = imposto.addNewIPI();
-				
-				//	CEnq
-				if (ipiTax.getLBR_TaxLegalFW_ID() > 0)
-				{
-					X_LBR_TaxLegalFW tlfw = new X_LBR_TaxLegalFW(Env.getCtx(), ipiTax.getLBR_TaxLegalFW_ID(), null);
-					ipi.setCEnq (tlfw.getValue());
+				if (MSysConfig.getBooleanValue(SysConfig.LBR_FILL_IPIDEVOL_TAG_NF, false, nf.getAD_Client_ID(), nf.getAD_Org_ID()) && FIN_NFE_DEVOLUCAO.equals (ide.getFinNFe()))  {
+					ipiTax = nfl.getIPITax();
+					ImpostoDevol impostoDevol = det.addNewImpostoDevol();
+					impostoDevol.setPDevol(normalize2to4(Env.ONEHUNDRED)); //FIXME Assuming 100% Percent Item Devol
+					br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Det.ImpostoDevol.IPI ipiDevol = impostoDevol.addNewIPI();
+					ipiDevol.setVIPIDevol(normalize (ipiTax.getlbr_TaxAmt()));
 				}
-				else
-					ipi.setCEnq (CENQ_IPI_999);
-				
-				//	IPI Tributado
-				if (TextUtil.match (taxStatus, CST_IPI_00, CST_IPI_49, CST_IPI_50, CST_IPI_99))
-				{
-					IPITrib ipiTrib = ipi.addNewIPITrib();
-					ipiTrib.setCST(TIpi.IPITrib.CST.Enum.forString(taxStatus));
-					ipiTrib.setVBC(normalize  (ipiTax.getlbr_TaxBaseAmt()));
-					ipiTrib.setPIPI(normalize2to4  (ipiTax.getlbr_TaxRate()));
-					ipiTrib.setVIPI(normalize  (ipiTax.getlbr_TaxAmt()));
-				}
-				
-				//	IPI NT
-				else if (TextUtil.match (taxStatus, CST_IPI_01, CST_IPI_02, CST_IPI_03, CST_IPI_04, CST_IPI_05, 
-													CST_IPI_51, CST_IPI_52, CST_IPI_53, CST_IPI_54, CST_IPI_55))
-				{
-					IPINT ipiNT = ipi.addNewIPINT();
-					ipiNT.setCST(TIpi.IPINT.CST.Enum.forString (taxStatus));
+				else 
+				{	
+					//	IPI
+					TIpi ipi = imposto.addNewIPI();
+					
+					//	CEnq
+					if (ipiTax.getLBR_TaxLegalFW_ID() > 0)
+					{
+						X_LBR_TaxLegalFW tlfw = new X_LBR_TaxLegalFW(Env.getCtx(), ipiTax.getLBR_TaxLegalFW_ID(), null);
+						ipi.setCEnq (tlfw.getValue());
+					}
+					else
+						ipi.setCEnq (CENQ_IPI_999);
+					
+					//	IPI Tributado
+					if (TextUtil.match (taxStatus, CST_IPI_00, CST_IPI_49, CST_IPI_50, CST_IPI_99))
+					{
+						IPITrib ipiTrib = ipi.addNewIPITrib();
+						ipiTrib.setCST(TIpi.IPITrib.CST.Enum.forString(taxStatus));
+						ipiTrib.setVBC(normalize  (ipiTax.getlbr_TaxBaseAmt()));
+						ipiTrib.setPIPI(normalize2to4  (ipiTax.getlbr_TaxRate()));
+						ipiTrib.setVIPI(normalize  (ipiTax.getlbr_TaxAmt()));
+					}
+					
+					//	IPI NT
+					else if (TextUtil.match (taxStatus, CST_IPI_01, CST_IPI_02, CST_IPI_03, CST_IPI_04, CST_IPI_05, 
+														CST_IPI_51, CST_IPI_52, CST_IPI_53, CST_IPI_54, CST_IPI_55))
+					{
+						IPINT ipiNT = ipi.addNewIPINT();
+						ipiNT.setCST(TIpi.IPINT.CST.Enum.forString (taxStatus));
+					}
 				}
 			}
 			
@@ -1967,7 +1978,7 @@ public class NFeXMLGenerator
 			}
 			
 			//	TODO	UA. Tributos Devolvidos (para o item da NF-e)
-//			ImpostoDevol impostoDevol = det.addNewImpostoDevol();
+			//ImpostoDevol impostoDevol = det.addNewImpostoDevol();
 			
 			//	NT2015.003
 			//	Somente Consumidor Final
@@ -2039,7 +2050,7 @@ public class NFeXMLGenerator
 		icmsTot.setVSeg(normalize (nf.getlbr_InsuranceAmt()));
 		icmsTot.setVDesc(normalize (nf.getDiscountAmt()));
 		icmsTot.setVII(normalize (nf.getIIAmt()));
-		icmsTot.setVIPI(normalize (nf.getIPIAmt()));
+		
 		icmsTot.setVPIS(normalize (nf.getPISAmt()));
 		icmsTot.setVCOFINS(normalize (nf.getCOFINSAmt()));
 		icmsTot.setVOutro(normalize (nf.getLBR_OtherChargesAmt()));
@@ -2048,7 +2059,16 @@ public class NFeXMLGenerator
 		icmsTot.setVFCP(!icmsDest ? normalize(nf.getFCPAmt()) : TextUtil.ZERO_STRING);
 		icmsTot.setVFCPST(!icmsDest ? normalize(nf.getFCPSTAmt()) : TextUtil.ZERO_STRING);
 		icmsTot.setVFCPSTRet(TextUtil.ZERO_STRING);			//	FIXME
-		icmsTot.setVIPIDevol(TextUtil.ZERO_STRING);			//	FIXME
+		
+		if (MSysConfig.getBooleanValue(SysConfig.LBR_FILL_IPIDEVOL_TAG_NF, false, nf.getAD_Client_ID(), nf.getAD_Org_ID()) && FIN_NFE_DEVOLUCAO.equals (ide.getFinNFe()))  {
+			icmsTot.setVIPI(TextUtil.ZERO_STRING);
+			icmsTot.setVIPIDevol(normalize(nf.getIPIAmt()));
+		}
+		else {
+			icmsTot.setVIPI(normalize (nf.getIPIAmt()));
+			icmsTot.setVIPIDevol(TextUtil.ZERO_STRING);
+		}
+		
 		//	Valor aproximado total de tributos federais, estaduais e municipais.
 		if (nf.getlbr_vTotTrib() != null && nf.getlbr_vTotTrib().compareTo(BigDecimal.ZERO) > 0)
 			icmsTot.setVTotTrib(normalize(nf.getlbr_vTotTrib()));
