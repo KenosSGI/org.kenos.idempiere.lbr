@@ -11,6 +11,7 @@ import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
 import org.kenos.idempiere.lbr.bankslip.ICNABFactory;
 import org.kenos.idempiere.lbr.bankslip.ICNABGenerator;
+import org.kenos.idempiere.lbr.bankslip.exception.MovementException;
 import org.kenos.idempiere.lbr.bankslip.model.MLBRBankSlip;
 import org.kenos.idempiere.lbr.bankslip.model.MLBRBankSlipMov;
 import org.kenos.idempiere.lbr.bankslip.model.MLBRBankSlipOccur;
@@ -69,26 +70,77 @@ public class RegisterOccurence extends SvrProcess
 	 */
 	protected String doIt () throws Exception
 	{
-		if (m_LBR_OccurType == null)
-			return "@Error@ Código de Ocorrência inválido";
+		try
+		{
+			MLBRBankSlip bankSlip = new MLBRBankSlip(getCtx(), m_LBR_BankSlip_ID, get_TrxName());
+			register (bankSlip, m_LBR_OccurType, m_WriteOffAmt, m_DueDate, m_ProtestDays, m_Description);
+		}
+		catch (Exception e)
+		{
+			return "@Error@ " + e.getMessage();
+		}
+		
+		return "@Success@";
+	}	//	doIt
+	
+	/**
+	 * Initiates the write-off process for a bank slip with the total amount due.
+	 * 
+	 * @param bankSlip     The bank slip instance to be written off.
+	 * @param description  A description or note regarding the write-off process.
+	 * @throws MovementException If any errors occur during the registration of the write-off.
+	 */
+	public static void writeOff (MLBRBankSlip bankSlip, String description) throws MovementException
+	{
+		register (bankSlip, MLBRBankSlipOccur.TYPE_AskToWriteOff, null, null, 0, description);
+	}	//	writeOff
+	
+	/**
+	 * Initiates the rebate process for a bank slip with a specified rebate amount. This allows partial rebates
+	 * of the total amount due on the bank slip.
+	 * 
+	 * @param bankSlip     The bank slip instance to be rebated.
+	 * @param rebateAmt  The amount to write off from the bank slip's total amount.
+	 * @param description  A description or note regarding the write-off process.
+	 * @throws MovementException If any errors occur during the registration of the write-off.
+	 */
+	public static void rebate (MLBRBankSlip bankSlip, BigDecimal writeOffAmt, String description) throws MovementException
+	{
+		register (bankSlip, MLBRBankSlipOccur.TYPE_GiveRebate, writeOffAmt, null, 0, description);
+	}	//	rebate
+	
+	/**
+	 * Registers a bank slip occurrence. This generic method handles the registration of different types of occurrences
+	 * for a bank slip, including write-offs, rebate, due date change, protest, etc.
+	 * 
+	 * @param bankSlip     The bank slip instance related to the occurrence.
+	 * @param occurType    The type of occurrence (e.g., request to write-off).
+	 * @param writeOffAmt  The amount to write off (applicable if the occurrence is a write-off).
+	 * @param dueDate      The due date for the occurrence, if applicable.
+	 * @param protestDays  The number of days to protest, if applicable.
+	 * @param description  A description or note regarding the occurrence.
+	 * @throws MovementException If any errors occur during the registration of the occurrence.
+	 */
+	public static void register (MLBRBankSlip bankSlip, String occurType, BigDecimal writeOffAmt, Timestamp dueDate, int protestDays, String description) throws MovementException
+	{
+		if (occurType == null)
+			throw new MovementException ("@Error@ Código de Ocorrência inválido");
 
-		if (MLBRBankSlipOccur.TYPE_GiveRebate.equals(m_LBR_OccurType) && (m_WriteOffAmt == null || m_WriteOffAmt.signum() != 1))
-			return "@Error@ Abatimento inválido";
+		if (MLBRBankSlipOccur.TYPE_GiveRebate.equals(occurType) && (writeOffAmt == null || writeOffAmt.signum() != 1))
+			throw new MovementException ("Abatimento inválido");
 		
-		if (MLBRBankSlipOccur.TYPE_ChangeDueDate.equals(m_LBR_OccurType) && (m_DueDate == null || m_DueDate.before(new Timestamp (System.currentTimeMillis()))))
-			return "@Error@ Vencimento inválido";
+		if (MLBRBankSlipOccur.TYPE_ChangeDueDate.equals(occurType) && (dueDate == null || dueDate.before(new Timestamp (System.currentTimeMillis()))))
+			throw new MovementException ("Vencimento inválido");
 		
-		if (MLBRBankSlipOccur.TYPE_AskToProtest.equals(m_LBR_OccurType) && m_ProtestDays < 2)
-			return "@Error@ Protesto deve ocorrer no mínimo 2 dias após o vencimento";
+		if (MLBRBankSlipOccur.TYPE_AskToProtest.equals(occurType) && protestDays < 2)
+			throw new MovementException ("Protesto deve ocorrer no mínimo 2 dias após o vencimento");
 		
-		MLBRBankSlip bankSlip = new MLBRBankSlip (getCtx(), m_LBR_BankSlip_ID, get_TrxName());
-		
-		if (MLBRBankSlipOccur.TYPE_CancelProtest.equals(m_LBR_OccurType) && !bankSlip.isLBR_IsProtested())
-			return "@Error@ Título não está protestado ainda, impossível solicitar o cancelamento.";
+		if (MLBRBankSlipOccur.TYPE_CancelProtest.equals(occurType) && !bankSlip.isLBR_IsProtested())
+			throw new MovementException ("Título não está protestado ainda, impossível solicitar o cancelamento.");
 
-		MLBRBankSlipOccur bankSlipOccur = MLBRBankSlipOccur.getFromType (bankSlip.getLBR_BankSlipLayout_ID(), m_LBR_OccurType);
+		MLBRBankSlipOccur bankSlipOccur = MLBRBankSlipOccur.getFromType (bankSlip.getLBR_BankSlipLayout_ID(), occurType);
 		if (bankSlipOccur == null)
-			return "@Error@ Banco não configurado para a ocorrência desejada";
+			throw new MovementException ("Banco não configurado para a ocorrência desejada");
 		
 		boolean canHandle = false;
 		List<ICNABFactory> list = Service.locator ().list (ICNABFactory.class).getServices();
@@ -96,7 +148,7 @@ public class RegisterOccurence extends SvrProcess
 		{
 			I_LBR_BankSlipLayout layout = bankSlip.getLBR_BankSlipLayout();
 			ICNABGenerator handler = cnabFactory.getCNABGenerator(Integer.valueOf(bankSlip.getRoutingNo()), layout.getType(), layout.getVersion());
-			if (handler != null && handler.getAvailableOccurs().contains(m_LBR_OccurType))
+			if (handler != null && handler.getAvailableOccurs().contains(occurType))
 			{
 				canHandle = true;
 				break;
@@ -105,19 +157,17 @@ public class RegisterOccurence extends SvrProcess
 		
 		//	Can't handle ocurrence
 		if (!canHandle)
-			return "@Error@ Leiaute CNAB não suporta a ação desejada, faça a alteração diretamente no banco";
+			throw new MovementException ("Leiaute CNAB não suporta a ação desejada, faça a alteração diretamente no banco");
 		
 		//	Creates the new movement
-		MLBRBankSlipMov movement = bankSlip.createMovement(m_LBR_OccurType);
-		if (m_WriteOffAmt != null)
-			movement.setWriteOffAmt(m_WriteOffAmt);
-		if (m_DueDate != null)
-			movement.setDueDate(m_DueDate);
-		if (m_ProtestDays > 0)
-			movement.setLBR_ProtestDays(m_ProtestDays);
-		movement.setDescription(m_Description);
-		movement.save();
-		
-		return "@Success@";
-	}	//	doIt
+		MLBRBankSlipMov movement = bankSlip.createMovement(occurType);
+		if (writeOffAmt != null)
+			movement.setWriteOffAmt(writeOffAmt);
+		if (dueDate != null)
+			movement.setDueDate(dueDate);
+		if (protestDays > 0)
+			movement.setLBR_ProtestDays(protestDays);
+		movement.setDescription(description);
+		movement.saveEx();
+	}	//	register
 }	//	RegisterOccurence

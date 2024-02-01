@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!--iDempiere(r) Release 6.2_2019-01-06 -Smart Suite ERP, CRM and SCM- (c) 1999-2019 iDempiere(r); Implementation: iDempiere - Supported by iDempiere community--><!--<!DOCTYPE idempiereTrl PUBLIC "-//ComPiere, Inc.//DTD iDempiere Translation 1.0//EN" "http://www.idempiere.com/dtd/idempiereTrl.dtd">--><idempiereTrl language="pt_BR" table="C_DocType">
  <row id="0" trl="Y">
-  <value column="Name" original="** New **">** Novo **</value>
-  <value column="PrintName" original="** New **">** Novo **</value>
-  <value column="DocumentNote" original="** NO INVOICE **">** SEM FATURA **</value>
+  <value column="Name" original="** New **">** Rascunho **</value>
+  <value column="PrintName" original="** New **">** Rascunho **</value>
+  <value column="DocumentNote" original="** NO INVOICE **">** SEM VALIDADE, NÃO FATURAR **</value>
  </row>
  <row id="115" trl="Y">
   <value column="Name" original="GL Journal">Diário de Razão Geral</value>

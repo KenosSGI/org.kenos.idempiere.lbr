@@ -17,7 +17,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.Properties;
+import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 import org.adempiere.base.Service;
 import org.adempiere.model.POWrapper;
@@ -79,6 +82,8 @@ import org.kenos.idempiere.lbr.bankslip.cnab240.BancoSafra422;
 import org.kenos.idempiere.lbr.bankslip.cnab400.BancoDoBrasil001;
 import org.kenos.idempiere.lbr.bankslip.cnab400.Bradesco237;
 import org.kenos.idempiere.lbr.bankslip.cnab400.CaixaEconomica104;
+import org.kenos.idempiere.lbr.bankslip.exception.MovementException;
+import org.kenos.idempiere.lbr.bankslip.process.RegisterOccurence;
 import org.kenos.idempiere.lbr.base.model.SysConfig;
 
 /**
@@ -1310,22 +1315,36 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 			return false;
 		}
 		
-		if (isRegistered() && MLBRBankSlipLayout.TYPE_API.equals(getLBR_BankSlipContract().getLBR_BankSlipLayout().getType())) {
-			IBankSlipAPI api = locateAPI ();
-			
-			if (api == null) {
-				m_processMsg = "API não disponível para este contrato bancário";
-				return false;
+		if (isRegistered()) {
+			//	API bank slip
+			if (MLBRBankSlipLayout.TYPE_API.equals(getLBR_BankSlipContract().getLBR_BankSlipLayout().getType())) {
+				IBankSlipAPI api = locateAPI ();
+				
+				if (api == null) {
+					m_processMsg = "API não disponível para este contrato bancário";
+					return false;
+				}
+				
+				try {
+					if (!api.cancelBankSlip(this))
+						throw new Exception ();
+				} catch (Exception e) {
+					e.printStackTrace();
+					//
+					m_processMsg = "Erro ao cancelar o boleto via API";
+					return false;
+				}
 			}
-			
-			try {
-				if (!api.cancelBankSlip(this))
-					throw new Exception ();
-			} catch (Exception e) {
-				e.printStackTrace();
-				//
-				m_processMsg = "Erro ao cancelar o boleto via API";
-				return false;
+			else if (TextUtil.match(getLBR_BankSlipContract().getLBR_BankSlipLayout().getType(), MLBRBankSlipLayout.TYPE_CNAB240, MLBRBankSlipLayout.TYPE_CNAB400)) {
+				try {
+					RegisterOccurence.writeOff (this, null);
+				} catch (MovementException e) {
+					setDescription(Stream.of(getDescription(), e.getMessage())
+							.filter(Objects::nonNull)
+							.filter(Predicate.not(String::isBlank))
+							.reduce((s1, s2) -> s1 + ". " + s2)
+							.orElse(null));
+				}
 			}
 		}
 		
