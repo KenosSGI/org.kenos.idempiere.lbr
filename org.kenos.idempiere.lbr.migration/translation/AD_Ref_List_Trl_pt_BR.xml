@@ -12880,4 +12880,40 @@
   <value column="Name" original="Other In">Outras Entradas</value>
   <value column="Description" original=""/>
  </row>
+ <row trl="N" uuid="d6131a1f-ec3b-40be-862c-f93f13c1c312">
+  <value column="Name" original="Intercompany Invoice AR">Intercompany Invoice AR</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="e7fbd284-7bef-47dc-b798-3d885467c8b0">
+  <value column="Name" original="Intercompany Invoice AP">Intercompany Invoice AP</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="c8d24766-af96-4e3a-9e5c-567e0cc7906b">
+  <value column="Name" original="Flat Percent">Percentual Fixo</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="9978bf88-2c95-4acb-a17a-d87148d5363b">
+  <value column="Name" original="Amount">Valor</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="62ac65ea-f955-44d6-bf19-c800f9602d3c">
+  <value column="Name" original="Cummulative Discount">Desconto Acumulativo</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="72eaba82-8e57-44d7-8706-044043c6a127">
+  <value column="Name" original="Non-Accumulative Discount">Desconto Não-Acumulativo</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="9cefa78e-16c8-4583-89fe-6d0ec1808ccc">
+  <value column="Name" original="Distribute by Line Amount">Ratear pelo Total da Linha</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="df7f775f-f011-4599-8acf-a20f243f683c">
+  <value column="Name" original="Distribute by Weight">Ratear por Peso</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="c9238105-8c2d-4ea6-ad83-01e13f65dd52">
+  <value column="Name" original="Apply to Line with Highest Amount">Aplicar na Linha de Maior Valor</value>
+  <value column="Description" original=""/>
+ </row>
 </idempiereTrl>

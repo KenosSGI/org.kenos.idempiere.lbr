@@ -2402,11 +2402,6 @@ For example:<br />
   <value column="Description" original=""/>
   <value column="Help" original=""/>
  </row>
- <row trl="N" uuid="d149a49d-8b9b-4db2-ac0a-773ce3ae2a6e">
-  <value column="Name" original="Process SPED Contribution">Processar SPED Contribuições</value>
-  <value column="Description" original=""/>
-  <value column="Help" original=""/>
- </row>
  <row trl="Y" uuid="2c16225a-4e85-4fd5-88b9-c5f1b07342ef">
   <value column="Name" original="Import IBPT average taxes">Importar Impostos via IBPT</value>
   <value column="Description" original="Import the average taxes from IBPT">Efetuar a importação da tabela de aliquotas aproximadas de impostos do IBPT</value>
@@ -2586,11 +2581,6 @@ For example:<br />
   <value column="Name" original="Generate NF">Gerar Notas Fiscais</value>
   <value column="Description" original="Generate NF from another document">Gerar Notas Fiscais a partir de outro documento</value>
   <value column="Help" original="">Este processo permite a geração de uma Nota Fiscal a partir de um Pedido, Remessa, Fatura ou Movimentação.</value>
- </row>
- <row trl="Y" uuid="8d41fbb9-854d-40be-9801-66331f6b2ac5">
-  <value column="Name" original="Generate NF Other In Out">Gerar NF-e a partir de Outras Entradas/Saídas</value>
-  <value column="Description" original="Generate NF from Other In Out">Gerar NF-e a partir de Outras Entradas/Saídas</value>
-  <value column="Help" original="">Este processo permite a geração de uma Nota Fiscal a partir de um documento do tipo  Outras Entradas/Saídas</value>
  </row>
  <row trl="Y" uuid="31dfe921-cec5-49d1-b0a5-b26d596d5ef6">
   <value column="Name" original="Make To Order Candidate">Pedido de Venda pendente de Produção</value>
@@ -2802,25 +2792,10 @@ For example:<br />
   <value column="Description" original="Test the tax configurations">Efetua o teste da configuração de impostos</value>
   <value column="Help" original="">Para verificar todos os registros de teste utilize a opção "Testar todas as configurações". Para testar somente o registro atual, deixa esta opção desmarcada. Quando o teste é feito somente para o registro atual, o sistema mostra no resultado todos os registros usados na composição tributária do teste, deixando assim mais fácil fazer eventuais correções.</value>
  </row>
- <row trl="Y" uuid="ecd4b55c-1bcc-4349-b1a7-6c83c83df5ed">
-  <value column="Name" original="Tax Validation Request">Solicitar Validação Tributária</value>
-  <value column="Description" original="This process will include the actual tax entered to Tax Test window">Este processo irá incluir esta linha do pedido na validação tributária</value>
-  <value column="Help" original="The goal of this process is to include warning to tax personal that this transaction is getting wrong tax configuration. So you should fix manually this tax and then request the fix in the configuration by submitting this process. Make sure to include a good description.">O objetivo deste processo é incluir esta linha de pedido para ser validada na janela de Teste de Configuração Tributária. Você deve ter certeza que a tributação que o sistema atribuiu automaticamente para esta linha estava errada, em seguida você deverá fazer a correção manualmente nesta linha de pedido e só então avançar com este processo. Obrigatoriamente deve-se incluir uma descrição para identificar esta configuração na janela de testes.</value>
- </row>
  <row trl="Y" uuid="18deeff9-4883-448e-a580-c3208b1a2dae">
   <value column="Name" original="Partner Doc Report">Relatório de Documentos Fiscais Recebidos (DF-e)</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
- </row>
- <row trl="Y" uuid="e8438030-41dc-4976-8760-b2fc91f10d22">
-  <value column="Name" original="Bank Statement Detail">Detalhes do Extrato Bancário</value>
-  <value column="Description" original="">Relatório exibe Detalhes do Extrato Bancário baseado nas linhas do Extrato</value>
-  <value column="Help" original="">Relatório exibe Detalhes do Extrato Bancário baseado nas linhas do Extrato</value>
- </row>
- <row trl="Y" uuid="973537ea-01f5-471b-8631-0a79e7b91e7c">
-  <value column="Name" original="Obtain Certificate">Obter Certificado</value>
-  <value column="Description" original="Try to get the certificate from URL">Faz a pesquisa de uma URL e tenta obter o certificado digital</value>
-  <value column="Help" original="Execute the first time with zero index. Check the certificates and then execute again with desired index.">Use este processo para tentar obter um certificado digital e adicioná-lo a lista de Certificados Confiáveis. Execute com o parâmetro índice igual a zero para visualizar a lista de certificados fornecidos pela aquela URL. Na listagem confira se o certificado é confiável e execute o processo novamente com o índice desejado.</value>
  </row>
  <row trl="Y" uuid="5726083d-1386-4178-b673-867c8732ca6d">
   <value column="Name" original="Create Counter Document">Criar Contra-Documento</value>
@@ -2887,21 +2862,6 @@ For example:<br />
   <value column="Description" original="BankSlip Report">Detalhes de Boleto</value>
   <value column="Help" original="BankSlip Report Detail">Relatório de Detalhes de Boleto</value>
  </row>
- <row trl="Y" uuid="afcfeb07-3bb9-4d1b-9a07-ba465307ec4d">
-  <value column="Name" original="Bank Slip Actions">Registrar Ocorrência</value>
-  <value column="Description" original="Perform some actions to an existing bank slip, such as change due date, discount, protest and so on">Envia uma ocorrência para alteração do um boleto já registrado.</value>
-  <value column="Help" original=""/>
- </row>
- <row trl="Y" uuid="a8016f4e-ac97-469d-b96d-eb2c17c2e8b0">
-  <value column="Name" original="Product Kardex">Ficha de Estoque - Kardex</value>
-  <value column="Description" original="Product Kardex with average cost">Ficha de Estoque - Kardex</value>
-  <value column="Help" original="">Ficha de Estoque contendo o custo médio (calculado) de um produto específico em um determinado período</value>
- </row>
- <row trl="Y" uuid="9d18fe45-8544-47c0-ba5b-a0ec7093c422">
-  <value column="Name" original="Tax Config Test">Teste da Configuração</value>
-  <value column="Description" original="Test the tax configurations">Efetua o teste da configuração de impostos</value>
-  <value column="Help" original="">Para verificar todos os registros de teste utilize a opção "Testar todas as configurações". Para testar somente o registro atual, deixa esta opção desmarcada. Quando o teste é feito somente para o registro atual, o sistema mostra no resultado todos os registros usados na composição tributária do teste, deixando assim mais fácil fazer eventuais correções.</value>
- </row>
  <row trl="Y" uuid="ecd4b55c-1bcc-4349-b1a7-6c83c83df5ed">
   <value column="Name" original="Tax Validation Request">Solicitar Validação Tributária</value>
   <value column="Description" original="This process will include the actual tax entered to Tax Test window">Este processo irá incluir esta linha do pedido na validação tributária</value>
@@ -2912,9 +2872,19 @@ For example:<br />
   <value column="Description" original="Try to get the certificate from URL">Faz a pesquisa de uma URL e tenta obter o certificado digital</value>
   <value column="Help" original="Execute the first time with zero index. Check the certificates and then execute again with desired index.">Use este processo para tentar obter um certificado digital e adicioná-lo a lista de Certificados Confiáveis. Execute com o parâmetro índice igual a zero para visualizar a lista de certificados fornecidos pela aquela URL. Na listagem confira se o certificado é confiável e execute o processo novamente com o índice desejado.</value>
  </row>
- <row trl="Y" uuid="5efaeb22-fe9f-47ae-a1ae-228b3395e68e">
-  <value column="Name" original="Freight Calc">Cálculo de Frete (Correios)</value>
-  <value column="Description" original="Freight calculation for Brazilian Post Service (Correios)">Sistema de cálculo de frete para o serviço de postagem brasileiro (Correios)</value>
+ <row trl="Y" uuid="202a60d9-8895-425e-a63c-83a676c3b432">
+  <value column="Name" original="DF-e Match">Concliar DF-e</value>
+  <value column="Description" original=""/>
   <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="b96449b7-3e18-4114-a4da-ec4d3d0d6290">
+  <value column="Name" original="Reminder Bank Slip Due">Lembrete de Vencimento de Boleto</value>
+  <value column="Description" original="Send a reminder e-mail when bank slip is about to due">Envia um e-mail de lembrete quando o boleto bancário estiver prestes a vencer.</value>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="8ded3a66-383c-4de0-b824-735c560b8d8d">
+  <value column="Name" original="Apply Discount">Aplicar Desconto</value>
+  <value column="Description" original="">Este processo é responsável por aplicar descontos nas linhas de pedido.</value>
+  <value column="Help" original="">Os descontos podem ser aplicados de duas maneiras: cumulativamente ou de forma não cumulativa. No modo cumulativo, o desconto fornecido é adicionado a qualquer desconto já existente na linha do pedido. O desconto pode ser configurado de duas formas: como um valor percentual do total da linha ou como um valor fixo. Além disso, o desconto pode ser rateado entre todas as linhas do pedido de forma equitativa, ou aplicado integralmente na linha de maior valor, proporcionando flexibilidade na gestão dos descontos.</value>
  </row>
 </idempiereTrl>

@@ -55,4 +55,14 @@
   <value column="Description" original="Nota Fiscal Info Window">Informações de Nota Fiscal</value>
   <value column="Help" original=""/>
  </row>
+ <row trl="Y" uuid="753aec41-173d-4d69-b17a-ffc7cada4472">
+  <value column="Name" original="Check Missing NSU">Verificar NSU Faltantes</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="0c6daf8c-688c-4afa-b6c9-beb02f1ed006">
+  <value column="Name" original="DF-e Info">Informações de DF-e</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
 </idempiereTrl>

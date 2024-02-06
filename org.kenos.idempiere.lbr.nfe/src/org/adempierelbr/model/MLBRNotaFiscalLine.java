@@ -680,6 +680,9 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 		
 		//  Outras Despesas Acessórias
 		setLBR_OtherChargesAmt(iLineW.getLBR_OtherChargesAmt());
+
+		//	Discounts
+		setDiscountAmt(iLineW.getDiscountAmt());
 		
 		if (iLineW.getLBR_ADILine_ID() > 0)
 		{
@@ -1008,7 +1011,10 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 			
 		    //  Outras Despesas Acessórias
 			setLBR_OtherChargesAmt(oLineW.getLBR_OtherChargesAmt());
-			
+
+			//	Discounts
+			setDiscountAmt(oLineW.getDiscountAmt());
+
 			if (oLineW.getLBR_ADILine_ID() > 0)
 			{
 				MLBRADILine adil = new MLBRADILine (getCtx(), oLineW.getLBR_ADILine_ID(), get_TrxName());
@@ -1234,6 +1240,7 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 					params.put(MLBRTax.OTHERCHARGES, BigDecimal.ZERO);
 					params.put(MLBRTax.QTY, getQty());
 					params.put(MLBRTax.AMT, getPrice().multiply(getQty()));
+					params.put(MLBRTax.DISCOUNT, getDiscountAmt());
 					
 					tax.calculate (true, getParent().getDateAcct(), params, getParent().getlbr_TransactionType(), getParent().isSOTrx());
 				}
@@ -1421,16 +1428,7 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 		}
 		
 		super.setPriceListAmt(amtDIFAL.add(priceList));
-		
-		if (getParent().isDiscountPrinted() && priceList.compareTo(price)==1)
-		{
-		    //  Desconto por Linha
-			setDiscount(amtDIFAL.add(price), amtDIFAL.add(priceList));
-			super.setPrice(amtDIFAL.add(priceList));	
-		}
-		else
-			super.setPrice(amtDIFAL.add(price));
-		//
+		super.setPrice(amtDIFAL.add(price));
 		super.setLineTotalAmt(getPrice().multiply(getQty()).setScale(2, RoundingMode.HALF_UP));
 		
 		//	Should fill uTrib and qTrib fields for Export NF
@@ -1456,17 +1454,6 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 			}
 		}
 	}	//	setPrice
-	
-	/**
-	 * 	Define o desconto por Linha da Nota Fiscal
-	 */
-	private void setDiscount(BigDecimal price, BigDecimal priceList)
-	{	
-		if (getParent().isDiscountPrinted())
-			setDiscountAmt(priceList.subtract(price).multiply(getQty()).setScale(2, RoundingMode.HALF_UP));
-		else
-			setDiscountAmt(Env.ZERO);
-	}	//	setDiscount
 	
 	/**
 	 * 		Define os atributos do produto

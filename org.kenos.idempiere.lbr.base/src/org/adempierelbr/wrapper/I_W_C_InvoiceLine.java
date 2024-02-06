@@ -135,6 +135,19 @@ public interface I_W_C_InvoiceLine extends I_C_InvoiceLine
 	  */
 	public BigDecimal getlbr_InsuranceAmt();
 
+    /** Column name DiscountAmt */
+    public static final String COLUMNNAME_DiscountAmt = "DiscountAmt";
+
+	/** Set Discount Amt.
+	  * Defines the Discount Amt
+	  */
+	public void setDiscountAmt (BigDecimal DiscountAmt);
+
+	/** Get Discount Amt.
+	  * Defines the Discount Amt
+	  */
+	public BigDecimal getDiscountAmt();
+
     /** Column name lbr_RecalculateTax */
     public static final String COLUMNNAME_lbr_RecalculateTax = "lbr_RecalculateTax";
 

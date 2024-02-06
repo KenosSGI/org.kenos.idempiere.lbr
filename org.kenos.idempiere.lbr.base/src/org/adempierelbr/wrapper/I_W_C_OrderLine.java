@@ -17,8 +17,9 @@
 package org.adempierelbr.wrapper;
 
 import java.math.BigDecimal;
-import org.compiere.model.*;
-import org.compiere.util.KeyNamePair;
+
+import org.compiere.model.I_C_Location;
+import org.compiere.model.I_C_OrderLine;
 
 /** Generated Interface for C_OrderLine
  *  @author iDempiere (generated) 
@@ -182,6 +183,19 @@ public interface I_W_C_OrderLine extends I_C_OrderLine
 	  * Defines the Insurance Amt
 	  */
 	public BigDecimal getlbr_InsuranceAmt();
+
+    /** Column name DiscountAmt */
+    public static final String COLUMNNAME_DiscountAmt = "DiscountAmt";
+
+	/** Set Discount Amt.
+	  * Defines the Discount Amt
+	  */
+	public void setDiscountAmt (BigDecimal DiscountAmt);
+
+	/** Get Discount Amt.
+	  * Defines the Discount Amt
+	  */
+	public BigDecimal getDiscountAmt();
 
     /** Column name lbr_RecalculateTax */
     public static final String COLUMNNAME_lbr_RecalculateTax = "lbr_RecalculateTax";

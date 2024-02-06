@@ -7152,10 +7152,6 @@ Telefone: {1}</value>
   <value column="MsgText" original="Invoices with blank Pay Rule">Faturas sem forma de pagto.</value>
   <value column="MsgTip" original=""/>
  </row>
- <row trl="Y" uuid="abfbe3f0-a251-4228-af61-490a035ebea1">
-  <value column="MsgText" original="Informe os dados abaixo para fazer o cálculo do frete nos Correios. As medidas somente tem efeito para saber os tamanhos mínimos e máximos de cada pacote, não influenciando no preço (para preço do balcão). Além do preço do balcão o sistema mostra os preços de contrato, caso sua empresa tenha um contrato de prestação de serviços configurado.">Informe os dados abaixo para fazer o cálculo do frete nos Correios. As medidas somente tem efeito para saber os tamanhos mínimos e máximos de cada pacote, não influenciando no preço (para preço do balcão). Além do preço do balcão o sistema mostra os preços de contrato, caso sua empresa tenha um contrato de prestação de serviços configurado.</value>
-  <value column="MsgTip" original=""/>
- </row>
  <row trl="Y" uuid="dcd87f6b-dae4-44ca-885c-5106d1259989">
   <value column="MsgText" original="Could not find any Bank Slip Contract">Não foi possível encontrar nenhum contrato de boleto bancário</value>
   <value column="MsgTip" original=""/>
@@ -7182,6 +7178,18 @@ Telefone: {1}</value>
  </row>
  <row trl="Y" uuid="abfbe3f0-a251-4228-af61-490a035ebea1">
   <value column="MsgText" original="Informe os dados abaixo para fazer o cálculo do frete nos Correios. As medidas somente tem efeito para saber os tamanhos mínimos e máximos de cada pacote, não influenciando no preço (para preço do balcão). Além do preço do balcão o sistema mostra os preços de contrato, caso sua empresa tenha um contrato de prestação de serviços configurado.">Informe os dados abaixo para fazer o cálculo do frete nos Correios. As medidas somente tem efeito para saber os tamanhos mínimos e máximos de cada pacote, não influenciando no preço (para preço do balcão). Além do preço do balcão o sistema mostra os preços de contrato, caso sua empresa tenha um contrato de prestação de serviços configurado.</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row trl="Y" uuid="829c9cda-240c-45fd-a339-a52b8ed02721">
+  <value column="MsgText" original="Error saving taxes">Erro ao salvar os impostos</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row trl="Y" uuid="4896e18e-f8f5-42f4-a12b-1e75aae6f1e2">
+  <value column="MsgText" original="Discount Tax not found. Please make sure you have a Discount Tax (Tax Indicator = DISCOUNT) created and linked to this tax parent.">Imposto/Taxa para o desconto não foi encontrada. Por favor verifique se existe uma taxa para o desconto (Indicador de Imposto = DISCOUNT) vinculada a este imposto pai.</value>
+  <value column="MsgTip" original="">Imposto/Taxa para o desconto n</value>
+ </row>
+ <row trl="Y" uuid="bc285988-6fa9-4edc-a74b-fa93664b941b">
+  <value column="MsgText" original="Discount applied exceeds the discount limit. You can review your discount or ask to another user apply them.">O desconto aplicado supera o limite permitido. Você pode revisar o desconto aplicado ou solicitar outro usuário que tenha permissão para efetuar esse desconto.</value>
   <value column="MsgTip" original=""/>
  </row>
 </idempiereTrl>

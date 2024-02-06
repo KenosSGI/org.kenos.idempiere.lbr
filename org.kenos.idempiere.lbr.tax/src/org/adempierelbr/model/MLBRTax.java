@@ -77,19 +77,22 @@ public class MLBRTax extends X_LBR_Tax
 	private static final BigDecimal ONEHUNDRED 	= Env.ONEHUNDRED.setScale(17, RoundingMode.HALF_UP);
 	
 	/**	SISCOMEX		*/
-	public static final String SISCOMEX 		= "SISCOMEX";
+	public static final String SISCOMEX 	= "SISCOMEX";
 	
 	/**	Freight			*/
 	public static final String FREIGHT 		= "FREIGHT";
 	
 	/**	OTHERCHARGES		*/
-	public static final String OTHERCHARGES 	= "OTHERCHARGES";
+	public static final String OTHERCHARGES = "OTHERCHARGES";
 	
 	/**	Insurance		*/
 	public static final String INSURANCE 	= "INSURANCE";
 	
 	/**	Amount			*/
 	public static final String AMT 			= "AMT";
+	
+	/**	Discount			*/
+	public static final String DISCOUNT 	= "DISCOUNT";
 	
 	/**	Qty			*/
 	public static final String QTY 			= "QTY";
@@ -270,6 +273,10 @@ public class MLBRTax extends X_LBR_Tax
 				//	Caso não tenha uma fórmula atribuida, considerar o flag da Lista de Preços
 				else
 					taxLine.setIsTaxIncluded(isTaxIncludedPriceList);
+				
+				//	Include discount on tax base (subtract the amount from base)
+				if (taxFormula.isDiscountAllowedOnTotal())
+					taxBaseAdd = taxBaseAdd.subtract(params.get(DISCOUNT));
 				
 				/****************************************
 				 *  	 	 Adicional x Fator			*

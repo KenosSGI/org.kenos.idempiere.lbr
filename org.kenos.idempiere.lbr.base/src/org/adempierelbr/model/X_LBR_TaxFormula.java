@@ -33,7 +33,7 @@ public class X_LBR_TaxFormula extends PO implements I_LBR_TaxFormula, I_Persiste
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20210722L;
+	private static final long serialVersionUID = 20240202L;
 
     /** Standard Constructor */
     public X_LBR_TaxFormula (Properties ctx, int LBR_TaxFormula_ID, String trxName)
@@ -41,6 +41,8 @@ public class X_LBR_TaxFormula extends PO implements I_LBR_TaxFormula, I_Persiste
       super (ctx, LBR_TaxFormula_ID, trxName);
       /** if (LBR_TaxFormula_ID == 0)
         {
+			setIsDiscountAllowedOnTotal (true);
+// Y
 			setIsTaxIncluded (false);
 // N
 			setLBR_TaxFormula_ID (0);
@@ -80,6 +82,27 @@ public class X_LBR_TaxFormula extends PO implements I_LBR_TaxFormula, I_Persiste
         .append(get_ID()).append("]");
       return sb.toString();
     }
+
+	/** Set IsDiscountAllowedOnTotal.
+		@param IsDiscountAllowedOnTotal IsDiscountAllowedOnTotal	  */
+	public void setIsDiscountAllowedOnTotal (boolean IsDiscountAllowedOnTotal)
+	{
+		set_Value (COLUMNNAME_IsDiscountAllowedOnTotal, Boolean.valueOf(IsDiscountAllowedOnTotal));
+	}
+
+	/** Get IsDiscountAllowedOnTotal.
+		@return IsDiscountAllowedOnTotal	  */
+	public boolean isDiscountAllowedOnTotal () 
+	{
+		Object oo = get_Value(COLUMNNAME_IsDiscountAllowedOnTotal);
+		if (oo != null) 
+		{
+			 if (oo instanceof Boolean) 
+				 return ((Boolean)oo).booleanValue(); 
+			return "Y".equals(oo);
+		}
+		return false;
+	}
 
 	/** IsSOTrx AD_Reference_ID=319 */
 	public static final int ISSOTRX_AD_Reference_ID=319;
@@ -382,6 +405,8 @@ public class X_LBR_TaxFormula extends PO implements I_LBR_TaxFormula, I_Persiste
 		return (String)get_Value(COLUMNNAME_lbr_ServiceFactor);
 	}
 
+	/** lbr_TransactionType AD_Reference_ID=1000024 */
+	public static final int LBR_TRANSACTIONTYPE_AD_Reference_ID=1000024;
 	/** End User = END */
 	public static final String LBR_TRANSACTIONTYPE_EndUser = "END";
 	/** Manufacturing = MAN */
@@ -398,6 +423,8 @@ public class X_LBR_TaxFormula extends PO implements I_LBR_TaxFormula, I_Persiste
 	public static final String LBR_TRANSACTIONTYPE_EndUserRE574706 = "EN3";
 	/** Resale (RE 574.706) = RE3 */
 	public static final String LBR_TRANSACTIONTYPE_ResaleRE574706 = "RE3";
+	/** End User (DIFAL out) = EN4 */
+	public static final String LBR_TRANSACTIONTYPE_EndUserDIFALOut = "EN4";
 	/** Set Transaction Type.
 		@param lbr_TransactionType 
 		Defines the Transaction Type

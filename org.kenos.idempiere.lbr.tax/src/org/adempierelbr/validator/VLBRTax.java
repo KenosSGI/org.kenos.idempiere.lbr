@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 import org.adempiere.model.POWrapper;
 import org.adempierelbr.model.MLBRTax;
@@ -20,9 +21,12 @@ import org.compiere.model.MOrder;
 import org.compiere.model.MOrderLine;
 import org.compiere.model.MOrderTax;
 import org.compiere.model.MSysConfig;
+import org.compiere.model.MTax;
 import org.compiere.model.ModelValidationEngine;
 import org.compiere.model.ModelValidator;
 import org.compiere.model.PO;
+import org.compiere.model.Query;
+import org.compiere.util.CCache;
 import org.compiere.util.CLogger;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
@@ -241,13 +245,9 @@ public class VLBRTax implements ModelValidator
 				params.put(MLBRTax.FREIGHT, oLineW.getFreightAmt());
 				params.put(MLBRTax.OTHERCHARGES, oLineW.getLBR_OtherChargesAmt());
 				params.put(MLBRTax.QTY, oLine.getQtyEntered());
-				
-				if (oLine.getPriceList().compareTo (oLine.getPriceActual()) >= 0 && oW.isDiscountPrinted() 
-						&& MSysConfig.getBooleanValue(SysConfig.LBR_TAXBASE_DISCOUNT_PRINT_NF, false, getAD_Client_ID()))
-					params.put(MLBRTax.AMT, oLine.getPriceList().multiply(oLine.getQtyEntered()));
-				else
-					params.put(MLBRTax.AMT, oLine.getLineNetAmt());
-				
+				params.put(MLBRTax.AMT, oLine.getLineNetAmt());
+				BigDecimal discountAmt = Optional.ofNullable ((BigDecimal) oLine.get_Value("DiscountAmt")).orElse (BigDecimal.ZERO);
+				params.put(MLBRTax.DISCOUNT, discountAmt);
 				//
 				MLBRTax tax = new MLBRTax (Env.getCtx(), oLineW.getLBR_Tax_ID(), oLine.get_TrxName());
 				tax.calculate (oW.isTaxIncluded(), oW.getDateOrdered(), params, oW.getlbr_TransactionType(), oW.isSOTrx());
@@ -272,13 +272,9 @@ public class VLBRTax implements ModelValidator
 				params.put(MLBRTax.FREIGHT, iLineW.getFreightAmt().multiply(reversal));
 				params.put(MLBRTax.OTHERCHARGES, iLineW.getLBR_OtherChargesAmt().multiply(reversal));
 				params.put(MLBRTax.QTY, iLine.getQtyEntered());
-				
-				if (iLine.getPriceList().compareTo (iLine.getPriceActual()) >= 0 && iW.isDiscountPrinted() 
-						&& MSysConfig.getBooleanValue(SysConfig.LBR_TAXBASE_DISCOUNT_PRINT_NF, false, iLine.getAD_Client_ID()))
-					params.put(MLBRTax.AMT, iLine.getPriceList().multiply(iLine.getQtyEntered()));
-				else
-					params.put(MLBRTax.AMT, iLine.getLineNetAmt());
-				
+				params.put(MLBRTax.AMT, iLine.getLineNetAmt());
+				BigDecimal discountAmt = Optional.ofNullable ((BigDecimal) iLine.get_Value("DiscountAmt")).orElse (BigDecimal.ZERO);
+				params.put(MLBRTax.DISCOUNT, discountAmt);
 				//
 				MLBRTax tax = new MLBRTax (Env.getCtx(), iLineW.getLBR_Tax_ID(), iLine.get_TrxName());
 				tax.calculate (iW.isTaxIncluded(), iW.getDateOrdered(), params, iW.getlbr_TransactionType(), invoice.isSOTrx());
@@ -349,7 +345,8 @@ public class VLBRTax implements ModelValidator
 					|| po.is_ValueChanged (I_W_C_OrderLine.COLUMNNAME_FreightAmt)
 					|| po.is_ValueChanged (I_W_C_OrderLine.COLUMNNAME_LBR_OtherChargesAmt)
 					|| po.is_ValueChanged (I_W_C_OrderLine.COLUMNNAME_lbr_SISCOMEXAmt)
-					|| po.is_ValueChanged (I_W_C_OrderLine.COLUMNNAME_lbr_InsuranceAmt))
+					|| po.is_ValueChanged (I_W_C_OrderLine.COLUMNNAME_lbr_InsuranceAmt)
+					|| po.is_ValueChanged (I_W_C_OrderLine.COLUMNNAME_DiscountAmt))
 				return true;
 		}
 		//
@@ -413,7 +410,7 @@ public class VLBRTax implements ModelValidator
 		
 		//	All Lines - Order
 		if (MOrder.Table_Name.equals(tableName))
-			for (MOrderLine oLine : ((MOrder) parentPO).getLines())
+			for (MOrderLine oLine : ((MOrder) parentPO).getLines(true, null))
 			{
 				//	User original PO
 				if (oLine.get_ID() == po.get_ID() && MOrderLine.Table_Name.equals(po.get_TableName()))
@@ -426,6 +423,20 @@ public class VLBRTax implements ModelValidator
 					MLBRTax tax = new MLBRTax (Env.getCtx(), oLineW.getLBR_Tax_ID(), oLine.get_TrxName());
 					//
 					processTax(taxes, tax, oLine.getC_Tax_ID());
+					
+					//	Process Discounts
+					BigDecimal discountAmt = Optional.ofNullable(oLineW.getDiscountAmt()).orElse(BigDecimal.ZERO).negate();
+					if (discountAmt.signum() != 0) {
+						int discountTax_ID = getChildTax (oLineW.getC_Tax_ID(), MLBRTax.DISCOUNT);
+						if (discountTax_ID < 1) {
+							log.severe("Imposto/Taxa para desconto não encontrado");
+						}
+						
+						if (taxes.containsKey(discountTax_ID))
+							discountAmt = discountAmt.add((BigDecimal) taxes.get(discountTax_ID)[0]);
+
+						taxes.put (discountTax_ID, new Object[]{ discountAmt, BigDecimal.ZERO, false });		
+					}
 				}
 			}
 		
@@ -444,6 +455,20 @@ public class VLBRTax implements ModelValidator
 					MLBRTax tax = new MLBRTax (Env.getCtx(), iLineW.getLBR_Tax_ID(), iLine.get_TrxName());
 					//
 					processTax(taxes, tax, iLine.getC_Tax_ID());
+					
+					//	Process Discounts
+					BigDecimal discountAmt = Optional.ofNullable(iLineW.getDiscountAmt()).orElse(BigDecimal.ZERO).negate();
+					if (discountAmt.signum() != 0) {
+						int discountTax_ID = getChildTax (iLineW.getC_Tax_ID(), MLBRTax.DISCOUNT);
+						if (discountTax_ID < 1) {
+							log.severe("Imposto/Taxa para desconto não encontrado");
+						}
+						
+						if (taxes.containsKey(discountTax_ID))
+							discountAmt = discountAmt.add((BigDecimal) taxes.get(discountTax_ID)[0]);
+
+						taxes.put (discountTax_ID, new Object[]{ discountAmt, BigDecimal.ZERO, false });		
+					}
 				}
 			}
 		
@@ -532,4 +557,20 @@ public class VLBRTax implements ModelValidator
 					tl.isTaxIncluded()});							//	2-Tax Included
 		}
 	}	//	processTax
+
+	private static CCache<String, Integer> s_cache = new CCache<String, Integer>(MTax.Table_Name, 120, 0, true);
+	
+	private static int getChildTax (int C_Tax_ID, String taxIndicator) {
+		String key = C_Tax_ID + "/" + taxIndicator;
+		int discountTax_ID = -1;
+		if (!s_cache.containsKey(key))
+		{
+			String whereClause = MTax.COLUMNNAME_Parent_Tax_ID + "=? AND " + MTax.COLUMNNAME_TaxIndicator + "=?";
+			discountTax_ID = new Query (Env.getCtx(), MTax.Table_Name, whereClause, null)
+				.setParameters(C_Tax_ID, taxIndicator)
+				.firstIdOnly();
+			s_cache.put(key, discountTax_ID);
+		}
+		return s_cache.get(key);
+	}	//	getChildTax
 }	//	VLBRTax

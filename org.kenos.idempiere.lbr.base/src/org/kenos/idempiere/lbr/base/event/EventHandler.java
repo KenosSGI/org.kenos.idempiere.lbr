@@ -1,5 +1,6 @@
 package org.kenos.idempiere.lbr.base.event;
 
+import java.math.BigDecimal;
 import java.util.Properties;
 
 import org.adempiere.base.event.AbstractEventHandler;
@@ -14,6 +15,7 @@ import org.compiere.model.MInvoicePaySchedule;
 import org.compiere.model.MOrderLine;
 import org.compiere.model.MPayment;
 import org.compiere.model.MProduct;
+import org.compiere.model.MRole;
 import org.compiere.model.MSysConfig;
 import org.compiere.model.PO;
 import org.compiere.util.CLogger;
@@ -223,6 +225,9 @@ public class EventHandler extends AbstractEventHandler
 			showEmployeeInfo = false;
 		
 		Env.setContext(Env.getCtx(), "#LBR_SHOW_EMPLOYEE_BP_INFO", showEmployeeInfo);
+		
+		BigDecimal discountLimit = (BigDecimal) MRole.getDefault().get_Value("Limit_Discount");
+		Env.setContext(Env.getCtx(), "#LBRUserCanApplyDiscounts", discountLimit != null && discountLimit.signum() == 1 ? "Y" : "N");
 	}	//	doHandleLoginEvent
 
 	/**

@@ -328,9 +328,4 @@ Selecionando "Onde Usado" irá mostrar em qual(is) LDM(s) este componente é usa
   <value column="Description" original="Freight calculation for Brazilian Post Service (Correios)">Sistema de cálculo de frete para o serviço de postagem brasileiro (Correios)</value>
   <value column="Help" original=""/>
  </row>
- <row trl="Y" uuid="08c2fcbe-02e3-4ad6-aa55-7dc498676254">
-  <value column="Name" original="Manage DI">Gerenciar DI</value>
-  <value column="Description" original=""/>
-  <value column="Help" original=""/>
- </row>
 </idempiereTrl>

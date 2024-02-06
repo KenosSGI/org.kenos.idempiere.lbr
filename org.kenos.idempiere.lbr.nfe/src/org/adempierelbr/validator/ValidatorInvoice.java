@@ -298,6 +298,9 @@ public class ValidatorInvoice implements ModelValidator
 				if (iLineW.getLBR_ADILine_ID() <= 0 && wOLine.getLBR_ADILine_ID() > 0)
 					iLineW.setLBR_ADILine_ID(wOLine.getLBR_ADILine_ID());
 				
+				if ((iLineW.getDiscountAmt() == null || iLineW.getDiscountAmt().signum() == 0) && wOLine.getDiscountAmt() != null)
+					iLineW.setDiscountAmt(wOLine.getDiscountAmt());
+				
 				//
 				int LBR_Tax_ID = wOLine.getLBR_Tax_ID();
 				if (LBR_Tax_ID != 0)

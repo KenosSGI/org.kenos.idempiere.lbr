@@ -42,6 +42,8 @@ public class ProcessFactory implements IProcessFactory
 		if ("org.idempiere.process.ImportCSVProcess".equals(className)
 				|| ImportCSVProcess.class.getName().equals(className))
 			return new ImportCSVProcess();
+		if (ApplyDiscount.class.getName().equals(className))
+			return new ApplyDiscount();
 		return null;
 	}	//	newProcessInstance
 }	//	ProcessFactory

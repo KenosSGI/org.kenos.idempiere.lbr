@@ -33,7 +33,7 @@ public interface I_LBR_TaxFormula
     public static final String Table_Name = "LBR_TaxFormula";
 
     /** AD_Table_ID=1000026 */
-    public static final int Table_ID = MTable.getTable_ID(Table_Name);
+    public static final int Table_ID = 1000026;
 
     KeyNamePair Model = new KeyNamePair(Table_ID, Table_Name);
 
@@ -92,6 +92,15 @@ public interface I_LBR_TaxFormula
 	  * The record is active in the system
 	  */
 	public boolean isActive();
+
+    /** Column name IsDiscountAllowedOnTotal */
+    public static final String COLUMNNAME_IsDiscountAllowedOnTotal = "IsDiscountAllowedOnTotal";
+
+	/** Set IsDiscountAllowedOnTotal	  */
+	public void setIsDiscountAllowedOnTotal (boolean IsDiscountAllowedOnTotal);
+
+	/** Get IsDiscountAllowedOnTotal	  */
+	public boolean isDiscountAllowedOnTotal();
 
     /** Column name IsSOTrx */
     public static final String COLUMNNAME_IsSOTrx = "IsSOTrx";

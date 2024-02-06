@@ -299,6 +299,14 @@ public class VLBROrder implements ModelValidator
 				}
 			}
 		}
+		else if (type == TYPE_BEFORE_CHANGE)
+		{
+			// Reset discount amount in case of price change
+			if (orderLine.is_ValueChanged(MOrderLine.COLUMNNAME_QtyEntered)
+					|| orderLine.is_ValueChanged(MOrderLine.COLUMNNAME_PriceEntered)
+					|| orderLine.is_ValueChanged(MOrderLine.COLUMNNAME_C_UOM_ID))
+				orderLine.set_ValueNoCheck("DiscountAmt", BigDecimal.ZERO);
+		}
 		return null;
 	}	//	modelChange
 

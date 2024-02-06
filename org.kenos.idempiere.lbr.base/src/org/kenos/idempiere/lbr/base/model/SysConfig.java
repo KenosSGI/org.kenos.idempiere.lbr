@@ -95,7 +95,6 @@ public class SysConfig
 	public static final String LBR_SHOW_STOCK_MSG_ON_ORDER 						= "LBR_SHOW_STOCK_MSG_ON_ORDER";
 	public static final String LBR_SISCOMEX_PRODUCT_REGEX						= "LBR_SISCOMEX_PRODUCT_REGEX";
 	public static final String LBR_SIMPLES_NACIONAL_CRT							= "LBR_SIMPLES_NACIONAL_CRT";
-	public static final String LBR_TAXBASE_DISCOUNT_PRINT_NF 					= "LBR_TAXBASE_DISCOUNT_PRINT_NF";
 	public static final String LBR_USE_UNIFIED_BP 								= "LBR_USE_UNIFIED_BP";
 	public static final String LBR_VALIDATE_BP_ON_SO 							= "LBR_VALIDATE_BP_ON_SO";
 	public static final String LBR_VALIDATE_TAXES_ON_SO 						= "LBR_VALIDATE_TAXES_ON_SO";
@@ -119,4 +118,6 @@ public class SysConfig
 	public static final String LBR_CUSTOM_NFSE_EMAIL_MESSAGE 					= "LBR_CUSTOM_NFSE_EMAIL_MESSAGE";
 	@Deprecated
 	public static final String LBR_DFE_LAST_NSU 								= "LBR_DFE_LAST_NSU";
+	@Deprecated
+	public static final String LBR_TAXBASE_DISCOUNT_PRINT_NF 					= "LBR_TAXBASE_DISCOUNT_PRINT_NF";
 }	//	SysConfig
