@@ -268,15 +268,15 @@ public class MLBRTax extends X_LBR_Tax
 					
 					//	Marca se o imposto está incluso no preço
 					taxLine.setIsTaxIncluded(taxFormula.isTaxIncluded());
+					
+					//	Include discount on tax base (subtract the amount from base)
+					if (taxFormula.isDiscountAllowedOnTotal())
+						taxBaseAdd = taxBaseAdd.subtract(params.get(DISCOUNT));
 				}
 				
 				//	Caso não tenha uma fórmula atribuida, considerar o flag da Lista de Preços
 				else
 					taxLine.setIsTaxIncluded(isTaxIncludedPriceList);
-				
-				//	Include discount on tax base (subtract the amount from base)
-				if (taxFormula.isDiscountAllowedOnTotal())
-					taxBaseAdd = taxBaseAdd.subtract(params.get(DISCOUNT));
 				
 				/****************************************
 				 *  	 	 Adicional x Fator			*
