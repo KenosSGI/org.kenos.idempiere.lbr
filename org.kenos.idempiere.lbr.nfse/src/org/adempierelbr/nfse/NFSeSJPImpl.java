@@ -43,6 +43,7 @@ import org.compiere.model.MOrgInfo;
 import org.compiere.process.ProcessInfo;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
+import org.compiere.util.Ini;
 import org.compiere.util.Util;
 import org.kenos.idempiere.lbr.base.model.MCity;
 import org.kenos.idempiere.lbr.nfse.sjp.NfseStub;
@@ -847,8 +848,11 @@ public class NFSeSJPImpl implements INFSe
 	{
 		log.info ("NFSE Consult Process");
 		
+		MOrgInfo orgInf = MOrgInfo.get (Env.getCtx(), nf.getAD_Org_ID(), null);
+		
 		ConsultarSituacaoLoteRpsEnvioDocument document = ConsultarSituacaoLoteRpsEnvioDocument.Factory.newInstance();
 		ConsultarSituacaoLoteRpsEnvio rpsEnvio = document.addNewConsultarSituacaoLoteRpsEnvio();
+		rpsEnvio.setId("consultar");
 		TcIdentificacaoPrestador prestador = rpsEnvio.addNewPrestador();
 		
 		//CNPJ Organização
@@ -869,14 +873,23 @@ public class NFSeSJPImpl implements INFSe
 		if (MLBRNotaFiscal.LBR_NFEENV_Production.equals(nf.getlbr_NFeEnv()))
 			url = "https://nfe.sjp.pr.gov.br/servicos/issOnline2/ws/index.php?wsdl";
 		
-		NFeUtil.saveXML (String.valueOf(nf.getAD_Org_ID()), NFeUtil.KIND_NFSE, NFeUtil.MESSAGE_REQ_CONSULT, "Lote-" + nf.getDocumentNo(), document.xmlText());
+		//	Valida o documento
+		NFeUtil.validate (document);
+		
+		MLBRDigitalCertificate.setCertificate (Env.getCtx(), nf.getAD_Org_ID());
+		
+		//	Assina o XML
+		new SignatureUtil (orgInf, SignatureUtil.OUTROS, "ConsultarSituacaoLoteRpsEnvio").sign(document, document.getConsultarSituacaoLoteRpsEnvio().newCursor());
+		
+		String xmlText = document.xmlText(NFeUtil.getXmlOpt());
+		
+		NFeUtil.saveXML (String.valueOf(nf.getAD_Org_ID()), NFeUtil.KIND_NFSE, NFeUtil.MESSAGE_REQ_CONSULT, "Lote-" + nf.getDocumentNo(), xmlText.toString());
 
 		NfseStub nfseStub = new NfseStub(url);
 		nfseStub._getServiceClient().getOptions().setProperty(HTTPConstants.CHUNKED, false);
 		nfseStub._getServiceClient().getOptions().setTimeOutInMilliSeconds(300000);
 		
-		MLBRDigitalCertificate.setCertificate (Env.getCtx(), nf.getAD_Org_ID());
-		String result = nfseStub.consultarSituacaoLoteRpsV3(header.xmlText(), document.xmlText());
+		String result = nfseStub.consultarSituacaoLoteRpsV3(header.xmlText(), xmlText);
 
 		NFeUtil.saveXML (String.valueOf(nf.getAD_Org_ID()), NFeUtil.KIND_NFSE, NFeUtil.MESSAGE_RET_CONSULT, "Lote-" + nf.getDocumentNo(), result);
 
@@ -913,15 +926,23 @@ public class NFSeSJPImpl implements INFSe
 		{
 			ConsultarLoteRpsEnvioDocument consultadocument = ConsultarLoteRpsEnvioDocument.Factory.newInstance();
 			ConsultarLoteRpsEnvio consultarpsEnvio = consultadocument.addNewConsultarLoteRpsEnvio();
+			consultarpsEnvio.setId("consultar");
 			consultarpsEnvio.setPrestador(prestador);
-			
 			consultarpsEnvio.setProtocolo(nf.getlbr_DigestValue());
 			
-			NFeUtil.saveXML (String.valueOf(nf.getAD_Org_ID()), NFeUtil.KIND_NFSE, NFeUtil.MESSAGE_RET_CONSULT, "RPS-" + nf.getDocumentNo(), consultadocument.xmlText());
+			//	Adiciona o Certificado
+			MLBRDigitalCertificate.setCertificate (Env.getCtx(), nf.getAD_Org_ID());
 			
-			String resultconsulta = nfseStub.consultarLoteRpsV3(header.xmlText(), consultadocument.xmlText());
+			//	Assina o XML
+			new SignatureUtil (orgInf, SignatureUtil.OUTROS, "ConsultarLoteRpsEnvio").sign(consultadocument, consultadocument.getConsultarLoteRpsEnvio().newCursor());
 			
-			NFeUtil.saveXML (String.valueOf(nf.getAD_Org_ID()), NFeUtil.KIND_NFSE, NFeUtil.MESSAGE_RET_CONSULT, "RPS-" + nf.getDocumentNo(), resultconsulta);
+			String xmlTextConsulta = consultadocument.xmlText(NFeUtil.getXmlOpt());
+			
+			NFeUtil.saveXML (String.valueOf(nf.getAD_Org_ID()), NFeUtil.KIND_NFSE, NFeUtil.MESSAGE_REQ_CONSULT, "Consulta_RPS-" + nf.getDocumentNo(), xmlTextConsulta.toString());
+			
+			String resultconsulta = nfseStub.consultarLoteRpsV3(header.xmlText(), xmlTextConsulta);
+			
+			NFeUtil.saveXML (String.valueOf(nf.getAD_Org_ID()), NFeUtil.KIND_NFSE, NFeUtil.MESSAGE_RET_CONSULT, "Resultado_RPS-" + nf.getDocumentNo(), resultconsulta);
 			
 			ConsultarLoteRpsResposta consultaresposta = ConsultarLoteRpsRespostaDocument.Factory.parse(resultconsulta).getConsultarLoteRpsResposta();
 			String xmlAut = consultaresposta.xmlText();
