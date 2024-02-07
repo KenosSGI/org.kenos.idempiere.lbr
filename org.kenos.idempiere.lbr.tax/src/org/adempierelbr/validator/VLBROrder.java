@@ -272,17 +272,6 @@ public class VLBROrder implements ModelValidator
 				}
 			}
 			
-			//	**************************
-			
-			//	If new record, force ERP to assign next line when the document already has lines created
-			int lines = DB.getSQLValue (orderLine.get_TrxName(), "SELECT COUNT('1') FROM C_OrderLine WHERE C_Order_ID=?", orderLine.getC_Order_ID());
-			if (lines > 0 && olW.getLine() == 10)
-			{
-				String sql = "SELECT COALESCE(MAX(Line),0)+10 FROM C_OrderLine WHERE C_Order_ID=?";
-				int ii = DB.getSQLValue (orderLine.get_TrxName(), sql, orderLine.getC_Order_ID());
-				olW.setLine (ii);
-			}
-			
 			//	Quantidade do Pedido zerado nos casos de copiar de um pedido fechado
 			if (orderLine.getQtyEntered().signum() != 0 && orderLine.getQtyOrdered().signum() == 0)
 			{
