@@ -2465,4 +2465,9 @@ MRP - 110	 No exists Dem</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
  </row>
+ <row trl="Y" uuid="dd988f31-4c01-4a94-a9e1-7e21f613a719">
+  <value column="Name" original="Production Batch">Lote de Produção</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
 </idempiereTrl>

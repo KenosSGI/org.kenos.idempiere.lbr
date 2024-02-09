@@ -3454,4 +3454,19 @@ A, C, D, F e 1 (Créditos extemporâneos)</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
  </row>
+ <row trl="Y" uuid="5027a27e-83f8-4a20-a215-689cbce85da1">
+  <value column="Name" original="Order - DiscountType (LBR)">Order - DiscountType (LBR)</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="178af7e0-5278-42a8-b588-65abe8dae6ab">
+  <value column="Name" original="Order - CumulativeLevel of Discount (LBR)">Order - CumulativeLevel of Discount (LBR)</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="d5e844fb-096c-478d-b51c-f6b4ae832fe4">
+  <value column="Name" original="Order - DistributionType of Discount (LBR)">Order - DistributionType of Discount (LBR)</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
 </idempiereTrl>

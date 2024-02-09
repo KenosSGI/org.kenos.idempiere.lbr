@@ -45,6 +45,8 @@ public class ModelFactory implements IModelFactory
 			return MBPartnerLocation.class;
 		else if (MInOut.Table_Name.equals(tableName))
 			return MInOut.class;
+		else if (MLBRProductionBatch.Table_Name.equals(tableName))
+			return MLBRProductionBatch.class;
 		return null;
 	}	//	getClass
 
@@ -79,6 +81,8 @@ public class ModelFactory implements IModelFactory
 			return new MBPartnerLocation (Env.getCtx(), Record_ID, trxName);
 		else if (MInOut.Table_Name.equals(tableName))
 			return new MInOut (Env.getCtx(), Record_ID, trxName);
+		else if (MLBRProductionBatch.Table_Name.equals(tableName))
+			return new MLBRProductionBatch (Env.getCtx(), Record_ID, trxName);
 		return null;
 	}	//	getPO
 
@@ -113,6 +117,8 @@ public class ModelFactory implements IModelFactory
 			return new MBPartnerLocation (Env.getCtx(), rs, trxName);
 		else if (MInOut.Table_Name.equals(tableName))
 			return new MInOut (Env.getCtx(), rs, trxName);
+		else if (MLBRProductionBatch.Table_Name.equals(tableName))
+			return new MLBRProductionBatch (Env.getCtx(), rs, trxName);
 		return null;
 	}	//	getPO
 }	//	ModelFactory

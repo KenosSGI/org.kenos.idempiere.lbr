@@ -7667,4 +7667,22 @@ Impressão:
   <value column="Description" original=""/>
   <value column="Help" original=""/>
  </row>
+ <row trl="Y" uuid="1699439c-d26d-4b66-9896-625e24a7966e">
+  <value column="Name" original="Batch">Lote</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="d96f609f-b65f-4c0e-83d7-1e2e2fa38196">
+  <value column="Name" original="Items">Itens para Produzir</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="f1b1f41b-adf9-4302-b7eb-9c11de5472de">
+  <value column="Name" original="Line">Insumos por Item</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
 </idempiereTrl>

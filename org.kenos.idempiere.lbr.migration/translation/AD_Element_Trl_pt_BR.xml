@@ -72818,4 +72818,26 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
+ <row trl="Y" uuid="0c94114c-1be7-420c-acc1-6764c67d26c0">
+  <value column="Name" original="Production Batch">Lote de Produção</value>
+  <value column="PrintName" original="Production Batch">Lote de Produção</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="b7f23afd-19f2-417a-9c1f-a4cda8df7825">
+  <value column="Name" original="LBR_ProductionBatch_UU">LBR_ProductionBatch_UU</value>
+  <value column="PrintName" original="LBR_ProductionBatch_UU">LBR_ProductionBatch_UU</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
 </idempiereTrl>
