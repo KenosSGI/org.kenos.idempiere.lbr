@@ -12916,4 +12916,8 @@
   <value column="Name" original="Apply to Line with Highest Amount">Aplicar na Linha de Maior Valor</value>
   <value column="Description" original=""/>
  </row>
+ <row trl="Y" uuid="0ca848bb-dd34-4117-b9b8-6912d75b18ff">
+  <value column="Name" original="Distribute Equally">Distribuir Igualmente</value>
+  <value column="Description" original=""/>
+ </row>
 </idempiereTrl>

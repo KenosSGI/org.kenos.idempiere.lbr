@@ -67,6 +67,8 @@ public class ApplyDiscount extends SvrProcess
 	private static final String DISTRIBUTION_WEIGHT = "W";
     // Apply the entire discount to the line with the highest amount
     private static final String DISTRIBUTION_HIGHEST_AMOUNT = "H";
+    // Apply equally amount to all lines
+    private static final String DISTRIBUTION_EQUALLY = "=";
     //Distribution type of the discount across the order lines
     private String p_DistributionType = null;
 
@@ -155,14 +157,20 @@ public class ApplyDiscount extends SvrProcess
 		}
 		
 		//	Line Amount
-		else if (DISTRIBUTION_AMOUNT.equals(p_DistributionType)) {
+		else if (DISTRIBUTION_AMOUNT.equals(p_DistributionType) || DISTRIBUTION_EQUALLY.equals(p_DistributionType)) {
 			
 			BigDecimal remaining = p_Amount;
-					
+			BigDecimal discount = BigDecimal.ZERO;
+
+			if (DISTRIBUTION_EQUALLY.equals(p_DistributionType))
+				discount = p_Amount.divide(new BigDecimal (linesCount), 2, RoundingMode.HALF_UP);
+			
 			//	Distribute
 			for (int lineNo=0; lineNo<linesCount; lineNo++) {
 				MOrderLine line = lines[lineNo];
-				BigDecimal discount = p_Amount.multiply(line.getLineNetAmt()).divide(total, 2, RoundingMode.HALF_UP);
+				
+				if (DISTRIBUTION_AMOUNT.equals(p_DistributionType))
+					discount = p_Amount.multiply(line.getLineNetAmt()).divide(total, 2, RoundingMode.HALF_UP);
 				//
 				if (lineNo+1 == linesCount)
 					discount = remaining;
