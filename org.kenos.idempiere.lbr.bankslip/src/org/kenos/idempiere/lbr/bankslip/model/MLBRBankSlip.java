@@ -840,30 +840,21 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 				|| is_ValueChanged(COLUMNNAME_WriteOffAmt))
 			changed = true;
 		
-		MLBRNotaFiscal nf = new Query (getCtx(), MLBRNotaFiscal.Table_Name, "C_Invoice_ID=? AND DocStatus='CO'", get_TrxName())
-			.setParameters(getC_Invoice_ID())
-			.first();
-		
-		if (nf != null && nf.getlbr_NFeID() != null)
-			bsi.setlbr_NFeID(nf.getlbr_NFeID ());
-		
-		//	Instructions
-		if (newRecord || changed)
+		List<String> instructions = new ArrayList<String>();
+
+		//	Fill Nota Fiscal info
+		if (newRecord || is_ValueChanged(COLUMNNAME_LBR_NotaFiscal_ID))
 		{
-			MLBRBank bank = MLBRBank.get (getCtx(), getRoutingNo());
-			//
-			bsi.setlbr_PaymentLocation1(bank.getlbr_PaymentLocation1());
-			bsi.setLBR_InstructionBP(bank.getlbr_PaymentLocation2());
-			
-			List<String> instructions = new ArrayList<String>();
-			
-			//	Instruction Fatura
-			if (getC_Invoice_ID() > 0)
-				instructions.add ("Fatura: " + getC_Invoice().getDocumentNo() + " / " + getlbr_PayScheduleNo());
+			MLBRNotaFiscal nf = new Query (getCtx(), MLBRNotaFiscal.Table_Name, "C_Invoice_ID=? AND DocStatus='CO'", get_TrxName())
+				.setParameters(getC_Invoice_ID())
+				.first();
 			
 			//	Instruction Nota Fiscal
 			if (nf != null)
 			{
+				if (nf.getlbr_NFeID() != null)
+					bsi.setlbr_NFeID(nf.getlbr_NFeID ());
+				
 				String documentNo = nf.getDocumentNo();
 				String nfSerie = nf.getlbr_NFSerie();
 				String nfeNo = nf.getlbr_NFENo();
@@ -877,6 +868,19 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 				
 				instructions.add ("Nota Fiscal: " + documentNo);
 			}
+		}
+		
+		//	Instructions
+		if (newRecord || changed)
+		{
+			MLBRBank bank = MLBRBank.get (getCtx(), getRoutingNo());
+			//
+			bsi.setlbr_PaymentLocation1(bank.getlbr_PaymentLocation1());
+			bsi.setLBR_InstructionBP(bank.getlbr_PaymentLocation2());
+			
+			//	Instruction Fatura
+			if (getC_Invoice_ID() > 0)
+				instructions.add ("Fatura: " + getC_Invoice().getDocumentNo() + " / " + getlbr_PayScheduleNo());
 			
 			Locale locale = new Locale("pt","BR");
 			NumberFormat currency = NumberFormat.getCurrencyInstance(locale);
