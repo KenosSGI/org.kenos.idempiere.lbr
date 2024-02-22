@@ -1261,9 +1261,7 @@ public class MLBRTax extends X_LBR_Tax
 				&& icms.getlbr_TaxBase().signum() == 1 
 				&& icms.getlbr_TaxRate().signum() == 1 
 				&& (icms.getLBR_TaxStatus_ID() < 1 
-						|| icms.getLBR_TaxStatus().getName().length() == 2
-						&& !icms.getLBR_TaxStatus().getName().equals("20")
-						&& !icms.getLBR_TaxStatus().getName().equals("90")))
+						|| icms.getLBR_TaxStatus().getName().equals("00")))
 		{
 			int LBR_TaxStatus_ID = MLBRTaxStatus.get (icms.getLBR_TaxName_ID(), "20");
 			if (LBR_TaxStatus_ID > 0)
