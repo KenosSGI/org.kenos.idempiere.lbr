@@ -20,8 +20,14 @@ package org.kenos.idempiere.lbr.base.callout;
 import java.util.Properties;
 
 import org.adempiere.base.IColumnCallout;
+import org.adempiere.model.POWrapper;
+import org.adempierelbr.wrapper.I_W_C_DocType;
 import org.compiere.model.GridField;
 import org.compiere.model.GridTab;
+import org.compiere.model.MLocator;
+import org.compiere.model.MMovement;
+import org.compiere.model.MMovementLine;
+import org.compiere.model.MWarehouse;
 import org.compiere.util.Env;
 
 /**
@@ -40,6 +46,7 @@ public class MovementLine implements IColumnCallout
 		Integer M_Product_ID = (Integer)value;
 		if (M_Product_ID == null || M_Product_ID.intValue() == 0)
 			return "";
+
 		//	Set Attribute
 		if (Env.getContextAsInt(ctx, WindowNo, Env.TAB_INFO, "M_Product_ID") == M_Product_ID.intValue()
 			&& Env.getContextAsInt(ctx, WindowNo, Env.TAB_INFO, "M_AttributeSetInstanceTo_ID") != 0)
@@ -47,6 +54,40 @@ public class MovementLine implements IColumnCallout
 		else
 			mTab.setValue("M_AttributeSetInstanceTo_ID", null);
 		 
+		//	Set Locators
+		Integer M_Movement_ID = (Integer) mTab.getValue(MMovementLine.COLUMNNAME_M_Movement_ID);
+		MMovement move = new MMovement (ctx, M_Movement_ID, null);
+
+		I_W_C_DocType dt = POWrapper.create(move.getC_DocType(), I_W_C_DocType.class);
+		if ("MMST-".equals(dt.getlbr_DocBaseType()))	//	Transfer Out
+		{
+			MWarehouse[] from = MWarehouse.getForOrg(ctx, move.getAD_Org_ID());
+			
+			//	No Warehouse
+			if (from == null || from.length < 1)
+				return "";
+			
+			//	No Locator From
+			MLocator fromLocator = from[0].getDefaultLocator();
+			if (fromLocator == null)
+				return "";
+			
+			MWarehouse[] to = MWarehouse.getInTransitForOrg(ctx, move.getAD_Org_ID());
+			
+			//	No Warehouse
+			if (to == null || to.length < 1)
+				return "";
+			
+			//	No Locator To
+			MLocator toLocator = to[0].getDefaultLocator();
+			if (toLocator == null)
+				return "";
+
+			//	Fill default locators
+			mTab.setValue(MMovementLine.COLUMNNAME_M_Locator_ID, fromLocator.getM_Locator_ID());
+			mTab.setValue(MMovementLine.COLUMNNAME_M_LocatorTo_ID, toLocator.getM_Locator_ID());
+		}
+		
 		return "";
 	}   //  product	
 	
