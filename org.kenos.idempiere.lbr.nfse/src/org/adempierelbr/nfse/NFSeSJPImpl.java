@@ -529,7 +529,7 @@ public class NFSeSJPImpl implements INFSe
 
 		//	URL Produção
 		if (MLBRNotaFiscal.LBR_NFEENV_Production.equals(nf.getlbr_NFeEnv()))
-			url = "https://nfe.sjp.pr.gov.br/servicos/issOnline2/ws/index.php?wsdl";
+			url = MSysConfig.getValue (SysConfig.LBR_NFSE_URL, "https://nfe.sjp.pr.gov.br/servicos/issOnline2/ws/index.php?wsdl", nf.getAD_Client_ID(), nf.getAD_Org_ID());
 		
 		NFeUtil.saveXML (String.valueOf(nf.getAD_Org_ID()), NFeUtil.KIND_NFSE, NFeUtil.MESSAGE_REQ_AUTORIZE, nf.getDocumentNo(), xml.toString());
 
@@ -644,7 +644,7 @@ public class NFSeSJPImpl implements INFSe
 		{
 			//	Todas URLs em Produção
 			if (MLBRNotaFiscal.LBR_NFEENV_Production.equals(nf.getlbr_NFeEnv()))
-				url = "https://nfe.sjp.pr.gov.br/servicos/issOnline2/ws/index.php?wsdl";
+				url = MSysConfig.getValue (SysConfig.LBR_NFSE_URL, "https://nfe.sjp.pr.gov.br/servicos/issOnline2/ws/index.php?wsdl", nf.getAD_Client_ID(), nf.getAD_Org_ID());
 			else break;
 		}
 		
