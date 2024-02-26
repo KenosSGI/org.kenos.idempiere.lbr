@@ -22,11 +22,9 @@ import org.adempiere.exceptions.AdempiereException;
 import org.adempiere.model.POWrapper;
 import org.adempiere.report.jasper.JRViewerProvider;
 import org.adempierelbr.model.MLBRDigitalCertificate;
-import org.adempierelbr.model.MLBRNFConfig;
 import org.adempierelbr.model.MLBRNotaFiscal;
 import org.adempierelbr.model.MLBRNotaFiscalLine;
 import org.adempierelbr.nfse.util.FixedTxt;
-import org.adempierelbr.process.ProcEMailNFe;
 import org.adempierelbr.process.ProcReturnRPS;
 import org.adempierelbr.util.NFeUtil;
 import org.adempierelbr.util.SignatureUtil;
@@ -40,12 +38,13 @@ import org.compiere.model.MAttachmentEntry;
 import org.compiere.model.MBPartner;
 import org.compiere.model.MImage;
 import org.compiere.model.MOrgInfo;
+import org.compiere.model.MSysConfig;
 import org.compiere.process.ProcessInfo;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
-import org.compiere.util.Ini;
 import org.compiere.util.Util;
 import org.kenos.idempiere.lbr.base.model.MCity;
+import org.kenos.idempiere.lbr.base.model.SysConfig;
 import org.kenos.idempiere.lbr.nfse.sjp.NfseStub;
 
 import br.gov.pr.sjp.nfe.cabecalhoV03.CabecalhoDocument.Cabecalho;
@@ -870,9 +869,9 @@ public class NFSeSJPImpl implements INFSe
 		String url = "https://nfe.sjp.pr.gov.br/servicos/issOnline2/homologacao/ws/index.php?wsdl";
 		
 		//	URL Produção
-		if (MLBRNotaFiscal.LBR_NFEENV_Production.equals(nf.getlbr_NFeEnv()))
-			url = "https://nfe.sjp.pr.gov.br/servicos/issOnline2/ws/index.php?wsdl";
-		
+		if (MLBRNotaFiscal.LBR_NFEENV_Production.equals(nf.getlbr_NFeEnv())) {
+			url = MSysConfig.getValue (SysConfig.LBR_NFSE_URL, "https://nfe.sjp.pr.gov.br/servicos/issOnline2/ws/index.php?wsdl", nf.getAD_Client_ID(), nf.getAD_Org_ID());
+		}
 		//	Valida o documento
 		NFeUtil.validate (document);
 		
