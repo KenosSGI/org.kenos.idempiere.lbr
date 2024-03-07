@@ -1,0 +1,43 @@
+SET SQLBLANKLINES ON
+SET DEFINE OFF
+
+-- 7 de mar de 2024 10:04:17 BRT
+UPDATE AD_Column SET IsAllowCopy='N',Updated=TO_DATE('2024-03-07 10:04:17','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1132394
+;
+
+-- 7 de mar de 2024 10:04:21 BRT
+UPDATE AD_Column SET IsAllowCopy='N',Updated=TO_DATE('2024-03-07 10:04:21','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1132393
+;
+
+-- 7 de mar de 2024 10:04:25 BRT
+UPDATE AD_Column SET IsAllowCopy='N',Updated=TO_DATE('2024-03-07 10:04:25','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1133760
+;
+
+-- 7 de mar de 2024 10:04:54 BRT
+UPDATE AD_Column SET IsAllowCopy='N',Updated=TO_DATE('2024-03-07 10:04:54','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1132416
+;
+
+-- 7 de mar de 2024 10:04:56 BRT
+UPDATE AD_Column SET IsAllowCopy='N',Updated=TO_DATE('2024-03-07 10:04:56','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1132402
+;
+
+-- 7 de mar de 2024 10:05:02 BRT
+UPDATE AD_Column SET IsAllowCopy='N',Updated=TO_DATE('2024-03-07 10:05:02','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1132403
+;
+
+-- 7 de mar de 2024 10:05:06 BRT
+UPDATE AD_Column SET IsAllowCopy='N',Updated=TO_DATE('2024-03-07 10:05:06','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1132404
+;
+
+-- 7 de mar de 2024 10:05:11 BRT
+UPDATE AD_Column SET IsAllowCopy='N',Updated=TO_DATE('2024-03-07 10:05:11','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1132406
+;
+
+-- 7 de mar de 2024 10:05:18 BRT
+UPDATE AD_Column SET IsAllowCopy='N',Updated=TO_DATE('2024-03-07 10:05:18','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1132412
+;
+
+-- 7 de mar de 2024 10:05:18 BRT
+SELECT Register_Migration_Script ('202303071007_NonCopiableBankSlipFields.sql') FROM DUAL
+;
+
