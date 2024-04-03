@@ -2843,7 +2843,13 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 			nfps.setAD_Org_ID(ips.getAD_Org_ID());
 			nfps.setProcessing(ips.isProcessing());
 			nfps.setIsActive(ips.isActive());
-			nfps.setDueAmt(ips.getDueAmt());
+			if (wInvoice.getC_Currency_ID()==MLBRNotaFiscal.CURRENCY_BRL)
+				nfps.setDueAmt(ips.getDueAmt());
+			else {
+				BigDecimal convertedAmt = MConversionRate.convert(Env.getCtx(), ips.getDueAmt(), 
+						wInvoice.getC_Currency_ID(), MLBRNotaFiscal.CURRENCY_BRL, getAD_Client_ID(), getAD_Org_ID());
+				nfps.setDueAmt(convertedAmt);
+			}
 			nfps.setDiscountAmt(ips.getDiscountAmt());
 			nfps.setDueDate(ips.getDueDate());
 			nfps.setDiscountDate(ips.getDiscountDate());
