@@ -1,6 +1,7 @@
 package org.kenos.idempiere.lbr.nfse;
 
 import org.adempierelbr.nfse.NFSeAbrasf100Impl;
+import org.adempierelbr.nfse.NFSeAbrasf200Impl;
 import org.adempierelbr.nfse.NFSeAbrasf201Impl;
 import org.adempierelbr.nfse.NFSeAbrasf203Impl;
 import org.adempierelbr.nfse.NFSeAbrasf204Impl;
@@ -76,6 +77,10 @@ public class NFSeFactory implements INFSeFactory
 		//	São José dos Pinhais
 		else if (NFSeSJPImpl.SAOJOSEDOSPINHAIS_ID == p_C_City_ID)
 			return NFSeSJPImpl.class;
+		
+		//	Tatuí
+		else if (NFSeAbrasf200Impl.TATUI_ID == p_C_City_ID)
+			return NFSeAbrasf200Impl.class;
 		
 		//	Not Found
 		return null;
