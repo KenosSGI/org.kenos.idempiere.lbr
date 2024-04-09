@@ -4932,6 +4932,8 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 						setDocStatus(DOCSTATUS_WaitingConfirmation);
 						setDocAction(DOCACTION_Complete);
 					}
+					else
+						setDocStatus(DOCSTATUS_Completed);
 					
 					//	Retorna o próprio status, pois caso tenha ocorrido erro, o processo de retorno de lote
 					//		irá marcar o processo como inválido
@@ -5131,7 +5133,9 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		}
 		
 		//	Inutilizar a numeração
-		else if (TextUtil.match(getDocStatus(), DOCSTATUS_Drafted, DOCSTATUS_InProgress, DOCSTATUS_Invalid) || !islbr_IsOwnDocument())
+		else if ((islbr_IsOwnDocument()
+				&& !MLBRNotaFiscal.LBR_NFESTATUS_100_AutorizadoOUsoDaNF_E.equals(getlbr_NFeStatus()) 
+				&& TextUtil.match(getDocStatus(), DOCSTATUS_Drafted, DOCSTATUS_InProgress, DOCSTATUS_Invalid)) || !islbr_IsOwnDocument())
 		{
 			boolean lastNF = false;
 			
@@ -5417,8 +5421,9 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		else if (DOCSTATUS_Drafted.equals(docStatus))
 		{
 			options[0] = DOCACTION_Prepare;
-			options[1] = DOCACTION_VoidInvalidate;
-			index=2;
+			options[1] = DOCACTION_Complete;
+			options[2] = DOCACTION_VoidInvalidate;
+			index=3;
 		}
 		else if (DOCSTATUS_WaitingConfirmation.equals(docStatus))
 		{
