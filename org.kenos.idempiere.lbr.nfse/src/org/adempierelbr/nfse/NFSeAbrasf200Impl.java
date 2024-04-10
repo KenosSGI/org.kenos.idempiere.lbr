@@ -528,7 +528,7 @@ public class NFSeAbrasf200Impl implements INFSe
 		
 		//	Todas URLs em Produção
 		if (MLBRNotaFiscal.LBR_NFEENV_Production.equals(nf.getlbr_NFeEnv()))
-			url = "http://tatui.jlsoft.com.br/Abrasf/aconsultarnfseporrps.aspx";
+			url = "http://tatui.jlsoft.com.br/Abrasf/arecepcionarloterpssincrono.aspx";
 		
 		RecepcionarLoteRpsSincronoStub nfseStub = new RecepcionarLoteRpsSincronoStub(url);
 		nfseStub._getServiceClient().getOptions().setProperty(HTTPConstants.CHUNKED, false);
