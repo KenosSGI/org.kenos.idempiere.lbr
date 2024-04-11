@@ -4932,8 +4932,14 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 						setDocStatus(DOCSTATUS_WaitingConfirmation);
 						setDocAction(DOCACTION_Complete);
 					}
-					else
+					else if (lot.hasErrorResponse()) 
+					{
+						setDocStatus(DOCSTATUS_InProgress);
+					}
+					else 
+					{
 						setDocStatus(DOCSTATUS_Completed);
+					}
 					
 					//	Retorna o próprio status, pois caso tenha ocorrido erro, o processo de retorno de lote
 					//		irá marcar o processo como inválido

@@ -120,6 +120,8 @@ public class MLBRNFeLot extends X_LBR_NFeLot implements DocAction, DocOptions
 
 	/**	WS Type 	*/
 	private String LBR_WSType = MLBRNFeWebService.LBR_WSTYPE_Normal;
+
+	private boolean m_hasErrorResponse = false;
 	
 	/**
 	 * 	Gera o arquivo de Lote
@@ -306,12 +308,29 @@ public class MLBRNFeLot extends X_LBR_NFeLot implements DocAction, DocOptions
 			setProcessed(true);
 			//
 			MLBRNotaFiscal.authorizeNFe (retEnviNFe.getProtNFe(), get_TrxName());
+			
+			// Flag the lot as erroneous to correctly manage synchronous or individual NF statuses.
+			if (retEnviNFe.getProtNFe() != null 
+					&& retEnviNFe.getProtNFe().getInfProt() != null
+					&& !MLBRNotaFiscal.LBR_NFESTATUS_100_AutorizadoOUsoDaNF_E.equals(retEnviNFe.getProtNFe().getInfProt().getCStat()))
+				m_hasErrorResponse = true;
 		}
 		
 		save();
 
 		return true;
 	}	//	enviaLoteNFe
+	
+	/**
+	 * Checks if the response from SeFaz contains at least one Nota Fiscal (NF) with an error code.
+	 * This method returns {@code true} if there is at least one NF with an error, otherwise {@code false}.
+	 *
+	 * @return {@code true} if the response includes an error in any NF; {@code false} otherwise.
+	 */
+	public boolean hasErrorResponse ()
+	{
+		return m_hasErrorResponse ;
+	}	//	hasErrorResponse
 
 	/**
 	 * 	Consulta Lote NFe
@@ -527,6 +546,10 @@ public class MLBRNFeLot extends X_LBR_NFeLot implements DocAction, DocOptions
 					nf.setDocAction(MLBRNotaFiscal.DOCACTION_Complete);
 					nf.setProcessed(false);
 					nf.save();
+					//
+					//	Mark this lot has an error, so synchronous and single NF
+					//	can properly mark the NF status on individuals document.
+					m_hasErrorResponse = true;
 				}
 			}
 		}	//	if
