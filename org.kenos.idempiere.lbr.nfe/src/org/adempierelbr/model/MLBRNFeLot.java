@@ -532,6 +532,12 @@ public class MLBRNFeLot extends X_LBR_NFeLot implements DocAction, DocOptions
 				for (TProtNFe protNFe : retConsReciNFe.getProtNFeArray())
 				{
 					MLBRNotaFiscal.authorizeNFe (protNFe, trxName);
+					
+					// Flag the lot as erroneous to correctly manage synchronous or individual NF statuses.
+					if (protNFe != null 
+							&& protNFe.getInfProt() != null
+							&& !MLBRNotaFiscal.LBR_NFESTATUS_100_AutorizadoOUsoDaNF_E.equals(protNFe.getInfProt().getCStat()))
+						m_hasErrorResponse = true;
 				}	//	for
 			
 			//	Libera as NFs para envio em outro lote
