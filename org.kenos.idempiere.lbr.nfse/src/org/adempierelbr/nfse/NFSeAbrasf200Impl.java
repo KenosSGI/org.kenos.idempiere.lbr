@@ -161,9 +161,10 @@ public class NFSeAbrasf200Impl implements INFSe
 	
 	/**
 	 * Gera e Retorna XML da NFS-e
+	 * @throws Exception 
 	 */
 	@SuppressWarnings("unused")
-	public byte[] getXML(MLBRNotaFiscal nf)
+	public byte[] getXML(MLBRNotaFiscal nf) throws Exception
 	{
 		//	ID da Organização
 		int p_AD_Org_ID = nf.getAD_Org_ID();
@@ -432,6 +433,11 @@ public class NFSeAbrasf200Impl implements INFSe
 				}
 			}
 		}
+		
+		//	Service code is mandatory, validate to prevent NF completion with blank service code
+		if (serviceCode == null || serviceCode.isBlank())
+			throw new Exception ("Impossível gerar XML NFS-e, código do serviço não encontrado.");
+
 		// Discriminação do Serviço
 		String description = nf.getDescription();
 		if (description != null && !description.isBlank())
@@ -572,6 +578,9 @@ public class NFSeAbrasf200Impl implements INFSe
 			String respostaStub = "";
 			request.setEntrada(xmlText);			
 			respostaStub = nfseStub.execute(xmlText);	
+
+			NFeUtil.saveXML (String.valueOf(nf.getAD_Org_ID()), NFeUtil.KIND_NFSE, NFeUtil.MESSAGE_RET_AUTORIZE, "Retorno_RPS-" + nf.getDocumentNo(), respostaStub.toString());
+			
 			response.setResposta(respostaStub);
 
 			EnviarLoteRpsSincronoRespostaDocument resposta = EnviarLoteRpsSincronoRespostaDocument.Factory.parse(respostaStub);
@@ -580,9 +589,7 @@ public class NFSeAbrasf200Impl implements INFSe
 			String requestStub = nfseStub._getServiceClient().getLastOperationContext().getMessageContext("Out")
 					.getEnvelope().toString();
 			
-			log.info(requestStub);
-			
-			NFeUtil.saveXML (String.valueOf(nf.getAD_Org_ID()), NFeUtil.KIND_NFSE, NFeUtil.MESSAGE_RET_AUTORIZE, "Retorno_RPS-" + nf.getDocumentNo(), resposta.toString());
+			log.finer(requestStub);
 			
 			listaMensagemRetorno = resposta.getEnviarLoteRpsSincronoResposta().getListaMensagemRetorno();
 			if (resposta.getEnviarLoteRpsSincronoResposta().getListaNfse() != null)
