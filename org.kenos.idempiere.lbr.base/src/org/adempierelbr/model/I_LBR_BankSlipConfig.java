@@ -198,6 +198,19 @@ public interface I_LBR_BankSlipConfig
 	/** Get Message 2	  */
 	public String getLBR_Message2();
 
+    /** Column name LBR_MinDueDays */
+    public static final String COLUMNNAME_LBR_MinDueDays = "LBR_MinDueDays";
+
+	/** Set Minimum Due Days.
+	  * Minimum number of days due to bank slip generation
+	  */
+	public void setLBR_MinDueDays (int LBR_MinDueDays);
+
+	/** Get Minimum Due Days.
+	  * Minimum number of days due to bank slip generation
+	  */
+	public int getLBR_MinDueDays();
+
     /** Column name LBR_PenaltyCharge_ID */
     public static final String COLUMNNAME_LBR_PenaltyCharge_ID = "LBR_PenaltyCharge_ID";
 

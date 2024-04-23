@@ -1489,9 +1489,22 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 		
 		I_W_C_Invoice invoice = POWrapper.create(new MInvoice (ctx, C_Invoice_ID, trxName), I_W_C_Invoice.class);
 		MLBROpenItem[] openItems = MLBROpenItem.getOpenItem (C_Invoice_ID, trxName);
+		MLBRBankSlipContract contract = new MLBRBankSlipContract(ctx, LBR_BankSlipContract_ID, null);
+		int minDueDays = 0;
+		if (contract.getLBR_BankSlipConfig_ID() > 0)
+			minDueDays = contract.getLBR_BankSlipConfig().getLBR_MinDueDays();
 		
 		for (MLBROpenItem oi : openItems)
 		{
+			// Calculate the number of days between the current date and the due date of the invoice.
+			int dueDays = TimeUtil.getDaysBetween(new Timestamp (System.currentTimeMillis()), oi.getDueDate());
+			
+			// Check if the calculated due days are less than the minimum required days ('minDueDays').
+			// If true, skip the current iteration and do not generate a bank slip for this invoice.
+			// This prevents generating bank slips when there's insufficient time for processing and delivery before the due date.
+			if (dueDays < minDueDays)
+				continue;
+			
 			MLBRBankSlip bs = new MLBRBankSlip (ctx, 0, trxName);
 			bs.setAD_Org_ID(invoice.getAD_Org_ID());
 			bs.setBankSlipContract(LBR_BankSlipContract_ID);

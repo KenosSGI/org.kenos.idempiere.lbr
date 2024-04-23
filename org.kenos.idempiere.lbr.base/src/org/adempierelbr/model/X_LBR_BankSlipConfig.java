@@ -32,7 +32,7 @@ public class X_LBR_BankSlipConfig extends PO implements I_LBR_BankSlipConfig, I_
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20230619L;
+	private static final long serialVersionUID = 20240423L;
 
     /** Standard Constructor */
     public X_LBR_BankSlipConfig (Properties ctx, int LBR_BankSlipConfig_ID, String trxName)
@@ -43,6 +43,8 @@ public class X_LBR_BankSlipConfig extends PO implements I_LBR_BankSlipConfig, I_
 			setLBR_BankSlipConfig_ID (0);
 			setLBR_InterestDays (0);
 			setLBR_InterestValue (Env.ZERO);
+// 0
+			setLBR_MinDueDays (0);
 // 0
 			setLBR_PenaltyDays (0);
 			setLBR_PenaltyValue (Env.ZERO);
@@ -284,6 +286,26 @@ public class X_LBR_BankSlipConfig extends PO implements I_LBR_BankSlipConfig, I_
 	public String getLBR_Message2 () 
 	{
 		return (String)get_Value(COLUMNNAME_LBR_Message2);
+	}
+
+	/** Set Minimum Due Days.
+		@param LBR_MinDueDays 
+		Minimum number of days due to bank slip generation
+	  */
+	public void setLBR_MinDueDays (int LBR_MinDueDays)
+	{
+		set_Value (COLUMNNAME_LBR_MinDueDays, Integer.valueOf(LBR_MinDueDays));
+	}
+
+	/** Get Minimum Due Days.
+		@return Minimum number of days due to bank slip generation
+	  */
+	public int getLBR_MinDueDays () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_LBR_MinDueDays);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
 	}
 
 	public org.compiere.model.I_C_Charge getLBR_PenaltyCharge() throws RuntimeException
