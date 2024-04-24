@@ -35,6 +35,8 @@ public class CopyFromOrder extends SvrProcess
 	private int		p_C_Order_ID 	= 0;
 	/**	Copy attribute set instance	*/
 	private boolean	p_CopyASI 		= false;
+	/**	Re-define taxes and CFOP	*/
+	private boolean	p_ReDefineTax 	= false;
 
 	/**
 	 *  Prepare - e.g., get Parameters.
@@ -51,6 +53,8 @@ public class CopyFromOrder extends SvrProcess
 				p_C_Order_ID = ((BigDecimal)para[i].getParameter()).intValue();
 			else if (name.equals("LBR_CopyASI"))
 				p_CopyASI = para[i].getParameterAsBoolean();
+			else if (name.equals("LBR_RedefineTax"))
+				p_ReDefineTax = para[i].getParameterAsBoolean();
 			else
 				log.log(Level.SEVERE, "Unknown Parameter: " + name);
 		}
@@ -73,6 +77,8 @@ public class CopyFromOrder extends SvrProcess
 		MOrder to = new MOrder (getCtx(), To_C_Order_ID, get_TrxName());
 		//
 		int no = to.copyLinesFrom (from, false, p_CopyASI);		//	no Attributes
+		if (p_ReDefineTax)
+			ReProcessOrder.processOrder (to, null, true, true, true, false, false, false, 0, false);
 		//
 		return "@Copied@=" + no;
 	}	//	doIt
