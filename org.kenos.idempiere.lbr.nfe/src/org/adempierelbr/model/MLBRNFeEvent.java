@@ -47,6 +47,7 @@ import org.apache.xmlbeans.XmlObject;
 import org.compiere.model.MAttachment;
 import org.compiere.model.MDocType;
 import org.compiere.model.MOrgInfo;
+import org.compiere.model.MSysConfig;
 import org.compiere.model.ModelValidationEngine;
 import org.compiere.model.ModelValidator;
 import org.compiere.process.DocAction;
@@ -55,6 +56,7 @@ import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.kenos.idempiere.lbr.base.event.IDocFiscalHandler;
 import org.kenos.idempiere.lbr.base.event.IDocFiscalHandlerFactory;
+import org.kenos.idempiere.lbr.base.model.SysConfig;
 
 import br.inf.portalfiscal.nfe.evento.generico.EnvEventoDocument;
 import br.inf.portalfiscal.nfe.evento.generico.ProcEventoNFeDocument;
@@ -333,8 +335,15 @@ public class MLBRNFeEvent extends X_LBR_NFeEvent implements DocAction
 					//
 					detCCe.setVersao(br.inf.portalfiscal.nfe.evento.cce.DetEventoDocument.DetEvento.Versao.X_1_00);
 					detCCe.setXCorrecao(getDescription().trim());
-					detCCe.setDescEvento(br.inf.portalfiscal.nfe.evento.cce.DetEventoDocument.DetEvento.DescEvento.CARTA_DE_CORREÇÃO);
-					detCCe.setXCondUso(br.inf.portalfiscal.nfe.evento.cce.DetEventoDocument.DetEvento.XCondUso.A_CARTA_DE_CORREÇÃO_É_DISCIPLINADA_PELO_1_º_A_DO_ART_7_º_DO_CONVÊNIO_S_N_DE_15_DE_DEZEMBRO_DE_1970_E_PODE_SER_UTILIZADA_PARA_REGULARIZAÇÃO_DE_ERRO_OCORRIDO_NA_EMISSÃO_DE_DOCUMENTO_FISCAL_DESDE_QUE_O_ERRO_NÃO_ESTEJA_RELACIONADO_COM_I_AS_VARIÁVEIS_QUE_DETERMINAM_O_VALOR_DO_IMPOSTO_TAIS_COMO_BASE_DE_CÁLCULO_ALÍQUOTA_DIFERENÇA_DE_PREÇO_QUANTIDADE_VALOR_DA_OPERAÇÃO_OU_DA_PRESTAÇÃO_II_A_CORREÇÃO_DE_DADOS_CADASTRAIS_QUE_IMPLIQUE_MUDANÇA_DO_REMETENTE_OU_DO_DESTINATÁRIO_III_A_DATA_DE_EMISSÃO_OU_DE_SAÍDA);
+					
+					if (MSysConfig.getBooleanValue(SysConfig.LBR_NFE_UNACCENT, false, getAD_Client_ID(), getAD_Org_ID())) {
+						detCCe.setDescEvento(br.inf.portalfiscal.nfe.evento.cce.DetEventoDocument.DetEvento.DescEvento.CARTA_DE_CORRECAO);
+						detCCe.setXCondUso(br.inf.portalfiscal.nfe.evento.cce.DetEventoDocument.DetEvento.XCondUso.A_CARTA_DE_CORRECAO_E_DISCIPLINADA_PELO_PARAGRAFO_1_O_A_DO_ART_7_O_DO_CONVENIO_S_N_DE_15_DE_DEZEMBRO_DE_1970_E_PODE_SER_UTILIZADA_PARA_REGULARIZACAO_DE_ERRO_OCORRIDO_NA_EMISSAO_DE_DOCUMENTO_FISCAL_DESDE_QUE_O_ERRO_NAO_ESTEJA_RELACIONADO_COM_I_AS_VARIAVEIS_QUE_DETERMINAM_O_VALOR_DO_IMPOSTO_TAIS_COMO_BASE_DE_CALCULO_ALIQUOTA_DIFERENCA_DE_PRECO_QUANTIDADE_VALOR_DA_OPERACAO_OU_DA_PRESTACAO_II_A_CORRECAO_DE_DADOS_CADASTRAIS_QUE_IMPLIQUE_MUDANCA_DO_REMETENTE_OU_DO_DESTINATARIO_III_A_DATA_DE_EMISSAO_OU_DE_SAIDA);
+					}
+					else {
+						detCCe.setDescEvento(br.inf.portalfiscal.nfe.evento.cce.DetEventoDocument.DetEvento.DescEvento.CARTA_DE_CORREÇÃO);
+						detCCe.setXCondUso(br.inf.portalfiscal.nfe.evento.cce.DetEventoDocument.DetEvento.XCondUso.A_CARTA_DE_CORREÇÃO_É_DISCIPLINADA_PELO_1_º_A_DO_ART_7_º_DO_CONVÊNIO_S_N_DE_15_DE_DEZEMBRO_DE_1970_E_PODE_SER_UTILIZADA_PARA_REGULARIZAÇÃO_DE_ERRO_OCORRIDO_NA_EMISSÃO_DE_DOCUMENTO_FISCAL_DESDE_QUE_O_ERRO_NÃO_ESTEJA_RELACIONADO_COM_I_AS_VARIÁVEIS_QUE_DETERMINAM_O_VALOR_DO_IMPOSTO_TAIS_COMO_BASE_DE_CÁLCULO_ALÍQUOTA_DIFERENÇA_DE_PREÇO_QUANTIDADE_VALOR_DA_OPERAÇÃO_OU_DA_PRESTAÇÃO_II_A_CORREÇÃO_DE_DADOS_CADASTRAIS_QUE_IMPLIQUE_MUDANÇA_DO_REMETENTE_OU_DO_DESTINATÁRIO_III_A_DATA_DE_EMISSÃO_OU_DE_SAÍDA);
+					}
 					//
 					xmlExtension = "-cce-dst.xml";
 					NFeUtil.validate (detCCe);
