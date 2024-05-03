@@ -59,6 +59,7 @@ public class SysConfig
 	public static final String LBR_MANIFEST_TRIES 								= "LBR_MANIFEST_TRIES";
 	public static final String LBR_MATCH_INVOICE_AND_DELIVERY_QTY 				= "LBR_MATCH_INVOICE_AND_DELIVERY_QTY";
 	public static final String LBR_MATCH_SHIPMENT_RECEIPT_AND_ORDER_QTY 		= "LBR_MATCH_SHIPMENT_RECEIPT_AND_ORDER_QTY";
+	public static final String LBR_NFE_UNACCENT									= "LBR_NFE_UNACCENT";
 	public static final String LBR_NFE_WAITING_TIME								= "LBR_NFE_WAITING_TIME";
 	public static final String LBR_NFESPECIE 									= "LBR_NFESPECIE";
 	public static final String LBR_NFSE_ABRASF200_LOT_SEQUENCE_ID				= "LBR_NFSE_ABRASF200_LOT_SEQUENCE_ID";
