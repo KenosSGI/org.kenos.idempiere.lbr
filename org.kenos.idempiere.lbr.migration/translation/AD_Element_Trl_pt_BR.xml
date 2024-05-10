@@ -4454,7 +4454,7 @@ Se você deixa a chave de pesquisa vazia, o sistema automaticamente cria um valo
   <value column="Placeholder" original=""/>
  </row>
  <row id="891" trl="Y">
-  <value column="Name" original="Fix month cutoff">Corte fixo do mês</value>
+  <value column="Name" original="Fix month cutoff">Corte Fixo do Mês</value>
   <value column="PrintName" original="Fix month cutoff">Corte fixo do mês</value>
   <value column="Description" original="Last day to include for next due date">Último dia para incluir para a próxima data de vencimento</value>
   <value column="Help" original="The Fix Month Cutoff indicates the last day invoices can have to be included in the current due date.  This field only displays when the fixed due date checkbox has been selected.">O "Corte fixo do Mês" indica o último dia que as faturas podem ter para serem incluídas na data de vencimento atual.  Este campo só é exibido quando a caixa de verificação "Data Fixa de Vencimento" tiver sido selecionada.</value>
@@ -4465,7 +4465,7 @@ Se você deixa a chave de pesquisa vazia, o sistema automaticamente cria um valo
   <value column="Placeholder" original=""/>
  </row>
  <row id="892" trl="Y">
-  <value column="Name" original="Fix month day">Dia fixo do mês</value>
+  <value column="Name" original="Fix month day">Dia Fixo do Mês</value>
   <value column="PrintName" original="Fix month day">Dia fixo do mês</value>
   <value column="Description" original="Day of the month of the due date">Dia do mês usado como data do vencimento</value>
   <value column="Help" original="The Fix Month Day indicates the day of the month that invoices are due.  This field only displays if the fixed due date checkbox is selected.">O "Dia fixo do mês" indica o dia do mês em que as faturas vencem.  Este campo só será exibido se a caixa de verificação "Data Fixa de Vencimento" for selecionada.</value>
@@ -13637,10 +13637,10 @@ Se todos os elementos na coluna de uma tabela são Nulo e se selecionados, a col
   <value column="Placeholder" original=""/>
  </row>
  <row id="2003" trl="Y">
-  <value column="Name" original="Net Day">Dia Líquido</value>
-  <value column="PrintName" original="Net Day">Dia Líquido</value>
-  <value column="Description" original="Day when payment is due net">Dia em que deve ser feito o pagamento líquido</value>
-  <value column="Help" original="When defined, overwrites the number of net days with the relative number of days to the the day defined.">Quando definido, sobreescreve o número de dias líquido com o número relativo de dias até o dia definido.</value>
+  <value column="Name" original="Net Day">Dia Fixo da Semana</value>
+  <value column="PrintName" original="Net Day">Dia Fixo da Semana</value>
+  <value column="Description" original="Day when payment is due net">Dia da semana em que deve ser feito o pagamento</value>
+  <value column="Help" original="When defined, overwrites the number of net days with the relative number of days to the the day defined.">Quando definido, posterga o vencimento até o dia da semana definido com o dia de fixo de pagamento.</value>
   <value column="PO_Description" original=""/>
   <value column="PO_Help" original=""/>
   <value column="PO_Name" original=""/>

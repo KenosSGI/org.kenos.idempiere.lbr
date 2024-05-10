@@ -57,9 +57,16 @@ public class PayScheduleCheck extends AbstractEventHandler
 				MInvoicePaySchedule paySchedule = (MInvoicePaySchedule) po;
 				//
 				fillParcelNo (paySchedule, event, topic);
-				checkFixedDueDate (paySchedule, event, topic);
-				checkFixedDayBP (paySchedule, event, topic);
-				checkBusinessDay (paySchedule, event, topic);
+				
+				MPaymentTerm paymentTerm = new MPaymentTerm(paySchedule.getCtx(), paySchedule.getC_PaySchedule().getC_PaymentTerm_ID(), null);
+				if (I_W_C_PaymentTerm.LBR_PAYMENTDAYSTYPE_BusinessDays.equals(paymentTerm.get_Value(I_W_C_PaymentTerm.COLUMNNAME_LBR_PaymentDaysType))) {
+					scheduleOnBusinessDays (paySchedule, event, topic);
+				}
+				else {
+					checkFixedDueDate (paySchedule, event, topic);
+					checkFixedDayBP (paySchedule, event, topic);
+					checkBusinessDay (paySchedule, event, topic);
+				}
 			}
 			else if (MBPartner.Table_Name.equals(po.get_TableName())) {
 				MBPartner bp = (MBPartner) po;
@@ -236,6 +243,36 @@ public class PayScheduleCheck extends AbstractEventHandler
 				&& !isBusinessDay(ips.getDueDate(), AD_Org_ID, C_Country_ID, C_Calendar_ID))
 			ips.setDueDate(TimeUtil.getNextDay(ips.getDueDate()));
 	}	//	checkBusinessDay
+	
+	/**
+	 * 	Schedules the parcel on business days
+	 * 	@param iol In/Out Line
+	 * 	@param event Event
+	 * 	@param topic Topic of Event
+	 */
+	private void scheduleOnBusinessDays (MInvoicePaySchedule ips, Event event, String topic)
+	{
+		if (ips.getC_PaySchedule_ID() <= 0)
+			return;
+
+		int C_Country_ID = ips.getC_Invoice().getC_BPartner_Location().getC_Location().getC_Country_ID();
+		int AD_Org_ID = ips.getC_Invoice().getAD_Org_ID();
+		int C_Calendar_ID = 0;
+		
+		MCalendar calendar = MCalendar.getDefault(ips.getCtx());
+		if (calendar != null)
+			C_Calendar_ID = calendar.getC_Calendar_ID();
+		
+		//	Make sure the net days is at least zero
+		int netDays = Math.max (ips.getC_PaySchedule().getNetDays(), 0);
+		
+		//	Set date invoiced
+		ips.setDueDate(ips.getC_Invoice().getDateInvoiced());
+		
+		//	Move due to until netdays is zero
+		while (!isBusinessDay(ips.getDueDate(), AD_Org_ID, C_Country_ID, C_Calendar_ID) || netDays-- > 0)
+			ips.setDueDate(TimeUtil.getNextDay(ips.getDueDate()));
+	}	//	scheduleOnBusinessDays
 	
 	/**
 	 * 	Handle IPS Events

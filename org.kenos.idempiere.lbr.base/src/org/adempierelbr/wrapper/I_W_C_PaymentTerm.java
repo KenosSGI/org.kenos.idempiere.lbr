@@ -28,6 +28,29 @@ public interface I_W_C_PaymentTerm extends I_C_PaymentTerm
 {
 
 
+    /** Column name LBR_PaymentDaysType */
+    public static final String COLUMNNAME_LBR_PaymentDaysType = "LBR_PaymentDaysType";
+
+	/** LBR_PaymentDaysType AD_Reference_ID=1120407 */
+	public static final int LBR_PAYMENTDAYSTYPE_AD_Reference_ID=1120407;
+
+	/** Business Days = B */
+	public static final String LBR_PAYMENTDAYSTYPE_BusinessDays = "B";
+
+	/** Calendar Days = C */
+	public static final String LBR_PAYMENTDAYSTYPE_CalendarDays = "C";
+
+
+	/** Set Payment Days Type.
+	  * Indicates if count will be in calendar days or business days
+	  */
+	public void setLBR_PaymentDaysType (String LBR_PaymentDaysType);
+
+	/** Get Payment Days Type.
+	  * Indicates if count will be in calendar days or business days
+	  */
+	public String getLBR_PaymentDaysType();
+
     /** Column name LBR_TaxesFirstParcel */
     public static final String COLUMNNAME_LBR_TaxesFirstParcel = "LBR_TaxesFirstParcel";
 
