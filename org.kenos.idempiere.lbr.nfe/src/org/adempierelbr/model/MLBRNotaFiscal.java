@@ -4222,6 +4222,16 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 					e.printStackTrace();
 				}
 			}
+			else if (variable.endsWith("ORDER_SALESREP"))
+			{
+				MOrder order = new MOrder (getCtx(),getC_Order_ID(),get_TrxName());
+				if (order.getC_Order_ID() > 0) {
+					MUser user = (MUser) order.getSalesRep();
+					return user.getName();
+				}
+				else
+					return "";
+			}
 			else 
 			{
 				log.warning("Not implemented yet");
