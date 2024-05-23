@@ -607,7 +607,8 @@ public class NotaFiscalAdditional extends ADForm
 		sql.append("LEFT JOIN C_BPartner bp ON bp.C_BPartner_ID = nf.C_BPartner_ID ");
 		sql.append("INNER JOIN LBR_NotaFiscalLine nfl ON nf.LBR_NotaFiscal_ID = nfl.LBR_NotaFiscal_ID ");
 		sql.append("LEFT JOIN M_Product p ON p.M_Product_ID = nfl.m_Product_ID ");
-		sql.append("LEFT JOIN LBR_NFLineTax nft_icms ON nft_icms.LBR_NotaFiscalLine_ID = nfl.LBR_NotaFiscalLine_ID AND LBR_TaxGroup_ID=1120000 ");
+		//	FIXME: Corrigir TaxGroup_ID Hardcoded - Criar Classe com IDs aos moldes de SystemIDs
+		sql.append("LEFT JOIN LBR_NFLineTax nft_icms ON nft_icms.LBR_NotaFiscalLine_ID = nfl.LBR_NotaFiscalLine_ID AND LBR_TaxGroup_ID=1120000 "); 
 		sql.append("LEFT JOIN LBR_CFOP cfop ON cfop.LBR_CFOP_ID = nfl.LBR_CFOP_ID ");
 		sql.append("WHERE nf.LBR_NotaFiscal_ID = ?");
 				
