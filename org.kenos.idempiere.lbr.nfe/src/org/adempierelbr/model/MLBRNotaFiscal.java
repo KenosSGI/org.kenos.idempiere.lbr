@@ -14,6 +14,7 @@ package org.adempierelbr.model;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.ResultSet;
@@ -5567,6 +5568,30 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		}
 		return false;
 	}	//	hasNFeXML
+	
+	/**
+	 * 	Check if this NF has a XML for NFe or NFCe
+	 * 	@return true if the XML is present
+	 */
+	public String getXML ()
+	{
+		MAttachment att = getAttachment(true);
+		if (att == null)
+			return null;
+		//
+		for (MAttachmentEntry entry : att.getEntries())
+		{
+			if (entry != null 
+					&& entry.getName() != null 
+					&& entry.getName().endsWith(NFeUtil.DIST_XML_FILE_EXT))
+				try {
+					return new String (entry.getData(), TextUtil.UTF8);
+				} catch (UnsupportedEncodingException e) {
+					e.printStackTrace();
+				}
+		}
+		return null;
+	}	//	getXML
 	
 	/**
 	 * 		Check if the provided digest value 

@@ -14,6 +14,7 @@ package org.adempierelbr.util;
 
 import java.util.List;
 import java.util.Properties;
+import java.util.regex.Pattern;
 
 import org.adempiere.model.POWrapper;
 import org.adempierelbr.wrapper.I_W_C_BPartner;
@@ -48,6 +49,8 @@ public abstract class BPartnerUtil
 	public static final String EXTREG = "EX";
 	public static final String EXTMUN = "EXTERIOR";
 
+	public static final Pattern REGEX_CPF = Pattern.compile("([0-9]{3})([0-9]{3})([0-9]{3})([0-9]{2})");
+	public static final Pattern REGEX_CNPJ = Pattern.compile("([0-9]{2})([0-9]{3})([0-9]{3})([0-9]{4})([0-9]{2})");
 	
 	/**
 	 * 	Retorna se o PN é Pessoa Física ou Pessoa Jurídica
@@ -214,6 +217,34 @@ public abstract class BPartnerUtil
 		MRegion region     = new MRegion(bpLocation.getCtx(),location.getC_Region_ID(),null);
 		return region.getName();
 	}	//	getUF
+
+	/**
+	 * Gets the C_Region_ID based on the region name and country.
+	 *
+	 * @param ctx        the context properties
+	 * @param regionName the name of the region
+	 * @return the ID of the region if found, otherwise returns 0
+	 */
+	public static int getC_Region_ID (Properties ctx, String regionName)
+	{
+		return getC_Region_ID (ctx, regionName, BRASIL);
+	}	//	getC_Region_ID
+
+	/**
+	 * Gets the C_Region_ID based on the region name and country.
+	 *
+	 * @param ctx        the context properties
+	 * @param regionName the name of the region
+	 * @param C_Country_ID country ID
+	 * @return the ID of the region if found, otherwise returns 0
+	 */
+	public static int getC_Region_ID (Properties ctx, String regionName, int C_Country_ID)
+	{
+		return new Query (ctx, MRegion.Table_Name, MRegion.COLUMNNAME_Name + "=? AND " + MRegion.COLUMNNAME_C_Country_ID + "=?", null)
+			.setOnlyActiveRecords(true)
+			.setParameters(regionName, C_Country_ID)
+			.firstIdOnly();
+	}	//	getC_Region_ID
 
 	/**
 	 * 		Retorna o código da Superintendência da Zona 
@@ -492,4 +523,32 @@ public abstract class BPartnerUtil
 		
 		return null;
 	}	//	getBRRegion
+	
+	/**
+	 * Masks a Brazilian CPF or CNPJ number by adding the appropriate formatting.
+	 * <p>
+	 * If the input string represents a CPF (11 digits), it formats it as "XXX.XXX.XXX-XX".
+	 * If the input string represents a CNPJ (14 digits), it formats it as "XX.XXX.XXX/XXXX-XX".
+	 * If the input string is neither 11 nor 14 digits, it returns the original input.
+	 * 
+	 * @param CNPJF the CPF or CNPJ number as a string, which may contain non-numeric characters.
+	 * @return the masked CPF or CNPJ number, or the original input if it is not a valid length.
+	 */
+	public static String maskCNPJF (String CNPJF) {
+		if (CNPJF == null) return CNPJF;
+
+		String unmasked = TextUtil.toNumeric(CNPJF);
+		
+		//	CPF
+		if (unmasked.length() == 11)
+			return CNPJF.replaceAll(REGEX_CPF.pattern(), "$1.$2.$3-$4");
+		
+		//	CNPJ
+		else if (unmasked.length() == 14)
+			return CNPJF.replaceAll(REGEX_CNPJ.pattern(), "$1.$2.$3/$4-$5");
+		
+		//	Unknown
+		else
+			return CNPJF;
+	}	//	maskCNPJF
 } 	//	BPartnerUtil
