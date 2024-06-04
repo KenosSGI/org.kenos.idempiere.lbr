@@ -794,7 +794,18 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 	 * @throws Exception
 	 */
 	public static void authorizeNFe (TProtNFe protNFe, String trxName) throws Exception
-	{		
+	{
+		authorizeNFe (protNFe, trxName, false);
+	}	//	authorizeNFe
+
+	/**
+	 * Atualiza autorização NF-e e XML de distribuicao
+	 *
+	 * return null (success) or error message
+	 * @throws Exception
+	 */
+	public static void authorizeNFe (TProtNFe protNFe, String trxName, boolean force) throws Exception
+	{
 		if (protNFe == null || protNFe.getInfProt() == null)
 			throw new Exception ("Protocolo inválido");
 
@@ -815,7 +826,7 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 		if (nf == null)
 			throw new NotaFiscalNotFoundException ("NF não encontrada: " + chNFe);
 
-		if (nf.getlbr_NFeStatus() != null && nf.getlbr_NFeStatus().equals (MLBRNotaFiscal.LBR_NFESTATUS_100_AutorizadoOUsoDaNF_E))
+		if (!force && nf.getlbr_NFeStatus() != null && nf.getlbr_NFeStatus().equals (MLBRNotaFiscal.LBR_NFESTATUS_100_AutorizadoOUsoDaNF_E))
 			throw new Exception ("NF já processada. " + nf.getDocumentNo());
 
         Timestamp ts = NFeUtil.stringToTime (dhRecbto);

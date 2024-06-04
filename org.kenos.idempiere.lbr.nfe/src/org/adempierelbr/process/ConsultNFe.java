@@ -87,11 +87,13 @@ public class ConsultNFe extends SvrProcess
 			if (nf != null && nf.islbr_IsOwnDocument())
 			{
 				p_AD_Org_ID 		= nf.getAD_Org_ID();
-				p_LBR_EnvType 	= nf.getlbr_NFeEnv();
+				p_LBR_EnvType 		= nf.getlbr_NFeEnv();
 				p_LBR_TPEmis		= nf.getLBR_TPEmis();
-				p_LBR_NFModel	= nf.getlbr_NFModel();
+				p_LBR_NFModel		= nf.getlbr_NFModel();
 				//
-				if (!MLBRNotaFiscal.LBR_NFESTATUS_100_AutorizadoOUsoDaNF_E.equals(nf.getlbr_NFeStatus()))
+				if (nf.islbr_IsOwnDocument() 
+						&& (!MLBRNotaFiscal.LBR_NFESTATUS_100_AutorizadoOUsoDaNF_E.equals(nf.getlbr_NFeStatus())
+								|| !nf.isProcessed() || MLBRNotaFiscal.DOCSTATUS_Invalid.equals(nf.getDocStatus())))
 					p_LBR_UpdateNFe 	= true;
 				//
 				if (nf.getErrorMsg() != null && !nf.getErrorMsg().isEmpty())
@@ -339,7 +341,7 @@ public class ConsultNFe extends SvrProcess
 								
 								else
 								{
-									MLBRNotaFiscal.authorizeNFe (ret.getProtNFe(), get_TrxName());
+									MLBRNotaFiscal.authorizeNFe (ret.getProtNFe(), get_TrxName(), true);
 									msg.append("<br /><br /><font color=\"008800\">Os dados do protocolo foram atualizados na NFe</font>");
 								}
 							}
