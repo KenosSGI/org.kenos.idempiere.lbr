@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.adempiere.webui.apps.AEnv;
@@ -180,7 +181,7 @@ public class NFSeAtibaiaImpl implements INFSe
 		Item item = det.addNewItem();
 		if (issRate != null)
 			item.setAliquota(issRate.stripTrailingZeros().setScale(2));
-		item.setCodigo(Integer.parseInt(serviceCode));
+		item.setCodigo(Integer.parseInt(TextUtil.toNumeric(serviceCode)));
 		item.setDescricao(serviceDesc);
 		item.setValor(nf.getlbr_ServiceTotalAmt());
 		
@@ -205,8 +206,12 @@ public class NFSeAtibaiaImpl implements INFSe
 		
 		int AD_Client_ID = Env.getAD_Client_ID (ctx);
 		List<NotaFiscal> notaFiscalList = new ArrayList<NotaFiscal> ();
+		AtomicBoolean isHomolog = new AtomicBoolean(false);
 		
 		nfs.stream().forEach(nf -> {
+			//	Check for homologation
+			isHomolog.set(isHomolog.get() || MLBRNotaFiscal.LBR_NFEENV_Homologation.equals(nf.getlbr_NFeEnv()));
+			
 			byte[] xmlData = nf.getAttachmentData("xml");
 			if (xmlData == null || xmlData.length == 0)
 				throw new AdempiereException ("XML not found");
@@ -241,7 +246,7 @@ public class NFSeAtibaiaImpl implements INFSe
 			throw new Exception ("Token de comunicação com a prefeitura inválido.");
 		
 		//	Homologação
-		if (MSysConfig.getBooleanValue (SysConfig.LBR_DEBUG_RPS, false, AD_Client_ID))
+		if (isHomolog.get())
 			URL += "/simula";
 		
 		HttpRequest request = HttpRequest.newBuilder(URI.create(URL))
