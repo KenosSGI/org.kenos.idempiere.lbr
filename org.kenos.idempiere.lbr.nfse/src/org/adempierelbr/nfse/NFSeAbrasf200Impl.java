@@ -530,11 +530,11 @@ public class NFSeAbrasf200Impl implements INFSe
 		//	Set certificate
 		MLBRDigitalCertificate.setCertificate (Env.getCtx(), nf.getAD_Org_ID());
 
-		String url = "http://tatui.jlsoft.com.br/Abrasf/ahrecepcionarloterpssincrono.aspx";
+		String url = "https://tatui.jlsoft.com.br/Abrasf/ahrecepcionarloterpssincrono.aspx";
 		
 		//	Todas URLs em Produção
 		if (MLBRNotaFiscal.LBR_NFEENV_Production.equals(nf.getlbr_NFeEnv()))
-			url = "http://tatui.jlsoft.com.br/Abrasf/arecepcionarloterpssincrono.aspx";
+			url = "https://tatui.jlsoft.com.br/Abrasf/arecepcionarloterpssincrono.aspx";
 		
 		RecepcionarLoteRpsSincronoStub nfseStub = new RecepcionarLoteRpsSincronoStub(url);
 		nfseStub._getServiceClient().getOptions().setProperty(HTTPConstants.CHUNKED, false);
@@ -857,11 +857,11 @@ public class NFSeAbrasf200Impl implements INFSe
 			prestador.setInscricaoMunicipal(TextUtil.toNumeric(getInscricaoMunicipal(nf)));
 		
 		
-		String url = "http://tatui.jlsoft.com.br/Abrasf/ahconsultarnfseporrps.aspx";
+		String url = "https://tatui.jlsoft.com.br/Abrasf/ahconsultarnfseporrps.aspx";
 		
 		//	Todas URLs em Produção
 		if (MLBRNotaFiscal.LBR_NFEENV_Production.equals(nf.getlbr_NFeEnv()))
-			url = "http://tatui.jlsoft.com.br/Abrasf/aconsultarnfseporrps.aspx";
+			url = "https://tatui.jlsoft.com.br/Abrasf/aconsultarnfseporrps.aspx";
 		
 		ConsultarNfsePorRpsStub nfseStub = new ConsultarNfsePorRpsStub(url);
 		nfseStub._getServiceClient().getOptions().setProperty(HTTPConstants.CHUNKED, false);
@@ -2056,10 +2056,10 @@ public class NFSeAbrasf200Impl implements INFSe
 			//	Set certificate
 			MLBRDigitalCertificate.setCertificate (Env.getCtx(), nf.getAD_Org_ID());
 			
-			String url = "http://tatui.jlsoft.com.br/Abrasf/ahcancelarnfse.aspx";
+			String url = "https://tatui.jlsoft.com.br/Abrasf/ahcancelarnfse.aspx";
 			
 			if (MLBRNotaFiscal.LBR_NFEENV_Production.equals(nf.getlbr_NFeEnv()))
-				url = "http://tatui.jlsoft.com.br/Abrasf/acancelarnfse.aspx";
+				url = "https://tatui.jlsoft.com.br/Abrasf/acancelarnfse.aspx";
 			
 			CancelarNfseStub nfseStub = new CancelarNfseStub(url);
 			nfseStub._getServiceClient().getOptions().setProperty(HTTPConstants.CHUNKED, false);	
