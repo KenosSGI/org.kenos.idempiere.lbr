@@ -34,7 +34,7 @@ public class X_LBR_NotaFiscal extends PO implements I_LBR_NotaFiscal, I_Persiste
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20220216L;
+	private static final long serialVersionUID = 20240611L;
 
     /** Standard Constructor */
     public X_LBR_NotaFiscal (Properties ctx, int LBR_NotaFiscal_ID, String trxName)
@@ -49,6 +49,8 @@ public class X_LBR_NotaFiscal extends PO implements I_LBR_NotaFiscal, I_Persiste
 			setDocumentNo (null);
 			setIsCancelled (false);
 // 'N'
+			setIsDelivered (false);
+// N
 			setIsManual (false);
 // N
 			setIsPrinted (false);
@@ -683,6 +685,27 @@ public class X_LBR_NotaFiscal extends PO implements I_LBR_NotaFiscal, I_Persiste
 	public boolean isCancelled () 
 	{
 		Object oo = get_Value(COLUMNNAME_IsCancelled);
+		if (oo != null) 
+		{
+			 if (oo instanceof Boolean) 
+				 return ((Boolean)oo).booleanValue(); 
+			return "Y".equals(oo);
+		}
+		return false;
+	}
+
+	/** Set Delivered.
+		@param IsDelivered Delivered	  */
+	public void setIsDelivered (boolean IsDelivered)
+	{
+		set_ValueNoCheck (COLUMNNAME_IsDelivered, Boolean.valueOf(IsDelivered));
+	}
+
+	/** Get Delivered.
+		@return Delivered	  */
+	public boolean isDelivered () 
+	{
+		Object oo = get_Value(COLUMNNAME_IsDelivered);
 		if (oo != null) 
 		{
 			 if (oo instanceof Boolean) 

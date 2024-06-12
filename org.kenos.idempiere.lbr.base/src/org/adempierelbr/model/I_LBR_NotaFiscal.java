@@ -424,6 +424,15 @@ public interface I_LBR_NotaFiscal
 	  */
 	public boolean isCancelled();
 
+    /** Column name IsDelivered */
+    public static final String COLUMNNAME_IsDelivered = "IsDelivered";
+
+	/** Set Delivered	  */
+	public void setIsDelivered (boolean IsDelivered);
+
+	/** Get Delivered	  */
+	public boolean isDelivered();
+
     /** Column name IsDiscountPrinted */
     public static final String COLUMNNAME_IsDiscountPrinted = "IsDiscountPrinted";
 

@@ -2094,8 +2094,8 @@ Há duas razões para desativar e não excluir registros:
   <value column="Placeholder" original=""/>
  </row>
  <row id="367" trl="Y">
-  <value column="Name" original="Delivered">Despachado</value>
-  <value column="PrintName" original="Delivered">Despachado</value>
+  <value column="Name" original="Delivered">Entregue</value>
+  <value column="PrintName" original="Delivered">Entregue</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
   <value column="PO_Description" original=""/>

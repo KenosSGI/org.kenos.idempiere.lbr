@@ -348,6 +348,14 @@ public class X_LBR_PartnerDFe extends PO implements I_LBR_PartnerDFe, I_Persiste
 	public static final String LBR_EVENTTYPE_RegistroDePassagemDeNFePropagadoPeloMDFe = "610510";
 	/** Registro de Passagem de NFe propagado pelo MDFe/CTe = 610514 */
 	public static final String LBR_EVENTTYPE_RegistroDePassagemDeNFePropagadoPeloMDFeCTe = "610514";
+	/** Comprovante de Entrega da NF-e = 110130 */
+	public static final String LBR_EVENTTYPE_ComprovanteDeEntregaDaNFe = "110130";
+	/** Cancelamento do Comprovante de Entrega da NF-e = 110131 */
+	public static final String LBR_EVENTTYPE_CancelamentoDoComprovanteDeEntregaDaNFe = "110131";
+	/** Comprovante de Entrega do CT-e = 610130 */
+	public static final String LBR_EVENTTYPE_ComprovanteDeEntregaDoCTe = "610130";
+	/** Cancelamento do Comprovante de Entrega do CTe = 610131 */
+	public static final String LBR_EVENTTYPE_CancelamentoDoComprovanteDeEntregaDoCTe = "610131";
 
 	/** Set Valid.
 		@param IsValid 

@@ -5090,6 +5090,34 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 	}	//	getCount
 
 	/**
+	 * 	Get count of NF based on number and series. Useful to check for duplicates
+	 * 
+	 * @param ctx
+	 * @param documentNo
+	 * @param serNo
+	 * @param pCNPJ
+	 * @param LBR_NotaFiscal_ID
+	 * @param trxName
+	 * @return
+	 */
+	public static MLBRNotaFiscal get (Properties ctx, String documentNo, String serNo, int AD_Org_ID, String trxName)
+	{
+		String where = COLUMNNAME_DocumentNo + "~ '^[0-9]+$' " + 
+				"AND " + COLUMNNAME_lbr_NFSerie + "~ '^[0-9]+$' " + 
+				"AND CAST (" + COLUMNNAME_DocumentNo + " AS NUMERIC)=? " + 
+				"AND CAST (" + COLUMNNAME_lbr_NFSerie + " AS NUMERIC)=? " + 
+				"AND " + COLUMNNAME_lbr_IsOwnDocument + "='Y' " +
+				"AND " + COLUMNNAME_AD_Org_ID + "<>? " +
+				"AND " + COLUMNNAME_DocStatus + " IN ('CL','CO') ";
+
+		//	Check for duplicates
+		return new Query (ctx, Table_Name, where, trxName)
+			.setClient_ID()
+			.setParameters(Integer.valueOf(documentNo), Integer.valueOf(serNo), AD_Org_ID)
+			.firstOnly();
+	}	//	get
+
+	/**
 	 * 	Void Document.
 	 * 	Same as Close.
 	 * 	@return true if success 

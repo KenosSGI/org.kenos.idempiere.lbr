@@ -219,6 +219,17 @@ public class MLBRPartnerDFe extends X_LBR_PartnerDFe
 					COLUMNNAME_lbr_NFeID + "=? AND " +
 					COLUMNNAME_DocumentType + "=?", new Object[] {getlbr_NFeStatus(), getlbr_NFeID(), DOCUMENTTYPE_NF_E}, false, get_TrxName());
 		}
+		
+		//	Mark document as delivered
+		if (TextUtil.match(getLBR_EventType(), LBR_EVENTTYPE_ComprovanteDeEntregaDoCTe, LBR_EVENTTYPE_CancelamentoDoComprovanteDeEntregaDoCTe))
+		{
+			DB.executeUpdate("UPDATE " + MLBRNotaFiscal.Table_Name + 
+					" SET " + MLBRNotaFiscal.COLUMNNAME_IsDelivered + "=? WHERE " + 
+					MLBRNotaFiscal.COLUMNNAME_lbr_NFeID + "=? AND " +
+					MLBRNotaFiscal.COLUMNNAME_AD_Org_ID + "=? AND " +
+					MLBRNotaFiscal.COLUMNNAME_lbr_IsOwnDocument + "='Y'", 
+					new Object[] {LBR_EVENTTYPE_ComprovanteDeEntregaDoCTe.equals(getLBR_EventType()), getlbr_NFeID(), getAD_Org_ID()}, false, get_TrxName());
+		}
 
 		//	Include NSU in Control List
 		if (newRecord || is_ValueChanged(COLUMNNAME_LBR_NSU))
