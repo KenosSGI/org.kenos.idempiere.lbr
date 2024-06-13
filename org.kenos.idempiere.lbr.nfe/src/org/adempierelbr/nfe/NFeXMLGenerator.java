@@ -522,8 +522,11 @@ public class NFeXMLGenerator
 		ide.setFinNFe (TFinNFe.Enum.forString (nf.getlbr_FinNFe ()));
 		
 		//	Indicação para verificar se a venda é para consumidor final
-		if (MLBRNotaFiscal.LBR_TRANSACTIONTYPE_EndUser.equals(nf.getlbr_TransactionType())
-				|| MLBRNotaFiscal.LBR_TRANSACTIONTYPE_EndUserDoubleBase.equals(nf.getlbr_TransactionType()))
+		if (TextUtil.match(nf.getlbr_TransactionType(), MLBRNotaFiscal.LBR_TRANSACTIONTYPE_EndUser, 
+				MLBRNotaFiscal.LBR_TRANSACTIONTYPE_EndUserDIFALOut, 
+				MLBRNotaFiscal.LBR_TRANSACTIONTYPE_EndUserDoubleBase, 
+				MLBRNotaFiscal.LBR_TRANSACTIONTYPE_EndUserRE574706, 
+				MLBRNotaFiscal.LBR_TRANSACTIONTYPE_Export))
 			ide.setIndFinal (IND_FINAL_CONS_FINAL);
 		else
 			ide.setIndFinal (IND_FINAL_NORMAL);
