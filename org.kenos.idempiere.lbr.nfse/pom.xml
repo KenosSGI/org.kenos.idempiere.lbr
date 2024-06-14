@@ -46,22 +46,10 @@
 							<configuration>
 								<artifactItems>
 									<artifactItem>
-										<groupId>local.nfse-abrasf-v100-sources</groupId>
-										<artifactId>nfse-abrasf-v100-sources</artifactId>
-										<version>NOT_INFORMED</version>
-										<destFileName>nfse-abrasf-v100-sources.jar</destFileName>
-									</artifactItem>
-									<artifactItem>
 										<groupId>local.nfse-abrasf-v100</groupId>
 										<artifactId>nfse-abrasf-v100</artifactId>
 										<version>NOT_INFORMED</version>
 										<destFileName>nfse-abrasf-v100.jar</destFileName>
-									</artifactItem>
-									<artifactItem>
-										<groupId>local.nfse-abrasf-v203-sources</groupId>
-										<artifactId>nfse-abrasf-v203-sources</artifactId>
-										<version>NOT_INFORMED</version>
-										<destFileName>nfse-abrasf-v203-sources.jar</destFileName>
 									</artifactItem>
 									<artifactItem>
                                         <groupId>org.kenos</groupId>
@@ -86,12 +74,6 @@
 										<artifactId>nfse-abrasf-v203</artifactId>
 										<version>NOT_INFORMED</version>
 										<destFileName>nfse-abrasf-v203.jar</destFileName>
-									</artifactItem>                                                       
-									<artifactItem>
-										<groupId>local.nfse-mogi-v100-sources</groupId>
-										<artifactId>nfse-mogi-v100-sources</artifactId>
-										<version>NOT_INFORMED</version>
-										<destFileName>nfse-mogi-v100-sources.jar</destFileName>
 									</artifactItem>
 									<artifactItem>
 										<groupId>local.nfse-mogi-v100</groupId>
@@ -107,22 +89,10 @@
 										<includes>sources</includes>
 									</artifactItem>
 									<artifactItem>
-										<groupId>local.nfse-palhoca-v100-sources</groupId>
-										<artifactId>nfse-palhoca-v100-sources</artifactId>
-										<version>NOT_INFORMED</version>
-										<destFileName>nfse-palhoca-v100-sources.jar</destFileName>
-									</artifactItem>
-									<artifactItem>
 										<groupId>local.nfse-palhoca-v100</groupId>
 										<artifactId>nfse-palhoca-v100</artifactId>
 										<version>NOT_INFORMED</version>
 										<destFileName>nfse-palhoca-v100.jar</destFileName>
-									</artifactItem>
-									<artifactItem>
-										<groupId>local.nfsebeans-v01-sources</groupId>
-										<artifactId>nfsebeans-v01-sources</artifactId>
-										<version>NOT_INFORMED</version>
-										<destFileName>nfsebeans-v01-sources.jar</destFileName>
 									</artifactItem>
 									<artifactItem>
 										<groupId>local.nfsebeans-v01</groupId>
