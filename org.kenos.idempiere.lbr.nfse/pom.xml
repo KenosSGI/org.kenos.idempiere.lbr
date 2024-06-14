@@ -64,11 +64,11 @@
 										<destFileName>nfse-abrasf-v203-sources.jar</destFileName>
 									</artifactItem>
 									<artifactItem>
-                                                                                <groupId>org.kenos</groupId>
-                                                                                <artifactId>nfse-abrasf-v200</artifactId>
-                                                                                <version>2.00</version>
-                                                                                <destFileName>nfse-abrasf-v200.jar</destFileName>
-                                                                        </artifactItem>
+                                        <groupId>org.kenos</groupId>
+                                        <artifactId>nfse-abrasf-v200</artifactId>
+                                        <version>2.00</version>
+                                        <destFileName>nfse-abrasf-v200.jar</destFileName>
+                                    </artifactItem>
 									<artifactItem>
 										<groupId>org.kenos</groupId>
 										<artifactId>nfse-abrasf-v201</artifactId>
@@ -100,16 +100,11 @@
 										<destFileName>nfse-mogi-v100.jar</destFileName>
 									</artifactItem>
 									<artifactItem>
-										<groupId>local.nfse-atibaia-v100-sources</groupId>
-										<artifactId>nfse-atibaia-v100-sources</artifactId>
-										<version>NOT_INFORMED</version>
-										<destFileName>nfse-atibaia-v100-sources.jar</destFileName>
-									</artifactItem>
-									<artifactItem>
-										<groupId>local.nfse-atibaia-v100</groupId>
-										<artifactId>nfse-atibaia-v100</artifactId>
-										<version>NOT_INFORMED</version>
-										<destFileName>nfse-atibaia-v100.jar</destFileName>
+										<groupId>org.kenos.xmlbeans</groupId>
+										<artifactId>nfse-atibaia</artifactId>
+										<version>1.01</version>
+										<destFileName>nfse-atibaia.jar</destFileName>
+										<includes>sources</includes>
 									</artifactItem>
 									<artifactItem>
 										<groupId>local.nfse-palhoca-v100-sources</groupId>

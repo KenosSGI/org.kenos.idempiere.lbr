@@ -17,7 +17,9 @@ import java.net.http.HttpResponse.BodyHandlers;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -32,24 +34,25 @@ import org.adempierelbr.nfse.INFSe;
 import org.adempierelbr.util.NFeUtil;
 import org.adempierelbr.util.TextUtil;
 import org.apache.commons.io.FileUtils;
+import org.apache.xmlbeans.XmlOptions;
 import org.compiere.model.MAttachment;
-import org.compiere.model.MProduct;
 import org.compiere.model.MSysConfig;
 import org.compiere.util.Env;
 import org.kenos.idempiere.lbr.base.model.SysConfig;
 
-import br.gov.sp.atibaia.nfse.NfeDocument;
-import br.gov.sp.atibaia.nfse.NfeDocument.Nfe;
-import br.gov.sp.atibaia.nfse.NfeDocument.Nfe.NotaFiscal;
-import br.gov.sp.atibaia.nfse.NfeDocument.Nfe.NotaFiscal.DadosPrestador;
-import br.gov.sp.atibaia.nfse.NfeDocument.Nfe.NotaFiscal.DadosServico;
-import br.gov.sp.atibaia.nfse.NfeDocument.Nfe.NotaFiscal.DadosTomador;
-import br.gov.sp.atibaia.nfse.NfeDocument.Nfe.NotaFiscal.DetalheAutorizacao;
-import br.gov.sp.atibaia.nfse.NfeDocument.Nfe.NotaFiscal.DetalheAutorizacao.Messages;
-import br.gov.sp.atibaia.nfse.NfeDocument.Nfe.NotaFiscal.DetalheServico;
-import br.gov.sp.atibaia.nfse.NfeDocument.Nfe.NotaFiscal.DetalheServico.Item;
 import br.gov.sp.atibaia.nfse.NfeRespostaDocument;
 import br.gov.sp.atibaia.nfse.NfeRespostaDocument.NfeResposta;
+import br.gov.sp.atibaia.nfse.cancela.NfeDocument.Nfe.CancelaNota;
+import br.gov.sp.atibaia.nfse.emissao.NfeDocument;
+import br.gov.sp.atibaia.nfse.emissao.NfeDocument.Nfe;
+import br.gov.sp.atibaia.nfse.emissao.NfeDocument.Nfe.NotaFiscal;
+import br.gov.sp.atibaia.nfse.emissao.NfeDocument.Nfe.NotaFiscal.DadosPrestador;
+import br.gov.sp.atibaia.nfse.emissao.NfeDocument.Nfe.NotaFiscal.DadosServico;
+import br.gov.sp.atibaia.nfse.emissao.NfeDocument.Nfe.NotaFiscal.DadosTomador;
+import br.gov.sp.atibaia.nfse.emissao.NfeDocument.Nfe.NotaFiscal.DetalheAutorizacao;
+import br.gov.sp.atibaia.nfse.emissao.NfeDocument.Nfe.NotaFiscal.DetalheAutorizacao.Messages;
+import br.gov.sp.atibaia.nfse.emissao.NfeDocument.Nfe.NotaFiscal.DetalheServico;
+import br.gov.sp.atibaia.nfse.emissao.NfeDocument.Nfe.NotaFiscal.DetalheServico.Item;
 
 /**
  * 	NFS-e Atibaia
@@ -63,6 +66,8 @@ public class NFSeAtibaiaImpl implements INFSe
 	/**	Atibaia only works with 1.1 HTTP version */
 	protected static final HttpClient.Version httpVersion = HttpClient.Version.HTTP_1_1;
 	
+	XmlOptions xmlOptions = null;
+	
 	@Override
 	public String getType() {
 		/**
@@ -71,6 +76,21 @@ public class NFSeAtibaiaImpl implements INFSe
 		return TYPE_SYNCHRONOUS;
 	}	//	getType
 
+	/**
+	 * 	Default Constructor
+	 */
+	public NFSeAtibaiaImpl () {
+		Map<String, String> namespaces = new HashMap<>();
+		namespaces.put("", "http://nfse.atibaia.sp.gov.br/cancela");
+		namespaces.put("", "http://nfse.atibaia.sp.gov.br/emissao");
+		
+		xmlOptions = new XmlOptions();
+		xmlOptions.setUseDefaultNamespace();
+		xmlOptions.setCharacterEncoding(TextUtil.ISO88591);
+		xmlOptions.setSaveSuggestedPrefixes(null);
+		xmlOptions.setSaveImplicitNamespaces(namespaces);
+	}	//	NFSeAtibaiaImpl
+	
 	@Override
 	public byte[] getXML(MLBRNotaFiscal nf) throws Exception {
 		
@@ -155,28 +175,20 @@ public class NFSeAtibaiaImpl implements INFSe
 		String serviceDesc = "";
 		for (MLBRNotaFiscalLine line : nf.getLines())
 		{
-			if (!line.islbr_IsService())
+			if (!line.islbr_IsService() || line.getlbr_ServiceCode() == null || line.getlbr_ServiceCode().isBlank())
 				continue;
 			//
-			if (line.getM_Product_ID() > 0)
-			{
-				MProduct p = new MProduct (Env.getCtx(), line.getM_Product_ID(), null);
-				if (serviceCode.equals("") 
-						&& p.get_ValueAsString("lbr_ServiceCode") != null)
-				{
-					serviceCode = p.get_ValueAsString("lbr_ServiceCode");	//	FIXME : Copiar para LBR_NotaFiscalLine
-					serviceDesc = p.getName();
-					issRate 	= line.getTaxRate("ISS");
-					break;
-				}
-			}
+			serviceCode = line.getlbr_ServiceCode();
+			serviceDesc = line.getProductName();
+			issRate 	= line.getTaxRate("ISS");
+			break;
 		}
 		
 		if (serviceCode == null || serviceCode.isBlank())
 			throw new Exception ("Código do serviço inválido.");
 		
 		det.setObs(nf.getlbr_FiscalOBS() + "\n" + nf.getDescription());
-			
+		
 		//	Itens
 		Item item = det.addNewItem();
 		if (issRate != null)
@@ -185,7 +197,10 @@ public class NFSeAtibaiaImpl implements INFSe
 		item.setDescricao(serviceDesc);
 		item.setValor(nf.getlbr_ServiceTotalAmt());
 		
-		return document.xmlText(NFeUtil.getXmlOpt()).getBytes(NFeUtil.NFE_ENCODING);
+		String xmlText = document.xmlText(xmlOptions);
+		NFeUtil.saveXML (String.valueOf(nf.getAD_Org_ID()), NFeUtil.KIND_NFSE, NFeUtil.MESSAGE_XML, nf.getDocumentNo(), xmlText.toString());
+		
+		return xmlText.getBytes(TextUtil.ISO88591);
 	}	//	getXML
 
 	@Override
@@ -239,9 +254,11 @@ public class NFSeAtibaiaImpl implements INFSe
 		});
 		
 		String token = MSysConfig.getValue(SysConfig.LBR_NFSE_TOKEN, AD_Client_ID, AD_Org_ID);
-		String xmlText = document.xmlText(NFeUtil.getXmlOpt());
+		String xmlText = document.xmlText(xmlOptions);
 		String URL = "http://ws.prefeituradeatibaia.com.br/WSNfses/nfseresources/ws/v2/emissao";
 		
+		NFeUtil.saveXML (String.valueOf(AD_Org_ID), NFeUtil.KIND_NFSE, NFeUtil.MESSAGE_REQ_AUTORIZE, nfs.get(0).getDocumentNo(), xmlText.toString());
+
 		if (token == null || token.isBlank())
 			throw new Exception ("Token de comunicação com a prefeitura inválido.");
 		
@@ -258,6 +275,9 @@ public class NFSeAtibaiaImpl implements INFSe
 				.build();
 
 		HttpResponse<String> send = HttpClient.newHttpClient().send(request, BodyHandlers.ofString());
+		
+		NFeUtil.saveXML (String.valueOf(AD_Org_ID), NFeUtil.KIND_NFSE, NFeUtil.MESSAGE_RET_AUTORIZE, nfs.get(0).getDocumentNo(), send.body());
+
 		if (send.statusCode() != 200)
 			throw new Exception ("Failed to connect to Web Services: " + send.statusCode() + " - " + send.body());
 		
@@ -311,7 +331,7 @@ public class NFSeAtibaiaImpl implements INFSe
 
 					//	Anexa o XML na NF
 					if (success.get()) {
-						String xml = doc.xmlText(NFeUtil.getXmlOpt());
+						String xml = doc.xmlText(xmlOptions);
 						
 						if (nf.getAttachment (true) != null)
 							nf.getAttachment ().delete (true);
@@ -372,6 +392,65 @@ public class NFSeAtibaiaImpl implements INFSe
 		
 		return "@Success@";
 	}	//	printNFSe
+	
+    /** Error code for "Mês Competência". */
+    public static final short ERRO_MES_COMPETENCIA        = 8;
+
+    /** Error code for "Local da Prestação". */
+    public static final short ERRO_LOCAL_PRESTACAO        = 9;
+
+    /** Error code for "Alíquota". */
+    public static final short ERRO_ALIQUOTA               = 10;
+
+    /** Error code for "Base de Cálculo". */
+    public static final short ERRO_BASE_CALCULO           = 11;
+
+    /** Error code for "Descrição dos Serviços". */
+    public static final short ERRO_DESCRICAO_SERVICOS     = 12;
+
+    /** Error code for "Divergência Cadastral". */
+    public static final short ERRO_DIVERGENCIA_CADASTRAL  = 13;
+
+    /** Error code for "Dados do Tomador". */
+    public static final short ERRO_DADOS_TOMADOR          = 14;
+	
+    /**
+     * 	Cancel the NF
+     */
+	@Override
+	public boolean cancel (MLBRNotaFiscal nf) throws Exception {
+		String URL = "http://ws.prefeituradeatibaia.com.br/WSNfses/nfseresources/ws/v2/cancela";
+		String token = MSysConfig.getValue(SysConfig.LBR_NFSE_TOKEN, nf.getAD_Client_ID(), nf.getAD_Org_ID());	
+
+		br.gov.sp.atibaia.nfse.cancela.NfeDocument document = br.gov.sp.atibaia.nfse.cancela.NfeDocument.Factory.newInstance();
+		CancelaNota cancelaNota = document.addNewNfe().addNewCancelaNota();
+		cancelaNota.setCodigoMotivo(ERRO_DESCRICAO_SERVICOS);
+		cancelaNota.setNumeroNota(Integer.parseInt(nf.getlbr_NFENo()));
+		
+		String xmlText = document.xmlText(xmlOptions);
+		NFeUtil.saveXML (String.valueOf(nf.getAD_Org_ID()), NFeUtil.KIND_NFSE, NFeUtil.MESSAGE_REQ_CANCEL, nf.getDocumentNo(), xmlText.toString());
+
+		HttpRequest request = HttpRequest.newBuilder(URI.create(URL))
+				.version(httpVersion)
+				.header("Authorization", nf.getlbr_OrgCCM() + "-" + token)
+				.header("Cache-Control", "no-cache")
+				.header("Content-Type", "application/xml")
+				.POST(BodyPublishers.ofString(xmlText))
+				.build();
+
+		HttpResponse<String> send = HttpClient.newHttpClient().send(request, BodyHandlers.ofString());
+		
+		if (send != null && send.body() != null)
+			NFeUtil.saveXML (String.valueOf(nf.getAD_Org_ID()), NFeUtil.KIND_NFSE, NFeUtil.MESSAGE_RET_CANCEL, nf.getDocumentNo(), send.body());
+
+		if (send.statusCode() != 200)
+			throw new Exception ("Failed to connect to Web Services: " + send.statusCode() + " - " + send.body());
+		
+		String body = send.body();
+		NfeResposta response = NfeRespostaDocument.Factory.parse(body).getNfeResposta();
+		
+		return response !=null && response.getNotaFiscalArray() != null && response.getNotaFiscalArray()[0].getStatusEmissao() == 200;
+	}	//	cancel
 
 	/**
 	 * 	Get the NF PDF
@@ -422,74 +501,4 @@ public class NFSeAtibaiaImpl implements INFSe
 		
 		return PDF;
 	}	//	getPDF
-	
-	public static void main (String[] args) throws Exception
-	{
-		if (args == null)
-			System.out.println("Unkown parameter");
-		
-		else if ("hello".equals(args[0]))
-		{
-			//	Status
-			String URL = "http://ws.prefeituradeatibaia.com.br/WSNfses/nfseresources/ws/hello";
-			HttpRequest request = HttpRequest.newBuilder(URI.create(URL))
-					.version(httpVersion)
-					.GET()
-					.build();
-	
-			HttpResponse<String> send = HttpClient.newHttpClient().send(request, BodyHandlers.ofString());
-			if (send.statusCode() != 200)
-				throw new Exception ("Failed to connect to Web Services: " + send.statusCode() + " - " + send.body());
-			
-			String body = send.body();
-			System.out.println(body);
-		}
-
-		else if ("exemplo".equals(args[0]))
-		{
-			//	Example
-			String URL = "http://ws.prefeituradeatibaia.com.br/WSNfses/nfseresources/ws/v2/exemplo";
-			HttpRequest request = HttpRequest.newBuilder(URI.create(URL))
-					.version(httpVersion)
-					.GET()
-					.build();
-	
-			HttpResponse<String> send = HttpClient.newHttpClient().send(request, BodyHandlers.ofString());
-			if (send.statusCode() != 200)
-				throw new Exception ("Failed to connect to Web Services: " + send.statusCode() + " - " + send.body());
-			
-			String body = send.body();
-			System.out.println(body);
-		}
-		
-		else if ("simula".equals(args[0]))
-		{
-			String ccm 		= args[1];
-			String token	= args[2];
-			String xmlText	= args[3];
-
-			System.out.println("CCM: " 		+ ccm);
-			System.out.println("Token: " 	+ token);
-			System.out.println("XML: " 		+ xmlText);
-			
-			//	Issue
-			String URL = "http://ws.prefeituradeatibaia.com.br/WSNfses/nfseresources/ws/v2/emissao/simula";
-			HttpRequest request = HttpRequest.newBuilder(URI.create(URL))
-					.version(httpVersion)
-					.header("Authorization", "30181-QLAG2IXBOKUNVR6MVPRWN7QJXSTERAMH")
-					.header("Content-Type", "application/xml")
-					.POST(HttpRequest.BodyPublishers.ofString(xmlText))
-					.build();
-			
-			HttpResponse<String> send = HttpClient.newHttpClient().send(request, BodyHandlers.ofString());
-			if (send.statusCode() != 200)
-				throw new Exception ("Failed to connect to Web Services: " + send.statusCode() + " - " + send.body());
-			
-			String body = send.body();
-			System.out.println(body);
-		}
-		
-		else
-			System.out.println("Unkown parameter");
-	}	//	main
 }	//	NFSeAtibaiaImpl

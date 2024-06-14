@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Created with Liquid Technologies Online Tools 1.0 (https://www.liquid-technologies.com) -->
-<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://nfse.atibaia.sp.gov.br/emissao">
   <xs:element name="nfe">
     <xs:complexType>
       <xs:sequence>
@@ -12,7 +12,7 @@
                   <xs:sequence>
                     <xs:element name="dataEmissao" type="xs:string" />
                     <xs:element name="im" type="xs:string" />
-                    <xs:element name="numeroRps" type="xs:unsignedShort" />
+                    <xs:element name="numeroRps" type="xs:int" />
                   </xs:sequence>
                 </xs:complexType>
               </xs:element>
@@ -77,13 +77,13 @@
               <xs:element name="detalheAutorizacao">
                 <xs:complexType>
                   <xs:sequence>
-                    <xs:element name="numeroNota" type="xs:unsignedShort" />
-                    <xs:element name="numeroRps" type="xs:unsignedShort" />
+                    <xs:element name="numeroNota" type="xs:int" />
+                    <xs:element name="numeroRps" type="xs:int" />
                     <xs:element name="statusEmissao" type="xs:unsignedShort" />
                     <xs:element name="codigoVerificacao" type="xs:string" />
                     <xs:element name="messages">
                       <xs:complexType>
-                        <xs:attribute name="code" type="xs:unsignedShort" use="required" />
+                        <xs:attribute name="code" type="xs:int" use="required" />
                         <xs:attribute name="message" type="xs:string" use="required" />
                       </xs:complexType>
                     </xs:element>
