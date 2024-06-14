@@ -263,9 +263,11 @@ public class NFSeAtibaiaImpl implements INFSe
 		
 		String body = send.body();
 		NfeResposta response = NfeRespostaDocument.Factory.parse(body).getNfeResposta();
+		AtomicBoolean success = new AtomicBoolean (false);
 		
 		nfs.stream().forEach(nf -> {
 			byte[] xmlData = nf.getAttachmentData("xml");
+			
 			if (xmlData == null || xmlData.length == 0)
 				throw new AdempiereException ("XML not found");
 			//
@@ -276,7 +278,7 @@ public class NFSeAtibaiaImpl implements INFSe
 				DetalheAutorizacao autorizacao = nfxml.addNewDetalheAutorizacao();
 				//
 				Arrays.asList(response.getNotaFiscalArray()).stream()
-					.filter(r -> r.getNumeroRps() == nfxml.getDadosPrestador().getNumeroRps())
+					.filter(r -> nfs.size() == 1 || r.getNumeroRps() == nfxml.getDadosPrestador().getNumeroRps())
 					.forEach(r -> {
 						
 						if (r.getStatusEmissao() != 200)
@@ -298,23 +300,27 @@ public class NFSeAtibaiaImpl implements INFSe
 							Messages messages = autorizacao.addNewMessages();
 							messages.setCode(r.getMessages().getCode());
 							messages.setMessage(r.getMessages().getMessage());
+							//
+							success.set(true);
 						}
 					});;
 					
 					//	Save if something was changed
 					if (nf.is_Changed())
 						nf.save();
-					
-					String xml = doc.xmlText(NFeUtil.getXmlOpt());
-					
+
 					//	Anexa o XML na NF
-					if (nf.getAttachment (true) != null)
-						nf.getAttachment ().delete (true);
-					
-					nf.getAttachment(true);	//	FIX
-					MAttachment attachNFe = nf.createAttachment();
-					attachNFe.addEntry("RPS-" + nf.getDocumentNo() + ".xml", xml.replaceAll("\\&\\#[0-9A-Za-z]*;|\\n", "").getBytes(NFeUtil.NFE_ENCODING));
-					attachNFe.save();
+					if (success.get()) {
+						String xml = doc.xmlText(NFeUtil.getXmlOpt());
+						
+						if (nf.getAttachment (true) != null)
+							nf.getAttachment ().delete (true);
+						
+						nf.getAttachment(true);	//	FIX
+						MAttachment attachNFe = nf.createAttachment();
+						attachNFe.addEntry("RPS-" + nf.getDocumentNo() + ".xml", xml.replaceAll("\\&\\#[0-9A-Za-z]*;|\\n", "").getBytes(NFeUtil.NFE_ENCODING));
+						attachNFe.save();
+					}
 			}
 			catch (Exception e)
 			{
@@ -322,7 +328,7 @@ public class NFSeAtibaiaImpl implements INFSe
 			}
 		});
 		
-		return true;
+		return success.get();
 	}	//	transmit
 
 	@Override
