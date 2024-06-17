@@ -237,6 +237,7 @@ Export-Package: br.inf.portalfiscal.nfe.dfe,
  org.kenos.idempiere.lbr.nfe.callout,
  org.kenos.idempiere.lbr.nfe.event,
  org.kenos.idempiere.lbr.nfe.importvalidator,
+ org.kenos.idempiere.lbr.nfe.model,
  org.kenos.idempiere.lbr.nfe.process,
  org.w3.x2000.x09.xmldsig
 Bundle-ClassPath: .,

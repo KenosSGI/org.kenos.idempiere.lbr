@@ -13,18 +13,24 @@
  *****************************************************************************/
 package org.kenos.idempiere.lbr.nfe.model;
 
+import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.util.Base64;
+import java.util.Optional;
 import java.util.Properties;
 
 import org.adempierelbr.model.MLBRNotaFiscal;
 import org.adempierelbr.model.X_LBR_ProofOfDelivery;
+import org.adempierelbr.util.LBRUtils;
 import org.adempierelbr.util.SignatureUtil;
 import org.adempierelbr.util.TextUtil;
 import org.compiere.model.MImage;
+import org.compiere.model.MSysConfig;
+import org.compiere.model.Query;
 import org.compiere.util.CLogger;
+import org.compiere.util.Env;
 import org.compiere.util.Msg;
 
 /**
@@ -40,8 +46,8 @@ public class MLBRProofOfDelivery extends X_LBR_ProofOfDelivery
 	/**
 	 * 	Serial
 	 */
-	private static final long serialVersionUID = 1L;
-
+	private static final long serialVersionUID = 7008169918021783025L;
+	
 	/**************************************************************************
 	 *  Default Constructor
 	 *  @param Properties ctx
@@ -116,15 +122,45 @@ public class MLBRProofOfDelivery extends X_LBR_ProofOfDelivery
 			return true;
 
 		try {
-			MLBRNotaFiscal notaFiscal = MLBRNotaFiscal.get (p_ctx, getDocumentNo(), getlbr_NFSerie(), getAD_Org_ID(), null);
+			//	Limit the date range to avoid collision, default = previous 90 days
+			int maxDays = MSysConfig.getIntValue("LBR_MATCH_POD_MAX_DAYS", 90, getAD_Client_ID());
+			MLBRNotaFiscal notaFiscal = MLBRNotaFiscal.get (p_ctx, getDocumentNo(), getlbr_NFSerie(), getAD_Org_ID(), maxDays, null);
 			if (notaFiscal == null)
 				return false;
 			
 			setLBR_NotaFiscal_ID(notaFiscal.getLBR_NotaFiscal_ID());
-			
+			setProcessed(true);
+
 			return true;
 		} catch (Exception e) {
 			return false;
 		}
 	}	//	match
+	
+	/**
+	 * Retrieves an instance of {@link MLBRProofOfDelivery} based on the provided hash.
+	 * 
+	 * @param hash the hash string to look up the proof of delivery.
+	 * @return an instance of {@link MLBRProofOfDelivery} if a matching record is found; otherwise, null.
+	 * 
+	 * This method uses a query to search for a proof of delivery record that matches the provided hash.
+	 */
+	public static Optional<MLBRProofOfDelivery> get (String hash) {
+		return Optional.ofNullable (new Query (Env.getCtx(), Table_Name, COLUMNNAME_LBR_Hash + "=?", null)
+				.setParameters(hash)
+				.first());
+	}	//	MLBRProofOfDelivery
+	
+	/**
+	 * Retrieves an instance of {@link MLBRProofOfDelivery} based on the hash of the provided photo file.
+	 * 
+	 * @param photo the {@link File} object representing the photo to compute the hash for.
+	 * @return an instance of {@link MLBRProofOfDelivery} if a matching record is found; otherwise, null.
+	 * 
+	 * This method computes the SHA-1 hash of the provided photo file and uses it to look up the proof of delivery.
+	 */
+	public static Optional<MLBRProofOfDelivery> get (File photo) {
+		String hash = LBRUtils.getFileSHA1(photo);
+		return get (hash);
+	}	//	MLBRProofOfDelivery
 }	//	MLBRProofOfDelivery

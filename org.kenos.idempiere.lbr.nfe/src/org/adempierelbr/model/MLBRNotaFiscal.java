@@ -5100,20 +5100,21 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 	 * @param trxName
 	 * @return
 	 */
-	public static MLBRNotaFiscal get (Properties ctx, String documentNo, String serNo, int AD_Org_ID, String trxName)
+	public static MLBRNotaFiscal get (Properties ctx, String documentNo, String serNo, int AD_Org_ID, int maxDays, String trxName)
 	{
 		String where = COLUMNNAME_DocumentNo + "~ '^[0-9]+$' " + 
 				"AND " + COLUMNNAME_lbr_NFSerie + "~ '^[0-9]+$' " + 
 				"AND CAST (" + COLUMNNAME_DocumentNo + " AS NUMERIC)=? " + 
 				"AND CAST (" + COLUMNNAME_lbr_NFSerie + " AS NUMERIC)=? " + 
 				"AND " + COLUMNNAME_lbr_IsOwnDocument + "='Y' " +
-				"AND " + COLUMNNAME_AD_Org_ID + "<>? " +
 				"AND " + COLUMNNAME_DocStatus + " IN ('CL','CO') ";
+		if (maxDays > 0)
+			where += "AND " + COLUMNNAME_DateDoc + ">= CURRENT_DATE-" + maxDays;
 
 		//	Check for duplicates
 		return new Query (ctx, Table_Name, where, trxName)
 			.setClient_ID()
-			.setParameters(Integer.valueOf(documentNo), Integer.valueOf(serNo), AD_Org_ID)
+			.setParameters(Integer.valueOf(TextUtil.toNumeric(documentNo)), Integer.valueOf(TextUtil.toNumeric(serNo)))
 			.firstOnly();
 	}	//	get
 
