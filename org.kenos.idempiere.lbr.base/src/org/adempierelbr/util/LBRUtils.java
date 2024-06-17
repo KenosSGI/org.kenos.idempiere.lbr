@@ -1,6 +1,11 @@
 package org.adempierelbr.util;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.math.BigDecimal;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -331,4 +336,71 @@ public abstract class LBRUtils
 			return Env.ZERO;
 		return Arrays.asList(object).stream().filter(Objects::nonNull).filter(b -> b.signum() == 1).findFirst().orElse(Env.ZERO);
 	}	//	firstPositive
+
+	/**
+	 * Generates a checksum SHA-1 for a given file
+	 * 
+	 * @param file the {@link File} object representing the file to compute the checksum for.
+	 * @return a {@link String} representing the checksum of the file in hexadecimal format.
+	 * @throws IOException if an I/O error occurs while reading the file.
+	 * 
+	 * This method reads the content of the provided file in chunks, updates the message digest
+	 * with the read bytes, and finally computes the hash. The resulting hash is converted
+	 * into a hexadecimal string and returned as the checksum.
+	 * @throws NoSuchAlgorithmException 
+	 */
+	public static String getFileSHA1 (File file)
+	{
+		try {
+			return getFileChecksum (MessageDigest.getInstance("SHA-1"), file);
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}	//	getFileSHA1
+
+	/**
+	 * Generates a checksum for a given file using the specified message digest algorithm.
+	 * 
+	 * @param digest the {@link MessageDigest} instance to use for generating the checksum.
+	 * @param file the {@link File} object representing the file to compute the checksum for.
+	 * @return a {@link String} representing the checksum of the file in hexadecimal format.
+	 * @throws IOException if an I/O error occurs while reading the file.
+	 * 
+	 * This method reads the content of the provided file in chunks, updates the message digest
+	 * with the read bytes, and finally computes the hash. The resulting hash is converted
+	 * into a hexadecimal string and returned as the checksum.
+	 */
+	public static String getFileChecksum (MessageDigest digest, File file) throws IOException 
+	{
+		// Get file input stream for reading the file content
+		FileInputStream fis = new FileInputStream(file);
+
+		// Create byte array to read data in chunks
+		byte[] byteArray = new byte[1024];
+		int bytesCount = 0;
+
+		// Read file data and update in message digest
+		while ((bytesCount = fis.read(byteArray)) != -1) {
+			digest.update(byteArray, 0, bytesCount);
+		};
+
+		// close the stream; We don't need it now.
+		fis.close();
+
+		// Get the hash's bytes
+		byte[] bytes = digest.digest();
+
+		// This bytes[] has bytes in decimal format;
+		// Convert it to hexadecimal format
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < bytes.length; i++) {
+			sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+		}
+
+		// return complete hash
+		return sb.toString();
+	}	//	getFileChecksum
 }	//	LBRUtils
