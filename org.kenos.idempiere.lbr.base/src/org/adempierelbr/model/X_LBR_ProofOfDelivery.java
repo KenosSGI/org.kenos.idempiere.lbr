@@ -33,7 +33,7 @@ public class X_LBR_ProofOfDelivery extends PO implements I_LBR_ProofOfDelivery, 
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20240612L;
+	private static final long serialVersionUID = 20240617L;
 
     /** Standard Constructor */
     public X_LBR_ProofOfDelivery (Properties ctx, int LBR_ProofOfDelivery_ID, String trxName)
@@ -43,8 +43,12 @@ public class X_LBR_ProofOfDelivery extends PO implements I_LBR_ProofOfDelivery, 
         {
 			setIsValid (false);
 // N
+			setLBR_DocumentSigned (false);
+// N
 			setLBR_ProofOfDelivery_ID (0);
 			setProcessed (false);
+			setProcessing (false);
+// N
         } */
     }
 
@@ -162,6 +166,27 @@ public class X_LBR_ProofOfDelivery extends PO implements I_LBR_ProofOfDelivery, 
 	public boolean isValid () 
 	{
 		Object oo = get_Value(COLUMNNAME_IsValid);
+		if (oo != null) 
+		{
+			 if (oo instanceof Boolean) 
+				 return ((Boolean)oo).booleanValue(); 
+			return "Y".equals(oo);
+		}
+		return false;
+	}
+
+	/** Set Document Signed.
+		@param LBR_DocumentSigned Document Signed	  */
+	public void setLBR_DocumentSigned (boolean LBR_DocumentSigned)
+	{
+		set_Value (COLUMNNAME_LBR_DocumentSigned, Boolean.valueOf(LBR_DocumentSigned));
+	}
+
+	/** Get Document Signed.
+		@return Document Signed	  */
+	public boolean isLBR_DocumentSigned () 
+	{
+		Object oo = get_Value(COLUMNNAME_LBR_DocumentSigned);
 		if (oo != null) 
 		{
 			 if (oo instanceof Boolean) 
@@ -320,6 +345,44 @@ public class X_LBR_ProofOfDelivery extends PO implements I_LBR_ProofOfDelivery, 
 			return "Y".equals(oo);
 		}
 		return false;
+	}
+
+	/** Set Process Now.
+		@param Processing Process Now	  */
+	public void setProcessing (boolean Processing)
+	{
+		set_Value (COLUMNNAME_Processing, Boolean.valueOf(Processing));
+	}
+
+	/** Get Process Now.
+		@return Process Now	  */
+	public boolean isProcessing () 
+	{
+		Object oo = get_Value(COLUMNNAME_Processing);
+		if (oo != null) 
+		{
+			 if (oo instanceof Boolean) 
+				 return ((Boolean)oo).booleanValue(); 
+			return "Y".equals(oo);
+		}
+		return false;
+	}
+
+	/** Set Tax ID.
+		@param TaxID 
+		Tax Identification
+	  */
+	public void setTaxID (String TaxID)
+	{
+		set_Value (COLUMNNAME_TaxID, TaxID);
+	}
+
+	/** Get Tax ID.
+		@return Tax Identification
+	  */
+	public String getTaxID () 
+	{
+		return (String)get_Value(COLUMNNAME_TaxID);
 	}
 
 	/** Set NF Serie.

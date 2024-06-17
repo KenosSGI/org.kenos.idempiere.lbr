@@ -154,6 +154,15 @@ public interface I_LBR_ProofOfDelivery
 	  */
 	public boolean isValid();
 
+    /** Column name LBR_DocumentSigned */
+    public static final String COLUMNNAME_LBR_DocumentSigned = "LBR_DocumentSigned";
+
+	/** Set Document Signed	  */
+	public void setLBR_DocumentSigned (boolean LBR_DocumentSigned);
+
+	/** Get Document Signed	  */
+	public boolean isLBR_DocumentSigned();
+
     /** Column name LBR_Hash */
     public static final String COLUMNNAME_LBR_Hash = "LBR_Hash";
 
@@ -239,6 +248,28 @@ public interface I_LBR_ProofOfDelivery
 	  * The document has been processed
 	  */
 	public boolean isProcessed();
+
+    /** Column name Processing */
+    public static final String COLUMNNAME_Processing = "Processing";
+
+	/** Set Process Now	  */
+	public void setProcessing (boolean Processing);
+
+	/** Get Process Now	  */
+	public boolean isProcessing();
+
+    /** Column name TaxID */
+    public static final String COLUMNNAME_TaxID = "TaxID";
+
+	/** Set Tax ID.
+	  * Tax Identification
+	  */
+	public void setTaxID (String TaxID);
+
+	/** Get Tax ID.
+	  * Tax Identification
+	  */
+	public String getTaxID();
 
     /** Column name Updated */
     public static final String COLUMNNAME_Updated = "Updated";
