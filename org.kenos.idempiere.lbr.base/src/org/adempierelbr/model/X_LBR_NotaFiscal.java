@@ -34,7 +34,7 @@ public class X_LBR_NotaFiscal extends PO implements I_LBR_NotaFiscal, I_Persiste
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20240611L;
+	private static final long serialVersionUID = 20240618L;
 
     /** Standard Constructor */
     public X_LBR_NotaFiscal (Properties ctx, int LBR_NotaFiscal_ID, String trxName)
@@ -49,7 +49,7 @@ public class X_LBR_NotaFiscal extends PO implements I_LBR_NotaFiscal, I_Persiste
 			setDocumentNo (null);
 			setIsCancelled (false);
 // 'N'
-			setIsDelivered (false);
+			setIsDelivered (null);
 // N
 			setIsManual (false);
 // N
@@ -694,25 +694,27 @@ public class X_LBR_NotaFiscal extends PO implements I_LBR_NotaFiscal, I_Persiste
 		return false;
 	}
 
+	/** No = N */
+	public static final String ISDELIVERED_No = "N";
+	/** Yes, with proof = Y */
+	public static final String ISDELIVERED_YesWithProof = "Y";
+	/** Yes, with SeFaz protocol (CT-e or NF-e event) = S */
+	public static final String ISDELIVERED_YesWithSeFazProtocolCT_EOrNF_EEvent = "S";
+	/** Yes, with no proof = P */
+	public static final String ISDELIVERED_YesWithNoProof = "P";
 	/** Set Delivered.
 		@param IsDelivered Delivered	  */
-	public void setIsDelivered (boolean IsDelivered)
+	public void setIsDelivered (String IsDelivered)
 	{
-		set_ValueNoCheck (COLUMNNAME_IsDelivered, Boolean.valueOf(IsDelivered));
+
+		set_ValueNoCheck (COLUMNNAME_IsDelivered, IsDelivered);
 	}
 
 	/** Get Delivered.
 		@return Delivered	  */
-	public boolean isDelivered () 
+	public String getIsDelivered () 
 	{
-		Object oo = get_Value(COLUMNNAME_IsDelivered);
-		if (oo != null) 
-		{
-			 if (oo instanceof Boolean) 
-				 return ((Boolean)oo).booleanValue(); 
-			return "Y".equals(oo);
-		}
-		return false;
+		return (String)get_Value(COLUMNNAME_IsDelivered);
 	}
 
 	/** Set Discount Printed.

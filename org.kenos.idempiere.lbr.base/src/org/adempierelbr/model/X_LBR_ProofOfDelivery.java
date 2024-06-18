@@ -33,7 +33,7 @@ public class X_LBR_ProofOfDelivery extends PO implements I_LBR_ProofOfDelivery, 
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20240617L;
+	private static final long serialVersionUID = 20240618L;
 
     /** Standard Constructor */
     public X_LBR_ProofOfDelivery (Properties ctx, int LBR_ProofOfDelivery_ID, String trxName)
@@ -118,6 +118,23 @@ public class X_LBR_ProofOfDelivery extends PO implements I_LBR_ProofOfDelivery, 
 	public Timestamp getDateDelivered () 
 	{
 		return (Timestamp)get_Value(COLUMNNAME_DateDelivered);
+	}
+
+	/** Set Description.
+		@param Description 
+		Optional short description of the record
+	  */
+	public void setDescription (String Description)
+	{
+		set_Value (COLUMNNAME_Description, Description);
+	}
+
+	/** Get Description.
+		@return Optional short description of the record
+	  */
+	public String getDescription () 
+	{
+		return (String)get_Value(COLUMNNAME_Description);
 	}
 
 	/** Set Document No.

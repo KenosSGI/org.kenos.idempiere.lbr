@@ -428,10 +428,10 @@ public interface I_LBR_NotaFiscal
     public static final String COLUMNNAME_IsDelivered = "IsDelivered";
 
 	/** Set Delivered	  */
-	public void setIsDelivered (boolean IsDelivered);
+	public void setIsDelivered (String IsDelivered);
 
 	/** Get Delivered	  */
-	public boolean isDelivered();
+	public String getIsDelivered();
 
     /** Column name IsDiscountPrinted */
     public static final String COLUMNNAME_IsDiscountPrinted = "IsDiscountPrinted";

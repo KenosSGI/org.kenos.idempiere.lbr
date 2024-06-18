@@ -223,12 +223,16 @@ public class MLBRPartnerDFe extends X_LBR_PartnerDFe
 		//	Mark document as delivered
 		if (TextUtil.match(getLBR_EventType(), LBR_EVENTTYPE_ComprovanteDeEntregaDoCTe, LBR_EVENTTYPE_CancelamentoDoComprovanteDeEntregaDoCTe))
 		{
+			String status = LBR_EVENTTYPE_ComprovanteDeEntregaDoCTe.equals(getLBR_EventType()) ? 
+					MLBRNotaFiscal.ISDELIVERED_YesWithSeFazProtocolCT_EOrNF_EEvent : MLBRNotaFiscal.ISDELIVERED_No;
+			//
 			DB.executeUpdate("UPDATE " + MLBRNotaFiscal.Table_Name + 
 					" SET " + MLBRNotaFiscal.COLUMNNAME_IsDelivered + "=? WHERE " + 
 					MLBRNotaFiscal.COLUMNNAME_lbr_NFeID + "=? AND " +
 					MLBRNotaFiscal.COLUMNNAME_AD_Org_ID + "=? AND " +
-					MLBRNotaFiscal.COLUMNNAME_lbr_IsOwnDocument + "='Y'", 
-					new Object[] {LBR_EVENTTYPE_ComprovanteDeEntregaDoCTe.equals(getLBR_EventType()), getlbr_NFeID(), getAD_Org_ID()}, false, get_TrxName());
+					MLBRNotaFiscal.COLUMNNAME_lbr_IsOwnDocument + "='Y' " +
+					MLBRNotaFiscal.COLUMNNAME_IsDelivered + " NOT IN ('Y', 'P')", 
+					new Object[] { status, getlbr_NFeID(), getAD_Org_ID() }, false, get_TrxName());
 		}
 
 		//	Include NSU in Control List

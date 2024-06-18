@@ -13,6 +13,9 @@
  *****************************************************************************/
 package org.kenos.idempiere.lbr.nfe.model;
 
+import static org.adempierelbr.model.X_LBR_NotaFiscal.ISDELIVERED_YesWithNoProof;
+import static org.adempierelbr.model.X_LBR_NotaFiscal.ISDELIVERED_YesWithProof;
+
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
@@ -107,7 +110,7 @@ public class MLBRProofOfDelivery extends X_LBR_ProofOfDelivery
 			}
 			
 			MLBRNotaFiscal nf = (MLBRNotaFiscal) getLBR_NotaFiscal();
-			nf.setIsDelivered(true);
+			nf.setIsDelivered(isLBR_DocumentSigned() ? ISDELIVERED_YesWithProof : ISDELIVERED_YesWithNoProof);
 			nf.save();
 		}
 		return super.beforeSave (newRecord);
