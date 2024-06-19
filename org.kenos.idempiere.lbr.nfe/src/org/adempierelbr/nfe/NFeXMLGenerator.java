@@ -1419,7 +1419,7 @@ public class NFeXMLGenerator
 						icms10.setModBCST(InfNFe.Det.Imposto.ICMS.ICMS10.ModBCST.X_4);	//	FIXME: MVA %
 						
 						//	MVA - VAM
-						if (nfl.getLBR_VAM() != null && nfl.getLBR_VAM().signum() == 1)
+						if (nfl.getLBR_VAM() != null && nfl.getLBR_VAM().signum() >= 0)
 							icms10.setPMVAST(normalize2to4  (nfl.getLBR_VAM()));
 						
 						//	Redução na BC
