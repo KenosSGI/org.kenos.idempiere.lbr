@@ -289,7 +289,7 @@ public class NFSeSJPImpl implements INFSe
 		//	Descrição do Serviço
 		String descricaoServico = "";
 		String serviceCode = "";
-		BigDecimal aliquota = BigDecimal.ZERO;
+		BigDecimal prevTaxRate = null;
 		String iss = "";
 		
 		//	Identificação dos Serviços prestados
@@ -341,78 +341,64 @@ public class NFSeSJPImpl implements INFSe
 					nf.setErrorMsg("Impossível gerar NFS-e. Todos os serviços da NFS-e devem conter o mesmo Código de Serviço");
 					return null;
 				}
+				
+				// ISS Retido ou ISS
+				if (nfl.getTaxRate("ISS").equals(Env.ZERO) && !nfl.getTaxRate("ISSRT").equals(Env.ZERO))
+				{
+					iss = "ISSRT";
+					//ISS Retido 1 = Sim
+					valores.setIssRetido((byte) 1);
+				}	
+				else
+				{
+					iss = "ISS";
+					//ISS Retido 2 = Não
+					valores.setIssRetido((byte) 2);
 					
-				//	Mesma Alíquota de ISS para todos os serviços prestados
-				if (aliquota.equals(BigDecimal.ZERO))
-				{
-					try
-					{
-					// ISS Retido ou ISS
-						if (nfl.getTaxRate("ISS").equals(Env.ZERO) && !nfl.getTaxRate("ISSRT").equals(Env.ZERO))
-						{
-							iss = "ISSRT";
-							//ISS Retido 1 = Sim
-							valores.setIssRetido((byte) 1);
-						}	
-						else
-						{
-							iss = "ISS";
-							//ISS Retido 2 = Não
-							valores.setIssRetido((byte) 2);
-							
-						}
-						aliquota = nfl.getTaxRate(iss);
-						BigDecimal v_ISS 	= toBD (nfl.getTaxAmt(iss)).abs();
-						if (iss.equals("ISSRT"))
-							valores.setValorIssRetido(v_ISS);
-						valores.setValorIss(v_ISS);
-						
-						/* Natureza Operação ISSRT (Exigibilidade ISS)
-						/* A natureza da operação não é necessariamente a mesma do LBR
-						/* Exemplo: Imunidade é 4 para SJP e 5 no LBR
-						/* Tributação no Município - Exigivel - 1 */
-						
-						if (nfl.getTax(iss).getLBR_TaxStatus().getName().equals(MLBRNotaFiscalLine.LBR_TAXSTATUSISS_1_Exigível))
-						{
-							infRps.setNaturezaOperacao((byte)1);
-						}
-						/* Tributação Fora do Município - Não Incidência - 2 */
-						else if (nfl.getTax(iss).getLBR_TaxStatus().getName().equals(MLBRNotaFiscalLine.LBR_TAXSTATUSISS_2_NãoIncidência)) 
-						{
-							infRps.setNaturezaOperacao((byte)2);
-						}
-						/* Isenção - 3 */
-						else if (nfl.getTax(iss).getLBR_TaxStatus().getName().equals(MLBRNotaFiscalLine.LBR_TAXSTATUSISS_3_Isenção))
-						{
-							infRps.setNaturezaOperacao((byte)3);
-						}
-						/* Imunidade - 4 */
-						else if (nfl.getTax(iss).getLBR_TaxStatus().getName().equals(MLBRNotaFiscalLine.LBR_TAXSTATUSISS_5_Imunidade))
-						{
-							infRps.setNaturezaOperacao((byte)4);
-						}
-						/* Exigibilidade Suspensa por Decisão Judicial - 5 */
-						else if (nfl.getTax(iss).getLBR_TaxStatus().getName().equals(MLBRNotaFiscalLine.LBR_TAXSTATUSISS_6_ExigibilidadeSuspensaPorDecisaoJudicial))
-						{
-							infRps.setNaturezaOperacao((byte)5);
-						}
-						/* Exigibilidade Suspensa por Procedimento Administrativo - 6 */
-						else if (nfl.getTax(iss).getLBR_TaxStatus().getName().equals(MLBRNotaFiscalLine.LBR_TAXSTATUSISS_7_ExigibilidadeSuspensaPorProcessoAdministrativo))
-						{
-							infRps.setNaturezaOperacao((byte)6);
-						}
-					}
-					catch (Exception e)
-					{
-						nf.setErrorMsg(e.toString());
-						nf.saveEx();
-						throw new AdempiereException("Número do Documento:" + nf.getDocumentNo() + "Preencha a Situação Tributária do ISS");
-					}
 				}
-				else if (!(aliquota.equals(nfl.getTaxRate("ISS"))) || !(aliquota.equals(nfl.getTaxRate("ISSRT"))))
+				BigDecimal taxRate = nfl.getTaxRate(iss);
+				if (prevTaxRate != null && !prevTaxRate.equals(taxRate))
+					throw new AdempiereException("Impossível gerar XML NFS-e. Todos os serviços da NFS-e devem conter a mesma alíquota de ISS");
+				prevTaxRate = taxRate;
+
+				BigDecimal v_ISS 	= toBD (nfl.getTaxAmt(iss)).abs();
+				if (iss.equals("ISSRT"))
+					valores.setValorIssRetido(v_ISS);
+				valores.setValorIss(v_ISS);
+				
+				/* Natureza Operação ISSRT (Exigibilidade ISS)
+				/* A natureza da operação não é necessariamente a mesma do LBR
+				/* Exemplo: Imunidade é 4 para SJP e 5 no LBR
+				/* Tributação no Município - Exigivel - 1 */
+				
+				if (nfl.getTax(iss).getLBR_TaxStatus().getName().equals(MLBRNotaFiscalLine.LBR_TAXSTATUSISS_1_Exigível))
 				{
-					nf.setErrorMsg("Impossível gerar XML NFS-e. Todos os serviços da NFS-e devem conter o mesmo Código de Serviço");
-					return null;
+					infRps.setNaturezaOperacao((byte)1);
+				}
+				/* Tributação Fora do Município - Não Incidência - 2 */
+				else if (nfl.getTax(iss).getLBR_TaxStatus().getName().equals(MLBRNotaFiscalLine.LBR_TAXSTATUSISS_2_NãoIncidência)) 
+				{
+					infRps.setNaturezaOperacao((byte)2);
+				}
+				/* Isenção - 3 */
+				else if (nfl.getTax(iss).getLBR_TaxStatus().getName().equals(MLBRNotaFiscalLine.LBR_TAXSTATUSISS_3_Isenção))
+				{
+					infRps.setNaturezaOperacao((byte)3);
+				}
+				/* Imunidade - 4 */
+				else if (nfl.getTax(iss).getLBR_TaxStatus().getName().equals(MLBRNotaFiscalLine.LBR_TAXSTATUSISS_5_Imunidade))
+				{
+					infRps.setNaturezaOperacao((byte)4);
+				}
+				/* Exigibilidade Suspensa por Decisão Judicial - 5 */
+				else if (nfl.getTax(iss).getLBR_TaxStatus().getName().equals(MLBRNotaFiscalLine.LBR_TAXSTATUSISS_6_ExigibilidadeSuspensaPorDecisaoJudicial))
+				{
+					infRps.setNaturezaOperacao((byte)5);
+				}
+				/* Exigibilidade Suspensa por Procedimento Administrativo - 6 */
+				else if (nfl.getTax(iss).getLBR_TaxStatus().getName().equals(MLBRNotaFiscalLine.LBR_TAXSTATUSISS_7_ExigibilidadeSuspensaPorProcessoAdministrativo))
+				{
+					infRps.setNaturezaOperacao((byte)6);
 				}
 			}
 			
@@ -461,7 +447,7 @@ public class NFSeSJPImpl implements INFSe
 		valores.setValorIr(v_IR);
 		valores.setValorCsll(v_CSLL);
 		valores.setOutrasRetencoes(BigDecimal.ZERO);
-		valores.setAliquota(aliquota.divide(BigDecimal.valueOf(100)));
+		valores.setAliquota(prevTaxRate.divide(BigDecimal.valueOf(100)));
 		valores.setDescontoIncondicionado(BigDecimal.ZERO);
 		valores.setDescontoCondicionado(nf.getDiscountAmt());
 		
