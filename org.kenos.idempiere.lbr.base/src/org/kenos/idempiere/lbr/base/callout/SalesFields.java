@@ -67,9 +67,6 @@ public class SalesFields implements IColumnCallout
 		//	Withhold
 		mTab.setValue(I_W_C_Invoice.COLUMNNAME_LBR_HasWithhold, bpW.isLBR_HasWithhold());
 		
-		//	On Credit: FIXME
-		mTab.setValue(MBPartner.COLUMNNAME_PaymentRule, MBPartner.PAYMENTRULE_OnCredit);
-		
 		return "";
 	}	//	start
 }	//	PaymentRule
