@@ -2003,9 +2003,9 @@ public class NFSeAbrasf200Impl implements INFSe
 			
 			String documentNo = nf.getDocumentNo();
 			
-			String url = "https:/tatui.jlsoft.com.br/CS/Em_Impressao_NfeHomologa.aspx?id="+nf.getlbr_NFeProt();
+			String url = "https://tatui.jlsoft.com.br/CS/Em_Impressao_NfeHomologa.aspx?id="+nf.getlbr_NFeProt();
 			if (MLBRNotaFiscal.LBR_NFEENV_Production.equals(nf.getlbr_NFeEnv()))
-				url = "https:/tatui.jlsoft.com.br/CS/Em_Impressao_NFE.aspx?id="+nf.getlbr_NFeProt();
+				url = "https://tatui.jlsoft.com.br/CS/Em_Impressao_NFE.aspx?id="+nf.getlbr_NFeProt();
 			
 			PDF = File.createTempFile("NFSe_" + documentNo, ".pdf");
 			FileUtils.copyURLToFile(new URL(url), PDF);
