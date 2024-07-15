@@ -23,8 +23,18 @@ public class WCNPJFEditor extends WStringEditor
 		if (value instanceof String)
 		{
 			String cnpjf = (String) value;
-			if (TextUtil.toNumeric(cnpjf).isEmpty())
+			String numericCNPJF = TextUtil.toNumeric(cnpjf);
+			
+			if (numericCNPJF.isEmpty())
 				return null;
+			else if (numericCNPJF.length() == 14 && numericCNPJF.endsWith("000000"))
+			{
+                // Extract the root CNPJ (first 8 digits)
+                String rootCNPJ = numericCNPJF.substring(0, 8);
+                // Format the root CNPJ with mask
+                String formattedRootCNPJ = rootCNPJ.replaceFirst("(\\d{2})(\\d{3})(\\d{3})", "$1.$2.$3");
+                return formattedRootCNPJ + "%";
+            }
 		}
 		return value;
 	}	//	getValue
