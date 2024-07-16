@@ -1,8 +1,11 @@
 package org.adempierelbr.util;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -11,6 +14,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.Properties;
+import java.util.zip.GZIPInputStream;
 
 import org.compiere.model.MBPartner;
 import org.compiere.model.MBPartnerProduct;
@@ -403,4 +407,36 @@ public abstract class LBRUtils
 		// return complete hash
 		return sb.toString();
 	}	//	getFileChecksum
+
+	/**
+	 * 	Read GZIP File
+	 * @param gzis
+	 * @return
+	 * @throws IOException
+	 */
+	public static StringBuilder readGZIP (InputStream gzis) throws IOException
+	{
+		return readGZIP (new GZIPInputStream (gzis));
+	}	//	readGZIP
+	
+	/**
+	 * 	Read GZIP File
+	 * @param gzis
+	 * @return
+	 * @throws IOException
+	 */
+	public static StringBuilder readGZIP (GZIPInputStream gzis) throws IOException
+	{
+		InputStreamReader reader = new InputStreamReader(gzis);
+		BufferedReader in = new BufferedReader(reader);
+
+		String readed;
+		StringBuilder doc = new StringBuilder();
+		while ((readed = in.readLine()) != null)
+		{
+			doc.append (readed);
+		}
+		
+		return doc;
+	}	//	readGZIP
 }	//	LBRUtils
