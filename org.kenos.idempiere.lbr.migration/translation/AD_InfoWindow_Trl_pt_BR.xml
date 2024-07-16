@@ -65,4 +65,9 @@
   <value column="Description" original=""/>
   <value column="Help" original=""/>
  </row>
+ <row trl="Y" uuid="3e4ae257-e691-4fbc-92ae-f6d40d56dbf5">
+  <value column="Name" original="CTe Info">Informações de CT-e</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
 </idempiereTrl>

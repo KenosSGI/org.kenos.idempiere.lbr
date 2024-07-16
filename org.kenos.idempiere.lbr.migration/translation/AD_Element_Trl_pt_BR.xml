@@ -72840,4 +72840,488 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
+ <row trl="Y" uuid="44182b19-74ee-4412-bed2-0c29cee4014e">
+  <value column="Name" original="Percentage Produced">Percentual Produzido</value>
+  <value column="PrintName" original="Percentage Produced">Percentual Produzido</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="99c2b1ae-d125-4447-82b9-57055aa9b3f5">
+  <value column="Name" original="Minimum Due Days">Mínimo Dias do Vencto</value>
+  <value column="PrintName" original="Minimum Due Days">Mínimo Dias do Vencto</value>
+  <value column="Description" original="Minimum number of days due to bank slip generation">Mínimo de dias até o vencimento para que o boleto seja gerado.</value>
+  <value column="Help" original="Specifies the minimum number of days before the invoice's due date required to generate a bank slip. If the remaining days until an invoice is due are fewer than this minimum, the bank slip generation will be skipped to avoid sending slips too close to the payment deadline.">Especifica o número mínimo de dias antes da data de vencimento da fatura necessários para gerar um boleto bancário. Se os dias restantes até o vencimento de uma fatura forem menores que este mínimo, a geração do boleto será pulada para evitar o envio de boletos muito próximos do prazo de pagamento.</value>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="df1ea8bc-6e43-425f-abd0-a09d170ec33e">
+  <value column="Name" original="Payment Days Type">Tipo de Dias de Pagamento</value>
+  <value column="PrintName" original="Payment Days Type">Tipo de Dias de Pagamento</value>
+  <value column="Description" original="Indicates if count will be in calendar days or business days">Indica se a contagem será em dias corridos ou dias úteis</value>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="f28bfc03-76ba-4961-88dc-064f19acccdb">
+  <value column="Name" original="LBR_ProofOfDelivery">LBR_ProofOfDelivery</value>
+  <value column="PrintName" original="LBR_ProofOfDelivery">LBR_ProofOfDelivery</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="d964e7f8-fdc5-4e1d-b2ba-103fdc363753">
+  <value column="Name" original="LBR_ProofOfDelivery_UU">LBR_ProofOfDelivery_UU</value>
+  <value column="PrintName" original="LBR_ProofOfDelivery_UU">LBR_ProofOfDelivery_UU</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="093c49a7-85d6-491d-8a0f-6693a4cdd057">
+  <value column="Name" original="Latitude">Latitude</value>
+  <value column="PrintName" original="Latitude">Latitude</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="cd765d3f-0db3-4691-8504-bab3f73d14ce">
+  <value column="Name" original="Longitude">Longitude</value>
+  <value column="PrintName" original="Longitude">Longitude</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="a0acd81c-5eba-4bda-9686-4bf6f3756245">
+  <value column="Name" original="Hash">Hash</value>
+  <value column="PrintName" original="Hash">Hash</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="df8aa43d-0aba-4be6-b24c-6765f8049061">
+  <value column="Name" original="Document Signed">Documento Assinado</value>
+  <value column="PrintName" original="Document Signed">Documento Assinado</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="15e51bdb-6355-4370-8230-6526c6a985d1">
+  <value column="Name" original="SeFaz">SeFaz</value>
+  <value column="PrintName" original="SeFaz">SeFaz</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="9c4fba8d-6825-42f0-a0cc-9b21c32bdec3">
+  <value column="Name" original="LBR_SeFaz_UU">LBR_SeFaz_UU</value>
+  <value column="PrintName" original="LBR_SeFaz_UU">LBR_SeFaz_UU</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="1a118271-115c-4065-a07c-aa67fc06d397">
+  <value column="Name" original="SeFaz URL">SeFaz URL</value>
+  <value column="PrintName" original="SeFaz URL">SeFaz URL</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="5cc3411d-0ca9-4630-9247-81b737dcf86e">
+  <value column="Name" original="LBR_SeFazURL_UU">LBR_SeFazURL_UU</value>
+  <value column="PrintName" original="LBR_SeFazURL_UU">LBR_SeFazURL_UU</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="df71e55e-e86b-40b6-9a61-2402ed7ef1ca">
+  <value column="Name" original="URL Scope">Escopo da URL</value>
+  <value column="PrintName" original="URL Scope">Escopo da URL</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="5b963c0c-2f54-45aa-a75b-0cf251d91f22">
+  <value column="Name" original="Endpoint Name">Endpoint</value>
+  <value column="PrintName" original="Endpoint Name">Endpoint</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="5259f0fa-2912-4b3e-918d-efc78198243b">
+  <value column="Name" original="CTe Config">CTe Config</value>
+  <value column="PrintName" original="CTe Config">CTe Config</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="60a562aa-dc96-4529-97f7-13c80bb4356c">
+  <value column="Name" original="LBR_CTeConfig_UU">LBR_CTeConfig_UU</value>
+  <value column="PrintName" original="LBR_CTeConfig_UU">LBR_CTeConfig_UU</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="d881a9df-2ecf-43bf-8198-f561d6458148">
+  <value column="Name" original="LBR_CTeConfigSeFaz">LBR_CTeConfigSeFaz</value>
+  <value column="PrintName" original="LBR_CTeConfigSeFaz">LBR_CTeConfigSeFaz</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="3f6acbdb-aa3a-401d-b658-a88082f14550">
+  <value column="Name" original="LBR_CTeConfigSeFaz_UU">LBR_CTeConfigSeFaz_UU</value>
+  <value column="PrintName" original="LBR_CTeConfigSeFaz_UU">LBR_CTeConfigSeFaz_UU</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="3d4dac22-8394-47e0-9198-32e32ba1fe2f">
+  <value column="Name" original="CT-e">CT-e</value>
+  <value column="PrintName" original="CT-e">CT-e</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="69bd1e29-e669-449e-b96b-21059be0b128">
+  <value column="Name" original="CT-e Key">Chave da CT-e</value>
+  <value column="PrintName" original="CT-e Key">Chave da CT-e</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="f78915a2-d6ab-4787-b008-5406c2da426a">
+  <value column="Name" original="UF Code">UF</value>
+  <value column="PrintName" original="UF Code">UF</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="5eb43f7e-ed90-42a7-81eb-758ba17f4798">
+  <value column="Name" original="Operation Type">Natureza da Operação</value>
+  <value column="PrintName" original="Operation Type">Natureza da Operação</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="6c29a2d5-0172-4df2-81d6-03e681670323">
+  <value column="Name" original="CT-e Type">Tipo de CT-e</value>
+  <value column="PrintName" original="CT-e Type">Tipo de CT-e</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="64dac9dd-5781-42e3-b936-c97afd946bb6">
+  <value column="Name" original="Service Type">Tipo de Serviço</value>
+  <value column="PrintName" original="Service Type">Tipo de Serviço</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="fcb4309c-d407-4de6-bc4c-f0c7ed33ca34">
+  <value column="Name" original="Consignee">Destinatário</value>
+  <value column="PrintName" original="Consignee">Destinatário</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="387af173-4681-44a4-b8c7-96f583ac58c4">
+  <value column="Name" original="CT-e Document">CT-e Document</value>
+  <value column="PrintName" original="CT-e Document">CT-e Document</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="eeedf40f-9f4a-415b-9fbd-3284806652cb">
+  <value column="Name" original="SUFRAMA Pin">SUFRAMA PIN</value>
+  <value column="PrintName" original="SUFRAMA Pin">SUFRAMA PIN</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="cc734cb4-9f0b-4877-8f21-3a0dcf4e2790">
+  <value column="Name" original="CT-e Event">CT-e Event</value>
+  <value column="PrintName" original="CT-e Event">CT-e Event</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="e937a301-8dc7-48c8-950c-3cd8d304c3db">
+  <value column="Name" original="CT-e ICMS">CT-e ICMS</value>
+  <value column="PrintName" original="CT-e ICMS">CT-e ICMS</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="c294d89c-1b5d-4d56-9be4-51f6c991069d">
+  <value column="Name" original="Tax Credit Amt">Crédito de Imposto</value>
+  <value column="PrintName" original="Tax Credit Amt">Crédito de Imposto</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="5f613b14-ad99-44a6-89ee-1435f0f15de0">
+  <value column="Name" original="CT-e ICMS Fim">CT-e ICMS Fim</value>
+  <value column="PrintName" original="CT-e ICMS Fim">CT-e ICMS Fim</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="f3a9050a-1f83-45fc-88f9-697edf0b2f4f">
+  <value column="Name" original="CT-e Partner">CT-e Partner</value>
+  <value column="PrintName" original="CT-e Partner">CT-e Partner</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="5ae7d544-f837-4d28-a33c-1f10c6ae54e1">
+  <value column="Name" original="Partner Type">Tipo de Parceiro</value>
+  <value column="PrintName" original="Partner Type">Tipo de Parceiro</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="44f70672-348e-44e7-94b9-9804d01572a0">
+  <value column="Name" original="LBR_CTe_UU">LBR_CTe_UU</value>
+  <value column="PrintName" original="LBR_CTe_UU">LBR_CTe_UU</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="8b6e5c07-2a33-4a30-9d9a-769cbafb6106">
+  <value column="Name" original="LBR_CTePartner_UU">LBR_CTePartner_UU</value>
+  <value column="PrintName" original="LBR_CTePartner_UU">LBR_CTePartner_UU</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="e215ea41-8726-4247-8e95-142c6699a8df">
+  <value column="Name" original="LBR_CTeICMS_UU">LBR_CTeICMS_UU</value>
+  <value column="PrintName" original="LBR_CTeICMS_UU">LBR_CTeICMS_UU</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="dca3e10d-e910-4aa4-80e2-55e622dafab7">
+  <value column="Name" original="LBR_CTeICMSFim_UU">LBR_CTeICMSFim_UU</value>
+  <value column="PrintName" original="LBR_CTeICMSFim_UU">LBR_CTeICMSFim_UU</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="a5d00202-50ac-44cd-b912-a569f4c63b73">
+  <value column="Name" original="LBR_CTeDocNFe_UU">LBR_CTeDocNFe_UU</value>
+  <value column="PrintName" original="LBR_CTeDocNFe_UU">LBR_CTeDocNFe_UU</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="529bcb87-a07c-404e-885f-b8d66c000e0e">
+  <value column="Name" original="LBR_CTeEvent_UU">LBR_CTeEvent_UU</value>
+  <value column="PrintName" original="LBR_CTeEvent_UU">LBR_CTeEvent_UU</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="7494afc3-3c7e-41d6-9282-f24e227bc855">
+  <value column="Name" original="Consignor">Tomador</value>
+  <value column="PrintName" original="Consignor">Tomador</value>
+  <value column="Description" original="">Indicador do "papel" do tomador do serviço no CTe</value>
+  <value column="Help" original="">Indicador do "papel" do tomador do serviço no CTe</value>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="94787b44-a466-41a4-ab01-c4a627bc34c5">
+  <value column="Name" original="CT-e Amounts">CT-e Amounts</value>
+  <value column="PrintName" original="CT-e Amounts">CT-e Amounts</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="fcace621-f439-4ef3-9d4e-8036a3c9a635">
+  <value column="Name" original="LBR_CTeAmt_UU">LBR_CTeAmt_UU</value>
+  <value column="PrintName" original="LBR_CTeAmt_UU">LBR_CTeAmt_UU</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="7c988f41-f916-4d2c-9147-172bb0b9611d">
+  <value column="Name" original="CTe Status">Situação do CT-e</value>
+  <value column="PrintName" original="CTe Status">Situação do CT-e</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
 </idempiereTrl>

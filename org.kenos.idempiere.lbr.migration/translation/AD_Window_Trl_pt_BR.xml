@@ -2470,4 +2470,29 @@ MRP - 110	 No exists Dem</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
  </row>
+ <row trl="Y" uuid="37ff30ed-3c5b-418f-90fe-086a1674d381">
+  <value column="Name" original="Proof of Delivery">Comprovante de Entrega</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="ee55e581-3ea2-47e5-99d7-f5ee9637afd1">
+  <value column="Name" original="SeFaz Configuration">Configuração da SeFaz</value>
+  <value column="Description" original="Window for configuring settings for Secretaria da Fazenda (SeFaz) and URL endpoints">Janela para configurar as definições da Secretaria da Fazenda (SeFaz) e endpoints de URL</value>
+  <value column="Help" original="This window is used to configure settings specific to the Secretaria da Fazenda (SeFaz) and associated URL endpoints. It allows users to define and manage parameters, authentication details, and endpoint URLs required for seamless integration with SeFaz services. Proper configuration ensures accurate communication with tax authorities, compliance with Brazilian tax regulations, and efficient processing of electronic documents within the ERP system">Esta janela é usada para configurar as definições específicas da Secretaria da Fazenda (SeFaz) e os endpoints de URL associados. Ela permite que os usuários definam e gerenciem parâmetros, detalhes de autenticação e URLs de endpoints necessários para uma integração perfeita com os serviços da SeFaz. A configuração adequada garante comunicação precisa com as autoridades fiscais, conformidade com as regulamentações fiscais brasileiras e processamento eficiente de documentos eletrônicos dentro do sistema ERP.</value>
+ </row>
+ <row trl="Y" uuid="47ca90df-2b6b-4209-98b8-a15268b67691">
+  <value column="Name" original="CT-e Configuration">Configuração da CT-e</value>
+  <value column="Description" original="Window for configuring Electronic Transport Knowledge (CT-e) settings">Janela para configurar as definições do Conhecimento de Transporte Eletrônico (CT-e)</value>
+  <value column="Help" original="This window is used to configure the settings for Electronic Transport Knowledge (CT-e). It allows users to define parameters, set up integration points, and manage preferences related to the creation and storage of CT-e documents. This configuration ensures that the CT-e process aligns with business requirements and complies with Brazilian tax regulations, facilitating smooth operations within the ERP system">Esta janela é usada para configurar as definições do Conhecimento de Transporte Eletrônico (CT-e). Ela permite que os usuários definam parâmetros, configurem pontos de integração e gerenciem preferências relacionadas à criação e armazenamento de documentos de CT-e. Esta configuração garante que o processo de CT-e esteja alinhado com os requisitos empresariais e em conformidade com as regulamentações fiscais brasileiras, facilitando operações suaves dentro do sistema ERP</value>
+ </row>
+ <row trl="Y" uuid="3e0b426c-bfdb-4ad8-94b7-1ccc3cd14f24">
+  <value column="Name" original="CT-e">CT-e</value>
+  <value column="Description" original="Window for creating and storing Electronic Transport Knowledge (CT-e)">Janela para criar e armazenar Conhecimento de Transporte Eletrônico (CT-e)</value>
+  <value column="Help" original="This window is used for the creation and storage of the Electronic Transport Knowledge (CT-e) documents. It allows users to input, manage, and retrieve information related to the transportation of goods, ensuring compliance with Brazilian tax regulations. The CT-e documents serve as digital proof of transport services provided, integrating seamlessly with the ERP system for efficient logistics and tax management.">Esta janela é usada para a criação e armazenamento de documentos de Conhecimento de Transporte Eletrônico (CT-e). Ela permite que os usuários insiram, gerenciem e recuperem informações relacionadas ao transporte de mercadorias, garantindo conformidade com as regulamentações fiscais brasileiras. Os documentos de CT-e servem como prova digital dos serviços de transporte prestados, integrando-se perfeitamente ao sistema ERP para uma gestão eficiente de logística e impostos.</value>
+ </row>
+ <row trl="Y" uuid="cb83cb6f-9deb-4e87-a0f4-93e7b59e0410">
+  <value column="Name" original="CT-e Event">Eventos da CT-e</value>
+  <value column="Description" original="Window for managing Electronic Transport Knowledge (CT-e) events">Janela para gerenciar eventos de Conhecimento de Transporte Eletrônico (CT-e)</value>
+  <value column="Help" original="This window is used to manage events related to Electronic Transport Knowledge (CT-e) documents. It allows users to track, record, and handle various events such as cancellations, corrections, and confirmations associated with CT-e documents. Efficient management of these events ensures compliance with Brazilian tax regulations and enhances the accuracy and reliability of transportation records within the ERP system">Esta janela é usada para gerenciar eventos relacionados a documentos de Conhecimento de Transporte Eletrônico (CT-e). Ela permite que os usuários acompanhem, registrem e gerenciem vários eventos, como cancelamentos, correções e confirmações associadas aos documentos de CT-e. A gestão eficiente desses eventos garante conformidade com as regulamentações fiscais brasileiras e melhora a precisão e confiabilidade dos registros de transporte dentro do sistema ERP</value>
+ </row>
 </idempiereTrl>

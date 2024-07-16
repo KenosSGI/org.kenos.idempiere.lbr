@@ -2887,4 +2887,14 @@ For example:<br />
   <value column="Description" original="">Este processo é responsável por aplicar descontos nas linhas de pedido.</value>
   <value column="Help" original="">Os descontos podem ser aplicados de duas maneiras: cumulativamente ou de forma não cumulativa. No modo cumulativo, o desconto fornecido é adicionado a qualquer desconto já existente na linha do pedido. O desconto pode ser configurado de duas formas: como um valor percentual do total da linha ou como um valor fixo. Além disso, o desconto pode ser rateado entre todas as linhas do pedido de forma equitativa, ou aplicado integralmente na linha de maior valor, proporcionando flexibilidade na gestão dos descontos.</value>
  </row>
+ <row trl="Y" uuid="a1d27e97-296a-42cd-b2c3-03f304349c86">
+  <value column="Name" original="Get Partner CT-e DF-e">Obter CT-e de Parceiros (DF-e)</value>
+  <value column="Description" original="Get DFe">Obter Documentos Fiscais CT-e de Parceiros (DF-e)</value>
+  <value column="Help" original="Consult CT-e Issued to you on government SeFaz">Consulta os documentos fiscais do tipo CT-e emitidos por terceiros</value>
+ </row>
+ <row trl="Y" uuid="d95377fd-a8f3-4e51-928d-96b3b000905b">
+  <value column="Name" original="Service Status CTe">Consulta Estado do Serviço CT-e</value>
+  <value column="Description" original="Check if service is up">Verifica se o ambiente de autorização de CT-e está no ar</value>
+  <value column="Help" original="Check if service is up an running">Este processo verifica se o ambiente de autorização de CT-e está no ar</value>
+ </row>
 </idempiereTrl>

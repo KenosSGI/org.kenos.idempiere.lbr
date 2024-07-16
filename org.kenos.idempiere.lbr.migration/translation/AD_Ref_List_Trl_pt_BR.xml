@@ -12920,4 +12920,224 @@
   <value column="Name" original="Distribute Equally">Distribuir Igualmente</value>
   <value column="Description" original=""/>
  </row>
+ <row trl="Y" uuid="c501b517-4cc7-4e23-ba51-705ed62910f6">
+  <value column="Name" original="Intercompany Purchase Order">Pedido de Compra Intercompany</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="478c518e-1793-4b3e-bc89-9a11e9b81713">
+  <value column="Name" original="Intercompany Sales Order">Pedido de Venda Intercompany</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="45492df8-1272-4d57-9aa3-6b05f26d8df0">
+  <value column="Name" original="Business Days">Dias Úteis</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="2ce2a316-30bd-4158-bb4c-8311306fc5bc">
+  <value column="Name" original="Calendar Days">Dias Corridos</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="b0cfa376-abbd-462e-bb5b-d6f2611b9b4b">
+  <value column="Name" original="Comprovante de Entrega da NF-e">Comprovante de Entrega da NF-e</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="96580dff-7b00-4a16-8ce6-270001226ff8">
+  <value column="Name" original="Cancelamento do Comprovante de Entrega da NF-e">Cancelamento do Comprovante de Entrega da NF-e</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="c0985d55-450c-412a-a648-4e1ffa71dc15">
+  <value column="Name" original="Comprovante de Entrega do CT-e">Comprovante de Entrega do CT-e</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="889e499d-d448-4e1d-9764-2f0ca86c8bc6">
+  <value column="Name" original="Cancelamento do Comprovante de Entrega do CT-e">Cancelamento do Comprovante de Entrega do CT-e</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="e76d78ef-1cd0-4f6f-bbbc-333462cc7a96">
+  <value column="Name" original="No">Não</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="41315d6d-83f0-41fa-bb2e-750a1da8334f">
+  <value column="Name" original="Yes, with proof">Sim, com canhoto assinado</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="c79bdb44-b679-48e5-a2ca-b849b2820cb1">
+  <value column="Name" original="Yes, with SeFaz protocol (CT-e or NF-e event)">Sim, com protocolo da SeFaz</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="118953e9-cf97-48b8-ba0f-32d5592c0f26">
+  <value column="Name" original="Yes, with no proof">Sim, sem comprovante</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="b3647322-9470-4b55-8066-f0e59c1424e2">
+  <value column="Name" original="NF-e">NF-e</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="382d5be3-8048-4062-bef5-bf01d21fc96c">
+  <value column="Name" original="CT-e">CT-e</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="ec105aa3-043b-4c8e-9807-44dbde270692">
+  <value column="Name" original="NFeAutorizacao">NFeAutorizacao</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="e137cc93-01d9-4257-afa9-7daa9bc3a9c6">
+  <value column="Name" original="NfeConsultaCadastro">NfeConsultaCadastro</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="c7944e5f-976f-4231-b7bd-120eecb9b198">
+  <value column="Name" original="NfeConsultaProtocolo">NfeConsultaProtocolo</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="5990317d-07b8-40ca-80fb-615d711e4f77">
+  <value column="Name" original="NFeDistribuicaoDFe">NFeDistribuicaoDFe</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="d9672ba3-2bcc-40e1-914d-ea637a2bce8c">
+  <value column="Name" original="NfeInutilizacao">NfeInutilizacao</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="03b78a24-10b5-4375-a651-cfc1eb28c9b4">
+  <value column="Name" original="NFeRetAutorizacao">NFeRetAutorizacao</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="be566b32-82f1-4efa-be13-8703a53c1dd6">
+  <value column="Name" original="NfeStatusServico">NfeStatusServico</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="637a9950-1a78-4884-b87d-488acbc8c7d8">
+  <value column="Name" original="RecepcaoEvento">RecepcaoEvento</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="09d57090-c19d-47f9-bd55-43a7b9d1552e">
+  <value column="Name" original="CTeConsultaV4">CTeConsultaV4</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="a6535ad2-14f9-4b1f-bf84-7a0da233a03a">
+  <value column="Name" original="CTeDistribuicaoDFe">CTeDistribuicaoDFe</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="4eff196c-d8d9-4b2f-9c2d-38be66e54dbe">
+  <value column="Name" original="CTeRecepcaoEventoV4">CTeRecepcaoEventoV4</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="61e8fa3a-7623-4294-b14e-81029f1772a1">
+  <value column="Name" original="CTeRecepcaoGTVeV4">CTeRecepcaoGTVeV4</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="d84c1ec9-d4f4-440f-9481-935cd0aaa688">
+  <value column="Name" original="CTeRecepcaoOSV4">CTeRecepcaoOSV4</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="76a85e03-79a4-4c79-a6f9-d4c6a43ca915">
+  <value column="Name" original="CTeRecepcaoSincV4">CTeRecepcaoSincV4</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="aefba132-8a9c-40cc-b878-ec7423ad4303">
+  <value column="Name" original="CTeStatusServicoV4">CTeStatusServicoV4</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="9ab4c9ac-b5e6-4f36-91b8-97bf5a63520b">
+  <value column="Name" original="QRCode">QRCode</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="2c34fd77-cf11-4fc0-9422-823e837a16cc">
+  <value column="Name" original="MDF-e">MDF-e</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="47e6480f-e854-4ece-ac62-07ae4286d323">
+  <value column="Name" original="Standard">Normal</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="cf368c87-cd00-4e0b-adde-7d07656b6bd4">
+  <value column="Name" original="Subcontracting">Subcontratação</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="8659ca4a-ca6c-4a6d-9c12-dcaab472a519">
+  <value column="Name" original="Forwarding">Redespacho</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="69930708-8781-4d47-a4a6-a58643fd5f2c">
+  <value column="Name" original="Intermediate Forwarding">Redespacho Intermediário</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="ef1086b5-56e5-4639-9ddf-c1bb3cd861e6">
+  <value column="Name" original="Service Linked to Multimodal">Serviço Vinculado a Multimodal</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="f07d540f-f841-4a66-91c7-90b8bd3e6b2a">
+  <value column="Name" original="Standard CTe">CTe Normal</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="0978b6dc-e1ac-4c4f-90fe-b43d0db31971">
+  <value column="Name" original="Value Supplement CTe">CTe de Complemento de Valores</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="7df7d2be-a812-4c4f-b225-2ba8fafaa0fb">
+  <value column="Name" original="Replacement CTe">CTe de Substituição</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="d23d8685-813d-4a54-8cfc-e22a71387b0d">
+  <value column="Name" original="Road">Rodoviário</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="84409538-fd7a-4a5b-83ac-c455da142de7">
+  <value column="Name" original="Air">Aéreo</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="fde209ff-0617-40e1-8152-7cea05b1978e">
+  <value column="Name" original="Marine">Aquaviário</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="ccb027da-b267-4ae6-bf13-84588c4003d6">
+  <value column="Name" original="Railway">Ferroviário</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="da0f9072-71e1-4d6a-8eed-c80fcccae5e2">
+  <value column="Name" original="Pipeline">Dutoviário</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="60cfe8d8-4b6d-45d6-ba7d-8794f18d524f">
+  <value column="Name" original="Multimodal">Multimodal</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="4122c57e-7a09-4cbd-abec-47f4a858878d">
+  <value column="Name" original="Issuer">Emitente</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="8e267f40-27aa-4857-a6fc-2e1605ed2d54">
+  <value column="Name" original="Sender">Remetente</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="9e29c9b2-79fc-426f-b1f6-14fb19b92e09">
+  <value column="Name" original="Shipper">Expedidor</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="950413df-b566-4776-9b7c-840f033de22b">
+  <value column="Name" original="Receiver">Recebedor</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="892f4275-ef46-42fa-868f-ca11b2fce6bc">
+  <value column="Name" original="Consignee">Destinatário</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="ab4f012b-e4ef-46c7-bc04-dc7e7b515a64">
+  <value column="Name" original="Consignor">Tomador</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="7f4029a7-f9ed-42f1-ab30-080112c0c1b2">
+  <value column="Name" original="Autorizado o uso do CT-e">Autorizado o uso do CT-e</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="1047c467-6ace-4280-85f7-723fb8a71a81">
+  <value column="Name" original="Cancelamento de CTe homologado">Cancelamento de CTe homologado</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="eb481d94-c97d-4be0-8145-3a2c389a1c59">
+  <value column="Name" original="Evento registrado, mas não vinculado a CT-e">Evento registrado, mas não vinculado a CT-e</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="N" uuid="0717fcf9-70ba-4053-a0d0-5bbbc838610d">
+  <value column="Name" original="Evento registrado e vinculado a CT-e">Evento registrado e vinculado a CT-e</value>
+  <value column="Description" original=""/>
+ </row>
 </idempiereTrl>

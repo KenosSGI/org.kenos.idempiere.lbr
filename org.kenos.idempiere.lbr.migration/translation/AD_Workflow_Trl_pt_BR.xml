@@ -393,4 +393,9 @@ Se você não pode cobrir o MPS como você planejou, este módulo dá a você a 
   <value column="Description" original="(Standard Process Order)">(Standard Process Order)</value>
   <value column="Help" original=""/>
  </row>
+ <row trl="Y" uuid="d2bc3c11-92f9-4db9-85dc-b792cbdd237c">
+  <value column="Name" original="Process_LBR_ProductionBatch">Process_LBR_ProductionBatch</value>
+  <value column="Description" original="(Standard Process Production Batch)">(Standard Process Production Batch)</value>
+  <value column="Help" original=""/>
+ </row>
 </idempiereTrl>

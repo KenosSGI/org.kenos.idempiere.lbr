@@ -7685,4 +7685,88 @@ Impressão:
   <value column="Description" original=""/>
   <value column="Help" original=""/>
  </row>
+ <row trl="Y" uuid="d4da06d0-7e5a-4ea5-aaf7-c9879354b3e2">
+  <value column="Name" original="Proof of Delivery">Comprovante de Entrega</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="2a18fc97-6508-4fe8-bbb1-f2497491753b">
+  <value column="Name" original="SeFaz">SeFaz</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="1eb33172-350f-4c06-b6be-8607262b4250">
+  <value column="Name" original="NF-e URL">NF-e URL</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="1da8d039-32b8-4904-9524-941c94c9dd1f">
+  <value column="Name" original="CT-e URL">CT-e URL</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="4559efd1-f4a8-4827-8af5-01b77bd5d63a">
+  <value column="Name" original="MDF-e URL">MDF-e URL</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="df434a5b-7ace-4da3-8afd-95908bc1f84d">
+  <value column="Name" original="Configuration">Configuração</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="cc574ad8-4df5-4666-a0d5-313b9de548c1">
+  <value column="Name" original="SeFaz">SeFaz</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="9f94e909-72be-4aad-b383-01b5cfc1b5d5">
+  <value column="Name" original="CT-e">CT-e</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="351728b4-722d-400d-8a07-42da2f05fad9">
+  <value column="Name" original="CT-e Partner">Parceiro</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="22b14e41-71e6-4e4b-ac6f-f3f95a5971a3">
+  <value column="Name" original="CT-e Document">Documentos</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="276721fa-85ad-43b3-b5c2-6281da31671f">
+  <value column="Name" original="CT-e ICMS">ICMS</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="c2e11b0b-8e62-468a-be58-005009f02f52">
+  <value column="Name" original="CT-e ICMS Fim">ICMS Fim</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="9daeb157-7b8d-4882-b5da-6ae68eff59d6">
+  <value column="Name" original="Event">Evento</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="190f2b34-a9fd-4f63-9af7-dffec0d569bb">
+  <value column="Name" original="CT-e Amounts">Valores</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
 </idempiereTrl>

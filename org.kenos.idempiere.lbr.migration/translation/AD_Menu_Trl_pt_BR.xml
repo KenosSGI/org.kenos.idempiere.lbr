@@ -356,4 +356,8 @@
   <value column="Name" original="Utils">Utilitários</value>
   <value column="Description" original=""/>
  </row>
+ <row trl="Y" uuid="43042212-76ac-4edb-8119-449a75da7ba5">
+  <value column="Name" original="CT-e">CT-e</value>
+  <value column="Description" original=""/>
+ </row>
 </idempiereTrl>

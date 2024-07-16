@@ -354,4 +354,7 @@
  <row trl="Y" uuid="98885846-03a0-4780-8245-2ba7de7b22e8">
   <value column="Name" original="Retrieve DF-e">Obter DF-e</value>
  </row>
+ <row trl="Y" uuid="0814eb0e-5f82-46d4-b57f-38cee7d380b0">
+  <value column="Name" original="Proof">Comprovante</value>
+ </row>
 </idempiereTrl>

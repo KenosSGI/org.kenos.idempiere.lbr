@@ -3469,4 +3469,51 @@ A, C, D, F e 1 (Créditos extemporâneos)</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
  </row>
+ <row trl="N" uuid="df099259-4abb-4547-a42a-428e15d3f2ed">
+  <value column="Name" original="LBR_PaymentDaysType">LBR_PaymentDaysType</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="4792b8c7-6cf9-4ce9-8b53-7375979daef2">
+  <value column="Name" original="LBR_NotaFiscal - IsDelivered">LBR_NotaFiscal - IsDelivered</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="de629edd-6aa8-43ee-aba3-2b8bec369b7d">
+  <value column="Name" original="LBR_URLScope">LBR_URLScope</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="c922fce4-b144-411a-9a33-401b93e7de15">
+  <value column="Name" original="LBR_EndpointName">LBR_EndpointName</value>
+  <value column="Description" original="Endpoint of SeFaz">Endpoint of SeFaz</value>
+  <value column="Help" original="The key first digit represents the Scope&#10;0 = NF-e&#10;1 = CT-e">The key first digit represents the Scope
+0 = NF-e
+1 = CT-e</value>
+ </row>
+ <row trl="N" uuid="b3663019-bfb4-4ae2-9caf-21e6489333fe">
+  <value column="Name" original="LBR_CTeServiceType">LBR_CTeServiceType</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="a565c251-e354-4ec9-8681-80efd5acaa48">
+  <value column="Name" original="LBR_CTeType">LBR_CTeType</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="08a91e4d-78d3-4426-a72b-fcbb05d478a5">
+  <value column="Name" original="LBR_CTe - LBR_ShipmentType">LBR_CTe - LBR_ShipmentType</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="184de598-afe9-4468-8b1c-ff27d7ca96b3">
+  <value column="Name" original="LBR_CTePartnerType">LBR_CTePartnerType</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="N" uuid="3247eba4-e90a-4128-aae6-dc88abd2029a">
+  <value column="Name" original="LBR_CTeStatus">LBR_CTeStatus</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
 </idempiereTrl>
