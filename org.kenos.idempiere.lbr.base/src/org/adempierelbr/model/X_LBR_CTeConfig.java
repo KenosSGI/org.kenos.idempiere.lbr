@@ -30,7 +30,7 @@ public class X_LBR_CTeConfig extends PO implements I_LBR_CTeConfig, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20240715L;
+	private static final long serialVersionUID = 20240716L;
 
     /** Standard Constructor */
     public X_LBR_CTeConfig (Properties ctx, int LBR_CTeConfig_ID, String trxName)

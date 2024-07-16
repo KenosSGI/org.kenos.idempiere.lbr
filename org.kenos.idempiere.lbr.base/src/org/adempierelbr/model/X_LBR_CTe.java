@@ -33,7 +33,7 @@ public class X_LBR_CTe extends PO implements I_LBR_CTe, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20240715L;
+	private static final long serialVersionUID = 20240716L;
 
     /** Standard Constructor */
     public X_LBR_CTe (Properties ctx, int LBR_CTe_ID, String trxName)
@@ -368,6 +368,20 @@ public class X_LBR_CTe extends PO implements I_LBR_CTe, I_Persistent
 	public String getLBR_CTeServiceType () 
 	{
 		return (String)get_Value(COLUMNNAME_LBR_CTeServiceType);
+	}
+
+	/** Set CTe Status.
+		@param LBR_CTeStatus CTe Status	  */
+	public void setLBR_CTeStatus (String LBR_CTeStatus)
+	{
+		set_Value (COLUMNNAME_LBR_CTeStatus, LBR_CTeStatus);
+	}
+
+	/** Get CTe Status.
+		@return CTe Status	  */
+	public String getLBR_CTeStatus () 
+	{
+		return (String)get_Value(COLUMNNAME_LBR_CTeStatus);
 	}
 
 	/** Standard CTe = 0 */

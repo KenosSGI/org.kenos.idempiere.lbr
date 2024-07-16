@@ -5136,6 +5136,317 @@ UPDATE AD_Field SET SeqNoGrid=20,IsDisplayedGrid='Y', Updated=sysdate, UpdatedBy
 UPDATE AD_Tab SET OrderByClause='LBR_CTeAmt.Name',IsSingleRow='N',Updated=TO_DATE('2024-07-15 23:43:46','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Tab_ID=1120533
 ;
 
+-- 16 de jul de 2024 07:49:21 BRT
+UPDATE AD_Window SET Description='Window for creating and storing Electronic Transport Knowledge (CT-e)', Help='This window is used for the creation and storage of the Electronic Transport Knowledge (CT-e) documents. It allows users to input, manage, and retrieve information related to the transportation of goods, ensuring compliance with Brazilian tax regulations. The CT-e documents serve as digital proof of transport services provided, integrating seamlessly with the ERP system for efficient logistics and tax management.',Updated=TO_DATE('2024-07-16 07:49:21','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Window_ID=1120186
+;
+
+-- 16 de jul de 2024 07:49:22 BRT
+UPDATE AD_Menu SET Name='CT-e', Description='Window for creating and storing Electronic Transport Knowledge (CT-e)', IsActive='Y',Updated=TO_DATE('2024-07-16 07:49:22','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Menu_ID=1120432
+;
+
+-- 16 de jul de 2024 07:50:49 BRT
+UPDATE AD_Window SET Description='Window for configuring Electronic Transport Knowledge (CT-e) settings', Help='This window is used to configure the settings for Electronic Transport Knowledge (CT-e). It allows users to define parameters, set up integration points, and manage preferences related to the creation and storage of CT-e documents. This configuration ensures that the CT-e process aligns with business requirements and complies with Brazilian tax regulations, facilitating smooth operations within the ERP system',Updated=TO_DATE('2024-07-16 07:50:49','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Window_ID=1120185
+;
+
+-- 16 de jul de 2024 07:50:49 BRT
+UPDATE AD_Menu SET Name='CT-e Configuration', Description='Window for configuring Electronic Transport Knowledge (CT-e) settings', IsActive='Y',Updated=TO_DATE('2024-07-16 07:50:49','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Menu_ID=1120431
+;
+
+-- 16 de jul de 2024 07:51:46 BRT
+UPDATE AD_Window SET Description='Window for managing Electronic Transport Knowledge (CT-e) events', Help='This window is used to manage events related to Electronic Transport Knowledge (CT-e) documents. It allows users to track, record, and handle various events such as cancellations, corrections, and confirmations associated with CT-e documents. Efficient management of these events ensures compliance with Brazilian tax regulations and enhances the accuracy and reliability of transportation records within the ERP system',Updated=TO_DATE('2024-07-16 07:51:46','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Window_ID=1120187
+;
+
+-- 16 de jul de 2024 07:51:46 BRT
+UPDATE AD_Menu SET Name='CT-e Event', Description='Window for managing Electronic Transport Knowledge (CT-e) events', IsActive='Y',Updated=TO_DATE('2024-07-16 07:51:46','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Menu_ID=1120433
+;
+
+-- 16 de jul de 2024 07:53:24 BRT
+UPDATE AD_Window SET Name='SeFaz Configuration', Description='Window for configuring settings for Secretaria da Fazenda (SeFaz) and URL endpoints', Help='This window is used to configure settings specific to the Secretaria da Fazenda (SeFaz) and associated URL endpoints. It allows users to define and manage parameters, authentication details, and endpoint URLs required for seamless integration with SeFaz services. Proper configuration ensures accurate communication with tax authorities, compliance with Brazilian tax regulations, and efficient processing of electronic documents within the ERP system',Updated=TO_DATE('2024-07-16 07:53:24','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Window_ID=1120184
+;
+
+-- 16 de jul de 2024 07:53:24 BRT
+UPDATE AD_Menu SET Name='SeFaz Configuration', Description='Window for configuring settings for Secretaria da Fazenda (SeFaz) and URL endpoints', IsActive='Y',Updated=TO_DATE('2024-07-16 07:53:24','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Menu_ID=1120429
+;
+
+-- 16 de jul de 2024 08:08:28 BRT
+INSERT INTO AD_Element (AD_Element_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,ColumnName,Name,Description,Help,PrintName,EntityType,AD_Element_UU) VALUES (1123450,0,0,'Y',TO_DATE('2024-07-16 08:08:02','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 08:08:02','YYYY-MM-DD HH24:MI:SS'),100,'LBR_CTeStatus','CTe Status',NULL,NULL,'CTe Status','LBRA','7c988f41-f916-4d2c-9147-172bb0b9611d')
+;
+
+-- 16 de jul de 2024 08:08:56 BRT
+INSERT INTO AD_Reference (AD_Reference_ID,Name,ValidationType,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,EntityType,IsOrderByValue,AD_Reference_UU) VALUES (1120415,'LBR_CTeStatus','L',0,0,'Y',TO_DATE('2024-07-16 08:08:56','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 08:08:56','YYYY-MM-DD HH24:MI:SS'),100,'LBRA','N','3247eba4-e90a-4128-aae6-dc88abd2029a')
+;
+
+-- 16 de jul de 2024 08:09:19 BRT
+INSERT INTO AD_Column (AD_Column_ID,Version,Name,AD_Table_ID,ColumnName,FieldLength,IsKey,IsParent,IsMandatory,IsTranslated,IsIdentifier,SeqNo,IsEncrypted,AD_Reference_ID,AD_Reference_Value_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Element_ID,IsUpdateable,IsSelectionColumn,EntityType,IsSyncDatabase,IsAlwaysUpdateable,IsAutocomplete,IsAllowLogging,AD_Column_UU,IsAllowCopy,SeqNoSelection,IsToolbarButton,IsSecure,FKConstraintType,IsHtml) VALUES (1134168,0,'CTe Status',1120770,'LBR_CTeStatus',3,'N','N','N','N','N',0,'N',17,1120415,0,0,'Y',TO_DATE('2024-07-16 08:09:18','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 08:09:18','YYYY-MM-DD HH24:MI:SS'),100,1123450,'Y','N','LBRA','N','N','N','Y','b176618d-3b01-4af3-99ac-07202e1d1d04','Y',0,'N','N','N','N')
+;
+
+-- 16 de jul de 2024 08:09:23 BRT
+ALTER TABLE LBR_CTe ADD LBR_CTeStatus VARCHAR2(3) DEFAULT NULL 
+;
+
+-- 16 de jul de 2024 08:10:07 BRT
+UPDATE AD_Column SET AD_Reference_ID=10, AD_Reference_Value_ID=NULL,Updated=TO_DATE('2024-07-16 08:10:07','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1134168
+;
+
+-- 16 de jul de 2024 08:10:31 BRT
+INSERT INTO AD_Column (AD_Column_ID,Version,Name,AD_Table_ID,ColumnName,FieldLength,IsKey,IsParent,IsMandatory,IsTranslated,IsIdentifier,SeqNo,IsEncrypted,AD_Reference_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Element_ID,IsUpdateable,IsSelectionColumn,EntityType,IsSyncDatabase,IsAlwaysUpdateable,IsAutocomplete,IsAllowLogging,AD_Column_UU,IsAllowCopy,SeqNoSelection,IsToolbarButton,IsSecure,FKConstraintType,IsHtml) VALUES (1134169,0,'CTe Status',1120775,'LBR_CTeStatus',3,'N','N','N','N','N',0,'N',10,0,0,'Y',TO_DATE('2024-07-16 08:10:30','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 08:10:30','YYYY-MM-DD HH24:MI:SS'),100,1123450,'Y','N','LBRA','N','N','N','Y','56836889-bf0f-418d-a3f5-9fc20a142d0d','Y',0,'N','N','N','N')
+;
+
+-- 16 de jul de 2024 08:10:33 BRT
+ALTER TABLE LBR_CTeEvent ADD LBR_CTeStatus VARCHAR2(3) DEFAULT NULL 
+;
+
+-- 16 de jul de 2024 08:10:43 BRT
+INSERT INTO AD_Field (AD_Field_ID,Name,AD_Tab_ID,AD_Column_ID,IsDisplayed,DisplayLength,SeqNo,IsSameLine,IsHeading,IsFieldOnly,IsEncrypted,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,IsReadOnly,IsCentrallyMaintained,EntityType,AD_Field_UU,IsDisplayedGrid,SeqNoGrid,ColumnSpan) VALUES (1132146,'CTe Status',1120527,1134168,'Y',3,320,'N','N','N','N',0,0,'Y',TO_DATE('2024-07-16 08:10:43','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 08:10:43','YYYY-MM-DD HH24:MI:SS'),100,'N','Y','LBRA','b0462f00-8b1a-43e1-9432-ec9bd45c339b','Y',170,2)
+;
+
+-- 16 de jul de 2024 08:11:45 BRT
+UPDATE AD_Field SET IsDisplayed='Y', SeqNo=90, AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, XPosition=7, ColumnSpan=5, IsToolbarButton=NULL,Updated=TO_DATE('2024-07-16 08:11:45','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1132146
+;
+
+-- 16 de jul de 2024 08:11:45 BRT
+UPDATE AD_Field SET SeqNo=100, AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, IsToolbarButton=NULL,Updated=TO_DATE('2024-07-16 08:11:45','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1132030
+;
+
+-- 16 de jul de 2024 08:11:45 BRT
+UPDATE AD_Field SET SeqNo=110, AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, IsToolbarButton=NULL,Updated=TO_DATE('2024-07-16 08:11:45','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1132042
+;
+
+-- 16 de jul de 2024 08:11:45 BRT
+UPDATE AD_Field SET SeqNo=120, AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, IsToolbarButton=NULL,Updated=TO_DATE('2024-07-16 08:11:45','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1132043
+;
+
+-- 16 de jul de 2024 08:11:46 BRT
+UPDATE AD_Field SET SeqNo=130, AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, IsToolbarButton=NULL,Updated=TO_DATE('2024-07-16 08:11:46','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1132051
+;
+
+-- 16 de jul de 2024 08:11:46 BRT
+UPDATE AD_Field SET SeqNo=140, AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, IsToolbarButton=NULL,Updated=TO_DATE('2024-07-16 08:11:46','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1132034
+;
+
+-- 16 de jul de 2024 08:11:46 BRT
+UPDATE AD_Field SET SeqNo=150, AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, IsToolbarButton=NULL,Updated=TO_DATE('2024-07-16 08:11:46','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1132033
+;
+
+-- 16 de jul de 2024 08:11:46 BRT
+UPDATE AD_Field SET SeqNo=160, AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, IsToolbarButton=NULL,Updated=TO_DATE('2024-07-16 08:11:46','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1132035
+;
+
+-- 16 de jul de 2024 08:11:46 BRT
+UPDATE AD_Field SET SeqNo=170, AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, IsToolbarButton=NULL,Updated=TO_DATE('2024-07-16 08:11:46','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1132037
+;
+
+-- 16 de jul de 2024 08:11:46 BRT
+UPDATE AD_Field SET SeqNo=180, AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, IsToolbarButton=NULL,Updated=TO_DATE('2024-07-16 08:11:46','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1132052
+;
+
+-- 16 de jul de 2024 08:11:46 BRT
+UPDATE AD_Field SET SeqNo=190, AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, IsToolbarButton=NULL,Updated=TO_DATE('2024-07-16 08:11:46','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1132039
+;
+
+-- 16 de jul de 2024 08:11:46 BRT
+UPDATE AD_Field SET SeqNo=200, AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, IsToolbarButton=NULL,Updated=TO_DATE('2024-07-16 08:11:46','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1132040
+;
+
+-- 16 de jul de 2024 08:11:46 BRT
+UPDATE AD_Field SET SeqNo=210, AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, IsToolbarButton=NULL,Updated=TO_DATE('2024-07-16 08:11:46','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1132041
+;
+
+-- 16 de jul de 2024 08:11:46 BRT
+UPDATE AD_Field SET IsDisplayed='Y', SeqNo=220, AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, XPosition=10, IsToolbarButton=NULL,Updated=TO_DATE('2024-07-16 08:11:46','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1132032
+;
+
+-- 16 de jul de 2024 08:11:46 BRT
+UPDATE AD_Field SET IsDisplayed='Y', SeqNo=250, AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, XPosition=10, IsToolbarButton=NULL,Updated=TO_DATE('2024-07-16 08:11:46','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1132044
+;
+
+-- 16 de jul de 2024 08:11:46 BRT
+UPDATE AD_Field SET SeqNo=260, AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, IsToolbarButton=NULL,Updated=TO_DATE('2024-07-16 08:11:46','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1132046
+;
+
+-- 16 de jul de 2024 08:11:46 BRT
+UPDATE AD_Field SET SeqNo=270, AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, IsToolbarButton=NULL,Updated=TO_DATE('2024-07-16 08:11:46','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1132047
+;
+
+-- 16 de jul de 2024 08:11:46 BRT
+UPDATE AD_Field SET SeqNo=280, AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, IsToolbarButton=NULL,Updated=TO_DATE('2024-07-16 08:11:46','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1132049
+;
+
+-- 16 de jul de 2024 08:11:46 BRT
+UPDATE AD_Field SET SeqNo=290, AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, IsToolbarButton=NULL,Updated=TO_DATE('2024-07-16 08:11:46','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1132048
+;
+
+-- 16 de jul de 2024 08:11:46 BRT
+UPDATE AD_Field SET SeqNo=300, AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, IsToolbarButton=NULL,Updated=TO_DATE('2024-07-16 08:11:46','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1132050
+;
+
+-- 16 de jul de 2024 08:11:46 BRT
+UPDATE AD_Field SET SeqNo=310, AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, IsToolbarButton=NULL,Updated=TO_DATE('2024-07-16 08:11:46','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1132053
+;
+
+-- 16 de jul de 2024 08:11:46 BRT
+UPDATE AD_Field SET SeqNo=320, AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, IsToolbarButton=NULL,Updated=TO_DATE('2024-07-16 08:11:46','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1132123
+;
+
+-- 16 de jul de 2024 08:12:01 BRT
+INSERT INTO AD_Field (AD_Field_ID,Name,AD_Tab_ID,AD_Column_ID,IsDisplayed,DisplayLength,SeqNo,IsSameLine,IsHeading,IsFieldOnly,IsEncrypted,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,IsReadOnly,IsCentrallyMaintained,EntityType,AD_Field_UU,IsDisplayedGrid,SeqNoGrid,ColumnSpan) VALUES (1132147,'CTe Status',1120532,1134169,'Y',3,180,'N','N','N','N',0,0,'Y',TO_DATE('2024-07-16 08:12:01','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 08:12:01','YYYY-MM-DD HH24:MI:SS'),100,'N','Y','LBRA','4d14c648-ca0c-46d5-99ba-bbc7b3354627','Y',180,2)
+;
+
+-- 16 de jul de 2024 08:12:19 BRT
+UPDATE AD_Field SET IsDisplayed='Y', SeqNo=100, AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, XPosition=4, IsToolbarButton=NULL,Updated=TO_DATE('2024-07-16 08:12:19','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1132147
+;
+
+-- 16 de jul de 2024 08:12:19 BRT
+UPDATE AD_Field SET SeqNo=110, AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, IsToolbarButton=NULL,Updated=TO_DATE('2024-07-16 08:12:19','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1132119
+;
+
+-- 16 de jul de 2024 08:12:19 BRT
+UPDATE AD_Field SET SeqNo=120, AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, IsToolbarButton=NULL,Updated=TO_DATE('2024-07-16 08:12:19','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1132115
+;
+
+-- 16 de jul de 2024 08:12:19 BRT
+UPDATE AD_Field SET SeqNo=130, AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, IsToolbarButton=NULL,Updated=TO_DATE('2024-07-16 08:12:19','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1132105
+;
+
+-- 16 de jul de 2024 08:12:19 BRT
+UPDATE AD_Field SET SeqNo=140, AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, IsToolbarButton=NULL,Updated=TO_DATE('2024-07-16 08:12:19','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1132109
+;
+
+-- 16 de jul de 2024 08:12:19 BRT
+UPDATE AD_Field SET SeqNo=150, AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, IsToolbarButton=NULL,Updated=TO_DATE('2024-07-16 08:12:19','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1132107
+;
+
+-- 16 de jul de 2024 08:12:19 BRT
+UPDATE AD_Field SET SeqNo=160, AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, IsToolbarButton=NULL,Updated=TO_DATE('2024-07-16 08:12:19','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1132117
+;
+
+-- 16 de jul de 2024 08:12:19 BRT
+UPDATE AD_Field SET SeqNo=170, AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, IsToolbarButton=NULL,Updated=TO_DATE('2024-07-16 08:12:19','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1132111
+;
+
+-- 16 de jul de 2024 08:12:19 BRT
+UPDATE AD_Field SET SeqNo=180, AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, IsToolbarButton=NULL,Updated=TO_DATE('2024-07-16 08:12:19','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1132122
+;
+
+-- 16 de jul de 2024 08:12:30 BRT
+UPDATE AD_Field SET IsReadOnly='Y', AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, IsToolbarButton=NULL,Updated=TO_DATE('2024-07-16 08:12:30','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1132147
+;
+
+-- 16 de jul de 2024 08:12:47 BRT
+UPDATE AD_Field SET IsReadOnly='Y', AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, IsToolbarButton=NULL,Updated=TO_DATE('2024-07-16 08:12:47','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1132146
+;
+
+-- 16 de jul de 2024 08:13:19 BRT
+UPDATE AD_Field SET AD_Reference_ID=17, AD_Reference_Value_ID=1120415,Updated=TO_DATE('2024-07-16 08:13:19','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1132146
+;
+
+-- 16 de jul de 2024 08:13:46 BRT
+UPDATE AD_Field SET AD_Reference_ID=17, AD_Reference_Value_ID=1120415,Updated=TO_DATE('2024-07-16 08:13:46','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1132147
+;
+
+-- 16 de jul de 2024 08:24:54 BRT
+INSERT INTO AD_Ref_List (AD_Ref_List_ID,Name,AD_Reference_ID,Value,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,EntityType,AD_Ref_List_UU) VALUES (1123078,'Autorizado o uso do CT-e',1120415,'100',0,0,'Y',TO_DATE('2024-07-16 08:24:53','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 08:24:53','YYYY-MM-DD HH24:MI:SS'),100,'LBRA','7f4029a7-f9ed-42f1-ab30-080112c0c1b2')
+;
+
+-- 16 de jul de 2024 08:25:29 BRT
+INSERT INTO AD_Ref_List (AD_Ref_List_ID,Name,AD_Reference_ID,Value,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,EntityType,AD_Ref_List_UU) VALUES (1123079,'Cancelamento de CTe homologado',1120415,'101',0,0,'Y',TO_DATE('2024-07-16 08:25:28','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 08:25:28','YYYY-MM-DD HH24:MI:SS'),100,'LBRA','1047c467-6ace-4280-85f7-723fb8a71a81')
+;
+
+-- 16 de jul de 2024 08:26:31 BRT
+INSERT INTO AD_Ref_List (AD_Ref_List_ID,Name,AD_Reference_ID,Value,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,EntityType,AD_Ref_List_UU) VALUES (1123080,'Evento registrado, mas não vinculado a CT-e',1120415,'136',0,0,'Y',TO_DATE('2024-07-16 08:26:31','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 08:26:31','YYYY-MM-DD HH24:MI:SS'),100,'LBRA','eb481d94-c97d-4be0-8145-3a2c389a1c59')
+;
+
+-- 16 de jul de 2024 08:26:55 BRT
+INSERT INTO AD_Ref_List (AD_Ref_List_ID,Name,AD_Reference_ID,Value,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,EntityType,AD_Ref_List_UU) VALUES (1123081,'Evento registrado e vinculado a CT-e',1120415,'135',0,0,'Y',TO_DATE('2024-07-16 08:26:55','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 08:26:55','YYYY-MM-DD HH24:MI:SS'),100,'LBRA','0717fcf9-70ba-4053-a0d0-5bbbc838610d')
+;
+
+-- 16 de jul de 2024 08:28:46 BRT
+INSERT INTO AD_InfoWindow (AD_InfoWindow_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,Name,AD_Table_ID,EntityType,FromClause,Processing,AD_InfoWindow_UU,IsDefault,IsDistinct,IsValid,SeqNo,IsShowInDashboard,MaxQueryRecords,isLoadPageNum) VALUES (1120005,0,0,'Y',TO_DATE('2024-07-16 08:28:45','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 08:28:45','YYYY-MM-DD HH24:MI:SS'),100,'CTe Info',1120770,'LBRA','LBR_CTe cte
+LEFT JOIN LBR_CTeDocNFe doc ON (doc.LBR_CTe_ID=cte.LBR_CTe_ID)','N','3e4ae257-e691-4fbc-92ae-f6d40d56dbf5','N','N','N',100,'Y',0,'Y')
+;
+
+-- 16 de jul de 2024 08:29:27 BRT
+INSERT INTO AD_InfoColumn (AD_InfoColumn_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,Name,AD_InfoWindow_ID,EntityType,SelectClause,SeqNo,IsDisplayed,IsQueryCriteria,AD_Element_ID,AD_Reference_ID,AD_InfoColumn_UU,IsCentrallyMaintained,ColumnName,IsIdentifier,SeqNoSelection,IsMandatory,IsKey,IsReadOnly) VALUES (1120056,0,0,'Y',TO_DATE('2024-07-16 08:29:27','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 08:29:27','YYYY-MM-DD HH24:MI:SS'),100,'CT-e',1120005,'U','cte.LBR_CTe_ID',10,'N','N',1123426,13,'4f268ef4-84bd-4fd8-8d36-fa96ff904233','Y','LBR_CTe_ID','N',0,'N','N','Y')
+;
+
+-- 16 de jul de 2024 08:29:27 BRT
+UPDATE AD_InfoWindow SET IsValid='Y',Updated=TO_DATE('2024-07-16 08:29:27','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_InfoWindow_ID=1120005
+;
+
+-- 16 de jul de 2024 08:30:22 BRT
+INSERT INTO AD_InfoColumn (AD_InfoColumn_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,Name,AD_InfoWindow_ID,EntityType,SelectClause,SeqNo,IsDisplayed,IsQueryCriteria,AD_Element_ID,AD_Reference_ID,AD_InfoColumn_UU,IsCentrallyMaintained,ColumnName,IsIdentifier,SeqNoSelection,IsMandatory,IsKey,IsReadOnly) VALUES (1120057,0,0,'Y',TO_DATE('2024-07-16 08:30:22','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 08:30:22','YYYY-MM-DD HH24:MI:SS'),100,'CT-e Key',1120005,'U','cte.LBR_ChCTe',20,'Y','N',1123427,10,'3059b764-e88b-457a-bcd5-b495b0e9d611','Y','LBR_ChCTe','N',0,'N','N','Y')
+;
+
+-- 16 de jul de 2024 08:30:55 BRT
+INSERT INTO AD_InfoColumn (AD_InfoColumn_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,Name,Description,AD_InfoWindow_ID,EntityType,SelectClause,SeqNo,IsDisplayed,IsQueryCriteria,AD_Element_ID,AD_Reference_ID,AD_InfoColumn_UU,IsCentrallyMaintained,ColumnName,IsIdentifier,SeqNoSelection,IsMandatory,IsKey,IsReadOnly) VALUES (1120058,0,0,'Y',TO_DATE('2024-07-16 08:30:55','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 08:30:55','YYYY-MM-DD HH24:MI:SS'),100,'NFe ID','Identification of NFe',1120005,'U','doc.lbr_NFeID',30,'Y','N',1100017,10,'e7b362ea-d2cb-403f-b31e-e48f77c6f212','Y','lbr_NFeID','N',0,'N','N','Y')
+;
+
+-- 16 de jul de 2024 08:31:18 BRT
+INSERT INTO AD_InfoColumn (AD_InfoColumn_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,Name,Description,Help,AD_InfoWindow_ID,EntityType,SelectClause,SeqNo,IsDisplayed,IsQueryCriteria,AD_Element_ID,AD_Reference_ID,AD_InfoColumn_UU,IsCentrallyMaintained,ColumnName,IsIdentifier,SeqNoSelection,IsMandatory,IsKey,IsReadOnly) VALUES (1120059,0,0,'Y',TO_DATE('2024-07-16 08:31:18','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 08:31:18','YYYY-MM-DD HH24:MI:SS'),100,'Grand Total','Total amount of document','The Grand Total displays the total amount including Tax and Freight in document currency',1120005,'U','cte.GrandTotal',40,'Y','N',316,12,'e0d3cbbf-c3a3-4d8b-adcc-ed3cb0e3de28','Y','GrandTotal','N',0,'N','N','Y')
+;
+
+-- 16 de jul de 2024 08:31:46 BRT
+UPDATE AD_InfoWindow SET FromClause='LBR_CTe cte
+LEFT JOIN LBR_CTeDocNFe doc ON (doc.LBR_CTe_ID=cte.LBR_CTe_ID)
+LEFT JOIN LBR_CTeICMS icms ON (icms.LBR_CTe_ID=cte.LBR_CTe_ID)', IsValid='Y',Updated=TO_DATE('2024-07-16 08:31:46','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_InfoWindow_ID=1120005
+;
+
+-- 16 de jul de 2024 08:31:55 BRT
+INSERT INTO AD_InfoColumn (AD_InfoColumn_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,Name,Description,Help,AD_InfoWindow_ID,EntityType,SelectClause,SeqNo,IsDisplayed,IsQueryCriteria,AD_Element_ID,AD_Reference_ID,AD_InfoColumn_UU,IsCentrallyMaintained,ColumnName,IsIdentifier,SeqNoSelection,IsMandatory,IsKey,IsReadOnly) VALUES (1120060,0,0,'Y',TO_DATE('2024-07-16 08:31:54','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 08:31:54','YYYY-MM-DD HH24:MI:SS'),100,'Tax Amount','Defines the Tax Amount','Defines the Tax Amount',1120005,'U','icms.lbr_TaxAmt',50,'Y','N',1000130,12,'dbda2a4e-44b2-4111-85be-22f8c25c54e8','Y','lbr_TaxAmt','N',0,'N','N','Y')
+;
+
+-- 16 de jul de 2024 08:32:16 BRT
+UPDATE AD_InfoColumn SET IsQueryCriteria='Y', QueryOperator='=', SeqNoSelection=10,Updated=TO_DATE('2024-07-16 08:32:16','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_InfoColumn_ID=1120056
+;
+
+-- 16 de jul de 2024 08:32:24 BRT
+UPDATE AD_InfoColumn SET IsQueryCriteria='Y', QueryOperator='=', SeqNoSelection=20,Updated=TO_DATE('2024-07-16 08:32:24','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_InfoColumn_ID=1120057
+;
+
+-- 16 de jul de 2024 08:32:37 BRT
+INSERT INTO AD_InfoColumn (AD_InfoColumn_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,Name,Description,Help,AD_InfoWindow_ID,EntityType,SelectClause,SeqNo,IsDisplayed,IsQueryCriteria,AD_Element_ID,AD_Reference_ID,AD_InfoColumn_UU,IsCentrallyMaintained,ColumnName,QueryOperator,IsIdentifier,SeqNoSelection,IsMandatory,IsKey,IsReadOnly) VALUES (1120061,0,0,'Y',TO_DATE('2024-07-16 08:32:37','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 08:32:37','YYYY-MM-DD HH24:MI:SS'),100,'CNPJ','Used to identify Legal Entities in Brazil','Used to identify Legal Entities in Brazil',1120005,'U','cte.lbr_CNPJ',60,'Y','Y',1000009,10,'523f41ee-1de5-40e7-97b1-f9d38a11e01a','Y','lbr_CNPJ','=','N',30,'N','N','Y')
+;
+
+-- 16 de jul de 2024 08:33:09 BRT
+INSERT INTO AD_InfoColumn (AD_InfoColumn_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,Name,AD_InfoWindow_ID,EntityType,SelectClause,SeqNo,IsDisplayed,IsQueryCriteria,AD_Element_ID,AD_Reference_ID,AD_InfoColumn_UU,IsCentrallyMaintained,ColumnName,IsIdentifier,SeqNoSelection,IsMandatory,IsKey,IsReadOnly) VALUES (1120062,0,0,'Y',TO_DATE('2024-07-16 08:33:09','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 08:33:09','YYYY-MM-DD HH24:MI:SS'),100,'Consignee',1120005,'U','cte.LBR_CTeConsignee',70,'Y','N',1123432,10,'259ba22a-6409-4976-b9d1-5ec3320c883b','Y','LBR_CTeConsignee','N',0,'N','N','Y')
+;
+
+-- 16 de jul de 2024 08:33:34 BRT
+INSERT INTO AD_InfoColumn (AD_InfoColumn_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,Name,AD_InfoWindow_ID,EntityType,SelectClause,SeqNo,IsDisplayed,IsQueryCriteria,AD_Element_ID,AD_Reference_ID,AD_InfoColumn_UU,AD_Reference_Value_ID,IsCentrallyMaintained,ColumnName,QueryOperator,IsIdentifier,SeqNoSelection,IsMandatory,IsKey,IsReadOnly) VALUES (1120063,0,0,'Y',TO_DATE('2024-07-16 08:33:34','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 08:33:34','YYYY-MM-DD HH24:MI:SS'),100,'Consignor',1120005,'LBRA','cte.LBR_CTeConsignor',80,'Y','Y',1123447,17,'710758b5-40d5-4a5f-b81b-daa8ea48bf5b',1120414,'Y','LBR_CTeConsignor','=','N',40,'N','N','Y')
+;
+
+-- 16 de jul de 2024 08:33:38 BRT
+UPDATE AD_InfoColumn SET EntityType='LBRA',Updated=TO_DATE('2024-07-16 08:33:38','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_InfoColumn_ID=1120062
+;
+
+-- 16 de jul de 2024 08:33:41 BRT
+UPDATE AD_InfoColumn SET EntityType='LBRA',Updated=TO_DATE('2024-07-16 08:33:41','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_InfoColumn_ID=1120061
+;
+
+-- 16 de jul de 2024 08:33:44 BRT
+UPDATE AD_InfoColumn SET EntityType='LBRA',Updated=TO_DATE('2024-07-16 08:33:44','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_InfoColumn_ID=1120060
+;
+
+-- 16 de jul de 2024 08:33:47 BRT
+UPDATE AD_InfoColumn SET EntityType='LBRA',Updated=TO_DATE('2024-07-16 08:33:47','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_InfoColumn_ID=1120059
+;
+
+-- 16 de jul de 2024 08:33:51 BRT
+UPDATE AD_InfoColumn SET EntityType='LBRA',Updated=TO_DATE('2024-07-16 08:33:51','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_InfoColumn_ID=1120058
+;
+
+-- 16 de jul de 2024 08:33:54 BRT
+UPDATE AD_InfoColumn SET EntityType='LBRA',Updated=TO_DATE('2024-07-16 08:33:54','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_InfoColumn_ID=1120057
+;
+
+-- 16 de jul de 2024 08:33:58 BRT
+UPDATE AD_InfoColumn SET EntityType='LBRA',Updated=TO_DATE('2024-07-16 08:33:58','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_InfoColumn_ID=1120056
+;
+
+-- 16 de jul de 2024 08:35:04 BRT
+INSERT INTO AD_InfoColumn (AD_InfoColumn_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,Name,AD_InfoWindow_ID,EntityType,SelectClause,SeqNo,IsDisplayed,IsQueryCriteria,AD_Element_ID,AD_Reference_ID,AD_InfoColumn_UU,AD_Reference_Value_ID,IsCentrallyMaintained,ColumnName,QueryOperator,IsIdentifier,SeqNoSelection,IsMandatory,IsKey,IsReadOnly) VALUES (1120064,0,0,'Y',TO_DATE('2024-07-16 08:35:03','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 08:35:03','YYYY-MM-DD HH24:MI:SS'),100,'CTe Status',1120005,'LBRA','cte.LBR_CTeStatus',90,'Y','Y',1123450,17,'d965fca5-513b-4e82-9ff4-931dc7b9f557',1120415,'Y','LBR_CTeStatus','=','N',50,'N','N','Y')
+;
+
 -- 15 de jul de 2024 23:21:14 BRT
 SELECT Register_Migration_Script ('202406191709_CTe.sql') FROM DUAL
 ;

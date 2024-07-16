@@ -31,7 +31,7 @@ public class X_LBR_CTeDocNFe extends PO implements I_LBR_CTeDocNFe, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20240715L;
+	private static final long serialVersionUID = 20240716L;
 
     /** Standard Constructor */
     public X_LBR_CTeDocNFe (Properties ctx, int LBR_CTeDocNFe_ID, String trxName)

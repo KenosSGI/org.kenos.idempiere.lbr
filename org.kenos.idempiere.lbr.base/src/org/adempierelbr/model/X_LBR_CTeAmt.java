@@ -32,7 +32,7 @@ public class X_LBR_CTeAmt extends PO implements I_LBR_CTeAmt, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20240715L;
+	private static final long serialVersionUID = 20240716L;
 
     /** Standard Constructor */
     public X_LBR_CTeAmt (Properties ctx, int LBR_CTeAmt_ID, String trxName)

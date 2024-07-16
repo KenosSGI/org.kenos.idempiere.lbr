@@ -228,6 +228,15 @@ public interface I_LBR_CTe
 	/** Get Service Type	  */
 	public String getLBR_CTeServiceType();
 
+    /** Column name LBR_CTeStatus */
+    public static final String COLUMNNAME_LBR_CTeStatus = "LBR_CTeStatus";
+
+	/** Set CTe Status	  */
+	public void setLBR_CTeStatus (String LBR_CTeStatus);
+
+	/** Get CTe Status	  */
+	public String getLBR_CTeStatus();
+
     /** Column name LBR_CTeType */
     public static final String COLUMNNAME_LBR_CTeType = "LBR_CTeType";
 

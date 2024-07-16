@@ -30,7 +30,7 @@ public class X_LBR_CTePartner extends PO implements I_LBR_CTePartner, I_Persiste
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20240715L;
+	private static final long serialVersionUID = 20240716L;
 
     /** Standard Constructor */
     public X_LBR_CTePartner (Properties ctx, int LBR_CTePartner_ID, String trxName)

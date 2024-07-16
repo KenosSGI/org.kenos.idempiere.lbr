@@ -31,7 +31,7 @@ public class X_LBR_CTeConfigSeFaz extends PO implements I_LBR_CTeConfigSeFaz, I_
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20240715L;
+	private static final long serialVersionUID = 20240716L;
 
     /** Standard Constructor */
     public X_LBR_CTeConfigSeFaz (Properties ctx, int LBR_CTeConfigSeFaz_ID, String trxName)

@@ -189,6 +189,15 @@ public interface I_LBR_CTeEvent
 	/** Get LBR_CTeEvent_UU	  */
 	public String getLBR_CTeEvent_UU();
 
+    /** Column name LBR_CTeStatus */
+    public static final String COLUMNNAME_LBR_CTeStatus = "LBR_CTeStatus";
+
+	/** Set CTe Status	  */
+	public void setLBR_CTeStatus (String LBR_CTeStatus);
+
+	/** Get CTe Status	  */
+	public String getLBR_CTeStatus();
+
     /** Column name LBR_CTe_ID */
     public static final String COLUMNNAME_LBR_CTe_ID = "LBR_CTe_ID";
 

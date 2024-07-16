@@ -31,7 +31,7 @@ public class X_LBR_CTeEvent extends PO implements I_LBR_CTeEvent, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20240715L;
+	private static final long serialVersionUID = 20240716L;
 
     /** Standard Constructor */
     public X_LBR_CTeEvent (Properties ctx, int LBR_CTeEvent_ID, String trxName)
@@ -272,6 +272,20 @@ public class X_LBR_CTeEvent extends PO implements I_LBR_CTeEvent, I_Persistent
 	public String getLBR_CTeEvent_UU () 
 	{
 		return (String)get_Value(COLUMNNAME_LBR_CTeEvent_UU);
+	}
+
+	/** Set CTe Status.
+		@param LBR_CTeStatus CTe Status	  */
+	public void setLBR_CTeStatus (String LBR_CTeStatus)
+	{
+		set_Value (COLUMNNAME_LBR_CTeStatus, LBR_CTeStatus);
+	}
+
+	/** Get CTe Status.
+		@return CTe Status	  */
+	public String getLBR_CTeStatus () 
+	{
+		return (String)get_Value(COLUMNNAME_LBR_CTeStatus);
 	}
 
 	public org.adempierelbr.model.I_LBR_CTe getLBR_CTe() throws RuntimeException

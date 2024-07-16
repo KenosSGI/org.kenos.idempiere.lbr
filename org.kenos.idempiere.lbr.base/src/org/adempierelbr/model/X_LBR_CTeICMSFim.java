@@ -32,7 +32,7 @@ public class X_LBR_CTeICMSFim extends PO implements I_LBR_CTeICMSFim, I_Persiste
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20240715L;
+	private static final long serialVersionUID = 20240716L;
 
     /** Standard Constructor */
     public X_LBR_CTeICMSFim (Properties ctx, int LBR_CTeICMSFim_ID, String trxName)
