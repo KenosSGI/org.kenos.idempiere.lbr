@@ -39,9 +39,10 @@ public class X_LBR_CTeEvent extends PO implements I_LBR_CTeEvent, I_Persistent
       super (ctx, LBR_CTeEvent_ID, trxName);
       /** if (LBR_CTeEvent_ID == 0)
         {
+			setDateDoc (new Timestamp( System.currentTimeMillis() ));
+// @#Date@
 			setI_IsImported (false);
 			setLBR_CTeEvent_ID (0);
-			setLBR_CTe_ID (0);
         } */
     }
 

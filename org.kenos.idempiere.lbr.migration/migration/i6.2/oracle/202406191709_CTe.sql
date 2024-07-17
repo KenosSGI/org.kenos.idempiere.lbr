@@ -104,7 +104,7 @@ CREATE TABLE LBR_CTe (
     LBR_ShipmentType       VARCHAR2(2 CHAR),
     LBR_CTeServiceType     VARCHAR2(1 CHAR),
     LBR_CTeConsignee       VARCHAR2(100 CHAR),
-    LBR_CNPJ               VARCHAR2(14 CHAR),
+    LBR_CNPJ               VARCHAR2(18 CHAR),
     LBR_CPF                VARCHAR2(11 CHAR),
     LBR_IE                 VARCHAR2(20 CHAR),
     LBR_IndIEDest          VARCHAR2(1 CHAR),
@@ -129,7 +129,7 @@ CREATE TABLE LBR_CTePartner (
     LBR_CTe_ID             NUMBER(10, 0) NOT NULL,
     Name                   VARCHAR2(60 CHAR) NOT NULL,
     Name2                  VARCHAR2(60 CHAR),
-    LBR_CNPJ               VARCHAR2(14 CHAR),
+    LBR_CNPJ               VARCHAR2(18 CHAR),
     LBR_IE                 VARCHAR2(20 CHAR),
     Address1               VARCHAR2(255 CHAR) NOT NULL,
     Address2               VARCHAR2(255 CHAR),
@@ -218,10 +218,10 @@ CREATE TABLE LBR_CTeEvent (
     LBR_CTe_ID             NUMBER(10, 0) NOT NULL,
     LBR_NSU                VARCHAR2(30 CHAR),
     LBR_ChCTe              VARCHAR2(44 CHAR),
-    DateTrx                TIMESTAMP NOT NULL,
+    DateTrx                TIMESTAMP,
     SeqNo                  NUMBER(10, 0),
     lbr_NFeEnv             VARCHAR2(1 CHAR),
-    lbr_CNPJ               VARCHAR2(14 CHAR),
+    lbr_CNPJ               VARCHAR2(18 CHAR),
     LBR_EventType          VARCHAR2(6 CHAR),
     DocStatus              CHAR(2) NOT NULL,
     DocAction              CHAR(2) NOT NULL,
@@ -2049,7 +2049,7 @@ INSERT INTO AD_Column (AD_Column_ID,Version,Name,AD_Table_ID,ColumnName,FieldLen
 ;
 
 -- 24 de jun de 2024 18:01:34 BRT
-INSERT INTO AD_Column (AD_Column_ID,Version,Name,Description,Help,AD_Table_ID,ColumnName,FieldLength,IsKey,IsParent,IsMandatory,IsTranslated,IsIdentifier,IsEncrypted,AD_Reference_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Element_ID,IsUpdateable,IsSelectionColumn,EntityType,IsAlwaysUpdateable,AD_Column_UU,IsToolbarButton) VALUES (1134044,0.0,'CNPJ','Used to identify Legal Entities in Brazil','Used to identify Legal Entities in Brazil',1120770,'lbr_CNPJ',14,'N','N','N','N','N','N',10,0,0,'Y',TO_DATE('2024-06-24 18:01:34','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-06-24 18:01:34','YYYY-MM-DD HH24:MI:SS'),100,1000009,'Y','N','LBRA','N','623c0fd7-2174-47df-bac5-048c9da5dd7f','N')
+INSERT INTO AD_Column (AD_Column_ID,Version,Name,Description,Help,AD_Table_ID,ColumnName,FieldLength,IsKey,IsParent,IsMandatory,IsTranslated,IsIdentifier,IsEncrypted,AD_Reference_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Element_ID,IsUpdateable,IsSelectionColumn,EntityType,IsAlwaysUpdateable,AD_Column_UU,IsToolbarButton) VALUES (1134044,0.0,'CNPJ','Used to identify Legal Entities in Brazil','Used to identify Legal Entities in Brazil',1120770,'lbr_CNPJ',18,'N','N','N','N','N','N',10,0,0,'Y',TO_DATE('2024-06-24 18:01:34','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-06-24 18:01:34','YYYY-MM-DD HH24:MI:SS'),100,1000009,'Y','N','LBRA','N','623c0fd7-2174-47df-bac5-048c9da5dd7f','N')
 ;
 
 -- 24 de jun de 2024 18:01:34 BRT
@@ -2211,7 +2211,7 @@ INSERT INTO AD_Column (AD_Column_ID,Version,Name,AD_Table_ID,ColumnName,FieldLen
 ;
 
 -- 24 de jun de 2024 18:02:15 BRT
-INSERT INTO AD_Column (AD_Column_ID,Version,Name,Description,Help,AD_Table_ID,ColumnName,FieldLength,IsKey,IsParent,IsMandatory,IsTranslated,IsIdentifier,IsEncrypted,AD_Reference_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Element_ID,IsUpdateable,IsSelectionColumn,EntityType,IsAlwaysUpdateable,AD_Column_UU,IsToolbarButton) VALUES (1134080,0.0,'CNPJ','Used to identify Legal Entities in Brazil','Used to identify Legal Entities in Brazil',1120775,'lbr_CNPJ',14,'N','N','N','N','N','N',10,0,0,'Y',TO_DATE('2024-06-24 18:02:15','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-06-24 18:02:15','YYYY-MM-DD HH24:MI:SS'),100,1000009,'Y','N','LBRA','N','ac271d30-9c0e-4105-9fe4-e437f1b811f8','N')
+INSERT INTO AD_Column (AD_Column_ID,Version,Name,Description,Help,AD_Table_ID,ColumnName,FieldLength,IsKey,IsParent,IsMandatory,IsTranslated,IsIdentifier,IsEncrypted,AD_Reference_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Element_ID,IsUpdateable,IsSelectionColumn,EntityType,IsAlwaysUpdateable,AD_Column_UU,IsToolbarButton) VALUES (1134080,0.0,'CNPJ','Used to identify Legal Entities in Brazil','Used to identify Legal Entities in Brazil',1120775,'lbr_CNPJ',18,'N','N','N','N','N','N',10,0,0,'Y',TO_DATE('2024-06-24 18:02:15','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-06-24 18:02:15','YYYY-MM-DD HH24:MI:SS'),100,1000009,'Y','N','LBRA','N','ac271d30-9c0e-4105-9fe4-e437f1b811f8','N')
 ;
 
 -- 24 de jun de 2024 18:02:16 BRT
@@ -2428,7 +2428,7 @@ INSERT INTO AD_Column (AD_Column_ID,Version,Name,Description,AD_Table_ID,ColumnN
 ;
 
 -- 24 de jun de 2024 18:03:05 BRT
-INSERT INTO AD_Column (AD_Column_ID,Version,Name,Description,Help,AD_Table_ID,ColumnName,FieldLength,IsKey,IsParent,IsMandatory,IsTranslated,IsIdentifier,IsEncrypted,AD_Reference_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Element_ID,IsUpdateable,IsSelectionColumn,EntityType,IsAlwaysUpdateable,AD_Column_UU,IsToolbarButton) VALUES (1134128,0.0,'CNPJ','Used to identify Legal Entities in Brazil','Used to identify Legal Entities in Brazil',1120771,'lbr_CNPJ',14,'N','N','N','N','N','N',10,0,0,'Y',TO_DATE('2024-06-24 18:03:05','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-06-24 18:03:05','YYYY-MM-DD HH24:MI:SS'),100,1000009,'Y','N','LBRA','N','8a337fbd-1d1f-4749-baa8-eeb0da414fcc','N')
+INSERT INTO AD_Column (AD_Column_ID,Version,Name,Description,Help,AD_Table_ID,ColumnName,FieldLength,IsKey,IsParent,IsMandatory,IsTranslated,IsIdentifier,IsEncrypted,AD_Reference_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AD_Element_ID,IsUpdateable,IsSelectionColumn,EntityType,IsAlwaysUpdateable,AD_Column_UU,IsToolbarButton) VALUES (1134128,0.0,'CNPJ','Used to identify Legal Entities in Brazil','Used to identify Legal Entities in Brazil',1120771,'lbr_CNPJ',18,'N','N','N','N','N','N',10,0,0,'Y',TO_DATE('2024-06-24 18:03:05','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-06-24 18:03:05','YYYY-MM-DD HH24:MI:SS'),100,1000009,'Y','N','LBRA','N','8a337fbd-1d1f-4749-baa8-eeb0da414fcc','N')
 ;
 
 -- 24 de jun de 2024 18:03:06 BRT
@@ -5445,6 +5445,926 @@ UPDATE AD_InfoColumn SET EntityType='LBRA',Updated=TO_DATE('2024-07-16 08:33:58'
 
 -- 16 de jul de 2024 08:35:04 BRT
 INSERT INTO AD_InfoColumn (AD_InfoColumn_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,Name,AD_InfoWindow_ID,EntityType,SelectClause,SeqNo,IsDisplayed,IsQueryCriteria,AD_Element_ID,AD_Reference_ID,AD_InfoColumn_UU,AD_Reference_Value_ID,IsCentrallyMaintained,ColumnName,QueryOperator,IsIdentifier,SeqNoSelection,IsMandatory,IsKey,IsReadOnly) VALUES (1120064,0,0,'Y',TO_DATE('2024-07-16 08:35:03','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 08:35:03','YYYY-MM-DD HH24:MI:SS'),100,'CTe Status',1120005,'LBRA','cte.LBR_CTeStatus',90,'Y','Y',1123450,17,'d965fca5-513b-4e82-9ff4-931dc7b9f557',1120415,'Y','LBR_CTeStatus','=','N',50,'N','N','Y')
+;
+
+-- 16 de jul de 2024 12:08:51 BRT
+INSERT INTO LBR_SeFazURL (LBR_SeFazURL_ID,LBR_SeFazURL_UU,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,LBR_SeFaz_ID,URL,lbr_NFeEnv,VersionNo,LBR_URLScope,LBR_EndpointName,ValidFrom) VALUES (1120072,'7663b561-c202-4bc5-b3b6-7fd0305779e2',0,0,'Y',TO_DATE('2024-07-16 12:08:49','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 12:08:49','YYYY-MM-DD HH24:MI:SS'),100,1120000,'https://homologacao.sefaz.mt.gov.br/ctews2/services/CTeConsultaV4?wsdl','2','4.00','1','100',TO_DATE('2000-01-01','YYYY-MM-DD'))
+;
+
+-- 16 de jul de 2024 12:08:51 BRT
+INSERT INTO LBR_SeFazURL (LBR_SeFazURL_ID,LBR_SeFazURL_UU,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,LBR_SeFaz_ID,URL,lbr_NFeEnv,VersionNo,LBR_URLScope,LBR_EndpointName,ValidFrom) VALUES (1120073,'a8b272f9-4bca-436c-b5df-26fa386de02b',0,0,'Y',TO_DATE('2024-07-16 12:08:51','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 12:08:51','YYYY-MM-DD HH24:MI:SS'),100,1120000,'https://hom1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx','2','4.00','1','101',TO_DATE('2000-01-01','YYYY-MM-DD'))
+;
+
+-- 16 de jul de 2024 12:08:52 BRT
+INSERT INTO LBR_SeFazURL (LBR_SeFazURL_ID,LBR_SeFazURL_UU,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,LBR_SeFaz_ID,URL,lbr_NFeEnv,VersionNo,LBR_URLScope,LBR_EndpointName,ValidFrom) VALUES (1120074,'904d90d4-2e73-4ddc-a39e-6c3ded030181',0,0,'Y',TO_DATE('2024-07-16 12:08:51','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 12:08:51','YYYY-MM-DD HH24:MI:SS'),100,1120000,'https://homologacao.sefaz.mt.gov.br/ctews2/services/CTeRecepcaoEventoV4?wsdl','2','4.00','1','102',TO_DATE('2000-01-01','YYYY-MM-DD'))
+;
+
+-- 16 de jul de 2024 12:08:52 BRT
+INSERT INTO LBR_SeFazURL (LBR_SeFazURL_ID,LBR_SeFazURL_UU,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,LBR_SeFaz_ID,URL,lbr_NFeEnv,VersionNo,LBR_URLScope,LBR_EndpointName,ValidFrom) VALUES (1120075,'33e2127e-f12c-422b-bc69-9e754df28617',0,0,'Y',TO_DATE('2024-07-16 12:08:52','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 12:08:52','YYYY-MM-DD HH24:MI:SS'),100,1120000,'https://homologacao.sefaz.mt.gov.br/ctews2/services/CTeRecepcaoGTVeV4?wsdl','2','4.00','1','103',TO_DATE('2000-01-01','YYYY-MM-DD'))
+;
+
+-- 16 de jul de 2024 12:08:53 BRT
+INSERT INTO LBR_SeFazURL (LBR_SeFazURL_ID,LBR_SeFazURL_UU,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,LBR_SeFaz_ID,URL,lbr_NFeEnv,VersionNo,LBR_URLScope,LBR_EndpointName,ValidFrom) VALUES (1120076,'91dc0ce3-6ca5-4f19-a5ff-5dabcb8695e6',0,0,'Y',TO_DATE('2024-07-16 12:08:52','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 12:08:52','YYYY-MM-DD HH24:MI:SS'),100,1120000,'https://homologacao.sefaz.mt.gov.br/ctews/services/CTeRecepcaoOSV4?wsdl','2','4.00','1','104',TO_DATE('2000-01-01','YYYY-MM-DD'))
+;
+
+-- 16 de jul de 2024 12:08:53 BRT
+INSERT INTO LBR_SeFazURL (LBR_SeFazURL_ID,LBR_SeFazURL_UU,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,LBR_SeFaz_ID,URL,lbr_NFeEnv,VersionNo,LBR_URLScope,LBR_EndpointName,ValidFrom) VALUES (1120077,'d043f7ee-db55-43f2-ae24-728d81c08549',0,0,'Y',TO_DATE('2024-07-16 12:08:53','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 12:08:53','YYYY-MM-DD HH24:MI:SS'),100,1120000,'https://homologacao.sefaz.mt.gov.br/ctews2/services/CTeRecepcaoSincV4?wsdl','2','4.00','1','105',TO_DATE('2000-01-01','YYYY-MM-DD'))
+;
+
+-- 16 de jul de 2024 12:08:54 BRT
+INSERT INTO LBR_SeFazURL (LBR_SeFazURL_ID,LBR_SeFazURL_UU,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,LBR_SeFaz_ID,URL,lbr_NFeEnv,VersionNo,LBR_URLScope,LBR_EndpointName,ValidFrom) VALUES (1120078,'f3cbd08d-1ace-42eb-aab9-1bc0b2fe6bec',0,0,'Y',TO_DATE('2024-07-16 12:08:53','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 12:08:53','YYYY-MM-DD HH24:MI:SS'),100,1120000,'https://homologacao.sefaz.mt.gov.br/ctews2/services/CTeStatusServicoV4?wsdl','2','4.00','1','106',TO_DATE('2000-01-01','YYYY-MM-DD'))
+;
+
+-- 16 de jul de 2024 12:08:54 BRT
+INSERT INTO LBR_SeFazURL (LBR_SeFazURL_ID,LBR_SeFazURL_UU,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,LBR_SeFaz_ID,URL,lbr_NFeEnv,VersionNo,LBR_URLScope,LBR_EndpointName,ValidFrom) VALUES (1120079,'dbc44c50-a477-4c64-8f62-5adfed9e694b',0,0,'Y',TO_DATE('2024-07-16 12:08:54','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 12:08:54','YYYY-MM-DD HH24:MI:SS'),100,1120000,'https://www.sefaz.mt.gov.br/cte/qrcode','2','4.00','1','107',TO_DATE('2000-01-01','YYYY-MM-DD'))
+;
+
+-- 16 de jul de 2024 12:08:55 BRT
+INSERT INTO LBR_SeFazURL (LBR_SeFazURL_ID,LBR_SeFazURL_UU,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,LBR_SeFaz_ID,URL,lbr_NFeEnv,VersionNo,LBR_URLScope,LBR_EndpointName,ValidFrom) VALUES (1120080,'5837ee23-8129-4ef1-956e-8db28f48ec75',0,0,'Y',TO_DATE('2024-07-16 12:08:54','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 12:08:54','YYYY-MM-DD HH24:MI:SS'),100,1120001,'https://homologacao.cte.ms.gov.br/ws/CTeConsultaV4','2','4.00','1','100',TO_DATE('2000-01-01','YYYY-MM-DD'))
+;
+
+-- 16 de jul de 2024 12:08:55 BRT
+INSERT INTO LBR_SeFazURL (LBR_SeFazURL_ID,LBR_SeFazURL_UU,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,LBR_SeFaz_ID,URL,lbr_NFeEnv,VersionNo,LBR_URLScope,LBR_EndpointName,ValidFrom) VALUES (1120081,'532b8a81-bc35-475e-a7ef-451b38d94c0f',0,0,'Y',TO_DATE('2024-07-16 12:08:55','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 12:08:55','YYYY-MM-DD HH24:MI:SS'),100,1120001,'https://hom1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx','2','4.00','1','101',TO_DATE('2000-01-01','YYYY-MM-DD'))
+;
+
+-- 16 de jul de 2024 12:08:56 BRT
+INSERT INTO LBR_SeFazURL (LBR_SeFazURL_ID,LBR_SeFazURL_UU,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,LBR_SeFaz_ID,URL,lbr_NFeEnv,VersionNo,LBR_URLScope,LBR_EndpointName,ValidFrom) VALUES (1120082,'6ec3bbd4-7733-41a8-8653-9d738a05cc02',0,0,'Y',TO_DATE('2024-07-16 12:08:56','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 12:08:56','YYYY-MM-DD HH24:MI:SS'),100,1120001,'https://homologacao.cte.ms.gov.br/ws/CTeRecepcaoEventoV4','2','4.00','1','102',TO_DATE('2000-01-01','YYYY-MM-DD'))
+;
+
+-- 16 de jul de 2024 12:08:56 BRT
+INSERT INTO LBR_SeFazURL (LBR_SeFazURL_ID,LBR_SeFazURL_UU,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,LBR_SeFaz_ID,URL,lbr_NFeEnv,VersionNo,LBR_URLScope,LBR_EndpointName,ValidFrom) VALUES (1120083,'4911b0c6-a9bd-4315-9fde-bdd8854d5a5e',0,0,'Y',TO_DATE('2024-07-16 12:08:56','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 12:08:56','YYYY-MM-DD HH24:MI:SS'),100,1120001,'https://homologacao.cte.ms.gov.br/ws/CTeRecepcaoGTVeV4','2','4.00','1','103',TO_DATE('2000-01-01','YYYY-MM-DD'))
+;
+
+-- 16 de jul de 2024 12:08:57 BRT
+INSERT INTO LBR_SeFazURL (LBR_SeFazURL_ID,LBR_SeFazURL_UU,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,LBR_SeFaz_ID,URL,lbr_NFeEnv,VersionNo,LBR_URLScope,LBR_EndpointName,ValidFrom) VALUES (1120084,'0556d55d-a10c-4ae7-8f53-ee3f655a157a',0,0,'Y',TO_DATE('2024-07-16 12:08:57','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 12:08:57','YYYY-MM-DD HH24:MI:SS'),100,1120001,'https://homologacao.cte.ms.gov.br/ws/CTeRecepcaoOSV4','2','4.00','1','104',TO_DATE('2000-01-01','YYYY-MM-DD'))
+;
+
+-- 16 de jul de 2024 12:08:57 BRT
+INSERT INTO LBR_SeFazURL (LBR_SeFazURL_ID,LBR_SeFazURL_UU,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,LBR_SeFaz_ID,URL,lbr_NFeEnv,VersionNo,LBR_URLScope,LBR_EndpointName,ValidFrom) VALUES (1120085,'cd79ccd5-ae1d-4d51-849e-3c0823aca2aa',0,0,'Y',TO_DATE('2024-07-16 12:08:57','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 12:08:57','YYYY-MM-DD HH24:MI:SS'),100,1120001,'https://homologacao.cte.ms.gov.br/ws/CTeRecepcaoSincV4','2','4.00','1','105',TO_DATE('2000-01-01','YYYY-MM-DD'))
+;
+
+-- 16 de jul de 2024 12:08:58 BRT
+INSERT INTO LBR_SeFazURL (LBR_SeFazURL_ID,LBR_SeFazURL_UU,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,LBR_SeFaz_ID,URL,lbr_NFeEnv,VersionNo,LBR_URLScope,LBR_EndpointName,ValidFrom) VALUES (1120086,'293ddc1f-3da4-4c01-aee0-3112a6402d6c',0,0,'Y',TO_DATE('2024-07-16 12:08:58','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 12:08:58','YYYY-MM-DD HH24:MI:SS'),100,1120001,'https://homologacao.cte.ms.gov.br/ws/CTeStatusServicoV4','2','4.00','1','106',TO_DATE('2000-01-01','YYYY-MM-DD'))
+;
+
+-- 16 de jul de 2024 12:08:58 BRT
+INSERT INTO LBR_SeFazURL (LBR_SeFazURL_ID,LBR_SeFazURL_UU,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,LBR_SeFaz_ID,URL,lbr_NFeEnv,VersionNo,LBR_URLScope,LBR_EndpointName,ValidFrom) VALUES (1120087,'a25222ae-882a-4a58-9b1e-99c819e6a726',0,0,'Y',TO_DATE('2024-07-16 12:08:58','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 12:08:58','YYYY-MM-DD HH24:MI:SS'),100,1120001,'http://www.dfe.ms.gov.br/cte/qrcode','2','4.00','1','107',TO_DATE('2000-01-01','YYYY-MM-DD'))
+;
+
+-- 16 de jul de 2024 12:08:59 BRT
+INSERT INTO LBR_SeFazURL (LBR_SeFazURL_ID,LBR_SeFazURL_UU,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,LBR_SeFaz_ID,URL,lbr_NFeEnv,VersionNo,LBR_URLScope,LBR_EndpointName,ValidFrom) VALUES (1120088,'562648ab-cafa-493e-b4fd-433ebaa09840',0,0,'Y',TO_DATE('2024-07-16 12:08:59','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 12:08:59','YYYY-MM-DD HH24:MI:SS'),100,1120002,'https://hcte.fazenda.mg.gov.br/cte/services/CTeConsultaV4','2','4.00','1','100',TO_DATE('2000-01-01','YYYY-MM-DD'))
+;
+
+-- 16 de jul de 2024 12:09:00 BRT
+INSERT INTO LBR_SeFazURL (LBR_SeFazURL_ID,LBR_SeFazURL_UU,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,LBR_SeFaz_ID,URL,lbr_NFeEnv,VersionNo,LBR_URLScope,LBR_EndpointName,ValidFrom) VALUES (1120089,'640a999d-182f-4f68-9692-cf35bb699e78',0,0,'Y',TO_DATE('2024-07-16 12:08:59','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 12:08:59','YYYY-MM-DD HH24:MI:SS'),100,1120002,'https://hom1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx','2','4.00','1','101',TO_DATE('2000-01-01','YYYY-MM-DD'))
+;
+
+-- 16 de jul de 2024 12:09:00 BRT
+INSERT INTO LBR_SeFazURL (LBR_SeFazURL_ID,LBR_SeFazURL_UU,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,LBR_SeFaz_ID,URL,lbr_NFeEnv,VersionNo,LBR_URLScope,LBR_EndpointName,ValidFrom) VALUES (1120090,'c65ed3ba-2bcd-445b-b02e-dc57124a3af5',0,0,'Y',TO_DATE('2024-07-16 12:09:00','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 12:09:00','YYYY-MM-DD HH24:MI:SS'),100,1120002,'https://hcte.fazenda.mg.gov.br/cte/services/CTeRecepcaoEventoV4','2','4.00','1','102',TO_DATE('2000-01-01','YYYY-MM-DD'))
+;
+
+-- 16 de jul de 2024 12:09:01 BRT
+INSERT INTO LBR_SeFazURL (LBR_SeFazURL_ID,LBR_SeFazURL_UU,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,LBR_SeFaz_ID,URL,lbr_NFeEnv,VersionNo,LBR_URLScope,LBR_EndpointName,ValidFrom) VALUES (1120091,'5b221c57-e0e8-44ab-bb85-994271d456de',0,0,'Y',TO_DATE('2024-07-16 12:09:00','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 12:09:00','YYYY-MM-DD HH24:MI:SS'),100,1120002,'https://hcte.fazenda.mg.gov.br/cte/services/CTeRecepcaoGTVeV4','2','4.00','1','103',TO_DATE('2000-01-01','YYYY-MM-DD'))
+;
+
+-- 16 de jul de 2024 12:09:01 BRT
+INSERT INTO LBR_SeFazURL (LBR_SeFazURL_ID,LBR_SeFazURL_UU,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,LBR_SeFaz_ID,URL,lbr_NFeEnv,VersionNo,LBR_URLScope,LBR_EndpointName,ValidFrom) VALUES (1120092,'f1f63939-954e-40f9-82a6-af3c7ce4e1eb',0,0,'Y',TO_DATE('2024-07-16 12:09:01','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 12:09:01','YYYY-MM-DD HH24:MI:SS'),100,1120002,'https://hcte.fazenda.mg.gov.br/cte/services/CTeRecepcaoOSV4','2','4.00','1','104',TO_DATE('2000-01-01','YYYY-MM-DD'))
+;
+
+-- 16 de jul de 2024 12:09:02 BRT
+INSERT INTO LBR_SeFazURL (LBR_SeFazURL_ID,LBR_SeFazURL_UU,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,LBR_SeFaz_ID,URL,lbr_NFeEnv,VersionNo,LBR_URLScope,LBR_EndpointName,ValidFrom) VALUES (1120093,'cd1ccd21-df62-4608-810f-b69bc3b595a2',0,0,'Y',TO_DATE('2024-07-16 12:09:01','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 12:09:01','YYYY-MM-DD HH24:MI:SS'),100,1120002,'https://hcte.fazenda.mg.gov.br/cte/services/CTeRecepcaoSincV4','2','4.00','1','105',TO_DATE('2000-01-01','YYYY-MM-DD'))
+;
+
+-- 16 de jul de 2024 12:09:02 BRT
+INSERT INTO LBR_SeFazURL (LBR_SeFazURL_ID,LBR_SeFazURL_UU,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,LBR_SeFaz_ID,URL,lbr_NFeEnv,VersionNo,LBR_URLScope,LBR_EndpointName,ValidFrom) VALUES (1120094,'03e138b1-07af-4efd-98de-74f2ddbf35ee',0,0,'Y',TO_DATE('2024-07-16 12:09:02','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 12:09:02','YYYY-MM-DD HH24:MI:SS'),100,1120002,'https://hcte.fazenda.mg.gov.br/cte/services/CTeStatusServicoV4','2','4.00','1','106',TO_DATE('2000-01-01','YYYY-MM-DD'))
+;
+
+-- 16 de jul de 2024 12:09:03 BRT
+INSERT INTO LBR_SeFazURL (LBR_SeFazURL_ID,LBR_SeFazURL_UU,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,LBR_SeFaz_ID,URL,lbr_NFeEnv,VersionNo,LBR_URLScope,LBR_EndpointName,ValidFrom) VALUES (1120095,'f475dbdc-0782-4c9e-a838-5e146321b62b',0,0,'Y',TO_DATE('2024-07-16 12:09:02','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 12:09:02','YYYY-MM-DD HH24:MI:SS'),100,1120002,'https://hcte.fazenda.mg.gov.br/portalcte/sistema/qrcode.xhtml','2','4.00','1','107',TO_DATE('2000-01-01','YYYY-MM-DD'))
+;
+
+-- 16 de jul de 2024 12:09:03 BRT
+INSERT INTO LBR_SeFazURL (LBR_SeFazURL_ID,LBR_SeFazURL_UU,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,LBR_SeFaz_ID,URL,lbr_NFeEnv,VersionNo,LBR_URLScope,LBR_EndpointName,ValidFrom) VALUES (1120096,'405136a2-48a3-473e-bdb1-dcf1bca63b65',0,0,'Y',TO_DATE('2024-07-16 12:09:03','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 12:09:03','YYYY-MM-DD HH24:MI:SS'),100,1120003,'https://homologacao.cte.fazenda.pr.gov.br/cte4/CTeConsultaV4?wsdl','2','4.00','1','100',TO_DATE('2000-01-01','YYYY-MM-DD'))
+;
+
+-- 16 de jul de 2024 12:09:04 BRT
+INSERT INTO LBR_SeFazURL (LBR_SeFazURL_ID,LBR_SeFazURL_UU,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,LBR_SeFaz_ID,URL,lbr_NFeEnv,VersionNo,LBR_URLScope,LBR_EndpointName,ValidFrom) VALUES (1120097,'58feda43-8fe4-4027-87d1-5447167b60c4',0,0,'Y',TO_DATE('2024-07-16 12:09:03','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 12:09:03','YYYY-MM-DD HH24:MI:SS'),100,1120003,'https://hom1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx','2','4.00','1','101',TO_DATE('2000-01-01','YYYY-MM-DD'))
+;
+
+-- 16 de jul de 2024 12:09:04 BRT
+INSERT INTO LBR_SeFazURL (LBR_SeFazURL_ID,LBR_SeFazURL_UU,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,LBR_SeFaz_ID,URL,lbr_NFeEnv,VersionNo,LBR_URLScope,LBR_EndpointName,ValidFrom) VALUES (1120098,'98adbec5-9ac6-4365-a748-df8d1afb274f',0,0,'Y',TO_DATE('2024-07-16 12:09:04','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 12:09:04','YYYY-MM-DD HH24:MI:SS'),100,1120003,'https://homologacao.cte.fazenda.pr.gov.br/cte4/CTeRecepcaoEventoV4?wsdl','2','4.00','1','102',TO_DATE('2000-01-01','YYYY-MM-DD'))
+;
+
+-- 16 de jul de 2024 12:09:05 BRT
+INSERT INTO LBR_SeFazURL (LBR_SeFazURL_ID,LBR_SeFazURL_UU,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,LBR_SeFaz_ID,URL,lbr_NFeEnv,VersionNo,LBR_URLScope,LBR_EndpointName,ValidFrom) VALUES (1120099,'8bb6ad95-56db-4bc2-86ce-db3efa338c98',0,0,'Y',TO_DATE('2024-07-16 12:09:04','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 12:09:04','YYYY-MM-DD HH24:MI:SS'),100,1120003,'https://homologacao.cte.fazenda.pr.gov.br/cte4/CTeRecepcaoGTVeV4?wsdl','2','4.00','1','103',TO_DATE('2000-01-01','YYYY-MM-DD'))
+;
+
+-- 16 de jul de 2024 12:09:05 BRT
+INSERT INTO LBR_SeFazURL (LBR_SeFazURL_ID,LBR_SeFazURL_UU,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,LBR_SeFaz_ID,URL,lbr_NFeEnv,VersionNo,LBR_URLScope,LBR_EndpointName,ValidFrom) VALUES (1120100,'aefe5d3c-28d4-4f97-840a-248d7947ed0e',0,0,'Y',TO_DATE('2024-07-16 12:09:05','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 12:09:05','YYYY-MM-DD HH24:MI:SS'),100,1120003,'https://homologacao.cte.fazenda.pr.gov.br/cte4/CTeRecepcaoOSV4?wsdl','2','4.00','1','104',TO_DATE('2000-01-01','YYYY-MM-DD'))
+;
+
+-- 16 de jul de 2024 12:09:06 BRT
+INSERT INTO LBR_SeFazURL (LBR_SeFazURL_ID,LBR_SeFazURL_UU,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,LBR_SeFaz_ID,URL,lbr_NFeEnv,VersionNo,LBR_URLScope,LBR_EndpointName,ValidFrom) VALUES (1120101,'e101d8fd-7686-45de-b1e7-6a7a16d7a9d9',0,0,'Y',TO_DATE('2024-07-16 12:09:05','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 12:09:05','YYYY-MM-DD HH24:MI:SS'),100,1120003,'https://homologacao.cte.fazenda.pr.gov.br/cte4/CTeRecepcaoSincV4?wsdl','2','4.00','1','105',TO_DATE('2000-01-01','YYYY-MM-DD'))
+;
+
+-- 16 de jul de 2024 12:09:06 BRT
+INSERT INTO LBR_SeFazURL (LBR_SeFazURL_ID,LBR_SeFazURL_UU,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,LBR_SeFaz_ID,URL,lbr_NFeEnv,VersionNo,LBR_URLScope,LBR_EndpointName,ValidFrom) VALUES (1120102,'2021eb67-8e98-4fc7-8dc2-20ac2c5160cb',0,0,'Y',TO_DATE('2024-07-16 12:09:06','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 12:09:06','YYYY-MM-DD HH24:MI:SS'),100,1120003,'https://homologacao.cte.fazenda.pr.gov.br/cte4/CTeStatusServicoV4?wsdl','2','4.00','1','106',TO_DATE('2000-01-01','YYYY-MM-DD'))
+;
+
+-- 16 de jul de 2024 12:09:07 BRT
+INSERT INTO LBR_SeFazURL (LBR_SeFazURL_ID,LBR_SeFazURL_UU,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,LBR_SeFaz_ID,URL,lbr_NFeEnv,VersionNo,LBR_URLScope,LBR_EndpointName,ValidFrom) VALUES (1120103,'9c6c6028-0286-4d9f-b141-405f9f1762d2',0,0,'Y',TO_DATE('2024-07-16 12:09:06','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 12:09:06','YYYY-MM-DD HH24:MI:SS'),100,1120003,'http://www.fazenda.pr.gov.br/cte/qrcode','2','4.00','1','107',TO_DATE('2000-01-01','YYYY-MM-DD'))
+;
+
+-- 16 de jul de 2024 12:09:07 BRT
+INSERT INTO LBR_SeFazURL (LBR_SeFazURL_ID,LBR_SeFazURL_UU,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,LBR_SeFaz_ID,URL,lbr_NFeEnv,VersionNo,LBR_URLScope,LBR_EndpointName,ValidFrom) VALUES (1120104,'73fc78ea-205d-40eb-ac84-53a6d0c79820',0,0,'Y',TO_DATE('2024-07-16 12:09:07','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 12:09:07','YYYY-MM-DD HH24:MI:SS'),100,1120004,'https://cte-homologacao.fazenda.rj.gov.br/CTeConsultaV4/CTeConsultaV4.asmx','2','4.00','1','100',TO_DATE('2000-01-01','YYYY-MM-DD'))
+;
+
+-- 16 de jul de 2024 12:09:08 BRT
+INSERT INTO LBR_SeFazURL (LBR_SeFazURL_ID,LBR_SeFazURL_UU,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,LBR_SeFaz_ID,URL,lbr_NFeEnv,VersionNo,LBR_URLScope,LBR_EndpointName,ValidFrom) VALUES (1120105,'b68c2a18-b765-452b-a038-edca9d0b6e3c',0,0,'Y',TO_DATE('2024-07-16 12:09:07','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 12:09:07','YYYY-MM-DD HH24:MI:SS'),100,1120004,'https://hom1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx','2','4.00','1','101',TO_DATE('2000-01-01','YYYY-MM-DD'))
+;
+
+-- 16 de jul de 2024 12:09:08 BRT
+INSERT INTO LBR_SeFazURL (LBR_SeFazURL_ID,LBR_SeFazURL_UU,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,LBR_SeFaz_ID,URL,lbr_NFeEnv,VersionNo,LBR_URLScope,LBR_EndpointName,ValidFrom) VALUES (1120106,'4c72347e-1394-4829-a584-f4f8cc2342f3',0,0,'Y',TO_DATE('2024-07-16 12:09:08','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 12:09:08','YYYY-MM-DD HH24:MI:SS'),100,1120004,'https://cte-homologacao.fazenda.rj.gov.br/CTeRecepcaoEventoV4/CTeRecepcaoEventoV4.asmx','2','4.00','1','102',TO_DATE('2000-01-01','YYYY-MM-DD'))
+;
+
+-- 16 de jul de 2024 12:09:09 BRT
+INSERT INTO LBR_SeFazURL (LBR_SeFazURL_ID,LBR_SeFazURL_UU,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,LBR_SeFaz_ID,URL,lbr_NFeEnv,VersionNo,LBR_URLScope,LBR_EndpointName,ValidFrom) VALUES (1120107,'13729fb7-f7be-4cb4-8d7d-9b99fa3eb429',0,0,'Y',TO_DATE('2024-07-16 12:09:08','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 12:09:08','YYYY-MM-DD HH24:MI:SS'),100,1120004,'https://cte-homologacao.fazenda.rj.gov.br/CTeRecepcaoGTVeV4/CTeRecepcaoGTVeV4.asmx','2','4.00','1','103',TO_DATE('2000-01-01','YYYY-MM-DD'))
+;
+
+-- 16 de jul de 2024 12:09:09 BRT
+INSERT INTO LBR_SeFazURL (LBR_SeFazURL_ID,LBR_SeFazURL_UU,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,LBR_SeFaz_ID,URL,lbr_NFeEnv,VersionNo,LBR_URLScope,LBR_EndpointName,ValidFrom) VALUES (1120108,'50ba4afe-b2e8-4bee-9c87-53aaf34a6c86',0,0,'Y',TO_DATE('2024-07-16 12:09:09','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 12:09:09','YYYY-MM-DD HH24:MI:SS'),100,1120004,'https://cte-homologacao.fazenda.rj.gov.br/CTeRecepcaoOSV4/CTeRecepcaoOSV4.asmx','2','4.00','1','104',TO_DATE('2000-01-01','YYYY-MM-DD'))
+;
+
+-- 16 de jul de 2024 12:09:10 BRT
+INSERT INTO LBR_SeFazURL (LBR_SeFazURL_ID,LBR_SeFazURL_UU,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,LBR_SeFaz_ID,URL,lbr_NFeEnv,VersionNo,LBR_URLScope,LBR_EndpointName,ValidFrom) VALUES (1120109,'0454545f-3f10-4496-a0e8-7c3df0e29fe9',0,0,'Y',TO_DATE('2024-07-16 12:09:09','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 12:09:09','YYYY-MM-DD HH24:MI:SS'),100,1120004,'https://cte-homologacao.fazenda.rj.gov.br/CTeRecepcaoSincV4/CTeRecepcaoSincV4.asmx','2','4.00','1','105',TO_DATE('2000-01-01','YYYY-MM-DD'))
+;
+
+-- 16 de jul de 2024 12:09:10 BRT
+INSERT INTO LBR_SeFazURL (LBR_SeFazURL_ID,LBR_SeFazURL_UU,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,LBR_SeFaz_ID,URL,lbr_NFeEnv,VersionNo,LBR_URLScope,LBR_EndpointName,ValidFrom) VALUES (1120110,'3172697b-23f4-49aa-975c-6d2043b34b7c',0,0,'Y',TO_DATE('2024-07-16 12:09:10','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 12:09:10','YYYY-MM-DD HH24:MI:SS'),100,1120004,'https://cte-homologacao.fazenda.rj.gov.br/CTeStatusServicoV4/CTeStatusServicoV4.asmx','2','4.00','1','106',TO_DATE('2000-01-01','YYYY-MM-DD'))
+;
+
+-- 16 de jul de 2024 12:09:11 BRT
+INSERT INTO LBR_SeFazURL (LBR_SeFazURL_ID,LBR_SeFazURL_UU,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,LBR_SeFaz_ID,URL,lbr_NFeEnv,VersionNo,LBR_URLScope,LBR_EndpointName,ValidFrom) VALUES (1120111,'e19dfe14-1783-4d2e-be94-a25220630a97',0,0,'Y',TO_DATE('2024-07-16 12:09:10','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 12:09:10','YYYY-MM-DD HH24:MI:SS'),100,1120004,'http://www.fazenda.rj.gov.br/cte/qrcode','2','4.00','1','107',TO_DATE('2000-01-01','YYYY-MM-DD'))
+;
+
+-- 16 de jul de 2024 12:09:11 BRT
+INSERT INTO LBR_SeFazURL (LBR_SeFazURL_ID,LBR_SeFazURL_UU,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,LBR_SeFaz_ID,URL,lbr_NFeEnv,VersionNo,LBR_URLScope,LBR_EndpointName,ValidFrom) VALUES (1120112,'6c7b4b58-c8dd-4217-9471-7b42fe74eb06',0,0,'Y',TO_DATE('2024-07-16 12:09:11','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 12:09:11','YYYY-MM-DD HH24:MI:SS'),100,1120005,'https://cte-homologacao.svrs.rs.gov.br/ws/ctews4/CTeConsultaV4','2','4.00','1','100',TO_DATE('2000-01-01','YYYY-MM-DD'))
+;
+
+-- 16 de jul de 2024 12:09:12 BRT
+INSERT INTO LBR_SeFazURL (LBR_SeFazURL_ID,LBR_SeFazURL_UU,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,LBR_SeFaz_ID,URL,lbr_NFeEnv,VersionNo,LBR_URLScope,LBR_EndpointName,ValidFrom) VALUES (1120113,'82c3a1d4-bab6-43d2-801f-eb4a3d2f592a',0,0,'Y',TO_DATE('2024-07-16 12:09:11','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 12:09:11','YYYY-MM-DD HH24:MI:SS'),100,1120005,'https://hom1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx','2','4.00','1','101',TO_DATE('2000-01-01','YYYY-MM-DD'))
+;
+
+-- 16 de jul de 2024 12:09:12 BRT
+INSERT INTO LBR_SeFazURL (LBR_SeFazURL_ID,LBR_SeFazURL_UU,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,LBR_SeFaz_ID,URL,lbr_NFeEnv,VersionNo,LBR_URLScope,LBR_EndpointName,ValidFrom) VALUES (1120114,'2b46f580-ab03-4181-a315-cd16906b5c30',0,0,'Y',TO_DATE('2024-07-16 12:09:12','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 12:09:12','YYYY-MM-DD HH24:MI:SS'),100,1120005,'https://cte-homologacao.svrs.rs.gov.br/ws/ctews4/CTeRecepcaoEventoV4','2','4.00','1','102',TO_DATE('2000-01-01','YYYY-MM-DD'))
+;
+
+-- 16 de jul de 2024 12:09:13 BRT
+INSERT INTO LBR_SeFazURL (LBR_SeFazURL_ID,LBR_SeFazURL_UU,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,LBR_SeFaz_ID,URL,lbr_NFeEnv,VersionNo,LBR_URLScope,LBR_EndpointName,ValidFrom) VALUES (1120115,'e3addfa8-23fd-41b9-a811-203a58a2a0b4',0,0,'Y',TO_DATE('2024-07-16 12:09:12','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 12:09:12','YYYY-MM-DD HH24:MI:SS'),100,1120005,'https://cte-homologacao.svrs.rs.gov.br/ws/ctews4/CTeRecepcaoGTVeV4','2','4.00','1','103',TO_DATE('2000-01-01','YYYY-MM-DD'))
+;
+
+-- 16 de jul de 2024 12:09:13 BRT
+INSERT INTO LBR_SeFazURL (LBR_SeFazURL_ID,LBR_SeFazURL_UU,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,LBR_SeFaz_ID,URL,lbr_NFeEnv,VersionNo,LBR_URLScope,LBR_EndpointName,ValidFrom) VALUES (1120116,'6246b235-71cc-4b8b-b6c8-6bd8daeff349',0,0,'Y',TO_DATE('2024-07-16 12:09:13','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 12:09:13','YYYY-MM-DD HH24:MI:SS'),100,1120005,'https://cte-homologacao.svrs.rs.gov.br/ws/ctews4/CTeRecepcaoOSV4','2','4.00','1','104',TO_DATE('2000-01-01','YYYY-MM-DD'))
+;
+
+-- 16 de jul de 2024 12:09:14 BRT
+INSERT INTO LBR_SeFazURL (LBR_SeFazURL_ID,LBR_SeFazURL_UU,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,LBR_SeFaz_ID,URL,lbr_NFeEnv,VersionNo,LBR_URLScope,LBR_EndpointName,ValidFrom) VALUES (1120117,'7c2e2d74-59dd-4628-84c1-26497f9aba0f',0,0,'Y',TO_DATE('2024-07-16 12:09:13','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 12:09:13','YYYY-MM-DD HH24:MI:SS'),100,1120005,'https://cte-homologacao.svrs.rs.gov.br/ws/ctews4/CTeRecepcaoSincV4','2','4.00','1','105',TO_DATE('2000-01-01','YYYY-MM-DD'))
+;
+
+-- 16 de jul de 2024 12:09:14 BRT
+INSERT INTO LBR_SeFazURL (LBR_SeFazURL_ID,LBR_SeFazURL_UU,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,LBR_SeFaz_ID,URL,lbr_NFeEnv,VersionNo,LBR_URLScope,LBR_EndpointName,ValidFrom) VALUES (1120118,'dc4ed13e-332d-4b79-941c-a32dce7e15cc',0,0,'Y',TO_DATE('2024-07-16 12:09:14','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 12:09:14','YYYY-MM-DD HH24:MI:SS'),100,1120005,'https://cte-homologacao.svrs.rs.gov.br/ws/ctews4/CTeStatusServicoV4','2','4.00','1','106',TO_DATE('2000-01-01','YYYY-MM-DD'))
+;
+
+-- 16 de jul de 2024 12:09:15 BRT
+INSERT INTO LBR_SeFazURL (LBR_SeFazURL_ID,LBR_SeFazURL_UU,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,LBR_SeFaz_ID,URL,lbr_NFeEnv,VersionNo,LBR_URLScope,LBR_EndpointName,ValidFrom) VALUES (1120119,'638aa0a3-0ae4-46b8-a26a-74a89e3c752d',0,0,'Y',TO_DATE('2024-07-16 12:09:14','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 12:09:14','YYYY-MM-DD HH24:MI:SS'),100,1120005,'https://www.cte.fazenda.rs.gov.br/site/cte/qrcode.aspx','2','4.00','1','107',TO_DATE('2000-01-01','YYYY-MM-DD'))
+;
+
+-- 16 de jul de 2024 12:09:15 BRT
+INSERT INTO LBR_SeFazURL (LBR_SeFazURL_ID,LBR_SeFazURL_UU,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,LBR_SeFaz_ID,URL,lbr_NFeEnv,VersionNo,LBR_URLScope,LBR_EndpointName,ValidFrom) VALUES (1120120,'bc9f3236-72d2-47f1-85b6-c58b45f8544d',0,0,'Y',TO_DATE('2024-07-16 12:09:15','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 12:09:15','YYYY-MM-DD HH24:MI:SS'),100,1120006,'https://homologacao.nfe.fazenda.sp.gov.br/cteWEB/services/CTeConsultaV4.asmx','2','4.00','1','100',TO_DATE('2000-01-01','YYYY-MM-DD'))
+;
+
+-- 16 de jul de 2024 12:09:16 BRT
+INSERT INTO LBR_SeFazURL (LBR_SeFazURL_ID,LBR_SeFazURL_UU,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,LBR_SeFaz_ID,URL,lbr_NFeEnv,VersionNo,LBR_URLScope,LBR_EndpointName,ValidFrom) VALUES (1120121,'cb6e3769-0c6e-45c2-a8ad-8055f2d2994d',0,0,'Y',TO_DATE('2024-07-16 12:09:15','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 12:09:15','YYYY-MM-DD HH24:MI:SS'),100,1120006,'https://hom1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx','2','4.00','1','101',TO_DATE('2000-01-01','YYYY-MM-DD'))
+;
+
+-- 16 de jul de 2024 12:09:16 BRT
+INSERT INTO LBR_SeFazURL (LBR_SeFazURL_ID,LBR_SeFazURL_UU,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,LBR_SeFaz_ID,URL,lbr_NFeEnv,VersionNo,LBR_URLScope,LBR_EndpointName,ValidFrom) VALUES (1120122,'19ed8f9f-04bf-4f06-8cff-8518118e47b8',0,0,'Y',TO_DATE('2024-07-16 12:09:16','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 12:09:16','YYYY-MM-DD HH24:MI:SS'),100,1120006,'https://homologacao.nfe.fazenda.sp.gov.br/cteWEB/services/CTeRecepcaoEventoV4.asmx','2','4.00','1','102',TO_DATE('2000-01-01','YYYY-MM-DD'))
+;
+
+-- 16 de jul de 2024 12:09:17 BRT
+INSERT INTO LBR_SeFazURL (LBR_SeFazURL_ID,LBR_SeFazURL_UU,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,LBR_SeFaz_ID,URL,lbr_NFeEnv,VersionNo,LBR_URLScope,LBR_EndpointName,ValidFrom) VALUES (1120123,'92e665cd-a290-49a5-98eb-a03e0ff25f0e',0,0,'Y',TO_DATE('2024-07-16 12:09:16','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 12:09:16','YYYY-MM-DD HH24:MI:SS'),100,1120006,'https://homologacao.nfe.fazenda.sp.gov.br/cteWEB/services/CTeRecepcaoGTVeV4.asmx','2','4.00','1','103',TO_DATE('2000-01-01','YYYY-MM-DD'))
+;
+
+-- 16 de jul de 2024 12:09:17 BRT
+INSERT INTO LBR_SeFazURL (LBR_SeFazURL_ID,LBR_SeFazURL_UU,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,LBR_SeFaz_ID,URL,lbr_NFeEnv,VersionNo,LBR_URLScope,LBR_EndpointName,ValidFrom) VALUES (1120124,'2d48a6af-12f0-4014-b084-54b750f87986',0,0,'Y',TO_DATE('2024-07-16 12:09:17','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 12:09:17','YYYY-MM-DD HH24:MI:SS'),100,1120006,'https://homologacao.nfe.fazenda.sp.gov.br/cteWEB/services/CTeRecepcaoOSV4.asmx','2','4.00','1','104',TO_DATE('2000-01-01','YYYY-MM-DD'))
+;
+
+-- 16 de jul de 2024 12:09:18 BRT
+INSERT INTO LBR_SeFazURL (LBR_SeFazURL_ID,LBR_SeFazURL_UU,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,LBR_SeFaz_ID,URL,lbr_NFeEnv,VersionNo,LBR_URLScope,LBR_EndpointName,ValidFrom) VALUES (1120125,'ec714078-eecd-489d-a708-801d343d3747',0,0,'Y',TO_DATE('2024-07-16 12:09:17','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 12:09:17','YYYY-MM-DD HH24:MI:SS'),100,1120006,'https://homologacao.nfe.fazenda.sp.gov.br/cteWEB/services/CTeRecepcaoSincV4.asmx','2','4.00','1','105',TO_DATE('2000-01-01','YYYY-MM-DD'))
+;
+
+-- 16 de jul de 2024 12:09:18 BRT
+INSERT INTO LBR_SeFazURL (LBR_SeFazURL_ID,LBR_SeFazURL_UU,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,LBR_SeFaz_ID,URL,lbr_NFeEnv,VersionNo,LBR_URLScope,LBR_EndpointName,ValidFrom) VALUES (1120126,'73a39ac6-44a7-4235-aabe-0ccad4b6c3b3',0,0,'Y',TO_DATE('2024-07-16 12:09:18','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 12:09:18','YYYY-MM-DD HH24:MI:SS'),100,1120006,'https://homologacao.nfe.fazenda.sp.gov.br/cteWEB/services/CTeStatusServicoV4.asmx','2','4.00','1','106',TO_DATE('2000-01-01','YYYY-MM-DD'))
+;
+
+-- 16 de jul de 2024 12:09:18 BRT
+INSERT INTO LBR_SeFazURL (LBR_SeFazURL_ID,LBR_SeFazURL_UU,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,LBR_SeFaz_ID,URL,lbr_NFeEnv,VersionNo,LBR_URLScope,LBR_EndpointName,ValidFrom) VALUES (1120127,'0cd662a9-c6ec-4516-8f2c-857b5317dc65',0,0,'Y',TO_DATE('2024-07-16 12:09:18','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 12:09:18','YYYY-MM-DD HH24:MI:SS'),100,1120006,'http://homologacao.nfe.fazenda.sp.gov.br/cte/qrcode','2','4.00','1','107',TO_DATE('2000-01-01','YYYY-MM-DD'))
+;
+
+-- 16 de jul de 2024 12:09:19 BRT
+INSERT INTO LBR_SeFazURL (LBR_SeFazURL_ID,LBR_SeFazURL_UU,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,LBR_SeFaz_ID,URL,lbr_NFeEnv,VersionNo,LBR_URLScope,LBR_EndpointName,ValidFrom) VALUES (1120128,'b83d5c50-4edc-404d-8134-744275fa70f5',0,0,'Y',TO_DATE('2024-07-16 12:09:18','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 12:09:18','YYYY-MM-DD HH24:MI:SS'),100,1120007,'https://cte-homologacao.svrs.rs.gov.br/ws/ctews4/CTeConsultaV4','2','4.00','1','100',TO_DATE('2000-01-01','YYYY-MM-DD'))
+;
+
+-- 16 de jul de 2024 12:09:19 BRT
+INSERT INTO LBR_SeFazURL (LBR_SeFazURL_ID,LBR_SeFazURL_UU,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,LBR_SeFaz_ID,URL,lbr_NFeEnv,VersionNo,LBR_URLScope,LBR_EndpointName,ValidFrom) VALUES (1120129,'3c9f76dd-c152-450e-83af-b7d37000b08f',0,0,'Y',TO_DATE('2024-07-16 12:09:19','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 12:09:19','YYYY-MM-DD HH24:MI:SS'),100,1120007,'https://hom1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx','2','4.00','1','101',TO_DATE('2000-01-01','YYYY-MM-DD'))
+;
+
+-- 16 de jul de 2024 12:09:20 BRT
+INSERT INTO LBR_SeFazURL (LBR_SeFazURL_ID,LBR_SeFazURL_UU,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,LBR_SeFaz_ID,URL,lbr_NFeEnv,VersionNo,LBR_URLScope,LBR_EndpointName,ValidFrom) VALUES (1120130,'84a756e5-1ac5-4143-8ffe-49e72edac28c',0,0,'Y',TO_DATE('2024-07-16 12:09:19','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 12:09:19','YYYY-MM-DD HH24:MI:SS'),100,1120007,'https://cte-homologacao.svrs.rs.gov.br/ws/ctews4/CTeRecepcaoEventoV4','2','4.00','1','102',TO_DATE('2000-01-01','YYYY-MM-DD'))
+;
+
+-- 16 de jul de 2024 12:09:20 BRT
+INSERT INTO LBR_SeFazURL (LBR_SeFazURL_ID,LBR_SeFazURL_UU,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,LBR_SeFaz_ID,URL,lbr_NFeEnv,VersionNo,LBR_URLScope,LBR_EndpointName,ValidFrom) VALUES (1120131,'9bbfc735-8ced-4824-aebd-f5466a28aa8f',0,0,'Y',TO_DATE('2024-07-16 12:09:20','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 12:09:20','YYYY-MM-DD HH24:MI:SS'),100,1120007,'https://cte-homologacao.svrs.rs.gov.br/ws/ctews4/CTeRecepcaoGTVeV4','2','4.00','1','103',TO_DATE('2000-01-01','YYYY-MM-DD'))
+;
+
+-- 16 de jul de 2024 12:09:20 BRT
+INSERT INTO LBR_SeFazURL (LBR_SeFazURL_ID,LBR_SeFazURL_UU,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,LBR_SeFaz_ID,URL,lbr_NFeEnv,VersionNo,LBR_URLScope,LBR_EndpointName,ValidFrom) VALUES (1120132,'a630e1a2-9802-4dfd-8eef-5a734e414a3c',0,0,'Y',TO_DATE('2024-07-16 12:09:20','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 12:09:20','YYYY-MM-DD HH24:MI:SS'),100,1120007,'https://cte-homologacao.svrs.rs.gov.br/ws/ctews4/CTeRecepcaoOSV4','2','4.00','1','104',TO_DATE('2000-01-01','YYYY-MM-DD'))
+;
+
+-- 16 de jul de 2024 12:09:21 BRT
+INSERT INTO LBR_SeFazURL (LBR_SeFazURL_ID,LBR_SeFazURL_UU,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,LBR_SeFaz_ID,URL,lbr_NFeEnv,VersionNo,LBR_URLScope,LBR_EndpointName,ValidFrom) VALUES (1120133,'3a606297-5d6a-4d23-a96b-1791b13a086a',0,0,'Y',TO_DATE('2024-07-16 12:09:20','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 12:09:20','YYYY-MM-DD HH24:MI:SS'),100,1120007,'https://cte-homologacao.svrs.rs.gov.br/ws/ctews4/CTeRecepcaoSincV4','2','4.00','1','105',TO_DATE('2000-01-01','YYYY-MM-DD'))
+;
+
+-- 16 de jul de 2024 12:09:21 BRT
+INSERT INTO LBR_SeFazURL (LBR_SeFazURL_ID,LBR_SeFazURL_UU,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,LBR_SeFaz_ID,URL,lbr_NFeEnv,VersionNo,LBR_URLScope,LBR_EndpointName,ValidFrom) VALUES (1120134,'367b36a3-a6ed-4618-9cbb-447006e830e0',0,0,'Y',TO_DATE('2024-07-16 12:09:21','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 12:09:21','YYYY-MM-DD HH24:MI:SS'),100,1120007,'https://cte-homologacao.svrs.rs.gov.br/ws/ctews4/CTeStatusServicoV4','2','4.00','1','106',TO_DATE('2000-01-01','YYYY-MM-DD'))
+;
+
+-- 16 de jul de 2024 12:09:22 BRT
+INSERT INTO LBR_SeFazURL (LBR_SeFazURL_ID,LBR_SeFazURL_UU,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,LBR_SeFaz_ID,URL,lbr_NFeEnv,VersionNo,LBR_URLScope,LBR_EndpointName,ValidFrom) VALUES (1120135,'e2fea959-ab5a-4e3c-aa2c-cab8ccc622ec',0,0,'Y',TO_DATE('2024-07-16 12:09:21','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 12:09:21','YYYY-MM-DD HH24:MI:SS'),100,1120007,'https://www.cte.fazenda.rs.gov.br/site/cte/qrcode.aspx','2','4.00','1','107',TO_DATE('2000-01-01','YYYY-MM-DD'))
+;
+
+-- 16 de jul de 2024 12:09:22 BRT
+INSERT INTO LBR_SeFazURL (LBR_SeFazURL_ID,LBR_SeFazURL_UU,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,LBR_SeFaz_ID,URL,lbr_NFeEnv,VersionNo,LBR_URLScope,LBR_EndpointName,ValidFrom) VALUES (1120136,'b03a77fa-723d-4da9-b62f-3de53559c78b',0,0,'Y',TO_DATE('2024-07-16 12:09:22','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 12:09:22','YYYY-MM-DD HH24:MI:SS'),100,1120008,'https://homologacao.nfe.fazenda.sp.gov.br/cteWEB/services/CTeConsultaV4.asmx','2','4.00','1','100',TO_DATE('2000-01-01','YYYY-MM-DD'))
+;
+
+-- 16 de jul de 2024 12:09:22 BRT
+INSERT INTO LBR_SeFazURL (LBR_SeFazURL_ID,LBR_SeFazURL_UU,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,LBR_SeFaz_ID,URL,lbr_NFeEnv,VersionNo,LBR_URLScope,LBR_EndpointName,ValidFrom) VALUES (1120137,'2b3d7817-3f03-44ad-b019-7f9b9dea6c38',0,0,'Y',TO_DATE('2024-07-16 12:09:22','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 12:09:22','YYYY-MM-DD HH24:MI:SS'),100,1120008,'https://hom1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx','2','4.00','1','101',TO_DATE('2000-01-01','YYYY-MM-DD'))
+;
+
+-- 16 de jul de 2024 12:09:23 BRT
+INSERT INTO LBR_SeFazURL (LBR_SeFazURL_ID,LBR_SeFazURL_UU,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,LBR_SeFaz_ID,URL,lbr_NFeEnv,VersionNo,LBR_URLScope,LBR_EndpointName,ValidFrom) VALUES (1120138,'6dd2d3ba-d5ec-460a-8f9c-d057362c2bbf',0,0,'Y',TO_DATE('2024-07-16 12:09:23','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 12:09:23','YYYY-MM-DD HH24:MI:SS'),100,1120008,'https://homologacao.nfe.fazenda.sp.gov.br/cteWEB/services/CTeRecepcaoEventoV4.asmx','2','4.00','1','102',TO_DATE('2000-01-01','YYYY-MM-DD'))
+;
+
+-- 16 de jul de 2024 12:09:23 BRT
+INSERT INTO LBR_SeFazURL (LBR_SeFazURL_ID,LBR_SeFazURL_UU,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,LBR_SeFaz_ID,URL,lbr_NFeEnv,VersionNo,LBR_URLScope,LBR_EndpointName,ValidFrom) VALUES (1120139,'b74421a5-5999-4aee-9bb6-1a202b8b4622',0,0,'Y',TO_DATE('2024-07-16 12:09:23','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 12:09:23','YYYY-MM-DD HH24:MI:SS'),100,1120008,'https://homologacao.nfe.fazenda.sp.gov.br/cteWEB/services/CTeRecepcaoGTVeV4.asmx','2','4.00','1','103',TO_DATE('2000-01-01','YYYY-MM-DD'))
+;
+
+-- 16 de jul de 2024 12:09:24 BRT
+INSERT INTO LBR_SeFazURL (LBR_SeFazURL_ID,LBR_SeFazURL_UU,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,LBR_SeFaz_ID,URL,lbr_NFeEnv,VersionNo,LBR_URLScope,LBR_EndpointName,ValidFrom) VALUES (1120140,'8b41a385-63b8-416d-8739-2692a6759254',0,0,'Y',TO_DATE('2024-07-16 12:09:23','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 12:09:23','YYYY-MM-DD HH24:MI:SS'),100,1120008,'https://homologacao.nfe.fazenda.sp.gov.br/cteWEB/services/CTeRecepcaoOSV4.asmx','2','4.00','1','104',TO_DATE('2000-01-01','YYYY-MM-DD'))
+;
+
+-- 16 de jul de 2024 12:09:24 BRT
+INSERT INTO LBR_SeFazURL (LBR_SeFazURL_ID,LBR_SeFazURL_UU,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,LBR_SeFaz_ID,URL,lbr_NFeEnv,VersionNo,LBR_URLScope,LBR_EndpointName,ValidFrom) VALUES (1120141,'6baf5fe2-6598-41ee-9672-6ce07ef14983',0,0,'Y',TO_DATE('2024-07-16 12:09:24','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 12:09:24','YYYY-MM-DD HH24:MI:SS'),100,1120008,'https://homologacao.nfe.fazenda.sp.gov.br/cteWEB/services/CTeRecepcaoSincV4.asmx','2','4.00','1','105',TO_DATE('2000-01-01','YYYY-MM-DD'))
+;
+
+-- 16 de jul de 2024 12:09:24 BRT
+INSERT INTO LBR_SeFazURL (LBR_SeFazURL_ID,LBR_SeFazURL_UU,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,LBR_SeFaz_ID,URL,lbr_NFeEnv,VersionNo,LBR_URLScope,LBR_EndpointName,ValidFrom) VALUES (1120142,'0d744997-db99-45a0-9ef4-69e40d448606',0,0,'Y',TO_DATE('2024-07-16 12:09:24','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 12:09:24','YYYY-MM-DD HH24:MI:SS'),100,1120008,'https://homologacao.nfe.fazenda.sp.gov.br/cteWEB/services/CTeStatusServicoV4.asmx','2','4.00','1','106',TO_DATE('2000-01-01','YYYY-MM-DD'))
+;
+
+-- 16 de jul de 2024 12:09:25 BRT
+INSERT INTO LBR_SeFazURL (LBR_SeFazURL_ID,LBR_SeFazURL_UU,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,LBR_SeFaz_ID,URL,lbr_NFeEnv,VersionNo,LBR_URLScope,LBR_EndpointName,ValidFrom) VALUES (1120143,'4878ccde-880c-4c80-b7ab-57b2950567ce',0,0,'Y',TO_DATE('2024-07-16 12:09:24','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 12:09:24','YYYY-MM-DD HH24:MI:SS'),100,1120008,'http://homologacao.nfe.fazenda.sp.gov.br/cte/qrcode','2','4.00','1','107',TO_DATE('2000-01-01','YYYY-MM-DD'))
+;
+
+-- 16 de jul de 2024 12:28:53 BRT
+INSERT INTO AD_InfoColumn (AD_InfoColumn_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,Name,Description,Help,AD_InfoWindow_ID,EntityType,SelectClause,SeqNo,IsDisplayed,IsQueryCriteria,AD_Element_ID,AD_Reference_ID,AD_InfoColumn_UU,IsCentrallyMaintained,ColumnName,QueryOperator,IsIdentifier,SeqNoSelection,DefaultValue,IsMandatory,IsKey,IsReadOnly) VALUES (1120065,0,0,'Y',TO_DATE('2024-07-16 12:28:52','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 12:28:52','YYYY-MM-DD HH24:MI:SS'),100,'Net Days','Net Days in which payment is due','Indicates the number of days after invoice date that payment is due.',1120005,'LBRA','COALESCE (EXTRACT (''DAY'' FROM CURRENT_TIMESTAMP-cte.DateDoc), 999999)',100,'N','Y',470,11,'e565680e-e7f0-402d-ac04-7a9d375717a1','Y','NetDays','<=','N',60,'90','N','N','Y')
+;
+
+-- 16 de jul de 2024 12:29:30 BRT
+INSERT INTO AD_InfoColumn (AD_InfoColumn_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,Name,Description,Help,AD_InfoWindow_ID,EntityType,SelectClause,SeqNo,IsDisplayed,IsQueryCriteria,AD_Element_ID,AD_Reference_ID,AD_InfoColumn_UU,IsCentrallyMaintained,ColumnName,QueryOperator,IsIdentifier,SeqNoSelection,IsMandatory,IsKey,IsReadOnly) VALUES (1120066,0,0,'Y',TO_DATE('2024-07-16 12:29:30','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 12:29:30','YYYY-MM-DD HH24:MI:SS'),100,'Document Date','Date of the Document','The Document Date indicates the date the document was generated.  It may or may not be the same as the accounting date.',1120005,'LBRA','cte.DateDoc',55,'Y','Y',265,15,'a24540ab-5573-4198-9d59-ab2a7408def4','Y','DateDoc','=','N',70,'N','N','Y')
+;
+
+-- 16 de jul de 2024 21:27:42 BRT
+UPDATE AD_Column SET AD_Val_Rule_ID=202, IsAllowCopy='N',Updated=TO_DATE('2024-07-16 21:27:42','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1134067
+;
+
+-- 16 de jul de 2024 21:28:23 BRT
+UPDATE AD_Column SET DefaultValue='1',Updated=TO_DATE('2024-07-16 21:28:23','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1134078
+;
+
+-- 16 de jul de 2024 21:28:58 BRT
+UPDATE AD_Column SET DefaultValue='@#Date@', IsMandatory='Y',Updated=TO_DATE('2024-07-16 21:28:58','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1134085
+;
+
+-- 16 de jul de 2024 21:29:45 BRT
+UPDATE AD_Field SET IsReadOnly='Y', AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, IsToolbarButton=NULL,Updated=TO_DATE('2024-07-16 21:29:45','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1132103
+;
+
+-- 16 de jul de 2024 21:30:06 BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N', Updated=sysdate, UpdatedBy=100 WHERE AD_Field_ID=1131946
+;
+
+-- 16 de jul de 2024 21:30:06 BRT
+UPDATE AD_Field SET SeqNoGrid=10,IsDisplayedGrid='Y', Updated=sysdate, UpdatedBy=100 WHERE AD_Field_ID=1131948
+;
+
+-- 16 de jul de 2024 21:30:06 BRT
+UPDATE AD_Field SET SeqNoGrid=20,IsDisplayedGrid='Y', Updated=sysdate, UpdatedBy=100 WHERE AD_Field_ID=1131949
+;
+
+-- 16 de jul de 2024 21:30:06 BRT
+UPDATE AD_Field SET SeqNoGrid=30,IsDisplayedGrid='Y', Updated=sysdate, UpdatedBy=100 WHERE AD_Field_ID=1131952
+;
+
+-- 16 de jul de 2024 21:30:06 BRT
+UPDATE AD_Field SET SeqNoGrid=40,IsDisplayedGrid='Y', Updated=sysdate, UpdatedBy=100 WHERE AD_Field_ID=1131953
+;
+
+-- 16 de jul de 2024 21:30:59 BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N', Updated=sysdate, UpdatedBy=100 WHERE AD_Field_ID=1131965
+;
+
+-- 16 de jul de 2024 21:30:59 BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N', Updated=sysdate, UpdatedBy=100 WHERE AD_Field_ID=1131963
+;
+
+-- 16 de jul de 2024 21:30:59 BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N', Updated=sysdate, UpdatedBy=100 WHERE AD_Field_ID=1131959
+;
+
+-- 16 de jul de 2024 21:30:59 BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N', Updated=sysdate, UpdatedBy=100 WHERE AD_Field_ID=1131956
+;
+
+-- 16 de jul de 2024 21:30:59 BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N', Updated=sysdate, UpdatedBy=100 WHERE AD_Field_ID=1131954
+;
+
+-- 16 de jul de 2024 21:30:59 BRT
+UPDATE AD_Field SET SeqNoGrid=10,IsDisplayedGrid='Y', Updated=sysdate, UpdatedBy=100 WHERE AD_Field_ID=1131964
+;
+
+-- 16 de jul de 2024 21:30:59 BRT
+UPDATE AD_Field SET SeqNoGrid=20,IsDisplayedGrid='Y', Updated=sysdate, UpdatedBy=100 WHERE AD_Field_ID=1131961
+;
+
+-- 16 de jul de 2024 21:30:59 BRT
+UPDATE AD_Field SET SeqNoGrid=30,IsDisplayedGrid='Y', Updated=sysdate, UpdatedBy=100 WHERE AD_Field_ID=1131962
+;
+
+-- 16 de jul de 2024 21:30:59 BRT
+UPDATE AD_Field SET SeqNoGrid=50,IsDisplayedGrid='Y', Updated=sysdate, UpdatedBy=100 WHERE AD_Field_ID=1131966
+;
+
+-- 16 de jul de 2024 21:31:21 BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N', Updated=sysdate, UpdatedBy=100 WHERE AD_Field_ID=1131979
+;
+
+-- 16 de jul de 2024 21:31:21 BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N', Updated=sysdate, UpdatedBy=100 WHERE AD_Field_ID=1131971
+;
+
+-- 16 de jul de 2024 21:31:21 BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N', Updated=sysdate, UpdatedBy=100 WHERE AD_Field_ID=1131978
+;
+
+-- 16 de jul de 2024 21:31:21 BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N', Updated=sysdate, UpdatedBy=100 WHERE AD_Field_ID=1131974
+;
+
+-- 16 de jul de 2024 21:31:21 BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N', Updated=sysdate, UpdatedBy=100 WHERE AD_Field_ID=1131969
+;
+
+-- 16 de jul de 2024 21:31:21 BRT
+UPDATE AD_Field SET SeqNoGrid=10,IsDisplayedGrid='Y', Updated=sysdate, UpdatedBy=100 WHERE AD_Field_ID=1131973
+;
+
+-- 16 de jul de 2024 21:31:21 BRT
+UPDATE AD_Field SET SeqNoGrid=20,IsDisplayedGrid='Y', Updated=sysdate, UpdatedBy=100 WHERE AD_Field_ID=1131976
+;
+
+-- 16 de jul de 2024 21:31:21 BRT
+UPDATE AD_Field SET SeqNoGrid=30,IsDisplayedGrid='Y', Updated=sysdate, UpdatedBy=100 WHERE AD_Field_ID=1131972
+;
+
+-- 16 de jul de 2024 21:31:21 BRT
+UPDATE AD_Field SET SeqNoGrid=50,IsDisplayedGrid='Y', Updated=sysdate, UpdatedBy=100 WHERE AD_Field_ID=1131975
+;
+
+-- 16 de jul de 2024 21:31:41 BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N', Updated=sysdate, UpdatedBy=100 WHERE AD_Field_ID=1131992
+;
+
+-- 16 de jul de 2024 21:31:41 BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N', Updated=sysdate, UpdatedBy=100 WHERE AD_Field_ID=1131984
+;
+
+-- 16 de jul de 2024 21:31:41 BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N', Updated=sysdate, UpdatedBy=100 WHERE AD_Field_ID=1131991
+;
+
+-- 16 de jul de 2024 21:31:41 BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N', Updated=sysdate, UpdatedBy=100 WHERE AD_Field_ID=1131987
+;
+
+-- 16 de jul de 2024 21:31:41 BRT
+UPDATE AD_Field SET SeqNoGrid=0,IsDisplayedGrid='N', Updated=sysdate, UpdatedBy=100 WHERE AD_Field_ID=1131982
+;
+
+-- 16 de jul de 2024 21:31:41 BRT
+UPDATE AD_Field SET SeqNoGrid=10,IsDisplayedGrid='Y', Updated=sysdate, UpdatedBy=100 WHERE AD_Field_ID=1131986
+;
+
+-- 16 de jul de 2024 21:31:41 BRT
+UPDATE AD_Field SET SeqNoGrid=20,IsDisplayedGrid='Y', Updated=sysdate, UpdatedBy=100 WHERE AD_Field_ID=1131989
+;
+
+-- 16 de jul de 2024 21:31:41 BRT
+UPDATE AD_Field SET SeqNoGrid=30,IsDisplayedGrid='Y', Updated=sysdate, UpdatedBy=100 WHERE AD_Field_ID=1131985
+;
+
+-- 16 de jul de 2024 21:31:41 BRT
+UPDATE AD_Field SET SeqNoGrid=50,IsDisplayedGrid='Y', Updated=sysdate, UpdatedBy=100 WHERE AD_Field_ID=1131988
+;
+
+-- 16 de jul de 2024 21:32:29 BRT
+UPDATE AD_Tab SET OrderByClause='LBR_SeFazURL.VersionNo DESC, LBR_SeFazURL.ValidFrom, LBR_SeFazURL.LBR_EndpointName',Updated=TO_DATE('2024-07-16 21:32:29','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Tab_ID=1120524
+;
+
+-- 16 de jul de 2024 21:32:35 BRT
+UPDATE AD_Tab SET OrderByClause='LBR_SeFazURL.VersionNo DESC, LBR_SeFazURL.ValidFrom, LBR_SeFazURL.LBR_EndpointName',Updated=TO_DATE('2024-07-16 21:32:35','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Tab_ID=1120523
+;
+
+-- 16 de jul de 2024 21:32:44 BRT
+UPDATE AD_Tab SET OrderByClause='LBR_SeFazURL.VersionNo DESC, LBR_SeFazURL.ValidFrom, LBR_SeFazURL.LBR_EndpointName',Updated=TO_DATE('2024-07-16 21:32:44','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Tab_ID=1120522
+;
+
+-- 16 de jul de 2024 21:53:24 BRT
+UPDATE LBR_SeFazURL SET URL='https://dfe-portal.svrs.rs.gov.br/cte/qrCode',Updated=TO_DATE('2024-07-16 21:53:24','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE LBR_SeFazURL_ID=1120047
+;
+
+-- 16 de jul de 2024 21:53:24 BRT
+UPDATE LBR_SeFazURL SET URL='https://cte.svrs.rs.gov.br/ws/CTeStatusServicoV4/CTeStatusServicoV4.asmx',Updated=TO_DATE('2024-07-16 21:53:24','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE LBR_SeFazURL_ID=1120046
+;
+
+-- 16 de jul de 2024 21:53:24 BRT
+UPDATE LBR_SeFazURL SET URL='https://cte.svrs.rs.gov.br/ws/CTeConsultaV4/CTeConsultaV4.asmx',Updated=TO_DATE('2024-07-16 21:53:24','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE LBR_SeFazURL_ID=1120040
+;
+
+-- 16 de jul de 2024 21:53:24 BRT
+UPDATE LBR_SeFazURL SET URL='https://cte.svrs.rs.gov.br/ws/CTeRecepcaoEventoV4/CTeRecepcaoEventoV4.asmx',Updated=TO_DATE('2024-07-16 21:53:24','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE LBR_SeFazURL_ID=1120042
+;
+
+-- 16 de jul de 2024 21:53:24 BRT
+UPDATE LBR_SeFazURL SET URL='https://cte.svrs.rs.gov.br/ws/CTeRecepcaoOSV4/CTeRecepcaoOSV4.asmx',Updated=TO_DATE('2024-07-16 21:53:24','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE LBR_SeFazURL_ID=1120044
+;
+
+-- 16 de jul de 2024 21:53:24 BRT
+UPDATE LBR_SeFazURL SET URL='https://cte.svrs.rs.gov.br/ws/CTeRecepcaoSincV4/CTeRecepcaoSincV4.asmx',Updated=TO_DATE('2024-07-16 21:53:24','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE LBR_SeFazURL_ID=1120045
+;
+
+-- 16 de jul de 2024 21:53:24 BRT
+UPDATE LBR_SeFazURL SET URL='https://cte.svrs.rs.gov.br/ws/CTeRecepcaoGTVeV4/CTeRecepcaoGTVeV4.asmx',Updated=TO_DATE('2024-07-16 21:53:24','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE LBR_SeFazURL_ID=1120043
+;
+
+-- 16 de jul de 2024 21:53:24 BRT
+UPDATE LBR_SeFazURL SET URL='https://nfe.fazenda.sp.gov.br/CTeConsulta/qrCode',Updated=TO_DATE('2024-07-16 21:53:24','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE LBR_SeFazURL_ID=1120055
+;
+
+-- 16 de jul de 2024 21:53:24 BRT
+UPDATE LBR_SeFazURL SET URL='https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeStatusServicoV4.asmx',Updated=TO_DATE('2024-07-16 21:53:24','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE LBR_SeFazURL_ID=1120054
+;
+
+-- 16 de jul de 2024 21:53:24 BRT
+UPDATE LBR_SeFazURL SET URL='https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeConsultaV4.asmx',Updated=TO_DATE('2024-07-16 21:53:24','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE LBR_SeFazURL_ID=1120048
+;
+
+-- 16 de jul de 2024 21:53:24 BRT
+UPDATE LBR_SeFazURL SET URL='https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx',Updated=TO_DATE('2024-07-16 21:53:24','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE LBR_SeFazURL_ID=1120050
+;
+
+-- 16 de jul de 2024 21:53:24 BRT
+UPDATE LBR_SeFazURL SET URL='https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoOSV4.asmx',Updated=TO_DATE('2024-07-16 21:53:24','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE LBR_SeFazURL_ID=1120052
+;
+
+-- 16 de jul de 2024 21:53:25 BRT
+UPDATE LBR_SeFazURL SET URL='https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoSincV4.asmx',Updated=TO_DATE('2024-07-16 21:53:24','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE LBR_SeFazURL_ID=1120053
+;
+
+-- 16 de jul de 2024 21:53:25 BRT
+UPDATE LBR_SeFazURL SET URL='https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoGTVeV4.asmx',Updated=TO_DATE('2024-07-16 21:53:25','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE LBR_SeFazURL_ID=1120051
+;
+
+-- 16 de jul de 2024 21:53:25 BRT
+UPDATE LBR_SeFazURL SET URL='https://dfe-portal.svrs.rs.gov.br/cte/qrCode',Updated=TO_DATE('2024-07-16 21:53:25','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE LBR_SeFazURL_ID=1120063
+;
+
+-- 16 de jul de 2024 21:53:25 BRT
+UPDATE LBR_SeFazURL SET URL='https://cte.svrs.rs.gov.br/ws/CTeStatusServicoV4/CTeStatusServicoV4.asmx',Updated=TO_DATE('2024-07-16 21:53:25','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE LBR_SeFazURL_ID=1120062
+;
+
+-- 16 de jul de 2024 21:53:25 BRT
+UPDATE LBR_SeFazURL SET URL='https://cte.svrs.rs.gov.br/ws/CTeConsultaV4/CTeConsultaV4.asmx',Updated=TO_DATE('2024-07-16 21:53:25','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE LBR_SeFazURL_ID=1120056
+;
+
+-- 16 de jul de 2024 21:53:25 BRT
+UPDATE LBR_SeFazURL SET URL='https://cte.svrs.rs.gov.br/ws/CTeRecepcaoEventoV4/CTeRecepcaoEventoV4.asmx',Updated=TO_DATE('2024-07-16 21:53:25','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE LBR_SeFazURL_ID=1120058
+;
+
+-- 16 de jul de 2024 21:53:25 BRT
+UPDATE LBR_SeFazURL SET URL='https://cte.svrs.rs.gov.br/ws/CTeRecepcaoOSV4/CTeRecepcaoOSV4.asmx',Updated=TO_DATE('2024-07-16 21:53:25','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE LBR_SeFazURL_ID=1120060
+;
+
+-- 16 de jul de 2024 21:53:25 BRT
+UPDATE LBR_SeFazURL SET URL='https://cte.svrs.rs.gov.br/ws/CTeRecepcaoSincV4/CTeRecepcaoSincV4.asmx',Updated=TO_DATE('2024-07-16 21:53:25','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE LBR_SeFazURL_ID=1120061
+;
+
+-- 16 de jul de 2024 21:53:25 BRT
+UPDATE LBR_SeFazURL SET URL='https://cte.svrs.rs.gov.br/ws/CTeRecepcaoGTVeV4/CTeRecepcaoGTVeV4.asmx',Updated=TO_DATE('2024-07-16 21:53:25','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE LBR_SeFazURL_ID=1120059
+;
+
+-- 16 de jul de 2024 21:53:25 BRT
+UPDATE LBR_SeFazURL SET URL='https://nfe.fazenda.sp.gov.br/CTeConsulta/qrCode',Updated=TO_DATE('2024-07-16 21:53:25','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE LBR_SeFazURL_ID=1120071
+;
+
+-- 16 de jul de 2024 21:53:25 BRT
+UPDATE LBR_SeFazURL SET URL='https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeStatusServicoV4.asmx',Updated=TO_DATE('2024-07-16 21:53:25','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE LBR_SeFazURL_ID=1120070
+;
+
+-- 16 de jul de 2024 21:53:25 BRT
+UPDATE LBR_SeFazURL SET URL='https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeConsultaV4.asmx',Updated=TO_DATE('2024-07-16 21:53:25','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE LBR_SeFazURL_ID=1120064
+;
+
+-- 16 de jul de 2024 21:53:25 BRT
+UPDATE LBR_SeFazURL SET URL='https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx',Updated=TO_DATE('2024-07-16 21:53:25','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE LBR_SeFazURL_ID=1120066
+;
+
+-- 16 de jul de 2024 21:53:25 BRT
+UPDATE LBR_SeFazURL SET URL='https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoOSV4.asmx',Updated=TO_DATE('2024-07-16 21:53:25','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE LBR_SeFazURL_ID=1120068
+;
+
+-- 16 de jul de 2024 21:53:25 BRT
+UPDATE LBR_SeFazURL SET URL='https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoSincV4.asmx',Updated=TO_DATE('2024-07-16 21:53:25','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE LBR_SeFazURL_ID=1120069
+;
+
+-- 16 de jul de 2024 21:53:25 BRT
+UPDATE LBR_SeFazURL SET URL='https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoGTVeV4.asmx',Updated=TO_DATE('2024-07-16 21:53:25','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE LBR_SeFazURL_ID=1120067
+;
+
+-- 16 de jul de 2024 21:53:25 BRT
+UPDATE LBR_SeFazURL SET URL='https://homologacao.sefaz.mt.gov.br/cte/qrcode',Updated=TO_DATE('2024-07-16 21:53:25','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE LBR_SeFazURL_ID=1120079
+;
+
+-- 16 de jul de 2024 21:53:26 BRT
+UPDATE LBR_SeFazURL SET URL='https://cte.fazenda.mg.gov.br/portalcte/sistema/qrcode.xhtml',Updated=TO_DATE('2024-07-16 21:53:26','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE LBR_SeFazURL_ID=1120095
+;
+
+-- 16 de jul de 2024 21:53:26 BRT
+UPDATE LBR_SeFazURL SET URL='https://dfe-portal.svrs.rs.gov.br/cte/qrCode',Updated=TO_DATE('2024-07-16 21:53:26','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE LBR_SeFazURL_ID=1120119
+;
+
+-- 16 de jul de 2024 21:53:26 BRT
+UPDATE LBR_SeFazURL SET URL='https://cte-homologacao.svrs.rs.gov.br/ws/CTeStatusServicoV4/CTeStatusServicoV4.asmx',Updated=TO_DATE('2024-07-16 21:53:26','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE LBR_SeFazURL_ID=1120118
+;
+
+-- 16 de jul de 2024 21:53:26 BRT
+UPDATE LBR_SeFazURL SET URL='https://cte-homologacao.svrs.rs.gov.br/ws/CTeConsultaV4/CTeConsultaV4.asmx',Updated=TO_DATE('2024-07-16 21:53:26','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE LBR_SeFazURL_ID=1120112
+;
+
+-- 16 de jul de 2024 21:53:27 BRT
+UPDATE LBR_SeFazURL SET URL='https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoEventoV4/CTeRecepcaoEventoV4.asmx',Updated=TO_DATE('2024-07-16 21:53:27','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE LBR_SeFazURL_ID=1120114
+;
+
+-- 16 de jul de 2024 21:53:27 BRT
+UPDATE LBR_SeFazURL SET URL='https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoOSV4/CTeRecepcaoOSV4.asmx',Updated=TO_DATE('2024-07-16 21:53:27','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE LBR_SeFazURL_ID=1120116
+;
+
+-- 16 de jul de 2024 21:53:27 BRT
+UPDATE LBR_SeFazURL SET URL='https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoSincV4/CTeRecepcaoSincV4.asmx',Updated=TO_DATE('2024-07-16 21:53:27','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE LBR_SeFazURL_ID=1120117
+;
+
+-- 16 de jul de 2024 21:53:27 BRT
+UPDATE LBR_SeFazURL SET URL='https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoGTVeV4/CTeRecepcaoGTVeV4.asmx',Updated=TO_DATE('2024-07-16 21:53:27','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE LBR_SeFazURL_ID=1120115
+;
+
+-- 16 de jul de 2024 21:53:27 BRT
+UPDATE LBR_SeFazURL SET URL='https://homologacao.nfe.fazenda.sp.gov.br/CTeConsulta/qrCode',Updated=TO_DATE('2024-07-16 21:53:27','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE LBR_SeFazURL_ID=1120127
+;
+
+-- 16 de jul de 2024 21:53:27 BRT
+UPDATE LBR_SeFazURL SET URL='https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeStatusServicoV4.asmx',Updated=TO_DATE('2024-07-16 21:53:27','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE LBR_SeFazURL_ID=1120126
+;
+
+-- 16 de jul de 2024 21:53:27 BRT
+UPDATE LBR_SeFazURL SET URL='https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeConsultaV4.asmx',Updated=TO_DATE('2024-07-16 21:53:27','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE LBR_SeFazURL_ID=1120120
+;
+
+-- 16 de jul de 2024 21:53:27 BRT
+UPDATE LBR_SeFazURL SET URL='https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoOSV4.asmx',Updated=TO_DATE('2024-07-16 21:53:27','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE LBR_SeFazURL_ID=1120124
+;
+
+-- 16 de jul de 2024 21:53:27 BRT
+UPDATE LBR_SeFazURL SET URL='https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoSincV4.asmx',Updated=TO_DATE('2024-07-16 21:53:27','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE LBR_SeFazURL_ID=1120125
+;
+
+-- 16 de jul de 2024 21:53:27 BRT
+UPDATE LBR_SeFazURL SET URL='https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoGTVeV4.asmx',Updated=TO_DATE('2024-07-16 21:53:27','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE LBR_SeFazURL_ID=1120123
+;
+
+-- 16 de jul de 2024 21:53:27 BRT
+UPDATE LBR_SeFazURL SET URL='https://dfe-portal.svrs.rs.gov.br/cte/qrCode',Updated=TO_DATE('2024-07-16 21:53:27','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE LBR_SeFazURL_ID=1120135
+;
+
+-- 16 de jul de 2024 21:53:27 BRT
+UPDATE LBR_SeFazURL SET URL='https://cte-homologacao.svrs.rs.gov.br/ws/CTeStatusServicoV4/CTeStatusServicoV4.asmx',Updated=TO_DATE('2024-07-16 21:53:27','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE LBR_SeFazURL_ID=1120134
+;
+
+-- 16 de jul de 2024 21:53:27 BRT
+UPDATE LBR_SeFazURL SET URL='https://cte-homologacao.svrs.rs.gov.br/ws/CTeConsultaV4/CTeConsultaV4.asmx',Updated=TO_DATE('2024-07-16 21:53:27','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE LBR_SeFazURL_ID=1120128
+;
+
+-- 16 de jul de 2024 21:53:27 BRT
+UPDATE LBR_SeFazURL SET URL='https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoOSV4/CTeRecepcaoOSV4.asmx',Updated=TO_DATE('2024-07-16 21:53:27','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE LBR_SeFazURL_ID=1120132
+;
+
+-- 16 de jul de 2024 21:53:27 BRT
+UPDATE LBR_SeFazURL SET URL='https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoSincV4/CTeRecepcaoSincV4.asmx',Updated=TO_DATE('2024-07-16 21:53:27','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE LBR_SeFazURL_ID=1120133
+;
+
+-- 16 de jul de 2024 21:53:27 BRT
+UPDATE LBR_SeFazURL SET URL='https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoGTVeV4/CTeRecepcaoGTVeV4.asmx',Updated=TO_DATE('2024-07-16 21:53:27','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE LBR_SeFazURL_ID=1120131
+;
+
+-- 16 de jul de 2024 21:53:27 BRT
+UPDATE LBR_SeFazURL SET URL='https://homologacao.nfe.fazenda.sp.gov.br/CTeConsulta/qrCode',Updated=TO_DATE('2024-07-16 21:53:27','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE LBR_SeFazURL_ID=1120143
+;
+
+-- 16 de jul de 2024 21:53:27 BRT
+UPDATE LBR_SeFazURL SET URL='https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeStatusServicoV4.asmx',Updated=TO_DATE('2024-07-16 21:53:27','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE LBR_SeFazURL_ID=1120142
+;
+
+-- 16 de jul de 2024 21:53:27 BRT
+UPDATE LBR_SeFazURL SET URL='https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeConsultaV4.asmx',Updated=TO_DATE('2024-07-16 21:53:27','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE LBR_SeFazURL_ID=1120136
+;
+
+-- 16 de jul de 2024 21:53:28 BRT
+UPDATE LBR_SeFazURL SET URL='https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx',Updated=TO_DATE('2024-07-16 21:53:28','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE LBR_SeFazURL_ID=1120138
+;
+
+-- 16 de jul de 2024 21:53:28 BRT
+UPDATE LBR_SeFazURL SET URL='https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoOSV4.asmx',Updated=TO_DATE('2024-07-16 21:53:28','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE LBR_SeFazURL_ID=1120140
+;
+
+-- 16 de jul de 2024 21:53:28 BRT
+UPDATE LBR_SeFazURL SET URL='https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoSincV4.asmx',Updated=TO_DATE('2024-07-16 21:53:28','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE LBR_SeFazURL_ID=1120141
+;
+
+-- 16 de jul de 2024 21:53:28 BRT
+UPDATE LBR_SeFazURL SET URL='https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoGTVeV4.asmx',Updated=TO_DATE('2024-07-16 21:53:28','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE LBR_SeFazURL_ID=1120139
+;
+
+-- 16 de jul de 2024 13:38:01 BRT
+UPDATE AD_Column SET AD_Reference_ID=16,Updated=TO_DATE('2024-07-16 13:38:01','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1134033
+;
+
+-- 16 de jul de 2024 13:38:19 BRT
+UPDATE AD_Column SET AD_Reference_ID=16,Updated=TO_DATE('2024-07-16 13:38:19','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1134077
+;
+
+-- 16 de jul de 2024 13:38:27 BRT
+UPDATE AD_Column SET AD_Reference_ID=16,Updated=TO_DATE('2024-07-16 13:38:27','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1134085
+;
+
+-- 16 de jul de 2024 13:49:04 BRT
+INSERT INTO AD_Reference (AD_Reference_ID,Name,ValidationType,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,EntityType,IsOrderByValue,AD_Reference_UU) VALUES (1120416,'LBR_EventType (CTe)','L',0,0,'Y',TO_DATE('2024-07-16 13:49:03','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 13:49:03','YYYY-MM-DD HH24:MI:SS'),100,'LBRA','N','0dd87541-04e3-4089-802a-126f02e9741c')
+;
+
+-- 16 de jul de 2024 13:50:30 BRT
+INSERT INTO AD_Ref_List (AD_Ref_List_ID,Name,AD_Reference_ID,Value,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,EntityType,AD_Ref_List_UU) VALUES (1123082,'Carta de Correção',1120416,'110110',0,0,'Y',TO_DATE('2024-07-16 13:50:30','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 13:50:30','YYYY-MM-DD HH24:MI:SS'),100,'U','d45391d7-f7a6-40e2-b630-6128b8c818cf')
+;
+
+-- 16 de jul de 2024 13:50:31 BRT
+INSERT INTO AD_Ref_List (AD_Ref_List_ID,Name,AD_Reference_ID,Value,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,EntityType,AD_Ref_List_UU) VALUES (1123083,'Cancelamento',1120416,'110111',0,0,'Y',TO_DATE('2024-07-16 13:50:31','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 13:50:31','YYYY-MM-DD HH24:MI:SS'),100,'U','21e88c4c-c15d-4e12-9a6f-b38112781922')
+;
+
+-- 16 de jul de 2024 13:50:31 BRT
+INSERT INTO AD_Ref_List (AD_Ref_List_ID,Name,AD_Reference_ID,Value,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,EntityType,AD_Ref_List_UU) VALUES (1123084,'EPEC',1120416,'110113',0,0,'Y',TO_DATE('2024-07-16 13:50:31','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 13:50:31','YYYY-MM-DD HH24:MI:SS'),100,'U','9b858667-826d-40c7-ac8f-74d4c30637ab')
+;
+
+-- 16 de jul de 2024 13:50:32 BRT
+INSERT INTO AD_Ref_List (AD_Ref_List_ID,Name,AD_Reference_ID,Value,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,EntityType,AD_Ref_List_UU) VALUES (1123085,'Registros do Multimodal',1120416,'110160',0,0,'Y',TO_DATE('2024-07-16 13:50:31','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 13:50:31','YYYY-MM-DD HH24:MI:SS'),100,'U','5b762c43-0dff-4c28-a50f-8add299e9107')
+;
+
+-- 16 de jul de 2024 13:50:32 BRT
+INSERT INTO AD_Ref_List (AD_Ref_List_ID,Name,AD_Reference_ID,Value,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,EntityType,AD_Ref_List_UU) VALUES (1123086,'Informações da GTV',1120416,'110170',0,0,'Y',TO_DATE('2024-07-16 13:50:32','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 13:50:32','YYYY-MM-DD HH24:MI:SS'),100,'U','f00957b6-67bf-4407-98cc-5ebf7c13e94c')
+;
+
+-- 16 de jul de 2024 13:50:33 BRT
+INSERT INTO AD_Ref_List (AD_Ref_List_ID,Name,AD_Reference_ID,Value,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,EntityType,AD_Ref_List_UU) VALUES (1123087,'Comprovante de Entrega',1120416,'110180',0,0,'Y',TO_DATE('2024-07-16 13:50:32','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 13:50:32','YYYY-MM-DD HH24:MI:SS'),100,'U','13ae19bc-ead2-4921-baa1-244611cc28ba')
+;
+
+-- 16 de jul de 2024 13:50:33 BRT
+INSERT INTO AD_Ref_List (AD_Ref_List_ID,Name,AD_Reference_ID,Value,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,EntityType,AD_Ref_List_UU) VALUES (1123088,'Cancelamento do Comprovante de Entrega',1120416,'110181',0,0,'Y',TO_DATE('2024-07-16 13:50:33','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 13:50:33','YYYY-MM-DD HH24:MI:SS'),100,'U','6b3e084e-3947-4b79-a5de-9ccb8dc0e541')
+;
+
+-- 16 de jul de 2024 13:50:33 BRT
+INSERT INTO AD_Ref_List (AD_Ref_List_ID,Name,AD_Reference_ID,Value,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,EntityType,AD_Ref_List_UU) VALUES (1123089,'Registro de Passagem',1120416,'310620',0,0,'Y',TO_DATE('2024-07-16 13:50:33','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 13:50:33','YYYY-MM-DD HH24:MI:SS'),100,'U','f0b03000-919e-4731-98c5-92cbc225fb99')
+;
+
+-- 16 de jul de 2024 13:50:34 BRT
+INSERT INTO AD_Ref_List (AD_Ref_List_ID,Name,AD_Reference_ID,Value,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,EntityType,AD_Ref_List_UU) VALUES (1123090,'Registro de Passagem Automático',1120416,'510620',0,0,'Y',TO_DATE('2024-07-16 13:50:33','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 13:50:33','YYYY-MM-DD HH24:MI:SS'),100,'U','1e7cf937-8a0f-49db-ac4d-dc053d5ebd41')
+;
+
+-- 16 de jul de 2024 13:50:34 BRT
+INSERT INTO AD_Ref_List (AD_Ref_List_ID,Name,AD_Reference_ID,Value,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,EntityType,AD_Ref_List_UU) VALUES (1123091,'MDFe Autorizado',1120416,'310610',0,0,'Y',TO_DATE('2024-07-16 13:50:34','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 13:50:34','YYYY-MM-DD HH24:MI:SS'),100,'U','62054c09-081e-48e4-89ff-1ec48b4f705f')
+;
+
+-- 16 de jul de 2024 13:50:34 BRT
+INSERT INTO AD_Ref_List (AD_Ref_List_ID,Name,AD_Reference_ID,Value,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,EntityType,AD_Ref_List_UU) VALUES (1123092,'MDFe Cancelado',1120416,'310611',0,0,'Y',TO_DATE('2024-07-16 13:50:34','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 13:50:34','YYYY-MM-DD HH24:MI:SS'),100,'U','5d3e2435-b11a-4019-aec8-2e60aac6dd6a')
+;
+
+-- 16 de jul de 2024 13:50:35 BRT
+INSERT INTO AD_Ref_List (AD_Ref_List_ID,Name,AD_Reference_ID,Value,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,EntityType,AD_Ref_List_UU) VALUES (1123093,'Autorizado CTe complementar',1120416,'240130',0,0,'Y',TO_DATE('2024-07-16 13:50:34','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 13:50:34','YYYY-MM-DD HH24:MI:SS'),100,'U','04c218c9-85a3-4469-9f6b-83608deb8c76')
+;
+
+-- 16 de jul de 2024 13:50:35 BRT
+INSERT INTO AD_Ref_List (AD_Ref_List_ID,Name,AD_Reference_ID,Value,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,EntityType,AD_Ref_List_UU) VALUES (1123094,'Cancelado CTe complementar',1120416,'240131',0,0,'Y',TO_DATE('2024-07-16 13:50:35','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 13:50:35','YYYY-MM-DD HH24:MI:SS'),100,'U','391b2583-2755-4390-ae5f-86327ddea3e6')
+;
+
+-- 16 de jul de 2024 13:50:35 BRT
+INSERT INTO AD_Ref_List (AD_Ref_List_ID,Name,AD_Reference_ID,Value,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,EntityType,AD_Ref_List_UU) VALUES (1123095,'CTe de Substituição',1120416,'240140',0,0,'Y',TO_DATE('2024-07-16 13:50:35','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 13:50:35','YYYY-MM-DD HH24:MI:SS'),100,'U','001d9d50-4a11-489a-a2f9-80165e3b7550')
+;
+
+-- 16 de jul de 2024 13:50:36 BRT
+INSERT INTO AD_Ref_List (AD_Ref_List_ID,Name,AD_Reference_ID,Value,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,EntityType,AD_Ref_List_UU) VALUES (1123096,'Liberação de EPEC',1120416,'240160',0,0,'Y',TO_DATE('2024-07-16 13:50:36','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 13:50:36','YYYY-MM-DD HH24:MI:SS'),100,'U','3cb1c847-55ff-4022-ba8c-da66baee4bc4')
+;
+
+-- 16 de jul de 2024 13:50:36 BRT
+INSERT INTO AD_Ref_List (AD_Ref_List_ID,Name,AD_Reference_ID,Value,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,EntityType,AD_Ref_List_UU) VALUES (1123097,'Liberação Prazo Cancelamento',1120416,'240170',0,0,'Y',TO_DATE('2024-07-16 13:50:36','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 13:50:36','YYYY-MM-DD HH24:MI:SS'),100,'U','37345e76-de39-4424-9618-5c89ff2e368b')
+;
+
+-- 16 de jul de 2024 13:50:37 BRT
+INSERT INTO AD_Ref_List (AD_Ref_List_ID,Name,AD_Reference_ID,Value,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,EntityType,AD_Ref_List_UU) VALUES (1123098,'Autorizado CTe OS',1120416,'240180',0,0,'Y',TO_DATE('2024-07-16 13:50:36','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 13:50:36','YYYY-MM-DD HH24:MI:SS'),100,'U','6e92461c-dd7e-4540-af45-cdd8222d431e')
+;
+
+-- 16 de jul de 2024 13:50:37 BRT
+INSERT INTO AD_Ref_List (AD_Ref_List_ID,Name,AD_Reference_ID,Value,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,EntityType,AD_Ref_List_UU) VALUES (1123099,'Cancelado CTe OS',1120416,'240181',0,0,'Y',TO_DATE('2024-07-16 13:50:37','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 13:50:37','YYYY-MM-DD HH24:MI:SS'),100,'U','3b4b2790-a693-4b80-89dd-f7c1e71316dc')
+;
+
+-- 16 de jul de 2024 13:50:38 BRT
+INSERT INTO AD_Ref_List (AD_Ref_List_ID,Name,AD_Reference_ID,Value,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,EntityType,AD_Ref_List_UU) VALUES (1123101,'Autorizado Redespacho',1120416,'440130',0,0,'Y',TO_DATE('2024-07-16 13:50:38','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 13:50:38','YYYY-MM-DD HH24:MI:SS'),100,'U','55785127-dcc7-4164-847e-5a1f38750322')
+;
+
+-- 16 de jul de 2024 13:50:38 BRT
+INSERT INTO AD_Ref_List (AD_Ref_List_ID,Name,AD_Reference_ID,Value,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,EntityType,AD_Ref_List_UU) VALUES (1123102,'Autorizado Redespacho intermediário',1120416,'440140',0,0,'Y',TO_DATE('2024-07-16 13:50:38','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 13:50:38','YYYY-MM-DD HH24:MI:SS'),100,'U','25594cc6-9cea-4f44-8c5d-5d219cf47601')
+;
+
+-- 16 de jul de 2024 13:50:39 BRT
+INSERT INTO AD_Ref_List (AD_Ref_List_ID,Name,AD_Reference_ID,Value,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,EntityType,AD_Ref_List_UU) VALUES (1123103,'Autorizado Subcontratação',1120416,'440150',0,0,'Y',TO_DATE('2024-07-16 13:50:38','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 13:50:38','YYYY-MM-DD HH24:MI:SS'),100,'U','fd610da3-b6ce-41f3-8bdd-d9d9bef485bb')
+;
+
+-- 16 de jul de 2024 13:50:39 BRT
+INSERT INTO AD_Ref_List (AD_Ref_List_ID,Name,AD_Reference_ID,Value,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,EntityType,AD_Ref_List_UU) VALUES (1123104,'Autorizado Serviço Vinculado Multimodal',1120416,'440160',0,0,'Y',TO_DATE('2024-07-16 13:50:39','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 13:50:39','YYYY-MM-DD HH24:MI:SS'),100,'U','bb106dc2-34d4-4cca-8ed4-9f7143796193')
+;
+
+-- 16 de jul de 2024 13:50:40 BRT
+INSERT INTO AD_Ref_List (AD_Ref_List_ID,Name,AD_Reference_ID,Value,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,EntityType,AD_Ref_List_UU) VALUES (1123105,'Prestação do Serviço em Desacordo',1120416,'610110',0,0,'Y',TO_DATE('2024-07-16 13:50:39','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 13:50:39','YYYY-MM-DD HH24:MI:SS'),100,'U','2f2837c9-88c4-4333-8e67-736066de8d8d')
+;
+
+-- 16 de jul de 2024 13:50:40 BRT
+INSERT INTO AD_Ref_List (AD_Ref_List_ID,Name,AD_Reference_ID,Value,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,EntityType,AD_Ref_List_UU) VALUES (1123106,'Cancelamento do Evento Prestação do Serviço em Desacordo',1120416,'610111',0,0,'Y',TO_DATE('2024-07-16 13:50:40','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 13:50:40','YYYY-MM-DD HH24:MI:SS'),100,'U','09504c8a-4231-4ca2-aa5b-1d5e31360a92')
+;
+
+-- 16 de jul de 2024 13:52:03 BRT
+UPDATE AD_Field SET AD_Reference_ID=17, AD_Reference_Value_ID=1120416,Updated=TO_DATE('2024-07-16 13:52:03','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1132115
+;
+
+-- 16 de jul de 2024 13:54:39 BRT
+INSERT INTO AD_Workflow (Name,Description,AD_Workflow_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,AccessLevel,EntityType,Author,Priority,WorkingTime,Limit,Duration,Version,Cost,DurationUnit,WaitingTime,PublishStatus,IsDefault,ValidateWorkflow,AD_Table_ID,Value,WorkflowType,IsValid,SetupTime,MovingTime,DocumentNo,QtyBatchSize,QueuingTime,IsBetaFunctionality,Yield,UnitsCycles,OverlapUnits,AD_Workflow_UU) VALUES ('Process_LBR_CTeEvent','(Standard Process CTeEvent)',1120039,0,0,'Y',TO_DATE('2024-07-16 13:54:39','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 13:54:39','YYYY-MM-DD HH24:MI:SS'),100,'3','LBRA','Kenos Ltda',0,0,0,0,0,0,'D',0,'T','N','N',1120775,'Process_LBR_CTeEvent','P','N',0,0,'10000000',1,0,'N',100,0,0,'93789fda-c56c-4ac0-b9e0-86246ac1f45e')
+;
+
+-- 16 de jul de 2024 13:55:02 BRT
+INSERT INTO AD_WF_Node (AD_WF_Node_ID,Name,AD_Workflow_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,Action,IsCentrallyMaintained,YPosition,EntityType,XPosition,Limit,Duration,Cost,WaitingTime,WorkingTime,Priority,JoinElement,SplitElement,WaitTime,DocAction,Value,DynPriorityChange,IsMilestone,IsSubcontracting,UnitsCycles,OverlapUnits,Yield,AD_WF_Node_UU,AD_InfoWindow_ID) VALUES (1120149,'(DocAuto)',1120039,0,0,'Y',TO_DATE('2024-07-16 13:55:01','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 13:55:01','YYYY-MM-DD HH24:MI:SS'),100,'D','Y',0,'LBRA',0,0,0,0,0,0,0,'X','X',0,'--','(DocAuto)',0,'N','N',0,0,100,'9f1e0d7c-e883-40d3-85ae-a263896c23a9',200000)
+;
+
+-- 16 de jul de 2024 13:55:10 BRT
+UPDATE AD_Workflow SET AD_WF_Node_ID=1120149, IsValid='Y',Updated=TO_DATE('2024-07-16 13:55:10','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Workflow_ID=1120039
+;
+
+-- 16 de jul de 2024 13:55:22 BRT
+INSERT INTO AD_Process (AD_Process_ID,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,Name,IsReport,Value,IsDirectPrint,AccessLevel,EntityType,Statistic_Count,Statistic_Seconds,AD_Workflow_ID,IsBetaFunctionality,IsServerProcess,ShowHelp,CopyFromProcess,AD_Process_UU,AllowMultipleExecution) VALUES (1120335,0,0,'Y',TO_DATE('2024-07-16 13:55:21','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 13:55:21','YYYY-MM-DD HH24:MI:SS'),100,'Process LBR_CTeEvent','N','LBR_CTeEvent Process','N','3','LBRA',0,0,1120039,'N','N','Y','N','ed57a4bd-7231-497b-a117-fda73a53331b','P')
+;
+
+-- 16 de jul de 2024 13:55:44 BRT
+UPDATE AD_Column SET AD_Process_ID=1120335,Updated=TO_DATE('2024-07-16 13:55:44','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1134083
+;
+
+-- 16 de jul de 2024 13:56:06 BRT
+UPDATE AD_Tab SET IsReadOnly='N', IsInsertRecord='Y',Updated=TO_DATE('2024-07-16 13:56:06','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Tab_ID=1120532
+;
+
+-- 16 de jul de 2024 13:56:37 BRT
+UPDATE AD_Tab SET EntityType='LBRA',Updated=TO_DATE('2024-07-16 13:56:37','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Tab_ID=1120532
+;
+
+-- 16 de jul de 2024 13:58:20 BRT
+UPDATE AD_Field SET IsReadOnly='Y', AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, IsToolbarButton=NULL,Updated=TO_DATE('2024-07-16 13:58:20','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1132116
+;
+
+-- 16 de jul de 2024 13:58:22 BRT
+UPDATE AD_Field SET IsReadOnly='Y', AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, IsToolbarButton=NULL,Updated=TO_DATE('2024-07-16 13:58:22','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1132118
+;
+
+-- 16 de jul de 2024 13:58:47 BRT
+UPDATE AD_Field SET IsReadOnly='Y', AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, IsToolbarButton=NULL,Updated=TO_DATE('2024-07-16 13:58:47','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1132109
+;
+
+-- 16 de jul de 2024 13:58:50 BRT
+UPDATE AD_Field SET IsReadOnly='Y', AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, IsToolbarButton=NULL,Updated=TO_DATE('2024-07-16 13:58:50','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1132107
+;
+
+-- 16 de jul de 2024 13:58:56 BRT
+UPDATE AD_Field SET IsReadOnly='Y', AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, IsToolbarButton=NULL,Updated=TO_DATE('2024-07-16 13:58:56','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1132111
+;
+
+-- 16 de jul de 2024 13:58:59 BRT
+UPDATE AD_Field SET IsReadOnly='Y', AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, IsToolbarButton=NULL,Updated=TO_DATE('2024-07-16 13:58:59','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Field_ID=1132122
+;
+
+-- 16 de jul de 2024 13:59:19 BRT
+UPDATE AD_Column SET IsMandatory='N',Updated=TO_DATE('2024-07-16 13:59:19','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1134074
+;
+
+-- 16 de jul de 2024 13:59:24 BRT
+UPDATE AD_Column SET FKConstraintName='lbr_cteevent_lbr_cte_id_fkey', FKConstraintType='N',Updated=TO_DATE('2024-07-16 13:59:24','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1134074
+;
+
+-- 16 de jul de 2024 13:59:24 BRT
+ALTER TABLE LBR_CTeEvent MODIFY LBR_CTe_ID NUMBER(10) DEFAULT NULL 
+;
+
+-- 16 de jul de 2024 13:59:24 BRT
+ALTER TABLE LBR_CTeEvent MODIFY LBR_CTe_ID NULL
+;
+
+-- 16 de jul de 2024 14:00:54 BRT
+INSERT INTO AD_Reference (AD_Reference_ID,Name,ValidationType,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,EntityType,IsOrderByValue,AD_Reference_UU) VALUES (1120417,'LBR_CTe','T',0,0,'Y',TO_DATE('2024-07-16 14:00:54','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 14:00:54','YYYY-MM-DD HH24:MI:SS'),100,'LBRA','N','31c5918b-ce23-41bf-b052-b53fec930232')
+;
+
+-- 16 de jul de 2024 14:01:26 BRT
+INSERT INTO AD_Ref_Table (AD_Reference_ID,AD_Table_ID,AD_Key,AD_Display,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,IsValueDisplayed,EntityType,AD_Ref_Table_UU) VALUES (1120417,1120770,1134016,1134032,0,0,'Y',TO_DATE('2024-07-16 14:01:26','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 14:01:26','YYYY-MM-DD HH24:MI:SS'),100,'N','LBRA','e823450b-346d-4db9-90e3-a8ffdf8bca42')
+;
+
+-- 16 de jul de 2024 14:01:38 BRT
+UPDATE AD_Column SET AD_Reference_ID=30, AD_Reference_Value_ID=1120417,Updated=TO_DATE('2024-07-16 14:01:38','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1134074
+;
+
+-- 16 de jul de 2024 23:04:55 BRT
+INSERT INTO AD_Ref_List (AD_Ref_List_ID,Name,AD_Reference_ID,Value,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,EntityType,AD_Ref_List_UU) VALUES (1123107,'Conhecimento de Transporte Eletrônico Outros Serviçoes – CT-e OS',1120009,'67',0,0,'Y',TO_DATE('2024-07-16 23:04:54','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 23:04:54','YYYY-MM-DD HH24:MI:SS'),100,'LBRA','1e2e7440-1cc3-4483-be12-8c8b744c1605')
+;
+
+-- 16 de jul de 2024 23:05:01 BRT
+UPDATE AD_Ref_List SET Name='Conhecimento de Transporte Eletrônico Outros Servicos – CT-e OS',Updated=TO_DATE('2024-07-16 23:05:01','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Ref_List_ID=1123107
+;
+
+-- 16 de jul de 2024 23:06:34 BRT
+INSERT INTO AD_Reference (AD_Reference_ID,Name,ValidationType,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,EntityType,IsOrderByValue,AD_Reference_UU) VALUES (1120418,'LBR_TpEmis CTe','L',0,0,'Y',TO_DATE('2024-07-16 23:06:33','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 23:06:33','YYYY-MM-DD HH24:MI:SS'),100,'LBRA','N','f42bcc26-47c0-4cbd-bff4-dc010dbf2e4d')
+;
+
+-- 16 de jul de 2024 23:06:47 BRT
+INSERT INTO AD_Ref_List (AD_Ref_List_ID,Name,AD_Reference_ID,Value,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,EntityType,AD_Ref_List_UU) VALUES (1123108,'Normal',1120418,'1',0,0,'Y',TO_DATE('2024-07-16 23:06:47','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 23:06:47','YYYY-MM-DD HH24:MI:SS'),100,'LBRA','a6b1cc71-b784-48cf-a581-4e059ddc2295')
+;
+
+-- 16 de jul de 2024 23:07:01 BRT
+UPDATE AD_Ref_List SET Name='Standard',Updated=TO_DATE('2024-07-16 23:07:01','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Ref_List_ID=1123108
+;
+
+-- 16 de jul de 2024 23:07:08 BRT
+INSERT INTO AD_Ref_List (AD_Ref_List_ID,Name,AD_Reference_ID,Value,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,EntityType,AD_Ref_List_UU) VALUES (1123109,'Regime Especial NFF',1120418,'2',0,0,'Y',TO_DATE('2024-07-16 23:07:07','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 23:07:07','YYYY-MM-DD HH24:MI:SS'),100,'LBRA','8b360703-66cb-411e-bcc2-3a7a458d952c')
+;
+
+-- 16 de jul de 2024 23:07:24 BRT
+UPDATE AD_Ref_List SET Value='3',Updated=TO_DATE('2024-07-16 23:07:24','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Ref_List_ID=1123109
+;
+
+-- 16 de jul de 2024 23:07:31 BRT
+INSERT INTO AD_Ref_List (AD_Ref_List_ID,Name,AD_Reference_ID,Value,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,EntityType,AD_Ref_List_UU) VALUES (1123110,'EPEC pela SVC',1120418,'4',0,0,'Y',TO_DATE('2024-07-16 23:07:31','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 23:07:31','YYYY-MM-DD HH24:MI:SS'),100,'LBRA','847a9ec9-b94d-458b-98ec-4e7fe4690504')
+;
+
+-- 16 de jul de 2024 23:07:44 BRT
+INSERT INTO AD_Ref_List (AD_Ref_List_ID,Name,AD_Reference_ID,Value,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,EntityType,AD_Ref_List_UU) VALUES (1123111,'Contingência FSDA',1120418,'5',0,0,'Y',TO_DATE('2024-07-16 23:07:44','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 23:07:44','YYYY-MM-DD HH24:MI:SS'),100,'LBRA','c65c023b-6bb8-4905-9278-0cf52eded709')
+;
+
+-- 16 de jul de 2024 23:07:56 BRT
+INSERT INTO AD_Ref_List (AD_Ref_List_ID,Name,AD_Reference_ID,Value,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,EntityType,AD_Ref_List_UU) VALUES (1123112,'Autorização pela SVC-RS',1120418,'7',0,0,'Y',TO_DATE('2024-07-16 23:07:55','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 23:07:55','YYYY-MM-DD HH24:MI:SS'),100,'LBRA','a3b2bd87-01ca-495f-a43b-d1156cd73796')
+;
+
+-- 16 de jul de 2024 23:08:07 BRT
+INSERT INTO AD_Ref_List (AD_Ref_List_ID,Name,AD_Reference_ID,Value,AD_Client_ID,AD_Org_ID,IsActive,Created,CreatedBy,Updated,UpdatedBy,EntityType,AD_Ref_List_UU) VALUES (1123113,'Autorização pela SVC-SP',1120418,'8',0,0,'Y',TO_DATE('2024-07-16 23:08:06','YYYY-MM-DD HH24:MI:SS'),100,TO_DATE('2024-07-16 23:08:06','YYYY-MM-DD HH24:MI:SS'),100,'LBRA','8fa88d41-d1fd-4192-9905-2d6fb7e0acd4')
+;
+
+-- 16 de jul de 2024 23:10:00 BRT
+UPDATE AD_Column SET AD_Reference_Value_ID=1120418, ReadOnlyLogic=NULL,Updated=TO_DATE('2024-07-16 23:10:00','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1134038
 ;
 
 -- 15 de jul de 2024 23:21:14 BRT

@@ -549,22 +549,18 @@ public class X_LBR_CTe extends PO implements I_LBR_CTe, I_Persistent
 		return (String)get_Value(COLUMNNAME_LBR_ShipmentType);
 	}
 
-	/** Emissão Normal = 1 */
-	public static final String LBR_TPEMIS_EmissãoNormal = "1";
-	/** Contingência FS-IA = 2 */
-	public static final String LBR_TPEMIS_ContingênciaFS_IA = "2";
-	/** Contingência SCAN = 3 */
-	public static final String LBR_TPEMIS_ContingênciaSCAN = "3";
-	/** Contingência DPEC = 4 */
-	public static final String LBR_TPEMIS_ContingênciaDPEC = "4";
-	/** Contingência FS-DA = 5 */
-	public static final String LBR_TPEMIS_ContingênciaFS_DA = "5";
-	/** Contingência SVC-AN = 6 */
-	public static final String LBR_TPEMIS_ContingênciaSVC_AN = "6";
-	/** Contingência SVC-RS = 7 */
-	public static final String LBR_TPEMIS_ContingênciaSVC_RS = "7";
-	/** Contingência off-line da NFC-e = 9 */
-	public static final String LBR_TPEMIS_ContingênciaOff_LineDaNFC_E = "9";
+	/** Standard = 1 */
+	public static final String LBR_TPEMIS_Standard = "1";
+	/** Regime Especial NFF = 3 */
+	public static final String LBR_TPEMIS_RegimeEspecialNFF = "3";
+	/** EPEC pela SVC = 4 */
+	public static final String LBR_TPEMIS_EPECPelaSVC = "4";
+	/** Contingência FSDA = 5 */
+	public static final String LBR_TPEMIS_ContingênciaFSDA = "5";
+	/** Autorização pela SVC-RS = 7 */
+	public static final String LBR_TPEMIS_AutorizaçãoPelaSVC_RS = "7";
+	/** Autorização pela SVC-SP = 8 */
+	public static final String LBR_TPEMIS_AutorizaçãoPelaSVC_SP = "8";
 	/** Set Tipo de Emissão.
 		@param LBR_TPEmis 
 		Indicar o Tipo de Emissão da NF-e.
@@ -800,6 +796,8 @@ public class X_LBR_CTe extends PO implements I_LBR_CTe, I_Persistent
 	public static final String LBR_NFMODEL_NotaFiscalDeConsumidorEletrônica = "65";
 	/** Recibo Provisório de Serviço = RS */
 	public static final String LBR_NFMODEL_ReciboProvisórioDeServiço = "RS";
+	/** Conhecimento de Transporte Eletrônico Outros Servicos – CT-e OS = 67 */
+	public static final String LBR_NFMODEL_ConhecimentoDeTransporteEletrônicoOutrosServicosCT_EOS = "67";
 	/** Set NF Model.
 		@param lbr_NFModel 
 		Identifies the model of Nota Fiscal
