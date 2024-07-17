@@ -23,6 +23,7 @@ import org.adempierelbr.model.MLBRTax;
 import org.adempierelbr.model.X_LBR_DI;
 import org.adempierelbr.util.NFeUtil;
 import org.adempierelbr.wrapper.I_W_C_DocType;
+import org.adempierelbr.wrapper.I_W_C_Invoice;
 import org.adempierelbr.wrapper.I_W_C_Order;
 import org.adempierelbr.wrapper.I_W_C_OrderLine;
 import org.compiere.model.MClient;
@@ -304,12 +305,25 @@ public class ValidatorOrder implements ModelValidator
 					//	Complete
 					if (invoice != null)
 					{
-						String status = invoice.completeIt();
-						invoice.setDocStatus(status);
-						invoice.save(trx);
-						order.setC_CashLine_ID(invoice.getC_CashLine_ID());
-						if (!MOrder.DOCSTATUS_Completed.equals(status))
-							return invoice.getProcessMsg();
+						MDocType dtInvoice = (MDocType) invoice.getC_DocTypeTarget();
+						boolean completeInvoice = true;
+						String reference = (String) invoice.get_Value(I_W_C_Invoice.COLUMNNAME_lbr_NFEntrada);
+						
+						if (!dtInvoice.get_ValueAsBoolean(I_W_C_DocType.COLUMNNAME_lbr_IsOwnDocument)
+								&& dtInvoice.get_ValueAsBoolean(I_W_C_DocType.COLUMNNAME_lbr_HasFiscalDocument)
+								&& (reference == null
+								|| reference.isBlank()
+								|| !reference.trim().matches("^\\d{1,9}-\\d{1,3}$")))
+							completeInvoice = false;
+						
+						if (completeInvoice) {
+							String status = invoice.completeIt();
+							invoice.setDocStatus(status);
+							invoice.save(trx);
+							order.setC_CashLine_ID(invoice.getC_CashLine_ID());
+							if (!MOrder.DOCSTATUS_Completed.equals(status))
+								return invoice.getProcessMsg();
+						}
 					}
 				}
 			}	//	After Complete
