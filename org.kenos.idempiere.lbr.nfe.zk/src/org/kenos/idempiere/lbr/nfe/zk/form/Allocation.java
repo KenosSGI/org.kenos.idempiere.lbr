@@ -252,11 +252,11 @@ public class Allocation
 		 */
 		Vector<Vector<Object>> data = new Vector<Vector<Object>>();
 		StringBuilder sql = new StringBuilder("SELECT i.DateInvoiced, i.DocumentNo || ' NF: ' || "
-			+ "(SELECT COALESCE (LEFT(ARRAY_TO_STRING(ARRAY_AGG(COALESCE (nf.LBR_NFeNo, nf.DocumentNo)), ', '), 20), '') FROM LBR_NotaFiscal nf WHERE nf.DocStatus IN ('CL','CO') AND nf.C_Invoice_ID=i.C_Invoice_ID) AS DocumentNo, "
+			+ "LBR_NFeNo AS DocumentNo, "
 			+ "i.C_Invoice_ID," //  1..3
 			+ "c.ISO_Code,i.GrandTotal*i.MultiplierAP, "                            //  4..5    Orig Currency
 			+ "currencyConvert(i.GrandTotal*i.MultiplierAP,i.C_Currency_ID,?,?,i.C_ConversionType_ID,i.AD_Client_ID,i.AD_Org_ID), " //  6   #1  Converted, #2 Date
-			+ "currencyConvert(invoiceOpen(C_Invoice_ID,C_InvoicePaySchedule_ID),i.C_Currency_ID,?,?,i.C_ConversionType_ID,i.AD_Client_ID,i.AD_Org_ID)*i.MultiplierAP, "  //  7   #3, #4  Converted Open
+			+ "currencyConvert(invoiceOpen(i.C_Invoice_ID,C_InvoicePaySchedule_ID),i.C_Currency_ID,?,?,i.C_ConversionType_ID,i.AD_Client_ID,i.AD_Org_ID)*i.MultiplierAP, "  //  7   #3, #4  Converted Open
 			+ "currencyConvert(invoiceDiscount"                               //  8       AllowedDiscount
 			+ "(i.C_Invoice_ID,?,C_InvoicePaySchedule_ID),i.C_Currency_ID,?,i.DateInvoiced,i.C_ConversionType_ID,i.AD_Client_ID,i.AD_Org_ID)*i.Multiplier*i.MultiplierAP,"               //  #5, #6
 			+ "i.MultiplierAP, i.DueDate, i.C_InvoicePaySchedule_ID, dt.Name, o.name as OrgName "
@@ -264,6 +264,7 @@ public class Allocation
 			+ " INNER JOIN C_Currency c ON (i.C_Currency_ID=c.C_Currency_ID) "
 			+ " INNER JOIN AD_Org o ON (o.AD_Org_Id = i.AD_Org_Id) "
 			+ " LEFT  JOIN C_DocType dt ON (i.C_DocTypeTarget_ID=dt.C_DocType_ID) "
+			+ " LEFT  JOIN LBR_InvoiceLastNF lnf ON (i.C_Invoice_ID=lnf.C_Invoice_ID) "
 			+ "WHERE i.IsPaid='N' AND i.Processed='Y'"
 			+ " AND i.C_BPartner_ID=?");                                            //  #7
 		if (!isMultiCurrency)
