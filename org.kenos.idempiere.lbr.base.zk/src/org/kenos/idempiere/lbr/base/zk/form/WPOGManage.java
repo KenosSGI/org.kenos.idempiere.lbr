@@ -143,8 +143,8 @@ public class WPOGManage extends ADForm implements IFormController, WTableModelLi
 			fProduct.addValueChangeListener(this);
 			
 			lPlannedQty.setText(Msg.translate(Env.getCtx(), "PlannedQty"));
-			lCopyFrom.setText(Msg.getMsg (Env.getCtx(), "CopyFrom"));
-			lMovementQty.setText(Msg.getMsg (Env.getCtx(), "MovementQty"));
+			lCopyFrom.setText(Msg.getElement (Env.getCtx(), "CopyFrom"));
+			lMovementQty.setText(Msg.getElement (Env.getCtx(), "MovementQty"));
 			
 			//	Top Selection Panel
 			grpSelectionProd.appendChild(l_help);
@@ -783,7 +783,7 @@ public class WPOGManage extends ADForm implements IFormController, WTableModelLi
 			prod_new.save();
 			
 			//		Adicionando Produção Origem como referencia
-			prod_new.set_CustomColumn("LBR_Ref_Production_ID", prod_orig.getM_Production_ID());
+			prod_new.set_ValueNoCheck("LBR_Ref_Production_ID", prod_orig.getM_Production_ID());
 			
 			//		Adicionar Preço
 			prod_new.set_CustomColumn("PriceEntered", prod_orig.get_Value("PriceEntered"));
