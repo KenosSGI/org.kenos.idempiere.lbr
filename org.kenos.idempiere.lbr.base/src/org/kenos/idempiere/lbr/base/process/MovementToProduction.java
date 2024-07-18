@@ -95,12 +95,13 @@ public class MovementToProduction extends SvrProcess
 		String sql = "SELECT pl.M_Product_ID, pl.M_Locator_ID, SUM (pl.MovementQty*-1) AS MovementQty, \n" + 
 				"COALESCE ((SELECT SUM (s.QtyOnHand) FROM M_Storage s \n" + 
 				"            WHERE s.M_Product_ID=pl.M_Product_ID \n" + 
-				"              AND s.M_Locator_ID=pl.M_Locator_ID), 0) AS QtyOnHand\n" + 
+				"              AND s.M_Locator_ID=pl.M_Locator_ID), 0) AS QtyOnHand, MIN (pl.Line) AS Line\n" + 
 				"    FROM M_Production p, M_ProductionLine pl \n" + 
 				"   WHERE p.M_Production_ID=?\n" + 
 				"     AND p.M_Production_ID=pl.M_Production_ID\n" + 
 				"     AND pl.MovementQty < 0 \n" + 
-				"GROUP BY pl.M_Product_ID, pl.M_Locator_ID;";
+				"GROUP BY pl.M_Product_ID, pl.M_Locator_ID \n" +
+				"ORDER BY Line";
 		
 		PreparedStatement pstmt = null;
     	ResultSet rs = null;
