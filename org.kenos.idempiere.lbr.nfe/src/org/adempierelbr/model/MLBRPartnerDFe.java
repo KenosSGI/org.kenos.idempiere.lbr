@@ -230,7 +230,7 @@ public class MLBRPartnerDFe extends X_LBR_PartnerDFe
 					" SET " + MLBRNotaFiscal.COLUMNNAME_IsDelivered + "=? WHERE " + 
 					MLBRNotaFiscal.COLUMNNAME_lbr_NFeID + "=? AND " +
 					MLBRNotaFiscal.COLUMNNAME_AD_Org_ID + "=? AND " +
-					MLBRNotaFiscal.COLUMNNAME_lbr_IsOwnDocument + "='Y' " +
+					MLBRNotaFiscal.COLUMNNAME_lbr_IsOwnDocument + "='Y' AND " +
 					MLBRNotaFiscal.COLUMNNAME_IsDelivered + " NOT IN ('Y', 'P')", 
 					new Object[] { status, getlbr_NFeID(), getAD_Org_ID() }, false, get_TrxName());
 		}
