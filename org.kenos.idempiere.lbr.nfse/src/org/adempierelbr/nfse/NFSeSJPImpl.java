@@ -652,8 +652,8 @@ public class NFSeSJPImpl implements INFSe
 		{
 			//			Procura o XML nos anexos
 			byte[] xmlData = nf.getAttachmentData("xml");
-			if (xmlData == null || xmlData.length == 0)
-				xmlData = getXML (nf);	//	Gera um novo XML
+			//if (xmlData == null || xmlData.length == 0)
+			xmlData = getXML (nf);	//	Gera um novo XML
 			
 			EnviarLoteRpsEnvioDocument enviarLotDoc_nf = EnviarLoteRpsEnvioDocument.Factory.parse(new String (xmlData, NFeUtil.NFE_ENCODING));
 			TcRps rps = enviarLotDoc_nf.getEnviarLoteRpsEnvio().getLoteRps().getListaRps().getRpsArray(0);
