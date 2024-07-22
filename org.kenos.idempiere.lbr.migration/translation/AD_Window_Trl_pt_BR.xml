@@ -1580,8 +1580,8 @@ MRP - 110	 No exists Dem</value>
   <value column="Help" original="The Payroll Contract Window is used to define the laboral condition for the employes in a payroll">A Janela "Contrato de Folha de Pagamento" é usada para definir a condição de trabalho para os empregados em uma folha de pagamento</value>
  </row>
  <row id="53033" trl="Y">
-  <value column="Name" original="Payroll Employee">Folha de Pagamento de Empregados</value>
-  <value column="Description" original="Maintain Payroll Employee">Gerenciamento de Folha de Pagamento de Empregados</value>
+  <value column="Name" original="Payroll Employee">Funcionário</value>
+  <value column="Description" original="Maintain Payroll Employee">Gerenciamento de Funcionários</value>
   <value column="Help" original="The Payroll Employee Window is used to define the Employees into the Organizational">A Janela "Folha de pagamento de Empregados" é usada para definir os empregados dentro da Organização</value>
  </row>
  <row id="53034" trl="Y">
