@@ -35,7 +35,7 @@ public class DFeProcessor implements AdempiereProcessor, AdempiereProcessor2 {
 	
 	@Override
 	public boolean isIgnoreProcessingTime() {
-		return false;
+		return true;
 	}
 
 	@Override
@@ -50,12 +50,12 @@ public class DFeProcessor implements AdempiereProcessor, AdempiereProcessor2 {
 
 	@Override
 	public String getName() {
-		return MClient.get(m_ctx, m_AD_Client_ID).getName() + " - Processador de DF-e";
+		return MClient.get(m_ctx, m_AD_Client_ID).getName() + " - Processador de DF-e (NF-e)";
 	}
 
 	@Override
 	public String getDescription() {
-		return "DF-e Processor - Processador de DF-e";
+		return "DF-e Processor - Processador de DF-e (NF-e)";
 	}
 
 	@Override
@@ -145,6 +145,6 @@ public class DFeProcessor implements AdempiereProcessor, AdempiereProcessor2 {
 	
 	@Override
 	public String toString() {
-		return "DF-e Processor";
+		return "DF-e Processor (NF-e)";
 	}	//	toString
 }	//	DFeProcessor
