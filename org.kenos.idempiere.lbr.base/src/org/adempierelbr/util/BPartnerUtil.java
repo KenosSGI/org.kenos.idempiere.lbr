@@ -288,7 +288,7 @@ public abstract class BPartnerUtil
 	public static String getRegionCode (int C_Region_ID)
 	{
 		String cityCode = DB.getSQLValueString (null, "SELECT MAX(LBR_CityCode) FROM C_City WHERE LBR_CityCode IS NOT NULL AND C_Region_ID=?", C_Region_ID);
-		if (cityCode.length() < 2)
+		if (cityCode == null || cityCode.length() < 2)
 			return "";
 		//
 		return cityCode.substring(0, 2);
