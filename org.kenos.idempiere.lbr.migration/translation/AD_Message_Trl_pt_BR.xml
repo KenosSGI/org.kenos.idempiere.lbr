@@ -7192,4 +7192,16 @@ Telefone: {1}</value>
   <value column="MsgText" original="Discount applied exceeds the discount limit. You can review your discount or ask to another user apply them.">O desconto aplicado supera o limite permitido. Você pode revisar o desconto aplicado ou solicitar outro usuário que tenha permissão para efetuar esse desconto.</value>
   <value column="MsgTip" original=""/>
  </row>
+ <row trl="Y" uuid="e2cd13af-4920-406f-a00b-22d0aeadcded">
+  <value column="MsgText" original="Retrieving DF-e (CT-e) from SeFaz">Recuperando DF-e de CT-e da SeFaz</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row trl="Y" uuid="9e6752ea-c974-46d2-aa92-04b15fb07a05">
+  <value column="MsgText" original="DF-e (CT-e) payload processing">Processando arquivos de DF-e de CT-e</value>
+  <value column="MsgTip" original=""/>
+ </row>
+ <row trl="Y" uuid="dc8b0374-8cb5-4d62-8284-7dd5dee99d85">
+  <value column="MsgText" original="Importing DF-e (CT-e) documents and events">Importando documentos e eventos DF-e de CT-e</value>
+  <value column="MsgTip" original=""/>
+ </row>
 </idempiereTrl>
