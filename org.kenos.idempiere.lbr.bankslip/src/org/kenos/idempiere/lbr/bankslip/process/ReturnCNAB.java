@@ -291,6 +291,13 @@ public class ReturnCNAB extends SvrProcess
 				return;
 			}
 		}
+		else if (MLBRBankSlipOccur.TYPE_RegisterConfirmed.equals(mov.getType()) && (bankSlip.getDocStatus().equals(MLBRBankSlip.DOCSTATUS_Voided)))
+		{
+				addLog(detail, "O boleto foi registrado no banco mas está anulado no ERP. Verifique #" + 
+			bankSlip.getDocumentNo() + " Fatura #" + bankSlip.getC_Invoice().getDocumentNo());
+				row.createCell(COL_OBS).setCellValue("O boleto foi registrado no banco mas está anulado no ERP. Verifique #" + 
+			bankSlip.getDocumentNo() + " Fatura #" + bankSlip.getC_Invoice().getDocumentNo());
+		}
 
 		mov.setDescription("Line #" + String.valueOf(detail.getLineNo()));
 		try 
