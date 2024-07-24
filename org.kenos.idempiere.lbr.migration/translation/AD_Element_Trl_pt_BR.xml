@@ -73346,4 +73346,37 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
+ <row trl="Y" uuid="f6ed8ea9-0701-457d-ba1f-9d48fc3a3edc">
+  <value column="Name" original="Min NSU">Min NSU</value>
+  <value column="PrintName" original="Min NSU">Min NSU</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="6da34913-8216-4a5f-a1a7-842e67058f3f">
+  <value column="Name" original="Max NSU">Max NSU</value>
+  <value column="PrintName" original="Max NSU">Max NSU</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="6bb9c646-910e-422c-b93d-3fde0327aac7">
+  <value column="Name" original="RV_LBR_CTeMissingNSU">RV_LBR_CTeMissingNSU</value>
+  <value column="PrintName" original="RV_LBR_CTeMissingNSU">RV_LBR_CTeMissingNSU</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
 </idempiereTrl>

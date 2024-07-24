@@ -2912,4 +2912,9 @@ For example:<br />
   <value column="Description" original="CTe Detail Report with nota fiscal information">Relatório Detalhes de CT-e com informações de NF-e</value>
   <value column="Help" original="">Este relatório tenta vincular os dados do CT-e com as NF-e, calculando o valor proporcional do custo do CT-e para cada NF-e</value>
  </row>
+ <row trl="Y" uuid="ad89d86d-43a4-4b3f-a8b8-cd5ef05aafde">
+  <value column="Name" original="Fix Missing NSU">Corrigir NSU Faltantes (CT-e)</value>
+  <value column="Description" original="This process will try to retrieve selected NSU in order to retrieve missing NSU">This process will try to retrieve selected NSU in order to retrieve missing NSU</value>
+  <value column="Help" original=""/>
+ </row>
 </idempiereTrl>

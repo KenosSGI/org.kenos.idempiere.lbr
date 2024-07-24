@@ -56,7 +56,7 @@
   <value column="Help" original=""/>
  </row>
  <row trl="Y" uuid="753aec41-173d-4d69-b17a-ffc7cada4472">
-  <value column="Name" original="Check Missing NSU">Verificar NSU Faltantes</value>
+  <value column="Name" original="Check Missing NSU (NF-e)">Verificar NSU Faltantes (NF-e)</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
  </row>
@@ -67,6 +67,11 @@
  </row>
  <row trl="Y" uuid="3e4ae257-e691-4fbc-92ae-f6d40d56dbf5">
   <value column="Name" original="CTe Info">Informações de CT-e</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="d079ee0a-e6d3-43aa-82b6-fe052127fb91">
+  <value column="Name" original="Check Missing NSU (CT-e)">Verificar NSU Faltantes (CT-e)</value>
   <value column="Description" original=""/>
   <value column="Help" original=""/>
  </row>
