@@ -2897,4 +2897,19 @@ For example:<br />
   <value column="Description" original="Check if service is up">Verifica se o ambiente de autorização de CT-e está no ar</value>
   <value column="Help" original="Check if service is up an running">Este processo verifica se o ambiente de autorização de CT-e está no ar</value>
  </row>
+ <row trl="Y" uuid="ed57a4bd-7231-497b-a117-fda73a53331b">
+  <value column="Name" original="Process LBR_CTeEvent">Process LBR_CTeEvent</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="089abbe1-dd7c-49f3-9add-f107acc3016c">
+  <value column="Name" original="CTe Report">Relatório de CT-e</value>
+  <value column="Description" original="CTe Report with summary information">Relatório de CT-e</value>
+  <value column="Help" original="">Informações do CT-e com os dados resumidos</value>
+ </row>
+ <row trl="Y" uuid="6fe62463-7773-464d-bc4c-a5f0fee110d8">
+  <value column="Name" original="CTe Detail Report">Relatório Detalhes de CT-e</value>
+  <value column="Description" original="CTe Detail Report with nota fiscal information">Relatório Detalhes de CT-e com informações de NF-e</value>
+  <value column="Help" original="">Este relatório tenta vincular os dados do CT-e com as NF-e, calculando o valor proporcional do custo do CT-e para cada NF-e</value>
+ </row>
 </idempiereTrl>

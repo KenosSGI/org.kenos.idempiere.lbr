@@ -73324,4 +73324,26 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
+ <row trl="Y" uuid="bd4d6ee8-ce3a-4ea9-ad38-cc16b38556b2">
+  <value column="Name" original="CTe Series">Série do CT-e</value>
+  <value column="PrintName" original="CTe Series">Série do CT-e</value>
+  <value column="Description" original="">Série do documento de conhecimento de transporte eletrônico</value>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="1e3729f6-ef52-4d93-b0d3-9301f3e8b175">
+  <value column="Name" original="Grand Total NF">Total da NF</value>
+  <value column="PrintName" original="Grand Total NF">Total da NF</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
 </idempiereTrl>
