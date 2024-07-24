@@ -30,7 +30,7 @@ public class X_LBR_CTeConfig extends PO implements I_LBR_CTeConfig, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20240716L;
+	private static final long serialVersionUID = 20240724L;
 
     /** Standard Constructor */
     public X_LBR_CTeConfig (Properties ctx, int LBR_CTeConfig_ID, String trxName)
@@ -191,7 +191,7 @@ public class X_LBR_CTeConfig extends PO implements I_LBR_CTeConfig, I_Persistent
 	  */
 	public void setVersionNo (String VersionNo)
 	{
-		set_ValueNoCheck (COLUMNNAME_VersionNo, VersionNo);
+		set_Value (COLUMNNAME_VersionNo, VersionNo);
 	}
 
 	/** Get Version No.

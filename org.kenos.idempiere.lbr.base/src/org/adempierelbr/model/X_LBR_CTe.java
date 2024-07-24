@@ -23,6 +23,7 @@ import java.sql.Timestamp;
 import java.util.Properties;
 import org.compiere.model.*;
 import org.compiere.util.Env;
+import org.compiere.util.KeyNamePair;
 
 /** Generated Model for LBR_CTe
  *  @author iDempiere (generated) 
@@ -33,7 +34,7 @@ public class X_LBR_CTe extends PO implements I_LBR_CTe, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20240716L;
+	private static final long serialVersionUID = 20240724L;
 
     /** Standard Constructor */
     public X_LBR_CTe (Properties ctx, int LBR_CTe_ID, String trxName)
@@ -45,7 +46,6 @@ public class X_LBR_CTe extends PO implements I_LBR_CTe, I_Persistent
 // @#Date@
 			setI_IsImported (false);
 			setLBR_CFOP_ID (0);
-			setLBR_CTeConsignor (null);
 			setLBR_CTe_ID (0);
         } */
     }
@@ -232,6 +232,14 @@ public class X_LBR_CTe extends PO implements I_LBR_CTe, I_Persistent
 		return (String)get_Value(COLUMNNAME_DocumentNo);
 	}
 
+    /** Get Record ID/ColumnName
+        @return ID/ColumnName pair
+      */
+    public KeyNamePair getKeyNamePair() 
+    {
+        return new KeyNamePair(get_ID(), getDocumentNo());
+    }
+
 	/** Set Grand Total.
 		@param GrandTotal 
 		Total amount of document
@@ -318,18 +326,16 @@ public class X_LBR_CTe extends PO implements I_LBR_CTe, I_Persistent
 		return (String)get_Value(COLUMNNAME_LBR_CTeConsignee);
 	}
 
-	/** Issuer = I */
-	public static final String LBR_CTECONSIGNOR_Issuer = "I";
 	/** Sender = 0 */
 	public static final String LBR_CTECONSIGNOR_Sender = "0";
+	/** Recipient = 3 */
+	public static final String LBR_CTECONSIGNOR_Recipient = "3";
+	/** Other = 4 */
+	public static final String LBR_CTECONSIGNOR_Other = "4";
 	/** Shipper = 1 */
 	public static final String LBR_CTECONSIGNOR_Shipper = "1";
 	/** Receiver = 2 */
 	public static final String LBR_CTECONSIGNOR_Receiver = "2";
-	/** Consignee = 3 */
-	public static final String LBR_CTECONSIGNOR_Consignee = "3";
-	/** Consignor = 4 */
-	public static final String LBR_CTECONSIGNOR_Consignor = "4";
 	/** Set Consignor.
 		@param LBR_CTeConsignor Consignor	  */
 	public void setLBR_CTeConsignor (String LBR_CTeConsignor)
@@ -355,6 +361,14 @@ public class X_LBR_CTe extends PO implements I_LBR_CTe, I_Persistent
 	public static final String LBR_CTESERVICETYPE_IntermediateForwarding = "3";
 	/** Service Linked to Multimodal = 4 */
 	public static final String LBR_CTESERVICETYPE_ServiceLinkedToMultimodal = "4";
+	/** Transportation of People = 6 */
+	public static final String LBR_CTESERVICETYPE_TransportationOfPeople = "6";
+	/** Transportation of Valuables = 7 */
+	public static final String LBR_CTESERVICETYPE_TransportationOfValuables = "7";
+	/** Excess Baggage = 8 */
+	public static final String LBR_CTESERVICETYPE_ExcessBaggage = "8";
+	/** GTV = 9 */
+	public static final String LBR_CTESERVICETYPE_GTV = "9";
 	/** Set Service Type.
 		@param LBR_CTeServiceType Service Type	  */
 	public void setLBR_CTeServiceType (String LBR_CTeServiceType)

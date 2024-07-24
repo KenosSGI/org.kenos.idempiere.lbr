@@ -13140,4 +13140,164 @@
   <value column="Name" original="Evento registrado e vinculado a CT-e">Evento registrado e vinculado a CT-e</value>
   <value column="Description" original=""/>
  </row>
+ <row trl="Y" uuid="d45391d7-f7a6-40e2-b630-6128b8c818cf">
+  <value column="Name" original="Carta de Correção">Carta de Correção</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="21e88c4c-c15d-4e12-9a6f-b38112781922">
+  <value column="Name" original="Cancelamento">Cancelamento</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="9b858667-826d-40c7-ac8f-74d4c30637ab">
+  <value column="Name" original="EPEC">EPEC</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="5b762c43-0dff-4c28-a50f-8add299e9107">
+  <value column="Name" original="Registros do Multimodal">Registros do Multimodal</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="f00957b6-67bf-4407-98cc-5ebf7c13e94c">
+  <value column="Name" original="Informações da GTV">Informações da GTV</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="13ae19bc-ead2-4921-baa1-244611cc28ba">
+  <value column="Name" original="Comprovante de Entrega">Comprovante de Entrega</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="6b3e084e-3947-4b79-a5de-9ccb8dc0e541">
+  <value column="Name" original="Cancelamento do Comprovante de Entrega">Cancelamento do Comprovante de Entrega</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="f0b03000-919e-4731-98c5-92cbc225fb99">
+  <value column="Name" original="Registro de Passagem">Registro de Passagem</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="1e7cf937-8a0f-49db-ac4d-dc053d5ebd41">
+  <value column="Name" original="Registro de Passagem Automático">Registro de Passagem Automático</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="62054c09-081e-48e4-89ff-1ec48b4f705f">
+  <value column="Name" original="MDFe Autorizado">MDFe Autorizado</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="5d3e2435-b11a-4019-aec8-2e60aac6dd6a">
+  <value column="Name" original="MDFe Cancelado">MDFe Cancelado</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="04c218c9-85a3-4469-9f6b-83608deb8c76">
+  <value column="Name" original="Autorizado CTe complementar">Autorizado CTe complementar</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="391b2583-2755-4390-ae5f-86327ddea3e6">
+  <value column="Name" original="Cancelado CTe complementar">Cancelado CTe complementar</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="001d9d50-4a11-489a-a2f9-80165e3b7550">
+  <value column="Name" original="CTe de Substituição">CTe de Substituição</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="3cb1c847-55ff-4022-ba8c-da66baee4bc4">
+  <value column="Name" original="Liberação de EPEC">Liberação de EPEC</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="37345e76-de39-4424-9618-5c89ff2e368b">
+  <value column="Name" original="Liberação Prazo Cancelamento">Liberação Prazo Cancelamento</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="6e92461c-dd7e-4540-af45-cdd8222d431e">
+  <value column="Name" original="Autorizado CTe OS">Autorizado CTe OS</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="3b4b2790-a693-4b80-89dd-f7c1e71316dc">
+  <value column="Name" original="Cancelado CTe OS">Cancelado CTe OS</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="55785127-dcc7-4164-847e-5a1f38750322">
+  <value column="Name" original="Autorizado Redespacho">Autorizado Redespacho</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="25594cc6-9cea-4f44-8c5d-5d219cf47601">
+  <value column="Name" original="Autorizado Redespacho intermediário">Autorizado Redespacho intermediário</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="fd610da3-b6ce-41f3-8bdd-d9d9bef485bb">
+  <value column="Name" original="Autorizado Subcontratação">Autorizado Subcontratação</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="bb106dc2-34d4-4cca-8ed4-9f7143796193">
+  <value column="Name" original="Autorizado Serviço Vinculado Multimodal">Autorizado Serviço Vinculado Multimodal</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="2f2837c9-88c4-4333-8e67-736066de8d8d">
+  <value column="Name" original="Prestação do Serviço em Desacordo">Prestação do Serviço em Desacordo</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="09504c8a-4231-4ca2-aa5b-1d5e31360a92">
+  <value column="Name" original="Cancelamento do Evento Prestação do Serviço em Desacordo">Cancelamento do Evento Prestação do Serviço em Desacordo</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="1e2e7440-1cc3-4483-be12-8c8b744c1605">
+  <value column="Name" original="Conhecimento de Transporte Eletrônico Outros Servicos – CT-e OS">Conhecimento de Transporte Eletrônico Outros Serviços – CT-e OS</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="a6b1cc71-b784-48cf-a581-4e059ddc2295">
+  <value column="Name" original="Standard">Normal</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="8b360703-66cb-411e-bcc2-3a7a458d952c">
+  <value column="Name" original="Regime Especial NFF">Regime Especial NFF</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="847a9ec9-b94d-458b-98ec-4e7fe4690504">
+  <value column="Name" original="EPEC pela SVC">EPEC pela SVC</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="c65c023b-6bb8-4905-9278-0cf52eded709">
+  <value column="Name" original="Contingência FSDA">Contingência FSDA</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="a3b2bd87-01ca-495f-a43b-d1156cd73796">
+  <value column="Name" original="Autorização pela SVC-RS">Autorização pela SVC-RS</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="8fa88d41-d1fd-4192-9905-2d6fb7e0acd4">
+  <value column="Name" original="Autorização pela SVC-SP">Autorização pela SVC-SP</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="66b5bfa7-00b2-4880-97b7-957f3b88246d">
+  <value column="Name" original="Transportation of People">Transporte de Pessoas</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="fb2c94cb-4798-4e3f-885f-8728fbe3da55">
+  <value column="Name" original="Transportation of Valuables">Transporte de Valores</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="5be67f01-5c5b-4bda-982f-5a4a83aeb4b0">
+  <value column="Name" original="Excess Baggage">Excesso de Bagagem</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="52a730f4-b7ae-452d-92cf-66f1146a5641">
+  <value column="Name" original="GTV">GTV</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="d3f60ea4-3a1e-4695-becc-bce1b24d23e1">
+  <value column="Name" original="Sender">Remetente</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="c26ebd7b-4bee-4c85-900f-3e5d5ca6aa10">
+  <value column="Name" original="Recipient">Destinatário</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="11cf3217-5bae-40c7-a389-6b901e0afd70">
+  <value column="Name" original="Other">Outros</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="64c1a9e3-c253-4ccc-995b-b3f6f5b6b4c6">
+  <value column="Name" original="Shipper">Expedidor</value>
+  <value column="Description" original=""/>
+ </row>
+ <row trl="Y" uuid="0961796d-54d5-4f67-9a60-1f0ecf0eee1e">
+  <value column="Name" original="Receiver">Recebedor</value>
+  <value column="Description" original=""/>
+ </row>
 </idempiereTrl>

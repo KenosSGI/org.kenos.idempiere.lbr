@@ -30,7 +30,7 @@ public class X_LBR_CTePartner extends PO implements I_LBR_CTePartner, I_Persiste
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20240716L;
+	private static final long serialVersionUID = 20240724L;
 
     /** Standard Constructor */
     public X_LBR_CTePartner (Properties ctx, int LBR_CTePartner_ID, String trxName)
@@ -210,8 +210,8 @@ public class X_LBR_CTePartner extends PO implements I_LBR_CTePartner, I_Persiste
 	public static final String LBR_CTEPARTNERTYPE_Shipper = "1";
 	/** Receiver = 2 */
 	public static final String LBR_CTEPARTNERTYPE_Receiver = "2";
-	/** Consignee = 3 */
-	public static final String LBR_CTEPARTNERTYPE_Consignee = "3";
+	/** Recipient = 3 */
+	public static final String LBR_CTEPARTNERTYPE_Recipient = "3";
 	/** Consignor = 4 */
 	public static final String LBR_CTEPARTNERTYPE_Consignor = "4";
 	/** Set Partner Type.
