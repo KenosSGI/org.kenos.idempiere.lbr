@@ -881,6 +881,51 @@ LEFT JOIN (SELECT zcte.LBR_CTe_ID,
 ) TotalNFPerCTE ON (cte.LBR_CTe_ID = TotalNFPerCTE.LBR_CTe_ID)',Updated=TO_DATE('2024-07-23 20:56:09','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_ViewComponent_ID=1120033
 ;
 
+SET SQLBLANKLINES ON
+SET DEFINE OFF
+
+-- 24 de jul de 2024 09:38:48 BRT
+UPDATE AD_ViewComponent SET FromClause='FROM LBR_CTe cte
+LEFT JOIN LBR_CTeDocNFe doc ON (cte.LBR_CTe_ID=doc.LBR_CTe_ID)
+LEFT JOIN LBR_NotaFiscal nfe ON (nfe.LBR_NotaFiscal_ID=doc.LBR_NotaFiscal_ID)
+LEFT JOIN C_BPartner bp ON (bp.C_BPartner_ID=nfe.C_BPartner_ID)
+LEFT JOIN (SELECT zcte.LBR_CTe_ID, 
+           SUM(znfe.GrandTotal) AS TotalNF, COUNT(zdoc.LBR_CTeDocNFe_ID) AS NumLines
+    FROM LBR_CTe zcte
+    JOIN LBR_CTeDocNFe zdoc ON zcte.LBR_CTe_ID = zdoc.LBR_CTe_ID
+    JOIN LBR_NotaFiscal znfe ON zdoc.LBR_NotaFiscal_ID = znfe.LBR_NotaFiscal_ID
+          WHERE NOT (EXISTS (SELECT 1
+                   FROM lbr_ctedocnfe zdoc2
+                  WHERE zdoc2.lbr_cte_id = zdoc.lbr_cte_id AND zdoc2.lbr_notafiscal_id IS NULL))
+    GROUP BY zcte.LBR_CTe_ID
+) TotalNFPerCTE ON (cte.LBR_CTe_ID = TotalNFPerCTE.LBR_CTe_ID)',Updated=TO_DATE('2024-07-24 09:38:48','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_ViewComponent_ID=1120033
+;
+
+-- 24 de jul de 2024 09:42:26 BRT
+UPDATE AD_ViewColumn SET ColumnSQL='ROUND(COALESCE(nfe.GrandTotal / TotalNFPerCTe.TotalNF * cte.GrandTotal, cte.GrandTotal / COUNT(*) OVER (PARTITION BY cte.LBR_CTe_ID)), 2)',Updated=TO_DATE('2024-07-24 09:42:26','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_ViewColumn_ID=1120799
+;
+
+-- 24 de jul de 2024 09:42:36 BRT
+UPDATE AD_ViewColumn SET ColumnSQL='ROUND(COALESCE(nfe.GrandTotal / TotalNFPerCTe.TotalNF, 1.0 / COUNT(*) OVER (PARTITION BY cte.LBR_CTe_ID)), 4)',Updated=TO_DATE('2024-07-24 09:42:36','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_ViewColumn_ID=1120798
+;
+
+-- 24 de jul de 2024 09:42:43 BRT
+CREATE OR REPLACE VIEW RV_LBR_CTeDetailReport(AD_Client_ID, AD_Org_ID, Created, CreatedBy, Updated, UpdatedBy, LBR_CTe_ID, DocumentNo, LBR_CTeSeries, LBR_CTeServiceType, LBR_CTeConsignee, LBR_CTeConsignor, LBR_CFOP_ID, LBR_CTeStatus, LBR_CTeType, lbr_CNPJ, DocStatus, GrandTotal, lbr_NFeNo, lbr_NFSerie, LBR_NFeID, LBR_GrandTotalNF, NumLines, PercentTotal, RatioTotal, BPValue, BPName, lbr_BPCNPJ, DateDoc, LBR_NotaFiscal_ID) AS SELECT cte.AD_Client_ID AS AD_Client_ID, cte.AD_Org_ID AS AD_Org_ID, cte.Created AS Created, cte.CreatedBy AS CreatedBy, cte.Updated AS Updated, cte.UpdatedBy AS UpdatedBy, cte.LBR_CTe_ID AS LBR_CTe_ID, cte.DocumentNo AS DocumentNo, cte.lbr_NFSerie AS LBR_CTeSeries, cte.LBR_CTeServiceType AS LBR_CTeServiceType, cte.LBR_CTeConsignee AS LBR_CTeConsignee, cte.LBR_CTeConsignor AS LBR_CTeConsignor, cte.LBR_CFOP_ID AS LBR_CFOP_ID, cte.LBR_CTeStatus AS LBR_CTeStatus, cte.LBR_CTeType AS LBR_CTeType, cte.lbr_CNPJ AS lbr_CNPJ, cte.DocStatus AS DocStatus, cte.GrandTotal AS GrandTotal, COALESCE(nfe.lbr_NFeNo, nfe.DocumentNo) AS lbr_NFeNo, nfe.lbr_NFSerie AS lbr_NFSerie, nfe.LBR_NFeID AS LBR_NFeID, nfe.GrandTotal AS LBR_GrandTotalNF, TotalNFPerCTE.NumLines AS NumLines, ROUND(COALESCE(nfe.GrandTotal / TotalNFPerCTe.TotalNF, 1.0 / COUNT(*) OVER (PARTITION BY cte.LBR_CTe_ID)), 4) AS PercentTotal, ROUND(COALESCE(nfe.GrandTotal / TotalNFPerCTe.TotalNF * cte.GrandTotal, cte.GrandTotal / COUNT(*) OVER (PARTITION BY cte.LBR_CTe_ID)), 2) AS RatioTotal, bp.Value AS BPValue, bp.Name AS BPName, nfe.lbr_BPCNPJ AS lbr_BPCNPJ, cte.DateDoc AS DateDoc, nfe.LBR_NotaFiscal_ID AS LBR_NotaFiscal_ID FROM LBR_CTe cte
+LEFT JOIN LBR_CTeDocNFe doc ON (cte.LBR_CTe_ID=doc.LBR_CTe_ID)
+LEFT JOIN LBR_NotaFiscal nfe ON (nfe.LBR_NotaFiscal_ID=doc.LBR_NotaFiscal_ID)
+LEFT JOIN C_BPartner bp ON (bp.C_BPartner_ID=nfe.C_BPartner_ID)
+LEFT JOIN (SELECT zcte.LBR_CTe_ID, 
+           SUM(znfe.GrandTotal) AS TotalNF, COUNT(zdoc.LBR_CTeDocNFe_ID) AS NumLines
+    FROM LBR_CTe zcte
+    JOIN LBR_CTeDocNFe zdoc ON zcte.LBR_CTe_ID = zdoc.LBR_CTe_ID
+    JOIN LBR_NotaFiscal znfe ON zdoc.LBR_NotaFiscal_ID = znfe.LBR_NotaFiscal_ID
+          WHERE NOT (EXISTS (SELECT 1
+                   FROM lbr_ctedocnfe zdoc2
+                  WHERE zdoc2.lbr_cte_id = zdoc.lbr_cte_id AND zdoc2.lbr_notafiscal_id IS NULL))
+    GROUP BY zcte.LBR_CTe_ID
+) TotalNFPerCTE ON (cte.LBR_CTe_ID = TotalNFPerCTE.LBR_CTe_ID)
+;
+
 -- 23 de jul de 2024 20:56:09 BRT
 SELECT Register_Migration_Script ('202407232057_CTeReport.sql') FROM DUAL
 ;
