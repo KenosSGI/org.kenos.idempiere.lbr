@@ -19,21 +19,21 @@ import org.compiere.server.AdempiereServer;
 import org.compiere.util.Env;
 
 /**
- *		BankSlip Generator
+ *	DFe Server
  */
 public class DFeServer extends AdempiereServer
 {
 	/**
-	 * 	Alert Processor
+	 * 	DFe Server
 	 *	@param model model
 	 */
 	public DFeServer (Properties ctx, AdempiereProcessor model)
 	{
-		super (model, 60);	//	60 seconds delay 
+		super (model, 60 * 60);	//	1 hour delay 
 		m_ctx = ctx;
 		m_processor = (DFeProcessor) model;
 		m_client = MClient.get (ctx, model.getAD_Client_ID());
-	}	//	AlertProcessor
+	}	//	DFeServer
 
 	/**	The Concrete Model			*/
 	protected Properties		m_ctx = null;
