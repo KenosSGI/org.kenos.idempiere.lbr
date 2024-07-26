@@ -103,6 +103,11 @@ public class InfoFactory implements IInfoFactory
 		MInfoWindow infoWindow = new MInfoWindow(Env.getCtx(), AD_InfoWindow_ID, (String)null);
 		String tableName = infoWindow.getAD_Table().getTableName();
 		String keyColumn = tableName + "_ID";
+		
+		//	CSV Exporter InfoWindow
+		if (infoWindow.getName().contains("[CSV]"))
+			return new InfoWindowCSV (-1, tableName, keyColumn, null, false, null, AD_InfoWindow_ID, false, null);
+		
 		InfoPanel info = create(-1, tableName, keyColumn, null, false, null, AD_InfoWindow_ID, false);
 		if (info instanceof InfoWindow)
 			return (InfoWindow) info;
