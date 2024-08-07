@@ -145,6 +145,7 @@ public class ValidateCertificate extends SvrProcess
 			dc.setValidFrom (new Timestamp (certificate.getNotBefore().getTime()));
 			dc.setValidTo (new Timestamp (certificate.getNotAfter().getTime()));
 			dc.setIsValid(true);
+			dc.setAD_Org_ID(0);	//	force * to be available to all CNPJ branches
 			dc.saveEx();
 			//
 			if (dc.getValidTo().before(Env.getContextAsDate(Env.getCtx(), "#Date")))
