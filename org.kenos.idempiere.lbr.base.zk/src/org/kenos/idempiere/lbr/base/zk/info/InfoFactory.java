@@ -91,9 +91,11 @@ public class InfoFactory implements IInfoFactory
 
 			info.setTitle("Product Info");
 		}
-		else
-			info = create(lookup.getWindowNo(), tableName, keyColumn, queryValue, false, whereClause, AD_InfoWindow_ID, true);
-		
+		else if (AD_InfoWindow_ID > 0) {
+			MInfoWindow infoWindow = new MInfoWindow(Env.getCtx(), AD_InfoWindow_ID, (String)null);
+			if (infoWindow.getName().contains("[MULTI]"))
+				info = create(lookup.getWindowNo(), tableName, keyColumn, queryValue, true, whereClause, AD_InfoWindow_ID, true);
+		}
 		return info;
 	}	//	create
 
