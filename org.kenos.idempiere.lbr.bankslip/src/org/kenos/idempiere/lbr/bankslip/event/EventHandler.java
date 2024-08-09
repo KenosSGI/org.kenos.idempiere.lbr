@@ -4,6 +4,7 @@ import org.adempiere.base.event.AbstractEventHandler;
 import org.adempiere.base.event.IEventTopics;
 import org.adempiere.model.POWrapper;
 import org.adempierelbr.model.MLBRNotaFiscal;
+import org.adempierelbr.util.LBRUtils;
 import org.adempierelbr.util.TextUtil;
 import org.adempierelbr.wrapper.I_W_C_Invoice;
 import org.compiere.model.MAllocationHdr;
@@ -72,7 +73,8 @@ public class EventHandler extends AbstractEventHandler
 
 		//	Check bank account organization
 		MLBRBankSlipContract contract = new MLBRBankSlipContract (invoice.getCtx(), iW.getLBR_BankSlipContract_ID(), null);
-		if (contract.getC_BankAccount().getAD_Org_ID() == invoice.getAD_Org_ID())
+		boolean allowSameEconomicGroup = MSysConfig.getBooleanValue(SysConfig.ALLOW_BANKSLIP_FOR_ECONOMIC_GROUP, false, invoice.getAD_Client_ID(), invoice.getAD_Org_ID());
+		if (LBRUtils.orgCheck(invoice.getCtx(), contract.getC_BankAccount().getAD_Org_ID(), invoice.getAD_Org_ID(), allowSameEconomicGroup))
 			return;	//	Same org, OK
 		
 		//	Bank Slip contract should be from the same organization

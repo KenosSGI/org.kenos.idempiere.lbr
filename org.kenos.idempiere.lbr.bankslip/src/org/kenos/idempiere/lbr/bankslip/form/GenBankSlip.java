@@ -29,6 +29,7 @@ import org.compiere.minigrid.ColumnInfo;
 import org.compiere.minigrid.IDColumn;
 import org.compiere.minigrid.IMiniTable;
 import org.compiere.model.MRole;
+import org.compiere.model.MSysConfig;
 import org.compiere.util.CLogger;
 import org.compiere.util.DB;
 import org.compiere.util.DisplayType;
@@ -38,6 +39,7 @@ import org.compiere.util.Msg;
 import org.compiere.util.Trx;
 import org.compiere.util.ValueNamePair;
 import org.kenos.idempiere.lbr.bankslip.model.MLBRBankSlip;
+import org.kenos.idempiere.lbr.base.model.SysConfig;
 
 /**
  * 		Classe comum para geração de boletos
@@ -273,9 +275,20 @@ public class GenBankSlip
 		sql += "i.LBR_BankSlipContract_ID=?)";
 		
 		//	AD_Org_ID
+		boolean allowSameEconomicGroup = MSysConfig.getBooleanValue(SysConfig.ALLOW_BANKSLIP_FOR_ECONOMIC_GROUP, false, Env.getAD_Client_ID(Env.getCtx()), org);
 		int AD_Org_ID = org;
 		if (AD_Org_ID != 0)
-			sql += " AND i.AD_Org_ID=?";
+			if (allowSameEconomicGroup)
+				sql += " AND EXISTS (\n"
+						+ "    SELECT 1 \n"
+						+ "    FROM AD_OrgInfo o_bank \n"
+						+ "    JOIN AD_OrgInfo o_target ON o_target.AD_Org_ID=i.AD_Org_ID\n"
+						+ "	WHERE o_bank.AD_Org_ID=?\n"
+						+ "    AND SUBSTRING(o_bank.lbr_CNPJ FROM 1 FOR 10) = SUBSTRING(o_target.lbr_CNPJ FROM 1 FOR 10)\n"
+						+ ")";
+			else
+				sql += " AND i.AD_Org_ID =?";
+
 		
 		//	Include blank payment rule
 		sql += " AND (";

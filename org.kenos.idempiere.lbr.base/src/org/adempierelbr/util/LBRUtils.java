@@ -16,11 +16,14 @@ import java.util.Objects;
 import java.util.Properties;
 import java.util.zip.GZIPInputStream;
 
+import org.adempiere.model.POWrapper;
+import org.adempierelbr.wrapper.I_W_AD_OrgInfo;
 import org.compiere.model.MBPartner;
 import org.compiere.model.MBPartnerProduct;
 import org.compiere.model.MInvoice;
 import org.compiere.model.MInvoiceLine;
 import org.compiere.model.MLocator;
+import org.compiere.model.MOrgInfo;
 import org.compiere.model.MProduct;
 import org.compiere.model.MProductPO;
 import org.compiere.model.Query;
@@ -439,4 +442,50 @@ public abstract class LBRUtils
 		
 		return doc;
 	}	//	readGZIP
+	
+	/**
+	 * Checks if two organizations belong to the same economic group.
+	 *
+	 * This method is a shortcut that calls {@link #orgCheck(Properties, int, int, boolean)}
+	 * with the `sameEconomicGroup` parameter set to `true`.
+	 *
+	 * @param ctx       the context properties
+	 * @param AD_Org1_ID the ID of the first organization
+	 * @param AD_Org2_ID the ID of the second organization
+	 * @return {@code true} if the organizations belong to the same economic group,
+	 *         {@code false} otherwise
+	 */
+	public static boolean sameEconomicGroup (Properties ctx, int AD_Org1_ID, int AD_Org2_ID) {
+		return orgCheck(ctx, AD_Org1_ID, AD_Org2_ID, true);
+	}	//	sameEconomicGroup
+	
+	/**
+	 * Checks if two organizations are related.
+	 *
+	 * This method can determine if two organizations belong to the same economic group
+	 * or other types of organizational relationships based on the provided parameters.
+	 *
+	 * @param ctx                the context properties
+	 * @param AD_Org1_ID         the ID of the first organization
+	 * @param AD_Org2_ID         the ID of the second organization
+	 * @param sameEconomicGroup  if {@code true}, checks if the organizations belong to the same economic group;
+	 *                           if {@code false}, checks for a different type of organizational relationship
+	 * @return {@code true} if the organizations meet the specified relationship criteria,
+	 *         {@code false} otherwise
+	 */
+	public static boolean orgCheck (Properties ctx, int AD_Org1_ID, int AD_Org2_ID, boolean sameEconomicGroup) {
+		if (!sameEconomicGroup)
+			return AD_Org1_ID == AD_Org2_ID;
+		
+		I_W_AD_OrgInfo oi1 = POWrapper.create(MOrgInfo.get (ctx, AD_Org1_ID, null), I_W_AD_OrgInfo.class);
+		I_W_AD_OrgInfo oi2 = POWrapper.create(MOrgInfo.get (ctx, AD_Org2_ID, null), I_W_AD_OrgInfo.class);
+		
+		String cnpj1 = oi1.getlbr_CNPJ();
+		String cnpj2 = oi2.getlbr_CNPJ();
+		
+		if (cnpj1 == null || cnpj1.length() != 18 || cnpj2 == null || cnpj2.length() != 18)
+			return false;
+		
+		return cnpj1.substring(0, 10).equals(cnpj2.substring(0, 10));
+	}	//	sameEconomicGroup
 }	//	LBRUtils
