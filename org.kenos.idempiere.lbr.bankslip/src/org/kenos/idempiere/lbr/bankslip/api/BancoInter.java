@@ -8,9 +8,13 @@ import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.UnrecoverableKeyException;
+import java.security.cert.Certificate;
 import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Enumeration;
 import java.util.List;
 
 import javax.net.ssl.KeyManagerFactory;
@@ -295,6 +299,17 @@ public class BancoInter implements IBankSlipAPI {
 		ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(keyStoreByteArray);
 		try {
 			ks.load(byteArrayInputStream, keyStorePw);
+	        // Check certificate expiration
+	        Date currentDate = new Date();
+	        Enumeration<String> aliases = ks.aliases();
+	        while (aliases.hasMoreElements()) {
+	            String alias = aliases.nextElement();
+	            Certificate cert = ks.getCertificate(alias);
+	            if (cert instanceof X509Certificate) {
+	                X509Certificate x509Cert = (X509Certificate) cert;
+	                x509Cert.checkValidity(currentDate);
+	            }
+	        }
 		} catch (NoSuchAlgorithmException exp) {
 			throw new Exception("NoSuchAlgorithmException exception occurred " + exp.getMessage());
 		} catch (CertificateException | IOException exp) {
