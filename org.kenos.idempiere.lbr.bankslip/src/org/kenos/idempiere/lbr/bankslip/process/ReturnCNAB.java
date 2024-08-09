@@ -243,6 +243,12 @@ public class ReturnCNAB extends SvrProcess
 			row.createCell(COL_OBS).setCellValue("Boleto não encontrado");
 			return;
 		}
+		else if (p_Contract_ID != bankSlip.getLBR_BankSlipContract_ID()) 
+		{
+			addLog(detail, " - Boleto não pertence ao contrato");
+			row.createCell(COL_OBS).setCellValue("Boleto não pertence ao contrato");
+			return;
+		}
 
 		// Tries to find a occurrence code
 		MLBRBankSlipOccur occur = MLBRBankSlipOccur.get (bankSlip.getLBR_BankSlipLayout_ID(), detail.getOccurCod(), false);
