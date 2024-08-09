@@ -596,8 +596,4 @@ public class SignatureUtil
 		sha1hash = md.digest();
 		return convertToHex(sha1hash);
 	}
-	
-	public static void main (String[] args) throws NoSuchAlgorithmException, UnsupportedEncodingException {
-		System.out.println(SHA1 ("00000317330NF   00000003866320090905T NN000000000001686000000000000000082997990008764130000102"));
-	}
 }	//	SignatureUtil
