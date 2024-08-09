@@ -1659,7 +1659,12 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 			 */
 			if (identifier.matches (IDENTIFIER_REGEX)) {
 				Integer id = Integer.parseInt(identifier.replaceAll(IDENTIFIER_REGEX, "$1"));
-				return new MLBRBankSlip (ctx, id, null);
+				MLBRBankSlip bs = new MLBRBankSlip (ctx, id, null);
+				if (bs != null && bs.getAD_Client_ID() == Env.getAD_Client_ID(ctx))
+					return bs;
+				//	Don't try other methods, because the exactly identifier should always match
+				//	the correct bank slip with client ID.
+				return null;
 			}
 			
 			String where = COLUMNNAME_LBR_BankSlipContract_ID + "=? AND " + COLUMNNAME_LBR_NumberInOrg + "=? ";
