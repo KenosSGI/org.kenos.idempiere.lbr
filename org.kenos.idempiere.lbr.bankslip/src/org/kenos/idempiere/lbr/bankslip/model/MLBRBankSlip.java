@@ -571,8 +571,14 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 				String docNoStrategy = getLBR_BankSlipContract().getLBR_DocNoStrategy();
 				
 				if (TextUtil.match (docNoStrategy, LBR_DOCNOSTRATEGY_NotaFiscalInvoiceOrBankSlip)
-						&& getLBR_NotaFiscal_ID() > 0)
-					numberInOrg = getLBR_NotaFiscal().getDocumentNo();
+						&& getLBR_NotaFiscal_ID() > 0) {
+					//	NFS-e number
+					numberInOrg = getLBR_NotaFiscal().getlbr_NFENo();
+					
+					//	NF-e or RPS number
+					if (numberInOrg == null || numberInOrg.isBlank())
+						numberInOrg = getLBR_NotaFiscal().getDocumentNo();
+				}
 				
 				else if (TextUtil.match (docNoStrategy, LBR_DOCNOSTRATEGY_NotaFiscalInvoiceOrBankSlip, LBR_DOCNOSTRATEGY_InvoiceOrBankSlip)
 						&& getC_Invoice_ID() > 0)
