@@ -155,7 +155,7 @@ public class ValidatorInvoice implements ModelValidator
 	 */
 	public String modelChange (PO po, int type) throws Exception
 	{
-		log.info(po.get_TableName() + " Type: "+type);
+		log.finer(po.get_TableName() + " Type: "+type);
 
 		/**
 		 * 	Copia as informações do pedido
