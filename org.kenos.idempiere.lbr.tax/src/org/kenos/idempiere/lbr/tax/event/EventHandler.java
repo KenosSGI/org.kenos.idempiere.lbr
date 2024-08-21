@@ -82,7 +82,9 @@ public class EventHandler extends AbstractEventHandler
 			MUser user = contacts[0];
 			//
 			user.setName(bp.getName());
-			user.setEMail(bpW.getLBR_EMailNFe());
+			if (bpW.getLBR_EMailNFe() != null && !bpW.getLBR_EMailNFe().isBlank()) {
+				user.setEMail(bpW.getLBR_EMailNFe().split(";")[0]);
+			}
 			user.save();
 		}
 	}	//	doHandleEvent
