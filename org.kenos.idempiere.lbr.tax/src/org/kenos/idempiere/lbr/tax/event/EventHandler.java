@@ -62,8 +62,9 @@ public class EventHandler extends AbstractEventHandler
 		{
 			MUser user = new MUser (bp);
 			//
-			if (bpW.getLBR_EMailNFe() != null && !bpW.getLBR_EMailNFe().isEmpty())
-				user.setEMail(bpW.getLBR_EMailNFe());
+			if (bpW.getLBR_EMailNFe() != null && !bpW.getLBR_EMailNFe().isBlank()) {
+				user.setEMail(bpW.getLBR_EMailNFe().split(";")[0]);
+			}
 			user.save();
 			
 			//	Record just created, return
