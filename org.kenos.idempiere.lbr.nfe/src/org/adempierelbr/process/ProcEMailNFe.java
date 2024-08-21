@@ -15,6 +15,7 @@ import org.adempierelbr.nfse.INFSe;
 import org.adempierelbr.nfse.NFSeUtil;
 import org.adempierelbr.util.NFeUtil;
 import org.adempierelbr.util.TextUtil;
+import org.adempierelbr.validator.ValidatorBPartner;
 import org.adempierelbr.wrapper.I_W_AD_OrgInfo;
 import org.compiere.model.MAttachmentEntry;
 import org.compiere.model.MBPartner;
@@ -313,12 +314,12 @@ public class ProcEMailNFe extends SvrProcess
 		}
 		
 		//	Get e-mail from business partner
-		if (toEMails == null || toEMails.trim().isEmpty() || toEMails.indexOf('@') == -1)
+		if (toEMails == null || toEMails.trim().isBlank())
 		{
 			MBPartner bp = new MBPartner (Env.getCtx(), nf.getC_BPartner_ID(), nf.get_TrxName());
 			
 			if (MLBRNotaFiscal.LBR_NFMODEL_NotaFiscalDeServiçosEletrônicaRPS.equals(nf.getlbr_NFModel())
-					&& !bp.get_ValueAsString("LBR_EMailNFSe").isEmpty())
+					&& !bp.get_ValueAsString("LBR_EMailNFSe").isBlank())
 						toEMails = bp.get_ValueAsString("LBR_EMailNFSe");
 			else
 				toEMails = bp.get_ValueAsString("lbr_EMailNFe");
@@ -333,7 +334,7 @@ public class ProcEMailNFe extends SvrProcess
 				MBPartner shipperBP = new MBPartner (Env.getCtx(), shipper.getC_BPartner_ID(), nf.get_TrxName());
 				String shipperEMail = shipperBP.get_ValueAsString("lbr_EMailNFe");
 				//
-				if (shipperEMail != null && shipperEMail.length() > 0)
+				if (!shipperEMail.isBlank())
 					if (toEMails == null || toEMails.length() < 1)
 						toEMails = shipperEMail;
 					else
@@ -341,26 +342,20 @@ public class ProcEMailNFe extends SvrProcess
 			}
 		}
 		
-		// Definir Endereço de Email para receber todas as NFs Autorizadas no Adempiere
-		String nfbyEmailto = null;
-		
+		// 	Always send a copy to this e-mail
+		String copyToEmail = null;
 		if (nfConfig != null)
-			nfbyEmailto = nfConfig.getEMail_To();
-		else
-			nfbyEmailto = MSysConfig.getValue(SysConfig.LBR_SEND_NF_BY_EMAIL_TO, "", Env.getAD_Client_ID(Env.getCtx()));
+			copyToEmail = nfConfig.getEMail_To();
 		
-		if (!"".equals(nfbyEmailto))
-		{
-			toEMails += ";" + nfbyEmailto;
-		}
+		//	Legacy compatibility
+		else
+			copyToEmail = MSysConfig.getValue(SysConfig.LBR_SEND_NF_BY_EMAIL_TO, "", Env.getAD_Client_ID(Env.getCtx()));
 		
 		if (toEMails == null || toEMails.indexOf('@') == -1)
 		{
 			log.warning("E-mail para recepção de NF-e inválido");
 			return "@Error@ E-mail para recepção de NF-e inválido";
 		}
-		else
-			toEMails = toEMails.replace(",", ";");
 		//
 		String subject = null;
 		String message = null;
@@ -421,7 +416,15 @@ public class ProcEMailNFe extends SvrProcess
 		if (nfConfig != null && nfConfig.getEMail_From() != null)
 			replyTo = nfConfig.getEMail_From();
 
-		EMail mail = client.createEMail (from, client.getRequestEMail(), subject,  message, true);
+		StringTokenizer st = new StringTokenizer(toEMails, ";,");
+		String to = st.nextToken();
+		if (!to.matches(ValidatorBPartner.REGEX_EMAIL))
+		{
+			log.severe("E-mail para envio da NF-e inválido, verifique o cadastro do cliente");
+			return "E-mail para envio da NF-e inválido, verifique o cadastro do cliente";
+		}
+
+		EMail mail = client.createEMail (from, to, subject,  message, true);
 
 		if (mail == null)
 		{
@@ -481,19 +484,22 @@ public class ProcEMailNFe extends SvrProcess
 		attachements.stream().forEach(mail::addAttachment);
 		
 		//
-		StringTokenizer st = new StringTokenizer(toEMails, ";");
 		while (st.hasMoreTokens())
 		{
 			String toEMail = st.nextToken();
-			if (toEMail == null)
+			if (toEMail.isBlank())
 				continue;
 			//
 			toEMail = toEMail.trim();
-			if (toEMail.length() == 0 || toEMail.indexOf("@") == -1)
+			if (!toEMail.matches(ValidatorBPartner.REGEX_EMAIL))
 				continue;
 			//
-			mail.addCc(toEMail);
+			mail.addTo(toEMail);
 		}
+		
+		//	Copy e-mail
+		if (copyToEmail != null && copyToEmail.matches(ValidatorBPartner.REGEX_EMAIL))
+			mail.addCc(copyToEmail);
 		//
 		if (mail.send().equals(EMail.SENT_OK))
 			updateNFASync (nf.getLBR_NotaFiscal_ID());
