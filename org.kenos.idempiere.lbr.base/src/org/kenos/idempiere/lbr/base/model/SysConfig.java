@@ -93,6 +93,7 @@ public class SysConfig
 	public static final String LBR_REMOTE_PKCS11_TIMEOUT 						= "LBR_REMOTE_PKCS11_TIMEOUT";
 	public static final String LBR_REMOTE_PKCS11_URL 							= "LBR_REMOTE_PKCS11_URL";
 	public static final String LBR_SENDNFENOONCNAB 								= "LBR_SENDNFENOONCNAB";
+	public static final String LBR_SEND_NFE_TO_SHIPPER 							= "LBR_SEND_NFE_TO_SHIPPER";
 	public static final String LBR_SHOW_EMPLOYEE_BP_INFO 						= "LBR_SHOW_EMPLOYEE_BP_INFO#";
 	public static final String LBR_SHOW_STOCK_MSG_ON_ORDER 						= "LBR_SHOW_STOCK_MSG_ON_ORDER";
 	public static final String LBR_SISCOMEX_PRODUCT_REGEX						= "LBR_SISCOMEX_PRODUCT_REGEX";

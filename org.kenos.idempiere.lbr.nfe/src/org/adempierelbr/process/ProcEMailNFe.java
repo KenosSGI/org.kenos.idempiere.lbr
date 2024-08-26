@@ -313,6 +313,9 @@ public class ProcEMailNFe extends SvrProcess
 			return "E-Mail já enviado";
 		}
 		
+		//	Check config before sending e-mail to shipper
+		sendToShipper = sendToShipper && MSysConfig.getBooleanValue(SysConfig.LBR_SEND_NFE_TO_SHIPPER, false, nf.getAD_Client_ID(), nf.getAD_Org_ID());
+		
 		//	Get e-mail from business partner
 		if (toEMails == null || toEMails.trim().isBlank())
 		{
