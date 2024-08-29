@@ -29,6 +29,7 @@ import org.adempiere.webui.component.Label;
 import org.adempiere.webui.component.Listbox;
 import org.adempiere.webui.component.ListboxFactory;
 import org.adempiere.webui.component.Row;
+import org.adempiere.webui.component.Textbox;
 import org.adempiere.webui.editor.WSearchEditor;
 import org.adempiere.webui.editor.WTableDirEditor;
 import org.adempiere.webui.event.ValueChangeEvent;
@@ -85,6 +86,8 @@ public class WInOutGen extends InOutGen implements IFormController, EventListene
 	private Datebox fDateShipped = new Datebox();
 	private Checkbox cbConsolidateDoc = new Checkbox();
 	private Checkbox cbUnconfirmedInOut = new Checkbox();
+	private Label lDocumentNo = new Label();
+	private Textbox fDocumentNo = new Textbox();
 	
 	public WInOutGen()
 	{
@@ -134,6 +137,8 @@ public class WInOutGen extends InOutGen implements IFormController, EventListene
 		cbUnconfirmedInOut.setText(Msg.translate(Env.getCtx(), "IsUnconfirmedInOut"));
 		cbUnconfirmedInOut.setSelected(false);
 		
+		lDocumentNo.setText(Msg.translate(Env.getCtx(), "DocumentNo"));
+		
 		Row row = form.getParameterPanel().newRows().newRow();
 		row.appendCellChild(lWarehouse.rightAlign());
 		ZKUpdateUtil.setHflex(fWarehouse.getComponent(), "true");
@@ -158,10 +163,11 @@ public class WInOutGen extends InOutGen implements IFormController, EventListene
 		
 		row = new Row();
 		form.getParameterPanel().getRows().appendChild(row);
+		row.appendCellChild(lDocumentNo.rightAlign());
+		row.appendCellChild(fDocumentNo);
 		row.appendCellChild(new Space());
 		row.appendCellChild(cbConsolidateDoc, 2);
 		row.appendCellChild(cbUnconfirmedInOut, 2);
-		row.appendCellChild(new Space());
 		
 		if (noOfColumn < 6)
 			LayoutUtils.compactTo(form.getParameterPanel(), noOfColumn);
@@ -230,6 +236,8 @@ public class WInOutGen extends InOutGen implements IFormController, EventListene
 		fDatePromised.setName(MOrder.COLUMNNAME_DatePromised);
 		fDatePromised.addEventListener(Events.ON_CHANGE, this);
 		
+		fDocumentNo.addEventListener(Events.ON_CHANGE, this);
+
 		form.getStatusBar().setStatusLine(Msg.getMsg(Env.getCtx(), "InOutGenerateSel"));//@@
 	}	//	fillPicks
 
@@ -238,6 +246,9 @@ public class WInOutGen extends InOutGen implements IFormController, EventListene
 	 */
 	public void executeQuery()
 	{
+		//	Document number filter
+		m_DocumentNo = fDocumentNo.getText();
+
 		KeyNamePair docTypeKNPair = cmbDocType.getSelectedItem().toKeyNamePair();
 		executeQuery(docTypeKNPair, form.getMiniTable());
 		if (ClientInfo.maxHeight(ClientInfo.SMALL_HEIGHT-1))
@@ -301,6 +312,11 @@ public class WInOutGen extends InOutGen implements IFormController, EventListene
 			
 			form.postQueryEvent();
 			//
+			return;
+		}
+		else if (fDocumentNo.equals(e.getTarget()))
+		{
+			form.postQueryEvent();
 			return;
 		}
 		

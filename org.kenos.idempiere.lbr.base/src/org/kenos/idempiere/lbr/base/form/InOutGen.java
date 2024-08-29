@@ -41,6 +41,7 @@ import org.compiere.util.Env;
 import org.compiere.util.KeyNamePair;
 import org.compiere.util.Msg;
 import org.compiere.util.Trx;
+import org.compiere.util.Util;
 
 /**
  * Generate Shipment (manual) controller class
@@ -52,12 +53,13 @@ public class InOutGen extends GenForm
 	private static CLogger log = CLogger.getCLogger(InOutGen.class);
 	//
 	
-	public Object 			m_M_Warehouse_ID = null;
-	public Object 			m_C_BPartner_ID = null;
+	public Object 			m_M_Warehouse_ID 	= null;
+	public Object 			m_C_BPartner_ID 	= null;
 	public Timestamp		m_DatePromised 		= null;
 	public Timestamp		m_MovementDate 		= null;
 	public boolean			m_ConsolidateDoc	= true;
 	public boolean			m_UnconfirmedInOut	= true;
+	public String			m_DocumentNo 		= null;
 	
 	public void dynInit() throws Exception
 	{
@@ -114,6 +116,8 @@ public class InOutGen extends GenForm
             sql.append(" AND ic.M_Warehouse_ID=").append(m_M_Warehouse_ID);
         if (m_C_BPartner_ID != null)
             sql.append(" AND ic.C_BPartner_ID=").append(m_C_BPartner_ID);
+        if (m_DocumentNo != null && !m_DocumentNo.isBlank() && m_DocumentNo.indexOf("'") == -1)
+            sql.append(" AND ic.DocumentNo LIKE '").append(Util.cleanAmp(m_DocumentNo)).append("'");
         if (m_DatePromised != null)
         {
         	sql.append(" AND EXISTS (SELECT '1' FROM C_Order o WHERE o.C_Order_ID=ic.C_Order_ID");
