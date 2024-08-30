@@ -11,15 +11,18 @@ import com.ancientprogramming.fixedformat4j.annotation.Record;
 
 @Record  
 public class Record0Header extends RecordBase {
-
 	public Record0Header() {
 		super (0);	//	0 - Header
-	}
+	}	//	Record0Header
 	
 	public Record0Header(MLBRCNABFile cnabFile) {
 		this ();
 		//
-	}
+		setNomeDaEmpresa(cnabFile.getlbr_LegalEntity());
+		setCodDoBanco(cnabFile.getRoutingNoAsInt());
+		setDataDeGeracao(cnabFile.getDateDoc());
+		setNomeDoBanco(cnabFile.getBankName());
+	}	//	Record0Header
 
 	protected Integer operacao 		= 1;			//	Default  
 	protected String remessa 		= "REMESSA"; 	//	Default   
@@ -67,16 +70,6 @@ public class Record0Header extends RecordBase {
 	public void setNomeServ(String nomeServ) {
 		this.nomeServ = nomeServ;
 	}
-	
-//	@Field( offset = 27, length = 4, paddingChar = '0' , align = Align.RIGHT )
-//	public Integer getAgencia() {
-//		return agencia;
-//	}
-//
-//	public void setAgencia(Integer agencia) {
-//		this.agencia = agencia;
-//	}
-	
 
 	@Field( offset = 47, length = 30 )
 	public String getNomeDaEmpresa() {

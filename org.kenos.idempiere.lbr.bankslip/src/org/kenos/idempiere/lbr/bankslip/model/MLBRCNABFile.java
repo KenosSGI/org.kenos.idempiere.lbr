@@ -12,8 +12,10 @@ import org.adempierelbr.model.I_LBR_BankSlipLayout;
 import org.adempierelbr.model.X_LBR_CNABFile;
 import org.adempierelbr.util.TextUtil;
 import org.adempierelbr.wrapper.I_W_AD_OrgInfo;
+import org.adempierelbr.wrapper.I_W_C_Bank;
 import org.compiere.model.MAttachment;
 import org.compiere.model.MAttachmentEntry;
+import org.compiere.model.MBank;
 import org.compiere.model.MOrgInfo;
 import org.compiere.model.MSequence;
 import org.compiere.model.ModelValidationEngine;
@@ -85,6 +87,21 @@ public class MLBRCNABFile extends X_LBR_CNABFile implements DocAction, DocOption
 		String legalEntity = oi.get_ValueAsString(I_W_AD_OrgInfo.COLUMNNAME_lbr_LegalEntity);
 		return legalEntity != null ? legalEntity.toUpperCase().trim() : "";
 	}	//	getlbr_LegalEntity
+
+	/**
+	 * This will retrieve and return the bank name
+	 * @return Bank Name or empty string
+	 */
+	public String getBankName()
+	{
+		MBank bank = (MBank) getC_Bank();
+		int LBR_Bank_ID = bank.get_ValueAsInt(I_W_C_Bank.COLUMNNAME_LBR_Bank_ID);
+		if (LBR_Bank_ID > 0) {
+			MLBRBank bankBR = new MLBRBank (getCtx(), LBR_Bank_ID, null);
+			return bankBR.getName().toUpperCase().trim();
+		}
+		return "";
+	}	//	getBankName
 	
 	@Override
 	protected boolean beforeDelete()
