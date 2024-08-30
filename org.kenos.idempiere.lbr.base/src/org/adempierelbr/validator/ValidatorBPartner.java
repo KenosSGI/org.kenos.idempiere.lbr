@@ -357,14 +357,18 @@ public class ValidatorBPartner implements ModelValidator
 	 */
 	private boolean isEmailNFeValid (I_W_C_BPartner bp)
 	{
-		//	Avoid validation
-		if (bp == null 
-				|| bp.getLBR_EMailNFe() == null
-				|| bp.getLBR_EMailNFe().isBlank())
-			return true;
+		//	Skip validation
+		if (bp == null) return true;
+		
+		String email = bp.getLBR_EMailNFe();
+		if (email == null || email.length() == 0) return true;
 		//
-		bp.setLBR_EMailNFe (bp.getLBR_EMailNFe().trim().replace(" ", ""));
-		return bp.getLBR_EMailNFe().matches (REGEX_EMAIL);
+		email = email.trim().replace(" ", "");
+		if (email.length() == 0)
+			return false;
+		//
+		bp.setLBR_EMailNFe (email);
+		return email.matches (REGEX_EMAIL);
 	}	//	isEmailNFeValid
 
 	/**
@@ -374,15 +378,19 @@ public class ValidatorBPartner implements ModelValidator
 	 */
 	private boolean isEmailNFSeValid (I_W_C_BPartner bp)
 	{
-		//	Avoid validation
-		if (bp == null 
-				|| bp.getLBR_EMailNFSe() == null
-				|| bp.getLBR_EMailNFSe().isBlank())
-			return true;
+		//	Skip validation
+		if (bp == null) return true;
+		
+		String email = bp.getLBR_EMailNFSe();
+		if (email == null || email.length() == 0) return true;
 		//
-		bp.setLBR_EMailNFSe (bp.getLBR_EMailNFSe().trim().replace(" ", ""));
-		return bp.getLBR_EMailNFSe().matches (REGEX_EMAIL);
-	}	//	isEmailValid
+		email = email.trim().replace(" ", "");
+		if (email.length() == 0)
+			return false;
+		//
+		bp.setLBR_EMailNFSe (email.trim().replace(" ", ""));
+		return email.matches (REGEX_EMAIL);
+	}	//	isEmailNFSeValid
 
 	/**
 	 * 	Validação de E-mail do contato da NFe
@@ -391,15 +399,19 @@ public class ValidatorBPartner implements ModelValidator
 	 */
 	private boolean isEmailBillingValid (I_W_C_BPartner bp)
 	{
-		//	Avoid validation
-		if (bp == null 
-				|| bp.getLBR_EMailBilling() == null
-				|| bp.getLBR_EMailBilling().isBlank())
-			return true;
+		//	Skip validation
+		if (bp == null) return true;
+		
+		String email = bp.getLBR_EMailBilling();
+		if (email == null || email.length() == 0) return true;
 		//
-		bp.setLBR_EMailBilling (bp.getLBR_EMailBilling().trim().replace(" ", ""));
-		return bp.getLBR_EMailBilling().matches (REGEX_EMAIL);
-	}	//	isEmailValid
+		email = email.trim().replace(" ", "");
+		if (email.length() == 0)
+			return false;
+		//
+		bp.setLBR_EMailBilling (email.trim().replace(" ", ""));
+		return email.matches (REGEX_EMAIL);
+	}	//	isEmailBillingValid
 
 	/**
 	 *	Validate Document.
