@@ -80,7 +80,9 @@ import org.kenos.idempiere.lbr.bankslip.ICNABFactory;
 import org.kenos.idempiere.lbr.bankslip.api.IResponseAPI;
 import org.kenos.idempiere.lbr.bankslip.cnab240.BancoSafra422;
 import org.kenos.idempiere.lbr.bankslip.cnab400.BancoDoBrasil001;
+import org.kenos.idempiere.lbr.bankslip.cnab400.BancoMoneyPlus;
 import org.kenos.idempiere.lbr.bankslip.cnab400.Bradesco237;
+import org.kenos.idempiere.lbr.bankslip.cnab400.C6Bank;
 import org.kenos.idempiere.lbr.bankslip.cnab400.CaixaEconomica104;
 import org.kenos.idempiere.lbr.bankslip.exception.MovementException;
 import org.kenos.idempiere.lbr.bankslip.process.RegisterOccurence;
@@ -145,6 +147,11 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 	public static final int ESPECIE_TRIPLICATA_DE_SERVICO 				= 34;
 	public static final int ESPECIE_TRIPLICATA_MERCANTIL 				= 35;
 	public static final int ESPECIE_WARRANT			 					= 36;
+	public static final int ESPECIE_FICHA_DE_COMPENSACAO			 	= 37;
+	public static final int ESPECIE_CARNE							 	= 38;
+	public static final int ESPECIE_FATURA_DE_CARTAO_CREDITO		 	= 39;
+	public static final int ESPECIE_BOLETO_APORTE					 	= 40;
+	public static final int ESPECIE_BLOQUETO						 	= 41;
 	public static final int ESPECIE_OUTROS 								= 999;
 	
 	/**	Messages			*/
@@ -328,7 +335,8 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 	
 		int routingNo = Integer.parseInt(bsi.getRoutingNo());
 		if (routingNo == BancoDoBrasil001.ROUNTING_NO
-				|| routingNo == CaixaEconomica104.ROUNTING_NO)
+				|| routingNo == CaixaEconomica104.ROUNTING_NO
+				|| routingNo == C6Bank.ROUNTING_NO)
 			numeroDaConta= new NumeroDaConta(Integer.valueOf (accordNo));
 		
 		else if (routingNo == 33)
@@ -1149,6 +1157,21 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 			numberInBank = "14" + TextUtil.lPad(getLBR_NumberInBank(), 15);
 		}
 		
+		//	C6
+		else if (Integer.parseInt(getRoutingNo()) == C6Bank.ROUNTING_NO)
+		{
+			numberInBank = "0" + TextUtil.lPad(bsi.getLBR_BankSlipFoldCode(), 2) + 
+					TextUtil.lPad(getLBR_NumberInBank(), 10);
+		}
+		
+		//	Banco Money Plus
+		else if (Integer.parseInt(getRoutingNo()) == BancoMoneyPlus.ROUNTING_NO)
+		{
+			modulo = new Modulo (TipoDeModulo.MODULO11, 9, 2);
+			numberInBank = TextUtil.lPad(bsi.getLBR_BankSlipFoldCode(), 2) + 
+					TextUtil.lPad(getLBR_NumberInBank(), 11);
+		}
+		
 		if (numberInBank == null)
 			bsi.setLBR_NumberInBankVD("0");
 		else
@@ -1833,13 +1856,23 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 	
 	public String getIdentifier ()
 	{
+		return getIdentifier(25);
+	}	//	getIdentifier
+	
+	public String getIdentifier (int maxSize)
+	{
 		StringBuilder result = new StringBuilder ();
 		//
 		result.append("B").append(getLBR_BankSlip_ID());
-		result.append("F");
-		if (getC_Invoice_ID() > 0)
-			result.append(TextUtil.toNumeric (getC_Invoice().getDocumentNo()));
-		result.append("P").append(getlbr_PayScheduleNo());
+		if (getC_Invoice_ID() > 0) {
+			StringBuilder invoiceIdentifier = new StringBuilder ();
+			invoiceIdentifier.append("F");
+			invoiceIdentifier.append(TextUtil.toNumeric (getC_Invoice().getDocumentNo()));
+			invoiceIdentifier.append("P").append(getlbr_PayScheduleNo());
+			//
+			if (maxSize - (result.length() + invoiceIdentifier.length()) > 0)
+				result.append(invoiceIdentifier);
+		}
 		//
 		return result.toString();
 	}	//	getIdentifier

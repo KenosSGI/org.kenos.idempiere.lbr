@@ -10,8 +10,8 @@ import org.compiere.util.Env;
 import org.kenos.idempiere.lbr.bankslip.ICNABGenerator;
 import org.kenos.idempiere.lbr.bankslip.cnab400.bean.CNAB400;
 import org.kenos.idempiere.lbr.bankslip.cnab400.bean.Record9Trailer;
-import org.kenos.idempiere.lbr.bankslip.cnab400.bean.out.c6.Record0Header;
-import org.kenos.idempiere.lbr.bankslip.cnab400.bean.out.c6.Record1Detail;
+import org.kenos.idempiere.lbr.bankslip.cnab400.bean.out.bmp.Record0Header;
+import org.kenos.idempiere.lbr.bankslip.cnab400.bean.out.bmp.Record1Detail;
 import org.kenos.idempiere.lbr.bankslip.model.MLBRBankSlip;
 import org.kenos.idempiere.lbr.bankslip.model.MLBRBankSlipInfo;
 import org.kenos.idempiere.lbr.bankslip.model.MLBRBankSlipMov;
@@ -22,7 +22,7 @@ import org.kenos.idempiere.lbr.bankslip.model.MLBRCNABFile;
  * 	Generate CNAB for Itau Bank
  * 	@author Ricardo Santana
  */
-public class C6Bank implements ICNABGenerator
+public class BancoMoneyPlus implements ICNABGenerator
 {
 	public static final String VERSION = "2.00";
 	
@@ -122,13 +122,11 @@ public class C6Bank implements ICNABGenerator
 
 			detail.setCodInscricaoEmpresa(orgBPTypeBR);
 			detail.setNumInscricaoEmpresa(orgCNPJF);
-			detail.setCodEmpresa(cnabFile.getlbr_AgencyNo() + cnabFile.getAccountNo() + cnabFile.getLBR_BankAccountVD());
-			detail.setCodDoBanco(bs.getRoutingNo());
 			detail.setNossoNumero(bs.getLBR_NumberInBank());
-			detail.setCodCarteira(bsi.getLBR_BankSlipFoldCode());
+			detail.setNossoNumeroDV(bsi.getLBR_NumberInBankVD());
 			detail.setValorDoTitulo(bs.getGrandTotal());
 			detail.setCodOcorrencia(mov.getValue());
-			detail.setCodIdentificacao(bs.getIdentifier());
+			detail.setCodIdentificacao(bs.getIdentifier(15));
 
 			String movType = mov.getType();
 			
@@ -197,42 +195,70 @@ public class C6Bank implements ICNABGenerator
 	{
 		switch (Integer.valueOf (kindValue))
 		{
-			case MLBRBankSlip.ESPECIE_DUPLICATA_MERCANTIL:
-				return "01";
-			case MLBRBankSlip.ESPECIE_DUPLICATA_DE_SERVICO:
-				return "02";
-			case MLBRBankSlip.ESPECIE_NOTA_PROMISSORIA:
-				return "03";
-			case MLBRBankSlip.ESPECIE_NOTA_DE_SEGURO:
-				return "04";
-			case MLBRBankSlip.ESPECIE_RECIBO:
-				return "05";
-			case MLBRBankSlip.ESPECIE_LETRA_DE_CAMBIO:
-				return "06";
-			case MLBRBankSlip.ESPECIE_FICHA_DE_COMPENSACAO:
-				return "07";
-			case MLBRBankSlip.ESPECIE_CARNE:
-				return "08";
-			case MLBRBankSlip.ESPECIE_CONTRATO:
-				return "09";
 			case MLBRBankSlip.ESPECIE_CHEQUE:
+				return "01";
+			case MLBRBankSlip.ESPECIE_DUPLICATA_MERCANTIL:
+				return "02";
+			case MLBRBankSlip.ESPECIE_DUPLICATA_MERCANTIL_POR_INDICACAO:
+				return "03";
+			case MLBRBankSlip.ESPECIE_DUPLICATA_DE_SERVICO:
+				return "04";
+			case MLBRBankSlip.ESPECIE_DUPLICATA_DE_SERVICO_POR_INDICACAO:
+				return "05";
+			case MLBRBankSlip.ESPECIE_DUPLICATA_RURAL:
+				return "06";
+			case MLBRBankSlip.ESPECIE_LETRA_DE_CAMBIO:
+				return "07";
+			case MLBRBankSlip.ESPECIE_NOTA_DE_CREDITO_COMERCIAL:
+				return "08";
+			case MLBRBankSlip.ESPECIE_NOTA_DE_CREDITO_PARA_EXPORTACAO:
+				return "09";
+			case MLBRBankSlip.ESPECIE_NOTA_DE_CREDITO_INDUSTRIAL:
 				return "10";
-			case MLBRBankSlip.ESPECIE_COBRANCA_SERIADA:
+			case MLBRBankSlip.ESPECIE_NOTA_DE_CREDITO_RURAL:
 				return "11";
-			case MLBRBankSlip.ESPECIE_MENSALIDADE_ESCOLAR:
+			case MLBRBankSlip.ESPECIE_NOTA_PROMISSORIA:
 				return "12";
-			case MLBRBankSlip.ESPECIE_NOTA_DE_DEBITO:
+			case MLBRBankSlip.ESPECIE_NOTA_PROMISSORIA_RURAL:
 				return "13";
-			case MLBRBankSlip.ESPECIE_DOCUMENTO_DE_DIVIDA:
+			case MLBRBankSlip.ESPECIE_TRIPLICATA_MERCANTIL:
+				return "14";
+			case MLBRBankSlip.ESPECIE_TRIPLICATA_DE_SERVICO:
 				return "15";
-			case MLBRBankSlip.ESPECIE_ENCARGOS_CONDOMINIAIS:
+			case MLBRBankSlip.ESPECIE_NOTA_DE_SEGURO:
 				return "16";
-			case MLBRBankSlip.ESPECIE_CONTA_DE_PRESTACAO_DE_SERVICO:
+			case MLBRBankSlip.ESPECIE_RECIBO:
 				return "17";
-			case MLBRBankSlip.ESPECIE_FATURA_DE_CARTAO_CREDITO:
+			case MLBRBankSlip.ESPECIE_BLOQUETO:
+				return "18";
+			case MLBRBankSlip.ESPECIE_NOTA_DE_DEBITO:
+				return "19";
+			case MLBRBankSlip.ESPECIE_APOLICE_DE_SEGURO:
+				return "20";
+			case MLBRBankSlip.ESPECIE_MENSALIDADE_ESCOLAR:
+				return "21";
+			case MLBRBankSlip.ESPECIE_PARCELA_DE_CONSORCIO:
+				return "22";
+			case MLBRBankSlip.ESPECIE_NOTA_FISCAL:
+				return "23";
+			case MLBRBankSlip.ESPECIE_DOCUMENTO_DE_DIVIDA:
+				return "24";
+			case MLBRBankSlip.ESPECIE_CEDULA_DE_PRODUTO_RURAL:
+				return "25";
+			case MLBRBankSlip.ESPECIE_WARRANT:
+				return "26";
+			case MLBRBankSlip.ESPECIE_DIVIDA_ATIVA_DE_ESTADO:
+				return "27";
+			case MLBRBankSlip.ESPECIE_DIVIDA_ATIVA_DE_MUNICIPIO:
+				return "28";
+			case MLBRBankSlip.ESPECIE_DIVIDA_ATIVA_DA_UNIAO:
+				return "29";
+			case MLBRBankSlip.ESPECIE_ENCARGOS_CONDOMINIAIS:
+				return "30";
+			case MLBRBankSlip.ESPECIE_CARTAO_DE_CREDITO:
 				return "31";
-			case MLBRBankSlip.ESPECIE_BOLETO_APORTE:
-				return "33";
+			case MLBRBankSlip.ESPECIE_BOLETO_DE_PROPOSTA:
+				return "32";
 			case MLBRBankSlip.ESPECIE_OUTROS:
 				return "99";
 			default:

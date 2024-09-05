@@ -1,4 +1,4 @@
-package org.kenos.idempiere.lbr.bankslip.cnab400.bean.out.c6;
+package org.kenos.idempiere.lbr.bankslip.cnab400.bean.out.bmp;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -13,33 +13,31 @@ import com.ancientprogramming.fixedformat4j.format.impl.DateFormatter;
 
 @Record  
 public class Record1Detail extends org.kenos.idempiere.lbr.bankslip.cnab400.bean.out.Record1Detail {
-
 	public Record1Detail() {
 		super();
 	}	//	CNABRecord1Detail
 
-	protected String codEmpresa;
+	protected String agencia;
+	protected String agenciaDV;
+	protected String razaoConta;
+	protected String contaCorrente;
+	protected String contaCorrenteDV;
+	protected String identificacaoEmpresa;
 	protected String codIdentificacao;
+	protected String codBanco;
+	protected String multa;
+	protected BigDecimal percentualMulta;
 	protected String nossoNumero;
-	protected String dvNossoNumero;
-	protected String codDoBanco;
-	protected String codCarteira;
+	protected String nossoNumeroDV;
+	protected BigDecimal descontoBonificacao;
 	protected String codOcorrencia;
 	protected String noDocumento;
+	protected String especie;
 	protected Timestamp vencimento;
 	protected BigDecimal valorDoTitulo;
-	protected String especie;
+
 	
-	@Field ( offset = 18, length = 12, paddingChar = '0' , align = Align.RIGHT )
-	public String getCodEmpresa() {
-		return codEmpresa;
-	}
-	
-	public void setCodEmpresa(String codEmpresa) {
-		this.codEmpresa = codEmpresa;
-	}
-	
-	@Field ( offset = 38, length = 25 )
+	@Field ( offset = 38, length = 15 )
 	public String getCodIdentificacao() {
 		return codIdentificacao;
 	}
@@ -48,7 +46,7 @@ public class Record1Detail extends org.kenos.idempiere.lbr.bankslip.cnab400.bean
 		this.codIdentificacao = codIdentificacao;
 	}
 	
-	@Field ( offset = 63, length = 11 )
+	@Field ( offset = 71, length = 11 )
 	public String getNossoNumero() {
 		return nossoNumero;
 	}
@@ -57,31 +55,13 @@ public class Record1Detail extends org.kenos.idempiere.lbr.bankslip.cnab400.bean
 		this.nossoNumero = nossoNumero;
 	}
 	
-	@Field ( offset = 74, length = 1 )
-	public String getDVNossoNumero() {
-		return dvNossoNumero;
+	@Field ( offset = 82, length = 1 )
+	public String getNossoNumeroDV() {
+		return nossoNumeroDV;
 	}
 	
-	public void setDVNossoNumero(String dvNossoNumero) {
-		this.dvNossoNumero = dvNossoNumero;
-	}
-	
-	@Field ( offset = 83, length = 3, paddingChar = '0' , align = Align.RIGHT, formatter = NumericStringFormatter.class )
-	public String getCodDoBanco() {
-		return codDoBanco;
-	}
-	
-	public void setCodDoBanco(String usoDoBanco) {
-		this.codDoBanco = usoDoBanco;
-	}
-	
-	@Field ( offset = 107, length = 2 )
-	public String getCodCarteira() {
-		return codCarteira;
-	}
-	
-	public void setCodCarteira(String codCarteira) {
-		this.codCarteira = codCarteira;
+	public void setNossoNumeroDV(String dvNossoNumero) {
+		this.nossoNumeroDV = dvNossoNumero;
 	}
 	
 	@Field ( offset = 109, length = 2, paddingChar = '0' , align = Align.RIGHT, formatter = NumericStringFormatter.class )
@@ -128,12 +108,19 @@ public class Record1Detail extends org.kenos.idempiere.lbr.bankslip.cnab400.bean
 	public void setEspecie(String especie) {
 		this.especie = especie;
 	}
-
+	
 	@Fields( value = { 
-			@Field ( offset =  30, length =  8 ) ,
-			@Field ( offset =  75, length =  8 ) ,
-			@Field ( offset =  86, length = 21 ) ,
-			@Field ( offset = 140, length =  8 ) 
+			@Field ( offset =   7, length =  1 ),
+			@Field ( offset =  63, length =  3, paddingChar = '0' ),
+			@Field ( offset =  93, length =  1, paddingChar = '2' ),
+			@Field ( offset =  94, length =  1, paddingChar = 'N' ),
+			@Field ( offset =  95, length = 10 ),
+			@Field ( offset = 105, length =  1 ),
+			@Field ( offset = 106, length =  1, paddingChar = '0' ),
+			@Field ( offset = 107, length =  2 ),
+			@Field ( offset = 140, length =  3, paddingChar = '0' ),
+			@Field ( offset = 143, length =  5, paddingChar = '0' ),
+			@Field ( offset = 150, length =  1, paddingChar = 'N' )
 			} )
 	public String getEmpty() { return ""; }
 }	//	CNABRecord1Detail

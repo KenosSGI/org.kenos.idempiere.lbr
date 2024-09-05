@@ -1,4 +1,4 @@
-package org.kenos.idempiere.lbr.bankslip.cnab400.bean.out.c6;
+package org.kenos.idempiere.lbr.bankslip.cnab400.bean.out.bmp;
 
 import org.kenos.idempiere.lbr.bankslip.model.MLBRCNABFile;
 
@@ -66,20 +66,9 @@ public class Record0Header extends org.kenos.idempiere.lbr.bankslip.cnab400.bean
 	 */
 	public Record0Header(MLBRCNABFile cnabFile) {
 		super (cnabFile);
-		setCodigoDoCedente(cnabFile.getLBR_BankSlipContract().getLBR_AccordNo());
 		setNomeDoBanco("");	//	Empty String
 		setSequencialRemessa(cnabFile.getSeqNo());
-		setContaCorrente(cnabFile.getlbr_AgencyNo() + cnabFile.getAccountNo() + cnabFile.getLBR_BankAccountVD());
 	}	//	Record0Header
-	
-	/**
-	 * The company code ({@code codigoEmpresa}) specific to C6 bank.
-	 * <p>
-	 * This value is mapped to the CNAB 400 file at position 27 with a length
-	 * of 20 characters.
-	 * </p>
-	 */
-	protected String codigoDoCedente;
 	
 	/**
 	 * The sequential number ({@code sequencialRemessa}) of the remittance.
@@ -91,39 +80,11 @@ public class Record0Header extends org.kenos.idempiere.lbr.bankslip.cnab400.bean
 	protected Integer sequencialRemessa = 0;
 	
 	/**
-	 * The bank account number ({@code contaCorrente}).
-	 * <p>
-	 * This field is used to uniquely identify the bank account number within the CNAB
-	 * file.
-	 * </p>
-	 */
-	protected String contaCorrente;
-	
-	/**
-	 * Gets the company code ({@code codigoEmpresa}) for this record.
-	 * 
-	 * @return the company code as a {@code String}.
-	 */
-	@Field( offset = 27, length = 12, paddingChar = '0' , align = Align.RIGHT)
-	public String getCodigoDoCedente() {
-		return codigoDoCedente;
-	}	//	getCodigoDoCedente
-
-	/**
-	 * Sets the company code ({@code codigoEmpresa}) for this record.
-	 * 
-	 * @param codigoDoCedente the company code to set.
-	 */
-	public void setCodigoDoCedente(String codigoDoCedente) {
-		this.codigoDoCedente = codigoDoCedente;
-	}	//	setCodigoDoCedente
-	
-	/**
 	 * Gets the file sequential number
 	 * 
 	 * @return the file sequential number {@code Integer}.
 	 */
-	@Field( offset = 387, length = 8, paddingChar = '0' , align = Align.RIGHT )
+	@Field( offset = 111, length = 7, paddingChar = '0' , align = Align.RIGHT )
 	public Integer getSequencialRemessa() {
 		return sequencialRemessa;
 	}	//	getSequencialRemessa
@@ -138,23 +99,19 @@ public class Record0Header extends org.kenos.idempiere.lbr.bankslip.cnab400.bean
 	}	//	setSequencialRemessa
 	
 	/**
-	 * Gets the company bank account ({@code contaCorrente}) for this record.
+	 * A field with MX value
 	 * 
-	 * @return the company bank account as a {@code String}.
+	 * @return an default string
 	 */
-	@Field( offset = 109, length = 12, paddingChar = '0' , align = Align.RIGHT)
-	public String getContaCorrente() {
-		return contaCorrente;
-	}	//	getContaCorrente
-
+	@Field ( offset = 109, length = 2 ) 
+	public String getIdentificacaoSistema() { return "MX"; }		//	Dummy, fill the blanks
+	
 	/**
-	 * Sets the bank account ({@code contaCorrente}) for this record.
+	 * A field with MX value
 	 * 
-	 * @param contaCorrente the bank account to set.
+	 * @return an default string
 	 */
-	public void setContaCorrente(String contaCorrente) {
-		this.contaCorrente = contaCorrente;
-	}	//	setContaCorrente
+	public void setIdentificacaoSistema(String dummy) {}			//	Dummy, needed by FixedFormat4J
 	
 	/**
 	 * A dummy field to fill in the remaining blank spaces in the record.
@@ -166,9 +123,8 @@ public class Record0Header extends org.kenos.idempiere.lbr.bankslip.cnab400.bean
 	 * @return an empty string as a filler.
 	 */
 	@Fields( value = { 
-			@Field ( offset = 80, length = 15 ), 
 			@Field ( offset = 101, length = 8 ), 
-			@Field ( offset = 121, length = 266 )
+			@Field ( offset = 118, length = 277 )
 			} )
 	public String getEmpty() { return ""; }		//	Dummy, fill the blanks
 
