@@ -125,6 +125,7 @@ public class C6Bank implements ICNABGenerator
 			detail.setCodEmpresa(cnabFile.getlbr_AgencyNo() + cnabFile.getAccountNo() + cnabFile.getLBR_BankAccountVD());
 			detail.setCodDoBanco(bs.getRoutingNo());
 			detail.setNossoNumero(bs.getLBR_NumberInBank());
+			detail.setDVNossoNumero(bsi.getLBR_NumberInBankVD());
 			detail.setCodCarteira(bsi.getLBR_BankSlipFoldCode());
 			detail.setValorDoTitulo(bs.getGrandTotal());
 			detail.setCodOcorrencia(mov.getValue());

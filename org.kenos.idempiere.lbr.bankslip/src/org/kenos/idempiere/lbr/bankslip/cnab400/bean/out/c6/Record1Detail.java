@@ -57,7 +57,7 @@ public class Record1Detail extends org.kenos.idempiere.lbr.bankslip.cnab400.bean
 		this.nossoNumero = nossoNumero;
 	}
 	
-	@Field ( offset = 74, length = 1 )
+	@Field ( offset = 74, length = 1, paddingChar = '0' , align = Align.RIGHT )
 	public String getDVNossoNumero() {
 		return dvNossoNumero;
 	}
