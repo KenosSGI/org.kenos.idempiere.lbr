@@ -3,6 +3,7 @@ package org.kenos.idempiere.lbr.bankslip.cnab400.bean.out.c6;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
+import org.adempierelbr.util.TextUtil;
 import org.kenos.idempiere.lbr.bankslip.cnab400.bean.formatter.NumericStringFormatter;
 
 import com.ancientprogramming.fixedformat4j.annotation.Align;
@@ -54,7 +55,10 @@ public class Record1Detail extends org.kenos.idempiere.lbr.bankslip.cnab400.bean
 	}
 	
 	public void setNossoNumero(String nossoNumero) {
-		this.nossoNumero = nossoNumero;
+		if (nossoNumero != null && !nossoNumero.isBlank())
+			this.nossoNumero = TextUtil.lPad (nossoNumero, 11);
+		else
+			this.nossoNumero = nossoNumero;
 	}
 	
 	@Field ( offset = 74, length = 1, paddingChar = '0' , align = Align.RIGHT )
