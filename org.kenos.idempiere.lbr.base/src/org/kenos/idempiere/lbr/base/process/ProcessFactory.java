@@ -44,6 +44,8 @@ public class ProcessFactory implements IProcessFactory
 			return new ImportCSVProcess();
 		if (ApplyDiscount.class.getName().equals(className))
 			return new ApplyDiscount();
+		if (InvoicePartialWriteOff.class.getName().equals(className))
+			return new InvoicePartialWriteOff();
 		return null;
 	}	//	newProcessInstance
 }	//	ProcessFactory
