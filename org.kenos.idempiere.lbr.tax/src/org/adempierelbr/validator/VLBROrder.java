@@ -977,7 +977,8 @@ public class VLBROrder implements ModelValidator
 			{
 				I_W_C_OrderLine olW = POWrapper.create(ol, I_W_C_OrderLine.class);
 				//
-				if (ol.getM_Product_ID() > 0 
+				if (ol.getQtyOrdered().signum() != 0
+						&& ol.getM_Product_ID() > 0 
 						&& ol.getM_Product().getProductType().equals(MProduct.PRODUCTTYPE_Item))
 				{
 					if (chargeType == SISCOMEX)
@@ -997,7 +998,8 @@ public class VLBROrder implements ModelValidator
 			{
 				I_W_C_InvoiceLine olW = POWrapper.create(il, I_W_C_InvoiceLine.class);
 				//
-				if (il.getM_Product_ID() > 0 
+				if (il.getQtyInvoiced().signum() != 0
+						&& il.getM_Product_ID() > 0 
 						&& il.getM_Product().getProductType().equals(MProduct.PRODUCTTYPE_Item))
 				{
 					if (chargeType == SISCOMEX)
@@ -1015,7 +1017,8 @@ public class VLBROrder implements ModelValidator
 		{
 			I_W_C_OrderLine olW = POWrapper.create(po, I_W_C_OrderLine.class);
 			//
-			if (olW.getM_Product_ID() > 0 
+			if (olW.getQtyOrdered().signum() != 0
+					&& olW.getM_Product_ID() > 0 
 					&& olW.getM_Product().getProductType().equals(MProduct.PRODUCTTYPE_Item))
 			{
 				if (chargeType == SISCOMEX)
@@ -1034,7 +1037,8 @@ public class VLBROrder implements ModelValidator
 		{
 			I_W_C_InvoiceLine olW = POWrapper.create(po, I_W_C_InvoiceLine.class);
 			//
-			if (olW.getM_Product_ID() > 0 
+			if (olW.getQtyInvoiced().signum() != 0
+					&& olW.getM_Product_ID() > 0 
 					&& olW.getM_Product().getProductType().equals(MProduct.PRODUCTTYPE_Item))
 			{
 				if (chargeType == SISCOMEX)
