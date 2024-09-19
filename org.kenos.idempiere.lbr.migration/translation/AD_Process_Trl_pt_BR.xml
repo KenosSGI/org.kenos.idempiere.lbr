@@ -2917,4 +2917,9 @@ For example:<br />
   <value column="Description" original="This process will try to retrieve selected NSU in order to retrieve missing NSU">This process will try to retrieve selected NSU in order to retrieve missing NSU</value>
   <value column="Help" original=""/>
  </row>
+ <row trl="Y" uuid="af0a3d9d-043e-4666-a12b-d3b013580808">
+  <value column="Name" original="Invoice Partial Write Off">Aplicar Baixa Parcial</value>
+  <value column="Description" original="Applies a partial write-off to an invoice by deducting a specified discount amount. The discount is directly applied to the allocation.">Aplica um abatimento parcial em uma fatura, deduzindo um valor de desconto especificado. O desconto é aplicado diretamente na alocação.</value>
+  <value column="Help" original="This process partially writes off an invoice by applying a specified discount amount, reducing the total invoice value. The user selects the invoice and the discount amount, and the process updates the allocation without creating a payment. The process allows the user to input a description of the transaction for record-keeping purposes. It is designed to only affects unpaid invoices.">Este processo realiza o abatimento parcial de uma fatura, aplicando um valor de desconto especificado, reduzindo o valor total da fatura. O usuário seleciona a fatura e o valor do desconto, e o processo atualiza a alocação sem gerar um pagamento. O processo permite que o usuário insira uma descrição da transação para fins de registro. É projetado para lidar apenas com faturas não pagas.</value>
+ </row>
 </idempiereTrl>
