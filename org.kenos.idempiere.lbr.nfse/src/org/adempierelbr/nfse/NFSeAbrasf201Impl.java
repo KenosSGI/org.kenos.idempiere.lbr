@@ -218,7 +218,7 @@ public class NFSeAbrasf201Impl implements INFSe
 		if(nf.getOrg_Location().getC_City_ID() == TAPIRAI_ID)
 		{
 			if (MLBRNotaFiscal.LBR_NFEENV_Production.equals(nf.getlbr_NFeEnv()))
-				return MSysConfig.getValue (SysConfig.LBR_NFSE_URL, "http://siatapirai.dcfiorilli.com.br:8080/IssWeb-ejb/IssWebWS/IssWebWS", nf.getAD_Client_ID(), nf.getAD_Org_ID());
+				return MSysConfig.getValue (SysConfig.LBR_NFSE_URL, "http://tapiraisp.dcfiorilli.com.br:8080/IssWeb-ejb/IssWebWS/IssWebWS", nf.getAD_Client_ID(), nf.getAD_Org_ID());
 			else
 				return  "http://fi1.fiorilli.com.br:5663/IssWeb-ejb/IssWebWS/IssWebWS?wsdl";
 		} 
@@ -792,7 +792,7 @@ public class NFSeAbrasf201Impl implements INFSe
 		{
 			//	Todas URLs em Produção
 			if (MLBRNotaFiscal.LBR_NFEENV_Production.equals(nf.getlbr_NFeEnv()))
-				url = MSysConfig.getValue (SysConfig.LBR_NFSE_URL, "http://siatapirai.dcfiorilli.com.br:8080/IssWeb-ejb/IssWebWS/IssWebWS", nf.getAD_Client_ID(), nf.getAD_Org_ID());
+				url = MSysConfig.getValue (SysConfig.LBR_NFSE_URL, "http://tapiraisp.dcfiorilli.com.br:8080/IssWeb-ejb/IssWebWS/IssWebWS", nf.getAD_Client_ID(), nf.getAD_Org_ID());
 			else break;
 		}
 		
@@ -2082,7 +2082,7 @@ public class NFSeAbrasf201Impl implements INFSe
 			TcInfNfse infNfse = document.getCompNfse().getNfse().getInfNfse();
 			long documentNo = infNfse.getNumero();
 			
-			String url = "http://siatapirai.dcfiorilli.com.br:8080/issweb/formGerarNF.jsf?nroNota=" + documentNo
+			String url = "http://tapiraisp.dcfiorilli.com.br:8080/issweb/formGerarNF.jsf?nroNota=" + documentNo
 					+ "&codVerificacao=" + infNfse.getCodigoVerificacao()
 					+ "&cnpj=" + infNfse.getPrestadorServico().getIdentificacaoPrestador().getCpfCnpj().getCnpj()
 					+ "&hash=" + infNfse.getId();
