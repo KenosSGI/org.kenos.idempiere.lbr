@@ -75,6 +75,8 @@ public class CNABProcessor implements ICNABProcessor {
         	throw new Exception ("Unsupported return type");
         
         in = CNABProcessor.class.getResourceAsStream("/org/kenos/idempiere/lbr/bankslip/cnab400/bean/return-cnab-" + routingNo + ".pzmap.xml");
+        if (in == null)
+        	in = CNABProcessor.class.getResourceAsStream("/org/kenos/idempiere/lbr/bankslip/cnab400/bean/return-cnab.pzmap.xml");
 		pzparser = DefaultParserFactory.getInstance().newFixedLengthParser(new InputStreamReader(in, "UTF-8"), new FileReader(returnFile));
         ds = pzparser.parse();
         
