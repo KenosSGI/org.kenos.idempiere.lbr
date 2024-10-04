@@ -78,7 +78,7 @@ public class BancoInter implements IBankSlipAPI {
 	}	//	processBankSlip
 	
 	public byte[] getPDF (MLBRBankSlip bankSlip) throws Exception {
-		Call<ResponseGetPDF> call = api.getPDF(bankSlip.getLBR_NumberInBank(true));
+		Call<ResponseGetPDF> call = api.getPDF(bankSlip.getLBR_BankSlip_UU());
 		Response<ResponseGetPDF> response = call.execute();
 		
 		if (response.code() != 200)
@@ -118,6 +118,7 @@ public class BancoInter implements IBankSlipAPI {
 			detail.setNumberInOrg(boletoResponse.getSeuNumero());
 			detail.setBarcode(boletoResponse.getCodigoBarras());
 			detail.setManualInput(boletoResponse.getLinhaDigitavel());
+			detail.setUUID(boletoResponse.getCodigoSolicitacao());
 			return detail;
 		}
 		else if (response.code() == 400) {

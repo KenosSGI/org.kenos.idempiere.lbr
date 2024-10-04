@@ -13,18 +13,18 @@ public class Desconto {
     public Desconto() {
     }
 
-    public Desconto(String codigoDesconto, BigDecimal taxa, BigDecimal valor) {
+    public Desconto(String codigoDesconto, BigDecimal taxaOuDesconto, Integer quantidadeDias) {
         this.codigoDesconto = codigoDesconto;
-        this.taxa = taxa;
-        this.valor = valor;
+        this.taxaOuDesconto = taxaOuDesconto;
+        this.quantidadeDias = quantidadeDias;
     }
 
 	@JsonAlias ( { "codigoDesconto", "codigo" } )
 	private String codigoDesconto;
-    private BigDecimal taxa;
-    private BigDecimal valor;
+	@JsonAlias ( { "taxaOuDesconto", "taxa" } )
+    private BigDecimal taxaOuDesconto;
+    private Integer quantidadeDias;
 
-    public static final String CODIGO_DESCONTO_NAO_TEM_DESCONTO = "NAOTEMDESCONTO";
     public static final String CODIGO_DESCONTO_VALOR_FIXO 		= "VALORFIXODATAINFORMADA";
     public static final String CODIGO_DESCONTO_PERCENTUAL 		= "PERCENTUALDATAINFORMADA";
     
@@ -37,18 +37,18 @@ public class Desconto {
     }
 
     public BigDecimal getTaxa() {
-        return taxa;
+        return taxaOuDesconto;
     }
 
     public void setTaxa(BigDecimal taxa) {
-        this.taxa = taxa;
+        this.taxaOuDesconto = taxa;
     }
 
-    public BigDecimal getValor() {
-        return valor;
+    public Integer getQuantidadeDias() {
+        return quantidadeDias;
     }
 
-    public void setValor(BigDecimal valor) {
-        this.valor = valor;
+    public void setQuantidadeDias(Integer quantidadeDias) {
+        this.quantidadeDias = quantidadeDias;
     }
 }

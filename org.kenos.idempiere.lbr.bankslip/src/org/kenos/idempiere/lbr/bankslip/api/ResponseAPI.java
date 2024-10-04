@@ -6,6 +6,7 @@ public class ResponseAPI extends CNABDetail implements IResponseAPI {
 
 	String barcode;
 	String manualInput;
+	String uuid;
 	
 	@Override
 	public String geBarcode() {
@@ -25,5 +26,15 @@ public class ResponseAPI extends CNABDetail implements IResponseAPI {
 	@Override
 	public void setManualInput(String manualInput) {
 		this.manualInput = manualInput;
+	}
+
+	@Override
+	public String getUUID() {
+		return uuid;
+	}
+
+	@Override
+	public void setUUID(String uuid) {
+		this.uuid = uuid;
 	}
 }	//	ResponseAPI

@@ -34,6 +34,7 @@ public class ResponseBoleto {
     private Multa multa;
     private Mora mora;
     private String nossoNumero;
+    private String codigoSolicitacao;
 
     public String getNossoNumero() {
         return nossoNumero;
@@ -250,4 +251,12 @@ public class ResponseBoleto {
     public void setMora(Mora mora) {
         this.mora = mora;
     }
+
+	public String getCodigoSolicitacao() {
+		return codigoSolicitacao;
+	}
+
+	public void setCodigoSolicitacao(String codigoSolicitacao) {
+		this.codigoSolicitacao = codigoSolicitacao;
+	}
 }

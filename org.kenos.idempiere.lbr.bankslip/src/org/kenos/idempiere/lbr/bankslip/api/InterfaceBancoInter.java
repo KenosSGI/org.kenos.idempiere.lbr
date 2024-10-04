@@ -26,14 +26,14 @@ public interface InterfaceBancoInter {
 			@Field("grant_type") String grant_type,
 			@Field("scope") String scope);
 
-	@POST("cobranca/v2/boletos")
+	@POST("cobranca/v3/cobrancas")
 	Call<ResponseBoleto> includeBankSlip(@Body Boleto boleto);
 	
-	@GET("cobranca/v2/boletos/{nossoNumero}/pdf")
-	Call<ResponseGetPDF> getPDF(@Path("nossoNumero") String nossoNumero);
+	@GET("cobranca/v3/cobrancas/{codigoSolicitacao}/pdf")
+	Call<ResponseGetPDF> getPDF(@Path("codigoSolicitacao") String codigoSolicitacao);
 	
-	@POST("cobranca/v2/boletos/{nossoNumero}/cancelar")
-	Call<Void> cancelBankSlip(@Path("nossoNumero") String nossoNumero, @Body Cancelar cancelar);
+	@POST("cobranca/v3/cobrancas/{codigoSolicitacao}/cancelar")
+	Call<Void> cancelBankSlip(@Path("codigoSolicitacao") String codigoSolicitacao, @Body Cancelar cancelar);
 	
 	public static final String FILTRAR_POR_DATA_VENCIMENTO 		= "VENCIMENTO";
 	public static final String FILTRAR_POR_DATA_EMISSAO 		= "EMISSAO";
@@ -45,12 +45,12 @@ public interface InterfaceBancoInter {
 	public static final String SITUACAO_PAGO 		= "PAGO";
 	public static final String SITUACAO_CANCELADO 	= "CANCELADO";
 	
-	@GET("cobranca/v2/boletos")
+	@GET("cobranca/v3/cobrancas")
 	Call<ResponseGetBoleto> getBankSlips(
 			@Query("dataInicial") Timestamp dataInicial, @Query("dataFinal") Timestamp dataFinal,
 			@Query("filtrarDataPor") String filtrarDataPor, @Query("situacao") String situacao,
-			@Query("nome") String nome, @Query("email") String email,
-			@Query("cpfCnpj") String cpfCnpj, @Query("itensPorPagina") Integer itensPorPagina,
+			@Query("pessoaPagadora") String pessoaPagadora, @Query("seuNumero") String seuNumero,
+			@Query("cpfCnpjPessoaPagadora") String cpfCnpjPessoaPagadora, @Query("itensPorPagina") Integer itensPorPagina,
 			@Query("paginaAtual") Integer paginaAtual, @Query("ordenarPor") String ordenarPor,
 			@Query("tipoOrdenacao") String tipoOrdenacao);
 }	//	InterfaceBancoInter
