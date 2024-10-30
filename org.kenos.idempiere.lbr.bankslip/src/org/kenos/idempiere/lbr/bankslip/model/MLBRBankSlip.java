@@ -621,6 +621,11 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 					seq.save();
 				}
 			}
+			
+			//	Calculate penalty date
+			if (getLBR_PenaltyDays() > 0 && getLBR_PenaltyDate() == null) {
+				setLBR_PenaltyDate(MLBRBankSlipConfig.addDays(getDueDate(), getLBR_PenaltyDays()));
+			}
 		}
 		
 		/**
@@ -634,6 +639,32 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 		//
 		return true;
 	}	//	beforeSave
+	
+	/**
+	 * 	FIXME: This method can be safely removed after 25' Haloween.
+	 * 	Method to keep transition seamless 
+	 */
+	public Timestamp getLBR_PenaltyDate () 
+	{
+		Timestamp result = super.getLBR_PenaltyDate();
+		if (result == null)
+			return MLBRBankSlipConfig.addDays(getDueDate(), getLBR_PenaltyDays());
+		return result;
+	}	//	getLBR_PenaltyDate
+	
+	/**
+	 * 	Days that bank slip should be payable after it's due
+	 * 	@return days from bank slip configuration or default value (180)
+	 */
+	public int getReturnDays ()
+	{
+		int returnDays = 180;	//	Default
+		if (getLBR_BankSlipContract_ID() > 0
+				&& getLBR_BankSlipContract().getLBR_BankSlipConfig_ID() > 0
+				&& getLBR_BankSlipContract().getLBR_BankSlipConfig().getLBR_ReturnDays() > 0)
+			returnDays = getLBR_BankSlipContract().getLBR_BankSlipConfig().getLBR_ReturnDays();
+		return returnDays;
+	}	//	getReturnDays
 	
 	/**	
 	 * 	Routing No

@@ -97,16 +97,15 @@ public class BancoDoBrasil001 implements ICNABGenerator
 				accepted = IS_ACCEPTED;
 			
 			//	Penalty
-			@SuppressWarnings("unused")
 			BigDecimal penaltyAmt = Env.ZERO;
 			
 			//	Mora por atraso
-			if (bs.getLBR_PenaltyDays() == 1)
+			if (bs.getLBR_PenaltyDays() >= 1)
 			{
 				if (MLBRBankSlip.LBR_PENALTYTYPE_Amount.equals(bs.getLBR_PenaltyType()))
 					penaltyAmt = bs.getLBR_PenaltyValue();
 				else if (MLBRBankSlip.LBR_PENALTYTYPE_Rate.equals(bs.getLBR_PenaltyType()))
-					penaltyAmt = bs.getGrandTotal().multiply(bs.getLBR_PenaltyValue());
+					penaltyAmt = bs.getCalculatedPenaltyAmt();
 			}
 			
 			BigDecimal discountAmt = Env.ZERO;
@@ -207,6 +206,23 @@ public class BancoDoBrasil001 implements ICNABGenerator
 			cnab.append(rPad("", 1));								//	BRANCOS
 			cnab.append(lPad(count.getAndIncrement(), 6));			//	NÚMERO SEQÜENCIAL
 			cnab.append(CR).append(LF);
+			
+			//	Penalty
+			if (penaltyAmt.signum() == 1) {
+				
+				//	Days the bank can be paid after it's due
+				int returnDays = bs.getReturnDays();
+				
+				cnab.append(rPad(CNAB_REG_TYPE_DETAIL_5, 1));					//	TIPO DE REGISTRO
+				cnab.append(rPad("99", 2));										//	COBRANÇA DE MULTA
+				cnab.append(rPad("1", 1));										//	CÓDIGO DE MULTA
+				cnab.append(rPad(timeToString(bs.getLBR_PenaltyDate()), 6));	//	DATA DE INÍCIO DA COBRANÇA DA MULTA
+				cnab.append(lPad(penaltyAmt, 12));								//	VALOR/PERCENTUAL DA MULTA
+				cnab.append(lPad(returnDays, 3));				//	QUANTIDADE DE DIAS PARA RECEBIMENTO APÓS VENCIMENTO
+				cnab.append(rPad("", 369));						//	BRANCOS
+				cnab.append(lPad(count.getAndIncrement(), 6));	//	NÚMERO SEQÜENCIAL
+				cnab.append(CR).append(LF);
+			}
 		});
 		
 		//	Footer
