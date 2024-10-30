@@ -32,6 +32,7 @@ import org.compiere.model.MPostIt;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import okhttp3.OkHttpClient;
@@ -183,6 +184,7 @@ interface ClassifAPI {
 	Call<Root> download(@Query("perfil") String perfil);
 }
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 class Nomenclatura {
 	@JsonProperty("Codigo")
 	public String codigo;
