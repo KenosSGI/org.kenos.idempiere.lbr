@@ -73,8 +73,16 @@ public class ProcAvgCostConfirm extends SvrProcess
 	{
 		if (p_LBR_AverageCost_ID == 0) {
 			log.warning("LBR_AverageCost_ID=" + p_LBR_AverageCost_ID);
-			return "ERR: No LBR_AverageCost_ID";
+			return "@Error@ No LBR_AverageCost_ID";
 		}
+		
+		int count = DB.getSQLValue(get_TrxName(), "SELECT COUNT(*) "
+				+ "FROM LBR_AverageCostLine "
+				+ "WHERE lbr_AvgCostType=? "
+				+ "AND FutureCostPrice<0 "
+				+ "AND LBR_AverageCost_ID=?", costType, p_LBR_AverageCost_ID);
+		if (count > 0)
+			return "@Error@ Custo médio calculado negativo, faça a correção antes de prosseguir.";
 		
 		X_LBR_AverageCost avgCost = new X_LBR_AverageCost(getCtx(), p_LBR_AverageCost_ID, trxName);
 		
