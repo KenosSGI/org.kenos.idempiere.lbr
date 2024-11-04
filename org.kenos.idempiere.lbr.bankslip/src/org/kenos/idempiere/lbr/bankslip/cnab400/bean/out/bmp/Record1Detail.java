@@ -25,7 +25,7 @@ public class Record1Detail extends org.kenos.idempiere.lbr.bankslip.cnab400.bean
 	protected String identificacaoEmpresa;
 	protected String codIdentificacao;
 	protected String codBanco;
-	protected String multa;
+	protected int multa;
 	protected BigDecimal percentualMulta;
 	protected String nossoNumero;
 	protected String nossoNumeroDV;
@@ -35,15 +35,86 @@ public class Record1Detail extends org.kenos.idempiere.lbr.bankslip.cnab400.bean
 	protected String especie;
 	protected Timestamp vencimento;
 	protected BigDecimal valorDoTitulo;
-
 	
-	@Field ( offset = 38, length = 15 )
+	@Field ( offset = 2, length = 5, paddingChar = '0' , align = Align.RIGHT, formatter = NumericStringFormatter.class )
+	public String getAgencia() {
+		return agencia;
+	}
+	
+	public void setAgencia(String agencia) {
+		this.agencia = agencia;
+	}
+	
+	@Field ( offset = 7, length = 1 )
+	public String getAgenciaDV() {
+		return agenciaDV;
+	}
+	
+	public void setAgenciaDV(String agenciaDV) {
+		this.agenciaDV = agenciaDV;
+	}
+	
+	@Field ( offset = 8, length = 5, paddingChar = '0' , align = Align.RIGHT, formatter = NumericStringFormatter.class )
+	public String getRazaoConta() {
+		return razaoConta;
+	}
+	
+	public void setRazaoConta(String razaoConta) {
+		this.razaoConta = razaoConta;
+	}
+	
+	@Field ( offset = 13, length = 7, paddingChar = '0' , align = Align.RIGHT, formatter = NumericStringFormatter.class )
+	public String getContaCorrente() {
+		return contaCorrente;
+	}
+	
+	public void setContaCorrente(String contaCorrente) {
+		this.contaCorrente = contaCorrente;
+	}
+	
+	@Field ( offset = 20, length = 1 )
+	public String getContaCorrenteDV() {
+		return contaCorrenteDV;
+	}
+	
+	public void setContaCorrenteDV(String contaCorrenteDV) {
+		this.contaCorrenteDV = contaCorrenteDV;
+	}
+	
+	@Field ( offset = 21, length = 17, paddingChar = '0' , align = Align.RIGHT, formatter = NumericStringFormatter.class )
+	public String getIdentificacaoEmpresa() {
+		return identificacaoEmpresa;
+	}
+	
+	public void setIdentificacaoEmpresa(String identificacaoEmpresa) {
+		this.identificacaoEmpresa = identificacaoEmpresa;
+	}
+	
+	@Field ( offset = 38, length = 15, paddingChar = '0' , align = Align.RIGHT, formatter = NumericStringFormatter.class )
 	public String getCodIdentificacao() {
 		return codIdentificacao;
 	}
 	
 	public void setCodIdentificacao(String codIdentificacao) {
 		this.codIdentificacao = codIdentificacao;
+	}
+	
+	@Field ( offset = 66, length = 1 )
+	public int getMulta() {
+		return multa;
+	}
+	
+	public void setMulta(int multa) {
+		this.multa = multa;
+	}
+	
+	@Field ( offset = 67, length = 4, paddingChar = '0' , align = Align.RIGHT )
+	public BigDecimal getPercentualMulta() {
+		return percentualMulta;
+	}
+	
+	public void setPercentualMulta(BigDecimal percentualMulta) {
+		this.percentualMulta = percentualMulta;
 	}
 	
 	@Field ( offset = 71, length = 11 )
@@ -62,6 +133,30 @@ public class Record1Detail extends org.kenos.idempiere.lbr.bankslip.cnab400.bean
 	
 	public void setNossoNumeroDV(String dvNossoNumero) {
 		this.nossoNumeroDV = dvNossoNumero;
+	}
+	
+	@Field ( offset = 83, length = 10, paddingChar = '0' , align = Align.RIGHT )
+	public BigDecimal getDescontoBonif() {
+		return descontoBonificacao;
+	}
+	
+	@Field ( offset = 93, length = 1 )
+	public int getEmissaoPapeleta() {
+		return 2;
+	}
+	
+	@Field ( offset = 94, length = 1 )
+	public String getDebitoAuto() {
+		return "N";
+	}
+	
+	@Field ( offset = 106, length = 1 )
+	public int getAvisoDebito() {
+		return 0;
+	}
+	
+	public void setDescontoBonif(BigDecimal descontoBonificacao) {
+		this.descontoBonificacao = descontoBonificacao;
 	}
 	
 	@Field ( offset = 109, length = 2, paddingChar = '0' , align = Align.RIGHT, formatter = NumericStringFormatter.class )

@@ -66,7 +66,8 @@ public class Record0Header extends org.kenos.idempiere.lbr.bankslip.cnab400.bean
 	 */
 	public Record0Header(MLBRCNABFile cnabFile) {
 		super (cnabFile);
-		setNomeDoBanco("");	//	Empty String
+		setNomeDoBanco("BMP Money Plus");
+		setCodigoDoCedente(cnabFile.getLBR_BankSlipContract().getLBR_AccordNo());
 		setSequencialRemessa(cnabFile.getSeqNo());
 	}	//	Record0Header
 	
@@ -78,6 +79,34 @@ public class Record0Header extends org.kenos.idempiere.lbr.bankslip.cnab400.bean
 	 * </p>
 	 */
 	protected Integer sequencialRemessa = 0;
+	
+	/**
+	 * The company code ({@code codigoEmpresa}) specific to C6 bank.
+	 * <p>
+	 * This value is mapped to the CNAB 400 file at position 27 with a length
+	 * of 20 characters.
+	 * </p>
+	 */
+	protected String codigoDoCedente;
+	
+	/**
+	 * Gets the company code ({@code codigoEmpresa}) for this record.
+	 * 
+	 * @return the company code as a {@code String}.
+	 */
+	@Field( offset = 27, length = 20, paddingChar = '0' , align = Align.RIGHT)
+	public String getCodigoDoCedente() {
+		return codigoDoCedente;
+	}	//	getCodigoDoCedente
+
+	/**
+	 * Sets the company code ({@code codigoEmpresa}) for this record.
+	 * 
+	 * @param codigoDoCedente the company code to set.
+	 */
+	public void setCodigoDoCedente(String codigoDoCedente) {
+		this.codigoDoCedente = codigoDoCedente;
+	}	//	setCodigoDoCedente
 	
 	/**
 	 * Gets the file sequential number

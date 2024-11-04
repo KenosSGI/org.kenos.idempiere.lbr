@@ -24,24 +24,22 @@ import org.kenos.idempiere.lbr.bankslip.model.MLBRCNABFile;
  */
 public class BancoMoneyPlus implements ICNABGenerator
 {
-	public static final String VERSION = "2.00";
+	public static final String VERSION = "1.00";
 	
 	/**	Bank Routing Number	*/
-	public static final int ROUNTING_NO = 336;
-	
-	/** Org BP Type				*/
-	private static final Integer BPTYPE_CPF_BENEFICIARIO 		= 1;
-	private static final Integer BPTYPE_CNPJ_BENEFICIARIO 		= 2;
-	private static final Integer BPTYPE_CPF_SACADOR_AVALISTA 	= 3;
-	private static final Integer BPTYPE_CNPJ_SACADOR_AVALISTA 	= 4;
+	public static final int ROUNTING_NO = 274;
 	
 	/** Payer BP Type				*/
-	private static final Integer BPTYPE_CPF_PAGADOR 		= 1;
+	private static final Integer BPTYPE_CPF_PAGADOR 	= 1;
 	private static final Integer BPTYPE_CNPJ_PAGADOR 	= 2;
 	
 	/** Aceite				*/
 	private static final String IS_ACCEPTED 	= "A";
 	private static final String NOT_ACCEPTED 	= "N";
+
+	/** Multa				*/
+	private static final Integer PENAULTY_SEM_MULTA 	= 0;
+	private static final Integer PENAULTY_PERCENTUAL 	= 2;
 	
 	/**
 	 * 	Generate CNAB File
@@ -62,21 +60,6 @@ public class BancoMoneyPlus implements ICNABGenerator
 			MLBRBankSlipInfo bsi 	= line.getBankSlipInfo();
 			//
 			Record1Detail detail = new Record1Detail();
-			
-			Integer orgBPTypeBR = BPTYPE_CNPJ_BENEFICIARIO;
-			String orgCNPJF = bsi.getlbr_CNPJ();
-			//
-			if (bs.getGuarantorBP_ID() > 0)
-			{
-				if (MLBRBankSlipInfo.LBR_GUARANTORBPTYPE_PJ_LegalEntity.equals(bsi.getLBR_GuarantorBPType()))
-					orgBPTypeBR = BPTYPE_CNPJ_SACADOR_AVALISTA;
-				else if (MLBRBankSlipInfo.LBR_GUARANTORBPTYPE_PF_Individual.equals(bsi.getLBR_GuarantorBPType()))
-					orgBPTypeBR = BPTYPE_CPF_SACADOR_AVALISTA;
-				//
-				orgCNPJF = bsi.getLBR_GuarantorCNPJ();	//	CPF and CNPJ
-			}
-			else if (MLBRBankSlipInfo.LBR_ORGBPTYPE_PF_Individual.equals(bsi.getLBR_OrgBPType()))
-				orgBPTypeBR = BPTYPE_CPF_BENEFICIARIO;
 
 			//	Aceite
 			String accepted = NOT_ACCEPTED;
@@ -113,6 +96,17 @@ public class BancoMoneyPlus implements ICNABGenerator
 				}
 			}
 			
+			Integer penaultyType = PENAULTY_SEM_MULTA;
+			BigDecimal penaultPercent = BigDecimal.ZERO;
+			
+			if (bs.getLBR_PenaltyType() != null 
+					&& MLBRBankSlip.LBR_PENALTYTYPE_Rate.equals(bs.getLBR_PenaltyType())
+					&& bs.getLBR_PenaltyValue() != null
+					&& bs.getLBR_PenaltyValue().signum() == 1) {
+				penaultyType = PENAULTY_PERCENTUAL;
+				penaultPercent = bs.getLBR_PenaltyValue().multiply(Env.ONEHUNDRED);
+			}
+			
 			//	CNPJ/CPF payer
 			Integer payerBPTypeBR = BPTYPE_CNPJ_PAGADOR;
 			String payerCNPJF = bsi.getlbr_BPCNPJ();
@@ -120,8 +114,7 @@ public class BancoMoneyPlus implements ICNABGenerator
 			if (MLBRBankSlipInfo.LBR_BPTYPEBR_PF_Individual.equals(bsi.getlbr_BPTypeBR()))
 				payerBPTypeBR = BPTYPE_CPF_PAGADOR;
 
-			detail.setCodInscricaoEmpresa(orgBPTypeBR);
-			detail.setNumInscricaoEmpresa(orgCNPJF);
+			detail.setIdentificacaoEmpresa(bs.getLBR_BankSlipContract().getLBR_AccordNo());
 			detail.setNossoNumero(bs.getLBR_NumberInBank());
 			detail.setNossoNumeroDV(bsi.getLBR_NumberInBankVD());
 			detail.setValorDoTitulo(bs.getGrandTotal());
@@ -156,6 +149,8 @@ public class BancoMoneyPlus implements ICNABGenerator
 			
 			else
 			{
+				detail.setMulta(penaultyType);
+				detail.setPercentualMulta(penaultPercent);
 				detail.setNoDocumento(bs.getLBR_NumberInOrg());
 				detail.setVencimento(bs.getDueDate());
 				detail.setEspecie(convertKind (bsi.getLBR_BankSlipKindCode()));
