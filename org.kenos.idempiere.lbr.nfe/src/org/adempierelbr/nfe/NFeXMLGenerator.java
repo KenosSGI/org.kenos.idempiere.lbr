@@ -55,6 +55,7 @@ import org.compiere.model.MLocation;
 import org.compiere.model.MOrderLine;
 import org.compiere.model.MOrgInfo;
 import org.compiere.model.MProduct;
+import org.compiere.model.MRefList;
 import org.compiere.model.MSysConfig;
 import org.compiere.model.Query;
 import org.compiere.util.AdempiereUserError;
@@ -64,7 +65,6 @@ import org.kenos.idempiere.lbr.base.model.SysConfig;
 
 import br.inf.portalfiscal.nfe.v400.NFeDocument;
 import br.inf.portalfiscal.nfe.v400.TAmb;
-import br.inf.portalfiscal.nfe.v400.TCListServ;
 import br.inf.portalfiscal.nfe.v400.TCodUfIBGE;
 import br.inf.portalfiscal.nfe.v400.TEnderEmi;
 import br.inf.portalfiscal.nfe.v400.TEndereco;
@@ -146,7 +146,6 @@ import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.InfAdic.ObsCont;
 import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.InfIntermed;
 import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Pag;
 import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Pag.DetPag;
-import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Pag.DetPag.TPag;
 import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Total;
 import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Total.ICMSTot;
 import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Total.ISSQNtot;
@@ -373,18 +372,8 @@ public class NFeXMLGenerator
 	private static final String DET_ESPEC_COMB 		= "LA01";
 	
 	/** Forma de pagamento													  */
-	private static final DetPag.TPag.Enum DET_TP_PAG_DINHEIRO 	= DetPag.TPag.X_01;
-	private static final DetPag.TPag.Enum DET_TP_PAG_CHEQUE 		= DetPag.TPag.X_02;
-	private static final DetPag.TPag.Enum DET_TP_PAG_CTCREDITO 	= DetPag.TPag.X_03;
-	private static final DetPag.TPag.Enum DET_TP_PAG_CTDEBITO 	= DetPag.TPag.X_04;
-	private static final DetPag.TPag.Enum DET_TP_PAG_CRED_LOJA 	= DetPag.TPag.X_05;
-	private static final DetPag.TPag.Enum DET_TP_PAG_VL_ALIMEN 	= DetPag.TPag.X_10;
-	private static final DetPag.TPag.Enum DET_TP_PAG_VL_REFEI 	= DetPag.TPag.X_11;
-	private static final DetPag.TPag.Enum DET_TP_PAG_VL_PRESE 	= DetPag.TPag.X_12;
-	private static final DetPag.TPag.Enum DET_TP_PAG_VL_COMB 		= DetPag.TPag.X_13;
-	private static final DetPag.TPag.Enum DET_TP_PAG_DUPL_MERC 	= DetPag.TPag.X_14;
-	private static final DetPag.TPag.Enum DET_TP_PAG_SEM_PAGAM 	= DetPag.TPag.X_90;
-	private static final DetPag.TPag.Enum DET_TP_PAG_OUTROS 		= DetPag.TPag.X_99;
+	private static final String DET_TP_PAG_SEM_PAGAM 	= "90";
+	private static final String DET_TP_PAG_OUTROS 		= "99";
 	
 	/** Indicador de Produção em escala relevante							  */
 	private static final TNFe.InfNFe.Det.Prod.IndEscala.Enum PROD_EM_ESCALA_REL = TNFe.InfNFe.Det.Prod.IndEscala.S;
@@ -1318,7 +1307,7 @@ public class NFeXMLGenerator
 				issqn.setCMunFG(BPartnerUtil.getCityCode (nf.getlbr_OrgRegion(), nf.getlbr_OrgCity()));
 				
 				// Codigo da Abrasf
-				issqn.setCListServ(TCListServ.Enum.forString(product.get_ValueAsString ("lbr_ServiceCode")));				
+				issqn.setCListServ(product.get_ValueAsString ("lbr_ServiceCode"));				
 				
 				// 1=Exigível, 2=Não incidência; 3=Isenção; 4=Exportação;
 				// 5=Imunidade; 6=Exigibilidade Suspensa por Decisão Judicial;
@@ -1526,6 +1515,7 @@ public class NFeXMLGenerator
 							icms40.setMotDesICMS(ICMS40.MotDesICMS.X_9);
 						
 						icms40.setVICMSDeson(TextUtil.toNumeric(deson).replace(",", "."));
+						icms40.setIndDeduzDeson(ICMS40.IndDeduzDeson.X_1);
 					}
 				}
 				else if (CST_ICMS_51.equals (taxStatus))
@@ -2315,15 +2305,23 @@ public class NFeXMLGenerator
 						MLBRNotaFiscal.LBR_PAYMENTRULE_BankDeposit, MLBRNotaFiscal.LBR_PAYMENTRULE_InstantPaymentPIX,
 						MLBRNotaFiscal.LBR_PAYMENTRULE_BankTransferDigitalWallet, MLBRNotaFiscal.LBR_PAYMENTRULE_LoyaltyProgramCashbackVirtualCredit))
 				{
-					dPag.setTPag(TPag.Enum.forString(paymentRule));
+					dPag.setTPag(paymentRule);
 				}
 				//	Outra Regra
-				else
+				else {
 					dPag.setTPag(DET_TP_PAG_OUTROS);
+
+					String xPag = MRefList.getListName (ctx, 1000035, paymentRule);
+					if (xPag == null || xPag.trim().isEmpty())
+						xPag = "Outra forma";
+					dPag.setXPag(xPag);
+				}
 			}
 			//	Regra não preenchida, padrão outros
-			else
+			else {
 				dPag.setTPag(DET_TP_PAG_OUTROS);
+				dPag.setXPag("Outra forma");
+			}
 		}
 		
 		//	Se o campo tPag for preenchido como Sem Pagamento, Zerar o Valor do Pagamento

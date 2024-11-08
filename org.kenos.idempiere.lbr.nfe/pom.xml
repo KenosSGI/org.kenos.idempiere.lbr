@@ -120,7 +120,7 @@
 									<artifactItem>
 										<groupId>org.kenos</groupId>
 										<artifactId>nfebeans</artifactId>
-										<version>4.00-009c</version>
+										<version>4.00-009p</version>
 										<destFileName>nfebeans-v9.jar</destFileName>
 									</artifactItem>
 									<artifactItem>
