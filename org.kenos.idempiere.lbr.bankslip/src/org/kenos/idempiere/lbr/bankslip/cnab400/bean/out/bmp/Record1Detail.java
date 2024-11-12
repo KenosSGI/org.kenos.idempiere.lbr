@@ -117,7 +117,7 @@ public class Record1Detail extends org.kenos.idempiere.lbr.bankslip.cnab400.bean
 		this.percentualMulta = percentualMulta;
 	}
 	
-	@Field ( offset = 71, length = 11 )
+	@Field ( offset = 71, length = 11, paddingChar = '0' , align = Align.RIGHT )
 	public String getNossoNumero() {
 		return nossoNumero;
 	}
@@ -203,6 +203,15 @@ public class Record1Detail extends org.kenos.idempiere.lbr.bankslip.cnab400.bean
 	public void setEspecie(String especie) {
 		this.especie = especie;
 	}
+
+	@Override
+	public void setCidade(String cidade) {}
+	@Override
+	public String getCidade() { return null; }
+	@Override
+	public void setEstado(String estado) {}
+	@Override
+	public String getEstado() { return null; }
 	
 	@Fields( value = { 
 			@Field ( offset =   7, length =  1 ),
@@ -215,7 +224,8 @@ public class Record1Detail extends org.kenos.idempiere.lbr.bankslip.cnab400.bean
 			@Field ( offset = 107, length =  2 ),
 			@Field ( offset = 140, length =  3, paddingChar = '0' ),
 			@Field ( offset = 143, length =  5, paddingChar = '0' ),
-			@Field ( offset = 150, length =  1, paddingChar = 'N' )
+			@Field ( offset = 150, length =  1, paddingChar = 'N' ),
+			@Field ( offset = 335, length =  1, paddingChar = '0' )
 			} )
 	public String getEmpty() { return ""; }
 }	//	CNABRecord1Detail

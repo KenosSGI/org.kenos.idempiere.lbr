@@ -114,7 +114,16 @@ public class BancoMoneyPlus implements ICNABGenerator
 			if (MLBRBankSlipInfo.LBR_BPTYPEBR_PF_Individual.equals(bsi.getlbr_BPTypeBR()))
 				payerBPTypeBR = BPTYPE_CPF_PAGADOR;
 
-			detail.setIdentificacaoEmpresa(bs.getLBR_BankSlipContract().getLBR_AccordNo());
+			String identifier = bs.getLBR_BankSlipContract().getLBR_Param1();
+			if (identifier == null) 
+			{ 
+				identifier = TextUtil.lPad(bsi.getlbr_AgencyNo(), 4) +	//	Agency
+						TextUtil.lPad("1", 5) +							//	Default
+						TextUtil.lPad(bsi.getAccountNo(), 7) +			//	Account
+						TextUtil.lPad(bsi.getLBR_BankAccountVD(), 1);	//	Account VD
+			}
+			
+			detail.setIdentificacaoEmpresa(identifier);
 			detail.setNossoNumero(bs.getLBR_NumberInBank());
 			detail.setNossoNumeroDV(bsi.getLBR_NumberInBankVD());
 			detail.setValorDoTitulo(bs.getGrandTotal());
