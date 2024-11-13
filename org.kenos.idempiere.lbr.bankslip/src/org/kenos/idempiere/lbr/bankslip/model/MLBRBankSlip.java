@@ -1198,7 +1198,6 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 		//	Banco Money Plus
 		else if (Integer.parseInt(getRoutingNo()) == BancoMoneyPlus.ROUNTING_NO)
 		{
-			modulo = new Modulo (TipoDeModulo.MODULO11, 9, 2);
 			numberInBank = TextUtil.lPad(bsi.getLBR_BankSlipFoldCode(), 2) + 
 					TextUtil.lPad(getLBR_NumberInBank(), 11);
 		}
