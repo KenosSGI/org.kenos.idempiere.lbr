@@ -116,10 +116,10 @@ public class BancoMoneyPlus implements ICNABGenerator
 
 			String identifier = bs.getLBR_BankSlipContract().getLBR_Param1();
 			if (identifier == null) 
-			{ 
-				identifier = TextUtil.lPad("0", 3) +						//	Zero
+			{
+				identifier = TextUtil.lPad("0", 2) +						//	Zero
 						TextUtil.lPad(bsi.getLBR_BankSlipFoldCode(), 2) +	//	Fold
-						TextUtil.lPad(bsi.getlbr_AgencyNo(), 4) +			//	Agency
+						TextUtil.lPad(bsi.getlbr_AgencyNo(), 5) +			//	Agency
 						TextUtil.lPad(bsi.getAccountNo(), 7) +				//	Account
 						TextUtil.lPad(bsi.getLBR_BankAccountVD(), 1);		//	Account VD
 			}
