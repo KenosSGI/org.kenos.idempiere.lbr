@@ -7769,4 +7769,16 @@ Impressão:
   <value column="Description" original=""/>
   <value column="Help" original=""/>
  </row>
+ <row trl="Y" uuid="ee9842eb-4eb6-47ce-b7ba-adfd16de7baa">
+  <value column="Name" original="Export Detail/Drawback">Exportação/Drawback</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original="">Detalhes de exportação ou drawback</value>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="661d8200-690d-48a2-9067-3f456081d241">
+  <value column="Name" original="Export Detail/Drawback">Exportação/Drawback</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original="">Detalhes de exportação ou drawback</value>
+  <value column="Help" original=""/>
+ </row>
 </idempiereTrl>

@@ -73379,4 +73379,48 @@ Obs.: Deve ser utilizado o mesmo código adotado na EFD e outras declarações, 
   <value column="PO_PrintName" original=""/>
   <value column="Placeholder" original=""/>
  </row>
+ <row trl="N" uuid="8f8677ae-a6bf-4506-a6c5-85dc9712a2ff">
+  <value column="Name" original="Export Detail">Export Detail</value>
+  <value column="PrintName" original="Export Detail">Export Detail</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="N" uuid="c6b41609-cfbc-4197-a60d-046da9e85331">
+  <value column="Name" original="LBR_ExportDetail_UU">LBR_ExportDetail_UU</value>
+  <value column="PrintName" original="LBR_ExportDetail_UU">LBR_ExportDetail_UU</value>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="55478863-60f7-4ee8-a5ac-515efe2746a3">
+  <value column="Name" original="Export Registration">Registro de Exportação</value>
+  <value column="PrintName" original="Export Reg.">Registro de Exportação</value>
+  <value column="Description" original="Export Registration">Número de Registro de Exportação</value>
+  <value column="Help" original="Identifies the unique number assigned to the Export Registration (RE), used for tracking and managing export operations">Identifica o número único atribuído ao Registro de Exportação (RE), utilizado para controle e rastreamento de operações de exportação.</value>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
+ <row trl="Y" uuid="eaedb51d-bbeb-4adf-9081-276da84a3208">
+  <value column="Name" original="Indirect Export">Exportação Indireta</value>
+  <value column="PrintName" original="Indirect Export">Exportação Indireta</value>
+  <value column="Description" original="Indicates whether the export operation is indirect">Indica se a operação de exportação é indireta</value>
+  <value column="Help" original="Indicates whether the export operation is indirect, meaning it is carried out through third parties, such as trading companies or other intermediaries">Indica se a operação de exportação é indireta, ou seja, realizada por intermédio de terceiros, como tradings ou outros intermediários</value>
+  <value column="PO_Description" original=""/>
+  <value column="PO_Help" original=""/>
+  <value column="PO_Name" original=""/>
+  <value column="PO_PrintName" original=""/>
+  <value column="Placeholder" original=""/>
+ </row>
 </idempiereTrl>

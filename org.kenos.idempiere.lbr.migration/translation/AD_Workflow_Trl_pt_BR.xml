@@ -398,4 +398,9 @@ Se você não pode cobrir o MPS como você planejou, este módulo dá a você a 
   <value column="Description" original="(Standard Process Production Batch)">(Standard Process Production Batch)</value>
   <value column="Help" original=""/>
  </row>
+ <row trl="N" uuid="93789fda-c56c-4ac0-b9e0-86246ac1f45e">
+  <value column="Name" original="Process_LBR_CTeEvent">Process_LBR_CTeEvent</value>
+  <value column="Description" original="(Standard Process CTeEvent)">(Standard Process CTeEvent)</value>
+  <value column="Help" original=""/>
+ </row>
 </idempiereTrl>
