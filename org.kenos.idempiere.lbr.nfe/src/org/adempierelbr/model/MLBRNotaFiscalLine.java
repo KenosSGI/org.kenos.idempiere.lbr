@@ -79,6 +79,7 @@ import org.kenos.idempiere.lbr.base.model.MLBRAverageCostLine;
 import org.kenos.idempiere.lbr.base.model.MLBRProductConfig;
 import org.kenos.idempiere.lbr.base.model.MLBRProductionGroup;
 import org.kenos.idempiere.lbr.base.model.SysConfig;
+import org.kenos.idempiere.lbr.nfe.model.MLBRExportDetail;
 import org.kenos.idempiere.lbr.tax.validation.TaxBenefCode;
 
 /**
@@ -1998,4 +1999,17 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 			.list();
 		return result;
 	}	//	getAttributes
+	
+	/**
+	 * 	Get Tracking Records
+	 * @return
+	 */
+	public List<MLBRExportDetail> getExportDetail ()
+	{
+		String whereClause = COLUMNNAME_LBR_NotaFiscalLine_ID + "=" + getLBR_NotaFiscalLine_ID();
+		List<MLBRExportDetail> result = new Query (getCtx(), MLBRExportDetail.Table_Name, whereClause, get_TrxName())
+			.setOnlyActiveRecords(true)
+			.list();
+		return result;
+	}	//	getExportDetail
 }	//	MLBRNotaFiscalLine

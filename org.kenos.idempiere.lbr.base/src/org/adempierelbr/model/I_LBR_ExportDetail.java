@@ -21,18 +21,18 @@ import java.sql.Timestamp;
 import org.compiere.model.*;
 import org.compiere.util.KeyNamePair;
 
-/** Generated Interface for LBR_NFDI
+/** Generated Interface for LBR_ExportDetail
  *  @author iDempiere (generated) 
  *  @version Release 6.2
  */
 @SuppressWarnings("all")
-public interface I_LBR_NFDI 
+public interface I_LBR_ExportDetail 
 {
 
-    /** TableName=LBR_NFDI */
-    public static final String Table_Name = "LBR_NFDI";
+    /** TableName=LBR_ExportDetail */
+    public static final String Table_Name = "LBR_ExportDetail";
 
-    /** AD_Table_ID=1100002 */
+    /** AD_Table_ID=1120783 */
     public static final int Table_ID = MTable.getTable_ID(Table_Name);
 
     KeyNamePair Model = new KeyNamePair(Table_ID, Table_Name);
@@ -80,32 +80,6 @@ public interface I_LBR_NFDI
 	  */
 	public int getCreatedBy();
 
-    /** Column name DateTrx */
-    public static final String COLUMNNAME_DateTrx = "DateTrx";
-
-	/** Set Transaction Date.
-	  * Transaction Date
-	  */
-	public void setDateTrx (Timestamp DateTrx);
-
-	/** Get Transaction Date.
-	  * Transaction Date
-	  */
-	public Timestamp getDateTrx();
-
-    /** Column name DiscountAmt */
-    public static final String COLUMNNAME_DiscountAmt = "DiscountAmt";
-
-	/** Set Discount Amount.
-	  * Calculated amount of discount
-	  */
-	public void setDiscountAmt (BigDecimal DiscountAmt);
-
-	/** Get Discount Amount.
-	  * Calculated amount of discount
-	  */
-	public BigDecimal getDiscountAmt();
-
     /** Column name IsActive */
     public static final String COLUMNNAME_IsActive = "IsActive";
 
@@ -119,51 +93,77 @@ public interface I_LBR_NFDI
 	  */
 	public boolean isActive();
 
-    /** Column name LBR_NFDI_ID */
-    public static final String COLUMNNAME_LBR_NFDI_ID = "LBR_NFDI_ID";
+    /** Column name LBR_ExportDetail_ID */
+    public static final String COLUMNNAME_LBR_ExportDetail_ID = "LBR_ExportDetail_ID";
 
-	/** Set DI	  */
-	public void setLBR_NFDI_ID (int LBR_NFDI_ID);
+	/** Set Export Detail	  */
+	public void setLBR_ExportDetail_ID (int LBR_ExportDetail_ID);
 
-	/** Get DI	  */
-	public int getLBR_NFDI_ID();
+	/** Get Export Detail	  */
+	public int getLBR_ExportDetail_ID();
 
-    /** Column name LBR_NFDI_UU */
-    public static final String COLUMNNAME_LBR_NFDI_UU = "LBR_NFDI_UU";
+    /** Column name LBR_ExportDetail_UU */
+    public static final String COLUMNNAME_LBR_ExportDetail_UU = "LBR_ExportDetail_UU";
 
-	/** Set LBR_NFDI_UU	  */
-	public void setLBR_NFDI_UU (String LBR_NFDI_UU);
+	/** Set LBR_ExportDetail_UU	  */
+	public void setLBR_ExportDetail_UU (String LBR_ExportDetail_UU);
 
-	/** Get LBR_NFDI_UU	  */
-	public String getLBR_NFDI_UU();
+	/** Get LBR_ExportDetail_UU	  */
+	public String getLBR_ExportDetail_UU();
 
-    /** Column name LBR_NotaFiscal_ID */
-    public static final String COLUMNNAME_LBR_NotaFiscal_ID = "LBR_NotaFiscal_ID";
+    /** Column name LBR_ExportRegNo */
+    public static final String COLUMNNAME_LBR_ExportRegNo = "LBR_ExportRegNo";
 
-	/** Set Nota Fiscal.
-	  * Primary key table LBR_NotaFiscal
+	/** Set Export Registration.
+	  * Export Registration
 	  */
-	public void setLBR_NotaFiscal_ID (int LBR_NotaFiscal_ID);
+	public void setLBR_ExportRegNo (String LBR_ExportRegNo);
 
-	/** Get Nota Fiscal.
-	  * Primary key table LBR_NotaFiscal
+	/** Get Export Registration.
+	  * Export Registration
 	  */
-	public int getLBR_NotaFiscal_ID();
+	public String getLBR_ExportRegNo();
 
-	public org.adempierelbr.model.I_LBR_NotaFiscal getLBR_NotaFiscal() throws RuntimeException;
+    /** Column name LBR_IsIndirectExport */
+    public static final String COLUMNNAME_LBR_IsIndirectExport = "LBR_IsIndirectExport";
 
-    /** Column name Type */
-    public static final String COLUMNNAME_Type = "Type";
-
-	/** Set Type.
-	  * Type of Validation (SQL, Java Script, Java Language)
+	/** Set Indirect Export.
+	  * Indicates whether the export operation is indirect
 	  */
-	public void setType (String Type);
+	public void setLBR_IsIndirectExport (boolean LBR_IsIndirectExport);
 
-	/** Get Type.
-	  * Type of Validation (SQL, Java Script, Java Language)
+	/** Get Indirect Export.
+	  * Indicates whether the export operation is indirect
 	  */
-	public String getType();
+	public boolean isLBR_IsIndirectExport();
+
+    /** Column name LBR_NotaFiscalLine_ID */
+    public static final String COLUMNNAME_LBR_NotaFiscalLine_ID = "LBR_NotaFiscalLine_ID";
+
+	/** Set Nota Fiscal Line.
+	  * Primary key table LBR_NotaFiscalLine
+	  */
+	public void setLBR_NotaFiscalLine_ID (int LBR_NotaFiscalLine_ID);
+
+	/** Get Nota Fiscal Line.
+	  * Primary key table LBR_NotaFiscalLine
+	  */
+	public int getLBR_NotaFiscalLine_ID();
+
+	public org.adempierelbr.model.I_LBR_NotaFiscalLine getLBR_NotaFiscalLine() throws RuntimeException;
+
+    /** Column name Qty */
+    public static final String COLUMNNAME_Qty = "Qty";
+
+	/** Set Quantity.
+	  * Quantity
+	  */
+	public void setQty (BigDecimal Qty);
+
+	/** Get Quantity.
+	  * Quantity
+	  */
+	public BigDecimal getQty();
 
     /** Column name Updated */
     public static final String COLUMNNAME_Updated = "Updated";
@@ -181,50 +181,6 @@ public interface I_LBR_NFDI
 	  */
 	public int getUpdatedBy();
 
-    /** Column name lbr_BPRegion */
-    public static final String COLUMNNAME_lbr_BPRegion = "lbr_BPRegion";
-
-	/** Set BP Region.
-	  * BP Region - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public void setlbr_BPRegion (String lbr_BPRegion);
-
-	/** Get BP Region.
-	  * BP Region - Copied from the BP Location into Brazilan Legal and Tax Books
-	  */
-	public String getlbr_BPRegion();
-
-    /** Column name lbr_CodExportador */
-    public static final String COLUMNNAME_lbr_CodExportador = "lbr_CodExportador";
-
-	/** Set CÛdigo do exportador	  */
-	public void setlbr_CodExportador (String lbr_CodExportador);
-
-	/** Get CÛdigo do exportador	  */
-	public String getlbr_CodExportador();
-
-    /** Column name lbr_DI */
-    public static final String COLUMNNAME_lbr_DI = "lbr_DI";
-
-	/** Set DI.
-	  * N˙mero do Documento de Importação DI/DSI/DA (DI/DSI/DA)
-	  */
-	public void setlbr_DI (String lbr_DI);
-
-	/** Get DI.
-	  * N˙mero do Documento de Importação DI/DSI/DA (DI/DSI/DA)
-	  */
-	public String getlbr_DI();
-
-    /** Column name lbr_DataDesemb */
-    public static final String COLUMNNAME_lbr_DataDesemb = "lbr_DataDesemb";
-
-	/** Set Data do Desembaraço	  */
-	public void setlbr_DataDesemb (Timestamp lbr_DataDesemb);
-
-	/** Get Data do Desembaraço	  */
-	public Timestamp getlbr_DataDesemb();
-
     /** Column name lbr_Drawback */
     public static final String COLUMNNAME_lbr_Drawback = "lbr_Drawback";
 
@@ -238,16 +194,16 @@ public interface I_LBR_NFDI
 	  */
 	public String getlbr_Drawback();
 
-    /** Column name lbr_LocDesemb */
-    public static final String COLUMNNAME_lbr_LocDesemb = "lbr_LocDesemb";
+    /** Column name lbr_NFeID */
+    public static final String COLUMNNAME_lbr_NFeID = "lbr_NFeID";
 
-	/** Set Local de Desembaraço.
-	  * Local de Desembaraço
+	/** Set NFe ID.
+	  * Identification of NFe
 	  */
-	public void setlbr_LocDesemb (String lbr_LocDesemb);
+	public void setlbr_NFeID (String lbr_NFeID);
 
-	/** Get Local de Desembaraço.
-	  * Local de Desembaraço
+	/** Get NFe ID.
+	  * Identification of NFe
 	  */
-	public String getlbr_LocDesemb();
+	public String getlbr_NFeID();
 }

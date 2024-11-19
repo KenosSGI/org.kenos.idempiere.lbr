@@ -125,6 +125,7 @@ import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Det.Prod.DI.Adi;
 import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Det.Prod.DI.TpIntermedio;
 import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Det.Prod.DI.TpViaTransp;
 import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Det.Prod.DetExport;
+import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Det.Prod.DetExport.ExportInd;
 import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Det.Prod.Med;
 import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Det.Prod.Rastro;
 import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Det.Prod.VeicProd;
@@ -1072,16 +1073,24 @@ public class NFeXMLGenerator
 					if (nfl.getlbr_NumSeqItem() > 0)
 						adi.setNSeqAdic(String.valueOf (nfl.getlbr_NumSeqItem()));
 					adi.setCFabricante(normalize (nfl.getManufacturer()));
-//					adi.setVDescDI(Env.ZERO);	//TODO
-//					adi.setNDraw(arg0);			//TODO
+					if (nfdi.getDiscountAmt() != null)
+						adi.setVDescDI(normalize (nfdi.getDiscountAmt()));
+					adi.setNDraw(nfdi.getlbr_Drawback());
 				}
-			
-				//	I03. Produtos e Serviços / Grupo de Exportação
-				else if (TP_NF_SAIDA.equals (ide.getTpNF())
-						&& false)	//FIXME TODO
-				{
-					DetExport detExport = prod.addNewDetExport();
+
+			nfl.getExportDetail().forEach(ed -> {
+				DetExport detExport = prod.addNewDetExport();
+				
+				if (ed.getlbr_Drawback() != null)
+					detExport.setNDraw(ed.getlbr_Drawback());
+				
+				if (ed.isLBR_IsIndirectExport()) {
+					ExportInd exportInd = detExport.addNewExportInd();
+					exportInd.setChNFe(ed.getlbr_NFeID());
+					exportInd.setQExport(normalize (ed.getQty()));
+					exportInd.setNRE(ed.getLBR_ExportRegNo());	
 				}
+			});
 			
 			//	I05. Produtos e Serviços / Pedido de Compra
 			if (nfl.getC_InvoiceLine_ID() > 0 && nfl.getC_InvoiceLine().getC_OrderLine_ID() > 0)

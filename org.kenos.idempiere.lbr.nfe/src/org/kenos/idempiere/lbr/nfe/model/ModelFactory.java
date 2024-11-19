@@ -18,6 +18,8 @@ public class ModelFactory implements IModelFactory
 	{
 		if (MLBRProofOfDelivery.Table_Name.equals(tableName))
 			return MLBRProofOfDelivery.class;
+		else if (MLBRExportDetail.Table_Name.equals(tableName))
+			return MLBRExportDetail.class;
 		return null;
 	}	//	getClass
 
@@ -26,6 +28,8 @@ public class ModelFactory implements IModelFactory
 	{
 		if (MLBRProofOfDelivery.Table_Name.equals(tableName))
 			return new MLBRProofOfDelivery (Env.getCtx(), Record_ID, trxName);
+		else if (MLBRExportDetail.Table_Name.equals(tableName))
+			return new MLBRExportDetail (Env.getCtx(), Record_ID, trxName);
 		return null;
 	}	//	getPO
 
@@ -34,6 +38,8 @@ public class ModelFactory implements IModelFactory
 	{
 		if (MLBRProofOfDelivery.Table_Name.equals(tableName))
 			return new MLBRProofOfDelivery (Env.getCtx(), rs, trxName);
+		else if (MLBRExportDetail.Table_Name.equals(tableName))
+			return new MLBRExportDetail (Env.getCtx(), rs, trxName);
 		return null;
 	}	//	getPO
 }	//	ModelFactory

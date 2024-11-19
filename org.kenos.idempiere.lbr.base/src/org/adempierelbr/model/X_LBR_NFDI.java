@@ -17,21 +17,23 @@
 /** Generated Model - DO NOT CHANGE */
 package org.adempierelbr.model;
 
+import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.Properties;
 import org.compiere.model.*;
+import org.compiere.util.Env;
 
 /** Generated Model for LBR_NFDI
  *  @author iDempiere (generated) 
- *  @version Release 4.1 - $Id$ */
+ *  @version Release 6.2 - $Id$ */
 public class X_LBR_NFDI extends PO implements I_LBR_NFDI, I_Persistent 
 {
 
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20170626L;
+	private static final long serialVersionUID = 20241119L;
 
     /** Standard Constructor */
     public X_LBR_NFDI (Properties ctx, int LBR_NFDI_ID, String trxName)
@@ -88,6 +90,26 @@ public class X_LBR_NFDI extends PO implements I_LBR_NFDI, I_Persistent
 		return (Timestamp)get_Value(COLUMNNAME_DateTrx);
 	}
 
+	/** Set Discount Amount.
+		@param DiscountAmt 
+		Calculated amount of discount
+	  */
+	public void setDiscountAmt (BigDecimal DiscountAmt)
+	{
+		set_Value (COLUMNNAME_DiscountAmt, DiscountAmt);
+	}
+
+	/** Get Discount Amount.
+		@return Calculated amount of discount
+	  */
+	public BigDecimal getDiscountAmt () 
+	{
+		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_DiscountAmt);
+		if (bd == null)
+			 return Env.ZERO;
+		return bd;
+	}
+
 	/** Set DI.
 		@param LBR_NFDI_ID DI	  */
 	public void setLBR_NFDI_ID (int LBR_NFDI_ID)
@@ -106,6 +128,20 @@ public class X_LBR_NFDI extends PO implements I_LBR_NFDI, I_Persistent
 		if (ii == null)
 			 return 0;
 		return ii.intValue();
+	}
+
+	/** Set LBR_NFDI_UU.
+		@param LBR_NFDI_UU LBR_NFDI_UU	  */
+	public void setLBR_NFDI_UU (String LBR_NFDI_UU)
+	{
+		set_Value (COLUMNNAME_LBR_NFDI_UU, LBR_NFDI_UU);
+	}
+
+	/** Get LBR_NFDI_UU.
+		@return LBR_NFDI_UU	  */
+	public String getLBR_NFDI_UU () 
+	{
+		return (String)get_Value(COLUMNNAME_LBR_NFDI_UU);
 	}
 
 	public org.adempierelbr.model.I_LBR_NotaFiscal getLBR_NotaFiscal() throws RuntimeException
