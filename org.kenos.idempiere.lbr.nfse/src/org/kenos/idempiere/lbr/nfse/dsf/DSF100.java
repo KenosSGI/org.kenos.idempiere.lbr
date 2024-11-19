@@ -395,8 +395,6 @@ public class DSF100 implements INFSe
 			descricaoServico = descricaoServico.replace("\n", "|").replace("  ", "").trim();
 		tpRPS.setDescricaoRPS(Util.deleteAccents(descricaoServico.replace("–","-")));
 		//
-		if (eMailNFe != null && eMailNFe.indexOf("@") > 1)
-			tpRPS.setEmailTomador(eMailNFe.trim());
 		tpRPS.setTipoRecolhimento(withholdISS ? TpTipoRecolhimento.R : TpTipoRecolhimento.A);
 		
 //		if (withholdISS && nf.getlbr_BPCity() != null && nf.getlbr_BPCity().equals(nf.getlbr_OrgCity()))
