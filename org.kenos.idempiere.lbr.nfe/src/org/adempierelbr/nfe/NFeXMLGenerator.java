@@ -1073,7 +1073,7 @@ public class NFeXMLGenerator
 					if (nfl.getlbr_NumSeqItem() > 0)
 						adi.setNSeqAdic(String.valueOf (nfl.getlbr_NumSeqItem()));
 					adi.setCFabricante(normalize (nfl.getManufacturer()));
-					if (nfdi.getDiscountAmt() != null)
+					if (nfdi.getDiscountAmt() != null && nfdi.getDiscountAmt().signum() == 1)
 						adi.setVDescDI(normalize (nfdi.getDiscountAmt()));
 					adi.setNDraw(nfdi.getlbr_Drawback());
 				}
