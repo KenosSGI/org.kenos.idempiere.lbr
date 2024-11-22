@@ -1047,36 +1047,37 @@ public class NFeXMLGenerator
 			prod.setIndTot (IND_TOT_COMPOE);	//	FIXME
 			
 			//	Operação com o Exterior
-			if (ID_DEST_EXTERIOR.equals (ide.getIdDest()))
+			//	I01. Produtos e Serviços / Declaração de Importação
+			if (ID_DEST_EXTERIOR.equals (ide.getIdDest()) 
+					&& TP_NF_ENTRADA.equals (ide.getTpNF()) 
+					&& nfl.getLBR_NFDI_ID() > 0)
+			{
+				DI di = prod.addNewDI();
+				
+				X_LBR_NFDI nfdi = new X_LBR_NFDI (ctx, nfl.getLBR_NFDI_ID(), trxName);
+				//
+				di.setNDI(nfdi.getlbr_DI ());
+				di.setDDI(TextUtil.timeToString (nfdi.getDateTrx(), "yyyy-MM-dd"));
+				di.setXLocDesemb(normalize (nfdi.getlbr_LocDesemb()));
+				di.setUFDesemb(TUfEmi.Enum.forString (nfdi.getlbr_BPRegion()));
+				di.setDDesemb(TextUtil.timeToString (nfdi.getlbr_DataDesemb(), "yyyy-MM-dd"));
+				di.setTpViaTransp(TpViaTransp.X_4);		//FIXME
+				if (nfl.getLBR_AFRMMAmt() != null)
+					di.setVAFRMM(nfl.getLBR_AFRMMAmt().setScale(2, RoundingMode.HALF_UP).toEngineeringString());
+				di.setTpIntermedio(TpIntermedio.X_1);	//FIXME
+				di.setCExportador (normalize (nfdi.getlbr_CodExportador()));
 
-				//	I01. Produtos e Serviços / Declaração de Importação
-				if (TP_NF_ENTRADA.equals (ide.getTpNF()) && nfl.getLBR_NFDI_ID() > 0)
-				{
-					DI di = prod.addNewDI();
-					
-					X_LBR_NFDI nfdi = new X_LBR_NFDI (ctx, nfl.getLBR_NFDI_ID(), trxName);
-					//
-					di.setNDI(nfdi.getlbr_DI ());
-					di.setDDI(TextUtil.timeToString (nfdi.getDateTrx(), "yyyy-MM-dd"));
-					di.setXLocDesemb(normalize (nfdi.getlbr_LocDesemb()));
-					di.setUFDesemb(TUfEmi.Enum.forString (nfdi.getlbr_BPRegion()));
-					di.setDDesemb(TextUtil.timeToString (nfdi.getlbr_DataDesemb(), "yyyy-MM-dd"));
-					di.setTpViaTransp(TpViaTransp.X_4);		//FIXME
-					if (nfl.getLBR_AFRMMAmt() != null)
-						di.setVAFRMM(nfl.getLBR_AFRMMAmt().setScale(2, RoundingMode.HALF_UP).toEngineeringString());
-					di.setTpIntermedio(TpIntermedio.X_1);	//FIXME
-					di.setCExportador (normalize (nfdi.getlbr_CodExportador()));
-
-					Adi adi = di.addNewAdi();
-					if (nfl.getlbr_NumAdicao() > 0)
-						adi.setNAdicao(String.valueOf (nfl.getlbr_NumAdicao()));
-					if (nfl.getlbr_NumSeqItem() > 0)
-						adi.setNSeqAdic(String.valueOf (nfl.getlbr_NumSeqItem()));
-					adi.setCFabricante(normalize (nfl.getManufacturer()));
-					if (nfdi.getDiscountAmt() != null && nfdi.getDiscountAmt().signum() == 1)
-						adi.setVDescDI(normalize (nfdi.getDiscountAmt()));
+				Adi adi = di.addNewAdi();
+				if (nfl.getlbr_NumAdicao() > 0)
+					adi.setNAdicao(String.valueOf (nfl.getlbr_NumAdicao()));
+				if (nfl.getlbr_NumSeqItem() > 0)
+					adi.setNSeqAdic(String.valueOf (nfl.getlbr_NumSeqItem()));
+				adi.setCFabricante(normalize (nfl.getManufacturer()));
+				if (nfdi.getDiscountAmt() != null && nfdi.getDiscountAmt().signum() == 1)
+					adi.setVDescDI(normalize (nfdi.getDiscountAmt()));
+				if (nfdi.getlbr_Drawback() != null && !nfdi.getlbr_Drawback().isBlank())
 					adi.setNDraw(nfdi.getlbr_Drawback());
-				}
+			}
 
 			nfl.getExportDetail().forEach(ed -> {
 				DetExport detExport = prod.addNewDetExport();
