@@ -1,11 +1,14 @@
 package org.kenos.idempiere.lbr.bankslip.model;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.UnsupportedEncodingException;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.util.List;
 import java.util.Properties;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 import org.adempiere.base.Service;
 import org.adempierelbr.model.I_LBR_BankSlipLayout;
@@ -14,7 +17,6 @@ import org.adempierelbr.util.TextUtil;
 import org.adempierelbr.wrapper.I_W_AD_OrgInfo;
 import org.adempierelbr.wrapper.I_W_C_Bank;
 import org.compiere.model.MAttachment;
-import org.compiere.model.MAttachmentEntry;
 import org.compiere.model.MBank;
 import org.compiere.model.MOrgInfo;
 import org.compiere.model.MSequence;
@@ -301,25 +303,29 @@ public class MLBRCNABFile extends X_LBR_CNABFile implements DocAction, DocOption
 		{
 			MAttachment attachment = getAttachment (true);
 			if (attachment != null) {
-				MAttachmentEntry entry = attachment.getEntry(0);
-				
-				//	Preserve file name
-				if (entry != null)
-					cnabFileName = entry.getName();
 				getAttachment ().delete (true);
 			}
 			
 			getAttachment(true);	//	FIX
 			MAttachment attachCNAB = createAttachment();
-			attachCNAB.addEntry(cnabFileName, cnabFileContent.toString().getBytes("UTF-8"));
+			
+			byte[] fileContent = cnabFileContent.toString().getBytes("UTF-8");
+			
+			// Check if file should be zipped
+			if (handler.shouldZipFile()) {
+				fileContent = zipFile(cnabFileName, fileContent);
+				cnabFileName += ".ZIP";
+			}
+			
+			attachCNAB.addEntry(cnabFileName, fileContent);
 			attachCNAB.save();
 		} 
-		catch (UnsupportedEncodingException e)
+		catch (Exception e)
 		{
 			e.printStackTrace();
 			m_processMsg = "Erro ao gerar o arquivo";
 			return DOCSTATUS_Invalid;
-		}
+		} 
 		
 		setProcessed(true);
 		
@@ -423,5 +429,20 @@ public class MLBRCNABFile extends X_LBR_CNABFile implements DocAction, DocOption
 			.append(",RoutingNo=").append(getRoutingNo())
 			.append(", AccountNo=").append(getAccountNoAsInt())
 			.append ("]");
-		return sb.toString ();	}	//	toString
+		return sb.toString ();
+	}	//	toString
+	
+	/**
+	 * Utility method to zip the file content.
+	 */
+	private byte[] zipFile(String fileName, byte[] fileContent) throws IOException {
+	    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+	    try (ZipOutputStream zos = new ZipOutputStream(baos)) {
+	        ZipEntry entry = new ZipEntry(fileName);
+	        zos.putNextEntry(entry);
+	        zos.write(fileContent);
+	        zos.closeEntry();
+	    }
+	    return baos.toByteArray();
+	}	//	zipFile
 }	//	MLBRCNABFile

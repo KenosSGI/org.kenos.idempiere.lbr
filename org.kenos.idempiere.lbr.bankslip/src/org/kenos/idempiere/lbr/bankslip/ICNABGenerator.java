@@ -82,4 +82,13 @@ public interface ICNABGenerator
 	{
 		return null;
 	}	//	getFileName
+	
+	/**
+	 * 	Default method allow CNAB file to be zipped
+	 * 	@return true or false if the file should be zipped
+	 */
+	public default boolean shouldZipFile ()
+	{
+		return false;
+	}	//	shouldZipFile
 }	//	ICNABGenerator

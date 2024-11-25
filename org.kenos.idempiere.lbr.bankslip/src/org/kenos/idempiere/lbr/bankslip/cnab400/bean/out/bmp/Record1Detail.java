@@ -2,6 +2,7 @@ package org.kenos.idempiere.lbr.bankslip.cnab400.bean.out.bmp;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.Date;
 
 import org.kenos.idempiere.lbr.bankslip.cnab400.bean.formatter.NumericStringFormatter;
 
@@ -212,6 +213,14 @@ public class Record1Detail extends org.kenos.idempiere.lbr.bankslip.cnab400.bean
 	public void setEstado(String estado) {}
 	@Override
 	public String getEstado() { return null; }
+	@Override
+	public void setDataDeMora(Timestamp dataDeMora) {}
+	@Override
+	public Date getDataDeMora() { return null; }
+	@Override
+	public void setPrazo(Integer prazo) {}
+	@Override
+	public Integer getPrazo() { return null; }
 	
 	@Fields( value = { 
 			@Field ( offset =   7, length =  1 ),

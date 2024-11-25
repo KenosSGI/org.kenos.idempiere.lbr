@@ -286,4 +286,24 @@ public class BancoMoneyPlus implements ICNABGenerator
 		occurs.add(MLBRBankSlipOccur.TYPE_CancelProtest);
 		return occurs;
 	}	//	getAvailableOccurs
+	
+	/**
+	 * 	File should be generate on a certain format
+	 */
+	@Override
+	public String getFileName(MLBRCNABFile file) {
+		StringBuilder fileName = new StringBuilder("CB");	//	CBDDMMSSSSSSS
+		fileName.append(TextUtil.timeToString(file.getDateDoc(), "ddMM"));
+		fileName.append(TextUtil.lPad(file.getSeqNo(), 7));
+		fileName.append(".REM");
+		return fileName.toString();
+	}	//	getFileName
+	
+	/**
+	 * 	BMP requires a zipped file
+	 */
+	@Override
+	public boolean shouldZipFile() {
+		return true;
+	}	//	shouldZipFile
 }	//	generateCNABFile
