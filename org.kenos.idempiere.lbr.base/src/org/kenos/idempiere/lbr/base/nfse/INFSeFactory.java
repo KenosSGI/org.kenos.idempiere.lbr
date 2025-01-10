@@ -23,5 +23,7 @@ public interface INFSeFactory {
 	 *	@param tableName table name
 	 *	@return class or null
 	 */
-	public Class<?> getClass (int c_city_id);	
-}
+	public Class<?> getClass (int c_city_id);
+	
+	default public Class<?> getClass (String className) { return null; };
+}	//	INFSeFactory

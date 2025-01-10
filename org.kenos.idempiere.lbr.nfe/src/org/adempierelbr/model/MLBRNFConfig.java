@@ -1,6 +1,7 @@
 package org.adempierelbr.model;
 
 import java.sql.ResultSet;
+import java.util.Objects;
 import java.util.Properties;
 
 import org.adempierelbr.util.TextUtil;
@@ -127,6 +128,7 @@ public class MLBRNFConfig extends X_LBR_NFConfig
 	 */
 	public static MLBRNFConfig get (int AD_Org_ID, String modelNF)
 	{
-		return new Query (Env.getCtx(), Table_Name, "AD_Org_ID=? AND LBR_NFModel=?", null).setParameters(AD_Org_ID, modelNF).first();
+		return new Query (Env.getCtx(), Table_Name, "AD_Org_ID=? AND LBR_NFModel=?", null)
+				.setParameters(AD_Org_ID, Objects.requireNonNullElse (modelNF, LBR_NFMODEL_NotaFiscalEletrônica)).first();
 	}	//	get
 }	//	MLBRNFConfig

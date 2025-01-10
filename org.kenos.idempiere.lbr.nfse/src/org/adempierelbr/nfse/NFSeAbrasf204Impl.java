@@ -14,6 +14,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Properties;
 import java.util.UUID;
 
@@ -236,7 +237,7 @@ public class NFSeAbrasf204Impl implements INFSe
 			 * 	In case the phone number is in wrong format, fill with organization phone.
 			 * 	This field is mandatory and do not accept 0 like previous version
 			 */
-			contatoTomador.setTelefone(TextUtil.toNumeric(nf.getlbr_OrgPhone()));
+			contatoTomador.setTelefone(Objects.requireNonNullElse(TextUtil.toNumeric(nf.getlbr_OrgPhone()),"0"));
 		if (partner.get_ValueAsString("LBR_EMailNFe") != null && !partner.get_ValueAsString("LBR_EMailNFe").isEmpty())
 			contatoTomador.setEmail(partner.get_ValueAsString("LBR_EMailNFe"));
 		
@@ -333,6 +334,13 @@ public class NFSeAbrasf204Impl implements INFSe
 			dadosServico.setMunicipioIncidencia(city.getlbr_CityCode());
 		}
 		
+		if (Objects.requireNonNullElse(nf.getlbr_NFeEnv(), MLBRNotaFiscal.LBR_NFEENV_Homologation)
+				.equals(MLBRNotaFiscal.LBR_NFEENV_Homologation)) {
+			dadosServico.setCodigoMunicipio(999);
+			dadosServico.setMunicipioIncidencia(999);
+			dadosServico.setCodigoTributacaoMunicipio("");
+		}
+		
 		//	FIXME: Criar campo ExigibilidadeISS
 		/*	1 - Exigível;
 			2 - Não incidência;
@@ -421,9 +429,9 @@ public class NFSeAbrasf204Impl implements INFSe
 		//	Set certificate
 		MLBRDigitalCertificate.setCertificate (Env.getCtx(), nf.getAD_Org_ID());
 		
-		String url = "https://www.issnetonline.com.br/apresentacao/df/webservicenfse204/nfse.asmx";
+		String url = MSysConfig.getValue (SysConfig.LBR_NFSE_URL_HOMOLOG, "https://www.issnetonline.com.br/apresentacao/df/webservicenfse204/nfse.asmx", nf.getAD_Client_ID(), nf.getAD_Org_ID());
 		if (MLBRNotaFiscal.LBR_NFEENV_Production.equals(nf.getlbr_NFeEnv()))
-			url = "https://df.issnetonline.com.br/webservicenfse204/nfse.asmx";
+			url = MSysConfig.getValue (SysConfig.LBR_NFSE_URL, "https://df.issnetonline.com.br/webservicenfse204/nfse.asmx", nf.getAD_Client_ID(), nf.getAD_Org_ID());
 		
 		NfseWSServiceStub nfseStub = new NfseWSServiceStub(url);
 		nfseStub._getServiceClient().getOptions().setProperty(HTTPConstants.CHUNKED, false);
@@ -596,9 +604,9 @@ public class NFSeAbrasf204Impl implements INFSe
 		if (nf.getlbr_OrgCCM() != null && !nf.getlbr_OrgCCM().isEmpty())
 			prestador.setInscricaoMunicipal(TextUtil.toNumeric(nf.getlbr_OrgCCM()));
 		
-		String url = "https://www.issnetonline.com.br/apresentacao/df/webservicenfse204/nfse.asmx";
+		String url = MSysConfig.getValue (SysConfig.LBR_NFSE_URL_HOMOLOG, "https://www.issnetonline.com.br/apresentacao/df/webservicenfse204/nfse.asmx", nf.getAD_Client_ID(), nf.getAD_Org_ID());
 		if (MLBRNotaFiscal.LBR_NFEENV_Production.equals(nf.getlbr_NFeEnv()))
-			url = "https://df.issnetonline.com.br/webservicenfse204/nfse.asmx";
+			url = MSysConfig.getValue (SysConfig.LBR_NFSE_URL, "https://df.issnetonline.com.br/webservicenfse204/nfse.asmx", nf.getAD_Client_ID(), nf.getAD_Org_ID());
 		
 		NfseWSServiceStub nfseStub = new NfseWSServiceStub(url);
 		nfseStub._getServiceClient().getOptions().setProperty(HTTPConstants.CHUNKED, false);	
@@ -1767,9 +1775,9 @@ public class NFSeAbrasf204Impl implements INFSe
 					
 			//	Set certificate
 			MLBRDigitalCertificate.setCertificate (Env.getCtx(), nf.getAD_Org_ID());
-			String url = "https://www.issnetonline.com.br/apresentacao/df/webservicenfse204/nfse.asmx";
+			String url = MSysConfig.getValue (SysConfig.LBR_NFSE_URL_HOMOLOG, "https://www.issnetonline.com.br/apresentacao/df/webservicenfse204/nfse.asmx", nf.getAD_Client_ID(), nf.getAD_Org_ID());
 			if (MLBRNotaFiscal.LBR_NFEENV_Production.equals(nf.getlbr_NFeEnv()))
-				url = "https://df.issnetonline.com.br/webservicenfse204/nfse.asmx";
+				url = MSysConfig.getValue (SysConfig.LBR_NFSE_URL, "https://df.issnetonline.com.br/webservicenfse204/nfse.asmx", nf.getAD_Client_ID(), nf.getAD_Org_ID());
 			
 			NfseWSServiceStub nfseStub = new NfseWSServiceStub(url);
 			nfseStub._getServiceClient().getOptions().setProperty(HTTPConstants.CHUNKED, false);

@@ -457,6 +457,7 @@ public class MLBRDigitalCertificate extends X_LBR_DigitalCertificate
 					   "FROM LBR_DigitalCertificate " +
 					  "WHERE IsActive='Y' " +
 					    "AND IsValid='Y' " +
+					    "AND AD_Client_ID IN (0, " + oi.getAD_Client_ID() + ") " +
 					  	"AND AD_Org_ID IN (0, ?) " +
 					  	"AND LBR_CNPJ=? " +
 					  	"AND SYSDATE BETWEEN ValidFrom AND ValidTo";
@@ -470,6 +471,7 @@ public class MLBRDigitalCertificate extends X_LBR_DigitalCertificate
 				"FROM LBR_DigitalCertificate " +
 			   "WHERE IsActive='Y' " +
 			     "AND IsValid='Y' " +
+			     "AND AD_Client_ID IN (0, " + oi.getAD_Client_ID() + ") " +
 				 "AND AD_Org_ID IN (0, ?) " +
 				 "AND LBR_CNPJ LIKE ? " +
 				 "AND SYSDATE BETWEEN ValidFrom AND ValidTo";

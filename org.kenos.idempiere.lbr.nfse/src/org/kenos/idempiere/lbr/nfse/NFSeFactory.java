@@ -1,5 +1,6 @@
 package org.kenos.idempiere.lbr.nfse;
 
+import org.adempierelbr.nfse.INFSe;
 import org.adempierelbr.nfse.NFSeAbrasf100Impl;
 import org.adempierelbr.nfse.NFSeAbrasf200Impl;
 import org.adempierelbr.nfse.NFSeAbrasf201Impl;
@@ -25,6 +26,22 @@ import org.kenos.idempiere.lbr.nfse.dsf.DSF100;
 public class NFSeFactory implements INFSeFactory
 {
 	CLogger log = CLogger.getCLogger (NFSeFactory.class);
+	
+	@Override
+	public Class<?> getClass (String className) {
+
+		try
+		{
+			//	Try to instantiate the class directly
+			Class<?> clazz = Class.forName (className);
+			if (INFSe.class.isAssignableFrom(clazz)) {
+				return clazz;
+		    }
+		}
+		catch (Throwable e) { e.printStackTrace();}
+		
+		return null;
+	}	//	getClass
 	
 	/**
 	 * 	Get class for City

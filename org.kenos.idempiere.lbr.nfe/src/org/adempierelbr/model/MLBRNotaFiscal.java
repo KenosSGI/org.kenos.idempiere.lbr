@@ -5920,4 +5920,12 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 			return line.getLBR_NFeLot_ID();
 		return super.getLBR_NFeLot_ID();
 	}	//	getLast_NFeLot_ID
+	
+	/**	
+	 * Retrieves the Nota Fiscal configuration
+	 * @return	NF configuration or null
+	 */
+	public MLBRNFConfig getConfig () {
+		return MLBRNFConfig.get(getAD_Org_ID(), getlbr_NFModel());
+	}	//	getConfig
 }	//	MLBRNotaFiscal
