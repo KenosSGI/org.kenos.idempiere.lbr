@@ -499,6 +499,8 @@ public class GetDFe extends SvrProcess
 			catch (Exception e) {}
 
 			//	Nota Fiscal Eletrônica
+			String nsu = zip.getNSU();
+			
 			if (resNFeDoc != null)
 			{
 				ResNFe resNFe = resNFeDoc.getResNFe();
@@ -520,7 +522,8 @@ public class GetDFe extends SvrProcess
 				pDFe.setGrandTotal(new BigDecimal (resNFe.getVNF()));
 				pDFe.setlbr_DigestValue(resNFe.xgetDigVal().getStringValue());
 				pDFe.setDateTrx(NFeUtil.stringToTime (resNFe.getDhRecbto().toString()));
-				pDFe.setLBR_NSU(zip.getNSU());
+				if (nsu != null && !nsu.isBlank())
+					pDFe.setLBR_NSU(nsu);
 				pDFe.setLBR_SitNF(resNFe.getCSitNFe().toString());
 				pDFe.setlbr_NFeProt(resNFe.getNProt());
 				pDFe.setIsSOTrx("1".equals(resNFe.xgetTpNF().getStringValue()));
@@ -564,7 +567,8 @@ public class GetDFe extends SvrProcess
 					pDFe.setDateTrx(NFeUtil.stringToTime (resEvento.getDhRecbto().toString()));
 				
 				pDFe.setlbr_NFeProt(resEvento.getNProt());
-				pDFe.setLBR_NSU(zip.getNSU());
+				if (nsu != null && !nsu.isBlank())
+					pDFe.setLBR_NSU(nsu);
 				pDFe.setLBR_EventType(resEvento.getTpEvento());
 				pDFe.setProcessed(true);
 				
@@ -604,7 +608,9 @@ public class GetDFe extends SvrProcess
 				pDFe.setDocumentNote(resEvento.getXEvento());
 				pDFe.setDateTrx(NFeUtil.stringToTime (resProcEvento.getProcEventoNFe().getEvento().getInfEvento().getDhEvento()));
 				pDFe.setlbr_NFeProt(resEvento.getNProt());
-				pDFe.setLBR_NSU(zip.getNSU());
+				if (nsu != null && !nsu.isBlank())
+					pDFe.setLBR_NSU(nsu);
+				
 				try
 				{
 					pDFe.setLBR_EventType(resEvento.getTpEvento());
@@ -659,7 +665,8 @@ public class GetDFe extends SvrProcess
 					pDFe.setGrandTotal(new BigDecimal (nfe.getTotal().getICMSTot().getVNF()));
 					pDFe.setlbr_DigestValue(resNFe.xgetDigVal().getStringValue());
 					pDFe.setDateTrx(NFeUtil.stringToTime (resNFe.getDhRecbto().toString()));
-					pDFe.setLBR_NSU(zip.getNSU());
+					if (nsu != null && !nsu.isBlank())
+						pDFe.setLBR_NSU(nsu);
 					
 					//	Autorizado
 					if (MLBRNotaFiscal.LBR_NFESTATUS_100_AutorizadoOUsoDaNF_E.equals(resNFe.getCStat()))
@@ -674,8 +681,8 @@ public class GetDFe extends SvrProcess
 					pDFe.setProcessed(true);
 					pDFe.save();
 				}
-				else
-					pDFe.setLBR_NSU(zip.getNSU());
+				else if (nsu != null && !nsu.isBlank())
+					pDFe.setLBR_NSU(nsu);
 				
 				//	Tenta salvar
 				if (pDFe.getLBR_PartnerDFe_ID() > 0)
