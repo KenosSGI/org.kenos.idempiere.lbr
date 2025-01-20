@@ -136,8 +136,8 @@ public class NFSeAbrasf204Impl implements INFSe
 	public NFSeAbrasf204Impl()
 	{
 		header = Cabecalho.Factory.newInstance();
-		header.setVersao("2.04");
-		header.setVersaoDados("");
+		header.setVersao("1.00");
+		header.setVersaoDados("2.04");
 	}	//	NFSeAbrasf203Impl
 	
 	/**
@@ -219,10 +219,13 @@ public class NFSeAbrasf204Impl implements INFSe
 			tomador.setInscricaoMunicipal(TextUtil.toNumeric(partner.get_ValueAsString("LBR_CCM")));
 		
 		//	Dados do Tomador do Serviço / Parceiro de Negócio
+		String address2 = TextUtil.toNumeric(nf.getlbr_BPAddress2());
+		if (address2 == null || address2.isBlank())
+			address2 = "0";
 		dadosTomador.setRazaoSocial(Util.deleteAccents(nf.getBPName()));
 		TcEndereco endTomador = dadosTomador.addNewEndereco();
 		endTomador.setEndereco(Util.deleteAccents(nf.getlbr_BPAddress1()));
-		endTomador.setNumero(TextUtil.toNumeric(nf.getlbr_BPAddress2()));
+		endTomador.setNumero(address2);
 		endTomador.setBairro(Util.deleteAccents(nf.getlbr_BPAddress3()));
 		endTomador.setCodigoMunicipio(nf.getlbr_BPCityCode());
 		endTomador.setCep(TextUtil.toNumeric (nf.getlbr_BPPostal()));
@@ -315,9 +318,14 @@ public class NFSeAbrasf204Impl implements INFSe
 			return null;
 		}
 		dadosServico.setDiscriminacao(descricaoServico.replace("\n", ". ").replaceAll("\\s+", " ").replaceAll("\\.+", ".").trim());
-		dadosServico.setItemListaServico(TsItemListaServico.Enum.forString(serviceCode));
+
+		if (serviceCode.contains("/"))
+			dadosServico.setItemListaServico(TsItemListaServico.Enum.forString(serviceCode.substring(0, serviceCode.indexOf("/"))));
+		else
+			dadosServico.setItemListaServico(TsItemListaServico.Enum.forString(serviceCode));
 		dadosServico.setIssRetido((byte) (issRetido ? 1 : 2));
-		dadosServico.setCodigoTributacaoMunicipio(TextUtil.toNumeric(serviceCode));
+		if (serviceCode.contains("/"))
+			dadosServico.setCodigoTributacaoMunicipio(serviceCode.substring(serviceCode.indexOf("/") + 1, serviceCode.length()));
 		
 		if (issRetido)
 			dadosServico.setResponsavelRetencao((byte) 1);
@@ -338,7 +346,6 @@ public class NFSeAbrasf204Impl implements INFSe
 				.equals(MLBRNotaFiscal.LBR_NFEENV_Homologation)) {
 			dadosServico.setCodigoMunicipio(999);
 			dadosServico.setMunicipioIncidencia(999);
-			dadosServico.setCodigoTributacaoMunicipio("");
 		}
 		
 		//	FIXME: Criar campo ExigibilidadeISS
