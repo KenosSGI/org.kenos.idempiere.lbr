@@ -230,9 +230,13 @@ public class NFSeAbrasf204Impl implements INFSe
 		endTomador.setCodigoMunicipio(nf.getlbr_BPCityCode());
 		endTomador.setCep(TextUtil.toNumeric (nf.getlbr_BPPostal()));
 		endTomador.setUf(TsUf.Enum.forString(nf.getlbr_BPRegion()));
+
+		
 		
 		// Contato do Parceiro de Negócio
 		TcContato contatoTomador = dadosTomador.addNewContato();
+		String bpemail = partner.get_ValueAsString("LBR_EMailNFSe");
+		
 		if (TextUtil.toNumeric(nf.getlbr_BPPhone()).length() == 10)
 			contatoTomador.setTelefone(TextUtil.toNumeric(nf.getlbr_BPPhone()));
 		else 
@@ -241,8 +245,8 @@ public class NFSeAbrasf204Impl implements INFSe
 			 * 	This field is mandatory and do not accept 0 like previous version
 			 */
 			contatoTomador.setTelefone(Objects.requireNonNullElse(TextUtil.toNumeric(nf.getlbr_OrgPhone()),"0"));
-		if (partner.get_ValueAsString("LBR_EMailNFe") != null && !partner.get_ValueAsString("LBR_EMailNFe").isEmpty())
-			contatoTomador.setEmail(partner.get_ValueAsString("LBR_EMailNFe"));
+		if (bpemail != null && !bpemail.isBlank())
+			contatoTomador.setEmail(bpemail.trim().substring(0,Math.min(bpemail.trim().length(),80)));
 		
 		//	Descrição do Serviço
 		String descricaoServico = "";
