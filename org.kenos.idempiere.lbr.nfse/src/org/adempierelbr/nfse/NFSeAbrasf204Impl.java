@@ -375,6 +375,7 @@ public class NFSeAbrasf204Impl implements INFSe
 		BigDecimal v_INSS 	= toBD (nf.getTaxAmt("INSS")).abs();
 		BigDecimal v_IR 	= toBD (nf.getTaxAmt("IR")).abs();
 		BigDecimal v_CSLL 	= toBD (nf.getTaxAmt("CSLL")).abs();
+		BigDecimal v_ISS 	= toBD (nf.getTaxAmt("ISS").add(nf.getTaxAmt("ISSRT"))).abs();
 		BigDecimal v_TotTrib= toBD (nf.getlbr_vTotTrib()).abs();
 
 		// Valores da NFS-e
@@ -383,7 +384,9 @@ public class NFSeAbrasf204Impl implements INFSe
 		valores.setValorInss(v_INSS);
 		valores.setValorIr(v_IR);
 		valores.setValorCsll(v_CSLL);
+		valores.setValorIss(v_ISS);
 		valores.setOutrasRetencoes(BigDecimal.ZERO);
+		valores.setAliquota(aliquota);
 		valores.setValTotTributos(v_TotTrib);
 		valores.setDescontoIncondicionado(BigDecimal.ZERO);
 		valores.setDescontoCondicionado(nf.getDiscountAmt());
