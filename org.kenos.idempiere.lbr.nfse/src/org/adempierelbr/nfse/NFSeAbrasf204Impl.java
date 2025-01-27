@@ -251,9 +251,10 @@ public class NFSeAbrasf204Impl implements INFSe
 		//	Descrição do Serviço
 		String descricaoServico = "";
 		String serviceCode = "";
-		BigDecimal aliquota = BigDecimal.ZERO;
+		BigDecimal aliquota = BigDecimal.ZERO.setScale(2, RoundingMode.HALF_UP);
 		MCity city = null;
-		Boolean issRetido = false;
+		boolean issRetido = false;
+		boolean issOnXML = true;
 		
 		//	Serviços Prestados
 		//	É possível descrever vários serviços numa mesma NFS-e, desde que relacionados a um
@@ -263,8 +264,8 @@ public class NFSeAbrasf204Impl implements INFSe
 			if (!nfl.islbr_IsService())
 				continue;
 			
-			BigDecimal taxRateISS = nfl.getTaxRate("ISS");
-			BigDecimal taxRateISSRT = nfl.getTaxRate("ISSRT");
+			BigDecimal taxRateISS = nfl.getTaxRate("ISS").setScale(2, RoundingMode.HALF_UP);
+			BigDecimal taxRateISSRT = nfl.getTaxRate("ISSRT").setScale(2, RoundingMode.HALF_UP);
 
 			if (aliquota.compareTo(Env.ZERO) == 0) {
 				if (taxRateISS.signum() != 0)
@@ -275,6 +276,13 @@ public class NFSeAbrasf204Impl implements INFSe
 				}
 			}
 			
+			/**
+			 * 	Only displays the ISS on NF when this field is marked true
+			 */
+			issOnXML = issOnXML 
+					&& Objects.requireNonNullElse(nfl.getLBR_StimulusISS(), MLBRNotaFiscalLine.LBR_STIMULUSISS_No)
+						.equals(MLBRNotaFiscalLine.LBR_STIMULUSISS_Yes);
+			System.out.print(">>>" + issOnXML);
 			//
 			if (nfl.getM_Product_ID() > 0)
 			{
@@ -299,7 +307,7 @@ public class NFSeAbrasf204Impl implements INFSe
 				//	Mesma Alíquota de ISS para todos os serviços prestados
 				if (!aliquota.equals(taxRateISS.add(taxRateISSRT)))
 				{
-					nf.setErrorMsg("Impossível gerar XML NFS-e. Todos os serviços da NFS-e devem conter o mesmo Código de Serviço");
+					nf.setErrorMsg("Impossível gerar XML NFS-e. Todos os serviços da NFS-e devem conter a mesma alíquota");
 					return null;
 				}
 			}
@@ -384,9 +392,11 @@ public class NFSeAbrasf204Impl implements INFSe
 		valores.setValorInss(v_INSS);
 		valores.setValorIr(v_IR);
 		valores.setValorCsll(v_CSLL);
-		valores.setValorIss(v_ISS);
+		if (issOnXML && aliquota.signum() == 1) {
+			valores.setValorIss(v_ISS);
+			valores.setAliquota(aliquota);
+		}
 		valores.setOutrasRetencoes(BigDecimal.ZERO);
-		valores.setAliquota(aliquota);
 		valores.setValTotTributos(v_TotTrib);
 		valores.setDescontoIncondicionado(BigDecimal.ZERO);
 		valores.setDescontoCondicionado(nf.getDiscountAmt());

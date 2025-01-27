@@ -4711,7 +4711,7 @@ public class MLBRNotaFiscal extends X_LBR_NotaFiscal implements DocAction, DocOp
 							attachNFe.save();
 						}
 						else
-							log.warning("XML não existe");
+							log.warning("XML não existe: " + getErrorMsg());
 					}
 					catch (Exception e)
 					{
