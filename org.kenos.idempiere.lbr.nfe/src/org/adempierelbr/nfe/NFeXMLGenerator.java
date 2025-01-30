@@ -18,6 +18,7 @@ import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Objects;
 import java.util.Properties;
 import java.util.Random;
 
@@ -47,7 +48,6 @@ import org.adempierelbr.util.SignatureUtil;
 import org.adempierelbr.util.TextUtil;
 import org.adempierelbr.validator.ValidatorBPartner;
 import org.adempierelbr.wrapper.I_W_AD_OrgInfo;
-import org.adempierelbr.wrapper.I_W_C_Country;
 import org.compiere.model.MAttachment;
 import org.compiere.model.MCountry;
 import org.compiere.model.MDocType;
@@ -684,10 +684,7 @@ public class NFeXMLGenerator
 		//	Avulsa avulsa = infNFe.addNewAvulsa();
 		
 		//	Endereço do destinatário
-		I_W_C_Country country = POWrapper.create(new MCountry(ctx, nf.getC_BPartner_Location().getC_Location().getC_Country_ID(), trxName), I_W_C_Country.class);
-		
-		if (country == null)
-			throw new AdempiereException ("Country not found");
+		MCountry country = Objects.requireNonNullElse (LBRUtils.getCountry(ctx, nf.getlbr_BPCountry()), new MCountry  (ctx, MLBRNotaFiscal.BRAZIL, null));
 		
 		//	E. Identificação do Destinatário da Nota Fiscal eletrônica
 		if (!nfce || nf.getlbr_BPTypeBR() != null)
@@ -785,7 +782,7 @@ public class NFeXMLGenerator
 				if (nf.getlbr_CountryCode() != null)
 					enderDest.setCPais(nf.getlbr_CountryCode().substring(1));
 				
-				enderDest.setXPais(((MCountry) POWrapper.getPO (country)).get_Translation (MCountry.COLUMNNAME_Name, LBRUtils.AD_LANGUAGE));
+				enderDest.setXPais(country.get_Translation (MCountry.COLUMNNAME_Name, LBRUtils.AD_LANGUAGE));
 				
 				if (nf.getlbr_BPPhone() != null && !nf.getlbr_BPPhone().isBlank())
 				{
@@ -821,6 +818,9 @@ public class NFeXMLGenerator
 					else if (cnpjf.length() == 14)
 						retOuEntreg.setCNPJ(toNumericStr (nf.getlbr_BPDeliveryCNPJ()));
 					
+					else
+						retOuEntreg.setCNPJ("");	//	Blank field is allowed in XML
+					
 					if (nf.getlbr_BPDeliveryIE() != null && !nf.getlbr_BPDeliveryIE().toUpperCase().contains("ISENT"))
 						retOuEntreg.setIE(toNumericStr(nf.getlbr_BPDeliveryIE()));
 					//
@@ -838,8 +838,8 @@ public class NFeXMLGenerator
 					if (nf.getlbr_BPDeliveryPostal() != null)
 						retOuEntreg.setCEP(toNumericStr(nf.getlbr_BPDeliveryPostal()));
 					
-					I_W_C_Country countryDL = POWrapper.create(new MCountry(ctx, nf.getlbr_Delivery_Location().getC_Location().getC_Country_ID(), trxName), I_W_C_Country.class);
-					retOuEntreg.setXPais(((MCountry) POWrapper.getPO (countryDL)).get_Translation (MCountry.COLUMNNAME_Name, LBRUtils.AD_LANGUAGE));
+					MCountry countryDL = Objects.requireNonNullElse(LBRUtils.getCountry(ctx, nf.getlbr_BPDeliveryCountry()), new MCountry  (ctx, MLBRNotaFiscal.BRAZIL, null));
+					retOuEntreg.setXPais(countryDL.get_Translation (MCountry.COLUMNNAME_Name, LBRUtils.AD_LANGUAGE));
 					
 					if (nf.getlbr_CountryCode() != null)
 						retOuEntreg.setCPais(nf.getlbr_CountryCode().substring(1));
@@ -855,11 +855,14 @@ public class NFeXMLGenerator
 					if (nf.getLBR_BPDeliveryEmail() != null)
 						retOuEntreg.setEmail(nf.getLBR_BPDeliveryEmail());
 					
-					if (nf.getlbr_Delivery_Location().getC_Location().getC_Country_ID() != MLBRNotaFiscal.BRAZIL)
+					if (countryDL.getC_Country_ID() != MLBRNotaFiscal.BRAZIL)
 					{
 						retOuEntreg.setCMun(BPartnerUtil.EXTCOD);
 						retOuEntreg.setXMun(BPartnerUtil.EXTMUN);
 						retOuEntreg.setUF(TUf.EX);
+						
+						if (retOuEntreg.getCEP() != null && retOuEntreg.getCEP().length() != 8)
+							retOuEntreg.unsetCEP();
 					}
 					else
 					{

@@ -20,6 +20,7 @@ import org.adempiere.model.POWrapper;
 import org.adempierelbr.wrapper.I_W_AD_OrgInfo;
 import org.compiere.model.MBPartner;
 import org.compiere.model.MBPartnerProduct;
+import org.compiere.model.MCountry;
 import org.compiere.model.MInvoice;
 import org.compiere.model.MInvoiceLine;
 import org.compiere.model.MLocator;
@@ -488,4 +489,17 @@ public abstract class LBRUtils
 		
 		return cnpj1.substring(0, 10).equals(cnpj2.substring(0, 10));
 	}	//	sameEconomicGroup
+	
+	/**
+	 * 	Get country by country code
+	 * 
+	 * @param ctx
+	 * @param countryCode
+	 * @return
+	 */
+	public static MCountry getCountry (Properties ctx, String countryCode) {
+		return new Query (ctx, MCountry.Table_Name, MCountry.COLUMNNAME_CountryCode + "=?", null)
+				.setParameters(countryCode)
+				.first();
+	}	//	getCountry
 }	//	LBRUtils
