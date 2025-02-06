@@ -219,4 +219,17 @@ public class MLBRNFLineTax extends X_LBR_NFLineTax
 		}
 		return true;
 	}	//	beforeSave
+	
+	@Override
+	protected boolean afterSave(boolean newRecord, boolean success) {
+		//	Update the tax credit amount
+		if (getLBR_TaxGroup_ID() > 0 && getLBR_TaxGroup().getName().equals("ICMS")) {
+			MLBRNotaFiscalLine nfl = (MLBRNotaFiscalLine) getLBR_NotaFiscalLine();
+			nfl.getPresumedTaxCredit().stream().forEach(pt -> {
+				pt.calculateAmount (getlbr_TaxBaseAmt());
+				pt.save();
+			});
+		}
+		return true;
+	}	//	afterSave
 }	//	MLBRNotaFiscal

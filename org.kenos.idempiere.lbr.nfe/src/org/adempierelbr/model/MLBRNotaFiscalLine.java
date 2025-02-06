@@ -80,6 +80,8 @@ import org.kenos.idempiere.lbr.base.model.MLBRProductConfig;
 import org.kenos.idempiere.lbr.base.model.MLBRProductionGroup;
 import org.kenos.idempiere.lbr.base.model.SysConfig;
 import org.kenos.idempiere.lbr.nfe.model.MLBRExportDetail;
+import org.kenos.idempiere.lbr.nfe.model.MNFLinePTaxCredit;
+import org.kenos.idempiere.lbr.nfe.model.MPresumedTaxCredit;
 import org.kenos.idempiere.lbr.tax.validation.TaxBenefCode;
 
 /**
@@ -1627,6 +1629,18 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 		
 		//	Set cBenef
 		setLBR_TaxBenefitCode(cBenf);
+		
+		//	Sets and calculate the presumed tax credit
+		List<MPresumedTaxCredit> presumedTaxes = MPresumedTaxCredit.getPresumedTax (p_ctx, getLBR_NCM_ID(), getLBR_NotaFiscal().getOrg_Location_ID() > 0 ? getLBR_NotaFiscal().getOrg_Location().getC_Region_ID() : 0);
+		for (MPresumedTaxCredit presumedTax : presumedTaxes) {
+			MNFLinePTaxCredit tc = new MNFLinePTaxCredit (this, presumedTax);
+			
+			//	Calculate the presumed credit amount
+			BigDecimal icmsBaseAmt = getICMSBase();
+			if (icmsBaseAmt.signum() == 1)
+				tc.setAmount(icmsBaseAmt);
+			tc.save();
+		}
 	}	//	setProduct
 
 	public void appendDescription (String text)
@@ -2001,7 +2015,7 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 	}	//	getAttributes
 	
 	/**
-	 * 	Get Tracking Records
+	 * 	Get Export Detail
 	 * @return
 	 */
 	public List<MLBRExportDetail> getExportDetail ()
@@ -2012,4 +2026,18 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 			.list();
 		return result;
 	}	//	getExportDetail
+	
+	/**
+	 * 	Retrieves a list of presumed tax credits associated with the current Nota Fiscal line.
+	 *
+	 * @return A list of active {@link MNFLinePTaxCredit} records matching the current Nota Fiscal line ID.
+	 */
+	public List<MNFLinePTaxCredit> getPresumedTaxCredit ()
+	{
+		String whereClause = COLUMNNAME_LBR_NotaFiscalLine_ID + "=" + getLBR_NotaFiscalLine_ID();
+		List<MNFLinePTaxCredit> result = new Query (getCtx(), MNFLinePTaxCredit.Table_Name, whereClause, get_TrxName())
+			.setOnlyActiveRecords(true)
+			.list();
+		return result;
+	}	//	getPresumedTaxCredit
 }	//	MLBRNotaFiscalLine

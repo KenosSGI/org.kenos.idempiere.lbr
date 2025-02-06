@@ -62,6 +62,7 @@ import org.compiere.util.AdempiereUserError;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
 import org.kenos.idempiere.lbr.base.model.SysConfig;
+import org.kenos.idempiere.lbr.nfe.model.MNFLinePTaxCredit;
 
 import br.inf.portalfiscal.nfe.v400.NFeDocument;
 import br.inf.portalfiscal.nfe.v400.TAmb;
@@ -126,6 +127,7 @@ import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Det.Prod.DI.TpIntermedio;
 import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Det.Prod.DI.TpViaTransp;
 import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Det.Prod.DetExport;
 import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Det.Prod.DetExport.ExportInd;
+import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Det.Prod.GCred;
 import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Det.Prod.Med;
 import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Det.Prod.Rastro;
 import br.inf.portalfiscal.nfe.v400.TNFe.InfNFe.Det.Prod.VeicProd;
@@ -1287,6 +1289,14 @@ public class NFeXMLGenerator
 					if (attribute != null)
 						prod.setNRECOPI(attribute.getLBR_RECOPI());
 				}
+			}
+			
+			List<MNFLinePTaxCredit> presumedTaxes = nfl.getPresumedTaxCredit();
+			for (MNFLinePTaxCredit presumedTax : presumedTaxes) {
+				GCred gCred = prod.addNewGCred();
+				gCred.setCCredPresumido (presumedTax.getLBR_TaxBenefitCode());
+				gCred.setPCredPresumido (normalize2to4 (presumedTax.getPercentage().multiply(Env.ONEHUNDRED)));
+				gCred.setVCredPresumido (normalize (presumedTax.getAmount()));
 			}
 			
 			//	M. Tributos incidentes no Produto ou Serviço

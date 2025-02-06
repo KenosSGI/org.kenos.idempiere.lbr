@@ -20,6 +20,10 @@ public class ModelFactory implements IModelFactory
 			return MLBRProofOfDelivery.class;
 		else if (MLBRExportDetail.Table_Name.equals(tableName))
 			return MLBRExportDetail.class;
+		else if (MNFLinePTaxCredit.Table_Name.equals(tableName))
+			return MNFLinePTaxCredit.class;
+		else if (MPresumedTaxCredit.Table_Name.equals(tableName))
+			return MPresumedTaxCredit.class;
 		return null;
 	}	//	getClass
 
@@ -30,6 +34,10 @@ public class ModelFactory implements IModelFactory
 			return new MLBRProofOfDelivery (Env.getCtx(), Record_ID, trxName);
 		else if (MLBRExportDetail.Table_Name.equals(tableName))
 			return new MLBRExportDetail (Env.getCtx(), Record_ID, trxName);
+		else if (MNFLinePTaxCredit.Table_Name.equals(tableName))
+			return new MNFLinePTaxCredit (Env.getCtx(), Record_ID, trxName);
+		else if (MPresumedTaxCredit.Table_Name.equals(tableName))
+			return new MPresumedTaxCredit (Env.getCtx(), Record_ID, trxName);
 		return null;
 	}	//	getPO
 
@@ -40,6 +48,10 @@ public class ModelFactory implements IModelFactory
 			return new MLBRProofOfDelivery (Env.getCtx(), rs, trxName);
 		else if (MLBRExportDetail.Table_Name.equals(tableName))
 			return new MLBRExportDetail (Env.getCtx(), rs, trxName);
+		else if (MNFLinePTaxCredit.Table_Name.equals(tableName))
+			return new MNFLinePTaxCredit (Env.getCtx(), rs, trxName);
+		else if (MPresumedTaxCredit.Table_Name.equals(tableName))
+			return new MPresumedTaxCredit (Env.getCtx(), rs, trxName);
 		return null;
 	}	//	getPO
 }	//	ModelFactory
