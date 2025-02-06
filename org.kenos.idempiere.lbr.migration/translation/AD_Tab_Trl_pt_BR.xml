@@ -7781,4 +7781,23 @@ Impressão:
   <value column="Description" original="">Detalhes de exportação ou drawback</value>
   <value column="Help" original=""/>
  </row>
+ </row>
+ <row trl="Y" uuid="dbf535a4-6b42-4565-92ed-f1b0fbbadb2d">
+  <value column="Name" original="Presumed Credit">Crédito Presumido</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="bffe63f9-b000-4f7d-b6f3-164bbb5dbd11">
+  <value column="Name" original="Presumed Credit">Crédito Presumido</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original=""/>
+  <value column="Help" original=""/>
+ </row>
+ <row trl="Y" uuid="d8a77264-442f-451e-8fe8-ce6f507ecfb5">
+  <value column="Name" original="Presumed Tax Credit">Crédito Presumido</value>
+  <value column="CommitWarning" original=""/>
+  <value column="Description" original="">Configuração do Crédito de Imposto Presumido</value>
+  <value column="Help" original=""/>
+ </row>
 </idempiereTrl>
