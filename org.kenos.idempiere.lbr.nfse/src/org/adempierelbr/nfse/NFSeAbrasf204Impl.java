@@ -1703,11 +1703,24 @@ public class NFSeAbrasf204Impl implements INFSe
 				map.put("logotipoprefeitura", new ByteArrayInputStream(logoprefeituraimg));
 			}			
 			
-			if(nf.getOrg_Location().getC_City_ID() == BRASILIA_ID) {
-				map.put("prefeitura", "Governo do Distrito Federal");
-				map.put("secretaria", "Secretaria de Estado de Fazenda do Distrito Federal");
-			}
 			
+			if (nf.getOrg_Location().getC_City_ID() != BRASILIA_ID) {
+			    String line1 = MSysConfig.getValue(SysConfig.LBR_NFSE_LINE1, null, nf.getAD_Client_ID(), nf.getAD_Org_ID());
+			    String line2 = MSysConfig.getValue(SysConfig.LBR_NFSE_LINE2, null, nf.getAD_Client_ID(), nf.getAD_Org_ID());
+
+			    if (line1 != null && !line1.isEmpty()) {
+			        map.put("prefeitura", line1);
+			    }
+
+			    if (line2 != null && !line2.isEmpty()) {
+			        map.put("secretaria", line2);
+			    } 
+			} else {
+			    map.put("prefeitura", "Governo do Distrito Federal");
+			    map.put("secretaria", "Secretaria de Estado de Fazenda do Distrito Federal");
+			}
+
+		
 			if (nf.getlbr_OrgCity() != null && !nf.getlbr_OrgCity().isEmpty())
 			{
 				map.put("cidadeprestador", nf.getlbr_OrgCity());
