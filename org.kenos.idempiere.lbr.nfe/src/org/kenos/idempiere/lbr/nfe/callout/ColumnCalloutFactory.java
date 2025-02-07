@@ -15,6 +15,7 @@ import org.compiere.model.MInvoice;
 import org.compiere.model.MMovementLine;
 import org.compiere.model.MOrderLine;
 import org.compiere.model.MRMA;
+import org.kenos.idempiere.lbr.nfe.model.MNFLinePTaxCredit;
 
 /**
  * 		Callout Factory
@@ -67,6 +68,11 @@ public class ColumnCalloutFactory implements IColumnCalloutFactory
 		{
 			if (TextUtil.match (columnName, MLBRNotaFiscalLine.COLUMNNAME_POReference, MLBRNotaFiscalLine.COLUMNNAME_LBR_PORef_Item))
 				callouts.add (new XPed());
+		}
+		else if (MNFLinePTaxCredit.Table_Name.equals(tableName))
+		{
+			if (TextUtil.match (columnName, MNFLinePTaxCredit.COLUMNNAME_Percentage))
+				callouts.add (new NotaFiscalLine ());
 		}
 		IColumnCallout[] result = new IColumnCallout[callouts.size()];
 		return callouts.toArray (result);

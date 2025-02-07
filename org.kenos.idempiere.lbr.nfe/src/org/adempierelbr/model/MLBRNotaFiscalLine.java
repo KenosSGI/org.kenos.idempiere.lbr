@@ -1631,7 +1631,7 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 		setLBR_TaxBenefitCode(cBenf);
 		
 		//	Sets and calculate the presumed tax credit
-		List<MPresumedTaxCredit> presumedTaxes = MPresumedTaxCredit.getPresumedTax (p_ctx, getLBR_NCM_ID(), getLBR_NotaFiscal().getOrg_Location_ID() > 0 ? getLBR_NotaFiscal().getOrg_Location().getC_Region_ID() : 0);
+		List<MPresumedTaxCredit> presumedTaxes = MPresumedTaxCredit.getPresumedTax (p_ctx, getLBR_NCM_ID(), getLBR_NotaFiscal().getOrg_Location_ID() > 0 ? getLBR_NotaFiscal().getOrg_Location().getC_Region_ID() : 0, getLBR_NotaFiscal().getDateDoc());
 		for (MPresumedTaxCredit presumedTax : presumedTaxes) {
 			MNFLinePTaxCredit tc = new MNFLinePTaxCredit (this, presumedTax);
 			

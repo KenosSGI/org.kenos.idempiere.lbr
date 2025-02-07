@@ -1,5 +1,8 @@
 package org.kenos.idempiere.lbr.nfe.callout;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.Objects;
 import java.util.Properties;
 
 import org.adempiere.base.IColumnCallout;
@@ -16,7 +19,9 @@ import org.compiere.model.GridField;
 import org.compiere.model.GridTab;
 import org.compiere.model.MProduct;
 import org.compiere.model.MRegion;
+import org.compiere.util.Env;
 import org.kenos.idempiere.lbr.base.model.MCity;
+import org.kenos.idempiere.lbr.nfe.model.MNFLinePTaxCredit;
 
 /**
  * 		Callout for Nota Fiscal Line
@@ -35,7 +40,9 @@ public class NotaFiscalLine implements IColumnCallout
 		else if (MLBRNFLineMA.COLUMNNAME_C_Region_ID.equals(columnName))
 			return region (ctx, WindowNo, mTab, mField, value, oldValue);
 		else if (MLBRNotaFiscalLine.COLUMNNAME_C_City_ID.equals(columnName))
-			return city (ctx, WindowNo, mTab, mField, value, oldValue);			
+			return city (ctx, WindowNo, mTab, mField, value, oldValue);		
+		else if (MNFLinePTaxCredit.COLUMNNAME_Percentage.equals(columnName))
+			return presumedCredit (ctx, WindowNo, mTab, mField, value, oldValue);			
 		return "";
 	}	//	start
 	
@@ -169,6 +176,32 @@ public class NotaFiscalLine implements IColumnCallout
 		//	Set City Code
 		if (cityCode > 0)
 			mTab.setValue(MLBRNotaFiscalLine.COLUMNNAME_lbr_CityCode, cityCode);
+		
+		return "";
+	}	//	city
+	
+	/**
+	 * 		Calculate the presumed tax credit
+	 * 
+	 * @param ctx
+	 * @param WindowNo
+	 * @param mTab
+	 * @param mField
+	 * @param value
+	 * @param oldValue
+	 * @return "" or error
+	 */
+	private String presumedCredit (Properties ctx, int WindowNo, GridTab mTab, GridField mField, Object value, Object oldValue)
+	{
+		Integer LBR_NotaFiscalLine_ID = (Integer) mTab.getValue(MNFLinePTaxCredit.COLUMNNAME_LBR_NotaFiscalLine_ID);
+		if (LBR_NotaFiscalLine_ID == null || LBR_NotaFiscalLine_ID.intValue() < 1 || value == null)
+			return "";	//	Invalid state
+		
+		MLBRNotaFiscalLine line = new MLBRNotaFiscalLine (ctx, LBR_NotaFiscalLine_ID, null);
+		BigDecimal icmsBase = Objects.requireNonNullElse (line.getICMSBase(), Env.ZERO);
+		
+		BigDecimal percentage = (BigDecimal) mTab.getValue(MNFLinePTaxCredit.COLUMNNAME_Percentage);
+		mTab.setValue(MNFLinePTaxCredit.COLUMNNAME_Amount, icmsBase.multiply(percentage).setScale(2, RoundingMode.HALF_UP));
 		
 		return "";
 	}	//	city

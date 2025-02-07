@@ -2,6 +2,7 @@ package org.kenos.idempiere.lbr.nfe.model;
 
 import java.math.BigDecimal;
 import java.sql.ResultSet;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -9,6 +10,7 @@ import java.util.Properties;
 
 import org.adempierelbr.model.X_LBR_PresumedTaxCredit;
 import org.compiere.model.Query;
+import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.compiere.util.Msg;
 
@@ -72,15 +74,17 @@ public class MPresumedTaxCredit extends X_LBR_PresumedTaxCredit
 	 * @return A list of {@link MPresumedTaxCredit} objects that match the query criteria.
 	 *         If no records are found, an empty list is returned.
 	 */
-	public static List<MPresumedTaxCredit> getPresumedTax (Properties ctx, int LBR_NCM_ID, int C_Region_ID) {
+	public static List<MPresumedTaxCredit> getPresumedTax (Properties ctx, int LBR_NCM_ID, int C_Region_ID, Timestamp date) {
 		//	NCM is mandatory
-		if (LBR_NCM_ID < 0)
+		if (LBR_NCM_ID < 1)
 			return new ArrayList<MPresumedTaxCredit>();
 		//
-		String where = COLUMNNAME_LBR_NCM_ID + "=? AND (" + COLUMNNAME_C_Region_ID + " IS NULL OR " + COLUMNNAME_C_Region_ID + "=?)";
+		String where = COLUMNNAME_LBR_NCM_ID + "=? AND (" + COLUMNNAME_C_Region_ID + " IS NULL OR " + COLUMNNAME_C_Region_ID + "=?) AND " +
+				DB.TO_DATE(date) + " BETWEEN ValidFrom AND COALESCE (ValidTo, " + DB.TO_DATE(date) + ")";
 		List<MPresumedTaxCredit> presumedTax = new Query (ctx, Table_Name, where, null)
 			.setParameters(LBR_NCM_ID, C_Region_ID)
 			.setOrderBy(COLUMNNAME_C_Region_ID)
+			.setOnlyActiveRecords(true)
 			.list();
 		
 		//	Max of 4 codes

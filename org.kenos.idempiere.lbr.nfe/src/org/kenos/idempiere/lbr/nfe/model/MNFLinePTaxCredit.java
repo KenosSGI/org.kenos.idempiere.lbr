@@ -89,7 +89,7 @@ public class MNFLinePTaxCredit extends X_LBR_NFLinePTaxCredit
 		//	This tax benefit presumed credit has a max of 4 records for each product
 		if (newRecord) {
 			int count = DB.getSQLValue(null, "SELECT COUNT(*) FROM " + Table_Name + 
-					" WHERE " + COLUMNNAME_LBR_NotaFiscalLine_ID + "=? AND " + COLUMNNAME_IsActive + "='Y'");
+					" WHERE " + COLUMNNAME_LBR_NotaFiscalLine_ID + "=? AND " + COLUMNNAME_IsActive + "='Y'", getLBR_NotaFiscalLine_ID());
 			if (count >= 4) {
 				log.saveError("Error", "Limite de 4 códigos por produto");
 				return false;
