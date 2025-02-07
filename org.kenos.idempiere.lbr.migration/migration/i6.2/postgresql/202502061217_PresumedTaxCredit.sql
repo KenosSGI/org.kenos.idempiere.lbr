@@ -492,11 +492,11 @@ UPDATE AD_Field SET SeqNo=0, AD_Reference_Value_ID=NULL, AD_Val_Rule_ID=NULL, Is
 ;
 
 -- 6 de fev de 2025 13:51:08 BRT
-UPDATE AD_Column SET FormatPattern='#,##0.00 %',Updated=TO_TIMESTAMP('2025-02-06 13:51:08','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1134325
+UPDATE AD_Column SET FormatPattern='#,##0.0000 %',Updated=TO_TIMESTAMP('2025-02-06 13:51:08','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1134325
 ;
 
 -- 6 de fev de 2025 13:51:36 BRT
-UPDATE AD_Column SET FormatPattern='#,##0.00 %',Updated=TO_TIMESTAMP('2025-02-06 13:51:36','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1134340
+UPDATE AD_Column SET FormatPattern='#,##0.0000 %',Updated=TO_TIMESTAMP('2025-02-06 13:51:36','YYYY-MM-DD HH24:MI:SS'),UpdatedBy=100 WHERE AD_Column_ID=1134340
 ;
 
 -- 6 de fev de 2025 10:05:54 BRT
