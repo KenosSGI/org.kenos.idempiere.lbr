@@ -7781,7 +7781,6 @@ Impressão:
   <value column="Description" original="">Detalhes de exportação ou drawback</value>
   <value column="Help" original=""/>
  </row>
- </row>
  <row trl="Y" uuid="dbf535a4-6b42-4565-92ed-f1b0fbbadb2d">
   <value column="Name" original="Presumed Credit">Crédito Presumido</value>
   <value column="CommitWarning" original=""/>
