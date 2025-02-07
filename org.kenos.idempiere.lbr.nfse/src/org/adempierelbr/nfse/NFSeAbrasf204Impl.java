@@ -1737,7 +1737,7 @@ public class NFSeAbrasf204Impl implements INFSe
 			
 			if (nf.getlbr_BPCity() != null && !nf.getlbr_BPCity().isEmpty())
 			{
-				map.put("municipiotomador", nf.getlbr_BPCity());
+				map.put("cidadetomador", nf.getlbr_BPCity());
 			}
 			
 			map.put("docstatus", nf.getDocStatus());
