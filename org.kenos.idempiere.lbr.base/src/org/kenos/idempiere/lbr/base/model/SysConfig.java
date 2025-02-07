@@ -66,6 +66,8 @@ public class SysConfig
 	public static final String LBR_NFSE_ABRASF200_LOT_SEQUENCE_ID				= "LBR_NFSE_ABRASF200_LOT_SEQUENCE_ID";
 	public static final String LBR_NFSE_ABRASF201_JASPER_AUTHENTICITY_TEXT		= "LBR_NFSE_ABRASF201_JASPER_AUTHENTICITY_TEXT";
 	public static final String LBR_NFSE_ABRASF201_JASPER_CITY_LOGO				= "LBR_NFSE_ABRASF201_JASPER_CITY_LOGO";
+	public static final String LBR_NFSE_LINE1 									= "LBR_NFSE_LINE1";
+	public static final String LBR_NFSE_LINE2 									= "LBR_NFSE_LINE2";
 	public static final String LBR_NFSE_MOGI_PASS 								= "LBR_NFSE_MOGI_PASS";
 	public static final String LBR_NFSE_MOGI_USER 								= "LBR_NFSE_MOGI_USER";
 	public static final String LBR_NFSE_PALHOCA_PASS 							= "LBR_NFSE_PALHOCA_PASS";
