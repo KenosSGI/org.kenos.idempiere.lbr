@@ -1028,6 +1028,11 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 			options[1] = DOCACTION_Re_Activate;
 			index=2;
 		}
+		else if (DOCSTATUS_WaitingConfirmation.equals(docStatus))
+		{
+			options[0] = DOCACTION_Complete;
+			index=1;
+		}
 		//
 		return index;
 	}
@@ -1280,7 +1285,7 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 					bsi.setLBR_NumberInBankVD(numberInBank.substring(numberInBank.length()));
 					bsi.save();
 				} else {
-					String uuid = result.getUUID();
+					String uuid = result != null ? result.getUUID() : bsi.getLBR_BankSlipInfo_UU();
 					
 					//	Try to retrieve details
 					if (numberInBank == null || numberInBank.isBlank()) {
@@ -1297,10 +1302,8 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 						bsi.setLBR_Barcode(result.geBarcode());
 						bsi.setLBR_ManualInput(result.getManualInput());
 						bsi.setLBR_NumberInBankVD(numberInBank.substring(numberInBank.length()-1));
+						bsi.set_ValueNoCheck("LBR_BankSlipInfo_UU", uuid);
 						bsi.save();
-
-						//	UUID
-						set_ValueNoCheck("LBR_BankSlip_UU", uuid);
 					}
 				}
 				
@@ -1341,7 +1344,7 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 		if (m_processMsg != null)
 			return DocAction.STATUS_Invalid;
 		
-		return DocAction.STATUS_Completed;
+		return isRegistered() ? DOCSTATUS_Completed : DOCSTATUS_WaitingConfirmation;
 	}	//	completeIt
 
 	private IBankSlipAPI locateAPI () {
@@ -1966,4 +1969,12 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 		
 		return null;
 	}	//	getEmail
+
+	/**
+	 * 	This UUID is used to identify the bank slip in the Bank
+	 * 	@return
+	 */
+	public String getLBR_BankSlipInfo_UU() {
+		return bsi.getLBR_BankSlipInfo_UU();
+	}	//	getLBR_BankSlipInfo_UU
 }	//	MLBRBankSlip

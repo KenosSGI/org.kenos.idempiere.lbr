@@ -141,7 +141,7 @@ public class BancoInter implements IBankSlipAPI {
 	}	//	processBankSlip
 	
 	public IResponseAPI retrieveBankSlip (MLBRBankSlip bankSlip, String identifier) throws Exception {
-		String uuid = Objects.requireNonNullElse(identifier, bankSlip.getLBR_BankSlip_UU());
+		String uuid = Objects.requireNonNullElse(identifier, bankSlip.getLBR_BankSlipInfo_UU());
 		//
 		Call<CobrancaGroup> call = api.getBankSlip(uuid);
 		Response<CobrancaGroup> response = call.execute();
@@ -151,7 +151,7 @@ public class BancoInter implements IBankSlipAPI {
 			BoletoDetailed cobranca = boletoResponse.getBoleto();
 
 			if (cobranca == null || cobranca.getNossoNumero() == null)
-				throw new Exception ("Error code [" + response.code() +"] - Boleto ou Cobrança sem dados para atualização do ERP");
+				return null;
 			
 			IResponseAPI detail = new ResponseAPI();
 			detail.setNumberInBank(cobranca.getNossoNumero());
