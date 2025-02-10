@@ -10,6 +10,7 @@ import org.kenos.idempiere.lbr.bankslip.model.MLBRBankSlip;
 public interface IBankSlipAPI
 {
 	public IResponseAPI processBankSlip (MLBRBankSlip bankSlip) throws Exception;
+	public IResponseAPI retrieveBankSlip (MLBRBankSlip bankSlip, String identifier) throws Exception;
 	public byte[] getPDF (MLBRBankSlip bankSlip) throws Exception;
 	public boolean cancelBankSlip (MLBRBankSlip bankSlip) throws Exception;
 }	//	IBankSlipAPI

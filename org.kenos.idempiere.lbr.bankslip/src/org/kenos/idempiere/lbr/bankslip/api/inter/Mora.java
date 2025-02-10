@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 public class Mora {
 
 	@JsonAlias ( { "codigoMora", "codigo" } )
-    private String codigoMora;
+    private String codigo;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Timestamp data;
     private BigDecimal taxa;
@@ -23,12 +23,12 @@ public class Mora {
     public static final String CODIGO_MORA_TAXAMENSAL 	= "TAXAMENSAL";
     public static final String CODIGO_MORA_ISENTO 		= "ISENTO";
 
-    public String getCodigoMora() {
-        return codigoMora;
+    public String getCodigo() {
+        return codigo;
     }
 
-    public void setCodigoMora(String codigoMora) {
-        this.codigoMora = codigoMora;
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
     }
 
     public BigDecimal getTaxa() {

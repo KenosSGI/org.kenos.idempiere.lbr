@@ -1262,11 +1262,16 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 			}
 			
 			try {
-				IResponseAPI result = api.processBankSlip(this);
-				//
-				String numberInBank = result.getNumberInBank();
+				IResponseAPI result = null;
+				String numberInBank = null;
 				
-				if(Integer.parseInt(bsi.getRoutingNo()) == BancoDoBrasil001.ROUNTING_NO){
+				//	Only process once
+				if (!isProcessed()) {
+					result = api.processBankSlip(this);
+					numberInBank = result.getNumberInBank();
+				}
+				
+				if (Integer.parseInt(bsi.getRoutingNo()) == BancoDoBrasil001.ROUNTING_NO){
 					setLBR_NumberInBank(numberInBank.substring(0, numberInBank.length()));
 					setIsRegistered(true);
 					
@@ -1274,15 +1279,29 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 					bsi.setLBR_ManualInput(result.getManualInput());
 					bsi.setLBR_NumberInBankVD(numberInBank.substring(numberInBank.length()));
 					bsi.save();
-				}else {
-					setLBR_NumberInBank(numberInBank.substring(0, numberInBank.length()-1));
-					setIsRegistered(true);
+				} else {
+					String uuid = result.getUUID();
 					
-					bsi.setLBR_Barcode(result.geBarcode());
-					bsi.setLBR_ManualInput(result.getManualInput());
-					bsi.setLBR_NumberInBankVD(numberInBank.substring(numberInBank.length()-1));
-					bsi.set_ValueNoCheck("LBR_BankSlipInfo_UU", result.getUUID());
-					bsi.save();
+					//	Try to retrieve details
+					if (numberInBank == null || numberInBank.isBlank()) {
+						result = api.retrieveBankSlip (this, uuid);
+						//
+						if (result != null)
+							numberInBank = result.getNumberInBank();
+					}
+					
+					if (numberInBank != null && !numberInBank.isBlank()) {
+						setLBR_NumberInBank(numberInBank.substring(0, numberInBank.length()-1));
+						setIsRegistered(true);
+						
+						bsi.setLBR_Barcode(result.geBarcode());
+						bsi.setLBR_ManualInput(result.getManualInput());
+						bsi.setLBR_NumberInBankVD(numberInBank.substring(numberInBank.length()-1));
+						bsi.save();
+
+						//	UUID
+						set_ValueNoCheck("LBR_BankSlip_UU", uuid);
+					}
 				}
 				
 			} catch (Exception e) {
@@ -1304,8 +1323,8 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 			}
 		}
 		
-		setDocStatus(DOCSTATUS_Completed);
-		setDocAction(DOCACTION_None);
+		setDocStatus(isRegistered() ? DOCSTATUS_Completed : DOCSTATUS_WaitingConfirmation);
+		setDocAction(isRegistered() ? DOCACTION_None : DOCACTION_Complete);
 		setProcessed(true);
 		
 		//	Update invoice

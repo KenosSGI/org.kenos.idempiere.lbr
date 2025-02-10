@@ -4,10 +4,12 @@ package org.kenos.idempiere.lbr.bankslip.api.inter;
 import java.sql.Timestamp;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 @JsonInclude(Include.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class BoletoDetailed extends Boleto {
     private String nomeBeneficiario;
     private String cnpjCpfBeneficiario;
@@ -16,7 +18,7 @@ public class BoletoDetailed extends Boleto {
     private String nossoNumero;
     private String situacao;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private Timestamp dataHoraSituacao;
+    private Timestamp dataSituacao;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Timestamp dataEmissao;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
@@ -24,7 +26,7 @@ public class BoletoDetailed extends Boleto {
     private String codigoEspecie;
     private String codigoBarras;
     private String linhaDigitavel;
-    private String origem;
+    private String origemRecebimento;
 
 	public String getNomeBeneficiario() {
 		return nomeBeneficiario;
@@ -75,11 +77,11 @@ public class BoletoDetailed extends Boleto {
 	}
 
 	public Timestamp getDataHoraSituacao() {
-		return dataHoraSituacao;
+		return dataSituacao;
 	}
 
 	public void setDataHoraSituacao(Timestamp dataHoraSituacao) {
-		this.dataHoraSituacao = dataHoraSituacao;
+		this.dataSituacao = dataHoraSituacao;
 	}
 
 	public Timestamp getDataEmissao() {
@@ -122,11 +124,11 @@ public class BoletoDetailed extends Boleto {
 		this.linhaDigitavel = linhaDigitavel;
 	}
 
-	public String getOrigem() {
-		return origem;
+	public String getOrigemRecebimento() {
+		return origemRecebimento;
 	}
 
-	public void setOrigem(String origem) {
-		this.origem = origem;
+	public void setOrigemRecebimento(String origemRecebimento) {
+		this.origemRecebimento = origemRecebimento;
 	}
 }

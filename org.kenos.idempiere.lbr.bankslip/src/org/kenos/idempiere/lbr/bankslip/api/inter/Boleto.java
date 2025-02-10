@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @JsonInclude(Include.NON_NULL)
 public class Boleto {
 
+    private String codigoSolicitacao;
     private String seuNumero;
     private BigDecimal valorNominal;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
@@ -104,5 +105,13 @@ public class Boleto {
 
 	public void setBeneficiarioFinal(PagadorBeneficiario beneficiarioFinal) {
 		this.beneficiarioFinal = beneficiarioFinal;
+	}
+
+	public String getCodigoSolicitacao() {
+		return codigoSolicitacao;
+	}
+
+	public void setCodigoSolicitacao(String codigoSolicitacao) {
+		this.codigoSolicitacao = codigoSolicitacao;
 	}
 }

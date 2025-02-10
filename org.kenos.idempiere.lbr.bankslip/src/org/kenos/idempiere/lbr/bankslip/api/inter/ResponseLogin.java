@@ -1,5 +1,8 @@
 package org.kenos.idempiere.lbr.bankslip.api.inter;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ResponseLogin {
 	String access_token;
 	String token_type;

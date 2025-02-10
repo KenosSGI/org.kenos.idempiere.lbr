@@ -406,16 +406,9 @@ public class BancoDoBrasil implements IBankSlipAPI {
 				return "DM";	//	Duplicata Mercantil
 		}
 	}
-	
-//	private String authorization(String clientId, String clientSecrect) {
-//
-//		String access = clientId + ":" + clientSecrect;
-//
-//		byte[] encoder = Base64.getEncoder().encode(access.getBytes());
-//
-//		access = "Basic " + new String(encoder);
-//
-//		return access;
-//	}
 
-}
+	@Override
+	public IResponseAPI retrieveBankSlip (MLBRBankSlip bankSlipk, String identifier) throws Exception {
+		return null;
+	}	//	retrieveBankSlip
+}	//	BancoDoBrasil

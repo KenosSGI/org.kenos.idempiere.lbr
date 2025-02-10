@@ -3,6 +3,9 @@ package org.kenos.idempiere.lbr.bankslip.api.inter;
 
 import java.util.Base64;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ResponseGetPDF {
 
     private String pdf;

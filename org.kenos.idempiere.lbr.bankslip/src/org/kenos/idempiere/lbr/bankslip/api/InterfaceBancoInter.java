@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 
 import org.kenos.idempiere.lbr.bankslip.api.inter.Boleto;
 import org.kenos.idempiere.lbr.bankslip.api.inter.Cancelar;
+import org.kenos.idempiere.lbr.bankslip.api.inter.CobrancaGroup;
 import org.kenos.idempiere.lbr.bankslip.api.inter.ResponseBoleto;
 import org.kenos.idempiere.lbr.bankslip.api.inter.ResponseGetBoleto;
 import org.kenos.idempiere.lbr.bankslip.api.inter.ResponseLogin;
@@ -28,6 +29,9 @@ public interface InterfaceBancoInter {
 
 	@POST("cobranca/v3/cobrancas")
 	Call<ResponseBoleto> includeBankSlip(@Body Boleto boleto);
+	
+	@GET("cobranca/v3/cobrancas/{codigoSolicitacao}")
+	Call<CobrancaGroup> getBankSlip(@Path("codigoSolicitacao") String codigoSolicitacao);
 	
 	@GET("cobranca/v3/cobrancas/{codigoSolicitacao}/pdf")
 	Call<ResponseGetPDF> getPDF(@Path("codigoSolicitacao") String codigoSolicitacao);

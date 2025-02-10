@@ -3,69 +3,63 @@ package org.kenos.idempiere.lbr.bankslip.api.inter;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ResponseGetBoleto {
 
-	private Integer totalPages;
-	private Integer totalElements;
-	private Boolean last;
-	private Boolean first;
-	private Integer size;
-	private Integer numberOfElements;
-	private List<BoletoDetailed> content;
+	private Integer totalPaginas;
+	private Integer totalElementos;
+	private Boolean primeiraPagina;
+	private Boolean ultimaPagina;
+	private Integer numeroDeElementos;
+	private List<CobrancaGroup> cobrancas;
 
-	public Integer getTotalPages() {
-		return totalPages;
+	public Integer getTotalPaginas() {
+		return totalPaginas;
 	}
 
-	public void setTotalPages(Integer totalPages) {
-		this.totalPages = totalPages;
+	public void setTotalPaginas(Integer totalPaginas) {
+		this.totalPaginas = totalPaginas;
 	}
 
-	public Integer getTotalElements() {
-		return totalElements;
+	public Integer getTotalElementos() {
+		return totalElementos;
 	}
 
-	public void setTotalElements(Integer totalElements) {
-		this.totalElements = totalElements;
+	public void setTotalElementos(Integer totalElementos) {
+		this.totalElementos = totalElementos;
 	}
 
-	public Boolean getLast() {
-		return last;
+	public Boolean getPrimeiraPagina() {
+		return primeiraPagina;
 	}
 
-	public void setLast(Boolean last) {
-		this.last = last;
+	public void setPrimeiraPagina(Boolean primeiraPagina) {
+		this.primeiraPagina = primeiraPagina;
 	}
 
-	public Boolean getFirst() {
-		return first;
+	public Boolean getUltimaPagina() {
+		return ultimaPagina;
 	}
 
-	public void setFirst(Boolean first) {
-		this.first = first;
+	public void setUltimaPagina(Boolean ultimaPagina) {
+		this.ultimaPagina = ultimaPagina;
 	}
 
-	public Integer getSize() {
-		return size;
+	public Integer getNumeroDeElementos() {
+		return numeroDeElementos;
 	}
 
-	public void setSize(Integer size) {
-		this.size = size;
+	public void setNumeroDeElementos(Integer numeroDeElementos) {
+		this.numeroDeElementos = numeroDeElementos;
 	}
 
-	public Integer getNumberOfElements() {
-		return numberOfElements;
+	public List<CobrancaGroup> getCobrancas() {
+		return cobrancas;
 	}
 
-	public void setNumberOfElements(Integer numberOfElements) {
-		this.numberOfElements = numberOfElements;
-	}
-
-	public List<BoletoDetailed> getContent() {
-		return content;
-	}
-
-	public void setContent(List<BoletoDetailed> content) {
-		this.content = content;
+	public void setCobrancas(List<CobrancaGroup> cobrancas) {
+		this.cobrancas = cobrancas;
 	}
 }	//	ResponseGetPDF
