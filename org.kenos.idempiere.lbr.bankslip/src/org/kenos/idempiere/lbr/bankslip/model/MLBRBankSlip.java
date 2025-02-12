@@ -1258,6 +1258,9 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 			bsi.saveEx();
 		}
 		
+		String docStatus = DOCSTATUS_Completed;
+		String docAction = DOCACTION_None;
+		
 		if (MLBRBankSlipLayout.TYPE_API.equals(getLBR_BankSlipContract().getLBR_BankSlipLayout().getType())) {
 			IBankSlipAPI api = locateAPI ();
 			
@@ -1307,6 +1310,9 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 					}
 				}
 				
+				docStatus = DOCSTATUS_WaitingConfirmation;
+				docAction = DOCACTION_Complete;
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 				//
@@ -1326,8 +1332,8 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 			}
 		}
 		
-		setDocStatus(isRegistered() ? DOCSTATUS_Completed : DOCSTATUS_WaitingConfirmation);
-		setDocAction(isRegistered() ? DOCACTION_None : DOCACTION_Complete);
+		setDocStatus(docStatus);
+		setDocAction(docAction);
 		setProcessed(true);
 		
 		//	Update invoice
