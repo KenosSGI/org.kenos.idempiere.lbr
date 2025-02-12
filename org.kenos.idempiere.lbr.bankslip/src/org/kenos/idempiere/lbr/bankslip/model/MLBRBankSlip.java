@@ -1350,7 +1350,7 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 		if (m_processMsg != null)
 			return DocAction.STATUS_Invalid;
 		
-		return isRegistered() ? DOCSTATUS_Completed : DOCSTATUS_WaitingConfirmation;
+		return docStatus;
 	}	//	completeIt
 
 	private IBankSlipAPI locateAPI () {
