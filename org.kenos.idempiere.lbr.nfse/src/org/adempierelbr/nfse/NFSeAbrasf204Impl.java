@@ -282,7 +282,6 @@ public class NFSeAbrasf204Impl implements INFSe
 			issOnXML = issOnXML 
 					&& Objects.requireNonNullElse(nfl.getLBR_StimulusISS(), MLBRNotaFiscalLine.LBR_STIMULUSISS_No)
 						.equals(MLBRNotaFiscalLine.LBR_STIMULUSISS_Yes);
-			System.out.print(">>>" + issOnXML);
 			//
 			if (nfl.getM_Product_ID() > 0)
 			{
