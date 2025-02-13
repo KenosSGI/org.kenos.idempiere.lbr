@@ -226,7 +226,7 @@ public class MLBRNFLineTax extends X_LBR_NFLineTax
 		if (getLBR_TaxGroup_ID() > 0 && getLBR_TaxGroup().getName().equals("ICMS")) {
 			MLBRNotaFiscalLine nfl = (MLBRNotaFiscalLine) getLBR_NotaFiscalLine();
 			nfl.getPresumedTaxCredit().stream().forEach(pt -> {
-				pt.calculateAmount (getlbr_TaxBaseAmt());
+				pt.calculateAmount (getlbr_TaxAmt());
 				pt.save();
 			});
 		}

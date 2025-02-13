@@ -102,12 +102,12 @@ public class MNFLinePTaxCredit extends X_LBR_NFLinePTaxCredit
 	/**
 	 * Calculates and sets the tax amount based on the given tax base amount.
 	 *
-	 * <p>The amount is calculated by multiplying the tax base amount by the percentage 
+	 * <p>The amount is calculated by multiplying the tax amount by the percentage 
 	 * and rounding the result to two decimal places using {@link RoundingMode#HALF_UP}.</p>
 	 *
-	 * @param taxBaseAmt The base amount on which the tax is calculated. Must not be null.
+	 * @param taxAmt The tax amount. Must not be null.
 	 */
-	public void calculateAmount (BigDecimal taxBaseAmt) {
-		setAmount(taxBaseAmt.multiply(getPercentage()).setScale(2, RoundingMode.HALF_UP));
+	public void calculateAmount (BigDecimal taxAmt) {
+		setAmount(taxAmt.multiply(getPercentage()).setScale(2, RoundingMode.HALF_UP));
 	}	//	calculateAmount
 }	//	MNFLinePTaxCredit

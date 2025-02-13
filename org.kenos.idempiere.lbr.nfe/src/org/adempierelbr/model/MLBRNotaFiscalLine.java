@@ -1636,9 +1636,9 @@ public class MLBRNotaFiscalLine extends X_LBR_NotaFiscalLine {
 			MNFLinePTaxCredit tc = new MNFLinePTaxCredit (this, presumedTax);
 			
 			//	Calculate the presumed credit amount
-			BigDecimal icmsBaseAmt = getICMSBase();
-			if (icmsBaseAmt.signum() == 1)
-				tc.setAmount(icmsBaseAmt);
+			BigDecimal icmsAmt = getICMSAmt();
+			if (icmsAmt.signum() == 1)
+				tc.setAmount(icmsAmt);
 			tc.save();
 		}
 	}	//	setProduct
