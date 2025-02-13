@@ -1701,24 +1701,20 @@ public class NFSeAbrasf204Impl implements INFSe
 				byte[] logoprefeituraimg = Files.readAllBytes(logoprefeitura.toPath());
 				map.put("logotipoprefeitura", new ByteArrayInputStream(logoprefeituraimg));
 			}			
+	
+			/**
+			 * 	Default value is Brasília / DF, to other cities you should configure
+			 * those parameters in SysConfig
+			 */
+			String line1 = MSysConfig.getValue(SysConfig.LBR_NFSE_LINE1, "Governo do Distrito Federal", nf.getAD_Client_ID(), nf.getAD_Org_ID());
+			String line2 = MSysConfig.getValue(SysConfig.LBR_NFSE_LINE2, "Secretaria de Estado de Fazenda do Distrito Federal", nf.getAD_Client_ID(), nf.getAD_Org_ID());
+			String authUrl = MSysConfig.getValue(SysConfig.LBR_NFSE_VALIDATION_URL, "https://df.issnetonline.com.br/online/Login/Login.aspx", nf.getAD_Client_ID(), nf.getAD_Org_ID());
+			String contactInfo = MSysConfig.getValue(SysConfig.LBR_NFSE_CONTACT_INFO,"Fone: () - 156 - Opção 3 - www.sefaz.df.gov.br", nf.getAD_Client_ID(), nf.getAD_Org_ID());
 			
-			
-			if (nf.getOrg_Location().getC_City_ID() != BRASILIA_ID) {
-			    String line1 = MSysConfig.getValue(SysConfig.LBR_NFSE_LINE1, null, nf.getAD_Client_ID(), nf.getAD_Org_ID());
-			    String line2 = MSysConfig.getValue(SysConfig.LBR_NFSE_LINE2, null, nf.getAD_Client_ID(), nf.getAD_Org_ID());
-
-			    if (line1 != null && !line1.isEmpty()) {
-			        map.put("prefeitura", line1);
-			    }
-
-			    if (line2 != null && !line2.isEmpty()) {
-			        map.put("secretaria", line2);
-			    } 
-			} else {
-			    map.put("prefeitura", "Governo do Distrito Federal");
-			    map.put("secretaria", "Secretaria de Estado de Fazenda do Distrito Federal");
-			}
-
+			map.put("prefeitura", line1);
+			map.put("secretaria", line2);
+			map.put("authurl", authUrl);		
+			map.put("continfo", contactInfo);	
 		
 			if (nf.getlbr_OrgCity() != null && !nf.getlbr_OrgCity().isEmpty())
 			{

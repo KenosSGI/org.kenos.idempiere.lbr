@@ -66,6 +66,7 @@ public class SysConfig
 	public static final String LBR_NFSE_ABRASF200_LOT_SEQUENCE_ID				= "LBR_NFSE_ABRASF200_LOT_SEQUENCE_ID";
 	public static final String LBR_NFSE_ABRASF201_JASPER_AUTHENTICITY_TEXT		= "LBR_NFSE_ABRASF201_JASPER_AUTHENTICITY_TEXT";
 	public static final String LBR_NFSE_ABRASF201_JASPER_CITY_LOGO				= "LBR_NFSE_ABRASF201_JASPER_CITY_LOGO";
+	public static final String LBR_NFSE_CONTACT_INFO                          	= "LBR_NFSE_CONTACT_INFO";
 	public static final String LBR_NFSE_LINE1 									= "LBR_NFSE_LINE1";
 	public static final String LBR_NFSE_LINE2 									= "LBR_NFSE_LINE2";
 	public static final String LBR_NFSE_MOGI_PASS 								= "LBR_NFSE_MOGI_PASS";
@@ -78,6 +79,7 @@ public class SysConfig
 	public static final String LBR_NFSE_TOKEN 									= "LBR_NFSE_TOKEN";
 	public static final String LBR_NFSE_URL 									= "LBR_NFSE_URL";
 	public static final String LBR_NFSE_URL_HOMOLOG 							= "LBR_NFSE_URL_HOMOLOG";
+	public static final String LBR_NFSE_VALIDATION_URL                          = "LBR_NFSE_VALIDATION_URL";
 	public static final String LBR_FIX_DOCUMENTNO_NOT_SENT_NFSE 				= "LBR_FIX_DOCUMENTNO_NOT_SENT_NFSE";
 	public static final String LBR_OVERWRITE_ORDER_PAY_SCHEDULE					= "LBR_OVERWRITE_ORDER_PAY_SCHEDULE";
 	public static final String LBR_POG_INVOICE_COMPLETE 						= "LBR_POG_INVOICE_COMPLETE";
