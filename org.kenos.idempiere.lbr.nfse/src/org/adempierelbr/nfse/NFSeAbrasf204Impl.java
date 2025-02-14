@@ -1708,13 +1708,13 @@ public class NFSeAbrasf204Impl implements INFSe
 			 */
 			String line1 = MSysConfig.getValue(SysConfig.LBR_NFSE_LINE1, "Governo do Distrito Federal", nf.getAD_Client_ID(), nf.getAD_Org_ID());
 			String line2 = MSysConfig.getValue(SysConfig.LBR_NFSE_LINE2, "Secretaria de Estado de Fazenda do Distrito Federal", nf.getAD_Client_ID(), nf.getAD_Org_ID());
-			String authUrl = MSysConfig.getValue(SysConfig.LBR_NFSE_VALIDATION_URL, "https://df.issnetonline.com.br/online/Login/Login.aspx", nf.getAD_Client_ID(), nf.getAD_Org_ID());
+			String validationURL = MSysConfig.getValue(SysConfig.LBR_NFSE_VALIDATION_URL, "https://df.issnetonline.com.br/online/Login/Login.aspx", nf.getAD_Client_ID(), nf.getAD_Org_ID());
 			String contactInfo = MSysConfig.getValue(SysConfig.LBR_NFSE_CONTACT_INFO,"Fone: () - 156 - Opção 3 - www.sefaz.df.gov.br", nf.getAD_Client_ID(), nf.getAD_Org_ID());
 			
 			map.put("prefeitura", line1);
 			map.put("secretaria", line2);
-			map.put("authurl", authUrl);		
-			map.put("continfo", contactInfo);	
+			map.put("validationURL", validationURL);		
+			map.put("contactInfo", contactInfo);	
 		
 			if (nf.getlbr_OrgCity() != null && !nf.getlbr_OrgCity().isEmpty())
 			{
@@ -1739,7 +1739,7 @@ public class NFSeAbrasf204Impl implements INFSe
 
 			//	Get Jasper
 			ClassLoader cl = getClass().getClassLoader();
-			InputStream report = cl.getResourceAsStream("org/kenos/idempiere/lbr/nfse/report/ImpressaoNFSEBrasilia.jasper");
+			InputStream report = cl.getResourceAsStream("org/kenos/idempiere/lbr/nfse/report/ImpressaoNFSEABRASF204.jasper");
 			
 			log.fine("after find report");
 			

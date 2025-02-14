@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 6.4.3  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Nota_Fiscal_Servicos_Abrasf201" pageWidth="595" pageHeight="842" whenNoDataType="BlankPage" columnWidth="535" leftMargin="30" rightMargin="30" topMargin="20" bottomMargin="20" uuid="977fe381-bcc6-4484-bc93-93533a996372">
 	<property name="ireport.encoding" value="UTF-8"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="NFSe.jrdax"/>
 	<import value="net.sf.jasperreports.engine.*"/>
 	<import value="java.util.*"/>
 	<import value="net.sf.jasperreports.engine.data.*"/>
 	<parameter name="cidadeincidencia" class="java.lang.String"/>
 	<parameter name="prefeitura" class="java.lang.String"/>
+	<parameter name="validationURL" class="java.lang.String"/>
+	<parameter name="contactInfo" class="java.lang.String"/>
 	<parameter name="secretaria" class="java.lang.String"/>
 	<parameter name="autenticidade" class="java.lang.String"/>
 	<parameter name="qtde" class="java.lang.String"/>
@@ -299,7 +302,7 @@
 				<textElement>
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Fone: () - 156 - Opção 3 - www.sefaz.df.gov.br"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{contactInfo}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
@@ -315,7 +318,7 @@
 				<reportElement x="0" y="50" width="535" height="27" uuid="ee81729b-626c-43eb-92cf-702d39e2b7bc"/>
 			</rectangle>
 			<rectangle>
-				<reportElement key="rectangle-23" stretchType="RelativeToBandHeight" mode="Opaque" x="0" y="-98" width="535" height="27" backcolor="#FFFFFF" uuid="913e83f2-6de1-49c3-8773-bee84cfd722d"/>
+				<reportElement key="rectangle-23" stretchType="ContainerHeight" mode="Opaque" x="0" y="-98" width="535" height="27" backcolor="#FFFFFF" uuid="913e83f2-6de1-49c3-8773-bee84cfd722d"/>
 				<graphicElement>
 					<pen lineWidth="0.0"/>
 				</graphicElement>
@@ -832,7 +835,7 @@ $F{DataEmissao_1}.substring(0,4)]]></textFieldExpression>
 				</graphicElement>
 			</rectangle>
 			<rectangle>
-				<reportElement key="rectangle-23" stretchType="RelativeToBandHeight" mode="Opaque" x="0" y="98" width="535" height="27" backcolor="#FFFFFF" uuid="7c4533c6-8d88-45ce-b305-7513ef4d3aba"/>
+				<reportElement key="rectangle-23" stretchType="ContainerHeight" mode="Opaque" x="0" y="98" width="535" height="27" backcolor="#FFFFFF" uuid="7c4533c6-8d88-45ce-b305-7513ef4d3aba"/>
 				<graphicElement>
 					<pen lineWidth="0.5"/>
 				</graphicElement>
@@ -905,7 +908,7 @@ $F{DataEmissao_1}.substring(0,4)]]></textFieldExpression>
 				</graphicElement>
 			</rectangle>
 			<rectangle>
-				<reportElement key="rectangle-23" stretchType="RelativeToBandHeight" mode="Opaque" x="0" y="225" width="535" height="25" backcolor="#FFFFFF" uuid="6e834e52-637c-45eb-a2e3-1feb9a5119e9"/>
+				<reportElement key="rectangle-23" stretchType="ContainerHeight" mode="Opaque" x="0" y="225" width="535" height="25" backcolor="#FFFFFF" uuid="6e834e52-637c-45eb-a2e3-1feb9a5119e9"/>
 				<graphicElement>
 					<pen lineWidth="0.5"/>
 				</graphicElement>
@@ -987,7 +990,7 @@ $F{DataEmissao_1}.substring(0,4)]]></textFieldExpression>
 				<textElement textAlignment="Center">
 					<font fontName="DejaVu Sans" size="8" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Consulte a autenticidade deste documento acessando o site: https://df.issnetonline.com.br/online/Login/Login.aspx]]></text>
+				<text><![CDATA["Consulte a autenticidade deste documento acessando o site: " + $P{validationURL}]]></text>
 			</staticText>
 			<staticText>
 				<reportElement key="staticText-9" x="2" y="230" width="195" height="15" uuid="a9415723-aa90-4aac-9568-21b09ddccbd4"/>
@@ -1209,14 +1212,14 @@ $F{DataEmissao_1}.substring(0,4)]]></textFieldExpression>
 					<font fontName="DejaVu Sans" size="8" isBold="false"/>
 					<paragraph rightIndent="2"/>
 				</textElement>
-				<textFieldExpression><![CDATA["R$ "+ new BigDecimal($F{ValTotTributos})]]></textFieldExpression>
+				<textFieldExpression><![CDATA["R$ "+ new BigDecimal($F{IssRetido} != 1 ? $F{ValorIss} : "0")]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="360" y="160" width="59" height="13" uuid="978802ce-119b-4795-bd6a-5d4e1d7449d0"/>
 				<textElement textAlignment="Right">
 					<font fontName="DejaVu Sans" size="8" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{IssRetido} > 0  ? "Sim" : "Não"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{IssRetido} == 1  ? "Sim" : "Não"]]></textFieldExpression>
 			</textField>
 			<textField pattern="¤&apos; &apos;#,##0.##;¤-#,##0.##" isBlankWhenNull="true">
 				<reportElement x="419" y="160" width="116" height="13" uuid="fc212def-2a27-4e03-a767-4fc169fa469b">
@@ -1316,7 +1319,7 @@ $F{DataEmissao_1}.substring(0,4)]]></textFieldExpression>
 					<font fontName="DejaVu Sans" size="8" isBold="false"/>
 					<paragraph rightIndent="2"/>
 				</textElement>
-				<textFieldExpression><![CDATA["R$ "+ new BigDecimal($F{ValorIss})]]></textFieldExpression>
+				<textFieldExpression><![CDATA["R$ "+ new BigDecimal($F{IssRetido} == 1 ? $F{ValorIss} : "0")]]></textFieldExpression>
 			</textField>
 			<textField pattern="¤&apos; &apos;#,##0.##;¤-#,##0.##" isBlankWhenNull="true">
 				<reportElement x="423" y="184" width="112" height="13" uuid="64189d96-94e5-4a9e-9daf-937954bc3b6e">
