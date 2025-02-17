@@ -2082,13 +2082,16 @@ public class NFSeAbrasf201Impl implements INFSe
 			TcInfNfse infNfse = document.getCompNfse().getNfse().getInfNfse();
 			long documentNo = infNfse.getNumero();
 			
-			String url = "http://tapiraisp.dcfiorilli.com.br:8080/issweb/formGerarNF.jsf?nroNota=" + documentNo
+			String urlString = MSysConfig.getValue(SysConfig.LBR_NFSE_URL, "http://tapirai.dcfiorilli.com.br:8080/", nf.getAD_Client_ID(), nf.getAD_Org_ID());
+			
+			URL url = new URL(urlString);
+			String path = "/issweb/formGerarNF.jsf?nroNota=" + documentNo
 					+ "&codVerificacao=" + infNfse.getCodigoVerificacao()
 					+ "&cnpj=" + infNfse.getPrestadorServico().getIdentificacaoPrestador().getCpfCnpj().getCnpj()
 					+ "&hash=" + infNfse.getId();
 			
 			PDF = File.createTempFile("NFSe_" + documentNo, ".pdf");
-			FileUtils.copyURLToFile(new URL(url), PDF);
+			FileUtils.copyURLToFile(new URL(url.getProtocol(), url.getHost(), url.getPort(), path), PDF);
 		}
 		catch (Exception e)
 		{
