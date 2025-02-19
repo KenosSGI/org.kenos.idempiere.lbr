@@ -1,14 +1,12 @@
 package org.kenos.idempiere.lbr.bankslip.api;
 
-import java.sql.Timestamp;
-
 import org.kenos.idempiere.lbr.bankslip.api.inter.Boleto;
 import org.kenos.idempiere.lbr.bankslip.api.inter.Cancelar;
 import org.kenos.idempiere.lbr.bankslip.api.inter.CobrancaGroup;
 import org.kenos.idempiere.lbr.bankslip.api.inter.ResponseBoleto;
 import org.kenos.idempiere.lbr.bankslip.api.inter.ResponseGetBoleto;
-import org.kenos.idempiere.lbr.bankslip.api.inter.ResponseLogin;
 import org.kenos.idempiere.lbr.bankslip.api.inter.ResponseGetPDF;
+import org.kenos.idempiere.lbr.bankslip.api.inter.ResponseLogin;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -51,7 +49,7 @@ public interface InterfaceBancoInter {
 	
 	@GET("cobranca/v3/cobrancas")
 	Call<ResponseGetBoleto> getBankSlips(
-			@Query("dataInicial") Timestamp dataInicial, @Query("dataFinal") Timestamp dataFinal,
+			@Query("dataInicial") String dataInicial, @Query("dataFinal") String dataFinal,
 			@Query("filtrarDataPor") String filtrarDataPor, @Query("situacao") String situacao,
 			@Query("pessoaPagadora") String pessoaPagadora, @Query("seuNumero") String seuNumero,
 			@Query("cpfCnpjPessoaPagadora") String cpfCnpjPessoaPagadora, @Query("itensPorPagina") Integer itensPorPagina,

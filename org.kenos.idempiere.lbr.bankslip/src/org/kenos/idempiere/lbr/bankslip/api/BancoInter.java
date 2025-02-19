@@ -24,6 +24,7 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.X509TrustManager;
 
+import org.adempierelbr.util.TextUtil;
 import org.adempierelbr.wrapper.I_W_C_BPartner;
 import org.compiere.util.CCache;
 import org.compiere.util.Env;
@@ -81,7 +82,7 @@ public class BancoInter implements IBankSlipAPI {
 	}	//	processBankSlip
 	
 	public byte[] getPDF (MLBRBankSlip bankSlip) throws Exception {
-		Call<ResponseGetPDF> call = api.getPDF(bankSlip.getLBR_BankSlip_UU());
+		Call<ResponseGetPDF> call = api.getPDF(bankSlip.getLBR_BankSlipInfo_UU());
 		Response<ResponseGetPDF> response = call.execute();
 		
 		if (response.code() != 200)
@@ -91,7 +92,7 @@ public class BancoInter implements IBankSlipAPI {
 	}	//	processBankSlip
 	
 	public List<ICNABDetail> getBankSlips (Timestamp dateFrom, Timestamp dateTo, Integer page) throws Exception {
-		Call<ResponseGetBoleto> call = api.getBankSlips(dateFrom, dateTo, 
+		Call<ResponseGetBoleto> call = api.getBankSlips(TextUtil.timeToString(dateFrom, "yyyy-MM-dd"), TextUtil.timeToString(dateTo, "yyyy-MM-dd"), 
 				InterfaceBancoInter.FILTRAR_POR_DATA_DA_SITUACAO, null, null, null, null, null, page, null, null);
 		Response<ResponseGetBoleto> response = call.execute();
 		
@@ -101,8 +102,11 @@ public class BancoInter implements IBankSlipAPI {
 		List<ICNABDetail> list = new ArrayList<ICNABDetail>();
 		ResponseGetBoleto body = response.body();
 		body.getCobrancas().stream().forEach(b -> {
-//			CNABDetail detail = new CNABDetail();
-//			TODO
+			System.out.println("CodigoSolicitacao: " + b.getCobranca().getCodigoSolicitacao());
+			System.out.println("SeuNumero: " + b.getCobranca().getSeuNumero());
+			System.out.println("ValorNominal: " + b.getCobranca().getValorNominal());
+			System.out.println("Situacao: " + b.getCobranca().getSituacao());
+			System.out.println("-----");
 		});
 		
 		return list;

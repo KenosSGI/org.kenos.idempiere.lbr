@@ -1305,13 +1305,14 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 						bsi.setLBR_Barcode(result.geBarcode());
 						bsi.setLBR_ManualInput(result.getManualInput());
 						bsi.setLBR_NumberInBankVD(numberInBank.substring(numberInBank.length()-1));
-						bsi.set_ValueNoCheck("LBR_BankSlipInfo_UU", uuid);
-						bsi.save();
 					}
+					
+					bsi.set_ValueNoCheck("LBR_BankSlipInfo_UU", uuid);
+					bsi.save();
 				}
 				
-				docStatus = DOCSTATUS_WaitingConfirmation;
-				docAction = DOCACTION_Complete;
+				docStatus = isRegistered() ? DOCSTATUS_Completed : DOCSTATUS_WaitingConfirmation;
+				docAction = isRegistered() ? DOCACTION_None : DOCACTION_Complete;
 				
 			} catch (Exception e) {
 				e.printStackTrace();

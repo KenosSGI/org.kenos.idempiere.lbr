@@ -236,7 +236,7 @@ public class GenBankSlip
 			"i.IsSOTrx=? AND i.IsPaid='N'"
 			+ " AND i.DocStatus IN ('CO','CL')"
 			+ " AND i.AD_Client_ID=?"
-			+ " AND NOT EXISTS (SELECT 1 FROM LBR_BankSlip bs WHERE bs.C_Invoice_ID=i.C_Invoice_ID AND bs.DocStatus IN ('DR', 'CL', 'CO'))",
+			+ " AND NOT EXISTS (SELECT 1 FROM LBR_BankSlip bs WHERE bs.C_Invoice_ID=i.C_Invoice_ID AND bs.DocStatus IN ('DR', 'CL', 'CO', 'WC'))",
 			true, "i");
 	}   //  dynInit
 
