@@ -1292,6 +1292,14 @@ public class MLBRBankSlip extends X_LBR_BankSlip implements DocAction, DocOption
 					
 					//	Try to retrieve details
 					if (numberInBank == null || numberInBank.isBlank()) {
+						try {
+							int waitTime = MSysConfig.getIntValue(SysConfig.LBR_BANKSLIP_RETRIEVAL_DELAY, 500, bsi.getAD_Client_ID(), bsi.getAD_Org_ID());
+							Thread.sleep(waitTime);
+						} catch (InterruptedException e) {
+							Thread.currentThread().interrupt(); // Restore the interrupted status
+							log.warning("Thread was interrupted during sleep: " + e.getMessage());
+						}
+						
 						result = api.retrieveBankSlip (this, uuid);
 						//
 						if (result != null)
