@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 6.4.3  -->
+<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Nota_Fiscal_Servicos_Abrasf201" pageWidth="595" pageHeight="842" whenNoDataType="BlankPage" columnWidth="535" leftMargin="30" rightMargin="30" topMargin="20" bottomMargin="20" uuid="977fe381-bcc6-4484-bc93-93533a996372">
 	<property name="ireport.encoding" value="UTF-8"/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="NFSe.jrdax"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<import value="net.sf.jasperreports.engine.*"/>
 	<import value="java.util.*"/>
 	<import value="net.sf.jasperreports.engine.data.*"/>
@@ -48,10 +48,10 @@
 		<fieldDescription><![CDATA[/CompNfse/Nfse/InfNfse/ValoresNfse/BaseCalculo]]></fieldDescription>
 	</field>
 	<field name="Aliquota" class="java.lang.String">
-		<fieldDescription><![CDATA[/CompNfse/Nfse/InfNfse/ValoresNfse/Aliquota]]></fieldDescription>
+		<fieldDescription><![CDATA[/CompNfse/Nfse/InfNfse/ValoresNfse/Aliquota | /CompNfse/Nfse/InfNfse/DeclaracaoPrestacaoServico/InfDeclaracaoPrestacaoServico/Servico/Valores/Aliquota]]></fieldDescription>
 	</field>
 	<field name="ValorIss" class="java.lang.String">
-		<fieldDescription><![CDATA[/CompNfse/Nfse/InfNfse/ValoresNfse/ValorIss]]></fieldDescription>
+		<fieldDescription><![CDATA[/CompNfse/Nfse/InfNfse/ValoresNfse/ValorIss | /CompNfse/Nfse/InfNfse/DeclaracaoPrestacaoServico/InfDeclaracaoPrestacaoServico/Servico/Valores/ValorIss]]></fieldDescription>
 	</field>
 	<field name="ValorLiquidoNfse" class="java.lang.String">
 		<fieldDescription><![CDATA[/CompNfse/Nfse/InfNfse/ValoresNfse/ValorLiquidoNfse]]></fieldDescription>
@@ -1060,7 +1060,7 @@ $F{DataEmissao_1}.substring(0,4)]]></textFieldExpression>
 				<textElement>
 					<font fontName="DejaVu Sans" size="6"/>
 				</textElement>
-				<text><![CDATA[Deduções Base Cálculo]]></text>
+				<text><![CDATA[Base Cálculo]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="282" y="149" width="78" height="11" uuid="fd9bcbab-aaa6-482c-bd97-e060287679b9"/>
@@ -1095,7 +1095,7 @@ $F{DataEmissao_1}.substring(0,4)]]></textFieldExpression>
 				<textElement>
 					<font fontName="DejaVu Sans" size="6"/>
 				</textElement>
-				<text><![CDATA[CONFINS]]></text>
+				<text><![CDATA[COFINS]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="123" y="173" width="46" height="11" uuid="69873d1e-763e-42e4-a90d-ef8099b6af97"/>
@@ -1165,7 +1165,7 @@ $F{DataEmissao_1}.substring(0,4)]]></textFieldExpression>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="8" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{CodigoTributacaoMunicipio}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{ItemListaServico}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="448" y="136" width="87" height="13" uuid="f833c1e5-5778-48bb-b2e7-75415e345b0e"/>
