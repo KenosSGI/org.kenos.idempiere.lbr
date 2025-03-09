@@ -985,6 +985,53 @@ public class MLBRTax extends X_LBR_Tax
 		}
 	}	//	processTaxes
 	
+	/** Constant representing the precision factor used for tax calculations. */
+	private static final BigDecimal TAX_FACTORY_PRECISION = new BigDecimal (1000000);
+	
+	/**
+	 * Retrieves the tax factor based on transaction details for current date
+	 * and end sales transaction.
+	 * This will replace current calculations to this factor.
+	 *
+	 * @return The tax factor as a {@link BigDecimal}.
+	 */
+	public BigDecimal calculateTaxFactor ()
+	{
+		return calculateTaxFactor (new Timestamp (System.currentTimeMillis()), MLBRTaxFormula.LBR_TRANSACTIONTYPE_EndUser, true);
+	}	//	getTaxFactor
+	
+	/**
+	 * Retrieves the tax factor based on transaction details.
+	 * This will replace current calculations to this factor.
+	 *
+	 * @param trxName  The name of the DB transaction.
+	 * @param dateDoc  The document date of the transaction.
+	 * @param trxType  The type of the transaction.
+	 * @param salesTrx A boolean indicating whether the transaction is a sales transaction.
+	 * @return The tax factor as a {@link BigDecimal}.
+	 */
+	public BigDecimal calculateTaxFactor (Timestamp dateDoc, String trxType, boolean salesTrx)
+	{
+		Map<String, BigDecimal> params = new HashMap<String, BigDecimal>();
+		params.put(MLBRTax.OTHERCHARGES, Env.ZERO);
+		params.put(MLBRTax.INSURANCE, Env.ZERO);
+		params.put(MLBRTax.FREIGHT, Env.ZERO);
+		params.put(MLBRTax.QTY, Env.ONE);					//	Factor only
+		params.put(MLBRTax.AMT, TAX_FACTORY_PRECISION);		//	Factor only
+		params.put(MLBRTax.DISCOUNT, Env.ZERO);
+		//
+		MLBRTax tax = new MLBRTax (Env.getCtx(), getLBR_Tax_ID(), get_TrxName());
+		tax.calculate (true, dateDoc, params, trxType, salesTrx);
+		
+		BigDecimal taxesIncluded = Arrays.asList(getLines()).stream()
+			.filter(MLBRTaxLine::isTaxIncluded)
+			.filter(MLBRTaxLine::islbr_PostTax)
+			.map(MLBRTaxLine::getlbr_TaxAmt)
+			.reduce(BigDecimal.ZERO, BigDecimal::add);
+		
+		return taxesIncluded.divide(TAX_FACTORY_PRECISION, 17, RoundingMode.HALF_UP);
+	}	//	calculateTaxFactor
+	
 	/**
 	 * 	To String
 	 */
