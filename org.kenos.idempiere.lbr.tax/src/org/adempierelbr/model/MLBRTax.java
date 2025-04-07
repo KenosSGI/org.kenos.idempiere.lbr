@@ -1022,14 +1022,36 @@ public class MLBRTax extends X_LBR_Tax
 		//
 		MLBRTax tax = new MLBRTax (Env.getCtx(), getLBR_Tax_ID(), get_TrxName());
 		tax.calculate (true, dateDoc, params, trxType, salesTrx);
-		
-		BigDecimal taxesIncluded = Arrays.asList(getLines()).stream()
-			.filter(MLBRTaxLine::isTaxIncluded)
-			.filter(MLBRTaxLine::islbr_PostTax)
-			.map(MLBRTaxLine::getlbr_TaxAmt)
+
+		// Calculate the total amount of taxes that are already included in the line prices,
+		// adjusting for whether it's a sales or purchase transaction.
+		BigDecimal factor = Arrays.asList(getLines()).stream()
+			.map(l -> {
+				// If the tax is *not* applied after the total price (i.e., it's included in the price),
+				// we need to evaluate whether to include it in the total.
+				
+				// Tax is only calculated, not posted to fiscal document
+				if (!l.islbr_PostTax())
+					return Env.ZERO; // not posted
+
+				// If the tax is included in the line price, we add the tax factor.
+				else if (l.isTaxIncluded())
+					return l.getlbr_TaxAmt();
+
+				// If it's a purchase (not a sales transaction), and the tax is not included,
+				// we subtract the tax amount to reverse it (as it's considered separately).
+				else if (!salesTrx)
+					return l.getlbr_TaxAmt().negate();
+
+				// In all other cases (e.g., sales transaction with tax not included),
+				// we don't include the tax amount.
+				else
+					return Env.ZERO;
+			})
+			// Sum up all the adjusted tax factors to get the total included taxes.
 			.reduce(BigDecimal.ZERO, BigDecimal::add);
 		
-		return taxesIncluded.divide(TAX_FACTORY_PRECISION, 17, RoundingMode.HALF_UP);
+		return factor.divide(TAX_FACTORY_PRECISION, 17, RoundingMode.HALF_UP);
 	}	//	calculateTaxFactor
 	
 	/**
