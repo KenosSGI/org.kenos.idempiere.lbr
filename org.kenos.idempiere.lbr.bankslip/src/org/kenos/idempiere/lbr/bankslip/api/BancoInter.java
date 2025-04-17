@@ -319,7 +319,7 @@ public class BancoInter implements IBankSlipAPI {
 		Response<ResponseLogin> response = call.execute();
 		
 		if (response.code() != 200)
-			throw new Exception ("Error code [" + response.code() +"] - " + response.message());
+			throw new Exception ("Error code [" + response.code() +"] - " + response.message() + " - " + response.errorBody().string());
 		
 		ResponseLogin authenticate = response.body();
 		this.token = authenticate.getAccess_token();
