@@ -263,8 +263,8 @@ public class Allocation
 			+ "FROM C_Invoice_v i"		//  corrected for CM/Split
 			+ " INNER JOIN C_Currency c ON (i.C_Currency_ID=c.C_Currency_ID) "
 			+ " INNER JOIN AD_Org o ON (o.AD_Org_Id = i.AD_Org_Id) "
-			+ " LEFT  JOIN C_DocType dt ON (i.C_DocTypeTarget_ID=dt.C_DocType_ID) "
-			+ " LEFT  JOIN LBR_InvoiceLastNF lnf ON (i.C_Invoice_ID=lnf.C_Invoice_ID) "
+			+ " LEFT  JOIN C_DocType dt ON (i.C_DocTypeTarget_ID = dt.C_DocType_ID) "
+			+ " LEFT  JOIN LBR_InvoiceLastNF lnf ON (i.C_Invoice_ID = lnf.C_Invoice_ID) "
 			+ "WHERE i.IsPaid='N' AND i.Processed='Y'"
 			+ " AND i.C_BPartner_ID=?");                                            //  #7
 		if (!isMultiCurrency)
