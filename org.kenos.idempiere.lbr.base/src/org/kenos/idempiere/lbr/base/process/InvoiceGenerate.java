@@ -160,7 +160,7 @@ public class InvoiceGenerate extends SvrProcess
 		if (p_Selection)	//	VInvoiceGen
 		{
 			sql = new StringBuilder("SELECT C_Order.* FROM C_Order, T_Selection ")
-				.append("WHERE C_Order.DocStatus='CO' AND C_Order.IsSOTrx='Y' ")
+				.append("WHERE C_Order.DocStatus IN('CO','CL') AND C_Order.IsSOTrx='Y' ")
 				.append("AND C_Order.C_Order_ID = T_Selection.T_Selection_ID ")
 				.append("AND T_Selection.AD_PInstance_ID=? ")
 				.append("ORDER BY C_Order.AD_Org_ID, C_Order.M_Warehouse_ID, C_Order.PriorityRule, C_Order.C_BPartner_ID, C_Order.Bill_Location_ID, C_Order.C_Order_ID");
