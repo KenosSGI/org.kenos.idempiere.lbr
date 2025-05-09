@@ -296,7 +296,7 @@ public class NFSeAbrasf204Impl implements INFSe
 				
 				//	Mesmo código de serviço para todos os serviços prestados
 				if (serviceCode.equals(""))
-					serviceCode = nfl.getlbr_ServiceCode();
+					serviceCode = Objects.requireNonNull (nfl.getlbr_ServiceCode(), "Código do serviço inválido");
 				else if (!serviceCode.equals(nfl.getlbr_ServiceCode()))
 				{
 					nf.setErrorMsg("Impossível gerar NFS-e. Todos os serviços da NFS-e devem conter o mesmo Código de Serviço");
@@ -313,6 +313,13 @@ public class NFSeAbrasf204Impl implements INFSe
 			
 			if (city == null && nfl.getC_City_ID() > 0)
 				city = new MCity (Env.getCtx(), nfl.getC_City_ID(), null);
+		}
+		
+		//	Check service code
+		if (serviceCode.isBlank())
+		{
+			nf.setErrorMsg("Impossível gerar XML NFS-e. Código do serviço inválido.");
+			return null;
 		}
 		
 		//	Identificação dos Serviços prestados
