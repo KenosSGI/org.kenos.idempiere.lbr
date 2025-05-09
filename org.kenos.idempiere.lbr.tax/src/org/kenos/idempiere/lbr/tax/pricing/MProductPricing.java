@@ -39,4 +39,11 @@ public class MProductPricing extends org.compiere.model.MProductPricing
 			return true;
 		return super.isCalculated();
 	}	//	isCalculated
+	
+	@Override
+	public boolean calculatePrice() {
+		if (MSysConfig.getBooleanValue(SysConfig.LBR_DISABLE_PRICE_LIST_CHECK, false, Env.getAD_Client_ID(Env.getCtx())))
+			return true;
+		return super.calculatePrice();
+	}	//	calculatePrice
 }	//	MProductPrice
