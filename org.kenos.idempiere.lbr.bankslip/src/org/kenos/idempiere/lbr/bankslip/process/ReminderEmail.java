@@ -94,6 +94,19 @@ public class ReminderEmail extends SvrProcess
 			//	Org restriction
 			if (p_AD_Org_ID > 0)
 				where.append(" AND AD_Org_ID=").append(p_AD_Org_ID);
+			
+			// Skip bank slips with completed/closed payments
+			where.append(" AND NOT EXISTS (")
+			     .append("SELECT 1 FROM C_Payment p ")
+			     .append("WHERE p.DocStatus IN ('CL','CO') ")
+			     .append("AND p.C_InvoicePaySchedule_ID = LBR_BankSlip.C_InvoicePaySchedule_ID)");
+
+			// Skip bank slips with fully paid and completed/closed invoices
+			where.append(" AND NOT EXISTS (")
+			     .append("SELECT 1 FROM C_Invoice i ")
+			     .append("WHERE i.DocStatus IN ('CL','CO') ")
+			     .append("AND i.IsPaid = 'Y' ")
+			     .append("AND i.C_Invoice_ID = LBR_BankSlip.C_Invoice_ID)");
 		}
 			
 		AtomicInteger countSuccess = new AtomicInteger ();
